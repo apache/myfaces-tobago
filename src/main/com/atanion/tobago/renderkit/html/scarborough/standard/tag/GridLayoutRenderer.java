@@ -54,7 +54,7 @@ public class GridLayoutRenderer extends RendererBase
 
     if (layoutTokens.length == 0) {
       if (LOG.isInfoEnabled()) {
-        LOG.info("No rowLayout found using 'fixed' for all " + rows.size()
+        LOG.info("No rows found using 'fixed' for all " + rows.size()
             + " rows of " + layout.getClientId(facesContext) + " !");
       }
       layoutTokens = new String[rows.size()];
