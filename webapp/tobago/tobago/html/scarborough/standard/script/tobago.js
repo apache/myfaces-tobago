@@ -192,11 +192,18 @@ function clearSelection() {
 }
 
 function addCssClass(element, className) {
-   element.className = element.className + " " + className + " ";
+   element.className = element.className + " " + className;
 }
 function removeCssClass(element, className) {
-   var re = new RegExp(" " + className +" ", 'g');
-   element.className = element.className.replace(re,"");
+   if (element.className == className) {
+     element.className = "";
+   } else {
+     var re = new RegExp(" " + className + "$");
+     if (! element.className.match(re)) {
+       re = new RegExp(" " + className + " ", 'g')
+     }
+     element.className = element.className.replace(re," ");
+   }
 }
 
 function addImageSources(id, normal, disabled, hover) {
@@ -206,7 +213,7 @@ function addImageSources(id, normal, disabled, hover) {
   sources[2] = disabled;
   sources[3] = hover;
   tobagoImageSources[tobagoImageSources.length] = sources;
-  PrintDebug("here are " + tobagoImageSources.length + " images");
+  //PrintDebug("here are " + tobagoImageSources.length + " images");
 }
 
 function getTobagoImageSources(id) {
@@ -235,11 +242,11 @@ function tobagoImageMouseout(id) {
 function tobagoToolbarMousesover(element, className, imageId) {
   addCssClass(element, className);
   tobagoImageMouseover(imageId);
-  PrintDebug("MouseOver element.className : " + element.className);
+  //PrintDebug("MouseOver element.className : '" + element.className + "'");
 }
 
 function tobagoToolbarMousesout(element, className, imageId) {
   removeCssClass(element, className);
   tobagoImageMouseout(imageId);
-  PrintDebug("MouseOut  element.className : " + element.className);
+  //PrintDebug("MouseOut  element.className : '" + element.className + "'");
 }
