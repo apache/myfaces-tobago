@@ -1402,7 +1402,7 @@
   </tag>
 
   <tag>
-    <name>checkboxgroup</name>
+    <name>checkboxGroup</name>
     <tag-class>com.atanion.tobago.taglib.component.CheckBoxGroupTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
