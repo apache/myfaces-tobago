@@ -54,6 +54,10 @@
   left: 0px;
 }
 
+.tobago-menubar-item-page-top {
+  top: 3px;
+}
+
 .tobago-menu-item-image {
   width: 15px;
   height: 15px;

@@ -188,10 +188,13 @@ public class MenubarRenderer extends RendererBase
         = ComponentUtil.getBooleanAttribute(uiPanel, ATTR_DISABLED);
     final boolean topMenu = (uiPanel.getParent().getRendererType() != null)
         || ComponentUtil.getBooleanAttribute(uiPanel, ATTR_MENU_POPUP);
+    final boolean pageMenu = (uiPanel.getParent().getRendererType() != null)
+        && ComponentUtil.getBooleanAttribute(uiPanel.getParent(), ATTR_PAGE_MENU);
     String spanClass
         = "tobago-menubar-item-span tobago-menubar-item-span-"
         + (disabled ? "disabled" : "enabled")
-        + (topMenu ? " tobago-menubar-item-span-top" : "");
+        + (topMenu ? " tobago-menubar-item-span-top" : "")
+        + (pageMenu ? " tobago-menubar-item-page-top" : "");
 
     final LabelWithAccessKey label = new LabelWithAccessKey(uiPanel);
     String image = (String) uiPanel.getAttributes().get(ATTR_IMAGE);

@@ -86,6 +86,10 @@
   padding-left: 5px;
 }
 
+.tobago-menubar-item-page-top {
+  top: 2px;
+}
+
 .tobago-menu-item-image {
   position: absolute;
   top: 0px;
