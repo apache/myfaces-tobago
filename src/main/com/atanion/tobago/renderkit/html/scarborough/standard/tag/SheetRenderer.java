@@ -711,7 +711,7 @@ public class SheetRenderer extends RendererBase
 
     writer.startElement("div", null);
     writer.writeAttribute("id", column.getClientId(facesContext), null);
-    writer.writeAttribute("style", "width: 15px; height:15px;", null);
+    writer.writeAttribute("class", "tobago-sheet-selector-menu", null);
     writer.endElement("div");
     RenderUtil.encode(facesContext, menu);
   }
