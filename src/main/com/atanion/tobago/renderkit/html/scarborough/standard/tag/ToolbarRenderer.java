@@ -100,6 +100,10 @@ public class ToolbarRenderer extends RendererBase
 
   private void renderToolbarButton(FacesContext facesContext,
       final UICommand command, TobagoResponseWriter writer) throws IOException {
+
+    if (! command.isRendered()) {
+      return;
+    }
     final boolean disabled = ComponentUtil.getBooleanAttribute(command, ATTR_DISABLED);
     final UIGraphic graphic = ComponentUtil.getFirstGraphicChild(command);
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
