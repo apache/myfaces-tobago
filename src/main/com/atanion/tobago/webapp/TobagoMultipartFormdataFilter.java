@@ -5,6 +5,9 @@
  */
 package com.atanion.tobago.webapp;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -14,14 +17,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
-
 public class TobagoMultipartFormdataFilter implements Filter {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log log
+  private static Log LOG
       = LogFactory.getLog(TobagoMultipartFormdataFilter.class);
 
 // ///////////////////////////////////////////// attribute
@@ -53,7 +53,7 @@ public class TobagoMultipartFormdataFilter implements Filter {
         }
       }
     } else {
-      log.error("Not implemented for non HttpServletRequest");
+      LOG.error("Not implemented for non HttpServletRequest");
       wrapper = request;
     }
 
