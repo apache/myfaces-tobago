@@ -157,8 +157,10 @@ public class RichTextEditorRenderer extends InputRendererBase
         + (enabled ? "-enabled" : "-disabled");
     writer.writeAttribute("class", buttonStyle, null);
     writer.writeAttribute("onclick", onClick, null);
-    writer.writeAttribute("onmouseover", onMouseOver, null);
-    writer.writeAttribute("onmouseout", onMouseOut, null);
+    if (enabled) {
+      writer.writeAttribute("onmouseover", onMouseOver, null);
+      writer.writeAttribute("onmouseout", onMouseOut, null);
+    }
     writer.writeAttribute("unselectable", "on", null);
     writer.writeAttribute("title", title, null);
 
@@ -173,8 +175,9 @@ public class RichTextEditorRenderer extends InputRendererBase
 
     writer.startElement("span", null);
     writer.writeAttribute("class", "tobago-richtexteditor-toolbar-button-label", null);
-    writer.writeText(TobagoResource.getProperty(
-        facesContext, "tobago", "tobago.richtexteditor." + command), null);
+    String label = TobagoResource.getProperty(
+        facesContext, "tobago", "tobago.richtexteditor." + command + ".label");
+    writer.writeText(label, null);
     writer.endElement("span");
     writer.endElement("span");
   }
