@@ -678,10 +678,13 @@ public class SheetRenderer extends RendererBase {
       writer.writeAttribute("style", "text-align: " + align + ";", null);
     }
 
+    String resizerClass;
     if (column instanceof UIColumnSelector) {
+      resizerClass = "tobago-sheet-header-resize";
       renderColumnSelectorHeader(facesContext, writer, column, columnCount,
           sorter);
     } else {
+      resizerClass = "tobago-sheet-header-resize tobago-sheet-header-resize-cursor";
       renderColumnHeaderLabel(writer, column, columnCount, sorter, sortMarkerWidth, align,
           image1x1);
     }
@@ -690,7 +693,7 @@ public class SheetRenderer extends RendererBase {
     writer.startElement("div", null);
     writer.writeAttribute("id", sheetId + "_header_resizer_" + columnCount,
         null);
-    writer.writeAttribute("class", "tobago-sheet-header-resize", null);
+    writer.writeAttribute("class", resizerClass, null);
     writer.write("&nbsp;");
     writer.endElement("div");
 
