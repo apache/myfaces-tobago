@@ -89,6 +89,22 @@ public class RenderUtil {
     LayoutUtil.layoutHeight(facesContext, component);
   }
 
+  public static void prepareInnerStyle(UIComponent component) {
+    String innerStyle = "";
+    Integer innerSpaceInteger = (Integer)
+        component.getAttributes().get(TobagoConstants.ATTR_INNER_WIDTH);
+    if (innerSpaceInteger != null && innerSpaceInteger.intValue() != -1) {
+      innerStyle = "width: " + innerSpaceInteger + "px;";
+    }
+    innerSpaceInteger = (Integer)
+        component.getAttributes().get(TobagoConstants.ATTR_INNER_HEIGHT);
+    if (innerSpaceInteger != null && innerSpaceInteger.intValue() != -1) {
+      innerStyle += " height: " + innerSpaceInteger + "px;";
+    }
+    component.getAttributes().put(TobagoConstants.ATTR_STYLE_INNER, innerStyle);
+  }
+
+
   public static void createCssClass(FacesContext facesContext, UIComponent component) {
       final String rendererType = component.getRendererType();
       if (rendererType != null) {

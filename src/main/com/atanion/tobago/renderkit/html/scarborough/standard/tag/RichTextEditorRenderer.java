@@ -7,6 +7,7 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.lib.richtext.WikiParser;
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.HtmlUtils;
@@ -64,6 +65,9 @@ public class RichTextEditorRenderer extends InputRendererBase {
       UIComponent uiComponent) throws IOException {
 
     UIInput component = (UIInput) uiComponent;
+
+    LayoutUtil.createHeaderAndBodyStyles(facesContext, component);
+
 
     boolean previewState
         = ComponentUtil.getBooleanAttribute(component, ATTR_STATE_PREVIEW);

@@ -9,7 +9,6 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIForm;
 import com.atanion.tobago.component.UIPanel;
-import com.atanion.tobago.component.UILayout;
 import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.RendererBase;
 import org.apache.commons.logging.Log;
@@ -28,6 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.awt.*;
 
 public class LayoutUtil implements TobagoConstants{
 
@@ -208,10 +208,12 @@ public class LayoutUtil implements TobagoConstants{
       } else {
         return (Integer) value;
       }
-    } else {
+    } else if (!ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
+
       value = ComponentUtil.getAttribute(component, layoutAttribute);
       return (Integer) value ;
     }
+    return null;
   }
 
   public static List addChildren(List children, UIComponent panel) {
@@ -288,6 +290,13 @@ public class LayoutUtil implements TobagoConstants{
     return value;
   }
 
+  public static void replaceStyleAttribute(UIComponent component, String styleAttribute, String value) {
+    final Map attributes = component.getAttributes();
+    String style = (String) attributes.get(ATTR_STYLE);
+    style = replaceStyleAttribute(style, styleAttribute, value);
+    attributes.put(ATTR_STYLE, style);
+  }
+
   public static String replaceStyleAttribute(String style, String name,
       String value) {
     style = removeStyleAttribute(style != null ? style : "", name);
@@ -347,28 +356,13 @@ public class LayoutUtil implements TobagoConstants{
     }
     if (space == -1 && (!RENDERER_TYPE_OUT.equals(component.getRendererType()))) {
       UIComponent parent = component.getParent();
-//      if (parent instanceof UIComponentBase) { // don't know why, todo: ex me
       space = LayoutUtil.getInnerSpace(facesContext, parent, width);
       if (space > 0 && !ComponentUtil.isFacetOf(component, parent)) {
         component.getAttributes().put(layoutAttribute, new Integer(space));
       }
-//      }
     }
     if (space > 0) {
       RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
-//          = (Integer) component.getAttributes().get(innerAttribute);
-      int bodySpace = -1;
-      int headerSpace = -1;
-//      if (innerSpaceInteger == null) {
-      bodySpace = 0;
-      headerSpace = 0;
-      if (! width) {
-        if (renderer != null) {
-          headerSpace = renderer.getHeaderHeight(facesContext, component);
-        }
-        bodySpace = space - headerSpace;
-      }
-//      }
       if (layoutSpace != null
           || !ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
         int styleSpace = space;
@@ -379,71 +373,9 @@ public class LayoutUtil implements TobagoConstants{
             styleSpace -= renderer.getComponentExtraHeight(facesContext, component);
           }
         }
-//        if (log.isDebugEnabled()) {
-//          log.debug("width '" + width + "'");
-//          log.debug("stype '" + styleSpace + "'");
-//        }
-        String style = (String)
-            component.getAttributes().get(ATTR_STYLE);
-        style = style != null ? style : "";
-        style = style.replaceAll(styleAttribute + ":\\s\\d+px;", "").trim();
 
-        if ( RENDERER_TYPE_SHEET.equals(component.getRendererType())/*
-          || component.getRendererType().equals("TabGroup")
-          || component.getRendererType().equals("Tab")*/) { // fixme: not nice;: equals("Sheet"
-          String headerStyle;
-          String bodyStyle;
-          if (width) {
-            headerStyle = style + " width: " + styleSpace + "px;";
-            bodyStyle = style + " width: " + styleSpace + "px;";
-          } else {
-            headerStyle =
-                (String)
-                component.getAttributes().get(ATTR_STYLE_HEADER);
-            if (headerStyle == null) {
-              LOG.warn("headerStyle attribute == null, set to empty String");
-              headerStyle = "";
-            }
-            if (headerSpace != -1) {
-              headerStyle =
-                  headerStyle.replaceAll("height:\\s\\d+px;", "").trim();
-              headerStyle += " height: " + headerSpace + "px;";
-            }
-            bodyStyle =
-                (String)
-                component.getAttributes().get(ATTR_STYLE_HEADER);
-            if (bodyStyle == null) {
-              LOG.warn("bodyStyle attribute == null, set to empty String");
-              bodyStyle = "";
-            }
-            if (bodySpace != -1) {
-              bodyStyle = bodyStyle.replaceAll("height:\\s\\d+px;", "").trim();
-              bodyStyle += " height: " + bodySpace + "px;";
-            }
-          }
-          component.getAttributes().put(ATTR_STYLE_HEADER, headerStyle);
-          component.getAttributes().put(ATTR_STYLE_BODY, bodyStyle);
-        }
+        replaceStyleAttribute(component, styleAttribute, styleSpace + "px");
 
-        component.getAttributes().put(ATTR_STYLE, style + " "
-            + styleAttribute + ": " + styleSpace + "px;");
-//        if (log.isDebugEnabled()) {
-//          log.debug("style = '" + style + "'");
-//        }
-        String innerStyle;
-        if (width) {
-          innerStyle = style;
-        } else {
-          innerStyle = (String) component.getAttributes().get(ATTR_STYLE_INNER);
-        }
-        {
-          // todo: this is only used in BoxRenderer, move it
-          Integer innerSpaceInteger
-              = (Integer) component.getAttributes().get(innerAttribute);
-          component.getAttributes().put(ATTR_STYLE_INNER,
-              innerStyle + " " + styleAttribute + ": " + innerSpaceInteger +
-              "px;");
-        }
       }
       UIComponent layout = component.getFacet("layout");
       if (layout != null) {
@@ -456,9 +388,60 @@ public class LayoutUtil implements TobagoConstants{
     }
   }
 
+  public static void createHeaderAndBodyStyles(FacesContext facesContext, UIComponent component) {
+    createHeaderAndBodyStyles(facesContext, component, true);
+    createHeaderAndBodyStyles(facesContext, component, false);
+  }
+  public static void createHeaderAndBodyStyles(FacesContext facesContext, UIComponent component, boolean width) {
+    RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
+    String style = (String) component.getAttributes().get(ATTR_STYLE);
+    int styleSpace = -1;
+    try {
+      styleSpace = Integer.parseInt(getStyleAttributeValue(style, width ? "width" : "height").replaceAll("\\D", ""));
+    } catch (Exception e) { /* ignore */}
+    if (styleSpace != -1) {
+      int bodySpace = 0;
+      int headerSpace = 0;
+      if (! width) {
+        if (renderer != null) {
+          headerSpace = renderer.getHeaderHeight(facesContext, component);
+        }
+        bodySpace = styleSpace - headerSpace;
+      }
+
+      String headerStyle;
+      String bodyStyle;
+      if (width) {
+        headerStyle = "width: " + styleSpace + "px;";
+        bodyStyle = "width: " + styleSpace + "px;";
+      } else {
+        headerStyle =
+            (String)
+            component.getAttributes().get(ATTR_STYLE_HEADER);
+        if (headerStyle == null) {
+          LOG.warn("headerStyle attribute == null, set to empty String");
+          headerStyle = "";
+        }
+        headerStyle
+            = headerStyle.replaceAll("height:\\s\\d+px;", "").trim();
+        headerStyle += " height: " + headerSpace + "px;";
+            bodyStyle
+            = (String) component.getAttributes().get(ATTR_STYLE_BODY);
+        if (bodyStyle == null) {
+          LOG.warn("bodyStyle attribute == null, set to empty String");
+          bodyStyle = "";
+        }
+        bodyStyle = bodyStyle.replaceAll("height:\\s\\d+px;", "").trim();
+        bodyStyle += " height: " + bodySpace + "px;";
+      }
+      component.getAttributes().put(ATTR_STYLE_HEADER, headerStyle);
+      component.getAttributes().put(ATTR_STYLE_BODY, bodyStyle);
+    }
+  }
 
 
-   public static void createClassAttribute(UIComponent component, String name) {
+
+  public static void createClassAttribute(UIComponent component, String name) {
     String rendererType = component.getRendererType();
     if (rendererType != null) {
       Object styleClassO = component.getAttributes().get(ATTR_STYLE_CLASS);
@@ -532,6 +515,25 @@ public class LayoutUtil implements TobagoConstants{
       }
     }
     return height;
+  }
+
+
+  //  ////////////////////////////////////////////////////////////////
+
+  public static Dimension getMinimumSize(
+      FacesContext facesContext, UIComponent component) {
+    Dimension dimension
+        = (Dimension) component.getAttributes().get(ATTR_MINIMUM_SIZE);
+    if (dimension == null) {
+      RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
+      if (renderer != null) {
+        dimension = renderer.getMinimumSize(facesContext, component);
+      }
+    }
+    if (dimension == null) {
+      dimension = new Dimension(-1, -1);
+    }    
+    return dimension;
   }
 
 }

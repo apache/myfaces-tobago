@@ -24,6 +24,7 @@ public class BoxRenderer extends BoxRendererBase {
   public void encodeBeginTobago(
       FacesContext facesContext, UIComponent component) throws IOException {
 
+    RenderUtil.prepareInnerStyle(component);
 
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
     String labelString

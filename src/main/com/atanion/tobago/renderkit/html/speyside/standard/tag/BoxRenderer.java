@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.taglib.component.ToolBarTag;
 import com.atanion.tobago.renderkit.BoxRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
@@ -38,6 +39,9 @@ public class BoxRenderer extends BoxRendererBase {
   public void encodeBeginTobago(
       FacesContext facesContext, UIComponent component) throws IOException {
 
+
+    RenderUtil.prepareInnerStyle(component);
+
     ResponseWriter writer = facesContext.getResponseWriter();
 
     writer.startElement("div", component);
@@ -57,8 +61,9 @@ public class BoxRenderer extends BoxRendererBase {
 //    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_BODY);
     writer.startElement("div", component);
     writer.writeAttribute("class", "tobago-box-content-inner", null);
-    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_INNER);
+    writer.writeAttribute("style", null, ATTR_STYLE_INNER);
   }
+
 
   protected void renderBoxHeader(FacesContext facesContext,
       ResponseWriter writer, UIComponent component) throws IOException {

@@ -6,9 +6,20 @@
 package com.atanion.tobago.renderkit.html.scarborough.mozilla.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.util.LayoutUtil;
+
+import javax.faces.context.FacesContext;
+import javax.faces.component.UIComponent;
+import java.io.IOException;
 
 public class BoxRenderer extends
     com.atanion.tobago.renderkit.html.scarborough.standard.tag.BoxRenderer {
+
+  public void encodeBeginTobago(
+      FacesContext facesContext, UIComponent component) throws IOException {
+    LayoutUtil.createHeaderAndBodyStyles(facesContext, component);    
+    super.encodeBeginTobago(facesContext, component);
+  }
 
   protected String getAttrStyleKey() {
     return TobagoConstants.ATTR_STYLE_BODY;

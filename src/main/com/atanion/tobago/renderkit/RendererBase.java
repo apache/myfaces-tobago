@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.awt.*;
 
 // todo: in java 1.5 use: import static com.atanion.tobago.TobagoConstants.*;
 public abstract class RendererBase
@@ -220,6 +221,19 @@ public abstract class RendererBase
     return getConfiguredValue(facesContext, component, "componentExtraHeight");
   }
 
+  public Dimension getMinimumSize(
+      FacesContext facesContext, UIComponent component) {
+    int width = getConfiguredValue(facesContext, component, "minimumWidth");
+    if (width == -1) {
+      width = getConfiguredValue(facesContext, component, "fixedWidth");
+    }
+    int height = getConfiguredValue(facesContext, component, "minimumHeight");
+    if (height == -1) {
+      height = getConfiguredValue(facesContext, component, "fixedHeight");
+    }
+    return new Dimension(width, height);
+  }
+
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     int fixedHeight = 0;
 
@@ -239,26 +253,6 @@ public abstract class RendererBase
     } else {
 
       fixedHeight = getConfiguredValue(facesContext, component, "fixedHeight");
-
-//      String theme
-//          = Theme.fromRenderKitId(facesContext.getViewRoot().getRenderKitId());
-//
-//      // todo: make this configurable
-//
-//      if (theme.equals(Theme.SCARBOROUGH)) {
-//        fixedHeight = 25;
-//      } else if (theme.equals(Theme.SPEYSIDE)) {
-//        fixedHeight = 20;
-//      } else if (theme.equals(Theme.INEXSO)) {
-//        fixedHeight = 20;
-//      } else if (theme.equals(Theme.SAP)) {
-//        fixedHeight = 20;
-//      } else if (theme.equals(Theme.TUI)) {
-//        fixedHeight = 20;
-//      } else {
-//        LOG.warn("unknown Theme :\"" + theme + "\"");
-//      }
-
     }
     return fixedHeight;
   }

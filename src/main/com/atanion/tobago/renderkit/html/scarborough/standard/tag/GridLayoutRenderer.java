@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.awt.*;
 
 public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
@@ -40,18 +41,46 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
 // ///////////////////////////////////////////// code
 
+  public Dimension getFixedSize(FacesContext facesContext, UIComponent component) {
+    Dimension dimension = null;
+
+    int height = getFixedHeight(facesContext, component);
+    int width = -1; // todo. implement getFixedWidth
+
+
+
+    dimension = new Dimension(width, height);
+
+    return dimension;
+  }
+
+
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
+    UIGridLayout layout = (UIGridLayout) component;
+    int height = calculateLayoutHeight(facesContext, component, false);
+
+    RendererBase containerRenderer =
+        ComponentUtil.getRenderer(facesContext, layout.getParent());
+    height += containerRenderer.getHeaderHeight(facesContext, layout.getParent());
+    height += containerRenderer.getPaddingHeight(facesContext, layout.getParent());
+    return height;
+  }
+
+  public int calculateLayoutHeight(
+      FacesContext facesContext, UIComponent component, boolean minimum) {
     UIGridLayout layout = (UIGridLayout) component;
     final List rows = layout.ensureRows();
     String rowLayout
         = (String) layout.getAttributes().get(TobagoConstants.ATTR_ROWS);
 
-    if (rowLayout == null && LOG.isDebugEnabled()) {
-      LOG.debug("No rows found using 'fixed' for all " + rows.size()
-          + " rows of " + layout.getClientId(facesContext) + " !");
+    if (rowLayout == null && ! minimum && LOG.isDebugEnabled()) {
+      LOG.debug("No rowLayout found using " + (minimum ? "'minimum'" : "'fixed'")
+          + " for all " + rows.size() + " rows of "
+          + layout.getClientId(facesContext) + " !");
     }
     String[] layoutTokens
-        = LayoutInfo.createLayoutTokens(rowLayout, rows.size(), "fixed");
+        = LayoutInfo.createLayoutTokens(rowLayout, rows.size(),
+            minimum ? "minimum" : "fixed");
 
     if (rows.size() != layoutTokens.length) {
       LOG.warn("Unbalanced layout: rows.size()=" + rows.size()
@@ -68,23 +97,21 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         height += Integer.parseInt(token.replaceAll("\\D", ""));
       }
       else if (token.equals("fixed")) {
-        height += getMaxFixedHeight((UIGridLayout.Row) rows.get(i), facesContext);
+        height += getMaxHeight(facesContext, (UIGridLayout.Row) rows.get(i), false);
+      }
+      else if (token.equals("minimum")) {
+        height += getMaxHeight(facesContext, (UIGridLayout.Row) rows.get(i), true);
       }
       else {
-        if (LOG.isWarnEnabled()) {
-          LOG.warn("Unable to calculate fixedHeight for token '" + token
-              + "'! using 'fixed' , component:"
+        if (! minimum && LOG.isWarnEnabled()) {
+          LOG.warn("Unable to calculate Height for token '" + token
+              + "'! using " + (minimum ? "'minimum'" : "'fixed'") + " , component:"
               + component.getClientId(facesContext) + " is "
               + component.getRendererType());
         }
-        height += getMaxFixedHeight((UIGridLayout.Row) rows.get(i), facesContext);        
+        height += getMaxHeight(facesContext, (UIGridLayout.Row) rows.get(i), minimum);
       }
     }
-
-    RendererBase containerRenderer =
-        ComponentUtil.getRenderer(facesContext, layout.getParent());
-    height += containerRenderer.getHeaderHeight(facesContext, layout.getParent());
-    height += containerRenderer.getPaddingHeight(facesContext, layout.getParent());
 
     return height;
   }
@@ -149,7 +176,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
               continue; // ignore the markers UIGridLayout.Used
             }
             if (object.equals(UIGridLayout.FREE)) {
-              if (LOG.isWarnEnabled()) {
+              if (LOG.isWarnEnabled() && ! layout.isIgnoreFree()) {
                 LOG.warn("There are free blocks in the layout: id='"
                     + layout.getClientId(facesContext)
                     + "'");
@@ -334,20 +361,35 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     UIGridLayout layout = (UIGridLayout) component;
     final Map attributes = layout.getParent().getAttributes();
 
-    Integer innerSpace =
-          (Integer) attributes.get(TobagoConstants.ATTR_INNER_WIDTH);
-    if (innerSpace != null && innerSpace.intValue() != -1) {
-      int value
-          = innerSpace.intValue() - getWidthSpacingSum(layout, facesContext);
-      layoutWidth(new Integer(value), layout, facesContext);
+
+    boolean needVerticalScroolbar = false;
+    Integer innerHeight =
+          (Integer) attributes.get(TobagoConstants.ATTR_INNER_HEIGHT);
+    if (innerHeight != null && innerHeight.intValue() != -1) {
+      int value = innerHeight.intValue();
+      int minimum = calculateLayoutHeight(facesContext, layout, true);
+      if (minimum > value) {
+        value = minimum;
+        needVerticalScroolbar = true;
+      }
+      value -= getHeightSpacingSum(layout, facesContext);
+      layoutHeight(new Integer(value), layout, facesContext);
     }
 
-    innerSpace =
-          (Integer) attributes.get(TobagoConstants.ATTR_INNER_HEIGHT);
-    if (innerSpace != null && innerSpace.intValue() != -1) {
+
+    Integer innerWidth =
+          (Integer) attributes.get(TobagoConstants.ATTR_INNER_WIDTH);
+    if (innerWidth != null && innerWidth.intValue() != -1) {
       int value
-          = innerSpace.intValue() - getHeightSpacingSum(layout, facesContext);
-      layoutHeight(new Integer(value), layout, facesContext);
+          = innerWidth.intValue() - getWidthSpacingSum(layout, facesContext);
+      if (needVerticalScroolbar) {
+        value -= getConfiguredValue(facesContext, component, "scrollbarWidth");
+        String style = (String) layout.getAttributes().get(ATTR_STYLE);
+        style = LayoutUtil.replaceStyleAttribute(style, "width",
+            Integer.toString(value) + "px");
+        layout.getAttributes().put(ATTR_STYLE, style);
+      }
+      layoutWidth(new Integer(value), layout, facesContext);
     }
 
   }
@@ -390,7 +432,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
 
     LayoutInfo layoutInfo =
-        new LayoutInfo(columnCount, innerWidth.intValue(), layoutTokens);
+        new LayoutInfo(columnCount, innerWidth.intValue(), layoutTokens,
+            layout.isIgnoreFree());
 
     layoutInfo.parseColumnLayout(innerWidth.doubleValue(),
         getCellSpacing(facesContext, layout));
@@ -430,7 +473,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
     LayoutInfo layoutInfo =
         new LayoutInfo(rows.size(), innerHeight.intValue(),
-            layoutTokens);
+            layoutTokens, layout.isIgnoreFree());
 
     if (layoutInfo.hasLayoutTokens()) {
       parseFixedHeight(layoutInfo, layout, facesContext);
@@ -452,7 +495,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         if (! rows.isEmpty()) {
           if (i < rows.size()) {
             UIGridLayout.Row row = (UIGridLayout.Row) rows.get(i);
-            height = getMaxFixedHeight(row, facesContext);
+            height = getMaxHeight(facesContext, row, false);
             layoutInfo.update(height, i);
           }
           else {
@@ -469,8 +512,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     }
   }
 
-  private int getMaxFixedHeight(UIGridLayout.Row row,
-      FacesContext facesContext) {
+  private int getMaxHeight(FacesContext facesContext, UIGridLayout.Row row, boolean minimum) {
     int maxHeight = 0;
     List cells = row.getElements();
     for (int j = 0; j < cells.size(); j++) {
@@ -478,11 +520,16 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
       if (object instanceof UIComponent) {
         UIComponent component = (UIComponent) object;
-        RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
-        if (renderer instanceof RendererBase) {
-          int height = renderer.getFixedHeight(facesContext, component);
-          maxHeight = Math.max(maxHeight, height);
+        int height = -1;
+        if (minimum) {
+          height = (int) LayoutUtil.getMinimumSize(facesContext, component).getHeight();
+        } else {
+          RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
+          if (renderer instanceof RendererBase) {
+            height = renderer.getFixedHeight(facesContext, component);
           }
+        }
+        maxHeight = Math.max(maxHeight, height);
       }
     }
     return maxHeight;
@@ -565,7 +612,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 // ///////////////////////////////////////////// LayoutManager implementation
 
   public void layoutBegin(FacesContext facesContext, UIComponent component) {
-
+    LOG.info("############################## layoutBegin +++++++++++++++++++++++++++++++++++++++++");
     LayoutUtil.layoutSpace(facesContext, component, true);
     LayoutUtil.layoutSpace(facesContext, component, false);
 

@@ -59,6 +59,9 @@ public class SheetRenderer extends RendererBase {
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
     UIData data = (UIData) uiComponent;
+
+    LayoutUtil.createHeaderAndBodyStyles(facesContext, data);
+
     String image1x1 = ResourceManagerUtil.getImage(facesContext,
         "image/1x1.gif");
     String ascending = ResourceManagerUtil.getImage(facesContext,
