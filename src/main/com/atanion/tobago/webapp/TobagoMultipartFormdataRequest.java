@@ -33,56 +33,89 @@ public class TobagoMultipartFormdataRequest implements HttpServletRequest {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(TobagoMultipartFormdataRequest.class);
+  private static Log LOG = LogFactory.getLog(
+      TobagoMultipartFormdataRequest.class);
 
 // ///////////////////////////////////////////// attribute
 
   private HttpServletRequest request;
+
   private Map parameters;
+
+  private Map fileItems;
 
 // ///////////////////////////////////////////// constructor
 
   TobagoMultipartFormdataRequest(HttpServletRequest request) {
     this.request = request;
     String contentType = request.getContentType();
-    if (contentType != null &&
-        contentType.toLowerCase().startsWith("multipart/form-data")) {
+    if (contentType == null ||
+        !contentType.toLowerCase().startsWith("multipart/form-data")) {
+      String errorText = "contentType is not multipart/form-data but '"
+          + contentType + "'";
+      LOG.error(errorText);
+      throw new FacesException(errorText);
+    } else {
       parameters = new HashMap();
+      fileItems = new HashMap();
       DiskFileUpload fileUpload = new DiskFileUpload();
       fileUpload.setSizeMax(1024 * 1024);
       fileUpload.setRepositoryPath(System.getProperty("java.io.tmpdir"));
       // todo: make sizeMax and repositoryPath configurable
+      List itemList;
       try {
-        List itemList = fileUpload.parseRequest(request);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("parametercount = " + itemList.size());
-        }
-        Iterator items = itemList.iterator();
-        while (items.hasNext()) {
-          FileItem item = (FileItem) items.next();
-          if (LOG.isDebugEnabled()) {
-            String value = item.getString();
-            if (value.length() > 100) value = value.substring(0, 100);
-            LOG.debug("Parameter : " + item.getFieldName() + "=" + value + " isFormField=" + item.isFormField());
-          }
-          parameters.put(item.getFieldName(), item);
-        }
+        itemList = fileUpload.parseRequest(request);
       } catch (FileUploadException e) {
         LOG.error(e);
+        throw new FacesException(e);
       }
-    } else {
-      String error = "contentType is not multipart/form-data but '"
-          + contentType + "'";
-      LOG.error(error);
-      throw new FacesException(error);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("parametercount = " + itemList.size());
+      }
+      Iterator items = itemList.iterator();
+      while (items.hasNext()) {
+        FileItem item = (FileItem) items.next();
+        String key = item.getFieldName();
+        if (LOG.isDebugEnabled()) {
+          String value = item.getString();
+          if (value.length() > 100) {
+            value = value.substring(0, 100) + " [...]";
+          }
+          LOG.debug(
+              "Parameter : '" + key + "'='" + value + "' isFormField="
+              + item.isFormField());
+        }
+        if (item.isFormField()) {
+          Object inStock = parameters.get(key);
+          if (inStock == null) {
+            String[] values = {item.getString()};
+            parameters.put(key, values);
+          } else if (inStock instanceof String[]) { // double (or more) parameter
+            String[] oldValues = (String[]) inStock;
+            String[] values = new String[oldValues.length + 1];
+            int i = 0;
+            for (; i < oldValues.length; i++) {
+              values[i] = oldValues[i];
+            }
+            values[i] = item.getString();
+            parameters.put(key, values);
+          } else {
+            LOG.error(
+                "Program error. Unsupported class: "
+                + inStock.getClass().getName());
+          }
+        } else {
+          fileItems.put(key, item);
+        }
+      }
     }
   }
 
 // ////////////////////////////////////////////// code
 
   public FileItem getFileItem(String key) {
-    if (parameters != null) {
-      return (FileItem) parameters.get(key);
+    if (fileItems != null) {
+      return (FileItem) fileItems.get(key);
     }
     return null;
   }
@@ -97,46 +130,27 @@ public class TobagoMultipartFormdataRequest implements HttpServletRequest {
 
 
   public String getParameter(String key) {
-    String parameter = null;
-    if (parameters != null) {
-      FileItem item = (FileItem) parameters.get(key);
-      if (item != null && item.isFormField()) {
-        parameter = item.getString();
-      } else if (item != null && !item.isFormField()) {
-        LOG.warn("getParameter() on FileUpload field!");
-      }
+    String parameter;
+    String[] values = (String[]) parameters.get(key);
+    if (values == null) {
+      parameter = null;
     } else {
-      parameter = request.getParameter(key);
+      parameter = values[0];
     }
     return parameter;
   }
 
   public Enumeration getParameterNames() {
-    if (parameters != null) {
-      return Collections.enumeration(parameters.keySet());
-    } else {
-      return request.getParameterNames();
-    }
+    return Collections.enumeration(parameters.keySet());
   }
 
-  public String[] getParameterValues(String s) {
-    if (parameters != null) {
-      return (String[])
-          parameters.values().toArray(new String[parameters.size()]);
-    } else {
-      return request.getParameterValues(s);
-    }
+  public String[] getParameterValues(String key) {
+    return (String[]) parameters.get(key);
   }
 
   public Map getParameterMap() {
-    if (parameters != null) {
-      return parameters;
-    } else {
-      return request.getParameterMap();
-    }
+    return parameters;
   }
-
-
 
 // ////////////////////////////////////////////// deligates
 
@@ -236,7 +250,9 @@ public class TobagoMultipartFormdataRequest implements HttpServletRequest {
     return request.isRequestedSessionIdFromURL();
   }
 
-  /** @deprecated */
+  /**
+   * @deprecated
+   */
   public boolean isRequestedSessionIdFromUrl() {
     return request.isRequestedSessionIdFromUrl();
   }
@@ -253,7 +269,8 @@ public class TobagoMultipartFormdataRequest implements HttpServletRequest {
     return request.getCharacterEncoding();
   }
 
-  public void setCharacterEncoding(String s) throws UnsupportedEncodingException {
+  public void setCharacterEncoding(String s)
+      throws UnsupportedEncodingException {
     request.setCharacterEncoding(s);
   }
 
@@ -321,7 +338,9 @@ public class TobagoMultipartFormdataRequest implements HttpServletRequest {
     return request.getRequestDispatcher(s);
   }
 
-  /** @deprecated */
+  /**
+   * @deprecated
+   */
   public String getRealPath(String s) {
     return request.getRealPath(s);
   }

@@ -280,7 +280,7 @@ public class PageRenderer extends PageRendererBase implements DirectRenderer {
     writer.startElement("div", null);
     writer.writeAttribute("style", "color: red", null);
     writer.write("[");
-    writer.write(id);
+    writer.write(id != null ? id : "null");
     writer.write("]");
     writer.write("[");
     writer.write(message.getSummary() == null ? "null" : message.getSummary());

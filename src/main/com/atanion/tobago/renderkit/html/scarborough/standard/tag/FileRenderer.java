@@ -26,8 +26,6 @@ import javax.faces.convert.ConverterException;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FileRenderer extends InputRendererBase implements DirectRenderer {
 
@@ -35,21 +33,20 @@ public class FileRenderer extends InputRendererBase implements DirectRenderer {
 
   private static final Log LOG = LogFactory.getLog(FileRenderer.class);
 
-  public static final String ADD_BUTTON    = "/add";
-  public static final String DELETE_BUTTON = "/delete/";
-
 // ///////////////////////////////////////////// attribute
 
 // ///////////////////////////////////////////// constructor
 
 // ///////////////////////////////////////////// code
 
-  public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
+  public int getComponentExtraWidth(
+      FacesContext facesContext, UIComponent component) {
     int space = 0;
 
     if (component.getFacet(TobagoConstants.FACET_LABEL) != null) {
       int labelWidht = LayoutUtil.getLabelWidth(component);
-      space += labelWidht != 0 ? labelWidht : getLabelWidth(facesContext, component);
+      space += labelWidht != 0
+          ? labelWidht : getLabelWidth(facesContext, component);
     }
 
     return space;
@@ -64,42 +61,31 @@ public class FileRenderer extends InputRendererBase implements DirectRenderer {
 
     TobagoMultipartFormdataRequest request = null;
     Object requestObject = facesContext.getExternalContext().getRequest();
-    if(requestObject instanceof TobagoMultipartFormdataRequest) {
+    if (requestObject instanceof TobagoMultipartFormdataRequest) {
       request = (TobagoMultipartFormdataRequest) requestObject;
     } else if (requestObject instanceof HttpServletRequestWrapper) {
       ServletRequest wrappedRequest
-          = ((HttpServletRequestWrapper)requestObject).getRequest();
-      if(wrappedRequest instanceof TobagoMultipartFormdataRequest) {
+          = ((HttpServletRequestWrapper) requestObject).getRequest();
+      if (wrappedRequest instanceof TobagoMultipartFormdataRequest) {
         request = (TobagoMultipartFormdataRequest) wrappedRequest;
       }
     }
     if (request == null) {
-      throw new FacesException("Cannot find a TobagoMultipartFormdataRequest. "
+      throw new FacesException(
+          "Cannot find a TobagoMultipartFormdataRequest. "
           + "Please check that you have confitured a "
           + "TobagoMultipartFormdataFilter in your web.xml.");
     }
 
     FileItem item = request.getFileItem(input.getClientId(facesContext));
-    if (item != null && item.getSize() > 0) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("Uploaded file name : \"" + item.getName() +
-            "\"  size = " + item.getSize());
-      }
 
-      List list = (List) input.getValue();
-      if (list != null) {
-        list.add(item);
-      } else {
-        list = new ArrayList();
-        list.add(item);
-        input.setSubmittedValue(list);
-      }
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("list.size() = '" + list.size() + "'");
-      }
-      input.setValid(true);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug(
+          "Uploaded file name : \"" + item.getName() +
+          "\"  size = " + item.getSize());
     }
-
+    input.setSubmittedValue(item);
+    input.setValid(true);
   }
 
   public Object getConvertedValue(
@@ -108,7 +94,8 @@ public class FileRenderer extends InputRendererBase implements DirectRenderer {
     return submittedValue;
   }
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeDirectEnd(
+      FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
     UIInput component = (UIInput) uiComponent;
