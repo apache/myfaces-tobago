@@ -1349,8 +1349,12 @@ public class SheetRenderer extends RendererBase {
           if (startRow != null) {
             try {
               int start = Integer.parseInt(startRow) - 1;
-              data.setFirst(
-                  start < getLastPageIndex() ? start : getLastPageIndex());
+              if (start > getLastPageIndex()) {
+                start = getLastPageIndex();
+              } else if (start < 0) {
+                start = 0;
+              }
+              data.setFirst(start);
             } catch (NumberFormatException e) {
               LOG.error("Catched: " + e.getMessage());
             }
@@ -1376,8 +1380,12 @@ public class SheetRenderer extends RendererBase {
                     (start * data.getRows()));
               }
               start = start * data.getRows();
-              data.setFirst(
-                  start < getLastPageIndex() ? start : getLastPageIndex());
+              if (start > getLastPageIndex()) {
+                start = getLastPageIndex();
+              } else if (start < 0) {
+                start = 0;
+              }
+              data.setFirst(start);
             } catch (NumberFormatException e) {
               LOG.error("Catched: " + e.getMessage());
             }

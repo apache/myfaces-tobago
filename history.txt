@@ -1,4 +1,9 @@
-1.0.3 -
+1.0.4 -
+* bugfix: direct input of page or row
+
+1.0.3 - 23.02.2005
+* refator: rename many tags and tag-attributes to have a consitent scheme
+* sheet paging: direct input of page or row
 * make UIForm tranparent for layouting.
 * refactor UISelectMany removed: workaround is no longer needed.
 * refactor Don't everwrite JSF component-types in faces-config.xml to prevent error messages.
