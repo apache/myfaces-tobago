@@ -548,6 +548,18 @@ div.tobago-richtexteditor-body {
  vertical-align: bottom;
  margin-bottom: 2px;
 }
+
+a:link.tobago-toolbar-button-link, a:visited.tobago-toolbar-button-link, a:active.tobago-toolbar-button-link {
+   text-decoration: none;
+   font: inherit;
+   color: inherit;
+}
+/*
+a:link.tobago-tab-link, a:visited.tobago-tab-link, a:active.tobago-tab-link {
+   text-decoration: none;
+}
+ */
+
 .tobago-toolbar-button-label {
   padding-left: 5px;
 }

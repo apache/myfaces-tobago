@@ -18,3 +18,7 @@
 .tobago-toolbar-button-menu {
   top: -7px;
 }
+
+a:link.tobago-toolbar-button-link, a:visited.tobago-toolbar-button-link, a:active.tobago-toolbar-button-link {
+   color: #660000;
+}

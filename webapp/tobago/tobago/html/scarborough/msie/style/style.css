@@ -65,3 +65,7 @@ textarea.tobago-richtexteditor-body {
   top:-5px;
 }
 
+
+a:link.tobago-toolbar-button-link, a:visited.tobago-toolbar-button-link, a:active.tobago-toolbar-button-link {
+   color: #000000;
+}

@@ -364,6 +364,13 @@ function tobagoFireEvent(element, event) {
   return true;
 }
 
+function tobagoToolbarFocus(element, event) {
+  if (window.event && event.altKey) {
+  // ie only set focus on keyboard access, so do the click here.
+    //PrintDebug(" alt=" + event.altKey + "  keycode=" + event.keyCode)
+    element.click();
+  }  
+}
 
 
 function PrintDebug(Text) {

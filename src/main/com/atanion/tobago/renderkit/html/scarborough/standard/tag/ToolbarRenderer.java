@@ -133,11 +133,11 @@ public class ToolbarRenderer extends RendererBase {
 
     writer.startElement("a", null);
     writer.writeAttribute("id", command.getClientId(facesContext), null);
-//    writer.writeAttribute("class", spanClass, null);
+    writer.writeAttribute("class", "tobago-toolbar-button-link", null);
     if (! disabled) {
       writer.writeAttribute("onclick", onClick, null);
-//      writer.writeAttribute("onmouseover", mouseover, null);
-//      writer.writeAttribute("onmouseout", mouseout, null);
+      writer.writeAttribute("href", "#", null);
+      writer.writeAttribute("onfocus", "tobagoToolbarFocus(this, event)", null);
       if (label.getAccessKey() != null) {
          writer.writeAttribute("accesskey", label.getAccessKey(), null);
        }      
