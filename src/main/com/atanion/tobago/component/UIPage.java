@@ -105,19 +105,20 @@ public class UIPage extends UIForm {
       LOG.debug(form.getClientId(facesContext));
     }
 
-    if (form == null) {
+    if (form != null) {
+      form.setSubmitted(true);
+
+      Iterator kids = getFacetsAndChildren();
+      while (kids.hasNext()) {
+        UIComponent kid = (UIComponent) kids.next();
+        kid.processDecodes(facesContext);
+      }
+    } else {
       LOG.debug("No form found! Rerender the view.");
       facesContext.renderResponse();
-      return;
     }
 
-    form.setSubmitted(true);
-
-    Iterator kids = getFacetsAndChildren();
-    while (kids.hasNext()) {
-      UIComponent kid = (UIComponent) kids.next();
-      kid.processDecodes(facesContext);
-    }
+    getOnloadScripts().clear();
   }
 
   public void storeFocusId(String id) {
