@@ -11,20 +11,21 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.taglib.component.CalendarTag;
 import com.atanion.util.CalendarUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.servlet.ServletRequest;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class CalendarRenderer extends RendererBase {
 
@@ -40,18 +41,18 @@ public class CalendarRenderer extends RendererBase {
 
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
-    UIPage page = ComponentUtil.findPage(component);
+    UIOutput output = (UIOutput) component;
+    UIPage page = ComponentUtil.findPage(output);
     page.getScriptFiles().add("calendar.js", true);
     page.getScriptFiles().add("dateConverter.js", true);
 
-    String id = component.getId();
+    String id = output.getId();
 
-    ServletRequest request
-        = (ServletRequest) facesContext.getExternalContext().getRequest();
+    String dateTextBoxId = (String) facesContext.getExternalContext()
+        .getRequestParameterMap().get("tobago.date.inputId");
     if (LOG.isDebugEnabled()) {
-      LOG.debug(request.getParameterMap());
+      LOG.debug("dateTextBoxId = '" + dateTextBoxId + "'");
     }
-    String dateTextBoxId = request.getParameter("tobago.date.inputId");
     if (dateTextBoxId != null) {
       page.getOnloadScripts().add("initCalendarParse('"
           + id + "', '" + dateTextBoxId + "');");
@@ -60,16 +61,19 @@ public class CalendarRenderer extends RendererBase {
     Locale locale = facesContext.getViewRoot().getLocale();
     SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMM yyyy", locale);
 
-    // fixme don't use the concept of setting year,month,day explicit,
-    // fixme but use a date-model as background-value instead
-    Integer year = (Integer) component.getAttributes().get(CalendarTag.YEAR);
-    Integer month = (Integer) component.getAttributes().get(CalendarTag.MONTH);
-    Integer day = (Integer) component.getAttributes().get(CalendarTag.DAY);
-    Calendar calendar = CalendarUtils.getCalendar(
-        year != null ? year : new Integer(1970),
-        month != null ? month : new Integer(1),
-        day != null ? day : new Integer(1), locale);
+    Object value = output.getValue();
+    Calendar calendar;
+    if (value instanceof Calendar) {
+      calendar = (Calendar)value;
+    } else if (value instanceof Date) {
+      calendar = new GregorianCalendar();
+      calendar.setTime((Date) value);
+    } else {
+      calendar = new GregorianCalendar();
+    }
     CalendarModel model = new CalendarModel(calendar);
+
+    // rendering:
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
@@ -193,21 +197,21 @@ public class CalendarRenderer extends RendererBase {
     writer.writeAttribute("type", "hidden", null);
     writer.writeAttribute("name", "/" + id + "/year", null);
     writer.writeAttribute("id", id + ":year", null);
-    writer.writeAttribute("value", year, null);
+    writer.writeAttribute("value", new Integer(calendar.get(Calendar.YEAR)), null);
     writer.endElement("input");
 
     writer.startElement("input", null);
     writer.writeAttribute("type", "hidden", null);
     writer.writeAttribute("name", "/" + id + "/month", null);
     writer.writeAttribute("id", id + ":month", null);
-    writer.writeAttribute("value", month, null);
+    writer.writeAttribute("value", new Integer(1 + calendar.get(Calendar.MONTH)), null);
     writer.endElement("input");
 
     writer.startElement("input", null);
     writer.writeAttribute("type", "hidden", null);
     writer.writeAttribute("name", "/" + id + "/day", null);
     writer.writeAttribute("id", id + ":day", null);
-    writer.writeAttribute("value", day, null);
+    writer.writeAttribute("value", new Integer(calendar.get(Calendar.DAY_OF_MONTH)), null);
     writer.endElement("input");
 
     writer.startElement("input", null);

@@ -12,64 +12,29 @@ import javax.faces.component.UIOutput;
 
 public class CalendarTag extends TobagoTag {
 
-// ///////////////////////////////////////////// constant
+// ----------------------------------------------------------------- attributes
 
-  public static final String YEAR = "year";
-  public static final String MONTH = "month";
-  public static final String DAY = "day";
+  private String value;
 
-// ///////////////////////////////////////////// attribute
-
-  private String year;
-  private String month;
-  private String day;
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
+// ----------------------------------------------------------- business methods
 
   public String getComponentType() {
     return UIOutput.COMPONENT_TYPE;
   }
 
-  protected void setProperties(UIComponent component) {
-    super.setProperties(component);
-
-   ComponentUtil.setIntegerProperty(component, YEAR, year, getIterationHelper());
-   ComponentUtil.setIntegerProperty(component, MONTH, month, getIterationHelper());
-   ComponentUtil.setIntegerProperty(component, DAY, day, getIterationHelper());
-  }
-
   public void release() {
     super.release();
-    day = null;
-    month = null;
-    year = null;
-  }
-  
-// ///////////////////////////////////////////// bean getter + setter
-
-  public String getYear() {
-    return year;
+    value = null;
   }
 
-  public void setYear(String year) {
-    this.year = year;
+  protected void setProperties(UIComponent component) {
+    super.setProperties(component);
+    ComponentUtil.setStringProperty(component, ATTR_VALUE, value, getIterationHelper());
   }
 
-  public String getMonth() {
-    return month;
-  }
+// ------------------------------------------------------------ getter + setter
 
-  public void setMonth(String month) {
-    this.month = month;
-  }
-
-  public String getDay() {
-    return day;
-  }
-
-  public void setDay(String day) {
-    this.day = day;
+  public void setValue(String value) {
+    this.value = value;
   }
 }
