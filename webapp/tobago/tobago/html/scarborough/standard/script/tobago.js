@@ -23,7 +23,6 @@ function setAction(formId, actionId) {
     var hidden = document.getElementById(formId + '-action');
     if (hidden) {
       hidden.value = actionId;
-      PrintDebug("actionId = '" + actionId + "'");
     }
     tobago_addClientDimension(form, formId);
   } else {

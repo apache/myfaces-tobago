@@ -528,8 +528,9 @@ function tobagoSheetEditPagingRow(span, commandId, onClickCommand, commandName) 
       input.className = "tobago-sheet-paging-input";
       input.onClickCommand = onClickCommand;
       addEventListener(input, 'blur', delayedHideInput);
-      addEventListener(input, 'keyup', keyUp);
-    }  
+      //addEventListener(input, 'keyup', keyUp);
+      addEventListener(input, 'keydown', keyEvent);
+    }
     input.value=text.innerHTML;
     span.replaceChild(input, text);
     input.focus();
@@ -551,7 +552,7 @@ function delayedHideInput(event) {
 }
 function hideInput(inputId) {
   var input = document.getElementById(inputId);
-  if (input) {
+  if (input && !input.submitted) {
     input.parentNode.style.cursor = 'pointer';
     input.parentNode.replaceChild(input.textElement, input);
   } else {
@@ -559,7 +560,7 @@ function hideInput(inputId) {
   }
 }
 
-function keyUp(event) {
+function keyEvent(event) {
   var input = getActiveElement(event);
   var keyCode;
   if (event.which) {
@@ -569,16 +570,15 @@ function keyUp(event) {
 //    PrintDebug('ie');
     keyCode = event.keyCode;
   }
-//  PrintDebug('code = ' + keyCode);
   if (keyCode == 13) {
-    PrintDebug('"' + input.value + '"');
-    PrintDebug('"' + input.textElement.innerHTML + '"');
+    //PrintDebug('new="' + input.value + '" old="' + input.textElement.innerHTML + '"');
     if (input.value != input.textElement.innerHTML) {
-      PrintDebug('changed : onClick = "' + input.onClickCommand + '"');
+      //PrintDebug('changed : onClick = "' + input.onClickCommand + '"');
+      input.submitted = true;
       eval(input.onClickCommand);
     }
     else {
-      PrintDebug('NOT changed');
+      //PrintDebug('NOT changed');
       hideInput(input.id);
     }
   }

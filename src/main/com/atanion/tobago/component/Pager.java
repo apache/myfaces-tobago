@@ -49,6 +49,7 @@ public class Pager extends MethodBinding {
       if (LOG.isDebugEnabled()) {
         LOG.debug("action = '" + action + "'");
       }
+      LOG.info("action = '" + action + "'");
 
       if (FIRST.equals(action)) {
         data.setFirst(0);
@@ -66,6 +67,7 @@ public class Pager extends MethodBinding {
             .getRequestParameterMap().get(command.getClientId(
                 facesContext) + TobagoConstants.SUBCOMPONENT_SEP +
             "value");
+        LOG.info("startRow = " + startRow);
         if (startRow != null) {
           try {
             int start = Integer.parseInt(startRow) - 1;
@@ -74,6 +76,7 @@ public class Pager extends MethodBinding {
             } else if (start < 0) {
               start = 0;
             }
+            LOG.info("start = " + start);
             data.setFirst(start);
           } catch (NumberFormatException e) {
             LOG.error("Catched: " + e.getMessage());
