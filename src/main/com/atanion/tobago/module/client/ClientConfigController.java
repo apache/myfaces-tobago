@@ -77,8 +77,13 @@ public class ClientConfigController {
     }
 
     storeInClientProperties();
+    storeInViewRoot();
 
     return "view";
+  }
+
+  private void storeInViewRoot() {
+    FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
   }
 
 // ///////////////////////////////////////////// logic
