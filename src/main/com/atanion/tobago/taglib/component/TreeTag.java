@@ -9,7 +9,6 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.UITree;
 
 import javax.faces.component.UIComponent;
-import javax.faces.el.ValueBinding;
 
 public class TreeTag extends BeanTag {
 
@@ -40,18 +39,18 @@ public class TreeTag extends BeanTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    setProperty(component, TobagoConstants.ATTR_HIDE_JUNCTIONS,
+    setBooleanProperty(component, TobagoConstants.ATTR_HIDE_JUNCTIONS,
         TobagoConstants.VB_HIDE_JUNCTIONS, hideJunctions);
-    setProperty(component, TobagoConstants.ATTR_HIDE_ICONS,
+    setBooleanProperty(component, TobagoConstants.ATTR_HIDE_ICONS,
         TobagoConstants.VB_HIDE_ICONS, hideIcons);
-    setProperty(component, TobagoConstants.ATTR_HIDE_ROOT,
+    setBooleanProperty(component, TobagoConstants.ATTR_HIDE_ROOT,
         TobagoConstants.VB_HIDE_ROOT, hideRoot);
-    setProperty(component, TobagoConstants.ATTR_HIDE_ROOT_JUNCTION,
+    setBooleanProperty(component, TobagoConstants.ATTR_HIDE_ROOT_JUNCTION,
         TobagoConstants.VB_HIDE_ROOT_JUNCTION, hideRootJunction);
 
-    setProperty(component, TobagoConstants.ATTR_MULTISELECT,
+    setBooleanProperty(component, TobagoConstants.ATTR_MULTISELECT,
         TobagoConstants.VB_MULTISELECT, multiselect);
-    setProperty(component, TobagoConstants.ATTR_MUTABLE,
+    setBooleanProperty(component, TobagoConstants.ATTR_MUTABLE,
         TobagoConstants.VB_MUTABLE, mutable);
 
     setProperty(component, TobagoConstants.ATTR_ID_REFERENCE, idReference);

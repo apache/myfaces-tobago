@@ -25,7 +25,7 @@ public class TabGroupTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setProperty(component, TobagoConstants.ATTR_SERVER_SIDE_TABS, serverside);
+    setBooleanProperty(component, TobagoConstants.ATTR_SERVER_SIDE_TABS, serverside);
   }
 // ///////////////////////////////////////////// bean getter and setter
 

@@ -47,7 +47,7 @@ public class SheetTag extends TobagoTag {
     if (data.getAttributes().get(TobagoConstants.ATTR_PAGING) == null) {
       data.getAttributes().put(TobagoConstants.ATTR_PAGING, new Boolean(paging));
     }
-    setProperty(data,TobagoConstants.ATTR_HIDE_HEADER, hideHeader);
+    setBooleanProperty(data,TobagoConstants.ATTR_HIDE_HEADER, hideHeader);
     data.setFirst(pagingStart);
 //    if (data.getFirst() == null) {
 //      data.getAttributes().put(

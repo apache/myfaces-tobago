@@ -22,7 +22,7 @@ public abstract class InputTag extends BeanTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     setProperty(component, TobagoConstants.ATTR_ONCHANGE, onchange);
-    setProperty(component, TobagoConstants.ATTR_FOCUS, focus);
+    setBooleanProperty(component, TobagoConstants.ATTR_FOCUS, focus);
   }
 
   public String getOnchange() {

@@ -44,7 +44,7 @@ public class PageTag extends TobagoBodyTag {
     if (focusId != null) {
       page.setFocusId(focusId);
     }
-//    setProperty(component, TobagoConstants.ATTR_FOCUS_ID, focusId);
+//    setBooleanProperty(component, TobagoConstants.ATTR_FOCUS_ID, focusId);
 
 //    if (null == component.getAttributes().get(TobagoConstants.ATTR_ENCTYPE)) {
 //      component.setAttribute(TobagoConstants.ATTR_ENCTYPE, enctype);
@@ -55,7 +55,7 @@ public class PageTag extends TobagoBodyTag {
     pageContext.getResponse().setContentType(generateContentType(charset));
     pageContext.setAttribute(PAGE_IN_REQUEST, this, PageContext.REQUEST_SCOPE);
     final int result = super.doStartTag();
-    ((UIPage)getComponentInstance()).getOnloadScripts().clear();
+//    ((UIPage)getComponentInstance()).getOnloadScripts().clear();
     return result;
   }
 

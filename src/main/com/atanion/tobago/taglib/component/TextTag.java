@@ -30,8 +30,8 @@ public class TextTag extends BeanTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setProperty(component, TobagoConstants.ATTR_ESCAPE, escape);
-    setProperty(component, TobagoConstants.ATTR_CREATE_SPAN, createSpan);
+    setBooleanProperty(component, TobagoConstants.ATTR_ESCAPE, escape);
+    setBooleanProperty(component, TobagoConstants.ATTR_CREATE_SPAN, createSpan);
   }
 
   public void release() {

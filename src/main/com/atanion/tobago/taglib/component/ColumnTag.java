@@ -43,7 +43,7 @@ public class ColumnTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setProperty(component, TobagoConstants.ATTR_SORTABLE, sortable);
+    setBooleanProperty(component, TobagoConstants.ATTR_SORTABLE, sortable);
     setProperty(component, TobagoConstants.ATTR_ALIGN, align);
     LOG.debug("class = " + cssClass);
     setProperty(component, TobagoConstants.ATTR_STYLE_CLASS, cssClass);

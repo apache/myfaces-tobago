@@ -80,7 +80,7 @@ public abstract class TobagoTag extends UIComponentTag {
     }
   }
 
-  protected final void setProperty(
+  protected final void setBooleanProperty(
       UIComponent component, String key, boolean value) {
     if (value) {
       component.getAttributes().put(key, Boolean.TRUE);
@@ -90,19 +90,36 @@ public abstract class TobagoTag extends UIComponentTag {
   }
 
   protected final void setProperty(
-      UIComponent component, String attrName, String vbName, String string) {
+      UIComponent component, String attrName, String vbName, String value) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("attrName = '" + attrName + "'");
       LOG.debug("vbName   = '" + vbName + "'");
     }
-    if (string != null) {
-      if (isValueReference(string)) {
+    if (value != null) {
+      if (isValueReference(value)) {
         Application app = FacesContext.getCurrentInstance().getApplication();
-        ValueBinding valueBinding = app.createValueBinding(string);
+        ValueBinding valueBinding = app.createValueBinding(value);
         component.setValueBinding(vbName, valueBinding);
       } else {
-        boolean disabledBoolean = Boolean.valueOf(string).booleanValue();
-        setProperty(component, attrName, disabledBoolean);
+        setProperty(component, attrName, value);
+      }
+    }
+  }
+
+  protected final void setBooleanProperty(
+      UIComponent component, String attrName, String vbName, String value) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("attrName = '" + attrName + "'");
+      LOG.debug("vbName   = '" + vbName + "'");
+    }
+    if (value != null) {
+      if (isValueReference(value)) {
+        Application app = FacesContext.getCurrentInstance().getApplication();
+        ValueBinding valueBinding = app.createValueBinding(value);
+        component.setValueBinding(vbName, valueBinding);
+      } else {
+        boolean booleanValue = Boolean.valueOf(value).booleanValue();
+        setBooleanProperty(component, attrName, booleanValue);
       }
     }
   }
@@ -118,7 +135,7 @@ public abstract class TobagoTag extends UIComponentTag {
         component.setValueBinding(TobagoConstants.VB_DISABLED, valueBinding);
       } else {
         boolean disabledBoolean = Boolean.valueOf(disabled).booleanValue();
-        setProperty(component, TobagoConstants.ATTR_DISABLED, disabledBoolean);
+        setBooleanProperty(component, TobagoConstants.ATTR_DISABLED, disabledBoolean);
       }
     }
 
@@ -126,12 +143,12 @@ public abstract class TobagoTag extends UIComponentTag {
       provideLabel(component);
     }
 
-    setProperty(component, TobagoConstants.ATTR_TITLE, "title", title);
+    setProperty(component, TobagoConstants.ATTR_TITLE,  "title", title);
 
-    setProperty(component, TobagoConstants.ATTR_READONLY, readonly);
-    setProperty(component, TobagoConstants.ATTR_HIDDEN, hidden);
-    setProperty(component, TobagoConstants.ATTR_I18N, i18n);
-    setProperty(component, TobagoConstants.ATTR_INLINE, inline);
+    setBooleanProperty(component, TobagoConstants.ATTR_READONLY, readonly);
+    setBooleanProperty(component, TobagoConstants.ATTR_HIDDEN, hidden);
+    setBooleanProperty(component, TobagoConstants.ATTR_I18N, i18n);
+    setBooleanProperty(component, TobagoConstants.ATTR_INLINE, inline);
 
     if (width != null) {
       if (isValueReference(width)) {

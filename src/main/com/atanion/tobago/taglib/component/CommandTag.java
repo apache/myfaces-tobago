@@ -46,7 +46,7 @@ public abstract class CommandTag extends TobagoBodyTag {
 
     setProperty(component, TobagoConstants.ATTR_COMMAND_NAME, commandName);
     setProperty(component, TobagoConstants.ATTR_TYPE, type);
-    setProperty(component, TobagoConstants.ATTR_DEFAULT_COMMAND, defaultCommand);
+    setBooleanProperty(component, TobagoConstants.ATTR_DEFAULT_COMMAND, defaultCommand);
     if (immediate) {
       command.setImmediate(true);
     }
