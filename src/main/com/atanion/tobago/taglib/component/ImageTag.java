@@ -19,6 +19,7 @@ public class ImageTag extends TobagoTag {
   private String value;
   private String alt;
   private String border;
+  private String tip;
 
   public String getComponentType() {
     return UIGraphic.COMPONENT_TYPE;
@@ -29,6 +30,7 @@ public class ImageTag extends TobagoTag {
    ComponentUtil.setStringProperty(component, ATTR_ALT, alt, getIterationHelper());
    ComponentUtil.setStringProperty(component, ATTR_BORDER, border, getIterationHelper());
    ComponentUtil.setStringProperty(component, ATTR_VALUE, value, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_TIP, tip, getIterationHelper());
   }
 
   public void release() {
@@ -36,6 +38,7 @@ public class ImageTag extends TobagoTag {
     this.alt = null;
     this.border = null;
     this.value = null;
+    this.tip = null;
   }
 
   public String getValue() {
@@ -60,5 +63,13 @@ public class ImageTag extends TobagoTag {
 
   public void setBorder(String border) {
     this.border = border;
+  }
+
+  public String getTip() {
+    return tip;
+  }
+
+  public void setTip(String tip) {
+    this.tip = tip;
   }
 }

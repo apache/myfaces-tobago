@@ -62,8 +62,7 @@ public class ImageRenderer extends RendererBase {
     if (alt == null) {
       alt = "";
     }
-    String title
-        = (String) graphic.getAttributes().get(ATTR_TITLE);
+    String tip = (String) graphic.getAttributes().get(ATTR_TIP);
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
@@ -80,8 +79,8 @@ public class ImageRenderer extends RendererBase {
       writer.writeAttribute("src", src, null);
     }
     writer.writeAttribute("alt", alt, null);
-    if (title != null) {
-      writer.writeAttribute("title", title, null);
+    if (tip != null) {
+      writer.writeAttribute("title", tip, null);
     }
     writer.writeAttribute("border", border, null);
     writer.writeAttribute("height", null, ATTR_HEIGHT);

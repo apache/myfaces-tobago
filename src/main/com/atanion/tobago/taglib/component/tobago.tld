@@ -1114,7 +1114,7 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>title</name>
+      <name>tip</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
