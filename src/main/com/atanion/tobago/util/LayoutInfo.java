@@ -164,7 +164,8 @@ public class LayoutInfo{
       }
       boolean found = false;
       while (spaceLeft > 0) {
-        for (int i = 0; i < layoutTokens.length; i++) {
+//        for (int i = 0; i < layoutTokens.length; i++) {
+        for (int i = layoutTokens.length - 1; i > -1; i--) {
           String layoutToken = layoutTokens[i];
           if (spaceLeft > 0 && layoutToken.matches("^\\d+\\*")) {
             found = true;
@@ -294,11 +295,11 @@ public class LayoutInfo{
             String token = tokens[i].substring(0, tokens[i].length() - 1);
             try {
               int portion = Integer.parseInt(token);
-              int w = widthForPortions / portions * portion;
-              update(w, i);
+              float w = (float) widthForPortions / portions * portion;
+              update(Math.round(w), i);
               if (log.isDebugEnabled()) {
                 log.debug("set column " + i + " from " + tokens[i]
-                    + " to with " + w);
+                    + " to with " + w + " == " + Math.round(w) + "px");
               }
             } catch (NumberFormatException e) {
               if (log.isWarnEnabled()) {
