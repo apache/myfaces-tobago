@@ -7,13 +7,12 @@ package com.atanion.tobago.component;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.util.LayoutUtil;
-import com.atanion.tobago.TobagoConstants;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
-//import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.Serializable;
