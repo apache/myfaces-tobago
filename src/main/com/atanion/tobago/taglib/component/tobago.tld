@@ -2095,6 +2095,17 @@
         in a backing bean
       </description>
     </attribute>
+    <attribute>
+      <name>immediate</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>
+         Flag indicating that, if this component is activated by the user,
+         notifications should be delivered to interested listeners and actions
+         immediately (that is, during Apply Request Values phase) rather than
+         waiting until Invoke Application phase.
+      </description>
+    </attribute>
   </tag>
 
   <tag>
@@ -2152,6 +2163,17 @@
         in a backing bean
       </description>
     </attribute>
+    <attribute>
+      <name>immediate</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>
+         Flag indicating that, if this component is activated by the user,
+         notifications should be delivered to interested listeners and actions
+         immediately (that is, during Apply Request Values phase) rather than
+         waiting until Invoke Application phase.
+      </description>
+    </attribute>
   </tag>
 
   <tag>
@@ -2202,6 +2224,17 @@
       <description>
         The value binding expression linking this component to a property
         in a backing bean
+      </description>
+    </attribute>
+    <attribute>
+      <name>immediate</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>
+         Flag indicating that, if this component is activated by the user,
+         notifications should be delivered to interested listeners and actions
+         immediately (that is, during Apply Request Values phase) rather than
+         waiting until Invoke Application phase.
       </description>
     </attribute>
   </tag>

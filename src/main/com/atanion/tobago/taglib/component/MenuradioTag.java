@@ -20,6 +20,7 @@ public class MenuradioTag extends MenuTag {
   private String action;
   private String type;
   private String value;
+  private String immediate;
 
 // ----------------------------------------------------------- business methods
 
@@ -68,8 +69,9 @@ public class MenuradioTag extends MenuTag {
         }
       }
     }
-   ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
-   ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, "menuRadio");
+    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
+    ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, "menuRadio");
+    ComponentUtil.setBooleanProperty(component, ATTR_IMMEDIATE, immediate);
   }
 
 // ------------------------------------------------------------ getter + setter
@@ -96,5 +98,9 @@ public class MenuradioTag extends MenuTag {
 
   public void setValue(String value) {
     this.value = value;
+  }
+
+  public void setImmediate(String immediate) {
+    this.immediate = immediate;
   }
 }
