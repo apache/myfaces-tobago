@@ -52,7 +52,7 @@ public class Window {
 // ///////////////////////////////////////////// code
 
   public void activate(UIPage page) {
-    page.getScriptFiles().add("popup.js", true);
+    page.getScriptFiles().add("script/popup.js");
     Set scripts = page.getOnloadScripts();
 
     FacesContext facesContext = FacesContext.getCurrentInstance();

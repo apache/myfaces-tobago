@@ -104,7 +104,7 @@ public class TabGroupRenderer extends RendererBase {
         + TabGroupRenderer.ACTIVE_INDEX_POSTFIX;
 
     UIPage page = ComponentUtil.findPage(component);
-    page.getScriptFiles().add("tab.js", true);
+    page.getScriptFiles().add("script/tab.js");
 
     ResponseWriter writer = facesContext.getResponseWriter();
 

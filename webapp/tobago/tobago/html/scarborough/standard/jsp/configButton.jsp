@@ -14,7 +14,7 @@
 
   String url = "configWindow('" + clientConfigJsp + "')";
 %>
-  <tobago:script file="configWindow.js" i18n="true" />
+  <tobago:script file="script/configWindow.js" />
   <%-- id is needed for knowledgebase, don't know why :-( --%>
   <tobago:button action="<%= url %>" type="script" id="configButtonAction"
         label="#{tobagoBundle.configButtonText}"

@@ -8,7 +8,6 @@ package com.atanion.tobago.component;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.model.PageState;
 import com.atanion.tobago.model.PageStateImpl;
-import com.atanion.tobago.util.TobagoResourceSet;
 import com.atanion.util.collections.ListOrderedSet;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -44,7 +43,7 @@ public class UIPage extends UIForm {
 
   private List postfields;
 
-  private TobagoResourceSet scriptFiles;
+  private ListOrderedSet scriptFiles;
 
   private Set scriptBlocks;
 
@@ -58,7 +57,7 @@ public class UIPage extends UIForm {
 // ///////////////////////////////////////////// constructor
 
   public UIPage() {
-    scriptFiles = new TobagoResourceSet();//ListOrderedSet.decorate(new HashSet());
+    scriptFiles = new ListOrderedSet();//ListOrderedSet.decorate(new HashSet());
 
     scriptBlocks = new ListOrderedSet();//ListOrderedSet.decorate(new HashSet());
 
@@ -219,7 +218,7 @@ public class UIPage extends UIForm {
     this.actionId = actionId;
   }
 
-  public TobagoResourceSet getScriptFiles() {
+  public ListOrderedSet getScriptFiles() {
     return scriptFiles;
   }
 

@@ -12,26 +12,15 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 public class ScriptTag extends BodyTagSupport {
 
-// ///////////////////////////////////////////// constant
-
-// ///////////////////////////////////////////// attribute
+// ----------------------------------------------------------------- attributes
 
   private String file;
 
   private String onload;
 
-  private boolean i18n;
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
-
-  public int doStartTag() throws JspException {
-    return EVAL_BODY_BUFFERED;
-  }
+// ----------------------------------------------------------- business methods
 
   public int doEndTag() throws JspException {
-
     PageTag pageTag = PageTag.findPageTag(pageContext); // todo: find uiPage directly
     if (pageTag == null) {
       throw new JspException("Use of Script outside of Page not allowed");
@@ -40,7 +29,7 @@ public class ScriptTag extends BodyTagSupport {
     UIPage page = (UIPage) pageTag.getComponentInstance();
 
     if (file != null) {
-      page.getScriptFiles().add(file, i18n);
+      page.getScriptFiles().add(file);
     }
     if (onload != null) {
       page.getOnloadScripts().add(onload);
@@ -54,12 +43,17 @@ public class ScriptTag extends BodyTagSupport {
     return EVAL_PAGE;
   }
 
+  public int doStartTag() throws JspException {
+    return EVAL_BODY_BUFFERED;
+  }
+
   public void release() {
     super.release();
     file = null;
     onload = null;
-    i18n = false;
   }
+
+// ------------------------------------------------------------ getter + setter
 
 // ///////////////////////////////////////////// bean getter + setter
 
@@ -77,14 +71,6 @@ public class ScriptTag extends BodyTagSupport {
 
   public void setOnload(String onload) {
     this.onload = onload;
-  }
-
-  public boolean isI18n() {
-    return i18n;
-  }
-
-  public void setI18n(boolean i18n) {
-    this.i18n = i18n;
   }
 }
 

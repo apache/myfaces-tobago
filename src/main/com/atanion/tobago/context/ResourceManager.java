@@ -422,7 +422,7 @@ public class ResourceManager {
 */
 
   public String[] getScripts(UIViewRoot viewRoot, String name) {
-    return getStrings(viewRoot, name, "script");
+    return getStrings(viewRoot, name, null);
   }
 
   public String[] getStyles(UIViewRoot viewRoot, String name) {

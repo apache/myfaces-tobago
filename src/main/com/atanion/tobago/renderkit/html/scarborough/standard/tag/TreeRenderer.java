@@ -184,7 +184,7 @@ public class TreeRenderer extends RendererBase {
     writer.endElement("table");
 //    writer.endElement("div");
 
-    ComponentUtil.findPage(tree).getScriptFiles().add("tree.js", true);
+    ComponentUtil.findPage(tree).getScriptFiles().add("script/tree.js");
 
     writer.startElement("script", null);
     writer.writeAttribute("type", "text/javascript", null);

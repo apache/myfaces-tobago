@@ -43,8 +43,8 @@ public class CalendarRenderer extends RendererBase {
       UIComponent component) throws IOException {
     UIOutput output = (UIOutput) component;
     UIPage page = ComponentUtil.findPage(output);
-    page.getScriptFiles().add("calendar.js", true);
-    page.getScriptFiles().add("dateConverter.js", true);
+    page.getScriptFiles().add("script/calendar.js");
+    page.getScriptFiles().add("script/dateConverter.js");
 
     String id = output.getId();
 

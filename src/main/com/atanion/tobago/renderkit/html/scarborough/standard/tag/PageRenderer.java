@@ -12,8 +12,8 @@ import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.PageRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.taglib.component.PageTag;
-import com.atanion.tobago.util.TobagoResourceSet;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
+import com.atanion.util.collections.ListOrderedSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -26,7 +26,6 @@ import javax.faces.context.ResponseWriter;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -166,11 +165,10 @@ public class PageRenderer extends PageRendererBase {
     }
 
     // script files
-    TobagoResourceSet scriptFiles = (TobagoResourceSet) page.getScriptFiles();
-    scriptFiles.add(0, "tobago.js", true);
+    ListOrderedSet scriptFiles = page.getScriptFiles();
+    scriptFiles.add(0, "script/tobago.js");
     for (Iterator i = scriptFiles.iterator(); i.hasNext();) {
-      Object o = i.next();
-      TobagoResourceSet.Resource script = (TobagoResourceSet.Resource) o;
+      String script = (String) i.next();
       addScripts(writer, facesContext, script);
     }
 
@@ -290,15 +288,8 @@ public class PageRenderer extends PageRendererBase {
 // ----------------------------------------------------------- business methods
 
   private void addScripts(ResponseWriter writer, FacesContext facesContext,
-      TobagoResourceSet.Resource script) throws IOException {
-    List scripts;
-    if (script.isI18n()) {
-      scripts = ResourceManagerUtil.getScripts(facesContext, script.getName());
-    }
-    else {
-      scripts = new ArrayList(1);
-      scripts.add(script.getName());
-    }
+      String script) throws IOException {
+    List scripts = ResourceManagerUtil.getScripts(facesContext, script);
     for (Iterator j = scripts.iterator(); j.hasNext();) {
       String scriptString = (String) j.next();
       if (scriptString.length() > 0 ) {

@@ -7,7 +7,7 @@
     </f:facet>
 
     <tobago:cell spanX="3">
-      <tobago:script file="calendar.js" i18n="true" />
+      <tobago:script file="script/calendar.js" />
     </tobago:cell>
 
     <tobago:cell />

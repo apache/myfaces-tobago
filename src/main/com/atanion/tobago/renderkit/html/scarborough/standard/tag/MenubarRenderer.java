@@ -101,7 +101,7 @@ public class MenubarRenderer extends RendererBase {
     page.getScriptBlocks().add(scriptBlock);
     page.getOnloadScripts().add(setupFunction + "('"
         + clientId + "', '" + page.getClientId(facesContext) + "');");
-    page.getScriptFiles().add("tobago-menu.js", true);
+    page.getScriptFiles().add("script/tobago-menu.js");
     page.getStyleFiles().add("tobago-menu.css");
   }
 
