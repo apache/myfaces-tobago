@@ -188,8 +188,8 @@ public class LayoutInfo{
     return layoutTokens.length > 0;
   }
 
-  public List getSpaceList() {
-    List list = new ArrayList(spaces.length);
+  public List<Integer> getSpaceList() {
+    List<Integer> list = new ArrayList<Integer>(spaces.length);
     for (int i = 0; i < spaces.length; i++) {
       list.add(new Integer(spaces[i]));
     }

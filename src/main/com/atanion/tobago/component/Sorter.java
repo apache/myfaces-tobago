@@ -82,8 +82,7 @@ public class Sorter extends MethodBinding {
             }
 
 
-            List columns = data.getColumns();
-            uiColumn = (UIColumn) columns.get(column);
+            uiColumn = data.getColumns().get(column);
             UIComponent child = getFirstSortableChild(uiColumn.getChildren());
             if (child != null) {
               ValueBinding valueBinding = child.getValueBinding("value");

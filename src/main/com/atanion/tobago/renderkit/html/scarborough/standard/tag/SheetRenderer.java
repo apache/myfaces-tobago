@@ -118,7 +118,6 @@ public class SheetRenderer extends RendererBase {
     List<Integer> columnWidths = data.getWidthList();
 
     String selectedListString = getSelected(data, state);
-    List columnList = data.getColumns();
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
@@ -166,10 +165,8 @@ public class SheetRenderer extends RendererBase {
 
 
       int columnCount = 0;
-      final int sortMarkerWidth = getAscendingMarkerWidth(facesContext,
-          data);
-      for (Iterator j = columnList.iterator(); j.hasNext(); columnCount++) {
-        UIColumn column = (UIColumn) j.next();
+      final int sortMarkerWidth = getAscendingMarkerWidth(facesContext, data);
+      for (UIColumn column : data.getColumns()) {
         renderColumnHeader(facesContext, writer, data, columnCount, column,
             ascending, descending, image1x1, sortMarkerWidth);
       }
@@ -286,8 +283,7 @@ public class SheetRenderer extends RendererBase {
 
 
       int columnIndex = -1;
-      for (Iterator kids = data.getColumns().iterator(); kids.hasNext();) {
-        UIColumn column = (UIColumn) kids.next();
+      for (UIColumn column : data.getColumns()) {
         columnIndex++;
 
         String style = "width: " + columnWidths.get(columnIndex) + "px;";

@@ -14,7 +14,6 @@ import javax.faces.FactoryFinder;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
 import javax.faces.component.UIGraphic;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIParameter;
@@ -66,12 +65,11 @@ public class ComponentUtil {
    * Find all subforms of a component, and collects it.
    * It does not find subforms of subforms.
    */
-  public static void findSubForms(List collect, UIComponent component) {
-    List children = component.getChildren();
-    for (int i = 0; i < children.size(); i++) {
-      UIComponent child = (UIComponent) children.get(i);
+  public static void findSubForms(List<UIForm> collect, UIComponent component) {
+    List<UIComponent> children = component.getChildren();
+    for (UIComponent child : children) {
       if (child instanceof UIForm) {
-        collect.add(child);
+        collect.add((UIForm) child);
       } else {
         findSubForms(collect, child);
       }

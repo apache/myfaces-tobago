@@ -35,8 +35,8 @@ public class SheetState {
     return indices;
   }
 
-  public static List parse(String widthListString) {
-    List list = new ArrayList();
+  public static List<Integer> parse(String widthListString) {
+    List<Integer> list = new ArrayList<Integer>();
 
     StringTokenizer tokenizer = new StringTokenizer(widthListString, ",");
     while (tokenizer.hasMoreElements()) {
