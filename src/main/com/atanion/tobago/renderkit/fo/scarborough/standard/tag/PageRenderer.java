@@ -28,7 +28,6 @@ public class PageRenderer extends PageRendererBase
   private static String FO_LAYOUT = "fo:layout-master-set";
   private static String FO_URL = "http://www.w3.org/1999/XSL/Format";
   private static String PAGE_MASTER = "fo:simple-page-master";
-
   private static String MASTER_NAME = "master-name";
 
   public boolean getRendersChildren() {
@@ -42,6 +41,12 @@ public class PageRenderer extends PageRendererBase
 
   public void encodeBeginTobago(FacesContext facesContext, UIComponent component) throws IOException {
     UIPage page = (UIPage) component;
+    Layout layout = new Layout(2100, 2970);
+    int margin = 60;
+    Layout in = layout.createWithMargin( margin*2, margin*2, margin, margin);
+    in.setParent(layout);
+
+
 
     ResponseWriter writer = facesContext.getResponseWriter();
     writer.startElement(FO_ROOT, page);
@@ -49,28 +54,29 @@ public class PageRenderer extends PageRendererBase
     writer.startElement(FO_LAYOUT, page);
     writer.startElement(PAGE_MASTER, page);
     writer.writeAttribute(MASTER_NAME, "simple", null);
-    writer.writeAttribute("page-height", "29.7cm", null);
-    writer.writeAttribute("page-width", "21cm", null);
-    writer.writeAttribute("margin-top", "1cm", null);
-    writer.writeAttribute("margin-bottom", "2cm", null);
-    writer.writeAttribute("margin-left", "2.5cm", null);
-    writer.writeAttribute("margin-right", "2.5cm", null);
+    writer.writeAttribute("page-height", layout.getHeightMM(), null);
+    writer.writeAttribute("page-width", layout.getWidthMM(), null);
+    writer.writeAttribute("margin-top", Layout.getMM(margin), null);
+    writer.writeAttribute("margin-bottom", Layout.getMM(margin), null);
+    writer.writeAttribute("margin-left", Layout.getMM(margin), null);
+    writer.writeAttribute("margin-right", Layout.getMM(margin), null);
     writer.startElement("fo:region-body", page);
-    writer.writeAttribute("margin-top", "3cm", null);
-    writer.writeAttribute("margin-bottom", "1.5cm", null);
+    writer.writeAttribute("margin-top", Layout.getMM(margin), null);
+    writer.writeAttribute("margin-bottom", Layout.getMM(margin), null);
     writer.endElement("fo:region-body");
-    writer.startElement("fo:region-before", page);
-    writer.writeAttribute("extent", "3cm", null);
-    writer.endElement("fo:region-before");
-    writer.startElement("fo:region-after", page);
-    writer.writeAttribute("extent", "1.5cm", null);
-    writer.endElement("fo:region-after");
+    //writer.startElement("fo:region-before", page);
+    //writer.writeAttribute("extent", Layout.getMM(margin), null);
+    //writer.endElement("fo:region-before");
+    //writer.startElement("fo:region-after", page);
+    //writer.writeAttribute("extent", Layout.getMM(margin), null);
+    //writer.endElement("fo:region-after");
     writer.endElement(PAGE_MASTER);
     writer.endElement(FO_LAYOUT);
     writer.startElement("fo:page-sequence", page);
     writer.writeAttribute("master-reference", "simple", null);
     writer.startElement("fo:flow", page);
     writer.writeAttribute("flow-name", "xsl-region-body", null);
+    Layout.putLayout(page, in);
   }
 
   public void encodeEndTobago(FacesContext facesContext, UIComponent component) throws IOException {
@@ -84,6 +90,36 @@ public class PageRenderer extends PageRendererBase
 
     writer.flush();
   }
+
+  /*public void encodeChildren(FacesContext facesContext, UIComponent component)
+       throws IOException {
+
+     if (LOG.isDebugEnabled()) {
+       LOG.debug("*** children " + component);
+     }
+     UIComponent layout = null;//component.getFacet("layout");
+     if (layout != null) {
+       layout.encodeBegin(facesContext);
+       layout.encodeChildren(facesContext);
+       layout.encodeEnd(facesContext);
+     } else {
+
+       component.getAttributes().put(
+           ATTR_ENCODING_ACTIVE,
+           Boolean.TRUE);
+
+       encodeChildrenTobago(facesContext, component);
+
+       component.getAttributes().put(
+           ATTR_ENCODING_ACTIVE,
+           Boolean.FALSE);
+     }
+
+     if (LOG.isDebugEnabled()) {
+       LOG.debug("*   children " + component);
+     }
+   }*/
+
 
 
 

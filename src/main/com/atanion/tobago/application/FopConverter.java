@@ -35,11 +35,13 @@ public class FopConverter {
       driver.setErrorDump(true);
 //      driver.setInputSource(new InputSource(new FileInputStream("C:/simple.fo")));
 //      driver.setInputSource(new InputSource(new StringReader(fo)));
-      String bufferString = buffer.toString();
+
       if (LOG.isDebugEnabled()) {
-        LOG.debug("bufferString = '" + bufferString + "'");
+        LOG.debug("bufferString = '" + buffer + "'");
+
       }
-      driver.setInputSource(new InputSource(new StringReader(bufferString)));
+      LOG.error("bufferString = '" + buffer + "'");
+      driver.setInputSource(new InputSource(new StringReader(buffer)));
 //      driver.setOutputStream(new FileOutputStream("C:/simple.pdf"));
       ServletOutputStream outputStream = servletResponse.getOutputStream();
 //      FileOutputStream outputStream = new FileOutputStream("c:/simple.pdf");

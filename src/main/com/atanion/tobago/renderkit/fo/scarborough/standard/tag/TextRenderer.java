@@ -22,16 +22,18 @@ public class TextRenderer extends RendererBase {
     if (text == null) {
       text = "";
     }
+    Layout layout = Layout.getLayout(component.getParent());
+    //layout.addMargin(200, 0, 0, 0);
     ResponseWriter writer = facesContext.getResponseWriter();
     writer.startElement("fo:block", component);
-    writer.writeAttribute("font-size", "18pt", null);
+    writer.writeAttribute("font-size", "16pt", null);
     writer.writeAttribute("font-family", "sans-serif", null);
-    writer.writeAttribute("line-height", "24pt", null);
-    writer.writeAttribute("space-after.optimum", "15pt", null);
-    writer.writeAttribute("background-color", "blue", null);
+    //writer.writeAttribute("line-height", "24pt", null);
+    //writer.writeAttribute("space-after.optimum", "15pt", null);
+    writer.writeAttribute("background-color", "red", null);
     writer.writeAttribute("color", "white", null);
-    writer.writeAttribute("text-align", "center", null);
-    writer.writeAttribute("padding-top", "3pt", null);
+    writer.writeAttribute("text-align", "left", null);
+    //writer.writeAttribute("padding-top", "3pt", null);
     writer.writeText(text, null);
     writer.endElement("fo:block");
 
