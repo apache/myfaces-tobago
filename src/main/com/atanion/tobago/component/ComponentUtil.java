@@ -361,13 +361,25 @@ public class ComponentUtil implements TobagoConstants {
   }
 
   public static void debug(UIComponent component, int offset) {
-    LOG.debug(spaces(offset) + component.getClass().getName()
-        + '@' + Integer.toHexString(component.hashCode())
-        + " " + component.getRendererType()
-        + " " + component.getId());
+    LOG.debug(spaces(offset) + debugComponent(component));
+    Map facets = component.getFacets();
+    if (facets.size() > 0) {
+      for (Iterator iter = facets.keySet().iterator(); iter.hasNext();) {
+        Object name = iter.next();
+        LOG.debug(spaces(offset + 1) + "\"" + name + "\" = "
+            + debugComponent((UIComponent) facets.get(name)));
+      }
+    }
     for (Iterator i = component.getChildren().iterator(); i.hasNext();) {
       debug((UIComponent) i.next(), offset + 1);
     }
+  }
+
+  private static String debugComponent(UIComponent component) {
+    return component.getClass().getName()
+        + '@' + Integer.toHexString(component.hashCode())
+        + " " + component.getRendererType()
+        + " " + component.getId();
   }
 
   private static String spaces(int n) {
