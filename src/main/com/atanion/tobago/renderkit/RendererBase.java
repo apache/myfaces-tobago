@@ -169,7 +169,7 @@ public abstract class RendererBase
       UIComponent parent = LayoutUtil.getNonTransparentParent(component);
       if (parent instanceof UIPanel
           && ComponentUtil.getBooleanAttribute(parent, ATTR_LAYOUT_DIRECTIVE)) {
-          component = parent;
+        component = parent;
       }
       UIComponent parent2 = LayoutUtil.getNonTransparentParent(component);
       if (parent2 != null) {
