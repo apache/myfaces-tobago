@@ -52,7 +52,6 @@ public class TobagoServletContextListener implements ServletContextListener {
 
 //      LOG.info("stream == " + stream);
 
-
       final License license = LicenseCheck.loadLicense(stream);
       if (! license.isValid("tobago")) {
         throw new LicenseException("invald license found: " + license.toString());
