@@ -138,16 +138,6 @@ public class UIPage extends UIForm {
     getScriptBlocks().clear();
   }
 
-  public void storeFocusId(String id) {
-    if (getFocusId() != null && ! getFocusId().equals(id)) {
-      LOG.warn(
-          "local focusId = \"" + getFocusId() + "\" ignoring new value \""
-          + id + "\"");
-    } else {
-      setFocusId(id);
-    }
-  }
-
   public List getPostfields() {
     if (postfields == null) {
       postfields = new ArrayList();

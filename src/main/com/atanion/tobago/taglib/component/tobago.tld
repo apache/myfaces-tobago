@@ -1291,11 +1291,14 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>focus</name>
+      <name>focusId</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
       <description>
-        set componentReference="none" to disable setting of focus
+        Contains the id of the component witch should have the focus after
+        loading the page.
+        Set to emtpy string for disabling setting of focus.
+        Default (null) enables the "auto focus" feature.
       </description>
     </attribute>
 

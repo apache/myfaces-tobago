@@ -32,7 +32,7 @@ public class PageTag extends TobagoBodyTag {
 
   private String stateBinding;
 
-  private String focus;
+  private String focusId;
 
 // ----------------------------------------------------------- business methods
 
@@ -56,7 +56,6 @@ public class PageTag extends TobagoBodyTag {
     pageContext.getResponse().setContentType(generateContentType(charset));
     pageContext.setAttribute(PAGE_IN_REQUEST, this, PageContext.REQUEST_SCOPE);
     final int result = super.doStartTag();
-    ((UIPage)getComponentInstance()).storeFocusId(focus);
     return result;
   }
 
@@ -89,6 +88,7 @@ public class PageTag extends TobagoBodyTag {
     doctype = "loose";
     method = "POST";
     stateBinding = null;
+    focusId = null;
   }
 
   protected void setProperties(UIComponent component) {
@@ -96,6 +96,7 @@ public class PageTag extends TobagoBodyTag {
     ComponentUtil.setStringProperty(component, ATTR_METHOD, method, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_CHARSET, charset, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_DOCTYPE, doctype, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_FOCUS_ID, focusId, getIterationHelper());
 
     // todo: check, if it is an writeable object
     if (stateBinding != null && isValueReference(stateBinding)) {
@@ -122,12 +123,12 @@ public class PageTag extends TobagoBodyTag {
     this.stateBinding = stateBinding;
   }
 
-  public String getFocus() {
-    return focus;
+  public String getFocusId() {
+    return focusId;
   }
 
-  public void setFocus(String focus) {
-    this.focus = focus;
+  public void setFocusId(String focusId) {
+    this.focusId = focusId;
   }
 }
 
