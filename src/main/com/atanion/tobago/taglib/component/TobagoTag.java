@@ -69,7 +69,7 @@ public abstract class TobagoTag extends UIComponentTag
     }
 
     ForEachTag.IterationHelper iterationHelper = getIterationHelper();
-    if (iterationHelper != null) {
+    if (iterationHelper != null && localBinding != null) { // todo: ask Volker is this is correct
       setBinding(iterationHelper.replace(localBinding));
     }
 
