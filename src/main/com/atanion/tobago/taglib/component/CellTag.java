@@ -1,14 +1,12 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.TobagoConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.component.UIComponent;
-import javax.faces.el.ValueBinding;
-import javax.faces.context.FacesContext;
 import javax.faces.application.Application;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.servlet.jsp.JspException;
 
 /*
