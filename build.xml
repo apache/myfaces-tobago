@@ -60,7 +60,7 @@
 
   </target>
 
-  <target name="deploy-theme-snapshot" depends="dist, bs:init-project-info, deploy-snapshot"
+  <target name="deploy-snapshot" depends="dist, bs:init-project-info, build-basic.deploy-snapshot"
     description="Deploy an artifact into the local repository.">
 
     <macrodef name="deploy-theme">
