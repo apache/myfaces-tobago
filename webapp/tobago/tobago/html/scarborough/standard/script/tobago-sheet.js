@@ -26,7 +26,7 @@ function initSheet(sheetId) {
   }
 
   var sheet = document.getElementById(sheetId + "_outher_div");
-  sheet.tobagoLastClickedRowId = "None";
+  sheet.tobagoLastClickedRowId = getFirstSelectionRow(sheetId).id;
   addSelectionListener(sheetId);
   adjustScrollBars(sheetId);
 }
