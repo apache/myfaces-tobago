@@ -145,9 +145,11 @@ public class SheetRenderer extends RendererBase
       if (columnLayout != null) {
         widthList = (List) attributes.get(TobagoConstants.ATTR_WIDTH_LIST);
         if (widthList == null) {
-          int space = LayoutUtil.getInnerSpace(facesContext, data, true)
-              - (needVerticalScrollbar(facesContext, data)
-              ? getScrollbarWidth(facesContext, data) : 0);
+          int space = LayoutUtil.getInnerSpace(facesContext, data, true);
+          space -= getConfiguredValue(facesContext, data, "contentBorder");
+          if (needVerticalScrollbar(facesContext, data)) {
+            space -= getScrollbarWidth(facesContext, data);
+          }
           LayoutInfo layoutInfo = new LayoutInfo(
               getColumns(data).size(), space, columnLayout);
           layoutInfo.parseColumnLayout(space);
