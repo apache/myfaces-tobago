@@ -11,7 +11,7 @@ import com.atanion.tobago.TobagoConstants;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
-public class LabelTag extends OutputTag {
+public class LabelTag extends BeanTag {
 
 // ///////////////////////////////////////////// constant
 

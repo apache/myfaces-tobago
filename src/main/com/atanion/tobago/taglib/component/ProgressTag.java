@@ -11,7 +11,7 @@ import com.atanion.tobago.TobagoConstants;
 
 import javax.faces.component.UIOutput;
 
-public class ProgressTag extends OutputTag {
+public class ProgressTag extends BeanTag {
 
 // /////////////////////////////////////////// constants
 

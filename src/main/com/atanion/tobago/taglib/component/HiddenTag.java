@@ -11,7 +11,7 @@ import com.atanion.tobago.TobagoConstants;
 
 import javax.faces.component.UIInput;
 
-public class HiddenTag extends OutputTag{
+public class HiddenTag extends BeanTag{
 
   public String getComponentType() {
     return UIInput.COMPONENT_TYPE;
