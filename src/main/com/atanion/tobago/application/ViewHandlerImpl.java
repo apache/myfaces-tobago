@@ -7,7 +7,6 @@ package com.atanion.tobago.application;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.webapp.TobagoServletMapping;
 import org.apache.commons.logging.Log;
@@ -16,7 +15,6 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.FacesException;
 import javax.faces.render.RenderKitFactory;
 import javax.faces.application.ViewHandler;
-import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
@@ -225,24 +223,6 @@ public class ViewHandlerImpl extends ViewHandler {
         if (LOG.isDebugEnabled()) {
           LOG.debug("found old view with matching viewId:  '" + viewId + "'");
         }
-// fixme: for what it is? and may the decode method called here?
-        UIPage page = findPage(viewRoot);
-        try {
-          facesContext.setViewRoot(viewRoot); // needed to decode
-          page.decode(facesContext);
-          if (page.getActionId() == null) {
-            if (LOG.isDebugEnabled()) {
-              LOG.debug("old view is not valid!");
-            }
-            viewRoot = null;
-          }
-        } catch (Throwable e) {
-          if (LOG.isDebugEnabled()) {
-            LOG.debug("old view is not valid!", e);
-          }
-          viewRoot = null;
-        }
-
       } else {
         if (LOG.isDebugEnabled()) {
           LOG.debug(
@@ -276,26 +256,6 @@ public class ViewHandlerImpl extends ViewHandler {
       LOG.error("" + e, e);
     }
   }
-
-  // fixme: don't use UIPage and UIComponent here
-  private UIPage findPage(UIComponent component) {
-    if (component instanceof UIPage) {
-      return (UIPage) component;
-    }
-
-    Iterator iter = component.getChildren().iterator();
-    while (iter.hasNext()) {
-      UIComponent child = (UIComponent) iter.next();
-      UIPage page = findPage(child);
-      if (page != null) {
-        return page;
-      }
-    }
-
-    return null;
-  }
-
-
 
 // ///////////////////////////////////////////// bean getter + setter
 
