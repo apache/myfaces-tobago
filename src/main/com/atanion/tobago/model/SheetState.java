@@ -5,15 +5,12 @@
  */
 package com.atanion.tobago.model;
 
-import com.atanion.tobago.TobagoConstants;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
-import java.util.Iterator;
-
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 public class SheetState {
 
@@ -26,7 +23,9 @@ public class SheetState {
   private String selected;
   private String columnWidths;
 
-
+  public void resetSelected() {
+    selected = "";
+  }
 
   public int[] getSelectedIndices() {
     List list = parse(selected);
@@ -36,7 +35,6 @@ public class SheetState {
     }
     return indices;
   }
-
 
   public static List parse(String widthListString) {
     List list = new ArrayList();
