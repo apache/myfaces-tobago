@@ -233,27 +233,6 @@ div.tobago-groupbox-default {
   overflow: auto;
 }
 
-
-.tobago-groupbox-body-td-border  {
-  border: 1px solid #660000;
-  padding: 0px;
-}
-
-.tobago-groupbox-head-td-left {
-  background: #660000 url(../image/corner_tl.gif) no-repeat;
-  font: bold 14px arial, helvetica, sans-serif;
-  color: #ffffff;
-  padding-left: 10px;
-}
-
-.tobago-groupbox-head-td-right {
-  background: #660000;
-}
-
-td.tobago-groupbox-body-td {
-  padding: 10px;
-}
-
 /* label ------------------------------------------------------------------- */
 
 span.tobago-label-default  {
