@@ -257,18 +257,16 @@ public abstract class RendererBase
     if (ComponentUtil.isError(component)) {
       tobagoClass += "tobago-" + rendererType + "-error ";
     }
-    String themeClass;
-    ValueBinding vb = component.getValueBinding(ATTR_THEME_CLASS);
+    String markup;
+    ValueBinding vb = component.getValueBinding(ATTR_MARKUP);
     if (vb != null) {
-      themeClass = (String) vb.getValue(FacesContext.getCurrentInstance());
+      markup = (String) vb.getValue(FacesContext.getCurrentInstance());
+    } else {
+      markup = (String) component.getAttributes().get(ATTR_MARKUP);
     }
-    else {
-      themeClass = (String)
-          component.getAttributes().get(ATTR_THEME_CLASS);
-    }
-    if (themeClass != null && themeClass.trim().length() > 0
-        && "strong deleted".indexOf(themeClass) != -1) {
-      tobagoClass += "tobago-" + rendererType + "-theme-" + themeClass + " ";
+    if (markup != null && markup.trim().length() > 0
+        && "strong deleted".indexOf(markup) != -1) { // fixme
+      tobagoClass += "tobago-" + rendererType + "-theme-" + markup + " ";
     }
 
     return tobagoClass + cssClass;

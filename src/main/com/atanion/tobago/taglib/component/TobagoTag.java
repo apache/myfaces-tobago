@@ -51,8 +51,6 @@ public abstract class TobagoTag extends UIComponentTag
 
   private String inline;
 
-  private String themeClass;
-
 // ----------------------------------------------------------- business methods
 
   public int doStartTag() throws JspException {
@@ -94,7 +92,6 @@ public abstract class TobagoTag extends UIComponentTag
     title = null;
     width = null;
     height = null;
-    themeClass = null;
   }
 
   protected void setProperties(UIComponent component) {
@@ -114,8 +111,6 @@ public abstract class TobagoTag extends UIComponentTag
 
     ComponentUtil.setStringProperty(component, ATTR_WIDTH, width, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_HEIGHT, height, getIterationHelper());
-
-    ComponentUtil.setStringProperty(component, ATTR_THEME_CLASS, themeClass, getIterationHelper());
   }
 
 
@@ -200,14 +195,6 @@ public abstract class TobagoTag extends UIComponentTag
 
   public void setReadonly(String readonly) {
     this.readonly = readonly;
-  }
-
-  public String getThemeClass() {
-    return themeClass;
-  }
-
-  public void setThemeClass(String themeClass) {
-    this.themeClass = themeClass;
   }
 
   public String getTitle() {

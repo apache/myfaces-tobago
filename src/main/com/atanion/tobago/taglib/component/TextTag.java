@@ -15,6 +15,7 @@ public class TextTag extends BeanTag {
 // ----------------------------------------------------------------- attributes
 
   private String escape = "true";
+  private String markup;
 
 // ----------------------------------------------------------- business methods
 
@@ -25,12 +26,14 @@ public class TextTag extends BeanTag {
   public void release() {
     super.release();
     escape = "true";
+    markup = null;
   }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
    ComponentUtil.setBooleanProperty(component, ATTR_ESCAPE, escape, getIterationHelper());
    ComponentUtil.setBooleanProperty(component, ATTR_CREATE_SPAN, "true", getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_MARKUP, markup, getIterationHelper());
   }
 
 // ------------------------------------------------------------ getter + setter
@@ -41,5 +44,13 @@ public class TextTag extends BeanTag {
 
   public void setEscape(String escape) {
     this.escape = escape;
+  }
+
+  public String getMarkup() {
+    return markup;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 }
