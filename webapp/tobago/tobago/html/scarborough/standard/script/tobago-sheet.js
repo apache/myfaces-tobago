@@ -116,7 +116,7 @@ function updateSelectionView(sheetId, selected) {
     var re = new RegExp("," + i +",");
     var classes = row.className;
     if (selected.search(re) == -1) { // not selected: remove selection class
-      row.className = classes.replace(/tobago-sheet-row-selected/g);
+      row.className = classes.replace(/tobago-sheet-row-selected/g, "");
     }
     else {  // selected: check selection class
       if (classes.search(/tobago-sheet-row-selected/) == -1) {
