@@ -1,4 +1,11 @@
 
+
+// div is expanding by content
+// content is div with css-class tobago-groupbox-content-inner
+.tobago-groupbox-content {
+  height: 0px;
+}
+
 .tobago-groupbox-header-toolbar-div {
   margin-top: -1px;
 }
