@@ -2,6 +2,8 @@
 .tobago-sheet-outer-div {
   overflow: hidden;
   position: relative;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
 .tobago-sheet-header-div {
@@ -14,6 +16,8 @@
   top: 0px;
   white-space: nowrap;
   z-index: 2;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
 
 }
 
@@ -130,10 +134,13 @@
   position: absolute;
   text-align: center;
   overflow: hidden;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
 .tobago-sheet-paging-input {
   width: 30px;
+  height: 20px;
   padding-top: 0px;
   text-align: center;
 }
