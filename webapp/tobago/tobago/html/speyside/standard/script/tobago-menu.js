@@ -43,6 +43,18 @@ function getMenuArrowWidth() {
   return 15;
 }
 
+function getPopupImageTop(popup) {
+  if (popup == "ToolbarButton") {
+    return "2px";
+  }
+  else if (popup == "SheetSelector") {
+    return "0px";
+  }
+  else {
+    PrintDebug("unbekanter Popup Typ :" + popup);
+    return "0px";
+  }
+}
 function getToolbarButtonMenuTopOffset() {
   return -1;
 }

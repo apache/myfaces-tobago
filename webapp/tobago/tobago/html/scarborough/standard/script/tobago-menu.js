@@ -554,7 +554,7 @@ function getMenuTimeoutHover() {
   return 100;
 }
 function getMenuTimeoutOut() {
-  return 150;
+  return 30;
 }
 
 function getMenubarBorderWidth() {

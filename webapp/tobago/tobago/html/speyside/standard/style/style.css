@@ -270,7 +270,7 @@ div.tobago-box-default {
 }
 .tobago-box-header-toolbar-div{
   position: absolute;
-  top: 0px;
+  top: 1px;
   left: 0px;
 }
 .tobago-box-header-toolbar-span {
