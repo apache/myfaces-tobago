@@ -35,13 +35,18 @@ public final class LabelWithAccessKey {
     text = (String) component.getAttributes().get(
         TobagoConstants.ATTR_LABEL);
 
+    setup(labelWithAccessKey);
+
+  }
+
+  public void setup(String labelWithAccessKey) {
     if (labelWithAccessKey != null && (accessKey != null || text != null)) {
       LOG.warn("labelWithAccessKey overwrites accessKey or label: "
          + "labelWithAccessKey='" + labelWithAccessKey + "', "
          + "accessKey ='" + accessKey + "', "
          + "label='" + text + "'.");
     }
-    
+
     if (labelWithAccessKey != null) {
       pos = labelWithAccessKey.indexOf(INDICATOR);
       if (pos == -1) {

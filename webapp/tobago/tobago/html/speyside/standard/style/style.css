@@ -1,6 +1,6 @@
 /* $Id$ */
 
-a:link, a:visited, a:active, a:hover {
+.tobago-link-default {
   font: bold 12px arial, helvetica, sans-serif;
   color: #000000;
   text-decoration: none;

@@ -197,7 +197,9 @@ public class PageRenderer extends PageRendererBase
     TobagoResourceSet scriptFiles = (TobagoResourceSet) page.getScriptFiles();
     scriptFiles.add(0, "tobago.js", true);
     for (Iterator i = scriptFiles.iterator(); i.hasNext();) {
-      TobagoResourceSet.Resource script = (TobagoResourceSet.Resource) i.next();
+      Object o = i.next();
+      LOG.info("object ist " + o + "  " + o.getClass().getName());
+      TobagoResourceSet.Resource script = (TobagoResourceSet.Resource) o;
       addScripts(writer, facesContext, script);
     }
 
@@ -297,6 +299,7 @@ public class PageRenderer extends PageRendererBase
       }
     }
 
+    writer.write("<div id=\"LogDiv\" style=\"position:  absolute; left: 760px; top: 10px; height: 600px;width: 400px; overflow: auto;\"><ol id=\"Log\" style=\"font-family:Arial,sans-serif; font-size:10pt\"><li>Ereignisliste</li></ol> </div>");
     writer.endElement("body");
     writer.endElement("html");
   }

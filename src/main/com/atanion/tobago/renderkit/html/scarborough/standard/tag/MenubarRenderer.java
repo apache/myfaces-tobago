@@ -167,7 +167,15 @@ public class MenubarRenderer extends RendererBase
 
     writer.startElement("a", null);
     writer.writeAttribute("class", spanClass, null);
+
+//    writer.writeAttribute("href", "javascript:PrintDebug(\"onclick navigation\")", null);
+
+
     if (label.getAccessKey() != null) {
+      writer.writeAttribute("href", "#", null);
+      writer.writeAttribute("onfocus", "tobagoMenuFocus(event)", null);
+      writer.writeAttribute("onblur", "tobagoMenuBlur(event)", null);
+      writer.writeAttribute("onkeydown", "tobagoMenuKeyDown(event)", null);
       writer.writeAttribute("accesskey", label.getAccessKey(), null);
     }
     RenderUtil.writeLabelWithAccessKey(writer, label);
@@ -308,7 +316,7 @@ public class MenubarRenderer extends RendererBase
     String onClickPostfix = onClick != null ? "') ; " + onClick : "";
     for (Iterator i = items.iterator(); i.hasNext(); ) {
       SelectItem item = (SelectItem) i.next();
-      label.text = item.getLabel();
+      label.setup(item.getLabel());
       Object itemValue = item.getValue();
       onClick = onClickPrefix + itemValue + onClickPostfix;
       if (itemValue.equals(value) || markFirst) {
@@ -368,15 +376,19 @@ public class MenubarRenderer extends RendererBase
 
     addImage(writer, facesContext, image);
 
-    writer.startElement("span", null);
+    writer.startElement("a", null);
     writer.writeAttribute("class", spanClass, null);
     if (label.getAccessKey() != null) {
       writer.writeAttribute("accesskey", label.getAccessKey(), null);
+      writer.writeAttribute("onfocus", "tobagoMenuFocus(event)", null);
+      writer.writeAttribute("onblur", "tobagoMenuBlur(event)", null);
+      writer.writeAttribute("onkeydown", "tobagoMenuKeyDown(event)", null);
+      writer.writeAttribute("href", "#", null);
     }
     if (label.getText() != null) {
       RenderUtil.writeLabelWithAccessKey(writer, label);
     }
-    writer.endElement("span");
+    writer.endElement("a");
 
     facesContext.setResponseWriter(savedWriter);
     final String html = stringWriter.toString();

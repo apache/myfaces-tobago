@@ -321,3 +321,15 @@ function setDivWidth(id, width) {
     element.style.width = width;
   }
 }
+
+function tobagoFireEvent(element, event) {
+  PrintDebug("fireEvent >" + event + "< on " + element);
+  PrintDebug("fireEvent >" + event + "< on " + window.event);
+  PrintDebug("fireEvent >" + event + "< on " + element.parentNode);
+  if (element.parentNode) {
+    element.parentNode.fireEvent(event);
+  }
+  PrintDebug("fireEvent >" + event + "< on " + element.parentNode.id);
+  return true;
+}
+
