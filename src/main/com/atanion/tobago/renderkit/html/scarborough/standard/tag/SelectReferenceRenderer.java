@@ -23,11 +23,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemsRenderer extends RendererBase{
+public class SelectReferenceRenderer extends RendererBase{
 
 // ///////////////////////////////////////////// constant
 
-  private static final Log LOG = LogFactory.getLog(ItemsRenderer.class);
+  private static final Log LOG = LogFactory.getLog(SelectReferenceRenderer.class);
 
 // ///////////////////////////////////////////// attribute
 
@@ -39,7 +39,7 @@ public class ItemsRenderer extends RendererBase{
       UIComponent component)
       throws IOException {
     String referenceId = (String)
-        component.getAttributes().get(TobagoConstants.ATTR_REFERENCE);
+        component.getAttributes().get(TobagoConstants.ATTR_FOR);
     UIComponent reference = component.findComponent(referenceId);
 
     reference.getAttributes().put(TobagoConstants.ATTR_RENDER_RANGE_EXTERN,

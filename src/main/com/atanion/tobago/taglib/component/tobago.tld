@@ -1417,8 +1417,8 @@
   </tag>
 
   <tag>
-    <name>items</name>
-    <tag-class>com.atanion.tobago.taglib.component.ItemsTag</tag-class>
+    <name>selectReference</name>
+    <tag-class>com.atanion.tobago.taglib.component.SelectReferenceTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -1426,7 +1426,7 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>reference</name>
+      <name>for</name>
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>

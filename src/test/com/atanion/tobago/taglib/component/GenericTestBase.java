@@ -38,7 +38,7 @@ abstract public class GenericTestBase extends TestCase {
       new HiddenTag(),
       new ImageTag(),
       new InTag(),
-      new ItemsTag(),
+      new SelectReferenceTag(),
       new LabelTag(),
       new LinkTag(),
       new MenubarTag(),
