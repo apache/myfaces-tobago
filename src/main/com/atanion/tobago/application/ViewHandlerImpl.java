@@ -8,19 +8,17 @@ package com.atanion.tobago.application;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ClientProperties;
+import com.atanion.tobago.webapp.TobagoResponse;
 import com.atanion.tobago.webapp.TobagoServletMapping;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.FacesException;
-import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -32,7 +30,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -196,40 +193,35 @@ public class ViewHandlerImpl extends ViewHandler {
       LOG.debug("contentType = '" + contentType + "'");
     }
     try {
-      StringWriter buffer = null;
+     
       if (contentType.indexOf("fo") == -1) {
         // standard
         facesContext.getExternalContext().dispatch(requestUri);
       } else {
-        // fo -> pdf
-        ResponseWriter writer = facesContext.getResponseWriter();
-        if (writer == null) {
-          RenderKitFactory renderFactory = (RenderKitFactory)
-              FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
-          RenderKit renderKit = renderFactory.getRenderKit(facesContext,
-              facesContext.getViewRoot().getRenderKitId());
-          buffer = new StringWriter();
-          writer = renderKit.createResponseWriter(buffer, "text/fo", null);
+        if (facesContext.getExternalContext().getResponse() instanceof TobagoResponse) {
+          ((TobagoResponse) facesContext.getExternalContext().getResponse()).setBuffering();
+
+
+          // own dispatch
+          HttpServletRequest request = (HttpServletRequest)
+              facesContext.getExternalContext().getRequest();
+          HttpServletResponse response = (HttpServletResponse)
+              facesContext.getExternalContext().getResponse();
+          RequestDispatcher requestDispatcher
+              = request.getRequestDispatcher(requestUri);
+          requestDispatcher.include(request, response);
+          response.setContentType("application/pdf");
+          String buffer =
+              ((TobagoResponse) facesContext.getExternalContext().getResponse()).getBufferedString();
+          ServletResponse servletResponse = (ServletResponse)
+              facesContext.getExternalContext().getResponse();
           if (LOG.isDebugEnabled()) {
-            LOG.debug("writer = '" + writer + "'");
+            LOG.debug("fo buffer: " + buffer);
           }
-          facesContext.setResponseWriter(writer);
-        } else {
-          throw new FacesException("ResponseWriter is already set.");
+          FopConverter.fo2Pdf(servletResponse, buffer);
+
         }
-        // own dispatch
-        HttpServletRequest request = (HttpServletRequest)
-            facesContext.getExternalContext().getRequest();
-        HttpServletResponse response = (HttpServletResponse)
-            facesContext.getExternalContext().getResponse();
-        RequestDispatcher requestDispatcher
-            = request.getRequestDispatcher(requestUri);
-        requestDispatcher.include(request, response);
-        response.setContentType("application/octet-stream");
-        ServletResponse servletResponse = (ServletResponse)
-            facesContext.getExternalContext().getResponse();
-        LOG.debug("fo buffer: " + buffer.toString());
-        FopConverter.fo2Pdf(servletResponse, buffer);
+        
       }
     } catch (Exception e) {
 //      if (contentType.indexOf("fo") > -1) {
@@ -246,6 +238,8 @@ public class ViewHandlerImpl extends ViewHandler {
       ComponentUtil.debug(facesContext.getViewRoot(), 0);
     }
   }
+
+
 
   public void writeState(FacesContext facesContext) throws IOException {
     LOG.error("not implemented yet!"); // fixme jsfbeta

@@ -35,11 +35,12 @@ public class PageRenderer extends PageRendererBase
     return true;
   }
 
+
   public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  public void encodeEndTobago(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBeginTobago(FacesContext facesContext, UIComponent component) throws IOException {
     UIPage page = (UIPage) component;
 
     ResponseWriter writer = facesContext.getResponseWriter();
@@ -70,17 +71,13 @@ public class PageRenderer extends PageRendererBase
     writer.writeAttribute("master-reference", "simple", null);
     writer.startElement("fo:flow", page);
     writer.writeAttribute("flow-name", "xsl-region-body", null);
-    writer.startElement("fo:block", page);
-    writer.writeAttribute("font-size", "18pt", null);
-    writer.writeAttribute("font-family", "sans-serif", null);
-    writer.writeAttribute("line-height", "24pt", null);
-    writer.writeAttribute("space-after.optimum", "15pt", null);
-    writer.writeAttribute("background-color", "blue", null);
-    writer.writeAttribute("color","white", null);
-    writer.writeAttribute("text-align","center", null);
-    writer.writeAttribute("padding-top","3pt", null);
-    writer.writeText("TESt PAGE", null);
-    writer.endElement("fo:block");
+  }
+
+  public void encodeEndTobago(FacesContext facesContext, UIComponent component) throws IOException {
+    UIPage page = (UIPage) component;
+
+    ResponseWriter writer = facesContext.getResponseWriter();
+
     writer.endElement("fo:flow");
     writer.endElement("fo:page-sequence");
     writer.endElement(FO_ROOT);

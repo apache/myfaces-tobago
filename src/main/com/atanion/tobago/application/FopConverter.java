@@ -23,7 +23,7 @@ public class FopConverter {
 
   private static final Log LOG = LogFactory.getLog(FopConverter.class);
 
-  public static void fo2Pdf(ServletResponse servletResponse, StringWriter buffer) {
+  public static void fo2Pdf(ServletResponse servletResponse, String buffer) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("buffer = '" + buffer + "'");
     }
