@@ -1,4 +1,3 @@
-<%@ page errorPage="/errorPage.jsp" %>
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tobago" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <f:view>
