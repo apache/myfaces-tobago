@@ -72,7 +72,7 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
     writer.startElement("td", null);
 
     writer.writeText("", null);
-    RenderUtil.encodePanel(facesContext, (UIPanel) component);
+    RenderUtil.encodeChildren(facesContext, (UIPanel) component);
 
     writer.endElement("td");
     writer.endElement("tr");

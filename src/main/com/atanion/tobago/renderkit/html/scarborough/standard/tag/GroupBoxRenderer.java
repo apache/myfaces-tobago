@@ -66,7 +66,7 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
     writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_INNER);
 
     writer.writeText("", null);
-    RenderUtil.encodePanel(facesContext, (UIPanel) component);
+    RenderUtil.encodeChildren(facesContext, (UIPanel) component);
 
     writer.endElement("div");
     writer.endElement("fieldset");

@@ -241,7 +241,7 @@ public class TabGroupRenderer extends RendererBase
         writer.writeAttribute("style", bodyStyle, null);
 
         writer.writeText("", null);
-        RenderUtil.encodePanel(facesContext, activeTab);
+        RenderUtil.encodeChildren(facesContext, activeTab);
 
 
         writer.endElement("td");

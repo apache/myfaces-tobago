@@ -57,7 +57,7 @@
          HtmlUtils.generateAttributeFromKey("style", component,
              TobagoConstants.ATTR_STYLE_INNER)%>><%
 
-    RenderUtil.encodePanel(facesContext, component);
+    RenderUtil.encodeChildren(facesContext, component);
 %></div>
     </td>
   </tr>

@@ -97,7 +97,7 @@ public class RenderUtil {
     return renderer;
   }
 
-  public static void encodePanel(FacesContext facesContext, UIPanel panel)
+  public static void encodeChildren(FacesContext facesContext, UIComponent panel)
       throws IOException {
     UIComponent layout = panel.getFacet("layout");
     if (layout != null) {
