@@ -7,6 +7,7 @@ package com.atanion.tobago.util;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UIForm;
 import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.RendererBase;
 import org.apache.commons.logging.Log;
@@ -227,12 +228,17 @@ public class LayoutUtil {
 
   public static boolean isTransparentForLayout(UIComponent component) {
 
-//    at this time (10.05.2004) only
 //    SubViewTag's component is UINamingContainer with 'null' rendererType
-//    seems it is the only one
+//    is transparent for layouting
 
     if (component instanceof UINamingContainer
         && component.getRendererType() == null) {
+      return true;
+    }
+
+//  also Forms are transparent for layouting
+
+    if (component instanceof UIForm) {
       return true;
     }
 
