@@ -18,6 +18,12 @@ public class UserWrapper {
 
   private static final Log LOG = LogFactory.getLog(UserWrapper.class);
 
+  private Map roles;
+
+  public UserWrapper() {
+    roles = new RolesMap();
+  }
+
   public Principal getPrincipal() {
     FacesContext facesContext = FacesContext.getCurrentInstance();
     Principal principal = facesContext.getExternalContext().getUserPrincipal();
@@ -26,9 +32,7 @@ public class UserWrapper {
   }
 
   public Map getRoles() {
-    // todo: optimize me: not a new object every time
-    // todo: but keep "thread save"
-    return new RolesMap();
+    return roles;
   }
 
   private static class RolesMap implements Map {

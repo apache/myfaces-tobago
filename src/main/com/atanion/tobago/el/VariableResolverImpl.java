@@ -17,6 +17,7 @@ public class VariableResolverImpl extends VariableResolver {
   private static final Log LOG = LogFactory.getLog(VariableResolverImpl.class);
 
   private VariableResolver base;
+  private UserWrapper userWrapper;
 
   public VariableResolverImpl(VariableResolver base) {
     LOG.info("Hiding ri base implemation: " + base);
@@ -30,7 +31,10 @@ public class VariableResolverImpl extends VariableResolver {
     if ("user".equals(name)) {
       // todo: optimize me: not a new object every time
       // todo: but keep "thread save"
-      return new UserWrapper();
+      if (userWrapper == null) {
+        userWrapper = new UserWrapper();
+      }
+      return userWrapper;
     } else {
       return base.resolveVariable(facesContext, name);
     }
