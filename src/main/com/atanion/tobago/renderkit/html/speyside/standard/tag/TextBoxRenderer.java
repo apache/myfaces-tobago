@@ -56,6 +56,7 @@ public class TextBoxRenderer extends TextBoxRendererBase
     boolean isInline = ComponentUtil.isInline(input); // fixme
     String image = TobagoResource.getImage(facesContext, "1x1.gif");
     UIComponent label = input.getFacet(TobagoConstants.FACET_LABEL);
+    UIComponent picker = input.getFacet("picker");
 
     if (!isInline) {
       writer.startElement("table", null);
@@ -85,6 +86,15 @@ public class TextBoxRenderer extends TextBoxRendererBase
       writer.writeAttribute("rowspan", "2", null);
       writer.writeText("", null); // to ensure that the start-tag is closed!
       renderMain(facesContext, input, writer);
+      if (picker != null) {
+        writer.endElement("td");
+        writer.startElement("td", null);
+        writer.writeAttribute("valign", "top", null);
+        writer.writeAttribute("rowspan", "2", null);
+        writer.writeAttribute("style", "padding-left: 5px;", null);
+
+        renderPicker(facesContext, input, picker);
+      }
       writer.endElement("td");
       writer.endElement("tr");
       writer.startElement("tr", null);
@@ -110,6 +120,7 @@ public class TextBoxRenderer extends TextBoxRendererBase
       writer.endElement("table");
     } else {
       renderMain(facesContext, input, writer);
+      renderPicker(facesContext, input, picker);
     }
   }
 

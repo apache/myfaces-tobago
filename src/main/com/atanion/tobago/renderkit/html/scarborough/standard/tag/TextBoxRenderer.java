@@ -53,10 +53,11 @@ public class TextBoxRenderer extends TextBoxRendererBase
       throws IOException {
 
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
+    UIComponent picker = component.getFacet("picker");
     TobagoResponseWriter writer = (TobagoResponseWriter)
         facesContext.getResponseWriter();
 
-    if (label != null) {
+    if (label != null || picker != null) {
       writer.startElement("table", null);
       writer.writeAttribute("border", "0", null);
       writer.writeAttribute("cellspacing", "0", null);
@@ -65,7 +66,8 @@ public class TextBoxRenderer extends TextBoxRendererBase
       writer.startElement("tr", null);
       writer.startElement("td", null);
       writer.writeText("", null);
-
+    }
+    if (label != null) {
       RenderUtil.encode(facesContext, label);
 
       writer.endElement("td");
@@ -74,7 +76,15 @@ public class TextBoxRenderer extends TextBoxRendererBase
 
     renderMain(facesContext, (UIInput) component, writer);
 
-    if (label != null) {
+
+    if (picker != null) {
+      writer.endElement("td");
+      writer.startElement("td", null);
+      writer.writeAttribute("style", "padding-left: 5px;", null);
+      renderPicker(facesContext, component, picker);
+    }
+
+    if (label != null || picker != null) {
       writer.endElement("td");
       writer.endElement("tr");
       writer.endElement("table");

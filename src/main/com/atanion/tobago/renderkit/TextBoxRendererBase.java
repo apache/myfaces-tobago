@@ -101,8 +101,10 @@ public class TextBoxRendererBase extends InputRendererBase {
         }
       }
     }
+  }
 
-    UIComponent picker = input.getFacet("picker");
+  protected void renderPicker(FacesContext facesContext, UIComponent input,
+      UIComponent picker) throws IOException {
     if (picker != null) {
       ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
       String url
