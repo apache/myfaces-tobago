@@ -54,7 +54,7 @@ public class ClientPropertiesPhaseListener implements PhaseListener {
             TobagoConstants.ATTR_CLIENT_PROPERTIES, clientProperties);
       }
       if (LOG.isDebugEnabled()) {
-//        LOG.debug("clientProperties = '" + clientProperties + "'");
+        LOG.debug("clientProperties = '" + clientProperties + "'");
       }
     }
   }
