@@ -5,9 +5,7 @@
  */
 package com.atanion.tobago.context;
 
-import com.atanion.tobago.context.Theme;
 import com.atanion.tobago.config.TobagoConfig;
-import com.atanion.tobago.context.Theme;
 import com.mockrunner.mock.web.MockHttpServletRequest;
 import com.mockrunner.mock.web.MockHttpServletResponse;
 import com.mockrunner.mock.web.MockHttpSession;
