@@ -160,74 +160,67 @@ public class TreeNodeRenderer extends RendererBase
 //  rootId = HtmlUtils.createJavascriptVariable(rootId);
 
     TreeState treeState = (TreeState) root.getValue();
-
-    TreeNode node = (TreeNode) treeNode.getValue();
-
-    // expand state
-    boolean expanded = treeState.isExpanded(node);
-
-    // select state
-    boolean selected = treeState.isSelected(node);
-
-    // marker
-    boolean marked = treeState.isMarked(node);
-
-
-    ResponseWriter writer = facesContext.getResponseWriter();
-
-    writer.writeText("var ", null);
-    writer.writeText(jsClientId, null);
-    writer.writeText(" = new ", null);
-    if (component.getChildCount() == 0) {
-      writer.writeText("TreeNode", null);
+    if (treeState == null) {
+      LOG.debug("No treeState found. clientId=" + clientId);
     } else {
-      writer.writeText("TreeFolder", null);
-    }
-    writer.writeText("('", null);
-    writer.writeText(treeNode.getAttributes().get(TobagoConstants.ATTR_NAME),
-        null);
-    writer.writeText("','", null);
-    writer.writeText(clientId, null);
-    writer.writeText("',", null);
-    writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
-        TobagoConstants.ATTR_HIDE_ICONS , TobagoConstants.VB_HIDE_ICONS)), null);
-    writer.writeText(",", null);
-    writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
-        TobagoConstants.ATTR_HIDE_JUNCTIONS, TobagoConstants.VB_HIDE_JUNCTIONS)), null);
-    writer.writeText(",", null);
-    writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
-        TobagoConstants.ATTR_HIDE_ROOT_JUNCTION , TobagoConstants.VB_HIDE_ROOT_JUNCTION)), null);
-    writer.writeText(",", null);
-    writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
-        TobagoConstants.ATTR_HIDE_ROOT, TobagoConstants.VB_HIDE_ROOT)), null);
-    writer.writeText(",'", null);
-    writer.writeText(rootId, null);
-    writer.writeText("',", null);
-    writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
-        TobagoConstants.ATTR_MULTISELECT, TobagoConstants.VB_MULTISELECT)), null);
-    writer.writeText(",", null);
-    writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
-        TobagoConstants.ATTR_MUTABLE, TobagoConstants.VB_MUTABLE)), null);
-    writer.writeText(",'", null);
-    writer.writeText(
-        ComponentUtil.findPage(component).getFormId(facesContext), null);
-    writer.writeText("',", null);
-    writer.writeText(Boolean.toString(selected), null);
-    writer.writeText(",", null);
-    writer.writeText(Boolean.toString(marked), null);
-    if (component.getChildCount() > 0) {
-      writer.writeText(",", null);
-      writer.writeText(Boolean.toString(expanded), null);
-    }
-    writer.writeText(",treeResourcesHelp);\n", null);
 
-    if (jsParentClientId != null) { // if not the root node
-      writer.writeText(jsParentClientId, null);
-      writer.writeText(".add(", null);
+      TreeNode node = (TreeNode) treeNode.getValue();
+
+      ResponseWriter writer = facesContext.getResponseWriter();
+
+      writer.writeText("var ", null);
       writer.writeText(jsClientId, null);
-      writer.writeText(");\n", null);
-    }
+      writer.writeText(" = new ", null);
+      if (component.getChildCount() == 0) {
+        writer.writeText("TreeNode", null);
+      } else {
+        writer.writeText("TreeFolder", null);
+      }
+      writer.writeText("('", null);
+      writer.writeText(treeNode.getAttributes().get(TobagoConstants.ATTR_NAME),
+          null);
+      writer.writeText("','", null);
+      writer.writeText(clientId, null);
+      writer.writeText("',", null);
+      writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
+          TobagoConstants.ATTR_HIDE_ICONS , TobagoConstants.VB_HIDE_ICONS)), null);
+      writer.writeText(",", null);
+      writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
+          TobagoConstants.ATTR_HIDE_JUNCTIONS, TobagoConstants.VB_HIDE_JUNCTIONS)), null);
+      writer.writeText(",", null);
+      writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
+          TobagoConstants.ATTR_HIDE_ROOT_JUNCTION , TobagoConstants.VB_HIDE_ROOT_JUNCTION)), null);
+      writer.writeText(",", null);
+      writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
+          TobagoConstants.ATTR_HIDE_ROOT, TobagoConstants.VB_HIDE_ROOT)), null);
+      writer.writeText(",'", null);
+      writer.writeText(rootId, null);
+      writer.writeText("',", null);
+      writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
+          TobagoConstants.ATTR_MULTISELECT, TobagoConstants.VB_MULTISELECT)), null);
+      writer.writeText(",", null);
+      writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
+          TobagoConstants.ATTR_MUTABLE, TobagoConstants.VB_MUTABLE)), null);
+      writer.writeText(",'", null);
+      writer.writeText(
+          ComponentUtil.findPage(component).getFormId(facesContext), null);
+      writer.writeText("',", null);
+      writer.writeText(Boolean.toString(treeState.isExpanded(node)), null);
+      writer.writeText(",", null);
+      writer.writeText(Boolean.toString(treeState.isSelected(node)), null);
+      if (component.getChildCount() > 0) {
+        writer.writeText(",", null);
+        writer.writeText(Boolean.toString(treeState.isMarked(node)), null);
+      }
+      writer.writeText(",treeResourcesHelp);\n", null);
 
+      if (jsParentClientId != null) { // if not the root node
+        writer.writeText(jsParentClientId, null);
+        writer.writeText(".add(", null);
+        writer.writeText(jsClientId, null);
+        writer.writeText(");\n", null);
+      }
+    }
   }
 
 // ///////////////////////////////////////////// bean getter + setter

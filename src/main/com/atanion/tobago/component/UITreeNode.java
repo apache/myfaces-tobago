@@ -32,15 +32,15 @@ public class UITreeNode extends UIInput {
 
 // ///////////////////////////////////////////// constructor
 
-  protected UITreeNode(UIComponent parent, int index, FacesContext facesContext) {
+  protected UITreeNode(UIComponent parent, int index) {
     super();
     subReference = parent instanceof UITree
         ? "root"
-        : ((UITreeNode)parent).getSubReference() + ".childAt[" + index + "]";
+        : ((UITreeNode) parent).getSubReference() + ".childAt[" + index + "]";
     setRendererType("TreeNode");
     parent.getChildren().add(this);
-    initId(facesContext);
-    initName(facesContext);
+    initId();
+    initName();
     getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
   }
 
@@ -55,6 +55,7 @@ public class UITreeNode extends UIInput {
   }
 
   public Object getValue() {
+    TreeNode value = null;
     UITree root = findTreeRoot();
     if (LOG.isDebugEnabled()) {
       LOG.debug("root         = '" + root + "'");
@@ -64,79 +65,77 @@ public class UITreeNode extends UIInput {
     if (LOG.isDebugEnabled()) {
       LOG.debug("state = '" + state + "'");
     }
-    try {
-      TreeNode treeNode
-          = (TreeNode) PropertyUtils.getProperty(state, subReference);
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("treeNode     = '" + treeNode + "'");
+    if (state != null) {
+      try {
+        value = (TreeNode) PropertyUtils.getProperty(state, subReference);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("treeNode     = '" + value + "'");
+        }
+      } catch (Throwable e) {
+        LOG.error("subReference = '" + subReference + "'", e);
       }
-      return treeNode;
-    } catch (Throwable e) {
-      LOG.error("subReference = '" + subReference + "'" , e);
-      return null;
     }
+    return value;
   }
 
-//  public void encodeChildren(FacesContext context)
-//      throws IOException {
-//     will be called from end.jsp
-//  }
+  protected void createTreeNodes() {
 
-  protected void createTreeNodes(FacesContext facesContext) {
-
-//    TreeNode node = (TreeNode) currentValue(facesContext);
     TreeNode node = (TreeNode) getValue();
-    int childCount = node.getChildCount();
-    for (int i = 0; i < childCount; i++) {
-      UITreeNode component = new UITreeNode(this, i, facesContext);
-      component.createTreeNodes(facesContext);
+    if (node != null) {
+      int childCount = node.getChildCount();
+      for (int i = 0; i < childCount; i++) {
+        UITreeNode component = new UITreeNode(this, i);
+        component.createTreeNodes();
+      }
     }
   }
 
-  private void initName(FacesContext facesContext) {
+  private void initName() {
     String name = null;
     UITree root = findTreeRoot();
-    String nameReference
-        = (String) root.getAttributes().get(TobagoConstants.ATTR_NAME_REFERENCE);
-    if (nameReference != null) {
-//      Object currentValue = currentValue(facesContext);
-      Object currentValue = getValue();
-      try {
-        name = BeanUtils.getProperty(currentValue, nameReference);
-      } catch (Exception e) {
-        LOG.warn("Can't find name over ref='" + nameReference
-            + "' currentValue='" + currentValue + "!", e);
+    TreeNode treeNode = (TreeNode) getValue();
+    if (treeNode != null) {
+      String nameReference
+          = (String) root.getAttributes().get(
+              TobagoConstants.ATTR_NAME_REFERENCE);
+      if (nameReference != null) {
+        try {
+          name = BeanUtils.getProperty(treeNode, nameReference);
+        } catch (Exception e) {
+          LOG.warn(
+              "Can't find name over ref='" + nameReference
+              + "' treeNode='" + treeNode + "!", e);
+        }
       }
+      if (name == null) {
+        name = toString();
+      }
+      getAttributes().put(TobagoConstants.ATTR_NAME, name);
     }
-    if (name == null) {
-      name = toString();
-    }
-    getAttributes().put(TobagoConstants.ATTR_NAME, name);
   }
 
-  private void initId(FacesContext facesContext) {
+  private void initId() {
     String id = null;
     UITree root = findTreeRoot();
-//    TreeNode treeNode = (TreeNode) currentValue(facesContext);
-    Object value = getValue();
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("value = '" + value + "'");
-      LOG.debug("value = '" + value.getClass().getName() + "'");
-    }
-    TreeNode treeNode = (TreeNode) value;
-    String idReference
-        = (String) root.getAttributes().get(TobagoConstants.ATTR_ID_REFERENCE);
-    if (idReference != null) {
-      try {
-        id = BeanUtils.getProperty(treeNode, idReference);
-      } catch (Exception e) {
-        LOG.warn("Can't find id over ref '" + idReference + "'!", e);
+    TreeNode treeNode = (TreeNode) getValue();
+    if (treeNode != null) {
+      String idReference
+          = (String) root.getAttributes().get(
+              TobagoConstants.ATTR_ID_REFERENCE);
+      if (idReference != null) {
+        try {
+          id = BeanUtils.getProperty(treeNode, idReference);
+        } catch (Exception e) {
+          LOG.warn(
+              "Can't find id over ref '" + idReference
+              + "' treeNode='" + treeNode + "!", e);
+        }
       }
+      if (id == null) {
+        id = "node" + Integer.toString(System.identityHashCode(treeNode));
+      }
+      setId(id);
     }
-    if (id == null) {
-      id = "node" + Integer.toString(System.identityHashCode(treeNode));
-    }
-    setId(id);
   }
 
   public UITree findTreeRoot() {
@@ -163,7 +162,8 @@ public class UITreeNode extends UIInput {
 
     if (!(currentValue instanceof MutableTreeNode)) {
       LOG.error("currentValue is not valid: '" + currentValue + "'");
-      LOG.error("currentValue is not of type '"
+      LOG.error(
+          "currentValue is not of type '"
           + MutableTreeNode.class.getName() + "': '"
           + currentValue.getClass().getName() + "'");
       currentValue = emergencyValue();

@@ -113,7 +113,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   public void encodeBegin(FacesContext facesContext)
       throws IOException {
 
-    recreateTreeNodes(facesContext);
+    recreateTreeNodes();
 
     super.encodeBegin(facesContext);
   }
@@ -145,7 +145,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   }
 
 
-  private void recreateTreeNodes(FacesContext facesContext) {
+  private void recreateTreeNodes() {
 
     UITreeNode root = getRoot();
     // Delete all UIComponent childs, because moving of childen will not work
@@ -166,8 +166,8 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     }
 
     try {
-      root = new UITreeNode(this, 0, facesContext);
-      root.createTreeNodes(facesContext);
+      root = new UITreeNode(this, 0);
+      root.createTreeNodes();
     } catch (Exception e) {
       log.error(e, e);
     }
@@ -184,28 +184,6 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     }
     // in a new UITree isn't a root
     return null;
-  }
-
-  protected Object checkValue(Object currentValue) {
-
-    if (currentValue == null) {
-      log.error("currentValue is null: '" + currentValue + "'");
-      currentValue = emergencyValue();
-    }
-
-    if (!(currentValue instanceof TreeState)) {
-      log.error("currentValue is not valid: '" + currentValue + "'");
-      log.error("currentValue is not of type '"
-          + TreeState.class.getName() + "': '"
-          + currentValue.getClass().getName() + "'");
-      currentValue = emergencyValue();
-    }
-
-    return currentValue;
-  }
-
-  protected Object emergencyValue() {
-    return new TreeState(new DefaultMutableTreeNode("Default"));
   }
 
 // ///////////////////////////////////////////// bean getter + setter
