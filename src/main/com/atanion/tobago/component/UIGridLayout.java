@@ -29,6 +29,9 @@ public class UIGridLayout extends UIComponentBase {
   public static final String COMPONENT_TYPE = "com.atanion.tobago.GridLayout";
   public static final String COMPONENT_FAMILY = "com.atanion.tobago.GridLayout";
 
+  public static final Marker FREE = new Marker("free");
+  public static final Marker USED = new Marker("used");
+
 // ///////////////////////////////////////////// attribute
 
 // ///////////////////////////////////////////// constructor
@@ -205,13 +208,13 @@ public class UIGridLayout extends UIComponentBase {
       }
 
       for (int i = start; i < end; i++) {
-        cells.set(i, Marker.USED);
+        cells.set(i, USED);
       }
     }
 
     private int nextFreeColumn() {
       for (int i = 0; i < columns; i++) {
-        if (Marker.FREE.equals(cells.get(i))) return i;
+        if (FREE.equals(cells.get(i))) return i;
       }
       return -1;
     }
@@ -228,15 +231,12 @@ public class UIGridLayout extends UIComponentBase {
       this.columns = columns;
       cells = new ArrayList(columns);
       for (int i = 0; i < columns; i++) {
-        cells.add(Marker.FREE);
+        cells.add(FREE);
       }
     }
   }
 
-  public static class Marker implements Serializable {
-
-    public static final Marker FREE = new Marker("free");
-    public static final Marker USED = new Marker("used");
+  private static class Marker implements Serializable {
 
     private final String name;
 

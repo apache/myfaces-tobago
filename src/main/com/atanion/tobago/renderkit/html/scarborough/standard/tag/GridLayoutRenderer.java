@@ -81,10 +81,10 @@ public class GridLayoutRenderer extends RendererBase
       List cells = row.getElements();
       for (int columnIndex = 0; columnIndex < cells.size(); columnIndex++) {
         Object object = cells.get(columnIndex);
-        if (UIGridLayout.Marker.USED.equals(object)) {
+        if (object.equals(UIGridLayout.USED)) {
           continue; // ignore the markers UIGridLayout.Used
         }
-        if (UIGridLayout.Marker.FREE.equals(object)) {
+        if (object.equals(UIGridLayout.FREE)) {
           LOG.warn("There are free blocks in the layout: id='" + layout.getClientId(facesContext) + "'");
           continue;
         }
