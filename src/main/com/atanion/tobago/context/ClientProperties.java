@@ -7,7 +7,6 @@ package com.atanion.tobago.context;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.config.TobagoConfig;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -16,7 +15,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.util.List;
 import java.util.Locale;
-import java.util.StringTokenizer;
 import java.util.Vector;
 
 public class ClientProperties {
@@ -30,7 +28,6 @@ public class ClientProperties {
 
 // ///////////////////////////////////////////// attributes
 
-  private Locale locale = Locale.US;
   private String contentType = "html";
   private Theme theme;
   private UserAgent userAgent = UserAgent.DEFAULT;
@@ -40,6 +37,7 @@ public class ClientProperties {
 
   private ClientProperties(ExternalContext context) {
 
+    // content type
     String accept = (String) context.getRequestHeaderMap().get("Accept");
     if (accept != null) {
       if (accept.indexOf("text/vnd.wap.wml") > -1) {
@@ -49,35 +47,24 @@ public class ClientProperties {
     LOG.info("contentType='" + contentType + "' from header "
         + "Accept='" + accept + "'");
 
-    String explicitLocale
-        = (String) context.getRequestParameterMap().get("tobago.locale");
-    if (explicitLocale != null) {
-      locale = new Locale(explicitLocale);
-    }
-    String acceptLanguage
-        = (String) context.getRequestHeaderMap().get("Accept-Language");
-    if (locale == null) {
-      if (acceptLanguage != null) {
-        locale = parseAcceptLanguageHeader(acceptLanguage)[0];
-      }
-    }
-    LOG.info("locale='" + locale + "' from header "
-        + "Accept-Language='" + acceptLanguage + "' or parameter "
-        + "tobago.locale='" + explicitLocale + "'");
-
+    // user agent
     String userAgent
         = (String) context.getRequestHeaderMap().get("User-Agent");
     this.userAgent = UserAgent.getInstance(userAgent);
     LOG.info("userAgent='" + this.userAgent + "' from header "
         + "User-Agent='" + userAgent + "'");
 
+    // debug mode
     // to enable the debug mode for a user, put a
     // "to-ba-go" custom locale to your browser
+    String acceptLanguage
+        = (String) context.getRequestHeaderMap().get("Accept-Language");
     if (acceptLanguage != null) {
       this.debugMode = acceptLanguage.indexOf("to-ba-go") > -1;
     }
     LOG.info("debug-mode=" + debugMode);
 
+    // theme
     String theme
         = (String) context.getRequestParameterMap().get("tobago.theme");
     if (theme != null) {
@@ -95,9 +82,6 @@ public class ClientProperties {
 
     ClientProperties instance = (ClientProperties)
         viewRoot.getAttributes().get(TobagoConstants.ATTR_CLIENT_PROPERTIES);
-    if (instance != null) {
-      instance.setLocale(viewRoot.getLocale());
-    }
     return instance;
   }
 
@@ -122,53 +106,16 @@ public class ClientProperties {
     return client;
   }
 
-  private static Locale[] parseAcceptLanguageHeader(
-      String httpHeaderAcceptLanguage) {
-    StringTokenizer tokenizer
-        = new StringTokenizer(httpHeaderAcceptLanguage, ",");
-    Locale[] locales = new Locale[tokenizer.countTokens()];
+  public static List getLocaleList(Locale locale, boolean propertyPathMode) {
 
-    int i = 0;
-    while (tokenizer.hasMoreTokens()) {
-      StringTokenizer localeTokenizer =
-          new StringTokenizer(tokenizer.nextToken().trim(), "-;", true);
-      Locale locale = null;
-      if (localeTokenizer.hasMoreTokens()) {
-        String language = localeTokenizer.nextToken().trim();
-        if (language.length() > 2) {
-          language = language.substring(0, 2);
-        }
-        String country = "";
-        String token = ";";
-        if (localeTokenizer.hasMoreTokens()) {
-          token = localeTokenizer.nextToken().trim();
-        }
-        if (token.equals("-") && localeTokenizer.hasMoreTokens()) {
-          country = localeTokenizer.nextToken().trim();
-        }
-        locale = new Locale(language, country);
-      }
-      locales[i++] = locale;
-    }
-    for (int j = 0; j < locales.length; j++) {
-      Locale locale = locales[j];
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("LOCALE " + locale);
-      }
-    }
-
-    return locales;
-  }
-
-  public static List getLocaleList(String locale, boolean propertyPathMode) {
-
+    String string = locale.toString();
     String prefix = propertyPathMode ? "" : "_";
     List locales = new Vector(4);
-    locales.add(prefix + locale);
+    locales.add(prefix + string);
     int underscore;
-    while ((underscore = locale.lastIndexOf('_')) > 0) {
-      locale = locale.substring(0, underscore);
-      locales.add(prefix + locale);
+    while ((underscore = string.lastIndexOf('_')) > 0) {
+      string = string.substring(0, underscore);
+      locales.add(prefix + string);
     }
 
     locales.add(propertyPathMode ? "default" : ""); // default suffix
@@ -183,20 +130,10 @@ public class ClientProperties {
     buffer.append(getTheme());
     buffer.append('/');
     buffer.append(getUserAgent());
-    buffer.append('/');
-    buffer.append(getLocale());
     return buffer.toString();
   }
 
 // ///////////////////////////////////////////// bean getter + setter
-
-  public Locale getLocale() {
-    return locale;
-  }
-
-  public void setLocale(Locale locale) {
-    this.locale = locale;
-  }
 
   public String getContentType() {
     return contentType;

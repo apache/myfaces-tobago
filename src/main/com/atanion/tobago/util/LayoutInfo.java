@@ -119,6 +119,7 @@ public class LayoutInfo{
   public static String[] createLayoutTokens(String columnLayout, int count) {
     return createLayoutTokens(columnLayout, count, "1*");
   }
+
   public static String[] createLayoutTokens(String columnLayout, int count,
                                             String defaultToken) {
     String[] tokens;

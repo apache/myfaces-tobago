@@ -25,6 +25,7 @@ import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import javax.faces.render.Renderer;
 import java.util.Map;
+import java.util.Locale;
 
 public class ThemeConfig {
 // ------------------------------------------------------------------ constants
@@ -44,9 +45,10 @@ public class ThemeConfig {
     } else {
       rendererType = "DEFAULT";
     }
-    String clientProperties = ((ClientProperties)facesContext.getViewRoot()
-        .getAttributes().get(TobagoConstants.ATTR_CLIENT_PROPERTIES)).getId();
-    String mapKey = clientProperties + "/"
+    UIViewRoot viewRoot = facesContext.getViewRoot();
+    String clientProperties = ClientProperties.getInstance(viewRoot).getId();
+    Locale locale = viewRoot.getLocale();
+    String mapKey = clientProperties + "/" + locale + "/"
         + rendererType + "/" + name;
     Map cache = (Map) facesContext.getExternalContext()
         .getApplicationMap().get(THEME_CONFIG_CACHE);
@@ -82,15 +84,13 @@ public class ThemeConfig {
     ResourceManager resourceManager
         = ResourceManagerUtil.getResourceManager(facesContext);
     UIViewRoot viewRoot = facesContext.getViewRoot();
-    ClientProperties clientProperties
-        = ClientProperties.getInstance(viewRoot);
     while (clazz != null) {
       String tag = getTagName(clazz);
       if (LOG.isDebugEnabled()) {
         LOG.debug("try " + tag);
       }
 
-      String property = resourceManager.getThemeProperty(clientProperties,
+      String property = resourceManager.getThemeProperty(viewRoot,
           "tobago-theme-config", tag + "." + name);
 
       if (property != null && property.length() > 0) {
@@ -102,7 +102,8 @@ public class ThemeConfig {
       clazz = clazz.getSuperclass();
     }
     LOG.error("Theme property not found for renderer: " + renderer.getClass() +
-        " with clientProperties='" + clientProperties + "'");
+        " with clientProperties='" + ClientProperties.getInstance(viewRoot).getId() + "'" +
+        " and locale='" + viewRoot.getLocale() + "'");
     return null;
   }
 

@@ -77,13 +77,8 @@ public class ClientConfigController {
     }
 
     storeInClientProperties();
-    storeInViewRoot();
 
     return "view";
-  }
-
-  private void storeInViewRoot() {
-    FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
   }
 
 // ///////////////////////////////////////////// logic
@@ -94,7 +89,6 @@ public class ClientConfigController {
 
     client.setDebugMode(debugMode);
     client.setTheme(theme);
-    client.setLocale(locale);
     client.setContentType(contentType);
   }
 
@@ -104,7 +98,6 @@ public class ClientConfigController {
 
     debugMode = client.isDebugMode();
     theme = client.getTheme();
-    locale = client.getLocale();
     contentType = client.getContentType();
   }
 
@@ -126,7 +119,11 @@ public class ClientConfigController {
   }
 
   private SelectItem createLocaleItem(Locale localeItem) {
-    return new SelectItem(localeItem, localeItem.getDisplayName(locale));
+    if (locale != null) {
+      return new SelectItem(localeItem, localeItem.getDisplayName(locale));
+    } else {
+      return new SelectItem(localeItem, localeItem.getDisplayName(localeItem));
+    }
   }
 
 // ///////////////////////////////////////////// bean getter + setter
@@ -170,7 +167,11 @@ public class ClientConfigController {
   }
 
   public String getLocalizedLocale() {
-    return locale.getDisplayName(locale);
+    if (locale != null) {
+      return locale.getDisplayName(locale);
+    } else{
+      return null;
+    }
   }
 
   public void setLocale(Locale locale) {

@@ -11,12 +11,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.render.Renderer;
+import javax.faces.component.UIViewRoot;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
+import java.util.Locale;
 
 // fixme: is this class thead-safe?
 
@@ -74,22 +76,25 @@ public class ResourceManager {
         ? cache.found / (double) (cache.found + cache.miss) : 0;
   }
 
-  public String getImage(String clientProperties, String name,
+  public String getImage(UIViewRoot viewRoot, String name,
       boolean ignoreMissing) {
     final String type = "image";
     int dot = name.lastIndexOf('.');
     if (dot == -1) {
       dot = name.length();
     }
+    String clientProperties = ClientProperties.getInstance(viewRoot).getId();
+    Locale locale = viewRoot.getLocale();
+
     String result = null;
-    String key = key(clientProperties, type, name);
+    String key = key(clientProperties, locale, type, name);
 //    Log.debug("key=" + key);
     if ((result = (String) cache.get(key)) != null) {
       // todo: cache null values
       return result;
     }
     try {
-      List paths = getPaths(clientProperties, resourceDirectories, "", type,
+      List paths = getPaths(clientProperties, locale, resourceDirectories, "", type,
           name.substring(0, dot), name.substring(dot), false, true, true, null,
           true, ignoreMissing);
       if (paths != null) {
@@ -107,16 +112,19 @@ public class ResourceManager {
     return result;
   }
 
-  public String getJsp(String clientProperties, String name) {
+  public String getJsp(UIViewRoot viewRoot, String name) {
     final String type = "jsp";
     String result;
-    String key = key(clientProperties, type, name);
+    String clientProperties = ClientProperties.getInstance(viewRoot).getId();
+    Locale locale = viewRoot.getLocale();
+
+    String key = key(clientProperties, locale, type, name);
 //    Log.debug("key=" + key);
     if ((result = (String) cache.get(key)) != null) {
       return result;
     }
     try {
-      result = (String) getPaths(clientProperties, resourceDirectories, "",
+      result = (String) getPaths(clientProperties, locale, resourceDirectories, "",
           type, name,
           "", false, true, true, null, true, false).get(0);
       cache.put(key, result);
@@ -129,15 +137,17 @@ public class ResourceManager {
     return result;
   }
 
-  public String getProperty(String clientProperties, String bundle,
+  public String getProperty(UIViewRoot viewRoot, String bundle,
       String propertyKey) {
     final String type = "property";
     String result;
-    String key = key(clientProperties, type, bundle, propertyKey);
+    String clientProperties = ClientProperties.getInstance(viewRoot).getId();
+    Locale locale = viewRoot.getLocale();
+    String key = key(clientProperties, locale, type, bundle, propertyKey);
     if ((result = (String) cache.get(key)) != null) {
       return result;
     }
-    List properties = getPaths(clientProperties, resourceDirectories, "", type, bundle,
+    List properties = getPaths(clientProperties, locale, resourceDirectories, "", type, bundle,
         "", false, true, false, propertyKey, true, false);
     if (properties != null) {
       result = (String) properties.get(0);
@@ -148,10 +158,12 @@ public class ResourceManager {
     return result;
   }
 
-  private String key(String clientProperties, String type, String name,
-      String key) {
+  private String key(String clientProperties, Locale locale,
+      String type, String name, String key) {
     StringBuffer buffer = new StringBuffer();
     buffer.append(clientProperties);
+    buffer.append('/');
+    buffer.append(locale);
     buffer.append('/');
     buffer.append(type);
     buffer.append('/');
@@ -161,23 +173,17 @@ public class ResourceManager {
     return buffer.toString();
   }
 
-  private List getPaths(String clientProperties, List mainDirectories, String prefix,
+  private List getPaths(String clientProperties, Locale locale, List mainDirectories, String prefix,
       String subDir, String name, String suffix,
       boolean reverseOrder, boolean single, boolean returnKey,
       String key, boolean returnStrings, boolean ignoreMissing) {
     List matches = new ArrayList();
 
-    if (clientProperties.indexOf('/') == -1) {
-      LOG.warn("unknown clientProperties=" + clientProperties);
-      clientProperties = "html/scarborough/standard/de";
-      LOG.warn("fixed   clientProperties=" + clientProperties);
-    }
-
     StringTokenizer tokenizer = new StringTokenizer(clientProperties, "/");
     String contentType = tokenizer.nextToken();
     Theme theme = tobagoConfig.getTheme(tokenizer.nextToken());
     UserAgent browser = UserAgent.getInstanceForId(tokenizer.nextToken());
-    List locales = ClientProperties.getLocaleList(tokenizer.nextToken(), false);
+    List locales = ClientProperties.getLocaleList(locale, false);
 
     String path;
 
@@ -316,18 +322,20 @@ public class ResourceManager {
     return searchtext;
   }
 
-  public Renderer getRenderer(String clientProperties, String name) {
+  public Renderer getRenderer(UIViewRoot viewRoot, String name) {
     final String type = "tag";
     Renderer renderer;
 
-    String key = key(clientProperties, type, name);
+    String clientProperties = ClientProperties.getInstance(viewRoot).getId();
+    Locale locale = viewRoot.getLocale();
+    String key = key(clientProperties, locale, type, name);
 //    Log.debug("key=" + key);
     if ((renderer = (Renderer) cache.get(key)) != null) {
       return renderer;
     }
 
     try {
-      Class clazz = (Class) getPaths(clientProperties, classDirectories, "", type, name,
+      Class clazz = (Class) getPaths(clientProperties, locale, classDirectories, "", type, name,
           "", false, true, true, null, false, false).get(0);
       renderer = (Renderer) clazz.newInstance();
       cache.put(key, renderer);
@@ -341,9 +349,12 @@ public class ResourceManager {
     return renderer;
   }
 
-  private String key(String clientProperties, String type, String name) {
+  private String key(String clientProperties, Locale locale,
+      String type, String name) {
     StringBuffer buffer = new StringBuffer();
     buffer.append(clientProperties);
+    buffer.append('/');
+    buffer.append(locale);
     buffer.append('/');
     buffer.append(type);
     buffer.append('/');
@@ -351,6 +362,7 @@ public class ResourceManager {
     return buffer.toString();
   }
 
+/*
   public String getScript(String clientProperties, String name) {
     final String type = "script";
     int dot = name.lastIndexOf('.');
@@ -376,23 +388,26 @@ public class ResourceManager {
     }
     return result;
   }
+*/
 
-  public String[] getScripts(String clientProperties, String name) {
-    return getStrings(clientProperties, name, "script");
+  public String[] getScripts(UIViewRoot viewRoot, String name) {
+    return getStrings(viewRoot, name, "script");
   }
 
-  public String[] getStyles(String clientProperties, String name) {
-    return getStrings(clientProperties, name, "style");
+  public String[] getStyles(UIViewRoot viewRoot, String name) {
+    return getStrings(viewRoot, name, "style");
   }
 
-  public String[] getStrings(String clientProperties, String name, String type) {
+  private String[] getStrings(UIViewRoot viewRoot, String name, String type) {
     int dot = name.lastIndexOf('.');
     if (dot == -1) {
       dot = name.length();
     }
-    String key = key(clientProperties, type, name);
+    String clientProperties = ClientProperties.getInstance(viewRoot).getId();
+    Locale locale = viewRoot.getLocale();
+    String key = key(clientProperties, locale, type, name);
 
-    List matches = getPaths(clientProperties, resourceDirectories, "",
+    List matches = getPaths(clientProperties, locale, resourceDirectories, "",
         type, name.substring(0, dot),
         name.substring(dot), true, false, true, null, true, false);
     String[] result;
@@ -412,15 +427,17 @@ public class ResourceManager {
     return result;
   }
 
-  public String getThemeProperty(ClientProperties clientProperties,
+  public String getThemeProperty(UIViewRoot viewRoot,
       String bundle, String propertyKey) {
     final String type = "property";
     String result;
-    String key = key(clientProperties.getId(), type, bundle, propertyKey);
+    String clientProperties = ClientProperties.getInstance(viewRoot).getId();
+    Locale locale = viewRoot.getLocale();
+    String key = key(clientProperties, locale, type, bundle, propertyKey);
     if ((result = (String) cache.get(key)) != null) {
       return result;
     }
-    List properties = getPaths(clientProperties.getId(), resourceDirectories, "", type, bundle,
+    List properties = getPaths(clientProperties, locale, resourceDirectories, "", type, bundle,
         "", false, true, false, propertyKey, true, true);
     if (properties != null) {
       result = (String) properties.get(0);

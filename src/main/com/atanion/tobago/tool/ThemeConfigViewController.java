@@ -177,7 +177,7 @@ public class ThemeConfigViewController {
   public String changeTheme() {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     ClientConfigController controller = (ClientConfigController)
-        facesContext.getExternalContext().getSessionMap().get("tobagoClientController");
+        facesContext.getExternalContext().getSessionMap().get("clientConfigController");
     controller.submit();
 
 

@@ -18,6 +18,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
 import javax.faces.render.Renderer;
 import javax.faces.render.ResponseStateManager;
+import javax.faces.component.UIViewRoot;
 import java.io.OutputStream;
 import java.io.Writer;
 
@@ -56,11 +57,10 @@ public class TobagoRenderKit extends RenderKit {
       type = type.substring("javax.faces.".length());
     }
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    String clientProperties = ClientProperties.getInstance(
-        facesContext.getViewRoot()).getId();
+    UIViewRoot viewRoot = facesContext.getViewRoot();
     ResourceManager resources
         = ResourceManagerUtil.getResourceManager(facesContext);
-    Renderer renderer = resources.getRenderer(clientProperties, type);
+    Renderer renderer = resources.getRenderer(viewRoot, type);
     if (renderer == null) {
       LOG.error(
           "The class witch was found by the ResourceManager can't be " +

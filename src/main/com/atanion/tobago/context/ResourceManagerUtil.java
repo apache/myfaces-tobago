@@ -9,6 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.context.FacesContext;
+import javax.faces.component.UIViewRoot;
 import javax.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +30,8 @@ public class ResourceManagerUtil {
 
   public static String getProperty(
       FacesContext facesContext, String bundle, String key) {
-    String clientProperties = ClientProperties.getInstance(
-        facesContext.getViewRoot()).getId();
-    String result = getResourceManager(facesContext).getProperty(clientProperties, bundle, key);
+    UIViewRoot viewRoot = facesContext.getViewRoot();
+    String result = getResourceManager(facesContext).getProperty(viewRoot, bundle, key);
     if (result != null) {
       return result;
     } else {
@@ -40,9 +40,8 @@ public class ResourceManagerUtil {
   }
 
   public static String getJsp(FacesContext facesContext, String key) {
-    String clientProperties = ClientProperties.getInstance(
-        facesContext.getViewRoot()).getId();
-    return getResourceManager(facesContext).getJsp(clientProperties, key);
+    UIViewRoot viewRoot = facesContext.getViewRoot();
+    return getResourceManager(facesContext).getJsp(viewRoot, key);
   }
 
   public static String getImage(FacesContext facesContext, String name) {
@@ -51,10 +50,9 @@ public class ResourceManagerUtil {
 
   public static String getImage(FacesContext facesContext, String name,
       boolean ignoreMissing) {
-    String clientProperties = ClientProperties.getInstance(
-        facesContext.getViewRoot()).getId();
+    UIViewRoot viewRoot = facesContext.getViewRoot();
     String image = getResourceManager(facesContext).getImage(
-        clientProperties, name, ignoreMissing);
+        viewRoot, name, ignoreMissing);
     if (image != null) {
       return facesContext.getExternalContext().getRequestContextPath() + image;
     } else {
@@ -66,11 +64,9 @@ public class ResourceManagerUtil {
   }
 
   public static List getStyles(FacesContext facesContext, String name) {
-    String clientProperties = ClientProperties.getInstance(
-        facesContext.getViewRoot()).getId();
+    UIViewRoot viewRoot = facesContext.getViewRoot();
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
-    String[] styles = getResourceManager(facesContext).getStyles(clientProperties,
-        name);
+    String[] styles = getResourceManager(facesContext).getStyles(viewRoot, name);
 
     return addContextPath(styles, contextPath);
   }
@@ -84,11 +80,10 @@ public class ResourceManagerUtil {
   }
 
   public static List getScripts(FacesContext facesContext, String name) {
-    String clientProperties = ClientProperties.getInstance(
-        facesContext.getViewRoot()).getId();
+    UIViewRoot viewRoot = facesContext.getViewRoot();
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
     String scripts[]
-        = getResourceManager(facesContext).getScripts(clientProperties, name); 
+        = getResourceManager(facesContext).getScripts(viewRoot, name);
     return addContextPath(scripts, contextPath);
   }
 

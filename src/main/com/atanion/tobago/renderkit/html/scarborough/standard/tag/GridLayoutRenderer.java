@@ -54,9 +54,15 @@ public class GridLayoutRenderer extends RendererBase
     String[] layoutTokens
         = LayoutInfo.createLayoutTokens(rowLayout, rows.size(), "fixed");
 
+    if (rows.size() != layoutTokens.length) {
+      LOG.warn("Unbalanced layout: rows.size()=" + rows.size()
+          + " != layoutTokens.length=" + layoutTokens.length
+          + " rowLayout='" + rowLayout + "'");
+    }
+    int size = Math.min(rows.size(), layoutTokens.length);
 
     int height = 0;
-    for (int i = 0; i < layoutTokens.length; i++) {
+    for (int i = 0; i < size; i++) {
       height += getCellPadding(facesContext, layout,  i);
       String token = layoutTokens[i];
       if (token.matches("\\d+px")) {

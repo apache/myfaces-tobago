@@ -7,7 +7,7 @@
 <faces-config>
 
   <managed-bean>
-    <managed-bean-name>tobagoClientController</managed-bean-name>
+    <managed-bean-name>clientConfigController</managed-bean-name>
     <managed-bean-class>com.atanion.tobago.module.client.ClientConfigController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
@@ -15,7 +15,7 @@
   <navigation-rule>
     <from-view-id>/tobago-module-client/clientConfig.jsp</from-view-id>
     <navigation-case>
-      <from-action>#{tobagoClientController.submit}</from-action>
+      <from-action>#{clientConfigController.submit}</from-action>
       <to-view-id>/tobago-module-client/clientConfig.jsp</to-view-id>
     </navigation-case>
   </navigation-rule>

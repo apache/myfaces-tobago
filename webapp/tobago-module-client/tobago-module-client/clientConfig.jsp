@@ -18,28 +18,28 @@
         </f:facet>
 
         <tobago:text value="#{tobagoBundle.configThemeText}" />
-        <tobago:singleselect value="#{tobagoClientController.theme}"
+        <tobago:singleselect value="#{clientConfigController.theme}"
             label="#{tobagoBundle.configTheme}">
-          <f:selectItems value="#{tobagoClientController.themeItems}" />
+          <f:selectItems value="#{clientConfigController.themeItems}" />
         </tobago:singleselect>
         <br />
-        <tobago:checkbox value="#{tobagoClientController.debugMode}"
+        <tobago:checkbox value="#{clientConfigController.debugMode}"
             inline="true" label="#{tobagoBundle.configDebugMode}" />
         <br />
         <tobago:text value="#{tobagoBundle.configLocaleText}" />
-        <tobago:singleselect value="#{tobagoClientController.locale}"
+        <tobago:singleselect value="#{clientConfigController.locale}"
             label="#{tobagoBundle.configLocale}" >
-          <f:selectItems value="#{tobagoClientController.localeItems}" />
+          <f:selectItems value="#{clientConfigController.localeItems}" />
         </tobago:singleselect>
         <br />
         <tobago:text value="#{tobagoBundle.configContentTypeText}" />
-        <tobago:singleselect value="#{tobagoClientController.contentType}"
+        <tobago:singleselect value="#{clientConfigController.contentType}"
             label="#{tobagoBundle.configContentType}">
-          <f:selectItems value="#{tobagoClientController.contentTypeItems}" />
+          <f:selectItems value="#{clientConfigController.contentTypeItems}" />
         </tobago:singleselect>
         <br />
 
-        <tobago:button action="#{tobagoClientController.submit}" label="#{tobagoBundle.configSubmit}" />
+        <tobago:button action="#{clientConfigController.submit}" label="#{tobagoBundle.configSubmit}" />
 
       </tobago:box>
     </tobago:panel>
