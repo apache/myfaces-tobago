@@ -171,11 +171,11 @@ public class MenubarRenderer extends RendererBase
 //    writer.writeAttribute("href", "javascript:PrintDebug(\"onclick navigation\")", null);
 
 
+    writer.writeAttribute("href", "#", null);
+    writer.writeAttribute("onfocus", "tobagoMenuFocus(event)", null);
+    writer.writeAttribute("onblur", "tobagoMenuBlur(event)", null);
+    writer.writeAttribute("onkeydown", "tobagoMenuKeyDown(event)", null);
     if (label.getAccessKey() != null) {
-      writer.writeAttribute("href", "#", null);
-      writer.writeAttribute("onfocus", "tobagoMenuFocus(event)", null);
-      writer.writeAttribute("onblur", "tobagoMenuBlur(event)", null);
-      writer.writeAttribute("onkeydown", "tobagoMenuKeyDown(event)", null);
       writer.writeAttribute("accesskey", label.getAccessKey(), null);
     }
     RenderUtil.writeLabelWithAccessKey(writer, label);
@@ -380,11 +380,11 @@ public class MenubarRenderer extends RendererBase
     writer.writeAttribute("class", spanClass, null);
     if (label.getAccessKey() != null) {
       writer.writeAttribute("accesskey", label.getAccessKey(), null);
-      writer.writeAttribute("onfocus", "tobagoMenuFocus(event)", null);
-      writer.writeAttribute("onblur", "tobagoMenuBlur(event)", null);
-      writer.writeAttribute("onkeydown", "tobagoMenuKeyDown(event)", null);
-      writer.writeAttribute("href", "#", null);
     }
+    writer.writeAttribute("onfocus", "tobagoMenuFocus(event)", null);
+    writer.writeAttribute("onblur", "tobagoMenuBlur(event)", null);
+    writer.writeAttribute("onkeydown", "tobagoMenuKeyDown(event)", null);
+    writer.writeAttribute("href", "#", null);
     if (label.getText() != null) {
       RenderUtil.writeLabelWithAccessKey(writer, label);
     }

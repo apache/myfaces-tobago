@@ -132,6 +132,7 @@ function MenuItem(label, action, disabled) {
       //PrintDebug("removeHover on " + this.id);
       if (! this.hover && ! this.isHoverChildren()) {
         removeCssClass(this.htmlElement, "tobago-menu-item-hover");
+        removeCssClass(this.htmlElement, "tobago-menu-focus");
         if (this.subItemContainer) {
           this.subItemContainer.style.visibility = 'hidden';
           if (this.subItemIframe) {
@@ -181,7 +182,124 @@ function MenuItem(label, action, disabled) {
     return false;
   }
 
+
+  this.keyDown = function() {
+    if (this.level == 1) {
+     this.nextItem(-1, 1);
+    }
+    else {
+      if (this.parent.nextItem(this.index, 1)) {
+        this.hover = false;
+      }
+    }
+  }
+
+  this.keyUp = function() {
+    if (this.level == 1) {
+     this.nextItem(this.subItems.length, -1);
+    }
+    else {
+      if (this.parent.nextItem(this.index, -1)) {
+        this.hover = false;
+      }
+    }
+  }
+
+  this.nextItem = function(start, offset) {
+    var i = start + offset;
+
+
+    while (!(this.subItems[i] && ! this.subItems[i].disabled)) {
+      if (i == start) {
+        break;
+      }
+      if (offset > 0) {
+        if (i >= this.subItems.length) {
+          i = -1;
+        }
+      }
+      else {
+        if (i < 0) {
+          i = this.subItems.length;
+        }
+      }
+      i += offset;
+    }
+
+    var j = this.subItems[i].htmlElement.childNodes.length;
+    var span = tobagoMenuGetLabelTag(this.subItems[i].htmlElement.childNodes);
+    if (span) {
+      this.subItems[i].hover = true;
+      span.focus();
+      return true;
+    }
+    return false;
+  }
+
+  this.collapse = function() {
+    if (this.level < 2) {
+      this.onMouseOut(true);
+    }
+    else if (this.level == 2
+        && !(this.subItemContainer
+             && this.subItemContainer.style.visibility == 'visible' )) {
+      this.onMouseOut(true);
+      this.parent.onMouseOut(true);
+    }
+    else {
+      if (this.subItemContainer && this.subItemContainer.style.visibility == 'visible') {
+        this.subItemContainer.style.visibility = 'hidden';
+      }
+      else {
+        var aTag = tobagoMenuGetLabelTag(this.parent.htmlElement.childNodes);
+        if (aTag) {
+          this.parent.hover = true;
+          if (this.parent.subItemContainer) {
+            this.parent.subItemContainer.style.visibility = 'hidden';
+          }
+          aTag.focus();
+        }
+      }
+    }
+  }
+
+//  this.itemDown = function(start) {
+//    var i = start + 1;
+//
+//
+//    while (!(this.subItems[i] && ! this.subItems[i].disabled)) {
+//      if (i == start) {
+//        break;
+//      }
+//      if (i == this.subItems.length) {
+//        i = -1;
+//      }
+//      i++;
+//    }
+//
+//    var j = this.subItems[i].htmlElement.childNodes.length;
+//    var span;
+//    for (var k = 0; k < j; k++) {
+//      span = this.subItems[i].htmlElement.childNodes[k];
+//      if (span.className.match(/tobago-menubar-item-span/)) {
+//        this.subItems[i].hover = true;
+//        span.focus();
+//        return true;
+//      }
+//    }
+//    return false;
+//  }
+
 }
+
+function tobagoMenuGetLabelTag(children) {
+  for (var k = 0; k < children.length; k++) {
+    if (children[k].className.match(/tobago-menubar-item-span/)) {
+      return children[k];
+    }
+  }
+}
+
 
 
 function setItemWidth(menu) {
@@ -417,9 +535,37 @@ function tobagoMenuBlur(event) {
     event = window.event;
   }
   var element = getActiveElement(event);
-  removeCssClass(element.parentNode, "tobago-menu-focus");
   element.parentNode.menuItem.onMouseOut();
 }
+
+function tobagoMenuDown(event) {
+  var element = getActiveElement(event);
+  element.parentNode.menuItem.keyDown();
+  stopEventPropagation(event);
+}
+function tobagoMenuUp(event) {
+  var element = getActiveElement(event);
+  element.parentNode.menuItem.keyUp();
+  stopEventPropagation(event);
+}
+
+function stopEventPropagation(event) {
+  if (event.stopPropagation) {
+    PrintDebug("event.stopPropagation() " + event.cancelable);
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  else {
+    PrintDebug("event.cancelBubble = true");
+    event.cancelBubble = true;
+  }
+}
+
+function tobagoMenuItemCollapse(event) {
+  var element = getActiveElement(event);
+  element.parentNode.menuItem.collapse();
+}
+
 
 function tobagoMenuKeyDown(event) {
   if (! event) {
@@ -434,7 +580,13 @@ function tobagoMenuKeyDown(event) {
   }
 
   if (code == 27) {  // ESC
-    tobagoMenuBlur(event);
+    tobagoMenuItemCollapse(event);
+  }
+  else if (code == 38) {
+    tobagoMenuUp(event);
+  }
+  else if (code == 40) {
+    tobagoMenuDown(event);
   }
 
   PrintDebug("keyevent catched : " + code);
