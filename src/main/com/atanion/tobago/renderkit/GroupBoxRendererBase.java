@@ -34,7 +34,7 @@ public class GroupBoxRendererBase extends RendererBase {
 
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    // wenn höhe gesetzt dann diese,
+    // wenn hoehe gesetzt dann diese,
     // sonst wenn layout vorhanden dieses fragen:
     //       -> aus rowLayout berechnen
     // sonst Warnung ausgebenn und addition der children's fixedHeight

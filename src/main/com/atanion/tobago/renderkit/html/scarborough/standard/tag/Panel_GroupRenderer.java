@@ -12,18 +12,16 @@ import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.renderkit.LayoutManager;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
 import javax.faces.component.UINamingContainer;
+import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Iterator;
-
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
 
 public class Panel_GroupRenderer extends RendererBase
     implements HeightLayoutRenderer, DirectRenderer {
@@ -47,7 +45,7 @@ public class Panel_GroupRenderer extends RendererBase
   }
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    // wenn höhe gesetzt dann diese,
+    // wenn hoehe gesetzt dann diese,
     // sonst wenn layout vorhanden dieses fragen:
     //       -> aus rowLayout berechnen
     // sonst Warnung ausgebenn und addition der children's fixedHeight
