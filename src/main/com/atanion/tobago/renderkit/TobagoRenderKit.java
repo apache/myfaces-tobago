@@ -85,19 +85,21 @@ public class TobagoRenderKit extends RenderKit {
     LOG.debug("addRenderer family='" + family
         + "' rendererType='" + rendererType + "'");
     LOG.error(
-        "This method isn't already implemented, and should not be called!"); //fixme jsf1.0
-    LOG.error(new Exception().getStackTrace()[0].getMethodName());
+        "This method isn't already implemented, and should not be called: "
+        + new Exception().getStackTrace()[0].getMethodName()); //fixme jsf1.0
   }
 
   public ResponseStateManager getResponseStateManager() {
     LOG.error(
-        "This method isn't already implemented, and should not be called!"); //fixme jsfbeta
+        "This method isn't already implemented, and should not be called: "
+        + new Exception().getStackTrace()[0].getMethodName()); //fixme jsfbeta
     return null;
   }
 
   public ResponseStream createResponseStream(OutputStream outputstream) {
     LOG.error(
-        "This method isn't already implemented, and should not be called!"); //fixme jsfbeta
+        "This method isn't already implemented, and should not be called: "
+        + new Exception().getStackTrace()[0].getMethodName()); //fixme jsfbeta
     return null;
   }
 // ///////////////////////////////////////////// bean getter + setter
