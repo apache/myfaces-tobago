@@ -69,7 +69,9 @@ public class LabelRenderer extends RendererBase implements DirectRenderer {
       writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
     }
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
-    writer.writeText(output.getValue(), null);
+    if (output.getValue() != null) {
+      writer.writeText(output.getValue(), null);
+    }
     writer.endElement("label");
     writer.endElement("span");
   }
