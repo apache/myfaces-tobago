@@ -12,6 +12,7 @@ import com.atanion.tobago.context.UserAgent;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.CommandRendererBase;
 import com.atanion.tobago.util.LayoutUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -112,7 +113,9 @@ public class ToolbarRenderer extends RendererBase
     String spanClass
         = "tobago-toolbar-button-span tobago-toolbar-button-span-"
         + (disabled ? "disabled" : "enabled");
-    final String onClick = ButtonRenderer.createOnClick(facesContext, command);
+    String onClick = ButtonRenderer.createOnClick(facesContext, command);
+    onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
+            facesContext);
 
 //    writer.startElement("td", null);
     writer.startElement("span", null);
