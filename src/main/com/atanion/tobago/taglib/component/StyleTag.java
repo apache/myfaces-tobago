@@ -11,23 +11,14 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 public class StyleTag extends BodyTagSupport {
-
-// ///////////////////////////////////////////// constant
-
-// ///////////////////////////////////////////// attribute
+  
+// ----------------------------------------------------------------- attributes
 
   public String style;
 
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
-
-  public int doStartTag() throws JspException {
-    return EVAL_BODY_BUFFERED;
-  }
+// ----------------------------------------------------------- business methods
 
   public int doEndTag() throws JspException {
-
     PageTag pageTag = PageTag.findPageTag(pageContext);
     if (pageTag == null) {
       throw new JspException("Use of Script outside of Page not allowed");
@@ -48,12 +39,16 @@ public class StyleTag extends BodyTagSupport {
     return EVAL_PAGE;
   }
 
+  public int doStartTag() throws JspException {
+    return EVAL_BODY_BUFFERED;
+  }
+
   public void release() {
     super.release();
     style = null;
   }
 
-// ///////////////////////////////////////////// bean getter + setter
+// ------------------------------------------------------------ getter + setter
 
   public String getStyle() {
     return style;
