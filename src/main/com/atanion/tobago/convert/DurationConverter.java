@@ -112,7 +112,10 @@ public class DurationConverter implements Converter {
   }
 
   private static double getUnitFactor(UIComponent component) {
-    String unit = (String) component.getAttributes().get(TobagoConstants.ATTR_UNIT);
+    String unit = null;
+    if (component != null) {
+      unit = (String) component.getAttributes().get(TobagoConstants.ATTR_UNIT);
+    }
     double factor;
     if (unit == null) {
       factor = 0.001;
