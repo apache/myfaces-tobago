@@ -156,6 +156,11 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
+      <name>rendered</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
       <name>label</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
@@ -759,6 +764,11 @@
       <name>spanY</name>
       <required>false</required>
       <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>rendered</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
       <name>id</name>
