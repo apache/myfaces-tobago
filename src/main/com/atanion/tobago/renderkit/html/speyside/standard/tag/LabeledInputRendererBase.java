@@ -5,12 +5,7 @@
   */
 package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.renderkit.InputRendererBase;
-import com.atanion.tobago.util.LayoutUtil;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 
 public class LabeledInputRendererBase extends InputRendererBase{
 
