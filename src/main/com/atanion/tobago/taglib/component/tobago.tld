@@ -8,6 +8,7 @@
 <taglib>
   <tlib-version>1.0</tlib-version>
   <jsp-version>1.2</jsp-version>
+  <short-name>tobago</short-name>
   <uri>http://www.atanion.com/tobago/component</uri>
   <description><![CDATA[
       <h2>Tobago Framework Component Tag Library -
@@ -17,7 +18,6 @@
     </p>
     ]]>
   </description>
-  <short-name>tobago</short-name>
 
   <listener>
     <listener-class>
@@ -39,6 +39,13 @@
       <name>value</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>binding</name>
+      <description>
+        The value binding expression linking this component to a property
+        in a backing bean
+      </description>
     </attribute>
     <attribute>
       <name>converter</name>
@@ -574,6 +581,13 @@
       <name>id</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>binding</name>
+      <description>
+        The value binding expression linking this component to a property
+        in a backing bean
+      </description>
     </attribute>
     <attribute>
       <name>label</name>
