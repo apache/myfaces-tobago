@@ -65,7 +65,7 @@ public class CalendarRenderer extends RendererBase {
     Object value = output.getValue();
     Calendar calendar;
     if (value instanceof Calendar) {
-      calendar = (Calendar)value;
+      calendar = (Calendar) value;
     } else if (value instanceof Date) {
       calendar = new GregorianCalendar();
       calendar.setTime((Date) value);
@@ -86,6 +86,8 @@ public class CalendarRenderer extends RendererBase {
     writer.writeAttribute("cellspacing", "0", null);
     writer.writeAttribute("cellpadding", "3", null);
     writer.writeAttribute("summary", "", null);
+    // todo: use created standard classes
+    writer.writeAttribute("class", "calendar-header-tr", null);
 
     writer.startElement("tr", null);
     writer.startElement("th", null);
@@ -101,7 +103,7 @@ public class CalendarRenderer extends RendererBase {
     writer.startElement("img", null);
     writer.writeAttribute("style", "cursor: pointer", null);
     writer.writeAttribute("alt", "", null);
-    writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "image/fastPrev.gif"), null);
+    writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "image/calendarFastPrev.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', -12)", null);
     writer.endElement("img");
     writer.endElement("td");
@@ -111,7 +113,7 @@ public class CalendarRenderer extends RendererBase {
     writer.startElement("img", null);
     writer.writeAttribute("style", "cursor: pointer", null);
     writer.writeAttribute("alt", "", null);
-    writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "image/prev.gif"), null);
+    writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "image/calendarPrev.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', -1)", null);
     writer.endElement("img");
     writer.endElement("td");
@@ -127,7 +129,7 @@ public class CalendarRenderer extends RendererBase {
     writer.startElement("img", null);
     writer.writeAttribute("style", "cursor: pointer", null);
     writer.writeAttribute("alt", "", null);
-    writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "image/next.gif"), null);
+    writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "image/calendarNext.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', 1)", null);
     writer.endElement("img");
     writer.endElement("td");
@@ -137,7 +139,7 @@ public class CalendarRenderer extends RendererBase {
     writer.startElement("img", null);
     writer.writeAttribute("style", "cursor: pointer", null);
     writer.writeAttribute("alt", "", null);
-    writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "image/fastNext.gif"), null);
+    writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "image/calendarFastNext.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', 12)", null);
     writer.endElement("img");
     writer.endElement("td");
@@ -174,7 +176,7 @@ public class CalendarRenderer extends RendererBase {
 //      if (week < weekCount) {
         DateModel date = model.getDate(week, dayIt);
         String dayDescription = String.valueOf(date.getDay());
-        String onclick = "selectDay('" + id + "', " + week +" , " + dayIt + ");";
+        String onclick = "selectDay('" + id + "', " + week + " , " + dayIt + ");";
 
         writer.startElement("td", null);
         writer.writeAttribute("onclick", onclick, null);
@@ -249,7 +251,7 @@ public class CalendarRenderer extends RendererBase {
     SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMM", locale);
     StringBuffer buffer = new StringBuffer();
     java.util.Calendar calendar = CalendarUtils.getCalendar(2000, 1, 1);
-    for (int month=0; month < 12; ++month) {
+    for (int month = 0; month < 12; ++month) {
       if (month > 0) {
         buffer.append(',');
       }
