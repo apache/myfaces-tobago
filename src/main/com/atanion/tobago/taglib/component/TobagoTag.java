@@ -184,7 +184,6 @@ public abstract class TobagoTag extends UIComponentTag
             FacesContext.getCurrentInstance().getApplication()
             .createValueBinding(value));
       } else {
-        LOG.info("component.getAttributes().put(" +  name + ", " + value +")");
         component.getAttributes().put(name, value);
       }
     }
