@@ -11,13 +11,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.FactoryFinder;
+import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectItems;
 import javax.faces.component.ValueHolder;
-import javax.faces.component.EditableValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.el.ValueBinding;
@@ -245,22 +245,19 @@ public class ComponentUtil {
     }
   }
 
-  public static int getIntValueBindingOrAttribute(
-      UIComponent component, String key, int defaultValue) {
+  public static int getIntValueBindingOrAttribute(UIComponent component, String key, int defaultValue) {
     Object value;
     ValueBinding valueBinding
         = component.getValueBinding(key);
     if (valueBinding != null) {
       value = valueBinding.getValue(FacesContext.getCurrentInstance());
-    }
-    else {
+    } else {
       value = component.getAttributes().get(key);
     }
 
     if (value instanceof Integer) {
       return ((Integer) value).intValue();
-    }
-    else if (value != null) {
+    } else if (value != null) {
       try {
         return Integer.parseInt(value.toString());
       } catch (NumberFormatException e) {
@@ -293,8 +290,7 @@ public class ComponentUtil {
 //    if (rendererType == null) {
 //      return null;
 //    }
-    RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(
-        "javax.faces.render.RenderKitFactory");
+    RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory("javax.faces.render.RenderKitFactory");
     RenderKit renderKit = rkFactory.getRenderKit(facesContext,
         facesContext.getViewRoot().getRenderKitId());
     return (RendererBase) renderKit.getRenderer(component.getFamily(), rendererType);
@@ -305,13 +301,12 @@ public class ComponentUtil {
     if (component instanceof ValueHolder) {
       Object value = ((ValueHolder) component).getValue();
       if (value != null) {
-          Converter converter = ((ValueHolder) component).getConverter();
-          if (converter != null) {
-            currentValue = converter.getAsString(
-                FacesContext.getCurrentInstance(), component, value);
-          } else {
-            currentValue = value.toString();
-          }
+        Converter converter = ((ValueHolder) component).getConverter();
+        if (converter != null) {
+          currentValue = converter.getAsString(FacesContext.getCurrentInstance(), component, value);
+        } else {
+          currentValue = value.toString();
+        }
       }
     }
     return currentValue;
@@ -346,7 +341,8 @@ public class ComponentUtil {
           }
         }
         if (value == null) {
-          throw new NullPointerException("value is null");
+          LOG.warn("value is null");
+          continue;
         } else if (value instanceof SelectItem) {
           list.add(value);
         } else if (value instanceof SelectItem[]) {
