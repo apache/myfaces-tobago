@@ -5,15 +5,15 @@
  */
 package com.atanion.tobago.context;
 
-import com.atanion.tobago.config.TobagoConfig;
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.config.TobagoConfig;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
@@ -23,7 +23,8 @@ public class ClientProperties {
 
 // ///////////////////////////////////////////// constants
 
-  private static final String CLIENT_PROPERTIES_KEY = ClientProperties.class.getName();
+  private static final String CLIENT_PROPERTIES_IN_SESSION
+      = ClientProperties.class.getName();
 
   private static final Log LOG = LogFactory.getLog(ClientProperties.class);
 
@@ -37,34 +38,43 @@ public class ClientProperties {
 
 // ///////////////////////////////////////////// constructors
 
-  private ClientProperties(HttpServletRequest request, HttpSession session) {
+  private ClientProperties(ExternalContext context) {
 
-    String accept = request.getHeader("Accept");
-    LOG.info("Accept = '" + accept + "'");
+    String accept = (String) context.getRequestHeaderMap().get("Accept");
     if (accept != null) {
       if (accept.indexOf("text/vnd.wap.wml") > -1) {
         contentType = "wml";
       }
     }
+    LOG.info("contentType='" + contentType + "' from header "
+        + "Accept='" + accept + "'");
 
-    String language = request.getHeader("Accept-Language");
-    LOG.info("Accept-Language = '" + language + "'");
-    if (language != null) {
-      locale = parseAcceptLanguageHeader(language)[0];
+    String acceptLanguage
+        = (String) context.getRequestHeaderMap().get("Accept-Language");
+    if (acceptLanguage != null) {
+      locale = parseAcceptLanguageHeader(acceptLanguage)[0];
     }
-    LOG.info("Locale = " + locale);
+    LOG.info("locale='" + locale + "' from header "
+        + "Accept-Language='" + acceptLanguage + "'");
 
-    String userAgent = request.getHeader("User-Agent");
-    LOG.info("User-Agent = '" + userAgent + "'");
+    String userAgent
+        = (String) context.getRequestHeaderMap().get("User-Agent");
     this.userAgent = UserAgent.getInstance(userAgent);
-    LOG.info("User-Agent = " + this.userAgent);
+    LOG.info("userAgent='" + this.userAgent + "' from header "
+        + "User-Agent='" + userAgent + "'");
 
-    String debugModeString = session.getServletContext()
-        .getInitParameter(TobagoConstants.CONTEXT_PARAM_DEBUG_MODE);
-    debugMode = Boolean.valueOf(debugModeString).booleanValue();
-    LOG.info("debug-mode = " + debugMode);
+    // to enable the debug mode for a user, put a
+    // "to-ba-go" custom locale to your browser
+    if (acceptLanguage != null) {
+      this.debugMode = acceptLanguage.indexOf("to-ba-go") > -1;
+    }
+    LOG.info("debug-mode=" + debugMode);
 
-    setTheme(request.getParameter("tobago.theme"));
+    String theme
+        = (String) context.getRequestParameterMap().get("tobago.theme");
+    setTheme(theme);
+    LOG.info("theme='" + this.theme + "' from requestParameter "
+        + "tobago.theme='" + theme + "'");
   }
 
 // ///////////////////////////////////////////// logic
@@ -79,33 +89,25 @@ public class ClientProperties {
     return instance;
   }
 
-  public static ClientProperties getInstance(
-      HttpServletRequest request) {
+  public static ClientProperties getInstance(FacesContext facesContext) {
 
-    HttpSession session = request.getSession(false);
+    ExternalContext context = facesContext.getExternalContext();
+
+    boolean hasSession = context.getSession(false) != null;
 
     ClientProperties client = null;
 
-    if (session != null) {
-      client = (ClientProperties) session.getAttribute(CLIENT_PROPERTIES_KEY);
+    if (hasSession) {
+      client = (ClientProperties) context.getSessionMap().get(
+          CLIENT_PROPERTIES_IN_SESSION);
     }
     if (client == null) {
-      client = (ClientProperties) request.getAttribute(CLIENT_PROPERTIES_KEY);
-    }
-    if (client == null) {
-      client = new ClientProperties(request, session);
-      if (session != null) {
-        session.setAttribute(CLIENT_PROPERTIES_KEY, client);
-      } else {
-        request.setAttribute(CLIENT_PROPERTIES_KEY, client);
+      client = new ClientProperties(context);
+      if (hasSession) {
+        context.getSessionMap().put(CLIENT_PROPERTIES_IN_SESSION, client);
       }
     }
     return client;
-  }
-
-  public static ClientProperties getInstance(FacesContext facesContext) {
-    return getInstance(
-        (HttpServletRequest) facesContext.getExternalContext().getRequest());
   }
 
   private static Locale[] parseAcceptLanguageHeader(
