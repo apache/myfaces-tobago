@@ -140,32 +140,12 @@ public class PageRenderer extends PageRendererBase {
     writer.startElement("head", null);
 
     // meta
+    // TODO duplicate; see PageTag.doStartTag()
     writer.startElement("meta", null);
     writer.writeAttribute("http-equiv", "Content-Type", null);
     writer.writeAttribute(
         "content", PageTag.generateContentType(charset), null);
     writer.endElement("meta");
-
-    writer.startElement("meta", null);
-    writer.writeAttribute("http-equiv", "expires", null);
-    writer.writeAttribute(
-        "content", "Thu,  Dec 2000 00:00:00 GMT", null);
-    writer.endElement("meta");
-
-    writer.startElement("meta", null);
-    writer.writeAttribute("http-equiv", "pragma", null);
-    writer.writeAttribute(
-        "content", "no-cache", null);
-    writer.endElement("meta");
-
-    writer.startElement("meta", null);
-    writer.writeAttribute("http-equiv", "cache-control", null);
-    writer.writeAttribute(
-        "content", "no-cache", null);
-    writer.endElement("meta");
-
-
-
 
     // title
     writer.startElement("title", null);
