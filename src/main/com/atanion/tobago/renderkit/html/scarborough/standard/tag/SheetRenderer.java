@@ -77,7 +77,8 @@ public class SheetRenderer extends RendererBase
 
 
 
-  private int getAscendingMarkerWidth(FacesContext facesContext, UIComponent component) {
+  private int getAscendingMarkerWidth(FacesContext facesContext,
+      UIComponent component) {
     return getConfiguredValue(facesContext, component, "ascendingMarkerWidth");
   }
 
@@ -88,7 +89,7 @@ public class SheetRenderer extends RendererBase
 
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
-    setupState(facesContext, (UIData)component);
+    setupState(facesContext, (UIData) component);
     storeFooterHeight(facesContext, component);
     super.encodeEnd(facesContext, component);
   }
@@ -109,21 +110,21 @@ public class SheetRenderer extends RendererBase
     int footerHeight;
     if (ComponentUtil.getBooleanAttribute(component,
         TobagoConstants.ATTR_PAGING)) {
-      footerHeight = getConfiguredValue(facesContext, component, "footerHeight");
-    }
-    else {
+      footerHeight =
+          getConfiguredValue(facesContext, component, "footerHeight");
+    } else {
       footerHeight = 0;
     }
     return footerHeight;
   }
 
 
-  private void ensureColumnWidthList(
-      FacesContext facesContext, UIData data, SheetState state) {
+  private void ensureColumnWidthList(FacesContext facesContext, UIData data,
+      SheetState state) {
     List widthList = null;
 
     final Map attributes = data.getAttributes();
-    String  widthListString
+    String widthListString
         = (String) attributes.get(TobagoConstants.ATTR_WIDTH_LIST_STRING);
     if (widthListString == null && state != null) {
       widthListString = state.getColumnWidths();
@@ -131,11 +132,10 @@ public class SheetRenderer extends RendererBase
 
     if (widthListString != null) {
       widthList = SheetState.parse(widthListString);
-    }
-    else {
+    } else {
 
       String columnLayout = (String) attributes.get(
-            TobagoConstants.ATTR_COLUMNS);
+          TobagoConstants.ATTR_COLUMNS);
 
       if (columnLayout != null) {
         widthList = (List) attributes.get(TobagoConstants.ATTR_WIDTH_LIST);
@@ -145,8 +145,8 @@ public class SheetRenderer extends RendererBase
           if (needVerticalScrollbar(facesContext, data)) {
             space -= getScrollbarWidth(facesContext, data);
           }
-          LayoutInfo layoutInfo = new LayoutInfo(
-              getColumns(data).size(), space, columnLayout);
+          LayoutInfo layoutInfo = new LayoutInfo(getColumns(data).size(),
+              space, columnLayout);
           layoutInfo.parseColumnLayout(space);
           widthList = layoutInfo.getSpaceList();
         }
@@ -157,8 +157,7 @@ public class SheetRenderer extends RendererBase
       List columns = getColumns(data);
       if (columns.size() != widthList.size()) {
         LOG.warn("widthList.size() != columns.size()");
-      }
-      else {
+      } else {
         attributes.put(TobagoConstants.ATTR_WIDTH_LIST, widthList);
       }
     }
@@ -173,18 +172,17 @@ public class SheetRenderer extends RendererBase
     if (forceScroolbar != null) {
       if ("true".equals(forceScroolbar)) {
         return true;
-      }
-      else if ("false".equals(forceScroolbar)) {
+      } else if ("false".equals(forceScroolbar)) {
         return false;
-      }
-      else if (! "auto".equals(forceScroolbar)) {
+      } else if (!"auto".equals(forceScroolbar)) {
         LOG.warn("Illegal value for attibute 'forceVerticalScrollbar' : \""
             + forceScroolbar + "\"");
       }
     }
 
-    String style = (String) data.getAttributes().get(TobagoConstants.ATTR_STYLE);
-    String heightString  = LayoutUtil.getStyleAttributeValue(style, "height");
+    String style = (String) data.getAttributes().get(
+        TobagoConstants.ATTR_STYLE);
+    String heightString = LayoutUtil.getStyleAttributeValue(style, "height");
     if (heightString != null) {
       int first = data.getFirst();
       int rows = Math.min(data.getRowCount(), first + data.getRows()) - first;
@@ -205,7 +203,8 @@ public class SheetRenderer extends RendererBase
   }
 
 
-  private int getScrollbarWidth(FacesContext facesContext, UIComponent component) {
+  private int getScrollbarWidth(FacesContext facesContext,
+      UIComponent component) {
     return getConfiguredValue(facesContext, component, "scrollbarWidth");
   }
 
@@ -213,8 +212,10 @@ public class SheetRenderer extends RendererBase
       UIComponent uiComponent) throws IOException {
     UIData component = (UIData) uiComponent;
     String image1x1 = ResourceManagerUtil.getImage(facesContext, "1x1.gif");
-    String ascending = ResourceManagerUtil.getImage(facesContext, "ascending.gif");
-    String descending = ResourceManagerUtil.getImage(facesContext, "descending.gif");
+    String ascending = ResourceManagerUtil.getImage(facesContext,
+        "ascending.gif");
+    String descending = ResourceManagerUtil.getImage(facesContext,
+        "descending.gif");
 
     String sheetId = component.getClientId(facesContext);
     UIPage uiPage = ComponentUtil.findPage(component);
@@ -223,15 +224,18 @@ public class SheetRenderer extends RendererBase
     uiPage.getStyleFiles().add("tobago-sheet.css");
 
     String selectorDisabled
-        = ResourceManagerUtil.getImage(facesContext, "sheetUncheckedDisabled.gif");
+        = ResourceManagerUtil.getImage(facesContext,
+            "sheetUncheckedDisabled.gif");
     String unchecked
         = ResourceManagerUtil.getImage(facesContext, "sheetUnchecked.gif");
-    uiPage.getOnloadScripts().add(
-        "tobagoSheetSetUncheckedImage(\"" + sheetId + "\", \"" + unchecked
+    uiPage.getOnloadScripts().add("tobagoSheetSetUncheckedImage(\"" + sheetId +
+        "\", \"" +
+        unchecked
         + "\")");
-    uiPage.getOnloadScripts().add(
-        "tobagoSheetSetCheckedImage(\"" + sheetId + "\", \""
-        + ResourceManagerUtil.getImage(facesContext, "sheetChecked.gif") + "\")");
+    uiPage.getOnloadScripts().add("tobagoSheetSetCheckedImage(\"" + sheetId +
+        "\", \""
+        + ResourceManagerUtil.getImage(facesContext, "sheetChecked.gif") +
+        "\")");
     uiPage.getOnloadScripts().add("updateSelectionView(\"" + sheetId + "\")");
 
     final Map attributes = component.getAttributes();
@@ -289,7 +293,7 @@ public class SheetRenderer extends RendererBase
 
     boolean hideHeader = ComponentUtil.getBooleanAttribute(component,
         TobagoConstants.ATTR_HIDE_HEADER);
-    if (! hideHeader) {
+    if (!hideHeader) {
       // begin rendering header
       writer.startElement("div", null);
       writer.writeAttribute("id", sheetId + "_header_div", null);
@@ -311,7 +315,8 @@ public class SheetRenderer extends RendererBase
 
 
       int columnCount = 0;
-      final int sortMarkerWidth = getAscendingMarkerWidth(facesContext, component);
+      final int sortMarkerWidth = getAscendingMarkerWidth(facesContext,
+          component);
       for (Iterator j = columnList.iterator(); j.hasNext(); columnCount++) {
         UIColumn column = (UIColumn) j.next();
         renderColumnHeader(facesContext, writer, component, columnCount, column,
@@ -382,7 +387,8 @@ public class SheetRenderer extends RendererBase
     // Print the Content
 
     if (LOG.isDebugEnabled()) {
-      LOG.debug("first = " + component.getFirst() + "   rows = " + component.getRows());
+      LOG.debug("first = " + component.getFirst() + "   rows = " +
+          component.getRows());
     }
 
     Map requestMap = facesContext.getExternalContext().getRequestMap();
@@ -394,7 +400,7 @@ public class SheetRenderer extends RendererBase
     for (int rowIndex = component.getFirst(); rowIndex < last; rowIndex++) {
       visibleIndex++;
       component.setRowIndex(rowIndex);
-      if (! component.isRowAvailable()) {
+      if (!component.isRowAvailable()) {
         break;
       }
       odd = !odd;
@@ -428,18 +434,21 @@ public class SheetRenderer extends RendererBase
 
 
       int columnIndex = -1;
-      for (Iterator kids = getColumns(component).iterator(); kids.hasNext(); ) {
+      for (Iterator kids = getColumns(component).iterator(); kids.hasNext();) {
         UIColumn column = (UIColumn) kids.next();
         columnIndex++;
 
         String style = "width: " + columnWidths.get(columnIndex) + "px;";
         String tdStyle = "";
-        String align = (String) column.getAttributes().get(TobagoConstants.ATTR_ALIGN);
+        String align = (String) column.getAttributes().get(
+            TobagoConstants.ATTR_ALIGN);
         if (align != null) {
           tdStyle = "text-align: " + align;
         }
-        String cellClass = (String) column.getAttributes().get(TobagoConstants.ATTR_STYLE_CLASS);
-        String tdClass = "tobago-sheet-cell-td " + (cellClass != null ? cellClass : "");
+        String cellClass = (String) column.getAttributes().get(
+            TobagoConstants.ATTR_STYLE_CLASS);
+        String tdClass = "tobago-sheet-cell-td " +
+            (cellClass != null ? cellClass : "");
 
 
         writer.startElement("td", column);
@@ -448,7 +457,9 @@ public class SheetRenderer extends RendererBase
         writer.writeAttribute("style", tdStyle, null);
 
         writer.startElement("div", null);
-        writer.writeAttribute("id", sheetId + "_data_row_" + visibleIndex + "_column" + columnIndex, null);
+        writer.writeAttribute("id",
+            sheetId + "_data_row_" + visibleIndex + "_column" + columnIndex,
+            null);
         writer.writeAttribute("class", "tobago-sheet-cell-outer", null);
         writer.writeAttribute("style", style, null);
 
@@ -474,14 +485,16 @@ public class SheetRenderer extends RendererBase
             writer.writeAttribute("src", unchecked, null);
 //            writer.writeAttribute("onclick", "tobagoSheetToggleSelectionState(\""
 //                + sheetId + "\", " + rowIndex + ")", null);
-            writer.writeAttribute("onclick", "tobagoSheetToggleSelectionState(event)", null);
+            writer.writeAttribute("onclick",
+                "tobagoSheetToggleSelectionState(event)", null);
           }
-          writer.writeAttribute("id", sheetId + "_data_row_selector_" + rowIndex, null);
+          writer.writeAttribute("id",
+              sheetId + "_data_row_selector_" + rowIndex, null);
           writer.writeAttribute("class", "tobago-sheet-column-selector", null);
           writer.endElement("img");
-        }
-        else {
-          for (Iterator grandkids = getChildren(column).iterator(); grandkids.hasNext(); ) {
+        } else {
+          for (Iterator grandkids = getChildren(column).iterator();
+              grandkids.hasNext();) {
             UIComponent grandkid = (UIComponent) grandkids.next();
             RenderUtil.encode(facesContext, grandkid);
           }
@@ -496,7 +509,8 @@ public class SheetRenderer extends RendererBase
       writer.writeAttribute("class", "tobago-sheet-cell-td", null);
 
       writer.startElement("div", null);
-      writer.writeAttribute("id", sheetId + "_data_row_" + visibleIndex + "_column_filler", null);
+      writer.writeAttribute("id",
+          sheetId + "_data_row_" + visibleIndex + "_column_filler", null);
       writer.writeAttribute("class", "tobago-sheet-cell-outer", null);
       writer.writeAttribute("style", "width: 0px;", null);
 
@@ -531,20 +545,14 @@ public class SheetRenderer extends RendererBase
       writer.startElement("tr", null);
       writer.startElement("td", null);
       writer.writeAttribute("class", "tobago-sheet-footer-table-td", null);
-      writer.writeAttribute("colspan", Integer.toString(columnList.size()), null);
+      writer.writeAttribute("colspan", Integer.toString(columnList.size()),
+          null);
 
 
       writer.startElement("span", null);
       writer.writeAttribute("style", "float: left;", null);
 
-      String key = ResourceManagerUtil.getProperty(facesContext, "tobago", "sheetPagingInfo");
-      Locale locale = facesContext.getViewRoot().getLocale();
-      MessageFormat detail = new MessageFormat(key, locale);
-      Integer[] args = {
-        new Integer(component.getFirst() + 1),
-        new Integer(getEndIndex(component)),
-        new Integer(component.getRowCount())};
-      writer.writeText(detail.format(args), null);
+      writer.writeText(createSheetPagingInfo(component, facesContext), null);
       writer.endElement("span");
 
       writer.startElement("span", null);
@@ -554,8 +562,10 @@ public class SheetRenderer extends RendererBase
 
       Pager pager = new Pager(component);
 
-      link(facesContext, application, pager, pager.isAtBeginning(), component, FIRST);
-      link(facesContext, application, pager, pager.isAtBeginning(), component, PREV);
+      link(facesContext, application, pager, pager.isAtBeginning(), component,
+          FIRST);
+      link(facesContext, application, pager, pager.isAtBeginning(), component,
+          PREV);
       link(facesContext, application, pager, pager.isAtEnd(), component, NEXT);
       link(facesContext, application, pager, pager.isAtEnd(), component, LAST);
 
@@ -567,6 +577,26 @@ public class SheetRenderer extends RendererBase
 
     writer.endElement("div");
 
+  }
+
+  private String createSheetPagingInfo(UIData component,
+      FacesContext facesContext) {
+    String sheetPagingInfo;
+    if (component.getRowCount() > 0) {
+      String key = ResourceManagerUtil.getProperty(facesContext, "tobago",
+          "sheetPagingInfo");
+      Locale locale = facesContext.getViewRoot().getLocale();
+      MessageFormat detail = new MessageFormat(key, locale);
+      Integer[] args = {
+        new Integer(component.getFirst() + 1),
+        new Integer(getEndIndex(component)),
+        new Integer(component.getRowCount())};
+      sheetPagingInfo = detail.format(args);
+    } else {
+      sheetPagingInfo = ResourceManagerUtil.getProperty(
+          facesContext, "tobago", "sheetPagingInfoEmpty");
+    }
+    return sheetPagingInfo;
   }
 
   private void renderColumnHeader(FacesContext facesContext,
@@ -597,22 +627,25 @@ public class SheetRenderer extends RendererBase
     String sorterClass = "";
     String sortTitle = "";
     boolean sortable =
-        ComponentUtil.getBooleanAttribute(column, TobagoConstants.ATTR_SORTABLE);
-    if (sortable && ! (column instanceof UIColumnSelector)) {
+        ComponentUtil.getBooleanAttribute(column,
+            TobagoConstants.ATTR_SORTABLE);
+    if (sortable && !(column instanceof UIColumnSelector)) {
       String sorterId = Sorter.ID_PREFIX + columnCount;
       String onclick = "submitAction('"
           + ComponentUtil.findPage(component).getFormId(facesContext)
-          + "','" + component.getClientId(facesContext) + ":" + sorterId + "')";
+          + "','" + component.getClientId(facesContext) + ":" + sorterId +
+          "')";
       writer.writeAttribute("onclick", onclick, null);
       UICommand sortCommand = (UICommand)
           application.createComponent(UICommand.COMPONENT_TYPE);
       sortCommand.setActionListener(sorter);
       sortCommand.setId(sorterId);
-      component.getFacets().put(sorterId ,sortCommand);
+      component.getFacets().put(sorterId, sortCommand);
       sortCommand.getClientId(facesContext); // this must called here to fix the ClientId
 
       writer.writeAttribute("title",
-          ResourceManagerUtil.getProperty(facesContext, "tobago", "sheetTipSorting"),
+          ResourceManagerUtil.getProperty(facesContext, "tobago",
+              "sheetTipSorting"),
           null);
 
       if (sorter.getColumn() == columnCount) {
@@ -620,8 +653,7 @@ public class SheetRenderer extends RendererBase
           sorterImage = ascending;
           sortTitle = ResourceManagerUtil.getProperty(facesContext,
               "tobago", "sheetAscending");
-        }
-        else {
+        } else {
           sorterImage = descending;
           sortTitle = ResourceManagerUtil.getProperty(facesContext,
               "tobago", "sheetDescending");
@@ -645,9 +677,9 @@ public class SheetRenderer extends RendererBase
     }
 
     if (column instanceof UIColumnSelector) {
-      renderColumnSelectorHeader(facesContext, writer, column, columnCount, sorter);
-    }
-    else {
+      renderColumnSelectorHeader(facesContext, writer, column, columnCount,
+          sorter);
+    } else {
       renderColumnHeaderLabel(writer, column, columnCount, sorter, sortMarkerWidth, align,
           image1x1);
     }
@@ -697,16 +729,16 @@ public class SheetRenderer extends RendererBase
 
       String sheetId = column.getParent().getClientId(facesContext);
       String action = "tobagoSheetSelectAll('" + sheetId + "')";
-      String label = ResourceManagerUtil.getProperty(
-          facesContext, "tobago", "sheetMenuSelect");
+      String label = ResourceManagerUtil.getProperty(facesContext, "tobago",
+          "sheetMenuSelect");
       menu.getChildren().add(createMenuItem(application, label, action));
       action = "tobagoSheetUnselectAll('" + sheetId + "')";
-      label = ResourceManagerUtil.getProperty(
-          facesContext, "tobago", "sheetMenuUnselect");
+      label = ResourceManagerUtil.getProperty(facesContext, "tobago",
+          "sheetMenuUnselect");
       menu.getChildren().add(createMenuItem(application, label, action));
       action = "tobagoSheetToggleAllSelections('" + sheetId + "')";
-      label = ResourceManagerUtil.getProperty(
-          facesContext, "tobago", "sheetMenuToggleselect");
+      label = ResourceManagerUtil.getProperty(facesContext, "tobago",
+          "sheetMenuToggleselect");
       menu.getChildren().add(createMenuItem(application, label, action));
 
     }
@@ -738,7 +770,7 @@ public class SheetRenderer extends RendererBase
         = (String) column.getAttributes().get(TobagoConstants.ATTR_LABEL);
     if (label != null) {
       writer.writeText(label, null);
-      if (sorter.getColumn() == columnCount && "right".equals(align) ) {
+      if (sorter.getColumn() == columnCount && "right".equals(align)) {
         writer.startElement("img", null);
         writer.writeAttribute("src", image1x1, null);
         writer.writeAttribute("alt", "", null);
@@ -764,8 +796,8 @@ public class SheetRenderer extends RendererBase
     return selected != null ? selected : "";
   }
 
-  private void setStoredState(
-      UIData component, Sorter sorter, SheetState state) {
+  private void setStoredState(UIData component, Sorter sorter,
+      SheetState state) {
     if (state != null) {
       component.setFirst(state.getFirst());
       sorter.setColumn(state.getSortedColumn());
@@ -780,24 +812,25 @@ public class SheetRenderer extends RendererBase
 
   private List getColumns(UIData sheet) {
 
-      List columns = new ArrayList();
-      for (Iterator kids = sheet.getChildren().iterator(); kids.hasNext();) {
-        UIComponent kid = (UIComponent) kids.next();
-        if (kid instanceof UIColumn && kid.isRendered()) {
-          columns.add(kid);
-        }
+    List columns = new ArrayList();
+    for (Iterator kids = sheet.getChildren().iterator(); kids.hasNext();) {
+      UIComponent kid = (UIComponent) kids.next();
+      if (kid instanceof UIColumn && kid.isRendered()) {
+        columns.add(kid);
       }
+    }
     return columns;
   }
+
   private List getChildren(UIColumn column) {
 
-      List columns = new ArrayList();
-      for (Iterator kids = column.getChildren().iterator(); kids.hasNext();) {
-        UIComponent kid = (UIComponent) kids.next();
-        if (kid.isRendered()) {
-          columns.add(kid);
-        }
+    List columns = new ArrayList();
+    for (Iterator kids = column.getChildren().iterator(); kids.hasNext();) {
+      UIComponent kid = (UIComponent) kids.next();
+      if (kid.isRendered()) {
+        columns.add(kid);
       }
+    }
     return columns;
   }
 
@@ -806,8 +839,7 @@ public class SheetRenderer extends RendererBase
       String command) throws IOException {
     UICommand link;
     UIGraphic image;
-    link = (UICommand) application.createComponent(
-        UICommand.COMPONENT_TYPE);
+    link = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
     link.setRendererType(TobagoConstants.RENDERER_TYPE_LINK);
     link.setRendered(true);
     link.setId(command);
@@ -815,10 +847,9 @@ public class SheetRenderer extends RendererBase
     link.getAttributes().put(TobagoConstants.ATTR_INLINE, Boolean.TRUE);
     link.getAttributes().put(TobagoConstants.ATTR_DISABLED,
         Boolean.valueOf(disabled));
-    link.setActionListener(pager) ;
+    link.setActionListener(pager);
 
-    image = (UIGraphic) application.createComponent(
-        UIGraphic.COMPONENT_TYPE);
+    image = (UIGraphic) application.createComponent(UIGraphic.COMPONENT_TYPE);
     image.setRendererType("Image"); //fixme: use constant ?
     image.setRendered(true);
     image.getAttributes().put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
@@ -828,7 +859,8 @@ public class SheetRenderer extends RendererBase
       image.setValue(command + ".gif");
     }
     image.getAttributes().put(TobagoConstants.ATTR_TITLE,
-        ResourceManagerUtil.getProperty(facesContext, "tobago", "sheet" + command));
+        ResourceManagerUtil.getProperty(facesContext, "tobago",
+            "sheet" + command));
 
     link.getChildren().add(image);
     data.getFacets().put(command, link);
@@ -850,7 +882,8 @@ public class SheetRenderer extends RendererBase
     if (requestParameterMap.containsKey(key)) {
       String widths = (String) requestParameterMap.get(key);
       if (widths.trim().length() > 0) {
-        component.getAttributes().put(TobagoConstants.ATTR_WIDTH_LIST_STRING, widths);
+        component.getAttributes().put(TobagoConstants.ATTR_WIDTH_LIST_STRING,
+            widths);
       }
     }
 
@@ -860,8 +893,8 @@ public class SheetRenderer extends RendererBase
       if (LOG.isDebugEnabled()) {
         LOG.debug("selected = " + selected);
       }
-      component.getAttributes().put(
-          TobagoConstants.ATTR_SELECTED_LIST_STRING, selected);
+      component.getAttributes().put(TobagoConstants.ATTR_SELECTED_LIST_STRING,
+          selected);
     }
   }
 
@@ -901,17 +934,16 @@ public class SheetRenderer extends RendererBase
         throws EvaluationException, MethodNotFoundException {
 
       if (aobj[0] instanceof ActionEvent) {
-        UICommand command  = (UICommand) ((ActionEvent)aobj[0]).getSource();
+        UICommand command = (UICommand) ((ActionEvent) aobj[0]).getSource();
         LOG.info("sorterId = " + command.getId());
 
         Object value = data.getValue();
         if (value instanceof DataModel) {
-          value = ((DataModel)value).getWrappedData();
+          value = ((DataModel) value).getWrappedData();
         }
 
 
-
-        if (   value instanceof SortableByApplication
+        if (value instanceof SortableByApplication
             || value instanceof List
             || value instanceof Object[]) {
 
@@ -921,11 +953,11 @@ public class SheetRenderer extends RendererBase
             UIColumn uiColumn = null;
             try {
               int actualColumn =
-                  Integer.parseInt(command.getId().substring(ID_PREFIX.length()));
+                  Integer.parseInt(
+                      command.getId().substring(ID_PREFIX.length()));
               if (actualColumn == column) {
-                ascending = ! ascending;
-              }
-              else {
+                ascending = !ascending;
+              } else {
                 ascending = true;
                 column = actualColumn;
               }
@@ -937,37 +969,39 @@ public class SheetRenderer extends RendererBase
               if (child != null) {
                 ValueBinding valueBinding = child.getValueBinding("value");
                 String expressionString = valueBinding.getExpressionString();
-                if (expressionString.startsWith("#{") && expressionString.endsWith("}")) {
-                  expressionString = expressionString.substring(2, expressionString.length() -1);
+                if (expressionString.startsWith("#{") &&
+                    expressionString.endsWith("}")) {
+                  expressionString =
+                      expressionString.substring(2,
+                          expressionString.length() - 1);
                 }
                 String var = data.getVar();
                 sortProperty = expressionString.substring(var.length() + 1);
                 if (LOG.isDebugEnabled()) {
                   LOG.debug("Sort property is " + sortProperty);
                 }
-              }
-              else {
+              } else {
                 LOG.error("No sortable component found!");
                 removeSortableAttribute(uiColumn);
                 return null;
               }
             } catch (Exception e) {
-              LOG.error("Error while extracting sortMethod :" + e.getMessage(), e);
+              LOG.error("Error while extracting sortMethod :" + e.getMessage(),
+                  e);
               if (uiColumn != null) {
                 removeSortableAttribute(uiColumn);
               }
               return null;
             }
-          }
-          else {
-            LOG.error("Sorter.invoke() with illegal id in ActionEvent's source");
+          } else {
+            LOG.error(
+                "Sorter.invoke() with illegal id in ActionEvent's source");
             return null;
           }
 
           if (value instanceof SortableByApplication) {
-            ((SortableByApplication)value).sortBy(sortProperty);
-          }
-          else {
+            ((SortableByApplication) value).sortBy(sortProperty);
+          } else {
 
             // todo: locale / comparator parameter?
             // don't compare numbers with Collator.getInstance() comparator
@@ -979,14 +1013,12 @@ public class SheetRenderer extends RendererBase
 
             if (value instanceof List) {
               Collections.sort((List) value, beanComparator);
-            }
-            else { // if (value instanceof Object[]) {
+            } else { // if (value instanceof Object[]) {
               Arrays.sort((Object[]) value, beanComparator);
             }
           }
           data.updateState(facescontext);
-        }
-        else {  // DataModel?, ResultSet, Result or Object
+        } else {  // DataModel?, ResultSet, Result or Object
           LOG.warn("Sorting not supported for type "
               + (value != null ? value.getClass().toString() : "null"));
         }
@@ -1012,14 +1044,12 @@ public class SheetRenderer extends RendererBase
             || child instanceof UISelectOne
             || child instanceof UISelectBoolean) {
           continue;
-        }
-        else if (child instanceof UIInput &&
+        } else if (child instanceof UIInput &&
             ("Hidden".equals(child.getRendererType())
             || "Color16Chooser".equals(child.getRendererType()))) {
           continue;
-        }
-        else  if (child instanceof UIOutput) {
-            break;
+        } else if (child instanceof UIOutput) {
+          break;
         }
       }
       return child;
@@ -1027,7 +1057,7 @@ public class SheetRenderer extends RendererBase
 
     public Class getType(FacesContext facescontext)
         throws MethodNotFoundException {
-      return String.class ;
+      return String.class;
     }
 
     public int getColumn() {
@@ -1059,7 +1089,7 @@ public class SheetRenderer extends RendererBase
         throws EvaluationException, MethodNotFoundException {
 
       if (aobj[0] instanceof ActionEvent) {
-        UICommand command  = (UICommand) ((ActionEvent)aobj[0]).getSource();
+        UICommand command = (UICommand) ((ActionEvent) aobj[0]).getSource();
         String action = (String)
             command.getAttributes().get(TobagoConstants.ATTR_COMMAND_NAME);
 
@@ -1069,25 +1099,20 @@ public class SheetRenderer extends RendererBase
 
         if (FIRST.equals(action)) {
           data.setFirst(0);
-        }
-        else if (PREV.equals(action)) {
+        } else if (PREV.equals(action)) {
           int start = data.getFirst() - data.getRows();
           data.setFirst(start < 0 ? 0 : start);
-        }
-        else if (NEXT.equals(action)) {
+        } else if (NEXT.equals(action)) {
           int start = data.getFirst() + data.getRows();
           int last = getLast();
           data.setFirst(start > data.getRowCount() ? last : start);
-        }
-        else if (LAST.equals(action)) {
+        } else if (LAST.equals(action)) {
           data.setFirst(getLast());
-        }
-        else {
+        } else {
           LOG.error("Unkown commandName :" + action);
         }
 
-      }
-      else {
+      } else {
         if (LOG.isDebugEnabled()) {
           LOG.debug("aobj[0] instanceof '" + aobj[0] + "'");
         }
