@@ -7,6 +7,8 @@
 package com.atanion.tobago.component;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.event.StateChangeListener;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class UITabGroup extends UIPanel {
+public class UITabGroup extends UIPanel implements StateHolder{
 
 // ///////////////////////////////////////////// constant
 
@@ -74,6 +76,18 @@ public class UITabGroup extends UIPanel {
     if (stateBinding != null) {
       stateBinding.setValue(facesContext, new Integer(activeIndex));
     }
+  }
+
+  public void addStateChangeListener(StateChangeListener listener) {
+    addFacesListener(listener);
+  }
+  public void removeStateChangeListener(StateChangeListener listener) {
+    removeFacesListener(listener);
+  }
+  public StateChangeListener[] getStateChangeListener(){
+    StateChangeListener listener[] =
+        (StateChangeListener[]) getFacesListeners(StateChangeListener.class);
+    return listener;
   }
 
 // ///////////////////////////////////////////// bean getter + setter

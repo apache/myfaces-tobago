@@ -2321,4 +2321,22 @@
 
   </tag>
 
+  <tag>
+    <name>stateChangeListener</name>
+    <tag-class>com.atanion.tobago.taglib.component.StateChangeListenerTag</tag-class>
+    <body-content>empty</body-content>
+    <description> Register an StateChangedListener instance on the UIComponent
+        associated with the closest parent UIComponent custom action.
+    </description>
+    <attribute>
+      <name>type</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+         Fully qualified Java class name of a StateChangeListener to be
+         created and registered.
+      </description>
+    </attribute>
+  </tag>
+
 </taglib>

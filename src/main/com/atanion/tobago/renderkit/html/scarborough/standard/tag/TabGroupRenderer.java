@@ -6,9 +6,12 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.event.StateChangeListener;
+import com.atanion.tobago.event.StateChangeEvent;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.component.UITabGroup;
+import com.atanion.tobago.component.StateHolder;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
@@ -28,6 +31,7 @@ import javax.faces.el.MethodBinding;
 import javax.faces.el.MethodNotFoundException;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.PhaseId;
 import javax.servlet.ServletRequest;
 import java.io.IOException;
 
@@ -51,6 +55,8 @@ public class TabGroupRenderer extends RendererBase
       return;
     }
 
+    int oldIndex = ((UITabGroup) component).getActiveIndex();
+
     String clientId = component.getClientId(facesContext);
     String newValue
         = ((ServletRequest) facesContext.getExternalContext().getRequest())
@@ -59,6 +65,12 @@ public class TabGroupRenderer extends RendererBase
       int activeIndex = Integer.parseInt(newValue);
       ((UITabGroup) component).setActiveIndex(activeIndex);
       ((UITabGroup) component).updateState(facesContext);
+      if (activeIndex != oldIndex) {
+        StateChangeEvent event = new StateChangeEvent(component,
+            new Integer(oldIndex), new Integer(activeIndex));
+        event.setPhaseId(PhaseId.UPDATE_MODEL_VALUES);
+        component.queueEvent(event);
+      }
 
     } catch (NumberFormatException e) {
       LOG.error("Can't parse activeIndex: '" + newValue + "'");
@@ -89,6 +101,7 @@ public class TabGroupRenderer extends RendererBase
       activeIndex = component.getActiveIndex();
     } else if (state instanceof Integer) {
       activeIndex = ((Integer) state).intValue();
+      component.setActiveIndex(activeIndex);
     } else {
       LOG.warn("Illegal class in stateBinding: " + state.getClass().getName());
       activeIndex = component.getActiveIndex();
