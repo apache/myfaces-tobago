@@ -10,7 +10,7 @@
 
 //    alert(scrX+" "+ scrY+"\n"+avaWidth+" "+avaHeight );
 
-    var pickerWidth = 204;
+    var pickerWidth = 275;
     var pickerHeight = 280;
 
     var xPos;
@@ -28,7 +28,11 @@
     }
 
     var calendarWindow = window.open(url, "Calendar",
-        "width=330,height=330,left="+xPos+",top="+yPos+",scrollbars=0,resizable=0,resizable=0,dependent=1");
+        "width="+pickerWidth+
+        ",height="+pickerHeight+
+        ",left="+xPos+
+        ",top="+yPos+
+        ",scrollbars=0,resizable=0,resizable=0,dependent=1");
     calendarWindow.focus();
 
   }
