@@ -82,7 +82,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
     UIComponent label = component.getFacet(FACET_LABEL);
 
-    String image = ResourceManagerUtil.getImage(facesContext, "1x1.gif");
+    String image = ResourceManagerUtil.getImage(facesContext, "image/1x1.gif");
 
     // fixme: rows never used
     Integer rows = (Integer) component.getAttributes().get(ATTR_ROWS);

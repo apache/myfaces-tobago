@@ -230,11 +230,11 @@ public class SheetRenderer extends RendererBase {
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
     UIData component = (UIData) uiComponent;
-    String image1x1 = ResourceManagerUtil.getImage(facesContext, "1x1.gif");
+    String image1x1 = ResourceManagerUtil.getImage(facesContext, "image/1x1.gif");
     String ascending = ResourceManagerUtil.getImage(facesContext,
-        "ascending.gif");
+        "image/ascending.gif");
     String descending = ResourceManagerUtil.getImage(facesContext,
-        "descending.gif");
+        "image/descending.gif");
 
     String sheetId = component.getClientId(facesContext);
     UIPage uiPage = ComponentUtil.findPage(component);
@@ -244,16 +244,16 @@ public class SheetRenderer extends RendererBase {
 
     String selectorDisabled
         = ResourceManagerUtil.getImage(facesContext,
-            "sheetUncheckedDisabled.gif");
+            "image/sheetUncheckedDisabled.gif");
     String unchecked
-        = ResourceManagerUtil.getImage(facesContext, "sheetUnchecked.gif");
+        = ResourceManagerUtil.getImage(facesContext, "image/sheetUnchecked.gif");
     uiPage.getOnloadScripts().add("tobagoSheetSetUncheckedImage(\"" + sheetId +
         "\", \"" +
         unchecked
         + "\")");
     uiPage.getOnloadScripts().add("tobagoSheetSetCheckedImage(\"" + sheetId +
         "\", \""
-        + ResourceManagerUtil.getImage(facesContext, "sheetChecked.gif") +
+        + ResourceManagerUtil.getImage(facesContext, "image/sheetChecked.gif") +
         "\")");
     uiPage.getOnloadScripts().add("updateSelectionView(\"" + sheetId + "\")");
 
@@ -1095,7 +1095,7 @@ public class SheetRenderer extends RendererBase {
     String tip = ResourceManagerUtil.getProperty(facesContext, "tobago",
         "sheet" + command);
     String image = ResourceManagerUtil.getImage(facesContext,
-        command + (disabled ? "Disabled" : "") + ".gif");
+        "image/" + command + (disabled ? "Disabled" : "") + ".gif");
     String onClick = ButtonRenderer.createOnClick(facesContext, link);
 
     ResponseWriter writer = facesContext.getResponseWriter();

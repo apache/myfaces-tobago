@@ -41,7 +41,7 @@ public class ProgressRenderer extends RendererBase {
       model = new DefaultBoundedRangeModel(40,1,0,100);
     }
 
-    String image = ResourceManagerUtil.getImage(facesContext, "1x1.gif");
+    String image = ResourceManagerUtil.getImage(facesContext, "image/1x1.gif");
 
     String value1 = Integer.toString(model.getValue());
     String value2 = Integer.toString(

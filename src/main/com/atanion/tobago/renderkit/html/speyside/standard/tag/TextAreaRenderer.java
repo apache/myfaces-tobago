@@ -50,7 +50,7 @@ public class TextAreaRenderer extends InputRendererBase {
     TobagoResponseWriter writer = (TobagoResponseWriter)
         facesContext.getResponseWriter();
 
-    String image = ResourceManagerUtil.getImage(facesContext, "1x1.gif");
+    String image = ResourceManagerUtil.getImage(facesContext, "image/1x1.gif");
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
 
     writer.startElement("table", null);

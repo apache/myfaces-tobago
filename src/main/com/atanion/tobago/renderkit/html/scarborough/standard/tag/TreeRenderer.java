@@ -155,7 +155,7 @@ public class TreeRenderer extends RendererBase {
           // create a UIImage and add it to the UILink
           UIComponent image = application.createComponent(UIGraphic.COMPONENT_TYPE);
           image.getAttributes().put(ATTR_VALUE,
-              "tobago.tree." + commands[i].getCommand() + ".gif");
+              "image/tobago.tree." + commands[i].getCommand() + ".gif");
           image.getAttributes().put(ATTR_I18N, Boolean.TRUE);
           String title = ResourceManagerUtil.getProperty(facesContext, "tobago",
               "tree" + StringUtil.firstToUpperCase(commands[i].getCommand()));
@@ -203,7 +203,7 @@ public class TreeRenderer extends RendererBase {
       writer.writeText("treeResourcesHelp.", null);
       writer.writeText(images[i].replace('.', '_'), null);
       writer.writeText(" = \"", null);
-      writer.writeText(ResourceManagerUtil.getImage(facesContext, images[i]), null);
+      writer.writeText(ResourceManagerUtil.getImage(facesContext, "image/" + images[i]), null);
       writer.writeText("\";\n", null);
     }
     writer.writeText("treeResourcesHelp.getImage = function (name) {\n", null);
@@ -212,7 +212,7 @@ public class TreeRenderer extends RendererBase {
     writer.writeText("    return result;\n", null);
     writer.writeText("  } else {\n", null);
     writer.writeText("    return \"", null);
-    writer.writeText(ResourceManagerUtil.getImage(facesContext, "blank.gif"), null);
+    writer.writeText(ResourceManagerUtil.getImage(facesContext, "image/blank.gif"), null);
     writer.writeText("\";\n", null);
     writer.writeText("  }\n", null);
     writer.writeText("}\n", null);

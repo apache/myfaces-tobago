@@ -18,5 +18,5 @@
   <%-- id is needed for knowledgebase, don't know why :-( --%>
   <tobago:button action="<%= url %>" type="script" id="configButtonAction"
         label="#{tobagoBundle.configButtonText}"
-        image="config.gif" />
+        image="image/config.gif" />
 </f:subview>

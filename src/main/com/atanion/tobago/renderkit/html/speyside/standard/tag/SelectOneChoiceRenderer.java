@@ -50,7 +50,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    String image = ResourceManagerUtil.getImage(facesContext, "1x1.gif");
+    String image = ResourceManagerUtil.getImage(facesContext, "image/1x1.gif");
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("items.size() = '" + items.size() + "'");

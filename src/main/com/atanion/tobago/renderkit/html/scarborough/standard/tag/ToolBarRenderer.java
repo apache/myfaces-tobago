@@ -10,7 +10,6 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.CommandRendererBase;
-import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
@@ -197,7 +196,7 @@ public class ToolBarRenderer extends RendererBase {
     }
     writer.endElement("a");
     if (popupMenu != null) {
-      String backgroundImage = ResourceManagerUtil.getImage(facesContext, "1x1.gif");
+      String backgroundImage = ResourceManagerUtil.getImage(facesContext, "image/1x1.gif");
       writer.startElement("span", null);
       writer.writeAttribute("id", command.getClientId(facesContext) + SUBCOMPONENT_SEP + "popup", null);
       writer.writeAttribute("class", "tobago-toolBar-button-menu", null);
@@ -211,7 +210,7 @@ public class ToolBarRenderer extends RendererBase {
       popupMenu.setRendererType(RENDERER_TYPE_MENUBAR);
       popupMenu.getAttributes().remove(ATTR_LABEL);
       popupMenu.getAttributes().remove(ATTR_LABEL_WITH_ACCESS_KEY);
-      popupMenu.getAttributes().put(ATTR_IMAGE, "toolbarButtonMenu.gif");
+      popupMenu.getAttributes().put(ATTR_IMAGE, "image/toolbarButtonMenu.gif");
       RenderUtil.encode(facesContext, popupMenu);
     }
     writer.endElement("span");

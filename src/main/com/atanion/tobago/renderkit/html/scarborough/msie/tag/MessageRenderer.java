@@ -93,7 +93,7 @@ public class MessageRenderer extends MessageRendererBase {
 
     } else {
       writer.startElement("img", null);
-      writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "1x1.gif"), null);
+      writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "image/1x1.gif"), null);
       writer.writeAttribute("alt", "", null);
       writer.writeAttribute("style", "border: 0px; height: 1px; width: 1px;", null);
       writer.endElement("img");      

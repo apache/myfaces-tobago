@@ -100,7 +100,7 @@ public class CalendarRenderer extends RendererBase {
     writer.startElement("img", null);
     writer.writeAttribute("style", "cursor: pointer", null);
     writer.writeAttribute("alt", "", null);
-    writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "fastPrev.gif"), null);
+    writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "image/fastPrev.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', -12)", null);
     writer.endElement("img");
     writer.endElement("td");
@@ -110,7 +110,7 @@ public class CalendarRenderer extends RendererBase {
     writer.startElement("img", null);
     writer.writeAttribute("style", "cursor: pointer", null);
     writer.writeAttribute("alt", "", null);
-    writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "prev.gif"), null);
+    writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "image/prev.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', -1)", null);
     writer.endElement("img");
     writer.endElement("td");
@@ -126,7 +126,7 @@ public class CalendarRenderer extends RendererBase {
     writer.startElement("img", null);
     writer.writeAttribute("style", "cursor: pointer", null);
     writer.writeAttribute("alt", "", null);
-    writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "next.gif"), null);
+    writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "image/next.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', 1)", null);
     writer.endElement("img");
     writer.endElement("td");
@@ -136,7 +136,7 @@ public class CalendarRenderer extends RendererBase {
     writer.startElement("img", null);
     writer.writeAttribute("style", "cursor: pointer", null);
     writer.writeAttribute("alt", "", null);
-    writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "fastNext.gif"), null);
+    writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "image/fastNext.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', 12)", null);
     writer.endElement("img");
     writer.endElement("td");

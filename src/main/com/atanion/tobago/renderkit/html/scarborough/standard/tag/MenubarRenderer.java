@@ -125,7 +125,7 @@ public class MenubarRenderer extends RendererBase {
     sb.append("    menubar.menu = menu;\n");
 
     sb.append("    menu.setSubitemArrowImage(\"");
-    sb.append(ResourceManagerUtil.getImage(facesContext, "MenuArrow.gif"));
+    sb.append(ResourceManagerUtil.getImage(facesContext, "image/MenuArrow.gif"));
     sb.append("\");\n");
 
     if (ComponentUtil.getBooleanAttribute(component, ATTR_MENU_POPUP)) {
@@ -256,7 +256,7 @@ public class MenubarRenderer extends RendererBase {
     writer.startElement("img", null);
     writer.writeAttribute("class", "tobago-menu-subitem-arrow", null);
     writer.writeAttribute("src",
-        ResourceManagerUtil.getImage(facesContext, "MenuArrow.gif"), null);
+        ResourceManagerUtil.getImage(facesContext, "image/MenuArrow.gif"), null);
     writer.endElement("img");
   }
 
@@ -483,7 +483,7 @@ public class MenubarRenderer extends RendererBase {
       image = ResourceManagerUtil.getImage(facesContext, image);
     }
     else {
-      image = ResourceManagerUtil.getImage(facesContext, "blank.gif");
+      image = ResourceManagerUtil.getImage(facesContext, "image/blank.gif");
     }
       writer.startElement("img", null);
       writer.writeAttribute("class", "tobago-menu-item-image", null);

@@ -8,5 +8,5 @@
   String action = "/viewSource.jsp?jsp=" + sourceName;
 %>
   <tobago:button id="viewJspButton" action="<%= action %>" type="navigate"
-      label="JSP" image="source.gif" />
+      label="JSP" image="image/source.gif" />
 </f:subview>

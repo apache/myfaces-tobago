@@ -80,7 +80,7 @@ public class TabGroupRenderer extends RendererBase {
 
 
     UITabGroup component = (UITabGroup) uiComponent;
-    String image1x1 = ResourceManagerUtil.getImage(facesContext, "1x1.gif");
+    String image1x1 = ResourceManagerUtil.getImage(facesContext, "image/1x1.gif");
 
     UIPanel[] tabs = component.getTabs();
     layoutTabs(facesContext, component, tabs);

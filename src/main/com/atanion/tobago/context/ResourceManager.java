@@ -20,7 +20,7 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
-// fixme: is this class thead-safe?
+// fixme: is this class thread-safe?
 
 public class ResourceManager {
 
@@ -78,7 +78,8 @@ public class ResourceManager {
 
   public String getImage(UIViewRoot viewRoot, String name,
       boolean ignoreMissing) {
-    final String type = "image";
+//    final String type = "image";
+    final String type = null;
     int dot = name.lastIndexOf('.');
     if (dot == -1) {
       dot = name.length();
@@ -103,10 +104,8 @@ public class ResourceManager {
       // todo: cache null values
       cache.put(key, result);
     } catch (Exception e) {
-      LOG.error(
-          "name = '" + name + "' clientProperties = '" + clientProperties +
-          "'",
-          e);
+      LOG.error("name = '" + name
+          + "' clientProperties = '" + clientProperties + "'", e);
     }
 
     return result;
@@ -209,7 +208,7 @@ public class ResourceManager {
                 localeSuffix,
                 suffix,
                 key);
-//            LOG.info("testing path: " + path);
+            LOG.info("testing path: " + path);
             if (returnStrings && resourceList.containsKey(path)) {
               String result = prefix;
 
@@ -242,33 +241,37 @@ public class ResourceManager {
         }
       }
     }
-    path = makePath(name, suffix, key);
-    if (returnStrings && resourceList.containsKey(path)) {
-      String result = prefix;
+    Iterator localeIterator = locales.iterator();
+    while (localeIterator.hasNext()) { // locale loop
+      String localeSuffix = (String) localeIterator.next();
+      path = makePath(name, localeSuffix, suffix, key);
+      if (returnStrings && resourceList.containsKey(path)) {
+        String result = prefix;
 
-      if (returnKey) {
-        result += path;
-      } else {
-        result += (String) resourceList.get(path);
-      }
+        if (returnKey) {
+          result += path;
+        } else {
+          result += (String) resourceList.get(path);
+        }
 
-      if (reverseOrder) {
-        matches.add(0, result);
-      } else {
-        matches.add(result);
-      }
+        if (reverseOrder) {
+          matches.add(0, result);
+        } else {
+          matches.add(result);
+        }
 
-      if (single) {
-        return matches;
-      }
-    } else if (!returnStrings) {
-      try {
-        path = path.substring(1).replace('/', '.');
-        Class clazz = Class.forName(path);
-        matches.add(clazz);
-        return matches;
-      } catch (ClassNotFoundException e) {
-        // not found
+        if (single) {
+          return matches;
+        }
+      } else if (!returnStrings) {
+        try {
+          path = path.substring(1).replace('/', '.');
+          Class clazz = Class.forName(path);
+          matches.add(clazz);
+          return matches;
+        } catch (ClassNotFoundException e) {
+          // not found
+        }
       }
     }
     if (matches.size() == 0) {
@@ -294,32 +297,46 @@ public class ResourceManager {
       String language, Theme theme, String browser,
       String subDir, String name, String localeSuffix, String extension,
       String key) {
-    String searchtext;
+    StringBuffer searchtext = new StringBuffer();
 
+    searchtext.append('/');
+    searchtext.append(project);
+    searchtext.append('/');
+    searchtext.append(language);
+    searchtext.append('/');
+    searchtext.append(theme);
+    searchtext.append('/');
+    searchtext.append(browser);
+    if (subDir != null) {
+      searchtext.append('/');
+      searchtext.append(subDir);
+    }
+    searchtext.append('/');
+    searchtext.append(name);
+    searchtext.append(localeSuffix);
+    searchtext.append(extension);
     if (key != null) {
-      searchtext = '/' + project + '/' + language + '/' + theme + '/'
-          + browser
-          + '/' + subDir + '/' + name + localeSuffix + extension
-          + '/' + key;
-    } else {
-      searchtext = '/' + project + '/' + language + '/' + theme + '/'
-          + browser
-          + '/' + subDir + '/' + name + localeSuffix + extension;
+      searchtext.append('/');
+      searchtext.append(key);
     }
 
-    return searchtext;
+    return searchtext.toString();
   }
 
-  private String makePath(String name, String extension, String key) {
-    String searchtext;
+  private String makePath(
+      String name, String localeSuffix, String extension, String key) {
+    StringBuffer searchtext = new StringBuffer();
 
+    searchtext.append('/');
+    searchtext.append(name);
+    searchtext.append(localeSuffix);
+    searchtext.append(extension);
     if (key != null) {
-      searchtext = '/' + name + extension + '/' + key;
-    } else {
-      searchtext = '/' + name + extension;
+      searchtext.append('/');
+      searchtext.append(key);
     }
 
-    return searchtext;
+    return searchtext.toString();
   }
 
   public Renderer getRenderer(UIViewRoot viewRoot, String name) {
@@ -355,8 +372,10 @@ public class ResourceManager {
     buffer.append(clientProperties);
     buffer.append('/');
     buffer.append(locale);
-    buffer.append('/');
-    buffer.append(type);
+    if (type != null) {
+      buffer.append('/');
+      buffer.append(type);
+    }
     buffer.append('/');
     buffer.append(name);
     return buffer.toString();
