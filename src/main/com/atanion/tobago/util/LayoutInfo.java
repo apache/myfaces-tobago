@@ -5,16 +5,12 @@
   */
 package com.atanion.tobago.util;
 
-import com.atanion.tobago.component.UIGridLayout;
-import com.atanion.tobago.renderkit.html.scarborough.standard.tag.GridLayoutRenderer;
-
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-import javax.faces.component.UIComponent;
-import java.util.Vector;
-import java.util.StringTokenizer;
 import java.util.List;
+import java.util.StringTokenizer;
+import java.util.Vector;
 
 public class LayoutInfo{
 
@@ -76,17 +72,23 @@ public class LayoutInfo{
   public void update(int space, int index){
     spaceLeft -= space;
     cellsLeft--;
-    spaces[index] = space;
-    if (spaceLeft < 0) {
-      if (log.isWarnEnabled()) {
-        log.warn("More space used than avaliable! set left to 0!");
+    if (index < spaces.length) {
+      spaces[index] = space;
+      if (spaceLeft < 0) {
+        if (log.isWarnEnabled()) {
+          log.warn("More space used than avaliable! set left to 0!");
+        }
+        spaceLeft = 0;
       }
-      spaceLeft = 0;
+      if (spaceLeft <1 && columnsLeft()) {
+        if (log.isWarnEnabled()) {
+          log.warn("There are columns left but no more Space!");
+        }
+      }
     }
-    if (spaceLeft <1 && columnsLeft()) {
-      if (log.isWarnEnabled()) {
-        log.warn("There are columns left but no more Space!");
-      }
+    else {
+      log.warn("More Space to assign (" + space + "px) but no more column's!"
+          + " More layoutTokens than column tag's?");
     }
   }
 
