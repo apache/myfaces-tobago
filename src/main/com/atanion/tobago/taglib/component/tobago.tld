@@ -880,7 +880,7 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>stateBinding</name>
+      <name>state</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>

@@ -30,7 +30,7 @@ public class SheetTag extends TobagoTag {
   private String columns;
   private String value;
   private String forceVerticalScrollbar;
-  private String stateBinding;
+  private String state;
   private String stateChangeListener;
 
 // ----------------------------------------------------------- business methods
@@ -53,7 +53,7 @@ public class SheetTag extends TobagoTag {
     columns = null;
     value = null;
     forceVerticalScrollbar = null;
-    stateBinding = null;
+    state = null;
     stateChangeListener = null;
   }
 
@@ -89,10 +89,10 @@ public class SheetTag extends TobagoTag {
     data.getAttributes().put(ATTR_INNER_WIDTH, new Integer(-1));
 
     // todo: check, if it is an writeable object
-    if (stateBinding != null && isValueReference(stateBinding)) {
+    if (state != null && isValueReference(state)) {
       ValueBinding valueBinding = ComponentUtil.createValueBinding(
-          stateBinding, getIterationHelper());
-      data.setValueBinding(ATTR_STATE_BINDING, valueBinding);
+          state, getIterationHelper());
+      data.setValueBinding(ATTR_STATE, valueBinding);
     }
 
     final FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -186,8 +186,8 @@ public class SheetTag extends TobagoTag {
     this.showRowRange = showRowRange;
   }
 
-  public void setStateBinding(String stateBinding) {
-    this.stateBinding = stateBinding;
+  public void setState(String state) {
+    this.state = state;
   }
 
   public void setStateChangeListener(String stateChangeListener) {

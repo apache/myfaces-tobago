@@ -63,8 +63,7 @@ public class UIData extends javax.faces.component.UIData {
   }
 
   public SheetState getSheetState(FacesContext facesContext) {
-    ValueBinding stateBinding
-        = getValueBinding(ATTR_STATE_BINDING);
+    ValueBinding stateBinding = getValueBinding(ATTR_STATE);
     if (stateBinding != null) {
       SheetState state = (SheetState) stateBinding.getValue(facesContext);
       if (state == null) {
