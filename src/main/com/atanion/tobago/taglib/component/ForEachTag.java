@@ -157,7 +157,7 @@ public class ForEachTag extends BodyTagSupport {
 
     public String replace(String binding) {
       final String result = pattern.matcher(binding).replaceAll(
-          "$1" + replacement +"[" + position + "]");
+          "$1" + replacement +"[" + position + "]$2");
       if (LOG.isDebugEnabled()) {
         LOG.debug("transform \"" + binding + "\" to \"" + result + "\"");
       }
@@ -177,7 +177,7 @@ public class ForEachTag extends BodyTagSupport {
       this.position = position;
       this.stop = stop;
       this.step = step;
-      pattern = Pattern.compile("([^\\.] *?)" + var);
+      pattern = Pattern.compile("(\\W *?[^\\.] *?)" + var + "( *?\\W)");
     }
   }
 }
