@@ -151,7 +151,7 @@ public class TreeRenderer extends RendererBase
         link.setRendererType(TobagoConstants.RENDERER_TYPE_LINK);
           link.addActionListener(handler);
         link.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
-        tree.getChildren().add(link);
+        tree.getFacets().put(commands[i].getCommand(), link);
 
         // create a UIImage and add it to the UILink
         UIComponent image = application.createComponent(
