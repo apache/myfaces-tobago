@@ -73,6 +73,10 @@ span.tobago-progress {
 }
 
 /* Tree -------------------------------------------------------------------- */
+.tobago-tree-default {
+  overflow: auto;
+}
+
 .tree-container {
 	margin: 0px;
 	padding: 0px;

@@ -1,8 +1,10 @@
 /* workaround for tree div problem.
 without a border the div get´s a scrollbar */
+/*
 .tobago-tree-default  {
   border: 1px solid transparent;
 }
+*/
 
 .tobago-textarea-default {
   margin-bottom: -4px;

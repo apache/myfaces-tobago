@@ -13,6 +13,7 @@ import com.atanion.tobago.context.TobagoResource;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.util.StringUtil;
 import com.atanion.tobago.util.TreeState;
 
@@ -30,7 +31,8 @@ import javax.faces.event.ActionListener;
 import javax.servlet.jsp.JspException;
 import java.io.IOException;
 
-public class TreeRenderer extends RendererBase implements DirectRenderer {
+public class TreeRenderer extends RendererBase
+    implements HeightLayoutRenderer, DirectRenderer {
 
 // ///////////////////////////////////////////// constant
 
@@ -71,6 +73,10 @@ public class TreeRenderer extends RendererBase implements DirectRenderer {
         : clientId.replace(NamingContainer.SEPARATOR_CHAR, '_');
   }
 
+  public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
+    return 0;
+  }
+
   public void encodeDirectEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
 
@@ -83,6 +89,7 @@ public class TreeRenderer extends RendererBase implements DirectRenderer {
 
     writer.startElement("div", tree);
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
 
     writer.startElement("input", tree);
     writer.writeAttribute("type", "hidden", null);
@@ -156,9 +163,20 @@ public class TreeRenderer extends RendererBase implements DirectRenderer {
       writer.endElement("div");
     }
 
-    writer.startElement("div", null);
+//    writer.startElement("div", null);
+    writer.startElement("table", null);
+    writer.writeAttribute("cellpadding", "0", null);
+    writer.writeAttribute("cellspacing", "0", null);
+    writer.writeAttribute("border", "0", null);
+    writer.writeAttribute("summary", "", null);
+    writer.startElement("tr", null);
+    writer.startElement("td", null);
     writer.writeAttribute("id", clientId + "-cont", null);
-    writer.endElement("div");
+    writer.writeComment("placeholder for treecontent");
+    writer.endElement("td");
+    writer.endElement("tr");
+    writer.endElement("table");
+//    writer.endElement("div");
 
     ComponentUtil.findPage(tree).getScriptFiles().add("tree.js", true);
 
