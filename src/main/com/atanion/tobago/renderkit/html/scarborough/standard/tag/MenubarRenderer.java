@@ -13,14 +13,12 @@ import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.taglib.component.MenuCommandTag;
 import com.atanion.tobago.taglib.component.MenuSelectBooleanTag;
 import com.atanion.tobago.taglib.component.MenuSelectOneTag;
 import com.atanion.tobago.taglib.component.MenuSeparatorTag;
 import com.atanion.tobago.taglib.component.MenuTag;
-
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -41,45 +39,31 @@ import java.util.Iterator;
 import java.util.List;
 
 public class MenubarRenderer extends RendererBase {
-
-// ///////////////////////////////////////////// constant
+// ------------------------------------------------------------------ constants
 
   private static final Log LOG = LogFactory.getLog(MenubarRenderer.class);
 
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
-
-  public boolean getRendersChildren() {
-    return true;
-  }
+// ----------------------------------------------------------------- interfaces
 
 
-
-  public void encodeChildren(FacesContext facesContext, UIComponent component)
-      throws IOException {
-  }
+// ---------------------------- interface TobagoRenderer
 
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
-
     String clientId;
 
     if (ComponentUtil.getBooleanAttribute(component, ATTR_MENU_POPUP)) {
       clientId = component.getParent().getClientId(facesContext);
-    }
-    else {
+    } else {
       clientId = component.getClientId(facesContext);
       ResponseWriter writer = facesContext.getResponseWriter();
       writer.startElement("div", component);
       writer.writeAttribute("id", clientId, null);
-      String cssClasses = (String) component.getAttributes().get(ATTR_STYLE_CLASS);
+      String cssClasses = (String) component.getAttributes().get(
+          ATTR_STYLE_CLASS);
       if (ComponentUtil.getBooleanAttribute(component, ATTR_PAGE_MENU)) {
         cssClasses += "tobago-menubar-page-facet";
-      }
-      else {
+      } else {
         writer.writeAttribute("style", null, ATTR_STYLE);
       }
       writer.writeAttribute("class", cssClasses, null);
@@ -91,8 +75,9 @@ public class MenubarRenderer extends RendererBase {
         = createSetupFunction(facesContext, component, clientId, scriptBuffer);
     addScriptsAndStyles(facesContext, component, clientId, setupFunction,
         scriptBuffer.toString());
-
   }
+
+// ----------------------------------------------------------- business methods
 
   protected void addScriptsAndStyles(FacesContext facesContext,
       UIComponent component, final String clientId, String setupFunction,
@@ -105,11 +90,23 @@ public class MenubarRenderer extends RendererBase {
     page.getStyleFiles().add("style/tobago-menu.css");
   }
 
+  private void addSubItemMarker(TobagoResponseWriter writer,
+      FacesContext facesContext) throws IOException {
+    writer.startElement("img", null);
+    writer.writeAttribute("class", "tobago-menu-subitem-arrow", null);
+    writer.writeAttribute("src",
+        ResourceManagerUtil.getImage(facesContext, "image/MenuArrow.gif"),
+        null);
+    writer.endElement("img");
+  }
+
   protected String createSetupFunction(FacesContext facesContext,
       UIComponent component, final String clientId, StringBuffer sb)
       throws IOException {
     String setupFunction = "setupMenu"
-        + clientId.replaceAll(":", "_").replaceAll("\\.", "_").replaceAll("-", "_");
+        +
+        clientId.replaceAll(":", "_").replaceAll("\\.", "_").replaceAll("-",
+            "_");
 
     sb.append("function ");
     sb.append(setupFunction);
@@ -125,7 +122,8 @@ public class MenubarRenderer extends RendererBase {
     sb.append("    menubar.menu = menu;\n");
 
     sb.append("    menu.setSubitemArrowImage(\"");
-    sb.append(ResourceManagerUtil.getImage(facesContext, "image/MenuArrow.gif"));
+    sb.append(
+        ResourceManagerUtil.getImage(facesContext, "image/MenuArrow.gif"));
     sb.append("\");\n");
 
     if (ComponentUtil.getBooleanAttribute(component, ATTR_MENU_POPUP)) {
@@ -133,79 +131,44 @@ public class MenubarRenderer extends RendererBase {
       sb.append("    initMenuPopUp(searchId, pageId, \"");
       sb.append(component.getAttributes().get(ATTR_MENU_POPUP_TYPE));
       sb.append("\");\n");
-    }
-    else {
+    } else {
       addMenuEntrys(sb, "menu", facesContext, component, true);
       sb.append("    initMenuBar(searchId, pageId);\n");
     }
 
     sb.append("  }\n");
     sb.append("  else {\n");
-    sb.append("    PrintDebug('kein Element mit id: ' + searchId + ' gefunden!');\n");
+    sb.append(
+        "    PrintDebug('kein Element mit id: ' + searchId + ' gefunden!');\n");
     sb.append("  }\n");
     sb.append("}\n");
     return setupFunction;
   }
 
-  private void addMenuEntrys(StringBuffer sb, String var,
-      FacesContext facesContext, UIComponent component, boolean warn) throws IOException {
-    int i = 0;
-    for (Iterator iter = component.getChildren().iterator(); iter.hasNext();) {
-      UIComponent entry = (UIComponent) iter.next();
-      if (entry instanceof UICommand) {
-        addMenuEntry(sb, var, facesContext, (UICommand) entry);
-      } else if (MenuSeparatorTag.MENU_TYPE.equals(entry.getAttributes().get(ATTR_MENU_TYPE))) {
-        addMenuSeparator(sb, var);
-      } else if (MenuTag.MENU_TYPE.equals(entry.getAttributes().get(ATTR_MENU_TYPE))) {
-        i = addMenu(sb, var, facesContext, (UIPanel) entry, i);
-      } else if (warn) {
-        LOG.error("Illegal UIComponent class in menubar :"
-            + entry.getClass().getName());
-      }
-    }
-
-
-  }
-
   private int addMenu(StringBuffer sb, String var, FacesContext facesContext,
       UIPanel menu, int i) throws IOException {
-
-    if (! menu.isRendered()) {
+    if (!menu.isRendered()) {
       return i;
     }
-    
+
     String name = var + "_" + i++;
-    sb.append("    var " + name + " = " + createMenuEntry(facesContext, menu) + ";\n");
+    sb.append(
+        "    var " + name + " = " + createMenuEntry(facesContext, menu) +
+        ";\n");
     sb.append("    " + var + ".addMenuItem(" + name + ");\n");
     addMenuEntrys(sb, name, facesContext, menu, false);
     return i;
   }
 
-  private void addMenuSeparator(StringBuffer sb, String var) {
-
-    String html = "<hr class=\"tobago-menubar-separator\">";
-
-    sb.append("    ");
-    sb.append(var);
-    sb.append(".addMenuItem(new MenuItem('");
-    sb.append(removeLFs(html));
-    sb.append("', ");
-      sb.append("null");
-    sb.append(", ");
-    sb.append("true");
-    sb.append("));\n");
-
-  }
-
   private String createMenuEntry(FacesContext facesContext, UIPanel uiPanel)
       throws IOException {
-
     final boolean disabled
         = ComponentUtil.getBooleanAttribute(uiPanel, ATTR_DISABLED);
     final boolean topMenu = (uiPanel.getParent().getRendererType() != null)
         || ComponentUtil.getBooleanAttribute(uiPanel, ATTR_MENU_POPUP);
     final boolean pageMenu = (uiPanel.getParent().getRendererType() != null)
-        && ComponentUtil.getBooleanAttribute(uiPanel.getParent(), ATTR_PAGE_MENU);
+        &&
+        ComponentUtil.getBooleanAttribute(uiPanel.getParent(), ATTR_PAGE_MENU);
     String spanClass
         = "tobago-menubar-item-span tobago-menubar-item-span-"
         + (disabled ? "disabled" : "enabled")
@@ -239,7 +202,7 @@ public class MenubarRenderer extends RendererBase {
     }
     writer.endElement("a");
 
-    if (! topMenu) {
+    if (!topMenu) {
       // uiPanel is a submenu
 //      addSubItemMarker(writer, facesContext);
     }
@@ -251,36 +214,86 @@ public class MenubarRenderer extends RendererBase {
     return "new MenuItem('" + removeLFs(stringWriter.toString()) + "', null)";
   }
 
-  private void addSubItemMarker(TobagoResponseWriter writer,
-      FacesContext facesContext) throws IOException {
+  private void addImage(TobagoResponseWriter writer, FacesContext facesContext,
+      String image) throws IOException {
+    if (image != null) {
+      image = ResourceManagerUtil.getImage(facesContext, image);
+    } else {
+      image = ResourceManagerUtil.getImage(facesContext, "image/blank.gif");
+    }
     writer.startElement("img", null);
-    writer.writeAttribute("class", "tobago-menu-subitem-arrow", null);
-    writer.writeAttribute("src",
-        ResourceManagerUtil.getImage(facesContext, "image/MenuArrow.gif"), null);
+    writer.writeAttribute("class", "tobago-menu-item-image", null);
+    writer.writeAttribute("src", image, null);
     writer.endElement("img");
   }
 
-  private String removeLFs(String s) {
-    return s.replaceAll("\n", " ");
+  private void addMenuEntrys(StringBuffer sb, String var,
+      FacesContext facesContext, UIComponent component, boolean warn)
+      throws IOException {
+    int i = 0;
+    for (Iterator iter = component.getChildren().iterator(); iter.hasNext();) {
+      UIComponent entry = (UIComponent) iter.next();
+      if (entry instanceof UICommand) {
+        addMenuEntry(sb, var, facesContext, (UICommand) entry);
+      } else if (MenuSeparatorTag.MENU_TYPE.equals(
+          entry.getAttributes().get(ATTR_MENU_TYPE))) {
+        addMenuSeparator(sb, var);
+      } else if (MenuTag.MENU_TYPE.equals(
+          entry.getAttributes().get(ATTR_MENU_TYPE))) {
+        i = addMenu(sb, var, facesContext, (UIPanel) entry, i);
+      } else if (warn) {
+        LOG.error("Illegal UIComponent class in menubar :"
+            + entry.getClass().getName());
+      }
+    }
   }
-
 
   private void addMenuEntry(StringBuffer sb, String var, FacesContext facesContext,
       UICommand command) throws IOException {
     String onClick = createOnClick(facesContext, command);
-    if (MenuCommandTag.MENU_TYPE.equals(command.getAttributes().get(ATTR_MENU_TYPE))) {
+    if (MenuCommandTag.MENU_TYPE.equals(
+        command.getAttributes().get(ATTR_MENU_TYPE))) {
       addCommand(sb, var, facesContext, command, onClick);
-    }
-    else if (MenuSelectBooleanTag.MENU_TYPE.equals(command.getAttributes().get(ATTR_MENU_TYPE)) ) {
+    } else if (MenuSelectBooleanTag.MENU_TYPE.equals(
+        command.getAttributes().get(ATTR_MENU_TYPE))) {
       addSelectBoolean(sb, var, facesContext, command, onClick);
-    }
-    else if (MenuSelectOneTag.MENU_TYPE.equals(command.getAttributes().get(ATTR_MENU_TYPE)) ) {
+    } else if (MenuSelectOneTag.MENU_TYPE.equals(
+        command.getAttributes().get(ATTR_MENU_TYPE))) {
       addSelectOne(sb, var, facesContext, command, onClick);
     }
   }
 
+  private String createOnClick(FacesContext facesContext,
+      UIComponent component) {
+    String type = (String) component.getAttributes().get(ATTR_TYPE);
+    String command = (String) component.getAttributes().get(ATTR_ACTION_STRING);
+    String clientId = component.getClientId(facesContext);
+    String onclick;
+
+    if (COMMAND_TYPE_NAVIGATE.equals(type)) {
+      onclick = "navigateToUrl('"
+          + HtmlUtils.generateUrl(facesContext, command) + "')";
+    } else if (COMMAND_TYPE_RESET.equals(type)) {
+      onclick = null;
+    } else if (COMMAND_TYPE_SCRIPT.equals(type)) {
+      onclick = command;
+    } else { // default: Action.TYPE_SUBMIT
+      onclick = "submitAction('" +
+          ComponentUtil.findPage(component).getFormId(facesContext) +
+          "','" + clientId + "')";
+    }
+    return onclick;
+  }
+
+  private void addCommand(StringBuffer sb, String var, FacesContext facesContext,
+      UICommand command, String onClick) throws IOException {
+    String image = (String) command.getAttributes().get(ATTR_IMAGE);
+    addMenuItem(sb, var, facesContext, command, image, onClick);
+  }
+
   private void addSelectBoolean(StringBuffer sb, String var,
-      FacesContext facesContext, UICommand command, String onClick) throws IOException {
+      FacesContext facesContext, UICommand command, String onClick)
+      throws IOException {
     String clientId = null;
 
     UIComponent checkbox = command.getFacet(FACET_CHECKBOX);
@@ -299,34 +312,33 @@ public class MenubarRenderer extends RendererBase {
     if (checkbox != null) {
       clientId = checkbox.getClientId(facesContext);
       onClick = addMenuCheckToggle(clientId, onClick);
-      final Object value = ((ValueHolder)checkbox).getValue();
+      final Object value = ((ValueHolder) checkbox).getValue();
       if (value instanceof Boolean) {
-        checked = ((Boolean)value).booleanValue();
+        checked = ((Boolean) value).booleanValue();
       } else if (value instanceof String) {
-        LOG.warn("Searching for a boolean, but find a String. Should not happen.");
-        checked = Boolean.getBoolean((String)value);
+        LOG.warn(
+            "Searching for a boolean, but find a String. Should not happen.");
+        checked = Boolean.getBoolean((String) value);
       } else {
         LOG.warn("Unknown type '" + value.getClass().getName() +
             "' for boolean value");
         checked = false;
       }
-    }
-    else {
+    } else {
       checked = ComponentUtil.getBooleanAttribute(command, ATTR_VALUE);
     }
 
     if (checked && clientId != null) {
       sb.append("    menuCheckToggle('" + clientId + "');\n");
     }
-    String image = checked ? "MenuCheckmark.gif" : null;
+    String image = checked ? "image/MenuCheckmark.gif" : null;
     addMenuItem(sb, var, facesContext, command, image, onClick);
   }
 
   private String addMenuCheckToggle(String clientId, String onClick) {
     if (onClick != null) {
       onClick = " ; " + onClick;
-    }
-    else {
+    } else {
       onClick = "";
     }
 
@@ -335,12 +347,19 @@ public class MenubarRenderer extends RendererBase {
     return onClick;
   }
 
+  private void addMenuItem(StringBuffer sb, String var, FacesContext facesContext,
+      UICommand command, String image, String onClick) throws IOException {
+    final LabelWithAccessKey label = new LabelWithAccessKey(command);
+    onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
+        facesContext);
+    addMenuItem(sb, var, facesContext, command, label, image, onClick);
+  }
+
   private void addSelectOne(StringBuffer sb, String var,
       FacesContext facesContext, UICommand command, String onClick)
       throws IOException {
-
     onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
-            facesContext);
+        facesContext);
     List items = ComponentUtil.getSelectItems(command);
 
     LabelWithAccessKey label = new LabelWithAccessKey(command);
@@ -352,7 +371,9 @@ public class MenubarRenderer extends RendererBase {
       final ValueBinding valueBinding = command.getValueBinding(ATTR_VALUE);
       if (valueBinding != null) {
         final Application application = facesContext.getApplication();
-        radio = (UISelectOne) application.createComponent(UISelectOne.COMPONENT_TYPE);
+        radio =
+            (UISelectOne) application.createComponent(
+                UISelectOne.COMPONENT_TYPE);
         command.getFacets().put(FACET_RADIO, radio);
         radio.setRendererType(RENDERER_TYPE_SELECT_ONE_RADIO);
         radio.setValueBinding(ATTR_VALUE, valueBinding);
@@ -361,31 +382,30 @@ public class MenubarRenderer extends RendererBase {
 
     Object value;
     if (radio != null) {
-      value = ((ValueHolder)radio).getValue();
+      value = ((ValueHolder) radio).getValue();
 
-      boolean markFirst = ! hasSelectedValue(items, value);
+      boolean markFirst = !hasSelectedValue(items, value);
       String radioId = radio.getClientId(facesContext);
       String onClickPrefix = "menuSetRadioValue('" + radioId + "', '";
       String onClickPostfix = onClick != null ? "') ; " + onClick : "";
-      for (Iterator i = items.iterator(); i.hasNext(); ) {
+      for (Iterator i = items.iterator(); i.hasNext();) {
         SelectItem item = (SelectItem) i.next();
         final String labelText = item.getLabel();
         label.accessKey = null;
-        if (labelText.indexOf(LabelWithAccessKey.INDICATOR) > -1 ) {
+        if (labelText.indexOf(LabelWithAccessKey.INDICATOR) > -1) {
           label.text = null;
           label.setup(labelText);
         } else {
-          label.text = labelText; 
+          label.text = labelText;
         }
         Object itemValue = item.getValue();
         onClick = onClickPrefix + itemValue + onClickPostfix;
         if (itemValue.equals(value) || markFirst) {
-          image = "MenuRadioChecked.gif";
+          image = "image/MenuRadioChecked.gif";
           markFirst = false;
           sb.append("    " + onClickPrefix + itemValue + "');");
-        }
-        else {
-          image = "MenuRadioUnchecked.gif";
+        } else {
+          image = "image/MenuRadioUnchecked.gif";
         }
 
         addMenuItem(sb, var, facesContext, command, label, image, onClick);
@@ -395,7 +415,7 @@ public class MenubarRenderer extends RendererBase {
 
   public static boolean hasSelectedValue(List items, Object value) {
     boolean selected = false;
-    for (Iterator i = items.iterator(); i.hasNext(); ) {
+    for (Iterator i = items.iterator(); i.hasNext();) {
       if (((SelectItem) i.next()).getValue().equals(value)) {
         selected = true;
         break;
@@ -404,26 +424,11 @@ public class MenubarRenderer extends RendererBase {
     return selected;
   }
 
-
-  private void addCommand(StringBuffer sb, String var, FacesContext facesContext,
-      UICommand command, String onClick) throws IOException {
-      String image = (String) command.getAttributes().get(ATTR_IMAGE);
-      addMenuItem(sb, var, facesContext, command, image, onClick);
-  }
-
-  private void addMenuItem(StringBuffer sb, String var, FacesContext facesContext,
-      UICommand command, String image, String onClick) throws IOException {
-
-    final LabelWithAccessKey label = new LabelWithAccessKey(command);
-    onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
-            facesContext);
-    addMenuItem(sb, var, facesContext, command, label, image, onClick);
-  }
-
-  private void addMenuItem(StringBuffer sb, String var, FacesContext facesContext,
-      UICommand command, LabelWithAccessKey label, String image, String onClick) throws IOException {
-
-    if (! command.isRendered()) {
+  private void addMenuItem(StringBuffer sb, String var,
+      FacesContext facesContext,
+      UICommand command, LabelWithAccessKey label, String image,
+      String onClick) throws IOException {
+    if (!command.isRendered()) {
       return;
     }
     final boolean disabled
@@ -463,56 +468,41 @@ public class MenubarRenderer extends RendererBase {
     sb.append(".addMenuItem(new MenuItem('");
     sb.append(removeLFs(html));
     sb.append("', ");
-    if (! disabled) {
+    if (!disabled) {
       sb.append("\"");
       sb.append(onClick);
       sb.append("\"");
-    }
-    else {
+    } else {
       sb.append("null");
     }
     sb.append(", ");
     sb.append(disabled ? "true" : "false");
     sb.append("));\n");
-
   }
 
-  private void addImage(TobagoResponseWriter writer, FacesContext facesContext,
-      String image) throws IOException {
-    if (image != null) {
-      image = ResourceManagerUtil.getImage(facesContext, image);
-    }
-    else {
-      image = ResourceManagerUtil.getImage(facesContext, "image/blank.gif");
-    }
-      writer.startElement("img", null);
-      writer.writeAttribute("class", "tobago-menu-item-image", null);
-      writer.writeAttribute("src", image, null);
-      writer.endElement("img");
+  private void addMenuSeparator(StringBuffer sb, String var) {
+    String html = "<hr class=\"tobago-menubar-separator\">";
 
+    sb.append("    ");
+    sb.append(var);
+    sb.append(".addMenuItem(new MenuItem('");
+    sb.append(removeLFs(html));
+    sb.append("', ");
+    sb.append("null");
+    sb.append(", ");
+    sb.append("true");
+    sb.append("));\n");
   }
 
-  private String createOnClick(FacesContext facesContext,
-      UIComponent component) {
-    String type = (String) component.getAttributes().get(ATTR_TYPE);
-    String command = (String) component.getAttributes().get(ATTR_ACTION_STRING);
-    String clientId = component.getClientId(facesContext);
-    String onclick;
-
-    if (COMMAND_TYPE_NAVIGATE.equals(type)) {
-      onclick = "navigateToUrl('"
-          + HtmlUtils.generateUrl(facesContext, command) + "')";
-    } else if (COMMAND_TYPE_RESET.equals(type)) {
-      onclick = null;
-    } else if (COMMAND_TYPE_SCRIPT.equals(type)) {
-      onclick = command;
-    } else { // default: Action.TYPE_SUBMIT
-      onclick = "submitAction('" +
-          ComponentUtil.findPage(component).getFormId(facesContext) +
-          "','" + clientId + "')";
-    }
-    return onclick;
+  private String removeLFs(String s) {
+    return s.replaceAll("\n", " ");
   }
-// ///////////////////////////////////////////// bean getter + setter
 
+  public void encodeChildren(FacesContext facesContext, UIComponent component)
+      throws IOException {
+  }
+
+  public boolean getRendersChildren() {
+    return true;
+  }
 }
