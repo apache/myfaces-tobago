@@ -1,10 +1,9 @@
 package com.atanion.tobago.taglib;
 
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
 
 /**
  * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
@@ -14,7 +13,6 @@ import java.lang.annotation.Inherited;
  */
 @Retention(value = RetentionPolicy.SOURCE)
 @Target(value = ElementType.METHOD)
-@Inherited
 
 public @interface TagAttribute {
   /** type of the Tag  */
