@@ -9,6 +9,7 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIData;
 import com.atanion.tobago.component.UIPage;
+import com.atanion.tobago.component.UIColumnSelector;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.model.SheetState;
 import com.atanion.tobago.model.SortableByApplication;
@@ -207,6 +208,16 @@ public class SheetRenderer extends RendererBase
     uiPage.getOnloadScripts().add("initSheet(\"" + sheetId + "\");");
     uiPage.getStyleFiles().add("tobago-sheet.css");
 
+    String unchecked
+        = ResourceManagerUtil.getImage(facesContext, "sheetUnchecked.gif");
+    uiPage.getOnloadScripts().add(
+        "tobagoSheetSetUncheckedImage(\"" + sheetId + "\", \"" + unchecked
+        + "\")");
+    uiPage.getOnloadScripts().add(
+        "tobagoSheetSetCheckedImage(\"" + sheetId + "\", \""
+        + ResourceManagerUtil.getImage(facesContext, "sheetChecked.gif") + "\")");
+    uiPage.getOnloadScripts().add("updateSelectionView(\"" + sheetId + "\")");
+
     final Map attributes = component.getAttributes();
     String sheetStyle = (String) attributes.get(TobagoConstants.ATTR_STYLE);
     String headerStyle =
@@ -284,121 +295,11 @@ public class SheetRenderer extends RendererBase
 
 
       int columnCount = 0;
+      final int sortMarkerWidth = getAscendingMarkerWidth(facesContext, component);
       for (Iterator j = columnList.iterator(); j.hasNext(); columnCount++) {
         UIColumn column = (UIColumn) j.next();
-        String divWidth = "width: " +
-            (((Integer) columnWidths.get(columnCount)).intValue()) +
-            "px;";
-
-        writer.startElement("div", null);
-        writer.writeAttribute("id", sheetId + "_header_box_" + columnCount, null);
-        writer.writeAttribute("class", "tobago-sheet-header-box", null);
-        writer.writeAttribute("style", divWidth, null);
-
-// ############################################
-// ############################################
-
-        String sorterImage = null;
-        String sorterClass = "";
-        String sortTitle = "";
-        boolean sortable =
-            ComponentUtil.getBooleanAttribute(column, TobagoConstants.ATTR_SORTABLE);
-        if (sortable) {
-          String sorterId = Sorter.ID_PREFIX + columnCount;
-          String onclick = "submitAction('"
-              + ComponentUtil.findPage(component).getFormId(facesContext)
-              + "','" + component.getClientId(facesContext) + ":" + sorterId + "')";
-          writer.writeAttribute("onclick", onclick, null);
-          UICommand sortCommand = (UICommand)
-              application.createComponent(UICommand.COMPONENT_TYPE);
-          sortCommand.setActionListener(sorter);
-          sortCommand.setId(sorterId);
-          component.getFacets().put(sorterId ,sortCommand);
-          sortCommand.getClientId(facesContext); // this must called here to fix the ClientId
-
-          writer.writeAttribute("title",
-              ResourceManagerUtil.getProperty(facesContext, "tobago", "sheetTipSorting"),
-              null);
-
-          if (sorter.getColumn() == columnCount) {
-            if (sorter.isAscending()) {
-              sorterImage = ascending;
-              sortTitle = ResourceManagerUtil.getProperty(facesContext,
-                  "tobago", "sheetAscending");
-            }
-            else {
-              sorterImage = descending;
-              sortTitle = ResourceManagerUtil.getProperty(facesContext,
-                  "tobago", "sheetDescending");
-            }
-          }
-          sorterClass = " tobago-sheet-header-sortable";
-        }
-
-// ############################################
-// ############################################
-
-        String align
-            = (String) column.getAttributes().get(TobagoConstants.ATTR_ALIGN);
-
-        writer.startElement("div", null);
-        writer.writeAttribute("id", sheetId + "_header_outer_" + columnCount,
-            null);
-        writer.writeAttribute("class", "tobago-sheet-header" + sorterClass, null);
-        if (align != null) {
-          writer.writeAttribute("style", "text-align: " + align + ";", null);
-        }
-
-
-        String label = (String) column.getAttributes().get(
-            TobagoConstants.ATTR_LABEL);
-        if (label != null) {
-          writer.writeText(label, null);
-          if (sorter.getColumn() == columnCount && "right".equals(align) ) {
-            writer.startElement("img", null);
-            writer.writeAttribute("src", image1x1, null);
-            writer.writeAttribute("alt", "", null);
-            writer.writeAttribute("width",
-                Integer.toString(getAscendingMarkerWidth(facesContext, component)),
-                null);
-            writer.writeAttribute("height", "1", null);
-            writer.endElement("img");
-          }
-        } else {
-          writer.startElement("img", null);
-          writer.writeAttribute("src", image1x1, null);
-          writer.writeAttribute("alt", "", null);
-          writer.endElement("img");
-
-        }
-        writer.endElement("div");
-
-        writer.startElement("div", null);
-        writer.writeAttribute("id", sheetId + "_header_resizer_" + columnCount,
-            null);
-        writer.writeAttribute("class", "tobago-sheet-header-resize", null);
-        writer.write("&nbsp;");
-        writer.endElement("div");
-
-// ############################################
-// ############################################
-        if (sorterImage != null) {
-          writer.startElement("div", null);
-          writer.writeAttribute("class", "tobago-sheet-header-sort-div", null);
-          writer.writeAttribute("title", sortTitle, null);
-
-          writer.startElement("img", null);
-          writer.writeAttribute("src", sorterImage, null);
-          writer.writeAttribute("alt", "", null);
-          writer.writeAttribute("title", sortTitle, null);
-          writer.endElement("img");
-
-          writer.endElement("div");
-        }
-// ############################################
-// ############################################
-
-        writer.endElement("div");
+        renderColumnHeader(facesContext, writer, component, columnCount, column,
+            ascending, descending, image1x1, sortMarkerWidth);
 
       }
       writer.startElement("div", null);
@@ -483,10 +384,6 @@ public class SheetRenderer extends RendererBase
       odd = !odd;
       String rowClass = odd ?
           "tobago-sheet-content-odd " : "tobago-sheet-content-even ";
-      if (selectedList.contains(new Integer(rowIndex))) {
-        rowClass += " tobago-sheet-row-selected ";
-      }
-
 
       if (LOG.isDebugEnabled()) {
         LOG.debug("var       " + var);
@@ -550,9 +447,21 @@ public class SheetRenderer extends RendererBase
 //            columnStyle = 0;
 //          }
 //        }
-        for (Iterator grandkids = getChildren(column).iterator(); grandkids.hasNext(); ) {
-          UIComponent grandkid = (UIComponent) grandkids.next();
-          RenderUtil.encode(facesContext, grandkid);
+
+        if (column instanceof UIColumnSelector) {
+          writer.startElement("img", null);
+          writer.writeAttribute("src", unchecked, null);
+          writer.writeAttribute("id", sheetId + "_data_row_selector_" + rowIndex, null);
+          writer.writeAttribute("class", "tobago-sheet-column-selector", null);
+          writer.writeAttribute("onclick", "tobagoSheetToggleSelectionState(\""
+              + sheetId + "\", " + rowIndex + ")", null);
+          writer.endElement("img");
+        }
+        else {
+          for (Iterator grandkids = getChildren(column).iterator(); grandkids.hasNext(); ) {
+            UIComponent grandkid = (UIComponent) grandkids.next();
+            RenderUtil.encode(facesContext, grandkid);
+          }
         }
 
         writer.endElement("div");
@@ -635,6 +544,189 @@ public class SheetRenderer extends RendererBase
 
     writer.endElement("div");
 
+  }
+
+  private void renderColumnHeader(FacesContext facesContext,
+      ResponseWriter writer, UIData component,
+      int columnCount, UIColumn column, String ascending, String descending,
+      String image1x1, int sortMarkerWidth) throws IOException {
+
+    String sheetId = component.getClientId(facesContext);
+    Application application = facesContext.getApplication();
+    Sorter sorter = getSorter(component);
+
+    List columnWidths
+        = (List) component.getAttributes().get(TobagoConstants.ATTR_WIDTH_LIST);
+    String divWidth = "width: " +
+        (((Integer) columnWidths.get(columnCount)).intValue()) +
+        "px;";
+
+
+    writer.startElement("div", null);
+    writer.writeAttribute("id", sheetId + "_header_box_" + columnCount, null);
+    writer.writeAttribute("class", "tobago-sheet-header-box", null);
+    writer.writeAttribute("style", divWidth, null);
+
+// ############################################
+// ############################################
+
+    String sorterImage = null;
+    String sorterClass = "";
+    String sortTitle = "";
+    boolean sortable =
+        ComponentUtil.getBooleanAttribute(column, TobagoConstants.ATTR_SORTABLE);
+    if (sortable && ! (column instanceof UIColumnSelector)) {
+      String sorterId = Sorter.ID_PREFIX + columnCount;
+      String onclick = "submitAction('"
+          + ComponentUtil.findPage(component).getFormId(facesContext)
+          + "','" + component.getClientId(facesContext) + ":" + sorterId + "')";
+      writer.writeAttribute("onclick", onclick, null);
+      UICommand sortCommand = (UICommand)
+          application.createComponent(UICommand.COMPONENT_TYPE);
+      sortCommand.setActionListener(sorter);
+      sortCommand.setId(sorterId);
+      component.getFacets().put(sorterId ,sortCommand);
+      sortCommand.getClientId(facesContext); // this must called here to fix the ClientId
+
+      writer.writeAttribute("title",
+          ResourceManagerUtil.getProperty(facesContext, "tobago", "sheetTipSorting"),
+          null);
+
+      if (sorter.getColumn() == columnCount) {
+        if (sorter.isAscending()) {
+          sorterImage = ascending;
+          sortTitle = ResourceManagerUtil.getProperty(facesContext,
+              "tobago", "sheetAscending");
+        }
+        else {
+          sorterImage = descending;
+          sortTitle = ResourceManagerUtil.getProperty(facesContext,
+              "tobago", "sheetDescending");
+        }
+      }
+      sorterClass = " tobago-sheet-header-sortable";
+    }
+
+// ############################################
+// ############################################
+
+    String align
+        = (String) column.getAttributes().get(TobagoConstants.ATTR_ALIGN);
+
+    writer.startElement("div", null);
+    writer.writeAttribute("id", sheetId + "_header_outer_" + columnCount,
+        null);
+    writer.writeAttribute("class", "tobago-sheet-header" + sorterClass, null);
+    if (align != null) {
+      writer.writeAttribute("style", "text-align: " + align + ";", null);
+    }
+
+    if (column instanceof UIColumnSelector) {
+      renderColumnSelectorHeader(facesContext, writer, column, columnCount, sorter);
+    }
+    else {
+      renderColumnHeaderLabel(writer, column, columnCount, sorter, sortMarkerWidth, align,
+          image1x1);
+    }
+    writer.endElement("div");
+
+    writer.startElement("div", null);
+    writer.writeAttribute("id", sheetId + "_header_resizer_" + columnCount,
+        null);
+    writer.writeAttribute("class", "tobago-sheet-header-resize", null);
+    writer.write("&nbsp;");
+    writer.endElement("div");
+
+// ############################################
+// ############################################
+    if (sorterImage != null) {
+      writer.startElement("div", null);
+      writer.writeAttribute("class", "tobago-sheet-header-sort-div", null);
+      writer.writeAttribute("title", sortTitle, null);
+
+      writer.startElement("img", null);
+      writer.writeAttribute("src", sorterImage, null);
+      writer.writeAttribute("alt", "", null);
+      writer.writeAttribute("title", sortTitle, null);
+      writer.endElement("img");
+
+      writer.endElement("div");
+    }
+// ############################################
+// ############################################
+
+    writer.endElement("div");
+  }
+
+  private void renderColumnSelectorHeader(FacesContext facesContext,
+      ResponseWriter writer, UIColumn column, int columnCount, Sorter sorter)
+      throws IOException {
+    UIPanel menubar = (UIPanel) column.getFacet(FACET_MENUBAR);
+    if (menubar == null) {
+      final Application application = facesContext.getApplication();
+      menubar = (UIPanel) application.createComponent(UIPanel.COMPONENT_TYPE);
+      column.getFacets().put(FACET_MENUBAR, menubar);
+      menubar.setRendererType("Menubar");
+      menubar.getAttributes().put(ATTR_WIDTH, "14px");//todo: use config
+      UIPanel menu
+          = (UIPanel) application.createComponent(UIPanel.COMPONENT_TYPE);
+      menubar.getChildren().add(menu);
+      menu.setRendererType(null);
+      menu.getAttributes().put(ATTR_MENU_TYPE, "menu");
+      menu.getAttributes().put(ATTR_LABEL, "V");//todo: use image 'sheetSelectorMenu.gif'
+
+      String sheetId = column.getParent().getClientId(facesContext);
+      String action = "tobagoSheetSelectAll('" + sheetId + "')";
+      String label = "#{tobago.sheet.menu.select}";
+      menu.getChildren().add(createMenuItem(application, label, action));
+      action = "tobagoSheetUnselectAll('" + sheetId + "')";
+      label = "#{tobago.sheet.menu.unselect}";
+      menu.getChildren().add(createMenuItem(application, label, action));
+      action = "tobagoSheetToggleAllSelections('" + sheetId + "')";
+      label = "#{tobago.sheet.menu.toggleselect}";
+      menu.getChildren().add(createMenuItem(application, label, action));
+
+    }
+
+    RenderUtil.encode(facesContext, menubar);
+  }
+
+  private UICommand createMenuItem(final Application application, String label,
+      String action) {
+    UICommand menuItem
+        = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+    menuItem.setRendererType("Menuitem");
+    menuItem.getAttributes().put(ATTR_MENU_TYPE, "menuItem");
+    menuItem.getAttributes().put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
+    menuItem.getAttributes().put(ATTR_ACTION_STRING, action);
+    menuItem.getAttributes().put(ATTR_LABEL, label);
+//    menuItem.setValueBinding(ATTR_LABEL, application.createValueBinding(label));
+    return menuItem;
+  }
+
+  private void renderColumnHeaderLabel(ResponseWriter writer, UIColumn column,
+      int columnCount, Sorter sorter, int sortMarkerWidth, String align,
+      String image1x1) throws IOException {
+
+    String label
+        = (String) column.getAttributes().get(TobagoConstants.ATTR_LABEL);
+    if (label != null) {
+      writer.writeText(label, null);
+      if (sorter.getColumn() == columnCount && "right".equals(align) ) {
+        writer.startElement("img", null);
+        writer.writeAttribute("src", image1x1, null);
+        writer.writeAttribute("alt", "", null);
+        writer.writeAttribute("width", Integer.toString(sortMarkerWidth), null);
+        writer.writeAttribute("height", "1", null);
+        writer.endElement("img");
+      }
+    } else {
+      writer.startElement("img", null);
+      writer.writeAttribute("src", image1x1, null);
+      writer.writeAttribute("alt", "", null);
+      writer.endElement("img");
+
+    }
   }
 
   private String getSelected(UIData data, SheetState state) {

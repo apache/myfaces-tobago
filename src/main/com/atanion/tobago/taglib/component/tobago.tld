@@ -538,6 +538,17 @@
   </tag>
 
   <tag>
+    <name>columnselector</name>
+    <tag-class>com.atanion.tobago.taglib.component.ColumnSelectorTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <name>sortable</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
     <name>button</name>
     <tag-class>com.atanion.tobago.taglib.component.ButtonTag</tag-class>
     <body-content>JSP</body-content>

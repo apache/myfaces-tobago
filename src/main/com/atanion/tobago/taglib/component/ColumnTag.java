@@ -20,7 +20,7 @@ public class ColumnTag extends TobagoTag {
 
 // ///////////////////////////////////////////// attribute
 
-  private String sortable;
+  protected String sortable;
   private String align;
   private String cssClass;
 

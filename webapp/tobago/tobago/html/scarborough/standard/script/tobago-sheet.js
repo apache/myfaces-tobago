@@ -102,7 +102,7 @@ function doSelection(event) {
     }
     else {
       sheet.tobagoLastClickedRowId = rowId;
-      toggleSelection(dataRow, hidden);
+      tobagoSheetToggleSelectionForRow(dataRow, hidden);
     }
     updateSelectionView(sheetId, hidden.value);
     PrintDebug("selected rows = " + hidden.value);
@@ -110,17 +110,30 @@ function doSelection(event) {
 }
 
 function updateSelectionView(sheetId, selected) {
+  if (! selected) {
+    var hidden =
+      document.getElementById(sheetId + getSubComponentSeparator() + "selected");
+    selected = hidden.value;
+  }
   var row = getFirstSelectionRow(sheetId);
+  var outerDiv = document.getElementById(sheetId + "_outer_div");
   var i = row.id.substring(row.id.lastIndexOf("_data_tr_") + 9);
   while (row) {
     var re = new RegExp("," + i +",");
     var classes = row.className;
+    var img = document.getElementById(sheetId + "_data_row_selector_" + i);
     if (selected.search(re) == -1) { // not selected: remove selection class
       row.className = classes.replace(/tobago-sheet-row-selected/g, "");
+      if (img) {
+        img.src = outerDiv.uncheckedImage;
+      }
     }
     else {  // selected: check selection class
       if (classes.search(/tobago-sheet-row-selected/) == -1) {
         row.className = classes + " tobago-sheet-row-selected ";
+      }
+      if (img) {
+        img.src = outerDiv.checkedImage;
       }
     }
     row = document.getElementById(sheetId + "_data_tr_" + ++i );
@@ -149,8 +162,17 @@ function selectRange(dataRow, lastId, hidden) {
   }
 }
 
-function toggleSelection(dataRow, hidden) {
+function tobagoSheetToggleSelectionForRow(dataRow, hidden) {
   var rowIndex = dataRow.id.substring(dataRow.id.lastIndexOf("_data_tr_") + 9);
+  tobagoSheetToggleSelection(rowIndex, hidden);
+}
+function tobagoSheetToggleSelectionState(sheetId, rowIndex) {
+  var hidden
+  = document.getElementById(sheetId + getSubComponentSeparator() + "selected");
+  tobagoSheetToggleSelection(rowIndex, hidden);
+  updateSelectionView(sheetId, hidden.value);
+}
+function tobagoSheetToggleSelection(rowIndex, hidden) {
   var re = new RegExp("," + rowIndex + ",");
   if (hidden.value.search(re) != -1) {
     hidden.value = hidden.value.replace(re, "");
@@ -159,6 +181,8 @@ function toggleSelection(dataRow, hidden) {
     hidden.value = hidden.value + "," + rowIndex + ",";
   }
 }
+
+
 
 function doScroll(event) {
   if (! event) {
@@ -326,4 +350,44 @@ function setActiveElement(event) {
 function getHeaderBox(element) {
     var boxId = element.id.replace(/_header_resizer_/, "_header_box_");
     return document.getElementById(boxId);
+}
+
+function tobagoSheetSetUncheckedImage(sheetId, image) {
+  document.getElementById(sheetId + "_outer_div").uncheckedImage = image;
+}
+function tobagoSheetSetCheckedImage(sheetId, image) {
+  document.getElementById(sheetId + "_outer_div").checkedImage = image;
+}
+
+function tobagoSheetSelectAll(sheetId) {
+  var hidden
+    = document.getElementById(sheetId + getSubComponentSeparator() + "selected");
+  var row = getFirstSelectionRow(sheetId);
+  var i = row.id.substring(row.id.lastIndexOf("_data_tr_") + 9);
+  while (row) {
+    var re = new RegExp("," + i + ",");
+    if (hidden.value.search(re) == -1) {
+      hidden.value = hidden.value + "," + i + ",";
+    }
+    row = document.getElementById(sheetId + "_data_tr_" + ++i );
+  }
+  updateSelectionView(sheetId, hidden.value);
+}
+function tobagoSheetUnselectAll(sheetId) {
+  var hidden
+    = document.getElementById(sheetId + getSubComponentSeparator() + "selected");
+    hidden.value = "";
+  updateSelectionView(sheetId, hidden.value);
+}
+
+function tobagoSheetToggleAllSelections(sheetId) {
+  var hidden
+    = document.getElementById(sheetId + getSubComponentSeparator() + "selected");
+  var row = getFirstSelectionRow(sheetId);
+  var i = row.id.substring(row.id.lastIndexOf("_data_tr_") + 9);
+  while (row) {
+    tobagoSheetToggleSelection(i, hidden);
+    row = document.getElementById(sheetId + "_data_tr_" + ++i );
+  }
+  updateSelectionView(sheetId, hidden.value);
 }
