@@ -156,7 +156,8 @@ public class SheetRenderer extends RendererBase {
     if (widthList != null) {
       List columns = getColumns(data);
       if (columns.size() != widthList.size()) {
-        LOG.warn("widthList.size() != columns.size()");
+        LOG.warn("widthList.size() = " + widthList.size() +
+            " != columns.size() = " + columns.size());
       } else {
         attributes.put(TobagoConstants.ATTR_WIDTH_LIST, widthList);
       }
