@@ -49,13 +49,21 @@ public class ClientProperties {
     LOG.info("contentType='" + contentType + "' from header "
         + "Accept='" + accept + "'");
 
+    String explicitLocale
+        = (String) context.getRequestParameterMap().get("tobago.locale");
+    if (explicitLocale != null) {
+      locale = new Locale(explicitLocale);
+    }
     String acceptLanguage
         = (String) context.getRequestHeaderMap().get("Accept-Language");
-    if (acceptLanguage != null) {
-      locale = parseAcceptLanguageHeader(acceptLanguage)[0];
+    if (locale == null) {
+      if (acceptLanguage != null) {
+        locale = parseAcceptLanguageHeader(acceptLanguage)[0];
+      }
     }
     LOG.info("locale='" + locale + "' from header "
-        + "Accept-Language='" + acceptLanguage + "'");
+        + "Accept-Language='" + acceptLanguage + "' or parameter "
+        + "tobago.locale='" + explicitLocale + "'");
 
     String userAgent
         = (String) context.getRequestHeaderMap().get("User-Agent");
@@ -144,14 +152,13 @@ public class ClientProperties {
     }
     for (int j = 0; j < locales.length; j++) {
       Locale locale = locales[j];
-      LOG.debug("LOCALE " +  locale);
+      LOG.debug("LOCALE " + locale);
     }
 
     return locales;
   }
 
-  public static List getLocaleList(
-      String locale, boolean propertyPathMode) {
+  public static List getLocaleList(String locale, boolean propertyPathMode) {
 
     String prefix = propertyPathMode ? "" : "_";
     List locales = new Vector(4);
