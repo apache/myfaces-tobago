@@ -15,6 +15,7 @@ import com.atanion.tobago.event.StateChangeEvent;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.renderkit.StyleAttribute;
+import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 
 import org.apache.commons.logging.Log;
@@ -178,9 +179,7 @@ public class TabGroupRenderer extends RendererBase {
                 + tabs.length + ')';
           }
 
-          UIComponent label = tab.getFacet(TobagoConstants.FACET_LABEL);
-          String labelString
-              = (String) tab.getAttributes().get(TobagoConstants.ATTR_LABEL);
+          LabelWithAccessKey label = new LabelWithAccessKey(tab);
 
           String outerClass;
           String innerClass;
@@ -204,13 +203,12 @@ public class TabGroupRenderer extends RendererBase {
           writer.startElement("a", null);
           writer.writeAttribute("class", "tobago-tab-link", null);
           writer.writeAttribute("href", url, null);
-          if (label != null || labelString != null) {
-            writer.writeText("", null);
-            if (label !=null) {
-              HtmlRendererUtil.encodeHtml(facesContext, label);
-            } else {
-              writer.writeText(labelString, null);
-            }
+          if (label.getAccessKey() != null) {
+            writer.writeAttribute("accesskey", label.getAccessKey(), null);
+            writer.writeAttribute("onfocus", "this.click();", null);
+          }
+          if (label.getText() != null) {
+            HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
           } else {
             writer.writeText(Integer.toString(i+1), null);
           }
