@@ -20,6 +20,8 @@ public class UIForm extends javax.faces.component.UIForm {
 
   private static final Log LOG = LogFactory.getLog(UIForm.class);
 
+  public static final String COMPONENT_TYPE = "com.atanion.tobago.Form";
+
 // ///////////////////////////////////////////// attribute
 
 // ///////////////////////////////////////////// constructor

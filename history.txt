@@ -1,6 +1,9 @@
 1.0.3 -
 * refactor ViewHandlerImpl: using base RI Impl
 * refactor TobagoServletMapping: removed
+* refactor UISelectMany removed: workaround is no longer needed.
+* refactor Don't everwrite JSF component-types in faces-config.xml to prevent error messages.
+* refactor Color16 removed, will be replaced in later version with enhanced ColorSelect
 
 1.0.2 - 15.12.2004
 * bugfix: submit button in IE makes double submit

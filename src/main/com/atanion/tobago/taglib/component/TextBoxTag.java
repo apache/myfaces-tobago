@@ -7,9 +7,9 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UIInput;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 
 public class TextBoxTag extends InputTag {
 // ----------------------------------------------------------------- attributes

@@ -1040,8 +1040,7 @@ public class SheetRenderer extends RendererBase {
             || child instanceof UISelectBoolean) {
           continue;
         } else if (child instanceof UIInput &&
-            ("Hidden".equals(child.getRendererType())
-            || "Color16Chooser".equals(child.getRendererType()))) {
+            "Hidden".equals(child.getRendererType())) {
           continue;
         } else if (child instanceof UIOutput) {
           break;

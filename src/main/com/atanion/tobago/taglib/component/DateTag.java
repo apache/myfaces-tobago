@@ -6,9 +6,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.UIPage;
-
+import com.atanion.tobago.component.UIInput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -16,10 +15,7 @@ import javax.faces.application.Application;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
-import javax.faces.component.ValueHolder;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
 
 public class DateTag extends InputTag {
 

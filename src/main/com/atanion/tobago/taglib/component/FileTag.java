@@ -5,12 +5,10 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UIInput;
 import com.atanion.tobago.component.UIPage;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.servlet.jsp.JspException;
 
 public class FileTag extends InputTag {

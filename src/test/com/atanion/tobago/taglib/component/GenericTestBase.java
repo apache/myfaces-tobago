@@ -28,7 +28,6 @@ abstract public class GenericTestBase extends TestCase {
       new CellTag(),
       new CheckBoxGroupTag(),
       new CheckBoxTag(),
-      new Color16ChooserTag(),
       new ColumnTag(),
       new DateTag(),
       new FileTag(),

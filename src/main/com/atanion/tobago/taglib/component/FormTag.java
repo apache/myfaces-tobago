@@ -6,7 +6,7 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import javax.faces.component.UIForm;
+import com.atanion.tobago.component.UIForm;
 
 public class FormTag extends TobagoBodyTag {
 // ----------------------------------------------------------- business methods

@@ -9,20 +9,12 @@ import javax.faces.context.FacesContext;
 
 public class UIInput extends javax.faces.component.UIInput {
 
-// ///////////////////////////////////////////// constant
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
+  public static final String COMPONENT_TYPE = "com.atanion.tobago.Input";
 
   public void updateModel(FacesContext facesContext) {
     if (ComponentUtil.mayUpdateModel(this)) {
       super.updateModel(facesContext);
     }
   }
-
-// ///////////////////////////////////////////// bean getter + setter
 
 }

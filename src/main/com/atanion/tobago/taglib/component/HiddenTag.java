@@ -6,12 +6,9 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.component.UIInput;
 
-import javax.faces.component.UIInput;
-
-public class HiddenTag extends BeanTag{
+public class HiddenTag extends BeanTag {
 
   public String getComponentType() {
     return UIInput.COMPONENT_TYPE;

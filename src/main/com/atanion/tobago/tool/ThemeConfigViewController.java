@@ -50,7 +50,6 @@ public class ThemeConfigViewController {
     "Calendar",
     "CheckBoxGroup",
     "Checkbox",
-    "Color16Chooser",
     "Date",
     "File",
     "Form",

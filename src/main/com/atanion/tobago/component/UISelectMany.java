@@ -12,15 +12,7 @@ import javax.faces.context.FacesContext;
 
 public class UISelectMany extends javax.faces.component.UISelectMany {
 
-// ///////////////////////////////////////////// constant
-
   private static final Log LOG = LogFactory.getLog(UISelectMany.class);
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
 
   /** this bugfix allows to select nothing, todo: only for jsfbeta */
   public void validate(FacesContext context) {
@@ -34,7 +26,5 @@ public class UISelectMany extends javax.faces.component.UISelectMany {
     }
     super.validate(context);
   }
-
-// ///////////////////////////////////////////// bean getter + setter
 
 }
