@@ -7,6 +7,7 @@ package com.atanion.tobago.renderkit;
 
 import com.atanion.tobago.context.ResourceManager;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -64,14 +65,14 @@ public class TobagoRenderKit extends RenderKit {
 
   public ResponseWriter createResponseWriter(
       Writer writer, String contentTypeList, String characterEncoding) {
-    // fixme: use contentTypeList AND characterEncoding
-    if (contentTypeList == null || contentTypeList.indexOf("text/html") < 0) {
-      LOG.warn("Content-Type '" + contentTypeList + "' not supported, forcing text/html");
-    }
-    String contentType = "text/html";
-    if (characterEncoding == null) {
-      LOG.warn("No Character-Encoding, forcing UTF-8");
-      characterEncoding = "UTF-8";
+    String contentType;
+    if (contentTypeList == null) {
+      contentType = "text/html";
+    } else if (contentTypeList.indexOf("text/html") == -1) {
+      throw new IllegalArgumentException("Content-Type '" + contentTypeList
+          + "' not supported!");
+    } else {
+      contentType = "text/html";
     }
 
     return new TobagoResponseWriter(writer, contentType, characterEncoding);
