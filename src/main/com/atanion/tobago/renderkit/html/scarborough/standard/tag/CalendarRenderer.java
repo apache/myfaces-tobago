@@ -10,7 +10,6 @@ import com.atanion.model.DateModel;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.TobagoResource;
-import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.taglib.component.CalendarTag;

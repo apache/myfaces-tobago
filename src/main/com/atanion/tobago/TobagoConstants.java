@@ -5,12 +5,6 @@
  */
 package com.atanion.tobago;
 
-import com.atanion.tobago.component.UIGridLayout;
-import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.component.UITabGroup;
-import com.atanion.tobago.component.UITree;
-import com.atanion.util.SystemUtils;
-
 public class TobagoConstants {
 
   public static final String SUBCOMPONENT_SEP = "::";

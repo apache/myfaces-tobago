@@ -6,8 +6,6 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.model.DateModel;
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
