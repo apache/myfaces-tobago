@@ -1,10 +1,10 @@
 /* $Id$ */
-
+/*
 a:link.tobago-link-default, a:visited.tobago-link-default, a:active.tobago-link-default {
   color: #000000;
   font-size: 15px;
 }
-
+*/
 form  {
   margin: 0px;
 }
@@ -13,7 +13,7 @@ form  {
 
 a:link.tobago-tab-link, a:visited.tobago-tab-link, a:active.tobago-tab-link {
   font-family: arial, helvetica, sans-serif;
-  font-size: 15px;
+  font-size: 14px;
   color: #000000;
   text-decoration: none;
   white-space: nowrap;
@@ -265,7 +265,7 @@ fieldset.tobago-box-default {
 
 legend.tobago-box-default {
   color: black;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 
@@ -302,7 +302,7 @@ label.tobago-label-default  {
   padding: 0px 0px 0px 2px;
   margin: 0px;
   border: 0px solid transparent;
-  font-size: 15px;
+  font-size: 14px;
 /*  border: 2px solid #ccddee; */
 /*  background: #ccddee; */
 }
@@ -335,7 +335,7 @@ label.tobago-label-default  {
 .tobago-page-default {
   background: #bbccdd;
   font-family: arial, helvetica, sans-serif;
-  font-size: 15px;
+  font-size: 14px;
   padding: 0px;
   margin: 0px;
 }
@@ -452,15 +452,15 @@ div.tobago-richTextEditor-body {
 
 /* text -------------------------------------------------------------------- */
 
-.tobago-text-default  {
-  font: 15px arial, helvetica, sans-serif;
+.tobago-out-default  {
+  font: 12px arial, helvetica, sans-serif;
 }
 
-.tobago-text-theme-strong {
+.tobago-out-theme-strong {
   font: bold 12px arial, helvetica, sans-serif;
 }
 
-.tobago-text-theme-deleted {
+.tobago-out-theme-deleted {
   text-decoration: line-through;
 }
 

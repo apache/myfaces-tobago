@@ -372,6 +372,9 @@ label.tobago-label-disabled  {
 
 /* text -------------------------------------------------------------------- */
 
+.tobago-out-default  {
+  font: 12px arial, helvetica, sans-serif;
+}
 /* textArea ---------------------------------------------------------------- */
 
 .tobago-textArea-default  {
