@@ -601,9 +601,39 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>paging</name>
+      <name>showRowRange</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <description> <![CDATA[
+        Flag indicating whether or not the range of displayed rows should
+        rendered in the sheet's footer. Rendering this range also offers the
+        capability to enter the index of the start row directly. <br />
+        The <strong>default</strong> is <code>false</code>.
+        ]]>
+      </description>
+    </attribute>
+    <attribute>
+      <name>showPageRange</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description> <![CDATA[
+        Flag indicating whether or not the range pages should
+        rendered in the sheet's footer. Rendering this range also offers the
+        capability to enter the index displayed page directly.<br />
+        The <strong>default</strong> is <code>false</code>.
+        ]]>
+      </description>
+    </attribute>
+    <attribute>
+      <name>showDirectLinks</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description> <![CDATA[
+        Flag indicating whether or not a range of direct paging links should be
+        rendered in the sheet's footer.<br />
+        The <strong>default</strong> is <code>false</code>.
+       ]]>
+      </description>
     </attribute>
     <attribute>
       <name>hideHeader</name>

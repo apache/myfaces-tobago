@@ -114,7 +114,7 @@ public class ButtonRenderer extends CommandRendererBase {
     return buttonType;
   }
 
-  private String createOnClick(FacesContext facesContext,
+  public static String createOnClick(FacesContext facesContext,
       UIComponent component) {
     String type = (String) component.getAttributes().get(ATTR_TYPE);
     String command = (String) component.getAttributes().get(ATTR_COMMAND_NAME);

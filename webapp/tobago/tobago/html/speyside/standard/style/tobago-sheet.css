@@ -67,3 +67,16 @@
   margin-top: 1px;
   margin-left: 0px;
 }
+
+.tobago-sheet-paging-input {
+  height: 14px;
+  width: 25px;
+  font: bold 10px arial, helvetica, sans-serif;
+  padding-top: 0px;
+  text-align: center;
+  border: 1px solid black;
+}
+
+.tobago-sheet-paging-pages-span {
+  padding-right: 0px;
+}

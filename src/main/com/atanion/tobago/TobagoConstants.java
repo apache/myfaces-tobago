@@ -77,7 +77,6 @@ public interface TobagoConstants {
   public static final String ATTR_ONCHANGE = "onchange";
   public static final String ATTR_ONCLICK = "onclick";
   public static final String ATTR_PAGE_MENU = "pageMenu";
-  public static final String ATTR_PAGING = "paging";
   public static final String ATTR_PASSWORD = "password";
   public static final String ATTR_POPUP_LIST = "popupList";
   public static final String ATTR_PREFORMATED = "preformated";
@@ -100,6 +99,9 @@ public interface TobagoConstants {
   public static final String ATTR_SORTABLE = "sortable";
   public static final String ATTR_CREATE_SPAN = "createSpan";
   public static final String ATTR_SELECTABLE = "selectable";
+  public static final String ATTR_SHOW_DIRECT_LINKS = "showDirectLinks";
+  public static final String ATTR_SHOW_ROW_RANGE = "showRowRange";
+  public static final String ATTR_SHOW_PAGE_RANGE = "showPageRange";
   public static final String ATTR_SPAN_X = "spanX";
   public static final String ATTR_SPAN_Y = "spanY";
   public static final String ATTR_SRC = "src";
@@ -131,7 +133,9 @@ public interface TobagoConstants {
   public static final String FACET_LABEL = "label";
   public static final String FACET_MENUBAR = "menubar";
   public static final String FACET_MENUPOPUP = "menupopup";
+  public static final String FACET_PAGE_PAGER = "pagePager";
   public static final String FACET_RADIO = "radio";
+  public static final String FACET_ROW_PAGER = "rowPager";
 
   // Command types
   public static final String COMMAND_TYPE_SUBMIT = "submit";

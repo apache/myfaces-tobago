@@ -387,7 +387,7 @@ function adjustHeaderDiv(sheetId) {
   minWidth = Math.max(minWidth, 0); // not less than 0
   headerDiv.style.width = Math.max(clientWidth, minWidth);
   var fillBox = document.getElementById(sheetId + "_header_box_filler");
-  fillBox.style.width = Math.max(headerDiv.style.width - boxSum, 0);
+  fillBox.style.width = Math.max(headerDiv.style.width.replace(/px/, "") - boxSum, 0);
   PrintDebug("adjustHeaderDiv(" + sheetId + ") : clientWidth = " + clientWidth + " :: width => " + headerDiv.style.width);
   //headerDiv.style.width = clientWidth;
 }
@@ -491,3 +491,79 @@ function tobagoSheetToggleAllSelections(sheetId) {
   }
   updateSelectionView(sheetId, hidden.value);
 }
+
+function tobagoSheetEditPagingRow(span, commandId, onClickCommand, commandName) {
+
+  var text = document.getElementById(commandId + getSubComponentSeparator() + "text");
+  if (text) {
+    var hiddenId = commandId + getSubComponentSeparator() +  "value";
+    span.style.cursor = 'auto';
+    input = text.inputElement;
+    if (! input) {
+      input = document.createElement('input');
+      text.inputElement = input;
+      input.textElement = text;
+      
+      input.type='text';
+      input.id=hiddenId;
+      input.name=hiddenId;      
+      input.className = "tobago-sheet-paging-input";
+      input.onClickCommand = onClickCommand;
+      addEventListener(input, 'blur', delayedHideInput);
+      addEventListener(input, 'keyup', keyUp);
+    }  
+    input.value=text.innerHTML;
+    span.replaceChild(input, text);
+    input.focus();
+    input.select();
+  }
+  else {
+    PrintDebug("Can't find start field! ");
+  }
+}
+
+
+function delayedHideInput(event) {
+  var input = getActiveElement(event);
+  if (input) {
+    setTimeout('hideInput("' + input.id + '", 100)');
+  } else {
+    PrintDebug("Can't find input field! ");
+  }
+}
+function hideInput(inputId) {
+  var input = document.getElementById(inputId);
+  if (input) {
+    input.parentNode.style.cursor = 'pointer';
+    input.parentNode.replaceChild(input.textElement, input);
+  } else {
+    PrintDebug("Can't find input field! " + inputId);
+  }
+}
+
+function keyUp(event) {
+  var input = getActiveElement(event);
+  var keyCode;
+  if (event.which) {
+//    PrintDebug('mozilla');
+    keyCode = event.which;
+  } else {
+//    PrintDebug('ie');
+    keyCode = event.keyCode;
+  }
+//  PrintDebug('code = ' + keyCode);
+  if (keyCode == 13) {
+    PrintDebug('"' + input.value + '"');
+    PrintDebug('"' + input.textElement.innerHTML + '"');
+    if (input.value != input.textElement.innerHTML) {
+      PrintDebug('changed');
+      eval(input.onClickCommand);
+    }
+    else {
+      PrintDebug('NOT changed');
+      hideInput(input.id);
+    }
+  }
+}
+
+

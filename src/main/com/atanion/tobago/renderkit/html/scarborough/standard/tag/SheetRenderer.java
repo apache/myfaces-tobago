@@ -15,6 +15,7 @@ import com.atanion.tobago.model.SheetState;
 import com.atanion.tobago.model.SortableByApplication;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.CommandRendererBase;
 import com.atanion.tobago.util.LayoutInfo;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.util.BeanComparator;
@@ -59,6 +60,8 @@ public class SheetRenderer extends RendererBase {
 
 
   public static final String FIRST = "first";
+  public static final String PAGE_TO_ROW = "pageToRow";
+  public static final String PAGE_TO_PAGE = "pageToPage";
   public static final String PREV = "prev";
   public static final String NEXT = "next";
   public static final String LAST = "last";
@@ -66,6 +69,8 @@ public class SheetRenderer extends RendererBase {
       = TobagoConstants.SUBCOMPONENT_SEP + "widths";
   public static final String SELECTED_POSTFIX
       = TobagoConstants.SUBCOMPONENT_SEP + "selected";
+  public static final String PAGE_TO_ROW_POSTFIX
+      = TobagoConstants.SUBCOMPONENT_SEP + PAGE_TO_ROW;
 
 // ///////////////////////////////////////////// attribute
 
@@ -101,8 +106,9 @@ public class SheetRenderer extends RendererBase {
 
   private int getFooterHeight(FacesContext facesContext, UIComponent component) {
     int footerHeight;
-    if (ComponentUtil.getBooleanAttribute(component,
-        TobagoConstants.ATTR_PAGING)) {
+    if (ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_ROW_RANGE)
+        || ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_PAGE_RANGE)
+        || ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_DIRECT_LINKS)) {
       footerHeight =
           getConfiguredValue(facesContext, component, "footerHeight");
     } else {
@@ -256,11 +262,11 @@ public class SheetRenderer extends RendererBase {
     SheetState state = component.getSheetState(facesContext);
     Sorter sorter = getSorter(component);
     setStoredState(component, sorter, state);
+    Pager pager = new Pager(component);
     List columnWidths = (List) attributes.get(TobagoConstants.ATTR_WIDTH_LIST);
     String selectedListString = getSelected(component, state);
     List selectedList = SheetState.parse(selectedListString);
     List columnList = getColumns(component);
-
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
@@ -516,6 +522,8 @@ public class SheetRenderer extends RendererBase {
       writer.endElement("tr");
     }
 
+    component.setRowIndex(-1);
+
     requestMap.remove(var);
 
     writer.endElement("table");
@@ -523,8 +531,15 @@ public class SheetRenderer extends RendererBase {
 
 // END RENDER BODY CONTENT
 
-    if (ComponentUtil.getBooleanAttribute(component,
-        TobagoConstants.ATTR_PAGING)) {
+
+    boolean showRowRange
+        = ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_ROW_RANGE);
+    boolean showPageRange
+        = ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_PAGE_RANGE);
+    boolean showDirectLinks
+        = ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_DIRECT_LINKS);
+
+    if (showRowRange || showPageRange || showDirectLinks) {
       String footerStyle = LayoutUtil.replaceStyleAttribute(bodyStyle,
           "height", footerHeight + "px")
           + " top: " + (sheetHeight - footerHeight) + "px;";
@@ -543,25 +558,71 @@ public class SheetRenderer extends RendererBase {
           null);
 
 
-      writer.startElement("span", null);
-      writer.writeAttribute("style", "float: left;", null);
-
-      writer.writeText(createSheetPagingInfo(component, facesContext), null);
-      writer.endElement("span");
-
-      writer.startElement("span", null);
-      writer.writeAttribute("style", "float: right;", null);
-      writer.writeText("", null);
+      if (showRowRange) {
 
 
-      Pager pager = new Pager(component);
+        UICommand pagerCommand = (UICommand) component.getFacet(FACET_ROW_PAGER);
+        if (pagerCommand == null) {
+          pagerCommand
+              = createPagingCommand(application, PAGE_TO_ROW, false, pager );
+          component.getFacets().put(FACET_ROW_PAGER, pagerCommand);
+        }
+        String pagingOnClick
+            = ButtonRenderer.createOnClick(facesContext, pagerCommand);
+        pagingOnClick = pagingOnClick.replaceAll("'", "\"");
+        String pagerCommandId = pagerCommand.getClientId(facesContext);
 
-      link(facesContext, application, pager, pager.isAtBeginning(), component,
-          FIRST);
-      link(facesContext, application, pager, pager.isAtBeginning(), component,
-          PREV);
-      link(facesContext, application, pager, pager.isAtEnd(), component, NEXT);
-      link(facesContext, application, pager, pager.isAtEnd(), component, LAST);
+
+        writer.startElement("span", null);
+        writer.writeAttribute("onclick", "tobagoSheetEditPagingRow(this, '"
+            + pagerCommandId + "', '" + pagingOnClick + "')" , null);
+        writer.writeAttribute("class", "tobago-sheet-paging-rows-span", null);
+        writer.writeAttribute("title", ResourceManagerUtil.getProperty(
+            facesContext, "tobago", "sheetPagingInfoRowPagingTip"), null);
+        writer.write(createSheetPagingInfo(
+            component, facesContext, pagerCommandId, true));
+        writer.endElement("span");
+      }
+
+
+      if (showPageRange) {
+        UICommand pagerCommand
+            = (UICommand) component.getFacet(FACET_PAGE_PAGER);
+        if (pagerCommand == null) {
+          pagerCommand
+              = createPagingCommand(application, PAGE_TO_PAGE, false, pager);
+          component.getFacets().put(FACET_PAGE_PAGER, pagerCommand);
+        }
+        String  pagingOnClick
+            = ButtonRenderer.createOnClick(facesContext, pagerCommand);
+        pagingOnClick = pagingOnClick.replaceAll("'", "\"");
+        String pagerCommandId = pagerCommand.getClientId(facesContext);
+
+
+
+        writer.startElement("span", null);
+        writer.writeAttribute("style", "float: right;", null);
+        writer.writeText("", null);
+
+
+
+        link(facesContext, application, pager, pager.isAtBeginning(), component,
+            FIRST);
+        link(facesContext, application, pager, pager.isAtBeginning(), component,
+            PREV);
+        writer.startElement("span", null);
+        writer.writeAttribute("class", "tobago-sheet-paging-pages-span", null);
+        LOG.info("pagerCommandId = "  + pagerCommandId);
+        writer.writeAttribute("onclick", "tobagoSheetEditPagingRow(this, '"
+            + pagerCommandId + "', '" + pagingOnClick + "')" , null);
+        writer.writeAttribute("title", ResourceManagerUtil.getProperty(
+            facesContext, "tobago", "sheetPagingInfoPagePagingTip"), null);
+        writer.write(createSheetPagingInfo(
+            component, facesContext, pagerCommandId, false));
+        writer.endElement("span");
+        link(facesContext, application, pager, pager.isAtEnd(), component, NEXT);
+        link(facesContext, application, pager, pager.isAtEnd(), component, LAST);
+      }
 
       writer.endElement("span");
       writer.endElement("td");
@@ -574,30 +635,43 @@ public class SheetRenderer extends RendererBase {
   }
 
   private String createSheetPagingInfo(UIData component,
-      FacesContext facesContext) {
+      FacesContext facesContext, String pagerCommandId, boolean row) {
     String sheetPagingInfo;
     if (component.getRowCount() > 0) {
       Locale locale = facesContext.getViewRoot().getLocale();
-      final int first = component.getFirst() + 1;
-      final int last = getEndIndex(component);
+      int first = component.getFirst() + 1;
+      int last;
+      if (row) {
+        last = getEndIndex(component);
+      } else { // page
 
+        int rows = component.getRows();
+        if ((first % rows) == 1) {
+          first = (first / rows) + 1;
+        } else {
+          first = (first / rows) + 2;        
+        }
+
+        last = (component.getRowCount() / rows) + 1;
+      }
       String key;
       if (first != last) {
         key = ResourceManagerUtil.getProperty(facesContext, "tobago",
-            "sheetPagingInfo");
+            "sheetPagingInfo" + (row ? "Rows" : "Pages"));
       } else {
         key = ResourceManagerUtil.getProperty(facesContext, "tobago",
-            "sheetPagingInfoSingle");
+            "sheetPagingInfoSingle" + (row ? "Row" : "Page"));
       }
       MessageFormat detail = new MessageFormat(key, locale);
-      Integer[] args = {
+      Object[] args = {
         new Integer(first),
         new Integer(last),
-        new Integer(component.getRowCount())};
+        new Integer(component.getRowCount()),
+        pagerCommandId + SUBCOMPONENT_SEP + "text"};
       sheetPagingInfo = detail.format(args);
     } else {
       sheetPagingInfo = ResourceManagerUtil.getProperty(
-          facesContext, "tobago", "sheetPagingInfoEmpty");
+          facesContext, "tobago", "sheetPagingInfoEmpty" + (row ? "Row" : "Page"));
     }
     return sheetPagingInfo;
   }
@@ -845,15 +919,7 @@ public class SheetRenderer extends RendererBase {
       String command) throws IOException {
     UICommand link;
     UIGraphic image;
-    link = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
-    link.setRendererType(TobagoConstants.RENDERER_TYPE_LINK);
-    link.setRendered(true);
-    link.setId(command);
-    link.getAttributes().put(TobagoConstants.ATTR_COMMAND_NAME, command);
-    link.getAttributes().put(TobagoConstants.ATTR_INLINE, Boolean.TRUE);
-    link.getAttributes().put(TobagoConstants.ATTR_DISABLED,
-        Boolean.valueOf(disabled));
-    link.setActionListener(pager);
+    link = createPagingCommand(application, command, disabled, pager);
 
     image = (UIGraphic) application.createComponent(UIGraphic.COMPONENT_TYPE);
     image.setRendererType("Image"); //fixme: use constant ?
@@ -871,6 +937,21 @@ public class SheetRenderer extends RendererBase {
     link.getChildren().add(image);
     data.getFacets().put(command, link);
     RenderUtil.encode(facesContext, link);
+  }
+
+  private static UICommand createPagingCommand(
+      Application application, String command, boolean disabled, Pager pager) {
+    UICommand link;
+    link = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+    link.setRendererType(TobagoConstants.RENDERER_TYPE_LINK);
+    link.setRendered(true);
+    link.setId(command);
+    link.getAttributes().put(TobagoConstants.ATTR_COMMAND_NAME, command);
+    link.getAttributes().put(TobagoConstants.ATTR_INLINE, Boolean.TRUE);
+    link.getAttributes().put(TobagoConstants.ATTR_DISABLED,
+        Boolean.valueOf(disabled));
+    link.setActionListener(pager);
+    return link;
   }
 
   public boolean getRendersChildren() {
@@ -1092,7 +1173,7 @@ public class SheetRenderer extends RendererBase {
       this.data = data;
     }
 
-    public Object invoke(FacesContext facescontext, Object aobj[])
+    public Object invoke(FacesContext facesContext, Object aobj[])
         throws EvaluationException, MethodNotFoundException {
 
       if (aobj[0] instanceof ActionEvent) {
@@ -1115,17 +1196,51 @@ public class SheetRenderer extends RendererBase {
           data.setFirst(start > data.getRowCount() ? last : start);
         } else if (LAST.equals(action)) {
           data.setFirst(getLast());
+        } else if (PAGE_TO_ROW.equals(action) ) {
+           String startRow = (String)
+               facesContext.getExternalContext().getRequestParameterMap().get(
+               command.getClientId(facesContext) + SUBCOMPONENT_SEP + "value");
+          if (startRow != null) {
+            try {
+              int start = Integer.parseInt(startRow) - 1;
+              data.setFirst(start < getLast() ? start : getLast());
+            } catch (NumberFormatException e) {
+              LOG.error("Catched: " + e.getMessage());
+            }
+          }
+          else {
+            LOG.error("Can't find 'PageToRow' parameter : " + command.getClientId(facesContext) + SUBCOMPONENT_SEP + "value");
+          }
+        } else if (PAGE_TO_PAGE.equals(action) ) {
+           String startRow = (String)
+               facesContext.getExternalContext().getRequestParameterMap().get(
+               command.getClientId(facesContext) + SUBCOMPONENT_SEP + "value");
+          if (startRow != null) {
+            try {
+              int start = Integer.parseInt(startRow) - 1;
+              LOG.info("start = " + start + "  data.getRows() = " + data.getRows() + " => start = " + (start * data.getRows()));
+              start = start * data.getRows();
+              data.setFirst(start < getLast() ? start : getLast());
+
+            } catch (NumberFormatException e) {
+              LOG.error("Catched: " + e.getMessage());
+            }
+          }
+          else {
+            LOG.error("Can't find 'PageToRow' parameter : " + command.getClientId(facesContext) + SUBCOMPONENT_SEP + "value");
+          }
         } else {
           LOG.error("Unkown commandName :" + action);
         }
 
-      } else {
+      }
+      else {
         if (LOG.isDebugEnabled()) {
           LOG.debug("aobj[0] instanceof '" + aobj[0] + "'");
         }
       }
 
-      data.updateState(facescontext);
+      data.updateState(facesContext);
 
 
       return null;

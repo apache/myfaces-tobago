@@ -23,7 +23,9 @@ public class SheetTag extends TobagoTag {
 // ----------------------------------------------------------------- attributes
 
   private String var;
-  private String paging = "true";
+  private String showRowRange = "false";
+  private String showPageRange = "false";
+  private String showDirectLinks = "false";
   private String hideHeader;
   private String pagingStart = "0";
   private String pagingLength = "20";
@@ -64,7 +66,9 @@ public class SheetTag extends TobagoTag {
   public void release() {
     super.release();
     var = null;
-    paging = "true";
+    String showRowRange = "false";
+    String showPageRange = "false";
+    String showDirektLinks = "false";
     hideHeader = null;
     pagingStart = "0";
     pagingLength = "20";
@@ -76,12 +80,22 @@ public class SheetTag extends TobagoTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-   ComponentUtil.setBooleanProperty(component, ATTR_PAGING, paging, getIterationHelper());
-   ComponentUtil.setBooleanProperty(component, ATTR_HIDE_HEADER, hideHeader, getIterationHelper());
-   ComponentUtil.setIntegerProperty(component, ATTR_FIRST, pagingStart, getIterationHelper());
-   ComponentUtil.setIntegerProperty(component, ATTR_ROWS, pagingLength, getIterationHelper());
-   ComponentUtil.setStringProperty(component, ATTR_COLUMNS, columns, getIterationHelper());
-   ComponentUtil.setStringProperty(component, ATTR_VALUE, value, getIterationHelper());
+   ComponentUtil.setBooleanProperty(
+       component, ATTR_SHOW_ROW_RANGE, showRowRange, getIterationHelper());
+   ComponentUtil.setBooleanProperty(
+       component, ATTR_SHOW_PAGE_RANGE, showPageRange, getIterationHelper());
+   ComponentUtil.setBooleanProperty(
+       component, ATTR_SHOW_DIRECT_LINKS, showDirectLinks, getIterationHelper());
+   ComponentUtil.setBooleanProperty(
+       component, ATTR_HIDE_HEADER, hideHeader, getIterationHelper());
+   ComponentUtil.setIntegerProperty(
+       component, ATTR_FIRST, pagingStart, getIterationHelper());
+   ComponentUtil.setIntegerProperty(
+       component, ATTR_ROWS, pagingLength, getIterationHelper());
+   ComponentUtil.setStringProperty(
+       component, ATTR_COLUMNS, columns, getIterationHelper());
+   ComponentUtil.setStringProperty(
+       component, ATTR_VALUE, value, getIterationHelper());
    ComponentUtil.setStringProperty(component, ATTR_FORCE_VERTICAL_SCROLLBAR,
        forceVerticalScrollbar, getIterationHelper());
 
@@ -109,12 +123,16 @@ public class SheetTag extends TobagoTag {
     this.hideHeader = hideHeader;
   }
 
-  public String getPaging() {
-    return paging;
+  public void setShowRowRange(String showRowRange) {
+    this.showRowRange = showRowRange;
   }
 
-  public void setPaging(String paging) {
-    this.paging = paging;
+  public void setShowPageRange(String showPageRange) {
+    this.showPageRange = showPageRange;
+  }
+
+  public void setShowDirectLinks(String showDirectLinks) {
+    this.showDirectLinks = showDirectLinks;
   }
 
   public String getPagingLength() {

@@ -137,3 +137,20 @@
   margin-top: 2px;
   margin-left: -4px;
 }
+
+
+.tobago-sheet-paging-input {
+  width: 30px;
+  padding-top: 0px;
+  text-align: center;
+}
+
+.tobago-sheet-paging-pages-span {
+  cursor: pointer;
+  padding-right: 5px;
+}
+
+.tobago-sheet-paging-rows-span {
+  cursor: pointer;
+  float: left;
+}
