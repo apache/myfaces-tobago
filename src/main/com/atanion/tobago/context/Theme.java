@@ -56,5 +56,24 @@ abstract public class Theme implements Serializable {
   public String toString() {
     return name;
   }
+
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    final Theme theme = (Theme) o;
+
+    if (fallback != null ? !fallback.equals(theme.fallback) : theme.fallback != null) return false;
+    if (name != null ? !name.equals(theme.name) : theme.name != null) return false;
+
+    return true;
+  }
+
+  public int hashCode() {
+    int result;
+    result = (name != null ? name.hashCode() : 0);
+    result = 29 * result + (fallback != null ? fallback.hashCode() : 0);
+    return result;
+  }
 }
 
