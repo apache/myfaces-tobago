@@ -300,14 +300,48 @@ function tobagoToolbarMousesout(element, className, imageId) {
 
 
 
+function getBrowserInnerLeft() {
+  var innerLeft;
+  if (document.all) { // ie
+    innerLeft = document.body.scrollLeft;
+  } else {
+    innerLeft = window.scrollX;
+  }
+  return innerLeft;
+}
+function getBrowserInnerTop() {
+  var innerTop;
+  if (document.all) { // ie
+    innerTop = document.body.scrollTop;
+  } else {
+    innerTop = window.scrollY;
+  }
+  return innerTop;
+}
 function getBrowserInnerWidth() {
   var innerWidth;
   if (document.all) { // ie
     innerWidth = document.body.clientWidth;
   } else {
     innerWidth = window.innerWidth;
+    if (document.body.scrollHeight > window.innerHeight) {
+      innerWidth -= tobagoGetScrollbarWidth();
+    }
   }
   return innerWidth;
+}
+function getBrowserInnerHeight() {
+  var innerHeight;
+  if (document.all) { // ie
+    innerHeight = document.body.clientHeight;
+  } else {
+    innerHeight = window.innerHeight;
+  }
+  return innerHeight;
+}
+
+function tobagoGetScrollbarWidth() {
+  return 15;
 }
 
 function setDivWidth(id, width) {

@@ -113,6 +113,58 @@ function MenuItem(label, action, disabled) {
   }
 
   this.openSubMenus = function() {
+    if (! this.subItemContainer) {     
+      return;
+    }
+    
+    var width = this.subItemContainerStyleWidth.replace(/\D/g,"") - 0;
+    var height = this.subItemContainerStyleHeight.replace(/\D/g,"") - 0;
+    
+    var parentLeft = getAbsoluteLeft(this.htmlElement) ;
+    var parentTop = getAbsoluteTop(this.htmlElement) ;
+    var parentWidth = this.htmlElement.style.width.replace(/\D/g,"") - 0;
+    var parentHeight = this.htmlElement.style.height.replace(/\D/g,"") - 0;
+    
+    
+    var innerLeft = getBrowserInnerLeft();
+    var innerTop = getBrowserInnerTop();
+    var innerWidth = getBrowserInnerWidth();
+    var innerHeight = getBrowserInnerHeight();
+    var innerRight = innerLeft + innerWidth;
+    var innerBottom = innerTop + innerHeight
+
+    if (this.level == 1) {
+      var containerRight = parentLeft + width;
+      if (containerRight <= innerRight) {
+        this.subItemContainer.style.left = this.htmlElement.style.left;
+      }
+      else {
+        this.subItemContainer.style.left = this.htmlElement.style.left.replace(/\D/g,"") - (containerRight - innerRight) + "px";
+      }
+    }
+    else if (this.level > 1) {
+      var containerRight = parentLeft + parentWidth + width;
+      if (containerRight <= innerRight) {
+        this.subItemContainer.style.left = this.parent.childWidth + "px";
+      }
+      else {
+        this.subItemContainer.style.left = "-" + this.childWidth + "px";
+      }
+    
+      var containerBottom = parentTop + height;
+      if (containerBottom <= innerBottom) {
+        this.subItemContainer.style.top = this.htmlElement.style.top;
+      }
+      else {
+        this.subItemContainer.style.top = (innerBottom - containerBottom) + "px";
+      }
+      
+    }
+    
+    this.subItemContainer.style.width = this.subItemContainerStyleWidth;
+    this.subItemContainer.style.height = this.subItemContainerStyleHeight;
+
+    this.setupIframe();
     this.setSubMenuContainerVisibility("visible");
   }
   this.hideSubMenus = function() {
@@ -422,6 +474,15 @@ function MenuItem(label, action, disabled) {
     }
   }
   
+  this.setupIframe = function() {
+    if (this.subItemIframe) {
+      this.subItemIframe.style.width = this.subItemContainer.style.width;
+      this.subItemIframe.style.height = this.subItemContainer.style.height;
+      this.subItemIframe.style.top = this.subItemContainer.style.top;
+      this.subItemIframe.style.left = this.subItemContainer.style.left;
+    }
+  }
+  
 }
 
 
@@ -479,10 +540,13 @@ function setItemWidth(menu) {
     setItemWidth(menu.subItems[i]);
   }
   if (menu.subItemContainer && menu.level != 0) {
-    menu.subItemContainer.style.width
+    menu.subItemContainerStyleWidth
         = (menu.childWidth + getSubitemContainerBorderWidthSum()) + "px";
-    menu.subItemContainer.style.height = (menu.subItems.length  * getItemHeight()
+    menu.subItemContainerStyleHeight = (menu.subItems.length  * getItemHeight()
         + getSubitemContainerBorderWidthSum()) + "px";
+
+    menu.subItemContainer.style.width = "0px";
+    menu.subItemContainer.style.height = "0px";
 
     if (menu.subItemIframe) {
       menu.subItemIframe.style.width = menu.subItemContainer.style.width;
@@ -515,7 +579,8 @@ function setItemPositions(menu) {
         }
         menu.htmlElement.style.left = left + "px";
         if (menu.subItemContainer) {
-          menu.subItemContainer.style.left = left + "px";
+//          menu.subItemContainer.style.left = left + "px";
+          menu.subItemContainer.style.left = "0px";
         }
         menu.htmlElement.style.zIndex = "999";
       }
@@ -538,20 +603,19 @@ function setItemPositions(menu) {
           //if (menu.level == 2) {
           //  top = getItemHeight();
           //}
+          /*
           if (menu.level != 1) {
             left = menu.parent.childWidth;
           }
           menu.subItemContainer.style.top = top + "px";
-          menu.subItemContainer.style.left = left + "px";
+          menu.subItemContainer.style.left = left + "px";*/
+          menu.subItemContainer.style.top = "0px";
+          menu.subItemContainer.style.left = "-" + menu.parent.childWidth + "px";
         }
 
         menu.htmlElement.style.top = top + "px";
         menu.htmlElement.style.left = "0px";
 
-      }
-      if (menu.subItemIframe) {
-        menu.subItemIframe.style.top = menu.subItemContainer.style.top;
-        menu.subItemIframe.style.left = menu.subItemContainer.style.left;
       }
     }
   }
