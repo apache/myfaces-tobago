@@ -6,6 +6,8 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.context.ClientProperties;
+import com.atanion.tobago.context.UserAgent;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.GroupBoxRendererBase;
@@ -48,6 +50,7 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
           = getConfiguredValue(facesContext, component, "paddingTopWhenToolbar");
       style = LayoutUtil.replaceStyleAttribute(style, "padding-top",
           Integer.toString(padding) + "px");
+      style = LayoutUtil.replaceStyleAttribute(style, "padding-bottom", "0px");
     }
 
     ResponseWriter writer = facesContext.getResponseWriter();
@@ -72,6 +75,8 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
     }
 
 
+    String contentStyle = (String)
+        component.getAttributes().get(TobagoConstants.ATTR_STYLE_INNER);
     if (toolbar != null) {
       writer.startElement("div", null);
       writer.writeAttribute("class", "tobago-groupbox-toolbar-div", null);
@@ -82,17 +87,26 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
       RenderUtil.encode(facesContext, toolbar);
       writer.endElement("span");
       writer.endElement("div");
+      if (isMsie(facesContext)) {
+        contentStyle
+            = LayoutUtil.replaceStyleAttribute(contentStyle, "top", "-10px");
+      }
     }
-
     writer.startElement("div", component);
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
-    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_INNER);
+    writer.writeAttribute("style", contentStyle, null);
 
     writer.writeText("", null);
     RenderUtil.encodeChildren(facesContext, (UIPanel) component);
 
     writer.endElement("div");
     writer.endElement("fieldset");
+  }
+
+
+
+  private boolean isMsie(FacesContext facesContext) {
+    return ClientProperties.getInstance(facesContext).getUserAgent().toString().startsWith(UserAgent.MSIE.toString());
   }
 
   public boolean getRendersChildren() {
@@ -117,12 +131,19 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
 
   public int getPaddingHeight(FacesContext facesContext, UIComponent component) {
     final int paddingHeight = super.getPaddingHeight(facesContext, component);
+    LOG.info("paddingHeight = " + paddingHeight);
     int extraPadding = 0;
     if (component.getFacet("toolbar") != null) {
-      extraPadding = getConfiguredValue(facesContext, component,
-          "extraPaddingHeightWhenToolbar");
+      LOG.info("component has toolbar");
+      extraPadding = getExtraPadding(facesContext, component);
     }
+    LOG.info("paddingHeight = " + paddingHeight + " + " + extraPadding + " = " + (paddingHeight + extraPadding));
     return paddingHeight + extraPadding;
+  }
+
+  private int getExtraPadding(FacesContext facesContext, UIComponent component) {
+    return getConfiguredValue(facesContext, component,
+              "extraPaddingHeightWhenToolbar");
   }
 // ///////////////////////////////////////////// bean getter + setter
 

@@ -1,9 +1,13 @@
 /* $Id$ */
 
 fieldset.tobago-groupbox-default {
+  padding: 0px;
   padding-left: 10px;
 }
 
+.tobago-groupbox-header-toolbar-div {
+  right: -5px;
+}
 .tobago-groupbox-toolbar-div {
   top: -15px;
   left: 2px;

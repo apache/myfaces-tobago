@@ -242,6 +242,8 @@ td.tobago-gridlayout-first-column{
 
 fieldset.tobago-groupbox-default {
   border: 2px groove #ddeeff;
+  margin-left: 0px;
+  padding: 10px;
 }
 
 legend.tobago-groupbox-default {
@@ -266,6 +268,9 @@ legend.tobago-groupbox-default {
 
 div.tobago-groupbox-default {
   overflow: auto;
+  position: relative;
+  top: 0px;
+  left:0px;
 }
 
 /* label ------------------------------------------------------------------- */

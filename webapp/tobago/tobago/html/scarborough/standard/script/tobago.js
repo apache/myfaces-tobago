@@ -235,9 +235,11 @@ function tobagoImageMouseout(id) {
 function tobagoToolbarMousesover(element, className, imageId) {
   addCssClass(element, className);
   tobagoImageMouseover(imageId);
+  Ausgeben("MouseOver element.className : " + element.className);
 }
 
 function tobagoToolbarMousesout(element, className, imageId) {
   removeCssClass(element, className);
   tobagoImageMouseout(imageId);
+  Ausgeben("MouseOut  element.className : " + element.className);
 }
