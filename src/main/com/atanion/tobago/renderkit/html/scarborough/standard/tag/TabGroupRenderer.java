@@ -6,13 +6,11 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.event.StateChangeListener;
-import com.atanion.tobago.event.StateChangeEvent;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.component.UITabGroup;
-import com.atanion.tobago.component.StateHolder;
 import com.atanion.tobago.context.ResourceManagerUtil;
+import com.atanion.tobago.event.StateChangeEvent;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.renderkit.StyleAttribute;
