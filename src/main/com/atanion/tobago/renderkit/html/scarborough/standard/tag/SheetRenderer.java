@@ -1020,25 +1020,44 @@ public class SheetRenderer extends RendererBase {
       SheetRenderer.Pager pager, boolean disabled, String command)
       throws IOException {
     UICommand link;
-    UIGraphic image;
+//    UIGraphic image;
     link = createPagingCommand(application, command, disabled, pager);
 
-    image = (UIGraphic) application.createComponent(UIGraphic.COMPONENT_TYPE);
-    image.setRendererType("Image"); //fixme: use constant ?
-    image.setRendered(true);
-    image.getAttributes().put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
-    if (disabled) {
-      image.setValue(command + "Disabled.gif");
-    } else {
-      image.setValue(command + ".gif");
-    }
-    image.getAttributes().put(TobagoConstants.ATTR_TITLE,
-        ResourceManagerUtil.getProperty(facesContext, "tobago",
-            "sheet" + command));
+//    image = (UIGraphic) application.createComponent(UIGraphic.COMPONENT_TYPE);
+//    image.setRendererType("Image"); //fixme: use constant ?
+//    image.setRendered(true);
+//    image.getAttributes().put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
+//    if (disabled) {
+//      image.setValue(command + "Disabled.gif");
+//    } else {
+//      image.setValue(command + ".gif");
+//    }
+//    image.getAttributes().put(TobagoConstants.ATTR_TITLE,
+//        ResourceManagerUtil.getProperty(facesContext, "tobago",
+//            "sheet" + command));
+//    link.getChildren().add(image);
 
-    link.getChildren().add(image);
+
+
+
     pager.getComponent().getFacets().put(command, link);
-    RenderUtil.encode(facesContext, link);
+//    RenderUtil.encode(facesContext, link);
+
+
+    String tip = ResourceManagerUtil.getProperty(facesContext, "tobago",
+        "sheet" + command);
+    String image = ResourceManagerUtil.getImage(facesContext,
+        command + (disabled ? "Disabled" : "") + ".gif");
+    String onClick = ButtonRenderer.createOnClick(facesContext, link);
+
+    ResponseWriter writer = facesContext.getResponseWriter();
+    writer.startElement("img", null);
+    writer.writeAttribute("class", "tobago-sheet-footer-pager-button", null);
+    writer.writeAttribute("src", image, null);
+    writer.writeAttribute("title", tip, null);
+    writer.writeAttribute("onclick", onClick, null);
+    writer.endElement("img");
+
   }
 
   private static UICommand createPagingCommand(

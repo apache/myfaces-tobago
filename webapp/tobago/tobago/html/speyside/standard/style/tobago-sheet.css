@@ -63,18 +63,18 @@
 
 .tobago-sheet-paging-pages-span {
   right: 2px;
-  top: 1px;
+  top: 0px;
 }
 
 .tobago-sheet-paging-rows-span {
   left: 2px;
-  top: 1px;
+  top: 0px;
 }
 
 .tobago-sheet-paging-input {
   height: 15px;
   width: 25px;
-  margin-top: -1px;
+  margin-top: 0px;
   margin-bottom: 0px;
   font: bold 10px arial, helvetica, sans-serif;
   border: 1px solid black;

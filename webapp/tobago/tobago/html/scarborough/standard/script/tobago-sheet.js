@@ -512,17 +512,19 @@ function tobagoSheetEditPagingRow(span, commandId, onClickCommand, commandName) 
 
   var text = document.getElementById(commandId + getSubComponentSeparator() + "text");
   if (text) {
+    PrintDebug("text gefunden");
+    span = text.parentNode;
     var hiddenId = commandId + getSubComponentSeparator() +  "value";
     span.style.cursor = 'auto';
     input = text.inputElement;
     if (! input) {
+      PrintDebug("creating new input");
       input = document.createElement('input');
       text.inputElement = input;
-      input.textElement = text;
-      
+      input.textElement = text;      
       input.type='text';
       input.id=hiddenId;
-      input.name=hiddenId;      
+      input.name=hiddenId;
       input.className = "tobago-sheet-paging-input";
       input.onClickCommand = onClickCommand;
       addEventListener(input, 'blur', delayedHideInput);

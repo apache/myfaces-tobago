@@ -143,17 +143,25 @@
   height: 20px;
   padding-top: 0px;
   text-align: center;
+  vertical-align: top;
+
 }
 
 .tobago-sheet-paging-pages-span {
   position : absolute;
   top: 0px;
   right: 0px;
+  vertical-align: top;
 }
 
 .tobago-sheet-paging-pages-text {
   cursor: pointer;
   padding-right: 5px;
+  vertical-align: top;
+}
+
+.tobago-sheet-footer-pager-button {
+   vertical-align: top;
 }
 
 .tobago-sheet-paging-rows-span {
@@ -161,14 +169,17 @@
   position : absolute;
   top: 0px;
   left: 0px;
+  vertical-align: top;
 }
 
 .tobago-sheet-paging-links-span {
+  vertical-align: top;
 
 }
 .tobago-sheet-paging-links-link {
- padding-left: 2px;
- padding-right: 2px;
+  padding-left: 2px;
+  padding-right: 2px;
+  vertical-align: top;
 }
 
 
