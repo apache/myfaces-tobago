@@ -3,8 +3,8 @@
   -- $Id$
   --%><%@ page import="com.atanion.tobago.component.BodyContentHandler,
                        com.atanion.tobago.TobagoConstants,
-                       javax.faces.component.UIPanel,
-                       com.atanion.tobago.renderkit.RenderUtil"
+                       com.atanion.tobago.renderkit.RenderUtil,
+                       com.atanion.tobago.component.UIPanel"
 %><%
   UIPanel component = (UIPanel) RenderUtil.getComponent(request) ;
   BodyContentHandler bodyContentHandler = (BodyContentHandler)

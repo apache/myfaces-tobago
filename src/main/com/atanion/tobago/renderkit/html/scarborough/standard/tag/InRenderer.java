@@ -45,7 +45,7 @@ public class InRenderer extends InRendererBase{
       writer.writeText("", null);
     }
     if (label != null) {
-      RenderUtil.encode(facesContext, label);
+      RenderUtil.encodeHtml(facesContext, label);
 
       writer.endElement("td");
       writer.startElement("td", null);

@@ -9,17 +9,17 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIForm;
 import com.atanion.tobago.component.UIGridLayout;
-import com.atanion.tobago.renderkit.LayoutManager;
+import com.atanion.tobago.component.UILayout;
+import com.atanion.tobago.component.UIPage;
+import com.atanion.tobago.component.UIPanel;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.renderkit.html.HtmlDefaultLayoutManager;
 import com.atanion.tobago.util.LayoutInfo;
 import com.atanion.tobago.util.LayoutUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
@@ -28,8 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class GridLayoutRenderer extends RendererBase
-    implements LayoutManager {
+public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
 // ///////////////////////////////////////////// constant
 
@@ -74,26 +73,32 @@ public class GridLayoutRenderer extends RendererBase
       else {
         if (LOG.isWarnEnabled()) {
           LOG.warn("Unable to calculate fixedHeight for token '" + token
-              + "'! using 'fixed'");
+              + "'! using 'fixed' , component:"
+              + component.getClientId(facesContext) + " is "
+              + component.getRendererType());
         }
         height += getMaxFixedHeight((UIGridLayout.Row) rows.get(i), facesContext);        
       }
     }
 
     RendererBase containerRenderer =
-        ComponentUtil.getRenderer(layout.getParent(), facesContext);
+        ComponentUtil.getRenderer(facesContext, layout.getParent());
     height += containerRenderer.getHeaderHeight(facesContext, layout.getParent());
     height += containerRenderer.getPaddingHeight(facesContext, layout.getParent());
 
     return height;
   }
 
-  public void encodeEndTobago(FacesContext facesContext,
-      UIComponent component) throws IOException {
+  public void encodeChildrenOfComponent(FacesContext facesContext, UIComponent component)
+      throws IOException {
+    // encode table with component's children
 
-    layoutEnd(facesContext, component);
+    UIGridLayout layout =  (UIGridLayout) UILayout.getLayout(component);
+    RenderUtil.prepareRender(facesContext, layout);
 
-    UIGridLayout layout =  (UIGridLayout) component;
+    layoutEnd(facesContext, layout);
+    layoutMargins(layout);
+
     final Map attributes = layout.getAttributes();
     List columnWidths =  (List) attributes.get(TobagoConstants.ATTR_WIDTH_LIST);
 
@@ -181,10 +186,9 @@ public class GridLayoutRenderer extends RendererBase
 
             int cellHeight = -1;
             try {
-              String layoutHeight = LayoutUtil.getLayoutHeight(cell);
+              Integer  layoutHeight = LayoutUtil.getLayoutHeight(cell);
               if (layoutHeight != null) {
-                cellHeight
-                    = Integer.parseInt(layoutHeight.replaceAll("\\D", ""));
+                cellHeight = layoutHeight.intValue();
               }
             } catch (Exception e) {
             } // ignore, use 0
@@ -214,7 +218,7 @@ public class GridLayoutRenderer extends RendererBase
             writer.writeAttribute("class", cellClasses, null);
             writer.writeAttribute("style", cellStyle, null);
 
-            RenderUtil.encode(facesContext, cell);
+            RenderUtil.encodeHtml(facesContext, cell);
 
             writer.endElement("div");
             writer.endElement("td");
@@ -225,6 +229,16 @@ public class GridLayoutRenderer extends RendererBase
       }
     }
     writer.endElement("table");
+  }
+
+  public void encodeEndTobago(FacesContext facesContext,
+      UIComponent component) throws IOException {
+    if (component.getParent() instanceof UIPage) {
+      LOG.error("XXXXXXXXXXXXXXXXXXXXXXX  never XXXXXXXXXXXXXXXXXXXXXX", new Exception());
+    }
+    else {
+      encodeChildrenOfComponent(facesContext, component.getParent());
+    }
   }
 
   private String getOverflow(UIComponent cell) {
@@ -290,7 +304,10 @@ public class GridLayoutRenderer extends RendererBase
 
   private int getWidthSpacingSum(UIGridLayout component,
       FacesContext facesContext) {
-    return getSpacingSum(component, facesContext, component.getColumnCount());
+    int spacingSum
+        = getSpacingSum(component, facesContext, component.getColumnCount());
+    spacingSum += getComponentExtraWidth(facesContext, component);
+    return spacingSum;
   }
 
   private int getCellSpacing(FacesContext facesContext, UIComponent component) {
@@ -315,31 +332,32 @@ public class GridLayoutRenderer extends RendererBase
       LOG.debug("doLayout end");
     }
     UIGridLayout layout = (UIGridLayout) component;
+    final Map attributes = layout.getParent().getAttributes();
 
     Integer innerSpace =
-        (Integer) layout.getAttributes().get(TobagoConstants.ATTR_INNER_WIDTH);
-    if (innerSpace != null) {
-      layoutWidth(
-          new Integer(
-              innerSpace.intValue() - getWidthSpacingSum(layout, facesContext)),
-          layout, facesContext);
+          (Integer) attributes.get(TobagoConstants.ATTR_INNER_WIDTH);
+    if (innerSpace != null && innerSpace.intValue() != -1) {
+      int value
+          = innerSpace.intValue() - getWidthSpacingSum(layout, facesContext);
+      layoutWidth(new Integer(value), layout, facesContext);
     }
 
     innerSpace =
-        (Integer) layout.getAttributes().get(TobagoConstants.ATTR_INNER_HEIGHT);
-    if (innerSpace != null) {
-      layoutHeight(
-          new Integer(
-              innerSpace.intValue() -
-          getHeightSpacingSum(layout, facesContext)),
-          layout, facesContext);
+          (Integer) attributes.get(TobagoConstants.ATTR_INNER_HEIGHT);
+    if (innerSpace != null && innerSpace.intValue() != -1) {
+      int value
+          = innerSpace.intValue() - getHeightSpacingSum(layout, facesContext);
+      layoutHeight(new Integer(value), layout, facesContext);
     }
 
   }
 
   private int getHeightSpacingSum(UIGridLayout layout,
       FacesContext facesContext) {
-    return getSpacingSum(layout, facesContext, layout.ensureRows().size());
+    int spacingSum
+        = getSpacingSum(layout, facesContext, layout.ensureRows().size());
+    spacingSum += getComponentExtraHeight(facesContext, layout);
+    return spacingSum;
   }
 
   private void layoutWidth(Integer innerWidth, UIGridLayout layout,
@@ -460,8 +478,7 @@ public class GridLayoutRenderer extends RendererBase
 
       if (object instanceof UIComponent) {
         UIComponent component = (UIComponent) object;
-        RendererBase renderer = ComponentUtil.getRenderer(component,
-            facesContext);
+        RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
         if (renderer instanceof RendererBase) {
           int height = renderer.getFixedHeight(facesContext, component);
           maxHeight = Math.max(maxHeight, height);
@@ -492,7 +509,7 @@ public class GridLayoutRenderer extends RendererBase
           }
           cellWidth += (spanX - 1) * getCellSpacing(facesContext, layout);
           LayoutUtil.maybeSetLayoutAttribute(cell,
-              TobagoConstants.ATTR_LAYOUT_WIDTH, cellWidth + "px");
+              TobagoConstants.ATTR_LAYOUT_WIDTH, new Integer(cellWidth));
         }
       }
     }
@@ -523,7 +540,7 @@ public class GridLayoutRenderer extends RendererBase
                 + cell.getRendererType());
           }
           cell.getAttributes().put(TobagoConstants.ATTR_LAYOUT_HEIGHT,
-              "" + cellHeight + "px");
+              new Integer(cellHeight));
           if (cell instanceof UIPanel
               && ComponentUtil.getBooleanAttribute(cell,
                   TobagoConstants.ATTR_LAYOUT_DIRECTIVE)
@@ -536,7 +553,7 @@ public class GridLayoutRenderer extends RendererBase
                     + component.getRendererType());
               }
               component.getAttributes().put(TobagoConstants.ATTR_LAYOUT_HEIGHT,
-                  "" + cellHeight + "px");
+                  new Integer(cellHeight));
 
             }
           }
@@ -549,8 +566,8 @@ public class GridLayoutRenderer extends RendererBase
 
   public void layoutBegin(FacesContext facesContext, UIComponent component) {
 
-    HtmlDefaultLayoutManager.layoutSpace(component, facesContext, true);
-    HtmlDefaultLayoutManager.layoutSpace(component, facesContext, false);
+    LayoutUtil.layoutSpace(facesContext, component, true);
+    LayoutUtil.layoutSpace(facesContext, component, false);
 
     if (component instanceof UIGridLayout) {
       layoutMargins((UIGridLayout) component);

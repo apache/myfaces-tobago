@@ -76,6 +76,7 @@ public class LayoutInfo{
 
   public void update(int space, int index){
 
+
     if (space > spaceLeft) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("More space need(" + space + ") than avaliable(" + spaceLeft
@@ -90,7 +91,8 @@ public class LayoutInfo{
       spaces[index] = space;
       if (spaceLeft <1 && columnsLeft()) {
         if (LOG.isWarnEnabled()) {
-          LOG.warn("There are columns left but no more Space!");
+          LOG.warn("There are columns left but no more Space! cellsLeft="
+                     + cellsLeft + "  tokens=" + tokensToString(layoutTokens));
         }
       }
     }

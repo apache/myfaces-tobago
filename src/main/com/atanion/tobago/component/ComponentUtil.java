@@ -248,7 +248,7 @@ public class ComponentUtil implements TobagoConstants {
 
   // todo This should not be neseccary, but UIComponentBase.getRenderer() is protected
   public static RendererBase getRenderer(
-      UIComponent component, FacesContext facesContext) {
+      FacesContext facesContext, UIComponent component) {
     String rendererType = component.getRendererType();
     if (rendererType == null) {
       return null;

@@ -27,7 +27,7 @@ public class FoRendererBase extends RendererBase {
       UIComponent component) {
     LayoutManager layoutManager = null;
 
-    Renderer renderer = ComponentUtil.getRenderer(component, facesContext);
+    Renderer renderer = ComponentUtil.getRenderer(facesContext, component);
     if (renderer instanceof LayoutManager) {
       return  (LayoutManager) renderer;
     }
@@ -41,7 +41,7 @@ public class FoRendererBase extends RendererBase {
     }
     try {
 
-      createClassAttribute(component);
+//      createClassAttribute(component);
 
       encodeBeginTobago(facesContext, component);
 

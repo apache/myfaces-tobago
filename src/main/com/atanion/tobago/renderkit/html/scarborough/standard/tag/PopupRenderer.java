@@ -15,7 +15,6 @@ import com.atanion.tobago.component.UIPopup;
 import com.atanion.tobago.component.UIPage;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;

@@ -5,20 +5,19 @@
  */
 package com.atanion.tobago.renderkit;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.config.ThemeConfig;
-import com.atanion.tobago.context.ClientProperties;
-import com.atanion.tobago.renderkit.html.HtmlDefaultLayoutManager;
-import com.atanion.tobago.util.LayoutUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
+
+import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UIPage;
+import com.atanion.tobago.component.UIPanel;
+import com.atanion.tobago.config.ThemeConfig;
+import com.atanion.tobago.util.LayoutUtil;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
-import javax.faces.component.UIPanel;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -26,9 +25,9 @@ import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 import javax.faces.render.Renderer;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ArrayList;
 
 // todo: in java 1.5 use: import static com.atanion.tobago.TobagoConstants.*;
 public abstract class RendererBase
@@ -63,14 +62,15 @@ public abstract class RendererBase
       LOG.debug("*** begin    " + component);
     }
     try {
-      createClassAttribute(component);
+      // todo: this is HTML move in Layout
 
-      LayoutManager layoutManager = getLayoutManager(facesContext, component);
-
-      if (layoutManager != null) {
-        layoutManager.layoutBegin(facesContext, component);
-      }
-
+//      if (! (component instanceof UIPage)) {
+//        LayoutManager layoutManager = getLayoutManager(facesContext, component);
+//
+//        if (layoutManager != null) {
+//          layoutManager.layoutBegin(facesContext, component);
+//        }
+//      }
       encodeBeginTobago(facesContext, component);
     } catch (IOException e) {
       throw e;
@@ -93,27 +93,30 @@ public abstract class RendererBase
     if (LOG.isDebugEnabled()) {
       LOG.debug("*** children " + component);
     }
-    UIComponent layout = null;
+    if (component instanceof UIPage) {
+      LOG.info("UUUUUUUUUUUUUUUUUUUUU UIPage XXXXXXXXXXXXXXXXXXXXXXXXXXXXxx");
+    }
+//    UIComponent layout = null;
     //if (LayoutUtil.isTransparentForLayout(component)) {
     //   layout = component.getParent().getFacet("layout");
     //} else {
-      layout = component.getFacet("layout");
+//      layout = component.getFacet("layout");
     //}
-    if (layout != null) {
+//    if (layout != null) {
       // ((LayoutManager)ComponentUtil.getRenderer(layout, facesContext))
        //     .layoutBegin(facesContext, component);
-      layout.encodeBegin(facesContext);
+//      layout.encodeBegin(facesContext);
       /*for (Iterator iterator = component.getChildren().iterator(); iterator.hasNext();) {
         UIComponent child = (UIComponent) iterator.next();
         ((LayoutManager)ComponentUtil.getRenderer(layout, facesContext))
             .layoutBegin(facesContext, child);
       }*/
-      layout.encodeChildren(facesContext);
-      layout.encodeEnd(facesContext);
-    } else {
+//      layout.encodeChildren(facesContext);
+//      layout.encodeEnd(facesContext);
+//    } else {
 
       encodeChildrenTobago(facesContext, component);
-    }
+//    }
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("*   children " + component);
@@ -141,62 +144,7 @@ public abstract class RendererBase
     }
   }
 
-  private LayoutManager getLayoutManager(
-      FacesContext facesContext, UIComponent component) {
-    LayoutManager layoutManager = null;
 
-    Renderer renderer = ComponentUtil.getRenderer(component, facesContext);
-    if (renderer instanceof LayoutManager) {
-      layoutManager = (LayoutManager) renderer;
-    } else {
-      UIComponent parent = LayoutUtil.getLayoutParent(component);
-      if (parent instanceof UIPanel
-          && ComponentUtil.getBooleanAttribute(parent, ATTR_LAYOUT_DIRECTIVE)) {
-        component = parent;
-        parent = LayoutUtil.getLayoutParent(component);
-      }
-      if (parent != null) {
-        UIComponent layout = parent.getFacet("layout");
-//        if (layout instanceof UIComponentBase) {
-        if (layout != null) {
-          renderer = ComponentUtil.getRenderer(layout, facesContext);
-          if (renderer instanceof LayoutManager) {
-            layoutManager = (LayoutManager) renderer;
-          }
-        }
-      }
-    }
-
-    // fixme:
-    if (layoutManager == null) {
-      UIComponent parent = LayoutUtil.getLayoutParent(component);
-      if (parent != null) {
-        UIComponent layout = parent.getFacet("layout");
-//        if (layout instanceof UIComponentBase) {
-        if (layout != null) {
-          renderer = ComponentUtil.getRenderer(layout, facesContext);
-          if (renderer instanceof LayoutManager) {
-            layoutManager = (LayoutManager) renderer;
-          }
-        }
-      }
-    }
-
-    if (layoutManager == null) {
-      layoutManager = getDefaultLayoutManager(facesContext);
-    }
-    return layoutManager;
-  }
-
-  private LayoutManager getDefaultLayoutManager(FacesContext facesContext) {
-    LayoutManager layoutManager = null;
-    String contentType = ClientProperties.getInstance(facesContext.getViewRoot())
-        .getContentType();
-    if (contentType.equals("html")) {
-      layoutManager = new HtmlDefaultLayoutManager();
-    }
-    return layoutManager;
-  }
 
   public void decode(FacesContext facesContext, UIComponent component) {
     // nothing to do
@@ -209,63 +157,7 @@ public abstract class RendererBase
     }
   }
 
-  protected void createClassAttribute(UIComponent component) {
-    String rendererType = component.getRendererType();
-    if (rendererType != null) {
-      String name = getRendererName(rendererType);
-      Object styleClassO
-          = component.getAttributes().get(ATTR_STYLE_CLASS);
-      if (styleClassO != null && LOG.isDebugEnabled()) {
-        LOG.debug("styleClassO = '" + styleClassO.getClass().getName() + "'");
-      }
-      String styleClass
-          = (String) component.getAttributes().get(
-              ATTR_STYLE_CLASS);
-      styleClass = updateClassAttribute(styleClass, name, component);
-      component.getAttributes().put(
-          ATTR_STYLE_CLASS,
-          styleClass);
-    }
-  }
 
-  protected String updateClassAttribute(
-      String cssClass, String rendererName,
-      UIComponent component) {
-    if (cssClass != null) {
-      // first remove old tobago-<rendererName>-<type> classes from class-attribute
-      cssClass = cssClass.replaceAll(
-          "tobago-" + rendererName
-          + "-(default|disabled|readonly|inline|error)", "").trim();
-      // remove old tobago-<rendererName>-markup-<type> classes from class-attribute
-      cssClass = cssClass.replaceAll(
-          "tobago-" + rendererName + "-markup-(strong|deleted)", "").trim();
-    } else {
-      cssClass = "";
-    }
-    String tobagoClass = "tobago-" + rendererName + "-default ";
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
-      tobagoClass += "tobago-" + rendererName + "-disabled ";
-    }
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_READONLY)) {
-      tobagoClass += "tobago-" + rendererName + "-readonly ";
-    }
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
-      tobagoClass += "tobago-" + rendererName + "-inline ";
-    }
-    if (ComponentUtil.isError(component)) {
-      tobagoClass += "tobago-" + rendererName + "-error ";
-    }
-    String markup = ComponentUtil.getStringAttribute(component, ATTR_MARKUP);
-    if (StringUtils.isNotEmpty(markup)) {
-      if (markup.equals("strong") || markup.equals("deleted")) {
-        tobagoClass += "tobago-" + rendererName + "-markup-" + markup + " ";
-      } else {
-        LOG.warn("Unknown markup='" + markup + "'");
-      }
-    }
-
-    return tobagoClass + cssClass;
-  }
 
   protected String getRendererName(String rendererType) {
     String name;
@@ -286,7 +178,7 @@ public abstract class RendererBase
     return name;
   }
 
-  protected int getConfiguredValue(FacesContext facesContext,
+  public int getConfiguredValue(FacesContext facesContext,
       UIComponent component, String key) {
     try {
       return ThemeConfig.getValue(facesContext, component, key);
@@ -337,7 +229,7 @@ public abstract class RendererBase
       for (Iterator childs = children.iterator(); childs.hasNext();) {
         UIComponent child = (UIComponent) childs.next();
 
-        RendererBase renderer = ComponentUtil.getRenderer(child, facesContext);
+        RendererBase renderer = ComponentUtil.getRenderer(facesContext, child);
         if (renderer != null) {
           fixedHeight = Math.max(
               fixedHeight,
@@ -383,6 +275,7 @@ public abstract class RendererBase
       throws IOException {
     for (Iterator i = component.getChildren().iterator(); i.hasNext();) {
       UIComponent child = (UIComponent) i.next();
+      //l
       if (child.isRendered()) {
 //        if (ComponentUtil.getBooleanAttribute(
 //            child,
@@ -489,6 +382,7 @@ public abstract class RendererBase
       return converter.getAsString(context, component, currentValue);
     }
   }
+
 
 
 // ///////////////////////////////////////////// bean getter + setter

@@ -21,8 +21,9 @@ import java.util.Map;
 
 public class BoxRenderer extends BoxRendererBase {
 
-  public void encodeEndTobago(FacesContext facesContext,
-      UIComponent component) throws IOException {
+  public void encodeBeginTobago(
+      FacesContext facesContext, UIComponent component) throws IOException {
+
 
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
     String labelString
@@ -49,7 +50,7 @@ public class BoxRenderer extends BoxRendererBase {
 
       writer.writeText("", null);
       if (label != null) {
-        RenderUtil.encode(facesContext, label);
+        RenderUtil.encodeHtml(facesContext, label);
       } else {
         writer.writeText(labelString, null);
       }
@@ -72,7 +73,7 @@ public class BoxRenderer extends BoxRendererBase {
       if (ToolBarTag.ICON_BIG.equals(attributes.get(ATTR_ICON_SIZE))) {
         attributes.put(ATTR_ICON_SIZE, ToolBarTag.ICON_SMALL);
       }
-      RenderUtil.encode(facesContext, toolbar);
+      RenderUtil.encodeHtml(facesContext, toolbar);
       writer.endElement("div");
       writer.endElement("div");
       if (ClientProperties.getInstance(facesContext.getViewRoot()).getUserAgent().isMsie()) {
@@ -84,9 +85,12 @@ public class BoxRenderer extends BoxRendererBase {
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
     writer.writeAttribute("style", contentStyle, null);
 
-    writer.writeText("", null);
-    RenderUtil.encodeChildren(facesContext, component);
+  }
 
+  public void encodeEndTobago(FacesContext facesContext,
+      UIComponent component) throws IOException {
+
+    ResponseWriter writer = facesContext.getResponseWriter();
     writer.endElement("div");
     writer.endElement("fieldset");
   }
@@ -97,14 +101,6 @@ public class BoxRenderer extends BoxRendererBase {
 
   protected String getAttrStyleKey() {
     return TobagoConstants.ATTR_STYLE;
-  }
-
-  public void encodeChildrenTobago(FacesContext facesContext,
-      UIComponent component) throws IOException {
-  }
-
-  public void encodeChildren(FacesContext facesContext, UIComponent component)
-      throws IOException {
   }
 
   public int getPaddingHeight(FacesContext facesContext, UIComponent component) {

@@ -7,7 +7,6 @@ import com.atanion.tobago.TobagoConstants;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
 import java.io.IOException;
 import java.util.Iterator;
 

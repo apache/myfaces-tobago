@@ -18,7 +18,7 @@ import java.io.IOException;
 
 public class LabelRenderer extends RendererBase {
 
-  protected void createClassAttribute(UIComponent component) {
+  private void createClassAttribute(UIComponent component) {
 
     String rendererType = component.getRendererType().toLowerCase();
     String name = getRendererName(rendererType);
@@ -34,7 +34,7 @@ public class LabelRenderer extends RendererBase {
     }
 
     String styleClass = (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE_CLASS);
-    styleClass = updateClassAttribute(styleClass, name, parent);
+    styleClass = LayoutUtil.updateClassAttribute(styleClass, name, parent);
     component.getAttributes().put(TobagoConstants.ATTR_STYLE_CLASS, styleClass);
   }
 
@@ -43,9 +43,11 @@ public class LabelRenderer extends RendererBase {
 
     UIOutput output = (UIOutput) component;
 
-    String width = LayoutUtil.getLayoutWidth(output);
+    Integer width = LayoutUtil.getLayoutWidth(output);
     String forValue = ComponentUtil.findClientIdFor(output, facesContext);
 
+    // todo move into labelLayout ?
+    createClassAttribute(component);
     ResponseWriter writer = facesContext.getResponseWriter();
 
     writer.startElement("span", output);

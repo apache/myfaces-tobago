@@ -5,47 +5,33 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.Pager;
+import com.atanion.tobago.component.Sorter;
 import com.atanion.tobago.component.UIColumnSelector;
 import com.atanion.tobago.component.UIData;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.model.SheetState;
-import com.atanion.tobago.model.SortableByApplication;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.util.LayoutInfo;
 import com.atanion.tobago.util.LayoutUtil;
-import com.atanion.util.BeanComparator;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.component.UIOutput;
 import javax.faces.component.UIPanel;
-import javax.faces.component.UISelectBoolean;
-import javax.faces.component.UISelectMany;
-import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
-import javax.faces.el.MethodNotFoundException;
-import javax.faces.el.ValueBinding;
-import javax.faces.event.ActionEvent;
-import javax.faces.model.DataModel;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -122,14 +108,13 @@ public class SheetRenderer extends RendererBase {
 
     Application application = facesContext.getApplication();
     SheetState state = data.getSheetState(facesContext);
-    Sorter sorter = getSorter(data);
-    setStoredState(sorter, state);
+    Sorter sorter = data.getSorter();
+    sorter.setStoredState(state);
     MethodBinding pager = new Pager();
-    List columnWidths = (List) attributes.get(TobagoConstants.ATTR_WIDTH_LIST);
+    List<Integer> columnWidths = data.getWidthList();
 
     String selectedListString = getSelected(data, state);
-    List selectedList = SheetState.parse(selectedListString);
-    List columnList = getColumns(data);
+    List columnList = data.getColumns();
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
@@ -210,8 +195,7 @@ public class SheetRenderer extends RendererBase {
     String sheetBodyStyle;
     if (space != null) {
       int intSpace = Integer.parseInt(space.replaceAll("\\D", ""));
-      intSpace -=
-          ((Integer) columnWidths.get(columnWidths.size() - 1)).intValue();
+      intSpace -= columnWidths.get(columnWidths.size() - 1).intValue();
       sheetBodyStyle =
           LayoutUtil.replaceStyleAttribute(bodyStyle, "width", intSpace + "px");
     } else {
@@ -298,7 +282,7 @@ public class SheetRenderer extends RendererBase {
 
 
       int columnIndex = -1;
-      for (Iterator kids = getColumns(data).iterator(); kids.hasNext();) {
+      for (Iterator kids = data.getColumns().iterator(); kids.hasNext();) {
         UIColumn column = (UIColumn) kids.next();
         columnIndex++;
 
@@ -357,9 +341,12 @@ public class SheetRenderer extends RendererBase {
           writer.writeAttribute("class", "tobago-sheet-column-selector", null);
           writer.endElement("img");
         } else {
-          for (Iterator grandkids = getChildren(column).iterator();
+          for (Iterator grandkids = data.getRenderedChildrenOf(column).iterator();
               grandkids.hasNext();) {
             UIComponent grandkid = (UIComponent) grandkids.next();
+
+            RenderUtil.createCssClass(facesContext, grandkid);
+            LayoutUtil.layoutWidth(facesContext, grandkid);
             RenderUtil.encode(facesContext, grandkid);
           }
         }
@@ -565,92 +552,12 @@ public class SheetRenderer extends RendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
-    setupState(facesContext, (UIData) component);
     storeFooterHeight(facesContext, component);
     super.encodeEnd(facesContext, component);
   }
 
-  private void setupState(FacesContext facesContext, UIData data) {
-    SheetState state = data.getSheetState(facesContext);
-    ensureColumnWidthList(facesContext, data, state);
-  }
 
-  private void ensureColumnWidthList(FacesContext facesContext, UIData data,
-      SheetState state) {
-    List widthList = null;
-    List columns = getColumns(data);
-
-    final Map attributes = data.getAttributes();
-    String widthListString = null;
-
-    if (state != null) {
-      widthListString = state.getColumnWidths();
-    }
-    if (widthListString == null) {
-      widthListString =
-          (String) attributes.get(TobagoConstants.ATTR_WIDTH_LIST_STRING);
-    }
-
-    if (widthListString != null) {
-      widthList = SheetState.parse(widthListString);
-    }
-    if (widthList != null && widthList.size() != columns.size()) {
-      widthList = null;
-    }
-
-
-    if (widthList == null) {
-      String columnLayout =
-          (String) attributes.get(TobagoConstants.ATTR_COLUMNS);
-
-      if (columnLayout == null && columns.size() > 0) {
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < columns.size(); i++) {
-          sb.append("1*;");
-        }
-        columnLayout = sb.deleteCharAt(sb.lastIndexOf(";")).toString();
-        if (LOG.isWarnEnabled()) {
-          LOG.warn(
-              "No columns found! Using created layout tokens: " + columnLayout);
-        }
-      }
-
-      if (widthList == null) {
-        int space = LayoutUtil.getInnerSpace(facesContext, data, true);
-        space -= getConfiguredValue(facesContext, data, "contentBorder");
-        if (needVerticalScrollbar(facesContext, data)) {
-          space -= getScrollbarWidth(facesContext, data);
-        }
-        LayoutInfo layoutInfo = new LayoutInfo(getColumns(data).size(),
-            space, columnLayout);
-        layoutInfo.parseColumnLayout(space);
-        widthList = layoutInfo.getSpaceList();
-      }
-    }
-
-    if (widthList != null) {
-      if (columns.size() != widthList.size()) {
-        LOG.warn("widthList.size() = " + widthList.size() +
-            " != columns.size() = " + columns.size() + "  widthList : "
-            + LayoutInfo.listToTokenString(widthList));
-      } else {
-        attributes.put(TobagoConstants.ATTR_WIDTH_LIST, widthList);
-      }
-    }
-  }
-
-  private List getColumns(UIData sheet) {
-    List columns = new ArrayList();
-    for (Iterator kids = sheet.getChildren().iterator(); kids.hasNext();) {
-      UIComponent kid = (UIComponent) kids.next();
-      if (kid instanceof UIColumn && kid.isRendered()) {
-        columns.add(kid);
-      }
-    }
-    return columns;
-  }
-
-  private boolean needVerticalScrollbar(FacesContext facesContext, UIData data) {
+  public boolean needVerticalScrollbar(FacesContext facesContext, UIData data) {
     // estimate need of height-scrollbar on client, if yes we have to consider
     // this when calculating column width's
 
@@ -689,7 +596,7 @@ public class SheetRenderer extends RendererBase {
     return getConfiguredValue(facesContext, component, "rowPadding");
   }
 
-  private int getScrollbarWidth(FacesContext facesContext,
+  public int getScrollbarWidth(FacesContext facesContext,
       UIComponent component) {
     return getConfiguredValue(facesContext, component, "scrollbarWidth");
   }
@@ -738,17 +645,6 @@ public class SheetRenderer extends RendererBase {
   private int getAscendingMarkerWidth(FacesContext facesContext,
       UIComponent component) {
     return getConfiguredValue(facesContext, component, "ascendingMarkerWidth");
-  }
-
-  private List getChildren(UIColumn column) {
-    List columns = new ArrayList();
-    for (Iterator kids = column.getChildren().iterator(); kids.hasNext();) {
-      UIComponent kid = (UIComponent) kids.next();
-      if (kid.isRendered()) {
-        columns.add(kid);
-      }
-    }
-    return columns;
   }
 
   public boolean getRendersChildren() {
@@ -813,7 +709,7 @@ public class SheetRenderer extends RendererBase {
       String image1x1, int sortMarkerWidth) throws IOException {
     String sheetId = component.getClientId(facesContext);
     Application application = facesContext.getApplication();
-    Sorter sorter = getSorter(component);
+    Sorter sorter = component.getSorter();
 
     List columnWidths
         = (List) component.getAttributes().get(TobagoConstants.ATTR_WIDTH_LIST);
@@ -925,15 +821,6 @@ public class SheetRenderer extends RendererBase {
     writer.endElement("div");
   }
 
-  private Sorter getSorter(UIData component) {
-    Sorter sorter = (Sorter)
-        component.getAttributes().get(TobagoConstants.ATTR_SHEET_SORTER);
-    if (sorter == null) {
-      sorter = new Sorter(component);
-      component.getAttributes().put(TobagoConstants.ATTR_SHEET_SORTER, sorter);
-    }
-    return sorter;
-  }
 
   private void renderColumnSelectorHeader(FacesContext facesContext,
       ResponseWriter writer, UIColumn column, int columnCount, Sorter sorter)
@@ -1003,13 +890,6 @@ public class SheetRenderer extends RendererBase {
       writer.writeAttribute("src", image1x1, null);
       writer.writeAttribute("alt", "", null);
       writer.endElement("img");
-    }
-  }
-
-  private void setStoredState(Sorter sorter, SheetState state) {
-    if (state != null) {
-      sorter.setColumn(state.getSortedColumn());
-      sorter.setAscending(state.isAscending());
     }
   }
 
@@ -1139,168 +1019,11 @@ public class SheetRenderer extends RendererBase {
     writer.endElement(type);
   }
 
+  public int getContentBorder(FacesContext facesContext, UIData data) {
+    return getConfiguredValue(facesContext, data, "contentBorder");
+  }
+
 // -------------------------------------------------------------- inner classes
 
-  public class Sorter extends MethodBinding {
-
-    public static final String ID_PREFIX = "sorter_";
-
-    private UIData data;
-
-    private int column;
-    private boolean ascending;
-
-    private Comparator comparator;
-
-    public Sorter(UIData data) {
-      this.data = data;
-      column = -1;
-      ascending = true;
-    }
-
-    public Object invoke(FacesContext facescontext, Object aobj[])
-        throws EvaluationException, MethodNotFoundException {
-      if (aobj[0] instanceof ActionEvent) {
-        UICommand command = (UICommand) ((ActionEvent) aobj[0]).getSource();
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("sorterId = " + command.getId());
-        }
-
-        Object value = data.getValue();
-        if (value instanceof DataModel) {
-          value = ((DataModel) value).getWrappedData();
-        }
-
-
-        if (value instanceof SortableByApplication
-            || value instanceof List
-            || value instanceof Object[]) {
-          String sortProperty;
-
-          if (command.getId() != null && command.getId().startsWith(ID_PREFIX)) {
-            UIColumn uiColumn = null;
-            try {
-              int actualColumn =
-                  Integer.parseInt(
-                      command.getId().substring(ID_PREFIX.length()));
-              if (actualColumn == column) {
-                ascending = !ascending;
-              } else {
-                ascending = true;
-                column = actualColumn;
-              }
-
-
-              List columns = getColumns(data);
-              uiColumn = (UIColumn) columns.get(column);
-              UIComponent child = getFirstSortableChild(uiColumn.getChildren());
-              if (child != null) {
-                ValueBinding valueBinding = child.getValueBinding("value");
-                String expressionString = valueBinding.getExpressionString();
-                if (expressionString.startsWith("#{") &&
-                    expressionString.endsWith("}")) {
-                  expressionString =
-                      expressionString.substring(2,
-                          expressionString.length() - 1);
-                }
-                String var = data.getVar();
-                sortProperty = expressionString.substring(var.length() + 1);
-                if (LOG.isDebugEnabled()) {
-                  LOG.debug("Sort property is " + sortProperty);
-                }
-              } else {
-                LOG.error("No sortable component found!");
-                removeSortableAttribute(uiColumn);
-                return null;
-              }
-            } catch (Exception e) {
-              LOG.error("Error while extracting sortMethod :" + e.getMessage(),
-                  e);
-              if (uiColumn != null) {
-                removeSortableAttribute(uiColumn);
-              }
-              return null;
-            }
-          } else {
-            LOG.error(
-                "Sorter.invoke() with illegal id in ActionEvent's source");
-            return null;
-          }
-
-          if (value instanceof SortableByApplication) {
-            ((SortableByApplication) value).sortBy(sortProperty);
-          } else {
-            // todo: locale / comparator parameter?
-            // don't compare numbers with Collator.getInstance() comparator
-//          comparator = Collator.getInstance();
-            comparator = null;
-            Comparator beanComparator
-                = new BeanComparator(sortProperty, comparator, !ascending);
-//          comparator = new RowComparator(ascending, method);
-
-            if (value instanceof List) {
-              Collections.sort((List) value, beanComparator);
-            } else { // if (value instanceof Object[]) {
-              Arrays.sort((Object[]) value, beanComparator);
-            }
-          }
-          data.updateSheetState(facescontext);
-        } else {  // DataModel?, ResultSet, Result or Object
-          LOG.warn("Sorting not supported for type "
-              + (value != null ? value.getClass().toString() : "null"));
-        }
-      }
-      return null;
-    }
-
-    private void removeSortableAttribute(UIColumn uiColumn) {
-      LOG.warn("removing attribute sortable from column " + column);
-      uiColumn.getAttributes().remove(TobagoConstants.ATTR_SORTABLE);
-    }
-
-    private UIComponent getFirstSortableChild(List children) {
-      UIComponent child = null;
-
-      for (Iterator iter = children.iterator(); iter.hasNext();) {
-        child = (UIComponent) iter.next();
-        if (child instanceof UICommand
-            || child instanceof UIPanel) {
-          child = getFirstSortableChild(child.getChildren());
-        }
-        if (child instanceof UISelectMany
-            || child instanceof UISelectOne
-            || child instanceof UISelectBoolean) {
-          continue;
-        } else if (child instanceof UIInput &&
-            RENDERER_TYPE_HIDDEN.equals(child.getRendererType())) {
-          continue;
-        } else if (child instanceof UIOutput) {
-          break;
-        }
-      }
-      return child;
-    }
-
-    public Class getType(FacesContext facescontext)
-        throws MethodNotFoundException {
-      return String.class;
-    }
-
-    public int getColumn() {
-      return column;
-    }
-
-    public boolean isAscending() {
-      return ascending;
-    }
-
-    public void setColumn(int column) {
-      this.column = column;
-    }
-
-    public void setAscending(boolean ascending) {
-      this.ascending = ascending;
-    }
-  }
 }
 

@@ -9,7 +9,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.NamingContainer;
-import javax.faces.component.UIPanel;
 
 public class UIPopup extends UIPanel implements NamingContainer {
 

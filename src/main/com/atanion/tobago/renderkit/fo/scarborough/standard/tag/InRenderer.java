@@ -59,7 +59,7 @@ public class InRenderer extends InputRendererBase {
       if (!Layout.isInLayout(component)) {
         FoUtils.startBlockContainer(writer, component);   FoUtils.layoutBlockContainer(writer, FoUtils.DEFAULT_HEIGHT,layout.getWidth()/2, layout.getX(), layout.getY() );
       }
-      RenderUtil.encode(facesContext, label);
+      RenderUtil.encodeHtml(facesContext, label);
       if (!Layout.isInLayout(component)) {
         FoUtils.endBlockContainer(writer);
       }

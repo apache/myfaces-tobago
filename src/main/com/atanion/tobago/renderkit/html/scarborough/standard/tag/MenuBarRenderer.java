@@ -25,10 +25,10 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.application.Application;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
 import javax.faces.component.UISelectBoolean;
 import javax.faces.component.UISelectOne;
 import javax.faces.component.ValueHolder;
+import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.el.ValueBinding;
@@ -88,16 +88,6 @@ public class MenuBarRenderer extends RendererBase {
         + clientId + "', '" + page.getClientId(facesContext) + "');");
     page.getScriptFiles().add("script/tobago-menu.js");
     page.getStyleFiles().add("style/tobago-menu.css");
-  }
-
-  private void addSubItemMarker(TobagoResponseWriter writer,
-      FacesContext facesContext) throws IOException {
-    writer.startElement("img", null);
-    writer.writeAttribute("class", "tobago-menu-subitem-arrow", null);
-    writer.writeAttribute("src",
-        ResourceManagerUtil.getImage(facesContext, "image/MenuArrow.gif"),
-        null);
-    writer.endElement("img");
   }
 
   protected String createSetupFunction(FacesContext facesContext,

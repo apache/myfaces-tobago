@@ -6,7 +6,10 @@
 package com.atanion.tobago.renderkit;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UILayout;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -45,9 +48,9 @@ public abstract class BoxRendererBase extends RendererBase {
     }
 
     // ask layoutManager
-    UIComponent layout = component.getFacet("layout");
+    UIComponent layout = UILayout.getLayout(component);
     if (layout != null) {
-      RendererBase renderer = ComponentUtil.getRenderer(layout, facesContext);
+      RendererBase renderer = ComponentUtil.getRenderer(facesContext, layout);
       height = renderer.getFixedHeight(facesContext, layout);
       if (height > -1) {
         return height;
@@ -60,23 +63,7 @@ public abstract class BoxRendererBase extends RendererBase {
     }
 
     height = 0;
-    for (Iterator iterator = component.getChildren().iterator(); iterator.hasNext();) {
-      UIComponent child = (UIComponent) iterator.next();
-      RendererBase renderer = ComponentUtil.getRenderer(child, facesContext);
-      if (renderer == null
-          && child instanceof UINamingContainer
-          && child.getChildren().size() > 0) {
-        // this is a subview component ??
-        renderer = ComponentUtil.getRenderer(
-            (UIComponent) child.getChildren().get(0), facesContext);
-      }
-      if (renderer != null) {
-        int h = renderer.getFixedHeight(facesContext, child);
-        if (h > 0) {
-          height += h;
-        }
-      }
-    }
+    height = LayoutUtil.calculateFixedHeightForChildren(facesContext, component);
     height += getHeaderHeight(facesContext, component);
     height += getPaddingHeight(facesContext, component);
     return height;

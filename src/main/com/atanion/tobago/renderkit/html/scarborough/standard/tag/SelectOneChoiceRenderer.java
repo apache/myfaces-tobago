@@ -66,7 +66,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
       writer.startElement("td", null);
       writer.writeText("", null);
 
-      RenderUtil.encode(facesContext, label);
+      RenderUtil.encodeHtml(facesContext, label);
 
       writer.endElement("td");
       writer.startElement("td", null);

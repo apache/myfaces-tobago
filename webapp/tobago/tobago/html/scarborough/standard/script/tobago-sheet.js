@@ -574,7 +574,7 @@ function keyUp(event) {
     PrintDebug('"' + input.value + '"');
     PrintDebug('"' + input.textElement.innerHTML + '"');
     if (input.value != input.textElement.innerHTML) {
-      PrintDebug('changed');
+      PrintDebug('changed : onClick = "' + input.onClickCommand + '"');
       eval(input.onClickCommand);
     }
     else {

@@ -5,6 +5,12 @@
   */
 package com.atanion.tobago.taglib.component;
 
+import javax.faces.component.UIPanel;
+
 public class MenuBarTag extends PanelTag {
+
+  public String getComponentType() {
+    return UIPanel.COMPONENT_TYPE;
+  }
 
 }

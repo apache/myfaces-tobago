@@ -10,15 +10,16 @@ import com.atanion.tobago.renderkit.BoxRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class BoxRenderer extends BoxRendererBase {
 
-  public void encodeEndTobago(FacesContext facesContext,
-      UIComponent component) throws IOException {
+
+  public void encodeBeginTobago(
+      FacesContext facesContext, UIComponent component) throws IOException {
+
 
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
     String labelString
@@ -43,7 +44,7 @@ public class BoxRenderer extends BoxRendererBase {
       writer.writeAttribute("align", "left", null);
       writer.writeText("", null);
       if (label != null) {
-        RenderUtil.encode(facesContext, label);
+        RenderUtil.encodeHtml(facesContext, label);
       } else {
         writer.writeText(labelString, null);
       }
@@ -54,8 +55,12 @@ public class BoxRenderer extends BoxRendererBase {
     writer.startElement("tr", null);
     writer.startElement("td", null);
 
-    writer.writeText("", null);
-    RenderUtil.encodeChildren(facesContext, (UIPanel) component);
+  }
+
+  public void encodeEndTobago(FacesContext facesContext,
+      UIComponent component) throws IOException {
+
+    ResponseWriter writer = facesContext.getResponseWriter();
 
     writer.endElement("td");
     writer.endElement("tr");

@@ -17,7 +17,7 @@ public class SheetState {
   private static final Log LOG = LogFactory.getLog(SheetState.class);
   public static final String SEPARATOR = ",";
 
-  private int sortedColumn;
+  private int sortedColumn = -1;
   private boolean ascending;
   private String selected;
   private String columnWidths;
@@ -83,5 +83,13 @@ public class SheetState {
 
   public void setColumnWidths(String columnWidths) {
     this.columnWidths = columnWidths;
+  }
+
+  public String debugSorted() {
+    StringBuffer sb = new StringBuffer("\nsorted column = ");
+    sb.append(sortedColumn);
+    sb.append("\nascending = ");
+    sb.append(ascending);
+    return sb.toString();
   }
 }

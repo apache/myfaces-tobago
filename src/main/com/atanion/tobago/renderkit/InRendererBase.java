@@ -103,6 +103,7 @@ public class InRendererBase extends InputRendererBase {
           + input.getClientId(facesContext);
       String command = "calendarWindow('" + url + "');";
       picker.getAttributes().put(ATTR_ACTION_STRING, command);
+      RenderUtil.createCssClass(facesContext, picker);
       RenderUtil.encode(facesContext, picker);
     }
   }

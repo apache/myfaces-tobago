@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class UIGridLayout extends UIComponentBase implements UILayout {
+public class UIGridLayout extends UILayout {
 
 // ///////////////////////////////////////////// constant
 
@@ -110,63 +110,6 @@ public class UIGridLayout extends UIComponentBase implements UILayout {
     }
     return i;
   }
-/*
-  public void layout(FacesContext facesContext) {
-
-    String width = determineWidth();
-    String widthRatio = getAttribute(TobagoConstants.ATTR_WIDTH_RATIO);
-    StringTokenizer tokenizer = new StringTokenizer(widthRatio, ":");
-    List list = new ArrayList();
-    while (tokenizer.hasMoreTokens()) {
-      list.add(tokenizer.nextToken());
-    }
-    int[] partWidths = new int[list.size()];
-    int sum = 0;
-    for (int i = 0; i < partWidths.length; i++) {
-      partWidths[i] = Integer.parseInt((String) list.get(i));
-      sum += partWidths[i];
-    }
-
-
-    ClientProperties client = ClientProperties.getInstanceFromSession(
-        (HttpServletRequest)facesContext.getServletRequest());
-    Theme theme = client.getTheme();
-
-
-
-
-    int tabOffset = theme == Theme.SCARBOROUGH ? 24 : 18;
-    int labelWidth = theme == Theme.SCARBOROUGH ? 144 : 125;
-    int labelOffset = theme == Theme.SCARBOROUGH ? 0 : 10;
-
-    int sum = tabOffset + labelWidth + labelOffset;
-
-
-
-    for (Iterator i = getChildren(); i.hasNext(); ) {
-      UIComponent child = (UIComponent) i.next();
-      String width = (String) getParent().getAttributes().get(TobagoConstants.ATTR_WIDTH);
-      width = Integer.toString(Integer.parseInt(
-          width.substring(0,3)) - sum) + "px";
-      child.setAttribute(TobagoConstants.ATTR_WIDTH, width);
-      String style = (String) child.getAttributes().get(TobagoConstants.ATTR_STYLE);
-      style = style != null ? style : "";
-      child.setAttribute(
-          TobagoConstants.ATTR_STYLE, style + " width: " + width + ";");
-    }
-  }
-
-  private String determineWidth() {
-    String width;
-    width = (String) getAttribute(TobagoConstants.ATTR_WIDTH);
-    if (width == null) {
-      UIComponent parent = getParent();
-      width = (String) parent.getAttributes().get(TobagoConstants.ATTR_WIDTH);
-    }
-    return width;
-  }
-
-*/
 
   public static int getSpanX(UIComponent component) {
     return ComponentUtil.getIntAttribute(

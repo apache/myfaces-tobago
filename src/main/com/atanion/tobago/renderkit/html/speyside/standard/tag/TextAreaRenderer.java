@@ -67,7 +67,7 @@ public class TextAreaRenderer extends InputRendererBase {
         writer.writeAttribute("style", height, null);
       }
       writer.writeText("", null); // to ensure that the start-tag is closed!
-      RenderUtil.encode(facesContext, label);
+      RenderUtil.encodeHtml(facesContext, label);
       writer.endElement("td");
       writer.startElement("td", null);
       writer.startElement("img", null);

@@ -27,6 +27,10 @@
     <component-class>com.atanion.tobago.component.UIData</component-class>
   </component>
   <component>
+    <component-type>com.atanion.tobago.DefaultLayout</component-type>
+    <component-class>com.atanion.tobago.component.UIDefaultLayout</component-class>
+  </component>
+  <component>
     <component-type>com.atanion.tobago.Form</component-type>
     <component-class>com.atanion.tobago.component.UIForm</component-class>
   </component>
@@ -41,6 +45,10 @@
   <component>
     <component-type>com.atanion.tobago.Page</component-type>
     <component-class>com.atanion.tobago.component.UIPage</component-class>
+  </component>
+  <component>
+    <component-type>com.atanion.tobago.Panel</component-type>
+    <component-class>com.atanion.tobago.component.UIPanel</component-class>
   </component>
   <component>
     <component-type>com.atanion.tobago.Popup</component-type>

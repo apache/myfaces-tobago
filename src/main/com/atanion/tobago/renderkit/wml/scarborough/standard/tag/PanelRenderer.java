@@ -7,11 +7,11 @@ package com.atanion.tobago.renderkit.wml.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.BodyContentHandler;
+import com.atanion.tobago.component.UIPanel;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
@@ -29,7 +29,7 @@ public class PanelRenderer extends RendererBase {
     UIPanel component = (UIPanel) uiComponent ;
     for (Iterator i = component.getChildren().iterator(); i.hasNext(); ) {
       UIComponent child = (UIComponent) i.next();
-      RenderUtil.encode(facesContext, child);
+      RenderUtil.encodeHtml(facesContext, child);
     }
   }
 

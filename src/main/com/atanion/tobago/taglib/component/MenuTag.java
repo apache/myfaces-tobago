@@ -7,8 +7,8 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
 
-import javax.faces.component.UIPanel;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIPanel;
 
 public class MenuTag extends TobagoTag {
   public static final String MENU_TYPE = "menu";

@@ -34,7 +34,7 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
 
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
     if (label != null) {
-      RenderUtil.encode(facesContext, label);
+      RenderUtil.encodeHtml(facesContext, label);
     }
 
     writer.endElement("option");

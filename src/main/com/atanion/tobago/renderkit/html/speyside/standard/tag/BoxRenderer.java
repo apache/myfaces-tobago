@@ -35,28 +35,17 @@ public class BoxRenderer extends BoxRendererBase {
     return super.getFixedHeight(facesContext, component);
   }
 
-  public void encodeEndTobago(FacesContext facesContext,
-                              UIComponent component) throws IOException {
+  public void encodeBeginTobago(
+      FacesContext facesContext, UIComponent component) throws IOException {
+
     ResponseWriter writer = facesContext.getResponseWriter();
 
     writer.startElement("div", component);
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
     writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
 
+    renderBoxHeader(facesContext, writer, component);
 
-    writer.startElement("div", component);
-    writer.writeAttribute("class", "tobago-box-header", null);
-    UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
-    writer.startElement("span", null);
-    writer.writeAttribute("class", "tobago-box-header-label", null);
-    String labelString
-        = (String) component.getAttributes().get(TobagoConstants.ATTR_LABEL);
-    if (label != null) {
-      RenderUtil.encode(facesContext, label);
-    } else if (labelString != null) {
-      writer.writeText(labelString, null);
-    }
-    writer.endElement("span");
     UIPanel toolbar = (UIPanel) component.getFacet(FACET_TOOL_BAR);
     if (toolbar != null) {
       renderToolbar(facesContext, writer, toolbar);
@@ -69,7 +58,30 @@ public class BoxRenderer extends BoxRendererBase {
     writer.startElement("div", component);
     writer.writeAttribute("class", "tobago-box-content-inner", null);
     writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_INNER);
-    RenderUtil.encodeChildren(facesContext, (UIPanel) component);
+  }
+
+  protected void renderBoxHeader(FacesContext facesContext,
+      ResponseWriter writer, UIComponent component) throws IOException {
+
+    writer.startElement("div", component);
+    writer.writeAttribute("class", "tobago-box-header", null);
+    UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
+    writer.startElement("span", null);
+    writer.writeAttribute("class", "tobago-box-header-label", null);
+    String labelString
+        = (String) component.getAttributes().get(TobagoConstants.ATTR_LABEL);
+    if (label != null) {
+      RenderUtil.encodeHtml(
+          facesContext, label);
+    } else if (labelString != null) {
+      writer.writeText(labelString, null);
+    }
+    writer.endElement("span");
+  }
+
+  public void encodeEndTobago(FacesContext facesContext,
+                              UIComponent component) throws IOException {
+    ResponseWriter writer = facesContext.getResponseWriter();
     writer.endElement("div");
     writer.endElement("div");
 
@@ -92,12 +104,8 @@ public class BoxRenderer extends BoxRendererBase {
     if (ToolBarTag.ICON_BIG.equals(attributes.get(ATTR_ICON_SIZE))) {
       attributes.put(ATTR_ICON_SIZE, ToolBarTag.ICON_SMALL);
     }
-    RenderUtil.encode(facesContext, toolbar);
+    RenderUtil.encodeHtml(facesContext, toolbar);
     writer.endElement("div");
-  }
-
-  public void encodeChildren(FacesContext facesContext, UIComponent component)
-      throws IOException {
   }
 
 }

@@ -164,7 +164,7 @@ public class TreeRenderer extends RendererBase {
           image.getAttributes().put(ATTR_TITLE, title);
           link.getChildren().add(image);
 
-          RenderUtil.encode(facesContext, link);
+          RenderUtil.encodeHtml(facesContext, link);
         }
       }
 
@@ -219,7 +219,7 @@ public class TreeRenderer extends RendererBase {
     writer.writeText("  }\n", null);
     writer.writeText("}\n", null);
 
-    RenderUtil.encode(facesContext, root);
+    RenderUtil.encodeHtml(facesContext, root);
 
     writer.writeText("  var treeDiv = document.getElementById('", null);
     writer.writeText(clientId, null);

@@ -48,7 +48,7 @@ public class InRenderer extends InRendererBase {
         writer.writeAttribute("class", "tobago-label-td", null);
         writer.writeAttribute("valign", "top", null);
         writer.writeText("", null); // to ensure that the start-tag is closed!
-        RenderUtil.encode(facesContext, label);
+        RenderUtil.encodeHtml(facesContext, label);
         writer.endElement("td");
         writer.startElement("td", null);
         writer.startElement("img", null);

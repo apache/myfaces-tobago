@@ -6,21 +6,22 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.component.UITabGroup;
+import com.atanion.tobago.component.UIPanel;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.event.StateChangeEvent;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.renderkit.StyleAttribute;
-import com.atanion.tobago.renderkit.html.HtmlDefaultLayoutManager;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.el.EvaluationException;
@@ -80,7 +81,7 @@ public class TabGroupRenderer extends RendererBase {
     UITabGroup component = (UITabGroup) uiComponent;
     String image1x1 = ResourceManagerUtil.getImage(facesContext, "image/1x1.gif");
 
-    UIPanel[] tabs = component.getTabs();
+     UIPanel[] tabs = component.getTabs();
     layoutTabs(facesContext, component, tabs);
 
     int activeIndex;
@@ -203,7 +204,7 @@ public class TabGroupRenderer extends RendererBase {
           if (label != null || labelString != null) {
             writer.writeText("", null);
             if (label !=null) {
-              RenderUtil.encode(facesContext, label);
+              RenderUtil.encodeHtml(facesContext, label);
             } else {
               writer.writeText(labelString, null);
             }
@@ -273,7 +274,7 @@ public class TabGroupRenderer extends RendererBase {
       fixedHeight = 0;
       for (int i = 0; i < tabs.length; i++) {
         UIPanel tab = tabs[i];
-        RendererBase renderer = ComponentUtil.getRenderer(tab, facesContext);
+        RendererBase renderer = ComponentUtil.getRenderer(facesContext, tab);
         fixedHeight
             = Math.max(fixedHeight, renderer.getFixedHeight(facesContext, tab));
       }
@@ -285,18 +286,18 @@ public class TabGroupRenderer extends RendererBase {
 
   private void layoutTabs(FacesContext facesContext, UITabGroup component,
       UIPanel[] tabs) {
-    String layoutWidth = (String)
+    Object layoutWidth =
         component.getAttributes().get(TobagoConstants.ATTR_LAYOUT_WIDTH);
-    String layoutHeight = (String)
+    Object layoutHeight =
         component.getAttributes().get(TobagoConstants.ATTR_LAYOUT_HEIGHT);
 
     for (int i = 0; i < tabs.length; i++) {
       UIPanel tab = tabs[i];
-      if (layoutWidth != null) {
-        HtmlDefaultLayoutManager.layoutSpace(tab, facesContext, true);
+      if (layoutWidth != null) {        
+        LayoutUtil.layoutSpace(facesContext, tab, true);
       }
       if (layoutHeight != null) {
-        HtmlDefaultLayoutManager.layoutSpace(tab, facesContext, false);
+        LayoutUtil.layoutSpace(facesContext, tab, false);
       }
     }
 

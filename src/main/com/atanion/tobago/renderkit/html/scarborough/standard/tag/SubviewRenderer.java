@@ -5,6 +5,9 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
+
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.BodyContentHandler;
 import com.atanion.tobago.renderkit.RendererBase;
@@ -17,12 +20,19 @@ import java.io.IOException;
 public class SubviewRenderer extends RendererBase {
 
 // ///////////////////////////////////////////// constant
-
+    private static final Log LOG = LogFactory.getLog(SubviewRenderer.class);
 // ///////////////////////////////////////////// attribute
 
 // ///////////////////////////////////////////// constructor
 
 // ///////////////////////////////////////////// code
+
+
+  public void encodeBegin(FacesContext facesContext, UIComponent component)
+      throws IOException {
+    LOG.info("SSSSSSSSSSSSSSSSSSS Subview component = " + component.getClass().getName());
+    super.encodeBegin(facesContext, component);
+  }
 
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {

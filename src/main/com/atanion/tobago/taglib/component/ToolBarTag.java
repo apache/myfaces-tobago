@@ -3,6 +3,7 @@ package com.atanion.tobago.taglib.component;
 import com.atanion.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIPanel;
 
 /*
   * Copyright (c) 2004 Atanion GmbH, Germany
@@ -23,6 +24,10 @@ public class ToolBarTag extends PanelTag {
   private String labelPosition = LABEL_BOTTOM;
   private String iconSize = ICON_SMALL;
 
+
+  public String getComponentType() {
+    return UIPanel.COMPONENT_TYPE;
+  }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);

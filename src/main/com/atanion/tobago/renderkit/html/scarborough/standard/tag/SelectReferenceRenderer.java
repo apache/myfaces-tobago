@@ -45,7 +45,7 @@ public class SelectReferenceRenderer extends RendererBase{
     reference.getAttributes().put(TobagoConstants.ATTR_RENDER_RANGE_EXTERN,
         component.getAttributes().get(TobagoConstants.ATTR_RENDER_RANGE));
 
-    RenderUtil.encode(facesContext, reference);
+    RenderUtil.encodeHtml(facesContext, reference);
 
     reference.getAttributes().remove(TobagoConstants.ATTR_RENDER_RANGE_EXTERN);
   }

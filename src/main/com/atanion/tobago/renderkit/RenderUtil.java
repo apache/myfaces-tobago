@@ -6,6 +6,10 @@
 package com.atanion.tobago.renderkit;
 
 import com.atanion.tobago.webapp.TobagoResponseWriter;
+import com.atanion.tobago.util.LayoutUtil;
+import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.TobagoConstants;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -54,8 +58,47 @@ public class RenderUtil {
     }
   }
 
-  public static void encode(FacesContext facesContext, UIComponent component)
+  public static void encodeHtml(FacesContext facesContext, UIComponent component)
       throws IOException {
+    if (component.isRendered()) {
+
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("rendering " + component.getRendererType() + " " + component);
+      }
+
+      prepareRender(facesContext, component);
+
+      component.encodeBegin(facesContext);
+      if (component.getRendersChildren()) {
+        component.encodeChildren(facesContext);
+      } else {
+        Iterator kids = component.getChildren().iterator();
+        while (kids.hasNext()) {
+          UIComponent kid = (UIComponent) kids.next();
+          encodeHtml(facesContext, kid);
+        }
+      }
+      component.encodeEnd(facesContext);
+    }
+
+  }
+
+  public static void prepareRender(FacesContext facesContext, UIComponent component) {
+    createCssClass(facesContext, component);
+    LayoutUtil.layoutWidth(facesContext, component);
+    LayoutUtil.layoutHeight(facesContext, component);
+  }
+
+  public static void createCssClass(FacesContext facesContext, UIComponent component) {
+      final String rendererType = component.getRendererType();
+      if (rendererType != null) {
+        String rendererName = ComponentUtil.getRenderer(facesContext, component).getRendererName(rendererType);
+        LayoutUtil.createClassAttribute(component, rendererName);
+      }
+
+  }
+
+  public static void encode(FacesContext facesContext, UIComponent component) throws IOException {
     if (component.isRendered()) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("rendering " + component.getRendererType() + " " + component);

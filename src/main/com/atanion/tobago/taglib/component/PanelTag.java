@@ -5,7 +5,8 @@
   */
 package com.atanion.tobago.taglib.component;
 
-import javax.faces.component.UIPanel;
+import com.atanion.tobago.component.UIPanel;
+
 
 public class PanelTag extends TobagoBodyTag {
 

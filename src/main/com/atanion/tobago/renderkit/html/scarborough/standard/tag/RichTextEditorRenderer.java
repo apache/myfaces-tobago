@@ -163,7 +163,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     }
     image.getAttributes().put(TobagoConstants.ATTR_VALUE,
         "tobago-richText-" + command + ".gif");
-    RenderUtil.encode(facesContext, image);
+    RenderUtil.encodeHtml(facesContext, image);
 
     writer.startElement("span", null);
     writer.writeAttribute("class", "tobago-richTextEditor-toolbar-button-label", null);

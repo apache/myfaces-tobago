@@ -106,7 +106,7 @@ public class FileRenderer extends InputRendererBase {
     UIComponent label = component.getFacet(FACET_LABEL);
     if (label != null) {
       writer.writeText("", null);
-      RenderUtil.encode(facesContext, label);
+      RenderUtil.encodeHtml(facesContext, label);
     }
 
     writer.startElement("input", component);

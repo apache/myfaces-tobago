@@ -6,6 +6,7 @@
 package com.atanion.tobago.component;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.model.PageState;
 import com.atanion.tobago.model.PageStateImpl;
 import com.atanion.util.collections.ListOrderedSet;
@@ -71,8 +72,14 @@ public class UIPage extends UIForm {
 
 // ///////////////////////////////////////////// code
 
-  public void encodeBegin(FacesContext context) throws IOException {
-    super.encodeBegin(context);
+  public void encodeBegin(FacesContext facesContext) throws IOException {
+    UILayout.getLayout(this).layoutBegin(facesContext, this);
+    super.encodeBegin(facesContext);
+  }
+
+
+  public void encodeChildren(FacesContext context) throws IOException {
+
   }
 
   public String getFormId(FacesContext facesContext) {
