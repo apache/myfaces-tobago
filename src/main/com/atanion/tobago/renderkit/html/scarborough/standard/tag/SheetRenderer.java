@@ -667,23 +667,25 @@ public class SheetRenderer extends RendererBase
       menubar = (UIPanel) application.createComponent(UIPanel.COMPONENT_TYPE);
       column.getFacets().put(FACET_MENUBAR, menubar);
       menubar.setRendererType("Menubar");
-      menubar.getAttributes().put(ATTR_WIDTH, "14px");//todo: use config
+      menubar.getAttributes().put(ATTR_WIDTH, "16px");//todo: use config
       UIPanel menu
           = (UIPanel) application.createComponent(UIPanel.COMPONENT_TYPE);
       menubar.getChildren().add(menu);
       menu.setRendererType(null);
       menu.getAttributes().put(ATTR_MENU_TYPE, "menu");
-      menu.getAttributes().put(ATTR_LABEL, "V");//todo: use image 'sheetSelectorMenu.gif'
+
+//      menu.getAttributes().put(ATTR_LABEL, "V");//todo: use image 'sheetSelectorMenu.gif'
+      menu.getAttributes().put(ATTR_IMAGE, "sheetSelectorMenu.gif");//todo: use image 'sheetSelectorMenu.gif'
 
       String sheetId = column.getParent().getClientId(facesContext);
       String action = "tobagoSheetSelectAll('" + sheetId + "')";
-      String label = "#{tobago.sheet.menu.select}";
+      String label = "#{tobagoBundle.sheetMenuSelect}";
       menu.getChildren().add(createMenuItem(application, label, action));
       action = "tobagoSheetUnselectAll('" + sheetId + "')";
-      label = "#{tobago.sheet.menu.unselect}";
+      label = "#{tobagoBundle.sheetMenuUnselect}";
       menu.getChildren().add(createMenuItem(application, label, action));
       action = "tobagoSheetToggleAllSelections('" + sheetId + "')";
-      label = "#{tobago.sheet.menu.toggleselect}";
+      label = "#{tobagoBundle.sheetMenuToggleselect}";
       menu.getChildren().add(createMenuItem(application, label, action));
 
     }
@@ -699,8 +701,7 @@ public class SheetRenderer extends RendererBase
     menuItem.getAttributes().put(ATTR_MENU_TYPE, "menuItem");
     menuItem.getAttributes().put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
     menuItem.getAttributes().put(ATTR_ACTION_STRING, action);
-    menuItem.getAttributes().put(ATTR_LABEL, label);
-//    menuItem.setValueBinding(ATTR_LABEL, application.createValueBinding(label));
+    menuItem.setValueBinding(ATTR_LABEL, application.createValueBinding(label));
     return menuItem;
   }
 
