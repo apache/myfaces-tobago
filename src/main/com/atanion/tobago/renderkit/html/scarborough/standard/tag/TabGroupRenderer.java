@@ -80,7 +80,8 @@ public class TabGroupRenderer extends RendererBase
     ValueBinding stateBinding
         = component.getValueBinding(TobagoConstants.ATTR_STATE_BINDING);
 
-    Object state = stateBinding.getValue(facesContext);
+    Object state
+        = stateBinding != null ? stateBinding.getValue(facesContext) : null;
     if (state == null) {
       activeIndex = component.getActiveIndex();
     } else if (state instanceof Integer) {
