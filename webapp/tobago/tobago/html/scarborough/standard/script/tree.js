@@ -411,7 +411,7 @@ function tobagoTreeListboxCreateOption(node, index) {
 
 function tobagoTreeListboxRemoveOptions(idPrefix, start) {
   var selector = document.getElementById(idPrefix + "_" + start);
-  while (selector.hasChildNodes()) {
+  while (selector && selector.hasChildNodes()) {
     selector.removeChild(selector.firstChild);
   }
 }
