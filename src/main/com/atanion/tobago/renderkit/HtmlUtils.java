@@ -39,108 +39,11 @@ public class HtmlUtils {
         : "";
   }
 
-  public static String generateAttribute(String name, Object value,
-      String defaultValue) {
-    String stringValue;
-    if (value == null) {
-      stringValue = null;
-    } else if (value instanceof String) {
-      stringValue = (String) value;
-    } else {
-      stringValue = value.toString();
-    }
-    return name + "=\""
-        + (stringValue != null && stringValue.length() > 0
-        ? stringValue
-        : defaultValue)
-        + "\"";
-  }
-
-  public static String generateAttribute(String name, boolean value) {
-    return value ? generateAttribute(name, name) : "";
-  }
-
-  public static String generateAttribute(String name, int value) {
-    return generateAttribute(name, String.valueOf(value));
-  }
-
-  public static String generatePositiveAttribute(String name, int value) {
-    return value > 0
-        ? generateAttribute(name, String.valueOf(value))
-        : "";
-  }
-
-  public static String generateContent(String value) {
-    return value != null ? value : "";
-  }
-
-  public static String generateAttribute(String name, UIComponent component) {
-    Object attribute = component.getAttributes().get(name);
-    if (attribute != null) {
-      return generateAttribute(name, attribute.toString());
-    } else {
-      return "";
-    }
-  }
-
-  public static String generateAttributeFromKey(String name,
-      UIComponent component, String key) {
-    Object attribute = component.getAttributes().get(key);
-    if (attribute != null) {
-      return generateAttribute(name, attribute.toString());
-    } else {
-      return "";
-    }
-  }
-
-  public static String generateAttribute(String name, UIComponent component,
-      String defaultValue) {
-    Object attribute = component.getAttributes().get(name);
-    if (attribute != null) {
-      return generateAttribute(name, attribute, defaultValue);
-    } else {
-      return generateAttribute(name, (Object) null, defaultValue);
-    }
-  }
-
-  public static String generateAttributeAppend(String name,
-      UIComponent component, String appendValue) {
-    return generateAttribute(name, appendAttribute(component, name, appendValue));
-  }
-
   public static String appendAttribute(UIComponent component, String name,
       String appendValue) {
     Object attribute = component.getAttributes().get(name);
     return attribute != null
         ? attribute.toString() + " " + appendValue : appendValue;    
-  }
-
-  public static String preToHtml(String preformatedText) {
-    if (preformatedText == null) {
-      return null;
-    }
-    StringBuffer sb = new StringBuffer();
-    char[] preformatedChars = preformatedText.toCharArray();
-    for (int i = 0; i < preformatedChars.length; i++) {
-      switch (preformatedChars[i]) {
-        case '\n':
-          sb.append("<br />");
-          break;
-        case '\r':
-          break;
-        case ' ':
-          sb.append("&nbsp;");
-          break;
-        case '\t':
-          sb.append("&nbsp;&nbsp;&nbsp;&nbsp;");
-          break;
-        default:
-          sb.append(preformatedChars[i]);
-      }
-    }
-
-
-    return sb.toString();
   }
 
   public static String generateOnchange(UIInput component,
@@ -175,18 +78,6 @@ public class HtmlUtils {
       return buffer.toString();
     } else {
       return null;
-    }
-  }
-
-  public static int getLayoutAttributeAsInt(UIComponent component, String name,
-      int defaultValue) {
-
-    Integer i = (Integer) component.getAttributes().get(
-        LAYOUT_ATTRIBUTE_PREFIX + name);
-    if (i != null) {
-      return i.intValue();
-    } else {
-      return defaultValue;
     }
   }
 
