@@ -50,7 +50,9 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
 
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
 
-    if (label != null) {
+    boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
+
+    if (label != null && ! inline) {
 
       writer.startElement("table", null);
       writer.writeAttribute("border", "0", null);
@@ -75,13 +77,17 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
     writer.endElement("input");
 
-    if (label != null) {
+    if (label != null && ! inline) {
       writer.endElement("td");
       writer.startElement("td", null);
       writer.writeText("", null);
+    }
 
+    if (label != null) {
       HtmlRendererUtil.encodeHtml(facesContext, label);
+    }
 
+    if (label != null && ! inline) {
       writer.endElement("td");
       writer.endElement("tr");
       writer.endElement("table");
