@@ -21,10 +21,13 @@ function initMenuComponents(divId, pageId, popup) {
     var className = "tobago-menubar-container";
     menubar.menu.htmlElement = document.createElement('div');
     menubar.menu.htmlElement.className = className;
-    menubar.menu.htmlElement.style.top = top;
-    menubar.menu.htmlElement.style.left = left;
+    //menubar.menu.htmlElement.style.top = top;
+    //menubar.menu.htmlElement.style.left = left;
+    menubar.menu.htmlElement.style.top = 0;
+    menubar.menu.htmlElement.style.left = 0;
     menubar.menu.htmlElement.innerHTML = menubar.menu.toHtml();
-    body.appendChild(menubar.menu.htmlElement);
+    //body.appendChild(menubar.menu.htmlElement);
+    menubar.appendChild(menubar.menu.htmlElement);
 
     initMenuItems(menubar.menu);
     setItemWidth(menubar.menu);
@@ -292,7 +295,7 @@ function MenuItem(label, action, disabled) {
       var next = tobagoMenuGetLabelTag(this.parent.htmlElement.childNodes);
       this.parent.hover = true;
       this.parent.hideSubMenus();
-      next.menu.scriptFocus = true;
+      next.parentNode.menuItem.scriptFocus = true;
       next.focus();
       this.hover = false;
     }
@@ -346,7 +349,7 @@ function MenuItem(label, action, disabled) {
     var span = tobagoMenuGetLabelTag(this.subItems[i].htmlElement.childNodes);
     if (span) {
       this.subItems[i].hover = true;
-      span.menu.scriptFocus = true;
+      span.parentNode.menuItem.scriptFocus = true;
       span.focus();
       return this.subItems[i];
     }
@@ -380,7 +383,7 @@ function MenuItem(label, action, disabled) {
         if (aTag) {
           this.parent.hover = true;
           this.parent.hideSubMenus();
-          aTag.menu.scriptFocus = true;
+          aTag.parentNode.menuItem.scriptFocus = true;
           aTag.focus();
         }
       }
