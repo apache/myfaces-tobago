@@ -170,7 +170,9 @@ public class ToolBarRenderer extends RendererBase {
         extraCssClass = " tobago-box-toolBar-button-hover-last";
       }
     }
-    final String args = "this, 'tobago-toolBar-button-hover" + extraCssClass + "', '"+ graphicId + "'";
+    final String args = "this, 'tobago-toolBar-button-hover"
+        + (boxFacet ? " tobago-toolBar-button-box-facet-hover" : "") 
+        + extraCssClass + "', '"+ graphicId + "'";
     final String mouseOverScript = "tobagoToolbarMousesover(" + args + ");";
     final String mouseOutScript = "tobagoToolbarMousesout(" + args + ");";
 
