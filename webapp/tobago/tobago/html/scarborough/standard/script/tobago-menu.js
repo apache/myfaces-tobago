@@ -115,7 +115,6 @@ function MenuItem(label, action, disabled) {
     this.setSubMenuContainerVisibility("hidden");
   }
   this.setSubMenuContainerVisibility = function(style) {
-    PrintDebug("setSubMenu(" + style + ") " + this.id);
     if (this.subItemContainer) {
       this.subItemContainer.style.visibility = style;
       if (this.subItemIframe) {
@@ -131,17 +130,14 @@ function MenuItem(label, action, disabled) {
 
   this.onMouseOver = function() {
     this.mouseOver = true;
-    PrintDebug("onMouseOver " + this.id + " level :" + this.level);
+    //PrintDebug("onMouseOver " + this.id + " level :" + this.level);
     clearTimeout(this.onBlurTimer);
 
     if (this.level == 1) {
       if (! this.isNeighbourOpen()) {
-        // nur highlighten
-        PrintDebug("kein Nachbar offen!");
         addCssClass(this.htmlElement, "tobago-menu-item-hover");
       }
       else {
-        PrintDebug("Nachbar offen!");
         this.focusLabelTag();
         this.openSubMenus();
       }
@@ -157,11 +153,11 @@ function MenuItem(label, action, disabled) {
     this.mouseOver = false;
     //PrintDebug("onMouseOut " + this.id);
     clearTimeout(this.hoverTimer);
-    removeCssClass(this.htmlElement, "tobago-menu-item-hover");    
+    removeCssClass(this.htmlElement, "tobago-menu-item-hover");
   }
 
   this.onFocus = function() {
-    PrintDebug("onFocus " + this.id + " level :" + this.level);
+    //PrintDebug("onFocus " + this.id + " level :" + this.level);
     this.focus = true;
     addCssClass(this.htmlElement, "tobago-menu-item-focus");
     if (this.level == 1) {
@@ -193,7 +189,7 @@ function MenuItem(label, action, disabled) {
   }
 
   this.focusLabelTag = function() {
-    PrintDebug("setze Focus " + this.id);
+    //PrintDebug("setze Focus " + this.id);
     var element = tobagoMenuGetLabelTag(this.htmlElement.childNodes);
     if (element) {
       element.focus();
@@ -215,8 +211,7 @@ function MenuItem(label, action, disabled) {
 
   this.isNeighbourOpen = function() {
     for (var i = 0; i < this.parent.subItems.length; i++) {
-      if (this.parent.subItems[i].subItemContainer &&
-          this.parent.subItems[i].isExpanded()) {
+      if (this.parent.subItems[i].isExpanded()) {
         return true;
       }
     }
