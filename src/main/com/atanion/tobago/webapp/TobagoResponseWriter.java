@@ -6,6 +6,7 @@
 package com.atanion.tobago.webapp;
 
 import com.atanion.xml.XmlUtils;
+import com.atanion.util.html.HtmlUtils;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -267,8 +268,7 @@ public class TobagoResponseWriter extends ResponseWriter {
       writer.write(' ');
       writer.write(name);
       writer.write("=\"");
-      writer.write(attribute);
-//      writer.write(XmlUtils.escape(attribute, true));
+      writer.write(HtmlUtils.escapeAttribute(attribute));
       writer.write('\"');
     }
   }
