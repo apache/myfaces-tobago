@@ -131,13 +131,10 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
 
   public int getPaddingHeight(FacesContext facesContext, UIComponent component) {
     final int paddingHeight = super.getPaddingHeight(facesContext, component);
-    LOG.info("paddingHeight = " + paddingHeight);
     int extraPadding = 0;
     if (component.getFacet("toolbar") != null) {
-      LOG.info("component has toolbar");
       extraPadding = getExtraPadding(facesContext, component);
     }
-    LOG.info("paddingHeight = " + paddingHeight + " + " + extraPadding + " = " + (paddingHeight + extraPadding));
     return paddingHeight + extraPadding;
   }
 
