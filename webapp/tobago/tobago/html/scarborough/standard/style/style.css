@@ -211,6 +211,10 @@ button img  {
   height: 25px;
 }
 
+.tobago-file-error  {
+  border-color: #ff0000;
+}
+
 /* gridlayout -------------------------------------------------------------- */
 
 .tobago-gridlayout-default {
