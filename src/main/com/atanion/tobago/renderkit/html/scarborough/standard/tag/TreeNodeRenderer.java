@@ -205,12 +205,12 @@ public class TreeNodeRenderer extends RendererBase
       writer.writeText(
           ComponentUtil.findPage(component).getFormId(facesContext), null);
       writer.writeText("',", null);
-      writer.writeText(Boolean.toString(treeState.isExpanded(node)), null);
-      writer.writeText(",", null);
       writer.writeText(Boolean.toString(treeState.isSelected(node)), null);
+      writer.writeText(",", null);
+      writer.writeText(Boolean.toString(treeState.isMarked(node)), null);
       if (component.getChildCount() > 0) {
         writer.writeText(",", null);
-        writer.writeText(Boolean.toString(treeState.isMarked(node)), null);
+        writer.writeText(Boolean.toString(treeState.isExpanded(node)), null);
       }
       writer.writeText(",treeResourcesHelp);\n", null);
 
