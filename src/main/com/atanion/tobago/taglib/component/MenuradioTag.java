@@ -18,6 +18,7 @@ public class MenuradioTag extends MenuTag {
 // ----------------------------------------------------------------- attributes
 
   private String action;
+  private String actionListener;
   private String type;
   private String value;
   private String immediate;
@@ -69,6 +70,20 @@ public class MenuradioTag extends MenuTag {
         }
       }
     }
+
+
+    if (actionListener != null) {
+      if (isValueReference(actionListener)) {
+        Class arguments[] = {javax.faces.event.ActionEvent.class};
+        MethodBinding binding
+            = FacesContext.getCurrentInstance().getApplication().createMethodBinding(actionListener, arguments);
+        ((UICommand)component).setActionListener(binding);
+      } else {
+        throw new IllegalArgumentException(
+            "Must be a valueReference (actionListener): " + actionListener);
+      }
+    }
+
     ComponentUtil.setStringProperty(component, ATTR_VALUE, value, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, "menuRadio", getIterationHelper());
     ComponentUtil.setBooleanProperty(component, ATTR_IMMEDIATE, immediate, getIterationHelper());
@@ -82,6 +97,10 @@ public class MenuradioTag extends MenuTag {
 
   public void setAction(String action) {
     this.action = action;
+  }
+
+  public void setActionListener(String actionListener) {
+    this.actionListener = actionListener;
   }
 
   public String getType() {
