@@ -85,7 +85,9 @@ public class CheckBoxGroupRenderer extends SelectManyRendererBase
           ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
       writer.endElement("input");
 
-      LOG.debug("item.getLabel() = " + item.getLabel());
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("item.getLabel() = " + item.getLabel());
+      }
       if (item.getLabel() != null) {
 
         writer.endElement("td");

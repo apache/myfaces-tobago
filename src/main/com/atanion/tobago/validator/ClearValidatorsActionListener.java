@@ -60,7 +60,9 @@ public class ClearValidatorsActionListener implements ActionListener {
       }
 
       if (component == null) { // not found locally
-        LOG.debug("Component not found locally, asking the tree.");
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Component not found locally, asking the tree.");
+        }
         FacesContext facesContext = FacesContext.getCurrentInstance();
         component = facesContext.getViewRoot().findComponent(clearValidatorsFieldId);
       }

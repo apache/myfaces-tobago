@@ -29,7 +29,9 @@ public class VariableResolverImpl extends VariableResolver {
 
     if ("user".equals(name)) {
       // todo: optimize me: put it in request?
-      LOG.debug("resolving: " + name);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("resolving: " + name);
+      }
       if (userWrapper == null) {
         userWrapper = new UserWrapper();
       }

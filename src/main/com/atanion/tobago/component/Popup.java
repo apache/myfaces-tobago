@@ -59,7 +59,9 @@ public class Popup {
     Application application = facesContext.getApplication();
     ViewHandler viewHandler = application.getViewHandler();
     String actionUrl = viewHandler.getActionURL(facesContext, viewId);
-    LOG.debug("actionUrl = '" + actionUrl + "'");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("actionUrl = '" + actionUrl + "'");
+    }
 
     StringBuffer buffer = new StringBuffer();
     buffer.append("openPopup('");

@@ -119,23 +119,33 @@ public class TextAreaRenderer extends InputRendererBase
   private String evaluateHeight(UIComponent component) {
     String height;
     height = (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE);
-    LOG.debug("height = " + height);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("height = " + height);
+    }
     if (height != null && height.matches(".*height\\s*?:\\s*?\\d+px;.*")) {
-      LOG.debug("height matches");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("height matches");
+      }
       String[] styles = height.split(";");
       for (int i = 0; i < styles.length; i++) {
         String style = styles[i];
-        LOG.debug("style = " + style);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("style = " + style);
+        }
         if (style.trim().startsWith("height") ) {
           height = "height: " + (Integer.parseInt(style.replaceAll("\\D", "")) -1) + "px;";
           break;
         }
       }
     } else {
-      LOG.debug("height TO null");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("height TO null");
+      }
       height = null;
     }
-    LOG.debug("height = " + height);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("height = " + height);
+    }
     return height;
   }
 

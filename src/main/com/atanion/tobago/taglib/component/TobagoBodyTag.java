@@ -93,7 +93,9 @@ public abstract class TobagoBodyTag extends TobagoTag implements BodyTag {
     if (bodyContentHandler != null) {
       bodyContentHandler.clearBodyContent();
     } else {
-      LOG.debug("bodyContentHandler == null!!! component=" + component);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("bodyContentHandler == null!!! component=" + component);
+      }
     }
   }
 

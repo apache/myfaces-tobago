@@ -86,7 +86,9 @@ public class Color16ChooserRenderer extends RendererBase
       labelValue = (String) ((UIOutput)label).getValue();
       // fixme: remove next line when new i18n/properties ok
       if (labelValue == null) { labelValue = "Emergency-Label";}
-      LOG.debug("labelValue = " + labelValue);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("labelValue = " + labelValue);
+      }
       columns = LayoutUtil.getLabelWidth(facesContext,component) + "px;" + columns;
     }
 
@@ -101,11 +103,11 @@ public class Color16ChooserRenderer extends RendererBase
     //todo: use as valuebinding
     valueReference = "#{" + valueReference + "}";
     selectorProperty = "#{" + selectorProperty + "}";
-
-    LOG.debug("selectorId " + selectorId);
-    LOG.debug("previewId  " + previewId);
-    LOG.debug("textboxId  " + textboxId);
-
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("selectorId " + selectorId);
+      LOG.debug("previewId  " + previewId);
+      LOG.debug("textboxId  " + textboxId);
+    }
 
     UIPage uiPage = ComponentUtil.findPage(component);
     uiPage.getScriptFiles().add("color16chooser.js", true);
@@ -125,7 +127,9 @@ public class Color16ChooserRenderer extends RendererBase
     UIOutput uiLabel = (UIOutput)
         application.createComponent(UIOutput.COMPONENT_TYPE);
     uiLabel.setValue(labelValue);
-    LOG.debug("labelValue =" + uiLabel.getValue());
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("labelValue =" + uiLabel.getValue());
+    }
     label.getAttributes().put(TobagoConstants.ATTR_FOR, textboxId);
     prepareToRender(uiLabel,  panel, true, TobagoConstants.RENDERER_TYPE_LABEL);
 

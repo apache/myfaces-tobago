@@ -159,7 +159,9 @@ public class TreeNodeRenderer extends RendererBase
 
     TreeState treeState = (TreeState) root.getValue();
     if (treeState == null) {
-      LOG.debug("No treeState found. clientId=" + clientId);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("No treeState found. clientId=" + clientId);
+      }
     } else {
 
       DefaultMutableTreeNode node = (DefaultMutableTreeNode) treeNode.getValue();

@@ -57,7 +57,9 @@ public class RendererBase extends Renderer implements TobagoConstants {
 
   public void encodeBegin(FacesContext facesContext, UIComponent component)
       throws IOException {
-    LOG.debug("*** begin    " + component);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("*** begin    " + component);
+    }
     try {
       component.getAttributes().put(
           ATTR_ENCODING_ACTIVE,
@@ -86,13 +88,17 @@ public class RendererBase extends Renderer implements TobagoConstants {
       throw new RuntimeException(e);
     }
 
-    LOG.debug("*   begin    " + component);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("*   begin    " + component);
+    }
   }
 
   public void encodeChildren(FacesContext facesContext, UIComponent component)
       throws IOException {
 
-    LOG.debug("*** children " + component);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("*** children " + component);
+    }
     UIComponent layout = component.getFacet("layout");
     if (layout != null) {
       layout.encodeBegin(facesContext);
@@ -111,12 +117,16 @@ public class RendererBase extends Renderer implements TobagoConstants {
           Boolean.FALSE);
     }
 
-    LOG.debug("*   children " + component);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("*   children " + component);
+    }
   }
 
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
-    LOG.debug("*** end      " + component);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("*** end      " + component);
+    }
     try {
       component.getAttributes().put(
           ATTR_ENCODING_ACTIVE,
@@ -142,7 +152,9 @@ public class RendererBase extends Renderer implements TobagoConstants {
       LOG.error("catched Throwable :", e);
       throw new RuntimeException(e);
     }
-    LOG.debug("*   end      " + component);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("*   end      " + component);
+    }
   }
 
   private LayoutManager getLayoutManager(

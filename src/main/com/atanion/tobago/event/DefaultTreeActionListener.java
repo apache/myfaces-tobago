@@ -57,12 +57,13 @@ public class DefaultTreeActionListener implements ActionListener {
     String command = (String) actionEvent.getComponent().getAttributes().get(
         TobagoConstants.ATTR_COMMAND_NAME);
 
-    LOG.debug("marker      " + marker);
-    LOG.debug("lastMarker  " + treeState.getLastMarker());
-    LOG.debug("root        " + treeState.getRoot());
-    LOG.debug("command     " + command);
-    LOG.debug("lastCommand " + treeState.getLastCommand());
-
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("marker      " + marker);
+      LOG.debug("lastMarker  " + treeState.getLastMarker());
+      LOG.debug("root        " + treeState.getRoot());
+      LOG.debug("command     " + command);
+      LOG.debug("lastCommand " + treeState.getLastCommand());
+    }
     if (marker != null) {
       boolean isRoot = treeState.getRoot().equals(marker);
       if (UITree.COMMAND_NEW.equals(command)) {

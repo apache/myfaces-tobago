@@ -152,7 +152,9 @@ public class ClientProperties {
     }
     for (int j = 0; j < locales.length; j++) {
       Locale locale = locales[j];
-      LOG.debug("LOCALE " + locale);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("LOCALE " + locale);
+      }
     }
 
     return locales;

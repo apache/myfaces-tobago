@@ -859,7 +859,9 @@ public class SheetRenderer extends RendererBase
     key = component.getClientId(facesContext) + SELECTED_POSTFIX;
     if (requestParameterMap.containsKey(key)) {
       String selected = (String) requestParameterMap.get(key);
-      LOG.debug("selected = " + selected);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("selected = " + selected);
+      }
       component.getAttributes().put(
           TobagoConstants.ATTR_SELECTED_LIST_STRING, selected);
     }
@@ -1088,7 +1090,9 @@ public class SheetRenderer extends RendererBase
 
       }
       else {
-        LOG.debug("aobj[0] instanceof '" + aobj[0] + "'");
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("aobj[0] instanceof '" + aobj[0] + "'");
+        }
       }
 
       data.updateState(facescontext);

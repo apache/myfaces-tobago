@@ -114,7 +114,9 @@ public class UIPage extends UIForm {
         kid.processDecodes(facesContext);
       }
     } else {
-      LOG.debug("No form found! Rerender the view.");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("No form found! Rerender the view.");
+      }
       facesContext.renderResponse();
     }
 

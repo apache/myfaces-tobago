@@ -92,8 +92,10 @@ public class TobagoRenderKit extends RenderKit {
 //    synchronized(renderers) {
 //      renderers.put(family + SEP + rendererType, renderer);
 //    }
-    LOG.debug("addRenderer family='" + family
-        + "' rendererType='" + rendererType + "'");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("addRenderer family='" + family
+          + "' rendererType='" + rendererType + "'");
+    }
     LOG.error(
         "This method isn't implemented yet, and should not be called: "
         + new Exception().getStackTrace()[0].getMethodName()); //fixme jsf1.0

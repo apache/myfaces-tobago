@@ -53,7 +53,9 @@ public class TobagoConfig {
       themes = new ArrayList();
     }
     themes.add(theme);
-    LOG.debug("adding theme " + theme);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("adding theme " + theme);
+    }
   }
 
   public static TobagoConfig getInstance(FacesContext facesContext) {

@@ -15,7 +15,7 @@ import java.util.Vector;
 public class LayoutInfo{
 
   private static final int FREE = -1;
-  private static final Log log = LogFactory.getLog(LayoutInfo.class);
+  private static final Log LOG = LogFactory.getLog(LayoutInfo.class);
   public static final int HIDE = -2;
   public static final String HIDE_CELL = "hide";
 
@@ -38,14 +38,14 @@ public class LayoutInfo{
     if (layoutTokens.length == cellCount) {
       this.layoutTokens = layoutTokens;
     } else if (layoutTokens.length > cellCount) {
-      log.warn("More layoutToken's than cell's! Cutting leavings!");
+      LOG.warn("More layoutToken's than cell's! Cutting leavings!");
       this.layoutTokens = new String[cellCount];
       for (int i = 0; i < cellCount; i++) {
         this.layoutTokens[i] = layoutTokens[i];
       }
     }
     else {
-      log.warn("More cell's than layoutToken's! Set missing token's to '1*'");
+      LOG.warn("More cell's than layoutToken's! Set missing token's to '1*'");
       this.layoutTokens = new String[cellCount];
       for (int i = 0; i < cellCount; i++) {
         if (i < layoutTokens.length) {
@@ -68,11 +68,11 @@ public class LayoutInfo{
 
   public void update(int space, int index){
 
-    log.info("update(" + space + ", " + index + ")");
+    LOG.info("update(" + space + ", " + index + ")");
 
     if (space > spaceLeft) {
-      if (log.isInfoEnabled()) {
-        log.info("More space need(" + space + ") than avaliable(" + spaceLeft
+      if (LOG.isInfoEnabled()) {
+        LOG.info("More space need(" + space + ") than avaliable(" + spaceLeft
             + ")! Cutting to fit!");
       }
       space = spaceLeft;
@@ -83,13 +83,13 @@ public class LayoutInfo{
     if (index < spaces.length) {
       spaces[index] = space;
       if (spaceLeft <1 && columnsLeft()) {
-        if (log.isWarnEnabled()) {
-          log.warn("There are columns left but no more Space!");
+        if (LOG.isWarnEnabled()) {
+          LOG.warn("There are columns left but no more Space!");
         }
       }
     }
     else {
-      log.warn("More Space to assign (" + space + "px) but no more column's!"
+      LOG.warn("More Space to assign (" + space + "px) but no more column's!"
           + " More layoutTokens than column tag's?");
     }
   }
@@ -102,8 +102,8 @@ public class LayoutInfo{
   public void handleIllegalTokens() {
     for (int i = 0 ; i<spaces.length; i++) {
       if (isFree(i)) {
-        if (log.isWarnEnabled()) {
-          log.warn("Illegal layout token pattern \"" + layoutTokens[i]
+        if (LOG.isWarnEnabled()) {
+          LOG.warn("Illegal layout token pattern \"" + layoutTokens[i]
               + "\" ignored, set to 0px !");
         }
         spaces[i] = 0;
@@ -132,7 +132,9 @@ public class LayoutInfo{
         tokens[i] = defaultToken;
       }
     }
-    log.debug("created Tokens : " + tokensToString(tokens));
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("created Tokens : " + tokensToString(tokens));
+    }
     return tokens;
   }
 
@@ -179,9 +181,9 @@ public class LayoutInfo{
 
   public void handleSpaceLeft() {
     if (spaceLeft > 0) {
-      if (log.isDebugEnabled()) {
-        log.debug("spread spaceLeft (" + spaceLeft + "px) to columns");
-        log.debug("spaces before spread :" + arrayAsString(spaces));
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("spread spaceLeft (" + spaceLeft + "px) to columns");
+        LOG.debug("spaces before spread :" + arrayAsString(spaces));
       }
 
       for (int i = 0; i < layoutTokens.length; i++) {
@@ -205,11 +207,11 @@ public class LayoutInfo{
         }
       }
     }
-    if (spaceLeft > 0 && log.isWarnEnabled()) {
-      log.warn("Space left after spreading : " + spaceLeft + "px!");
+    if (spaceLeft > 0 && LOG.isWarnEnabled()) {
+      LOG.warn("Space left after spreading : " + spaceLeft + "px!");
     }
-    if (log.isDebugEnabled()) {
-      log.debug("spaces after spread  :" + arrayAsString(spaces));
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("spaces after spread  :" + arrayAsString(spaces));
     }
   }
 
@@ -243,10 +245,10 @@ public class LayoutInfo{
         if (i != 0) {
           spaceLeft += padding;
         }
-        if (log.isDebugEnabled()) {
-            log.debug("set column " + i + " from " + tokens[i]
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("set column " + i + " from " + tokens[i]
                 + " to hide " );
-          }
+         }
       }
     }
   }
@@ -259,13 +261,13 @@ public class LayoutInfo{
         try {
           int w = Integer.parseInt(token);
           update(w, i);
-          if (log.isDebugEnabled()) {
-            log.debug("set column " + i + " from " + tokens[i]
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("set column " + i + " from " + tokens[i]
                 + " to with " + w);
           }
         } catch (NumberFormatException e) {
-          if (log.isWarnEnabled()) {
-            log.warn("NumberFormatException parsing " + tokens[i]);
+          if (LOG.isWarnEnabled()) {
+            LOG.warn("NumberFormatException parsing " + tokens[i]);
           }
         }
       }
@@ -283,13 +285,13 @@ public class LayoutInfo{
             int percent = Integer.parseInt(token);
             int w = (int) (innerWidth / 100 * percent);
             update(w, i);
-            if (log.isDebugEnabled()) {
-              log.debug("set column " + i + " from " + tokens[i]
+            if (LOG.isDebugEnabled()) {
+              LOG.debug("set column " + i + " from " + tokens[i]
                   + " to with " + w);
             }
           } catch (NumberFormatException e) {
-            if (log.isWarnEnabled()) {
-              log.warn("NumberFormatException parsing " + tokens[i]);
+            if (LOG.isWarnEnabled()) {
+              LOG.warn("NumberFormatException parsing " + tokens[i]);
             }
           }
         }
@@ -309,8 +311,8 @@ public class LayoutInfo{
             int portion = Integer.parseInt(token);
             portions += portion;
           } catch (NumberFormatException e) {
-            if (log.isWarnEnabled()) {
-              log.warn("NumberFormatException parsing " + tokens[i]);
+            if (LOG.isWarnEnabled()) {
+              LOG.warn("NumberFormatException parsing " + tokens[i]);
             }
           }
         }
@@ -325,13 +327,13 @@ public class LayoutInfo{
               int portion = Integer.parseInt(token);
               float w = (float) widthForPortions / portions * portion;
               update(Math.round(w), i);
-              if (log.isDebugEnabled()) {
-                log.debug("set column " + i + " from " + tokens[i]
+              if (LOG.isDebugEnabled()) {
+                LOG.debug("set column " + i + " from " + tokens[i]
                     + " to with " + w + " == " + Math.round(w) + "px");
               }
             } catch (NumberFormatException e) {
-              if (log.isWarnEnabled()) {
-                log.warn("NumberFormatException parsing " + tokens[i]);
+              if (LOG.isWarnEnabled()) {
+                LOG.warn("NumberFormatException parsing " + tokens[i]);
               }
             }
           }
@@ -358,8 +360,8 @@ public class LayoutInfo{
           if (isFree(i) && tokens[i].equals("*")) {
             int w = widthPerPortion;
             update(w, i);
-            if (log.isDebugEnabled()) {
-              log.debug("set column " + i + " from " + tokens[i]
+            if (LOG.isDebugEnabled()) {
+              LOG.debug("set column " + i + " from " + tokens[i]
                   + " to with " + w);
             }
           }
@@ -384,7 +386,7 @@ public class LayoutInfo{
       handleSpaceLeft();
     }
 
-    if (columnsLeft() && log.isWarnEnabled()) {
+    if (columnsLeft() && LOG.isWarnEnabled()) {
       handleIllegalTokens();
     }
   }

@@ -92,7 +92,9 @@ public class TobagoConfigParser {
     final String TOBAGO_CONFIG_DTD
         = "/com/atanion/tobago/config/tobago-config_1_0.dtd";
     URL url = TobagoConfigParser.class.getResource(TOBAGO_CONFIG_DTD);
-    LOG.debug("registering dtd: url=" + url);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("registering dtd: url=" + url);
+    }
     if (null != url) {
       digester.register(
           "-//Atanion GmbH//DTD Tobago Config 1.0//EN",

@@ -40,27 +40,37 @@ public class WeblogicWorkaroundServlet extends HttpServlet {
 
   public void init() throws ServletException {
 
-    LOG.debug("1st");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("1st");
+    }
     LifecycleFactory factory = (LifecycleFactory)
         FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
 
     if (factory == null) { // Faces ConfigureListener is not called until now!
       final String className = "com.sun.faces.config.ConfigureListener";
-      LOG.debug("Init of " + className + " by servlet!");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Init of " + className + " by servlet!");
+      }
       callInit(className);
     }
 
-    LOG.debug("2nd");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("2nd");
+    }
     FacesContext facesContext = FacesContext.getCurrentInstance();
     TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
 
     if (tobagoConfig == null) { // Tobago ConfigureListener is not called until now!
       final String className = "com.atanion.tobago.webapp.TobagoServletContextListener";
-      LOG.debug("Init of " + className + " by servlet!");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Init of " + className + " by servlet!");
+      }
       callInit(className);
     }
 
-    LOG.debug("3rd");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("3rd");
+    }
   }
 
   private void callInit(String className) {

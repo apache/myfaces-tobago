@@ -187,7 +187,9 @@ public class TobagoResponseWriter extends ResponseWriter {
         && ("script".equalsIgnoreCase(name) || "style".equalsIgnoreCase(name))) {
       insideScriptOrStyle = true;
     }
-    LOG.debug("start Element: " + name);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("start Element: " + name);
+    }
     if (startStillOpen) {
       writer.write("\n>");
     }
@@ -197,7 +199,9 @@ public class TobagoResponseWriter extends ResponseWriter {
   }
 
   public void endElement(String name) throws IOException {
-    LOG.debug("end Element: " + name);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("end Element: " + name);
+    }
 
     String top = (String) stack.pop();
     if (!top.equals(name)) {

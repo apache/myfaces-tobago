@@ -49,7 +49,9 @@ public class MessageRenderer extends MessageRendererBase
     for (Iterator i = facesContext.getMessages(clientId); i.hasNext(); ) {
       count++;
     }
-    LOG.debug("here are " + count + " messages");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("here are " + count + " messages");
+    }
 
     if (count != 0) {
       return count * 20; // fixme: depends on theme

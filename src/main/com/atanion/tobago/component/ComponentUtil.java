@@ -98,10 +98,14 @@ public class ComponentUtil implements TobagoConstants {
     UIComponent forComponent = findFor(component);
     if (forComponent != null) {
       String clientId = forComponent.getClientId(facesContext);
-      LOG.debug("found clientId: '" + clientId + "'");
+      if (LOG.isDebugEnabled())  {
+        LOG.debug("found clientId: '" + clientId + "'");
+      }
       return clientId;
     }
-    LOG.debug("found no clientId");
+    if (LOG.isDebugEnabled())  {
+      LOG.debug("found no clientId");
+    }
     return null;
   }
 
@@ -277,8 +281,10 @@ public class ComponentUtil implements TobagoConstants {
 
     for (Iterator kids = component.getChildren().iterator(); kids.hasNext();) {
       UIComponent kid = (UIComponent) kids.next();
-      LOG.debug("kid " + kid);
-      LOG.debug("kid " + kid.getClass().getName());
+      if (LOG.isDebugEnabled())  {
+        LOG.debug("kid " + kid);
+        LOG.debug("kid " + kid.getClass().getName());
+      }
       if (kid instanceof UISelectItem) {
         Object value = ((UISelectItem) kid).getValue();
         if (value == null) {
@@ -300,7 +306,9 @@ public class ComponentUtil implements TobagoConstants {
           }
         }
         if (value == null) {
-          LOG.debug("value is null");
+          if (LOG.isDebugEnabled())  {
+            LOG.debug("value is null");
+          }
           continue;
         } else if (value instanceof SelectItem) {
           list.add(value);
@@ -340,8 +348,10 @@ public class ComponentUtil implements TobagoConstants {
       UIComponent child = (UIComponent) i.next();
       if (child instanceof UIParameter) {
         UIParameter parameter = (UIParameter) child;
-        LOG.debug("Select name='" + parameter.getName() + "'");
-        LOG.debug("Select value='" + parameter.getValue() + "'");
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Select name='" + parameter.getName() + "'");
+          LOG.debug("Select value='" + parameter.getValue() + "'");
+        }
         if (name.equals(parameter.getName())) {
           return parameter.getValue();
         }
@@ -378,7 +388,9 @@ public class ComponentUtil implements TobagoConstants {
       Class clazz = classLoader.loadClass(type);
       return (ActionListener) clazz.newInstance();
     } catch (Exception e) {
-      LOG.debug("type=" + type, e);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("type=" + type, e);
+      }
       throw new JspException(e);
     }
   }

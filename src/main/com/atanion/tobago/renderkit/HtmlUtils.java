@@ -55,7 +55,9 @@ public class HtmlUtils {
       if (validators[i] instanceof LongRangeValidator) {
         String functionCall = "validateLongRange('"
             + component.getClientId(facesContext) + "')";
-        LOG.debug("validator functionCall: " + functionCall);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("validator functionCall: " + functionCall);
+        }
         buffer.append(functionCall);
       } else {
         buffer.append("true");

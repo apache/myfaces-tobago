@@ -50,7 +50,9 @@ public class CalendarRenderer extends RendererBase implements DirectRenderer {
 
     ServletRequest request
         = (ServletRequest) facesContext.getExternalContext().getRequest();
-    LOG.debug(request.getParameterMap());
+    if (LOG.isDebugEnabled()) {
+      LOG.debug(request.getParameterMap());
+    }
     String dateTextBoxId = request.getParameter("tobago.date.inputId");
     if (dateTextBoxId != null) {
       page.getOnloadScripts().add("initCalendarParse('"

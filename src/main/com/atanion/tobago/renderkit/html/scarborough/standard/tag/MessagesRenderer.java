@@ -39,7 +39,7 @@ public class MessagesRenderer extends MessageRendererBase
     }
     if (LOG.isDebugEnabled()) {
       LOG.debug("component = '" + component + "'");
-    LOG.debug("here are " + count + " messages");
+      LOG.debug("here are " + count + " messages");
     }
     return (count > 0)
         ? count * getConfiguredValue(facesContext, component, "messageHeight")

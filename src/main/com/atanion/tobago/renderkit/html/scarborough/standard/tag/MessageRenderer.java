@@ -47,7 +47,9 @@ public class MessageRenderer extends MessageRendererBase
     for (Iterator i = facesContext.getMessages(clientId); i.hasNext(); ) {
       count++;
     }
-    LOG.debug("here are " + count + " messages");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("here are " + count + " messages");
+    }
     return count * getConfiguredValue(facesContext, component, "messageHeight");
   }
 

@@ -180,8 +180,10 @@ public class TobagoServletContextListener implements ServletContextListener {
       String key = (String) e.nextElement();
       resources.add(
           directory + '/' + locale + '/' + key, temp.getProperty(key));
-      LOG.debug(
-          directory + '/' + locale + '/' + key + "=" + temp.getProperty(key));
+      if (LOG.isDebugEnabled()) {
+        LOG.debug(
+            directory + '/' + locale + '/' + key + "=" + temp.getProperty(key));
+      }
     }
   }
 

@@ -49,7 +49,9 @@ public class TextBoxRendererBase extends InputRendererBase {
     }
 
     String currentValue = getCurrentValue(facesContext, input);
-    LOG.debug("currentValue = '" + currentValue + "'");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("currentValue = '" + currentValue + "'");
+    }
     String type = ComponentUtil.getBooleanAttribute(input,
         ATTR_PASSWORD) ? "password" : "text";
 

@@ -201,11 +201,15 @@ public class ViewHandlerImpl extends ViewHandler {
         = (HttpSession) facesContext.getExternalContext().getSession(true);
     ViewMap viewMap = (ViewMap) session.getAttribute(TobagoConstants.VIEWS_IN_SESSION);
     if (viewMap == null) {
-      LOG.debug("Creting new view Map");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Creting new view Map");
+      }
       viewMap = new ViewMap();
       session.setAttribute(TobagoConstants.VIEWS_IN_SESSION, viewMap);
     } else {
-      LOG.debug(viewMap);
+      if (LOG.isDebugEnabled())  {
+        LOG.debug(viewMap);
+      }
     }
     return viewMap;
   }
@@ -292,7 +296,9 @@ public class ViewHandlerImpl extends ViewHandler {
     }
 
     public UIViewRoot getView(String pageId) {
-      LOG.debug("getView: " + pageId);
+      if (LOG.isDebugEnabled())  {
+        LOG.debug("getView: " + pageId);
+      }
       return (UIViewRoot) map.get(pageId);
     }
 
@@ -302,7 +308,9 @@ public class ViewHandlerImpl extends ViewHandler {
      */
     public String addView(UIViewRoot viewRoot) {
       String pageId = Long.toString(nextId++);
-      LOG.debug("addView: " + pageId);
+      if (LOG.isDebugEnabled())  {
+        LOG.debug("addView: " + pageId);
+      }
       map.put(pageId, viewRoot);
       return pageId;
     }

@@ -65,8 +65,9 @@ public class Theme {
       for (Iterator i = fallbackTheme.iterator(); i.hasNext();) {
         Theme theme = (Theme) i.next();
         collector.add(theme);
-        LOG.debug("adding theme fallback '" + theme.getName() + "' to '" + name + "'");
-
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("adding theme fallback '" + theme.getName() + "' to '" + name + "'");
+        }
       }
       fallbackList = (Theme[]) collector.toArray(new Theme[0]);
     }
