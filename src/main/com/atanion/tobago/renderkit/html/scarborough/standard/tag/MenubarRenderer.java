@@ -205,25 +205,20 @@ public class MenubarRenderer extends RendererBase
 
     addImage(writer, facesContext, image);
 
+    writer.startElement("a", null);
+    writer.writeAttribute("class", spanClass, null);
+    writer.writeAttribute("href", "#", null);
+    writer.writeAttribute("onfocus", "tobagoMenuFocus(event)", null);
+    writer.writeAttribute("onblur", "tobagoMenuBlur(event)", null);
+    writer.writeAttribute("onkeydown", "tobagoMenuKeyDown(event)", null);
+    writer.writeAttribute("onkeypress", "tobagoMenuKeyPress(event)", null);
     if (label.getText() != null) {
-      writer.startElement("a", null);
-      writer.writeAttribute("class", spanClass, null);
-
-//    writer.writeAttribute("href", "javascript:PrintDebug(\"onclick navigation\")", null);
-
-
-      writer.writeAttribute("href", "#", null);
-      writer.writeAttribute("onfocus", "tobagoMenuFocus(event)", null);
-      writer.writeAttribute("onblur", "tobagoMenuBlur(event)", null);
-      writer.writeAttribute("onkeydown", "tobagoMenuKeyDown(event)", null);
-      writer.writeAttribute("onkeypress", "tobagoMenuKeyPress(event)", null);
       if (label.getAccessKey() != null) {
         writer.writeAttribute("accesskey", label.getAccessKey(), null);
       }
       RenderUtil.writeLabelWithAccessKey(writer, label);
-//    writer.writeText(label.getText(), null);
-      writer.endElement("a");
     }
+    writer.endElement("a");
 
     if (! topMenu) {
       // uiPanel is a submenu

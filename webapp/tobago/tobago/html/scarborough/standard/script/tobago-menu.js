@@ -125,7 +125,7 @@ function MenuItem(label, action, disabled) {
 
 
   this.openMenu = function() {
-    this.openSubMenus();
+    this.focusLabelTag();
   }
 
   this.onMouseOver = function() {
