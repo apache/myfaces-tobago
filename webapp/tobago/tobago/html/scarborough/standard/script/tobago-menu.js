@@ -103,7 +103,7 @@ function MenuItem(label, action, disabled) {
   }
 
   this.openMenu = function() {
-    PrintDebug("open menu on " + this.label );
+    //PrintDebug("open menu on " + this.label );
     if (this.level == 1) {
       this.parent.menuOpen = 1;
       this.setHover();
@@ -157,7 +157,7 @@ function MenuItem(label, action, disabled) {
         = setTimeout("tobagoMenuSetHover('" + this.id +"')", getMenuTimeoutHover());
   }
   this.onMouseOut = function(clicked) {
-    PrintDebug("onMouseOut " + this.id + "  clicked = " + clicked);
+    //PrintDebug("onMouseOut " + this.id + "  clicked = " + clicked);
     if (this.hover) {
       clearTimeout(this.removeHoverTimer);
       clearTimeout(this.hoverTimer);
@@ -577,7 +577,7 @@ function menuSetRadioValue(id, value) {
 }
 
 function tobagoMenuFocus(event) {
-  PrintDebug("tobagoMenuFocus" );
+  //PrintDebug("tobagoMenuFocus" );
   if (! event) {
     event = window.event;
   }
@@ -586,7 +586,7 @@ function tobagoMenuFocus(event) {
   addCssClass(element.parentNode, "tobago-menu-focus");
 }
 function tobagoMenuBlur(event) {
-  PrintDebug("tobagoMenuBlur" );
+  //PrintDebug("tobagoMenuBlur" );
 
   if (! event) {
     event = window.event;
@@ -614,12 +614,12 @@ function tobagoMenuRight(event) {
 
 function stopEventPropagation(event) {
   if (event.stopPropagation) {
-    PrintDebug("event.stopPropagation() " + event.cancelable);
+    //PrintDebug("event.stopPropagation() " + event.cancelable);
     event.preventDefault();
     event.stopPropagation();
   }
   else {
-    PrintDebug("event.cancelBubble = true");
+    //PrintDebug("event.cancelBubble = true");
     event.cancelBubble = true;
   }
 }
