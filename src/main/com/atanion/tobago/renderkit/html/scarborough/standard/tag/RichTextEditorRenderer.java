@@ -5,27 +5,28 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
+import java.io.IOException;
+
+import javax.faces.component.EditableValueHolder;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.component.UIGraphic;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.application.Application;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.atanion.lib.richtext.WikiParser;
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.util.StringUtil;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.TobagoResource;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import javax.faces.application.Application;
-import javax.faces.component.EditableValueHolder;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIGraphic;
-import javax.faces.component.UIOutput;
-import javax.faces.component.UIInput;
-import javax.faces.component.UICommand;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import java.io.IOException;
 
 public class RichTextEditorRenderer extends InputRendererBase
  implements DirectRenderer {
@@ -71,11 +72,11 @@ public class RichTextEditorRenderer extends InputRendererBase
   }
 
   public static String contentToHtml(String content) {
-    content = content.replaceAll("\\*(.*)\\*","<b>$1</b>");
-    content = content.replaceAll("_(.*)_","<u>$1</u>");
-    content = content.replaceAll("\n","<br />");
-    content = content.replaceAll(" ","&nbsp;");
-
+    try {
+      return WikiParser.toHtml(content);
+    } catch (Exception e) {
+      LOG.error("failed to parser wiki markup", e);
+    }
     return content;
   }
 
@@ -84,20 +85,27 @@ public class RichTextEditorRenderer extends InputRendererBase
 
     UIInput component = (UIInput) uiComponent;
 
+    boolean previewState = ((Boolean)
+        component.getAttributes().get(TobagoConstants.ATTR_STATE_PREVIEW)).booleanValue();
+    // fixme: remove this when i18n is ok
+    String state = (previewState) ? "Editor" : "Preview";
+
     String clientId = component.getClientId(facesContext);
-    String state ;
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
+    writer.startElement("div", component);
+    // class, stly.width, style.height
 
-    boolean previewState = ((Boolean)
-        component.getAttributes().get(TobagoConstants.ATTR_STATE_PREVIEW)).booleanValue();
+    writer.startElement("div", component);
+    writer.writeAttribute("class", "toolbar", null);
+    createToolbarButton(writer, component, facesContext, clientId, state);
+    writer.endElement("div");
+
     String content = ComponentUtil.currentValue(component);
 
     if (previewState) {
       state = TobagoResource.getProperty(facesContext, "text", "tobago.richtexteditor.edit");
-      // fixme: remove this when i18n is ok
-      if (state == null) {state = "Editor";}
 
       writer.startElement("input", component);
       writer.writeAttribute("type", "hidden", null);
@@ -116,64 +124,43 @@ public class RichTextEditorRenderer extends InputRendererBase
     }
     else {
       state = TobagoResource.getProperty(facesContext, "text", "tobago.richtexteditor.preview");
-      // fixme: remove this when i18n is ok
-      if (state == null) {state = "Preview";}
 
       writer.startElement("textarea", component);
       writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
       writer.writeAttribute("name", clientId, null);
       writer.writeAttribute("id", clientId, null);
       writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
-      writer.writeAttribute("onchange",
-          HtmlUtils.generateOnchange(component, facesContext), null);
+      String onchange = HtmlUtils.generateOnchange(component, facesContext);
+      if (null != onchange) {
+        writer.writeAttribute("onchange", onchange, null);
+      }
 
       writer.writeText(content, null);
 
       writer.endElement("textarea");
     }
+    writer.endElement("div");
+  }
 
-
+  private void createToolbarButton(ResponseWriter writer, UIInput component,
+      FacesContext facesContext, String clientId, String state) throws IOException {
     String onClick = "submitAction('"
         + ComponentUtil.findPage(component).getFormId(facesContext) + "', '"
         + clientId + RichTextEditorRenderer.CHANGE_BUTTON + "')";
-    String idPrefix = clientId.replace('.', '_').replace(':', '_');
+    writer.startElement("span", component);
+    writer.writeAttribute("onclick", onClick, null);
+    writer.writeAttribute("unselectable", "on", null);
 
     Application application = facesContext.getApplication();
-
-    // fixme: welche funktion hat dieses image?
-    UIGraphic image = (UIGraphic)
-        application.createComponent(UIGraphic.COMPONENT_TYPE);
-    image.setId(idPrefix + "Image");
-    image.setValue("1x1.gif");
+    UIComponent image = application.createComponent(UIGraphic.COMPONENT_TYPE);
+    image.getAttributes().put(TobagoConstants.ATTR_VALUE,
+        "tobago-richtext-mode.gif");
     image.getAttributes().put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
-    image.getAttributes().put(TobagoConstants.ATTR_HEIGHT, "4px");
     image.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
-    image.setRendered(true);
-    image.setRendererType("Image");
     RenderUtil.encode(facesContext, image);
-
-    UICommand button = (UICommand)
-        application.createComponent(UICommand.COMPONENT_TYPE);
-    button.setParent(component);
-    button.getAttributes().put(TobagoConstants.ATTR_TYPE,
-        TobagoConstants.COMMAND_TYPE_SCRIPT);
-    button.getAttributes().put(TobagoConstants.ATTR_COMMAND_NAME, onClick);
-    button.setId(idPrefix + "Button");
-    button.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
-    button.setRendered(true);
-    button.setRendererType("Button");
-
-    UIOutput text = (UIOutput)
-        application.createComponent(UIOutput.COMPONENT_TYPE);
-    text.setValue(state);
-    text.setId(idPrefix + "ButtonText");
-    text.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
-    text.setRendered(true);
-    text.setRendererType("Text");
-    button.getChildren().add(text);
-    RenderUtil.encode(facesContext, button);
+    writer.writeText(state, null);
+    writer.endElement("span");
   }
 // ///////////////////////////////////////////// bean getter + setter
 
 }
-
