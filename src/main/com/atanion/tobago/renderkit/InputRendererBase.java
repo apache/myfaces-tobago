@@ -45,13 +45,13 @@ public class InputRendererBase extends RendererBase {
         .getRequestParameterMap();
     if (requestParameterMap.containsKey(clientId)) {
       if (LOG.isDebugEnabled()) {
-        LOG.debug("requestParameterMap.get(clientId) = '" +
+        LOG.debug("clientId = '" +
             clientId +
             "'");
         LOG.debug("requestParameterMap.get(clientId) = '" +
             requestParameterMap.get(clientId) +
             "'");
-        LOG.debug("requestParameterMap.get(clientId) = '" +
+        LOG.debug("requestParameterMap.get(clientId).getClass().getName() = '" +
             requestParameterMap.get(clientId).getClass().getName() +
             "'");
       }
