@@ -49,7 +49,7 @@ function addSelectionListener(sheetId) {
     var i = row.id.substring(row.id.lastIndexOf("_data_tr_") + 9);
     i++;
     while (row) {
-       PrintDebug("rowId = " + row.id + "   next i=" + i);
+//       PrintDebug("rowId = " + row.id + "   next i=" + i);
       addEventListener(row, "click", doSelection);
       row = document.getElementById(sheetId + "_data_tr_" + i++ );
     }
@@ -75,7 +75,6 @@ function doSelection(event) {
 
   clearSelection();
 
-  PrintDebug("doSelection()");
   //PrintDebug("event.ctrlKey = " + event.ctrlKey);
   //PrintDebug("event.shiftKey = " + event.shiftKey);
 
@@ -86,7 +85,7 @@ function doSelection(event) {
   else {
     srcElement = event.srcElement;
   }
-  PrintDebug("srcElement = " + srcElement.tagName);
+//  PrintDebug("srcElement = " + srcElement.tagName);
   if (! isInputElement(srcElement.tagName)) {
 
 
@@ -404,7 +403,7 @@ function adjustHeaderDiv(sheetId) {
   headerDiv.style.width = Math.max(clientWidth, minWidth);
   var fillBox = document.getElementById(sheetId + "_header_box_filler");
   fillBox.style.width = Math.max(headerDiv.style.width.replace(/px/, "") - boxSum, 0);
-  PrintDebug("adjustHeaderDiv(" + sheetId + ") : clientWidth = " + clientWidth + " :: width => " + headerDiv.style.width);
+//  PrintDebug("adjustHeaderDiv(" + sheetId + ") : clientWidth = " + clientWidth + " :: width => " + headerDiv.style.width);
   //headerDiv.style.width = clientWidth;
 }
 
