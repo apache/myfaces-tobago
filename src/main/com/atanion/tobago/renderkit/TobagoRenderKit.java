@@ -5,17 +5,16 @@
  */
 package com.atanion.tobago.renderkit;
 
-import com.atanion.tobago.context.ResourceManager;
 import com.atanion.tobago.context.ClientProperties;
+import com.atanion.tobago.context.ResourceManager;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseStream;
 import javax.faces.context.ResponseWriter;
-import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
 import javax.faces.render.Renderer;
 import javax.faces.render.ResponseStateManager;

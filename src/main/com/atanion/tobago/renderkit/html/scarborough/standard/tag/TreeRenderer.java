@@ -10,12 +10,10 @@ import com.atanion.tobago.component.UITree;
 import com.atanion.tobago.component.UITreeNode;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.model.TreeState;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.util.StringUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -30,7 +28,7 @@ import javax.faces.event.ActionListener;
 import java.io.IOException;
 
 public class TreeRenderer extends RendererBase
-    implements HeightLayoutRenderer, DirectRenderer {
+    implements HeightLayoutRenderer {
 
 // ///////////////////////////////////////////// constant
 
@@ -79,7 +77,7 @@ public class TreeRenderer extends RendererBase
     return 0;
   }
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     UITree tree = (UITree) component;

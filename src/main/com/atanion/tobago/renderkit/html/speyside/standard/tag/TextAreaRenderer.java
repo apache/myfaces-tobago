@@ -6,14 +6,12 @@
 package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
-import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.InputRendererBase;
+import com.atanion.tobago.renderkit.RenderUtil;
+import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -23,7 +21,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class TextAreaRenderer extends InputRendererBase
-    implements HeightLayoutRenderer, DirectRenderer {
+    implements HeightLayoutRenderer {
 
 // ///////////////////////////////////////////// constant
 
@@ -51,7 +49,7 @@ public class TextAreaRenderer extends InputRendererBase
     return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     TobagoResponseWriter writer = (TobagoResponseWriter)

@@ -9,31 +9,28 @@ import com.atanion.tobago.component.BodyContentHandler;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.CommandRendererBase;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HtmlUtils;
-import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.LabelWithAccessKey;
+import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
-
-public class ButtonRenderer extends CommandRendererBase
-    implements DirectRenderer {
+public class ButtonRenderer extends CommandRendererBase {
 
   private static final Log LOG = LogFactory.getLog(ButtonRenderer.class);
 
 // ----------------------------------------------------------------- interfaces
 
 
-// ---------------------------- interface DirectRenderer
+// ---------------------------- interface TobagoRenderer
 
-  public void encodeDirectBegin(FacesContext facesContext,
+  public void encodeBeginTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
     String clientId = component.getClientId(facesContext);
     String buttonType = createButtonType(component);
@@ -87,7 +84,7 @@ public class ButtonRenderer extends CommandRendererBase
     }
   }
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
 

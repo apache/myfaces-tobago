@@ -10,7 +10,6 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.component.UITabGroup;
 import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
@@ -29,12 +28,11 @@ import javax.faces.el.MethodBinding;
 import javax.faces.el.MethodNotFoundException;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
-import javax.faces.render.Renderer;
 import javax.servlet.ServletRequest;
 import java.io.IOException;
 
 public class TabGroupRenderer extends RendererBase
-    implements HeightLayoutRenderer, DirectRenderer {
+    implements HeightLayoutRenderer {
 
 // ///////////////////////////////////////////// constant
 
@@ -71,7 +69,7 @@ public class TabGroupRenderer extends RendererBase
     return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
 

@@ -5,9 +5,7 @@
   */
 package com.atanion.tobago.renderkit;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.UIPage;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

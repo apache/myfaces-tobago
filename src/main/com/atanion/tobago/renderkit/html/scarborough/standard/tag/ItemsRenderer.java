@@ -7,11 +7,9 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.util.RangeParser;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -25,8 +23,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemsRenderer extends RendererBase
-    implements DirectRenderer {
+public class ItemsRenderer extends RendererBase{
 
 // ///////////////////////////////////////////// constant
 
@@ -38,7 +35,7 @@ public class ItemsRenderer extends RendererBase
 
 // ///////////////////////////////////////////// code
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent component)
       throws IOException {
     String referenceId = (String)

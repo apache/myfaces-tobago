@@ -6,7 +6,6 @@
 package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.BoxRendererBase;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
@@ -20,7 +19,7 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class BoxRenderer extends BoxRendererBase
-    implements HeightLayoutRenderer, DirectRenderer {
+    implements HeightLayoutRenderer {
 
 // ///////////////////////////////////////////// constant
 
@@ -36,7 +35,7 @@ public class BoxRenderer extends BoxRendererBase
     return super.getFixedHeight(facesContext, component);
   }
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
                               UIComponent component) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
 

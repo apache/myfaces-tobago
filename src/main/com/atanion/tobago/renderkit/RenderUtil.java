@@ -5,6 +5,7 @@
  */
 package com.atanion.tobago.renderkit;
 
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -13,8 +14,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Iterator;
-
-import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 public class RenderUtil {
 

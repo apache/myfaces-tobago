@@ -9,13 +9,11 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.CommandRendererBase;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -35,8 +33,7 @@ import java.io.StringWriter;
 import java.util.Iterator;
 import java.util.List;
 
-public class MenubarRenderer extends RendererBase
-    implements DirectRenderer {
+public class MenubarRenderer extends RendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -58,7 +55,7 @@ public class MenubarRenderer extends RendererBase
       throws IOException {
   }
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     String clientId;

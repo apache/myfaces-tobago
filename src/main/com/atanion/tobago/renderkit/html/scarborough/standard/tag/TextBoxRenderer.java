@@ -6,12 +6,10 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.TextBoxRendererBase;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -20,8 +18,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class TextBoxRenderer extends TextBoxRendererBase
-    implements DirectRenderer {
+public class TextBoxRenderer extends TextBoxRendererBase{
 
 // ///////////////////////////////////////////// constant
 
@@ -48,7 +45,7 @@ public class TextBoxRenderer extends TextBoxRendererBase
     return space;
   }
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent component)
       throws IOException {
 

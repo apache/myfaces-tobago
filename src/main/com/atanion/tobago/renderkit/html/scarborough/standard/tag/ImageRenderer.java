@@ -8,7 +8,6 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RendererBase;
 
@@ -20,13 +19,13 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class ImageRenderer extends RendererBase
-    implements HeightLayoutRenderer, DirectRenderer {
+    implements HeightLayoutRenderer {
 
   public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
     return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     UIGraphic graphic = (UIGraphic) component;

@@ -10,14 +10,12 @@ import com.atanion.tobago.application.ViewHandlerImpl;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.PageRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.taglib.component.PageTag;
 import com.atanion.tobago.util.TobagoResourceSet;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -37,7 +35,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class PageRenderer extends PageRendererBase
-    implements DirectRenderer, HeightLayoutRenderer {
+    implements HeightLayoutRenderer {
 
 // ///////////////////////////////////////////// constant
 
@@ -86,10 +84,10 @@ public class PageRenderer extends PageRendererBase
 
   public void encodeChildren(FacesContext facesContext, UIComponent component)
       throws IOException {
-    // children are encoded in encodeDirectEnd(...)
+    // children are encoded in encodeEndTobago(...)
   }
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     UIPage page = (UIPage) component;

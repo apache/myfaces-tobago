@@ -13,14 +13,12 @@ import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.model.SheetState;
 import com.atanion.tobago.model.SortableByApplication;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.util.LayoutInfo;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.util.BeanComparator;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -55,7 +53,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class SheetRenderer extends RendererBase
-    implements HeightLayoutRenderer, DirectRenderer {
+    implements HeightLayoutRenderer {
 
 // ///////////////////////////////////////////// constant
 
@@ -211,7 +209,7 @@ public class SheetRenderer extends RendererBase
     return getConfiguredValue(facesContext, component, "scrollbarWidth");
   }
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
     UIData component = (UIData) uiComponent;
     String image1x1 = ResourceManagerUtil.getImage(facesContext, "1x1.gif");

@@ -10,14 +10,12 @@ import com.atanion.model.DateModel;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.taglib.component.CalendarTag;
 import com.atanion.util.CalendarUtils;
-
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -28,7 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class CalendarRenderer extends RendererBase implements DirectRenderer {
+public class CalendarRenderer extends RendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -40,7 +38,7 @@ public class CalendarRenderer extends RendererBase implements DirectRenderer {
 
 // ///////////////////////////////////////////// code
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
     UIPage page = ComponentUtil.findPage(component);
     page.getScriptFiles().add("calendar.js", true);

@@ -10,13 +10,11 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.UserAgent;
 import com.atanion.tobago.renderkit.CommandRendererBase;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -29,8 +27,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 
-public class ToolbarRenderer extends RendererBase
-    implements DirectRenderer {
+public class ToolbarRenderer extends RendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -52,7 +49,7 @@ public class ToolbarRenderer extends RendererBase
       throws IOException {
   }
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
     UIPanel toolbar = (UIPanel) uiComponent ;

@@ -7,7 +7,6 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.BodyContentHandler;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
@@ -15,7 +14,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-public class SubviewRenderer extends RendererBase implements DirectRenderer {
+public class SubviewRenderer extends RendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -25,7 +24,7 @@ public class SubviewRenderer extends RendererBase implements DirectRenderer {
 
 // ///////////////////////////////////////////// code
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     ResponseWriter writer = facesContext.getResponseWriter();

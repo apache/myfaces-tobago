@@ -6,19 +6,16 @@
 package com.atanion.tobago.renderkit.html;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.LayoutManager;
 import com.atanion.tobago.renderkit.RendererBase;
-
+import com.atanion.tobago.util.LayoutUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
-import java.util.Iterator;
 
 public class HtmlDefaultLayoutManager implements LayoutManager {
 

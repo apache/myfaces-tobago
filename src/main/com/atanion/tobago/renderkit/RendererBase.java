@@ -11,7 +11,6 @@ import com.atanion.tobago.config.ThemeConfig;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.renderkit.html.HtmlDefaultLayoutManager;
 import com.atanion.tobago.util.LayoutUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -30,7 +29,8 @@ import java.util.Iterator;
 import java.util.Vector;
 
 // todo: in java 1.5 use: import static com.atanion.tobago.TobagoConstants.*;
-public class RendererBase extends Renderer implements TobagoConstants {
+public abstract class RendererBase
+    extends Renderer implements TobagoConstants, TobagoRenderer {
 
 
 // ///////////////////////////////////////////// constant
@@ -73,7 +73,7 @@ public class RendererBase extends Renderer implements TobagoConstants {
         layoutManager.layoutBegin(facesContext, component);
       }
 
-      encodeDirectBegin(facesContext, component);
+      encodeBeginTobago(facesContext, component);
 
       component.getAttributes().put(
           ATTR_ENCODING_ACTIVE,
@@ -110,7 +110,7 @@ public class RendererBase extends Renderer implements TobagoConstants {
           ATTR_ENCODING_ACTIVE,
           Boolean.TRUE);
 
-      encodeDirectChildren(facesContext, component);
+      encodeChildrenTobago(facesContext, component);
 
       component.getAttributes().put(
           ATTR_ENCODING_ACTIVE,
@@ -138,7 +138,7 @@ public class RendererBase extends Renderer implements TobagoConstants {
         layoutManager.layoutEnd(facesContext, component);
       }
 
-      encodeDirectEnd(facesContext, component);
+      encodeEndTobago(facesContext, component);
 
       component.getAttributes().put(
           ATTR_ENCODING_ACTIVE,
@@ -374,12 +374,14 @@ public class RendererBase extends Renderer implements TobagoConstants {
     return fixedHeight;
   }
 
-  public void encodeDirectBegin(
-      FacesContext facesContext,
-      UIComponent component) throws IOException {
+  /**
+   * Normally not needed to overrwrite
+   * */
+  public void encodeBeginTobago(
+      FacesContext facesContext, UIComponent component) throws IOException {
   }
 
-  public void encodeDirectChildren(
+  public void encodeChildrenTobago(
       FacesContext facesContext, UIComponent component)
       throws IOException {
     for (Iterator i = component.getChildren().iterator(); i.hasNext();) {
@@ -398,7 +400,7 @@ public class RendererBase extends Renderer implements TobagoConstants {
     }
   }
 
-  public void encodeDirectEnd(
+  public void encodeEndTobago (
       FacesContext facesContext,
       UIComponent component) throws IOException {
   }
@@ -415,7 +417,7 @@ public class RendererBase extends Renderer implements TobagoConstants {
     String currentValue = null;
     Object currentObj = getValue(component);
     if (currentObj != null) {
-      currentValue = getFormattedValue(facesContext, component, currentObj);
+      currentValue   = getFormattedValue(facesContext, component, currentObj);
     }
     return currentValue;
   }

@@ -6,25 +6,21 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.util.logging.LogUtils;
-
-import org.apache.commons.logging.LogFactory;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UISelectBoolean;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import javax.servlet.ServletRequest;
 import java.io.IOException;
 
-public class CheckBoxRenderer extends RendererBase implements DirectRenderer {
+public class CheckBoxRenderer extends RendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -55,7 +51,7 @@ public class CheckBoxRenderer extends RendererBase implements DirectRenderer {
   }
 
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
     UISelectBoolean component = (UISelectBoolean) uiComponent;

@@ -6,7 +6,6 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.util.LayoutUtil;
@@ -25,7 +24,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
 
-public class FileRenderer extends InputRendererBase implements DirectRenderer {
+public class FileRenderer extends InputRendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -92,7 +91,7 @@ public class FileRenderer extends InputRendererBase implements DirectRenderer {
     return submittedValue;
   }
 
-  public void encodeDirectEnd(
+  public void encodeEndTobago(
       FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 

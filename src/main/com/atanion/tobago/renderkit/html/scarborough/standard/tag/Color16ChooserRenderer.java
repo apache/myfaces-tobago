@@ -9,11 +9,9 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIGridLayout;
 import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.util.LayoutUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -28,8 +26,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletRequest;
 import java.io.IOException;
 
-public class Color16ChooserRenderer extends RendererBase
-    implements DirectRenderer {
+public class Color16ChooserRenderer extends RendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -56,7 +53,7 @@ public class Color16ChooserRenderer extends RendererBase
     }
   }
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
     UIInput component = (UIInput) uiComponent;

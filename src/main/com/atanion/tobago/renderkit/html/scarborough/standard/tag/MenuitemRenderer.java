@@ -7,8 +7,8 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.renderkit.CommandRendererBase;
 
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class MenuitemRenderer extends CommandRendererBase {

@@ -8,7 +8,6 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.BodyContentHandler;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
@@ -24,7 +23,7 @@ import java.io.IOException;
 import java.util.Iterator;
 
 public class PanelRenderer extends RendererBase
-    implements HeightLayoutRenderer, DirectRenderer {
+    implements HeightLayoutRenderer {
 
 // ///////////////////////////////////////////// constant
 
@@ -105,7 +104,7 @@ public class PanelRenderer extends RendererBase
     return height;
   }
 
-  public void encodeDirectChildren(FacesContext facesContext,
+  public void encodeChildrenTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
     UIPanel component = (UIPanel) uiComponent ;
@@ -115,7 +114,7 @@ public class PanelRenderer extends RendererBase
     }
   }
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
     UIPanel component = (UIPanel) uiComponent ;

@@ -7,7 +7,6 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.SelectManyRendererBase;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
@@ -23,8 +22,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-public class CheckBoxGroupRenderer extends SelectManyRendererBase
- implements DirectRenderer {
+public class CheckBoxGroupRenderer extends SelectManyRendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -36,7 +34,7 @@ public class CheckBoxGroupRenderer extends SelectManyRendererBase
 
 // ///////////////////////////////////////////// code
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
     UISelectMany component = (UISelectMany)uiComponent;

@@ -6,12 +6,11 @@
 package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.TextBoxRendererBase;
+import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -19,8 +18,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class TextBoxRenderer extends TextBoxRendererBase
-    implements DirectRenderer {
+public class TextBoxRenderer extends TextBoxRendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -46,7 +44,7 @@ public class TextBoxRenderer extends TextBoxRendererBase
     return space;
   }
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     UIInput input = (UIInput) component;

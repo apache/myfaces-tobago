@@ -7,17 +7,16 @@ package com.atanion.tobago.renderkit.wml.scarborough.standard.tag;
 
 import com.atanion.tobago.renderkit.BoxRendererBase;
 
+import javax.faces.context.FacesContext;
+import javax.faces.component.UIComponent;
+import java.io.IOException;
+
 public class BoxRenderer extends BoxRendererBase {
 
-// ///////////////////////////////////////////// constant
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
-
-// ///////////////////////////////////////////// bean getter + setter
-
+  public void encodeEndTobago(FacesContext facesContext, UIComponent component)
+      throws IOException {
+    // todo
+    
+  }
 }
 

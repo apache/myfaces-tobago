@@ -9,7 +9,6 @@ import com.atanion.tobago.component.BodyContentHandler;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.CommandRendererBase;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.renderkit.RenderUtil;
@@ -20,15 +19,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-public class LinkRenderer extends CommandRendererBase
-    implements DirectRenderer {
+public class LinkRenderer extends CommandRendererBase{
 
 // ----------------------------------------------------------------- interfaces
 
 
-// ---------------------------- interface DirectRenderer
+// ---------------------------- interface TobagoRenderer
 
-  public void encodeDirectBegin(FacesContext facesContext,
+  public void encodeBeginTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
     String onclick = null;
     String href;
@@ -96,7 +94,7 @@ public class LinkRenderer extends CommandRendererBase
     }
   }
 
-  public void encodeDirectEnd(FacesContext facesContext, UIComponent component)
+  public void encodeEndTobago(FacesContext facesContext, UIComponent component)
       throws IOException {
     BodyContentHandler bodyContentHandler = (BodyContentHandler)
         component.getAttributes().get(ATTR_BODY_CONTENT);

@@ -9,7 +9,6 @@ import com.atanion.lib.richtext.WikiParser;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.InputRendererBase;
@@ -27,7 +26,7 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class RichTextEditorRenderer extends InputRendererBase
- implements DirectRenderer, HeightLayoutRenderer {
+ implements HeightLayoutRenderer {
 
 // ///////////////////////////////////////////// constant
 
@@ -74,7 +73,7 @@ public class RichTextEditorRenderer extends InputRendererBase
     return content;
   }
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
     UIInput component = (UIInput) uiComponent;

@@ -5,13 +5,12 @@
  */
 package com.atanion.tobago.renderkit;
 
-import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.component.ComponentUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
-
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
 
 public final class LabelWithAccessKey {
 // ------------------------------------------------------------------ constants

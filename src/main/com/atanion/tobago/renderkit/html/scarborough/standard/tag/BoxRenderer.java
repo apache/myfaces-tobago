@@ -8,12 +8,10 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.UserAgent;
-import com.atanion.tobago.util.LayoutUtil;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.BoxRendererBase;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
-
+import com.atanion.tobago.util.LayoutUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -24,7 +22,7 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class BoxRenderer extends BoxRendererBase
-    implements HeightLayoutRenderer, DirectRenderer {
+    implements HeightLayoutRenderer {
 
 // ///////////////////////////////////////////// constant
 
@@ -36,7 +34,7 @@ public class BoxRenderer extends BoxRendererBase
 
 // ///////////////////////////////////////////// code
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
 
@@ -117,7 +115,7 @@ public class BoxRenderer extends BoxRendererBase
     return TobagoConstants.ATTR_STYLE;
   }
 
-  public void encodeDirectChildren(FacesContext facesContext,
+  public void encodeChildrenTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
   }
 

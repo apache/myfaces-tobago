@@ -9,9 +9,7 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UITree;
 import com.atanion.tobago.component.UITreeNode;
 import com.atanion.tobago.model.TreeState;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RendererBase;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -28,8 +26,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.util.Iterator;
 
-public class TreeNodeRenderer extends RendererBase
-    implements DirectRenderer {
+public class TreeNodeRenderer extends RendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -136,7 +133,7 @@ public class TreeNodeRenderer extends RendererBase
     return treeNodeParameter;
   }
 
-  public void encodeDirectBegin(FacesContext facesContext,
+  public void encodeBeginTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     UITreeNode treeNode = (UITreeNode) component;

@@ -7,7 +7,6 @@ package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.SelectOneRendererBase;
@@ -24,8 +23,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-public class SingleSelectRenderer extends SelectOneRendererBase
-    implements DirectRenderer {
+public class SingleSelectRenderer extends SelectOneRendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -38,7 +36,7 @@ public class SingleSelectRenderer extends SelectOneRendererBase
 // ///////////////////////////////////////////// code
 
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
 

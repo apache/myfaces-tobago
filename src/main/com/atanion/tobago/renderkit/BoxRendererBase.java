@@ -5,18 +5,17 @@
  */
 package com.atanion.tobago.renderkit;
 
-import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.TobagoConstants;
-
-import org.apache.commons.logging.LogFactory;
+import com.atanion.tobago.component.ComponentUtil;
 import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
+import javax.faces.context.FacesContext;
 import java.util.Iterator;
 
-public class BoxRendererBase extends RendererBase {
+public abstract class BoxRendererBase extends RendererBase {
 
 // ///////////////////////////////////////////// constant
 

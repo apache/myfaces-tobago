@@ -6,7 +6,6 @@
 package com.atanion.tobago.renderkit.html.scarborough.mozilla_4_7.tag;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.BoxRendererBase;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
@@ -18,7 +17,7 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class BoxRenderer extends BoxRendererBase
-    implements HeightLayoutRenderer, DirectRenderer {
+    implements HeightLayoutRenderer {
 
 // ///////////////////////////////////////////// constant
 
@@ -34,7 +33,7 @@ public class BoxRenderer extends BoxRendererBase
     return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
@@ -79,7 +78,7 @@ public class BoxRenderer extends BoxRendererBase
     writer.endElement("table");
   }
 
-  public void encodeDirectChildren(FacesContext facesContext,
+  public void encodeChildrenTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
   }
 

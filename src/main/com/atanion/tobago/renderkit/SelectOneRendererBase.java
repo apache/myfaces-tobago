@@ -6,7 +6,6 @@
 package com.atanion.tobago.renderkit;
 
 import com.atanion.tobago.component.ComponentUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

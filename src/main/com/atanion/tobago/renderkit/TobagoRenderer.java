@@ -9,17 +9,17 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public interface DirectRenderer {
+public interface TobagoRenderer {
 
-  public void encodeDirectBegin(FacesContext facesContext,
+  public void encodeBeginTobago(FacesContext facesContext,
       UIComponent component)
       throws IOException;
 
-  public void encodeDirectChildren(FacesContext facesContext,
+  public void encodeChildrenTobago(FacesContext facesContext,
       UIComponent component)
       throws IOException;
 
-  public void encodeDirectEnd(FacesContext facesContext, UIComponent component)
+  public void encodeEndTobago(FacesContext facesContext, UIComponent component)
       throws IOException;
 
 }

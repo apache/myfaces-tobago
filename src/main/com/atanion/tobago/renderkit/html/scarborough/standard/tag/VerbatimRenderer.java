@@ -7,9 +7,7 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RendererBase;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -18,7 +16,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-public class VerbatimRenderer extends RendererBase implements DirectRenderer {
+public class VerbatimRenderer extends RendererBase  {
 
 // ///////////////////////////////////////////// constant
 
@@ -30,7 +28,7 @@ public class VerbatimRenderer extends RendererBase implements DirectRenderer {
 
 // ///////////////////////////////////////////// code
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     LOG.info("HI! " + component.getClientId(facesContext), new Exception());

@@ -7,7 +7,6 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.MessageRendererBase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,8 +18,7 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Iterator;
 
-public class MessagesRenderer extends MessageRendererBase
-    implements DirectRenderer {
+public class MessagesRenderer extends MessageRendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -46,7 +44,7 @@ public class MessagesRenderer extends MessageRendererBase
         : getConfiguredValue(facesContext, component, "fixedHeight");
   }
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     ResponseWriter writer = facesContext.getResponseWriter();

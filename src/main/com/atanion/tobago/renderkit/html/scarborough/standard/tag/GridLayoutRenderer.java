@@ -9,7 +9,6 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIForm;
 import com.atanion.tobago.component.UIGridLayout;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.LayoutManager;
 import com.atanion.tobago.renderkit.RenderUtil;
@@ -32,7 +31,7 @@ import java.util.Map;
 import java.util.Vector;
 
 public class GridLayoutRenderer extends RendererBase
-    implements LayoutManager, HeightLayoutRenderer, DirectRenderer {
+    implements LayoutManager, HeightLayoutRenderer{
 
 // ///////////////////////////////////////////// constant
 
@@ -88,7 +87,7 @@ public class GridLayoutRenderer extends RendererBase
     return height;
   }
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     UIGridLayout layout =  (UIGridLayout) component;

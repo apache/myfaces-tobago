@@ -6,7 +6,6 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.InputRendererBase;
 
 import javax.faces.component.UIComponent;
@@ -14,8 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-public class HiddenRenderer extends InputRendererBase
-    implements DirectRenderer {
+public class HiddenRenderer extends InputRendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -25,7 +23,7 @@ public class HiddenRenderer extends InputRendererBase
 
 // ///////////////////////////////////////////// code
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     String clientId = component.getClientId(facesContext);

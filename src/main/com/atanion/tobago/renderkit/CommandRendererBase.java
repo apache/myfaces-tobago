@@ -6,18 +6,15 @@
 package com.atanion.tobago.renderkit;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.TobagoConstants;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-public class CommandRendererBase extends RendererBase {
+public abstract class CommandRendererBase extends RendererBase {
 
 // ///////////////////////////////////////////// constant
 

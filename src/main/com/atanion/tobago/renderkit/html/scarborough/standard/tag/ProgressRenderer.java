@@ -6,21 +6,18 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RendererBase;
-
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.swing.BoundedRangeModel;
-import javax.swing.DefaultBoundedRangeModel;
+import javax.swing.*;
 import java.io.IOException;
 
-public class ProgressRenderer extends RendererBase implements DirectRenderer {
+public class ProgressRenderer extends RendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -32,7 +29,7 @@ public class ProgressRenderer extends RendererBase implements DirectRenderer {
 
 // ///////////////////////////////////////////// code
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
     UIOutput component = (UIOutput) uiComponent;

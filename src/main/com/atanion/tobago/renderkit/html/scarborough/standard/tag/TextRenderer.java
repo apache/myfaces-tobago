@@ -6,7 +6,6 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
@@ -15,17 +14,16 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
-public class TextRenderer extends RendererBase
-    implements DirectRenderer {
+public class TextRenderer extends RendererBase {
 
 // ------------------------------------------------------------------ constants
 
 // ----------------------------------------------------------------- interfaces
 
 
-// ---------------------------- interface DirectRenderer
+// ---------------------------- interface TobagoRenderer
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
     String text = ComponentUtil.currentValue(component);
     if (text == null) {

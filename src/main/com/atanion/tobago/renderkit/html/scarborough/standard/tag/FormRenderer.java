@@ -9,11 +9,7 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.BodyContentHandler;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RendererBase;
-
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
@@ -21,7 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-public class FormRenderer extends RendererBase implements DirectRenderer {
+public class FormRenderer extends RendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -42,7 +38,7 @@ public class FormRenderer extends RendererBase implements DirectRenderer {
     super.decode(facesContext, form);
   }
 
-  public void encodeDirectEnd(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     ResponseWriter writer = facesContext.getResponseWriter();
