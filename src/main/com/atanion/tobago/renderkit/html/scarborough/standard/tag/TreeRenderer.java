@@ -172,11 +172,12 @@ public class TreeRenderer extends RendererBase
     }
 
 //    writer.startElement("div", null);
-    writer.startElement("table", null);
+    writer.startElement("table", tree);
     writer.writeAttribute("cellpadding", "0", null);
     writer.writeAttribute("cellspacing", "0", null);
     writer.writeAttribute("border", "0", null);
     writer.writeAttribute("summary", "", null);
+    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
     writer.startElement("tr", null);
     writer.startElement("td", null);
     writer.writeAttribute("id", clientId + "-cont", null);

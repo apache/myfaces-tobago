@@ -9,3 +9,10 @@ without a border the div get´s a scrollbar */
 .tobago-textarea-default {
   margin-bottom: -4px;
 }
+
+/* Tree -------------------------------------------------------------------- */
+
+table.tobago-tree-default {
+/* this fixes scroolbar bug in mozilla >= 1.6 */
+  margin: 1px;
+}
