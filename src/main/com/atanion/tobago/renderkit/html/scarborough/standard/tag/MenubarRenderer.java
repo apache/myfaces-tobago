@@ -283,7 +283,7 @@ public class MenubarRenderer extends RendererBase {
         final Application application = facesContext.getApplication();
         checkbox = application.createComponent(UISelectBoolean.COMPONENT_TYPE);
         command.getFacets().put(FACET_CHECKBOX, checkbox);
-        checkbox.setRendererType("CheckBox");
+        checkbox.setRendererType("Checkbox");
         checkbox.setValueBinding(ATTR_VALUE, valueBinding);
       }
     }

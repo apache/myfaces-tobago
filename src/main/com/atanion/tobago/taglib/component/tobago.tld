@@ -432,7 +432,7 @@
 
   <tag>
     <name>checkbox</name>
-    <tag-class>com.atanion.tobago.taglib.component.CheckBoxTag</tag-class>
+    <tag-class>com.atanion.tobago.taglib.component.CheckboxTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -1403,7 +1403,7 @@
 
   <tag>
     <name>checkboxGroup</name>
-    <tag-class>com.atanion.tobago.taglib.component.CheckBoxGroupTag</tag-class>
+    <tag-class>com.atanion.tobago.taglib.component.CheckboxGroupTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>value</name>
