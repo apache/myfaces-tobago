@@ -11,13 +11,20 @@ function setFormAction(form, action) {
 }
 
 function submitAction(formId, actionId) {
+  setAction(formId, actionId);
+  var form = document.getElementById(formId);
+  if (form) {
+    form.submit();
+  }
+}
+
+function setAction(formId, actionId) {
   var form = document.getElementById(formId);
   if (form) {
     var hidden = document.getElementById(formId + '-action');
     if (hidden) {
       hidden.value = actionId;
     }
-    form.submit();
   }
 }
 

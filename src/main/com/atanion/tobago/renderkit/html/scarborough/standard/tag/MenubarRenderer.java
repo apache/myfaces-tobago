@@ -477,7 +477,7 @@ public class MenubarRenderer extends RendererBase {
 
   }
 
-  public static String createOnClick(FacesContext facesContext,
+  private String createOnClick(FacesContext facesContext,
       UIComponent component) {
     String type = (String) component.getAttributes().get(ATTR_TYPE);
     String command = (String) component.getAttributes().get(ATTR_ACTION_STRING);

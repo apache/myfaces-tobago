@@ -13,6 +13,7 @@ import com.atanion.tobago.renderkit.CommandRendererBase;
 import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
@@ -120,7 +121,7 @@ public class ToolbarRenderer extends RendererBase {
     if (popupMenu != null) {
       spanClass += " tobago-toolbar-button-popup-span";
     }
-    String onClick = ButtonRenderer.createOnClick(facesContext, command);
+    String onClick = createOnClick(facesContext, command);
     onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
             facesContext);
 
@@ -185,6 +186,28 @@ public class ToolbarRenderer extends RendererBase {
 
   private boolean isMsie(FacesContext facesContext) {
     return ClientProperties.getInstance(facesContext).getUserAgent().toString().startsWith(UserAgent.MSIE.toString());
+  }
+
+  private String createOnClick(FacesContext facesContext,
+      UIComponent component) {
+    String type = (String) component.getAttributes().get(ATTR_TYPE);
+    String command = (String) component.getAttributes().get(ATTR_COMMAND_NAME);
+    String clientId = component.getClientId(facesContext);
+    String onclick;
+
+    if (COMMAND_TYPE_NAVIGATE.equals(type)) {
+      onclick = "navigateToUrl('"
+          + HtmlUtils.generateUrl(facesContext, command) + "')";
+    } else if (COMMAND_TYPE_RESET.equals(type)) {
+      onclick = null;
+    } else if (COMMAND_TYPE_SCRIPT.equals(type)) {
+      onclick = command;
+    } else { // default: Action.TYPE_SUBMIT
+      onclick = "submitAction('" +
+          ComponentUtil.findPage(component).getFormId(facesContext) +
+          "','" + clientId + "')";
+    }
+    return onclick;
   }
 
 // ///////////////////////////////////////////// bean getter + setter

@@ -1,3 +1,6 @@
+1.0.2 - 15.12.2004
+* bugfix: submit button in IE makes double submit
+
 1.0.1 - 15.12.2004
 * eleminate "SNAPSHOT" dependencies
 

@@ -13,13 +13,14 @@ import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class ButtonRenderer extends CommandRendererBase {
 
@@ -113,11 +114,13 @@ public class ButtonRenderer extends CommandRendererBase {
     return buttonType;
   }
 
-  public static String createOnClick(FacesContext facesContext,
+  private String createOnClick(FacesContext facesContext,
       UIComponent component) {
     String type = (String) component.getAttributes().get(ATTR_TYPE);
     String command = (String) component.getAttributes().get(ATTR_COMMAND_NAME);
     String clientId = component.getClientId(facesContext);
+    boolean defaultCommand = ComponentUtil.getBooleanAttribute(component,
+        ATTR_DEFAULT_COMMAND);
     String onclick;
 
     if (COMMAND_TYPE_NAVIGATE.equals(type)) {
@@ -127,7 +130,11 @@ public class ButtonRenderer extends CommandRendererBase {
       onclick = null;
     } else if (COMMAND_TYPE_SCRIPT.equals(type)) {
       onclick = command;
-    } else { // default: Action.TYPE_SUBMIT
+    } else if (defaultCommand) {
+      onclick = "setAction('" +
+          ComponentUtil.findPage(component).getFormId(facesContext) +
+          "','" + clientId + "')";
+    } else {
       onclick = "submitAction('" +
           ComponentUtil.findPage(component).getFormId(facesContext) +
           "','" + clientId + "')";
