@@ -7,10 +7,6 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.el.ElUtil;
-//import com.atanion.tobago.taglib.core.ViewTag;
-import com.atanion.util.ObjectUtils;
-import com.sun.faces.taglib.jsf_core.ViewTag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,17 +18,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
-import java.util.Stack;
 
 public abstract class TobagoTag extends UIComponentTag {
 
 // /////////////////////////////////////////// constants
 
   private static Log LOG = LogFactory.getLog(TobagoTag.class);
-
-  private static String TAG_STACK
-      = "com.atanion.tobago.taglib.component.TobagoTag.TAG_STACK";
 
 // /////////////////////////////////////////// attributes
 
