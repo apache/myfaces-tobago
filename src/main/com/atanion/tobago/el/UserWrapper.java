@@ -27,7 +27,9 @@ public class UserWrapper {
   public Principal getPrincipal() {
     FacesContext facesContext = FacesContext.getCurrentInstance();
     Principal principal = facesContext.getExternalContext().getUserPrincipal();
-    LOG.info("getPrincipal(): " + principal);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("getPrincipal(): " + principal);
+    }
     return principal;
   }
 
@@ -41,7 +43,9 @@ public class UserWrapper {
       String role = (String) key;
       FacesContext facesContext = FacesContext.getCurrentInstance();
       boolean inRole = facesContext.getExternalContext().isUserInRole(role);
-      LOG.info("inRole: " + inRole);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("inRole: " + inRole);
+      }
       return new Boolean(inRole);
     }
 
