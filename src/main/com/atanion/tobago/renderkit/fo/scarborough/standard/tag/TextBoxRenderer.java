@@ -1,14 +1,13 @@
 package com.atanion.tobago.renderkit.fo.scarborough.standard.tag;
 
+import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.component.UIComponent;
 import java.io.IOException;
 
 /**
@@ -27,6 +26,7 @@ public class TextBoxRenderer extends InputRendererBase {
     Layout layout = Layout.getLayout(component.getParent());
     Layout in = layout.createWithMargin(0,0,0,0);
     in.setParent(layout);
+
     if (label != null) {
       FoUtils.startBlockContainer(writer, component);
       FoUtils.layoutBlockContainer(writer, FoUtils.DEFAULT_HEIGHT,layout.getWidth()/2, layout.getX(), layout.getY() );
