@@ -16,15 +16,16 @@
         <include name="**/*.class"/>
         <exclude name="com/atanion/tobago/renderkit/html/*/**/*.class"/>
         <exclude name="com/atanion/tobago/renderkit/wml/*/**/*.class"/>
+        <exclude name="com/atanion/tobago/module/**/*.class"/>
+      </fileset>
+      <fileset dir="${src.main}">
+        <include name="com/atanion/tobago/config/tobago-config_1_0.dtd"/>
       </fileset>
       <metainf dir="${src.main}/com/atanion/tobago">
         <include name="faces-config.xml"/>
       </metainf>
       <metainf dir="${src.main}/com/atanion/tobago/taglib/component">
         <include name="tobago.tld"/>
-      </metainf>
-      <metainf dir="${src.main}/com/atanion/tobago/taglib/core">
-        <include name="tobago-core.tld"/>
       </metainf>
     </jar>
 

@@ -6,7 +6,6 @@
 package com.atanion.tobago.webapp;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.config.FacesConfigParser;
 import com.atanion.tobago.config.TobagoConfig;
 import com.atanion.tobago.config.TobagoConfigParser;
 import com.atanion.tobago.context.ResourceManager;
@@ -19,7 +18,6 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.ServletException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Properties;
@@ -56,42 +54,6 @@ public class TobagoServletContextListener implements ServletContextListener {
     TobagoServletMapping mapping = new TobagoServletMapping(servletContext);
     servletContext.setAttribute(
         TobagoServletMapping.TOBAGO_SERVLET_MAPPING, mapping);
-
-    // which is the base implemetanion of faces?
-    String facesRuntime = (String)
-        event.getServletContext().getInitParameter("faces-runtime");
-    if (facesRuntime == null) { // default
-      facesRuntime = "other";
-    }
-
-    if (facesRuntime.equals("tobago")) {
-      // faces-ri-config.xml and faces-config.xml
-      InputStream[] configStreams = new InputStream[2];
-      try {
-        configStreams[0] =
-            getClass().getClassLoader().getResourceAsStream(
-                "com/atanion/tobago/faces-ri-config.xml");
-        configStreams[1] =
-            servletContext.getResourceAsStream("/WEB-INF/faces-config.xml");
-        FacesConfigParser facesConfigParser = new FacesConfigParser();
-        String url = servletContext.getResource(
-            "/WEB-INF/dtd/web-facesconfig_1_0.dtd").toString();
-        facesConfigParser.init(configStreams, url);
-      } catch (Exception e) {
-        LOG.error("", e);
-        throw new RuntimeException(e);
-      } finally {
-        for (int i = 0; i < configStreams.length; i++) {
-          try {
-            if (configStreams[i] != null) {
-              configStreams[i].close();
-            }
-          } catch (IOException e) {
-            LOG.warn(e);
-          }
-        }
-      }
-    }
 
     // tobago-config.xml
     TobagoConfigParser tobagoConfigParser = new TobagoConfigParser();

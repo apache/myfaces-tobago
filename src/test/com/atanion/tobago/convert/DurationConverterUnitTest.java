@@ -5,12 +5,14 @@
  */
 package com.atanion.tobago.convert;
 
+import junit.framework.TestCase;
+
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.UIInput;
 
 import javax.faces.convert.Converter;
 
-public class DurationConverterUnitTest extends ConverterUnitTestBase {
+public class DurationConverterUnitTest extends TestCase {
 
 // ///////////////////////////////////////////// constant
 
@@ -62,7 +64,7 @@ public class DurationConverterUnitTest extends ConverterUnitTestBase {
     if (unit != null) {
       input.getAttributes().put(TobagoConstants.ATTR_UNIT, unit);
     }
-    result = converter.getAsString(facesContext, input, aLong);
+    result = converter.getAsString(null, input, aLong);
     assertEquals(info, string, result);
   }
 
@@ -75,7 +77,7 @@ public class DurationConverterUnitTest extends ConverterUnitTestBase {
     if (unit != null) {
       input.getAttributes().put(TobagoConstants.ATTR_UNIT, unit);
     }
-    result = (Long) converter.getAsObject(facesContext, input, string);
+    result = (Long) converter.getAsObject(null, input, string);
     assertEquals(info, aLong, result);
   }
 

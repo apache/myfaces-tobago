@@ -14,14 +14,13 @@ import javax.faces.webapp.FacesServlet;
 import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class TobagoServletMapping {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log log = LogFactory.getLog(TobagoServletMapping.class);
+  private static Log LOG = LogFactory.getLog(TobagoServletMapping.class);
 
 
   public static final String TOBAGO_SERVLET_MAPPING
@@ -48,21 +47,21 @@ public class TobagoServletMapping {
     digester.setNamespaceAware(true);
     digester.setValidating(false);
 
-    final String WEB_APP_DTD = "/WEB-INF/dtd/web-app_2_3.dtd";
+    final String WEB_APP_DTD = "/javax/servlet/resources/web-app_2_3.dtd";
     URL url;
     try {
-      url = context.getResource(WEB_APP_DTD);
+      url = ServletContext.class.getResource(WEB_APP_DTD);
       if (null != url) {
         digester.register("-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN",
             url.toString());
       } else {
-        if (log.isWarnEnabled()) {
-          log.warn("unable to retrieve local DTD '" + WEB_APP_DTD + "'; trying external URL");
+        if (LOG.isWarnEnabled()) {
+          LOG.warn("unable to retrieve local DTD '" + WEB_APP_DTD + "'; trying external URL");
         }
       }
-    } catch (MalformedURLException e) {
-      if (log.isErrorEnabled()) {
-        log.error("unable to retrieve DTD '" + WEB_APP_DTD + "'", e);
+    } catch (Exception e) {
+      if (LOG.isErrorEnabled()) {
+        LOG.error("unable to retrieve DTD '" + WEB_APP_DTD + "'", e);
       }
       // alternativly use approach below: retrieve dtd from classes
     }
@@ -96,8 +95,8 @@ public class TobagoServletMapping {
       input = context.getResourceAsStream("/WEB-INF/web.xml");
       digester.parse(input);
     } catch (Throwable e) {
-      if (log.isErrorEnabled()) {
-        log.error("configWebXml", e);
+      if (LOG.isErrorEnabled()) {
+        LOG.error("configWebXml", e);
       }
     } finally {
       if (input != null) {
@@ -119,13 +118,13 @@ public class TobagoServletMapping {
 
   public void addServlet(String servletName, String servletClass) {
 
-    if (log.isDebugEnabled()) {
-      log.debug("addServlet(" + servletName + "," + servletClass + ")");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("addServlet(" + servletName + "," + servletClass + ")");
     }
     if (FacesServlet.class.getName().equals(servletClass)) {
       if (this.servletName != null) {
-        if (log.isWarnEnabled()) {
-          log.warn("Overwriting servlet name from '" + this.servletName
+        if (LOG.isWarnEnabled()) {
+          LOG.warn("Overwriting servlet name from '" + this.servletName
               + "' with '" + servletName + "'");
         }
       }
@@ -135,8 +134,8 @@ public class TobagoServletMapping {
 
   public void addServletMapping(String servletName, String urlPattern) {
 
-    if (log.isDebugEnabled()) {
-      log.debug("addServletMapping(" + servletName + "," + urlPattern + ")");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("addServletMapping(" + servletName + "," + urlPattern + ")");
     }
     if (this.servletName.equals(servletName)) {
 
@@ -146,10 +145,10 @@ public class TobagoServletMapping {
       }
 
       if (urlPrefix != null) {
-        if (log.isWarnEnabled()) {
-          log.warn("Ambiguous servletmapping! Can't find unique pattern for "
+        if (LOG.isWarnEnabled()) {
+          LOG.warn("Ambiguous servletmapping! Can't find unique pattern for "
               + "servlet-name='" + servletName + "' in web.xml!");
-          log.warn("Possible values are '" + urlPattern + "' and '"
+          LOG.warn("Possible values are '" + urlPattern + "' and '"
               + urlPrefix + "/*" + "'");
         }
       }
