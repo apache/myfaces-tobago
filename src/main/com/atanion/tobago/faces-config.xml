@@ -17,11 +17,14 @@
       com.sun.faces.lifecycle.LifecycleFactoryImpl
     </lifecycle-factory>
     <render-kit-factory>
-      com.atanion.tobago.renderkit.RenderKitFactoryImpl
+      com.sun.faces.renderkit.RenderKitFactoryImpl
     </render-kit-factory>
   </factory>
 
   <application>
+    <default-render-kit-id>
+      tobago
+    </default-render-kit-id>
     <action-listener>
       com.sun.faces.application.ActionListenerImpl
     </action-listener>
@@ -38,9 +41,15 @@
       com.sun.faces.el.VariableResolverImpl
     </variable-resolver>
     <view-handler>
-      com.atanion.tobago.application.ViewHandlerImpl
+      com.sun.faces.application.ViewHandlerImpl
     </view-handler>
   </application>
+
+  <lifecycle>
+    <phase-listener>
+      com.atanion.tobago.event.ClientPropertiesPhaseListener
+    </phase-listener>
+  </lifecycle>
 
   <component>
     <component-type>javax.faces.Input</component-type>
@@ -83,5 +92,18 @@
     <converter-for-class>java.util.Locale</converter-for-class>
     <converter-class>com.atanion.tobago.convert.LocaleConverter</converter-class>
   </converter>
+
+  <render-kit>
+    <render-kit-id>tobago</render-kit-id>
+    <render-kit-class>com.atanion.tobago.renderkit.TobagoRenderKit</render-kit-class>
+    <renderer>
+      <renderer-type>Page</renderer-type>
+      <renderer-class>com.atanion.tobago.renderkit.html.scarborough.standard.tag.PageRenderer</renderer-class>
+    </renderer>
+    <renderer>
+      <renderer-type>Text</renderer-type>
+      <renderer-class>com.atanion.tobago.renderkit.html.scarborough.standard.tag.TextRenderer</renderer-class>
+    </renderer>
+  </render-kit>
 
 </faces-config>

@@ -196,7 +196,7 @@ public class RendererBase extends Renderer {
 
   private LayoutManager getDefaultLayoutManager(FacesContext facesContext) {
     LayoutManager layoutManager = null;
-    String contentType = ClientProperties.getInstance(facesContext)
+    String contentType = ClientProperties.getInstance(facesContext.getViewRoot())
         .getContentType();
     if (contentType.equals("html")) {
       layoutManager = new HtmlDefaultLayoutManager();
@@ -272,7 +272,7 @@ public class RendererBase extends Renderer {
       return ThemeConfig.getInstance().getValue(facesContext, component, key);
     } catch (Exception e) {
       LOG.error("Can't take \"" + key + "\" for " + getClass().getName()
-          + " from config-file :" + e.getMessage() + " " + e.getStackTrace()[0]);
+          + " from config-file :" + e.getMessage() + " " + e.getStackTrace()[0], e);
     }
     return 0;
   }

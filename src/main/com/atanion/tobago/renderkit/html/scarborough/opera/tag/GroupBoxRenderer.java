@@ -56,7 +56,8 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
       }
       writer.endElement("b");
       writer.endElement("legend");
-      if (! ClientProperties.getInstance(facesContext).getUserAgent().equals(UserAgent.OPERA_7_11)) {
+      if (! ClientProperties.getInstance(facesContext.getViewRoot())
+          .getUserAgent().equals(UserAgent.OPERA_7_11)) {
         writer.startElement("br", null);
         writer.endElement("br");
       }

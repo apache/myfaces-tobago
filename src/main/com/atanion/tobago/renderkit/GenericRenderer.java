@@ -1,0 +1,22 @@
+/*
+ * Copyright (c) 2003 Atanion GmbH, Germany
+ * All rights reserved. Created 14.06.2004 10:41:44.
+ * $Id$
+ */
+package com.atanion.tobago.renderkit;
+
+import javax.faces.render.Renderer;
+
+public class GenericRenderer extends Renderer {
+
+// ///////////////////////////////////////////// constant
+
+// ///////////////////////////////////////////// attribute
+
+// ///////////////////////////////////////////// constructor
+
+// ///////////////////////////////////////////// code
+
+// ///////////////////////////////////////////// bean getter + setter
+
+}

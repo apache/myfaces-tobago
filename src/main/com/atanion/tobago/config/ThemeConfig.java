@@ -6,8 +6,11 @@
 package com.atanion.tobago.config;
 
 
+import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.ResourceManager;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.TobagoRenderKit;
+import com.atanion.tobago.TobagoConstants;
 import com.atanion.util.SystemUtils;
 
 import org.apache.commons.logging.Log;
@@ -16,6 +19,7 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.FactoryFinder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
@@ -57,7 +61,9 @@ public class ThemeConfig {
     } else {
       rendererType = "DEFAULT";
     }
-    String mapKey = facesContext.getViewRoot().getRenderKitId() + "/"
+    String clientProperties = facesContext.getViewRoot().getAttributes().get(
+        TobagoConstants.ATTR_CLIENT_PROPERTIES).toString();
+    String mapKey = clientProperties + "/"
         + rendererType + "/" + name;
     Integer value = (Integer) valueMap.get(mapKey);
     if (value == null) {
@@ -70,11 +76,11 @@ public class ThemeConfig {
   private Integer createValue(FacesContext facesContext, UIComponent component,
       String name) {
 
-    String renderKitId = facesContext.getViewRoot().getRenderKitId();
 
     RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(
         "javax.faces.render.RenderKitFactory");
-    RenderKit renderKit = rkFactory.getRenderKit(facesContext, renderKitId);
+    RenderKit renderKit = rkFactory.getRenderKit(facesContext,
+        TobagoRenderKit.RENDER_KIT_ID);
     String family;
     String rendererType;
     if (component != null) {
@@ -88,17 +94,20 @@ public class ThemeConfig {
 
     Class clazz = renderer.getClass();
     if (LOG.isDebugEnabled()) {
-      LOG.debug("search for " + name + " in " + clazz.getName());
+      LOG.debug("search for '" + name + "' in '" + clazz.getName() + "'");
     }
+    ResourceManager resourceManager = ResourceManager.getInstance();
+    UIViewRoot viewRoot = facesContext.getViewRoot();
+    ClientProperties clientProperties
+        = ClientProperties.getInstance(viewRoot);
     while (clazz != null) {
       String tag = getTagName(clazz);
       if (LOG.isDebugEnabled()) {
         LOG.debug("try " + tag);
       }
 
-      ResourceManager resourceManager = ResourceManager.getInstance();
       String property = resourceManager.getThemeProperty(
-          renderKitId, "tobago-theme-config" , tag + "." + name);
+          clientProperties, "tobago-theme-config" , tag + "." + name);
 
       if (property != null && property.length() > 0) {
         if (LOG.isDebugEnabled()) {
@@ -109,7 +118,7 @@ public class ThemeConfig {
       clazz = clazz.getSuperclass();
     }
     LOG.error("Theme property not found for renderer: " + renderer.getClass() +
-        " with renderKitId='" + renderKitId + "'");
+        " with clientProperties='" + clientProperties + "'");
     return null;
   }
 

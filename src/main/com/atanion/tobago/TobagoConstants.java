@@ -18,6 +18,7 @@ public class TobagoConstants {
   public static final String ATTR_CHARSET = "charset";
   public static final String ATTR_CELLSPACING = "layoutCellspacing";
   public static final String ATTR_CLASSES_BLOCKS = "cssClassesBlocks";
+  public static final String ATTR_CLIENT_PROPERTIES = "clientProperties";
   public static final String ATTR_COLUMN_COUNT = "columnCount";
   public static final String ATTR_COLUMN_LAYOUT = "colunmLayout";
   public static final String ATTR_COMMAND_NAME = "commandName";

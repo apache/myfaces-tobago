@@ -94,7 +94,7 @@ public class ViewHandlerImpl extends ViewHandler {
 
   private String createRenderKitId(FacesContext facesContext) {
     StringBuffer buffer = new StringBuffer();
-    ClientProperties client = ClientProperties.getInstance(facesContext);
+    ClientProperties client = null;//fixme ClientProperties.getInstance(facesContext);
     buffer.append(client.getContentType());
     buffer.append('/');
     buffer.append(client.getTheme());
@@ -113,7 +113,7 @@ public class ViewHandlerImpl extends ViewHandler {
 
     // fixme: is this good?
     // get the configured locale
-    ClientProperties client = ClientProperties.getInstance(facesContext);
+    ClientProperties client = null;//fixme: ClientProperties.getInstance(facesContext);
     result = findLocaleInApplication(facesContext, client.getLocale());
 
     if (result == null) {

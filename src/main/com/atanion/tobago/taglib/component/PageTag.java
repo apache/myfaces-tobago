@@ -70,7 +70,7 @@ public class PageTag extends TobagoBodyTag {
   public static String generateContentType(String charset) {
     StringBuffer sb = new StringBuffer("text/");
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    sb.append(ClientProperties.getInstance(facesContext).getContentType());
+    sb.append(ClientProperties.getInstance(facesContext.getViewRoot()).getContentType());
     if (charset == null) {
       charset = "UTF-8";
     }

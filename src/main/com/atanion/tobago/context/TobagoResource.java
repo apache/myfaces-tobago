@@ -21,8 +21,9 @@ public class TobagoResource {
 
   public static String getProperty(
       FacesContext facesContext, String bundle, String key) {
-    String renderKitId = facesContext.getViewRoot().getRenderKitId();
-    String result = ResourceManager.getInstance().getProperty(renderKitId, bundle, key);
+    String clientProperties = ClientProperties.getInstance(
+        facesContext.getViewRoot()).toString();
+    String result = ResourceManager.getInstance().getProperty(clientProperties, bundle, key);
     if (result != null) {
       return result;
     } else {
@@ -31,21 +32,24 @@ public class TobagoResource {
   }
 
   public static String getJsp(FacesContext facesContext, String key) {
-    String renderKitId = facesContext.getViewRoot().getRenderKitId();
-    return ResourceManager.getInstance().getJsp(renderKitId, key);
+    String clientProperties = ClientProperties.getInstance(
+        facesContext.getViewRoot()).toString();
+    return ResourceManager.getInstance().getJsp(clientProperties, key);
   }
 
   public static String getImage(FacesContext facesContext, String name) {
-    String renderKitId = facesContext.getViewRoot().getRenderKitId();
+    String clientProperties = ClientProperties.getInstance(
+        facesContext.getViewRoot()).toString();
     String returnValue = facesContext.getExternalContext().getRequestContextPath() +
-        ResourceManager.getInstance().getImage(renderKitId, name);
+        ResourceManager.getInstance().getImage(clientProperties, name);
     return returnValue;
   }
 
   public static List getStyles(FacesContext facesContext, String name) {
-    String renderKitId = facesContext.getViewRoot().getRenderKitId();
+    String clientProperties = ClientProperties.getInstance(
+        facesContext.getViewRoot()).toString();
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
-    String[] styles = ResourceManager.getInstance().getStyles(renderKitId,
+    String[] styles = ResourceManager.getInstance().getStyles(clientProperties,
         name);
 
     List withContext = new ArrayList(styles.length);
@@ -56,12 +60,12 @@ public class TobagoResource {
   }
 
   public static String getScript(FacesContext facesContext, String name) {
-    String renderKitId = facesContext.getViewRoot().getRenderKitId();
+    String clientProperties = ClientProperties.getInstance(
+        facesContext.getViewRoot()).toString();
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
     return contextPath +
-        ResourceManager.getInstance().getScript(renderKitId, name);
+        ResourceManager.getInstance().getScript(clientProperties, name);
   }
-
 
 // ///////////////////////////////////////////// bean getter + setter
 

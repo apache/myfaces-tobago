@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit;
 
 import com.atanion.tobago.context.ResourceManager;
+import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import org.apache.commons.logging.Log;
@@ -13,6 +14,7 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.faces.context.ResponseStream;
 import javax.faces.context.ResponseWriter;
+import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
 import javax.faces.render.Renderer;
 import javax.faces.render.ResponseStateManager;
@@ -25,6 +27,8 @@ public class TobagoRenderKit extends RenderKit {
 
   private static final Log LOG = LogFactory.getLog(TobagoRenderKit.class);
 
+  public static final String RENDER_KIT_ID = "tobago";
+
   public static final String PACKAGE_PREFIX
       = TobagoRenderKit.class.getName().substring(
           0,
@@ -34,27 +38,28 @@ public class TobagoRenderKit extends RenderKit {
 
 // ///////////////////////////////////////////// attribute
 
-  private String renderKitId;
-
 // ///////////////////////////////////////////// constructor
-
-  public TobagoRenderKit(String renderKitId) {
-    this.renderKitId = renderKitId;
-  }
 
 // ///////////////////////////////////////////// code
 
-
-
   // fixme: use family
   public Renderer getRenderer(String family, String rendererType) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("family = '" + family + "'");
+    }
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("rendererType = '" + rendererType + "'");
+    }
+
     String type = rendererType + "Renderer";
     if (type.startsWith("javax.faces.")) { // fixme: this is a hotfix from jsf1.0beta to jsf1.0fr
       type = type.substring("javax.faces.".length());
     }
     ResourceManager resources = ResourceManager.getInstance();
-//    Log.info("- - snip - - - - - - - - - - - - - - - - - - - - - - - - - - " + type);
-    Renderer renderer = resources.getRenderer(renderKitId, type);
+
+    String clientProperties = ClientProperties.getInstance(
+        FacesContext.getCurrentInstance().getViewRoot()).toString();
+    Renderer renderer = resources.getRenderer(clientProperties, type);
     if (renderer == null) {
       LOG.error(
           "The class witch was found by the ResourceManager can't be " +
@@ -82,6 +87,9 @@ public class TobagoRenderKit extends RenderKit {
 // ///////////////////////////////////////////// todo
 
   public void addRenderer(String family, String rendererType, Renderer renderer) {
+//    synchronized(renderers) {
+//      renderers.put(family + SEP + rendererType, renderer);
+//    }
     LOG.debug("addRenderer family='" + family
         + "' rendererType='" + rendererType + "'");
     LOG.error(

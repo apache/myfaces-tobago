@@ -13,6 +13,7 @@ import org.apache.commons.logging.LogFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.faces.context.FacesContext;
+import javax.faces.component.UIViewRoot;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
@@ -22,7 +23,7 @@ public class ClientProperties {
 
 // ///////////////////////////////////////////// constants
 
-  private static final String IN_SESSION_KEY = ClientProperties.class.getName();
+  private static final String CLIENT_PROPERTIES_KEY = ClientProperties.class.getName();
 
   private static final Log LOG = LogFactory.getLog(ClientProperties.class);
 
@@ -37,17 +38,6 @@ public class ClientProperties {
 // ///////////////////////////////////////////// constructors
 
   private ClientProperties(HttpServletRequest request, HttpSession session) {
-
-//    log.debug("*************************************************");
-//    log.debug("* Request headers");
-//    log.debug("*************************************************");
-//    Enumeration e = request.getHeaderNames();
-//    while (e.hasMoreElements()) {
-//      String name = (String) e.nextElement();
-//      log.debug("* " + name + " = " + request.getHeader(name));
-//    }
-//    log.debug("*************************************************");
-
 
     String accept = request.getHeader("Accept");
     LOG.info("Accept = '" + accept + "'");
@@ -79,21 +69,42 @@ public class ClientProperties {
 
 // ///////////////////////////////////////////// logic
 
-  public static ClientProperties getInstanceFromSession(
+  public static ClientProperties getInstance(UIViewRoot viewRoot) {
+
+    ClientProperties instance = (ClientProperties)
+        viewRoot.getAttributes().get(TobagoConstants.ATTR_CLIENT_PROPERTIES);
+    if (instance != null) {
+      instance.setLocale(viewRoot.getLocale());
+    }
+    return instance;
+  }
+
+  public static ClientProperties getInstance(
       HttpServletRequest request) {
 
-    HttpSession session = request.getSession();
-    ClientProperties client
-        = (ClientProperties) session.getAttribute(IN_SESSION_KEY);
+    HttpSession session = request.getSession(false);
+
+    ClientProperties client = null;
+
+    if (session != null) {
+      client = (ClientProperties) session.getAttribute(CLIENT_PROPERTIES_KEY);
+    }
+    if (client == null) {
+      client = (ClientProperties) request.getAttribute(CLIENT_PROPERTIES_KEY);
+    }
     if (client == null) {
       client = new ClientProperties(request, session);
-      session.setAttribute(IN_SESSION_KEY, client);
+      if (session != null) {
+        session.setAttribute(CLIENT_PROPERTIES_KEY, client);
+      } else {
+        request.setAttribute(CLIENT_PROPERTIES_KEY, client);
+      }
     }
     return client;
   }
 
   public static ClientProperties getInstance(FacesContext facesContext) {
-    return getInstanceFromSession(
+    return getInstance(
         (HttpServletRequest) facesContext.getExternalContext().getRequest());
   }
 
@@ -145,24 +156,22 @@ public class ClientProperties {
       locales.add(prefix + locale);
     }
 
-//    String variant = locale.getVariant();
-//    String country = locale.getCountry();
-//    String language = locale.getLanguage();
-//    if (variant.length() > 0) {
-//      locales.add((propertyPathMode ? "" : "_") + language + "_" + country + "_" + variant);
-//    }
-//    if (country.length() > 0) {
-//      locales.add((propertyPathMode ? "" : "_") + language + "_" + country);
-//    }
-//    if (language.length() > 0) {
-//      locales.add((propertyPathMode ? "" : "_") + language);
-//    }
-
     locales.add(propertyPathMode ? "default" : ""); // default suffix
 
     return locales;
   }
 
+  public String toString() {
+    StringBuffer buffer = new StringBuffer();
+    buffer.append(getContentType());
+    buffer.append('/');
+    buffer.append(getTheme());
+    buffer.append('/');
+    buffer.append(getUserAgent());
+    buffer.append('/');
+    buffer.append(getLocale());
+    return buffer.toString();
+  }
 
 // ///////////////////////////////////////////// bean getter + setter
 

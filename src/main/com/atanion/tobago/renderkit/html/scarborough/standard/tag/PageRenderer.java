@@ -238,12 +238,13 @@ public class PageRenderer extends PageRendererBase implements DirectRenderer {
     writer.writeAttribute("value", "", null);
     writer.endElement("input");
 
-    writer.startElement("input", null);
-    writer.writeAttribute("type", "hidden", null);
-    writer.writeAttribute("name", "tobago::page-id", null);
-    writer.writeAttribute("id", "tobago::page-id", null);
-    writer.writeAttribute("value", facesContext.getViewRoot().getAttributes().get("tobago::page-id"), null);
-    writer.endElement("input");
+// todo: this is needed for the "BACK-BUTTON-PROBLEM"
+//    writer.startElement("input", null);
+//    writer.writeAttribute("type", "hidden", null);
+//    writer.writeAttribute("name", "tobago::page-id", null);
+//    writer.writeAttribute("id", "tobago::page-id", null);
+//    writer.writeAttribute("value", facesContext.getViewRoot().getAttributes().get("tobago::page-id"), null);
+//    writer.endElement("input");
 
     // write the proviously rendered page content 
     writer.write(content.toString());
@@ -251,7 +252,7 @@ public class PageRenderer extends PageRendererBase implements DirectRenderer {
     writer.endElement("form");
 
     // debugging...
-    if (ClientProperties.getInstance(FacesContext.getCurrentInstance())
+    if (ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot())
         .isDebugMode()) {
       for (Iterator ids = facesContext.getClientIdsWithMessages();
           ids.hasNext();) {

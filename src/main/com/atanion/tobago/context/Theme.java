@@ -72,13 +72,6 @@ public class Theme {
     }
   }
 
-  /** not very nice */
-  public static String fromRenderKitId(String renderKitId) {
-    StringTokenizer tokenizer = new StringTokenizer(renderKitId, "/");
-    tokenizer.nextToken(); // ignore contentType
-    return tokenizer.nextToken();
-  }
-
 // ///////////////////////////////////////////// from object
 
   public String toString() {

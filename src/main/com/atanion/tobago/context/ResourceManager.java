@@ -63,12 +63,12 @@ public class ResourceManager {
     resourceList.put(resourceKey, value);
   }
 
-  public Renderer getRenderer(String renderKitId, String name) {
+  public Renderer getRenderer(String clientProperties, String name) {
 
     final String type = "tag";
     Renderer renderer;
 
-    String key = key(renderKitId, type, name);
+    String key = key(clientProperties, type, name);
 //    Log.debug("key=" + key);
     if ((renderer = (Renderer) cache.get(key)) != null) {
       return renderer;
@@ -76,46 +76,46 @@ public class ResourceManager {
 
     try {
       Class clazz = (Class) getPaths(
-          renderKitId, classDirectories, "", type, name,
+          clientProperties, classDirectories, "", type, name,
           "", false, true, true, null, false, false).get(0);
       renderer = (Renderer) clazz.newInstance();
       cache.put(key, renderer);
     } catch (Exception e) {
-      LOG.error("name = '" + name + "' renderKitId = '" + renderKitId + "'", e);
+      LOG.error("name = '" + name + "' clientProperties = '" + clientProperties + "'", e);
       throw new RuntimeException(name, e);
     }
     return renderer;
   }
 
-  public String getJsp(String renderKitId, String name) {
+  public String getJsp(String clientProperties, String name) {
     final String type = "jsp";
     String result;
-    String key = key(renderKitId, type, name);
+    String key = key(clientProperties, type, name);
 //    Log.debug("key=" + key);
     if ((result = (String) cache.get(key)) != null) {
       return result;
     }
     try {
       result = (String) getPaths(
-          renderKitId, resourceDirectories, "",
+          clientProperties, resourceDirectories, "",
           type, name,
           "", false, true, true, null, true, false).get(0);
       cache.put(key, result);
     } catch (Exception e) {
-      LOG.error("name = '" + name + "' renderKitId = '" + renderKitId + "'", e);
+      LOG.error("name = '" + name + "' clientProperties = '" + clientProperties + "'", e);
     }
     return result;
   }
 
-  public String getProperty(String renderKitId, String bundle, String propertyKey) {
+  public String getProperty(String clientProperties, String bundle, String propertyKey) {
     final String type = "property";
     String result;
-    String key = key(renderKitId, type, bundle, propertyKey);
+    String key = key(clientProperties, type, bundle, propertyKey);
     if ((result = (String) cache.get(key)) != null) {
       return result;
     }
     List properties = getPaths(
-        renderKitId, resourceDirectories, "", type, bundle,
+        clientProperties, resourceDirectories, "", type, bundle,
         "", false, true, false, propertyKey, true, false);
     if (properties != null) {
       result = (String) properties.get(0);
@@ -127,15 +127,15 @@ public class ResourceManager {
   }
 
   public String getThemeProperty(
-      String renderKitId, String bundle, String propertyKey) {
+      ClientProperties clientProperties, String bundle, String propertyKey) {
     final String type = "property";
     String result;
-    String key = key(renderKitId, type, bundle, propertyKey);
+    String key = key(clientProperties.toString(), type, bundle, propertyKey);
     if ((result = (String) cache.get(key)) != null) {
       return result;
     }
     List properties = getPaths(
-        renderKitId, resourceDirectories, "", type, bundle,
+        clientProperties.toString(), resourceDirectories, "", type, bundle,
         "", false, true, false, propertyKey, true, true);
     if (properties != null) {
       result = (String) properties.get(0);
@@ -146,41 +146,41 @@ public class ResourceManager {
     return result;
   }
 
-  public String getImage(String renderKitId, String name) {
+  public String getImage(String clientProperties, String name) {
     final String type = "image";
     int dot = name.lastIndexOf('.');
     if (dot == -1) {
       dot = name.length();
     }
     String result;
-    String key = key(renderKitId, type, name);
+    String key = key(clientProperties, type, name);
 //    Log.debug("key=" + key);
     if ((result = (String) cache.get(key)) != null) {
       return result;
     }
     try {
       result = (String) getPaths(
-          renderKitId, resourceDirectories, "",
+          clientProperties, resourceDirectories, "",
           type, name.substring(0, dot), name.substring(dot),
           false, true, true, null, true, false).get(0);
       cache.put(key, result);
     } catch (Exception e) {
-      LOG.error("name = '" + name + "' renderKitId = '" + renderKitId + "'", e);
+      LOG.error("name = '" + name + "' clientProperties = '" + clientProperties + "'", e);
     }
 
     return result;
   }
 
-  public String[] getStyles(String renderKitId, String name) {
+  public String[] getStyles(String clientProperties, String name) {
     final String type = "style";
     int dot = name.lastIndexOf('.');
     if (dot == -1) {
       dot = name.length();
     }
-    String key = key(renderKitId, type, name);
+    String key = key(clientProperties, type, name);
 
     List matches = getPaths(
-        renderKitId, resourceDirectories, "",
+        clientProperties, resourceDirectories, "",
         type, name.substring(0, dot),
         name.substring(dot), true, false, true, null, true, false);
     String[] result;
@@ -192,32 +192,32 @@ public class ResourceManager {
       result = (String[]) matches.toArray(new String[matches.size()]);
       cache.put(key, result);
     } catch (Exception e) {
-      LOG.error("name = '" + name + "' renderKitId = '" + renderKitId + "'", e);
+      LOG.error("name = '" + name + "' clientProperties = '" + clientProperties + "'", e);
     }
     return result;
   }
 
 
-  public String getScript(String renderKitId, String name) {
+  public String getScript(String clientProperties, String name) {
     final String type = "script";
     int dot = name.lastIndexOf('.');
     if (dot == -1) {
       dot = name.length();
     }
     String result;
-    String key = key(renderKitId, type, name);
+    String key = key(clientProperties, type, name);
 //    Log.debug("key=" + key);
     if ((result = (String) cache.get(key)) != null) {
       return result;
     }
     try {
       result = (String) getPaths(
-          renderKitId, resourceDirectories, "",
+          clientProperties, resourceDirectories, "",
           type, name.substring(0, dot),
           name.substring(dot), false, true, true, null, true, false).get(0);
       cache.put(key, result);
     } catch (Exception e) {
-      LOG.error("name = '" + name + "' renderKitId = '" + renderKitId + "'", e);
+      LOG.error("name = '" + name + "' clientProperties = '" + clientProperties + "'", e);
     }
     return result;
   }
@@ -229,18 +229,18 @@ public class ResourceManager {
 
 // /////////////////////////////////////////// intern
 
-  private String key(String renderKitId, String type, String name) {
+  private String key(String clientProperties, String type, String name) {
     StringBuffer buffer = new StringBuffer();
-    buffer.append(renderKitId);
+    buffer.append(clientProperties);
     buffer.append('/');
     buffer.append(type);
     buffer.append('/');
     buffer.append(name);
     return buffer.toString();
   }
-  private String key(String renderKitId, String type, String name, String key) {
+  private String key(String clientProperties, String type, String name, String key) {
     StringBuffer buffer = new StringBuffer();
-    buffer.append(renderKitId);
+    buffer.append(clientProperties);
     buffer.append('/');
     buffer.append(type);
     buffer.append('/');
@@ -251,14 +251,20 @@ public class ResourceManager {
   }
 
   private List getPaths(
-      String renderKitId, List mainDirectories, String prefix,
+      String clientProperties, List mainDirectories, String prefix,
       String subDir, String name, String suffix,
       boolean reverseOrder, boolean single, boolean returnKey,
       String key, boolean returnStrings, boolean ignoreMissing) {
 
     List matches = new ArrayList();
 
-    StringTokenizer tokenizer = new StringTokenizer(renderKitId, "/");
+    if (clientProperties.indexOf('/') == -1) {
+      LOG.warn("unknown clientProperties=" + clientProperties);
+      clientProperties = "html/scarborough/standard/de";
+      LOG.warn("fixed   clientProperties=" + clientProperties);
+    }
+
+    StringTokenizer tokenizer = new StringTokenizer(clientProperties, "/");
     String contentType = tokenizer.nextToken();
     Theme theme = tobagoConfig.getTheme(tokenizer.nextToken());
     UserAgent browser = UserAgent.getInstanceForId(tokenizer.nextToken());
