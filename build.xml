@@ -80,12 +80,12 @@
     <zip-theme name="inexso"/>
     <zip-theme name="sap"/>
 
-    <zip-module
+    <!--<zip-module
       name="tobago-module-client"
       classes="com/atanion/tobago/module/client/*.class"
       webapp="webapp/tobago-module-client"
       pattern="**"
-      faces="${src.main}/com/atanion/tobago/module/client" />
+      faces="${src.main}/com/atanion/tobago/module/client" />-->
 
   </target>
 
