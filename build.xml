@@ -7,6 +7,9 @@
 <project name="tobago" default="compile">
   <property file="build.properties"/>
   <property name="bs.home" location="../build-system"/>
+  <property name="tld.files"
+    value="src/main/com/atanion/tobago/taglib/component/tobago.tld " />
+  <property name="tlddoc.windowtitle" value="Tobago Tag Library Documentation"/>
   <import file="${bs.home}/build-basic.xml"/>
 
   <target name="dist" depends="compile">
