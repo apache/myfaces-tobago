@@ -7,9 +7,18 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UIData;
 
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
+
 import javax.faces.component.UIComponent;
+import javax.servlet.jsp.JspException;
+import java.util.List;
+import java.util.Collections;
 
 public class SheetTag extends TobagoTag {
+
+  private static final Log LOG = LogFactory.getLog(SheetTag.class);
+
 // ----------------------------------------------------------------- attributes
 
   private String var;
@@ -25,6 +34,30 @@ public class SheetTag extends TobagoTag {
   public String getComponentType() {
     // todo: implement uidata with overridden processUpdates to store state
     return UIData.COMPONENT_TYPE;
+  }
+
+  public int doEndTag() throws JspException {
+    try {
+      UIData component = (UIData) getComponentInstance();
+      Object value = component.getValue();
+      if (value instanceof Object[] || value instanceof List) {
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("value = Object[] || List");
+        }
+      }else if (value instanceof String && ((String)value).length() == 0) {
+        LOG.warn("Found empty string as sheet's value! using empty List instead!");
+        component.setValue(Collections.EMPTY_LIST);
+      }else {
+        LOG.error("Found illegal type as scheet's value");
+        throw new JspException("Illegal value type for sheet: "
+            + value.getClass().getName(),
+            new IllegalArgumentException(value.getClass().getName()));
+      }
+    } catch (Throwable e) {
+      LOG.error("#+#+#+#+#", e);
+    }
+    final int result = super.doEndTag();
+    return result;
   }
 
   public void release() {
