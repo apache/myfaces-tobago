@@ -20,6 +20,7 @@ import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectItems;
 import javax.faces.component.ValueHolder;
+import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.el.ValueBinding;
@@ -206,21 +207,19 @@ public class ComponentUtil implements TobagoConstants {
     return false;
   }
 
-  /**
-   * @deprecated fixme This should not be neseccary, but UIComponentBase.getRenderer() is protected
-   */
-  public static RendererBase getRenderer(UIComponent component,
-      FacesContext facesContext) {
+  // todo This should not be neseccary, but UIComponentBase.getRenderer() is protected
+  public static RendererBase getRenderer(
+      UIComponent component, FacesContext facesContext) {
     String rendererType = component.getRendererType();
-//    if (rendererType == null) {
-//      return null;
-//    }
-    RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(
-        "javax.faces.render.RenderKitFactory");
-    RenderKit renderKit = rkFactory.getRenderKit(facesContext,
-        facesContext.getViewRoot().getRenderKitId());
-    return (RendererBase) renderKit.getRenderer(component.getFamily(),
-        rendererType);
+    if (rendererType == null) {
+      return null;
+    }
+    RenderKitFactory rkFactory = (RenderKitFactory)
+        FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+    RenderKit renderKit = rkFactory.getRenderKit(
+        facesContext, facesContext.getViewRoot().getRenderKitId());
+    return (RendererBase)
+        renderKit.getRenderer(component.getFamily(), rendererType);
   }
 
   public static String currentValue(UIComponent component) {

@@ -24,6 +24,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
@@ -386,7 +387,7 @@ public class GridLayoutRenderer extends RendererBase
   public void layoutBegin(FacesContext facesContext, UIComponent component) {
     HtmlDefaultLayoutManager.layoutSpace(component, facesContext, true);
 
-    RendererBase renderer = ComponentUtil.getRenderer(component, facesContext);
+    Renderer renderer = ComponentUtil.getRenderer(component, facesContext);
     if (renderer instanceof HeightLayoutRenderer) {
       HtmlDefaultLayoutManager.layoutSpace(component, facesContext, false);
     }
