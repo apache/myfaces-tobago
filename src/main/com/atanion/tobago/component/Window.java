@@ -13,11 +13,11 @@ import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
 import java.util.Set;
 
-public class Popup {
+public class Window {
 
 // ///////////////////////////////////////////// constant
 
-  private static final Log LOG = LogFactory.getLog(Popup.class);
+  private static final Log LOG = LogFactory.getLog(Window.class);
 
 // ///////////////////////////////////////////// attribute
 
@@ -25,28 +25,28 @@ public class Popup {
   private String name;
   private int width = 300;
   private int height = 300;
-  private int x = 100;
-  private int y = 100;
+  private int left = 100;
+  private int top = 100;
   private boolean dependent;
 
 // ///////////////////////////////////////////// constructor
 
-  public Popup(String viewId) {
+  public Window(String viewId) {
     this.viewId = viewId;
   }
 
-  public Popup(String viewId, int width, int height) {
+  public Window(String viewId, int width, int height) {
     this.viewId = viewId;
     this.width = width;
     this.height = height;
   }
 
-  public Popup(String viewId, int width, int heigth, int x, int y) {
+  public Window(String viewId, int width, int heigth, int x, int y) {
     this.viewId = viewId;
     this.width = width;
     this.height = heigth;
-    this.x = x;
-    this.y = y;
+    this.left = x;
+    this.top = y;
   }
 
 // ///////////////////////////////////////////// code
@@ -77,9 +77,9 @@ public class Popup {
       buffer.append('p');
     }
     buffer.append("', '");
-    buffer.append(x);
+    buffer.append(left);
     buffer.append("', '");
-    buffer.append(y);
+    buffer.append(top);
     buffer.append("');");
     scripts.add(buffer.toString());
   }
@@ -118,20 +118,20 @@ public class Popup {
     this.height = height;
   }
 
-  public int getX() {
-    return x;
+  public int getLeft() {
+    return left;
   }
 
-  public void setX(int x) {
-    this.x = x;
+  public void setLeft(int left) {
+    this.left = left;
   }
 
-  public int getY() {
-    return y;
+  public int getTop() {
+    return top;
   }
 
-  public void setY(int y) {
-    this.y = y;
+  public void setTop(int top) {
+    this.top = top;
   }
 
   public boolean isDependent() {

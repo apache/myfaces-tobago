@@ -62,6 +62,7 @@ public interface TobagoConstants {
   public static final String ATTR_LAYOUT_ROWS = "layoutRows";
   public static final String ATTR_LAYOUT_TABLE_STYLE = "layoutTableStyle";
   public static final String ATTR_LAYOUT_WIDTH = "layout_width";
+  public static final String ATTR_LEFT = "left";
   public static final String ATTR_MAX = "max";
   public static final String ATTR_MENU_POPUP = "menuPopup";
   public static final String ATTR_MENU_POPUP_TYPE = "menuPopupType";
@@ -115,6 +116,7 @@ public interface TobagoConstants {
   public static final String ATTR_TIME_STYLE = "timeStyle";
   public static final String ATTR_TIMEZONE = "timezone";
   public static final String ATTR_TITLE = "title";
+  public static final String ATTR_TOP = "top";
   public static final String ATTR_TYPE = "type";
   public static final String ATTR_VALUE = "value";
   public static final String ATTR_VAR = "var";

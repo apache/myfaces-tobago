@@ -57,6 +57,10 @@
     <component-class>com.atanion.tobago.component.UIPage</component-class>
   </component>
   <component>
+    <component-type>com.atanion.tobago.Popup</component-type>
+    <component-class>com.atanion.tobago.component.UIPopup</component-class>
+  </component>
+  <component>
     <component-type>com.atanion.tobago.TabGroup</component-type>
     <component-class>com.atanion.tobago.component.UITabGroup</component-class>
   </component>
