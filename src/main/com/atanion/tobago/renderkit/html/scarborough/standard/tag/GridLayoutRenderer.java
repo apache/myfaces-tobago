@@ -148,20 +148,20 @@ public class GridLayoutRenderer extends RendererBase
             }
             UIComponent cell = (UIComponent) object;
 
+
             int spanX = UIGridLayout.getSpanX(cell);
             int spanY = UIGridLayout.getSpanY(cell);
             String cssClasses =
                 (String) attributes.get(TobagoConstants.ATTR_STYLE_CLASS);
             cssClasses = (cssClasses == null ? "" : cssClasses);
-            String tdClasses = "";
+            String cellClasses = "";
             if (rowIndex == 0) {
-              tdClasses += " tobago-gridlayout-first-row";
+              cellClasses += " tobago-gridlayout-first-row";
             }
             if (columnIndex == 0) {
-              tdClasses += " tobago-gridlayout-first-column";
+              cellClasses += " tobago-gridlayout-first-column";
             }
-            tdClasses = cssClasses + tdClasses;
-
+            cellClasses = cssClasses + cellClasses;
 
             int cellWidth = -1;
             if (columnWidths != null) {
@@ -186,7 +186,7 @@ public class GridLayoutRenderer extends RendererBase
 
             int topPadding = getCellPadding(facesContext, layout, rowIndex);
             int leftPadding = getCellPadding(facesContext, layout, columnIndex);
-            String tdstyle = "vertical-align: top; "
+            String cellStyle = "vertical-align: top; "
                 + (cellWidth != -1 ? "width: " + cellWidth + "px;" : "")
                 + (cellHeight != -1 ?
                 " height: " + (cellHeight + topPadding) + "px;" : ""
@@ -194,11 +194,12 @@ public class GridLayoutRenderer extends RendererBase
 //                + "padding-top: " + topPadding + "px;"
 //                + "padding-left: " + leftPadding + "px;"
                 );
+            cellStyle += getOverflow(cell);
 
 
             writer.startElement("td", null);
             writer.writeAttribute("class", "tobago-gridlayout-cell-td", null);
-            writer.writeAttribute("style", tdstyle, null);
+            writer.writeAttribute("style", cellStyle, null);
             if (spanX > 1) {
               writer.writeAttribute("colspan", Integer.toString(spanX), null);
             }
@@ -209,8 +210,8 @@ public class GridLayoutRenderer extends RendererBase
             writer.writeText("", null);
 
             writer.startElement("div", null);
-            writer.writeAttribute("class", tdClasses, null);
-            writer.writeAttribute("style", tdstyle, null);
+            writer.writeAttribute("class", cellClasses, null);
+            writer.writeAttribute("style", cellStyle, null);
 
             RenderUtil.encode(facesContext, cell);
 
@@ -223,6 +224,28 @@ public class GridLayoutRenderer extends RendererBase
       }
     }
     writer.endElement("table");
+  }
+
+  private String getOverflow(UIComponent cell) {
+    String overflow = "";
+
+    String scrollbars = (String) cell.getAttributes().get(ATTR_SCROLLBARS);
+    if (scrollbars != null) {
+      if (scrollbars.equals("false") ) {
+        overflow = " overflow: hidden;";
+      }
+      else if (scrollbars.equals("true") ) {
+        overflow = " overflow: scroll;";
+      }
+      else if (scrollbars.equals("auto") ) {
+        overflow = " overflow: auto;";
+      }
+      else {
+        LOG.warn("Illegal value for attribute 'scrollbars' : " + scrollbars);
+      }
+    }
+
+    return overflow;
   }
 
   private int getCellPadding(

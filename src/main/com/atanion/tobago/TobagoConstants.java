@@ -89,6 +89,7 @@ public interface TobagoConstants {
   public static final String ATTR_ROWS = "rows";
   public static final String ATTR_SCRIPT_FILES = "scriptFiles";
   public static final String ATTR_SCROLLBAR_HEIGHT = "scrollbarHeight";
+  public static final String ATTR_SCROLLBARS = "scrollbars";
   public static final String ATTR_SELECTED_LIST_STRING = "selectedListString";
   public static final String ATTR_SERVER_SIDE_TABS = "serverSideTab";
   public static final String ATTR_SHEET_SORTER = "sheetSorter";

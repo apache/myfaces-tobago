@@ -23,6 +23,8 @@ public class CellTag extends Panel_GroupTag {
 
   private String spanY = "1";
 
+  private String scrollbars;
+
 // ///////////////////////////////////////////// constructor
 
 // ///////////////////////////////////////////// code
@@ -40,6 +42,7 @@ public class CellTag extends Panel_GroupTag {
 
     setIntegerProperty(component, ATTR_SPAN_X, spanX);
     setIntegerProperty(component, ATTR_SPAN_Y, spanY);
+    setStringProperty(component, ATTR_SCROLLBARS, scrollbars);
 
     component.getAttributes().put(ATTR_LAYOUT_DIRECTIVE, Boolean.TRUE);
 
@@ -75,5 +78,13 @@ public class CellTag extends Panel_GroupTag {
 
   public void setSpanY(String spanY) {
     this.spanY = spanY;
+  }
+
+  public String getScrollbars() {
+    return scrollbars;
+  }
+
+  public void setScrollbars(String scrollbars) {
+    this.scrollbars = scrollbars;
   }
 }
