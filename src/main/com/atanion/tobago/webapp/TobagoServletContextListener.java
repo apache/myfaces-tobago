@@ -9,6 +9,10 @@ import com.atanion.tobago.config.ThemeConfig;
 import com.atanion.tobago.config.TobagoConfig;
 import com.atanion.tobago.config.TobagoConfigParser;
 import com.atanion.tobago.context.ResourceManager;
+import com.atanion.license.LicenseCheck;
+import com.atanion.license.License;
+import com.atanion.license.LicenseException;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -17,6 +21,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.ServletException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -39,6 +44,24 @@ public class TobagoServletContextListener implements ServletContextListener {
     }
 
     try {
+
+
+      final ClassLoader classLoader = getClass().getClassLoader();
+
+      final InputStream stream = classLoader.getResourceAsStream("/license.ser");
+
+//      LOG.info("stream == " + stream);
+
+
+      final License license = LicenseCheck.loadLicense(stream);
+      if (! license.isValid("tobago")) {
+        throw new LicenseException("invald license found: " + license.toString());
+      } else {
+        if (LOG.isInfoEnabled()) {
+          LOG.info("Valid tobago license found!");
+        }
+      }
+
       // servlet mapping
       ServletContext servletContext = event.getServletContext();
       TobagoServletMapping mapping = new TobagoServletMapping(servletContext);
