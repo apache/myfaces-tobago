@@ -49,7 +49,7 @@ function addSelectionListener(sheetId) {
     var i = row.id.substring(row.id.lastIndexOf("_data_tr_") + 9);
     i++;
     while (row) {
-      // PrintDebug("rowId = " + row.id + "   next i=" + i);
+       PrintDebug("rowId = " + row.id + "   next i=" + i);
       addEventListener(row, "click", doSelection);
       row = document.getElementById(sheetId + "_data_tr_" + i++ );
     }
@@ -75,6 +75,7 @@ function doSelection(event) {
 
   clearSelection();
 
+  PrintDebug("doSelection()");
   //PrintDebug("event.ctrlKey = " + event.ctrlKey);
   //PrintDebug("event.shiftKey = " + event.shiftKey);
 
@@ -85,8 +86,8 @@ function doSelection(event) {
   else {
     srcElement = event.srcElement;
   }
-  //PrintDebug("srcElement = " + srcElement.tagName);
-  if (srcElement.tagName.search(/DIV/) == 0 || srcElement.tagName.search(/TD/) == 0) {
+  PrintDebug("srcElement = " + srcElement.tagName);
+  if (! isInputElement(srcElement.tagName)) {
 
 
     var dataRow = getActiveElement(event);
@@ -119,6 +120,17 @@ function doSelection(event) {
     updateSelectionView(sheetId, hidden.value);
     //PrintDebug("selected rows = " + hidden.value);
   }
+}
+
+function isInputElement(tagName) {
+  if (   tagName == "INPUT"
+      || tagName == "TEXTAREA"
+      || tagName == "A"
+      || tagName == "BUTTON"
+      ) {
+    return true;
+  }
+  return false;
 }
 
 function updateSelectionView(sheetId, selected) {

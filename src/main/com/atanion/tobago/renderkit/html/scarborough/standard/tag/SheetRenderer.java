@@ -334,8 +334,8 @@ public class SheetRenderer extends RendererBase {
             writer.writeAttribute("src", unchecked, null);
 //            writer.writeAttribute("onclick", "tobagoSheetToggleSelectionState(\""
 //                + sheetId + "\", " + rowIndex + ")", null);
-            writer.writeAttribute("onclick",
-                "tobagoSheetToggleSelectionState(event)", null);
+//            writer.writeAttribute("onclick",
+//                "tobagoSheetToggleSelectionState(event)", null);
           }
           writer.writeAttribute("id",
               sheetId + "_data_row_selector_" + rowIndex, null);
