@@ -49,7 +49,9 @@ public class HtmlDefaultLayoutManager implements LayoutManager {
     }
 
     if (component.getFacet("layout") != null
-        || component.getRendererType().equals("Sheet")) {
+        || component.getRendererType().equals("Sheet")/*
+        || component.getRendererType().equals("TabGroup")
+        || component.getRendererType().equals("Tab")*/) {
       HtmlDefaultLayoutManager.layoutHeight(component, facesContext);
 //      layoutSpace(component, facesContext, false);
     }
@@ -199,7 +201,9 @@ public class HtmlDefaultLayoutManager implements LayoutManager {
         style = style.replaceAll(styleAttribute + ":\\s\\d+px;", "").trim();
 
         if (component.getFacet("layout") != null
-          || component.getRendererType().equals("Sheet")) { // fixme: not nice;: equals("Sheet"
+          || component.getRendererType().equals("Sheet")/*
+          || component.getRendererType().equals("TabGroup")
+          || component.getRendererType().equals("Tab")*/) { // fixme: not nice;: equals("Sheet"
           String headerStyle;
           String bodyStyle;
           if (width) {

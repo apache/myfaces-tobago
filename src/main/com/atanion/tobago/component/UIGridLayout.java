@@ -64,7 +64,15 @@ public class UIGridLayout extends UIComponentBase implements UILayout {
     return columnCount;
   }
 
-  public List createRows() {
+  public List ensureRows() {
+    List rows = (List) getAttributes().get(TobagoConstants.ATTR_LAYOUT_ROWS);
+    if (rows == null) {
+      rows = createRows();
+    }
+    return rows;
+  }
+
+  private List createRows() {
     List rows = new ArrayList();
     int columnCount = getColumnCount();
     Vector children = LayoutUtil.addChildren(new Vector(), getParent());
@@ -91,14 +99,6 @@ public class UIGridLayout extends UIComponentBase implements UILayout {
       }
     }
     getAttributes().put(TobagoConstants.ATTR_LAYOUT_ROWS, rows);
-    return rows;
-  }
-
-  public List ensureRows() {
-    List rows = (List) getAttributes().get(TobagoConstants.ATTR_LAYOUT_ROWS);
-    if (rows == null) {
-      rows = createRows();
-    }
     return rows;
   }
 
