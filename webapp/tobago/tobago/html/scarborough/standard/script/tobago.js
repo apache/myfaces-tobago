@@ -4,6 +4,7 @@ var gecko=null;
 var ie=null;
 var opera=null;
 var focusId;
+var tobagoImageSources = null;
 
 function setFormAction(form, action) {
   document.forms[form].action = action;
@@ -96,6 +97,7 @@ function onloadScriptDefault(){
   else {
     setFirstElementsFocus();
   }
+  tobagoImageSources = new Array();
 }
 
 function tobago_showHidden() {
@@ -195,4 +197,47 @@ function addCssClass(element, className) {
 function removeCssClass(element, className) {
    var re = new RegExp(" " + className +" ", 'g');
    element.className = element.className.replace(re,"");
+}
+
+function addImageSources(id, normal, disabled, hover) {
+  var sources = new Array(4);
+  sources[0] = id;
+  sources[1] = normal;
+  sources[2] = disabled;
+  sources[3] = hover;
+  tobagoImageSources[tobagoImageSources.length] = sources;
+  Ausgeben("here are " + tobagoImageSources.length + " images");
+}
+
+function getTobagoImageSources(id) {
+  for (var i = 0; i < tobagoImageSources.length ; i++) {
+    if (tobagoImageSources[i][0] == id) {
+      return tobagoImageSources[i];
+    }
+  }
+}
+
+function tobagoImageMouseover(id) {
+  var image = document.getElementById(id);
+  var sourcen = getTobagoImageSources(id);
+  if (sourcen && sourcen[3] != 'null' && sourcen[3] != image.src) {
+    image.src = sourcen[3];
+  }
+}
+function tobagoImageMouseout(id) {
+  var image = document.getElementById(id);
+  var sourcen = getTobagoImageSources(id);
+  if (sourcen && sourcen[1] != 'null' && sourcen[1] != image.src) {
+    image.src = sourcen[1];
+  }
+}
+
+function tobagoToolbarMousesover(element, className, imageId) {
+  addCssClass(element, className);
+  tobagoImageMouseover(imageId);
+}
+
+function tobagoToolbarMousesout(element, className, imageId) {
+  removeCssClass(element, className);
+  tobagoImageMouseout(imageId);
 }

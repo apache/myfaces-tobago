@@ -5,13 +5,18 @@
  */
 package com.atanion.tobago.context;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.faces.context.FacesContext;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TobagoResource {
 
 // ///////////////////////////////////////////// constant
+
+  private static final Log LOG = LogFactory.getLog(TobagoResource.class);
 
 // ///////////////////////////////////////////// attribute
 
@@ -38,11 +43,21 @@ public class TobagoResource {
   }
 
   public static String getImage(FacesContext facesContext, String name) {
+    return getImage(facesContext, name, false);
+  }
+
+  public static String getImage(FacesContext facesContext, String name,
+      boolean ignoreMissing) {
     String clientProperties = ClientProperties.getInstance(
         facesContext.getViewRoot()).toString();
-    String returnValue = facesContext.getExternalContext().getRequestContextPath() +
-        ResourceManager.getInstance().getImage(clientProperties, name);
-    return returnValue;
+    String image = ResourceManager.getInstance().getImage(
+        clientProperties, name, ignoreMissing);
+    if (image != null) {
+      return facesContext.getExternalContext().getRequestContextPath() + image;
+    } else {
+      LOG.debug("Can't find image for \"" + name + "\"");
+      return null;
+    }
   }
 
   public static List getStyles(FacesContext facesContext, String name) {

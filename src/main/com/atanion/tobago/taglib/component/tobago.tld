@@ -1280,4 +1280,20 @@
     </attribute>
   </tag>
 
+  <tag>
+    <name>toolbar</name>
+    <tag-class>com.atanion.tobago.taglib.component.ToolbarTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <name>id</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
 </taglib>

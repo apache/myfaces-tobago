@@ -7,7 +7,6 @@ package com.atanion.tobago.util;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UITabGroup;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.RendererBase;
@@ -16,13 +15,14 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.faces.FactoryFinder;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
 import javax.faces.component.UIInput;
 import javax.faces.component.UINamingContainer;
+import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
@@ -319,5 +319,15 @@ public class LayoutUtil {
 // ///////////////////////////////////////////// bean getter + setter
 
 
+  public static void addCssClass(UIComponent component, String newClass) {
+    final Map attributes = component.getAttributes();
+    String cssClass = (String) attributes.get(TobagoConstants.ATTR_STYLE_CLASS);
+    if (cssClass == null) {
+      attributes.put(TobagoConstants.ATTR_STYLE_CLASS, newClass);
+    } else if (cssClass.indexOf(newClass + " ") == -1
+        || !cssClass.equals(newClass) || !cssClass.endsWith(newClass)) {
+      attributes.put(TobagoConstants.ATTR_STYLE_CLASS, cssClass += " " + newClass);
+    }
+  }
 }
 

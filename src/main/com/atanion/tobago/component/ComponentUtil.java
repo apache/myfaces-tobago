@@ -14,6 +14,8 @@ import javax.faces.FactoryFinder;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
+import javax.faces.component.UIGraphic;
+import javax.faces.component.UIOutput;
 import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectItems;
@@ -426,4 +428,33 @@ public class ComponentUtil {
 
 // ///////////////////////////////////////////// bean getter + setter
 
+  public static UIGraphic getFirstGraphicChild(UIComponent component) {
+    UIGraphic graphic = null;
+    final Iterator iterator = component.getChildren().iterator();
+    while (iterator.hasNext()) {
+      UIComponent uiComponent = (UIComponent) iterator.next();
+      if (uiComponent instanceof UIGraphic) {
+        graphic = (UIGraphic) uiComponent;
+        break;
+      }
+    }
+    return graphic;
+  }
+
+  public static boolean isHoverEnabled(UIComponent component) {
+    return true;
+  }
+
+  public static UIOutput getFirstNonGraphicChild(UIComponent component) {
+    UIOutput output = null;
+    final Iterator iterator = component.getChildren().iterator();
+    while (iterator.hasNext()) {
+      UIComponent uiComponent = (UIComponent) iterator.next();
+      if ((uiComponent instanceof UIOutput) && !(uiComponent instanceof UIGraphic)) {
+        output = (UIOutput) uiComponent;
+        break;
+      }
+    }
+    return output;
+  }
 }

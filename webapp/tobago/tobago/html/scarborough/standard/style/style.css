@@ -342,6 +342,7 @@ label.tobago-label-default  {
 
 .tobago-richtexteditor-toolbar-button-hover {
   border: 1px solid black;
+  background: #c5c5c5;
   margin: -1px;
 }
 

@@ -7,10 +7,13 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.TobagoResource;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RendererBase;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
@@ -22,6 +25,8 @@ public class ImageRenderer extends RendererBase
     implements HeightLayoutRenderer, DirectRenderer {
 
 // ///////////////////////////////////////////// constant
+
+  private static final Log LOG = LogFactory.getLog(ImageRenderer.class);
 
 // ///////////////////////////////////////////// attribute
 
@@ -37,12 +42,18 @@ public class ImageRenderer extends RendererBase
       UIComponent component) throws IOException {
 
     UIGraphic graphic = (UIGraphic) component;
-    String src = graphic.getValue().toString();
+    final String value = graphic.getValue().toString();
+    String src = value;
     if (ComponentUtil.getBooleanAttribute(graphic, TobagoConstants.ATTR_I18N)) {
-      src = TobagoResource.getImage(facesContext, src);
+      if (ComponentUtil.isDisabled(graphic)) {
+        src = TobagoResource.getImage(facesContext, createSrc(value, "-disabled"), true);
+      } else {
+        src = TobagoResource.getImage(facesContext, value);
+      }
+      addImageSources(facesContext, graphic);
     } else {
-      if (src.toUpperCase().startsWith("HTTP:")
-          || src.toUpperCase().startsWith("FTP:")) {
+      final String ucSrc = src.toUpperCase();
+      if (ucSrc.startsWith("HTTP:") || ucSrc.startsWith("FTP:")) {
         // absolute Path to image : nothing to do
       } else {
         // relative path : add contextPath
@@ -68,6 +79,12 @@ public class ImageRenderer extends RendererBase
     ResponseWriter writer = facesContext.getResponseWriter();
 
     writer.startElement("img", graphic);
+    final String clientId = graphic.getClientId(facesContext);
+    writer.writeAttribute("id", clientId, null);
+    if (ComponentUtil.isHoverEnabled(graphic) && ! ComponentUtil.isDisabled(graphic)) {
+      writer.writeAttribute("onmouseover", "tobagoImageMouseover('" + clientId + "')", null);
+      writer.writeAttribute("onmouseout", "tobagoImageMouseout('" + clientId + "')", null);
+    }
     writer.writeAttribute("src", src, null);
     writer.writeAttribute("alt", alt, null);
     if (title != null) {
@@ -81,6 +98,23 @@ public class ImageRenderer extends RendererBase
 
   }
 
+  public String createSrc(String src, String ext) {
+    int dot = src.lastIndexOf('.');
+    return src.substring(0, dot) + ext + src.substring(dot);
+  }
+
+
+  public void addImageSources(FacesContext facesContext, UIGraphic graphic) {
+    final String src = graphic.getValue().toString();
+    final UIPage page = ComponentUtil.findPage(graphic);
+    page.getOnloadScripts().add("addImageSources('"
+        + graphic.getClientId(facesContext) + "','"
+        + TobagoResource.getImage(facesContext, src, false) + "','"
+        + TobagoResource.getImage(
+            facesContext, createSrc(src, "-disabled"), true) + "','"
+        + TobagoResource.getImage(
+            facesContext, createSrc(src, "-hover"), true) + "')");
+  }
 // ///////////////////////////////////////////// bean getter + setter
 
 }

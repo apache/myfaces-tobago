@@ -164,13 +164,19 @@ public class RichTextEditorRenderer extends InputRendererBase
     writer.writeAttribute("unselectable", "on", null);
     writer.writeAttribute("title", title, null);
 
-    Application application = facesContext.getApplication();
-    UIComponent image = application.createComponent(UIGraphic.COMPONENT_TYPE);
+    UIComponent image = component.getFacet("toolbarImage-" + command);
+
+    if (image == null) {
+      Application application = facesContext.getApplication();
+      image = application.createComponent(UIGraphic.COMPONENT_TYPE);
+      image.getAttributes().put(TobagoConstants.ATTR_STYLE, "vertical-align: bottom;");
+      image.getAttributes().put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
+      image.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
+      // image needs to be in component tree when rendering
+      component.getFacets().put("toolbarImage-" + command, image);
+    }
     image.getAttributes().put(TobagoConstants.ATTR_VALUE,
         "tobago-richtext-" + command + ".gif");
-    image.getAttributes().put(TobagoConstants.ATTR_STYLE, "vertical-align: bottom;");
-    image.getAttributes().put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
-    image.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
     RenderUtil.encode(facesContext, image);
 
     writer.startElement("span", null);

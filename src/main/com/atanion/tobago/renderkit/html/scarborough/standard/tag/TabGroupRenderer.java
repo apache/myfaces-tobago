@@ -16,15 +16,19 @@ import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.renderkit.StyleAttribute;
 import com.atanion.tobago.renderkit.html.HtmlDefaultLayoutManager;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.el.EvaluationException;
+import javax.faces.el.MethodBinding;
+import javax.faces.el.MethodNotFoundException;
 import javax.faces.el.ValueBinding;
+import javax.faces.event.ActionEvent;
 import javax.servlet.ServletRequest;
 import java.io.IOException;
 
@@ -269,6 +273,39 @@ public class TabGroupRenderer extends RendererBase
 
   }
 // ///////////////////////////////////////////// bean getter + setter
+
+  public class TabController extends MethodBinding {
+
+    public static final String ID_PREFIX = "tab_";
+
+    public Object invoke(FacesContext facesContext, Object[] objects)
+        throws EvaluationException, MethodNotFoundException {
+
+      if (objects[0] instanceof ActionEvent) {
+        UICommand command  = (UICommand) ((ActionEvent)objects[0]).getSource();
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Id = " + command.getId());
+        }
+
+        if (command.getId() != null && command.getId().startsWith(ID_PREFIX)) {
+          try {
+            int newTab =
+                Integer.parseInt(command.getId().substring(ID_PREFIX.length()));
+          }
+          catch (Exception e) {
+
+          }
+        }
+      }
+      return null;
+    }
+
+    public Class getType(FacesContext facesContext)
+        throws MethodNotFoundException {
+      return String.class;
+    }
+
+  }
 
 }
 

@@ -12,7 +12,6 @@ import com.atanion.tobago.renderkit.CommandRendererBase;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -37,35 +36,10 @@ public class ButtonRenderer extends CommandRendererBase
   public void encodeDirectBegin(FacesContext facesContext,
       UIComponent component) throws IOException {
 
-    String onclick;
-    String buttonType;
-
-    String type = (String) component.getAttributes().get(
-        TobagoConstants.ATTR_TYPE);
-    String action = (String) component.getAttributes().get(
-        TobagoConstants.ATTR_COMMAND_NAME);
-    boolean defaultCommand = ComponentUtil.getBooleanAttribute(component,
-        TobagoConstants.ATTR_DEFAULT_COMMAND);
-
     String clientId = component.getClientId(facesContext);
+    String buttonType = createButtonType(component);
 
-    if (TobagoConstants.COMMAND_TYPE_NAVIGATE.equals(type)) {
-      onclick = "navigateToUrl('" + HtmlUtils.generateUrl(facesContext, action) +
-          "')";
-      buttonType = defaultCommand ? "submit" : "button";
-    } else if (TobagoConstants.COMMAND_TYPE_RESET.equals(type)) {
-      onclick = null;
-      buttonType = "reset";
-    } else if (TobagoConstants.COMMAND_TYPE_SCRIPT.equals(type)) {
-      onclick = action;
-      buttonType = defaultCommand ? "submit" : "button";
-    } else { // default: Action.TYPE_SUBMIT
-      onclick = "submitAction('" +
-          ComponentUtil.findPage(component).getFormId(facesContext) +
-          "','" + clientId + "')";
-      buttonType = defaultCommand ? "submit" : "button";
-    }
-
+    String onclick = createOnClick(facesContext, component);
     onclick =
         CommandRendererBase.appendConfirmationScript(onclick, component,
             facesContext);
@@ -85,6 +59,48 @@ public class ButtonRenderer extends CommandRendererBase
     writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
     writer.writeText("", null); // force closing the start tag
+  }
+
+  private String createButtonType(UIComponent component) {
+    String buttonType;
+    String type = (String) component.getAttributes().get(
+        TobagoConstants.ATTR_TYPE);
+
+    boolean defaultCommand = ComponentUtil.getBooleanAttribute(component,
+        TobagoConstants.ATTR_DEFAULT_COMMAND);
+    if (TobagoConstants.COMMAND_TYPE_RESET.equals(type)) {
+      buttonType = "reset";
+    } else { // default: Action.TYPE_SUBMIT
+      buttonType = defaultCommand ? "submit" : "button";
+    }
+    return buttonType;
+  }
+
+  public static String createOnClick(FacesContext facesContext,
+      UIComponent component) {
+
+    String type = (String) component.getAttributes().get(
+        TobagoConstants.ATTR_TYPE);
+    String commandName = (String) component.getAttributes().get(
+        TobagoConstants.ATTR_COMMAND_NAME);
+    String clientId = component.getClientId(facesContext);
+    String onclick;
+
+    LOG.info("type = " + type + " :: action = " + commandName + "");
+    if (TobagoConstants.COMMAND_TYPE_NAVIGATE.equals(type)) {
+      onclick = "navigateToUrl('"
+          + HtmlUtils.generateUrl(facesContext, commandName) + "')";
+    } else if (TobagoConstants.COMMAND_TYPE_RESET.equals(type)) {
+      onclick = null;
+    } else if (TobagoConstants.COMMAND_TYPE_SCRIPT.equals(type)) {
+      onclick = commandName;
+    } else { // default: Action.TYPE_SUBMIT
+      onclick = "submitAction('" +
+          ComponentUtil.findPage(component).getFormId(facesContext) +
+          "','" + clientId + "')";
+    }
+    LOG.info("onClick = " + onclick);
+    return onclick;
   }
 
   public void encodeDirectEnd(FacesContext facesContext,

@@ -7,7 +7,6 @@ package com.atanion.tobago.context;
 
 import com.atanion.tobago.config.TobagoConfig;
 import com.atanion.tobago.renderkit.TobagoRenderKit;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -146,23 +145,28 @@ public class ResourceManager {
     return result;
   }
 
-  public String getImage(String clientProperties, String name) {
+  public String getImage(String clientProperties, String name,
+      boolean ignoreMissing) {
     final String type = "image";
     int dot = name.lastIndexOf('.');
     if (dot == -1) {
       dot = name.length();
     }
-    String result;
+    String result = null;
     String key = key(clientProperties, type, name);
 //    Log.debug("key=" + key);
     if ((result = (String) cache.get(key)) != null) {
+      // todo: cache null values
       return result;
     }
     try {
-      result = (String) getPaths(
-          clientProperties, resourceDirectories, "",
-          type, name.substring(0, dot), name.substring(dot),
-          false, true, true, null, true, false).get(0);
+      List paths = getPaths(clientProperties, resourceDirectories, "", type,
+          name.substring(0, dot), name.substring(dot), false, true, true, null,
+          true, ignoreMissing);
+      if (paths != null) {
+        result = (String) paths.get(0);
+      }
+      // todo: cache null values
       cache.put(key, result);
     } catch (Exception e) {
       LOG.error("name = '" + name + "' clientProperties = '" + clientProperties + "'", e);
