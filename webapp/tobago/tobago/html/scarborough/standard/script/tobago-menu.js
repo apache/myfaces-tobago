@@ -252,20 +252,14 @@ function MenuItem(label, action, disabled) {
   }
 
   this.onFocus = function() {
-    //PrintDebug("onFocus " + this.id + " level :" + this.level);
-    //PrintDebug("element   width=" + this.htmlElement.style.width);
-    //if (this.parent && this.parent.subItemContainer) {
-      //PrintDebug("container width=" + this.parent.subItemContainer.style.width);
-    //}
     this.focus = true;
     addCssClass(this.htmlElement, "tobago-menu-item-focus");
-    //if (this.level == 1) {
-      this.openSubMenus();
-    //}
-    if (! this.scriptFocus && this.action) {
+    this.openSubMenus();
+    
+    if (this.action && window.event && window.event.altKey) {
+    // focus came via alt-<accessKey> : ie needs click())
       this.htmlElement.click();
     }
-    this.scriptFocus = false;
   }
   this.onBlur = function() {
     //PrintDebug("onBlur " + this.id);
@@ -295,7 +289,6 @@ function MenuItem(label, action, disabled) {
     //PrintDebug("setze Focus " + this.id);
     var element = this.getLabelTag();
     if (element) {
-      this.scriptFocus = true;
       element.focus();
     }
   }
@@ -380,7 +373,6 @@ function MenuItem(label, action, disabled) {
       var next = this.parent.getLabelTag();
       this.parent.hover = true;
       this.parent.hideSubMenus();
-      next.parentNode.menuItem.scriptFocus = true;
       next.focus();
       this.hover = false;
     }
@@ -434,7 +426,6 @@ function MenuItem(label, action, disabled) {
     var span = this.subItems[i].getLabelTag();
     if (span) {
       this.subItems[i].hover = true;
-      span.parentNode.menuItem.scriptFocus = true;
       span.focus();
       return this.subItems[i];
     }
@@ -468,7 +459,6 @@ function MenuItem(label, action, disabled) {
         if (aTag) {
           this.parent.hover = true;
           this.parent.hideSubMenus();
-          aTag.parentNode.menuItem.scriptFocus = true;
           aTag.focus();
         }
       }
