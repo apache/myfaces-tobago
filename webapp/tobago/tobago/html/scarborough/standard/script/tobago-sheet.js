@@ -4,6 +4,7 @@ var oldX = 0;
 var newWidth = 0;
 
 function initSheet(sheetId) {
+  Ausgeben("initSheet(" + sheetId +")");
   var i = 0;
   var element = document.getElementById(sheetId + "_header_div");
   if (element) {
@@ -13,7 +14,7 @@ function initSheet(sheetId) {
     addEventListener(element, "scroll", doScroll);
 	  var resizer = document.getElementById(sheetId + "_header_resizer_" + i++ );
 	  while (resizer) {
-	    addEventListener(resizer, "click", stopPropagation);
+	    addEventListener(resizer, "click", stopEventPropagation);
 	    addEventListener(resizer, "mousedown", beginResize);
       resizer = document.getElementById(sheetId + "_header_resizer_" + i++ );
     }
@@ -24,19 +25,131 @@ function initSheet(sheetId) {
     setupHeader(sheetId)
   }
 
+  var sheet = document.getElementById(sheetId + "_outher_div");
+  sheet.tobagoLastClickedRowId = "None";
+  addSelectionListener(sheetId);
   adjustScrollBars(sheetId);
 }
 
+function addSelectionListener(sheetId) {
+  var row = getFirstSelectionRow(sheetId);
+  var i = row.id.substring(row.id.lastIndexOf("_data_tr_") + 9);
+  i++;
+  while (row) {
+    // Ausgeben("rowId = " + row.id + "   next i=" + i);
+    addEventListener(row, "click", doSelection);
+    row = document.getElementById(sheetId + "_data_tr_" + i++ );
+  }
+  Ausgeben("preSelected rows = " + document.getElementById(sheetId + "::selected").value);
+}
 
-function stopPropagation(event) {
+function getFirstSelectionRow(sheetId) {
+  var element = document.getElementById(sheetId + "_data_row_0_column0");// data div
+  while (element && element.id.search(new RegExp("^" + sheetId + "_data_tr_\\d+$")) == -1) {
+    //Ausgeben("element id = " + element.id);
+    element = element.parentNode;
+  }
+  //Ausgeben("element id = " + element.id);
+  return element;
+}
+
+
+function doSelection(event) {
   if (! event) {
     event = window.event;
   }
-  if (ie || opera) {
-    event.cancelBubble = true;
+
+  //Ausgeben("event.ctrlKey = " + event.ctrlKey);
+  //Ausgeben("event.shiftKey = " + event.shiftKey);
+
+  var srcElement;
+  if (event.target) {
+    srcElement = event.target;
   }
-  else { // this is DOM2
-    event.stopPropagation();
+  else {
+    srcElement = event.srcElement;
+  }
+  //Ausgeben("srcElement = " + srcElement.tagName);
+  if (srcElement.tagName.search(/DIV/) == 0 || srcElement.tagName.search(/TD/) == 0) {
+
+
+    var dataRow = getActiveElement(event);
+    while (dataRow.id.search(new RegExp("_data_tr_\\d+$")) == -1) {
+      dataRow = dataRow.parentNode;
+    }
+    var rowId = dataRow.id;
+    //Ausgeben("rowId = " + rowId);
+    var sheetId = rowId.substring(0, rowId.lastIndexOf("_data_tr_"));
+    var hidden = document.getElementById(sheetId + "::selected");
+    var selected = hidden.value;
+    var sheet = document.getElementById(sheetId + "_outher_div");
+    //Ausgeben("last id = " + sheet.tobagoLastClickedRowId);
+
+    if (! event.ctrlKey) {
+      // clearAllSelections();
+      hidden.value = "";
+    }
+
+    if (event.shiftKey) {
+      selectRange(dataRow, sheet.tobagoLastClickedRowId, hidden);
+    }
+    else {
+      sheet.tobagoLastClickedRowId = rowId;
+      toggleSelection(dataRow, hidden);
+    }
+    updateSelectionView(sheetId, hidden.value);
+    Ausgeben("selected rows = " + hidden.value);
+  }
+}
+
+function updateSelectionView(sheetId, selected) {
+  var row = getFirstSelectionRow(sheetId);
+  var i = row.id.substring(row.id.lastIndexOf("_data_tr_") + 9);
+  while (row) {
+    var re = new RegExp("," + i +",");
+    var classes = row.className;
+    if (selected.search(re) == -1) { // not selected: remove selection class
+      row.className = classes.replace(/tobago-sheet-row-selected/g);
+    }
+    else {  // selected: check selection class
+      if (classes.search(/tobago-sheet-row-selected/) == -1) {
+        row.className = classes + " tobago-sheet-row-selected ";
+      }
+    }
+    row = document.getElementById(sheetId + "_data_tr_" + ++i );
+  }
+}
+
+function selectRange(dataRow, lastId, hidden) {
+  var lastRow = document.getElementById(lastId);
+  var firstIndex = lastRow.id.substring(lastRow.id.lastIndexOf("_data_tr_") + 9) - 0;
+  var lastIndex  = dataRow.id.substring(dataRow.id.lastIndexOf("_data_tr_") + 9) - 0;
+  var start;
+  var end;
+  if (firstIndex > lastIndex) {
+    start = lastIndex;
+    end = firstIndex;
+  }
+  else {
+    start = firstIndex;
+    end = lastIndex;
+  }
+  for (var i = start; i <= end; i++) {
+    var re = new RegExp("," + i + ",");
+    if (hidden.value.search(re) == -1) {
+      hidden.value = hidden.value + "," + i + ",";
+    }
+  }
+}
+
+function toggleSelection(dataRow, hidden) {
+  var rowIndex = dataRow.id.substring(dataRow.id.lastIndexOf("_data_tr_") + 9);
+  var re = new RegExp("," + rowIndex + ",");
+  if (hidden.value.search(re) != -1) {
+    hidden.value = hidden.value.replace(re, "");
+  }
+  else {
+    hidden.value = hidden.value + "," + rowIndex + ",";
   }
 }
 
@@ -47,10 +160,10 @@ function doScroll(event) {
   var dataPanel = getActiveElement(event);
   var sheetId = dataPanel.id.substring(0, dataPanel.id.lastIndexOf("_data_div"));
   var headerPanel = document.getElementById(sheetId + "_header_div");
-  Ausgeben("header / data  " + headerPanel.scrollLeft + "/" + dataPanel.scrollLeft);
+  //Ausgeben("header / data  " + headerPanel.scrollLeft + "/" + dataPanel.scrollLeft);
   headerPanel.scrollLeft = dataPanel.scrollLeft;
-  Ausgeben("header / data  " + headerPanel.scrollLeft + "/" + dataPanel.scrollLeft);
-  Ausgeben("----------------------------------------------");
+  //Ausgeben("header / data  " + headerPanel.scrollLeft + "/" + dataPanel.scrollLeft);
+  //Ausgeben("----------------------------------------------");
 }
 
 
@@ -121,7 +234,7 @@ function storeSizes(sheetId) {
     header = document.getElementById(sheetId + "_header_box_" + index++);
   }
 
-  var hidden = document.getElementById(sheetId + ":widths");
+  var hidden = document.getElementById(sheetId + "::widths");
   hidden.value = widths;
 }
 

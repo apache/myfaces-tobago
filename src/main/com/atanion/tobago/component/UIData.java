@@ -25,25 +25,40 @@ public class UIData extends javax.faces.component.UIData {
   public void processUpdates(FacesContext context) {
     super.processUpdates(context);
 
-    updateState(context, this);
+    updateState(context);
 
   }
 
-  public void updateState(FacesContext context, UIData data) {
+  public void updateState(FacesContext context) {
     ValueBinding stateBinding
-        = data.getValueBinding(TobagoConstants.ATTR_STATE_BINDING);
+        = getValueBinding(TobagoConstants.ATTR_STATE_BINDING);
     if (stateBinding != null) {
       SheetRenderer.Sorter sorter =  (SheetRenderer.Sorter)
           getAttributes().get(TobagoConstants.ATTR_SHEET_SORTER);
       SheetState state = new SheetState();
-      state.setFirst(data.getFirst());
+      state.setFirst(getFirst());
       state.setSortedColumn(sorter != null ? sorter.getColumn() : -1);
       state.setAscending(sorter != null && sorter.isAscending());
       stateBinding.setValue(context, state);
+      state.setSelected((String)
+          getAttributes().get(TobagoConstants.ATTR_SELECTED_LIST_STRING));
+      state.setColumnWidths((String)
+          getAttributes().get(TobagoConstants.ATTR_WIDTH_LIST_STRING));
     }
     else {
       LOG.info("stateBinding == null");
     }
+  }
+
+
+
+  public SheetState getSheetState(FacesContext facesContext) {    
+    ValueBinding stateBinding
+        = getValueBinding(TobagoConstants.ATTR_STATE_BINDING);
+    if (stateBinding != null) {
+      return (SheetState) stateBinding.getValue(facesContext);
+    }
+    return null;
   }
 
 }

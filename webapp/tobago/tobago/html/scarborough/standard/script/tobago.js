@@ -144,26 +144,36 @@ function setUserAgent() {
 }
 
 function addEventListener(element, event, myFunction) {
-   if (ie || opera) {
-     element.attachEvent("on" + event, myFunction);
-   }
-   else {  // this is DOM2
-     element.addEventListener(event, myFunction, true);
-   }
+  if (element.addEventListener) { // this is DOM2
+     element.addEventListener(event, myFunction, false);
+  }
+  else { // IE
+    element.attachEvent("on" + event, myFunction);
+  }
 }
 
 function removeEventListener(element, event, myFunction) {
-  if (ie || opera) {
+  if (element.removeEventListener) { // this is DOM2
+    element.removeEventListener(event, myFunction, true);
+  }
+  else {  // IE
     element.detachEvent("on" + event, myFunction);
   }
-  else {  // this is DOM2
-    element.removeEventListener(event, myFunction, true);
+}
+
+function stopEventPropagation(event) {
+  if (! event) {
+    event = window.event;
+  }
+  event.cancelBubble = true;  // this is IE, no matter if not supported by actual browser
+  if (event.stopPropagation) {
+    event.stopPropagation(); // this is DOM2
   }
 }
 
 function getActiveElement(event) {
-  if (ie || opera) {
-    return event.srcElement;
+  if (! event.currentTarget) {
+    return event.srcElement;  // IE don't support currentTarget, hope src target helps
   }
   else { // this is DOM2
     return event.currentTarget;

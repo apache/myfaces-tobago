@@ -68,6 +68,8 @@ public class SheetRenderer extends RendererBase
   public static final String LAST = "last";
   public static final String WIDTHS_POSTFIX
       = TobagoConstants.SUBCOMPONENT_SEP + "widths";
+  public static final String SELECTED_POSTFIX
+      = TobagoConstants.SUBCOMPONENT_SEP + "selected";
 
 // ///////////////////////////////////////////// attribute
 
@@ -88,9 +90,15 @@ public class SheetRenderer extends RendererBase
 
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
-    ensureColumnWidthList(facesContext, (UIData) component);
+    setupState(facesContext, (UIData)component);
     storeFooterHeight(facesContext, component);
     super.encodeEnd(facesContext, component);
+  }
+
+  private void setupState(FacesContext facesContext, UIData data) {
+    SheetState state = data.getSheetState(facesContext);
+    ensureColumnWidthList(facesContext, data, state);
+
   }
 
   private void storeFooterHeight(FacesContext facesContext,
@@ -112,22 +120,50 @@ public class SheetRenderer extends RendererBase
   }
 
 
-  private void ensureColumnWidthList(FacesContext facesContext, UIData data) {
-    String columnLayout = (String) data.getAttributes().get(
-        TobagoConstants.ATTR_COLUMN_LAYOUT);
+  private void ensureColumnWidthList(
+      FacesContext facesContext, UIData data, SheetState state) {
+    List widthList = null;
 
-    if (columnLayout != null) {
-      List widthList
-          = (List) data.getAttributes().get(TobagoConstants.ATTR_WIDTH_LIST);
-      if (widthList == null) {
-        int space = LayoutUtil.getInnerSpace(facesContext, data, true)
-            - (needVerticalScrollbar(facesContext, data)
-            ? getScrollbarWidth(facesContext, data) : 0);
-        LayoutInfo layoutInfo = new LayoutInfo(
-            getColumns(data).size(), space, columnLayout);
-        layoutInfo.parseColumnLayout(space);
-        widthList = layoutInfo.getSpaceList();
-        data.getAttributes().put(TobagoConstants.ATTR_WIDTH_LIST, widthList);
+    final Map attributes = data.getAttributes();
+    String  widthListString
+        = (String) attributes.get(TobagoConstants.ATTR_WIDTH_LIST_STRING);
+    if (widthListString == null && state != null) {
+      widthListString = state.getColumnWidths();
+    }
+
+    if (widthListString != null) {
+      widthList = SheetState.parse(widthListString);
+    }
+    else {
+
+      String columnLayout = null;
+
+      if (columnLayout == null) {
+        columnLayout = (String) attributes.get(
+            TobagoConstants.ATTR_COLUMN_LAYOUT);
+      }
+
+      if (columnLayout != null) {
+        widthList = (List) attributes.get(TobagoConstants.ATTR_WIDTH_LIST);
+        if (widthList == null) {
+          int space = LayoutUtil.getInnerSpace(facesContext, data, true)
+              - (needVerticalScrollbar(facesContext, data)
+              ? getScrollbarWidth(facesContext, data) : 0);
+          LayoutInfo layoutInfo = new LayoutInfo(
+              getColumns(data).size(), space, columnLayout);
+          layoutInfo.parseColumnLayout(space);
+          widthList = layoutInfo.getSpaceList();
+        }
+      }
+    }
+
+    if (widthList != null) {
+      List columns = getColumns(data);
+      if (columns.size() != widthList.size()) {
+        LOG.warn("widthList.size() != columns.size()");
+      }
+      else {
+        attributes.put(TobagoConstants.ATTR_WIDTH_LIST, widthList);
       }
     }
   }
@@ -165,22 +201,21 @@ public class SheetRenderer extends RendererBase
   public void encodeDirectEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
     UIData component = (UIData) uiComponent;
-    List columnWidths = (List) component.getAttributes().get(
-        TobagoConstants.ATTR_WIDTH_LIST);
     String image1x1 = TobagoResource.getImage(facesContext, "1x1.gif");
     String ascending = TobagoResource.getImage(facesContext, "ascending.gif");
     String descending = TobagoResource.getImage(facesContext, "descending.gif");
 
     String sheetId = component.getClientId(facesContext);
+    LOG.info("sheetId ===== " + sheetId);
     UIPage uiPage = ComponentUtil.findPage(component);
     uiPage.getScriptFiles().add("tobago-sheet.js", true);
     uiPage.getOnloadScripts().add("initSheet(\"" + sheetId + "\")");
     uiPage.getStyleFiles().add("tobago-sheet.css");
 
-    String sheetStyle = (String) component.getAttributes().get(
-        TobagoConstants.ATTR_STYLE);
-    String headerStyle = (String) component.getAttributes().get(
-        TobagoConstants.ATTR_STYLE_HEADER);
+    final Map attributes = component.getAttributes();
+    String sheetStyle = (String) attributes.get(TobagoConstants.ATTR_STYLE);
+    String headerStyle =
+        (String) attributes.get(TobagoConstants.ATTR_STYLE_HEADER);
     String sheetWidthString = LayoutUtil.getStyleAttributeValue(sheetStyle,
         "width");
     String sheetHeightString = LayoutUtil.getStyleAttributeValue(sheetStyle,
@@ -193,16 +228,20 @@ public class SheetRenderer extends RendererBase
       LOG.error("no height in parent container, setting to 100");
       sheetHeight = 100;
     }
-    String bodyStyle = (String) component.getAttributes().get(
-        TobagoConstants.ATTR_STYLE_BODY);
-    int footerHeight = ((Integer) component.getAttributes().get(
-        TobagoConstants.ATTR_FOOTER_HEIGHT)).intValue();
+    String bodyStyle = (String) attributes.get(TobagoConstants.ATTR_STYLE_BODY);
+    int footerHeight = ((Integer)
+        attributes.get(TobagoConstants.ATTR_FOOTER_HEIGHT)).intValue();
 
 
     Application application = facesContext.getApplication();
+    SheetState state = component.getSheetState(facesContext);
     Sorter sorter = getSorter(component);
-    setStoredState(facesContext, component, sorter);
+    setStoredState(component, sorter, state);
+    List columnWidths = (List) attributes.get(TobagoConstants.ATTR_WIDTH_LIST);
+    String selectedListString = getSelected(component, state);
+    List selectedList = SheetState.parse(selectedListString);
     List columnList = getColumns(component);
+
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
@@ -211,6 +250,13 @@ public class SheetRenderer extends RendererBase
     writer.writeAttribute("name", sheetId + WIDTHS_POSTFIX, null);
     writer.writeAttribute("type", "hidden", null);
     writer.writeAttribute("value", "", null);
+    writer.endElement("input");
+
+    writer.startElement("input", null);
+    writer.writeAttribute("id", sheetId + SELECTED_POSTFIX, null);
+    writer.writeAttribute("name", sheetId + SELECTED_POSTFIX, null);
+    writer.writeAttribute("type", "hidden", null);
+    writer.writeAttribute("value", selectedListString, null);
     writer.endElement("input");
 
     // Outher sheet div
@@ -441,7 +487,10 @@ public class SheetRenderer extends RendererBase
       }
       odd = !odd;
       String rowClass = odd ?
-          "tobago-sheet-content-odd" : "tobago-sheet-content-even";
+          "tobago-sheet-content-odd " : "tobago-sheet-content-even ";
+      if (selectedList.contains(new Integer(rowIndex))) {
+        rowClass += " tobago-sheet-row-selected ";
+      }
 
 
       if (LOG.isDebugEnabled()) {
@@ -466,6 +515,7 @@ public class SheetRenderer extends RendererBase
 
       writer.startElement("tr", null);
       writer.writeAttribute("class", rowClass, null);
+      writer.writeAttribute("id", sheetId + "_data_tr_" + rowIndex, null);
       writer.writeText("", null);
 
 
@@ -592,22 +642,21 @@ public class SheetRenderer extends RendererBase
 
   }
 
-  private void setStoredState(FacesContext facesContext, UIData component,
-      Sorter sorter) {
-    ValueBinding stateBinding
-        = component.getValueBinding(TobagoConstants.ATTR_STATE_BINDING);
-    if (stateBinding != null) {
-      SheetState state = null;
-      try {
-        state = (SheetState) stateBinding.getValue(facesContext);
-      } catch (Exception e) {
-        LOG.debug("Can't retrieve state :" + e.getMessage(), e);
-      }
-      if (state != null) {
-        component.setFirst(state.getFirst());
-        sorter.setColumn(state.getSortedColumn());
-        sorter.setAscending(state.isAscending());
-      }
+  private String getSelected(UIData data, SheetState state) {
+    String selected = (String)
+        data.getAttributes().get(TobagoConstants.ATTR_SELECTED_LIST_STRING);
+    if (selected == null && state != null) {
+      selected = state.getSelected();
+    }
+    return selected != null ? selected : "";
+  }
+
+  private void setStoredState(
+      UIData component, Sorter sorter, SheetState state) {
+    if (state != null) {
+      component.setFirst(state.getFirst());
+      sorter.setColumn(state.getSortedColumn());
+      sorter.setAscending(state.isAscending());
     }
   }
 
@@ -690,32 +739,18 @@ public class SheetRenderer extends RendererBase
     if (requestParameterMap.containsKey(key)) {
       String widths = (String) requestParameterMap.get(key);
       if (widths.trim().length() > 0) {
-        updateWidthList((UIData) component, widths);
-      }
-    }
-  }
-
-  private void updateWidthList(UIData data, String widths) {
-    StringTokenizer tokenizer = new StringTokenizer(widths, ",");
-    List list = new ArrayList();
-    while (tokenizer.hasMoreElements()) {
-      try {
-        list.add(new Integer(tokenizer.nextToken()));
-      } catch (NumberFormatException e) {
-        LOG.warn(e.getMessage(), e);
+        component.getAttributes().put(TobagoConstants.ATTR_WIDTH_LIST_STRING, widths);
       }
     }
 
-    List columns = getColumns(data);
-    if (columns.size() != list.size()) {
-      LOG.warn("widthList.size() != columns.size()");
+    key = component.getClientId(facesContext) + SELECTED_POSTFIX;
+    if (requestParameterMap.containsKey(key)) {
+      String selected = (String) requestParameterMap.get(key);
+      LOG.info("selected = " + selected);
+      component.getAttributes().put(
+          TobagoConstants.ATTR_SELECTED_LIST_STRING, selected);
     }
-    else {
-      data.getAttributes().put(TobagoConstants.ATTR_WIDTH_LIST, list);
-    }
-
   }
-
 
   private Sorter getSorter(UIData component) {
     Sorter sorter = (Sorter)
@@ -836,7 +871,7 @@ public class SheetRenderer extends RendererBase
               Arrays.sort((Object[]) value, beanComparator);
             }
           }
-          data.updateState(facescontext, data);
+          data.updateState(facescontext);
         }
         else {  // DataModel?, ResultSet, Result or Object
           LOG.warn("Sorting not supported for type "
@@ -943,7 +978,7 @@ public class SheetRenderer extends RendererBase
         LOG.debug("aobj[0] instanceof '" + aobj[0] + "'");
       }
 
-      data.updateState(facescontext, data);
+      data.updateState(facescontext);
 
 
       return null;

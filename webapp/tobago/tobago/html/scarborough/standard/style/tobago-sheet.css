@@ -52,7 +52,7 @@
 }
 
 .tobago-sheet-header-sortable {
-   cursor: pointer; 
+   cursor: pointer;
 }
 
 .tobago-sheet-header-inner {
@@ -117,6 +117,11 @@
 
 .tobago-sheet-content-even {
   background: #d8e9fb;
+}
+
+.tobago-sheet-row-selected {
+	background: highlight;
+	color: highlighttext;
 }
 
 .tobago-sheet-footer-table {

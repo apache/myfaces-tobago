@@ -38,6 +38,11 @@
   background: #e9e9e9;
 }
 
+.tobago-sheet-row-selected {
+	background: highlight;
+	color: highlighttext;
+}
+
 
 .tobago-sheet-cell-td {
   border-bottom: 1px solid #ffffff;
