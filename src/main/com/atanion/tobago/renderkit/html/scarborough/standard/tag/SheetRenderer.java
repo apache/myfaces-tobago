@@ -170,7 +170,8 @@ public class SheetRenderer extends RendererBase
     // estimate need of height-scrollbar on client, if yes we have to consider
     // this when calculating column width's
 
-    final Object forceScroolbar = data.getAttributes().get(ATTR_SCROLLBARS);
+    final Object forceScroolbar
+        = data.getAttributes().get(ATTR_FORCE_VERTICAL_SCROLLBAR);
     if (forceScroolbar != null) {
       if ("true".equals(forceScroolbar)) {
         return true;

@@ -82,7 +82,8 @@ public class SheetTag extends TobagoTag {
    ComponentUtil.setIntegerProperty(component, ATTR_ROWS, pagingLength);
    ComponentUtil.setStringProperty(component, ATTR_COLUMNS, columns);
    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
-   ComponentUtil.setStringProperty(component, ATTR_SCROLLBARS, forceVerticalScrollbar);
+   ComponentUtil.setStringProperty(component, ATTR_FORCE_VERTICAL_SCROLLBAR,
+       forceVerticalScrollbar);
 
 //   todo: works this? or use that: component.setVar(var);
    ComponentUtil.setStringProperty(component, ATTR_VAR, var);

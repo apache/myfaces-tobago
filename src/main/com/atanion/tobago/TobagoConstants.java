@@ -34,6 +34,7 @@ public interface TobagoConstants {
   public static final String ATTR_FOCUS = "focus";
   public static final String ATTR_FOCUS_ID = "focusId";
   public static final String ATTR_FOOTER_HEIGHT = "footerHeight";
+  public static final String ATTR_FORCE_VERTICAL_SCROLLBAR = "forceVerticalScrollbar";
   public static final String ATTR_FORMAT_PATTERN = "formatPattern";
   public static final String ATTR_FOR = "for";
   public static final String ATTR_HEIGHT = "height";
