@@ -55,7 +55,7 @@ function getPopupImageTop(popup) {
     return "0px";
   }
 }
-function getToolbarButtonMenuTopOffset() {
+function getToolBarButtonMenuTopOffset() {
   return -1;
 }
 

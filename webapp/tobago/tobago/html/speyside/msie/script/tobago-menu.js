@@ -1,5 +1,5 @@
 // menu.js
 
-function getToolbarButtonMenuTopOffset() {
+function getToolBarButtonMenuTopOffset() {
   return 2;
 }
