@@ -31,7 +31,7 @@ public class GroupBoxTag extends TobagoBodyTag {
   }
 
   protected void provideLabel(UIComponent component) {
-    provideAttribute(component, label, TobagoConstants.ATTR_LABEL);
+    setStringProperty(component, ATTR_LABEL, label);
   }
 
 // /////////////////////////////////////////// bean getter + setter

@@ -42,19 +42,16 @@
       <name>inline</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
     <attribute>
       <name>escape</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
     <attribute>
       <name>createSpan</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
     <attribute>
       <name>title</name>
@@ -91,7 +88,6 @@
       <name>inline</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
     <attribute>
       <name>width</name>
@@ -123,7 +119,6 @@
       <name>readonly</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
     <attribute>
       <name>disabled</name>
@@ -144,7 +139,6 @@
       <name>inline</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
     <attribute>
       <name>focus</name>
@@ -152,21 +146,14 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>style</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
       <name>password</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
     <attribute>
       <name>required</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
     <attribute>
       <name>label</name>
@@ -193,7 +180,6 @@
       <name>readonly</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
     <attribute>
       <name>disabled</name>
@@ -229,7 +215,6 @@
       <name>required</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
     <attribute>
       <name>label</name>
@@ -256,7 +241,6 @@
       <name>readonly</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
     <attribute>
       <name>disabled</name>
@@ -272,7 +256,6 @@
       <name>inline</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
     <attribute>
       <name>label</name>
@@ -471,11 +454,6 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>border</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
       <name>columnLayout</name>
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
@@ -566,13 +544,11 @@
       <name>immediate</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
     <attribute>
       <name>defaultCommand</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
     <attribute>
       <name>width</name>
@@ -639,7 +615,6 @@
       <name>immediate</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
   </tag>
 
@@ -886,7 +861,6 @@
       <name>i18n</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
   </tag>
 
@@ -951,7 +925,6 @@
       <name>inline</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
     <attribute>
       <name>renderRange</name>
@@ -1051,7 +1024,6 @@
       <name>serverside</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
     <attribute>
       <name>stateBinding</name>
@@ -1094,7 +1066,6 @@
       <name>i18n</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
   </tag>
 

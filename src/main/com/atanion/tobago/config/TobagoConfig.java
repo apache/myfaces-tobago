@@ -21,7 +21,7 @@ public class TobagoConfig {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(TobagoConfig.class);
+  private static final Log LOG = LogFactory.getLog(TobagoConfig.class);
 
 // ///////////////////////////////////////////// attribute
 

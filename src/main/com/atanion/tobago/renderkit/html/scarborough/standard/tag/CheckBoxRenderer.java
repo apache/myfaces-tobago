@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
@@ -50,11 +51,10 @@ public class CheckBoxRenderer extends RendererBase implements DirectRenderer {
   public void encodeDirectEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
-
     UISelectBoolean component = (UISelectBoolean) uiComponent;
 
-    ResponseWriter writer = facesContext.getResponseWriter();
-
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
 
@@ -75,15 +75,12 @@ public class CheckBoxRenderer extends RendererBase implements DirectRenderer {
     writer.startElement("input", component);
     writer.writeAttribute("type", "checkbox", null);
     writer.writeAttribute("value", "true", null);
-    if (checked) {
-      writer.writeAttribute("checked", "checked", null);
-    }
+    writer.writeAttribute("checked", checked);
     writer.writeAttribute("name", component.getClientId(facesContext), null);
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
     writer.writeAttribute("id", component.getClientId(facesContext), null);
-    if (ComponentUtil.isDisabled(component)) {
-      writer.writeAttribute("disabled", "disabled", null);
-    }
+    writer.writeAttribute("disabled",
+        ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
     writer.endElement("input");
 
     if (label != null) {

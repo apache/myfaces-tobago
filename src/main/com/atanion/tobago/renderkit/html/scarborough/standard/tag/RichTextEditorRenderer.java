@@ -55,10 +55,10 @@ public class RichTextEditorRenderer extends InputRendererBase
     String actionId = ComponentUtil.findPage(component).getActionId();
     if (actionId != null
         && actionId.equals(component.getClientId(facesContext) + CHANGE_BUTTON)){
-      Boolean state =
-          (Boolean) component.getAttributes().get(TobagoConstants.ATTR_STATE_PREVIEW);
+      boolean state
+          = ComponentUtil.getBooleanAttribute(component, ATTR_STATE_PREVIEW);
       component.getAttributes().put(TobagoConstants.ATTR_STATE_PREVIEW,
-          new Boolean(! state.booleanValue()));
+          new Boolean(! state));
       facesContext.renderResponse();
 
     }
@@ -79,8 +79,8 @@ public class RichTextEditorRenderer extends InputRendererBase
 
     UIInput component = (UIInput) uiComponent;
 
-    boolean previewState = ((Boolean)
-        component.getAttributes().get(TobagoConstants.ATTR_STATE_PREVIEW)).booleanValue();
+    boolean previewState
+        = ComponentUtil.getBooleanAttribute(component, ATTR_STATE_PREVIEW);
     // fixme: remove this when i18n is ok
 
     String clientId = component.getClientId(facesContext);

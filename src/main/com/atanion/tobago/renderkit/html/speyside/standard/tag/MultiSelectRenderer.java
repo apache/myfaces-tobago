@@ -7,22 +7,19 @@ package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.TobagoResource;
-import com.atanion.tobago.context.UserAgent;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.SelectManyRendererBase;
 import com.atanion.tobago.util.LayoutUtil;
-
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectMany;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.Iterator;
@@ -44,7 +41,7 @@ public class MultiSelectRenderer extends SelectManyRendererBase
   public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
     int space = 0;
 
-    if (component.getFacet(TobagoConstants.FACET_LABEL) != null) {
+    if (component.getFacet(FACET_LABEL) != null) {
       int labelWidth = LayoutUtil.getLabelWidth(component);
       space += labelWidth != 0 ? labelWidth : getLabelWidth(facesContext, component);
       space += getConfiguredValue(facesContext, component, "labelSpace");
@@ -59,7 +56,7 @@ public class MultiSelectRenderer extends SelectManyRendererBase
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     int fixedHeight = -1;
-    String height = (String) component.getAttributes().get(TobagoConstants.ATTR_HEIGHT);
+    String height = (String) component.getAttributes().get(ATTR_HEIGHT);
     if (height != null) {
       try {
         fixedHeight = Integer.parseInt(height.replaceAll("\\D", "") );
@@ -90,17 +87,19 @@ public class MultiSelectRenderer extends SelectManyRendererBase
       LOG.debug("items.size() = '" + items.size() + "'");
     }
 
-    boolean isInline = ComponentUtil.isInline(component);
+    boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
 
-    UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
+    UIComponent label = component.getFacet(FACET_LABEL);
 
     String image = TobagoResource.getImage(facesContext, "1x1.gif");
 
-    Integer rows = (Integer) component.getAttributes().get(TobagoConstants.ATTR_ROWS);
+    // fixme: rows never used
+    Integer rows = (Integer) component.getAttributes().get(ATTR_ROWS);
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    if (!isInline) {
+    if (!inline) {
       writer.startElement("table", null);
       writer.writeAttribute("border", "0", null);
       writer.writeAttribute("cellspacing", "0", null);
@@ -139,11 +138,9 @@ public class MultiSelectRenderer extends SelectManyRendererBase
     writer.startElement("select", component);
     writer.writeAttribute("name", clientId, null);
     writer.writeAttribute("id", clientId, null);
-    if (ComponentUtil.isDisabled(component)) {
-      writer.writeAttribute("disabled", "disabled", null);
-    }
+    writer.writeAttribute("disabled", ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
     writer.writeAttribute("style", null, "style");
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
     writer.writeAttribute("multiple", "multiple", null);
 
     Object[] values = component.getSelectedValues();
@@ -164,7 +161,7 @@ public class MultiSelectRenderer extends SelectManyRendererBase
     }
     writer.endElement("select");
 
-    if (!isInline) {
+    if (!inline) {
       writer.endElement("td");
 
       writer.endElement("tr");

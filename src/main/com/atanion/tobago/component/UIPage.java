@@ -24,7 +24,7 @@ public class UIPage extends UIForm {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(UIPage.class);
+  private static final Log LOG = LogFactory.getLog(UIPage.class);
 
   public static final String COMPONENT_TYPE = "com.atanion.tobago.Page";
 

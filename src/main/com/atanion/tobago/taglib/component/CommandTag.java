@@ -5,23 +5,15 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.el.ConstantMethodBinding;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
-import javax.faces.el.MethodBinding;
 import javax.faces.context.FacesContext;
+import javax.faces.el.MethodBinding;
 
 public abstract class CommandTag extends TobagoBodyTag {
-
-// /////////////////////////////////////////// constants
-
-  private static final Log LOG = LogFactory.getLog(CommandTag.class);
-
-// /////////////////////////////////////////// attributes
+// ----------------------------------------------------------------- attributes
 
   private String action;
   private String actionListener;
@@ -29,12 +21,10 @@ public abstract class CommandTag extends TobagoBodyTag {
   private String commandName;
   private String type;
 
-  private boolean defaultCommand;
-  private boolean immediate;
+  private String defaultCommand;
+  private String immediate;
 
-// /////////////////////////////////////////// constructors
-
-// /////////////////////////////////////////// code
+// ----------------------------------------------------------- business methods
 
   public String getComponentType() {
     return UICommand.COMPONENT_TYPE;
@@ -44,12 +34,10 @@ public abstract class CommandTag extends TobagoBodyTag {
     UICommand command = (UICommand) component;
     super.setProperties(component);
 
-    setProperty(component, TobagoConstants.ATTR_COMMAND_NAME, commandName);
-    setProperty(component, TobagoConstants.ATTR_TYPE, type);
-    setBooleanProperty(component, TobagoConstants.ATTR_DEFAULT_COMMAND, defaultCommand);
-    if (immediate) {
-      command.setImmediate(true);
-    }
+    setStringProperty(component, ATTR_COMMAND_NAME, commandName);
+    setStringProperty(component, ATTR_TYPE, type);
+    setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand);
+    setBooleanProperty(component, ATTR_IMMEDIATE, immediate);
 
     if (actionListener != null) {
       if (isValueReference(actionListener)) {
@@ -74,29 +62,64 @@ public abstract class CommandTag extends TobagoBodyTag {
     }
   }
 
-// /////////////////////////////////////////// bean getter + setter
+  public void release() {
+    super.release();
+    action= null;
+    actionListener= null;
+    commandName= null;
+    type = null;
+    defaultCommand = null;
+    immediate = null;
+  }
 
-  public void setCommandName(String commandName) {
-    this.commandName = commandName;
+// ------------------------------------------------------------ getter + setter
+
+  public String getAction() {
+    return action;
   }
 
   public void setAction(String action) {
     this.action = action;
   }
 
+  public String getActionListener() {
+    return actionListener;
+  }
+
   public void setActionListener(String actionListener) {
     this.actionListener = actionListener;
+  }
+
+  public String getCommandName() {
+    return commandName;
+  }
+
+  public void setCommandName(String commandName) {
+    this.commandName = commandName;
+  }
+
+  public String getType() {
+    return type;
   }
 
   public void setType(String type) {
     this.type = type;
   }
 
-  public void setDefaultCommand(boolean defaultCommand) {
+  public String getDefaultCommand() {
+    return defaultCommand;
+  }
+
+  public void setDefaultCommand(String defaultCommand) {
     this.defaultCommand = defaultCommand;
   }
 
-  public void setImmediate(boolean immediate) {
+  public String getImmediate() {
+    return immediate;
+  }
+
+  public void setImmediate(String immediate) {
     this.immediate = immediate;
   }
 }
+

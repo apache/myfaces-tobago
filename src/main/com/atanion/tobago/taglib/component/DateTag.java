@@ -21,7 +21,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-public class DateTag extends TextInputTag {
+public class DateTag extends InputTag {
 
 // /////////////////////////////////////////// constants
 
@@ -38,14 +38,14 @@ public class DateTag extends TextInputTag {
   }
 
   public String getRendererType() {
-    return TobagoConstants.RENDERER_TYPE_TEXT_BOX;
+    return RENDERER_TYPE_TEXT_BOX;
   }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    ValueHolder holder = (ValueHolder) component;
-    FacesContext context = FacesContext.getCurrentInstance();
+//    ValueHolder holder = (ValueHolder) component;
+//    FacesContext context = FacesContext.getCurrentInstance();
 //    Converter converter = context.getApplication().createConverter("Date"); fixme
 //    holder.setConverter(converter);
 
@@ -69,19 +69,19 @@ public class DateTag extends TextInputTag {
     // create link
     UICommand link = (UICommand) application.createComponent(
         UICommand.COMPONENT_TYPE);
-    link.setRendererType(TobagoConstants.RENDERER_TYPE_LINK);
+    link.setRendererType(RENDERER_TYPE_LINK);
     link.setRendered(true);
-    link.getAttributes().put(TobagoConstants.ATTR_TYPE, "script");
+    link.getAttributes().put(ATTR_TYPE, "script");
 
     // create image
     UIGraphic image = (UIGraphic) application.createComponent(
         UIGraphic.COMPONENT_TYPE);
     image.setRendererType("Image"); //fixme: use constant ?
     image.setRendered(true);
-    image.getAttributes().put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
+    image.getAttributes().put(ATTR_I18N, Boolean.TRUE);
     image.setValue("date.gif");
-    image.getAttributes().put(TobagoConstants.ATTR_ALT, ""); //todo: i18n
-    image.getAttributes().put(TobagoConstants.ATTR_STYLE_CLASS, "tobago-input-picker");
+    image.getAttributes().put(ATTR_ALT, ""); //todo: i18n
+    image.getAttributes().put(ATTR_STYLE_CLASS, "tobago-input-picker");
 
     // add image
     link.getChildren().add(image);

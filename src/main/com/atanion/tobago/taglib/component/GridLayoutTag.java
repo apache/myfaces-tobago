@@ -6,8 +6,6 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.UIGridLayout;
 
 import javax.faces.component.UIComponent;
@@ -19,7 +17,7 @@ public class GridLayoutTag extends TobagoTag {
 
 // ///////////////////////////////////////////// attribute
 
-  private int columnCount = 1;
+  private String columnCount = "1";
 
   private String border;
   private String cellspacing;
@@ -39,7 +37,7 @@ public class GridLayoutTag extends TobagoTag {
 
   public int doStartTag() throws JspException {
     final int result = super.doStartTag();
-    getComponentInstance().getAttributes().remove(TobagoConstants.ATTR_LAYOUT_ROWS);
+    getComponentInstance().getAttributes().remove(ATTR_LAYOUT_ROWS);
     return result;
   }
 
@@ -49,25 +47,39 @@ public class GridLayoutTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setProperty(component, TobagoConstants.ATTR_COLUMN_COUNT, new Integer(columnCount));
-    setProperty(component, TobagoConstants.ATTR_BORDER, border);
-    setProperty(component, TobagoConstants.ATTR_CELLSPACING, cellspacing);
-    setProperty(component, TobagoConstants.ATTR_LAYOUT_MARGIN, margin);
-    setProperty(component, TobagoConstants.ATTR_LAYOUT_MARGIN_TOP, marginTop);
-    setProperty(component, TobagoConstants.ATTR_LAYOUT_MARGIN_RIGHT, marginRight);
-    setProperty(component, TobagoConstants.ATTR_LAYOUT_MARGIN_BOTTOM, marginBottom);
-    setProperty(component, TobagoConstants.ATTR_LAYOUT_MARGIN_LEFT, marginLeft);
-    setProperty(component, TobagoConstants.ATTR_COLUMN_LAYOUT, columnLayout);
-    setProperty(component, TobagoConstants.ATTR_ROW_LAYOUT, rowLayout);
+    setIntegerProperty(component, ATTR_COLUMN_COUNT, columnCount);
+    setStringProperty(component, ATTR_BORDER, border);
+    setStringProperty(component, ATTR_CELLSPACING, cellspacing);
+    setStringProperty(component, ATTR_LAYOUT_MARGIN, margin);
+    setStringProperty(component, ATTR_LAYOUT_MARGIN_TOP, marginTop);
+    setStringProperty(component, ATTR_LAYOUT_MARGIN_RIGHT, marginRight);
+    setStringProperty(component, ATTR_LAYOUT_MARGIN_BOTTOM, marginBottom);
+    setStringProperty(component, ATTR_LAYOUT_MARGIN_LEFT, marginLeft);
+    setStringProperty(component, ATTR_COLUMN_LAYOUT, columnLayout);
+    setStringProperty(component, ATTR_ROW_LAYOUT, rowLayout);
+  }
+
+  public void release() {
+    super.release();
+    columnCount = "1";
+    border = null;
+    cellspacing = null;
+    margin = null;
+    marginTop = null;
+    marginRight = null;
+    marginBottom = null;
+    marginLeft = null;
+    columnLayout = null;
+    rowLayout = null;
   }
 
 // ///////////////////////////////////////////// bean getter + setter
 
-  public int getColumnCount() {
+  public String getColumnCount() {
     return columnCount;
   }
 
-  public void setColumnCount(int columnCount) {
+  public void setColumnCount(String columnCount) {
     this.columnCount = columnCount;
   }
 
@@ -87,32 +99,48 @@ public class GridLayoutTag extends TobagoTag {
     this.cellspacing = cellspacing;
   }
 
-  public String getMargin() { return margin; }
+  public String getMargin() {
+    return margin;
+  }
 
-  public void setMargin(String margin) { this.margin = margin; }
+  public void setMargin(String margin) {
+    this.margin = margin;
+  }
 
-  public String getMarginTop() { return marginTop; }
+  public String getMarginTop() {
+    return marginTop;
+  }
 
   public void setMarginTop(String marginTop) {
     this.marginTop = marginTop;
   }
 
-  public String getMarginRight() { return marginRight; }
+  public String getMarginRight() {
+    return marginRight;
+  }
 
   public void setMarginRight(String marginRight) {
     this.marginRight = marginRight;
   }
 
-  public String getMarginBottom() { return marginBottom; }
+  public String getMarginBottom() {
+    return marginBottom;
+  }
 
   public void setMarginBottom(String marginBottom) {
     this.marginBottom = marginBottom;
   }
 
-  public String getMarginLeft() { return marginLeft; }
+  public String getMarginLeft() {
+    return marginLeft;
+  }
 
   public void setMarginLeft(String marginLeft) {
     this.marginLeft = marginLeft;
+  }
+
+  public String getColumnLayout() {
+    return columnLayout;
   }
 
   public void setColumnLayout(String columnLayout) {
@@ -126,5 +154,4 @@ public class GridLayoutTag extends TobagoTag {
   public void setRowLayout(String rowLayout) {
     this.rowLayout = rowLayout;
   }
-
 }

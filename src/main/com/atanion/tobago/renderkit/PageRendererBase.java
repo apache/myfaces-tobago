@@ -19,7 +19,7 @@ public class PageRendererBase extends RendererBase {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(PageRendererBase.class);
+  private static final Log LOG = LogFactory.getLog(PageRendererBase.class);
 
 // ///////////////////////////////////////////// attribute
 
@@ -33,7 +33,7 @@ public class PageRendererBase extends RendererBase {
     HttpServletRequest servletRequest
         = (HttpServletRequest) facesContext.getExternalContext().getRequest();
     String name = uiComponent.getClientId(facesContext)
-        + TobagoConstants.SUBCOMPONENT_SEP + "form-action";
+        + SUBCOMPONENT_SEP + "form-action";
     String newActionId = servletRequest.getParameter(name);
     ((UIPage) uiComponent).setActionId(newActionId);
   }

@@ -6,30 +6,24 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.context.ClientProperties;
-import com.atanion.tobago.context.UserAgent;
+import com.atanion.tobago.renderkit.CommandRendererBase;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.renderkit.CommandRendererBase;
-import com.atanion.tobago.util.LayoutUtil;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIGraphic;
-import javax.faces.component.UIOutput;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Iterator;
-import java.util.Map;
 
 public class MenubarRenderer extends RendererBase
     implements DirectRenderer {
@@ -123,7 +117,8 @@ public class MenubarRenderer extends RendererBase
   private String createMenuEntry(FacesContext facesContext, UIPanel uiPanel)
       throws IOException {
 
-    final boolean disabled = ComponentUtil.isDisabled(uiPanel);
+    final boolean disabled
+        = ComponentUtil.getBooleanAttribute(uiPanel, ATTR_DISABLED);
     String spanClass
         = "tobago-menubar-item-span tobago-menubar-item-span-"
         + (disabled ? "disabled" : "enabled");
@@ -164,7 +159,8 @@ public class MenubarRenderer extends RendererBase
 
   private void addMenuItem(StringBuffer sb, String var, FacesContext facesContext,
       UICommand command) throws IOException {
-    final boolean disabled = ComponentUtil.isDisabled(command);
+    final boolean disabled
+        = ComponentUtil.getBooleanAttribute(command, ATTR_DISABLED);
     String spanClass
         = "tobago-menubar-item-span tobago-menubar-item-span-"
         + (disabled ? "disabled" : "enabled");

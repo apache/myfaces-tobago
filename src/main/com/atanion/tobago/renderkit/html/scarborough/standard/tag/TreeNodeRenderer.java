@@ -5,14 +5,12 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.model.TreeState;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UITree;
 import com.atanion.tobago.component.UITreeNode;
+import com.atanion.tobago.model.TreeState;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RendererBase;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -25,8 +23,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
 import javax.servlet.ServletRequest;
-import javax.swing.tree.TreeNode;
-import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.util.Iterator;
@@ -36,7 +32,7 @@ public class TreeNodeRenderer extends RendererBase
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(TreeNodeRenderer.class);
+  private static final Log LOG = LogFactory.getLog(TreeNodeRenderer.class);
 
 // ///////////////////////////////////////////// attribute
 
@@ -65,8 +61,7 @@ public class TreeNodeRenderer extends RendererBase
       }
     }
 
-    if (ComponentUtil.getBooleanAttribute(tree,
-        TobagoConstants.ATTR_MULTISELECT, TobagoConstants.VB_MULTISELECT)) { // selection
+    if (ComponentUtil.getBooleanAttribute(tree, ATTR_MULTISELECT)) { // selection
       String selected = request.getParameter(treeId + UITree.SELECT_STATE);
       String searchString = ";" + nodeId + ";";
       if (selected.indexOf(searchString) > -1) {
@@ -179,30 +174,30 @@ public class TreeNodeRenderer extends RendererBase
         writer.writeText("TreeFolder", null);
       }
       writer.writeText("('", null);
-      writer.writeText(treeNode.getAttributes().get(TobagoConstants.ATTR_NAME),
+      writer.writeText(treeNode.getAttributes().get(ATTR_NAME),
           null);
       writer.writeText("','", null);
       writer.writeText(clientId, null);
       writer.writeText("',", null);
       writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
-          TobagoConstants.ATTR_HIDE_ICONS , TobagoConstants.VB_HIDE_ICONS)), null);
+          ATTR_HIDE_ICONS)), null);
       writer.writeText(",", null);
       writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
-          TobagoConstants.ATTR_HIDE_JUNCTIONS, TobagoConstants.VB_HIDE_JUNCTIONS)), null);
+          ATTR_HIDE_JUNCTIONS)), null);
       writer.writeText(",", null);
       writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
-          TobagoConstants.ATTR_HIDE_ROOT_JUNCTION , TobagoConstants.VB_HIDE_ROOT_JUNCTION)), null);
+          ATTR_HIDE_ROOT_JUNCTION)), null);
       writer.writeText(",", null);
       writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
-          TobagoConstants.ATTR_HIDE_ROOT, TobagoConstants.VB_HIDE_ROOT)), null);
+          ATTR_HIDE_ROOT)), null);
       writer.writeText(",'", null);
       writer.writeText(rootId, null);
       writer.writeText("',", null);
       writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
-          TobagoConstants.ATTR_MULTISELECT, TobagoConstants.VB_MULTISELECT)), null);
+          ATTR_MULTISELECT)), null);
       writer.writeText(",", null);
       writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
-          TobagoConstants.ATTR_MUTABLE, TobagoConstants.VB_MUTABLE)), null);
+          ATTR_MUTABLE)), null);
       writer.writeText(",'", null);
       writer.writeText(
           ComponentUtil.findPage(component).getFormId(facesContext), null);

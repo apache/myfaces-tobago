@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
@@ -85,7 +86,8 @@ public class MultiSelectRenderer extends SelectManyRendererBase
       LOG.debug("items.size() = '" + items.size() + "'");
     }
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
     if (label != null) {
@@ -113,9 +115,8 @@ public class MultiSelectRenderer extends SelectManyRendererBase
     String clientId = component.getClientId(facesContext);
     writer.writeAttribute("name", clientId, null);
     writer.writeAttribute("id", clientId, null);
-    if (ComponentUtil.isDisabled(component)) {
-      writer.writeAttribute("disabled", "disabled", null);
-    }
+    writer.writeAttribute("disabled",
+        ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
     writer.writeAttribute("style", null, "style");
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
     writer.writeAttribute("multiple", "multiple", null);

@@ -19,7 +19,7 @@ public class InputRendererBase extends RendererBase {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(InputRendererBase.class);
+  private static final Log LOG = LogFactory.getLog(InputRendererBase.class);
 
 // ///////////////////////////////////////////// attribute
 

@@ -8,12 +8,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.TobagoConstants;
-
-import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
-import javax.faces.context.FacesContext;
 
 
 public class ImageTag extends TobagoTag {
@@ -25,8 +21,6 @@ public class ImageTag extends TobagoTag {
   private String value;
   private String alt;
   private String border;
-  private String width;
-  private String height;
 
 // /////////////////////////////////////////// constructors
 
@@ -38,45 +32,41 @@ public class ImageTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setProperty(component, TobagoConstants.ATTR_ALT, alt);
-    setProperty(component, TobagoConstants.ATTR_BORDER, border);
-    setProperty(component, TobagoConstants.ATTR_WIDTH, width);
-    setProperty(component, TobagoConstants.ATTR_HEIGHT, height);
-    UIGraphic graphic = (UIGraphic) component;
-    if (isValueReference(value)) {
-      Application application = FacesContext.getCurrentInstance().getApplication();
-      component.setValueBinding("value", application.createValueBinding(value));
-    }
-    else if (value != null) {
-      graphic.setValue(value);
-    }
-  }
-
-  public void setAlt(String alt) {
-    this.alt = alt;
-  }
-
-  public void setBorder(String border) {
-    this.border = border;
-  }
-
-  /**
-   * @deprecated use setValue instead
-   */
-  public void setSrc(String src) {
-    this.value = src;
-  }
-
-  public void setValue(String value) {
-    this.value = value;
+    setStringProperty(component, ATTR_ALT, alt);
+    setStringProperty(component, ATTR_BORDER, border);
+    setStringProperty(component, ATTR_VALUE, value);
   }
 
   public void release() {
     super.release();
     this.alt = null;
     this.border = null;
-    this.width = null;
-    this.height = null;
     this.value = null;
+  }
+
+// /////////////////////////////////////////// setter + getter
+
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
+  }
+
+  public String getAlt() {
+    return alt;
+  }
+
+  public void setAlt(String alt) {
+    this.alt = alt;
+  }
+
+  public String getBorder() {
+    return border;
+  }
+
+  public void setBorder(String border) {
+    this.border = border;
   }
 }

@@ -5,8 +5,6 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.model.DateModel;
-
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
@@ -20,19 +18,11 @@ public class CalendarTag extends TobagoTag {
 
 // ///////////////////////////////////////////// attribute
 
-  private int year;
-  private int month;
-  private int day;
+  private String year;
+  private String month;
+  private String day;
 
 // ///////////////////////////////////////////// constructor
-
-  public CalendarTag() {
-    DateModel date = new DateModel(java.util.Calendar.getInstance());
-    year = date.getYear();
-    month = date.getMonth();
-    day = date.getDay();
-  }
-
 
 // ///////////////////////////////////////////// code
 
@@ -43,28 +33,41 @@ public class CalendarTag extends TobagoTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    if (year != 0) {
-      setProperty(component, YEAR, new Integer(year));
-    }
-    if (month != 0) {
-      setProperty(component, MONTH, new Integer(month));
-    }
-    if (day != 0) {
-      setProperty(component, DAY, new Integer(day));
-    }
+    setIntegerProperty(component, YEAR, year);
+    setIntegerProperty(component, MONTH, month);
+    setIntegerProperty(component, DAY, day);
   }
 
+  public void release() {
+    super.release();
+    day = null;
+    month = null;
+    year = null;
+  }
+  
 // ///////////////////////////////////////////// bean getter + setter
 
-  public void setYear(int year) {
+  public String getYear() {
+    return year;
+  }
+
+  public void setYear(String year) {
     this.year = year;
   }
 
-  public void setMonth(int month) {
+  public String getMonth() {
+    return month;
+  }
+
+  public void setMonth(String month) {
     this.month = month;
   }
 
-  public void setDay(int day) {
+  public String getDay() {
+    return day;
+  }
+
+  public void setDay(String day) {
     this.day = day;
   }
 }

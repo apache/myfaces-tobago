@@ -1,6 +1,5 @@
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.TobagoConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -41,30 +40,25 @@ public class CellTag extends Panel_GroupTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    Application application = FacesContext.getCurrentInstance().getApplication();
-    if (isValueReference(spanX)) {
-      component.setValueBinding(TobagoConstants.ATTR_SPAN_X,
-          application.createValueBinding(spanX));
-    } else {
-      setProperty(component, TobagoConstants.ATTR_SPAN_X, spanX);
-    }
+    setIntegerProperty(component, ATTR_SPAN_X, spanX);
+    setIntegerProperty(component, ATTR_SPAN_Y, spanY);
 
-    if (isValueReference(spanY)) {
-      component.setValueBinding(TobagoConstants.ATTR_SPAN_Y, 
-          application.createValueBinding(spanY));
-    } else {
-      setProperty(component, TobagoConstants.ATTR_SPAN_Y, spanY);
-    }
+    component.getAttributes().put(ATTR_LAYOUT_DIRECTIVE, Boolean.TRUE);
 
-    setProperty(component, TobagoConstants.ATTR_LAYOUT_DIRECTIVE, Boolean.TRUE);
     if (LOG.isDebugEnabled()) {
-      LOG.debug("spanx=" + spanX + " spanY=" + spanY);
-      LOG.debug("spanx=" +
-          component.getAttributes().get(TobagoConstants.ATTR_SPAN_X)
+      LOG.debug("spanX=" + spanX + " spanY=" + spanY);
+      LOG.debug("spanX=" +
+          component.getAttributes().get(ATTR_SPAN_X)
           + " spanY=" +
-          component.getAttributes().get(TobagoConstants.ATTR_SPAN_Y));
+          component.getAttributes().get(ATTR_SPAN_Y));
       LOG.debug("component = " + getComponentInstance());
     }
+  }
+
+  public void release() {
+    super.release();
+    spanX = "1";
+    spanY = "1";
   }
 
 // ///////////////////////////////////////////// bean getter + setter
@@ -84,5 +78,4 @@ public class CellTag extends Panel_GroupTag {
   public void setSpanY(String spanY) {
     this.spanY = spanY;
   }
-
 }

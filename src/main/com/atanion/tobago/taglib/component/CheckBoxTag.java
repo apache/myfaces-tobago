@@ -12,20 +12,12 @@ import com.atanion.tobago.TobagoConstants;
 import javax.faces.component.UISelectBoolean;
 
 
-public class CheckBoxTag extends SelectTag {
+public class CheckBoxTag extends InputTag {
 
-// /////////////////////////////////////////// constants
-
-// /////////////////////////////////////////// attributes
-
-// /////////////////////////////////////////// constructors
-
-// /////////////////////////////////////////// code
+// ----------------------------------------------------------- business methods
 
   public String getComponentType() {
     return UISelectBoolean.COMPONENT_TYPE;
   }
-
-// /////////////////////////////////////////// bean getter + setter
-
 }
+

@@ -21,7 +21,7 @@ public class TobagoMultipartFormdataFilter implements Filter {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG
+  private static final Log LOG
       = LogFactory.getLog(TobagoMultipartFormdataFilter.class);
 
 // ///////////////////////////////////////////// attribute

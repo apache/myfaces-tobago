@@ -34,7 +34,7 @@ public class GridLayoutRenderer extends RendererBase
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(GridLayoutRenderer.class);
+  private static final Log LOG = LogFactory.getLog(GridLayoutRenderer.class);
 
 // ///////////////////////////////////////////// attribute
 
@@ -385,167 +385,16 @@ public class GridLayoutRenderer extends RendererBase
 
   public void layoutBegin(FacesContext facesContext, UIComponent component) {
     HtmlDefaultLayoutManager.layoutSpace(component, facesContext, true);
-//    layoutSpaceOld(component, facesContext, true);
 
     RendererBase renderer = ComponentUtil.getRenderer(component, facesContext);
     if (renderer instanceof HeightLayoutRenderer) {
       HtmlDefaultLayoutManager.layoutSpace(component, facesContext, false);
-//      layoutSpaceOld(component, facesContext, false);
     }
 
     if (component instanceof UIGridLayout) {
       layoutMargins((UIGridLayout) component);
     }
   }
-
-  protected void layoutSpaceOld(UIComponent component, FacesContext facesContext,
-      boolean width) {
-    String spaceString;
-    String componentAttribute;
-    String layoutAttribute;
-    String innerAttribute;
-    String styleAttribute;
-    if (width) {
-      spaceString = LayoutUtil.getLayoutWidth(component);
-      componentAttribute = TobagoConstants.ATTR_WIDTH;
-      layoutAttribute = TobagoConstants.ATTR_LAYOUT_WIDTH;
-      innerAttribute = TobagoConstants.ATTR_INNER_WIDTH;
-      styleAttribute = "width";
-    } else {
-      spaceString = LayoutUtil.getLayoutHeight(component);
-      componentAttribute = TobagoConstants.ATTR_HEIGHT;
-      layoutAttribute = TobagoConstants.ATTR_LAYOUT_HEIGHT;
-      innerAttribute = TobagoConstants.ATTR_INNER_HEIGHT;
-      styleAttribute = "height";
-    }
-    String componentSpace = (String)
-//        component.getAttributes().get(componentAttribute);
-      LayoutUtil.getLayoutSpace(component, componentAttribute,  layoutAttribute);
-    int space = -1;
-    if (spaceString != null) {
-      space = Integer.parseInt(spaceString.replaceAll("\\D", ""));
-    }
-    if (space == -1 && (!"Text".equals(component.getRendererType()))) {
-      UIComponent parent = component.getParent();
-//      if (parent instanceof UIComponentBase) { // don't know why, todo: ex me
-      space = LayoutUtil.getInnerSpace(facesContext, parent, width);
-      if (space > 0 && !ComponentUtil.isFacetOf(component, parent)) {
-        component.getAttributes().put(layoutAttribute, "" + space + "px");
-      }
-//      }
-    }
-    if (space > 0) {
-      RendererBase renderer = ComponentUtil.getRenderer(component,
-          facesContext);
-      Integer innerSpaceInteger
-          = null;
-//          = (Integer) component.getAttributes().get(innerAttribute);
-      int bodySpace = -1;
-      int headerSpace = -1;
-//      if (innerSpaceInteger == null) {
-      int innerSpace = 0;
-      bodySpace = 0;
-      headerSpace = 0;
-      if (width) {
-        innerSpace = LayoutUtil.getInnerSpace(facesContext, component, space,
-            width);
-      } else {
-        headerSpace = ((HeightLayoutRenderer) renderer)
-            .getHeaderHeight(facesContext, component);
-        bodySpace = space - headerSpace;
-        innerSpace = LayoutUtil.getInnerSpace(facesContext, component,
-            space, width);
-      }
-      innerSpaceInteger = new Integer(innerSpace);
-      component.getAttributes().put(innerAttribute, innerSpaceInteger);
-//      }
-      if (componentSpace != null
-          || !ComponentUtil.getBooleanAttribute(component,
-              TobagoConstants.ATTR_INLINE)) {
-        int styleSpace = space;
-        if (width) {
-          styleSpace -= ComponentUtil.getRenderer(component, facesContext)
-              .getComponentExtraWidth(facesContext, component);
-        } else {
-          styleSpace -= ComponentUtil.getRenderer(component, facesContext)
-              .getComponentExtraHeight(facesContext, component);
-        }
-//        if (log.isDebugEnabled()) {
-//          log.debug("width '" + width + "'");
-//          log.debug("stype '" + styleSpace + "'");
-//        }
-        String style = (String)
-            component.getAttributes().get(TobagoConstants.ATTR_STYLE);
-        style = style != null ? style : "";
-        style = style.replaceAll(styleAttribute + ":\\s\\d+px;", "").trim();
-
-        if (renderer instanceof HeightLayoutRenderer) {
-          String headerStyle;
-          String bodyStyle;
-          if (width) {
-            headerStyle = style + " width: " + styleSpace + "px;";
-            bodyStyle = style + " width: " + styleSpace + "px;";
-          } else {
-            headerStyle =
-                (String)
-                component.getAttributes().get(
-                    TobagoConstants.ATTR_STYLE_HEADER);
-            if (headerStyle == null) {
-              LOG.warn("headerStyle attribute == null, set to empty String");
-              headerStyle = "";
-            }
-            if (headerSpace != -1) {
-              headerStyle =
-                  headerStyle.replaceAll("height:\\s\\d+px;", "").trim();
-              headerStyle += " height: " + headerSpace + "px;";
-            }
-            bodyStyle =
-                (String)
-                component.getAttributes().get(
-                    TobagoConstants.ATTR_STYLE_HEADER);
-            if (bodyStyle == null) {
-              LOG.warn("bodyStyle attribute == null, set to empty String");
-              bodyStyle = "";
-            }
-            if (bodySpace != -1) {
-              bodyStyle = bodyStyle.replaceAll("height:\\s\\d+px;", "").trim();
-              bodyStyle += " height: " + bodySpace + "px;";
-            }
-          }
-          component.getAttributes().put(TobagoConstants.ATTR_STYLE_HEADER,
-              headerStyle);
-          component.getAttributes().put(TobagoConstants.ATTR_STYLE_BODY,
-              bodyStyle);
-        }
-
-        component.getAttributes().put(TobagoConstants.ATTR_STYLE, style + " "
-            + styleAttribute + ": " + styleSpace + "px;");
-//        if (log.isDebugEnabled()) {
-//          log.debug("style = '" + style + "'");
-//        }
-        String innerStyle;
-        if (width) {
-          innerStyle = style;
-        } else {
-          innerStyle =
-              (String) component.getAttributes().get(
-                  TobagoConstants.ATTR_STYLE_INNER);
-        }
-        component.getAttributes().put(TobagoConstants.ATTR_STYLE_INNER,
-            innerStyle + " " + styleAttribute + ": " + innerSpaceInteger +
-            "px;");
-      }
-      UIComponent layout = component.getFacet("layout");
-      if (layout != null) {
-        int layoutSpace = LayoutUtil.getInnerSpace(facesContext, component,
-            width);
-        if (layoutSpace > 0) {
-          layout.getAttributes().put(layoutAttribute, "" + layoutSpace + "px");
-        }
-      }
-    }
-  }
-
 
   public void layoutEnd(FacesContext facesContext, UIComponent component) {
     if (component instanceof UIGridLayout) {

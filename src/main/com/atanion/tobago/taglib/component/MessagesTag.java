@@ -18,7 +18,7 @@ public class MessagesTag extends TobagoTag {
 
 // ///////////////////////////////////////////// attribute
 
-  private String forValue;
+  private String _for;
 
 // ///////////////////////////////////////////// constructor
 
@@ -30,12 +30,21 @@ public class MessagesTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setProperty(component, TobagoConstants.ATTR_FOR, forValue);
+    setStringProperty(component, ATTR_FOR, _for);
   }
 
+  public void release() {
+    super.release();
+    _for = null;
+  }
+  
 // ///////////////////////////////////////////// bean getter + setter
 
-  public void setFor(String forValue) {
-    this.forValue = forValue;
+  public String getFor() {
+    return _for;
+  }
+
+  public void setFor(String _for) {
+    this._for = _for;
   }
 }

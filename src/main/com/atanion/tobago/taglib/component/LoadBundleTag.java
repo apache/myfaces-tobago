@@ -15,24 +15,15 @@ import java.util.Map;
 import java.util.Set;
 
 public class LoadBundleTag extends TagSupport {
-
-// ///////////////////////////////////////////// constant
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
+// ----------------------------------------------------------------- attributes
 
   private String basename;
 
   private String var;
 
-  public LoadBundleTag() {
-  }
+// ----------------------------------------------------------- business methods
 
   public int doStartTag() throws JspException {
-
     Map toStore = new BundleMapWrapper(basename);
     FacesContext.getCurrentInstance().getExternalContext()
         .getRequestMap().put(var, toStore);
@@ -45,23 +36,26 @@ public class LoadBundleTag extends TagSupport {
     var = null;
   }
 
-// ///////////////////////////////////////////// bean getter + setter
+// ------------------------------------------------------------ getter + setter
 
+  public String getBasename() {
+    return basename;
+  }
 
   public void setBasename(String basename) {
     this.basename = basename;
   }
 
+  public String getVar() {
+    return var;
+  }
+
   public void setVar(String var) {
     this.var = var;
   }
-
-// ////////////////////////////////////////////////////////////////////////
-// ////////////////////////////////////////////////////////////////////////
-// ////////////////////////////////////////////////////////////////////////
+// -------------------------------------------------------------- inner classes
 
   private static class BundleMapWrapper implements Map {
-
     private String basename;
 
     public BundleMapWrapper(String basename) {
@@ -133,6 +127,6 @@ public class LoadBundleTag extends TagSupport {
     public Collection values() {
       throw new UnsupportedOperationException();
     }
-
   }
 }
+

@@ -28,7 +28,7 @@ public class TobagoServletContextListener implements ServletContextListener {
 
 // ///////////////////////////////////////////// constants
 
-  private static Log LOG
+  private static final Log LOG
       = LogFactory.getLog(TobagoServletContextListener.class);
 
 // ///////////////////////////////////////////// code

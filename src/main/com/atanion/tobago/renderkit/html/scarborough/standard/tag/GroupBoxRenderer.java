@@ -28,7 +28,7 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(GroupBoxRenderer.class);
+  private static final Log LOG = LogFactory.getLog(GroupBoxRenderer.class);
 
 // ///////////////////////////////////////////// attribute
 

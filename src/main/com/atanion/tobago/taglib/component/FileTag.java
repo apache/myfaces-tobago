@@ -14,19 +14,17 @@ import javax.faces.component.UIInput;
 import javax.servlet.jsp.JspException;
 
 public class FileTag extends InputTag {
-
-  public String getComponentType() {
-    return UIInput.COMPONENT_TYPE;
-  }
-
-  protected void setProperties(UIComponent component) {
-    super.setProperties(component);
-  }
+// ----------------------------------------------------------- business methods
 
   public int doStartTag() throws JspException {
     int result = super.doStartTag();
     UIPage form = ComponentUtil.findPage(getComponentInstance());
-    form.getAttributes().put(TobagoConstants.ATTR_ENCTYPE, "multipart/form-data");
+    form.getAttributes().put(ATTR_ENCTYPE, "multipart/form-data");
     return result;
   }
+
+  public String getComponentType() {
+    return UIInput.COMPONENT_TYPE;
+  }
 }
+

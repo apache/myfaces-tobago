@@ -21,7 +21,7 @@ public class CommandRendererBase extends RendererBase {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(CommandRendererBase.class);
+  private static final Log LOG = LogFactory.getLog(CommandRendererBase.class);
 
 // ///////////////////////////////////////////// attribute
 
@@ -63,7 +63,7 @@ public class CommandRendererBase extends RendererBase {
   public static String appendConfirmationScript(String onclick,
       UIComponent component, FacesContext facesContext) {
     ValueHolder confirmation
-        = (ValueHolder) component.getFacet(TobagoConstants.FACET_CONFIRMATION);
+        = (ValueHolder) component.getFacet(FACET_CONFIRMATION);
     if (confirmation != null) {
       if (onclick != null) {
         onclick = "confirm('" + confirmation.getValue() + "') && " + onclick;

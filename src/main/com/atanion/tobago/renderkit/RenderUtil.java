@@ -5,14 +5,10 @@
  */
 package com.atanion.tobago.renderkit;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.component.ComponentUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +17,7 @@ import java.util.Iterator;
 
 public class RenderUtil {
 
-  private static Log LOG = LogFactory.getLog(RenderUtil.class);
+  private static final Log LOG = LogFactory.getLog(RenderUtil.class);
 
   public static final String COMPONENT_IN_REQUEST = "com.atanion.tobago.component";
   public static final String RENDERER_IN_REQUEST = "com.atanion.tobago.renderer";
@@ -119,7 +115,7 @@ public class RenderUtil {
 //      ComponentUtil.debug(viewRoot, 0);
 //    }
     if (component.isRendered()) {
-//      if (ComponentUtil.getBooleanAttribute(component, TobagoConstants.ATTR_SUPPRESSED)) {
+//      if (ComponentUtil.getBooleanAttribute(component, ATTR_SUPPRESSED)) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("!!!! rendering " + component.getRendererType() + "  " + component);
       }

@@ -98,7 +98,7 @@ public class ToolbarRenderer extends RendererBase
 
   private void renderToolbarButton(FacesContext facesContext,
       final UICommand command, ResponseWriter writer) throws IOException {
-    final boolean disabled = ComponentUtil.isDisabled(command);
+    final boolean disabled = ComponentUtil.getBooleanAttribute(command, ATTR_DISABLED);
     final UIGraphic graphic = ComponentUtil.getFirstGraphicChild(command);
     final UIOutput output = ComponentUtil.getFirstNonGraphicChild(command);
 

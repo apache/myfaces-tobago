@@ -39,14 +39,14 @@ public class LinkRenderer extends CommandRendererBase
     String onclick = null;
     String href;
 
-    String type = (String) component.getAttributes().get(TobagoConstants.ATTR_TYPE);
-    String action = (String) component.getAttributes().get(TobagoConstants.ATTR_COMMAND_NAME);
+    String type = (String) component.getAttributes().get(ATTR_TYPE);
+    String action = (String) component.getAttributes().get(ATTR_COMMAND_NAME);
 
-    if (TobagoConstants.COMMAND_TYPE_NAVIGATE.equals(type)) {
+    if (COMMAND_TYPE_NAVIGATE.equals(type)) {
       href = HtmlUtils.generateUrl(facesContext, action);
-    } else if (TobagoConstants.COMMAND_TYPE_RESET.equals(type)) {
+    } else if (COMMAND_TYPE_RESET.equals(type)) {
       href = "javascript:resetForm('" + ComponentUtil.findPage(component).getFormId(facesContext) + "')";
-    } else if (TobagoConstants.COMMAND_TYPE_SCRIPT.equals(type)) {
+    } else if (COMMAND_TYPE_SCRIPT.equals(type)) {
       href = "#";
       onclick = action;
     } else { // default: Action.TYPE_SUBMIT
@@ -58,16 +58,16 @@ public class LinkRenderer extends CommandRendererBase
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
-    if (! ComponentUtil.isDisabled(component)) {
+    if (! ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
       writer.startElement("a", component);
-      writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+      writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
       writer.writeAttribute("name", component.getClientId(facesContext), null);
       writer.writeAttribute("href", href, null);
       if (onclick != null) {
         writer.writeAttribute("onclick", onclick, null);
       }
-      writer.writeAttribute("title", null, TobagoConstants.ATTR_TITLE);
-      writer.writeAttribute("target", null, TobagoConstants.ATTR_TARGET);
+      writer.writeAttribute("title", null, ATTR_TITLE);
+      writer.writeAttribute("target", null, ATTR_TARGET);
       writer.writeText("", null); // force closing the start tag
     }
   }
@@ -76,7 +76,7 @@ public class LinkRenderer extends CommandRendererBase
       throws IOException {
 
     BodyContentHandler bodyContentHandler = (BodyContentHandler)
-        component.getAttributes().get(TobagoConstants.ATTR_BODY_CONTENT);
+        component.getAttributes().get(ATTR_BODY_CONTENT);
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
@@ -84,7 +84,7 @@ public class LinkRenderer extends CommandRendererBase
       writer.writeText(bodyContentHandler.getBodyContent(), null);
     }
 
-    if (! ComponentUtil.isDisabled(component)) {
+    if (! ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
       writer.endElement("a");
     }
 

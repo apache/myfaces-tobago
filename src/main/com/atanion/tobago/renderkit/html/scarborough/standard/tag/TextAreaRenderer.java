@@ -5,9 +5,7 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.context.TobagoResource;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.HtmlUtils;
@@ -25,34 +23,16 @@ import java.util.Iterator;
 
 public class TextAreaRenderer extends InputRendererBase
     implements HeightLayoutRenderer, DirectRenderer {
+// ----------------------------------------------------------------- interfaces
 
-// ///////////////////////////////////////////// constant
 
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
-
-  public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
-    int space = 0;
-    if (component.getFacet(TobagoConstants.FACET_LABEL) != null
-      || component.getAttributes().get(TobagoConstants.ATTR_LABEL) != null) {
-      int labelWidth = LayoutUtil.getLabelWidth(component);
-      space += labelWidth != 0 ? labelWidth : getLabelWidth(facesContext, component);
-    }
-    return space;
-  }
-
-  public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    return getConfiguredValue(facesContext, component, "headerHeight");
-  }
+// ---------------------------- interface DirectRenderer
 
   public void encodeDirectEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
-    UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
-    TobagoResponseWriter writer = (TobagoResponseWriter)
-        facesContext.getResponseWriter();
+    UIComponent label = component.getFacet(FACET_LABEL);
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     if (label != null) {
       writer.startElement("table", null);
@@ -79,10 +59,27 @@ public class TextAreaRenderer extends InputRendererBase
     }
   }
 
+// ---------------------------- interface HeightLayoutRenderer
+
+  public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
+    return getConfiguredValue(facesContext, component, "headerHeight");
+  }
+
+// ----------------------------------------------------------- business methods
+
+  public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
+    int space = 0;
+    if (component.getFacet(FACET_LABEL) != null
+      || component.getAttributes().get(ATTR_LABEL) != null) {
+      int labelWidth = LayoutUtil.getLabelWidth(component);
+      space += labelWidth != 0 ? labelWidth : getLabelWidth(facesContext, component);
+    }
+    return space;
+  }
+
   // refactor me (the position in the classhierachy)!!!
   public static void renderMain(FacesContext facesContext, UIInput input,
       TobagoResponseWriter writer) throws IOException {
-
     Iterator messages = facesContext.getMessages(
         input.getClientId(facesContext));
     StringBuffer stringBuffer = new StringBuffer();
@@ -96,28 +93,22 @@ public class TextAreaRenderer extends InputRendererBase
       title = stringBuffer.toString();
     }
 
-    boolean disabled = ComponentUtil.isDisabled(input);
-
-    int cols
-        = ((Integer) input.getAttributes().get(TobagoConstants.ATTR_SIZE)).intValue();
-
     String clientId = input.getClientId(facesContext);
     String onchange = HtmlUtils.generateOnchange(input, facesContext);
 
     writer.startElement("textarea", input);
     writer.writeAttribute("name", clientId, null);
     writer.writeAttribute("id", clientId, null);
-    writer.writeAttribute("rows", null, TobagoConstants.ATTR_ROWS);
-    if (cols > 0) {
-      writer.writeAttribute("cols", null, TobagoConstants.ATTR_SIZE);
-    }
+    writer.writeAttribute("rows", null, ATTR_ROWS);
     if (title != null) {
       writer.writeAttribute("title", title, null);
     }
-    writer.writeAttribute("readonly", ComponentUtil.isReadonly(input));
-    writer.writeAttribute("disabled", disabled);
-    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeAttribute("readonly", 
+        ComponentUtil.getBooleanAttribute(input, ATTR_READONLY));
+    writer.writeAttribute("disabled",
+        ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED));
+    writer.writeAttribute("style", null, ATTR_STYLE);
+    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
     if (onchange != null) {
       writer.writeAttribute("onchange", onchange, null);
     }
@@ -126,10 +117,6 @@ public class TextAreaRenderer extends InputRendererBase
       writer.writeText(currentValue, null);
     }
     writer.endElement("textarea");
-
   }
-
-// ///////////////////////////////////////////// bean getter + setter
-
 }
 

@@ -8,14 +8,13 @@ package com.atanion.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.faces.component.ActionSource;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
-import javax.faces.component.ActionSource;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.event.ActionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Iterator;
@@ -24,7 +23,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log log = LogFactory.getLog(UITree.class);
+  private static final Log LOG = LogFactory.getLog(UITree.class);
 
   public static final String COMPONENT_TYPE="com.atanion.tobago.Tree";
 
@@ -152,23 +151,23 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     // They may have invalid modelReferences.
     try {
       if (root != null) {
-        if (log.isDebugEnabled()) {
-          log.debug("removing root 1");
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("removing root 1");
         }
         getChildren().remove(root);
-        if (log.isDebugEnabled()) {
-          log.debug("removing root 2");
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("removing root 2");
         }
       }
     } catch (Exception e) {
-      log.error("", e);
+      LOG.error("", e);
     }
 
     try {
       root = new UITreeNode(this, 0);
       root.createTreeNodes();
     } catch (Exception e) {
-      log.error(e, e);
+      LOG.error(e, e);
     }
   }
 

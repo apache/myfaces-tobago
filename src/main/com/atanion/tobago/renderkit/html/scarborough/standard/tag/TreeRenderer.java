@@ -5,7 +5,6 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UITree;
 import com.atanion.tobago.component.UITreeNode;
@@ -52,11 +51,10 @@ public class TreeRenderer extends RendererBase
 
     if (state != null) {
       state.clearExpandState();
-      if (ComponentUtil.getBooleanAttribute(tree,
-          TobagoConstants.ATTR_MULTISELECT, TobagoConstants.VB_MULTISELECT)) {
+      if (ComponentUtil.getBooleanAttribute(tree, ATTR_MULTISELECT)) {
         state.clearSelection();
       }
-      if (ComponentUtil.getBooleanAttribute(tree, TobagoConstants.ATTR_MUTABLE, TobagoConstants.VB_MUTABLE)) {
+      if (ComponentUtil.getBooleanAttribute(tree, ATTR_MUTABLE)) {
         state.setMarker(null);
       }
     }
@@ -85,8 +83,8 @@ public class TreeRenderer extends RendererBase
     ResponseWriter writer = facesContext.getResponseWriter();
 
     writer.startElement("div", tree);
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
-    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
+    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
+    writer.writeAttribute("style", null, ATTR_STYLE);
 
     writer.startElement("input", tree);
     writer.writeAttribute("type", "hidden", null);
@@ -102,8 +100,7 @@ public class TreeRenderer extends RendererBase
     writer.writeAttribute("value", "", null);
     writer.endElement("input");
 
-    if (ComponentUtil.getBooleanAttribute(tree,
-        TobagoConstants.ATTR_MULTISELECT, TobagoConstants.VB_MULTISELECT)) {
+    if (ComponentUtil.getBooleanAttribute(tree, ATTR_MULTISELECT)) {
       writer.startElement("input", tree);
       writer.writeAttribute("type", "hidden", null);
       writer.writeAttribute("name", clientId + UITree.SELECT_STATE, null);
@@ -112,8 +109,7 @@ public class TreeRenderer extends RendererBase
       writer.endElement("input");
     }
 
-    if (ComponentUtil.getBooleanAttribute(tree,
-        TobagoConstants.ATTR_MUTABLE, TobagoConstants.VB_MUTABLE)) {
+    if (ComponentUtil.getBooleanAttribute(tree, ATTR_MUTABLE)) {
 
       Application application = facesContext.getApplication();
 
@@ -129,7 +125,7 @@ public class TreeRenderer extends RendererBase
         handler = null;
       }
 
-//      String type = (String)component.getAttributes().get(TobagoConstants.ATTR_ACTION_LISTENER);
+//      String type = (String)component.getAttributes().get(ATTR_ACTION_LISTENER);
 //        try {
 //          handler = ComponentUtil.createActionListener(type);
 //        } catch (JspException e) {
@@ -149,9 +145,9 @@ public class TreeRenderer extends RendererBase
           // create a UILink and add it to the UITree
           UICommand link = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
           link.setId("button" + i);
-          link.getAttributes().put(TobagoConstants.ATTR_COMMAND_NAME,
+          link.getAttributes().put(ATTR_COMMAND_NAME,
               commands[i].getCommand());
-          link.setRendererType(TobagoConstants.RENDERER_TYPE_LINK);
+          link.setRendererType(RENDERER_TYPE_LINK);
           if (handler != null) {
             link.addActionListener(handler);
           }
@@ -159,12 +155,12 @@ public class TreeRenderer extends RendererBase
 
           // create a UIImage and add it to the UILink
           UIComponent image = application.createComponent(UIGraphic.COMPONENT_TYPE);
-          image.getAttributes().put(TobagoConstants.ATTR_VALUE,
+          image.getAttributes().put(ATTR_VALUE,
               "tobago.tree." + commands[i].getCommand() + ".gif");
-          image.getAttributes().put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
+          image.getAttributes().put(ATTR_I18N, Boolean.TRUE);
           String title = TobagoResource.getProperty(facesContext, "tobago",
               "tree" + StringUtil.firstToUpperCase(commands[i].getCommand()));
-          image.getAttributes().put(TobagoConstants.ATTR_TITLE, title);
+          image.getAttributes().put(ATTR_TITLE, title);
           link.getChildren().add(image);
 
           RenderUtil.encode(facesContext, link);
@@ -180,7 +176,7 @@ public class TreeRenderer extends RendererBase
     writer.writeAttribute("cellspacing", "0", null);
     writer.writeAttribute("border", "0", null);
     writer.writeAttribute("summary", "", null);
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
     writer.startElement("tr", null);
     writer.startElement("td", null);
     writer.writeAttribute("id", clientId + "-cont", null);

@@ -24,7 +24,7 @@ public class UITreeNode extends UIInput {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(UITreeNode.class);
+  private static final Log LOG = LogFactory.getLog(UITreeNode.class);
 
 // ///////////////////////////////////////////// attribute
 

@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.SelectOneRendererBase;
@@ -58,9 +59,10 @@ public class RadioGroupRenderer extends SelectOneRendererBase
 
     List items = ItemsRenderer.getItemsToRender(component);
 
-    boolean inline = ComponentUtil.isInline(component);
+    boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     if (! inline) {
       writer.startElement("table", null);
@@ -93,9 +95,8 @@ public class RadioGroupRenderer extends SelectOneRendererBase
       writer.writeAttribute("name", component.getClientId(facesContext), null);
       writer.writeAttribute("id", id, null);
       writer.writeAttribute("value", item.getValue(), null);
-      if (ComponentUtil.isDisabled(component)) {
-        writer.writeAttribute("disabled", "disabled", null);
-      }
+      writer.writeAttribute("disabled",
+          ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
       writer.endElement("input");
 
       if (item.getLabel() != null) {

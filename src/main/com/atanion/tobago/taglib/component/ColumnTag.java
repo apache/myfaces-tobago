@@ -6,16 +6,11 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.TobagoConstants;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.component.UIComponent;
 import javax.faces.component.UIColumn;
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
+import javax.faces.component.UIComponent;
 
 public class ColumnTag extends TobagoTag {
 
@@ -25,7 +20,7 @@ public class ColumnTag extends TobagoTag {
 
 // ///////////////////////////////////////////// attribute
 
-  private boolean sortable;
+  private String sortable;
   private String align;
   private String cssClass;
 
@@ -43,29 +38,45 @@ public class ColumnTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setBooleanProperty(component, TobagoConstants.ATTR_SORTABLE, sortable);
-    setProperty(component, TobagoConstants.ATTR_ALIGN, align);
-    LOG.debug("class = " + cssClass);
-    setProperty(component, TobagoConstants.ATTR_STYLE_CLASS, cssClass);
+    setBooleanProperty(component, ATTR_SORTABLE, sortable);
+    setStringProperty(component, ATTR_ALIGN, align);
+    setStringProperty(component, ATTR_STYLE_CLASS, cssClass);
   }
 
   protected void provideLabel(UIComponent component) {
-    provideAttribute(component, label, TobagoConstants.ATTR_LABEL);
+    setStringProperty(component, ATTR_LABEL, label);
   }
 
-
+  public void release() {
+    super.release();
+    sortable = null;
+    align = null;
+    cssClass = null;
+  }
+  
 // ///////////////////////////////////////////// bean getter + setter
 
-  public void setSortable(boolean sortable) {
+  public String getSortable() {
+    return sortable;
+  }
+
+  public void setSortable(String sortable) {
     this.sortable = sortable;
+  }
+
+  public String getAlign() {
+    return align;
   }
 
   public void setAlign(String align) {
     this.align = align;
   }
 
+  public String getCssClass() {
+    return cssClass;
+  }
+
   public void setCssClass(String cssClass) {
-    LOG.debug("class = " + cssClass);
     this.cssClass = cssClass;
   }
 }

@@ -9,19 +9,10 @@ package com.atanion.tobago.taglib.component;
 import javax.faces.component.UIForm;
 
 public class FormTag extends TobagoBodyTag {
-
-// /////////////////////////////////////////// constants
-
-// /////////////////////////////////////////// attributes
-
-// /////////////////////////////////////////// constructors
-
-// /////////////////////////////////////////// code
+// ----------------------------------------------------------- business methods
 
   public String getComponentType() {
     return UIForm.COMPONENT_TYPE;
   }
-
-// /////////////////////////////////////////// bean getter + setter
-
 }
+

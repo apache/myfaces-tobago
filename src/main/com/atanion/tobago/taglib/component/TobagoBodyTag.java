@@ -6,9 +6,7 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.BodyContentHandler;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -18,57 +16,34 @@ import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTag;
 
 public abstract class TobagoBodyTag extends TobagoTag implements BodyTag {
-
-// /////////////////////////////////////////// constants
+// ----------------------------------------------------------- class attributes
 
   private static final Log LOG = LogFactory.getLog(TobagoBodyTag.class);
 
-// /////////////////////////////////////////// attributes
+// ----------------------------------------------------------------- attributes
 
   protected BodyContent bodyContent;
 
-// /////////////////////////////////////////// constructors
+// ----------------------------------------------------------------- interfaces
 
-  public TobagoBodyTag() {
-  }
 
-// /////////////////////////////////////////// code
+// ---------------------------- interface BodyTag
 
   public void doInitBody() throws JspException {
   }
 
-  public void release() {
-    bodyContent = null;
-    super.release();
-  }
+// ---------------------------- interface IterationTag
 
-  public void setBodyContent(BodyContent bodyContent) {
-    this.bodyContent = bodyContent;
-  }
-
-  protected int getDoStartValue() throws JspException {
-    return EVAL_BODY_BUFFERED;
-  }
-
-  protected void setProperties(UIComponent component) {
-//    clearBodyContentHandler(component);
-    super.setProperties(component);
-  }
-
-  public int doStartTag() throws JspException {
-    int result = super.doStartTag();
-    clearBodyContentHandler(getComponentInstance());
-    return result;
-  }
-
-  public int doEndTag() throws JspException {
-//    Log.debug("doEndTag()   " + getRendererType());
-    handleBodyContent();
-    return super.doEndTag();
-  }
 
   public int doAfterBody() throws JspException {
     return SKIP_BODY;
+  }
+
+// ----------------------------------------------------------- business methods
+
+  public int doEndTag() throws JspException {
+    handleBodyContent();
+    return super.doEndTag();
   }
 
   public void handleBodyContent() {
@@ -77,19 +52,16 @@ public abstract class TobagoBodyTag extends TobagoTag implements BodyTag {
     String rawContent = extractBodyContent();
 
     if (rawContent != null) {
-//      LOG.debug("add new raw content = '" + rawContent + "'");
       BodyContentHandler bodyContentHandler = (BodyContentHandler)
-          component.getAttributes().get(TobagoConstants.ATTR_BODY_CONTENT);
+          component.getAttributes().get(ATTR_BODY_CONTENT);
       if (bodyContentHandler == null) {
         bodyContentHandler = new BodyContentHandler();
         component.getAttributes().put(
-            TobagoConstants.ATTR_BODY_CONTENT, bodyContentHandler);
+            ATTR_BODY_CONTENT, bodyContentHandler);
       }
       if (isSuppressed() || getComponentInstance().getRendersChildren()) {
-//        LOG.debug("addRawContent  Component: " + this);
         bodyContentHandler.addRawContent(rawContent, component, pageContext);
       } else {
-//        LOG.debug("addBodyContent  Component: " + this);
         bodyContentHandler.addBodyContent(rawContent);
       }
     }
@@ -99,7 +71,6 @@ public abstract class TobagoBodyTag extends TobagoTag implements BodyTag {
     if (bodyContent != null) {
       String content = bodyContent.getString();
       bodyContent.clearBody();
-//      LOG.debug("extraxt bodyContent :\"" + content + "\"");
       String tmp = new String(content); // fixme: is this not a bit slow? It is needed?
       tmp.replace('\n', ' ');
       tmp.replace('\n', ' ');
@@ -110,9 +81,15 @@ public abstract class TobagoBodyTag extends TobagoTag implements BodyTag {
     return null;
   }
 
+  public int doStartTag() throws JspException {
+    int result = super.doStartTag();
+    clearBodyContentHandler(getComponentInstance());
+    return result;
+  }
+
   protected void clearBodyContentHandler(UIComponent component) {
     BodyContentHandler bodyContentHandler = (BodyContentHandler)
-        component.getAttributes().get(TobagoConstants.ATTR_BODY_CONTENT);
+        component.getAttributes().get(ATTR_BODY_CONTENT);
     if (bodyContentHandler != null) {
       bodyContentHandler.clearBodyContent();
     } else {
@@ -120,4 +97,19 @@ public abstract class TobagoBodyTag extends TobagoTag implements BodyTag {
     }
   }
 
+  protected int getDoStartValue() throws JspException {
+    return EVAL_BODY_BUFFERED;
+  }
+
+  public void release() {
+    super.release();
+    bodyContent = null;
+  }
+
+// ------------------------------------------------------------ getter + setter
+
+  public void setBodyContent(BodyContent bodyContent) {
+    this.bodyContent = bodyContent;
+  }
 }
+

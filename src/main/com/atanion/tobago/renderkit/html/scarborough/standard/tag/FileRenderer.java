@@ -5,14 +5,13 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoMultipartFormdataRequest;
-
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -21,7 +20,6 @@ import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import javax.faces.convert.ConverterException;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -43,7 +41,7 @@ public class FileRenderer extends InputRendererBase implements DirectRenderer {
       FacesContext facesContext, UIComponent component) {
     int space = 0;
 
-    if (component.getFacet(TobagoConstants.FACET_LABEL) != null) {
+    if (component.getFacet(FACET_LABEL) != null) {
       int labelWidht = LayoutUtil.getLabelWidth(component);
       space += labelWidht != 0
           ? labelWidht : getLabelWidth(facesContext, component);
@@ -101,11 +99,12 @@ public class FileRenderer extends InputRendererBase implements DirectRenderer {
     UIInput component = (UIInput) uiComponent;
     String clientId = component.getClientId(facesContext);
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    boolean isInline = ComponentUtil.isInline(component);
+    boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
 
-    UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
+    UIComponent label = component.getFacet(FACET_LABEL);
     if (label != null) {
       writer.writeText("", null);
       RenderUtil.encode(facesContext, label);
@@ -113,19 +112,18 @@ public class FileRenderer extends InputRendererBase implements DirectRenderer {
 
     writer.startElement("input", component);
     writer.writeAttribute("type", "file", null);
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
-    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
-//  fixme?  if (isInline) {
+    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
+    writer.writeAttribute("style", null, ATTR_STYLE);
+//  fixme?  if (inline) {
 //      writer.writeAttribute("style", "float: left;", null);
 //    }
     writer.writeAttribute("name", clientId, null);
     writer.writeAttribute("id", clientId, null);
-    if (ComponentUtil.isDisabled(component)) {
-      writer.writeAttribute("readonly", "readonly", null);
-    }
+    writer.writeAttribute("readonly",
+        ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
     writer.endElement("input");
 
-    if (!isInline) {
+    if (!inline) {
       writer.startElement("br", null);
       writer.writeAttribute("style", "clear: left; line-height: 0px", null);
       writer.endElement("br");

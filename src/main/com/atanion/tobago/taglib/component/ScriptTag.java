@@ -54,14 +54,33 @@ public class ScriptTag extends BodyTagSupport {
     return EVAL_PAGE;
   }
 
+  public void release() {
+    super.release();
+    file = null;
+    onload = null;
+    i18n = false;
+  }
+
 // ///////////////////////////////////////////// bean getter + setter
+
+  public String getFile() {
+    return file;
+  }
 
   public void setFile(String file) {
     this.file = file;
   }
 
+  public String getOnload() {
+    return onload;
+  }
+
   public void setOnload(String onload) {
     this.onload = onload;
+  }
+
+  public boolean isI18n() {
+    return i18n;
   }
 
   public void setI18n(boolean i18n) {

@@ -24,7 +24,7 @@ public class ClientConfigController {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(ClientConfigController.class);
+  private static final Log LOG = LogFactory.getLog(ClientConfigController.class);
 
 // ///////////////////////////////////////////// attributes
 

@@ -25,7 +25,7 @@ public class DefaultTreeActionListener implements ActionListener {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(DefaultTreeActionListener.class);
+  private static final Log LOG = LogFactory.getLog(DefaultTreeActionListener.class);
 
 // ///////////////////////////////////////////// attribute
 

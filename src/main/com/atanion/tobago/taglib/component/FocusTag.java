@@ -15,14 +15,18 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 
 public class FocusTag extends TobagoTag {
+// ----------------------------------------------------------- class attributes
 
-  private static Log log = LogFactory.getLog(FocusTag.class);
+  private static final Log LOG = LogFactory.getLog(FocusTag.class);
+
+// ----------------------------------------------------------------- attributes
 
   private String componentReference;
 
-  public String getComponentType() { // fixme
-    log.warn("Fixme: what is to do here?");
-    return null;
+// ----------------------------------------------------------- business methods
+
+  public int doEndTag() throws JspException {
+    return EVAL_PAGE;
   }
 
   public int doStartTag() throws JspException {
@@ -30,14 +34,22 @@ public class FocusTag extends TobagoTag {
     if (page != null) {
       ((UIPage)page.getComponentInstance()).storeFocusId(componentReference);
     } else {
-      log.error("Can't find page-tag!", new Exception("No Page in Context"));
+      LOG.error("Can't find page-tag!", new Exception("No Page in Context"));
     }
     return SKIP_BODY;
   }
 
-  public int doEndTag() throws JspException {
-    return EVAL_PAGE;
+  public String getComponentType() { // fixme
+    LOG.warn("Fixme: what is to do here?");
+    return null;
   }
+
+  public void release() {
+    super.release();
+    componentReference = null;
+  }
+
+// ------------------------------------------------------------ getter + setter
 
   public String getComponentReference() {
     return componentReference;
@@ -46,5 +58,5 @@ public class FocusTag extends TobagoTag {
   public void setComponentReference(String componentReference) {
     this.componentReference = componentReference;
   }
-
 }
+

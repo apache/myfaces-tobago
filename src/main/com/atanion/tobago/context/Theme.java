@@ -19,7 +19,7 @@ public class Theme {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(Theme.class);
+  private static final Log LOG = LogFactory.getLog(Theme.class);
 
   public static final String SCARBOROUGH = "scarborough";
   public static final String SPEYSIDE = "speyside";

@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HtmlUtils;
@@ -47,13 +48,15 @@ public class SingleSelectRenderer extends SelectOneRendererBase
     UISelectOne component = (UISelectOne)uiComponent;
     List items = ComponentUtil.getSelectItems(component);
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("items.size() = '" + items.size() + "'");
     }
 
-    boolean isDisabled = items.size() == 0 || ComponentUtil.isDisabled(component);
+    boolean disabled = items.size() == 0 ||
+        ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED);
 
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
 
@@ -78,9 +81,7 @@ public class SingleSelectRenderer extends SelectOneRendererBase
     writer.startElement("select", component);
     writer.writeAttribute("name", component.getClientId(facesContext), null);
     writer.writeAttribute("id", component.getClientId(facesContext), null);
-    if (isDisabled) {
-      writer.writeAttribute("disabled", "disabled", null);
-    }
+    writer.writeAttribute("disabled", disabled);
     writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
     String onchange = HtmlUtils.generateOnchange(component, facesContext);
@@ -114,7 +115,7 @@ public class SingleSelectRenderer extends SelectOneRendererBase
       }
     }
     writer.endElement("select");
-    
+
     if (label != null) {
       writer.endElement("td");
       writer.endElement("tr");

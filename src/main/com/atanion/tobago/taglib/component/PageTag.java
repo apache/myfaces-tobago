@@ -5,7 +5,6 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ClientProperties;
 
@@ -16,48 +15,20 @@ import javax.servlet.jsp.PageContext;
 
 public class PageTag extends TobagoBodyTag {
 
+// ------------------------------------------------------------------ constants
+
   public static final String PAGE_IN_REQUEST =
       "com.atanion.tobago.taglib.component.Page";
+
+// ----------------------------------------------------------------- attributes
 
   private String charset;
 
   private String doctype = "loose";
 
-  private String focusId;
-
   private String method = "POST";
 
-//  private String enctype;
-
-
-  public String getComponentType() {
-    return UIPage.COMPONENT_TYPE;
-  }
-
-  protected void setProperties(UIComponent component) {
-    UIPage page = (UIPage) component;
-    super.setProperties(component);
-    setProperty(component, TobagoConstants.ATTR_METHOD, method);
-
-    setProperty(component, TobagoConstants.ATTR_CHARSET, charset);
-    setProperty(component, TobagoConstants.ATTR_DOCTYPE, doctype);
-    if (focusId != null) {
-      page.setFocusId(focusId);
-    }
-//    setBooleanProperty(component, TobagoConstants.ATTR_FOCUS_ID, focusId);
-
-//    if (null == component.getAttributes().get(TobagoConstants.ATTR_ENCTYPE)) {
-//      component.setAttribute(TobagoConstants.ATTR_ENCTYPE, enctype);
-//    }
-  }
-
-  public int doStartTag() throws JspException {
-    pageContext.getResponse().setContentType(generateContentType(charset));
-    pageContext.setAttribute(PAGE_IN_REQUEST, this, PageContext.REQUEST_SCOPE);
-    final int result = super.doStartTag();
-//    ((UIPage)getComponentInstance()).getOnloadScripts().clear();
-    return result;
-  }
+// ----------------------------------------------------------- business methods
 
   public int doEndTag() throws JspException {
     pageContext.removeAttribute(PAGE_IN_REQUEST, PageContext.REQUEST_SCOPE);
@@ -65,14 +36,22 @@ public class PageTag extends TobagoBodyTag {
     // reseting doctype and charset
     doctype = "loose";
     charset = null;
-    focusId = null;
+    return result;
+  }
+
+  public int doStartTag() throws JspException {
+    pageContext.getResponse().setContentType(generateContentType(charset));
+    pageContext.setAttribute(PAGE_IN_REQUEST, this, PageContext.REQUEST_SCOPE);
+    final int result = super.doStartTag();
     return result;
   }
 
   public static String generateContentType(String charset) {
     StringBuffer sb = new StringBuffer("text/");
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    sb.append(ClientProperties.getInstance(facesContext.getViewRoot()).getContentType());
+    sb.append(
+        ClientProperties.getInstance(facesContext.getViewRoot())
+        .getContentType());
     if (charset == null) {
       charset = "UTF-8";
     }
@@ -81,21 +60,52 @@ public class PageTag extends TobagoBodyTag {
     return sb.toString();
   }
 
+  public static PageTag findPageTag(PageContext pageContext) {
+    return (PageTag) pageContext.getAttribute(PAGE_IN_REQUEST,
+        PageContext.REQUEST_SCOPE);
+  }
+
+  public String getComponentType() {
+    return UIPage.COMPONENT_TYPE;
+  }
+
+  protected void setProperties(UIComponent component) {
+    super.setProperties(component);
+    setStringProperty(component, ATTR_METHOD, method);
+    setStringProperty(component, ATTR_CHARSET, charset);
+    setStringProperty(component, ATTR_DOCTYPE, doctype);
+  }
+
+  public void release() {
+    super.release();
+    charset = null;
+    doctype = "loose";
+    method = "POST";
+  }
+// ------------------------------------------------------------ getter + setter
+
+  public String getCharset() {
+    return charset;
+  }
+
   public void setCharset(String charset) {
     this.charset = charset;
+  }
+
+  public String getDoctype() {
+    return doctype;
   }
 
   public void setDoctype(String doctype) {
     this.doctype = doctype;
   }
 
-  public void setMethod(String method) {
-    this.method = method;
+  public String getMethod() {
+    return method;
   }
 
-  public static PageTag findPageTag(PageContext pageContext) {
-    return (PageTag) pageContext.getAttribute(PAGE_IN_REQUEST,
-        PageContext.REQUEST_SCOPE);
+  public void setMethod(String method) {
+    this.method = method;
   }
 }
 

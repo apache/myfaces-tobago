@@ -20,7 +20,7 @@ public class TobagoConfigParser {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(TobagoConfigParser.class);
+  private static final Log LOG = LogFactory.getLog(TobagoConfigParser.class);
 
 // ///////////////////////////////////////////// attribute
 

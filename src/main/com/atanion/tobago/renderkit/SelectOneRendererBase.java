@@ -20,7 +20,7 @@ public class SelectOneRendererBase extends InputRendererBase {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(SelectOneRendererBase.class);
+  private static final Log LOG = LogFactory.getLog(SelectOneRendererBase.class);
 
 // ///////////////////////////////////////////// attribute
 

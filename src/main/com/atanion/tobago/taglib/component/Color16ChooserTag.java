@@ -14,8 +14,10 @@ import com.atanion.tobago.TobagoConstants;
 import javax.faces.component.UIInput;
 
 public class Color16ChooserTag extends BeanTag{
+// ----------------------------------------------------------- business methods
 
   public String getComponentType() {
     return UIInput.COMPONENT_TYPE;
   }
 }
+

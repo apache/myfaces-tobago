@@ -5,24 +5,20 @@
  */
 package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.TobagoResource;
-import com.atanion.tobago.context.UserAgent;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.SelectOneRendererBase;
 import com.atanion.tobago.util.LayoutUtil;
-
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.Iterator;
@@ -50,10 +46,11 @@ public class SingleSelectRenderer extends SelectOneRendererBase
 
     UISelectOne component = (UISelectOne)uiComponent;
 
-    boolean isInline = ComponentUtil.isInline(component);
+    boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
     List items = ComponentUtil.getSelectItems(component);
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     String image = TobagoResource.getImage(facesContext, "1x1.gif");
 
@@ -61,10 +58,11 @@ public class SingleSelectRenderer extends SelectOneRendererBase
       LOG.debug("items.size() = '" + items.size() + "'");
     }
 
-    boolean isDisabled = items.size() == 0 || ComponentUtil.isDisabled(component);
+    boolean disabled = items.size() == 0
+        || ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED);
 
-    UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
-    if (!isInline) {
+    UIComponent label = component.getFacet(FACET_LABEL);
+    if (!inline) {
       writer.startElement("table", null);
       writer.writeAttribute("border", "0", null);
       writer.writeAttribute("cellspacing", "0", null);
@@ -101,11 +99,9 @@ public class SingleSelectRenderer extends SelectOneRendererBase
     writer.startElement("select", component);
     writer.writeAttribute("name", component.getClientId(facesContext), null);
     writer.writeAttribute("id", component.getClientId(facesContext), null);
-    if (isDisabled) {
-      writer.writeAttribute("disabled", "disabled", null);
-    }
+    writer.writeAttribute("disabled", disabled);
     writer.writeAttribute("style", null, "style");
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
     String onchange = HtmlUtils.generateOnchange(component, facesContext);
     if (onchange != null) {
       writer.writeAttribute("onchange", onchange, null);
@@ -132,7 +128,7 @@ public class SingleSelectRenderer extends SelectOneRendererBase
     }
     writer.endElement("select");
 
-    if (!isInline) {
+    if (!inline) {
       writer.endElement("td");
       writer.endElement("tr");
       writer.startElement("tr", null);
@@ -163,7 +159,7 @@ public class SingleSelectRenderer extends SelectOneRendererBase
   public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
     int space = 0;
 
-    if (component.getFacet(TobagoConstants.FACET_LABEL) != null) {
+    if (component.getFacet(FACET_LABEL) != null) {
       int labelWidht = LayoutUtil.getLabelWidth(component);
       space += labelWidht != 0 ? labelWidht : getLabelWidth(facesContext, component);
       space += getConfiguredValue(facesContext, component, "labelSpace");

@@ -20,7 +20,7 @@ public class TobagoServletMapping {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(TobagoServletMapping.class);
+  private static final Log LOG = LogFactory.getLog(TobagoServletMapping.class);
 
 
   public static final String TOBAGO_SERVLET_MAPPING

@@ -60,10 +60,15 @@ public class CalendarRenderer extends RendererBase implements DirectRenderer {
     Locale locale = facesContext.getViewRoot().getLocale();
     SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMM yyyy", locale);
 
+    // fixme don't use the concept of setting year,month,day explicit,
+    // fixme but use a date-model as background-value instead
     Integer year = (Integer) component.getAttributes().get(CalendarTag.YEAR);
     Integer month = (Integer) component.getAttributes().get(CalendarTag.MONTH);
     Integer day = (Integer) component.getAttributes().get(CalendarTag.DAY);
-    Calendar calendar = CalendarUtils.getCalendar(year, month, day, locale);
+    Calendar calendar = CalendarUtils.getCalendar(
+        year != null ? year : new Integer(1970),
+        month != null ? month : new Integer(1),
+        day != null ? day : new Integer(1), locale);
     CalendarModel model = new CalendarModel(calendar);
 
     ResponseWriter writer = facesContext.getResponseWriter();

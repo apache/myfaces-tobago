@@ -29,11 +29,13 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;
 
-public class RendererBase extends Renderer {
+// todo: in java 1.5 use: import static com.atanion.tobago.TobagoConstants.*;
+public class RendererBase extends Renderer implements TobagoConstants {
+
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(RendererBase.class);
+  private static final Log LOG = LogFactory.getLog(RendererBase.class);
 
   public static final String BEGIN_POSTFIX = "Begin";
 
@@ -58,7 +60,7 @@ public class RendererBase extends Renderer {
     LOG.debug("*** begin    " + component);
     try {
       component.getAttributes().put(
-          TobagoConstants.ATTR_ENCODING_ACTIVE,
+          ATTR_ENCODING_ACTIVE,
           Boolean.TRUE);
 
       createClassAttribute(component);
@@ -72,7 +74,7 @@ public class RendererBase extends Renderer {
       encodeDirectBegin(facesContext, component);
 
       component.getAttributes().put(
-          TobagoConstants.ATTR_ENCODING_ACTIVE,
+          ATTR_ENCODING_ACTIVE,
           Boolean.FALSE);
     } catch (IOException e) {
       throw e;
@@ -99,13 +101,13 @@ public class RendererBase extends Renderer {
     } else {
 
       component.getAttributes().put(
-          TobagoConstants.ATTR_ENCODING_ACTIVE,
+          ATTR_ENCODING_ACTIVE,
           Boolean.TRUE);
 
       encodeDirectChildren(facesContext, component);
 
       component.getAttributes().put(
-          TobagoConstants.ATTR_ENCODING_ACTIVE,
+          ATTR_ENCODING_ACTIVE,
           Boolean.FALSE);
     }
 
@@ -117,7 +119,7 @@ public class RendererBase extends Renderer {
     LOG.debug("*** end      " + component);
     try {
       component.getAttributes().put(
-          TobagoConstants.ATTR_ENCODING_ACTIVE,
+          ATTR_ENCODING_ACTIVE,
           Boolean.TRUE);
 
       LayoutManager layoutManager = getLayoutManager(facesContext, component);
@@ -129,7 +131,7 @@ public class RendererBase extends Renderer {
       encodeDirectEnd(facesContext, component);
 
       component.getAttributes().put(
-          TobagoConstants.ATTR_ENCODING_ACTIVE,
+          ATTR_ENCODING_ACTIVE,
           Boolean.FALSE);
     } catch (IOException e) {
       throw e;
@@ -155,7 +157,7 @@ public class RendererBase extends Renderer {
       UIComponent parent = LayoutUtil.getNonTransparentParent(component);
       if (parent instanceof UIPanel) {
         Object o = parent.getAttributes().get(
-            TobagoConstants.ATTR_LAYOUT_DIRECTIVE);
+            ATTR_LAYOUT_DIRECTIVE);
         if (o instanceof Boolean && ((Boolean) o).booleanValue()) {
           component = parent;
         }
@@ -220,16 +222,16 @@ public class RendererBase extends Renderer {
     if (rendererType != null) {
       rendererType = rendererType.toLowerCase();
       Object styleClassO
-          = component.getAttributes().get(TobagoConstants.ATTR_STYLE_CLASS);
+          = component.getAttributes().get(ATTR_STYLE_CLASS);
       if (styleClassO != null && LOG.isDebugEnabled()) {
         LOG.debug("styleClassO = '" + styleClassO.getClass().getName() + "'");
       }
       String styleClass
           = (String) component.getAttributes().get(
-              TobagoConstants.ATTR_STYLE_CLASS);
+              ATTR_STYLE_CLASS);
       styleClass = updateClassAttribute(styleClass, rendererType, component);
       component.getAttributes().put(
-          TobagoConstants.ATTR_STYLE_CLASS,
+          ATTR_STYLE_CLASS,
           styleClass);
     }
   }
@@ -252,26 +254,26 @@ public class RendererBase extends Renderer {
       cssClass = "";
     }
     String tobagoClass = "tobago-" + rendererType + "-default ";
-    if (ComponentUtil.isDisabled(component)) {
+    if (ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
       tobagoClass += "tobago-" + rendererType + "-disabled ";
     }
-    if (ComponentUtil.isReadonly(component)) {
+    if (ComponentUtil.getBooleanAttribute(component, ATTR_READONLY)) {
       tobagoClass += "tobago-" + rendererType + "-readonly ";
     }
-    if (ComponentUtil.isInline(component)) {
+    if (ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
       tobagoClass += "tobago-" + rendererType + "-inline ";
     }
     if (ComponentUtil.isError(component)) {
       tobagoClass += "tobago-" + rendererType + "-error ";
     }
     String themeClass;
-    ValueBinding vb = component.getValueBinding(TobagoConstants.ATTR_THEME_CLASS);
+    ValueBinding vb = component.getValueBinding(ATTR_THEME_CLASS);
     if (vb != null) {
       themeClass = (String) vb.getValue(FacesContext.getCurrentInstance());
     }
     else {
       themeClass = (String)
-          component.getAttributes().get(TobagoConstants.ATTR_THEME_CLASS);
+          component.getAttributes().get(ATTR_THEME_CLASS);
     }
     if (themeClass != null && themeClass.trim().length() > 0
         && "strong deleted".indexOf(themeClass) != -1) {
@@ -321,7 +323,7 @@ public class RendererBase extends Renderer {
     if (component instanceof UIPanel
         && ComponentUtil.getBooleanAttribute(
             component,
-            TobagoConstants.ATTR_LAYOUT_DIRECTIVE)) {
+            ATTR_LAYOUT_DIRECTIVE)) {
       Vector children = LayoutUtil.addChildren(new Vector(), component);
       for (Iterator childs = children.iterator(); childs.hasNext();) {
         UIComponent child = (UIComponent) childs.next();
@@ -373,7 +375,7 @@ public class RendererBase extends Renderer {
       if (child.isRendered()) {
 //        if (ComponentUtil.getBooleanAttribute(
 //            child,
-//            TobagoConstants.ATTR_SUPPRESSED)) {
+//            ATTR_SUPPRESSED)) {
           child.encodeBegin(facesContext);
           if (child.getRendersChildren()) {
             child.encodeChildren(facesContext);

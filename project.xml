@@ -14,6 +14,13 @@
     </dependency>
 
     <dependency>
+      <groupId>atanion</groupId>
+      <artifactId>atanion-mock</artifactId>
+      <version>SNAPSHOT</version>
+      <purpose>test</purpose>
+    </dependency>
+
+    <dependency>
       <id>commons-beanutils</id>
       <version>1.6.1</version>
     </dependency>

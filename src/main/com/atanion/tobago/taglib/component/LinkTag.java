@@ -24,10 +24,19 @@ public class LinkTag extends CommandTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setProperty(component, TobagoConstants.ATTR_TARGET, target);
+    setStringProperty(component, ATTR_TARGET, target);
+  }
+
+  public void release() {
+    super.release();
+    target = null;
   }
 
 // /////////////////////////////////////////// bean getter + setter
+
+  public String getTarget() {
+    return target;
+  }
 
   public void setTarget(String target) {
     this.target = target;

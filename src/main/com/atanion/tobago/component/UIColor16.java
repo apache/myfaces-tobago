@@ -21,7 +21,7 @@ public class UIColor16 extends UIInput {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(UIColor16.class);
+  private static final Log LOG = LogFactory.getLog(UIColor16.class);
 
 // ///////////////////////////////////////////// attribute
 

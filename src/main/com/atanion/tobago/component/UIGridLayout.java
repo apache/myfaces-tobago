@@ -7,14 +7,12 @@ package com.atanion.tobago.component;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.util.LayoutUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -156,12 +154,12 @@ public class UIGridLayout extends UIComponentBase {
 */
 
   public static int getSpanX(UIComponent component) {
-    return ComponentUtil.getIntValueBindingOrAttribute(
+    return ComponentUtil.getIntAttribute(
         component, TobagoConstants.ATTR_SPAN_X, 1);
   }
 
   public static int getSpanY(UIComponent component) {
-    return ComponentUtil.getIntValueBindingOrAttribute(
+    return ComponentUtil.getIntAttribute(
         component, TobagoConstants.ATTR_SPAN_Y, 1);
   }
 

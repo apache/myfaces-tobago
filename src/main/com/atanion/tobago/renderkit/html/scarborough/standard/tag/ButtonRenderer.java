@@ -12,8 +12,6 @@ import com.atanion.tobago.renderkit.CommandRendererBase;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -22,20 +20,13 @@ import java.io.IOException;
 
 public class ButtonRenderer extends CommandRendererBase
     implements DirectRenderer {
+// ----------------------------------------------------------------- interfaces
 
-// ///////////////////////////////////////////// constant
 
-  private static final Log LOG = LogFactory.getLog(ButtonRenderer.class);
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
+// ---------------------------- interface DirectRenderer
 
   public void encodeDirectBegin(FacesContext facesContext,
       UIComponent component) throws IOException {
-
     String clientId = component.getClientId(facesContext);
     String buttonType = createButtonType(component);
 
@@ -44,7 +35,8 @@ public class ButtonRenderer extends CommandRendererBase
         CommandRendererBase.appendConfirmationScript(onclick, component,
             facesContext);
 
-    if (ComponentUtil.isDisabled(component)) {
+    boolean disabled = ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED);
+    if (disabled) {
       onclick = "";
     }
 
@@ -54,12 +46,27 @@ public class ButtonRenderer extends CommandRendererBase
     writer.writeAttribute("type", buttonType, null);
     writer.writeAttribute("name", clientId, null);
     writer.writeAttribute("id", clientId, null);
-    writer.writeAttribute("disabled", ComponentUtil.isDisabled(component));
+    writer.writeAttribute("disabled", disabled);
     writer.writeAttribute("onclick", onclick, null);
     writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
     writer.writeText("", null); // force closing the start tag
   }
+
+  public void encodeDirectEnd(FacesContext facesContext,
+      UIComponent component) throws IOException {
+    ResponseWriter writer = facesContext.getResponseWriter();
+
+    BodyContentHandler bodyContentHandler = (BodyContentHandler)
+        component.getAttributes().get(TobagoConstants.ATTR_BODY_CONTENT);
+
+    if (bodyContentHandler != null) {
+      writer.writeText(bodyContentHandler.getBodyContent(), null);
+    }
+    writer.endElement("button");
+  }
+
+// ----------------------------------------------------------- business methods
 
   private String createButtonType(UIComponent component) {
     String buttonType;
@@ -78,7 +85,6 @@ public class ButtonRenderer extends CommandRendererBase
 
   public static String createOnClick(FacesContext facesContext,
       UIComponent component) {
-
     String type = (String) component.getAttributes().get(
         TobagoConstants.ATTR_TYPE);
     String commandName = (String) component.getAttributes().get(
@@ -100,22 +106,5 @@ public class ButtonRenderer extends CommandRendererBase
     }
     return onclick;
   }
-
-  public void encodeDirectEnd(FacesContext facesContext,
-      UIComponent component) throws IOException {
-
-    ResponseWriter writer = facesContext.getResponseWriter();
-
-    BodyContentHandler bodyContentHandler = (BodyContentHandler)
-        component.getAttributes().get(TobagoConstants.ATTR_BODY_CONTENT);
-
-    if (bodyContentHandler != null) {
-      writer.writeText(bodyContentHandler.getBodyContent(), null);
-    }
-    writer.endElement("button");
-  }
-
-// ///////////////////////////////////////////// bean getter + setter
-
 }
 

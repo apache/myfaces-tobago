@@ -53,12 +53,12 @@ public class TextBoxRenderer extends TextBoxRendererBase
     TobagoResponseWriter writer = (TobagoResponseWriter)
         facesContext.getResponseWriter();
 
-    boolean isInline = ComponentUtil.isInline(input); // fixme
+    boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
     String image = TobagoResource.getImage(facesContext, "1x1.gif");
-    UIComponent label = input.getFacet(TobagoConstants.FACET_LABEL);
+    UIComponent label = input.getFacet(FACET_LABEL);
     UIComponent picker = input.getFacet("picker");
 
-    if (!isInline) {
+    if (!inline) {
       writer.startElement("table", null);
       writer.writeAttribute("border", "0", null);
       writer.writeAttribute("cellspacing", "0", null);

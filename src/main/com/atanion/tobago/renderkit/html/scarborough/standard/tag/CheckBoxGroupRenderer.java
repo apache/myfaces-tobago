@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
@@ -44,7 +45,8 @@ public class CheckBoxGroupRenderer extends SelectManyRendererBase
 
     List items = ItemsRenderer.getItemsToRender(component);
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) facesContext.getResponseWriter();
 
 
 // fixme: List of Objects instead of List of Strings
@@ -76,15 +78,13 @@ public class CheckBoxGroupRenderer extends SelectManyRendererBase
       writer.writeAttribute("type", "checkbox", null);
 
       writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
-      if (RenderUtil.contains(values, item.getValue())) {
-        writer.writeAttribute("checked", "checked", null);
-      }
+      writer.writeAttribute("checked",
+          RenderUtil.contains(values, item.getValue()));
       writer.writeAttribute("name", id, null);
       writer.writeAttribute("id", itemId, null);
       writer.writeAttribute("value", item.getValue(), null);
-      if (ComponentUtil.isDisabled(component)) {
-        writer.writeAttribute("disabled", "disabled", null);
-      }
+      writer.writeAttribute("disabled",
+          ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
       writer.endElement("input");
 
       LOG.debug("item.getLabel() = " + item.getLabel());

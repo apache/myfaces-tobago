@@ -102,9 +102,9 @@ public class ImageRenderer extends RendererBase
   }
 
   private boolean isDisabled(UIGraphic graphic) {
-    boolean disabled = ComponentUtil.isDisabled(graphic);
+    boolean disabled = ComponentUtil.getBooleanAttribute(graphic, ATTR_DISABLED);
     if (! disabled && graphic.getParent() instanceof UICommand) {
-      disabled = ComponentUtil.isDisabled(graphic.getParent());
+      disabled = ComponentUtil.getBooleanAttribute(graphic.getParent(), ATTR_DISABLED);
     }
     return disabled;
   }

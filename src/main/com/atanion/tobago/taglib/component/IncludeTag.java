@@ -17,25 +17,21 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 public class IncludeTag extends TagSupport {
+// ----------------------------------------------------------- class attributes
 
-// ///////////////////////////////////////////// constant
+  private static final Log LOG = LogFactory.getLog(IncludeTag.class);
 
-  private static Log LOG = LogFactory.getLog(IncludeTag.class);
+// ----------------------------------------------------------------- attributes
 
-// ///////////////////////////////////////////// attribute
+  private String value;
 
-  protected String value;
+  private boolean i18n;
 
-  protected boolean i18n;
-  
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
+// ----------------------------------------------------------- business methods
 
   public int doStartTag() throws JspException {
     String pageName = null;
     try {
-
       if (UIComponentTag.isValueReference(value)) {
         ValueBinding valueBinding = FacesContext.getCurrentInstance()
             .getApplication().createValueBinding(value);
@@ -69,13 +65,22 @@ public class IncludeTag extends TagSupport {
     super.release();
   }
 
-// ///////////////////////////////////////////// bean getter + setter
+// ------------------------------------------------------------ getter + setter
+
+  public String getValue() {
+    return value;
+  }
 
   public void setValue(String value) {
     this.value = value;
+  }
+
+  public boolean isI18n() {
+    return i18n;
   }
 
   public void setI18n(boolean i18n) {
     this.i18n = i18n;
   }
 }
+

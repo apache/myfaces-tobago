@@ -5,9 +5,6 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.TobagoConstants;
-
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
@@ -17,12 +14,12 @@ public class LabelTag extends BeanTag {
 
 // ///////////////////////////////////////////// attribute
 
-  private String forValue;
+  private String _for;
 
 // ///////////////////////////////////////////// constructor
 
   public LabelTag() {
-    i18n = true; // overwrite default
+    setI18n(Boolean.TRUE.toString()); // overwrite default
   }
 
 // ///////////////////////////////////////////// code
@@ -33,13 +30,22 @@ public class LabelTag extends BeanTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setProperty(component, TobagoConstants.ATTR_FOR, forValue);
+    setStringProperty(component, ATTR_FOR, _for);
+  }
+
+  public void release() {
+    super.release();
+    _for = null;
+    setI18n(Boolean.TRUE.toString()); // overwrite default
   }
 
 // ///////////////////////////////////////////// bean getter + setter
 
-  public void setFor(String forValue) {
-    this.forValue = forValue;
+  public String getFor() {
+    return _for;
   }
 
+  public void setFor(String _for) {
+    this._for = _for;
+  }
 }

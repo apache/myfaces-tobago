@@ -5,11 +5,9 @@
   */
 package com.atanion.tobago.renderkit;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.TobagoResource;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -27,7 +25,7 @@ public class TextBoxRendererBase extends InputRendererBase {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(TextBoxRendererBase.class);
+  private static final Log LOG = LogFactory.getLog(TextBoxRendererBase.class);
 
 // ///////////////////////////////////////////// attribute
 
@@ -50,15 +48,10 @@ public class TextBoxRendererBase extends InputRendererBase {
       title = stringBuffer.toString();
     }
 
-    boolean disabled = ComponentUtil.isDisabled(input);
-
-    Integer size
-        = (Integer) input.getAttributes().get(TobagoConstants.ATTR_SIZE);
-
     String currentValue = getCurrentValue(facesContext, input);
     LOG.debug("currentValue = '" + currentValue + "'");
     String type = ComponentUtil.getBooleanAttribute(input,
-        TobagoConstants.ATTR_PASSWORD) ? "password" : "text";
+        ATTR_PASSWORD) ? "password" : "text";
 
     String onchange = HtmlUtils.generateOnchange(input, facesContext);
 
@@ -71,16 +64,15 @@ public class TextBoxRendererBase extends InputRendererBase {
     if (currentValue != null) {
       writer.writeAttribute("value", currentValue, null);
     }
-    if (size != null && size.intValue() > 0) {
-      writer.writeAttribute("size", size, null);
-    }
     if (title != null) {
       writer.writeAttribute("title", title, null);
     }
-    writer.writeAttribute("readonly", ComponentUtil.isReadonly(input));
-    writer.writeAttribute("disabled", disabled);
-    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeAttribute("readonly",
+        ComponentUtil.getBooleanAttribute(input, ATTR_READONLY));
+    writer.writeAttribute("disabled",
+        ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED));
+    writer.writeAttribute("style", null, ATTR_STYLE);
+    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
     if (onchange != null) {
       writer.writeAttribute("onchange", onchange, null);
     }
@@ -112,7 +104,7 @@ public class TextBoxRendererBase extends InputRendererBase {
           + "?tobago.date.inputId="
           + input.getClientId(facesContext);
       String command = "calendarWindow('" + url + "');";
-      picker.getAttributes().put(TobagoConstants.ATTR_COMMAND_NAME, command);
+      picker.getAttributes().put(ATTR_COMMAND_NAME, command);
       RenderUtil.encode(facesContext, picker);
     }
   }

@@ -17,7 +17,7 @@ public class BuilderModel {
 
 // /////////////////////////////////////////// constants
 
-  private static Log log = LogFactory.getLog(BuilderModel.class);
+  private static final Log LOG = LogFactory.getLog(BuilderModel.class);
 
 // /////////////////////////////////////////// attributes
 
@@ -51,16 +51,16 @@ public class BuilderModel {
 // /////////////////////////////////////////// actions
 
     public String open() {
-      if (log.isDebugEnabled()) {
-        log.debug("invoke!!!");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("invoke!!!");
       }
 
       return "enterPagename";
     }
 
     public String loadPage() {
-      if (log.isDebugEnabled()) {
-        log.debug("invoke!!!");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("invoke!!!");
       }
 
       FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -70,7 +70,7 @@ public class BuilderModel {
       try {
         source = Io2String.read(servletContext.getResourceAsStream(page));
       } catch (IOException e) {
-        log.error("", e);
+        LOG.error("", e);
         return "error"; // todo: error message
       }
 
@@ -78,8 +78,8 @@ public class BuilderModel {
     }
 
     public String savePage() {
-      if (log.isDebugEnabled()) {
-        log.debug("invoke!!!");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("invoke!!!");
       }
 
       FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -90,7 +90,7 @@ public class BuilderModel {
       try {
         Io2String.write(realPath, source);
       } catch (IOException e) {
-        log.error("", e);
+        LOG.error("", e);
         return "error"; // todo: error message
       }
 

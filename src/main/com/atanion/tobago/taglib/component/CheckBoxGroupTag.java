@@ -5,29 +5,26 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.TobagoConstants;
-
 import javax.faces.component.UIComponent;
 
 public class CheckBoxGroupTag extends MultiSelectTag {
+// ----------------------------------------------------------------- attributes
 
-// /////////////////////////////////////////// constants
+  private String renderRange;
 
-// /////////////////////////////////////////// attributes
-
-  String renderRange;
-
-// /////////////////////////////////////////// constructors
-
-// /////////////////////////////////////////// code
+// ----------------------------------------------------------- business methods
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setProperty(component, TobagoConstants.ATTR_RENDER_RANGE, renderRange);
-
+    setStringProperty(component, ATTR_RENDER_RANGE, renderRange);
   }
 
-// /////////////////////////////////////////// bean getter + setter
+  public void release() {
+    super.release();
+    renderRange = null;
+  }
+// ------------------------------------------------------------ getter + setter
+
   public String getRenderRange() {
     return renderRange;
   }
@@ -35,6 +32,5 @@ public class CheckBoxGroupTag extends MultiSelectTag {
   public void setRenderRange(String renderRange) {
     this.renderRange = renderRange;
   }
-
 }
 

@@ -6,19 +6,16 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.TobagoConstants;
-
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectMany;
 
-public class MultiSelectTag extends SelectTag{
+public class MultiSelectTag extends InputTag{
 
 // /////////////////////////////////////////// constants
 
 // /////////////////////////////////////////// attributes
 
-  Integer rows;
+  private String rows;
 
 // /////////////////////////////////////////// constructors
 
@@ -30,12 +27,22 @@ public class MultiSelectTag extends SelectTag{
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setProperty(component, TobagoConstants.ATTR_ROWS, rows);
+
+    setIntegerProperty(component, ATTR_ROWS, rows);
   }
 
+  public void release() {
+    super.release();
+    rows = null;
+  }
+  
 // /////////////////////////////////////////// bean getter + setter
 
-  public void setRows(Integer rows) {
+  public String getRows() {
+    return rows;
+  }
+
+  public void setRows(String rows) {
     this.rows = rows;
   }
 }

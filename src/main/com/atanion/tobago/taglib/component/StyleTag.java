@@ -48,7 +48,16 @@ public class StyleTag extends BodyTagSupport {
     return EVAL_PAGE;
   }
 
+  public void release() {
+    super.release();
+    style = null;
+  }
+
 // ///////////////////////////////////////////// bean getter + setter
+
+  public String getStyle() {
+    return style;
+  }
 
   public void setStyle(String style) {
     this.style = style;

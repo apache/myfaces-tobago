@@ -14,7 +14,7 @@ public class UISelectMany extends javax.faces.component.UISelectMany {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(UISelectMany.class);
+  private static final Log LOG = LogFactory.getLog(UISelectMany.class);
 
 // ///////////////////////////////////////////// attribute
 

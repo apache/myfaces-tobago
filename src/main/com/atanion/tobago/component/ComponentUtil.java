@@ -34,11 +34,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class ComponentUtil {
+// todo: java 1.5 use static import for TobagoConstants
+public class ComponentUtil implements TobagoConstants {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(ComponentUtil.class);
+  private static final Log LOG = LogFactory.getLog(ComponentUtil.class);
 
 // ///////////////////////////////////////////// attribute
 
@@ -103,7 +104,7 @@ public class ComponentUtil {
 
   public static UIComponent findFor(UIComponent component) {
     String forValue
-        = (String) component.getAttributes().get(TobagoConstants.ATTR_FOR);
+        = (String) component.getAttributes().get(ATTR_FOR);
     if (forValue == null) {
       UIComponent parent = component.getParent();
       if (parent != null) {
@@ -138,69 +139,15 @@ public class ComponentUtil {
       FacesContext facesContext = FacesContext.getCurrentInstance();
       Iterator messages
           = facesContext.getMessages(component.getClientId(facesContext));
-      return !((EditableValueHolder) component).isValid() || messages.hasNext();
+      return !((EditableValueHolder) component).isValid() ||
+          messages.hasNext();
     }
     return false;
-  }
-
-  public static boolean isDisabled(UIComponent component) {
-    boolean disabled = getBooleanAttribute(component,
-        TobagoConstants.ATTR_DISABLED);
-    if (disabled) {
-      return true;
-    }
-    ValueBinding binding
-        = component.getValueBinding(TobagoConstants.VB_DISABLED);
-    if (binding != null) {
-      Boolean value
-          = (Boolean) binding.getValue(FacesContext.getCurrentInstance());
-      return value.booleanValue();
-    }
-    return false;
-  }
-
-  public static boolean isReadonly(UIComponent component) {
-    return getBooleanAttribute(component, TobagoConstants.ATTR_READONLY);
   }
 
   public static boolean isOutputOnly(UIComponent component) {
-    return isDisabled(component) || isReadonly(component);
-  }
-
-  public static boolean getBooleanAttribute(UIComponent component,
-      String attrName, String vbName) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("attrName = '" + attrName + "'");
-      LOG.debug("vbName   = '" + vbName + "'");
-    }
-    boolean result;
-    Object bool = component.getAttributes().get(attrName);
-    if (bool instanceof Boolean) {
-      result = ((Boolean) bool).booleanValue();
-    } else if (bool instanceof String) {
-      result = Boolean.getBoolean((String) bool);
-    } else if (bool != null) {
-      LOG.warn("Unknown type for boolean attribute: " + attrName + " comp: " +
-          component);
-      result = false;
-    } else {
-
-      ValueBinding binding = component.getValueBinding(vbName);
-      if (binding != null) {
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("binding = '" + binding + "'");
-        }
-        Boolean value
-            = (Boolean) binding.getValue(FacesContext.getCurrentInstance());
-        result = value.booleanValue();
-      } else {
-        result = false;
-      }
-    }
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("result = '" + result + "'");
-    }
-    return result;
+    return getBooleanAttribute(component, ATTR_DISABLED)
+        || getBooleanAttribute(component, ATTR_READONLY);
   }
 
   public static boolean mayValidate(UIComponent component) {
@@ -213,10 +160,6 @@ public class ComponentUtil {
     return mayValidate(component);
   }
 
-  public static boolean isInline(UIComponent component) {
-    return getBooleanAttribute(component, TobagoConstants.ATTR_INLINE);
-  }
-
   public static boolean getBooleanAttribute(UIComponent component, String name) {
 
     Object bool = component.getAttributes().get(name);
@@ -225,10 +168,12 @@ public class ComponentUtil {
     } else if (bool instanceof Boolean) {
       return ((Boolean) bool).booleanValue();
     } else if (bool instanceof String) {
+      LOG.warn("Searching for a boolean, but find a String. Should not happen. "
+          + "attribute: '" + name + "' comp: '" + component + "'");
       return Boolean.getBoolean((String) bool);
     } else {
-      LOG.warn("Unknown type for boolean attribute: " + name + " comp: " +
-          component);
+      LOG.warn("Unknown type '" + bool.getClass().getName() +
+          "' for boolean attribute: " + name + " comp: " + component);
       return false;
     }
   }
@@ -238,49 +183,27 @@ public class ComponentUtil {
   }
 
   public static int getIntAttribute(UIComponent component, String name,
-      int def) {
+      int defaultValue) {
     Object integer = component.getAttributes().get(name);
     if (integer instanceof Number) {
       return ((Number) integer).intValue();
+    } else if (integer == null) {
+      return defaultValue;
     } else {
-      return def;
+      LOG.warn("Unknown type '" + integer.getClass().getName() +
+          "' for integer attribute: " + name + " comp: " + component);
+      return defaultValue;
     }
-  }
-
-  public static int getIntValueBindingOrAttribute(UIComponent component, String key, int defaultValue) {
-    Object value;
-    ValueBinding valueBinding
-        = component.getValueBinding(key);
-    if (valueBinding != null) {
-      value = valueBinding.getValue(FacesContext.getCurrentInstance());
-    } else {
-      value = component.getAttributes().get(key);
-    }
-
-    if (value instanceof Integer) {
-      return ((Integer) value).intValue();
-    } else if (value != null) {
-      try {
-        return Integer.parseInt(value.toString());
-      } catch (NumberFormatException e) {
-        LOG.warn("illegal spanX value : " + valueBinding != null
-            ? valueBinding.getExpressionString()
-            : value);
-      }
-    }
-    return defaultValue;
   }
 
   public static boolean isFacetOf(UIComponent component, UIComponent parent) {
-    boolean isFacet = false;
-    for (Iterator iter = parent.getFacets().keySet().iterator();
-        iter.hasNext();) {
-      UIComponent facet = parent.getFacet((String) iter.next());
+    for (Iterator i = parent.getFacets().keySet().iterator(); i.hasNext();) {
+      UIComponent facet = parent.getFacet((String) i.next());
       if (component.equals(facet)) {
-        isFacet = true;
+        return true;
       }
     }
-    return isFacet;
+    return false;
   }
 
   /**
@@ -292,10 +215,12 @@ public class ComponentUtil {
 //    if (rendererType == null) {
 //      return null;
 //    }
-    RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory("javax.faces.render.RenderKitFactory");
+    RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(
+        "javax.faces.render.RenderKitFactory");
     RenderKit renderKit = rkFactory.getRenderKit(facesContext,
         facesContext.getViewRoot().getRenderKitId());
-    return (RendererBase) renderKit.getRenderer(component.getFamily(), rendererType);
+    return (RendererBase) renderKit.getRenderer(component.getFamily(),
+        rendererType);
   }
 
   public static String currentValue(UIComponent component) {
@@ -305,7 +230,9 @@ public class ComponentUtil {
       if (value != null) {
         Converter converter = ((ValueHolder) component).getConverter();
         if (converter != null) {
-          currentValue = converter.getAsString(FacesContext.getCurrentInstance(), component, value);
+          currentValue =
+              converter.getAsString(FacesContext.getCurrentInstance(),
+                  component, value);
         } else {
           currentValue = value.toString();
         }
@@ -442,7 +369,7 @@ public class ComponentUtil {
   }
 
   public static boolean isHoverEnabled(UIComponent component) {
-    return ComponentUtil.getBooleanAttribute(component, TobagoConstants.ATTR_HOVER);
+    return ComponentUtil.getBooleanAttribute(component, ATTR_HOVER);
   }
 
   public static UIOutput getFirstNonGraphicChild(UIComponent component) {
@@ -450,7 +377,8 @@ public class ComponentUtil {
     final Iterator iterator = component.getChildren().iterator();
     while (iterator.hasNext()) {
       UIComponent uiComponent = (UIComponent) iterator.next();
-      if ((uiComponent instanceof UIOutput) && !(uiComponent instanceof UIGraphic)) {
+      if ((uiComponent instanceof UIOutput) &&
+          !(uiComponent instanceof UIGraphic)) {
         output = (UIOutput) uiComponent;
         break;
       }

@@ -33,7 +33,7 @@ public class TobagoMultipartFormdataRequest implements HttpServletRequest {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(
+  private static final Log LOG = LogFactory.getLog(
       TobagoMultipartFormdataRequest.class);
 
 // ///////////////////////////////////////////// attribute

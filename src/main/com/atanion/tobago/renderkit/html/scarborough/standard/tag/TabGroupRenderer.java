@@ -37,7 +37,7 @@ public class TabGroupRenderer extends RendererBase
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(TabGroupRenderer.class);
+  private static final Log LOG = LogFactory.getLog(TabGroupRenderer.class);
 
   public static final String ACTIVE_INDEX_POSTFIX
       = TobagoConstants.SUBCOMPONENT_SEP + "activeIndex";

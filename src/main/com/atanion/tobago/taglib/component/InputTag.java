@@ -6,24 +6,29 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.TobagoConstants;
-
 import javax.faces.component.UIComponent;
 
 public abstract class InputTag extends BeanTag {
+// ----------------------------------------------------------------- attributes
 
   private String onchange;
+  private String focus;
 
-  private boolean focus;
+// ----------------------------------------------------------- business methods
 
-  public InputTag() {
+  public void release() {
+    super.release();
+    this.onchange = null;
+    this.focus = null;
   }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setProperty(component, TobagoConstants.ATTR_ONCHANGE, onchange);
-    setBooleanProperty(component, TobagoConstants.ATTR_FOCUS, focus);
+    setStringProperty(component, ATTR_ONCHANGE, onchange);
+    setBooleanProperty(component, ATTR_FOCUS, focus);
   }
+
+// ------------------------------------------------------------ getter + setter
 
   public String getOnchange() {
     return onchange;
@@ -33,17 +38,12 @@ public abstract class InputTag extends BeanTag {
     this.onchange = onchange;
   }
 
-  public boolean isFocus() {
+  public String getFocus() {
     return focus;
   }
 
-  public void setFocus(boolean focus) {
+  public void setFocus(String focus) {
     this.focus = focus;
   }
-
-  public void release() {
-    super.release();
-    this.onchange = null;
-    this.focus = false;
-  }
 }
+

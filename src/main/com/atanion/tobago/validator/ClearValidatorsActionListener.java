@@ -21,7 +21,7 @@ public class ClearValidatorsActionListener implements ActionListener {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG
+  private static final Log LOG
       = LogFactory.getLog(ClearValidatorsActionListener.class);
 
 // ///////////////////////////////////////////// attribute

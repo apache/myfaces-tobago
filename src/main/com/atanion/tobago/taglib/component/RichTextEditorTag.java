@@ -6,43 +6,38 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.TobagoConstants;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import javax.faces.component.UIComponent;
 
 public class RichTextEditorTag extends TextBoxTag{
 
 // ///////////////////////////////////////////// constant
 
-  private static final Log log = LogFactory.getLog(RichTextEditorTag.class);
-
 // /////////////////////////////////////////// attributes
 
-  boolean statePreview;
+  private String statePreview;
 
 // /////////////////////////////////////////// constructors
-
-  public RichTextEditorTag() {
-    super();
-    statePreview = false;
-  }
 
 // /////////////////////////////////////////// code
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setProperty(component, TobagoConstants.ATTR_STATE_PREVIEW, new Boolean(statePreview));
+
+    setBooleanProperty(component, ATTR_STATE_PREVIEW, statePreview);
   }
 
   public void release() {
     super.release();
-    statePreview = false;
+    statePreview = null;
   }
 
 // /////////////////////////////////////////// bean getter + setter
 
+  public String getStatePreview() {
+    return statePreview;
+  }
 
+  public void setStatePreview(String statePreview) {
+    this.statePreview = statePreview;
+  }
 }

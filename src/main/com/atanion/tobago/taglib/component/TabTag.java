@@ -5,24 +5,19 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.TobagoConstants;
-
-import javax.faces.component.UIPanel;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIPanel;
 
 public class TabTag extends TobagoBodyTag {
 
-// /////////////////////////////////////////////// constructors
-
-// /////////////////////////////////////////////// code
+// ----------------------------------------------------------- business methods
 
   public String getComponentType() {
     return UIPanel.COMPONENT_TYPE;
   }
 
   protected void provideLabel(UIComponent component) {
-    provideAttribute(component, label, TobagoConstants.ATTR_LABEL);
+    setStringProperty(component, ATTR_LABEL, label);
   }
-// /////////////////////////////////////////////// bean getter + setter
-
 }
+

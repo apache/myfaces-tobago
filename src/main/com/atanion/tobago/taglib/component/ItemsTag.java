@@ -30,8 +30,14 @@ public class ItemsTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setProperty(component, TobagoConstants.ATTR_REFERENCE, reference);
-    setProperty(component, TobagoConstants.ATTR_RENDER_RANGE, renderRange);
+    setStringProperty(component, ATTR_REFERENCE, reference);
+    setStringProperty(component, ATTR_RENDER_RANGE, renderRange);
+  }
+
+  public void release() {
+    super.release();
+    reference = null;
+    renderRange = null;
   }
 
 // ///////////////////////////////////////////// bean getter + setter

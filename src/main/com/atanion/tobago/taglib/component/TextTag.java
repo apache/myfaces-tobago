@@ -6,47 +6,49 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.TobagoConstants;
-
-import javax.faces.component.UIOutput;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
 
 public class TextTag extends BeanTag {
+// ----------------------------------------------------------------- attributes
 
-// ///////////////////////////////////////////// constant
+  private String escape;
+  private String createSpan;
 
-// ///////////////////////////////////////////// attribute
-
-  private boolean escape = false;
-  private boolean createSpan = false;
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
+// ----------------------------------------------------------- business methods
 
   public String getComponentType() {
     return UIOutput.COMPONENT_TYPE;
   }
 
-  protected void setProperties(UIComponent component) {
-    super.setProperties(component);
-    setBooleanProperty(component, TobagoConstants.ATTR_ESCAPE, escape);
-    setBooleanProperty(component, TobagoConstants.ATTR_CREATE_SPAN, createSpan);
-  }
-
   public void release() {
     super.release();
-    escape = false;
-    createSpan = false;
+    escape = null;
+    createSpan = null;
   }
 
-// ///////////////////////////////////////////// bean getter + setter
+  protected void setProperties(UIComponent component) {
+    super.setProperties(component);
+    setBooleanProperty(component, ATTR_ESCAPE, escape);
+    setBooleanProperty(component, ATTR_CREATE_SPAN, createSpan);
+  }
 
-  public void setEscape(boolean escape) {
+// ------------------------------------------------------------ getter + setter
+
+  public String getEscape() {
+    return escape;
+  }
+
+  public void setEscape(String escape) {
     this.escape = escape;
   }
 
-  public void setCreateSpan(boolean createSpan) {
+  public String getCreateSpan() {
+    return createSpan;
+  }
+
+  public void setCreateSpan(String createSpan) {
     this.createSpan = createSpan;
   }
 }
+

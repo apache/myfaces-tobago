@@ -5,7 +5,7 @@
  */
 package com.atanion.tobago;
 
-public class TobagoConstants {
+public interface TobagoConstants {
 
   public static final String SUBCOMPONENT_SEP = "::";
 
@@ -31,7 +31,7 @@ public class TobagoConstants {
   public static final String ATTR_ESCAPE = "escape";
   public static final String ATTR_FIRST = "first";
   public static final String ATTR_FOCUS = "focus";
-//  public static final String ATTR_FOCUS_ID = "focusId";
+  public static final String ATTR_FOCUS_ID = "focusId";
   public static final String ATTR_FOOTER_HEIGHT = "footerHeight";
   public static final String ATTR_FORMAT_PATTERN = "formatPattern";
   public static final String ATTR_FOR = "for";
@@ -90,7 +90,6 @@ public class TobagoConstants {
   public static final String ATTR_SERVER_SIDE_TABS = "serverSideTab";
   public static final String ATTR_SHEET_SORTER = "sheetSorter";
   public static final String ATTR_HIDE_HEADER = "hideHeader";
-  public static final String ATTR_SIZE = "size";
   public static final String ATTR_SORTABLE = "sortable";
   public static final String ATTR_CREATE_SPAN = "createSpan";
   public static final String ATTR_SPAN_X = "spanX";
@@ -112,6 +111,7 @@ public class TobagoConstants {
   public static final String ATTR_TITLE = "title";
   public static final String ATTR_TYPE = "type";
   public static final String ATTR_VALUE = "value";
+  public static final String ATTR_VAR = "var";
   public static final String ATTR_UNIT = "unit";
   public static final String ATTR_WIDTH = "width";
   public static final String ATTR_WIDTH_LIST = "widthList";
@@ -139,13 +139,5 @@ public class TobagoConstants {
   public static final String RENDERER_TYPE_LINK = "Link";
   public static final String RENDERER_TYPE_LABEL = "Label";
   public static final String RENDERER_TYPE_TEXT_BOX = "TextBox";
-
-  public static final String VB_DISABLED = "disabled";
-  public static final String VB_HIDE_ICONS = "hideIcons";
-  public static final String VB_HIDE_JUNCTIONS = "hideJunctions";
-  public static final String VB_HIDE_ROOT = "hideRoot";
-  public static final String VB_HIDE_ROOT_JUNCTION = "hideRootJunction";
-  public static final String VB_MULTISELECT = "multiselect";
-  public static final String VB_MUTABLE = "mutable";
 
 }
