@@ -181,23 +181,19 @@ public class TreeNodeRenderer extends RendererBase {
       writer.writeText("','", null);
       writer.writeText(clientId, null);
       writer.writeText("',", null);
-      writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
-          ATTR_HIDE_ICONS)), null);
+      writer.writeText(Boolean.toString(!root.isShowIcons()), null);
       writer.writeText(",", null);
-      writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
-          ATTR_HIDE_JUNCTIONS)), null);
+      writer.writeText(Boolean.toString(!root.isShowJunctions()), null);
       writer.writeText(",", null);
-      writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
-          ATTR_HIDE_ROOT_JUNCTION)), null);
+      writer.writeText(Boolean.toString(!root.isShowRootJunction()), null);
       writer.writeText(",", null);
-      writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
-          ATTR_HIDE_ROOT)), null);
+      writer.writeText(Boolean.toString(!root.isShowRoot()), null);
       writer.writeText(",'", null);
       writer.writeText(rootId, null);
       writer.writeText("',", null);
       Object selectable = ComponentUtil.getAttribute(root, ATTR_SELECTABLE);
       if (selectable != null
-          && (! (selectable.equals("multi") || selectable.equals("single")))) {
+          && (!(selectable.equals("multi") || selectable.equals("single")))) {
         selectable = null;
       }
       if (selectable != null) {

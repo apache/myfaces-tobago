@@ -23,6 +23,7 @@ public interface TobagoConstants {
   public static final String ATTR_COLUMNS = "colunms";
   public static final String ATTR_DATE_STYLE = "dateStyle";
   public static final String ATTR_DEFAULT_COMMAND = "defaultCommand";
+  public static final String ATTR_DIRECT_LINK_COUNT = "directLinkCount";
   public static final String ATTR_DISABLED = "disabled";
   public static final String ATTR_DOCTYPE = "doctype";
   public static final String ATTR_ENCTYPE = "enctype";
@@ -36,10 +37,6 @@ public interface TobagoConstants {
   public static final String ATTR_FOR = "for";
   public static final String ATTR_HEIGHT = "height";
   public static final String ATTR_HIDDEN = "hidden";
-  public static final String ATTR_HIDE_ICONS = "hideIcons";
-  public static final String ATTR_HIDE_JUNCTIONS = "hideJunctions";
-  public static final String ATTR_HIDE_ROOT = "hideRoot";
-  public static final String ATTR_HIDE_ROOT_JUNCTION = "hideRootJunction";
   public static final String ATTR_HOVER = "hover";
   public static final String ATTR_I18N = "i18n";
   public static final String ATTR_ICON_SIZE = "iconSize";
@@ -102,9 +99,12 @@ public interface TobagoConstants {
   public static final String ATTR_CREATE_SPAN = "createSpan";
   public static final String ATTR_SELECTABLE = "selectable";
   public static final String ATTR_SHOW_DIRECT_LINKS = "showDirectLinks";
-  public static final String ATTR_DIRECT_LINK_COUNT = "directLinkCount";
-  public static final String ATTR_SHOW_ROW_RANGE = "showRowRange";
+  public static final String ATTR_SHOW_ICONS = "showIcons";
+  public static final String ATTR_SHOW_JUNCTIONS = "showJunctions";
   public static final String ATTR_SHOW_PAGE_RANGE = "showPageRange";
+  public static final String ATTR_SHOW_ROOT = "showRoot";
+  public static final String ATTR_SHOW_ROOT_JUNCTION = "showRootJunction";
+  public static final String ATTR_SHOW_ROW_RANGE = "showRowRange";
   public static final String ATTR_SPAN_X = "spanX";
   public static final String ATTR_SPAN_Y = "spanY";
   public static final String ATTR_SRC = "src";

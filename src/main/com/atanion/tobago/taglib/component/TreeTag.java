@@ -14,10 +14,10 @@ public class TreeTag extends BeanTag {
 
 // ----------------------------------------------------------------- attributes
 
-  private String hideJunctions;
-  private String hideIcons;
-  private String hideRoot;
-  private String hideRootJunction;
+  private String showJunctions;
+  private String showIcons;
+  private String showRoot;
+  private String showRootJunction;
 
   private String selectable;
   private String mutable;
@@ -34,10 +34,10 @@ public class TreeTag extends BeanTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-   ComponentUtil.setBooleanProperty(component, ATTR_HIDE_JUNCTIONS, hideJunctions, getIterationHelper());
-   ComponentUtil.setBooleanProperty(component, ATTR_HIDE_ICONS, hideIcons, getIterationHelper());
-   ComponentUtil.setBooleanProperty(component, ATTR_HIDE_ROOT, hideRoot, getIterationHelper());
-   ComponentUtil.setBooleanProperty(component, ATTR_HIDE_ROOT_JUNCTION, hideRootJunction, getIterationHelper());
+   ComponentUtil.setBooleanProperty(component, ATTR_SHOW_JUNCTIONS, showJunctions, getIterationHelper());
+   ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ICONS, showIcons, getIterationHelper());
+   ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ROOT, showRoot, getIterationHelper());
+   ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ROOT_JUNCTION, showRootJunction, getIterationHelper());
 
    ComponentUtil.setStringProperty(component, ATTR_SELECTABLE, selectable, getIterationHelper());
    ComponentUtil.setBooleanProperty(component, ATTR_MUTABLE, mutable, getIterationHelper());
@@ -48,10 +48,10 @@ public class TreeTag extends BeanTag {
 
   public void release() {
     super.release();
-    hideJunctions = null;
-    hideIcons = null;
-    hideRoot = null;
-    hideRootJunction = null;
+    showJunctions = null;
+    showIcons = null;
+    showRoot = null;
+    showRootJunction = null;
     selectable = null;
     mutable = null;
     idReference = null;
@@ -59,36 +59,36 @@ public class TreeTag extends BeanTag {
   }
 // ------------------------------------------------------------ getter + setter
 
-  public String getHideIcons() {
-    return hideIcons;
+  public String getShowIcons() {
+    return showIcons;
   }
 
-  public void setHideIcons(String hideIcons) {
-    this.hideIcons = hideIcons;
+  public void setShowIcons(String showIcons) {
+    this.showIcons = showIcons;
   }
 
-  public String getHideJunctions() {
-    return hideJunctions;
+  public String getShowJunctions() {
+    return showJunctions;
   }
 
-  public void setHideJunctions(String hideJunctions) {
-    this.hideJunctions = hideJunctions;
+  public void setShowJunctions(String showJunctions) {
+    this.showJunctions = showJunctions;
   }
 
-  public String getHideRoot() {
-    return hideRoot;
+  public String getShowRoot() {
+    return showRoot;
   }
 
-  public void setHideRoot(String hideRoot) {
-    this.hideRoot = hideRoot;
+  public void setShowRoot(String showRoot) {
+    this.showRoot = showRoot;
   }
 
-  public String getHideRootJunction() {
-    return hideRootJunction;
+  public String getShowRootJunction() {
+    return showRootJunction;
   }
 
-  public void setHideRootJunction(String hideRootJunction) {
-    this.hideRootJunction = hideRootJunction;
+  public void setShowRootJunction(String showRootJunction) {
+    this.showRootJunction = showRootJunction;
   }
 
   public String getIdReference() {

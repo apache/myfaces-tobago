@@ -8,26 +8,23 @@ package com.atanion.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.model.TreeState;
-
 import javax.faces.component.ActionSource;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
+import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionListener;
 import javax.swing.tree.TreeNode;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Iterator;
-import java.util.List;
-import java.util.ArrayList;
+
+import static com.atanion.tobago.TobagoConstants.*;
 
 public class UITree extends UIInput implements NamingContainer, ActionSource {
-
-// ///////////////////////////////////////////// constant
+// ------------------------------------------------------------------ constants
 
   private static final Log LOG = LogFactory.getLog(UITree.class);
 
@@ -53,13 +50,22 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   public static final String COMMAND_MOVE_UP = "moveUp";
   public static final String COMMAND_MOVE_DOWN = "moveDown";
 
-// ///////////////////////////////////////////// attribute
+// ----------------------------------------------------------------- attributes
 
   private Command[] commands;
 
   private ActionListener actionListener;
 
-// ///////////////////////////////////////////// constructor
+  private boolean showJunctions = true;
+  private boolean showJunctionsSet = false;
+  private boolean showIcons = true;
+  private boolean showIconsSet = false;
+  private boolean showRoot = true;
+  private boolean showRootSet = false;
+  private boolean showRootJunction = true;
+  private boolean showRootJunctionSet = false;
+
+// --------------------------------------------------------------- constructors
 
   public UITree() {
     commands = new Command[]{
@@ -74,7 +80,10 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     };
   }
 
-// ///////////////////////////////////////////// code
+// ----------------------------------------------------------------- interfaces
+
+
+// ---------------------------- interface ActionSource
 
   public MethodBinding getAction() {
     return null;
@@ -110,47 +119,16 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     }
   }
 
-  public boolean getRendersChildren() {
-    return true;
-  }
+// ----------------------------------------------------------- business methods
 
   public void encodeBegin(FacesContext facesContext)
       throws IOException {
-
     recreateTreeNodes();
 
     super.encodeBegin(facesContext);
   }
 
-  public void encodeChildren(FacesContext context)
-      throws IOException {
-//     will be called from end.jsp
-  }
-
-  public void processDecodes(FacesContext facesContext) {
-    if (ComponentUtil.isOutputOnly(this)) {
-      setValid(true);
-    } else {
-
-      // in tree first decode node and than decode children
-
-      decode(facesContext);
-
-      for (Iterator i = getFacetsAndChildren(); i.hasNext();) {
-        UIComponent uiComponent = ((UIComponent) i.next());
-        uiComponent.processDecodes(facesContext);
-      }
-    }
-  }
-
-  public void updateModel(FacesContext facesContext) {
-    // nothig to update for tree's
-    // todo: updateing the model here and *NOT* in the decode phase
-  }
-
-
   private void recreateTreeNodes() {
-
     UITreeNode root = getRoot();
     // Delete all UIComponent childs, because moving of childen will not work
     // in Mutable Tree.
@@ -178,7 +156,6 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   }
 
   public UITreeNode getRoot() {
-
     // find the UITreeNode in the childen.
     for (Iterator i = getChildren().iterator(); i.hasNext();) {
       UIComponent child = (UIComponent) i.next();
@@ -190,13 +167,9 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     return null;
   }
 
-
-
-  public boolean isSelectableTree() {
-    final Object selectable
-        = ComponentUtil.getAttribute(this , TobagoConstants.ATTR_SELECTABLE);
-    return selectable != null
-        && (selectable.equals("multi") || selectable.equals("single"));
+  public void encodeChildren(FacesContext context)
+      throws IOException {
+//     will be called from end.jsp
   }
 
   protected UITreeNode findSelectedComponent(UITreeNode node, TreeNode treeNode) {
@@ -211,23 +184,118 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
           break;
         }
       }
-
     }
     return found;
   }
 
-// ///////////////////////////////////////////// bean getter + setter
+  public boolean getRendersChildren() {
+    return true;
+  }
+
+  public boolean isSelectableTree() {
+    final Object selectable
+        = ComponentUtil.getAttribute(this , ATTR_SELECTABLE);
+    return selectable != null
+        && (selectable.equals("multi") || selectable.equals("single"));
+  }
+
+  public void processDecodes(FacesContext facesContext) {
+    if (ComponentUtil.isOutputOnly(this)) {
+      setValid(true);
+    } else {
+      // in tree first decode node and than decode children
+
+      decode(facesContext);
+
+      for (Iterator i = getFacetsAndChildren(); i.hasNext();) {
+        UIComponent uiComponent = ((UIComponent) i.next());
+        uiComponent.processDecodes(facesContext);
+      }
+    }
+  }
+
+  public void updateModel(FacesContext facesContext) {
+    // nothig to update for tree's
+    // todo: updateing the model here and *NOT* in the decode phase
+  }
+
+// ------------------------------------------------------------ getter + setter
 
   public Command[] getCommands() {
     return commands;
   }
 
-// ////////////////////////////////////////////////////////////////////////////
-// ////////////////////////////////////////////////////////////////////////////
-// ////////////////////////////////////////////////////////////////////////////
+  public boolean isShowJunctions() {
+    if (showJunctionsSet) {
+        return (showJunctions);
+    }
+    ValueBinding vb = getValueBinding(ATTR_SHOW_JUNCTIONS);
+    if (vb != null) {
+        return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
+    } else {
+        return (this.showJunctions);
+    }
+  }
+
+  public void setShowJunctions(boolean showJunctions) {
+    this.showJunctions = showJunctions;
+    this.showJunctionsSet = true;
+  }
+
+  public boolean isShowIcons() {
+    if (showIconsSet) {
+        return (showIcons);
+    }
+    ValueBinding vb = getValueBinding(ATTR_SHOW_ICONS);
+    if (vb != null) {
+        return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
+    } else {
+        return (this.showIcons);
+    }
+  }
+
+  public void setShowIcons(boolean showIcons) {
+    this.showIcons = showIcons;
+    this.showIconsSet = true;
+  }
+
+  public boolean isShowRoot() {
+    if (showRootSet) {
+        return (showRoot);
+    }
+    ValueBinding vb = getValueBinding(ATTR_SHOW_ROOT);
+    if (vb != null) {
+        return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
+    } else {
+        return (this.showRoot);
+    }
+  }
+
+  public void setShowRoot(boolean showRoot) {
+    this.showRoot = showRoot;
+    this.showRootSet = true;
+  }
+
+  public boolean isShowRootJunction() {
+    if (showRootJunctionSet) {
+        return (showRootJunction);
+    }
+    ValueBinding vb = getValueBinding(ATTR_SHOW_ROOT_JUNCTION);
+    if (vb != null) {
+        return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
+    } else {
+        return (this.showRootJunction);
+    }
+  }
+
+  public void setShowRootJunction(boolean showRootJunction) {
+    this.showRootJunction = showRootJunction;
+    this.showRootJunctionSet = true;
+  }
+
+// -------------------------------------------------------------- inner classes
 
   public static class Command implements Serializable {
-
     private String command;
 
     public Command(String command) {
@@ -238,5 +306,5 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
       return command;
     }
   }
-
 }
+

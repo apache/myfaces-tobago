@@ -1691,22 +1691,22 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>hideJunctions</name>
+      <name>showJunctions</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>hideIcons</name>
+      <name>showIcons</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>hideRoot</name>
+      <name>showRoot</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>hideRootJunction</name>
+      <name>showRootJunction</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
