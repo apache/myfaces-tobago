@@ -221,7 +221,7 @@ public class LayoutUtil {
   public static Vector addChildren(Vector children, UIComponent panel) {
     for (Iterator iter = panel.getChildren().iterator(); iter.hasNext();) {
       UIComponent child = (UIComponent) iter.next();
-      if (isLayoutTransparent(child)) {
+      if (isTransparentForLayout(child)) {
         addChildren(children, child);
       } else {
         children.add(child);
@@ -230,33 +230,23 @@ public class LayoutUtil {
     return children;
   }
 
-  private static boolean isLayoutTransparent(UIComponent component) {
-    boolean transparent = false;
+  private static boolean isTransparentForLayout(UIComponent component) {
+
+//    at this time (10.05.2004) only
+//    SubViewTag's component is UINamingContainer with 'null' rendererType
+//    seems it is the only one
 
     if (component instanceof UINamingContainer
         && component.getRendererType() == null) {
-      // at this time (10.05.2004) only SubViewTag has TobagoConstants.ATTR_LAYOUT_TRANSPARENT set
-      // SubViewTag's component is UINamingContainer with 'null' rendererType
-      // seems it is the only one
-
-//      LOG.info("component id = " + component.getId());
-//      LOG.info("component family = " + component.getFamily());
-//
-//      for (Iterator iter = component.getAttributes().keySet().iterator(); iter.hasNext();){
-//        Object key = iter.next();
-//        LOG.info("\"" + key + "\" = \"" + component.getAttributes().get(key) + "\"");
-//      }
-      transparent = true;
+      return true;
     }
 
-    return transparent;
-//    return ComponentUtil.getBooleanAttribute(child,
-//              TobagoConstants.ATTR_LAYOUT_TRANSPARENT);
+    return false;
   }
 
   public static UIComponent getNonTransparentParent(UIComponent component) {
     UIComponent parent = component.getParent();
-    while (parent != null && isLayoutTransparent(parent)) {
+    while (parent != null && isTransparentForLayout(parent)) {
       parent = parent.getParent();
     }
     return parent;

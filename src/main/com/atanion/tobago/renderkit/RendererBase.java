@@ -167,12 +167,9 @@ public abstract class RendererBase
       layoutManager = (LayoutManager) renderer;
     } else {
       UIComponent parent = LayoutUtil.getNonTransparentParent(component);
-      if (parent instanceof UIPanel) {
-        Object o = parent.getAttributes().get(
-            ATTR_LAYOUT_DIRECTIVE);
-        if (o instanceof Boolean && ((Boolean) o).booleanValue()) {
+      if (parent instanceof UIPanel
+          && ComponentUtil.getBooleanAttribute(parent, ATTR_LAYOUT_DIRECTIVE)) {
           component = parent;
-        }
       }
       UIComponent parent2 = LayoutUtil.getNonTransparentParent(component);
       if (parent2 != null) {
@@ -333,9 +330,7 @@ public abstract class RendererBase
     int fixedHeight = 0;
 
     if (component instanceof UIPanel
-        && ComponentUtil.getBooleanAttribute(
-            component,
-            ATTR_LAYOUT_DIRECTIVE)) {
+        && ComponentUtil.getBooleanAttribute(component, ATTR_LAYOUT_DIRECTIVE)) {
       Vector children = LayoutUtil.addChildren(new Vector(), component);
       for (Iterator childs = children.iterator(); childs.hasNext();) {
         UIComponent child = (UIComponent) childs.next();
