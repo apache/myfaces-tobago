@@ -608,7 +608,9 @@
         Flag indicating whether or not the range of displayed rows should
         rendered in the sheet's footer. Rendering this range also offers the
         capability to enter the index of the start row directly. <br />
-        The <strong>default</strong> is <code>false</code>.
+        Valid values are <strong>left</strong>, <strong>center</strong>,
+        <strong>right</strong> and <strong>none</strong>.
+        The <strong>default</strong> is <code>none</code>.
         ]]>
       </description>
     </attribute>
@@ -617,10 +619,12 @@
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
       <description> <![CDATA[
-        Flag indicating whether or not the range pages should
+        Flag indicating whether and where the range pages should
         rendered in the sheet's footer. Rendering this range also offers the
         capability to enter the index displayed page directly.<br />
-        The <strong>default</strong> is <code>false</code>.
+        Valid values are <strong>left</strong>, <strong>center</strong>,
+        <strong>right</strong> and <strong>none</strong>.
+        The <strong>default</strong> is <code>none</code>.
         ]]>
       </description>
     </attribute>
@@ -631,7 +635,9 @@
       <description> <![CDATA[
         Flag indicating whether or not a range of direct paging links should be
         rendered in the sheet's footer.<br />
-        The <strong>default</strong> is <code>false</code>.
+        Valid values are <strong>left</strong>, <strong>center</strong>,
+        <strong>right</strong> and <strong>none</strong>.
+        The <strong>default</strong> is <code>none</code>.
        ]]>
       </description>
     </attribute>

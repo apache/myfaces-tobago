@@ -107,9 +107,9 @@ public class SheetRenderer extends RendererBase {
 
   private int getFooterHeight(FacesContext facesContext, UIComponent component) {
     int footerHeight;
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_ROW_RANGE)
-        || ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_PAGE_RANGE)
-        || ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_DIRECT_LINKS)) {
+    if (isValidPagingAttribute((UIData) component, ATTR_SHOW_ROW_RANGE)
+        || isValidPagingAttribute((UIData) component, ATTR_SHOW_PAGE_RANGE)
+        || isValidPagingAttribute((UIData) component, ATTR_SHOW_DIRECT_LINKS)) {
       footerHeight =
           getConfiguredValue(facesContext, component, "footerHeight");
     } else {
@@ -117,7 +117,6 @@ public class SheetRenderer extends RendererBase {
     }
     return footerHeight;
   }
-
 
   private void ensureColumnWidthList(FacesContext facesContext, UIData data,
       SheetState state) {
@@ -534,14 +533,16 @@ public class SheetRenderer extends RendererBase {
 // END RENDER BODY CONTENT
 
 
-    boolean showRowRange
-        = ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_ROW_RANGE);
-    boolean showPageRange
-        = ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_PAGE_RANGE);
-    boolean showDirectLinks
-        = ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_DIRECT_LINKS);
+    String showRowRange
+        = getPagingAttribute(component, ATTR_SHOW_ROW_RANGE);
+    String showPageRange
+        = getPagingAttribute(component, ATTR_SHOW_PAGE_RANGE);
+    String showDirectLinks
+        = getPagingAttribute(component, ATTR_SHOW_DIRECT_LINKS);
 
-    if (showRowRange || showPageRange || showDirectLinks) {
+    if (isValidPagingValue(showRowRange)
+        || isValidPagingValue(showPageRange)
+        || isValidPagingValue(showDirectLinks)) {
       String footerStyle = LayoutUtil.replaceStyleAttribute(bodyStyle,
           "height", footerHeight + "px")
           + " top: " + (sheetHeight - footerHeight) + "px;";
@@ -551,7 +552,7 @@ public class SheetRenderer extends RendererBase {
       writer.writeAttribute("style", footerStyle, null);
 
 
-      if (showRowRange) {
+      if (isValidPagingValue(showRowRange)) {
 
 
         UICommand pagerCommand = (UICommand) component.getFacet(FACET_PAGER_ROW);
@@ -565,11 +566,13 @@ public class SheetRenderer extends RendererBase {
         pagingOnClick = pagingOnClick.replaceAll("'", "\"");
         String pagerCommandId = pagerCommand.getClientId(facesContext);
 
+        String className = "tobago-sheet-paging-rows-span"
+            + " tobago-sheet-paging-span-" + showRowRange;
 
         writer.startElement("span", null);
         writer.writeAttribute("onclick", "tobagoSheetEditPagingRow(this, '"
             + pagerCommandId + "', '" + pagingOnClick + "')" , null);
-        writer.writeAttribute("class", "tobago-sheet-paging-rows-span", null);
+        writer.writeAttribute("class", className, null);
         writer.writeAttribute("title", ResourceManagerUtil.getProperty(
             facesContext, "tobago", "sheetPagingInfoRowPagingTip"), null);
         writer.write(createSheetPagingInfo(
@@ -578,14 +581,17 @@ public class SheetRenderer extends RendererBase {
       }
 
 
-      if (showDirectLinks) {
+      if (isValidPagingValue(showDirectLinks)) {
+        String className = "tobago-sheet-paging-links-span"
+            + " tobago-sheet-paging-span-" + showDirectLinks;
+
         writer.startElement("span", null);
-        writer.writeAttribute("class", "tobago-sheet-paging-links-span", null);
+        writer.writeAttribute("class", className, null);
         writeDirectPagingLinks(writer, facesContext, application, pager);
         writer.endElement("span");
       }
 
-      if (showPageRange) {
+      if (isValidPagingValue(showPageRange)) {
         UICommand pagerCommand
             = (UICommand) component.getFacet(FACET_PAGER_PAGE);
         if (pagerCommand == null) {
@@ -598,10 +604,12 @@ public class SheetRenderer extends RendererBase {
         pagingOnClick = pagingOnClick.replaceAll("'", "\"");
         String pagerCommandId = pagerCommand.getClientId(facesContext);
 
+        String className = "tobago-sheet-paging-pages-span"
+            + " tobago-sheet-paging-span-" + showPageRange;
 
 
         writer.startElement("span", null);
-        writer.writeAttribute("class", "tobago-sheet-paging-pages-span", null);
+        writer.writeAttribute("class", className, null);
         writer.writeText("", null);
 
 
@@ -627,6 +635,26 @@ public class SheetRenderer extends RendererBase {
 
     writer.endElement("div");
 
+  }
+
+  private String getPagingAttribute(UIData component, String name) {
+    String value = (String) ComponentUtil.getAttribute(component, name);
+    if (isValidPagingValue(value)) {
+      return value;
+    } else {
+      if (! "none".equals(value)) {
+        LOG.warn("illegal value in sheet' paging attribute : \"" + value + "\"");
+      }
+      return "none";
+    }
+  }
+
+  private boolean isValidPagingValue(String value) {
+    return "left".equals(value) || "center".equals(value) || "right".equals(value);
+  }
+
+  private boolean isValidPagingAttribute(UIData component, String name) {
+    return isValidPagingValue(getPagingAttribute(component, name));
   }
 
   private void writeDirectPagingLinks(ResponseWriter writer,

@@ -61,14 +61,12 @@
   padding-top: 1px;
 }
 
-.tobago-sheet-paging-pages-span {
-  right: 2px;
-  top: 0px;
+.tobago-sheet-paging-span-left {
+  left: 2px;
 }
 
-.tobago-sheet-paging-rows-span {
-  left: 2px;
-  top: 0px;
+.tobago-sheet-paging-span-right {
+  right: 2px;
 }
 
 .tobago-sheet-paging-input {

@@ -24,9 +24,9 @@ public class SheetTag extends TobagoTag {
 // ----------------------------------------------------------------- attributes
 
   private String var;
-  private String showRowRange = "false";
-  private String showPageRange = "false";
-  private String showDirectLinks = "false";
+  private String showRowRange = "none";
+  private String showPageRange = "none";
+  private String showDirectLinks = "none";
   private String directLinkCount = "9";
   private String hideHeader;
   private String pagingStart = "0";
@@ -69,9 +69,9 @@ public class SheetTag extends TobagoTag {
   public void release() {
     super.release();
     var = null;
-    showRowRange = "false";
-    showPageRange = "false";
-    showDirectLinks = "false";
+    showRowRange = "none";
+    showPageRange = "none";
+    showDirectLinks = "none";
     directLinkCount = null;
     hideHeader = null;
     pagingStart = "0";
@@ -85,11 +85,11 @@ public class SheetTag extends TobagoTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-   ComponentUtil.setBooleanProperty(
+   ComponentUtil.setStringProperty(
        component, ATTR_SHOW_ROW_RANGE, showRowRange, getIterationHelper());
-   ComponentUtil.setBooleanProperty(
+   ComponentUtil.setStringProperty(
        component, ATTR_SHOW_PAGE_RANGE, showPageRange, getIterationHelper());
-   ComponentUtil.setBooleanProperty(
+   ComponentUtil.setStringProperty(
        component, ATTR_SHOW_DIRECT_LINKS, showDirectLinks, getIterationHelper());
    ComponentUtil.setIntegerProperty(
        component, ATTR_DIRECT_LINK_COUNT , directLinkCount, getIterationHelper());

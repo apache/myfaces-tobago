@@ -138,6 +138,20 @@
   -moz-box-sizing: border-box;
 }
 
+.tobago-sheet-paging-span-left {
+  position : absolute;
+  top: 0px;
+  left: 0px;
+}
+.tobago-sheet-paging-span-center {
+
+}
+.tobago-sheet-paging-span-right {
+  position : absolute;
+  top: 0px;
+  right: 0px;
+}
+
 .tobago-sheet-paging-input {
   width: 30px;
   height: 20px;
@@ -148,9 +162,6 @@
 }
 
 .tobago-sheet-paging-pages-span {
-  position : absolute;
-  top: 0px;
-  right: 0px;
   vertical-align: top;
 }
 
@@ -166,15 +177,11 @@
 
 .tobago-sheet-paging-rows-span {
   cursor: pointer;
-  position : absolute;
-  top: 0px;
-  left: 0px;
   vertical-align: top;
 }
 
 .tobago-sheet-paging-links-span {
   vertical-align: top;
-
 }
 .tobago-sheet-paging-links-link {
   padding-left: 2px;
