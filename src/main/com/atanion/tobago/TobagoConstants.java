@@ -11,7 +11,6 @@ public class TobagoConstants {
 
   public static final String ATTR_ACTION = "action";
   public static final String ATTR_ACTION_LISTENER = "actionListener";
-  public static final String ATTR_ACTION_REF = "actionRef";
   public static final String ATTR_ALIGN = "align";
   public static final String ATTR_ALT = "alt";
   public static final String ATTR_BODY_CONTENT = "bodyContent";
