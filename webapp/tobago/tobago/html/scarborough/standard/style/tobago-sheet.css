@@ -172,7 +172,8 @@
 }
 
 .tobago-sheet-footer-pager-button {
-   vertical-align: top;
+  cursor: pointer;
+  vertical-align: top;
 }
 
 .tobago-sheet-paging-rows-span {
