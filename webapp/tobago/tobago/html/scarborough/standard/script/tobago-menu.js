@@ -196,7 +196,7 @@ function setItemWidth(menu) {
             width = Math.max(width, childElement.scrollWidth);
             childElement = document.getElementById(childIdPrefix + i++);
           }
-          PrintDebug("das waren " + (i-1) + " items  ---> width wird " + width);
+         // PrintDebug("das waren " + (i-1) + " items  ---> width wird " + width);
           width += getMenuArrowWidth();
           menu.parent.childWidth = width;
         }
@@ -340,6 +340,22 @@ function getItemHeight() {
 
 function getMenuArrowWidth() {
   return 15;
+}
+
+function menuCheckToggle(id) {
+  var element = document.getElementById(id);
+  var form = document.forms[0];
+  if (element) {
+    form.removeChild(element);
+  }
+  else {
+    element = document.createElement('INPUT');
+    element.type = 'hidden';
+    element.name = id;
+    element.id = id;
+    element.value = 'true';
+    form.appendChild(element);
+  }
 }
 
 

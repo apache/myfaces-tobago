@@ -12,6 +12,9 @@ import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UISelectBoolean;
@@ -23,6 +26,8 @@ import java.io.IOException;
 public class CheckBoxRenderer extends RendererBase implements DirectRenderer {
 
 // ///////////////////////////////////////////// constant
+
+  private static final Log LOG = LogFactory.getLog(CheckBoxRenderer.class);
 
 // ///////////////////////////////////////////// attribute
 
@@ -38,7 +43,7 @@ public class CheckBoxRenderer extends RendererBase implements DirectRenderer {
 
     String newValue = ((ServletRequest)facesContext.getExternalContext().getRequest())
         .getParameter(uiInput.getClientId(facesContext));
-//    Log.debug("decode: key='" + getClientId(facesContext, uiComponent)
+//    LOG.debug("decode: key='" + uiInput.getClientId(facesContext)
 //        + "' value='" + newValue + "'");
     if (newValue != null) {
       uiInput.setValue(new Boolean(newValue));

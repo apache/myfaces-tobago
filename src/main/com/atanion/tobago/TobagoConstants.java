@@ -18,7 +18,6 @@ public interface TobagoConstants {
   public static final String ATTR_BODY_CONTENT = "bodyContent";
   public static final String ATTR_BORDER = "border";
   public static final String ATTR_CHARSET = "charset";
-  public static final String ATTR_CHECKED = "checked";
   public static final String ATTR_CELLSPACING = "layoutCellspacing";
   public static final String ATTR_CLASSES_BLOCKS = "cssClassesBlocks";
   public static final String ATTR_CLIENT_PROPERTIES = "clientProperties";
@@ -124,8 +123,9 @@ public interface TobagoConstants {
   public static final String ATTR_WIDTH_LIST = "widthList";
   public static final String ATTR_WIDTH_LIST_STRING = "widthListString";
 
-  public static final String FACET_LABEL = "label";
+  public static final String FACET_CHECKBOX = "checkbox";
   public static final String FACET_CONFIRMATION = "confirmation";
+  public static final String FACET_LABEL = "label";
 
   public static final String VIEWS_IN_SESSION = "com.atanion.tobago.application.UIViewRoot";
 

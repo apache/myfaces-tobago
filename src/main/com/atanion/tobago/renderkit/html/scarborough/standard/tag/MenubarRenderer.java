@@ -22,8 +22,11 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
+import javax.faces.component.UISelectBoolean;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.application.Application;
+import javax.faces.el.ValueBinding;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Iterator;
@@ -130,10 +133,6 @@ public class MenubarRenderer extends RendererBase
 
     final LabelWithAccessKey label = new LabelWithAccessKey(uiPanel);
 
-    LOG.info("label.getText() = " + label.getText());
-
-
-
     ResponseWriter savedWriter = facesContext.getResponseWriter();
     StringWriter stringWriter = new StringWriter();
     TobagoResponseWriter writer
@@ -147,10 +146,8 @@ public class MenubarRenderer extends RendererBase
 
     if (! topMenu) {
       // uiPanel is a submenu
-      LOG.info("adding subMenuMarker");
       addSubItemMarker(writer, facesContext);
     }
-    else       LOG.info("NOT adding subMenuMarker");
 
 
     facesContext.setResponseWriter(savedWriter);
@@ -175,13 +172,58 @@ public class MenubarRenderer extends RendererBase
 
   private void addMenuEntry(StringBuffer sb, String var, FacesContext facesContext,
       UICommand command) throws IOException {
-    if ("menuItem".equals(command.getAttributes().get(ATTR_MENU_TYPE))
-        || "menuCheck".equals(command.getAttributes().get(ATTR_MENU_TYPE)) ) {
-      addMenuItem(sb, var, facesContext, command);
+    String onClick = createOnClick(facesContext, command);
+    if ("menuItem".equals(command.getAttributes().get(ATTR_MENU_TYPE))) {
+      addMenuItem(sb, var, facesContext, command, onClick);
+    }
+    else if ("menuCheck".equals(command.getAttributes().get(ATTR_MENU_TYPE)) ) {
+      addMenuCheck(sb, var, facesContext, command, onClick);
     }
     else if ("menuRadio".equals(command.getAttributes().get(ATTR_MENU_TYPE)) ) {
       addMenuRadio(sb, var, facesContext, command);
     }
+  }
+
+  private void addMenuCheck(StringBuffer sb, String var,
+      FacesContext facesContext, UICommand command, String onClick) throws IOException {
+    String clientId = null;
+
+    UIComponent checkbox = command.getFacet(FACET_CHECKBOX);
+    if (checkbox == null) {
+      final ValueBinding valueBinding = command.getValueBinding(ATTR_VALUE);
+      if (valueBinding != null) {
+        final Application application = facesContext.getApplication();
+        checkbox = application.createComponent(UISelectBoolean.COMPONENT_TYPE);
+        command.getFacets().put(FACET_CHECKBOX, checkbox);
+        checkbox.setRendererType("CheckBox");
+        checkbox.setValueBinding(ATTR_VALUE, valueBinding);
+      }
+    }
+    if (checkbox != null) {
+      clientId = checkbox.getClientId(facesContext);
+      onClick = addMenuCheckToggle(clientId, onClick);
+    }
+
+
+    final boolean checked = ComponentUtil.getBooleanAttribute(command, ATTR_VALUE);
+    if (checked && clientId != null) {
+      sb.append("    menuCheckToggle('" + clientId + "');\n");
+    }
+    String image = checked ? "MenuCheckmark.gif" : null;
+    addMenu(sb, var, facesContext, command, image, onClick);
+  }
+
+  private String addMenuCheckToggle(String clientId, String onClick) {
+    if (onClick != null) {
+      onClick = " ; " + onClick;
+    }
+    else {
+      onClick = "";
+    }
+
+    onClick = "menuCheckToggle('" + clientId + "')" + onClick;
+
+    return onClick;
   }
 
   private void addMenuRadio(StringBuffer sb, String var,
@@ -190,14 +232,22 @@ public class MenubarRenderer extends RendererBase
 
   }
 
+
+
   private void addMenuItem(StringBuffer sb, String var, FacesContext facesContext,
-      UICommand command) throws IOException {
+      UICommand command, String onClick) throws IOException {
+      String image = (String) command.getAttributes().get(ATTR_IMAGE);
+      addMenu(sb, var, facesContext, command, image, onClick);
+  }
+
+  private void addMenu(StringBuffer sb, String var, FacesContext facesContext,
+      UICommand command, String image, String onClick) throws IOException {
     final boolean disabled
         = ComponentUtil.getBooleanAttribute(command, ATTR_DISABLED);
     String spanClass
         = "tobago-menubar-item-span tobago-menubar-item-span-"
         + (disabled ? "disabled" : "enabled");
-    String onClick = createOnClick(facesContext, command);
+
     onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
             facesContext);
 
@@ -207,12 +257,14 @@ public class MenubarRenderer extends RendererBase
         = new TobagoResponseWriter(stringWriter, "text/html", "UTF8");
     facesContext.setResponseWriter(writer);
 
-    addImage(writer, facesContext, command);
+    addImage(writer, facesContext, image);
 
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
     writer.startElement("span", null);
     writer.writeAttribute("class", spanClass, null);
-    writer.writeAttribute("accesskey", label.getAccessKey(), null);
+    if (label.getAccessKey() != null) {
+      writer.writeAttribute("accesskey", label.getAccessKey(), null);
+    }
     if (label.getText() != null) {
       RenderUtil.writeLabelWithAccessKey(writer, label);
     }
@@ -240,20 +292,9 @@ public class MenubarRenderer extends RendererBase
   }
 
   private void addImage(TobagoResponseWriter writer, FacesContext facesContext,
-      UICommand command) throws IOException {
-    String image = null;
-    if ("menuItem".equals(command.getAttributes().get(ATTR_MENU_TYPE))) {
-      image = (String) command.getAttributes().get(ATTR_IMAGE);
-      if (image != null) {
-        image = ResourceManagerUtil.getImage(facesContext, image);
-      }
-    }
-    else { // renderertype == "Menucheck"
-      if (ComponentUtil.getBooleanAttribute(command, ATTR_CHECKED)) {
-        image = ResourceManagerUtil.getImage(facesContext, "MenuCheckmark.gif");
-      }
-    }
+      String image) throws IOException {
     if (image != null) {
+      image = ResourceManagerUtil.getImage(facesContext, image);
       writer.startElement("img", null);
       writer.writeAttribute("class", "tobago-menu-item-image", null);
       writer.writeAttribute("src", image, null);
