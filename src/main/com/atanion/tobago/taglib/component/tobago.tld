@@ -560,6 +560,9 @@
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
+    <attribute>
+      <name>rendered</name>
+    </attribute>
   </tag>
 
   <tag>
