@@ -1503,4 +1503,10 @@
     </attribute> 
   </tag>
 
+  <tag>
+    <name>menuseparator</name>
+    <tag-class>com.atanion.tobago.taglib.component.MenuseparatorTag</tag-class>
+    <body-content>empty</body-content>
+  </tag>
+
 </taglib>

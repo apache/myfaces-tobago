@@ -106,6 +106,8 @@ public class MenubarRenderer extends RendererBase
       UIComponent entry = (UIComponent) iter.next();
       if (entry instanceof UICommand) {
         addMenuEntry(sb, var, facesContext, (UICommand) entry);
+      } else if ("separator".equals(entry.getAttributes().get(ATTR_MENU_TYPE))) {
+        addMenuSeparator(sb, var);
       } else if ("menu".equals(entry.getAttributes().get(ATTR_MENU_TYPE))) {
         String name = var + "_" + i++;
         sb.append("    var " + name + " = " + createMenuEntry(facesContext, (UIPanel)entry) + ";\n");
@@ -117,6 +119,22 @@ public class MenubarRenderer extends RendererBase
       }
     }
 
+
+  }
+
+  private void addMenuSeparator(StringBuffer sb, String var) {
+
+    String html = "<hr>";
+
+    sb.append("    ");
+    sb.append(var);
+    sb.append(".addMenuItem(new MenuItem('");
+    sb.append(removeLFs(html));
+    sb.append("', ");
+      sb.append("null");
+    sb.append(", ");
+    sb.append("true");
+    sb.append("));\n");
 
   }
 
@@ -271,11 +289,12 @@ public class MenubarRenderer extends RendererBase
     writer.endElement("span");
 
     facesContext.setResponseWriter(savedWriter);
+    final String html = stringWriter.toString();
 
     sb.append("    ");
     sb.append(var);
     sb.append(".addMenuItem(new MenuItem('");
-    sb.append(removeLFs(stringWriter.toString()));
+    sb.append(removeLFs(html));
     sb.append("', ");
     if (! disabled) {
       sb.append("\"");
