@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
-<!-- $Id:  -->
+<!-- $Id$ -->
 
 <!ENTITY % Boolean "(true|false|yes|no)">
 
-<!ELEMENT tobago-config (theme*, mapping-rule*)>
+<!ELEMENT tobago-config (theme+, resource-dir+, mapping-rule*)>
 
 <!ELEMENT theme (name, display-name?, fallback?)>
 <!ATTLIST theme default %Boolean; #IMPLIED>
@@ -12,6 +12,8 @@
 <!ELEMENT name (#PCDATA)>
 <!ELEMENT display-name (#PCDATA)>
 <!ELEMENT fallback (#PCDATA)>
+
+<!ELEMENT resource-dir (#PCDATA)>
 
 <!ELEMENT mapping-rule (request-uri, forward-uri, attribute*)>
 <!ELEMENT request-uri (#PCDATA)>

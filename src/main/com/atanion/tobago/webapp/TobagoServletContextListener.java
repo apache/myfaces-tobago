@@ -5,12 +5,10 @@
  */
 package com.atanion.tobago.webapp;
 
-import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.config.ThemeConfig;
 import com.atanion.tobago.config.TobagoConfig;
 import com.atanion.tobago.config.TobagoConfigParser;
-import com.atanion.tobago.config.ThemeConfig;
 import com.atanion.tobago.context.ResourceManager;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -20,11 +18,10 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.Set;
-import java.util.StringTokenizer;
-import java.util.HashMap;
 
 public class TobagoServletContextListener implements ServletContextListener {
 
@@ -40,31 +37,34 @@ public class TobagoServletContextListener implements ServletContextListener {
     if (LOG.isInfoEnabled()) {
       LOG.info("*** contextInitialized ***");
     }
-    // resources
+
     try {
-      initResources(event.getServletContext());
-    } catch (ServletException e) {
+      // servlet mapping
+      ServletContext servletContext = event.getServletContext();
+      TobagoServletMapping mapping = new TobagoServletMapping(servletContext);
+      servletContext.setAttribute(
+          TobagoServletMapping.TOBAGO_SERVLET_MAPPING, mapping);
+
+      // tobago-config.xml
+      TobagoConfig tobagoConfig = new TobagoConfig();
+      TobagoConfigParser.parse(servletContext, tobagoConfig);
+      tobagoConfig.propagate(servletContext);
+      servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
+
+      // resources
+      initResources(servletContext, tobagoConfig);
+
+      // theme config cache
+      servletContext.setAttribute(ThemeConfig.THEME_CONFIG_CACHE, new HashMap());
+
+    } catch (Throwable e) {
       if (LOG.isFatalEnabled()) {
-        LOG.fatal(
-            "Error while deploy. Tobago can't be initized! " +
-            "Application will not run!", e);
+        String error = "Error while deploy. Tobago can't be initized! " +
+                    "Application will not run!";
+        LOG.fatal(error, e);
+        throw new RuntimeException(error, e);
       }
     }
-
-    // servlet mapping
-    ServletContext servletContext = event.getServletContext();
-    TobagoServletMapping mapping = new TobagoServletMapping(servletContext);
-    servletContext.setAttribute(
-        TobagoServletMapping.TOBAGO_SERVLET_MAPPING, mapping);
-
-    // tobago-config.xml
-    TobagoConfig tobagoConfig = new TobagoConfig();
-    TobagoConfigParser.parse(servletContext, tobagoConfig);
-    tobagoConfig.propagate(servletContext);
-    servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
-
-    // theme config cache
-    servletContext.setAttribute(ThemeConfig.THEME_CONFIG_CACHE, new HashMap());
   }
 
   public void contextDestroyed(ServletContextEvent event) {
@@ -85,31 +85,21 @@ public class TobagoServletContextListener implements ServletContextListener {
 //    LogManager.shutdown();
   }
 
-  protected void initResources(ServletContext servletContext)
+  protected void initResources(
+      ServletContext servletContext, TobagoConfig tobagoConfig)
       throws ServletException {
     ResourceManager resources = new ResourceManager();
-    String resourceDirs = servletContext.getInitParameter(
-        TobagoConstants.CONTEXT_PARAM_RESOURCE_DIRECTORIES);
-    if (resourceDirs == null) {
-      resourceDirs = "tobago,tobago-custom";
-      if (LOG.isInfoEnabled()) {
-        LOG.info(
-            "Init parameter '"
-            + TobagoConstants.CONTEXT_PARAM_RESOURCE_DIRECTORIES
-            + "' not found. " +
-            "Using default: '" + resourceDirs + "'");
-      }
-    }
     locateResources(servletContext, resources, "/");
-    StringTokenizer tokenizer = new StringTokenizer(resourceDirs, ",");
-    while (tokenizer.hasMoreTokens()) {
-      String dir = tokenizer.nextToken();
+    for (Iterator i = tobagoConfig.getResourceDirs().iterator(); i.hasNext(); ) {
+      String dir = (String) i.next();
       if (LOG.isDebugEnabled()) {
         LOG.debug("Locating resources in dir: " + dir);
       }
       resources.addResourceDirectory(dir);
     }
     servletContext.setAttribute(ResourceManager.RESOURCE_MANAGER, resources);
+
+    resources.setTobagoConfig(tobagoConfig);
   }
 
   private void locateResources(

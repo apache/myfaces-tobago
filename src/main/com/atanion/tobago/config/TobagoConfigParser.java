@@ -32,6 +32,7 @@ public class TobagoConfigParser {
     digester.push(config);
     digester.setValidating(true);
 
+    // themes
     digester.addObjectCreate("tobago-config/theme", Theme.class);
     digester.addSetProperties("tobago-config/theme");
     digester.addSetNext("tobago-config/theme", "addTheme");
@@ -40,6 +41,7 @@ public class TobagoConfigParser {
         "tobago-config/theme/display-name", "setDisplayName", 0);
     digester.addCallMethod("tobago-config/theme/fallback", "setFallback", 0);
 
+    // mapping rules
     digester.addObjectCreate("tobago-config/mapping-rule", MappingRule.class);
     digester.addSetNext("tobago-config/mapping-rule", "addMappingRule");
     digester.addCallMethod(
@@ -54,6 +56,9 @@ public class TobagoConfigParser {
         "tobago-config/mapping-rule/attribute/key", "setKey", 0);
     digester.addCallMethod(
         "tobago-config/mapping-rule/attribute/value", "setValue", 0);
+
+    // resource dirs
+    digester.addCallMethod("tobago-config/resource-dir", "addResourceDir", 0);
 
     return digester;
   }

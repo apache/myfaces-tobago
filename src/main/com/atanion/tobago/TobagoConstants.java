@@ -143,10 +143,6 @@ public interface TobagoConstants {
   // todo: find an abstract way, to avoid this
   public static final String COMMAND_TYPE_SCRIPT = "script";
 
-  // used in the "web.xml"
-  public static final String CONTEXT_PARAM_DEBUG_MODE = "tobago.debugMode";
-  public static final String CONTEXT_PARAM_RESOURCE_DIRECTORIES = "tobago.resourceDirectories";
-
   public static final String RENDERER_TYPE_BUTTON = "Button";
   public static final String RENDERER_TYPE_LINK = "Link";
   public static final String RENDERER_TYPE_LABEL = "Label";

@@ -33,9 +33,14 @@ public class TobagoConfig {
 
   private List themes;
   private Theme defaultTheme;
+  private List resourceDirs;
   private List mappingRules;
 
 // ----------------------------------------------------------- business methods
+
+  public TobagoConfig() {
+    resourceDirs = new ArrayList();
+  }
 
   public void addMappingRule(MappingRule mappingRule) {
     if (LOG.isDebugEnabled()) {
@@ -109,6 +114,16 @@ public class TobagoConfig {
     }
   }
 
+  public void addResourceDir(String resourceDir) {
+
+    LOG.info("resourceDir = '" + resourceDir + "'");
+    resourceDirs.add(resourceDir);
+  }
+
+  public List getResourceDirs() {
+    return resourceDirs;
+  }
+
   // todo: refactor: drop this method
   public void propagate(ServletContext context) {
     if (themes == null) {
@@ -133,8 +148,6 @@ public class TobagoConfig {
         LOG.error("No themes available!");
       }
     }
-
-    ResourceManagerUtil.getResourceManager(context).setTobagoConfig(this);
   }
 
 // ------------------------------------------------------------ getter + setter

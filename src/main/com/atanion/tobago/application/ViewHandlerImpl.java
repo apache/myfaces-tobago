@@ -8,13 +8,9 @@ package com.atanion.tobago.application;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ClientProperties;
-import com.atanion.tobago.renderkit.fo.scarborough.standard.tag.CommonsLoggingLogger;
 import com.atanion.tobago.webapp.TobagoServletMapping;
-import org.apache.avalon.framework.logger.Logger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.fop.apps.Driver;
-import org.xml.sax.InputSource;
 
 import javax.faces.FacesException;
 import javax.faces.FactoryFinder;
@@ -28,7 +24,6 @@ import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -36,9 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
-import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -236,7 +229,7 @@ public class ViewHandlerImpl extends ViewHandler {
         ServletResponse servletResponse = (ServletResponse)
             facesContext.getExternalContext().getResponse();
         LOG.debug("fo buffer: " + buffer.toString());
-        fo2Pdf(servletResponse, buffer);
+        FopConverter.fo2Pdf(servletResponse, buffer);
       }
     } catch (Exception e) {
 //      if (contentType.indexOf("fo") > -1) {
@@ -251,57 +244,6 @@ public class ViewHandlerImpl extends ViewHandler {
     if (LOG.isDebugEnabled()) {
       LOG.debug("VIEW");
       ComponentUtil.debug(facesContext.getViewRoot(), 0);
-    }
-  }
-
-  private void fo2Pdf(ServletResponse servletResponse, StringWriter buffer) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("buffer = '" + buffer + "'");
-    }
-    try {
-      Driver driver = new Driver();
-      Logger logger = new CommonsLoggingLogger(LOG);
-      driver.setLogger(logger);
-      driver.setRenderer(Driver.RENDER_PDF);
-      driver.setErrorDump(true);
-//      driver.setInputSource(new InputSource(new FileInputStream("C:/simple.fo")));
-//      driver.setInputSource(new InputSource(new StringReader(fo)));
-      String bufferString = buffer.toString();
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("bufferString = '" + bufferString + "'");
-      }
-      driver.setInputSource(new InputSource(new StringReader(bufferString)));
-//      driver.setOutputStream(new FileOutputStream("C:/simple.pdf"));
-      ServletOutputStream outputStream = servletResponse.getOutputStream();
-//      FileOutputStream outputStream = new FileOutputStream("c:/simple.pdf");
-//      ResponseStream outputStream = facesContext.getResponseStream();
-      driver.setOutputStream(outputStream);
-//      Map rendererOptions = new java.util.HashMap();
-//      rendererOptions.put("ownerPassword", "mypassword");
-//      rendererOptions.put("allowCopyContent", "FALSE");
-//      rendererOptions.put("allowEditContent", "FALSE");
-//      rendererOptions.put("allowPrint", "FALSE");
-//      driver.getRenderer().setOptions(rendererOptions);
-      driver.run();
-      outputStream.flush();
-      outputStream.close();
-    } catch (Exception e) {
-      LOG.error("", e);
-      throw new FacesException(e);
-    }
-  }
-
-  private static class LoggingOutputStream extends OutputStream {
-
-    OutputStream out;
-
-    public LoggingOutputStream(OutputStream out) {
-      this.out = out;
-    }
-
-    public void write(int b) throws IOException {
-      LOG.debug("'" + (char) b + "'");
-      out.write(b);
     }
   }
 
