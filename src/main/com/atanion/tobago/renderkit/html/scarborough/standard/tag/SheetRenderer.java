@@ -960,7 +960,7 @@ public class SheetRenderer extends RendererBase {
       menu.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
       menu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "SheetSelector");
       menu.getAttributes().put(ATTR_MENU_TYPE, "menu");
-      menu.getAttributes().put(ATTR_IMAGE, "sheetSelectorMenu.gif");
+      menu.getAttributes().put(ATTR_IMAGE, "image/sheetSelectorMenu.gif");
 
       String sheetId = column.getParent().getClientId(facesContext);
       String action = "tobagoSheetSelectAll('" + sheetId + "')";
