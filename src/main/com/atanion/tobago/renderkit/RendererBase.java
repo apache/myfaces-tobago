@@ -11,7 +11,6 @@ import com.atanion.tobago.config.ThemeConfig;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.renderkit.html.HtmlDefaultLayoutManager;
 import com.atanion.tobago.util.LayoutUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -102,7 +101,6 @@ public abstract class RendererBase
     }
     UIComponent layout = component.getFacet("layout");
     if (layout != null) {
-      System.err.println("RendererBase 104:component is " + component + " layout ist " + layout);
       layout.encodeBegin(facesContext);
       layout.encodeChildren(facesContext);
       layout.encodeEnd(facesContext);
@@ -135,7 +133,6 @@ public abstract class RendererBase
           Boolean.TRUE);
 
       LayoutManager layoutManager = getLayoutManager(facesContext, component);
-      System.err.println("RendererBase 131:component is " + component + " layout ist " + layoutManager);
 
       if (layoutManager != null) {
         layoutManager.layoutEnd(facesContext, component);
