@@ -257,13 +257,11 @@
       <name>disabled</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
     <attribute>
       <name>rendered</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
     <attribute>
       <name>inline</name>
@@ -520,17 +518,6 @@
     </attribute>
     <attribute>
       <name>themeClass</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-  </tag>
-
-  <tag>
-    <name>data</name>
-    <tag-class>com.atanion.tobago.taglib.component.DataTag</tag-class>
-    <body-content>JSP</body-content>
-    <attribute>
-      <name>id</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
@@ -965,7 +952,6 @@
       <name>renderRange</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
   </tag>
 
@@ -987,7 +973,6 @@
       <name>renderRange</name>
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
   </tag>
 
@@ -1019,7 +1004,6 @@
       <name>renderRange</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
   </tag>
 
