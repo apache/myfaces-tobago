@@ -6,22 +6,23 @@ import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
 
-/*
- * Copyright (c) 2005 Atanion GmbH, Germany
- * All rights reserved. Created 05.03.2005 16:13:42.
+/**
+ * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
+ * Created: Mar 8, 2005 5:37:08 PM
+ * User: bommel
  * $Id$
  */
-
 @Retention(value = RetentionPolicy.SOURCE)
 @Target(value = ElementType.TYPE)
 @Inherited
-public @interface UIComponentTagAttribute {
 
-  /** type of attribute in the UIComponent */
-  Class type();
+public @interface TagAttribute {
+  /** type of the Tag  */
+  Class type() default String.class;
 
-  /** allow faces expression language, e.g. #{bean}  */
-  boolean expression() default true;
+  /** allow JSP expression */
+  boolean rtexprvalue() default true;
 
+  boolean required() default false;
 
 }

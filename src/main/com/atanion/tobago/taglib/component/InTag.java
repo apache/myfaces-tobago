@@ -9,9 +9,11 @@ package com.atanion.tobago.taglib.component;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIInput;
 import com.atanion.tobago.taglib.UIComponentTagAttribute;
+import com.atanion.tobago.taglib.TagAttribute;
+import com.atanion.tobago.taglib.Tag;
 
 import javax.faces.component.UIComponent;
-
+@Tag(name="in")
 public class InTag extends InputTag {
 
 // ----------------------------------------------------------------- attributes
@@ -42,12 +44,11 @@ public class InTag extends InputTag {
   }
 
   /**
-   * 
+   * Is rendered as password, so you will not see the typed charakters.
    * @param password
    */
-  @UIComponentTagAttribute(
-      internalType = Boolean.class,
-      description = "Is rendered as password, so you will not see the typed charakters.")
+  @UIComponentTagAttribute(type = Boolean.class)
+  @TagAttribute
   public void setPassword(String password) {
     this.password = password;
   }

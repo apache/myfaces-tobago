@@ -8,6 +8,7 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.taglib.UIComponentTagAttribute;
+import com.atanion.tobago.taglib.TagAttribute;
 
 import javax.faces.component.UIComponent;
 
@@ -45,9 +46,12 @@ public abstract class InputTag extends BeanTag {
     return focus;
   }
 
-  @UIComponentTagAttribute(
-      internalType = Boolean.class,
-      description = "Indicates that the element has focus after loading.")
+  /**
+   * Indicates that the element has focus after loading.
+   * @param focus
+   */
+  @UIComponentTagAttribute(type = Boolean.class)
+  @TagAttribute
   public void setFocus(String focus) {
     this.focus = focus;
   }
