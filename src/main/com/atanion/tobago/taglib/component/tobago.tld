@@ -1819,8 +1819,8 @@
   </tag>
 
   <tag>
-    <name>panelGroup</name>
-    <tag-class>com.atanion.tobago.taglib.component.Panel_GroupTag</tag-class>
+    <name>panel</name>
+    <tag-class>com.atanion.tobago.taglib.component.PanelTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>width</name>

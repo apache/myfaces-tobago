@@ -114,7 +114,7 @@ public class Color16ChooserRenderer extends RendererBase
     Application application = facesContext.getApplication();
     UIPanel panel = (UIPanel)
         application.createComponent(UIPanel.COMPONENT_TYPE);
-    prepareToRender(panel, component, false, "Panel_Group");
+    prepareToRender(panel, component, false, "Panel");
     UIGridLayout layout = (UIGridLayout)
         application.createComponent(UIGridLayout.COMPONENT_TYPE);
     layout.getAttributes().put(TobagoConstants.ATTR_COLUMNS, columns);

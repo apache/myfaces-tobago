@@ -13,7 +13,7 @@ import javax.servlet.jsp.JspException;
   * All rights reserved. Created 29.07.2003 at 15:09:53.
   * $Id$
   */
-public class CellTag extends Panel_GroupTag {
+public class CellTag extends PanelTag {
 
 // ///////////////////////////////////////////// constant
 
@@ -36,7 +36,7 @@ public class CellTag extends Panel_GroupTag {
   }
 
   public String getRendererType() {
-    return "Panel_Group";
+    return "Panel";
   }
 
   protected void setProperties(UIComponent component) {

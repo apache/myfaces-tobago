@@ -64,7 +64,7 @@ public class ThemeConfigViewController {
     "Messages",
     "MultiSelect",
     "Page",
-    "Panel_Group",
+    "Panel",
     "Progress",
     "RadioGroup",
     "RichTextEditor",

@@ -23,12 +23,12 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Iterator;
 
-public class Panel_GroupRenderer extends RendererBase
+public class PanelRenderer extends RendererBase
     implements HeightLayoutRenderer, DirectRenderer {
 
 // ///////////////////////////////////////////// constant
 
-  private static final Log LOG = LogFactory.getLog(Panel_GroupRenderer.class);
+  private static final Log LOG = LogFactory.getLog(PanelRenderer.class);
 
 // ///////////////////////////////////////////// attribute
 

@@ -5,6 +5,6 @@
   */
 package com.atanion.tobago.taglib.component;
 
-public class MenubarTag extends Panel_GroupTag {
+public class MenubarTag extends PanelTag {
 
 }

@@ -6,6 +6,6 @@ package com.atanion.tobago.taglib.component;
   * $Id$
   */
 
-public class ToolbarTag extends Panel_GroupTag {
+public class ToolbarTag extends PanelTag {
 
 }

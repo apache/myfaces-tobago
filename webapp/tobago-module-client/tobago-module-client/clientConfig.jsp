@@ -8,7 +8,7 @@
 <f:view>
   <tobago:loadBundle basename="tobago" var="tobagoBundle" />
   <tobago:page title="#{tobagoBundle.configTitle}">
-    <tobago:panelGroup>
+    <tobago:panel>
       <f:facet name="layout">
         <tobago:gridlayout />
       </f:facet>
@@ -42,6 +42,6 @@
         <tobago:button action="#{tobagoClientController.submit}" label="#{tobagoBundle.configSubmit}" />
 
       </tobago:groupbox>
-    </tobago:panelGroup>
+    </tobago:panel>
   </tobago:page>
 </f:view>

@@ -7,7 +7,7 @@ package com.atanion.tobago.taglib.component;
 
 import javax.faces.component.UIPanel;
 
-public class Panel_GroupTag extends TobagoBodyTag {
+public class PanelTag extends TobagoBodyTag {
 
 // ///////////////////////////////////////////// constant
 
