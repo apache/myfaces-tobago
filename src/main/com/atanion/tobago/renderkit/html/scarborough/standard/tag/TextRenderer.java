@@ -20,21 +20,18 @@ import java.io.IOException;
 
 public class TextRenderer extends RendererBase
     implements DirectRenderer {
-
-// ///////////////////////////////////////////// constant
+// ------------------------------------------------------------------ constants
 
   private static final Log LOG = LogFactory.getLog(TextRenderer.class);
 
-// ///////////////////////////////////////////// attribute
+// ----------------------------------------------------------------- interfaces
 
-// ///////////////////////////////////////////// constructor
 
-// ///////////////////////////////////////////// code
+// ---------------------------- interface DirectRenderer
 
   public void encodeDirectEnd(
       FacesContext facesContext,
       UIComponent component) throws IOException {
-
     String text = ComponentUtil.currentValue(component);
     if (text == null) {
       text = "";
@@ -80,8 +77,5 @@ public class TextRenderer extends RendererBase
       writer.endElement("span");
     }
   }
-
-// ///////////////////////////////////////////// bean getter + setter
-
 }
 
