@@ -6,6 +6,8 @@
 package com.atanion.tobago.component;
 
 import com.atanion.tobago.taglib.component.TextTag;
+import com.atanion.tobago.TobagoConstants;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -66,6 +68,7 @@ public class BodyContentHandler {
           (javax.faces.component.UIOutput) verbatimTag.getComponentInstance();
       verbatim.setValue(rawContent);
       verbatim.setRendererType(verbatimTag.getRendererType());
+      verbatim.getAttributes().remove(TobagoConstants.ATTR_ESCAPE);
       verbatimTag.doEndTag();
     } catch (JspException e) {
       LOG.debug("", e);
