@@ -6,16 +6,16 @@
 package com.atanion.tobago.renderkit;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.config.ThemeConfig;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.config.ThemeConfig;
 import com.atanion.tobago.context.ClientProperties;
-import com.atanion.tobago.context.Theme;
 import com.atanion.tobago.renderkit.html.HtmlDefaultLayoutManager;
 import com.atanion.tobago.util.LayoutUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIPanel;
@@ -23,9 +23,8 @@ import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import javax.faces.render.Renderer;
 import javax.faces.el.ValueBinding;
-import javax.faces.application.Application;
+import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;
