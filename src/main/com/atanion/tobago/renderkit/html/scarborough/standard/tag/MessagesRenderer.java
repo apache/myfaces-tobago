@@ -85,22 +85,18 @@ public class MessagesRenderer extends MessageRendererBase
     Iterator iterator = facesContext.getMessages(clientId);
     while (iterator.hasNext()) {
       FacesMessage message = (FacesMessage) iterator.next();
-      encodeMessage(facesContext, writer, message, clientId);
+      encodeMessage(writer, message, clientId);
     }
   }
 
-  private void encodeMessage(FacesContext facesContext,
-      ResponseWriter writer, FacesMessage message, String clientId)
+  private void encodeMessage(ResponseWriter writer, FacesMessage message,
+      String clientId)
       throws IOException {
-    String formatString = TobagoResource.getProperty(facesContext, "tobago", message.getSummary());
-    if (formatString.length() == 0) {
-      formatString = message.getSummary();
-    }
     writer.startElement("label", null);
     if (clientId != null) {
       writer.writeAttribute("for", clientId, null);
     }
-    writer.writeText(formatString, null);
+    writer.writeText(message.getSummary(), null);
     writer.endElement("label");
     writer.startElement("br", null);
     writer.endElement("br");

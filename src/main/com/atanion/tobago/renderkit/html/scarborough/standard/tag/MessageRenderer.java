@@ -73,14 +73,10 @@ public class MessageRenderer extends MessageRendererBase
 
     while (iterator.hasNext()) {
       FacesMessage message = (FacesMessage) iterator.next();
-      String formatString = TobagoResource.getProperty(facesContext, "text", message.getSummary());
-      if (formatString.length() == 0) {
-        formatString = message.getSummary();
-      }
 //      MessageFormat detail = new MessageFormat(formatString, tobagoContext.getLocale());
       writer.startElement("label", null);
       writer.writeAttribute("for", clientId, null);
-      writer.writeText(formatString, null);
+      writer.writeText(message.getSummary(), null);
       writer.endElement("label");
 
       writer.startElement("br", null);
