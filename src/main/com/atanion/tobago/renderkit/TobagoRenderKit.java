@@ -81,6 +81,8 @@ public class TobagoRenderKit extends RenderKit {
 // ///////////////////////////////////////////// todo
 
   public void addRenderer(String family, String rendererType, Renderer renderer) {
+    LOG.debug("addRenderer family='" + family
+        + "' rendererType='" + rendererType + "'");
     LOG.error(
         "This method isn't already implemented, and should not be called!"); //fixme jsf1.0
     LOG.error(new Exception().getStackTrace()[0].getMethodName());

@@ -117,16 +117,20 @@ public class TobagoResponseWriter extends ResponseWriter {
     write(findValue(text, property));
   }
 
-  public void writeText(char ac[], int i, int j) throws IOException {
-    LOG.error("Not implemented yet!"); // fixme jsfbeta
+  public void writeText(char text[], int offset, int length) throws IOException {
+    if (startStillOpen) {
+      writer.write("\n>");
+      startStillOpen = false;
+    }
+    writer.write(text, offset, length);
   }
 
   public void startDocument() throws IOException {
-    LOG.error("Not implemented yet!"); // fixme jsfbeta
+    // nothing to do
   }
 
   public void endDocument() throws IOException {
-    LOG.error("Not implemented yet!"); // fixme jsfbeta
+    close();
   }
 
   public String getContentType() {
