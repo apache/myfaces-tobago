@@ -48,7 +48,9 @@ public class LayoutInfo{
     }
     else {
       if (LOG.isWarnEnabled()) {
-        LOG.warn("More cell's than layoutToken's! Set missing token's to '1*'");
+        LOG.warn(Integer.toString(cellCount - layoutTokens.length)
+            + "More cell's than layoutToken's! Set missing token's to '1*'! +"
+            + " tokens was " + tokensToString(layoutTokens));
       }
       this.layoutTokens = new String[cellCount];
       for (int i = 0; i < cellCount; i++) {
