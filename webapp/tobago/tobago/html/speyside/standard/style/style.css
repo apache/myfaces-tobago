@@ -240,6 +240,7 @@ td.tobago-groupbox-body-td {
 span.tobago-label-default  {
   padding-top: 0px;
 }
+
 label.tobago-label-default  {
   font: bold 12px arial, helvetica, sans-serif;
   width: 120px;
@@ -369,5 +370,4 @@ label.tobago-label-default  {
   padding-top: -1px;
   color: #000000;
   height: 20px;
-
 }

@@ -218,6 +218,8 @@ public class PageRenderer extends PageRendererBase implements DirectRenderer {
     writer.endElement("head");
     writer.startElement("body", page);
     writer.writeAttribute("onload", "onloadScript()", null);
+    //this ist for ie to prevent scrollbars where none are needed
+    writer.writeAttribute("scroll", "auto", null);
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
 
     String clientId = page.getClientId(facesContext);
