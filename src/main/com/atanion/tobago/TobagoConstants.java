@@ -27,7 +27,6 @@ public interface TobagoConstants {
   public static final String ATTR_DEFAULT_COMMAND = "defaultCommand";
   public static final String ATTR_DISABLED = "disabled";
   public static final String ATTR_DOCTYPE = "doctype";
-  public static final String ATTR_ENCODING_ACTIVE = "encodingActive";
   public static final String ATTR_ENCTYPE = "enctype";
   public static final String ATTR_ESCAPE = "escape";
   public static final String ATTR_FIRST = "first";

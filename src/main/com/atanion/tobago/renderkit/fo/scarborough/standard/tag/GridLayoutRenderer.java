@@ -1,10 +1,7 @@
 package com.atanion.tobago.renderkit.fo.scarborough.standard.tag;
 
-import com.atanion.tobago.renderkit.LayoutManager;
-import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.component.UIGridLayout;
-
+import com.atanion.tobago.renderkit.LayoutManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -13,8 +10,8 @@ import javax.faces.component.UIMessages;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
@@ -24,31 +21,11 @@ import java.util.Iterator;
  */
 public class GridLayoutRenderer extends FoRendererBase
     implements LayoutManager {
-  private static int suppe = 0;
+
   private static final Log LOG = LogFactory.getLog(GridLayoutRenderer.class);
 
   public boolean getRendersChildren() {
     return false;
-  }
-
-  public void encodeEnd(FacesContext facesContext, UIComponent component)
-      throws IOException {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("*** end      " + component);
-    }
-    try {
-      layoutEnd(facesContext, component);
-
-    } catch (RuntimeException e) {
-      LOG.error("catched " + e + " :" + e.getMessage(), e);
-      throw e;
-    } catch (Throwable e) {
-      LOG.error("catched Throwable :", e);
-      throw new RuntimeException(e);
-    }
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("*   end      " + component);
-    }
   }
 
   public void encodeBegin(FacesContext facesContext, UIComponent component)
@@ -73,13 +50,30 @@ public class GridLayoutRenderer extends FoRendererBase
     }
   }
 
-  public void layoutBegin(FacesContext facesContext, UIComponent component)  {
+  public void encodeEnd(FacesContext facesContext, UIComponent component)
+      throws IOException {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("*** end      " + component);
+    }
+    try {
+      layoutEnd(facesContext, component);
 
+    } catch (RuntimeException e) {
+      LOG.error("catched " + e + " :" + e.getMessage(), e);
+      throw e;
+    } catch (Throwable e) {
+      LOG.error("catched Throwable :", e);
+      throw new RuntimeException(e);
+    }
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("*   end      " + component);
+    }
   }
 
+  public void layoutBegin(FacesContext facesContext, UIComponent component)  {
+  }
 
-
-  public void layoutEnd(FacesContext facesContext, UIComponent component) {
+  private void layoutEnd(FacesContext facesContext, UIComponent component) {
     Layout layout = Layout.getLayout(component.getParent());
     if (layout == null) {
       throw new IllegalStateException("no Layout from "+component.getParent()+" "+component.getParent().getClientId(facesContext));

@@ -12,6 +12,4 @@ public interface LayoutManager {
 
   public void layoutBegin(FacesContext facesContext, UIComponent component);
 
-  public void layoutEnd(FacesContext facesContext, UIComponent component);
-
 }

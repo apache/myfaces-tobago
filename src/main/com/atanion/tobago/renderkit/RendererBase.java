@@ -61,10 +61,6 @@ public abstract class RendererBase
       LOG.debug("*** begin    " + component);
     }
     try {
-      component.getAttributes().put(
-          ATTR_ENCODING_ACTIVE,
-          Boolean.TRUE);
-
       createClassAttribute(component);
 
       LayoutManager layoutManager = getLayoutManager(facesContext, component);
@@ -74,10 +70,6 @@ public abstract class RendererBase
       }
 
       encodeBeginTobago(facesContext, component);
-
-      component.getAttributes().put(
-          ATTR_ENCODING_ACTIVE,
-          Boolean.FALSE);
     } catch (IOException e) {
       throw e;
     } catch (RuntimeException e) {
@@ -105,16 +97,7 @@ public abstract class RendererBase
       layout.encodeChildren(facesContext);
       layout.encodeEnd(facesContext);
     } else {
-
-      component.getAttributes().put(
-          ATTR_ENCODING_ACTIVE,
-          Boolean.TRUE);
-
       encodeChildrenTobago(facesContext, component);
-
-      component.getAttributes().put(
-          ATTR_ENCODING_ACTIVE,
-          Boolean.FALSE);
     }
 
     if (LOG.isDebugEnabled()) {
@@ -128,21 +111,7 @@ public abstract class RendererBase
       LOG.debug("*** end      " + component);
     }
     try {
-      component.getAttributes().put(
-          ATTR_ENCODING_ACTIVE,
-          Boolean.TRUE);
-
-      LayoutManager layoutManager = getLayoutManager(facesContext, component);
-
-      if (layoutManager != null) {
-        layoutManager.layoutEnd(facesContext, component);
-      }
-
       encodeEndTobago(facesContext, component);
-
-      component.getAttributes().put(
-          ATTR_ENCODING_ACTIVE,
-          Boolean.FALSE);
     } catch (IOException e) {
       throw e;
     } catch (RuntimeException e) {
@@ -158,8 +127,7 @@ public abstract class RendererBase
   }
 
   private LayoutManager getLayoutManager(
-      FacesContext facesContext,
-      UIComponent component) {
+      FacesContext facesContext, UIComponent component) {
     LayoutManager layoutManager = null;
 
     Renderer renderer = ComponentUtil.getRenderer(component, facesContext);
@@ -170,10 +138,10 @@ public abstract class RendererBase
       if (parent instanceof UIPanel
           && ComponentUtil.getBooleanAttribute(parent, ATTR_LAYOUT_DIRECTIVE)) {
         component = parent;
+        parent = LayoutUtil.getNonTransparentParent(component);
       }
-      UIComponent parent2 = LayoutUtil.getNonTransparentParent(component);
-      if (parent2 != null) {
-        UIComponent layout = parent2.getFacet("layout");
+      if (parent != null) {
+        UIComponent layout = parent.getFacet("layout");
 //        if (layout instanceof UIComponentBase) {
         if (layout != null) {
           renderer = ComponentUtil.getRenderer(layout, facesContext);
@@ -218,7 +186,7 @@ public abstract class RendererBase
   public void decode(FacesContext facesContext, UIComponent component) {
     // nothing to do
 
-    // fixme laster:
+    // fixme later:
     if (component instanceof UIInput) {
       LOG.warn(
           "decode() should be overwritten! Renderer: " +

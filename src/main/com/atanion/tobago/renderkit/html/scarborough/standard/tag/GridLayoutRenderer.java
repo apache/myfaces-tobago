@@ -90,6 +90,8 @@ public class GridLayoutRenderer extends RendererBase
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
+    layoutEnd(facesContext, component);
+
     UIGridLayout layout =  (UIGridLayout) component;
     final Map attributes = layout.getAttributes();
     List columnWidths =  (List) attributes.get(TobagoConstants.ATTR_WIDTH_LIST);
@@ -307,7 +309,7 @@ public class GridLayoutRenderer extends RendererBase
     return getConfiguredValue(facesContext,  component, "cellSpacing");
   }
 
-  private void doLayoutEnd(FacesContext facesContext, UIComponent component) {
+  private void layoutEnd(FacesContext facesContext, UIComponent component) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("doLayout end");
     }
@@ -555,12 +557,6 @@ public class GridLayoutRenderer extends RendererBase
 
     if (component instanceof UIGridLayout) {
       layoutMargins((UIGridLayout) component);
-    }
-  }
-
-  public void layoutEnd(FacesContext facesContext, UIComponent component) {
-    if (component instanceof UIGridLayout) {
-      doLayoutEnd(facesContext, component);
     }
   }
 

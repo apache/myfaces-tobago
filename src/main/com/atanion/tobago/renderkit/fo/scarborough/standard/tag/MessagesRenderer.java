@@ -23,16 +23,7 @@ public class MessagesRenderer extends MessageRendererBase {
       LOG.debug("*** end      " + component);
     }
     try {
-      component.getAttributes().put(
-          ATTR_ENCODING_ACTIVE,
-          Boolean.TRUE);
-
-
       encodeEndTobago(facesContext, component);
-
-      component.getAttributes().put(
-          ATTR_ENCODING_ACTIVE,
-          Boolean.FALSE);
     } catch (IOException e) {
       throw e;
     } catch (RuntimeException e) {
