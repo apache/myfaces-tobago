@@ -127,56 +127,6 @@ public class ThemeConfig {
     return null;
   }
 
-  /*
-  private Integer createValue(String renderKitId, String tag, String name) {
-    StringTokenizer st = new StringTokenizer(renderKitId, "/");
-    String contentType = st.nextToken();
-    String theme = st.nextToken();
-    String userAgent = st.nextToken();
-
-    for (Iterator themes = getThemes(theme); themes.hasNext();) {
-      String actualTheme = (String) themes.next();
-      for (Iterator userAgents = getUserAgents(userAgent); userAgents.hasNext();) {
-        String actualUserAgent = (String) userAgents.next();
-        for (Iterator tags = getTags(tag); tags.hasNext();) {
-          String actualTag = (String) tags.next();
-          Integer value = getValue(contentType, actualTheme, actualUserAgent,
-              actualTag, name);
-          if (value != null) {
-            return value;
-          }
-        }
-      }
-    }
-
-
-
-    return null;
-  }
-
-  private Integer getValue(String contentType, String theme,
-      String userAgent, String tag, String name) {
-    Map map = (Map) configMap.get(contentType);
-    if (map != null) {
-      map = (Map) map.get(theme);
-    }
-    if (map != null) {
-      map = (Map) map.get(userAgent);
-    }
-    if (map != null) {
-      map = (Map) map.get(tag);
-    }
-    if (map != null) {
-      Integer value =  (Integer) map.get(name);
-      if (value != null) {
-        return value;
-      }
-    }
-
-    return null;
-  }
-  */
-
 // ///////////////////////////////////////////// bean getter + setter
 
 }
