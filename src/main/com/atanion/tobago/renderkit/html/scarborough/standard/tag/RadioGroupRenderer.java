@@ -106,6 +106,7 @@ public class RadioGroupRenderer extends SelectOneRendererBase {
         // fixme: use created UIOutput Label
         // fixme: see outcommented part
         writer.startElement("label", null);
+        writer.writeAttribute("class", "tobago-label-default", null);
         writer.writeAttribute("for", id, null);
         writer.writeText(item.getLabel(), null);
         writer.endElement("label");
