@@ -39,7 +39,7 @@
   position: absolute;
   padding: 0px;
   padding-left: 5px;
-  padding-right: 5px;
+  padding-right: 0px;
   z-index: 1000;
   white-space: nowrap;
   -moz-box-sizing: border-box;
@@ -47,12 +47,17 @@
 
 }
 
+
 .tobago-menu-item-hover {
   background: #bbbbbb;
 }
 
-.tobago-menubar-item-span {
 
+.tobago-menubar-item-span {
+  position: absolute;
+  top: 0px;
+  left: 20px;
+  font: normal 12px arial, helvetica, sans-serif;
 }
 
 .tobago-menubar-item-span-enabled {
@@ -62,3 +67,24 @@
 .tobago-menubar-item-span-disabled {
   color: #888888;
 }
+
+.tobago-menubar-item-span-top {
+  left: 0px;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.tobago-menu-item-image {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 15px;
+  height: 15px;
+}
+
+.tobago-menu-subitem-arrow {
+  float: right;
+  width: 15px;
+  height: 15px;
+}
+

@@ -11,12 +11,14 @@ public interface TobagoConstants {
 
   public static final String ATTR_ACCESS_KEY = "accessKey";
   public static final String ATTR_ACTION = "action";
+  public static final String ATTR_ACTION_STRING = "actionString";
   public static final String ATTR_ACTION_LISTENER = "actionListener";
   public static final String ATTR_ALIGN = "align";
   public static final String ATTR_ALT = "alt";
   public static final String ATTR_BODY_CONTENT = "bodyContent";
   public static final String ATTR_BORDER = "border";
   public static final String ATTR_CHARSET = "charset";
+  public static final String ATTR_CHECKED = "checked";
   public static final String ATTR_CELLSPACING = "layoutCellspacing";
   public static final String ATTR_CLASSES_BLOCKS = "cssClassesBlocks";
   public static final String ATTR_CLIENT_PROPERTIES = "clientProperties";
@@ -64,6 +66,7 @@ public interface TobagoConstants {
   public static final String ATTR_LAYOUT_TABLE_STYLE = "layoutTableStyle";
   public static final String ATTR_LAYOUT_WIDTH = "layout_width";
   public static final String ATTR_MAX = "max";
+  public static final String ATTR_MENU_TYPE = "menuType";
   public static final String ATTR_METHOD = "method";
   public static final String ATTR_MIN = "min";
   public static final String ATTR_MULTISELECT = "multiselect";

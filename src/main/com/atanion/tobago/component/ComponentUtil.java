@@ -11,6 +11,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.FactoryFinder;
+import javax.faces.el.ValueBinding;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
@@ -164,7 +165,11 @@ public class ComponentUtil implements TobagoConstants {
     Object bool = component.getAttributes().get(name);
     if (bool == null) {
       return false;
-    } else if (bool instanceof Boolean) {
+    }
+    if (bool instanceof ValueBinding) {
+      bool = ((ValueBinding)bool).getValue(FacesContext.getCurrentInstance());
+    }
+    if (bool instanceof Boolean) {
       return ((Boolean) bool).booleanValue();
     } else if (bool instanceof String) {
       LOG.warn("Searching for a boolean, but find a String. Should not happen. "

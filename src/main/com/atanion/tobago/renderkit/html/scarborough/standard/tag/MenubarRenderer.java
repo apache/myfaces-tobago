@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.renderkit.CommandRendererBase;
@@ -13,6 +14,7 @@ import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.renderkit.LabelWithAccessKey;
+import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -100,8 +102,8 @@ public class MenubarRenderer extends RendererBase
     for (Iterator iter = component.getChildren().iterator(); iter.hasNext();) {
       UIComponent entry = (UIComponent) iter.next();
       if (entry instanceof UICommand) {
-        addMenuItem(sb, var, facesContext, (UICommand) entry);
-      } else if (entry instanceof UIPanel) {
+        addMenuEntry(sb, var, facesContext, (UICommand) entry);
+      } else if ("menu".equals(entry.getAttributes().get(ATTR_MENU_TYPE))) {
         String name = var + "_" + i++;
         sb.append("    var " + name + " = " + createMenuEntry(facesContext, (UIPanel)entry) + ";\n");
         sb.append("    " + var + ".addMenuItem(" + name + ");\n");
@@ -120,9 +122,17 @@ public class MenubarRenderer extends RendererBase
 
     final boolean disabled
         = ComponentUtil.getBooleanAttribute(uiPanel, ATTR_DISABLED);
+    final boolean topMenu = uiPanel.getParent().getRendererType() != null;
     String spanClass
         = "tobago-menubar-item-span tobago-menubar-item-span-"
-        + (disabled ? "disabled" : "enabled");
+        + (disabled ? "disabled" : "enabled")
+        + (topMenu ? " tobago-menubar-item-span-top" : "");
+
+    final LabelWithAccessKey label = new LabelWithAccessKey(uiPanel);
+
+    LOG.info("label.getText() = " + label.getText());
+
+
 
     ResponseWriter savedWriter = facesContext.getResponseWriter();
     StringWriter stringWriter = new StringWriter();
@@ -132,17 +142,16 @@ public class MenubarRenderer extends RendererBase
 
     writer.startElement("span", null);
     writer.writeAttribute("class", spanClass, null);
-    for (Iterator i = uiPanel.getChildren().iterator(); i.hasNext();) {
-      UIComponent component = (UIComponent) i.next();
-      if (!(component instanceof UICommand || component instanceof UIPanel)) {
-        RenderUtil.encode(facesContext, component);
-      }
-    }
-    if (! uiPanel.getParent().getRendererType().equals("Menubar")) {
-      // uiPanel is a submenu
-      addSubItemMarker(facesContext);
-    }
+    writer.writeText(label.getText(), null);
     writer.endElement("span");
+
+    if (! topMenu) {
+      // uiPanel is a submenu
+      LOG.info("adding subMenuMarker");
+      addSubItemMarker(writer, facesContext);
+    }
+    else       LOG.info("NOT adding subMenuMarker");
+
 
     facesContext.setResponseWriter(savedWriter);
 
@@ -150,15 +159,36 @@ public class MenubarRenderer extends RendererBase
     return "new MenuItem('" + removeLFs(stringWriter.toString()) + "', null)";
   }
 
-  private void addSubItemMarker(FacesContext facesContext) throws IOException {
-    // todo: use image
-    facesContext.getResponseWriter().writeText(" >", null);
+  private void addSubItemMarker(TobagoResponseWriter writer,
+      FacesContext facesContext) throws IOException {
+    writer.startElement("img", null);
+    writer.writeAttribute("class", "tobago-menu-subitem-arrow", null);
+    writer.writeAttribute("src",
+        ResourceManagerUtil.getImage(facesContext, "MenuArrow.gif"), null);
+    writer.endElement("img");
   }
 
   private String removeLFs(String s) {
     return s.replaceAll("\n", " ");
   }
 
+
+  private void addMenuEntry(StringBuffer sb, String var, FacesContext facesContext,
+      UICommand command) throws IOException {
+    if ("menuItem".equals(command.getAttributes().get(ATTR_MENU_TYPE))
+        || "menuCheck".equals(command.getAttributes().get(ATTR_MENU_TYPE)) ) {
+      addMenuItem(sb, var, facesContext, command);
+    }
+    else if ("menuRadio".equals(command.getAttributes().get(ATTR_MENU_TYPE)) ) {
+      addMenuRadio(sb, var, facesContext, command);
+    }
+  }
+
+  private void addMenuRadio(StringBuffer sb, String var,
+      FacesContext facesContext, UICommand command) {
+    // todo: implement
+
+  }
 
   private void addMenuItem(StringBuffer sb, String var, FacesContext facesContext,
       UICommand command) throws IOException {
@@ -167,7 +197,7 @@ public class MenubarRenderer extends RendererBase
     String spanClass
         = "tobago-menubar-item-span tobago-menubar-item-span-"
         + (disabled ? "disabled" : "enabled");
-    String onClick = ButtonRenderer.createOnClick(facesContext, command);
+    String onClick = createOnClick(facesContext, command);
     onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
             facesContext);
 
@@ -177,10 +207,12 @@ public class MenubarRenderer extends RendererBase
         = new TobagoResponseWriter(stringWriter, "text/html", "UTF8");
     facesContext.setResponseWriter(writer);
 
-    writer.startElement("span", null);
-    writer.writeAttribute("class", spanClass, null);
+    addImage(writer, facesContext, command);
 
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
+    writer.startElement("span", null);
+    writer.writeAttribute("class", spanClass, null);
+    writer.writeAttribute("accesskey", label.getAccessKey(), null);
     if (label.getText() != null) {
       RenderUtil.writeLabelWithAccessKey(writer, label);
     }
@@ -207,6 +239,49 @@ public class MenubarRenderer extends RendererBase
 
   }
 
+  private void addImage(TobagoResponseWriter writer, FacesContext facesContext,
+      UICommand command) throws IOException {
+    String image = null;
+    if ("menuItem".equals(command.getAttributes().get(ATTR_MENU_TYPE))) {
+      image = (String) command.getAttributes().get(ATTR_IMAGE);
+      if (image != null) {
+        image = ResourceManagerUtil.getImage(facesContext, image);
+      }
+    }
+    else { // renderertype == "Menucheck"
+      if (ComponentUtil.getBooleanAttribute(command, ATTR_CHECKED)) {
+        image = ResourceManagerUtil.getImage(facesContext, "MenuCheckmark.gif");
+      }
+    }
+    if (image != null) {
+      writer.startElement("img", null);
+      writer.writeAttribute("class", "tobago-menu-item-image", null);
+      writer.writeAttribute("src", image, null);
+      writer.endElement("img");
+    }
+  }
+
+  public static String createOnClick(FacesContext facesContext,
+      UIComponent component) {
+    String type = (String) component.getAttributes().get(ATTR_TYPE);
+    String command = (String) component.getAttributes().get(ATTR_ACTION_STRING);
+    String clientId = component.getClientId(facesContext);
+    String onclick;
+
+    if (COMMAND_TYPE_NAVIGATE.equals(type)) {
+      onclick = "navigateToUrl('"
+          + HtmlUtils.generateUrl(facesContext, command) + "')";
+    } else if (COMMAND_TYPE_RESET.equals(type)) {
+      onclick = null;
+    } else if (COMMAND_TYPE_SCRIPT.equals(type)) {
+      onclick = command;
+    } else { // default: Action.TYPE_SUBMIT
+      onclick = "submitAction('" +
+          ComponentUtil.findPage(component).getFormId(facesContext) +
+          "','" + clientId + "')";
+    }
+    return onclick;
+  }
 // ///////////////////////////////////////////// bean getter + setter
 
 }

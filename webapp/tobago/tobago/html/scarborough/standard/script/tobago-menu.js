@@ -196,8 +196,9 @@ function setItemWidth(menu) {
             width = Math.max(width, childElement.scrollWidth);
             childElement = document.getElementById(childIdPrefix + i++);
           }
-          //PrintDebug("das waren " + (i-1) + " items  ---> width wird " + width);
-          menu.parent.childWidth = width ;
+          PrintDebug("das waren " + (i-1) + " items  ---> width wird " + width);
+          width += getMenuArrowWidth();
+          menu.parent.childWidth = width;
         }
         menu.htmlElement.style.width = width + "px";
 
@@ -334,6 +335,10 @@ function getSubitemContainerBorderWidth() {
 }
 
 function getItemHeight() {
+  return 15;
+}
+
+function getMenuArrowWidth() {
   return 15;
 }
 
