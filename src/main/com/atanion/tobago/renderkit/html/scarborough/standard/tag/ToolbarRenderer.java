@@ -172,7 +172,7 @@ public class ToolbarRenderer extends RendererBase
     }
     if (popupMenu != null) {
       popupMenu.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
-      popupMenu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "toolbarButton");
+      popupMenu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "ToolbarButton");
       popupMenu.setRendererType("Menubar");
       popupMenu.getAttributes().remove(ATTR_LABEL);
       popupMenu.getAttributes().remove(ATTR_LABEL_WITH_ACCESS_KEY);

@@ -13,9 +13,15 @@ function getSubitemContainerBorderWidthSum() {
 function getItemHeight(menu) {
   if (menu && menu.level == 1) {
     if (menu.parent.popup) {
-      return 18;
+      if (menu.parent.popup == "ToolbarButton") {
+        return 18;
+      }
+      else if (menu.parent.popup == "SheetSelector") {
+       return 16;
+      }
     }
-    else if (menu.parent.menubar.className.match(/tobago-menubar-page-facet/)) {
+
+    if (menu.parent.menubar.className.match(/tobago-menubar-page-facet/)) {
       return 20;
     }
     else {
@@ -39,4 +45,8 @@ function getMenuArrowWidth() {
 
 function getToolbarButtonMenuTopOffset() {
   return -1;
+}
+
+function getSheetSelectorMenuTopOffset() {
+  return -2;
 }

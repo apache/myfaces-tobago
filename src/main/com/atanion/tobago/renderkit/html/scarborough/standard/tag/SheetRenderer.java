@@ -685,19 +685,14 @@ public class SheetRenderer extends RendererBase
   private void renderColumnSelectorHeader(FacesContext facesContext,
       ResponseWriter writer, UIColumn column, int columnCount, Sorter sorter)
       throws IOException {
-    UIPanel menubar = (UIPanel) column.getFacet(FACET_MENUBAR);
-    if (menubar == null) {
+    UIPanel menu = (UIPanel) column.getFacet(FACET_MENUPOPUP);
+    if (menu == null) {
       final Application application = facesContext.getApplication();
-      menubar = (UIPanel) application.createComponent(UIPanel.COMPONENT_TYPE);
-      column.getFacets().put(FACET_MENUBAR, menubar);
-      menubar.setRendererType("Menubar");
-      menubar.getAttributes().put(ATTR_WIDTH,
-          Integer.toString(getConfiguredValue(
-              facesContext, column.getParent(), "selectorMenuWidth")) + "px");
-      UIPanel menu
-          = (UIPanel) application.createComponent(UIPanel.COMPONENT_TYPE);
-      menubar.getChildren().add(menu);
-      menu.setRendererType(null);
+      menu = (UIPanel) application.createComponent(UIPanel.COMPONENT_TYPE);
+      column.getFacets().put(FACET_MENUPOPUP, menu);
+      menu.setRendererType("Menubar");
+      menu.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
+      menu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "SheetSelector");
       menu.getAttributes().put(ATTR_MENU_TYPE, "menu");
       menu.getAttributes().put(ATTR_IMAGE, "sheetSelectorMenu.gif");
 
@@ -714,7 +709,11 @@ public class SheetRenderer extends RendererBase
 
     }
 
-    RenderUtil.encode(facesContext, menubar);
+    writer.startElement("div", null);
+    writer.writeAttribute("id", column.getClientId(facesContext), null);
+    writer.writeAttribute("style", "width: 15px; height:15px;", null);
+    writer.endElement("div");
+    RenderUtil.encode(facesContext, menu);
   }
 
   private UICommand createMenuItem(final Application application, String label,

@@ -440,14 +440,12 @@ function setItemPositions(menu) {
         var itemHeight = getItemHeight(menu);
         var top = 0;
         if (menu.parent.popup) {
-          if (menu.parent.popup == "toolbarButton") {
-            top = getToolbarButtonMenuTopOffset();
-          }
+          eval("top = get" + menu.parent.popup + "MenuTopOffset()");
         }
         menu.htmlElement.style.top = top +"px";
         menu.htmlElement.style.height = itemHeight + "px";
         if (menu.subItemContainer) {
-          menu.subItemContainer.style.top = itemHeight + "px";
+          menu.subItemContainer.style.top = (itemHeight + top) + "px";
         }
         var left = 0;
         if (menu.index != 0) {
@@ -465,7 +463,9 @@ function setItemPositions(menu) {
         var top = (menu.index * getItemHeight());
         var left = 0;
         if (menu.level == 2 && menu.parent.parent.popup) {
-          left = getPopupMenuWidth() - getElementWidth(menu.parent.parent.menubar);
+          if (menu.parent.parent.popup == "ToolbarButton") {
+            left = getPopupMenuWidth() - getElementWidth(menu.parent.parent.menubar);
+          }  
           if (menu.parent.subItemContainer) {
             menu.parent.subItemContainer.style.left = left + "px";
             if (menu.parent.subItemIframe) {
@@ -570,9 +570,15 @@ function getSubitemContainerBorderWidthSum() {
 function getItemHeight(menu) {
   if (menu && menu.level == 1) {
     if (menu.parent.popup) {
-      return 20;
+      if (menu.parent.popup == "ToolbarButton") {
+        return 20;
+      }
+      else if (menu.parent.popup == "SheetSelector") {
+       return 16;
+      }
     }
-    else if (menu.parent.menubar.className.match(/tobago-menubar-page-facet/)) {
+
+    if (menu.parent.menubar.className.match(/tobago-menubar-page-facet/)) {
       return 23;
     }
     else {
@@ -589,19 +595,27 @@ function getMenuArrowWidth() {
 }
 
 function getPopupMenuWidth() {
-  return 20;
+  return 21;
 }
 
 function getPopupImageTop(popup) {
-  if (popup == "toolbarButton") {
+  if (popup == "ToolbarButton") {
     return "2px";
+  }
+  else if (popup == "SheetSelector") {
+    return "0px";
   }
   else {
     PrintDebug("unbekanter Popup Typ :" + popup);
+    return "0px";
   }
 }
 
 function getToolbarButtonMenuTopOffset() {
+  return -1;
+}
+
+function getSheetSelectorMenuTopOffset() {
   return -1;
 }
 

@@ -186,7 +186,8 @@ public class MenubarRenderer extends RendererBase
 
     final boolean disabled
         = ComponentUtil.getBooleanAttribute(uiPanel, ATTR_DISABLED);
-    final boolean topMenu = uiPanel.getParent().getRendererType() != null;
+    final boolean topMenu = (uiPanel.getParent().getRendererType() != null)
+        || ComponentUtil.getBooleanAttribute(uiPanel, ATTR_MENU_POPUP);
     String spanClass
         = "tobago-menubar-item-span tobago-menubar-item-span-"
         + (disabled ? "disabled" : "enabled")
