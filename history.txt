@@ -1,4 +1,7 @@
-1.0.2 -
+1.0.3 -
+* 
+
+1.0.2 - 15.12.2004
 * bugfix: submit button in IE makes double submit
 * bugfix: NullPointerException with unknown browsers
 
