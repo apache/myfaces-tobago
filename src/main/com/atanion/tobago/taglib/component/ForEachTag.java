@@ -11,6 +11,9 @@ import javax.faces.webapp.UIComponentTag;
 import javax.faces.el.ValueBinding;
 import javax.faces.context.FacesContext;
 import java.util.List;
+import java.util.Map;
+import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -49,6 +52,7 @@ public class ForEachTag extends BodyTagSupport {
 
     int position = getIntValue(begin);
     int stop = getIntValue(end);
+    Object[] keys = null;
     if (stop == IterationHelper.ALL) {
       if (UIComponentTag.isValueReference(items)) {
         final Object items
@@ -58,6 +62,14 @@ public class ForEachTag extends BodyTagSupport {
         }
         else if (items instanceof Object[]) {
           stop = ((Object[])items).length;
+        }
+        else if (items instanceof Map) {
+          List keyList = new ArrayList();
+          for (Iterator i = ((Map)items).keySet().iterator(); i.hasNext(); ) {
+            keyList.add(i.next());
+          }
+          keys = keyList.toArray(new Object[keyList.size()]);
+          stop = keys.length;
         }
         else if (items == null) {
           if (LOG.isInfoEnabled()) {
@@ -77,7 +89,7 @@ public class ForEachTag extends BodyTagSupport {
     }
 
 
-    helper.init(replacement, var, position, stop, getIntValue(step));
+    helper.init(replacement, var, position, stop, getIntValue(step), keys);
 
     return position < stop  ? EVAL_BODY_INCLUDE : SKIP_BODY;
   }
@@ -143,6 +155,7 @@ public class ForEachTag extends BodyTagSupport {
     private int stop;
     private int step;
     private String replacement;
+    private Object[] keys;
 
     private Pattern pattern;
 
@@ -157,7 +170,9 @@ public class ForEachTag extends BodyTagSupport {
 
     public String replace(String binding) {
       final String result = pattern.matcher(binding).replaceAll(
-          "$1" + replacement +"[" + position + "]$2");
+          "$1" + replacement +"["
+          + (keys == null ? Integer.toString(position) : "'" + keys[position] + "'")
+          + "]$2");
       if (LOG.isDebugEnabled()) {
         LOG.debug("transform \"" + binding + "\" to \"" + result + "\"");
       }
@@ -169,14 +184,17 @@ public class ForEachTag extends BodyTagSupport {
       stop = ALL;
       step = 1;
       replacement = null;
+      keys = null;
     }
 
 
-    public void init(String replacement, String var, int position, int stop, int step) {
+    public void init(String replacement, String var, int position, int stop,
+                     int step, Object[] keys) {
       this.replacement = replacement;
       this.position = position;
       this.stop = stop;
       this.step = step;
+      this.keys = keys;
       pattern = Pattern.compile("(\\W *?[^\\.] *?)" + var + "( *?\\W)");
     }
   }
