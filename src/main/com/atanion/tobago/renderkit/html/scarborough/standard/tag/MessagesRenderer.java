@@ -51,7 +51,9 @@ public class MessagesRenderer extends MessageRendererBase
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
-    LOG.info("facesContect is " + facesContext.getClass().getName());
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("facesContect is " + facesContext.getClass().getName());
+    }
     if (facesContext.getMessages().hasNext()) { // in ie empty span gets a height
       writer.startElement("span", component);
       writer.writeAttribute("class", "tobago-validation-message", null);
@@ -77,12 +79,12 @@ public class MessagesRenderer extends MessageRendererBase
 
   private void encodeMessagesForId(FacesContext facesContext,
       ResponseWriter writer, String clientId) throws IOException {
-    LOG.info("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\nrender messages for id '" + clientId + "'");
-
     Iterator iterator = facesContext.getMessages(clientId);
     while (iterator.hasNext()) {
       FacesMessage message = (FacesMessage) iterator.next();
-      LOG.info("message = " + message.getSummary());
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("message = " + message.getSummary());
+      }
       encodeMessage(writer, message, clientId);
     }
   }
