@@ -5,9 +5,7 @@
  */
 package com.atanion.tobago.config;
 
-import com.atanion.tobago.context.ResourceManager;
 import com.atanion.tobago.context.Theme;
-import com.atanion.tobago.context.ResourceManagerUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
