@@ -109,7 +109,6 @@ public interface TobagoConstants {
   public static final String ATTR_SPAN_Y = "spanY";
   public static final String ATTR_SRC = "src";
   public static final String ATTR_STATE = "state";
-  public static final String ATTR_STATE_BINDING = "stateBinding";
   public static final String ATTR_STATE_PREVIEW = "state_preview";
   public static final String ATTR_STYLE = "style";
   public static final String ATTR_STYLE_BODY = "style_body";

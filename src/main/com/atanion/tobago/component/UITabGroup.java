@@ -70,8 +70,7 @@ public class UITabGroup extends UIPanel implements StateHolder{
   }
 
   public void updateState(FacesContext facesContext) {
-    ValueBinding stateBinding
-        = getValueBinding(TobagoConstants.ATTR_STATE_BINDING);
+    ValueBinding stateBinding = getValueBinding(TobagoConstants.ATTR_STATE);
     if (stateBinding != null) {
       stateBinding.setValue(facesContext, new Integer(activeIndex));
     }

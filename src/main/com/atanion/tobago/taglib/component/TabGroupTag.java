@@ -15,7 +15,7 @@ public class TabGroupTag extends TobagoTag {
 // ----------------------------------------------------------------- attributes
 
   private String serverside;
-  private String stateBinding;
+  private String state;
 
 // ----------------------------------------------------------- business methods
 
@@ -28,16 +28,16 @@ public class TabGroupTag extends TobagoTag {
    ComponentUtil.setBooleanProperty(component, ATTR_SERVER_SIDE_TABS, serverside, getIterationHelper());
 
     // todo: check, if it is an writeable object
-    if (stateBinding != null && isValueReference(stateBinding)) {
-      ValueBinding valueBinding = ComponentUtil.createValueBinding(stateBinding, getIterationHelper());
-      component.setValueBinding(ATTR_STATE_BINDING, valueBinding);
+    if (state != null && isValueReference(state)) {
+      ValueBinding valueBinding = ComponentUtil.createValueBinding(state, getIterationHelper());
+      component.setValueBinding(ATTR_STATE, valueBinding);
     }
   }
 
   public void release() {
     super.release();
     serverside = null;
-    stateBinding = null;
+    state = null;
   }
 
 // ------------------------------------------------------------ getter + setter
@@ -50,8 +50,8 @@ public class TabGroupTag extends TobagoTag {
     this.serverside = serverside;
   }
 
-  public void setStateBinding(String stateBinding) {
-    this.stateBinding = stateBinding;
+  public void setState(String state) {
+    this.state = state;
   }
 }
 
