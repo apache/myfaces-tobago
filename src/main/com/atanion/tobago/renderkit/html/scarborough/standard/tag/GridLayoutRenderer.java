@@ -181,8 +181,11 @@ public class GridLayoutRenderer extends RendererBase
                 + (cellWidth != -1 ? "width: " + cellWidth + "px;" : "")
                 + (cellHeight != -1 ?
                 " height: " + (cellHeight + topPadding) + "px;" : ""
-                + "padding-top: " + topPadding + "px;"
-                + "padding-left: " + leftPadding + "px;");
+//              Why is this padding here ?? this is also in css
+//                + "padding-top: " + topPadding + "px;"
+//                + "padding-left: " + leftPadding + "px;"
+                );
+
 
             writer.startElement("td", null);
             writer.writeAttribute("class", "tobago-gridlayout-cell-td", null);
