@@ -64,11 +64,11 @@ public class ViewHandlerImpl extends ViewHandler {
         (TobagoServletMapping) (
         servletContext.getAttribute(
             TobagoServletMapping.TOBAGO_SERVLET_MAPPING)));
-    String context = facesContext.getExternalContext().getRequestContextPath();
+    String contextPath = facesContext.getExternalContext().getRequestContextPath();
     String urlPrefix = tobagoServletMapping.getUrlPrefix() + viewId;
     HttpServletResponse response
         = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-    return response.encodeURL(context + urlPrefix);
+    return response.encodeURL(contextPath + urlPrefix);
   }
 
   public String getResourceURL(FacesContext facesContext, String path) {
