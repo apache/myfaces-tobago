@@ -207,7 +207,6 @@ public class SheetRenderer extends RendererBase
     String descending = TobagoResource.getImage(facesContext, "descending.gif");
 
     String sheetId = component.getClientId(facesContext);
-    LOG.info("sheetId ===== " + sheetId);
     UIPage uiPage = ComponentUtil.findPage(component);
     uiPage.getScriptFiles().add("tobago-sheet.js", true);
     uiPage.getOnloadScripts().add("initSheet(\"" + sheetId + "\")");
