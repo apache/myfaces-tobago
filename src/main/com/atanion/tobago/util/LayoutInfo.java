@@ -76,7 +76,7 @@ public class LayoutInfo{
       spaces[index] = space;
       if (spaceLeft < 0) {
         if (log.isWarnEnabled()) {
-          log.warn("More space used than avaliable! set left to 0!");
+          log.warn("More space used than available! set left to 0!");
         }
         spaceLeft = 0;
       }
