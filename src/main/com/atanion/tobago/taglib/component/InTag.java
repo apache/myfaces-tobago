@@ -8,6 +8,7 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIInput;
+import com.atanion.tobago.taglib.ValueBinding;
 
 import javax.faces.component.UIComponent;
 
@@ -38,6 +39,10 @@ public class InTag extends InputTag {
     return password;
   }
 
+  @ValueBinding(
+      type=Boolean.class,
+      description = "is a password or not"
+      )
   public void setPassword(String password) {
     this.password = password;
   }
