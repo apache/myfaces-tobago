@@ -33,7 +33,7 @@ public class TobagoMultipartFormdataRequest implements HttpServletRequest {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log log = LogFactory.getLog(TobagoMultipartFormdataRequest.class);
+  private static Log LOG = LogFactory.getLog(TobagoMultipartFormdataRequest.class);
 
 // ///////////////////////////////////////////// attribute
 
@@ -54,26 +54,26 @@ public class TobagoMultipartFormdataRequest implements HttpServletRequest {
       // todo: make sizeMax and repositoryPath configurable
       try {
         List itemList = fileUpload.parseRequest(request);
-        if (log.isDebugEnabled()) {
-          log.debug("parametercount = " + itemList.size());
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("parametercount = " + itemList.size());
         }
         Iterator items = itemList.iterator();
         while (items.hasNext()) {
           FileItem item = (FileItem) items.next();
-          if (log.isDebugEnabled()) {
+          if (LOG.isDebugEnabled()) {
             String value = item.getString();
             if (value.length() > 100) value = value.substring(0, 100);
-            log.debug("Parameter : " + item.getFieldName() + "=" + value + " isFormField=" + item.isFormField());
+            LOG.debug("Parameter : " + item.getFieldName() + "=" + value + " isFormField=" + item.isFormField());
           }
           parameters.put(item.getFieldName(), item);
         }
       } catch (FileUploadException e) {
-        log.error(e);
+        LOG.error(e);
       }
     } else {
       String error = "contentType is not multipart/form-data but '"
           + contentType + "'";
-      log.error(error);
+      LOG.error(error);
       throw new FacesException(error);
     }
   }
@@ -103,7 +103,7 @@ public class TobagoMultipartFormdataRequest implements HttpServletRequest {
       if (item != null && item.isFormField()) {
         parameter = item.getString();
       } else if (item != null && !item.isFormField()) {
-        log.warn("getParameter() on FileUpload field!");
+        LOG.warn("getParameter() on FileUpload field!");
       }
     } else {
       parameter = request.getParameter(key);
