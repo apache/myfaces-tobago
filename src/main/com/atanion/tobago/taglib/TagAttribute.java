@@ -13,7 +13,7 @@ import java.lang.annotation.Inherited;
  * $Id$
  */
 @Retention(value = RetentionPolicy.SOURCE)
-@Target(value = ElementType.TYPE)
+@Target(value = ElementType.METHOD)
 @Inherited
 
 public @interface TagAttribute {
