@@ -149,11 +149,18 @@ function MenuItem(label, action, disabled) {
     }
   }
 
-  this.onMouseOut = function() {
+  this.onMouseOut = function(clicked) {
     this.mouseOver = false;
-    //PrintDebug("onMouseOut " + this.id);
+    PrintDebug("onMouseOut " + this.id + " clicked = " + clicked);
     clearTimeout(this.hoverTimer);
-    removeCssClass(this.htmlElement, "tobago-menu-item-hover");
+    if (clicked) {
+      //this.blurLabelTag();
+      this.focus = false;
+      this.focusLost();
+    }
+    else {
+      removeCssClass(this.htmlElement, "tobago-menu-item-hover");
+    }
   }
 
   this.onFocus = function() {
@@ -167,6 +174,10 @@ function MenuItem(label, action, disabled) {
     //if (this.level == 1) {
       this.openSubMenus();
     //}
+    if (! this.scriptFocus && this.action) {
+      this.htmlElement.click();
+    }
+    this.scriptFocus = false;
   }
   this.onBlur = function() {
     //PrintDebug("onBlur " + this.id);
@@ -196,7 +207,15 @@ function MenuItem(label, action, disabled) {
     //PrintDebug("setze Focus " + this.id);
     var element = tobagoMenuGetLabelTag(this.htmlElement.childNodes);
     if (element) {
+      this.scriptFocus = true;
       element.focus();
+    }
+  }
+  this.blurLabelTag = function() {
+    PrintDebug("entferne Focus " + this.id);
+    var element = tobagoMenuGetLabelTag(this.htmlElement.childNodes);
+    if (element) {
+      element.blur();
     }
   }
 
@@ -273,6 +292,7 @@ function MenuItem(label, action, disabled) {
       var next = tobagoMenuGetLabelTag(this.parent.htmlElement.childNodes);
       this.parent.hover = true;
       this.parent.hideSubMenus();
+      next.menu.scriptFocus = true;
       next.focus();
       this.hover = false;
     }
@@ -326,6 +346,7 @@ function MenuItem(label, action, disabled) {
     var span = tobagoMenuGetLabelTag(this.subItems[i].htmlElement.childNodes);
     if (span) {
       this.subItems[i].hover = true;
+      span.menu.scriptFocus = true;
       span.focus();
       return this.subItems[i];
     }
@@ -359,6 +380,7 @@ function MenuItem(label, action, disabled) {
         if (aTag) {
           this.parent.hover = true;
           this.parent.hideSubMenus();
+          aTag.menu.scriptFocus = true;
           aTag.focus();
         }
       }
