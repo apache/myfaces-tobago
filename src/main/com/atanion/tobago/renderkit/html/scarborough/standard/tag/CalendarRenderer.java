@@ -17,6 +17,7 @@ import com.atanion.util.CalendarUtils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -139,7 +140,7 @@ public class CalendarRenderer extends RendererBase implements DirectRenderer {
     for (int dayIt = 0; dayIt < 7; ++dayIt) {
       DateModel date = model.getDate(0, dayIt);
       String dayName = dateFormat.format(date.getCalendar().getTime());
-      dayName = dayName.substring(0, 2);
+      StringUtils.substring(dayName, 0, 2);
 
       writer.startElement("th", null);
       writer.writeText(dayName, null);
