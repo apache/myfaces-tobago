@@ -44,7 +44,7 @@ function storeFocusId(id) {
 }
 
 function setFocusById(id) {
-  if (id != null && id != 'none' && document.getElementById(id) != null) {
+  if (id != null && id != '' && document.getElementById(id) != null) {
     document.getElementById(id).focus();
   }
 }
@@ -54,7 +54,7 @@ function checkFocusType(type) {
        || type == 'textarea'
        || type == 'select-one'
        || type == 'select-multiple'
-       ||  type == 'button'
+//       ||  type == 'button'
        || type == 'checkbox'
     // || type == 'file'
        || type == 'password'
