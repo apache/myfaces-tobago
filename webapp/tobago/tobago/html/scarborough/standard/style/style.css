@@ -458,10 +458,6 @@ div.tobago-richtexteditor-body {
 /* Toolbar ----------------------------------------------------------------- */
 .tobago-toolbar-default  {
   height: 26px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 2px;
-  padding-right: 2px;
   border: 2px groove #f6faff;
   overflow: hidden;
   box-sizing: border-box;
@@ -470,6 +466,10 @@ div.tobago-richtexteditor-body {
 
 .tobago-toolbar-div-inner {
   margin-left: -1px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 2px;
+  padding-right: 2px;
 }
 
 .tobago-toolbar-button-span {

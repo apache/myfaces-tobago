@@ -225,6 +225,7 @@ div.tobago-groupbox-default {
 }
 .tobago-groupbox-header-toolbar {
   float: right;
+  margin-right: -1px;
 }
 
 .tobago-groupbox-content {
@@ -387,11 +388,14 @@ label.tobago-label-disabled  {
 /* Toolbar ----------------------------------------------------------------- */
 .tobago-toolbar-default  {
   height: 20px;
-  padding: 0px;
-  padding-left: -10px;
   border: 1px solid #000000;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
+}
+
+
+.tobago-toolbar-div-inner {
+  padding: 0px;
 }
 
 .tobago-toolbar-button-span {

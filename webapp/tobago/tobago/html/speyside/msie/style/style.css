@@ -1,7 +1,10 @@
 
+.tobago-groupbox-header-toolbar {
+  margin-top: -1px;
+}
 
-.tobago-toolbar-default  {
-  padding-bottom: 1px;
+.tobago-toolbar-div-inner {
+  margin-top: -1px;
 }
 
 .tobago-toolbar-button-image {

@@ -129,7 +129,7 @@ public class ToolbarRenderer extends RendererBase
     } else if (isMsie(facesContext)) {
       ieSpacer = (UIGraphic) command.getParent().getFacet("ieSpacer");
       if (ieSpacer == null) {
-        facesContext.getApplication().createComponent(UIGraphic.COMPONENT_TYPE);
+        ieSpacer = (UIGraphic) facesContext.getApplication().createComponent(UIGraphic.COMPONENT_TYPE);
         ieSpacer.setRendererType("Image"); //fixme: use constant ?
         ieSpacer.setRendered(true);
         final Map attributes = ieSpacer.getAttributes();
