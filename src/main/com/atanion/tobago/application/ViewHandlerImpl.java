@@ -5,106 +5,57 @@
  */
 package com.atanion.tobago.application;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.webapp.TobagoResponse;
-import com.atanion.tobago.webapp.TobagoServletMapping;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.FacesException;
-import javax.faces.application.StateManager;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import javax.faces.render.RenderKitFactory;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
 public class ViewHandlerImpl extends ViewHandler {
-
-// ///////////////////////////////////////////// constant
+  
+// ------------------------------------------------------------------ constants
 
   private static final Log LOG = LogFactory.getLog(ViewHandlerImpl.class);
 
   public static final String PAGE_ID = "tobago::page-id";
 
+  public static final String VIEW_MAP_IN_SESSION = "com.atanion.tobago.application.ViewHandlerImpl.viewMap";
+
   // fixme: only for testing...
 //  public static final boolean USE_VIEW_MAP = false;
   public static final boolean USE_VIEW_MAP = true;
 
-// ///////////////////////////////////////////// attribute
+// ----------------------------------------------------------------- attributes
 
-// ///////////////////////////////////////////// constructor
+  private ViewHandler base;
+
+// --------------------------------------------------------------- constructors
 
   public ViewHandlerImpl(ViewHandler base) {
     LOG.info("Hiding ri base implemation: " + base);
+    this.base = base;
   }
 
-// ///////////////////////////////////////////// code
-
-  public String getActionURL(FacesContext facesContext, String viewId) {
-    ServletContext servletContext
-        = (ServletContext) facesContext.getExternalContext().getContext();
-    TobagoServletMapping tobagoServletMapping
-        = (
-        (TobagoServletMapping) (
-        servletContext.getAttribute(
-            TobagoServletMapping.TOBAGO_SERVLET_MAPPING)));
-    String contextPath = facesContext.getExternalContext().getRequestContextPath();
-    String urlPrefix = tobagoServletMapping.getUrlPrefix() + viewId;
-    HttpServletResponse response
-        = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-    return response.encodeURL(contextPath + urlPrefix);
-  }
-
-  public String getResourceURL(FacesContext facesContext, String path) {
-    if (path.startsWith("/")) {
-      return facesContext.getExternalContext().getRequestContextPath() + path;
-    } else {
-      return path;
-    }
-  }
-
-  public UIViewRoot createView(FacesContext facesContext, String viewId) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("creating new view with viewId:        '" + viewId + "'");
-    }
-    UIViewRoot root = new UIViewRoot();
-    root.setViewId(viewId);
-    ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
-    root.setLocale(viewHandler.calculateLocale(facesContext));
-    root.setRenderKitId(viewHandler.calculateRenderKitId(facesContext));
-    if (USE_VIEW_MAP) {
-      ViewMap viewMap = ensureViewMap(facesContext);
-      String pageId = viewMap.addView(root);
-      root.getAttributes().put(PAGE_ID, pageId);
-    }
-    return root;
-  }
-
-  public String calculateRenderKitId(FacesContext facesContext) {
-    String result = facesContext.getApplication().getDefaultRenderKitId();
-    if (null == result) {
-      result = RenderKitFactory.HTML_BASIC_RENDER_KIT;
-    }
-    return result;
-  }
+// ----------------------------------------------------------- business methods
 
   public Locale calculateLocale(FacesContext facesContext) {
+    return base.calculateLocale(facesContext);
+/*
     Locale result;
 
     // fixme: is this good?
@@ -131,8 +82,88 @@ public class ViewHandlerImpl extends ViewHandler {
     }
 
     return result;
+*/
   }
 
+  public String calculateRenderKitId(FacesContext facesContext) {
+    return base.calculateRenderKitId(facesContext);
+/*
+    String result = facesContext.getApplication().getDefaultRenderKitId();
+    if (null == result) {
+      result = RenderKitFactory.HTML_BASIC_RENDER_KIT;
+    }
+    return result;
+*/
+  }
+
+  public UIViewRoot createView(FacesContext facesContext, String viewId) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("creating new view with viewId:        '" + viewId + "'");
+    }
+/*
+    UIViewRoot root = new UIViewRoot();
+    root.setViewId(viewId);
+    ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
+    root.setLocale(viewHandler.calculateLocale(facesContext));
+    root.setRenderKitId(viewHandler.calculateRenderKitId(facesContext));
+*/
+    UIViewRoot root = base.createView(facesContext, viewId);
+
+    if (USE_VIEW_MAP) {
+      ViewMap viewMap = ensureViewMap(facesContext);
+      String pageId = viewMap.addView(root);
+      root.getAttributes().put(PAGE_ID, pageId);
+    }
+    return root;
+  }
+
+  private ViewMap ensureViewMap(FacesContext facesContext) {
+    Map sessionMap = facesContext.getExternalContext().getSessionMap();
+    ViewMap viewMap = (ViewMap) sessionMap.get(VIEW_MAP_IN_SESSION);
+    if (viewMap == null) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Creting new view Map");
+      }
+      viewMap = new ViewMap();
+      sessionMap.put(VIEW_MAP_IN_SESSION, viewMap);
+    } else {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug(viewMap);
+      }
+    }
+    return viewMap;
+  }
+
+  public String getActionURL(FacesContext facesContext, String viewId) {
+    return base.getActionURL(facesContext, viewId);
+/*
+    ServletContext servletContext
+        = (ServletContext) facesContext.getExternalContext().getContext();
+    TobagoServletMapping tobagoServletMapping
+        = (
+        (TobagoServletMapping) (
+        servletContext.getAttribute(
+            TobagoServletMapping.TOBAGO_SERVLET_MAPPING)));
+    String contextPath = facesContext.getExternalContext().getRequestContextPath();
+    String urlPrefix = tobagoServletMapping.getUrlPrefix() + viewId;
+    HttpServletResponse response
+        = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+    return response.encodeURL(contextPath + urlPrefix);
+*/
+  }
+
+  public String getResourceURL(FacesContext facesContext, String path) {
+    return base.getResourceURL(facesContext, path);
+/*
+    if (path.startsWith("/")) {
+      return facesContext.getExternalContext().getRequestContextPath() + path;
+    } else {
+      return path;
+    }
+*/
+  }
+
+/*
   private Locale findLocaleInApplication(FacesContext facesContext,
       Locale prefered) {
     Locale result = null;
@@ -174,10 +205,10 @@ public class ViewHandlerImpl extends ViewHandler {
     }
     return result;
   }
+*/
 
   public void renderView(FacesContext facesContext, UIViewRoot viewRoot)
       throws IOException, FacesException {
-
     String requestUri = viewRoot.getViewId();
 
 //    requestUri = remap(facesContext, requestUri);
@@ -187,10 +218,10 @@ public class ViewHandlerImpl extends ViewHandler {
       LOG.debug("contentType = '" + contentType + "'");
     }
     try {
-     
       if (contentType.indexOf("fo") == -1) {
         // standard
-        facesContext.getExternalContext().dispatch(requestUri);
+        base.renderView(facesContext, viewRoot);
+//        facesContext.getExternalContext().dispatch(requestUri);
       } else {
         if (facesContext.getExternalContext().getResponse() instanceof TobagoResponse) {
           ((TobagoResponse) facesContext.getExternalContext().getResponse()).setBuffering();
@@ -213,9 +244,7 @@ public class ViewHandlerImpl extends ViewHandler {
             LOG.debug("fo buffer: " + buffer);
           }
           FopConverter.fo2Pdf(servletResponse, buffer);
-
         }
-        
       }
     } catch (Exception e) {
 //      if (contentType.indexOf("fo") > -1) {
@@ -233,41 +262,14 @@ public class ViewHandlerImpl extends ViewHandler {
     }
   }
 
-
-
-  public void writeState(FacesContext facesContext) throws IOException {
-    LOG.error("not implemented yet!"); // fixme jsfbeta
-  }
-
-  private ViewMap ensureViewMap(FacesContext facesContext) {
-    HttpSession session
-        = (HttpSession) facesContext.getExternalContext().getSession(true);
-    ViewMap viewMap = (ViewMap) session.getAttribute(
-        TobagoConstants.VIEWS_IN_SESSION);
-    if (viewMap == null) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("Creting new view Map");
-      }
-      viewMap = new ViewMap();
-      session.setAttribute(TobagoConstants.VIEWS_IN_SESSION, viewMap);
-    } else {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug(viewMap);
-      }
-    }
-    return viewMap;
-  }
-
   public UIViewRoot restoreView(FacesContext facesContext, String viewId) {
-
-    handleEncoding(facesContext);
-    UIViewRoot viewRoot = null;
-
     if (USE_VIEW_MAP) {
+      handleEncoding(facesContext);
+      UIViewRoot viewRoot = null;
+
       ViewMap viewMap = ensureViewMap(facesContext);
-      ServletRequest request
-          = (ServletRequest) facesContext.getExternalContext().getRequest();
-      String pageId = request.getParameter(PAGE_ID);
+      String pageId = (String) facesContext
+          .getExternalContext().getRequestParameterMap().get(PAGE_ID);
       if (LOG.isDebugEnabled()) {
         LOG.debug("pageId = '" + pageId + "'");
       }
@@ -279,7 +281,6 @@ public class ViewHandlerImpl extends ViewHandler {
       }
 
       if (viewRoot != null) {
-
         if (viewId.equals(viewRoot.getViewId())) {
           if (LOG.isDebugEnabled()) {
             LOG.debug("found old view with matching viewId:  '" + viewId + "'");
@@ -292,8 +293,11 @@ public class ViewHandlerImpl extends ViewHandler {
           viewRoot = null;
         }
       }
+      return viewRoot;
     } else {
+      return base.restoreView(facesContext, viewId);
       // this is necessary to allow decorated impls.
+/*
       ViewHandler outerViewHandler
           = facesContext.getApplication().getViewHandler();
       String renderKitId
@@ -301,9 +305,8 @@ public class ViewHandlerImpl extends ViewHandler {
       StateManager stateManager
           = facesContext.getApplication().getStateManager();
       viewRoot = stateManager.restoreView(facesContext, viewId, renderKitId);
+*/
     }
-
-    return viewRoot;
   }
 
   private void handleEncoding(FacesContext facesContext) {
@@ -326,8 +329,14 @@ public class ViewHandlerImpl extends ViewHandler {
     }
   }
 
-  public static class ViewMap implements Serializable {
+  public void writeState(FacesContext facesContext) throws IOException {
+    base.writeState(facesContext);
+//    LOG.error("not implemented yet!"); // fixme jsfbeta
+  }
 
+// -------------------------------------------------------------- inner classes
+
+  public static class ViewMap implements Serializable {
     private Map map;
     private int nextId;
 
@@ -355,6 +364,6 @@ public class ViewHandlerImpl extends ViewHandler {
       map.put(pageId, viewRoot);
       return pageId;
     }
-
   }
 }
+

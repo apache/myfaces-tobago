@@ -130,10 +130,6 @@ public interface TobagoConstants {
   public static final String FACET_MENUPOPUP = "menupopup";
   public static final String FACET_RADIO = "radio";
 
-  public static final String VIEWS_IN_SESSION = "com.atanion.tobago.application.UIViewRoot";
-
-  public static final String ACTION_LISTENER = "com.atanion.tobago.ActionListener";
-
   // Command types
   public static final String COMMAND_TYPE_SUBMIT = "submit";
   public static final String COMMAND_TYPE_RESET = "reset";

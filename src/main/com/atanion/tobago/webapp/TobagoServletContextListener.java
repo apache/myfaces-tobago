@@ -55,10 +55,7 @@ public class TobagoServletContextListener implements ServletContextListener {
         }
       }
 
-      // servlet mapping
       ServletContext servletContext = event.getServletContext();
-      TobagoServletMapping mapping = new TobagoServletMapping(servletContext);
-      servletContext.setAttribute(TobagoServletMapping.TOBAGO_SERVLET_MAPPING, mapping);
 
       // tobago-config.xml
       TobagoConfig tobagoConfig = new TobagoConfig();
@@ -90,7 +87,6 @@ public class TobagoServletContextListener implements ServletContextListener {
 
     ServletContext servletContext = event.getServletContext();
 
-    servletContext.removeAttribute(TobagoServletMapping.TOBAGO_SERVLET_MAPPING);
     servletContext.removeAttribute(TobagoConfig.TOBAGO_CONFIG);
     servletContext.removeAttribute(ResourceManager.RESOURCE_MANAGER);
     servletContext.removeAttribute(ThemeConfig.THEME_CONFIG_CACHE);
