@@ -130,7 +130,7 @@ public class TobagoResponseWriter extends ResponseWriter {
   }
 
   public void endDocument() throws IOException {
-    close();
+    // nothing to do
   }
 
   public String getContentType() {
