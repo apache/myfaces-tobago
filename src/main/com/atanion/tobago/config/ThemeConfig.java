@@ -12,6 +12,7 @@ import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.renderkit.TobagoRenderKit;
 import com.atanion.util.SystemUtils;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -43,8 +44,8 @@ public class ThemeConfig {
     } else {
       rendererType = "DEFAULT";
     }
-    String clientProperties = facesContext.getViewRoot().getAttributes().get(
-        TobagoConstants.ATTR_CLIENT_PROPERTIES).toString();
+    String clientProperties = ((ClientProperties)facesContext.getViewRoot()
+        .getAttributes().get(TobagoConstants.ATTR_CLIENT_PROPERTIES)).getId();
     String mapKey = clientProperties + "/"
         + rendererType + "/" + name;
     Map cache = (Map) facesContext.getExternalContext()
