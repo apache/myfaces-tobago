@@ -13,6 +13,7 @@ import com.atanion.tobago.renderkit.html.HtmlDefaultLayoutManager;
 import com.atanion.tobago.util.LayoutUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
@@ -255,7 +256,7 @@ public abstract class RendererBase
       tobagoClass += "tobago-" + rendererName + "-error ";
     }
     String markup = ComponentUtil.getStringAttribute(component, ATTR_MARKUP);
-    if (markup != null) {
+    if (StringUtils.isNotEmpty(markup)) {
       if (markup.equals("strong") || markup.equals("deleted")) {
         tobagoClass += "tobago-" + rendererName + "-markup-" + markup + " ";
       } else {
