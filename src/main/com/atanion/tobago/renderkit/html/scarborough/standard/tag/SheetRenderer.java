@@ -928,7 +928,9 @@ public class SheetRenderer extends RendererBase {
 
       if (aobj[0] instanceof ActionEvent) {
         UICommand command = (UICommand) ((ActionEvent) aobj[0]).getSource();
-        LOG.info("sorterId = " + command.getId());
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("sorterId = " + command.getId());
+        }
 
         Object value = data.getValue();
         if (value instanceof DataModel) {
