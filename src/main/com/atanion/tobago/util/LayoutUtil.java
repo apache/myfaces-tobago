@@ -203,24 +203,20 @@ public class LayoutUtil {
         TobagoConstants.ATTR_LAYOUT_HEIGHT);
   }
 
-  public static String getLayoutSpace(UIComponent component, String attribute,
-      String layoutAttribute) {
-    String width = (String) component.getAttributes().get(attribute);
-    if (width == null) {
-      width = (String) component.getAttributes().get(layoutAttribute);
+  public static String getLayoutSpace(UIComponent component,
+      String sizeAttribute, String layoutAttribute) {
+    Object value = ComponentUtil.getAttribute(component, sizeAttribute);
+    if (value != null) {
+      if (value instanceof String) {
+        return (String) value;
+      } else {
+        return value.toString();
+      }
+    } else {
+      value = ComponentUtil.getAttribute(component, layoutAttribute);
+      return (String) value;
     }
-    // fixme:
-// no longer needed
-//    if (width == null) {
-//      UIComponent parent = LayoutUtil.getNonTransparentParent(component);
-//      if (parent instanceof UIOutput
-//          && parent.getRendererType().equals("Include")) {
-//        width = (String) parent.getAttributes().get(layoutAttribute);
-//      }
-//    }
-    return width;
   }
-
 
   public static Vector addChildren(Vector children, UIComponent panel) {
     for (Iterator iter = panel.getChildren().iterator(); iter.hasNext();) {
