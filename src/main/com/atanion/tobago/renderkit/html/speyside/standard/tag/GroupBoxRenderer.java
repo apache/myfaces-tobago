@@ -39,93 +39,34 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
 
 
   public void encodeDirectEnd(FacesContext facesContext,
-      UIComponent component) throws IOException {
+                              UIComponent component) throws IOException {
+    ResponseWriter writer = facesContext.getResponseWriter();
 
+    writer.startElement("div", component);
+    writer.writeAttribute("class", "tobago-groupbox-shadow", null);
+
+    writer.startElement("div", component);
+    writer.writeAttribute("class", "tobago-groupbox", null);
+
+    writer.startElement("div", component);
+    writer.writeAttribute("class", "tobago-groupbox-title", null);
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
     String labelString
         = (String) component.getAttributes().get(TobagoConstants.ATTR_LABEL);
-
-    String image = TobagoResource.getImage(facesContext, "1x1.gif");
-
-    ResponseWriter writer = facesContext.getResponseWriter();
-
-    writer.startElement("table", component);
-    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_HEADER);
-    writer.writeAttribute("cellpadding", "0", null);
-    writer.writeAttribute("cellspacing", "0", null);
-    writer.writeAttribute("border", "0", null);
-    writer.writeAttribute("summary", "", null);
-
-    writer.startElement("tr", null);
-    writer.startElement("td", null);
-    String classLeft = HtmlUtils.appendAttribute(
-        component, TobagoConstants.ATTR_STYLE_CLASS, "tobago-groupbox-head-td-left");
-    writer.writeAttribute("class", classLeft, null);
-
-    writer.writeText("", null);
-    if (label != null || labelString != null) {
-      if (label != null) {
-        RenderUtil.encode(facesContext, label);
-      } else {
-        writer.writeText(labelString, null);
-      }
-    } else {
-      writer.startElement("img", null);
-      writer.writeAttribute("border", "0", null);
-      writer.writeAttribute("src", image, null);
-      writer.endElement("img");
+    if (label != null) {
+      RenderUtil.encode(facesContext, label);
+    } else if (labelString != null) {
+      writer.writeText(labelString, null);
     }
-
-    writer.endElement("td");
-    writer.startElement("td", null);
-    String classRight = HtmlUtils.appendAttribute(
-        component, TobagoConstants.ATTR_STYLE_CLASS, "tobago-groupbox-head-td-right");
-    writer.writeAttribute("class", classRight, null);
-
-    writer.startElement("img", null);
-    writer.writeAttribute("border", "0", null);
-    writer.writeAttribute("src", image, null);
-    writer.endElement("img");
-
-    writer.endElement("td");
-    writer.endElement("tr");
-    writer.endElement("table");
-
-    writer.startElement("table", component);
-    writer.writeAttribute("class", "tobago-groupbox-body-td-border", null);
-    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_BODY);
-    writer.writeAttribute("cellpadding", "0", null);
-    writer.writeAttribute("cellspacing", "0", null);
-    writer.writeAttribute("border", "0", null);
-    writer.writeAttribute("summary", "", null);
-
-    writer.startElement("tr", null);
-    writer.startElement("td", null);
-        String classBody = HtmlUtils.appendAttribute(
-        component, TobagoConstants.ATTR_STYLE_CLASS, "tobago-groupbox-body-td");
-    writer.writeAttribute("class", classBody, null);
-    writer.writeAttribute("valign", "top", null);
+    writer.endElement("div");
 
     writer.startElement("div", component);
-    String innerStyle
-        = (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE_INNER);
-    if (innerStyle.indexOf("height:") == -1) {
-      String classDiv = HtmlUtils.appendAttribute(
-          component, TobagoConstants.ATTR_STYLE_CLASS, "tobago-groupbox-no-height");
-      writer.writeAttribute("class", classDiv, null);
-    }
-    else {
-      writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
-    }
-    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_INNER);
-
-    writer.writeText("", null);
+    writer.writeAttribute("class", "tobago-groupbox-content", null);
     RenderUtil.encodeChildren(facesContext, (UIPanel) component);
+    writer.endElement("div");
 
     writer.endElement("div");
-    writer.endElement("td");
-    writer.endElement("tr");
-    writer.endElement("table");
+    writer.endElement("div");
   }
 
   public void encodeChildren(FacesContext facesContext, UIComponent component)

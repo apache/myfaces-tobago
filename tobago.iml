@@ -107,11 +107,22 @@
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/jsf-api-1.1.jar!/" />
         </CLASSES>
-        <JAVADOC />
+        <JAVADOC>
+          <root url="file://C:/jsf-1_1/jsf-1_1/javadocs" />
+        </JAVADOC>
         <SOURCES />
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="atanion-commons" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jsf-api-1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntryProperties />
   </component>
 </module>

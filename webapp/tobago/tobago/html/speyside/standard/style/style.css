@@ -197,6 +197,37 @@ reason they are not defined as a:link
 
 /* groupbox ----------------------------------------------------------------- */
 
+.tobago-groupbox-shadow {
+  margin: 10px;
+  background-color: #B4B4B4;
+  position: relative;
+  top: 1px;
+  left: 1px;
+}
+
+.tobago-groupbox {
+  border: 1px solid black;
+  position: relative;
+  top: -1px;
+  left: -1px;
+}
+
+.tobago-groupbox-title {
+  border-bottom: 1px dotted black;
+  font: bold 12px arial, helvetica, sans-serif;
+  background: #E8E8E8 url(../image/groupbox-header-bg.gif) repeat-x top;
+  color: #660000;
+  padding-left: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.tobago-groupbox-content {
+  background-color: #FAFAFA;
+  padding: 5px;
+  position: relative;
+}
+
 .tobago-groupbox-body-td-border  {
   border: 1px solid #660000;
   padding: 0px;
@@ -238,7 +269,7 @@ label.tobago-label-default  {
 }
 
 .tobago-label-td  {
-  background: #c0c0c0;
+  background: #E8E8E8; /*#c0c0c0; */
   border: 0px solid transparent;
  /* border-bottom: 0px solid #E2E2E2;*/ /*workaround in mozilla style!*/
   vertical-align: top;
@@ -248,7 +279,7 @@ label.tobago-label-default  {
 }
 
 .tobago-label-td-underline-label {
-  background: #c0c0c0;
+  background: #E8E8E8; /*#c0c0c0;*/
   height: 1px;
 }
 
@@ -257,7 +288,7 @@ label.tobago-label-default  {
   height: 1px;
 }
 
-.tobago-label-disabled  {
+label.tobago-label-disabled  {
   color: #808080;
 }
 
@@ -290,6 +321,11 @@ label.tobago-label-default  {
   font: 12px arial, helvetica, sans-serif;
 }
 
+/* text -------------------------------------------------------------------- */
+.tobago-text-default  {
+ font: 12px arial, helvetica, sans-serif;
+}
+
 /* textarea ---------------------------------------------------------------- */
 
 .tobago-textarea-default  {
@@ -303,12 +339,12 @@ label.tobago-label-default  {
 }
 
 .tobago-textarea-readonly  {
-  background-color: #c0c0c0;
+  background-color: #E8E8E8;
 }
 
 .tobago-textarea-disabled  {
   color: #808080;
-  background-color: #c0c0c0;
+  background-color: #E8E8E8;
 }
 
 .tobago-textarea-error  {
@@ -327,12 +363,12 @@ label.tobago-label-default  {
 }
 
 .tobago-textbox-readonly  {
-  background-color: #c0c0c0;
+  background-color: #E8E8E8;
 }
 
 .tobago-textbox-disabled  {
   color: #808080;
-  background-color: #c0c0c0;
+  background-color: #E8E8E8;
 }
 
 .tobago-textbox-error {
