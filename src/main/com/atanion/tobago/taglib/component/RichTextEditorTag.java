@@ -10,7 +10,7 @@ import com.atanion.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 
-public class RichTextEditorTag extends TextBoxTag{
+public class RichTextEditorTag extends InTag{
 
 // ///////////////////////////////////////////// constant
 

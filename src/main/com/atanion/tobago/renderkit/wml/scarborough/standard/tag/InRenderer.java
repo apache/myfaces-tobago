@@ -11,12 +11,15 @@ import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 import java.io.IOException;
 
-public class TextBoxRenderer extends RendererBase {
+public class InRenderer extends RendererBase {
+// ----------------------------------------------------------------- interfaces
+
+
+// ---------------------------- interface TobagoRenderer
 
   public void encodeEndTobago(FacesContext facesContext, UIComponent component)
       throws IOException {
     // todo
-    
   }
 }
 

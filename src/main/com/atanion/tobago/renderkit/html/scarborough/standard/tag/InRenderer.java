@@ -7,7 +7,7 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.TextBoxRendererBase;
+import com.atanion.tobago.renderkit.InRendererBase;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
@@ -19,32 +19,11 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class TextBoxRenderer extends TextBoxRendererBase{
+public class InRenderer extends InRendererBase{
+// ----------------------------------------------------------------- interfaces
 
-// ///////////////////////////////////////////// constant
 
-  private static final Log LOG = LogFactory.getLog(TextBoxRenderer.class);
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
-
-  public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
-    int space = 0;
-    if (component.getFacet(TobagoConstants.FACET_LABEL) != null
-      || component.getAttributes().get(TobagoConstants.ATTR_LABEL) != null) {
-      int labelWidth = LayoutUtil.getLabelWidth(component);
-      space += labelWidth != 0 ? labelWidth : getLabelWidth(facesContext, component);
-    }
-    if (component.getFacet("picker") != null) {
-      int pickerWidth = getConfiguredValue(facesContext, component, "pickerWidth");
-
-      space += pickerWidth;
-    }
-    return space;
-  }
+// ---------------------------- interface TobagoRenderer
 
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component)
@@ -90,7 +69,21 @@ public class TextBoxRenderer extends TextBoxRendererBase{
     HtmlRendererUtil.renderFocusId(facesContext, component);
   }
 
-// ///////////////////////////////////////////// bean getter + setter
+// ----------------------------------------------------------- business methods
 
+  public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
+    int space = 0;
+    if (component.getFacet(TobagoConstants.FACET_LABEL) != null
+      || component.getAttributes().get(TobagoConstants.ATTR_LABEL) != null) {
+      int labelWidth = LayoutUtil.getLabelWidth(component);
+      space += labelWidth != 0 ? labelWidth : getLabelWidth(facesContext, component);
+    }
+    if (component.getFacet("picker") != null) {
+      int pickerWidth = getConfiguredValue(facesContext, component, "pickerWidth");
+
+      space += pickerWidth;
+    }
+    return space;
+  }
 }
 

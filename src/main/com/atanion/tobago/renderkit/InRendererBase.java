@@ -22,17 +22,12 @@ import javax.faces.convert.DateTimeConverter;
 import java.io.IOException;
 import java.util.Iterator;
 
-public class TextBoxRendererBase extends InputRendererBase {
+public class InRendererBase extends InputRendererBase {
+// ------------------------------------------------------------------ constants
 
-// ///////////////////////////////////////////// constant
+  private static final Log LOG = LogFactory.getLog(InRendererBase.class);
 
-  private static final Log LOG = LogFactory.getLog(TextBoxRendererBase.class);
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
+// ----------------------------------------------------------- business methods
 
   protected void renderMain(FacesContext facesContext, UIInput input,
       TobagoResponseWriter writer) throws IOException {
@@ -88,7 +83,6 @@ public class TextBoxRendererBase extends InputRendererBase {
         String pattern
             = ((DateTimeConverter) converter).getPattern();
         if (pattern != null) {
-
           writer.startElement("input", input);
           writer.writeAttribute("type", "hidden", null);
           writer.writeAttribute("id", id + ":converterPattern", null);
@@ -113,6 +107,5 @@ public class TextBoxRendererBase extends InputRendererBase {
     }
   }
 
-// ///////////////////////////////////////////// bean getter + setter
-
 }
+

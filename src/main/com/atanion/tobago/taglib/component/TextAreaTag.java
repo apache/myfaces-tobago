@@ -10,7 +10,7 @@ import com.atanion.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 
-public class TextAreaTag extends TextBoxTag {
+public class TextAreaTag extends InTag {
 // ----------------------------------------------------------------- attributes
 
   private String rows;

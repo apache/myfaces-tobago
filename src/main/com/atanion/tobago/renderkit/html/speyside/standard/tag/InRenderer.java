@@ -9,7 +9,7 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.TextBoxRendererBase;
+import com.atanion.tobago.renderkit.InRendererBase;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
@@ -19,35 +19,14 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class TextBoxRenderer extends TextBoxRendererBase {
+public class InRenderer extends InRendererBase {
+// ----------------------------------------------------------------- interfaces
 
-// ///////////////////////////////////////////// constant
 
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
-
-  public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
-    int space = 0;
-
-    if (component.getFacet(TobagoConstants.FACET_LABEL) != null) {
-      int labelWidht = LayoutUtil.getLabelWidth(component);
-      space += labelWidht != 0 ? labelWidht : getLabelWidth(facesContext, component);
-      space += getConfiguredValue(facesContext, component, "labelSpace");
-    }
-    if (component.getFacet("picker") != null) {
-      int pickerWidth = getConfiguredValue(facesContext, component, "pickerWidth");
-      space += pickerWidth;
-    }
-
-    return space;
-  }
+// ---------------------------- interface TobagoRenderer
 
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
-
     UIInput input = (UIInput) component;
     TobagoResponseWriter writer = (TobagoResponseWriter)
         facesContext.getResponseWriter();
@@ -124,7 +103,22 @@ public class TextBoxRenderer extends TextBoxRendererBase {
     HtmlRendererUtil.renderFocusId(facesContext, component);
   }
 
-// ///////////////////////////////////////////// bean getter + setter
+// ----------------------------------------------------------- business methods
 
+  public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
+    int space = 0;
+
+    if (component.getFacet(TobagoConstants.FACET_LABEL) != null) {
+      int labelWidht = LayoutUtil.getLabelWidth(component);
+      space += labelWidht != 0 ? labelWidht : getLabelWidth(facesContext, component);
+      space += getConfiguredValue(facesContext, component, "labelSpace");
+    }
+    if (component.getFacet("picker") != null) {
+      int pickerWidth = getConfiguredValue(facesContext, component, "pickerWidth");
+      space += pickerWidth;
+    }
+
+    return space;
+  }
 }
 

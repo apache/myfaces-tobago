@@ -4,16 +4,13 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.LayoutManager;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.render.Renderer;
 import java.io.IOException;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
@@ -21,8 +18,12 @@ import org.apache.commons.logging.LogFactory;
  * User: bommel
  * $Id$
  */
-public class TextBoxRenderer extends InputRendererBase {
-  private static final Log LOG = LogFactory.getLog(TextBoxRenderer.class);
+public class InRenderer extends InputRendererBase {
+// ------------------------------------------------------------------ constants
+
+  private static final Log LOG = LogFactory.getLog(InRenderer.class);
+
+// ----------------------------------------------------------- business methods
 
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
@@ -45,9 +46,6 @@ public class TextBoxRenderer extends InputRendererBase {
     }
   }
 
-  public boolean getRendersChildren() {
-    return false;
-  }
   public void encodeEndTobago(FacesContext facesContext,
         UIComponent component) throws IOException {
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
@@ -82,9 +80,10 @@ public class TextBoxRenderer extends InputRendererBase {
     if (!Layout.isInLayout(component)) {
       layout.addMargin(200, 0, 0, 0);
     }
-
-
     }
 
-
+  public boolean getRendersChildren() {
+    return false;
+  }
 }
+

@@ -11,7 +11,7 @@ import com.atanion.tobago.component.UIInput;
 
 import javax.faces.component.UIComponent;
 
-public class TextBoxTag extends InputTag {
+public class InTag extends InputTag {
 // ----------------------------------------------------------------- attributes
 
   private String password;

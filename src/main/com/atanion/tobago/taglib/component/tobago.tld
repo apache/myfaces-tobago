@@ -131,8 +131,8 @@
   </tag>
 
   <tag>
-    <name>textbox</name>
-    <tag-class>com.atanion.tobago.taglib.component.TextBoxTag</tag-class>
+    <name>in</name>
+    <tag-class>com.atanion.tobago.taglib.component.InTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>value</name>
