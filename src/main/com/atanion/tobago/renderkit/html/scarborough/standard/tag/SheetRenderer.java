@@ -10,8 +10,8 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIData;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.TobagoResource;
-import com.atanion.tobago.model.SortableByApplication;
 import com.atanion.tobago.model.SheetState;
+import com.atanion.tobago.model.SortableByApplication;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
@@ -19,7 +19,6 @@ import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.util.LayoutInfo;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.util.BeanComparator;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -135,12 +134,8 @@ public class SheetRenderer extends RendererBase
     }
     else {
 
-      String columnLayout = null;
-
-      if (columnLayout == null) {
-        columnLayout = (String) attributes.get(
+      String columnLayout = (String) attributes.get(
             TobagoConstants.ATTR_COLUMN_LAYOUT);
-      }
 
       if (columnLayout != null) {
         widthList = (List) attributes.get(TobagoConstants.ATTR_WIDTH_LIST);
@@ -802,7 +797,7 @@ public class SheetRenderer extends RendererBase
             || value instanceof List
             || value instanceof Object[]) {
 
-          String sortProperty = null;
+          String sortProperty;
 
           if (command.getId() != null && command.getId().startsWith(ID_PREFIX)) {
             UIColumn uiColumn = null;
