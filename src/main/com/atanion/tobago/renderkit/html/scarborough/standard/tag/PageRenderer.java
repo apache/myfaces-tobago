@@ -198,7 +198,6 @@ public class PageRenderer extends PageRendererBase
     scriptFiles.add(0, "tobago.js", true);
     for (Iterator i = scriptFiles.iterator(); i.hasNext();) {
       Object o = i.next();
-      LOG.info("object ist " + o + "  " + o.getClass().getName());
       TobagoResourceSet.Resource script = (TobagoResourceSet.Resource) o;
       addScripts(writer, facesContext, script);
     }
