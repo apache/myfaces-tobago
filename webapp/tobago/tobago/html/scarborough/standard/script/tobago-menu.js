@@ -1,4 +1,5 @@
 // menu.js
+// $Id$
 
 function initMenuPopUp(divId, pageId, type) {
   initMenuComponents(divId, pageId, type)
