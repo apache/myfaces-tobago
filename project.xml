@@ -32,7 +32,7 @@
 
     <dependency>
       <id>commons-beanutils</id>
-      <version>1.6.1</version>
+      <version>1.7.0</version>
     </dependency>
 
     <dependency>
@@ -42,7 +42,7 @@
 
     <dependency>
       <id>commons-digester</id>
-      <version>1.5</version>
+      <version>1.6</version>
     </dependency>
 
     <dependency>
@@ -57,7 +57,7 @@
 
     <dependency>
       <id>commons-logging</id>
-      <version>1.0.3</version>
+      <version>1.0.4</version>
     </dependency>
 
     <dependency>
