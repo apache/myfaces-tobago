@@ -55,7 +55,7 @@ public class DefaultTreeActionListener implements ActionListener {
     TreeState treeState = (TreeState) tree.getValue();
     DefaultMutableTreeNode marker = treeState.getMarker();
     String command = (String) actionEvent.getComponent().getAttributes().get(
-        TobagoConstants.ATTR_ACTION);
+        TobagoConstants.ATTR_ACTION_STRING);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("marker      " + marker);
