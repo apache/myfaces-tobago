@@ -112,6 +112,10 @@ public class MenubarRenderer extends RendererBase {
     sb.append("    var menu = createMenuRoot(id);\n");
     sb.append("    menubar.menu = menu;\n");
 
+    sb.append("    menu.setSubitemArrowImage(\"");
+    sb.append(ResourceManagerUtil.getImage(facesContext, "MenuArrow.gif"));
+    sb.append("\");\n");
+
     if (ComponentUtil.getBooleanAttribute(component, ATTR_MENU_POPUP)) {
       addMenu(sb, "menu", facesContext, (UIPanel) component, 0);
       sb.append("    initMenuPopUp(id, pageId, \"");
@@ -222,7 +226,7 @@ public class MenubarRenderer extends RendererBase {
 
     if (! topMenu) {
       // uiPanel is a submenu
-      addSubItemMarker(writer, facesContext);
+//      addSubItemMarker(writer, facesContext);
     }
 
 
@@ -426,11 +430,11 @@ public class MenubarRenderer extends RendererBase {
     if (label.getAccessKey() != null) {
       writer.writeAttribute("accesskey", label.getAccessKey(), null);
     }
+    writer.writeAttribute("href", "#", null);
     writer.writeAttribute("onfocus", "tobagoMenuFocus(event)", null);
     writer.writeAttribute("onblur", "tobagoMenuBlur(event)", null);
     writer.writeAttribute("onkeydown", "tobagoMenuKeyDown(event)", null);
     writer.writeAttribute("onkeypress", "tobagoMenuKeyPress(event)", null);
-    writer.writeAttribute("href", "#", null);
     if (label.getText() != null) {
       RenderUtil.writeLabelWithAccessKey(writer, label);
     }

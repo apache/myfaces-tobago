@@ -155,7 +155,7 @@ function MenuItem(label, action, disabled) {
 
   this.onMouseOut = function(clicked) {
     this.mouseOver = false;
-    PrintDebug("onMouseOut " + this.id + " clicked = " + clicked);
+    //PrintDebug("onMouseOut " + this.id + " clicked = " + clicked);
     clearTimeout(this.hoverTimer);
     if (clicked) {
       //this.blurLabelTag();
@@ -168,11 +168,11 @@ function MenuItem(label, action, disabled) {
   }
 
   this.onFocus = function() {
-    PrintDebug("onFocus " + this.id + " level :" + this.level);
-    PrintDebug("element   width=" + this.htmlElement.style.width);
-    if (this.parent && this.parent.subItemContainer) {
-    PrintDebug("container width=" + this.parent.subItemContainer.style.width);
-    }
+    //PrintDebug("onFocus " + this.id + " level :" + this.level);
+    //PrintDebug("element   width=" + this.htmlElement.style.width);
+    //if (this.parent && this.parent.subItemContainer) {
+      //PrintDebug("container width=" + this.parent.subItemContainer.style.width);
+    //}
     this.focus = true;
     addCssClass(this.htmlElement, "tobago-menu-item-focus");
     //if (this.level == 1) {
@@ -209,15 +209,15 @@ function MenuItem(label, action, disabled) {
 
   this.focusLabelTag = function() {
     //PrintDebug("setze Focus " + this.id);
-    var element = tobagoMenuGetLabelTag(this.htmlElement.childNodes);
+    var element = this.getLabelTag();
     if (element) {
       this.scriptFocus = true;
       element.focus();
     }
   }
   this.blurLabelTag = function() {
-    PrintDebug("entferne Focus " + this.id);
-    var element = tobagoMenuGetLabelTag(this.htmlElement.childNodes);
+    //PrintDebug("entferne Focus " + this.id);
+    var element = this.getLabelTag();
     if (element) {
       element.blur();
     }
@@ -293,7 +293,7 @@ function MenuItem(label, action, disabled) {
       }
     }
     else { // level > 2
-      var next = tobagoMenuGetLabelTag(this.parent.htmlElement.childNodes);
+      var next = this.parent.getLabelTag();
       this.parent.hover = true;
       this.parent.hideSubMenus();
       next.parentNode.menuItem.scriptFocus = true;
@@ -347,7 +347,7 @@ function MenuItem(label, action, disabled) {
     }
 
     var j = this.subItems[i].htmlElement.childNodes.length;
-    var span = tobagoMenuGetLabelTag(this.subItems[i].htmlElement.childNodes);
+    var span = this.subItems[i].getLabelTag();
     if (span) {
       this.subItems[i].hover = true;
       span.parentNode.menuItem.scriptFocus = true;
@@ -360,7 +360,7 @@ function MenuItem(label, action, disabled) {
   this.collapse = function() {
     //PrintDebug("collapse " + this.id);
     if (this.level < 2) {
-      var aTag = tobagoMenuGetLabelTag(this.htmlElement.childNodes);
+      var aTag = this.getLabelTag();
       if (aTag) {
         aTag.blur();
       }
@@ -368,7 +368,7 @@ function MenuItem(label, action, disabled) {
     }
     else if (this.level == 2
         && !(this.subItemContainer && this.isExpanded() )) {
-      var aTag = tobagoMenuGetLabelTag(this.htmlElement.childNodes);
+      var aTag = this.getLabelTag();
       if (aTag) {
         aTag.blur();
       }
@@ -380,7 +380,7 @@ function MenuItem(label, action, disabled) {
         this.hideSubMenus();
       }
       else {
-        var aTag = tobagoMenuGetLabelTag(this.parent.htmlElement.childNodes);
+        var aTag = parent.getLabelTag();
         if (aTag) {
           this.parent.hover = true;
           this.parent.hideSubMenus();
@@ -390,15 +390,38 @@ function MenuItem(label, action, disabled) {
       }
     }
   }
-
-}
-
-function tobagoMenuGetLabelTag(children) {
-  for (var k = 0; k < children.length; k++) {
-    if (children[k].className.match(/tobago-menubar-item-span/)) {
-      return children[k];
+  
+  this.getLabelTag = function() {
+    var children = this.htmlElement.childNodes;
+    for (var k = 0; k < children.length; k++) {
+      if (children[k].className.match(/tobago-menubar-item-span/)) {
+        return children[k];
+      }
     }
   }
+  
+  this.setSubitemArrowImage = function(image) {
+    this.subitemArrowImage = image;
+  }
+
+  this.getSubitemArrowImage = function() {
+    if (! this.subitemArrowImage) {
+      if (this.parent) {
+        this.subitemArrowImage = this.parent.getSubitemArrowImage()
+      }
+    }
+    return this.subitemArrowImage;
+  }
+  
+  this.addSubitemArrowImage = function() {
+    if (this.level > 1 && this.subItems && this.subItems.length > 0) {
+      var html = this.htmlElement.innerHTML;
+      html += '<img class="tobago-menu-subitem-arrow" src="';
+      html += this.getSubitemArrowImage() + '" />'
+      this.htmlElement.innerHTML = html;
+    }
+  }
+  
 }
 
 
@@ -434,14 +457,17 @@ function setItemWidth(menu) {
           var i = 0;
           var childElement = document.getElementById(childIdPrefix + i++);
           while (childElement) {
-            PrintDebug("item " + childElement.id + "  -->" + childElement.scrollWidth);
+            //PrintDebug("item " + childElement.id + "  -->" + childElement.scrollWidth) ;//+ ":::" + childElement.innerHTML);
             width = Math.max(width, childElement.scrollWidth);
             childElement = document.getElementById(childIdPrefix + i++);
           }
-          PrintDebug("das waren " + (i-1) + " items  ---> width wird " + width);
+          //PrintDebug("das waren " + (i-1) + " items  ---> width wird " + width);
           width += getMenuArrowWidth();
           menu.parent.childWidth = width;
         }
+        
+        menu.addSubitemArrowImage();
+        
         menu.htmlElement.style.width = width + "px";
 
       }
@@ -615,7 +641,7 @@ function getItemHeight(menu) {
 }
 
 function getMenuArrowWidth() {
-  return 15;
+  return 20;
 }
 
 function getPopupMenuWidth() {
