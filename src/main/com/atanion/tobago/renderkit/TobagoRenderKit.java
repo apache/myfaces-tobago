@@ -57,7 +57,7 @@ public class TobagoRenderKit extends RenderKit {
     }
     FacesContext facesContext = FacesContext.getCurrentInstance();
     String clientProperties = ClientProperties.getInstance(
-        facesContext.getViewRoot()).toString();
+        facesContext.getViewRoot()).getId();
     ResourceManager resources
         = ResourceManagerUtil.getResourceManager(facesContext);
     Renderer renderer = resources.getRenderer(clientProperties, type);
@@ -74,11 +74,15 @@ public class TobagoRenderKit extends RenderKit {
     String contentType;
     if (contentTypeList == null) {
       contentType = "text/html";
-    } else if (contentTypeList.indexOf("text/html") == -1) {
+    } else if (contentTypeList.indexOf("text/html") > -1) {
+      contentType = "text/html";
+      LOG.warn("patching content type from " +contentTypeList + " to " + contentType+"'");
+    } else if (contentTypeList.indexOf("text/fo") > -1) {
+      contentType = "text/fo";
+      LOG.warn("patching content type from " +contentTypeList + " to " + contentType+"'");
+    } else {
       throw new IllegalArgumentException("Content-Type '" + contentTypeList
           + "' not supported!");
-    } else {
-      contentType = "text/html";
     }
 
     return new TobagoResponseWriter(writer, contentType, characterEncoding);

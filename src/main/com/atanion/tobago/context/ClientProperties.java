@@ -176,7 +176,7 @@ public class ClientProperties {
     return locales;
   }
 
-  public String toString() {
+  public String getId() {
     StringBuffer buffer = new StringBuffer();
     buffer.append(getContentType());
     buffer.append('/');

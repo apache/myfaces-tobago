@@ -21,6 +21,16 @@
     </dependency>
 
     <dependency>
+      <id>avalon-framework</id>
+      <version>cvs-20020806</version>
+    </dependency>
+
+    <dependency>
+      <id>batik</id>
+      <version>fop-0.20.5</version>
+    </dependency>
+
+    <dependency>
       <id>commons-beanutils</id>
       <version>1.6.1</version>
     </dependency>
@@ -48,6 +58,11 @@
     <dependency>
       <id>commons-logging</id>
       <version>1.0.3</version>
+    </dependency>
+
+    <dependency>
+      <id>fop</id>
+      <version>0.20.5</version>
     </dependency>
 
     <dependency>

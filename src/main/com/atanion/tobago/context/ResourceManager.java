@@ -416,11 +416,11 @@ public class ResourceManager {
       String bundle, String propertyKey) {
     final String type = "property";
     String result;
-    String key = key(clientProperties.toString(), type, bundle, propertyKey);
+    String key = key(clientProperties.getId(), type, bundle, propertyKey);
     if ((result = (String) cache.get(key)) != null) {
       return result;
     }
-    List properties = getPaths(clientProperties.toString(), resourceDirectories, "", type, bundle,
+    List properties = getPaths(clientProperties.getId(), resourceDirectories, "", type, bundle,
         "", false, true, false, propertyKey, true, true);
     if (properties != null) {
       result = (String) properties.get(0);

@@ -60,7 +60,8 @@ public class ClientConfigController {
 
     contentTypeItems = new SelectItem[]{
       new SelectItem("html"),
-      new SelectItem("wml")
+      new SelectItem("wml", "wml (experimental)"),
+      new SelectItem("fo", "fo (experimental)")
     };
 
     // load
