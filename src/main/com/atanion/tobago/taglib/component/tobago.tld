@@ -187,8 +187,6 @@
     </attribute>
     <attribute>
       <name>rendered</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
       <name>label</name>
@@ -659,6 +657,9 @@
       <name>inline</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>rendered</name>
     </attribute>
   </tag>
 
@@ -1448,6 +1449,9 @@
       <name>width</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>rendered</name>
     </attribute>
   </tag>
 
