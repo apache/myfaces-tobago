@@ -13,18 +13,19 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.FacesException;
-import javax.faces.render.RenderKitFactory;
+import javax.faces.application.StateManager;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
+import javax.faces.render.RenderKitFactory;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
@@ -37,6 +38,10 @@ public class ViewHandlerImpl extends ViewHandler {
   private static final Log LOG = LogFactory.getLog(ViewHandlerImpl.class);
 
   public static final String PAGE_ID = "tobago::page-id";
+
+  // fixme: only for testing...
+//  public static final boolean USE_VIEW_MAP = false;
+  public static final boolean USE_VIEW_MAP = true;
 
 // ///////////////////////////////////////////// attribute
 
@@ -75,9 +80,11 @@ public class ViewHandlerImpl extends ViewHandler {
     root.setViewId(viewId);
     root.setLocale(calculateLocale(facesContext));
     root.setRenderKitId(calculateRenderKitId(facesContext));
-    ViewMap viewMap = ensureViewMap(facesContext);
-    String pageId = viewMap.addView(root);
-    root.getAttributes().put(PAGE_ID, pageId);
+    if (USE_VIEW_MAP) {
+      ViewMap viewMap = ensureViewMap(facesContext);
+      String pageId = viewMap.addView(root);
+      root.getAttributes().put(PAGE_ID, pageId);
+    }
     return root;
   }
 
@@ -201,37 +208,48 @@ public class ViewHandlerImpl extends ViewHandler {
   public UIViewRoot restoreView(FacesContext facesContext, String viewId) {
 
     handleEncoding(facesContext);
-
-    ViewMap viewMap = ensureViewMap(facesContext);
-    ServletRequest request
-        = (ServletRequest) facesContext.getExternalContext().getRequest();
-    String pageId = request.getParameter(PAGE_ID);
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("pageId = '" + pageId + "'");
-    }
     UIViewRoot viewRoot = null;
-    if (pageId != null) {
-      viewRoot = viewMap.getView(pageId);
+
+    if (USE_VIEW_MAP) {
+      ViewMap viewMap = ensureViewMap(facesContext);
+      ServletRequest request
+          = (ServletRequest) facesContext.getExternalContext().getRequest();
+      String pageId = request.getParameter(PAGE_ID);
       if (LOG.isDebugEnabled()) {
-        LOG.debug("viewRoot = '" + viewRoot + "'");
+        LOG.debug("pageId = '" + pageId + "'");
       }
-    }
-
-    if (viewRoot != null) {
-
-      if (viewId.equals(viewRoot.getViewId())) {
+      if (pageId != null) {
+        viewRoot = viewMap.getView(pageId);
         if (LOG.isDebugEnabled()) {
-          LOG.debug("found old view with matching viewId:  '" + viewId + "'");
+          LOG.debug("viewRoot = '" + viewRoot + "'");
         }
-      } else {
-        if (LOG.isDebugEnabled()) {
-          LOG.debug(
-              "found old view with different viewId: '" +
-              viewRoot.getViewId() +
-              "'");
-        }
-        viewRoot = null;
       }
+
+      if (viewRoot != null) {
+
+        if (viewId.equals(viewRoot.getViewId())) {
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("found old view with matching viewId:  '" + viewId + "'");
+          }
+        } else {
+          if (LOG.isDebugEnabled()) {
+            LOG.debug(
+                "found old view with different viewId: '" +
+                viewRoot.getViewId() +
+                "'");
+          }
+          viewRoot = null;
+        }
+      }
+    } else {
+      // this is necessary to allow decorated impls.
+      ViewHandler outerViewHandler
+          = facesContext.getApplication().getViewHandler();
+      String renderKitId
+          = outerViewHandler.calculateRenderKitId(facesContext);
+      StateManager stateManager
+          = facesContext.getApplication().getStateManager();
+      viewRoot = stateManager.restoreView(facesContext, viewId, renderKitId);
     }
 
     return viewRoot;

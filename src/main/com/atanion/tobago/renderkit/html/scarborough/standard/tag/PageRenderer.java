@@ -242,13 +242,15 @@ public class PageRenderer extends PageRendererBase implements DirectRenderer {
     writer.endElement("input");
 
 // todo: this is needed for the "BACK-BUTTON-PROBLEM"
-    writer.startElement("input", null);
-    writer.writeAttribute("type", "hidden", null);
-    writer.writeAttribute("name", ViewHandlerImpl.PAGE_ID, null);
-    writer.writeAttribute("id", ViewHandlerImpl.PAGE_ID, null);
-    writer.writeAttribute("value",
-        facesContext.getViewRoot().getAttributes().get(ViewHandlerImpl.PAGE_ID), null);
-    writer.endElement("input");
+    if (ViewHandlerImpl.USE_VIEW_MAP) {
+      writer.startElement("input", null);
+      writer.writeAttribute("type", "hidden", null);
+      writer.writeAttribute("name", ViewHandlerImpl.PAGE_ID, null);
+      writer.writeAttribute("id", ViewHandlerImpl.PAGE_ID, null);
+      writer.writeAttribute("value",
+          facesContext.getViewRoot().getAttributes().get(ViewHandlerImpl.PAGE_ID), null);
+      writer.endElement("input");
+    }
 
     // write the proviously rendered page content 
     writer.write(content.toString());
