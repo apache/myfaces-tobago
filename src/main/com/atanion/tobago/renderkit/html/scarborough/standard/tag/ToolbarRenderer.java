@@ -7,6 +7,8 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.context.ClientProperties;
+import com.atanion.tobago.context.UserAgent;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
@@ -23,6 +25,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Map;
 
 public class ToolbarRenderer extends RendererBase
     implements DirectRenderer {
@@ -61,7 +64,17 @@ public class ToolbarRenderer extends RendererBase
       writer.writeAttribute("id", toolbar.getClientId(facesContext), null);
       writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
       writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
+      writer.startElement("div", toolbar);
+      writer.writeAttribute("class", "tobago-toolbar-div-inner", null);
     }
+//
+//      writer.startElement("table", toolbar);
+//      writer.writeAttribute("class", "tobago-toolbar-table", null);
+//      writer.writeAttribute("border", "0", null);
+//      writer.writeAttribute("cellpadding", "0", null);
+//      writer.writeAttribute("cellspacing", "0", null);
+//      writer.writeAttribute("summary", "", null);
+//      writer.startElement("tr", toolbar);
 
     for (Iterator iter = toolbar.getChildren().iterator(); iter.hasNext();) {
       UIComponent component = (UIComponent) iter.next();
@@ -72,8 +85,12 @@ public class ToolbarRenderer extends RendererBase
             + component.getClass().getName());
       }
     }
+//
+//      writer.endElement("tr");
+//      writer.endElement("table");
 
     if (! suppressContainer) {
+      writer.endElement("div");
       writer.endElement("div");
     }
   }
@@ -97,6 +114,7 @@ public class ToolbarRenderer extends RendererBase
         + (disabled ? "disabled" : "enabled");
     final String onClick = ButtonRenderer.createOnClick(facesContext, command);
 
+//    writer.startElement("td", null);
     writer.startElement("span", null);
     writer.writeAttribute("class", spanClass, null);
     if (! disabled) {
@@ -104,9 +122,24 @@ public class ToolbarRenderer extends RendererBase
       writer.writeAttribute("onmouseover", mouseover, null);
       writer.writeAttribute("onmouseout", mouseout, null);
     }
+    UIGraphic ieSpacer = null;
     if (graphic != null) {
       LayoutUtil.addCssClass(graphic, "tobago-toolbar-button-image");
       RenderUtil.encode(facesContext, graphic);
+    } else if (isMsie(facesContext)) {
+      ieSpacer = (UIGraphic) command.getParent().getFacet("ieSpacer");
+      if (ieSpacer == null) {
+        facesContext.getApplication().createComponent(UIGraphic.COMPONENT_TYPE);
+        ieSpacer.setRendererType("Image"); //fixme: use constant ?
+        ieSpacer.setRendered(true);
+        final Map attributes = ieSpacer.getAttributes();
+        attributes.put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
+        attributes.put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
+        // fixme: make height configuable
+        attributes.put(TobagoConstants.ATTR_STYLE, "height: 16px; width: 0px;");
+        ieSpacer.setValue("1x1.gif");
+        command.getParent().getFacets().put("ieSpacer", ieSpacer);
+      }
     }
 
     if (output != null) {
@@ -114,7 +147,9 @@ public class ToolbarRenderer extends RendererBase
         writer.startElement("span", null);
         writer.writeAttribute("class", "tobago-toolbar-button-label", null);
       }
-
+      if (ieSpacer != null) {
+        RenderUtil.encode(facesContext, ieSpacer);
+      }
       RenderUtil.encode(facesContext, output);
 
       if (graphic != null) {
@@ -122,6 +157,11 @@ public class ToolbarRenderer extends RendererBase
       }
     }
     writer.endElement("span");
+//    writer.endElement("td");
+  }
+
+  private boolean isMsie(FacesContext facesContext) {
+    return ClientProperties.getInstance(facesContext).getUserAgent().toString().startsWith(UserAgent.MSIE.toString());
   }
 
 // ///////////////////////////////////////////// bean getter + setter

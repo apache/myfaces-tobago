@@ -55,7 +55,9 @@ public class TobagoResource {
     if (image != null) {
       return facesContext.getExternalContext().getRequestContextPath() + image;
     } else {
-      LOG.debug("Can't find image for \"" + name + "\"");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Can't find image for \"" + name + "\"");
+      }
       return null;
     }
   }

@@ -41,6 +41,7 @@ public class TobagoConstants {
   public static final String ATTR_HIDE_JUNCTIONS = "hideJunctions";
   public static final String ATTR_HIDE_ROOT = "hideRoot";
   public static final String ATTR_HIDE_ROOT_JUNCTION = "hideRootJunction";
+  public static final String ATTR_HOVER = "hover";
   public static final String ATTR_I18N = "i18n";
   public static final String ATTR_ID_REFERENCE = "idReference";
   public static final String ATTR_IMMEDIATE = "immediate";

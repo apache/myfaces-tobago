@@ -15,6 +15,7 @@ import com.atanion.tobago.renderkit.RendererBase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 import javax.faces.context.FacesContext;
@@ -45,9 +46,11 @@ public class ImageRenderer extends RendererBase
     final String value = graphic.getValue().toString();
     String src = value;
     if (ComponentUtil.getBooleanAttribute(graphic, TobagoConstants.ATTR_I18N)) {
-      if (ComponentUtil.isDisabled(graphic)) {
+      src = null;
+      if (isDisabled(graphic)) {
         src = TobagoResource.getImage(facesContext, createSrc(value, "-disabled"), true);
-      } else {
+      }
+      if (src == null) {
         src = TobagoResource.getImage(facesContext, value);
       }
       addImageSources(facesContext, graphic);
@@ -81,7 +84,7 @@ public class ImageRenderer extends RendererBase
     writer.startElement("img", graphic);
     final String clientId = graphic.getClientId(facesContext);
     writer.writeAttribute("id", clientId, null);
-    if (ComponentUtil.isHoverEnabled(graphic) && ! ComponentUtil.isDisabled(graphic)) {
+    if (ComponentUtil.isHoverEnabled(graphic) && ! isDisabled(graphic)) {
       writer.writeAttribute("onmouseover", "tobagoImageMouseover('" + clientId + "')", null);
       writer.writeAttribute("onmouseout", "tobagoImageMouseout('" + clientId + "')", null);
     }
@@ -96,6 +99,14 @@ public class ImageRenderer extends RendererBase
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
     writer.endElement("img");
 
+  }
+
+  private boolean isDisabled(UIGraphic graphic) {
+    boolean disabled = ComponentUtil.isDisabled(graphic);
+    if (! disabled && graphic.getParent() instanceof UICommand) {
+      disabled = ComponentUtil.isDisabled(graphic.getParent());
+    }
+    return disabled;
   }
 
   public String createSrc(String src, String ext) {

@@ -442,7 +442,7 @@ public class ComponentUtil {
   }
 
   public static boolean isHoverEnabled(UIComponent component) {
-    return true;
+    return ComponentUtil.getBooleanAttribute(component, TobagoConstants.ATTR_HOVER);
   }
 
   public static UIOutput getFirstNonGraphicChild(UIComponent component) {
