@@ -689,7 +689,7 @@
                     this is the default.
           'true'  : space for scroolbar is reserved.
           'false' : no space is reserved.
-          </pre>          
+          </pre>
         ]]>
       </description>
     </attribute>
@@ -710,17 +710,6 @@
         The value binding expression linking this component to a property
         in a backing bean
       </description>
-    </attribute>
-  </tag>
-
-  <tag>
-    <name>columns</name>
-    <tag-class>com.atanion.tobago.taglib.component.ColumnsTag</tag-class>
-    <body-content>JSP</body-content>
-    <attribute>
-      <name>value</name>
-      <required>true</required>
-      <rtexprvalue>true</rtexprvalue>
     </attribute>
   </tag>
 
