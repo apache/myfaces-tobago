@@ -41,7 +41,7 @@ public class OutRenderer extends RendererBase {
       writer.startElement("span", component);
       writer.writeAttribute("style", null, ATTR_STYLE);
       writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
-      writer.writeAttribute("title", null, ATTR_TITLE);
+      writer.writeAttribute("title", null, ATTR_TIP);
     }
     if (escape) {
       StringTokenizer tokenizer = new StringTokenizer(text, "\n\r");

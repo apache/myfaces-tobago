@@ -115,7 +115,7 @@ public class PageRenderer extends PageRendererBase {
 
     String charset = (String) page.getAttributes().get(ATTR_CHARSET);
 
-    String title = (String) page.getAttributes().get(ATTR_TITLE);
+    String title = (String) page.getAttributes().get(ATTR_LABEL);
 
     String doctype = generateDoctype(page);
 

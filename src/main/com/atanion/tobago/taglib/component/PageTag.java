@@ -34,6 +34,8 @@ public class PageTag extends TobagoBodyTag {
 
   private String focusId;
 
+  private String label;
+
 // ----------------------------------------------------------- business methods
 
   public int doEndTag() throws JspException {
@@ -89,6 +91,7 @@ public class PageTag extends TobagoBodyTag {
     method = "POST";
     stateBinding = null;
     focusId = null;
+    label = null;
   }
 
   protected void setProperties(UIComponent component) {
@@ -97,6 +100,7 @@ public class PageTag extends TobagoBodyTag {
     ComponentUtil.setStringProperty(component, ATTR_CHARSET, charset, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_DOCTYPE, doctype, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_FOCUS_ID, focusId, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
 
     // todo: check, if it is an writeable object
     if (stateBinding != null && isValueReference(stateBinding)) {
@@ -129,6 +133,14 @@ public class PageTag extends TobagoBodyTag {
 
   public void setFocusId(String focusId) {
     this.focusId = focusId;
+  }
+
+  public String getLabel() {
+    return label;
+  }
+
+  public void setLabel(String label) {
+    this.label = label;
   }
 }
 

@@ -1,7 +1,7 @@
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <f:view>
-  <t:page title="Calendar" id="page" width="270px" >
+  <t:page label="Calendar" id="page" width="270px" >
     <f:facet name="layout">
       <t:gridLayout columns="10px;1*;10px" rows="10px;1*;10px" />
     </f:facet>

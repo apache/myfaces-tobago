@@ -16,6 +16,7 @@ public class OutTag extends BeanTag {
 
   private String escape = "true";
   private String markup;
+  private String tip;
 
 // ----------------------------------------------------------- business methods
 
@@ -27,6 +28,7 @@ public class OutTag extends BeanTag {
     super.release();
     escape = "true";
     markup = null;
+    tip = null;
   }
 
   protected void setProperties(UIComponent component) {
@@ -34,6 +36,7 @@ public class OutTag extends BeanTag {
    ComponentUtil.setBooleanProperty(component, ATTR_ESCAPE, escape, getIterationHelper());
    ComponentUtil.setBooleanProperty(component, ATTR_CREATE_SPAN, "true", getIterationHelper());
    ComponentUtil.setStringProperty(component, ATTR_MARKUP, markup, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_TIP, tip, getIterationHelper());
   }
 
 // ------------------------------------------------------------ getter + setter
@@ -52,5 +55,13 @@ public class OutTag extends BeanTag {
 
   public void setMarkup(String markup) {
     this.markup = markup;
+  }
+
+  public String getTip() {
+    return tip;
+  }
+
+  public void setTip(String tip) {
+    this.tip = tip;
   }
 }

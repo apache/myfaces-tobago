@@ -58,7 +58,7 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>title</name>
+      <name>tip</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
@@ -1246,7 +1246,7 @@
     <tag-class>com.atanion.tobago.taglib.component.PageTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
-      <name>title</name>
+      <name>label</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
