@@ -1,6 +1,6 @@
 <%@ page errorPage="/errorPage.jsp" %>
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tobago" %>
-<%@ taglib uri="http://www.atanion.com/tobago/core" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <f:view>
   <tobago:page title="Calendar" id="page" width="300px" >
     <tobago:script file="calendar.js" i18n="true" />

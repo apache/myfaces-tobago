@@ -8,9 +8,9 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.el.ElUtil;
-import com.atanion.tobago.taglib.core.SubviewTag;
-import com.atanion.tobago.taglib.core.ViewTag;
+//import com.atanion.tobago.taglib.core.ViewTag;
 import com.atanion.util.ObjectUtils;
+import com.sun.faces.taglib.jsf_core.ViewTag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -205,9 +205,6 @@ public abstract class TobagoTag extends UIComponentTag {
 
   public int doStartTag() throws JspException {
 
-    Stack tagStack = ensureTagStack();
-    tagStack.push(this);
-
     LOG.debug("doStartTag() rendererType  " + getRendererType());
     LOG.debug("doStartTag() componentType " + getComponentType());
 
@@ -218,7 +215,7 @@ public abstract class TobagoTag extends UIComponentTag {
 //    }
 //    Log.debug("##########################################");
 
-    final TobagoTag parent = getTobagoParent(tagStack);
+    final UIComponentTag parent = getParentUIComponentTag(pageContext);
     LOG.debug("parent is: " + parent);
     if (parent instanceof TobagoBodyTag) {
       ((TobagoBodyTag) parent).handleBodyContent();
@@ -247,7 +244,6 @@ public abstract class TobagoTag extends UIComponentTag {
           TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
     }
     int result = super.doEndTag();
-    ensureTagStack().pop();
     return result;
   }
 
@@ -276,33 +272,6 @@ public abstract class TobagoTag extends UIComponentTag {
     this.readonly = false;
     this.disabled = null;
     this.inline = false;
-  }
-
-  protected Stack ensureTagStack() {
-    Stack tagStack = (Stack) pageContext.getAttribute(
-        TAG_STACK, PageContext.REQUEST_SCOPE);
-    if (tagStack == null) {
-      if (!(this instanceof ViewTag || this instanceof SubviewTag)) {
-        String text = "ViewTag or SubviewTag must be the outermost UIComponentTag";
-        LOG.error(text);
-        LOG.error(this);
-        LOG.error(this.getClass().getName());
-        LOG.error(ObjectUtils.toString(this, 2));
-        throw new IllegalStateException(text);
-      }
-      tagStack = new Stack();
-      pageContext.setAttribute(TAG_STACK, tagStack, PageContext.REQUEST_SCOPE);
-    }
-    return tagStack;
-  }
-
-  protected TobagoTag getTobagoParent(Stack tagStack) {
-    for (int i = tagStack.size() - 1; i >= 1; i--) {
-      if (this.equals(tagStack.get(i))) {
-        return (TobagoTag) tagStack.get(i - 1);
-      }
-    }
-    return null;
   }
 
 // /////////////////////////////////////////// bean getter + setter

@@ -6,7 +6,7 @@
 package com.atanion.tobago.component;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.taglib.core.VerbatimTag;
+import com.sun.faces.taglib.jsf_core.VerbatimTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

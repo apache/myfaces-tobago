@@ -126,6 +126,21 @@ public class TreeRenderer extends RendererBase
 
       UITree.Command[] commands = tree.getCommands();
 
+      ActionListener handler = null;
+
+          ActionListener[] handlers = tree.getActionListeners();
+          if (handlers != null && handlers.length > 0) {
+            handler = handlers[0];
+          }
+//
+//      String type = (String)component.getAttributes().get(TobagoConstants.ATTR_ACTION_LISTENER);
+//        try {
+//          handler = ComponentUtil.createActionListener(type);
+//        } catch (JspException e) {
+//          LOG.error("", e);
+//          throw new IOException(e.toString());
+//        }
+
       for (int i = 0; i < commands.length; i++) {
         // create a UILink and add it to the UITree
         UICommand link = (UICommand) application.createComponent(
@@ -134,14 +149,7 @@ public class TreeRenderer extends RendererBase
         link.getAttributes().put(TobagoConstants.ATTR_COMMAND_NAME,
             commands[i].getCommand());
         link.setRendererType(TobagoConstants.RENDERER_TYPE_LINK);
-        try {
-          String type = (String)component.getAttributes().get(TobagoConstants.ATTR_ACTION_LISTENER);
-          ActionListener handler = ComponentUtil.createActionListener(type);
           link.addActionListener(handler);
-        } catch (JspException e) {
-          LOG.error("", e);
-          throw new IOException(e.toString());
-        }
         link.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
         tree.getChildren().add(link);
 

@@ -3,7 +3,7 @@
  * All rights reserved. Created 16.03.2004 12:53:20.
  * $Id$
  */
-package com.atanion.tobago.taglib.core;
+package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.context.TobagoResource;
 

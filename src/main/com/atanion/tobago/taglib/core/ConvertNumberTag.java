@@ -5,6 +5,9 @@
  */
 package com.atanion.tobago.taglib.core;
 
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
+
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.NumberConverter;
@@ -17,6 +20,8 @@ import java.util.Locale;
 public class ConvertNumberTag extends ConverterTag {
 
 // ///////////////////////////////////////////// constant
+
+  private static final Log LOG = LogFactory.getLog(ConvertNumberTag.class);
 
 // ///////////////////////////////////////////// attribute
 
@@ -80,6 +85,11 @@ public class ConvertNumberTag extends ConverterTag {
   }
 
 // ///////////////////////////////////////////// code
+
+  public int doStartTag() throws JspException {
+    LOG.error("#################################  This tag should never used ! #########################");
+    return super.doStartTag();
+  }
 
   /**
    * @deprecated fixme use a global solution

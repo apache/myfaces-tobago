@@ -119,8 +119,10 @@ public class RenderUtil {
 //      ComponentUtil.debug(viewRoot, 0);
 //    }
     if (component.isRendered()) {
-      if (ComponentUtil.getBooleanAttribute(component, TobagoConstants.ATTR_SUPPRESSED)) {
-//        log.debug("!!!! rendering " + component.getRendererType() + "  " + component);
+//      if (ComponentUtil.getBooleanAttribute(component, TobagoConstants.ATTR_SUPPRESSED)) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("!!!! rendering " + component.getRendererType() + "  " + component);
+      }
 
         component.encodeBegin(facesContext);
         if (component.getRendersChildren()) {
@@ -133,14 +135,18 @@ public class RenderUtil {
           }
         }
         component.encodeEnd(facesContext);
-      }
+//      }
 //      else {
-//        log.debug("!!!! NOT rendering (!wasSuppressed()) " + component.getRendererType() + "  "  + component);
-//
+//        LOG.debug("!!!! NOT rendering (!wasSuppressed()) " + component.getRendererType() + "  "  + component);
+//        Iterator iterator = component.getAttributes().keySet().iterator();
+//        while (iterator.hasNext()) {
+//          Object o = (Object) iterator.next();
+//          LOG.info("key : \"" + o + "\" = \"" + component.getAttributes().get(o) + "\"");
+//        }
 //      }
     }
 //    else {
-//      log.debug("!!!! NOT rendering (! isRendered()) " + component.getRendererType() + "  "  + component);
+//      LOG.debug("!!!! NOT rendering (! isRendered()) " + component.getRendererType() + "  "  + component);
 //
 //    }
   }

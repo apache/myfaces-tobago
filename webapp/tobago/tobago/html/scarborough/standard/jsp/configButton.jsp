@@ -2,9 +2,9 @@
                  com.atanion.tobago.context.TobagoResource,
                  javax.faces.context.FacesContext"
 %><%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tobago"
-%><%@ taglib uri="http://www.atanion.com/tobago/core" prefix="f" %>
+%><%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <f:subview id="configButton_jsp" >
-  <f:loadBundle basename="tobago" var="tobagoBundle" />
+  <tobago:loadTobagoBundle basename="tobago" var="tobagoBundle" />
 <%
   FacesContext facesContext = FacesContext.getCurrentInstance();
   ViewHandler viewHandler = facesContext.getApplication().getViewHandler();

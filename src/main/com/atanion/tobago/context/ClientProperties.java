@@ -63,6 +63,7 @@ public class ClientProperties {
     if (language != null) {
       locale = parseAcceptLanguageHeader(language)[0];
     }
+    LOG.info("Locale = " + locale);
 
     String userAgent = request.getHeader("User-Agent");
     LOG.info("User-Agent = '" + userAgent + "'");

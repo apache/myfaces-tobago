@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
+
 public class TobagoResponseWriter extends ResponseWriter {
 
 // ///////////////////////////////////////////// constant
@@ -203,8 +204,8 @@ public class TobagoResponseWriter extends ResponseWriter {
   }
 
   public ResponseWriter cloneWithWriter(Writer writer) {
-    LOG.error("Not implemented yet!"); // fixme jsfbeta
-    return null;
+    return new TobagoResponseWriter(
+        writer,  getContentType(), getCharacterEncoding());
   }
 
   public void writeAttribute(String name, boolean on) throws IOException {

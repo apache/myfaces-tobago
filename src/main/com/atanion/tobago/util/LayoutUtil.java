@@ -18,6 +18,7 @@ import javax.faces.FactoryFinder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.component.UIInput;
+import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
@@ -29,7 +30,7 @@ public class LayoutUtil {
 
 // ///////////////////////////////////////////// constant
 
-  private static final Log log = LogFactory.getLog(LayoutUtil.class);
+  private static final Log LOG = LogFactory.getLog(LayoutUtil.class);
 
 // ///////////////////////////////////////////// attribute
 
@@ -103,13 +104,13 @@ public class LayoutUtil {
           margin += renderer.getComponentExtraHeight(facesContext, component);
         }
       } catch (Exception e) {
-        if (log.isDebugEnabled()) {
-          log.debug("cant find margin", e);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("cant find margin", e);
         }
       }
     } else {
-      if (log.isDebugEnabled()) {
-        log.debug("rendertype = null, component: " + component);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("rendertype = null, component: " + component);
       }
     }
     return outerSpace - margin;
@@ -130,7 +131,7 @@ public class LayoutUtil {
                 Integer.parseInt(
                     labelWidth.substring(0, labelWidth.length() - 2));
           } catch (NumberFormatException e) {
-            log.warn("Can't parse label width, using default value", e);
+            LOG.warn("Can't parse label width, using default value", e);
           }
         }
       }
@@ -161,8 +162,8 @@ public class LayoutUtil {
           renderKit.getRenderer(UIInput.COMPONENT_FAMILY, "TextBox");
       width = renderer.getLabelWidth(facesContext, component);
     } catch (Exception e) {
-      if (log.isWarnEnabled()) {
-        log.warn("can't find Label Width", e);
+      if (LOG.isWarnEnabled()) {
+        LOG.warn("can't find Label Width", e);
       }
     }
     return width;
@@ -224,8 +225,7 @@ public class LayoutUtil {
   public static Vector addChildren(Vector children, UIComponent panel) {
     for (Iterator iter = panel.getChildren().iterator(); iter.hasNext();) {
       UIComponent child = (UIComponent) iter.next();
-      if (ComponentUtil.getBooleanAttribute(child,
-          TobagoConstants.ATTR_LAYOUT_TRANSPARENT)) {
+      if (isLayoutTransparent(child)) {
         addChildren(children, child);
       } else {
         children.add(child);
@@ -234,12 +234,33 @@ public class LayoutUtil {
     return children;
   }
 
+  private static boolean isLayoutTransparent(UIComponent component) {
+    boolean transparent = false;
+
+    if (component instanceof UINamingContainer
+        && component.getRendererType() == null) {
+      // at this time (10.05.2004) only SubViewTag has TobagoConstants.ATTR_LAYOUT_TRANSPARENT set
+      // SubViewTag's component is UINamingContainer with 'null' rendererType
+      // seems it is the only one
+
+//      LOG.info("component id = " + component.getId());
+//      LOG.info("component family = " + component.getFamily());
+//
+//      for (Iterator iter = component.getAttributes().keySet().iterator(); iter.hasNext();){
+//        Object key = iter.next();
+//        LOG.info("\"" + key + "\" = \"" + component.getAttributes().get(key) + "\"");
+//      }
+      transparent = true;
+    }
+
+    return transparent;
+//    return ComponentUtil.getBooleanAttribute(child,
+//              TobagoConstants.ATTR_LAYOUT_TRANSPARENT);
+  }
+
   public static UIComponent getNonTransparentParent(UIComponent component) {
     UIComponent parent = component.getParent();
-    while (parent != null
-        &&
-        ComponentUtil.getBooleanAttribute(parent,
-            TobagoConstants.ATTR_LAYOUT_TRANSPARENT)) {
+    while (parent != null && isLayoutTransparent(parent)) {
       parent = parent.getParent();
     }
     return parent;
@@ -250,8 +271,8 @@ public class LayoutUtil {
     if ("Text".equals(cell.getRendererType())) {
       return;
     }
-    if (log.isDebugEnabled()) {
-      log.debug("set " + value + " to " + cell.getRendererType());
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("set " + value + " to " + cell.getRendererType());
     }
     cell.getAttributes().put(attribute, value);
     if (cell instanceof UIPanel

@@ -19,10 +19,15 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Iterator;
 
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
+
 public class Panel_GroupRenderer extends RendererBase
     implements HeightLayoutRenderer, DirectRenderer {
 
 // ///////////////////////////////////////////// constant
+
+  private static final Log LOG = LogFactory.getLog(Panel_GroupRenderer.class);
 
 // ///////////////////////////////////////////// attribute
 

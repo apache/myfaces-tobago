@@ -1,6 +1,6 @@
 <%@ page import="javax.faces.context.FacesContext"%>
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tobago"
-%><%@ taglib uri="http://www.atanion.com/tobago/core" prefix="f" %>
+%><%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <f:subview id="viewJspButton_jsp" ><%
   FacesContext facesContext = FacesContext.getCurrentInstance();
   String contextPath = facesContext.getExternalContext().getRequestContextPath();

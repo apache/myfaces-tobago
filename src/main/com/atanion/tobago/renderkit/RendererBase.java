@@ -352,15 +352,15 @@ public class RendererBase extends Renderer {
     for (Iterator i = component.getChildren().iterator(); i.hasNext();) {
       UIComponent child = (UIComponent) i.next();
       if (child.isRendered()) {
-        if (ComponentUtil.getBooleanAttribute(
-            child,
-            TobagoConstants.ATTR_SUPPRESSED)) {
+//        if (ComponentUtil.getBooleanAttribute(
+//            child,
+//            TobagoConstants.ATTR_SUPPRESSED)) {
           child.encodeBegin(facesContext);
           if (child.getRendersChildren()) {
             child.encodeChildren(facesContext);
           }
           child.encodeEnd(facesContext);
-        }
+//        }
       }
     }
   }

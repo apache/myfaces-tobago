@@ -253,12 +253,11 @@ public class SheetRenderer extends RendererBase
         sortCommand.setActionListener(sorter);
         sortCommand.setId(sorterId);
         component.getFacets().put(sorterId ,sortCommand);
+        sortCommand.getClientId(facesContext); // this must called here to fix the ClientId
 
         writer.writeAttribute("title",
             TobagoResource.getProperty(facesContext, "tobago", "sheetTipSorting"),
             null);
-
-//        RenderUtil.encode(facesContext, sortCommand);
 
         if (sorter.getColumn() == columnCount) {
           if (sorter.isAscending()) {

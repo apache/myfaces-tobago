@@ -5,7 +5,7 @@
                        com.atanion.tobago.context.ResourceManager"
 %><%@ page errorPage="errorPage.jsp"
 %><%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tobago"
-%><%@ taglib uri="http://www.atanion.com/tobago/core" prefix="f" %>
+%><%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
 <jsp:useBean id="tobagoUtilsModel" scope="session"
     class="com.atanion.tobago.context.ClientConfigModel" />
@@ -14,7 +14,7 @@
       new Double(ResourceManager.getInstance().getCacheCoverage()));
 %>
 <f:view>
-  <f:loadBundle basename="tobago" var="tobagoBundle" />
+  <tobago:loadTobagoBundle basename="tobago" var="tobagoBundle" />
   <tobago:page title="#{tobagoBundle.configTitle}">
     <tobago:panelGroup>
       <f:facet name="layout">
@@ -29,7 +29,7 @@
         <tobago:text value="#{tobagoBundle.configThemeText}" />
         <tobago:singleselect value="#{tobagoUtilsModel.theme}">
           <f:facet name="label"><tobago:label value="#{tobagoBundle.configTheme}" /></f:facet>
-          <f:selectitems value="#{tobagoUtilsModel.themeItems}" />
+          <f:selectItems value="#{tobagoUtilsModel.themeItems}" />
         </tobago:singleselect>
         <br />
         <tobago:checkbox value="#{tobagoUtilsModel.jspComment}" inline="true">
@@ -42,13 +42,13 @@
         <tobago:text value="#{tobagoBundle.configLanguageText}" />
         <tobago:singleselect value="#{tobagoUtilsModel.language}">
           <f:facet name="label"><tobago:label value="#{tobagoBundle.configLanguage}" /></f:facet>
-          <f:selectitems value="#{tobagoUtilsModel.languageItems}" />
+          <f:selectItems value="#{tobagoUtilsModel.languageItems}" />
         </tobago:singleselect>
         <br />
         <tobago:text value="#{tobagoBundle.configContentTypeText}" />
         <tobago:singleselect value="#{tobagoUtilsModel.contentType}">
           <f:facet name="label"><tobago:label value="#{tobagoBundle.configContentType}" /></f:facet>
-          <f:selectitems value="#{tobagoUtilsModel.contentTypeItems}" />
+          <f:selectItems value="#{tobagoUtilsModel.contentTypeItems}" />
         </tobago:singleselect>
         <tobago:textbox value="#{tobagoResourceCacheCoverage}" readonly="true">
           <f:facet name="label"><tobago:label value="#{tobagoBundle.configCachecoverage}" /></f:facet>

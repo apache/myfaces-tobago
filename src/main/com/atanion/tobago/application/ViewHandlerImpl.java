@@ -102,6 +102,7 @@ public class ViewHandlerImpl extends ViewHandler {
     buffer.append(client.getUserAgent());
     buffer.append('/');
     buffer.append(calculateLocale(facesContext));
+    LOG.info("RenderKitId : \"" + buffer.toString() + "\"");
     return buffer.toString();
   }
 
@@ -113,6 +114,7 @@ public class ViewHandlerImpl extends ViewHandler {
     ClientProperties client = ClientProperties.getInstance(facesContext);
     result = findLocaleInApplication(facesContext, client.getLocale());
 
+    LOG.info("1  result Locale = " + result);
 
     if (result == null) {
       Iterator requestLocales
@@ -125,14 +127,17 @@ public class ViewHandlerImpl extends ViewHandler {
         }
       }
     }
+    LOG.info("2  result Locale = " + result);
 
     if (result == null) {
       result = facesContext.getApplication().getDefaultLocale();
     }
+    LOG.info("3  result Locale = " + result);
 
     if (result == null) {
       result = Locale.getDefault();
     }
+    LOG.info("4  result Locale = " + result);
 
     return result;
   }
@@ -144,8 +149,11 @@ public class ViewHandlerImpl extends ViewHandler {
     Iterator supportedIterator
         = facesContext.getApplication().getSupportedLocales();
 
+    LOG.info("prefered Locale = " + prefered);
+
     while (supportedIterator.hasNext()) {
       Locale supported = (Locale) supportedIterator.next();
+      LOG.info("supported Locale = " + supported);
       if (prefered.equals(supported)) {
         result = supported;
         break;
@@ -154,8 +162,11 @@ public class ViewHandlerImpl extends ViewHandler {
         result = supported;
       }
     }
+    LOG.info("result Locale = " + result);
+
     if (result == null) {
       Locale defaultLocale = facesContext.getApplication().getDefaultLocale();
+      LOG.info("default Locale = " + defaultLocale);
       if (defaultLocale != null) {
         if (prefered.equals(defaultLocale)) {
           result = defaultLocale;
@@ -165,6 +176,7 @@ public class ViewHandlerImpl extends ViewHandler {
         }
       }
     }
+    LOG.info("result Locale = " + result);
     return result;
   }
 

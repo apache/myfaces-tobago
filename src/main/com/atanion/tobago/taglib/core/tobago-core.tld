@@ -7,13 +7,72 @@
   <tlib-version>1.0</tlib-version>
   <jsp-version>1.2</jsp-version>
   <short-name>Tobago Framework Core Tag Library</short-name>
-  <uri>http://www.atanion.com/tobago/core</uri>
+  <uri>http://java.sun.com/jsf/core</uri>
   <description>Tobago Framework Core Tag Library as JSF implementation -
     (C) Atanion GmbH</description>
 
+
+
+  <tag>
+    <name>loadBundle</name>
+    <tag-class>com.sun.faces.taglib.jsf_core.LoadBundleTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+      <name>basename</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>var</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>subview</name>
+    <tag-class>com.sun.faces.taglib.jsf_core.SubviewTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <name>id</name>
+      <required>false</required> <!-- todo: not standard conform! -->
+      <rtexprvalue>true</rtexprvalue> <!-- todo: not standard conform! -->
+    </attribute>
+  </tag>
+
+
+
+
+  <tag>
+    <name>selectitems</name>
+    <tag-class>com.sun.faces.taglib.jsf_core.SelectItemsTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+      <name>id</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>value</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>view</name>
+    <tag-class>com.sun.faces.taglib.jsf_core.ViewTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <name>locale</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+
   <tag>
     <name>actionListener</name>
-    <tag-class>com.atanion.tobago.taglib.core.ActionListenerTag</tag-class>
+    <tag-class>com.sun.faces.taglib.jsf_core.ActionListenerTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -45,7 +104,7 @@
 
   <tag>
     <name>convertDateTime</name>
-    <tag-class>com.atanion.tobago.taglib.core.ConvertDateTimeTag</tag-class>
+    <tag-class>com.sun.faces.taglib.jsf_core.ConvertDateTimeTag</tag-class>
     <body-content>empty</body-content>
     <attribute>
       <name>dateStyle</name>
@@ -81,7 +140,7 @@
 
   <tag>
     <name>convertNumber</name>
-    <tag-class>com.atanion.tobago.taglib.core.ConvertNumberTag</tag-class>
+    <tag-class>com.sun.faces.taglib.jsf_core.ConvertNumberTag</tag-class>
     <body-content>empty</body-content>
     <attribute>
       <name>currencyCode</name>
@@ -163,24 +222,8 @@
   </tag>
 
   <tag>
-    <name>loadBundle</name>
-    <tag-class>com.atanion.tobago.taglib.core.LoadBundleTag</tag-class>
-    <body-content>empty</body-content>
-    <attribute>
-      <name>basename</name>
-      <required>true</required>
-      <rtexprvalue>false</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>var</name>
-      <required>true</required>
-      <rtexprvalue>false</rtexprvalue>
-    </attribute>
-  </tag>
-
-  <tag>
     <name>parameter</name>
-    <tag-class>com.atanion.tobago.taglib.core.ParameterTag</tag-class>
+    <tag-class>com.sun.faces.taglib.jsf_core.ParameterTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -200,35 +243,8 @@
   </tag>
 
   <tag>
-    <name>selectitems</name>
-    <tag-class>com.atanion.tobago.taglib.component.SelectItemsTag</tag-class>
-    <body-content>empty</body-content>
-    <attribute>
-      <name>id</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>value</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-  </tag>
-
-  <tag>
-    <name>subview</name>
-    <tag-class>com.atanion.tobago.taglib.core.SubviewTag</tag-class>
-    <body-content>JSP</body-content>
-    <attribute>
-      <name>id</name>
-      <required>false</required> <!-- todo: not standard conform! -->
-      <rtexprvalue>true</rtexprvalue> <!-- todo: not standard conform! -->
-    </attribute>
-  </tag>
-
-  <tag>
     <name>validateDoubleRange</name>
-    <tag-class>com.atanion.tobago.taglib.core.ValidateDoubleRangeTag</tag-class>
+    <tag-class>com.sun.faces.taglib.jsf_core.ValidateDoubleRangeTag</tag-class>
     <body-content>empty</body-content>
     <attribute>
       <name>minimum</name>
@@ -244,7 +260,7 @@
 
   <tag>
     <name>validateLength</name>
-    <tag-class>com.atanion.tobago.taglib.core.ValidateLengthTag</tag-class>
+    <tag-class>com.sun.faces.taglib.jsf_core.ValidateLengthTag</tag-class>
     <body-content>empty</body-content>
     <attribute>
       <name>minimum</name>
@@ -260,7 +276,7 @@
 
   <tag>
     <name>validateLongRange</name>
-    <tag-class>com.atanion.tobago.taglib.core.ValidateLongRangeTag</tag-class>
+    <tag-class>com.sun.faces.taglib.jsf_core.ValidateLongRangeTag</tag-class>
     <body-content>empty</body-content>
     <attribute>
       <name>minimum</name>
@@ -286,19 +302,8 @@
   </tag>
 
   <tag>
-    <name>view</name>
-    <tag-class>com.atanion.tobago.taglib.core.ViewTag</tag-class>
-    <body-content>JSP</body-content>
-    <attribute>
-      <name>locale</name>
-      <required>false</required>
-      <rtexprvalue>false</rtexprvalue>
-    </attribute>
-  </tag>
-
-  <tag>
     <name>verbatim</name>
-    <tag-class>com.atanion.tobago.taglib.core.VerbatimTag</tag-class>
+    <tag-class>com.sun.faces.taglib.jsf_core.VerbatimTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>escape</name>

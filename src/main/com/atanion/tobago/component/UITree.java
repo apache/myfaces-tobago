@@ -12,13 +12,16 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
+import javax.faces.component.ActionSource;
 import javax.faces.context.FacesContext;
+import javax.faces.el.MethodBinding;
+import javax.faces.event.ActionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Iterator;
 
-public class UITree extends UIInput implements NamingContainer {
+public class UITree extends UIInput implements NamingContainer, ActionSource {
 
 // ///////////////////////////////////////////// constant
 
@@ -50,6 +53,8 @@ public class UITree extends UIInput implements NamingContainer {
 
   private Command[] commands;
 
+  private ActionListener actionListener;
+
 // ///////////////////////////////////////////// constructor
 
   public UITree() {
@@ -66,6 +71,40 @@ public class UITree extends UIInput implements NamingContainer {
   }
 
 // ///////////////////////////////////////////// code
+
+  public MethodBinding getAction() {
+    return null;
+  }
+
+  public void setAction(MethodBinding methodBinding) {
+
+  }
+
+  public MethodBinding getActionListener() {
+    return null;
+  }
+
+  public void setActionListener(MethodBinding methodBinding) {
+
+  }
+
+  public void addActionListener(ActionListener actionListener) {
+    this.actionListener = actionListener;
+  }
+
+  public ActionListener[] getActionListeners() {
+    if (actionListener != null) {
+      return new ActionListener[] {actionListener};
+    } else {
+      return new ActionListener[0];
+    }
+  }
+
+  public void removeActionListener(ActionListener actionListener) {
+    if (actionListener.equals(this.actionListener)) {
+      this.actionListener = null;
+    }
+  }
 
   public boolean getRendersChildren() {
     return true;
@@ -90,7 +129,7 @@ public class UITree extends UIInput implements NamingContainer {
     } else {
 
       // in tree first decode node and than decode children
-      
+
       decode(facesContext);
 
       for (Iterator i = getFacetsAndChildren(); i.hasNext();) {

@@ -54,7 +54,7 @@ public class TobagoConstants {
   public static final String ATTR_LAYOUT_MARGIN_RIGHT = "layoutMarginRight";
   public static final String ATTR_LAYOUT_MARGIN_TOP = "layoutMarginTop";
   public static final String ATTR_LAYOUT_ROWS = "layoutRows";
-  public static final String ATTR_LAYOUT_TRANSPARENT = "layoutTransparent";
+//  public static final String ATTR_LAYOUT_TRANSPARENT = "layoutTransparent";
   public static final String ATTR_LAYOUT_TABLE_STYLE = "layoutTableStyle";
   public static final String ATTR_LAYOUT_WIDTH = "layout_width";
   public static final String ATTR_MAX = "max";
