@@ -102,7 +102,9 @@ public class ViewHandlerImpl extends ViewHandler {
     buffer.append(client.getUserAgent());
     buffer.append('/');
     buffer.append(calculateLocale(facesContext));
-    LOG.info("RenderKitId : \"" + buffer.toString() + "\"");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("RenderKitId : \"" + buffer.toString() + "\"");
+    }
     return buffer.toString();
   }
 
@@ -113,8 +115,6 @@ public class ViewHandlerImpl extends ViewHandler {
     // get the configured locale
     ClientProperties client = ClientProperties.getInstance(facesContext);
     result = findLocaleInApplication(facesContext, client.getLocale());
-
-    LOG.info("1  result Locale = " + result);
 
     if (result == null) {
       Iterator requestLocales
@@ -127,17 +127,12 @@ public class ViewHandlerImpl extends ViewHandler {
         }
       }
     }
-    LOG.info("2  result Locale = " + result);
-
     if (result == null) {
       result = facesContext.getApplication().getDefaultLocale();
     }
-    LOG.info("3  result Locale = " + result);
-
     if (result == null) {
       result = Locale.getDefault();
     }
-    LOG.info("4  result Locale = " + result);
 
     return result;
   }
@@ -149,11 +144,13 @@ public class ViewHandlerImpl extends ViewHandler {
     Iterator supportedIterator
         = facesContext.getApplication().getSupportedLocales();
 
-    LOG.info("prefered Locale = " + prefered);
+//    LOG.debug("prefered Locale = " + prefered);
 
     while (supportedIterator.hasNext()) {
       Locale supported = (Locale) supportedIterator.next();
-      LOG.info("supported Locale = " + supported);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("supported Locale = " + supported);
+      }
       if (prefered.equals(supported)) {
         result = supported;
         break;
@@ -162,11 +159,11 @@ public class ViewHandlerImpl extends ViewHandler {
         result = supported;
       }
     }
-    LOG.info("result Locale = " + result);
+//    LOG.debug("result Locale = " + result);
 
     if (result == null) {
       Locale defaultLocale = facesContext.getApplication().getDefaultLocale();
-      LOG.info("default Locale = " + defaultLocale);
+//      LOG.debug("default Locale = " + defaultLocale);
       if (defaultLocale != null) {
         if (prefered.equals(defaultLocale)) {
           result = defaultLocale;
@@ -176,7 +173,9 @@ public class ViewHandlerImpl extends ViewHandler {
         }
       }
     }
-    LOG.info("result Locale = " + result);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("result Locale = " + result);
+    }
     return result;
   }
 
