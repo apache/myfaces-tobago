@@ -13,6 +13,7 @@ import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.PageRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
+import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.taglib.component.PageTag;
 import com.atanion.tobago.util.TobagoResourceSet;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
@@ -33,7 +34,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class PageRenderer extends PageRendererBase implements DirectRenderer {
+public class PageRenderer extends PageRendererBase
+    implements DirectRenderer, HeightLayoutRenderer {
 
 // ///////////////////////////////////////////// constant
 
@@ -66,6 +68,15 @@ public class PageRenderer extends PageRendererBase implements DirectRenderer {
 // ///////////////////////////////////////////// constructor
 
 // ///////////////////////////////////////////// code
+
+  public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
+    int height = getConfiguredValue(facesContext, component, "headerHeight");
+    final UIComponent menubar = component.getFacet(FACET_MENUBAR);
+    if (menubar != null) {
+      height += getConfiguredValue(facesContext, menubar, "headerHeight");
+    }
+    return height;
+  }
 
   public boolean getRendersChildren() {
     return true;

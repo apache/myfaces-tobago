@@ -37,6 +37,8 @@ public class LayoutInfo{
 
   public LayoutInfo(int cellCount, int space, String[] layoutTokens) {
 
+    log.info("new LayoutInfo with " + space + " space!");
+
     this.layoutTokens = layoutTokens;
     if (layoutTokens.length == cellCount) {
       this.cellsLeft = cellCount;
