@@ -6,46 +6,54 @@
 package com.atanion.tobago.context;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.List;
 
 abstract public class Theme {
 
+// ----------------------------------------------------------------- attributes
+
   private String name;
   private String displayName;
   private Theme fallback;
-  private List fallbackCache;
+  private List fallbackList;
+
+// --------------------------------------------------------------- constructors
 
   protected Theme(String name, String displayName, Theme fallback) {
     this.name = name;
     this.displayName = displayName;
     this.fallback = fallback;
+    fallbackList = new ArrayList();
+    for (Theme parent = this;
+        parent != null; parent = parent.getFallback()) {
+      fallbackList.add(parent);
+    }
+    fallbackList = Collections.unmodifiableList(fallbackList);
+  }
+
+// ------------------------------------------------------------ getter + setter
+
+  public String getDisplayName() {
+    return displayName;
   }
 
   protected Theme getFallback() {
     return fallback;
   }
 
-  public final synchronized Iterator fallbackIterator() {
-    if (fallbackCache == null) {
-      fallbackCache = new ArrayList();
-      for (Theme fallback = this;
-          fallback != null; fallback = fallback.getFallback()) {
-        fallbackCache.add(fallback);
-      }
-    }
-    return fallbackCache.iterator();
-  }
-
-  public String toString() {
-    return name;
+  public List getFallbackList() {
+    return fallbackList;
   }
 
   public String getName() {
     return name;
   }
 
-  public String getDisplayName() {
-    return displayName;
+// ---------------------------------------------------------- canonical methods
+
+  public String toString() {
+    return name;
   }
 }
+
