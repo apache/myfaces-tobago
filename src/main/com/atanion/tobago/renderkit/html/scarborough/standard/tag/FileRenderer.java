@@ -22,6 +22,9 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.FacesException;
+import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.ServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +51,23 @@ public class FileRenderer extends RendererBase implements DirectRenderer {
     UIFile uiFile = (UIFile) component;
 
     boolean valid = true;
-    TobagoMultipartFormdataRequest request =
-        (TobagoMultipartFormdataRequest) facesContext.getExternalContext().getRequest();
+
+    TobagoMultipartFormdataRequest request = null;
+    Object requestObject = facesContext.getExternalContext().getRequest();
+    if(requestObject instanceof TobagoMultipartFormdataRequest) {
+      request = (TobagoMultipartFormdataRequest) requestObject;
+    } else if (requestObject instanceof HttpServletRequestWrapper) {
+      ServletRequest wrappedRequest
+          = ((HttpServletRequestWrapper)requestObject).getRequest();
+      if(wrappedRequest instanceof TobagoMultipartFormdataRequest) {
+        request = (TobagoMultipartFormdataRequest) wrappedRequest;
+      }
+    }
+    if (request == null) {
+      throw new FacesException("Cannot find a TobagoMultipartFormdataRequest. "
+          + "Please check that you have confitured a "
+          + "TobagoMultipartFormdataFilter in your web.xml.");
+    }
 
     String actionId = ComponentUtil.findPage(uiFile).getActionId();
     UploadEvent event;
