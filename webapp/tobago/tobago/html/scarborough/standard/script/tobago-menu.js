@@ -2,10 +2,10 @@
 // $Id$
 
 function initMenuPopUp(divId, pageId, type) {
-  initMenuComponents(divId, pageId, type)
+  initMenuComponents(divId, pageId, type);
 }
 function initMenuBar(divId, pageId) {
-  initMenuComponents(divId, pageId, false)
+  initMenuComponents(divId, pageId, false);
 }
 function initMenuComponents(divId, pageId, popup) {
   var menubar = document.getElementById(divId);
@@ -82,7 +82,7 @@ function MenuItem(label, action, disabled) {
     menuItem.id = this.id + getSubComponentSeparator() + index;
     menuItem.index = index;
     menuItem.level = this.level + 1;
-  }
+  };
 
   this.toHtml = function(createSubItems) {
     var html = "";
@@ -94,7 +94,7 @@ function MenuItem(label, action, disabled) {
         onClick = ' onclick="tobagoMenuItemOnmouseout(this, true) ; ' + this.action + '"';
       }
       if (this.level == 1 || this.subItems.length > 0) {
-        onClick = ' onclick="tobagoMenuOpenMenu(this)"';
+        onClick = ' onclick="tobagoMenuOpenMenu(this, event)"';
       }
 
 
@@ -119,7 +119,7 @@ function MenuItem(label, action, disabled) {
             + ' id="' + this.id + getSubComponentSeparator() + 'items" >';
       }
       for (var i = 0; i< this.subItems.length; i++) {
-        html += this.subItems[i].toHtml(createSubItems)
+        html += this.subItems[i].toHtml(createSubItems);
       }
       if (this.level != 0) {
         html += '</div>';
@@ -128,12 +128,12 @@ function MenuItem(label, action, disabled) {
               + ' id="' + this.id + getSubComponentSeparator() + 'iframe" >'
               + ' class="tobago-menubar-subitem-iframe" '
               + ' style="display: none; visibility: hidden;"'
-              + ' frameborder="0" scrolling="no" ></iframe>'
+              + ' frameborder="0" scrolling="no" ></iframe>';
         }
       }
     }
     return html;
-  }
+  };
 
   this.openSubMenus = function() {
     if (! this.subItemContainer) {     
@@ -154,7 +154,7 @@ function MenuItem(label, action, disabled) {
     var innerWidth = getBrowserInnerWidth();
     var innerHeight = getBrowserInnerHeight();
     var innerRight = innerLeft + innerWidth;
-    var innerBottom = innerTop + innerHeight
+    var innerBottom = innerTop + innerHeight;
 
     if (this.level == 1) {
       var containerRight = parentLeft + width;
@@ -198,10 +198,10 @@ function MenuItem(label, action, disabled) {
 //    timing problem when call this directly ??
 //    calling via 'setTimeout()' is not nice, but resolves the problem
     setTimeout('tobagoSetSubMenuContainerVisible("' + this.id +  '")', 0);
-  }
+  };
   this.hideSubMenus = function() {
     this.setSubMenuContainerVisibility("hidden");
-  }
+  };
   this.setSubMenuContainerVisibility = function(style) {
     if (this.subItemContainer) {
       this.subItemContainer.style.visibility = style;
@@ -209,12 +209,12 @@ function MenuItem(label, action, disabled) {
         this.subItemIframe.style.visibility = style;
       }
     }
-  }
+  };
 
 
   this.openMenu = function() {
     this.focusLabelTag();
-  }
+  };
 
   this.onMouseOver = function() {
     this.mouseOver = true;
@@ -235,7 +235,7 @@ function MenuItem(label, action, disabled) {
       this.hoverTimer = setTimeout("tobagoOpenSubMenus('" + this.id + "')",
           getOpenSubMenusTimeout());
     }
-  }
+  };
 
   this.onMouseOut = function(clicked) {
     this.mouseOver = false;
@@ -249,7 +249,7 @@ function MenuItem(label, action, disabled) {
     else {
       removeCssClass(this.htmlElement, "tobago-menu-item-hover");
     }
-  }
+  };
 
   this.onFocus = function() {
     this.focus = true;
@@ -260,13 +260,13 @@ function MenuItem(label, action, disabled) {
     // focus came via alt-<accessKey> : ie needs click())
       this.htmlElement.click();
     }
-  }
+  };
   this.onBlur = function() {
     //PrintDebug("onBlur " + this.id);
     this.focus = false;
     this.onBlurTimer = setTimeout("tobagoFocusLost('" + this.id + "')",
         getFocusLostTimeout());
-  }
+  };
 
   this.focusLost = function() {
     //PrintDebug("focusLost " + this.id);
@@ -278,27 +278,31 @@ function MenuItem(label, action, disabled) {
       removeCssClass(this.htmlElement, "tobago-menu-item-focus");
       this.parent.focusLost();
     }
-  }
+  };
 
   this.isExpanded = function() {
     return this.subItemContainer
         && this.subItemContainer.style.visibility.match(/visible/);
-  }
+  };
 
   this.focusLabelTag = function() {
     //PrintDebug("setze Focus " + this.id);
     var element = this.getLabelTag();
     if (element) {
+      try {
       element.focus();
+      } catch (ex) {
+        // ignore
+      }
     }
-  }
+  };
   this.blurLabelTag = function() {
     //PrintDebug("entferne Focus " + this.id);
     var element = this.getLabelTag();
     if (element) {
       element.blur();
     }
-  }
+  };
 
   this.childHasFocus = function() {
     for (var i = 0; i < this.subItems.length; i++) {
@@ -310,7 +314,7 @@ function MenuItem(label, action, disabled) {
        }
     }
     return false;
-  }
+  };
 
 
   this.isNeighbourOpen = function() {
@@ -336,7 +340,7 @@ function MenuItem(label, action, disabled) {
         this.hover = false;
       }
     }
-  }
+  };
 
   this.keyUp = function() {
     if (this.level == 1) {
@@ -348,7 +352,7 @@ function MenuItem(label, action, disabled) {
         this.hover = false;
       }
     }
-  }
+  };
 
   this.keyLeft = function() {
     if (this.level == 1) {
@@ -376,7 +380,7 @@ function MenuItem(label, action, disabled) {
       next.focus();
       this.hover = false;
     }
-  }
+  };
 
   this.keyRight = function() {
     if (this.level == 1) {
@@ -403,7 +407,7 @@ function MenuItem(label, action, disabled) {
         }
       }
     }
-  }
+  };
 
   this.nextItem = function(start, offset) {
     var i = start + offset;
@@ -430,7 +434,7 @@ function MenuItem(label, action, disabled) {
       return this.subItems[i];
     }
     return false;
-  }
+  };
 
   this.collapse = function() {
     //PrintDebug("collapse " + this.id);
@@ -462,7 +466,7 @@ function MenuItem(label, action, disabled) {
         }
       }
     }
-  }
+  };
   
   this.getLabelTag = function() {
     var children = this.htmlElement.childNodes;
@@ -471,29 +475,29 @@ function MenuItem(label, action, disabled) {
         return children[k];
       }
     }
-  }
+  };
   
   this.setSubitemArrowImage = function(image) {
     this.subitemArrowImage = image;
-  }
+  };
 
   this.getSubitemArrowImage = function() {
     if (! this.subitemArrowImage) {
       if (this.parent) {
-        this.subitemArrowImage = this.parent.getSubitemArrowImage()
+        this.subitemArrowImage = this.parent.getSubitemArrowImage();
       }
     }
     return this.subitemArrowImage;
-  }
+  };
   
   this.addSubitemArrowImage = function() {
     if (this.level > 1 && this.subItems && this.subItems.length > 0) {
       var html = this.htmlElement.innerHTML;
       html += '<img class="tobago-menu-subitem-arrow" src="';
-      html += this.getSubitemArrowImage() + '" />'
+      html += this.getSubitemArrowImage() + '" />';
       this.htmlElement.innerHTML = html;
     }
-  }
+  };
   
   this.setupIframe = function() {
     if (this.subItemIframe) {
@@ -502,7 +506,7 @@ function MenuItem(label, action, disabled) {
       this.subItemIframe.style.top = this.subItemContainer.style.top;
       this.subItemIframe.style.left = this.subItemContainer.style.left;
     }
-  }
+  };
   
 }
 
@@ -657,7 +661,7 @@ function initMenuItems(menu) {
     menu.htmlElement.menuItem = menu;
     if (menu.parent && menu.parent.menubar
         && menu.parent.menubar.className.match(/tobago-menubar-page-facet/)) {
-      addCssClass(menu.htmlElement, 'tobago-menubar-item-page-facet')
+      addCssClass(menu.htmlElement, 'tobago-menubar-item-page-facet');
     }
     menu.subItemContainer =
         document.getElementById(menu.id + getSubComponentSeparator() + 'items');
@@ -927,7 +931,10 @@ function tobagoMenuItemOnblur(element) {
   element.menuItem.onBlur();
 }
 */
-function tobagoMenuOpenMenu(element) {
+function tobagoMenuOpenMenu(element, event) {
+  if (event) {
+    stopEventPropagation(event);
+  }
   element.menuItem.openMenu();
 }
 

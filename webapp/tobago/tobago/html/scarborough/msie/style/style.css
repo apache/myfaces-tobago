@@ -50,6 +50,12 @@ textarea.tobago-richTextEditor-body {
  height: 27px;
 }*/
 
+.tobago-toolBar-button-hover-0 {
+ padding-left: 6px;
+}
+.tobago-box-toolBar-button-hover-0 {
+ padding-right: 6px;
+}
 
 .tobago-toolBar-button-image {
   margin-bottom: 0px;

@@ -277,6 +277,7 @@ div.tobago-box-default {
 .tobago-box-header-toolbar-div{
   position: absolute;
   top: -2px;
+  bottom: -2px;
   right: -1px;
 }
 
@@ -458,11 +459,19 @@ label.tobago-label-disabled  {
 }
 
 
-.tobago-toolbar-table {
+.tobago-toolbar-button {
   font: bold 12px arial, helvetica, sans-serif;
   color: #660000;
 }
-.tobago-toolbar-table-box-facet {
+.tobago-toolbar-button-table {
+  font: bold 12px arial, helvetica, sans-serif;
+  color: #660000;
+}
+.tobago-toolbar-button-table-disabled {
+  color: #808080;
+}
+
+.tobago-toolbar-button-box-facet {
   padding-top: 1px;
   padding-bottom: 1px;
 }

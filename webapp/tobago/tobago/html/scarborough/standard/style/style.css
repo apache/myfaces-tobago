@@ -282,6 +282,8 @@ legend.tobago-box-default {
   font-size: 22px;
   padding-bottom: 2px;
   white-space: nowrap;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
 
@@ -541,7 +543,7 @@ div.tobago-richTextEditor-body {
   padding: 4px;
 }
 
-.tobago-toolbar-table {
+.tobago-toolbar-button {
  float: left;
  font: normal 16px arial, helvetica, sans-serif;
  padding-top: 2px;
@@ -554,7 +556,12 @@ div.tobago-richTextEditor-body {
   -moz-box-sizing: border-box;
 }
 
-.tobago-toolbar-table-box-facet {
+
+.tobago-toolbar-button-table {
+ font: normal 16px arial, helvetica, sans-serif;
+}
+
+.tobago-toolbar-button-box-facet {
   float: right;
 }
 
@@ -563,6 +570,10 @@ div.tobago-richTextEditor-body {
 }
 
 .tobago-toolBar-button-disabled {
+  color: #778899;
+}
+
+.tobago-toolBar-button-table-disabled {
   color: #778899;
 }
 

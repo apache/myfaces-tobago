@@ -310,14 +310,14 @@ function tobagoToolbarMousesoutOld(element, className, imageId) {
 }
 
 function tobagoToolbarMousesover(element, className, imageId) {
-  addCssClass(findTableElement(element), className);
+  addCssClass(element, className);
   tobagoImageMouseover(imageId);
   //PrintDebug("MouseOver element.className : '" + element.className + "'");
 }
 
 function tobagoToolbarMousesout(element, className, imageId) {
 
-  removeCssClass(findTableElement(element), className);
+  removeCssClass(element, className);
   tobagoImageMouseout(imageId);
   //PrintDebug("MouseOut  element.className : '" + element.className + "'");
 }

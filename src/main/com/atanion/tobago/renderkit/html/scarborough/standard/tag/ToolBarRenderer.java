@@ -5,32 +5,29 @@
   */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.taglib.component.ToolBarTag;
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.context.ClientProperties;
-import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.renderkit.CommandRendererBase;
-import com.atanion.tobago.renderkit.HtmlUtils;
-import com.atanion.tobago.renderkit.LabelWithAccessKey;
-import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.util.LayoutUtil;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.context.ResourceManagerUtil;
+import com.atanion.tobago.renderkit.CommandRendererBase;
+import com.atanion.tobago.renderkit.LabelWithAccessKey;
+import com.atanion.tobago.renderkit.RenderUtil;
+import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.taglib.component.ToolBarTag;
+import com.atanion.tobago.util.LayoutUtil;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
+
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIGraphic;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.List;
-import java.util.Collections;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class ToolBarRenderer extends RendererBase {
 
@@ -73,7 +70,6 @@ public class ToolBarRenderer extends RendererBase {
       writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
       writer.startElement("div", toolbar);
       writer.writeAttribute("class", "tobago-toolbar-div-inner", null);
-//      writer.writeAttribute("style", "position: relative; left: -10px;", null);
     }
 
     boolean boxFacet = isBoxFacet(toolbar);
@@ -87,12 +83,11 @@ public class ToolBarRenderer extends RendererBase {
       children = newList;
     }
 
-//    renderIEFirstTable(facesContext, writer, boxFacet);
-
+    int index = 0;
     for (Iterator iter = children.iterator(); iter.hasNext();) {
       UIComponent component = (UIComponent) iter.next();
       if (component instanceof UICommand) {
-        renderToolbarButton(facesContext, (UICommand) component, writer, boxFacet);
+        renderToolbarButton(facesContext, (UICommand) component, writer, boxFacet, index++);
       } else {
         LOG.error("Illegal UIComponent class in toolbar :"
             + component.getClass().getName());
@@ -103,32 +98,6 @@ public class ToolBarRenderer extends RendererBase {
       writer.endElement("div");
       writer.endElement("div");
     }
-  }
-
-  private void renderIEFirstTable(FacesContext facesContext, TobagoResponseWriter writer, boolean boxFacet) throws IOException {
-
-    writer.startElement("table", null);
-    writer.writeAttribute("cellpadding", "0", null);
-    writer.writeAttribute("cellspacing", "0", null);
-    writer.writeAttribute("summary", "", null);
-    writer.writeAttribute("border", "0", null);
-    writer.writeAttribute("class", "tobago-toolbar-table" + (boxFacet ? " tobago-toolbar-table-box-facet" : ""), null);
-    writer.writeAttribute("style", "background: red; padding:0px;margin: 0px;", null);
-    writer.startElement("tr", null);
-    writer.startElement("td", null);
-
-    LOG.info("rendering Dummy Image ");
-    writer.startElement("img", null);
-    writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "image/1x1.gif"), null);
-    writer.writeAttribute("alt", "", null);
-    writer.writeAttribute("border", "0", null);
-    writer.writeAttribute("style", "width: 1px;", null);
-
-    writer.endElement("img");
-
-    writer.endElement("td");
-    writer.endElement("tr");
-    writer.endElement("table");
   }
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
@@ -154,7 +123,7 @@ public class ToolBarRenderer extends RendererBase {
   }
 
   private void renderToolbarButton(FacesContext facesContext,
-      final UICommand command, TobagoResponseWriter writer, boolean boxFacet)
+      final UICommand command, TobagoResponseWriter writer, boolean boxFacet, int index)
       throws IOException {
 
     if (! command.isRendered()) {
@@ -177,29 +146,51 @@ public class ToolBarRenderer extends RendererBase {
     onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
             facesContext);
 
-    String classNames = "tobago-toolbar-table"
+    String divClasses = "tobago-toolbar-button"
         + " tobago-toolbar-button-" + (disabled ? "disabled" : "enabled")
-        + (boxFacet ? " tobago-toolbar-table-box-facet" : "");
+        + (boxFacet ? " tobago-toolbar-button-box-facet" : "");
 
+    String tableClasses = "tobago-toolbar-button-table"
+        + " tobago-toolbar-button-table-" + (disabled ? "disabled" : "enabled")
+        + (boxFacet ? " tobago-toolbar-button-table-box-facet" : "");
 
-    writer.startElement("table", null);
-    writer.writeAttribute("cellpadding", "0", null);
-    writer.writeAttribute("cellspacing", "0", null);
-    writer.writeAttribute("summary", "", null);
-    writer.writeAttribute("border", "0", null);
-    writer.writeAttribute("class", classNames, null);
-    writer.startElement("tr", null);
 
 
     String iconName = (String) command.getAttributes().get(ATTR_IMAGE);
     String image = getImage(facesContext, iconName, iconSize, disabled);
     String graphicId = clientId + SUBCOMPONENT_SEP + "icon";
-    final String args = "this, 'tobago-toolBar-button-hover', '"+ graphicId + "'";
+
+    String extraCssClass = "";
+    if (index == 0) {
+      if (! boxFacet) {
+        extraCssClass = " tobago-toolBar-button-hover-" + index;
+      } else {
+        extraCssClass = " tobago-box-toolBar-button-hover-" + index;
+      }
+    }
+    final String args = "this, 'tobago-toolBar-button-hover" + extraCssClass + "', '"+ graphicId + "'";
     final String mouseOverScript = "tobagoToolbarMousesover(" + args + ");";
     final String mouseOutScript = "tobagoToolbarMousesout(" + args + ");";
 
-    boolean anchorOnLabel = label.getText() != null
-        && !ToolBarTag.LABEL_OFF.equals(labelPosition);
+    writer.startElement("div", null);
+    writer.writeAttribute("class", divClasses, null);
+      if (! disabled) {
+        writer.writeAttribute("onmouseover", mouseOverScript, null);
+        writer.writeAttribute("onmouseout", mouseOutScript, null);
+        writer.writeAttribute("onclick", onClick, null);
+      }
+    writer.startElement("table", null);
+    writer.writeAttribute("cellpadding", "0", null);
+    writer.writeAttribute("cellspacing", "0", null);
+    writer.writeAttribute("summary", "", null);
+    writer.writeAttribute("border", "0", null);
+    writer.writeAttribute("class", tableClasses, null);
+    writer.startElement("tr", null);
+
+
+
+    boolean anchorOnLabel =
+        label.getText() != null && !ToolBarTag.LABEL_OFF.equals(labelPosition);
 
 
     if (!ToolBarTag.ICON_OFF.equals(iconSize)) {
@@ -224,17 +215,11 @@ public class ToolBarRenderer extends RendererBase {
         // todo: make this '3px' configurable
       }
 
-      if (! disabled) {
-        writer.writeAttribute("onmouseover", mouseOverScript, null);
-        writer.writeAttribute("onmouseout", mouseOutScript, null);
-        writer.writeAttribute("onclick", onClick, null);
-      }
-
       String className = "tobago-image-default tobago-toolBar-button-image"
           + " tobago-toolBar-button-image-" + iconSize;
 
       if (! anchorOnLabel) {
-        renderAnchorBegin(writer, command, onClick, label, disabled);
+        renderAnchorBegin(writer, command, label, disabled);
       }
       LOG.info("rendering Image :" + image);
       writer.startElement("img", null);
@@ -259,7 +244,7 @@ public class ToolBarRenderer extends RendererBase {
     if (popupOn2) {
       if (popupMenu != null) {
         renderPopupTd(facesContext, writer, command, popupMenu,
-            mouseOverScript, mouseOutScript, disabled, true);
+            true);
 
       }
       writer.endElement("tr");
@@ -270,11 +255,6 @@ public class ToolBarRenderer extends RendererBase {
       writer.startElement("td", null);
       writer.writeAttribute("class", "tobago-toolbar-label-td", null);
       writer.writeAttribute("align", "center", null);
-      if (! disabled) {
-        writer.writeAttribute("onmouseover", mouseOverScript, null);
-        writer.writeAttribute("onmouseout", mouseOutScript, null);
-        writer.writeAttribute("onclick", onClick, null);
-      }
       if (popupMenu != null) {
         writer.writeAttribute("style", "padding-right: 3px;", null);
         // todo: make this '3px' configurable
@@ -282,7 +262,7 @@ public class ToolBarRenderer extends RendererBase {
 
       LOG.info("rendering label :" + label.getText());
       if (label.getText() != null) {
-        renderAnchorBegin(writer, command, onClick, label, disabled);
+        renderAnchorBegin(writer, command, label, disabled);
         RenderUtil.writeLabelWithAccessKey(writer, label);
         writer.endElement("a");
       }
@@ -290,30 +270,24 @@ public class ToolBarRenderer extends RendererBase {
     }
 
 
-    if (! popupOn2
-//    if (! (ToolBarTag.LABEL_BOTTOM.equals(labelPosition)
-//           && ToolBarTag.ICON_OFF.equals(iconSize))
-        && popupMenu != null) {
-      renderPopupTd(facesContext, writer, command, popupMenu, mouseOverScript,
-          mouseOutScript, disabled, false);
+    if (! popupOn2 && popupMenu != null) {
+      renderPopupTd(facesContext, writer, command, popupMenu,
+          false);
     }
 
     writer.endElement("tr");
     writer.endElement("table");
+    writer.endElement("div");
   }
 
   private void renderPopupTd(FacesContext facesContext,
       TobagoResponseWriter writer, UIComponent command, UIComponent popupMenu,
-      final String mouseOverScript, final String mouseOutScript,
-      boolean disabled, boolean labelBottom)
+      boolean labelBottom)
       throws IOException {
+
     writer.startElement("td", null);
     if (labelBottom) {
       writer.writeAttribute("rowspan", "2", null);
-    }
-    if (! disabled) {
-      writer.writeAttribute("onmouseover", mouseOverScript, null);
-      writer.writeAttribute("onmouseout", mouseOutScript, null);
     }
 
     if (popupMenu != null) {
@@ -338,12 +312,14 @@ public class ToolBarRenderer extends RendererBase {
     writer.endElement("td");
   }
 
-  private void renderAnchorBegin(TobagoResponseWriter writer, final UICommand command, String onClick, final LabelWithAccessKey label, final boolean disabled) throws IOException {
+  private void renderAnchorBegin(TobagoResponseWriter writer,
+      final UICommand command, final LabelWithAccessKey label,
+      final boolean disabled) throws IOException {
+    
     writer.startElement("a", command);
     writer.writeAttribute("class", "tobago-toolBar-button-link", null);
     writer.writeAttribute("title", null, ATTR_TIP);
     if (! disabled) {
-//      writer.writeAttribute("onclick", onClick, null);
       writer.writeAttribute("href", "#", null);
       writer.writeAttribute("onfocus", "tobagoToolbarFocus(this, event)", null);
       if (label.getAccessKey() != null) {
