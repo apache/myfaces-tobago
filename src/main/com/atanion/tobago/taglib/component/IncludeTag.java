@@ -25,25 +25,21 @@ public class IncludeTag extends TagSupport {
 
   private String value;
 
-  private boolean i18n;
-
 // ----------------------------------------------------------- business methods
 
   public int doStartTag() throws JspException {
     String pageName = null;
     try {
+      FacesContext facesContext = FacesContext.getCurrentInstance();
       if (UIComponentTag.isValueReference(value)) {
-        ValueBinding valueBinding = FacesContext.getCurrentInstance()
-            .getApplication().createValueBinding(value);
-        pageName = (String)
-            valueBinding.getValue(FacesContext.getCurrentInstance());
+        ValueBinding valueBinding
+            = facesContext.getApplication().createValueBinding(value);
+        pageName = (String) valueBinding.getValue(facesContext);
       } else {
         pageName = value;
       }
 
-      if (i18n) {
-        pageName = ResourceManagerUtil.getJsp(FacesContext.getCurrentInstance(), pageName);
-      }
+      pageName = ResourceManagerUtil.getJsp(facesContext, pageName);
 
       if (LOG.isDebugEnabled()) {
         LOG.debug("include start pageName = '" + pageName + "'");
@@ -61,7 +57,6 @@ public class IncludeTag extends TagSupport {
 
   public void release() {
     value = null;
-    i18n = false;
     super.release();
   }
 
@@ -73,14 +68,6 @@ public class IncludeTag extends TagSupport {
 
   public void setValue(String value) {
     this.value = value;
-  }
-
-  public boolean isI18n() {
-    return i18n;
-  }
-
-  public void setI18n(boolean i18n) {
-    this.i18n = i18n;
   }
 }
 

@@ -56,10 +56,17 @@ public class ResourceManager {
 // ----------------------------------------------------------- business methods
 
   public void add(String resourceKey) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("adding resourceKey = '" + resourceKey + "'");
+    }
     resourceList.put(resourceKey, "");
   }
 
   public void add(String resourceKey, String value) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug(
+          "adding resourceKey = '" + resourceKey + "' value='" + value + "'");
+    }
     resourceList.put(resourceKey, value);
   }
 
@@ -208,7 +215,9 @@ public class ResourceManager {
                 localeSuffix,
                 suffix,
                 key);
-            LOG.info("testing path: " + path);
+            if (LOG.isDebugEnabled()) {
+              LOG.debug("testing path: " + path);
+            }
             if (returnStrings && resourceList.containsKey(path)) {
               String result = prefix;
 
@@ -245,6 +254,9 @@ public class ResourceManager {
     while (localeIterator.hasNext()) { // locale loop
       String localeSuffix = (String) localeIterator.next();
       path = makePath(name, localeSuffix, suffix, key);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("testing path: " + path);
+      }
       if (returnStrings && resourceList.containsKey(path)) {
         String result = prefix;
 
