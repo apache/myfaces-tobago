@@ -126,7 +126,13 @@ public class GridLayoutRenderer extends RendererBase
 
         List cells = row.getElements();
         for (int columnIndex = 0; columnIndex < cells.size(); columnIndex++) {
-          if (((Integer)columnWidths.get(columnIndex)).intValue() != LayoutInfo.HIDE) {
+          int help = 0; // fixme
+          try {
+            help = ((Integer)columnWidths.get(columnIndex)).intValue();
+          } catch (Exception e) {
+            LOG.error("unhandled: columnWidths="+columnWidths);
+          }
+          if (help != LayoutInfo.HIDE) {
 
             Object object = cells.get(columnIndex);
             if (object.toString().equals(UIGridLayout.USED)) {
