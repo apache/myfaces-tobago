@@ -9,10 +9,11 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.TobagoConstants;
 
+import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
+import javax.faces.context.FacesContext;
 
 
 public class ImageTag extends TobagoTag {
@@ -42,7 +43,11 @@ public class ImageTag extends TobagoTag {
     setProperty(component, TobagoConstants.ATTR_WIDTH, width);
     setProperty(component, TobagoConstants.ATTR_HEIGHT, height);
     UIGraphic graphic = (UIGraphic) component;
-    if (value != null) {
+    if (isValueReference(value)) {
+      Application application = FacesContext.getCurrentInstance().getApplication();
+      component.setValueBinding("value", application.createValueBinding(value));
+    }
+    else if (value != null) {
       graphic.setValue(value);
     }
   }
