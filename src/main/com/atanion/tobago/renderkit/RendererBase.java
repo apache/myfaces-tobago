@@ -93,6 +93,8 @@ public abstract class RendererBase
     }
     UIComponent layout = component.getFacet("layout");
     if (layout != null) {
+//      ((LayoutManager)ComponentUtil.getRenderer(layout, facesContext))
+//          .layoutBegin(facesContext, layout);
       layout.encodeBegin(facesContext);
       layout.encodeChildren(facesContext);
       layout.encodeEnd(facesContext);
@@ -134,11 +136,11 @@ public abstract class RendererBase
     if (renderer instanceof LayoutManager) {
       layoutManager = (LayoutManager) renderer;
     } else {
-      UIComponent parent = LayoutUtil.getNonTransparentParent(component);
+      UIComponent parent = LayoutUtil.getLayoutParent(component);
       if (parent instanceof UIPanel
           && ComponentUtil.getBooleanAttribute(parent, ATTR_LAYOUT_DIRECTIVE)) {
         component = parent;
-        parent = LayoutUtil.getNonTransparentParent(component);
+        parent = LayoutUtil.getLayoutParent(component);
       }
       if (parent != null) {
         UIComponent layout = parent.getFacet("layout");
@@ -154,7 +156,7 @@ public abstract class RendererBase
 
     // fixme:
     if (layoutManager == null) {
-      UIComponent parent = LayoutUtil.getNonTransparentParent(component);
+      UIComponent parent = LayoutUtil.getLayoutParent(component);
       if (parent != null) {
         UIComponent layout = parent.getFacet("layout");
 //        if (layout instanceof UIComponentBase) {

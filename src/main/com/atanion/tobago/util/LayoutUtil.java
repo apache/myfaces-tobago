@@ -244,7 +244,7 @@ public class LayoutUtil {
     return false;
   }
 
-  public static UIComponent getNonTransparentParent(UIComponent component) {
+  public static UIComponent getLayoutParent(UIComponent component) {
     UIComponent parent = component.getParent();
     while (parent != null && isTransparentForLayout(parent)) {
       parent = parent.getParent();
