@@ -14,7 +14,7 @@
       new Double(ResourceManager.getInstance().getCacheCoverage()));
 %>
 <f:view>
-  <tobago:loadTobagoBundle basename="tobago" var="tobagoBundle" />
+  <tobago:loadBundle basename="tobago" var="tobagoBundle" />
   <tobago:page title="#{tobagoBundle.configTitle}">
     <tobago:panelGroup>
       <f:facet name="layout">
