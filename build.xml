@@ -115,7 +115,7 @@
          classpathref="project.classpath.jar"
          debug="on"
          compile="false"
-         factory="com.atanion.apt.SimpleAnnotationProcessorFactory"
+         factory="com.atanion.apt.TaglibAnnotationProcessorFactory"
          factorypathref="project.classpath.jar" >
     </apt>
   </target>

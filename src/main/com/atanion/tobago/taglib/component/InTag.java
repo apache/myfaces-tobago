@@ -8,9 +8,10 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIInput;
-import com.atanion.tobago.taglib.UIComponentTagAttribute;
-import com.atanion.tobago.taglib.TagAttribute;
-import com.atanion.tobago.taglib.Tag;
+import com.atanion.util.annotation.UIComponentTagAttribute;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.TagAttribute;
 
 import javax.faces.component.UIComponent;
 @Tag(name="in")
