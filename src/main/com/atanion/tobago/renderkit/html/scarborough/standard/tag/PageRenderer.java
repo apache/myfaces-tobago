@@ -212,6 +212,8 @@ public class PageRenderer extends PageRendererBase implements DirectRenderer {
       writer.write('\n');
     }
 
+    String clientId = page.getClientId(facesContext);
+
     writer.endElement("script");
 
     writer.endElement("head");
@@ -220,8 +222,8 @@ public class PageRenderer extends PageRendererBase implements DirectRenderer {
     //this ist for ie to prevent scrollbars where none are needed
     writer.writeAttribute("scroll", "auto", null);
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeAttribute("id", clientId, null);
 
-    String clientId = page.getClientId(facesContext);
     writer.startElement("form", page);
     writer.writeAttribute("name",
         clientId + TobagoConstants.SUBCOMPONENT_SEP + "form", null);
