@@ -258,12 +258,6 @@ public class ResourceManager {
 
     List matches = new ArrayList();
 
-    if (renderKitId.equals("HTML_BASIC")) {
-      LOG.warn("unknown renderKitId=" + renderKitId);
-      renderKitId = "html/scarborough/standard/de";
-      LOG.warn("fixed   renderKitId=" + renderKitId);
-    }
-
     StringTokenizer tokenizer = new StringTokenizer(renderKitId, "/");
     String contentType = tokenizer.nextToken();
     Theme theme = tobagoConfig.getTheme(tokenizer.nextToken());

@@ -74,11 +74,6 @@ public class Theme {
 
   /** not very nice */
   public static String fromRenderKitId(String renderKitId) {
-    if (renderKitId.equals("HTML_BASIC")) {
-      LOG.warn("unknown renderKitId=" + renderKitId);
-      renderKitId = "html/scarborough/standard/de";
-      LOG.warn("fixed   renderKitId=" + renderKitId);
-    }
     StringTokenizer tokenizer = new StringTokenizer(renderKitId, "/");
     tokenizer.nextToken(); // ignore contentType
     return tokenizer.nextToken();
