@@ -430,7 +430,8 @@ function setItemPositions(menu) {
         menu.htmlElement.style.left = left + "px";
         if (menu.subItemContainer) {
           menu.subItemContainer.style.left = left + "px";
-        }  
+        }
+        menu.htmlElement.style.zIndex = "999";
       }
       else { // level not 0 or 1
         var top = top = (menu.index * getItemHeight());
