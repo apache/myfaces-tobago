@@ -25,12 +25,13 @@ public class MenuTag extends TobagoTag {
 // ----------------------------------------------------------- business methods
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
+    component.setRendererType(null);
    ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image, getIterationHelper());
-    component.setRendererType(null);
    ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, "menu", getIterationHelper());
+    provideLabel(component);
   }
 
   public String getComponentType() {

@@ -18,9 +18,5 @@ public class BoxTag extends TobagoBodyTag {
   public String getComponentType() {
     return UIPanel.COMPONENT_TYPE;
   }
-
-  protected void provideLabel(UIComponent component) {
-   ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
-  }
 }
 

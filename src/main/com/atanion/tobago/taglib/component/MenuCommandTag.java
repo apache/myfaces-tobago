@@ -40,6 +40,8 @@ public class MenuCommandTag extends CommandTag {
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
+
+    provideLabel(component);
   }
 
 // ------------------------------------------------------------ getter + setter

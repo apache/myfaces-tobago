@@ -18,6 +18,8 @@ public abstract class InputTag extends BeanTag {
 
   private String onchange;
   private String focus;
+  private String accessKey;
+  private String labelWithAccessKey;
 
 // ----------------------------------------------------------- business methods
 
@@ -25,12 +27,19 @@ public abstract class InputTag extends BeanTag {
     super.release();
     this.onchange = null;
     this.focus = null;
+    accessKey = null;
+    labelWithAccessKey = null;
+
   }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_ONCHANGE, onchange, getIterationHelper());
-   ComponentUtil.setBooleanProperty(component, ATTR_FOCUS, focus, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_ONCHANGE, onchange, getIterationHelper());
+    ComponentUtil.setBooleanProperty(component, ATTR_FOCUS, focus, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
+    provideLabel(component);
+
   }
 
 // ------------------------------------------------------------ getter + setter
@@ -55,6 +64,22 @@ public abstract class InputTag extends BeanTag {
   @TagAttribute
   public void setFocus(String focus) {
     this.focus = focus;
+  }
+
+  public String getAccessKey() {
+    return accessKey;
+  }
+
+  public void setAccessKey(String accessKey) {
+    this.accessKey = accessKey;
+  }
+
+  public String getLabelWithAccessKey() {
+    return labelWithAccessKey;
+  }
+
+  public void setLabelWithAccessKey(String labelWithAccessKey) {
+    this.labelWithAccessKey = labelWithAccessKey;
   }
 }
 

@@ -18,8 +18,9 @@ public class TabTag extends TobagoBodyTag {
     return UIPanel.COMPONENT_TYPE;
   }
 
-  protected void provideLabel(UIComponent component) {
-   ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
+  protected void setProperties(UIComponent component) {
+    super.setProperties(component);
+    provideLabel(component);
   }
 }
 
