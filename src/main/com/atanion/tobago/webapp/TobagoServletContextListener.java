@@ -47,17 +47,19 @@ public class TobagoServletContextListener implements ServletContextListener {
 
 
       final ClassLoader classLoader = getClass().getClassLoader();
-
-      final InputStream stream = classLoader.getResourceAsStream("/license.ser");
+      final InputStream stream = classLoader.getResourceAsStream("license.ser");
+      if (stream == null) {
+        throw new LicenseException("No license found! ");
+      }
 
 //      LOG.info("stream == " + stream);
 
       final License license = LicenseCheck.loadLicense(stream);
       if (! license.isValid("tobago")) {
-        throw new LicenseException("invald license found: " + license.toString());
+        throw new LicenseException("Invald license found: " + license);
       } else {
         if (LOG.isInfoEnabled()) {
-          LOG.info("Valid tobago license found!");
+          LOG.info("Valid tobago license found: " + license);
         }
       }
 
