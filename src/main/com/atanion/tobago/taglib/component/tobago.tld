@@ -2419,6 +2419,16 @@
       </description>
     </attribute>
     <attribute>
+      <name>accessKey</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description><![CDATA[
+          Character used as accesskey. Overwritten by 'labelWithAccessKey'<br>
+          Contains a character, string (first char is used) or a ValueBindig expression.
+        ]]>
+      </description>
+    </attribute>
+    <attribute>
       <name>labelWithAccessKey</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
@@ -2469,6 +2479,32 @@
       <name>label</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <description><![CDATA[
+          Text value to display as menu's label. Overwritten by 'labelWithAccessKey'<br>
+          Contains plain text or ValueBindig expression.
+        ]]>
+      </description>
+    </attribute>
+    <attribute>
+      <name>accessKey</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description><![CDATA[
+          Character used as accesskey. Overwritten by 'labelWithAccessKey'<br>
+          Contains a character, string (first char is used) or a ValueBindig expression.
+        ]]>
+      </description>
+    </attribute>
+    <attribute>
+      <name>labelWithAccessKey</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description><![CDATA[
+          Text value to display as menu's label. Overwites 'label'.<br>
+          If text contains an underscore the next character overwrites 'accesskey'.
+          Contains plain text or ValueBindig expression.
+        ]]>
+      </description>
     </attribute>
     <attribute>
       <name>disabled</name>
@@ -2492,11 +2528,6 @@
     </attribute>
     <attribute>
       <name>image</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>labelWithAccessKey</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
@@ -2539,11 +2570,6 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>label</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
       <name>disabled</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
@@ -2564,9 +2590,35 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
+      <name>label</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description><![CDATA[
+          Text value to display as menu's label. Overwritten by 'labelWithAccessKey'<br>
+          Contains plain text or ValueBindig expression.
+        ]]>
+      </description>
+    </attribute>
+    <attribute>
+      <name>accessKey</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description><![CDATA[
+          Character used as accesskey. Overwritten by 'labelWithAccessKey'<br>
+          Contains a character, string (first char is used) or a ValueBindig expression.
+        ]]>
+      </description>
+    </attribute>
+    <attribute>
       <name>labelWithAccessKey</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <description><![CDATA[
+          Text value to display as menu's label. Overwites 'label'.<br>
+          If text contains an underscore the next character overwrites 'accesskey'.
+          Contains plain text or ValueBindig expression.
+        ]]>
+      </description>
     </attribute>
     <attribute>
       <name>rendered</name>
