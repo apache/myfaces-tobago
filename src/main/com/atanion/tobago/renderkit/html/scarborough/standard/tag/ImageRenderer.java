@@ -17,11 +17,22 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class ImageRenderer extends RendererBase {
+  
+// ------------------------------------------------------------------ constants
+
+  private static final Log LOG = LogFactory.getLog(ImageRenderer.class);
+
+// ----------------------------------------------------------------- interfaces
+
+
+// ---------------------------- interface TobagoRenderer
 
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
-
     UIGraphic graphic = (UIGraphic) component;
     final String value = graphic.getUrl();
     String src = value;
@@ -77,24 +88,9 @@ public class ImageRenderer extends RendererBase {
     writer.writeAttribute("style", null, ATTR_STYLE);
     writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
     writer.endElement("img");
-
   }
 
-  private boolean isDisabled(UIGraphic graphic) {
-    boolean disabled = ComponentUtil.getBooleanAttribute(graphic,
-        ATTR_DISABLED);
-    if (!disabled && graphic.getParent() instanceof UICommand) {
-      disabled =
-          ComponentUtil.getBooleanAttribute(graphic.getParent(), ATTR_DISABLED);
-    }
-    return disabled;
-  }
-
-  public String createSrc(String src, String ext) {
-    int dot = src.lastIndexOf('.');
-    return src.substring(0, dot) + ext + src.substring(dot);
-  }
-
+// ----------------------------------------------------------- business methods
 
   public void addImageSources(FacesContext facesContext, UIGraphic graphic) {
     final String src = graphic.getUrl();
@@ -108,5 +104,24 @@ public class ImageRenderer extends RendererBase {
             true) + "');");
   }
 
+  public String createSrc(String src, String ext) {
+    int dot = src.lastIndexOf('.');
+    if (dot == -1) {
+      LOG.warn("Image src without extension: '" + src + "'");
+      return src;
+    } else {
+      return src.substring(0, dot) + ext + src.substring(dot);
+    }
+  }
+
+  private boolean isDisabled(UIGraphic graphic) {
+    boolean disabled = ComponentUtil.getBooleanAttribute(graphic,
+        ATTR_DISABLED);
+    if (!disabled && graphic.getParent() instanceof UICommand) {
+      disabled =
+          ComponentUtil.getBooleanAttribute(graphic.getParent(), ATTR_DISABLED);
+    }
+    return disabled;
+  }
 }
 

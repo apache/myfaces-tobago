@@ -12,42 +12,32 @@ import javax.faces.component.UIOutput;
 
 public class LabelTag extends BeanTag {
 
-// ///////////////////////////////////////////// constant
-
-// ///////////////////////////////////////////// attribute
+// ----------------------------------------------------------------- attributes
 
   private String _for;
 
-// ///////////////////////////////////////////// constructor
-
-  public LabelTag() {
-    setI18n(Boolean.TRUE.toString()); // overwrite default
-  }
-
-// ///////////////////////////////////////////// code
+// ----------------------------------------------------------- business methods
 
   public String getComponentType() {
     return UIOutput.COMPONENT_TYPE;
+  }
+
+  public String getFor() {
+    return _for;
+  }
+
+  public void release() {
+    super.release();
+    _for = null;
+  }
+
+  public void setFor(String _for) {
+    this._for = _for;
   }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
    ComponentUtil.setStringProperty(component, ATTR_FOR, _for, getIterationHelper());
   }
-
-  public void release() {
-    super.release();
-    _for = null;
-    setI18n(Boolean.TRUE.toString()); // overwrite default
-  }
-
-// ///////////////////////////////////////////// bean getter + setter
-
-  public String getFor() {
-    return _for;
-  }
-
-  public void setFor(String _for) {
-    this._for = _for;
-  }
 }
+

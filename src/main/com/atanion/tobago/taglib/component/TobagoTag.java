@@ -28,11 +28,6 @@ public abstract class TobagoTag extends UIComponentTag
 
 // ----------------------------------------------------------------- attributes
 
-  /**
-   * If the control is i18n it is need to be localized.
-   * The value will be converted via the
-   * internationalization mechanism.
-   */
   protected String label;
 
   private String title;
@@ -46,8 +41,6 @@ public abstract class TobagoTag extends UIComponentTag
   private String readonly;
 
   private String disabled;
-
-  private String i18n;
 
   private String inline;
 
@@ -93,7 +86,6 @@ public abstract class TobagoTag extends UIComponentTag
     hidden = null;
     readonly = null;
     disabled = null;
-    i18n = null;
     inline = null;
     label = null;
     title = null;
@@ -113,7 +105,6 @@ public abstract class TobagoTag extends UIComponentTag
     ComponentUtil.setBooleanProperty(component, ATTR_DISABLED, disabled, getIterationHelper());
     ComponentUtil.setBooleanProperty(component, ATTR_READONLY, readonly, getIterationHelper());
     ComponentUtil.setBooleanProperty(component, ATTR_HIDDEN, hidden, getIterationHelper());
-    ComponentUtil.setBooleanProperty(component, ATTR_I18N, i18n, getIterationHelper());
     ComponentUtil.setBooleanProperty(component, ATTR_INLINE, inline, getIterationHelper());
 
     ComponentUtil.setStringProperty(component, ATTR_WIDTH, width, getIterationHelper());
@@ -175,14 +166,6 @@ public abstract class TobagoTag extends UIComponentTag
 
   public void setHidden(String hidden) {
     this.hidden = hidden;
-  }
-
-  public String getI18n() {
-    return i18n;
-  }
-
-  public void setI18n(String i18n) {
-    this.i18n = i18n;
   }
 
   public String getInline() {
