@@ -86,7 +86,6 @@ public class ButtonRenderer extends CommandRendererBase
     String clientId = component.getClientId(facesContext);
     String onclick;
 
-    LOG.info("type = " + type + " :: action = " + commandName + "");
     if (TobagoConstants.COMMAND_TYPE_NAVIGATE.equals(type)) {
       onclick = "navigateToUrl('"
           + HtmlUtils.generateUrl(facesContext, commandName) + "')";
@@ -99,7 +98,6 @@ public class ButtonRenderer extends CommandRendererBase
           ComponentUtil.findPage(component).getFormId(facesContext) +
           "','" + clientId + "')";
     }
-    LOG.info("onClick = " + onclick);
     return onclick;
   }
 
