@@ -21,13 +21,13 @@ function initMenuComponents(divId, pageId, popup) {
     var className = "tobago-menubar-container";
     menubar.menu.htmlElement = document.createElement('div');
     menubar.menu.htmlElement.className = className;
-    //menubar.menu.htmlElement.style.top = top;
-    //menubar.menu.htmlElement.style.left = left;
-    menubar.menu.htmlElement.style.top = 0;
-    menubar.menu.htmlElement.style.left = 0;
+    menubar.menu.htmlElement.style.top = top;
+    menubar.menu.htmlElement.style.left = left;
+    //menubar.menu.htmlElement.style.top = 0;
+    //menubar.menu.htmlElement.style.left = 0;
     menubar.menu.htmlElement.innerHTML = menubar.menu.toHtml();
-    //body.appendChild(menubar.menu.htmlElement);
-    menubar.appendChild(menubar.menu.htmlElement);
+    body.appendChild(menubar.menu.htmlElement);
+    //menubar.appendChild(menubar.menu.htmlElement);
 
     initMenuItems(menubar.menu);
     setItemWidth(menubar.menu);
