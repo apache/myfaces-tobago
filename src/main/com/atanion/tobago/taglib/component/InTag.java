@@ -41,6 +41,10 @@ public class InTag extends InputTag {
     return password;
   }
 
+  /**
+   * 
+   * @param password
+   */
   @UIComponentTagAttribute(
       internalType = Boolean.class,
       description = "Is rendered as password, so you will not see the typed charakters.")
