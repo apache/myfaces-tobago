@@ -305,7 +305,7 @@ public class ViewHandlerImpl extends ViewHandler {
     }
   }
 
-  public void writeState(FacesContext facescontext) throws IOException {
+  public void writeState(FacesContext facesContext) throws IOException {
     LOG.error("not implemented yet!"); // fixme jsfbeta
   }
 
