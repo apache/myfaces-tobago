@@ -4,13 +4,14 @@
   */
 
 function toggle(node, treeHiddenId, openFolderIcon, folderIcon) {
+  PrintDebug("toggle("+node+", "+treeHiddenId+", " + openFolderIcon + ", "+ folderIcon +")");
   var content = document.getElementById(node.id + "-cont");
   if (content) {
     var selectState = document.getElementById(treeHiddenId + '-selectState');
     var icon;
-    if (! selectState) {
+    //if (! selectState) { // why this if ?? {
       icon = document.getElementById(node.id + '-icon');
-    }
+    //}
     var junction = document.getElementById(node.id + '-junction');
     var hidden = document.getElementById(treeHiddenId);
     if (content.style.display == 'none') {
