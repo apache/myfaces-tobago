@@ -273,6 +273,14 @@ public class PageRenderer extends PageRendererBase {
     // write the proviously rendered page content 
     writer.write(content.toString());
 
+    // write popup components
+    List popups = (List) page.getAttributes().get(ATTR_POPUP_LIST);
+    if (popups != null) {
+      for (Iterator iter = popups.iterator(); iter.hasNext();) {
+        RenderUtil.encode(facesContext, (UIComponent) iter.next());
+      }
+    }
+
     writer.endElement("form");
 
     // debugging...

@@ -5,13 +5,25 @@
   */
 package com.atanion.tobago.taglib.component;
 
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
+
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPopup;
+import com.atanion.tobago.component.UIPage;
 
 import javax.faces.component.UIComponent;
+import javax.faces.webapp.UIComponentTag;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.JspException;
+import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class PopupTag extends TobagoBodyTag {
 
+  private static final Log LOG = LogFactory.getLog(PopupTag.class);
   private String width;
   private String height;
   private String left;
@@ -20,6 +32,29 @@ public class PopupTag extends TobagoBodyTag {
   public String getComponentType() {
     return UIPopup.COMPONENT_TYPE;
   }
+
+  public int doStartTag() throws JspException {
+    int result = super.doStartTag();
+    UIComponent component = getComponentInstance();
+    UIPage page = ComponentUtil.findPage(component);
+    List popups = (List) page.getAttributes().get(ATTR_POPUP_LIST);
+    if (popups == null) {
+      popups = new ArrayList();
+      page.getAttributes().put(ATTR_POPUP_LIST, popups);
+    }
+    popups.add(component);
+    return result;
+  }
+
+ /* protected String getFacetName() {
+    String name = "tobagoPopup";
+    int idx = 0;
+    while (getParentUIComponentTag(pageContext).getComponentInstance().
+        getFacet(name + idx) != null) {
+      idx++;
+    }
+    return name + idx;
+  }*/
 
   public void release() {
     super.release();

@@ -119,7 +119,9 @@
           <root url="jar://$MODULE_DIR$/lib/jsf-api-1.1.01.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file:///home/weber/work/jsf/jsf1.1fcs-src/jsf-api/src" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library">

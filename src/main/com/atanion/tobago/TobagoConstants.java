@@ -79,6 +79,7 @@ public interface TobagoConstants {
   public static final String ATTR_PAGE_MENU = "pageMenu";
   public static final String ATTR_PAGING = "paging";
   public static final String ATTR_PASSWORD = "password";
+  public static final String ATTR_POPUP_LIST = "popupList";
   public static final String ATTR_PREFORMATED = "preformated";
   public static final String ATTR_READONLY = "readonly";
   public static final String ATTR_REFERENCE = "reference";

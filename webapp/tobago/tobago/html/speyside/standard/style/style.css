@@ -42,6 +42,12 @@ td.menu {
  background: #c1bebe url(../image/nav_bg.gif) repeat-y right;
 }
 
+
+.tobago-popup-content  {
+  border: 2px solid #000000;
+  background: #ffffff;
+}
+
 /* Progress Control --------------------------------------------------------- */
 
 img.tobago-progress-color1 {

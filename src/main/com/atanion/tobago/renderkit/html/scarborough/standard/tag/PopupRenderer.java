@@ -5,10 +5,14 @@
   */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
+
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPopup;
+import com.atanion.tobago.component.UIPage;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
@@ -18,6 +22,7 @@ import java.io.IOException;
 
 public class PopupRenderer extends RendererBase {
 
+  private static final Log LOG = LogFactory.getLog(PopupRenderer.class);
   public boolean getRendersChildren() {
     return true;
   }
@@ -33,21 +38,18 @@ public class PopupRenderer extends RendererBase {
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
     UIPopup component = (UIPopup) uiComponent ;
-
     ResponseWriter writer = facesContext.getResponseWriter();
     writer.startElement("div", component);
-
-    writer.writeAttribute("style", "z-index: 1;\n" +
-        "            border: 1px solid blue; \n" +
-        "            background: rgb(255, 255, 255) none repeat scroll 0%;\n" +
-        "            position: absolute; \n" +
-        "            width: " + component.getWidth() + "; \n" +
+    writer.writeAttribute("id", component.getClientId(facesContext), null);
+    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
+    writer.writeAttribute("onclick", "tobagoPopupBlink('" + component.getClientId(facesContext) + "')", null);
+    writer.endElement("div");
+    writer.startElement("div", component);
+    writer.writeAttribute("class", "tobago-popup-content", null);
+    writer.writeAttribute("style", "width: " + component.getWidth() + "; \n" +
         "            height: " + component.getHeight() + "; \n" +
-        "            -moz-background-clip: initial; \n" +
-        "            -moz-background-origin: initial; \n" +
-        "            -moz-background-inline-policy: initial; \n" +
-        "            left: 191px; \n" +
-        "            top: 200px;", null);
+        "            left: " + component.getLeft() + "; \n" +
+        "            top: " + component.getTop() + ";", null);
     RenderUtil.encodeChildren(facesContext, component);
     writer.endElement("div");
   }

@@ -373,6 +373,18 @@ function tobagoToolbarFocus(element, event) {
 }
 
 
+function tobagoPopupBlink(id) {
+  PrintDebug("popupId ist " + id);
+  var element = document.getElementById(id);
+  element.style.background = 'red';
+  setTimeout("tobagoPopupBlinkOff('" + id + "')", 10);
+}
+
+function tobagoPopupBlinkOff(id) {
+  var element = document.getElementById(id);
+  element.style.background = 'none';
+}
+
 function PrintDebug(Text) {
   var log = document.getElementById("Log");
   if (log) {

@@ -8,11 +8,12 @@ package com.atanion.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UIPanel;
-import java.util.AbstractList;
-import java.util.List;
 
-public class UIPopup extends UIPanel {
+public class UIPopup extends UIPanel implements NamingContainer {
+
+  private static final Log LOG = LogFactory.getLog(UIPopup.class);
 
   private String width;
   private String height;

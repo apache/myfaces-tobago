@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.io.IOException;
 
 public class UIPage extends UIForm {
 
@@ -67,6 +68,10 @@ public class UIPage extends UIForm {
   }
 
 // ///////////////////////////////////////////// code
+
+  public void encodeBegin(FacesContext context) throws IOException {
+    super.encodeBegin(context);
+  }
 
   public String getFormId(FacesContext facesContext) {
     if (formId == null) {

@@ -13,6 +13,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
+import java.util.List;
 
 public class PageTag extends TobagoBodyTag {
 
@@ -33,7 +34,14 @@ public class PageTag extends TobagoBodyTag {
 
   public int doEndTag() throws JspException {
     pageContext.removeAttribute(PAGE_IN_REQUEST, PageContext.REQUEST_SCOPE);
+    List popups = (List) getComponentInstance().getAttributes().get(ATTR_POPUP_LIST);
     int result = super.doEndTag();
+
+    // clear popups;
+    if (popups != null) {
+      popups.clear();
+    }
+
     // reseting doctype and charset
     doctype = "loose";
     charset = null;
