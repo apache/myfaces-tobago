@@ -202,10 +202,11 @@ public class ToolBarRenderer extends RendererBase {
       if (!anchorOnLabel) {
         renderAnchorBegin(writer, command, label, disabled);
       }
-      writer.startElement("img", null);
+      writer.startElement("img", command);
       writer.writeAttribute("id", graphicId, null);
       writer.writeAttribute("src", image, null);
       writer.writeAttribute("alt", "", null);
+      writer.writeAttribute("title", null, ATTR_TIP);
       writer.writeAttribute("border", "0", null);
       writer.writeAttribute("class", className, null);
       if (render1pxImage) {
