@@ -16,6 +16,7 @@ import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.taglib.component.ToolBarTag;
 import com.atanion.tobago.taglib.component.ToolBarSelectBooleanTag;
+import com.atanion.tobago.taglib.component.MenuSelectOneTag;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -23,7 +24,10 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
+import javax.faces.component.UISelectOne;
+import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
@@ -105,10 +109,84 @@ public class ToolBarRenderer extends RendererBase {
     if (ToolBarSelectBooleanTag.COMMAND_TYPE.equals(
         command.getAttributes().get(ATTR_COMMAND_TYPE))) {
       renderSelectBoolean(facesContext, command, writer, boxFacet, addExtraHoverClass);
+    } else if (MenuSelectOneTag.COMMAND_TYPE.equals(
+        command.getAttributes().get(ATTR_COMMAND_TYPE))) {
+      renderSelectOne(facesContext, command, writer, boxFacet, addExtraHoverClass);
     } else {
 
       String onClick = createOnClick(facesContext, command);
       renderToolbarButton(facesContext, command, writer, boxFacet, addExtraHoverClass, false, onClick);
+    }
+
+  }
+
+  private void renderSelectOne(FacesContext facesContext, UICommand command,
+      TobagoResponseWriter writer, boolean boxFacet, boolean addExtraHoverClass)
+      throws IOException {
+
+    String onClick = createOnClick(facesContext, command);
+    onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
+        facesContext);
+
+
+    List<SelectItem> items = ComponentUtil.getSelectItems(command);
+
+    UISelectOne radio = (UISelectOne) command.getFacet(FACET_RADIO);
+    if (radio == null) {
+      radio = ComponentUtil.createUISelectOneFacet(facesContext, command);
+    }
+
+
+    if (radio != null) {
+      Object value = ((ValueHolder) radio).getValue();
+
+      boolean markFirst = !ComponentUtil.hasSelectedValue(items, value);
+      String radioId = radio.getClientId(facesContext);
+      String onClickPrefix = "menuSetRadioValue('" + radioId + "', '";
+      String onClickPostfix = onClick != null ? "') ; " + onClick : "";
+      for (Iterator i = items.iterator(); i.hasNext();) {
+        SelectItem item = (SelectItem) i.next();
+
+        final String labelText = item.getLabel();
+        if (labelText != null) {
+          if (labelText.indexOf(LabelWithAccessKey.INDICATOR) > -1) {
+            command.getAttributes().put(ATTR_LABEL_WITH_ACCESS_KEY, labelText);
+          } else {
+            command.getAttributes().put(ATTR_LABEL, labelText);
+          }
+        } else {
+          LOG.warn("Menu item has label=null. UICommand.getClientId()="
+              + command.getClientId(facesContext));
+        }
+
+        String image = null;
+        if (item instanceof com.atanion.tobago.model.SelectItem) {
+          image = ((com.atanion.tobago.model.SelectItem)item).getImage();
+        } else if (LOG.isDebugEnabled()) {
+          LOG.debug("select item is not com.atanion.tobago.model.SelectItem!");
+        }
+        if (image == null) {
+          image = "image/1x1.gif";
+        }
+        command.getAttributes().put(ATTR_IMAGE, image);
+
+
+        Object itemValue = item.getValue();
+        onClick = onClickPrefix + itemValue + onClickPostfix;
+        final boolean checked;
+        if (itemValue.equals(value) || markFirst) {
+          checked = true;
+          markFirst = false;
+          HtmlRendererUtil.startJavascript(writer);
+          writer.write("    " + onClickPrefix + itemValue + "');");
+          HtmlRendererUtil.endJavascript(writer);
+        } else {
+          checked = false;
+        }
+
+        renderToolbarButton(facesContext, command, writer, boxFacet, addExtraHoverClass, checked, onClick);
+
+      }
     }
 
   }

@@ -2372,6 +2372,63 @@
   </tag>
 
 
+  <tag>
+    <name>toolBarSelectOne</name>
+    <tag-class>com.atanion.tobago.taglib.component.MenuSelectOneTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <name>id</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>disabled</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>action</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>type</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>value</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>rendered</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>
+         Flag indicating whether or not this component should be rendered
+         (during Render Response Phase), or processed on any subsequent form submit.
+      </description>
+    </attribute>
+    <attribute>
+      <name>binding</name>
+      <description>
+        The value binding expression linking this component to a property
+        in a backing bean
+      </description>
+    </attribute>
+    <attribute>
+      <name>immediate</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>
+         Flag indicating that, if this component is activated by the user,
+         notifications should be delivered to interested listeners and actions
+         immediately (that is, during Apply Request Values phase) rather than
+         waiting until Invoke Application phase.
+      </description>
+    </attribute>
+  </tag>
 
   <tag>
     <name>menuBar</name>

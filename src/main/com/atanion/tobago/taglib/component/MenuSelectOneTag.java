@@ -6,12 +6,13 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UICommand;
 
 import javax.faces.component.UIComponent;
 
 public class MenuSelectOneTag extends CommandTag {
 
-  public static final String COMMAND_TYPE = "menuSelectOne";
+  public static final String COMMAND_TYPE = "commandSelectOne";
 
 
 // ----------------------------------------------------------------- attributes
@@ -19,6 +20,11 @@ public class MenuSelectOneTag extends CommandTag {
   private String value;
 
 // ----------------------------------------------------------- business methods
+
+
+  public String getComponentType() {
+    return UICommand.COMPONENT_TYPE;
+  }
 
   public void release() {
     super.release();

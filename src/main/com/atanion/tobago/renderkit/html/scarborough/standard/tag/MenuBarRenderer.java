@@ -25,7 +25,6 @@ import com.atanion.tobago.taglib.component.MenuTag;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.util.AccessKeyMap;
 
-import javax.faces.application.Application;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
@@ -33,7 +32,6 @@ import javax.faces.component.UISelectOne;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.el.ValueBinding;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -330,23 +328,14 @@ public class MenuBarRenderer extends RendererBase {
 
     UISelectOne radio = (UISelectOne) command.getFacet(FACET_RADIO);
     if (radio == null) {
-      final ValueBinding valueBinding = command.getValueBinding(ATTR_VALUE);
-      if (valueBinding != null) {
-        final Application application = facesContext.getApplication();
-        radio =
-            (UISelectOne) application.createComponent(
-                UISelectOne.COMPONENT_TYPE);
-        command.getFacets().put(FACET_RADIO, radio);
-        radio.setRendererType(RENDERER_TYPE_SELECT_ONE_RADIO);
-        radio.setValueBinding(ATTR_VALUE, valueBinding);
-      }
+      radio = ComponentUtil.createUISelectOneFacet(facesContext, command);
     }
 
-    Object value;
-    if (radio != null) {
-      value = ((ValueHolder) radio).getValue();
 
-      boolean markFirst = !hasSelectedValue(items, value);
+    if (radio != null) {
+      Object value = ((ValueHolder) radio).getValue();
+
+      boolean markFirst = !ComponentUtil.hasSelectedValue(items, value);
       String radioId = radio.getClientId(facesContext);
       String onClickPrefix = "menuSetRadioValue('" + radioId + "', '";
       String onClickPostfix = onClick != null ? "') ; " + onClick : "";
@@ -378,15 +367,6 @@ public class MenuBarRenderer extends RendererBase {
         addMenuItem(sb, var, facesContext, command, label, image, onClick);
       }
     }
-  }
-
-  private boolean hasSelectedValue(List<SelectItem> items, Object value) {
-    for (SelectItem item : items) {
-      if (item.getValue().equals(value)) {
-        return true;
-      }
-    }
-    return false;
   }
 
   private void addMenuItem(StringBuffer sb, String var,
