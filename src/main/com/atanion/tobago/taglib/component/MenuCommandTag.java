@@ -11,7 +11,7 @@ import javax.faces.component.UIComponent;
 
 public class MenuCommandTag extends CommandTag {
 
-  public static final String MENU_TYPE = "menuCommand";
+  public static final String COMMAND_TYPE = "menuCommand";
 
 // ----------------------------------------------------------------- attributes
 
@@ -36,7 +36,7 @@ public class MenuCommandTag extends CommandTag {
     component.setRendererType(RENDERER_TYPE_MENUCOMMAND);
 
     ComponentUtil.setStringProperty(component, ATTR_IMAGE, image, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, MENU_TYPE, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, COMMAND_TYPE, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());

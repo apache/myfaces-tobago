@@ -20,6 +20,8 @@ import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectItems;
 import javax.faces.component.ValueHolder;
+import javax.faces.component.UICommand;
+import javax.faces.component.UISelectBoolean;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.el.ValueBinding;
@@ -504,7 +506,7 @@ public class ComponentUtil {
     component.setRendererType(rendererType);
     return component;
   }
-    
+
   public static UIColumn createTextColumn(
       String label, String sortable, String align, String value) {
     UIComponent text = createComponent(UIOutput.COMPONENT_TYPE, RENDERER_TYPE_OUT);
@@ -526,6 +528,20 @@ public class ComponentUtil {
     setBooleanProperty(column, ATTR_SORTABLE, sortable, null);
     setStringProperty(column, ATTR_ALIGN, align, null);
     return column;
+  }
+
+
+  public static UIComponent createUISelectBooleanFacet(
+      FacesContext facesContext, UICommand command) {
+    UIComponent checkbox = null;
+    final ValueBinding valueBinding = command.getValueBinding(ATTR_VALUE);
+    if (valueBinding != null) {
+      checkbox = createComponent(facesContext, UISelectBoolean.COMPONENT_TYPE,
+          RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX);
+      command.getFacets().put(FACET_CHECKBOX, checkbox);
+      checkbox.setValueBinding(ATTR_VALUE, valueBinding);
+    }
+    return checkbox;
   }
 
   public static int getIntValue(ValueBinding valueBinding) {

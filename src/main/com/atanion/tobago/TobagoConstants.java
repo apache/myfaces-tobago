@@ -64,7 +64,7 @@ public interface TobagoConstants {
   public static final String ATTR_MAX = "max";
   public static final String ATTR_MENU_POPUP = "menuPopup";
   public static final String ATTR_MENU_POPUP_TYPE = "menuPopupType";
-  public static final String ATTR_MENU_TYPE = "menuType";
+  public static final String ATTR_COMMAND_TYPE = "menuType";
   public static final String ATTR_METHOD = "method";
   public static final String ATTR_MIN = "min";
   public static final String ATTR_MINIMUM_SIZE = "minimunSize";
@@ -144,6 +144,7 @@ public interface TobagoConstants {
   public static final String FACET_PAGER_ROW = "pagerRow";
   public static final String FACET_RADIO = "radio";
   public static final String FACET_TOOL_BAR= "toolBar";
+  public static final String FACET_TOOL_BAR_COMMAND = "toolBarCommand";
 
   // Command types
   public static final String COMMAND_TYPE_SUBMIT = "submit";

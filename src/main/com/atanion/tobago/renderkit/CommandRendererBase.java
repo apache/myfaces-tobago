@@ -6,6 +6,8 @@
 package com.atanion.tobago.renderkit;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UICommand;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -27,6 +29,7 @@ public abstract class CommandRendererBase extends RendererBase {
 // ///////////////////////////////////////////// code
 
   public void decode(FacesContext facesContext, UIComponent component) {
+    boolean active = false;
     if (ComponentUtil.isOutputOnly(component)) {
       return;
     }
@@ -43,7 +46,7 @@ public abstract class CommandRendererBase extends RendererBase {
       if (LOG.isDebugEnabled()) {
         LOG.debug("queueEvent");
       }
-
+      active = true;
       component.queueEvent(new ActionEvent(component));
 //      ((UICommand) component).fireActionEvent(facesContext);
 
@@ -54,6 +57,9 @@ public abstract class CommandRendererBase extends RendererBase {
 //          LOG.debug("setting Form Active: " + form.getClientId(facesContext));
 //        }
 //      }
+    }
+    if (component instanceof UICommand) {
+      ((UICommand)component).setActive(active);
     }
   }
 

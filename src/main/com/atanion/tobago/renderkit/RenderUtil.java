@@ -78,4 +78,18 @@ public class RenderUtil {
     }
   }
 
+
+
+  public static String addMenuCheckToggle(String clientId, String onClick) {
+    if (onClick != null) {
+      onClick = " ; " + onClick;
+    } else {
+      onClick = "";
+    }
+
+    onClick = "menuCheckToggle('" + clientId + "')" + onClick;
+
+    return onClick;
+  }
+
 }

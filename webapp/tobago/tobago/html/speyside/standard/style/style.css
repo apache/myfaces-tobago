@@ -484,6 +484,23 @@ label.tobago-label-disabled  {
   border: 1px solid #ffffff;
 }
 
+
+
+
+.tobago-toolBar-button-selected-enabled {
+  cursor: pointer;
+  margin: 0px;
+  border: 1px solid #999999;
+  background: #dddddd;
+}
+
+.tobago-toolBar-button-box-facet-selected-enabled {
+  cursor: pointer;
+  margin: 0px;
+  border: 1px solid #999999;
+  background: #cccccc;
+}
+
 .tobago-toolBar-button-disabled {
   color: #808080;
 }

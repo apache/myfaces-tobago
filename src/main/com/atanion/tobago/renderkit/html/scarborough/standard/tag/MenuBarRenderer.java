@@ -5,6 +5,9 @@
   */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ResourceManagerUtil;
@@ -12,6 +15,7 @@ import com.atanion.tobago.renderkit.CommandRendererBase;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.taglib.component.MenuCommandTag;
 import com.atanion.tobago.taglib.component.MenuSelectBooleanTag;
@@ -19,16 +23,13 @@ import com.atanion.tobago.taglib.component.MenuSelectOneTag;
 import com.atanion.tobago.taglib.component.MenuSeparatorTag;
 import com.atanion.tobago.taglib.component.MenuTag;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.application.Application;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UISelectBoolean;
+import javax.faces.component.UIPanel;
 import javax.faces.component.UISelectOne;
 import javax.faces.component.ValueHolder;
-import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.el.ValueBinding;
@@ -226,10 +227,10 @@ public class MenuBarRenderer extends RendererBase {
       if (entry instanceof UICommand) {
         addMenuEntry(sb, var, facesContext, (UICommand) entry);
       } else if (MenuSeparatorTag.MENU_TYPE.equals(
-          entry.getAttributes().get(ATTR_MENU_TYPE))) {
+          entry.getAttributes().get(ATTR_COMMAND_TYPE))) {
         addMenuSeparator(sb, var);
       } else if (MenuTag.MENU_TYPE.equals(
-          entry.getAttributes().get(ATTR_MENU_TYPE))) {
+          entry.getAttributes().get(ATTR_COMMAND_TYPE))) {
         i = addMenu(sb, var, facesContext, (UIPanel) entry, i);
       } else if (warn) {
         LOG.error("Illegal UIComponent class in menuBar: "
@@ -241,14 +242,14 @@ public class MenuBarRenderer extends RendererBase {
   private void addMenuEntry(StringBuffer sb, String var, FacesContext facesContext,
       UICommand command) throws IOException {
     String onClick = createOnClick(facesContext, command);
-    if (MenuCommandTag.MENU_TYPE.equals(
-        command.getAttributes().get(ATTR_MENU_TYPE))) {
+    if (MenuCommandTag.COMMAND_TYPE.equals(
+        command.getAttributes().get(ATTR_COMMAND_TYPE))) {
       addCommand(sb, var, facesContext, command, onClick);
-    } else if (MenuSelectBooleanTag.MENU_TYPE.equals(
-        command.getAttributes().get(ATTR_MENU_TYPE))) {
+    } else if (MenuSelectBooleanTag.COMMAND_TYPE.equals(
+        command.getAttributes().get(ATTR_COMMAND_TYPE))) {
       addSelectBoolean(sb, var, facesContext, command, onClick);
-    } else if (MenuSelectOneTag.MENU_TYPE.equals(
-        command.getAttributes().get(ATTR_MENU_TYPE))) {
+    } else if (MenuSelectOneTag.COMMAND_TYPE.equals(
+        command.getAttributes().get(ATTR_COMMAND_TYPE))) {
       addSelectOne(sb, var, facesContext, command, onClick);
     }
   }
@@ -284,57 +285,23 @@ public class MenuBarRenderer extends RendererBase {
   private void addSelectBoolean(StringBuffer sb, String var,
       FacesContext facesContext, UICommand command, String onClick)
       throws IOException {
-    String clientId = null;
 
     UIComponent checkbox = command.getFacet(FACET_CHECKBOX);
     if (checkbox == null) {
-      final ValueBinding valueBinding = command.getValueBinding(ATTR_VALUE);
-      if (valueBinding != null) {
-        final Application application = facesContext.getApplication();
-        checkbox = application.createComponent(UISelectBoolean.COMPONENT_TYPE);
-        command.getFacets().put(FACET_CHECKBOX, checkbox);
-        checkbox.setRendererType(RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX);
-        checkbox.setValueBinding(ATTR_VALUE, valueBinding);
-      }
+      checkbox = ComponentUtil.createUISelectBooleanFacet(facesContext, command);
     }
-    final boolean checked;
+
+    final boolean checked = ComponentUtil.getBooleanAttribute(command, ATTR_VALUE);
 
     if (checkbox != null) {
-      clientId = checkbox.getClientId(facesContext);
-      onClick = addMenuCheckToggle(clientId, onClick);
-      final Object value = ((ValueHolder) checkbox).getValue();
-      if (value instanceof Boolean) {
-        checked = ((Boolean) value).booleanValue();
-      } else if (value instanceof String) {
-        LOG.warn(
-            "Searching for a boolean, but find a String. Should not happen.");
-        checked = Boolean.getBoolean((String) value);
-      } else {
-        LOG.warn("Unknown type '" + value.getClass().getName() +
-            "' for boolean value");
-        checked = false;
+      String clientId = checkbox.getClientId(facesContext);
+      onClick = RenderUtil.addMenuCheckToggle(clientId, onClick);
+      if (checked) {
+        sb.append("    menuCheckToggle('" + clientId + "');\n");
       }
-    } else {
-      checked = ComponentUtil.getBooleanAttribute(command, ATTR_VALUE);
-    }
-
-    if (checked && clientId != null) {
-      sb.append("    menuCheckToggle('" + clientId + "');\n");
     }
     String image = checked ? "image/MenuCheckmark.gif" : null;
     addMenuItem(sb, var, facesContext, command, image, onClick);
-  }
-
-  private String addMenuCheckToggle(String clientId, String onClick) {
-    if (onClick != null) {
-      onClick = " ; " + onClick;
-    } else {
-      onClick = "";
-    }
-
-    onClick = "menuCheckToggle('" + clientId + "')" + onClick;
-
-    return onClick;
   }
 
   private void addMenuItem(StringBuffer sb, String var, FacesContext facesContext,

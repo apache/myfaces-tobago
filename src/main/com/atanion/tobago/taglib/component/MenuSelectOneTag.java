@@ -5,18 +5,13 @@
   */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.el.ConstantMethodBinding;
 import com.atanion.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UICommand;
-import javax.faces.el.MethodBinding;
-import javax.faces.context.FacesContext;
-import javax.faces.application.Application;
 
 public class MenuSelectOneTag extends CommandTag {
 
-  public static final String MENU_TYPE = "menuSelectOne";
+  public static final String COMMAND_TYPE = "menuSelectOne";
 
 
 // ----------------------------------------------------------------- attributes
@@ -37,7 +32,7 @@ public class MenuSelectOneTag extends CommandTag {
     component.setRendererType(RENDERER_TYPE_MENUCOMMAND);
 
     ComponentUtil.setStringProperty(component, ATTR_VALUE, value, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, MENU_TYPE, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, COMMAND_TYPE, getIterationHelper());
   }
 
 // ------------------------------------------------------------ getter + setter

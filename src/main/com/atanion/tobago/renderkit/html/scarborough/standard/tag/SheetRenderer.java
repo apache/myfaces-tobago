@@ -834,7 +834,7 @@ public class SheetRenderer extends RendererBase {
       menu.setRendererType(RENDERER_TYPE_MENUBAR);
       menu.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
       menu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "SheetSelector");
-      menu.getAttributes().put(ATTR_MENU_TYPE, "menu");
+      menu.getAttributes().put(ATTR_COMMAND_TYPE, "menu");
       menu.getAttributes().put(ATTR_IMAGE, "image/sheetSelectorMenu.gif");
 
       String sheetId = column.getParent().getClientId(facesContext);
@@ -870,7 +870,7 @@ public class SheetRenderer extends RendererBase {
     UICommand menuItem
         = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
     menuItem.setRendererType(RENDERER_TYPE_MENUCOMMAND);
-    menuItem.getAttributes().put(ATTR_MENU_TYPE, MenuCommandTag.MENU_TYPE);
+    menuItem.getAttributes().put(ATTR_COMMAND_TYPE, MenuCommandTag.COMMAND_TYPE);
     menuItem.getAttributes().put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
     menuItem.getAttributes().put(ATTR_ACTION_STRING, action);
     menuItem.getAttributes().put(ATTR_LABEL, label);

@@ -6,16 +6,17 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UICommand;
 
 import javax.faces.component.UIComponent;
 
+
 public class MenuSelectBooleanTag extends CommandTag {
-  public static final String MENU_TYPE = "menuSelectBoolean";
+  public static final String COMMAND_TYPE = "commandSelectBoolean";
 
 // ----------------------------------------------------------------- attributes
 
 
-  private String image;
   private String label;
   private String accessKey;
   private String labelWithAccessKey;
@@ -23,14 +24,18 @@ public class MenuSelectBooleanTag extends CommandTag {
 
 // ----------------------------------------------------------- business methods
 
+
+  public String getComponentType() {
+    return UICommand.COMPONENT_TYPE;
+  }
+
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
     component.setRendererType(RENDERER_TYPE_MENUCOMMAND);
     
     ComponentUtil.setStringProperty(component, ATTR_VALUE, value, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, MENU_TYPE, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, COMMAND_TYPE, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
@@ -39,7 +44,6 @@ public class MenuSelectBooleanTag extends CommandTag {
   public void release() {
     super.release();
     value = null;
-    image = null;
     label = null;
     accessKey = null;
     labelWithAccessKey = null;
@@ -54,10 +58,6 @@ public class MenuSelectBooleanTag extends CommandTag {
 
   public void setValue(String value) {
     this.value = value;
-  }
-
-  public void setImage(String image) {
-    this.image = image;
   }
 
   public void setLabel(String label) {

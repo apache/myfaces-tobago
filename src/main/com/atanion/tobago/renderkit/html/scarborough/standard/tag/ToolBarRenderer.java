@@ -11,8 +11,10 @@ import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.CommandRendererBase;
 import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.taglib.component.ToolBarTag;
+import com.atanion.tobago.taglib.component.ToolBarSelectBooleanTag;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -60,20 +62,13 @@ public class ToolBarRenderer extends RendererBase {
     boolean boxFacet = isBoxFacet(toolbar);
 
     List children = toolbar.getChildren();
-//    if (boxFacet) {
-//      List newList = new ArrayList();
-//      for (Iterator iter = children.iterator(); iter.hasNext();) {
-//        newList.add(0,iter.next());
-//      }
-//      children = newList;
-//    }
 
     int index = 0;
     for (Iterator iter = children.iterator(); iter.hasNext();) {
       UIComponent component = (UIComponent) iter.next();
       if (component instanceof UICommand) {
         boolean addExtraClass = boxFacet ? !iter.hasNext() : index++ == 0;
-        renderToolbarButton(facesContext, (UICommand) component, writer,
+        renderToolbarCommand(facesContext, (UICommand) component, writer,
             boxFacet, addExtraClass);
       } else {
         LOG.error("Illegal UIComponent class in toolbar :"
@@ -102,9 +97,50 @@ public class ToolBarRenderer extends RendererBase {
         && component.getParent().getFacet(FACET_TOOL_BAR) == component);
   }
 
-  private void renderToolbarButton(FacesContext facesContext,
+  private void renderToolbarCommand(FacesContext facesContext,
       final UICommand command, TobagoResponseWriter writer, boolean boxFacet,
-      boolean addExtraClass)
+      boolean addExtraHoverClass)
+      throws IOException {
+    if (ToolBarSelectBooleanTag.COMMAND_TYPE.equals(
+        command.getAttributes().get(ATTR_COMMAND_TYPE))) {
+      renderSelectBoolean(facesContext, command, writer, boxFacet, addExtraHoverClass);
+    } else {
+
+      String onClick = createOnClick(facesContext, command);
+      renderToolbarButton(facesContext, command, writer, boxFacet, addExtraHoverClass, false, onClick);
+    }
+
+  }
+
+  private void renderSelectBoolean(FacesContext facesContext, UICommand command,
+      TobagoResponseWriter writer, boolean boxFacet, boolean addExtraHoverClass)
+      throws IOException {
+
+    UIComponent checkbox = command.getFacet(FACET_CHECKBOX);
+    if (checkbox == null) {
+      checkbox = ComponentUtil.createUISelectBooleanFacet(facesContext, command);
+    }
+
+    final boolean checked = ComponentUtil.getBooleanAttribute(command, ATTR_VALUE);
+
+    String onClick = createOnClick(facesContext, command);
+
+    if (checkbox != null) {
+      String clientId = checkbox.getClientId(facesContext);
+      onClick = RenderUtil.addMenuCheckToggle(clientId, onClick);
+      if (checked) {
+        HtmlRendererUtil.startJavascript(writer);
+        writer.write("    menuCheckToggle('" + clientId + "');\n");
+        HtmlRendererUtil.endJavascript(writer);
+      }
+    }
+
+    renderToolbarButton(facesContext, command, writer, boxFacet, addExtraHoverClass, checked, onClick);
+  }
+
+  private void renderToolbarButton(FacesContext facesContext,
+                                   final UICommand command, TobagoResponseWriter writer, boolean boxFacet,
+                                   boolean addExtraHoverClass, boolean selected, String onClick)
       throws IOException {
     if (!command.isRendered()) {
       return;
@@ -120,35 +156,35 @@ public class ToolBarRenderer extends RendererBase {
     String labelPosition = (String) parentAttributes.get(ATTR_LABEL_POSITION);
     String iconSize = (String) parentAttributes.get(ATTR_ICON_SIZE);
 
-    String onClick = createOnClick(facesContext, command);
     onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
         facesContext);
 
     String divClasses = "tobago-toolbar-button"
-        + " tobago-toolbar-button-" + (disabled ? "disabled" : "enabled")
+        + " tobago-toolbar-button-"  + (boxFacet ? "box-facet-" : "")
+        + (selected ? "selected-" : "") + (disabled ? "disabled" : "enabled")
         + (boxFacet ? " tobago-toolbar-button-box-facet" : "");
 
     String tableClasses = "tobago-toolbar-button-table"
-        + " tobago-toolbar-button-table-" +
-        (disabled ? "disabled" : "enabled")
+        + " tobago-toolbar-button-table-" + (boxFacet ? "box-facet-" : "")
+        + (selected ? "selected-" : "") + (disabled ? "disabled" : "enabled")
         + (boxFacet ? " tobago-toolbar-button-table-box-facet" : "");
 
 
     String iconName = (String) command.getAttributes().get(ATTR_IMAGE);
-    String image = getImage(facesContext, iconName, iconSize, disabled);
+    String image = getImage(facesContext, iconName, iconSize, disabled, selected);
     String graphicId = clientId + SUBCOMPONENT_SEP + "icon";
 
-    String extraCssClass = "";
-    if (addExtraClass == true) {
+    String extraHoverClass = "";
+    if (addExtraHoverClass == true) {
       if (!boxFacet) {
-        extraCssClass = " tobago-toolBar-button-hover-first";
+        extraHoverClass = " tobago-toolBar-button-hover-first";
       } else {
-        extraCssClass = " tobago-box-toolBar-button-hover-last";
+        extraHoverClass = " tobago-box-toolBar-button-hover-last";
       }
     }
     final String args = "this, 'tobago-toolBar-button-hover"
         + (boxFacet ? " tobago-toolBar-button-box-facet-hover" : "")
-        + extraCssClass + "', '" + graphicId + "'";
+        + extraHoverClass + "', '" + graphicId + "'";
     final String mouseOverScript = "tobagoToolbarMousesover(" + args + ");";
     final String mouseOutScript = "tobagoToolbarMousesout(" + args + ");";
 
@@ -282,7 +318,7 @@ public class ToolBarRenderer extends RendererBase {
   }
 
   private String getImage(FacesContext facesContext, String name,
-      String iconSize, boolean disabled) {
+                          String iconSize, boolean disabled, boolean selected) {
     if (name == null) {
       return ResourceManagerUtil.getImage(facesContext, "image/1x1.gif");
     }
@@ -303,22 +339,36 @@ public class ToolBarRenderer extends RendererBase {
       size = "32";
     }
     String image = null;
-    if (disabled) {
-      image =
-          ResourceManagerUtil.getImage(facesContext,
-              key + "Disabled" + size + ext, true);
-    }
-    if (image == null) {
-      image =
-          ResourceManagerUtil.getImage(facesContext, key + size + ext, true);
+    if (disabled && selected) {
+      image = ResourceManagerUtil.getImage(
+          facesContext, key + "SelectedDisabled" + size + ext, true);
+      if (image == null) {
+        image = ResourceManagerUtil.getImage(
+                facesContext, key + "SelectedDisabled" + ext, true);
+      }
     }
     if (image == null && disabled) {
-      image =
-          ResourceManagerUtil.getImage(facesContext, key + "Disabled" + ext,
-              true);
+      image = ResourceManagerUtil.getImage(
+          facesContext, key + "Disabled" + size + ext, true);
+      if (image == null) {
+        image = ResourceManagerUtil.getImage(
+            facesContext, key + "Disabled" + ext, true);
+      }
+    }
+    if (image == null && selected) {
+      image = ResourceManagerUtil.getImage(
+          facesContext, key + "Selected" + size + ext, true);
+      if (image == null) {
+        image = ResourceManagerUtil.getImage(
+            facesContext, key + "Selected" + ext, true);
+      }
     }
     if (image == null) {
-      image = ResourceManagerUtil.getImage(facesContext, name);
+      image
+          = ResourceManagerUtil.getImage(facesContext, key + size + ext, true);
+      if (image == null) {
+        image = ResourceManagerUtil.getImage(facesContext, key + ext, true);
+      }
     }
     return image;
   }

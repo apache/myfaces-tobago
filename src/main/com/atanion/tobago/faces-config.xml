@@ -23,6 +23,10 @@
     <component-class>com.atanion.tobago.component.UIColumnSelector</component-class>
   </component>
   <component>
+    <component-type>com.atanion.tobago.Command</component-type>
+    <component-class>com.atanion.tobago.component.UICommand</component-class>
+  </component>
+  <component>
     <component-type>com.atanion.tobago.Data</component-type>
     <component-class>com.atanion.tobago.component.UIData</component-class>
   </component>
