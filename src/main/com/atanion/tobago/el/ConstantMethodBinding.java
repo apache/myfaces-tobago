@@ -36,6 +36,10 @@ public class ConstantMethodBinding extends MethodBinding {
     return String.class;
   }
 
+  public String getExpressionString() {
+    return outcome;
+  }
+
 // ///////////////////////////////////////////// bean getter + setter
 
 }
