@@ -9,8 +9,14 @@
   <tlib-version>1.0</tlib-version>
   <jsp-version>1.2</jsp-version>
   <uri>http://www.atanion.com/tobago/component</uri>
-  <description>Tobago Framework Component Tag Library -
-    (C) Atanion GmbH</description>
+  <description><![CDATA[
+      <h2>Tobago Framework Component Tag Library -
+    (C) Atanion GmbH</h2>
+    <p>
+    <a href="matrix/index.html">see attribute matrix</a>
+    </p>
+    ]]>
+  </description>
   <short-name>tobago</short-name>
 
   <listener>
