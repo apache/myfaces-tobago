@@ -2291,7 +2291,7 @@
     </description>
     <attribute>
       <name>items</name>
-      <required>true</required>
+      <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     <description><![CDATA[ <code>java.util.List</code>,
       <code>java.util.Map</code> or <code>Object[]</code> of items to iterate over.
