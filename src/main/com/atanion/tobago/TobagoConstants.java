@@ -134,7 +134,7 @@ public interface TobagoConstants {
   public static final String FACET_CONFIRMATION = "confirmation";
   public static final String FACET_LABEL = "label";
   public static final String FACET_IMAGE= "image ";
-  public static final String FACET_MENUBAR = "menubar";
+  public static final String FACET_MENUBAR = "menuBar";
   public static final String FACET_MENUPOPUP = "menupopup";
   public static final String FACET_PAGER_LINKS = "pagerLinks";
   public static final String FACET_PAGER_PAGE = "pagerPage";
@@ -156,7 +156,7 @@ public interface TobagoConstants {
   public static final String RENDERER_TYPE_IMAGE = "Image";
   public static final String RENDERER_TYPE_LINK = "Link";
   public static final String RENDERER_TYPE_LABEL = "Label";
-  public static final String RENDERER_TYPE_MENUBAR = "Menubar";
+  public static final String RENDERER_TYPE_MENUBAR = "MenuBar";
   public static final String RENDERER_TYPE_MENUCOMMAND = "MenuCommand";
   public static final String RENDERER_TYPE_OUT = "Out";
   public static final String RENDERER_TYPE_PANEL = "Panel";

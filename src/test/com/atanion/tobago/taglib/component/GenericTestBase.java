@@ -40,7 +40,7 @@ abstract public class GenericTestBase extends TestCase {
       new SelectReferenceTag(),
       new LabelTag(),
       new LinkTag(),
-      new MenubarTag(),
+      new MenuBarTag(),
       new MessagesTag(),
       new MessageTag(),
       new SelectManyListboxTag(),

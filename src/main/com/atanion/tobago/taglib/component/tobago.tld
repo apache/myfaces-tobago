@@ -1936,9 +1936,9 @@
             label="Alert 0" >
           &lt;f:facet name="menupopup">
             &lt;tobago:menu>
-              &lt;tobago:menuitem action="alert('test 1')" type="script" label="Alert 1"/>
-              &lt;tobago:menuitem action="alert('test 2')" type="script" label="Alert 2"/>
-              &lt;tobago:menuitem action="alert('test 3')" type="script" label="Alert 3"/>
+              &lt;tobago:menuItem action="alert('test 1')" type="script" label="Alert 1"/>
+              &lt;tobago:menuItem action="alert('test 2')" type="script" label="Alert 2"/>
+              &lt;tobago:menuItem action="alert('test 3')" type="script" label="Alert 3"/>
             &lt;/tobago:menu>
           &lt;/f:facet>
         &lt;/tobago:button>
@@ -1989,12 +1989,12 @@
   </tag>
 
   <tag>
-    <name>menubar</name>
-    <tag-class>com.atanion.tobago.taglib.component.MenubarTag</tag-class>
+    <name>menuBar</name>
+    <tag-class>com.atanion.tobago.taglib.component.MenuBarTag</tag-class>
     <body-content>JSP</body-content>
     <description> <![CDATA[
-        Renders a menubar.<br>
-        Add menubar as facet name="menubar" to page tag or use it anywhere
+        Renders a menu bar.<br>
+        Add menu bar as facet name="menuBar" to page tag or use it anywhere
         on page.<br>
        ]]>
     </description>
@@ -2098,7 +2098,7 @@
   </tag>
 
   <tag>
-    <name>menuitem</name>
+    <name>menuItem</name>
     <tag-class>com.atanion.tobago.taglib.component.MenuCommandTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
@@ -2302,7 +2302,7 @@
   </tag>
 
   <tag>
-    <name>menuseparator</name>
+    <name>menuSeparator</name>
     <tag-class>com.atanion.tobago.taglib.component.MenuSeparatorTag</tag-class>
     <body-content>empty</body-content>
     <attribute>

@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class MenuCommandRenderer extends CommandRendererBase {
 
-  // rendering is done by MenubarRenderer,
+  // rendering is done by MenuBarRenderer,
   // but we need decoding in CommandRendererBase
 
   public void encodeBegin(FacesContext facesContext, UIComponent component)

@@ -19,9 +19,9 @@ function initMenuComponents(divId, pageId, popup) {
       //PrintDebug("popupType = " + popup);
     }
     var body = document.getElementById(pageId);
-    var className = "tobago-menubar-container";
+    var className = "tobago-menuBar-container";
     if (popup) {
-      className += " tobago-menubar-container-" + popup;
+      className += " tobago-menuBar-container-" + popup;
     }
     menubar.menu.htmlElement = document.createElement('div');
     menubar.menu.htmlElement.className = className;
@@ -57,7 +57,7 @@ function initMenuComponents(divId, pageId, popup) {
 
 function createSubmenus(menu) {                   
   var htmlElement = document.createElement('div');
-  htmlElement.className = "tobago-menubar-submenuroot";
+  htmlElement.className = "tobago-menuBar-submenuroot";
   htmlElement.innerHTML = menu.toHtml(true);
   return htmlElement;
 }
@@ -115,7 +115,7 @@ function MenuItem(label, action, disabled) {
 //      PrintDebug("create subitems " + this.id);
 
       if (this.level != 0) {
-        html += '<div class="tobago-menubar-subitem-container"'
+        html += '<div class="tobago-menuBar-subitem-container"'
             + ' id="' + this.id + getSubComponentSeparator() + 'items" >';
       }
       for (var i = 0; i< this.subItems.length; i++) {
@@ -126,7 +126,7 @@ function MenuItem(label, action, disabled) {
         if (isIE()) {
           html += '<iframe'
               + ' id="' + this.id + getSubComponentSeparator() + 'iframe" >'
-              + ' class="tobago-menubar-subitem-iframe" '
+              + ' class="tobago-menuBar-subitem-iframe" '
               + ' style="display: none; visibility: hidden;"'
               + ' frameborder="0" scrolling="no" ></iframe>';
         }
@@ -471,7 +471,7 @@ function MenuItem(label, action, disabled) {
   this.getLabelTag = function() {
     var children = this.htmlElement.childNodes;
     for (var k = 0; k < children.length; k++) {
-      if (children[k].className.match(/tobago-menubar-item-span/)) {
+      if (children[k].className.match(/tobago-menuBar-item-span/)) {
         return children[k];
       }
     }
@@ -660,8 +660,8 @@ function initMenuItems(menu) {
   if (menu.htmlElement) {
     menu.htmlElement.menuItem = menu;
     if (menu.parent && menu.parent.menubar
-        && menu.parent.menubar.className.match(/tobago-menubar-page-facet/)) {
-      addCssClass(menu.htmlElement, 'tobago-menubar-item-page-facet');
+        && menu.parent.menubar.className.match(/tobago-menuBar-page-facet/)) {
+      addCssClass(menu.htmlElement, 'tobago-menuBar-item-page-facet');
     }
     menu.subItemContainer =
         document.getElementById(menu.id + getSubComponentSeparator() + 'items');
@@ -717,7 +717,7 @@ function getItemHeight(menu) {
       }
     }
 
-    if (menu.parent.menubar.className.match(/tobago-menubar-page-facet/)) {
+    if (menu.parent.menubar.className.match(/tobago-menuBar-page-facet/)) {
       return 23;
     }
     else {

@@ -1,23 +1,23 @@
 
-.tobago-menubar-default {
+.tobago-menuBar-default {
   height: 17px;
   border: 1px solid gray;
   background: #dddddd;
 }
 
-.tobago-menubar-page-facet {
+.tobago-menuBar-page-facet {
   height: 22px;
 }
 
-.tobago-menubar-item-page-facet {
+.tobago-menuBar-item-page-facet {
   font: bold 12px arial, helvetica, sans-serif;
 }
 
-.tobago-menubar-container {
+.tobago-menuBar-container {
   font: normal 12px arial, helvetica, sans-serif;
 }
 
-.tobago-menubar-subitem-container {
+.tobago-menuBar-subitem-container {
   border: 1px solid gray;
   background: #dddddd;
   z-index: 1000;
@@ -37,24 +37,24 @@
   background: #bbbbbb;
 }
 
-.tobago-menubar-item-span {
+.tobago-menuBar-item-span {
   left: 20px;
   text-decoration: none;
 }
 
-.tobago-menubar-item-span-enabled {
+.tobago-menuBar-item-span-enabled {
 
 }
 
-.tobago-menubar-item-span-disabled {
+.tobago-menuBar-item-span-disabled {
   color: #888888;
 }
 
-.tobago-menubar-item-span-top {
+.tobago-menuBar-item-span-top {
   left: 0px;
 }
 
-.tobago-menubar-item-page-top {
+.tobago-menuBar-item-page-top {
   top: 3px;
 }
 
