@@ -149,9 +149,10 @@ public class ToolBarRenderer extends RendererBase {
     writer.writeAttribute("class", spanClass, null);
     writer.writeAttribute("style", "white-space: nowrap;", null);
 
-    writer.startElement("a", null);
+    writer.startElement("a", command);
     writer.writeAttribute("id", command.getClientId(facesContext), null);
     writer.writeAttribute("class", "tobago-toolBar-button-link", null);
+    writer.writeAttribute("title", null, ATTR_TIP);
     if (! disabled) {
       writer.writeAttribute("onclick", onClick, null);
       writer.writeAttribute("href", "#", null);
