@@ -851,6 +851,7 @@ public class SheetRenderer extends RendererBase {
       writer.writeAttribute("onclick", onclick, null);
       UICommand sortCommand = (UICommand)
           application.createComponent(UICommand.COMPONENT_TYPE);
+      sortCommand.setRendererType(TobagoConstants.RENDERER_TYPE_LINK);
       sortCommand.setActionListener(sorter);
       sortCommand.setId(sorterId);
       component.getFacets().put(sorterId, sortCommand);
