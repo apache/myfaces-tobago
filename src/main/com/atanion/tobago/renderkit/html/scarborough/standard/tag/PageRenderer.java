@@ -97,7 +97,7 @@ public class PageRenderer extends PageRendererBase {
     response.setDateHeader("Expires", 1);
 
     if (LOG.isDebugEnabled()) {
-      for (Iterator i = component.getAttributes().entrySet().iterator();
+      for (Iterator i = page.getAttributes().entrySet().iterator();
           i.hasNext();) {
         Map.Entry entry = (Map.Entry) i.next();
         LOG.debug("*** '" + entry.getKey() + "' -> '" + entry.getValue() + "'");
@@ -109,20 +109,17 @@ public class PageRenderer extends PageRendererBase {
     String viewId = facesContext.getViewRoot().getViewId();
     String formAction = viewHandler.getActionURL(facesContext, viewId);
 
-    String charset = (String) component.getAttributes().get(
-        TobagoConstants.ATTR_CHARSET);
+    String charset = (String) page.getAttributes().get(ATTR_CHARSET);
 
-    String title
-        = (String) component.getAttributes().get(TobagoConstants.ATTR_TITLE);
+    String title = (String) page.getAttributes().get(ATTR_TITLE);
 
-    String doctype = generateDoctype(
-        (String) component.getAttributes().get(TobagoConstants.ATTR_DOCTYPE));
+    String doctype = generateDoctype(page);
 
     if (doctype != null) {
       writer.write(doctype);
       writer.write('\n');
     }
-
+    
     writer.startElement("html", null);
     writer.startElement("head", null);
 
@@ -335,7 +332,8 @@ public class PageRenderer extends PageRendererBase {
     writer.endElement("br");
   }
 
-  private static String generateDoctype(String doctype) {
+  private String generateDoctype(UIPage page) {
+    String doctype = (String) page.getAttributes().get(ATTR_DOCTYPE);
     String type = null;
     if ("loose".equals(doctype)) {
       type = LOOSE;
