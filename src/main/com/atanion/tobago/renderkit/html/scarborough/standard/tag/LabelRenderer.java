@@ -5,6 +5,9 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.RendererBase;
@@ -19,11 +22,21 @@ import java.io.IOException;
 
 public class LabelRenderer extends RendererBase {
 
+  private static final Log LOG = LogFactory.getLog(LabelRenderer.class);
+
   private void createClassAttribute(UIComponent component) {
 
     String rendererType = component.getRendererType().toLowerCase();
     String name = getRendererName(rendererType);
 
+    UIComponent parent = findParent(component);
+
+    String styleClass = (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE_CLASS);
+    styleClass = HtmlRendererUtil.updateClassAttribute(styleClass, name, parent);
+    component.getAttributes().put(TobagoConstants.ATTR_STYLE_CLASS, styleClass);
+  }
+
+  private UIComponent findParent(UIComponent component) {
     UIComponent parent = component.getParent();
     if (component != parent.getFacet("label")) {
       // try to find belonging component
@@ -33,10 +46,7 @@ public class LabelRenderer extends RendererBase {
     if (parent == null) {
       parent = component;
     }
-
-    String styleClass = (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE_CLASS);
-    styleClass = HtmlRendererUtil.updateClassAttribute(styleClass, name, parent);
-    component.getAttributes().put(TobagoConstants.ATTR_STYLE_CLASS, styleClass);
+    return parent;
   }
 
   public void encodeEndTobago(
@@ -45,6 +55,13 @@ public class LabelRenderer extends RendererBase {
     UIOutput output = (UIOutput) component;
 
     Integer width = LayoutUtil.getLayoutWidth(output);
+    if (width == null
+        && !(ComponentUtil.getBooleanAttribute(findParent(component), ATTR_INLINE)
+             || ComponentUtil.getBooleanAttribute(component, ATTR_INLINE))) {
+      width = new
+          Integer(getConfiguredValue(facesContext, component, "labelWidth"));      
+    }
+
     String forValue = ComponentUtil.findClientIdFor(output, facesContext);
 
     // todo move into labelLayout ?
@@ -58,7 +75,7 @@ public class LabelRenderer extends RendererBase {
     writer.writeAttribute("for", forValue, null);
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
     if (width != null) {
-      writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
+      writer.writeAttribute("style", "width: " + width + "px;", null);
     }
     if (output.getValue() != null) {
       writer.writeText(output.getValue(), null);
