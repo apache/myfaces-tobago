@@ -10,9 +10,11 @@
     <default-render-kit-id>
       tobago
     </default-render-kit-id>
+<!-- testing default view handler
     <view-handler>
       com.atanion.tobago.application.ViewHandlerImpl
     </view-handler>
+-->
     <variable-resolver>
       com.atanion.tobago.el.VariableResolverImpl
     </variable-resolver>
