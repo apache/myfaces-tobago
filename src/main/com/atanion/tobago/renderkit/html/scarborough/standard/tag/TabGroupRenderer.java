@@ -9,8 +9,6 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.component.UITabGroup;
-import com.atanion.tobago.context.ClientProperties;
-import com.atanion.tobago.context.Theme;
 import com.atanion.tobago.context.TobagoResource;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
@@ -27,7 +25,6 @@ import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.el.ValueBinding;
-import javax.faces.el.EvaluationException;
 import javax.servlet.ServletRequest;
 import java.io.IOException;
 
@@ -79,17 +76,17 @@ public class TabGroupRenderer extends RendererBase
     UIPanel[] tabs = component.getTabs();
     layoutTabs(facesContext, component, tabs);
 
-    int activeIndex = -1;
+    int activeIndex;
     ValueBinding stateBinding
         = component.getValueBinding(TobagoConstants.ATTR_STATE_BINDING);
-    try {
-      activeIndex = ((Integer)stateBinding.getValue(facesContext)).intValue();
-    } catch (ClassCastException e) {
-      LOG.warn("Illegal class in stateBinding : " + e.getMessage(), e);
-    } catch (NullPointerException e) {
-      LOG.info("null value in stateBinding" );
-    }
-    if (activeIndex == -1) {
+
+    Object state = stateBinding.getValue(facesContext);
+    if (state == null) {
+      activeIndex = component.getActiveIndex();
+    } else if (state instanceof Integer) {
+      activeIndex = ((Integer) state).intValue();
+    } else {
+      LOG.warn("Illegal class in stateBinding: " + state.getClass().getName());
       activeIndex = component.getActiveIndex();
     }
     String hiddenId = component.getClientId(facesContext)
