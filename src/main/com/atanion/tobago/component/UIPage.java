@@ -97,11 +97,13 @@ public class UIPage extends UIForm {
       command = findComponent(actionId);
     }
 
-    LOG.info(command);
     UIForm form = (UIForm) ComponentUtil.findForm(command);
-    LOG.info(form);
-    ComponentUtil.debug(facesContext.getViewRoot(), 0);
-    LOG.info(form.getClientId(facesContext));
+    if (LOG.isDebugEnabled()) {
+      LOG.debug(command);
+      LOG.debug(form);
+      ComponentUtil.debug(facesContext.getViewRoot(), 0);
+      LOG.debug(form.getClientId(facesContext));
+    }
     form.setSubmitted(true);
 
     Iterator kids = getFacetsAndChildren();

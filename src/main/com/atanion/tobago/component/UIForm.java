@@ -52,9 +52,10 @@ public class UIForm extends javax.faces.component.UIForm {
 
   public void processValidators(FacesContext facesContext) {
     // if we're not the submitted form, only process subforms.
-    LOG.info("processValidators for form: " + getClientId(facesContext));
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("processValidators for form: " + getClientId(facesContext));
+    }
     if (!isSubmitted()) {
-      LOG.info("! submitted");
       List collect = new ArrayList();
       ComponentUtil.findSubForms(collect, this);
       for (int i = 0; i < collect.size(); i++) {
@@ -62,7 +63,6 @@ public class UIForm extends javax.faces.component.UIForm {
         subForm.processValidators(facesContext);
       }
     } else {
-      LOG.info("+ submitted");
       // Process all facets and children of this component
       Iterator kids = getFacetsAndChildren();
       while (kids.hasNext()) {
@@ -74,9 +74,10 @@ public class UIForm extends javax.faces.component.UIForm {
 
   public void processUpdates(FacesContext facesContext) {
     // if we're not the submitted form, only process subforms.
-    LOG.info("processUpdates for form: " + getClientId(facesContext));
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("processUpdates for form: " + getClientId(facesContext));
+    }
     if (!isSubmitted()) {
-      LOG.info("! submitted");
       List collect = new ArrayList();
       ComponentUtil.findSubForms(collect, this);
       for (int i = 0; i < collect.size(); i++) {
@@ -84,7 +85,6 @@ public class UIForm extends javax.faces.component.UIForm {
         subForm.processUpdates(facesContext);
       }
     } else {
-      LOG.info("+ submitted");
       // Process all facets and children of this component
       Iterator kids = getFacetsAndChildren();
       while (kids.hasNext()) {
