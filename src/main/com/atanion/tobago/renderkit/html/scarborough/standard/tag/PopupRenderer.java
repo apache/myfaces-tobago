@@ -10,6 +10,7 @@ import org.apache.commons.logging.Log;
 
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPopup;
 import com.atanion.tobago.component.UIPage;
@@ -79,12 +80,13 @@ public class PopupRenderer extends RendererBase {
 
     String setupScript = "tobagoSetupPopup('" + contentDivId + "', '"
         + component.getLeft() + "', '" + component.getTop() + "');";
-    writer.startElement("script", null);
-    writer.writeAttribute("type", "text/javascript", null);
-    writer.write("\n<!--\n");
-    writer.write(setupScript);
-    writer.write("\n// -->\n");
-    writer.endElement("script");
+    HtmlRendererUtil.writeJavascript(writer, setupScript);
+//    writer.startElement("script", null);
+//    writer.writeAttribute("type", "text/javascript", null);
+//    writer.write("\n<!--\n");
+//    writer.write(setupScript);
+//    writer.write("\n// -->\n");
+//    writer.endElement("script");
   }
 
 // ///////////////////////////////////////////// bean getter + setter

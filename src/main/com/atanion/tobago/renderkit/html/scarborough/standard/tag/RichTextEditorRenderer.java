@@ -7,12 +7,12 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.lib.richtext.WikiParser;
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.InputRendererBase;
-import com.atanion.tobago.renderkit.RenderUtil;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -66,7 +66,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
 
     UIInput component = (UIInput) uiComponent;
 
-    LayoutUtil.createHeaderAndBodyStyles(facesContext, component);
+    HtmlRendererUtil.createHeaderAndBodyStyles(facesContext, component);
 
 
     boolean previewState
@@ -167,7 +167,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     }
     image.getAttributes().put(TobagoConstants.ATTR_VALUE,
         "tobago-richText-" + command + ".gif");
-    RenderUtil.encodeHtml(facesContext, image);
+    HtmlRendererUtil.encodeHtml(facesContext, image);
 
     writer.startElement("span", null);
     writer.writeAttribute("class", "tobago-richTextEditor-toolbar-button-label", null);

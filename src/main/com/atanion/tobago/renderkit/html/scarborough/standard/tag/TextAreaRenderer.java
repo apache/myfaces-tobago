@@ -8,7 +8,6 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.InputRendererBase;
-import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
@@ -43,7 +42,7 @@ public class TextAreaRenderer extends InputRendererBase {
       writer.startElement("td", null);
       writer.writeText("", null);
 
-      RenderUtil.encodeHtml(facesContext, label);
+      HtmlRendererUtil.encodeHtml(facesContext, label);
 
       writer.endElement("td");
       writer.startElement("td", null);

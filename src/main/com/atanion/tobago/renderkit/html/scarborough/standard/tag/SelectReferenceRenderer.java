@@ -7,8 +7,8 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.RangeParser;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -45,7 +45,7 @@ public class SelectReferenceRenderer extends RendererBase{
     reference.getAttributes().put(TobagoConstants.ATTR_RENDER_RANGE_EXTERN,
         component.getAttributes().get(TobagoConstants.ATTR_RENDER_RANGE));
 
-    RenderUtil.encodeHtml(facesContext, reference);
+    HtmlRendererUtil.encodeHtml(facesContext, reference);
 
     reference.getAttributes().remove(TobagoConstants.ATTR_RENDER_RANGE_EXTERN);
   }

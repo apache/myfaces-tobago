@@ -9,6 +9,7 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.SelectManyRendererBase;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
@@ -105,7 +106,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
         writer.writeAttribute("valign", "top", null);
 
         writer.writeText("", null);
-        RenderUtil.encodeHtml(facesContext, label);
+        HtmlRendererUtil.encodeHtml(facesContext, label);
 
         writer.endElement("td");
         writer.startElement("td", null);

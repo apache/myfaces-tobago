@@ -11,8 +11,8 @@ import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.CommandRendererBase;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.LabelWithAccessKey;
-import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.taglib.component.MenuCommandTag;
 import com.atanion.tobago.taglib.component.MenuSelectBooleanTag;
 import com.atanion.tobago.taglib.component.MenuSelectOneTag;
@@ -188,7 +188,7 @@ public class MenuBarRenderer extends RendererBase {
       if (label.getAccessKey() != null) {
         writer.writeAttribute("accesskey", label.getAccessKey(), null);
       }
-      RenderUtil.writeLabelWithAccessKey(writer, label);
+      HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
     }
     writer.endElement("a");
 
@@ -451,7 +451,7 @@ public class MenuBarRenderer extends RendererBase {
     writer.writeAttribute("onkeydown", "tobagoMenuKeyDown(event)", null);
     writer.writeAttribute("onkeypress", "tobagoMenuKeyPress(event)", null);
     if (label.getText() != null) {
-      RenderUtil.writeLabelWithAccessKey(writer, label);
+      HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
     }
     writer.endElement("a");
 

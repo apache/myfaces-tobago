@@ -20,7 +20,7 @@ import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.model.SheetState;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.util.LayoutUtil;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
@@ -60,7 +60,7 @@ public class SheetRenderer extends RendererBase {
       UIComponent uiComponent) throws IOException {
     UIData data = (UIData) uiComponent;
 
-    LayoutUtil.createHeaderAndBodyStyles(facesContext, data);
+    HtmlRendererUtil.createHeaderAndBodyStyles(facesContext, data);
 
     String image1x1 = ResourceManagerUtil.getImage(facesContext,
         "image/1x1.gif");
@@ -95,7 +95,7 @@ public class SheetRenderer extends RendererBase {
         (String) attributes.get(TobagoConstants.ATTR_STYLE_HEADER);
 //    String sheetWidthString = LayoutUtil.getStyleAttributeValue(sheetStyle,
 //        "width");
-    String sheetHeightString = LayoutUtil.getStyleAttributeValue(sheetStyle,
+    String sheetHeightString = HtmlRendererUtil.getStyleAttributeValue(sheetStyle,
         "height");
     int sheetHeight;
     if (sheetHeightString != null) {
@@ -193,19 +193,19 @@ public class SheetRenderer extends RendererBase {
 
 
 // BEGIN RENDER BODY CONTENT
-    bodyStyle = LayoutUtil.replaceStyleAttribute(bodyStyle, "height",
+    bodyStyle = HtmlRendererUtil.replaceStyleAttribute(bodyStyle, "height",
         (sheetHeight - footerHeight) + "px");
-    String space = LayoutUtil.getStyleAttributeValue(bodyStyle, "width");
+    String space = HtmlRendererUtil.getStyleAttributeValue(bodyStyle, "width");
     String sheetBodyStyle;
     if (space != null) {
       int intSpace = Integer.parseInt(space.replaceAll("\\D", ""));
       intSpace -= columnWidths.get(columnWidths.size() - 1).intValue();
       sheetBodyStyle =
-          LayoutUtil.replaceStyleAttribute(bodyStyle, "width", intSpace + "px");
+          HtmlRendererUtil.replaceStyleAttribute(bodyStyle, "width", intSpace + "px");
     } else {
       sheetBodyStyle = bodyStyle;
     }
-    sheetBodyStyle = LayoutUtil.removeStyleAttribute(sheetBodyStyle, "height");
+    sheetBodyStyle = HtmlRendererUtil.removeStyleAttribute(sheetBodyStyle, "height");
 
     if (hideHeader) {
       bodyStyle += " padding-top: 0px;";
@@ -349,8 +349,8 @@ public class SheetRenderer extends RendererBase {
               grandkids.hasNext();) {
             UIComponent grandkid = (UIComponent) grandkids.next();
 
-            RenderUtil.createCssClass(facesContext, grandkid);
-            LayoutUtil.layoutWidth(facesContext, grandkid);
+            HtmlRendererUtil.createCssClass(facesContext, grandkid);
+            HtmlRendererUtil.layoutWidth(facesContext, grandkid);
             RenderUtil.encode(facesContext, grandkid);
           }
         }
@@ -397,7 +397,7 @@ public class SheetRenderer extends RendererBase {
     if (isValidPagingValue(showRowRange)
         || isValidPagingValue(showPageRange)
         || isValidPagingValue(showDirectLinks)) {
-      String footerStyle = LayoutUtil.replaceStyleAttribute(bodyStyle,
+      String footerStyle = HtmlRendererUtil.replaceStyleAttribute(bodyStyle,
           "height", footerHeight + "px")
           + " top: " + (sheetHeight - footerHeight) + "px;";
 
@@ -580,7 +580,7 @@ public class SheetRenderer extends RendererBase {
 
     String style = (String) data.getAttributes().get(
         TobagoConstants.ATTR_STYLE);
-    String heightString = LayoutUtil.getStyleAttributeValue(style, "height");
+    String heightString = HtmlRendererUtil.getStyleAttributeValue(style, "height");
     if (heightString != null) {
       int first = data.getFirst();
       int rows = Math.min(data.getRowCount(), first + data.getRows()) - first;

@@ -6,7 +6,7 @@
 package com.atanion.tobago.renderkit.wml.scarborough.standard.tag;
 
 import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.renderkit.RenderUtil;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
@@ -39,7 +39,7 @@ public class InRenderer extends RendererBase {
 
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
     if (label != null) {
-      RenderUtil.encodeHtml(facesContext, label);
+      HtmlRendererUtil.encodeHtml(facesContext, label);
     }
 
     String currentValue = ComponentUtil.currentValue(component);

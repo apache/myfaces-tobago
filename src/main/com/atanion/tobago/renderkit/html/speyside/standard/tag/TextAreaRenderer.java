@@ -8,7 +8,6 @@ package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.InputRendererBase;
-import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
@@ -67,7 +66,7 @@ public class TextAreaRenderer extends InputRendererBase {
         writer.writeAttribute("style", height, null);
       }
       writer.writeText("", null); // to ensure that the start-tag is closed!
-      RenderUtil.encodeHtml(facesContext, label);
+      HtmlRendererUtil.encodeHtml(facesContext, label);
       writer.endElement("td");
       writer.startElement("td", null);
       writer.startElement("img", null);

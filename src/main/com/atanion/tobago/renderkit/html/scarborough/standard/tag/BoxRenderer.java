@@ -9,8 +9,7 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.taglib.component.ToolBarTag;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.renderkit.BoxRendererBase;
-import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.util.LayoutUtil;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
@@ -24,7 +23,7 @@ public class BoxRenderer extends BoxRendererBase {
   public void encodeBeginTobago(
       FacesContext facesContext, UIComponent component) throws IOException {
 
-    RenderUtil.prepareInnerStyle(component);
+    HtmlRendererUtil.prepareInnerStyle(component);
 
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
     String labelString
@@ -34,9 +33,9 @@ public class BoxRenderer extends BoxRendererBase {
     if (toolbar != null) {
       final int padding
           = getConfiguredValue(facesContext, component, "paddingTopWhenToolbar");
-      style = LayoutUtil.replaceStyleAttribute(style, "padding-top",
+      style = HtmlRendererUtil.replaceStyleAttribute(style, "padding-top",
           Integer.toString(padding) + "px");
-      style = LayoutUtil.replaceStyleAttribute(style, "padding-bottom", "0px");
+      style = HtmlRendererUtil.replaceStyleAttribute(style, "padding-bottom", "0px");
     }
 
     ResponseWriter writer = facesContext.getResponseWriter();
@@ -51,7 +50,7 @@ public class BoxRenderer extends BoxRendererBase {
 
       writer.writeText("", null);
       if (label != null) {
-        RenderUtil.encodeHtml(facesContext, label);
+        HtmlRendererUtil.encodeHtml(facesContext, label);
       } else {
         writer.writeText(labelString, null);
       }
@@ -74,12 +73,12 @@ public class BoxRenderer extends BoxRendererBase {
       if (ToolBarTag.ICON_BIG.equals(attributes.get(ATTR_ICON_SIZE))) {
         attributes.put(ATTR_ICON_SIZE, ToolBarTag.ICON_SMALL);
       }
-      RenderUtil.encodeHtml(facesContext, toolbar);
+      HtmlRendererUtil.encodeHtml(facesContext, toolbar);
       writer.endElement("div");
       writer.endElement("div");
       if (ClientProperties.getInstance(facesContext.getViewRoot()).getUserAgent().isMsie()) {
         contentStyle
-            = LayoutUtil.replaceStyleAttribute(contentStyle, "top", "-10px");
+            = HtmlRendererUtil.replaceStyleAttribute(contentStyle, "top", "-10px");
       }
     }
     writer.startElement("div", component);

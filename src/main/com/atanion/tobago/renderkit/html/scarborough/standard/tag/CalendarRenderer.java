@@ -11,6 +11,7 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.util.CalendarUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -232,10 +233,11 @@ public class CalendarRenderer extends RendererBase {
     writer.writeAttribute("value", "", null);
     writer.endElement("input");
 
-    writer.startElement("script", null);
-    writer.writeAttribute("tyle", "text/javascript", null);
-    writer.writeText("document.calendar = new Object();", null);
-    writer.endElement("script");
+    HtmlRendererUtil.writeJavascript(writer, "document.calendar = new Object();");
+//    writer.startElement("script", null);
+//    writer.writeAttribute("tyle", "text/javascript", null);
+//    writer.writeText("document.calendar = new Object();", null);
+//    writer.endElement("script");
   }
 
 

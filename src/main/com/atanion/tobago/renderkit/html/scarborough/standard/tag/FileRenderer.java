@@ -7,7 +7,7 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.InputRendererBase;
-import com.atanion.tobago.renderkit.RenderUtil;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoMultipartFormdataRequest;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
@@ -106,7 +106,7 @@ public class FileRenderer extends InputRendererBase {
     UIComponent label = component.getFacet(FACET_LABEL);
     if (label != null) {
       writer.writeText("", null);
-      RenderUtil.encodeHtml(facesContext, label);
+      HtmlRendererUtil.encodeHtml(facesContext, label);
     }
 
     writer.startElement("input", component);

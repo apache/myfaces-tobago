@@ -12,6 +12,7 @@ import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.model.TreeState;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.StringUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -164,7 +165,7 @@ public class TreeRenderer extends RendererBase {
           image.getAttributes().put(ATTR_TITLE, title);
           link.getChildren().add(image);
 
-          RenderUtil.encodeHtml(facesContext, link);
+          HtmlRendererUtil.encodeHtml(facesContext, link);
         }
       }
 
@@ -189,8 +190,9 @@ public class TreeRenderer extends RendererBase {
 
     ComponentUtil.findPage(tree).getScriptFiles().add("script/tree.js");
 
-    writer.startElement("script", null);
-    writer.writeAttribute("type", "text/javascript", null);
+    HtmlRendererUtil.startJavascript(writer);
+//    writer.startElement("script", null);
+//    writer.writeAttribute("type", "text/javascript", null);
     writer.writeText("{", null);
 
     // tree resources (images)
@@ -219,7 +221,7 @@ public class TreeRenderer extends RendererBase {
     writer.writeText("  }\n", null);
     writer.writeText("}\n", null);
 
-    RenderUtil.encodeHtml(facesContext, root);
+    HtmlRendererUtil.encodeHtml(facesContext, root);
 
     writer.writeText("  var treeDiv = document.getElementById('", null);
     writer.writeText(clientId, null);
@@ -229,7 +231,8 @@ public class TreeRenderer extends RendererBase {
         null);
     writer.writeText(".toString(0, true);", null);
     writer.writeText("}", null);
-    writer.endElement("script");
+    HtmlRendererUtil.endJavascript(writer);
+//    writer.endElement("script");
 
     writer.endElement("div");
   }

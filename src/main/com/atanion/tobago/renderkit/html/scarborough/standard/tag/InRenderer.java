@@ -6,13 +6,10 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.InRendererBase;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -45,7 +42,7 @@ public class InRenderer extends InRendererBase{
       writer.writeText("", null);
     }
     if (label != null) {
-      RenderUtil.encodeHtml(facesContext, label);
+      HtmlRendererUtil.encodeHtml(facesContext, label);
 
       writer.endElement("td");
       writer.startElement("td", null);

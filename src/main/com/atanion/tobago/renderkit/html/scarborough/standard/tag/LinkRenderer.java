@@ -14,7 +14,7 @@ import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.CommandRendererBase;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.LabelWithAccessKey;
-import com.atanion.tobago.renderkit.RenderUtil;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -102,7 +102,7 @@ public class LinkRenderer extends CommandRendererBase{
       if (image != null) {
         writer.writeText(" ", null); // separator: e.g. &nbsp;
       }
-      RenderUtil.writeLabelWithAccessKey(writer, label);
+      HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
     }
   }
 

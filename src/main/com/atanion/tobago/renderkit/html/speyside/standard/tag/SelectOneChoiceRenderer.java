@@ -8,8 +8,8 @@ package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.HtmlUtils;
-import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.SelectOneRendererBase;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
@@ -74,7 +74,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
         writer.writeAttribute("valign", "top", null);
         writer.writeText("", null);
 
-        RenderUtil.encodeHtml(facesContext, label);
+        HtmlRendererUtil.encodeHtml(facesContext, label);
 
         writer.endElement("td");
         writer.startElement("td", null);

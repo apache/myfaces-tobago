@@ -10,10 +10,9 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.CommandRendererBase;
 import com.atanion.tobago.renderkit.LabelWithAccessKey;
-import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.taglib.component.ToolBarTag;
-import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -242,7 +241,7 @@ public class ToolBarRenderer extends RendererBase {
 
       if (label.getText() != null) {
         renderAnchorBegin(writer, command, label, disabled);
-        RenderUtil.writeLabelWithAccessKey(writer, label);
+        HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
         writer.endElement("a");
       }
       writer.endElement("td");
@@ -367,7 +366,7 @@ public class ToolBarRenderer extends RendererBase {
       popupMenu.getAttributes().remove(ATTR_LABEL);
       popupMenu.getAttributes().remove(ATTR_LABEL_WITH_ACCESS_KEY);
       popupMenu.getAttributes().put(ATTR_IMAGE, "image/toolbarButtonMenu.gif");
-      RenderUtil.encodeHtml(facesContext, popupMenu);
+      HtmlRendererUtil.encodeHtml(facesContext, popupMenu);
     }
 
     writer.endElement("td");
@@ -377,7 +376,7 @@ public class ToolBarRenderer extends RendererBase {
       UIComponent component) {
     final int height = getFixedHeight(facesContext, component);
     final Map attributes = component.getAttributes();
-    String style = LayoutUtil.replaceStyleAttribute((String)
+    String style = HtmlRendererUtil.replaceStyleAttribute((String)
         attributes.get(ATTR_STYLE), "height", Integer.toString(height) + "px");
     attributes.put(ATTR_STYLE, style);
   }

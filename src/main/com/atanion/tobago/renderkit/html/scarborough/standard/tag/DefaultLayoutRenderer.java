@@ -4,11 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.atanion.tobago.renderkit.LayoutRenderer;
-import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.util.LayoutUtil;
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UIPage;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -27,11 +23,11 @@ public class DefaultLayoutRenderer extends LayoutRenderer {
   private static final Log LOG = LogFactory.getLog(DefaultLayoutRenderer.class);
 
   public void layoutWidth(FacesContext facesContext, UIComponent component) {
-    LayoutUtil.layoutWidth(facesContext, component);
+    HtmlRendererUtil.layoutWidth(facesContext, component);
   }
 
   public void layoutHeight(FacesContext facesContext, UIComponent component) {
-    LayoutUtil.layoutHeight(facesContext, component);
+    HtmlRendererUtil.layoutHeight(facesContext, component);
   }
 
 
@@ -39,7 +35,7 @@ public class DefaultLayoutRenderer extends LayoutRenderer {
       throws IOException {
       for (Iterator i = component.getChildren().iterator(); i.hasNext();) {
         UIComponent child = (UIComponent) i.next();
-        RenderUtil.encodeHtml(facesContext, child);
+        HtmlRendererUtil.encodeHtml(facesContext, child);
       }
   }
 }

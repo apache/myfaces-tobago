@@ -11,7 +11,7 @@ import com.atanion.tobago.component.UILayout;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.PageRendererBase;
-import com.atanion.tobago.renderkit.RenderUtil;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.taglib.component.PageTag;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.util.collections.ListOrderedSet;
@@ -31,7 +31,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Collections;
 import java.util.ArrayList;
 
 public class PageRenderer extends PageRendererBase {
@@ -70,7 +69,7 @@ public class PageRenderer extends PageRendererBase {
       UIComponent component) throws IOException {
     UIPage page = (UIPage) component;
 
-    RenderUtil.prepareRender(facesContext, page);
+    HtmlRendererUtil.prepareRender(facesContext, page);
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
@@ -85,7 +84,7 @@ public class PageRenderer extends PageRendererBase {
       menubar.getAttributes().put(ATTR_PAGE_MENU, Boolean.TRUE);
       page.getOnloadScripts().add("setDivWidth('"
           + menubar.getClientId(facesContext) + "', getBrowserInnerWidth())");
-      RenderUtil.encodeHtml(facesContext, menubar);
+      HtmlRendererUtil.encodeHtml(facesContext, menubar);
     }
 
     UILayout.getLayout(component).encodeChildrenOfComponent(facesContext, component);    
@@ -181,17 +180,20 @@ public class PageRenderer extends PageRendererBase {
     // focus id
     String focusId = page.getFocusId();
     if (focusId != null) {
-      writer.startElement("script", null);
-      writer.writeAttribute("type", "text/javascript", null);
-      writer.write("focusId = '");
-      writer.write(focusId);
-      writer.write("';");
-      writer.endElement("script");
+      HtmlRendererUtil.writeJavascript(writer, "focusId = '" + focusId + "';");
+
+//      writer.startElement("script", null);
+//      writer.writeAttribute("type", "text/javascript", null);
+//      writer.write("focusId = '");
+//      writer.write(focusId);
+//      writer.write("';");
+//      writer.endElement("script");
     }
 
     // onload script
-    writer.startElement("script", null);
-    writer.writeAttribute("type", "text/javascript", null);
+    HtmlRendererUtil.startJavascript(writer);
+//    writer.startElement("script", null);
+//    writer.writeAttribute("type", "text/javascript", null);
     writer.write("function onloadScript() {\n");
     writer.write("onloadScriptDefault();\n");
 
@@ -215,7 +217,8 @@ public class PageRenderer extends PageRendererBase {
 
     String clientId = page.getClientId(facesContext);
 
-    writer.endElement("script");
+    HtmlRendererUtil.endJavascript(writer);
+//    writer.endElement("script");
 
     writer.endElement("head");
     writer.startElement("body", page);
@@ -266,7 +269,7 @@ public class PageRenderer extends PageRendererBase {
     List popups = (List) page.getAttributes().get(ATTR_POPUP_LIST);
     if (popups != null) {
       for (Iterator iter = popups.iterator(); iter.hasNext();) {
-        RenderUtil.encodeHtml(facesContext, (UIComponent) iter.next());
+        HtmlRendererUtil.encodeHtml(facesContext, (UIComponent) iter.next());
       }
     }
 
@@ -284,7 +287,7 @@ public class PageRenderer extends PageRendererBase {
           errorMessageForDebugging(id, message, writer);
         }
       }
-//      writer.write("<div onmousedown=\"tobagoJsLogMouseDown(event)\" onmousemove=\"tobagoJsLogMouseMove(event)\" onmouseup=\"tobagoJsLogMouseUp()\" id=\"LogDiv\" style=\"position:  absolute; right: 2px; top: 30px; height: 500px;width: 400px; overflow: auto;border:1px solid red; background: #ffffff;\"><ol id=\"Log\" style=\"font-family:Arial,sans-serif; font-size:10pt\"><li>Ereignisliste</li></ol> </div>");
+      writer.write("<div onmousedown=\"tobagoJsLogMouseDown(event)\" onmousemove=\"tobagoJsLogMouseMove(event)\" onmouseup=\"tobagoJsLogMouseUp()\" id=\"LogDiv\" style=\"position:  absolute; right: 2px; top: 30px; height: 500px;width: 400px; overflow: auto;border:1px solid red; background: #ffffff;\"><ol id=\"Log\" style=\"font-family:Arial,sans-serif; font-size:10pt\"><li>Ereignisliste</li></ol> </div>");
     }
 
     writer.endElement("body");

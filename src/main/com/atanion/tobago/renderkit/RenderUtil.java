@@ -58,62 +58,6 @@ public class RenderUtil {
     }
   }
 
-  public static void encodeHtml(FacesContext facesContext, UIComponent component)
-      throws IOException {
-    if (component.isRendered()) {
-
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("rendering " + component.getRendererType() + " " + component);
-      }
-
-      prepareRender(facesContext, component);
-
-      component.encodeBegin(facesContext);
-      if (component.getRendersChildren()) {
-        component.encodeChildren(facesContext);
-      } else {
-        Iterator kids = component.getChildren().iterator();
-        while (kids.hasNext()) {
-          UIComponent kid = (UIComponent) kids.next();
-          encodeHtml(facesContext, kid);
-        }
-      }
-      component.encodeEnd(facesContext);
-    }
-
-  }
-
-  public static void prepareRender(FacesContext facesContext, UIComponent component) {
-    createCssClass(facesContext, component);
-    LayoutUtil.layoutWidth(facesContext, component);
-    LayoutUtil.layoutHeight(facesContext, component);
-  }
-
-  public static void prepareInnerStyle(UIComponent component) {
-    String innerStyle = "";
-    Integer innerSpaceInteger = (Integer)
-        component.getAttributes().get(TobagoConstants.ATTR_INNER_WIDTH);
-    if (innerSpaceInteger != null && innerSpaceInteger.intValue() != -1) {
-      innerStyle = "width: " + innerSpaceInteger + "px;";
-    }
-    innerSpaceInteger = (Integer)
-        component.getAttributes().get(TobagoConstants.ATTR_INNER_HEIGHT);
-    if (innerSpaceInteger != null && innerSpaceInteger.intValue() != -1) {
-      innerStyle += " height: " + innerSpaceInteger + "px;";
-    }
-    component.getAttributes().put(TobagoConstants.ATTR_STYLE_INNER, innerStyle);
-  }
-
-
-  public static void createCssClass(FacesContext facesContext, UIComponent component) {
-      final String rendererType = component.getRendererType();
-      if (rendererType != null) {
-        String rendererName = ComponentUtil.getRenderer(facesContext, component).getRendererName(rendererType);
-        LayoutUtil.createClassAttribute(component, rendererName);
-      }
-
-  }
-
   public static void encode(FacesContext facesContext, UIComponent component) throws IOException {
     if (component.isRendered()) {
       if (LOG.isDebugEnabled()) {
@@ -131,22 +75,6 @@ public class RenderUtil {
         }
       }
       component.encodeEnd(facesContext);
-    }
-  }
-
-  public static void writeLabelWithAccessKey(TobagoResponseWriter writer,
-      LabelWithAccessKey label)
-      throws IOException {
-    int pos = label.getPos();
-    String text = label.getText();
-    if (pos == -1) {
-      writer.writeText(text, null);
-    } else {
-      writer.writeText(text.substring(0, pos), null);
-      writer.write("<u>");
-      writer.writeText(new Character(text.charAt(pos)), null);
-      writer.write("</u>");
-      writer.writeText(text.substring(pos + 1), null);
     }
   }
 

@@ -160,7 +160,7 @@ public abstract class RendererBase
 
 
 
-  protected String getRendererName(String rendererType) {
+  public String getRendererName(String rendererType) {
     String name;
     if (LOG.isDebugEnabled()) {
       LOG.debug("rendererType = '" + rendererType + "'");

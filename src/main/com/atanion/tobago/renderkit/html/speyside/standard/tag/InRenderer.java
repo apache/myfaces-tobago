@@ -8,7 +8,6 @@ package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.InRendererBase;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
@@ -48,7 +47,7 @@ public class InRenderer extends InRendererBase {
         writer.writeAttribute("class", "tobago-label-td", null);
         writer.writeAttribute("valign", "top", null);
         writer.writeText("", null); // to ensure that the start-tag is closed!
-        RenderUtil.encodeHtml(facesContext, label);
+        HtmlRendererUtil.encodeHtml(facesContext, label);
         writer.endElement("td");
         writer.startElement("td", null);
         writer.startElement("img", null);

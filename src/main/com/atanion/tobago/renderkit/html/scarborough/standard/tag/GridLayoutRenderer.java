@@ -12,8 +12,8 @@ import com.atanion.tobago.component.UIGridLayout;
 import com.atanion.tobago.component.UILayout;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.component.UIPanel;
-import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutInfo;
 import com.atanion.tobago.util.LayoutUtil;
 import org.apache.commons.logging.Log;
@@ -121,7 +121,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     // encode table with component's children
 
     UIGridLayout layout =  (UIGridLayout) UILayout.getLayout(component);
-    RenderUtil.prepareRender(facesContext, layout);
+    HtmlRendererUtil.prepareRender(facesContext, layout);
 
     layoutEnd(facesContext, layout);
     layoutMargins(layout);
@@ -245,7 +245,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
             writer.writeAttribute("class", cellClasses, null);
             writer.writeAttribute("style", cellStyle, null);
 
-            RenderUtil.encodeHtml(facesContext, cell);
+            HtmlRendererUtil.encodeHtml(facesContext, cell);
 
             writer.endElement("div");
             writer.endElement("td");
@@ -385,7 +385,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
       if (needVerticalScroolbar) {
         value -= getConfiguredValue(facesContext, component, "scrollbarWidth");
         String style = (String) layout.getAttributes().get(ATTR_STYLE);
-        style = LayoutUtil.replaceStyleAttribute(style, "width",
+        style = HtmlRendererUtil.replaceStyleAttribute(style, "width",
             Integer.toString(value) + "px");
         layout.getAttributes().put(ATTR_STYLE, style);
       }
@@ -613,8 +613,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
   public void layoutBegin(FacesContext facesContext, UIComponent component) {
     LOG.info("############################## layoutBegin +++++++++++++++++++++++++++++++++++++++++");
-    LayoutUtil.layoutSpace(facesContext, component, true);
-    LayoutUtil.layoutSpace(facesContext, component, false);
+    HtmlRendererUtil.layoutSpace(facesContext, component, true);
+    HtmlRendererUtil.layoutSpace(facesContext, component, false);
 
     if (component instanceof UIGridLayout) {
       layoutMargins((UIGridLayout) component);

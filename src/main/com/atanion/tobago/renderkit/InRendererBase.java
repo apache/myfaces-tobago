@@ -8,6 +8,7 @@ package com.atanion.tobago.renderkit;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -103,7 +104,7 @@ public class InRendererBase extends InputRendererBase {
           + input.getClientId(facesContext);
       String command = "calendarWindow('" + url + "');";
       picker.getAttributes().put(ATTR_ACTION_STRING, command);
-      RenderUtil.createCssClass(facesContext, picker);
+      HtmlRendererUtil.createCssClass(facesContext, picker);
       RenderUtil.encode(facesContext, picker);
     }
   }

@@ -8,7 +8,7 @@ package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.UIPanel;
 import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.util.LayoutUtil;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -37,7 +37,7 @@ public class TabGroupRenderer extends
     writer.startElement("div", null);
     writer.writeAttribute("class", "tobago-tab-content", null);
 
-    String height = LayoutUtil.getStyleAttributeValue(bodyStyle, "height");
+    String height = HtmlRendererUtil.getStyleAttributeValue(bodyStyle, "height");
     if (height != null) {
       writer.writeAttribute("style", "height: "
           + (Integer.parseInt(height.replaceAll("\\D", ""))-1) + "px; overflow: auto;", null);

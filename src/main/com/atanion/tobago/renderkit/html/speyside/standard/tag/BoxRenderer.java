@@ -6,10 +6,10 @@
 package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.taglib.component.ToolBarTag;
 import com.atanion.tobago.renderkit.BoxRendererBase;
-import com.atanion.tobago.renderkit.RenderUtil;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -40,7 +40,7 @@ public class BoxRenderer extends BoxRendererBase {
       FacesContext facesContext, UIComponent component) throws IOException {
 
 
-    RenderUtil.prepareInnerStyle(component);
+    HtmlRendererUtil.prepareInnerStyle(component);
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
@@ -76,7 +76,7 @@ public class BoxRenderer extends BoxRendererBase {
     String labelString
         = (String) component.getAttributes().get(TobagoConstants.ATTR_LABEL);
     if (label != null) {
-      RenderUtil.encodeHtml(
+      HtmlRendererUtil.encodeHtml(
           facesContext, label);
     } else if (labelString != null) {
       writer.writeText(labelString, null);
@@ -109,7 +109,7 @@ public class BoxRenderer extends BoxRendererBase {
     if (ToolBarTag.ICON_BIG.equals(attributes.get(ATTR_ICON_SIZE))) {
       attributes.put(ATTR_ICON_SIZE, ToolBarTag.ICON_SMALL);
     }
-    RenderUtil.encodeHtml(facesContext, toolbar);
+    HtmlRendererUtil.encodeHtml(facesContext, toolbar);
     writer.endElement("div");
   }
 

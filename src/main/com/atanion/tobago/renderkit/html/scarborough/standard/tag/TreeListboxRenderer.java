@@ -12,14 +12,12 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UITreeListbox;
 import com.atanion.tobago.component.UITreeNode;
 import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.renderkit.RenderUtil;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
-import java.util.List;
 
 public class TreeListboxRenderer extends TreeRenderer{
 
@@ -64,9 +62,8 @@ public class TreeListboxRenderer extends TreeRenderer{
 
     ComponentUtil.findPage(tree).getScriptFiles().add("script/tree.js");
 
-    writer.startElement("script", null);
-    writer.writeAttribute("type", "text/javascript", null);
-    writer.writeText("\n<!--\n", null);
+    HtmlRendererUtil.startJavascript(writer);
+
     writer.writeText("{", null);
 
     writer.writeText("var treeResourcesHelp = new Object();\n", null);
@@ -77,7 +74,7 @@ public class TreeListboxRenderer extends TreeRenderer{
     writer.writeText("}\n", null);
 
 
-    RenderUtil.encodeHtml(facesContext, root);
+    HtmlRendererUtil.encodeHtml(facesContext, root);
 
     writer.writeText("var hidden =   document.getElementById('", null);
     writer.writeText(clientId, null);
@@ -88,8 +85,7 @@ public class TreeListboxRenderer extends TreeRenderer{
 
     writer.writeText("}", null);
 
-    writer.writeText("\n// -->\n", null);
-    writer.endElement("script");
+    HtmlRendererUtil.endJavascript(writer);
 
 
   }

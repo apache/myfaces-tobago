@@ -6,11 +6,9 @@
 package com.atanion.tobago.renderkit.html.scarborough.opera.tag;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.component.UIPanel;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.UserAgent;
-import com.atanion.tobago.renderkit.BoxRendererBase;
-import com.atanion.tobago.renderkit.RenderUtil;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -30,7 +28,7 @@ public class BoxRenderer extends com.atanion.tobago.renderkit.html.scarborough.s
   public void encodeBeginTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
-    RenderUtil.prepareInnerStyle(component);
+    HtmlRendererUtil.prepareInnerStyle(component);
 
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
     String labelString
@@ -49,7 +47,7 @@ public class BoxRenderer extends com.atanion.tobago.renderkit.html.scarborough.s
       writer.startElement("b", null);
       writer.writeText("", null);
       if (label != null) {
-        RenderUtil.encodeHtml(facesContext, label);
+        HtmlRendererUtil.encodeHtml(facesContext, label);
       } else {
         writer.writeText(labelString, null);
       }

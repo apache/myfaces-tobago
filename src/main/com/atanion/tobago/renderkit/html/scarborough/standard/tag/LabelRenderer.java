@@ -8,6 +8,7 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
 
 import javax.faces.component.UIComponent;
@@ -34,7 +35,7 @@ public class LabelRenderer extends RendererBase {
     }
 
     String styleClass = (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE_CLASS);
-    styleClass = LayoutUtil.updateClassAttribute(styleClass, name, parent);
+    styleClass = HtmlRendererUtil.updateClassAttribute(styleClass, name, parent);
     component.getAttributes().put(TobagoConstants.ATTR_STYLE_CLASS, styleClass);
   }
 
