@@ -288,7 +288,7 @@ public class RendererBase extends Renderer implements TobagoConstants {
   protected int getConfiguredValue(FacesContext facesContext,
       UIComponent component, String key) {
     try {
-      return ThemeConfig.getInstance().getValue(facesContext, component, key);
+      return ThemeConfig.getValue(facesContext, component, key);
     } catch (Exception e) {
       LOG.error("Can't take '" + key + "' for " + getClass().getName()
           + " from config-file: " + e.getMessage(), e);

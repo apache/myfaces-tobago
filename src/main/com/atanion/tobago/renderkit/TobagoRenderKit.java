@@ -7,6 +7,7 @@ package com.atanion.tobago.renderkit;
 
 import com.atanion.tobago.context.ResourceManager;
 import com.atanion.tobago.context.ClientProperties;
+import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import org.apache.commons.logging.Log;
@@ -55,10 +56,11 @@ public class TobagoRenderKit extends RenderKit {
     if (type.startsWith("javax.faces.")) { // fixme: this is a hotfix from jsf1.0beta to jsf1.0fr
       type = type.substring("javax.faces.".length());
     }
-    ResourceManager resources = ResourceManager.getInstance();
-
+    FacesContext facesContext = FacesContext.getCurrentInstance();
     String clientProperties = ClientProperties.getInstance(
-        FacesContext.getCurrentInstance().getViewRoot()).toString();
+        facesContext.getViewRoot()).toString();
+    ResourceManager resources
+        = ResourceManagerUtil.getResourceManager(facesContext);
     Renderer renderer = resources.getRenderer(clientProperties, type);
     if (renderer == null) {
       LOG.error(

@@ -7,7 +7,7 @@ package com.atanion.tobago.renderkit.html.scarborough.msie.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.context.TobagoResource;
+import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.MessageRendererBase;
 
@@ -94,7 +94,7 @@ public class MessageRenderer extends MessageRendererBase
 
     } else {
       writer.startElement("img", null);
-      writer.writeAttribute("src", TobagoResource.getImage(facesContext, "1x1.gif"), null);
+      writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "1x1.gif"), null);
       writer.writeAttribute("alt", "", null);
       writer.writeAttribute("style", "border: 0px; height: 1px; width: 1px;", null);
       writer.endElement("img");      

@@ -7,7 +7,7 @@ package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.util.LayoutUtil;
-import com.atanion.tobago.context.TobagoResource;
+import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
@@ -57,7 +57,7 @@ public class TextAreaRenderer extends InputRendererBase
     TobagoResponseWriter writer = (TobagoResponseWriter)
         facesContext.getResponseWriter();
 
-    String image = TobagoResource.getImage(facesContext, "1x1.gif");
+    String image = ResourceManagerUtil.getImage(facesContext, "1x1.gif");
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
 
     writer.startElement("table", null);

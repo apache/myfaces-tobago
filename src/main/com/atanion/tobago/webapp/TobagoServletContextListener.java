@@ -8,10 +8,12 @@ package com.atanion.tobago.webapp;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.config.TobagoConfig;
 import com.atanion.tobago.config.TobagoConfigParser;
+import com.atanion.tobago.config.ThemeConfig;
 import com.atanion.tobago.context.ResourceManager;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.LogManager;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -23,6 +25,7 @@ import java.util.Iterator;
 import java.util.Properties;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.HashMap;
 
 public class TobagoServletContextListener implements ServletContextListener {
 
@@ -56,25 +59,36 @@ public class TobagoServletContextListener implements ServletContextListener {
         TobagoServletMapping.TOBAGO_SERVLET_MAPPING, mapping);
 
     // tobago-config.xml
-    TobagoConfig.init();
-    TobagoConfigParser tobagoConfigParser = new TobagoConfigParser();
-    tobagoConfigParser.init(servletContext);
-    TobagoConfig config = TobagoConfig.getInstance();
-    servletContext.setAttribute("tobagoConfig", config);
+    TobagoConfig tobagoConfig = new TobagoConfig();
+    TobagoConfigParser.parse(servletContext, tobagoConfig);
+    tobagoConfig.propagate(servletContext);
+    servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
+
+    // theme config cache
+    servletContext.setAttribute(ThemeConfig.THEME_CONFIG_CACHE, new HashMap());
   }
 
   public void contextDestroyed(ServletContextEvent event) {
-    LogFactory.releaseAll();
     if (LOG.isInfoEnabled()) {
       LOG.info(
           "*** contextDestroyed ***\n--- snip ---------"
           + "--------------------------------------------------------------");
     }
+
+    ServletContext servletContext = event.getServletContext();
+
+    servletContext.removeAttribute(TobagoServletMapping.TOBAGO_SERVLET_MAPPING);
+    servletContext.removeAttribute(TobagoConfig.TOBAGO_CONFIG);
+    servletContext.removeAttribute(ResourceManager.RESOURCE_MANAGER);
+    servletContext.removeAttribute(ThemeConfig.THEME_CONFIG_CACHE);
+
+    LogFactory.releaseAll();
+//    LogManager.shutdown();
   }
 
   protected void initResources(ServletContext servletContext)
       throws ServletException {
-    ResourceManager resources = ResourceManager.getInstance();
+    ResourceManager resources = new ResourceManager();
     String resourceDirs = servletContext.getInitParameter(
         TobagoConstants.CONTEXT_PARAM_RESOURCE_DIRECTORIES);
     if (resourceDirs == null) {
@@ -96,6 +110,7 @@ public class TobagoServletContextListener implements ServletContextListener {
       }
       resources.addResourceDirectory(dir);
     }
+    servletContext.setAttribute(ResourceManager.RESOURCE_MANAGER, resources);
   }
 
   private void locateResources(

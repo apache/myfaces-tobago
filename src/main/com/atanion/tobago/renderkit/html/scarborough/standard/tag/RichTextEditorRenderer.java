@@ -8,7 +8,7 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 import com.atanion.lib.richtext.WikiParser;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.context.TobagoResource;
+import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.HtmlUtils;
@@ -150,7 +150,7 @@ public class RichTextEditorRenderer extends InputRendererBase
     String onMouseOver = "addCssClass(" + onMouseArgs + ")";
     String onMouseOut = "removeCssClass(" + onMouseArgs + ")";
 
-    String title = TobagoResource.getProperty(
+    String title = ResourceManagerUtil.getProperty(
         facesContext, "tobago", "tobago.richtexteditor." + command + ".title");
     writer.startElement("span", component);
     String buttonStyle = "tobago-richtexteditor-toolbar-button-span"
@@ -180,7 +180,7 @@ public class RichTextEditorRenderer extends InputRendererBase
 
     writer.startElement("span", null);
     writer.writeAttribute("class", "tobago-richtexteditor-toolbar-button-label", null);
-    String label = TobagoResource.getProperty(
+    String label = ResourceManagerUtil.getProperty(
         facesContext, "tobago", "tobago.richtexteditor." + command + ".label");
     writer.writeText(label, null);
     writer.endElement("span");

@@ -6,7 +6,7 @@
 package com.atanion.tobago.renderkit;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.context.TobagoResource;
+import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -100,7 +100,7 @@ public class TextBoxRendererBase extends InputRendererBase {
     if (picker != null) {
       ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
       String url
-          = viewHandler.getActionURL(facesContext, TobagoResource.getJsp(facesContext, "datePicker.jsp"))
+          = viewHandler.getActionURL(facesContext, ResourceManagerUtil.getJsp(facesContext, "datePicker.jsp"))
           + "?tobago.date.inputId="
           + input.getClientId(facesContext);
       String command = "calendarWindow('" + url + "');";

@@ -7,10 +7,8 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.context.TobagoResource;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.MessageRendererBase;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

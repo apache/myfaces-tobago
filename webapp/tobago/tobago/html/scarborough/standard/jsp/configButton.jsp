@@ -1,5 +1,5 @@
 <%@ page import="javax.faces.application.ViewHandler,
-                 com.atanion.tobago.context.TobagoResource,
+                 com.atanion.tobago.context.ResourceManagerUtil,
                  javax.faces.context.FacesContext"
 %><%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tobago"
 %><%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>

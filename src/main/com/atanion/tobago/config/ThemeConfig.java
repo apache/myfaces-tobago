@@ -5,14 +5,13 @@
   */
 package com.atanion.tobago.config;
 
-
+import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.ResourceManager;
+import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.renderkit.TobagoRenderKit;
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.util.SystemUtils;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -24,37 +23,20 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import javax.faces.render.Renderer;
-import java.util.HashMap;
 import java.util.Map;
 
 public class ThemeConfig {
-
-// ///////////////////////////////////////////// constant
+// ------------------------------------------------------------------ constants
 
   private static final Log LOG = LogFactory.getLog(ThemeConfig.class);
 
-// ///////////////////////////////////////////// attribute
+  public static final String THEME_CONFIG_CACHE
+      = "com.atanion.tobago.config.ThemeConfig.CACHE";
 
-  private static ThemeConfig instance;
+// ----------------------------------------------------------- business methods
 
-  private Map valueMap;
-
-// ///////////////////////////////////////////// constructor
-
-  private ThemeConfig() {
-    valueMap = new HashMap();
-  }
-
-// ///////////////////////////////////////////// code
-
-  public static synchronized ThemeConfig getInstance() {
-    if (instance == null) {
-      instance = new ThemeConfig();
-    }
-    return instance;
-  }
-
-  public int getValue(FacesContext facesContext, UIComponent component, String name) {
+  public static int getValue(FacesContext facesContext, UIComponent component,
+      String name) {
     String rendererType;
     if (component != null) {
       rendererType = component.getRendererType();
@@ -65,18 +47,18 @@ public class ThemeConfig {
         TobagoConstants.ATTR_CLIENT_PROPERTIES).toString();
     String mapKey = clientProperties + "/"
         + rendererType + "/" + name;
-    Integer value = (Integer) valueMap.get(mapKey);
+    Map cache = (Map) facesContext.getExternalContext()
+        .getApplicationMap().get(THEME_CONFIG_CACHE);
+    Integer value = (Integer) cache.get(mapKey);
     if (value == null) {
       value = createValue(facesContext, component, name);
-      valueMap.put(mapKey, value);
+      cache.put(mapKey, value);
     }
     return value.intValue();
   }
 
-  private Integer createValue(FacesContext facesContext, UIComponent component,
+  private static Integer createValue(FacesContext facesContext, UIComponent component,
       String name) {
-
-
     RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(
         "javax.faces.render.RenderKitFactory");
     RenderKit renderKit = rkFactory.getRenderKit(facesContext,
@@ -96,7 +78,8 @@ public class ThemeConfig {
     if (LOG.isDebugEnabled()) {
       LOG.debug("search for '" + name + "' in '" + clazz.getName() + "'");
     }
-    ResourceManager resourceManager = ResourceManager.getInstance();
+    ResourceManager resourceManager
+        = ResourceManagerUtil.getResourceManager(facesContext);
     UIViewRoot viewRoot = facesContext.getViewRoot();
     ClientProperties clientProperties
         = ClientProperties.getInstance(viewRoot);
@@ -106,8 +89,8 @@ public class ThemeConfig {
         LOG.debug("try " + tag);
       }
 
-      String property = resourceManager.getThemeProperty(
-          clientProperties, "tobago-theme-config" , tag + "." + name);
+      String property = resourceManager.getThemeProperty(clientProperties,
+          "tobago-theme-config", tag + "." + name);
 
       if (property != null && property.length() > 0) {
         if (LOG.isDebugEnabled()) {
@@ -122,20 +105,18 @@ public class ThemeConfig {
     return null;
   }
 
-  private String getTagName(Class clazz) {
+  private static String getTagName(Class clazz) {
     String className = SystemUtils.getPlainClassName(clazz);
     if (className.equals(SystemUtils.getPlainClassName(RendererBase.class))) {
       return "Tobago";
-    }
-    else if (className.endsWith("Renderer")) {
+    } else if (className.endsWith("Renderer")) {
       return className.substring(0, className.lastIndexOf("Renderer"));
-    }
-    else if (className.endsWith("RendererBase")) {
-      return className.substring(0, className.lastIndexOf("RendererBase")) + "Base";
+    } else if (className.endsWith("RendererBase")) {
+      return className.substring(0, className.lastIndexOf("RendererBase")) +
+          "Base";
     }
     return null;
   }
 
 // ///////////////////////////////////////////// bean getter + setter
-
 }

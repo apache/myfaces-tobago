@@ -44,7 +44,7 @@ public class ThemeConverter implements Converter {
       FacesContext facesContext, UIComponent component, String string)
       throws ConverterException {
     try {
-      return TobagoConfig.getInstance().getTheme(string);
+      return TobagoConfig.getInstance(facesContext).getTheme(string);
     } catch (Exception e) {
       LOG.error("string='" + string + "'", e);
       throw new ConverterException("string='" + string + "'", e);

@@ -7,47 +7,108 @@ package com.atanion.tobago.config;
 
 import com.atanion.tobago.context.ResourceManager;
 import com.atanion.tobago.context.Theme;
+import com.atanion.tobago.context.ResourceManagerUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.FacesException;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ExternalContext;
+import javax.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 public class TobagoConfig {
-
-// ///////////////////////////////////////////// constant
+// ------------------------------------------------------------------ constants
 
   private static final Log LOG = LogFactory.getLog(TobagoConfig.class);
 
-// ///////////////////////////////////////////// attribute
+  public static final String TOBAGO_CONFIG
+      = "com.atanion.tobago.config.TobagoConfig";
 
-  private static TobagoConfig instance;
+// ----------------------------------------------------------------- attributes
 
   private List themes;
   private Theme defaultTheme;
   private List mappingRules;
 
-// ///////////////////////////////////////////// constructor
+// ----------------------------------------------------------- business methods
 
-  private TobagoConfig() {
+  public void addMappingRule(MappingRule mappingRule) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("addMappingRule: {" + mappingRule + "}");
+    }
+
+    if (mappingRules == null) {
+      mappingRules = new ArrayList();
+    }
+    mappingRules.add(mappingRule);
   }
 
-// ///////////////////////////////////////////// code
-
-  public static void init() {
-    instance = new TobagoConfig();
+  public void addTheme(Theme theme) {
+    if (themes == null) {
+      themes = new ArrayList();
+    }
+    themes.add(theme);
+    LOG.debug("adding theme " + theme);
   }
 
-  public static TobagoConfig getInstance() {
-    return instance;
+  public static TobagoConfig getInstance(FacesContext facesContext) {
+    return (TobagoConfig) facesContext.getExternalContext()
+        .getApplicationMap().get(TOBAGO_CONFIG);
   }
 
-  public void propagate() {
+  public static TobagoConfig getInstance(ExternalContext externalContext) {
+    return (TobagoConfig) externalContext
+        .getApplicationMap().get(TOBAGO_CONFIG);
+  }
 
+  public MappingRule getMappingRule(String requestUri) {
+    for (Iterator i = getMappingRules(); i.hasNext();) {
+      MappingRule rule = (MappingRule) i.next();
+      if (rule.getRequestUri().equals(requestUri)) {
+        return rule;
+      }
+    }
+    return null;
+  }
+
+  public Iterator getMappingRules() {
+    if (mappingRules == null) {
+      return Collections.EMPTY_LIST.iterator();
+    } else {
+      return mappingRules.iterator();
+    }
+  }
+
+  public Theme getTheme(String name) {
+    if (name == null) {
+      LOG.warn("searching theme: null");
+      return defaultTheme;
+    }
+    for (Iterator i = getThemes().iterator(); i.hasNext();) {
+      Theme theme = (Theme) i.next();
+      if (theme.getName().equals(name)) {
+        return theme;
+      }
+    }
+    LOG.warn("searching theme '" + name + "' not found. Using default: " + defaultTheme);
+    return defaultTheme;
+  }
+
+  public List getThemes() {
+    if (themes == null) {
+      return Collections.EMPTY_LIST;
+    } else {
+      return themes;
+    }
+  }
+
+  // todo: refactor: drop this method
+  public void propagate(ServletContext context) {
     if (themes == null) {
       String error = "No themes found!";
       FacesException e = new FacesException(error);
@@ -71,74 +132,13 @@ public class TobagoConfig {
       }
     }
 
-    ResourceManager.getInstance().setTobagoConfig(this);
+    ResourceManagerUtil.getResourceManager(context).setTobagoConfig(this);
   }
 
-  public void addTheme(Theme theme) {
-    if (themes == null) {
-      themes = new ArrayList();
-    }
-    themes.add(theme);
-    LOG.debug("adding theme " + theme);
-  }
-
-  public void addMappingRule(MappingRule mappingRule) {
-
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("addMappingRule: {" + mappingRule + "}");
-    }
-
-    if (mappingRules == null) {
-      mappingRules = new ArrayList();
-    }
-    mappingRules.add(mappingRule);
-  }
-
-  public Theme getTheme(String name) {
-    if (name == null) {
-      LOG.warn("searching theme: null");
-      return defaultTheme;
-    }
-    for (Iterator i = getThemes().iterator(); i.hasNext();) {
-      Theme theme = (Theme) i.next();
-      if (theme.getName().equals(name)) {
-        return theme;
-      }
-    }
-    LOG.warn("searching theme '" + name + "' not found. Using default: " + defaultTheme);
-    return defaultTheme;
-  }
-
-  public MappingRule getMappingRule(String requestUri) {
-    for (Iterator i = getMappingRules(); i.hasNext();) {
-      MappingRule rule = (MappingRule) i.next();
-      if (rule.getRequestUri().equals(requestUri)) {
-        return rule;
-      }
-    }
-    return null;
-  }
-
-// ///////////////////////////////////////////// bean getter + setter
-
-  public List getThemes() {
-    if (themes == null) {
-      return Collections.EMPTY_LIST;
-    } else {
-      return themes;
-    }
-  }
+// ------------------------------------------------------------ getter + setter
 
   public Theme getDefaultTheme() {
     return defaultTheme;
   }
-
-  public Iterator getMappingRules() {
-    if (mappingRules == null) {
-      return Collections.EMPTY_LIST.iterator();
-    } else {
-      return mappingRules.iterator();
-    }
-  }
-
 }
+

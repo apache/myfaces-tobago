@@ -9,7 +9,7 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.application.ViewHandlerImpl;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ClientProperties;
-import com.atanion.tobago.context.TobagoResource;
+import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.PageRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
@@ -146,7 +146,7 @@ public class PageRenderer extends PageRendererBase implements DirectRenderer {
     Set styleFiles = page.getStyleFiles();
     for (Iterator i = styleFiles.iterator(); i.hasNext();) {
       String styleFile = (String) i.next();
-      List styles = TobagoResource.getStyles(facesContext, styleFile);
+      List styles = ResourceManagerUtil.getStyles(facesContext, styleFile);
       for (Iterator j = styles.iterator(); j.hasNext();) {
         String styleString = (String) j.next();
         if (styleString.length() > 0) {

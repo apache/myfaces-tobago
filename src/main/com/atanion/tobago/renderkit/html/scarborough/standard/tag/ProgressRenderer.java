@@ -5,7 +5,7 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.tobago.context.TobagoResource;
+import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RendererBase;
 
@@ -33,7 +33,7 @@ public class ProgressRenderer extends RendererBase implements DirectRenderer {
 
     BoundedRangeModel model = (BoundedRangeModel) component.getValue();
 
-    String image = TobagoResource.getImage(facesContext, "1x1.gif");
+    String image = ResourceManagerUtil.getImage(facesContext, "1x1.gif");
 
     String value1 = Integer.toString(model.getValue());
     String value2 = Integer.toString(

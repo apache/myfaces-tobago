@@ -9,7 +9,7 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIData;
 import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.context.TobagoResource;
+import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.model.SheetState;
 import com.atanion.tobago.model.SortableByApplication;
 import com.atanion.tobago.renderkit.DirectRenderer;
@@ -197,9 +197,9 @@ public class SheetRenderer extends RendererBase
   public void encodeDirectEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
     UIData component = (UIData) uiComponent;
-    String image1x1 = TobagoResource.getImage(facesContext, "1x1.gif");
-    String ascending = TobagoResource.getImage(facesContext, "ascending.gif");
-    String descending = TobagoResource.getImage(facesContext, "descending.gif");
+    String image1x1 = ResourceManagerUtil.getImage(facesContext, "1x1.gif");
+    String ascending = ResourceManagerUtil.getImage(facesContext, "ascending.gif");
+    String descending = ResourceManagerUtil.getImage(facesContext, "descending.gif");
 
     String sheetId = component.getClientId(facesContext);
     UIPage uiPage = ComponentUtil.findPage(component);
@@ -317,18 +317,18 @@ public class SheetRenderer extends RendererBase
           sortCommand.getClientId(facesContext); // this must called here to fix the ClientId
 
           writer.writeAttribute("title",
-              TobagoResource.getProperty(facesContext, "tobago", "sheetTipSorting"),
+              ResourceManagerUtil.getProperty(facesContext, "tobago", "sheetTipSorting"),
               null);
 
           if (sorter.getColumn() == columnCount) {
             if (sorter.isAscending()) {
               sorterImage = ascending;
-              sortTitle = TobagoResource.getProperty(facesContext,
+              sortTitle = ResourceManagerUtil.getProperty(facesContext,
                   "tobago", "sheetAscending");
             }
             else {
               sorterImage = descending;
-              sortTitle = TobagoResource.getProperty(facesContext,
+              sortTitle = ResourceManagerUtil.getProperty(facesContext,
                   "tobago", "sheetDescending");
             }
           }
@@ -605,7 +605,7 @@ public class SheetRenderer extends RendererBase
       writer.startElement("span", null);
       writer.writeAttribute("style", "float: left;", null);
 
-      String key = TobagoResource.getProperty(facesContext, "tobago", "sheetPagingInfo");
+      String key = ResourceManagerUtil.getProperty(facesContext, "tobago", "sheetPagingInfo");
       Locale locale = facesContext.getViewRoot().getLocale();
       MessageFormat detail = new MessageFormat(key, locale);
       Integer[] args = {
@@ -710,7 +710,7 @@ public class SheetRenderer extends RendererBase
       image.setValue(command + ".gif");
     }
     image.getAttributes().put(TobagoConstants.ATTR_TITLE,
-        TobagoResource.getProperty(facesContext, "tobago", "sheet" + command));
+        ResourceManagerUtil.getProperty(facesContext, "tobago", "sheet" + command));
 
     link.getChildren().add(image);
     data.getFacets().put(command, link);

@@ -5,7 +5,7 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.context.TobagoResource;
+import com.atanion.tobago.context.ResourceManagerUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -42,7 +42,7 @@ public class IncludeTag extends TagSupport {
       }
 
       if (i18n) {
-        pageName = TobagoResource.getJsp(FacesContext.getCurrentInstance(), pageName);
+        pageName = ResourceManagerUtil.getJsp(FacesContext.getCurrentInstance(), pageName);
       }
 
       if (LOG.isDebugEnabled()) {

@@ -7,7 +7,7 @@ package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.context.TobagoResource;
+import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
@@ -91,7 +91,7 @@ public class MultiSelectRenderer extends SelectManyRendererBase
 
     UIComponent label = component.getFacet(FACET_LABEL);
 
-    String image = TobagoResource.getImage(facesContext, "1x1.gif");
+    String image = ResourceManagerUtil.getImage(facesContext, "1x1.gif");
 
     // fixme: rows never used
     Integer rows = (Integer) component.getAttributes().get(ATTR_ROWS);

@@ -9,26 +9,29 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TobagoResource {
+public class ResourceManagerUtil {
 
-// ///////////////////////////////////////////// constant
+  private static final Log LOG = LogFactory.getLog(ResourceManagerUtil.class);
 
-  private static final Log LOG = LogFactory.getLog(TobagoResource.class);
+  public static ResourceManager getResourceManager(FacesContext facesContext) {
+    return (ResourceManager) facesContext.getExternalContext()
+        .getApplicationMap().get(ResourceManager.RESOURCE_MANAGER);
+  }
 
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
+  public static ResourceManager getResourceManager(ServletContext servletContext) {
+    return (ResourceManager) servletContext
+        .getAttribute(ResourceManager.RESOURCE_MANAGER);
+  }
 
   public static String getProperty(
       FacesContext facesContext, String bundle, String key) {
     String clientProperties = ClientProperties.getInstance(
         facesContext.getViewRoot()).toString();
-    String result = ResourceManager.getInstance().getProperty(clientProperties, bundle, key);
+    String result = getResourceManager(facesContext).getProperty(clientProperties, bundle, key);
     if (result != null) {
       return result;
     } else {
@@ -39,7 +42,7 @@ public class TobagoResource {
   public static String getJsp(FacesContext facesContext, String key) {
     String clientProperties = ClientProperties.getInstance(
         facesContext.getViewRoot()).toString();
-    return ResourceManager.getInstance().getJsp(clientProperties, key);
+    return getResourceManager(facesContext).getJsp(clientProperties, key);
   }
 
   public static String getImage(FacesContext facesContext, String name) {
@@ -50,7 +53,7 @@ public class TobagoResource {
       boolean ignoreMissing) {
     String clientProperties = ClientProperties.getInstance(
         facesContext.getViewRoot()).toString();
-    String image = ResourceManager.getInstance().getImage(
+    String image = getResourceManager(facesContext).getImage(
         clientProperties, name, ignoreMissing);
     if (image != null) {
       return facesContext.getExternalContext().getRequestContextPath() + image;
@@ -66,7 +69,7 @@ public class TobagoResource {
     String clientProperties = ClientProperties.getInstance(
         facesContext.getViewRoot()).toString();
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
-    String[] styles = ResourceManager.getInstance().getStyles(clientProperties,
+    String[] styles = getResourceManager(facesContext).getStyles(clientProperties,
         name);
 
     List withContext = new ArrayList(styles.length);
@@ -81,9 +84,7 @@ public class TobagoResource {
         facesContext.getViewRoot()).toString();
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
     return contextPath +
-        ResourceManager.getInstance().getScript(clientProperties, name);
+        getResourceManager(facesContext).getScript(clientProperties, name);
   }
-
-// ///////////////////////////////////////////// bean getter + setter
 
 }

@@ -5,29 +5,24 @@
   */
 package com.atanion.tobago.tool;
 
-import com.atanion.util.KeyValuePair;
 import com.atanion.tobago.config.ThemeConfig;
 import com.atanion.tobago.module.client.ClientConfigController;
+import com.atanion.util.KeyValuePair;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-import java.util.Properties;
-import java.util.Iterator;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Set;
 import java.util.HashSet;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.FileInputStream;
-
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
-
-import javax.faces.model.SelectItem;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ExternalContext;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.component.UIInput;
+import java.util.Iterator;
+import java.util.Properties;
+import java.util.Set;
 
 public class ThemeConfigViewController {
 
@@ -155,7 +150,6 @@ public class ThemeConfigViewController {
   }
 
   public String doRequest() {
-    final ThemeConfig themeConfig = ThemeConfig.getInstance();
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     component.setRendererType(rendererType);
 
@@ -163,7 +157,7 @@ public class ThemeConfigViewController {
     for (int i = 0; i < propertyNames.length; i++) {
       String propertyName = propertyNames[i];
       try {
-        int value = themeConfig.getValue(facesContext, component, propertyName);
+        int value = ThemeConfig.getValue(facesContext, component, propertyName);
         found.add(new KeyValuePair(propertyName, Integer.toString(value)));
       } catch (Exception e) {
         if (LOG.isDebugEnabled()) {

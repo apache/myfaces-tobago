@@ -5,7 +5,7 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.context.TobagoResource;
+import com.atanion.tobago.context.ResourceManagerUtil;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.jsp.JspException;
@@ -70,7 +70,7 @@ public class LoadBundleTag extends TagSupport {
       if (null == key) {
         return false;
       }
-      String value = TobagoResource.getProperty(
+      String value = ResourceManagerUtil.getProperty(
           FacesContext.getCurrentInstance(), basename, key.toString());
       return value != null;
     }
@@ -91,7 +91,7 @@ public class LoadBundleTag extends TagSupport {
       if (null == key) {
         return null;
       }
-      String value = TobagoResource.getProperty(
+      String value = ResourceManagerUtil.getProperty(
           FacesContext.getCurrentInstance(), basename, key.toString());
       return value;
     }

@@ -9,7 +9,7 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.component.UITabGroup;
-import com.atanion.tobago.context.TobagoResource;
+import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
@@ -75,7 +75,7 @@ public class TabGroupRenderer extends RendererBase
 
 
     UITabGroup component = (UITabGroup) uiComponent;
-    String image1x1 = TobagoResource.getImage(facesContext, "1x1.gif");
+    String image1x1 = ResourceManagerUtil.getImage(facesContext, "1x1.gif");
 
     UIPanel[] tabs = component.getTabs();
     layoutTabs(facesContext, component, tabs);

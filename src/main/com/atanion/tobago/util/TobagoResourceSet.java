@@ -5,7 +5,7 @@
  */
 package com.atanion.tobago.util;
 
-import com.atanion.tobago.context.TobagoResource;
+import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.util.collections.ListOrderedSet;
 
 import javax.faces.context.FacesContext;
@@ -50,7 +50,7 @@ public class TobagoResourceSet extends ListOrderedSet {
 
     public String getScript(FacesContext facesContext) {
       if (i18n) {
-        return TobagoResource.getScript(facesContext, name);
+        return ResourceManagerUtil.getScript(facesContext, name);
       } else {
         return name;
       }

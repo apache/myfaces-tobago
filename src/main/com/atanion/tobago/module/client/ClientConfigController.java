@@ -44,7 +44,8 @@ public class ClientConfigController {
 
     // theme
 
-    TobagoConfig tobagoConfig = TobagoConfig.getInstance();
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
 
     List themes = tobagoConfig.getThemes();
     themeItems = new SelectItem[themes.size()];

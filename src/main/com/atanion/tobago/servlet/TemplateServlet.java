@@ -18,6 +18,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -73,7 +74,8 @@ public class TemplateServlet extends HttpServlet {
   }
 
   private String remap(ServletRequest request, String requestURI) {
-    TobagoConfig config = TobagoConfig.getInstance();
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    TobagoConfig config = TobagoConfig.getInstance(facesContext);
     MappingRule mappingRule = config.getMappingRule(requestURI);
     if (mappingRule == null) {
       return requestURI;

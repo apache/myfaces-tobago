@@ -7,7 +7,7 @@ package com.atanion.tobago.event;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.UITree;
-import com.atanion.tobago.context.TobagoResource;
+import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.model.TreeState;
 
 import org.apache.commons.logging.Log;
@@ -34,7 +34,7 @@ public class DefaultTreeActionListener implements ActionListener {
 // ///////////////////////////////////////////// code
 
   protected DefaultMutableTreeNode create(FacesContext facesContext) {
-    String label = TobagoResource.getProperty(facesContext, "tobago", "treeNodeNew");
+    String label = ResourceManagerUtil.getProperty(facesContext, "tobago", "treeNodeNew");
     return new DefaultMutableTreeNode(label);
   }
 

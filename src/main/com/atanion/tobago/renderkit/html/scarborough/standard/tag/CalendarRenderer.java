@@ -9,7 +9,7 @@ import com.atanion.model.CalendarModel;
 import com.atanion.model.DateModel;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.context.TobagoResource;
+import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.taglib.component.CalendarTag;
@@ -96,7 +96,7 @@ public class CalendarRenderer extends RendererBase implements DirectRenderer {
     writer.startElement("img", null);
     writer.writeAttribute("style", "cursor: pointer", null);
     writer.writeAttribute("alt", "", null);
-    writer.writeAttribute("src", TobagoResource.getImage(facesContext, "fastPrev.gif"), null);
+    writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "fastPrev.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', -12)", null);
     writer.endElement("img");
     writer.endElement("td");
@@ -106,7 +106,7 @@ public class CalendarRenderer extends RendererBase implements DirectRenderer {
     writer.startElement("img", null);
     writer.writeAttribute("style", "cursor: pointer", null);
     writer.writeAttribute("alt", "", null);
-    writer.writeAttribute("src", TobagoResource.getImage(facesContext, "prev.gif"), null);
+    writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "prev.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', -1)", null);
     writer.endElement("img");
     writer.endElement("td");
@@ -122,7 +122,7 @@ public class CalendarRenderer extends RendererBase implements DirectRenderer {
     writer.startElement("img", null);
     writer.writeAttribute("style", "cursor: pointer", null);
     writer.writeAttribute("alt", "", null);
-    writer.writeAttribute("src", TobagoResource.getImage(facesContext, "next.gif"), null);
+    writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "next.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', 1)", null);
     writer.endElement("img");
     writer.endElement("td");
@@ -132,7 +132,7 @@ public class CalendarRenderer extends RendererBase implements DirectRenderer {
     writer.startElement("img", null);
     writer.writeAttribute("style", "cursor: pointer", null);
     writer.writeAttribute("alt", "", null);
-    writer.writeAttribute("src", TobagoResource.getImage(facesContext, "fastNext.gif"), null);
+    writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "fastNext.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', 12)", null);
     writer.endElement("img");
     writer.endElement("td");

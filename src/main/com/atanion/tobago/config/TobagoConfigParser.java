@@ -18,28 +18,16 @@ import java.net.URL;
 
 public class TobagoConfigParser {
 
-// ///////////////////////////////////////////// constant
-
   private static final Log LOG = LogFactory.getLog(TobagoConfigParser.class);
 
-// ///////////////////////////////////////////// attribute
+  public static void parse(ServletContext context, TobagoConfig tobagoConfig) {
 
-  private Digester digester;
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
-
-  public void init(ServletContext context) {
-
-    TobagoConfig config = TobagoConfig.getInstance();
-    digester = new Digester();
-    configureNavigation(config);
-    parse(context);
-    config.propagate();
+    Digester digester = new Digester();
+    configure(tobagoConfig, digester);
+    parse(context, digester);
   }
 
-  private Digester configureNavigation(TobagoConfig config) {
+  private static Digester configure(TobagoConfig config, Digester digester) {
 
     digester.push(config);
     digester.setValidating(true);
@@ -70,11 +58,11 @@ public class TobagoConfigParser {
     return digester;
   }
 
-  private void parse(ServletContext context) {
+  private static void parse(ServletContext context, Digester digester) {
 
     final String configPath = "/WEB-INF/tobago-config.xml";
     InputStream input = null;
-    registerDtd(context);
+    registerDtd(digester);
     try {
       input = context.getResourceAsStream(configPath);
       if (input != null) {
@@ -99,11 +87,11 @@ public class TobagoConfigParser {
     }
   }
 
-  private void registerDtd(ServletContext context) {
+  private static void registerDtd(Digester digester) {
 
     final String TOBAGO_CONFIG_DTD
         = "/com/atanion/tobago/config/tobago-config_1_0.dtd";
-    URL url = this.getClass().getResource(TOBAGO_CONFIG_DTD);
+    URL url = TobagoConfigParser.class.getResource(TOBAGO_CONFIG_DTD);
     LOG.debug("registering dtd: url=" + url);
     if (null != url) {
       digester.register(
@@ -115,7 +103,5 @@ public class TobagoConfigParser {
           + "'; trying external URL");
     }
   }
-
-// ///////////////////////////////////////////// bean getter + setter
 
 }

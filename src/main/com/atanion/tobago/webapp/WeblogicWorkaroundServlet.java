@@ -9,6 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.FactoryFinder;
+import javax.faces.context.FacesContext;
 import javax.faces.lifecycle.LifecycleFactory;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -50,7 +51,8 @@ public class WeblogicWorkaroundServlet extends HttpServlet {
     }
 
     LOG.debug("2nd");
-    TobagoConfig tobagoConfig = TobagoConfig.getInstance();
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
 
     if (tobagoConfig == null) { // Tobago ConfigureListener is not called until now!
       final String className = "com.atanion.tobago.webapp.TobagoServletContextListener";

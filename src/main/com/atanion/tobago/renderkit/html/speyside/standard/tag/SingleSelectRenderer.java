@@ -6,7 +6,7 @@
 package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.context.TobagoResource;
+import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.RenderUtil;
@@ -52,7 +52,7 @@ public class SingleSelectRenderer extends SelectOneRendererBase
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    String image = TobagoResource.getImage(facesContext, "1x1.gif");
+    String image = ResourceManagerUtil.getImage(facesContext, "1x1.gif");
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("items.size() = '" + items.size() + "'");

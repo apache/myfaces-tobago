@@ -8,7 +8,7 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.context.TobagoResource;
+import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RendererBase;
@@ -48,10 +48,10 @@ public class ImageRenderer extends RendererBase
     if (ComponentUtil.getBooleanAttribute(graphic, TobagoConstants.ATTR_I18N)) {
       src = null;
       if (isDisabled(graphic)) {
-        src = TobagoResource.getImage(facesContext, createSrc(value, "-disabled"), true);
+        src = ResourceManagerUtil.getImage(facesContext, createSrc(value, "-disabled"), true);
       }
       if (src == null) {
-        src = TobagoResource.getImage(facesContext, value);
+        src = ResourceManagerUtil.getImage(facesContext, value);
       }
       addImageSources(facesContext, graphic);
     } else {
@@ -120,10 +120,10 @@ public class ImageRenderer extends RendererBase
     final UIPage page = ComponentUtil.findPage(graphic);
     page.getOnloadScripts().add("addImageSources('"
         + graphic.getClientId(facesContext) + "','"
-        + TobagoResource.getImage(facesContext, src, false) + "','"
-        + TobagoResource.getImage(
+        + ResourceManagerUtil.getImage(facesContext, src, false) + "','"
+        + ResourceManagerUtil.getImage(
             facesContext, createSrc(src, "-disabled"), true) + "','"
-        + TobagoResource.getImage(
+        + ResourceManagerUtil.getImage(
             facesContext, createSrc(src, "-hover"), true) + "');");
   }
 // ///////////////////////////////////////////// bean getter + setter
