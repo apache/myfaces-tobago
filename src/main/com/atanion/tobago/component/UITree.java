@@ -199,27 +199,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
         && (selectable.equals("multi") || selectable.equals("single"));
   }
 
-  public List<UITreeNode> getSelectionPath() {
-    List<UITreeNode> selectionPath = new ArrayList<UITreeNode>();
-    if (isSelectableTree()) {
-      TreeState treeState = (TreeState) getValue();
-      Iterator iterator = treeState.getSelection().iterator();
-      if (iterator.hasNext()) {
-        TreeNode treeNode = (TreeNode) iterator.next();
-        UITreeNode selectedNode = findSelectedComponent(getRoot(), treeNode);
-        if (selectedNode != null) {
-          UIComponent ancestor = selectedNode;
-          while (ancestor != null && ancestor instanceof UITreeNode) {
-            selectionPath.add(0, (UITreeNode) ancestor);
-            ancestor = ancestor.getParent();
-          }
-        }
-      }
-    }
-    return selectionPath;
-  }
-
-  private UITreeNode findSelectedComponent(UITreeNode node, TreeNode treeNode) {
+  protected UITreeNode findSelectedComponent(UITreeNode node, TreeNode treeNode) {
     UITreeNode found = null;
     if (node.getTreeNode().equals(treeNode)) {
       return found = node;

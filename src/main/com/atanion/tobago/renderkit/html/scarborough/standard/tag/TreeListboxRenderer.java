@@ -5,31 +5,22 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UITree;
-import com.atanion.tobago.component.UITreeNode;
-import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.model.TreeState;
-import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.util.StringUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.application.Application;
-import javax.faces.component.NamingContainer;
-import javax.faces.component.UICommand;
+import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UITreeListbox;
+import com.atanion.tobago.component.UITreeNode;
+import com.atanion.tobago.context.ResourceManagerUtil;
+import com.atanion.tobago.renderkit.RenderUtil;
+
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIGraphic;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.event.ActionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 public class TreeListboxRenderer extends TreeRenderer{
 
@@ -46,7 +37,7 @@ public class TreeListboxRenderer extends TreeRenderer{
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
-    UITree tree = (UITree) component;
+    UITreeListbox tree = (UITreeListbox) component;
 
     String clientId = tree.getClientId(facesContext);
     UITreeNode root = tree.getRoot();
@@ -66,8 +57,8 @@ public class TreeListboxRenderer extends TreeRenderer{
 
       writer.startElement("input", tree);
       writer.writeAttribute("type", "hidden", null);
-      writer.writeAttribute("name", clientId + UITree.SELECT_STATE, null);
-      writer.writeAttribute("id", clientId + UITree.SELECT_STATE, null);
+      writer.writeAttribute("name", clientId + UITreeListbox.SELECT_STATE, null);
+      writer.writeAttribute("id", clientId + UITreeListbox.SELECT_STATE, null);
       writer.writeAttribute("value", ";", null);
       writer.endElement("input");
 
@@ -130,7 +121,7 @@ public class TreeListboxRenderer extends TreeRenderer{
 
 
 
-      renderListbox(writer, clientId, level, root, selectionPath);
+      renderListbox(writer, clientId, level, tree);
 
 
 
@@ -153,27 +144,10 @@ public class TreeListboxRenderer extends TreeRenderer{
   }
 
   private void renderListbox(ResponseWriter writer, String clientId, int level,
-                    UITreeNode rootNode, List<UITreeNode> selectionPath)
+                    UITreeListbox tree)
       throws IOException {
 
-    List nodes;
-    if (level == 0) {
-      nodes = rootNode.getChildren();
-    }
-    else if (selectionPath.size() > level) {
-      nodes = selectionPath.get(level).getChildren();
-    }
-    else {
-      nodes = Collections.EMPTY_LIST;
-    }
-
-    UITreeNode selectedComponent;
-    if (selectionPath.size() > level + 1) {
-      selectedComponent = selectionPath.get(level + 1);
-    } else {
-      selectedComponent = null;
-    }
-
+    List<UITreeNode> selectionPath = tree.getSelectionPath();
     String className = "tobago-listbox-default";
     if (selectionPath.size() - 1 <= level
         && selectionPath.get(selectionPath.size() - 1).getTreeNode().isLeaf()) {
@@ -191,29 +165,28 @@ public class TreeListboxRenderer extends TreeRenderer{
 
 
 
-//    if (level == 0 || selectedComponent != null) {
+    List nodes = tree.getNodes(level);
 
-      for (int i = 0; i < nodes.size(); i++) {
-        if (nodes.get(i) instanceof UITreeNode) {
-          UITreeNode treeNode = (UITreeNode) nodes.get(i);
-          DefaultMutableTreeNode node = treeNode.getTreeNode();
+    for (int i = 0; i < nodes.size(); i++) {
+      if (nodes.get(i) instanceof UITreeNode) {
+        UITreeNode treeNode = (UITreeNode) nodes.get(i);
+        DefaultMutableTreeNode node = treeNode.getTreeNode();
 
-          writer.startElement("option", null);
-          writer.writeAttribute("value", Integer.toString(i), null);
-          if (treeNode.equals(selectedComponent)) {
-            writer.writeAttribute("selected", "selected", null);
-          }
-
-          writer.writeText(treeNode.getAttributes().get(ATTR_NAME), null);
-          if (node.getChildCount() > 0) {
-            writer.writeText(" -->", null);
-          }
-
-
-          writer.endElement("option");
+        writer.startElement("option", null);
+        writer.writeAttribute("value", Integer.toString(i), null);
+        if (treeNode.equals(tree.getSelectedNode(level))) {
+          writer.writeAttribute("selected", "selected", null);
         }
 
+        writer.writeText(treeNode.getAttributes().get(ATTR_NAME), null);
+        if (node.getChildCount() > 0) {
+          writer.writeText(" -->", null);
+        }
+
+        writer.endElement("option");
       }
+
+    }
 
 
     writer.endElement("select");

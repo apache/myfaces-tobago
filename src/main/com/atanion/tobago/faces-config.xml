@@ -62,6 +62,10 @@
     <component-type>com.atanion.tobago.Tree</component-type>
     <component-class>com.atanion.tobago.component.UITree</component-class>
   </component>
+  <component>
+    <component-type>com.atanion.tobago.TreeListbox</component-type>
+    <component-class>com.atanion.tobago.component.UITreeListbox</component-class>
+  </component>
 
   <converter>
     <converter-id>com.atanion.tobago.Duration</converter-id>

@@ -6,7 +6,7 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UITree;
+import com.atanion.tobago.component.UITreeListbox;
 
 import javax.faces.component.UIComponent;
 
@@ -20,7 +20,7 @@ public class TreeListboxTag extends BeanTag {
 // ----------------------------------------------------------- business methods
 
   public String getComponentType() {
-    return UITree.COMPONENT_TYPE;
+    return UITreeListbox.COMPONENT_TYPE;
   }
 
   protected void setProperties(UIComponent component) {
