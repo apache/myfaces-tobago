@@ -82,8 +82,9 @@ public class ViewHandlerImpl extends ViewHandler {
     }
     UIViewRoot root = new UIViewRoot();
     root.setViewId(viewId);
-    root.setLocale(calculateLocale(facesContext));
-    root.setRenderKitId(calculateRenderKitId(facesContext));
+    ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
+    root.setLocale(viewHandler.calculateLocale(facesContext));
+    root.setRenderKitId(viewHandler.calculateRenderKitId(facesContext));
     if (USE_VIEW_MAP) {
       ViewMap viewMap = ensureViewMap(facesContext);
       String pageId = viewMap.addView(root);
@@ -239,8 +240,7 @@ public class ViewHandlerImpl extends ViewHandler {
           if (LOG.isDebugEnabled()) {
             LOG.debug(
                 "found old view with different viewId: '" +
-                viewRoot.getViewId() +
-                "'");
+                viewRoot.getViewId() + "'");
           }
           viewRoot = null;
         }
