@@ -7,7 +7,6 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.context.ClientProperties;
-import com.atanion.tobago.context.UserAgent;
 import com.atanion.tobago.renderkit.BoxRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.util.LayoutUtil;
@@ -83,7 +82,7 @@ public class BoxRenderer extends BoxRendererBase {
       RenderUtil.encode(facesContext, toolbar);
       writer.endElement("span");
       writer.endElement("div");
-      if (isMsie(facesContext)) {
+      if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
         contentStyle
             = LayoutUtil.replaceStyleAttribute(contentStyle, "top", "-10px");
       }
@@ -97,12 +96,6 @@ public class BoxRenderer extends BoxRendererBase {
 
     writer.endElement("div");
     writer.endElement("fieldset");
-  }
-
-
-
-  private boolean isMsie(FacesContext facesContext) {
-    return ClientProperties.getInstance(facesContext).getUserAgent().toString().startsWith(UserAgent.MSIE.toString());
   }
 
   public boolean getRendersChildren() {

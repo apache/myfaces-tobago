@@ -174,6 +174,11 @@ public class UserAgent {
     this.version = version;
   }
 
+  public boolean isMsie() {
+    return MSIE.name.equals(name);
+  }
+
+  /** @deprecated don't use toString() functionallity! */
   public String toString() {
     return version != null
         ? name + '_' +  version

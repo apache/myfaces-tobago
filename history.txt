@@ -1,5 +1,6 @@
 1.0.2 -
 * bugfix: submit button in IE makes double submit
+* bugfix: NullPointerException with unknown browsers
 
 1.0.1 - 15.12.2004
 * eleminate "SNAPSHOT" dependencies

@@ -8,12 +8,11 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ClientProperties;
-import com.atanion.tobago.context.UserAgent;
 import com.atanion.tobago.renderkit.CommandRendererBase;
+import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
@@ -138,7 +137,7 @@ public class ToolbarRenderer extends RendererBase {
        }      
     }
 
-    if (isMsie(facesContext)) {
+    if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
       UIGraphic ieSpacer = (UIGraphic) command.getParent().getFacet("ieSpacer");
       if (ieSpacer == null) {
         ieSpacer = (UIGraphic) facesContext.getApplication().createComponent(
@@ -182,10 +181,6 @@ public class ToolbarRenderer extends RendererBase {
     }
     writer.endElement("a");
 //    writer.endElement("td");
-  }
-
-  private boolean isMsie(FacesContext facesContext) {
-    return ClientProperties.getInstance(facesContext).getUserAgent().toString().startsWith(UserAgent.MSIE.toString());
   }
 
   private String createOnClick(FacesContext facesContext,
