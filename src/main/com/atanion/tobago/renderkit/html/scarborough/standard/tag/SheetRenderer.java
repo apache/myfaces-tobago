@@ -741,7 +741,7 @@ public class SheetRenderer extends RendererBase
     key = component.getClientId(facesContext) + SELECTED_POSTFIX;
     if (requestParameterMap.containsKey(key)) {
       String selected = (String) requestParameterMap.get(key);
-      LOG.info("selected = " + selected);
+      LOG.debug("selected = " + selected);
       component.getAttributes().put(
           TobagoConstants.ATTR_SELECTED_LIST_STRING, selected);
     }

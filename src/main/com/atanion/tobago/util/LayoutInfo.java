@@ -17,36 +17,36 @@ public class LayoutInfo{
   private static final int FREE = -1;
   private static final Log log = LogFactory.getLog(LayoutInfo.class);
 
-  private int columnsLeft;
+  private int cellsLeft;
   private int spaceLeft;
   private int[] spaces;
   private String[] layoutTokens;
 
-  public LayoutInfo(int columnCount, int space, String layout) {
+  public LayoutInfo(int cellCount, int space, String layout) {
     if (log.isDebugEnabled()) {
-      log.debug("new LayoutInfo(count=" + columnCount + ", space=" + space
+      log.debug("new LayoutInfo(count=" + cellCount + ", space=" + space
           + ", layout=\"" + layout + "\")");
     }
 
     layoutTokens = createLayoutTokens(layout);
-    if (layoutTokens.length == columnCount) {
-      this.columnsLeft = columnCount;
+    if (layoutTokens.length == cellCount) {
+      this.cellsLeft = cellCount;
       this.spaceLeft = space;
-      createAndInitSpaces(columnCount, FREE);
+      createAndInitSpaces(cellCount, FREE);
     } else if (layoutTokens.length > 0) {
       if (log.isWarnEnabled()) {
-        log.warn("columnLayout tokens != columnCount : "
-            + layoutTokens.length + " != " + columnCount + ". " +
+        log.warn("layoutTokens.length != cellCount : "
+            + layoutTokens.length + " != " + cellCount + ". " +
                 "layout='" + layout + "'");
       }
       layoutTokens = new String[0];
     }
     if (layoutTokens.length == 0) {
-      if (columnCount == 0) {
-        log.warn("columnCount == 0 : using 1 to calulate space");
-        columnCount = 1;
+      if (cellCount == 0) {
+        log.warn("cellCount == 0 : using 1 to calulate space");
+        cellCount = 1;
       }
-      createAndInitSpaces(columnCount, space / columnCount);
+      createAndInitSpaces(cellCount, space / cellCount);
     }
   }
 
@@ -59,7 +59,7 @@ public class LayoutInfo{
 
   public void update(int space, int index){
     spaceLeft -= space;
-    columnsLeft--;
+    cellsLeft--;
     spaces[index] = space;
     if (spaceLeft < 0) {
       if (log.isWarnEnabled()) {
@@ -75,7 +75,7 @@ public class LayoutInfo{
   }
 
   public boolean columnsLeft(){
-    return columnsLeft > 0;
+    return cellsLeft > 0;
   }
 
 
@@ -288,7 +288,7 @@ public class LayoutInfo{
         }
       }
       //  2. calc and set portion
-      int widthPerPortion = 0;
+      int widthPerPortion;
       if (portions > 0) {
         widthPerPortion = getSpaceLeft() / portions;
         for (int i = 0; i < tokens.length; i++) {
