@@ -102,7 +102,7 @@ public class RichTextEditorRenderer extends InputRendererBase
     createToolbarButton(writer, component, facesContext, clientId, state);
     writer.endElement("div");
 
-    String content = ComponentUtil.currentValue(component);
+    String content = getCurrentValue(facesContext, component);
 
     if (previewState) {
       state = TobagoResource.getProperty(facesContext, "text", "tobago.richtexteditor.edit");
