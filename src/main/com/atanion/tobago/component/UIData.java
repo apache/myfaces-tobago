@@ -242,7 +242,7 @@ public class UIData extends javax.faces.component.UIData {
   }
 
   public int getPages() {
-    return getRowCount() / getRows() + 1;
+    return getRowCount() / getRows() + (getRowCount() % getRows() == 0 ? 0 : 1);
   }
 
   public int getLastPageIndex() {
