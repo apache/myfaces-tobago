@@ -51,6 +51,8 @@ public abstract class TobagoTag extends UIComponentTag
 
   private String inline;
 
+  private String localBinding;
+
 // ----------------------------------------------------------- business methods
 
   public int doStartTag() throws JspException {
@@ -64,6 +66,11 @@ public abstract class TobagoTag extends UIComponentTag
       ((TobagoBodyTag) parent).handleBodyContent();
     } else {
       // plain-text/html will not collected in this case.
+    }
+
+    ForEachTag.IterationHelper iterationHelper = getIterationHelper();
+    if (iterationHelper != null) {
+      setBinding(iterationHelper.replace(localBinding));
     }
 
     return super.doStartTag();
@@ -140,6 +147,11 @@ public abstract class TobagoTag extends UIComponentTag
   }
 
 // ------------------------------------------------------------ getter + setter
+
+  public void setBinding(String binding) throws JspException {
+    super.setBinding(binding);
+    localBinding = binding;
+  }
 
   public String getDisabled() {
     return disabled;
