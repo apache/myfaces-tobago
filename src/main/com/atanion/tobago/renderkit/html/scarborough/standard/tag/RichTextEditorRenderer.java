@@ -134,7 +134,9 @@ public class RichTextEditorRenderer extends InputRendererBase
         writer.writeAttribute("onchange", onchange, null);
       }
 
-      writer.writeText(content, null);
+      if (content != null) {
+        writer.writeText(content, null);
+      }
 
       writer.endElement("textarea");
     }
