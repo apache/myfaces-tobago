@@ -7,6 +7,7 @@ package com.atanion.tobago.tool;
 
 import com.atanion.util.KeyValuePair;
 import com.atanion.tobago.config.ThemeConfig;
+import com.atanion.tobago.module.client.ClientConfigController;
 
 import java.util.Properties;
 import java.util.Iterator;
@@ -28,11 +29,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIInput;
 
-public class ThemeConfigViewControler {
+public class ThemeConfigViewController {
 
 // ///////////////////////////////////////////// constant
 
-  private static final Log LOG = LogFactory.getLog(ThemeConfigViewControler.class);
+  private static final Log LOG = LogFactory.getLog(ThemeConfigViewController.class);
 
   private static final String PROPERTY_FILE_PREFIX = "tobago/html/";
 
@@ -108,7 +109,7 @@ public class ThemeConfigViewControler {
 
 // ///////////////////////////////////////////// constructor
 
-  public ThemeConfigViewControler() {
+  public ThemeConfigViewController() {
     component = new UIInput();
     init();
   }
@@ -174,6 +175,16 @@ public class ThemeConfigViewControler {
     entrys = (KeyValuePair[]) found.toArray(new KeyValuePair[found.size()]);
 
     return null;
+  }
+
+  public String changeTheme() {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    ClientConfigController controller = (ClientConfigController)
+        facesContext.getExternalContext().getSessionMap().get("tobagoClientController");
+    controller.submit();
+
+
+    return doRequest();
   }
 
   public SelectItem[] createSelectItems() {
