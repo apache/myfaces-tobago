@@ -50,8 +50,8 @@ public class GridLayoutRenderer extends RendererBase
     String rowLayout
         = (String) layout.getAttributes().get(TobagoConstants.ATTR_ROWS);
 
-    if (rowLayout == null && LOG.isInfoEnabled()) {
-      LOG.info("No rows found using 'fixed' for all " + rows.size()
+    if (rowLayout == null && LOG.isDebugEnabled()) {
+      LOG.debug("No rows found using 'fixed' for all " + rows.size()
           + " rows of " + layout.getClientId(facesContext) + " !");
     }
     String[] layoutTokens
@@ -67,6 +67,13 @@ public class GridLayoutRenderer extends RendererBase
       }
       else if (token.equals("fixed")) {
         height += getMaxFixedHeight((UIGridLayout.Row) rows.get(i), facesContext);
+      }
+      else {
+        if (LOG.isWarnEnabled()) {
+          LOG.warn("Unable to calculate fixedHeight for token '" + token
+              + "'! using 'fixed'");
+        }
+        height += getMaxFixedHeight((UIGridLayout.Row) rows.get(i), facesContext);        
       }
     }
 
@@ -135,9 +142,11 @@ public class GridLayoutRenderer extends RendererBase
               continue; // ignore the markers UIGridLayout.Used
             }
             if (object.equals(UIGridLayout.FREE)) {
-              LOG.warn("There are free blocks in the layout: id='"
-                  + layout.getClientId(facesContext)
-                  + "'");
+              if (LOG.isWarnEnabled()) {
+                LOG.warn("There are free blocks in the layout: id='"
+                    + layout.getClientId(facesContext)
+                    + "'");
+              }
               continue;
             }
             UIComponent cell = (UIComponent) object;
@@ -235,7 +244,9 @@ public class GridLayoutRenderer extends RendererBase
         overflow = " overflow: auto;";
       }
       else {
-        LOG.warn("Illegal value for attribute 'scrollbars' : " + scrollbars);
+        if (LOG.isWarnEnabled()) {
+          LOG.warn("Illegal value for attribute 'scrollbars' : " + scrollbars);
+        }
       }
     }
 
@@ -291,9 +302,10 @@ public class GridLayoutRenderer extends RendererBase
       try {
         return Integer.parseInt(cellspacing);
       } catch (NumberFormatException e) {
-        LOG.warn(
-            "Illegal value for cellspacing : " + cellspacing +
-            " using default");
+        if (LOG.isWarnEnabled()) {
+          LOG.warn("Illegal value for cellspacing : " + cellspacing +
+              " using default");
+        }
         // ignore and return defaut value
       }
     }
@@ -642,8 +654,10 @@ public class GridLayoutRenderer extends RendererBase
       try {
         intValue += Integer.parseInt(margin.replaceAll("\\D", ""));
       } catch (NumberFormatException e) {
-        LOG.warn("Illegal Margin : " + margin
-            + " exception : " + e.getMessage(), e);
+        if (LOG.isWarnEnabled()) {
+          LOG.warn("Illegal Margin : " + margin
+              + " exception : " + e.getMessage(), e);
+        }
       }
     }
     return intValue;

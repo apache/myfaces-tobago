@@ -38,14 +38,18 @@ public class LayoutInfo{
     if (layoutTokens.length == cellCount) {
       this.layoutTokens = layoutTokens;
     } else if (layoutTokens.length > cellCount) {
-      LOG.warn("More layoutToken's than cell's! Cutting leavings!");
+      if (LOG.isWarnEnabled()) {
+        LOG.warn("More layoutToken's than cell's! Cutting leavings!");
+      }
       this.layoutTokens = new String[cellCount];
       for (int i = 0; i < cellCount; i++) {
         this.layoutTokens[i] = layoutTokens[i];
       }
     }
     else {
-      LOG.warn("More cell's than layoutToken's! Set missing token's to '1*'");
+      if (LOG.isWarnEnabled()) {
+        LOG.warn("More cell's than layoutToken's! Set missing token's to '1*'");
+      }
       this.layoutTokens = new String[cellCount];
       for (int i = 0; i < cellCount; i++) {
         if (i < layoutTokens.length) {
@@ -67,8 +71,6 @@ public class LayoutInfo{
   }
 
   public void update(int space, int index){
-
-    LOG.info("update(" + space + ", " + index + ")");
 
     if (space > spaceLeft) {
       if (LOG.isInfoEnabled()) {
