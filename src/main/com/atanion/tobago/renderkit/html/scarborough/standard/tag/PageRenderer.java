@@ -26,6 +26,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletRequest;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Iterator;
@@ -83,11 +84,14 @@ public class PageRenderer extends PageRendererBase implements DirectRenderer {
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
+    // replace responseWriter and render page content
     StringWriter content = new StringWriter();
-    ResponseWriter contentWriter = new TobagoResponseWriter(content, "text/html", "utf-8");
+    ResponseWriter contentWriter = new TobagoResponseWriter(
+        content, writer.getContentType(), writer.getCharacterEncoding());
     facesContext.setResponseWriter(contentWriter);
     RenderUtil.encodeChildren(facesContext, page);
 
+    // reset responseWriter and render page
     facesContext.setResponseWriter(writer);
 
     HttpServletResponse response = (HttpServletResponse)
@@ -240,13 +244,8 @@ public class PageRenderer extends PageRendererBase implements DirectRenderer {
     writer.writeAttribute("id", "tobago::page-id", null);
     writer.writeAttribute("value", facesContext.getViewRoot().getAttributes().get("tobago::page-id"), null);
     writer.endElement("input");
-//
-//    BodyContentHandler bodyContentHandler = (BodyContentHandler)
-//        component.getAttributes().get(TobagoConstants.ATTR_BODY_CONTENT);
-//    if (bodyContentHandler != null) {
-//      writer.write(bodyContentHandler.getBodyContent());
-//    }
-    
+
+    // write the proviously rendered page content 
     writer.write(content.toString());
 
     writer.endElement("form");
