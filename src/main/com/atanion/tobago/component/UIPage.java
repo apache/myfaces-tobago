@@ -97,6 +97,9 @@ public class UIPage extends UIForm {
     if (LOG.isDebugEnabled()) {
       LOG.debug("actionId = '" + actionId + "'");
     }
+    if (actionId == null) { // todo: check why this is needed for dateControl
+      return;
+    }
 
     UIComponent command = findComponent(actionId);
 
@@ -162,9 +165,6 @@ public class UIPage extends UIForm {
     PageState state = getPageState(facesContext);
     if (state != null) {
       decodePageState(facesContext, state);
-    }
-    else {
-      LOG.info("stateBinding == null");
     }
   }
 
