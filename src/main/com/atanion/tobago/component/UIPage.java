@@ -126,9 +126,9 @@ public class UIPage extends UIForm {
   }
 
   public void storeFocusId(String id) {
-    if (getFocusId() != null) {
+    if (getFocusId() != null && ! getFocusId().equals(id)) {
       LOG.warn(
-          "local focusId = \"" + getFocusId() + "\" ignore new value \""
+          "local focusId = \"" + getFocusId() + "\" ignoring new value \""
           + id + "\"");
     } else {
       setFocusId(id);
