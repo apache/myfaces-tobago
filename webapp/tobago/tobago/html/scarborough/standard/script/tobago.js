@@ -179,3 +179,12 @@ function getActiveElement(event) {
     return event.currentTarget;
   }
 }
+
+function clearSelection() {
+  if (document.selection) {  // IE
+    document.selection.empty();
+  }
+  else if (window.getSelection) {  // GECKO
+    window.getSelection().removeAllRanges();
+  }
+}
