@@ -17,8 +17,8 @@ public class TextTag extends BeanTag {
 
 // ///////////////////////////////////////////// attribute
 
-  private boolean escape = true;
-  private boolean verbatim = false;
+  private boolean escape = false;
+  private boolean span = false;
 
 // ///////////////////////////////////////////// constructor
 
@@ -31,13 +31,13 @@ public class TextTag extends BeanTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     setProperty(component, TobagoConstants.ATTR_ESCAPE, escape);
-    setProperty(component, TobagoConstants.ATTR_VERBATIM, verbatim);
+    setProperty(component, TobagoConstants.ATTR_SPAN, span);
   }
 
   public void release() {
     super.release();
-    escape = true;
-    verbatim = false;
+    escape = false;
+    span = false;
   }
 
 // ///////////////////////////////////////////// bean getter + setter
@@ -46,7 +46,7 @@ public class TextTag extends BeanTag {
     this.escape = escape;
   }
 
-  public void setVerbatim(boolean verbatim) {
-    this.verbatim = verbatim;
+  public void setSpan(boolean span) {
+    this.span = span;
   }
 }

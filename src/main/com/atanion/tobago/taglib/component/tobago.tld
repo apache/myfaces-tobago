@@ -51,7 +51,7 @@
       <type>boolean</type>
     </attribute>
     <attribute>
-      <name>verbatim</name>
+      <name>span</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
       <type>boolean</type>

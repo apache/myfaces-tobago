@@ -237,6 +237,9 @@ public class RendererBase extends Renderer {
   protected String updateClassAttribute(
       String cssClass, String rendererType,
       UIComponent component) {
+    if (rendererType.startsWith("javax.faces.")) { // fixme: this is a hotfix from jsf1.0beta to jsf1.0fr
+      rendererType = rendererType.substring("javax.faces.".length());
+    }
     if (cssClass != null) {
       // first remove old tobago-<rendererType>-<type> classes from class-attribute
       cssClass = cssClass.replaceAll(

@@ -89,6 +89,7 @@ public class TobagoConstants {
   public static final String ATTR_SHEET_SORTER = "sheetSorter";
   public static final String ATTR_SIZE = "size";
   public static final String ATTR_SORTABLE = "sortable";
+  public static final String ATTR_SPAN = "span";
   public static final String ATTR_SPAN_X = "spanX";
   public static final String ATTR_SPAN_Y = "spanY";
   public static final String ATTR_SRC = "src";
@@ -107,7 +108,6 @@ public class TobagoConstants {
   public static final String ATTR_TITLE = "title";
   public static final String ATTR_TYPE = "type";
   public static final String ATTR_VALUE = "value";
-  public static final String ATTR_VERBATIM = "verbatim";
   public static final String ATTR_UNIT = "unit";
   public static final String ATTR_WIDTH = "width";
   public static final String ATTR_WIDTH_LIST = "widthList";
