@@ -1,0 +1,124 @@
+/*
+  * Copyright (c) 2002 Atanion GmbH, Germany
+  * All rights reserved. Created 15.04.2003 at 09:26:24.
+  * $Id$
+  */
+package com.atanion.tobago.renderkit;
+
+import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.context.TobagoResource;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.application.ViewHandler;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.DateTimeConverter;
+import java.io.IOException;
+import java.util.Iterator;
+
+public class TextBoxRendererBase extends InputRendererBase {
+
+// ///////////////////////////////////////////// constant
+
+  private static Log LOG = LogFactory.getLog(TextBoxRendererBase.class);
+
+// ///////////////////////////////////////////// attribute
+
+// ///////////////////////////////////////////// constructor
+
+// ///////////////////////////////////////////// code
+
+  protected void renderMain(FacesContext facesContext, UIInput input,
+      TobagoResponseWriter writer) throws IOException {
+    Iterator messages = facesContext.getMessages(
+        input.getClientId(facesContext));
+    StringBuffer stringBuffer = new StringBuffer();
+    while (messages.hasNext()) {
+      FacesMessage message = (FacesMessage) messages.next();
+      String key = TobagoResource.getProperty(facesContext, "tobago", message.getSummary());
+      if (key.length() == 0) {
+        key = message.getSummary();
+      }
+      stringBuffer.append(key);
+    }
+
+    String title = null;
+    if (stringBuffer.length() > 0) {
+      title = stringBuffer.toString();
+    }
+
+    boolean disabled = ComponentUtil.isDisabled(input);
+
+    Integer size
+        = (Integer) input.getAttributes().get(TobagoConstants.ATTR_SIZE);
+
+    String currentValue = getCurrentValue(facesContext, input);
+    LOG.debug("currentValue = '" + currentValue + "'");
+    String type = ComponentUtil.getBooleanAttribute(input,
+        TobagoConstants.ATTR_PASSWORD) ? "password" : "text";
+
+    String onchange = HtmlUtils.generateOnchange(input, facesContext);
+
+    String id = input.getClientId(facesContext);
+
+    writer.startElement("input", input);
+    writer.writeAttribute("type", type, null);
+    writer.writeAttribute("name", id, null);
+    writer.writeAttribute("id", id, null);
+    if (currentValue != null) {
+      writer.writeAttribute("value", currentValue, null);
+    }
+    if (size != null && size.intValue() > 0) {
+      writer.writeAttribute("size", size, null);
+    }
+    if (title != null) {
+      writer.writeAttribute("title", title, null);
+    }
+    writer.writeAttribute("readonly", ComponentUtil.isReadonly(input));
+    writer.writeAttribute("disabled", disabled);
+    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
+    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    if (onchange != null) {
+      writer.writeAttribute("onchange", onchange, null);
+    }
+    writer.endElement("input");
+
+    if (input.getConverter() != null) {
+      Converter converter = input.getConverter();
+      if (converter instanceof DateTimeConverter) {
+        String pattern
+            = ((DateTimeConverter) converter).getPattern();
+        if (pattern != null) {
+
+          writer.startElement("input", input);
+          writer.writeAttribute("type", "hidden", null);
+          writer.writeAttribute("id", id + ":converterPattern", null);
+          writer.writeAttribute("value", pattern, null);
+          writer.endElement("input");
+        }
+      }
+    }
+
+    UIComponent picker = input.getFacet("picker");
+    if (picker != null) {
+      ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
+      String url
+          = viewHandler.getActionURL(facesContext, TobagoResource.getJsp(facesContext, "datePicker.jsp"))
+          + "?tobago.date.inputId="
+          + input.getClientId(facesContext);
+      String command = "calendarWindow('" + url + "');";
+      picker.getAttributes().put(TobagoConstants.ATTR_COMMAND_NAME, command);
+      RenderUtil.encode(facesContext, picker);
+    }
+  }
+
+// ///////////////////////////////////////////// bean getter + setter
+
+}

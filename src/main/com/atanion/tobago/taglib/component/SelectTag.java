@@ -1,0 +1,20 @@
+/*
+ * Copyright (c) 2001 Atanion GmbH, Germany. All rights reserved.
+ * Created: Feb 22, 2002 12:24:11 PM
+ * $Id$
+ */
+package com.atanion.tobago.taglib.component;
+
+public abstract class SelectTag extends InputTag {
+
+// /////////////////////////////////////////// constants
+
+// /////////////////////////////////////////// attributes
+
+// /////////////////////////////////////////// constructors
+
+// /////////////////////////////////////////// code
+
+// /////////////////////////////////////////// bean getter + setter
+
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+ * Copyright (c) 2001-2004 atanion GmbH, Germany
+ * All rights reserved.
+ * $Id$
+-->
+<project name="tobago" default="compile">
+  <property file="build.properties"/>
+  <property name="bs.home" value="../build-system"/>
+  <import file="${bs.home}/build-basic.xml"/>
+
+  <target name="dist" depends="compile">
+    <mkdir dir="${dist}"/>
+    <jar jarfile="${dist}/atanion-tobago.jar">
+      <fileset dir="${build.classes.main}">
+        <include name="**/*.class"/>
+      </fileset>
+      <metainf dir="${src.main}/com/atanion/tobago">
+        <include name="faces-config.xml"/>
+      </metainf>
+      <metainf dir="${src.main}/com/atanion/tobago/taglib/component">
+        <include name="tobago.tld"/>
+      </metainf>
+      <metainf dir="${src.main}/com/atanion/tobago/taglib/core">
+        <include name="tobago-core.tld"/>
+      </metainf>
+    </jar>
+  </target>
+
+</project>

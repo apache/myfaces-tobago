@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+
+<faces-config>
+
+  <factory>
+    <application-factory>
+      com.sun.faces.application.ApplicationFactoryImpl
+    </application-factory>
+    <faces-context-factory>
+      com.sun.faces.context.FacesContextFactoryImpl
+    </faces-context-factory>
+    <lifecycle-factory>
+      com.sun.faces.lifecycle.LifecycleFactoryImpl
+    </lifecycle-factory>
+    <render-kit-factory>
+      com.atanion.tobago.renderkit.RenderKitFactoryImpl
+    </render-kit-factory>
+  </factory>
+
+  <application>
+    <action-listener>
+      com.sun.faces.application.ActionListenerImpl
+    </action-listener>
+    <navigation-handler>
+      com.sun.faces.application.NavigationHandlerImpl
+    </navigation-handler>
+    <property-resolver>
+      com.sun.faces.el.PropertyResolverImpl
+    </property-resolver>
+    <state-manager>
+      com.sun.faces.application.StateManagerImpl
+    </state-manager>
+    <variable-resolver>
+      com.sun.faces.el.VariableResolverImpl
+    </variable-resolver>
+    <view-handler>
+      com.atanion.tobago.application.ViewHandlerImpl
+    </view-handler>
+  </application>
+
+  <component>
+    <component-type>javax.faces.Input</component-type>
+    <component-class>com.atanion.tobago.component.UIInput</component-class>
+  </component>
+  <component>
+    <component-type>javax.faces.SelectMany</component-type>
+    <component-class>com.atanion.tobago.component.UISelectMany</component-class>
+  </component>
+  <component>
+    <component-type>com.atanion.tobago.File</component-type>
+    <component-class>com.atanion.tobago.component.UIFile</component-class>
+  </component>
+  <component>
+    <component-type>com.atanion.tobago.GridLayout</component-type>
+    <component-class>com.atanion.tobago.component.UIGridLayout</component-class>
+  </component>
+  <component>
+    <component-type>com.atanion.tobago.Page</component-type>
+    <component-class>com.atanion.tobago.component.UIPage</component-class>
+  </component>
+  <component>
+    <component-type>com.atanion.tobago.TabGroup</component-type>
+    <component-class>com.atanion.tobago.component.UITabGroup</component-class>
+  </component>
+  <component>
+    <component-type>com.atanion.tobago.Tree</component-type>
+    <component-class>com.atanion.tobago.component.UITree</component-class>
+  </component>
+
+  <converter>
+    <converter-id>com.atanion.tobago.Duration</converter-id>
+    <converter-class>com.atanion.tobago.convert.DurationConverter</converter-class>
+  </converter>
+  
+</faces-config>

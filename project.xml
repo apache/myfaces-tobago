@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<project>
+  <dependencies>
+
+    <dependency>
+      <groupId>atanion</groupId>
+      <artifactId>atanion-commons</artifactId>
+      <version>SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <id>commons-beanutils</id>
+      <version>1.6.1</version>
+    </dependency>
+
+    <dependency>
+      <id>commons-collections</id>
+      <version>2.1</version>
+    </dependency>
+
+    <dependency>
+      <id>commons-digester</id>
+      <version>1.5</version>
+    </dependency>
+
+    <dependency>
+      <id>commons-fileupload</id>
+      <version>1.0</version>
+    </dependency>
+
+    <dependency>
+      <id>commons-lang</id>
+      <version>2.0</version>
+    </dependency>
+
+    <dependency>
+      <id>commons-logging</id>
+      <version>1.0.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jsf</groupId>
+      <artifactId>jsf-api</artifactId>
+      <version>1.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.0</version>
+    </dependency>
+
+    <dependency>
+      <id>junit</id>
+      <version>3.8.1</version>
+    </dependency>
+
+    <dependency>
+      <id>mockrunner</id>
+      <version>0.2.7</version>
+    </dependency>
+
+    <dependency>
+      <groupId>oro</groupId>
+      <artifactId>oro</artifactId>
+      <version>2.0.8</version>
+    </dependency>
+
+    <dependency>
+      <id>servletapi</id>
+      <version>2.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>taglibs</groupId>
+      <artifactId>standard</artifactId>
+      <version>1.0.5</version>
+    </dependency>
+
+  </dependencies>
+</project>
