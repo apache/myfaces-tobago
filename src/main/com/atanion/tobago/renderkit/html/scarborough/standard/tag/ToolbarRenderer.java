@@ -127,8 +127,10 @@ public class ToolbarRenderer extends RendererBase {
 
 //    writer.startElement("td", null);
     writer.startElement("span", null);
-    writer.writeAttribute("onmouseover", mouseover, null);
-    writer.writeAttribute("onmouseout", mouseout, null);
+    if (! disabled) {
+      writer.writeAttribute("onmouseover", mouseover, null);
+      writer.writeAttribute("onmouseout", mouseout, null);
+    }
     writer.writeAttribute("class", spanClass, null);
     writer.writeAttribute("style", "white-space: nowrap;", null);
 
