@@ -54,7 +54,7 @@ public class ThemeConfigViewController {
     "File",
     "Form",
     "GridLayout",
-    "GroupBox",
+    "Box",
     "Hidden",
     "Image",
     "Items",

@@ -15,8 +15,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class GroupBoxRenderer extends
-    com.atanion.tobago.renderkit.html.scarborough.standard.tag.GroupBoxRenderer {
+public class BoxRenderer extends
+    com.atanion.tobago.renderkit.html.scarborough.standard.tag.BoxRenderer {
 
   protected String getAttrStyleKey() {
     return TobagoConstants.ATTR_STYLE_BODY;

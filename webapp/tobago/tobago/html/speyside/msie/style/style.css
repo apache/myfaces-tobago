@@ -1,12 +1,12 @@
 
 
 // div is expanding by content
-// content is div with css-class tobago-groupbox-content-inner
-.tobago-groupbox-content {
+// content is div with css-class tobago-box-content-inner
+.tobago-box-content {
   height: 0px;
 }
 
-.tobago-groupbox-header-toolbar-div {
+.tobago-box-header-toolbar-div {
   margin-top: -1px;
 }
 

@@ -6,7 +6,7 @@
     <f:facet name="layout"><tobago:gridlayout /></f:facet>
     <tobago:script file="calendar.js" i18n="true" />
 
-    <tobago:groupbox label="Calendar" >
+    <tobago:box label="Calendar" >
 
       <tobago:calendar id="test1234" />
 
@@ -17,6 +17,6 @@
         Cancel
       </tobago:button>
 
-    </tobago:groupbox>
+    </tobago:box>
   </tobago:page>
 </f:view>

@@ -7,7 +7,7 @@ package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.renderkit.DirectRenderer;
-import com.atanion.tobago.renderkit.GroupBoxRendererBase;
+import com.atanion.tobago.renderkit.BoxRendererBase;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import org.apache.commons.logging.Log;
@@ -19,12 +19,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-public class GroupBoxRenderer extends GroupBoxRendererBase
+public class BoxRenderer extends BoxRendererBase
     implements HeightLayoutRenderer, DirectRenderer {
 
 // ///////////////////////////////////////////// constant
 
-  private static final Log LOG = LogFactory.getLog(GroupBoxRenderer.class);
+  private static final Log LOG = LogFactory.getLog(BoxRenderer.class);
 
 // ///////////////////////////////////////////// attribute
 
@@ -42,10 +42,10 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
 
 
     writer.startElement("div", component);
-    writer.writeAttribute("class", "tobago-groupbox-header", null);
+    writer.writeAttribute("class", "tobago-box-header", null);
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
     writer.startElement("span", null);
-    writer.writeAttribute("class", "tobago-groupbox-header-label", null);
+    writer.writeAttribute("class", "tobago-box-header-label", null);
     String labelString
         = (String) component.getAttributes().get(TobagoConstants.ATTR_LABEL);
     if (label != null) {
@@ -57,9 +57,9 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
     UIPanel toolbar = (UIPanel) component.getFacet("toolbar");
     if (toolbar != null) {
       writer.startElement("div", null);
-      writer.writeAttribute("class", "tobago-groupbox-header-toolbar-div", null);
+      writer.writeAttribute("class", "tobago-box-header-toolbar-div", null);
       writer.startElement("span", null);
-      writer.writeAttribute("class", "tobago-groupbox-header-toolbar-span", null);
+      writer.writeAttribute("class", "tobago-box-header-toolbar-span", null);
       toolbar.getAttributes().put(
           TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER, Boolean.TRUE);
       RenderUtil.encode(facesContext, toolbar);
@@ -70,10 +70,10 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
     writer.endElement("div");
 
     writer.startElement("div", component);
-    writer.writeAttribute("class", "tobago-groupbox-content", null);
+    writer.writeAttribute("class", "tobago-box-content", null);
 //    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_BODY);
     writer.startElement("div", component);
-    writer.writeAttribute("class", "tobago-groupbox-content-inner", null);
+    writer.writeAttribute("class", "tobago-box-content-inner", null);
     writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_INNER);
     RenderUtil.encodeChildren(facesContext, (UIPanel) component);
     writer.endElement("div");

@@ -10,7 +10,7 @@ import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.UserAgent;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
-import com.atanion.tobago.renderkit.GroupBoxRendererBase;
+import com.atanion.tobago.renderkit.BoxRendererBase;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 
@@ -23,12 +23,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-public class GroupBoxRenderer extends GroupBoxRendererBase
+public class BoxRenderer extends BoxRendererBase
     implements HeightLayoutRenderer, DirectRenderer {
 
 // ///////////////////////////////////////////// constant
 
-  private static final Log LOG = LogFactory.getLog(GroupBoxRenderer.class);
+  private static final Log LOG = LogFactory.getLog(BoxRenderer.class);
 
 // ///////////////////////////////////////////// attribute
 
@@ -79,9 +79,9 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
         component.getAttributes().get(TobagoConstants.ATTR_STYLE_INNER);
     if (toolbar != null) {
       writer.startElement("div", null);
-      writer.writeAttribute("class", "tobago-groupbox-toolbar-div", null);
+      writer.writeAttribute("class", "tobago-box-toolbar-div", null);
       writer.startElement("span", null);
-      writer.writeAttribute("class", "tobago-groupbox-toolbar-span", null);
+      writer.writeAttribute("class", "tobago-box-toolbar-span", null);
       toolbar.getAttributes().put(
           TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER, Boolean.TRUE);
       RenderUtil.encode(facesContext, toolbar);

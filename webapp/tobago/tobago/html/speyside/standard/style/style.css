@@ -189,13 +189,13 @@ reason they are not defined as a:link
   height: 20px;
 }
 
-/* groupbox ----------------------------------------------------------------- */
+/* box ----------------------------------------------------------------- */
 
-div.tobago-groupbox-default {
+div.tobago-box-default {
   overflow: visible;
 }
 
-.tobago-groupbox-default {
+.tobago-box-default {
   background: #B4B4B4;
   border: 0px solid #B4B4B4;
   padding: 0px;
@@ -205,8 +205,8 @@ div.tobago-groupbox-default {
   box-sizing: border-box;
 }
 
-.tobago-groupbox-header {
-  background: #E8E8E8 url(../image/groupbox-header-bg.gif) repeat-x top;
+.tobago-box-header {
+  background: #E8E8E8 url(../image/box-header-bg.gif) repeat-x top;
   height: 20px;
   border: 1px solid black;
   border-bottom: 1px dotted black;
@@ -219,23 +219,23 @@ div.tobago-groupbox-default {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.tobago-groupbox-header-label {
+.tobago-box-header-label {
   padding-top: 2px;
   padding-bottom: 2px;
   float: left;
 }
-.tobago-groupbox-header-toolbar-div{
+.tobago-box-header-toolbar-div{
   position: absolute;
   top: 0px;
   left: 0px;
 }
-.tobago-groupbox-header-toolbar-span {
-  background: #E8E8E8 url(../image/groupbox-header-bg.gif) repeat-x top;
+.tobago-box-header-toolbar-span {
+  background: #E8E8E8 url(../image/box-header-bg.gif) repeat-x top;
   float: right;
   margin-right: -1px;
 }
 
-.tobago-groupbox-content {
+.tobago-box-content {
   border: 1px solid black;
   border-top: 0px solid black;
   background-color: #FAFAFA;
@@ -244,7 +244,7 @@ div.tobago-groupbox-default {
   box-sizing: border-box;
 }
 
-.tobago-groupbox-content-inner {
+.tobago-box-content-inner {
   overflow: auto;
 }
 

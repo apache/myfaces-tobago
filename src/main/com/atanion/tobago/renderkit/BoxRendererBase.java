@@ -16,11 +16,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import java.util.Iterator;
 
-public class GroupBoxRendererBase extends RendererBase {
+public class BoxRendererBase extends RendererBase {
 
 // ///////////////////////////////////////////// constant
 
-  private static final Log LOG = LogFactory.getLog(GroupBoxRendererBase.class);
+  private static final Log LOG = LogFactory.getLog(BoxRendererBase.class);
 
 // ///////////////////////////////////////////// attribute
 

@@ -7,7 +7,7 @@ package com.atanion.tobago.renderkit.html.scarborough.mozilla_4_7.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.renderkit.DirectRenderer;
-import com.atanion.tobago.renderkit.GroupBoxRendererBase;
+import com.atanion.tobago.renderkit.BoxRendererBase;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 
@@ -17,7 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-public class GroupBoxRenderer extends GroupBoxRendererBase
+public class BoxRenderer extends BoxRendererBase
     implements HeightLayoutRenderer, DirectRenderer {
 
 // ///////////////////////////////////////////// constant

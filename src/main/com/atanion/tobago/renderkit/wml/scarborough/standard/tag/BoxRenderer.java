@@ -5,9 +5,9 @@
  */
 package com.atanion.tobago.renderkit.wml.scarborough.standard.tag;
 
-import com.atanion.tobago.renderkit.GroupBoxRendererBase;
+import com.atanion.tobago.renderkit.BoxRendererBase;
 
-public class GroupBoxRenderer extends GroupBoxRendererBase {
+public class BoxRenderer extends BoxRendererBase {
 
 // ///////////////////////////////////////////// constant
 

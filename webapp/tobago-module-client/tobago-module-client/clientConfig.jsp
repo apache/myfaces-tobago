@@ -12,7 +12,7 @@
       <f:facet name="layout">
         <tobago:gridlayout />
       </f:facet>
-      <tobago:groupbox label="#{tobagoBundle.configTitle}" width="480px" height="450px">
+      <tobago:box label="#{tobagoBundle.configTitle}" width="480px" height="450px">
         <f:facet name="layout">
           <tobago:gridlayout />
         </f:facet>
@@ -41,7 +41,7 @@
 
         <tobago:button action="#{tobagoClientController.submit}" label="#{tobagoBundle.configSubmit}" />
 
-      </tobago:groupbox>
+      </tobago:box>
     </tobago:panel>
   </tobago:page>
 </f:view>

@@ -253,27 +253,27 @@ div.tobago-gridlayout-first-column{
   padding-left: 0px;
 }
 
-/* groupbox ---------------------------------------------------------------- */
+/* box ---------------------------------------------------------------- */
 
-fieldset.tobago-groupbox-default {
+fieldset.tobago-box-default {
   border: 2px groove #ddeeff;
   margin-left: 0px;
   padding: 10px;
 }
 
-legend.tobago-groupbox-default {
+legend.tobago-box-default {
   color: black;
 }
 
 
-.tobago-groupbox-toolbar-div {
+.tobago-box-toolbar-div {
   position: relative;
   top: -36px;
   left: 12px;
   float: right;
 }
 
-.tobago-groupbox-toolbar-span {
+.tobago-box-toolbar-span {
   border: 2px groove #f6faff;
   background: #bbccdd;
   font-size: 22px;
@@ -281,7 +281,7 @@ legend.tobago-groupbox-default {
 }
 
 
-div.tobago-groupbox-default {
+div.tobago-box-default {
   overflow: auto;
   position: relative;
   top: 0px;

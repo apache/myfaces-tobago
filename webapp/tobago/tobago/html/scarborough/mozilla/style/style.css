@@ -6,9 +6,9 @@ without a border the div get´s a scrollbar */
 }
 */
 
-/* GroupBox ---------------------------------------------------------------- */
+/* Box ---------------------------------------------------------------- */
 /* fix scrollbar problem in divs without height set*/
-div.tobago-groupbox-no-height {
+div.tobago-box-no-height {
   padding-bottom: 1px;
 }
 

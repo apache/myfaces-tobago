@@ -1,21 +1,21 @@
 /* $Id$ */
 
-fieldset.tobago-groupbox-default {
+fieldset.tobago-box-default {
   padding: 0px;
   padding-left: 10px;
 }
 
-.tobago-groupbox-header-toolbar-div {
+.tobago-box-header-toolbar-div {
   right: -5px;
 }
-.tobago-groupbox-toolbar-div {
+.tobago-box-toolbar-div {
   top: -15px;
   left: 2px;
   height: 31px;
   padding-top: 1px;
 }
 
-.tobago-groupbox-toolbar-span {
+.tobago-box-toolbar-span {
   padding-bottom: 0px;
 }
 

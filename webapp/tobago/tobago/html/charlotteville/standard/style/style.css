@@ -4,22 +4,22 @@ body  {
   background-image: url("../image/clouds.png");
 }
 
-/* groupbox ---------------------------------------------------------------- */
+/* box ---------------------------------------------------------------- */
 
-div.tobago-groupbox-default {
+div.tobago-box-default {
   overflow: auto;
 }
 
-.tobago-groupbox-head-td-left {
+.tobago-box-head-td-left {
   font: bold 10pt arial, helvetica, sans-serif;
   color: #ffffff;
   padding-left: 10px;
 }
 
-.tobago-groupbox-head-td-right {
+.tobago-box-head-td-right {
   background: #ffffff;
 }
 
-td.tobago-groupbox-body-td {
+td.tobago-box-body-td {
   padding: 10px;
 }
