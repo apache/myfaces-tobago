@@ -305,32 +305,28 @@ public class MenubarRenderer extends RendererBase
     Object value;
     if (radio != null) {
       value = ((ValueHolder)radio).getValue();
-    }
-    else {
-      value = ComponentUtil.getAttribute(command, ATTR_VALUE);
-    }
 
-    boolean markFirst = ! hasSelectedValue(items, value);
-    String radioId = radio.getClientId(facesContext);
-    String onClickPrefix = "menuSetRadioValue('" + radioId + "', '";
-    String onClickPostfix = onClick != null ? "') ; " + onClick : "";
-    for (Iterator i = items.iterator(); i.hasNext(); ) {
-      SelectItem item = (SelectItem) i.next();
-      label.setup(item.getLabel());
-      Object itemValue = item.getValue();
-      onClick = onClickPrefix + itemValue + onClickPostfix;
-      if (itemValue.equals(value) || markFirst) {
-        image = "MenuRadioChecked.gif";
-        markFirst = false;
-        sb.append("    " + onClickPrefix + itemValue + "');");
+      boolean markFirst = ! hasSelectedValue(items, value);
+      String radioId = radio.getClientId(facesContext);
+      String onClickPrefix = "menuSetRadioValue('" + radioId + "', '";
+      String onClickPostfix = onClick != null ? "') ; " + onClick : "";
+      for (Iterator i = items.iterator(); i.hasNext(); ) {
+        SelectItem item = (SelectItem) i.next();
+        label.setup(item.getLabel());
+        Object itemValue = item.getValue();
+        onClick = onClickPrefix + itemValue + onClickPostfix;
+        if (itemValue.equals(value) || markFirst) {
+          image = "MenuRadioChecked.gif";
+          markFirst = false;
+          sb.append("    " + onClickPrefix + itemValue + "');");
+        }
+        else {
+          image = "MenuRadioUnchecked.gif";
+        }
+
+        addMenu(sb, var, facesContext, command, label, image, onClick);
       }
-      else {
-        image = "MenuRadioUnchecked.gif";
-      }
-
-      addMenu(sb, var, facesContext, command, label, image, onClick);
     }
-
   }
 
   public static boolean hasSelectedValue(List items, Object value) {

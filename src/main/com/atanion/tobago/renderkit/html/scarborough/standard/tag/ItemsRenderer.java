@@ -20,6 +20,7 @@ import javax.faces.component.UIInput;
 import javax.faces.component.UISelectMany;
 import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,8 +78,16 @@ public class ItemsRenderer extends RendererBase
 
     int[] indices = RangeParser.getIndices(renderRange);
     List items = new ArrayList(indices.length);
-    for (int i = 0; i < indices.length; i++) {
-      items.add(selectItems.get(indices[i]));
+
+    if (selectItems.size() != 0) {
+      for (int i = 0; i < indices.length; i++) {
+        items.add(selectItems.get(indices[i]));
+      }
+    } else {
+      LOG.warn("No items found! rendering dummys instead!");
+      for (int i = 0; i < indices.length; i++) {
+        items.add(new SelectItem(Integer.toString(i), "Item " + i, ""));
+      }
     }
     return items;
   }

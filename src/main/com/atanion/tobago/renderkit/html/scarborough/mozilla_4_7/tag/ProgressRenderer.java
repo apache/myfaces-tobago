@@ -8,17 +8,23 @@ package com.atanion.tobago.renderkit.html.scarborough.mozilla_4_7.tag;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RendererBase;
 
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.swing.BoundedRangeModel;
+import javax.swing.DefaultBoundedRangeModel;
 import java.io.IOException;
 
 public class ProgressRenderer extends RendererBase implements DirectRenderer {
 
 // ///////////////////////////////////////////// constant
 
+  private static final Log LOG = LogFactory.getLog(ProgressRenderer.class);
+       
 // ///////////////////////////////////////////// attribute
 
 // ///////////////////////////////////////////// constructor
@@ -32,6 +38,10 @@ public class ProgressRenderer extends RendererBase implements DirectRenderer {
 
     BoundedRangeModel model = (BoundedRangeModel) component.getValue();
 
+    if (model == null) {
+      LOG.warn("'null' value found! Using dummy Model instead!");
+      model = new DefaultBoundedRangeModel(4,1,0,10);
+    }
 
     ResponseWriter writer = facesContext.getResponseWriter();
 

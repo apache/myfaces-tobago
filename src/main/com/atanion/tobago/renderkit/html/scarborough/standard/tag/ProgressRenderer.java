@@ -9,16 +9,22 @@ import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RendererBase;
 
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.swing.BoundedRangeModel;
+import javax.swing.DefaultBoundedRangeModel;
 import java.io.IOException;
 
 public class ProgressRenderer extends RendererBase implements DirectRenderer {
 
 // ///////////////////////////////////////////// constant
+
+  private static final Log LOG = LogFactory.getLog(ProgressRenderer.class);
 
 // ///////////////////////////////////////////// attribute
 
@@ -32,6 +38,11 @@ public class ProgressRenderer extends RendererBase implements DirectRenderer {
     UIOutput component = (UIOutput) uiComponent;
 
     BoundedRangeModel model = (BoundedRangeModel) component.getValue();
+
+    if (model == null) {
+      LOG.warn("'null' value found! Using dummy Model instead!");
+      model = new DefaultBoundedRangeModel(40,1,0,100);
+    }
 
     String image = ResourceManagerUtil.getImage(facesContext, "1x1.gif");
 
