@@ -110,7 +110,7 @@ public class LayoutUtil {
       }
     } else {
       if (LOG.isDebugEnabled()) {
-        LOG.debug("rendertype = null, component: " + component);
+        LOG.debug("renderertype = null, component: " + component);
       }
     }
     return outerSpace - margin;
