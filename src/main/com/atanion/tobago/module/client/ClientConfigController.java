@@ -137,6 +137,16 @@ public class ClientConfigController {
     return theme;
   }
 
+  public String getLocalizedTheme() {
+    for (int i = 0; i < themeItems.length; i++) {
+      SelectItem themeItem = themeItems[i];
+      if (themeItem.getValue().equals(theme)) {
+        return themeItem.getLabel();
+      }
+    }
+    return "???";
+  }
+
   public void setTheme(String theme) {
     this.theme = theme;
   }
@@ -151,6 +161,10 @@ public class ClientConfigController {
 
   public Locale getLocale() {
     return locale;
+  }
+
+  public String getLocalizedLocale() {
+    return locale.getDisplayName(locale);
   }
 
   public void setLocale(Locale locale) {
