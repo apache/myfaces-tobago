@@ -6,11 +6,13 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.component.BodyContentHandler;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.TobagoResource;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.PageRendererBase;
+import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.taglib.component.PageTag;
 import com.atanion.tobago.util.TobagoResourceSet;
 
@@ -25,6 +27,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -64,12 +67,28 @@ public class PageRenderer extends PageRendererBase implements DirectRenderer {
 
 // ///////////////////////////////////////////// code
 
+  public boolean getRendersChildren() {
+    return true;
+  }
+
+  public void encodeChildren(FacesContext facesContext, UIComponent component)
+      throws IOException {
+    // children are encoded in encodeDirectEnd(...)
+  }
+
   public void encodeDirectEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     UIPage page = (UIPage) component;
 
     ResponseWriter writer = facesContext.getResponseWriter();
+
+    StringWriter content = new StringWriter();
+    ResponseWriter contentWriter = new TobagoResponseWriter(content, "text/html", "utf-8");
+    facesContext.setResponseWriter(contentWriter);
+    RenderUtil.encodeChildren(facesContext, page);
+
+    facesContext.setResponseWriter(writer);
 
     HttpServletResponse response = (HttpServletResponse)
         facesContext.getExternalContext().getResponse();
@@ -221,12 +240,14 @@ public class PageRenderer extends PageRendererBase implements DirectRenderer {
     writer.writeAttribute("id", "tobago::page-id", null);
     writer.writeAttribute("value", facesContext.getViewRoot().getAttributes().get("tobago::page-id"), null);
     writer.endElement("input");
-
-    BodyContentHandler bodyContentHandler = (BodyContentHandler)
-        component.getAttributes().get(TobagoConstants.ATTR_BODY_CONTENT);
-    if (bodyContentHandler != null) {
-      writer.write(bodyContentHandler.getBodyContent());
-    }
+//
+//    BodyContentHandler bodyContentHandler = (BodyContentHandler)
+//        component.getAttributes().get(TobagoConstants.ATTR_BODY_CONTENT);
+//    if (bodyContentHandler != null) {
+//      writer.write(bodyContentHandler.getBodyContent());
+//    }
+    
+    writer.write(content.toString());
 
     writer.endElement("form");
 
