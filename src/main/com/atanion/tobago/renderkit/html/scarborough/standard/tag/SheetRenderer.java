@@ -261,8 +261,8 @@ public class SheetRenderer extends RendererBase
 
     // Outher sheet div
     writer.startElement("div", null);
-    writer.writeAttribute("id", sheetId + "_outher_div", null);
-    writer.writeAttribute("class", "tobago-sheet-outher-div", null);
+    writer.writeAttribute("id", sheetId + "_outer_div", null);
+    writer.writeAttribute("class", "tobago-sheet-outer-div", null);
     writer.writeAttribute("style", sheetStyle, null);
 
     boolean hideHeader = ComponentUtil.getBooleanAttribute(component,
@@ -347,7 +347,7 @@ public class SheetRenderer extends RendererBase
             = (String) column.getAttributes().get(TobagoConstants.ATTR_ALIGN);
 
         writer.startElement("div", null);
-        writer.writeAttribute("id", sheetId + "_header_outher_" + columnCount,
+        writer.writeAttribute("id", sheetId + "_header_outer_" + columnCount,
             null);
         writer.writeAttribute("class", "tobago-sheet-header" + sorterClass, null);
         if (align != null) {

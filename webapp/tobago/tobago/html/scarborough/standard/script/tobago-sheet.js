@@ -25,7 +25,7 @@ function initSheet(sheetId) {
     setupHeader(sheetId)
   }
 
-  var sheet = document.getElementById(sheetId + "_outher_div");
+  var sheet = document.getElementById(sheetId + "_outer_div");
   sheet.tobagoLastClickedRowId = getFirstSelectionRow(sheetId).id;
   addSelectionListener(sheetId);
   adjustScrollBars(sheetId);
@@ -82,7 +82,7 @@ function doSelection(event) {
     var sheetId = rowId.substring(0, rowId.lastIndexOf("_data_tr_"));
     var hidden = document.getElementById(sheetId + "::selected");
     var selected = hidden.value;
-    var sheet = document.getElementById(sheetId + "_outher_div");
+    var sheet = document.getElementById(sheetId + "_outer_div");
     //Ausgeben("last id = " + sheet.tobagoLastClickedRowId);
 
     if (! event.ctrlKey) {
