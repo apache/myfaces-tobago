@@ -7,8 +7,12 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIData;
+import com.atanion.tobago.event.SheetStateChangeEvent;
 
+import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
 
 public class SheetTag extends TobagoTag {
@@ -27,6 +31,7 @@ public class SheetTag extends TobagoTag {
   private String value;
   private String forceVerticalScrollbar;
   private String stateBinding;
+  private String stateChangeListener;
 
 // ----------------------------------------------------------- business methods
 
@@ -49,44 +54,62 @@ public class SheetTag extends TobagoTag {
     value = null;
     forceVerticalScrollbar = null;
     stateBinding = null;
+    stateChangeListener = null;
   }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
+    UIData data = (UIData) component;
 
-    ComponentUtil.setStringProperty(component, ATTR_SHOW_ROW_RANGE,
+    ComponentUtil.setStringProperty(data, ATTR_SHOW_ROW_RANGE,
         showRowRange, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_SHOW_PAGE_RANGE,
+    ComponentUtil.setStringProperty(data, ATTR_SHOW_PAGE_RANGE,
         showPageRange, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_SHOW_DIRECT_LINKS,
+    ComponentUtil.setStringProperty(data, ATTR_SHOW_DIRECT_LINKS,
         showDirectLinks, getIterationHelper());
-    ComponentUtil.setIntegerProperty(component, ATTR_DIRECT_LINK_COUNT,
+    ComponentUtil.setIntegerProperty(data, ATTR_DIRECT_LINK_COUNT,
         directLinkCount, getIterationHelper());
-    ComponentUtil.setBooleanProperty(component, ATTR_HIDE_HEADER, hideHeader,
+    ComponentUtil.setBooleanProperty(data, ATTR_HIDE_HEADER, hideHeader,
         getIterationHelper());
-    ComponentUtil.setIntegerProperty(component, ATTR_FIRST, pagingStart,
+    ComponentUtil.setIntegerProperty(data, ATTR_FIRST, pagingStart,
         getIterationHelper());
-    ComponentUtil.setIntegerProperty(component, ATTR_ROWS, pagingLength,
+    ComponentUtil.setIntegerProperty(data, ATTR_ROWS, pagingLength,
         getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_COLUMNS, columns,
+    ComponentUtil.setStringProperty(data, ATTR_COLUMNS, columns,
         getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_VALUE, value,
+    ComponentUtil.setStringProperty(data, ATTR_VALUE, value,
         getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_FORCE_VERTICAL_SCROLLBAR,
+    ComponentUtil.setStringProperty(data, ATTR_FORCE_VERTICAL_SCROLLBAR,
         forceVerticalScrollbar, getIterationHelper());
 
-//   todo: works this? or use that: component.setVar(var);
-    ComponentUtil.setStringProperty(component, ATTR_VAR, var,
+//   todo: works this? or use that: data.setVar(var);
+    ComponentUtil.setStringProperty(data, ATTR_VAR, var,
         getIterationHelper());
 
-    component.getAttributes().put(ATTR_INNER_WIDTH, new Integer(-1));
+    data.getAttributes().put(ATTR_INNER_WIDTH, new Integer(-1));
 
     // todo: check, if it is an writeable object
     if (stateBinding != null && isValueReference(stateBinding)) {
       ValueBinding valueBinding = ComponentUtil.createValueBinding(
           stateBinding, getIterationHelper());
-      component.setValueBinding(ATTR_STATE_BINDING, valueBinding);
+      data.setValueBinding(ATTR_STATE_BINDING, valueBinding);
     }
+
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final Application application = facesContext.getApplication();
+
+    if (stateChangeListener != null) {
+      if (isValueReference(stateChangeListener)) {
+        Class arguments[] = {SheetStateChangeEvent.class};
+        MethodBinding binding
+            = application.createMethodBinding(stateChangeListener, arguments);
+        data.setStateChangeListener(binding);
+      } else {
+        throw new IllegalArgumentException(
+            "Must be a valueReference (actionListener): " + stateChangeListener);
+      }
+    }
+
   }
 
 // ------------------------------------------------------------ getter + setter
@@ -117,6 +140,10 @@ public class SheetTag extends TobagoTag {
 
   public String getPagingStart() {
     return pagingStart;
+  }
+
+  public String getStateChangeListener() {
+    return stateChangeListener;
   }
 
   public void setPagingStart(String pagingStart) {
@@ -161,6 +188,10 @@ public class SheetTag extends TobagoTag {
 
   public void setStateBinding(String stateBinding) {
     this.stateBinding = stateBinding;
+  }
+
+  public void setStateChangeListener(String stateChangeListener) {
+    this.stateChangeListener = stateChangeListener;
   }
 }
 

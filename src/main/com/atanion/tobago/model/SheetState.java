@@ -17,7 +17,6 @@ public class SheetState {
   private static final Log LOG = LogFactory.getLog(SheetState.class);
   public static final String SEPARATOR = ",";
 
-  private int first;
   private int sortedColumn;
   private boolean ascending;
   private String selected;
@@ -52,14 +51,6 @@ public class SheetState {
     }
 
     return list;
-  }
-
-  public int getFirst() {
-    return first;
-  }
-
-  public void setFirst(int first) {
-    this.first = first;
   }
 
   public int getSortedColumn() {

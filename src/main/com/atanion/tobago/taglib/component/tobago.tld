@@ -711,6 +711,11 @@
         in a backing bean
       </description>
     </attribute>
+    <attribute>
+      <name>stateChangeListener</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
   </tag>
 
   <tag>

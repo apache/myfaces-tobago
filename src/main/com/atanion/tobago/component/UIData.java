@@ -8,11 +8,11 @@ package com.atanion.tobago.component;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.model.SheetState;
 import com.atanion.tobago.renderkit.html.scarborough.standard.tag.SheetRenderer;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.context.FacesContext;
+import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
 
 public class UIData extends javax.faces.component.UIData {
@@ -21,6 +21,7 @@ public class UIData extends javax.faces.component.UIData {
 
   public static final String COMPONENT_TYPE = "com.atanion.tobago.Data";
 
+  private MethodBinding stateChangeListener;
 
   public void processUpdates(FacesContext context) {
     super.processUpdates(context);
@@ -32,7 +33,6 @@ public class UIData extends javax.faces.component.UIData {
     if (state != null) {
       SheetRenderer.Sorter sorter =  (SheetRenderer.Sorter)
           getAttributes().get(TobagoConstants.ATTR_SHEET_SORTER);
-      state.setFirst(getFirst());
       state.setSortedColumn(sorter != null ? sorter.getColumn() : -1);
       state.setAscending(sorter != null && sorter.isAscending());
       state.setSelected((String)
@@ -60,4 +60,43 @@ public class UIData extends javax.faces.component.UIData {
     }
   }
 
+  public int getLast() {
+    int last = getFirst() + getRows();
+    return last < getRowCount() ? last : getRowCount();
+  }
+
+  public int getPage() {
+    int first = getFirst() + 1;
+    int rows = getRows();
+    if ((first % rows) == 1) {
+      return (first / rows) + 1;
+    } else {
+      return (first / rows) + 2;
+    }
+  }
+
+  public int getPages() {
+    return getRowCount() / getRows() + 1;
+  }
+
+  public int getLastPageIndex() {
+    int tail = getRowCount() % getRows();
+    return getRowCount() - (tail != 0 ? tail : getRows());
+  }
+
+  public boolean isAtBeginning() {
+    return getFirst() == 0;
+  }
+
+  public boolean isAtEnd() {
+    return getFirst() >= getLastPageIndex();
+  }
+
+  public MethodBinding getStateChangeListener() {
+    return stateChangeListener;
+  }
+
+  public void setStateChangeListener(MethodBinding stateChangeListener) {
+    this.stateChangeListener = stateChangeListener;
+  }
 }
