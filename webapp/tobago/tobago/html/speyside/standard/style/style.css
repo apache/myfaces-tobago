@@ -215,6 +215,7 @@ div.tobago-groupbox-default {
   padding: 0px;
   padding-left: 5px;
   overflow: hidden;
+  position: relative;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
@@ -223,7 +224,13 @@ div.tobago-groupbox-default {
   padding-bottom: 2px;
   float: left;
 }
-.tobago-groupbox-header-toolbar {
+.tobago-groupbox-header-toolbar-div{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.tobago-groupbox-header-toolbar-span {
+  background: #E8E8E8 url(../image/groupbox-header-bg.gif) repeat-x top;
   float: right;
   margin-right: -1px;
 }

@@ -56,12 +56,15 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
     writer.endElement("span");
     UIPanel toolbar = (UIPanel) component.getFacet("toolbar");
     if (toolbar != null) {
+      writer.startElement("div", null);
+      writer.writeAttribute("class", "tobago-groupbox-header-toolbar-div", null);
       writer.startElement("span", null);
-      writer.writeAttribute("class", "tobago-groupbox-header-toolbar", null);
+      writer.writeAttribute("class", "tobago-groupbox-header-toolbar-span", null);
       toolbar.getAttributes().put(
           TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER, Boolean.TRUE);
       RenderUtil.encode(facesContext, toolbar);
       writer.endElement("span");
+      writer.endElement("div");
     }
 
     writer.endElement("div");
