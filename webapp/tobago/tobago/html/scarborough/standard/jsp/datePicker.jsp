@@ -10,12 +10,10 @@
 
       <tobago:calendar id="test1234" />
 
-      <tobago:button commandName="writeIntoField('test1234');window.close();" type="script">
-        OK
-      </tobago:button>
-      <tobago:button commandName="window.close();" type="script">
-        Cancel
-      </tobago:button>
+      <tobago:button label="OK"
+          commandName="writeIntoField('test1234');window.close();" type="script"/>
+      <tobago:button label="Cancel"  
+        commandName="window.close();" type="script" />
 
     </tobago:box>
   </tobago:page>
