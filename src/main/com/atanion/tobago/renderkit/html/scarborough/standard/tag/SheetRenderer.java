@@ -281,6 +281,8 @@ public class SheetRenderer extends RendererBase {
         LOG.debug("list      " + component.getValue());
       }
 
+      Object value = component.getRowData();
+/*
       Object value;
       if (component.getValue() instanceof Object[]) {
         Object[] valueArray = (Object[]) component.getValue();
@@ -289,6 +291,7 @@ public class SheetRenderer extends RendererBase {
         List valueList = (List) component.getValue();
         value = valueList.get(rowIndex);
       }
+*/
 
       if (LOG.isDebugEnabled()) {
         LOG.debug("element   " + value);
