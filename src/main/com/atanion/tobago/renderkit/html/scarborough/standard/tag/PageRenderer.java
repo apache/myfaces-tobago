@@ -261,12 +261,9 @@ public class PageRenderer extends PageRendererBase implements DirectRenderer {
         String id = (String) ids.next();
         for (Iterator messages = facesContext.getMessages(id);
             messages.hasNext();) {
-          errorMessageForDebugging(id, messages, writer);
+          FacesMessage message = (FacesMessage) messages.next();
+          errorMessageForDebugging(id, message, writer);
         }
-      }
-      for (Iterator messages = facesContext.getMessages(null);
-          messages.hasNext();) {
-        errorMessageForDebugging(null, messages, writer);
       }
     }
 
@@ -274,9 +271,8 @@ public class PageRenderer extends PageRendererBase implements DirectRenderer {
     writer.endElement("html");
   }
 
-  private void errorMessageForDebugging(String id, Iterator messages,
+  private void errorMessageForDebugging(String id, FacesMessage message,
       ResponseWriter writer) throws IOException {
-    FacesMessage message = (FacesMessage) messages.next();
     writer.startElement("div", null);
     writer.writeAttribute("style", "color: red", null);
     writer.write("[");
