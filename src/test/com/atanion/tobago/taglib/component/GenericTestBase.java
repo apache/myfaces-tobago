@@ -5,43 +5,10 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.mock.faces.MockFacesContext;
-import com.atanion.mock.faces.MockRenderKit;
-import com.atanion.mock.faces.MockExternalContext;
-import com.atanion.mock.faces.MockViewTag;
-import com.atanion.mock.servlet.MockPageContext;
-import com.atanion.mock.servlet.MockServletContext;
-import com.atanion.mock.servlet.MockHttpServletRequest;
-import com.atanion.mock.servlet.MockHttpServletResponse;
-import com.atanion.tobago.TobagoConstants;
 import junit.framework.TestCase;
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
-import javax.faces.FactoryFinder;
 import javax.faces.webapp.UIComponentTag;
-import javax.faces.lifecycle.Lifecycle;
-import javax.faces.context.ExternalContext;
-import javax.faces.render.RenderKitFactory;
-import javax.faces.render.RenderKit;
-import javax.faces.application.Application;
-import javax.faces.application.ApplicationFactory;
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UICommand;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Iterator;
-import java.util.Date;
 
 abstract public class GenericTestBase extends TestCase {
 // ----------------------------------------------------------- class attributes
