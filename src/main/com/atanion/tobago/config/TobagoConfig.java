@@ -21,7 +21,7 @@ public class TobagoConfig {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log log = LogFactory.getLog(TobagoConfig.class);
+  private static Log LOG = LogFactory.getLog(TobagoConfig.class);
 
 // ///////////////////////////////////////////// attribute
 
@@ -47,7 +47,7 @@ public class TobagoConfig {
     if (themes == null) {
       String error = "No themes found!";
       FacesException e = new FacesException(error);
-      log.error(error, e);
+      LOG.error(error, e);
       throw e;
     }
 
@@ -61,9 +61,9 @@ public class TobagoConfig {
     if (defaultTheme == null) {
       if (themes.size() > 0) {
         defaultTheme = (Theme) themes.get(0);
-        log.warn("No default theme defined. Using: " + defaultTheme);
+        LOG.warn("No default theme defined. Using: " + defaultTheme);
       } else {
-        log.error("No themes available!");
+        LOG.error("No themes available!");
       }
     }
 
@@ -75,10 +75,15 @@ public class TobagoConfig {
       themes = new ArrayList();
     }
     themes.add(theme);
-    log.debug("adding theme " + theme);
+    LOG.debug("adding theme " + theme);
   }
 
   public void addMappingRule(MappingRule mappingRule) {
+
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("addMappingRule: {" + mappingRule + "}");
+    }
+
     if (mappingRules == null) {
       mappingRules = new ArrayList();
     }
@@ -87,7 +92,7 @@ public class TobagoConfig {
 
   public Theme getTheme(String name) {
     if (name == null) {
-      log.warn("searching theme: null");
+      LOG.warn("searching theme: null");
       return defaultTheme;
     }
     for (Iterator i = getThemes().iterator(); i.hasNext();) {
@@ -96,7 +101,7 @@ public class TobagoConfig {
         return theme;
       }
     }
-    log.warn("searching theme '" + name + "' not found. Using default: " + defaultTheme);
+    LOG.warn("searching theme '" + name + "' not found. Using default: " + defaultTheme);
     return defaultTheme;
   }
 
