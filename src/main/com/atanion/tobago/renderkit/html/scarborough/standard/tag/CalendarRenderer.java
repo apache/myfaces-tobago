@@ -214,7 +214,7 @@ public class CalendarRenderer extends RendererBase implements DirectRenderer {
     writer.endElement("input");
 
     writer.startElement("input", null);
-    writer.writeAttribute("type", "text", null);
+    writer.writeAttribute("type", "hidden", null);
     writer.writeAttribute("id", id + ":fieldId", null);
     writer.writeAttribute("value", "", null);
     writer.endElement("input");

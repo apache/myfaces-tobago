@@ -214,5 +214,5 @@ function writeIntoField(id) {
   var year = parseInt(document.getElementById(id + ":year").value);
   var date = new Date(year, month - 1, day);
   textBox.value = formatDate(date, document.calendar.formatPattern);
-  alert(document.calendar.formatPattern);
+//  alert(document.calendar.formatPattern);
 }
