@@ -8,6 +8,7 @@ package com.atanion.tobago.application;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.webapp.TobagoResponse;
+import com.atanion.tobago.TobagoConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -97,22 +98,34 @@ public class ViewHandlerImpl extends ViewHandler {
       LOG.debug("creating new view with viewId:        '" + viewId + "'");
     }
 /*
-    UIViewRoot root = new UIViewRoot();
-    root.setViewId(viewId);
+    UIViewRoot viewRoot = new UIViewRoot();
+    viewRoot.setViewId(viewId);
     ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
-    root.setLocale(viewHandler.calculateLocale(facesContext));
-    root.setRenderKitId(viewHandler.calculateRenderKitId(facesContext));
+    viewRoot.setLocale(viewHandler.calculateLocale(facesContext));
+    viewRoot.setRenderKitId(viewHandler.calculateRenderKitId(facesContext));
 */
-    UIViewRoot root = base.createView(facesContext, viewId);
+    UIViewRoot viewRoot = base.createView(facesContext, viewId);
+
+    ensureClientProperties(facesContext, viewRoot);
 
 /*
     if (USE_VIEW_MAP) {
       ViewMap viewMap = ensureViewMap(facesContext);
-      String pageId = viewMap.addView(root);
-      root.getAttributes().put(PAGE_ID, pageId);
+      String pageId = viewMap.addView(viewRoot);
+      viewRoot.getAttributes().put(PAGE_ID, pageId);
     }
 */
-    return root;
+    return viewRoot;
+  }
+
+  private void ensureClientProperties(FacesContext facesContext,
+      UIViewRoot viewRoot) {
+    if (viewRoot != null) {
+      ClientProperties clientProperties
+          = ClientProperties.getInstance(facesContext);
+      viewRoot.getAttributes().put(
+          TobagoConstants.ATTR_CLIENT_PROPERTIES, clientProperties);
+    }
   }
 
 /*
@@ -212,8 +225,8 @@ public class ViewHandlerImpl extends ViewHandler {
     String requestUri = viewRoot.getViewId();
 
 //    requestUri = remap(facesContext, requestUri);
-    String contentType = ClientProperties.getInstance(facesContext)
-        .getContentType();
+    String contentType
+        = ClientProperties.getInstance(viewRoot).getContentType();
     if (LOG.isDebugEnabled()) {
       LOG.debug("contentType = '" + contentType + "'");
     }
@@ -297,7 +310,13 @@ public class ViewHandlerImpl extends ViewHandler {
       return viewRoot;
     } else {
 */
-      return base.restoreView(facesContext, viewId);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("restore view with viewId:             '" + viewId + "'");
+    }
+    UIViewRoot viewRoot = base.restoreView(facesContext, viewId);
+    ensureClientProperties(facesContext, viewRoot);
+    return viewRoot;
+
       // this is necessary to allow decorated impls.
 /*
       ViewHandler outerViewHandler

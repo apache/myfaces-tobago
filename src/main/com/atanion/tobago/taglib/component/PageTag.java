@@ -5,8 +5,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ClientProperties;
 
 import javax.faces.component.UIComponent;
@@ -60,9 +60,9 @@ public class PageTag extends TobagoBodyTag {
   public static String generateContentType(String charset) {
     StringBuffer sb = new StringBuffer("text/");
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    sb.append(
-        ClientProperties.getInstance(facesContext.getViewRoot())
-        .getContentType());
+    ClientProperties clientProperties
+        = ClientProperties.getInstance(facesContext.getViewRoot());
+    sb.append(clientProperties.getContentType());
     if (charset == null) {
       charset = "UTF-8";
     }

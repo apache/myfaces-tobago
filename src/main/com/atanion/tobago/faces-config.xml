@@ -10,28 +10,14 @@
     <default-render-kit-id>
       tobago
     </default-render-kit-id>
-<!-- testing default view handler
     <view-handler>
       com.atanion.tobago.application.ViewHandlerImpl
     </view-handler>
--->
     <variable-resolver>
       com.atanion.tobago.el.VariableResolverImpl
     </variable-resolver>
   </application>
 
-  <lifecycle>
-    <phase-listener>
-      com.atanion.tobago.event.ClientPropertiesPhaseListener
-    </phase-listener>
-  </lifecycle>
-
-<!--
-  <component>
-    <component-type>javax.faces.SelectMany</component-type>
-    <component-class>com.atanion.tobago.component.UISelectMany</component-class>
-  </component>
--->
   <component>
     <component-type>com.atanion.tobago.ColumnSelector</component-type>
     <component-class>com.atanion.tobago.component.UIColumnSelector</component-class>
