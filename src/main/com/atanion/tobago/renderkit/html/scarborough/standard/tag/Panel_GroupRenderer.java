@@ -68,14 +68,19 @@ public class Panel_GroupRenderer extends RendererBase
       }
     }
 
+    if (component.getChildren().size() == 0) {
+      return 0;
+    }
+
     if (LOG.isInfoEnabled()) {
       LOG.info("Can't calculate fixedHeight! "
-          + "using estimation by contained components.");
+          + "using estimation by contained components. for " + component.getClientId(facesContext) + " = " + component.getClass().getName() + " " + component.getRendererType());
     }
 
     height = 0;
     for (Iterator iterator = component.getChildren().iterator(); iterator.hasNext();) {
       UIComponent child = (UIComponent) iterator.next();
+      LOG.info("child = " + child.getClass().getName() + " : " + child.getClientId(facesContext));
       RendererBase renderer = ComponentUtil.getRenderer(child, facesContext);
       if (renderer == null
           && child instanceof UINamingContainer
