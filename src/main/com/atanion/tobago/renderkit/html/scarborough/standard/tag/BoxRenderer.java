@@ -51,11 +51,8 @@ public class BoxRenderer extends BoxRendererBase {
       } else {
         writer.writeText(labelString, null);
       }
-
       writer.endElement("legend");
-
     }
-
 
     String contentStyle = (String)
         component.getAttributes().get(TobagoConstants.ATTR_STYLE_INNER);
@@ -114,6 +111,4 @@ public class BoxRenderer extends BoxRendererBase {
     return getConfiguredValue(facesContext, component,
               "extraPaddingHeightWhenToolbar");
   }
-
 }
-
