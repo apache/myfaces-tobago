@@ -48,7 +48,7 @@ public class LabelWithAccessKeyUnitTest extends TestCase {
 
   public void testAmpersand() {
     UIComponent component = new UIOutput();
-    component.getAttributes().put("labelWithAccessKey", "&Save");
+    component.getAttributes().put("labelWithAccessKey", "_Save");
     LabelWithAccessKey label = new LabelWithAccessKey(component);
     assertEquals("Save", label.getText());
     assertEquals(0, label.getPos());
@@ -57,7 +57,7 @@ public class LabelWithAccessKeyUnitTest extends TestCase {
 
   public void testAmpersandAtEnd() {
     UIComponent component = new UIOutput();
-    component.getAttributes().put("labelWithAccessKey", "Save&");
+    component.getAttributes().put("labelWithAccessKey", "Save_");
     LabelWithAccessKey label = new LabelWithAccessKey(component);
     assertEquals("Save", label.getText());
     assertEquals(-1, label.getPos());
@@ -76,7 +76,7 @@ public class LabelWithAccessKeyUnitTest extends TestCase {
   public void testMixed() {
     UIComponent component = new UIOutput();
     component.getAttributes().put("label", "Cancel");
-    component.getAttributes().put("labelWithAccessKey", "Sa&ve");
+    component.getAttributes().put("labelWithAccessKey", "Sa_ve");
     component.getAttributes().put("accessKey", "a");
     LabelWithAccessKey label = new LabelWithAccessKey(component);
     assertEquals("Save", label.getText());
