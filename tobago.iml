@@ -93,17 +93,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jsf-api-1.1.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="file://C:/jsf-1_1/jsf-1_1/javadocs" />
-        </JAVADOC>
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="module" module-name="atanion-commons" />
     <orderEntry type="module-library">
       <library>
@@ -127,6 +116,25 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/commons-collections-2.1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="atanion-mock" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/cygwin/home/lofwyr/spellchecker/lib/log4j-1.2.8.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jsf-api-1.1.01.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
