@@ -371,6 +371,7 @@ label.tobago-label-default  {
   border-color: #bbccdd;
   border-style: inset;
   border-width: 2px;
+  margin: 0px;
 }
 
 .tobago-textbox-readonly  {

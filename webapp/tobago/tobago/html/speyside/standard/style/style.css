@@ -341,7 +341,6 @@ label.tobago-label-disabled  {
   overflow: auto;
   border: 1px solid #000000;
   padding-left: 2px;
-  margin-top: -1px; /*workaround in mozilla style!*/
 }
 
 .tobago-textarea-readonly  {
@@ -364,8 +363,6 @@ label.tobago-label-disabled  {
   height: 20px;
   font: 12px arial, helvetica, sans-serif;
   padding-left: 2px;
-  margin-top: -1px; /*workaround in mozilla style!*/
-  margin-bottom: -1px; /*workaround in mozilla style!*/
 }
 
 .tobago-textbox-readonly  {
