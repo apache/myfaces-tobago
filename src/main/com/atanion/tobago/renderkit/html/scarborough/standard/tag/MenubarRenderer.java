@@ -158,6 +158,8 @@ public class MenubarRenderer extends RendererBase
         + (topMenu ? " tobago-menubar-item-span-top" : "");
 
     final LabelWithAccessKey label = new LabelWithAccessKey(uiPanel);
+    String image = (String) uiPanel.getAttributes().get(ATTR_IMAGE);
+
 
     ResponseWriter savedWriter = facesContext.getResponseWriter();
     StringWriter stringWriter = new StringWriter();
@@ -165,22 +167,26 @@ public class MenubarRenderer extends RendererBase
         = new TobagoResponseWriter(stringWriter, "text/html", "UTF8");
     facesContext.setResponseWriter(writer);
 
-    writer.startElement("a", null);
-    writer.writeAttribute("class", spanClass, null);
+    addImage(writer, facesContext, image);
+
+    if (label.getText() != null) {
+      writer.startElement("a", null);
+      writer.writeAttribute("class", spanClass, null);
 
 //    writer.writeAttribute("href", "javascript:PrintDebug(\"onclick navigation\")", null);
 
 
-    writer.writeAttribute("href", "#", null);
-    writer.writeAttribute("onfocus", "tobagoMenuFocus(event)", null);
-    writer.writeAttribute("onblur", "tobagoMenuBlur(event)", null);
-    writer.writeAttribute("onkeydown", "tobagoMenuKeyDown(event)", null);
-    if (label.getAccessKey() != null) {
-      writer.writeAttribute("accesskey", label.getAccessKey(), null);
-    }
-    RenderUtil.writeLabelWithAccessKey(writer, label);
+      writer.writeAttribute("href", "#", null);
+      writer.writeAttribute("onfocus", "tobagoMenuFocus(event)", null);
+      writer.writeAttribute("onblur", "tobagoMenuBlur(event)", null);
+      writer.writeAttribute("onkeydown", "tobagoMenuKeyDown(event)", null);
+      if (label.getAccessKey() != null) {
+        writer.writeAttribute("accesskey", label.getAccessKey(), null);
+      }
+      RenderUtil.writeLabelWithAccessKey(writer, label);
 //    writer.writeText(label.getText(), null);
-    writer.endElement("a");
+      writer.endElement("a");
+    }
 
     if (! topMenu) {
       // uiPanel is a submenu

@@ -12,6 +12,7 @@ public class MenuTag extends TobagoTag {
 // ----------------------------------------------------------------- attributes
 
   private String label;
+  private String image;
   private String labelWithAccessKey;
 //  private String disabled;
 
@@ -20,6 +21,7 @@ public class MenuTag extends TobagoTag {
     super.setProperties(component);
     setStringProperty(component, ATTR_LABEL, label);
     setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
+    setStringProperty(component, ATTR_IMAGE, image);
     component.setRendererType(null);
     setStringProperty(component, ATTR_MENU_TYPE, "menu");
   }
@@ -49,5 +51,13 @@ public class MenuTag extends TobagoTag {
 
   public void setLabelWithAccessKey(String labelWithAccessKey) {
     this.labelWithAccessKey = labelWithAccessKey;
+  }
+
+  public String getImage() {
+    return image;
+  }
+
+  public void setImage(String image) {
+    this.image = image;
   }
 }
