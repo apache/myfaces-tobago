@@ -1,0 +1,62 @@
+
+.tobago-menubar-default {
+  height: 17px;
+  border: 1px solid grey;
+  background: #dddddd;
+}
+
+.tobago-menubar-page-facet {
+  height: 22px;
+}
+
+.tobago-menubar-item-page-facet {
+  font: normal 16px arial, helvetica, sans-serif;
+}
+
+.tobago-menubar-container {
+  font: normal 12px arial, helvetica, sans-serif;
+}
+
+.tobago-menubar-subitem-container {
+  border: 1px solid grey;
+  background: #dddddd;
+  z-index: 1000;
+}
+
+.tobago-menu-item {
+  height: 15px;
+  z-index: 1000;
+}
+
+
+.tobago-menu-item-hover {
+  background: #bbbbbb;
+}
+
+
+.tobago-menubar-item-span {
+  left: 20px;
+}
+
+.tobago-menubar-item-span-enabled {
+
+}
+
+.tobago-menubar-item-span-disabled {
+  color: #888888;
+}
+
+.tobago-menubar-item-span-top {
+  left: 0px;
+}
+
+.tobago-menu-item-image {
+  width: 15px;
+  height: 15px;
+}
+
+.tobago-menu-subitem-arrow {
+  width: 15px;
+  height: 15px;
+}
+

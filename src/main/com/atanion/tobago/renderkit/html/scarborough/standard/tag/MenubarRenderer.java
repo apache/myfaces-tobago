@@ -65,16 +65,20 @@ public class MenubarRenderer extends RendererBase
     final String clientId = menubar.getClientId(facesContext);
 
     ResponseWriter writer = facesContext.getResponseWriter();
-    boolean suppressContainer = ComponentUtil.getBooleanAttribute(
-        menubar, TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER);
+    boolean pageMenu = ComponentUtil.getBooleanAttribute(
+        menubar, TobagoConstants.ATTR_PAGE_MENU);
 
-      writer.startElement("div", menubar);
-      writer.writeAttribute("id", clientId, null);
-      writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
-    if (! suppressContainer) {
+    writer.startElement("div", menubar);
+    writer.writeAttribute("id", clientId, null);
+    String cssClasses = (String) menubar.getAttributes().get(ATTR_STYLE_CLASS);
+    if (pageMenu) {
+      cssClasses += "tobago-menubar-page-facet";
+    }
+    else {
       writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
     }
-      writer.endElement("div");
+    writer.writeAttribute("class", cssClasses, null);
+    writer.endElement("div");
 
     String setupFunction = "setupMenu"
         + clientId.replaceAll(":", "_").replaceAll("\\.", "_").replaceAll("-", "_");
@@ -128,7 +132,7 @@ public class MenubarRenderer extends RendererBase
 
   private void addMenuSeparator(StringBuffer sb, String var) {
 
-    String html = "<hr>";
+    String html = "<hr class=\"tobago-menubar-separator\">";
 
     sb.append("    ");
     sb.append(var);

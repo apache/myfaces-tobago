@@ -72,19 +72,24 @@ public class ResourceManagerUtil {
     String[] styles = getResourceManager(facesContext).getStyles(clientProperties,
         name);
 
-    List withContext = new ArrayList(styles.length);
-    for (int i = 0; i < styles.length; i++) {
-      withContext.add(contextPath + styles[i]);
+    return addContextPath(styles, contextPath);
+  }
+
+  private static List addContextPath(String[] strings, String contextPath) {
+    List withContext = new ArrayList(strings.length);
+    for (int i = 0; i < strings.length; i++) {
+      withContext.add(contextPath + strings[i]);
     }
     return withContext;
   }
 
-  public static String getScript(FacesContext facesContext, String name) {
+  public static List getScripts(FacesContext facesContext, String name) {
     String clientProperties = ClientProperties.getInstance(
         facesContext.getViewRoot()).toString();
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
-    return contextPath +
-        getResourceManager(facesContext).getScript(clientProperties, name);
+    String scripts[]
+        = getResourceManager(facesContext).getScripts(clientProperties, name); 
+    return addContextPath(scripts, contextPath);
   }
 
 }

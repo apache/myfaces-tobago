@@ -76,6 +76,7 @@ public interface TobagoConstants {
   public static final String ATTR_NUMBER_STYLE = "numberStyle";
   public static final String ATTR_ONCHANGE = "onchange";
   public static final String ATTR_ONCLICK = "onclick";
+  public static final String ATTR_PAGE_MENU = "pageMenu";
   public static final String ATTR_PAGING = "paging";
   public static final String ATTR_PASSWORD = "password";
   public static final String ATTR_PREFORMATED = "preformated";

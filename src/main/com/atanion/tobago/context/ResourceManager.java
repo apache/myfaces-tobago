@@ -377,8 +377,15 @@ public class ResourceManager {
     return result;
   }
 
+  public String[] getScripts(String clientProperties, String name) {
+    return getStrings(clientProperties, name, "script");
+  }
+
   public String[] getStyles(String clientProperties, String name) {
-    final String type = "style";
+    return getStrings(clientProperties, name, "style");
+  }
+
+  public String[] getStrings(String clientProperties, String name, String type) {
     int dot = name.lastIndexOf('.');
     if (dot == -1) {
       dot = name.length();

@@ -48,13 +48,13 @@ public class TobagoResourceSet extends ListOrderedSet {
       return i18n;
     }
 
-    public String getScript(FacesContext facesContext) {
-      if (i18n) {
-        return ResourceManagerUtil.getScript(facesContext, name);
-      } else {
-        return name;
-      }
-    }
+//    public String getScript(FacesContext facesContext) {
+//      if (i18n) {
+//        return ResourceManagerUtil.getScript(facesContext, name);
+//      } else {
+//        return name;
+//      }
+//    }
 
     public boolean equals(Object o) {
       if (this == o) {

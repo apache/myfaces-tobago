@@ -113,6 +113,10 @@ function tobago_showHidden() {
 
 
 
+function getSubComponentSeparator() {
+  return "::"; // ToabgoConstants.SUBCOMPONENT_SEP
+}
+
 function PrintDebug(Text) {
   var log = document.getElementById("Log");
   if (log) {
@@ -195,16 +199,64 @@ function addCssClass(element, className) {
    element.className = element.className + " " + className;
 }
 function removeCssClass(element, className) {
+   var re = new RegExp(" " + className + " ", 'g');
+   element.className = element.className.replace(re," ");
+   re = new RegExp(" " + className + "$");
+   element.className = element.className.replace(re,"");
+   re = new RegExp("^" + className + " ");
+   element.className = element.className.replace(re,"");
+
    if (element.className == className) {
      element.className = "";
-   } else {
-     var re = new RegExp(" " + className + "$");
-     if (! element.className.match(re)) {
-       re = new RegExp(" " + className + " ", 'g')
-     }
-     element.className = element.className.replace(re," ");
    }
 }
+
+
+function isIE() {
+  var agt=navigator.userAgent.toLowerCase();
+  if (document.all) {
+    return true;
+  } else {
+    return false;
+  }
+}
+function tobagoGetRuntimeStyle(element) {
+  if (element.runtimeStyle) { // IE
+    return element.runtimeStyle;
+  }
+  else {
+    return document.defaultView.getComputedStyle(element, null);
+  }
+}
+
+function getAbsoluteTop(element) {
+  var top = 0;
+  var parent = false;
+  while (element.offsetParent) {
+    top += element.offsetTop;
+    if (parent && element.currentStyle) { // IE only
+      top += element.currentStyle.borderTopWidth.replace(/\D/g, "") - 0;
+    }
+    element = element.offsetParent;
+    parent = true;
+  }
+  return top;
+}
+
+function getAbsoluteLeft(element) {
+  var left = 0;
+  var parent = false;
+  while (element.offsetParent) {
+    left += element.offsetLeft;
+    if (parent && element.currentStyle) {  // IE only
+      left += element.currentStyle.borderLeftWidth.replace(/\D/g, "") - 0;
+    }
+    element = element.offsetParent;
+    parent = true;
+  }
+  return left;
+}
+
 
 function addImageSources(id, normal, disabled, hover) {
   var sources = new Array(4);
@@ -249,4 +301,23 @@ function tobagoToolbarMousesout(element, className, imageId) {
   removeCssClass(element, className);
   tobagoImageMouseout(imageId);
   //PrintDebug("MouseOut  element.className : '" + element.className + "'");
+}
+
+
+
+function getBrowserInnerWidth() {
+  var innerWidth;
+  if (document.all) { // ie
+    innerWidth = document.body.clientWidth;
+  } else {
+    innerWidth = window.innerWidth;
+  }
+  return innerWidth;
+}
+
+function setDivWidth(id, width) {
+  var element = document.getElementById(id);
+  if (element) {
+    element.style.width = width;
+  }
 }

@@ -1,29 +1,38 @@
 
 .tobago-menubar-default {
-  height: 17px;
-  border: 1px solid grey;
+  height: 24px;
+  border: 2px groove #f6faff;
   position: relative;
   top: 0px;
   left: 0px;
-  background: #dddddd;
+  background: #bbccdd;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+.tobago-menubar-page-facet {
+  height: 27px;
+}
+
+.tobago-menubar-item-page-facet {
+  font: inherit;
 }
 
 .tobago-menubar-container {
   width: 10px;
   height: 10px;
   position: absolute;
+  font: inherit;
   /* top and left are set from script on the client */
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
 .tobago-menubar-subitem-container {
-  border: 1px solid grey;
+  border: 2px groove #f6faff;
   position: absolute;
   padding: 0px;
-  background: #dddddd;
+  background: #bbccdd;
   z-index: 1000;
   overflow: visible;
   visibility: hidden;
@@ -35,7 +44,7 @@
 .tobago-menu-item {
   visibility: inherit;
   overflow: auto; /* this MUST be auto (is needed and overwritten in javascript ) */
-  height: 15px;
+  height: 20px;
   position: absolute;
   padding: 0px;
   padding-left: 5px;
@@ -49,7 +58,7 @@
 
 
 .tobago-menu-item-hover {
-  background: #bbbbbb;
+  background: #ccddee;
 }
 
 
@@ -57,7 +66,6 @@
   position: absolute;
   top: 0px;
   left: 20px;
-  font: normal 12px arial, helvetica, sans-serif;
 }
 
 .tobago-menubar-item-span-enabled {
@@ -78,13 +86,13 @@
   position: absolute;
   top: 0px;
   left: 0px;
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
 }
 
 .tobago-menu-subitem-arrow {
   float: right;
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
 }
 

@@ -12,12 +12,14 @@ public class MenuTag extends TobagoTag {
 // ----------------------------------------------------------------- attributes
 
   private String label;
+  private String labelWithAccessKey;
 //  private String disabled;
 
 // ----------------------------------------------------------- business methods
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     setStringProperty(component, ATTR_LABEL, label);
+    setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
     component.setRendererType(null);
     setStringProperty(component, ATTR_MENU_TYPE, "menu");
   }
@@ -32,5 +34,13 @@ public class MenuTag extends TobagoTag {
 
   public void setLabel(String label) {
     this.label = label;
+  }
+
+  public String getLabelWithAccessKey() {
+    return labelWithAccessKey;
+  }
+
+  public void setLabelWithAccessKey(String labelWithAccessKey) {
+    this.labelWithAccessKey = labelWithAccessKey;
   }
 }

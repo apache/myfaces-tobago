@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.util.TobagoResourceSet;
 import com.atanion.tobago.application.ViewHandlerImpl;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ClientProperties;
@@ -15,8 +16,8 @@ import com.atanion.tobago.renderkit.PageRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.taglib.component.PageTag;
-import com.atanion.tobago.util.TobagoResourceSet;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -33,6 +34,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.ArrayList;
 
 public class PageRenderer extends PageRendererBase
     implements DirectRenderer, HeightLayoutRenderer {
@@ -102,7 +104,9 @@ public class PageRenderer extends PageRendererBase
         
     UIComponent menubar = page.getFacet(FACET_MENUBAR);
     if (menubar != null) {
-      menubar.getAttributes().put(ATTR_SUPPPRESS_TOOLBAR_CONTAINER, Boolean.TRUE);
+      menubar.getAttributes().put(ATTR_PAGE_MENU, Boolean.TRUE);
+      page.getOnloadScripts().add("setDivWidth('"
+          + menubar.getClientId(facesContext) + "', getBrowserInnerWidth())");
       RenderUtil.encode(facesContext, menubar);
     }
 
@@ -190,14 +194,11 @@ public class PageRenderer extends PageRendererBase
     }
 
     // script files
-    TobagoResourceSet scriptFiles = page.getScriptFiles();
+    TobagoResourceSet scriptFiles = (TobagoResourceSet) page.getScriptFiles();
     scriptFiles.add(0, "tobago.js", true);
     for (Iterator i = scriptFiles.iterator(); i.hasNext();) {
       TobagoResourceSet.Resource script = (TobagoResourceSet.Resource) i.next();
-      writer.startElement("script", null);
-      writer.writeAttribute("src", script.getScript(facesContext), null);
-      writer.writeAttribute("type", "text/javascript", null);
-      writer.endElement("script");
+      addScripts(writer, facesContext, script);
     }
 
     // focus id
@@ -298,6 +299,27 @@ public class PageRenderer extends PageRendererBase
 
     writer.endElement("body");
     writer.endElement("html");
+  }
+
+  private void addScripts(ResponseWriter writer, FacesContext facesContext,
+      TobagoResourceSet.Resource script) throws IOException {
+    List scripts;
+    if (script.isI18n()) {
+      scripts = ResourceManagerUtil.getScripts(facesContext, script.getName());
+    }
+    else {
+      scripts = new ArrayList(1);
+      scripts.add(script.getName());
+    }
+    for (Iterator j = scripts.iterator(); j.hasNext();) {
+      String scriptString = (String) j.next();
+      if (scriptString.length() > 0 ) {
+        writer.startElement("script", null);
+        writer.writeAttribute("src", scriptString, null);
+        writer.writeAttribute("type", "text/javascript", null);
+        writer.endElement("script");
+      }
+    }
   }
 
   private void errorMessageForDebugging(String id, FacesMessage message,
