@@ -13,7 +13,6 @@ import com.atanion.tobago.context.ResourceManager;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.LogManager;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
