@@ -28,7 +28,7 @@ function initSheet(sheetId) {
     adjustHeaderDiv(sheetId);
     adjustResizer(sheetId);
 
-    setupHeader(sheetId)
+    setupHeader(sheetId);
   }
   else {
     PrintDebug("Kann sheet mit id=\"" + sheetId + "\" nicht finden!");
@@ -307,7 +307,7 @@ function endResize(event) {
     var row = 0;
     var cell = document.getElementById(sheetId + "_data_row_" + i++ + "_column" + columnNr);
     while (cell) {
-      cell.style.width = newWidth + "px"
+      cell.style.width = newWidth + "px";
       cell = document.getElementById(sheetId + "_data_row_" + i++ + "_column" + columnNr);
     }
 
@@ -365,7 +365,7 @@ function adjustScrollBars(sheetId) {
         width += tmp;
         cellDiv = document.getElementById(sheetId + "_data_row_0_column" + i++);
       }
-      dataFiller.style.width = Math.max((clientWidth - width), 0) + "px"
+      dataFiller.style.width = Math.max((clientWidth - width), 0) + "px";
     }
   }
 }
@@ -410,7 +410,7 @@ function setupHeader(sheetId) {
   if (headerBox) {
 
     if (opera) {
-    headerBox.style.marginLeft = "0px"
+    headerBox.style.marginLeft = "0px";
     }
 
     var width = headerBox.style.width;
@@ -499,7 +499,7 @@ function tobagoSheetToggleAllSelections(sheetId) {
 
 function tobagoSheetSetPagerPage(commandId, page, submitCommand) {
   var element = document.getElementById(
-      commandId + getSubComponentSeparator() + "link_" + page)
+      commandId + getSubComponentSeparator() + "link_" + page);
   var hidden = document.createElement('input');
   hidden.type = 'hidden';
   hidden.value = page;

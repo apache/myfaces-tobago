@@ -138,6 +138,17 @@ Tree -------------------------------------------------------------------- */
 	height: 16px;
 }
 
+/* treeListbox */
+
+select.tobago-treeListbox-default {
+
+}
+
+select.tobago-treeListbox-unused {
+ background: #d3d3d3; 
+}
+
+
 /* calendar */
 table.calendar {
 }

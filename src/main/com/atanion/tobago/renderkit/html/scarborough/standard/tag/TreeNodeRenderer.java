@@ -69,10 +69,12 @@ public class TreeNodeRenderer extends RendererBase {
 
     { // marker
       String marked = request.getParameter(treeId + UITree.MARKER);
-      String searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeId;
+      if (marked != null) {
+        String searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeId;
 
-      if (marked.equals(searchString)) {
-        state.setMarker((DefaultMutableTreeNode) node.getValue());
+        if (marked.equals(searchString)) {
+          state.setMarker((DefaultMutableTreeNode) node.getValue());
+        }
       }
     }
 

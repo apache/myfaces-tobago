@@ -47,7 +47,9 @@ public class TreeRenderer extends RendererBase {
     TreeState state = (TreeState) tree.getValue();
 
     if (state != null) {
-      state.clearExpandState();
+      if ("Tree".equals(tree.getRendererType())) {
+        state.clearExpandState();
+      }
       if (isSelectable(tree)) {
         state.clearSelection();
       }
@@ -60,9 +62,7 @@ public class TreeRenderer extends RendererBase {
   }
 
   public static boolean isSelectable(UITree tree) {
-    final Object selectable = ComponentUtil.getAttribute(tree, ATTR_SELECTABLE);
-    return selectable != null
-        && (selectable.equals("multi") || selectable.equals("single"));
+    return tree.isSelectableTree();
   }
 
   public static String createJavascriptVariable(String clientId) {

@@ -8,6 +8,9 @@ package com.atanion.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.model.TreeState;
+
 import javax.faces.component.ActionSource;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -15,9 +18,12 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.event.ActionListener;
+import javax.swing.tree.TreeNode;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Iterator;
+import java.util.List;
+import java.util.ArrayList;
 
 public class UITree extends UIInput implements NamingContainer, ActionSource {
 
@@ -182,6 +188,52 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     }
     // in a new UITree isn't a root
     return null;
+  }
+
+
+
+  public boolean isSelectableTree() {
+    final Object selectable
+        = ComponentUtil.getAttribute(this , TobagoConstants.ATTR_SELECTABLE);
+    return selectable != null
+        && (selectable.equals("multi") || selectable.equals("single"));
+  }
+
+  public List<UITreeNode> getSelectionPath() {
+    List<UITreeNode> selectionPath = new ArrayList<UITreeNode>();
+    if (isSelectableTree()) {
+      TreeState treeState = (TreeState) getValue();
+      Iterator iterator = treeState.getSelection().iterator();
+      if (iterator.hasNext()) {
+        TreeNode treeNode = (TreeNode) iterator.next();
+        UITreeNode selectedNode = findSelectedComponent(getRoot(), treeNode);
+        if (selectedNode != null) {
+          UIComponent ancestor = selectedNode;
+          while (ancestor != null && ancestor instanceof UITreeNode) {
+            selectionPath.add(0, (UITreeNode) ancestor);
+            ancestor = ancestor.getParent();
+          }
+        }
+      }
+    }
+    return selectionPath;
+  }
+
+  private UITreeNode findSelectedComponent(UITreeNode node, TreeNode treeNode) {
+    UITreeNode found = null;
+    if (node.getTreeNode().equals(treeNode)) {
+      return found = node;
+    } else {
+      for (Iterator iter = node.getChildren().iterator(); iter.hasNext();) {
+        UITreeNode uiTreeNode = (UITreeNode) iter.next();
+        found = findSelectedComponent(uiTreeNode, treeNode);
+        if (found != null) {
+          break;
+        }
+      }
+
+    }
+    return found;
   }
 
 // ///////////////////////////////////////////// bean getter + setter

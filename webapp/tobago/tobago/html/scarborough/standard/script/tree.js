@@ -61,6 +61,7 @@ function toggleSelect(node, treeHiddenId, uncheckedIcon, checkedIcon) {
       selectState.value = selectState.value + nodeStateId(node) + ";" ;
     }
   }
+  PrintDebug("selectState = " + selectState.value);
 }
 
 function createJavascriptVariable(id) {
@@ -79,7 +80,9 @@ function getIconForId(node, selectId) {
 
 function storeMarker(node, treeHiddenId) {
   var markerHidden = document.getElementById(treeHiddenId + '-marker');
-  markerHidden.value = node.id;
+  if (markerHidden) {
+    markerHidden.value = node.id;
+  }
 }
 
 function nodeStateId(node) {
@@ -351,3 +354,86 @@ function TreeFolder(label, id, hideIcons, hideJunctions, hideRootJunction,
 }
 
 TreeFolder.prototype = new TreeNode;
+
+// //////////////////////////////////////////////////  listTree
+
+function tobagoTreeListboxChange(element, hiddenId) {
+
+  var rootNode = document.getElementById(hiddenId).rootNode;
+  var level = element.id.lastIndexOf("_");
+  var idPrefix = element.id.substr(0, level);
+  level = element.id.substr(level + 1) - 0;
+  var actualLevel = 0;
+
+
+  while (actualLevel < level) {
+    var selector = document.getElementById(idPrefix + "_" + actualLevel);
+    rootNode = rootNode.childNodes[selector.value];
+    actualLevel++;
+  }
+
+
+  var index = element.value;
+//  PrintDebug("level = " + level + " selected = " + index);
+
+  var node = rootNode.childNodes[index];
+//  PrintDebug("clicked label = " + node.label);
+  PrintDebug("clicked id = " + node.id);
+  var selectState = document.getElementById(hiddenId + '-selectState');
+  selectState.value = ";" + nodeStateId(node) + ";";
+
+  if (node.childNodes && node.childNodes.length > 0) {
+    tobagoTreeListboxSetup(node, idPrefix, level + 1);
+  } else {
+    tobagoTreeListboxDisable(idPrefix, level + 1);
+  }
+
+  PrintDebug("selectState = " + selectState.value);
+}
+
+
+function tobagoTreeListboxSetup(node, idPrefix, level) {
+  tobagoTreeListboxEnable(idPrefix, level);
+  var selector = document.getElementById(idPrefix + "_" + level);
+  for (var i = 0; i < node.childNodes.length; i++) {
+    selector.options[selector.options.length] = tobagoTreeListboxCreateOption(node.childNodes[i], i);
+  }
+}
+
+
+function tobagoTreeListboxCreateOption(node, index) {
+  var label = node.label;
+  if (node.childNodes && node.childNodes.length) {
+    label += " -->";
+  }
+  return new Option(label, index);
+}
+
+function tobagoTreeListboxRemoveOptions(idPrefix, start) {
+  var selector = document.getElementById(idPrefix + "_" + start);
+  while (selector.hasChildNodes()) {
+    selector.removeChild(selector.firstChild);
+  }
+}
+
+function tobagoTreeListboxEnable(idPrefix, start) {
+  var selector = document.getElementById(idPrefix + "_" + start);
+  while (selector) {
+    tobagoTreeListboxRemoveOptions(idPrefix, start++);
+    removeCssClass(selector, "tobago-treeListbox-unused");
+    selector = document.getElementById(idPrefix + "_" + start);
+  }
+}
+function tobagoTreeListboxDisable(idPrefix, start) {
+  tobagoTreeListboxRemoveOptions(idPrefix, start);
+  var selector = document.getElementById(idPrefix + "_" + start);
+  while (selector) {
+    tobagoTreeListboxRemoveOptions(idPrefix, start++);
+    addCssClass(selector, "tobago-treeListbox-unused");
+    selector = document.getElementById(idPrefix + "_" + start);
+  }
+}
+
+
+
+
