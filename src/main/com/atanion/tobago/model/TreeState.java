@@ -9,6 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.swing.tree.TreeNode;
+import javax.swing.tree.MutableTreeNode;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -33,7 +34,7 @@ public class TreeState {
   private TreeNode root;
   private List selection;     // java1.5 List<TreeNode>
   private List expandState;   // java1.5 List<TreeNode>
-  private TreeNode marker;
+  private MutableTreeNode marker;
   private TreeNode lastMarker;
   private String lastCommand;
 
@@ -107,6 +108,15 @@ public class TreeState {
     }
   }
 
+  /**
+   * Adds a (external created) node to the actually marked node.
+   */
+  public void commandNew(MutableTreeNode newNode) {
+    marker.insert(newNode, 0);
+    setLastMarker(null);
+    setLastCommand(null);
+  }
+
 // ///////////////////////////////////////////// bean getter + setter
 
   public TreeNode getRoot() {
@@ -137,7 +147,7 @@ public class TreeState {
     return marker;
   }
 
-  public void setMarker(TreeNode marker) {
+  public void setMarker(MutableTreeNode marker) {
     this.marker = marker;
   }
 

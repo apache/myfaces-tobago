@@ -6,17 +6,16 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.model.TreeState;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UITree;
 import com.atanion.tobago.component.UITreeNode;
 import com.atanion.tobago.context.TobagoResource;
+import com.atanion.tobago.model.TreeState;
 import com.atanion.tobago.renderkit.DirectRenderer;
+import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.util.StringUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -28,7 +27,6 @@ import javax.faces.component.UIGraphic;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionListener;
-import javax.servlet.jsp.JspException;
 import java.io.IOException;
 
 public class TreeRenderer extends RendererBase
@@ -58,8 +56,7 @@ public class TreeRenderer extends RendererBase
           TobagoConstants.ATTR_MULTISELECT, TobagoConstants.VB_MULTISELECT)) {
         state.clearSelection();
       }
-      if (ComponentUtil.getBooleanAttribute(
-          tree, TobagoConstants.ATTR_MUTABLE, TobagoConstants.VB_MUTABLE)) {
+      if (ComponentUtil.getBooleanAttribute(tree, TobagoConstants.ATTR_MUTABLE, TobagoConstants.VB_MUTABLE)) {
         state.setMarker(null);
       }
     }
@@ -118,21 +115,20 @@ public class TreeRenderer extends RendererBase
     if (ComponentUtil.getBooleanAttribute(tree,
         TobagoConstants.ATTR_MUTABLE, TobagoConstants.VB_MUTABLE)) {
 
-      writer.startElement("div", null);
-      writer.writeAttribute("style", "border: 2px groove #ddeeff", null);
-      writer.writeText("", null);
-
       Application application = facesContext.getApplication();
 
       UITree.Command[] commands = tree.getCommands();
 
-      ActionListener handler = null;
+      ActionListener handler;
 
-          ActionListener[] handlers = tree.getActionListeners();
-          if (handlers != null && handlers.length > 0) {
-            handler = handlers[0];
-          }
-//
+      ActionListener[] handlers = tree.getActionListeners();
+      if (handlers != null && handlers.length > 0) {
+        handler = handlers[0];
+      } else {
+        LOG.error("No actionListener found in tree, so tree editing will not work!");
+        handler = null;
+      }
+
 //      String type = (String)component.getAttributes().get(TobagoConstants.ATTR_ACTION_LISTENER);
 //        try {
 //          handler = ComponentUtil.createActionListener(type);
@@ -141,31 +137,40 @@ public class TreeRenderer extends RendererBase
 //          throw new IOException(e.toString());
 //        }
 
-      for (int i = 0; i < commands.length; i++) {
-        // create a UILink and add it to the UITree
-        UICommand link = (UICommand) application.createComponent(
-            UICommand.COMPONENT_TYPE);
-        link.setId("button" + i);
-        link.getAttributes().put(TobagoConstants.ATTR_COMMAND_NAME,
-            commands[i].getCommand());
-        link.setRendererType(TobagoConstants.RENDERER_TYPE_LINK);
-          link.addActionListener(handler);
-        link.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
-        tree.getFacets().put(commands[i].getCommand(), link);
+      writer.startElement("div", null);
+      writer.writeAttribute("style", "border: 2px groove #ddeeff", null);
+      writer.writeText("", null);
 
-        // create a UIImage and add it to the UILink
-        UIComponent image = application.createComponent(
-            UIGraphic.COMPONENT_TYPE);
-        image.getAttributes().put(TobagoConstants.ATTR_VALUE,
-            "tobago.tree." + commands[i].getCommand() + ".gif");
-        image.getAttributes().put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
-        String title = TobagoResource.getProperty(facesContext, "tobago",
-            "tree" + StringUtil.firstToUpperCase(commands[i].getCommand()));
-        image.getAttributes().put(TobagoConstants.ATTR_TITLE, title);
-        image.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
-        link.getChildren().add(image);
+      UIComponent mutableToolbar = tree.getFacet("mutableToolbar");
+      if (null != mutableToolbar) {
+        RenderUtil.encodeChildren(facesContext, mutableToolbar);
+      } else { // default buttons
+        for (int i = 0; i < commands.length; i++) {
+          // create a UILink and add it to the UITree
+          UICommand link = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+          link.setId("button" + i);
+          link.getAttributes().put(TobagoConstants.ATTR_COMMAND_NAME,
+              commands[i].getCommand());
+          link.setRendererType(TobagoConstants.RENDERER_TYPE_LINK);
+          if (handler != null) {
+            link.addActionListener(handler);
+          }
+          link.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
+          tree.getFacets().put(commands[i].getCommand(), link);
 
-        RenderUtil.encode(facesContext, link);
+          // create a UIImage and add it to the UILink
+          UIComponent image = application.createComponent(UIGraphic.COMPONENT_TYPE);
+          image.getAttributes().put(TobagoConstants.ATTR_VALUE,
+              "tobago.tree." + commands[i].getCommand() + ".gif");
+          image.getAttributes().put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
+          String title = TobagoResource.getProperty(facesContext, "tobago",
+              "tree" + StringUtil.firstToUpperCase(commands[i].getCommand()));
+          image.getAttributes().put(TobagoConstants.ATTR_TITLE, title);
+          image.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
+          link.getChildren().add(image);
+
+          RenderUtil.encode(facesContext, link);
+        }
       }
 
       writer.endElement("div");
@@ -201,7 +206,7 @@ public class TreeRenderer extends RendererBase
       "Lplus.gif", "Tplus.gif", "Rplus.gif",
     };
     writer.writeText("var treeResourcesHelp = new Object();\n", null);
-    for (int i = 0; i < images.length; i++ ) {
+    for (int i = 0; i < images.length; i++) {
       writer.writeText("treeResourcesHelp.", null);
       writer.writeText(images[i].replace('.', '_'), null);
       writer.writeText(" = \"", null);
@@ -225,8 +230,7 @@ public class TreeRenderer extends RendererBase
     writer.writeText(clientId, null);
     writer.writeText("-cont');\n", null);
     writer.writeText("treeDiv.innerHTML = ", null);
-    writer.writeText(
-        TreeRenderer.createJavascriptVariable(root.getClientId(facesContext)),
+    writer.writeText(TreeRenderer.createJavascriptVariable(root.getClientId(facesContext)),
         null);
     writer.writeText(".toString(0, true);", null);
     writer.writeText("}", null);

@@ -33,8 +33,7 @@ public class DefaultTreeActionListener implements ActionListener {
 
 // ///////////////////////////////////////////// code
 
-  protected MutableTreeNode create() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
+  protected MutableTreeNode create(FacesContext facesContext) {
     String label = TobagoResource.getProperty(facesContext, "tobago", "treeNodeNew");
     return new DefaultMutableTreeNode(label);
   }
@@ -51,6 +50,7 @@ public class DefaultTreeActionListener implements ActionListener {
 
   public void processAction(ActionEvent actionEvent) throws AbortProcessingException {
 
+    FacesContext facesContext = FacesContext.getCurrentInstance();
     UIComponent component = actionEvent.getComponent().getParent();
     if (!(component instanceof UITree)) {
       LOG.error("No tree found!");
@@ -72,9 +72,7 @@ public class DefaultTreeActionListener implements ActionListener {
     if (marker != null) {
       boolean isRoot = treeState.getRoot().equals(marker);
       if (UITree.COMMAND_NEW.equals(command)) {
-        marker.insert(create(), 0);
-        treeState.setLastMarker(null);
-        treeState.setLastCommand(null);
+        treeState.commandNew(create(facesContext));
       } else if (UITree.COMMAND_DELETE.equals(command)) {
         if (!isRoot) {
           marker.removeFromParent();

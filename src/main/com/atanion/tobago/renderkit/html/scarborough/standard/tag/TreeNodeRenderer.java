@@ -26,6 +26,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
 import javax.servlet.ServletRequest;
 import javax.swing.tree.TreeNode;
+import javax.swing.tree.MutableTreeNode;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -77,7 +78,7 @@ public class TreeNodeRenderer extends RendererBase
       String searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeId;
 
       if (marked.equals(searchString)) {
-        state.setMarker((TreeNode) node.getValue());
+        state.setMarker((MutableTreeNode) node.getValue());
       }
     }
 

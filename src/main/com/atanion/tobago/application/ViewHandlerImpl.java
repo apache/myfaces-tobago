@@ -184,26 +184,6 @@ public class ViewHandlerImpl extends ViewHandler {
     }
   }
 
-/*
-  private String remap(FacesContext facesContext, String requestURI) {
-    ServletContext servletContext
-        = (ServletContext) facesContext.getExternalContext().getContext();
-    ServletRequest request
-        = (ServletRequest) facesContext.getExternalContext().getRequest();
-    TobagoConfig config
-        = (TobagoConfig) servletContext.getAttribute("tobagoConfig");
-    MappingRule mappingRule = config.getMappingRule(requestURI);
-    if (mappingRule == null) {
-      return requestURI;
-    }
-    for (Iterator i = mappingRule.getAttributes().iterator(); i.hasNext();) {
-      Attribute attribute = (Attribute) i.next();
-      request.setAttribute(attribute.getKey(), attribute.getValue());
-    }
-    return mappingRule.getForwardUri();
-  }
-*/
-
   public void writeState(FacesContext facescontext) throws IOException {
     LOG.error("not implemented yet!"); // fixme jsfbeta
   }
@@ -320,5 +300,10 @@ public class ViewHandlerImpl extends ViewHandler {
 
 
 // ///////////////////////////////////////////// bean getter + setter
+
+  public static class ViewMap {
+    private Map map;
+
+  }
 
 }
