@@ -69,6 +69,7 @@ public class BodyContentHandler {
       verbatim.setValue(rawContent);
       verbatim.setRendererType(verbatimTag.getRendererType());
       verbatim.getAttributes().remove(TobagoConstants.ATTR_ESCAPE);
+      verbatim.getAttributes().remove(TobagoConstants.ATTR_CREATE_SPAN);
       verbatimTag.doEndTag();
     } catch (JspException e) {
       LOG.debug("", e);
