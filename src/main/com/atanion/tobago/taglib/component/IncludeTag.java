@@ -57,7 +57,7 @@ public class IncludeTag extends TagSupport {
         LOG.debug("include end   pageName = '" + pageName + "'");
       }
     } catch (Throwable e) {
-      LOG.error("pageName = '" + pageName + "'", e);
+      LOG.error("pageName = '" + pageName + "' " + e, e);
       throw new JspException(e);
     }
     return super.doStartTag();
