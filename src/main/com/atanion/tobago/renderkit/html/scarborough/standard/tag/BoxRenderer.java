@@ -66,7 +66,7 @@ public class BoxRenderer extends BoxRendererBase {
       RenderUtil.encode(facesContext, toolbar);
       writer.endElement("span");
       writer.endElement("div");
-      if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
+      if (ClientProperties.getInstance(facesContext.getViewRoot()).getUserAgent().isMsie()) {
         contentStyle
             = LayoutUtil.replaceStyleAttribute(contentStyle, "top", "-10px");
       }

@@ -146,7 +146,7 @@ public class ToolbarRenderer extends RendererBase {
        }      
     }
 
-    if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
+    if (ClientProperties.getInstance(facesContext.getViewRoot()).getUserAgent().isMsie()) {
       UIGraphic ieSpacer = (UIGraphic) command.getParent().getFacet("ieSpacer");
       if (ieSpacer == null) {
         ieSpacer = (UIGraphic) facesContext.getApplication().createComponent(
