@@ -16,17 +16,9 @@ import javax.faces.component.UIGraphic;
 
 public class ImageTag extends TobagoTag {
 
-// /////////////////////////////////////////// constants
-
-// /////////////////////////////////////////// attributes
-
   private String value;
   private String alt;
   private String border;
-
-// /////////////////////////////////////////// constructors
-
-// /////////////////////////////////////////// code
 
   public String getComponentType() {
     return UIGraphic.COMPONENT_TYPE;
@@ -45,8 +37,6 @@ public class ImageTag extends TobagoTag {
     this.border = null;
     this.value = null;
   }
-
-// /////////////////////////////////////////// setter + getter
 
   public String getValue() {
     return value;
