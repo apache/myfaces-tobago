@@ -22,49 +22,6 @@ public class RenderUtil {
   public static final String COMPONENT_IN_REQUEST = "com.atanion.tobago.component";
   public static final String RENDERER_IN_REQUEST = "com.atanion.tobago.renderer";
 
-  /**
-   * for the jsp-sniplets
-   */
-  public static Log getLog(Class clazz) {
-    return getLog(clazz, "_jsp");
-  }
-
-  /**
-   * for the jsp-sniplets
-   */
-  public static Log getLogBegin(Class clazz) {
-    return getLog(clazz, "Begin_jsp");
-  }
-
-  /**
-   * for the jsp-sniplets
-   */
-  public static Log getLogChildren(Class clazz) {
-    return getLog(clazz, "Children_jsp");
-  }
-
-  /**
-   * for the jsp-sniplets
-   */
-  private static Log getLog(Class clazz, String suffix) {
-    String name = clazz.getName();
-    int dot = name.lastIndexOf('.');
-    String jsp = null;
-    if (dot > -1) {
-      String plain = name.substring(dot + 1);
-      if (plain.endsWith("Renderer")) {
-        jsp = plain.substring(0, 1).toLowerCase();
-        jsp += plain.substring(1, plain.length() - 8);
-      }
-      name = name.substring(0, dot + 1);
-    }
-    if (jsp != null) {
-      name += jsp;
-    }
-    name += suffix;
-    return LogFactory.getLog(name);
-  }
-
   public static boolean contains(Object[] list, Object value) {
     if (list == null) {
       return false;
