@@ -28,38 +28,35 @@ public class LayoutInfo{
   private String[] layoutTokens;
 
   public LayoutInfo(int cellCount, int space, String layout) {
-    this(cellCount, space, createLayoutTokens(layout));
+    this(cellCount, space, createLayoutTokens(layout, cellCount));
   }
 
   public LayoutInfo(int cellCount, int space, String[] layoutTokens) {
 
-    this.layoutTokens = layoutTokens;
+    this.cellsLeft = cellCount;
+    this.spaceLeft = space;
     if (layoutTokens.length == cellCount) {
-      this.cellsLeft = cellCount;
-      this.spaceLeft = space;
-      createAndInitSpaces(cellCount, FREE);
-    } else if (layoutTokens.length > 0) {
-      if (log.isWarnEnabled()) {
-        StringBuffer layout = new StringBuffer();
-        for (int i = 0; i < layoutTokens.length; i++) {
-          if (layout.length() > 0) {
-            layout.append(";");
-          }
-          layout.append(layoutTokens[i]);
+      this.layoutTokens = layoutTokens;
+    } else if (layoutTokens.length > cellCount) {
+      log.warn("More layoutToken's than cell's! Cutting leavings!");
+      this.layoutTokens = new String[cellCount];
+      for (int i = 0; i < cellCount; i++) {
+        this.layoutTokens[i] = layoutTokens[i];
+      }
+    }
+    else {
+      log.warn("More cell's than layoutToken's! Set missing token's to '1*'");
+      this.layoutTokens = new String[cellCount];
+      for (int i = 0; i < cellCount; i++) {
+        if (i < layoutTokens.length) {
+          this.layoutTokens[i] = layoutTokens[i];
         }
-        log.warn("layoutTokens.length != cellCount : "
-            + layoutTokens.length + " != " + cellCount + ". " +
-                "layout='" + layout.toString() + "'");
+        else {
+          this.layoutTokens[i] = "1*";
+        }
       }
-      layoutTokens = new String[0];
     }
-    if (layoutTokens.length == 0) {
-      if (cellCount == 0) {
-        log.warn("cellCount == 0 : using 1 to calulate space");
-        cellCount = 1;
-      }
-      createAndInitSpaces(cellCount, space / cellCount);
-    }
+    createAndInitSpaces(cellCount, FREE);
   }
 
   private void createAndInitSpaces(int columns, int initValue) {
@@ -71,10 +68,12 @@ public class LayoutInfo{
 
   public void update(int space, int index){
 
+    log.info("update(" + space + ", " + index + ")");
+
     if (space > spaceLeft) {
       if (log.isInfoEnabled()) {
         log.info("More space need(" + space + ") than avaliable(" + spaceLeft
-            + ")! Cutting t fit!");
+            + ")! Cutting to fit!");
       }
       space = spaceLeft;
     }
@@ -113,15 +112,41 @@ public class LayoutInfo{
   }
 
 
-  public static String[] createLayoutTokens(String columnLayout) {
-    Vector tokens = new Vector();
+  public static String[] createLayoutTokens(String columnLayout, int count) {
+    return createLayoutTokens(columnLayout, count, "1*");
+  }
+  public static String[] createLayoutTokens(String columnLayout, int count,
+                                            String defaultToken) {
+    String[] tokens;
     if (columnLayout != null) {
+      Vector vector = new Vector();
       StringTokenizer tokenizer = new StringTokenizer(columnLayout, ";");
       while (tokenizer.hasMoreTokens()) {
-        tokens.add(tokenizer.nextToken().trim());
+        vector.add(tokenizer.nextToken().trim());
+      }
+      tokens = (String[]) vector.toArray(new String[vector.size()] );
+    }
+    else {
+      tokens = new String[count];
+      for (int i = 0; i < tokens.length; i++) {
+        tokens[i] = defaultToken;
       }
     }
-    return (String[]) tokens.toArray(new String[tokens.size()] );
+    log.debug("created Tokens : " + tokensToString(tokens));
+    return tokens;
+  }
+
+  private static String tokensToString(String[] tokens) {
+    StringBuffer sb = new StringBuffer();
+    for (int i = 0; i < tokens.length; i++) {
+      if (sb.length() != 0) {
+        sb.append(";");
+      }
+      sb.append(tokens[i]);
+    }
+    sb.insert(0, "\"");
+    sb.append("\"");
+    return sb.toString();
   }
 
   public boolean isFree(int column) {

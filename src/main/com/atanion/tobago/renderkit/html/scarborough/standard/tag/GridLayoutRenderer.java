@@ -46,20 +46,17 @@ public class GridLayoutRenderer extends RendererBase
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     UIGridLayout layout = (UIGridLayout) component;
-    String[] layoutTokens = LayoutInfo.createLayoutTokens(
-        (String) layout.getAttributes().get(TobagoConstants.ATTR_ROWS));
     final List rows = layout.ensureRows();
+    String rowLayout
+        = (String) layout.getAttributes().get(TobagoConstants.ATTR_ROWS);
 
-    if (layoutTokens.length == 0) {
-      if (LOG.isInfoEnabled()) {
-        LOG.info("No rows found using 'fixed' for all " + rows.size()
-            + " rows of " + layout.getClientId(facesContext) + " !");
-      }
-      layoutTokens = new String[rows.size()];
-      for (int i = 0; i < layoutTokens.length; i++) {
-        layoutTokens[i] = "fixed";
-      }
+    if (rowLayout == null && LOG.isInfoEnabled()) {
+      LOG.info("No rows found using '" + (rows.size() == 0 ? "*" : "fixed") +
+          "' for all " + rows.size() + " rows of "
+          + layout.getClientId(facesContext) + " !");
     }
+    String[] layoutTokens = LayoutInfo.createLayoutTokens(rowLayout,
+        rows.size(), rows.size() == 0 ? "*" : "fixed");
 
 
     int height = 0;
@@ -341,8 +338,8 @@ public class GridLayoutRenderer extends RendererBase
 
     final List rows = layout.ensureRows();
     final int columnCount = layout.getColumnCount();
-    final String[] layoutTokens = LayoutInfo.createLayoutTokens(
-        (String) layout.getAttributes().get(TobagoConstants.ATTR_COLUMNS));
+    final String[] layoutTokens = LayoutInfo.createLayoutTokens((String)
+        layout.getAttributes().get(TobagoConstants.ATTR_COLUMNS), columnCount);
 
 
     if (! rows.isEmpty()) {
@@ -387,8 +384,9 @@ public class GridLayoutRenderer extends RendererBase
       FacesContext facesContext) {
 
     final List rows = layout.ensureRows();
-    final String[] layoutTokens = LayoutInfo.createLayoutTokens(
-        (String) layout.getAttributes().get(TobagoConstants.ATTR_ROWS));
+    String[] layoutTokens = LayoutInfo.createLayoutTokens(
+        (String) layout.getAttributes().get(TobagoConstants.ATTR_ROWS),
+        rows.size(), rows.size() == 1 ? "*" : "fixed");
 
     for (int i = 0; i < rows.size(); i++) {
       boolean hidden = true;
@@ -426,9 +424,18 @@ public class GridLayoutRenderer extends RendererBase
         int height = 0;
         final List rows = layout.ensureRows();
         if (! rows.isEmpty()) {
-          UIGridLayout.Row row = (UIGridLayout.Row) rows.get(i);
-          height = getMaxFixedHeight(row, facesContext);
-          layoutInfo.update(height, i);
+          if (i < rows.size()) {
+            UIGridLayout.Row row = (UIGridLayout.Row) rows.get(i);
+            height = getMaxFixedHeight(row, facesContext);
+            LOG.info("updateHeight(" + height + " ," + i + ")");
+            layoutInfo.update(height, i);
+          }
+          else {
+            layoutInfo.update(0, i);
+            if (LOG.isWarnEnabled()) {
+              LOG.warn("More LayoutTokens found than rows! skipping!");
+            }
+          }
         }
         if (LOG.isDebugEnabled()) {
           LOG.debug("set column " + i + " from fixed to with " + height);
