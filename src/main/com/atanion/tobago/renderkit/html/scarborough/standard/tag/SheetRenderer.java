@@ -1397,7 +1397,7 @@ public class SheetRenderer extends RendererBase {
             LOG.error("Can't find 'PageToRow' parameter : " + command.getClientId(facesContext) + SUBCOMPONENT_SEP + "value");
           }
         } else {
-          LOG.error("Unkown commandName :" + action);
+          LOG.error("Unkown action: " + action);
         }
 
       }
