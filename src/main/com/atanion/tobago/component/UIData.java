@@ -6,7 +6,9 @@
 package com.atanion.tobago.component;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.model.SheetState;
 import com.atanion.tobago.renderkit.html.scarborough.standard.tag.SheetRenderer;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -33,7 +35,7 @@ public class UIData extends javax.faces.component.UIData {
     if (stateBinding != null) {
       SheetRenderer.Sorter sorter =  (SheetRenderer.Sorter)
           getAttributes().get(TobagoConstants.ATTR_SHEET_SORTER);
-      SheetRenderer.State state = new SheetRenderer.State();
+      SheetState state = new SheetState();
       state.setFirst(data.getFirst());
       state.setSortedColumn(sorter != null ? sorter.getColumn() : -1);
       state.setAscending(sorter != null && sorter.isAscending());

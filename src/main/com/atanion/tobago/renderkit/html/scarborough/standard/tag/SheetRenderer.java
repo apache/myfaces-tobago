@@ -11,6 +11,7 @@ import com.atanion.tobago.component.UIData;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.TobagoResource;
 import com.atanion.tobago.model.SortableByApplication;
+import com.atanion.tobago.model.SheetState;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
@@ -572,9 +573,9 @@ public class SheetRenderer extends RendererBase
     ValueBinding stateBinding
         = component.getValueBinding(TobagoConstants.ATTR_STATE_BINDING);
     if (stateBinding != null) {
-      State state = null;
+      SheetState state = null;
       try {
-        state = (State) stateBinding.getValue(facesContext);
+        state = (SheetState) stateBinding.getValue(facesContext);
       } catch (Exception e) {
         LOG.debug("Can't retrieve state :" + e.getMessage(), e);
       }
@@ -942,36 +943,6 @@ public class SheetRenderer extends RendererBase
       return data.getFirst() >= getLast();
     }
 
-  }
-
-  public static class State {
-    private int first;
-    private int sortedColumn;
-    private boolean ascending;
-
-    public int getFirst() {
-      return first;
-    }
-
-    public void setFirst(int first) {
-      this.first = first;
-    }
-
-    public int getSortedColumn() {
-      return sortedColumn;
-    }
-
-    public void setSortedColumn(int sortedColumn) {
-      this.sortedColumn = sortedColumn;
-    }
-
-    public boolean isAscending() {
-      return ascending;
-    }
-
-    public void setAscending(boolean ascending) {
-      this.ascending = ascending;
-    }
   }
 
 
