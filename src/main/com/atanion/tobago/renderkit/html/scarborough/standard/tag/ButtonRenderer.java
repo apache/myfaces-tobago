@@ -58,7 +58,9 @@ public class ButtonRenderer extends CommandRendererBase
     writer.writeAttribute("name", clientId, null);
     writer.writeAttribute("id", clientId, null);
     writer.writeAttribute("disabled", disabled);
-    writer.writeAttribute("onclick", onclick, null);
+    if (onclick != null) {
+      writer.writeAttribute("onclick", onclick, null);
+    }
     writer.writeAttribute("style", null, ATTR_STYLE);
     writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
     if (label.getAccessKey() != null) {
