@@ -10,8 +10,6 @@ import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.renderkit.BoxRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.util.LayoutUtil;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
@@ -21,19 +19,8 @@ import java.io.IOException;
 
 public class BoxRenderer extends BoxRendererBase {
 
-// ///////////////////////////////////////////// constant
-
-  private static final Log LOG = LogFactory.getLog(BoxRenderer.class);
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
-
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
-
 
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
     String labelString
@@ -92,7 +79,7 @@ public class BoxRenderer extends BoxRendererBase {
     writer.writeAttribute("style", contentStyle, null);
 
     writer.writeText("", null);
-    RenderUtil.encodeChildren(facesContext, (UIPanel) component);
+    RenderUtil.encodeChildren(facesContext, component);
 
     writer.endElement("div");
     writer.endElement("fieldset");
@@ -127,7 +114,6 @@ public class BoxRenderer extends BoxRendererBase {
     return getConfiguredValue(facesContext, component,
               "extraPaddingHeightWhenToolbar");
   }
-// ///////////////////////////////////////////// bean getter + setter
 
 }
 
