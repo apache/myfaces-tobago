@@ -4,7 +4,7 @@ var oldX = 0;
 var newWidth = 0;
 
 function initSheet(sheetId) {
-  PrintDebug("initSheet(" + sheetId +")");
+  //PrintDebug("initSheet(" + sheetId +")");
   var i = 0;
   var element = document.getElementById(sheetId + "_header_div");
   if (element) {
@@ -44,7 +44,7 @@ function addSelectionListener(sheetId) {
       addEventListener(row, "click", doSelection);
       row = document.getElementById(sheetId + "_data_tr_" + i++ );
     }
-    PrintDebug("preSelected rows = " + document.getElementById(sheetId + "::selected").value);
+    //PrintDebug("preSelected rows = " + document.getElementById(sheetId + "::selected").value);
   }
 }
 
@@ -108,7 +108,7 @@ function doSelection(event) {
       tobagoSheetToggleSelectionForRow(dataRow, hidden);
     }
     updateSelectionView(sheetId, hidden.value);
-    PrintDebug("selected rows = " + hidden.value);
+    //PrintDebug("selected rows = " + hidden.value);
   }
 }
 
@@ -154,7 +154,6 @@ function selectRange(dataRow, lastId, hidden) {
   var lastIndex  = dataRow.id.substring(dataRow.id.lastIndexOf("_data_tr_") + 9) - 0;
   var sheetId = hidden.id.substring(
       0,hidden.id.lastIndexOf(getSubComponentSeparator() + "selected"));
-  var selector = document.getElementById(sheetId + "_data_row_selector_" + lastIndex);
 
   var start;
   var end;
@@ -169,6 +168,7 @@ function selectRange(dataRow, lastId, hidden) {
   for (var i = start; i <= end; i++) {
     var re = new RegExp("," + i + ",");
     if (hidden.value.search(re) == -1) {
+      var selector = document.getElementById(sheetId + "_data_row_selector_" + i);
       if (!selector || !selector.src.match(/Disabled/)) {
         hidden.value = hidden.value + "," + i + ",";
       }
@@ -201,8 +201,7 @@ function tobagoSheetToggleSelectionState(event) {
     imgElement = event.srcElement;
   }
 
-  var sheetId = imgElement.id.substr(0, "_data_row_selector_");
-  PrintDebug("sheetId == " + sheetId);
+  var sheetId = imgElement.id.substr(0, imgElement.id.lastIndexOf("_data_row_selector_"));
   var rowIndex = imgElement.id.substr(
       imgElement.id.lastIndexOf("_data_row_selector_") + 19) - 0;
   var row = document.getElementById(sheetId + "_data_tr_" + rowIndex);
