@@ -39,7 +39,7 @@ public class ImageRenderer extends RendererBase {
     if (src != null) {
       final String ucSrc = src.toUpperCase();
       if (ucSrc.startsWith("HTTP:") || ucSrc.startsWith("FTP:")
-          || src.startsWith("/")) {
+          || ucSrc.startsWith("/")) {
         // absolute Path to image : nothing to do
       } else {
         src = null;
