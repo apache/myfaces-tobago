@@ -165,10 +165,14 @@ public class MenubarRenderer extends RendererBase
         = new TobagoResponseWriter(stringWriter, "text/html", "UTF8");
     facesContext.setResponseWriter(writer);
 
-    writer.startElement("span", null);
+    writer.startElement("a", null);
     writer.writeAttribute("class", spanClass, null);
-    writer.writeText(label.getText(), null);
-    writer.endElement("span");
+    if (label.getAccessKey() != null) {
+      writer.writeAttribute("accesskey", label.getAccessKey(), null);
+    }
+    RenderUtil.writeLabelWithAccessKey(writer, label);
+//    writer.writeText(label.getText(), null);
+    writer.endElement("a");
 
     if (! topMenu) {
       // uiPanel is a submenu
