@@ -44,7 +44,7 @@ public class SheetTag extends TobagoTag {
     directLinkCount = null;
     hideHeader = null;
     pagingStart = "0";
-    pagingLength = "20";
+    pagingLength = Integer.toString(Integer.MAX_VALUE);
     columns = null;
     value = null;
     forceVerticalScrollbar = null;

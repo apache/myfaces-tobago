@@ -44,6 +44,13 @@ public class TobagoServletContextListener implements ServletContextListener {
       LOG.info("*** contextInitialized ***");
     }
 
+    ServletContext servletContext = event.getServletContext();
+
+    if (servletContext.getAttribute(TobagoConfig.TOBAGO_CONFIG) != null) {
+      LOG.warn("Tobago has been already initialized. Do nothing.");
+      return;
+    }
+
     try {
 
       final License license = LicenseCheck.getLicense();
@@ -54,8 +61,6 @@ public class TobagoServletContextListener implements ServletContextListener {
           LOG.info("Valid tobago license found: " + license);
         }
       }
-
-      ServletContext servletContext = event.getServletContext();
 
       // tobago-config.xml
       TobagoConfig tobagoConfig = new TobagoConfig();

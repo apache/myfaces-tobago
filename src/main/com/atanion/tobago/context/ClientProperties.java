@@ -16,8 +16,9 @@ import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.io.Serializable;
 
-public class ClientProperties {
+public class ClientProperties implements Serializable {
 
 // ///////////////////////////////////////////// constants
 
