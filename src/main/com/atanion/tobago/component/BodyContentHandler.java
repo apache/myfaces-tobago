@@ -5,7 +5,6 @@
  */
 package com.atanion.tobago.component;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.taglib.component.TextTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -58,25 +57,19 @@ public class BodyContentHandler {
   public void addRawContent(String rawContent, UIComponent bodyComponent,
       PageContext pageContext) {
 
-    //   LOG.debug("1");
     javax.faces.component.UIOutput verbatim = null;
-    //   LOG.debug("5");
-      prepareVerbatimTag();
-      verbatimTag.setPageContext(pageContext);
-      try {
-        verbatimTag.doStartTag();
-        verbatim =
-            (javax.faces.component.UIOutput) verbatimTag.getComponentInstance();
-        verbatim.setValue(rawContent);
-        verbatim.setRendererType(verbatimTag.getRendererType());
-        verbatim.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED,
-            Boolean.TRUE);
-        verbatimTag.doEndTag();
-      } catch (JspException e) {
-        LOG.debug("", e);
-      }
-      //     LOG.debug("7");
-    verbatim.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
+    prepareVerbatimTag();
+    verbatimTag.setPageContext(pageContext);
+    try {
+      verbatimTag.doStartTag();
+      verbatim =
+          (javax.faces.component.UIOutput) verbatimTag.getComponentInstance();
+      verbatim.setValue(rawContent);
+      verbatim.setRendererType(verbatimTag.getRendererType());
+      verbatimTag.doEndTag();
+    } catch (JspException e) {
+      LOG.debug("", e);
+    }
   }
 
   private void prepareVerbatimTag() {

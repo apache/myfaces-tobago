@@ -71,7 +71,6 @@ public class DateTag extends TextInputTag {
         UICommand.COMPONENT_TYPE);
     link.setRendererType(TobagoConstants.RENDERER_TYPE_LINK);
     link.setRendered(true);
-    link.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
     link.getAttributes().put(TobagoConstants.ATTR_TYPE, "script");
 
     // create image
@@ -79,7 +78,6 @@ public class DateTag extends TextInputTag {
         UIGraphic.COMPONENT_TYPE);
     image.setRendererType("Image"); //fixme: use constant ?
     image.setRendered(true);
-    image.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
     image.getAttributes().put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
     image.setValue("date.gif");
     image.getAttributes().put(TobagoConstants.ATTR_ALT, ""); //todo: i18n

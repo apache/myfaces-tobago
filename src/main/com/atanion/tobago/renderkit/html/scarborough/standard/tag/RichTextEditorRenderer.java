@@ -171,7 +171,6 @@ public class RichTextEditorRenderer extends InputRendererBase
       image = application.createComponent(UIGraphic.COMPONENT_TYPE);
       image.getAttributes().put(TobagoConstants.ATTR_STYLE, "vertical-align: bottom;");
       image.getAttributes().put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
-      image.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
       // image needs to be in component tree when rendering
       component.getFacets().put("toolbarImage-" + command, image);
     }

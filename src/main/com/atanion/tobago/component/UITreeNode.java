@@ -41,7 +41,6 @@ public class UITreeNode extends UIInput {
     parent.getChildren().add(this);
     initId();
     initName();
-    getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
   }
 
 // ///////////////////////////////////////////// code

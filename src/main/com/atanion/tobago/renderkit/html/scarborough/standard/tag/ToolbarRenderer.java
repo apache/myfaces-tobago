@@ -134,7 +134,6 @@ public class ToolbarRenderer extends RendererBase
         ieSpacer.setRendererType("Image"); //fixme: use constant ?
         ieSpacer.setRendered(true);
         final Map attributes = ieSpacer.getAttributes();
-        attributes.put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
         attributes.put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
         // fixme: make height configuable
         attributes.put(TobagoConstants.ATTR_STYLE, "height: 16px; width: 0px;");

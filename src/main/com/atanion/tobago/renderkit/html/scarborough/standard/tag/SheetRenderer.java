@@ -692,7 +692,6 @@ public class SheetRenderer extends RendererBase
         UICommand.COMPONENT_TYPE);
     link.setRendererType(TobagoConstants.RENDERER_TYPE_LINK);
     link.setRendered(true);
-    link.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
     link.setId(command);
     link.getAttributes().put(TobagoConstants.ATTR_COMMAND_NAME, command);
     link.getAttributes().put(TobagoConstants.ATTR_INLINE, Boolean.TRUE);
@@ -704,7 +703,6 @@ public class SheetRenderer extends RendererBase
         UIGraphic.COMPONENT_TYPE);
     image.setRendererType("Image"); //fixme: use constant ?
     image.setRendered(true);
-    image.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
     image.getAttributes().put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
     if (disabled) {
       image.setValue(command + "Disabled.gif");

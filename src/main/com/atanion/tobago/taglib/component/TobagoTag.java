@@ -181,7 +181,6 @@ public abstract class TobagoTag extends UIComponentTag {
 //    uiLabel.setRendererType("Text"); // fixme
     uiLabel.setRendererType("Label");
     uiLabel.setRendered(true);
-    uiLabel.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
     if (isValueReference(label)) {
       ValueBinding valueBinding = FacesContext.getCurrentInstance().getApplication().createValueBinding(label);
       uiLabel.setValueBinding("value", valueBinding);
@@ -193,65 +192,19 @@ public abstract class TobagoTag extends UIComponentTag {
 
   public int doStartTag() throws JspException {
 
-    LOG.debug("doStartTag() rendererType  " + getRendererType());
-    LOG.debug("doStartTag() componentType " + getComponentType());
-
-//    Log.debug("##########################################");
-//    Log.debug("### # " + getClass().getName());
-//    for (Tag tag = getParent(); tag != null; tag = tag.getParent()) {
-//      Log.debug("### . " + tag.getClass().getName());
-//    }
-//    Log.debug("##########################################");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("doStartTag() rendererType  " + getRendererType());
+      LOG.debug("doStartTag() componentType " + getComponentType());
+    }
 
     final UIComponentTag parent = getParentUIComponentTag(pageContext);
-    LOG.debug("parent is: " + parent);
     if (parent instanceof TobagoBodyTag) {
       ((TobagoBodyTag) parent).handleBodyContent();
     } else {
-//      log.warn("Found parent with is not TobagoBodyTag. id = '" + id + "'");
       // plain-text/html will not collected in this case.
     }
 
-    int result = super.doStartTag();
-//    LOG.debug("isSuppressed=" + isSuppressed() + "  Tag=" + this);
-    LOG.debug("doStartTag() component     " + getComponentInstance());
-    return result;
-  }
-
-  public int doEndTag() throws JspException {
-
-//    Log.debug("doEndTag() rendererType  " + getRendererType());
-
-    UIComponent thisComponent = getComponentInstance();
-    LOG.debug(
-        "ATTR_SUPPRESSED " + (thisComponent != null) + " " + isSuppressed()
-        + " " + getId() + " " + this);
-//    if (thisComponent != null && isSuppressed()) {
-    if (isSuppressed()) {
-      getComponentInstance().getAttributes().put(
-          TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
-    }
-    int result = super.doEndTag();
-    return result;
-  }
-
-  protected boolean isSuppressed() {
-    if (getFacetName() != null) {
-      return true;
-    }
-    if (!getComponentInstance().isRendered()) {
-      return true;
-    }
-    for (UIComponent component = getComponentInstance().getParent();
-        component != null; component = component.getParent()) {
-      if (!component.isRendered()) {
-        return true;
-      }
-      if (component.getRendersChildren()) {
-        return true;
-      }
-    }
-    return false;
+    return super.doStartTag();
   }
 
   public void release() {

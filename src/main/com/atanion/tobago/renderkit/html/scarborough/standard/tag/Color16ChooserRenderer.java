@@ -171,7 +171,6 @@ public class Color16ChooserRenderer extends RendererBase
 
     component.setRendererType(rendererType);
     component.setRendered(true);
-    component.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
 
     if (addToParent) {
       if (parent != null) {

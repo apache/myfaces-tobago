@@ -155,7 +155,6 @@ public class TreeRenderer extends RendererBase
           if (handler != null) {
             link.addActionListener(handler);
           }
-          link.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
           tree.getFacets().put(commands[i].getCommand(), link);
 
           // create a UIImage and add it to the UILink
@@ -166,7 +165,6 @@ public class TreeRenderer extends RendererBase
           String title = TobagoResource.getProperty(facesContext, "tobago",
               "tree" + StringUtil.firstToUpperCase(commands[i].getCommand()));
           image.getAttributes().put(TobagoConstants.ATTR_TITLE, title);
-          image.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
           link.getChildren().add(image);
 
           RenderUtil.encode(facesContext, link);
