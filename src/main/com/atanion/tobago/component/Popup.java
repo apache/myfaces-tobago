@@ -24,7 +24,7 @@ public class Popup {
   private String viewId;
   private String name;
   private int width = 300;
-  private int heigth = 300;
+  private int height = 300;
   private int x = 100;
   private int y = 100;
   private boolean dependent;
@@ -35,16 +35,16 @@ public class Popup {
     this.viewId = viewId;
   }
 
-  public Popup(String viewId, int width, int heigth) {
+  public Popup(String viewId, int width, int height) {
     this.viewId = viewId;
     this.width = width;
-    this.heigth = heigth;
+    this.height = height;
   }
 
   public Popup(String viewId, int width, int heigth, int x, int y) {
     this.viewId = viewId;
     this.width = width;
-    this.heigth = heigth;
+    this.height = heigth;
     this.x = x;
     this.y = y;
   }
@@ -71,7 +71,7 @@ public class Popup {
     buffer.append("', '");
     buffer.append(width);
     buffer.append("', '");
-    buffer.append(heigth);
+    buffer.append(height);
     buffer.append("', '");
     if (dependent) {
       buffer.append('p');
@@ -110,12 +110,12 @@ public class Popup {
     this.width = width;
   }
 
-  public int getHeigth() {
-    return heigth;
+  public int getHeight() {
+    return height;
   }
 
-  public void setHeigth(int heigth) {
-    this.heigth = heigth;
+  public void setHeight(int height) {
+    this.height = height;
   }
 
   public int getX() {
