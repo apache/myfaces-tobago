@@ -30,6 +30,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Collections;
+import java.util.ArrayList;
 
 public class PageRenderer extends PageRendererBase {
 // ------------------------------------------------------------------ constants
@@ -289,7 +291,15 @@ public class PageRenderer extends PageRendererBase {
 
   private void addScripts(ResponseWriter writer, FacesContext facesContext,
       String script) throws IOException {
-    List scripts = ResourceManagerUtil.getScripts(facesContext, script);
+    List scripts;
+    final String ucScript = script.toUpperCase();
+    if (ucScript.startsWith("HTTP:") || ucScript.startsWith("FTP:")
+        || ucScript.startsWith("/")) {
+      scripts = new ArrayList();
+      scripts.add(script);
+    } else {
+      scripts = ResourceManagerUtil.getScripts(facesContext, script);
+    }
     for (Iterator j = scripts.iterator(); j.hasNext();) {
       String scriptString = (String) j.next();
       if (scriptString.length() > 0 ) {
