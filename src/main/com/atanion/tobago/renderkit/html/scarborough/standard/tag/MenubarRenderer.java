@@ -392,11 +392,16 @@ public class MenubarRenderer extends RendererBase {
         SelectItem item = (SelectItem) i.next();
         final String labelText = item.getLabel();
         label.accessKey = null;
-        if (labelText.indexOf(LabelWithAccessKey.INDICATOR) > -1) {
-          label.text = null;
-          label.setup(labelText);
+        if (labelText != null) {
+          if (labelText.indexOf(LabelWithAccessKey.INDICATOR) > -1) {
+            label.text = null;
+            label.setup(labelText);
+          } else {
+            label.text = labelText;
+          }
         } else {
-          label.text = labelText;
+          LOG.warn("Menu item has label=null. UICommand.getClientId()=" 
+              + command.getClientId(facesContext));
         }
         Object itemValue = item.getValue();
         onClick = onClickPrefix + itemValue + onClickPostfix;

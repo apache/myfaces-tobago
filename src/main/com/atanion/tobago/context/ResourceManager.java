@@ -197,7 +197,7 @@ public class ResourceManager {
     Iterator mainDirectoryIterator = mainDirectories.iterator();
     while (mainDirectoryIterator.hasNext()) {
       String resourceDirectory = (String) mainDirectoryIterator.next();
-      Iterator themeIterator = theme.iterator();
+      Iterator themeIterator = theme.fallbackIterator();
       while (themeIterator.hasNext()) { // theme loop
         Theme themeName = (Theme) themeIterator.next();
         Iterator browserIterator = browser.iterator();

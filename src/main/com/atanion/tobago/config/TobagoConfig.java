@@ -6,14 +6,10 @@
 package com.atanion.tobago.config;
 
 import com.atanion.tobago.context.Theme;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ExternalContext;
-import javax.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -29,7 +25,7 @@ public class TobagoConfig {
 
 // ----------------------------------------------------------------- attributes
 
-  private List themes;
+  private List supportedThemes;
   private Theme defaultTheme;
   private List resourceDirs;
   private List mappingRules;
@@ -37,6 +33,7 @@ public class TobagoConfig {
 // ----------------------------------------------------------- business methods
 
   public TobagoConfig() {
+    supportedThemes = new ArrayList();
     resourceDirs = new ArrayList();
   }
 
@@ -51,23 +48,37 @@ public class TobagoConfig {
     mappingRules.add(mappingRule);
   }
 
-  public void addTheme(Theme theme) {
-    if (themes == null) {
-      themes = new ArrayList();
+  public void setDefaultThemeClass(String name) {
+    try {
+      defaultTheme = (Theme)Class.forName(name).newInstance();
+    } catch (Exception e) {
+      String error = "Cannot create Theme from name: '" + name + "'";
+      LOG.error(error, e);
+      throw new RuntimeException(error, e);
     }
-    themes.add(theme);
     if (LOG.isDebugEnabled()) {
-      LOG.debug("adding theme " + theme);
+      LOG.debug("name = '" + name + "'");
+      LOG.debug("defaultTheme = '" + defaultTheme + "'");
+    }
+  }
+
+  public void addSupportedThemeClass(String name) {
+    try {
+      Theme theme = (Theme)Class.forName(name).newInstance();
+      supportedThemes.add(theme);
+    } catch (Exception e) {
+      String error = "Cannot create Theme from name: '" + name + "'";
+      LOG.error(error, e);
+      throw new RuntimeException(error, e);
+    }
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("name = '" + name + "'");
+      LOG.debug("supportedThemes.last() = '" + supportedThemes.get(supportedThemes.size() - 1) + "'");
     }
   }
 
   public static TobagoConfig getInstance(FacesContext facesContext) {
     return (TobagoConfig) facesContext.getExternalContext()
-        .getApplicationMap().get(TOBAGO_CONFIG);
-  }
-
-  public static TobagoConfig getInstance(ExternalContext externalContext) {
-    return (TobagoConfig) externalContext
         .getApplicationMap().get(TOBAGO_CONFIG);
   }
 
@@ -91,25 +102,24 @@ public class TobagoConfig {
 
   public Theme getTheme(String name) {
     if (name == null) {
-      LOG.warn("searching theme: null");
+      LOG.debug("searching theme: null");
       return defaultTheme;
     }
-    for (Iterator i = getThemes().iterator(); i.hasNext();) {
+    if (defaultTheme.getName().equals(name)) {
+      return defaultTheme;
+    }
+    for (Iterator i = supportedThemes.iterator(); i.hasNext();) {
       Theme theme = (Theme) i.next();
       if (theme.getName().equals(name)) {
         return theme;
       }
     }
-    LOG.warn("searching theme '" + name + "' not found. Using default: " + defaultTheme);
+    LOG.debug("searching theme '" + name + "' not found. Using default: " + defaultTheme);
     return defaultTheme;
   }
 
-  public List getThemes() {
-    if (themes == null) {
-      return Collections.EMPTY_LIST;
-    } else {
-      return themes;
-    }
+  public List getSupportedThemes() {
+    return Collections.unmodifiableList(supportedThemes);
   }
 
   public void addResourceDir(String resourceDir) {
@@ -120,32 +130,6 @@ public class TobagoConfig {
 
   public List getResourceDirs() {
     return resourceDirs;
-  }
-
-  // todo: refactor: drop this method
-  public void propagate(ServletContext context) {
-    if (themes == null) {
-      String error = "No themes found!";
-      FacesException e = new FacesException(error);
-      LOG.error(error, e);
-      throw e;
-    }
-
-    for (Iterator i = themes.iterator(); i.hasNext();) {
-      Theme theme = (Theme) i.next();
-      theme.init(this);
-      if (theme.isDefault()) {
-        defaultTheme = theme;
-      }
-    }
-    if (defaultTheme == null) {
-      if (themes.size() > 0) {
-        defaultTheme = (Theme) themes.get(0);
-        LOG.warn("No default theme defined. Using: " + defaultTheme);
-      } else {
-        LOG.error("No themes available!");
-      }
-    }
   }
 
 // ------------------------------------------------------------ getter + setter

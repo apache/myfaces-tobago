@@ -60,7 +60,6 @@ public class TobagoServletContextListener implements ServletContextListener {
       // tobago-config.xml
       TobagoConfig tobagoConfig = new TobagoConfig();
       TobagoConfigParser.parse(servletContext, tobagoConfig);
-      tobagoConfig.propagate(servletContext);
       servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
 
       // resources

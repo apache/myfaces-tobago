@@ -31,14 +31,9 @@ public class TobagoConfigParser {
     digester.push(config);
     digester.setValidating(true);
 
-    // themes
-    digester.addObjectCreate("tobago-config/theme", Theme.class);
-    digester.addSetProperties("tobago-config/theme");
-    digester.addSetNext("tobago-config/theme", "addTheme");
-    digester.addCallMethod("tobago-config/theme/name", "setName", 0);
-    digester.addCallMethod(
-        "tobago-config/theme/display-name", "setDisplayName", 0);
-    digester.addCallMethod("tobago-config/theme/fallback", "setFallback", 0);
+    // theme-config
+    digester.addCallMethod("tobago-config/theme-config/default-theme", "setDefaultThemeClass", 0);
+    digester.addCallMethod("tobago-config/theme-config/supported-theme", "addSupportedThemeClass", 0);
 
     // mapping rules
     digester.addObjectCreate("tobago-config/mapping-rule", MappingRule.class);

@@ -35,10 +35,12 @@ public class ClientProperties {
 
 // ///////////////////////////////////////////// constructors
 
-  private ClientProperties(ExternalContext context) {
+  private ClientProperties(FacesContext facesContext) {
+
+    ExternalContext externalContext = facesContext.getExternalContext();
 
     // content type
-    String accept = (String) context.getRequestHeaderMap().get("Accept");
+    String accept = (String) externalContext.getRequestHeaderMap().get("Accept");
     if (accept != null) {
       if (accept.indexOf("text/vnd.wap.wml") > -1) {
         contentType = "wml";
@@ -49,7 +51,7 @@ public class ClientProperties {
 
     // user agent
     String userAgent
-        = (String) context.getRequestHeaderMap().get("User-Agent");
+        = (String) externalContext.getRequestHeaderMap().get("User-Agent");
     this.userAgent = UserAgent.getInstance(userAgent);
     LOG.info("userAgent='" + this.userAgent + "' from header "
         + "User-Agent='" + userAgent + "'");
@@ -58,7 +60,7 @@ public class ClientProperties {
     // to enable the debug mode for a user, put a
     // "to-ba-go" custom locale to your browser
     String acceptLanguage
-        = (String) context.getRequestHeaderMap().get("Accept-Language");
+        = (String) externalContext.getRequestHeaderMap().get("Accept-Language");
     if (acceptLanguage != null) {
       this.debugMode = acceptLanguage.indexOf("to-ba-go") > -1;
     }
@@ -66,12 +68,8 @@ public class ClientProperties {
 
     // theme
     String theme
-        = (String) context.getRequestParameterMap().get("tobago.theme");
-    if (theme != null) {
-      this.theme = TobagoConfig.getInstance(context).getTheme(theme);
-    } else {
-      this.theme = TobagoConfig.getInstance(context).getDefaultTheme();
-    }
+        = (String) externalContext.getRequestParameterMap().get("tobago.theme");
+    this.theme = TobagoConfig.getInstance(facesContext).getTheme(theme);
     LOG.info("theme='" + this.theme + "' from requestParameter "
         + "tobago.theme='" + theme + "'");
   }
@@ -98,7 +96,7 @@ public class ClientProperties {
           CLIENT_PROPERTIES_IN_SESSION);
     }
     if (client == null) {
-      client = new ClientProperties(context);
+      client = new ClientProperties(facesContext);
       if (hasSession) {
         context.getSessionMap().put(CLIENT_PROPERTIES_IN_SESSION, client);
       }
