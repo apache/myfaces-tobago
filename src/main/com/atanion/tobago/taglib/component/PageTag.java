@@ -54,7 +54,9 @@ public class PageTag extends TobagoBodyTag {
   public int doStartTag() throws JspException {
     pageContext.getResponse().setContentType(generateContentType(charset));
     pageContext.setAttribute(PAGE_IN_REQUEST, this, PageContext.REQUEST_SCOPE);
-    return super.doStartTag();
+    final int result = super.doStartTag();
+    ((UIPage)getComponentInstance()).getOnloadScripts().clear();
+    return result;
   }
 
   public int doEndTag() throws JspException {
