@@ -20,11 +20,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 public class ViewHandlerImpl extends ViewHandler {
   
@@ -34,11 +30,11 @@ public class ViewHandlerImpl extends ViewHandler {
 
   public static final String PAGE_ID = "tobago::page-id";
 
-  public static final String VIEW_MAP_IN_SESSION = "com.atanion.tobago.application.ViewHandlerImpl.viewMap";
+//  public static final String VIEW_MAP_IN_SESSION = "com.atanion.tobago.application.ViewHandlerImpl.viewMap";
 
   // fixme: only for testing...
 //  public static final boolean USE_VIEW_MAP = false;
-  public static final boolean USE_VIEW_MAP = true;
+//  public static final boolean USE_VIEW_MAP = true;
 
 // ----------------------------------------------------------------- attributes
 
@@ -109,14 +105,17 @@ public class ViewHandlerImpl extends ViewHandler {
 */
     UIViewRoot root = base.createView(facesContext, viewId);
 
+/*
     if (USE_VIEW_MAP) {
       ViewMap viewMap = ensureViewMap(facesContext);
       String pageId = viewMap.addView(root);
       root.getAttributes().put(PAGE_ID, pageId);
     }
+*/
     return root;
   }
 
+/*
   private ViewMap ensureViewMap(FacesContext facesContext) {
     Map sessionMap = facesContext.getExternalContext().getSessionMap();
     ViewMap viewMap = (ViewMap) sessionMap.get(VIEW_MAP_IN_SESSION);
@@ -133,6 +132,7 @@ public class ViewHandlerImpl extends ViewHandler {
     }
     return viewMap;
   }
+*/
 
   public String getActionURL(FacesContext facesContext, String viewId) {
     return base.getActionURL(facesContext, viewId);
@@ -263,6 +263,7 @@ public class ViewHandlerImpl extends ViewHandler {
   }
 
   public UIViewRoot restoreView(FacesContext facesContext, String viewId) {
+/*
     if (USE_VIEW_MAP) {
       handleEncoding(facesContext);
       UIViewRoot viewRoot = null;
@@ -295,6 +296,7 @@ public class ViewHandlerImpl extends ViewHandler {
       }
       return viewRoot;
     } else {
+*/
       return base.restoreView(facesContext, viewId);
       // this is necessary to allow decorated impls.
 /*
@@ -306,9 +308,10 @@ public class ViewHandlerImpl extends ViewHandler {
           = facesContext.getApplication().getStateManager();
       viewRoot = stateManager.restoreView(facesContext, viewId, renderKitId);
 */
-    }
+//    }
   }
 
+/*
   private void handleEncoding(FacesContext facesContext) {
     HttpServletRequest request = (HttpServletRequest)
         facesContext.getExternalContext().getRequest();
@@ -328,14 +331,15 @@ public class ViewHandlerImpl extends ViewHandler {
       LOG.error("" + e, e);
     }
   }
+*/
 
   public void writeState(FacesContext facesContext) throws IOException {
     base.writeState(facesContext);
-//    LOG.error("not implemented yet!"); // fixme jsfbeta
   }
 
 // -------------------------------------------------------------- inner classes
 
+/*
   public static class ViewMap implements Serializable {
     private Map map;
     private int nextId;
@@ -351,11 +355,13 @@ public class ViewHandlerImpl extends ViewHandler {
       }
       return (UIViewRoot) map.get(pageId);
     }
+*/
 
     /**
      * @param viewRoot
      * @return The pageId where the view is available in this ViewMap.
      */
+/*
     public String addView(UIViewRoot viewRoot) {
       String pageId = Long.toString(nextId++);
       if (LOG.isDebugEnabled()) {
@@ -365,5 +371,6 @@ public class ViewHandlerImpl extends ViewHandler {
       return pageId;
     }
   }
+*/
 }
 

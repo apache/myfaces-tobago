@@ -257,6 +257,8 @@ public class PageRenderer extends PageRendererBase {
     writer.endElement("input");
 
 // todo: this is needed for the "BACK-BUTTON-PROBLEM"
+// but may no longer needed
+/*
     if (ViewHandlerImpl.USE_VIEW_MAP) {
       writer.startElement("input", null);
       writer.writeAttribute("type", "hidden", null);
@@ -267,6 +269,7 @@ public class PageRenderer extends PageRendererBase {
       writer.writeAttribute("value", (value != null ? value : ""), null);
       writer.endElement("input");
     }
+*/
 
     // write the proviously rendered page content 
     writer.write(content.toString());
