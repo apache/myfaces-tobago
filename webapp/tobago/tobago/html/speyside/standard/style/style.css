@@ -35,24 +35,8 @@ table {
   border-bottom: 1px solid none;
 }
 
-/* - File Upload ------------------------------------------------------------ */
-
-
-.filelist {
-  padding: 0px;
-  margin:0px;
-  border-spacing: 0px 0px 0px 0px;
-}
-
-.filelist-td {
-  height: 10px;
-  font: 12px arial, helvetica, sans-serif;
-  border-bottom: 1px solid #660000;
-  background: #d7d7d7;
-}
-
-
 /*-- Menu --------------------------------------------------------------------*/
+
 td.menu {
  height: 100%;
  background: #c1bebe url(../image/nav_bg.gif) repeat-y right;
@@ -208,10 +192,7 @@ reason they are not defined as a:link
 /* file  ------------------------------------------------------------------- */
 
 .tobago-file-default  {
-  border: 1px #000000 solid;
-  background: #ffffff;
-  font: bold 12px arial, helvetica, sans-serif;
-  color: #660000;
+  height: 20px;
 }
 
 /* groupbox ----------------------------------------------------------------- */

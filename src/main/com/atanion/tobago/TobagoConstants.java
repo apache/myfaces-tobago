@@ -62,7 +62,6 @@ public class TobagoConstants {
   public static final String ATTR_MAX = "max";
   public static final String ATTR_METHOD = "method";
   public static final String ATTR_MIN = "min";
-  public static final String ATTR_MULTIPLE_FILES = "multipleFiles";
   public static final String ATTR_MULTISELECT = "multiselect";
   public static final String ATTR_MUTABLE = "mutable";
   public static final String ATTR_NAME = "name";

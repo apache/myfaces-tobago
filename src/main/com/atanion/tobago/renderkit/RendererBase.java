@@ -271,8 +271,8 @@ public class RendererBase extends Renderer {
     try {
       return ThemeConfig.getInstance().getValue(facesContext, component, key);
     } catch (Exception e) {
-      LOG.error("Can't take \"" + key + "\" for " + getClass().getName()
-          + " from config-file :" + e.getMessage() + " " + e.getStackTrace()[0], e);
+      LOG.error("Can't take '" + key + "' for " + getClass().getName()
+          + " from config-file: " + e.getMessage(), e);
     }
     return 0;
   }
@@ -404,7 +404,6 @@ public class RendererBase extends Renderer {
   public Object getConvertedValue(FacesContext context,
       UIComponent component, Object submittedValue)
       throws ConverterException {
-    String newValue = (String) submittedValue;
     ValueBinding valueBinding = component.getValueBinding("value");
     Converter converter = null;
     Object result;
@@ -415,19 +414,16 @@ public class RendererBase extends Renderer {
       Class converterType = valueBinding.getType(context);
       if (converterType == null || converterType == String.class
           || converterType == Object.class) {
-        return newValue;
+        return submittedValue;
       }
-      try {
-        Application application = context.getApplication();
-        converter = application.createConverter(converterType);
-      } catch (Exception e) {
-        return null;
-      }
-    } else if (converter == null && valueBinding == null) {
-      return newValue;
+      Application application = context.getApplication();
+      converter = application.createConverter(converterType);
+    } else if (converter == null) {
+      return submittedValue;
     }
-    if (converter != null) {
-      result = converter.getAsObject(context, component, newValue);
+    if (converter != null && submittedValue instanceof String) {
+      result
+          = converter.getAsObject(context, component, (String)submittedValue);
       return result;
     } else {
       throw new ConverterException("type conversion error: "

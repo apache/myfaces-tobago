@@ -156,26 +156,6 @@ td.day-selected {
   color: red;
 }
 
-/* - File Upload ------------------------------------------------------------ */
-
-.filelist-td {
-  background: #d8e9fb;
-  height: 10px;
-}
-
-input.file  {
-  font: 10pt arial, helvetica, sans-serif;
-  margin-left: 0px;
-}
-
-button.upload  {
-  margin-left: 0px;
-}
-
-img.button, img.input {
-  margin-right: 5px;
-}
-
 /* ----------------------------------------------------------------------------
  * New Tobago Style definitions:
  * Syntax: .tobago-<elementname>-<attribute>
@@ -220,16 +200,10 @@ img.button, img.input {
   background: transparent;
 }
 
-/* checkboxgroup ----------------------------------------------------------- */
-.tobago-file-default  {
-  border-left: 1px solid #ddeeff;
-  border-right: 1px solid #6688aa;
-  border-top: 1px solid #ddeeff;
-  border-bottom: 1px solid #6688aa;
-  padding-left: 0.2em;
-  padding-right: 0.2em;
-  background: #bbccdd;
-  font-weight: normal;
+/* file ----------------------------------------------------------- */
+
+.tobago-file-default {
+  height: 25px;
 }
 
 /* gridlayout -------------------------------------------------------------- */
@@ -357,6 +331,7 @@ label.tobago-label-default  {
 /* textarea ---------------------------------------------------------------- */
 
 .tobago-textarea-default  {
+  border-color: #bbccdd;
   border-style: inset;
   border-width: 2px;
   font-family: arial, helvetica, sans-serif;
@@ -387,6 +362,7 @@ label.tobago-label-default  {
   background: #ffffff;
   height: 25px;
   color: #000000;
+  border-color: #bbccdd;
   border-style: inset;
   border-width: 2px;
 }

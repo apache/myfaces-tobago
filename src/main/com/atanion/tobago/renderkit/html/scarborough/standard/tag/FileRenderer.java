@@ -7,29 +7,29 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UIFile;
-import com.atanion.tobago.context.TobagoResource;
-import com.atanion.tobago.event.UploadEvent;
 import com.atanion.tobago.renderkit.DirectRenderer;
+import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoMultipartFormdataRequest;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.FacesException;
-import javax.servlet.http.HttpServletRequestWrapper;
+import javax.faces.convert.ConverterException;
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileRenderer extends RendererBase implements DirectRenderer {
+public class FileRenderer extends InputRendererBase implements DirectRenderer {
 
 // ///////////////////////////////////////////// constant
 
@@ -43,14 +43,24 @@ public class FileRenderer extends RendererBase implements DirectRenderer {
 // ///////////////////////////////////////////// constructor
 
 // ///////////////////////////////////////////// code
+
+  public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
+    int space = 0;
+
+    if (component.getFacet(TobagoConstants.FACET_LABEL) != null) {
+      int labelWidht = LayoutUtil.getLabelWidth(component);
+      space += labelWidht != 0 ? labelWidht : getLabelWidth(facesContext, component);
+    }
+
+    return space;
+  }
+
   public void decode(FacesContext facesContext, UIComponent component) {
     if (ComponentUtil.isOutputOnly(component)) {
       return;
     }
 
-    UIFile uiFile = (UIFile) component;
-
-    boolean valid = true;
+    UIInput input = (UIInput) component;
 
     TobagoMultipartFormdataRequest request = null;
     Object requestObject = facesContext.getExternalContext().getRequest();
@@ -69,101 +79,58 @@ public class FileRenderer extends RendererBase implements DirectRenderer {
           + "TobagoMultipartFormdataFilter in your web.xml.");
     }
 
-    String actionId = ComponentUtil.findPage(uiFile).getActionId();
-    UploadEvent event;
-    boolean addEvent = (actionId != null
-        && actionId.equals(uiFile.getClientId(facesContext) + ADD_BUTTON));
-    FileItem item = request.getFileItem(uiFile.getClientId(facesContext));
-    FileItem[] items = null;
-    //TODO: handle multiple uploads
-    if (item != null) {
+    FileItem item = request.getFileItem(input.getClientId(facesContext));
+    if (item != null && item.getSize() > 0) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("Uploaded file name : \"" + item.getName() +
             "\"  size = " + item.getSize());
       }
 
-      if (item.getName().length() > 0 && item.getSize() > 0) {
-        items = new FileItem[1];
-        items[0] = item;
+      List list = (List) input.getValue();
+      if (list != null) {
+        list.add(item);
+      } else {
+        list = new ArrayList();
+        list.add(item);
+        input.setSubmittedValue(list);
       }
-      if (addEvent) {
-        event = new UploadEvent(uiFile, UploadEvent.CMD_ADD, items);
-        LOG.error(
-            "This method contains non-active code! Please implement it correctly"); //fixme jsfbeta
-//        facesContext.addFacesEvent(event);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("list.size() = '" + list.size() + "'");
       }
-      else {
-        uiFile.addFiles(items);
-      }
-    }
-    else {
-      valid = false;
-      LOG.error("No File Item found!");
+      input.setValid(true);
     }
 
-    List list = (List) uiFile.getValue();
-    if (list != null) {
-      event = null;
-      ArrayList toDelete = new ArrayList();
-      for (int i=list.size()-1; i>-1;i--) {
-        if (actionId != null && actionId.equals(uiFile.getClientId(facesContext) + DELETE_BUTTON + i)) {
-          toDelete.add(list.get(i));
-        }
-      }
-      if (toDelete.size() > 0) {
-        event = new UploadEvent(uiFile, UploadEvent.CMD_DELETE,
-            (FileItem[])toDelete.toArray(new FileItem[toDelete.size()]));
-        LOG.error(
-            "This method contains non-active code! Please implement it correctly"); //fixme jsfbeta
-//        facesContext.addFacesEvent(event);
-      }
-    }
-    uiFile.setValid(valid);
   }
 
+  public Object getConvertedValue(
+      FacesContext context, UIComponent component, Object submittedValue)
+      throws ConverterException {
+    return submittedValue;
+  }
 
   public void encodeDirectEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
-    UIFile component =   (UIFile) uiComponent;
+    UIInput component = (UIInput) uiComponent;
     String clientId = component.getClientId(facesContext);
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
     boolean isInline = ComponentUtil.isInline(component);
 
-    String uploadImage = TobagoResource.getImage(facesContext, "upload.gif");
-    String removeImage = TobagoResource.getImage(facesContext, "remove.gif");
-    String onClickStart = "submitAction('"
-        + ComponentUtil.findPage(component).getFormId(facesContext) + "', '" ;
-    boolean multiple= false;
-    Boolean multi = (Boolean)
-        component.getAttributes().get(TobagoConstants.ATTR_MULTIPLE_FILES);
-    if (multi != null && multi.booleanValue()) {
-      multiple = true;
-
-
-      writer.startElement("table", null);
-      writer.writeAttribute("table", "", null);
-
-      writer.startElement("tr", null);
-
-      writer.startElement("td", null);
-      writer.writeAttribute("colspan", "3", null);
-    }
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
     if (label != null) {
       writer.writeText("", null);
       RenderUtil.encode(facesContext, label);
     }
 
-    writer.startElement("input", null);
+    writer.startElement("input", component);
     writer.writeAttribute("type", "file", null);
-    // todo: use tobago standard class names
-    writer.writeAttribute("class", "file", null);
-    if (isInline) {
-      writer.writeAttribute("style", "float: left;", null);
-    }
+    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
+//  fixme?  if (isInline) {
+//      writer.writeAttribute("style", "float: left;", null);
+//    }
     writer.writeAttribute("name", clientId, null);
     writer.writeAttribute("id", clientId, null);
     if (ComponentUtil.isDisabled(component)) {
@@ -171,117 +138,6 @@ public class FileRenderer extends RendererBase implements DirectRenderer {
     }
     writer.endElement("input");
 
-    if (multiple) {
-      writer.writeText(" ", null);
-
-      writer.startElement("button", component);
-      writer.writeAttribute("value", "Upload", null);
-      writer.writeAttribute("type", "button", null);
-      writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
-      writer.writeAttribute("name",
-          clientId + FileRenderer.ADD_BUTTON, null);
-      writer.writeAttribute("onclick", onClickStart +
-          clientId + FileRenderer.ADD_BUTTON + "')",
-          null);
-
-      writer.startElement("img", null);
-    // todo: use tobago standard class names
-      writer.writeAttribute("class", "button", null);
-      writer.writeAttribute("src", uploadImage, null);
-      writer.writeAttribute("alt", "", null);
-      writer.endElement("img");
-
-      writer.write("&nbsp;");
-      writer.writeText("Upload", null);
-
-      writer.endElement("button");
-
-      writer.endElement("td");
-      writer.endElement("tr");
-
-      List list = (List) component.getValue();
-      if (list != null) {
-
-        writer.startElement("tr", null);
-
-        writer.startElement("td", null);
-        writer.writeAttribute("colspan", "3", null);
-
-        writer.startElement("br", null);
-        writer.writeAttribute("style", "line-height: 10px;", null);
-
-        writer.startElement("b", null);
-        writer.writeText("Uploaded Files:", null);
-        writer.endElement("b");
-
-        writer.endElement("td");
-        writer.endElement("tr");
-
-        writer.startElement("tr", null);
-
-        writer.startElement("td", null);
-        writer.startElement("b", null);
-        writer.writeText("Filename", null);
-        writer.endElement("b");
-        writer.endElement("td");
-
-        writer.startElement("td", null);
-        writer.startElement("b", null);
-        writer.writeText("Size", null);
-        writer.endElement("b");
-        writer.endElement("td");
-
-        writer.startElement("td", null);
-        writer.startElement("b", null);
-        writer.write("&nbsp;");
-        writer.endElement("b");
-        writer.endElement("td");
-
-        writer.endElement("tr");
-
-        for (int i=0; i<list.size();i++) {
-          FileItem fileItem = (FileItem) list.get(i);
-
-          writer.startElement("tr", null);
-
-          writer.startElement("td", null);
-          writer.writeAttribute("class", "filelist-td", null);
-          writer.writeText(fileItem.getName(), null);
-          writer.endElement("td");
-
-          writer.startElement("td", null);
-          writer.writeAttribute("class", "filelist-td", null);
-          writer.writeText(Long.toString(fileItem.getSize()), null);
-          writer.endElement("td");
-
-          writer.startElement("td", null);
-
-          String name = clientId + FileRenderer.DELETE_BUTTON + i;
-          writer.startElement("button", component);
-          writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
-          writer.writeAttribute("type", "submit", null);
-          writer.writeAttribute("value", "Remove", null);
-          writer.writeAttribute("name", name, null);
-          writer.writeAttribute("onclick", onClickStart + name + "')", null);
-
-
-          writer.startElement("img", null);
-          // todo: use tobago standard class names
-          writer.writeAttribute("class", "button", null);
-          writer.writeAttribute("src", removeImage, null);
-          writer.write("&nbsp;");
-          writer.writeText("Remove", null);
-          writer.endElement("img");
-
-          writer.endElement("button");
-
-          writer.endElement("td");
-          writer.endElement("tr");
-        }
-
-      }
-      writer.endElement("table");
-    }
     if (!isInline) {
       writer.startElement("br", null);
       writer.writeAttribute("style", "clear: left; line-height: 0px", null);
