@@ -58,8 +58,7 @@ public class TobagoResponseWriter extends ResponseWriter {
 // ///////////////////////////////////////////// constructor
 
   public TobagoResponseWriter(
-      Writer writer, String contentType,
-      String characterEncoding) {
+      Writer writer, String contentType, String characterEncoding) {
     this.writer = writer;
     this.stack = new Stack();
     this.contentType = contentType;
@@ -277,7 +276,11 @@ public class TobagoResponseWriter extends ResponseWriter {
       writer.write(' ');
       writer.write(name);
       writer.write("=\"");
-      writer.write(HtmlUtils.escapeAttribute(attribute));
+      if (xml) {
+        writer.write(XmlUtils.escape(attribute));
+      } else {
+        writer.write(HtmlUtils.escapeAttribute(attribute));
+      }
       writer.write('\"');
     }
   }
