@@ -52,10 +52,9 @@ import java.util.Map;
 
 public class SheetRenderer extends RendererBase {
 
-// ///////////////////////////////////////////// constant
+// ------------------------------------------------------------------ constants
 
   private static final Log LOG = LogFactory.getLog(SheetRenderer.class);
-
 
   public static final String FIRST = "first";
   public static final String PAGE_TO_ROW = "pageToRow";
@@ -71,164 +70,16 @@ public class SheetRenderer extends RendererBase {
   public static final String PAGE_TO_ROW_POSTFIX
       = TobagoConstants.SUBCOMPONENT_SEP + PAGE_TO_ROW;
 
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
+// ----------------------------------------------------------------- interfaces
 
 
-
-  private int getAscendingMarkerWidth(FacesContext facesContext,
-      UIComponent component) {
-    return getConfiguredValue(facesContext, component, "ascendingMarkerWidth");
-  }
-
-  public void encodeEnd(FacesContext facesContext, UIComponent component)
-      throws IOException {
-    setupState(facesContext, (UIData) component);
-    storeFooterHeight(facesContext, component);
-    super.encodeEnd(facesContext, component);
-  }
-
-  private void setupState(FacesContext facesContext, UIData data) {
-    SheetState state = data.getSheetState(facesContext);
-    ensureColumnWidthList(facesContext, data, state);
-
-  }
-
-  private void storeFooterHeight(FacesContext facesContext,
-      UIComponent component) {
-    component.getAttributes().put(TobagoConstants.ATTR_FOOTER_HEIGHT,
-        new Integer(getFooterHeight(facesContext, component)));
-  }
-
-  private int getFooterHeight(FacesContext facesContext, UIComponent component) {
-    int footerHeight;
-    if (isValidPagingAttribute((UIData) component, ATTR_SHOW_ROW_RANGE)
-        || isValidPagingAttribute((UIData) component, ATTR_SHOW_PAGE_RANGE)
-        || isValidPagingAttribute((UIData) component, ATTR_SHOW_DIRECT_LINKS)) {
-      footerHeight =
-          getConfiguredValue(facesContext, component, "footerHeight");
-    } else {
-      footerHeight = 0;
-    }
-    return footerHeight;
-  }
-
-  private void ensureColumnWidthList(FacesContext facesContext, UIData data,
-      SheetState state) {
-    List widthList = null;
-    List columns = getColumns(data);
-
-    final Map attributes = data.getAttributes();
-    String widthListString = null;
-
-    if (state != null) {
-      widthListString = state.getColumnWidths();
-    }
-    if (widthListString == null) {
-      widthListString =
-          (String) attributes.get(TobagoConstants.ATTR_WIDTH_LIST_STRING);
-    }
-
-    if (widthListString != null) {
-      widthList = SheetState.parse(widthListString);
-    }
-    if (widthList != null && widthList.size() != columns.size()) {
-      widthList = null;
-    }
-
-
-    if (widthList == null) {
-
-      String columnLayout =
-          (String) attributes.get(TobagoConstants.ATTR_COLUMNS);
-
-      if (columnLayout == null && columns.size() > 0) {
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < columns.size(); i++) {
-          sb.append("1*;");
-        }
-        columnLayout = sb.deleteCharAt(sb.lastIndexOf(";")).toString();
-        if (LOG.isWarnEnabled()) {
-          LOG.warn("No columns found! Using created layout tokens: " + columnLayout);
-        }
-      }
-
-      if (widthList == null) {
-        int space = LayoutUtil.getInnerSpace(facesContext, data, true);
-        space -= getConfiguredValue(facesContext, data, "contentBorder");
-        if (needVerticalScrollbar(facesContext, data)) {
-          space -= getScrollbarWidth(facesContext, data);
-        }
-        LayoutInfo layoutInfo = new LayoutInfo(getColumns(data).size(),
-            space, columnLayout);
-        layoutInfo.parseColumnLayout(space);
-        widthList = layoutInfo.getSpaceList();
-      }
-    }
-
-    if (widthList != null) {
-      if (columns.size() != widthList.size()) {
-        LOG.warn("widthList.size() = " + widthList.size() +
-            " != columns.size() = " + columns.size() + "  widthList : "
-            + LayoutInfo.listToTokenString(widthList));
-      } else {
-        attributes.put(TobagoConstants.ATTR_WIDTH_LIST, widthList);
-      }
-    }
-  }
-
-  private boolean needVerticalScrollbar(FacesContext facesContext, UIData data) {
-    // estimate need of height-scrollbar on client, if yes we have to consider
-    // this when calculating column width's
-
-    final Object forceScroolbar
-        = data.getAttributes().get(ATTR_FORCE_VERTICAL_SCROLLBAR);
-    if (forceScroolbar != null) {
-      if ("true".equals(forceScroolbar)) {
-        return true;
-      } else if ("false".equals(forceScroolbar)) {
-        return false;
-      } else if (!"auto".equals(forceScroolbar)) {
-        LOG.warn("Illegal value for attibute 'forceVerticalScrollbar' : \""
-            + forceScroolbar + "\"");
-      }
-    }
-
-    String style = (String) data.getAttributes().get(
-        TobagoConstants.ATTR_STYLE);
-    String heightString = LayoutUtil.getStyleAttributeValue(style, "height");
-    if (heightString != null) {
-      int first = data.getFirst();
-      int rows = Math.min(data.getRowCount(), first + data.getRows()) - first;
-      int heightNeeded = getHeaderHeight(facesContext, data)
-          + getFooterHeight(facesContext, data)
-          + (rows * (getFixedHeight(facesContext, null)
-                     + getRowPadding(facesContext, data)));
-
-      int height = Integer.parseInt(heightString.replaceAll("\\D", ""));
-      return heightNeeded > height;
-    } else {
-      return false;
-    }
-  }
-
-  private int getRowPadding(FacesContext facesContext, UIComponent component) {
-    return getConfiguredValue(facesContext, component, "rowPadding");
-  }
-
-
-  private int getScrollbarWidth(FacesContext facesContext,
-      UIComponent component) {
-    return getConfiguredValue(facesContext, component, "scrollbarWidth");
-  }
+// ---------------------------- interface TobagoRenderer
 
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
     UIData component = (UIData) uiComponent;
-    String image1x1 = ResourceManagerUtil.getImage(facesContext, "image/1x1.gif");
+    String image1x1 = ResourceManagerUtil.getImage(facesContext,
+        "image/1x1.gif");
     String ascending = ResourceManagerUtil.getImage(facesContext,
         "image/ascending.gif");
     String descending = ResourceManagerUtil.getImage(facesContext,
@@ -244,7 +95,8 @@ public class SheetRenderer extends RendererBase {
         = ResourceManagerUtil.getImage(facesContext,
             "image/sheetUncheckedDisabled.gif");
     String unchecked
-        = ResourceManagerUtil.getImage(facesContext, "image/sheetUnchecked.gif");
+        = ResourceManagerUtil.getImage(facesContext,
+            "image/sheetUnchecked.gif");
     uiPage.getOnloadScripts().add("tobagoSheetSetUncheckedImage(\"" + sheetId +
         "\", \"" +
         unchecked
@@ -339,7 +191,6 @@ public class SheetRenderer extends RendererBase {
         UIColumn column = (UIColumn) j.next();
         renderColumnHeader(facesContext, writer, component, columnCount, column,
             ascending, descending, image1x1, sortMarkerWidth);
-
       }
       writer.startElement("div", null);
       writer.writeAttribute("id", sheetId + "_header_box_filler", null);
@@ -357,7 +208,6 @@ public class SheetRenderer extends RendererBase {
 //      writer.endElement("table");
       writer.endElement("div");
       // end rendering header
-
     }
 
 
@@ -571,12 +421,11 @@ public class SheetRenderer extends RendererBase {
 
 
       if (isValidPagingValue(showRowRange)) {
-
-
-        UICommand pagerCommand = (UICommand) component.getFacet(FACET_PAGER_ROW);
+        UICommand pagerCommand = (UICommand) component.getFacet(
+            FACET_PAGER_ROW);
         if (pagerCommand == null) {
           pagerCommand
-              = createPagingCommand(application, PAGE_TO_ROW, false, pager );
+              = createPagingCommand(application, PAGE_TO_ROW, false, pager);
           component.getFacets().put(FACET_PAGER_ROW, pagerCommand);
         }
         String pagingOnClick
@@ -589,12 +438,12 @@ public class SheetRenderer extends RendererBase {
 
         writer.startElement("span", null);
         writer.writeAttribute("onclick", "tobagoSheetEditPagingRow(this, '"
-            + pagerCommandId + "', '" + pagingOnClick + "')" , null);
+            + pagerCommandId + "', '" + pagingOnClick + "')", null);
         writer.writeAttribute("class", className, null);
         writer.writeAttribute("title", ResourceManagerUtil.getProperty(
             facesContext, "tobago", "sheetPagingInfoRowPagingTip"), null);
-        writer.write(createSheetPagingInfo(
-            component, facesContext, pagerCommandId, pager, true));
+        writer.write(createSheetPagingInfo(component, facesContext,
+            pagerCommandId, pager, true));
         writer.endElement("span");
       }
 
@@ -617,7 +466,7 @@ public class SheetRenderer extends RendererBase {
               = createPagingCommand(application, PAGE_TO_PAGE, false, pager);
           component.getFacets().put(FACET_PAGER_PAGE, pagerCommand);
         }
-        String  pagingOnClick
+        String pagingOnClick
             = ButtonRenderer.createOnClick(facesContext, pagerCommand);
         pagingOnClick = pagingOnClick.replaceAll("'", "\"");
         String pagerCommandId = pagerCommand.getClientId(facesContext);
@@ -631,17 +480,16 @@ public class SheetRenderer extends RendererBase {
         writer.writeText("", null);
 
 
-
         link(facesContext, application, pager, pager.isAtBeginning(), FIRST);
         link(facesContext, application, pager, pager.isAtBeginning(), PREV);
         writer.startElement("span", null);
         writer.writeAttribute("class", "tobago-sheet-paging-pages-text", null);
         writer.writeAttribute("onclick", "tobagoSheetEditPagingRow(this, '"
-            + pagerCommandId + "', '" + pagingOnClick + "')" , null);
+            + pagerCommandId + "', '" + pagingOnClick + "')", null);
         writer.writeAttribute("title", ResourceManagerUtil.getProperty(
             facesContext, "tobago", "sheetPagingInfoPagePagingTip"), null);
-        writer.write(createSheetPagingInfo(
-            component, facesContext, pagerCommandId, pager, false));
+        writer.write(createSheetPagingInfo(component, facesContext,
+            pagerCommandId, pager, false));
         writer.endElement("span");
         link(facesContext, application, pager, pager.isAtEnd(), NEXT);
         link(facesContext, application, pager, pager.isAtEnd(), LAST);
@@ -652,156 +500,20 @@ public class SheetRenderer extends RendererBase {
     }
 
     writer.endElement("div");
-
   }
 
-  private String getPagingAttribute(UIData component, String name) {
-    String value = ComponentUtil.getStringAttribute(component, name);
-    if (isValidPagingValue(value)) {
-      return value;
-    } else {
-      if (! "none".equals(value)) {
-        LOG.warn("illegal value in sheet' paging attribute : \"" + value + "\"");
-      }
-      return "none";
-    }
-  }
-
-  private boolean isValidPagingValue(String value) {
-    return "left".equals(value) || "center".equals(value) || "right".equals(value);
-  }
-
-  private boolean isValidPagingAttribute(UIData component, String name) {
-    return isValidPagingValue(getPagingAttribute(component, name));
-  }
-
-  private void writeDirectPagingLinks(ResponseWriter writer,
-    FacesContext facesContext, Application application, Pager pager)
-      throws IOException {
-    final UIData data = pager.getComponent();
-    UICommand pagerCommand = (UICommand) data.getFacet(FACET_PAGER_PAGE);
-    if (pagerCommand == null) {
-      pagerCommand = createPagingCommand(application, PAGE_TO_PAGE, false, pager);
-      data.getFacets().put(FACET_PAGER_PAGE, pagerCommand);
-    }
-    String pagerCommandId = pagerCommand.getClientId(facesContext);
-    String hrefPostfix = "', '" + ButtonRenderer.createOnClick(
-        facesContext, pagerCommand).replaceAll("'", "\"") + "');";
-
-    int linkCount = ComponentUtil.getIntAttribute(data, ATTR_DIRECT_LINK_COUNT);
-    linkCount --;  // current page needs no link
-    ArrayList prevs = new ArrayList(linkCount);
-    int page = pager.getPage();
-    for (int i = 0; i < linkCount && page > 1; i++) {
-      page--;
-      if (page > 0) {
-        prevs.add(0, new Integer(page));
-      }
-    }
-    LOG.info("hier sind " + prevs.size() + " prevs");
-
-    ArrayList nexts = new ArrayList(linkCount);
-    page = pager.getPage();
-    for (int i = 0; i < linkCount && page < pager.getPages(); i++) {
-      page++;
-      if (page > 1) {
-        nexts.add(new Integer(page));
-      }
-    }
-    LOG.info("hier sind " + nexts.size() + " nexts");
-
-    if (prevs.size() > (linkCount/2) && nexts.size() > (linkCount - (linkCount/2))) {
-      LOG.info("1");
-      while (prevs.size() > (linkCount/2)) {
-        prevs.remove(0);
-      }
-      while (nexts.size() > (linkCount - (linkCount/2))) {
-        nexts.remove(nexts.size() -1);
-      }
-    } else if (prevs.size() <= (linkCount/2)) {
-      LOG.info("2");
-      while (prevs.size() + nexts.size() > linkCount) {
-        nexts.remove(nexts.size() -1);
-      }
-    } else {
-      LOG.info("3");
-      while (prevs.size() + nexts.size() > linkCount) {
-        prevs.remove(0);
-      }
-    }
-    LOG.info("hier sind " + prevs.size() + " prevs");
-    LOG.info("hier sind " + nexts.size() + " nexts");
-
-    String name;
-    int skip = prevs.size() > 0 ?  ((Integer)prevs.get(0)).intValue() : 1;
-    LOG.info("skip ist " + skip );
-    if (skip > 1) {
-      skip -= (linkCount - (linkCount/2));
-      skip--;
-      name = "...";
-      if (skip < 1) {
-        skip = 1;
-        if (((Integer)prevs.get(0)).intValue() == 2) {
-          name = "1";
-        }
-      }
-      writeLinkElement(writer, name, Integer.toString(skip),
-          pagerCommandId, hrefPostfix, true);
-    }
-    for (Iterator iter = prevs.iterator(); iter.hasNext();) {
-      name = ((Integer) iter.next()).toString();
-      writeLinkElement(writer, name, name, pagerCommandId, hrefPostfix, true);
-    }
-    name = Integer.toString(pager.getPage());
-    writeLinkElement(writer, name, name, pagerCommandId, hrefPostfix, false);
-
-    for (Iterator iter = nexts.iterator(); iter.hasNext();) {
-      name = ((Integer) iter.next()).toString();
-      writeLinkElement(writer, name, name, pagerCommandId, hrefPostfix, true);
-    }
-
-    skip = nexts.size() > 0
-        ? ((Integer)nexts.get(nexts.size()-1)).intValue() : pager.getPages();
-    LOG.info("skip ist " + skip );
-    if (skip < pager.getPages()) {
-      skip += linkCount / 2;
-      skip++;
-      name = "...";
-      if (skip > pager.getPages()) {
-        skip = pager.getPages();
-        if (((Integer)nexts.get(nexts.size()-1)).intValue() == skip - 1) {
-          name = Integer.toString(skip);
-        }
-      }
-      writeLinkElement(writer, name, Integer.toString(skip), pagerCommandId,
-          hrefPostfix, true);
-    }
-  }
-
-  private void writeLinkElement(ResponseWriter writer, String str, String skip,
-                                String id, String hrefPostfix, boolean makeLink)
-      throws IOException {
-    String type = makeLink ? "a" : "span";
-    writer.startElement(type, null);
-    writer.writeAttribute("class", "tobago-sheet-paging-links-link", null);
-    if (makeLink) {
-      writer.writeAttribute("id", id + SUBCOMPONENT_SEP + "link_" + skip, null);
-      writer.writeAttribute("href", "javascript: tobagoSheetSetPagerPage('"
-          + id + "', '" + skip + hrefPostfix, null);
-    }
-    writer.write(str);
-    writer.endElement(type);
-  }
+// ----------------------------------------------------------- business methods
 
   private String createSheetPagingInfo(UIData component,
-      FacesContext facesContext, String pagerCommandId, Pager pager, boolean row) {
+      FacesContext facesContext, String pagerCommandId, Pager pager,
+      boolean row) {
     String sheetPagingInfo;
     if (component.getRowCount() > 0) {
       Locale locale = facesContext.getViewRoot().getLocale();
       int first;
       int last;
       if (row) {
-        first  = component.getFirst() + 1;
+        first = component.getFirst() + 1;
         last = pager.getLast();
       } else { // page
         first = pager.getPage();
@@ -823,17 +535,288 @@ public class SheetRenderer extends RendererBase {
         pagerCommandId + SUBCOMPONENT_SEP + "text"};
       sheetPagingInfo = detail.format(args);
     } else {
-      sheetPagingInfo = ResourceManagerUtil.getProperty(
-          facesContext, "tobago", "sheetPagingInfoEmpty" + (row ? "Row" : "Page"));
+      sheetPagingInfo =
+          ResourceManagerUtil.getProperty(facesContext, "tobago",
+              "sheetPagingInfoEmpty" + (row ? "Row" : "Page"));
     }
     return sheetPagingInfo;
+  }
+
+  public void decode(FacesContext facesContext, UIComponent component) {
+    super.decode(facesContext, component);
+
+
+    String key = component.getClientId(facesContext) + WIDTHS_POSTFIX;
+
+    Map requestParameterMap = facesContext.getExternalContext()
+        .getRequestParameterMap();
+    if (requestParameterMap.containsKey(key)) {
+      String widths = (String) requestParameterMap.get(key);
+      if (widths.trim().length() > 0) {
+        component.getAttributes().put(TobagoConstants.ATTR_WIDTH_LIST_STRING,
+            widths);
+      }
+    }
+
+    key = component.getClientId(facesContext) + SELECTED_POSTFIX;
+    if (requestParameterMap.containsKey(key)) {
+      String selected = (String) requestParameterMap.get(key);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("selected = " + selected);
+      }
+      component.getAttributes().put(TobagoConstants.ATTR_SELECTED_LIST_STRING,
+          selected);
+    }
+  }
+
+  public void encodeEnd(FacesContext facesContext, UIComponent component)
+      throws IOException {
+    setupState(facesContext, (UIData) component);
+    storeFooterHeight(facesContext, component);
+    super.encodeEnd(facesContext, component);
+  }
+
+  private void setupState(FacesContext facesContext, UIData data) {
+    SheetState state = data.getSheetState(facesContext);
+    ensureColumnWidthList(facesContext, data, state);
+  }
+
+  private void ensureColumnWidthList(FacesContext facesContext, UIData data,
+      SheetState state) {
+    List widthList = null;
+    List columns = getColumns(data);
+
+    final Map attributes = data.getAttributes();
+    String widthListString = null;
+
+    if (state != null) {
+      widthListString = state.getColumnWidths();
+    }
+    if (widthListString == null) {
+      widthListString =
+          (String) attributes.get(TobagoConstants.ATTR_WIDTH_LIST_STRING);
+    }
+
+    if (widthListString != null) {
+      widthList = SheetState.parse(widthListString);
+    }
+    if (widthList != null && widthList.size() != columns.size()) {
+      widthList = null;
+    }
+
+
+    if (widthList == null) {
+      String columnLayout =
+          (String) attributes.get(TobagoConstants.ATTR_COLUMNS);
+
+      if (columnLayout == null && columns.size() > 0) {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < columns.size(); i++) {
+          sb.append("1*;");
+        }
+        columnLayout = sb.deleteCharAt(sb.lastIndexOf(";")).toString();
+        if (LOG.isWarnEnabled()) {
+          LOG.warn(
+              "No columns found! Using created layout tokens: " + columnLayout);
+        }
+      }
+
+      if (widthList == null) {
+        int space = LayoutUtil.getInnerSpace(facesContext, data, true);
+        space -= getConfiguredValue(facesContext, data, "contentBorder");
+        if (needVerticalScrollbar(facesContext, data)) {
+          space -= getScrollbarWidth(facesContext, data);
+        }
+        LayoutInfo layoutInfo = new LayoutInfo(getColumns(data).size(),
+            space, columnLayout);
+        layoutInfo.parseColumnLayout(space);
+        widthList = layoutInfo.getSpaceList();
+      }
+    }
+
+    if (widthList != null) {
+      if (columns.size() != widthList.size()) {
+        LOG.warn("widthList.size() = " + widthList.size() +
+            " != columns.size() = " + columns.size() + "  widthList : "
+            + LayoutInfo.listToTokenString(widthList));
+      } else {
+        attributes.put(TobagoConstants.ATTR_WIDTH_LIST, widthList);
+      }
+    }
+  }
+
+  private List getColumns(UIData sheet) {
+    List columns = new ArrayList();
+    for (Iterator kids = sheet.getChildren().iterator(); kids.hasNext();) {
+      UIComponent kid = (UIComponent) kids.next();
+      if (kid instanceof UIColumn && kid.isRendered()) {
+        columns.add(kid);
+      }
+    }
+    return columns;
+  }
+
+  private boolean needVerticalScrollbar(FacesContext facesContext, UIData data) {
+    // estimate need of height-scrollbar on client, if yes we have to consider
+    // this when calculating column width's
+
+    final Object forceScroolbar
+        = data.getAttributes().get(ATTR_FORCE_VERTICAL_SCROLLBAR);
+    if (forceScroolbar != null) {
+      if ("true".equals(forceScroolbar)) {
+        return true;
+      } else if ("false".equals(forceScroolbar)) {
+        return false;
+      } else if (!"auto".equals(forceScroolbar)) {
+        LOG.warn("Illegal value for attibute 'forceVerticalScrollbar' : \""
+            + forceScroolbar + "\"");
+      }
+    }
+
+    String style = (String) data.getAttributes().get(
+        TobagoConstants.ATTR_STYLE);
+    String heightString = LayoutUtil.getStyleAttributeValue(style, "height");
+    if (heightString != null) {
+      int first = data.getFirst();
+      int rows = Math.min(data.getRowCount(), first + data.getRows()) - first;
+      int heightNeeded = getHeaderHeight(facesContext, data)
+          + getFooterHeight(facesContext, data)
+          + (rows * (getFixedHeight(facesContext, null)
+          + getRowPadding(facesContext, data)));
+
+      int height = Integer.parseInt(heightString.replaceAll("\\D", ""));
+      return heightNeeded > height;
+    } else {
+      return false;
+    }
+  }
+
+  private int getRowPadding(FacesContext facesContext, UIComponent component) {
+    return getConfiguredValue(facesContext, component, "rowPadding");
+  }
+
+  private int getScrollbarWidth(FacesContext facesContext,
+      UIComponent component) {
+    return getConfiguredValue(facesContext, component, "scrollbarWidth");
+  }
+
+  private void storeFooterHeight(FacesContext facesContext,
+      UIComponent component) {
+    component.getAttributes().put(TobagoConstants.ATTR_FOOTER_HEIGHT,
+        new Integer(getFooterHeight(facesContext, component)));
+  }
+
+  private int getFooterHeight(FacesContext facesContext, UIComponent component) {
+    int footerHeight;
+    if (isValidPagingAttribute((UIData) component, ATTR_SHOW_ROW_RANGE)
+        || isValidPagingAttribute((UIData) component, ATTR_SHOW_PAGE_RANGE)
+        || isValidPagingAttribute((UIData) component, ATTR_SHOW_DIRECT_LINKS)) {
+      footerHeight =
+          getConfiguredValue(facesContext, component, "footerHeight");
+    } else {
+      footerHeight = 0;
+    }
+    return footerHeight;
+  }
+
+  private boolean isValidPagingAttribute(UIData component, String name) {
+    return isValidPagingValue(getPagingAttribute(component, name));
+  }
+
+  private String getPagingAttribute(UIData component, String name) {
+    String value = ComponentUtil.getStringAttribute(component, name);
+    if (isValidPagingValue(value)) {
+      return value;
+    } else {
+      if (!"none".equals(value)) {
+        LOG.warn(
+            "illegal value in sheet' paging attribute : \"" + value + "\"");
+      }
+      return "none";
+    }
+  }
+
+  private boolean isValidPagingValue(String value) {
+    return "left".equals(value) || "center".equals(value) ||
+        "right".equals(value);
+  }
+
+  private int getAscendingMarkerWidth(FacesContext facesContext,
+      UIComponent component) {
+    return getConfiguredValue(facesContext, component, "ascendingMarkerWidth");
+  }
+
+  private List getChildren(UIColumn column) {
+    List columns = new ArrayList();
+    for (Iterator kids = column.getChildren().iterator(); kids.hasNext();) {
+      UIComponent kid = (UIComponent) kids.next();
+      if (kid.isRendered()) {
+        columns.add(kid);
+      }
+    }
+    return columns;
+  }
+
+  public boolean getRendersChildren() {
+    return true;
+  }
+
+  private String getSelected(UIData data, SheetState state) {
+    String selected = (String)
+        data.getAttributes().get(TobagoConstants.ATTR_SELECTED_LIST_STRING);
+    if (selected == null && state != null) {
+      selected = state.getSelected();
+    }
+    return selected != null ? selected : "";
+  }
+
+  private static void link(FacesContext facesContext, Application application,
+      SheetRenderer.Pager pager, boolean disabled, String command)
+      throws IOException {
+    UICommand link;
+//    UIGraphic image;
+    link = createPagingCommand(application, command, disabled, pager);
+
+//    image = (UIGraphic) application.createComponent(UIGraphic.COMPONENT_TYPE);
+//    image.setRendererType("Image"); //fixme: use constant ?
+//    image.setRendered(true);
+//    image.getAttributes().put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
+//    if (disabled) {
+//      image.setValue(command + "Disabled.gif");
+//    } else {
+//      image.setValue(command + ".gif");
+//    }
+//    image.getAttributes().put(TobagoConstants.ATTR_TITLE,
+//        ResourceManagerUtil.getProperty(facesContext, "tobago",
+//            "sheet" + command));
+//    link.getChildren().add(image);
+
+
+
+
+    pager.getComponent().getFacets().put(command, link);
+//    RenderUtil.encode(facesContext, link);
+
+
+    String tip = ResourceManagerUtil.getProperty(facesContext, "tobago",
+        "sheet" + command);
+    String image = ResourceManagerUtil.getImage(facesContext,
+        "image/" + command + (disabled ? "Disabled" : "") + ".gif");
+    String onClick = ButtonRenderer.createOnClick(facesContext, link);
+
+    ResponseWriter writer = facesContext.getResponseWriter();
+    writer.startElement("img", null);
+    writer.writeAttribute("class", "tobago-sheet-footer-pager-button", null);
+    writer.writeAttribute("src", image, null);
+    writer.writeAttribute("title", tip, null);
+    writer.writeAttribute("onclick", onClick, null);
+    writer.endElement("img");
   }
 
   private void renderColumnHeader(FacesContext facesContext,
       ResponseWriter writer, UIData component,
       int columnCount, UIColumn column, String ascending, String descending,
       String image1x1, int sortMarkerWidth) throws IOException {
-
     String sheetId = component.getClientId(facesContext);
     Application application = facesContext.getApplication();
     Sorter sorter = getSorter(component);
@@ -912,7 +895,8 @@ public class SheetRenderer extends RendererBase {
       renderColumnSelectorHeader(facesContext, writer, column, columnCount,
           sorter);
     } else {
-      resizerClass = "tobago-sheet-header-resize tobago-sheet-header-resize-cursor";
+      resizerClass =
+          "tobago-sheet-header-resize tobago-sheet-header-resize-cursor";
       renderColumnHeaderLabel(writer, column, columnCount, sorter, sortMarkerWidth, align,
           image1x1);
     }
@@ -946,6 +930,16 @@ public class SheetRenderer extends RendererBase {
     writer.endElement("div");
   }
 
+  private Sorter getSorter(UIData component) {
+    Sorter sorter = (Sorter)
+        component.getAttributes().get(TobagoConstants.ATTR_SHEET_SORTER);
+    if (sorter == null) {
+      sorter = new Sorter(component);
+      component.getAttributes().put(TobagoConstants.ATTR_SHEET_SORTER, sorter);
+    }
+    return sorter;
+  }
+
   private void renderColumnSelectorHeader(FacesContext facesContext,
       ResponseWriter writer, UIColumn column, int columnCount, Sorter sorter)
       throws IOException {
@@ -973,7 +967,6 @@ public class SheetRenderer extends RendererBase {
       label = ResourceManagerUtil.getProperty(facesContext, "tobago",
           "sheetMenuToggleselect");
       menu.getChildren().add(createMenuItem(application, label, action));
-
     }
 
     writer.startElement("div", null);
@@ -998,7 +991,6 @@ public class SheetRenderer extends RendererBase {
   private void renderColumnHeaderLabel(ResponseWriter writer, UIColumn column,
       int columnCount, Sorter sorter, int sortMarkerWidth, String align,
       String image1x1) throws IOException {
-
     String label
         = (String) column.getAttributes().get(TobagoConstants.ATTR_LABEL);
     if (label != null) {
@@ -1016,17 +1008,7 @@ public class SheetRenderer extends RendererBase {
       writer.writeAttribute("src", image1x1, null);
       writer.writeAttribute("alt", "", null);
       writer.endElement("img");
-
     }
-  }
-
-  private String getSelected(UIData data, SheetState state) {
-    String selected = (String)
-        data.getAttributes().get(TobagoConstants.ATTR_SELECTED_LIST_STRING);
-    if (selected == null && state != null) {
-      selected = state.getSelected();
-    }
-    return selected != null ? selected : "";
   }
 
   private void setStoredState(UIData component, Sorter sorter,
@@ -1038,76 +1020,104 @@ public class SheetRenderer extends RendererBase {
     }
   }
 
-  private List getColumns(UIData sheet) {
-
-    List columns = new ArrayList();
-    for (Iterator kids = sheet.getChildren().iterator(); kids.hasNext();) {
-      UIComponent kid = (UIComponent) kids.next();
-      if (kid instanceof UIColumn && kid.isRendered()) {
-        columns.add(kid);
-      }
-    }
-    return columns;
-  }
-
-  private List getChildren(UIColumn column) {
-
-    List columns = new ArrayList();
-    for (Iterator kids = column.getChildren().iterator(); kids.hasNext();) {
-      UIComponent kid = (UIComponent) kids.next();
-      if (kid.isRendered()) {
-        columns.add(kid);
-      }
-    }
-    return columns;
-  }
-
-  private static void link(FacesContext facesContext, Application application,
-      SheetRenderer.Pager pager, boolean disabled, String command)
+  private void writeDirectPagingLinks(ResponseWriter writer,
+      FacesContext facesContext, Application application, Pager pager)
       throws IOException {
-    UICommand link;
-//    UIGraphic image;
-    link = createPagingCommand(application, command, disabled, pager);
+    final UIData data = pager.getComponent();
+    UICommand pagerCommand = (UICommand) data.getFacet(FACET_PAGER_PAGE);
+    if (pagerCommand == null) {
+      pagerCommand =
+          createPagingCommand(application, PAGE_TO_PAGE, false, pager);
+      data.getFacets().put(FACET_PAGER_PAGE, pagerCommand);
+    }
+    String pagerCommandId = pagerCommand.getClientId(facesContext);
+    String hrefPostfix = "', '" + ButtonRenderer.createOnClick(facesContext,
+        pagerCommand).replaceAll("'", "\"") + "');";
 
-//    image = (UIGraphic) application.createComponent(UIGraphic.COMPONENT_TYPE);
-//    image.setRendererType("Image"); //fixme: use constant ?
-//    image.setRendered(true);
-//    image.getAttributes().put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
-//    if (disabled) {
-//      image.setValue(command + "Disabled.gif");
-//    } else {
-//      image.setValue(command + ".gif");
-//    }
-//    image.getAttributes().put(TobagoConstants.ATTR_TITLE,
-//        ResourceManagerUtil.getProperty(facesContext, "tobago",
-//            "sheet" + command));
-//    link.getChildren().add(image);
+    int linkCount = ComponentUtil.getIntAttribute(data, ATTR_DIRECT_LINK_COUNT);
+    linkCount--;  // current page needs no link
+    ArrayList prevs = new ArrayList(linkCount);
+    int page = pager.getPage();
+    for (int i = 0; i < linkCount && page > 1; i++) {
+      page--;
+      if (page > 0) {
+        prevs.add(0, new Integer(page));
+      }
+    }
 
+    ArrayList nexts = new ArrayList(linkCount);
+    page = pager.getPage();
+    for (int i = 0; i < linkCount && page < pager.getPages(); i++) {
+      page++;
+      if (page > 1) {
+        nexts.add(new Integer(page));
+      }
+    }
 
+    if (prevs.size() > (linkCount / 2) &&
+        nexts.size() > (linkCount - (linkCount / 2))) {
+      while (prevs.size() > (linkCount / 2)) {
+        prevs.remove(0);
+      }
+      while (nexts.size() > (linkCount - (linkCount / 2))) {
+        nexts.remove(nexts.size() - 1);
+      }
+    } else if (prevs.size() <= (linkCount / 2)) {
+      while (prevs.size() + nexts.size() > linkCount) {
+        nexts.remove(nexts.size() - 1);
+      }
+    } else {
+      while (prevs.size() + nexts.size() > linkCount) {
+        prevs.remove(0);
+      }
+    }
 
+    String name;
+    int skip = prevs.size() > 0 ? ((Integer) prevs.get(0)).intValue() : 1;
+    if (skip > 1) {
+      skip -= (linkCount - (linkCount / 2));
+      skip--;
+      name = "...";
+      if (skip < 1) {
+        skip = 1;
+        if (((Integer) prevs.get(0)).intValue() == 2) {
+          name = "1";
+        }
+      }
+      writeLinkElement(writer, name, Integer.toString(skip),
+          pagerCommandId, hrefPostfix, true);
+    }
+    for (Iterator iter = prevs.iterator(); iter.hasNext();) {
+      name = ((Integer) iter.next()).toString();
+      writeLinkElement(writer, name, name, pagerCommandId, hrefPostfix, true);
+    }
+    name = Integer.toString(pager.getPage());
+    writeLinkElement(writer, name, name, pagerCommandId, hrefPostfix, false);
 
-    pager.getComponent().getFacets().put(command, link);
-//    RenderUtil.encode(facesContext, link);
+    for (Iterator iter = nexts.iterator(); iter.hasNext();) {
+      name = ((Integer) iter.next()).toString();
+      writeLinkElement(writer, name, name, pagerCommandId, hrefPostfix, true);
+    }
 
-
-    String tip = ResourceManagerUtil.getProperty(facesContext, "tobago",
-        "sheet" + command);
-    String image = ResourceManagerUtil.getImage(facesContext,
-        "image/" + command + (disabled ? "Disabled" : "") + ".gif");
-    String onClick = ButtonRenderer.createOnClick(facesContext, link);
-
-    ResponseWriter writer = facesContext.getResponseWriter();
-    writer.startElement("img", null);
-    writer.writeAttribute("class", "tobago-sheet-footer-pager-button", null);
-    writer.writeAttribute("src", image, null);
-    writer.writeAttribute("title", tip, null);
-    writer.writeAttribute("onclick", onClick, null);
-    writer.endElement("img");
-
+    skip = nexts.size() > 0
+        ? ((Integer) nexts.get(nexts.size() - 1)).intValue() : pager.getPages();
+    if (skip < pager.getPages()) {
+      skip += linkCount / 2;
+      skip++;
+      name = "...";
+      if (skip > pager.getPages()) {
+        skip = pager.getPages();
+        if (((Integer) nexts.get(nexts.size() - 1)).intValue() == skip - 1) {
+          name = Integer.toString(skip);
+        }
+      }
+      writeLinkElement(writer, name, Integer.toString(skip), pagerCommandId,
+          hrefPostfix, true);
+    }
   }
 
-  private static UICommand createPagingCommand(
-      Application application, String command, boolean disabled, Pager pager) {
+  private static UICommand createPagingCommand(Application application,
+      String command, boolean disabled, Pager pager) {
     UICommand link;
     link = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
     link.setRendererType(TobagoConstants.RENDERER_TYPE_LINK);
@@ -1121,51 +1131,22 @@ public class SheetRenderer extends RendererBase {
     return link;
   }
 
-  public boolean getRendersChildren() {
-    return true;
+  private void writeLinkElement(ResponseWriter writer, String str, String skip,
+      String id, String hrefPostfix, boolean makeLink)
+      throws IOException {
+    String type = makeLink ? "a" : "span";
+    writer.startElement(type, null);
+    writer.writeAttribute("class", "tobago-sheet-paging-links-link", null);
+    if (makeLink) {
+      writer.writeAttribute("id", id + SUBCOMPONENT_SEP + "link_" + skip, null);
+      writer.writeAttribute("href", "javascript: tobagoSheetSetPagerPage('"
+          + id + "', '" + skip + hrefPostfix, null);
+    }
+    writer.write(str);
+    writer.endElement(type);
   }
 
-  public void decode(FacesContext facesContext, UIComponent component) {
-    super.decode(facesContext, component);
-
-
-    String key = component.getClientId(facesContext) + WIDTHS_POSTFIX;
-
-    Map requestParameterMap = facesContext.getExternalContext()
-        .getRequestParameterMap();
-    if (requestParameterMap.containsKey(key)) {
-      String widths = (String) requestParameterMap.get(key);
-      if (widths.trim().length() > 0) {
-        component.getAttributes().put(TobagoConstants.ATTR_WIDTH_LIST_STRING,
-            widths);
-      }
-    }
-
-    key = component.getClientId(facesContext) + SELECTED_POSTFIX;
-    if (requestParameterMap.containsKey(key)) {
-      String selected = (String) requestParameterMap.get(key);
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("selected = " + selected);
-      }
-      component.getAttributes().put(TobagoConstants.ATTR_SELECTED_LIST_STRING,
-          selected);
-    }
-  }
-
-  private Sorter getSorter(UIData component) {
-    Sorter sorter = (Sorter)
-        component.getAttributes().get(TobagoConstants.ATTR_SHEET_SORTER);
-    if (sorter == null) {
-      sorter = new Sorter(component);
-      component.getAttributes().put(TobagoConstants.ATTR_SHEET_SORTER, sorter);
-    }
-    return sorter;
-  }
-
-
-
-// ///////////////////////////////////////////// bean getter + setter
-
+// -------------------------------------------------------------- inner classes
 
   public class Sorter extends MethodBinding {
 
@@ -1186,7 +1167,6 @@ public class SheetRenderer extends RendererBase {
 
     public Object invoke(FacesContext facescontext, Object aobj[])
         throws EvaluationException, MethodNotFoundException {
-
       if (aobj[0] instanceof ActionEvent) {
         UICommand command = (UICommand) ((ActionEvent) aobj[0]).getSource();
         if (LOG.isDebugEnabled()) {
@@ -1202,7 +1182,6 @@ public class SheetRenderer extends RendererBase {
         if (value instanceof SortableByApplication
             || value instanceof List
             || value instanceof Object[]) {
-
           String sortProperty;
 
           if (command.getId() != null && command.getId().startsWith(ID_PREFIX)) {
@@ -1258,7 +1237,6 @@ public class SheetRenderer extends RendererBase {
           if (value instanceof SortableByApplication) {
             ((SortableByApplication) value).sortBy(sortProperty);
           } else {
-
             // todo: locale / comparator parameter?
             // don't compare numbers with Collator.getInstance() comparator
 //          comparator = Collator.getInstance();
@@ -1342,7 +1320,6 @@ public class SheetRenderer extends RendererBase {
 
     public Object invoke(FacesContext facesContext, Object aobj[])
         throws EvaluationException, MethodNotFoundException {
-
       if (aobj[0] instanceof ActionEvent) {
         UICommand command = (UICommand) ((ActionEvent) aobj[0]).getSource();
         String action = (String)
@@ -1363,45 +1340,57 @@ public class SheetRenderer extends RendererBase {
           data.setFirst(start > data.getRowCount() ? last : start);
         } else if (LAST.equals(action)) {
           data.setFirst(getLastPageIndex());
-        } else if (PAGE_TO_ROW.equals(action) ) {
-           String startRow = (String)
-               facesContext.getExternalContext().getRequestParameterMap().get(
-               command.getClientId(facesContext) + SUBCOMPONENT_SEP + "value");
+        } else if (PAGE_TO_ROW.equals(action)) {
+          String startRow = (String)
+              facesContext.getExternalContext().getRequestParameterMap().get(
+                  command.getClientId(facesContext) + SUBCOMPONENT_SEP +
+              "value");
           if (startRow != null) {
             try {
               int start = Integer.parseInt(startRow) - 1;
-              data.setFirst(start < getLastPageIndex() ? start : getLastPageIndex());
+              data.setFirst(
+                  start < getLastPageIndex() ? start : getLastPageIndex());
             } catch (NumberFormatException e) {
               LOG.error("Catched: " + e.getMessage());
             }
+          } else {
+            LOG.error(
+                "Can't find 'PageToRow' parameter : " +
+                command.getClientId(facesContext) +
+                SUBCOMPONENT_SEP +
+                "value");
           }
-          else {
-            LOG.error("Can't find 'PageToRow' parameter : " + command.getClientId(facesContext) + SUBCOMPONENT_SEP + "value");
-          }
-        } else if (PAGE_TO_PAGE.equals(action) ) {
-           String startRow = (String)
-               facesContext.getExternalContext().getRequestParameterMap().get(
-               command.getClientId(facesContext) + SUBCOMPONENT_SEP + "value");
+        } else if (PAGE_TO_PAGE.equals(action)) {
+          String startRow = (String)
+              facesContext.getExternalContext().getRequestParameterMap().get(
+                  command.getClientId(facesContext) + SUBCOMPONENT_SEP +
+              "value");
           if (startRow != null) {
             try {
               int start = Integer.parseInt(startRow) - 1;
-              LOG.info("start = " + start + "  data.getRows() = " + data.getRows() + " => start = " + (start * data.getRows()));
+              if (LOG.isDebugEnabled()) {
+                LOG.debug("start = " + start + "  data.getRows() = " +
+                    data.getRows() +
+                    " => start = " +
+                    (start * data.getRows()));
+              }
               start = start * data.getRows();
-              data.setFirst(start < getLastPageIndex() ? start : getLastPageIndex());
-
+              data.setFirst(
+                  start < getLastPageIndex() ? start : getLastPageIndex());
             } catch (NumberFormatException e) {
               LOG.error("Catched: " + e.getMessage());
             }
-          }
-          else {
-            LOG.error("Can't find 'PageToRow' parameter : " + command.getClientId(facesContext) + SUBCOMPONENT_SEP + "value");
+          } else {
+            LOG.error(
+                "Can't find 'PageToRow' parameter : " +
+                command.getClientId(facesContext) +
+                SUBCOMPONENT_SEP +
+                "value");
           }
         } else {
           LOG.error("Unkown action: " + action);
         }
-
-      }
-      else {
+      } else {
         if (LOG.isDebugEnabled()) {
           LOG.debug("aobj[0] instanceof '" + aobj[0] + "'");
         }
@@ -1418,20 +1407,19 @@ public class SheetRenderer extends RendererBase {
       return data.getRowCount() - (tail != 0 ? tail : data.getRows());
     }
 
-
     public int getLast() {
       int last = data.getFirst() + data.getRows();
       return last < data.getRowCount() ? last : data.getRowCount();
     }
 
     public int getPage() {
-        int first = data.getFirst() + 1;
-        int rows = data.getRows();
-        if ((first % rows) == 1) {
-          return (first / rows) + 1;
-        } else {
-          return (first / rows) + 2;
-        }
+      int first = data.getFirst() + 1;
+      int rows = data.getRows();
+      if ((first % rows) == 1) {
+        return (first / rows) + 1;
+      } else {
+        return (first / rows) + 2;
+      }
     }
 
     public int getPages() {
@@ -1455,7 +1443,5 @@ public class SheetRenderer extends RendererBase {
       return data;
     }
   }
-
-
 }
 
