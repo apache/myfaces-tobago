@@ -79,6 +79,10 @@ public class UITabGroup extends UIPanel implements StateHolder{
   }
 
   public void addStateChangeListener(StateChangeListener listener) {
+    if (LOG.isWarnEnabled() && ! ComponentUtil.getBooleanAttribute(
+        this, TobagoConstants.ATTR_SERVER_SIDE_TABS)) {
+      LOG.warn("Adding StateChangeListener to Client side Tabgroup!");
+    }
     addFacesListener(listener);
   }
   public void removeStateChangeListener(StateChangeListener listener) {
