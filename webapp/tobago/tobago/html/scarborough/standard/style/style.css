@@ -271,11 +271,16 @@ div.tobago-groupbox-default {
 
 /* label ------------------------------------------------------------------- */
 
-.tobago-label-default  {
-  height: 25px;
-  border: 2px solid #bbccdd;
-/*  border: 2px solid #ccddee; */
+span.tobago-label-default  {
+  padding-top: 1px;
+}
+label.tobago-label-default  {
+  height: 23px;
   width: 144px;
+  padding: 0px 0px 0px 2px;
+  margin: 0px;
+  border: 0px solid transparent;
+/*  border: 2px solid #ccddee; */
 /*  background: #ccddee; */
 }
 

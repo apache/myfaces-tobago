@@ -61,14 +61,15 @@ public class LabelRenderer extends RendererBase implements DirectRenderer {
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
-    writer.startElement("span", null);
+    writer.startElement("span", output);
+    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
     writer.writeAttribute("style", "display: -moz-box;", null);
     writer.startElement("label", output);
     writer.writeAttribute("for", forValue, null);
+    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
     if (width != null) {
       writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
     }
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
     if (output.getValue() != null) {
       writer.writeText(output.getValue(), null);
     }
