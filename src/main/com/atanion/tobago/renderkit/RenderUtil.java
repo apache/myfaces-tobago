@@ -10,7 +10,6 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Iterator;
@@ -20,7 +19,6 @@ public class RenderUtil {
   private static final Log LOG = LogFactory.getLog(RenderUtil.class);
 
   public static final String COMPONENT_IN_REQUEST = "com.atanion.tobago.component";
-  public static final String RENDERER_IN_REQUEST = "com.atanion.tobago.renderer";
 
   public static boolean contains(Object[] list, Object value) {
     if (list == null) {
@@ -38,25 +36,17 @@ public class RenderUtil {
 
     UIComponent component
         = (UIComponent) request.getAttribute(COMPONENT_IN_REQUEST);
-//    log.debug("component in request: class=" + component.getClass().getName());
     return component;
   }
 
-  public static Renderer getRenderer(HttpServletRequest request) {
-
-    Renderer renderer
-        = (Renderer) request.getAttribute(RENDERER_IN_REQUEST);
-//    log.debug("renderer in request: class=" + renderer.getClass().getName());
-    return renderer;
-  }
-
-  public static void encodeChildren(FacesContext facesContext, UIComponent panel)
+  public static void encodeChildren(FacesContext facesContext,
+      UIComponent panel)
       throws IOException {
     UIComponent layout = panel.getFacet("layout");
     if (layout != null) {
       encode(facesContext, layout);
     } else {
-      for (Iterator i = panel.getChildren().iterator(); i.hasNext(); ) {
+      for (Iterator i = panel.getChildren().iterator(); i.hasNext();) {
         UIComponent child = (UIComponent) i.next();
         encode(facesContext, child);
       }
@@ -65,42 +55,22 @@ public class RenderUtil {
 
   public static void encode(FacesContext facesContext, UIComponent component)
       throws IOException {
-//    if (LOG.isDebugEnabled()) {
-//      LOG.debug("component = '" + component + "'");
-//      UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
-//      LOG.debug("viewRoot  = '" + viewRoot + "'");
-//      ComponentUtil.debug(viewRoot, 0);
-//    }
     if (component.isRendered()) {
-//      if (ComponentUtil.getBooleanAttribute(component, ATTR_SUPPRESSED)) {
       if (LOG.isDebugEnabled()) {
-        LOG.debug("!!!! rendering " + component.getRendererType() + "  " + component);
+        LOG.debug("rendering " + component.getRendererType() + " " + component);
       }
 
-        component.encodeBegin(facesContext);
-        if (component.getRendersChildren()) {
-          component.encodeChildren(facesContext);
-        } else {
-          Iterator kids = component.getChildren().iterator();
-          while (kids.hasNext()) {
-            UIComponent kid = (UIComponent) kids.next();
-            encode(facesContext, kid);
-          }
+      component.encodeBegin(facesContext);
+      if (component.getRendersChildren()) {
+        component.encodeChildren(facesContext);
+      } else {
+        Iterator kids = component.getChildren().iterator();
+        while (kids.hasNext()) {
+          UIComponent kid = (UIComponent) kids.next();
+          encode(facesContext, kid);
         }
-        component.encodeEnd(facesContext);
-//      }
-//      else {
-//        LOG.debug("!!!! NOT rendering (!wasSuppressed()) " + component.getRendererType() + "  "  + component);
-//        Iterator iterator = component.getAttributes().keySet().iterator();
-//        while (iterator.hasNext()) {
-//          Object o = (Object) iterator.next();
-//          LOG.info("key : \"" + o + "\" = \"" + component.getAttributes().get(o) + "\"");
-//        }
-//      }
+      }
+      component.encodeEnd(facesContext);
     }
-//    else {
-//      LOG.debug("!!!! NOT rendering (! isRendered()) " + component.getRendererType() + "  "  + component);
-//
-//    }
   }
 }
