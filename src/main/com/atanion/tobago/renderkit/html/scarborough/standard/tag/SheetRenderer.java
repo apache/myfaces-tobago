@@ -257,6 +257,9 @@ public class SheetRenderer extends RendererBase
         writer.writeAttribute("title",
             TobagoResource.getProperty(facesContext, "tobago", "sheetTipSorting"),
             null);
+
+//        RenderUtil.encode(facesContext, sortCommand);
+
         if (sorter.getColumn() == columnCount) {
           if (sorter.isAscending()) {
             sorterImage = ascending;
@@ -762,6 +765,9 @@ public class SheetRenderer extends RendererBase
               if (child != null) {
                 ValueBinding valueBinding = child.getValueBinding("value");
                 String expressionString = valueBinding.getExpressionString();
+                if (expressionString.startsWith("#{") && expressionString.endsWith("}")) {
+                  expressionString = expressionString.substring(2, expressionString.length() -1);
+                }
                 String var = data.getVar();
                 sortProperty = expressionString.substring(var.length() + 1);
                 if (LOG.isDebugEnabled()) {
