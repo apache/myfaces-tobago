@@ -11,6 +11,7 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.UIGridLayout;
 
 import javax.faces.component.UIComponent;
+import javax.servlet.jsp.JspException;
 
 public class GridLayoutTag extends TobagoTag {
 
@@ -35,6 +36,12 @@ public class GridLayoutTag extends TobagoTag {
 // ///////////////////////////////////////////// constructor
 
 // ///////////////////////////////////////////// code
+
+  public int doStartTag() throws JspException {
+    final int result = super.doStartTag();
+    getComponentInstance().getAttributes().remove(TobagoConstants.ATTR_LAYOUT_ROWS);
+    return result;
+  }
 
   public String getComponentType() {
     return UIGridLayout.COMPONENT_TYPE;

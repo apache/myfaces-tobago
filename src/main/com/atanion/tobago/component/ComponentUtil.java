@@ -67,7 +67,7 @@ public class ComponentUtil {
   /**
    * Find all subforms of a component, and collects it.
    * It does not find subforms of subforms.
-   */ 
+   */
   public static void findSubForms(List collect, UIComponent component) {
     List children = component.getChildren();
     for (int i = 0; i < children.size(); i++) {
@@ -243,6 +243,33 @@ public class ComponentUtil {
     } else {
       return def;
     }
+  }
+
+  public static int getIntValueBindingOrAttribute(
+      UIComponent component, String key, int defaultValue) {
+    Object value;
+    ValueBinding valueBinding
+        = component.getValueBinding(key);
+    if (valueBinding != null) {
+      value = valueBinding.getValue(FacesContext.getCurrentInstance());
+    }
+    else {
+      value = component.getAttributes().get(key);
+    }
+
+    if (value instanceof Integer) {
+      return ((Integer) value).intValue();
+    }
+    else if (value != null) {
+      try {
+        return Integer.parseInt(value.toString());
+      } catch (NumberFormatException e) {
+        LOG.warn("illegal spanX value : " + valueBinding != null
+            ? valueBinding.getExpressionString()
+            : value);
+      }
+    }
+    return defaultValue;
   }
 
   public static boolean isFacetOf(UIComponent component, UIComponent parent) {

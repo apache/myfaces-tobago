@@ -6,6 +6,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
+import javax.faces.el.ValueBinding;
+import javax.faces.context.FacesContext;
+import javax.faces.application.Application;
+import javax.servlet.jsp.JspException;
 
 /*
   * Copyright (c) 2002 Atanion GmbH, Germany
@@ -20,13 +24,17 @@ public class CellTag extends Panel_GroupTag {
 
 // ///////////////////////////////////////////// attribute
 
-  int spanX = 1;
+  private String spanX = "1";
 
-  int spanY = 1;
+  private String spanY = "1";
 
 // ///////////////////////////////////////////// constructor
 
 // ///////////////////////////////////////////// code
+
+  public int doStartTag() throws JspException {
+    return super.doStartTag();
+  }
 
   public String getRendererType() {
     return "Panel_Group";
@@ -34,8 +42,22 @@ public class CellTag extends Panel_GroupTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setProperty(component, TobagoConstants.ATTR_SPAN_X, new Integer(spanX) );
-    setProperty(component, TobagoConstants.ATTR_SPAN_Y, new Integer(spanY) );
+
+    Application application = FacesContext.getCurrentInstance().getApplication();
+    if (isValueReference(spanX)) {
+      component.setValueBinding(TobagoConstants.ATTR_SPAN_X,
+          application.createValueBinding(spanX));
+    } else {
+      setProperty(component, TobagoConstants.ATTR_SPAN_X, spanX);
+    }
+
+    if (isValueReference(spanY)) {
+      component.setValueBinding(TobagoConstants.ATTR_SPAN_Y, 
+          application.createValueBinding(spanY));
+    } else {
+      setProperty(component, TobagoConstants.ATTR_SPAN_Y, spanY);
+    }
+
     setProperty(component, TobagoConstants.ATTR_LAYOUT_DIRECTIVE, Boolean.TRUE);
     if (LOG.isDebugEnabled()) {
       LOG.debug("spanx=" + spanX + " spanY=" + spanY);
@@ -49,19 +71,19 @@ public class CellTag extends Panel_GroupTag {
 
 // ///////////////////////////////////////////// bean getter + setter
 
-  public int getSpanX() {
+  public String getSpanX() {
     return spanX;
   }
 
-  public void setSpanX(int spanX) {
+  public void setSpanX(String spanX) {
     this.spanX = spanX;
   }
 
-  public int getSpanY() {
+  public String getSpanY() {
     return spanY;
   }
 
-  public void setSpanY(int spanY) {
+  public void setSpanY(String spanY) {
     this.spanY = spanY;
   }
 
