@@ -28,17 +28,17 @@ public class LayoutInfo{
   private String[] layoutTokens;
 
   public LayoutInfo(int cellCount, int space, String layout) {
-    this(cellCount, space, createLayoutTokens(layout, cellCount));
+    this(cellCount, space, createLayoutTokens(layout, cellCount), false);
   }
 
-  public LayoutInfo(int cellCount, int space, String[] layoutTokens) {
+  public LayoutInfo(int cellCount, int space, String[] layoutTokens, boolean ignoreMismatch) {
 
     this.cellsLeft = cellCount;
     this.spaceLeft = space;
     if (layoutTokens.length == cellCount) {
       this.layoutTokens = layoutTokens;
     } else if (layoutTokens.length > cellCount) {
-      if (LOG.isWarnEnabled()) {
+      if (! ignoreMismatch && LOG.isWarnEnabled()) {
         LOG.warn("More layoutToken's (" + layoutTokens.length
             + ") than cell's (" + cellCount + ")! Cutting leavings!"
             + " tokens was " + tokensToString(layoutTokens));
@@ -49,7 +49,7 @@ public class LayoutInfo{
       }
     }
     else {
-      if (LOG.isWarnEnabled()) {
+      if (! ignoreMismatch && LOG.isWarnEnabled()) {
         LOG.warn(Integer.toString(cellCount - layoutTokens.length)
             + "More cell's than layoutToken's! Set missing token's to '1*'! +"
             + " tokens was " + tokensToString(layoutTokens));

@@ -42,6 +42,8 @@ public class UIGridLayout extends UILayout {
     return COMPONENT_FAMILY;
   }
 
+  private boolean ignoreFree;
+
   public boolean getRendersChildren() {
     return true;
   }
@@ -49,6 +51,15 @@ public class UIGridLayout extends UILayout {
   public void encodeChildren(FacesContext context)
       throws IOException {
     // do nothing here
+  }
+
+  public void encodeChildrenOfComponent(FacesContext facesContext, UIComponent component) throws IOException {
+    clearRows();
+    super.encodeChildrenOfComponent(facesContext, component);
+  }
+
+  private void clearRows() {
+    getAttributes().remove(TobagoConstants.ATTR_LAYOUT_ROWS);
   }
 
   public int getColumnCount() {
@@ -123,7 +134,15 @@ public class UIGridLayout extends UILayout {
 
 // ///////////////////////////////////////////// bean getter + setter
 
-// ///////////////////////////////////////////////////////////////
+  public boolean isIgnoreFree() {
+    return ignoreFree;
+  }
+
+  public void setIgnoreFree(boolean ignoreFree) {
+    this.ignoreFree = ignoreFree;
+  }
+
+  // ///////////////////////////////////////////////////////////////
 // ///////////////////////////////////////////// class Row
 // ///////////////////////////////////////////////////////////////
 
