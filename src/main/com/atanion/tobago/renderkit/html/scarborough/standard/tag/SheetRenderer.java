@@ -184,8 +184,14 @@ public class SheetRenderer extends RendererBase
         "width");
     String sheetHeightString = LayoutUtil.getStyleAttributeValue(sheetStyle,
         "height");
-    // fixme: nullpointer if height not defined
-    int sheetHeight = Integer.parseInt(sheetHeightString.replaceAll("\\D", ""));
+    int sheetHeight;
+    if (sheetHeightString != null) {
+      sheetHeight = Integer.parseInt(sheetHeightString.replaceAll("\\D", ""));
+    } else {
+      // fixme: nullpointer if height not defined
+      LOG.error("no height in parent container, setting to 100");
+      sheetHeight = 100;
+    }
     String bodyStyle = (String) component.getAttributes().get(
         TobagoConstants.ATTR_STYLE_BODY);
     int footerHeight = ((Integer) component.getAttributes().get(
