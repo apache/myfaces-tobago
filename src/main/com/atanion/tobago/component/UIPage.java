@@ -104,6 +104,13 @@ public class UIPage extends UIForm {
       ComponentUtil.debug(facesContext.getViewRoot(), 0);
       LOG.debug(form.getClientId(facesContext));
     }
+
+    if (form == null) {
+      LOG.debug("No form found! Rerender the view.");
+      facesContext.renderResponse();
+      return;
+    }
+
     form.setSubmitted(true);
 
     Iterator kids = getFacetsAndChildren();
