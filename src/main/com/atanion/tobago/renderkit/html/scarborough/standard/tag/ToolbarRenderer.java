@@ -125,13 +125,16 @@ public class ToolbarRenderer extends RendererBase {
             facesContext);
 
 //    writer.startElement("td", null);
-    writer.startElement("span", null);
+    writer.startElement("a", null);
     writer.writeAttribute("id", command.getClientId(facesContext), null);
     writer.writeAttribute("class", spanClass, null);
     if (! disabled) {
       writer.writeAttribute("onclick", onClick, null);
       writer.writeAttribute("onmouseover", mouseover, null);
       writer.writeAttribute("onmouseout", mouseout, null);
+      if (label.getAccessKey() != null) {
+         writer.writeAttribute("accesskey", label.getAccessKey(), null);
+       }      
     }
 
     if (isMsie(facesContext)) {
@@ -176,7 +179,7 @@ public class ToolbarRenderer extends RendererBase {
       popupMenu.getAttributes().put(ATTR_IMAGE, "toolbarButtonMenu.gif");
       RenderUtil.encode(facesContext, popupMenu);
     }
-    writer.endElement("span");
+    writer.endElement("a");
 //    writer.endElement("td");
   }
 
