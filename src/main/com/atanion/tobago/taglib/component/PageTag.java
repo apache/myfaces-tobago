@@ -32,6 +32,8 @@ public class PageTag extends TobagoBodyTag {
 
   private String stateBinding;
 
+  private String focus;
+
 // ----------------------------------------------------------- business methods
 
   public int doEndTag() throws JspException {
@@ -54,6 +56,7 @@ public class PageTag extends TobagoBodyTag {
     pageContext.getResponse().setContentType(generateContentType(charset));
     pageContext.setAttribute(PAGE_IN_REQUEST, this, PageContext.REQUEST_SCOPE);
     final int result = super.doStartTag();
+    ((UIPage)getComponentInstance()).storeFocusId(focus);
     return result;
   }
 
@@ -117,6 +120,14 @@ public class PageTag extends TobagoBodyTag {
 
   public void setStateBinding(String stateBinding) {
     this.stateBinding = stateBinding;
+  }
+
+  public String getFocus() {
+    return focus;
+  }
+
+  public void setFocus(String focus) {
+    this.focus = focus;
   }
 }
 

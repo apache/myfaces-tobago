@@ -1290,6 +1290,15 @@
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
+    <attribute>
+      <name>focus</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>
+        set componentReference="none" to disable setting of focus
+      </description>
+    </attribute>
+
   </tag>
 
   <tag>
@@ -1624,25 +1633,6 @@
       <name>value</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-    </attribute>
-  </tag>
-
-  <tag>
-    <name>focus</name>
-    <tag-class>com.atanion.tobago.taglib.component.FocusTag</tag-class>
-    <body-content>JSP</body-content>
-    <attribute>
-      <name>id</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>componentReference</name>
-      <required>true</required>
-      <rtexprvalue>true</rtexprvalue>
-      <description>
-        set componentReference="none" to disable setting of focus
-      </description>
     </attribute>
   </tag>
 
