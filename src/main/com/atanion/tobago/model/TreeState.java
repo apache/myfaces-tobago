@@ -10,12 +10,10 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
-import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Manages the state on a Tree:<br />
