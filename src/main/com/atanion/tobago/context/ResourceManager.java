@@ -203,7 +203,7 @@ public class ResourceManager {
                 localeSuffix,
                 suffix,
                 key);
-//            log.debug("testing path: " + path);
+//            LOG.info("testing path: " + path);
             if (returnStrings && resourceList.containsKey(path)) {
               String result = prefix;
 
