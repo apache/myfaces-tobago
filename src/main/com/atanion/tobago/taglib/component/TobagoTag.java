@@ -8,15 +8,12 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
-import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.Tag;
@@ -55,8 +52,6 @@ public abstract class TobagoTag extends UIComponentTag
   private String i18n;
 
   private String inline;
-
-  private String stateBinding;
 
   private String themeClass;
 
@@ -102,14 +97,11 @@ public abstract class TobagoTag extends UIComponentTag
     width = null;
     height = null;
     styleClass = null;
-    stateBinding = null;
     themeClass = null;
   }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-
-    Application application = FacesContext.getCurrentInstance().getApplication();
 
     if (label != null) {
       provideLabel(component);
@@ -125,12 +117,6 @@ public abstract class TobagoTag extends UIComponentTag
 
     ComponentUtil.setStringProperty(component, ATTR_WIDTH, width, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_HEIGHT, height, getIterationHelper());
-
-    // todo: check, if it is an writeable object
-    if (stateBinding != null && isValueReference(stateBinding)) {
-      ValueBinding valueBinding = application.createValueBinding(stateBinding);
-      component.setValueBinding(ATTR_STATE_BINDING, valueBinding);
-    }
 
     ComponentUtil.setStringProperty(component, ATTR_STYLE_CLASS, styleClass, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_THEME_CLASS, themeClass, getIterationHelper());
@@ -218,14 +204,6 @@ public abstract class TobagoTag extends UIComponentTag
 
   public void setReadonly(String readonly) {
     this.readonly = readonly;
-  }
-
-  public String getStateBinding() {
-    return stateBinding;
-  }
-
-  public void setStateBinding(String stateBinding) {
-    this.stateBinding = stateBinding;
   }
 
   public String getStyleClass() {

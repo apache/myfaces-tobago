@@ -1220,6 +1220,11 @@
         in a backing bean
       </description>
     </attribute>
+    <attribute>
+      <name>stateBinding</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
   </tag>
 
   <tag>

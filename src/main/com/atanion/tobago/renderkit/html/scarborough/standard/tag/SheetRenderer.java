@@ -1106,7 +1106,7 @@ public class SheetRenderer extends RendererBase {
               Arrays.sort((Object[]) value, beanComparator);
             }
           }
-          data.updateState(facescontext);
+          data.updateSheetState(facescontext);
         } else {  // DataModel?, ResultSet, Result or Object
           LOG.warn("Sorting not supported for type "
               + (value != null ? value.getClass().toString() : "null"));
@@ -1240,7 +1240,7 @@ public class SheetRenderer extends RendererBase {
         }
       }
 
-      data.updateState(facesContext);
+      data.updateSheetState(facescontext);
 
 
       return null;

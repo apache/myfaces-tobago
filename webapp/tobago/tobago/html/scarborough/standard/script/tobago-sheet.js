@@ -1,3 +1,7 @@
+/* Copyright (c) 2004 Atanion GmbH, Germany
+   All rights reserved.
+   $Id$
+  */
 
 var activeElement = null;
 var oldX = 0;

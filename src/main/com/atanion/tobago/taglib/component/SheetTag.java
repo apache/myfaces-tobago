@@ -12,6 +12,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
+import javax.faces.el.ValueBinding;
 import javax.servlet.jsp.JspException;
 import java.util.Collections;
 import java.util.List;
@@ -32,6 +33,7 @@ public class SheetTag extends TobagoTag {
   private String columns;
   private String value;
   private String forceVerticalScrollbar;
+  private String stateBinding;
 
 // ----------------------------------------------------------- business methods
 
@@ -75,6 +77,7 @@ public class SheetTag extends TobagoTag {
     columns = null;
     value = null;
     forceVerticalScrollbar = null;
+    stateBinding = null;
   }
 
   protected void setProperties(UIComponent component) {
@@ -103,6 +106,12 @@ public class SheetTag extends TobagoTag {
    ComponentUtil.setStringProperty(component, ATTR_VAR, var, getIterationHelper());
 
     component.getAttributes().put(ATTR_INNER_WIDTH, new Integer(-1));
+
+    // todo: check, if it is an writeable object
+    if (stateBinding != null && isValueReference(stateBinding)) {
+      ValueBinding valueBinding = ComponentUtil.createValueBinding(stateBinding, getIterationHelper());
+      component.setValueBinding(ATTR_STATE_BINDING, valueBinding);
+    }
   }
 
 // ------------------------------------------------------------ getter + setter
@@ -169,6 +178,10 @@ public class SheetTag extends TobagoTag {
 
   public void setForceVerticalScrollbar(String forceVerticalScrollbar) {
     this.forceVerticalScrollbar = forceVerticalScrollbar;
+  }
+
+  public void setStateBinding(String stateBinding) {
+    this.stateBinding = stateBinding;
   }
 }
 

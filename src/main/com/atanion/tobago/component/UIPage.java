@@ -6,20 +6,23 @@
 package com.atanion.tobago.component;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.model.PageState;
+import com.atanion.tobago.model.PageStateImpl;
 import com.atanion.tobago.util.TobagoResourceSet;
 import com.atanion.util.collections.ListOrderedSet;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.io.IOException;
+import java.util.StringTokenizer;
 
 public class UIPage extends UIForm {
 
@@ -104,6 +107,7 @@ public class UIPage extends UIForm {
     }
 
     UIForm form = (UIForm) ComponentUtil.findForm(command);
+
     if (LOG.isDebugEnabled()) {
       LOG.debug(command);
       LOG.debug(form);
@@ -145,6 +149,54 @@ public class UIPage extends UIForm {
       postfields = new ArrayList();
     }
     return postfields;
+  }
+
+  public void processUpdates(FacesContext context) {
+    super.processUpdates(context);
+    updatePageState(context);
+  }
+
+  public void updatePageState(FacesContext facesContext) {
+    PageState state = getPageState(facesContext);
+    if (state != null) {
+      decodePageState(facesContext, state);
+    }
+    else {
+      LOG.info("stateBinding == null");
+    }
+  }
+
+  private void decodePageState(FacesContext facesContext, PageState pageState) {
+    String name = null;
+    String value = null;
+    try {
+      name = getClientId(facesContext)
+              + TobagoConstants.SUBCOMPONENT_SEP + "form-clientDimension";
+      value = (String) facesContext.getExternalContext()
+              .getRequestParameterMap().get(name);
+      StringTokenizer tokenizer = new StringTokenizer(value, ";");
+      int width = Integer.parseInt(tokenizer.nextToken());
+      int height = Integer.parseInt(tokenizer.nextToken());
+      pageState.setClientWidth(width);
+      pageState.setClientHeight(height);
+    } catch (Exception e) {
+      LOG.error("Error in decoding state: value='" + value + "'", e);
+    }
+  }
+
+  public PageState getPageState(FacesContext facesContext) {
+    ValueBinding stateBinding
+        = getValueBinding(TobagoConstants.ATTR_STATE_BINDING);
+    if (stateBinding != null) {
+      PageState state = (PageState) stateBinding.getValue(facesContext);
+      if (state == null) {
+        state = new PageStateImpl();
+        stateBinding.setValue(facesContext, state);
+      }
+      return state;
+    } else {
+      return null;
+    }
   }
 
 // ///////////////////////////////////////////// bean getter + setter

@@ -11,32 +11,22 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 
 public class PageRendererBase extends RendererBase {
 
-// ///////////////////////////////////////////// constant
+// ------------------------------------------------------------------ constants
 
   private static final Log LOG = LogFactory.getLog(PageRendererBase.class);
 
-// ///////////////////////////////////////////// attribute
+// ----------------------------------------------------------- business methods
 
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
-
-
-  public void decode(FacesContext facesContext, UIComponent uiComponent) {
-
-    HttpServletRequest servletRequest
-        = (HttpServletRequest) facesContext.getExternalContext().getRequest();
-    String name = uiComponent.getClientId(facesContext)
+  public void decode(FacesContext facesContext, UIComponent component) {
+    UIPage page = (UIPage) component;
+    String name = page.getClientId(facesContext)
         + SUBCOMPONENT_SEP + "form-action";
-    String newActionId = servletRequest.getParameter(name);
-    ((UIPage) uiComponent).setActionId(newActionId);
+    String newActionId = (String) facesContext.getExternalContext()
+        .getRequestParameterMap().get(name);
+    page.setActionId(newActionId);
   }
-
-// ///////////////////////////////////////////// bean getter + setter
-
 }
 

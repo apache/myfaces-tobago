@@ -1,3 +1,7 @@
+/* Copyright (c) 2004 Atanion GmbH, Germany
+   All rights reserved.
+   $Id$
+  */
 
 function validateRequired(id){
    if (document.getElementById(id).value == "") {

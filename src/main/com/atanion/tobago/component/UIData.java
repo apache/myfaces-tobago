@@ -24,22 +24,17 @@ public class UIData extends javax.faces.component.UIData {
 
   public void processUpdates(FacesContext context) {
     super.processUpdates(context);
-
-    updateState(context);
-
+    updateSheetState(context);
   }
 
-  public void updateState(FacesContext context) {
-    ValueBinding stateBinding
-        = getValueBinding(TobagoConstants.ATTR_STATE_BINDING);
-    if (stateBinding != null) {
+  public void updateSheetState(FacesContext facesContext) {
+    SheetState state = getSheetState(facesContext);
+    if (state != null) {
       SheetRenderer.Sorter sorter =  (SheetRenderer.Sorter)
           getAttributes().get(TobagoConstants.ATTR_SHEET_SORTER);
-      SheetState state = new SheetState();
       state.setFirst(getFirst());
       state.setSortedColumn(sorter != null ? sorter.getColumn() : -1);
       state.setAscending(sorter != null && sorter.isAscending());
-      stateBinding.setValue(context, state);
       state.setSelected((String)
           getAttributes().get(TobagoConstants.ATTR_SELECTED_LIST_STRING));
       state.setColumnWidths((String)
@@ -50,15 +45,19 @@ public class UIData extends javax.faces.component.UIData {
     }
   }
 
-
-
-  public SheetState getSheetState(FacesContext facesContext) {    
+  public SheetState getSheetState(FacesContext facesContext) {
     ValueBinding stateBinding
         = getValueBinding(TobagoConstants.ATTR_STATE_BINDING);
     if (stateBinding != null) {
-      return (SheetState) stateBinding.getValue(facesContext);
+      SheetState state = (SheetState) stateBinding.getValue(facesContext);
+      if (state == null) {
+        state = new SheetState();
+        stateBinding.setValue(facesContext, state);
+      }
+      return state;
+    } else {
+      return null;
     }
-    return null;
   }
 
 }

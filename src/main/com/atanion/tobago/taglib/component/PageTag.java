@@ -11,12 +11,12 @@ import com.atanion.tobago.context.ClientProperties;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import java.util.List;
 
 public class PageTag extends TobagoBodyTag {
-
 // ------------------------------------------------------------------ constants
 
   public static final String PAGE_IN_REQUEST =
@@ -29,6 +29,8 @@ public class PageTag extends TobagoBodyTag {
   private String doctype = "loose";
 
   private String method = "POST";
+
+  private String stateBinding;
 
 // ----------------------------------------------------------- business methods
 
@@ -78,43 +80,43 @@ public class PageTag extends TobagoBodyTag {
     return UIPage.COMPONENT_TYPE;
   }
 
-  protected void setProperties(UIComponent component) {
-    super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_METHOD, method, getIterationHelper());
-   ComponentUtil.setStringProperty(component, ATTR_CHARSET, charset, getIterationHelper());
-   ComponentUtil.setStringProperty(component, ATTR_DOCTYPE, doctype, getIterationHelper());
-  }
-
   public void release() {
     super.release();
     charset = null;
     doctype = "loose";
     method = "POST";
+    stateBinding = null;
   }
-// ------------------------------------------------------------ getter + setter
 
-  public String getCharset() {
-    return charset;
+  protected void setProperties(UIComponent component) {
+    super.setProperties(component);
+    ComponentUtil.setStringProperty(component, ATTR_METHOD, method, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_CHARSET, charset, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_DOCTYPE, doctype, getIterationHelper());
+
+    // todo: check, if it is an writeable object
+    if (stateBinding != null && isValueReference(stateBinding)) {
+      ValueBinding valueBinding = ComponentUtil.createValueBinding(stateBinding, getIterationHelper());
+      component.setValueBinding(ATTR_STATE_BINDING, valueBinding);
+    }
   }
+
+// ------------------------------------------------------------ getter + setter
 
   public void setCharset(String charset) {
     this.charset = charset;
-  }
-
-  public String getDoctype() {
-    return doctype;
   }
 
   public void setDoctype(String doctype) {
     this.doctype = doctype;
   }
 
-  public String getMethod() {
-    return method;
-  }
-
   public void setMethod(String method) {
     this.method = method;
+  }
+
+  public void setStateBinding(String stateBinding) {
+    this.stateBinding = stateBinding;
   }
 }
 

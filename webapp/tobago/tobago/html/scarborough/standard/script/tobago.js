@@ -1,14 +1,13 @@
-
+/* Copyright (c) 2004 Atanion GmbH, Germany
+   All rights reserved.
+   $Id$
+  */
 
 var gecko=null;
 var ie=null;
 var opera=null;
 var focusId;
 var tobagoImageSources = null;
-
-function setFormAction(form, action) {
-  document.forms[form].action = action;
-}
 
 function submitAction(formId, actionId) {
   setAction(formId, actionId);
@@ -25,6 +24,7 @@ function setAction(formId, actionId) {
     if (hidden) {
       hidden.value = actionId;
     }
+    tobago_addClientDimension(form, formId);
   }
 }
 
@@ -33,11 +33,6 @@ function resetForm(formId) {
   if (form) {
     form.reset();
   }
-}
-
-function setFormActionAndSubmit(form, action) {
-  setFormAction(form, action);
-  document.forms[form].submit();
 }
 
 function navigateToUrl(toUrl) {
@@ -105,6 +100,20 @@ function onloadScriptDefault(){
     setFirstElementsFocus();
   }
   tobagoImageSources = new Array();
+}
+
+function tobago_addClientDimension(form, formId) {
+  form.appendChild(tobago_createInput(
+    formId + '-clientDimension',
+    document.body.clientWidth + ";" + document.body.clientHeight));
+}
+
+function tobago_createInput(name, value) {
+  var input = document.createElement("INPUT");
+  input.type = "hidden";
+  input.name = name;
+  input.value = value;
+  return input;
 }
 
 function tobago_showHidden() {

@@ -1,4 +1,4 @@
-/* Copyright (c) 2002 Atanion GmbH, Germany
+/* Copyright (c) 2004 Atanion GmbH, Germany
    All rights reserved.
    $Id$
   */

@@ -33,8 +33,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class PageRenderer extends PageRendererBase {
-
-// ///////////////////////////////////////////// constant
+// ------------------------------------------------------------------ constants
 
   private static final Log LOG = LogFactory.getLog(PageRenderer.class);
 
@@ -60,24 +59,13 @@ public class PageRenderer extends PageRendererBase {
       "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\"" +
       " \"http://www.w3.org/TR/html4/frameset.dtd\">";
 
-// ///////////////////////////////////////////// attribute
+// ----------------------------------------------------------------- interfaces
 
-// ///////////////////////////////////////////// constructor
 
-// ///////////////////////////////////////////// code
-
-  public boolean getRendersChildren() {
-    return true;
-  }
-
-  public void encodeChildren(FacesContext facesContext, UIComponent component)
-      throws IOException {
-    // children are encoded in encodeEndTobago(...)
-  }
+// ---------------------------- interface TobagoRenderer
 
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
-
     UIPage page = (UIPage) component;
 
     ResponseWriter writer = facesContext.getResponseWriter();
@@ -295,12 +283,14 @@ public class PageRenderer extends PageRendererBase {
           errorMessageForDebugging(id, message, writer);
         }
       }
-      writer.write("<div onmousedown=\"tobagoJsLogMouseDown(event)\" onmousemove=\"tobagoJsLogMouseMove(event)\" onmouseup=\"tobagoJsLogMouseUp()\" id=\"LogDiv\" style=\"position:  absolute; left: 760px; top: 300px; height: 370px;width: 400px; overflow: auto;border:1px solid red; background: #ffffff;\"><ol id=\"Log\" style=\"font-family:Arial,sans-serif; font-size:10pt\"><li>Ereignisliste</li></ol> </div>");
+//      writer.write("<div onmousedown=\"tobagoJsLogMouseDown(event)\" onmousemove=\"tobagoJsLogMouseMove(event)\" onmouseup=\"tobagoJsLogMouseUp()\" id=\"LogDiv\" style=\"position:  absolute; left: 760px; top: 300px; height: 370px;width: 400px; overflow: auto;border:1px solid red; background: #ffffff;\"><ol id=\"Log\" style=\"font-family:Arial,sans-serif; font-size:10pt\"><li>Ereignisliste</li></ol> </div>");
     }
 
     writer.endElement("body");
     writer.endElement("html");
   }
+
+// ----------------------------------------------------------- business methods
 
   private void addScripts(ResponseWriter writer, FacesContext facesContext,
       TobagoResourceSet.Resource script) throws IOException {
@@ -321,6 +311,11 @@ public class PageRenderer extends PageRendererBase {
         writer.endElement("script");
       }
     }
+  }
+
+  public void encodeChildren(FacesContext facesContext, UIComponent component)
+      throws IOException {
+    // children are encoded in encodeEndTobago(...)
   }
 
   private void errorMessageForDebugging(String id, FacesMessage message,
@@ -354,8 +349,8 @@ public class PageRenderer extends PageRendererBase {
     return type;
   }
 
-
-// ///////////////////////////////////////////// bean getter + setter
-
+  public boolean getRendersChildren() {
+    return true;
+  }
 }
 
