@@ -27,6 +27,7 @@ import javax.faces.event.ActionEvent;
 import javax.servlet.ServletRequest;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -60,7 +61,7 @@ public class TreeNodeRenderer extends RendererBase
       String expandState = request.getParameter(treeId);
       String searchString = ";" + nodeId + ";";
       if (expandState.indexOf(searchString) > -1) {
-        state.addExpandState((TreeNode) node.getValue());
+        state.addExpandState((DefaultMutableTreeNode) node.getValue());
       }
     }
 
@@ -69,7 +70,7 @@ public class TreeNodeRenderer extends RendererBase
       String selected = request.getParameter(treeId + UITree.SELECT_STATE);
       String searchString = ";" + nodeId + ";";
       if (selected.indexOf(searchString) > -1) {
-        state.addSelection((TreeNode) node.getValue());
+        state.addSelection((DefaultMutableTreeNode) node.getValue());
       }
     }
 
@@ -78,7 +79,7 @@ public class TreeNodeRenderer extends RendererBase
       String searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeId;
 
       if (marked.equals(searchString)) {
-        state.setMarker((MutableTreeNode) node.getValue());
+        state.setMarker((DefaultMutableTreeNode) node.getValue());
       }
     }
 
@@ -165,7 +166,7 @@ public class TreeNodeRenderer extends RendererBase
       LOG.debug("No treeState found. clientId=" + clientId);
     } else {
 
-      TreeNode node = (TreeNode) treeNode.getValue();
+      DefaultMutableTreeNode node = (DefaultMutableTreeNode) treeNode.getValue();
 
       ResponseWriter writer = facesContext.getResponseWriter();
 
