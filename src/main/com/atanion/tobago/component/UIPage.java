@@ -92,7 +92,7 @@ public class UIPage extends UIForm {
     UIComponent command = findComponent(actionId);
 
     // fixme: hotfix for UICommand inside of a sheet.
-    while (command == null) {
+    while (command == null && actionId.indexOf(':') != -1) {
       actionId = StringUtils.substring(actionId, 0, actionId.lastIndexOf(':'));
       command = findComponent(actionId);
     }
