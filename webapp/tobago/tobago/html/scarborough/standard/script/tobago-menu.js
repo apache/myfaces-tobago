@@ -185,7 +185,8 @@ function MenuItem(label, action, disabled) {
 
   this.keyDown = function() {
     if (this.level == 1) {
-     this.nextItem(-1, 1);
+      this.subItemContainer.style.visibility = "visible";
+      this.nextItem(-1, 1);
     }
     else {
       if (this.parent.nextItem(this.index, 1)) {
@@ -196,12 +197,37 @@ function MenuItem(label, action, disabled) {
 
   this.keyUp = function() {
     if (this.level == 1) {
-     this.nextItem(this.subItems.length, -1);
+      this.subItemContainer.style.visibility = "visible";
+      this.nextItem(this.subItems.length, -1);
     }
     else {
       if (this.parent.nextItem(this.index, -1)) {
         this.hover = false;
       }
+    }
+  }
+
+  this.keyLeft = function() {
+    if (this.level == 1) {
+      var next = this.parent.nextItem(this.index, -1);
+      if (next && next.htmlElement.id != this.htmlElement.id) { // menu has changed
+        this.hover = false;
+        next.subItemContainer.style.visibility = "visible";
+      }
+    }
+    else if (this.level == 2) {
+      var next = this.parent.parent.nextItem(this.parent.index, -1);
+      if (next && next.htmlElement.id != this.parent.htmlElement.id) { // menu has changed
+        this.hover = false;
+        next.subItemContainer.style.visibility = "visible";
+      }
+    }
+    else { // level > 2
+      var next = tobagoMenuGetLabelTag(this.parent.htmlElement.childNodes);
+      this.parent.hover = true;
+      this.parent.subItemContainer.style.visibility = "hidden";
+      next.focus();
+      this.hover = false;
     }
   }
 
@@ -231,7 +257,7 @@ function MenuItem(label, action, disabled) {
     if (span) {
       this.subItems[i].hover = true;
       span.focus();
-      return true;
+      return this.subItems[i];
     }
     return false;
   }
@@ -541,12 +567,14 @@ function tobagoMenuBlur(event) {
 function tobagoMenuDown(event) {
   var element = getActiveElement(event);
   element.parentNode.menuItem.keyDown();
-  stopEventPropagation(event);
 }
 function tobagoMenuUp(event) {
   var element = getActiveElement(event);
   element.parentNode.menuItem.keyUp();
-  stopEventPropagation(event);
+}
+function tobagoMenuLeft(event) {
+  var element = getActiveElement(event);
+  element.parentNode.menuItem.keyLeft();
 }
 
 function stopEventPropagation(event) {
@@ -567,11 +595,24 @@ function tobagoMenuItemCollapse(event) {
 }
 
 
-function tobagoMenuKeyDown(event) {
-  if (! event) {
-    event = window.event;
-  }
 
+// mozilla can't cancel default action at keydown event
+// ie can't see up/down/... in keypress event
+// so both handlers are installed but only one should do the action
+function tobagoMenuKeyPress(event) {
+  if (event.stopPropagation) { // mozilla event
+    tobagoMenuHandelKey(event);
+  }
+}
+
+function tobagoMenuKeyDown(event) {
+  if (!event || !event.stopPropagation) { // ! mozilla event
+    tobagoMenuHandelKey(window.event);
+  }
+}
+
+function tobagoMenuHandelKey(event) {
+  var cancel;
   var code;
   if (event.which) {
     code = event.which;
@@ -582,12 +623,31 @@ function tobagoMenuKeyDown(event) {
   if (code == 27) {  // ESC
     tobagoMenuItemCollapse(event);
   }
-  else if (code == 38) {
-    tobagoMenuUp(event);
+  else if (code == 37) { // left
+    tobagoMenuLeft(event);
+    cancel = true;
   }
-  else if (code == 40) {
+  else if (code == 38) { // up
+    tobagoMenuUp(event);
+    cancel = true;
+  }
+  else if (code == 39) { // right
+   // tobagoMenuUp(event);
+    cancel = true;
+  }
+  else if (code == 40) { // down
     tobagoMenuDown(event);
+    cancel = true;
   }
 
-  PrintDebug("keyevent catched : " + code);
+  if (cancel) {
+    event.returnValue = false;
+    event.cancelBubble = true;
+    if (event.preventDefault) {
+      event.preventDefault();
+    }
+    if (event.stopPropagation) {
+      event.stopPropagation();
+    }
+  }
 }
