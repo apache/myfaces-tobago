@@ -322,13 +322,6 @@ label.tobago-label-disabled  {
 }
 
 /* text -------------------------------------------------------------------- */
-.tobago-text-default  {
- font: 12px arial, helvetica, sans-serif;
-}
-
-.tobago-text-theme-strong {
-  font: bold 12px arial, helvetica, sans-serif;
-}
 
 /* textarea ---------------------------------------------------------------- */
 

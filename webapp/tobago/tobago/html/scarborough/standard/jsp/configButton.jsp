@@ -15,9 +15,8 @@
   String url = "configWindow('" + clientConfigJsp + "')";
 %>
   <tobago:script file="configWindow.js" i18n="true" />
-  <tobago:button commandName="<%= url %>" type="script" id="configButtonAction"> <%-- id is needed for knowledgebase, don't know why :-( --%>
-    <tobago:image value="config.gif" i18n="true" />
-    <tobago:text value="#{tobagoBundle.configButtonText}" inline="true"
-        escape="false" />
-  </tobago:button>
+  <%-- id is needed for knowledgebase, don't know why :-( --%>
+  <tobago:button commandName="<%= url %>" type="script" id="configButtonAction"
+        label="#{tobagoBundle.configButtonText}"
+        image="config.gif" />
 </f:subview>

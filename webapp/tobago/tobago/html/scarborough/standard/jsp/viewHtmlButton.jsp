@@ -3,8 +3,5 @@
 <f:subview id="viewHtmlButton_jsp" >
   <tobago:button id="viewHtmlButton"
         commandName="window.location = 'view-source:' + window.location"
-        type="script">
-    <tobago:image value="source.gif" i18n="true" />
-    &nbsp;HTML
-  </tobago:button>
+        type="script" label="HTML" image="source.gif"/>
 </f:subview>

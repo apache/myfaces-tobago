@@ -13,7 +13,7 @@ import javax.faces.component.UIOutput;
 public class FormattedTag extends TobagoTag {
 // ----------------------------------------------------------------- attributes
 
-  private String createSpan;
+  private String createSpan = "true";
   private String value;
 
 // ----------------------------------------------------------- business methods
@@ -24,7 +24,7 @@ public class FormattedTag extends TobagoTag {
 
   public void release() {
     super.release();
-    createSpan = null;
+    createSpan = "true";
     value = null;
   }
 

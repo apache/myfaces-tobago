@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.UserAgent;
@@ -13,6 +14,7 @@ import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.renderkit.CommandRendererBase;
+import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.util.LayoutUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -56,7 +58,8 @@ public class ToolbarRenderer extends RendererBase
 
     UIPanel toolbar = (UIPanel) uiComponent ;
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) facesContext.getResponseWriter();
     boolean suppressContainer = ComponentUtil.getBooleanAttribute(
         toolbar, TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER);
 
@@ -97,10 +100,11 @@ public class ToolbarRenderer extends RendererBase
   }
 
   private void renderToolbarButton(FacesContext facesContext,
-      final UICommand command, ResponseWriter writer) throws IOException {
+      final UICommand command, TobagoResponseWriter writer) throws IOException {
     final boolean disabled = ComponentUtil.getBooleanAttribute(command, ATTR_DISABLED);
     final UIGraphic graphic = ComponentUtil.getFirstGraphicChild(command);
     final UIOutput output = ComponentUtil.getFirstNonGraphicChild(command);
+    final LabelWithAccessKey label = new LabelWithAccessKey(command);
 
 
     final String graphicId
@@ -147,12 +151,13 @@ public class ToolbarRenderer extends RendererBase
       RenderUtil.encode(facesContext, graphic);
     }
 
-    if (output != null) {
+
+    if (label.getText() != null) {
       if (graphic != null) {
         writer.startElement("span", null);
         writer.writeAttribute("class", "tobago-toolbar-button-label", null);
       }
-      RenderUtil.encode(facesContext, output);
+      RenderUtil.writeLabelWithAccessKey(writer, label);
 
       if (graphic != null) {
         writer.endElement("span");

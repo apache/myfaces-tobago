@@ -305,6 +305,11 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
+      <name>label</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
       <name>onchange</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
@@ -348,6 +353,11 @@
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>label</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
@@ -613,6 +623,11 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
+      <name>label</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
       <name>disabled</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
@@ -654,6 +669,21 @@
     </attribute>
     <attribute>
       <name>immediate</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>image</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>accessKey</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>labelWithAccessKey</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
@@ -825,6 +855,11 @@
     <attribute>
       <name>id</name>
       <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>label</name>
+      <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
   </tag>
@@ -1275,6 +1310,11 @@
     </attribute>
     <attribute>
       <name>value</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>label</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>

@@ -7,8 +7,6 @@
   String sourceName = request.getRequestURI().substring(contextPath.length());
   String action = "/viewSource.jsp?jsp=" + sourceName;
 %>
-  <tobago:button id="viewJspButton" commandName="<%= action %>" type="navigate">
-    <tobago:image value="source.gif" i18n="true" id="image" />
-    <f:verbatim >&nbsp;JSP</f:verbatim>
-  </tobago:button>
+  <tobago:button id="viewJspButton" commandName="<%= action %>" type="navigate"
+      label="JSP" image="source.gif" />
 </f:subview>

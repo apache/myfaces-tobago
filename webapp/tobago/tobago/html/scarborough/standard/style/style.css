@@ -205,7 +205,7 @@ button img  {
   background: transparent;
 }
 
-/* file ----------------------------------------------------------- */
+/* file -------------------------------------------------------------------- */
 
 .tobago-file-default {
   height: 25px;
@@ -213,6 +213,12 @@ button img  {
 
 .tobago-file-error  {
   border-color: #ff0000;
+}
+
+/* formatted --------------------------------------------------------------- */
+
+.tobago-formatted-default  {
+  font: 12px arial, helvetica, sans-serif;
 }
 
 /* gridlayout -------------------------------------------------------------- */
@@ -414,6 +420,10 @@ div.tobago-richtexteditor-body {
 }
 
 /* text -------------------------------------------------------------------- */
+
+.tobago-text-default  {
+  font: 12px arial, helvetica, sans-serif;
+}
 
 .tobago-text-theme-strong {
   font: bold 12px arial, helvetica, sans-serif;

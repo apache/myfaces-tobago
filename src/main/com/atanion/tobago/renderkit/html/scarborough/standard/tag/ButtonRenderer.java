@@ -39,9 +39,8 @@ public class ButtonRenderer extends CommandRendererBase
     String buttonType = createButtonType(component);
 
     String onclick = createOnClick(facesContext, component);
-    onclick =
-        CommandRendererBase.appendConfirmationScript(onclick, component,
-            facesContext);
+    onclick = CommandRendererBase.appendConfirmationScript(
+        onclick, component, facesContext);
 
     boolean disabled
         = ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED);
@@ -49,9 +48,10 @@ public class ButtonRenderer extends CommandRendererBase
       onclick = "";
     }
 
-    LabelWithAccessKey label = new LabelWithAccessKey(component);
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    LabelWithAccessKey label = new LabelWithAccessKey(component);
 
     writer.startElement("button", component);
     writer.writeAttribute("type", buttonType, null);

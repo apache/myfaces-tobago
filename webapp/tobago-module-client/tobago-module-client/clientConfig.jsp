@@ -12,8 +12,7 @@
       <f:facet name="layout">
         <tobago:gridlayout />
       </f:facet>
-      <tobago:groupbox width="480px" height="450px">
-        <f:facet name="label"><tobago:text value="#{tobagoBundle.configTitle}" /></f:facet>
+      <tobago:groupbox label="#{tobagoBundle.configTitle}" width="480px" height="450px">
         <f:facet name="layout">
           <tobago:gridlayout columnCount="1" />
         </f:facet>
@@ -24,9 +23,8 @@
           <f:selectItems value="#{tobagoClientController.themeItems}" />
         </tobago:singleselect>
         <br />
-        <tobago:checkbox value="#{tobagoClientController.debugMode}" inline="true">
-          <f:facet name="label"><tobago:label value="#{tobagoBundle.configDebugMode}" inline="true" /></f:facet>
-        </tobago:checkbox>
+        <tobago:checkbox value="#{tobagoClientController.debugMode}"
+            inline="true" label="#{tobagoBundle.configDebugMode}" />
         <br />
         <tobago:text value="#{tobagoBundle.configLocaleText}" />
         <tobago:singleselect value="#{tobagoClientController.locale}"
@@ -41,9 +39,7 @@
         </tobago:singleselect>
         <br />
 
-        <tobago:button action="#{tobagoClientController.submit}">
-          <tobago:text value="#{tobagoBundle.configSubmit}" />
-        </tobago:button>
+        <tobago:button action="#{tobagoClientController.submit}" label="#{tobagoBundle.configSubmit}" />
 
       </tobago:groupbox>
     </tobago:panelGroup>
