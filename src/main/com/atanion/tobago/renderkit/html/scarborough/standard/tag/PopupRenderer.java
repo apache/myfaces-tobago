@@ -23,6 +23,9 @@ import java.io.IOException;
 public class PopupRenderer extends RendererBase {
 
   private static final Log LOG = LogFactory.getLog(PopupRenderer.class);
+
+  public static final String CONTENT_ID_POSTFIX = "content";
+
   public boolean getRendersChildren() {
     return true;
   }
@@ -40,18 +43,48 @@ public class PopupRenderer extends RendererBase {
     UIPopup component = (UIPopup) uiComponent ;
     ResponseWriter writer = facesContext.getResponseWriter();
     writer.startElement("div", component);
-    writer.writeAttribute("id", component.getClientId(facesContext), null);
+    final String clientId = component.getClientId(facesContext);
+    writer.writeAttribute("id", clientId, null);
     writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
-    writer.writeAttribute("onclick", "tobagoPopupBlink('" + component.getClientId(facesContext) + "')", null);
+    writer.writeAttribute("onclick", "tobagoPopupBlink('" + clientId + "')", null);
     writer.endElement("div");
     writer.startElement("div", component);
+    final String contentDivId = clientId + SUBCOMPONENT_SEP + CONTENT_ID_POSTFIX;
+    writer.writeAttribute("id", contentDivId, null);
     writer.writeAttribute("class", "tobago-popup-content", null);
-    writer.writeAttribute("style", "width: " + component.getWidth() + "; \n" +
-        "            height: " + component.getHeight() + "; \n" +
-        "            left: " + component.getLeft() + "; \n" +
-        "            top: " + component.getTop() + ";", null);
+    final String left = component.getLeft();
+    final String top = component.getTop();
+
+    StringBuffer style = new StringBuffer();
+    if (component.getWidth() != null) {
+      style.append("width: " );
+      style.append(component.getWidth());
+      style.append("; ");
+    }
+    if (component.getHeight() != null) {
+      style.append("height: " );
+      style.append(component.getHeight());
+      style.append("; ");
+    }
+    style.append("left: " );
+    style.append(left != null ? left : "100");
+    style.append("; ");
+    style.append("top: " );
+    style.append(top != null ? top : "50");
+    style.append("; ");
+
+    writer.writeAttribute("style", style.toString(), null);
     RenderUtil.encodeChildren(facesContext, component);
     writer.endElement("div");
+
+    String onloadScript = "tobagoSetupPopup('" + contentDivId + "', '"
+        + left + "', '" + top + "');";
+    writer.startElement("script", null);
+    writer.writeAttribute("type", "text/javascript", null);
+    writer.write("\n<!--\n");
+    writer.write(onloadScript);
+    writer.write("\n// -->\n");
+    writer.endElement("script");
   }
 
 // ///////////////////////////////////////////// bean getter + setter

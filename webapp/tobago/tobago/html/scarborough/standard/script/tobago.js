@@ -382,6 +382,41 @@ function tobagoToolbarFocus(element, event) {
 }
 
 
+function tobagoSetupPopup(id, left, top) {
+//  alert("tobagoSetupPopup('" + id + "', '" + left + "', '"+ top + "')");
+  var div = document.getElementById(id);
+  if (div) {
+    var l = left.replace(/\D/g, "");
+    if (l.length > 0) {
+      div.style.left = l;
+//      alert("1 set left to " + l);
+    } else {
+      l = getBrowserInnerWidth() - div.clientWidth - tobagoGetPopupBorderWidth();
+      div.style.left = l/2;
+//      alert("2 set left to " + l/2);
+    }
+
+    var t = top.replace(/\D/g, "");
+    if (t.length > 0) {
+      div.style.top = t;
+//      alert("1 set top to " + t);
+    } else {
+      t = getBrowserInnerHeight() - div.clientHeight - tobagoGetPopupBorderWidth();
+      div.style.top = t/2;
+//      alert("2 set top to " + t/2);
+    }
+
+
+  } else {
+    alert("popup div mit id '" + id + "' nicht gefunden!");
+  }
+
+}
+
+function tobagoGetPopupBorderWidth() {
+  return 4; // 2 * borderWidth
+}
+
 function tobagoPopupBlink(id) {
   PrintDebug("popupId ist " + id);
   var element = document.getElementById(id);
