@@ -15,6 +15,8 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
+import com.atanion.tobago.config.TobagoConfig;
+
 /**
  * Workaround: Weblogic 8.1 calls the ContextListeners after calling
  * Servlet.init() but, JSF assume it does it before.
@@ -29,11 +31,6 @@ public class WeblogicWorkaroundServlet extends HttpServlet {
   private static final Log LOG
       = LogFactory.getLog(WeblogicWorkaroundServlet.class);
 
-  public static final String[] CONFIGURE_LISTENER_CLASS_NAMES = {
-      "com.sun.faces.config.ConfigureListener",
-      "com.atanion.tobago.webapp.TobagoServletContextListener"
-  };
-
 // ///////////////////////////////////////////// attribute
 
 // ///////////////////////////////////////////// constructor
@@ -42,32 +39,39 @@ public class WeblogicWorkaroundServlet extends HttpServlet {
 
   public void init() throws ServletException {
 
+    LOG.debug("1st");
     LifecycleFactory factory = (LifecycleFactory)
         FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
 
-    if (factory != null) {
-      return;
+    if (factory == null) { // Faces ConfigureListener is not called until now!
+      final String className = "com.sun.faces.config.ConfigureListener";
+      LOG.debug("Init of " + className + " by servlet!");
+      callInit(className);
     }
 
-    try {
-      for (int i = 0; i < CONFIGURE_LISTENER_CLASS_NAMES.length; i++) {
-        callInit(CONFIGURE_LISTENER_CLASS_NAMES[i]);
-      }
+    LOG.debug("2nd");
+    TobagoConfig tobagoConfig = TobagoConfig.getInstance();
 
-    } catch (Exception e) {
-      LOG.fatal("The ConfigureListener could not be triggered", e);
+    if (tobagoConfig == null) { // Tobago ConfigureListener is not called until now!
+      final String className = "com.atanion.tobago.webapp.TobagoServletContextListener";
+      LOG.debug("Init of " + className + " by servlet!");
+      callInit(className);
     }
+
+    LOG.debug("3rd");
   }
 
-  private void callInit(String className)
-      throws ClassNotFoundException, InstantiationException,
-      IllegalAccessException {
+  private void callInit(String className) {
 
-    Class aClass = Class.forName(className);
-    ServletContextListener listener = (ServletContextListener)
-        aClass.newInstance();
-    listener.contextInitialized(
-        new ServletContextEvent(getServletContext()));
+    try {
+      Class aClass = Class.forName(className);
+      ServletContextListener listener = (ServletContextListener)
+          aClass.newInstance();
+      listener.contextInitialized(
+          new ServletContextEvent(getServletContext()));
+    } catch (Exception e) {
+      LOG.error("", e);
+    }
   }
 
 // ///////////////////////////////////////////// bean getter + setter
