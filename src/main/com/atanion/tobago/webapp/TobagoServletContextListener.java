@@ -45,33 +45,20 @@ public class TobagoServletContextListener implements ServletContextListener {
     }
 
     try {
-      final ClassLoader classLoader = getClass().getClassLoader();
-      InputStream stream = null;
-      try {
-        stream = classLoader.getResourceAsStream("license.ser");
-        if (stream == null) {
-          throw new LicenseException("No license found! ");
-        }
 
-//      LOG.info("stream == " + stream);
-
-        final License license = LicenseCheck.loadLicense(stream);
-        if (! license.isValid("tobago")) {
-          throw new LicenseException("Invald license found: " + license);
-        } else {
-          if (LOG.isInfoEnabled()) {
-            LOG.info("Valid tobago license found: " + license);
-          }
+      final License license = LicenseCheck.getLicense();
+      if (license == null || !license.isValid("tobago")) {
+        throw new LicenseException("No license or invalid license found: " + license);
+      } else {
+        if (LOG.isInfoEnabled()) {
+          LOG.info("Valid tobago license found: " + license);
         }
-      } finally {
-        IoUtil.close(stream);
       }
 
       // servlet mapping
       ServletContext servletContext = event.getServletContext();
       TobagoServletMapping mapping = new TobagoServletMapping(servletContext);
-      servletContext.setAttribute(
-          TobagoServletMapping.TOBAGO_SERVLET_MAPPING, mapping);
+      servletContext.setAttribute(TobagoServletMapping.TOBAGO_SERVLET_MAPPING, mapping);
 
       // tobago-config.xml
       TobagoConfig tobagoConfig = new TobagoConfig();
@@ -87,8 +74,8 @@ public class TobagoServletContextListener implements ServletContextListener {
 
     } catch (Throwable e) {
       if (LOG.isFatalEnabled()) {
-        String error = "Error while deploy. Tobago can't be initized! " +
-                    "Application will not run!";
+        String error = "Error while deploy process. Tobago can't be initialized! " +
+            "Application will not run!";
         LOG.fatal(error, e);
         throw new RuntimeException(error, e);
       }
@@ -97,8 +84,7 @@ public class TobagoServletContextListener implements ServletContextListener {
 
   public void contextDestroyed(ServletContextEvent event) {
     if (LOG.isInfoEnabled()) {
-      LOG.info(
-          "*** contextDestroyed ***\n--- snip ---------"
+      LOG.info("*** contextDestroyed ***\n--- snip ---------"
           + "--------------------------------------------------------------");
     }
 
@@ -113,12 +99,11 @@ public class TobagoServletContextListener implements ServletContextListener {
 //    LogManager.shutdown();
   }
 
-  protected void initResources(
-      ServletContext servletContext, TobagoConfig tobagoConfig)
+  protected void initResources(ServletContext servletContext, TobagoConfig tobagoConfig)
       throws ServletException {
     ResourceManager resources = new ResourceManager();
     locateResources(servletContext, resources, "/");
-    for (Iterator i = tobagoConfig.getResourceDirs().iterator(); i.hasNext(); ) {
+    for (Iterator i = tobagoConfig.getResourceDirs().iterator(); i.hasNext();) {
       String dir = (String) i.next();
       if (LOG.isDebugEnabled()) {
         LOG.debug("Locating resources in dir: " + dir);
@@ -130,15 +115,13 @@ public class TobagoServletContextListener implements ServletContextListener {
     resources.setTobagoConfig(tobagoConfig);
   }
 
-  private void locateResources(
-      ServletContext servletContext, ResourceManager resources, String path)
+  private void locateResources(ServletContext servletContext, ResourceManager resources, String path)
       throws ServletException {
 
     Set resourcePaths = servletContext.getResourcePaths(path);
     if (resourcePaths == null || resourcePaths.isEmpty()) {
       if (LOG.isErrorEnabled()) {
-        LOG.error(
-            "ResourcePath empty! Please check the web.xml file!" +
+        LOG.error("ResourcePath empty! Please check the web.xml file!" +
             " path='" + path + "'");
       }
       return;
@@ -164,8 +147,7 @@ public class TobagoServletContextListener implements ServletContextListener {
     }
   }
 
-  private void addProperties(
-      ServletContext servletContext, ResourceManager resources,
+  private void addProperties(ServletContext servletContext, ResourceManager resources,
       String childPath)
       throws ServletException {
 
@@ -201,11 +183,9 @@ public class TobagoServletContextListener implements ServletContextListener {
 
     for (Enumeration e = temp.propertyNames(); e.hasMoreElements();) {
       String key = (String) e.nextElement();
-      resources.add(
-          directory + '/' + locale + '/' + key, temp.getProperty(key));
+      resources.add(directory + '/' + locale + '/' + key, temp.getProperty(key));
       if (LOG.isDebugEnabled()) {
-        LOG.debug(
-            directory + '/' + locale + '/' + key + "=" + temp.getProperty(key));
+        LOG.debug(directory + '/' + locale + '/' + key + "=" + temp.getProperty(key));
       }
     }
   }
