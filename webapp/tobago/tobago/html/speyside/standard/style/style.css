@@ -22,7 +22,7 @@ h5  {
 }
 
 
-
+/* - Calendar --------------------------------------------------------------- */
 td.day-selected {
   background-color: #bbbbbb;
 }
@@ -473,32 +473,32 @@ label.tobago-label-disabled  {
   color: #808080;
 }
 
-.tobago-toolbar-button-box-facet {
-  padding-top: 1px;
-  padding-bottom: 1px;
-}
-
 .tobago-toolBar-button-span {
   font: bold 12px arial, helvetica, sans-serif;
   color: #660000;
   border: 1px solid #ffffff;
 }
 
-
-
-
 .tobago-toolBar-button-selected-enabled {
   cursor: pointer;
   margin: 0px;
-  border: 1px solid #999999;
+  border-top: 1px solid #808080;
+  border-right: 1px solid #FFFFFF;
+  border-bottom: 1px solid #FFFFFF;
+  border-left: 1px solid #808080;
   background: #dddddd;
+}
+
+.tobago-toolbar-button-box-facet {
+  padding-top: 1px;
+  padding-bottom: 1px;
 }
 
 .tobago-toolBar-button-box-facet-selected-enabled {
   cursor: pointer;
   margin: 0px;
   border: 1px solid #999999;
-  background: #cccccc;
+  background: #cccccc url(../image/toolbarButtonBoxFacetSelectEnabled.gif) repeat-x top;
 }
 
 .tobago-toolBar-button-disabled {
