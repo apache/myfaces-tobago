@@ -65,6 +65,22 @@ public class ComponentUtil {
   }
 
   /**
+   * Find all subforms of a component, and collects it.
+   * It does not find subforms of subforms.
+   */ 
+  public static void findSubForms(List collect, UIComponent component) {
+    List children = component.getChildren();
+    for (int i = 0; i < children.size(); i++) {
+      UIComponent child = (UIComponent) children.get(i);
+      if (child instanceof UIForm) {
+        collect.add(child);
+      } else {
+        findSubForms(collect, child);
+      }
+    }
+  }
+
+  /**
    * Looks for the attribute "for" in the component. If there is any
    * search for the component which is referenced by the "for" attribute,
    * and return their clientId.

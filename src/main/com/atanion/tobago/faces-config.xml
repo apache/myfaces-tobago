@@ -56,6 +56,10 @@
     <component-class>com.atanion.tobago.component.UIInput</component-class>
   </component>
   <component>
+    <component-type>javax.faces.Form</component-type>
+    <component-class>com.atanion.tobago.component.UIForm</component-class>
+  </component>
+  <component>
     <component-type>javax.faces.SelectMany</component-type>
     <component-class>com.atanion.tobago.component.UISelectMany</component-class>
   </component>

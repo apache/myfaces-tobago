@@ -9,11 +9,11 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.util.TobagoResourceSet;
 import com.atanion.util.collections.ListOrderedSet;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,7 +26,7 @@ public class UIPage extends UIForm {
 
   private static Log LOG = LogFactory.getLog(UIPage.class);
 
-  public static final String COMPONENT_TYPE="com.atanion.tobago.Page";
+  public static final String COMPONENT_TYPE = "com.atanion.tobago.Page";
 
   public static final String DEFAULT_STYLE = "style.css";
 
@@ -77,18 +77,44 @@ public class UIPage extends UIForm {
 
   public void processDecodes(FacesContext facesContext) {
 
-    if (!ComponentUtil.isOutputOnly(this)) {
-      decode(facesContext);
+    decode(facesContext);
+
+    // reset old submitted state
+    setSubmitted(false);
+
+    // find the form of the action command and set submitted to it and all
+    // children
+    String actionId = getActionId();
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("actionId = '" + actionId + "'");
     }
 
-    for (Iterator i = getFacetsAndChildren(); i.hasNext();) {
-      ((UIComponent) i.next()).processDecodes(facesContext);
+    UIComponent command = findComponent(actionId);
+
+    // fixme: hotfix for UICommand inside of a sheet.
+    while (command == null) {
+      actionId = StringUtils.substring(actionId, 0, actionId.lastIndexOf(':'));
+      command = findComponent(actionId);
+    }
+
+    LOG.info(command);
+    UIForm form = (UIForm) ComponentUtil.findForm(command);
+    LOG.info(form);
+    ComponentUtil.debug(facesContext.getViewRoot(), 0);
+    LOG.info(form.getClientId(facesContext));
+    form.setSubmitted(true);
+
+    Iterator kids = getFacetsAndChildren();
+    while (kids.hasNext()) {
+      UIComponent kid = (UIComponent) kids.next();
+      kid.processDecodes(facesContext);
     }
   }
 
   public void storeFocusId(String id) {
     if (getFocusId() != null) {
-      LOG.warn("local focusId = \"" + getFocusId() + "\" ignore new value \""
+      LOG.warn(
+          "local focusId = \"" + getFocusId() + "\" ignore new value \""
           + id + "\"");
     } else {
       setFocusId(id);

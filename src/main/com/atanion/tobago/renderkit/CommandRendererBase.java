@@ -50,13 +50,13 @@ public class CommandRendererBase extends RendererBase {
       component.queueEvent(new ActionEvent(component));
 //      ((UICommand) component).fireActionEvent(facesContext);
 
-      UIForm form = ComponentUtil.findForm(component);
-      if (form != null) {
-        form.setSubmitted(true);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("setting Form Active: " + form.getClientId(facesContext));
-        }
-      }
+//      UIForm form = ComponentUtil.findForm(component);
+//      if (form != null) {
+//        form.setSubmitted(true);
+//        if (LOG.isDebugEnabled()) {
+//          LOG.debug("setting Form Active: " + form.getClientId(facesContext));
+//        }
+//      }
     }
   }
 
