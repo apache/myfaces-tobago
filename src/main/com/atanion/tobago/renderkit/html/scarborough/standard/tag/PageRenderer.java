@@ -287,7 +287,17 @@ public class PageRenderer extends PageRendererBase {
           errorMessageForDebugging(id, message, writer);
         }
       }
-      writer.write("<div onmousedown=\"tobagoJsLogMouseDown(event)\" onmousemove=\"tobagoJsLogMouseMove(event)\" onmouseup=\"tobagoJsLogMouseUp()\" id=\"LogDiv\" style=\"position:  absolute; right: 2px; top: 30px; height: 500px;width: 400px; overflow: auto;border:1px solid red; background: #ffffff;\"><ol id=\"Log\" style=\"font-family:Arial,sans-serif; font-size:10pt\"><li>Ereignisliste</li></ol> </div>");
+/*
+      writer.write("<div onmousedown=\"tobagoJsLogMouseDown(event)\" " +
+          "onmousemove=\"tobagoJsLogMouseMove(event)\" " +
+          "onmouseup=\"tobagoJsLogMouseUp()\" " +
+          "id=\"LogDiv\" " +
+          "style=\"position:  absolute; right: 2px; top: 30px; " +
+          "height: 500px;width: 400px; overflow: auto;border:1px solid red; " +
+          "background: #ffffff;\">" +
+          "<ol id=\"Log\" style=\"font-family:Arial,sans-serif; " +
+          "font-size:10pt\"><li>Ereignisliste</li></ol> </div>");
+*/
     }
 
     writer.endElement("body");
