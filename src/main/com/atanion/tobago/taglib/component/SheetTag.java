@@ -40,14 +40,14 @@ public class SheetTag extends TobagoTag {
     try {
       UIData component = (UIData) getComponentInstance();
       Object value = component.getValue();
-      if (value instanceof Object[] || value instanceof List) {
+      if (value == null) {
+        LOG.warn("Found 'null' as sheet's value! using empty List instead!");
+        component.setValue(Collections.EMPTY_LIST);
+      } else if (value instanceof Object[] || value instanceof List) {
         if (LOG.isDebugEnabled()) {
           LOG.debug("value = Object[] || List");
         }
-      }else if (value instanceof String && ((String)value).length() == 0) {
-        LOG.warn("Found empty string as sheet's value! using empty List instead!");
-        component.setValue(Collections.EMPTY_LIST);
-      }else {
+      }else  {
         LOG.error("Found illegal type as scheet's value");
         throw new JspException("Illegal value type for sheet: "
             + value.getClass().getName(),
@@ -56,8 +56,7 @@ public class SheetTag extends TobagoTag {
     } catch (Throwable e) {
       LOG.error("#+#+#+#+#", e);
     }
-    final int result = super.doEndTag();
-    return result;
+    return super.doEndTag();
   }
 
   public void release() {
