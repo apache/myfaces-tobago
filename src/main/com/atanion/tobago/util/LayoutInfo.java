@@ -70,16 +70,19 @@ public class LayoutInfo{
   }
 
   public void update(int space, int index){
+
+    if (space > spaceLeft) {
+      if (log.isInfoEnabled()) {
+        log.info("More space need(" + space + ") than avaliable(" + spaceLeft
+            + ")! Cutting t fit!");
+      }
+      space = spaceLeft;
+    }
+
     spaceLeft -= space;
     cellsLeft--;
     if (index < spaces.length) {
       spaces[index] = space;
-      if (spaceLeft < 0) {
-        if (log.isWarnEnabled()) {
-          log.warn("More space used than available! set left to 0!");
-        }
-        spaceLeft = 0;
-      }
       if (spaceLeft <1 && columnsLeft()) {
         if (log.isWarnEnabled()) {
           log.warn("There are columns left but no more Space!");
