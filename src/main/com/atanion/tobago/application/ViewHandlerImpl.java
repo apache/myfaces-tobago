@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
@@ -40,8 +41,6 @@ public class ViewHandlerImpl extends ViewHandler {
   public static final String PAGE_ID = "tobago::page-id";
 
 // ///////////////////////////////////////////// attribute
-
-  private static long nextId = 0;
 
 // ///////////////////////////////////////////// constructor
 
@@ -78,10 +77,9 @@ public class ViewHandlerImpl extends ViewHandler {
     root.setViewId(viewId);
     root.setLocale(calculateLocale(facesContext));
     root.setRenderKitId(calculateRenderKitId(facesContext));
-    String pageId = Long.toString(nextId++);
+    ViewMap viewMap = ensureViewMap(facesContext);
+    String pageId = viewMap.addView(root);
     root.getAttributes().put(PAGE_ID, pageId);
-    Map viewMap = ensureViewMap(facesContext);
-    viewMap.put(pageId, root);
     return root;
   }
 
@@ -188,16 +186,16 @@ public class ViewHandlerImpl extends ViewHandler {
     LOG.error("not implemented yet!"); // fixme jsfbeta
   }
 
-  private Map ensureViewMap(FacesContext facesContext) {
+  private ViewMap ensureViewMap(FacesContext facesContext) {
     HttpSession session
         = (HttpSession) facesContext.getExternalContext().getSession(true);
-    Map viewMap = (Map) session.getAttribute(TobagoConstants.VIEWS_IN_SESSION);
+    ViewMap viewMap = (ViewMap) session.getAttribute(TobagoConstants.VIEWS_IN_SESSION);
     if (viewMap == null) {
       LOG.debug("Creting new view Map");
-      viewMap = new HashMap();
+      viewMap = new ViewMap();
       session.setAttribute(TobagoConstants.VIEWS_IN_SESSION, viewMap);
     } else {
-      LOG.debug(viewMap.keySet());
+      LOG.debug(viewMap);
     }
     return viewMap;
   }
@@ -206,7 +204,7 @@ public class ViewHandlerImpl extends ViewHandler {
 
     handleEncoding(facesContext);
 
-    Map viewMap = ensureViewMap(facesContext);
+    ViewMap viewMap = ensureViewMap(facesContext);
     ServletRequest request
         = (ServletRequest) facesContext.getExternalContext().getRequest();
     String pageId = request.getParameter(PAGE_ID);
@@ -215,7 +213,7 @@ public class ViewHandlerImpl extends ViewHandler {
     }
     UIViewRoot viewRoot = null;
     if (pageId != null) {
-      viewRoot = (UIViewRoot) viewMap.get(pageId);
+      viewRoot = viewMap.getView(pageId);
       if (LOG.isDebugEnabled()) {
         LOG.debug("viewRoot = '" + viewRoot + "'");
       }
@@ -301,8 +299,31 @@ public class ViewHandlerImpl extends ViewHandler {
 
 // ///////////////////////////////////////////// bean getter + setter
 
-  public static class ViewMap {
+  public static class ViewMap implements Serializable {
+
     private Map map;
+    private int nextId;
+
+    public ViewMap() {
+      map = new HashMap();
+      nextId = 0;
+    }
+
+    public UIViewRoot getView(String pageId) {
+      LOG.debug("getView: " + pageId);
+      return (UIViewRoot) map.get(pageId);
+    }
+
+    /**
+     * @param viewRoot
+     * @return The pageId where the view is available in this ViewMap.
+     */
+    public String addView(UIViewRoot viewRoot) {
+      String pageId = Long.toString(nextId++);
+      LOG.debug("addView: " + pageId);
+      map.put(pageId, viewRoot);
+      return pageId;
+    }
 
   }
 
