@@ -60,6 +60,7 @@ public class CellTag extends Panel_GroupTag {
     super.release();
     spanX = "1";
     spanY = "1";
+    scrollbars = null;
   }
 
 // ///////////////////////////////////////////// bean getter + setter
