@@ -350,7 +350,14 @@ public class MenubarRenderer extends RendererBase {
       String onClickPostfix = onClick != null ? "') ; " + onClick : "";
       for (Iterator i = items.iterator(); i.hasNext(); ) {
         SelectItem item = (SelectItem) i.next();
-        label.setup(item.getLabel());
+        final String labelText = item.getLabel();
+        label.accessKey = null;
+        if (labelText.indexOf(LabelWithAccessKey.INDICATOR) > -1 ) {
+          label.text = null;
+          label.setup(labelText);
+        } else {
+          label.text = labelText; 
+        }
         Object itemValue = item.getValue();
         onClick = onClickPrefix + itemValue + onClickPostfix;
         if (itemValue.equals(value) || markFirst) {
