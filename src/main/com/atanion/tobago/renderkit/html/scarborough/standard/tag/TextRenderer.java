@@ -36,8 +36,8 @@ public class TextRenderer extends RendererBase
 
     boolean escape
         = ComponentUtil.getBooleanAttribute(component, ATTR_ESCAPE);
-    boolean createSpan
-        = ComponentUtil.getBooleanAttribute(component, ATTR_CREATE_SPAN);
+    boolean createSpan = ComponentUtil.getBooleanAttribute(
+        component, ATTR_CREATE_SPAN);
 
     if (createSpan) {
       writer.startElement("span", component);

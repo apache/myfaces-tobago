@@ -84,43 +84,6 @@
   </tag>
 
   <tag>
-    <name>formatted</name>
-    <tag-class>com.atanion.tobago.taglib.component.FormattedTag</tag-class>
-    <body-content>JSP</body-content>
-    <attribute>
-      <name>id</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>value</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>createSpan</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>rendered</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-      <description>
-         Flag indicating whether or not this component should be rendered
-         (during Render Response Phase), or processed on any subsequent form submit.
-      </description>
-    </attribute>
-    <attribute>
-      <name>binding</name>
-      <description>
-        The value binding expression linking this component to a property
-        in a backing bean
-      </description>
-    </attribute>
-  </tag>
-
-  <tag>
     <name>label</name>
     <tag-class>com.atanion.tobago.taglib.component.LabelTag</tag-class>
     <body-content>JSP</body-content>
