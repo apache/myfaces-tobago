@@ -4,7 +4,7 @@ var oldX = 0;
 var newWidth = 0;
 
 function initSheet(sheetId) {
-  Ausgeben("initSheet(" + sheetId +")");
+  PrintDebug("initSheet(" + sheetId +")");
   var i = 0;
   var element = document.getElementById(sheetId + "_header_div");
   if (element) {
@@ -40,21 +40,21 @@ function addSelectionListener(sheetId) {
     var i = row.id.substring(row.id.lastIndexOf("_data_tr_") + 9);
     i++;
     while (row) {
-      // Ausgeben("rowId = " + row.id + "   next i=" + i);
+      // PrintDebug("rowId = " + row.id + "   next i=" + i);
       addEventListener(row, "click", doSelection);
       row = document.getElementById(sheetId + "_data_tr_" + i++ );
     }
-    Ausgeben("preSelected rows = " + document.getElementById(sheetId + "::selected").value);
+    PrintDebug("preSelected rows = " + document.getElementById(sheetId + "::selected").value);
   }
 }
 
 function getFirstSelectionRow(sheetId) {
   var element = document.getElementById(sheetId + "_data_row_0_column0");// data div
   while (element && element.id.search(new RegExp("^" + sheetId + "_data_tr_\\d+$")) == -1) {
-    //Ausgeben("element id = " + element.id);
+    //PrintDebug("element id = " + element.id);
     element = element.parentNode;
   }
-  //Ausgeben("element id = " + element.id);
+  //PrintDebug("element id = " + element.id);
   return element;
 }
 
@@ -66,8 +66,8 @@ function doSelection(event) {
 
   clearSelection();
 
-  //Ausgeben("event.ctrlKey = " + event.ctrlKey);
-  //Ausgeben("event.shiftKey = " + event.shiftKey);
+  //PrintDebug("event.ctrlKey = " + event.ctrlKey);
+  //PrintDebug("event.shiftKey = " + event.shiftKey);
 
   var srcElement;
   if (event.target) {
@@ -76,7 +76,7 @@ function doSelection(event) {
   else {
     srcElement = event.srcElement;
   }
-  //Ausgeben("srcElement = " + srcElement.tagName);
+  //PrintDebug("srcElement = " + srcElement.tagName);
   if (srcElement.tagName.search(/DIV/) == 0 || srcElement.tagName.search(/TD/) == 0) {
 
 
@@ -85,12 +85,12 @@ function doSelection(event) {
       dataRow = dataRow.parentNode;
     }
     var rowId = dataRow.id;
-    //Ausgeben("rowId = " + rowId);
+    //PrintDebug("rowId = " + rowId);
     var sheetId = rowId.substring(0, rowId.lastIndexOf("_data_tr_"));
     var hidden = document.getElementById(sheetId + "::selected");
     var selected = hidden.value;
     var sheet = document.getElementById(sheetId + "_outer_div");
-    //Ausgeben("last id = " + sheet.tobagoLastClickedRowId);
+    //PrintDebug("last id = " + sheet.tobagoLastClickedRowId);
 
     if (! event.ctrlKey) {
       // clearAllSelections();
@@ -105,7 +105,7 @@ function doSelection(event) {
       toggleSelection(dataRow, hidden);
     }
     updateSelectionView(sheetId, hidden.value);
-    Ausgeben("selected rows = " + hidden.value);
+    PrintDebug("selected rows = " + hidden.value);
   }
 }
 
@@ -167,10 +167,10 @@ function doScroll(event) {
   var dataPanel = getActiveElement(event);
   var sheetId = dataPanel.id.substring(0, dataPanel.id.lastIndexOf("_data_div"));
   var headerPanel = document.getElementById(sheetId + "_header_div");
-  //Ausgeben("header / data  " + headerPanel.scrollLeft + "/" + dataPanel.scrollLeft);
+  //PrintDebug("header / data  " + headerPanel.scrollLeft + "/" + dataPanel.scrollLeft);
   headerPanel.scrollLeft = dataPanel.scrollLeft;
-  //Ausgeben("header / data  " + headerPanel.scrollLeft + "/" + dataPanel.scrollLeft);
-  //Ausgeben("----------------------------------------------");
+  //PrintDebug("header / data  " + headerPanel.scrollLeft + "/" + dataPanel.scrollLeft);
+  //PrintDebug("----------------------------------------------");
 }
 
 

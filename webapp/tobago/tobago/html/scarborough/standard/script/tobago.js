@@ -113,10 +113,10 @@ function tobago_showHidden() {
 
 
 
-function Ausgeben(Text) {
+function PrintDebug(Text) {
   var log = document.getElementById("Log");
   if (log) {
-    Text = new Date().getTime() + " : " + Text ;
+    //Text = new Date().getTime() + " : " + Text ;
     LogEintrag = document.createElement("li");
     neuerText = document.createTextNode(Text);
     LogEintrag.appendChild(neuerText);
@@ -206,7 +206,7 @@ function addImageSources(id, normal, disabled, hover) {
   sources[2] = disabled;
   sources[3] = hover;
   tobagoImageSources[tobagoImageSources.length] = sources;
-  Ausgeben("here are " + tobagoImageSources.length + " images");
+  PrintDebug("here are " + tobagoImageSources.length + " images");
 }
 
 function getTobagoImageSources(id) {
@@ -235,11 +235,11 @@ function tobagoImageMouseout(id) {
 function tobagoToolbarMousesover(element, className, imageId) {
   addCssClass(element, className);
   tobagoImageMouseover(imageId);
-  Ausgeben("MouseOver element.className : " + element.className);
+  PrintDebug("MouseOver element.className : " + element.className);
 }
 
 function tobagoToolbarMousesout(element, className, imageId) {
   removeCssClass(element, className);
   tobagoImageMouseout(imageId);
-  Ausgeben("MouseOut  element.className : " + element.className);
+  PrintDebug("MouseOut  element.className : " + element.className);
 }
