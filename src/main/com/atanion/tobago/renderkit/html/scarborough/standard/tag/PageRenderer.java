@@ -297,9 +297,9 @@ public class PageRenderer extends PageRendererBase
           errorMessageForDebugging(id, message, writer);
         }
       }
+      writer.write("<div id=\"LogDiv\" style=\"position:  absolute; left: 760px; top: 10px; height: 600px;width: 400px; overflow: auto;\"><ol id=\"Log\" style=\"font-family:Arial,sans-serif; font-size:10pt\"><li>Ereignisliste</li></ol> </div>");
     }
 
-    writer.write("<div id=\"LogDiv\" style=\"position:  absolute; left: 760px; top: 10px; height: 600px;width: 400px; overflow: auto;\"><ol id=\"Log\" style=\"font-family:Arial,sans-serif; font-size:10pt\"><li>Ereignisliste</li></ol> </div>");
     writer.endElement("body");
     writer.endElement("html");
   }
