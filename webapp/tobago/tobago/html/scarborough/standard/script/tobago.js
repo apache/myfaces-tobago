@@ -184,16 +184,13 @@ function addCssClass(element, className) {
    element.className = element.className + " " + className;
 }
 function removeCssClass(element, className) {
+   var classes = " " + element.className + " ";
    var re = new RegExp(" " + className + " ", 'g');
-   element.className = element.className.replace(re," ");
-   re = new RegExp(" " + className + "$");
-   element.className = element.className.replace(re,"");
-   re = new RegExp("^" + className + " ");
-   element.className = element.className.replace(re,"");
-
-   if (element.className == className) {
-     element.className = "";
+   while (classes.match(re)) {
+     classes = classes.replace(re, " ");
    }
+   classes = classes.replace(/  /g, " ");
+   element.className = classes;
 }
 
 
