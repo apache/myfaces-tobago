@@ -143,7 +143,7 @@ public class TreeState {
     this.expandState = expandState;
   }
 
-  public TreeNode getMarker() {
+  public MutableTreeNode getMarker() {
     return marker;
   }
 

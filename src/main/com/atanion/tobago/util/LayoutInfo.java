@@ -33,10 +33,11 @@ public class LayoutInfo{
       this.columnsLeft = columnCount;
       this.spaceLeft = space;
       createAndInitSpaces(columnCount, FREE);
-    }
-    else if (layoutTokens.length > 0) {
+    } else if (layoutTokens.length > 0) {
       if (log.isWarnEnabled()) {
-        log.warn("columnLayout tokens != columnCount : " + layoutTokens.length + " != " + columnCount);
+        log.warn("columnLayout tokens != columnCount : "
+            + layoutTokens.length + " != " + columnCount + ". " +
+                "layout='" + layout + "'");
       }
       layoutTokens = new String[0];
     }
