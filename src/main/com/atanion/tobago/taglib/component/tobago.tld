@@ -1530,6 +1530,15 @@
         ]]>
       </description>
     </attribute>
+    <attribute>
+      <name>rendered</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>
+         Flag indicating whether or not this component should be rendered
+         (during Render Response Phase), or processed on any subsequent form submit.
+      </description>
+    </attribute>
   </tag>
 
   <tag>
@@ -1570,6 +1579,15 @@
       <name>labelWithAccessKey</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>rendered</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>
+         Flag indicating whether or not this component should be rendered
+         (during Render Response Phase), or processed on any subsequent form submit.
+      </description>
     </attribute>
   </tag>
 
@@ -1612,6 +1630,15 @@
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
+    <attribute>
+      <name>rendered</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>
+         Flag indicating whether or not this component should be rendered
+         (during Render Response Phase), or processed on any subsequent form submit.
+      </description>
+    </attribute>
   </tag>
 
   <tag>
@@ -1647,6 +1674,15 @@
       <name>value</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>rendered</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>
+         Flag indicating whether or not this component should be rendered
+         (during Render Response Phase), or processed on any subsequent form submit.
+      </description>
     </attribute>
   </tag>
 

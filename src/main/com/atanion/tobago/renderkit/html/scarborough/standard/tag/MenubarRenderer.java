@@ -153,6 +153,11 @@ public class MenubarRenderer extends RendererBase
 
   private int addMenu(StringBuffer sb, String var, FacesContext facesContext,
       UIPanel menu, int i) throws IOException {
+
+    if (! menu.isRendered()) {
+      return i;
+    }
+    
     String name = var + "_" + i++;
     sb.append("    var " + name + " = " + createMenuEntry(facesContext, menu) + ";\n");
     sb.append("    " + var + ".addMenuItem(" + name + ");\n");
@@ -395,6 +400,10 @@ public class MenubarRenderer extends RendererBase
 
   private void addMenu(StringBuffer sb, String var, FacesContext facesContext,
       UICommand command, LabelWithAccessKey label, String image, String onClick) throws IOException {
+
+    if (! command.isRendered()) {
+      return;
+    }
     final boolean disabled
         = ComponentUtil.getBooleanAttribute(command, ATTR_DISABLED);
     String spanClass
