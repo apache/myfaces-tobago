@@ -140,7 +140,7 @@ public class CalendarRenderer extends RendererBase implements DirectRenderer {
     for (int dayIt = 0; dayIt < 7; ++dayIt) {
       DateModel date = model.getDate(0, dayIt);
       String dayName = dateFormat.format(date.getCalendar().getTime());
-      StringUtils.substring(dayName, 0, 2);
+      dayName = StringUtils.substring(dayName, 0, 2);
 
       writer.startElement("th", null);
       writer.writeText(dayName, null);
