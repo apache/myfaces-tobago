@@ -33,19 +33,13 @@ public class DefaultTreeActionListener implements ActionListener {
 
 // ///////////////////////////////////////////// code
 
-  protected MutableTreeNode create(FacesContext facesContext) {
+  protected DefaultMutableTreeNode create(FacesContext facesContext) {
     String label = TobagoResource.getProperty(facesContext, "tobago", "treeNodeNew");
     return new DefaultMutableTreeNode(label);
   }
 
-  protected MutableTreeNode copy(MutableTreeNode node) {
-    if (node instanceof DefaultMutableTreeNode) {
-      return new DefaultMutableTreeNode(((DefaultMutableTreeNode) node).getUserObject());
-    } else {
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      String label = TobagoResource.getProperty(facesContext, "tobago", "treeNodeCopy");
-      return new DefaultMutableTreeNode(label);
-    }
+  protected DefaultMutableTreeNode copy(DefaultMutableTreeNode node) {
+    return new DefaultMutableTreeNode(node.getUserObject());
   }
 
   public void processAction(ActionEvent actionEvent) throws AbortProcessingException {
@@ -59,7 +53,7 @@ public class DefaultTreeActionListener implements ActionListener {
 
     UITree tree = (UITree) component;
     TreeState treeState = (TreeState) tree.getValue();
-    MutableTreeNode marker = (MutableTreeNode) treeState.getMarker();
+    DefaultMutableTreeNode marker = treeState.getMarker();
     String command = (String) actionEvent.getComponent().getAttributes().get(
         TobagoConstants.ATTR_COMMAND_NAME);
 
@@ -90,9 +84,9 @@ public class DefaultTreeActionListener implements ActionListener {
       } else if (UITree.COMMAND_PASTE.equals(command)) {
         if (treeState.getLastMarker() != null) {
           if (UITree.COMMAND_CUT.equals(treeState.getLastCommand())) {
-            marker.insert((MutableTreeNode) treeState.getLastMarker(), 0);
+            marker.insert(treeState.getLastMarker(), 0);
           } else if (UITree.COMMAND_COPY.equals(treeState.getLastCommand())) {
-            marker.insert(copy((MutableTreeNode) treeState.getLastMarker()), 0);
+            marker.insert(copy(treeState.getLastMarker()), 0);
           }
           treeState.setLastMarker(null);
           treeState.setLastCommand(null);

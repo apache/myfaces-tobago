@@ -8,12 +8,14 @@ package com.atanion.tobago.model;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
-import javax.swing.tree.MutableTreeNode;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 /**
  * Manages the state on a Tree:<br />
@@ -31,24 +33,24 @@ public class TreeState {
 
 // ///////////////////////////////////////////// attribute
 
-  private TreeNode root;
-  private List selection;     // java1.5 List<TreeNode>
-  private List expandState;   // java1.5 List<TreeNode>
-  private MutableTreeNode marker;
-  private TreeNode lastMarker;
+  private DefaultMutableTreeNode root;
+  private Set selection;     // java1.5 Set<TreeNode>
+  private Set expandState;   // java1.5 Set<TreeNode>
+  private DefaultMutableTreeNode marker;
+  private DefaultMutableTreeNode lastMarker;
   private String lastCommand;
 
 // ///////////////////////////////////////////// constructor
 
-  public TreeState(TreeNode root) {
+  public TreeState(DefaultMutableTreeNode root) {
     this.root = root;
-    selection = new ArrayList();
-    expandState = new ArrayList();
+    selection = new HashSet();
+    expandState = new HashSet();
   }
 
 // ///////////////////////////////////////////// code
 
-  public boolean isSelected(TreeNode node) {
+  public boolean isSelected(DefaultMutableTreeNode node) {
     return selection.contains(node);
   }
 
@@ -56,11 +58,11 @@ public class TreeState {
     selection.clear();
   }
 
-  public void addSelection(TreeNode selectItem) {
+  public void addSelection(DefaultMutableTreeNode selectItem) {
     selection.add(selectItem);
   }
 
-  public boolean isExpanded(TreeNode node) {
+  public boolean isExpanded(DefaultMutableTreeNode node) {
     return expandState.contains(node);
   }
 
@@ -68,11 +70,11 @@ public class TreeState {
     expandState.clear();
   }
 
-  public void addExpandState(TreeNode expandStateItem) {
+  public void addExpandState(DefaultMutableTreeNode expandStateItem) {
     expandState.add(expandStateItem);
   }
 
-  public boolean isMarked(TreeNode node) {
+  public boolean isMarked(DefaultMutableTreeNode node) {
     return node.equals(marker);
   }
 
@@ -80,7 +82,7 @@ public class TreeState {
     expand(root, level);
   }
 
-  public void expand(TreeNode node, int level) {
+  public void expand(DefaultMutableTreeNode node, int level) {
     if (level <= 0) {
       // nothing to do
     } else {
@@ -88,7 +90,7 @@ public class TreeState {
         expandState.add(node);
       }
       for (Enumeration i = node.children(); i.hasMoreElements(); ) {
-        TreeNode child = (TreeNode) i.nextElement();
+        DefaultMutableTreeNode child = (DefaultMutableTreeNode) i.nextElement();
         expand(child, level - 1);
       }
     }
@@ -111,7 +113,7 @@ public class TreeState {
   /**
    * Adds a (external created) node to the actually marked node.
    */
-  public void commandNew(MutableTreeNode newNode) {
+  public void commandNew(DefaultMutableTreeNode newNode) {
     marker.insert(newNode, 0);
     setLastMarker(null);
     setLastCommand(null);
@@ -119,43 +121,43 @@ public class TreeState {
 
 // ///////////////////////////////////////////// bean getter + setter
 
-  public TreeNode getRoot() {
+  public DefaultMutableTreeNode getRoot() {
     return root;
   }
 
-  public void setRoot(TreeNode root) {
+  public void setRoot(DefaultMutableTreeNode root) {
     this.root = root;
   }
 
-  public List getSelection() {
+  public Set getSelection() {
     return selection;
   }
 
-  public void setSelection(List selection) {
+  public void setSelection(Set selection) {
     this.selection = selection;
   }
 
-  public List getExpandState() {
+  public Set getExpandState() {
     return expandState;
   }
 
-  public void setExpandState(List expandState) {
+  public void setExpandState(Set expandState) {
     this.expandState = expandState;
   }
 
-  public MutableTreeNode getMarker() {
+  public DefaultMutableTreeNode getMarker() {
     return marker;
   }
 
-  public void setMarker(MutableTreeNode marker) {
+  public void setMarker(DefaultMutableTreeNode marker) {
     this.marker = marker;
   }
 
-  public TreeNode getLastMarker() {
+  public DefaultMutableTreeNode getLastMarker() {
     return lastMarker;
   }
 
-  public void setLastMarker(TreeNode lastMarker) {
+  public void setLastMarker(DefaultMutableTreeNode lastMarker) {
     this.lastMarker = lastMarker;
   }
 

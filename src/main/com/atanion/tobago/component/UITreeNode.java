@@ -54,6 +54,10 @@ public class UITreeNode extends UIInput {
     return subReference;
   }
 
+  public DefaultMutableTreeNode getTreeNode() {
+    return (DefaultMutableTreeNode) getValue();
+  }
+
   public Object getValue() {
     TreeNode value = null;
     UITree root = findTreeRoot();
