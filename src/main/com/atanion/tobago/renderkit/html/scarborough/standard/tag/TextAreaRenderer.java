@@ -21,8 +21,14 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Iterator;
 
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
+
 public class TextAreaRenderer extends InputRendererBase
     implements HeightLayoutRenderer, DirectRenderer {
+
+  private static final Log LOG = LogFactory.getLog(TextAreaRenderer.class);
+
 // ----------------------------------------------------------------- interfaces
 
 
@@ -114,6 +120,16 @@ public class TextAreaRenderer extends InputRendererBase
     }
     String currentValue = ComponentUtil.currentValue(input);
     if (currentValue != null) {
+      // this is because browsers eat the first CR+LF of <textarea>
+      LOG.info("currentValue='"+currentValue+"' " + currentValue.length());
+      if (currentValue.startsWith("\r\n")) {
+        currentValue = "\r\n" + currentValue;
+      } else if (currentValue.startsWith("\n")) {
+        currentValue = "\n" + currentValue;
+      } else if (currentValue.startsWith("\r")) {
+        currentValue = "\r" + currentValue;
+      }
+      LOG.info("currentValue='"+currentValue+"' " + currentValue.length());
       writer.writeText(currentValue, null);
     }
     writer.endElement("textarea");
