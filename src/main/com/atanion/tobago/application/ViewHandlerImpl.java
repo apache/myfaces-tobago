@@ -72,8 +72,8 @@ public class ViewHandlerImpl extends ViewHandler {
   }
 
   public UIViewRoot createView(FacesContext facesContext, String viewId) {
-    if (LOG.isInfoEnabled()) {
-      LOG.info("creating new view with viewId:        '" + viewId + "'");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("creating new view with viewId:        '" + viewId + "'");
     }
     UIViewRoot root = new UIViewRoot();
     root.setViewId(viewId);
@@ -257,8 +257,8 @@ public class ViewHandlerImpl extends ViewHandler {
     if (viewRoot != null) {
 
       if (viewId.equals(viewRoot.getViewId())) {
-        if (LOG.isInfoEnabled()) {
-          LOG.info("found old view with matching viewId:  '" + viewId + "'");
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("found old view with matching viewId:  '" + viewId + "'");
         }
 // fixme: for what it is? and may the decode method called here?
         UIPage page = findPage(viewRoot);
@@ -266,21 +266,21 @@ public class ViewHandlerImpl extends ViewHandler {
           facesContext.setViewRoot(viewRoot); // needed to decode
           page.decode(facesContext);
           if (page.getActionId() == null) {
-            if (LOG.isInfoEnabled()) {
-              LOG.info("old view is not valid!");
+            if (LOG.isDebugEnabled()) {
+              LOG.debug("old view is not valid!");
             }
             viewRoot = null;
           }
         } catch (Throwable e) {
-          if (LOG.isInfoEnabled()) {
-            LOG.info("old view is not valid!", e);
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("old view is not valid!", e);
           }
           viewRoot = null;
         }
 
       } else {
-        if (LOG.isInfoEnabled()) {
-          LOG.info(
+        if (LOG.isDebugEnabled()) {
+          LOG.debug(
               "found old view with different viewId: '" +
               viewRoot.getViewId() +
               "'");
@@ -293,18 +293,19 @@ public class ViewHandlerImpl extends ViewHandler {
   }
 
   private void handleEncoding(FacesContext facesContext) {
-    HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext()
-        .getRequest();
-    LOG.info(
-        "request.getCharacterEncoding() = '" + request.getCharacterEncoding() +
-        "'");
+    HttpServletRequest request = (HttpServletRequest)
+        facesContext.getExternalContext().getRequest();
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("request.getCharacterEncoding() = '"
+          + request.getCharacterEncoding() + "'");
+    }
     try {
       if (request.getCharacterEncoding() == null) {
         request.setCharacterEncoding("UTF-8");
-        LOG.info(
-            "request.getCharacterEncoding() = '" +
-            request.getCharacterEncoding() +
-            "'");
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("request.getCharacterEncoding() = '" +
+              request.getCharacterEncoding() + "'");
+        }
       }
     } catch (UnsupportedEncodingException e) {
       LOG.error("" + e, e);
