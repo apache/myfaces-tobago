@@ -663,6 +663,8 @@
     </attribute>
     <attribute>
       <name>binding</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
       <description>
         The value binding expression linking this component to a property
         in a backing bean
@@ -1109,7 +1111,7 @@
     <attribute>
       <name>spanY</name>
       <required>false</required>
-      <rtexprvalue>false</rtexprvalue>
+      <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
       <name>scrollbars</name>
