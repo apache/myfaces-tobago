@@ -8,15 +8,16 @@ package com.atanion.tobago.context;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.io.Serializable;
 
-abstract public class Theme {
+abstract public class Theme implements Serializable {
 
 // ----------------------------------------------------------------- attributes
 
   private String name;
   private String displayName;
   private Theme fallback;
-  private List fallbackList;
+  private List<Theme> fallbackList;
 
 // --------------------------------------------------------------- constructors
 
@@ -24,12 +25,12 @@ abstract public class Theme {
     this.name = name;
     this.displayName = displayName;
     this.fallback = fallback;
-    fallbackList = new ArrayList();
+    List<Theme> collect = new ArrayList<Theme>();
     for (Theme parent = this;
         parent != null; parent = parent.getFallback()) {
-      fallbackList.add(parent);
+      collect.add(parent);
     }
-    fallbackList = Collections.unmodifiableList(fallbackList);
+    fallbackList = Collections.unmodifiableList(collect);
   }
 
 // ------------------------------------------------------------ getter + setter
@@ -42,7 +43,7 @@ abstract public class Theme {
     return fallback;
   }
 
-  public List getFallbackList() {
+  public List<Theme> getFallbackList() {
     return fallbackList;
   }
 

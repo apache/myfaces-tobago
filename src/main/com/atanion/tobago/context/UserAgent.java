@@ -9,8 +9,10 @@ import java.util.Iterator;
 import java.util.Collections;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public class UserAgent {
+public class UserAgent implements Serializable {
+// ------------------------------------------------------------------ constants
 
   public static final String DEFAULT_NAME = "standard";
 
@@ -47,6 +49,45 @@ public class UserAgent {
 
   public static final UserAgent MOZILLA_5_0_R1_6 = new UserAgent("mozilla", "5_0_r1_6");
 
+// ----------------------------------------------------------------- attributes
+
+  private String name;
+
+  private String version;
+
+// --------------------------------------------------------------- constructors
+
+  private UserAgent(String name, String version){
+    this.name    = name;
+    this.version = version;
+  }
+
+// ----------------------------------------------------------- business methods
+
+  public boolean isMsie() {
+    return MSIE.name.equals(name);
+  }
+
+  public Iterator iterator(){
+    return iterator(false);
+  }
+
+  public Iterator iterator(boolean reverseOrder) {
+    List<String> list = new ArrayList<String>(3);
+    if (version != null) {
+      list.add(name + '_' + version);
+    }
+    if (name != null) {
+      list.add(name);
+    }
+    list.add(DEFAULT_NAME);
+    if (reverseOrder){
+      Collections.reverse(list);
+    }
+    return list.iterator();
+  }
+
+// ------------------------------------------------------------- static methods
 
   public static UserAgent getInstance(String header){
     if (header == null) {
@@ -99,6 +140,7 @@ public class UserAgent {
 
     return DEFAULT;
   }
+
   public static UserAgent getInstanceForId(String id){
      if (id == null) {
        return DEFAULT;
@@ -143,41 +185,7 @@ public class UserAgent {
      return DEFAULT;
    }
 
-
-
-  public Iterator iterator(){
-    return iterator(false);
-  }
-
-  public Iterator iterator(boolean reverseOrder) {
-    List list = new ArrayList(3);
-    if (version != null) {
-      list.add(name + '_' + version);
-    }
-    if (name != null) {
-      list.add(name);
-    }
-    list.add(DEFAULT_NAME);
-    if (reverseOrder){
-      Collections.reverse(list);
-    }
-    return list.iterator();
-  }
-
-
-
-  private String name;
-
-  private String version;
-
-  private UserAgent(String name, String version){
-    this.name    = name;
-    this.version = version;
-  }
-
-  public boolean isMsie() {
-    return MSIE.name.equals(name);
-  }
+// ---------------------------------------------------------- canonical methods
 
   /** @deprecated don't use toString() functionallity! */
   public String toString() {
