@@ -50,7 +50,8 @@ public class TobagoResponseWriter extends ResponseWriter {
 
   private Stack stack;
 
-  private boolean xmlStylishEmptyTags;
+  /** use XML instead HMTL */
+  private boolean xml;
 
   private boolean insideScriptOrStyle = false;
 
@@ -66,7 +67,7 @@ public class TobagoResponseWriter extends ResponseWriter {
     if ("application/xhtml".equals(contentType)
         || "application/xml".equals(contentType)
         || "text/xml".equals(contentType)) {
-      xmlStylishEmptyTags = true;
+      xml = true;
     }
   }
 
@@ -134,7 +135,11 @@ public class TobagoResponseWriter extends ResponseWriter {
     if (insideScriptOrStyle) {
       write(value);
     } else {
-      write(XmlUtils.escape(value));
+      if (xml) {
+        write(XmlUtils.escape(value));
+      } else {
+        write(HtmlUtils.escapeAttribute(value));
+      }
     }
   }
 
@@ -147,8 +152,12 @@ public class TobagoResponseWriter extends ResponseWriter {
     if (insideScriptOrStyle) {
       writer.write(text, offset, length);
     } else {
-      writer.write(XmlUtils.escape(text.toString()).toCharArray(), offset, length);
+      if (xml) {
+        writer.write(XmlUtils.escape(text.toString()).toCharArray(), offset, length);
 // fixme: not nice:     XmlUtils.escape(text.toString()).toCharArray()
+      } else {
+        writer.write(HtmlUtils.escapeAttribute(text.toString()).toCharArray(), offset, length);
+      }
     }
 
   }
@@ -203,7 +212,7 @@ public class TobagoResponseWriter extends ResponseWriter {
     insideScriptOrStyle = false;
 
     if (EMPTY_TAG.contains(name)) {
-      if (xmlStylishEmptyTags) {
+      if (xml) {
         writer.write("\n/>");
       } else {
         writer.write("\n>");
