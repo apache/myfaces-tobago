@@ -15,7 +15,6 @@ import com.atanion.tobago.model.SheetState;
 import com.atanion.tobago.model.SortableByApplication;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.renderkit.CommandRendererBase;
 import com.atanion.tobago.util.LayoutInfo;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.util.BeanComparator;
@@ -26,7 +25,6 @@ import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIGraphic;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIPanel;
@@ -240,7 +238,7 @@ public class SheetRenderer extends RendererBase {
     UIPage uiPage = ComponentUtil.findPage(component);
     uiPage.getScriptFiles().add("script/tobago-sheet.js");
     uiPage.getOnloadScripts().add("initSheet(\"" + sheetId + "\");");
-    uiPage.getStyleFiles().add("tobago-sheet.css");
+    uiPage.getStyleFiles().add("style/tobago-sheet.css");
 
     String selectorDisabled
         = ResourceManagerUtil.getImage(facesContext,

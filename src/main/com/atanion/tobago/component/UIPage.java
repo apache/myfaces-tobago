@@ -31,7 +31,7 @@ public class UIPage extends UIForm {
 
   public static final String COMPONENT_TYPE = "com.atanion.tobago.Page";
 
-  public static final String DEFAULT_STYLE = "style.css";
+  public static final String DEFAULT_STYLE = "style/style.css";
 
 // ///////////////////////////////////////////// attribute
 

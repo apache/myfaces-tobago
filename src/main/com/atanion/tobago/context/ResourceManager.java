@@ -426,7 +426,7 @@ public class ResourceManager {
   }
 
   public String[] getStyles(UIViewRoot viewRoot, String name) {
-    return getStrings(viewRoot, name, "style");
+    return getStrings(viewRoot, name, null);
   }
 
   private String[] getStrings(UIViewRoot viewRoot, String name, String type) {
