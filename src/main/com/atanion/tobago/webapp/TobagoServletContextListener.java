@@ -41,7 +41,7 @@ public class TobagoServletContextListener implements ServletContextListener {
   public void contextInitialized(ServletContextEvent event) {
 
     if (LOG.isInfoEnabled()) {
-      LOG.info("*** contextInitialized *** ***");
+      LOG.info("*** contextInitialized ***");
     }
 
     try {
