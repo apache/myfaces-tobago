@@ -121,42 +121,61 @@ public class SheetRenderer extends RendererBase {
   private void ensureColumnWidthList(FacesContext facesContext, UIData data,
       SheetState state) {
     List widthList = null;
+    List columns = getColumns(data);
 
     final Map attributes = data.getAttributes();
-    String widthListString
-        = (String) attributes.get(TobagoConstants.ATTR_WIDTH_LIST_STRING);
-    if (widthListString == null && state != null) {
+    String widthListString = null;
+
+    if (state != null) {
       widthListString = state.getColumnWidths();
+    }
+    if (widthListString == null) {
+      widthListString =
+          (String) attributes.get(TobagoConstants.ATTR_WIDTH_LIST_STRING);
     }
 
     if (widthListString != null) {
       widthList = SheetState.parse(widthListString);
-    } else {
+    }
+    if (widthList != null && widthList.size() != columns.size()) {
+      widthList = null;
+    }
 
-      String columnLayout = (String) attributes.get(
-          TobagoConstants.ATTR_COLUMNS);
 
-      if (columnLayout != null) {
-        widthList = (List) attributes.get(TobagoConstants.ATTR_WIDTH_LIST);
-        if (widthList == null) {
-          int space = LayoutUtil.getInnerSpace(facesContext, data, true);
-          space -= getConfiguredValue(facesContext, data, "contentBorder");
-          if (needVerticalScrollbar(facesContext, data)) {
-            space -= getScrollbarWidth(facesContext, data);
-          }
-          LayoutInfo layoutInfo = new LayoutInfo(getColumns(data).size(),
-              space, columnLayout);
-          layoutInfo.parseColumnLayout(space);
-          widthList = layoutInfo.getSpaceList();
+    if (widthList == null) {
+
+      String columnLayout =
+          (String) attributes.get(TobagoConstants.ATTR_COLUMNS);
+
+      if (columnLayout == null && columns.size() > 0) {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < columns.size(); i++) {
+          sb.append("1*;");
         }
+        columnLayout = sb.deleteCharAt(sb.lastIndexOf(";")).toString();
+        if (LOG.isWarnEnabled()) {
+          LOG.warn("No columns found! Using created layout tokens: " + columnLayout);
+        }
+      }
+
+      if (widthList == null) {
+        int space = LayoutUtil.getInnerSpace(facesContext, data, true);
+        space -= getConfiguredValue(facesContext, data, "contentBorder");
+        if (needVerticalScrollbar(facesContext, data)) {
+          space -= getScrollbarWidth(facesContext, data);
+        }
+        LayoutInfo layoutInfo = new LayoutInfo(getColumns(data).size(),
+            space, columnLayout);
+        layoutInfo.parseColumnLayout(space);
+        widthList = layoutInfo.getSpaceList();
       }
     }
 
     if (widthList != null) {
-      List columns = getColumns(data);
       if (columns.size() != widthList.size()) {
         LOG.warn("widthList.size() = " + widthList.size() +
-            " != columns.size() = " + columns.size());
+            " != columns.size() = " + columns.size() + "  widthList : "
+            + LayoutInfo.listToTokenString(widthList));
       } else {
         attributes.put(TobagoConstants.ATTR_WIDTH_LIST, widthList);
       }
@@ -265,6 +284,7 @@ public class SheetRenderer extends RendererBase {
     setStoredState(component, sorter, state);
     Pager pager = new Pager(component);
     List columnWidths = (List) attributes.get(TobagoConstants.ATTR_WIDTH_LIST);
+
     String selectedListString = getSelected(component, state);
     List selectedList = SheetState.parse(selectedListString);
     List columnList = getColumns(component);

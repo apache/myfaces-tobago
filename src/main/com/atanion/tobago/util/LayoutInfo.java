@@ -39,7 +39,9 @@ public class LayoutInfo{
       this.layoutTokens = layoutTokens;
     } else if (layoutTokens.length > cellCount) {
       if (LOG.isWarnEnabled()) {
-        LOG.warn("More layoutToken's than cell's! Cutting leavings!");
+        LOG.warn("More layoutToken's (" + layoutTokens.length
+            + ") than cell's (" + cellCount + ")! Cutting leavings!"
+            + " tokens was " + tokensToString(layoutTokens));
       }
       this.layoutTokens = new String[cellCount];
       for (int i = 0; i < cellCount; i++) {
@@ -143,7 +145,15 @@ public class LayoutInfo{
     return tokens;
   }
 
-  private static String tokensToString(String[] tokens) {
+  public static String listToTokenString(List list){
+    String[] tokens = new String[list.size()];
+    for (int i = 0; i < list.size(); i++) {
+      tokens[i] = list.get(i).toString();
+    }
+    return tokensToString(tokens);
+  }
+
+  public static String tokensToString(String[] tokens) {
     StringBuffer sb = new StringBuffer();
     for (int i = 0; i < tokens.length; i++) {
       if (sb.length() != 0) {
