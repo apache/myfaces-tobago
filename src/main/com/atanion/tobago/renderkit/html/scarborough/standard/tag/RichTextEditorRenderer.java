@@ -5,27 +5,26 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
-import java.io.IOException;
-
-import javax.faces.component.EditableValueHolder;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.component.UIGraphic;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.application.Application;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.atanion.lib.richtext.WikiParser;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.context.TobagoResource;
 import com.atanion.tobago.renderkit.DirectRenderer;
+import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.HeightLayoutRenderer;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import javax.faces.application.Application;
+import javax.faces.component.EditableValueHolder;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIGraphic;
+import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
 
 public class RichTextEditorRenderer extends InputRendererBase
  implements DirectRenderer, HeightLayoutRenderer {
@@ -98,8 +97,11 @@ public class RichTextEditorRenderer extends InputRendererBase
 
     writer.startElement("div", component);
     writer.writeAttribute("class", classes + " tobago-richtexteditor-header-div", null);
-    createToolbarButton("Editor", previewState, writer, component, facesContext, clientId);
-    createToolbarButton("Preview", !previewState, writer, component, facesContext, clientId);
+    String onClick = "submitAction('"
+        + ComponentUtil.findPage(component).getFormId(facesContext) + "', '"
+        + clientId + RichTextEditorRenderer.CHANGE_BUTTON + "')";
+    createToolbarButton(facesContext, component, writer, "edit", previewState, onClick);
+    createToolbarButton(facesContext, component, writer, "preview", !previewState, onClick);
     writer.endElement("div");
 
     String content = getCurrentValue(facesContext, component);
@@ -139,16 +141,17 @@ public class RichTextEditorRenderer extends InputRendererBase
     writer.endElement("div");
   }
 
-  private void createToolbarButton(String label, boolean enabled,
-      ResponseWriter writer, UIInput component,
-      FacesContext facesContext, String clientId)
+  private void createToolbarButton(FacesContext facesContext,
+      UIInput component, ResponseWriter writer,
+      String command, boolean enabled, String onClick)
       throws IOException {
-    String onClick = "submitAction('"
-        + ComponentUtil.findPage(component).getFormId(facesContext) + "', '"
-        + clientId + RichTextEditorRenderer.CHANGE_BUTTON + "')";
+
     String onMouseArgs = "this, 'tobago-richtexteditor-toolbar-button-hover'";
     String onMouseOver = "addCssClass(" + onMouseArgs + ")";
     String onMouseOut = "removeCssClass(" + onMouseArgs + ")";
+
+    String title = TobagoResource.getProperty(
+        facesContext, "tobago", "tobago.richtexteditor." + command + ".title");
     writer.startElement("span", component);
     String buttonStyle = "tobago-richtexteditor-toolbar-button-span"
         + (enabled ? "-enabled" : "-disabled");
@@ -157,11 +160,12 @@ public class RichTextEditorRenderer extends InputRendererBase
     writer.writeAttribute("onmouseover", onMouseOver, null);
     writer.writeAttribute("onmouseout", onMouseOut, null);
     writer.writeAttribute("unselectable", "on", null);
+    writer.writeAttribute("title", title, null);
 
     Application application = facesContext.getApplication();
     UIComponent image = application.createComponent(UIGraphic.COMPONENT_TYPE);
     image.getAttributes().put(TobagoConstants.ATTR_VALUE,
-        "tobago-richtext-mode.gif");
+        "tobago-richtext-" + command + ".gif");
     image.getAttributes().put(TobagoConstants.ATTR_STYLE, "vertical-align: bottom;");
     image.getAttributes().put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
     image.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
@@ -169,7 +173,8 @@ public class RichTextEditorRenderer extends InputRendererBase
 
     writer.startElement("span", null);
     writer.writeAttribute("class", "tobago-richtexteditor-toolbar-button-label", null);
-    writer.writeText(label, null);
+    writer.writeText(TobagoResource.getProperty(
+        facesContext, "tobago", "tobago.richtexteditor." + command), null);
     writer.endElement("span");
     writer.endElement("span");
   }
