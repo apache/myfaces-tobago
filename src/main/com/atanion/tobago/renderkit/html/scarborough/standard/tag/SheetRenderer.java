@@ -1240,7 +1240,7 @@ public class SheetRenderer extends RendererBase {
         }
       }
 
-      data.updateSheetState(facescontext);
+      data.updateSheetState(facesContext);
 
 
       return null;
