@@ -6,7 +6,6 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.application.ViewHandlerImpl;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.ResourceManagerUtil;
