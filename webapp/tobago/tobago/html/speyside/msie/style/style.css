@@ -1,7 +1,7 @@
 
 
-// div is expanding by content
-// content is div with css-class tobago-box-content-inner
+/* this div is expanding by content
+   content is div with css-class tobago-box-content-inner*/
 .tobago-box-content {
   height: 0px;
 }
