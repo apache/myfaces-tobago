@@ -64,12 +64,12 @@ public class TobagoServletContextListener implements ServletContextListener {
   }
 
   public void contextDestroyed(ServletContextEvent event) {
+    LogFactory.releaseAll();
     if (LOG.isInfoEnabled()) {
       LOG.info(
           "*** contextDestroyed ***\n--- snip ---------"
           + "--------------------------------------------------------------");
     }
-    LogFactory.releaseAll();
   }
 
   protected void initResources(ServletContext servletContext)
