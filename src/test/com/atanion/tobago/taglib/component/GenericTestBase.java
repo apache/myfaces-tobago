@@ -56,7 +56,7 @@ abstract public class GenericTestBase extends TestCase {
       new TabTag(),
       new TextAreaTag(),
       new OutTag(),
-      new ToolbarTag(),
+      new ToolBarTag(),
       new TreeTag(),
     };
     ordinaryTagList = new Tag[]{

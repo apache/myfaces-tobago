@@ -1876,8 +1876,8 @@
   </tag>
 
   <tag>
-    <name>toolbar</name>
-    <tag-class>com.atanion.tobago.taglib.component.ToolbarTag</tag-class>
+    <name>toolBar</name>
+    <tag-class>com.atanion.tobago.taglib.component.ToolBarTag</tag-class>
     <body-content>JSP</body-content>
     <description>
       <![CDATA[
