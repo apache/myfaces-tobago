@@ -8,6 +8,7 @@ package com.atanion.tobago.renderkit;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -76,7 +77,8 @@ public class TextBoxRendererBase extends InputRendererBase {
     writer.writeAttribute("style", null, ATTR_STYLE);
     writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
     if (onchange != null) {
-      writer.writeAttribute("onchange", onchange, null);
+      // todo: create and use utility method to write attributes without quoting
+//      writer.writeAttribute("onchange", onchange, null);
     }
     writer.endElement("input");
 
