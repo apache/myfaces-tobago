@@ -59,11 +59,15 @@ public class BoxRenderer extends BoxRendererBase {
     writer.endElement("span");
     UIPanel toolbar = (UIPanel) component.getFacet(FACET_TOOL_BAR);
     if (toolbar != null) {
+      final Map attributes = toolbar.getAttributes();
+      String className = "tobago-box-header-toolbar-div";
+      if (ToolBarTag.LABEL_OFF.equals(attributes.get(ATTR_LABEL_POSITION))) {
+        className += " tobago-box-header-toolbar-label_off";
+      }
       writer.startElement("div", null);
-      writer.writeAttribute("class", "tobago-box-header-toolbar-div", null);
+      writer.writeAttribute("class", className, null);
 //      writer.startElement("span", null);
 //      writer.writeAttribute("class", "tobago-box-header-toolbar-span", null);
-      final Map attributes = toolbar.getAttributes();
       attributes.put(
           TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER, Boolean.TRUE);
       if (ToolBarTag.LABEL_BOTTOM.equals(attributes.get(ATTR_LABEL_POSITION))) {

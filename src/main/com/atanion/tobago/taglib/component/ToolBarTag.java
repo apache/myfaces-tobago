@@ -18,7 +18,7 @@ public class ToolBarTag extends PanelTag {
 
   public static final String ICON_SMALL = "small";
   public static final String ICON_BIG = "big";
-  public static final String ICON_OFF = "off ";
+  public static final String ICON_OFF = "off";
 
   private String labelPosition = LABEL_BOTTOM;
   private String iconSize = ICON_SMALL;

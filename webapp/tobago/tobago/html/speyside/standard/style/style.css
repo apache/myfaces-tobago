@@ -279,7 +279,11 @@ div.tobago-box-default {
   top: -2px;
   right: -1px;
 }
- 
+
+.tobago-box-header-toolbar-label_off {
+  top: -1px;
+}
+
 .tobago-box-header-toolbar-span {
   background: #E8E8E8 url(../image/box-header-bg.gif) repeat-x top;
   float: right;

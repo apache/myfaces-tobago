@@ -63,7 +63,7 @@ public final class LabelWithAccessKey {
         accessKey = new Character(text.charAt(pos));
       }
     } else {
-      if (accessKey != null) {
+      if (accessKey != null && text != null) {
         pos = text.toLowerCase().indexOf(
             Character.toLowerCase(accessKey.charValue()));
       }

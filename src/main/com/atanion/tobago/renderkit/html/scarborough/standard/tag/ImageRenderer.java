@@ -45,7 +45,7 @@ public class ImageRenderer extends RendererBase {
         src = null;
         if (isDisabled(graphic)) {
           src = ResourceManagerUtil.getImage(
-              facesContext, createSrc(value, "-disabled"), true);
+              facesContext, createSrc(value, "Disabled"), true);
         }
         if (src == null) {
           src = ResourceManagerUtil.getImage(facesContext, value);
@@ -92,19 +92,22 @@ public class ImageRenderer extends RendererBase {
 
 // ----------------------------------------------------------- business methods
 
-  public void addImageSources(FacesContext facesContext, UIGraphic graphic) {
-    final String src = graphic.getUrl();
-    final UIPage page = ComponentUtil.findPage(graphic);
-    page.getOnloadScripts().add("addImageSources('"
-        + graphic.getClientId(facesContext) + "','"
+  public static void addImageSources(
+      FacesContext facesContext, UIGraphic graphic) {
+    addImageSources(facesContext, ComponentUtil.findPage(graphic),
+        graphic.getUrl(), graphic.getClientId(facesContext));
+  }
+  public static void addImageSources(
+      FacesContext facesContext, UIPage page, String src, String id) {
+    page.getOnloadScripts().add("addImageSources('" + id + "','"
         + ResourceManagerUtil.getImage(facesContext, src, false) + "','"
-        + ResourceManagerUtil.getImage(facesContext,
-            createSrc(src, "-disabled"), true) + "','"
-        + ResourceManagerUtil.getImage(facesContext, createSrc(src, "-hover"),
+        + ResourceManagerUtil.getImage(facesContext, createSrc(src, "Disabled"),
+            true) + "','"
+        + ResourceManagerUtil.getImage(facesContext, createSrc(src, "Hover"),
             true) + "');");
   }
 
-  public String createSrc(String src, String ext) {
+  public static String createSrc(String src, String ext) {
     int dot = src.lastIndexOf('.');
     if (dot == -1) {
       LOG.warn("Image src without extension: '" + src + "'");
