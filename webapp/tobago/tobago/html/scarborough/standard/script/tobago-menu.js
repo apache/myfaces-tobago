@@ -3,9 +3,8 @@
 function initMenuBar(divId, pageId) {
   var menubar = document.getElementById(divId);
   if (menubar && menubar.menu) {
-    var top = getAbsoluteTop(menubar);
-    var left = getAbsoluteLeft(menubar);
-
+    var top = getAbsoluteTop(menubar) + 1;
+    var left = getAbsoluteLeft(menubar) + 1;
     var body = document.getElementById(pageId);
     menubar.menu.htmlElement = document.createElement('div');
     menubar.menu.htmlElement.className = "tobago-menubar-container";

@@ -11,10 +11,10 @@
 }
 
 .tobago-menubar-container {
-  border: 1px dotted red;
   width: 10px;
   height: 10px;
   position: absolute;
+  /* top and left are set from script on the client */
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
