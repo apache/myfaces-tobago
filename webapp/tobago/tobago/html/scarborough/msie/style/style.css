@@ -4,6 +4,17 @@ fieldset.tobago-groupbox-default {
   padding-left: 10px;
 }
 
+.tobago-groupbox-toolbar-div {
+  top: -15px;
+  left: 2px;
+  height: 31px;
+  padding-top: 1px;
+}
+
+.tobago-groupbox-toolbar-span {
+  padding-bottom: 0px;
+}
+
 .tobago-textarea-default {
   margin-top: -1 px;
   margin-bottom: -1 px;

@@ -248,6 +248,22 @@ legend.tobago-groupbox-default {
   color: black;
 }
 
+
+.tobago-groupbox-toolbar-div {
+  position: relative;
+  top: -36px;
+  left: 12px;
+  float: right;
+}
+
+.tobago-groupbox-toolbar-span {
+  border: 2px groove #f6faff;
+  background: #bbccdd;
+  font-size: 22px;
+  padding-bottom: 2px;
+}
+
+
 div.tobago-groupbox-default {
   overflow: auto;
 }
@@ -470,8 +486,7 @@ div.tobago-richtexteditor-body {
 }
 
 .tobago-toolbar-button-span {
-  /*font: bold 12px arial, helvetica, sans-serif;
-  color: #660000;*/
+  font-size: 16px;
   margin: 1px;
   padding-top: 2px;
   padding-left: 5px;

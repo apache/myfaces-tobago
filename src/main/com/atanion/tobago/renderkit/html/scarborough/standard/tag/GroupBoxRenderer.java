@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.GroupBoxRendererBase;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
@@ -40,12 +41,20 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
     String labelString
         = (String) component.getAttributes().get(TobagoConstants.ATTR_LABEL);
+    String style = (String) component.getAttributes().get(getAttrStyleKey());
+    UIPanel toolbar = (UIPanel) component.getFacet("toolbar");
+    if (toolbar != null) {
+      final int padding
+          = getConfiguredValue(facesContext, component, "paddingTopWhenToolbar");
+      style = LayoutUtil.replaceStyleAttribute(style, "padding-top",
+          Integer.toString(padding) + "px");
+    }
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
     writer.startElement("fieldset", component);
-    writer.writeAttribute("style", null, getAttrStyleKey());
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeAttribute("style", style, null);
 
     if (label != null || labelString != null) {
       writer.startElement("legend", component);
@@ -61,6 +70,20 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
       writer.endElement("legend");
 
     }
+
+
+    if (toolbar != null) {
+      writer.startElement("div", null);
+      writer.writeAttribute("class", "tobago-groupbox-toolbar-div", null);
+      writer.startElement("span", null);
+      writer.writeAttribute("class", "tobago-groupbox-toolbar-span", null);
+      toolbar.getAttributes().put(
+          TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER, Boolean.TRUE);
+      RenderUtil.encode(facesContext, toolbar);
+      writer.endElement("span");
+      writer.endElement("div");
+    }
+
     writer.startElement("div", component);
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
     writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_INNER);
@@ -92,6 +115,15 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
     return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
+  public int getPaddingHeight(FacesContext facesContext, UIComponent component) {
+    final int paddingHeight = super.getPaddingHeight(facesContext, component);
+    int extraPadding = 0;
+    if (component.getFacet("toolbar") != null) {
+      extraPadding = getConfiguredValue(facesContext, component,
+          "extraPaddingHeightWhenToolbar");
+    }
+    return paddingHeight + extraPadding;
+  }
 // ///////////////////////////////////////////// bean getter + setter
 
 }
