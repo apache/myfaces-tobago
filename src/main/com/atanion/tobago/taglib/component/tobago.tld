@@ -8,10 +8,10 @@
 <taglib>
   <tlib-version>1.0</tlib-version>
   <jsp-version>1.2</jsp-version>
-  <short-name>Tobago Framework Component Tag Library</short-name>
   <uri>http://www.atanion.com/tobago/component</uri>
   <description>Tobago Framework Component Tag Library -
     (C) Atanion GmbH</description>
+  <short-name>tobago</short-name>
 
   <listener>
     <listener-class>
@@ -23,6 +23,7 @@
     <name>text</name>
     <tag-class>com.atanion.tobago.taglib.component.TextTag</tag-class>
     <body-content>JSP</body-content>
+    <description>Renders a text</description>
     <attribute>
       <name>id</name>
       <required>false</required>
@@ -1389,6 +1390,12 @@
     <name>menubar</name>
     <tag-class>com.atanion.tobago.taglib.component.MenubarTag</tag-class>
     <body-content>JSP</body-content>
+    <description> <![CDATA[
+        Renders a menubar.<br>
+        Add menubar as facet name="menubar" to page tag or use it anywhere
+        on page.<br>
+       ]]>
+    </description>
     <attribute>
       <name>id</name>
       <required>false</required>
@@ -1405,6 +1412,10 @@
     <name>menu</name>
     <tag-class>com.atanion.tobago.taglib.component.MenuTag</tag-class>
     <body-content>JSP</body-content>
+    <description><![CDATA[
+        Container component to hold submenus and items.
+      ]]>
+    </description>
     <attribute>
       <name>id</name>
       <required>false</required>
@@ -1414,21 +1425,41 @@
       <name>label</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <description><![CDATA[
+          Text value to display as menu's label. Overwritten by 'labelWithAccessKey'<br>
+          Contains plain text or ValueBindig expression.
+        ]]>
+      </description>
     </attribute>
     <attribute>
       <name>disabled</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <description><![CDATA[
+          If evaluated to 'true' this menu is rendered disabled.<br>
+          Contains plain text or ValueBindig expression.
+        ]]>
+      </description>
     </attribute>
     <attribute>
       <name>labelWithAccessKey</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <description><![CDATA[
+          Text value to display as menu's label. Overwites 'label'<br>
+          If text contains an underscore the next character is used as accesskey.
+          Contains plain text or ValueBindig expression.
+        ]]>
+      </description>
     </attribute>
     <attribute>
       <name>image</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <description><![CDATA[
+          Contains plain text or ValueBindig expression.
+        ]]>
+      </description>
     </attribute>
   </tag>
 
