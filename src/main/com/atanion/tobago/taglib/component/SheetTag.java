@@ -147,5 +147,9 @@ public class SheetTag extends TobagoTag {
   public void setVar(String var) {
     this.var = var;
   }
+
+  public void setForceVerticalScrollbar(String forceVerticalScrollbar) {
+    this.forceVerticalScrollbar = forceVerticalScrollbar;
+  }
 }
 
