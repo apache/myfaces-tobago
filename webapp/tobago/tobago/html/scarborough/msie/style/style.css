@@ -17,3 +17,7 @@ fieldset.tobago-groupbox-default {
 .tobago-label-default {
   margin-top: -2px;
 }
+
+.tobago-file-default {
+  height: 23px;
+}
