@@ -667,15 +667,15 @@ public class SheetRenderer extends RendererBase
       menubar = (UIPanel) application.createComponent(UIPanel.COMPONENT_TYPE);
       column.getFacets().put(FACET_MENUBAR, menubar);
       menubar.setRendererType("Menubar");
-      menubar.getAttributes().put(ATTR_WIDTH, "16px");//todo: use config
+      menubar.getAttributes().put(ATTR_WIDTH,
+          Integer.toString(getConfiguredValue(
+              facesContext, column.getParent(), "selectorMenuWidth")) + "px");
       UIPanel menu
           = (UIPanel) application.createComponent(UIPanel.COMPONENT_TYPE);
       menubar.getChildren().add(menu);
       menu.setRendererType(null);
       menu.getAttributes().put(ATTR_MENU_TYPE, "menu");
-
-//      menu.getAttributes().put(ATTR_LABEL, "V");//todo: use image 'sheetSelectorMenu.gif'
-      menu.getAttributes().put(ATTR_IMAGE, "sheetSelectorMenu.gif");//todo: use image 'sheetSelectorMenu.gif'
+      menu.getAttributes().put(ATTR_IMAGE, "sheetSelectorMenu.gif");
 
       String sheetId = column.getParent().getClientId(facesContext);
       String action = "tobagoSheetSelectAll('" + sheetId + "')";
