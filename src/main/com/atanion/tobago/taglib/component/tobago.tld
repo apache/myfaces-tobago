@@ -1264,9 +1264,21 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>multiselect</name>
+      <name>selectable</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <description>
+        <![CDATA[
+           Flag indicating whether or not this component should be render
+           selectable items.<br>
+           Possible values are:
+           <ul>
+             <li> <code>"multi"</code> : a multisection tree is rendered
+             <li> <code>"single"</code> : a singlesection tree is rendered
+           </ul>
+           For any other value or if this attribute is omited the items are not selectable.
+        ]]>
+      </description>
     </attribute>
     <attribute>
       <name>mutable</name>

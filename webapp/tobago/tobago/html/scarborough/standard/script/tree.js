@@ -39,13 +39,41 @@ function toggleSelect(node, treeHiddenId, uncheckedIcon, checkedIcon) {
   var selectState = document.getElementById(treeHiddenId + '-selectState');
   var hidden = document.getElementById(treeHiddenId);
   var icon = document.getElementById(node.id + '-markIcon');
-  if (selectState.value.indexOf(";" + nodeStateId(node) + ";", 0) > -1) {
-    icon.src = uncheckedIcon;
-    selectState.value = selectState.value.replace(";" + nodeStateId(node) + ";" , ";");
-  } else {
-    icon.src = checkedIcon;
-    selectState.value = selectState.value + nodeStateId(node) + ";" ;
+  var treeNode;
+  eval("treeNode = " + createJavascriptVariable(node.id) + ";");
+  if (treeNode.selectable.match(/single/)) {
+    if (! selectState.value.indexOf(";" + nodeStateId(node) + ";", 0) > -1) {
+      icon.src = checkedIcon;
+      icon = getIconForId(node, selectState.value);
+      if (icon) {
+        icon.src = uncheckedIcon;
+      }
+      selectState.value = ";" +  nodeStateId(node) + ";" ;
+    }
   }
+  else {
+    if (selectState.value.indexOf(";" + nodeStateId(node) + ";", 0) > -1) {
+      icon.src = uncheckedIcon;
+      selectState.value = selectState.value.replace(";" + nodeStateId(node) + ";" , ";");
+    } else {
+      icon.src = checkedIcon;
+      selectState.value = selectState.value + nodeStateId(node) + ";" ;
+    }
+  }
+}
+
+function createJavascriptVariable(id) {
+  if (id && id.replace) {
+    return id.replace(/:/g, "_");
+  }
+  else {
+    return id;
+  }
+}
+
+function getIconForId(node, selectId) {
+  var id = node.id.substring(0, node.id.lastIndexOf(":") + 1) + selectId.replace(/;/g, "") + '-markIcon';
+  return document.getElementById(id);
 }
 
 function storeMarker(node, treeHiddenId) {

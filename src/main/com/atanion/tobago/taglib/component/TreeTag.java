@@ -5,8 +5,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.component.UITree;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UITree;
 
 import javax.faces.component.UIComponent;
 
@@ -19,7 +19,7 @@ public class TreeTag extends BeanTag {
   private String hideRoot;
   private String hideRootJunction;
 
-  private String multiselect;
+  private String selectable;
   private String mutable;
 
   private String idReference;
@@ -39,7 +39,7 @@ public class TreeTag extends BeanTag {
    ComponentUtil.setBooleanProperty(component, ATTR_HIDE_ROOT, hideRoot);
    ComponentUtil.setBooleanProperty(component, ATTR_HIDE_ROOT_JUNCTION, hideRootJunction);
 
-   ComponentUtil.setBooleanProperty(component, ATTR_MULTISELECT, multiselect);
+   ComponentUtil.setStringProperty(component, ATTR_SELECTABLE, selectable);
    ComponentUtil.setBooleanProperty(component, ATTR_MUTABLE, mutable);
 
    ComponentUtil.setStringProperty(component, ATTR_ID_REFERENCE, idReference);
@@ -52,7 +52,7 @@ public class TreeTag extends BeanTag {
     hideIcons = null;
     hideRoot = null;
     hideRootJunction = null;
-    multiselect = null;
+    selectable = null;
     mutable = null;
     idReference = null;
     nameReference = null;
@@ -99,12 +99,12 @@ public class TreeTag extends BeanTag {
     this.idReference = idReference;
   }
 
-  public String getMultiselect() {
-    return multiselect;
+  public String getSelectable() {
+    return selectable;
   }
 
-  public void setMultiselect(String multiselect) {
-    this.multiselect = multiselect;
+  public void setSelectable(String selectable) {
+    this.selectable = selectable;
   }
 
   public String getMutable() {

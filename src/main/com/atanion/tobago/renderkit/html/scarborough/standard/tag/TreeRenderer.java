@@ -15,6 +15,7 @@ import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.util.StringUtil;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -51,7 +52,7 @@ public class TreeRenderer extends RendererBase
 
     if (state != null) {
       state.clearExpandState();
-      if (ComponentUtil.getBooleanAttribute(tree, ATTR_MULTISELECT)) {
+      if (isSelectable(tree)) {
         state.clearSelection();
       }
       if (ComponentUtil.getBooleanAttribute(tree, ATTR_MUTABLE)) {
@@ -60,6 +61,12 @@ public class TreeRenderer extends RendererBase
     }
 
     tree.setValid(true);
+  }
+
+  public static boolean isSelectable(UITree tree) {
+    final Object selectable = ComponentUtil.getAttribute(tree, ATTR_SELECTABLE);
+    return selectable != null
+        && (selectable.equals("multi") || selectable.equals("single"));
   }
 
   public static String createJavascriptVariable(String clientId) {
@@ -100,7 +107,7 @@ public class TreeRenderer extends RendererBase
     writer.writeAttribute("value", "", null);
     writer.endElement("input");
 
-    if (ComponentUtil.getBooleanAttribute(tree, ATTR_MULTISELECT)) {
+    if (isSelectable(tree)) {
       writer.startElement("input", tree);
       writer.writeAttribute("type", "hidden", null);
       writer.writeAttribute("name", clientId + UITree.SELECT_STATE, null);

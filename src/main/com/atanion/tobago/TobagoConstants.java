@@ -67,7 +67,7 @@ public interface TobagoConstants {
   public static final String ATTR_MENU_TYPE = "menuType";
   public static final String ATTR_METHOD = "method";
   public static final String ATTR_MIN = "min";
-  public static final String ATTR_MULTISELECT = "multiselect";
+  public static final String ATTR_SELECTABLE = "multiselect";
   public static final String ATTR_MUTABLE = "mutable";
   public static final String ATTR_NAME = "name";
   public static final String ATTR_NAME_REFERENCE = "nameReference";

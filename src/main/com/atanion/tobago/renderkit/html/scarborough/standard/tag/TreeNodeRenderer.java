@@ -11,6 +11,7 @@ import com.atanion.tobago.component.UITreeNode;
 import com.atanion.tobago.model.TreeState;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RendererBase;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -61,7 +62,7 @@ public class TreeNodeRenderer extends RendererBase
       }
     }
 
-    if (ComponentUtil.getBooleanAttribute(tree, ATTR_MULTISELECT)) { // selection
+    if (TreeRenderer.isSelectable(tree)) { // selection
       String selected = request.getParameter(treeId + UITree.SELECT_STATE);
       String searchString = ";" + nodeId + ";";
       if (selected.indexOf(searchString) > -1) {
@@ -193,8 +194,18 @@ public class TreeNodeRenderer extends RendererBase
       writer.writeText(",'", null);
       writer.writeText(rootId, null);
       writer.writeText("',", null);
-      writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
-          ATTR_MULTISELECT)), null);
+      Object selectable = ComponentUtil.getAttribute(root, ATTR_SELECTABLE);
+      if (selectable != null
+          && (! (selectable.equals("multi") || selectable.equals("single")))) {
+        selectable = null;
+      }
+      if (selectable != null) {
+        writer.writeText("'", null);
+        writer.writeText(selectable, null);
+        writer.writeText("'", null);
+      } else {
+        writer.writeText("false", null);
+      }
       writer.writeText(",", null);
       writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
           ATTR_MUTABLE)), null);
