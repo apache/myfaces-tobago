@@ -6,13 +6,12 @@
 package com.atanion.tobago.config;
 
 import com.atanion.tobago.context.Theme;
-
+import com.atanion.util.io.IoUtil;
 import org.apache.commons.digester.Digester;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.ServletContext;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
@@ -82,13 +81,7 @@ public class TobagoConfigParser {
     } catch (Throwable e) {
       LOG.error(configPath, e);
     } finally {
-      if (input != null) {
-        try {
-          input.close();
-        } catch (IOException e) {
-          ;
-        }
-      }
+      IoUtil.close(input);
     }
   }
 

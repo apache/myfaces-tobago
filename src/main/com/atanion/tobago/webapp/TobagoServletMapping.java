@@ -12,9 +12,10 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.FacesException;
 import javax.faces.webapp.FacesServlet;
 import javax.servlet.ServletContext;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+
+import com.atanion.util.io.IoUtil;
 
 public class TobagoServletMapping {
 
@@ -99,13 +100,7 @@ public class TobagoServletMapping {
         LOG.error("configWebXml", e);
       }
     } finally {
-      if (input != null) {
-        try {
-          input.close();
-        } catch (IOException e) {
-          ;
-        }
-      }
+      IoUtil.close(input);
     }
 
     // Record a servlet context attribute (if appropriate)

@@ -12,6 +12,7 @@ import com.atanion.tobago.context.ResourceManager;
 import com.atanion.license.LicenseCheck;
 import com.atanion.license.License;
 import com.atanion.license.LicenseException;
+import com.atanion.util.io.IoUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,27 +41,30 @@ public class TobagoServletContextListener implements ServletContextListener {
   public void contextInitialized(ServletContextEvent event) {
 
     if (LOG.isInfoEnabled()) {
-      LOG.info("*** contextInitialized ***");
+      LOG.info("*** contextInitialized *** ***");
     }
 
     try {
-
-
       final ClassLoader classLoader = getClass().getClassLoader();
-      final InputStream stream = classLoader.getResourceAsStream("license.ser");
-      if (stream == null) {
-        throw new LicenseException("No license found! ");
-      }
+      InputStream stream = null;
+      try {
+        stream = classLoader.getResourceAsStream("license.ser");
+        if (stream == null) {
+          throw new LicenseException("No license found! ");
+        }
 
 //      LOG.info("stream == " + stream);
 
-      final License license = LicenseCheck.loadLicense(stream);
-      if (! license.isValid("tobago")) {
-        throw new LicenseException("Invald license found: " + license);
-      } else {
-        if (LOG.isInfoEnabled()) {
-          LOG.info("Valid tobago license found: " + license);
+        final License license = LicenseCheck.loadLicense(stream);
+        if (! license.isValid("tobago")) {
+          throw new LicenseException("Invald license found: " + license);
+        } else {
+          if (LOG.isInfoEnabled()) {
+            LOG.info("Valid tobago license found: " + license);
+          }
         }
+      } finally {
+        IoUtil.close(stream);
       }
 
       // servlet mapping
@@ -181,15 +185,20 @@ public class TobagoServletContextListener implements ServletContextListener {
 
 
     Properties temp = new Properties();
+    InputStream stream = null;
     try {
-      temp.load(servletContext.getResourceAsStream(childPath));
+      stream = servletContext.getResourceAsStream(childPath);
+      temp.load(stream);
     } catch (IOException e) {
       String msg = "while loading " + childPath;
       if (LOG.isErrorEnabled()) {
         LOG.error(msg, e);
       }
       throw new ServletException(msg, e);
+    } finally {
+      IoUtil.close(stream);
     }
+
     for (Enumeration e = temp.propertyNames(); e.hasMoreElements();) {
       String key = (String) e.nextElement();
       resources.add(

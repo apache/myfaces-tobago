@@ -6,12 +6,14 @@
 package com.atanion.tobago.tool;
 
 import com.atanion.util.io.Io2String;
+import com.atanion.util.io.IoUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class BuilderModel {
 
@@ -67,11 +69,15 @@ public class BuilderModel {
       ServletContext servletContext =
           (ServletContext) facesContext.getExternalContext().getContext();
 
+      InputStream stream = null;
       try {
-        source = Io2String.read(servletContext.getResourceAsStream(page));
+        stream = servletContext.getResourceAsStream(page);
+        source = Io2String.read(stream);
       } catch (IOException e) {
         LOG.error("", e);
         return "error"; // todo: error message
+      } finally {
+        IoUtil.close(stream);
       }
 
       return "viewSource";

@@ -8,6 +8,7 @@ package com.atanion.tobago.tool;
 import com.atanion.tobago.config.ThemeConfig;
 import com.atanion.tobago.module.client.ClientConfigController;
 import com.atanion.util.KeyValuePair;
+import com.atanion.util.io.IoUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -123,15 +124,18 @@ public class ThemeConfigViewController {
     for (int j = 0; j < DEFAULT_THEMES.length ; j++) {
       Properties properties = new Properties();
       String file = PROPERTY_FILE_PREFIX + themes[j] + PROPERTY_FILE_POSTFIX;
+      InputStream inputStream = null;
       try {
         final ExternalContext externalContext
             = FacesContext.getCurrentInstance().getExternalContext();
-        InputStream inputStream = externalContext.getResourceAsStream(file);
+        inputStream = externalContext.getResourceAsStream(file);
         properties.load(inputStream);
       } catch (Exception e) {
         if (LOG.isDebugEnabled()) {
           LOG.debug("Exception when loading file \"" + file + "\"");
         }
+      } finally {
+        IoUtil.close(inputStream);
       }
 
       for (Iterator i = properties.keySet().iterator(); i.hasNext();) {
