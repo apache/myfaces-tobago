@@ -8,6 +8,7 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ClientProperties;
+import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.CommandRendererBase;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.LabelWithAccessKey;
@@ -178,9 +179,14 @@ public class ToolbarRenderer extends RendererBase {
     }
     writer.endElement("a");
     if (popupMenu != null) {
+      String backgroundImage = ResourceManagerUtil.getImage(facesContext, "1x1.gif");
       writer.startElement("span", null);
       writer.writeAttribute("id", command.getClientId(facesContext) + SUBCOMPONENT_SEP + "popup", null);
       writer.writeAttribute("class", "tobago-toolbar-button-menu", null);
+      writer.startElement("img", null);
+      writer.writeAttribute("src", backgroundImage, null);
+      writer.writeAttribute("class", "tobago-toolbar-button-menu-background-image", null);
+      writer.endElement("img");
       writer.endElement("span");
       popupMenu.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
       popupMenu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "ToolbarButton");

@@ -41,10 +41,8 @@ label.tobago-label-default  {
 }
 
 
-.tobago-toolbar-button-menu {
-  top:-12px;
+.tobago-toolbar-button-menu-background-image {
+  width: 15px;
+  height: 12px;
 }
 
-.tobago-toolbar-button-popup-span {
-  padding-right: 15px;
-}
