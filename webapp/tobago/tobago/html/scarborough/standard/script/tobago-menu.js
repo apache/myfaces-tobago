@@ -164,9 +164,9 @@ function MenuItem(label, action, disabled) {
     }
     this.focus = true;
     addCssClass(this.htmlElement, "tobago-menu-item-focus");
-    if (this.level == 1) {
+    //if (this.level == 1) {
       this.openSubMenus();
-    }
+    //}
   }
   this.onBlur = function() {
     //PrintDebug("onBlur " + this.id);
