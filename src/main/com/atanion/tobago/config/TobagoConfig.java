@@ -25,7 +25,7 @@ public class TobagoConfig {
 
 // ///////////////////////////////////////////// attribute
 
-  private static TobagoConfig instance = new TobagoConfig();
+  private static TobagoConfig instance;
 
   private List themes;
   private Theme defaultTheme;
@@ -37,6 +37,10 @@ public class TobagoConfig {
   }
 
 // ///////////////////////////////////////////// code
+
+  public static void init() {
+    instance = new TobagoConfig();
+  }
 
   public static TobagoConfig getInstance() {
     return instance;
