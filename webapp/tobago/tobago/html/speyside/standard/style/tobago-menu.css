@@ -1,7 +1,7 @@
 
 .tobago-menubar-default {
   height: 17px;
-  border: 1px solid grey;
+  border: 1px solid gray;
   background: #dddddd;
 }
 
@@ -10,7 +10,7 @@
 }
 
 .tobago-menubar-item-page-facet {
-  font: normal 16px arial, helvetica, sans-serif;
+  font: bold 12px arial, helvetica, sans-serif;
 }
 
 .tobago-menubar-container {
@@ -18,7 +18,7 @@
 }
 
 .tobago-menubar-subitem-container {
-  border: 1px solid grey;
+  border: 1px solid gray;
   background: #dddddd;
   z-index: 1000;
 }
