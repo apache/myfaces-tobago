@@ -21,7 +21,6 @@ public class PageStateImpl implements PageState {
   }
 
   public void setClientWidth(int clientWidth) {
-    LOG.warn("clientWidth = '" + clientWidth + "'");
     this.clientWidth = clientWidth;
   }
 
@@ -30,7 +29,6 @@ public class PageStateImpl implements PageState {
   }
 
   public void setClientHeight(int clientHeight) {
-    LOG.warn("clientHeight = '" + clientHeight + "'");
     this.clientHeight = clientHeight;
   }
 }
