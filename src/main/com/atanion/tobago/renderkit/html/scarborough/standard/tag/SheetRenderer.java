@@ -13,7 +13,6 @@ import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.model.SheetState;
 import com.atanion.tobago.model.SortableByApplication;
-import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.util.LayoutInfo;
@@ -52,8 +51,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class SheetRenderer extends RendererBase
-    implements HeightLayoutRenderer {
+public class SheetRenderer extends RendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -81,11 +79,6 @@ public class SheetRenderer extends RendererBase
       UIComponent component) {
     return getConfiguredValue(facesContext, component, "ascendingMarkerWidth");
   }
-
-  public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    return getConfiguredValue(facesContext, component, "headerHeight");
-  }
-
 
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
@@ -189,7 +182,7 @@ public class SheetRenderer extends RendererBase
       int heightNeeded = getHeaderHeight(facesContext, data)
           + getFooterHeight(facesContext, data)
           + (rows * (getFixedHeight(facesContext, null)
-          + getRowPadding(facesContext, data)));
+                     + getRowPadding(facesContext, data)));
 
       int height = Integer.parseInt(heightString.replaceAll("\\D", ""));
       return heightNeeded > height;

@@ -7,7 +7,6 @@ package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.renderkit.BoxRendererBase;
-import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -18,8 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-public class BoxRenderer extends BoxRendererBase
-    implements HeightLayoutRenderer {
+public class BoxRenderer extends BoxRendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -88,14 +86,6 @@ public class BoxRenderer extends BoxRendererBase
   public void encodeChildren(FacesContext facesContext, UIComponent component)
       throws IOException {
   }
-
-  public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    return getConfiguredValue(facesContext, component, "headerHeight");
-  }
-
-
-
-// ///////////////////////////////////////////// bean getter + setter
 
 }
 

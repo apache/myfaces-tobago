@@ -9,7 +9,6 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.UserAgent;
 import com.atanion.tobago.renderkit.BoxRendererBase;
-import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.util.LayoutUtil;
 import org.apache.commons.logging.Log;
@@ -21,8 +20,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-public class BoxRenderer extends BoxRendererBase
-    implements HeightLayoutRenderer {
+public class BoxRenderer extends BoxRendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -121,10 +119,6 @@ public class BoxRenderer extends BoxRendererBase
 
   public void encodeChildren(FacesContext facesContext, UIComponent component)
       throws IOException {
-  }
-
-  public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
   public int getPaddingHeight(FacesContext facesContext, UIComponent component) {

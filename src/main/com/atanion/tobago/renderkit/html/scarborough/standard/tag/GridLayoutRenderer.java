@@ -9,7 +9,6 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIForm;
 import com.atanion.tobago.component.UIGridLayout;
-import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.LayoutManager;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
@@ -23,7 +22,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
@@ -31,7 +29,7 @@ import java.util.Map;
 import java.util.Vector;
 
 public class GridLayoutRenderer extends RendererBase
-    implements LayoutManager, HeightLayoutRenderer{
+    implements LayoutManager {
 
 // ///////////////////////////////////////////// constant
 
@@ -78,10 +76,7 @@ public class GridLayoutRenderer extends RendererBase
 
     RendererBase containerRenderer =
         ComponentUtil.getRenderer(layout.getParent(), facesContext);
-    if (containerRenderer instanceof HeightLayoutRenderer) {
-      height += ((HeightLayoutRenderer)containerRenderer).getHeaderHeight(
-          facesContext, layout.getParent());
-    }
+    height += containerRenderer.getHeaderHeight(facesContext, layout.getParent());
     height += containerRenderer.getPaddingHeight(facesContext, layout.getParent());
 
     return height;
@@ -387,7 +382,6 @@ public class GridLayoutRenderer extends RendererBase
                   && ! ((UIGridLayout.Marker)cell).isRendered());
   }
 
-
   private void layoutHeight(Integer innerHeight, UIGridLayout layout,
       FacesContext facesContext) {
 
@@ -548,22 +542,14 @@ public class GridLayoutRenderer extends RendererBase
 // ///////////////////////////////////////////// LayoutManager implementation
 
   public void layoutBegin(FacesContext facesContext, UIComponent component) {
-    HtmlDefaultLayoutManager.layoutSpace(component, facesContext, true);
 
-    Renderer renderer = ComponentUtil.getRenderer(component, facesContext);
-    if (renderer instanceof HeightLayoutRenderer) {
-      HtmlDefaultLayoutManager.layoutSpace(component, facesContext, false);
-    }
+    HtmlDefaultLayoutManager.layoutSpace(component, facesContext, true);
+    HtmlDefaultLayoutManager.layoutSpace(component, facesContext, false);
 
     if (component instanceof UIGridLayout) {
       layoutMargins((UIGridLayout) component);
     }
   }
-
-  public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    return 0;
-  }
-
 
   private void layoutMargins(UIGridLayout layout) {
     String margin

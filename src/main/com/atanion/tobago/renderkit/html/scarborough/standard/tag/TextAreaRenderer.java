@@ -6,7 +6,6 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
@@ -20,8 +19,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Iterator;
 
-public class TextAreaRenderer extends InputRendererBase
-    implements HeightLayoutRenderer {
+public class TextAreaRenderer extends InputRendererBase {
 
 // ----------------------------------------------------------------- interfaces
 
@@ -57,12 +55,6 @@ public class TextAreaRenderer extends InputRendererBase
       writer.endElement("tr");
       writer.endElement("table");
     }
-  }
-
-// ---------------------------- interface HeightLayoutRenderer
-
-  public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
 // ----------------------------------------------------------- business methods

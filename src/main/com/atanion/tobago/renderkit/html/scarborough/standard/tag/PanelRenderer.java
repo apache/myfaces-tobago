@@ -8,7 +8,6 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.BodyContentHandler;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import org.apache.commons.logging.Log;
@@ -22,8 +21,7 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Iterator;
 
-public class PanelRenderer extends RendererBase
-    implements HeightLayoutRenderer {
+public class PanelRenderer extends RendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -37,10 +35,6 @@ public class PanelRenderer extends RendererBase
 
   public boolean getRendersChildren() {
     return true;
-  }
-
-  public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {

@@ -77,10 +77,7 @@ public abstract class BoxRendererBase extends RendererBase {
         }
       }
     }
-    if (this instanceof HeightLayoutRenderer) {
-      height += ((HeightLayoutRenderer)this).getHeaderHeight(
-          facesContext, component);
-    }
+    height += getHeaderHeight(facesContext, component);
     height += getPaddingHeight(facesContext, component);
     return height;
   }

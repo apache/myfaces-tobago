@@ -13,7 +13,6 @@ import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.component.UITabGroup;
 import com.atanion.tobago.component.StateHolder;
 import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.renderkit.StyleAttribute;
@@ -35,8 +34,7 @@ import javax.faces.event.PhaseId;
 import javax.servlet.ServletRequest;
 import java.io.IOException;
 
-public class TabGroupRenderer extends RendererBase
-    implements HeightLayoutRenderer {
+public class TabGroupRenderer extends RendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -75,10 +73,6 @@ public class TabGroupRenderer extends RendererBase
     } catch (NumberFormatException e) {
       LOG.error("Can't parse activeIndex: '" + newValue + "'");
     }
-  }
-
-  public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
   public void encodeEndTobago(FacesContext facesContext,

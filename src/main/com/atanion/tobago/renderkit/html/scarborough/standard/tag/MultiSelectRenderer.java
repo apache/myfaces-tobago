@@ -7,7 +7,6 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.SelectManyRendererBase;
 import com.atanion.tobago.util.LayoutUtil;
@@ -23,8 +22,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-public class MultiSelectRenderer extends SelectManyRendererBase
- implements HeightLayoutRenderer {
+public class MultiSelectRenderer extends SelectManyRendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -66,10 +64,6 @@ public class MultiSelectRenderer extends SelectManyRendererBase
       fixedHeight = super.getFixedHeight(facesContext, component);
     }
     return fixedHeight;
-  }
-
-  public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
   public void encodeEndTobago(FacesContext facesContext,

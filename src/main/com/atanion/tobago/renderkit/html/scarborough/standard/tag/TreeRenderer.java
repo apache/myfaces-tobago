@@ -10,7 +10,6 @@ import com.atanion.tobago.component.UITree;
 import com.atanion.tobago.component.UITreeNode;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.model.TreeState;
-import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.util.StringUtil;
@@ -27,8 +26,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionListener;
 import java.io.IOException;
 
-public class TreeRenderer extends RendererBase
-    implements HeightLayoutRenderer {
+public class TreeRenderer extends RendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -71,10 +69,6 @@ public class TreeRenderer extends RendererBase
     return clientId == null
         ? null
         : clientId.replace(NamingContainer.SEPARATOR_CHAR, '_');
-  }
-
-  public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    return 0;
   }
 
   public void encodeEndTobago(FacesContext facesContext,

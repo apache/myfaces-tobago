@@ -7,7 +7,6 @@ package com.atanion.tobago.util;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.RendererBase;
 import org.apache.commons.logging.Log;
@@ -92,14 +91,10 @@ public class LayoutUtil {
         RendererBase renderer = (RendererBase) renderKit.getRenderer(component.getFamily(),
             component.getRendererType());
         if (width) {
-          margin = renderer.getPaddingWidth(facesContext, component);
+          margin += renderer.getPaddingWidth(facesContext, component);
           margin += renderer.getComponentExtraWidth(facesContext, component);
         } else {
-          if (renderer instanceof HeightLayoutRenderer) {
-            margin =
-                ((HeightLayoutRenderer) renderer).getHeaderHeight(facesContext,
-                    component);
-          }
+          margin += renderer.getHeaderHeight(facesContext, component);
           margin += renderer.getPaddingHeight(facesContext, component);
           margin += renderer.getComponentExtraHeight(facesContext, component);
         }
@@ -230,7 +225,7 @@ public class LayoutUtil {
     return children;
   }
 
-  private static boolean isTransparentForLayout(UIComponent component) {
+  public static boolean isTransparentForLayout(UIComponent component) {
 
 //    at this time (10.05.2004) only
 //    SubViewTag's component is UINamingContainer with 'null' rendererType
@@ -300,10 +295,6 @@ public class LayoutUtil {
     String pattern = name + "\\s*?:[^;]*?;";
     return style.replaceAll(pattern, "").trim();
   }
-
-
-// ///////////////////////////////////////////// bean getter + setter
-
 
   public static void addCssClass(UIComponent component, String newClass) {
     final Map attributes = component.getAttributes();

@@ -27,6 +27,7 @@ import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;
+import java.util.List;
 
 // todo: in java 1.5 use: import static com.atanion.tobago.TobagoConstants.*;
 public abstract class RendererBase
@@ -91,14 +92,25 @@ public abstract class RendererBase
     if (LOG.isDebugEnabled()) {
       LOG.debug("*** children " + component);
     }
-    UIComponent layout = component.getFacet("layout");
+    UIComponent layout = null;
+    //if (LayoutUtil.isTransparentForLayout(component)) {
+    //   layout = component.getParent().getFacet("layout");
+    //} else {
+      layout = component.getFacet("layout");
+    //}
     if (layout != null) {
-//      ((LayoutManager)ComponentUtil.getRenderer(layout, facesContext))
-//          .layoutBegin(facesContext, layout);
+      // ((LayoutManager)ComponentUtil.getRenderer(layout, facesContext))
+       //     .layoutBegin(facesContext, component);
       layout.encodeBegin(facesContext);
+      /*for (Iterator iterator = component.getChildren().iterator(); iterator.hasNext();) {
+        UIComponent child = (UIComponent) iterator.next();
+        ((LayoutManager)ComponentUtil.getRenderer(layout, facesContext))
+            .layoutBegin(facesContext, child);
+      }*/
       layout.encodeChildren(facesContext);
       layout.encodeEnd(facesContext);
     } else {
+
       encodeChildrenTobago(facesContext, component);
     }
 
@@ -262,8 +274,6 @@ public abstract class RendererBase
     return tobagoClass + cssClass;
   }
 
-
-
   protected int getConfiguredValue(FacesContext facesContext,
       UIComponent component, String key) {
     try {
@@ -273,6 +283,16 @@ public abstract class RendererBase
           + " from config-file: " + e.getMessage(), e);
     }
     return 0;
+  }
+
+  public int getHeaderHeight(
+      FacesContext facesContext, UIComponent component) {
+    int height = getConfiguredValue(facesContext, component, "headerHeight");
+    final UIComponent menubar = component.getFacet(FACET_MENUBAR);
+    if (menubar != null) {
+      height += getConfiguredValue(facesContext, menubar, "headerHeight");
+    }
+    return height;
   }
 
   public int getPaddingWidth(FacesContext facesContext, UIComponent component) {

@@ -7,7 +7,6 @@ package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.util.LayoutUtil;
@@ -20,8 +19,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class TextAreaRenderer extends InputRendererBase
-    implements HeightLayoutRenderer {
+public class TextAreaRenderer extends InputRendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -43,10 +41,6 @@ public class TextAreaRenderer extends InputRendererBase
     }
 
     return space;
-  }
-
-  public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
   public void encodeEndTobago(FacesContext facesContext,

@@ -1,7 +1,6 @@
 package com.atanion.tobago.renderkit.fo.scarborough.standard.tag;
 
 import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.PageRendererBase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

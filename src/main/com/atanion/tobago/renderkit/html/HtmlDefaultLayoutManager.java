@@ -7,7 +7,6 @@ package com.atanion.tobago.renderkit.html;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.LayoutManager;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.util.LayoutUtil;
@@ -49,16 +48,12 @@ public class HtmlDefaultLayoutManager implements LayoutManager {
           TobagoConstants.ATTR_STYLE, style + " width: " + (width - extra) + "px;");
     }
 
-    if (renderer instanceof HeightLayoutRenderer) {
+    if (component.getFacet("layout") != null
+        || component.getRendererType().equals("Sheet")) {
       HtmlDefaultLayoutManager.layoutHeight(component, facesContext);
 //      layoutSpace(component, facesContext, false);
     }
   }
-
-  public void layoutEnd(FacesContext facesContext, UIComponent component) {
-
-  }
-
 
   public static void layoutHeight(UIComponent component, FacesContext facesContext){
     String style = (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE);
@@ -76,8 +71,7 @@ public class HtmlDefaultLayoutManager implements LayoutManager {
 
       RendererBase renderer = ComponentUtil.getRenderer(component, facesContext);
 
-      int headerHeight = ((HeightLayoutRenderer)
-          renderer).getHeaderHeight(facesContext, component) ;
+      int headerHeight = renderer.getHeaderHeight(facesContext, component);
 
       int bodyHeight = heightInt - headerHeight;
       bodyStyle   += " height: " + bodyHeight + "px;";
@@ -144,7 +138,7 @@ public class HtmlDefaultLayoutManager implements LayoutManager {
       innerAttribute = TobagoConstants.ATTR_INNER_HEIGHT;
       styleAttribute = "height";
     }
-    String componentSpace = (String)
+    String componentSpace =
 //        component.getAttributes().get(componentAttribute);
       LayoutUtil.getLayoutSpace(component, componentAttribute,  layoutAttribute);
     int space = -1;
@@ -176,8 +170,7 @@ public class HtmlDefaultLayoutManager implements LayoutManager {
         innerSpace = LayoutUtil.getInnerSpace(facesContext, component, space,
             width);
       } else {
-        headerSpace = ((HeightLayoutRenderer) renderer)
-            .getHeaderHeight(facesContext, component);
+        headerSpace = renderer.getHeaderHeight(facesContext, component);
         bodySpace = space - headerSpace;
         innerSpace = LayoutUtil.getInnerSpace(facesContext, component,
             space, width);
@@ -205,7 +198,8 @@ public class HtmlDefaultLayoutManager implements LayoutManager {
         style = style != null ? style : "";
         style = style.replaceAll(styleAttribute + ":\\s\\d+px;", "").trim();
 
-        if (renderer instanceof HeightLayoutRenderer) {
+        if (component.getFacet("layout") != null
+          || component.getRendererType().equals("Sheet")) { // fixme: not nice;: equals("Sheet"
           String headerStyle;
           String bodyStyle;
           if (width) {
