@@ -130,6 +130,12 @@ public class Layout {
   public static void putLayout(UIComponent component, Layout layout) {
     component.getAttributes().put("fo:layout", layout);
   }
+  public static void setInLayout(UIComponent component, boolean layout) {
+    component.getAttributes().put("fo:layoutMode", "LayoutMode");
+  }
+  public static boolean isInLayout(UIComponent component) {
+    return component.getAttributes().containsKey("fo:layoutMode");
+  }
   public static Layout getLayout(UIComponent component) {
     return (Layout) component.getAttributes().get("fo:layout");
   }

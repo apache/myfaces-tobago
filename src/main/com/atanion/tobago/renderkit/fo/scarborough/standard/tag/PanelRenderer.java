@@ -18,35 +18,27 @@ import java.util.Iterator;
  * User: bommel
  * $Id$
  */
-public class PanelRenderer extends RendererBase {
+public class PanelRenderer extends FoRendererBase {
 
   public boolean getRendersChildren() {
     return true;
   }
-
-  public void encodeChildrenTobago(FacesContext facesContext,
+  public void encodeBegin(FacesContext facesContext,
        UIComponent uiComponent) throws IOException {
     Layout.putLayout(uiComponent, Layout.getLayout(uiComponent.getParent()));
-    System.err.println(Layout.getLayout(uiComponent));
-    UIPanel component = (UIPanel) uiComponent ;
-    for (Iterator i = component.getChildren().iterator(); i.hasNext(); ) {
-       UIComponent child = (UIComponent) i.next();
-       RenderUtil.encode(facesContext, child);
-     }
-   }
+    super.encodeBegin(facesContext, uiComponent);
+  }
 
-   public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
        UIComponent uiComponent) throws IOException {
 
-     UIPanel component = (UIPanel) uiComponent ;
-     BodyContentHandler bodyContentHandler = (BodyContentHandler)
-         component.getAttributes().get(TobagoConstants.ATTR_BODY_CONTENT);
+    UIPanel component = (UIPanel) uiComponent ;
+    BodyContentHandler bodyContentHandler = (BodyContentHandler)
+        component.getAttributes().get(TobagoConstants.ATTR_BODY_CONTENT);
 
-     if (bodyContentHandler != null) {
-       ResponseWriter writer = facesContext.getResponseWriter();
-       writer.write(bodyContentHandler.getBodyContent());
-     }
-   }
-
-
+    if (bodyContentHandler != null) {
+      ResponseWriter writer = facesContext.getResponseWriter();
+      writer.write(bodyContentHandler.getBodyContent());
+    }
+  }
 }

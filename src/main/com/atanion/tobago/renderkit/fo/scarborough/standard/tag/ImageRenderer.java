@@ -8,6 +8,6 @@ import com.atanion.tobago.renderkit.RendererBase;
  * User: bommel
  * $Id$
  */
-public class ImageRenderer extends RendererBase {
+public class ImageRenderer extends FoRendererBase {
 
 }

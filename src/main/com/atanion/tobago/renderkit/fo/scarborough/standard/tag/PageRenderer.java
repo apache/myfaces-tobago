@@ -17,8 +17,7 @@ import java.io.IOException;
  * User: bommel
  * $Id$
  */
-public class PageRenderer extends PageRendererBase
-    implements HeightLayoutRenderer {
+public class PageRenderer extends PageRendererBase {
 
   private static final Log LOG = LogFactory.getLog(PageRenderer.class);
 
@@ -30,13 +29,15 @@ public class PageRenderer extends PageRendererBase
   private static String PAGE_MASTER = "fo:simple-page-master";
   private static String MASTER_NAME = "master-name";
 
-  public boolean getRendersChildren() {
-    return true;
+  public void encodeChildren(FacesContext facesContext, UIComponent component)
+       throws IOException {
+    System.err.println("EncodeChildren")  ;
+    LOG.error("Encode Children");
+    super.encodeChildren(facesContext, component);
   }
 
-
-  public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean getRendersChildren() {
+    return true;
   }
 
   public void encodeBeginTobago(FacesContext facesContext, UIComponent component) throws IOException {
@@ -80,7 +81,7 @@ public class PageRenderer extends PageRendererBase
   }
 
   public void encodeEndTobago(FacesContext facesContext, UIComponent component) throws IOException {
-    UIPage page = (UIPage) component;
+
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
@@ -90,36 +91,6 @@ public class PageRenderer extends PageRendererBase
 
     writer.flush();
   }
-
-  /*public void encodeChildren(FacesContext facesContext, UIComponent component)
-       throws IOException {
-
-     if (LOG.isDebugEnabled()) {
-       LOG.debug("*** children " + component);
-     }
-     UIComponent layout = null;//component.getFacet("layout");
-     if (layout != null) {
-       layout.encodeBegin(facesContext);
-       layout.encodeChildren(facesContext);
-       layout.encodeEnd(facesContext);
-     } else {
-
-       component.getAttributes().put(
-           ATTR_ENCODING_ACTIVE,
-           Boolean.TRUE);
-
-       encodeChildrenTobago(facesContext, component);
-
-       component.getAttributes().put(
-           ATTR_ENCODING_ACTIVE,
-           Boolean.FALSE);
-     }
-
-     if (LOG.isDebugEnabled()) {
-       LOG.debug("*   children " + component);
-     }
-   }*/
-
 
 
 

@@ -17,7 +17,7 @@ import java.io.IOException;
  * User: bommel
  * $Id$
  */
-public class LabelRenderer extends RendererBase {
+public class LabelRenderer extends FoRendererBase {
 
   public void encodeEndTobago(
       FacesContext facesContext, UIComponent component) throws IOException {

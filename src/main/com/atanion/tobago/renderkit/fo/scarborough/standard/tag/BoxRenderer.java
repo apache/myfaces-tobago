@@ -17,12 +17,18 @@ import java.util.Iterator;
  * User: bommel
  * $Id$
  */
-public class BoxRenderer extends RendererBase {
+public class BoxRenderer extends FoRendererBase {
 
   public boolean getRendersChildren() {
     return true;
   }
-  
+
+
+  public void encodeBegin(FacesContext facesContext,
+       UIComponent uiComponent) throws IOException {
+    Layout.putLayout(uiComponent, Layout.getLayout(uiComponent.getParent()));
+    super.encodeBegin(facesContext, uiComponent);
+  }
 
   public void encodeBeginTobago(FacesContext facesContext, UIComponent component) throws IOException {
     Layout layout = Layout.getLayout(component.getParent());

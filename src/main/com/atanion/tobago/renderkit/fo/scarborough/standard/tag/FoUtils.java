@@ -37,21 +37,27 @@ public class FoUtils {
 
 
   public static void writeTextBlockAlignStart(ResponseWriter writer, UIComponent component, String text) throws IOException {
+    writeStartTextBlock(writer, component);
     writer.writeAttribute("text-align", "start", null);
-    writeTextBlock(writer, component, text);
+    writeEndTextBlock(writer, text);
   }
   public static void writeTextBlockAlignLeft(ResponseWriter writer, UIComponent component, String text) throws IOException {
+    writeStartTextBlock(writer, component);
     writer.writeAttribute("text-align", "left", null);
-    writeTextBlock(writer, component, text);
+    writeEndTextBlock(writer, text);
   }
 
-  private static void writeTextBlock(ResponseWriter writer, UIComponent component, String text) throws IOException {
+  private static void writeStartTextBlock(ResponseWriter writer, UIComponent component) throws IOException {
     writer.startElement("fo:block", component);
     writer.writeAttribute("line-height", "14pt", null);
     writer.writeAttribute("font-family", "sans-serif", null);
     writer.writeAttribute("font-size", "12pt", null);
+
+
+  }
+  private static void writeEndTextBlock(ResponseWriter writer, String text) throws IOException {
     writer.writeText(text, null);
     writer.endElement("fo:block");
   }
-
+  
 }
