@@ -46,14 +46,11 @@ public class InputRendererBase extends RendererBase {
     if (requestParameterMap.containsKey(clientId)) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("clientId = '" +
-            clientId +
-            "'");
+            clientId + "'");
         LOG.debug("requestParameterMap.get(clientId) = '" +
-            requestParameterMap.get(clientId) +
-            "'");
+            requestParameterMap.get(clientId) + "'");
         LOG.debug("requestParameterMap.get(clientId).getClass().getName() = '" +
-            requestParameterMap.get(clientId).getClass().getName() +
-            "'");
+            requestParameterMap.get(clientId).getClass().getName() + "'");
       }
       String newValue = (String) requestParameterMap.get(clientId);
       uiInput.setSubmittedValue(newValue);
