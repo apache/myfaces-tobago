@@ -9,7 +9,6 @@ package com.atanion.tobago.taglib.component;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIInput;
 import com.atanion.tobago.taglib.UIComponentTagAttribute;
-import com.atanion.tobago.taglib.UIComponentTagAttribute;
 
 import javax.faces.component.UIComponent;
 
