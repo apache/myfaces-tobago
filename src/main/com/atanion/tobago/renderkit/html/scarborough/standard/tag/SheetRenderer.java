@@ -7,9 +7,8 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.component.UIData;
-import com.atanion.tobago.context.Theme;
+import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.TobagoResource;
 import com.atanion.tobago.model.SortableByApplication;
 import com.atanion.tobago.renderkit.DirectRenderer;
@@ -19,6 +18,7 @@ import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.util.LayoutInfo;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.util.BeanComparator;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
