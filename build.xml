@@ -107,7 +107,7 @@
     <deploy-module name="tobago-theme-tui"/>
     <deploy-module name="tobago-theme-inexso"/>
     <deploy-module name="tobago-theme-sap"/>
-    <deploy-module name="tobago-module-client"/>
+<!--    <deploy-module name="tobago-module-client"/>-->
 
   </target>
 
