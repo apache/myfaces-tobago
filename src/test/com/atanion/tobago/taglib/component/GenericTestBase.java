@@ -34,6 +34,7 @@ abstract public class GenericTestBase extends TestCase {
       new FileTag(),
       new FocusTag(),
       new FormTag(),
+      new FormattedTag(),
       new GridLayoutTag(),
       new GroupBoxTag(),
       new HiddenTag(),

@@ -5,12 +5,14 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.BodyContentHandler;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.CommandRendererBase;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HtmlUtils;
+import com.atanion.tobago.renderkit.RenderUtil;
+import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -18,8 +20,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
+
 public class ButtonRenderer extends CommandRendererBase
     implements DirectRenderer {
+
+  private static final Log LOG = LogFactory.getLog(ButtonRenderer.class);
+
 // ----------------------------------------------------------------- interfaces
 
 
@@ -35,10 +43,13 @@ public class ButtonRenderer extends CommandRendererBase
         CommandRendererBase.appendConfirmationScript(onclick, component,
             facesContext);
 
-    boolean disabled = ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED);
+    boolean disabled
+        = ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED);
     if (disabled) {
       onclick = "";
     }
+
+    LabelWithAccessKey label = new LabelWithAccessKey(component);
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
@@ -48,9 +59,30 @@ public class ButtonRenderer extends CommandRendererBase
     writer.writeAttribute("id", clientId, null);
     writer.writeAttribute("disabled", disabled);
     writer.writeAttribute("onclick", onclick, null);
-    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeAttribute("style", null, ATTR_STYLE);
+    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
+    if (label.getAccessKey() != null) {
+      writer.writeAttribute("accesskey", label.getAccessKey(), null);
+    }
     writer.writeText("", null); // force closing the start tag
+
+//  image
+    String image = (String) component.getAttributes().get(ATTR_IMAGE);
+    if (image != null) {
+      image = ResourceManagerUtil.getImage(facesContext, image);
+      writer.startElement("img", null);
+      writer.writeAttribute("src", image, null);
+      writer.writeAttribute("alt", "", null);
+      writer.endElement("img");
+    }
+
+//  label
+    if (label.getText() != null) {
+      if (image != null) {
+        writer.writeText(" ", null); // separator: e.g. &nbsp;
+      }
+      RenderUtil.writeLabelWithAccessKey(writer, label);
+    }
   }
 
   public void encodeDirectEnd(FacesContext facesContext,
@@ -58,7 +90,7 @@ public class ButtonRenderer extends CommandRendererBase
     ResponseWriter writer = facesContext.getResponseWriter();
 
     BodyContentHandler bodyContentHandler = (BodyContentHandler)
-        component.getAttributes().get(TobagoConstants.ATTR_BODY_CONTENT);
+        component.getAttributes().get(ATTR_BODY_CONTENT);
 
     if (bodyContentHandler != null) {
       writer.writeText(bodyContentHandler.getBodyContent(), null);
@@ -70,12 +102,11 @@ public class ButtonRenderer extends CommandRendererBase
 
   private String createButtonType(UIComponent component) {
     String buttonType;
-    String type = (String) component.getAttributes().get(
-        TobagoConstants.ATTR_TYPE);
+    String type = (String) component.getAttributes().get(ATTR_TYPE);
 
     boolean defaultCommand = ComponentUtil.getBooleanAttribute(component,
-        TobagoConstants.ATTR_DEFAULT_COMMAND);
-    if (TobagoConstants.COMMAND_TYPE_RESET.equals(type)) {
+        ATTR_DEFAULT_COMMAND);
+    if (COMMAND_TYPE_RESET.equals(type)) {
       buttonType = "reset";
     } else { // default: Action.TYPE_SUBMIT
       buttonType = defaultCommand ? "submit" : "button";
@@ -85,20 +116,18 @@ public class ButtonRenderer extends CommandRendererBase
 
   public static String createOnClick(FacesContext facesContext,
       UIComponent component) {
-    String type = (String) component.getAttributes().get(
-        TobagoConstants.ATTR_TYPE);
-    String commandName = (String) component.getAttributes().get(
-        TobagoConstants.ATTR_COMMAND_NAME);
+    String type = (String) component.getAttributes().get(ATTR_TYPE);
+    String command = (String) component.getAttributes().get(ATTR_COMMAND_NAME);
     String clientId = component.getClientId(facesContext);
     String onclick;
 
-    if (TobagoConstants.COMMAND_TYPE_NAVIGATE.equals(type)) {
+    if (COMMAND_TYPE_NAVIGATE.equals(type)) {
       onclick = "navigateToUrl('"
-          + HtmlUtils.generateUrl(facesContext, commandName) + "')";
-    } else if (TobagoConstants.COMMAND_TYPE_RESET.equals(type)) {
+          + HtmlUtils.generateUrl(facesContext, command) + "')";
+    } else if (COMMAND_TYPE_RESET.equals(type)) {
       onclick = null;
-    } else if (TobagoConstants.COMMAND_TYPE_SCRIPT.equals(type)) {
-      onclick = commandName;
+    } else if (COMMAND_TYPE_SCRIPT.equals(type)) {
+      onclick = command;
     } else { // default: Action.TYPE_SUBMIT
       onclick = "submitAction('" +
           ComponentUtil.findPage(component).getFormId(facesContext) +

@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Iterator;
 
+import com.atanion.tobago.webapp.TobagoResponseWriter;
+
 public class RenderUtil {
 
   private static final Log LOG = LogFactory.getLog(RenderUtil.class);
@@ -73,4 +75,21 @@ public class RenderUtil {
       component.encodeEnd(facesContext);
     }
   }
+
+  public static void writeLabelWithAccessKey(TobagoResponseWriter writer,
+      LabelWithAccessKey label)
+      throws IOException {
+    int pos = label.getPos();
+    String text = label.getText();
+    if (pos == -1) {
+      writer.writeText(text, null);
+    } else {
+      writer.writeText(text.substring(0, pos), null);
+      writer.write("<u>");
+      writer.writeText(new Character(text.charAt(pos)), null);
+      writer.write("</u>");
+      writer.writeText(text.substring(pos + 1), null);
+    }
+  }
+
 }

@@ -88,6 +88,9 @@ public class GenericTagUnitTest extends GenericTestBase {
     Tag tagObject = (Tag) tagClass.newInstance();
     PropertyDescriptor propertyDescriptor
         = PropertyUtils.getPropertyDescriptor(tagObject, name);
+    assertNotNull("setter '" + name + "' of class " + className + " has " +
+        "property descriptor.",
+        propertyDescriptor);
     assertNotNull("setter '" + name + "' of class " + className + " exists.",
         propertyDescriptor.getWriteMethod());
   }

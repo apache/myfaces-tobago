@@ -9,6 +9,7 @@ public interface TobagoConstants {
 
   public static final String SUBCOMPONENT_SEP = "::";
 
+  public static final String ATTR_ACCESS_KEY = "accessKey";
   public static final String ATTR_ACTION = "action";
   public static final String ATTR_ACTION_LISTENER = "actionListener";
   public static final String ATTR_ALIGN = "align";
@@ -45,10 +46,12 @@ public interface TobagoConstants {
   public static final String ATTR_I18N = "i18n";
   public static final String ATTR_ID_REFERENCE = "idReference";
   public static final String ATTR_IMMEDIATE = "immediate";
+  public static final String ATTR_IMAGE = "image";
   public static final String ATTR_INLINE = "inline";
   public static final String ATTR_INNER_HEIGHT = "innerHeight";
   public static final String ATTR_INNER_WIDTH = "innerWidth";
   public static final String ATTR_LABEL = "label";
+  public static final String ATTR_LABEL_WITH_ACCESS_KEY = "labelWithAccessKey";
   public static final String ATTR_LAYOUT_DIRECTIVE = "layoutDirective";
   public static final String ATTR_LAYOUT_HEIGHT = "layout_height";
   public static final String ATTR_LAYOUT_MARGIN = "layoutMargin";

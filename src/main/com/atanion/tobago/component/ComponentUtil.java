@@ -20,10 +20,8 @@ import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectItems;
 import javax.faces.component.ValueHolder;
-import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionListener;
 import javax.faces.model.SelectItem;
 import javax.faces.render.RenderKit;
@@ -197,6 +195,23 @@ public class ComponentUtil implements TobagoConstants {
     }
   }
 
+  public static Character getCharakterAttribute(
+      UIComponent component, String name) {
+    Object charakter = component.getAttributes().get(name);
+    if (charakter == null) {
+      return null;
+    } else if (charakter instanceof Character) {
+      return ((Character) charakter);
+    } else if (charakter instanceof String) {
+      String asString = ((String)charakter);
+      return asString.length() > 0 ? new Character(asString.charAt(0)) : null;
+    } else {
+      LOG.warn("Unknown type '" + charakter.getClass().getName() +
+          "' for integer attribute: " + name + " comp: " + component);
+      return null;
+    }
+  }
+
   public static boolean isFacetOf(UIComponent component, UIComponent parent) {
     for (Iterator i = parent.getFacets().keySet().iterator(); i.hasNext();) {
       UIComponent facet = parent.getFacet((String) i.next());
@@ -269,7 +284,7 @@ public class ComponentUtil implements TobagoConstants {
           }
         }
         if (value == null) {
-          LOG.warn("value is null");
+          LOG.debug("value is null");
           continue;
         } else if (value instanceof SelectItem) {
           list.add(value);

@@ -1,18 +1,20 @@
 /*
  * Copyright (c) 2001 Atanion GmbH, Germany
  * All rights reserved.
- * Created on: 15.02.2002, 17:01:56
+ * Created on: 15.02.2002, 16:19:49
  * $Id$
  */
 package com.atanion.tobago.taglib.component;
 
-import javax.faces.component.UIOutput;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
 
-public class TextTag extends BeanTag {
+
+public class FormattedTag extends TobagoTag {
 // ----------------------------------------------------------------- attributes
 
-  private String escape = "true";
+  private String createSpan;
+  private String value;
 
 // ----------------------------------------------------------- business methods
 
@@ -22,22 +24,32 @@ public class TextTag extends BeanTag {
 
   public void release() {
     super.release();
-    escape = "true";
+    createSpan = null;
+    value = null;
   }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setBooleanProperty(component, ATTR_ESCAPE, escape);
-    setBooleanProperty(component, ATTR_CREATE_SPAN, "true");
+    setBooleanProperty(component, ATTR_CREATE_SPAN, createSpan);
+    setBooleanProperty(component, ATTR_VALUE, value);
   }
 
 // ------------------------------------------------------------ getter + setter
 
-  public String getEscape() {
-    return escape;
+  public String getCreateSpan() {
+    return createSpan;
   }
 
-  public void setEscape(String escape) {
-    this.escape = escape;
+  public void setCreateSpan(String createSpan) {
+    this.createSpan = createSpan;
+  }
+
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
   }
 }
+

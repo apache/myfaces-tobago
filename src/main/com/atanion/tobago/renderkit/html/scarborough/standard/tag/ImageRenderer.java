@@ -5,15 +5,12 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RendererBase;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -25,16 +22,6 @@ import java.io.IOException;
 public class ImageRenderer extends RendererBase
     implements HeightLayoutRenderer, DirectRenderer {
 
-// ///////////////////////////////////////////// constant
-
-  private static final Log LOG = LogFactory.getLog(ImageRenderer.class);
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
-
   public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
     return getConfiguredValue(facesContext, component, "headerHeight");
   }
@@ -45,7 +32,7 @@ public class ImageRenderer extends RendererBase
     UIGraphic graphic = (UIGraphic) component;
     final String value = graphic.getValue().toString();
     String src = value;
-    if (ComponentUtil.getBooleanAttribute(graphic, TobagoConstants.ATTR_I18N)) {
+    if (ComponentUtil.getBooleanAttribute(graphic, ATTR_I18N)) {
       src = null;
       if (isDisabled(graphic)) {
         src = ResourceManagerUtil.getImage(facesContext, createSrc(value, "-disabled"), true);
@@ -68,16 +55,16 @@ public class ImageRenderer extends RendererBase
     }
 
     String border = (String) graphic.getAttributes().get(
-        TobagoConstants.ATTR_BORDER);
+        ATTR_BORDER);
     if (border == null) {
       border = "0";
     }
-    String alt = (String) graphic.getAttributes().get(TobagoConstants.ATTR_ALT);
+    String alt = (String) graphic.getAttributes().get(ATTR_ALT);
     if (alt == null) {
       alt = "";
     }
     String title
-        = (String) graphic.getAttributes().get(TobagoConstants.ATTR_TITLE);
+        = (String) graphic.getAttributes().get(ATTR_TITLE);
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
@@ -94,9 +81,9 @@ public class ImageRenderer extends RendererBase
       writer.writeAttribute("title", title, null);
     }
     writer.writeAttribute("border", border, null);
-    writer.writeAttribute("height", null, TobagoConstants.ATTR_HEIGHT);
-    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeAttribute("height", null, ATTR_HEIGHT);
+    writer.writeAttribute("style", null, ATTR_STYLE);
+    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
     writer.endElement("img");
 
   }
@@ -126,7 +113,6 @@ public class ImageRenderer extends RendererBase
         + ResourceManagerUtil.getImage(
             facesContext, createSrc(src, "-hover"), true) + "');");
   }
-// ///////////////////////////////////////////// bean getter + setter
 
 }
 
