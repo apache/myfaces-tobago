@@ -75,19 +75,20 @@ public class ToolBarRenderer extends RendererBase {
     boolean boxFacet = isBoxFacet(toolbar);
 
     List children = toolbar.getChildren();
-    if (boxFacet) {
-      List newList = new ArrayList();
-      for (Iterator iter = children.iterator(); iter.hasNext();) {
-        newList.add(0,iter.next());
-      }
-      children = newList;
-    }
+//    if (boxFacet) {
+//      List newList = new ArrayList();
+//      for (Iterator iter = children.iterator(); iter.hasNext();) {
+//        newList.add(0,iter.next());
+//      }
+//      children = newList;
+//    }
 
     int index = 0;
     for (Iterator iter = children.iterator(); iter.hasNext();) {
       UIComponent component = (UIComponent) iter.next();
       if (component instanceof UICommand) {
-        renderToolbarButton(facesContext, (UICommand) component, writer, boxFacet, index++);
+        boolean addExtraClass = boxFacet ? !iter.hasNext() : index++ == 0 ;
+        renderToolbarButton(facesContext, (UICommand) component, writer, boxFacet, addExtraClass);
       } else {
         LOG.error("Illegal UIComponent class in toolbar :"
             + component.getClass().getName());
@@ -123,7 +124,8 @@ public class ToolBarRenderer extends RendererBase {
   }
 
   private void renderToolbarButton(FacesContext facesContext,
-      final UICommand command, TobagoResponseWriter writer, boolean boxFacet, int index)
+      final UICommand command, TobagoResponseWriter writer, boolean boxFacet,
+      boolean addExtraClass)
       throws IOException {
 
     if (! command.isRendered()) {
@@ -161,11 +163,11 @@ public class ToolBarRenderer extends RendererBase {
     String graphicId = clientId + SUBCOMPONENT_SEP + "icon";
 
     String extraCssClass = "";
-    if (index == 0) {
+    if (addExtraClass == true) {
       if (! boxFacet) {
-        extraCssClass = " tobago-toolBar-button-hover-" + index;
+        extraCssClass = " tobago-toolBar-button-hover-first";
       } else {
-        extraCssClass = " tobago-box-toolBar-button-hover-" + index;
+        extraCssClass = " tobago-box-toolBar-button-hover-last";
       }
     }
     final String args = "this, 'tobago-toolBar-button-hover" + extraCssClass + "', '"+ graphicId + "'";

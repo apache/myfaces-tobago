@@ -8,11 +8,12 @@ fieldset.tobago-box-default {
 .tobago-box-header-toolbar-div {
   right: -5px;
 }
+
 .tobago-box-toolbar-div {
   top: -15px;
-  left: 2px;
+  right: -2px;
   height: 31px;
-  padding-top: 1px;
+/*  padding-top: 1px;*/
 }
 
 .tobago-box-toolbar-span {
@@ -50,10 +51,11 @@ textarea.tobago-richTextEditor-body {
  height: 27px;
 }*/
 
-.tobago-toolBar-button-hover-0 {
+
+.tobago-toolBar-button-hover-first {
  padding-left: 6px;
 }
-.tobago-box-toolBar-button-hover-0 {
+.tobago-box-toolBar-button-hover-last {
  padding-right: 6px;
 }
 

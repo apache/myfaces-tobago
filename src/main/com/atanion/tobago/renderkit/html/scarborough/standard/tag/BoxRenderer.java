@@ -61,7 +61,7 @@ public class BoxRenderer extends BoxRendererBase {
     if (toolbar != null) {
       writer.startElement("div", null);
       writer.writeAttribute("class", "tobago-box-toolbar-div", null);
-      writer.startElement("span", null);
+      writer.startElement("div", null);
       writer.writeAttribute("class", "tobago-box-toolbar-span", null);
       final Map attributes = toolbar.getAttributes();
       attributes.put(
@@ -73,7 +73,7 @@ public class BoxRenderer extends BoxRendererBase {
         attributes.put(ATTR_ICON_SIZE, ToolBarTag.ICON_SMALL);
       }
       RenderUtil.encode(facesContext, toolbar);
-      writer.endElement("span");
+      writer.endElement("div");
       writer.endElement("div");
       if (ClientProperties.getInstance(facesContext.getViewRoot()).getUserAgent().isMsie()) {
         contentStyle

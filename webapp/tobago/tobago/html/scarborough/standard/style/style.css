@@ -272,15 +272,17 @@ legend.tobago-box-default {
 .tobago-box-toolbar-div {
   position: relative;
   top: -36px;
-  left: 12px;
-  float: right;
+  right: -12px;
+
 }
 
 .tobago-box-toolbar-span {
+  position: absolute;
+  top: 0px;
+  right: 0px;
   border: 2px groove #f6faff;
   background: #bbccdd;
   font-size: 22px;
-  padding-bottom: 2px;
   white-space: nowrap;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -562,7 +564,7 @@ div.tobago-richTextEditor-body {
 }
 
 .tobago-toolbar-button-box-facet {
-  float: right;
+  float: left;
 }
 
 .tobago-toolBar-button-enabled {
