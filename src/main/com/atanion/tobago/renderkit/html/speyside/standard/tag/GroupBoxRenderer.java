@@ -107,7 +107,16 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
     writer.writeAttribute("valign", "top", null);
 
     writer.startElement("div", component);
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    String innerStyle
+        = (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE_INNER);
+    if (innerStyle.indexOf("height:") == -1) {
+      String classDiv = HtmlUtils.appendAttribute(
+          component, TobagoConstants.ATTR_STYLE_CLASS, "tobago-groupbox-no-height");
+      writer.writeAttribute("class", classDiv, null);
+    }
+    else {
+      writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    }
     writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_INNER);
 
     writer.writeText("", null);

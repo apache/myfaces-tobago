@@ -363,7 +363,7 @@ label.tobago-label-default  {
   background: #ffffff;
   color: #000000;
   overflow: auto;
-  margin-bottom: 0px;
+  margin: 0px;
 }
 
 .tobago-textarea-readonly  {
