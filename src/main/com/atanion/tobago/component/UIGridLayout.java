@@ -178,7 +178,8 @@ public class UIGridLayout extends UILayout {
         for (Iterator i = cells.iterator(); i.hasNext();) {
           Object component = i.next();
           if (component instanceof UIComponent) {
-            LOG.error("Cell-ID: " + ((UIComponent)component).getId());
+            LOG.error("Cell-ID: " + ((UIComponent)component).getId()
+                + " " + ((UIComponent)component).getRendererType());
           } else {
             LOG.error("Cell:    " + component); // e.g. marker
           }
