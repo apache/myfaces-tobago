@@ -6,15 +6,15 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
-import com.atanion.tobago.component.BodyContentHandler;
 import com.atanion.tobago.component.UIPage;
+import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.TobagoResource;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.PageRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.taglib.component.PageTag;
 import com.atanion.tobago.util.TobagoResourceSet;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -252,7 +252,8 @@ public class PageRenderer extends PageRendererBase implements DirectRenderer {
     writer.endElement("form");
 
     // debugging...
-    if (true /* debugging */) {
+    if (ClientProperties.getInstance(FacesContext.getCurrentInstance())
+        .isDebugMode()) {
       for (Iterator ids = facesContext.getClientIdsWithMessages();
           ids.hasNext();) {
         String id = (String) ids.next();
