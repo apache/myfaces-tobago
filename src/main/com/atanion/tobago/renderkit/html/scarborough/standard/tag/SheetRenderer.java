@@ -699,13 +699,16 @@ public class SheetRenderer extends RendererBase
 
       String sheetId = column.getParent().getClientId(facesContext);
       String action = "tobagoSheetSelectAll('" + sheetId + "')";
-      String label = "#{tobagoBundle.sheetMenuSelect}";
+      String label = ResourceManagerUtil.getProperty(
+          facesContext, "tobago", "sheetMenuSelect");
       menu.getChildren().add(createMenuItem(application, label, action));
       action = "tobagoSheetUnselectAll('" + sheetId + "')";
-      label = "#{tobagoBundle.sheetMenuUnselect}";
+      label = ResourceManagerUtil.getProperty(
+          facesContext, "tobago", "sheetMenuUnselect");
       menu.getChildren().add(createMenuItem(application, label, action));
       action = "tobagoSheetToggleAllSelections('" + sheetId + "')";
-      label = "#{tobagoBundle.sheetMenuToggleselect}";
+      label = ResourceManagerUtil.getProperty(
+          facesContext, "tobago", "sheetMenuToggleselect");
       menu.getChildren().add(createMenuItem(application, label, action));
 
     }
@@ -725,7 +728,7 @@ public class SheetRenderer extends RendererBase
     menuItem.getAttributes().put(ATTR_MENU_TYPE, "menuItem");
     menuItem.getAttributes().put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
     menuItem.getAttributes().put(ATTR_ACTION_STRING, action);
-    menuItem.setValueBinding(ATTR_LABEL, application.createValueBinding(label));
+    menuItem.getAttributes().put(ATTR_LABEL, label);
     return menuItem;
   }
 
