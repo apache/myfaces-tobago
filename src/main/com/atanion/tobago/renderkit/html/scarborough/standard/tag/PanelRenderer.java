@@ -73,8 +73,8 @@ public class PanelRenderer extends RendererBase
       }
       else {
 
-        if (LOG.isInfoEnabled()) {
-          LOG.info("Can't calculate fixedHeight! "
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Can't calculate fixedHeight! "
               + "using estimation by contained components. for "
               + component.getClientId(facesContext) + " = "
               + component.getClass().getName() + " "

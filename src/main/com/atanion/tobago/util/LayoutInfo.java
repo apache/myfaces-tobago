@@ -73,8 +73,8 @@ public class LayoutInfo{
   public void update(int space, int index){
 
     if (space > spaceLeft) {
-      if (LOG.isInfoEnabled()) {
-        LOG.info("More space need(" + space + ") than avaliable(" + spaceLeft
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("More space need(" + space + ") than avaliable(" + spaceLeft
             + ")! Cutting to fit!");
       }
       space = spaceLeft;
