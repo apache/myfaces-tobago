@@ -66,7 +66,8 @@ public class SheetRenderer extends RendererBase
   public static final String PREV = "prev";
   public static final String NEXT = "next";
   public static final String LAST = "last";
-  public static final String WIDTHS_POSTFIX = ":widths";
+  public static final String WIDTHS_POSTFIX
+      = TobagoConstants.SUBCOMPONENT_SEP + "widths";
 
 // ///////////////////////////////////////////// attribute
 
