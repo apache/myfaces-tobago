@@ -23,11 +23,15 @@ public class TabGroupRenderer extends
         activeTab.getParent().getAttributes().get(TobagoConstants.ATTR_STYLE_BODY);
     writer.startElement("tr", null);
     writer.startElement("td", null);
-    writer.writeAttribute("style", bodyStyle, null);
+    if (bodyStyle != null) {
+      writer.writeAttribute("style", bodyStyle, null);
+    }
 
     writer.startElement("div", null);
     writer.writeAttribute("class","tobago-tab-shadow", null);
-    writer.writeAttribute("style", bodyStyle, null);
+    if (bodyStyle != null) {
+      writer.writeAttribute("style", bodyStyle, null);
+    }
 
 
     writer.startElement("div", null);
