@@ -291,7 +291,8 @@ label.tobago-label-default  {
 .tobago-page-default {
   background: #bbccdd;
   font-family: arial, helvetica, sans-serif;
-  margin-bottom: 0px;
+  padding: 0px;
+  margin: 0px;
 }
 
 /* radiogroup -------------------------------------------------------------- */

@@ -1,7 +1,10 @@
 
 .tobago-sheet-header-div {
+  padding-left: 1px;
   height: 20px;
   border-bottom: 1px solid #ffffff;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .tobago-sheet-header{
@@ -14,9 +17,13 @@
   padding: 2px 0px 0px 3px;
 }
 
+.tobago-sheet-body-table  {
+// none defined so far, but class attribute is generated
+}
+
 .tobago-sheet-body-div {
-  padding-top: 25px;
-  background: #c7c7c7;
+  padding-top: 20px;
+  background: #D7D7D7;
   border: 1px solid #CCCCCC;
 }
 

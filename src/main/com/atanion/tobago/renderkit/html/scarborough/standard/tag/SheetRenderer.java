@@ -110,7 +110,7 @@ public class SheetRenderer extends RendererBase
     int footerHeight;
     if (ComponentUtil.getBooleanAttribute(component,
         TobagoConstants.ATTR_PAGING)) {
-      footerHeight = getConfiguredValue(facesContext, component, "headerHeight");
+      footerHeight = getConfiguredValue(facesContext, component, "footerHeight");
     }
     else {
       footerHeight = 0;
