@@ -28,7 +28,7 @@ public class DurationConverterUnitTest extends ConverterUnitTestBase {
 
   protected void setUp() throws Exception {
     super.setUp();
-    converter = application.createConverter(DurationConverter.CONVERTER_ID);
+    converter = new DurationConverter();
   }
 
 

@@ -7,17 +7,13 @@ package com.atanion.tobago.convert;
 
 import junit.framework.TestCase;
 
-import com.atanion.tobago.config.FacesConfigParser;
 import com.atanion.tobago.context.MockExternalServletContext;
 import com.atanion.tobago.context.TobagoContext;
 
-import javax.faces.application.ApplicationFactory;
 import javax.faces.application.Application;
-import javax.faces.FactoryFinder;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import java.io.InputStream;
 
 public class ConverterUnitTestBase extends TestCase {
 
@@ -41,19 +37,19 @@ public class ConverterUnitTestBase extends TestCase {
     super.setUp();
 
     // faces-ri-config.xml
-    InputStream[] configStreams = new InputStream[1];
-    configStreams[0] =
-        getClass().getClassLoader().getResourceAsStream(
-            "com/atanion/tobago/faces-ri-config.xml");
-    FacesConfigParser facesConfigParser = new FacesConfigParser();
+//    InputStream[] configStreams = new InputStream[1];
+//    configStreams[0] =
+//        getClass().getClassLoader().getResourceAsStream(
+//            "com/atanion/tobago/faces-ri-config.xml");
+//    FacesConfigParser facesConfigParser = new FacesConfigParser();
 //    String url = getClass().getClassLoader().getResource(
 //        "java/dtd/web-facesconfig_1_0.dtd").toString();
-    facesConfigParser.init(configStreams, null);
-    configStreams[0].close();
+//    facesConfigParser.init(configStreams, null);
+//    configStreams[0].close();
 
-    ApplicationFactory factory = (ApplicationFactory)
-        FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
-    application = factory.getApplication();
+//    ApplicationFactory factory = (ApplicationFactory)
+//        FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
+//    application = factory.getApplication();
     ExternalContext externalContext = new MockExternalServletContext();
     facesContext = new TobagoContext(externalContext, null);
     facesContext.setViewRoot(new UIViewRoot());
