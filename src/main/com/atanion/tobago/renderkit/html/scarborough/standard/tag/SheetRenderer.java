@@ -8,6 +8,7 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
+import com.atanion.tobago.component.UIData;
 import com.atanion.tobago.context.Theme;
 import com.atanion.tobago.context.TobagoResource;
 import com.atanion.tobago.model.SortableByApplication;
@@ -25,7 +26,6 @@ import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIData;
 import javax.faces.component.UIGraphic;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIOutput;
@@ -76,56 +76,29 @@ public class SheetRenderer extends RendererBase
 
 
   private int getAscendingMarkerWidth(FacesContext facesContext, UIComponent component) {
-    int width = 10 ;
-    String theme
-        = Theme.fromRenderKitId(facesContext.getViewRoot().getRenderKitId());
-
-    if (Theme.SPEYSIDE.equals(theme)) {
-      width = 15;
-    } else if (Theme.INEXSO.equals(theme)) {
-      width = 15;
-    } else if (Theme.SAP.equals(theme)) {
-      width = 15;
-    } else if (Theme.TUI.equals(theme)) {
-      width = 15;
-    }
-    return width;
+    return getConfiguredValue(facesContext, component, "ascendingMarkerWidth");
   }
 
   public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    int height = 20;  // scarborough  mozilla linux
-
-    String theme
-        = Theme.fromRenderKitId(facesContext.getViewRoot().getRenderKitId());
-
-    if (Theme.SPEYSIDE.equals(theme)) {
-      height = 25;
-    } else if (Theme.INEXSO.equals(theme)) {
-      height = 25;
-    } else if (Theme.SAP.equals(theme)) {
-      height = 25;
-    } else if (Theme.TUI.equals(theme)) {
-      height = 25;
-    }
-
-    return height;
+    return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
 
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
     ensureColumnWidthList(facesContext, (UIData) component);
-    storeFooterHeight(component);
+    storeFooterHeight(facesContext, component);
     super.encodeEnd(facesContext, component);
   }
 
-  private void storeFooterHeight(UIComponent component) {
+  private void storeFooterHeight(FacesContext facesContext,
+      UIComponent component) {
     component.getAttributes().put(TobagoConstants.ATTR_FOOTER_HEIGHT,
-        new Integer(getFooterHeight()));
+        new Integer(getFooterHeight(facesContext, component)));
   }
 
-  private int getFooterHeight() {
-    return 20; // mozilla
+  private int getFooterHeight(FacesContext facesContext, UIComponent component) {
+    return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
 
@@ -138,7 +111,8 @@ public class SheetRenderer extends RendererBase
           = (List) data.getAttributes().get(TobagoConstants.ATTR_WIDTH_LIST);
       if (widthList == null) {
         int space = LayoutUtil.getInnerSpace(facesContext, data, true)
-            - (needVerticalScrollbar(facesContext, data) ? getScrollbarWidth() : 0);
+            - (needVerticalScrollbar(facesContext, data)
+            ? getScrollbarWidth(facesContext, data) : 0);
         LayoutInfo layoutInfo = new LayoutInfo(
             getColumns(data).size(), space, columnLayout);
         layoutInfo.parseColumnLayout(space);
@@ -157,8 +131,10 @@ public class SheetRenderer extends RendererBase
     if (heightString != null) {
       int first = data.getFirst();
       int rows = Math.min(data.getRowCount(), first + data.getRows()) - first;
-      int heightNeeded = getHeaderHeight(facesContext, data) + getFooterHeight()
-          + (rows * (getFixedHeight(facesContext, null)+ getRowPadding(facesContext)));
+      int heightNeeded = getHeaderHeight(facesContext, data)
+          + getFooterHeight(facesContext, data)
+          + (rows * (getFixedHeight(facesContext, null)
+          + getRowPadding(facesContext, data)));
 
       int height = Integer.parseInt(heightString.replaceAll("\\D", ""));
       return heightNeeded > height;
@@ -167,41 +143,18 @@ public class SheetRenderer extends RendererBase
     }
   }
 
-  private int getRowPadding(FacesContext facesContext) {
-    int padding = 5; // scarborough
-
-    String theme
-        = Theme.fromRenderKitId(facesContext.getViewRoot().getRenderKitId());
-
-    if (Theme.SPEYSIDE.equals(theme)) {
-      padding = 3;
-    } else if (Theme.INEXSO.equals(theme)) {
-      padding = 3;
-    } else if (Theme.SAP.equals(theme)) {
-      padding = 3;
-    } else if (Theme.TUI.equals(theme)) {
-      padding = 3;
-    }
-    return padding;
+  private int getRowPadding(FacesContext facesContext, UIComponent component) {
+    return getConfiguredValue(facesContext, component, "rowPadding");
   }
 
 
-  private int getScrollbarWidth() {
-    int width = 16; // mozilla 1.5 MS
-
-//    UserAgent userAgent = null;
-
-    return width;
-  }
-
-  private int getScrollbarHeight() {
-    int height = 15; // mozilla 1.5
-    return height;
+  private int getScrollbarWidth(FacesContext facesContext, UIComponent component) {
+    return getConfiguredValue(facesContext, component, "scrollbarWidth");
   }
 
   public void encodeDirectEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
-    UIData component =  (UIData) uiComponent;
+    UIData component = (UIData) uiComponent;
     List columnWidths = (List) component.getAttributes().get(
         TobagoConstants.ATTR_WIDTH_LIST);
     String image1x1 = TobagoResource.getImage(facesContext, "1x1.gif");
@@ -265,6 +218,7 @@ public class SheetRenderer extends RendererBase
 
     Application application = facesContext.getApplication();
     Sorter sorter = getSorter(component);
+    setStoredState(facesContext, component, sorter);
 
 
     int columnCount = 0;
@@ -611,6 +565,25 @@ public class SheetRenderer extends RendererBase
 
   }
 
+  private void setStoredState(FacesContext facesContext, UIData component,
+      Sorter sorter) {
+    ValueBinding stateBinding
+        = component.getValueBinding(TobagoConstants.ATTR_STATE_BINDING);
+    if (stateBinding != null) {
+      State state = null;
+      try {
+        state = (State) stateBinding.getValue(facesContext);
+      } catch (Exception e) {
+        LOG.debug("Can't retrieve state :" + e.getMessage(), e);
+      }
+      if (state != null) {
+        component.setFirst(state.getFirst());
+        sorter.setColumn(state.getSortedColumn());
+        sorter.setAscending(state.isAscending());
+      }
+    }
+  }
+
   private int getEndIndex(UIData data) {
     int last = data.getFirst() + data.getRows();
     return last < data.getRowCount() ? last : data.getRowCount();
@@ -728,6 +701,7 @@ public class SheetRenderer extends RendererBase
   }
 
 
+
 // ///////////////////////////////////////////// bean getter + setter
 
 
@@ -781,6 +755,7 @@ public class SheetRenderer extends RendererBase
                 column = actualColumn;
               }
 
+
               List columns = getColumns(data);
               uiColumn = (UIColumn) columns.get(column);
               UIComponent child = getFirstSortableChild(uiColumn.getChildren());
@@ -831,6 +806,7 @@ public class SheetRenderer extends RendererBase
               Arrays.sort((Object[]) value, beanComparator);
             }
           }
+          data.updateState(facescontext, data);
         }
         else {  // DataModel?, ResultSet, Result or Object
           LOG.warn("Sorting not supported for type "
@@ -883,6 +859,14 @@ public class SheetRenderer extends RendererBase
     public boolean isAscending() {
       return ascending;
     }
+
+    public void setColumn(int column) {
+      this.column = column;
+    }
+
+    public void setAscending(boolean ascending) {
+      this.ascending = ascending;
+    }
   }
 
   public class Pager extends MethodBinding {
@@ -929,7 +913,7 @@ public class SheetRenderer extends RendererBase
         LOG.debug("aobj[0] instanceof '" + aobj[0] + "'");
       }
 
-
+      data.updateState(facescontext, data);
 
 
       return null;
@@ -950,12 +934,39 @@ public class SheetRenderer extends RendererBase
     }
 
     public boolean isAtEnd() {
-      LOG.info("data.getFirst()=" + data.getFirst()
-          + "  getLast()=" + getLast()
-          + "  isAtEnd=" + (data.getFirst() >= getLast()));
       return data.getFirst() >= getLast();
     }
 
+  }
+
+  public static class State {
+    private int first;
+    private int sortedColumn;
+    private boolean ascending;
+
+    public int getFirst() {
+      return first;
+    }
+
+    public void setFirst(int first) {
+      this.first = first;
+    }
+
+    public int getSortedColumn() {
+      return sortedColumn;
+    }
+
+    public void setSortedColumn(int sortedColumn) {
+      this.sortedColumn = sortedColumn;
+    }
+
+    public boolean isAscending() {
+      return ascending;
+    }
+
+    public void setAscending(boolean ascending) {
+      this.ascending = ascending;
+    }
   }
 
 

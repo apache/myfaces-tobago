@@ -55,6 +55,7 @@ public class ApplicationImpl extends Application {
   private Locale defaultLocale;
   private List supportedLocales;
 
+  private Map valueBindingMap;
   private Map converterIdMap;
   private Map converterTypeMap;
   private Map componentTypeMap;
@@ -63,7 +64,7 @@ public class ApplicationImpl extends Application {
 // ///////////////////////////////////////////// constructor
 
   public ApplicationImpl() {
-    LOG.info("stack trace", new Exception());
+    valueBindingMap = new HashMap();
     converterIdMap = new HashMap();
     converterTypeMap = new HashMap();
     componentTypeMap = new HashMap();
@@ -74,8 +75,12 @@ public class ApplicationImpl extends Application {
 
   public ValueBinding createValueBinding(String reference)
       throws ReferenceSyntaxException {
+    ValueBinding binding = (ValueBinding) valueBindingMap.get(reference);
+    if (null == binding) {
     reference = ElUtil.clipReferenceBackets(reference);
-    ValueBindingImpl binding = new ValueBindingImpl(reference);
+      binding = new ValueBindingImpl(reference);
+      valueBindingMap.put(reference, binding);
+    }
     return binding;
   }
 

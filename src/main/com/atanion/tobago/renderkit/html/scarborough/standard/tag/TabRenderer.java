@@ -6,26 +6,28 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 
 import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
+import java.io.IOException;
 
-public class TabRenderer extends RendererBase {
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
+
+public class TabRenderer extends RendererBase implements HeightLayoutRenderer {
 
 // ///////////////////////////////////////////// constant
 
+  private static final Log LOG = LogFactory.getLog(TabRenderer.class);
 // ///////////////////////////////////////////// attribute
 
 // ///////////////////////////////////////////// constructor
 
 // ///////////////////////////////////////////// code
 
-  public int getPaddingWidth(FacesContext facesContext, UIComponent component) {
-    return 8;
-  }
-
-  public int getPaddingHeight(FacesContext facesContext, UIComponent component) {
-    return 11;
+  public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
+    return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
 // ///////////////////////////////////////////// bean getter + setter

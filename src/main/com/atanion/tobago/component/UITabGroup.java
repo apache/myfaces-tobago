@@ -13,10 +13,13 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.component.NamingContainer;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import com.atanion.tobago.TobagoConstants;
 
 public class UITabGroup extends UIPanel {
 
@@ -58,6 +61,19 @@ public class UITabGroup extends UIPanel {
 
   public UIPanel getActiveTab() {
     return getTabs()[activeIndex];
+  }
+
+  public void processUpdates(FacesContext context) {
+    super.processUpdates(context);
+    updateState(context);
+  }
+
+  public void updateState(FacesContext facesContext) {
+    ValueBinding stateBinding
+        = getValueBinding(TobagoConstants.ATTR_STATE_BINDING);
+    if (stateBinding != null) {
+      stateBinding.setValue(facesContext, new Integer(activeIndex));
+    }
   }
 
 // ///////////////////////////////////////////// bean getter + setter

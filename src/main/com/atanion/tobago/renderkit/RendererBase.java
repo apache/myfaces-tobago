@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.config.ThemeConfig;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.Theme;
@@ -261,25 +262,38 @@ public class RendererBase extends Renderer {
     return tobagoClass + cssClass;
   }
 
-  public int getPaddingWidth(FacesContext facesContext, UIComponent component) {
+
+
+  protected int getConfiguredValue(FacesContext facesContext,
+      UIComponent component, String key) {
+    try {
+      return ThemeConfig.getInstance().getValue(facesContext, component, key);
+    } catch (Exception e) {
+      LOG.error("Can't take \"" + key + "\" for " + getClass().getName()
+          + " from config-file :" + e.getMessage() + " " + e.getStackTrace()[0]);
+    }
     return 0;
+  }
+
+  public int getPaddingWidth(FacesContext facesContext, UIComponent component) {
+    return getConfiguredValue(facesContext, component, "paddingWidth");
   }
 
   public int getPaddingHeight(
       FacesContext facesContext, UIComponent component) {
-    return getPaddingWidth(facesContext, component);
+    return getConfiguredValue(facesContext, component, "paddingHeight");
   }
 
   public int getComponentExtraWidth(
       FacesContext facesContext,
       UIComponent component) {
-    return 0;
+    return getConfiguredValue(facesContext, component, "componentExtraWidth");
   }
 
   public int getComponentExtraHeight(
       FacesContext facesContext,
       UIComponent component) {
-    return 0;
+    return getConfiguredValue(facesContext, component, "componentExtraHeight");
   }
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
@@ -302,24 +316,26 @@ public class RendererBase extends Renderer {
       }
     } else {
 
-      String theme
-          = Theme.fromRenderKitId(facesContext.getViewRoot().getRenderKitId());
+      fixedHeight = getConfiguredValue(facesContext, component, "fixedHeight");
 
-      // todo: make this configurable
-
-      if (theme.equals(Theme.SCARBOROUGH)) {
-        fixedHeight = 25;
-      } else if (theme.equals(Theme.SPEYSIDE)) {
-        fixedHeight = 20;
-      } else if (theme.equals(Theme.INEXSO)) {
-        fixedHeight = 20;
-      } else if (theme.equals(Theme.SAP)) {
-        fixedHeight = 20;
-      } else if (theme.equals(Theme.TUI)) {
-        fixedHeight = 20;
-      } else {
-        LOG.warn("unknown Theme :\"" + theme + "\"");
-      }
+//      String theme
+//          = Theme.fromRenderKitId(facesContext.getViewRoot().getRenderKitId());
+//
+//      // todo: make this configurable
+//
+//      if (theme.equals(Theme.SCARBOROUGH)) {
+//        fixedHeight = 25;
+//      } else if (theme.equals(Theme.SPEYSIDE)) {
+//        fixedHeight = 20;
+//      } else if (theme.equals(Theme.INEXSO)) {
+//        fixedHeight = 20;
+//      } else if (theme.equals(Theme.SAP)) {
+//        fixedHeight = 20;
+//      } else if (theme.equals(Theme.TUI)) {
+//        fixedHeight = 20;
+//      } else {
+//        LOG.warn("unknown Theme :\"" + theme + "\"");
+//      }
 
     }
     return fixedHeight;

@@ -60,8 +60,8 @@ public class InputRendererBase extends RendererBase {
     }
   }
 
-  public int getLabelWidth() {
-    return 0;
+  public int getLabelWidth(FacesContext facesContext, UIComponent component) {
+    return getConfiguredValue(facesContext, component, "labelWidth");
   }
 
 // ///////////////////////////////////////////// bean getter + setter

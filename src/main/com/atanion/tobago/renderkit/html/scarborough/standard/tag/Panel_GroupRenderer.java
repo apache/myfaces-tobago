@@ -35,7 +35,7 @@ public class Panel_GroupRenderer extends RendererBase
   }
 
   public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    return 0;
+    return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
   public void encodeDirectChildren(FacesContext facesContext,

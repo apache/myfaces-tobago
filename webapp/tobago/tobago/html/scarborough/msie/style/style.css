@@ -1,0 +1,19 @@
+/* $Id$ */
+
+fieldset.tobago-groupbox-default {
+  padding-left: 10px;
+}
+
+.tobago-textarea-default {
+  margin-top: -1 px;
+  margin-bottom: -1 px;
+}
+
+.tobago-textbox-default {
+  margin-top: -1 px;
+  margin-bottom: -1 px;
+}
+
+.tobago-label-default {
+  margin-top: -2px;
+}

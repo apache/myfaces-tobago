@@ -39,17 +39,13 @@ public class TextAreaRenderer extends InputRendererBase
     if (component.getFacet(TobagoConstants.FACET_LABEL) != null
       || component.getAttributes().get(TobagoConstants.ATTR_LABEL) != null) {
       int labelWidth = LayoutUtil.getLabelWidth(component);
-      space += labelWidth != 0 ? labelWidth : getLabelWidth();
+      space += labelWidth != 0 ? labelWidth : getLabelWidth(facesContext, component);
     }
     return space;
   }
 
-  public int getLabelWidth() {
-    return 144;
-  }
-
   public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    return 0;
+    return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
   public void encodeDirectEnd(FacesContext facesContext,

@@ -11,9 +11,11 @@
 
   <target name="dist" depends="compile">
     <mkdir dir="${dist}"/>
-    <jar jarfile="${dist}/atanion-tobago.jar">
+    <jar jarfile="${dist}/tobago.jar">
       <fileset dir="${build.classes.main}">
         <include name="**/*.class"/>
+        <exclude name="com/atanion/tobago/renderkit/html/*/**/*.class"/>
+        <exclude name="com/atanion/tobago/renderkit/wml/*/**/*.class"/>
       </fileset>
       <metainf dir="${src.main}/com/atanion/tobago">
         <include name="faces-config.xml"/>
@@ -25,6 +27,36 @@
         <include name="tobago-core.tld"/>
       </metainf>
     </jar>
+
+    <property name="theme" value="${build}/theme" />
+    <mkdir dir="${theme}" />
+
+    <macrodef name="zip-theme">
+      <attribute name="name"/>
+      <sequential>
+        <jar jarfile="${theme}/tobago-theme-@{name}.jar">
+          <fileset dir="${build.classes.main}">
+            <include name="com/atanion/tobago/renderkit/*/@{name}/**/*.class"/>
+          </fileset>
+        </jar>
+
+        <jar jarfile="${dist}/tobago-theme-@{name}.zip">
+          <fileset dir="webapp/tobago">
+            <include name="tobago/*/@{name}/**"/>
+          </fileset>
+          <fileset dir="${theme}">
+            <include name="tobago-theme-@{name}.jar"/>
+          </fileset>
+        </jar>
+      </sequential>
+    </macrodef>
+
+    <zip-theme name="scarborough"/>
+    <zip-theme name="speyside"/>
+    <zip-theme name="charlotteville"/>
+    <zip-theme name="tui"/>
+    <zip-theme name="inexso"/>
+
   </target>
 
 </project>

@@ -46,15 +46,15 @@ public class MultiSelectRenderer extends SelectManyRendererBase
 
     if (component.getFacet(TobagoConstants.FACET_LABEL) != null) {
       int labelWidth = LayoutUtil.getLabelWidth(component);
-      space += labelWidth != 0 ? labelWidth : getLabelWidth();
-      space += 5; // space (5px)
+      space += labelWidth != 0 ? labelWidth : getLabelWidth(facesContext, component);
+      space += getConfiguredValue(facesContext, component, "labelSpace");
     }
 
     return space;
   }
 
-  public int getLabelWidth() {
-    return 120;
+  public int getLabelWidth(FacesContext facesContext, UIComponent component) {
+    return getConfiguredValue(facesContext, component, "labelWidth");
   }
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
@@ -70,16 +70,12 @@ public class MultiSelectRenderer extends SelectManyRendererBase
 
     if (fixedHeight == -1) {
       fixedHeight = super.getFixedHeight(facesContext, component);
-      UserAgent browser = ClientProperties.getInstance(facesContext).getUserAgent();
-      if (browser.toString().startsWith("msie")) {
-        fixedHeight = 21;
-      }
     }
     return fixedHeight;
   }
 
   public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    return 0;
+    return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
 

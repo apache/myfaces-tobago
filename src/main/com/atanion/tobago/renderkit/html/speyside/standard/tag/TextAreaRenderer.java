@@ -40,25 +40,16 @@ public class TextAreaRenderer extends InputRendererBase
 
     if (component.getFacet(TobagoConstants.FACET_LABEL) != null) {
       int labelWidht = LayoutUtil.getLabelWidth(component);
-      space += labelWidht != 0 ? labelWidht : getLabelWidth();
-//      space += 10; // padding (5px) + space (5px)
-      space += 5; // space (5px)
+      space += labelWidht != 0 ? labelWidht : getLabelWidth(facesContext, component);
+      space += getConfiguredValue(facesContext, component, "labelSpace");
     }
 
     return space;
   }
 
-  public int getLabelWidth() {
-    return 120;
-  }
-
   public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    return 0;
+    return getConfiguredValue(facesContext, component, "headerHeight");
   }
-
-//  public int getComponentExtraHeight(FacesContext facesContext, UIComponent component) {
-//    return 2; // fixme: label is to hight for layout,
-//  }
 
   public void encodeDirectEnd(FacesContext facesContext,
       UIComponent component) throws IOException {

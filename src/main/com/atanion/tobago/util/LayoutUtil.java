@@ -7,6 +7,7 @@ package com.atanion.tobago.util;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UITabGroup;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.RendererBase;
@@ -143,21 +144,22 @@ public class LayoutUtil {
     int width = getLabelWidth(component);
 
     if (width == 0) {
-      width = getDefaultLabelWidth(facesContext);
+      width = getDefaultLabelWidth(facesContext, component);
     }
     return width;
   }
 
-  private static int getDefaultLabelWidth(FacesContext facesContext) {
+  private static int getDefaultLabelWidth(
+      FacesContext facesContext, UIComponent component) {
     int width = 0;
     try {
       RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(
           "javax.faces.render.RenderKitFactory");
       RenderKit renderKit = rkFactory.getRenderKit(facesContext,
           facesContext.getViewRoot().getRenderKitId());
-      InputRendererBase renderer = (InputRendererBase) renderKit.getRenderer(UIInput.COMPONENT_FAMILY,
-          "TextBox");
-      width = renderer.getLabelWidth();
+      InputRendererBase renderer = (InputRendererBase)
+          renderKit.getRenderer(UIInput.COMPONENT_FAMILY, "TextBox");
+      width = renderer.getLabelWidth(facesContext, component);
     } catch (Exception e) {
       if (log.isWarnEnabled()) {
         log.warn("can't find Label Width", e);
@@ -167,7 +169,7 @@ public class LayoutUtil {
   }
 
   public static int getDefaultLabelWidth() {
-    return getDefaultLabelWidth(FacesContext.getCurrentInstance());
+    return getDefaultLabelWidth(FacesContext.getCurrentInstance(), null);
   }
 
 

@@ -28,6 +28,12 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
 
 // ///////////////////////////////////////////// code
 
+
+
+  public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
+    return getConfiguredValue(facesContext, component, "headerHeight");
+  }
+
   public void encodeDirectEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
 
@@ -81,17 +87,9 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
       throws IOException {
   }
 
-  public int getPaddingWidth(FacesContext facesContext, UIComponent component) {
-    return 10;
-  }
-
   public int getPaddingHeight(FacesContext facesContext, UIComponent component) {
     return 10
         + (component.getFacet(TobagoConstants.FACET_LABEL) != null ? 25 : 0);
-  }
-
-  public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    return 0;
   }
 
 // ///////////////////////////////////////////// bean getter + setter

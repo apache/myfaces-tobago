@@ -50,7 +50,7 @@ public class MessageRenderer extends MessageRendererBase
       count++;
     }
     LOG.debug("here are " + count + " messages");
-    return count * 20; // fixme: depends on theme
+    return count * getConfiguredValue(facesContext, component, "messageHeight");
   }
 
   public void encodeDirectEnd(FacesContext facesContext,

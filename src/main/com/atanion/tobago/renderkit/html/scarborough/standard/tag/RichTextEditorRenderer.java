@@ -64,6 +64,7 @@ public class RichTextEditorRenderer extends InputRendererBase
 
 
   public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
+    // todo: refactor
     Boolean state = (Boolean) component.getAttributes().get(TobagoConstants.ATTR_STATE_PREVIEW);
     // <div>'s border is outside, <textarea>'s border is inside
     return state.booleanValue() ? 2 : 0 ;

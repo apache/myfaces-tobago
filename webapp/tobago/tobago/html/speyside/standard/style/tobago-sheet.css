@@ -1,0 +1,61 @@
+
+.tobago-sheet-header-div {
+  height: 25px;
+  border-bottom: 1px solid #ffffff;
+
+}
+
+
+
+
+
+.tobago-sheet-header{
+	border-color: #b8b6b6;
+	background-color: #b8b6b6;
+  font: bold 14px arial, helvetica, sans-serif;
+  color: #ffffff;
+  cursor: pointer;
+  text-align: left;
+  padding: 5px 0px 0px 5px;
+
+}
+
+
+
+
+.tobago-sheet-body-div {
+  padding-top: 25px;
+  background: #c7c7c7;
+}
+
+.tobago-sheet-content-odd {
+  font: 12px arial, helvetica, sans-serif;
+  background: #d7d7d7;
+}
+
+.tobago-sheet-content-even {
+  font: 12px arial, helvetica, sans-serif;
+  background: #e9e9e9;
+}
+
+
+.tobago-sheet-cell-td {
+  border-bottom: 1px solid #ffffff;
+}
+
+
+.tobago-sheet-cell-inner {
+  padding: 3px 0px 0px 2px;
+}
+
+
+.tobago-sheet-footer-table-td {
+  background: #b8b6b6;
+  font: bold 12px arial, helvetica, sans-serif;
+  color: #333333;
+  text-decoration: none;
+}
+
+.tobago-sheet-footer-table-td a:hover  {
+  text-decoration: underline;
+}

@@ -38,17 +38,14 @@ public class TextBoxRenderer extends TextBoxRendererBase
     if (component.getFacet(TobagoConstants.FACET_LABEL) != null
       || component.getAttributes().get(TobagoConstants.ATTR_LABEL) != null) {
       int labelWidth = LayoutUtil.getLabelWidth(component);
-      space += labelWidth != 0 ? labelWidth : getLabelWidth();
+      space += labelWidth != 0 ? labelWidth : getLabelWidth(facesContext, component);
     }
     if (component.getFacet("picker") != null) {
-      int pickerWidth = 20; // todo: configurable
+      int pickerWidth = getConfiguredValue(facesContext, component, "pickerWidth");
+
       space += pickerWidth;
     }
     return space;
-  }
-
-  public int getLabelWidth() {
-    return 144;
   }
 
   public void encodeDirectEnd(FacesContext facesContext,

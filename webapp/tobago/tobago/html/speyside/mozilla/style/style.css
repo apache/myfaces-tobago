@@ -1,0 +1,38 @@
+/* - Label ------------------------------------------------------------------ */
+
+.tobago-label-td  {
+  border-top: 0px solid #c0c0c0;
+  border-bottom: 0px solid #c0c0c0;
+}
+
+/* textarea ---------------------------------------------------------------- */
+.tobago-textarea-default  {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+/* textbox ---------------------------------------------------------------- */
+.tobago-textbox-default  {
+  margin-top: 0px;
+  margin-bottom: -1px;
+}
+
+.tobago-label-default  {
+  padding-top: 0px;
+}
+
+.tobago-label-inline  {
+  padding-top: 1px;
+}
+
+
+/* multiselect ---------------------------------------------------------------*/
+.tobago-multiselect-default  {
+  margin-bottom: -1px;
+  /* height: 20px;*/
+}
+
+/* singleselect ---------------------------------------------------------------*/
+.tobago-singleselect-default  {
+  margin-bottom: -1px;
+}

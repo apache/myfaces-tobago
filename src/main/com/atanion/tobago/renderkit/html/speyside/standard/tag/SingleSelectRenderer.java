@@ -163,24 +163,11 @@ public class SingleSelectRenderer extends SelectOneRendererBase
 
     if (component.getFacet(TobagoConstants.FACET_LABEL) != null) {
       int labelWidht = LayoutUtil.getLabelWidth(component);
-      space += labelWidht != 0 ? labelWidht : getLabelWidth();
-      space += 5; // space (5px)
+      space += labelWidht != 0 ? labelWidht : getLabelWidth(facesContext, component);
+      space += getConfiguredValue(facesContext, component, "labelSpace");
     }
 
     return space;
-  }
-
-  public int getLabelWidth() {
-    return 120;
-  }
-
-  public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    int fixedHeight = super.getFixedHeight(facesContext, component);
-    UserAgent browser = ClientProperties.getInstance(facesContext).getUserAgent();
-    if (browser.toString().startsWith("msie")) {
-      fixedHeight = 21;
-    }
-    return fixedHeight;
   }
 
 // ///////////////////////////////////////////// bean getter + setter

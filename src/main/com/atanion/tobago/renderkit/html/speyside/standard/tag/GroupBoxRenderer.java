@@ -123,22 +123,8 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
       throws IOException {
   }
 
-  public int getPaddingWidth(FacesContext facesContext, UIComponent component) {
-    return 20 + 2; // margin + border
-  }
-
   public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    int height = 22;
-
-    String theme
-        = Theme.fromRenderKitId(facesContext.getViewRoot().getRenderKitId());
-    
-    // todo: make this configurable
-
-    if (theme.equals(Theme.SAP)) { // fixme:
-      height = 17;
-    }
-    return height;  // speyside groupbox header height
+    return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
 

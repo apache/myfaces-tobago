@@ -6,11 +6,11 @@
 package com.atanion.tobago.application;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.config.TobagoConfig;
+import com.atanion.tobago.config.MappingRule;
+import com.atanion.tobago.config.Attribute;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.config.Attribute;
-import com.atanion.tobago.config.MappingRule;
-import com.atanion.tobago.config.TobagoConfig;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.webapp.TobagoServletMapping;
 

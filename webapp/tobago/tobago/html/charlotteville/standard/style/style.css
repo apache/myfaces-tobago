@@ -1,0 +1,25 @@
+/* $Id$ */
+
+body  {
+  background-image: url("../image/clouds.png");
+}
+
+/* groupbox ---------------------------------------------------------------- */
+
+div.tobago-groupbox-default {
+  overflow: auto;
+}
+
+.tobago-groupbox-head-td-left {
+  font: bold 10pt arial, helvetica, sans-serif;
+  color: #ffffff;
+  padding-left: 10px;
+}
+
+.tobago-groupbox-head-td-right {
+  background: #ffffff;
+}
+
+td.tobago-groupbox-body-td {
+  padding: 10px;
+}

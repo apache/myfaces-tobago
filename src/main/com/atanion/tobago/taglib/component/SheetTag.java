@@ -6,11 +6,11 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.component.UIData;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
@@ -37,6 +37,8 @@ public class SheetTag extends TobagoTag {
 // ///////////////////////////////////////////// code
 
   public String getComponentType() {
+
+    // todo: implement uidata with overridden processUpdates to store state
     return UIData.COMPONENT_TYPE;
   }
 

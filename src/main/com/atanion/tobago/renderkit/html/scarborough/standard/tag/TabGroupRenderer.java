@@ -17,6 +17,7 @@ import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.renderkit.StyleAttribute;
+import com.atanion.tobago.renderkit.html.HtmlDefaultLayoutManager;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -25,6 +26,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.el.ValueBinding;
+import javax.faces.el.EvaluationException;
 import javax.servlet.ServletRequest;
 import java.io.IOException;
 
@@ -53,51 +56,17 @@ public class TabGroupRenderer extends RendererBase
         = ((ServletRequest) facesContext.getExternalContext().getRequest())
         .getParameter(clientId + ACTIVE_INDEX_POSTFIX);
     try {
-      ((UITabGroup) component).setActiveIndex(Integer.parseInt(newValue));
+      int activeIndex = Integer.parseInt(newValue);
+      ((UITabGroup) component).setActiveIndex(activeIndex);
+      ((UITabGroup) component).updateState(facesContext);
+
     } catch (NumberFormatException e) {
       LOG.error("Can't parse activeIndex: '" + newValue + "'");
     }
   }
 
-  public int getPaddingWidth(FacesContext facesContext, UIComponent component) {
-
-    String theme
-        = Theme.fromRenderKitId(facesContext.getViewRoot().getRenderKitId());
-
-    return theme.equals(Theme.SCARBOROUGH) ? 24 : 18;
-    // todo: themes properties ?
-  }
-
-
-
-
-//  protected void layoutEnd(FacesContext facesContext, UIComponent component) {
-//
-//    UITabGroup tabGroup =  (UITabGroup) component;
-//
-//    int heightInt = getHeightAsInt(tabGroup);
-//
-//    if (heightInt != -1) {
-//      UIBody[] tabs = tabGroup.getTabs();
-//
-//      for (int i = 0; i < tabs.length; i++) {
-//        UIBody tab = tabs[i];
-//        String tabHeight = (String) tab.getAttributes().get(TobagoConstants.ATTR_HEIGHT);
-//        if (tabHeight == null) {
-//          tab.setAttribute(TobagoConstants.ATTR_HEIGHT,
-//              "" + (heightInt - getHeaderHeight(facesContext)) + "px");
-//        }
-//      }
-//    }
-//  }
-
   public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-
-    String theme
-        = Theme.fromRenderKitId(facesContext.getViewRoot().getRenderKitId());
-
-    return theme.equals(Theme.SCARBOROUGH) ? 24 : 18;
-    // todo: themes properties ?
+    return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
   public void encodeDirectEnd(FacesContext facesContext,
@@ -108,8 +77,21 @@ public class TabGroupRenderer extends RendererBase
     String image1x1 = TobagoResource.getImage(facesContext, "1x1.gif");
 
     UIPanel[] tabs = component.getTabs();
+    layoutTabs(facesContext, component, tabs);
 
-    int activeIndex = component.getActiveIndex();
+    int activeIndex = -1;
+    ValueBinding stateBinding
+        = component.getValueBinding(TobagoConstants.ATTR_STATE_BINDING);
+    try {
+      activeIndex = ((Integer)stateBinding.getValue(facesContext)).intValue();
+    } catch (ClassCastException e) {
+      LOG.warn("Illegal class in stateBinding : " + e.getMessage(), e);
+    } catch (NullPointerException e) {
+      LOG.info("null value in stateBinding" );
+    }
+    if (activeIndex == -1) {
+      activeIndex = component.getActiveIndex();
+    }
     String hiddenId = component.getClientId(facesContext)
         + TabGroupRenderer.ACTIVE_INDEX_POSTFIX;
     String bodyStyle = (String)
@@ -267,6 +249,26 @@ public class TabGroupRenderer extends RendererBase
         writer.endElement("table");
       }
     }
+  }
+
+  private void layoutTabs(FacesContext facesContext, UITabGroup component,
+      UIPanel[] tabs) {
+    String layoutWidth = (String)
+        component.getAttributes().get(TobagoConstants.ATTR_LAYOUT_WIDTH);
+    String layoutHeight = (String)
+        component.getAttributes().get(TobagoConstants.ATTR_LAYOUT_HEIGHT);
+
+    for (int i = 0; i < tabs.length; i++) {
+      UIPanel tab = tabs[i];
+      if (layoutWidth != null) {
+        HtmlDefaultLayoutManager.layoutSpace(tab, facesContext, true);
+      }
+      if (layoutHeight != null) {
+        HtmlDefaultLayoutManager.layoutSpace(tab, facesContext, false);
+      }
+    }
+
+
   }
 // ///////////////////////////////////////////// bean getter + setter
 

@@ -1,0 +1,404 @@
+/* $Id$ */
+
+a:link, a:visited, a:active {
+  color: #000000;
+}
+
+form  {
+  margin: 0px;
+}
+
+/* Tab ------------------------------------------------------------------ */
+
+a:link.tobago-tab-link, a:visited.tobago-tab-link, a:active.tobago-tab-link {
+  font-family: arial, helvetica, sans-serif;
+  color: #000000;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+div.tobago-tab-selected-outer {
+  border-color: #ddeeff #778899 #ddeeff #ddeeff;
+  border-width: 0.13ex 0.13ex 0px 0.13ex;
+  border-style: solid;
+  padding: 0.2ex 0.2em;
+}
+div.tobago-tab-selected-inner {
+  margin: 0px 0.7em;
+  white-space: nowrap;
+}
+div.tobago-tab-unselected-outer {
+  border-color: #ddeeff #778899 #ddeeff #ddeeff;
+  border-width: 0.13ex;
+  border-style: solid;
+}
+div.tobago-tab-unselected-inner {
+  margin: 0px 0.7em;
+  white-space: nowrap;
+}
+div.tobago-tab-fulfill {
+  border-color: #ddeeff;
+  border-width: 0px 0px 0.13ex 0px;
+  border-style: solid;
+}
+td.tobago-tab-content {
+  border-color: #ddeeff #778899 #778899 #ddeeff;
+  border-width: 0px 0.13ex 0.13ex 0.13ex;
+  border-style: solid;
+  padding: 0.7ex 0.7em;
+}
+
+
+a:link.tab, a:visited.tab, a:active.tab {
+  font-family: arial, helvetica, sans-serif;
+  color: #000000;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+img.tobago-progress-color1 {
+  background: #aabbcc;
+  border-width: 1px 0px 1px 1px;
+  height: 1.4ex;
+}
+
+img.tobago-progress-color2 {
+  background: #ddeeff;
+  border-width: 1px 1px 1px 0px;
+  height: 1.4ex;
+}
+
+span.tobago-progress {
+  white-space: nowrap;
+}
+
+/* Tree -------------------------------------------------------------------- */
+.tree-container {
+	margin: 0px;
+	padding: 0px;
+	font: icon;
+	white-space: nowrap;
+}
+
+.tree-item {
+	padding: 0px;
+	margin: 0px;
+	font: icon;
+	color: black;
+	white-space: nowrap;
+}
+
+.tree-folder-label, .tree-item-label, .tree-folder-label:active,
+.tree-item-label:active, .tree-folder-label:hover, .tree-item-label:hover {
+	margin-left: 3px;
+	padding: 1px 2px 1px 2px;
+}
+
+.tree-folder-label, .tree-item-label {
+	color: black;
+	text-decoration: none;
+}
+
+.tree-folder-label:hover, .tree-item-label:hover {
+	color: blue;
+	text-decoration: underline;
+}
+
+.tree-folder-label:active, .tree-item-label:active {
+	background: highlight;
+	color: highlighttext;
+	text-decoration: none;
+}
+
+.tree-folder-label:focus, .tree-item-label:focus {
+	background: #445566;
+	color: highlighttext;
+	text-decoration: none;
+}
+
+.tree-item img {
+	vertical-align: middle;
+	border: 0px;
+}
+
+.tree-icon {
+	width: 16px;
+	height: 16px;
+}
+
+.tree-junction {
+	width: 19px;
+	height: 16px;
+}
+
+/* calendar */
+table.calendar {
+}
+
+td.day, td.day-disabled, td.day-selected {
+  text-align: center;
+}
+
+td.day-disabled {
+  color: #999999;
+}
+
+td.day-selected {
+  background-color: #ffffff;
+}
+
+/* validation */
+.tobago-validation-message {
+  color: red;
+}
+
+/* - File Upload ------------------------------------------------------------ */
+
+.filelist-td {
+  background: #d8e9fb;
+  height: 10px;
+}
+
+input.file  {
+  font: 10pt arial, helvetica, sans-serif;
+  margin-left: 0px;
+}
+
+button.upload  {
+  margin-left: 0px;
+}
+
+img.button, img.input {
+  margin-right: 5px;
+}
+
+/* ----------------------------------------------------------------------------
+ * New Tobago Style definitions:
+ * Syntax: .tobago-<elementname>-<attribute>
+ * Possible attributes: default, disabled, readonly, inline, error
+ * default always is rendered as block.
+---------------------------------------------------------------------------- */
+
+/* button ------------------------------------------------------------------ */
+
+.tobago-button-default  {
+  border-left: 1px solid #ddeeff;
+  border-right: 1px solid #6688aa;
+  border-top: 1px solid #ddeeff;
+  border-bottom: 1px solid #6688aa;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+  background: #bbccdd;
+  font-weight: normal;
+}
+
+/* checkbox ---------------------------------------------------------------- */
+
+.tobago-checkbox-default {
+  background: transparent;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.tobago-checkbox-disabled {
+}
+
+.tobago-checkbox-inline {
+}
+
+.tobago-checkbox-error {
+	border-style: 2px solid #ff0000;
+}
+
+/* checkboxgroup ----------------------------------------------------------- */
+
+.tobago-checkboxgroup-default {
+  background: transparent;
+}
+
+/* checkboxgroup ----------------------------------------------------------- */
+.tobago-file-default  {
+  border-left: 1px solid #ddeeff;
+  border-right: 1px solid #6688aa;
+  border-top: 1px solid #ddeeff;
+  border-bottom: 1px solid #6688aa;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+  background: #bbccdd;
+  font-weight: normal;
+}
+
+/* gridlayout -------------------------------------------------------------- */
+
+.tobago-gridlayout-default {
+  border-spacing: 0px;
+  padding: 0px;
+  margin: 0px;
+}
+
+td.tobago-gridlayout-default {
+  padding-bottom: 0px;
+  padding-right: 0px;
+  padding-left: 5px;
+  padding-top: 5px;
+}
+
+td.tobago-gridlayout-first-row {
+  padding-top: 0px;
+}
+
+td.tobago-gridlayout-first-column{
+  padding-left: 0px;
+}
+
+/* groupbox ---------------------------------------------------------------- */
+
+fieldset.tobago-groupbox-default {
+  border: 2px groove #ddeeff;
+}
+
+legend.tobago-groupbox-default {
+  color: black;
+}
+
+div.tobago-groupbox-default {
+  overflow: auto;
+}
+
+/* label ------------------------------------------------------------------- */
+
+.tobago-label-default  {
+  height: 25px;
+  border: 2px solid #bbccdd;
+/*  border: 2px solid #ccddee; */
+  width: 144px;
+/*  background: #ccddee; */
+}
+
+.tobago-label-disabled  {
+  color: #778899;
+}
+
+.tobago-label-inline {
+  width: auto;
+}
+
+/* multiselect ------------------------------------------------------------- */
+
+.tobago-multiselect-default  {
+  background: #ffffff;
+  height: 25px;
+}
+
+.tobago-multiselect-disabled  {
+  background: #c0c0c0;
+}
+
+.tobago-multiselect-error  {
+  border-style: solid;
+  border-color: #ff0000;
+}
+
+/* page -------------------------------------------------------------------- */
+.tobago-page-default {
+  background: #bbccdd;
+  font-family: arial, helvetica, sans-serif;
+  margin-bottom: 0px;
+}
+
+/* radiogroup -------------------------------------------------------------- */
+
+.tobago-radiogroup-default {
+  background: transparent;
+}
+
+/* richtexteditor ---------------------------------------------------------- */
+
+.tobago-richtexteditor-default {
+  width: 300px;
+  height: 300px;
+  border-left: 2px solid #7b7d7b;
+  border-right: 2px solid #f6f2f6;
+  border-top: 2px solid #7b7d7b;
+  border-bottom: 2px solid #f6f2f6;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  background: #ffffff;
+}
+
+/* singleselect ------------------------------------------------------------ */
+
+.tobago-singleselect-default  {
+  background: #ffffff;
+}
+
+.tobago-singleselect-disabled  {
+  background: #c0c0c0;
+}
+
+.tobago-singleselect-error  {
+  border-style: solid;
+  border-color: #ff0000;
+}
+
+/* text -------------------------------------------------------------------- */
+
+/* textarea ---------------------------------------------------------------- */
+
+.tobago-textarea-default  {
+  border-style: inset;
+  border-width: 2px;
+  font-family: arial, helvetica, sans-serif;
+  background: #ffffff;
+  color: #000000;
+  overflow: auto;
+  margin-bottom: 0px;
+}
+
+.tobago-textarea-readonly  {
+  background: #bbccdd;
+}
+
+.tobago-textarea-disabled  {
+  color: #778899;
+  background: #bbccdd;
+}
+
+.tobago-textarea-error  {
+  border-style: solid;
+  border-color: #ff0000;
+}
+
+/* textbox ----------------------------------------------------------------- */
+
+.tobago-textbox-default  {
+  font-family: arial, helvetica, sans-serif;
+  background: #ffffff;
+  height: 25px;
+  color: #000000;
+  border-style: inset;
+  border-width: 2px;
+}
+
+.tobago-textbox-readonly  {
+  background: #bbccdd;
+}
+
+.tobago-textbox-disabled  {
+  color: #778899;
+  background: #bbccdd;
+}
+
+.tobago-textbox-error  {
+  border-style: solid;
+  border-color: #ff0000;
+}
+
+
+/* end --------------------------------------------------------------------- */
+
+.tobago-input-picker {
+  vertical-align: bottom;
+}

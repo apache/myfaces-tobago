@@ -1,0 +1,126 @@
+
+.tobago-sheet-outher-div {
+  overflow: hidden;
+  position: relative;
+}
+
+.tobago-sheet-header-div {
+  height: 20px;
+  width: 100%;
+  overflow: hidden;
+  padding: 0px 0px 0px 0px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  white-space: nowrap;
+  z-index: 2;
+
+}
+
+.tobago-sheet-header-table {
+  padding: 0px 0px 0px 0px;
+  width: 100%;
+  border: 0px solid black;
+}
+
+.tobago-sheet-header-box{
+
+	overflow: hidden;
+	position: relative;
+	vertical-align: top;
+	display: inline;
+	height: 100%;
+	padding: 0px;
+	text-overflow: ellipsis;
+
+}
+
+
+.tobago-sheet-header{
+	border-color: #ddeeff #6688aa #6688aa #ddeeff;
+	/*border-color: red black green yellow;*/
+	border-style: solid;
+	border-width: 1px;
+	background-color: #bbccdd;
+	height: 100%;
+	overflow: hidden;
+	padding: 0px 5px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 100%;
+  text-align: center;
+}
+
+.tobago-sheet-header-sortable {
+   cursor: pointer; 
+}
+
+.tobago-sheet-header-inner {
+  text-align: center;
+	height: 100%;
+	width: 100%;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.tobago-sheet-header-resize{
+	cursor: e-resize;
+	font-size: 100px;
+	height: 100%;
+	overflow: hidden;
+	position: absolute;
+	right: -5px;
+	top: 0px;
+	width: 10px;
+}
+
+.tobago-sheet-header-sort-div {
+  cursor: pointer;
+	height: 100%;
+	overflow: hidden;
+	position: absolute;
+	right: 5px;
+	top: 0px;
+	width: 8px;
+}
+
+.tobago-sheet-body-div {
+  overflow: auto;
+  padding-top: 20px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background: #ebf4fd;
+}
+
+
+
+.tobago-sheet-cell-td {
+  padding-left: 0px;
+  padding-right: 0px;
+  vertical-align: top;
+}
+
+.tobago-sheet-cell-outer {
+  overflow: hidden;
+}
+
+.tobago-sheet-cell-inner {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+
+.tobago-sheet-content-odd {
+  background: #ffffff;
+}
+
+.tobago-sheet-content-even {
+  background: #d8e9fb;
+}
+
+.tobago-sheet-footer-table {
+  z-index: 1000;
+  position: absolute;
+}
+

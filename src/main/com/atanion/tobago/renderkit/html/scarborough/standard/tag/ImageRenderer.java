@@ -30,7 +30,7 @@ public class ImageRenderer extends RendererBase
 // ///////////////////////////////////////////// code
 
   public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    return 0;
+    return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
   public void encodeDirectEnd(FacesContext facesContext,

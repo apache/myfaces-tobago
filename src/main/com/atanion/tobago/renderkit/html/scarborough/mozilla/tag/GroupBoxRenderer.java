@@ -22,19 +22,6 @@ public class GroupBoxRenderer extends
     return TobagoConstants.ATTR_STYLE_BODY;
   }
 
-  public int getComponentExtraWidth(FacesContext facesContext,
-      UIComponent component) {
-    return 24; // this value is find out by try and error
-  }
-
-  public int getPaddingHeight(FacesContext facesContext, UIComponent component) {
-    return 14; // this value is find out by try and error
-  }
-
-  public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    return 28; // this value is find out by try and error
-  }
-
 // ///////////////////////////////////////////// bean getter + setter
 
 }

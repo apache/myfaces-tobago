@@ -13,6 +13,7 @@ import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.LayoutManager;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.html.HtmlDefaultLayoutManager;
 import com.atanion.tobago.util.LayoutInfo;
 import com.atanion.tobago.util.LayoutUtil;
 
@@ -61,7 +62,7 @@ public class GridLayoutRenderer extends RendererBase
       writer.startElement("colgroup", null);
       for (int i = 0; i < columnWidths.size(); i++) {
         int cellWidth
-            = ((Integer)columnWidths.get(i)).intValue() + getCellPadding(layout, i);
+            = ((Integer)columnWidths.get(i)).intValue() + getCellPadding(facesContext, layout, i);
         writer.startElement("col", null);
         writer.writeAttribute("width", Integer.toString(cellWidth), null);
         writer.endElement("col");
@@ -107,7 +108,7 @@ public class GridLayoutRenderer extends RendererBase
         if (columnWidths != null) {
           cellWidth = 0;
           for (int i = columnIndex; i < columnIndex + spanX && i < columnWidths.size() ; i++) {
-            cellWidth += ((Integer)columnWidths.get(i)).intValue() + getCellPadding(layout, i);
+            cellWidth += ((Integer)columnWidths.get(i)).intValue() + getCellPadding(facesContext, layout, i);
           }
         }
 
@@ -120,8 +121,8 @@ public class GridLayoutRenderer extends RendererBase
           }
         } catch (Exception e) { } // ignore, use 0
 
-        int topPadding = getCellPadding(layout, rowIndex);
-        int leftPadding = getCellPadding(layout, columnIndex);
+        int topPadding = getCellPadding(facesContext, layout, rowIndex);
+        int leftPadding = getCellPadding(facesContext, layout, columnIndex);
         String tdstyle = "vertical-align: top; "
             + (cellWidth != -1 ? "width: " + cellWidth + "px;" : "")
             + (cellHeight != -1 ?
@@ -149,11 +150,9 @@ public class GridLayoutRenderer extends RendererBase
     writer.endElement("table");
   }
 
-  private int getCellPadding(UIComponent component, int i) {
-    // padding on left/top side, but not at first column/row
-    // fixme: padding should depend on theme
-//    return i == 0 ? 0 : 5;
-    return i == 0 ? 0 : getCellSpacing(component);
+  private int getCellPadding(
+      FacesContext facesContext, UIComponent component, int i) {
+    return i == 0 ? 0 : getCellSpacing(facesContext, component);
   }
 
   private int getBorder(UIComponent component) {
@@ -177,7 +176,7 @@ public class GridLayoutRenderer extends RendererBase
       int count) {
     int space = 0;
     int border = getBorder(component);
-    int cellSpacing = getCellSpacing(component);
+    int cellSpacing = getCellSpacing(facesContext, component);
     if (border != 0) {
       space = (border * 2) + count * 2;
     }
@@ -195,7 +194,7 @@ public class GridLayoutRenderer extends RendererBase
             TobagoConstants.ATTR_COLUMN_COUNT, 1));
   }
 
-  private int getCellSpacing(UIComponent component) {
+  private int getCellSpacing(FacesContext facesContext, UIComponent component) {
     String cellspacing = (String) component.getAttributes().get(
         TobagoConstants.ATTR_CELLSPACING);
     if (cellspacing instanceof String) {
@@ -208,7 +207,7 @@ public class GridLayoutRenderer extends RendererBase
         // ignore and return defaut value
       }
     }
-    return 5; // default ; from scarborough's standart style.css
+    return getConfiguredValue(facesContext,  component, "cellSpacing");
   }
 
   private void doLayoutEnd(FacesContext facesContext, UIComponent component) {
@@ -327,7 +326,7 @@ public class GridLayoutRenderer extends RendererBase
           if (spanX > 1 && getBorder(layout) > 0) {
             cellWidth += ((spanX - 1) * 2);
           }
-          cellWidth += (spanX - 1) * getCellSpacing(layout);
+          cellWidth += (spanX - 1) * getCellSpacing(facesContext, layout);
           LayoutUtil.maybeSetLayoutAttribute(cell,
               TobagoConstants.ATTR_LAYOUT_WIDTH, cellWidth + "px");
         }
@@ -355,7 +354,7 @@ public class GridLayoutRenderer extends RendererBase
           if (spanY > 1 && getBorder(layout) > 0) {
             cellHeight += ((spanY - 1) * 2);
           }
-          cellHeight += (spanY - 1) * getCellSpacing(layout);
+          cellHeight += (spanY - 1) * getCellSpacing(facesContext, layout);
           if (LOG.isDebugEnabled()) {
             LOG.debug("set height of " + cellHeight + "px to "
                 + cell.getRendererType());
@@ -385,16 +384,21 @@ public class GridLayoutRenderer extends RendererBase
 // ///////////////////////////////////////////// LayoutManager implementation
 
   public void layoutBegin(FacesContext facesContext, UIComponent component) {
-    layoutSpace(component, facesContext, true);
-    if (ComponentUtil.getRenderer(component, facesContext) instanceof HeightLayoutRenderer) {
-      layoutSpace(component, facesContext, false);
+    HtmlDefaultLayoutManager.layoutSpace(component, facesContext, true);
+//    layoutSpaceOld(component, facesContext, true);
+
+    RendererBase renderer = ComponentUtil.getRenderer(component, facesContext);
+    if (renderer instanceof HeightLayoutRenderer) {
+      HtmlDefaultLayoutManager.layoutSpace(component, facesContext, false);
+//      layoutSpaceOld(component, facesContext, false);
     }
+
     if (component instanceof UIGridLayout) {
       layoutMargins((UIGridLayout) component);
     }
   }
 
-  protected void layoutSpace(UIComponent component, FacesContext facesContext,
+  protected void layoutSpaceOld(UIComponent component, FacesContext facesContext,
       boolean width) {
     String spaceString;
     String componentAttribute;
@@ -415,7 +419,8 @@ public class GridLayoutRenderer extends RendererBase
       styleAttribute = "height";
     }
     String componentSpace = (String)
-        component.getAttributes().get(componentAttribute);
+//        component.getAttributes().get(componentAttribute);
+      LayoutUtil.getLayoutSpace(component, componentAttribute,  layoutAttribute);
     int space = -1;
     if (spaceString != null) {
       space = Integer.parseInt(spaceString.replaceAll("\\D", ""));

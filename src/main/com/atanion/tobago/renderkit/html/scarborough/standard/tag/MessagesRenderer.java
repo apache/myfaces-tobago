@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.TobagoResource;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.MessageRendererBase;
@@ -34,16 +35,17 @@ public class MessagesRenderer extends MessageRendererBase
 // ///////////////////////////////////////////// code
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("component = '" + component + "'");
-    }
     int count = 0;
     for (Iterator i = facesContext.getMessages(); i.hasNext(); i.next()) {
       count++;
     }
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("component = '" + component + "'");
     LOG.debug("here are " + count + " messages");
-    return count > 0 ? count * 20: 1; // ie can't have td with 0px height
-//    return count * 20; // fixme: depends on theme
+    }
+    return (count > 0)
+        ? count * getConfiguredValue(facesContext, component, "messageHeight")
+        : getConfiguredValue(facesContext, component, "fixedHeight");
   }
 
   public void encodeDirectEnd(FacesContext facesContext,
@@ -57,11 +59,19 @@ public class MessagesRenderer extends MessageRendererBase
       writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
 
       // with id
+      String focusId = null;
       Iterator clientIds = facesContext.getClientIdsWithMessages();
       while(clientIds.hasNext()) {
         String clientId = (String) clientIds.next();
         encodeMessagesForId(facesContext, writer, clientId);
+        if (focusId == null) {
+          focusId = clientId;
       }
+      }
+      if (focusId != null) {
+        ComponentUtil.findPage(component).setFocusId(focusId);
+      }
+
 
       // without id
       encodeMessagesForId(facesContext, writer, null);

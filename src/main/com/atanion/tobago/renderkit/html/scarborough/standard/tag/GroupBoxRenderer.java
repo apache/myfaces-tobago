@@ -88,16 +88,8 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
       throws IOException {
   }
 
-  public int getPaddingWidth(FacesContext facesContext, UIComponent component) {
-    return 22;
-  }
-
-  public int getPaddingHeight(FacesContext facesContext, UIComponent component) {
-    return 28;
-  }
-
   public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    return 0;
+    return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
 // ///////////////////////////////////////////// bean getter + setter

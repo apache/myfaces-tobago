@@ -125,14 +125,10 @@ public class SingleSelectRenderer extends SelectOneRendererBase
 
     if (component.getFacet(TobagoConstants.FACET_LABEL) != null) {
       int labelWidht = LayoutUtil.getLabelWidth(component);
-      space += labelWidht != 0 ? labelWidht : getLabelWidth();
+      space += labelWidht != 0 ? labelWidht : getLabelWidth(facesContext, component);
     }
 
     return space;
-  }
-
-  public int getLabelWidth() {
-    return 144;
   }
 // ///////////////////////////////////////////// bean getter + setter
 

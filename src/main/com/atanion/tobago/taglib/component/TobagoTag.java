@@ -7,6 +7,7 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.el.ElUtil;
 import com.atanion.tobago.taglib.core.SubviewTag;
 import com.atanion.tobago.taglib.core.ViewTag;
 import com.atanion.util.ObjectUtils;
@@ -60,6 +61,8 @@ public abstract class TobagoTag extends UIComponentTag {
 
   protected String styleClass;
 
+  private String stateBinding;
+
 // /////////////////////////////////////////// constructors
 
 // /////////////////////////////////////////// code
@@ -101,8 +104,8 @@ public abstract class TobagoTag extends UIComponentTag {
     }
     if (string != null) {
       if (isValueReference(string)) {
-        ValueBinding valueBinding = FacesContext.getCurrentInstance().getApplication().createValueBinding(
-            string);
+        Application app = FacesContext.getCurrentInstance().getApplication();
+        ValueBinding valueBinding = app.createValueBinding(string);
         component.setValueBinding(vbName, valueBinding);
       } else {
         boolean disabledBoolean = Boolean.valueOf(string).booleanValue();
@@ -115,10 +118,10 @@ public abstract class TobagoTag extends UIComponentTag {
 
     super.setProperties(component);
 
+    Application application = FacesContext.getCurrentInstance().getApplication();
     if (disabled != null) {
       if (isValueReference(disabled)) {
-        ValueBinding valueBinding = FacesContext.getCurrentInstance().getApplication().createValueBinding(
-            disabled);
+        ValueBinding valueBinding = application.createValueBinding(disabled);
         component.setValueBinding(TobagoConstants.VB_DISABLED, valueBinding);
       } else {
         boolean disabledBoolean = Boolean.valueOf(disabled).booleanValue();
@@ -132,7 +135,7 @@ public abstract class TobagoTag extends UIComponentTag {
 
     if (title != null) {
       if (isValueReference(title)) {
-        ValueBinding valueBinding = FacesContext.getCurrentInstance().getApplication().createValueBinding(title);
+        ValueBinding valueBinding = application.createValueBinding(title);
         component.setValueBinding("title", valueBinding);
       } else {
         component.getAttributes().put(TobagoConstants.ATTR_TITLE, title);
@@ -146,7 +149,7 @@ public abstract class TobagoTag extends UIComponentTag {
 
     if (width != null) {
       if (isValueReference(width)) {
-        ValueBinding valueBinding = FacesContext.getCurrentInstance().getApplication().createValueBinding(width);
+        ValueBinding valueBinding = application.createValueBinding(width);
         component.setValueBinding("width", valueBinding);
       } else {
         component.getAttributes().put(TobagoConstants.ATTR_WIDTH, width);
@@ -155,11 +158,16 @@ public abstract class TobagoTag extends UIComponentTag {
 
     if (height != null) {
       if (isValueReference(height)) {
-        ValueBinding valueBinding = FacesContext.getCurrentInstance().getApplication().createValueBinding(height);
+        ValueBinding valueBinding = application.createValueBinding(height);
         component.setValueBinding("height", valueBinding);
       } else {
         component.getAttributes().put(TobagoConstants.ATTR_HEIGHT, height);
       }
+    }
+
+    if (stateBinding != null && isValueReference(stateBinding)) {
+      ValueBinding valueBinding = application.createValueBinding(stateBinding);
+      component.setValueBinding(TobagoConstants.ATTR_STATE_BINDING, valueBinding);
     }
 
     setProperty(component, TobagoConstants.ATTR_STYLE_CLASS, styleClass);
@@ -347,4 +355,7 @@ public abstract class TobagoTag extends UIComponentTag {
     this.styleClass = styleClass;
   }
 
+  public void setStateBinding(String stateBinding) {
+    this.stateBinding = stateBinding;
+  }
 }
