@@ -36,20 +36,23 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
 // ///////////////////////////////////////////// constructor
 
 // ///////////////////////////////////////////// code
-
+  public int getPaddingWidth(FacesContext facesContext, UIComponent component) {
+    final int paddingWidth = super.getPaddingWidth(facesContext, component);
+    LOG.info("padding Width = " + paddingWidth);
+    return paddingWidth;
+  }
 
   public void encodeDirectEnd(FacesContext facesContext,
                               UIComponent component) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
 
     writer.startElement("div", component);
-    writer.writeAttribute("class", "tobago-groupbox-shadow", null);
+    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
+
 
     writer.startElement("div", component);
-    writer.writeAttribute("class", "tobago-groupbox", null);
-
-    writer.startElement("div", component);
-    writer.writeAttribute("class", "tobago-groupbox-title", null);
+    writer.writeAttribute("class", "tobago-groupbox-header", null);
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
     String labelString
         = (String) component.getAttributes().get(TobagoConstants.ATTR_LABEL);
@@ -62,10 +65,14 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
 
     writer.startElement("div", component);
     writer.writeAttribute("class", "tobago-groupbox-content", null);
+//    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_BODY);
+    writer.startElement("div", component);
+    writer.writeAttribute("class", "tobago-groupbox-content-inner", null);
+    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_INNER);
     RenderUtil.encodeChildren(facesContext, (UIPanel) component);
     writer.endElement("div");
-
     writer.endElement("div");
+
     writer.endElement("div");
   }
 
