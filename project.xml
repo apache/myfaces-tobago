@@ -10,7 +10,7 @@
     <dependency>
       <groupId>atanion</groupId>
       <artifactId>atanion-commons</artifactId>
-      <version>1.0.1</version>
+      <version>SNAPSHOT</version>
     </dependency>
 
     <dependency>
