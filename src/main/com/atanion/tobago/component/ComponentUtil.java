@@ -365,25 +365,37 @@ public class ComponentUtil implements TobagoConstants {
   }
 
   public static void debug(UIComponent component, int offset) {
-    LOG.debug(spaces(offset) + debugComponent(component));
+    debug(component, offset, false);
+  }
+
+  private static void debug(UIComponent component, int offset, boolean asFacet) {
+    if (! asFacet) {
+      LOG.debug(spaces(offset) + debugComponent(component));
+    }
     Map facets = component.getFacets();
     if (facets.size() > 0) {
       for (Iterator iter = facets.keySet().iterator(); iter.hasNext();) {
         Object name = iter.next();
+        UIComponent facet = (UIComponent) facets.get(name);
         LOG.debug(spaces(offset + 1) + "\"" + name + "\" = "
-            + debugComponent((UIComponent) facets.get(name)));
+            + debugComponent(facet));
+        debug(facet, offset + 1, true);
       }
     }
     for (Iterator i = component.getChildren().iterator(); i.hasNext();) {
-      debug((UIComponent) i.next(), offset + 1);
+      debug((UIComponent) i.next(), offset + 1, false);
     }
   }
 
   private static String debugComponent(UIComponent component) {
-    return component.getClass().getName()
-        + '@' + Integer.toHexString(component.hashCode())
-        + " " + component.getRendererType()
-        + " " + component.getId();
+    String s = component.getClass().getName()
+                 + '@' + Integer.toHexString(component.hashCode())
+                 + " " + component.getRendererType()
+                 + " " + component.getId();
+
+    s += " " + component.getClientId(FacesContext.getCurrentInstance());
+
+    return s;
   }
 
   private static String spaces(int n) {
