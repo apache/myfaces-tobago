@@ -48,13 +48,15 @@ public class SheetTag extends TobagoTag {
       UIData component = (UIData) getComponentInstance();
       Object value = component.getValue();
       if (value == null) {
-        LOG.warn("Found 'null' as sheet's value! using empty List instead!");
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Found 'null' as sheet's value! using empty List instead!");
+        }
         component.setValue(Collections.EMPTY_LIST);
       } else if (value instanceof Object[] || value instanceof List) {
         if (LOG.isDebugEnabled()) {
           LOG.debug("value = Object[] || List");
         }
-      }else  {
+      } else  {
         LOG.error("Found illegal type as scheet's value");
         throw new JspException("Illegal value type for sheet: "
             + value.getClass().getName(),
