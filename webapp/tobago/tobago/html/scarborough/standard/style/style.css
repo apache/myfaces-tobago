@@ -333,11 +333,20 @@ label.tobago-label-default  {
   margin-right: 3px;
 }
 
-.tobago-richtext-toolbar-button-span {
+.tobago-richtext-toolbar-button-span, .tobago-richtext-toolbar-button-span-disabled {
   padding-top: 2px;
   padding-left: 5px;
   padding-bottom: 2px;
   padding-right: 5px;
+}
+
+.tobago-richtext-toolbar-button-span {
+  cursor: pointer;
+  cursor: hand;
+}
+
+.tobago-richtext-toolbar-button-span-disabled {
+  color: #778899;
 }
 
 /* singleselect ------------------------------------------------------------ */

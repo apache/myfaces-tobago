@@ -21,7 +21,6 @@ import org.apache.commons.logging.LogFactory;
 import com.atanion.lib.richtext.WikiParser;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.context.TobagoResource;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.InputRendererBase;
@@ -87,7 +86,6 @@ public class RichTextEditorRenderer extends InputRendererBase
     boolean previewState = ((Boolean)
         component.getAttributes().get(TobagoConstants.ATTR_STATE_PREVIEW)).booleanValue();
     // fixme: remove this when i18n is ok
-    String state = (previewState) ? "Editor" : "Preview";
 
     String clientId = component.getClientId(facesContext);
 
@@ -99,14 +97,13 @@ public class RichTextEditorRenderer extends InputRendererBase
 
     writer.startElement("div", component);
     writer.writeAttribute("class", "tobago-richtext-toolbar-div", null);
-    createToolbarButton(writer, component, facesContext, clientId, state);
+    createToolbarButton("Editor", previewState, writer, component, facesContext, clientId);
+    createToolbarButton("Preview", !previewState, writer, component, facesContext, clientId);
     writer.endElement("div");
 
     String content = getCurrentValue(facesContext, component);
 
     if (previewState) {
-      state = TobagoResource.getProperty(facesContext, "text", "tobago.richtexteditor.edit");
-
       writer.startElement("input", component);
       writer.writeAttribute("type", "hidden", null);
       writer.writeAttribute("name", clientId, null);
@@ -123,8 +120,6 @@ public class RichTextEditorRenderer extends InputRendererBase
       writer.endElement("div");
     }
     else {
-      state = TobagoResource.getProperty(facesContext, "text", "tobago.richtexteditor.preview");
-
       writer.startElement("textarea", component);
       writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
       writer.writeAttribute("name", clientId, null);
@@ -142,13 +137,19 @@ public class RichTextEditorRenderer extends InputRendererBase
     writer.endElement("div");
   }
 
-  private void createToolbarButton(ResponseWriter writer, UIInput component,
-      FacesContext facesContext, String clientId, String state) throws IOException {
+  private void createToolbarButton(String label, boolean enabled,
+      ResponseWriter writer, UIInput component,
+      FacesContext facesContext, String clientId)
+      throws IOException {
     String onClick = "submitAction('"
         + ComponentUtil.findPage(component).getFormId(facesContext) + "', '"
         + clientId + RichTextEditorRenderer.CHANGE_BUTTON + "')";
     writer.startElement("span", component);
-    writer.writeAttribute("class", "tobago-richtext-toolbar-button-span", null);
+    String buttonStyle = "tobago-richtext-toolbar-button-span";
+    if (!enabled) {
+      buttonStyle += "-disabled";
+    }
+    writer.writeAttribute("class", buttonStyle, null);
     writer.writeAttribute("onclick", onClick, null);
     writer.writeAttribute("unselectable", "on", null);
 
@@ -159,7 +160,7 @@ public class RichTextEditorRenderer extends InputRendererBase
     image.getAttributes().put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
     image.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
     RenderUtil.encode(facesContext, image);
-    writer.writeText(state, null);
+    writer.writeText(label, null);
     writer.endElement("span");
   }
 // ///////////////////////////////////////////// bean getter + setter
