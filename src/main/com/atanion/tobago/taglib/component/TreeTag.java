@@ -34,16 +34,16 @@ public class TreeTag extends BeanTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-   ComponentUtil.setBooleanProperty(component, ATTR_HIDE_JUNCTIONS, hideJunctions);
-   ComponentUtil.setBooleanProperty(component, ATTR_HIDE_ICONS, hideIcons);
-   ComponentUtil.setBooleanProperty(component, ATTR_HIDE_ROOT, hideRoot);
-   ComponentUtil.setBooleanProperty(component, ATTR_HIDE_ROOT_JUNCTION, hideRootJunction);
+   ComponentUtil.setBooleanProperty(component, ATTR_HIDE_JUNCTIONS, hideJunctions, getIterationHelper());
+   ComponentUtil.setBooleanProperty(component, ATTR_HIDE_ICONS, hideIcons, getIterationHelper());
+   ComponentUtil.setBooleanProperty(component, ATTR_HIDE_ROOT, hideRoot, getIterationHelper());
+   ComponentUtil.setBooleanProperty(component, ATTR_HIDE_ROOT_JUNCTION, hideRootJunction, getIterationHelper());
 
-   ComponentUtil.setStringProperty(component, ATTR_SELECTABLE, selectable);
-   ComponentUtil.setBooleanProperty(component, ATTR_MUTABLE, mutable);
+   ComponentUtil.setStringProperty(component, ATTR_SELECTABLE, selectable, getIterationHelper());
+   ComponentUtil.setBooleanProperty(component, ATTR_MUTABLE, mutable, getIterationHelper());
 
-   ComponentUtil.setStringProperty(component, ATTR_ID_REFERENCE, idReference);
-   ComponentUtil.setStringProperty(component, ATTR_NAME_REFERENCE, nameReference);
+   ComponentUtil.setStringProperty(component, ATTR_ID_REFERENCE, idReference, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_NAME_REFERENCE, nameReference, getIterationHelper());
   }
 
   public void release() {

@@ -23,7 +23,7 @@ public class RadioGroupTag extends SingleSelectTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_RENDER_RANGE, renderRange);
+   ComponentUtil.setStringProperty(component, ATTR_RENDER_RANGE, renderRange, getIterationHelper());
 
   }
 

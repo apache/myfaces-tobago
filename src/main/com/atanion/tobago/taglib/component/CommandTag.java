@@ -35,10 +35,10 @@ public abstract class CommandTag extends TobagoBodyTag {
     UICommand command = (UICommand) component;
     super.setProperties(component);
 
-   ComponentUtil.setStringProperty(component, ATTR_COMMAND_NAME, commandName);
-   ComponentUtil.setStringProperty(component, ATTR_TYPE, type);
-   ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand);
-   ComponentUtil.setBooleanProperty(component, ATTR_IMMEDIATE, immediate);
+   ComponentUtil.setStringProperty(component, ATTR_COMMAND_NAME, commandName, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_TYPE, type, getIterationHelper());
+   ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand, getIterationHelper());
+   ComponentUtil.setBooleanProperty(component, ATTR_IMMEDIATE, immediate, getIterationHelper());
 
     if (actionListener != null) {
       if (isValueReference(actionListener)) {

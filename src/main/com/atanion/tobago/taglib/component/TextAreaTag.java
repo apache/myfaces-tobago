@@ -24,7 +24,7 @@ public class TextAreaTag extends TextBoxTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_ROWS, rows);
+   ComponentUtil.setStringProperty(component, ATTR_ROWS, rows, getIterationHelper());
   }
 
 // ------------------------------------------------------------ getter + setter

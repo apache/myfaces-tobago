@@ -34,9 +34,9 @@ public class ImageTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_ALT, alt);
-   ComponentUtil.setStringProperty(component, ATTR_BORDER, border);
-   ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
+   ComponentUtil.setStringProperty(component, ATTR_ALT, alt, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_BORDER, border, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_VALUE, value, getIterationHelper());
   }
 
   public void release() {

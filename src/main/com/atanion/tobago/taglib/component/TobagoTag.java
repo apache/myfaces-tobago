@@ -19,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.Tag;
 
 public abstract class TobagoTag extends UIComponentTag
     implements TobagoConstants {
@@ -114,16 +115,16 @@ public abstract class TobagoTag extends UIComponentTag
       provideLabel(component);
     }
 
-    ComponentUtil.setStringProperty(component, ATTR_TITLE, title);
+    ComponentUtil.setStringProperty(component, ATTR_TITLE, title, getIterationHelper());
 
-    ComponentUtil.setBooleanProperty(component, ATTR_DISABLED, disabled);
-    ComponentUtil.setBooleanProperty(component, ATTR_READONLY, readonly);
-    ComponentUtil.setBooleanProperty(component, ATTR_HIDDEN, hidden);
-    ComponentUtil.setBooleanProperty(component, ATTR_I18N, i18n);
-    ComponentUtil.setBooleanProperty(component, ATTR_INLINE, inline);
+    ComponentUtil.setBooleanProperty(component, ATTR_DISABLED, disabled, getIterationHelper());
+    ComponentUtil.setBooleanProperty(component, ATTR_READONLY, readonly, getIterationHelper());
+    ComponentUtil.setBooleanProperty(component, ATTR_HIDDEN, hidden, getIterationHelper());
+    ComponentUtil.setBooleanProperty(component, ATTR_I18N, i18n, getIterationHelper());
+    ComponentUtil.setBooleanProperty(component, ATTR_INLINE, inline, getIterationHelper());
 
-    ComponentUtil.setStringProperty(component, ATTR_WIDTH, width);
-    ComponentUtil.setStringProperty(component, ATTR_HEIGHT, height);
+    ComponentUtil.setStringProperty(component, ATTR_WIDTH, width, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_HEIGHT, height, getIterationHelper());
 
     // todo: check, if it is an writeable object
     if (stateBinding != null && isValueReference(stateBinding)) {
@@ -131,8 +132,22 @@ public abstract class TobagoTag extends UIComponentTag
       component.setValueBinding(ATTR_STATE_BINDING, valueBinding);
     }
 
-    ComponentUtil.setStringProperty(component, ATTR_STYLE_CLASS, styleClass);
-    ComponentUtil.setStringProperty(component, ATTR_THEME_CLASS, themeClass);
+    ComponentUtil.setStringProperty(component, ATTR_STYLE_CLASS, styleClass, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_THEME_CLASS, themeClass, getIterationHelper());
+  }
+
+
+  protected ForEachTag.IterationHelper getIterationHelper() {
+    ForEachTag.IterationHelper iterator = null;
+    Tag parent = getParent();
+
+    while (parent != null && ! (parent instanceof ForEachTag)) {
+      parent = parent.getParent();
+    }
+    if (parent != null) {
+      iterator = ((ForEachTag)parent).getIterationHelper();
+    }
+    return iterator;
   }
 
   // fixme: this is not nice!
@@ -143,7 +158,7 @@ public abstract class TobagoTag extends UIComponentTag
 //   7 uiLabel.setRendererType("Text"); // fixme
     uiLabel.setRendererType("Label");
     uiLabel.setRendered(true);
-    ComponentUtil.setStringProperty(uiLabel, "value", label);
+    ComponentUtil.setStringProperty(uiLabel, "value", label, getIterationHelper());
     component.getFacets().put("label", uiLabel);
   }
 

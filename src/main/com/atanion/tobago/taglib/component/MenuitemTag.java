@@ -25,9 +25,9 @@ public class MenuitemTag extends MenuradioTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
-   ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, "menuItem");
-   ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
+   ComponentUtil.setStringProperty(component, ATTR_IMAGE, image, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, "menuItem", getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
   }
 
 // ------------------------------------------------------------ getter + setter

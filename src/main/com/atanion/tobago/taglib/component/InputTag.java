@@ -26,8 +26,8 @@ public abstract class InputTag extends BeanTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_ONCHANGE, onchange);
-   ComponentUtil.setBooleanProperty(component, ATTR_FOCUS, focus);
+   ComponentUtil.setStringProperty(component, ATTR_ONCHANGE, onchange, getIterationHelper());
+   ComponentUtil.setBooleanProperty(component, ATTR_FOCUS, focus, getIterationHelper());
   }
 
 // ------------------------------------------------------------ getter + setter

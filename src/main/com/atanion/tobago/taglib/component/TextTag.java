@@ -29,8 +29,8 @@ public class TextTag extends BeanTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setBooleanProperty(component, ATTR_ESCAPE, escape);
-   ComponentUtil.setBooleanProperty(component, ATTR_CREATE_SPAN, "true");
+   ComponentUtil.setBooleanProperty(component, ATTR_ESCAPE, escape, getIterationHelper());
+   ComponentUtil.setBooleanProperty(component, ATTR_CREATE_SPAN, "true", getIterationHelper());
   }
 
 // ------------------------------------------------------------ getter + setter

@@ -46,15 +46,15 @@ public class GridLayoutTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_BORDER, border);
-   ComponentUtil.setStringProperty(component, ATTR_CELLSPACING, cellspacing);
-   ComponentUtil.setStringProperty(component, ATTR_LAYOUT_MARGIN, margin);
-   ComponentUtil.setStringProperty(component, ATTR_LAYOUT_MARGIN_TOP, marginTop);
-   ComponentUtil.setStringProperty(component, ATTR_LAYOUT_MARGIN_RIGHT, marginRight);
-   ComponentUtil.setStringProperty(component, ATTR_LAYOUT_MARGIN_BOTTOM, marginBottom);
-   ComponentUtil.setStringProperty(component, ATTR_LAYOUT_MARGIN_LEFT, marginLeft);
-   ComponentUtil.setStringProperty(component, ATTR_COLUMNS, columns);
-   ComponentUtil.setStringProperty(component, ATTR_ROWS, rows);
+   ComponentUtil.setStringProperty(component, ATTR_BORDER, border, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_CELLSPACING, cellspacing, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_LAYOUT_MARGIN, margin, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_LAYOUT_MARGIN_TOP, marginTop, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_LAYOUT_MARGIN_RIGHT, marginRight, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_LAYOUT_MARGIN_BOTTOM, marginBottom, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_LAYOUT_MARGIN_LEFT, marginLeft, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_COLUMNS, columns, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_ROWS, rows, getIterationHelper());
   }
 
   public void release() {

@@ -6,6 +6,7 @@
 package com.atanion.tobago.component;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.taglib.component.ForEachTag;
 import com.atanion.tobago.renderkit.RendererBase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -417,25 +418,22 @@ public class ComponentUtil implements TobagoConstants {
 
 
 
-  public static final void setIntegerProperty(
-      UIComponent component, String name, String value) {
+  public static final void setIntegerProperty(UIComponent component,
+      String name, String value, ForEachTag.IterationHelper iterator) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
-        component.setValueBinding(name,
-            FacesContext.getCurrentInstance().getApplication()
-            .createValueBinding(value));
+        component.setValueBinding(name, createValueBinding(value, iterator));
       } else {
         component.getAttributes().put(name, new Integer(value));
       }
     }
   }
-  public static final void setBooleanProperty(
-      UIComponent component, String name, String value) {
+
+  public static final void setBooleanProperty(UIComponent component,
+      String name, String value, ForEachTag.IterationHelper iterator) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
-        component.setValueBinding(name,
-            FacesContext.getCurrentInstance().getApplication()
-            .createValueBinding(value));
+        component.setValueBinding(name, createValueBinding(value, iterator));
       } else {
         if (Boolean.valueOf(value).booleanValue()) {
           component.getAttributes().put(name, Boolean.TRUE);
@@ -446,17 +444,24 @@ public class ComponentUtil implements TobagoConstants {
     }
   }
 
-  public static final void setStringProperty(
-      UIComponent component, String name, String value) {
+  public static final void setStringProperty(UIComponent component, String name,
+      String value, ForEachTag.IterationHelper iterator) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
-        component.setValueBinding(name,
-            FacesContext.getCurrentInstance().getApplication()
-            .createValueBinding(value));
+        component.setValueBinding(name, createValueBinding(value, iterator));
       } else {
         component.getAttributes().put(name, value);
       }
     }
+  }
+
+  public static ValueBinding createValueBinding(String value,
+      ForEachTag.IterationHelper iterator) {
+    if (iterator != null) {
+      value = iterator.replace(value);
+    }
+    return FacesContext.getCurrentInstance().getApplication()
+                .createValueBinding(value);
   }
 
   public static UIComponent createComponent(String componentType, String rendererType) {
@@ -475,7 +480,7 @@ public class ComponentUtil implements TobagoConstants {
   public static UIColumn createTextColumn(
       String label, String sortable, String align, String value) {
     UIComponent text = createComponent(UIOutput.COMPONENT_TYPE, "Text");
-    setStringProperty(text, ATTR_VALUE, value);
+    setStringProperty(text, ATTR_VALUE, value, null);
     return createColumn(label, sortable, align, text);
   }
 
@@ -489,10 +494,27 @@ public class ComponentUtil implements TobagoConstants {
   private static UIColumn createColumn(
       String label, String sortable, String align) {
     UIColumn column = (UIColumn) createComponent(UIColumn.COMPONENT_TYPE, null);
-    setStringProperty(column, ATTR_LABEL, label);
-    setBooleanProperty(column, ATTR_SORTABLE, sortable);
-    setStringProperty(column, ATTR_ALIGN, align);
+    setStringProperty(column, ATTR_LABEL, label, null);
+    setBooleanProperty(column, ATTR_SORTABLE, sortable, null);
+    setStringProperty(column, ATTR_ALIGN, align, null);
     return column;
   }
 
+  public static int getIntValue(ValueBinding valueBinding) {
+    return getAsInt(valueBinding.getValue(FacesContext.getCurrentInstance()));
+  }
+
+  private static int getAsInt(Object value) {
+    int result;
+    if (value instanceof Number) {
+      result = ((Number)value).intValue();
+    }
+    else if (value instanceof String ) {
+      result = Integer.parseInt((String) value);
+    }
+    else {
+      throw new IllegalArgumentException("Can't convert " + value + " to int!");
+    }
+    return result;
+  }
 }

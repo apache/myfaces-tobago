@@ -36,8 +36,8 @@ public abstract class BeanTag extends TobagoTag {
               converter));
     }
 
-    ComponentUtil.setBooleanProperty(component, ATTR_REQUIRED, required);
-    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
+    ComponentUtil.setBooleanProperty(component, ATTR_REQUIRED, required, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_VALUE, value, getIterationHelper());
   }
 
   public void release() {

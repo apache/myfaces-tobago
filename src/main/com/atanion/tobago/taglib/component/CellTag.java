@@ -42,9 +42,9 @@ public class CellTag extends PanelTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-   ComponentUtil.setIntegerProperty(component, ATTR_SPAN_X, spanX);
-   ComponentUtil.setIntegerProperty(component, ATTR_SPAN_Y, spanY);
-   ComponentUtil.setStringProperty(component, ATTR_SCROLLBARS, scrollbars);
+   ComponentUtil.setIntegerProperty(component, ATTR_SPAN_X, spanX, getIterationHelper());
+   ComponentUtil.setIntegerProperty(component, ATTR_SPAN_Y, spanY, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_SCROLLBARS, scrollbars, getIterationHelper());
 
     component.getAttributes().put(ATTR_LAYOUT_DIRECTIVE, Boolean.TRUE);
 

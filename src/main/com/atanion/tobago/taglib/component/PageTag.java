@@ -72,9 +72,9 @@ public class PageTag extends TobagoBodyTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_METHOD, method);
-   ComponentUtil.setStringProperty(component, ATTR_CHARSET, charset);
-   ComponentUtil.setStringProperty(component, ATTR_DOCTYPE, doctype);
+   ComponentUtil.setStringProperty(component, ATTR_METHOD, method, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_CHARSET, charset, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_DOCTYPE, doctype, getIterationHelper());
   }
 
   public void release() {

@@ -41,7 +41,7 @@ public class MenuradioTag extends MenuTag {
 
     component.setRendererType("Menuitem");    
 
-   ComponentUtil.setStringProperty(component, ATTR_TYPE, type);
+   ComponentUtil.setStringProperty(component, ATTR_TYPE, type, getIterationHelper());
 
     String commandType;
     final FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -57,7 +57,7 @@ public class MenuradioTag extends MenuTag {
         (commandType.equals(COMMAND_TYPE_NAVIGATE)
         || commandType.equals(COMMAND_TYPE_RESET)
         || commandType.equals(COMMAND_TYPE_SCRIPT))) {
-     ComponentUtil.setStringProperty(component, ATTR_ACTION_STRING, action);
+     ComponentUtil.setStringProperty(component, ATTR_ACTION_STRING, action, getIterationHelper());
     }
     else {
       if (action != null) {
@@ -69,9 +69,9 @@ public class MenuradioTag extends MenuTag {
         }
       }
     }
-    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
-    ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, "menuRadio");
-    ComponentUtil.setBooleanProperty(component, ATTR_IMMEDIATE, immediate);
+    ComponentUtil.setStringProperty(component, ATTR_VALUE, value, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, "menuRadio", getIterationHelper());
+    ComponentUtil.setBooleanProperty(component, ATTR_IMMEDIATE, immediate, getIterationHelper());
   }
 
 // ------------------------------------------------------------ getter + setter

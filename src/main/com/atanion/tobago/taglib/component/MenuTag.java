@@ -21,11 +21,11 @@ public class MenuTag extends TobagoTag {
 // ----------------------------------------------------------- business methods
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
-   ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
-   ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
+   ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_IMAGE, image, getIterationHelper());
     component.setRendererType(null);
-   ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, "menu");
+   ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, "menu", getIterationHelper());
   }
 
   public String getComponentType() {

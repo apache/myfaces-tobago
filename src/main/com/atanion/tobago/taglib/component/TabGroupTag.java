@@ -23,7 +23,7 @@ public class TabGroupTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setBooleanProperty(component, ATTR_SERVER_SIDE_TABS, serverside);
+   ComponentUtil.setBooleanProperty(component, ATTR_SERVER_SIDE_TABS, serverside, getIterationHelper());
   }
 
   public void release() {

@@ -2261,4 +2261,63 @@
     </attribute>
   </tag>
 
+  <tag>
+    <name>foreach</name>
+    <tag-class>com.atanion.tobago.taglib.component.ForEachTag</tag-class>
+    <body-content>JSP</body-content>
+    <description><![CDATA[ Replacement for the JSTL <c:foreach> tag. <br>
+      This tags iterates over the body content without setting up an exported
+      scope variable, but replaces all occurrence's of <code>var</code> in
+      <code>TobagoTag's ValueBinding</code> attributes.<br>
+      All non TobagoTags are treated as they are, no
+      replacement is done, and so no ability to use the <code>var</code> in el.
+    ]]>
+    </description>
+    <attribute>
+      <name>items</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    <description><![CDATA[ List or Array of items to iterate over.
+      This <strong>must</strong> be a <code>ValueBinding</code>.
+    ]]>
+    </description>
+    </attribute>
+    <attribute>
+      <name>var</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    <description><![CDATA[ Name of the variable to replace in <code>TobagoTag</code>'s
+      ValueBinding attributes.
+    ]]>
+    </description>
+    </attribute>
+    <attribute>
+      <name>begin</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    <description><![CDATA[ Index at which the iteration begins. Defaults to 0.
+    ]]>
+    </description>
+    </attribute>
+    <attribute>
+      <name>end</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    <description><![CDATA[ Index at which the iteration stops.
+      Defaults to <code>items.length</code>.
+    ]]>
+    </description>
+    </attribute>
+    <attribute>
+      <name>step</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    <description><![CDATA[ Index increments every iteration by this value.
+      Default is 1.
+    ]]>
+    </description>
+    </attribute>
+
+  </tag>
+
 </taglib>

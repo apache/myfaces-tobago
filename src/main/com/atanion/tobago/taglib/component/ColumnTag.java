@@ -40,13 +40,13 @@ public class ColumnTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setBooleanProperty(component, ATTR_SORTABLE, sortable);
-   ComponentUtil.setStringProperty(component, ATTR_ALIGN, align);
-   ComponentUtil.setStringProperty(component, ATTR_STYLE_CLASS, cssClass);
+   ComponentUtil.setBooleanProperty(component, ATTR_SORTABLE, sortable, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_ALIGN, align, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_STYLE_CLASS, cssClass, getIterationHelper());
   }
 
   protected void provideLabel(UIComponent component) {
-   ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
+   ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
   }
 
   public void release() {

@@ -25,7 +25,7 @@ public class RichTextEditorTag extends TextBoxTag{
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-   ComponentUtil.setBooleanProperty(component, ATTR_STATE_PREVIEW, statePreview);
+   ComponentUtil.setBooleanProperty(component, ATTR_STATE_PREVIEW, statePreview, getIterationHelper());
   }
 
   public void release() {

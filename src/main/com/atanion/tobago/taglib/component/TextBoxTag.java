@@ -29,7 +29,7 @@ public class TextBoxTag extends InputTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setBooleanProperty(component, ATTR_PASSWORD, password);
+   ComponentUtil.setBooleanProperty(component, ATTR_PASSWORD, password, getIterationHelper());
   }
 
 // ------------------------------------------------------------ getter + setter

@@ -27,7 +27,7 @@ public class ColumnSelectorTag extends ColumnTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_DISABLED, disabled);
+   ComponentUtil.setStringProperty(component, ATTR_DISABLED, disabled, getIterationHelper());
   }
 
   public void release() {

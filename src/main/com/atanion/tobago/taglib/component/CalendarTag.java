@@ -35,9 +35,9 @@ public class CalendarTag extends TobagoTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-   ComponentUtil.setIntegerProperty(component, YEAR, year);
-   ComponentUtil.setIntegerProperty(component, MONTH, month);
-   ComponentUtil.setIntegerProperty(component, DAY, day);
+   ComponentUtil.setIntegerProperty(component, YEAR, year, getIterationHelper());
+   ComponentUtil.setIntegerProperty(component, MONTH, month, getIterationHelper());
+   ComponentUtil.setIntegerProperty(component, DAY, day, getIterationHelper());
   }
 
   public void release() {

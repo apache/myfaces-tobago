@@ -31,7 +31,7 @@ public class MessagesTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_FOR, _for);
+   ComponentUtil.setStringProperty(component, ATTR_FOR, _for, getIterationHelper());
   }
 
   public void release() {

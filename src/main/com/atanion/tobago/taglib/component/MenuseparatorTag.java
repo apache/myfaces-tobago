@@ -16,7 +16,7 @@ public class MenuseparatorTag extends TobagoTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     component.setRendererType(null);
-   ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, "separator");
+   ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, "separator", getIterationHelper());
   }
 
   public String getComponentType() {

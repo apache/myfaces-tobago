@@ -30,7 +30,7 @@ public class MultiSelectTag extends InputTag{
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-   ComponentUtil.setIntegerProperty(component, ATTR_ROWS, rows);
+   ComponentUtil.setIntegerProperty(component, ATTR_ROWS, rows, getIterationHelper());
   }
 
   public void release() {

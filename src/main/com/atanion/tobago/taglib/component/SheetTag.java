@@ -76,17 +76,17 @@ public class SheetTag extends TobagoTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-   ComponentUtil.setBooleanProperty(component, ATTR_PAGING, paging);
-   ComponentUtil.setBooleanProperty(component, ATTR_HIDE_HEADER, hideHeader);
-   ComponentUtil.setIntegerProperty(component, ATTR_FIRST, pagingStart);
-   ComponentUtil.setIntegerProperty(component, ATTR_ROWS, pagingLength);
-   ComponentUtil.setStringProperty(component, ATTR_COLUMNS, columns);
-   ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
+   ComponentUtil.setBooleanProperty(component, ATTR_PAGING, paging, getIterationHelper());
+   ComponentUtil.setBooleanProperty(component, ATTR_HIDE_HEADER, hideHeader, getIterationHelper());
+   ComponentUtil.setIntegerProperty(component, ATTR_FIRST, pagingStart, getIterationHelper());
+   ComponentUtil.setIntegerProperty(component, ATTR_ROWS, pagingLength, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_COLUMNS, columns, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_VALUE, value, getIterationHelper());
    ComponentUtil.setStringProperty(component, ATTR_FORCE_VERTICAL_SCROLLBAR,
-       forceVerticalScrollbar);
+       forceVerticalScrollbar, getIterationHelper());
 
 //   todo: works this? or use that: component.setVar(var);
-   ComponentUtil.setStringProperty(component, ATTR_VAR, var);
+   ComponentUtil.setStringProperty(component, ATTR_VAR, var, getIterationHelper());
 
     component.getAttributes().put(ATTR_INNER_WIDTH, new Integer(-1));
   }

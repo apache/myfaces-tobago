@@ -31,8 +31,8 @@ public class ItemsTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_REFERENCE, reference);
-   ComponentUtil.setStringProperty(component, ATTR_RENDER_RANGE, renderRange);
+   ComponentUtil.setStringProperty(component, ATTR_REFERENCE, reference, getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_RENDER_RANGE, renderRange, getIterationHelper());
   }
 
   public void release() {
