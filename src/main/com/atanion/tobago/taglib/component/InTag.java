@@ -8,11 +8,13 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIInput;
-import com.atanion.tobago.taglib.ValueBinding;
+import com.atanion.tobago.taglib.UIComponentTagAttribute;
+import com.atanion.tobago.taglib.UIComponentTagAttribute;
 
 import javax.faces.component.UIComponent;
 
 public class InTag extends InputTag {
+
 // ----------------------------------------------------------------- attributes
 
   private String password;
@@ -30,7 +32,8 @@ public class InTag extends InputTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setBooleanProperty(component, ATTR_PASSWORD, password, getIterationHelper());
+    ComponentUtil.setBooleanProperty(component, ATTR_PASSWORD, password,
+        getIterationHelper());
   }
 
 // ------------------------------------------------------------ getter + setter
@@ -39,12 +42,10 @@ public class InTag extends InputTag {
     return password;
   }
 
-  @ValueBinding(
-      type=Boolean.class,
-      description = "is a password or not"
-      )
+  @UIComponentTagAttribute(
+      internalType = Boolean.class,
+      description = "Is rendered as password, so you will not see the typed charakters.")
   public void setPassword(String password) {
     this.password = password;
   }
 }
-
