@@ -3,7 +3,7 @@
 <f:view>
   <tobago:page title="Calendar" id="page" width="270px" >
     <f:facet name="layout">
-      <tobago:gridlayout columns="10px;1*;10px" rows="10px;1*;10px" />
+      <tobago:gridLayout columns="10px;1*;10px" rows="10px;1*;10px" />
     </f:facet>
 
     <tobago:cell spanX="3">

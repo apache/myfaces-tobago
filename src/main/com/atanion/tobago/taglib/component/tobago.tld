@@ -774,7 +774,7 @@
   </tag>
 
   <tag>
-    <name>columnselector</name>
+    <name>columnSelector</name>
     <tag-class>com.atanion.tobago.taglib.component.ColumnSelectorTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
@@ -1075,7 +1075,7 @@
   </tag>
 
   <tag>
-    <name>gridlayout</name>
+    <name>gridLayout</name>
     <tag-class>com.atanion.tobago.taglib.component.GridLayoutTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
@@ -2270,7 +2270,7 @@
   </tag>
 
   <tag>
-    <name>foreach</name>
+    <name>forEach</name>
     <tag-class>com.atanion.tobago.taglib.component.ForEachTag</tag-class>
     <body-content>JSP</body-content>
     <description><![CDATA[ Replacement for the JSTL <c:foreach> tag. <br>
