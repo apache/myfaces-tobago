@@ -70,7 +70,9 @@ public class TextAreaRenderer extends InputRendererBase
       String height = evaluateHeight(component);
       writer.startElement("td", null);
       writer.writeAttribute("class", "tobago-label-td", null);
-      writer.writeAttribute("style", height, null);
+      if (height != null) {
+        writer.writeAttribute("style", height, null);
+      }
       writer.writeText("", null); // to ensure that the start-tag is closed!
       RenderUtil.encode(facesContext, label);
       writer.endElement("td");

@@ -93,6 +93,7 @@ public class CalendarRenderer extends RendererBase implements DirectRenderer {
     writer.writeAttribute("alt", "", null);
     writer.writeAttribute("src", TobagoResource.getImage(facesContext, "fastPrev.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', -12)", null);
+    writer.endElement("img");
     writer.endElement("td");
 
     writer.startElement("td", null);
@@ -102,6 +103,7 @@ public class CalendarRenderer extends RendererBase implements DirectRenderer {
     writer.writeAttribute("alt", "", null);
     writer.writeAttribute("src", TobagoResource.getImage(facesContext, "prev.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', -1)", null);
+    writer.endElement("img");
     writer.endElement("td");
 
     writer.startElement("th", null);
@@ -117,6 +119,7 @@ public class CalendarRenderer extends RendererBase implements DirectRenderer {
     writer.writeAttribute("alt", "", null);
     writer.writeAttribute("src", TobagoResource.getImage(facesContext, "next.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', 1)", null);
+    writer.endElement("img");
     writer.endElement("td");
 
     writer.startElement("td", null);
@@ -126,6 +129,7 @@ public class CalendarRenderer extends RendererBase implements DirectRenderer {
     writer.writeAttribute("alt", "", null);
     writer.writeAttribute("src", TobagoResource.getImage(facesContext, "fastNext.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', 12)", null);
+    writer.endElement("img");
     writer.endElement("td");
 
     writer.endElement("tr");

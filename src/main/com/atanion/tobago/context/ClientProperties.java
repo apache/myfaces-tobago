@@ -72,7 +72,11 @@ public class ClientProperties {
 
     String theme
         = (String) context.getRequestParameterMap().get("tobago.theme");
-    this.theme = TobagoConfig.getInstance().getTheme(theme);
+    if (theme != null) {
+      this.theme = TobagoConfig.getInstance().getTheme(theme);
+    } else {
+      this.theme = TobagoConfig.getInstance().getDefaultTheme();
+    }
     LOG.info("theme='" + this.theme + "' from requestParameter "
         + "tobago.theme='" + theme + "'");
   }
