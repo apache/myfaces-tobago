@@ -134,6 +134,10 @@ public class RadioGroupRenderer extends SelectOneRendererBase
     }
   }
 
+  public int getFixedHeight(FacesContext facesContext, UIComponent component) {
+    List items = ItemsRenderer.getItemsToRender((UISelectOne) component);
+    return items.size() * super.getFixedHeight(facesContext, component);
+  }
 // ///////////////////////////////////////////// bean getter + setter
 
 }

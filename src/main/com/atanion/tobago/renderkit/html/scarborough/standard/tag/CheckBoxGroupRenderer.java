@@ -117,6 +117,11 @@ public class CheckBoxGroupRenderer extends SelectManyRendererBase
     writer.endElement("table");
   }
 
+  public int getFixedHeight(FacesContext facesContext, UIComponent component) {
+    List items = ItemsRenderer.getItemsToRender((UISelectMany) component);
+    return items.size() * super.getFixedHeight(facesContext, component);
+  }
+
 // ///////////////////////////////////////////// bean getter + setter
 
 }
