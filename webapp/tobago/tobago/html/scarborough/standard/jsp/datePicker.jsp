@@ -1,28 +1,28 @@
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tobago" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <f:view>
-  <tobago:page title="Calendar" id="page" width="270px" >
+  <t:page title="Calendar" id="page" width="270px" >
     <f:facet name="layout">
-      <tobago:gridLayout columns="10px;1*;10px" rows="10px;1*;10px" />
+      <t:gridLayout columns="10px;1*;10px" rows="10px;1*;10px" />
     </f:facet>
 
-    <tobago:cell spanX="3">
-      <tobago:script file="script/calendar.js" />
-    </tobago:cell>
+    <t:cell spanX="3">
+      <t:script file="script/calendar.js" />
+    </t:cell>
 
-    <tobago:cell />
-    <tobago:box label="Calendar" >
+    <t:cell />
+    <t:box label="Calendar" >
 
-      <tobago:calendar id="test1234" />
+      <t:calendar id="test1234" />
 
-      <tobago:button label="OK"
+      <t:button label="OK"
           action="writeIntoField('test1234');window.close();" type="script"/>
-      <tobago:button label="Cancel"
+      <t:button label="Cancel"
         action="window.close();" type="script" />
-    </tobago:box>
-    <tobago:cell />
+    </t:box>
+    <t:cell />
 
-    <tobago:cell spanX="3" />
+    <t:cell spanX="3" />
 
-  </tobago:page>
+  </t:page>
 </f:view>

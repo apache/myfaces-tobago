@@ -14,7 +14,7 @@
                        com.atanion.tobago.renderkit.HtmlUtils,
                        com.atanion.util.KeyValuePair,
                        javax.faces.component.ValueHolder"
-%><%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tobago"
+%><%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t"
 %><%
 
   UISelectOne component = (UISelectOne) RenderUtil.getComponent(request);
