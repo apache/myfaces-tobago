@@ -12,6 +12,7 @@ import com.atanion.tobago.renderkit.CommandRendererBase;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -137,8 +138,10 @@ public class MenubarRenderer extends RendererBase
         RenderUtil.encode(facesContext, component);
       }
     }
-    addSubItemMarker(facesContext);
-
+    if (! uiPanel.getParent().getRendererType().equals("Menubar")) {
+      // uiPanel is a submenu
+      addSubItemMarker(facesContext);
+    }
     writer.endElement("span");
 
     facesContext.setResponseWriter(savedWriter);
@@ -148,7 +151,7 @@ public class MenubarRenderer extends RendererBase
   }
 
   private void addSubItemMarker(FacesContext facesContext) throws IOException {
-    // todo: use image 
+    // todo: use image
     facesContext.getResponseWriter().writeText(" >", null);
   }
 
@@ -176,9 +179,10 @@ public class MenubarRenderer extends RendererBase
 
     writer.startElement("span", null);
     writer.writeAttribute("class", spanClass, null);
-    for (Iterator i = command.getChildren().iterator(); i.hasNext();) {
-      UIComponent component = (UIComponent) i.next();
-      RenderUtil.encode(facesContext, component);
+
+    final LabelWithAccessKey label = new LabelWithAccessKey(command);
+    if (label.getText() != null) {
+      RenderUtil.writeLabelWithAccessKey(writer, label);
     }
     writer.endElement("span");
 
@@ -197,6 +201,8 @@ public class MenubarRenderer extends RendererBase
     else {
       sb.append("null");
     }
+    sb.append(", ");
+    sb.append(disabled ? "true" : "false");
     sb.append("));\n");
 
   }

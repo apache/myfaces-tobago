@@ -29,9 +29,10 @@ function createMenuRoot(id) {
   return menu;
 }
 
-function MenuItem(label, action) {
+function MenuItem(label, action, disabled) {
   this.label = label;
   this.action = action;
+  this.disabled = disabled;
   this.subItems = new Array();
 
   this.addMenuItem = function(menuItem) {
@@ -48,8 +49,12 @@ function MenuItem(label, action) {
     if (this.level != 0) {
       var onClick = "";
       if (this.action) {
-      onClick = ' onclick="tobagoMenuItemOnmouseout(this, true) ; ' + this.action + '"';
+        onClick = ' onclick="tobagoMenuItemOnmouseout(this, true) ; ' + this.action + '"';
       }
+      if (this.level == 1) {
+        onClick = ' onclick="tobagoMenuOpenMenu(this)"';
+      }
+
       html += '<div class="tobago-menu-item"'
           + ' id="' + this.id + '"'
           + ' onmouseover="tobagoMenuItemOnmouseover(this)"'
@@ -80,7 +85,26 @@ function MenuItem(label, action) {
   }
 
   this.setHover = function() {
-    addCssClass(this.htmlElement, "tobago-menu-item-hover");
+    if (! this.disabled) {
+      addCssClass(this.htmlElement, "tobago-menu-item-hover");
+    }
+    if (this.level != 1 || this.parent.menuOpen) {
+      this.openSubMenus();
+    }
+  }
+
+  this.openMenu = function() {
+    if (this.level == 1) {
+      this.openSubMenus();
+      this.parent.menuOpen = 1;
+    }
+    else {
+      PrintDebug("ERROR : openMenu() is not allowed outside level 1!"
+          + " this is level " + this.level);
+    }
+  }
+
+  this.openSubMenus = function() {
     if (this.subItemContainer) {
       this.subItemContainer.style.visibility = 'visible';
       if (this.subItemIframe) {
@@ -89,7 +113,10 @@ function MenuItem(label, action) {
     }
   }
 
-  this.removeHover = function() {
+  this.removeHover = function(mouseOut) {
+    if (mouseOut) {
+      this.hover = false;
+    }
     if (this.level > 0) {
       //PrintDebug("removeHover on " + this.id);
       if (! this.hover && ! this.isHoverChildren()) {
@@ -100,9 +127,12 @@ function MenuItem(label, action) {
             this.subItemIframe.style.visibility = 'hidden';
           }
         }
+        if (this.level == 1 && ! this.parent.isHoverChildren()) {
+          this.parent.menuOpen = 0;
+        }
       }
       if (this.parent) {
-        this.parent.removeHover();
+        this.parent.removeHover(false);
       }
     }
   }
@@ -112,19 +142,18 @@ function MenuItem(label, action) {
     this.hover = true;
     clearTimeout(this.removeHoverTimer);
     this.hoverTimer
-        = setTimeout("tobagoMenuSetHover('" + this.id +"')", getMenuTimeout());
+        = setTimeout("tobagoMenuSetHover('" + this.id +"')", getMenuTimeoutHover());
   }
   this.onMouseOut = function(clicked) {
     //PrintDebug("onMouseOut " + this.id + "  clicked = " + clicked);
     if (this.hover) {
-      this.hover = false;
       clearTimeout(this.removeHoverTimer);
       clearTimeout(this.hoverTimer);
       if (clicked) {
-        this.removeHover();
+        this.removeHover(true);
       } else {
         this.removeHoverTimer
-            = setTimeout("tobagoMenuRemoveHover('" + this.id +"')", getMenuTimeout());
+            = setTimeout("tobagoMenuRemoveHover('" + this.id +"', true)", getMenuTimeoutOut());
       }
     }
   }
@@ -276,11 +305,15 @@ function tobagoMenuItemOnmouseout(element, clicked) {
   element.menuItem.onMouseOut(clicked)
 }
 
+function tobagoMenuOpenMenu(element) {
+  element.menuItem.openMenu();
+}
+
 function tobagoMenuSetHover(id) {
   document.getElementById(id).menuItem.setHover();
 }
-function tobagoMenuRemoveHover(id) {
-  document.getElementById(id).menuItem.removeHover();
+function tobagoMenuRemoveHover(id, mouseOut) {
+  document.getElementById(id).menuItem.removeHover(mouseOut);
 }
 
 
@@ -289,8 +322,11 @@ function getSubComponentSeparator() {
   return "::"; // ToabgoConstants.SUBCOMPONENT_SEP
 }
 
-function getMenuTimeout() {
+function getMenuTimeoutHover() {
   return 100;
+}
+function getMenuTimeoutOut() {
+  return 150;
 }
 
 function getSubitemContainerBorderWidth() {

@@ -50,3 +50,15 @@
 .tobago-menu-item-hover {
   background: #bbbbbb;
 }
+
+.tobago-menubar-item-span {
+
+}
+
+.tobago-menubar-item-span-enabled {
+
+}
+
+.tobago-menubar-item-span-disabled {
+  color: #888888;
+}
