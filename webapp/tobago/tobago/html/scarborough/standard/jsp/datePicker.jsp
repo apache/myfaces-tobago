@@ -16,9 +16,9 @@
       <tobago:calendar id="test1234" />
 
       <tobago:button label="OK"
-          commandName="writeIntoField('test1234');window.close();" type="script"/>
+          action="writeIntoField('test1234');window.close();" type="script"/>
       <tobago:button label="Cancel"
-        commandName="window.close();" type="script" />
+        action="window.close();" type="script" />
     </tobago:box>
     <tobago:cell />
 

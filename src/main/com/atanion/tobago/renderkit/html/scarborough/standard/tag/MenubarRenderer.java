@@ -15,6 +15,12 @@ import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.taglib.component.MenuCommandTag;
+import com.atanion.tobago.taglib.component.MenuSelectBooleanTag;
+import com.atanion.tobago.taglib.component.MenuSelectOneTag;
+import com.atanion.tobago.taglib.component.MenuSeparatorTag;
+import com.atanion.tobago.taglib.component.MenuTag;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -148,9 +154,9 @@ public class MenubarRenderer extends RendererBase {
       UIComponent entry = (UIComponent) iter.next();
       if (entry instanceof UICommand) {
         addMenuEntry(sb, var, facesContext, (UICommand) entry);
-      } else if ("separator".equals(entry.getAttributes().get(ATTR_MENU_TYPE))) {
+      } else if (MenuSeparatorTag.MENU_TYPE.equals(entry.getAttributes().get(ATTR_MENU_TYPE))) {
         addMenuSeparator(sb, var);
-      } else if ("menu".equals(entry.getAttributes().get(ATTR_MENU_TYPE))) {
+      } else if (MenuTag.MENU_TYPE.equals(entry.getAttributes().get(ATTR_MENU_TYPE))) {
         i = addMenu(sb, var, facesContext, (UIPanel) entry, i);
       } else if (warn) {
         LOG.error("Illegal UIComponent class in menubar :"
@@ -262,18 +268,18 @@ public class MenubarRenderer extends RendererBase {
   private void addMenuEntry(StringBuffer sb, String var, FacesContext facesContext,
       UICommand command) throws IOException {
     String onClick = createOnClick(facesContext, command);
-    if ("menuItem".equals(command.getAttributes().get(ATTR_MENU_TYPE))) {
-      addMenuItem(sb, var, facesContext, command, onClick);
+    if (MenuCommandTag.MENU_TYPE.equals(command.getAttributes().get(ATTR_MENU_TYPE))) {
+      addCommand(sb, var, facesContext, command, onClick);
     }
-    else if ("menuCheck".equals(command.getAttributes().get(ATTR_MENU_TYPE)) ) {
-      addMenuCheck(sb, var, facesContext, command, onClick);
+    else if (MenuSelectBooleanTag.MENU_TYPE.equals(command.getAttributes().get(ATTR_MENU_TYPE)) ) {
+      addSelectBoolean(sb, var, facesContext, command, onClick);
     }
-    else if ("menuRadio".equals(command.getAttributes().get(ATTR_MENU_TYPE)) ) {
-      addMenuRadio(sb, var, facesContext, command, onClick);
+    else if (MenuSelectOneTag.MENU_TYPE.equals(command.getAttributes().get(ATTR_MENU_TYPE)) ) {
+      addSelectOne(sb, var, facesContext, command, onClick);
     }
   }
 
-  private void addMenuCheck(StringBuffer sb, String var,
+  private void addSelectBoolean(StringBuffer sb, String var,
       FacesContext facesContext, UICommand command, String onClick) throws IOException {
     String clientId = null;
 
@@ -313,7 +319,7 @@ public class MenubarRenderer extends RendererBase {
       sb.append("    menuCheckToggle('" + clientId + "');\n");
     }
     String image = checked ? "MenuCheckmark.gif" : null;
-    addMenu(sb, var, facesContext, command, image, onClick);
+    addMenuItem(sb, var, facesContext, command, image, onClick);
   }
 
   private String addMenuCheckToggle(String clientId, String onClick) {
@@ -329,7 +335,7 @@ public class MenubarRenderer extends RendererBase {
     return onClick;
   }
 
-  private void addMenuRadio(StringBuffer sb, String var,
+  private void addSelectOne(StringBuffer sb, String var,
       FacesContext facesContext, UICommand command, String onClick)
       throws IOException {
 
@@ -382,7 +388,7 @@ public class MenubarRenderer extends RendererBase {
           image = "MenuRadioUnchecked.gif";
         }
 
-        addMenu(sb, var, facesContext, command, label, image, onClick);
+        addMenuItem(sb, var, facesContext, command, label, image, onClick);
       }
     }
   }
@@ -399,22 +405,22 @@ public class MenubarRenderer extends RendererBase {
   }
 
 
-  private void addMenuItem(StringBuffer sb, String var, FacesContext facesContext,
+  private void addCommand(StringBuffer sb, String var, FacesContext facesContext,
       UICommand command, String onClick) throws IOException {
       String image = (String) command.getAttributes().get(ATTR_IMAGE);
-      addMenu(sb, var, facesContext, command, image, onClick);
+      addMenuItem(sb, var, facesContext, command, image, onClick);
   }
 
-  private void addMenu(StringBuffer sb, String var, FacesContext facesContext,
+  private void addMenuItem(StringBuffer sb, String var, FacesContext facesContext,
       UICommand command, String image, String onClick) throws IOException {
 
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
     onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
             facesContext);
-    addMenu(sb, var, facesContext, command, label, image, onClick);
+    addMenuItem(sb, var, facesContext, command, label, image, onClick);
   }
 
-  private void addMenu(StringBuffer sb, String var, FacesContext facesContext,
+  private void addMenuItem(StringBuffer sb, String var, FacesContext facesContext,
       UICommand command, LabelWithAccessKey label, String image, String onClick) throws IOException {
 
     if (! command.isRendered()) {

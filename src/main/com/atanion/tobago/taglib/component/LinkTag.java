@@ -22,6 +22,8 @@ public class LinkTag extends CommandTag {
   private String image;
   private String accessKey;
   private String labelWithAccessKey;
+  private String tip;
+  private String defaultCommand;
 
 // /////////////////////////////////////////// constructors
 
@@ -34,6 +36,8 @@ public class LinkTag extends CommandTag {
    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image, getIterationHelper());
    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_TIP, tip, getIterationHelper());
+   ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand, getIterationHelper());
   }
 
   public void release() {
@@ -43,7 +47,8 @@ public class LinkTag extends CommandTag {
     image = null;
     accessKey = null;
     labelWithAccessKey = null;
-  }
+    tip = null;
+   }
 
 // /////////////////////////////////////////// bean getter + setter
 
@@ -85,5 +90,13 @@ public class LinkTag extends CommandTag {
 
   public void setLabelWithAccessKey(String labelWithAccessKey) {
     this.labelWithAccessKey = labelWithAccessKey;
+  }
+
+  public void setTip(String tip) {
+    this.tip = tip;
+  }
+
+public void setDefaultCommand(String defaultCommand) {
+    this.defaultCommand = defaultCommand;
   }
 }

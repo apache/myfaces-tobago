@@ -23,7 +23,7 @@
   FacesContext facesContext = FacesContext.getCurrentInstance();
 
   String type = (String) component.getAttributes().get(TobagoConstants.ATTR_TYPE);
-  String action = (String) component.getAttributes().get(TobagoConstants.ATTR_COMMAND_NAME);
+  String action = (String) component.getAttributes().get(TobagoConstants.ATTR_ACTION_STRING);
 
   if ("submit".equals(type) && uiPage != null) {
     ValueHolder labelComponent

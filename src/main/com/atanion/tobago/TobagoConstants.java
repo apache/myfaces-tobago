@@ -120,6 +120,7 @@ public interface TobagoConstants {
   public static final String ATTR_TIME_STYLE = "timeStyle";
   public static final String ATTR_TIMEZONE = "timezone";
   public static final String ATTR_TITLE = "title";
+  public static final String ATTR_TIP = "tip";
   public static final String ATTR_TOP = "top";
   public static final String ATTR_TYPE = "type";
   public static final String ATTR_VALUE = "value";
@@ -132,6 +133,7 @@ public interface TobagoConstants {
   public static final String FACET_CHECKBOX = "checkbox";
   public static final String FACET_CONFIRMATION = "confirmation";
   public static final String FACET_LABEL = "label";
+  public static final String FACET_IMAGE= "image ";
   public static final String FACET_MENUBAR = "menubar";
   public static final String FACET_MENUPOPUP = "menupopup";
   public static final String FACET_PAGER_LINKS = "pagerLinks";
@@ -153,7 +155,7 @@ public interface TobagoConstants {
   public static final String RENDERER_TYPE_LINK = "Link";
   public static final String RENDERER_TYPE_LABEL = "Label";
   public static final String RENDERER_TYPE_MENUBAR = "Menubar";
-  public static final String RENDERER_TYPE_MENUITEM = "Menuitem";
+  public static final String RENDERER_TYPE_MENUCOMMAND = "MenuCommand";
   public static final String RENDERER_TYPE_OUT = "Out";
   public static final String RENDERER_TYPE_PANEL = "Panel";
   public static final String RENDERER_TYPE_SELECT_ONE_RADIO = "SelectOneRadio";

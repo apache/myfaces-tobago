@@ -11,12 +11,15 @@ import javax.faces.component.UIPanel;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
-public class MenuseparatorTag extends TobagoTag {
+public class MenuSeparatorTag extends TobagoTag {
+
+  public static final String MENU_TYPE = "menuSeparator";
+
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     component.setRendererType(null);
-   ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, "separator", getIterationHelper());
+   ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, MENU_TYPE, getIterationHelper());
   }
 
   public String getComponentType() {

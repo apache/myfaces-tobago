@@ -102,7 +102,7 @@ public class InRendererBase extends InputRendererBase {
           + "?tobago.date.inputId="
           + input.getClientId(facesContext);
       String command = "calendarWindow('" + url + "');";
-      picker.getAttributes().put(ATTR_COMMAND_NAME, command);
+      picker.getAttributes().put(ATTR_ACTION_STRING, command);
       RenderUtil.encode(facesContext, picker);
     }
   }

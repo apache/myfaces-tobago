@@ -11,10 +11,14 @@ import javax.faces.component.UIPanel;
 import javax.faces.component.UIComponent;
 
 public class MenuTag extends TobagoTag {
+  public static final String MENU_TYPE = "menu";
+
+
 // ----------------------------------------------------------------- attributes
 
   private String label;
   private String image;
+  private String accessKey;
   private String labelWithAccessKey;
 //  private String disabled;
 
@@ -22,6 +26,7 @@ public class MenuTag extends TobagoTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
    ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image, getIterationHelper());
     component.setRendererType(null);
@@ -36,6 +41,7 @@ public class MenuTag extends TobagoTag {
   public void release() {
     super.release();
     label = null;
+    accessKey = null;
     labelWithAccessKey = null;
   }
 
@@ -45,6 +51,10 @@ public class MenuTag extends TobagoTag {
 
   public void setLabel(String label) {
     this.label = label;
+  }
+
+  public void setAccessKey(String accessKey) {
+    this.accessKey = accessKey;
   }
 
   public String getLabelWithAccessKey() {

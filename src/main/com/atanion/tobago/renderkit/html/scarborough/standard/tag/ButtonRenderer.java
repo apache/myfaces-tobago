@@ -55,6 +55,7 @@ public class ButtonRenderer extends CommandRendererBase {
     writer.writeAttribute("type", buttonType, null);
     writer.writeAttribute("name", clientId, null);
     writer.writeAttribute("id", clientId, null);
+    writer.writeAttribute("title", null, ATTR_TIP);
     writer.writeAttribute("disabled", disabled);
     if (onclick != null) {
       writer.writeAttribute("onclick", onclick, null);
@@ -117,7 +118,7 @@ public class ButtonRenderer extends CommandRendererBase {
   public static String createOnClick(FacesContext facesContext,
       UIComponent component) {
     String type = (String) component.getAttributes().get(ATTR_TYPE);
-    String command = (String) component.getAttributes().get(ATTR_COMMAND_NAME);
+    String command = (String) component.getAttributes().get(ATTR_ACTION_STRING);
     String clientId = component.getClientId(facesContext);
     boolean defaultCommand = ComponentUtil.getBooleanAttribute(component,
         ATTR_DEFAULT_COMMAND);

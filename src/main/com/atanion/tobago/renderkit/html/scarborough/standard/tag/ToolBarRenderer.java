@@ -66,11 +66,11 @@ public class ToolBarRenderer extends RendererBase {
       writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
       writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
       writer.startElement("div", toolbar);
-      writer.writeAttribute("class", "tobago-toolBar-div-inner", null);
+      writer.writeAttribute("class", "tobago-toolbar-div-inner", null);
     }
 //
 //      writer.startElement("table", toolbar);
-//      writer.writeAttribute("class", "tobago-toolBar-table", null);
+//      writer.writeAttribute("class", "tobago-toolbar-table", null);
 //      writer.writeAttribute("border", "0", null);
 //      writer.writeAttribute("cellpadding", "0", null);
 //      writer.writeAttribute("cellspacing", "0", null);
@@ -103,10 +103,25 @@ public class ToolBarRenderer extends RendererBase {
       return;
     }
     final boolean disabled = ComponentUtil.getBooleanAttribute(command, ATTR_DISABLED);
-    final UIGraphic graphic = ComponentUtil.getFirstGraphicChild(command);
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
     final UIComponent popupMenu = command.getFacet(FACET_MENUPOPUP);
 
+
+
+    String image = (String) command.getAttributes().get(ATTR_IMAGE);
+    UIGraphic graphic = null;
+    if (image != null) {
+      graphic = (UIGraphic) command.getFacet(FACET_IMAGE);
+      if (graphic == null ) {
+        LOG.info("create Image in Toolbar : " + image);
+        graphic = (UIGraphic) ComponentUtil.createComponent(
+            UIGraphic.COMPONENT_TYPE, RENDERER_TYPE_IMAGE);
+        command.getFacets().put(FACET_IMAGE, graphic);
+        graphic.getAttributes().put(ATTR_I18N, Boolean.TRUE);
+        graphic.getAttributes().put(ATTR_VALUE, image);
+        LayoutUtil.addCssClass(graphic, "tobago-toolBar-button-image");
+      }
+    }
 
     final String graphicId
         = graphic != null ? graphic.getClientId(facesContext) : "null";
@@ -143,7 +158,7 @@ public class ToolBarRenderer extends RendererBase {
       writer.writeAttribute("onfocus", "tobagoToolbarFocus(this, event)", null);
       if (label.getAccessKey() != null) {
          writer.writeAttribute("accesskey", label.getAccessKey(), null);
-       }      
+       }
     }
 
     if (ClientProperties.getInstance(facesContext.getViewRoot()).getUserAgent().isMsie()) {
@@ -162,8 +177,8 @@ public class ToolBarRenderer extends RendererBase {
       }
       RenderUtil.encode(facesContext, ieSpacer);
     }
+
     if (graphic != null) {
-      LayoutUtil.addCssClass(graphic, "tobago-toolBar-button-image");
       RenderUtil.encode(facesContext, graphic);
     }
 
@@ -204,24 +219,25 @@ public class ToolBarRenderer extends RendererBase {
 
   private String createOnClick(FacesContext facesContext,
       UIComponent component) {
-    String type = (String) component.getAttributes().get(ATTR_TYPE);
-    String command = (String) component.getAttributes().get(ATTR_COMMAND_NAME);
-    String clientId = component.getClientId(facesContext);
-    String onclick;
-
-    if (COMMAND_TYPE_NAVIGATE.equals(type)) {
-      onclick = "navigateToUrl('"
-          + HtmlUtils.generateUrl(facesContext, command) + "')";
-    } else if (COMMAND_TYPE_RESET.equals(type)) {
-      onclick = null;
-    } else if (COMMAND_TYPE_SCRIPT.equals(type)) {
-      onclick = command;
-    } else { // default: Action.TYPE_SUBMIT
-      onclick = "submitAction('" +
-          ComponentUtil.findPage(component).getFormId(facesContext) +
-          "','" + clientId + "')";
-    }
-    return onclick;
+    return ButtonRenderer.createOnClick(facesContext, component);
+//    String type = (String) component.getAttributes().get(ATTR_TYPE);
+//    String command = (String) component.getAttributes().get(ATTR_ACTION_STRING);
+//    String clientId = component.getClientId(facesContext);
+//    String onclick;
+//
+//    if (COMMAND_TYPE_NAVIGATE.equals(type)) {
+//      onclick = "navigateToUrl('"
+//          + HtmlUtils.generateUrl(facesContext, command) + "')";
+//    } else if (COMMAND_TYPE_RESET.equals(type)) {
+//      onclick = null;
+//    } else if (COMMAND_TYPE_SCRIPT.equals(type)) {
+//      onclick = command;
+//    } else { // default: Action.TYPE_SUBMIT
+//      onclick = "submitAction('" +
+//          ComponentUtil.findPage(component).getFormId(facesContext) +
+//          "','" + clientId + "')";
+//    }
+//    return onclick;
   }
 
 // ///////////////////////////////////////////// bean getter + setter

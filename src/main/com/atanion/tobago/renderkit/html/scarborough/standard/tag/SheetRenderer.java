@@ -989,7 +989,7 @@ public class SheetRenderer extends RendererBase {
       String action) {
     UICommand menuItem
         = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
-    menuItem.setRendererType(RENDERER_TYPE_MENUITEM);
+    menuItem.setRendererType(RENDERER_TYPE_MENUCOMMAND);
     menuItem.getAttributes().put(ATTR_MENU_TYPE, "menuItem");
     menuItem.getAttributes().put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
     menuItem.getAttributes().put(ATTR_ACTION_STRING, action);
@@ -1115,7 +1115,7 @@ public class SheetRenderer extends RendererBase {
     link.setRendererType(TobagoConstants.RENDERER_TYPE_LINK);
     link.setRendered(true);
     link.setId(command);
-    link.getAttributes().put(TobagoConstants.ATTR_COMMAND_NAME, command);
+    link.getAttributes().put(TobagoConstants.ATTR_ACTION_STRING, command);
     link.getAttributes().put(TobagoConstants.ATTR_INLINE, Boolean.TRUE);
     link.getAttributes().put(TobagoConstants.ATTR_DISABLED,
         Boolean.valueOf(disabled));
@@ -1348,7 +1348,7 @@ public class SheetRenderer extends RendererBase {
       if (aobj[0] instanceof ActionEvent) {
         UICommand command = (UICommand) ((ActionEvent) aobj[0]).getSource();
         String action = (String)
-            command.getAttributes().get(TobagoConstants.ATTR_COMMAND_NAME);
+            command.getAttributes().get(TobagoConstants.ATTR_ACTION_STRING);
 
         if (LOG.isDebugEnabled()) {
           LOG.debug("action = '" + action + "'");

@@ -144,7 +144,7 @@ public class TreeRenderer extends RendererBase {
           // create a UILink and add it to the UITree
           UICommand link = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
           link.setId("button" + i);
-          link.getAttributes().put(ATTR_COMMAND_NAME,
+          link.getAttributes().put(ATTR_ACTION_STRING,
               commands[i].getCommand());
           link.setRendererType(RENDERER_TYPE_LINK);
           if (handler != null) {

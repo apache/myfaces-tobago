@@ -9,10 +9,15 @@ import com.atanion.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 
-public class MenuitemTag extends MenuradioTag {
+public class MenuCommandTag extends CommandTag {
+
+  public static final String MENU_TYPE = "menuCommand";
+
 // ----------------------------------------------------------------- attributes
 
   private String image;
+  private String label;
+  private String accessKey;
   private String labelWithAccessKey;
 
 // ----------------------------------------------------------- business methods
@@ -20,14 +25,21 @@ public class MenuitemTag extends MenuradioTag {
   public void release() {
     super.release();
     image = null;
+    label = null;
+    accessKey = null;
     labelWithAccessKey = null;
   }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_IMAGE, image, getIterationHelper());
-   ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, "menuItem", getIterationHelper());
-   ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
+
+    component.setRendererType(RENDERER_TYPE_MENUCOMMAND);
+
+    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, MENU_TYPE, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
   }
 
 // ------------------------------------------------------------ getter + setter
@@ -38,6 +50,14 @@ public class MenuitemTag extends MenuradioTag {
 
   public void setImage(String image) {
     this.image = image;
+  }
+
+  public void setLabel(String label) {
+    this.label = label;
+  }
+
+  public void setAccessKey(String accessKey) {
+    this.accessKey = accessKey;
   }
 
   public String getLabelWithAccessKey() {

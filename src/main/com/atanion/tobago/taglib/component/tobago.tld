@@ -821,11 +821,6 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>commandName</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
       <name>action</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
@@ -866,6 +861,11 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
+      <name>tip</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
       <name>inline</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
@@ -901,11 +901,6 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>commandName</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
       <name>action</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
@@ -931,7 +926,7 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>title</name>
+      <name>tip</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
@@ -2034,7 +2029,7 @@
 
   <tag>
     <name>menuitem</name>
-    <tag-class>com.atanion.tobago.taglib.component.MenuitemTag</tag-class>
+    <tag-class>com.atanion.tobago.taglib.component.MenuCommandTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -2107,7 +2102,7 @@
 
   <tag>
     <name>menucheck</name>
-    <tag-class>com.atanion.tobago.taglib.component.MenucheckTag</tag-class>
+    <tag-class>com.atanion.tobago.taglib.component.MenuSelectBooleanTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -2175,7 +2170,7 @@
 
   <tag>
     <name>menuradio</name>
-    <tag-class>com.atanion.tobago.taglib.component.MenuradioTag</tag-class>
+    <tag-class>com.atanion.tobago.taglib.component.MenuSelectOneTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -2238,7 +2233,7 @@
 
   <tag>
     <name>menuseparator</name>
-    <tag-class>com.atanion.tobago.taglib.component.MenuseparatorTag</tag-class>
+    <tag-class>com.atanion.tobago.taglib.component.MenuSeparatorTag</tag-class>
     <body-content>empty</body-content>
     <attribute>
       <name>rendered</name>

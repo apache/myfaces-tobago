@@ -16,7 +16,7 @@
 %>
   <tobago:script file="configWindow.js" i18n="true" />
   <%-- id is needed for knowledgebase, don't know why :-( --%>
-  <tobago:button commandName="<%= url %>" type="script" id="configButtonAction"
+  <tobago:button action="<%= url %>" type="script" id="configButtonAction"
         label="#{tobagoBundle.configButtonText}"
         image="config.gif" />
 </f:subview>

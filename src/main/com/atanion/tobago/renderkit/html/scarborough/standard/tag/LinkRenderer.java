@@ -5,6 +5,9 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.atanion.tobago.component.BodyContentHandler;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
@@ -21,6 +24,8 @@ import java.io.IOException;
 
 public class LinkRenderer extends CommandRendererBase{
 
+  private static final Log LOG = LogFactory.getLog(LinkRenderer.class);
+
 // ----------------------------------------------------------------- interfaces
 
 
@@ -32,9 +37,16 @@ public class LinkRenderer extends CommandRendererBase{
     String href;
 
     String type = (String) component.getAttributes().get(ATTR_TYPE);
-    String action = (String) component.getAttributes().get(ATTR_COMMAND_NAME);
+    String action = (String) component.getAttributes().get(ATTR_ACTION_STRING);
 
     if (COMMAND_TYPE_NAVIGATE.equals(type)) {
+      if (action == null) {
+        LOG.warn("keine Action in Link : id " + component.getClientId(facesContext)
+            + " label = " + component.getAttributes().get(ATTR_LABEL)
+            + " labelwithkey = " + component.getAttributes().get(ATTR_LABEL_WITH_ACCESS_KEY)
+            );
+        action = "";
+      }
       href = HtmlUtils.generateUrl(facesContext, action);
     } else if (COMMAND_TYPE_RESET.equals(type)) {
       href = "javascript:resetForm('" +
@@ -66,7 +78,7 @@ public class LinkRenderer extends CommandRendererBase{
       if (onclick != null) {
         writer.writeAttribute("onclick", onclick, null);
       }
-      writer.writeAttribute("title", null, ATTR_TITLE);
+      writer.writeAttribute("title", null, ATTR_TIP);
       writer.writeAttribute("target", null, ATTR_TARGET);
       if (label.getAccessKey() != null) {
         writer.writeAttribute("accesskey", label.getAccessKey(), null);

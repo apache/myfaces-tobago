@@ -479,6 +479,7 @@ label.tobago-label-disabled  {
 .tobago-toolBar-button-image {
  vertical-align: bottom;
  margin-bottom: 0px;
+ height: 15px;
 }
 
 .tobago-toolBar-button-label {

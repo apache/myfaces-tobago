@@ -12,17 +12,18 @@ import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
+import javax.faces.application.Application;
 
-public abstract class CommandTag extends TobagoBodyTag {
+public abstract class CommandTag extends TobagoTag {
 // ----------------------------------------------------------------- attributes
+
+  private String disabled;
 
   private String action;
   private String actionListener;
 
-  private String commandName;
   private String type;
 
-  private String defaultCommand;
   private String immediate;
 
 // ----------------------------------------------------------- business methods
@@ -35,30 +36,51 @@ public abstract class CommandTag extends TobagoBodyTag {
     UICommand command = (UICommand) component;
     super.setProperties(component);
 
-   ComponentUtil.setStringProperty(component, ATTR_COMMAND_NAME, commandName, getIterationHelper());
+   ComponentUtil.setBooleanProperty(component, ATTR_DISABLED, disabled, getIterationHelper());
    ComponentUtil.setStringProperty(component, ATTR_TYPE, type, getIterationHelper());
-   ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand, getIterationHelper());
+//   ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand, getIterationHelper());
    ComponentUtil.setBooleanProperty(component, ATTR_IMMEDIATE, immediate, getIterationHelper());
+
+
+
+    String commandType;
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final Application application = facesContext.getApplication();
+    if (type != null && isValueReference(type)) {
+         commandType = (String)
+             application.createValueBinding(type).getValue(facesContext);
+    }
+    else {
+      commandType = type;
+    }
+    if (commandType != null &&
+        (commandType.equals(COMMAND_TYPE_NAVIGATE)
+        || commandType.equals(COMMAND_TYPE_RESET)
+        || commandType.equals(COMMAND_TYPE_SCRIPT))) {
+     ComponentUtil.setStringProperty(component, ATTR_ACTION_STRING, action, getIterationHelper());
+    }
+    else {
+      if (action != null) {
+        if (isValueReference(action)) {
+          MethodBinding binding = application.createMethodBinding(action, null);
+          ((UICommand)component).setAction(binding);
+        } else {
+          ((UICommand)component).setAction(new ConstantMethodBinding(action));
+        }
+      }
+    }
+
+
 
     if (actionListener != null) {
       if (isValueReference(actionListener)) {
         Class arguments[] = {javax.faces.event.ActionEvent.class};
         MethodBinding binding
-            = FacesContext.getCurrentInstance().getApplication().createMethodBinding(actionListener, arguments);
+            = application.createMethodBinding(actionListener, arguments);
         command.setActionListener(binding);
       } else {
         throw new IllegalArgumentException(
             "Must be a valueReference (actionListener): " + actionListener);
-      }
-    }
-    
-    if (action != null) {
-      if (isValueReference(action)) {
-        MethodBinding binding = FacesContext.getCurrentInstance().getApplication().createMethodBinding(action,
-            null);
-        command.setAction(binding);
-      } else {
-        command.setAction(new ConstantMethodBinding(action));
       }
     }
   }
@@ -67,9 +89,8 @@ public abstract class CommandTag extends TobagoBodyTag {
     super.release();
     action= null;
     actionListener= null;
-    commandName= null;
     type = null;
-    defaultCommand = null;
+    disabled = null;
     immediate = null;
   }
 
@@ -91,13 +112,6 @@ public abstract class CommandTag extends TobagoBodyTag {
     this.actionListener = actionListener;
   }
 
-  public String getCommandName() {
-    return commandName;
-  }
-
-  public void setCommandName(String commandName) {
-    this.commandName = commandName;
-  }
 
   public String getType() {
     return type;
@@ -107,20 +121,16 @@ public abstract class CommandTag extends TobagoBodyTag {
     this.type = type;
   }
 
-  public String getDefaultCommand() {
-    return defaultCommand;
-  }
-
-  public void setDefaultCommand(String defaultCommand) {
-    this.defaultCommand = defaultCommand;
-  }
-
   public String getImmediate() {
     return immediate;
   }
 
   public void setImmediate(String immediate) {
     this.immediate = immediate;
+  }
+
+  public void setDisabled(String disabled) {
+    this.disabled = disabled;
   }
 }
 
