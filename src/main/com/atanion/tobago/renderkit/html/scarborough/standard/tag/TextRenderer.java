@@ -69,6 +69,7 @@ public class TextRenderer extends RendererBase
       writer.startElement("span", component);
       writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
       writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+      writer.writeAttribute("title", null, TobagoConstants.ATTR_TITLE);
     }
     if (escape) {
       writer.writeText(text, null);
