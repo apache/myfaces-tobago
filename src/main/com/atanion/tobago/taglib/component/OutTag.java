@@ -11,7 +11,7 @@ import com.atanion.tobago.component.ComponentUtil;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIComponent;
 
-public class TextTag extends BeanTag {
+public class OutTag extends BeanTag {
 // ----------------------------------------------------------------- attributes
 
   private String escape = "true";

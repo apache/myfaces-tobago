@@ -5,7 +5,7 @@
  */
 package com.atanion.tobago.component;
 
-import com.atanion.tobago.taglib.component.TextTag;
+import com.atanion.tobago.taglib.component.OutTag;
 import com.atanion.tobago.TobagoConstants;
 
 import org.apache.commons.logging.Log;
@@ -30,7 +30,7 @@ public class BodyContentHandler {
 //  private int nextVolatileIndex;
 
 
-  private TextTag verbatimTag;
+  private OutTag verbatimTag;
 
 // ///////////////////////////////////////////// constructor
 
@@ -77,7 +77,7 @@ public class BodyContentHandler {
 
   private void prepareVerbatimTag() {
     if (verbatimTag == null) {
-      verbatimTag = new TextTag();
+      verbatimTag = new OutTag();
     } else {
       verbatimTag.release();
     }

@@ -26,8 +26,8 @@
   </listener>
 
   <tag>
-    <name>text</name>
-    <tag-class>com.atanion.tobago.taglib.component.TextTag</tag-class>
+    <name>out</name>
+    <tag-class>com.atanion.tobago.taglib.component.OutTag</tag-class>
     <body-content>JSP</body-content>
     <description>Renders a text</description>
     <attribute>

@@ -14,7 +14,7 @@ import java.io.IOException;
  * User: bommel
  * $Id$
  */
-public class TextRenderer extends RendererBase {
+public class OutRenderer extends RendererBase {
 
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {

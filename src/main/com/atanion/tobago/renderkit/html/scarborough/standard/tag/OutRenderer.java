@@ -14,7 +14,7 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
-public class TextRenderer extends RendererBase {
+public class OutRenderer extends RendererBase {
 
 // ------------------------------------------------------------------ constants
 
