@@ -28,6 +28,13 @@ public class MenuTag extends TobagoTag {
     return UIPanel.COMPONENT_TYPE;
   }
 
+
+  public void release() {
+    super.release();
+    label = null;
+    labelWithAccessKey = null;
+  }
+
   public String getLabel() {
     return label;
   }
