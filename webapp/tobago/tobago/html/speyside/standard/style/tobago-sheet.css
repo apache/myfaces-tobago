@@ -31,8 +31,8 @@
 }
 
 .tobago-sheet-row-selected {
-	background: highlight;
-	color: highlighttext;
+	background: #EBEAEA;
+	color: #000000;
 }
 
 .tobago-sheet-cell-td {
