@@ -281,10 +281,19 @@ function adjustHeaderDiv(sheetId) {
   var contentDiv = document.getElementById(sheetId + "_data_div");
   var clientWidth = contentDiv.clientWidth;
   var headerDiv = document.getElementById(sheetId + "_header_div");
-  var minWidth = contentDiv.style.width.replace(/px/, "") - 16 ; // div width - scrollbar width
+  var minWidth = contentDiv.style.width.replace(/px/, "") - getScrollbarWidth(); // div width - scrollbar width
   minWidth = Math.max(minWidth, 0); // not less than 0
   headerDiv.style.width = Math.max(clientWidth, minWidth);
   //headerDiv.style.width = clientWidth;
+}
+
+function getScrollbarWidth() {
+  if (gecko) {
+    return 16;
+  }
+  else {
+    return 17;
+  }
 }
 
 function setupHeader(sheetId) {
