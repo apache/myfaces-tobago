@@ -9,6 +9,7 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
@@ -106,6 +107,7 @@ public class TextAreaRenderer extends InputRendererBase {
     }
     writer.endElement("tr");
     writer.endElement("table");
+    HtmlRendererUtil.renderFocusId(facesContext, component);
   }
 
   private String evaluateHeight(UIComponent component) {

@@ -10,6 +10,7 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.TextBoxRendererBase;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 
@@ -120,6 +121,7 @@ public class TextBoxRenderer extends TextBoxRendererBase {
       renderMain(facesContext, input, writer);
       renderPicker(facesContext, input, picker);
     }
+    HtmlRendererUtil.renderFocusId(facesContext, component);
   }
 
 // ///////////////////////////////////////////// bean getter + setter

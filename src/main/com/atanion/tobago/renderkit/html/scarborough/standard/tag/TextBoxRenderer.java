@@ -8,6 +8,7 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.TextBoxRendererBase;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
@@ -48,7 +49,7 @@ public class TextBoxRenderer extends TextBoxRendererBase{
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component)
       throws IOException {
-
+    super.encodeEndTobago(facesContext, component);
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
     UIComponent picker = component.getFacet("picker");
     TobagoResponseWriter writer = (TobagoResponseWriter)
@@ -86,6 +87,7 @@ public class TextBoxRenderer extends TextBoxRendererBase{
       writer.endElement("tr");
       writer.endElement("table");
     }
+    HtmlRendererUtil.renderFocusId(facesContext, component);
   }
 
 // ///////////////////////////////////////////// bean getter + setter

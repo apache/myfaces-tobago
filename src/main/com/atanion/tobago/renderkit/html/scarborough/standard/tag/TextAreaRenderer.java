@@ -9,6 +9,7 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 
@@ -55,6 +56,7 @@ public class TextAreaRenderer extends InputRendererBase {
       writer.endElement("tr");
       writer.endElement("table");
     }
+    HtmlRendererUtil.renderFocusId(facesContext, component);
   }
 
 // ----------------------------------------------------------- business methods
