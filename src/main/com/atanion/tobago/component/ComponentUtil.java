@@ -293,7 +293,9 @@ public class ComponentUtil implements TobagoConstants {
         Object value = ((UISelectItem) kid).getValue();
         if (value == null) {
           UISelectItem item = (UISelectItem) kid;
-          list.add(new SelectItem(item.getItemValue(), item.getItemLabel(),
+          list.add(new SelectItem(
+              item.getItemValue() == null ? "" : item.getItemValue(),
+              item.getItemLabel(),
               item.getItemDescription()));
         } else if (value instanceof SelectItem) {
           list.add(value);
