@@ -3,9 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <f:view>
   <tobago:page title="Calendar" id="page" width="300px" >
+    <f:facet name="layout"><tobago:gridlayout /></f:facet>
     <tobago:script file="calendar.js" i18n="true" />
 
-    <tobago:groupbox>
+    <tobago:groupbox label="Calendar" >
 
       <tobago:calendar id="test1234" />
 
