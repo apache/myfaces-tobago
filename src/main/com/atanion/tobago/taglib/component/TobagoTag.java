@@ -41,8 +41,6 @@ public abstract class TobagoTag extends UIComponentTag
 
   private String height;
 
-  private String styleClass;
-
   private String hidden;
 
   private String readonly;
@@ -96,7 +94,6 @@ public abstract class TobagoTag extends UIComponentTag
     title = null;
     width = null;
     height = null;
-    styleClass = null;
     themeClass = null;
   }
 
@@ -118,7 +115,6 @@ public abstract class TobagoTag extends UIComponentTag
     ComponentUtil.setStringProperty(component, ATTR_WIDTH, width, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_HEIGHT, height, getIterationHelper());
 
-    ComponentUtil.setStringProperty(component, ATTR_STYLE_CLASS, styleClass, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_THEME_CLASS, themeClass, getIterationHelper());
   }
 
@@ -204,14 +200,6 @@ public abstract class TobagoTag extends UIComponentTag
 
   public void setReadonly(String readonly) {
     this.readonly = readonly;
-  }
-
-  public String getStyleClass() {
-    return styleClass;
-  }
-
-  public void setStyleClass(String styleClass) {
-    this.styleClass = styleClass;
   }
 
   public String getThemeClass() {

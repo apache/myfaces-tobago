@@ -13,13 +13,7 @@ import javax.faces.component.UIPanel;
 
 public class BoxTag extends TobagoBodyTag {
 
-// /////////////////////////////////////////// constants
-
-// /////////////////////////////////////////// attributes
-
-// /////////////////////////////////////////// constructors
-
-// /////////////////////////////////////////// code
+// ----------------------------------------------------------- business methods
 
   public String getComponentType() {
     return UIPanel.COMPONENT_TYPE;
@@ -28,7 +22,5 @@ public class BoxTag extends TobagoBodyTag {
   protected void provideLabel(UIComponent component) {
    ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
   }
-
-// /////////////////////////////////////////// bean getter + setter
-
 }
+
