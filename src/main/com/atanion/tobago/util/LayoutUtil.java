@@ -156,7 +156,7 @@ public class LayoutUtil {
       RenderKit renderKit = rkFactory.getRenderKit(facesContext,
           facesContext.getViewRoot().getRenderKitId());
       InputRendererBase renderer = (InputRendererBase)
-          renderKit.getRenderer(UIInput.COMPONENT_FAMILY, "TextBox");
+          renderKit.getRenderer(UIInput.COMPONENT_FAMILY, TobagoConstants.RENDERER_TYPE_IN);
       width = renderer.getLabelWidth(facesContext, component);
     } catch (Exception e) {
       if (LOG.isWarnEnabled()) {
