@@ -5,9 +5,11 @@
  */
 package com.atanion.tobago.webapp;
 
+import com.atanion.xml.XmlUtils;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
@@ -26,32 +28,43 @@ public class TobagoResponseWriter extends ResponseWriter {
   private static final Log LOG = LogFactory.getLog(TobagoResponseWriter.class);
 
   private static final Set EMPTY_TAG
-      = new HashSet(Arrays.asList(new String[]{
-        "br", "area", "link", "img", "param", "hr", "input", "col", "base",
-        "meta"}));
+      = new HashSet(
+          Arrays.asList(
+              new String[]{
+                "br", "area", "link", "img", "param", "hr", "input", "col", "base",
+                "meta"}));
 
 
 // ///////////////////////////////////////////// attribute
 
   private Writer writer;
+
   private UIComponent component;
+
   private boolean startStillOpen;
+
   private String contentType;
+
   private String characterEncoding;
+
   private Stack stack;
+
   private boolean xmlStylishEmptyTags;
+
+  private boolean insideScriptOrStyle = false;
 
 // ///////////////////////////////////////////// constructor
 
-  public TobagoResponseWriter(Writer writer, String contentType,
+  public TobagoResponseWriter(
+      Writer writer, String contentType,
       String characterEncoding) {
     this.writer = writer;
     this.stack = new Stack();
     this.contentType = contentType;
     this.characterEncoding = characterEncoding;
     if ("application/xhtml".equals(contentType)
-      || "application/xml".equals(contentType)
-      || "text/xml".equals(contentType)) {
+        || "application/xml".equals(contentType)
+        || "text/xml".equals(contentType)) {
       xmlStylishEmptyTags = true;
     }
   }
@@ -71,16 +84,18 @@ public class TobagoResponseWriter extends ResponseWriter {
         }
       } else {
         String trace = new Exception().getStackTrace()[2].toString();
-        LOG.error("Don't know what to do! " +
+        LOG.error(
+            "Don't know what to do! " +
             "Property defined, but no component to get a value. "
-          + trace.substring(trace.indexOf('(')));
+            + trace.substring(trace.indexOf('(')));
         LOG.error("value = '" + value + "'");
         LOG.error("property = '" + property + "'");
         return null;
       }
     } else {
       String trace = new Exception().getStackTrace()[2].toString();
-      LOG.error("Don't know what to do! " +
+      LOG.error(
+          "Don't know what to do! " +
           "No value and no property defined. "
           + trace.substring(trace.indexOf('(')));
       LOG.error("value = '" + value + "'");
@@ -114,15 +129,27 @@ public class TobagoResponseWriter extends ResponseWriter {
       writer.write("\n>");
       startStillOpen = false;
     }
-    write(findValue(text, property));
+    String value = findValue(text, property);
+    if (insideScriptOrStyle) {
+      write(value);
+    } else {
+      write(XmlUtils.escape(value));
+    }
   }
 
-  public void writeText(char text[], int offset, int length) throws IOException {
+  public void writeText(char text[], int offset, int length)
+      throws IOException {
     if (startStillOpen) {
       writer.write("\n>");
       startStillOpen = false;
     }
-    writer.write(text, offset, length);
+    if (insideScriptOrStyle) {
+      writer.write(text, offset, length);
+    } else {
+      writer.write(XmlUtils.escape(text.toString()).toCharArray(), offset, length);
+// fixme: not nice:     XmlUtils.escape(text.toString()).toCharArray()
+    }
+
   }
 
   public void startDocument() throws IOException {
@@ -146,11 +173,11 @@ public class TobagoResponseWriter extends ResponseWriter {
     this.component = component;
     stack.push(name);
 //    closeStartIfNecessary();
-//    char firstChar = name.charAt(0);
-//    if((firstChar == 's' || firstChar == 'S') && ("script".equalsIgnoreCase(name) || "style".equalsIgnoreCase(name)))
-//    {
-//        dontEscape = true;
-//    }
+    char firstChar = name.charAt(0);
+    if ((firstChar == 's' || firstChar == 'S')
+        && ("script".equalsIgnoreCase(name) || "style".equalsIgnoreCase(name))) {
+      insideScriptOrStyle = true;
+    }
     LOG.debug("start Element: " + name);
     if (startStillOpen) {
       writer.write("\n>");
@@ -164,12 +191,15 @@ public class TobagoResponseWriter extends ResponseWriter {
     LOG.debug("end Element: " + name);
 
     String top = (String) stack.pop();
-    if (! top.equals(name)) {
+    if (!top.equals(name)) {
       String trace = new Exception().getStackTrace()[1].toString();
-      LOG.error("Element end with name='" + name + "' doesn't "
+      LOG.error(
+          "Element end with name='" + name + "' doesn't "
           + "match with top element on the stack='" + top + "' "
           + trace.substring(trace.indexOf('(')));
     }
+
+    insideScriptOrStyle = false;
 
     if (EMPTY_TAG.contains(name)) {
       if (xmlStylishEmptyTags) {
@@ -200,7 +230,8 @@ public class TobagoResponseWriter extends ResponseWriter {
       write(comment);
     } else {
       String trace = new Exception().getStackTrace()[1].toString();
-      LOG.warn("Comment must not contain the sequence '--', comment = '"
+      LOG.warn(
+          "Comment must not contain the sequence '--', comment = '"
           + comment + "' " + trace.substring(trace.indexOf('(')));
       write(StringUtils.replace(comment, "--", "++"));
     }
@@ -209,7 +240,7 @@ public class TobagoResponseWriter extends ResponseWriter {
 
   public ResponseWriter cloneWithWriter(Writer writer) {
     return new TobagoResponseWriter(
-        writer,  getContentType(), getCharacterEncoding());
+        writer, getContentType(), getCharacterEncoding());
   }
 
   public void writeAttribute(String name, boolean on) throws IOException {
@@ -236,7 +267,7 @@ public class TobagoResponseWriter extends ResponseWriter {
       writer.write(' ');
       writer.write(name);
       writer.write("=\"");
-      writer.write(attribute);
+      writer.write(XmlUtils.escape(attribute, true));
       writer.write('\"');
     }
   }
