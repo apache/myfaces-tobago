@@ -7,8 +7,8 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UIGridLayout;
 import com.atanion.tobago.component.UIForm;
+import com.atanion.tobago.component.UIGridLayout;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.LayoutManager;
@@ -17,7 +17,6 @@ import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.renderkit.html.HtmlDefaultLayoutManager;
 import com.atanion.tobago.util.LayoutInfo;
 import com.atanion.tobago.util.LayoutUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -29,9 +28,8 @@ import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Vector;
-import java.util.Collections;
 import java.util.Map;
+import java.util.Vector;
 
 public class GridLayoutRenderer extends RendererBase
     implements LayoutManager, HeightLayoutRenderer, DirectRenderer {
@@ -50,7 +48,7 @@ public class GridLayoutRenderer extends RendererBase
     UIGridLayout layout = (UIGridLayout) component;
     String[] layoutTokens = LayoutInfo.createLayoutTokens(
         (String) layout.getAttributes().get(TobagoConstants.ATTR_ROWS));
-    final List rows = ((UIGridLayout)layout).ensureRows();
+    final List rows = layout.ensureRows();
 
     if (layoutTokens.length == 0) {
       if (LOG.isInfoEnabled()) {
