@@ -197,6 +197,12 @@ public class SheetRenderer extends RendererBase
     int footerHeight = ((Integer) component.getAttributes().get(
         TobagoConstants.ATTR_FOOTER_HEIGHT)).intValue();
 
+
+    Application application = facesContext.getApplication();
+    Sorter sorter = getSorter(component);
+    setStoredState(facesContext, component, sorter);
+    List columnList = getColumns(component);
+
     ResponseWriter writer = facesContext.getResponseWriter();
 
     writer.startElement("input", null);
@@ -212,165 +218,164 @@ public class SheetRenderer extends RendererBase
     writer.writeAttribute("class", "tobago-sheet-outher-div", null);
     writer.writeAttribute("style", sheetStyle, null);
 
-    // begin rendering header
-    writer.startElement("div", null);
-    writer.writeAttribute("id", sheetId + "_header_div", null);
-    writer.writeAttribute("class", "tobago-sheet-header-div", null);
-    writer.writeAttribute("style", headerStyle, null);
-
-    writer.startElement("table", component);
-    writer.writeAttribute("id", sheetId + "_header_table", null);
-    writer.writeAttribute("cellspacing", "0", null);
-    writer.writeAttribute("cellpadding", "0", null);
-    writer.writeAttribute("summary", "", null);
-    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_HEADER);
-    writer.writeAttribute("class", "tobago-sheet-header-table", null);
-
-
-    writer.startElement("tr", null);
-    writer.startElement("td", null);
-    writer.writeAttribute("style", "white-space: nowrap;", null);
-
-    Application application = facesContext.getApplication();
-    Sorter sorter = getSorter(component);
-    setStoredState(facesContext, component, sorter);
-
-
-    int columnCount = 0;
-    List columnList = getColumns(component);
-    for (Iterator j = columnList.iterator(); j.hasNext(); columnCount++) {
-      UIColumn column = (UIColumn) j.next();
-      String divWidth = "width: " +
-          (((Integer) columnWidths.get(columnCount)).intValue()) +
-          "px;";
-
+    boolean hideHeader = ComponentUtil.getBooleanAttribute(component,
+        TobagoConstants.ATTR_HIDE_HEADER);
+    if (! hideHeader) {
+      // begin rendering header
       writer.startElement("div", null);
-      writer.writeAttribute("id", sheetId + "_header_box_" + columnCount, null);
-      writer.writeAttribute("class", "tobago-sheet-header-box", null);
-      writer.writeAttribute("style", divWidth, null);
+      writer.writeAttribute("id", sheetId + "_header_div", null);
+      writer.writeAttribute("class", "tobago-sheet-header-div", null);
+      writer.writeAttribute("style", headerStyle, null);
+
+      writer.startElement("table", component);
+      writer.writeAttribute("id", sheetId + "_header_table", null);
+      writer.writeAttribute("cellspacing", "0", null);
+      writer.writeAttribute("cellpadding", "0", null);
+      writer.writeAttribute("summary", "", null);
+      writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_HEADER);
+      writer.writeAttribute("class", "tobago-sheet-header-table", null);
+
+
+      writer.startElement("tr", null);
+      writer.startElement("td", null);
+      writer.writeAttribute("style", "white-space: nowrap;", null);
+
+
+      int columnCount = 0;
+      for (Iterator j = columnList.iterator(); j.hasNext(); columnCount++) {
+        UIColumn column = (UIColumn) j.next();
+        String divWidth = "width: " +
+            (((Integer) columnWidths.get(columnCount)).intValue()) +
+            "px;";
+
+        writer.startElement("div", null);
+        writer.writeAttribute("id", sheetId + "_header_box_" + columnCount, null);
+        writer.writeAttribute("class", "tobago-sheet-header-box", null);
+        writer.writeAttribute("style", divWidth, null);
 
 // ############################################
 // ############################################
 
-      String sorterImage = null;
-      String sorterClass = "";
-      String sortTitle = "";
-      boolean sortable =
-          ComponentUtil.getBooleanAttribute(column, TobagoConstants.ATTR_SORTABLE);
-      if (sortable) {
-        String sorterId = Sorter.ID_PREFIX + columnCount;
-        String onclick = "submitAction('"
-            + ComponentUtil.findPage(component).getFormId(facesContext)
-            + "','" + component.getClientId(facesContext) + ":" + sorterId + "')";
-        writer.writeAttribute("onclick", onclick, null);
-        UICommand sortCommand = (UICommand)
-            application.createComponent(UICommand.COMPONENT_TYPE);
-        sortCommand.setActionListener(sorter);
-        sortCommand.setId(sorterId);
-        component.getFacets().put(sorterId ,sortCommand);
-        sortCommand.getClientId(facesContext); // this must called here to fix the ClientId
+        String sorterImage = null;
+        String sorterClass = "";
+        String sortTitle = "";
+        boolean sortable =
+            ComponentUtil.getBooleanAttribute(column, TobagoConstants.ATTR_SORTABLE);
+        if (sortable) {
+          String sorterId = Sorter.ID_PREFIX + columnCount;
+          String onclick = "submitAction('"
+              + ComponentUtil.findPage(component).getFormId(facesContext)
+              + "','" + component.getClientId(facesContext) + ":" + sorterId + "')";
+          writer.writeAttribute("onclick", onclick, null);
+          UICommand sortCommand = (UICommand)
+              application.createComponent(UICommand.COMPONENT_TYPE);
+          sortCommand.setActionListener(sorter);
+          sortCommand.setId(sorterId);
+          component.getFacets().put(sorterId ,sortCommand);
+          sortCommand.getClientId(facesContext); // this must called here to fix the ClientId
 
-        writer.writeAttribute("title",
-            TobagoResource.getProperty(facesContext, "tobago", "sheetTipSorting"),
-            null);
+          writer.writeAttribute("title",
+              TobagoResource.getProperty(facesContext, "tobago", "sheetTipSorting"),
+              null);
 
-        if (sorter.getColumn() == columnCount) {
-          if (sorter.isAscending()) {
-            sorterImage = ascending;
-            sortTitle = TobagoResource.getProperty(facesContext,
-                "tobago", "sheetAscending");
+          if (sorter.getColumn() == columnCount) {
+            if (sorter.isAscending()) {
+              sorterImage = ascending;
+              sortTitle = TobagoResource.getProperty(facesContext,
+                  "tobago", "sheetAscending");
+            }
+            else {
+              sorterImage = descending;
+              sortTitle = TobagoResource.getProperty(facesContext,
+                  "tobago", "sheetDescending");
+            }
           }
-          else {
-            sorterImage = descending;
-            sortTitle = TobagoResource.getProperty(facesContext,
-                "tobago", "sheetDescending");
-          }
+          sorterClass = " tobago-sheet-header-sortable";
         }
-        sorterClass = " tobago-sheet-header-sortable";
-      }
 
 // ############################################
 // ############################################
 
-      String align
-          = (String) column.getAttributes().get(TobagoConstants.ATTR_ALIGN);
+        String align
+            = (String) column.getAttributes().get(TobagoConstants.ATTR_ALIGN);
 
-      writer.startElement("div", null);
-      writer.writeAttribute("id", sheetId + "_header_outher_" + columnCount,
-          null);
-      writer.writeAttribute("class", "tobago-sheet-header" + sorterClass, null);
-      if (align != null) {
-        writer.writeAttribute("style", "text-align: " + align + ";", null);
-      }
+        writer.startElement("div", null);
+        writer.writeAttribute("id", sheetId + "_header_outher_" + columnCount,
+            null);
+        writer.writeAttribute("class", "tobago-sheet-header" + sorterClass, null);
+        if (align != null) {
+          writer.writeAttribute("style", "text-align: " + align + ";", null);
+        }
 
 
-      String label = (String) column.getAttributes().get(
-          TobagoConstants.ATTR_LABEL);
-      if (label != null) {
-        writer.writeText(label, null);
-        if (sorter.getColumn() == columnCount && "right".equals(align) ) {
+        String label = (String) column.getAttributes().get(
+            TobagoConstants.ATTR_LABEL);
+        if (label != null) {
+          writer.writeText(label, null);
+          if (sorter.getColumn() == columnCount && "right".equals(align) ) {
+            writer.startElement("img", null);
+            writer.writeAttribute("src", image1x1, null);
+            writer.writeAttribute("alt", "", null);
+            writer.writeAttribute("width",
+                Integer.toString(getAscendingMarkerWidth(facesContext, component)),
+                null);
+            writer.writeAttribute("height", "1", null);
+            writer.endElement("img");
+          }
+        } else {
           writer.startElement("img", null);
           writer.writeAttribute("src", image1x1, null);
           writer.writeAttribute("alt", "", null);
-          writer.writeAttribute("width",
-              Integer.toString(getAscendingMarkerWidth(facesContext, component)),
-              null);
-          writer.writeAttribute("height", "1", null);
           writer.endElement("img");
+
         }
-      } else {
-        writer.startElement("img", null);
-        writer.writeAttribute("src", image1x1, null);
-        writer.writeAttribute("alt", "", null);
-        writer.endElement("img");
+        writer.endElement("div");
+
+        writer.startElement("div", null);
+        writer.writeAttribute("id", sheetId + "_header_resizer_" + columnCount,
+            null);
+        writer.writeAttribute("class", "tobago-sheet-header-resize", null);
+        writer.write("&nbsp;");
+        writer.endElement("div");
+
+// ############################################
+// ############################################
+        if (sorterImage != null) {
+          writer.startElement("div", null);
+          writer.writeAttribute("class", "tobago-sheet-header-sort-div", null);
+          writer.writeAttribute("title", sortTitle, null);
+
+          writer.startElement("img", null);
+          writer.writeAttribute("src", sorterImage, null);
+          writer.writeAttribute("alt", "", null);
+          writer.writeAttribute("title", sortTitle, null);
+          writer.endElement("img");
+
+          writer.endElement("div");
+        }
+// ############################################
+// ############################################
+
+        writer.endElement("div");
 
       }
-      writer.endElement("div");
+      writer.startElement("div", null);
+      writer.writeAttribute("class", "tobago-sheet-header-box", null);
+      writer.writeAttribute("style", "width: " + sheetWidthString, null);
 
       writer.startElement("div", null);
-      writer.writeAttribute("id", sheetId + "_header_resizer_" + columnCount,
-          null);
-      writer.writeAttribute("class", "tobago-sheet-header-resize", null);
+      writer.writeAttribute("class", "tobago-sheet-header", null);
       writer.write("&nbsp;");
       writer.endElement("div");
 
-// ############################################
-// ############################################
-      if (sorterImage != null) {
-        writer.startElement("div", null);
-        writer.writeAttribute("class", "tobago-sheet-header-sort-div", null);
-        writer.writeAttribute("title", sortTitle, null);
-
-        writer.startElement("img", null);
-        writer.writeAttribute("src", sorterImage, null);
-        writer.writeAttribute("alt", "", null);
-        writer.writeAttribute("title", sortTitle, null);
-        writer.endElement("img");
-
-        writer.endElement("div");
-      }
-// ############################################
-// ############################################
-
       writer.endElement("div");
+      writer.endElement("td");
+      writer.endElement("tr");
+      writer.endElement("table");
+      writer.endElement("div");
+      // end rendering header
 
     }
-    writer.startElement("div", null);
-    writer.writeAttribute("class", "tobago-sheet-header-box", null);
-    writer.writeAttribute("style", "width: " + sheetWidthString, null);
-
-    writer.startElement("div", null);
-    writer.writeAttribute("class", "tobago-sheet-header", null);
-    writer.write("&nbsp;");
-    writer.endElement("div");
-
-    writer.endElement("div");
-    writer.endElement("td");
-    writer.endElement("tr");
-    writer.endElement("table");
-    writer.endElement("div");
-    // end rendering header
-
 
 
 // BEGIN RENDER BODY CONTENT
@@ -388,6 +393,10 @@ public class SheetRenderer extends RendererBase
       sheetBodyStyle = bodyStyle;
     }
     sheetBodyStyle = LayoutUtil.removeStyleAttribute(sheetBodyStyle, "height");
+
+    if (hideHeader) {
+      bodyStyle += " padding-top: 0px;";
+    }
 
     writer.startElement("div", null);
     writer.writeAttribute("id", sheetId + "_data_div", null);

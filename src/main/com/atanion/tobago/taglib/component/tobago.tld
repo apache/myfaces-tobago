@@ -454,6 +454,11 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
+      <name>hideHeader</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
       <name>pagingStart</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>

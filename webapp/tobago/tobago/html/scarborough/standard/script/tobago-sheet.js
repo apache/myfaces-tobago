@@ -6,21 +6,25 @@ var newWidth = 0;
 function initSheet(sheetId) {
   var i = 0;
   var element = document.getElementById(sheetId + "_header_div");
-  addEventListener(element, "mousemove", doResize);
-  addEventListener(element, "mouseup", endResize);
-  element = document.getElementById(sheetId + "_data_div");
-  addEventListener(element, "scroll", doScroll);
-	var resizer = document.getElementById(sheetId + "_header_resizer_" + i++ );
-	while (resizer) {
-	  addEventListener(resizer, "click", stopPropagation);
-	  addEventListener(resizer, "mousedown", beginResize);
-    resizer = document.getElementById(sheetId + "_header_resizer_" + i++ );
+  if (element) {
+    addEventListener(element, "mousemove", doResize);
+    addEventListener(element, "mouseup", endResize);
+    element = document.getElementById(sheetId + "_data_div");
+    addEventListener(element, "scroll", doScroll);
+	  var resizer = document.getElementById(sheetId + "_header_resizer_" + i++ );
+	  while (resizer) {
+	    addEventListener(resizer, "click", stopPropagation);
+	    addEventListener(resizer, "mousedown", beginResize);
+      resizer = document.getElementById(sheetId + "_header_resizer_" + i++ );
+    }
+
+    adjustHeaderDiv(sheetId);
+    adjustResizer(sheetId);
+
+    setupHeader(sheetId)
   }
 
-  adjustHeaderDiv(sheetId);
-  adjustResizer(sheetId);
   adjustScrollBars(sheetId);
-  setupHeader(sheetId)
 }
 
 
@@ -118,7 +122,7 @@ function storeSizes(sheetId) {
   }
 
   var hidden = document.getElementById(sheetId + ":widths");
-  hidden.value = widths;  
+  hidden.value = widths;
 }
 
 function adjustResizer(sheetId) {

@@ -24,6 +24,7 @@ public class SheetTag extends TobagoTag {
 
   protected String var;
   protected boolean paging = true;
+  protected boolean hideHeader;
   protected int pagingStart = 0;
   protected int pagingLength = 20;
   protected int border = 0;
@@ -46,6 +47,7 @@ public class SheetTag extends TobagoTag {
     if (data.getAttributes().get(TobagoConstants.ATTR_PAGING) == null) {
       data.getAttributes().put(TobagoConstants.ATTR_PAGING, new Boolean(paging));
     }
+    setProperty(data,TobagoConstants.ATTR_HIDE_HEADER, hideHeader);
     data.setFirst(pagingStart);
 //    if (data.getFirst() == null) {
 //      data.getAttributes().put(
@@ -87,6 +89,10 @@ public class SheetTag extends TobagoTag {
 
   public void setPaging(boolean paging) {
     this.paging = paging;
+  }
+
+  public void setHideHeader(boolean hideHeader) {
+    this.hideHeader = hideHeader;
   }
 
   public void setPagingStart(int pagingStart) {

@@ -88,6 +88,7 @@ public class TobagoConstants {
   public static final String ATTR_SCROLLBAR_HEIGHT = "scrollbarHeight";
   public static final String ATTR_SERVER_SIDE_TABS = "serverSideTab";
   public static final String ATTR_SHEET_SORTER = "sheetSorter";
+  public static final String ATTR_HIDE_HEADER = "hideHeader";
   public static final String ATTR_SIZE = "size";
   public static final String ATTR_SORTABLE = "sortable";
   public static final String ATTR_SPAN = "span";
