@@ -96,15 +96,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/commons-collections-2.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/jsf-api-1.1.jar!/" />
         </CLASSES>
         <JAVADOC>
@@ -136,6 +127,15 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/oro-2.0.8.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/commons-collections-2.1.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
