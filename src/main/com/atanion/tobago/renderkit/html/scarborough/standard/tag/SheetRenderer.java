@@ -9,6 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.taglib.component.MenuCommandTag;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.Pager;
 import com.atanion.tobago.component.Sorter;
@@ -869,7 +870,7 @@ public class SheetRenderer extends RendererBase {
     UICommand menuItem
         = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
     menuItem.setRendererType(RENDERER_TYPE_MENUCOMMAND);
-    menuItem.getAttributes().put(ATTR_MENU_TYPE, "menuItem");
+    menuItem.getAttributes().put(ATTR_MENU_TYPE, MenuCommandTag.MENU_TYPE);
     menuItem.getAttributes().put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
     menuItem.getAttributes().put(ATTR_ACTION_STRING, action);
     menuItem.getAttributes().put(ATTR_LABEL, label);
