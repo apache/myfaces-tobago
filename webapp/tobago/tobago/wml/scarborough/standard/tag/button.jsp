@@ -8,13 +8,13 @@
                        com.atanion.tobago.component.ComponentUtil,
                        org.apache.commons.logging.Log,
                        com.atanion.tobago.renderkit.RenderUtil,
-                       com.atanion.tobago.renderkit.wml.scarborough.standard.tag.ButtonRenderer,
                        javax.faces.component.UICommand,
                        com.atanion.tobago.renderkit.HtmlUtils,
                        com.atanion.util.KeyValuePair,
                        javax.faces.component.ValueHolder,
-                       javax.faces.context.FacesContext"
-%><%! private static final Log LOG = RenderUtil.getLog(ButtonRenderer.class);
+                       javax.faces.context.FacesContext,
+                       org.apache.commons.logging.LogFactory"
+%><%! private static final Log LOG = LogFactory.getLog("button.jsp");
 %><%
 
   UICommand component =  (UICommand) RenderUtil.getComponent(request);

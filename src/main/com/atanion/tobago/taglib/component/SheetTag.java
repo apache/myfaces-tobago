@@ -20,8 +20,6 @@ public class SheetTag extends TobagoTag {
 
   private static Log log = LogFactory.getLog(SheetTag.class);
 
-  public static final String LINK_BASE_IN_REQUEST = "deprecated";
-
 // ///////////////////////////////////////////// attribute
 
   protected String var;
