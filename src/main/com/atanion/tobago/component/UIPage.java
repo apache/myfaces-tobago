@@ -183,8 +183,7 @@ public class UIPage extends UIForm {
   }
 
   public PageState getPageState(FacesContext facesContext) {
-    ValueBinding stateBinding
-        = getValueBinding(TobagoConstants.ATTR_STATE_BINDING);
+    ValueBinding stateBinding = getValueBinding(TobagoConstants.ATTR_STATE);
     if (stateBinding != null) {
       PageState state = (PageState) stateBinding.getValue(facesContext);
       if (state == null) {

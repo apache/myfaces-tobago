@@ -30,7 +30,7 @@ public class PageTag extends TobagoBodyTag {
 
   private String method = "POST";
 
-  private String stateBinding;
+  private String state;
 
   private String focusId;
 
@@ -89,7 +89,7 @@ public class PageTag extends TobagoBodyTag {
     charset = null;
     doctype = "loose";
     method = "POST";
-    stateBinding = null;
+    state = null;
     focusId = null;
     label = null;
   }
@@ -103,9 +103,9 @@ public class PageTag extends TobagoBodyTag {
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
 
     // todo: check, if it is an writeable object
-    if (stateBinding != null && isValueReference(stateBinding)) {
-      ValueBinding valueBinding = ComponentUtil.createValueBinding(stateBinding, getIterationHelper());
-      component.setValueBinding(ATTR_STATE_BINDING, valueBinding);
+    if (state != null && isValueReference(state)) {
+      ValueBinding valueBinding = ComponentUtil.createValueBinding(state, getIterationHelper());
+      component.setValueBinding(ATTR_STATE, valueBinding);
     }
   }
 
@@ -123,8 +123,8 @@ public class PageTag extends TobagoBodyTag {
     this.method = method;
   }
 
-  public void setStateBinding(String stateBinding) {
-    this.stateBinding = stateBinding;
+  public void setState(String state) {
+    this.state = state;
   }
 
   public String getFocusId() {
