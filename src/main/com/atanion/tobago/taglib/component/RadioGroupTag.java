@@ -15,7 +15,7 @@ public class RadioGroupTag extends SingleSelectTag{
 
 // /////////////////////////////////////////// attributes
 
-  String renderRange;
+  private String renderRange;
 
 // /////////////////////////////////////////// constructors
 
