@@ -13,7 +13,7 @@ function getSubitemContainerBorderWidthSum() {
 function getItemHeight(menu) {
   if (menu && menu.level == 1) {
     if (menu.parent.popup) {
-      if (menu.parent.popup == "ToolbarButton") {
+      if (menu.parent.popup == "ToolBarButton") {
         return 18;
       }
       else if (menu.parent.popup == "SheetSelector") {

@@ -291,7 +291,7 @@ public class LayoutUtil {
 
   public static String replaceStyleAttribute(String style, String name,
       String value) {
-    style = removeStyleAttribute(style, name);
+    style = removeStyleAttribute(style != null ? style : "", name);
     return style + " " + name + ": " + value + ";";
   }
 

@@ -45,10 +45,10 @@ textarea.tobago-richTextEditor-body {
 .tobago-toolBar-default {
   height: 31px;
 }
-
+/*
 .tobago-toolBar-div-inner {
  height: 27px;
-}
+}*/
 
 .tobago-toolBar-button-image {
   margin-bottom: 0px;
@@ -62,7 +62,6 @@ textarea.tobago-richTextEditor-body {
 }
 
 .tobago-toolBar-button-menu {
-  top:-5px;
 }
 
 a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:active.tobago-toolBar-button-link {

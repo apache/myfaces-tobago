@@ -1972,6 +1972,20 @@
         in a backing bean
       </description>
     </attribute>
+    <attribute>
+      <name>labelPosition</name>
+      <description>
+        Position of the button label, possible values are: right, bottom, off.
+        Default is bottom. If toolbar is facet of box: bottom is changed to right! 
+      </description>
+    </attribute>
+    <attribute>
+      <name>iconSize</name>
+      <description>
+        Size of button images, possible values are: small, big, off.
+        Default is small
+      </description>
+    </attribute>
   </tag>
 
   <tag>

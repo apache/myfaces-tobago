@@ -734,7 +734,7 @@ function getPopupMenuWidth() {
 }
 
 function getPopupImageTop(popup) {
-  if (popup == "ToolbarButton") {
+  if (popup == "ToolBarButton") {
     return "2px";
   }
   else if (popup == "SheetSelector") {

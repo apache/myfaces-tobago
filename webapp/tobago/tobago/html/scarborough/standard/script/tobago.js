@@ -275,7 +275,7 @@ function addImageSources(id, normal, disabled, hover) {
 }
 
 function getTobagoImageSources(id) {
-  for (var i = 0; i < tobagoImageSources.length ; i++) {
+  for (var i = 0; tobagoImageSources && i < tobagoImageSources.length ; i++) {
     if (tobagoImageSources[i][0] == id) {
       return tobagoImageSources[i];
     }
@@ -297,16 +297,36 @@ function tobagoImageMouseout(id) {
   }
 }
 
-function tobagoToolbarMousesover(element, className, imageId) {
+function tobagoToolbarMousesoverOld(element, className, imageId) {
   addCssClass(element, className);
   tobagoImageMouseover(imageId);
   //PrintDebug("MouseOver element.className : '" + element.className + "'");
 }
 
-function tobagoToolbarMousesout(element, className, imageId) {
+function tobagoToolbarMousesoutOld(element, className, imageId) {
   removeCssClass(element, className);
   tobagoImageMouseout(imageId);
   //PrintDebug("MouseOut  element.className : '" + element.className + "'");
+}
+
+function tobagoToolbarMousesover(element, className, imageId) {
+  addCssClass(findTableElement(element), className);
+  tobagoImageMouseover(imageId);
+  //PrintDebug("MouseOver element.className : '" + element.className + "'");
+}
+
+function tobagoToolbarMousesout(element, className, imageId) {
+
+  removeCssClass(findTableElement(element), className);
+  tobagoImageMouseout(imageId);
+  //PrintDebug("MouseOut  element.className : '" + element.className + "'");
+}
+
+function findTableElement(element) {
+  if (element && element.nodeName != "TABLE") {
+    return findTableElement(element.parentNode);
+  }
+  return element;
 }
 
 

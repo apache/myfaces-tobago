@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.taglib.component.ToolBarTag;
 import com.atanion.tobago.renderkit.BoxRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
 import org.apache.commons.logging.Log;
@@ -16,6 +17,7 @@ import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
+import java.util.Map;
 
 public class BoxRenderer extends BoxRendererBase {
 
@@ -55,16 +57,23 @@ public class BoxRenderer extends BoxRendererBase {
       writer.writeText(labelString, null);
     }
     writer.endElement("span");
-    UIPanel toolbar = (UIPanel) component.getFacet("toolbar");
+    UIPanel toolbar = (UIPanel) component.getFacet(FACET_TOOL_BAR);
     if (toolbar != null) {
       writer.startElement("div", null);
       writer.writeAttribute("class", "tobago-box-header-toolbar-div", null);
-      writer.startElement("span", null);
-      writer.writeAttribute("class", "tobago-box-header-toolbar-span", null);
-      toolbar.getAttributes().put(
+//      writer.startElement("span", null);
+//      writer.writeAttribute("class", "tobago-box-header-toolbar-span", null);
+      final Map attributes = toolbar.getAttributes();
+      attributes.put(
           TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER, Boolean.TRUE);
+      if (ToolBarTag.LABEL_BOTTOM.equals(attributes.get(ATTR_LABEL_POSITION))) {
+        attributes.put(ATTR_LABEL_POSITION, ToolBarTag.LABEL_RIGHT);
+      }
+      if (ToolBarTag.ICON_BIG.equals(attributes.get(ATTR_ICON_SIZE))) {
+        attributes.put(ATTR_ICON_SIZE, ToolBarTag.ICON_SMALL);
+      }
       RenderUtil.encode(facesContext, toolbar);
-      writer.endElement("span");
+//      writer.endElement("span");
       writer.endElement("div");
     }
 

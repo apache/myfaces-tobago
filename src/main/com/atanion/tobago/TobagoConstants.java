@@ -43,6 +43,7 @@ public interface TobagoConstants {
   public static final String ATTR_HIDE_ROOT_JUNCTION = "hideRootJunction";
   public static final String ATTR_HOVER = "hover";
   public static final String ATTR_I18N = "i18n";
+  public static final String ATTR_ICON_SIZE = "iconSize";
   public static final String ATTR_ID_REFERENCE = "idReference";
   public static final String ATTR_IMMEDIATE = "immediate";
   public static final String ATTR_IMAGE = "image";
@@ -50,6 +51,7 @@ public interface TobagoConstants {
   public static final String ATTR_INNER_HEIGHT = "innerHeight";
   public static final String ATTR_INNER_WIDTH = "innerWidth";
   public static final String ATTR_LABEL = "label";
+  public static final String ATTR_LABEL_POSITION = "labelPosition";
   public static final String ATTR_LABEL_WITH_ACCESS_KEY = "labelWithAccessKey";
   public static final String ATTR_LAYOUT_DIRECTIVE = "layoutDirective";
   public static final String ATTR_LAYOUT_HEIGHT = "layout_height";
@@ -139,6 +141,7 @@ public interface TobagoConstants {
   public static final String FACET_PAGER_PAGE = "pagerPage";
   public static final String FACET_PAGER_ROW = "pagerRow";
   public static final String FACET_RADIO = "radio";
+  public static final String FACET_TOOL_BAR= "toolBar";
 
   // Command types
   public static final String COMMAND_TYPE_SUBMIT = "submit";
@@ -147,6 +150,7 @@ public interface TobagoConstants {
   // todo: find an abstract way, to avoid this
   public static final String COMMAND_TYPE_SCRIPT = "script";
 
+  public static final String RENDERER_TYPE_BOX = "Box";
   public static final String RENDERER_TYPE_BUTTON = "Button";
   public static final String RENDERER_TYPE_HIDDEN = "Hidden";
   public static final String RENDERER_TYPE_IN = "In";
