@@ -5,18 +5,16 @@
  */
 package com.atanion.tobago.webapp;
 
+import com.atanion.tobago.config.TobagoConfig;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.FactoryFinder;
-import javax.faces.context.FacesContext;
 import javax.faces.lifecycle.LifecycleFactory;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-
-import com.atanion.tobago.config.TobagoConfig;
 
 /**
  * Workaround: Weblogic 8.1 calls the ContextListeners after calling
@@ -26,20 +24,14 @@ import com.atanion.tobago.config.TobagoConfig;
  */
 
 public class WeblogicWorkaroundServlet extends HttpServlet {
-
-// ///////////////////////////////////////////// constant
+// ------------------------------------------------------------------ constants
 
   private static final Log LOG
       = LogFactory.getLog(WeblogicWorkaroundServlet.class);
 
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
+// ----------------------------------------------------------- business methods
 
   public void init() throws ServletException {
-
     if (LOG.isDebugEnabled()) {
       LOG.debug("1st");
     }
@@ -57,11 +49,11 @@ public class WeblogicWorkaroundServlet extends HttpServlet {
     if (LOG.isDebugEnabled()) {
       LOG.debug("2nd");
     }
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
+    TobagoConfig tobagoConfig = (TobagoConfig)
+        getServletContext().getAttribute(TobagoConfig.TOBAGO_CONFIG);
 
-    if (tobagoConfig == null) { // Tobago ConfigureListener is not called until now!
-      final String className = "com.atanion.tobago.webapp.TobagoServletContextListener";
+    if (tobagoConfig == null) { // TobagoServletContextListener is not called until now!
+      final String className = TobagoServletContextListener.class.getName();
       if (LOG.isDebugEnabled()) {
         LOG.debug("Init of " + className + " by servlet!");
       }
@@ -74,7 +66,6 @@ public class WeblogicWorkaroundServlet extends HttpServlet {
   }
 
   private void callInit(String className) {
-
     try {
       Class aClass = Class.forName(className);
       ServletContextListener listener = (ServletContextListener)
@@ -85,7 +76,5 @@ public class WeblogicWorkaroundServlet extends HttpServlet {
       LOG.error("", e);
     }
   }
-
-// ///////////////////////////////////////////// bean getter + setter
-
 }
+
