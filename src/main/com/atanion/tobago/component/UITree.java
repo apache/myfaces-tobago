@@ -5,7 +5,6 @@
  */
 package com.atanion.tobago.component;
 
-import com.atanion.tobago.util.TreeState;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

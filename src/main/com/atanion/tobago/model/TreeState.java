@@ -3,7 +3,7 @@
  * All rights reserved. Created 05.02.2003 09:25:31.
  * $Id$
  */
-package com.atanion.tobago.util;
+package com.atanion.tobago.model;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -11,8 +11,8 @@ import org.apache.commons.logging.LogFactory;
 import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Manages the state on a Tree:<br />

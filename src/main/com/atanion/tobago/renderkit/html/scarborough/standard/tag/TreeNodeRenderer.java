@@ -6,12 +6,12 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.model.TreeState;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UITree;
 import com.atanion.tobago.component.UITreeNode;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.util.TreeState;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

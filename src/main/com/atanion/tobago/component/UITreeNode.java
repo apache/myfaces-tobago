@@ -6,7 +6,7 @@
 package com.atanion.tobago.component;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.util.TreeState;
+import com.atanion.tobago.model.TreeState;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;

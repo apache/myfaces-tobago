@@ -8,7 +8,7 @@ package com.atanion.tobago.event;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.UITree;
 import com.atanion.tobago.context.TobagoResource;
-import com.atanion.tobago.util.TreeState;
+import com.atanion.tobago.model.TreeState;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
