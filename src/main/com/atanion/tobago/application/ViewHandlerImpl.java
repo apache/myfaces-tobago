@@ -235,6 +235,7 @@ public class ViewHandlerImpl extends ViewHandler {
         response.setContentType("application/octet-stream");
         ServletResponse servletResponse = (ServletResponse)
             facesContext.getExternalContext().getResponse();
+        LOG.debug("fo buffer: " + buffer.toString());
         fo2Pdf(servletResponse, buffer);
       }
     } catch (Exception e) {
