@@ -40,7 +40,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
       UIComponent uiComponent) throws IOException {
 
     UISelectOne component = (UISelectOne)uiComponent;
-    List items = ComponentUtil.getSelectItems(component);
+    List<SelectItem> items = ComponentUtil.getSelectItems(component);
 
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
@@ -84,29 +84,20 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     }
 
     Object value = component.getValue();
-    for (Iterator i = items.iterator(); i.hasNext(); ) {
-      Object itemObject = i.next();
+    for (SelectItem item : items) {
       if (LOG.isDebugEnabled()) {
-        LOG.debug("itemObject = '" + itemObject + "'");
+        LOG.debug("item value = '" + item.getValue() + "'");
+        LOG.debug("item class = '" + item.getClass().getName() + "'");
+        LOG.debug("item label = '" + item.getLabel() + "'");
+        LOG.debug("item descr = '" + item.getDescription() + "'");
       }
-      if (itemObject instanceof SelectItem) {
-        SelectItem item = (SelectItem) itemObject;
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("item value = '" + item.getValue() + "'");
-          LOG.debug("item class = '" + item.getClass().getName() + "'");
-          LOG.debug("item label = '" + item.getLabel() + "'");
-          LOG.debug("item descr = '" + item.getDescription() + "'");
-        }
-        writer.startElement("option", null);
-        writer.writeAttribute("value", item.getValue(), null);
-        if (item.getValue().equals(value)) {
-          writer.writeAttribute("selected", "selected", null);
-        }
-        writer.writeText(item.getLabel(), null);
-        writer.endElement("option");
-      } else {
-        LOG.error("Type not implemented! fixme"); // fixme
+      writer.startElement("option", null);
+      writer.writeAttribute("value", item.getValue(), null);
+      if (item.getValue().equals(value)) {
+        writer.writeAttribute("selected", "selected", null);
       }
+      writer.writeText(item.getLabel(), null);
+      writer.endElement("option");
     }
     writer.endElement("select");
 

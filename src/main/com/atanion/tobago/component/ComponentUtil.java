@@ -5,16 +5,14 @@
  */
 package com.atanion.tobago.component;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.taglib.component.ForEachTag;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.taglib.component.ForEachTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.FactoryFinder;
-import javax.faces.webapp.UIComponentTag;
-import javax.faces.el.ValueBinding;
 import javax.faces.component.EditableValueHolder;
+import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.component.UIGraphic;
@@ -23,13 +21,14 @@ import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectItems;
 import javax.faces.component.ValueHolder;
-import javax.faces.component.UIColumn;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionListener;
 import javax.faces.model.SelectItem;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
+import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -37,18 +36,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-// todo: java 1.5 use static import for TobagoConstants
-public class ComponentUtil implements TobagoConstants {
+import static com.atanion.tobago.TobagoConstants.*;
 
-// ///////////////////////////////////////////// constant
+public class ComponentUtil {
 
   private static final Log LOG = LogFactory.getLog(ComponentUtil.class);
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
 
   public static UIPage findPage(UIComponent component) {
     while (component != null) {
@@ -279,9 +271,9 @@ public class ComponentUtil implements TobagoConstants {
     return currentValue;
   }
 
-  public static List getSelectItems(UIComponent component) {
+  public static List<SelectItem> getSelectItems(UIComponent component) {
 
-    ArrayList list = new ArrayList();
+    ArrayList<SelectItem> list = new ArrayList<SelectItem>();
 
     for (Iterator kids = component.getChildren().iterator(); kids.hasNext();) {
       UIComponent kid = (UIComponent) kids.next();
@@ -298,7 +290,7 @@ public class ComponentUtil implements TobagoConstants {
               item.getItemLabel(),
               item.getItemDescription()));
         } else if (value instanceof SelectItem) {
-          list.add(value);
+          list.add((SelectItem)value);
         } else {
           throw new IllegalArgumentException("TYPE ERROR: value NOT instanceof SelectItem. type=" +
               value.getClass().getName());
@@ -317,7 +309,7 @@ public class ComponentUtil implements TobagoConstants {
           }
           continue;
         } else if (value instanceof SelectItem) {
-          list.add(value);
+          list.add((SelectItem)value);
         } else if (value instanceof SelectItem[]) {
           SelectItem items[] = (SelectItem[]) value;
           for (int i = 0; i < items.length; i++) {
@@ -325,7 +317,7 @@ public class ComponentUtil implements TobagoConstants {
           }
         } else if (value instanceof Collection) {
           for (Iterator elements = ((Collection) value).iterator();
-              elements.hasNext(); list.add(elements.next())) {
+              elements.hasNext(); list.add((SelectItem)elements.next())) {
           }
         } else if (value instanceof Map) {
           for (Iterator keys = ((Map) value).keySet().iterator();

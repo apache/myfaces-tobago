@@ -350,7 +350,7 @@ public class MenuBarRenderer extends RendererBase {
       throws IOException {
     onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
         facesContext);
-    List items = ComponentUtil.getSelectItems(command);
+    List<SelectItem> items = ComponentUtil.getSelectItems(command);
 
     LabelWithAccessKey label = new LabelWithAccessKey(command);
     String image = null;
@@ -408,15 +408,13 @@ public class MenuBarRenderer extends RendererBase {
     }
   }
 
-  public static boolean hasSelectedValue(List items, Object value) {
-    boolean selected = false;
-    for (Iterator i = items.iterator(); i.hasNext();) {
-      if (((SelectItem) i.next()).getValue().equals(value)) {
-        selected = true;
-        break;
+  private boolean hasSelectedValue(List<SelectItem> items, Object value) {
+    for (SelectItem item : items) {
+      if (item.getValue().equals(value)) {
+        return true;
       }
     }
-    return selected;
+    return false;
   }
 
   private void addMenuItem(StringBuffer sb, String var,

@@ -52,16 +52,16 @@ public class SelectReferenceRenderer extends RendererBase{
 
 
 
-  public static List getItemsToRender(UISelectOne component) {
+  public static List<SelectItem> getItemsToRender(UISelectOne component) {
     return getItems(component);
   }
-  public static List getItemsToRender(UISelectMany component) {
+  public static List<SelectItem> getItemsToRender(UISelectMany component) {
     return getItems(component);
   }
   
-  private static List getItems(UIInput component) {
+  private static List<SelectItem> getItems(UIInput component) {
 
-    List selectItems = ComponentUtil.getSelectItems(component);
+    List<SelectItem> selectItems = ComponentUtil.getSelectItems(component);
 
     String renderRange = (String)
         component.getAttributes().get(TobagoConstants.ATTR_RENDER_RANGE_EXTERN);
@@ -74,7 +74,7 @@ public class SelectReferenceRenderer extends RendererBase{
     }
 
     int[] indices = RangeParser.getIndices(renderRange);
-    List items = new ArrayList(indices.length);
+    List<SelectItem> items = new ArrayList<SelectItem>(indices.length);
 
     if (selectItems.size() != 0) {
       for (int i = 0; i < indices.length; i++) {

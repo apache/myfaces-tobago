@@ -73,7 +73,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
     UISelectMany component = (UISelectMany) uiComponent;
 
-    List items = ComponentUtil.getSelectItems(component);
+    List<SelectItem> items = ComponentUtil.getSelectItems(component);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("items.size() = '" + items.size() + "'");
@@ -139,8 +139,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     if (LOG.isDebugEnabled()) {
       LOG.debug("values = '" + values + "'");
     }
-    for (Iterator i = items.iterator(); i.hasNext(); ) {
-      SelectItem item = (SelectItem) i.next();
+    for (SelectItem item : items) {
 
       writer.startElement("option", null);
       writer.writeAttribute("value", item.getValue(), null);

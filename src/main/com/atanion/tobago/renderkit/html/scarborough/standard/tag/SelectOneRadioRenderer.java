@@ -53,7 +53,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       }
     }
 
-    List items = SelectReferenceRenderer.getItemsToRender(component);
+    List<SelectItem> items = SelectReferenceRenderer.getItemsToRender(component);
 
     boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
 
@@ -69,9 +69,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     }
 
     Object value = component.getValue();
-    for (Iterator i = items.iterator(); i.hasNext(); ) {
-      SelectItem item = (SelectItem) i.next();
-
+    for (SelectItem item : items) {
 
       if (! inline) {
         writer.startElement("tr", null);
@@ -132,7 +130,8 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
   }
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    List items = SelectReferenceRenderer.getItemsToRender((UISelectOne) component);
+    List<SelectItem> items
+        = SelectReferenceRenderer.getItemsToRender((UISelectOne) component);
     return items.size() * super.getFixedHeight(facesContext, component);
   }
 // ///////////////////////////////////////////// bean getter + setter

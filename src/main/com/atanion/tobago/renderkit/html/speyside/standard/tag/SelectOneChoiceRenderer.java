@@ -20,7 +20,6 @@ import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 public class SelectOneChoiceRenderer extends SelectOneRendererBase {
@@ -45,7 +44,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     UISelectOne component = (UISelectOne)uiComponent;
 
     boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
-    List items = ComponentUtil.getSelectItems(component);
+    List<SelectItem> items = ComponentUtil.getSelectItems(component);
 
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
@@ -106,23 +105,14 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     }
 
     Object value = component.getValue();
-    for (Iterator i = items.iterator(); i.hasNext(); ) {
-      Object itemObject = i.next();
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("itemObject = '" + itemObject + "'");
+    for (SelectItem item : items) {
+      writer.startElement("option", null);
+      writer.writeAttribute("value", item.getValue(), null);
+      if (item.getValue().equals(value)) {
+        writer.writeAttribute("selected", "selected", null);
       }
-      if (itemObject instanceof SelectItem) {
-        SelectItem item = (SelectItem) itemObject;
-        writer.startElement("option", null);
-        writer.writeAttribute("value", item.getValue(), null);
-        if (item.getValue().equals(value)) {
-          writer.writeAttribute("selected", "selected", null);
-        }
-        writer.writeText(item.getLabel(), null);
-        writer.endElement("option");
-      } else {
-        LOG.error("Type not implemented! fixme"); // fixme
-      }
+      writer.writeText(item.getLabel(), null);
+      writer.endElement("option");
     }
     writer.endElement("select");
 
