@@ -335,12 +335,11 @@ label.tobago-label-default  {
 /* text -------------------------------------------------------------------- */
 
 .tobago-text-theme-strong {
-  font-weight: bold;
-  background: green;
+  font: bold 12px arial, helvetica, sans-serif;
 }
 
 .tobago-text-theme-deleted {
-  background: red;
+  text-decoration: line-through;
 }
 
 /* textarea ---------------------------------------------------------------- */

@@ -311,6 +311,10 @@ label.tobago-label-disabled  {
  font: 12px arial, helvetica, sans-serif;
 }
 
+.tobago-text-theme-strong {
+  font: bold 12px arial, helvetica, sans-serif;
+}
+
 /* textarea ---------------------------------------------------------------- */
 
 .tobago-textarea-default  {

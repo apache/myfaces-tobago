@@ -66,6 +66,7 @@ public class LinkRenderer extends CommandRendererBase
       if (onclick != null) {
         writer.writeAttribute("onclick", onclick, null);
       }
+      writer.writeAttribute("title", null, TobagoConstants.ATTR_TITLE);
       writer.writeAttribute("target", null, TobagoConstants.ATTR_TARGET);
       writer.writeText("", null); // force closing the start tag
     }
