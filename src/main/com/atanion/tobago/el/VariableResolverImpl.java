@@ -26,11 +26,10 @@ public class VariableResolverImpl extends VariableResolver {
 
   public Object resolveVariable(FacesContext facesContext, String name)
       throws EvaluationException {
-    LOG.info("resolving: " + name);
 
     if ("user".equals(name)) {
-      // todo: optimize me: not a new object every time
-      // todo: but keep "thread save"
+      // todo: optimize me: put it in request?
+      LOG.debug("resolving: " + name);
       if (userWrapper == null) {
         userWrapper = new UserWrapper();
       }
