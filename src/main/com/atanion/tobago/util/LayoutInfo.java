@@ -5,9 +5,13 @@
   */
 package com.atanion.tobago.util;
 
+import com.atanion.tobago.component.UIGridLayout;
+import com.atanion.tobago.renderkit.html.scarborough.standard.tag.GridLayoutRenderer;
+
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 
+import javax.faces.component.UIComponent;
 import java.util.Vector;
 import java.util.StringTokenizer;
 import java.util.List;
@@ -16,6 +20,11 @@ public class LayoutInfo{
 
   private static final int FREE = -1;
   private static final Log log = LogFactory.getLog(LayoutInfo.class);
+  public static final int HIDE = -2;
+  public static final String HIDE_CELL = "hide";
+
+
+
 
   private int cellsLeft;
   private int spaceLeft;
@@ -23,21 +32,28 @@ public class LayoutInfo{
   private String[] layoutTokens;
 
   public LayoutInfo(int cellCount, int space, String layout) {
-    if (log.isDebugEnabled()) {
-      log.debug("new LayoutInfo(count=" + cellCount + ", space=" + space
-          + ", layout=\"" + layout + "\")");
-    }
+    this(cellCount, space, createLayoutTokens(layout));
+  }
 
-    layoutTokens = createLayoutTokens(layout);
+  public LayoutInfo(int cellCount, int space, String[] layoutTokens) {
+
+    this.layoutTokens = layoutTokens;
     if (layoutTokens.length == cellCount) {
       this.cellsLeft = cellCount;
       this.spaceLeft = space;
       createAndInitSpaces(cellCount, FREE);
     } else if (layoutTokens.length > 0) {
       if (log.isWarnEnabled()) {
+        StringBuffer layout = new StringBuffer();
+        for (int i = 0; i < layoutTokens.length; i++) {
+          if (layout.length() > 0) {
+            layout.append(";");
+          }
+          layout.append(layoutTokens[i]);
+        }
         log.warn("layoutTokens.length != cellCount : "
             + layoutTokens.length + " != " + cellCount + ". " +
-                "layout='" + layout + "'");
+                "layout='" + layout.toString() + "'");
       }
       layoutTokens = new String[0];
     }
@@ -92,7 +108,7 @@ public class LayoutInfo{
   }
 
 
-  private String[] createLayoutTokens(String columnLayout) {
+  public static String[] createLayoutTokens(String columnLayout) {
     Vector tokens = new Vector();
     if (columnLayout != null) {
       StringTokenizer tokenizer = new StringTokenizer(columnLayout, ";");
@@ -187,6 +203,22 @@ public class LayoutInfo{
 
 
 
+  public void parseHides(int padding) {
+    String[] tokens = getLayoutTokens();
+    for (int i = 0; i < tokens.length; i++) {
+      if (tokens[i].equals(HIDE_CELL)) {
+          update(0, i);
+          spaces[i] = HIDE;
+        if (i != 0) {
+          spaceLeft += padding;
+        }
+        if (log.isDebugEnabled()) {
+            log.debug("set column " + i + " from " + tokens[i]
+                + " to hide " );
+          }
+      }
+    }
+  }
 
   public void parsePixels() {
     String[] tokens = getLayoutTokens();
@@ -306,8 +338,14 @@ public class LayoutInfo{
   }
 
   public void parseColumnLayout(double space){
+    parseColumnLayout(space,  0);
+  }
+
+  public void parseColumnLayout(
+      double space, int padding){
 
     if (hasLayoutTokens()) {
+      parseHides(padding);
       parsePixels();
       parsePercent(space);
       parsePortions();

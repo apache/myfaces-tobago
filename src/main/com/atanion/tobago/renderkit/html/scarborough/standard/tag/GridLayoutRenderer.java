@@ -8,6 +8,7 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIGridLayout;
+import com.atanion.tobago.component.UIForm;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.LayoutManager;
@@ -29,6 +30,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
+import java.util.Collections;
 
 public class GridLayoutRenderer extends RendererBase
     implements LayoutManager, HeightLayoutRenderer, DirectRenderer {
@@ -42,6 +44,46 @@ public class GridLayoutRenderer extends RendererBase
 // ///////////////////////////////////////////// constructor
 
 // ///////////////////////////////////////////// code
+
+  public int getFixedHeight(FacesContext facesContext, UIComponent component) {
+    UIGridLayout layout = (UIGridLayout) component;
+    String[] layoutTokens = LayoutInfo.createLayoutTokens(
+        (String) layout.getAttributes().get(TobagoConstants.ATTR_ROW_LAYOUT));
+    final List rows = ((UIGridLayout)layout).ensureRows();
+
+    if (layoutTokens.length == 0) {
+      if (LOG.isInfoEnabled()) {
+        LOG.info("No rowLayout found using 'fixed' for all rows!");
+      }
+      layoutTokens = new String[rows.size()];
+      for (int i = 0; i < layoutTokens.length; i++) {
+        layoutTokens[i] = "fixed";
+      }
+    }
+
+
+    int height = 0;
+    for (int i = 0; i < layoutTokens.length; i++) {
+      height += getCellPadding(facesContext, layout,  i);
+      String token = layoutTokens[i];
+      if (token.matches("\\d+px")) {
+        height += Integer.parseInt(token.replaceAll("\\D", ""));
+      }
+      else if (token.equals("fixed")) {
+        height += getMaxFixedHeight((UIGridLayout.Row) rows.get(i), facesContext);
+      }
+    }
+
+    RendererBase containerRenderer =
+        ComponentUtil.getRenderer(layout.getParent(), facesContext);
+    if (containerRenderer instanceof HeightLayoutRenderer) {
+      height += ((HeightLayoutRenderer)containerRenderer).getHeaderHeight(
+          facesContext, layout.getParent());
+    }
+    height += containerRenderer.getPaddingHeight(facesContext, layout.getParent());
+
+    return height;
+  }
 
   public void encodeDirectEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
@@ -63,10 +105,13 @@ public class GridLayoutRenderer extends RendererBase
       writer.startElement("colgroup", null);
       for (int i = 0; i < columnWidths.size(); i++) {
         int cellWidth
-            = ((Integer)columnWidths.get(i)).intValue() + getCellPadding(facesContext, layout, i);
-        writer.startElement("col", null);
-        writer.writeAttribute("width", Integer.toString(cellWidth), null);
-        writer.endElement("col");
+            = ((Integer)columnWidths.get(i)).intValue();
+        if (cellWidth != LayoutInfo.HIDE) {
+          cellWidth += getCellPadding(facesContext, layout, i);
+          writer.startElement("col", null);
+          writer.writeAttribute("width", Integer.toString(cellWidth), null);
+          writer.endElement("col");
+        }
       }
       writer.endElement("colgroup");
     }
@@ -75,78 +120,88 @@ public class GridLayoutRenderer extends RendererBase
     List rows = layout.ensureRows();
     for (int rowIndex = 0; rowIndex < rows.size(); rowIndex++) {
       UIGridLayout.Row row = (UIGridLayout.Row) rows.get(rowIndex);
+      if (! row.isHidden()) {
+        writer.startElement("tr", null);
 
-      writer.startElement("tr", null);
+        List cells = row.getElements();
+        for (int columnIndex = 0; columnIndex < cells.size(); columnIndex++) {
+          if (((Integer)columnWidths.get(columnIndex)).intValue() != LayoutInfo.HIDE) {
 
-      List cells = row.getElements();
-      for (int columnIndex = 0; columnIndex < cells.size(); columnIndex++) {
-        Object object = cells.get(columnIndex);
-        if (object.equals(UIGridLayout.USED)) {
-          continue; // ignore the markers UIGridLayout.Used
-        }
-        if (object.equals(UIGridLayout.FREE)) {
-          LOG.warn("There are free blocks in the layout: id='" + layout.getClientId(facesContext) + "'");
-          continue;
-        }
-        UIComponent cell = (UIComponent) object;
+            Object object = cells.get(columnIndex);
+            if (object.toString().equals(UIGridLayout.USED)) {
+              continue; // ignore the markers UIGridLayout.Used
+            }
+            if (object.equals(UIGridLayout.FREE)) {
+              LOG.warn("There are free blocks in the layout: id='"
+                  + layout.getClientId(facesContext)
+                  + "'");
+              continue;
+            }
+            UIComponent cell = (UIComponent) object;
 
-        int spanX = UIGridLayout.getSpanX(cell);
-        int spanY = UIGridLayout.getSpanY(cell);
-        String cssClasses = (String) layout.getAttributes().get(TobagoConstants.ATTR_STYLE_CLASS);
-        cssClasses = (cssClasses == null ? "" : cssClasses);
-        String tdClasses = "";
-        if (rowIndex == 0) {
-          tdClasses += " tobago-gridlayout-first-row";
-        }
-        if (columnIndex == 0) {
-          tdClasses += " tobago-gridlayout-first-column";
-        }
-        tdClasses = cssClasses + tdClasses;
+            int spanX = UIGridLayout.getSpanX(cell);
+            int spanY = UIGridLayout.getSpanY(cell);
+            String cssClasses = (String) layout.getAttributes().get(TobagoConstants.ATTR_STYLE_CLASS);
+            cssClasses = (cssClasses == null ? "" : cssClasses);
+            String tdClasses = "";
+            if (rowIndex == 0) {
+              tdClasses += " tobago-gridlayout-first-row";
+            }
+            if (columnIndex == 0) {
+              tdClasses += " tobago-gridlayout-first-column";
+            }
+            tdClasses = cssClasses + tdClasses;
 
 
+            int cellWidth = -1;
+            if (columnWidths != null) {
+              cellWidth = 0;
+              for (int i = columnIndex;
+                  i < columnIndex + spanX && i < columnWidths.size(); i++) {
+                cellWidth += ((Integer) columnWidths.get(i)).intValue()
+                    + getCellPadding(facesContext, layout, i);
+              }
+            }
 
-        int cellWidth = -1;
-        if (columnWidths != null) {
-          cellWidth = 0;
-          for (int i = columnIndex; i < columnIndex + spanX && i < columnWidths.size() ; i++) {
-            cellWidth += ((Integer)columnWidths.get(i)).intValue() + getCellPadding(facesContext, layout, i);
+
+            int cellHeight = -1;
+            try {
+              String layoutHeight = LayoutUtil.getLayoutHeight(cell);
+              if (layoutHeight != null) {
+                cellHeight
+                    = Integer.parseInt(layoutHeight.replaceAll("\\D", ""));
+              }
+            } catch (Exception e) {
+            } // ignore, use 0
+
+            int topPadding = getCellPadding(facesContext, layout, rowIndex);
+            int leftPadding = getCellPadding(facesContext, layout, columnIndex);
+            String tdstyle = "vertical-align: top; "
+                + (cellWidth != -1 ? "width: " + cellWidth + "px;" : "")
+                + (cellHeight != -1 ?
+                " height: " + (cellHeight + topPadding) + "px;" : ""
+                + "padding-top: " + topPadding + "px;"
+                + "padding-left: " + leftPadding + "px;");
+
+            writer.startElement("td", null);
+            writer.writeAttribute("class", tdClasses, null);
+            writer.writeAttribute("style", tdstyle, null);
+            if (spanX > 1) {
+              writer.writeAttribute("colspan", Integer.toString(spanX), null);
+            }
+            if (spanY > 1) {
+              writer.writeAttribute("rowspan", Integer.toString(spanY), null);
+            }
+
+            writer.writeText("", null);
+            RenderUtil.encode(facesContext, cell);
+
+            writer.endElement("td");
           }
         }
 
-
-        int cellHeight = -1;
-        try {
-          String layoutHeight = LayoutUtil.getLayoutHeight(cell);
-          if (layoutHeight != null) {
-            cellHeight = Integer.parseInt(layoutHeight.replaceAll("\\D", ""));
-          }
-        } catch (Exception e) { } // ignore, use 0
-
-        int topPadding = getCellPadding(facesContext, layout, rowIndex);
-        int leftPadding = getCellPadding(facesContext, layout, columnIndex);
-        String tdstyle = "vertical-align: top; "
-            + (cellWidth != -1 ? "width: " + cellWidth + "px;" : "")
-            + (cellHeight != -1 ?
-            " height: " + (cellHeight + topPadding) + "px;" : ""
-            + "padding-top: " + topPadding + "px;"
-            + "padding-left: " + leftPadding + "px;");
-
-        writer.startElement("td", null);
-        writer.writeAttribute("class", tdClasses, null);
-        writer.writeAttribute("style", tdstyle, null);
-        if (spanX > 1) {
-          writer.writeAttribute("colspan", Integer.toString(spanX), null);
-        }
-        if (spanY > 1) {
-          writer.writeAttribute("rowspan", Integer.toString(spanY), null);
-        }
-
-        writer.writeText("", null);
-        RenderUtil.encode(facesContext, cell);
-
-        writer.endElement("td");
+        writer.endElement("tr");
       }
-      writer.endElement("tr");
     }
     writer.endElement("table");
   }
@@ -246,32 +301,79 @@ public class GridLayoutRenderer extends RendererBase
   private void layoutWidth(Integer innerWidth, UIGridLayout layout,
       FacesContext facesContext) {
 
-    LayoutInfo layoutInfo =
-        new LayoutInfo(
-            ComponentUtil.getIntAttribute(layout,
-                TobagoConstants.ATTR_COLUMN_COUNT, 1),
-            innerWidth.intValue(),
-            (String) layout.getAttributes().get(
-                TobagoConstants.ATTR_COLUMN_LAYOUT));
+    final List rows = layout.ensureRows();
+    final int columnCount = ComponentUtil.getIntAttribute(layout,
+                    TobagoConstants.ATTR_COLUMN_COUNT, 1);
+    final String[] layoutTokens = LayoutInfo.createLayoutTokens(
+        (String) layout.getAttributes().get(TobagoConstants.ATTR_COLUMN_LAYOUT));
 
-    layoutInfo.parseColumnLayout(innerWidth.doubleValue());
+
+
+    UIGridLayout.Row row = (UIGridLayout.Row) rows.get(0);
+    final List cells = row.getElements();
+
+    for (int i = 0; i< cells.size() ; i++) {
+      Object cell = cells.get(i);
+      boolean hidden = false;
+      if (isHidden(cell)) {
+        hidden = true;
+        for (int j = 1; j < rows.size(); j++) {
+          hidden &= isHidden(((UIGridLayout.Row)rows.get(j)).getElements().get(i));
+        }
+      }
+      if (hidden) {
+        layoutTokens[i] = LayoutInfo.HIDE_CELL;
+      }
+    }
+
+
+    LayoutInfo layoutInfo =
+        new LayoutInfo(columnCount, innerWidth.intValue(), layoutTokens);
+
+    layoutInfo.parseColumnLayout(innerWidth.doubleValue(),
+        getCellSpacing(facesContext, layout));
 
     setColumnWidths(layout, layoutInfo, facesContext);
     layout.getAttributes().put(TobagoConstants.ATTR_WIDTH_LIST,
         layoutInfo.getSpaceList());
   }
 
+  private boolean isHidden(Object cell) {
+    return (cell instanceof UIComponent && !((UIComponent)cell).isRendered())
+              || (cell instanceof UIGridLayout.Marker
+                  && ! ((UIGridLayout.Marker)cell).isRendered());
+  }
+
 
   private void layoutHeight(Integer innerHeight, UIGridLayout layout,
       FacesContext facesContext) {
+
+    final List rows = layout.ensureRows();
+    final String[] layoutTokens = LayoutInfo.createLayoutTokens(
+        (String) layout.getAttributes().get(TobagoConstants.ATTR_ROW_LAYOUT));
+
+    for (int i = 0; i < rows.size(); i++) {
+      boolean hidden = true;
+      UIGridLayout.Row row = ((UIGridLayout.Row)rows.get(i));
+      List cells = row.getElements();
+      for (int j = 0; j < cells.size(); j++) {
+        hidden &= isHidden(cells.get(j));
+      }
+      row.setHidden(hidden);
+      if (hidden) {
+        layoutTokens[i] = LayoutInfo.HIDE_CELL;
+      }
+    }
+
+
     LayoutInfo layoutInfo =
-        new LayoutInfo(layout.ensureRows().size(), innerHeight.intValue(),
-            (String) layout.getAttributes().get(
-                TobagoConstants.ATTR_ROW_LAYOUT));
+        new LayoutInfo(rows.size(), innerHeight.intValue(),
+            layoutTokens);
 
     if (layoutInfo.hasLayoutTokens()) {
       parseFixedHeight(layoutInfo, layout, facesContext);
-      layoutInfo.parseColumnLayout(innerHeight.doubleValue());
+      layoutInfo.parseColumnLayout(innerHeight.doubleValue(),
+          getCellSpacing(facesContext, layout));
     }
 
     setColumnHeights(layout, layoutInfo, facesContext);
@@ -283,28 +385,35 @@ public class GridLayoutRenderer extends RendererBase
     String[] tokens = layoutInfo.getLayoutTokens();
     for (int i = 0; i < tokens.length; i++) {
       if (tokens[i].equals("fixed")) {
-        int maxHeight = 0;
+        int height = 0;
         UIGridLayout.Row row = (UIGridLayout.Row) layout.ensureRows().get(i);
-        List cells = row.getElements();
-        for (int j = 0; j < cells.size(); j++) {
-          Object object = cells.get(j);
-          if (object instanceof UIComponent) {
-            UIComponent component = (UIComponent) object;
-            RendererBase renderer = ComponentUtil.getRenderer(component,
-                facesContext);
-            if (renderer instanceof RendererBase) {
-              maxHeight =
-                  Math.max(maxHeight,
-                      renderer.getFixedHeight(facesContext, component));
-            }
-          }
-        }
-        layoutInfo.update(maxHeight, i);
+        height = getMaxFixedHeight(row, facesContext);
+        layoutInfo.update(height, i);
         if (LOG.isDebugEnabled()) {
-          LOG.debug("set column " + i + " from fixed to with " + maxHeight);
+          LOG.debug("set column " + i + " from fixed to with " + height);
         }
       }
     }
+  }
+
+  private int getMaxFixedHeight(UIGridLayout.Row row,
+      FacesContext facesContext) {
+    int maxHeight = 0;
+    List cells = row.getElements();
+    for (int j = 0; j < cells.size(); j++) {
+      Object object = cells.get(j);
+      if (object instanceof UIComponent) {
+        UIComponent component = (UIComponent) object;
+        RendererBase renderer = ComponentUtil.getRenderer(component,
+            facesContext);
+        if (renderer instanceof RendererBase) {
+          maxHeight =
+              Math.max(maxHeight,
+                  renderer.getFixedHeight(facesContext, component));
+        }
+      }
+    }
+    return maxHeight;
   }
 
   private void setColumnWidths(UIGridLayout layout, LayoutInfo layoutInfo,
@@ -364,7 +473,8 @@ public class GridLayoutRenderer extends RendererBase
               "" + cellHeight + "px");
           if (cell instanceof UIPanel
               && ComponentUtil.getBooleanAttribute(cell,
-                  TobagoConstants.ATTR_LAYOUT_DIRECTIVE)) {
+                  TobagoConstants.ATTR_LAYOUT_DIRECTIVE)
+          || cell instanceof UIForm) {
             Vector children = LayoutUtil.addChildren(new Vector(), cell);
             for (Iterator childs = children.iterator(); childs.hasNext();) {
               UIComponent component = (UIComponent) childs.next();

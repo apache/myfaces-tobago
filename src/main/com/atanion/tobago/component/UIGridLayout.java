@@ -30,7 +30,7 @@ public class UIGridLayout extends UIComponentBase {
   public static final String COMPONENT_FAMILY = "com.atanion.tobago.GridLayout";
 
   public static final Marker FREE = new Marker("free");
-  public static final Marker USED = new Marker("used");
+  public static final String USED = "used";
 
 // ///////////////////////////////////////////// attribute
 
@@ -67,14 +67,14 @@ public class UIGridLayout extends UIComponentBase {
       }
       int c = ((Row) rows.get(r)).nextFreeColumn();
       ((Row) rows.get(r)).addControl(component, spanX);
-      ((Row) rows.get(r)).fill(c + 1, c + spanX);
+      ((Row) rows.get(r)).fill(c + 1, c + spanX, component.isRendered());
 
       for (int i = r + 1; i < r + spanY; i++) {
 
         if (i == rows.size()) {
           rows.add(new Row(columnCount));
         }
-        ((Row) rows.get(i)).fill(c, c + spanX);
+        ((Row) rows.get(i)).fill(c, c + spanX, component.isRendered());
       }
     }
     getAttributes().put(TobagoConstants.ATTR_LAYOUT_ROWS, rows);
@@ -176,7 +176,9 @@ public class UIGridLayout extends UIComponentBase {
 
     private int columns;
 
-    List cells;
+    private List cells;
+
+    private boolean hidden;
 
     public Row(int columns) {
       setColumns(columns);
@@ -187,10 +189,10 @@ public class UIGridLayout extends UIComponentBase {
       int i = nextFreeColumn();
 
       cells.set(i, component);
-      fill(i + 1, i + spanX);
+      fill(i + 1, i + spanX, component.isRendered());
     }
 
-    private void fill(int start, int end) {
+    private void fill(int start, int end, boolean rendered) {
 
       if (end > columns) {
         LOG.error("Error in Jsp (end > columns). " +
@@ -208,7 +210,7 @@ public class UIGridLayout extends UIComponentBase {
       }
 
       for (int i = start; i < end; i++) {
-        cells.set(i, USED);
+        cells.set(i, new Marker(USED, rendered));
       }
     }
 
@@ -234,18 +236,37 @@ public class UIGridLayout extends UIComponentBase {
         cells.add(FREE);
       }
     }
+
+    public boolean isHidden() {
+      return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+      this.hidden = hidden;
+    }
   }
 
-  private static class Marker implements Serializable {
+  public static class Marker implements Serializable {
 
     private final String name;
+
+    private boolean rendered;
 
     private Marker(String name) {
       this.name = name;
     }
 
+    public Marker(String name, boolean rendered) {
+      this.name = name;
+      this.rendered = rendered;
+    }
+
     public String toString() {
       return name;
+    }
+
+    public boolean isRendered() {
+      return rendered;
     }
   }
 }
