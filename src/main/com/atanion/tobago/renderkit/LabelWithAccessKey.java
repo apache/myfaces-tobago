@@ -23,6 +23,7 @@ public final class LabelWithAccessKey {
   public String text;
   public Character accessKey;
   public int pos = -1;
+  public static final char INDICATOR = '_';
 
 // --------------------------------------------------------------- constructors
 
@@ -42,13 +43,13 @@ public final class LabelWithAccessKey {
     }
     
     if (labelWithAccessKey != null) {
-      pos = labelWithAccessKey.indexOf('&');
+      pos = labelWithAccessKey.indexOf(INDICATOR);
       if (pos == -1) {
-        LOG.warn("no & in labelWithAccessKey"
+        LOG.warn("no "+INDICATOR +" in labelWithAccessKey"
             + "labelWithAccessKey='" + labelWithAccessKey + "'.");
         text = labelWithAccessKey;
       } else if (pos == labelWithAccessKey.length() - 1) {
-        LOG.warn("& in labelWithAccessKey is last char, this is not allowed"
+        LOG.warn(INDICATOR + " in labelWithAccessKey is last char, this is not allowed"
           + "labelWithAccessKey='" + labelWithAccessKey + "'.");
         text = labelWithAccessKey.substring(0, labelWithAccessKey.length() - 1);
         pos = -1;
