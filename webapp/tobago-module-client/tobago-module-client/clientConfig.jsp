@@ -19,8 +19,8 @@
         </f:facet>
 
         <tobago:text value="#{tobagoBundle.configThemeText}" />
-        <tobago:singleselect value="#{tobagoClientController.theme}">
-          <f:facet name="label"><tobago:label value="#{tobagoBundle.configTheme}" /></f:facet>
+        <tobago:singleselect value="#{tobagoClientController.theme}"
+            label="#{tobagoBundle.configTheme}">
           <f:selectItems value="#{tobagoClientController.themeItems}" />
         </tobago:singleselect>
         <br />
@@ -28,15 +28,15 @@
           <f:facet name="label"><tobago:label value="#{tobagoBundle.configDebugMode}" inline="true" /></f:facet>
         </tobago:checkbox>
         <br />
-        <tobago:text value="#{tobagoBundle.configLanguageText}" />
-        <tobago:singleselect value="#{tobagoClientController.language}">
-          <f:facet name="label"><tobago:label value="#{tobagoBundle.configLanguage}" /></f:facet>
-          <f:selectItems value="#{tobagoClientController.languageItems}" />
+        <tobago:text value="#{tobagoBundle.configLocaleText}" />
+        <tobago:singleselect value="#{tobagoClientController.locale}"
+            label="#{tobagoBundle.configLocale}" >
+          <f:selectItems value="#{tobagoClientController.localeItems}" />
         </tobago:singleselect>
         <br />
         <tobago:text value="#{tobagoBundle.configContentTypeText}" />
-        <tobago:singleselect value="#{tobagoClientController.contentType}">
-          <f:facet name="label"><tobago:label value="#{tobagoBundle.configContentType}" /></f:facet>
+        <tobago:singleselect value="#{tobagoClientController.contentType}"
+            label="#{tobagoBundle.configContentType}">
           <f:selectItems value="#{tobagoClientController.contentTypeItems}" />
         </tobago:singleselect>
         <br />
