@@ -1,6 +1,6 @@
 /* $Id$ */
 
-a:link, a:visited, a:active {
+a:link.tobago-link-default, a:visited.tobago-link-default, a:active.tobago-link-default {
   color: #000000;
 }
 
