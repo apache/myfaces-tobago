@@ -273,7 +273,7 @@ public class ToolBarRenderer extends RendererBase {
     }
 
     if (popupMenu != null) {
-      String backgroundImage = ResourceManagerUtil.getImage(facesContext, "1x1.gif");
+      String backgroundImage = ResourceManagerUtil.getImage(facesContext, "image/1x1.gif");
       writer.startElement("div", null);
       writer.writeAttribute("id", command.getClientId(facesContext) + SUBCOMPONENT_SEP + "popup", null);
       writer.writeAttribute("class", "tobago-toolBar-button-menu", null);
@@ -310,7 +310,7 @@ public class ToolBarRenderer extends RendererBase {
 
   private String getImage(FacesContext facesContext, String name, String iconSize, boolean disabled) {
     if (name == null) {
-      return ResourceManagerUtil.getImage(facesContext, "1x1.gif");
+      return ResourceManagerUtil.getImage(facesContext, "image/1x1.gif");
     }
     int pos = name.lastIndexOf('_');
     if (pos == -1) {
