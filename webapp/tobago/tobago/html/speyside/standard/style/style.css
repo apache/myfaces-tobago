@@ -71,13 +71,6 @@ td.tobago-tab-content {
 }
 
 
-/* Images in Buttons -------------------------------------------------------- */
-
-img.button, img.input {
-  margin-right: 5px;
-}
-
-
 /* - Tree ------------------------------------------------------------------- */
 
 .tree-container {
@@ -109,7 +102,8 @@ a.tree-folder-label:hover, a.tree-item-label:hover  {
 }
 
 a.tree-folder-label:focus, a.tree-item-label:focus {
-  background: #660000;
+  background: transparent;
+  color: #000000;
 }
 
 /* -----------------------------------------------------------------------------

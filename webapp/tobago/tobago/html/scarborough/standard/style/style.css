@@ -177,6 +177,10 @@ td.day-selected {
   font-weight: normal;
 }
 
+button img  {
+  margin-right: 5px;
+}
+
 /* checkbox ---------------------------------------------------------------- */
 
 .tobago-checkbox-default {
