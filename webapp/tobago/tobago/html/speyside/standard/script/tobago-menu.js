@@ -12,7 +12,10 @@ function getSubitemContainerBorderWidthSum() {
 
 function getItemHeight(menu) {
   if (menu && menu.level == 1) {
-    if (menu.parent.menubar.className.match(/tobago-menubar-page-facet/)) {
+    if (menu.parent.popup) {
+      return 18;
+    }
+    else if (menu.parent.menubar.className.match(/tobago-menubar-page-facet/)) {
       return 20;
     }
     else {
@@ -24,6 +27,16 @@ function getItemHeight(menu) {
   }
 }
 
+
+
+function getPopupMenuWidth() {
+  return 15;
+}
+
 function getMenuArrowWidth() {
   return 15;
+}
+
+function getToolbarButtonMenuTopOffset() {
+  return -1;
 }

@@ -1,11 +1,22 @@
 // menu.js
 
+function initMenuPopUp(divId, pageId, type) {
+  initMenuComponents(divId, pageId, type)
+}
 function initMenuBar(divId, pageId) {
+  initMenuComponents(divId, pageId, false)
+}
+function initMenuComponents(divId, pageId, popup) {
   var menubar = document.getElementById(divId);
   if (menubar && menubar.menu) {
     menubar.menu.menubar = menubar;
     var top = getAbsoluteTop(menubar) + getMenubarBorderWidth();
     var left = getAbsoluteLeft(menubar) + getMenubarBorderWidth();
+    if (popup) {
+      left = left + getElementWidth(menubar) - getPopupMenuWidth();
+      menubar.menu.popup = popup;
+      //PrintDebug("popupType = " + popup);
+    }
     var body = document.getElementById(pageId);
     var className = "tobago-menubar-container";
     menubar.menu.htmlElement = document.createElement('div');
@@ -18,6 +29,9 @@ function initMenuBar(divId, pageId) {
     initMenuItems(menubar.menu);
     setItemWidth(menubar.menu);
     setItemPositions(menubar.menu);
+    if (popup) {
+      adjustPopupImage(menubar.menu);
+    }
     setItemsVisible(menubar.menu);
   }
   else {
@@ -265,11 +279,7 @@ function MenuItem(label, action, disabled) {
   this.nextItem = function(start, offset) {
     var i = start + offset;
 
-
-    while (!(this.subItems[i] && ! this.subItems[i].disabled)) {
-      if (i == start) {
-        break;
-      }
+    while (!(this.subItems[i] && ! this.subItems[i].disabled) && i != start) {
       if (offset > 0) {
         if (i >= this.subItems.length) {
           i = -1;
@@ -359,6 +369,18 @@ function tobagoMenuGetLabelTag(children) {
 
 
 
+function adjustPopupImage(menu) {
+  if (menu.subItems && menu.subItems.length > 0) {
+    var img = menu.subItems[0].htmlElement.childNodes[0];
+    if (img) {
+      img.style.top = getPopupImageTop(menu.popup);
+    }
+    else {
+      PrintDebug("kein IMG im popup");
+    }
+  }
+}
+
 function setItemWidth(menu) {
 
   if (menu.level != 0) {
@@ -416,7 +438,13 @@ function setItemPositions(menu) {
 
       if (menu.level == 1) {
         var itemHeight = getItemHeight(menu);
-        menu.htmlElement.style.top = "0px";
+        var top = 0;
+        if (menu.parent.popup) {
+          if (menu.parent.popup == "toolbarButton") {
+            top = getToolbarButtonMenuTopOffset();
+          }
+        }
+        menu.htmlElement.style.top = top +"px";
         menu.htmlElement.style.height = itemHeight + "px";
         if (menu.subItemContainer) {
           menu.subItemContainer.style.top = itemHeight + "px";
@@ -434,8 +462,18 @@ function setItemPositions(menu) {
         menu.htmlElement.style.zIndex = "999";
       }
       else { // level not 0 or 1
-        var top = top = (menu.index * getItemHeight());
+        var top = (menu.index * getItemHeight());
         var left = 0;
+        if (menu.level == 2 && menu.parent.parent.popup) {
+          left = getPopupMenuWidth() - getElementWidth(menu.parent.parent.menubar);
+          if (menu.parent.subItemContainer) {
+            menu.parent.subItemContainer.style.left = left + "px";
+            if (menu.parent.subItemIframe) {
+              menu.parent.subItemIframe.style.left
+                  = menu.parent.subItemContainer.style.left;
+            }
+          }
+        }
         if (menu.subItemContainer) {
           //if (menu.level == 2) {
           //  top = getItemHeight();
@@ -531,7 +569,10 @@ function getSubitemContainerBorderWidthSum() {
 
 function getItemHeight(menu) {
   if (menu && menu.level == 1) {
-    if (menu.parent.menubar.className.match(/tobago-menubar-page-facet/)) {
+    if (menu.parent.popup) {
+      return 20;
+    }
+    else if (menu.parent.menubar.className.match(/tobago-menubar-page-facet/)) {
       return 23;
     }
     else {
@@ -545,6 +586,23 @@ function getItemHeight(menu) {
 
 function getMenuArrowWidth() {
   return 15;
+}
+
+function getPopupMenuWidth() {
+  return 20;
+}
+
+function getPopupImageTop(popup) {
+  if (popup == "toolbarButton") {
+    return "2px";
+  }
+  else {
+    PrintDebug("unbekanter Popup Typ :" + popup);
+  }
+}
+
+function getToolbarButtonMenuTopOffset() {
+  return -1;
 }
 
 function menuCheckToggle(id) {

@@ -5,20 +5,21 @@
   */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
+import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.CommandRendererBase;
 import com.atanion.tobago.renderkit.DirectRenderer;
+import com.atanion.tobago.renderkit.HtmlUtils;
+import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.renderkit.LabelWithAccessKey;
-import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.faces.application.Application;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
@@ -27,7 +28,6 @@ import javax.faces.component.UISelectOne;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.application.Application;
 import javax.faces.el.ValueBinding;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
@@ -59,31 +59,54 @@ public class MenubarRenderer extends RendererBase
   }
 
   public void encodeDirectEnd(FacesContext facesContext,
-      UIComponent uiComponent) throws IOException {
+      UIComponent component) throws IOException {
 
-    UIPanel menubar = (UIPanel) uiComponent ;
-    final String clientId = menubar.getClientId(facesContext);
+    String clientId;
 
-    ResponseWriter writer = facesContext.getResponseWriter();
-    boolean pageMenu = ComponentUtil.getBooleanAttribute(
-        menubar, TobagoConstants.ATTR_PAGE_MENU);
-
-    writer.startElement("div", menubar);
-    writer.writeAttribute("id", clientId, null);
-    String cssClasses = (String) menubar.getAttributes().get(ATTR_STYLE_CLASS);
-    if (pageMenu) {
-      cssClasses += "tobago-menubar-page-facet";
+    if (ComponentUtil.getBooleanAttribute(component, ATTR_MENU_POPUP)) {
+      clientId = component.getParent().getClientId(facesContext);
     }
     else {
-      writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
+      clientId = component.getClientId(facesContext);
+      ResponseWriter writer = facesContext.getResponseWriter();
+      writer.startElement("div", component);
+      writer.writeAttribute("id", clientId, null);
+      String cssClasses = (String) component.getAttributes().get(ATTR_STYLE_CLASS);
+      if (ComponentUtil.getBooleanAttribute(component, ATTR_PAGE_MENU)) {
+        cssClasses += "tobago-menubar-page-facet";
+      }
+      else {
+        writer.writeAttribute("style", null, ATTR_STYLE);
+      }
+      writer.writeAttribute("class", cssClasses, null);
+      writer.endElement("div");
     }
-    writer.writeAttribute("class", cssClasses, null);
-    writer.endElement("div");
 
+    StringBuffer scriptBuffer = new StringBuffer();
+    String setupFunction
+        = createSetupFunction(facesContext, component, clientId, scriptBuffer);
+    addScriptsAndStyles(facesContext, component, clientId, setupFunction,
+        scriptBuffer.toString());
+
+  }
+
+  protected void addScriptsAndStyles(FacesContext facesContext,
+      UIComponent component, final String clientId, String setupFunction,
+      String scriptBlock) {
+    final UIPage page = ComponentUtil.findPage(component);
+    page.getScriptBlocks().add(scriptBlock);
+    page.getOnloadScripts().add(setupFunction + "('"
+        + clientId + "', '" + page.getClientId(facesContext) + "');");
+    page.getScriptFiles().add("tobago-menu.js", true);
+    page.getStyleFiles().add("tobago-menu.css");
+  }
+
+  protected String createSetupFunction(FacesContext facesContext,
+      UIComponent component, final String clientId, StringBuffer sb)
+      throws IOException {
     String setupFunction = "setupMenu"
         + clientId.replaceAll(":", "_").replaceAll("\\.", "_").replaceAll("-", "_");
 
-    StringBuffer sb = new StringBuffer();
     sb.append("function ");
     sb.append(setupFunction);
     sb.append("(id, pageId) {\n");
@@ -92,19 +115,20 @@ public class MenubarRenderer extends RendererBase
     sb.append("    var menu = createMenuRoot(id);\n");
     sb.append("    menubar.menu = menu;\n");
 
-    addMenuEntrys(sb, "menu", facesContext, menubar, true);
-    
-    sb.append("    initMenuBar(id, pageId);\n");
+    if (ComponentUtil.getBooleanAttribute(component, ATTR_MENU_POPUP)) {
+      addMenu(sb, "menu", facesContext, (UIPanel) component, 0);
+      sb.append("    initMenuPopUp(id, pageId, \"");
+      sb.append(component.getAttributes().get(ATTR_MENU_POPUP_TYPE));
+      sb.append("\");\n");
+    }
+    else {
+      addMenuEntrys(sb, "menu", facesContext, component, true);
+      sb.append("    initMenuBar(id, pageId);\n");
+    }
+
     sb.append("  }\n");
     sb.append("}\n");
-
-    final UIPage page = ComponentUtil.findPage(menubar);
-    page.getScriptBlocks().add(sb.toString());
-    page.getOnloadScripts().add(setupFunction + "('"
-        + clientId + "', '" + page.getClientId(facesContext) + "');");
-    page.getScriptFiles().add("tobago-menu.js", true);
-    page.getStyleFiles().add("tobago-menu.css");
-
+    return setupFunction;
   }
 
   private void addMenuEntrys(StringBuffer sb, String var,
@@ -117,10 +141,7 @@ public class MenubarRenderer extends RendererBase
       } else if ("separator".equals(entry.getAttributes().get(ATTR_MENU_TYPE))) {
         addMenuSeparator(sb, var);
       } else if ("menu".equals(entry.getAttributes().get(ATTR_MENU_TYPE))) {
-        String name = var + "_" + i++;
-        sb.append("    var " + name + " = " + createMenuEntry(facesContext, (UIPanel)entry) + ";\n");
-        sb.append("    " + var + ".addMenuItem(" + name + ");\n");
-        addMenuEntrys(sb, name, facesContext, entry, false);
+        i = addMenu(sb, var, facesContext, (UIPanel) entry, i);
       } else if (warn) {
         LOG.error("Illegal UIComponent class in menubar :"
             + entry.getClass().getName());
@@ -128,6 +149,15 @@ public class MenubarRenderer extends RendererBase
     }
 
 
+  }
+
+  private int addMenu(StringBuffer sb, String var, FacesContext facesContext,
+      UIPanel menu, int i) throws IOException {
+    String name = var + "_" + i++;
+    sb.append("    var " + name + " = " + createMenuEntry(facesContext, menu) + ";\n");
+    sb.append("    " + var + ".addMenuItem(" + name + ");\n");
+    addMenuEntrys(sb, name, facesContext, menu, false);
+    return i;
   }
 
   private void addMenuSeparator(StringBuffer sb, String var) {

@@ -6,16 +6,16 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.util.TobagoResourceSet;
 import com.atanion.tobago.application.ViewHandlerImpl;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
+import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.renderkit.PageRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 import com.atanion.tobago.taglib.component.PageTag;
+import com.atanion.tobago.util.TobagoResourceSet;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import org.apache.commons.logging.Log;
@@ -30,11 +30,11 @@ import javax.faces.context.ResponseWriter;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.ArrayList;
 
 public class PageRenderer extends PageRendererBase
     implements DirectRenderer, HeightLayoutRenderer {
@@ -296,7 +296,7 @@ public class PageRenderer extends PageRendererBase
           errorMessageForDebugging(id, message, writer);
         }
       }
-//      writer.write("<div id=\"LogDiv\" style=\"position:  absolute; left: 760px; top: 10px; height: 600px;width: 400px; overflow: auto;\"><ol id=\"Log\" style=\"font-family:Arial,sans-serif; font-size:10pt\"><li>Ereignisliste</li></ol> </div>");
+//      writer.write("<div onmousedown=\"tobagoJsLogMouseDown(event)\" onmousemove=\"tobagoJsLogMouseMove(event)\" onmouseup=\"tobagoJsLogMouseUp()\" id=\"LogDiv\" style=\"position:  absolute; left: 760px; top: 300px; height: 370px;width: 400px; overflow: auto;border:1px solid red; background: #ffffff;\"><ol id=\"Log\" style=\"font-family:Arial,sans-serif; font-size:10pt\"><li>Ereignisliste</li></ol> </div>");
     }
 
     writer.endElement("body");

@@ -419,6 +419,10 @@ label.tobago-label-disabled  {
   color: #778899;
 }
 
+.tobago-toolbar-button-popup-span {
+  padding-right: 15px;
+}
+
 .tobago-toolbar-button-span-hover {
   border: 1px solid black;
   background: #c5c5c5;

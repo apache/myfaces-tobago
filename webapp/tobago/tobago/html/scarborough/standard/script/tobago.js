@@ -117,21 +117,6 @@ function getSubComponentSeparator() {
   return "::"; // ToabgoConstants.SUBCOMPONENT_SEP
 }
 
-function PrintDebug(Text) {
-  var log = document.getElementById("Log");
-  if (log) {
-    //Text = new Date().getTime() + " : " + Text ;
-    LogEintrag = document.createElement("li");
-    neuerText = document.createTextNode(Text);
-    LogEintrag.appendChild(neuerText);
-    log.appendChild(LogEintrag);
-    log = document.getElementById("LogDiv");
-    if (log) {
-      log.scrollTop = log.scrollHeight;
-    }
-  }
-}
-
 
 function setUserAgent() {
   gecko = null;
@@ -257,6 +242,12 @@ function getAbsoluteLeft(element) {
   return left;
 }
 
+function getElementWidth(element) {
+  var width = element.scrollWidth;
+  //PrintDebug("width = " + width);
+  return width;
+}
+
 
 function addImageSources(id, normal, disabled, hover) {
   var sources = new Array(4);
@@ -333,3 +324,52 @@ function tobagoFireEvent(element, event) {
   return true;
 }
 
+
+
+function PrintDebug(Text) {
+  var log = document.getElementById("Log");
+  if (log) {
+    //Text = new Date().getTime() + " : " + Text ;
+    LogEintrag = document.createElement("li");
+    neuerText = document.createTextNode(Text);
+    LogEintrag.appendChild(neuerText);
+    log.appendChild(LogEintrag);
+    log = document.getElementById("LogDiv");
+    if (log) {
+      log.scrollTop = log.scrollHeight;
+    }
+  }
+}
+
+function tobagoJsLogMouseDown(event) {
+  var log = document.getElementById("LogDiv");
+  if (log) {
+    log.LogMove = true;
+    log.oldX = event.screenX;
+    log.oldY = event.screenY;
+  }
+}
+
+function tobagoJsLogMouseMove(event) {
+  var log = document.getElementById("LogDiv");
+  if (log.move) {
+    return;
+  }
+  log.move = true;
+  if (log && log.LogMove) {
+    var difX = event.screenX - log.oldX;
+    var difY = event.screenY - log.oldY;
+    log.oldX = event.screenX;
+    log.oldY = event.screenY;
+    log.style.left = (log.style.left.replace(/\D/g, "") - 0) + difX;
+    log.style.top = (log.style.top.replace(/\D/g, "") - 0) + difY;
+  }
+  log.move = false;
+}
+
+function tobagoJsLogMouseUp() {
+  var log = document.getElementById("LogDiv");
+  if (log) {
+    log.LogMove = false;
+  }
+}

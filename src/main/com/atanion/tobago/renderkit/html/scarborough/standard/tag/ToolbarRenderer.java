@@ -6,26 +6,25 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.UserAgent;
+import com.atanion.tobago.renderkit.CommandRendererBase;
 import com.atanion.tobago.renderkit.DirectRenderer;
+import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.renderkit.CommandRendererBase;
-import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.util.LayoutUtil;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
-import javax.faces.component.UIOutput;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
@@ -103,8 +102,8 @@ public class ToolbarRenderer extends RendererBase
       final UICommand command, TobagoResponseWriter writer) throws IOException {
     final boolean disabled = ComponentUtil.getBooleanAttribute(command, ATTR_DISABLED);
     final UIGraphic graphic = ComponentUtil.getFirstGraphicChild(command);
-    final UIOutput output = ComponentUtil.getFirstNonGraphicChild(command);
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
+    final UIComponent popupMenu = command.getFacet(FACET_MENUPOPUP);
 
 
     final String graphicId
@@ -117,12 +116,16 @@ public class ToolbarRenderer extends RendererBase
     String spanClass
         = "tobago-toolbar-button-span tobago-toolbar-button-span-"
         + (disabled ? "disabled" : "enabled");
+    if (popupMenu != null) {
+      spanClass += " tobago-toolbar-button-popup-span";
+    }
     String onClick = ButtonRenderer.createOnClick(facesContext, command);
     onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
             facesContext);
 
 //    writer.startElement("td", null);
     writer.startElement("span", null);
+    writer.writeAttribute("id", command.getClientId(facesContext), null);
     writer.writeAttribute("class", spanClass, null);
     if (! disabled) {
       writer.writeAttribute("onclick", onClick, null);
@@ -162,6 +165,15 @@ public class ToolbarRenderer extends RendererBase
       if (graphic != null) {
         writer.endElement("span");
       }
+    }
+    if (popupMenu != null) {
+      popupMenu.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
+      popupMenu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "toolbarButton");
+      popupMenu.setRendererType("Menubar");
+      popupMenu.getAttributes().remove(ATTR_LABEL);
+      popupMenu.getAttributes().remove(ATTR_LABEL_WITH_ACCESS_KEY);
+      popupMenu.getAttributes().put(ATTR_IMAGE, "toolbarButtonMenu.gif");
+      RenderUtil.encode(facesContext, popupMenu);
     }
     writer.endElement("span");
 //    writer.endElement("td");

@@ -64,10 +64,11 @@ public interface TobagoConstants {
   public static final String ATTR_LAYOUT_TABLE_STYLE = "layoutTableStyle";
   public static final String ATTR_LAYOUT_WIDTH = "layout_width";
   public static final String ATTR_MAX = "max";
+  public static final String ATTR_MENU_POPUP = "menuPopup";
+  public static final String ATTR_MENU_POPUP_TYPE = "menuPopupType";
   public static final String ATTR_MENU_TYPE = "menuType";
   public static final String ATTR_METHOD = "method";
   public static final String ATTR_MIN = "min";
-  public static final String ATTR_SELECTABLE = "multiselect";
   public static final String ATTR_MUTABLE = "mutable";
   public static final String ATTR_NAME = "name";
   public static final String ATTR_NAME_REFERENCE = "nameReference";
@@ -97,6 +98,7 @@ public interface TobagoConstants {
   public static final String ATTR_HIDE_HEADER = "hideHeader";
   public static final String ATTR_SORTABLE = "sortable";
   public static final String ATTR_CREATE_SPAN = "createSpan";
+  public static final String ATTR_SELECTABLE = "selectable";
   public static final String ATTR_SPAN_X = "spanX";
   public static final String ATTR_SPAN_Y = "spanY";
   public static final String ATTR_SRC = "src";
@@ -126,6 +128,7 @@ public interface TobagoConstants {
   public static final String FACET_CONFIRMATION = "confirmation";
   public static final String FACET_LABEL = "label";
   public static final String FACET_MENUBAR = "menubar";
+  public static final String FACET_MENUPOPUP = "menupopup";
   public static final String FACET_RADIO = "radio";
 
   public static final String VIEWS_IN_SESSION = "com.atanion.tobago.application.UIViewRoot";

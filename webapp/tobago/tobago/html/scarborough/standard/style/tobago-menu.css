@@ -66,6 +66,7 @@
   position: absolute;
   top: 0px;
   left: 20px;
+  text-decoration: none;
 }
 
 .tobago-menubar-item-span-enabled {
