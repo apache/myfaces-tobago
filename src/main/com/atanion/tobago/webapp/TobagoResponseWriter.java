@@ -267,7 +267,8 @@ public class TobagoResponseWriter extends ResponseWriter {
       writer.write(' ');
       writer.write(name);
       writer.write("=\"");
-      writer.write(XmlUtils.escape(attribute, true));
+      writer.write(attribute);
+//      writer.write(XmlUtils.escape(attribute, true));
       writer.write('\"');
     }
   }
