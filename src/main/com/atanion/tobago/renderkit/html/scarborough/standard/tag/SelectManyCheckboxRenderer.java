@@ -44,9 +44,6 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-
-// fixme: List of Objects instead of List of Strings
-//  List values = Arrays.asList(((StringMultiSelection)component.getValue()).getSelectedStrings());
     Object[] values = component.getSelectedValues();
     if (LOG.isDebugEnabled()) {
       LOG.debug("values = '" + values + "'");
