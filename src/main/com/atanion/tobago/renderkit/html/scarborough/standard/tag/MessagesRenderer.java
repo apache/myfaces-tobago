@@ -51,6 +51,7 @@ public class MessagesRenderer extends MessageRendererBase
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
+    LOG.info("facesContect is " + facesContext.getClass().getName());
     if (facesContext.getMessages().hasNext()) { // in ie empty span gets a height
       writer.startElement("span", component);
       writer.writeAttribute("class", "tobago-validation-message", null);
@@ -70,19 +71,18 @@ public class MessagesRenderer extends MessageRendererBase
         ComponentUtil.findPage(component).setFocusId(focusId);
       }
 
-
-      // without id
-      encodeMessagesForId(facesContext, writer, null);
-
       writer.endElement("span");
     }
   }
 
   private void encodeMessagesForId(FacesContext facesContext,
       ResponseWriter writer, String clientId) throws IOException {
+    LOG.info("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\nrender messages for id '" + clientId + "'");
+
     Iterator iterator = facesContext.getMessages(clientId);
     while (iterator.hasNext()) {
       FacesMessage message = (FacesMessage) iterator.next();
+      LOG.info("message = " + message.getSummary());
       encodeMessage(writer, message, clientId);
     }
   }
