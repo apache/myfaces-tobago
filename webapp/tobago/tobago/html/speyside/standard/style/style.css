@@ -154,7 +154,7 @@ reason they are not defined as a:link
 }
 
 .tobago-button-disabled {
-  color: gray;
+  color: GrayText;
 }
 
 
@@ -190,7 +190,6 @@ reason they are not defined as a:link
 }
 
 /* groupbox ----------------------------------------------------------------- */
-
 
 div.tobago-groupbox-default {
   overflow: visible;
