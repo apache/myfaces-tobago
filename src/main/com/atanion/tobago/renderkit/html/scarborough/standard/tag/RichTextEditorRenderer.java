@@ -20,7 +20,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.atanion.lib.richtext.WikiParser;
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.util.StringUtil;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.TobagoResource;
 import com.atanion.tobago.renderkit.DirectRenderer;
@@ -95,10 +94,11 @@ public class RichTextEditorRenderer extends InputRendererBase
     ResponseWriter writer = facesContext.getResponseWriter();
 
     writer.startElement("div", component);
+    writer.writeAttribute("class", "tobago-richtext-div", null);
     // class, stly.width, style.height
 
     writer.startElement("div", component);
-    writer.writeAttribute("class", "toolbar", null);
+    writer.writeAttribute("class", "tobago-richtext-toolbar-div", null);
     createToolbarButton(writer, component, facesContext, clientId, state);
     writer.endElement("div");
 
@@ -148,6 +148,7 @@ public class RichTextEditorRenderer extends InputRendererBase
         + ComponentUtil.findPage(component).getFormId(facesContext) + "', '"
         + clientId + RichTextEditorRenderer.CHANGE_BUTTON + "')";
     writer.startElement("span", component);
+    writer.writeAttribute("class", "tobago-richtext-toolbar-button-span", null);
     writer.writeAttribute("onclick", onClick, null);
     writer.writeAttribute("unselectable", "on", null);
 

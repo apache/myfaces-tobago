@@ -321,6 +321,25 @@ label.tobago-label-default  {
   background: #ffffff;
 }
 
+.tobago-richtext-div {
+}
+
+.tobago-richtext-toolbar-div {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.tobago-richtext-toolbar-div IMG {
+  margin-right: 3px;
+}
+
+.tobago-richtext-toolbar-button-span {
+  padding-top: 2px;
+  padding-left: 5px;
+  padding-bottom: 2px;
+  padding-right: 5px;
+}
+
 /* singleselect ------------------------------------------------------------ */
 
 .tobago-singleselect-default  {
