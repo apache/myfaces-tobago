@@ -42,11 +42,7 @@ public class TextBoxRendererBase extends InputRendererBase {
     StringBuffer stringBuffer = new StringBuffer();
     while (messages.hasNext()) {
       FacesMessage message = (FacesMessage) messages.next();
-      String key = TobagoResource.getProperty(facesContext, "tobago", message.getSummary());
-      if (key.length() == 0) {
-        key = message.getSummary();
-      }
-      stringBuffer.append(key);
+      stringBuffer.append(message.getDetail());
     }
 
     String title = null;

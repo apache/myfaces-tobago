@@ -34,6 +34,7 @@ public class MessageRenderer extends MessageRendererBase
 // ///////////////////////////////////////////// constructor
 
 // ///////////////////////////////////////////// code
+
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("component = '" + component + "'");
@@ -60,6 +61,7 @@ public class MessageRenderer extends MessageRendererBase
   public void encodeDirectEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
+
     // fixme: must be refactored! Bitte daran denken die msie version auch umzubauen!!!
 
     UIMessage component = (UIMessage) uiComponent;
@@ -79,15 +81,10 @@ public class MessageRenderer extends MessageRendererBase
 
       while (iterator.hasNext()) {
         FacesMessage message = (FacesMessage) iterator.next();
-        String formatString = TobagoResource.getProperty(facesContext, "text", message.getSummary());
-        if (formatString.length() == 0) {
-          formatString = message.getSummary();
-        }
 //      MessageFormat detail = new MessageFormat(formatString, tobagoContext.getLocale());
-
         writer.startElement("label", null);
         writer.writeAttribute("for", clientId, null);
-        writer.writeText(formatString, null);
+        writer.writeText(message.getSummary(), null);
         writer.endElement("label");
 
         writer.startElement("br", null);
