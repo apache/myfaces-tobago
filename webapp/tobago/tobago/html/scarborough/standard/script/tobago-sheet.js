@@ -14,8 +14,10 @@ function initSheet(sheetId) {
     addEventListener(element, "scroll", doScroll);
 	  var resizer = document.getElementById(sheetId + "_header_resizer_" + i++ );
 	  while (resizer) {
-	    addEventListener(resizer, "click", stopEventPropagation);
-	    addEventListener(resizer, "mousedown", beginResize);
+      if (resizer.className.match(/tobago-sheet-header-resize-cursor/)) {
+	      addEventListener(resizer, "click", stopEventPropagation);
+	      addEventListener(resizer, "mousedown", beginResize);
+      }
       resizer = document.getElementById(sheetId + "_header_resizer_" + i++ );
     }
 
@@ -23,6 +25,9 @@ function initSheet(sheetId) {
     adjustResizer(sheetId);
 
     setupHeader(sheetId)
+  }
+  else {
+    PrintDebug("Kann sheet mit id=\"" + sheetId + "\" nicht finden!");
   }
 
   var sheet = document.getElementById(sheetId + "_outer_div");
@@ -116,7 +121,9 @@ function updateSelectionView(sheetId, selected) {
   if (! selected) {
     var hidden =
       document.getElementById(sheetId + getSubComponentSeparator() + "selected");
-    selected = hidden.value;
+    if (hidden) {
+      selected = hidden.value;
+    }
   }
   var row = getFirstSelectionRow(sheetId);
   if (row) {
@@ -361,11 +368,24 @@ function adjustScrollBars(sheetId) {
 
 function adjustHeaderDiv(sheetId) {
   var contentDiv = document.getElementById(sheetId + "_data_div");
+  var contentWidth = contentDiv.style.width.replace(/px/, "") - 0;
   var clientWidth = contentDiv.clientWidth;
+  if (clientWidth == 0) {
+    PrintDebug("clientWidth 1 = " + clientWidth);
+    var idx = 0;
+    var box = document.getElementById(sheetId + "_header_box_" + idx++);
+    while (box) {
+      clientWidth += (box.style.width.replace(/px/, "") - 0);
+      box = document.getElementById(sheetId + "_header_box_" + idx++);
+    }
+    PrintDebug("clientWidth 2 = " + clientWidth);
+    clientWidth = Math.min(contentWidth, clientWidth);
+  }
   var headerDiv = document.getElementById(sheetId + "_header_div");
-  var minWidth = contentDiv.style.width.replace(/px/, "") - getScrollbarWidth(); // div width - scrollbar width
+  var minWidth = contentWidth - getScrollbarWidth(); // div width - scrollbar width
   minWidth = Math.max(minWidth, 0); // not less than 0
   headerDiv.style.width = Math.max(clientWidth, minWidth);
+  PrintDebug("adjustHeaderDiv(" + sheetId + ") : clientWidth = " + clientWidth + " :: width => " + headerDiv.style.width);
   //headerDiv.style.width = clientWidth;
 }
 
@@ -406,10 +426,17 @@ function getHeaderBox(element) {
 }
 
 function tobagoSheetSetUncheckedImage(sheetId, image) {
-  document.getElementById(sheetId + "_outer_div").uncheckedImage = image;
+  var div = document.getElementById(sheetId + "_outer_div");
+  if (div) {
+    div.uncheckedImage = image;
+  }
 }
+
 function tobagoSheetSetCheckedImage(sheetId, image) {
-  document.getElementById(sheetId + "_outer_div").checkedImage = image;
+  var div = document.getElementById(sheetId + "_outer_div");
+  if (div) {
+    div.checkedImage = image;
+  }
 }
 
 function tobagoSheetSelectAll(sheetId) {

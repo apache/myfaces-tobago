@@ -62,3 +62,8 @@
 .tobago-sheet-footer-table-td a:hover  {
   text-decoration: underline;
 }
+
+.tobago-sheet-selector-menu {
+  margin-top: 1px;
+  margin-left: 0px;
+}
