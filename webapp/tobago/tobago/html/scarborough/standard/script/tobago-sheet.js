@@ -26,21 +26,26 @@ function initSheet(sheetId) {
   }
 
   var sheet = document.getElementById(sheetId + "_outer_div");
-  sheet.tobagoLastClickedRowId = getFirstSelectionRow(sheetId).id;
+  var firstSelectionRow = getFirstSelectionRow(sheetId);
+  if (firstSelectionRow) {
+    sheet.tobagoLastClickedRowId = firstSelectionRow.id;
+  }
   addSelectionListener(sheetId);
   adjustScrollBars(sheetId);
 }
 
 function addSelectionListener(sheetId) {
   var row = getFirstSelectionRow(sheetId);
-  var i = row.id.substring(row.id.lastIndexOf("_data_tr_") + 9);
-  i++;
-  while (row) {
-    // Ausgeben("rowId = " + row.id + "   next i=" + i);
-    addEventListener(row, "click", doSelection);
-    row = document.getElementById(sheetId + "_data_tr_" + i++ );
+  if (row) {
+    var i = row.id.substring(row.id.lastIndexOf("_data_tr_") + 9);
+    i++;
+    while (row) {
+      // Ausgeben("rowId = " + row.id + "   next i=" + i);
+      addEventListener(row, "click", doSelection);
+      row = document.getElementById(sheetId + "_data_tr_" + i++ );
+    }
+    Ausgeben("preSelected rows = " + document.getElementById(sheetId + "::selected").value);
   }
-  Ausgeben("preSelected rows = " + document.getElementById(sheetId + "::selected").value);
 }
 
 function getFirstSelectionRow(sheetId) {
