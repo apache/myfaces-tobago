@@ -47,6 +47,10 @@ public class ViewHandlerImpl extends ViewHandler {
 
 // ///////////////////////////////////////////// constructor
 
+  public ViewHandlerImpl(ViewHandler base) {
+    LOG.info("Hiding ri base implemation: " + base);
+  }
+
 // ///////////////////////////////////////////// code
 
   public String getActionURL(FacesContext facesContext, String viewId) {
