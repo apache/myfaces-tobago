@@ -51,12 +51,11 @@ public class GridLayoutRenderer extends RendererBase
         = (String) layout.getAttributes().get(TobagoConstants.ATTR_ROWS);
 
     if (rowLayout == null && LOG.isInfoEnabled()) {
-      LOG.info("No rows found using '" + (rows.size() == 0 ? "*" : "fixed") +
-          "' for all " + rows.size() + " rows of "
-          + layout.getClientId(facesContext) + " !");
+      LOG.info("No rows found using 'fixed' for all " + rows.size()
+          + " rows of " + layout.getClientId(facesContext) + " !");
     }
-    String[] layoutTokens = LayoutInfo.createLayoutTokens(rowLayout,
-        rows.size(), rows.size() == 0 ? "*" : "fixed");
+    String[] layoutTokens
+        = LayoutInfo.createLayoutTokens(rowLayout, rows.size(), "fixed");
 
 
     int height = 0;
@@ -427,7 +426,6 @@ public class GridLayoutRenderer extends RendererBase
           if (i < rows.size()) {
             UIGridLayout.Row row = (UIGridLayout.Row) rows.get(i);
             height = getMaxFixedHeight(row, facesContext);
-            LOG.info("updateHeight(" + height + " ," + i + ")");
             layoutInfo.update(height, i);
           }
           else {
@@ -450,15 +448,15 @@ public class GridLayoutRenderer extends RendererBase
     List cells = row.getElements();
     for (int j = 0; j < cells.size(); j++) {
       Object object = cells.get(j);
+
       if (object instanceof UIComponent) {
         UIComponent component = (UIComponent) object;
         RendererBase renderer = ComponentUtil.getRenderer(component,
             facesContext);
         if (renderer instanceof RendererBase) {
-          maxHeight =
-              Math.max(maxHeight,
-                  renderer.getFixedHeight(facesContext, component));
-        }
+          int height = renderer.getFixedHeight(facesContext, component);
+          maxHeight = Math.max(maxHeight, height);
+          }
       }
     }
     return maxHeight;

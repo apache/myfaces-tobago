@@ -52,45 +52,53 @@ public class PanelRenderer extends RendererBase
 
     int height =
         ComponentUtil.getIntAttribute(component, TobagoConstants.ATTR_HEIGHT, -1);
-    if (height != -1) {
-      return height;
-    }
 
-    // ask layoutManager
+    if (height == -1) {
+      height = getFixedHeightForPanel(component, facesContext);
+    }
+    return height;
+  }
+
+  public static int getFixedHeightForPanel(UIComponent component, FacesContext facesContext) {
+    int height = -1;
+    // first ask layoutManager
     UIComponent layout = component.getFacet("layout");
     if (layout != null) {
       RendererBase renderer = ComponentUtil.getRenderer(layout, facesContext);
       height = renderer.getFixedHeight(facesContext, layout);
-      if (height > -1) {
-        return height;
+    }
+    if (height < 0) {
+
+      if (component.getChildren().size() == 0) {
+        height = 0;
       }
-    }
+      else {
 
-    if (component.getChildren().size() == 0) {
-      return 0;
-    }
+        if (LOG.isInfoEnabled()) {
+          LOG.info("Can't calculate fixedHeight! "
+              + "using estimation by contained components. for "
+              + component.getClientId(facesContext) + " = "
+              + component.getClass().getName() + " "
+              + component.getRendererType());
+        }
 
-    if (LOG.isInfoEnabled()) {
-      LOG.info("Can't calculate fixedHeight! "
-          + "using estimation by contained components. for " + component.getClientId(facesContext) + " = " + component.getClass().getName() + " " + component.getRendererType());
-    }
-
-    height = 0;
-    for (Iterator iterator = component.getChildren().iterator(); iterator.hasNext();) {
-      UIComponent child = (UIComponent) iterator.next();
-      LOG.info("child = " + child.getClass().getName() + " : " + child.getClientId(facesContext));
-      RendererBase renderer = ComponentUtil.getRenderer(child, facesContext);
-      if (renderer == null
-          && child instanceof UINamingContainer
-          && child.getChildren().size() > 0) {
-        // this is a subview component ??
-        renderer = ComponentUtil.getRenderer(
-            (UIComponent) child.getChildren().get(0), facesContext);
-      }
-      if (renderer != null) {
-        int h = renderer.getFixedHeight(facesContext, child);
-        if (h > 0) {
-          height += h;
+        height = 0;
+        for (Iterator iterator = component.getChildren().iterator(); iterator.hasNext();) {
+          UIComponent child = (UIComponent) iterator.next();
+          RendererBase renderer = ComponentUtil.getRenderer(child, facesContext);
+          if (renderer == null
+              && child instanceof UINamingContainer
+              && child.getChildren().size() > 0) {
+            // this is a subview component ??
+            renderer = ComponentUtil.getRenderer(
+                (UIComponent) child.getChildren().get(0), facesContext);
+          }
+          if (renderer != null) {
+            int h = renderer.getFixedHeight(facesContext, child);
+            if (h > 0) {
+              height += h;
+            }
+          }
         }
       }
     }

@@ -32,6 +32,10 @@ public class BoxRenderer extends BoxRendererBase
 
 // ///////////////////////////////////////////// code
 
+  public int getFixedHeight(FacesContext facesContext, UIComponent component) {
+    return super.getFixedHeight(facesContext, component);
+  }
+
   public void encodeDirectEnd(FacesContext facesContext,
                               UIComponent component) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();

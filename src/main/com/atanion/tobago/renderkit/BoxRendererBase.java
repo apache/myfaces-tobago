@@ -82,7 +82,6 @@ public class BoxRendererBase extends RendererBase {
       height += ((HeightLayoutRenderer)this).getHeaderHeight(
           facesContext, component);
     }
-    LOG.info("fixedHeigth is " + height);
     height += getPaddingHeight(facesContext, component);
     return height;
   }

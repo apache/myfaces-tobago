@@ -29,6 +29,7 @@ import javax.faces.el.MethodBinding;
 import javax.faces.el.MethodNotFoundException;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
+import javax.faces.render.Renderer;
 import javax.servlet.ServletRequest;
 import java.io.IOException;
 
@@ -96,9 +97,6 @@ public class TabGroupRenderer extends RendererBase
     }
     String hiddenId = component.getClientId(facesContext)
         + TabGroupRenderer.ACTIVE_INDEX_POSTFIX;
-    String bodyStyle = (String)
-        component.getAttributes().get(TobagoConstants.ATTR_STYLE_BODY);
-
 
     UIPage page = ComponentUtil.findPage(component);
     page.getScriptFiles().add("tab.js", true);
@@ -236,21 +234,50 @@ public class TabGroupRenderer extends RendererBase
         writer.endElement("td");
         writer.endElement("tr");
 
-        writer.startElement("tr", null);
-
-        writer.startElement("td", null);
-        writer.writeAttribute("class", "tobago-tab-content", null);
-        writer.writeAttribute("style", bodyStyle, null);
-
-        writer.writeText("", null);
-        RenderUtil.encodeChildren(facesContext, activeTab);
 
 
-        writer.endElement("td");
-        writer.endElement("tr");
+        encodeContent(writer, facesContext, activeTab);
+
+
         writer.endElement("table");
       }
     }
+  }
+
+  protected void encodeContent(ResponseWriter writer, FacesContext facesContext, UIPanel activeTab) throws IOException {
+
+    String bodyStyle = (String)
+        activeTab.getParent().getAttributes().get(TobagoConstants.ATTR_STYLE_BODY);
+    writer.startElement("tr", null);
+    writer.startElement("td", null);
+    writer.writeAttribute("class", "tobago-tab-content", null);
+    writer.writeAttribute("style", bodyStyle, null);writer.writeText("", null);
+    RenderUtil.encodeChildren(facesContext, activeTab);
+    writer.endElement("td");
+    writer.endElement("tr");
+  }
+
+  public int getFixedHeight(FacesContext facesContext, UIComponent uiComponent) {
+    UITabGroup component = (UITabGroup) uiComponent;
+    int height =
+        ComponentUtil.getIntAttribute(component, TobagoConstants.ATTR_HEIGHT, -1);
+
+    int fixedHeight;
+    if (height != -1) {
+      fixedHeight = height;
+    } else {
+      UIPanel[] tabs = component.getTabs();
+      fixedHeight = 0;
+      for (int i = 0; i < tabs.length; i++) {
+        UIPanel tab = tabs[i];
+        RendererBase renderer = ComponentUtil.getRenderer(tab, facesContext);
+        fixedHeight
+            = Math.max(fixedHeight, renderer.getFixedHeight(facesContext, tab));
+      }
+      fixedHeight += getConfiguredValue(facesContext, component, "headerHeight");
+      fixedHeight += getConfiguredValue(facesContext, component, "paddingHeight");
+    }
+    return fixedHeight;
   }
 
   private void layoutTabs(FacesContext facesContext, UITabGroup component,

@@ -23,7 +23,7 @@ h5  {
 
 
 /* Styles which are Speyside specific. They are reduced as much as possible,
-   but some definitions couldn´t be integrated into the new class system by
+   but some definitions couldn?t be integrated into the new class system by
    now. */
 /*
 table {
@@ -97,6 +97,8 @@ div.tobago-tab-fulfill {
   border-top: 0px solid transparent;
   padding: 14px 10px 12px 13px;
   background: #FAFAFA;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .tobago-tab-shadow {
@@ -104,6 +106,8 @@ div.tobago-tab-fulfill {
   border: 1px solid #B4B4B4;
   border-top: 0px solid transparent;
   border-left: 0px solid transparent;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 a:link.tab, a:visited.tab, a:active.tab {

@@ -7,6 +7,8 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.renderkit.HeightLayoutRenderer;
+import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.TobagoConstants;
 
 import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
@@ -30,6 +32,17 @@ public class TabRenderer extends RendererBase implements HeightLayoutRenderer {
     return getConfiguredValue(facesContext, component, "headerHeight");
   }
 
+  public int getFixedHeight(FacesContext facesContext, UIComponent component) {
+
+    int height =
+        ComponentUtil.getIntAttribute(component, TobagoConstants.ATTR_HEIGHT, -1);
+
+    if (height == -1) {
+      height = PanelRenderer.getFixedHeightForPanel(component, facesContext);
+      height += getConfiguredValue(facesContext, component, "paddingHeight");
+    }
+    return height;
+  }
 // ///////////////////////////////////////////// bean getter + setter
 
 }
