@@ -308,46 +308,55 @@ label.tobago-label-default  {
 /* richtexteditor ---------------------------------------------------------- */
 
 .tobago-richtexteditor-default {
-  width: 300px;
-  height: 300px;
-  border-left: 2px solid #7b7d7b;
-  border-right: 2px solid #f6f2f6;
-  border-top: 2px solid #7b7d7b;
-  border-bottom: 2px solid #f6f2f6;
-  margin-left: 0px;
-  margin-right: 0px;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  background: #ffffff;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.tobago-richtexteditor-container {
 }
 
-.tobago-richtext-div {
-}
-
-.tobago-richtext-toolbar-div {
+.tobago-richtexteditor-header-div {
+  height: 25px;
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-.tobago-richtext-toolbar-div IMG {
+.tobago-richtexteditor-header-div IMG {
   margin-right: 3px;
 }
 
-.tobago-richtext-toolbar-button-span, .tobago-richtext-toolbar-button-span-disabled {
+.tobago-richtexteditor-toolbar-button-span-enabled, .tobago-richtexteditor-toolbar-button-span-disabled {
   padding-top: 2px;
   padding-left: 5px;
   padding-bottom: 2px;
   padding-right: 5px;
 }
 
-.tobago-richtext-toolbar-button-span {
+.tobago-richtexteditor-toolbar-button-span-enabled {
   cursor: pointer;
   cursor: hand;
 }
 
-.tobago-richtext-toolbar-button-span-disabled {
+.tobago-richtexteditor-toolbar-button-span-disabled {
   color: #778899;
 }
+
+.tobago-richtexteditor-body {
+  border-left: 2px solid #7b7d7b;
+  border-right: 2px solid #f6f2f6;
+  border-top: 2px solid #7b7d7b;
+  border-bottom: 2px solid #f6f2f6;
+  margin: 0px;
+  background: #ffffff;
+  height: 75px;
+}
+
+textarea.tobago-richtexteditor-body {
+}
+
+div.tobago-richtexteditor-body {
+  overflow: auto;
+}
+
 
 /* singleselect ------------------------------------------------------------ */
 

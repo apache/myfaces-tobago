@@ -299,7 +299,7 @@ label.tobago-label-disabled  {
 
 /* richtexteditor ---------------------------------------------------------- */
 
-.tobago-richtexteditor-default {
+.tobago-richtexteditor-body {
   border: 1px solid #000000;
   background: #ffffff;
   font: 12px arial, helvetica, sans-serif;

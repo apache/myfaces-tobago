@@ -25,9 +25,10 @@ import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
+import com.atanion.tobago.renderkit.HeightLayoutRenderer;
 
 public class RichTextEditorRenderer extends InputRendererBase
- implements DirectRenderer {
+ implements DirectRenderer, HeightLayoutRenderer {
 
 // ///////////////////////////////////////////// constant
 
@@ -40,6 +41,10 @@ public class RichTextEditorRenderer extends InputRendererBase
 // ///////////////////////////////////////////// constructor
 
 // ///////////////////////////////////////////// code
+
+  public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
+    return getConfiguredValue(facesContext, component, "headerHeight");
+  }
 
 
   public void decode(FacesContext facesContext, UIComponent component) {
@@ -59,14 +64,6 @@ public class RichTextEditorRenderer extends InputRendererBase
 
     }
     ((EditableValueHolder)component).setValid(true);
-  }
-
-
-  public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
-    // todo: refactor
-    Boolean state = (Boolean) component.getAttributes().get(TobagoConstants.ATTR_STATE_PREVIEW);
-    // <div>'s border is outside, <textarea>'s border is inside
-    return state.booleanValue() ? 2 : 0 ;
   }
 
   public static String contentToHtml(String content) {
@@ -91,12 +88,16 @@ public class RichTextEditorRenderer extends InputRendererBase
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
+    String classes
+        = (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE_CLASS);
+
     writer.startElement("div", component);
-    writer.writeAttribute("class", "tobago-richtext-div", null);
+    writer.writeAttribute("class", classes + " tobago-richtexteditor-container", null);
+    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
     // class, stly.width, style.height
 
     writer.startElement("div", component);
-    writer.writeAttribute("class", "tobago-richtext-toolbar-div", null);
+    writer.writeAttribute("class", classes + " tobago-richtexteditor-header-div", null);
     createToolbarButton("Editor", previewState, writer, component, facesContext, clientId);
     createToolbarButton("Preview", !previewState, writer, component, facesContext, clientId);
     writer.endElement("div");
@@ -111,9 +112,10 @@ public class RichTextEditorRenderer extends InputRendererBase
       writer.endElement("input");
 
       writer.startElement("div", component);
-      writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+      writer.writeAttribute("class", classes + " tobago-richtexteditor-body", null);
       writer.writeAttribute("id", clientId, null);
-      writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
+
+      writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_BODY);
 
       writer.write(RichTextEditorRenderer.contentToHtml(content));
 
@@ -121,10 +123,10 @@ public class RichTextEditorRenderer extends InputRendererBase
     }
     else {
       writer.startElement("textarea", component);
-      writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+      writer.writeAttribute("class", classes + " tobago-richtexteditor-body", null);
       writer.writeAttribute("name", clientId, null);
       writer.writeAttribute("id", clientId, null);
-      writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
+      writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_BODY);
       String onchange = HtmlUtils.generateOnchange(component, facesContext);
       if (null != onchange) {
         writer.writeAttribute("onchange", onchange, null);
@@ -145,10 +147,8 @@ public class RichTextEditorRenderer extends InputRendererBase
         + ComponentUtil.findPage(component).getFormId(facesContext) + "', '"
         + clientId + RichTextEditorRenderer.CHANGE_BUTTON + "')";
     writer.startElement("span", component);
-    String buttonStyle = "tobago-richtext-toolbar-button-span";
-    if (!enabled) {
-      buttonStyle += "-disabled";
-    }
+    String buttonStyle = "tobago-richtexteditor-toolbar-button-span"
+        + (enabled ? "-enabled" : "-disabled");
     writer.writeAttribute("class", buttonStyle, null);
     writer.writeAttribute("onclick", onClick, null);
     writer.writeAttribute("unselectable", "on", null);
