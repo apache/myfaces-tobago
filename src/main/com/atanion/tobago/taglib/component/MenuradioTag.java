@@ -37,6 +37,8 @@ public class MenuradioTag extends MenuTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
+    component.setRendererType("Menuitem");    
+
     setStringProperty(component, ATTR_TYPE, type);
 
     String commandType;

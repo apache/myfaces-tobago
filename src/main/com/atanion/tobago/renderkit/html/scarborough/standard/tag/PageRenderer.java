@@ -88,6 +88,13 @@ public class PageRenderer extends PageRendererBase implements DirectRenderer {
     ResponseWriter contentWriter = new TobagoResponseWriter(
         content, writer.getContentType(), writer.getCharacterEncoding());
     facesContext.setResponseWriter(contentWriter);
+        
+    UIComponent menubar = page.getFacet(FACET_MENUBAR);
+    if (menubar != null) {
+      menubar.getAttributes().put(ATTR_SUPPPRESS_TOOLBAR_CONTAINER, Boolean.TRUE);
+      RenderUtil.encode(facesContext, menubar);
+    }
+
     RenderUtil.encodeChildren(facesContext, page);
 
     // reset responseWriter and render page
@@ -228,6 +235,8 @@ public class PageRenderer extends PageRendererBase implements DirectRenderer {
     writer.writeAttribute("scroll", "auto", null);
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
     writer.writeAttribute("id", clientId, null);
+
+
 
     writer.startElement("form", page);
     writer.writeAttribute("name",

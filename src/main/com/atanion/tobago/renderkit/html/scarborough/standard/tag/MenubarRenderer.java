@@ -68,13 +68,13 @@ public class MenubarRenderer extends RendererBase
     boolean suppressContainer = ComponentUtil.getBooleanAttribute(
         menubar, TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER);
 
-    if (! suppressContainer) {
       writer.startElement("div", menubar);
       writer.writeAttribute("id", clientId, null);
       writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    if (! suppressContainer) {
       writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
-      writer.endElement("div");
     }
+      writer.endElement("div");
 
     String setupFunction = "setupMenu"
         + clientId.replaceAll(":", "_").replaceAll("\\.", "_").replaceAll("-", "_");

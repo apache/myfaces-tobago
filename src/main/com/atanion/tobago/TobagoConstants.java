@@ -126,6 +126,7 @@ public interface TobagoConstants {
   public static final String FACET_CHECKBOX = "checkbox";
   public static final String FACET_CONFIRMATION = "confirmation";
   public static final String FACET_LABEL = "label";
+  public static final String FACET_MENUBAR = "menubar";
   public static final String FACET_RADIO = "radio";
 
   public static final String VIEWS_IN_SESSION = "com.atanion.tobago.application.UIViewRoot";
