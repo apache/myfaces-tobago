@@ -235,8 +235,8 @@ public class SheetRenderer extends RendererBase {
     String sheetStyle = (String) attributes.get(TobagoConstants.ATTR_STYLE);
     String headerStyle =
         (String) attributes.get(TobagoConstants.ATTR_STYLE_HEADER);
-    String sheetWidthString = LayoutUtil.getStyleAttributeValue(sheetStyle,
-        "width");
+//    String sheetWidthString = LayoutUtil.getStyleAttributeValue(sheetStyle,
+//        "width");
     String sheetHeightString = LayoutUtil.getStyleAttributeValue(sheetStyle,
         "height");
     int sheetHeight;
@@ -293,18 +293,18 @@ public class SheetRenderer extends RendererBase {
       writer.writeAttribute("class", "tobago-sheet-header-div", null);
       writer.writeAttribute("style", headerStyle, null);
 
-      writer.startElement("table", component);
-      writer.writeAttribute("id", sheetId + "_header_table", null);
-      writer.writeAttribute("cellspacing", "0", null);
-      writer.writeAttribute("cellpadding", "0", null);
-      writer.writeAttribute("summary", "", null);
-      writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_HEADER);
-      writer.writeAttribute("class", "tobago-sheet-header-table", null);
-
-
-      writer.startElement("tr", null);
-      writer.startElement("td", null);
-      writer.writeAttribute("style", "white-space: nowrap;", null);
+//      writer.startElement("table", component);
+//      writer.writeAttribute("id", sheetId + "_header_table", null);
+//      writer.writeAttribute("cellspacing", "0", null);
+//      writer.writeAttribute("cellpadding", "0", null);
+//      writer.writeAttribute("summary", "", null);
+//      writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_HEADER);
+//      writer.writeAttribute("class", "tobago-sheet-header-table", null);
+//
+//
+//      writer.startElement("tr", null);
+//      writer.startElement("td", null);
+//      writer.writeAttribute("style", "white-space: nowrap;", null);
 
 
       int columnCount = 0;
@@ -317,8 +317,9 @@ public class SheetRenderer extends RendererBase {
 
       }
       writer.startElement("div", null);
+      writer.writeAttribute("id", sheetId + "_header_box_filler", null);
       writer.writeAttribute("class", "tobago-sheet-header-box", null);
-      writer.writeAttribute("style", "width: " + sheetWidthString, null);
+      writer.writeAttribute("style", "width: 0px", null);
 
       writer.startElement("div", null);
       writer.writeAttribute("class", "tobago-sheet-header", null);
@@ -326,9 +327,9 @@ public class SheetRenderer extends RendererBase {
       writer.endElement("div");
 
       writer.endElement("div");
-      writer.endElement("td");
-      writer.endElement("tr");
-      writer.endElement("table");
+//      writer.endElement("td");
+//      writer.endElement("tr");
+//      writer.endElement("table");
       writer.endElement("div");
       // end rendering header
 

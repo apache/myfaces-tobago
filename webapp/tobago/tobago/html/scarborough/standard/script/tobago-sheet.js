@@ -370,21 +370,24 @@ function adjustHeaderDiv(sheetId) {
   var contentDiv = document.getElementById(sheetId + "_data_div");
   var contentWidth = contentDiv.style.width.replace(/px/, "") - 0;
   var clientWidth = contentDiv.clientWidth;
-  if (clientWidth == 0) {
-    PrintDebug("clientWidth 1 = " + clientWidth);
+    var boxSum = 0;
     var idx = 0;
     var box = document.getElementById(sheetId + "_header_box_" + idx++);
     while (box) {
-      clientWidth += (box.style.width.replace(/px/, "") - 0);
+      boxSum += (box.style.width.replace(/px/, "") - 0);
       box = document.getElementById(sheetId + "_header_box_" + idx++);
     }
+  if (clientWidth == 0) {
+    PrintDebug("clientWidth 1 = " + clientWidth);
+    clientWidth = Math.min(contentWidth, boxSum);
     PrintDebug("clientWidth 2 = " + clientWidth);
-    clientWidth = Math.min(contentWidth, clientWidth);
   }
   var headerDiv = document.getElementById(sheetId + "_header_div");
   var minWidth = contentWidth - getScrollbarWidth(); // div width - scrollbar width
   minWidth = Math.max(minWidth, 0); // not less than 0
   headerDiv.style.width = Math.max(clientWidth, minWidth);
+  var fillBox = document.getElementById(sheetId + "_header_box_filler");
+  fillBox.style.width = Math.max(headerDiv.style.width - boxSum, 0);
   PrintDebug("adjustHeaderDiv(" + sheetId + ") : clientWidth = " + clientWidth + " :: width => " + headerDiv.style.width);
   //headerDiv.style.width = clientWidth;
 }
