@@ -262,8 +262,9 @@ public class PageRenderer extends PageRendererBase {
       writer.writeAttribute("type", "hidden", null);
       writer.writeAttribute("name", ViewHandlerImpl.PAGE_ID, null);
       writer.writeAttribute("id", ViewHandlerImpl.PAGE_ID, null);
-      writer.writeAttribute("value",
-          facesContext.getViewRoot().getAttributes().get(ViewHandlerImpl.PAGE_ID), null);
+      Object value = facesContext.getViewRoot().getAttributes().get(
+          ViewHandlerImpl.PAGE_ID);
+      writer.writeAttribute("value", (value != null ? value : ""), null);
       writer.endElement("input");
     }
 
@@ -284,7 +285,7 @@ public class PageRenderer extends PageRendererBase {
           errorMessageForDebugging(id, message, writer);
         }
       }
-//      writer.write("<div onmousedown=\"tobagoJsLogMouseDown(event)\" onmousemove=\"tobagoJsLogMouseMove(event)\" onmouseup=\"tobagoJsLogMouseUp()\" id=\"LogDiv\" style=\"position:  absolute; left: 760px; top: 300px; height: 370px;width: 400px; overflow: auto;border:1px solid red; background: #ffffff;\"><ol id=\"Log\" style=\"font-family:Arial,sans-serif; font-size:10pt\"><li>Ereignisliste</li></ol> </div>");
+      writer.write("<div onmousedown=\"tobagoJsLogMouseDown(event)\" onmousemove=\"tobagoJsLogMouseMove(event)\" onmouseup=\"tobagoJsLogMouseUp()\" id=\"LogDiv\" style=\"position:  absolute; left: 760px; top: 300px; height: 370px;width: 400px; overflow: auto;border:1px solid red; background: #ffffff;\"><ol id=\"Log\" style=\"font-family:Arial,sans-serif; font-size:10pt\"><li>Ereignisliste</li></ol> </div>");
     }
 
     writer.endElement("body");
