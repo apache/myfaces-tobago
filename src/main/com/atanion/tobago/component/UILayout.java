@@ -67,7 +67,7 @@ public abstract class UILayout extends UIComponentBase implements TobagoConstant
       layout = (UILayout) component.getFacet(TobagoConstants.FACET_LAYOUT_DEFAULT);
       if (layout == null) {
         layout = UIDefaultLayout.getInstance();
-        //component.getFacets().put(TobagoConstants.FACET_LAYOUT_DEFAULT, layout);
+        component.getFacets().put(TobagoConstants.FACET_LAYOUT_DEFAULT, layout);
       }
     }
     return layout;

@@ -783,8 +783,7 @@ public class SheetRenderer extends RendererBase {
     String resizerClass;
     if (column instanceof UIColumnSelector) {
       resizerClass = "tobago-sheet-header-resize";
-      renderColumnSelectorHeader(facesContext, writer, column, columnCount,
-          sorter);
+      renderColumnSelectorHeader(facesContext, writer, component, column);
     } else {
       resizerClass =
           "tobago-sheet-header-resize tobago-sheet-header-resize-cursor";
@@ -823,12 +822,13 @@ public class SheetRenderer extends RendererBase {
 
 
   private void renderColumnSelectorHeader(FacesContext facesContext,
-      ResponseWriter writer, UIColumn column, int columnCount, Sorter sorter)
+      ResponseWriter writer, UIData component, UIColumn column)
       throws IOException {
     UIPanel menu = (UIPanel) column.getFacet(FACET_MENUPOPUP);
     if (menu == null) {
       final Application application = facesContext.getApplication();
       menu = (UIPanel) application.createComponent(UIPanel.COMPONENT_TYPE);
+      menu.setId("selectorMenu");
       column.getFacets().put(FACET_MENUPOPUP, menu);
       menu.setRendererType(RENDERER_TYPE_MENUBAR);
       menu.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
@@ -840,15 +840,21 @@ public class SheetRenderer extends RendererBase {
       String action = "tobagoSheetSelectAll('" + sheetId + "')";
       String label = ResourceManagerUtil.getProperty(facesContext, "tobago",
           "sheetMenuSelect");
-      menu.getChildren().add(createMenuItem(application, label, action));
+      UICommand menuItem = createMenuItem(application, label, action);
+      menuItem.setId("menuSelectAll");
+      menu.getChildren().add(menuItem);
       action = "tobagoSheetUnselectAll('" + sheetId + "')";
       label = ResourceManagerUtil.getProperty(facesContext, "tobago",
           "sheetMenuUnselect");
-      menu.getChildren().add(createMenuItem(application, label, action));
+      menuItem = createMenuItem(application, label, action);
+      menuItem.setId("menuUnselectAll");
+      menu.getChildren().add(menuItem);
       action = "tobagoSheetToggleAllSelections('" + sheetId + "')";
       label = ResourceManagerUtil.getProperty(facesContext, "tobago",
           "sheetMenuToggleselect");
-      menu.getChildren().add(createMenuItem(application, label, action));
+      menuItem = createMenuItem(application, label, action);
+      menuItem.setId("menuToggleSelections");
+      menu.getChildren().add(menuItem);
     }
 
     writer.startElement("div", null);
