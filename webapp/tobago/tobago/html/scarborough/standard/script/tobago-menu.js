@@ -455,10 +455,9 @@ function MenuItem(label, action, disabled) {
         this.hideSubMenus();
       }
       else {
-        var aTag = parent.getLabelTag();
+        var aTag = this.parent.getLabelTag();
         if (aTag) {
           this.parent.hover = true;
-          this.parent.hideSubMenus();
           aTag.focus();
         }
       }
