@@ -55,3 +55,13 @@ textarea.tobago-richtexteditor-body {
   position: relative;
   top: -1px;
 }
+
+
+.tobago-toolbar-button-popup-span {
+  padding-right: 10px;
+}
+
+.tobago-toolbar-button-menu {
+  top:-5px;
+}
+

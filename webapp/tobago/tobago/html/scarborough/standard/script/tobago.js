@@ -223,6 +223,7 @@ function getAbsoluteTop(element) {
   var parent = false;
   while (element.offsetParent) {
     top += element.offsetTop;
+    top -= element.scrollTop;
     if (parent && element.currentStyle) { // IE only
       top += element.currentStyle.borderTopWidth.replace(/\D/g, "") - 0;
     }
@@ -237,6 +238,7 @@ function getAbsoluteLeft(element) {
   var parent = false;
   while (element.offsetParent) {
     left += element.offsetLeft;
+    left -= element.scrollLeft;
     if (parent && element.currentStyle) {  // IE only
       left += element.currentStyle.borderLeftWidth.replace(/\D/g, "") - 0;
     }

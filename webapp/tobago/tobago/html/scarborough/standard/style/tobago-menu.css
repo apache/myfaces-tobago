@@ -28,6 +28,21 @@
   box-sizing: border-box;
 }
 
+.tobago-menubar-submenuroot {
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    overflow: visible;
+ }
+
+.tobago-menubar-container-ToolbarButton {
+  width: 20px;
+  height: 20px;
+  display: inline;
+}
+
 .tobago-menubar-subitem-container {
   border: 2px groove #f6faff;
   position: absolute;

@@ -20,16 +20,28 @@ function initMenuComponents(divId, pageId, popup) {
     }
     var body = document.getElementById(pageId);
     var className = "tobago-menubar-container";
+    if (popup) {
+      className += " tobago-menubar-container-" + popup;
+    }
     menubar.menu.htmlElement = document.createElement('div');
     menubar.menu.htmlElement.className = className;
     menubar.menu.htmlElement.style.top = top;
     menubar.menu.htmlElement.style.left = left;
-    //menubar.menu.htmlElement.style.top = 0;
-    //menubar.menu.htmlElement.style.left = 0;
-    menubar.menu.htmlElement.innerHTML = menubar.menu.toHtml();
-    body.appendChild(menubar.menu.htmlElement);
-    //menubar.appendChild(menubar.menu.htmlElement);
+    menubar.menu.htmlElement.style.top = 0;
+    menubar.menu.htmlElement.style.left = 0;
+    
+    
+//    menubar.menu.htmlElement.innerHTML = menubar.menu.toHtml();
+//    body.appendChild(menubar.menu.htmlElement);
+//  //menubar.appendChild(menubar.menu.htmlElement);
 
+    menubar.menu.htmlElement.innerHTML = menubar.menu.toHtml(false);
+    menubar.appendChild(menubar.menu.htmlElement);
+    var subitems = createSubmenus(menubar.menu);
+    body.appendChild(subitems);
+    
+
+    
     initMenuItems(menubar.menu);
     setItemWidth(menubar.menu);
     setItemPositions(menubar.menu);
@@ -41,6 +53,13 @@ function initMenuComponents(divId, pageId, popup) {
   else {
     PrintDebug("keine menubar mit id ='" + divId + "'gefunden!");
   }
+}
+
+function createSubmenus(menu) {                   
+  var htmlElement = document.createElement('div');
+  htmlElement.className = "tobago-menubar-submenuroot";
+  htmlElement.innerHTML = menu.toHtml(true);
+  return htmlElement;
 }
 
 function createMenuRoot(id) {
@@ -65,9 +84,11 @@ function MenuItem(label, action, disabled) {
     menuItem.level = this.level + 1;
   }
 
-  this.toHtml = function() {
+  this.toHtml = function(createSubItems) {
     var html = "";
-    if (this.level != 0) {
+//    PrintDebug("toHtml() for"  + this.id + " l=" + this.level);
+    if (this.level > 1 || (this.level == 1 && ! createSubItems)) {
+//      PrintDebug("create menuitem" + this.id);
       var onClick = "";
       if (this.action) {
         onClick = ' onclick="tobagoMenuItemOnmouseout(this, true) ; ' + this.action + '"';
@@ -90,13 +111,15 @@ function MenuItem(label, action, disabled) {
       html += '>' + this.label + "</div>";
           //PrintDebug("adding menu entry '" + this.label + "'");
     }
-    if (this.subItems.length > 0) {
+    if (this.level == 0 || (createSubItems && this.subItems.length > 0)) {
+//      PrintDebug("create subitems " + this.id);
+
       if (this.level != 0) {
         html += '<div class="tobago-menubar-subitem-container"'
             + ' id="' + this.id + getSubComponentSeparator() + 'items" >';
       }
       for (var i = 0; i< this.subItems.length; i++) {
-        html += this.subItems[i].toHtml()
+        html += this.subItems[i].toHtml(createSubItems)
       }
       if (this.level != 0) {
         html += '</div>';
@@ -136,20 +159,26 @@ function MenuItem(label, action, disabled) {
     if (this.level == 1) {
       var containerRight = parentLeft + width;
       if (containerRight <= innerRight) {
-        this.subItemContainer.style.left = this.htmlElement.style.left;
+//        this.subItemContainer.style.left = this.htmlElement.style.left;
+        this.subItemContainer.style.left = parentLeft + "px";
       }
       else {
-        this.subItemContainer.style.left = this.htmlElement.style.left.replace(/\D/g,"") - (containerRight - innerRight) + "px";
+//        this.subItemContainer.style.left = this.htmlElement.style.left.replace(/\D/g,"") - (containerRight - innerRight) + "px";
+        this.subItemContainer.style.left = parentLeft - (containerRight - innerRight) + "px";
       }
+      var itemHeight = this.htmlElement.style.height.replace(/\D/g, "") - 0;       
+      this.subItemContainer.style.top = parentTop + itemHeight + "px";
     }
     else if (this.level > 1) {
       var containerRight = parentLeft + parentWidth + width;
+      var left = 0;
       if (containerRight <= innerRight) {
-        this.subItemContainer.style.left = this.parent.childWidth + "px";
+        left = this.parent.childWidth;
       }
       else {
-        this.subItemContainer.style.left = "-" + this.childWidth + "px";
+        left = "-" + this.childWidth;
       }
+      this.subItemContainer.style.left = left + "px";
     
       var containerBottom = parentTop + height;
       if (containerBottom <= innerBottom) {
@@ -165,7 +194,10 @@ function MenuItem(label, action, disabled) {
     this.subItemContainer.style.height = this.subItemContainerStyleHeight;
 
     this.setupIframe();
-    this.setSubMenuContainerVisibility("visible");
+//    this.setSubMenuContainerVisibility("visible");
+//    timing problem when call this directly ??
+//    calling via 'setTimeout()' is not nice, but resolves the problem
+    setTimeout('tobagoSetSubMenuContainerVisible("' + this.id +  '")', 0);
   }
   this.hideSubMenus = function() {
     this.setSubMenuContainerVisibility("hidden");
@@ -908,4 +940,8 @@ function tobagoMenuItemOnblur(element) {
 */
 function tobagoMenuOpenMenu(element) {
   element.menuItem.openMenu();
+}
+
+function tobagoSetSubMenuContainerVisible(id){
+  document.getElementById(id).menuItem.setSubMenuContainerVisibility("visible");
 }

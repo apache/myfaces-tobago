@@ -21,3 +21,12 @@ table.tobago-tree-default {
 /* this fixes scroolbar bug in mozilla >= 1.6 */
   margin: 1px;
 }
+
+
+.tobago-toolbar-button-menu {
+  top:-15px;
+}
+
+.tobago-toolbar-button-popup-span {
+  padding-right: 20px;
+}

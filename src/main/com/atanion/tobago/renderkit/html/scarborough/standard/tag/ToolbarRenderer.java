@@ -125,13 +125,19 @@ public class ToolbarRenderer extends RendererBase {
             facesContext);
 
 //    writer.startElement("td", null);
+    writer.startElement("span", null);
+    writer.writeAttribute("onmouseover", mouseover, null);
+    writer.writeAttribute("onmouseout", mouseout, null);
+    writer.writeAttribute("class", spanClass, null);
+    writer.writeAttribute("style", "white-space: nowrap;", null);
+
     writer.startElement("a", null);
     writer.writeAttribute("id", command.getClientId(facesContext), null);
-    writer.writeAttribute("class", spanClass, null);
+//    writer.writeAttribute("class", spanClass, null);
     if (! disabled) {
       writer.writeAttribute("onclick", onClick, null);
-      writer.writeAttribute("onmouseover", mouseover, null);
-      writer.writeAttribute("onmouseout", mouseout, null);
+//      writer.writeAttribute("onmouseover", mouseover, null);
+//      writer.writeAttribute("onmouseout", mouseout, null);
       if (label.getAccessKey() != null) {
          writer.writeAttribute("accesskey", label.getAccessKey(), null);
        }      
@@ -170,7 +176,12 @@ public class ToolbarRenderer extends RendererBase {
         writer.endElement("span");
       }
     }
+    writer.endElement("a");
     if (popupMenu != null) {
+      writer.startElement("span", null);
+      writer.writeAttribute("id", command.getClientId(facesContext) + SUBCOMPONENT_SEP + "popup", null);
+      writer.writeAttribute("class", "tobago-toolbar-button-menu", null);
+      writer.endElement("span");
       popupMenu.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
       popupMenu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "ToolbarButton");
       popupMenu.setRendererType("Menubar");
@@ -179,7 +190,7 @@ public class ToolbarRenderer extends RendererBase {
       popupMenu.getAttributes().put(ATTR_IMAGE, "toolbarButtonMenu.gif");
       RenderUtil.encode(facesContext, popupMenu);
     }
-    writer.endElement("a");
+    writer.endElement("span");
 //    writer.endElement("td");
   }
 

@@ -132,4 +132,5 @@
 .tobago-sheet-selector-menu {
   width: 15px;
   height:15px;
+  position: relative;
 }

@@ -527,9 +527,14 @@ div.tobago-richtexteditor-body {
   color: #778899;
 }
 
-.tobago-toolbar-button-popup-span {
-  padding-right: 20px;
+.tobago-toolbar-button-menu {
+  position: relative;
+  width:  10px;
+  height: 10px;
+  top:  0px;
+  left: 0px;
 }
+
 .tobago-toolbar-button-span-hover {
   margin: 0px;
   border-left: 1px solid #ddeeff;

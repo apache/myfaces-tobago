@@ -107,9 +107,14 @@ public class MenubarRenderer extends RendererBase {
     sb.append("function ");
     sb.append(setupFunction);
     sb.append("(id, pageId) {\n");
-    sb.append("  var menubar = document.getElementById(id);\n");
+    sb.append("  var searchId = id + '" + SUBCOMPONENT_SEP + "popup';\n");
+    sb.append("  var menubar = document.getElementById(searchId);\n");
+    sb.append("  if (! menubar) {\n");
+    sb.append("    searchId  = id;\n");
+    sb.append("    menubar = document.getElementById(searchId);\n");
+    sb.append("  }\n");
     sb.append("  if (menubar) {\n");
-    sb.append("    var menu = createMenuRoot(id);\n");
+    sb.append("    var menu = createMenuRoot(searchId);\n");
     sb.append("    menubar.menu = menu;\n");
 
     sb.append("    menu.setSubitemArrowImage(\"");
@@ -118,15 +123,18 @@ public class MenubarRenderer extends RendererBase {
 
     if (ComponentUtil.getBooleanAttribute(component, ATTR_MENU_POPUP)) {
       addMenu(sb, "menu", facesContext, (UIPanel) component, 0);
-      sb.append("    initMenuPopUp(id, pageId, \"");
+      sb.append("    initMenuPopUp(searchId, pageId, \"");
       sb.append(component.getAttributes().get(ATTR_MENU_POPUP_TYPE));
       sb.append("\");\n");
     }
     else {
       addMenuEntrys(sb, "menu", facesContext, component, true);
-      sb.append("    initMenuBar(id, pageId);\n");
+      sb.append("    initMenuBar(searchId, pageId);\n");
     }
 
+    sb.append("  }\n");
+    sb.append("  else {\n");
+    sb.append("    PrintDebug('kein Element mit id: ' + searchId + ' gefunden!');\n");
     sb.append("  }\n");
     sb.append("}\n");
     return setupFunction;

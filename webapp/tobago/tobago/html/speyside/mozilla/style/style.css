@@ -39,3 +39,12 @@ label.tobago-label-default  {
 .tobago-singleselect-default  {
   margin-bottom: -1px;
 }
+
+
+.tobago-toolbar-button-menu {
+  top:-12px;
+}
+
+.tobago-toolbar-button-popup-span {
+  padding-right: 15px;
+}
