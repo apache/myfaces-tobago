@@ -23,6 +23,7 @@ import com.atanion.tobago.taglib.component.MenuSelectOneTag;
 import com.atanion.tobago.taglib.component.MenuSeparatorTag;
 import com.atanion.tobago.taglib.component.MenuTag;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
+import com.atanion.tobago.util.AccessKeyMap;
 
 import javax.faces.application.Application;
 import javax.faces.component.UICommand;
@@ -187,6 +188,10 @@ public class MenuBarRenderer extends RendererBase {
     writer.writeAttribute("onkeypress", "tobagoMenuKeyPress(event)", null);
     if (label.getText() != null) {
       if (label.getAccessKey() != null) {
+        if (LOG.isInfoEnabled()
+            && ! AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
+          LOG.info("dublicated accessKey : " + label.getAccessKey());
+        }
         writer.writeAttribute("accesskey", label.getAccessKey(), null);
       }
       HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
@@ -408,6 +413,10 @@ public class MenuBarRenderer extends RendererBase {
     writer.startElement("a", null);
     writer.writeAttribute("class", spanClass, null);
     if (label.getAccessKey() != null) {
+      if (LOG.isInfoEnabled()
+          && ! AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
+        LOG.info("dublicated accessKey : " + label.getAccessKey());
+      }
       writer.writeAttribute("accesskey", label.getAccessKey(), null);
     }
     writer.writeAttribute("href", "#", null);

@@ -27,12 +27,19 @@ public final class LabelWithAccessKey {
 // --------------------------------------------------------------- constructors
 
   public LabelWithAccessKey(UIComponent component) {
+
+    if (TobagoConstants.RENDERER_TYPE_LABEL.equals(component.getRendererType())) {
+      text = (String) component.getAttributes().get(
+          TobagoConstants.ATTR_VALUE);
+    } else {
+      text = (String) component.getAttributes().get(
+              TobagoConstants.ATTR_LABEL);
+    }
+
     accessKey = ComponentUtil.getCharakterAttribute(
         component, TobagoConstants.ATTR_ACCESS_KEY);
     String labelWithAccessKey = (String) component.getAttributes().get(
         TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY);
-    text = (String) component.getAttributes().get(
-        TobagoConstants.ATTR_LABEL);
 
     setup(labelWithAccessKey);
 

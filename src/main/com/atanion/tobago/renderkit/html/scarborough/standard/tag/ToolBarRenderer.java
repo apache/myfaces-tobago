@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.util.AccessKeyMap;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.CommandRendererBase;
@@ -235,7 +236,7 @@ public class ToolBarRenderer extends RendererBase {
           + " tobago-toolBar-button-image-" + iconSize;
 
       if (!anchorOnLabel) {
-        renderAnchorBegin(writer, command, label, disabled);
+        renderAnchorBegin(facesContext, writer, command, label, disabled);
       }
       writer.startElement("img", command);
       writer.writeAttribute("id", graphicId, null);
@@ -276,7 +277,7 @@ public class ToolBarRenderer extends RendererBase {
       }
 
       if (label.getText() != null) {
-        renderAnchorBegin(writer, command, label, disabled);
+        renderAnchorBegin(facesContext, writer, command, label, disabled);
         HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
         writer.endElement("a");
       }
@@ -373,9 +374,10 @@ public class ToolBarRenderer extends RendererBase {
     return image;
   }
 
-  private void renderAnchorBegin(TobagoResponseWriter writer,
-      final UICommand command, final LabelWithAccessKey label,
-      final boolean disabled) throws IOException {
+  private void renderAnchorBegin(FacesContext facesContext,
+      TobagoResponseWriter writer, final UICommand command,
+      final LabelWithAccessKey label, final boolean disabled)
+      throws IOException {
     writer.startElement("a", command);
     writer.writeAttribute("class", "tobago-toolBar-button-link", null);
     writer.writeAttribute("title", null, ATTR_TIP);
@@ -383,6 +385,10 @@ public class ToolBarRenderer extends RendererBase {
       writer.writeAttribute("href", "#", null);
       writer.writeAttribute("onfocus", "tobagoToolbarFocus(this, event)", null);
       if (label.getAccessKey() != null) {
+        if (LOG.isInfoEnabled()
+                && ! AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
+          LOG.info("dublicated accessKey : " + label.getAccessKey());
+        }
         writer.writeAttribute("accesskey", label.getAccessKey(), null);
       }
     }

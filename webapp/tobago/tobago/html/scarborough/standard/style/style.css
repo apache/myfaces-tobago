@@ -309,8 +309,9 @@ div.tobago-box-default {
 
 /* label ------------------------------------------------------------------- */
 
-span.tobago-label-default  {
+a.tobago-label-default  {
   padding-top: 1px;
+  display: -moz-box; 
 }
 label.tobago-label-default  {
   height: 23px;

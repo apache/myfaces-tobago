@@ -16,6 +16,7 @@ import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
+import com.atanion.tobago.util.AccessKeyMap;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -81,6 +82,10 @@ public class LinkRenderer extends CommandRendererBase{
       writer.writeAttribute("title", null, ATTR_TIP);
       writer.writeAttribute("target", null, ATTR_TARGET);
       if (label.getAccessKey() != null) {
+        if (LOG.isInfoEnabled()
+            && ! AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
+          LOG.info("dublicated accessKey : " + label.getAccessKey());
+        }
         writer.writeAttribute("accesskey", label.getAccessKey(), null);
       }
       writer.writeText("", null); // force closing the start tag

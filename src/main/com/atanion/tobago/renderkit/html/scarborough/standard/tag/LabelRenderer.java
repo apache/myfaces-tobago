@@ -11,8 +11,10 @@ import org.apache.commons.logging.LogFactory;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
+import com.atanion.tobago.util.AccessKeyMap;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -62,26 +64,36 @@ public class LabelRenderer extends RendererBase {
           Integer(getConfiguredValue(facesContext, component, "labelWidth"));      
     }
 
+    LabelWithAccessKey label = new LabelWithAccessKey(component);
+
     String forValue = ComponentUtil.findClientIdFor(output, facesContext);
 
     // todo move into labelLayout ?
     createClassAttribute(component);
     ResponseWriter writer = facesContext.getResponseWriter();
 
-    writer.startElement("span", output);
+    writer.startElement("a", output);
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
-    writer.writeAttribute("style", "display: -moz-box;", null);
     writer.startElement("label", output);
-    writer.writeAttribute("for", forValue, null);
+    if (forValue != null) {
+      writer.writeAttribute("for", forValue, null);
+    }
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    if (label.getAccessKey() != null) {
+      if (LOG.isInfoEnabled()
+          && ! AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
+        LOG.info("dublicated accessKey : " + label.getAccessKey());
+      }
+      writer.writeAttribute("accesskey", label.getAccessKey(), null);
+    }
     if (width != null) {
       writer.writeAttribute("style", "width: " + width + "px;", null);
     }
-    if (output.getValue() != null) {
-      writer.writeText(output.getValue(), null);
+    if (label.getText() != null) {
+      HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
     }
     writer.endElement("label");
-    writer.endElement("span");
+    writer.endElement("a");
   }
 
 }

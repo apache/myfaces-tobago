@@ -9,7 +9,6 @@ import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.util.LayoutUtil;
 
 import javax.faces.component.UIComponent;
@@ -110,7 +109,7 @@ public class HtmlRendererUtil {
   }
 
 
-  public static void writeLabelWithAccessKey(TobagoResponseWriter writer,
+  public static void writeLabelWithAccessKey(ResponseWriter writer,
       LabelWithAccessKey label)
       throws IOException {
     int pos = label.getPos();

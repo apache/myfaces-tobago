@@ -15,6 +15,8 @@ public class LabelTag extends BeanTag {
 // ----------------------------------------------------------------- attributes
 
   private String _for;
+  private String labelWithAccessKey;
+  private String accessKey;
 
 // ----------------------------------------------------------- business methods
 
@@ -28,6 +30,8 @@ public class LabelTag extends BeanTag {
 
   public void release() {
     super.release();
+    accessKey = null;
+    labelWithAccessKey = null;
     _for = null;
   }
 
@@ -37,7 +41,28 @@ public class LabelTag extends BeanTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_FOR, _for, getIterationHelper());
+    ComponentUtil.setStringProperty(
+        component, ATTR_FOR, _for, getIterationHelper());
+    ComponentUtil.setStringProperty(
+        component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
+    ComponentUtil.setStringProperty(component,
+        ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
+  }
+
+  public String getLabelWithAccessKey() {
+    return labelWithAccessKey;
+  }
+
+  public void setLabelWithAccessKey(String labelWithAccessKey) {
+    this.labelWithAccessKey = labelWithAccessKey;
+  }
+
+  public String getAccessKey() {
+    return accessKey;
+  }
+
+  public void setAccessKey(String accessKey) {
+    this.accessKey = accessKey;
   }
 }
 
