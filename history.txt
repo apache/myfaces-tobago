@@ -1,4 +1,4 @@
-1.0.2 - 15.12.2004
+1.0.2 -
 * bugfix: submit button in IE makes double submit
 
 1.0.1 - 15.12.2004
