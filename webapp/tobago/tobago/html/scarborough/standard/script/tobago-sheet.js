@@ -90,9 +90,12 @@ function doSelection(event) {
     var hidden = document.getElementById(sheetId + "::selected");
     var selected = hidden.value;
     var sheet = document.getElementById(sheetId + "_outer_div");
+    var rowIndex = rowId.substring(rowId.lastIndexOf("_data_tr_") + 9);
+    var selector = document.getElementById(sheetId + "_data_row_selector_" + rowIndex);
+
     //PrintDebug("last id = " + sheet.tobagoLastClickedRowId);
 
-    if (! event.ctrlKey) {
+    if (! event.ctrlKey && ! selector) {
       // clearAllSelections();
       hidden.value = "";
     }
@@ -116,15 +119,20 @@ function updateSelectionView(sheetId, selected) {
     selected = hidden.value;
   }
   var row = getFirstSelectionRow(sheetId);
-  var outerDiv = document.getElementById(sheetId + "_outer_div");
-  var i = row.id.substring(row.id.lastIndexOf("_data_tr_") + 9);
+  if (row) {
+    var outerDiv = document.getElementById(sheetId + "_outer_div");
+    var i = row.id.substring(row.id.lastIndexOf("_data_tr_") + 9);
+  }  
   while (row) {
+
+    var selector = document.getElementById(sheetId + "_data_row_selector_" + i);
     var re = new RegExp("," + i +",");
     var classes = row.className;
     var img = document.getElementById(sheetId + "_data_row_selector_" + i);
     if (selected.search(re) == -1) { // not selected: remove selection class
       row.className = classes.replace(/tobago-sheet-row-selected/g, "");
-      if (img) {
+
+      if (img && (!selector || !selector.src.match(/Disabled/))) {
         img.src = outerDiv.uncheckedImage;
       }
     }
@@ -132,7 +140,7 @@ function updateSelectionView(sheetId, selected) {
       if (classes.search(/tobago-sheet-row-selected/) == -1) {
         row.className = classes + " tobago-sheet-row-selected ";
       }
-      if (img) {
+      if (img && (!selector || !selector.src.match(/Disabled/))) {
         img.src = outerDiv.checkedImage;
       }
     }
@@ -144,6 +152,10 @@ function selectRange(dataRow, lastId, hidden) {
   var lastRow = document.getElementById(lastId);
   var firstIndex = lastRow.id.substring(lastRow.id.lastIndexOf("_data_tr_") + 9) - 0;
   var lastIndex  = dataRow.id.substring(dataRow.id.lastIndexOf("_data_tr_") + 9) - 0;
+  var sheetId = hidden.id.substring(
+      0,hidden.id.lastIndexOf(getSubComponentSeparator() + "selected"));
+  var selector = document.getElementById(sheetId + "_data_row_selector_" + lastIndex);
+
   var start;
   var end;
   if (firstIndex > lastIndex) {
@@ -157,7 +169,9 @@ function selectRange(dataRow, lastId, hidden) {
   for (var i = start; i <= end; i++) {
     var re = new RegExp("," + i + ",");
     if (hidden.value.search(re) == -1) {
-      hidden.value = hidden.value + "," + i + ",";
+      if (!selector || !selector.src.match(/Disabled/)) {
+        hidden.value = hidden.value + "," + i + ",";
+      }
     }
   }
 }
@@ -166,19 +180,59 @@ function tobagoSheetToggleSelectionForRow(dataRow, hidden) {
   var rowIndex = dataRow.id.substring(dataRow.id.lastIndexOf("_data_tr_") + 9);
   tobagoSheetToggleSelection(rowIndex, hidden);
 }
-function tobagoSheetToggleSelectionState(sheetId, rowIndex) {
-  var hidden
-  = document.getElementById(sheetId + getSubComponentSeparator() + "selected");
-  tobagoSheetToggleSelection(rowIndex, hidden);
-  updateSelectionView(sheetId, hidden.value);
-}
-function tobagoSheetToggleSelection(rowIndex, hidden) {
-  var re = new RegExp("," + rowIndex + ",");
-  if (hidden.value.search(re) != -1) {
-    hidden.value = hidden.value.replace(re, "");
+
+//function tobagoSheetToggleSelectionState(sheetId, rowIndex) {
+//  var hidden
+//  = document.getElementById(sheetId + getSubComponentSeparator() + "selected");
+// tobagoSheetToggleSelection(rowIndex, hidden);
+//  updateSelectionView(sheetId, hidden.value);
+//}
+function tobagoSheetToggleSelectionState(event) {
+  if (! event) {
+    event = window.event;
+  }
+
+
+  var imgElement;
+  if (event.target) {
+    imgElement = event.target;
   }
   else {
-    hidden.value = hidden.value + "," + rowIndex + ",";
+    imgElement = event.srcElement;
+  }
+
+  var sheetId = imgElement.id.substr(0, "_data_row_selector_");
+  PrintDebug("sheetId == " + sheetId);
+  var rowIndex = imgElement.id.substr(
+      imgElement.id.lastIndexOf("_data_row_selector_") + 19) - 0;
+  var row = document.getElementById(sheetId + "_data_tr_" + rowIndex);
+  var sheet = document.getElementById(sheetId + "_outer_div");
+  var hidden
+    = document.getElementById(sheetId + getSubComponentSeparator() + "selected");
+
+  if (event.shiftKey) {
+      selectRange(row, sheet.tobagoLastClickedRowId, hidden);
+  }
+  else {
+    tobagoSheetToggleSelection(rowIndex, hidden);
+  }
+  updateSelectionView(sheetId, hidden.value);
+}
+
+function tobagoSheetToggleSelection(rowIndex, hidden) {
+  var sheetId = hidden.id.substring(
+      0,hidden.id.lastIndexOf(getSubComponentSeparator() + "selected"));
+  document.getElementById(sheetId + "_outer_div").tobagoLastClickedRowId
+      = document.getElementById(sheetId + "_data_tr_" + rowIndex).id;
+  var selector = document.getElementById(sheetId + "_data_row_selector_" + rowIndex);
+  if (!selector || !selector.src.match(/Disabled/)) {
+    var re = new RegExp("," + rowIndex + ",");
+    if (hidden.value.search(re) != -1) {
+      hidden.value = hidden.value.replace(re, "");
+    }
+    else {
+      hidden.value = hidden.value + "," + rowIndex + ",";
+    }
   }
 }
 
@@ -365,9 +419,12 @@ function tobagoSheetSelectAll(sheetId) {
   var row = getFirstSelectionRow(sheetId);
   var i = row.id.substring(row.id.lastIndexOf("_data_tr_") + 9);
   while (row) {
-    var re = new RegExp("," + i + ",");
-    if (hidden.value.search(re) == -1) {
-      hidden.value = hidden.value + "," + i + ",";
+    var selector = document.getElementById(sheetId + "_data_row_selector_" + i);
+    if (!selector || !selector.src.match(/Disabled/)) {
+      var re = new RegExp("," + i + ",");
+      if (hidden.value.search(re) == -1) {
+        hidden.value = hidden.value + "," + i + ",";
+      }
     }
     row = document.getElementById(sheetId + "_data_tr_" + ++i );
   }
@@ -376,7 +433,21 @@ function tobagoSheetSelectAll(sheetId) {
 function tobagoSheetUnselectAll(sheetId) {
   var hidden
     = document.getElementById(sheetId + getSubComponentSeparator() + "selected");
+  var row = getFirstSelectionRow(sheetId);
+  var selector = document.getElementById(sheetId + "_data_row_selector_" + i);
+  if (selector) {
+    var i = row.id.substring(row.id.lastIndexOf("_data_tr_") + 9);
+    while (row) {
+      var selector = document.getElementById(sheetId + "_data_row_selector_" + i);
+      if (!selector || !selector.src.match(/Disabled/)) {
+        var re = new RegExp("," + i + ",", 'g');
+        hidden.value = hidden.value.replace(re, "");
+      }
+      row = document.getElementById(sheetId + "_data_tr_" + ++i );
+    }
+  } else {
     hidden.value = "";
+  }
   updateSelectionView(sheetId, hidden.value);
 }
 

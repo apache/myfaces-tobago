@@ -542,7 +542,7 @@
     <tag-class>com.atanion.tobago.taglib.component.ColumnSelectorTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
-      <name>sortable</name>
+      <name>disabled</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>

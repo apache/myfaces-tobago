@@ -16,20 +16,29 @@ import javax.faces.component.UIComponent;
 
 public class ColumnSelectorTag extends ColumnTag {
 
-// ///////////////////////////////////////////// constant
-
   private static final Log LOG = LogFactory.getLog(ColumnSelectorTag.class);
 
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
+  private String disabled ;
 
   public String getComponentType() {
     return UIColumnSelector.COMPONENT_TYPE;
   }
-  
-// ///////////////////////////////////////////// bean getter + setter
 
+  protected void setProperties(UIComponent component) {
+    super.setProperties(component);
+    setStringProperty(component, ATTR_DISABLED, disabled);
+  }
+
+  public void release() {
+    super.release();
+    disabled = null;
+  }
+
+  public String getDisabled() {
+    return disabled;
+  }
+
+  public void setDisabled(String disabled) {
+    this.disabled = disabled;
+  }
 }

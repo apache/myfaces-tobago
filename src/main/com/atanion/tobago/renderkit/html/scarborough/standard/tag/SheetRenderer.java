@@ -208,6 +208,8 @@ public class SheetRenderer extends RendererBase
     uiPage.getOnloadScripts().add("initSheet(\"" + sheetId + "\");");
     uiPage.getStyleFiles().add("tobago-sheet.css");
 
+    String selectorDisabled
+        = ResourceManagerUtil.getImage(facesContext, "sheetUncheckedDisabled.gif");
     String unchecked
         = ResourceManagerUtil.getImage(facesContext, "sheetUnchecked.gif");
     uiPage.getOnloadScripts().add(
@@ -449,12 +451,19 @@ public class SheetRenderer extends RendererBase
 //        }
 
         if (column instanceof UIColumnSelector) {
+          boolean disabled
+              = ComponentUtil.getBooleanAttribute(column, ATTR_DISABLED);
           writer.startElement("img", null);
-          writer.writeAttribute("src", unchecked, null);
+          if (disabled) {
+            writer.writeAttribute("src", selectorDisabled, null);
+          } else {
+            writer.writeAttribute("src", unchecked, null);
+//            writer.writeAttribute("onclick", "tobagoSheetToggleSelectionState(\""
+//                + sheetId + "\", " + rowIndex + ")", null);
+            writer.writeAttribute("onclick", "tobagoSheetToggleSelectionState(event)", null);
+          }
           writer.writeAttribute("id", sheetId + "_data_row_selector_" + rowIndex, null);
           writer.writeAttribute("class", "tobago-sheet-column-selector", null);
-          writer.writeAttribute("onclick", "tobagoSheetToggleSelectionState(\""
-              + sheetId + "\", " + rowIndex + ")", null);
           writer.endElement("img");
         }
         else {
