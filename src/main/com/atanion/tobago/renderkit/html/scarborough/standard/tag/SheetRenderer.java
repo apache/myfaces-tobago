@@ -576,13 +576,22 @@ public class SheetRenderer extends RendererBase {
       FacesContext facesContext) {
     String sheetPagingInfo;
     if (component.getRowCount() > 0) {
-      String key = ResourceManagerUtil.getProperty(facesContext, "tobago",
-          "sheetPagingInfo");
       Locale locale = facesContext.getViewRoot().getLocale();
+      final int first = component.getFirst() + 1;
+      final int last = getEndIndex(component);
+
+      String key;
+      if (first != last) {
+        key = ResourceManagerUtil.getProperty(facesContext, "tobago",
+            "sheetPagingInfo");
+      } else {
+        key = ResourceManagerUtil.getProperty(facesContext, "tobago",
+            "sheetPagingInfoSingle");
+      }
       MessageFormat detail = new MessageFormat(key, locale);
       Integer[] args = {
-        new Integer(component.getFirst() + 1),
-        new Integer(getEndIndex(component)),
+        new Integer(first),
+        new Integer(last),
         new Integer(component.getRowCount())};
       sheetPagingInfo = detail.format(args);
     } else {
