@@ -10,20 +10,18 @@ import com.atanion.tobago.context.ResourceManager;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.util.SystemUtils;
 
-import javax.faces.context.FacesContext;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import javax.faces.FactoryFinder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
-import javax.faces.render.RenderKitFactory;
+import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
+import javax.faces.render.RenderKitFactory;
 import javax.faces.render.Renderer;
-import javax.faces.FactoryFinder;
-import java.util.Map;
 import java.util.HashMap;
-import java.util.StringTokenizer;
-import java.util.Iterator;
-
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
+import java.util.Map;
 
 public class ThemeConfig {
 
@@ -86,7 +84,7 @@ public class ThemeConfig {
       family = UIInput.COMPONENT_FAMILY;
       rendererType = "TextBox";
     }
-    Renderer renderer = (Renderer) renderKit.getRenderer(family, rendererType);
+    Renderer renderer = renderKit.getRenderer(family, rendererType);
 
     Class clazz = renderer.getClass();
     if (LOG.isDebugEnabled()) {
@@ -99,7 +97,7 @@ public class ThemeConfig {
       }
 
       ResourceManager resourceManager = ResourceManager.getInstance();
-      String property = resourceManager.getProperty(
+      String property = resourceManager.getThemeProperty(
           renderKitId, "tobago-theme-config" , tag + "." + name);
 
       if (property != null && property.length() > 0) {
@@ -110,9 +108,8 @@ public class ThemeConfig {
       }
       clazz = clazz.getSuperclass();
     }
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("found null");
-    }
+    LOG.error("Theme property not found for renderer: " + renderer.getClass() +
+        " with renderKitId='" + renderKitId + "'");
     return null;
   }
 

@@ -77,7 +77,7 @@ public class ResourceManager {
     try {
       Class clazz = (Class) getPaths(
           renderKitId, classDirectories, "", type, name,
-          "", false, true, true, null, false).get(0);
+          "", false, true, true, null, false, false).get(0);
       renderer = (Renderer) clazz.newInstance();
       cache.put(key, renderer);
     } catch (Exception e) {
@@ -99,7 +99,7 @@ public class ResourceManager {
       result = (String) getPaths(
           renderKitId, resourceDirectories, "",
           type, name,
-          "", false, true, true, null, true).get(0);
+          "", false, true, true, null, true, false).get(0);
       cache.put(key, result);
     } catch (Exception e) {
       LOG.error("name = '" + name + "' renderKitId = '" + renderKitId + "'", e);
@@ -111,13 +111,32 @@ public class ResourceManager {
     final String type = "property";
     String result;
     String key = key(renderKitId, type, bundle, propertyKey);
-//    Log.debug("key=" + key);
     if ((result = (String) cache.get(key)) != null) {
       return result;
     }
     List properties = getPaths(
         renderKitId, resourceDirectories, "", type, bundle,
-        "", false, true, false, propertyKey, true);
+        "", false, true, false, propertyKey, true, false);
+    if (properties != null) {
+      result = (String) properties.get(0);
+    } else {
+      result = null;
+    }
+    cache.put(key, result);
+    return result;
+  }
+
+  public String getThemeProperty(
+      String renderKitId, String bundle, String propertyKey) {
+    final String type = "property";
+    String result;
+    String key = key(renderKitId, type, bundle, propertyKey);
+    if ((result = (String) cache.get(key)) != null) {
+      return result;
+    }
+    List properties = getPaths(
+        renderKitId, resourceDirectories, "", type, bundle,
+        "", false, true, false, propertyKey, true, true);
     if (properties != null) {
       result = (String) properties.get(0);
     } else {
@@ -143,7 +162,7 @@ public class ResourceManager {
       result = (String) getPaths(
           renderKitId, resourceDirectories, "",
           type, name.substring(0, dot), name.substring(dot),
-          false, true, true, null, true).get(0);
+          false, true, true, null, true, false).get(0);
       cache.put(key, result);
     } catch (Exception e) {
       LOG.error("name = '" + name + "' renderKitId = '" + renderKitId + "'", e);
@@ -163,7 +182,7 @@ public class ResourceManager {
     List matches = getPaths(
         renderKitId, resourceDirectories, "",
         type, name.substring(0, dot),
-        name.substring(dot), true, false, true, null, true);
+        name.substring(dot), true, false, true, null, true, false);
     String[] result;
 //    Log.debug("key=" + key);
     if ((result = (String[]) cache.get(key)) != null) {
@@ -195,7 +214,7 @@ public class ResourceManager {
       result = (String) getPaths(
           renderKitId, resourceDirectories, "",
           type, name.substring(0, dot),
-          name.substring(dot), false, true, true, null, true).get(0);
+          name.substring(dot), false, true, true, null, true, false).get(0);
       cache.put(key, result);
     } catch (Exception e) {
       LOG.error("name = '" + name + "' renderKitId = '" + renderKitId + "'", e);
@@ -235,7 +254,7 @@ public class ResourceManager {
       String renderKitId, List mainDirectories, String prefix,
       String subDir, String name, String suffix,
       boolean reverseOrder, boolean single, boolean returnKey,
-      String key, boolean returnStrings) {
+      String key, boolean returnStrings, boolean ignoreMissing) {
 
     List matches = new ArrayList();
 
@@ -342,17 +361,19 @@ public class ResourceManager {
       }
     }
     if (matches.size() == 0) {
-      LOG.error(
-          "Path not found, and no fallback. Using empty string.\n"
-          + "mainDirs = '" + mainDirectories
-          + "' contentType = '" + contentType
-          + "' theme = '" + theme
-          + "' browser = '" + browser
-          + "' subDir = '" + subDir
-          + "' name = '" + name
-          + "' suffix = '" + suffix
-          + "' key = '" + key
-          + "'"/*, new Exception()*/);
+      if (! ignoreMissing) {
+        LOG.error(
+            "Path not found, and no fallback. Using empty string.\n"
+            + "mainDirs = '" + mainDirectories
+            + "' contentType = '" + contentType
+            + "' theme = '" + theme
+            + "' browser = '" + browser
+            + "' subDir = '" + subDir
+            + "' name = '" + name
+            + "' suffix = '" + suffix
+            + "' key = '" + key
+            + "'"/*, new Exception()*/);
+        }
       return null;
     } else {
       return matches;
