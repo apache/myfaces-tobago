@@ -456,12 +456,14 @@ div.tobago-richTextEditor-body {
   font: 12px arial, helvetica, sans-serif;
 }
 
-.tobago-out-theme-strong {
+.tobago-out-markup-strong {
   font: bold 12px arial, helvetica, sans-serif;
+  background-color: green;
 }
 
-.tobago-out-theme-deleted {
+.tobago-out-markup-deleted {
   text-decoration: line-through;
+  background-color: red;
 }
 
 /* textArea ---------------------------------------------------------------- */

@@ -235,9 +235,9 @@ public abstract class RendererBase
       cssClass = cssClass.replaceAll(
           "tobago-" + rendererName
           + "-(default|disabled|readonly|inline|error)", "").trim();
-      // remove old tobago-<rendererName>-theme-<type> classes from class-attribute
+      // remove old tobago-<rendererName>-markup-<type> classes from class-attribute
       cssClass = cssClass.replaceAll(
-          "tobago-" + rendererName + "-theme-(strong|deleted)", "").trim();
+          "tobago-" + rendererName + "-markup-(strong|deleted)", "").trim();
     } else {
       cssClass = "";
     }
@@ -254,16 +254,13 @@ public abstract class RendererBase
     if (ComponentUtil.isError(component)) {
       tobagoClass += "tobago-" + rendererName + "-error ";
     }
-    String markup;
-    ValueBinding vb = component.getValueBinding(ATTR_MARKUP);
-    if (vb != null) {
-      markup = (String) vb.getValue(FacesContext.getCurrentInstance());
-    } else {
-      markup = (String) component.getAttributes().get(ATTR_MARKUP);
-    }
-    if (markup != null && markup.trim().length() > 0
-        && "strong deleted".indexOf(markup) != -1) { // fixme
-      tobagoClass += "tobago-" + rendererName + "-theme-" + markup + " ";
+    String markup = ComponentUtil.getStringAttribute(component, ATTR_MARKUP);
+    if (markup != null) {
+      if (markup.equals("strong") || markup.equals("deleted")) {
+        tobagoClass += "tobago-" + rendererName + "-markup-" + markup + " ";
+      } else {
+        LOG.warn("Unknown markup='" + markup + "'");
+      }
     }
 
     return tobagoClass + cssClass;

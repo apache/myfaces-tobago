@@ -197,6 +197,10 @@ public class ComponentUtil implements TobagoConstants {
     return value;
   }
 
+  public static String getStringAttribute(UIComponent component, String name) {
+    return (String) getAttribute(component, name);
+  }
+
   public static int getIntAttribute(UIComponent component, String name) {
     return getIntAttribute(component, name, 0);
   }

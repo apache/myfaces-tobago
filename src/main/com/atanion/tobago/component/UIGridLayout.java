@@ -52,8 +52,8 @@ public class UIGridLayout extends UIComponentBase implements UILayout {
   }
 
   public int getColumnCount() {
-    String columns = (String)
-        ComponentUtil.getAttribute(this, TobagoConstants.ATTR_COLUMNS);
+    String columns =
+        ComponentUtil.getStringAttribute(this, TobagoConstants.ATTR_COLUMNS);
     int columnCount;
     if (columns != null) {
       columnCount = 1 + StringUtils.countMatches(columns, ";");

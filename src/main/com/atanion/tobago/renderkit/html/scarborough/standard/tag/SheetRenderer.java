@@ -656,7 +656,7 @@ public class SheetRenderer extends RendererBase {
   }
 
   private String getPagingAttribute(UIData component, String name) {
-    String value = (String) ComponentUtil.getAttribute(component, name);
+    String value = ComponentUtil.getStringAttribute(component, name);
     if (isValidPagingValue(value)) {
       return value;
     } else {
