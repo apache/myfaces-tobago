@@ -146,21 +146,31 @@ public class RichTextEditorRenderer extends InputRendererBase
     String onClick = "submitAction('"
         + ComponentUtil.findPage(component).getFormId(facesContext) + "', '"
         + clientId + RichTextEditorRenderer.CHANGE_BUTTON + "')";
+    String onMouseArgs = "this, 'tobago-richtexteditor-toolbar-button-hover'";
+    String onMouseOver = "addCssClass(" + onMouseArgs + ")";
+    String onMouseOut = "removeCssClass(" + onMouseArgs + ")";
     writer.startElement("span", component);
     String buttonStyle = "tobago-richtexteditor-toolbar-button-span"
         + (enabled ? "-enabled" : "-disabled");
     writer.writeAttribute("class", buttonStyle, null);
     writer.writeAttribute("onclick", onClick, null);
+    writer.writeAttribute("onmouseover", onMouseOver, null);
+    writer.writeAttribute("onmouseout", onMouseOut, null);
     writer.writeAttribute("unselectable", "on", null);
 
     Application application = facesContext.getApplication();
     UIComponent image = application.createComponent(UIGraphic.COMPONENT_TYPE);
     image.getAttributes().put(TobagoConstants.ATTR_VALUE,
         "tobago-richtext-mode.gif");
+    image.getAttributes().put(TobagoConstants.ATTR_STYLE, "vertical-align: bottom;");
     image.getAttributes().put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
     image.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED, Boolean.TRUE);
     RenderUtil.encode(facesContext, image);
+
+    writer.startElement("span", null);
+    writer.writeAttribute("class", "tobago-richtexteditor-toolbar-button-label", null);
     writer.writeText(label, null);
+    writer.endElement("span");
     writer.endElement("span");
   }
 // ///////////////////////////////////////////// bean getter + setter

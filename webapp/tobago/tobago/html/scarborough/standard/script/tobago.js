@@ -188,3 +188,11 @@ function clearSelection() {
     window.getSelection().removeAllRanges();
   }
 }
+
+function addCssClass(element, className) {
+   element.className = element.className + " " + className + " ";
+}
+function removeCssClass(element, className) {
+   var re = new RegExp(" " + className +" ", 'g');
+   element.className = element.className.replace(re,"");
+}
