@@ -455,11 +455,15 @@ public class MenubarRenderer extends RendererBase
       String image) throws IOException {
     if (image != null) {
       image = ResourceManagerUtil.getImage(facesContext, image);
+    }
+    else {
+      image = ResourceManagerUtil.getImage(facesContext, "blank.gif");
+    }
       writer.startElement("img", null);
       writer.writeAttribute("class", "tobago-menu-item-image", null);
       writer.writeAttribute("src", image, null);
       writer.endElement("img");
-    }
+
   }
 
   public static String createOnClick(FacesContext facesContext,

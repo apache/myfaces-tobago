@@ -157,7 +157,11 @@ function MenuItem(label, action, disabled) {
   }
 
   this.onFocus = function() {
-    //PrintDebug("onFocus " + this.id + " level :" + this.level);
+    PrintDebug("onFocus " + this.id + " level :" + this.level);
+    PrintDebug("element   width=" + this.htmlElement.style.width);
+    if (this.parent && this.parent.subItemContainer) {
+    PrintDebug("container width=" + this.parent.subItemContainer.style.width);
+    }
     this.focus = true;
     addCssClass(this.htmlElement, "tobago-menu-item-focus");
     if (this.level == 1) {
@@ -404,11 +408,11 @@ function setItemWidth(menu) {
           var i = 0;
           var childElement = document.getElementById(childIdPrefix + i++);
           while (childElement) {
-            //PrintDebug("item " + childElement.id + "  -->" + childElement.scrollWidth);
+            PrintDebug("item " + childElement.id + "  -->" + childElement.scrollWidth);
             width = Math.max(width, childElement.scrollWidth);
             childElement = document.getElementById(childIdPrefix + i++);
           }
-         // PrintDebug("das waren " + (i-1) + " items  ---> width wird " + width);
+          PrintDebug("das waren " + (i-1) + " items  ---> width wird " + width);
           width += getMenuArrowWidth();
           menu.parent.childWidth = width;
         }
