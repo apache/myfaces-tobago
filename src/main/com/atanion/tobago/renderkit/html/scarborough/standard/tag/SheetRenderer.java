@@ -118,6 +118,7 @@ public class SheetRenderer extends RendererBase {
     List<Integer> columnWidths = data.getWidthList();
 
     String selectedListString = getSelected(data, state);
+    List<UIColumn> columnList = data.getColumns();
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
@@ -166,9 +167,10 @@ public class SheetRenderer extends RendererBase {
 
       int columnCount = 0;
       final int sortMarkerWidth = getAscendingMarkerWidth(facesContext, data);
-      for (UIColumn column : data.getColumns()) {
+      for (UIColumn column : columnList) {
         renderColumnHeader(facesContext, writer, data, columnCount, column,
             ascending, descending, image1x1, sortMarkerWidth);
+        columnCount++;
       }
       writer.startElement("div", null);
       writer.writeAttribute("id", sheetId + "_header_box_filler", null);

@@ -87,7 +87,7 @@ public class UIData extends javax.faces.component.UIData {
 
   private void ensureColumnWidthList(FacesContext facesContext, SheetState state) {
     List<Integer> widthList = null;
-    int columnsSize = getColumns().size();
+    List columns = getColumns();
 
     final Map attributes = getAttributes();
     String widthListString = null;
@@ -103,7 +103,7 @@ public class UIData extends javax.faces.component.UIData {
     if (widthListString != null) {
       widthList = SheetState.parse(widthListString);
     }
-    if (widthList != null && widthList.size() != columnsSize) {
+    if (widthList != null && widthList.size() != columns.size()) {
       widthList = null;
     }
 
@@ -112,9 +112,9 @@ public class UIData extends javax.faces.component.UIData {
       String columnLayout =
           (String) attributes.get(TobagoConstants.ATTR_COLUMNS);
 
-      if (columnLayout == null && columnsSize > 0) {
+      if (columnLayout == null && columns.size() > 0) {
         StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < columnsSize; i++) {
+        for (int i = 0; i < columns.size(); i++) {
           sb.append("1*;");
         }
         columnLayout = sb.deleteCharAt(sb.lastIndexOf(";")).toString();
@@ -132,17 +132,17 @@ public class UIData extends javax.faces.component.UIData {
         if (renderer.needVerticalScrollbar(facesContext, this)) {
           space -= renderer.getScrollbarWidth(facesContext, this);
         }
-        LayoutInfo layoutInfo = new LayoutInfo(
-            columnsSize, space, columnLayout);
+        LayoutInfo layoutInfo = new LayoutInfo(getColumns().size(),
+            space, columnLayout);
         layoutInfo.parseColumnLayout(space);
         widthList = layoutInfo.getSpaceList();
       }
     }
 
     if (widthList != null) {
-      if (columnsSize != widthList.size()) {
+      if (columns.size() != widthList.size()) {
         LOG.warn("widthList.size() = " + widthList.size() +
-            " != columns.size() = " + columnsSize + "  widthList : "
+            " != columns.size() = " + columns.size() + "  widthList : "
             + LayoutInfo.listToTokenString(widthList));
       } else {
         this.widthList = widthList;
