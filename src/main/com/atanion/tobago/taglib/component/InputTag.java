@@ -6,6 +6,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.ComponentUtil;
+
 import javax.faces.component.UIComponent;
 
 public abstract class InputTag extends BeanTag {
@@ -24,8 +26,8 @@ public abstract class InputTag extends BeanTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setStringProperty(component, ATTR_ONCHANGE, onchange);
-    setBooleanProperty(component, ATTR_FOCUS, focus);
+   ComponentUtil.setStringProperty(component, ATTR_ONCHANGE, onchange);
+   ComponentUtil.setBooleanProperty(component, ATTR_FOCUS, focus);
   }
 
 // ------------------------------------------------------------ getter + setter

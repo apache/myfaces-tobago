@@ -7,6 +7,7 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.component.ComponentUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -104,19 +105,6 @@ public abstract class TobagoTag extends UIComponentTag
     themeClass = null;
   }
 
-  protected final void setIntegerProperty(
-      UIComponent component, String name, String value) {
-    if (value != null) {
-      if (isValueReference(value)) {
-        component.setValueBinding(name,
-            FacesContext.getCurrentInstance().getApplication()
-            .createValueBinding(value));
-      } else {
-        component.getAttributes().put(name, new Integer(value));
-      }
-    }
-  }
-
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
@@ -126,16 +114,16 @@ public abstract class TobagoTag extends UIComponentTag
       provideLabel(component);
     }
 
-    setStringProperty(component, ATTR_TITLE, title);
+    ComponentUtil.setStringProperty(component, ATTR_TITLE, title);
 
-    setBooleanProperty(component, ATTR_DISABLED, disabled);
-    setBooleanProperty(component, ATTR_READONLY, readonly);
-    setBooleanProperty(component, ATTR_HIDDEN, hidden);
-    setBooleanProperty(component, ATTR_I18N, i18n);
-    setBooleanProperty(component, ATTR_INLINE, inline);
+    ComponentUtil.setBooleanProperty(component, ATTR_DISABLED, disabled);
+    ComponentUtil.setBooleanProperty(component, ATTR_READONLY, readonly);
+    ComponentUtil.setBooleanProperty(component, ATTR_HIDDEN, hidden);
+    ComponentUtil.setBooleanProperty(component, ATTR_I18N, i18n);
+    ComponentUtil.setBooleanProperty(component, ATTR_INLINE, inline);
 
-    setStringProperty(component, ATTR_WIDTH, width);
-    setStringProperty(component, ATTR_HEIGHT, height);
+    ComponentUtil.setStringProperty(component, ATTR_WIDTH, width);
+    ComponentUtil.setStringProperty(component, ATTR_HEIGHT, height);
 
     // todo: check, if it is an writeable object
     if (stateBinding != null && isValueReference(stateBinding)) {
@@ -143,8 +131,8 @@ public abstract class TobagoTag extends UIComponentTag
       component.setValueBinding(ATTR_STATE_BINDING, valueBinding);
     }
 
-    setStringProperty(component, ATTR_STYLE_CLASS, styleClass);
-    setStringProperty(component, ATTR_THEME_CLASS, themeClass);
+    ComponentUtil.setStringProperty(component, ATTR_STYLE_CLASS, styleClass);
+    ComponentUtil.setStringProperty(component, ATTR_THEME_CLASS, themeClass);
   }
 
   // fixme: this is not nice!
@@ -155,38 +143,8 @@ public abstract class TobagoTag extends UIComponentTag
 //   7 uiLabel.setRendererType("Text"); // fixme
     uiLabel.setRendererType("Label");
     uiLabel.setRendered(true);
-    setStringProperty(uiLabel, "value", label);
+    ComponentUtil.setStringProperty(uiLabel, "value", label);
     component.getFacets().put("label", uiLabel);
-  }
-
-  protected final void setBooleanProperty(
-      UIComponent component, String name, String value) {
-    if (value != null) {
-      if (isValueReference(value)) {
-        component.setValueBinding(name,
-            FacesContext.getCurrentInstance().getApplication()
-            .createValueBinding(value));
-      } else {
-        if (Boolean.valueOf(value).booleanValue()) {
-          component.getAttributes().put(name, Boolean.TRUE);
-        } else {
-          component.getAttributes().remove(name);
-        }
-      }
-    }
-  }
-
-  protected final void setStringProperty(
-      UIComponent component, String name, String value) {
-    if (value != null) {
-      if (isValueReference(value)) {
-        component.setValueBinding(name,
-            FacesContext.getCurrentInstance().getApplication()
-            .createValueBinding(value));
-      } else {
-        component.getAttributes().put(name, value);
-      }
-    }
   }
 
 // ------------------------------------------------------------ getter + setter

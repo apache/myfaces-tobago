@@ -7,6 +7,7 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.component.ComponentUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,7 +32,7 @@ public class GroupBoxTag extends TobagoBodyTag {
   }
 
   protected void provideLabel(UIComponent component) {
-    setStringProperty(component, ATTR_LABEL, label);
+   ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
   }
 
 // /////////////////////////////////////////// bean getter + setter

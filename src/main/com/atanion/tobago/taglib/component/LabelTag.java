@@ -5,6 +5,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.ComponentUtil;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
@@ -30,7 +32,7 @@ public class LabelTag extends BeanTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setStringProperty(component, ATTR_FOR, _for);
+   ComponentUtil.setStringProperty(component, ATTR_FOR, _for);
   }
 
   public void release() {

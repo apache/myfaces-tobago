@@ -6,6 +6,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.ComponentUtil;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -38,13 +40,13 @@ public class ColumnTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setBooleanProperty(component, ATTR_SORTABLE, sortable);
-    setStringProperty(component, ATTR_ALIGN, align);
-    setStringProperty(component, ATTR_STYLE_CLASS, cssClass);
+   ComponentUtil.setBooleanProperty(component, ATTR_SORTABLE, sortable);
+   ComponentUtil.setStringProperty(component, ATTR_ALIGN, align);
+   ComponentUtil.setStringProperty(component, ATTR_STYLE_CLASS, cssClass);
   }
 
   protected void provideLabel(UIComponent component) {
-    setStringProperty(component, ATTR_LABEL, label);
+   ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
   }
 
   public void release() {

@@ -6,6 +6,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.ComponentUtil;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
@@ -30,8 +32,8 @@ public class FormattedTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setBooleanProperty(component, ATTR_CREATE_SPAN, createSpan);
-    setBooleanProperty(component, ATTR_VALUE, value);
+   ComponentUtil.setBooleanProperty(component, ATTR_CREATE_SPAN, createSpan);
+   ComponentUtil.setBooleanProperty(component, ATTR_VALUE, value);
   }
 
 // ------------------------------------------------------------ getter + setter

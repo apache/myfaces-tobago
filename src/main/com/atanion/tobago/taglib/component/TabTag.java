@@ -5,6 +5,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.ComponentUtil;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 
@@ -17,7 +19,7 @@ public class TabTag extends TobagoBodyTag {
   }
 
   protected void provideLabel(UIComponent component) {
-    setStringProperty(component, ATTR_LABEL, label);
+   ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
   }
 }
 

@@ -6,6 +6,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.ComponentUtil;
+
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIComponent;
 
@@ -27,8 +29,8 @@ public class TextTag extends BeanTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setBooleanProperty(component, ATTR_ESCAPE, escape);
-    setBooleanProperty(component, ATTR_CREATE_SPAN, "true");
+   ComponentUtil.setBooleanProperty(component, ATTR_ESCAPE, escape);
+   ComponentUtil.setBooleanProperty(component, ATTR_CREATE_SPAN, "true");
   }
 
 // ------------------------------------------------------------ getter + setter

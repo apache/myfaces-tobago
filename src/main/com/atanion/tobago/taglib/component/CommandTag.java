@@ -6,6 +6,7 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.el.ConstantMethodBinding;
+import com.atanion.tobago.component.ComponentUtil;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -34,10 +35,10 @@ public abstract class CommandTag extends TobagoBodyTag {
     UICommand command = (UICommand) component;
     super.setProperties(component);
 
-    setStringProperty(component, ATTR_COMMAND_NAME, commandName);
-    setStringProperty(component, ATTR_TYPE, type);
-    setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand);
-    setBooleanProperty(component, ATTR_IMMEDIATE, immediate);
+   ComponentUtil.setStringProperty(component, ATTR_COMMAND_NAME, commandName);
+   ComponentUtil.setStringProperty(component, ATTR_TYPE, type);
+   ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand);
+   ComponentUtil.setBooleanProperty(component, ATTR_IMMEDIATE, immediate);
 
     if (actionListener != null) {
       if (isValueReference(actionListener)) {

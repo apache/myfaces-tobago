@@ -5,6 +5,8 @@
   */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.ComponentUtil;
+
 import javax.faces.component.UIComponent;
 
 public class MenucheckTag extends MenuradioTag {
@@ -17,8 +19,8 @@ public class MenucheckTag extends MenuradioTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setStringProperty(component, ATTR_MENU_TYPE, "menuCheck");
-    setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
+   ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, "menuCheck");
+   ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
   }
 
   public void release() {

@@ -6,6 +6,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.ComponentUtil;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 
@@ -27,7 +29,7 @@ public class TextBoxTag extends InputTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setBooleanProperty(component, ATTR_PASSWORD, password);
+   ComponentUtil.setBooleanProperty(component, ATTR_PASSWORD, password);
   }
 
 // ------------------------------------------------------------ getter + setter

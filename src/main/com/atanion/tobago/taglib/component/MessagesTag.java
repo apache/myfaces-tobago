@@ -7,6 +7,7 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIMessages;
@@ -30,7 +31,7 @@ public class MessagesTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setStringProperty(component, ATTR_FOR, _for);
+   ComponentUtil.setStringProperty(component, ATTR_FOR, _for);
   }
 
   public void release() {

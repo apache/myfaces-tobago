@@ -6,6 +6,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.ComponentUtil;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
@@ -34,8 +36,8 @@ public abstract class BeanTag extends TobagoTag {
               converter));
     }
 
-    setBooleanProperty(component, ATTR_REQUIRED, required);
-    setStringProperty(component, ATTR_VALUE, value);
+    ComponentUtil.setBooleanProperty(component, ATTR_REQUIRED, required);
+    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
   }
 
   public void release() {

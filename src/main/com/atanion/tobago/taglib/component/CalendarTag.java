@@ -5,6 +5,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.ComponentUtil;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
@@ -33,9 +35,9 @@ public class CalendarTag extends TobagoTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    setIntegerProperty(component, YEAR, year);
-    setIntegerProperty(component, MONTH, month);
-    setIntegerProperty(component, DAY, day);
+   ComponentUtil.setIntegerProperty(component, YEAR, year);
+   ComponentUtil.setIntegerProperty(component, MONTH, month);
+   ComponentUtil.setIntegerProperty(component, DAY, day);
   }
 
   public void release() {

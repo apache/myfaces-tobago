@@ -6,6 +6,7 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UITabGroup;
+import com.atanion.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 
@@ -22,7 +23,7 @@ public class TabGroupTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setBooleanProperty(component, ATTR_SERVER_SIDE_TABS, serverside);
+   ComponentUtil.setBooleanProperty(component, ATTR_SERVER_SIDE_TABS, serverside);
   }
 
   public void release() {

@@ -5,6 +5,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.ComponentUtil;
+
 import javax.faces.component.UIComponent;
 
 public class RadioGroupTag extends SingleSelectTag {
@@ -21,7 +23,7 @@ public class RadioGroupTag extends SingleSelectTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setStringProperty(component, ATTR_RENDER_RANGE, renderRange);
+   ComponentUtil.setStringProperty(component, ATTR_RENDER_RANGE, renderRange);
 
   }
 

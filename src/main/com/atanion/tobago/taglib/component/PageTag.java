@@ -6,6 +6,7 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UIPage;
+import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ClientProperties;
 
 import javax.faces.component.UIComponent;
@@ -71,9 +72,9 @@ public class PageTag extends TobagoBodyTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setStringProperty(component, ATTR_METHOD, method);
-    setStringProperty(component, ATTR_CHARSET, charset);
-    setStringProperty(component, ATTR_DOCTYPE, doctype);
+   ComponentUtil.setStringProperty(component, ATTR_METHOD, method);
+   ComponentUtil.setStringProperty(component, ATTR_CHARSET, charset);
+   ComponentUtil.setStringProperty(component, ATTR_DOCTYPE, doctype);
   }
 
   public void release() {

@@ -6,6 +6,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.ComponentUtil;
+
 import javax.faces.component.UIComponent;
 
 public class TextAreaTag extends TextBoxTag {
@@ -22,7 +24,7 @@ public class TextAreaTag extends TextBoxTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setStringProperty(component, ATTR_ROWS, rows);
+   ComponentUtil.setStringProperty(component, ATTR_ROWS, rows);
   }
 
 // ------------------------------------------------------------ getter + setter

@@ -11,6 +11,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.FactoryFinder;
+import javax.faces.webapp.UIComponentTag;
 import javax.faces.el.ValueBinding;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
@@ -21,6 +22,7 @@ import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectItems;
 import javax.faces.component.ValueHolder;
+import javax.faces.component.UIColumn;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.event.ActionListener;
@@ -412,4 +414,85 @@ public class ComponentUtil implements TobagoConstants {
     }
     return output;
   }
+
+
+
+  public static final void setIntegerProperty(
+      UIComponent component, String name, String value) {
+    if (value != null) {
+      if (UIComponentTag.isValueReference(value)) {
+        component.setValueBinding(name,
+            FacesContext.getCurrentInstance().getApplication()
+            .createValueBinding(value));
+      } else {
+        component.getAttributes().put(name, new Integer(value));
+      }
+    }
+  }
+  public static final void setBooleanProperty(
+      UIComponent component, String name, String value) {
+    if (value != null) {
+      if (UIComponentTag.isValueReference(value)) {
+        component.setValueBinding(name,
+            FacesContext.getCurrentInstance().getApplication()
+            .createValueBinding(value));
+      } else {
+        if (Boolean.valueOf(value).booleanValue()) {
+          component.getAttributes().put(name, Boolean.TRUE);
+        } else {
+          component.getAttributes().remove(name);
+        }
+      }
+    }
+  }
+
+  public static final void setStringProperty(
+      UIComponent component, String name, String value) {
+    if (value != null) {
+      if (UIComponentTag.isValueReference(value)) {
+        component.setValueBinding(name,
+            FacesContext.getCurrentInstance().getApplication()
+            .createValueBinding(value));
+      } else {
+        component.getAttributes().put(name, value);
+      }
+    }
+  }
+
+  public static UIComponent createComponent(String componentType, String rendererType) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    return createComponent(facesContext, componentType, rendererType);
+  }
+
+  public static UIComponent createComponent(
+      FacesContext facesContext, String componentType, String rendererType) {
+    UIComponent component
+        = facesContext.getApplication().createComponent(componentType);
+    component.setRendererType(rendererType);
+    return component;
+  }
+    
+  public static UIColumn createTextColumn(
+      String label, String sortable, String align, String value) {
+    UIComponent text = createComponent(UIOutput.COMPONENT_TYPE, "Text");
+    setStringProperty(text, ATTR_VALUE, value);
+    return createColumn(label, sortable, align, text);
+  }
+
+  public static UIColumn createColumn(
+      String label, String sortable, String align, UIComponent child) {
+    UIColumn column = createColumn(label, sortable, align);
+    column.getChildren().add(child);
+    return column;
+  }
+
+  private static UIColumn createColumn(
+      String label, String sortable, String align) {
+    UIColumn column = (UIColumn) createComponent(UIColumn.COMPONENT_TYPE, null);
+    setStringProperty(column, ATTR_LABEL, label);
+    setBooleanProperty(column, ATTR_SORTABLE, sortable);
+    setStringProperty(column, ATTR_ALIGN, align);
+    return column;
+  }
+
 }

@@ -7,6 +7,7 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UIGridLayout;
+import com.atanion.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
@@ -45,15 +46,15 @@ public class GridLayoutTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setStringProperty(component, ATTR_BORDER, border);
-    setStringProperty(component, ATTR_CELLSPACING, cellspacing);
-    setStringProperty(component, ATTR_LAYOUT_MARGIN, margin);
-    setStringProperty(component, ATTR_LAYOUT_MARGIN_TOP, marginTop);
-    setStringProperty(component, ATTR_LAYOUT_MARGIN_RIGHT, marginRight);
-    setStringProperty(component, ATTR_LAYOUT_MARGIN_BOTTOM, marginBottom);
-    setStringProperty(component, ATTR_LAYOUT_MARGIN_LEFT, marginLeft);
-    setStringProperty(component, ATTR_COLUMNS, columns);
-    setStringProperty(component, ATTR_ROWS, rows);
+   ComponentUtil.setStringProperty(component, ATTR_BORDER, border);
+   ComponentUtil.setStringProperty(component, ATTR_CELLSPACING, cellspacing);
+   ComponentUtil.setStringProperty(component, ATTR_LAYOUT_MARGIN, margin);
+   ComponentUtil.setStringProperty(component, ATTR_LAYOUT_MARGIN_TOP, marginTop);
+   ComponentUtil.setStringProperty(component, ATTR_LAYOUT_MARGIN_RIGHT, marginRight);
+   ComponentUtil.setStringProperty(component, ATTR_LAYOUT_MARGIN_BOTTOM, marginBottom);
+   ComponentUtil.setStringProperty(component, ATTR_LAYOUT_MARGIN_LEFT, marginLeft);
+   ComponentUtil.setStringProperty(component, ATTR_COLUMNS, columns);
+   ComponentUtil.setStringProperty(component, ATTR_ROWS, rows);
   }
 
   public void release() {

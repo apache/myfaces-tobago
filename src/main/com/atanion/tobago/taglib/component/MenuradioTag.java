@@ -6,6 +6,7 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.el.ConstantMethodBinding;
+import com.atanion.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UICommand;
@@ -39,7 +40,7 @@ public class MenuradioTag extends MenuTag {
 
     component.setRendererType("Menuitem");    
 
-    setStringProperty(component, ATTR_TYPE, type);
+   ComponentUtil.setStringProperty(component, ATTR_TYPE, type);
 
     String commandType;
     final FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -55,7 +56,7 @@ public class MenuradioTag extends MenuTag {
         (commandType.equals(COMMAND_TYPE_NAVIGATE)
         || commandType.equals(COMMAND_TYPE_RESET)
         || commandType.equals(COMMAND_TYPE_SCRIPT))) {
-      setStringProperty(component, ATTR_ACTION_STRING, action);
+     ComponentUtil.setStringProperty(component, ATTR_ACTION_STRING, action);
     }
     else {
       if (action != null) {
@@ -67,8 +68,8 @@ public class MenuradioTag extends MenuTag {
         }
       }
     }
-    setStringProperty(component, ATTR_VALUE, value);
-    setStringProperty(component, ATTR_MENU_TYPE, "menuRadio");
+   ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
+   ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, "menuRadio");
   }
 
 // ------------------------------------------------------------ getter + setter

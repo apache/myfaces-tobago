@@ -6,6 +6,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.ComponentUtil;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectMany;
 
@@ -28,7 +30,7 @@ public class MultiSelectTag extends InputTag{
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    setIntegerProperty(component, ATTR_ROWS, rows);
+   ComponentUtil.setIntegerProperty(component, ATTR_ROWS, rows);
   }
 
   public void release() {

@@ -1,5 +1,7 @@
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.ComponentUtil;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -40,9 +42,9 @@ public class CellTag extends Panel_GroupTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    setIntegerProperty(component, ATTR_SPAN_X, spanX);
-    setIntegerProperty(component, ATTR_SPAN_Y, spanY);
-    setStringProperty(component, ATTR_SCROLLBARS, scrollbars);
+   ComponentUtil.setIntegerProperty(component, ATTR_SPAN_X, spanX);
+   ComponentUtil.setIntegerProperty(component, ATTR_SPAN_Y, spanY);
+   ComponentUtil.setStringProperty(component, ATTR_SCROLLBARS, scrollbars);
 
     component.getAttributes().put(ATTR_LAYOUT_DIRECTIVE, Boolean.TRUE);
 

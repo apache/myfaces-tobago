@@ -6,6 +6,7 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -30,8 +31,8 @@ public class ItemsTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setStringProperty(component, ATTR_REFERENCE, reference);
-    setStringProperty(component, ATTR_RENDER_RANGE, renderRange);
+   ComponentUtil.setStringProperty(component, ATTR_REFERENCE, reference);
+   ComponentUtil.setStringProperty(component, ATTR_RENDER_RANGE, renderRange);
   }
 
   public void release() {

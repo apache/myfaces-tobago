@@ -5,6 +5,8 @@
   */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.ComponentUtil;
+
 import javax.faces.component.UIPanel;
 import javax.faces.component.UIComponent;
 
@@ -19,11 +21,11 @@ public class MenuTag extends TobagoTag {
 // ----------------------------------------------------------- business methods
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setStringProperty(component, ATTR_LABEL, label);
-    setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
-    setStringProperty(component, ATTR_IMAGE, image);
+   ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
+   ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
+   ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
     component.setRendererType(null);
-    setStringProperty(component, ATTR_MENU_TYPE, "menu");
+   ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, "menu");
   }
 
   public String getComponentType() {

@@ -6,6 +6,7 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UIData;
+import com.atanion.tobago.component.ComponentUtil;
 
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
@@ -73,15 +74,15 @@ public class SheetTag extends TobagoTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    setBooleanProperty(component, ATTR_PAGING, paging);
-    setBooleanProperty(component, ATTR_HIDE_HEADER, hideHeader);
-    setIntegerProperty(component, ATTR_FIRST, pagingStart);
-    setIntegerProperty(component, ATTR_ROWS, pagingLength);
-    setStringProperty(component, ATTR_COLUMNS, columns);
-    setStringProperty(component, ATTR_VALUE, value);
+   ComponentUtil.setBooleanProperty(component, ATTR_PAGING, paging);
+   ComponentUtil.setBooleanProperty(component, ATTR_HIDE_HEADER, hideHeader);
+   ComponentUtil.setIntegerProperty(component, ATTR_FIRST, pagingStart);
+   ComponentUtil.setIntegerProperty(component, ATTR_ROWS, pagingLength);
+   ComponentUtil.setStringProperty(component, ATTR_COLUMNS, columns);
+   ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
 
 //   todo: works this? or use that: component.setVar(var);
-    setStringProperty(component, ATTR_VAR, var);
+   ComponentUtil.setStringProperty(component, ATTR_VAR, var);
 
     component.getAttributes().put(ATTR_INNER_WIDTH, new Integer(-1));
   }

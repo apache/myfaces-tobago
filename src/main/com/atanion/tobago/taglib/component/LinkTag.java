@@ -7,6 +7,7 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 
@@ -28,11 +29,11 @@ public class LinkTag extends CommandTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setStringProperty(component, ATTR_TARGET, target);
-    setStringProperty(component, ATTR_LABEL, label);
-    setStringProperty(component, ATTR_IMAGE, image);
-    setStringProperty(component, ATTR_ACCESS_KEY, accessKey);
-    setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
+   ComponentUtil.setStringProperty(component, ATTR_TARGET, target);
+   ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
+   ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
+   ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey);
+   ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
   }
 
   public void release() {

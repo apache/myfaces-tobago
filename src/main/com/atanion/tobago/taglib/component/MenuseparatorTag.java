@@ -5,6 +5,8 @@
   */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.ComponentUtil;
+
 import javax.faces.component.UIPanel;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -14,7 +16,7 @@ public class MenuseparatorTag extends TobagoTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     component.setRendererType(null);
-    setStringProperty(component, ATTR_MENU_TYPE, "separator");
+   ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, "separator");
   }
 
   public String getComponentType() {

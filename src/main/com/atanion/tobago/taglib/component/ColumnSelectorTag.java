@@ -7,6 +7,7 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UIColumnSelector;
+import com.atanion.tobago.component.ComponentUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,7 +27,7 @@ public class ColumnSelectorTag extends ColumnTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setStringProperty(component, ATTR_DISABLED, disabled);
+   ComponentUtil.setStringProperty(component, ATTR_DISABLED, disabled);
   }
 
   public void release() {

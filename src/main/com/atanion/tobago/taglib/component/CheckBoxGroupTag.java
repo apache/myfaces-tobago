@@ -5,6 +5,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.ComponentUtil;
+
 import javax.faces.component.UIComponent;
 
 public class CheckBoxGroupTag extends MultiSelectTag {
@@ -16,7 +18,7 @@ public class CheckBoxGroupTag extends MultiSelectTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setStringProperty(component, ATTR_RENDER_RANGE, renderRange);
+   ComponentUtil.setStringProperty(component, ATTR_RENDER_RANGE, renderRange);
   }
 
   public void release() {

@@ -5,6 +5,8 @@
   */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.ComponentUtil;
+
 import javax.faces.component.UIComponent;
 
 public class MenuitemTag extends MenuradioTag {
@@ -23,9 +25,9 @@ public class MenuitemTag extends MenuradioTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setStringProperty(component, ATTR_IMAGE, image);
-    setStringProperty(component, ATTR_MENU_TYPE, "menuItem");
-    setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
+   ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
+   ComponentUtil.setStringProperty(component, ATTR_MENU_TYPE, "menuItem");
+   ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
   }
 
 // ------------------------------------------------------------ getter + setter

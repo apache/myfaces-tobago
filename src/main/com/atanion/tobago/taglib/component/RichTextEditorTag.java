@@ -6,6 +6,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.ComponentUtil;
+
 import javax.faces.component.UIComponent;
 
 public class RichTextEditorTag extends TextBoxTag{
@@ -23,7 +25,7 @@ public class RichTextEditorTag extends TextBoxTag{
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    setBooleanProperty(component, ATTR_STATE_PREVIEW, statePreview);
+   ComponentUtil.setBooleanProperty(component, ATTR_STATE_PREVIEW, statePreview);
   }
 
   public void release() {

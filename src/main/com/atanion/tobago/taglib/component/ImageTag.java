@@ -8,6 +8,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.ComponentUtil;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 
@@ -32,9 +34,9 @@ public class ImageTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setStringProperty(component, ATTR_ALT, alt);
-    setStringProperty(component, ATTR_BORDER, border);
-    setStringProperty(component, ATTR_VALUE, value);
+   ComponentUtil.setStringProperty(component, ATTR_ALT, alt);
+   ComponentUtil.setStringProperty(component, ATTR_BORDER, border);
+   ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
   }
 
   public void release() {

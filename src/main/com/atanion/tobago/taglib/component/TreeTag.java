@@ -6,6 +6,7 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UITree;
+import com.atanion.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 
@@ -33,16 +34,16 @@ public class TreeTag extends BeanTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    setBooleanProperty(component, ATTR_HIDE_JUNCTIONS, hideJunctions);
-    setBooleanProperty(component, ATTR_HIDE_ICONS, hideIcons);
-    setBooleanProperty(component, ATTR_HIDE_ROOT, hideRoot);
-    setBooleanProperty(component, ATTR_HIDE_ROOT_JUNCTION, hideRootJunction);
+   ComponentUtil.setBooleanProperty(component, ATTR_HIDE_JUNCTIONS, hideJunctions);
+   ComponentUtil.setBooleanProperty(component, ATTR_HIDE_ICONS, hideIcons);
+   ComponentUtil.setBooleanProperty(component, ATTR_HIDE_ROOT, hideRoot);
+   ComponentUtil.setBooleanProperty(component, ATTR_HIDE_ROOT_JUNCTION, hideRootJunction);
 
-    setBooleanProperty(component, ATTR_MULTISELECT, multiselect);
-    setBooleanProperty(component, ATTR_MUTABLE, mutable);
+   ComponentUtil.setBooleanProperty(component, ATTR_MULTISELECT, multiselect);
+   ComponentUtil.setBooleanProperty(component, ATTR_MUTABLE, mutable);
 
-    setStringProperty(component, ATTR_ID_REFERENCE, idReference);
-    setStringProperty(component, ATTR_NAME_REFERENCE, nameReference);
+   ComponentUtil.setStringProperty(component, ATTR_ID_REFERENCE, idReference);
+   ComponentUtil.setStringProperty(component, ATTR_NAME_REFERENCE, nameReference);
   }
 
   public void release() {
