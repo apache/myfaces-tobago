@@ -350,21 +350,22 @@ public class GridLayoutRenderer extends RendererBase
         (String) layout.getAttributes().get(TobagoConstants.ATTR_COLUMN_LAYOUT));
 
 
+    if (! rows.isEmpty()) {
+      UIGridLayout.Row row = (UIGridLayout.Row) rows.get(0);
+      final List cells = row.getElements();
 
-    UIGridLayout.Row row = (UIGridLayout.Row) rows.get(0);
-    final List cells = row.getElements();
-
-    for (int i = 0; i< cells.size() ; i++) {
-      Object cell = cells.get(i);
-      boolean hidden = false;
-      if (isHidden(cell)) {
-        hidden = true;
-        for (int j = 1; j < rows.size(); j++) {
-          hidden &= isHidden(((UIGridLayout.Row)rows.get(j)).getElements().get(i));
+      for (int i = 0; i< cells.size() ; i++) {
+        Object cell = cells.get(i);
+        boolean hidden = false;
+        if (isHidden(cell)) {
+          hidden = true;
+          for (int j = 1; j < rows.size(); j++) {
+            hidden &= isHidden(((UIGridLayout.Row)rows.get(j)).getElements().get(i));
+          }
         }
-      }
-      if (hidden) {
-        layoutTokens[i] = LayoutInfo.HIDE_CELL;
+        if (hidden) {
+          layoutTokens[i] = LayoutInfo.HIDE_CELL;
+        }
       }
     }
 
@@ -428,9 +429,12 @@ public class GridLayoutRenderer extends RendererBase
     for (int i = 0; i < tokens.length; i++) {
       if (tokens[i].equals("fixed")) {
         int height = 0;
-        UIGridLayout.Row row = (UIGridLayout.Row) layout.ensureRows().get(i);
-        height = getMaxFixedHeight(row, facesContext);
-        layoutInfo.update(height, i);
+        final List rows = layout.ensureRows();
+        if (! rows.isEmpty()) {
+          UIGridLayout.Row row = (UIGridLayout.Row) rows.get(i);
+          height = getMaxFixedHeight(row, facesContext);
+          layoutInfo.update(height, i);
+        }
         if (LOG.isDebugEnabled()) {
           LOG.debug("set column " + i + " from fixed to with " + height);
         }
