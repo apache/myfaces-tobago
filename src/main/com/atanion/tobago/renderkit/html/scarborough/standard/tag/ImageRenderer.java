@@ -26,29 +26,20 @@ public class ImageRenderer extends RendererBase {
     final String value = graphic.getUrl();
     String src = value;
     if (src != null) {
-      if (ComponentUtil.getBooleanAttribute(graphic, ATTR_I18N)) {
+      final String ucSrc = src.toUpperCase();
+      if (ucSrc.startsWith("HTTP:") || ucSrc.startsWith("FTP:")
+          || src.startsWith("/")) {
+        // absolute Path to image : nothing to do
+      } else {
         src = null;
         if (isDisabled(graphic)) {
-          src =
-              ResourceManagerUtil.getImage(facesContext,
-                  createSrc(value, "-disabled"), true);
+          src = ResourceManagerUtil.getImage(
+              facesContext, createSrc(value, "-disabled"), true);
         }
         if (src == null) {
           src = ResourceManagerUtil.getImage(facesContext, value);
         }
         addImageSources(facesContext, graphic);
-      } else {
-        final String ucSrc = src.toUpperCase();
-        if (ucSrc.startsWith("HTTP:") || ucSrc.startsWith("FTP:")) {
-          // absolute Path to image : nothing to do
-        } else {
-          // relative path : add contextPath
-          if (!src.startsWith("/")) {
-            src = "/" + src;
-          }
-          src = facesContext.getExternalContext().getRequestContextPath() +
-              src;
-        }
       }
     }
 

@@ -156,7 +156,6 @@ public class TreeRenderer extends RendererBase {
           UIComponent image = application.createComponent(UIGraphic.COMPONENT_TYPE);
           image.getAttributes().put(ATTR_VALUE,
               "image/tobago.tree." + commands[i].getCommand() + ".gif");
-          image.getAttributes().put(ATTR_I18N, Boolean.TRUE);
           String title = ResourceManagerUtil.getProperty(facesContext, "tobago",
               "tree" + StringUtil.firstToUpperCase(commands[i].getCommand()));
           image.getAttributes().put(ATTR_TITLE, title);

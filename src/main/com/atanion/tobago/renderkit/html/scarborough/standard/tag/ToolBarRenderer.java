@@ -116,7 +116,6 @@ public class ToolBarRenderer extends RendererBase {
         graphic = (UIGraphic) ComponentUtil.createComponent(
             UIGraphic.COMPONENT_TYPE, RENDERER_TYPE_IMAGE);
         command.getFacets().put(FACET_IMAGE, graphic);
-        graphic.getAttributes().put(ATTR_I18N, Boolean.TRUE);
         graphic.getAttributes().put(ATTR_VALUE, image);
         LayoutUtil.addCssClass(graphic, "tobago-toolBar-button-image");
       }
@@ -169,7 +168,6 @@ public class ToolBarRenderer extends RendererBase {
         ieSpacer.setRendererType(RENDERER_TYPE_IMAGE);
         ieSpacer.setRendered(true);
         final Map attributes = ieSpacer.getAttributes();
-        attributes.put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
         // fixme: make height configuable
         attributes.put(TobagoConstants.ATTR_STYLE, "height: 16px; width: 0px;");
         ieSpacer.setValue("1x1.gif");

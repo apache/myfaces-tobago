@@ -74,7 +74,6 @@ public class DateTag extends InputTag {
         UIGraphic.COMPONENT_TYPE);
     image.setRendererType(RENDERER_TYPE_IMAGE);
     image.setRendered(true);
-    image.getAttributes().put(ATTR_I18N, Boolean.TRUE);
     image.setValue("date.gif");
     image.getAttributes().put(ATTR_ALT, ""); //todo: i18n
     image.getAttributes().put(ATTR_STYLE_CLASS, "tobago-input-picker");
