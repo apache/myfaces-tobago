@@ -110,5 +110,14 @@
 <!--    <deploy-module name="tobago-module-client"/>-->
 
   </target>
+  <target name="annotations" depends="bs:init, bs:get-libs-jar" >
+    <apt srcdir="src"
+         classpathref="project.classpath.jar"
+         debug="on"
+         compile="false"
+         factory="com.atanion.apt.SimpleAnnotationProcessorFactory"
+         factorypathref="project.classpath.jar" >
+    </apt>
+  </target>
 
 </project>
