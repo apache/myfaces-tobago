@@ -88,7 +88,7 @@ public class ViewHandlerImpl extends ViewHandler {
 
   public String calculateRenderKitId(FacesContext facesContext) {
     LOG.error(
-        "This method isn't already implemented, and should not be called!"); //fixme: jsf1.0
+        "This method isn't implemented yet, and should not be called!"); //fixme: jsf1.0
     return null;
   }
 

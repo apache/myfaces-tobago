@@ -97,6 +97,7 @@
     <converter-class>com.atanion.tobago.convert.LocaleConverter</converter-class>
   </converter>
 
+<!--
   <render-kit>
     <render-kit-id>tobago</render-kit-id>
     <render-kit-class>com.atanion.tobago.renderkit.TobagoRenderKit</render-kit-class>
@@ -109,5 +110,6 @@
       <renderer-class>com.atanion.tobago.renderkit.html.scarborough.standard.tag.TextRenderer</renderer-class>
     </renderer>
   </render-kit>
+-->
 
 </faces-config>
