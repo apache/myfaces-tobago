@@ -6,7 +6,7 @@
 package com.atanion.tobago.component;
 
 import com.atanion.tobago.TobagoConstants;
-import com.sun.faces.taglib.jsf_core.VerbatimTag;
+import com.atanion.tobago.taglib.component.TextTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -29,7 +29,7 @@ public class BodyContentHandler {
 //  private int nextVolatileIndex;
 
 
-  private VerbatimTag verbatimTag;
+  private TextTag verbatimTag;
 
 // ///////////////////////////////////////////// constructor
 
@@ -68,6 +68,7 @@ public class BodyContentHandler {
         verbatim =
             (javax.faces.component.UIOutput) verbatimTag.getComponentInstance();
         verbatim.setValue(rawContent);
+        verbatim.setRendererType("Verbatim");
         verbatim.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED,
             Boolean.TRUE);
         verbatimTag.doEndTag();
@@ -80,7 +81,7 @@ public class BodyContentHandler {
 
   private void prepareVerbatimTag() {
     if (verbatimTag == null) {
-      verbatimTag = new VerbatimTag();
+      verbatimTag = new TextTag();
     } else {
       verbatimTag.release();
     }
