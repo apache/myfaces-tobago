@@ -53,7 +53,8 @@ public class GridLayoutRenderer extends RendererBase
 
     if (layoutTokens.length == 0) {
       if (LOG.isInfoEnabled()) {
-        LOG.info("No rowLayout found using 'fixed' for all rows!");
+        LOG.info("No rowLayout found using 'fixed' for all " + rows.size()
+            + " rows of " + layout.getClientId(facesContext) + " !");
       }
       layoutTokens = new String[rows.size()];
       for (int i = 0; i < layoutTokens.length; i++) {
@@ -184,7 +185,7 @@ public class GridLayoutRenderer extends RendererBase
                 + "padding-left: " + leftPadding + "px;");
 
             writer.startElement("td", null);
-            writer.writeAttribute("class", tdClasses, null);
+            writer.writeAttribute("class", "tobago-gridlayout-cell-td", null);
             writer.writeAttribute("style", tdstyle, null);
             if (spanX > 1) {
               writer.writeAttribute("colspan", Integer.toString(spanX), null);
@@ -194,8 +195,14 @@ public class GridLayoutRenderer extends RendererBase
             }
 
             writer.writeText("", null);
+
+            writer.startElement("div", null);
+            writer.writeAttribute("class", tdClasses, null);
+            writer.writeAttribute("style", tdstyle, null);
+
             RenderUtil.encode(facesContext, cell);
 
+            writer.endElement("div");
             writer.endElement("td");
           }
         }
