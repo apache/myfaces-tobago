@@ -152,9 +152,12 @@ public class TreeRenderer extends RendererBase {
           }
           tree.getFacets().put(commands[i].getCommand(), link);
 
-          // create a UIImage and add it to the UILink
-          UIComponent image = application.createComponent(UIGraphic.COMPONENT_TYPE);
-          image.getAttributes().put(ATTR_VALUE,
+          // create a UIGraphic and add it to the UILink
+          UIGraphic image = (UIGraphic)
+              application.createComponent(UIGraphic.COMPONENT_TYPE);
+          image.setRendererType(RENDERER_TYPE_IMAGE);
+          image.setRendered(true);
+          image.setValue(
               "image/tobago.tree." + commands[i].getCommand() + ".gif");
           String title = ResourceManagerUtil.getProperty(facesContext, "tobago",
               "tree" + StringUtil.firstToUpperCase(commands[i].getCommand()));
