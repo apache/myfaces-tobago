@@ -496,6 +496,18 @@ function tobagoSheetToggleAllSelections(sheetId) {
   updateSelectionView(sheetId, hidden.value);
 }
 
+
+function tobagoSheetSetPagerPage(commandId, page, submitCommand) {
+  var element = document.getElementById(
+      commandId + getSubComponentSeparator() + "link_" + page)
+  var hidden = document.createElement('input');
+  hidden.type = 'hidden';
+  hidden.value = page;
+  hidden.name = commandId + getSubComponentSeparator() +  "value";
+  element.parentNode.appendChild(hidden);
+  eval(submitCommand);
+}
+
 function tobagoSheetEditPagingRow(span, commandId, onClickCommand, commandName) {
 
   var text = document.getElementById(commandId + getSubComponentSeparator() + "text");

@@ -27,6 +27,7 @@ public class SheetTag extends TobagoTag {
   private String showRowRange = "false";
   private String showPageRange = "false";
   private String showDirectLinks = "false";
+  private String directLinkCount = "9";
   private String hideHeader;
   private String pagingStart = "0";
   private String pagingLength = "20";
@@ -68,9 +69,10 @@ public class SheetTag extends TobagoTag {
   public void release() {
     super.release();
     var = null;
-    String showRowRange = "false";
-    String showPageRange = "false";
-    String showDirektLinks = "false";
+    showRowRange = "false";
+    showPageRange = "false";
+    showDirectLinks = "false";
+    directLinkCount = null;
     hideHeader = null;
     pagingStart = "0";
     pagingLength = "20";
@@ -89,6 +91,8 @@ public class SheetTag extends TobagoTag {
        component, ATTR_SHOW_PAGE_RANGE, showPageRange, getIterationHelper());
    ComponentUtil.setBooleanProperty(
        component, ATTR_SHOW_DIRECT_LINKS, showDirectLinks, getIterationHelper());
+   ComponentUtil.setIntegerProperty(
+       component, ATTR_DIRECT_LINK_COUNT , directLinkCount, getIterationHelper());
    ComponentUtil.setBooleanProperty(
        component, ATTR_HIDE_HEADER, hideHeader, getIterationHelper());
    ComponentUtil.setIntegerProperty(
@@ -142,6 +146,10 @@ public class SheetTag extends TobagoTag {
 
   public void setShowDirectLinks(String showDirectLinks) {
     this.showDirectLinks = showDirectLinks;
+  }
+
+  public void setDirectLinkCount(String directLinkCount) {
+    this.directLinkCount = directLinkCount;
   }
 
   public String getPagingLength() {

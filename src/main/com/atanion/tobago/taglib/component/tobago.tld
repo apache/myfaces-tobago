@@ -636,6 +636,16 @@
       </description>
     </attribute>
     <attribute>
+      <name>directLinkCount</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>  <![CDATA[
+        The count of rendered direct paging links in the sheet's footer.<br />
+        The <strong>default</strong> is 9.
+       ]]>
+      </description>
+    </attribute>
+    <attribute>
       <name>hideHeader</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
