@@ -66,11 +66,11 @@ public class ToolBarRenderer extends RendererBase {
       writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
       writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
       writer.startElement("div", toolbar);
-      writer.writeAttribute("class", "tobago-toolbar-div-inner", null);
+      writer.writeAttribute("class", "tobago-toolBar-div-inner", null);
     }
 //
 //      writer.startElement("table", toolbar);
-//      writer.writeAttribute("class", "tobago-toolbar-table", null);
+//      writer.writeAttribute("class", "tobago-toolBar-table", null);
 //      writer.writeAttribute("border", "0", null);
 //      writer.writeAttribute("cellpadding", "0", null);
 //      writer.writeAttribute("cellspacing", "0", null);
@@ -111,15 +111,15 @@ public class ToolBarRenderer extends RendererBase {
     final String graphicId
         = graphic != null ? graphic.getClientId(facesContext) : "null";
     final String args
-        = "this, 'tobago-toolbar-button-span-hover', '" + graphicId;
+        = "this, 'tobago-toolBar-button-span-hover', '" + graphicId;
     final String mouseover = "tobagoToolbarMousesover(" + args + "')";
     final String mouseout = "tobagoToolbarMousesout(" + args + "')";
 
     String spanClass
-        = "tobago-toolbar-button-span tobago-toolbar-button-span-"
+        = "tobago-toolBar-button-span tobago-toolbar-button-span-"
         + (disabled ? "disabled" : "enabled");
     if (popupMenu != null) {
-      spanClass += " tobago-toolbar-button-popup-span";
+      spanClass += " tobago-toolBar-button-popup-span";
     }
     String onClick = createOnClick(facesContext, command);
     onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
@@ -136,7 +136,7 @@ public class ToolBarRenderer extends RendererBase {
 
     writer.startElement("a", null);
     writer.writeAttribute("id", command.getClientId(facesContext), null);
-    writer.writeAttribute("class", "tobago-toolbar-button-link", null);
+    writer.writeAttribute("class", "tobago-toolBar-button-link", null);
     if (! disabled) {
       writer.writeAttribute("onclick", onClick, null);
       writer.writeAttribute("href", "#", null);
@@ -163,7 +163,7 @@ public class ToolBarRenderer extends RendererBase {
       RenderUtil.encode(facesContext, ieSpacer);
     }
     if (graphic != null) {
-      LayoutUtil.addCssClass(graphic, "tobago-toolbar-button-image");
+      LayoutUtil.addCssClass(graphic, "tobago-toolBar-button-image");
       RenderUtil.encode(facesContext, graphic);
     }
 
@@ -171,7 +171,7 @@ public class ToolBarRenderer extends RendererBase {
     if (label.getText() != null) {
       if (graphic != null) {
         writer.startElement("span", null);
-        writer.writeAttribute("class", "tobago-toolbar-button-label", null);
+        writer.writeAttribute("class", "tobago-toolBar-button-label", null);
       }
       RenderUtil.writeLabelWithAccessKey(writer, label);
 
@@ -184,14 +184,14 @@ public class ToolBarRenderer extends RendererBase {
       String backgroundImage = ResourceManagerUtil.getImage(facesContext, "1x1.gif");
       writer.startElement("span", null);
       writer.writeAttribute("id", command.getClientId(facesContext) + SUBCOMPONENT_SEP + "popup", null);
-      writer.writeAttribute("class", "tobago-toolbar-button-menu", null);
+      writer.writeAttribute("class", "tobago-toolBar-button-menu", null);
       writer.startElement("img", null);
       writer.writeAttribute("src", backgroundImage, null);
-      writer.writeAttribute("class", "tobago-toolbar-button-menu-background-image", null);
+      writer.writeAttribute("class", "tobago-toolBar-button-menu-background-image", null);
       writer.endElement("img");
       writer.endElement("span");
       popupMenu.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
-      popupMenu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "ToolbarButton");
+      popupMenu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "ToolBarButton");
       popupMenu.setRendererType(RENDERER_TYPE_MENUBAR);
       popupMenu.getAttributes().remove(ATTR_LABEL);
       popupMenu.getAttributes().remove(ATTR_LABEL_WITH_ACCESS_KEY);

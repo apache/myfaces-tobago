@@ -211,7 +211,7 @@ public abstract class RendererBase
   protected void createClassAttribute(UIComponent component) {
     String rendererType = component.getRendererType();
     if (rendererType != null) {
-      rendererType = rendererType.toLowerCase();
+      String name = getRendererName(rendererType);
       Object styleClassO
           = component.getAttributes().get(ATTR_STYLE_CLASS);
       if (styleClassO != null && LOG.isDebugEnabled()) {
@@ -220,7 +220,7 @@ public abstract class RendererBase
       String styleClass
           = (String) component.getAttributes().get(
               ATTR_STYLE_CLASS);
-      styleClass = updateClassAttribute(styleClass, rendererType, component);
+      styleClass = updateClassAttribute(styleClass, name, component);
       component.getAttributes().put(
           ATTR_STYLE_CLASS,
           styleClass);
@@ -228,34 +228,31 @@ public abstract class RendererBase
   }
 
   protected String updateClassAttribute(
-      String cssClass, String rendererType,
+      String cssClass, String rendererName,
       UIComponent component) {
-    if (rendererType.startsWith("javax.faces.")) { // fixme: this is a hotfix from jsf1.0beta to jsf1.0fr
-      rendererType = rendererType.substring("javax.faces.".length());
-    }
     if (cssClass != null) {
-      // first remove old tobago-<rendererType>-<type> classes from class-attribute
+      // first remove old tobago-<rendererName>-<type> classes from class-attribute
       cssClass = cssClass.replaceAll(
-          "tobago-" + rendererType
+          "tobago-" + rendererName
           + "-(default|disabled|readonly|inline|error)", "").trim();
-      // remove old tobago-<rendererType>-theme-<type> classes from class-attribute
+      // remove old tobago-<rendererName>-theme-<type> classes from class-attribute
       cssClass = cssClass.replaceAll(
-          "tobago-" + rendererType + "-theme-(strong|deleted)", "").trim();
+          "tobago-" + rendererName + "-theme-(strong|deleted)", "").trim();
     } else {
       cssClass = "";
     }
-    String tobagoClass = "tobago-" + rendererType + "-default ";
+    String tobagoClass = "tobago-" + rendererName + "-default ";
     if (ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
-      tobagoClass += "tobago-" + rendererType + "-disabled ";
+      tobagoClass += "tobago-" + rendererName + "-disabled ";
     }
     if (ComponentUtil.getBooleanAttribute(component, ATTR_READONLY)) {
-      tobagoClass += "tobago-" + rendererType + "-readonly ";
+      tobagoClass += "tobago-" + rendererName + "-readonly ";
     }
     if (ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
-      tobagoClass += "tobago-" + rendererType + "-inline ";
+      tobagoClass += "tobago-" + rendererName + "-inline ";
     }
     if (ComponentUtil.isError(component)) {
-      tobagoClass += "tobago-" + rendererType + "-error ";
+      tobagoClass += "tobago-" + rendererName + "-error ";
     }
     String markup;
     ValueBinding vb = component.getValueBinding(ATTR_MARKUP);
@@ -266,10 +263,29 @@ public abstract class RendererBase
     }
     if (markup != null && markup.trim().length() > 0
         && "strong deleted".indexOf(markup) != -1) { // fixme
-      tobagoClass += "tobago-" + rendererType + "-theme-" + markup + " ";
+      tobagoClass += "tobago-" + rendererName + "-theme-" + markup + " ";
     }
 
     return tobagoClass + cssClass;
+  }
+
+  protected String getRendererName(String rendererType) {
+    String name;
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("rendererType = '" + rendererType + "'");
+    }
+    if ("javax.faces.Text".equals(rendererType)) { // todo: find a better way
+      name = TobagoConstants.RENDERER_TYPE_OUT;
+    } else {
+      name = rendererType;
+    }
+    if (name.startsWith("javax.faces.")) { // fixme: this is a hotfix from jsf1.0beta to jsf1.0fr
+      LOG.warn("patching renderer from " + name);
+      name = name.substring("javax.faces.".length());
+      LOG.warn("patching renderer to   " + name);
+    }
+    name = name.substring(0, 1).toLowerCase() + name.substring(1);
+    return name;
   }
 
   protected int getConfiguredValue(FacesContext facesContext,

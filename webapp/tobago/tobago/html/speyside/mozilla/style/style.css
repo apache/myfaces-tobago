@@ -9,14 +9,15 @@ label.tobago-label-default  {
   border-bottom: 0px solid #c0c0c0;
 }
 
-/* textarea ---------------------------------------------------------------- */
-.tobago-textarea-default  {
+/* textArea ---------------------------------------------------------------- */
+
+.tobago-textArea-default  {
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-/* textbox ---------------------------------------------------------------- */
-.tobago-textbox-default  {
+/* in ---------------------------------------------------------------------- */
+.tobago-in-default  {
   margin-top: 0px;
 }
 
@@ -29,19 +30,22 @@ label.tobago-label-default  {
 }
 
 
-/* multiselect ---------------------------------------------------------------*/
-.tobago-multiselect-default  {
+/* selectManyListbox ------------------------------------------------------- */
+
+.tobago-selectManyListbox-default  {
   margin-bottom: -1px;
   /* height: 20px;*/
 }
 
-/* singleselect ---------------------------------------------------------------*/
-.tobago-singleselect-default  {
+/* selectOneChoice --------------------------------------------------------- */
+
+.tobago-selectOneChoice-default  {
   margin-bottom: -1px;
 }
 
+/* toolBar ----------------------------------------------------------------- */
 
-.tobago-toolbar-button-menu-background-image {
+.tobago-toolBar-button-menu-background-image {
   width: 15px;
   height: 12px;
 }

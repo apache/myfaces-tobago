@@ -9,8 +9,6 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.util.LayoutUtil;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -20,19 +18,10 @@ import java.io.IOException;
 
 public class LabelRenderer extends RendererBase {
 
-// ///////////////////////////////////////////// constant
-
-  private static final Log LOG = LogFactory.getLog(LabelRenderer.class);
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
-
   protected void createClassAttribute(UIComponent component) {
 
     String rendererType = component.getRendererType().toLowerCase();
+    String name = getRendererName(rendererType);
 
     UIComponent parent = component.getParent();
     if (component != parent.getFacet("label")) {
@@ -45,7 +34,7 @@ public class LabelRenderer extends RendererBase {
     }
 
     String styleClass = (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE_CLASS);
-    styleClass = updateClassAttribute(styleClass, rendererType, parent);
+    styleClass = updateClassAttribute(styleClass, name, parent);
     component.getAttributes().put(TobagoConstants.ATTR_STYLE_CLASS, styleClass);
   }
 
@@ -74,8 +63,6 @@ public class LabelRenderer extends RendererBase {
     writer.endElement("label");
     writer.endElement("span");
   }
-
-// ///////////////////////////////////////////// bean getter + setter
 
 }
 

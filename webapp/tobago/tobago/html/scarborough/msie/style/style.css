@@ -19,17 +19,17 @@ fieldset.tobago-box-default {
   padding-bottom: 0px;
 }
 
-.tobago-textarea-default {
+.tobago-textArea-default {
   margin-top: -1 px;
   margin-bottom: -1 px;
 }
 
-.tobago-textbox-default {
+.tobago-in-default {
   margin-top: -1 px;
   margin-bottom: -1 px;
 }
 
-textarea.tobago-richtexteditor-body {
+textarea.tobago-richTextEditor-body {
   margin-top: -1 px;
   margin-bottom: -1 px;
 }
@@ -42,30 +42,29 @@ textarea.tobago-richtexteditor-body {
   height: 23px;
 }
 
-.tobago-toolbar-default {
+.tobago-toolBar-default {
   height: 31px;
 }
 
-.tobago-toolbar-div-inner {
+.tobago-toolBar-div-inner {
  height: 27px;
 }
 
-.tobago-toolbar-button-image {
+.tobago-toolBar-button-image {
   margin-bottom: 0px;
   position: relative;
   top: -1px;
 }
 
 
-.tobago-toolbar-button-popup-span {
+.tobago-toolBar-button-popup-span {
   padding-right: 10px;
 }
 
-.tobago-toolbar-button-menu {
+.tobago-toolBar-button-menu {
   top:-5px;
 }
 
-
-a:link.tobago-toolbar-button-link, a:visited.tobago-toolbar-button-link, a:active.tobago-toolbar-button-link {
+a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:active.tobago-toolBar-button-link {
    color: #000000;
 }

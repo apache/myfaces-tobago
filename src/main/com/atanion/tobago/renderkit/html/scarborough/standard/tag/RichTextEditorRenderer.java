@@ -77,12 +77,12 @@ public class RichTextEditorRenderer extends InputRendererBase {
         = (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE_CLASS);
 
     writer.startElement("div", component);
-    writer.writeAttribute("class", classes + " tobago-richtexteditor-container", null);
+    writer.writeAttribute("class", classes + " tobago-richTextEditor-container", null);
     writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
     // class, stly.width, style.height
 
     writer.startElement("div", component);
-    writer.writeAttribute("class", classes + " tobago-richtexteditor-header-div", null);
+    writer.writeAttribute("class", classes + " tobago-richTextEditor-header-div", null);
     String onClick = "submitAction('"
         + ComponentUtil.findPage(component).getFormId(facesContext) + "', '"
         + clientId + RichTextEditorRenderer.CHANGE_BUTTON + "')";
@@ -100,7 +100,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
       writer.endElement("input");
 
       writer.startElement("div", component);
-      writer.writeAttribute("class", classes + " tobago-richtexteditor-body", null);
+      writer.writeAttribute("class", classes + " tobago-richTextEditor-body", null);
       writer.writeAttribute("id", clientId, null);
 
       writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_BODY);
@@ -111,7 +111,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     }
     else {
       writer.startElement("textarea", component);
-      writer.writeAttribute("class", classes + " tobago-richtexteditor-body", null);
+      writer.writeAttribute("class", classes + " tobago-richTextEditor-body", null);
       writer.writeAttribute("name", clientId, null);
       writer.writeAttribute("id", clientId, null);
       writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_BODY);
@@ -134,14 +134,14 @@ public class RichTextEditorRenderer extends InputRendererBase {
       String command, boolean enabled, String onClick)
       throws IOException {
 
-    String onMouseArgs = "this, 'tobago-richtexteditor-toolbar-button-hover'";
+    String onMouseArgs = "this, 'tobago-richTextEditor-toolbar-button-hover'";
     String onMouseOver = "addCssClass(" + onMouseArgs + ")";
     String onMouseOut = "removeCssClass(" + onMouseArgs + ")";
 
     String title = ResourceManagerUtil.getProperty(
         facesContext, "tobago", "tobago.richtexteditor." + command + ".title");
     writer.startElement("span", component);
-    String buttonStyle = "tobago-richtexteditor-toolbar-button-span"
+    String buttonStyle = "tobago-richTextEditor-toolbar-button-span"
         + (enabled ? "-enabled" : "-disabled");
     writer.writeAttribute("class", buttonStyle, null);
     writer.writeAttribute("onclick", onClick, null);
@@ -163,11 +163,11 @@ public class RichTextEditorRenderer extends InputRendererBase {
       component.getFacets().put("toolbarImage-" + command, image);
     }
     image.getAttributes().put(TobagoConstants.ATTR_VALUE,
-        "tobago-richtext-" + command + ".gif");
+        "tobago-richText-" + command + ".gif");
     RenderUtil.encode(facesContext, image);
 
     writer.startElement("span", null);
-    writer.writeAttribute("class", "tobago-richtexteditor-toolbar-button-label", null);
+    writer.writeAttribute("class", "tobago-richTextEditor-toolbar-button-label", null);
     String label = ResourceManagerUtil.getProperty(
         facesContext, "tobago", "tobago.richtexteditor." + command + ".label");
     writer.writeText(label, null);

@@ -31,7 +31,7 @@ table {
 }
 */
 
-.tobago-textarea-spacer-custom  {
+.tobago-textArea-spacer-custom  {
   border-bottom: 1px solid none;
 }
 
@@ -225,9 +225,9 @@ reason they are not defined as a:link
   border: 1px solid black;
 }
 
-/* checkbox ---------------------------------------------------------------- */
+/* selectBooleanCheckbox --------------------------------------------------- */
 
-.tobago-checkbox-default {
+.tobago-selectBooleanCheckbox-default {
   margin-top: 0px;
   margin-bottom: 0px;
 }
@@ -362,9 +362,9 @@ label.tobago-label-disabled  {
   scrollbar-shadow-color: #00000;
 }
 
-/* richtexteditor ---------------------------------------------------------- */
+/* richTextEditor ---------------------------------------------------------- */
 
-.tobago-richtexteditor-body {
+.tobago-richTextEditor-body {
   border: 1px solid #000000;
   background: #ffffff;
   font: 12px arial, helvetica, sans-serif;
@@ -372,9 +372,9 @@ label.tobago-label-disabled  {
 
 /* text -------------------------------------------------------------------- */
 
-/* textarea ---------------------------------------------------------------- */
+/* textArea ---------------------------------------------------------------- */
 
-.tobago-textarea-default  {
+.tobago-textArea-default  {
   font: 12px arial, helvetica, sans-serif;
   background: #ffffff;
   color: #000000;
@@ -383,50 +383,52 @@ label.tobago-label-disabled  {
   padding-left: 2px;
 }
 
-.tobago-textarea-readonly  {
+.tobago-textArea-readonly  {
   background-color: #E8E8E8;
 }
 
-.tobago-textarea-disabled  {
+.tobago-textArea-disabled  {
   color: #808080;
   background-color: #E8E8E8;
 }
 
-.tobago-textarea-error  {
+.tobago-textArea-error  {
   border: 1px solid #990000;
 }
 
-/* textbox ----------------------------------------------------------------- */
+/* in ---------------------------------------------------------------------- */
 
-.tobago-textbox-default  {
+.tobago-in-default  {
   border: 1px #000000 solid;
   height: 20px;
   font: 12px arial, helvetica, sans-serif;
   padding-left: 2px;
 }
 
-.tobago-textbox-readonly  {
+.tobago-in-readonly  {
   background-color: #E8E8E8;
 }
 
-.tobago-textbox-disabled  {
+.tobago-in-disabled  {
   color: #808080;
   background-color: #E8E8E8;
 }
 
-.tobago-textbox-error {
+.tobago-in-error {
   border: 1px solid #990000;
 }
 
 
-/* SingleSelect ------------------------------------------------------------- */
-.tobago-singleselect-default  {
+/* selectOneChoice --------------------------------------------------------- */
+
+.tobago-selectOneChoice-default  {
   font: 12px arial, helvetica, sans-serif;
   color: #000000;
 }
 
-/* MultiSelect ------------------------------------------------------------- */
-.tobago-multiselect-default  {
+/* selectManyListbox ------------------------------------------------------- */
+
+.tobago-selectManyListbox-default  {
   font: 12px arial, helvetica, sans-serif;
   padding-top: -1px;
   color: #000000;
@@ -435,7 +437,7 @@ label.tobago-label-disabled  {
 
 
 /* Toolbar ----------------------------------------------------------------- */
-.tobago-toolbar-default  {
+.tobago-toolBar-default  {
   height: 20px;
   border: 1px solid #000000;
   box-sizing: border-box;
@@ -443,12 +445,12 @@ label.tobago-label-disabled  {
 }
 
 
-.tobago-toolbar-div-inner {
+.tobago-toolBar-div-inner {
   margin-left: -1px;
   padding: 0px;
 }
 
-.tobago-toolbar-button-span {
+.tobago-toolBar-button-span {
   font: bold 12px arial, helvetica, sans-serif;
   color: #660000;
   padding-top: 2px;
@@ -459,27 +461,27 @@ label.tobago-label-disabled  {
   border: 0px solid black;
 }
 
-.tobago-toolbar-button-span-enabled {
+.tobago-toolBar-button-span-enabled {
   cursor: pointer;
 }
 
-.tobago-toolbar-button-span-disabled {
+.tobago-toolBar-button-span-disabled {
   color: #808080;
 }
 
 
-.tobago-toolbar-button-span-hover {
+.tobago-toolBar-button-span-hover {
   border: 1px solid black;
   background: #c5c5c5;
   margin: 0px;
 }
 
-.tobago-toolbar-button-image {
+.tobago-toolBar-button-image {
  vertical-align: bottom;
  margin-bottom: 0px;
 }
 
-.tobago-toolbar-button-label {
+.tobago-toolBar-button-label {
   padding-left: 5px;
 }
 

@@ -161,10 +161,10 @@ public class GridLayoutRenderer extends RendererBase
             cssClasses = (cssClasses == null ? "" : cssClasses);
             String cellClasses = "";
             if (rowIndex == 0) {
-              cellClasses += " tobago-gridlayout-first-row";
+              cellClasses += " tobago-gridLayout-first-row";
             }
             if (columnIndex == 0) {
-              cellClasses += " tobago-gridlayout-first-column";
+              cellClasses += " tobago-gridLayout-first-column";
             }
             cellClasses = cssClasses + cellClasses;
 
@@ -199,7 +199,7 @@ public class GridLayoutRenderer extends RendererBase
 
 
             writer.startElement("td", null);
-            writer.writeAttribute("class", "tobago-gridlayout-cell-td", null);
+            writer.writeAttribute("class", "tobago-gridLayout-cell-td", null);
             writer.writeAttribute("style", cellStyle, null);
             if (spanX > 1) {
               writer.writeAttribute("colspan", Integer.toString(spanX), null);

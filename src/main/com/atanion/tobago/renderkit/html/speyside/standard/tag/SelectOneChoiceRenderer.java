@@ -78,7 +78,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
 
         writer.endElement("td");
         writer.startElement("td", null);
-        writer.writeAttribute("class", "tobago-textarea-spacer-custom", null);
+        writer.writeAttribute("class", "tobago-textArea-spacer-custom", null);
 
         writer.startElement("img", null);
         writer.writeAttribute("src",image, null);
