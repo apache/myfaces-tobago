@@ -23,36 +23,29 @@ public class PopupRenderer extends RendererBase {
 
   private static final Log LOG = LogFactory.getLog(PopupRenderer.class);
 
-  public static final String CONTENT_ID_POSTFIX = "content";
+  public static final String CONTENT_ID_POSTFIX = SUBCOMPONENT_SEP + "content";
 
   public boolean getRendersChildren() {
     return true;
   }
 
-  public void encodeChildren(FacesContext facesContext, UIComponent component)
-      throws IOException {
-  }
+  public void encodeBeginTobago(
+      FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
-  public void encodeChildrenTobago(FacesContext facesContext,
-      UIComponent component) throws IOException {
-  }
-
-  public void encodeEndTobago(FacesContext facesContext,
-      UIComponent uiComponent) throws IOException {
-    UIPopup component = (UIPopup) uiComponent ;
     ResponseWriter writer = facesContext.getResponseWriter();
-    writer.startElement("div", component);
+    UIPopup component = (UIPopup) uiComponent ;
     final String clientId = component.getClientId(facesContext);
+    final String contentDivId = clientId + CONTENT_ID_POSTFIX;
+    final String left = component.getLeft();
+    final String top = component.getTop();
+    writer.startElement("div", component);
     writer.writeAttribute("id", clientId, null);
     writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
     writer.writeAttribute("onclick", "tobagoPopupBlink('" + clientId + "')", null);
     writer.endElement("div");
     writer.startElement("div", component);
-    final String contentDivId = clientId + SUBCOMPONENT_SEP + CONTENT_ID_POSTFIX;
     writer.writeAttribute("id", contentDivId, null);
     writer.writeAttribute("class", "tobago-popup-content", null);
-    final String left = component.getLeft();
-    final String top = component.getTop();
 
     StringBuffer style = new StringBuffer();
     if (component.getWidth() != null) {
@@ -73,15 +66,23 @@ public class PopupRenderer extends RendererBase {
     style.append("; ");
 
     writer.writeAttribute("style", style.toString(), null);
-    RenderUtil.encodeChildren(facesContext, component);
+  }
+
+  public void encodeEndTobago(FacesContext facesContext,
+      UIComponent uiComponent) throws IOException {
+    ResponseWriter writer = facesContext.getResponseWriter();
+    UIPopup component = (UIPopup) uiComponent ;
+    final String contentDivId
+        = component.getClientId(facesContext) + CONTENT_ID_POSTFIX;
+
     writer.endElement("div");
 
-    String onloadScript = "tobagoSetupPopup('" + contentDivId + "', '"
-        + left + "', '" + top + "');";
+    String setupScript = "tobagoSetupPopup('" + contentDivId + "', '"
+        + component.getLeft() + "', '" + component.getTop() + "');";
     writer.startElement("script", null);
     writer.writeAttribute("type", "text/javascript", null);
     writer.write("\n<!--\n");
-    writer.write(onloadScript);
+    writer.write(setupScript);
     writer.write("\n// -->\n");
     writer.endElement("script");
   }
