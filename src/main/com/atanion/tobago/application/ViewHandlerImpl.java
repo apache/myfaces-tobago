@@ -26,7 +26,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
@@ -204,7 +206,6 @@ public class ViewHandlerImpl extends ViewHandler {
     return mappingRule.getForwardUri();
   }
 
-
   public void writeState(FacesContext facescontext) throws IOException {
     LOG.error("not implemented yet!"); // fixme jsfbeta
   }
@@ -224,6 +225,8 @@ public class ViewHandlerImpl extends ViewHandler {
   }
 
   public UIViewRoot restoreView(FacesContext facesContext, String viewId) {
+
+    handleEncoding(facesContext);
 
     Map viewMap = ensureViewMap(facesContext);
     ServletRequest request
@@ -276,6 +279,25 @@ public class ViewHandlerImpl extends ViewHandler {
     }
 
     return viewRoot;
+  }
+
+  private void handleEncoding(FacesContext facesContext) {
+    HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext()
+        .getRequest();
+    LOG.info(
+        "request.getCharacterEncoding() = '" + request.getCharacterEncoding() +
+        "'");
+    try {
+      if (request.getCharacterEncoding() == null) {
+        request.setCharacterEncoding("UTF-8");
+        LOG.info(
+            "request.getCharacterEncoding() = '" +
+            request.getCharacterEncoding() +
+            "'");
+      }
+    } catch (UnsupportedEncodingException e) {
+      LOG.error("" + e, e);
+    }
   }
 
   // fixme: don't use UIPage and UIComponent here
