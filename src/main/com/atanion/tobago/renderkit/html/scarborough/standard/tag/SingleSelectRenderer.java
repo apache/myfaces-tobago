@@ -83,7 +83,10 @@ public class SingleSelectRenderer extends SelectOneRendererBase
     }
     writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
-    writer.writeAttribute("onchange", HtmlUtils.generateOnchange(component, facesContext), null);
+    String onchange = HtmlUtils.generateOnchange(component, facesContext);
+    if (onchange != null) {
+      writer.writeAttribute("onchange", onchange, null);
+    }
 
     Object value = component.getValue();
     for (Iterator i = items.iterator(); i.hasNext(); ) {

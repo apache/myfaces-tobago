@@ -32,7 +32,7 @@ public class ClientProperties {
 
   private Locale locale = Locale.US;
   private String contentType = "html";
-  private String theme;
+  private Theme theme;
   private UserAgent userAgent = UserAgent.DEFAULT;
   private boolean debugMode;
 
@@ -72,7 +72,7 @@ public class ClientProperties {
 
     String theme
         = (String) context.getRequestParameterMap().get("tobago.theme");
-    setTheme(theme);
+    this.theme = TobagoConfig.getInstance().getTheme(theme);
     LOG.info("theme='" + this.theme + "' from requestParameter "
         + "tobago.theme='" + theme + "'");
   }
@@ -193,12 +193,12 @@ public class ClientProperties {
     this.contentType = contentType;
   }
 
-  public String getTheme() {
+  public Theme getTheme() {
     return theme;
   }
 
-  public void setTheme(String theme) {
-    this.theme = TobagoConfig.getInstance().getTheme(theme).getName();
+  public void setTheme(Theme theme) {
+    this.theme = theme;
   }
 
   public UserAgent getUserAgent() {

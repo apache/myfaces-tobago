@@ -30,7 +30,7 @@ public class ClientConfigController {
 
   private boolean debugMode;
 
-  private String theme;
+  private Theme theme;
   private SelectItem[] themeItems;
 
   private Locale locale;
@@ -49,9 +49,8 @@ public class ClientConfigController {
     List themes = tobagoConfig.getThemes();
     themeItems = new SelectItem[themes.size()];
     for (int i = 0; i < themeItems.length; i++) {
-      themeItems[i] = new SelectItem(
-          ((Theme)(themes.get(i))).getName(),
-          ((Theme)(themes.get(i))).getDisplayName());
+      Theme themeItem = (Theme) themes.get(i);
+      themeItems[i] = new SelectItem(themeItem, themeItem.getDisplayName());
     }
 
     // locale
@@ -133,7 +132,7 @@ public class ClientConfigController {
     this.debugMode = debugMode;
   }
 
-  public String getTheme() {
+  public Theme getTheme() {
     return theme;
   }
 
@@ -147,7 +146,7 @@ public class ClientConfigController {
     return "???";
   }
 
-  public void setTheme(String theme) {
+  public void setTheme(Theme theme) {
     this.theme = theme;
   }
 

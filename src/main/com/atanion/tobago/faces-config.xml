@@ -89,6 +89,10 @@
     <converter-class>com.atanion.tobago.convert.DurationConverter</converter-class>
   </converter>
   <converter>
+    <converter-for-class>com.atanion.tobago.context.Theme</converter-for-class>
+    <converter-class>com.atanion.tobago.convert.ThemeConverter</converter-class>
+  </converter>
+  <converter>
     <converter-for-class>java.util.Locale</converter-for-class>
     <converter-class>com.atanion.tobago.convert.LocaleConverter</converter-class>
   </converter>

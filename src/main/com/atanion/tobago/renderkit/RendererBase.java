@@ -430,7 +430,8 @@ public class RendererBase extends Renderer {
       result = converter.getAsObject(context, component, newValue);
       return result;
     } else {
-      throw new ConverterException("type conversion error");
+      throw new ConverterException("type conversion error: "
+          + "submittedValue='" + submittedValue + "'");
     }
   }
 
