@@ -85,15 +85,29 @@ public class MultiSelectRenderer extends SelectManyRendererBase
       LOG.debug("items.size() = '" + items.size() + "'");
     }
 
+    ResponseWriter writer = facesContext.getResponseWriter();
+
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
     if (label != null) {
+
+      writer.startElement("table", null);
+      writer.writeAttribute("border", "0", null);
+      writer.writeAttribute("cellspacing", "0", null);
+      writer.writeAttribute("cellpadding", "0", null);
+      writer.writeAttribute("summary", "", null);
+      writer.startElement("tr", null);
+      writer.startElement("td", null);
+      writer.writeText("", null);
+
       RenderUtil.encode(facesContext, label);
+
+      writer.endElement("td");
+      writer.startElement("td", null);
     }
 
     // fixme: rows never used
     Integer rows = (Integer) component.getAttributes().get(TobagoConstants.ATTR_ROWS);
 
-    ResponseWriter writer = facesContext.getResponseWriter();
 
     writer.startElement("select", component);
     String clientId = component.getClientId(facesContext);
@@ -125,6 +139,12 @@ public class MultiSelectRenderer extends SelectManyRendererBase
 
 
     writer.endElement("select");
+
+    if (label != null) {
+      writer.endElement("td");
+      writer.endElement("tr");
+      writer.endElement("table");
+    }
   }
 
 // ///////////////////////////////////////////// bean getter + setter
