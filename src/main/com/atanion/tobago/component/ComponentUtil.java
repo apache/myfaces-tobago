@@ -182,6 +182,14 @@ public class ComponentUtil implements TobagoConstants {
     }
   }
 
+  public static Object getAttribute(UIComponent component, String name) {
+    Object value = component.getAttributes().get(name);
+    if (value instanceof ValueBinding) {
+      value = ((ValueBinding)value).getValue(FacesContext.getCurrentInstance());
+    }
+    return value;
+  }
+
   public static int getIntAttribute(UIComponent component, String name) {
     return getIntAttribute(component, name, 0);
   }

@@ -23,13 +23,17 @@ import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.component.UISelectBoolean;
+import javax.faces.component.UISelectOne;
+import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.application.Application;
 import javax.faces.el.ValueBinding;
+import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Iterator;
+import java.util.List;
 
 public class MenubarRenderer extends RendererBase
     implements DirectRenderer {
@@ -198,7 +202,7 @@ public class MenubarRenderer extends RendererBase
       addMenuCheck(sb, var, facesContext, command, onClick);
     }
     else if ("menuRadio".equals(command.getAttributes().get(ATTR_MENU_TYPE)) ) {
-      addMenuRadio(sb, var, facesContext, command);
+      addMenuRadio(sb, var, facesContext, command, onClick);
     }
   }
 
@@ -217,13 +221,27 @@ public class MenubarRenderer extends RendererBase
         checkbox.setValueBinding(ATTR_VALUE, valueBinding);
       }
     }
+    final boolean checked;
+
     if (checkbox != null) {
       clientId = checkbox.getClientId(facesContext);
       onClick = addMenuCheckToggle(clientId, onClick);
+      final Object value = ((ValueHolder)checkbox).getValue();
+      if (value instanceof Boolean) {
+        checked = ((Boolean)value).booleanValue();
+      } else if (value instanceof String) {
+        LOG.warn("Searching for a boolean, but find a String. Should not happen.");
+        checked = Boolean.getBoolean((String)value);
+      } else {
+        LOG.warn("Unknown type '" + value.getClass().getName() +
+            "' for boolean value");
+        checked = false;
+      }
+    }
+    else {
+      checked = ComponentUtil.getBooleanAttribute(command, ATTR_VALUE);
     }
 
-
-    final boolean checked = ComponentUtil.getBooleanAttribute(command, ATTR_VALUE);
     if (checked && clientId != null) {
       sb.append("    menuCheckToggle('" + clientId + "');\n");
     }
@@ -245,11 +263,70 @@ public class MenubarRenderer extends RendererBase
   }
 
   private void addMenuRadio(StringBuffer sb, String var,
-      FacesContext facesContext, UICommand command) {
-    // todo: implement
+      FacesContext facesContext, UICommand command, String onClick)
+      throws IOException {
+
+    onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
+            facesContext);
+    List items = ComponentUtil.getSelectItems(command);
+
+    LabelWithAccessKey label = new LabelWithAccessKey(command);
+    String image = null;
+
+
+    UISelectOne radio = (UISelectOne) command.getFacet(FACET_RADIO);
+    if (radio == null) {
+      final ValueBinding valueBinding = command.getValueBinding(ATTR_VALUE);
+      if (valueBinding != null) {
+        final Application application = facesContext.getApplication();
+        radio = (UISelectOne) application.createComponent(UISelectOne.COMPONENT_TYPE);
+        command.getFacets().put(FACET_RADIO, radio);
+        radio.setRendererType("RadioGroup");
+        radio.setValueBinding(ATTR_VALUE, valueBinding);
+      }
+    }
+
+    Object value;
+    if (radio != null) {
+      value = ((ValueHolder)radio).getValue();
+    }
+    else {
+      value = ComponentUtil.getAttribute(command, ATTR_VALUE);
+    }
+
+    boolean markFirst = ! hasSelectedValue(items, value);
+    String radioId = radio.getClientId(facesContext);
+    String onClickPrefix = "menuSetRadioValue('" + radioId + "', '";
+    String onClickPostfix = onClick != null ? "') ; " + onClick : "";
+    for (Iterator i = items.iterator(); i.hasNext(); ) {
+      SelectItem item = (SelectItem) i.next();
+      label.text = item.getLabel();
+      Object itemValue = item.getValue();
+      onClick = onClickPrefix + itemValue + onClickPostfix;
+      if (itemValue.equals(value) || markFirst) {
+        image = "MenuRadioChecked.gif";
+        markFirst = false;
+        sb.append("    " + onClickPrefix + itemValue + "');");
+      }
+      else {
+        image = "MenuRadioUnchecked.gif";
+      }
+
+      addMenu(sb, var, facesContext, command, label, image, onClick);
+    }
 
   }
 
+  public static boolean hasSelectedValue(List items, Object value) {
+    boolean selected = false;
+    for (Iterator i = items.iterator(); i.hasNext(); ) {
+      if (((SelectItem) i.next()).getValue().equals(value)) {
+        selected = true;
+        break;
+      }
+    }
+    return selected;
+  }
 
 
   private void addMenuItem(StringBuffer sb, String var, FacesContext facesContext,
@@ -260,14 +337,20 @@ public class MenubarRenderer extends RendererBase
 
   private void addMenu(StringBuffer sb, String var, FacesContext facesContext,
       UICommand command, String image, String onClick) throws IOException {
+
+    final LabelWithAccessKey label = new LabelWithAccessKey(command);
+    onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
+            facesContext);
+    addMenu(sb, var, facesContext, command, label, image, onClick);
+  }
+
+  private void addMenu(StringBuffer sb, String var, FacesContext facesContext,
+      UICommand command, LabelWithAccessKey label, String image, String onClick) throws IOException {
     final boolean disabled
         = ComponentUtil.getBooleanAttribute(command, ATTR_DISABLED);
     String spanClass
         = "tobago-menubar-item-span tobago-menubar-item-span-"
         + (disabled ? "disabled" : "enabled");
-
-    onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
-            facesContext);
 
     ResponseWriter savedWriter = facesContext.getResponseWriter();
     StringWriter stringWriter = new StringWriter();
@@ -277,7 +360,6 @@ public class MenubarRenderer extends RendererBase
 
     addImage(writer, facesContext, image);
 
-    final LabelWithAccessKey label = new LabelWithAccessKey(command);
     writer.startElement("span", null);
     writer.writeAttribute("class", spanClass, null);
     if (label.getAccessKey() != null) {

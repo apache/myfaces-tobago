@@ -206,8 +206,13 @@ public class PageRenderer extends PageRendererBase implements DirectRenderer {
     }
     writer.write("}\n");
 
+    int debugCounter = 0;
     for (Iterator i = page.getScriptBlocks().iterator(); i.hasNext();) {
       String script = (String) i.next();
+
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("write scriptblock " + ++debugCounter + " :\n" + script);
+      }
       writer.write(script);
       writer.write('\n');
     }

@@ -61,6 +61,7 @@ function MenuItem(label, action, disabled) {
           + ' onmouseout="tobagoMenuItemOnmouseout(this)"'
           + onClick
           + '>' + this.label + "</div>";
+          //PrintDebug("adding menu entry '" + this.label + "'");
     }
     if (this.subItems.length > 0) {
       if (this.level != 0) {
@@ -346,9 +347,11 @@ function menuCheckToggle(id) {
   var element = document.getElementById(id);
   var form = document.forms[0];
   if (element) {
+    //PrintDebug("remove  " + id);
     form.removeChild(element);
   }
   else {
+    //PrintDebug("adding " + id);
     element = document.createElement('INPUT');
     element.type = 'hidden';
     element.name = id;
@@ -357,6 +360,19 @@ function menuCheckToggle(id) {
     form.appendChild(element);
   }
 }
+
+function menuSetRadioValue(id, value) {
+  var element = document.getElementById(id);
+  if (! element) {
+    element = document.createElement('INPUT');
+    element.type = 'hidden';
+    element.name = id;
+    element.id = id;
+    document.forms[0].appendChild(element);
+  }
+  element.value = value;
+}
+
 
 
 

@@ -11,6 +11,7 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.DirectRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.util.logging.LogUtils;
 
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
@@ -43,8 +44,9 @@ public class CheckBoxRenderer extends RendererBase implements DirectRenderer {
 
     String newValue = ((ServletRequest)facesContext.getExternalContext().getRequest())
         .getParameter(uiInput.getClientId(facesContext));
+//    LogUtils.logParameter(((ServletRequest)facesContext.getExternalContext().getRequest()));
 //    LOG.debug("decode: key='" + uiInput.getClientId(facesContext)
-//        + "' value='" + newValue + "'");
+//        + "' value='" + newValue + "'  valid = " + uiInput.isValid());
     if (newValue != null) {
       uiInput.setValue(new Boolean(newValue));
     } else {

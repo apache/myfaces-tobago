@@ -18,6 +18,7 @@ public class MenuradioTag extends MenuTag {
 
   private String action;
   private String type;
+  private String value;
 
 // ----------------------------------------------------------- business methods
 
@@ -29,6 +30,8 @@ public class MenuradioTag extends MenuTag {
     super.release();
     action = null;
     type = null;
+    value = null;
+
   }
 
   protected void setProperties(UIComponent component) {
@@ -62,6 +65,7 @@ public class MenuradioTag extends MenuTag {
         }
       }
     }
+    setStringProperty(component, ATTR_VALUE, value);
     setStringProperty(component, ATTR_MENU_TYPE, "menuRadio");
   }
 
@@ -81,5 +85,13 @@ public class MenuradioTag extends MenuTag {
 
   public void setType(String type) {
     this.type = type;
+  }
+
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
   }
 }

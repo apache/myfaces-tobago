@@ -119,6 +119,7 @@ public class UIPage extends UIForm {
     }
 
     getOnloadScripts().clear();
+    getScriptBlocks().clear();
   }
 
   public void storeFocusId(String id) {
