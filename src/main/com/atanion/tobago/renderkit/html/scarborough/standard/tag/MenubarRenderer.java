@@ -367,7 +367,7 @@ public class MenubarRenderer extends RendererBase
     String spanClass
         = "tobago-menubar-item-span tobago-menubar-item-span-"
         + (disabled ? "disabled" : "enabled");
-
+    LOG.debug(Boolean.toString("hallo".contains("ll")));
     ResponseWriter savedWriter = facesContext.getResponseWriter();
     StringWriter stringWriter = new StringWriter();
     TobagoResponseWriter writer
