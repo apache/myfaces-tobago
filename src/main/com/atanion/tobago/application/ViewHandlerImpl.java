@@ -8,16 +8,13 @@ package com.atanion.tobago.application;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.config.Attribute;
-import com.atanion.tobago.config.MappingRule;
-import com.atanion.tobago.config.TobagoConfig;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.webapp.TobagoServletMapping;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.FacesException;
+import javax.faces.render.RenderKitFactory;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
@@ -39,6 +36,8 @@ public class ViewHandlerImpl extends ViewHandler {
 // ///////////////////////////////////////////// constant
 
   private static final Log LOG = LogFactory.getLog(ViewHandlerImpl.class);
+
+  public static final String PAGE_ID = "tobago::page-id";
 
 // ///////////////////////////////////////////// attribute
 
@@ -78,34 +77,20 @@ public class ViewHandlerImpl extends ViewHandler {
     UIViewRoot root = new UIViewRoot();
     root.setViewId(viewId);
     root.setLocale(calculateLocale(facesContext));
-    root.setRenderKitId(createRenderKitId(facesContext));
+    root.setRenderKitId(calculateRenderKitId(facesContext));
     String pageId = Long.toString(nextId++);
-    root.getAttributes().put("tobago::page-id", pageId);
+    root.getAttributes().put(PAGE_ID, pageId);
     Map viewMap = ensureViewMap(facesContext);
     viewMap.put(pageId, root);
     return root;
   }
 
   public String calculateRenderKitId(FacesContext facesContext) {
-    LOG.error(
-        "This method isn't implemented yet, and should not be called!"); //fixme: jsf1.0
-    return null;
-  }
-
-  private String createRenderKitId(FacesContext facesContext) {
-    StringBuffer buffer = new StringBuffer();
-    ClientProperties client = null;//fixme ClientProperties.getInstance(facesContext);
-    buffer.append(client.getContentType());
-    buffer.append('/');
-    buffer.append(client.getTheme());
-    buffer.append('/');
-    buffer.append(client.getUserAgent());
-    buffer.append('/');
-    buffer.append(calculateLocale(facesContext));
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("RenderKitId : \"" + buffer.toString() + "\"");
+    String result = facesContext.getApplication().getDefaultRenderKitId();
+    if (null == result){
+        result = RenderKitFactory.HTML_BASIC_RENDER_KIT;
     }
-    return buffer.toString();
+    return result;
   }
 
   public Locale calculateLocale(FacesContext facesContext) {
@@ -113,7 +98,7 @@ public class ViewHandlerImpl extends ViewHandler {
 
     // fixme: is this good?
     // get the configured locale
-    ClientProperties client = null;//fixme: ClientProperties.getInstance(facesContext);
+    ClientProperties client = ClientProperties.getInstance(facesContext);
     result = findLocaleInApplication(facesContext, client.getLocale());
 
     if (result == null) {
@@ -184,7 +169,7 @@ public class ViewHandlerImpl extends ViewHandler {
 
     String requestUri = viewRoot.getViewId();
 
-    requestUri = remap(facesContext, requestUri);
+//    requestUri = remap(facesContext, requestUri);
 
     try {
       facesContext.getExternalContext().dispatch(requestUri);
@@ -199,6 +184,7 @@ public class ViewHandlerImpl extends ViewHandler {
     }
   }
 
+/*
   private String remap(FacesContext facesContext, String requestURI) {
     ServletContext servletContext
         = (ServletContext) facesContext.getExternalContext().getContext();
@@ -216,6 +202,7 @@ public class ViewHandlerImpl extends ViewHandler {
     }
     return mappingRule.getForwardUri();
   }
+*/
 
   public void writeState(FacesContext facescontext) throws IOException {
     LOG.error("not implemented yet!"); // fixme jsfbeta
@@ -242,7 +229,7 @@ public class ViewHandlerImpl extends ViewHandler {
     Map viewMap = ensureViewMap(facesContext);
     ServletRequest request
         = (ServletRequest) facesContext.getExternalContext().getRequest();
-    String pageId = request.getParameter("tobago::page-id");
+    String pageId = request.getParameter(PAGE_ID);
     if (LOG.isDebugEnabled()) {
       LOG.debug("pageId = '" + pageId + "'");
     }

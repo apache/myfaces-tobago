@@ -41,7 +41,7 @@
       com.sun.faces.el.VariableResolverImpl
     </variable-resolver>
     <view-handler>
-      com.sun.faces.application.ViewHandlerImpl
+      com.atanion.tobago.application.ViewHandlerImpl
     </view-handler>
   </application>
 

@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.application.ViewHandlerImpl;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.TobagoResource;
@@ -15,7 +16,6 @@ import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.taglib.component.PageTag;
 import com.atanion.tobago.util.TobagoResourceSet;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -26,7 +26,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletRequest;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Iterator;
@@ -241,12 +240,13 @@ public class PageRenderer extends PageRendererBase implements DirectRenderer {
     writer.endElement("input");
 
 // todo: this is needed for the "BACK-BUTTON-PROBLEM"
-//    writer.startElement("input", null);
-//    writer.writeAttribute("type", "hidden", null);
-//    writer.writeAttribute("name", "tobago::page-id", null);
-//    writer.writeAttribute("id", "tobago::page-id", null);
-//    writer.writeAttribute("value", facesContext.getViewRoot().getAttributes().get("tobago::page-id"), null);
-//    writer.endElement("input");
+    writer.startElement("input", null);
+    writer.writeAttribute("type", "hidden", null);
+    writer.writeAttribute("name", ViewHandlerImpl.PAGE_ID, null);
+    writer.writeAttribute("id", ViewHandlerImpl.PAGE_ID, null);
+    writer.writeAttribute("value",
+        facesContext.getViewRoot().getAttributes().get(ViewHandlerImpl.PAGE_ID), null);
+    writer.endElement("input");
 
     // write the proviously rendered page content 
     writer.write(content.toString());
