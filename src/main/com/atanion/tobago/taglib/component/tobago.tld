@@ -51,7 +51,7 @@
       <type>boolean</type>
     </attribute>
     <attribute>
-      <name>span</name>
+      <name>createSpan</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
       <type>boolean</type>

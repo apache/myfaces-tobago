@@ -90,7 +90,7 @@ public class TobagoConstants {
   public static final String ATTR_HIDE_HEADER = "hideHeader";
   public static final String ATTR_SIZE = "size";
   public static final String ATTR_SORTABLE = "sortable";
-  public static final String ATTR_SPAN = "span";
+  public static final String ATTR_CREATE_SPAN = "createSpan";
   public static final String ATTR_SPAN_X = "spanX";
   public static final String ATTR_SPAN_Y = "spanY";
   public static final String ATTR_SRC = "src";

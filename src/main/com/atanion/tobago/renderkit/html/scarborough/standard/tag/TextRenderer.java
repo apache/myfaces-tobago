@@ -44,8 +44,8 @@ public class TextRenderer extends RendererBase
 
     boolean escape = ComponentUtil.getBooleanAttribute(
         component, TobagoConstants.ATTR_ESCAPE);
-    boolean span = ComponentUtil.getBooleanAttribute(
-        component, TobagoConstants.ATTR_SPAN);
+    boolean createSpan = ComponentUtil.getBooleanAttribute(
+        component, TobagoConstants.ATTR_CREATE_SPAN);
 
 /* fixme: how to check this?
     if (verbatim) {
@@ -65,7 +65,7 @@ public class TextRenderer extends RendererBase
     }
 */
 
-    if (span) {
+    if (createSpan) {
       writer.startElement("span", component);
       writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
       writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
@@ -75,7 +75,7 @@ public class TextRenderer extends RendererBase
     } else {
       writer.write(text);
     }
-    if (span) {
+    if (createSpan) {
       writer.endElement("span");
     }
   }
