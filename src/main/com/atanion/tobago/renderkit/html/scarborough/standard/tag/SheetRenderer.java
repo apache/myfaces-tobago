@@ -142,9 +142,8 @@ public class SheetRenderer extends RendererBase {
     writer.writeAttribute("class", "tobago-sheet-outer-div", null);
     writer.writeAttribute("style", sheetStyle, null);
 
-    boolean hideHeader = ComponentUtil.getBooleanAttribute(data,
-        TobagoConstants.ATTR_HIDE_HEADER);
-    if (!hideHeader) {
+    boolean showHeader = data.isShowHeader();
+    if (showHeader) {
       // begin rendering header
       writer.startElement("div", null);
       writer.writeAttribute("id", sheetId + "_header_div", null);
@@ -206,7 +205,7 @@ public class SheetRenderer extends RendererBase {
     }
     sheetBodyStyle = HtmlRendererUtil.removeStyleAttribute(sheetBodyStyle, "height");
 
-    if (hideHeader) {
+    if (!showHeader) {
       bodyStyle += " padding-top: 0px;";
     }
 

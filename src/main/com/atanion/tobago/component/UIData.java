@@ -5,32 +5,35 @@
   */
 package com.atanion.tobago.component;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.util.LayoutUtil;
-import com.atanion.tobago.util.LayoutInfo;
 import com.atanion.tobago.model.SheetState;
-import com.atanion.tobago.renderkit.html.scarborough.standard.tag.SheetRenderer;
 import com.atanion.tobago.renderkit.RendererBase;
-
+import com.atanion.tobago.renderkit.html.scarborough.standard.tag.SheetRenderer;
+import com.atanion.tobago.util.LayoutInfo;
+import com.atanion.tobago.util.LayoutUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.faces.component.UIColumn;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIColumn;
 import java.io.IOException;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
+import static com.atanion.tobago.TobagoConstants.*;
+
 public class UIData extends javax.faces.component.UIData {
+// ------------------------------------------------------------------ constants
 
   private static final Log LOG = LogFactory.getLog(UIData.class);
 
   public static final String COMPONENT_TYPE = "com.atanion.tobago.Data";
+
+// ----------------------------------------------------------------- attributes
 
   private MethodBinding stateChangeListener;
 
@@ -38,51 +41,40 @@ public class UIData extends javax.faces.component.UIData {
 
   private Sorter sorter;
 
+  private boolean showHeader = true;
+  private boolean showHeaderSet = false;
+
+// ----------------------------------------------------------- business methods
+
   public void encodeBegin(FacesContext facesContext) throws IOException {
     UILayout.prepareDimension(facesContext, this);
     super.encodeBegin(facesContext);
   }
 
-
   public void encodeEnd(FacesContext facesContext) throws IOException {
-
     setupState(facesContext);
     prepareDimensions(facesContext);
     super.encodeEnd(facesContext);
   }
 
-  private void prepareDimensions(FacesContext facesContext) {
-    // prepare width's in column's children components
-
-    List columnWidths = getWidthList();
-    int i = 0;
-    for (UIColumn column : getColumns()) {
-      if (i < columnWidths.size()) {
-        Integer width = (Integer) columnWidths.get(i);
-        if (!(column instanceof UIColumnSelector)) {
-          if (column.getChildCount() == 1) {
-            UIComponent child = (UIComponent) column.getChildren().get(0);
-            int cellPaddingWidth = ((RendererBase) getRenderer(facesContext))
-                .getConfiguredValue(facesContext, this, "cellPaddingWidth");
-            child.getAttributes().put(TobagoConstants.ATTR_LAYOUT_WIDTH,
-                new Integer(width.intValue() - cellPaddingWidth));
-          } else {
-            LOG.warn("More or less than 1 child in column! "
-                + "Can't set width for column " + i + " to " + width);
-          }
-        }
-      }
-      else {
-        LOG.warn("More columns than columnSizes! "
-            + "Can't set width for column " + i);
-      }
-      i++;
-    }
-  }
-
   private void setupState(FacesContext facesContext) {
     SheetState state = getSheetState(facesContext);
     ensureColumnWidthList(facesContext, state);
+  }
+
+  public SheetState getSheetState(FacesContext facesContext) {
+    ValueBinding stateBinding
+        = getValueBinding(ATTR_STATE_BINDING);
+    if (stateBinding != null) {
+      SheetState state = (SheetState) stateBinding.getValue(facesContext);
+      if (state == null) {
+        state = new SheetState();
+        stateBinding.setValue(facesContext, state);
+      }
+      return state;
+    } else {
+      return null;
+    }
   }
 
   private void ensureColumnWidthList(FacesContext facesContext, SheetState state) {
@@ -97,7 +89,7 @@ public class UIData extends javax.faces.component.UIData {
     }
     if (widthListString == null) {
       widthListString =
-          (String) attributes.get(TobagoConstants.ATTR_WIDTH_LIST_STRING);
+          (String) attributes.get(ATTR_WIDTH_LIST_STRING);
     }
 
     if (widthListString != null) {
@@ -110,7 +102,7 @@ public class UIData extends javax.faces.component.UIData {
 
     if (widthList == null) {
       String columnLayout =
-          (String) attributes.get(TobagoConstants.ATTR_COLUMNS);
+          (String) attributes.get(ATTR_COLUMNS);
 
       if (columnLayout == null && columns.size() > 0) {
         StringBuffer sb = new StringBuffer();
@@ -150,73 +142,32 @@ public class UIData extends javax.faces.component.UIData {
     }
   }
 
-  public void processUpdates(FacesContext context) {
-    super.processUpdates(context);
-    updateSheetState(context);
-  }
+  private void prepareDimensions(FacesContext facesContext) {
+    // prepare width's in column's children components
 
-  public List<UIColumn> getColumns() {
-    List<UIColumn> columns = new ArrayList<UIColumn>();
-    for (UIComponent kid : (List<UIComponent>)getChildren()) {
-      if (kid instanceof UIColumn && kid.isRendered()) {
-        columns.add((UIColumn)kid);
+    List columnWidths = getWidthList();
+    int i = 0;
+    for (UIColumn column : getColumns()) {
+      if (i < columnWidths.size()) {
+        Integer width = (Integer) columnWidths.get(i);
+        if (!(column instanceof UIColumnSelector)) {
+          if (column.getChildCount() == 1) {
+            UIComponent child = (UIComponent) column.getChildren().get(0);
+            int cellPaddingWidth = ((RendererBase) getRenderer(facesContext))
+                .getConfiguredValue(facesContext, this, "cellPaddingWidth");
+            child.getAttributes().put(ATTR_LAYOUT_WIDTH,
+                new Integer(width.intValue() - cellPaddingWidth));
+          } else {
+            LOG.warn("More or less than 1 child in column! "
+                + "Can't set width for column " + i + " to " + width);
+          }
+        }
       }
-    }
-    return columns;
-  }
-
-  public List<UIComponent> getRenderedChildrenOf(UIColumn column) {
-    List<UIComponent> children = new ArrayList<UIComponent>();
-    for (Iterator kids = column.getChildren().iterator(); kids.hasNext();) {
-      UIComponent kid = (UIComponent) kids.next();
-      if (kid.isRendered()) {
-        children.add(kid);
+      else {
+        LOG.warn("More columns than columnSizes! "
+            + "Can't set width for column " + i);
       }
-    }
-    return children;
-  }
-
-  public List<Integer> getWidthList() {
-    return widthList;
-  }
-
-  public Sorter getSorter() {
-    if (sorter == null) {
-      sorter = new Sorter(this);
-    }
-    return sorter;
-  }
-
-  public void setSorter(Sorter sorter) {
-    this.sorter = sorter;
-  }
-
-  public void updateSheetState(FacesContext facesContext) {
-    SheetState state = getSheetState(facesContext);
-    if (state != null) {
-      // ensure sorter
-      getSorter();
-      state.setSortedColumn(sorter != null ? sorter.getColumn() : -1);
-      state.setAscending(sorter != null && sorter.isAscending());
-      state.setSelected((String)
-          getAttributes().get(TobagoConstants.ATTR_SELECTED_LIST_STRING));
-      state.setColumnWidths((String)
-          getAttributes().get(TobagoConstants.ATTR_WIDTH_LIST_STRING));
-    }
-  }
-
-  public SheetState getSheetState(FacesContext facesContext) {
-    ValueBinding stateBinding
-        = getValueBinding(TobagoConstants.ATTR_STATE_BINDING);
-    if (stateBinding != null) {
-      SheetState state = (SheetState) stateBinding.getValue(facesContext);
-      if (state == null) {
-        state = new SheetState();
-        stateBinding.setValue(facesContext, state);
-      }
-      return state;
-    } else {
-      return null;
+      i++;
     }
   }
 
@@ -239,9 +190,15 @@ public class UIData extends javax.faces.component.UIData {
     return getRowCount() / getRows() + (getRowCount() % getRows() == 0 ? 0 : 1);
   }
 
-  public int getLastPageIndex() {
-    int tail = getRowCount() % getRows();
-    return getRowCount() - (tail != 0 ? tail : getRows());
+  public List<UIComponent> getRenderedChildrenOf(UIColumn column) {
+    List<UIComponent> children = new ArrayList<UIComponent>();
+    for (Iterator kids = column.getChildren().iterator(); kids.hasNext();) {
+      UIComponent kid = (UIComponent) kids.next();
+      if (kid.isRendered()) {
+        children.add(kid);
+      }
+    }
+    return children;
   }
 
   public boolean isAtBeginning() {
@@ -252,6 +209,53 @@ public class UIData extends javax.faces.component.UIData {
     return getFirst() >= getLastPageIndex();
   }
 
+  public int getLastPageIndex() {
+    int tail = getRowCount() % getRows();
+    return getRowCount() - (tail != 0 ? tail : getRows());
+  }
+
+  public void processUpdates(FacesContext context) {
+    super.processUpdates(context);
+    updateSheetState(context);
+  }
+
+  public void updateSheetState(FacesContext facesContext) {
+    SheetState state = getSheetState(facesContext);
+    if (state != null) {
+      // ensure sorter
+      getSorter();
+      state.setSortedColumn(sorter != null ? sorter.getColumn() : -1);
+      state.setAscending(sorter != null && sorter.isAscending());
+      state.setSelected((String)
+          getAttributes().get(ATTR_SELECTED_LIST_STRING));
+      state.setColumnWidths((String)
+          getAttributes().get(ATTR_WIDTH_LIST_STRING));
+    }
+  }
+
+// ------------------------------------------------------------ getter + setter
+
+  public List<UIColumn> getColumns() {
+    List<UIColumn> columns = new ArrayList<UIColumn>();
+    for (UIComponent kid : (List<UIComponent>)getChildren()) {
+      if (kid instanceof UIColumn && kid.isRendered()) {
+        columns.add((UIColumn)kid);
+      }
+    }
+    return columns;
+  }
+
+  public Sorter getSorter() {
+    if (sorter == null) {
+      sorter = new Sorter(this);
+    }
+    return sorter;
+  }
+
+  public void setSorter(Sorter sorter) {
+    this.sorter = sorter;
+  }
+
   public MethodBinding getStateChangeListener() {
     return stateChangeListener;
   }
@@ -259,4 +263,27 @@ public class UIData extends javax.faces.component.UIData {
   public void setStateChangeListener(MethodBinding stateChangeListener) {
     this.stateChangeListener = stateChangeListener;
   }
+
+  public List<Integer> getWidthList() {
+    return widthList;
+  }
+
+  public boolean isShowHeader() {
+    if (showHeaderSet) {
+        return (showHeader);
+    }
+    ValueBinding vb = getValueBinding(ATTR_SHOW_HEADER);
+    if (vb != null) {
+        return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
+    } else {
+        return (this.showHeader);
+    }
+  }
+
+  public void setShowHeader(boolean showHeader) {
+    this.showHeader = showHeader;
+    this.showHeaderSet = true;
+  }
+
+
 }

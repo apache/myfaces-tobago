@@ -467,11 +467,7 @@ public class ComponentUtil {
       if (UIComponentTag.isValueReference(value)) {
         component.setValueBinding(name, createValueBinding(value, iterator));
       } else {
-        if (Boolean.valueOf(value).booleanValue()) {
-          component.getAttributes().put(name, Boolean.TRUE);
-        } else {
-          component.getAttributes().remove(name);
-        }
+        component.getAttributes().put(name, Boolean.valueOf(value));
       }
     }
   }

@@ -94,11 +94,11 @@ public interface TobagoConstants {
   public static final String ATTR_SELECTED_LIST_STRING = "selectedListString";
   public static final String ATTR_SERVER_SIDE_TABS = "serverSideTab";
   public static final String ATTR_SHEET_SORTER = "sheetSorter";
-  public static final String ATTR_HIDE_HEADER = "hideHeader";
   public static final String ATTR_SORTABLE = "sortable";
   public static final String ATTR_CREATE_SPAN = "createSpan";
   public static final String ATTR_SELECTABLE = "selectable";
   public static final String ATTR_SHOW_DIRECT_LINKS = "showDirectLinks";
+  public static final String ATTR_SHOW_HEADER = "showHeader";
   public static final String ATTR_SHOW_ICONS = "showIcons";
   public static final String ATTR_SHOW_JUNCTIONS = "showJunctions";
   public static final String ATTR_SHOW_PAGE_RANGE = "showPageRange";
