@@ -10,8 +10,6 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -20,17 +18,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletRequest;
 import java.io.IOException;
 
-public class CheckboxRenderer extends RendererBase {
+public class SelectBooleanCheckboxRenderer extends RendererBase {
 
-// ///////////////////////////////////////////// constant
-
-  private static final Log LOG = LogFactory.getLog(CheckboxRenderer.class);
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
   public void decode(FacesContext facesContext, UIComponent component) {
     if (ComponentUtil.isOutputOnly(component)) {
       return;

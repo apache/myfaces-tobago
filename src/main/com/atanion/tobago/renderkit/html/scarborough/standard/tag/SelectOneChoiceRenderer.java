@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2003 Atanion GmbH, Germany
  * All rights reserved. Created 07.02.2003 16:00:00.
- * : $
+ * $Id$
  */
-package com.atanion.tobago.renderkit.html.speyside.standard.tag;
+package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
+import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.SelectOneRendererBase;
@@ -23,11 +23,11 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-public class SingleSelectRenderer extends SelectOneRendererBase {
+public class SelectOneChoiceRenderer extends SelectOneRendererBase {
 
 // ///////////////////////////////////////////// constant
 
-  private static final Log LOG = LogFactory.getLog(SingleSelectRenderer.class);
+  private static final Log LOG = LogFactory.getLog(SelectOneChoiceRenderer.class);
 
 // ///////////////////////////////////////////// attribute
 
@@ -39,67 +39,45 @@ public class SingleSelectRenderer extends SelectOneRendererBase {
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
-
-
-
     UISelectOne component = (UISelectOne)uiComponent;
-
-    boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
     List items = ComponentUtil.getSelectItems(component);
 
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    String image = ResourceManagerUtil.getImage(facesContext, "1x1.gif");
-
     if (LOG.isDebugEnabled()) {
       LOG.debug("items.size() = '" + items.size() + "'");
     }
 
-    boolean disabled = items.size() == 0
-        || ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED);
+    boolean disabled = items.size() == 0 ||
+        ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED);
 
-    UIComponent label = component.getFacet(FACET_LABEL);
-    if (!inline) {
+    UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
+
+
+
+    if (label != null) {
       writer.startElement("table", null);
       writer.writeAttribute("border", "0", null);
       writer.writeAttribute("cellspacing", "0", null);
       writer.writeAttribute("cellpadding", "0", null);
       writer.writeAttribute("summary", "", null);
-
       writer.startElement("tr", null);
-      if (label != null) {
-        writer.startElement("td", null);
-        writer.writeAttribute("class", "tobago-label-td", null);
-        writer.writeAttribute("valign", "top", null);
-        writer.writeText("", null);
-
-        RenderUtil.encode(facesContext, label);
-
-        writer.endElement("td");
-        writer.startElement("td", null);
-        writer.writeAttribute("class", "tobago-textarea-spacer-custom", null);
-
-        writer.startElement("img", null);
-        writer.writeAttribute("src",image, null);
-        writer.writeAttribute("border", "0", null);
-        writer.writeAttribute("height", "1", null);
-        writer.writeAttribute("width", "5", null);
-        writer.endElement("img");
-
-        writer.endElement("td");
-      }
       writer.startElement("td", null);
-      writer.writeAttribute("valign", "top", null);
-      writer.writeAttribute("rowspan", "2", null);
-  }
+      writer.writeText("", null);
+
+      RenderUtil.encode(facesContext, label);
+
+      writer.endElement("td");
+      writer.startElement("td", null);
+    }
 
     writer.startElement("select", component);
     writer.writeAttribute("name", component.getClientId(facesContext), null);
     writer.writeAttribute("id", component.getClientId(facesContext), null);
     writer.writeAttribute("disabled", disabled);
-    writer.writeAttribute("style", null, "style");
-    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
+    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
+    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
     String onchange = HtmlUtils.generateOnchange(component, facesContext);
     if (onchange != null) {
       writer.writeAttribute("onchange", onchange, null);
@@ -113,6 +91,12 @@ public class SingleSelectRenderer extends SelectOneRendererBase {
       }
       if (itemObject instanceof SelectItem) {
         SelectItem item = (SelectItem) itemObject;
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("item value = '" + item.getValue() + "'");
+          LOG.debug("item class = '" + item.getClass().getName() + "'");
+          LOG.debug("item label = '" + item.getLabel() + "'");
+          LOG.debug("item descr = '" + item.getDescription() + "'");
+        }
         writer.startElement("option", null);
         writer.writeAttribute("value", item.getValue(), null);
         if (item.getValue().equals(value)) {
@@ -126,46 +110,24 @@ public class SingleSelectRenderer extends SelectOneRendererBase {
     }
     writer.endElement("select");
 
-    if (!inline) {
+    if (label != null) {
       writer.endElement("td");
-      writer.endElement("tr");
-      writer.startElement("tr", null);
-      if (label != null) {
-        writer.startElement("td", null);
-        writer.writeAttribute("class", "tobago-label-td-underline-label", null);
-        writer.startElement("img", null);
-        writer.writeAttribute("src",image, null);
-        writer.writeAttribute("border", "0", null);
-        writer.writeAttribute("height", "1", null);
-        writer.endElement("img");
-        writer.endElement("td");
-        writer.startElement("td", null);
-        writer.writeAttribute("class", "tobago-label-td-underline-spacer", null);
-        writer.startElement("img", null);
-        writer.writeAttribute("src",image, null);
-        writer.writeAttribute("border", "0", null);
-        writer.writeAttribute("height", "1", null);
-        writer.endElement("img");
-        writer.endElement("td");
-      }
       writer.endElement("tr");
       writer.endElement("table");
     }
-  }
 
+  }
 
   public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
     int space = 0;
 
-    if (component.getFacet(FACET_LABEL) != null) {
+    if (component.getFacet(TobagoConstants.FACET_LABEL) != null) {
       int labelWidht = LayoutUtil.getLabelWidth(component);
       space += labelWidht != 0 ? labelWidht : getLabelWidth(facesContext, component);
-      space += getConfiguredValue(facesContext, component, "labelSpace");
     }
 
     return space;
   }
-
 // ///////////////////////////////////////////// bean getter + setter
 
 }

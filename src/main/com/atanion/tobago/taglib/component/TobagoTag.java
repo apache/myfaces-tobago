@@ -139,7 +139,7 @@ public abstract class TobagoTag extends UIComponentTag
     Application application = getFacesContext().getApplication();
     UIOutput uiLabel
         = (UIOutput) application.createComponent(UIOutput.COMPONENT_TYPE);
-//   7 uiLabel.setRendererType("Text"); // fixme
+//    uiLabel.setRendererType("Out"); // fixme
     uiLabel.setRendererType("Label");
     uiLabel.setRendered(true);
     ComponentUtil.setStringProperty(uiLabel, "value", label, getIterationHelper());

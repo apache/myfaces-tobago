@@ -956,7 +956,7 @@ public class SheetRenderer extends RendererBase {
       final Application application = facesContext.getApplication();
       menu = (UIPanel) application.createComponent(UIPanel.COMPONENT_TYPE);
       column.getFacets().put(FACET_MENUPOPUP, menu);
-      menu.setRendererType("Menubar");
+      menu.setRendererType(RENDERER_TYPE_MENUBAR);
       menu.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
       menu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "SheetSelector");
       menu.getAttributes().put(ATTR_MENU_TYPE, "menu");
@@ -989,7 +989,7 @@ public class SheetRenderer extends RendererBase {
       String action) {
     UICommand menuItem
         = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
-    menuItem.setRendererType("Menuitem");
+    menuItem.setRendererType(RENDERER_TYPE_MENUITEM);
     menuItem.getAttributes().put(ATTR_MENU_TYPE, "menuItem");
     menuItem.getAttributes().put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
     menuItem.getAttributes().put(ATTR_ACTION_STRING, action);
@@ -1303,7 +1303,7 @@ public class SheetRenderer extends RendererBase {
             || child instanceof UISelectBoolean) {
           continue;
         } else if (child instanceof UIInput &&
-            "Hidden".equals(child.getRendererType())) {
+            RENDERER_TYPE_HIDDEN.equals(child.getRendererType())) {
           continue;
         } else if (child instanceof UIOutput) {
           break;

@@ -256,7 +256,7 @@ public class LayoutUtil {
 
   public static void maybeSetLayoutAttribute(UIComponent cell, String attribute,
       String value) {
-    if ("Text".equals(cell.getRendererType())) {
+    if (TobagoConstants.RENDERER_TYPE_OUT.equals(cell.getRendererType())) {
       return;
     }
     if (LOG.isDebugEnabled()) {

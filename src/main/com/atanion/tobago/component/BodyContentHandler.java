@@ -48,7 +48,7 @@ public class BodyContentHandler {
       LOG.debug(" " + child.getClass().getName());
       LOG.debug(" " + child.getId());
       LOG.debug(" " + child.getClientId(facesContext));
-      if (child.getRendererType().equals("Verbatim")) {
+      if (child.getRendererType().equals(TobagoConstants.RENDERER_TYPE_VERBATIM)) {
         LOG.debug(" " + ComponentUtil.currentValue(component));
       }
       LOG.debug("-------------------------------------------");

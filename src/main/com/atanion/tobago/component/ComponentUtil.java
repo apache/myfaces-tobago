@@ -245,7 +245,14 @@ public class ComponentUtil implements TobagoConstants {
   // todo This should not be neseccary, but UIComponentBase.getRenderer() is protected
   public static RendererBase getRenderer(
       UIComponent component, FacesContext facesContext) {
+    LOG.warn("component    " + component);
     String rendererType = component.getRendererType();
+    LOG.warn("id           " + component.getId());
+    LOG.warn("clientId     " + component.getClientId(facesContext));
+    LOG.warn("rendererType " + rendererType);
+    if ("Text".equals(rendererType)) {
+      LOG.warn("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + rendererType);
+    }
     if (rendererType == null) {
       return null;
     }
@@ -503,7 +510,7 @@ public class ComponentUtil implements TobagoConstants {
     
   public static UIColumn createTextColumn(
       String label, String sortable, String align, String value) {
-    UIComponent text = createComponent(UIOutput.COMPONENT_TYPE, "Text");
+    UIComponent text = createComponent(UIOutput.COMPONENT_TYPE, RENDERER_TYPE_OUT);
     setStringProperty(text, ATTR_VALUE, value, null);
     return createColumn(label, sortable, align, text);
   }

@@ -151,7 +151,7 @@ public class ToolBarRenderer extends RendererBase {
       if (ieSpacer == null) {
         ieSpacer = (UIGraphic) facesContext.getApplication().createComponent(
             UIGraphic.COMPONENT_TYPE);
-        ieSpacer.setRendererType("Image"); //fixme: use constant ?
+        ieSpacer.setRendererType(RENDERER_TYPE_IMAGE);
         ieSpacer.setRendered(true);
         final Map attributes = ieSpacer.getAttributes();
         attributes.put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
@@ -192,7 +192,7 @@ public class ToolBarRenderer extends RendererBase {
       writer.endElement("span");
       popupMenu.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
       popupMenu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "ToolbarButton");
-      popupMenu.setRendererType("Menubar");
+      popupMenu.setRendererType(RENDERER_TYPE_MENUBAR);
       popupMenu.getAttributes().remove(ATTR_LABEL);
       popupMenu.getAttributes().remove(ATTR_LABEL_WITH_ACCESS_KEY);
       popupMenu.getAttributes().put(ATTR_IMAGE, "toolbarButtonMenu.gif");

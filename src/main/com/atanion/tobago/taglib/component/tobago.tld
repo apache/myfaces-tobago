@@ -431,8 +431,8 @@
   </tag>
 
   <tag>
-    <name>checkbox</name>
-    <tag-class>com.atanion.tobago.taglib.component.CheckboxTag</tag-class>
+    <name>selectBooleanCheckbox</name>
+    <tag-class>com.atanion.tobago.taglib.component.SelectBooleanCheckboxTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -478,8 +478,8 @@
   </tag>
 
   <tag>
-    <name>singleselect</name>
-    <tag-class>com.atanion.tobago.taglib.component.SingleSelectTag</tag-class>
+    <name>selectOneChoice</name>
+    <tag-class>com.atanion.tobago.taglib.component.SelectOneChoiceTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -530,8 +530,8 @@
   </tag>
 
   <tag>
-    <name>multiselect</name>
-    <tag-class>com.atanion.tobago.taglib.component.MultiSelectTag</tag-class>
+    <name>selectManyListbox</name>
+    <tag-class>com.atanion.tobago.taglib.component.SelectManyListboxTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -1302,8 +1302,8 @@
   </tag>
 
   <tag>
-    <name>radiogroup</name>
-    <tag-class>com.atanion.tobago.taglib.component.RadioGroupTag</tag-class>
+    <name>selectOneRadio</name>
+    <tag-class>com.atanion.tobago.taglib.component.SelectOneRadioTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>value</name>
@@ -1391,8 +1391,8 @@
   </tag>
 
   <tag>
-    <name>checkboxGroup</name>
-    <tag-class>com.atanion.tobago.taglib.component.CheckboxGroupTag</tag-class>
+    <name>selectManyCheckbox</name>
+    <tag-class>com.atanion.tobago.taglib.component.SelectManyCheckboxTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>value</name>

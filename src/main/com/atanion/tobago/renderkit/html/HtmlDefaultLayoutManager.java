@@ -16,7 +16,7 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-public class HtmlDefaultLayoutManager implements LayoutManager {
+public class HtmlDefaultLayoutManager implements LayoutManager, TobagoConstants {
 
 // ///////////////////////////////////////////// constant
 
@@ -41,15 +41,15 @@ public class HtmlDefaultLayoutManager implements LayoutManager {
       if (renderer instanceof RendererBase) {
         extra = ((RendererBase)renderer).getComponentExtraWidth(facesContext, component);
       }
-      String style = (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE);
+      String style = (String) component.getAttributes().get(ATTR_STYLE);
       style = style != null ? style : "";
       style = style.replaceAll("width:\\s\\d+px;", "").trim();
       component.getAttributes().put(
-          TobagoConstants.ATTR_STYLE, style + " width: " + (width - extra) + "px;");
+          ATTR_STYLE, style + " width: " + (width - extra) + "px;");
     }
 
     if (component.getFacet("layout") != null
-        || component.getRendererType().equals("Sheet")/*
+        || component.getRendererType().equals(RENDERER_TYPE_SHEET)/*
         || component.getRendererType().equals("TabGroup")
         || component.getRendererType().equals("Tab")*/) {
       HtmlDefaultLayoutManager.layoutHeight(component, facesContext);
@@ -58,9 +58,9 @@ public class HtmlDefaultLayoutManager implements LayoutManager {
   }
 
   public static void layoutHeight(UIComponent component, FacesContext facesContext){
-    String style = (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE);
+    String style = (String) component.getAttributes().get(ATTR_STYLE);
     style = style != null ? style : "";
-    String styleInner = (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE_INNER);
+    String styleInner = (String) component.getAttributes().get(ATTR_STYLE_INNER);
     styleInner = styleInner != null ? styleInner : "";
 
     String headerStyle = style;
@@ -68,7 +68,7 @@ public class HtmlDefaultLayoutManager implements LayoutManager {
 
     int heightInt = getHeightAsInt(component);
     if (heightInt != -1) {
-      component.getAttributes().put(TobagoConstants.ATTR_STYLE,
+      component.getAttributes().put(ATTR_STYLE,
           style + " height: " + heightInt + "px;");
 
       RendererBase renderer = ComponentUtil.getRenderer(component, facesContext);
@@ -80,24 +80,22 @@ public class HtmlDefaultLayoutManager implements LayoutManager {
       headerStyle += " height: " + headerHeight + "px;";
 
       int innerHeight = (bodyHeight - renderer.getPaddingHeight(facesContext, component));
-      component.getAttributes().put(TobagoConstants.ATTR_INNER_HEIGHT, new Integer(innerHeight));
+      component.getAttributes().put(ATTR_INNER_HEIGHT, new Integer(innerHeight));
       styleInner += " height: " + innerHeight + "px";
 
     }
 
-    component.getAttributes().put(TobagoConstants.ATTR_STYLE_BODY, bodyStyle);
-    component.getAttributes().put(TobagoConstants.ATTR_STYLE_HEADER, headerStyle);
-    component.getAttributes().put(TobagoConstants.ATTR_STYLE_INNER, styleInner);
+    component.getAttributes().put(ATTR_STYLE_BODY, bodyStyle);
+    component.getAttributes().put(ATTR_STYLE_HEADER, headerStyle);
+    component.getAttributes().put(ATTR_STYLE_INNER, styleInner);
   }
 
   private static int getHeightAsInt(UIComponent component){
-    return getVaueAsInt(component, TobagoConstants.ATTR_HEIGHT,
-        TobagoConstants.ATTR_LAYOUT_HEIGHT);
+    return getVaueAsInt(component, ATTR_HEIGHT, ATTR_LAYOUT_HEIGHT);
   }
 
   private static int getWidthAsInt(UIComponent component){
-    return getVaueAsInt(component, TobagoConstants.ATTR_WIDTH,
-        TobagoConstants.ATTR_LAYOUT_WIDTH);
+    return getVaueAsInt(component, ATTR_WIDTH, ATTR_LAYOUT_WIDTH);
   }
 
   private static int getVaueAsInt(UIComponent component, String name,
@@ -129,15 +127,15 @@ public class HtmlDefaultLayoutManager implements LayoutManager {
     String styleAttribute;
     if (width) {
       spaceString = LayoutUtil.getLayoutWidth(component);
-      componentAttribute = TobagoConstants.ATTR_WIDTH;
-      layoutAttribute = TobagoConstants.ATTR_LAYOUT_WIDTH;
-      innerAttribute = TobagoConstants.ATTR_INNER_WIDTH;
+      componentAttribute = ATTR_WIDTH;
+      layoutAttribute = ATTR_LAYOUT_WIDTH;
+      innerAttribute = ATTR_INNER_WIDTH;
       styleAttribute = "width";
     } else {
       spaceString = LayoutUtil.getLayoutHeight(component);
-      componentAttribute = TobagoConstants.ATTR_HEIGHT;
-      layoutAttribute = TobagoConstants.ATTR_LAYOUT_HEIGHT;
-      innerAttribute = TobagoConstants.ATTR_INNER_HEIGHT;
+      componentAttribute = ATTR_HEIGHT;
+      layoutAttribute = ATTR_LAYOUT_HEIGHT;
+      innerAttribute = ATTR_INNER_HEIGHT;
       styleAttribute = "height";
     }
     String componentSpace =
@@ -147,7 +145,7 @@ public class HtmlDefaultLayoutManager implements LayoutManager {
     if (spaceString != null) {
       space = Integer.parseInt(spaceString.replaceAll("\\D", ""));
     }
-    if (space == -1 && (!"Text".equals(component.getRendererType()))) {
+    if (space == -1 && (!RENDERER_TYPE_OUT.equals(component.getRendererType()))) {
       UIComponent parent = component.getParent();
 //      if (parent instanceof UIComponentBase) { // don't know why, todo: ex me
       space = LayoutUtil.getInnerSpace(facesContext, parent, width);
@@ -181,8 +179,7 @@ public class HtmlDefaultLayoutManager implements LayoutManager {
       component.getAttributes().put(innerAttribute, innerSpaceInteger);
 //      }
       if (componentSpace != null
-          || !ComponentUtil.getBooleanAttribute(component,
-              TobagoConstants.ATTR_INLINE)) {
+          || !ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
         int styleSpace = space;
         if (width) {
           styleSpace -= ComponentUtil.getRenderer(component, facesContext)
@@ -196,12 +193,12 @@ public class HtmlDefaultLayoutManager implements LayoutManager {
 //          log.debug("stype '" + styleSpace + "'");
 //        }
         String style = (String)
-            component.getAttributes().get(TobagoConstants.ATTR_STYLE);
+            component.getAttributes().get(ATTR_STYLE);
         style = style != null ? style : "";
         style = style.replaceAll(styleAttribute + ":\\s\\d+px;", "").trim();
 
         if (component.getFacet("layout") != null
-          || component.getRendererType().equals("Sheet")/*
+          || component.getRendererType().equals(RENDERER_TYPE_SHEET)/*
           || component.getRendererType().equals("TabGroup")
           || component.getRendererType().equals("Tab")*/) { // fixme: not nice;: equals("Sheet"
           String headerStyle;
@@ -212,8 +209,7 @@ public class HtmlDefaultLayoutManager implements LayoutManager {
           } else {
             headerStyle =
                 (String)
-                component.getAttributes().get(
-                    TobagoConstants.ATTR_STYLE_HEADER);
+                component.getAttributes().get(ATTR_STYLE_HEADER);
             if (headerStyle == null) {
               LOG.warn("headerStyle attribute == null, set to empty String");
               headerStyle = "";
@@ -225,8 +221,7 @@ public class HtmlDefaultLayoutManager implements LayoutManager {
             }
             bodyStyle =
                 (String)
-                component.getAttributes().get(
-                    TobagoConstants.ATTR_STYLE_HEADER);
+                component.getAttributes().get(ATTR_STYLE_HEADER);
             if (bodyStyle == null) {
               LOG.warn("bodyStyle attribute == null, set to empty String");
               bodyStyle = "";
@@ -236,13 +231,11 @@ public class HtmlDefaultLayoutManager implements LayoutManager {
               bodyStyle += " height: " + bodySpace + "px;";
             }
           }
-          component.getAttributes().put(TobagoConstants.ATTR_STYLE_HEADER,
-              headerStyle);
-          component.getAttributes().put(TobagoConstants.ATTR_STYLE_BODY,
-              bodyStyle);
+          component.getAttributes().put(ATTR_STYLE_HEADER, headerStyle);
+          component.getAttributes().put(ATTR_STYLE_BODY, bodyStyle);
         }
 
-        component.getAttributes().put(TobagoConstants.ATTR_STYLE, style + " "
+        component.getAttributes().put(ATTR_STYLE, style + " "
             + styleAttribute + ": " + styleSpace + "px;");
 //        if (log.isDebugEnabled()) {
 //          log.debug("style = '" + style + "'");
@@ -251,11 +244,9 @@ public class HtmlDefaultLayoutManager implements LayoutManager {
         if (width) {
           innerStyle = style;
         } else {
-          innerStyle =
-              (String) component.getAttributes().get(
-                  TobagoConstants.ATTR_STYLE_INNER);
+          innerStyle = (String) component.getAttributes().get(ATTR_STYLE_INNER);
         }
-        component.getAttributes().put(TobagoConstants.ATTR_STYLE_INNER,
+        component.getAttributes().put(ATTR_STYLE_INNER,
             innerStyle + " " + styleAttribute + ": " + innerSpaceInteger +
             "px;");
       }

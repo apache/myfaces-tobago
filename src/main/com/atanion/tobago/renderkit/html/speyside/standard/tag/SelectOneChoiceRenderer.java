@@ -7,26 +7,27 @@ package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
+import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.SelectManyRendererBase;
+import com.atanion.tobago.renderkit.SelectOneRendererBase;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UISelectMany;
+import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-public class MultiSelectRenderer extends SelectManyRendererBase {
+public class SelectOneChoiceRenderer extends SelectOneRendererBase {
 
 // ///////////////////////////////////////////// constant
 
-  private static final Log LOG = LogFactory.getLog(MultiSelectRenderer.class);
+  private static final Log LOG = LogFactory.getLog(SelectOneChoiceRenderer.class);
 
 // ///////////////////////////////////////////// attribute
 
@@ -34,62 +35,31 @@ public class MultiSelectRenderer extends SelectManyRendererBase {
 
 // ///////////////////////////////////////////// code
 
-  public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
-    int space = 0;
-
-    if (component.getFacet(FACET_LABEL) != null) {
-      int labelWidth = LayoutUtil.getLabelWidth(component);
-      space += labelWidth != 0 ? labelWidth : getLabelWidth(facesContext, component);
-      space += getConfiguredValue(facesContext, component, "labelSpace");
-    }
-
-    return space;
-  }
-
-  public int getLabelWidth(FacesContext facesContext, UIComponent component) {
-    return getConfiguredValue(facesContext, component, "labelWidth");
-  }
-
-  public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    int fixedHeight = -1;
-    String height = (String) component.getAttributes().get(ATTR_HEIGHT);
-    if (height != null) {
-      try {
-        fixedHeight = Integer.parseInt(height.replaceAll("\\D", "") );
-      } catch (NumberFormatException e) {
-        LOG.warn("Can't parse " + height + " to int");
-      }
-    }
-
-    if (fixedHeight == -1) {
-      fixedHeight = super.getFixedHeight(facesContext, component);
-    }
-    return fixedHeight;
-  }
 
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
-    UISelectMany component = (UISelectMany) uiComponent;
 
+
+
+    UISelectOne component = (UISelectOne)uiComponent;
+
+    boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
     List items = ComponentUtil.getSelectItems(component);
+
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) facesContext.getResponseWriter();
+
+    String image = ResourceManagerUtil.getImage(facesContext, "1x1.gif");
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("items.size() = '" + items.size() + "'");
     }
 
-    boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
+    boolean disabled = items.size() == 0
+        || ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED);
 
     UIComponent label = component.getFacet(FACET_LABEL);
-
-    String image = ResourceManagerUtil.getImage(facesContext, "1x1.gif");
-
-    // fixme: rows never used
-    Integer rows = (Integer) component.getAttributes().get(ATTR_ROWS);
-
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
-
     if (!inline) {
       writer.startElement("table", null);
       writer.writeAttribute("border", "0", null);
@@ -98,20 +68,20 @@ public class MultiSelectRenderer extends SelectManyRendererBase {
       writer.writeAttribute("summary", "", null);
 
       writer.startElement("tr", null);
-
       if (label != null) {
         writer.startElement("td", null);
         writer.writeAttribute("class", "tobago-label-td", null);
         writer.writeAttribute("valign", "top", null);
-
         writer.writeText("", null);
+
         RenderUtil.encode(facesContext, label);
 
         writer.endElement("td");
         writer.startElement("td", null);
+        writer.writeAttribute("class", "tobago-textarea-spacer-custom", null);
 
         writer.startElement("img", null);
-        writer.writeAttribute("src", image, null);
+        writer.writeAttribute("src",image, null);
         writer.writeAttribute("border", "0", null);
         writer.writeAttribute("height", "1", null);
         writer.writeAttribute("width", "5", null);
@@ -122,68 +92,78 @@ public class MultiSelectRenderer extends SelectManyRendererBase {
       writer.startElement("td", null);
       writer.writeAttribute("valign", "top", null);
       writer.writeAttribute("rowspan", "2", null);
-    }
-
-    String clientId = component.getClientId(facesContext);
+  }
 
     writer.startElement("select", component);
-    writer.writeAttribute("name", clientId, null);
-    writer.writeAttribute("id", clientId, null);
-    writer.writeAttribute("disabled", ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
+    writer.writeAttribute("name", component.getClientId(facesContext), null);
+    writer.writeAttribute("id", component.getClientId(facesContext), null);
+    writer.writeAttribute("disabled", disabled);
     writer.writeAttribute("style", null, "style");
     writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
-    writer.writeAttribute("multiple", "multiple", null);
-
-    Object[] values = component.getSelectedValues();
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("values = '" + values + "'");
+    String onchange = HtmlUtils.generateOnchange(component, facesContext);
+    if (onchange != null) {
+      writer.writeAttribute("onchange", onchange, null);
     }
-    for (Iterator i = items.iterator(); i.hasNext(); ) {
-      SelectItem item = (SelectItem) i.next();
 
-      writer.startElement("option", null);
-      writer.writeAttribute("value", item.getValue(), null);
-      if (RenderUtil.contains(values, item.getValue())) {
-        writer.writeAttribute("selected", "selected", null);
+    Object value = component.getValue();
+    for (Iterator i = items.iterator(); i.hasNext(); ) {
+      Object itemObject = i.next();
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("itemObject = '" + itemObject + "'");
       }
-      writer.writeText(item.getLabel(), null);
-      writer.endElement("option");
-//    LOG.debug("item-value" + item.getValue());
+      if (itemObject instanceof SelectItem) {
+        SelectItem item = (SelectItem) itemObject;
+        writer.startElement("option", null);
+        writer.writeAttribute("value", item.getValue(), null);
+        if (item.getValue().equals(value)) {
+          writer.writeAttribute("selected", "selected", null);
+        }
+        writer.writeText(item.getLabel(), null);
+        writer.endElement("option");
+      } else {
+        LOG.error("Type not implemented! fixme"); // fixme
+      }
     }
     writer.endElement("select");
 
     if (!inline) {
       writer.endElement("td");
-
       writer.endElement("tr");
       writer.startElement("tr", null);
-
       if (label != null) {
         writer.startElement("td", null);
         writer.writeAttribute("class", "tobago-label-td-underline-label", null);
-
         writer.startElement("img", null);
-        writer.writeAttribute("src", image, null);
+        writer.writeAttribute("src",image, null);
         writer.writeAttribute("border", "0", null);
         writer.writeAttribute("height", "1", null);
         writer.endElement("img");
-
         writer.endElement("td");
-
         writer.startElement("td", null);
         writer.writeAttribute("class", "tobago-label-td-underline-spacer", null);
-
         writer.startElement("img", null);
-        writer.writeAttribute("src", image, null);
+        writer.writeAttribute("src",image, null);
         writer.writeAttribute("border", "0", null);
         writer.writeAttribute("height", "1", null);
         writer.endElement("img");
-
         writer.endElement("td");
       }
       writer.endElement("tr");
       writer.endElement("table");
     }
+  }
+
+
+  public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
+    int space = 0;
+
+    if (component.getFacet(FACET_LABEL) != null) {
+      int labelWidht = LayoutUtil.getLabelWidth(component);
+      space += labelWidht != 0 ? labelWidht : getLabelWidth(facesContext, component);
+      space += getConfiguredValue(facesContext, component, "labelSpace");
+    }
+
+    return space;
   }
 
 // ///////////////////////////////////////////// bean getter + setter

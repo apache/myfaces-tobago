@@ -147,8 +147,18 @@ public interface TobagoConstants {
   public static final String COMMAND_TYPE_SCRIPT = "script";
 
   public static final String RENDERER_TYPE_BUTTON = "Button";
+  public static final String RENDERER_TYPE_HIDDEN = "Hidden";
+  public static final String RENDERER_TYPE_IN = "In";
+  public static final String RENDERER_TYPE_IMAGE = "Image";
   public static final String RENDERER_TYPE_LINK = "Link";
   public static final String RENDERER_TYPE_LABEL = "Label";
-  public static final String RENDERER_TYPE_TEXT_BOX = "TextBox";
-
+  public static final String RENDERER_TYPE_MENUBAR = "Menubar";
+  public static final String RENDERER_TYPE_MENUITEM = "Menuitem";
+  public static final String RENDERER_TYPE_OUT = "Out";
+  public static final String RENDERER_TYPE_PANEL = "Panel";
+  public static final String RENDERER_TYPE_SELECT_ONE_RADIO = "SelectOneRadio";
+  public static final String RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX = "SelectBooleanCheckbox";
+  public static final String RENDERER_TYPE_TREE_NODE = "TreeNode";
+  public static final String RENDERER_TYPE_SHEET = "Sheet";
+  public static final String RENDERER_TYPE_VERBATIM = "Verbatim";
 }

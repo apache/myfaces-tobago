@@ -9,6 +9,7 @@ import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.ResourceManager;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
+import com.atanion.tobago.TobagoConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -51,10 +52,14 @@ public class TobagoRenderKit extends RenderKit {
     if (LOG.isDebugEnabled()) {
       LOG.debug("rendererType = '" + rendererType + "'");
     }
-
+    if ("javax.faces.Text".equals(rendererType)) { // todo: find a better way
+      rendererType = TobagoConstants.RENDERER_TYPE_OUT;
+    }
     String type = rendererType + "Renderer";
     if (type.startsWith("javax.faces.")) { // fixme: this is a hotfix from jsf1.0beta to jsf1.0fr
+      LOG.warn("patching renderer from " + type);
       type = type.substring("javax.faces.".length());
+      LOG.warn("patching renderer to   " + type);
     }
     FacesContext facesContext = FacesContext.getCurrentInstance();
     UIViewRoot viewRoot = facesContext.getViewRoot();

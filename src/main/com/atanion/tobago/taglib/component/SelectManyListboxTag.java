@@ -11,7 +11,7 @@ import com.atanion.tobago.component.ComponentUtil;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectMany;
 
-public class MultiSelectTag extends InputTag{
+public class SelectManyListboxTag extends InputTag{
 
 // /////////////////////////////////////////// constants
 

@@ -11,12 +11,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 import java.io.IOException;
 
-public class CheckboxRenderer extends RendererBase {
+public class SelectOneChoiceRenderer extends RendererBase {
 
   public void encodeEndTobago(FacesContext facesContext, UIComponent component)
       throws IOException {
     // todo
-    
   }
+
 }
 

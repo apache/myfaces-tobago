@@ -8,7 +8,7 @@ package com.atanion.tobago.taglib.component;
 
 import javax.faces.component.UISelectBoolean;
 
-public class CheckboxTag extends InputTag {
+public class SelectBooleanCheckboxTag extends InputTag {
 
 // ----------------------------------------------------------- business methods
 

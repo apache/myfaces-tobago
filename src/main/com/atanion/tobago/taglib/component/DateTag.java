@@ -34,7 +34,7 @@ public class DateTag extends InputTag {
   }
 
   public String getRendererType() {
-    return RENDERER_TYPE_TEXT_BOX;
+    return RENDERER_TYPE_IN;
   }
 
   protected void setProperties(UIComponent component) {
@@ -72,7 +72,7 @@ public class DateTag extends InputTag {
     // create image
     UIGraphic image = (UIGraphic) application.createComponent(
         UIGraphic.COMPONENT_TYPE);
-    image.setRendererType("Image"); //fixme: use constant ?
+    image.setRendererType(RENDERER_TYPE_IMAGE);
     image.setRendered(true);
     image.getAttributes().put(ATTR_I18N, Boolean.TRUE);
     image.setValue("date.gif");

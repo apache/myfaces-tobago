@@ -22,11 +22,11 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-public class RadioGroupRenderer extends SelectOneRendererBase {
+public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
 // ///////////////////////////////////////////// constant
 
-  private static final Log LOG = LogFactory.getLog(RadioGroupRenderer.class);
+  private static final Log LOG = LogFactory.getLog(SelectOneRadioRenderer.class);
 
 // ///////////////////////////////////////////// attribute
 

@@ -9,7 +9,7 @@ import com.atanion.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 
-public class RadioGroupTag extends SingleSelectTag {
+public class SelectOneRadioTag extends SelectOneTag {
 
 // /////////////////////////////////////////// constants
 

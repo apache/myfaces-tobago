@@ -36,7 +36,7 @@ public class CellTag extends PanelTag {
   }
 
   public String getRendererType() {
-    return "Panel";
+    return RENDERER_TYPE_PANEL;
   }
 
   protected void setProperties(UIComponent component) {

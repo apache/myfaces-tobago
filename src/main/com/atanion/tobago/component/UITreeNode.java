@@ -37,7 +37,7 @@ public class UITreeNode extends UIInput {
     subReference = parent instanceof UITree
         ? "root"
         : ((UITreeNode) parent).getSubReference() + ".childAt[" + index + "]";
-    setRendererType("TreeNode");
+    setRendererType(TobagoConstants.RENDERER_TYPE_TREE_NODE);
     parent.getChildren().add(this);
     initId();
     initName();

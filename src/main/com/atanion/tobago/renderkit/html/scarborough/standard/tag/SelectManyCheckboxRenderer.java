@@ -22,11 +22,11 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-public class CheckboxGroupRenderer extends SelectManyRendererBase {
+public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
 // ///////////////////////////////////////////// constant
 
-  private static final Log LOG = LogFactory.getLog(CheckboxGroupRenderer.class);
+  private static final Log LOG = LogFactory.getLog(SelectManyCheckboxRenderer.class);
 
 // ///////////////////////////////////////////// attribute
 

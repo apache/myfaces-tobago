@@ -8,7 +8,7 @@ package com.atanion.tobago.taglib.component;
 
 import javax.faces.component.UISelectOne;
 
-public class SingleSelectTag extends InputTag{
+public class SelectOneTag extends InputTag{
 
   public String getComponentType() {
     return UISelectOne.COMPONENT_TYPE;

@@ -14,6 +14,7 @@ import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
+import com.atanion.tobago.TobagoConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -283,7 +284,7 @@ public class MenubarRenderer extends RendererBase {
         final Application application = facesContext.getApplication();
         checkbox = application.createComponent(UISelectBoolean.COMPONENT_TYPE);
         command.getFacets().put(FACET_CHECKBOX, checkbox);
-        checkbox.setRendererType("Checkbox");
+        checkbox.setRendererType(RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX);
         checkbox.setValueBinding(ATTR_VALUE, valueBinding);
       }
     }
@@ -347,7 +348,7 @@ public class MenubarRenderer extends RendererBase {
         final Application application = facesContext.getApplication();
         radio = (UISelectOne) application.createComponent(UISelectOne.COMPONENT_TYPE);
         command.getFacets().put(FACET_RADIO, radio);
-        radio.setRendererType("RadioGroup");
+        radio.setRendererType(RENDERER_TYPE_SELECT_ONE_RADIO);
         radio.setValueBinding(ATTR_VALUE, valueBinding);
       }
     }

@@ -9,7 +9,7 @@ import com.atanion.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 
-public class CheckboxGroupTag extends MultiSelectTag {
+public class SelectManyCheckboxTag extends SelectManyListboxTag {
 // ----------------------------------------------------------------- attributes
 
   private String renderRange;

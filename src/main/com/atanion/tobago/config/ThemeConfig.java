@@ -73,7 +73,7 @@ public class ThemeConfig {
       rendererType = component.getRendererType();
     } else {
       family = UIInput.COMPONENT_FAMILY;
-      rendererType = "TextBox";
+      rendererType = TobagoConstants.RENDERER_TYPE_IN;
     }
     Renderer renderer = renderKit.getRenderer(family, rendererType);
 
