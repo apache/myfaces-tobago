@@ -216,10 +216,14 @@ function MenuItem(label, action, disabled) {
       }
     }
     else if (this.level == 2) {
-      var next = this.parent.parent.nextItem(this.parent.index, -1);
-      if (next && next.htmlElement.id != this.parent.htmlElement.id) { // menu has changed
-        this.hover = false;
-        next.subItemContainer.style.visibility = "visible";
+      if (this.subItemContainer.style.visibility.match(/visible/)) {
+        this.subItemContainer.style.visibility = "hidden";
+      } else {
+        var next = this.parent.parent.nextItem(this.parent.index, -1);
+        if (next && next.htmlElement.id != this.parent.htmlElement.id) { // menu has changed
+          this.hover = false;
+          next.subItemContainer.style.visibility = "visible";
+        }
       }
     }
     else { // level > 2
@@ -228,6 +232,33 @@ function MenuItem(label, action, disabled) {
       this.parent.subItemContainer.style.visibility = "hidden";
       next.focus();
       this.hover = false;
+    }
+  }
+
+  this.keyRight = function() {
+    if (this.level == 1) {
+      var next = this.parent.nextItem(this.index, 1);
+      if (next && next.htmlElement.id != this.htmlElement.id) { // menu has changed
+        this.hover = false;
+        next.subItemContainer.style.visibility = "visible";
+      }
+    }
+    else if (this.level > 1) {
+      if (this.subItemContainer) {
+        this.subItemContainer.style.visibility = "visible";
+        this.hover = false;
+        var next = this.nextItem(-1, 1);
+      } else {
+        var parent = this.parent;
+        while (parent.level != 1) {
+          parent = parent.parent;
+        }
+        var next = parent.parent.nextItem(parent.index, 1);
+        if (next && next.htmlElement.id != parent.htmlElement.id) { // menu has changed
+          parent.hover = false;
+          next.subItemContainer.style.visibility = "visible";
+        }
+      }
     }
   }
 
@@ -576,6 +607,10 @@ function tobagoMenuLeft(event) {
   var element = getActiveElement(event);
   element.parentNode.menuItem.keyLeft();
 }
+function tobagoMenuRight(event) {
+  var element = getActiveElement(event);
+  element.parentNode.menuItem.keyRight();
+}
 
 function stopEventPropagation(event) {
   if (event.stopPropagation) {
@@ -632,7 +667,7 @@ function tobagoMenuHandelKey(event) {
     cancel = true;
   }
   else if (code == 39) { // right
-   // tobagoMenuUp(event);
+    tobagoMenuRight(event);
     cancel = true;
   }
   else if (code == 40) { // down
