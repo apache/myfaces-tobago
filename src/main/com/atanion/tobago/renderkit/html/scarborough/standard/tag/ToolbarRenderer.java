@@ -122,14 +122,12 @@ public class ToolbarRenderer extends RendererBase
       writer.writeAttribute("onmouseover", mouseover, null);
       writer.writeAttribute("onmouseout", mouseout, null);
     }
-    UIGraphic ieSpacer = null;
-    if (graphic != null) {
-      LayoutUtil.addCssClass(graphic, "tobago-toolbar-button-image");
-      RenderUtil.encode(facesContext, graphic);
-    } else if (isMsie(facesContext)) {
-      ieSpacer = (UIGraphic) command.getParent().getFacet("ieSpacer");
+
+    if (isMsie(facesContext)) {
+      UIGraphic ieSpacer = (UIGraphic) command.getParent().getFacet("ieSpacer");
       if (ieSpacer == null) {
-        ieSpacer = (UIGraphic) facesContext.getApplication().createComponent(UIGraphic.COMPONENT_TYPE);
+        ieSpacer = (UIGraphic) facesContext.getApplication().createComponent(
+            UIGraphic.COMPONENT_TYPE);
         ieSpacer.setRendererType("Image"); //fixme: use constant ?
         ieSpacer.setRendered(true);
         final Map attributes = ieSpacer.getAttributes();
@@ -140,15 +138,17 @@ public class ToolbarRenderer extends RendererBase
         ieSpacer.setValue("1x1.gif");
         command.getParent().getFacets().put("ieSpacer", ieSpacer);
       }
+      RenderUtil.encode(facesContext, ieSpacer);
+    }
+    if (graphic != null) {
+      LayoutUtil.addCssClass(graphic, "tobago-toolbar-button-image");
+      RenderUtil.encode(facesContext, graphic);
     }
 
     if (output != null) {
       if (graphic != null) {
         writer.startElement("span", null);
         writer.writeAttribute("class", "tobago-toolbar-button-label", null);
-      }
-      if (ieSpacer != null) {
-        RenderUtil.encode(facesContext, ieSpacer);
       }
       RenderUtil.encode(facesContext, output);
 

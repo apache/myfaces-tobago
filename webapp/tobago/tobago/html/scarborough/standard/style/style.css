@@ -457,7 +457,7 @@ div.tobago-richtexteditor-body {
 
 /* Toolbar ----------------------------------------------------------------- */
 .tobago-toolbar-default  {
-  height: 26px;
+  height: 30px;
   border: 2px groove #f6faff;
   overflow: hidden;
   box-sizing: border-box;
@@ -465,21 +465,18 @@ div.tobago-richtexteditor-body {
 }
 
 .tobago-toolbar-div-inner {
-  margin-left: -1px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 2px;
-  padding-right: 2px;
+  padding: 1px;
+  padding-top: 4px;
 }
 
 .tobago-toolbar-button-span {
   /*font: bold 12px arial, helvetica, sans-serif;
   color: #660000;*/
+  margin: 1px;
   padding-top: 2px;
   padding-left: 5px;
   padding-bottom: 2px;
   padding-right: 5px;
-  margin: 1px;
 }
 
 .tobago-toolbar-button-span-enabled {
@@ -492,17 +489,17 @@ div.tobago-richtexteditor-body {
 }
 
 .tobago-toolbar-button-span-hover {
+  margin: 0px;
   border-left: 1px solid #ddeeff;
   border-right: 1px solid #6688aa;
   border-top: 1px solid #ddeeff;
   border-bottom: 1px solid #6688aa;
   background: #ccddee;
-  margin: 0px;
 }
 
 .tobago-toolbar-button-image {
  vertical-align: bottom;
- /*background: red;*/
+ margin-bottom: 2px;
 }
 .tobago-toolbar-button-label {
   padding-left: 5px;
