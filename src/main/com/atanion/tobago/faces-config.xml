@@ -13,6 +13,9 @@
     <view-handler>
       com.atanion.tobago.application.ViewHandlerImpl
     </view-handler>
+    <variable-resolver>
+      com.atanion.tobago.el.VariableResolverImpl
+    </variable-resolver>
   </application>
 
   <lifecycle>
