@@ -80,10 +80,10 @@ public class GroupBoxRendererBase extends RendererBase {
     }
     if (this instanceof HeightLayoutRenderer) {
       height += ((HeightLayoutRenderer)this).getHeaderHeight(
-          facesContext, layout.getParent());
+          facesContext, component);
     }
     LOG.info("fixedHeigth is " + height);
-    height += getPaddingHeight(facesContext, layout.getParent());
+    height += getPaddingHeight(facesContext, component);
     return height;
   }
 
