@@ -124,7 +124,7 @@ public class ImageRenderer extends RendererBase
         + TobagoResource.getImage(
             facesContext, createSrc(src, "-disabled"), true) + "','"
         + TobagoResource.getImage(
-            facesContext, createSrc(src, "-hover"), true) + "')");
+            facesContext, createSrc(src, "-hover"), true) + "');");
   }
 // ///////////////////////////////////////////// bean getter + setter
 

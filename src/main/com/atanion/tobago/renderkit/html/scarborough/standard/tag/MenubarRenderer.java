@@ -93,7 +93,7 @@ public class MenubarRenderer extends RendererBase
     final UIPage page = ComponentUtil.findPage(menubar);
     page.getScriptBlocks().add(sb.toString());
     page.getOnloadScripts().add(setupFunction + "('"
-        + clientId + "', '" + page.getClientId(facesContext) + "')");
+        + clientId + "', '" + page.getClientId(facesContext) + "');");
     page.getScriptFiles().add("tobago-menu.js", true);
     page.getStyleFiles().add("tobago-menu.css");
 

@@ -54,7 +54,7 @@ public class CalendarRenderer extends RendererBase implements DirectRenderer {
     String dateTextBoxId = request.getParameter("tobago.date.inputId");
     if (dateTextBoxId != null) {
       page.getOnloadScripts().add("initCalendarParse('"
-          + id + "', '" + dateTextBoxId + "')");
+          + id + "', '" + dateTextBoxId + "');");
     }
 
     Locale locale = facesContext.getViewRoot().getLocale();

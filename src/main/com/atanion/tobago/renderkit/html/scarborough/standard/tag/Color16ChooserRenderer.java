@@ -69,8 +69,8 @@ public class Color16ChooserRenderer extends RendererBase
     String color = ComponentUtil.currentValue(component);
     color = color != null ? color : "";
     String clientId = component.getClientId(facesContext);
-    String setColor1 = "setColorFromSelector('"+ clientId +"')";
-    String setColor2 = "setColorFromTextBox('"+ clientId +"')";
+    String setColor1 = "setColorFromSelector('"+ clientId +"');";
+    String setColor2 = "setColorFromTextBox('"+ clientId +"');";
     String selectSelectorColors =
         "setSelectorColors('"+ clientId + "')";
     String previewStyle =

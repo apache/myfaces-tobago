@@ -204,7 +204,7 @@ public class SheetRenderer extends RendererBase
     String sheetId = component.getClientId(facesContext);
     UIPage uiPage = ComponentUtil.findPage(component);
     uiPage.getScriptFiles().add("tobago-sheet.js", true);
-    uiPage.getOnloadScripts().add("initSheet(\"" + sheetId + "\")");
+    uiPage.getOnloadScripts().add("initSheet(\"" + sheetId + "\");");
     uiPage.getStyleFiles().add("tobago-sheet.css");
 
     final Map attributes = component.getAttributes();
