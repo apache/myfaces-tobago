@@ -135,7 +135,7 @@ public class SheetRenderer extends RendererBase
     else {
 
       String columnLayout = (String) attributes.get(
-            TobagoConstants.ATTR_COLUMN_LAYOUT);
+            TobagoConstants.ATTR_COLUMNS);
 
       if (columnLayout != null) {
         widthList = (List) attributes.get(TobagoConstants.ATTR_WIDTH_LIST);

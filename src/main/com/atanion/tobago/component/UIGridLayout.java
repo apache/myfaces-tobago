@@ -9,6 +9,7 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.util.LayoutUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
@@ -51,9 +52,21 @@ public class UIGridLayout extends UIComponentBase {
     // do nothing here
   }
 
+  public int getColumnCount() {
+    String columns = (String)
+        ComponentUtil.getAttribute(this, TobagoConstants.ATTR_COLUMNS);
+    int columnCount;
+    if (columns != null) {
+      columnCount = 1 + StringUtils.countMatches(columns, ";");
+    } else {
+      columnCount = 1;
+    }
+    return columnCount;
+  }
+
   public List createRows() {
     List rows = new ArrayList();
-    int columnCount = ComponentUtil.getIntAttribute(this, TobagoConstants.ATTR_COLUMN_COUNT, 1);
+    int columnCount = getColumnCount();
     Vector children = LayoutUtil.addChildren(new Vector(), getParent());
 
     for (Iterator iterator = children.iterator(); iterator.hasNext();) {
@@ -202,8 +215,12 @@ public class UIGridLayout extends UIComponentBase {
         LOG.error("columns: " + columns);
         LOG.error("Actual cells:");
         for (Iterator i = cells.iterator(); i.hasNext();) {
-          UIComponent component = (UIComponent) i.next();
-          LOG.error("Cell-ID: " + component.getId());
+          Object component = i.next();
+          if (component instanceof UIComponent) {
+            LOG.error("Cell-ID: " + ((UIComponent)component).getId());
+          } else {
+            LOG.error("Cell:    " + component); // e.g. marker
+          }
         }
 
         end = columns; // fix the "end" parameter to continue the processing.

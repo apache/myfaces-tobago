@@ -17,7 +17,7 @@ public class SheetTag extends TobagoTag {
   private String hideHeader;
   private String pagingStart = "0";
   private String pagingLength = "20";
-  private String columnLayout;
+  private String columns;
   private String value;
 
 // ----------------------------------------------------------- business methods
@@ -34,7 +34,7 @@ public class SheetTag extends TobagoTag {
     hideHeader = null;
     pagingStart = "0";
     pagingLength = "20";
-    columnLayout = null;
+    columns = null;
     value = null;
   }
 
@@ -45,7 +45,7 @@ public class SheetTag extends TobagoTag {
     setBooleanProperty(component, ATTR_HIDE_HEADER, hideHeader);
     setIntegerProperty(component, ATTR_FIRST, pagingStart);
     setIntegerProperty(component, ATTR_ROWS, pagingLength);
-    setStringProperty(component, ATTR_COLUMN_LAYOUT, columnLayout);
+    setStringProperty(component, ATTR_COLUMNS, columns);
     setStringProperty(component, ATTR_VALUE, value);
 
 //   todo: works this? or use that: component.setVar(var);
@@ -56,12 +56,12 @@ public class SheetTag extends TobagoTag {
 
 // ------------------------------------------------------------ getter + setter
 
-  public String getColumnLayout() {
-    return columnLayout;
+  public String getColumns() {
+    return columns;
   }
 
-  public void setColumnLayout(String columnLayout) {
-    this.columnLayout = columnLayout;
+  public void setColumns(String columns) {
+    this.columns = columns;
   }
 
   public String getHideHeader() {

@@ -49,7 +49,7 @@ public class GridLayoutRenderer extends RendererBase
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     UIGridLayout layout = (UIGridLayout) component;
     String[] layoutTokens = LayoutInfo.createLayoutTokens(
-        (String) layout.getAttributes().get(TobagoConstants.ATTR_ROW_LAYOUT));
+        (String) layout.getAttributes().get(TobagoConstants.ATTR_ROWS));
     final List rows = ((UIGridLayout)layout).ensureRows();
 
     if (layoutTokens.length == 0) {
@@ -285,11 +285,9 @@ public class GridLayoutRenderer extends RendererBase
     return space;
   }
 
-  private int getWidthSpacingSum(UIComponent component,
+  private int getWidthSpacingSum(UIGridLayout component,
       FacesContext facesContext) {
-    return getSpacingSum(component, facesContext,
-        ComponentUtil.getIntAttribute(component,
-            TobagoConstants.ATTR_COLUMN_COUNT, 1));
+    return getSpacingSum(component, facesContext, component.getColumnCount());
   }
 
   private int getCellSpacing(FacesContext facesContext, UIComponent component) {
@@ -344,10 +342,9 @@ public class GridLayoutRenderer extends RendererBase
       FacesContext facesContext) {
 
     final List rows = layout.ensureRows();
-    final int columnCount = ComponentUtil.getIntAttribute(layout,
-                    TobagoConstants.ATTR_COLUMN_COUNT, 1);
+    final int columnCount = layout.getColumnCount();
     final String[] layoutTokens = LayoutInfo.createLayoutTokens(
-        (String) layout.getAttributes().get(TobagoConstants.ATTR_COLUMN_LAYOUT));
+        (String) layout.getAttributes().get(TobagoConstants.ATTR_COLUMNS));
 
 
     if (! rows.isEmpty()) {
@@ -393,7 +390,7 @@ public class GridLayoutRenderer extends RendererBase
 
     final List rows = layout.ensureRows();
     final String[] layoutTokens = LayoutInfo.createLayoutTokens(
-        (String) layout.getAttributes().get(TobagoConstants.ATTR_ROW_LAYOUT));
+        (String) layout.getAttributes().get(TobagoConstants.ATTR_ROWS));
 
     for (int i = 0; i < rows.size(); i++) {
       boolean hidden = true;
@@ -469,8 +466,7 @@ public class GridLayoutRenderer extends RendererBase
     for (Iterator iter = rows.iterator(); iter.hasNext();) {
       UIGridLayout.Row row = (UIGridLayout.Row) iter.next();
       List cells = row.getElements();
-      int columnCount = ComponentUtil.getIntAttribute(layout,
-          TobagoConstants.ATTR_COLUMN_COUNT, 1);
+      int columnCount = layout.getColumnCount();
       for (int i = 0; i < columnCount; i++) {
         if (cells.get(i) instanceof UIComponent) {
           UIComponent cell = (UIComponent) cells.get(i);
@@ -497,8 +493,7 @@ public class GridLayoutRenderer extends RendererBase
     for (int i = 0; i < rows.size(); i++) {
       UIGridLayout.Row row = (UIGridLayout.Row) rows.get(i);
       List cells = row.getElements();
-      int columnCount = ComponentUtil.getIntAttribute(layout,
-          TobagoConstants.ATTR_COLUMN_COUNT, 1);
+      int columnCount = layout.getColumnCount();
       for (int j = 0; j < columnCount; j++) {
         if (cells.get(j) instanceof UIComponent) {
           UIComponent cell = (UIComponent) cells.get(j);

@@ -485,7 +485,7 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>columnLayout</name>
+      <name>columns</name>
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
@@ -766,11 +766,6 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>columnCount</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
       <name>border</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
@@ -806,12 +801,12 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>columnLayout</name>
+      <name>columns</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>rowLayout</name>
+      <name>rows</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>

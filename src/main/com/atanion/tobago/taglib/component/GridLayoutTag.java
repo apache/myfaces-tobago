@@ -17,8 +17,6 @@ public class GridLayoutTag extends TobagoTag {
 
 // ///////////////////////////////////////////// attribute
 
-  private String columnCount = "1";
-
   private String border;
   private String cellspacing;
 
@@ -28,8 +26,8 @@ public class GridLayoutTag extends TobagoTag {
   private String marginBottom;
   private String marginLeft;
 
-  private String columnLayout;
-  private String rowLayout;
+  private String columns;
+  private String rows;
 
 // ///////////////////////////////////////////// constructor
 
@@ -47,7 +45,6 @@ public class GridLayoutTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    setIntegerProperty(component, ATTR_COLUMN_COUNT, columnCount);
     setStringProperty(component, ATTR_BORDER, border);
     setStringProperty(component, ATTR_CELLSPACING, cellspacing);
     setStringProperty(component, ATTR_LAYOUT_MARGIN, margin);
@@ -55,13 +52,12 @@ public class GridLayoutTag extends TobagoTag {
     setStringProperty(component, ATTR_LAYOUT_MARGIN_RIGHT, marginRight);
     setStringProperty(component, ATTR_LAYOUT_MARGIN_BOTTOM, marginBottom);
     setStringProperty(component, ATTR_LAYOUT_MARGIN_LEFT, marginLeft);
-    setStringProperty(component, ATTR_COLUMN_LAYOUT, columnLayout);
-    setStringProperty(component, ATTR_ROW_LAYOUT, rowLayout);
+    setStringProperty(component, ATTR_COLUMNS, columns);
+    setStringProperty(component, ATTR_ROWS, rows);
   }
 
   public void release() {
     super.release();
-    columnCount = "1";
     border = null;
     cellspacing = null;
     margin = null;
@@ -69,19 +65,11 @@ public class GridLayoutTag extends TobagoTag {
     marginRight = null;
     marginBottom = null;
     marginLeft = null;
-    columnLayout = null;
-    rowLayout = null;
+    columns = null;
+    rows = null;
   }
 
 // ///////////////////////////////////////////// bean getter + setter
-
-  public String getColumnCount() {
-    return columnCount;
-  }
-
-  public void setColumnCount(String columnCount) {
-    this.columnCount = columnCount;
-  }
 
   public String getBorder() {
     return border;
@@ -139,19 +127,19 @@ public class GridLayoutTag extends TobagoTag {
     this.marginLeft = marginLeft;
   }
 
-  public String getColumnLayout() {
-    return columnLayout;
+  public String getColumns() {
+    return columns;
   }
 
-  public void setColumnLayout(String columnLayout) {
-    this.columnLayout = columnLayout;
+  public void setColumns(String columns) {
+    this.columns = columns;
   }
 
-  public String getRowLayout() {
-    return rowLayout;
+  public String getRows() {
+    return rows;
   }
 
-  public void setRowLayout(String rowLayout) {
-    this.rowLayout = rowLayout;
+  public void setRows(String rows) {
+    this.rows = rows;
   }
 }

@@ -14,7 +14,7 @@
       </f:facet>
       <tobago:groupbox label="#{tobagoBundle.configTitle}" width="480px" height="450px">
         <f:facet name="layout">
-          <tobago:gridlayout columnCount="1" />
+          <tobago:gridlayout />
         </f:facet>
 
         <tobago:text value="#{tobagoBundle.configThemeText}" />

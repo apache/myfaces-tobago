@@ -21,8 +21,7 @@ public interface TobagoConstants {
   public static final String ATTR_CELLSPACING = "layoutCellspacing";
   public static final String ATTR_CLASSES_BLOCKS = "cssClassesBlocks";
   public static final String ATTR_CLIENT_PROPERTIES = "clientProperties";
-  public static final String ATTR_COLUMN_COUNT = "columnCount";
-  public static final String ATTR_COLUMN_LAYOUT = "colunmLayout";
+  public static final String ATTR_COLUMNS = "colunms";
   public static final String ATTR_COMMAND_NAME = "commandName";
   public static final String ATTR_DATE_STYLE = "dateStyle";
   public static final String ATTR_DEFAULT_COMMAND = "defaultCommand";
@@ -88,7 +87,6 @@ public interface TobagoConstants {
   public static final String ATTR_RENDER_RANGE_EXTERN = "renderRangeExtern";
   public static final String ATTR_REQUIRED = "required";
   public static final String ATTR_ROW_ID = "sheetRowId";
-  public static final String ATTR_ROW_LAYOUT = "rowLayout";
   public static final String ATTR_ROWS = "rows";
   public static final String ATTR_SCRIPT_FILES = "scriptFiles";
   public static final String ATTR_SCROLLBAR_HEIGHT = "scrollbarHeight";

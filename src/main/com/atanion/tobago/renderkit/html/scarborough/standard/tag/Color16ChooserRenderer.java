@@ -81,15 +81,13 @@ public class Color16ChooserRenderer extends RendererBase
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
 
     String labelValue = null;
-    int columnCount=3;
-    String columnLayout="70px;60px;*";
+    String columns="70px;60px;*";
     if (label instanceof UIOutput) {
       labelValue = (String) ((UIOutput)label).getValue();
       // fixme: remove next line when new i18n/properties ok
       if (labelValue == null) { labelValue = "Emergency-Label";}
       LOG.debug("labelValue = " + labelValue);
-      columnCount = 4;
-      columnLayout = LayoutUtil.getLabelWidth(facesContext,component) + "px;" + columnLayout;
+      columns = LayoutUtil.getLabelWidth(facesContext,component) + "px;" + columns;
     }
 
 //    request.setAttribute(valueReference, color);
@@ -119,9 +117,7 @@ public class Color16ChooserRenderer extends RendererBase
     prepareToRender(panel, component, false, "Panel_Group");
     UIGridLayout layout = (UIGridLayout)
         application.createComponent(UIGridLayout.COMPONENT_TYPE);
-    layout.getAttributes().put(TobagoConstants.ATTR_COLUMN_COUNT,
-        new Integer(columnCount));
-    layout.getAttributes().put(TobagoConstants.ATTR_COLUMN_LAYOUT, columnLayout);
+    layout.getAttributes().put(TobagoConstants.ATTR_COLUMNS, columns);
     prepareToRender(layout, null, false, "GridLayout");
     LOG.info("parent of layout = " + layout.getParent() );
     panel.getFacets().put("layout", layout);
