@@ -44,6 +44,18 @@
       <rtexprvalue>true</rtexprvalue>
       <type>boolean</type>
     </attribute>
+    <attribute>
+      <name>escape</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+    </attribute>
+    <attribute>
+      <name>verbatim</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+    </attribute>
   </tag>
 
   <tag>

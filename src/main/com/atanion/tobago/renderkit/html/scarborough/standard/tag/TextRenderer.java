@@ -14,7 +14,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
@@ -32,22 +31,53 @@ public class TextRenderer extends RendererBase
 
 // ///////////////////////////////////////////// code
 
-  public void encodeDirectEnd(FacesContext facesContext,
-      UIComponent component)
-      throws IOException {
+  public void encodeDirectEnd(
+      FacesContext facesContext,
+      UIComponent component) throws IOException {
 
-    Object text = ComponentUtil.currentValue(component);
+    String text = ComponentUtil.currentValue(component);
     if (text == null) {
       text = "";
     }
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
-    writer.startElement("span", component);
-    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
-    writer.writeText(text, null);
-    writer.endElement("span");
+    boolean escape = ComponentUtil.getBooleanAttribute(
+        component, TobagoConstants.ATTR_ESCAPE);
+    boolean verbatim = ComponentUtil.getBooleanAttribute(
+        component, TobagoConstants.ATTR_VERBATIM);
+
+/* fixme: how to check this?
+    if (verbatim) {
+      if (component.getAttributes().get(TobagoConstants.ATTR_STYLE) != null) {
+        LOG.warn(
+            "Attribute " + TobagoConstants.ATTR_STYLE + "='"
+            + component.getAttributes().get(TobagoConstants.ATTR_STYLE)
+            + "' ignored!");
+      }
+      if (component.getAttributes().get(TobagoConstants.ATTR_STYLE_CLASS)
+          != null) {
+        LOG.warn(
+            "Attribute " + TobagoConstants.ATTR_STYLE_CLASS + "='"
+            + component.getAttributes().get(TobagoConstants.ATTR_STYLE_CLASS)
+            + "' ignored!");
+      }
+    }
+*/
+
+    if (!verbatim) {
+      writer.startElement("span", component);
+      writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
+      writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    }
+    if (escape) {
+      writer.writeText(text, null);
+    } else {
+      writer.write(text);
+    }
+    if (!verbatim) {
+      writer.endElement("span");
+    }
   }
 
 // ///////////////////////////////////////////// bean getter + setter

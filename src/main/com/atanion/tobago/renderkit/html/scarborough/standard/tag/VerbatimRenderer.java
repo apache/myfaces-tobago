@@ -33,6 +33,8 @@ public class VerbatimRenderer extends RendererBase implements DirectRenderer {
   public void encodeDirectEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
 
+    LOG.info("HI! " + component.getClientId(facesContext), new Exception());
+
     ResponseWriter writer = facesContext.getResponseWriter();
 
     String value = ComponentUtil.currentValue(component);

@@ -68,7 +68,7 @@ public class BodyContentHandler {
         verbatim =
             (javax.faces.component.UIOutput) verbatimTag.getComponentInstance();
         verbatim.setValue(rawContent);
-        verbatim.setRendererType("Verbatim");
+        verbatim.setRendererType(verbatimTag.getRendererType());
         verbatim.getAttributes().put(TobagoConstants.ATTR_SUPPRESSED,
             Boolean.TRUE);
         verbatimTag.doEndTag();
