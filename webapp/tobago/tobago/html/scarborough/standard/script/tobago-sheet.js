@@ -103,6 +103,9 @@ function doSelection(event) {
 }
 
 function updateSelectionView(sheetId, selected) {
+  if (document.selection) {  // IE
+    document.selection.clear();
+  }
   var row = getFirstSelectionRow(sheetId);
   var i = row.id.substring(row.id.lastIndexOf("_data_tr_") + 9);
   while (row) {
