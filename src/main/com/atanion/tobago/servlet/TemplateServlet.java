@@ -48,7 +48,7 @@ public class TemplateServlet extends HttpServlet {
       LOG.debug("requestUri = '" + requestUri + "'");
     }
 
-    if (requestUri.endsWith(".view")) {
+    if (requestUri.endsWith(".view")) { // todo: make .view configurable
       String error = "cannot find URI in config file: '" + requestUri + "'";
       LOG.error(error);
       throw new ServletException(error);
@@ -61,9 +61,14 @@ public class TemplateServlet extends HttpServlet {
     try {
       RequestDispatcher dispatcher = request.getRequestDispatcher(requestUri);
       dispatcher.forward(request, response);
-    } catch (Exception e) {
-      LOG.error("requestUri '" + requestUri + "'", e);
-      throw new RuntimeException(e);
+    } catch (IOException e) {
+      LOG.error("requestUri '" + requestUri + "' "
+          + "viewId '" + viewId + "' ", e);
+      throw e;
+    } catch (ServletException e) {
+      LOG.error("requestUri '" + requestUri + "' "
+          + "viewId '" + viewId + "' ", e);
+      throw e;
     }
   }
 
