@@ -29,6 +29,7 @@ public abstract class CommandTag extends TobagoBodyTag {
   private String commandName;
   private String type;
 
+  private boolean defaultCommand;
   private boolean immediate;
 
 // /////////////////////////////////////////// constructors
@@ -45,6 +46,7 @@ public abstract class CommandTag extends TobagoBodyTag {
 
     setProperty(component, TobagoConstants.ATTR_COMMAND_NAME, commandName);
     setProperty(component, TobagoConstants.ATTR_TYPE, type);
+    setProperty(component, TobagoConstants.ATTR_DEFAULT_COMMAND, defaultCommand);
     if (immediate) {
       command.setImmediate(true);
     }
@@ -88,6 +90,10 @@ public abstract class CommandTag extends TobagoBodyTag {
 
   public void setType(String type) {
     this.type = type;
+  }
+
+  public void setDefaultCommand(boolean defaultCommand) {
+    this.defaultCommand = defaultCommand;
   }
 
   public void setImmediate(boolean immediate) {

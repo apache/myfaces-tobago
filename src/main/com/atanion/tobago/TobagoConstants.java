@@ -22,6 +22,7 @@ public class TobagoConstants {
   public static final String ATTR_COLUMN_LAYOUT = "colunmLayout";
   public static final String ATTR_COMMAND_NAME = "commandName";
   public static final String ATTR_DATE_STYLE = "dateStyle";
+  public static final String ATTR_DEFAULT_COMMAND = "defaultCommand";
   public static final String ATTR_DISABLED = "disabled";
   public static final String ATTR_DOCTYPE = "doctype";
   public static final String ATTR_ENCODING_ACTIVE = "encodingActive";

@@ -556,6 +556,12 @@
       <type>boolean</type>
     </attribute>
     <attribute>
+      <name>defaultCommand</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+    </attribute>
+    <attribute>
       <name>width</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>

@@ -44,24 +44,26 @@ public class ButtonRenderer extends CommandRendererBase
         TobagoConstants.ATTR_TYPE);
     String action = (String) component.getAttributes().get(
         TobagoConstants.ATTR_COMMAND_NAME);
+    boolean defaultCommand = ComponentUtil.getBooleanAttribute(component,
+        TobagoConstants.ATTR_DEFAULT_COMMAND);
 
     String clientId = component.getClientId(facesContext);
 
     if (TobagoConstants.COMMAND_TYPE_NAVIGATE.equals(type)) {
       onclick = "navigateToUrl('" + HtmlUtils.generateUrl(facesContext, action) +
           "')";
-      buttonType = "button";
+      buttonType = defaultCommand ? "submit" : "button";
     } else if (TobagoConstants.COMMAND_TYPE_RESET.equals(type)) {
       onclick = null;
       buttonType = "reset";
     } else if (TobagoConstants.COMMAND_TYPE_SCRIPT.equals(type)) {
       onclick = action;
-      buttonType = "button";
+      buttonType = defaultCommand ? "submit" : "button";
     } else { // default: Action.TYPE_SUBMIT
       onclick = "submitAction('" +
           ComponentUtil.findPage(component).getFormId(facesContext) +
           "','" + clientId + "')";
-      buttonType = "button";
+      buttonType = defaultCommand ? "submit" : "button";
     }
 
     onclick =
