@@ -60,4 +60,25 @@
 
   </target>
 
+  <target name="deploy-theme-snapshot" depends="dist, bs:init-project-info, deploy-snapshot"
+    description="Deploy an artifact into the local repository.">
+
+    <macrodef name="deploy-theme">
+      <attribute name="name"/>
+      <sequential>
+        <default-deploy-artifact offline="true" version="SNAPSHOT"
+          source="${dist}/tobago-theme-@{name}.zip" type="zip"
+          artifactId="tobago-theme-@{name}"/>
+      </sequential>
+    </macrodef>
+
+    <deploy-theme name="scarborough"/>
+    <deploy-theme name="speyside"/>
+    <deploy-theme name="charlotteville"/>
+    <deploy-theme name="tui"/>
+    <deploy-theme name="inexso"/>
+    <deploy-theme name="sap"/>
+
+  </target>
+
 </project>
