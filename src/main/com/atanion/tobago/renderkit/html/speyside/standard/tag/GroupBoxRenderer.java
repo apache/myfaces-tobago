@@ -36,11 +36,6 @@ public class GroupBoxRenderer extends GroupBoxRendererBase
 // ///////////////////////////////////////////// constructor
 
 // ///////////////////////////////////////////// code
-  public int getPaddingWidth(FacesContext facesContext, UIComponent component) {
-    final int paddingWidth = super.getPaddingWidth(facesContext, component);
-    LOG.info("padding Width = " + paddingWidth);
-    return paddingWidth;
-  }
 
   public void encodeDirectEnd(FacesContext facesContext,
                               UIComponent component) throws IOException {
