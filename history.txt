@@ -1,0 +1,5 @@
+1.0.1 - 15.12.2004
+* eleminate "SNAPSHOT" dependencies
+
+1.0.0 - 15.12.2004
+* first release

@@ -10,13 +10,13 @@
     <dependency>
       <groupId>atanion</groupId>
       <artifactId>atanion-commons</artifactId>
-      <version>SNAPSHOT</version>
+      <version>1.0.1</version>
     </dependency>
 
     <dependency>
       <groupId>atanion</groupId>
       <artifactId>atanion-mock</artifactId>
-      <version>SNAPSHOT</version>
+      <version>1.0.0</version>
       <purpose>test</purpose>
     </dependency>
 
