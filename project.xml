@@ -94,6 +94,13 @@
     </dependency>
 
     <dependency>
+      <groupId>retroweaver</groupId>
+      <artifactId>retroweaver-rt</artifactId>
+      <version>1.1</version>
+      <purpose>test</purpose>
+    </dependency>
+
+    <dependency>
       <id>servletapi</id>
       <version>2.3</version>
     </dependency>
