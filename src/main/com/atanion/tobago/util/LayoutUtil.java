@@ -90,8 +90,8 @@ public class LayoutUtil {
             "javax.faces.render.RenderKitFactory");
         RenderKit renderKit = rkFactory.getRenderKit(facesContext,
             facesContext.getViewRoot().getRenderKitId());
-        RendererBase renderer = (RendererBase) renderKit.getRenderer(
-            component.getFamily(), component.getRendererType());
+        RendererBase renderer = (RendererBase) renderKit.getRenderer(component.getFamily(),
+            component.getRendererType());
         if (width) {
           margin += renderer.getPaddingWidth(facesContext, component);
           margin += renderer.getComponentExtraWidth(facesContext, component);
