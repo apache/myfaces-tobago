@@ -31,6 +31,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 import java.util.Collections;
+import java.util.Map;
 
 public class GridLayoutRenderer extends RendererBase
     implements LayoutManager, HeightLayoutRenderer, DirectRenderer {
@@ -90,7 +91,8 @@ public class GridLayoutRenderer extends RendererBase
       UIComponent component) throws IOException {
 
     UIGridLayout layout =  (UIGridLayout) component;
-    List columnWidths =  (List) layout.getAttributes().get(TobagoConstants.ATTR_WIDTH_LIST);
+    final Map attributes = layout.getAttributes();
+    List columnWidths =  (List) attributes.get(TobagoConstants.ATTR_WIDTH_LIST);
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
@@ -126,13 +128,13 @@ public class GridLayoutRenderer extends RendererBase
 
         List cells = row.getElements();
         for (int columnIndex = 0; columnIndex < cells.size(); columnIndex++) {
-          int help = 0; // fixme
-          try {
-            help = ((Integer)columnWidths.get(columnIndex)).intValue();
-          } catch (Exception e) {
-            LOG.error("unhandled: columnWidths="+columnWidths);
+          boolean hide = false;
+
+          if (columnWidths != null) {
+            Integer columWidth = ((Integer)columnWidths.get(columnIndex));
+            hide = columWidth.intValue() == LayoutInfo.HIDE;
           }
-          if (help != LayoutInfo.HIDE) {
+          if (! hide) {
 
             Object object = cells.get(columnIndex);
             if (object.toString().equals(UIGridLayout.USED)) {
@@ -148,7 +150,8 @@ public class GridLayoutRenderer extends RendererBase
 
             int spanX = UIGridLayout.getSpanX(cell);
             int spanY = UIGridLayout.getSpanY(cell);
-            String cssClasses = (String) layout.getAttributes().get(TobagoConstants.ATTR_STYLE_CLASS);
+            String cssClasses =
+                (String) attributes.get(TobagoConstants.ATTR_STYLE_CLASS);
             cssClasses = (cssClasses == null ? "" : cssClasses);
             String tdClasses = "";
             if (rowIndex == 0) {
