@@ -511,6 +511,23 @@
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
+    <attribute>
+      <name>forceVerticalScrollbar</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>
+        <![CDATA[
+          Flag indicating whether or not this sheet should reserve space for
+          vertical toolbar when calculating column width's.<br>
+          Possible values are: <pre>
+          'auto'  : sheet try to estimate the need of scrollbar,
+                    this is the default.
+          'true'  : space for scroolbar is reserved.
+          'false' : no space is reserved.
+          </pre>          
+        ]]>
+      </description>
+    </attribute>
   </tag>
 
   <tag>

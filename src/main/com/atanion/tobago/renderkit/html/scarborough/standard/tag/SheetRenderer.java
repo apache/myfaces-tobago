@@ -7,9 +7,9 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UIColumnSelector;
 import com.atanion.tobago.component.UIData;
 import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.component.UIColumnSelector;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.model.SheetState;
 import com.atanion.tobago.model.SortableByApplication;
@@ -20,6 +20,7 @@ import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.util.LayoutInfo;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.util.BeanComparator;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -168,6 +169,20 @@ public class SheetRenderer extends RendererBase
   private boolean needVerticalScrollbar(FacesContext facesContext, UIData data) {
     // estimate need of height-scrollbar on client, if yes we have to consider
     // this when calculating column width's
+
+    final Object forceScroolbar = data.getAttributes().get(ATTR_SCROLLBARS);
+    if (forceScroolbar != null) {
+      if ("true".equals(forceScroolbar)) {
+        return true;
+      }
+      else if ("false".equals(forceScroolbar)) {
+        return false;
+      }
+      else if (! "auto".equals(forceScroolbar)) {
+        LOG.warn("Illegal value for attibute 'forceVerticalScrollbar' : \""
+            + forceScroolbar + "\"");
+      }
+    }
 
     String style = (String) data.getAttributes().get(TobagoConstants.ATTR_STYLE);
     String heightString  = LayoutUtil.getStyleAttributeValue(style, "height");

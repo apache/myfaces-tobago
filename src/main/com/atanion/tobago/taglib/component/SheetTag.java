@@ -5,16 +5,16 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.component.UIData;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UIData;
 
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
 
 public class SheetTag extends TobagoTag {
 
@@ -29,6 +29,7 @@ public class SheetTag extends TobagoTag {
   private String pagingLength = "20";
   private String columns;
   private String value;
+  private String forceVerticalScrollbar;
 
 // ----------------------------------------------------------- business methods
 
@@ -69,6 +70,7 @@ public class SheetTag extends TobagoTag {
     pagingLength = "20";
     columns = null;
     value = null;
+    forceVerticalScrollbar = null;
   }
 
   protected void setProperties(UIComponent component) {
@@ -80,6 +82,7 @@ public class SheetTag extends TobagoTag {
    ComponentUtil.setIntegerProperty(component, ATTR_ROWS, pagingLength);
    ComponentUtil.setStringProperty(component, ATTR_COLUMNS, columns);
    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
+   ComponentUtil.setStringProperty(component, ATTR_SCROLLBARS, forceVerticalScrollbar);
 
 //   todo: works this? or use that: component.setVar(var);
    ComponentUtil.setStringProperty(component, ATTR_VAR, var);
