@@ -1,6 +1,5 @@
 /* $Id$ */
 
-
 a:link, a:visited, a:active, a:hover {
   font: bold 12px arial, helvetica, sans-serif;
   color: #000000;
@@ -35,7 +34,6 @@ table {
 .tobago-textarea-spacer-custom  {
   border-bottom: 1px solid none;
 }
-
 
 /* - File Upload ------------------------------------------------------------ */
 
@@ -181,6 +179,22 @@ reason they are not defined as a:link
   color: gray;
 }
 
+
+/* code ------------------------------------------------------------------ */
+
+.tobago-code  {
+  font: bold 14px Courier;
+  color: #666666;
+  padding-bottom: 2px;
+}
+
+.tobago-code-multiline  {
+  background: #CCCCCC;
+  width: 500px;
+  margin-top: 10px;
+  padding: 15px;
+  border: 1px solid black;
+}
 
 /* checkbox ---------------------------------------------------------------- */
 
