@@ -55,10 +55,28 @@ public class TextAreaRenderer extends InputRendererBase
         facesContext.getResponseWriter();
 
     if (label != null) {
+      writer.startElement("table", null);
+      writer.writeAttribute("border", "0", null);
+      writer.writeAttribute("cellspacing", "0", null);
+      writer.writeAttribute("cellpadding", "0", null);
+      writer.writeAttribute("summary", "", null);
+      writer.startElement("tr", null);
+      writer.startElement("td", null);
+      writer.writeText("", null);
+
       RenderUtil.encode(facesContext, label);
+
+      writer.endElement("td");
+      writer.startElement("td", null);
     }
 
     renderMain(facesContext, (UIInput) component, writer);
+
+    if (label != null) {
+      writer.endElement("td");
+      writer.endElement("tr");
+      writer.endElement("table");
+    }
   }
 
   // refactor me (the position in the classhierachy)!!!
