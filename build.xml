@@ -28,26 +28,44 @@
       </metainf>
     </jar>
 
-    <property name="theme" value="${build}/theme" />
-    <mkdir dir="${theme}" />
+    <property name="module" value="${build}/module" />
+    <mkdir dir="${module}" />
+
+    <macrodef name="zip-module">
+      <attribute name="name"/>
+      <attribute name="classes"/>
+      <attribute name="webapp"/>
+      <attribute name="pattern"/>
+      <attribute name="faces"/>
+      <sequential>
+        <jar jarfile="${module}/@{name}.jar">
+          <fileset dir="${build.classes.main}">
+            <include name="@{classes}"/>
+          </fileset>
+          <metainf dir="@{faces}">
+            <include name="faces-config.xml"/>
+          </metainf>
+        </jar>
+        <jar jarfile="${dist}/@{name}.zip">
+          <fileset dir="@{webapp}">
+            <include name="@{pattern}"/>
+          </fileset>
+          <fileset dir="${module}">
+            <include name="@{name}.jar"/>
+          </fileset>
+        </jar>
+      </sequential>
+    </macrodef>
 
     <macrodef name="zip-theme">
       <attribute name="name"/>
       <sequential>
-        <jar jarfile="${theme}/tobago-theme-@{name}.jar">
-          <fileset dir="${build.classes.main}">
-            <include name="com/atanion/tobago/renderkit/*/@{name}/**/*.class"/>
-          </fileset>
-        </jar>
-
-        <jar jarfile="${dist}/tobago-theme-@{name}.zip">
-          <fileset dir="webapp/tobago">
-            <include name="tobago/*/@{name}/**"/>
-          </fileset>
-          <fileset dir="${theme}">
-            <include name="tobago-theme-@{name}.jar"/>
-          </fileset>
-        </jar>
+        <zip-module
+          name="tobago-theme-@{name}"
+          classes="com/atanion/tobago/renderkit/*/@{name}/**/*.class"
+          webapp="webapp/tobago"
+          pattern="tobago/*/@{name}/**"
+          faces="" />
       </sequential>
     </macrodef>
 
@@ -58,26 +76,34 @@
     <zip-theme name="inexso"/>
     <zip-theme name="sap"/>
 
+    <zip-module
+      name="tobago-module-client"
+      classes="com/atanion/tobago/module/client/*.class"
+      webapp="webapp/tobago-module-client"
+      pattern="**"
+      faces="${src.main}/com/atanion/tobago/module/client" />
+
   </target>
 
   <target name="deploy-snapshot" depends="dist, bs:init-project-info, build-basic.deploy-snapshot"
     description="Deploy an artifact into the local repository.">
 
-    <macrodef name="deploy-theme">
+    <macrodef name="deploy-module">
       <attribute name="name"/>
       <sequential>
         <default-deploy-artifact offline="true" version="SNAPSHOT"
-          source="${dist}/tobago-theme-@{name}.zip" type="zip"
-          artifactId="tobago-theme-@{name}"/>
+          source="${dist}/@{name}.zip" type="zip"
+          artifactId="@{name}"/>
       </sequential>
     </macrodef>
 
-    <deploy-theme name="scarborough"/>
-    <deploy-theme name="speyside"/>
-    <deploy-theme name="charlotteville"/>
-    <deploy-theme name="tui"/>
-    <deploy-theme name="inexso"/>
-    <deploy-theme name="sap"/>
+    <deploy-module name="tobago-theme-scarborough"/>
+    <deploy-module name="tobago-theme-speyside"/>
+    <deploy-module name="tobago-theme-charlotteville"/>
+    <deploy-module name="tobago-theme-tui"/>
+    <deploy-module name="tobago-theme-inexso"/>
+    <deploy-module name="tobago-theme-sap"/>
+    <deploy-module name="tobago-module-client"/>
 
   </target>
 

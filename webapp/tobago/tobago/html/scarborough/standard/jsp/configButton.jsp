@@ -10,7 +10,7 @@
   ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
 
   String clientConfigJsp = viewHandler.getActionURL(
-      facesContext, TobagoResource.getJsp(facesContext, "clientConfig.jsp"));
+      facesContext, "/tobago-module-client/clientConfig.jsp");
 
   String url = "configWindow('" + clientConfigJsp + "')";
 %>

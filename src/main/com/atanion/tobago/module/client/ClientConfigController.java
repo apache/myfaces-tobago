@@ -3,9 +3,12 @@
  * All rights reserved. Created 21.08.2002 at 18:00:22.
  * $Id$
  */
-package com.atanion.tobago.context;
+package com.atanion.tobago.module.client;
 
 import com.atanion.tobago.config.TobagoConfig;
+import com.atanion.tobago.context.Theme;
+import com.atanion.tobago.context.ClientProperties;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -14,15 +17,13 @@ import javax.faces.context.FacesContext;
 import java.util.List;
 import java.util.Locale;
 
-public class ClientConfigModel {
+public class ClientConfigController {
 
 // ///////////////////////////////////////////// constant
 
-  private static Log LOG = LogFactory.getLog(ClientConfigModel.class);
+  private static Log LOG = LogFactory.getLog(ClientConfigController.class);
 
 // ///////////////////////////////////////////// attributes
-
-  private boolean jspComment;
 
   private boolean debugMode;
 
@@ -37,7 +38,7 @@ public class ClientConfigModel {
 
 // ///////////////////////////////////////////// constructor
 
-  public ClientConfigModel() {
+  public ClientConfigController() {
     TobagoConfig tobagoConfig = TobagoConfig.getInstance();
     List themes = tobagoConfig.getThemes();
     themeItems = new SelectItem[themes.size()];
@@ -78,7 +79,6 @@ public class ClientConfigModel {
     ClientProperties client
         = ClientProperties.getInstance(FacesContext.getCurrentInstance());
 
-    client.setJspComment(jspComment);
     client.setDebugMode(debugMode);
     client.setTheme(theme);
     Locale locale = new Locale(language,
@@ -89,9 +89,9 @@ public class ClientConfigModel {
   }
 
   public void loadFromClientProperties() {
-    ClientProperties client = ClientProperties.getInstance(FacesContext.getCurrentInstance());
+    ClientProperties client
+        = ClientProperties.getInstance(FacesContext.getCurrentInstance());
 
-    jspComment = client.isJspComment();
     debugMode = client.isDebugMode();
     theme = client.getTheme();
     language = client.getLocale().getLanguage();
@@ -99,14 +99,6 @@ public class ClientConfigModel {
   }
 
 // ///////////////////////////////////////////// bean getter + setter
-
-  public boolean isJspComment() {
-    return jspComment;
-  }
-
-  public void setJspComment(boolean jspComment) {
-    this.jspComment = jspComment;
-  }
 
   public boolean isDebugMode() {
     return debugMode;

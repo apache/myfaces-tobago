@@ -79,5 +79,5 @@
     <converter-id>com.atanion.tobago.Duration</converter-id>
     <converter-class>com.atanion.tobago.convert.DurationConverter</converter-class>
   </converter>
-  
+
 </faces-config>

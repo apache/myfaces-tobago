@@ -32,7 +32,6 @@ public class ClientProperties {
   private String contentType = "html";
   private String theme;
   private UserAgent userAgent = UserAgent.DEFAULT;
-  private boolean jspComment = false;
   private boolean debugMode;
 
 // ///////////////////////////////////////////// constructors
@@ -197,14 +196,6 @@ public class ClientProperties {
 
   public void setUserAgent(UserAgent userAgent) {
     this.userAgent = userAgent;
-  }
-
-  public boolean isJspComment() {
-    return jspComment;
-  }
-
-  public void setJspComment(boolean jspComment) {
-    this.jspComment = jspComment;
   }
 
   public boolean isDebugMode() {
