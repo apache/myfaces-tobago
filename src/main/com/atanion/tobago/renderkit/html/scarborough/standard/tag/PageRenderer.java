@@ -7,6 +7,7 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.UIPage;
+import com.atanion.tobago.component.UILayout;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.PageRendererBase;
@@ -69,6 +70,8 @@ public class PageRenderer extends PageRendererBase {
       UIComponent component) throws IOException {
     UIPage page = (UIPage) component;
 
+    RenderUtil.prepareRender(facesContext, page);
+
     ResponseWriter writer = facesContext.getResponseWriter();
 
     // replace responseWriter and render page content
@@ -82,10 +85,11 @@ public class PageRenderer extends PageRendererBase {
       menubar.getAttributes().put(ATTR_PAGE_MENU, Boolean.TRUE);
       page.getOnloadScripts().add("setDivWidth('"
           + menubar.getClientId(facesContext) + "', getBrowserInnerWidth())");
-      RenderUtil.encode(facesContext, menubar);
+      RenderUtil.encodeHtml(facesContext, menubar);
     }
 
-    RenderUtil.encodeChildren(facesContext, page);
+    UILayout.getLayout(component).encodeChildrenOfComponent(facesContext, component);    
+//    RenderUtil.encodeChildren(facesContext, page);
 
     // reset responseWriter and render page
     facesContext.setResponseWriter(writer);
@@ -262,7 +266,7 @@ public class PageRenderer extends PageRendererBase {
     List popups = (List) page.getAttributes().get(ATTR_POPUP_LIST);
     if (popups != null) {
       for (Iterator iter = popups.iterator(); iter.hasNext();) {
-        RenderUtil.encode(facesContext, (UIComponent) iter.next());
+        RenderUtil.encodeHtml(facesContext, (UIComponent) iter.next());
       }
     }
 
