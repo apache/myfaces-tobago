@@ -1,14 +1,11 @@
 package com.atanion.tobago.webapp;
 
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponseWrapper;
 import javax.servlet.ServletOutputStream;
-import java.util.Locale;
-
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -46,12 +43,12 @@ public class TobagoResponse extends HttpServletResponseWrapper {
     }
   }
   public ServletOutputStream getOutputStream() throws IOException {
-    LOG.info("***** getOutputStream() from " + new Exception().getStackTrace()[1]);
+    LOG.debug("***** getOutputStream() from " + new Exception().getStackTrace()[1]);
     return getResponse().getOutputStream();
   }
 
   public PrintWriter getWriter() throws IOException {
-    LOG.info("***** getWriter() from " + new Exception().getStackTrace()[1]);
+    LOG.debug("***** getWriter() from " + new Exception().getStackTrace()[1]);
     if (printWriter != null) {
       return printWriter;
     }
