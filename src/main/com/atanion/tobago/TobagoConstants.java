@@ -70,6 +70,7 @@ public interface TobagoConstants {
   public static final String ATTR_MENU_TYPE = "menuType";
   public static final String ATTR_METHOD = "method";
   public static final String ATTR_MIN = "min";
+  public static final String ATTR_MINIMUM_SIZE = "minimunSize";
   public static final String ATTR_MUTABLE = "mutable";
   public static final String ATTR_NAME = "name";
   public static final String ATTR_NAME_REFERENCE = "nameReference";
@@ -155,6 +156,7 @@ public interface TobagoConstants {
   public static final String RENDERER_TYPE_BUTTON = "Button";
   public static final String RENDERER_TYPE_HIDDEN = "Hidden";
   public static final String RENDERER_TYPE_DEFAULT_LAYOUT = "DefaultLayout";
+  public static final String RENDERER_TYPE_GRID_LAYOUT = "GridLayout";
   public static final String RENDERER_TYPE_IN = "In";
   public static final String RENDERER_TYPE_IMAGE = "Image";
   public static final String RENDERER_TYPE_LINK = "Link";
