@@ -8,9 +8,9 @@ package com.atanion.tobago.util;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.Vector;
 
 public class LayoutInfo{
 
@@ -124,12 +124,12 @@ public class LayoutInfo{
                                             String defaultToken) {
     String[] tokens;
     if (columnLayout != null) {
-      Vector vector = new Vector();
+      List list = new ArrayList();
       StringTokenizer tokenizer = new StringTokenizer(columnLayout, ";");
       while (tokenizer.hasMoreTokens()) {
-        vector.add(tokenizer.nextToken().trim());
+        list.add(tokenizer.nextToken().trim());
       }
-      tokens = (String[]) vector.toArray(new String[vector.size()] );
+      tokens = (String[]) list.toArray(new String[list.size()] );
     }
     else {
       tokens = new String[count];
@@ -177,11 +177,11 @@ public class LayoutInfo{
   }
 
   public List getSpaceList() {
-    Vector v = new Vector(spaces.length);
+    List list = new ArrayList(spaces.length);
     for (int i = 0; i < spaces.length; i++) {
-      v.add(new Integer(spaces[i]));
+      list.add(new Integer(spaces[i]));
     }
-    return v;
+    return list;
   }
 
   public void handleSpaceLeft() {

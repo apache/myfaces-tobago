@@ -6,8 +6,9 @@
 package com.atanion.tobago.context;
 
 import java.util.Iterator;
-import java.util.Vector;
 import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserAgent {
 
@@ -149,7 +150,7 @@ public class UserAgent {
   }
 
   public Iterator iterator(boolean reverseOrder) {
-    Vector list = new Vector(3);
+    List list = new ArrayList(3);
     if (version != null) {
       list.add(name + '_' + version);
     }

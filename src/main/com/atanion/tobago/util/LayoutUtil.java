@@ -21,10 +21,11 @@ import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.Vector;
 
 public class LayoutUtil {
 
@@ -214,7 +215,7 @@ public class LayoutUtil {
     }
   }
 
-  public static Vector addChildren(Vector children, UIComponent panel) {
+  public static List addChildren(List children, UIComponent panel) {
     for (Iterator iter = panel.getChildren().iterator(); iter.hasNext();) {
       UIComponent child = (UIComponent) iter.next();
       if (isTransparentForLayout(child)) {
@@ -265,7 +266,7 @@ public class LayoutUtil {
     if (cell instanceof UIPanel
         && ComponentUtil.getBooleanAttribute(cell,
             TobagoConstants.ATTR_LAYOUT_DIRECTIVE)) {
-      Vector children = LayoutUtil.addChildren(new Vector(), cell);
+      List children = LayoutUtil.addChildren(new ArrayList(), cell);
       for (Iterator childs = children.iterator(); childs.hasNext();) {
         UIComponent component = (UIComponent) childs.next();
         maybeSetLayoutAttribute(component, attribute, value);

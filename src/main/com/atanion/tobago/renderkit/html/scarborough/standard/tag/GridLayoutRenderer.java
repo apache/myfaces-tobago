@@ -23,10 +23,10 @@ import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 
 public class GridLayoutRenderer extends RendererBase
     implements LayoutManager {
@@ -528,7 +528,7 @@ public class GridLayoutRenderer extends RendererBase
               && ComponentUtil.getBooleanAttribute(cell,
                   TobagoConstants.ATTR_LAYOUT_DIRECTIVE)
           || cell instanceof UIForm) {
-            Vector children = LayoutUtil.addChildren(new Vector(), cell);
+            List children = LayoutUtil.addChildren(new ArrayList(), cell);
             for (Iterator childs = children.iterator(); childs.hasNext();) {
               UIComponent component = (UIComponent) childs.next();
               if (LOG.isDebugEnabled()) {

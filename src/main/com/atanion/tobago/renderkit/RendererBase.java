@@ -26,8 +26,8 @@ import javax.faces.el.ValueBinding;
 import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.Vector;
 import java.util.List;
+import java.util.ArrayList;
 
 // todo: in java 1.5 use: import static com.atanion.tobago.TobagoConstants.*;
 public abstract class RendererBase
@@ -321,7 +321,7 @@ public abstract class RendererBase
 
     if (component instanceof UIPanel
         && ComponentUtil.getBooleanAttribute(component, ATTR_LAYOUT_DIRECTIVE)) {
-      Vector children = LayoutUtil.addChildren(new Vector(), component);
+      List children = LayoutUtil.addChildren(new ArrayList(), component);
       for (Iterator childs = children.iterator(); childs.hasNext();) {
         UIComponent child = (UIComponent) childs.next();
 

@@ -13,9 +13,9 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Vector;
 
 public class ClientProperties {
 
@@ -110,7 +110,7 @@ public class ClientProperties {
 
     String string = locale.toString();
     String prefix = propertyPathMode ? "" : "_";
-    List locales = new Vector(4);
+    List locales = new ArrayList(4);
     locales.add(prefix + string);
     int underscore;
     while ((underscore = string.lastIndexOf('_')) > 0) {

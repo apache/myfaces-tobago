@@ -7,9 +7,9 @@ package com.atanion.tobago.component;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.util.LayoutUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
@@ -19,7 +19,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Vector;
 
 public class UIGridLayout extends UIComponentBase implements UILayout {
 
@@ -75,7 +74,7 @@ public class UIGridLayout extends UIComponentBase implements UILayout {
   private List createRows() {
     List rows = new ArrayList();
     int columnCount = getColumnCount();
-    Vector children = LayoutUtil.addChildren(new Vector(), getParent());
+    List children = LayoutUtil.addChildren(new ArrayList(), getParent());
 
     for (Iterator iterator = children.iterator(); iterator.hasNext();) {
       UIComponent component = (UIComponent) iterator.next();
