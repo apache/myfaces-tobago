@@ -105,6 +105,7 @@ public class TobagoConstants {
   public static final String ATTR_STYLE_FILES  = "styleFiles";
   public static final String ATTR_SUPPRESSED = "suppressed";
   public static final String ATTR_TARGET = "target";
+  public static final String ATTR_THEME_CLASS = "themeClass";
   public static final String ATTR_TIME_STYLE = "timeStyle";
   public static final String ATTR_TIMEZONE = "timezone";
   public static final String ATTR_TITLE = "title";

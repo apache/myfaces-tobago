@@ -56,6 +56,11 @@
       <rtexprvalue>true</rtexprvalue>
       <type>boolean</type>
     </attribute>
+    <attribute>
+      <name>themeClass</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
   </tag>
 
   <tag>
@@ -510,6 +515,11 @@
     </attribute>
     <attribute>
       <name>cssClass</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>themeClass</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>

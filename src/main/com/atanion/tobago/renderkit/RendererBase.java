@@ -245,6 +245,9 @@ public class RendererBase extends Renderer {
       cssClass = cssClass.replaceAll(
           "tobago-" + rendererType
           + "-(default|disabled|readonly|inline|error)", "").trim();
+      // remove old tobago-<rendererType>-theme-<type> classes from class-attribute
+      cssClass = cssClass.replaceAll(
+          "tobago-" + rendererType + "-theme-(strong|deleted)", "").trim();
     } else {
       cssClass = "";
     }
@@ -261,6 +264,20 @@ public class RendererBase extends Renderer {
     if (ComponentUtil.isError(component)) {
       tobagoClass += "tobago-" + rendererType + "-error ";
     }
+    String themeClass;
+    ValueBinding vb = component.getValueBinding(TobagoConstants.ATTR_THEME_CLASS);
+    if (vb != null) {
+      themeClass = (String) vb.getValue(FacesContext.getCurrentInstance());
+    }
+    else {
+      themeClass = (String)
+          component.getAttributes().get(TobagoConstants.ATTR_THEME_CLASS);
+    }
+    if (themeClass != null && themeClass.trim().length() > 0
+        && "strong deleted".indexOf(themeClass) != -1) {
+      tobagoClass += "tobago-" + rendererType + "-theme-" + themeClass + " ";
+    }
+
     return tobagoClass + cssClass;
   }
 

@@ -334,6 +334,15 @@ label.tobago-label-default  {
 
 /* text -------------------------------------------------------------------- */
 
+.tobago-text-theme-strong {
+  font-weight: bold;
+  background: green;
+}
+
+.tobago-text-theme-deleted {
+  background: red;
+}
+
 /* textarea ---------------------------------------------------------------- */
 
 .tobago-textarea-default  {

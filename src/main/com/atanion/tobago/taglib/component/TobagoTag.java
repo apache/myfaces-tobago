@@ -54,6 +54,8 @@ public abstract class TobagoTag extends UIComponentTag {
 
   private String stateBinding;
 
+  private String themeClass;
+
 // /////////////////////////////////////////// constructors
 
 // /////////////////////////////////////////// code
@@ -124,14 +126,7 @@ public abstract class TobagoTag extends UIComponentTag {
       provideLabel(component);
     }
 
-    if (title != null) {
-      if (isValueReference(title)) {
-        ValueBinding valueBinding = application.createValueBinding(title);
-        component.setValueBinding("title", valueBinding);
-      } else {
-        component.getAttributes().put(TobagoConstants.ATTR_TITLE, title);
-      }
-    }
+    setProperty(component, TobagoConstants.ATTR_TITLE, "title", title);
 
     setProperty(component, TobagoConstants.ATTR_READONLY, readonly);
     setProperty(component, TobagoConstants.ATTR_HIDDEN, hidden);
@@ -162,8 +157,10 @@ public abstract class TobagoTag extends UIComponentTag {
     }
 
     setProperty(component, TobagoConstants.ATTR_STYLE_CLASS, styleClass);
-  }
 
+    setProperty(component, TobagoConstants.ATTR_THEME_CLASS,
+        TobagoConstants.ATTR_THEME_CLASS, themeClass);
+  }
 
 
   protected void provideAttribute(UIComponent component, String name, String key) {
@@ -317,5 +314,9 @@ public abstract class TobagoTag extends UIComponentTag {
 
   public void setStateBinding(String stateBinding) {
     this.stateBinding = stateBinding;
+  }
+
+  public void setThemeClass(String themeClass) {
+    this.themeClass = themeClass;
   }
 }
