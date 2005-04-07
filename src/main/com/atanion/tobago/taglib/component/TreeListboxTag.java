@@ -9,10 +9,14 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UITreeListbox;
 
 import javax.faces.component.UIComponent;
+import javax.faces.el.ValueBinding;
 
-public class TreeListboxTag extends BeanTag {
+public class TreeListboxTag extends TobagoTag {
 
 // ----------------------------------------------------------------- attributes
+
+  private String value;
+  private String state;
 
   private String idReference;
   private String nameReference;
@@ -26,6 +30,13 @@ public class TreeListboxTag extends BeanTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
+    ComponentUtil.setStringProperty(component, ATTR_VALUE, value, getIterationHelper());
+
+    if (state != null && isValueReference(state)) {
+      ValueBinding valueBinding = ComponentUtil.createValueBinding(
+          state, getIterationHelper());
+      component.setValueBinding(ATTR_STATE, valueBinding);
+    }
 
    ComponentUtil.setStringProperty(component, ATTR_ID_REFERENCE, idReference, getIterationHelper());
    ComponentUtil.setStringProperty(component, ATTR_NAME_REFERENCE, nameReference, getIterationHelper());
@@ -36,10 +47,28 @@ public class TreeListboxTag extends BeanTag {
 
   public void release() {
     super.release();
+    value = null;
+    state = null;
     idReference = null;
     nameReference = null;
   }
 // ------------------------------------------------------------ getter + setter
+
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
+  }
+
+  public String getState() {
+    return state;
+  }
+
+  public void setState(String state) {
+    this.state = state;
+  }
 
   public String getIdReference() {
     return idReference;

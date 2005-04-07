@@ -6,8 +6,6 @@
 package com.atanion.tobago.component;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.model.TreeState;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
@@ -34,9 +32,14 @@ public class UITreeNode extends UIInput {
 
   protected UITreeNode(UIComponent parent, int index) {
     super();
-    subReference = parent instanceof UITree
-        ? "root"
-        : ((UITreeNode) parent).getSubReference() + ".childAt[" + index + "]";
+    if (parent instanceof UITreeNode) {
+      String parentSubReference = ((UITreeNode) parent).getSubReference();
+      if (parentSubReference == null) {
+        subReference = "childAt[" + index + "]";
+      } else {
+        subReference = parentSubReference + ".childAt[" + index + "]";
+      }
+    }
     setRendererType(TobagoConstants.RENDERER_TYPE_TREE_NODE);
     parent.getChildren().add(this);
     initId();
@@ -64,13 +67,17 @@ public class UITreeNode extends UIInput {
       LOG.debug("root         = '" + root + "'");
       LOG.debug("subReference = '" + subReference + "'");
     }
-    TreeState state = (TreeState) root.getValue();
+    TreeNode rootNode = (TreeNode) root.getValue();
     if (LOG.isDebugEnabled()) {
-      LOG.debug("state = '" + state + "'");
+      LOG.debug("rootNode = '" + rootNode + "'");
     }
-    if (state != null) {
+    if (rootNode != null) {
       try {
-        value = (TreeNode) PropertyUtils.getProperty(state, subReference);
+        if (subReference == null) {
+          value = rootNode;
+        } else {
+          value = (TreeNode) PropertyUtils.getProperty(rootNode, subReference);
+        }
         if (LOG.isDebugEnabled()) {
           LOG.debug("treeNode     = '" + value + "'");
         }

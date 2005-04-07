@@ -9,7 +9,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -25,25 +24,22 @@ public class TreeState {
 
 // ///////////////////////////////////////////// constant
 
-  private static final Log LOG = LogFactory.getLog(TreeState.class);
-
   public static final String SEP = ";";
 
 // ///////////////////////////////////////////// attribute
 
   private DefaultMutableTreeNode root;
-  private Set selection;     // java1.5 Set<TreeNode>
-  private Set expandState;   // java1.5 Set<TreeNode>
+  private Set<DefaultMutableTreeNode> selection;
+  private Set<DefaultMutableTreeNode> expandState;
   private DefaultMutableTreeNode marker;
   private DefaultMutableTreeNode lastMarker;
   private String lastCommand;
 
 // ///////////////////////////////////////////// constructor
 
-  public TreeState(DefaultMutableTreeNode root) {
-    this.root = root;
-    selection = new HashSet();
-    expandState = new HashSet();
+  public TreeState() {
+    selection = new HashSet<DefaultMutableTreeNode>();
+    expandState = new HashSet<DefaultMutableTreeNode>();
   }
 
 // ///////////////////////////////////////////// code
@@ -76,6 +72,7 @@ public class TreeState {
     return node.equals(marker);
   }
 
+  /** @deprecated */
   public void expand(int level) {
     expand(root, level);
   }
@@ -97,10 +94,10 @@ public class TreeState {
   /** Expands all parents which contains selected children. */
   public void expandSelection() {
     for (Iterator i = selection.iterator(); i.hasNext(); ) {
-      TreeNode selected = (TreeNode) i.next();
-      for (TreeNode parent = selected.getParent();
+      DefaultMutableTreeNode selected = (DefaultMutableTreeNode) i.next();
+      for (DefaultMutableTreeNode parent = (DefaultMutableTreeNode) selected.getParent();
            parent != null;
-           parent = parent.getParent()) {
+           parent = (DefaultMutableTreeNode) parent.getParent()) {
         if (! expandState.contains(parent)) {
           expandState.add(parent);
         }
@@ -119,27 +116,29 @@ public class TreeState {
 
 // ///////////////////////////////////////////// bean getter + setter
 
+  /** @deprecated */
   public DefaultMutableTreeNode getRoot() {
     return root;
   }
 
+  /** @deprecated */
   public void setRoot(DefaultMutableTreeNode root) {
     this.root = root;
   }
 
-  public Set getSelection() {
+  public Set<DefaultMutableTreeNode> getSelection() {
     return selection;
   }
 
-  public void setSelection(Set selection) {
+  public void setSelection(Set<DefaultMutableTreeNode> selection) {
     this.selection = selection;
   }
 
-  public Set getExpandState() {
+  public Set<DefaultMutableTreeNode> getExpandState() {
     return expandState;
   }
 
-  public void setExpandState(Set expandState) {
+  public void setExpandState(Set<DefaultMutableTreeNode> expandState) {
     this.expandState = expandState;
   }
 

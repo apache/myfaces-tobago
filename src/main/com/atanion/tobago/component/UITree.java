@@ -22,6 +22,8 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 import static com.atanion.tobago.TobagoConstants.*;
+import com.atanion.tobago.model.TreeState;
+import com.atanion.tobago.TobagoConstants;
 
 public class UITree extends UIInput implements NamingContainer, ActionSource {
 
@@ -56,6 +58,8 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   private Command[] commands;
 
   private ActionListener actionListener;
+
+  private TreeState state;
 
   private boolean showJunctions = true;
   private boolean showJunctionsSet = false;
@@ -224,6 +228,22 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
   public Command[] getCommands() {
     return commands;
+  }
+
+  public TreeState getState() {
+    if (state != null) {
+        return state;
+    }
+    ValueBinding valueBinding = getValueBinding(TobagoConstants.ATTR_STATE);
+    if (valueBinding != null) {
+        return (TreeState) valueBinding.getValue(getFacesContext());
+    } else {
+        return null;
+    }
+  }
+
+  public void setState(TreeState state) {
+    this.state = state;
   }
 
   public boolean isShowJunctions() {

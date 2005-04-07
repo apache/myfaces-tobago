@@ -45,7 +45,7 @@ public class TreeRenderer extends RendererBase {
     }
 
     UITree tree = (UITree) component;
-    TreeState state = (TreeState) tree.getValue();
+    TreeState state = tree.getState();
 
     if (state != null) {
       if ("Tree".equals(tree.getRendererType())) {

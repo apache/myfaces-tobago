@@ -45,7 +45,7 @@ public class TreeNodeRenderer extends RendererBase {
 
     UITreeNode node = (UITreeNode) component;
     UITree tree = node.findTreeRoot();
-    TreeState state = (TreeState) tree.getValue();
+    TreeState state = tree.getState();
     String treeId = tree.getClientId(facesContext);
     String nodeId = node.getId();
     ServletRequest request
@@ -156,7 +156,7 @@ public class TreeNodeRenderer extends RendererBase {
         parentClientId);
 //  rootId = HtmlUtils.createJavascriptVariable(rootId);
 
-    TreeState treeState = (TreeState) root.getValue();
+    TreeState treeState = root.getState();
     if (treeState == null) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("No treeState found. clientId=" + clientId);

@@ -9,10 +9,14 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UITree;
 
 import javax.faces.component.UIComponent;
+import javax.faces.el.ValueBinding;
 
-public class TreeTag extends BeanTag {
+public class TreeTag extends TobagoTag {
 
 // ----------------------------------------------------------------- attributes
+
+  private String value;
+  private String state;
 
   private String showJunctions;
   private String showIcons;
@@ -34,20 +38,30 @@ public class TreeTag extends BeanTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-   ComponentUtil.setBooleanProperty(component, ATTR_SHOW_JUNCTIONS, showJunctions, getIterationHelper());
-   ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ICONS, showIcons, getIterationHelper());
-   ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ROOT, showRoot, getIterationHelper());
-   ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ROOT_JUNCTION, showRootJunction, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_VALUE, value, getIterationHelper());
+    
+    if (state != null && isValueReference(state)) {
+      ValueBinding valueBinding = ComponentUtil.createValueBinding(
+          state, getIterationHelper());
+      component.setValueBinding(ATTR_STATE, valueBinding);
+    }
 
-   ComponentUtil.setStringProperty(component, ATTR_SELECTABLE, selectable, getIterationHelper());
-   ComponentUtil.setBooleanProperty(component, ATTR_MUTABLE, mutable, getIterationHelper());
+    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_JUNCTIONS, showJunctions, getIterationHelper());
+    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ICONS, showIcons, getIterationHelper());
+    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ROOT, showRoot, getIterationHelper());
+    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ROOT_JUNCTION, showRootJunction, getIterationHelper());
 
-   ComponentUtil.setStringProperty(component, ATTR_ID_REFERENCE, idReference, getIterationHelper());
-   ComponentUtil.setStringProperty(component, ATTR_NAME_REFERENCE, nameReference, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_SELECTABLE, selectable, getIterationHelper());
+    ComponentUtil.setBooleanProperty(component, ATTR_MUTABLE, mutable, getIterationHelper());
+
+    ComponentUtil.setStringProperty(component, ATTR_ID_REFERENCE, idReference, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_NAME_REFERENCE, nameReference, getIterationHelper());
   }
 
   public void release() {
     super.release();
+    value = null;
+    state = null;
     showJunctions = null;
     showIcons = null;
     showRoot = null;
@@ -58,6 +72,22 @@ public class TreeTag extends BeanTag {
     nameReference = null;
   }
 // ------------------------------------------------------------ getter + setter
+
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
+  }
+
+  public String getState() {
+    return state;
+  }
+
+  public void setState(String state) {
+    this.state = state;
+  }
 
   public String getShowIcons() {
     return showIcons;
