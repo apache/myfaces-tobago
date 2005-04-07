@@ -72,11 +72,6 @@ public class TreeState {
     return node.equals(marker);
   }
 
-  /** @deprecated */
-  public void expand(int level) {
-    expand(root, level);
-  }
-
   public void expand(DefaultMutableTreeNode node, int level) {
     if (level <= 0) {
       // nothing to do
@@ -115,16 +110,6 @@ public class TreeState {
   }
 
 // ///////////////////////////////////////////// bean getter + setter
-
-  /** @deprecated */
-  public DefaultMutableTreeNode getRoot() {
-    return root;
-  }
-
-  /** @deprecated */
-  public void setRoot(DefaultMutableTreeNode root) {
-    this.root = root;
-  }
 
   public Set<DefaultMutableTreeNode> getSelection() {
     return selection;

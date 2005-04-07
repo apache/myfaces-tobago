@@ -52,7 +52,7 @@ public class DefaultTreeActionListener implements ActionListener {
     }
 
     UITree tree = (UITree) component;
-    TreeState treeState = (TreeState) tree.getValue();
+    TreeState treeState = tree.getState();
     DefaultMutableTreeNode marker = treeState.getMarker();
     String command = (String) actionEvent.getComponent().getAttributes().get(
         TobagoConstants.ATTR_ACTION_STRING);
@@ -60,12 +60,12 @@ public class DefaultTreeActionListener implements ActionListener {
     if (LOG.isDebugEnabled()) {
       LOG.debug("marker      " + marker);
       LOG.debug("lastMarker  " + treeState.getLastMarker());
-      LOG.debug("root        " + treeState.getRoot());
+      LOG.debug("root        " + tree.getValue());
       LOG.debug("command     " + command);
       LOG.debug("lastCommand " + treeState.getLastCommand());
     }
     if (marker != null) {
-      boolean isRoot = treeState.getRoot().equals(marker);
+      boolean isRoot = tree.getValue().equals(marker);
       if (UITree.COMMAND_NEW.equals(command)) {
         treeState.commandNew(create(facesContext));
       } else if (UITree.COMMAND_DELETE.equals(command)) {
