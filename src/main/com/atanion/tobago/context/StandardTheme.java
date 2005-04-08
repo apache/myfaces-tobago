@@ -5,9 +5,9 @@
  */
 package com.atanion.tobago.context;
 
-public class ScarboroughTheme extends Theme {
+public class StandardTheme extends Theme {
 
-  public ScarboroughTheme() {
-    super("scarborough", "Scarborough", new StandardTheme());
+  public StandardTheme() {
+    super("standard", "Standard Base", null);
   }
 }
