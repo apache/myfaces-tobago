@@ -8,6 +8,10 @@ package com.atanion.tobago.taglib.component;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ClientProperties;
+import com.atanion.tobago.taglib.decl.HasCharset;
+import com.atanion.tobago.taglib.decl.HasDoctype;
+import com.atanion.tobago.taglib.decl.HasFocusId;
+import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -15,8 +19,8 @@ import javax.faces.el.ValueBinding;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import java.util.List;
-
-public class PageTag extends TobagoBodyTag {
+@Tag(name = "page")
+public class PageTag extends TobagoBodyTag implements HasCharset, HasDoctype, HasFocusId {
 // ------------------------------------------------------------------ constants
 
   public static final String PAGE_IN_REQUEST =

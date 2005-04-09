@@ -8,6 +8,12 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.taglib.decl.Component;
+import com.atanion.tobago.taglib.decl.HasDimension;
+import com.atanion.tobago.taglib.decl.HasLabel;
+import com.atanion.tobago.taglib.decl.IsDisabled;
+import com.atanion.tobago.taglib.decl.IsInline;
+import com.atanion.tobago.taglib.decl.IsReadOnly;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -20,7 +26,7 @@ import javax.servlet.jsp.tagext.Tag;
 import java.util.Map;
 
 public abstract class TobagoTag extends UIComponentTag
-    implements TobagoConstants {
+    implements TobagoConstants, HasDimension, HasLabel, Component, IsDisabled, IsInline, IsReadOnly {
   // todo: in java 1.5 use: import static com.atanion.tobago.TobagoConstants.*;
 
 // ----------------------------------------------------------- class attributes
@@ -181,7 +187,6 @@ public abstract class TobagoTag extends UIComponentTag
   public String getInline() {
     return inline;
   }
-
   public void setInline(String inline) {
     this.inline = inline;
   }

@@ -7,13 +7,12 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.util.annotation.UIComponentTagAttribute;
-import com.atanion.util.annotation.TagAttribute;
-import com.atanion.util.annotation.UIComponentTagAttribute;
+import com.atanion.tobago.taglib.decl.HasFocus;
+import com.atanion.tobago.taglib.decl.HasOnchangeListener;
 
 import javax.faces.component.UIComponent;
 
-public abstract class InputTag extends BeanTag {
+public abstract class InputTag extends BeanTag implements HasOnchangeListener, HasFocus {
 // ----------------------------------------------------------------- attributes
 
   private String onchange;
@@ -55,13 +54,6 @@ public abstract class InputTag extends BeanTag {
   public String getFocus() {
     return focus;
   }
-
-  /**
-   * Indicates that the element has focus after loading.
-   * @param focus
-   */
-  @UIComponentTagAttribute(type = Boolean.class)
-  @TagAttribute
   public void setFocus(String focus) {
     this.focus = focus;
   }

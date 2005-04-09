@@ -8,14 +8,12 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIInput;
-import com.atanion.util.annotation.UIComponentTagAttribute;
-import com.atanion.util.annotation.TagAttribute;
+import com.atanion.tobago.taglib.decl.HasPassword;
 import com.atanion.util.annotation.Tag;
-import com.atanion.util.annotation.TagAttribute;
 
 import javax.faces.component.UIComponent;
 @Tag(name="in")
-public class InTag extends InputTag {
+public class InTag extends InputTag implements HasPassword {
 
 // ----------------------------------------------------------------- attributes
 
@@ -44,12 +42,6 @@ public class InTag extends InputTag {
     return password;
   }
 
-  /**
-   * Is rendered as password, so you will not see the typed charakters.
-   * @param password
-   */
-  @UIComponentTagAttribute(type = Boolean.class)
-  @TagAttribute
   public void setPassword(String password) {
     this.password = password;
   }

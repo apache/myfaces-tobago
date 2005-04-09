@@ -7,11 +7,17 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.taglib.decl.HasMarkup;
+import com.atanion.tobago.taglib.decl.IsEscaped;
+import com.atanion.util.annotation.Tag;
 
-import javax.faces.component.UIOutput;
 import javax.faces.component.UIComponent;
-
-public class OutTag extends BeanTag {
+import javax.faces.component.UIOutput;
+/**
+ * Renders a text
+ */
+@Tag(name="out")
+public class OutTag extends BeanTag implements IsEscaped, HasMarkup {
 // ----------------------------------------------------------------- attributes
 
   private String escape = "true";
@@ -44,7 +50,6 @@ public class OutTag extends BeanTag {
   public String getEscape() {
     return escape;
   }
-
   public void setEscape(String escape) {
     this.escape = escape;
   }
@@ -52,7 +57,6 @@ public class OutTag extends BeanTag {
   public String getMarkup() {
     return markup;
   }
-
   public void setMarkup(String markup) {
     this.markup = markup;
   }
