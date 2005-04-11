@@ -92,11 +92,12 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
         = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     if (!inline) {
-      writer.startElement("table", null);
+      writer.startElement("table", component);
       writer.writeAttribute("border", "0", null);
       writer.writeAttribute("cellspacing", "0", null);
       writer.writeAttribute("cellpadding", "0", null);
       writer.writeAttribute("summary", "", null);
+      writer.writeAttribute("title", null, ATTR_TIP);
 
       writer.startElement("tr", null);
 
@@ -134,6 +135,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     writer.writeAttribute("style", null, "style");
     writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
     writer.writeAttribute("multiple", "multiple", null);
+    writer.writeAttribute("title", null, ATTR_TIP);
 
     Object[] values = component.getSelectedValues();
     if (LOG.isDebugEnabled()) {

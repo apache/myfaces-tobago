@@ -89,6 +89,8 @@ public class LabelRenderer extends RendererBase {
     if (width != null) {
       writer.writeAttribute("style", "width: " + width + "px;", null);
     }
+    writer.writeAttribute("title", null, ATTR_TIP);
+    
     if (label.getText() != null) {
       HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
     }

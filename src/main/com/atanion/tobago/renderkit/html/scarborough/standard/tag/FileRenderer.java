@@ -120,6 +120,7 @@ public class FileRenderer extends InputRendererBase {
     writer.writeAttribute("id", clientId, null);
     writer.writeAttribute("readonly",
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
+    writer.writeAttribute("title", null, ATTR_TIP);
     writer.endElement("input");
 
     if (!inline) {

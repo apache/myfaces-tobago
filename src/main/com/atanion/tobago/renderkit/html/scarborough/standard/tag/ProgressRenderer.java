@@ -46,9 +46,14 @@ public class ProgressRenderer extends RendererBase {
     String value1 = Integer.toString(model.getValue());
     String value2 = Integer.toString(
         model.getMaximum() - model.getValue());
-    String title = Integer.toString(100 * model.getValue() /
-        (model.getMaximum() - model.getMinimum()))
-        + " %";
+
+
+    String title = (String) component.getAttributes().get(ATTR_TIP);
+    if (title == null) {
+      title = Integer.toString(100 * model.getValue() /
+          (model.getMaximum() - model.getMinimum()))
+          + " %";
+    }
 
     ResponseWriter writer = facesContext.getResponseWriter();
 

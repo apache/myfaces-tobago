@@ -60,11 +60,12 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
 
     UIComponent label = component.getFacet(FACET_LABEL);
     if (!inline) {
-      writer.startElement("table", null);
+      writer.startElement("table", component);
       writer.writeAttribute("border", "0", null);
       writer.writeAttribute("cellspacing", "0", null);
       writer.writeAttribute("cellpadding", "0", null);
       writer.writeAttribute("summary", "", null);
+      writer.writeAttribute("title", null, ATTR_TIP);
 
       writer.startElement("tr", null);
       if (label != null) {
@@ -99,6 +100,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     writer.writeAttribute("disabled", disabled);
     writer.writeAttribute("style", null, "style");
     writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
+    writer.writeAttribute("title", null, ATTR_TIP);
     String onchange = HtmlUtils.generateOnchange(component, facesContext);
     if (onchange != null) {
       writer.writeAttribute("onchange", onchange, null);

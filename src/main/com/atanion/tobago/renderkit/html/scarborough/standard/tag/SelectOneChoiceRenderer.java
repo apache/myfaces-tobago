@@ -57,11 +57,12 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
 
 
     if (label != null) {
-      writer.startElement("table", null);
+      writer.startElement("table", component);
       writer.writeAttribute("border", "0", null);
       writer.writeAttribute("cellspacing", "0", null);
       writer.writeAttribute("cellpadding", "0", null);
       writer.writeAttribute("summary", "", null);
+      writer.writeAttribute("title", null, ATTR_TIP);
       writer.startElement("tr", null);
       writer.startElement("td", null);
       writer.writeText("", null);
@@ -78,6 +79,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     writer.writeAttribute("disabled", disabled);
     writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeAttribute("title", null, ATTR_TIP);
     String onchange = HtmlUtils.generateOnchange(component, facesContext);
     if (onchange != null) {
       writer.writeAttribute("onchange", onchange, null);

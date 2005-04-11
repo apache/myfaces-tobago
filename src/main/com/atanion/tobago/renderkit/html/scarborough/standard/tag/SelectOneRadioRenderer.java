@@ -61,11 +61,12 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     if (! inline) {
-      writer.startElement("table", null);
+      writer.startElement("table", component);
       writer.writeAttribute("border", "0", null);
       writer.writeAttribute("cellspacing", "0", null);
       writer.writeAttribute("cellpadding", "0", null);
       writer.writeAttribute("summary", "", null);
+      writer.writeAttribute("title", null, ATTR_TIP);
     }
 
     Object value = component.getValue();
@@ -91,6 +92,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.writeAttribute("value", item.getValue(), null);
       writer.writeAttribute("disabled",
           ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
+      writer.writeAttribute("title", null, ATTR_TIP);
       writer.endElement("input");
 
       if (item.getLabel() != null) {

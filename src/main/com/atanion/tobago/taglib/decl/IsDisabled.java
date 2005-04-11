@@ -1,6 +1,7 @@
 package com.atanion.tobago.taglib.decl;
 
 import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 /**
  * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
@@ -9,6 +10,11 @@ import com.atanion.util.annotation.TagAttribute;
  * $Id$
  */
 public interface IsDisabled {
-
-  @TagAttribute void setDisabled(String disabled);
+  /**
+   *
+   * insert description here
+   */
+  @TagAttribute(type=String.class)
+  @UIComponentTagAttribute(type=Boolean.class)
+   void setDisabled(String disabled);
 }
