@@ -2384,7 +2384,7 @@
 
   <tag>
     <name>toolBarSelectOne</name>
-    <tag-class>com.atanion.tobago.taglib.component.MenuSelectOneTag</tag-class>
+    <tag-class>com.atanion.tobago.taglib.component.ToolBarSelectOneTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
