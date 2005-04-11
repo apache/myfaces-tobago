@@ -38,9 +38,16 @@ public class ProgressTag extends BeanTag {
 
   public void release() {
     super.release();
-    tip = null;    
+    tip = null;
   }
 
+  public String getTip() {
+    return tip;
+  }
+
+  public void setTip(String tip) {
+    this.tip = tip;
+  }
   // /////////////////////////////////////////// bean getter + setter
 
 }
