@@ -19,6 +19,7 @@ public abstract class InputTag extends BeanTag implements HasOnchangeListener, H
   private String focus;
   private String accessKey;
   private String labelWithAccessKey;
+  private String tip;
 
 // ----------------------------------------------------------- business methods
 
@@ -28,6 +29,7 @@ public abstract class InputTag extends BeanTag implements HasOnchangeListener, H
     this.focus = null;
     accessKey = null;
     labelWithAccessKey = null;
+    tip = null;
 
   }
 
@@ -37,6 +39,9 @@ public abstract class InputTag extends BeanTag implements HasOnchangeListener, H
     ComponentUtil.setBooleanProperty(component, ATTR_FOCUS, focus, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_TIP, tip,
+        getIterationHelper());
+
     provideLabel(component);
 
   }
@@ -72,6 +77,14 @@ public abstract class InputTag extends BeanTag implements HasOnchangeListener, H
 
   public void setLabelWithAccessKey(String labelWithAccessKey) {
     this.labelWithAccessKey = labelWithAccessKey;
+  }
+
+  public String getTip() {
+    return tip;
+  }
+
+  public void setTip(String tip) {
+    this.tip = tip;
   }
 }
 

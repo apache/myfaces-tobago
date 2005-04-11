@@ -376,4 +376,18 @@ public class HtmlRendererUtil {
     writer.writeText("\n// -->\n", null);
     writer.endElement("script");
   }
+
+
+  public static String addTip(String title, String tip) {
+    if (tip != null) {
+      if (title != null && title.length() > 0) {
+        title += " :: ";
+      }
+      else {
+        title = "";
+      }
+      title += tip;
+    }
+    return title;
+  }
 }

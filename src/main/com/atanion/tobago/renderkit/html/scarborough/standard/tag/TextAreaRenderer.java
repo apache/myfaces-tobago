@@ -88,16 +88,8 @@ public class TextAreaRenderer extends InputRendererBase {
     }
 
 
-    String tip = (String) input.getAttributes().get(ATTR_TIP);
-    if (tip != null) {
-      if (title != null) {
-        title += " :: ";
-      }
-      else {
-        title = "";
-      }
-      title += tip;
-    }
+    title = HtmlRendererUtil.addTip(
+            title, (String) input.getAttributes().get(ATTR_TIP));
 
     String clientId = input.getClientId(facesContext);
     String onchange = HtmlUtils.generateOnchange(input, facesContext);
