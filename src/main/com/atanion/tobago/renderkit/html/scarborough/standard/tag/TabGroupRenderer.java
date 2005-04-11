@@ -191,8 +191,9 @@ public class TabGroupRenderer extends RendererBase {
             innerClass = "tobago-tab-unselected-inner";
           }
 
-          writer.startElement("td", null);
-
+          writer.startElement("td", tab);
+          writer.writeAttribute("title", null, ATTR_TIP);
+          
           writer.startElement("div", null);
           writer.writeAttribute("class", outerClass, null);
 

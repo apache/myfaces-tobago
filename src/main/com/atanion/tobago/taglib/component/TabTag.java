@@ -18,6 +18,8 @@ public class TabTag extends TobagoBodyTag {
   private String label;
   private String accessKey;
   private String labelWithAccessKey;
+  private String tip;
+
 
   public String getComponentType() {
     return UIPanel.COMPONENT_TYPE;
@@ -28,6 +30,8 @@ public class TabTag extends TobagoBodyTag {
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_TIP, tip,
+        getIterationHelper());
   }
 
   public void release() {
@@ -35,6 +39,7 @@ public class TabTag extends TobagoBodyTag {
     label = null;
     accessKey = null;
     labelWithAccessKey = null;
+    tip = null;
   }
 
   public String getLabel() {
@@ -61,5 +66,12 @@ public class TabTag extends TobagoBodyTag {
     this.labelWithAccessKey = labelWithAccessKey;
   }
 
+  public String getTip() {
+    return tip;
+  }
+
+  public void setTip(String tip) {
+    this.tip = tip;
+  }
 }
 
