@@ -170,6 +170,10 @@ public class ToolBarRenderer extends RendererBase {
         }
         command.getAttributes().put(ATTR_IMAGE, image);
 
+        if (item.getDescription() != null) {
+          command.getAttributes().put(ATTR_TIP, item.getDescription());
+        }
+
 
         Object itemValue = item.getValue();
         onClick = onClickPrefix + itemValue + onClickPostfix;

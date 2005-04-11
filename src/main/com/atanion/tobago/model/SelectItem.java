@@ -1,5 +1,10 @@
 package com.atanion.tobago.model;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.atanion.tobago.component.UISelectItem;
+
 /**
  * Created by IntelliJ IDEA.
  * User: weber
@@ -9,10 +14,19 @@ package com.atanion.tobago.model;
  */
 public class SelectItem extends javax.faces.model.SelectItem {
 
+  private static final Log LOG = LogFactory.getLog(SelectItem.class);
+
   private String image;
 
   public SelectItem() {
     super();
+  }
+
+  public SelectItem(UISelectItem component) {
+    super(component.getItemValue() == null ? "" : component.getItemValue(),
+        component.getItemLabel(), component.getItemDescription(),
+        component.isItemDisabled());
+    image = component.getItemImage();
   }
 
   public SelectItem(Object value) {

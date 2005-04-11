@@ -2945,4 +2945,92 @@
     </attribute>
   </tag>
 
+  <tag>
+    <name>selectItem</name>
+    <tag-class>com.atanion.tobago.taglib.component.SelectItemTag</tag-class>
+    <body-content>empty</body-content>
+    <description>
+      Add a child UISelectItem component to the UIComponent
+      associated with the closed parent UIComponent custom
+      action.
+    </description>
+    <attribute>
+      <name>binding</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Value binding expression to a backing bean
+        property bound to the component instance for
+        the UIComponent created by this custom action.
+      </description>
+    </attribute>
+    <attribute>
+      <name>id</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Component identifier of the UISelectItem
+        component to be created.
+      </description>
+    </attribute>
+    <attribute>
+      <name>itemDescription</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Description of this option, for use in
+        development tools.
+      </description>
+    </attribute>
+    <attribute>
+      <name>itemDisabled</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Flag indicating whether the option created
+        by this component is disabled.  Expressions
+        must evaluate to a boolean.  Default value
+        is false.
+      </description>
+    </attribute>
+    <attribute>
+      <name>itemLabel</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Label to be displayed to the user
+        for this option.
+      </description>
+    </attribute>
+    <attribute>
+      <name>itemValue</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Value to be returned to the server if this
+        option is selected by the user.
+      </description>
+    </attribute>
+    <attribute>
+      <name>value</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Value binding expression pointing at a
+        SelectItem instance containing the
+        information for this option.
+      </description>
+    </attribute>
+    <attribute>
+      <name>itemImage</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Image to be displayed to the user
+        for this option.
+      </description>
+    </attribute>
+  </tag>
+
+
 </taglib>

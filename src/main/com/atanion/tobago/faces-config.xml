@@ -74,6 +74,10 @@
     <component-type>com.atanion.tobago.TreeListboxBox</component-type>
     <component-class>com.atanion.tobago.component.UITreeListboxBox</component-class>
   </component>
+  <component>
+    <component-type>com.atanion.tobago.SelectItem</component-type>
+    <component-class>com.atanion.tobago.component.UISelectItem</component-class>
+  </component>
 
   <converter>
     <converter-id>com.atanion.tobago.Duration</converter-id>

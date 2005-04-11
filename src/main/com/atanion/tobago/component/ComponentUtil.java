@@ -287,10 +287,15 @@ public class ComponentUtil {
         Object value = ((UISelectItem) kid).getValue();
         if (value == null) {
           UISelectItem item = (UISelectItem) kid;
-          list.add(new SelectItem(
-              item.getItemValue() == null ? "" : item.getItemValue(),
-              item.getItemLabel(),
-              item.getItemDescription()));
+          if (kid instanceof com.atanion.tobago.component.UISelectItem) {
+            list.add(new com.atanion.tobago.model.SelectItem(
+                    (com.atanion.tobago.component.UISelectItem)kid));
+          } else {
+            list.add(new SelectItem(
+                item.getItemValue() == null ? "" : item.getItemValue(),
+                item.getItemLabel(),
+                item.getItemDescription()));
+          }
         } else if (value instanceof SelectItem) {
           list.add((SelectItem)value);
         } else {
