@@ -19,6 +19,8 @@ public class InTag extends InputTag implements HasPassword {
 
   private String password;
 
+  private String tip;
+
 // ----------------------------------------------------------- business methods
 
   public String getComponentType() {
@@ -28,11 +30,14 @@ public class InTag extends InputTag implements HasPassword {
   public void release() {
     super.release();
     password = null;
+    tip = null;
   }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     ComponentUtil.setBooleanProperty(component, ATTR_PASSWORD, password,
+        getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_TIP, tip,
         getIterationHelper());
   }
 
@@ -44,5 +49,13 @@ public class InTag extends InputTag implements HasPassword {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public String getTip() {
+    return tip;
+  }
+
+  public void setTip(String tip) {
+    this.tip = tip;
   }
 }

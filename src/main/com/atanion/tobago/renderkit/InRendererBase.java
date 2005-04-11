@@ -45,6 +45,17 @@ public class InRendererBase extends InputRendererBase {
       title = stringBuffer.toString();
     }
 
+    String tip = (String) input.getAttributes().get(ATTR_TIP);
+    if (tip != null) {
+      if (title != null) {
+        title += " :: ";
+      }
+      else {
+        title = "";
+      }
+      title += tip;
+    }
+
     String currentValue = getCurrentValue(facesContext, input);
     if (LOG.isDebugEnabled()) {
       LOG.debug("currentValue = '" + currentValue + "'");

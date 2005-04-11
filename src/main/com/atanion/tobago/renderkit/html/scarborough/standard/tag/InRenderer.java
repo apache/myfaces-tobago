@@ -32,11 +32,12 @@ public class InRenderer extends InRendererBase{
         facesContext.getResponseWriter();
 
     if (label != null || picker != null) {
-      writer.startElement("table", null);
+      writer.startElement("table", component);
       writer.writeAttribute("border", "0", null);
       writer.writeAttribute("cellspacing", "0", null);
       writer.writeAttribute("cellpadding", "0", null);
       writer.writeAttribute("summary", "", null);
+      writer.writeAttribute("title", null, ATTR_TIP);
       writer.startElement("tr", null);
       writer.startElement("td", null);
       writer.writeText("", null);

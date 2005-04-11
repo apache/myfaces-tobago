@@ -52,11 +52,12 @@ public class TextAreaRenderer extends InputRendererBase {
     String image = ResourceManagerUtil.getImage(facesContext, "image/1x1.gif");
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
 
-    writer.startElement("table", null);
+    writer.startElement("table", component);
     writer.writeAttribute("border", "0", null);
     writer.writeAttribute("cellspacing", "0", null);
     writer.writeAttribute("cellpadding", "0", null);
     writer.writeAttribute("summary", "", null);
+    writer.writeAttribute("title", null, ATTR_TIP);
     writer.startElement("tr", null);
     if (label != null) {
       String height = evaluateHeight(component);

@@ -33,11 +33,12 @@ public class TextAreaRenderer extends InputRendererBase {
         = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     if (label != null) {
-      writer.startElement("table", null);
+      writer.startElement("table", component);
       writer.writeAttribute("border", "0", null);
       writer.writeAttribute("cellspacing", "0", null);
       writer.writeAttribute("cellpadding", "0", null);
       writer.writeAttribute("summary", "", null);
+      writer.writeAttribute("title", null, ATTR_TIP);
       writer.startElement("tr", null);
       writer.startElement("td", null);
       writer.writeText("", null);
@@ -84,6 +85,18 @@ public class TextAreaRenderer extends InputRendererBase {
     String title = null;
     if (stringBuffer.length() > 0) {
       title = stringBuffer.toString();
+    }
+
+
+    String tip = (String) input.getAttributes().get(ATTR_TIP);
+    if (tip != null) {
+      if (title != null) {
+        title += " :: ";
+      }
+      else {
+        title = "";
+      }
+      title += tip;
     }
 
     String clientId = input.getClientId(facesContext);

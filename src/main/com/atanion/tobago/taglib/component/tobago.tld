@@ -262,6 +262,16 @@
         in a backing bean
       </description>
     </attribute>
+    <attribute>
+      <name>tip</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description><![CDATA[
+          Text value to display as tooltip.
+          Contains plain text or ValueBindig expression.
+        ]]>
+      </description>
+    </attribute>
   </tag>
 
   <tag>
@@ -363,6 +373,16 @@
       <description>
         The value binding expression linking this component to a property
         in a backing bean
+      </description>
+    </attribute>
+    <attribute>
+      <name>tip</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description><![CDATA[
+          Text value to display as tooltip.
+          Contains plain text or ValueBindig expression.
+        ]]>
       </description>
     </attribute>
   </tag>

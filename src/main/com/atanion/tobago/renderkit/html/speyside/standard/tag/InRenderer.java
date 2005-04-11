@@ -36,11 +36,12 @@ public class InRenderer extends InRendererBase {
     UIComponent picker = input.getFacet("picker");
 
     if (!inline) {
-      writer.startElement("table", null);
+      writer.startElement("table", input);
       writer.writeAttribute("border", "0", null);
       writer.writeAttribute("cellspacing", "0", null);
       writer.writeAttribute("cellpadding", "0", null);
       writer.writeAttribute("summary", "", null);
+      writer.writeAttribute("title", null, ATTR_TIP);
       writer.startElement("tr", null);
       if (label != null) {
         writer.startElement("td", null);
