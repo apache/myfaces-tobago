@@ -6,7 +6,7 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.renderkit.InRendererBase;
+import com.atanion.tobago.renderkit.html.InRendererBase;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;

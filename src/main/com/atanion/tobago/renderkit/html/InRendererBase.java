@@ -3,12 +3,15 @@
   * All rights reserved. Created 15.04.2003 at 09:26:24.
   * $Id$
   */
-package com.atanion.tobago.renderkit;
+package com.atanion.tobago.renderkit.html;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
+import com.atanion.tobago.renderkit.InputRendererBase;
+import com.atanion.tobago.renderkit.HtmlUtils;
+import com.atanion.tobago.renderkit.RenderUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
