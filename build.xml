@@ -111,13 +111,15 @@
 
   </target>
   <target name="annotations" depends="bs:init, bs:get-libs-jar" >
-    <apt srcdir="src"
+    <apt srcdir="src" fork="true"
          classpathref="project.classpath.jar"
          debug="on"
          compile="false"
          preprocessdir="src/main"
          factory="com.atanion.apt.TaglibAnnotationProcessorFactory"
          factorypathref="project.classpath.jar" >
+      <option name="package" value="com.atanion.tobago.taglib.component" />
+      <option name="file" value="tobago2.tld" />
     </apt>
   </target>
 
