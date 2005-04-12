@@ -16,7 +16,7 @@ import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 
 
-public abstract class BeanTag extends TobagoTag implements HasConverter, HasValue, IsRequired {
+public abstract class BeanTag extends TobagoTag {
 
 // ///////////////////////////////////////////// constants
 

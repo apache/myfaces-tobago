@@ -1,6 +1,7 @@
 package com.atanion.tobago.taglib.decl;
 
 import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 /**
  * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
@@ -9,6 +10,9 @@ import com.atanion.util.annotation.TagAttribute;
  * $Id$
  */
 public interface IsInline {
-
-  @TagAttribute void setInline(String inline);
+  /**
+   * Flag indicating this component should rendered as an inline element.
+   */
+  @TagAttribute @UIComponentTagAttribute(type=Boolean.class)
+  public void setInline(String inline);
 }

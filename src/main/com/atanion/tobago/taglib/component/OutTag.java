@@ -9,15 +9,29 @@ package com.atanion.tobago.taglib.component;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.taglib.decl.HasMarkup;
 import com.atanion.tobago.taglib.decl.IsEscaped;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasValue;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.HasConverter;
+import com.atanion.tobago.taglib.decl.IsInline;
+import com.atanion.tobago.taglib.decl.HasTip;
+import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 /**
  * Renders a text
  */
-@Tag(name="out")
-public class OutTag extends BeanTag implements IsEscaped, HasMarkup {
+@Tag(name="out", bodyContent="empty")
+public class OutTag extends BeanTag
+    implements HasId, HasBinding, HasConverter, IsInline, HasTip, IsEscaped,
+               HasMarkup, IsRendered
+               // todo: remove interface HasValue, use annotations at setter
+               , HasValue
+     {
 // ----------------------------------------------------------------- attributes
 
   private String escape = "true";
@@ -46,6 +60,14 @@ public class OutTag extends BeanTag implements IsEscaped, HasMarkup {
   }
 
 // ------------------------------------------------------------ getter + setter
+  /**
+   *  The current value of this component.
+   */
+  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  public void setValue(String value) {
+    super.setValue(value);
+  }
+
 
   public String getEscape() {
     return escape;

@@ -8,6 +8,11 @@ package com.atanion.tobago.taglib.component;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIData;
 import com.atanion.tobago.event.SheetStateChangeEvent;
+import com.atanion.tobago.taglib.decl.*;
+import com.atanion.tobago.model.SheetState;
+import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
@@ -15,7 +20,16 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
 
-public class SheetTag extends TobagoTag {
+@Tag(name="sheet")
+public class SheetTag extends TobagoTag
+    implements HasId, HasValue, HasShowRowRange, HasShowPageRange,
+               HasShowDirectLinks, HasDirectLinkCount, IsShowHeader,
+               HasPagingStart, HasPagingLength, HasColumnLayout, HasVar,
+               HasForceVerticalScrollbar, IsRendered, HasBinding,
+               HasStateChangeListener
+    // todo: don' implement HasState, use annotations at setter
+               , HasState
+    {
 
 // ----------------------------------------------------------------- attributes
 
@@ -186,6 +200,7 @@ public class SheetTag extends TobagoTag {
     this.showRowRange = showRowRange;
   }
 
+  @TagAttribute @UIComponentTagAttribute(type=SheetState.class)
   public void setState(String state) {
     this.state = state;
   }

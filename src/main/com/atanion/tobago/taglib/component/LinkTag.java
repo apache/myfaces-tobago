@@ -5,16 +5,26 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.taglib.decl.*;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 
-public class LinkTag extends CommandTag {
+@Tag(name="link")
+public class LinkTag extends CommandTag
+    implements HasId, HasLabel, HasLabelWithAccessKey, IsDisabled, HasAction,
+               HasActionListener, IsInline, HasCommandType, HasTarget, HasTip,
+               IsImmediateCommand, HasImage, IsRendered ,HasBinding
+    {
 
 // /////////////////////////////////////////// constants
-
+     private static final Log LOG = LogFactory.getLog(LinkTag.class);
 // /////////////////////////////////////////// attributes
 
   private String target;

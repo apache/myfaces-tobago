@@ -7,10 +7,14 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.taglib.decl.HasHeight;
+import com.atanion.tobago.taglib.decl.HasRows;
+import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 
-public class TextAreaTag extends InTag {
+@Tag(name="textarea", bodyContent="empty")
+public class TextAreaTag extends InTag implements HasHeight, HasRows {
 // ----------------------------------------------------------------- attributes
 
   private String rows;

@@ -9,12 +9,24 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.HasValue;
+import com.atanion.tobago.taglib.decl.HasHeight;
+import com.atanion.tobago.taglib.decl.HasWidth;
+import com.atanion.tobago.taglib.decl.HasTip;
+import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasAlt;
+import com.atanion.tobago.taglib.decl.HasBorder;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 
 
-public class ImageTag extends TobagoTag {
+public class ImageTag extends TobagoTag
+    implements HasId, HasValue, HasAlt, HasBorder, HasHeight, HasWidth, HasTip,
+               IsRendered, HasBinding
+    {
 
   private String value;
   private String alt;

@@ -1,6 +1,12 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.HasSpanXY;
+import com.atanion.tobago.taglib.decl.HasScrollbars;
+import com.atanion.util.annotation.Tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -13,7 +19,10 @@ import javax.servlet.jsp.JspException;
   * All rights reserved. Created 29.07.2003 at 15:09:53.
   * $Id$
   */
-public class CellTag extends PanelTag {
+@Tag(name="cell")
+public class CellTag extends PanelTag
+    implements HasId, IsRendered, HasBinding, HasSpanXY, HasScrollbars
+    {
 
 // ///////////////////////////////////////////// constant
 

@@ -11,6 +11,12 @@ import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.taglib.decl.HasCharset;
 import com.atanion.tobago.taglib.decl.HasDoctype;
 import com.atanion.tobago.taglib.decl.HasFocusId;
+import com.atanion.tobago.taglib.decl.HasLabel;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasWidth;
+import com.atanion.tobago.taglib.decl.HasHeight;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.HasState;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
@@ -20,7 +26,10 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import java.util.List;
 @Tag(name = "page")
-public class PageTag extends TobagoBodyTag implements HasCharset, HasDoctype, HasFocusId {
+public class PageTag extends TobagoBodyTag
+    implements HasLabel, HasDoctype, HasCharset, HasId, HasWidth, HasHeight,
+               HasBinding, HasState, HasFocusId
+    {
 // ------------------------------------------------------------------ constants
 
   public static final String PAGE_IN_REQUEST =

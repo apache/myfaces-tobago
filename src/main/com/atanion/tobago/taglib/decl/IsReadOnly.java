@@ -1,6 +1,7 @@
 package com.atanion.tobago.taglib.decl;
 
 import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 /**
  * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
@@ -9,6 +10,9 @@ import com.atanion.util.annotation.TagAttribute;
  * $Id$
  */
 public interface IsReadOnly {
-
-  @TagAttribute void setReadonly(String readonly);
+  /**
+   *  Flag indicating that this component will prohibit changes by the user. 
+   */
+  @TagAttribute @UIComponentTagAttribute(type=Boolean.class)
+  public void setReadonly(String readonly);
 }

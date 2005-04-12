@@ -8,6 +8,10 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UIColumnSelector;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.taglib.decl.IsDisabled;
+import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.util.annotation.Tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,7 +19,12 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 
-public class ColumnSelectorTag extends ColumnTag {
+
+@Tag(name="columnSelector")
+// todo: don't extent ColumnTag
+public class ColumnSelectorTag extends ColumnTag
+    implements IsDisabled, IsRendered, HasBinding
+    {
 
   private static final Log LOG = LogFactory.getLog(ColumnSelectorTag.class);
 

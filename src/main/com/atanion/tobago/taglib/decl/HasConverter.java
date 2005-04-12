@@ -1,6 +1,7 @@
 package com.atanion.tobago.taglib.decl;
 
 import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 /**
  * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
@@ -9,6 +10,9 @@ import com.atanion.util.annotation.TagAttribute;
  * $Id$
  */
 public interface HasConverter {
-
-  @TagAttribute void setConverter(String converter);
+  /**
+   *  ConverterId of a registered converter.
+   */
+  @TagAttribute @UIComponentTagAttribute(type=String.class, expression=false)
+  public void setConverter(String converter);
 }

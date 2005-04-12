@@ -6,9 +6,24 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.util.annotation.Tag;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasLabel;
+import com.atanion.tobago.taglib.decl.HasLabelWithAccessKey;
+import com.atanion.tobago.taglib.decl.HasValue;
+import com.atanion.tobago.taglib.decl.IsDisabled;
+import com.atanion.tobago.taglib.decl.IsInline;
+import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.HasTip;
+
 import javax.faces.component.UISelectBoolean;
 
-public class SelectBooleanCheckboxTag extends InputTag {
+@Tag(name="selectBooleanCheckbox", bodyContent="empty")
+public class SelectBooleanCheckboxTag extends InputTag
+    implements HasId, HasLabel, HasLabelWithAccessKey, HasValue, IsDisabled,
+               IsInline, IsRendered, HasBinding, HasTip
+    {
 
 // ----------------------------------------------------------- business methods
 

@@ -8,6 +8,17 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UIInput;
 import com.atanion.tobago.component.UIPage;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasValue;
+import com.atanion.tobago.taglib.decl.IsReadOnly;
+import com.atanion.tobago.taglib.decl.IsDisabled;
+import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.IsInline;
+import com.atanion.tobago.taglib.decl.HasLabel;
+import com.atanion.tobago.taglib.decl.HasLabelWithAccessKey;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.HasTip;
+import com.atanion.util.annotation.Tag;
 
 import javax.faces.application.Application;
 import javax.faces.component.UICommand;
@@ -15,7 +26,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 import javax.faces.context.FacesContext;
 
-public class DateTag extends InputTag {
+@Tag(name="date", bodyContent="empty")
+public class DateTag extends InputTag
+    implements HasId, HasValue, IsReadOnly, IsDisabled, IsRendered, IsInline,
+               HasLabel, HasLabelWithAccessKey, HasBinding, HasTip
+    {
 
 // ----------------------------------------------------------- business methods
 

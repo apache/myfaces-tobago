@@ -7,12 +7,10 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.HasFocus;
-import com.atanion.tobago.taglib.decl.HasOnchangeListener;
 
 import javax.faces.component.UIComponent;
 
-public abstract class InputTag extends BeanTag implements HasOnchangeListener, HasFocus {
+public abstract class InputTag extends BeanTag {
 // ----------------------------------------------------------------- attributes
 
   private String onchange;

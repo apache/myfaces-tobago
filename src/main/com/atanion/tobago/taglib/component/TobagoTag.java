@@ -14,6 +14,8 @@ import com.atanion.tobago.taglib.decl.HasLabel;
 import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsInline;
 import com.atanion.tobago.taglib.decl.IsReadOnly;
+import com.atanion.tobago.taglib.decl.HasId;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -26,7 +28,7 @@ import javax.servlet.jsp.tagext.Tag;
 import java.util.Map;
 
 public abstract class TobagoTag extends UIComponentTag
-    implements TobagoConstants, HasDimension, HasLabel, Component, IsDisabled, IsInline, IsReadOnly {
+    implements TobagoConstants {
   // todo: in java 1.5 use: import static com.atanion.tobago.TobagoConstants.*;
 
 // ----------------------------------------------------------- class attributes

@@ -9,6 +9,10 @@ import com.atanion.util.annotation.TagAttribute;
  * $Id$
  */
 public interface HasValue {
-
+  
+  /**
+   *  The current value of this component.
+   *
+   */
   @TagAttribute void setValue(String value);
 }

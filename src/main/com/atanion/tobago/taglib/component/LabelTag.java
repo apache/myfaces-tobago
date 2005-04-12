@@ -6,11 +6,29 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasValue;
+import com.atanion.tobago.taglib.decl.HasLabelWithAccessKey;
+import com.atanion.tobago.taglib.decl.HasFor;
+import com.atanion.tobago.taglib.decl.IsInline;
+import com.atanion.tobago.taglib.decl.HasWidth;
+import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.HasTip;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
+import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
-public class LabelTag extends BeanTag {
+@Tag(name="label", bodyContent="empty")
+public class LabelTag extends BeanTag
+    implements HasId, HasLabelWithAccessKey, HasFor, IsInline, HasWidth,
+               IsRendered, HasBinding, HasTip
+               // todo: remove interface HasValue, use annotations at setter
+               , HasValue
+     {
 
 // ----------------------------------------------------------------- attributes
 
@@ -51,6 +69,15 @@ public class LabelTag extends BeanTag {
         ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip,
         getIterationHelper());
+  }
+
+
+  /**
+   *   Text value to display as label. Overwritten by 'labelWithAccessKey'
+   */
+  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  public void setValue(String value) {
+    super.setValue(value);
   }
 
   public String getLabelWithAccessKey() {

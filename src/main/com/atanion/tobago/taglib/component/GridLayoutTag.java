@@ -8,11 +8,28 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UIGridLayout;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasValue;
+import com.atanion.tobago.taglib.decl.HasAlt;
+import com.atanion.tobago.taglib.decl.HasBorder;
+import com.atanion.tobago.taglib.decl.HasHeight;
+import com.atanion.tobago.taglib.decl.HasWidth;
+import com.atanion.tobago.taglib.decl.HasTip;
+import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.HasColumnLayout;
+import com.atanion.tobago.taglib.decl.HasCellspacing;
+import com.atanion.tobago.taglib.decl.HasMargin;
+import com.atanion.tobago.taglib.decl.HasMargins;
+import com.atanion.tobago.taglib.decl.HasRowLayout;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 
-public class GridLayoutTag extends TobagoTag {
+public class GridLayoutTag extends TobagoTag
+    implements HasId, HasBorder, HasCellspacing, HasMargin, HasMargins,
+               HasColumnLayout, HasRowLayout, HasBinding
+{
 
 // ///////////////////////////////////////////// constant
 

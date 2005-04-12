@@ -8,12 +8,20 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIInput;
-import com.atanion.tobago.taglib.decl.HasPassword;
+import com.atanion.tobago.taglib.decl.*;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
-@Tag(name="in")
-public class InTag extends InputTag implements HasPassword {
+@Tag(name="in", bodyContent="empty")
+public class InTag extends InputTag
+    implements HasValue, HasId, HasConverter, IsReadOnly, IsDisabled,
+               HasWidth, HasOnchangeListener, IsInline, IsFocus, HasPassword,
+               IsRequired, IsRendered,
+               HasBinding, HasTip,
+               // fixme: extended annotation interface ?
+               HasLabel, HasLabelWithAccessKey
+               //HasLabelAndAccessKey
+    {
 
 // ----------------------------------------------------------------- attributes
 
