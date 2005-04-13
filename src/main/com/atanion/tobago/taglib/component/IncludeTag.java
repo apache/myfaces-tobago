@@ -6,7 +6,6 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.context.ResourceManagerUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

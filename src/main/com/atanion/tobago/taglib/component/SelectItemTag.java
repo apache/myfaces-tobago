@@ -1,10 +1,9 @@
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UISelectItem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import com.atanion.tobago.component.UISelectItem;
-import com.atanion.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 

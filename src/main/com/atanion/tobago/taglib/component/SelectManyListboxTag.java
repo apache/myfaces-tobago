@@ -7,17 +7,15 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.HasHeight;
 import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
+import com.atanion.tobago.taglib.decl.HasTip;
 import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.IsDisabled;
-import com.atanion.tobago.taglib.decl.HasOnchangeListener;
 import com.atanion.tobago.taglib.decl.IsInline;
-import com.atanion.tobago.taglib.decl.HasLabel;
-import com.atanion.tobago.taglib.decl.HasLabelWithAccessKey;
 import com.atanion.tobago.taglib.decl.IsRendered;
-import com.atanion.tobago.taglib.decl.HasBinding;
-import com.atanion.tobago.taglib.decl.HasTip;
-import com.atanion.tobago.taglib.decl.HasHeight;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
@@ -26,7 +24,7 @@ import javax.faces.component.UISelectMany;
 @Tag(name="selectManyListbox")
 public class SelectManyListboxTag extends InputTag
     implements HasId, HasValue, IsDisabled, HasHeight, IsInline,
-    HasLabel, HasLabelWithAccessKey, IsRendered, HasBinding, HasTip
+    HasLabelAndAccessKey, IsRendered, HasBinding, HasTip
     {
 
 // /////////////////////////////////////////// constants

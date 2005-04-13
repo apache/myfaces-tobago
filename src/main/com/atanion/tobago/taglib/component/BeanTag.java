@@ -7,9 +7,6 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.HasConverter;
-import com.atanion.tobago.taglib.decl.HasValue;
-import com.atanion.tobago.taglib.decl.IsRequired;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;

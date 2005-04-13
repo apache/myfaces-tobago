@@ -4,12 +4,12 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.StateHolder;
 import com.atanion.tobago.event.StateChangeListener;
 
-import javax.servlet.jsp.tagext.TagSupport;
-import javax.servlet.jsp.JspException;
-import javax.faces.webapp.UIComponentTag;
 import javax.faces.component.UIComponent;
-import javax.faces.el.ValueBinding;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
+import javax.faces.webapp.UIComponentTag;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.TagSupport;
 
 
 /**

@@ -8,14 +8,13 @@ package com.atanion.tobago.taglib.component;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ClientProperties;
+import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasCharset;
+import com.atanion.tobago.taglib.decl.HasDimension;
 import com.atanion.tobago.taglib.decl.HasDoctype;
 import com.atanion.tobago.taglib.decl.HasFocusId;
-import com.atanion.tobago.taglib.decl.HasLabel;
 import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.HasWidth;
-import com.atanion.tobago.taglib.decl.HasHeight;
-import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.HasLabel;
 import com.atanion.tobago.taglib.decl.HasState;
 import com.atanion.util.annotation.Tag;
 
@@ -27,7 +26,7 @@ import javax.servlet.jsp.PageContext;
 import java.util.List;
 @Tag(name = "page")
 public class PageTag extends TobagoBodyTag
-    implements HasLabel, HasDoctype, HasCharset, HasId, HasWidth, HasHeight,
+    implements HasLabel, HasDoctype, HasCharset, HasId, HasDimension,
                HasBinding, HasState, HasFocusId
     {
 // ------------------------------------------------------------------ constants

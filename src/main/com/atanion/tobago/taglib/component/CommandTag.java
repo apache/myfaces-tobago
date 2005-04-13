@@ -5,14 +5,14 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.el.ConstantMethodBinding;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.el.ConstantMethodBinding;
 
+import javax.faces.application.Application;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
-import javax.faces.application.Application;
 
 public abstract class CommandTag extends TobagoTag {
 // ----------------------------------------------------------------- attributes

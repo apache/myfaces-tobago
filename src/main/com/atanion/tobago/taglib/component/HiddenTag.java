@@ -7,8 +7,8 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UIInput;
-import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.util.annotation.Tag;
 

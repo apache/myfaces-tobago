@@ -1,7 +1,7 @@
 package com.atanion.tobago.taglib.decl;
 
-import com.atanion.util.annotation.UIComponentTagAttribute;
 import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 /**
  * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.

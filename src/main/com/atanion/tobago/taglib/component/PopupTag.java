@@ -5,21 +5,16 @@
   */
 package com.atanion.tobago.taglib.component;
 
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
-
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UIPopup;
 import com.atanion.tobago.component.UIPage;
+import com.atanion.tobago.component.UIPopup;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.webapp.UIComponentTag;
-import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.JspException;
-import java.util.List;
-import java.util.Iterator;
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.List;
 
 public class PopupTag extends TobagoBodyTag {
 

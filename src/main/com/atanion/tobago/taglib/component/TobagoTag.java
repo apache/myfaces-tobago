@@ -8,14 +8,6 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.Component;
-import com.atanion.tobago.taglib.decl.HasDimension;
-import com.atanion.tobago.taglib.decl.HasLabel;
-import com.atanion.tobago.taglib.decl.IsDisabled;
-import com.atanion.tobago.taglib.decl.IsInline;
-import com.atanion.tobago.taglib.decl.IsReadOnly;
-import com.atanion.tobago.taglib.decl.HasId;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

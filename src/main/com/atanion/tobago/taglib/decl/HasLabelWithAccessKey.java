@@ -12,14 +12,14 @@ public interface HasLabelWithAccessKey {
    * Text value to display as label. Overwites 'label'.
    * If text contains an underscore the next character overwrites 'accesskey'.
    */
-    @TagAttribute @UIComponentTagAttribute(type=String.class)
-    public void setLabelWithAccessKey(String key);
+  @TagAttribute @UIComponentTagAttribute(type = String.class)
+      public void setLabelWithAccessKey(String key);
 
 
   /**
-   *  Character used as accesskey. Overwritten by 'labelWithAccessKey'.
+   * Character used as accesskey. Overwritten by 'labelWithAccessKey'.
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute @UIComponentTagAttribute(type = String.class)
 //  @TagAttribute @UIComponentTagAttribute(type={String.class, Character.class})
-  public void setAccessKey(String key);
+      public void setAccessKey(String key);
 }

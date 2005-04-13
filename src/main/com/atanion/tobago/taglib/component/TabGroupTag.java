@@ -5,8 +5,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.component.UITabGroup;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UITabGroup;
 
 import javax.faces.component.UIComponent;
 import javax.faces.el.ValueBinding;

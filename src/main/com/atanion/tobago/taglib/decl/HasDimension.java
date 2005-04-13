@@ -1,6 +1,6 @@
 package com.atanion.tobago.taglib.decl;
 
-import com.atanion.util.annotation.TagAttribute;
+
 
 /**
  * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
@@ -8,9 +8,6 @@ import com.atanion.util.annotation.TagAttribute;
  * User: bommel
  * $Id$
  */
-public interface HasDimension {
+public interface HasDimension extends HasWidth, HasHeight{
 
-  @TagAttribute void setHeight(String height);
-
-  @TagAttribute void setWidth(String width);
 }

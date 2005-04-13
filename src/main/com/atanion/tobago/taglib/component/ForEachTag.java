@@ -1,21 +1,19 @@
 package com.atanion.tobago.taglib.component;
 
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
-
 import com.atanion.tobago.component.ComponentUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-import javax.servlet.jsp.tagext.BodyTagSupport;
-import javax.servlet.jsp.JspException;
-import javax.faces.webapp.UIComponentTag;
-import javax.faces.el.ValueBinding;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
+import javax.faces.webapp.UIComponentTag;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.BodyTagSupport;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Iterator;
-import java.util.ArrayList;
 import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 public class ForEachTag extends BodyTagSupport {
 

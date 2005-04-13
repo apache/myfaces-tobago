@@ -7,12 +7,12 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.taglib.decl.HasAlign;
+import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasLabel;
-import com.atanion.tobago.taglib.decl.IsSortable;
-import com.atanion.tobago.taglib.decl.HasAlign;
 import com.atanion.tobago.taglib.decl.IsRendered;
-import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.IsSortable;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIColumn;

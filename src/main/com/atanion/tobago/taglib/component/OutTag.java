@@ -7,14 +7,14 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.HasMarkup;
-import com.atanion.tobago.taglib.decl.IsEscaped;
-import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasConverter;
-import com.atanion.tobago.taglib.decl.IsInline;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasMarkup;
 import com.atanion.tobago.taglib.decl.HasTip;
+import com.atanion.tobago.taglib.decl.HasValue;
+import com.atanion.tobago.taglib.decl.IsEscaped;
+import com.atanion.tobago.taglib.decl.IsInline;
 import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
