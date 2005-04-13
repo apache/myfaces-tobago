@@ -48,6 +48,9 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
     UIViewRoot view = viewHandler.createView(facesContext, viewId);
     facesContext.setViewRoot(view);
 
+//    ExternalContext externalContext = facesContext.getExternalContext();
+//    externalContext.getRequestMap().put("com.sun.faces.INVOCATION_PATH", "/faces");
+
     // invoke application
     String outcome = invokeApplication(facesContext);
 
