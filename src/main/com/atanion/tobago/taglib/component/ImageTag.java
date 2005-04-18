@@ -17,11 +17,13 @@ import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasTip;
 import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 
 
+@Tag(name="image")
 public class ImageTag extends TobagoTag
     implements HasId, HasValue, HasAlt, HasBorder, HasDimension, HasTip,
                IsRendered, HasBinding

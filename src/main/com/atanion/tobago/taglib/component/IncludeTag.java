@@ -6,6 +6,10 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.context.ResourceManagerUtil;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasValue;
+import com.atanion.util.annotation.Tag;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -15,7 +19,8 @@ import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-public class IncludeTag extends TagSupport {
+@Tag(name="include", bodyContent="empty")
+public class IncludeTag extends TagSupport implements HasId, HasValue {
 // ----------------------------------------------------------- class attributes
 
   private static final Log LOG = LogFactory.getLog(IncludeTag.class);

@@ -25,7 +25,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 import javax.faces.context.FacesContext;
 
-@Tag(name="date", bodyContent="empty")
+@Tag(name="date")
 public class DateTag extends InputTag
     implements HasId, HasValue, IsReadOnly, IsDisabled, IsRendered, IsInline,
     HasLabelAndAccessKey, HasBinding, HasTip

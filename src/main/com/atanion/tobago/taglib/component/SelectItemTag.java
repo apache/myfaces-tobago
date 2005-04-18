@@ -2,19 +2,30 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UISelectItem;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasValue;
+import com.atanion.tobago.taglib.decl.HasItemDescription;
+import com.atanion.tobago.taglib.decl.HasItemLabel;
+import com.atanion.tobago.taglib.decl.HasItemValue;
+import com.atanion.tobago.taglib.decl.HasItemImage;
+import com.atanion.tobago.taglib.decl.IsItemDisabled;
+import com.atanion.util.annotation.Tag;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 
 /**
- * Created by IntelliJ IDEA.
- * User: weber
- * Date: Apr 11, 2005
- * Time: 10:48:51 AM
- * To change this template use File | Settings | File Templates.
+ * Add a child UISelectItem component to the UIComponent
+ *  associated with the closed parent UIComponent custom
+ *  action.
  */
-public class SelectItemTag extends TobagoTag {
+@Tag(name="selectItem")
+public class SelectItemTag extends TobagoTag
+    implements HasBinding, HasId, HasValue, HasItemDescription, HasItemLabel,
+    HasItemValue, HasItemImage, IsItemDisabled {
 
   private static final Log LOG = LogFactory.getLog(SelectItemTag.class);
 

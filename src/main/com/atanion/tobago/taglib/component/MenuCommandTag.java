@@ -6,10 +6,26 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
+import com.atanion.tobago.taglib.decl.IsDisabled;
+import com.atanion.tobago.taglib.decl.HasAction;
+import com.atanion.tobago.taglib.decl.HasActionListener;
+import com.atanion.tobago.taglib.decl.HasCommandType;
+import com.atanion.tobago.taglib.decl.HasImage;
+import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.IsImmediateCommand;
+import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 
-public class MenuCommandTag extends CommandTag {
+
+@Tag(name="menuItem")
+public class MenuCommandTag extends CommandTag
+    implements HasId, HasLabelAndAccessKey, IsDisabled,  HasAction,
+               HasActionListener, HasCommandType, HasImage, IsRendered,
+               HasBinding, IsImmediateCommand {
 
   public static final String COMMAND_TYPE = "menuCommand";
 

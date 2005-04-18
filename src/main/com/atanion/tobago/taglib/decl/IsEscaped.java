@@ -15,7 +15,7 @@ public interface IsEscaped {
    * sensitive in HTML and XML markup must be escaped.
    * This flag is set to "true" by default.
    */
-  @TagAttribute @UIComponentTagAttribute(type=Boolean.class)
-//  @TagAttribute @UIComponentTagAttribute(type=Boolean.class, defaultValue="true")
+//  @TagAttribute @UIComponentTagAttribute(type=Boolean.class)
+  @TagAttribute @UIComponentTagAttribute(type=Boolean.class, defaultValue="true")
   public void setEscape(String escape);
 }

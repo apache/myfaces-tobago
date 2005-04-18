@@ -6,6 +6,9 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.context.ResourceManagerUtil;
+import com.atanion.tobago.taglib.decl.HasVar;
+import com.atanion.tobago.taglib.decl.HasBasename;
+import com.atanion.util.annotation.Tag;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.jsp.JspException;
@@ -14,7 +17,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-public class LoadBundleTag extends TagSupport {
+@Tag(name="loadBundle")
+public class LoadBundleTag extends TagSupport implements HasBasename, HasVar {
 // ----------------------------------------------------------------- attributes
 
   private String basename;

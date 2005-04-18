@@ -19,8 +19,7 @@ import javax.faces.component.UIComponent;
 
 
 @Tag(name="columnSelector")
-// todo: don't extent ColumnTag
-public class ColumnSelectorTag extends ColumnTag
+public class ColumnSelectorTag extends TobagoTag
     implements IsDisabled, IsRendered, HasBinding
     {
 
@@ -30,6 +29,10 @@ public class ColumnSelectorTag extends ColumnTag
 
   public String getComponentType() {
     return UIColumnSelector.COMPONENT_TYPE;
+  }
+
+  public String getRendererType() {
+    return null;
   }
 
   protected void setProperties(UIComponent component) {

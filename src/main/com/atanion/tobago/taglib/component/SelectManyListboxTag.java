@@ -22,9 +22,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectMany;
 
 @Tag(name="selectManyListbox")
-public class SelectManyListboxTag extends InputTag
+public class SelectManyListboxTag extends SelectManyTag
     implements HasId, HasValue, IsDisabled, HasHeight, IsInline,
-    HasLabelAndAccessKey, IsRendered, HasBinding, HasTip
+               HasLabelAndAccessKey, IsRendered, HasBinding, HasTip
     {
 
 // /////////////////////////////////////////// constants
@@ -36,10 +36,6 @@ public class SelectManyListboxTag extends InputTag
 // /////////////////////////////////////////// constructors
 
 // /////////////////////////////////////////// code
-
-  public String getComponentType() {
-    return UISelectMany.COMPONENT_TYPE;
-  }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);

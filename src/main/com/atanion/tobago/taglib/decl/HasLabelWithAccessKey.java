@@ -19,7 +19,7 @@ public interface HasLabelWithAccessKey {
   /**
    * Character used as accesskey. Overwritten by 'labelWithAccessKey'.
    */
-  @TagAttribute @UIComponentTagAttribute(type = String.class)
-//  @TagAttribute @UIComponentTagAttribute(type={String.class, Character.class})
+//  @TagAttribute @UIComponentTagAttribute(type = String.class)
+  @TagAttribute @UIComponentTagAttribute(type={String.class, Character.class})
       public void setAccessKey(String key);
 }

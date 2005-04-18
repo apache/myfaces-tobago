@@ -6,11 +6,15 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UIPage;
+import com.atanion.tobago.taglib.decl.HasScriptFile;
+import com.atanion.tobago.taglib.decl.HasOnload;
+import com.atanion.util.annotation.Tag;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-public class ScriptTag extends BodyTagSupport {
+@Tag(name="script", bodyContent="javascript")
+public class ScriptTag extends BodyTagSupport implements HasScriptFile, HasOnload {
 
 // ----------------------------------------------------------------- attributes
 
@@ -19,7 +23,6 @@ public class ScriptTag extends BodyTagSupport {
   private String onload;
 
 // ----------------------------------------------------------- business methods
-
   public int doEndTag() throws JspException {
     PageTag pageTag = PageTag.findPageTag(pageContext); // todo: find uiPage directly
     if (pageTag == null) {

@@ -3,6 +3,8 @@ package com.atanion.tobago.taglib.component;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.StateHolder;
 import com.atanion.tobago.event.StateChangeListener;
+import com.atanion.tobago.taglib.decl.HasStateChangeListenerType;
+import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -13,13 +15,12 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 
 /**
- * Created by IntelliJ IDEA.
- * User: weber
- * Date: 13.12.2004
- * Time: 15:54:21
- * To change this template use File | Settings | File Templates.
+ * Register an StateChangedListener instance on the UIComponent
+ *  associated with the closest parent UIComponent custom action.
  */
-public class StateChangeListenerTag extends TagSupport {
+@Tag(name="stateChangeListener")
+public class StateChangeListenerTag extends TagSupport
+    implements HasStateChangeListenerType{
 
 
   /**

@@ -11,5 +11,5 @@ public interface HasRows {
    *  The row count for this component.
    */
   @TagAttribute @UIComponentTagAttribute(type=String.class)
-  public void setWidth(String width);
+  public void setRows(String rows);
 }

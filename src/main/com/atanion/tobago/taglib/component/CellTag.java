@@ -1,6 +1,7 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UIPanel;
 import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasScrollbars;
@@ -19,7 +20,7 @@ import javax.servlet.jsp.JspException;
   * $Id$
   */
 @Tag(name="cell")
-public class CellTag extends PanelTag
+public class CellTag extends TobagoBodyTag
     implements HasId, IsRendered, HasBinding, HasSpanXY, HasScrollbars
     {
 
@@ -38,6 +39,11 @@ public class CellTag extends PanelTag
 // ///////////////////////////////////////////// constructor
 
 // ///////////////////////////////////////////// code
+
+
+  public String getComponentType() {
+    return UIPanel.COMPONENT_TYPE;
+  }
 
   public int doStartTag() throws JspException {
     return super.doStartTag();

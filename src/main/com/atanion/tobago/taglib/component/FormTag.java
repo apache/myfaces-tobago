@@ -7,8 +7,12 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UIForm;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.util.annotation.Tag;
 
-public class FormTag extends TobagoBodyTag {
+@Tag(name="form")
+public class FormTag extends TobagoBodyTag implements HasBinding, HasId{
 // ----------------------------------------------------------- business methods
 
   public String getComponentType() {

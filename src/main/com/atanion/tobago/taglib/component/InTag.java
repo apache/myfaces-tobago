@@ -26,8 +26,8 @@ import com.atanion.tobago.taglib.decl.IsRequired;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
-@Tag(name="in", bodyContent="empty")
-public class InTag extends InputTag
+@Tag(name="in")
+public class InTag extends TextInputTag
     implements HasValue, HasId, HasConverter, IsReadOnly, IsDisabled,
                HasWidth, HasOnchangeListener, IsInline, IsFocus, HasPassword,
                IsRequired, IsRendered,
@@ -39,10 +39,6 @@ public class InTag extends InputTag
 
 
 // ----------------------------------------------------------- business methods
-
-  public String getComponentType() {
-    return UIInput.COMPONENT_TYPE;
-  }
 
   public void release() {
     super.release();

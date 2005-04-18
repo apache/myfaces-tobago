@@ -13,7 +13,7 @@ import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasCommandType;
 import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasImage;
-import com.atanion.tobago.taglib.decl.HasLabelWithAccessKey;
+import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
 import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsImmediateCommand;
 import com.atanion.tobago.taglib.decl.IsInline;
@@ -25,7 +25,7 @@ import javax.faces.component.UIComponent;
 
 @Tag(name="toolBarCommand")
 public class ToolBarCommandTag extends CommandTag
-    implements HasId, HasBinding, HasLabelWithAccessKey, HasImage,
+    implements HasId, HasBinding, HasLabelAndAccessKey, HasImage,
                IsDisabled, HasAction, HasActionListener, HasCommandType,
                IsImmediateCommand, IsInline, IsRendered
     {

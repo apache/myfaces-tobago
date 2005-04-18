@@ -8,6 +8,14 @@ package com.atanion.tobago.taglib.component;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.component.UIPopup;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasWidth;
+import com.atanion.tobago.taglib.decl.HasHeight;
+import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasLeft;
+import com.atanion.tobago.taglib.decl.HasTop;
+import com.atanion.util.annotation.Tag;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -16,7 +24,9 @@ import javax.servlet.jsp.JspException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PopupTag extends TobagoBodyTag {
+@Tag(name="popup")
+public class PopupTag extends TobagoBodyTag
+    implements HasId, HasWidth, HasHeight, HasLeft, HasTop, IsRendered {
 
   private static final Log LOG = LogFactory.getLog(PopupTag.class);
   private String width;

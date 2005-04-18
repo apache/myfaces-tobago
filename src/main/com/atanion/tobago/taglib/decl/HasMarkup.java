@@ -14,7 +14,7 @@ public interface HasMarkup {
    * Indicate markup of this component.
    * Possible values are 'none', 'strong' and 'deleted'
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
-//  @TagAttribute @UIComponentTagAttribute(type=String.class, defaultValue="none")
+//  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute @UIComponentTagAttribute(type=String.class, defaultValue="none")
   public void setMarkup(String markup);
 }

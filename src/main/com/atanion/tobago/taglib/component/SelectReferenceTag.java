@@ -6,11 +6,19 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasFor;
+import com.atanion.tobago.taglib.decl.HasRenderRange;
+import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
-public class SelectReferenceTag extends TobagoTag {
+@Tag(name="selectReference")
+public class SelectReferenceTag extends TobagoTag
+    implements HasId, HasFor, HasRenderRange, IsRendered,  HasBinding {
 // ----------------------------------------------------------------- attributes
 
   private String _for;

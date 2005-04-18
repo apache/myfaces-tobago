@@ -7,10 +7,20 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasWidth;
+import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.HasValue;
+import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
+import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 
-public class RichTextEditorTag extends InTag{
+@Tag(name="richTextEditor")
+public class RichTextEditorTag extends TextInputTag
+    implements HasId, HasValue, HasLabelAndAccessKey, HasWidth, IsRendered,
+               HasBinding {
 
 // ///////////////////////////////////////////// constant
 

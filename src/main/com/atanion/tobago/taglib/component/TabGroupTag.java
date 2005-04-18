@@ -7,11 +7,23 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UITabGroup;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasWidth;
+import com.atanion.tobago.taglib.decl.HasHeight;
+import com.atanion.tobago.taglib.decl.HasState;
+import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.IsServerside;
+import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 import javax.faces.el.ValueBinding;
 
-public class TabGroupTag extends TobagoTag {
+@Tag(name="tabGroup")
+public class TabGroupTag extends TobagoTag
+    implements HasId, HasWidth, HasHeight, IsServerside, HasState, IsRendered,
+               HasBinding
+    {
 // ----------------------------------------------------------------- attributes
 
   private String serverside;

@@ -20,6 +20,7 @@ import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsImmediateCommand;
 import com.atanion.tobago.taglib.decl.IsInline;
 import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.IsDefaultCommand;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
@@ -28,8 +29,7 @@ import javax.faces.component.UIComponent;
 public class ButtonTag extends CommandTag
     implements HasId, HasBinding, HasLabelAndAccessKey, HasImage,
                IsDisabled, HasAction, HasActionListener, HasCommandType,
-               IsImmediateCommand,
-               // IsDefaultCommand, fixme: is this longer needed ???
+               IsImmediateCommand, IsDefaultCommand,
                HasWidth, HasTip, IsInline, IsRendered 
     {
 // ----------------------------------------------------------------- attributes

@@ -16,10 +16,12 @@ import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasMargin;
 import com.atanion.tobago.taglib.decl.HasMargins;
 import com.atanion.tobago.taglib.decl.HasRowLayout;
+import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 
+@Tag(name="gridLayout")
 public class GridLayoutTag extends TobagoTag
     implements HasId, HasBorder, HasCellspacing, HasMargin, HasMargins,
                HasColumnLayout, HasRowLayout, HasBinding

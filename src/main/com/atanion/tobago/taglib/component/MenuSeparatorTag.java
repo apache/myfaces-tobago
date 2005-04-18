@@ -6,11 +6,16 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
-public class MenuSeparatorTag extends TobagoTag {
+@Tag(name="menuSeparator")
+public class MenuSeparatorTag extends TobagoTag
+    implements IsRendered, HasBinding {
 
   public static final String MENU_TYPE = "menuSeparator";
 

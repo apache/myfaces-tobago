@@ -7,11 +7,31 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UITree;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasValue;
+import com.atanion.tobago.taglib.decl.HasState;
+import com.atanion.tobago.taglib.decl.HasIdReference;
+import com.atanion.tobago.taglib.decl.HasNameReference;
+import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.IsShowJunctions;
+import com.atanion.tobago.taglib.decl.IsShowIcons;
+import com.atanion.tobago.taglib.decl.IsShowRoot;
+import com.atanion.tobago.taglib.decl.IsShowRootJunction;
+import com.atanion.tobago.taglib.decl.IsMutable;
+import com.atanion.tobago.taglib.decl.HasSelectable;
+import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.faces.component.UIComponent;
 import javax.faces.el.ValueBinding;
 
-public class TreeTag extends TobagoTag {
+@Tag(name="tree")
+public class TreeTag extends TobagoTag
+    implements HasId, HasValue, HasState, IsShowJunctions, IsShowIcons,
+    IsShowRoot, IsShowRootJunction, HasSelectable, IsMutable,
+               HasIdReference, HasNameReference, IsRendered, HasBinding {
 
 // ----------------------------------------------------------------- attributes
 

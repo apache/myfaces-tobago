@@ -5,9 +5,24 @@
   */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.util.annotation.Tag;
+import com.atanion.tobago.taglib.decl.HasWidth;
+import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.HasId;
+
 import javax.faces.component.UIPanel;
 
-public class MenuBarTag extends PanelTag {
+/**
+ * <![CDATA[
+ *       Renders a menu bar.<br>
+ *       Add menu bar as facet name="menuBar" to page tag or use it anywhere
+ *       on page.<br>
+ *  ]]>
+ */
+@Tag(name="menuBar")
+public class MenuBarTag extends TobagoBodyTag
+    implements HasId, HasWidth, IsRendered, HasBinding {
 
   public String getComponentType() {
     return UIPanel.COMPONENT_TYPE;

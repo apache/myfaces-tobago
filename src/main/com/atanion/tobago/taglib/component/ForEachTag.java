@@ -1,6 +1,13 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.taglib.decl.HasVar;
+import com.atanion.tobago.taglib.decl.HasItems;
+import com.atanion.tobago.taglib.decl.HasBegin;
+import com.atanion.tobago.taglib.decl.HasStep;
+import com.atanion.tobago.taglib.decl.HasEnd;
+import com.atanion.util.annotation.Tag;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -15,7 +22,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public class ForEachTag extends BodyTagSupport {
+/**
+ * <![CDATA[ Replacement for the JSTL <c:foreach> tag. <br>
+ *     This tags iterates over the body content without setting up an exported
+ *     scope variable, but replaces all occurrence's of <code>var</code> in
+ *     <code>TobagoTag's ValueBinding</code> attributes.<br>
+ *     All non TobagoTags are treated as they are, no
+ *     replacement is done, and so no ability to use the <code>var</code> in el.
+ *   ]]>
+ */
+@Tag(name="forEach")
+public class ForEachTag extends BodyTagSupport
+    implements HasItems, HasVar, HasBegin, HasEnd, HasStep {
 
   private static final Log LOG = LogFactory.getLog(ForEachTag.class);
 

@@ -6,10 +6,23 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.taglib.decl.HasValue;
+import com.atanion.tobago.taglib.decl.IsDisabled;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasOnchangeListener;
+import com.atanion.tobago.taglib.decl.IsInline;
+import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.HasRenderRange;
+import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 
-public class SelectOneRadioTag extends SelectOneTag {
+@Tag(name="selectOneRadio")
+public class SelectOneRadioTag extends SelectOneTag
+    implements HasValue, IsDisabled, HasId, HasOnchangeListener, IsInline,
+               HasRenderRange, IsRendered, HasBinding
+    {
 
 // /////////////////////////////////////////// constants
 

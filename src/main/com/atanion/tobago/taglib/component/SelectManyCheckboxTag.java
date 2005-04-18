@@ -6,10 +6,21 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.taglib.decl.HasValue;
+import com.atanion.tobago.taglib.decl.IsDisabled;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.IsInline;
+import com.atanion.tobago.taglib.decl.HasRenderRange;
+import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 
-public class SelectManyCheckboxTag extends SelectManyListboxTag {
+@Tag(name="selectManyCheckbox")
+public class SelectManyCheckboxTag extends SelectManyTag
+    implements HasValue, IsDisabled, HasId, IsInline, HasRenderRange,
+               IsRendered,  HasBinding {
 // ----------------------------------------------------------------- attributes
 
   private String renderRange;

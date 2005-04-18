@@ -18,5 +18,5 @@ public interface HasShowPageRange {
    *    ]]>
    */
   @TagAttribute @UIComponentTagAttribute(type=String.class)
-  public void setShowRowRange(String showPageRange);
+  public void setShowPageRange(String showPageRange);
 }

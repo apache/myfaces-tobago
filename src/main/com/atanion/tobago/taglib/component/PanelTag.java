@@ -6,9 +6,17 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UIPanel;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.HasWidth;
+import com.atanion.tobago.taglib.decl.HasHeight;
+import com.atanion.util.annotation.Tag;
 
 
-public class PanelTag extends TobagoBodyTag {
+@Tag(name="panel")
+public class PanelTag extends TobagoBodyTag
+    implements HasId, HasWidth, HasHeight, IsRendered, HasBinding {
 
 // ///////////////////////////////////////////// constant
 

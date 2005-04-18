@@ -6,11 +6,26 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.IsDisabled;
+import com.atanion.tobago.taglib.decl.HasImage;
+import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 
-public class MenuTag extends TobagoTag {
+/**
+ * <![CDATA[
+ *       Container component to hold submenus and items.
+ *  ]]>
+ */
+@Tag(name="menu")
+public class MenuTag extends TobagoTag
+    implements HasId, HasLabelAndAccessKey, IsDisabled, HasImage, IsRendered,
+               HasBinding {
   public static final String MENU_TYPE = "menu";
 
 
