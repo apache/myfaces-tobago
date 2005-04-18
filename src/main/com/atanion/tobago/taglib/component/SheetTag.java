@@ -11,20 +11,9 @@ import com.atanion.tobago.event.SheetStateChangeEvent;
 import com.atanion.tobago.model.SheetState;
 import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasColumnLayout;
-import com.atanion.tobago.taglib.decl.HasDirectLinkCount;
-import com.atanion.tobago.taglib.decl.HasForceVerticalScrollbar;
 import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.HasPagingLength;
-import com.atanion.tobago.taglib.decl.HasPagingStart;
-import com.atanion.tobago.taglib.decl.HasShowDirectLinks;
-import com.atanion.tobago.taglib.decl.HasShowPageRange;
-import com.atanion.tobago.taglib.decl.HasShowRowRange;
-import com.atanion.tobago.taglib.decl.HasState;
-import com.atanion.tobago.taglib.decl.HasStateChangeListener;
-import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.HasVar;
 import com.atanion.tobago.taglib.decl.IsRendered;
-import com.atanion.tobago.taglib.decl.IsShowHeader;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
@@ -34,16 +23,13 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
+import javax.servlet.jsp.jstl.sql.Result;
+import java.util.List;
+import java.sql.ResultSet;
 
 @Tag(name="sheet")
 public class SheetTag extends TobagoTag
-    implements HasId, HasValue, HasShowRowRange, HasShowPageRange,
-               HasShowDirectLinks, HasDirectLinkCount, IsShowHeader,
-               HasPagingStart, HasPagingLength, HasColumnLayout, HasVar,
-               HasForceVerticalScrollbar, IsRendered, HasBinding,
-               HasStateChangeListener
-    // todo: don' implement HasState, use annotations at setter
-               , HasState
+    implements HasId, HasBinding, IsRendered, HasColumnLayout
     {
 
 // ----------------------------------------------------------------- attributes
@@ -155,6 +141,13 @@ public class SheetTag extends TobagoTag
     return showHeader;
   }
 
+  /**
+   *  <![CDATA[
+   *    Flag indicating the header should rendered.
+   *    ]]>
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=Boolean.class, defaultValue="true")
   public void setShowHeader(String showHeader) {
     this.showHeader = showHeader;
   }
@@ -163,6 +156,14 @@ public class SheetTag extends TobagoTag
     return pagingLength;
   }
 
+  /**
+   *  <![CDATA[
+   *   The number of rows to display, starting with the one identified by the
+   *   "pageingStart" property.
+   *    ]]>
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=Integer.class, defaultValue="100")
   public void setPagingLength(String pagingLength) {
     this.pagingLength = pagingLength;
   }
@@ -175,6 +176,13 @@ public class SheetTag extends TobagoTag
     return stateChangeListener;
   }
 
+   /**
+   *  <![CDATA[
+   *   Zero-relative row number of the first row to be displayed.
+   *    ]]>
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=Integer.class, defaultValue="0")
   public void setPagingStart(String pagingStart) {
     this.pagingStart = pagingStart;
   }
@@ -183,6 +191,13 @@ public class SheetTag extends TobagoTag
     return value;
   }
 
+  /**
+   *  The sheet's data.
+   *  
+   */
+  @TagAttribute(required=true)
+  @UIComponentTagAttribute(type={Object[].class, List.class, Result.class,
+                                 ResultSet.class, Object.class})
   public void setValue(String value) {
     this.value = value;
   }
@@ -191,36 +206,117 @@ public class SheetTag extends TobagoTag
     return var;
   }
 
+   /**
+   *  <![CDATA[
+   * Name of a request-scope attribute under which the model data for the row
+   * selected by the current value of the "rowIndex" property
+   * (i.e. also the current value of the "rowData" property) will be exposed.
+   *    ]]>
+   */
+  @TagAttribute(required=true)
+  @UIComponentTagAttribute(type=String.class)
   public void setVar(String var) {
     this.var = var;
   }
 
+   /**
+   *  <![CDATA[
+   *   The count of rendered direct paging links in the sheet's footer.<br />
+   *    The <strong>default</strong> is 9.
+   *    ]]>
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=Integer.class, defaultValue="9")
   public void setDirectLinkCount(String directLinkCount) {
     this.directLinkCount = directLinkCount;
   }
 
+  /**
+   *  <![CDATA[
+   * Flag indicating whether or not this sheet should reserve space for
+   *      vertical toolbar when calculating column width's.<br>
+   *      Possible values are: <pre>
+   *      'auto'  : sheet try to estimate the need of scrollbar,
+   *                this is the default.
+   *      'true'  : space for scroolbar is reserved.
+   *      'false' : no space is reserved.
+   *      </pre>
+   *    ]]>
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=String.class, defaultValue="auto")
   public void setForceVerticalScrollbar(String forceVerticalScrollbar) {
     this.forceVerticalScrollbar = forceVerticalScrollbar;
   }
 
+  /**
+   *  <![CDATA[
+   *   Flag indicating whether or not a range of direct paging links should be
+   *   rendered in the sheet's footer.<br />
+   *    Valid values are <strong>left</strong>, <strong>center</strong>,
+   *    <strong>right</strong> and <strong>none</strong>.
+   *    The <strong>default</strong> is <code>none</code>.
+   *    ]]>
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=String.class, defaultValue="none")
   public void setShowDirectLinks(String showDirectLinks) {
     this.showDirectLinks = showDirectLinks;
   }
 
+   /**
+   *  <![CDATA[
+   *   Flag indicating whether and where the range pages should
+   *    rendered in the sheet's footer. Rendering this range also offers the
+   *    capability to enter the index displayed page directly.<br />
+   *    Valid values are <strong>left</strong>, <strong>center</strong>,
+   *    <strong>right</strong> and <strong>none</strong>.
+   *    The <strong>default</strong> is <code>none</code>.
+   *    ]]>
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=String.class, defaultValue="none")
   public void setShowPageRange(String showPageRange) {
     this.showPageRange = showPageRange;
   }
 
+
+  /**
+   *  <![CDATA[
+   *    Flag indicating whether or not the range of displayed rows should
+   *   rendered in the sheet's footer. Rendering this range also offers the
+   *    capability to enter the index of the start row directly. <br />
+   *    Valid values are <strong>left</strong>, <strong>center</strong>,
+   *    <strong>right</strong> and <strong>none</strong>.
+   *    The <strong>default</strong> is <code>none</code>.
+   *    ]]>
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=String.class, defaultValue="none")
   public void setShowRowRange(String showRowRange) {
     this.showRowRange = showRowRange;
   }
 
-  @TagAttribute @UIComponentTagAttribute(type=SheetState.class)
+  /**
+   * <![CDATA[
+   * Sheet state saving object.
+   *    ]]>
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=SheetState.class)
   public void setState(String state) {
     this.state = state;
   }
 
-  public void setStateChangeListener(String stateChangeListener) {
+   /**
+   *  <![CDATA[
+   * MethodBinding representing an stateChangeListener method that will be
+   * notified when the state was changed by the user.
+   * The expression must evaluate to a public method that takes an
+   * StateChangeEvent parameter, with a return type of void.
+   *    ]]>
+   */
+  @TagAttribute @UIComponentTagAttribute(type=String.class)public void setStateChangeListener(String stateChangeListener) {
     this.stateChangeListener = stateChangeListener;
   }
 }

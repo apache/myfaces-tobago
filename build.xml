@@ -12,7 +12,6 @@
   <property name="tlddoc.windowtitle" value="Tobago Tag Library Documentation"/>
   <import file="${bs.home}/build-basic.xml"/>
 
-  <!--<target name="dist" depends="compile">-->
   <target name="dist" depends="compile, annotations">
     <mkdir dir="${dist}"/>
     <jar jarfile="${dist}/tobago.jar">
@@ -28,8 +27,7 @@
       <metainf dir="${src.main}/com/atanion/tobago">
         <include name="faces-config.xml"/>
       </metainf>
-      <metainf dir="${src.main}/com/atanion/tobago/taglib/component">
-      <!--<metainf dir="${build.classes.main}/com/atanion/tobago/taglib/component">-->
+      <metainf dir="${build.classes.main}/com/atanion/tobago/taglib/component">
         <include name="tobago.tld"/>
       </metainf>
     </jar>
@@ -117,11 +115,11 @@
          classpathref="project.classpath.jar"
          debug="on"
          compile="false"
-         preprocessdir="src/main"
+         preprocessdir="${build.classes.main}"
          factory="com.atanion.apt.TaglibAnnotationProcessorFactory"
          factorypathref="project.classpath.jar" >
       <option name="package" value="com.atanion.tobago.taglib.component" />
-      <option name="file" value="tobago2.tld" />
+      <option name="file" value="tobago.tld" />
     </apt>
   </target>
 

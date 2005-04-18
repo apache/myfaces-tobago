@@ -11,9 +11,11 @@ public interface HasCommandType {
    *  <![CDATA[
    * Type of command component to create. Valid values are 'navigate', 'reset',
    * 'script' or 'submit'.
-   * If not specified, or not a valid value, the default value is 'submit'.
+   * If not specified, or not a valid value,
+   * the default value is 'submit' is used.
    *    ]]>
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute
+  @UIComponentTagAttribute(type=String.class, defaultValue="submit")
   public void setType(String type);
 }

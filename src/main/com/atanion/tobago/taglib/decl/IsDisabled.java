@@ -11,8 +11,7 @@ import com.atanion.util.annotation.UIComponentTagAttribute;
  */
 public interface IsDisabled {
   /**
-   *
-   * insert description here
+   *  Flag indicating that this element is disabled.
    */
   @TagAttribute(type=String.class)
   @UIComponentTagAttribute(type=Boolean.class)

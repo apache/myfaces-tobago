@@ -9,7 +9,10 @@ import com.atanion.util.annotation.UIComponentTagAttribute;
 public interface HasScrollbars {
   /**
    *  <![CDATA[
-   *     
+   *  possible values are:
+   *    'false' : no scrollbars should rendered
+   *    'true'  : scrollbars should always rendered
+   *    'auto'  : scrollbars should rendered when needed
    *    ]]>
    */
   @TagAttribute @UIComponentTagAttribute(type=String.class)
