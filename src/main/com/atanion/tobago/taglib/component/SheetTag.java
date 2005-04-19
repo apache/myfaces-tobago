@@ -14,6 +14,7 @@ import com.atanion.tobago.taglib.decl.HasColumnLayout;
 import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasVar;
 import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
@@ -28,8 +29,7 @@ import java.util.List;
 import java.sql.ResultSet;
 
 @Tag(name="sheet")
-public class SheetTag extends TobagoTag
-    implements HasId, HasBinding, IsRendered, HasColumnLayout
+public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
     {
 
 // ----------------------------------------------------------------- attributes
@@ -133,6 +133,15 @@ public class SheetTag extends TobagoTag
     return columns;
   }
 
+
+  /**
+   *  <![CDATA[
+   * LayoutConstraints for column layout.
+   * Semicolon separated list of layout tokens ('<x>*', '<x>px' or '<x>%').
+   *    ]]>
+   */
+  @TagAttribute(required=true)
+  @UIComponentTagAttribute(type=String.class)
   public void setColumns(String columns) {
     this.columns = columns;
   }

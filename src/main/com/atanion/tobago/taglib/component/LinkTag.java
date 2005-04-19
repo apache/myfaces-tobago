@@ -19,17 +19,21 @@ import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsImmediateCommand;
 import com.atanion.tobago.taglib.decl.IsInline;
 import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 
-@Tag(name="link")
+/**
+ *  Renders a link element.
+ */
+@Tag(name="link", bodyContent="JSP=facestag*")
 public class LinkTag extends CommandTag
-    implements HasId, HasLabelAndAccessKey, IsDisabled, HasAction,
-               HasActionListener, IsInline, HasCommandType, HasTarget, HasTip,
-               IsImmediateCommand, HasImage, IsRendered ,HasBinding
+    implements HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled,
+               HasAction, HasActionListener, IsInline, HasCommandType,
+               HasTarget, HasTip, IsImmediateCommand, HasImage
     {
 
 // /////////////////////////////////////////// constants

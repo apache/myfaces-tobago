@@ -16,14 +16,18 @@ import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.IsImmediateCommand;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 
-@Tag(name="menuradio")
+/**
+ * Renders a submenu with select one items.
+ */
+@Tag(name="menuradio", bodyContent="JSP=")
 public class MenuSelectOneTag extends CommandTag
-    implements HasId, HasLabel, IsDisabled, HasAction, HasCommandType, HasValue,
-               IsRendered, HasBinding, IsImmediateCommand {
+    implements HasIdBindingAndRendered, HasLabel, IsDisabled, HasAction, HasCommandType, HasValue,
+               IsImmediateCommand {
 
   public static final String COMMAND_TYPE = "commandSelectOne";
 

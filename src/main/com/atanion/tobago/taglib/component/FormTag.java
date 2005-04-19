@@ -11,8 +11,8 @@ import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.util.annotation.Tag;
 
-@Tag(name="form")
-public class FormTag extends TobagoBodyTag implements HasBinding, HasId{
+@Tag(name="form", bodyContent="JSP")
+public class FormTag extends TobagoBodyTag implements HasBinding, HasId {
 // ----------------------------------------------------------- business methods
 
   public String getComponentType() {

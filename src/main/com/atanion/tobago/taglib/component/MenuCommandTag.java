@@ -16,16 +16,18 @@ import com.atanion.tobago.taglib.decl.HasImage;
 import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.IsImmediateCommand;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 
-
-@Tag(name="menuItem")
+/**
+ * Renders a menu item.
+ */
+@Tag(name="menuItem", bodyContent="JSP=")
 public class MenuCommandTag extends CommandTag
-    implements HasId, HasLabelAndAccessKey, IsDisabled,  HasAction,
-               HasActionListener, HasCommandType, HasImage, IsRendered,
-               HasBinding, IsImmediateCommand {
+    implements HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled,  HasAction,
+               HasActionListener, HasCommandType, HasImage, IsImmediateCommand {
 
   public static final String COMMAND_TYPE = "menuCommand";
 

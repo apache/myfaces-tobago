@@ -2,11 +2,9 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.taglib.decl.HasVar;
-import com.atanion.tobago.taglib.decl.HasItems;
-import com.atanion.tobago.taglib.decl.HasBegin;
-import com.atanion.tobago.taglib.decl.HasStep;
-import com.atanion.tobago.taglib.decl.HasEnd;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,9 +29,8 @@ import java.util.regex.Pattern;
  *     replacement is done, and so no ability to use the <code>var</code> in el.
  *   ]]>
  */
-@Tag(name="forEach")
-public class ForEachTag extends BodyTagSupport
-    implements HasItems, HasVar, HasBegin, HasEnd, HasStep {
+@Tag(name="forEach", bodyContent="JSP")
+public class ForEachTag extends BodyTagSupport implements HasVar {
 
   private static final Log LOG = LogFactory.getLog(ForEachTag.class);
 
@@ -140,6 +137,14 @@ public class ForEachTag extends BodyTagSupport
     }
   }
 
+  /**
+   * <![CDATA[ <code>java.util.List</code>,
+   *   <code>java.util.Map</code> or <code>Object[]</code> of items to iterate over.
+   *   This <strong>must</strong> be a <code>ValueBinding</code>.
+   * ]]>
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type={List.class, Map.class, Object[].class})
   public void setItems(String items) {
     this.items = items;
   }
@@ -148,14 +153,39 @@ public class ForEachTag extends BodyTagSupport
     this.var = var;
   }
 
+
+  /**
+   * <![CDATA[
+   *  Index at which the iteration begins.
+   * ]]>
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=Integer.class, defaultValue="0")
   public void setBegin(String begin) {
     this.begin = begin;
   }
 
+
+  /**
+   * <![CDATA[
+   *  Index at which the iteration stops.
+   *  Defaults to <code>items.length()</code>.
+   * ]]>
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=Integer.class, defaultValue="items.lenght()")
   public void setEnd(String end) {
     this.end = end;
   }
 
+
+  /**
+   * <![CDATA[
+   *  Index increments every iteration by this value.
+   * ]]>
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=Integer.class, defaultValue="1")
   public void setStep(String step) {
     this.step = step;
   }

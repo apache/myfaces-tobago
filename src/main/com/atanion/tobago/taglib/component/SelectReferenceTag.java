@@ -11,14 +11,17 @@ import com.atanion.tobago.taglib.decl.HasFor;
 import com.atanion.tobago.taglib.decl.HasRenderRange;
 import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
 @Tag(name="selectReference")
 public class SelectReferenceTag extends TobagoTag
-    implements HasId, HasFor, HasRenderRange, IsRendered,  HasBinding {
+    implements HasIdBindingAndRendered {
 // ----------------------------------------------------------------- attributes
 
   private String _for;
@@ -41,6 +44,12 @@ public class SelectReferenceTag extends TobagoTag
     renderRange = null;
   }
 
+
+  /**
+   *  Id of the component, this is related to.
+   */
+  @TagAttribute(required=true)
+  @UIComponentTagAttribute(type=String.class)
   public void setFor(String _for) {
     this._for = _for;
   }
@@ -57,6 +66,12 @@ public class SelectReferenceTag extends TobagoTag
     return renderRange;
   }
 
+
+  /**
+   *  Range of items to render.
+   */
+  @TagAttribute(required=true)
+  @UIComponentTagAttribute(type=String.class)
   public void setRenderRange(String renderRange) {
     this.renderRange = renderRange;
   }

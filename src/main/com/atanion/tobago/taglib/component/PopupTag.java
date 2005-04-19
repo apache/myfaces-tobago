@@ -9,12 +9,11 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.component.UIPopup;
 import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.HasWidth;
-import com.atanion.tobago.taglib.decl.HasHeight;
 import com.atanion.tobago.taglib.decl.IsRendered;
-import com.atanion.tobago.taglib.decl.HasLeft;
-import com.atanion.tobago.taglib.decl.HasTop;
+import com.atanion.tobago.taglib.decl.HasDimension;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,9 +23,12 @@ import javax.servlet.jsp.JspException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Tag(name="popup")
+/**
+ * Renders a popup panel.
+ */
+@Tag(name="popup", bodyContent="JSP")
 public class PopupTag extends TobagoBodyTag
-    implements HasId, HasWidth, HasHeight, HasLeft, HasTop, IsRendered {
+    implements HasId, IsRendered, HasDimension {
 
   private static final Log LOG = LogFactory.getLog(PopupTag.class);
   private String width;
@@ -81,10 +83,22 @@ public class PopupTag extends TobagoBodyTag
     this.width = width;
   }
 
+
+  /**
+   *
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=Integer.class)
   public void setHeight(String height) {
     this.height = height;
   }
 
+
+  /**
+   *
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=Integer.class)
   public void setLeft(String left) {
     this.left = left;
   }

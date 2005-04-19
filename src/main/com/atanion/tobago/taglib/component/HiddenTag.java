@@ -11,11 +11,28 @@ import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
-@Tag(name="hidden")
+/**
+ * Renders a 'hidden' input element.
+ */
+@Tag(name="hidden", bodyContent="JSP=")
 public class HiddenTag extends BeanTag
-    implements HasId, HasBinding, HasValue
-    {
+    implements HasId, HasBinding, HasValue {
+
+
+
+  /**
+   *  The component identifier for this component.
+   *  This value must be unique within the closest
+   *  parent component that is a naming container.
+   */
+  @TagAttribute(required=true)
+  @UIComponentTagAttribute(type=String.class)
+  public void setId(String id) {
+    super.setId(id);
+  }
 
   public String getComponentType() {
     return UIInput.COMPONENT_TYPE;

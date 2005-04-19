@@ -9,25 +9,23 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.HasAlt;
-import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasBorder;
 import com.atanion.tobago.taglib.decl.HasDimension;
-import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasTip;
-import com.atanion.tobago.taglib.decl.HasValue;
-import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 
-
-@Tag(name="image")
+/**
+ *  Renders a Image.
+ */
+@Tag(name="image", bodyContent="empty")
 public class ImageTag extends TobagoTag
-    implements HasId, HasValue, HasAlt, HasBorder, HasDimension, HasTip,
-               IsRendered, HasBinding
-    {
+    implements HasIdBindingAndRendered, HasBorder, HasDimension, HasTip {
 
   private String value;
   private String alt;
@@ -58,6 +56,13 @@ public class ImageTag extends TobagoTag
     return value;
   }
 
+  /**
+   *  <![CDATA[
+   * Absolute url to an image or image name to lookup in tobago resource path
+   *    ]]>
+   */
+  @TagAttribute(required=true)
+  @UIComponentTagAttribute(type=String.class)
   public void setValue(String value) {
     this.value = value;
   }
@@ -66,6 +71,13 @@ public class ImageTag extends TobagoTag
     return alt;
   }
 
+  /**
+   *  <![CDATA[
+   *  Alternate textual description of the image rendered by this component.
+   *    ]]>
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=String.class)
   public void setAlt(String alt) {
     this.alt = alt;
   }

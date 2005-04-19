@@ -21,7 +21,7 @@ import com.atanion.util.annotation.Tag;
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 
-@Tag(name="gridLayout")
+@Tag(name="gridLayout", bodyContent="empty")
 public class GridLayoutTag extends TobagoTag
     implements HasId, HasBorder, HasCellspacing, HasMargin, HasMargins,
                HasColumnLayout, HasRowLayout, HasBinding

@@ -10,14 +10,18 @@ import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasValue;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
-@Tag(name="calendar")
+/**
+ * Renders a calendar.
+ */
+@Tag(name="calendar", bodyContent="empty")
 public class CalendarTag extends TobagoTag
-    implements HasId, HasValue, IsRendered, HasBinding {
+    implements HasIdBindingAndRendered, HasValue {
 
 // ----------------------------------------------------------------- attributes
 

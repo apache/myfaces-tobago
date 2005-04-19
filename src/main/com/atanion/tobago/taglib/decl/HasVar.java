@@ -14,6 +14,7 @@ public interface HasVar {
    * (i.e. also the current value of the "rowData" property) will be exposed.    
    *    ]]>
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute(required=true)
+  @UIComponentTagAttribute(type=String.class)
   public void setVar(String var);
 }

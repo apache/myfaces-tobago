@@ -16,16 +16,19 @@ import com.atanion.tobago.taglib.decl.HasTip;
 import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 
 import javax.servlet.jsp.JspException;
 
-@Tag(name="file", bodyContent="empty")
+/**
+ * Renders a file input field. 
+ */
+@Tag(name="file", bodyContent="JSP=")
 public class FileTag extends InputTag
-    implements HasId, HasValue, IsDisabled, HasLabelAndAccessKey,
-               HasOnchangeListener, IsRendered, HasBinding, HasTip
-    {
-// ----------------------------------------------------------- business methods
+    implements HasIdBindingAndRendered, HasValue, IsDisabled,
+               HasLabelAndAccessKey, HasOnchangeListener, HasTip {
+  // ----------------------------------------------------------- business methods
 
   public int doStartTag() throws JspException {
     int result = super.doStartTag();

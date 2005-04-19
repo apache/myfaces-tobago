@@ -22,7 +22,7 @@ import javax.faces.component.UIComponent;
  *  associated with the closed parent UIComponent custom
  *  action.
  */
-@Tag(name="selectItem")
+@Tag(name="selectItem", bodyContent="empty")
 public class SelectItemTag extends TobagoTag
     implements HasBinding, HasId, HasValue, HasItemDescription, HasItemLabel,
     HasItemValue, HasItemImage, IsItemDisabled {

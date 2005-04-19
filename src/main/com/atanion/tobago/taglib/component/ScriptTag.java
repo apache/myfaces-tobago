@@ -6,15 +6,18 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.taglib.decl.HasScriptFile;
-import com.atanion.tobago.taglib.decl.HasOnload;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
+/**
+ * This tag add client side script to the rendered page.
+ */
 @Tag(name="script", bodyContent="javascript")
-public class ScriptTag extends BodyTagSupport implements HasScriptFile, HasOnload {
+public class ScriptTag extends BodyTagSupport  {
 
 // ----------------------------------------------------------------- attributes
 
@@ -64,6 +67,12 @@ public class ScriptTag extends BodyTagSupport implements HasScriptFile, HasOnloa
     return file;
   }
 
+
+  /**
+   * Absolute url to script file or script name to lookup in tobago resource path
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=String.class)
   public void setFile(String file) {
     this.file = file;
   }
@@ -72,6 +81,12 @@ public class ScriptTag extends BodyTagSupport implements HasScriptFile, HasOnloa
     return onload;
   }
 
+
+  /**
+   * A script function which is invoked during onLoad Handler on client.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=String.class)
   public void setOnload(String onload) {
     this.onload = onload;
   }

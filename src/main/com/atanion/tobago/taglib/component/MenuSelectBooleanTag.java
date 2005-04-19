@@ -16,15 +16,18 @@ import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
 import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.IsImmediateCommand;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 
-
-@Tag(name="menucheck")
+/**
+ * Renders a checkable menuitem.
+ */
+@Tag(name="menucheck", bodyContent="JSP=")
 public class MenuSelectBooleanTag extends CommandTag
-    implements HasId, IsDisabled, HasAction, HasCommandType, HasValue,
-               HasLabelAndAccessKey, IsRendered, HasBinding, IsImmediateCommand{
+    implements HasIdBindingAndRendered, IsDisabled, HasAction, HasCommandType, HasValue,
+               HasLabelAndAccessKey, IsImmediateCommand{
   public static final String COMMAND_TYPE = "commandSelectBoolean";
 
 // ----------------------------------------------------------------- attributes

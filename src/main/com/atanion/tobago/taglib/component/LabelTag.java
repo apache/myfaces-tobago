@@ -15,6 +15,7 @@ import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.HasWidth;
 import com.atanion.tobago.taglib.decl.IsInline;
 import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
@@ -22,10 +23,13 @@ import com.atanion.util.annotation.UIComponentTagAttribute;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
+/**
+ * Renders a label component.
+ */
 @Tag(name="label", bodyContent="empty")
 public class LabelTag extends BeanTag
-    implements HasId, HasLabelWithAccessKey, HasFor, IsInline, HasWidth,
-               IsRendered, HasBinding, HasTip
+    implements HasIdBindingAndRendered, HasLabelWithAccessKey, HasFor, IsInline,
+               HasWidth, HasTip
                // todo: remove interface HasValue, use annotations at setter
                , HasValue
      {

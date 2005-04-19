@@ -12,14 +12,18 @@ import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasTip;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
+/**
+ * Renders a progressbar.
+ */
 @Tag(name="progress", bodyContent="empty")
 public class ProgressTag extends BeanTag
-    implements HasValue, HasId, IsRendered, HasBinding, HasTip {
+    implements HasValue, HasIdBindingAndRendered, HasTip {
 
 // /////////////////////////////////////////// constants
 

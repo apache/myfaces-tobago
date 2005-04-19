@@ -13,16 +13,19 @@ import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 
-@Tag(name="richTextEditor")
+/**
+ * Renders a text editor.
+ */
+@Tag(name="richTextEditor", bodyContent="JSP=")
 public class RichTextEditorTag extends TextInputTag
-    implements HasId, HasValue, HasLabelAndAccessKey, HasWidth, IsRendered,
-               HasBinding {
+    implements HasIdBindingAndRendered, HasValue, HasLabelAndAccessKey, HasWidth {
 
-// ///////////////////////////////////////////// constant
+  // ///////////////////////////////////////////// constant
 
 // /////////////////////////////////////////// attributes
 

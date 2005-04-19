@@ -7,8 +7,9 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.taglib.decl.HasVar;
-import com.atanion.tobago.taglib.decl.HasBasename;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.jsp.JspException;
@@ -17,8 +18,13 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-@Tag(name="loadBundle")
-public class LoadBundleTag extends TagSupport implements HasBasename, HasVar {
+/**
+ * Load a resource bundle localized for the Locale of the current view
+ * from the tobago resource path, and expose it (as a Map) in the request
+ * attributes of the current request.
+ */
+@Tag(name="loadBundle", bodyContent="empty")
+public class LoadBundleTag extends TagSupport implements HasVar {
 // ----------------------------------------------------------------- attributes
 
   private String basename;
@@ -46,6 +52,11 @@ public class LoadBundleTag extends TagSupport implements HasBasename, HasVar {
     return basename;
   }
 
+  /**
+   *  Base name of the resource bundle to be loaded.
+   */
+  @TagAttribute(required=true)
+  @UIComponentTagAttribute(type=String.class)
   public void setBasename(String basename) {
     this.basename = basename;
   }

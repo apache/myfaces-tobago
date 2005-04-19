@@ -17,6 +17,7 @@ import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsInline;
 import com.atanion.tobago.taglib.decl.IsReadOnly;
 import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.application.Application;
@@ -25,13 +26,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 import javax.faces.context.FacesContext;
 
-@Tag(name="date")
+/**
+ * Renders a date input field.
+ */
+@Tag(name="date", bodyContent="JSP=")
 public class DateTag extends InputTag
-    implements HasId, HasValue, IsReadOnly, IsDisabled, IsRendered, IsInline,
-    HasLabelAndAccessKey, HasBinding, HasTip
-    {
+    implements HasIdBindingAndRendered, HasValue, IsReadOnly, IsDisabled,
+               IsInline, HasLabelAndAccessKey, HasTip {
 
-// ----------------------------------------------------------- business methods
+  // ----------------------------------------------------------- business methods
 
   public String getComponentType() {
     return UIInput.COMPONENT_TYPE;

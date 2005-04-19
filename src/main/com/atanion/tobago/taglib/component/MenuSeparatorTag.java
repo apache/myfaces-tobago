@@ -13,7 +13,10 @@ import com.atanion.util.annotation.Tag;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
-@Tag(name="menuSeparator")
+/**
+ * Renders a separator.
+ */
+@Tag(name="menuSeparator", bodyContent="empty")
 public class MenuSeparatorTag extends TobagoTag
     implements IsRendered, HasBinding {
 

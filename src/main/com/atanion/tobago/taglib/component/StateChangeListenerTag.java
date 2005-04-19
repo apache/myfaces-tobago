@@ -5,6 +5,8 @@ import com.atanion.tobago.component.StateHolder;
 import com.atanion.tobago.event.StateChangeListener;
 import com.atanion.tobago.taglib.decl.HasStateChangeListenerType;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -32,11 +34,11 @@ public class StateChangeListenerTag extends TagSupport
 
 
   /**
-   * <p>Set the fully qualified class name of the
-   * {@link StateChangeListener} instance to be created.
-   *
-   * @param type The new class name
+   * Fully qualified Java class name of a StateChangeListener to be
+   *  created and registered.
    */
+  @TagAttribute(required=true)
+  @UIComponentTagAttribute(type=String.class)
   public void setType(String type) {
 
       this.type_ = type;

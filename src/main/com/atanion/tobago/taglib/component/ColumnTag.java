@@ -7,22 +7,23 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.HasAlign;
-import com.atanion.tobago.taglib.decl.HasBinding;
-import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasLabel;
-import com.atanion.tobago.taglib.decl.IsRendered;
-import com.atanion.tobago.taglib.decl.IsSortable;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 
-@Tag(name="column")
+/**
+ * Renders a UIComponent that represents a single column of data within a
+ * parent UIData component.
+ */
+@Tag(name="column", bodyContent="JSP")
 public class ColumnTag extends TobagoTag
-    implements HasId, HasLabel, IsSortable, HasAlign, IsRendered, HasBinding 
-    {
-// ----------------------------------------------------------------- attributes
+    implements HasIdBindingAndRendered, HasLabel {
+  // ----------------------------------------------------------------- attributes
 
   protected String sortable;
   private String align;
@@ -59,6 +60,14 @@ public class ColumnTag extends TobagoTag
     return align;
   }
 
+
+  /**
+   *  <![CDATA[
+   *  Alignment of this column.
+   *
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=String.class)
   public void setAlign(String align) {
     this.align = align;
   }
@@ -67,6 +76,13 @@ public class ColumnTag extends TobagoTag
     return sortable;
   }
 
+   /**
+   *  <![CDATA[
+   *  Flag indicating whether or not this column is sortable.
+   *    ]]>
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=Boolean.class, defaultValue="false")
   public void setSortable(String sortable) {
     this.sortable = sortable;
   }

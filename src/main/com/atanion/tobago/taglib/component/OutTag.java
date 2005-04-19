@@ -7,15 +7,11 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasConverter;
-import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.HasMarkup;
 import com.atanion.tobago.taglib.decl.HasTip;
 import com.atanion.tobago.taglib.decl.HasValue;
-import com.atanion.tobago.taglib.decl.IsEscaped;
 import com.atanion.tobago.taglib.decl.IsInline;
-import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
@@ -25,10 +21,9 @@ import javax.faces.component.UIOutput;
 /**
  * Renders a text
  */
-@Tag(name="out", bodyContent="f:converter|f:convertNumber|f:convertDateTime|...")
+@Tag(name="out", bodyContent="JSP=f:converter|f:convertNumber|f:convertDateTime|...")
 public class OutTag extends BeanTag
-    implements HasId, HasBinding, HasConverter, IsInline, HasTip, IsEscaped,
-               HasMarkup, IsRendered
+    implements HasIdBindingAndRendered, HasConverter, IsInline, HasTip
                // todo: remove interface HasValue, use annotations at setter
                , HasValue
      {
@@ -72,6 +67,15 @@ public class OutTag extends BeanTag
   public String getEscape() {
     return escape;
   }
+
+
+  /**
+   * Flag indicating that characters that are
+   * sensitive in HTML and XML markup must be escaped.
+   * This flag is set to "true" by default.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=Boolean.class, defaultValue="true")
   public void setEscape(String escape) {
     this.escape = escape;
   }
@@ -79,6 +83,13 @@ public class OutTag extends BeanTag
   public String getMarkup() {
     return markup;
   }
+
+  /**
+   * Indicate markup of this component.
+   * Possible values are 'none', 'strong' and 'deleted'
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=String.class, defaultValue="none")
   public void setMarkup(String markup) {
     this.markup = markup;
   }

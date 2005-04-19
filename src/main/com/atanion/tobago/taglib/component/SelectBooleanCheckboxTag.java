@@ -14,14 +14,18 @@ import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsInline;
 import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UISelectBoolean;
 
-@Tag(name="selectBooleanCheckbox", bodyContent="empty")
+/**
+ * Renders a checkbox.
+ */
+@Tag(name="selectBooleanCheckbox", bodyContent="JSP=")
 public class SelectBooleanCheckboxTag extends InputTag
-    implements HasId, HasLabelAndAccessKey, HasValue, IsDisabled,
-               IsInline, IsRendered, HasBinding, HasTip
+    implements HasIdBindingAndRendered, HasLabelAndAccessKey, HasValue, IsDisabled,
+               IsInline, HasTip
     {
 
 // ----------------------------------------------------------- business methods

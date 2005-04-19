@@ -17,8 +17,10 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 
-
-@Tag(name="columnSelector")
+/**
+ * Renders a column with checkboxes to mark selected row's.
+ */
+@Tag(name="columnSelector", bodyContent="empty")
 public class ColumnSelectorTag extends TobagoTag
     implements IsDisabled, IsRendered, HasBinding
     {

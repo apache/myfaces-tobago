@@ -12,11 +12,15 @@ import com.atanion.tobago.taglib.decl.HasDimension;
 import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasLabel;
 import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 
-@Tag(name="box")
+/**
+ * Renders a panel with border and title.
+ */
+@Tag(name="box", bodyContent="JSP")
 public class BoxTag extends TobagoBodyTag
-    implements HasId, HasDimension, HasLabel, IsRendered, HasBinding 
+    implements HasIdBindingAndRendered, HasDimension, HasLabel 
     {
 
 // ----------------------------------------------------------- business methods

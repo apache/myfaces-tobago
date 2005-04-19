@@ -11,12 +11,17 @@ import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasWidth;
 import com.atanion.tobago.taglib.decl.HasHeight;
+import com.atanion.tobago.taglib.decl.HasDimension;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 
-
-@Tag(name="panel")
+/**
+ * Intended for use in situations when only one UIComponent child can be
+ * nested, such as in the case of facets.
+ */
+@Tag(name="panel", bodyContent="JSP")
 public class PanelTag extends TobagoBodyTag
-    implements HasId, HasWidth, HasHeight, IsRendered, HasBinding {
+    implements HasIdBindingAndRendered, HasDimension {
 
 // ///////////////////////////////////////////// constant
 

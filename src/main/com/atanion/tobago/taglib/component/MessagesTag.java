@@ -10,14 +10,18 @@ import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasFor;
 import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIMessages;
 
-@Tag(name="messages")
+/**
+ * Renders error/validation messages.
+ */
+@Tag(name="messages", bodyContent="empty")
 public class MessagesTag extends TobagoTag
-    implements HasId, HasFor, IsRendered, HasBinding {
+    implements HasIdBindingAndRendered, HasFor {
 
 
 // ///////////////////////////////////////////// constant

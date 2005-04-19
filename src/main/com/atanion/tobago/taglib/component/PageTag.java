@@ -9,14 +9,13 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.taglib.decl.HasBinding;
-import com.atanion.tobago.taglib.decl.HasCharset;
 import com.atanion.tobago.taglib.decl.HasDimension;
-import com.atanion.tobago.taglib.decl.HasDoctype;
-import com.atanion.tobago.taglib.decl.HasFocusId;
 import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasLabel;
 import com.atanion.tobago.taglib.decl.HasState;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -24,10 +23,13 @@ import javax.faces.el.ValueBinding;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import java.util.List;
-@Tag(name = "page")
+
+/**
+ * 
+ */
+@Tag(name = "page", bodyContent="JSP")
 public class PageTag extends TobagoBodyTag
-    implements HasLabel, HasDoctype, HasCharset, HasId, HasDimension,
-               HasBinding, HasState, HasFocusId
+    implements HasLabel, HasId, HasDimension, HasBinding, HasState
     {
 // ------------------------------------------------------------------ constants
 
@@ -123,10 +125,29 @@ public class PageTag extends TobagoBodyTag
 
 // ------------------------------------------------------------ getter + setter
 
+
+  /**
+   *  The charset to render.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=String.class)
   public void setCharset(String charset) {
     this.charset = charset;
   }
 
+
+  /**
+   * values for doctype :
+        'strict'   : HTML 4.01 Strict DTD
+        'loose'    : HTML 4.01 Transitional DTD
+        'frameset' : HTML 4.01 Frameset DTD
+        all other values are ignored and no DOCTYPE is set.
+        default value is 'loose'
+   *
+   * @param doctype
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=String.class, defaultValue = "loose")
   public void setDoctype(String doctype) {
     this.doctype = doctype;
   }
@@ -143,6 +164,16 @@ public class PageTag extends TobagoBodyTag
     return focusId;
   }
 
+
+  /**
+   * Contains the id of the component witch should have the focus after
+        loading the page.
+        Set to emtpy string for disabling setting of focus.
+        Default (null) enables the "auto focus" feature.
+   * @param focusId
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=String.class)
   public void setFocusId(String focusId) {
     this.focusId = focusId;
   }
