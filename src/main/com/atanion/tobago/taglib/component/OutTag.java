@@ -25,7 +25,7 @@ import javax.faces.component.UIOutput;
 /**
  * Renders a text
  */
-@Tag(name="out", bodyContent="empty")
+@Tag(name="out", bodyContent="f:converter|f:convertNumber|f:convertDateTime|...")
 public class OutTag extends BeanTag
     implements HasId, HasBinding, HasConverter, IsInline, HasTip, IsEscaped,
                HasMarkup, IsRendered
