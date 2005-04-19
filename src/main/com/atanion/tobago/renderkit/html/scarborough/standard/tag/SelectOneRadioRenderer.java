@@ -89,7 +89,9 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       }
       writer.writeAttribute("name", component.getClientId(facesContext), null);
       writer.writeAttribute("id", id, null);
-      writer.writeAttribute("value", item.getValue(), null);
+      String formattedValue
+          = getFormattedValue(facesContext, component, item.getValue());
+      writer.writeAttribute("value", formattedValue, null);
       writer.writeAttribute("disabled",
           ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
       writer.writeAttribute("title", null, ATTR_TIP);

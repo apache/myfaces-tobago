@@ -111,7 +111,7 @@
 
   </target>
   <target name="annotations" depends="bs:init, bs:get-libs-jar" >
-    <apt srcdir="src" fork="true"
+    <apt srcdir="${src.main}" fork="true"
          classpathref="project.classpath.jar"
          debug="on"
          compile="false"

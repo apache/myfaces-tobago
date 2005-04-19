@@ -20,7 +20,6 @@ import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 public class SelectOneChoiceRenderer extends SelectOneRendererBase {
@@ -94,7 +93,9 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
         LOG.debug("item descr = '" + item.getDescription() + "'");
       }
       writer.startElement("option", null);
-      writer.writeAttribute("value", item.getValue(), null);
+      String formattedValue
+          = getFormattedValue(facesContext, component, item.getValue());
+      writer.writeAttribute("value", formattedValue, null);
       if (item.getValue().equals(value)) {
         writer.writeAttribute("selected", "selected", null);
       }
