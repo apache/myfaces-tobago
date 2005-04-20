@@ -24,6 +24,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
+import javax.faces.model.DataModel;
 import javax.servlet.jsp.jstl.sql.Result;
 import java.util.List;
 import java.sql.ResultSet;
@@ -204,9 +205,9 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
    *  The sheet's data.
    *  
    */
-  @TagAttribute(required=true)
+  @TagAttribute
   @UIComponentTagAttribute(type={Object[].class, List.class, Result.class,
-                                 ResultSet.class, Object.class})
+                                 ResultSet.class, Object.class, DataModel.class})
   public void setValue(String value) {
     this.value = value;
   }
