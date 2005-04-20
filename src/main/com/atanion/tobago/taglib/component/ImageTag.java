@@ -11,8 +11,9 @@ package com.atanion.tobago.taglib.component;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.taglib.decl.HasBorder;
 import com.atanion.tobago.taglib.decl.HasDimension;
-import com.atanion.tobago.taglib.decl.HasTip;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
+import com.atanion.tobago.taglib.decl.HasTip;
+import com.atanion.util.annotation.BodyContent;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
@@ -23,7 +24,7 @@ import javax.faces.component.UIGraphic;
 /**
  *  Renders a Image.
  */
-@Tag(name="image", bodyContent="empty")
+@Tag(name="image", bodyContent=BodyContent.EMPTY)
 public class ImageTag extends TobagoTag
     implements HasIdBindingAndRendered, HasBorder, HasDimension, HasTip {
 

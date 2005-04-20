@@ -6,8 +6,9 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.util.annotation.BodyContent;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
@@ -16,7 +17,7 @@ import javax.faces.component.UIOutput;
 /**
  * Renders a separator.
  */
-@Tag(name="menuSeparator", bodyContent="empty")
+@Tag(name="menuSeparator", bodyContent=BodyContent.EMPTY)
 public class MenuSeparatorTag extends TobagoTag
     implements IsRendered, HasBinding {
 

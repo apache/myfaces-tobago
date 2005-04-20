@@ -19,7 +19,6 @@ import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UISelectMany;
 
 @Tag(name="selectManyListbox")
 public class SelectManyListboxTag extends SelectManyTag

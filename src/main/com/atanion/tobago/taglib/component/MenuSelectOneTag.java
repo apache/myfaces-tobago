@@ -7,16 +7,13 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UICommand;
-import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.HasLabel;
-import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.HasAction;
 import com.atanion.tobago.taglib.decl.HasCommandType;
-import com.atanion.tobago.taglib.decl.HasValue;
-import com.atanion.tobago.taglib.decl.IsRendered;
-import com.atanion.tobago.taglib.decl.HasBinding;
-import com.atanion.tobago.taglib.decl.IsImmediateCommand;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
+import com.atanion.tobago.taglib.decl.HasLabel;
+import com.atanion.tobago.taglib.decl.HasValue;
+import com.atanion.tobago.taglib.decl.IsDisabled;
+import com.atanion.tobago.taglib.decl.IsImmediateCommand;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
@@ -24,7 +21,7 @@ import javax.faces.component.UIComponent;
 /**
  * Renders a submenu with select one items.
  */
-@Tag(name="menuradio", bodyContent="JSP=")
+@Tag(name="menuradio")
 public class MenuSelectOneTag extends CommandTag
     implements HasIdBindingAndRendered, HasLabel, IsDisabled, HasAction, HasCommandType, HasValue,
                IsImmediateCommand {

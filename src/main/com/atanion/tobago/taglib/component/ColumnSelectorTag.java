@@ -11,6 +11,7 @@ import com.atanion.tobago.component.UIColumnSelector;
 import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.util.annotation.BodyContent;
 import com.atanion.util.annotation.Tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,7 +21,7 @@ import javax.faces.component.UIComponent;
 /**
  * Renders a column with checkboxes to mark selected row's.
  */
-@Tag(name="columnSelector", bodyContent="empty")
+@Tag(name="columnSelector", bodyContent=BodyContent.EMPTY)
 public class ColumnSelectorTag extends TobagoTag
     implements IsDisabled, IsRendered, HasBinding
     {

@@ -7,8 +7,8 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.HasLabel;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
+import com.atanion.tobago.taglib.decl.HasLabel;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
@@ -20,7 +20,7 @@ import javax.faces.component.UIComponent;
  * Renders a UIComponent that represents a single column of data within a
  * parent UIData component.
  */
-@Tag(name="column", bodyContent="JSP")
+@Tag(name="column")
 public class ColumnTag extends TobagoTag
     implements HasIdBindingAndRendered, HasLabel {
   // ----------------------------------------------------------------- attributes

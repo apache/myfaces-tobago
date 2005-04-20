@@ -6,6 +6,8 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UIPage;
+import com.atanion.util.annotation.BodyContent;
+import com.atanion.util.annotation.BodyContentDescription;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
@@ -16,7 +18,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 /**
  * This tag add client side script to the rendered page.
  */
-@Tag(name="script", bodyContent="javascript")
+@Tag(name="script", bodyContent=BodyContent.TAGDEPENDENT)
+@BodyContentDescription(contentType="javascript")
 public class ScriptTag extends BodyTagSupport  {
 
 // ----------------------------------------------------------------- attributes

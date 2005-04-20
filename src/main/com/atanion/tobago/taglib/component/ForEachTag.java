@@ -5,7 +5,6 @@ import com.atanion.tobago.taglib.decl.HasVar;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -29,7 +28,7 @@ import java.util.regex.Pattern;
  *     replacement is done, and so no ability to use the <code>var</code> in el.
  *   ]]>
  */
-@Tag(name="forEach", bodyContent="JSP")
+@Tag(name="forEach")
 public class ForEachTag extends BodyTagSupport implements HasVar {
 
   private static final Log LOG = LogFactory.getLog(ForEachTag.class);

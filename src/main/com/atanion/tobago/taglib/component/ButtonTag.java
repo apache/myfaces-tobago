@@ -7,7 +7,19 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.*;
+import com.atanion.tobago.taglib.decl.HasAction;
+import com.atanion.tobago.taglib.decl.HasActionListener;
+import com.atanion.tobago.taglib.decl.HasCommandType;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
+import com.atanion.tobago.taglib.decl.HasImage;
+import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
+import com.atanion.tobago.taglib.decl.HasTip;
+import com.atanion.tobago.taglib.decl.HasWidth;
+import com.atanion.tobago.taglib.decl.IsDefaultCommand;
+import com.atanion.tobago.taglib.decl.IsDisabled;
+import com.atanion.tobago.taglib.decl.IsImmediateCommand;
+import com.atanion.tobago.taglib.decl.IsInline;
+import com.atanion.util.annotation.BodyContentDescription;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
@@ -16,7 +28,8 @@ import javax.faces.component.UIComponent;
  * Renders a button element.
  */
 // fixme: bodyContent
-@Tag(name="button", bodyContent="JSP=facestag*")
+@Tag(name="button")
+@BodyContentDescription(anyTagOf="facestag")
 public class ButtonTag extends CommandTag
     implements HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
                IsDisabled, HasAction, HasActionListener, HasCommandType,

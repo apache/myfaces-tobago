@@ -7,21 +7,17 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UIPanel;
-import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasDimension;
-import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.HasLabel;
-import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
+import com.atanion.tobago.taglib.decl.HasLabel;
 import com.atanion.util.annotation.Tag;
 
 /**
  * Renders a panel with border and title.
  */
-@Tag(name="box", bodyContent="JSP")
+@Tag(name="box")
 public class BoxTag extends TobagoBodyTag
-    implements HasIdBindingAndRendered, HasDimension, HasLabel 
-    {
+    implements HasIdBindingAndRendered, HasDimension, HasLabel {
 
 // ----------------------------------------------------------- business methods
 

@@ -6,13 +6,11 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
-import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.IsDisabled;
-import com.atanion.tobago.taglib.decl.HasImage;
-import com.atanion.tobago.taglib.decl.IsRendered;
-import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
+import com.atanion.tobago.taglib.decl.HasImage;
+import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
+import com.atanion.tobago.taglib.decl.IsDisabled;
+import com.atanion.util.annotation.BodyContentDescription;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
@@ -23,7 +21,11 @@ import javax.faces.component.UIPanel;
  *       Container component to hold submenus and items.
  *  ]]>
  */
-@Tag(name="menu", bodyContent="JSP=(t:menu|t:menuitem|t:menucheck|t:menuradio|t:menuseparator)*")
+@Tag(name="menu")
+@BodyContentDescription(anyClassOf={MenuTag.class, MenuCommandTag.class,
+        MenuSelectBooleanTag.class, MenuSelectOneTag.class,
+        MenuSeparatorTag.class })
+
 public class MenuTag extends TobagoTag
     implements HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled, HasImage {
   public static final String MENU_TYPE = "menu";

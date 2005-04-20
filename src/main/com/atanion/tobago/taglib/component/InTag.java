@@ -10,14 +10,26 @@ package com.atanion.tobago.taglib.component;
  * Renders a text input field.
  */
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UIInput;
-import com.atanion.tobago.taglib.decl.*;
+import com.atanion.tobago.taglib.decl.HasConverter;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
+import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
+import com.atanion.tobago.taglib.decl.HasOnchangeListener;
+import com.atanion.tobago.taglib.decl.HasTip;
+import com.atanion.tobago.taglib.decl.HasValue;
+import com.atanion.tobago.taglib.decl.HasWidth;
+import com.atanion.tobago.taglib.decl.IsDisabled;
+import com.atanion.tobago.taglib.decl.IsFocus;
+import com.atanion.tobago.taglib.decl.IsInline;
+import com.atanion.tobago.taglib.decl.IsReadOnly;
+import com.atanion.tobago.taglib.decl.IsRequired;
+import com.atanion.util.annotation.BodyContentDescription;
 import com.atanion.util.annotation.Tag;
-import com.atanion.util.annotation.UIComponentTagAttribute;
 import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.faces.component.UIComponent;
-@Tag(name="in", bodyContent="JSP=facestag*")
+@Tag(name="in")
+@BodyContentDescription(anyTagOf="facestag")
 public class InTag extends TextInputTag
     implements HasValue, HasIdBindingAndRendered, HasConverter, IsReadOnly,
                IsDisabled, HasWidth, HasOnchangeListener, IsInline, IsFocus,

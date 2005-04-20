@@ -9,11 +9,6 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIData;
 import com.atanion.tobago.event.SheetStateChangeEvent;
 import com.atanion.tobago.model.SheetState;
-import com.atanion.tobago.taglib.decl.HasBinding;
-import com.atanion.tobago.taglib.decl.HasColumnLayout;
-import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.HasVar;
-import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
@@ -26,8 +21,8 @@ import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
 import javax.faces.model.DataModel;
 import javax.servlet.jsp.jstl.sql.Result;
-import java.util.List;
 import java.sql.ResultSet;
+import java.util.List;
 
 @Tag(name="sheet")
 public class SheetTag extends TobagoTag implements HasIdBindingAndRendered

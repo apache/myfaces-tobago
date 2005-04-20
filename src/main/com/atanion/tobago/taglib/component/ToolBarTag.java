@@ -1,12 +1,12 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.HasIconSize;
 import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasLabelPosition;
 import com.atanion.tobago.taglib.decl.HasWidth;
 import com.atanion.tobago.taglib.decl.IsRendered;
-import com.atanion.tobago.taglib.decl.HasBinding;
-import com.atanion.tobago.taglib.decl.HasLabelPosition;
-import com.atanion.tobago.taglib.decl.HasIconSize;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;

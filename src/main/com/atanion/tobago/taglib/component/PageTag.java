@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * 
  */
-@Tag(name = "page", bodyContent="JSP")
+@Tag(name = "page")
 public class PageTag extends TobagoBodyTag
     implements HasLabel, HasId, HasDimension, HasBinding, HasState
     {

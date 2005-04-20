@@ -1,14 +1,13 @@
 package com.atanion.tobago.taglib.component;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPanel;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
@@ -23,7 +22,7 @@ import javax.servlet.jsp.JspException;
  * Renders a layout cell.
  * A panel with ability to span over more than one layout cells.
  */
-@Tag(name="cell", bodyContent="JSP")
+@Tag(name="cell")
 public class CellTag extends TobagoBodyTag implements HasIdBindingAndRendered {
 
   // ///////////////////////////////////////////// constant

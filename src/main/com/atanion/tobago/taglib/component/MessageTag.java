@@ -6,11 +6,9 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.IsRendered;
-import com.atanion.tobago.taglib.decl.HasBinding;
-import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasFor;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
+import com.atanion.util.annotation.BodyContent;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
@@ -19,7 +17,7 @@ import javax.faces.component.UIMessage;
 /**
  * Renders error/validation message.
  */
-@Tag(name="message", bodyContent="empty")
+@Tag(name="message", bodyContent=BodyContent.EMPTY)
 public class MessageTag extends TobagoTag
     implements HasIdBindingAndRendered, HasFor {
 

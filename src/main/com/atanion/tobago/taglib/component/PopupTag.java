@@ -8,13 +8,12 @@ package com.atanion.tobago.taglib.component;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.component.UIPopup;
+import com.atanion.tobago.taglib.decl.HasDimension;
 import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.IsRendered;
-import com.atanion.tobago.taglib.decl.HasDimension;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -26,7 +25,7 @@ import java.util.List;
 /**
  * Renders a popup panel.
  */
-@Tag(name="popup", bodyContent="JSP")
+@Tag(name="popup")
 public class PopupTag extends TobagoBodyTag
     implements HasId, IsRendered, HasDimension {
 

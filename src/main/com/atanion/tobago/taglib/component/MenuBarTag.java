@@ -5,12 +5,10 @@
   */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.util.annotation.Tag;
-import com.atanion.tobago.taglib.decl.HasWidth;
-import com.atanion.tobago.taglib.decl.IsRendered;
-import com.atanion.tobago.taglib.decl.HasBinding;
-import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
+import com.atanion.tobago.taglib.decl.HasWidth;
+import com.atanion.util.annotation.BodyContentDescription;
+import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIPanel;
 
@@ -21,7 +19,10 @@ import javax.faces.component.UIPanel;
  *       on page.<br>
  *  ]]>
  */
-@Tag(name="menuBar", bodyContent="JSP=(t:menu|t:menuitem|t:menucheck|t:menuradio|t:menuseparator)*")
+@Tag(name="menuBar")
+@BodyContentDescription(anyClassOf={MenuTag.class, MenuCommandTag.class,
+    MenuSelectBooleanTag.class, MenuSelectOneTag.class,
+    MenuSeparatorTag.class })
 public class MenuBarTag extends TobagoBodyTag
     implements HasIdBindingAndRendered, HasWidth {
 

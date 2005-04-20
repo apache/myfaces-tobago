@@ -8,10 +8,11 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.taglib.decl.HasConverter;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.tobago.taglib.decl.HasTip;
 import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.IsInline;
-import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
+import com.atanion.util.annotation.BodyContentDescription;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
@@ -21,7 +22,8 @@ import javax.faces.component.UIOutput;
 /**
  * Renders a text
  */
-@Tag(name="out", bodyContent="JSP=f:converter|f:convertNumber|f:convertDateTime|...")
+@Tag(name="out")
+@BodyContentDescription(anyTagOf="f:converter|f:convertNumber|f:convertDateTime|...")
 public class OutTag extends BeanTag
     implements HasIdBindingAndRendered, HasConverter, IsInline, HasTip
                // todo: remove interface HasValue, use annotations at setter

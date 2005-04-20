@@ -1,14 +1,14 @@
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.util.annotation.Tag;
-import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.IsDisabled;
+import com.atanion.tobago.taglib.decl.HasAction;
 import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasCommandType;
+import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasValue;
+import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsImmediateCommand;
 import com.atanion.tobago.taglib.decl.IsRendered;
-import com.atanion.tobago.taglib.decl.HasAction;
-import com.atanion.tobago.taglib.decl.HasValue;
+import com.atanion.util.annotation.Tag;
 
 /**
  * Created by IntelliJ IDEA.

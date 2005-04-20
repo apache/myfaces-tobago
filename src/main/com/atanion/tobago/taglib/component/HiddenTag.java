@@ -17,7 +17,7 @@ import com.atanion.util.annotation.UIComponentTagAttribute;
 /**
  * Renders a 'hidden' input element.
  */
-@Tag(name="hidden", bodyContent="JSP=")
+@Tag(name="hidden")
 public class HiddenTag extends BeanTag
     implements HasId, HasBinding, HasValue {
 

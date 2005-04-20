@@ -7,6 +7,7 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.taglib.decl.HasVar;
+import com.atanion.util.annotation.BodyContent;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
@@ -23,7 +24,7 @@ import java.util.Set;
  * from the tobago resource path, and expose it (as a Map) in the request
  * attributes of the current request.
  */
-@Tag(name="loadBundle", bodyContent="empty")
+@Tag(name="loadBundle", bodyContent=BodyContent.EMPTY)
 public class LoadBundleTag extends TagSupport implements HasVar {
 // ----------------------------------------------------------------- attributes
 

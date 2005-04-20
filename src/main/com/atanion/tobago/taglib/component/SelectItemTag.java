@@ -4,14 +4,14 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UISelectItem;
 import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.HasItemDescription;
+import com.atanion.tobago.taglib.decl.HasItemImage;
 import com.atanion.tobago.taglib.decl.HasItemLabel;
 import com.atanion.tobago.taglib.decl.HasItemValue;
-import com.atanion.tobago.taglib.decl.HasItemImage;
+import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.IsItemDisabled;
+import com.atanion.util.annotation.BodyContent;
 import com.atanion.util.annotation.Tag;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -22,7 +22,7 @@ import javax.faces.component.UIComponent;
  *  associated with the closed parent UIComponent custom
  *  action.
  */
-@Tag(name="selectItem", bodyContent="empty")
+@Tag(name="selectItem", bodyContent=BodyContent.EMPTY)
 public class SelectItemTag extends TobagoTag
     implements HasBinding, HasId, HasValue, HasItemDescription, HasItemLabel,
     HasItemValue, HasItemImage, IsItemDisabled {
