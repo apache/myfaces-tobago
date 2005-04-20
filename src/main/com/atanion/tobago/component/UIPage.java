@@ -10,6 +10,7 @@ import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.model.PageState;
 import com.atanion.tobago.model.PageStateImpl;
 import com.atanion.util.collections.ListOrderedSet;
+import com.atanion.util.KeyValuePair;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -42,17 +43,17 @@ public class UIPage extends UIForm {
 
   private String actionId;
 
-  private List postfields;
+  private List<KeyValuePair> postfields;
 
   private ListOrderedSet scriptFiles;
 
-  private Set scriptBlocks;
+  private Set<String> scriptBlocks;
 
-  private Set styleFiles;
+  private Set<String> styleFiles;
 
-  private Set styleBlocks;
+  private Set<String> styleBlocks;
 
-  private Set onloadScripts;
+  private Set<String> onloadScripts;
 
 
 // ///////////////////////////////////////////// constructor
@@ -145,9 +146,9 @@ public class UIPage extends UIForm {
     getScriptBlocks().clear();
   }
 
-  public List getPostfields() {
+  public List<KeyValuePair> getPostfields() {
     if (postfields == null) {
-      postfields = new ArrayList();
+      postfields = new ArrayList<KeyValuePair>();
     }
     return postfields;
   }
@@ -218,19 +219,19 @@ public class UIPage extends UIForm {
     return scriptFiles;
   }
 
-  public Set getScriptBlocks() {
+  public Set<String> getScriptBlocks() {
     return scriptBlocks;
   }
 
-  public Set getStyleFiles() {
+  public Set<String> getStyleFiles() {
     return styleFiles;
   }
 
-  public Set getStyleBlocks() {
+  public Set<String> getStyleBlocks() {
     return styleBlocks;
   }
 
-  public Set getOnloadScripts() {
+  public Set<String> getOnloadScripts() {
     return onloadScripts;
   }
 }

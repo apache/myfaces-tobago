@@ -53,7 +53,6 @@ public class Window {
 
   public void activate(UIPage page) {
     page.getScriptFiles().add("script/popup.js");
-    Set scripts = page.getOnloadScripts();
 
     FacesContext facesContext = FacesContext.getCurrentInstance();
     Application application = facesContext.getApplication();
@@ -81,7 +80,7 @@ public class Window {
     buffer.append("', '");
     buffer.append(top);
     buffer.append("');");
-    scripts.add(buffer.toString());
+    page.getOnloadScripts().add(buffer.toString());
   }
 
 // ///////////////////////////////////////////// bean getter + setter

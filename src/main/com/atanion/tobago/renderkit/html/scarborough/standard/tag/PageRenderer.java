@@ -141,9 +141,7 @@ public class PageRenderer extends PageRendererBase {
     writer.endElement("title");
 
     // style files
-    Set styleFiles = page.getStyleFiles();
-    for (Iterator i = styleFiles.iterator(); i.hasNext();) {
-      String styleFile = (String) i.next();
+    for (String styleFile : page.getStyleFiles()) {
       List styles = ResourceManagerUtil.getStyles(facesContext, styleFile);
       for (Iterator j = styles.iterator(); j.hasNext();) {
         String styleString = (String) j.next();
@@ -159,11 +157,10 @@ public class PageRenderer extends PageRendererBase {
     }
 
     // style sniplets
-    Set styleBlocks = page.getStyleBlocks();
+    Set<String> styleBlocks = page.getStyleBlocks();
     if (styleBlocks.size() > 0) {
       writer.startElement("style", null);
-      for (Iterator i = styleBlocks.iterator(); i.hasNext();) {
-        String cssBlock = (String) i.next();
+      for (String cssBlock : styleBlocks) {
         writer.write(cssBlock);
       }
       writer.endElement("style");
@@ -197,16 +194,14 @@ public class PageRenderer extends PageRendererBase {
     writer.write("function onloadScript() {\n");
     writer.write("onloadScriptDefault();\n");
 
-    for (Iterator i = page.getOnloadScripts().iterator(); i.hasNext();) {
-      String onload = (String) i.next();
+    for (String onload : page.getOnloadScripts()) {
       writer.write(onload);
       writer.write('\n');
     }
     writer.write("}\n");
 
     int debugCounter = 0;
-    for (Iterator i = page.getScriptBlocks().iterator(); i.hasNext();) {
-      String script = (String) i.next();
+    for (String script : page.getScriptBlocks()) {
 
       if (LOG.isDebugEnabled()) {
         LOG.debug("write scriptblock " + ++debugCounter + " :\n" + script);
