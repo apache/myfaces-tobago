@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<book lang="de">
+  <bookinfo>
+    <title>Tobago Dokumentation</title>
+    <corpname>atanion GmbH</corpname>
+    <copyrigth>
+      <holder>atanion GmbH</holder>
+      <year>2005</year>
+    </copyrigth>
+  </bookinfo>
+  <chapter>
+    <title>Kapitel 1</title>
+  </chapter>
+</book>

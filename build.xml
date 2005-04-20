@@ -5,12 +5,16 @@
  * $Id$
 -->
 <project name="tobago" default="compile">
+
   <property file="build.properties"/>
   <property name="bs.home" location="../build-system"/>
   <property name="tld.files"
     value="src/main/com/atanion/tobago/taglib/component/tobago.tld " />
   <property name="tlddoc.windowtitle" value="Tobago Tag Library Documentation"/>
   <import file="${bs.home}/build-basic.xml"/>
+
+  <property name="project.dir.doc.master" value="doc/master.xml"/>
+  <import file="${bs.home}/build-docbook.xml"/>
 
   <target name="dist" depends="compile, annotations">
     <mkdir dir="${dist}"/>
@@ -121,6 +125,14 @@
       <option name="package" value="com.atanion.tobago.taglib.component" />
       <option name="file" value="tobago.tld" />
     </apt>
+  </target>
+
+  <target name="docbook-html" depends="docbook.docbook-html">
+    <docbook-html-macro master="${project.dir.doc.master}" output.dir="build/doc/" />
+  </target>
+
+  <target name="docbook-pdf" depends="docbook.docbook-pdf">
+    <docbook-pdf-macro master="${project.dir.doc.master}" output.dir="build/doc" />
   </target>
 
 </project>
