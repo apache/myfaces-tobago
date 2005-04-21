@@ -38,9 +38,6 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
-
-
-
     UISelectOne component = (UISelectOne)uiComponent;
 
     boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
@@ -56,7 +53,8 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     }
 
     boolean disabled = items.size() == 0
-        || ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED);
+        || ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)
+        || ComponentUtil.getBooleanAttribute(component, ATTR_READONLY);
 
     UIComponent label = component.getFacet(FACET_LABEL);
     if (!inline) {

@@ -18,7 +18,7 @@ import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.HasWidth;
 import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsFocus;
-import com.atanion.tobago.taglib.decl.IsReadOnly;
+import com.atanion.tobago.taglib.decl.IsReadonly;
 import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.tobago.taglib.decl.IsRequired;
 import com.atanion.util.annotation.BodyContent;
@@ -28,7 +28,7 @@ import javax.faces.component.UIComponent;
 
 @Tag(name="textarea", bodyContent=BodyContent.EMPTY)
 public class TextAreaTag extends TextInputTag
-    implements HasId, HasValue,  IsReadOnly, IsDisabled, HasWidth, HasHeight,
+    implements HasId, HasValue,  IsReadonly, IsDisabled, HasWidth, HasHeight,
                HasRows, HasOnchangeListener, IsFocus, IsRequired,
                HasLabelAndAccessKey, IsRendered, HasBinding, HasTip
      {

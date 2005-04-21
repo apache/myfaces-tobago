@@ -9,7 +9,7 @@ import com.atanion.util.annotation.UIComponentTagAttribute;
  * User: bommel
  * $Id$
  */
-public interface IsReadOnly {
+public interface IsReadonly {
   /**
    *  Flag indicating that this component will prohibit changes by the user. 
    */

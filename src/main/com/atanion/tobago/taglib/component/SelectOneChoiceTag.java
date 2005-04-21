@@ -14,11 +14,12 @@ import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsInline;
 import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.IsReadonly;
 import com.atanion.util.annotation.Tag;
 
 @Tag(name="selectOneChoice")
 public class SelectOneChoiceTag extends SelectOneTag
-    implements HasId, HasValue, IsDisabled, HasOnchangeListener, IsInline,
+    implements HasId, HasValue, IsDisabled, IsReadonly, HasOnchangeListener, IsInline,
     HasLabelAndAccessKey, IsRendered, HasBinding, HasTip
     {
 }

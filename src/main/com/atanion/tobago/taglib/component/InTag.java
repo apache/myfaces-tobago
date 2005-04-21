@@ -20,18 +20,16 @@ import com.atanion.tobago.taglib.decl.HasWidth;
 import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsFocus;
 import com.atanion.tobago.taglib.decl.IsInline;
-import com.atanion.tobago.taglib.decl.IsReadOnly;
+import com.atanion.tobago.taglib.decl.IsReadonly;
 import com.atanion.tobago.taglib.decl.IsRequired;
 import com.atanion.util.annotation.BodyContentDescription;
 import com.atanion.util.annotation.Tag;
-import com.atanion.util.annotation.TagAttribute;
-import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.faces.component.UIComponent;
 @Tag(name="in")
 @BodyContentDescription(anyTagOf="facestag")
 public class InTag extends TextInputTag
-    implements HasValue, HasIdBindingAndRendered, HasConverter, IsReadOnly,
+    implements HasValue, HasIdBindingAndRendered, HasConverter, IsReadonly,
                IsDisabled, HasWidth, HasOnchangeListener, IsInline, IsFocus,
                IsRequired, HasTip, HasLabelAndAccessKey {
 

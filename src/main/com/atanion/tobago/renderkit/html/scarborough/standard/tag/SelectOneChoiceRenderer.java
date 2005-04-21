@@ -48,12 +48,11 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
       LOG.debug("items.size() = '" + items.size() + "'");
     }
 
-    boolean disabled = items.size() == 0 ||
-        ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED);
+    boolean disabled = items.size() == 0
+        || ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)
+        || ComponentUtil.getBooleanAttribute(component, ATTR_READONLY);
 
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
-
-
 
     if (label != null) {
       writer.startElement("table", component);

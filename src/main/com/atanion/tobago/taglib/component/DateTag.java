@@ -14,7 +14,7 @@ import com.atanion.tobago.taglib.decl.HasTip;
 import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsInline;
-import com.atanion.tobago.taglib.decl.IsReadOnly;
+import com.atanion.tobago.taglib.decl.IsReadonly;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.application.Application;
@@ -28,7 +28,7 @@ import javax.faces.context.FacesContext;
  */
 @Tag(name="date")
 public class DateTag extends InputTag
-    implements HasIdBindingAndRendered, HasValue, IsReadOnly, IsDisabled,
+    implements HasIdBindingAndRendered, HasValue, IsReadonly, IsDisabled,
                IsInline, HasLabelAndAccessKey, HasTip {
 
   // ----------------------------------------------------------- business methods
