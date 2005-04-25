@@ -176,8 +176,12 @@ public class TreeNodeRenderer extends RendererBase {
         writer.writeText("TreeFolder", null);
       }
       writer.writeText("('", null);
-      writer.writeText(treeNode.getAttributes().get(ATTR_NAME),
-          null);
+      Object name = treeNode.getAttributes().get(ATTR_NAME);
+      if (name != null) {
+        writer.writeText(name, null);
+      } else {
+        LOG.warn("name = null");
+      }
       writer.writeText("','", null);
       writer.writeText(clientId, null);
       writer.writeText("',", null);
