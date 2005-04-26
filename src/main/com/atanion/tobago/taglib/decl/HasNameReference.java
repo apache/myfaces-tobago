@@ -8,6 +8,10 @@ import com.atanion.util.annotation.UIComponentTagAttribute;
  */
 public interface HasNameReference {
   /**
+   * Bean propperty reference to fetch the label for the treeNode's.<br>
+   * Example:<br>
+   *   a idRefrerence="userObject.name" try to invoke
+   *   <code>&lt;UITreeNode>.getUserObject().getName()<code> to fetch the label.
    *
    */
   @TagAttribute @UIComponentTagAttribute(type=String.class)

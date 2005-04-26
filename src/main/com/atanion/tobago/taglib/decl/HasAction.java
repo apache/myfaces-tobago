@@ -8,7 +8,7 @@ import com.atanion.util.annotation.UIComponentTagAttribute;
  */
 public interface HasAction {
   /**
-   *  <![CDATA[
+   *
    * Action to invoke when clicked.
    * Depends on 'type' attribute:
    * If type is NOT 'navigate', 'reset' or 'script' this must be a
@@ -17,7 +17,7 @@ public interface HasAction {
    * The expression must evaluate to a public method that takes no parameters,
    * and returns a String (the logical outcome) which is passed to the
    * NavigationHandler for this application.
-   *    ]]>
+   *
    */
   @TagAttribute @UIComponentTagAttribute(type=String.class)
   public void setAction(String action);

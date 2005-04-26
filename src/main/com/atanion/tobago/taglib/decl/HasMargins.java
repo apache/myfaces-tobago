@@ -8,30 +8,30 @@ import com.atanion.util.annotation.UIComponentTagAttribute;
  */
 public interface HasMargins {
   /**
-   *  <![CDATA[
+   *
    * Top margin between container component and layouted children.
-   *    ]]>
+   *
    */
   @TagAttribute @UIComponentTagAttribute(type=String.class)
   public void setMarginTop(String margin);
   /**
-   *  <![CDATA[
+   *
    * Right margin between container component and layouted children.
-   *    ]]>
+   *
    */
   @TagAttribute @UIComponentTagAttribute(type=String.class)
   public void setMarginRight(String margin);
   /**
-   *  <![CDATA[
+   *  
    * Bottom margin between container component and layouted children.
-   *    ]]>
+   *
    */
   @TagAttribute @UIComponentTagAttribute(type=String.class)
   public void setMarginBottom(String margin);
   /**
-   *  <![CDATA[
+   *
    * Left margin between container component and layouted children.    
-   *    ]]>
+   *
    */
   @TagAttribute @UIComponentTagAttribute(type=String.class)
   public void setMarginLeft(String margin);

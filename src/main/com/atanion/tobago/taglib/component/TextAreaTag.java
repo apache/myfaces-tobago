@@ -7,30 +7,22 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.HasBinding;
-import com.atanion.tobago.taglib.decl.HasHeight;
-import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
-import com.atanion.tobago.taglib.decl.HasOnchangeListener;
-import com.atanion.tobago.taglib.decl.HasRows;
-import com.atanion.tobago.taglib.decl.HasTip;
-import com.atanion.tobago.taglib.decl.HasValue;
-import com.atanion.tobago.taglib.decl.HasWidth;
-import com.atanion.tobago.taglib.decl.IsDisabled;
-import com.atanion.tobago.taglib.decl.IsFocus;
-import com.atanion.tobago.taglib.decl.IsReadonly;
-import com.atanion.tobago.taglib.decl.IsRendered;
-import com.atanion.tobago.taglib.decl.IsRequired;
+import com.atanion.tobago.taglib.decl.*;
 import com.atanion.util.annotation.BodyContent;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.faces.component.UIComponent;
 
+/**
+ * Renders a multiline text input control.
+ */
 @Tag(name="textarea", bodyContent=BodyContent.EMPTY)
 public class TextAreaTag extends TextInputTag
-    implements HasId, HasValue,  IsReadonly, IsDisabled, HasWidth, HasHeight,
-               HasRows, HasOnchangeListener, IsFocus, IsRequired,
-               HasLabelAndAccessKey, IsRendered, HasBinding, HasTip
+    implements HasIdBindingAndRendered, HasValue,  IsReadonly, IsDisabled,
+               HasDimension, HasOnchangeListener, IsFocus, IsRequired,
+               HasLabelAndAccessKey, HasTip
      {
 // ----------------------------------------------------------------- attributes
 
@@ -53,6 +45,12 @@ public class TextAreaTag extends TextInputTag
     return rows;
   }
 
+
+  /**
+   *  The row count for this component.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=String.class)
   public void setRows(String rows) {
     this.rows = rows;
   }

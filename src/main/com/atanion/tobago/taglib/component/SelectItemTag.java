@@ -4,14 +4,13 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UISelectItem;
 import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.HasItemDescription;
-import com.atanion.tobago.taglib.decl.HasItemImage;
-import com.atanion.tobago.taglib.decl.HasItemLabel;
-import com.atanion.tobago.taglib.decl.HasItemValue;
 import com.atanion.tobago.taglib.decl.HasValue;
-import com.atanion.tobago.taglib.decl.IsItemDisabled;
+import com.atanion.tobago.model.SelectItem;
 import com.atanion.util.annotation.BodyContent;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -23,9 +22,7 @@ import javax.faces.component.UIComponent;
  *  action.
  */
 @Tag(name="selectItem", bodyContent=BodyContent.EMPTY)
-public class SelectItemTag extends TobagoTag
-    implements HasBinding, HasId, HasValue, HasItemDescription, HasItemLabel,
-    HasItemValue, HasItemImage, IsItemDisabled {
+public class SelectItemTag extends TobagoTag implements HasBinding, HasId {
 
   private static final Log LOG = LogFactory.getLog(SelectItemTag.class);
 
@@ -73,6 +70,11 @@ public class SelectItemTag extends TobagoTag
   public String getItemDescription() {
     return itemDescription;
   }
+  /**
+   * Flag indicating whether the option created
+   *  by this component is disabled.
+   */
+  @TagAttribute @UIComponentTagAttribute(type=Boolean.class, defaultValue="false")
 
   public void setItemDescription(String itemDescription) {
     this.itemDescription = itemDescription;
@@ -82,6 +84,12 @@ public class SelectItemTag extends TobagoTag
     return itemDisabled;
   }
 
+  /**
+   * Flag indicating whether the option created
+   *  by this component is disabled.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=Boolean.class, defaultValue="false")
   public void setItemDisabled(String itemDisabled) {
     this.itemDisabled = itemDisabled;
   }
@@ -90,6 +98,11 @@ public class SelectItemTag extends TobagoTag
     return itemLabel;
   }
 
+  /**
+   * Label to be displayed to the user for this option.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=String.class)
   public void setItemLabel(String itemLabel) {
     this.itemLabel = itemLabel;
   }
@@ -98,6 +111,11 @@ public class SelectItemTag extends TobagoTag
     return itemValue;
   }
 
+  /**
+   * Value to be returned to the server if this option is selected by the user.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=String.class)
   public void setItemValue(String itemValue) {
     this.itemValue = itemValue;
   }
@@ -106,6 +124,11 @@ public class SelectItemTag extends TobagoTag
     return value;
   }
 
+  /**
+   * Value binding expression pointing at a SelectItem instance containing
+   * the information for this option.
+   */
+  @TagAttribute @UIComponentTagAttribute(type=SelectItem.class)
   public void setValue(String value) {
     this.value = value;
   }
@@ -114,6 +137,11 @@ public class SelectItemTag extends TobagoTag
     return itemImage;
   }
 
+  /**
+   * Image to be displayed to the user for this option.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=String.class)
   public void setItemImage(String itemImage) {
     this.itemImage = itemImage;
   }

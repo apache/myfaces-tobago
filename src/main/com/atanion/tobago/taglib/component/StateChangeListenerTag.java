@@ -7,6 +7,7 @@ import com.atanion.tobago.taglib.decl.HasStateChangeListenerType;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
+import com.atanion.util.annotation.BodyContent;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -20,7 +21,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * Register an StateChangedListener instance on the UIComponent
  *  associated with the closest parent UIComponent custom action.
  */
-@Tag(name="stateChangeListener")
+@Tag(name="stateChangeListener", bodyContent=BodyContent.EMPTY)
 public class StateChangeListenerTag extends TagSupport
     implements HasStateChangeListenerType{
 

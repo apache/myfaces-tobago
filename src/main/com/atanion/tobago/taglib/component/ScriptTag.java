@@ -86,7 +86,7 @@ public class ScriptTag extends BodyTagSupport  {
 
 
   /**
-   * A script function which is invoked during onLoad Handler on client.
+   * A script function which is invoked during onLoad Handler on the client.
    */
   @TagAttribute
   @UIComponentTagAttribute(type=String.class)

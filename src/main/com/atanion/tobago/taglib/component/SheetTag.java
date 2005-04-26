@@ -13,6 +13,7 @@ import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
+import com.atanion.util.annotation.BodyContentDescription;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
@@ -24,7 +25,11 @@ import javax.servlet.jsp.jstl.sql.Result;
 import java.sql.ResultSet;
 import java.util.List;
 
+/**
+ * Render a sheet element.
+ */
 @Tag(name="sheet")
+@BodyContentDescription(anyTagOf="<t:column>* <t:columnSelector>?" )
 public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
     {
 
@@ -131,10 +136,10 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
 
 
   /**
-   *  <![CDATA[
+   *
    * LayoutConstraints for column layout.
    * Semicolon separated list of layout tokens ('<x>*', '<x>px' or '<x>%').
-   *    ]]>
+   *
    */
   @TagAttribute(required=true)
   @UIComponentTagAttribute(type=String.class)
@@ -147,9 +152,9 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
   }
 
   /**
-   *  <![CDATA[
+   *
    *    Flag indicating the header should rendered.
-   *    ]]>
+   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type=Boolean.class, defaultValue="true")
@@ -162,10 +167,10 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
   }
 
   /**
-   *  <![CDATA[
+   *
    *   The number of rows to display, starting with the one identified by the
    *   "pageingStart" property.
-   *    ]]>
+   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type=Integer.class, defaultValue="100")
@@ -182,9 +187,9 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
   }
 
    /**
-   *  <![CDATA[
+   *
    *   Zero-relative row number of the first row to be displayed.
-   *    ]]>
+   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type=Integer.class, defaultValue="0")
@@ -212,11 +217,11 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
   }
 
    /**
-   *  <![CDATA[
+   *
    * Name of a request-scope attribute under which the model data for the row
    * selected by the current value of the "rowIndex" property
    * (i.e. also the current value of the "rowData" property) will be exposed.
-   *    ]]>
+   *
    */
   @TagAttribute(required=true)
   @UIComponentTagAttribute(type=String.class)
@@ -225,10 +230,10 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
   }
 
    /**
-   *  <![CDATA[
+   *
    *   The count of rendered direct paging links in the sheet's footer.<br />
    *    The <strong>default</strong> is 9.
-   *    ]]>
+   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type=Integer.class, defaultValue="9")
@@ -237,7 +242,7 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
   }
 
   /**
-   *  <![CDATA[
+   *
    * Flag indicating whether or not this sheet should reserve space for
    *      vertical toolbar when calculating column width's.<br>
    *      Possible values are: <pre>
@@ -246,7 +251,7 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
    *      'true'  : space for scroolbar is reserved.
    *      'false' : no space is reserved.
    *      </pre>
-   *    ]]>
+   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type=String.class, defaultValue="auto")
@@ -255,13 +260,13 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
   }
 
   /**
-   *  <![CDATA[
+   *
    *   Flag indicating whether or not a range of direct paging links should be
    *   rendered in the sheet's footer.<br />
    *    Valid values are <strong>left</strong>, <strong>center</strong>,
    *    <strong>right</strong> and <strong>none</strong>.
    *    The <strong>default</strong> is <code>none</code>.
-   *    ]]>
+   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type=String.class, defaultValue="none")
@@ -270,14 +275,14 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
   }
 
    /**
-   *  <![CDATA[
+   *
    *   Flag indicating whether and where the range pages should
    *    rendered in the sheet's footer. Rendering this range also offers the
    *    capability to enter the index displayed page directly.<br />
    *    Valid values are <strong>left</strong>, <strong>center</strong>,
    *    <strong>right</strong> and <strong>none</strong>.
    *    The <strong>default</strong> is <code>none</code>.
-   *    ]]>
+   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type=String.class, defaultValue="none")
@@ -287,14 +292,14 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
 
 
   /**
-   *  <![CDATA[
+   *
    *    Flag indicating whether or not the range of displayed rows should
    *   rendered in the sheet's footer. Rendering this range also offers the
    *    capability to enter the index of the start row directly. <br />
    *    Valid values are <strong>left</strong>, <strong>center</strong>,
    *    <strong>right</strong> and <strong>none</strong>.
    *    The <strong>default</strong> is <code>none</code>.
-   *    ]]>
+   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type=String.class, defaultValue="none")
@@ -303,9 +308,9 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
   }
 
   /**
-   * <![CDATA[
+   *
    * Sheet state saving object.
-   *    ]]>
+   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type=SheetState.class)
@@ -314,12 +319,12 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
   }
 
    /**
-   *  <![CDATA[
+   *
    * MethodBinding representing an stateChangeListener method that will be
    * notified when the state was changed by the user.
    * The expression must evaluate to a public method that takes an
    * StateChangeEvent parameter, with a return type of void.
-   *    ]]>
+   *
    */
   @TagAttribute @UIComponentTagAttribute(type=String.class)public void setStateChangeListener(String stateChangeListener) {
     this.stateChangeListener = stateChangeListener;

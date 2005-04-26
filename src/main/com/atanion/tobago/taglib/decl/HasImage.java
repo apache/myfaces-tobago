@@ -8,9 +8,9 @@ import com.atanion.util.annotation.UIComponentTagAttribute;
  */
 public interface HasImage {
   /**
-   *  <![CDATA[
+   *
    *  Url to an image to display.
-   *    ]]>
+   *
    */
   @TagAttribute @UIComponentTagAttribute(type=String.class)
   public void setImage(String image);

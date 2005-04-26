@@ -15,10 +15,15 @@ import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsInline;
 import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.BodyContentDescription;
 
 import javax.faces.component.UIComponent;
 
+/**
+ *  Render a set of radiobuttons.
+ */
 @Tag(name="selectOneRadio")
+@BodyContentDescription(anyTagOf="(<f:selectItems>|<f:selectItem>|<t:selectItem>)+ <f:facet>* " )
 public class SelectOneRadioTag extends SelectOneTag
     implements HasValue, IsDisabled, HasId, HasOnchangeListener, IsInline,
                HasRenderRange, IsRendered, HasBinding

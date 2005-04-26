@@ -7,22 +7,25 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UITreeListbox;
-import com.atanion.tobago.taglib.decl.HasBinding;
-import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.tobago.taglib.decl.HasIdReference;
 import com.atanion.tobago.taglib.decl.HasNameReference;
 import com.atanion.tobago.taglib.decl.HasState;
-import com.atanion.tobago.taglib.decl.HasValue;
-import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasTreeNodeValue;
+import com.atanion.util.annotation.BodyContentDescription;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 import javax.faces.el.ValueBinding;
 
+/**
+ * Renders a listbox view of a tree.
+ */
 @Tag(name="treeListbox")
+@BodyContentDescription(anyTagOf="<f:facet>* <f:actionListener>?" )
 public class TreeListboxTag extends TobagoTag
-    implements HasId, HasValue, HasState, HasIdReference, HasNameReference,
-               IsRendered, HasBinding
+    implements HasIdBindingAndRendered, HasTreeNodeValue, HasState,
+               HasIdReference, HasNameReference
     {
 
 // ----------------------------------------------------------------- attributes

@@ -20,13 +20,13 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
- * <![CDATA[ Replacement for the JSTL <c:foreach> tag. <br>
+ *  Replacement for the JSTL <c:foreach> tag. <br>
  *     This tags iterates over the body content without setting up an exported
  *     scope variable, but replaces all occurrence's of <code>var</code> in
  *     <code>TobagoTag's ValueBinding</code> attributes.<br>
  *     All non TobagoTags are treated as they are, no
  *     replacement is done, and so no ability to use the <code>var</code> in el.
- *   ]]>
+ *
  */
 @Tag(name="forEach")
 public class ForEachTag extends BodyTagSupport implements HasVar {
@@ -137,10 +137,9 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
   }
 
   /**
-   * <![CDATA[ <code>java.util.List</code>,
-   *   <code>java.util.Map</code> or <code>Object[]</code> of items to iterate over.
-   *   This <strong>must</strong> be a <code>ValueBinding</code>.
-   * ]]>
+   * <strong>ValueBindingExpression</strong> pointing to a
+   *  <code>java.util.List</code>, <code>java.util.Map</code> or
+   * <code>Object[]</code> of items to iterate over.
    */
   @TagAttribute
   @UIComponentTagAttribute(type={List.class, Map.class, Object[].class})
@@ -154,9 +153,9 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
 
 
   /**
-   * <![CDATA[
+   *
    *  Index at which the iteration begins.
-   * ]]>
+   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type=Integer.class, defaultValue="0")
@@ -166,10 +165,10 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
 
 
   /**
-   * <![CDATA[
+   *
    *  Index at which the iteration stops.
    *  Defaults to <code>items.length()</code>.
-   * ]]>
+   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type=Integer.class, defaultValue="items.lenght()")
@@ -179,9 +178,9 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
 
 
   /**
-   * <![CDATA[
+   *
    *  Index increments every iteration by this value.
-   * ]]>
+   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type=Integer.class, defaultValue="1")

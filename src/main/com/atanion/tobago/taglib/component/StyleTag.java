@@ -7,14 +7,23 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.HasStyle;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.BodyContent;
+import com.atanion.util.annotation.BodyContentDescription;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-@Tag(name="style")
-public class StyleTag extends BodyTagSupport implements HasId, HasStyle {
+/**
+ * Add a style tag.
+ * Collected bodyContent is rendered as content into a style tag.
+ *
+ */
+@Tag(name="style", bodyContent=BodyContent.TAGDEPENDENT)
+@BodyContentDescription(contentType="css")
+public class StyleTag extends BodyTagSupport implements HasId {
   
 // ----------------------------------------------------------------- attributes
 
@@ -58,6 +67,14 @@ public class StyleTag extends BodyTagSupport implements HasId, HasStyle {
     return style;
   }
 
+
+  /**
+   *
+   * Name of the stylsheet file to add to page.
+   *
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=String.class, expression=false)
   public void setStyle(String style) {
     this.style = style;
   }

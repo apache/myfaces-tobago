@@ -16,7 +16,7 @@ import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.taglib.component.ToolBarTag;
 import com.atanion.tobago.taglib.component.ToolBarSelectBooleanTag;
-import com.atanion.tobago.taglib.component.MenuSelectOneTag;
+import com.atanion.tobago.taglib.component.SelectOneCommandTag;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -109,7 +109,7 @@ public class ToolBarRenderer extends RendererBase {
     if (ToolBarSelectBooleanTag.COMMAND_TYPE.equals(
         command.getAttributes().get(ATTR_COMMAND_TYPE))) {
       renderSelectBoolean(facesContext, command, writer, boxFacet, addExtraHoverClass);
-    } else if (MenuSelectOneTag.COMMAND_TYPE.equals(
+    } else if (SelectOneCommandTag.COMMAND_TYPE.equals(
         command.getAttributes().get(ATTR_COMMAND_TYPE))) {
       renderSelectOne(facesContext, command, writer, boxFacet, addExtraHoverClass);
     } else {

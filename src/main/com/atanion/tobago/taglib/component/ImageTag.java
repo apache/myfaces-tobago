@@ -58,9 +58,9 @@ public class ImageTag extends TobagoTag
   }
 
   /**
-   *  <![CDATA[
+   *
    * Absolute url to an image or image name to lookup in tobago resource path
-   *    ]]>
+   *
    */
   @TagAttribute(required=true)
   @UIComponentTagAttribute(type=String.class)
@@ -73,9 +73,9 @@ public class ImageTag extends TobagoTag
   }
 
   /**
-   *  <![CDATA[
+   *  
    *  Alternate textual description of the image rendered by this component.
-   *    ]]>
+   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type=String.class)

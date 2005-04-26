@@ -14,6 +14,7 @@ import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
 import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsImmediateCommand;
+import com.atanion.tobago.taglib.decl.HasBooleanValue;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
@@ -22,66 +23,17 @@ import javax.faces.component.UIComponent;
  * Renders a checkable menuitem.
  */
 @Tag(name="menucheck")
-public class MenuSelectBooleanTag extends CommandTag
-    implements HasIdBindingAndRendered, IsDisabled, HasAction, HasCommandType, HasValue,
-               HasLabelAndAccessKey, IsImmediateCommand{
-  public static final String COMMAND_TYPE = "commandSelectBoolean";
+public class MenuSelectBooleanTag extends SelectBooleanCommandTag
+    implements HasIdBindingAndRendered, IsDisabled, HasAction, HasCommandType,
+               HasBooleanValue, HasLabelAndAccessKey, IsImmediateCommand{
 
 // ----------------------------------------------------------------- attributes
 
 
-  private String label;
-  private String accessKey;
-  private String labelWithAccessKey;
-  private String value;
-
 // ----------------------------------------------------------- business methods
 
-
-  public String getComponentType() {
-    return UICommand.COMPONENT_TYPE;
-  }
-
-  protected void setProperties(UIComponent component) {
-    super.setProperties(component);
-
-    component.setRendererType(RENDERER_TYPE_MENUCOMMAND);
-    
-    ComponentUtil.setStringProperty(component, ATTR_VALUE, value, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, COMMAND_TYPE, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
-  }
-
-  public void release() {
-    super.release();
-    value = null;
-    label = null;
-    accessKey = null;
-    labelWithAccessKey = null;
-  }
 
 // ------------------------------------------------------------ getter + setter
 
 
-  public String getValue() {
-    return value;
-  }
-
-  public void setValue(String value) {
-    this.value = value;
-  }
-
-  public void setLabel(String label) {
-    this.label = label;
-  }
-
-  public void setAccessKey(String accessKey) {
-    this.accessKey = accessKey;
-  }
-
-  public void setLabelWithAccessKey(String labelWithAccessKey) {
-    this.labelWithAccessKey = labelWithAccessKey;
-  }
 }

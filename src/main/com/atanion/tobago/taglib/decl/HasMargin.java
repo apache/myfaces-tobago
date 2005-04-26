@@ -8,9 +8,9 @@ import com.atanion.util.annotation.UIComponentTagAttribute;
  */
 public interface HasMargin {
   /**
-   *  <![CDATA[
+   *
    * Margin between container component and layouted children.
-   *    ]]>
+   *
    */
   @TagAttribute @UIComponentTagAttribute(type=String.class)
   public void setMargin(String margin);

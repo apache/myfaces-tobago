@@ -10,11 +10,16 @@ import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
+import com.atanion.util.annotation.BodyContent;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
-@Tag(name="selectReference")
+/**
+ * Renders a set of option related to and same type as the <strong>for</strong>
+ * component.
+ */
+@Tag(name="selectReference", bodyContent=BodyContent.EMPTY)
 public class SelectReferenceTag extends TobagoTag
     implements HasIdBindingAndRendered {
 // ----------------------------------------------------------------- attributes

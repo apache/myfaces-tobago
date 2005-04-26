@@ -8,9 +8,9 @@ import com.atanion.util.annotation.UIComponentTagAttribute;
  */
 public interface HasBorder {
   /**
-   *  <![CDATA[
+   *
    *  Border size of this component.
-   *    ]]>
+   *
    */
   @TagAttribute @UIComponentTagAttribute(type=String.class)
   public void setBorder(String border);

@@ -3,18 +3,21 @@ package com.atanion.tobago.taglib.decl;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
 
+import javax.swing.tree.TreeNode;
+
 /**
  * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
- * Created: Apr 9, 2005 3:14:01 PM
+ * Created: Apr 9, 2005 2:51:36 PM
  * User: bommel
  * $Id$
  */
-public interface HasOnchangeListener {
+public interface HasTreeNodeValue {
+
 
   /**
-   * Clientside script function to add to this component's onchange handler.
+   * A javax.swing.tree.TreeNode object to use as rootNode in the tree.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class)
-  void setOnchange(String onchange);
+  @UIComponentTagAttribute(type=TreeNode.class)
+  void setValue(String value);
 }

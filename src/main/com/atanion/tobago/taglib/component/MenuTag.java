@@ -17,9 +17,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 
 /**
- * <![CDATA[
+ *
  *       Container component to hold submenus and items.
- *  ]]>
+ *
  */
 @Tag(name="menu")
 @BodyContentDescription(anyClassOf={MenuTag.class, MenuCommandTag.class,

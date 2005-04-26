@@ -11,23 +11,21 @@ import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsImmediateCommand;
 import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
+import com.atanion.tobago.taglib.decl.HasBooleanValue;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 
+
 /**
- * Created by IntelliJ IDEA.
- * User: weber
- * Date: Mar 29, 2005
- * Time: 3:52:15 PM
- * To change this template use File | Settings | File Templates.
+ * Renders a selectable command button within a toolbar.
  */
 @Tag(name="toolBarCheck")
-public class ToolBarSelectBooleanTag extends MenuSelectBooleanTag
-    implements HasId, HasLabelAndAccessKey, HasImage, IsDisabled, HasAction,
-               HasCommandType, HasValue, IsRendered, HasBinding,
-               IsImmediateCommand {
-  
+public class ToolBarSelectBooleanTag extends SelectBooleanCommandTag
+    implements HasIdBindingAndRendered, HasLabelAndAccessKey, HasCommandType,
+               HasImage, IsDisabled, HasAction, HasBooleanValue, IsImmediateCommand {
+
   private String image;
 
 

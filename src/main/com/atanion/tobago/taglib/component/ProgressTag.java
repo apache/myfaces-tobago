@@ -12,16 +12,19 @@ import com.atanion.tobago.taglib.decl.HasTip;
 import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.util.annotation.BodyContent;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.UIComponentTagAttribute;
+import com.atanion.util.annotation.TagAttribute;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
+import javax.swing.*;
 
 /**
  * Renders a progressbar.
  */
 @Tag(name="progress", bodyContent=BodyContent.EMPTY)
 public class ProgressTag extends BeanTag
-    implements HasValue, HasIdBindingAndRendered, HasTip {
+    implements HasIdBindingAndRendered, HasTip {
 
 // /////////////////////////////////////////// constants
 
@@ -47,6 +50,15 @@ public class ProgressTag extends BeanTag
   public void release() {
     super.release();
     tip = null;
+  }
+
+  /**
+   * The current value of this component. 
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=BoundedRangeModel.class)
+  public void setValue(String value) {
+    super.setValue(value);
   }
 
   public String getTip() {

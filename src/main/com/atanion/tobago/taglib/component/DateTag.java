@@ -8,6 +8,7 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UIInput;
 import com.atanion.tobago.component.UIPage;
+import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
 import com.atanion.tobago.taglib.decl.HasTip;
@@ -57,9 +58,7 @@ public class DateTag extends InputTag
 
   private void createPicker(UIComponent component) {
     // ensure date script
-    PageTag pageTag = PageTag.findPageTag(pageContext); // todo: find uiPage directly
-    UIPage page = (UIPage) pageTag.getComponentInstance();
-    page.getScriptFiles().add("script/date.js");
+    ComponentUtil.findPage(component).getScriptFiles().add("script/date.js");
 
     // util
     FacesContext facesContext = FacesContext.getCurrentInstance();

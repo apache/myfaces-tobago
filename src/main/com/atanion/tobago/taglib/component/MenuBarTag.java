@@ -13,11 +13,11 @@ import com.atanion.util.annotation.Tag;
 import javax.faces.component.UIPanel;
 
 /**
- * <![CDATA[
+ * 
  *       Renders a menu bar.<br>
  *       Add menu bar as facet name="menuBar" to page tag or use it anywhere
  *       on page.<br>
- *  ]]>
+ *
  */
 @Tag(name="menuBar")
 @BodyContentDescription(anyClassOf={MenuTag.class, MenuCommandTag.class,

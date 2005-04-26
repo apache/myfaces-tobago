@@ -8,9 +8,9 @@ import com.atanion.util.annotation.UIComponentTagAttribute;
  */
 public interface HasCellspacing {
   /**
-   *  <![CDATA[
+   *  
    * Spacing between component and layout cell's   
-   *    ]]>
+   *
    */
   @TagAttribute @UIComponentTagAttribute(type=String.class)
   public void setCellspacing(String cellspacing);

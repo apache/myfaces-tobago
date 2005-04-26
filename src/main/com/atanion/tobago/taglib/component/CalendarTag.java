@@ -10,9 +10,13 @@ import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.util.annotation.BodyContent;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Renders a calendar.
@@ -43,6 +47,12 @@ public class CalendarTag extends TobagoTag
 
 // ------------------------------------------------------------ getter + setter
 
+  /**
+   *  The current value of this component.
+   *
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type={Calendar.class, Date.class}) 
   public void setValue(String value) {
     this.value = value;
   }

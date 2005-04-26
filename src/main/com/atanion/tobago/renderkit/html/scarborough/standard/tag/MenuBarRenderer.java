@@ -18,10 +18,10 @@ import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.taglib.component.MenuCommandTag;
-import com.atanion.tobago.taglib.component.MenuSelectBooleanTag;
-import com.atanion.tobago.taglib.component.MenuSelectOneTag;
 import com.atanion.tobago.taglib.component.MenuSeparatorTag;
 import com.atanion.tobago.taglib.component.MenuTag;
+import com.atanion.tobago.taglib.component.SelectBooleanCommandTag;
+import com.atanion.tobago.taglib.component.SelectOneCommandTag;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.util.AccessKeyMap;
 
@@ -248,10 +248,10 @@ public class MenuBarRenderer extends RendererBase {
     if (MenuCommandTag.COMMAND_TYPE.equals(
         command.getAttributes().get(ATTR_COMMAND_TYPE))) {
       addCommand(sb, var, facesContext, command, onClick);
-    } else if (MenuSelectBooleanTag.COMMAND_TYPE.equals(
+    } else if (SelectBooleanCommandTag.COMMAND_TYPE.equals(
         command.getAttributes().get(ATTR_COMMAND_TYPE))) {
       addSelectBoolean(sb, var, facesContext, command, onClick);
-    } else if (MenuSelectOneTag.COMMAND_TYPE.equals(
+    } else if (SelectOneCommandTag.COMMAND_TYPE.equals(
         command.getAttributes().get(ATTR_COMMAND_TYPE))) {
       addSelectOne(sb, var, facesContext, command, onClick);
     }

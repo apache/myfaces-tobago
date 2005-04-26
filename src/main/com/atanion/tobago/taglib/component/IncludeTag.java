@@ -8,6 +8,7 @@ package com.atanion.tobago.taglib.component;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasValue;
+import com.atanion.tobago.taglib.decl.HasStringValue;
 import com.atanion.util.annotation.BodyContent;
 import com.atanion.util.annotation.Tag;
 import org.apache.commons.logging.Log;
@@ -20,7 +21,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 @Tag(name="include", bodyContent=BodyContent.EMPTY)
-public class IncludeTag extends TagSupport implements HasId, HasValue {
+public class IncludeTag extends TagSupport implements HasId, HasStringValue {
 // ----------------------------------------------------------- class attributes
 
   private static final Log LOG = LogFactory.getLog(IncludeTag.class);

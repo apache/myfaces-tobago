@@ -16,8 +16,14 @@ import com.atanion.tobago.taglib.decl.IsInline;
 import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.tobago.taglib.decl.IsReadonly;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.BodyContentDescription;
 
 @Tag(name="selectOneChoice")
+
+/**
+ * Render a single selection dropdown list.
+ */
+@BodyContentDescription(anyTagOf="(<f:selectItems>|<f:selectItem>|<t:selectItem>)+ <f:facet>* " )
 public class SelectOneChoiceTag extends SelectOneTag
     implements HasId, HasValue, IsDisabled, IsReadonly, HasOnchangeListener, IsInline,
     HasLabelAndAccessKey, IsRendered, HasBinding, HasTip

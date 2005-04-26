@@ -8,9 +8,11 @@
 
   <property file="build.properties"/>
   <property name="bs.home" location="../build-system"/>
+
   <property name="tld.files"
-    value="src/main/com/atanion/tobago/taglib/component/tobago.tld " />
+    value="build/classes/main/com/atanion/tobago/taglib/component/tobago.tld " />
   <property name="tlddoc.windowtitle" value="Tobago Tag Library Documentation"/>
+
   <import file="${bs.home}/build-basic.xml"/>
 
   <property name="project.dir.doc.master" value="doc/master.xml"/>

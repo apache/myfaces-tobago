@@ -5,14 +5,17 @@ import com.atanion.util.annotation.UIComponentTagAttribute;
 
 /**
  * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
- * Created: Apr 9, 2005 3:10:41 PM
+ * Created: Apr 9, 2005 2:51:36 PM
  * User: bommel
  * $Id$
  */
-public interface IsShowJunctions {
+public interface HasStringValue {
+  
   /**
-   *  
+   *  The current value of this component.
+   *
    */
-  @TagAttribute @UIComponentTagAttribute(type=Boolean.class, defaultValue="false")
-  public void setShowJunctions(String showJunctions);
+  @TagAttribute
+  @UIComponentTagAttribute(type=String.class) 
+  void setValue(String value);
 }

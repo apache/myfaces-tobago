@@ -18,16 +18,20 @@ import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsImmediateCommand;
 import com.atanion.tobago.taglib.decl.IsInline;
 import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.BodyContentDescription;
 
 import javax.faces.component.UIComponent;
 
-
+/**
+ * Renders a command button within a toolbar.
+ */
 @Tag(name="toolBarCommand")
 public class ToolBarCommandTag extends CommandTag
-    implements HasId, HasBinding, HasLabelAndAccessKey, HasImage,
+    implements HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
                IsDisabled, HasAction, HasActionListener, HasCommandType,
-               IsImmediateCommand, IsInline, IsRendered
+               IsImmediateCommand
     {
 // ----------------------------------------------------------------- attributes
 

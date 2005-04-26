@@ -8,10 +8,10 @@ import com.atanion.util.annotation.UIComponentTagAttribute;
  */
 public interface HasColumnLayout {
   /**
-   *  <![CDATA[
+   *
    * LayoutConstraints for column layout.
-   * Semicolon separated list of layout tokens ('<x>*', '<x>px' or '<x>%').     
-   *    ]]>
+   * Semicolon separated list of layout tokens ('&lt;x>*', '&lt;x>px' or '&lt;x>%').     
+   *
    */
   @TagAttribute @UIComponentTagAttribute(type=String.class)
   public void setColumns(String columns);

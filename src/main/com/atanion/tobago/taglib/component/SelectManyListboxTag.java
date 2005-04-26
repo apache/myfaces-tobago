@@ -20,6 +20,10 @@ import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 
+
+/**
+ * Render a multi selection option listbox.
+ */
 @Tag(name="selectManyListbox")
 public class SelectManyListboxTag extends SelectManyTag
     implements HasId, HasValue, IsDisabled, HasHeight, IsInline,

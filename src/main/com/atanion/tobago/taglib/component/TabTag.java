@@ -12,13 +12,17 @@ import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
 import com.atanion.tobago.taglib.decl.HasTip;
 import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 
+/**
+ * renders a tab within a tabgroup.
+ */
 @Tag(name="tab")
 public class TabTag extends TobagoBodyTag
-    implements   HasId, HasLabelAndAccessKey, IsRendered, HasBinding, HasTip
+    implements   HasIdBindingAndRendered, HasLabelAndAccessKey, HasTip
      {
 
 // ----------------------------------------------------------- business methods

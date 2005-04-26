@@ -87,9 +87,9 @@ public class CellTag extends TobagoBodyTag implements HasIdBindingAndRendered {
   }
 
     /**
-   *  <![CDATA[
+   *
    *   Count of layout column's to span over.
-   *    ]]>
+   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type=Integer.class, defaultValue="1")
@@ -102,9 +102,9 @@ public class CellTag extends TobagoBodyTag implements HasIdBindingAndRendered {
   }
 
   /**
-   *  <![CDATA[
+   *
    *   Count of layout row's to span over.
-   *    ]]>
+   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type=Integer.class, defaultValue="1")
@@ -118,12 +118,12 @@ public class CellTag extends TobagoBodyTag implements HasIdBindingAndRendered {
 
 
   /**
-   *  <![CDATA[
+   *
    *  possible values are:
    *    'false' : no scrollbars should rendered
    *    'true'  : scrollbars should always rendered
    *    'auto'  : scrollbars should rendered when needed
-   *    ]]>
+   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type=String.class, defaultValue="false")

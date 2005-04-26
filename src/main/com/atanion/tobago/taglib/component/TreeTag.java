@@ -7,29 +7,29 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UITree;
-import com.atanion.tobago.taglib.decl.HasBinding;
-import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasIdReference;
 import com.atanion.tobago.taglib.decl.HasNameReference;
-import com.atanion.tobago.taglib.decl.HasSelectable;
 import com.atanion.tobago.taglib.decl.HasState;
 import com.atanion.tobago.taglib.decl.HasValue;
-import com.atanion.tobago.taglib.decl.IsMutable;
-import com.atanion.tobago.taglib.decl.IsRendered;
-import com.atanion.tobago.taglib.decl.IsShowIcons;
-import com.atanion.tobago.taglib.decl.IsShowJunctions;
-import com.atanion.tobago.taglib.decl.IsShowRoot;
-import com.atanion.tobago.taglib.decl.IsShowRootJunction;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
+import com.atanion.tobago.taglib.decl.HasTreeNodeValue;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
+import com.atanion.util.annotation.BodyContentDescription;
 
 import javax.faces.component.UIComponent;
 import javax.faces.el.ValueBinding;
+import javax.swing.tree.TreeNode;
 
+/**
+ * Renders a tree view.
+ */
 @Tag(name="tree")
+@BodyContentDescription(anyTagOf="<f:facet>* <f:actionListener>?" )
 public class TreeTag extends TobagoTag
-    implements HasId, HasValue, HasState, IsShowJunctions, IsShowIcons,
-    IsShowRoot, IsShowRootJunction, HasSelectable, IsMutable,
-               HasIdReference, HasNameReference, IsRendered, HasBinding {
+    implements HasIdBindingAndRendered, HasTreeNodeValue, HasState,
+               HasIdReference, HasNameReference {
 
 // ----------------------------------------------------------------- attributes
 
@@ -111,6 +111,12 @@ public class TreeTag extends TobagoTag
     return showIcons;
   }
 
+
+  /**
+   *
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=Boolean.class, defaultValue="false")
   public void setShowIcons(String showIcons) {
     this.showIcons = showIcons;
   }
@@ -119,6 +125,12 @@ public class TreeTag extends TobagoTag
     return showJunctions;
   }
 
+
+  /**
+   *
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=Boolean.class, defaultValue="false")
   public void setShowJunctions(String showJunctions) {
     this.showJunctions = showJunctions;
   }
@@ -127,6 +139,11 @@ public class TreeTag extends TobagoTag
     return showRoot;
   }
 
+  /**
+   *
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=Boolean.class, defaultValue="false")
   public void setShowRoot(String showRoot) {
     this.showRoot = showRoot;
   }
@@ -135,6 +152,11 @@ public class TreeTag extends TobagoTag
     return showRootJunction;
   }
 
+  /**
+   *
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=Boolean.class, defaultValue="false")
   public void setShowRootJunction(String showRootJunction) {
     this.showRootJunction = showRootJunction;
   }
@@ -151,6 +173,17 @@ public class TreeTag extends TobagoTag
     return selectable;
   }
 
+  /**
+   * Flag indicating whether or not this component should be render selectable items.
+   *  Possible values are:
+   *  <ul>
+   *  <li><strong>multi</strong> : a multisection tree is rendered
+   *  <li><strong>single</strong> : a singlesection tree is rendered
+   *  </ul>
+   *  For any other value or if this attribute is omited the items are not selectable.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=String.class, defaultValue="off")
   public void setSelectable(String selectable) {
     this.selectable = selectable;
   }
@@ -159,6 +192,11 @@ public class TreeTag extends TobagoTag
     return mutable;
   }
 
+  /**
+   *
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=Boolean.class, defaultValue="false")
   public void setMutable(String mutable) {
     this.mutable = mutable;
   }

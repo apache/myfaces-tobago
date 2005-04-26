@@ -1,6 +1,7 @@
 package com.atanion.tobago.taglib.decl;
 
 import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 /**
  * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
@@ -14,5 +15,7 @@ public interface HasValue {
    *  The current value of this component.
    *
    */
-  @TagAttribute void setValue(String value);
+  @TagAttribute
+  @UIComponentTagAttribute(type=Object.class) 
+  void setValue(String value);
 }

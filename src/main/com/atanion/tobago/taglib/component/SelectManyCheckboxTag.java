@@ -14,10 +14,15 @@ import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsInline;
 import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.BodyContentDescription;
 
 import javax.faces.component.UIComponent;
 
+/**
+ * Render a group of checkboxes.
+ */
 @Tag(name="selectManyCheckbox")
+@BodyContentDescription(anyTagOf="(<f:selectItems>|<f:selectItem>|<t:selectItem>)+ <f:facet>* " )
 public class SelectManyCheckboxTag extends SelectManyTag
     implements HasValue, IsDisabled, HasId, IsInline, HasRenderRange,
                IsRendered,  HasBinding {

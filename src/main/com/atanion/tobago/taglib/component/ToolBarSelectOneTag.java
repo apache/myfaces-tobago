@@ -8,18 +8,15 @@ import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsImmediateCommand;
 import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.util.annotation.Tag;
 
 /**
- * Created by IntelliJ IDEA.
- * User: weber
- * Date: Apr 11, 2005
- * Time: 2:21:47 PM
- * To change this template use File | Settings | File Templates.
+ * Renders a set of radio command button's within a toolbar.
  */
 @Tag(name="toolBarSelectOne")
-public class ToolBarSelectOneTag extends MenuSelectOneTag
-    implements HasId, IsDisabled, HasAction, HasCommandType, HasValue,
-               IsRendered, HasBinding, IsImmediateCommand {
+public class ToolBarSelectOneTag extends SelectOneCommandTag
+    implements HasIdBindingAndRendered, IsDisabled, HasAction, HasCommandType,
+               HasValue, IsImmediateCommand {
   
 }

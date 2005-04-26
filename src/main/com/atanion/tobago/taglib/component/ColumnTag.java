@@ -62,7 +62,7 @@ public class ColumnTag extends TobagoTag
 
 
   /**
-   *  <![CDATA[
+   *  
    *  Alignment of this column.
    *
    */
@@ -77,9 +77,9 @@ public class ColumnTag extends TobagoTag
   }
 
    /**
-   *  <![CDATA[
+   *
    *  Flag indicating whether or not this column is sortable.
-   *    ]]>
+   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type=Boolean.class, defaultValue="false")

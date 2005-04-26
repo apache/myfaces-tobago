@@ -66,11 +66,11 @@ public class CalendarRenderer extends RendererBase {
     Calendar calendar;
     if (value instanceof Calendar) {
       calendar = (Calendar) value;
-    } else if (value instanceof Date) {
+    } else { 
       calendar = new GregorianCalendar();
-      calendar.setTime((Date) value);
-    } else {
-      calendar = new GregorianCalendar();
+      if (value instanceof Date) {
+        calendar.setTime((Date) value);
+      }
     }
     CalendarModel model = new CalendarModel(calendar);
 
