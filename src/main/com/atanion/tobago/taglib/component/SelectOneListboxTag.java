@@ -17,8 +17,15 @@ import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.tobago.taglib.decl.IsReadonly;
 import com.atanion.tobago.taglib.decl.HasHeight;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.BodyContentDescription;
 
+import javax.faces.webapp.FacetTag;
+
+/**
+ * Render a single selection option listbox.
+ */
 @Tag(name="selectOneListbox")
+@BodyContentDescription(anyTagOf="(<f:selectItems>|<f:selectItem>|<t:selectItem>)+ <f:facet>* " ) 
 public class SelectOneListboxTag extends SelectOneTag
     implements HasId, HasValue, IsDisabled, IsReadonly, HasOnchangeListener,
     HasLabelAndAccessKey, IsRendered, HasBinding, HasHeight, HasTip
