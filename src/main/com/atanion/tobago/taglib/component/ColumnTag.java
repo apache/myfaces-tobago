@@ -76,9 +76,12 @@ public class ColumnTag extends TobagoTag
     return sortable;
   }
 
-   /**
+  /**
    *
-   *  Flag indicating whether or not this column is sortable.
+   * Flag indicating whether or not this column is sortable.
+   * To make a column sortable the data of the sheet must be one of
+   * <code>java.util.List</code>, <code>Object[]</code> or instance of
+   * <code>com.atanion.tobago.model.SortableByApplication</code>.
    *
    */
   @TagAttribute

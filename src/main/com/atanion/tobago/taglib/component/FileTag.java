@@ -5,6 +5,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import org.apache.commons.fileupload.FileItem;
+
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIInput;
 import com.atanion.tobago.component.UIPage;
@@ -15,6 +17,8 @@ import com.atanion.tobago.taglib.decl.HasTip;
 import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.UIComponentTagAttribute;
+import com.atanion.util.annotation.TagAttribute;
 
 import javax.servlet.jsp.JspException;
 
@@ -23,7 +27,7 @@ import javax.servlet.jsp.JspException;
  */
 @Tag(name="file")
 public class FileTag extends InputTag
-    implements HasIdBindingAndRendered, HasValue, IsDisabled,
+    implements HasIdBindingAndRendered, IsDisabled,
                HasLabelAndAccessKey, HasOnchangeListener, HasTip {
   // ----------------------------------------------------------- business methods
 
@@ -36,6 +40,17 @@ public class FileTag extends InputTag
 
   public String getComponentType() {
     return UIInput.COMPONENT_TYPE;
+  }
+
+  /**
+   * Value binding expression pointing to a
+   * <code>org.apache.commons.fileupload.FileItem</code> property to store the
+   * uploaded file.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=FileItem.class)
+  public void setValue(String value) {
+    super.setValue(value);
   }
 }
 
