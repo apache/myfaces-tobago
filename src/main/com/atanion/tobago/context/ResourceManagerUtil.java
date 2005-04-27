@@ -63,7 +63,7 @@ public class ResourceManagerUtil {
     }
   }
 
-  public static List getStyles(FacesContext facesContext, String name) {
+  public static List<String> getStyles(FacesContext facesContext, String name) {
     UIViewRoot viewRoot = facesContext.getViewRoot();
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
     String[] styles = getResourceManager(facesContext).getStyles(viewRoot, name);
@@ -71,15 +71,15 @@ public class ResourceManagerUtil {
     return addContextPath(styles, contextPath);
   }
 
-  private static List addContextPath(String[] strings, String contextPath) {
-    List withContext = new ArrayList(strings.length);
+  private static List<String> addContextPath(String[] strings, String contextPath) {
+    List<String> withContext = new ArrayList<String>(strings.length);
     for (int i = 0; i < strings.length; i++) {
       withContext.add(contextPath + strings[i]);
     }
     return withContext;
   }
 
-  public static List getScripts(FacesContext facesContext, String name) {
+  public static List<String> getScripts(FacesContext facesContext, String name) {
     UIViewRoot viewRoot = facesContext.getViewRoot();
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
     String scripts[]

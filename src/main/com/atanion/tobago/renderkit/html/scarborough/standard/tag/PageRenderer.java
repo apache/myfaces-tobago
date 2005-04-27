@@ -282,7 +282,7 @@ public class PageRenderer extends PageRendererBase {
           errorMessageForDebugging(id, message, writer);
         }
       }
-/*
+///*
       String keys = "";
       if (LOG.isInfoEnabled()) {
         keys = "<li> unused accessKeys : "
@@ -302,7 +302,7 @@ public class PageRenderer extends PageRendererBase {
           "background: #ffffff;\">" +
           "<ol id=\"Log\" style=\"font-family:Arial,sans-serif; " +
           "font-size:10pt\"><li>Ereignisliste</li> " + keys + "</ol> </div>");
-*/
+//*/
 
     }
 
@@ -314,17 +314,16 @@ public class PageRenderer extends PageRendererBase {
 
   private void addScripts(ResponseWriter writer, FacesContext facesContext,
       String script) throws IOException {
-    List scripts;
+    List<String> scripts;
     final String ucScript = script.toUpperCase();
     if (ucScript.startsWith("HTTP:") || ucScript.startsWith("FTP:")
         || ucScript.startsWith("/")) {
-      scripts = new ArrayList();
+      scripts = new ArrayList<String>();
       scripts.add(script);
     } else {
       scripts = ResourceManagerUtil.getScripts(facesContext, script);
     }
-    for (Iterator j = scripts.iterator(); j.hasNext();) {
-      String scriptString = (String) j.next();
+    for (String scriptString : scripts) {
       if (scriptString.length() > 0 ) {
         writer.startElement("script", null);
         writer.writeAttribute("src", scriptString, null);
