@@ -110,7 +110,6 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
     writer.writeAttribute("style", null, "style");
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
-    writer.writeAttribute("multiple", "multiple", null);
     writer.writeAttribute("title", null, ATTR_TIP);
 
     Object value = component.getValue();
