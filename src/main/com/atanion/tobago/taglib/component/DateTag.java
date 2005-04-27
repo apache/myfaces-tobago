@@ -6,8 +6,10 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.atanion.tobago.component.UIInput;
-import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
@@ -23,6 +25,7 @@ import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 import javax.faces.context.FacesContext;
+import javax.servlet.jsp.JspException;
 
 /**
  * Renders a date input field.
@@ -32,6 +35,7 @@ public class DateTag extends InputTag
     implements HasIdBindingAndRendered, HasValue, IsReadonly, IsDisabled,
                IsInline, HasLabelAndAccessKey, HasTip {
 
+private static final Log LOG = LogFactory.getLog(DateTag.class);
   // ----------------------------------------------------------- business methods
 
   public String getComponentType() {
@@ -42,6 +46,17 @@ public class DateTag extends InputTag
     return RENDERER_TYPE_IN;
   }
 
+  public int doEndTag() throws JspException {
+    UIComponent component = getComponentInstance();
+    LOG.info("page ist " + ComponentUtil.findPage(component));
+
+    UIComponent picker = component.getFacet("picker");
+    if (picker == null) {
+      createPicker(component);
+    }
+    return super.doEndTag();
+  }
+
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
@@ -50,11 +65,8 @@ public class DateTag extends InputTag
 //    Converter converter = context.getApplication().createConverter("Date"); fixme
 //    holder.setConverter(converter);
 
-    UIComponent picker = component.getFacet("picker");
-    if (picker == null) {
-      createPicker(component);
-    }
   }
+
 
   private void createPicker(UIComponent component) {
     // ensure date script
@@ -62,23 +74,24 @@ public class DateTag extends InputTag
 
     // util
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    Application application = facesContext.getApplication();
+    final String idPrefix 
+        = ComponentUtil.createPickerId(facesContext, component, "");
 
     // create link
-    UICommand link = (UICommand) application.createComponent(
-        UICommand.COMPONENT_TYPE);
-    link.setRendererType(RENDERER_TYPE_LINK);
+    UICommand link = (UICommand) ComponentUtil.createComponent(
+            facesContext, UICommand.COMPONENT_TYPE, RENDERER_TYPE_LINK);
     link.setRendered(true);
     link.getAttributes().put(ATTR_TYPE, "script");
+    link.setId(idPrefix + "link");
 
     // create image
-    UIGraphic image = (UIGraphic) application.createComponent(
-        UIGraphic.COMPONENT_TYPE);
-    image.setRendererType(RENDERER_TYPE_IMAGE);
+    UIGraphic image = (UIGraphic) ComponentUtil.createComponent(
+            facesContext, UIGraphic.COMPONENT_TYPE, RENDERER_TYPE_IMAGE);
     image.setRendered(true);
     image.setValue("image/date.gif");
     image.getAttributes().put(ATTR_ALT, ""); //todo: i18n
     image.getAttributes().put(ATTR_STYLE_CLASS, "tobago-input-picker");
+    image.setId(idPrefix + "image");
 
     // add image
     link.getChildren().add(image);

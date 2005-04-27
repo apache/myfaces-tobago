@@ -590,4 +590,16 @@ public class ComponentUtil {
     }
     return result;
   }
+
+
+
+  public static String createPickerId(
+      FacesContext facesContext, UIComponent component, String postfix) {
+    String id = component.getId();
+    if (id == null || id.startsWith("_id")) {
+      id = component.getClientId(facesContext);
+      id = id.substring(id.lastIndexOf('_') + 3);
+    }
+    return "picker" + id + postfix;
+  }
 }
