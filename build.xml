@@ -116,6 +116,8 @@
 <!--    <deploy-module name="tobago-module-client"/>-->
 
   </target>
+
+      <!-- todo: move annotations to build-system -->
   <target name="annotations" depends="bs:init, bs:get-libs-jar" >
     <apt srcdir="${src.main}" fork="true"
          classpathref="project.classpath.jar"
@@ -128,6 +130,8 @@
       <option name="file" value="tobago.tld" />
     </apt>
   </target>
+
+  <target name="tlddoc" depends="annotations, bs:tlddoc" ></target>
 
   <target name="docbook-html" depends="docbook.docbook-html">
     <docbook-html-macro master="${project.dir.doc.master}" output.dir="build/doc/" />
