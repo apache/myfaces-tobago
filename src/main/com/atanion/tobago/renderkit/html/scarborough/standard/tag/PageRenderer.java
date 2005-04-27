@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.util.AccessKeyMap;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.component.UILayout;
 import com.atanion.tobago.context.ClientProperties;
@@ -142,9 +143,8 @@ public class PageRenderer extends PageRendererBase {
 
     // style files
     for (String styleFile : page.getStyleFiles()) {
-      List styles = ResourceManagerUtil.getStyles(facesContext, styleFile);
-      for (Iterator j = styles.iterator(); j.hasNext();) {
-        String styleString = (String) j.next();
+      List<String> styles = ResourceManagerUtil.getStyles(facesContext, styleFile);
+      for (String styleString : styles) {
         if (styleString.length() > 0) {
           writer.startElement("link", null);
           writer.writeAttribute("rel", "stylesheet", null);
@@ -283,6 +283,16 @@ public class PageRenderer extends PageRendererBase {
         }
       }
 /*
+      String keys = "";
+      if (LOG.isInfoEnabled()) {
+        keys = "<li> unused accessKeys : "
+            + AccessKeyMap.getUnusedKeys(facesContext) + "</li>";
+        String dublicated = AccessKeyMap.getDublicatedKeys(facesContext);
+        if (dublicated.length() > 0) {
+          keys += "<li> dublicated accessKeys : " + dublicated + "</li>";
+        }
+      }
+
       writer.write("<div onmousedown=\"tobagoJsLogMouseDown(event)\" " +
           "onmousemove=\"tobagoJsLogMouseMove(event)\" " +
           "onmouseup=\"tobagoJsLogMouseUp()\" " +
@@ -291,8 +301,9 @@ public class PageRenderer extends PageRendererBase {
           "height: 500px;width: 400px; overflow: auto;border:1px solid red; " +
           "background: #ffffff;\">" +
           "<ol id=\"Log\" style=\"font-family:Arial,sans-serif; " +
-          "font-size:10pt\"><li>Ereignisliste</li></ol> </div>");
+          "font-size:10pt\"><li>Ereignisliste</li> " + keys + "</ol> </div>");
 */
+
     }
 
     writer.endElement("body");
