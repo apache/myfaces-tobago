@@ -52,7 +52,8 @@ public class Sorter extends MethodBinding {
   public Object invoke(FacesContext facescontext, Object aobj[])
       throws EvaluationException, MethodNotFoundException {
     if (aobj[0] instanceof ActionEvent) {
-      UICommand command = (UICommand) ((ActionEvent) aobj[0]).getSource();
+      javax.faces.component.UICommand command =
+          (javax.faces.component.UICommand) ((ActionEvent) aobj[0]).getSource();
       if (LOG.isDebugEnabled()) {
         LOG.debug("sorterId = " + command.getId());
       }
