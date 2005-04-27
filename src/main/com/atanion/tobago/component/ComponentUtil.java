@@ -12,18 +12,9 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
-import javax.faces.component.EditableValueHolder;
-import javax.faces.component.UIColumn;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIGraphic;
-import javax.faces.component.UIOutput;
-import javax.faces.component.UIParameter;
+import javax.faces.component.*;
 import javax.faces.component.UISelectItem;
-import javax.faces.component.UISelectItems;
-import javax.faces.component.ValueHolder;
 import javax.faces.component.UICommand;
-import javax.faces.component.UISelectBoolean;
-import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.el.ValueBinding;
@@ -40,6 +31,8 @@ import java.util.List;
 import java.util.Map;
 
 import static com.atanion.tobago.TobagoConstants.*;
+import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.util.RangeParser;
 
 public class ComponentUtil {
 
@@ -601,5 +594,43 @@ public class ComponentUtil {
       id = id.substring(id.lastIndexOf('_') + 3);
     }
     return "picker" + id + postfix;
+  }
+
+  
+  public static List<SelectItem> getItemsToRender(UISelectOne component) {
+    return getItems(component);
+  }
+  public static List<SelectItem> getItemsToRender(UISelectMany component) {
+    return getItems(component);
+  }
+
+  private static List<SelectItem> getItems(javax.faces.component.UIInput component) {
+
+    List<SelectItem> selectItems = ComponentUtil.getSelectItems(component);
+
+    String renderRange = (String)
+        component.getAttributes().get(TobagoConstants.ATTR_RENDER_RANGE_EXTERN);
+    if (renderRange == null) {
+      renderRange = (String)
+          component.getAttributes().get(TobagoConstants.ATTR_RENDER_RANGE);
+    }
+    if (renderRange == null) {
+      return selectItems;
+    }
+
+    int[] indices = RangeParser.getIndices(renderRange);
+    List<SelectItem> items = new ArrayList<SelectItem>(indices.length);
+
+    if (selectItems.size() != 0) {
+      for (int i = 0; i < indices.length; i++) {
+        items.add(selectItems.get(indices[i]));
+      }
+    } else {
+      LOG.warn("No items found! rendering dummys instead!");
+      for (int i = 0; i < indices.length; i++) {
+        items.add(new SelectItem(Integer.toString(i), "Item " + i, ""));
+      }
+    }
+    return items;
   }
 }

@@ -50,45 +50,6 @@ public class SelectReferenceRenderer extends RendererBase{
     reference.getAttributes().remove(TobagoConstants.ATTR_RENDER_RANGE_EXTERN);
   }
 
-
-
-  public static List<SelectItem> getItemsToRender(UISelectOne component) {
-    return getItems(component);
-  }
-  public static List<SelectItem> getItemsToRender(UISelectMany component) {
-    return getItems(component);
-  }
-  
-  private static List<SelectItem> getItems(UIInput component) {
-
-    List<SelectItem> selectItems = ComponentUtil.getSelectItems(component);
-
-    String renderRange = (String)
-        component.getAttributes().get(TobagoConstants.ATTR_RENDER_RANGE_EXTERN);
-    if (renderRange == null) {
-      renderRange = (String)
-          component.getAttributes().get(TobagoConstants.ATTR_RENDER_RANGE);
-    }
-    if (renderRange == null) {
-      return selectItems;
-    }
-
-    int[] indices = RangeParser.getIndices(renderRange);
-    List<SelectItem> items = new ArrayList<SelectItem>(indices.length);
-
-    if (selectItems.size() != 0) {
-      for (int i = 0; i < indices.length; i++) {
-        items.add(selectItems.get(indices[i]));
-      }
-    } else {
-      LOG.warn("No items found! rendering dummys instead!");
-      for (int i = 0; i < indices.length; i++) {
-        items.add(new SelectItem(Integer.toString(i), "Item " + i, ""));
-      }
-    }
-    return items;
-  }
-
 // ///////////////////////////////////////////// bean getter + setter
 
 }

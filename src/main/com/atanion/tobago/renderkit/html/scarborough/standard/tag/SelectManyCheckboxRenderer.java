@@ -39,7 +39,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
     UISelectMany component = (UISelectMany)uiComponent;
 
-    List<SelectItem> items = SelectReferenceRenderer.getItemsToRender(component);
+    List<SelectItem> items = ComponentUtil.getItemsToRender(component);
 
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
@@ -117,7 +117,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     List<SelectItem> items
-        = SelectReferenceRenderer.getItemsToRender((UISelectMany) component);
+        = ComponentUtil.getItemsToRender((UISelectMany) component);
     return items.size() * super.getFixedHeight(facesContext, component);
   }
 
