@@ -55,4 +55,3 @@ public class TextAreaTag extends TextInputTag
     this.rows = rows;
   }
 }
-

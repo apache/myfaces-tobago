@@ -98,10 +98,6 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
       writer.startElement("td", null);
     }
 
-    // fixme: rows never used
-    Integer rows = (Integer) component.getAttributes().get(TobagoConstants.ATTR_ROWS);
-
-
     writer.startElement("select", component);
     String clientId = component.getClientId(facesContext);
     writer.writeAttribute("name", clientId, null);
@@ -111,6 +107,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     writer.writeAttribute("style", null, "style");
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
     writer.writeAttribute("title", null, ATTR_TIP);
+    writer.writeAttribute("size", 2, null); // should be greater 1
 
     Object value = component.getValue();
     if (LOG.isDebugEnabled()) {
@@ -119,7 +116,9 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     for (SelectItem item : items) {
 
       writer.startElement("option", null);
-      writer.writeAttribute("value", item.getValue(), null);
+      String formattedValue
+          = getFormattedValue(facesContext, component, item.getValue());
+      writer.writeAttribute("value", formattedValue, null);
       if (item.getValue().equals(value)) {
         writer.writeAttribute("selected", "selected", null);
       }

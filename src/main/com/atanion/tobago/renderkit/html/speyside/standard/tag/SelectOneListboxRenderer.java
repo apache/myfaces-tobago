@@ -7,8 +7,6 @@ package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.SelectManyRendererBase;
 import com.atanion.tobago.renderkit.SelectOneRendererBase;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
@@ -17,12 +15,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UISelectMany;
 import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 public class SelectOneListboxRenderer extends SelectOneRendererBase {
@@ -83,9 +79,6 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
 
     String image = ResourceManagerUtil.getImage(facesContext, "image/1x1.gif");
 
-    // fixme: rows never used
-    Integer rows = (Integer) component.getAttributes().get(ATTR_ROWS);
-
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
 
@@ -133,6 +126,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     writer.writeAttribute("style", null, "style");
     writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
     writer.writeAttribute("title", null, ATTR_TIP);
+    writer.writeAttribute("size", 2, null); // should be greater 1
 
     Object value = component.getValue();
     if (LOG.isDebugEnabled()) {
@@ -141,7 +135,9 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     for (SelectItem item : items) {
 
       writer.startElement("option", null);
-      writer.writeAttribute("value", item.getValue(), null);
+      String formattedValue
+          = getFormattedValue(facesContext, component, item.getValue());
+      writer.writeAttribute("value", formattedValue, null);
       if (item.getValue().equals(value)) {
         writer.writeAttribute("selected", "selected", null);
       }

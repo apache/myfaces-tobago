@@ -53,7 +53,9 @@ public class SelectOneChoiceRenderer extends RendererBase {
 
     for (SelectItem item : items) {
       writer.startElement("option", selectOne);
-      writer.writeAttribute("value", item.getValue(), null);
+      String formattedValue
+          = getFormattedValue(facesContext, component, item.getValue());
+      writer.writeAttribute("value", formattedValue, null);
       writer.writeText(item.getLabel(), null);
       writer.endElement("option");
     }

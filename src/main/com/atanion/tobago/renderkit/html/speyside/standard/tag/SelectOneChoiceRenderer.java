@@ -107,7 +107,9 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     Object value = component.getValue();
     for (SelectItem item : items) {
       writer.startElement("option", null);
-      writer.writeAttribute("value", item.getValue(), null);
+      String formattedValue
+          = getFormattedValue(facesContext, component, item.getValue());
+      writer.writeAttribute("value", formattedValue, null);
       if (item.getValue().equals(value)) {
         writer.writeAttribute("selected", "selected", null);
       }

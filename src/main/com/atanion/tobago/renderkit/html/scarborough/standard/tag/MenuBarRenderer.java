@@ -339,8 +339,7 @@ public class MenuBarRenderer extends RendererBase {
       String radioId = radio.getClientId(facesContext);
       String onClickPrefix = "menuSetRadioValue('" + radioId + "', '";
       String onClickPostfix = onClick != null ? "') ; " + onClick : "";
-      for (Iterator i = items.iterator(); i.hasNext();) {
-        SelectItem item = (SelectItem) i.next();
+      for (SelectItem item : items) {
         final String labelText = item.getLabel();
         label.accessKey = null;
         if (labelText != null) {
@@ -354,12 +353,13 @@ public class MenuBarRenderer extends RendererBase {
           LOG.warn("Menu item has label=null. UICommand.getClientId()=" 
               + command.getClientId(facesContext));
         }
-        Object itemValue = item.getValue();
-        onClick = onClickPrefix + itemValue + onClickPostfix;
-        if (itemValue.equals(value) || markFirst) {
+        String formattedValue
+            = getFormattedValue(facesContext, command, item.getValue());
+        onClick = onClickPrefix + formattedValue + onClickPostfix;
+        if (item.getValue().equals(value) || markFirst) {
           image = "image/MenuRadioChecked.gif";
           markFirst = false;
-          sb.append("    " + onClickPrefix + itemValue + "');");
+          sb.append("    " + onClickPrefix + item.getValue() + "');");
         } else {
           image = "image/MenuRadioUnchecked.gif";
         }

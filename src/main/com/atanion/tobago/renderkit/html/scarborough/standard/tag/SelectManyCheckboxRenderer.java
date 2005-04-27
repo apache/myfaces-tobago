@@ -73,7 +73,9 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
           RenderUtil.contains(values, item.getValue()));
       writer.writeAttribute("name", id, null);
       writer.writeAttribute("id", itemId, null);
-      writer.writeAttribute("value", item.getValue(), null);
+      String formattedValue
+          = getFormattedValue(facesContext, component, item.getValue());
+      writer.writeAttribute("value", formattedValue, null);
       writer.writeAttribute("disabled",
           ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
       writer.endElement("input");

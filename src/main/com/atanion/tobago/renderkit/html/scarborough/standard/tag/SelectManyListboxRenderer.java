@@ -20,7 +20,6 @@ import javax.faces.component.UISelectMany;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 public class SelectManyListboxRenderer extends SelectManyRendererBase {
@@ -100,10 +99,6 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
       writer.startElement("td", null);
     }
 
-    // fixme: rows never used
-    Integer rows = (Integer) component.getAttributes().get(TobagoConstants.ATTR_ROWS);
-
-
     writer.startElement("select", component);
     String clientId = component.getClientId(facesContext);
     writer.writeAttribute("name", clientId, null);
@@ -122,7 +117,9 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     for (SelectItem item : items) {
 
       writer.startElement("option", null);
-      writer.writeAttribute("value", item.getValue(), null);
+      String formattedValue
+          = getFormattedValue(facesContext, component, item.getValue());
+      writer.writeAttribute("value", formattedValue, null);
       if (RenderUtil.contains(values, item.getValue())) {
         writer.writeAttribute("selected", "selected", null);
       }

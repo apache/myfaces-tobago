@@ -144,9 +144,7 @@ public class ToolBarRenderer extends RendererBase {
       String radioId = radio.getClientId(facesContext);
       String onClickPrefix = "menuSetRadioValue('" + radioId + "', '";
       String onClickPostfix = onClick != null ? "') ; " + onClick : "";
-      for (Iterator i = items.iterator(); i.hasNext();) {
-        SelectItem item = (SelectItem) i.next();
-
+      for (SelectItem item : items) {
         final String labelText = item.getLabel();
         if (labelText != null) {
           if (labelText.indexOf(LabelWithAccessKey.INDICATOR) > -1) {
@@ -175,14 +173,15 @@ public class ToolBarRenderer extends RendererBase {
         }
 
 
-        Object itemValue = item.getValue();
-        onClick = onClickPrefix + itemValue + onClickPostfix;
+        String formattedValue
+            = getFormattedValue(facesContext, command, item.getValue());
+        onClick = onClickPrefix + formattedValue + onClickPostfix;
         final boolean checked;
-        if (itemValue.equals(value) || markFirst) {
+        if (item.getValue().equals(value) || markFirst) {
           checked = true;
           markFirst = false;
           HtmlRendererUtil.startJavascript(writer);
-          writer.write("    " + onClickPrefix + itemValue + "');");
+          writer.write("    " + onClickPrefix + formattedValue + "');");
           HtmlRendererUtil.endJavascript(writer);
         } else {
           checked = false;

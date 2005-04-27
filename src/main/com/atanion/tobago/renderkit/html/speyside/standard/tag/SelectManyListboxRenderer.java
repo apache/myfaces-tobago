@@ -85,9 +85,6 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
     String image = ResourceManagerUtil.getImage(facesContext, "image/1x1.gif");
 
-    // fixme: rows never used
-    Integer rows = (Integer) component.getAttributes().get(ATTR_ROWS);
-
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
 
