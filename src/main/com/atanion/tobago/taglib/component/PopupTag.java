@@ -102,6 +102,8 @@ public class PopupTag extends TobagoBodyTag
     this.left = left;
   }
 
+  @TagAttribute
+  @UIComponentTagAttribute(type=Integer.class)
   public void setTop(String top) {
     this.top = top;
   }
