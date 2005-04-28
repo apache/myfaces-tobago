@@ -19,6 +19,7 @@ import com.atanion.tobago.taglib.decl.IsImmediateCommand;
 import com.atanion.tobago.taglib.decl.IsInline;
 import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
+import com.atanion.tobago.taglib.decl.HasTip;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.BodyContentDescription;
 
@@ -27,12 +28,12 @@ import javax.faces.component.UIComponent;
 /**
  * Renders a command button within a toolbar.
  */
-@Tag(name="toolBarCommand")
+@Tag(name = "toolBarCommand")
 public class ToolBarCommandTag extends CommandTag
     implements HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
-               IsDisabled, HasAction, HasActionListener, HasCommandType,
-               IsImmediateCommand
-    {
+    IsDisabled, HasAction, HasActionListener, HasCommandType,
+    HasTip, IsImmediateCommand {
+
 // ----------------------------------------------------------------- attributes
 
   private String label;
@@ -48,11 +49,16 @@ public class ToolBarCommandTag extends CommandTag
 
     component.setRendererType(RENDERER_TYPE_BUTTON);
 
-    ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_TIP, tip, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_LABEL, label,
+        getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image,
+        getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey,
+        getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY,
+        labelWithAccessKey, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_TIP, tip,
+        getIterationHelper());
   }
 
   public void release() {
