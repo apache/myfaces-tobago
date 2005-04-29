@@ -13,7 +13,7 @@ form  {
 
 a:link.tobago-tab-link, a:visited.tobago-tab-link, a:active.tobago-tab-link {
   font-family: arial, helvetica, sans-serif;
-  font-size: 14px;
+/*  font-size: 14px; */
   color: #000000;
   text-decoration: none;
   white-space: nowrap;
@@ -212,11 +212,34 @@ button img  {
 	border-style: 2px solid #ff0000;
 }
 
-/* selectManyCheckbox ----------------------------------------------------------- */
+/* selectOneListbox */
+.tobago-selectOneListbox-default  {
+  font-family: arial, helvetica, sans-serif;
+  color: #000000;
+}
 
+.tobago-selectOneListbox-disabled {
+  color: #778899;
+  background: #bbccdd;
+}
+
+.tobago-selectOneListbox-readonly {
+  background-color: #bbccdd;
+}
+
+/* selectManyCheckbox ----------------------------------------------------------- */
 .tobago-selectManyCheckbox-default {
+  font-family: arial, helvetica, sans-serif;
   background: transparent;
 }
+
+/* Toolbar ----------------------------------------------------------------- */
+.tobago-toolBar-default  {
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
 
 /* file -------------------------------------------------------------------- */
 
@@ -231,7 +254,7 @@ button img  {
 /* formatted --------------------------------------------------------------- */
 
 .tobago-formatted-default  {
-  font: 12px arial, helvetica, sans-serif;
+  font: arial, helvetica, sans-serif;
 }
 
 /* gridLayout -------------------------------------------------------------- */
@@ -276,7 +299,7 @@ fieldset.tobago-box-default {
 
 legend.tobago-box-default {
   color: black;
-  font-size: 14px;
+/*  font-size: 14px;*/
 }
 
 
@@ -293,7 +316,7 @@ legend.tobago-box-default {
   right: 0px;
   border: 2px groove #f6faff;
   background: #bbccdd;
-  font-size: 22px;
+/*  font-size: 22px; */
   white-space: nowrap;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -318,7 +341,7 @@ label.tobago-label-default  {
   padding: 0px 0px 0px 2px;
   margin: 0px;
   border: 0px solid transparent;
-  font-size: 14px;
+/*  font-size: 14px;*/
 /*  border: 2px solid #ccddee; */
 /*  background: #ccddee; */
 }
@@ -334,6 +357,7 @@ label.tobago-label-default  {
 /* selectManyListbox ------------------------------------------------------- */
 
 .tobago-selectManyListbox-default  {
+  font-family: arial, helvetica, sans-serif;
   background: #ffffff;
   height: 25px;
 }
@@ -351,7 +375,7 @@ label.tobago-label-default  {
 .tobago-page-default {
   background: #bbccdd;
   font-family: arial, helvetica, sans-serif;
-  font-size: 14px;
+/*  font-size: 14px;*/
   padding: 0px;
   margin: 0px;
 }
@@ -403,7 +427,7 @@ label.tobago-label-default  {
   padding-bottom: 4px;
   padding-left: 1px;
   padding-right: 0px;
-  font: 12px arial, helvetica, sans-serif;
+/*  font: 12px arial, helvetica, sans-serif;*/
 }
 
 .tobago-richTextEditor-toolbar-button-span-enabled, .tobago-richTextEditor-toolbar-button-span-disabled {
@@ -411,7 +435,7 @@ label.tobago-label-default  {
   padding-left: 5px;
   padding-bottom: 2px;
   padding-right: 5px;
-  font: 12px arial, helvetica, sans-serif;
+/*  font: 12px arial, helvetica, sans-serif; */
 }
 
 .tobago-richTextEditor-toolbar-button-span-enabled {
@@ -454,6 +478,7 @@ div.tobago-richTextEditor-body {
 /* selectOneChoice --------------------------------------------------------- */
 
 .tobago-selectOneChoice-default  {
+  font-family: arial, helvetica, sans-serif;
   background: #ffffff;
 }
 
@@ -469,11 +494,12 @@ div.tobago-richTextEditor-body {
 /* text -------------------------------------------------------------------- */
 
 .tobago-out-default  {
-  font: 12px arial, helvetica, sans-serif;
+  font-family: arial, helvetica, sans-serif;
 }
 
 .tobago-out-markup-strong {
-  font: bold 12px arial, helvetica, sans-serif;
+  font-family: arial, helvetica, sans-serif;
+  font-weight: bold;
   background-color: green;
 }
 
@@ -558,7 +584,8 @@ div.tobago-richTextEditor-body {
 
 .tobago-toolbar-button {
  float: left;
- font: normal 16px arial, helvetica, sans-serif;
+ font-weight: normal
+ font-family: arial, helvetica, sans-serif;
  padding-top: 2px;
  padding-right: 5px;
  padding-bottom: 2px;
@@ -571,7 +598,8 @@ div.tobago-richTextEditor-body {
 
 
 .tobago-toolbar-button-table {
- font: normal 16px arial, helvetica, sans-serif;
+ font-weight: normal;
+ font-family: arial, helvetica, sans-serif;
 }
 
 .tobago-toolbar-button-box-facet {

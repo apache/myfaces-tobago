@@ -413,6 +413,7 @@ label.tobago-label-disabled  {
   height: 20px;
   font: 12px arial, helvetica, sans-serif;
   padding-left: 2px;
+  padding-right: 2px;
 }
 
 .tobago-in-readonly  {
@@ -446,6 +447,20 @@ label.tobago-label-disabled  {
 
 }
 
+/* listbox */
+.tobago-selectOneListbox-default  {
+  font: 12px arial, helvetica, sans-serif;
+  color: #000000;
+}
+
+.tobago-selectOneListbox-disabled {
+  background-color: #E8E8E8;
+  color: #808080;
+}
+
+.tobago-selectOneListbox-readonly {
+  background-color: #E8E8E8;
+}
 
 /* Toolbar ----------------------------------------------------------------- */
 .tobago-toolBar-default  {
