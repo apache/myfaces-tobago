@@ -50,7 +50,7 @@ public interface TobagoConstants {
   public static final String ATTR_LABEL_POSITION = "labelPosition";
   public static final String ATTR_LABEL_WITH_ACCESS_KEY = "labelWithAccessKey";
   public static final String ATTR_LAYOUT_DIRECTIVE = "layoutDirective";
-  public static final String ATTR_LAYOUT_HEIGHT = "layout_height";
+  public static final String ATTR_LAYOUT_HEIGHT = "layoutHeight";
   public static final String ATTR_LAYOUT_MARGIN = "layoutMargin";
   public static final String ATTR_LAYOUT_MARGIN_BOTTOM = "layoutMarginBottom";
   public static final String ATTR_LAYOUT_MARGIN_LEFT = "layoutMarginLeft";
@@ -58,7 +58,7 @@ public interface TobagoConstants {
   public static final String ATTR_LAYOUT_MARGIN_TOP = "layoutMarginTop";
   public static final String ATTR_LAYOUT_ROWS = "layoutRows";
   public static final String ATTR_LAYOUT_TABLE_STYLE = "layoutTableStyle";
-  public static final String ATTR_LAYOUT_WIDTH = "layout_width";
+  public static final String ATTR_LAYOUT_WIDTH = "layoutWidth";
   public static final String ATTR_LEFT = "left";
   public static final String ATTR_MARKUP = "markup";
   public static final String ATTR_MAX = "max";

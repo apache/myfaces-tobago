@@ -588,6 +588,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           }
           cell.getAttributes().put(TobagoConstants.ATTR_LAYOUT_HEIGHT,
               new Integer(cellHeight));
+          cell.getAttributes().remove(ATTR_INNER_HEIGHT);
           if (cell instanceof UIPanel
               && ComponentUtil.getBooleanAttribute(cell,
                   TobagoConstants.ATTR_LAYOUT_DIRECTIVE)
@@ -601,6 +602,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
               }
               component.getAttributes().put(TobagoConstants.ATTR_LAYOUT_HEIGHT,
                   new Integer(cellHeight));
+              component.getAttributes().remove(ATTR_INNER_HEIGHT);
 
             }
           }

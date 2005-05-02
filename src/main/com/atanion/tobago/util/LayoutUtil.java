@@ -241,6 +241,11 @@ public class LayoutUtil implements TobagoConstants{
       LOG.debug("set " + value + " to " + cell.getRendererType());
     }
     cell.getAttributes().put(attribute, value);
+    if (TobagoConstants.ATTR_LAYOUT_WIDTH.equals(attribute)) {
+      cell.getAttributes().remove(TobagoConstants.ATTR_INNER_WIDTH);
+    } else if (TobagoConstants.ATTR_LAYOUT_HEIGHT.equals(attribute)){
+      cell.getAttributes().remove(TobagoConstants.ATTR_INNER_HEIGHT);
+    }
     if (cell instanceof UIPanel
         && ComponentUtil.getBooleanAttribute(cell,
             TobagoConstants.ATTR_LAYOUT_DIRECTIVE)) {

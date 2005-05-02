@@ -225,6 +225,11 @@ public class HtmlRendererUtil {
       space = LayoutUtil.getInnerSpace(facesContext, parent, width);
       if (space > 0 && !ComponentUtil.isFacetOf(component, parent)) {
         component.getAttributes().put(layoutAttribute, new Integer(space));
+        if (width) {
+          component.getAttributes().remove(TobagoConstants.ATTR_INNER_WIDTH);
+        } else {
+          component.getAttributes().remove(TobagoConstants.ATTR_INNER_HEIGHT);
+        }
       }
     }
     if (space > 0) {

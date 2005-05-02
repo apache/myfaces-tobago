@@ -56,9 +56,9 @@ public class UITabGroup extends UIPanel implements StateHolder{
   private void resetTabLayout() {
     for (UIPanel tab : getTabs()) {
         tab.getAttributes().remove(TobagoConstants.ATTR_LAYOUT_WIDTH);
-        tab.getAttributes().remove(TobagoConstants.ATTR_INNER_WIDTH);
+//        tab.getAttributes().remove(TobagoConstants.ATTR_INNER_WIDTH);
         tab.getAttributes().remove(TobagoConstants.ATTR_LAYOUT_HEIGHT);
-        tab.getAttributes().remove(TobagoConstants.ATTR_INNER_HEIGHT);
+//        tab.getAttributes().remove(TobagoConstants.ATTR_INNER_HEIGHT);
     }
   }
 
