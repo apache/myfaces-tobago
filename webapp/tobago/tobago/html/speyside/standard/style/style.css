@@ -354,6 +354,9 @@ label.tobago-label-disabled  {
   margin-top: 1px;
   width: auto;
 }
+label.tobago-label-inline  {
+  padding-left: 0px;
+}
 
 /* page -------------------------------------------------------------------- */
 .tobago-page-default  {

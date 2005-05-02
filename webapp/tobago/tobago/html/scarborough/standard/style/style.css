@@ -354,6 +354,11 @@ label.tobago-label-default  {
   width: auto;
 }
 
+label.tobago-label-inline {
+  width: auto;
+  padding-left: 0px;
+}
+
 /* selectManyListbox ------------------------------------------------------- */
 
 .tobago-selectManyListbox-default  {
