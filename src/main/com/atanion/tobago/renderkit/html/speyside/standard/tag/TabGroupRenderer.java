@@ -5,6 +5,9 @@
  */
 package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.UIPanel;
 import com.atanion.tobago.renderkit.RenderUtil;
@@ -16,6 +19,8 @@ import java.io.IOException;
 
 public class TabGroupRenderer extends
     com.atanion.tobago.renderkit.html.scarborough.standard.tag.TabGroupRenderer{
+
+  private static final Log LOG = LogFactory.getLog(TabGroupRenderer.class);
 
   protected void encodeContent(ResponseWriter writer, FacesContext facesContext, UIPanel activeTab) throws IOException {
 
@@ -44,7 +49,7 @@ public class TabGroupRenderer extends
     }
 
     writer.writeText("", null);
-    RenderUtil.encodeChildren(facesContext, activeTab);
+    RenderUtil.encode(facesContext, activeTab);
 
     writer.endElement("div");
     writer.endElement("div");
