@@ -9,6 +9,7 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIForm;
 import com.atanion.tobago.component.UIPanel;
+import com.atanion.tobago.component.UITabGroup;
 import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.RendererBase;
 import org.apache.commons.logging.Log;
@@ -52,14 +53,14 @@ public class LayoutUtil implements TobagoConstants{
     if (innerSpace == null) {
       int space = -1;
 
-      Integer  spaceString;
+      Integer  spaceInteger;
       if (width) {
-        spaceString = getLayoutWidth(component);
+        spaceInteger = getLayoutWidth(component);
       } else {
-        spaceString = getLayoutHeight(component);
+        spaceInteger = getLayoutHeight(component);
       }
-      if (spaceString != null) {
-        space = spaceString.intValue();
+      if (spaceInteger != null) {
+        space = spaceInteger.intValue();
       }
 
 //      if (space < 0 && component.getParent() instanceof UIComponentBase) {
