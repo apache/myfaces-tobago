@@ -400,11 +400,10 @@ function tobagoTreeListboxSetup(node, idPrefix, level) {
   }
 }
 
-
 function tobagoTreeListboxCreateOption(node, index) {
   var label = node.label;
   if (node.childNodes && node.childNodes.length) {
-    label += " -->";
+    label += " \u2192";
   }
   return new Option(label, index);
 }

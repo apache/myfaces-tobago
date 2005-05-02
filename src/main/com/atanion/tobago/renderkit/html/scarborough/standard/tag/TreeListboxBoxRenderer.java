@@ -67,7 +67,7 @@ public class TreeListboxBoxRenderer extends RendererBase {
 
       writer.writeText(treeNode.getAttributes().get(ATTR_NAME), null);
       if (node.getChildCount() > 0) {
-        writer.writeText(" -->", null);
+        writer.writeText(" \u2192", null);
       }
       writer.endElement("option");
     }
