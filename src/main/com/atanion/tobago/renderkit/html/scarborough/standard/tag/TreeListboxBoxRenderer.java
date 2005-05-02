@@ -33,7 +33,7 @@ public class TreeListboxBoxRenderer extends RendererBase {
 
     UITreeListbox tree = (UITreeListbox) component.getParent();
     List<UITreeNode> selectionPath = tree.getSelectionPath();
-    String className = "tobago-listbox-default";
+    String className = "tobago-treeListbox-default";
     if (selectionPath.size() > 0 &&  selectionPath.size() - 1 <= level
         && selectionPath.get(selectionPath.size() - 1).getTreeNode().isLeaf()) {
       className += " tobago-treeListbox-unused";
