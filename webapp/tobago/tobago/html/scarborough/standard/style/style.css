@@ -74,8 +74,7 @@ span.tobago-progress {
   white-space: nowrap;
 }
 
-/*
-Tree -------------------------------------------------------------------- */
+/* Tree -------------------------------------------------------------------- */
 .tobago-tree-default {
   overflow: auto;
 }
@@ -224,6 +223,21 @@ button img  {
 }
 
 .tobago-selectOneListbox-readonly {
+  background-color: #bbccdd;
+}
+
+/* treeListbox */
+.tobago-treeListbox-default  {
+  font-family: arial, helvetica, sans-serif;
+  color: #000000;
+}
+
+.tobago-treeListbox-disabled {
+  color: #778899;
+  background: #bbccdd;
+}
+
+.tobago-treeListbox-readonly {
   background-color: #bbccdd;
 }
 
