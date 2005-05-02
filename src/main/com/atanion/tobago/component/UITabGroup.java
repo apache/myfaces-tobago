@@ -7,6 +7,7 @@
 package com.atanion.tobago.component;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.event.StateChangeListener;
 
 import org.apache.commons.logging.Log;
@@ -43,6 +44,22 @@ public class UITabGroup extends UIPanel implements StateHolder{
   public void encodeChildren(FacesContext context)
       throws IOException {
     // childeren are rendered by encodeEnd'jsp
+  }
+
+  public void encodeEnd(FacesContext facesContext) throws IOException {
+    resetTabLayout();
+    super.encodeEnd(facesContext);
+  }
+
+
+
+  private void resetTabLayout() {
+    for (UIPanel tab : getTabs()) {
+        tab.getAttributes().remove(TobagoConstants.ATTR_LAYOUT_WIDTH);
+        tab.getAttributes().remove(TobagoConstants.ATTR_INNER_WIDTH);
+        tab.getAttributes().remove(TobagoConstants.ATTR_LAYOUT_HEIGHT);
+        tab.getAttributes().remove(TobagoConstants.ATTR_INNER_HEIGHT);
+    }
   }
 
   public UIPanel[] getTabs() {
