@@ -87,4 +87,10 @@ public class ResourceManagerUtil {
     return addContextPath(scripts, contextPath);
   }
 
+  public static String getDisabledImage(FacesContext facesContext, String image) {
+    final int dotIndex = image.lastIndexOf('.');
+    String name = image.substring(0, dotIndex);
+    String postfix = image.substring(dotIndex);
+    return getImage(facesContext, name + "Disabled" + postfix, true);
+  }
 }

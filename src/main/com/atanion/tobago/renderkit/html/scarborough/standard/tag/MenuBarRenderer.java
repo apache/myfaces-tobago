@@ -175,7 +175,7 @@ public class MenuBarRenderer extends RendererBase {
         = new TobagoResponseWriter(stringWriter, "text/html", "UTF8");
     facesContext.setResponseWriter(writer);
 
-    addImage(writer, facesContext, image);
+    addImage(writer, facesContext, image, disabled);
 
     writer.startElement("a", null);
     writer.writeAttribute("class", spanClass, null);
@@ -209,9 +209,17 @@ public class MenuBarRenderer extends RendererBase {
   }
 
   private void addImage(TobagoResponseWriter writer, FacesContext facesContext,
-      String image) throws IOException {
+                        String image, boolean disabled) throws IOException {
     if (image != null) {
-      image = ResourceManagerUtil.getImage(facesContext, image);
+      String disabledImage = null;
+      if (disabled) {
+        disabledImage = ResourceManagerUtil.getDisabledImage(facesContext, image);
+      }
+      if (disabledImage != null) {
+        image = disabledImage;
+      } else {
+        image = ResourceManagerUtil.getImage(facesContext, image);
+      }
     } else {
       image = ResourceManagerUtil.getImage(facesContext, "image/blank.gif");
     }
@@ -388,7 +396,7 @@ public class MenuBarRenderer extends RendererBase {
         = new TobagoResponseWriter(stringWriter, "text/html", "UTF8");
     facesContext.setResponseWriter(writer);
 
-    addImage(writer, facesContext, image);
+    addImage(writer, facesContext, image, disabled);
 
     writer.startElement("a", null);
     writer.writeAttribute("class", spanClass, null);
