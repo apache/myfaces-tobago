@@ -25,22 +25,22 @@ function getItemHeight(menu) {
       return 20;
     }
     else {
-      return 15;
+      return 16;
     }
   }
   else {
-    return 15;
+    return 16;
   }
 }
 
 
 
 function getPopupMenuWidth() {
-  return 15;
+  return 16;
 }
 
 function getMenuArrowWidth() {
-  return 15;
+  return 16;
 }
 
 function getPopupImageTop(popup) {

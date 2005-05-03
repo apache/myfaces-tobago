@@ -24,7 +24,7 @@
 }
 
 .tobago-menu-item {
-  height: 15px;
+  height: 16px;
   z-index: 1000;
 }
 
@@ -59,13 +59,13 @@
 }
 
 .tobago-menu-item-image {
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
 }
 
 .tobago-menu-subitem-arrow {
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
 }
 
 .tobago-toolBarButton-menu-item {
