@@ -94,6 +94,7 @@ public class MessagesRenderer extends MessageRendererBase {
     if (clientId != null) {
       writer.writeAttribute("for", clientId, null);
     }
+    writer.writeAttribute("title", message.getSummary(), null);
     writer.writeText(message.getSummary(), null);
     writer.endElement("label");
     writer.startElement("br", null);
