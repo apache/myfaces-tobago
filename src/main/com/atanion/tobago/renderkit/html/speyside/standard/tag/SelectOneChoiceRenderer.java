@@ -7,6 +7,8 @@ package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
+import com.atanion.tobago.context.ClientProperties;
+import com.atanion.tobago.context.SapTheme;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.SelectOneRendererBase;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
@@ -29,6 +31,8 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
   private static final Log LOG = LogFactory.getLog(SelectOneChoiceRenderer.class);
 
 // ///////////////////////////////////////////// attribute
+  ClientProperties client
+      = ClientProperties.getInstance(FacesContext.getCurrentInstance());
 
 // ///////////////////////////////////////////// constructor
 
@@ -38,7 +42,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
-    UISelectOne component = (UISelectOne)uiComponent;
+    UISelectOne component = (UISelectOne) uiComponent;
 
     boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
     List<SelectItem> items = ComponentUtil.getSelectItems(component);
@@ -79,7 +83,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
         writer.writeAttribute("class", "tobago-textArea-spacer-custom", null);
 
         writer.startElement("img", null);
-        writer.writeAttribute("src",image, null);
+        writer.writeAttribute("src", image, null);
         writer.writeAttribute("border", "0", null);
         writer.writeAttribute("height", "1", null);
         writer.writeAttribute("width", "5", null);
@@ -90,7 +94,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
       writer.startElement("td", null);
       writer.writeAttribute("valign", "top", null);
       writer.writeAttribute("rowspan", "2", null);
-  }
+    }
 
     writer.startElement("select", component);
     writer.writeAttribute("name", component.getClientId(facesContext), null);
@@ -121,26 +125,28 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     if (!inline) {
       writer.endElement("td");
       writer.endElement("tr");
-      writer.startElement("tr", null);
-      if (label != null) {
-        writer.startElement("td", null);
-        writer.writeAttribute("class", "tobago-label-td-underline-label", null);
-        writer.startElement("img", null);
-        writer.writeAttribute("src",image, null);
-        writer.writeAttribute("border", "0", null);
-        writer.writeAttribute("height", "1", null);
-        writer.endElement("img");
-        writer.endElement("td");
-        writer.startElement("td", null);
-        writer.writeAttribute("class", "tobago-label-td-underline-spacer", null);
-        writer.startElement("img", null);
-        writer.writeAttribute("src",image, null);
-        writer.writeAttribute("border", "0", null);
-        writer.writeAttribute("height", "1", null);
-        writer.endElement("img");
-        writer.endElement("td");
+      if (client.getTheme().getName() == SapTheme.NAME) {
+        writer.startElement("tr", null);
+        if (label != null) {
+          writer.startElement("td", null);
+          writer.writeAttribute("class", "tobago-label-td-underline-label", null);
+          writer.startElement("img", null);
+          writer.writeAttribute("src", image, null);
+          writer.writeAttribute("border", "0", null);
+          writer.writeAttribute("height", "1", null);
+          writer.endElement("img");
+          writer.endElement("td");
+          writer.startElement("td", null);
+          writer.writeAttribute("class", "tobago-label-td-underline-spacer", null);
+          writer.startElement("img", null);
+          writer.writeAttribute("src", image, null);
+          writer.writeAttribute("border", "0", null);
+          writer.writeAttribute("height", "1", null);
+          writer.endElement("img");
+          writer.endElement("td");
+        }
+        writer.endElement("tr");
       }
-      writer.endElement("tr");
       writer.endElement("table");
     }
   }

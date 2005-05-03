@@ -7,6 +7,8 @@ package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.context.ResourceManagerUtil;
+import com.atanion.tobago.context.ClientProperties;
+import com.atanion.tobago.context.SapTheme;
 import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
@@ -26,6 +28,8 @@ public class TextAreaRenderer extends InputRendererBase {
   private static final Log LOG = LogFactory.getLog(TextAreaRenderer.class);
 
 // ///////////////////////////////////////////// attribute
+  ClientProperties client
+      = ClientProperties.getInstance(FacesContext.getCurrentInstance());
 
 // ///////////////////////////////////////////// constructor
 
@@ -86,26 +90,28 @@ public class TextAreaRenderer extends InputRendererBase {
         .renderMain(facesContext, (UIInput) component, writer);
     writer.endElement("td");
     writer.endElement("tr");
-    writer.startElement("tr", null);
-    if (label != null) {
-      writer.startElement("td", null);
-      writer.writeAttribute("class", "tobago-label-td-underline-label", null);
-      writer.startElement("img", null);
-      writer.writeAttribute("src", image, null);
-      writer.writeAttribute("border", "0", null);
-      writer.writeAttribute("heigth", "1", null);
-      writer.endElement("img");
-      writer.endElement("td");
-      writer.startElement("td", null);
-      writer.writeAttribute("class", "tobago-label-td-underline-spacer", null);
-      writer.startElement("img", null);
-      writer.writeAttribute("src", image, null);
-      writer.writeAttribute("border", "0", null);
-      writer.writeAttribute("heigth", "1", null);
-      writer.endElement("img");
-      writer.endElement("td");
+    if (client.getTheme().getName() == SapTheme.NAME) {
+      writer.startElement("tr", null);
+      if (label != null) {
+        writer.startElement("td", null);
+        writer.writeAttribute("class", "tobago-label-td-underline-label", null);
+        writer.startElement("img", null);
+        writer.writeAttribute("src", image, null);
+        writer.writeAttribute("border", "0", null);
+        writer.writeAttribute("heigth", "1", null);
+        writer.endElement("img");
+        writer.endElement("td");
+        writer.startElement("td", null);
+        writer.writeAttribute("class", "tobago-label-td-underline-spacer", null);
+        writer.startElement("img", null);
+        writer.writeAttribute("src", image, null);
+        writer.writeAttribute("border", "0", null);
+        writer.writeAttribute("heigth", "1", null);
+        writer.endElement("img");
+        writer.endElement("td");
+      }
+      writer.endElement("tr");
     }
-    writer.endElement("tr");
     writer.endElement("table");
     HtmlRendererUtil.renderFocusId(facesContext, component);
   }
@@ -126,8 +132,8 @@ public class TextAreaRenderer extends InputRendererBase {
         if (LOG.isDebugEnabled()) {
           LOG.debug("style = " + style);
         }
-        if (style.trim().startsWith("height") ) {
-          height = "height: " + (Integer.parseInt(style.replaceAll("\\D", "")) -1) + "px;";
+        if (style.trim().startsWith("height")) {
+          height = "height: " + (Integer.parseInt(style.replaceAll("\\D", "")) - 1) + "px;";
           break;
         }
       }

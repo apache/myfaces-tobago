@@ -7,6 +7,8 @@ package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
+import com.atanion.tobago.context.ClientProperties;
+import com.atanion.tobago.context.SapTheme;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.SelectManyRendererBase;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
@@ -29,6 +31,10 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
   private static final Log LOG = LogFactory.getLog(SelectManyListboxRenderer.class);
 
+  ClientProperties client
+      = ClientProperties.getInstance(FacesContext.getCurrentInstance());
+  
+  
 // ///////////////////////////////////////////// attribute
 
 // ///////////////////////////////////////////// constructor
@@ -56,7 +62,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     String height = (String) component.getAttributes().get(ATTR_HEIGHT);
     if (height != null) {
       try {
-        fixedHeight = Integer.parseInt(height.replaceAll("\\D", "") );
+        fixedHeight = Integer.parseInt(height.replaceAll("\\D", ""));
       } catch (NumberFormatException e) {
         LOG.warn("Can't parse " + height + " to int");
       }
@@ -155,32 +161,34 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
       writer.endElement("td");
 
       writer.endElement("tr");
-      writer.startElement("tr", null);
+      if (client.getTheme().getName() == SapTheme.NAME) {
+        writer.startElement("tr", null);
 
-      if (label != null) {
-        writer.startElement("td", null);
-        writer.writeAttribute("class", "tobago-label-td-underline-label", null);
+        if (label != null) {
+          writer.startElement("td", null);
+          writer.writeAttribute("class", "tobago-label-td-underline-label", null);
 
-        writer.startElement("img", null);
-        writer.writeAttribute("src", image, null);
-        writer.writeAttribute("border", "0", null);
-        writer.writeAttribute("height", "1", null);
-        writer.endElement("img");
+          writer.startElement("img", null);
+          writer.writeAttribute("src", image, null);
+          writer.writeAttribute("border", "0", null);
+          writer.writeAttribute("height", "1", null);
+          writer.endElement("img");
 
-        writer.endElement("td");
+          writer.endElement("td");
 
-        writer.startElement("td", null);
-        writer.writeAttribute("class", "tobago-label-td-underline-spacer", null);
+          writer.startElement("td", null);
+          writer.writeAttribute("class", "tobago-label-td-underline-spacer", null);
 
-        writer.startElement("img", null);
-        writer.writeAttribute("src", image, null);
-        writer.writeAttribute("border", "0", null);
-        writer.writeAttribute("height", "1", null);
-        writer.endElement("img");
+          writer.startElement("img", null);
+          writer.writeAttribute("src", image, null);
+          writer.writeAttribute("border", "0", null);
+          writer.writeAttribute("height", "1", null);
+          writer.endElement("img");
 
-        writer.endElement("td");
+          writer.endElement("td");
+        }
+        writer.endElement("tr");
       }
-      writer.endElement("tr");
       writer.endElement("table");
     }
   }
