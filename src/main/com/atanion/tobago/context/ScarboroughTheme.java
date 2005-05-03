@@ -7,7 +7,10 @@ package com.atanion.tobago.context;
 
 public class ScarboroughTheme extends Theme {
 
+  public static final String NAME = "scarborough";
+  public static final String DISPLAY_NAME = "Scarborough";
+
   public ScarboroughTheme() {
-    super("scarborough", "Scarborough", new StandardTheme());
+    super(NAME, DISPLAY_NAME, new StandardTheme());
   }
 }

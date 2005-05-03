@@ -7,7 +7,10 @@ package com.atanion.tobago.context;
 
 public class TuiTheme extends Theme {
 
+  public static final String NAME = "tui";
+  public static final String DISPLAY_NAME = "TUI";
+
   public TuiTheme() {
-    super("tui", "TUI", new SpeysideTheme());
+    super(NAME, DISPLAY_NAME, new SpeysideTheme());
   }
 }

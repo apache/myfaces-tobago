@@ -8,6 +8,8 @@ package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
+import com.atanion.tobago.context.ClientProperties;
+import com.atanion.tobago.context.SapTheme;
 import com.atanion.tobago.renderkit.html.InRendererBase;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
@@ -19,6 +21,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class InRenderer extends InRendererBase {
+
 // ----------------------------------------------------------------- interfaces
 
 
@@ -34,6 +37,9 @@ public class InRenderer extends InRendererBase {
     String image = ResourceManagerUtil.getImage(facesContext, "image/1x1.gif");
     UIComponent label = input.getFacet(FACET_LABEL);
     UIComponent picker = input.getFacet("picker");
+
+    ClientProperties client
+        = ClientProperties.getInstance(FacesContext.getCurrentInstance());
 
     if (!inline) {
       writer.startElement("table", input);
@@ -75,26 +81,28 @@ public class InRenderer extends InRendererBase {
       }
       writer.endElement("td");
       writer.endElement("tr");
-      writer.startElement("tr", null);
-      if (label != null) {
-        writer.startElement("td", null);
-        writer.writeAttribute("class", "tobago-label-td-underline-label", null);
-        writer.startElement("img", null);
-        writer.writeAttribute("src", image, null);
-        writer.writeAttribute("border", "0", null);
-        writer.writeAttribute("height", "1", null);
-        writer.endElement("img");
-        writer.endElement("td");
-        writer.startElement("td", null);
-        writer.writeAttribute("class", "tobago-label-td-underline-spacer", null);
-        writer.startElement("img", null);
-        writer.writeAttribute("src", image, null);
-        writer.writeAttribute("border", "0", null);
-        writer.writeAttribute("height", "1", null);
-        writer.endElement("img");
-        writer.endElement("td");
+      if (client.getTheme().getName() == SapTheme.NAME) {
+        writer.startElement("tr", null);
+        if (label != null) {
+          writer.startElement("td", null);
+          writer.writeAttribute("class", "tobago-label-td-underline-label", null);
+          writer.startElement("img", null);
+          writer.writeAttribute("src", image, null);
+          writer.writeAttribute("border", "0", null);
+          writer.writeAttribute("height", "1", null);
+          writer.endElement("img");
+          writer.endElement("td");
+          writer.startElement("td", null);
+          writer.writeAttribute("class", "tobago-label-td-underline-spacer", null);
+          writer.startElement("img", null);
+          writer.writeAttribute("src", image, null);
+          writer.writeAttribute("border", "0", null);
+          writer.writeAttribute("height", "1", null);
+          writer.endElement("img");
+          writer.endElement("td");
+        }
+        writer.endElement("tr");
       }
-      writer.endElement("tr");
       writer.endElement("table");
     } else {
       renderMain(facesContext, input, writer);

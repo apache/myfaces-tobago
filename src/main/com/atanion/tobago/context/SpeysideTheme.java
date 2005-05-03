@@ -7,7 +7,10 @@ package com.atanion.tobago.context;
 
 public class SpeysideTheme extends Theme {
 
+  public static final String NAME = "speyside";
+  public static final String DISPLAY_NAME = "Speyside";
+
   public SpeysideTheme() {
-    super("speyside", "Speyside", new ScarboroughTheme());
+    super(NAME, DISPLAY_NAME, new ScarboroughTheme());
   }
 }

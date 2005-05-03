@@ -7,7 +7,10 @@ package com.atanion.tobago.context;
 
 public class InexsoTheme extends Theme {
 
+  public static final String NAME = "inexso";
+  public static final String DISPLAY_NAME = "inexso";
+
   public InexsoTheme() {
-    super("inexso", "inexso", new SpeysideTheme());
+    super(NAME, DISPLAY_NAME, new SpeysideTheme());
   }
 }

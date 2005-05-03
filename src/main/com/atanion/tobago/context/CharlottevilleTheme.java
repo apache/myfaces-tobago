@@ -7,7 +7,10 @@ package com.atanion.tobago.context;
 
 public class CharlottevilleTheme extends Theme {
 
+  public static final String NAME = "charlotteville";
+  public static final String DISPLAY_NAME = "Charlotteville";
+
   public CharlottevilleTheme() {
-    super("charlotteville", "Charlotteville", new SpeysideTheme());
+    super(NAME, DISPLAY_NAME, new SpeysideTheme());
   }
 }

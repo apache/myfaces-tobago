@@ -7,7 +7,10 @@ package com.atanion.tobago.context;
 
 public class StandardTheme extends Theme {
 
+  public static final String NAME = "standard";
+  public static final String DISPLAY_NAME = "Standard Base";
+
   public StandardTheme() {
-    super("standard", "Standard Base", null);
+    super(NAME, DISPLAY_NAME, null);
   }
 }

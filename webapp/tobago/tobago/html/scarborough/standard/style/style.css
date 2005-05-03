@@ -167,6 +167,7 @@ td.day-selected {
 /* validation */
 .tobago-validation-message {
   color: red;
+  white-space: nowrap;
 }
 
 /* ----------------------------------------------------------------------------

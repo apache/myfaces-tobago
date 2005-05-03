@@ -7,7 +7,10 @@ package com.atanion.tobago.context;
 
 public class SapTheme extends Theme {
 
+  public static final String DISPLAY_NAME = "SAP";
+  public static final String NAME = "sap";
+
   public SapTheme() {
-    super("sap", "SAP", new SpeysideTheme());
+    super(NAME, DISPLAY_NAME, new SpeysideTheme());
   }
 }
