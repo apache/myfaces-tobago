@@ -49,7 +49,7 @@ public class TabGroupRenderer extends
     }
 
     writer.writeText("", null);
-    RenderUtil.encode(facesContext, activeTab);
+    RenderUtil.encodeChildren(facesContext, activeTab);
 
     writer.endElement("div");
     writer.endElement("div");

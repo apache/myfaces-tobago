@@ -8,6 +8,7 @@ package com.atanion.tobago.renderkit;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UILayout;
 import com.atanion.tobago.TobagoConstants;
 
 import org.apache.commons.logging.Log;
@@ -47,9 +48,10 @@ public class RenderUtil {
   public static void encodeChildren(FacesContext facesContext,
       UIComponent panel)
       throws IOException {
-    UIComponent layout = panel.getFacet("layout");
+//    UIComponent layout = panel.getFacet("layout");
+    UILayout layout = UILayout.getLayout(panel);
     if (layout != null) {
-      encode(facesContext, layout);
+      layout.encodeChildrenOfComponent(facesContext, panel);
     } else {
       for (Iterator i = panel.getChildren().iterator(); i.hasNext();) {
         UIComponent child = (UIComponent) i.next();
