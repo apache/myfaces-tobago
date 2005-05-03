@@ -15,11 +15,16 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
+import javax.faces.el.EvaluationException;
 import javax.faces.event.ActionListener;
+import javax.faces.application.FacesMessage;
+import javax.faces.validator.Validator;
+import javax.faces.validator.ValidatorException;
 import javax.swing.tree.TreeNode;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Iterator;
+import java.util.List;
 
 import static com.atanion.tobago.TobagoConstants.*;
 import com.atanion.tobago.model.TreeState;
@@ -201,7 +206,8 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     final Object selectable
         = ComponentUtil.getAttribute(this , ATTR_SELECTABLE);
     return selectable != null
-        && (selectable.equals("multi") || selectable.equals("single"));
+        && (selectable.equals("multi") || selectable.equals("multiLeafOnly")
+            || selectable.equals("single") || selectable.equals("singleLeafOnly"));
   }
 
   public void processDecodes(FacesContext facesContext) {
@@ -218,6 +224,28 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
       }
     }
   }
+
+  public void validate(FacesContext context) {
+    LOG.info("validate()");
+//  call all validators
+    if (getValidators() != null) {
+      for (Validator validator : getValidators()) {
+        try {
+          validator.validate(context, this, null);
+        }
+        catch (ValidatorException ve) {
+          // If the validator throws an exception, we're
+          // invalid, and we need to add a message
+          setValid(false);
+          FacesMessage message = ve.getFacesMessage();
+          if (message != null) {
+            message.setSeverity(FacesMessage.SEVERITY_ERROR);
+            context.addMessage(getClientId(context), message);
+          }
+        }
+      }
+    }
+  }      
 
   public void updateModel(FacesContext facesContext) {
     // nothig to update for tree's

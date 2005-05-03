@@ -42,26 +42,27 @@ function toggleSelect(node, treeHiddenId, uncheckedIcon, checkedIcon) {
   var icon = document.getElementById(node.id + '-markIcon');
   var treeNode;
   eval("treeNode = " + createJavascriptVariable(node.id) + ";");
-  if (treeNode.selectable.match(/single/)) {
-    if (! selectState.value.indexOf(";" + nodeStateId(node) + ";", 0) > -1) {
-      icon.src = checkedIcon;
-      icon = getIconForId(node, selectState.value);
-      if (icon) {
-        icon.src = uncheckedIcon;
+  if (! (treeNode.selectable.match(/LeafOnly$/) && treeNode.childNodes.length > 0)) {
+    if (treeNode.selectable.match(/single/)) {
+      if (! selectState.value.indexOf(";" + nodeStateId(node) + ";", 0) > -1) {
+        icon.src = checkedIcon;
+        icon = getIconForId(node, selectState.value);
+        if (icon) {
+          icon.src = uncheckedIcon;
+        }
+        selectState.value = ";" +  nodeStateId(node) + ";" ;
       }
-      selectState.value = ";" +  nodeStateId(node) + ";" ;
+    }
+    else {
+      if (selectState.value.indexOf(";" + nodeStateId(node) + ";", 0) > -1) {
+        icon.src = uncheckedIcon;
+        selectState.value = selectState.value.replace(";" + nodeStateId(node) + ";" , ";");
+      } else {
+        icon.src = checkedIcon;
+        selectState.value = selectState.value + nodeStateId(node) + ";" ;
+      }
     }
   }
-  else {
-    if (selectState.value.indexOf(";" + nodeStateId(node) + ";", 0) > -1) {
-      icon.src = uncheckedIcon;
-      selectState.value = selectState.value.replace(";" + nodeStateId(node) + ";" , ";");
-    } else {
-      icon.src = checkedIcon;
-      selectState.value = selectState.value + nodeStateId(node) + ";" ;
-    }
-  }
-  PrintDebug("selectState = " + selectState.value);
 }
 
 function createJavascriptVariable(id) {
@@ -267,16 +268,20 @@ function TreeFolder(label, id, hideIcons, hideJunctions, hideRootJunction,
     var markIcon = '';
     var markIconOnClickFunction = '';
     if (selectable) {
-      if (selected) {
-        markIcon = treeResources.getImage("checked.gif");
+      if (selectable.match(/LeafOnly$/)) {
+        markIcon = treeResources.getImage("1x1.gif");
       } else {
-        markIcon = treeResources.getImage("unchecked.gif");
-      }
-      markIconOnClickFunction
-          = 'onclick="toggleSelect(this.parentNode, \'' + treeHiddenId
-            + '\', \'' + treeResources.getImage("unchecked.gif")
-            + '\', \'' + treeResources.getImage("checked.gif")
-            + '\')"';
+        if (selected) {
+          markIcon = treeResources.getImage("checked.gif");
+        } else {
+          markIcon = treeResources.getImage("unchecked.gif");
+        }
+        markIconOnClickFunction
+            = 'onclick="toggleSelect(this.parentNode, \'' + treeHiddenId
+              + '\', \'' + treeResources.getImage("unchecked.gif")
+              + '\', \'' + treeResources.getImage("checked.gif")
+              + '\')"';
+        }
     }
 
     actualIcon = (this.expanded ? this.openIcon : this.icon) ;
@@ -357,9 +362,33 @@ TreeFolder.prototype = new TreeNode;
 
 // //////////////////////////////////////////////////  listTree
 
-function tobagoTreeListboxChange(element, hiddenId) {
-
+function tobagoTreeListboxClearValueChangedMarker(hiddenId) {
   var rootNode = document.getElementById(hiddenId).rootNode;
+  rootNode.valueChanged = false;
+
+}
+
+function tobagoTreeListboxClick(element, hiddenId) {
+  PrintDebug("onclick");
+  var rootNode = document.getElementById(hiddenId).rootNode;
+  if (! rootNode.valueChanged) {
+    document.getElementById(hiddenId + '-selectState').value = "";
+    element.selectedIndex = -1;
+
+    var level = element.id.lastIndexOf("_");
+    var idPrefix = element.id.substr(0, level);
+    level = element.id.substr(level + 1) - 0;
+    tobagoTreeListboxDisable(idPrefix, level + 1);
+  }
+}
+
+function tobagoTreeListboxChange(element, hiddenId) {
+  PrintDebug("onchange");
+  var rootNode = document.getElementById(hiddenId).rootNode;
+
+//  rootNode.valueChanged = true;
+//  setTimeout("tobagoTreeListboxClearValueChangedMarker('" + hiddenId + "')", 100);
+
   var level = element.id.lastIndexOf("_");
   var idPrefix = element.id.substr(0, level);
   level = element.id.substr(level + 1) - 0;

@@ -5,6 +5,9 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UITree;
 import com.atanion.tobago.taglib.decl.HasIdReference;
@@ -19,7 +22,10 @@ import com.atanion.util.annotation.UIComponentTagAttribute;
 import com.atanion.util.annotation.BodyContentDescription;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.EditableValueHolder;
 import javax.faces.el.ValueBinding;
+import javax.faces.validator.Validator;
+import javax.faces.context.FacesContext;
 import javax.swing.tree.TreeNode;
 
 /**
@@ -30,6 +36,8 @@ import javax.swing.tree.TreeNode;
 public class TreeTag extends TobagoTag
     implements HasIdBindingAndRendered, HasTreeNodeValue, HasState,
                HasIdReference, HasNameReference {
+
+  private static final Log LOG = LogFactory.getLog(TreeTag.class);
 
 // ----------------------------------------------------------------- attributes
 
@@ -74,6 +82,17 @@ public class TreeTag extends TobagoTag
 
     ComponentUtil.setStringProperty(component, ATTR_ID_REFERENCE, idReference, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_NAME_REFERENCE, nameReference, getIterationHelper());
+
+    if (selectable.endsWith("LeafOnly")) {
+      addLeafOnlyValidator(component);
+    }
+  }
+
+  static void addLeafOnlyValidator(UIComponent component) {
+    Validator validator = FacesContext.getCurrentInstance().getApplication()
+        .createValidator("com.atanion.tobago.TreeLeafOnlyValidator");
+    ((EditableValueHolder) component).addValidator(validator);
+    LOG.info("validator added : " + validator.getClass().getName());
   }
 
   public void release() {
@@ -179,6 +198,10 @@ public class TreeTag extends TobagoTag
    *  <ul>
    *  <li><strong>multi</strong> : a multisection tree is rendered
    *  <li><strong>single</strong> : a singlesection tree is rendered
+   *  <li><strong>multiLeafOnly</strong> : a multisection tree is rendered,
+   *      only Leaf's are selectable
+   *  <li><strong>singleLeafOnly</strong> : a singlesection tree is rendered,
+   *      only Leaf's are selectable
    *  </ul>
    *  For any other value or if this attribute is omited the items are not selectable.
    */
@@ -208,5 +231,7 @@ public class TreeTag extends TobagoTag
   public void setNameReference(String nameReference) {
     this.nameReference = nameReference;
   }
+
+
 }
 

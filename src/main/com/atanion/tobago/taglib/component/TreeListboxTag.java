@@ -5,6 +5,9 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UITreeListbox;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -14,9 +17,14 @@ import com.atanion.tobago.taglib.decl.HasState;
 import com.atanion.tobago.taglib.decl.HasTreeNodeValue;
 import com.atanion.util.annotation.BodyContentDescription;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.EditableValueHolder;
 import javax.faces.el.ValueBinding;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.Validator;
 
 /**
  * Renders a listbox view of a tree.
@@ -28,6 +36,8 @@ public class TreeListboxTag extends TobagoTag
                HasIdReference, HasNameReference
     {
 
+  private static final Log LOG = LogFactory.getLog(TreeListboxTag.class);
+
 // ----------------------------------------------------------------- attributes
 
   private String value;
@@ -35,6 +45,9 @@ public class TreeListboxTag extends TobagoTag
 
   private String idReference;
   private String nameReference;
+
+  private String selectable = "single";
+
 
 // ----------------------------------------------------------- business methods
 
@@ -45,7 +58,8 @@ public class TreeListboxTag extends TobagoTag
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    ComponentUtil.setStringProperty(component, ATTR_VALUE, value, getIterationHelper());
+    ComponentUtil.setStringProperty(
+        component, ATTR_VALUE, value, getIterationHelper());
 
     if (state != null && isValueReference(state)) {
       ValueBinding valueBinding = ComponentUtil.createValueBinding(
@@ -53,10 +67,16 @@ public class TreeListboxTag extends TobagoTag
       component.setValueBinding(ATTR_STATE, valueBinding);
     }
 
-   ComponentUtil.setStringProperty(component, ATTR_ID_REFERENCE, idReference, getIterationHelper());
-   ComponentUtil.setStringProperty(component, ATTR_NAME_REFERENCE, nameReference, getIterationHelper());
-        
-   ComponentUtil.setStringProperty(component, ATTR_SELECTABLE, "single", getIterationHelper());
+    ComponentUtil.setStringProperty(
+        component, ATTR_ID_REFERENCE, idReference, getIterationHelper());
+    ComponentUtil.setStringProperty(
+        component, ATTR_NAME_REFERENCE, nameReference, getIterationHelper());
+
+    ComponentUtil.setStringProperty(
+        component, ATTR_SELECTABLE, selectable, getIterationHelper());
+    if (selectable.endsWith("LeafOnly")) {
+      TreeTag.addLeafOnlyValidator(component);
+    }
 
   }
 
@@ -66,6 +86,7 @@ public class TreeListboxTag extends TobagoTag
     state = null;
     idReference = null;
     nameReference = null;
+    selectable = "single";
   }
 // ------------------------------------------------------------ getter + setter
 
@@ -99,6 +120,26 @@ public class TreeListboxTag extends TobagoTag
 
   public void setNameReference(String nameReference) {
     this.nameReference = nameReference;
+  }
+
+  public String getSelectable() {
+    return selectable;
+  }
+
+
+  /**
+   * Flag indicating whether or not this component should be render selectable items.
+   *  Possible values are:
+   *  <ul>
+   *  <li><strong>single</strong> : a singlesection tree is rendered
+   *  <li><strong>singleLeafOnly</strong> : a singlesection tree is rendered,
+   *      only Leaf's are selectable
+   *  </ul>
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type=String.class, defaultValue="single")
+  public void setSelectable(String selectable) {
+    this.selectable = selectable;
   }
 }
 
