@@ -83,7 +83,7 @@ public class TreeTag extends TobagoTag
     ComponentUtil.setStringProperty(component, ATTR_ID_REFERENCE, idReference, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_NAME_REFERENCE, nameReference, getIterationHelper());
 
-    if (selectable.endsWith("LeafOnly")) {
+    if (selectable != null && selectable.endsWith("LeafOnly")) {
       addLeafOnlyValidator(component);
     }
   }
