@@ -96,6 +96,10 @@
     <converter-for-class>java.util.Locale</converter-for-class>
     <converter-class>com.atanion.tobago.convert.LocaleConverter</converter-class>
   </converter>
+  <converter>
+    <converter-for-class>java.util.Currency</converter-for-class>
+    <converter-class>com.atanion.tobago.convert.CurrencyConverter</converter-class>
+  </converter>
 
   <render-kit>
     <render-kit-id>tobago</render-kit-id>
