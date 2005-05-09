@@ -37,6 +37,10 @@ public class UITreeListbox extends UITree {
 
   private List<UITreeListboxBox> boxes;
 
+  public UITreeListbox() {
+    super();
+    getAttributes().put(TobagoConstants.ATTR_SELECTABLE, "single");
+  }
 // ----------------------------------------------------------- business methods
 
   public void encodeBegin(FacesContext facesContext)
