@@ -197,7 +197,8 @@ public class TreeNodeRenderer extends RendererBase {
       writer.writeText("',", null);
       Object selectable = ComponentUtil.getAttribute(root, ATTR_SELECTABLE);
       if (selectable != null
-          && (!(selectable.equals("multi") || selectable.equals("single")))) {
+          && (!(selectable.equals("multi") || selectable.equals("multiLeafOnly")
+          || selectable.equals("single") || selectable.equals("singleLeafOnly")))) {
         selectable = null;
       }
       if (selectable != null) {

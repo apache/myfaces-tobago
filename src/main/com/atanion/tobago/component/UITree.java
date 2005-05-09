@@ -15,16 +15,15 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
-import javax.faces.el.EvaluationException;
 import javax.faces.event.ActionListener;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.Application;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.swing.tree.TreeNode;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Iterator;
-import java.util.List;
 
 import static com.atanion.tobago.TobagoConstants.*;
 import com.atanion.tobago.model.TreeState;
@@ -74,6 +73,8 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   private boolean showRootSet = false;
   private boolean showRootJunction = true;
   private boolean showRootJunctionSet = false;
+
+  private Validator validator;
 
 // --------------------------------------------------------------- constructors
 
@@ -226,7 +227,26 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   }
 
   public void validate(FacesContext context) {
-    LOG.info("validate()");
+
+
+    String selectable = ComponentUtil.getStringAttribute(this, ATTR_SELECTABLE);
+    if (selectable != null && selectable.endsWith("LeafOnly")) {
+
+      try {
+        getLeafOnlyValidator().validate(context, this, null);
+      }
+      catch (ValidatorException ve) {
+        // If the validator throws an exception, we're
+        // invalid, and we need to add a message
+        setValid(false);
+        FacesMessage message = ve.getFacesMessage();
+        if (message != null) {
+          message.setSeverity(FacesMessage.SEVERITY_ERROR);
+          context.addMessage(getClientId(context), message);
+        }
+      }
+    }
+
 //  call all validators
     if (getValidators() != null) {
       for (Validator validator : getValidators()) {
@@ -250,6 +270,15 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   public void updateModel(FacesContext facesContext) {
     // nothig to update for tree's
     // todo: updateing the model here and *NOT* in the decode phase
+  }
+
+  private Validator getLeafOnlyValidator() {
+    if (validator == null) {
+      LOG.info("createValidator");
+      final Application app = FacesContext.getCurrentInstance().getApplication();
+      validator = app.createValidator("com.atanion.tobago.TreeLeafOnlyValidator");
+    }
+    return validator;
   }
 
 // ------------------------------------------------------------ getter + setter

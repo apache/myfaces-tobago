@@ -4,7 +4,7 @@
   */
 
 function toggle(node, treeHiddenId, openFolderIcon, folderIcon) {
-  PrintDebug("toggle("+node+", "+treeHiddenId+", " + openFolderIcon + ", "+ folderIcon +")");
+//  PrintDebug("toggle("+node+", "+treeHiddenId+", " + openFolderIcon + ", "+ folderIcon +")");
   var content = document.getElementById(node.id + "-cont");
   if (content) {
     var selectState = document.getElementById(treeHiddenId + '-selectState');
@@ -46,9 +46,12 @@ function toggleSelect(node, treeHiddenId, uncheckedIcon, checkedIcon) {
     if (treeNode.selectable.match(/single/)) {
       if (! selectState.value.indexOf(";" + nodeStateId(node) + ";", 0) > -1) {
         icon.src = checkedIcon;
-        icon = getIconForId(node, selectState.value);
-        if (icon) {
-          icon.src = uncheckedIcon;
+        oldIcon = getIconForId(node, selectState.value);
+        oldNode = getNodeForId(treeNode, selectState.value);
+        if (oldIcon && oldIcon != icon
+            && (!(oldNode && oldNode.childNodes.length > 0 && oldNode.selectable
+                  && oldNode.selectable.match(/LeafOnly$/)))) {
+          oldIcon.src = uncheckedIcon;
         }
         selectState.value = ";" +  nodeStateId(node) + ";" ;
       }
@@ -77,6 +80,33 @@ function createJavascriptVariable(id) {
 function getIconForId(node, selectId) {
   var id = node.id.substring(0, node.id.lastIndexOf(":") + 1) + selectId.replace(/;/g, "") + '-markIcon';
   return document.getElementById(id);
+}
+
+function getNodeForId(node, selectId) {
+
+  selectId = selectId.match(/^;(.*);$/)[1];
+  while (node.parentNode) {
+    node = node.parentNode;
+    if (nodeStateId(node) == selectId) {
+      return node;
+    }
+  }
+
+  // node is rootNode
+  return getNodeForIdRecursiv(node, selectId);
+}
+
+function getNodeForIdRecursiv(node, selectId) {
+
+  for (var i=0; i<node.childNodes.length; ++i) {
+    if (nodeStateId(node.childNodes[i]) == selectId) {
+      return node.childNodes[i];
+    }
+    var found = getNodeForIdRecursiv(node.childNodes[i], selectId);
+    if (found) {
+      return found;
+    }
+  }
 }
 
 function storeMarker(node, treeHiddenId) {
@@ -137,8 +167,6 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
   var markIconOnClick = '';
   if (selectable) {
     if (selected) {
-      var selectState = document.getElementById(treeHiddenId + '-selectState');
-      selectState.value = selectState.value + nodeStateId(this) + ";" ;
       markIcon = treeResources.getImage("checked.gif");
     } else {
       markIcon = treeResources.getImage("unchecked.gif");
@@ -222,6 +250,13 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
     }
     return str;
   }
+
+  this.initSelection = function() {
+    if (selected) {
+      var selectState = document.getElementById(treeHiddenId + '-selectState');
+      selectState.value = selectState.value + nodeStateId(this) + ";" ;
+    }
+  };
 
 	if (parent) {
 	  parent.add(this);
@@ -356,11 +391,30 @@ function TreeFolder(label, id, hideIcons, hideJunctions, hideRootJunction,
 
     return str;
   }
+
+
+
+  this.initSelection = function() {
+    if (selected) {
+      var selectState = document.getElementById(this.treeHiddenId + '-selectState');
+      if (selectState) {
+        selectState.value = selectState.value + nodeStateId(this) + ";" ;
+      }
+    }
+
+    for (var i=0; i<this.childNodes.length; ++i) {
+      this.childNodes[i].initSelection();
+    }
+  };
 }
 
 TreeFolder.prototype = new TreeNode;
 
 // //////////////////////////////////////////////////  listTree
+
+function tobagoTreeListboxInitSelection(node) {
+  node.initSelection();
+}
 
 function tobagoTreeListboxClearValueChangedMarker(hiddenId) {
   var rootNode = document.getElementById(hiddenId).rootNode;
@@ -369,7 +423,7 @@ function tobagoTreeListboxClearValueChangedMarker(hiddenId) {
 }
 
 function tobagoTreeListboxClick(element, hiddenId) {
-  PrintDebug("onclick");
+//  PrintDebug("onclick");
   var rootNode = document.getElementById(hiddenId).rootNode;
   if (! rootNode.valueChanged) {
     document.getElementById(hiddenId + '-selectState').value = "";
@@ -383,7 +437,7 @@ function tobagoTreeListboxClick(element, hiddenId) {
 }
 
 function tobagoTreeListboxChange(element, hiddenId) {
-  PrintDebug("onchange");
+//  PrintDebug("onchange");
   var rootNode = document.getElementById(hiddenId).rootNode;
 
 //  rootNode.valueChanged = true;
@@ -407,7 +461,7 @@ function tobagoTreeListboxChange(element, hiddenId) {
 
   var node = rootNode.childNodes[index];
 //  PrintDebug("clicked label = " + node.label);
-  PrintDebug("clicked id = " + node.id);
+//  PrintDebug("clicked id = " + node.id);
   var selectState = document.getElementById(hiddenId + '-selectState');
   selectState.value = ";" + nodeStateId(node) + ";";
 

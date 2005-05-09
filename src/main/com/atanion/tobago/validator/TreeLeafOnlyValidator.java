@@ -45,7 +45,5 @@ public class TreeLeafOnlyValidator implements Validator{
         throw new ValidatorException(new FacesMessage(message));
       }
     }
-
-
   }
 }

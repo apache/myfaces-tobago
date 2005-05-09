@@ -1,5 +1,8 @@
 package com.atanion.tobago.component;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.atanion.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
@@ -19,6 +22,8 @@ import java.util.List;
 public class UITreeListbox extends UITree {
 
 // ------------------------------------------------------------------ constants
+
+  private static final Log LOG = LogFactory.getLog(UITreeListbox.class);
 
   public static final String COMPONENT_TYPE = "com.atanion.tobago.TreeListbox";
 

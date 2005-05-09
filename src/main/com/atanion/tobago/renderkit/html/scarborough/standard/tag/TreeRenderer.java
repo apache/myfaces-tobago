@@ -191,8 +191,6 @@ public class TreeRenderer extends RendererBase {
     ComponentUtil.findPage(tree).getScriptFiles().add("script/tree.js");
 
     HtmlRendererUtil.startJavascript(writer);
-//    writer.startElement("script", null);
-//    writer.writeAttribute("type", "text/javascript", null);
     writer.writeText("{", null);
 
     // tree resources (images)
@@ -227,12 +225,14 @@ public class TreeRenderer extends RendererBase {
     writer.writeText(clientId, null);
     writer.writeText("-cont');\n", null);
     writer.writeText("treeDiv.innerHTML = ", null);
-    writer.writeText(TreeRenderer.createJavascriptVariable(root.getClientId(facesContext)),
-        null);
-    writer.writeText(".toString(0, true);", null);
+    String rootNode = createJavascriptVariable(root.getClientId(facesContext));
+    writer.writeText(rootNode, null);
+    writer.writeText(".toString(0, true);\n", null);
+
+    writer.writeText(rootNode, null);
+    writer.writeText(".initSelection();\n", null);
     writer.writeText("}", null);
     HtmlRendererUtil.endJavascript(writer);
-//    writer.endElement("script");
 
     writer.endElement("div");
   }

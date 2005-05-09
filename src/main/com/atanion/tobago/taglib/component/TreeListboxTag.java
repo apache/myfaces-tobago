@@ -74,9 +74,6 @@ public class TreeListboxTag extends TobagoTag
 
     ComponentUtil.setStringProperty(
         component, ATTR_SELECTABLE, selectable, getIterationHelper());
-    if (selectable.endsWith("LeafOnly")) {
-      TreeTag.addLeafOnlyValidator(component);
-    }
 
   }
 

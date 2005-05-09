@@ -82,17 +82,6 @@ public class TreeTag extends TobagoTag
 
     ComponentUtil.setStringProperty(component, ATTR_ID_REFERENCE, idReference, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_NAME_REFERENCE, nameReference, getIterationHelper());
-
-    if (selectable != null && selectable.endsWith("LeafOnly")) {
-      addLeafOnlyValidator(component);
-    }
-  }
-
-  static void addLeafOnlyValidator(UIComponent component) {
-    Validator validator = FacesContext.getCurrentInstance().getApplication()
-        .createValidator("com.atanion.tobago.TreeLeafOnlyValidator");
-    ((EditableValueHolder) component).addValidator(validator);
-    LOG.info("validator added : " + validator.getClass().getName());
   }
 
   public void release() {
