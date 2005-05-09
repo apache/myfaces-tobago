@@ -79,6 +79,7 @@
       </sequential>
     </macrodef>
 
+    <zip-theme name="standard"/>
     <zip-theme name="scarborough"/>
     <zip-theme name="speyside"/>
     <zip-theme name="charlotteville"/>
@@ -107,6 +108,7 @@
       </sequential>
     </macrodef>
 
+    <deploy-module name="tobago-theme-standard"/>
     <deploy-module name="tobago-theme-scarborough"/>
     <deploy-module name="tobago-theme-speyside"/>
     <deploy-module name="tobago-theme-charlotteville"/>
