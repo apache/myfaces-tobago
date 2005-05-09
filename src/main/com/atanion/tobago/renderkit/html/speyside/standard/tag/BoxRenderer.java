@@ -36,25 +36,33 @@ public class BoxRenderer extends BoxRendererBase {
     return super.getFixedHeight(facesContext, component);
   }
 
-  public void encodeBeginTobago(
-      FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBeginTobago(FacesContext facesContext, UIComponent component) throws IOException {
 
 
     HtmlRendererUtil.prepareInnerStyle(component);
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
+    String style = (String) component.getAttributes().get(ATTR_STYLE);
+
+    try {
+      String heightString =
+          HtmlRendererUtil.getStyleAttributeValue(style, "height").replaceAll("\\D", "");
+
+      int height = Integer.parseInt(heightString) - 1;
+      LOG.info("Height: " + height);
+      style =
+        HtmlRendererUtil.replaceStyleAttribute(style, "height", height + "px");
+    } catch (Exception e) {
+      LOG.info(e);
+    }
+
     writer.startElement("div", component);
     writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
-    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
+    writer.writeAttribute("style", style, null);
 
     renderBoxHeader(facesContext, writer, component);
 
-    UIPanel toolbar = (UIPanel) component.getFacet(FACET_TOOL_BAR);
-    if (toolbar != null) {
-      renderToolbar(facesContext, writer, toolbar);
-    }
-    writer.endElement("div");
 
     writer.startElement("div", component);
     writer.writeAttribute("class", "tobago-box-content", null);
@@ -76,16 +84,21 @@ public class BoxRenderer extends BoxRendererBase {
     String labelString
         = (String) component.getAttributes().get(TobagoConstants.ATTR_LABEL);
     if (label != null) {
-      HtmlRendererUtil.encodeHtml(
-          facesContext, label);
+      HtmlRendererUtil.encodeHtml(facesContext, label);
     } else if (labelString != null) {
       writer.writeText(labelString, null);
     }
     writer.endElement("span");
+
+    UIPanel toolbar = (UIPanel) component.getFacet(FACET_TOOL_BAR);
+    if (toolbar != null) {
+      renderToolbar(facesContext, writer, toolbar);
+    }
+    writer.endElement("div");
   }
 
   public void encodeEndTobago(FacesContext facesContext,
-                              UIComponent component) throws IOException {
+      UIComponent component) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
     writer.endElement("div");
     writer.endElement("div");
@@ -101,8 +114,7 @@ public class BoxRenderer extends BoxRendererBase {
     }
     writer.startElement("div", null);
     writer.writeAttribute("class", className, null);
-    attributes.put(
-        TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER, Boolean.TRUE);
+    attributes.put(TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER, Boolean.TRUE);
     if (ToolBarTag.LABEL_BOTTOM.equals(attributes.get(ATTR_LABEL_POSITION))) {
       attributes.put(ATTR_LABEL_POSITION, ToolBarTag.LABEL_RIGHT);
     }

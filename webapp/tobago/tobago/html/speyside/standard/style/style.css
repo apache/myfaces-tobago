@@ -252,8 +252,10 @@ div.tobago-box-default {
 }
 
 .tobago-box-default {
-  background: #B4B4B4;
-  border: 0px solid #B4B4B4;
+  overflow: hidden;
+  margin-top: 1px;
+  background: #999999;
+  border: 0px solid #999999;
   padding: 0px;
   padding-bottom: 1px;
   padding-right: 1px;
@@ -262,6 +264,7 @@ div.tobago-box-default {
 }
 
 .tobago-box-header {
+  top: -1px;
   background: #E8E8E8 url(../image/box-header-bg.gif) repeat-x top;
   height: 20px;
   border: 1px solid black;
@@ -294,7 +297,9 @@ div.tobago-box-default {
 
 
 .tobago-box-content {
-  border: 1px solid black;
+  position: relative;
+  top: -1px;
+  border: 1px solid #000000;
   border-top: 0px solid black;
   background-color: #FAFAFA;
   padding: 5px;
@@ -320,7 +325,7 @@ label.tobago-label-default  {
   border: 0px solid transparent;
   margin-top: 3px;
   padding-top: 0px;
-  padding-left: 6px;
+  padding-left: 8px;
   color: #000000;
   background-color: transparent;
 }
@@ -354,8 +359,14 @@ label.tobago-label-disabled  {
   margin-top: 1px;
   width: auto;
 }
+
 label.tobago-label-inline  {
   padding-left: 0px;
+}
+
+label.tobago-label-error {
+  background: url(../image/label-error-bg.gif) no-repeat;
+  color: #FF0000;
 }
 
 /* page -------------------------------------------------------------------- */
@@ -406,7 +417,7 @@ label.tobago-label-inline  {
 }
 
 .tobago-textArea-error  {
-  border: 1px solid #990000;
+  border: 1px solid #FF0000;
 }
 
 /* in ---------------------------------------------------------------------- */
@@ -429,7 +440,7 @@ label.tobago-label-inline  {
 }
 
 .tobago-in-error {
-  border: 1px solid #990000;
+  border: 1px solid #FF0000;
 }
 
 
@@ -566,6 +577,6 @@ label.tobago-label-inline  {
 
 /* Validation ----------------------------------------------------------------- */
 .tobago-validation-message {
-  color: #990000;
-  font: 12px arial, helvetica, sans-serif;
+  color: #FF0000;
+  font: bold 12px arial, helvetica, sans-serif;
 }
