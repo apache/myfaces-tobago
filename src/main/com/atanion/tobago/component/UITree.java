@@ -274,7 +274,6 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
   private Validator getLeafOnlyValidator() {
     if (validator == null) {
-      LOG.info("createValidator");
       final Application app = FacesContext.getCurrentInstance().getApplication();
       validator = app.createValidator("com.atanion.tobago.TreeLeafOnlyValidator");
     }
