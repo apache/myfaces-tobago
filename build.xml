@@ -85,6 +85,7 @@
     <zip-theme name="charlotteville"/>
     <zip-theme name="tui"/>
     <zip-theme name="inexso"/>
+    <zip-theme name="inexsoClassic"/>
     <zip-theme name="sap"/>
 
     <!--<zip-module
@@ -114,6 +115,7 @@
     <deploy-module name="tobago-theme-charlotteville"/>
     <deploy-module name="tobago-theme-tui"/>
     <deploy-module name="tobago-theme-inexso"/>
+    <deploy-module name="tobago-theme-inexsoClassic"/>
     <deploy-module name="tobago-theme-sap"/>
 <!--    <deploy-module name="tobago-module-client"/>-->
 
