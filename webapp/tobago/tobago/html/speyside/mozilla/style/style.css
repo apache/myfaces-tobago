@@ -5,8 +5,8 @@ label.tobago-label-default  {
 }
 
 .tobago-label-td  {
-  border-top: 0px solid #c0c0c0;
-  border-bottom: 0px solid #c0c0c0;
+  border-top: 0px solid transparent;
+  border-bottom: 0px solid transparent;
 }
 
 /* textArea ---------------------------------------------------------------- */

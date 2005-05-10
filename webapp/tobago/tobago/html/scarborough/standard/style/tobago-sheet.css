@@ -98,8 +98,6 @@
   background: #ebf4fd;
 }
 
-
-
 .tobago-sheet-cell-td {
   padding-left: 0px;
   padding-right: 0px;
@@ -113,8 +111,16 @@
 .tobago-sheet-cell-inner {
   padding-left: 5px;
   padding-right: 5px;
+  vertical-align: top;
 }
 
+div.tobago-sheet-cell-inner img {
+  vertical-align: top;
+}
+
+div.tobago-sheet-cell-inner span {
+  text-align: top;
+}
 
 .tobago-sheet-content-odd {
   background: #ffffff;
