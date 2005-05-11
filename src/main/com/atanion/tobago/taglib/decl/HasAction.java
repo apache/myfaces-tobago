@@ -19,6 +19,6 @@ public interface HasAction {
    * NavigationHandler for this application.
    *
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute @UIComponentTagAttribute()
   public void setAction(String action);
 }

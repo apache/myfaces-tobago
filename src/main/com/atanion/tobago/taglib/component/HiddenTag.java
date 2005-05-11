@@ -29,7 +29,7 @@ public class HiddenTag extends BeanTag
    *  parent component that is a naming container.
    */
   @TagAttribute(required=true)
-  @UIComponentTagAttribute(type=String.class)
+  @UIComponentTagAttribute()
   public void setId(String id) {
     super.setId(id);
   }

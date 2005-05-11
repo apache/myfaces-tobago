@@ -13,6 +13,6 @@ public interface HasState {
    * component's state.
    *
    */
-  @TagAttribute @UIComponentTagAttribute(type=Object.class)
+  @TagAttribute @UIComponentTagAttribute(type="java.lang.Object")
   public void setState(String state);
 }

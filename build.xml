@@ -135,6 +135,17 @@
     </apt>
   </target>
 
+  <target name="annotations-xml" depends="bs:init, bs:get-libs-jar" >
+    <apt srcdir="${src.main}" fork="true"
+         classpathref="project.classpath.run"
+         debug="on"
+         compile="false"
+         preprocessdir="${build.classes.main}"
+         factory="com.atanion.apt.TobagoAnnotationProcessorFactory"
+         factorypathref="project.classpath.run" >
+     </apt>
+  </target>
+
   <target name="tlddoc" depends="annotations, bs:tlddoc" ></target>
 
   <target name="docbook-html" depends="docbook.docbook-html">

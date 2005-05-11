@@ -67,7 +67,7 @@ public class ColumnTag extends TobagoTag
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class)
+  @UIComponentTagAttribute()
   public void setAlign(String align) {
     this.align = align;
   }
@@ -85,7 +85,7 @@ public class ColumnTag extends TobagoTag
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=Boolean.class, defaultValue="false")
+  @UIComponentTagAttribute(type={"java.lang.Boolean"}, defaultValue="false")
   public void setSortable(String sortable) {
     this.sortable = sortable;
   }

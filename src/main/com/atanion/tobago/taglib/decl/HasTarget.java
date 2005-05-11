@@ -13,6 +13,6 @@ public interface HasTarget {
    * displayed.
    *
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute @UIComponentTagAttribute()
   public void setTarget(String target);
 }

@@ -13,6 +13,6 @@ public interface IsDefaultCommand {
   /**
    *
    */
-  @TagAttribute @UIComponentTagAttribute(type=Boolean.class, defaultValue="false")
+  @TagAttribute @UIComponentTagAttribute(type="java.lang.Boolean", defaultValue="false")
   public void setDefaultCommand(String defaultCommand);
 }

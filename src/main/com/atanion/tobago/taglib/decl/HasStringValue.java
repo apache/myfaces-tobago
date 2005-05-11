@@ -16,6 +16,6 @@ public interface HasStringValue {
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class) 
+  @UIComponentTagAttribute()
   void setValue(String value);
 }

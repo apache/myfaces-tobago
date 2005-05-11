@@ -142,7 +142,7 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
    * <code>Object[]</code> of items to iterate over.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type={List.class, Map.class, Object[].class})
+  @UIComponentTagAttribute(type={"java.util.List", "java.util.Map", "java.lang.Object[]"})
   public void setItems(String items) {
     this.items = items;
   }
@@ -158,7 +158,7 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=Integer.class, defaultValue="0")
+  @UIComponentTagAttribute(type={"java.lang.Integer"}, defaultValue="0")
   public void setBegin(String begin) {
     this.begin = begin;
   }
@@ -171,7 +171,7 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=Integer.class, defaultValue="items.lenght()")
+  @UIComponentTagAttribute(type={"java.lang.Integer"}, defaultValue="items.lenght()")
   public void setEnd(String end) {
     this.end = end;
   }
@@ -183,7 +183,7 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=Integer.class, defaultValue="1")
+  @UIComponentTagAttribute(type={"java.lang.Integer"}, defaultValue="1")
   public void setStep(String step) {
     this.step = step;
   }

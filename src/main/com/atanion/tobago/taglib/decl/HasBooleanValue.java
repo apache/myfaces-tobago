@@ -16,6 +16,6 @@ public interface HasBooleanValue {
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=Boolean.class) 
+  @UIComponentTagAttribute(type="java.lang.Boolean")
   public void setValue(String value);
 }

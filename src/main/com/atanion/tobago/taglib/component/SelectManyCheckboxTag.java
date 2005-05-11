@@ -13,8 +13,8 @@ import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsInline;
 import com.atanion.tobago.taglib.decl.IsRendered;
-import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.BodyContentDescription;
+import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 

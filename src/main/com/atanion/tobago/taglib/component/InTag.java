@@ -65,7 +65,7 @@ public class InTag extends TextInputTag
    * password field , so you will not see the typed charakters.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = Boolean.class, defaultValue = "false")
+  @UIComponentTagAttribute(type={"java.lang.Boolean"}, defaultValue = "false")
   public void setPassword(String password) {
     this.password = password;
   }

@@ -13,6 +13,6 @@ public interface HasColumnLayout {
    * Semicolon separated list of layout tokens ('&lt;x>*', '&lt;x>px' or '&lt;x>%').     
    *
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute @UIComponentTagAttribute()
   public void setColumns(String columns);
 }

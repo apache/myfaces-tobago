@@ -15,8 +15,6 @@ import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Renders a calendar.
@@ -52,7 +50,7 @@ public class CalendarTag extends TobagoTag
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type={Calendar.class, Date.class}) 
+  @UIComponentTagAttribute(type={"java.util.Calendar", "java.util.Date"})
   public void setValue(String value) {
     this.value = value;
   }

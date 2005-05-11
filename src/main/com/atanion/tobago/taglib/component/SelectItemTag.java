@@ -4,13 +4,10 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UISelectItem;
 import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.HasValue;
-import com.atanion.tobago.model.SelectItem;
 import com.atanion.util.annotation.BodyContent;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -74,7 +71,7 @@ public class SelectItemTag extends TobagoTag implements HasBinding, HasId {
    * Flag indicating whether the option created
    *  by this component is disabled.
    */
-  @TagAttribute @UIComponentTagAttribute(type=Boolean.class, defaultValue="false")
+  @TagAttribute @UIComponentTagAttribute(type={"java.lang.Boolean"}, defaultValue="false")
 
   public void setItemDescription(String itemDescription) {
     this.itemDescription = itemDescription;
@@ -89,7 +86,7 @@ public class SelectItemTag extends TobagoTag implements HasBinding, HasId {
    *  by this component is disabled.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=Boolean.class, defaultValue="false")
+  @UIComponentTagAttribute(type={"java.lang.Boolean"}, defaultValue="false")
   public void setItemDisabled(String itemDisabled) {
     this.itemDisabled = itemDisabled;
   }
@@ -102,7 +99,7 @@ public class SelectItemTag extends TobagoTag implements HasBinding, HasId {
    * Label to be displayed to the user for this option.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class)
+  @UIComponentTagAttribute()
   public void setItemLabel(String itemLabel) {
     this.itemLabel = itemLabel;
   }
@@ -115,7 +112,7 @@ public class SelectItemTag extends TobagoTag implements HasBinding, HasId {
    * Value to be returned to the server if this option is selected by the user.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class)
+  @UIComponentTagAttribute()
   public void setItemValue(String itemValue) {
     this.itemValue = itemValue;
   }
@@ -128,7 +125,7 @@ public class SelectItemTag extends TobagoTag implements HasBinding, HasId {
    * Value binding expression pointing at a SelectItem instance containing
    * the information for this option.
    */
-  @TagAttribute @UIComponentTagAttribute(type=SelectItem.class)
+  @TagAttribute @UIComponentTagAttribute(type="javax.faces.model.SelectItem")
   public void setValue(String value) {
     this.value = value;
   }
@@ -141,7 +138,7 @@ public class SelectItemTag extends TobagoTag implements HasBinding, HasId {
    * Image to be displayed to the user for this option.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class)
+  @UIComponentTagAttribute()
   public void setItemImage(String itemImage) {
     this.itemImage = itemImage;
   }

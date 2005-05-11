@@ -7,7 +7,16 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.*;
+import com.atanion.tobago.taglib.decl.HasDimension;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
+import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
+import com.atanion.tobago.taglib.decl.HasOnchangeListener;
+import com.atanion.tobago.taglib.decl.HasTip;
+import com.atanion.tobago.taglib.decl.HasValue;
+import com.atanion.tobago.taglib.decl.IsDisabled;
+import com.atanion.tobago.taglib.decl.IsFocus;
+import com.atanion.tobago.taglib.decl.IsReadonly;
+import com.atanion.tobago.taglib.decl.IsRequired;
 import com.atanion.util.annotation.BodyContent;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
@@ -50,7 +59,7 @@ public class TextAreaTag extends TextInputTag
    *  The row count for this component.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class)
+  @UIComponentTagAttribute()
   public void setRows(String rows) {
     this.rows = rows;
   }

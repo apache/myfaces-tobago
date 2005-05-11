@@ -1,7 +1,7 @@
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.component.UICommand;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UICommand;
 
 import javax.faces.component.UIComponent;
 

@@ -75,7 +75,7 @@ public class ScriptTag extends BodyTagSupport  {
    * Absolute url to script file or script name to lookup in tobago resource path
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class)
+  @UIComponentTagAttribute()
   public void setFile(String file) {
     this.file = file;
   }
@@ -89,7 +89,7 @@ public class ScriptTag extends BodyTagSupport  {
    * A script function which is invoked during onLoad Handler on the client.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class)
+  @UIComponentTagAttribute()
   public void setOnload(String onload) {
     this.onload = onload;
   }

@@ -5,9 +5,6 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UITreeListbox;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -19,12 +16,11 @@ import com.atanion.util.annotation.BodyContentDescription;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.EditableValueHolder;
 import javax.faces.el.ValueBinding;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.Validator;
 
 /**
  * Renders a listbox view of a tree.
@@ -134,7 +130,7 @@ public class TreeListboxTag extends TobagoTag
    *  </ul>
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class, defaultValue="single")
+  @UIComponentTagAttribute(defaultValue="single")
   public void setSelectable(String selectable) {
     this.selectable = selectable;
   }

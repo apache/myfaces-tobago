@@ -60,7 +60,7 @@ public class OutTag extends BeanTag
   /**
    *  The current value of this component.
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute @UIComponentTagAttribute()
   public void setValue(String value) {
     super.setValue(value);
   }
@@ -77,7 +77,7 @@ public class OutTag extends BeanTag
    * This flag is set to "true" by default.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=Boolean.class, defaultValue="true")
+  @UIComponentTagAttribute(type={"java.lang.Boolean"}, defaultValue="true")
   public void setEscape(String escape) {
     this.escape = escape;
   }
@@ -91,7 +91,7 @@ public class OutTag extends BeanTag
    * Possible values are 'none', 'strong' and 'deleted'
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class, defaultValue="none")
+  @UIComponentTagAttribute(defaultValue="none")
   public void setMarkup(String markup) {
     this.markup = markup;
   }

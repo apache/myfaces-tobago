@@ -92,7 +92,7 @@ public class CellTag extends TobagoBodyTag implements HasIdBindingAndRendered {
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=Integer.class, defaultValue="1")
+  @UIComponentTagAttribute(type={"java.lang.Integer"}, defaultValue="1")
   public void setSpanX(String spanX) {
     this.spanX = spanX;
   }
@@ -107,7 +107,7 @@ public class CellTag extends TobagoBodyTag implements HasIdBindingAndRendered {
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=Integer.class, defaultValue="1")
+  @UIComponentTagAttribute(type={"java.lang.Integer"}, defaultValue="1")
   public void setSpanY(String spanY) {
     this.spanY = spanY;
   }
@@ -126,7 +126,7 @@ public class CellTag extends TobagoBodyTag implements HasIdBindingAndRendered {
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class, defaultValue="false")
+  @UIComponentTagAttribute(defaultValue="false")
   public void setScrollbars(String scrollbars) {
     this.scrollbars = scrollbars;
   }

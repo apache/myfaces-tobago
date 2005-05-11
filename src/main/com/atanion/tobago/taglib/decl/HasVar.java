@@ -15,6 +15,6 @@ public interface HasVar {
    *
    */
   @TagAttribute(required=true)
-  @UIComponentTagAttribute(type=String.class)
+  @UIComponentTagAttribute()
   public void setVar(String var);
 }

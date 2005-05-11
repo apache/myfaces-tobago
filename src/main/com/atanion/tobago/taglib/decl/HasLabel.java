@@ -13,6 +13,6 @@ public interface HasLabel {
   /**
    *   Text value to display as label. Overwritten by 'labelWithAccessKey'
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute @UIComponentTagAttribute()
   public void setLabel(String label);
 }

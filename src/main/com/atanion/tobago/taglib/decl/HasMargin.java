@@ -12,6 +12,6 @@ public interface HasMargin {
    * Margin between container component and layouted children.
    *
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute @UIComponentTagAttribute()
   public void setMargin(String margin);
 }

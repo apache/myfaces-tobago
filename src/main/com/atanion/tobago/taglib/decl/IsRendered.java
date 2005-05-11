@@ -11,6 +11,6 @@ public interface IsRendered {
    *  Flag indicating whether or not this component should be rendered
    * (during Render Response Phase), or processed on any subsequent form submit.
    */
-  @TagAttribute @UIComponentTagAttribute(type=Boolean.class, defaultValue="true")
+  @TagAttribute @UIComponentTagAttribute(type="java.lang.Boolean", defaultValue="true")
   public void setRendered(String rendered);
 }

@@ -10,6 +10,6 @@ public interface HasTip {
   /**
    *  Text value to display as tooltip.
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute @UIComponentTagAttribute()
   public void setTip(String tip);
 }

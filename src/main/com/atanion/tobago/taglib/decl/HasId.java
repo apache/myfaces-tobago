@@ -12,6 +12,6 @@ public interface HasId {
    *  This value must be unique within the closest
    *  parent component that is a naming container.
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute @UIComponentTagAttribute()
   public void setId(String id);
 }

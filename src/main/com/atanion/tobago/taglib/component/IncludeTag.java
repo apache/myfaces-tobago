@@ -7,7 +7,6 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.HasStringValue;
 import com.atanion.util.annotation.BodyContent;
 import com.atanion.util.annotation.Tag;

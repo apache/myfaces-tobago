@@ -15,6 +15,6 @@ public interface HasActionListener {
    * parameter, with a return type of void.
    *
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute @UIComponentTagAttribute()
   public void setActionListener(String actionListener);
 }

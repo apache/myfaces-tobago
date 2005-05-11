@@ -10,6 +10,6 @@ public interface HasWidth {
   /**
    *  The width for this component.
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute @UIComponentTagAttribute()
   public void setWidth(String width);
 }

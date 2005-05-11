@@ -6,20 +6,17 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.taglib.decl.HasBinding;
+import com.atanion.tobago.taglib.decl.HasHeight;
 import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
 import com.atanion.tobago.taglib.decl.HasOnchangeListener;
 import com.atanion.tobago.taglib.decl.HasTip;
 import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.IsDisabled;
-import com.atanion.tobago.taglib.decl.IsInline;
-import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.tobago.taglib.decl.IsReadonly;
-import com.atanion.tobago.taglib.decl.HasHeight;
-import com.atanion.util.annotation.Tag;
+import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.util.annotation.BodyContentDescription;
-
-import javax.faces.webapp.FacetTag;
+import com.atanion.util.annotation.Tag;
 
 /**
  * Render a single selection option listbox.

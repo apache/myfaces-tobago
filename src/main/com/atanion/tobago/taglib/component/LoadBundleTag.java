@@ -57,7 +57,7 @@ public class LoadBundleTag extends TagSupport implements HasVar {
    *  Base name of the resource bundle to be loaded.
    */
   @TagAttribute(required=true)
-  @UIComponentTagAttribute(type=String.class)
+  @UIComponentTagAttribute()
   public void setBasename(String basename) {
     this.basename = basename;
   }

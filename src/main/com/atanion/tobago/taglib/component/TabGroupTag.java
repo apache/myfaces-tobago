@@ -7,11 +7,11 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UITabGroup;
-import com.atanion.tobago.taglib.decl.HasState;
 import com.atanion.tobago.taglib.decl.HasDimension;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
-import com.atanion.util.annotation.Tag;
+import com.atanion.tobago.taglib.decl.HasState;
 import com.atanion.util.annotation.BodyContentDescription;
+import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
 
@@ -65,7 +65,7 @@ public class TabGroupTag extends TobagoTag
    * Flag indicating that tab switching is done by server request.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=Boolean.class, defaultValue="false")
+  @UIComponentTagAttribute(type="java.lang.Boolean", defaultValue="false")
   public void setServerside(String serverside) {
     this.serverside = serverside;
   }

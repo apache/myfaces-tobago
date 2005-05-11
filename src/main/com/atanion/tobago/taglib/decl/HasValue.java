@@ -16,6 +16,6 @@ public interface HasValue {
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=Object.class) 
+  @UIComponentTagAttribute(type="java.lang.Object")
   void setValue(String value);
 }

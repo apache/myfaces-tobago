@@ -22,9 +22,12 @@ import javax.faces.component.UIPanel;
  *
  */
 @Tag(name="menu")
-@BodyContentDescription(anyClassOf={MenuTag.class, MenuCommandTag.class,
-        MenuSelectBooleanTag.class, MenuSelectOneTag.class,
-        MenuSeparatorTag.class })
+@BodyContentDescription(
+    anyClassOf={"com.atanion.tobago.taglib.component.MenuTag", 
+    "com.atanion.tobago.taglib.component.MenuCommandTag",
+    "com.atanion.tobago.taglib.component.MenuSelectBooleanTag",
+    "com.atanion.tobago.taglib.component.MenuSelectOneTag",
+    "com.atanion.tobago.taglib.component.MenuSeparatorTag" })
 
 public class MenuTag extends TobagoTag
     implements HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled, HasImage {

@@ -1,5 +1,6 @@
 package com.atanion.tobago.taglib.decl;
 
+import com.atanion.util.annotation.DynamicExpression;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
 
@@ -13,6 +14,6 @@ public interface HasConverter {
   /**
    *  ConverterId of a registered converter.
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class, expression=false)
+  @TagAttribute @UIComponentTagAttribute(expression=DynamicExpression.NONE)
   public void setConverter(String converter);
 }

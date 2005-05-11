@@ -77,7 +77,7 @@ public class LabelTag extends BeanTag
   /**
    *   Text value to display as label. Overwritten by 'labelWithAccessKey'
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute @UIComponentTagAttribute()
   public void setValue(String value) {
     super.setValue(value);
   }

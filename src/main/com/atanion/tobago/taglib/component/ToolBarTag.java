@@ -1,10 +1,10 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.HasWidth;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
-import com.atanion.util.annotation.Tag;
+import com.atanion.tobago.taglib.decl.HasWidth;
 import com.atanion.util.annotation.BodyContentDescription;
+import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
 
@@ -83,7 +83,7 @@ public class ToolBarTag extends PanelTag
    * If toolbar is facet of box: bottom is changed to right!
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class, defaultValue="bottom")
+  @UIComponentTagAttribute(defaultValue="bottom")
   public void setLabelPosition(String labelPosition) {
     this.labelPosition = labelPosition;
   }
@@ -93,7 +93,7 @@ public class ToolBarTag extends PanelTag
    * Size of button images, possible values are: small, big, off.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class, defaultValue="small")
+  @UIComponentTagAttribute(defaultValue="small")
   public void setIconSize(String iconSize) {
     this.iconSize = iconSize;
   }

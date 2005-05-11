@@ -6,15 +6,14 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.taglib.decl.HasBooleanValue;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
 import com.atanion.tobago.taglib.decl.HasTip;
-import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsInline;
-import com.atanion.tobago.taglib.decl.HasBooleanValue;
-import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.BodyContentDescription;
+import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UISelectBoolean;
 

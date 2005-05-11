@@ -14,6 +14,6 @@ public interface HasIdReference {
    *   <code>&lt;UITreeNode>.getUserObject().getId()<code> to fetch the id.
    *
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute @UIComponentTagAttribute()
   public void setIdReference(String id);
 }

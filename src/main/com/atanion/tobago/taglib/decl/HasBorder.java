@@ -12,6 +12,6 @@ public interface HasBorder {
    *  Border size of this component.
    *
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute @UIComponentTagAttribute()
   public void setBorder(String border);
 }

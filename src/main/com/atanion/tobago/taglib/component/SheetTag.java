@@ -8,22 +8,17 @@ package com.atanion.tobago.taglib.component;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIData;
 import com.atanion.tobago.event.SheetStateChangeEvent;
-import com.atanion.tobago.model.SheetState;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
+import com.atanion.util.annotation.BodyContentDescription;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
-import com.atanion.util.annotation.BodyContentDescription;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
-import javax.faces.model.DataModel;
-import javax.servlet.jsp.jstl.sql.Result;
-import java.sql.ResultSet;
-import java.util.List;
 
 /**
  * Render a sheet element.
@@ -142,7 +137,7 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
    *
    */
   @TagAttribute(required=true)
-  @UIComponentTagAttribute(type=String.class)
+  @UIComponentTagAttribute()
   public void setColumns(String columns) {
     this.columns = columns;
   }
@@ -157,7 +152,7 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=Boolean.class, defaultValue="true")
+  @UIComponentTagAttribute(type="java.lang.Boolean", defaultValue="true")
   public void setShowHeader(String showHeader) {
     this.showHeader = showHeader;
   }
@@ -173,7 +168,7 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=Integer.class, defaultValue="100")
+  @UIComponentTagAttribute(type="java.lang.Integer", defaultValue="100")
   public void setPagingLength(String pagingLength) {
     this.pagingLength = pagingLength;
   }
@@ -192,7 +187,7 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=Integer.class, defaultValue="0")
+  @UIComponentTagAttribute(type="java.lang.Integer", defaultValue="0")
   public void setPagingStart(String pagingStart) {
     this.pagingStart = pagingStart;
   }
@@ -206,8 +201,8 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
    *  
    */
   @TagAttribute
-  @UIComponentTagAttribute(type={Object[].class, List.class, Result.class,
-                                 ResultSet.class, Object.class, DataModel.class})
+  @UIComponentTagAttribute(type={"java.lang.Object[]", "java.util.List", "javax.servlet.jsp.jstl.sql.Result",
+                                 "java.sql.ResultSet", "java.lang.Object", "javax.faces.model.DataModel"})
   public void setValue(String value) {
     this.value = value;
   }
@@ -224,7 +219,7 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
    *
    */
   @TagAttribute(required=true)
-  @UIComponentTagAttribute(type=String.class)
+  @UIComponentTagAttribute()
   public void setVar(String var) {
     this.var = var;
   }
@@ -236,7 +231,7 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=Integer.class, defaultValue="9")
+  @UIComponentTagAttribute(type="java.lang.Integer", defaultValue="9")
   public void setDirectLinkCount(String directLinkCount) {
     this.directLinkCount = directLinkCount;
   }
@@ -254,7 +249,7 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class, defaultValue="auto")
+  @UIComponentTagAttribute(defaultValue="auto")
   public void setForceVerticalScrollbar(String forceVerticalScrollbar) {
     this.forceVerticalScrollbar = forceVerticalScrollbar;
   }
@@ -269,7 +264,7 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class, defaultValue="none")
+  @UIComponentTagAttribute(defaultValue="none")
   public void setShowDirectLinks(String showDirectLinks) {
     this.showDirectLinks = showDirectLinks;
   }
@@ -285,7 +280,7 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class, defaultValue="none")
+  @UIComponentTagAttribute(defaultValue="none")
   public void setShowPageRange(String showPageRange) {
     this.showPageRange = showPageRange;
   }
@@ -302,7 +297,7 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class, defaultValue="none")
+  @UIComponentTagAttribute(defaultValue="none")
   public void setShowRowRange(String showRowRange) {
     this.showRowRange = showRowRange;
   }
@@ -313,7 +308,7 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=SheetState.class)
+  @UIComponentTagAttribute(type="com.atanion.tobago.model.SheetState")
   public void setState(String state) {
     this.state = state;
   }
@@ -326,7 +321,7 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
    * StateChangeEvent parameter, with a return type of void.
    *
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)public void setStateChangeListener(String stateChangeListener) {
+  @TagAttribute @UIComponentTagAttribute()public void setStateChangeListener(String stateChangeListener) {
     this.stateChangeListener = stateChangeListener;
   }
 }

@@ -15,6 +15,6 @@ public interface HasOnchangeListener {
    * Clientside script function to add to this component's onchange handler.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class)
+  @UIComponentTagAttribute()
   void setOnchange(String onchange);
 }

@@ -12,6 +12,6 @@ public interface HasImage {
    *  Url to an image to display.
    *
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute @UIComponentTagAttribute()
   public void setImage(String image);
 }

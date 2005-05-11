@@ -7,9 +7,10 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.BodyContent;
 import com.atanion.util.annotation.BodyContentDescription;
+import com.atanion.util.annotation.DynamicExpression;
+import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
 
@@ -74,7 +75,7 @@ public class StyleTag extends BodyTagSupport implements HasId {
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class, expression=false)
+  @UIComponentTagAttribute(expression=DynamicExpression.NONE)
   public void setStyle(String style) {
     this.style = style;
   }

@@ -10,6 +10,6 @@ public interface HasHeight {
   /**
    *  The height for this component.
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute @UIComponentTagAttribute()
   public void setHeight(String height);
 }

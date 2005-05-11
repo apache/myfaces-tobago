@@ -12,6 +12,6 @@ public interface HasCellspacing {
    * Spacing between component and layout cell's   
    *
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute @UIComponentTagAttribute()
   public void setCellspacing(String cellspacing);
 }

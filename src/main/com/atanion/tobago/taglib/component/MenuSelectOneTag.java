@@ -5,8 +5,6 @@
   */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UICommand;
 import com.atanion.tobago.taglib.decl.HasAction;
 import com.atanion.tobago.taglib.decl.HasCommandType;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -15,8 +13,6 @@ import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsImmediateCommand;
 import com.atanion.util.annotation.Tag;
-
-import javax.faces.component.UIComponent;
 
 /**
  * Renders a submenu with select one items.

@@ -14,6 +14,6 @@ public interface HasNameReference {
    *   <code>&lt;UITreeNode>.getUserObject().getName()<code> to fetch the label.
    *
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute @UIComponentTagAttribute()
   public void setNameReference(String name);
 }

@@ -130,7 +130,7 @@ public class PageTag extends TobagoBodyTag
    *  The charset to render.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class)
+  @UIComponentTagAttribute()
   public void setCharset(String charset) {
     this.charset = charset;
   }
@@ -147,7 +147,7 @@ public class PageTag extends TobagoBodyTag
    * @param doctype
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class, defaultValue = "loose")
+  @UIComponentTagAttribute( defaultValue = "loose")
   public void setDoctype(String doctype) {
     this.doctype = doctype;
   }
@@ -173,7 +173,7 @@ public class PageTag extends TobagoBodyTag
    * @param focusId
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class)
+  @UIComponentTagAttribute()
   public void setFocusId(String focusId) {
     this.focusId = focusId;
   }

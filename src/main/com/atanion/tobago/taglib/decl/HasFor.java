@@ -10,6 +10,6 @@ public interface HasFor {
   /**
    *  Id of the component, this is related to. 
    */
-  @TagAttribute @UIComponentTagAttribute(type=String.class)
+  @TagAttribute @UIComponentTagAttribute()
   public void setFor(String _for);
 }

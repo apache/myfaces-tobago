@@ -6,11 +6,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.atanion.tobago.component.UIInput;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UIInput;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
 import com.atanion.tobago.taglib.decl.HasTip;
@@ -19,8 +16,9 @@ import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsInline;
 import com.atanion.tobago.taglib.decl.IsReadonly;
 import com.atanion.util.annotation.Tag;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-import javax.faces.application.Application;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;

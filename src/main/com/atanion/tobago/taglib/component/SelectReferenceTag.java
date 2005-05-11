@@ -7,10 +7,10 @@ package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
+import com.atanion.util.annotation.BodyContent;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
-import com.atanion.util.annotation.BodyContent;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -49,7 +49,7 @@ public class SelectReferenceTag extends TobagoTag
    *  Id of the component, this is related to.
    */
   @TagAttribute(required=true)
-  @UIComponentTagAttribute(type=String.class)
+  @UIComponentTagAttribute()
   public void setFor(String _for) {
     this._for = _for;
   }
@@ -71,7 +71,7 @@ public class SelectReferenceTag extends TobagoTag
    *  Range of items to render.
    */
   @TagAttribute(required=true)
-  @UIComponentTagAttribute(type=String.class)
+  @UIComponentTagAttribute()
   public void setRenderRange(String renderRange) {
     this.renderRange = renderRange;
   }

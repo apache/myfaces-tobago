@@ -9,19 +9,14 @@ package com.atanion.tobago.taglib.component;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.taglib.decl.HasAction;
 import com.atanion.tobago.taglib.decl.HasActionListener;
-import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasCommandType;
-import com.atanion.tobago.taglib.decl.HasId;
+import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.tobago.taglib.decl.HasImage;
 import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
+import com.atanion.tobago.taglib.decl.HasTip;
 import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsImmediateCommand;
-import com.atanion.tobago.taglib.decl.IsInline;
-import com.atanion.tobago.taglib.decl.IsRendered;
-import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
-import com.atanion.tobago.taglib.decl.HasTip;
 import com.atanion.util.annotation.Tag;
-import com.atanion.util.annotation.BodyContentDescription;
 
 import javax.faces.component.UIComponent;
 
@@ -49,16 +44,11 @@ public class ToolBarCommandTag extends CommandTag
 
     component.setRendererType(RENDERER_TYPE_BUTTON);
 
-    ComponentUtil.setStringProperty(component, ATTR_LABEL, label,
-        getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image,
-        getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey,
-        getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY,
-        labelWithAccessKey, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_TIP, tip,
-        getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_TIP, tip, getIterationHelper());
   }
 
   public void release() {

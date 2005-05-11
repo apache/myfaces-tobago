@@ -87,7 +87,7 @@ public class PopupTag extends TobagoBodyTag
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=Integer.class)
+  @UIComponentTagAttribute(type="java.lang.Integer")
   public void setHeight(String height) {
     this.height = height;
   }
@@ -97,13 +97,13 @@ public class PopupTag extends TobagoBodyTag
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=Integer.class)
+  @UIComponentTagAttribute(type="java.lang.Integer")
   public void setLeft(String left) {
     this.left = left;
   }
 
   @TagAttribute
-  @UIComponentTagAttribute(type=Integer.class)
+  @UIComponentTagAttribute(type="java.lang.Integer")
   public void setTop(String top) {
     this.top = top;
   }

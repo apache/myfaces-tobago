@@ -63,7 +63,7 @@ public class ImageTag extends TobagoTag
    *
    */
   @TagAttribute(required=true)
-  @UIComponentTagAttribute(type=String.class)
+  @UIComponentTagAttribute()
   public void setValue(String value) {
     this.value = value;
   }
@@ -78,7 +78,7 @@ public class ImageTag extends TobagoTag
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class)
+  @UIComponentTagAttribute()
   public void setAlt(String alt) {
     this.alt = alt;
   }

@@ -16,6 +16,6 @@ public interface HasCommandType {
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type=String.class, defaultValue="submit")
+  @UIComponentTagAttribute(defaultValue="submit")
   public void setType(String type);
 }
