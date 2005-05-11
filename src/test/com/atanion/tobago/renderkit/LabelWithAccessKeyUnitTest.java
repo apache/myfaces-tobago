@@ -26,6 +26,7 @@ public class LabelWithAccessKeyUnitTest extends TestCase {
     assertEquals(null, label.getAccessKey());
   }
 
+  // code-sniplet-start id="test1"
   public void testWithKeyFirstLetter() {
     UIComponent component = new UIOutput();
     component.getAttributes().put("label", "Save");
@@ -35,6 +36,7 @@ public class LabelWithAccessKeyUnitTest extends TestCase {
     assertEquals(0, label.getPos());
     assertEquals(new Character('s'), label.getAccessKey());
   }
+  // code-sniplet-end id="test1"
 
   public void testWithKeyLastLetter() {
     UIComponent component = new UIOutput();

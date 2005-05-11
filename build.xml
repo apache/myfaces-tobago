@@ -148,12 +148,28 @@
 
   <target name="tlddoc" depends="annotations, bs:tlddoc" ></target>
 
-  <target name="docbook-html" depends="docbook.docbook-html">
+  <target name="code-sniplets">
+    <taskdef name="code-extract" classname="com.atanion.ant.project.CodeSnipletExtractTask"/>
+    <mkdir dir="build/sniplets" />
+    <code-extract outputDir="build/sniplets">
+      <fileset dir="src">
+        <include name="**/*.java"/>
+      </fileset>
+    </code-extract>
+  </target>
+
+  <target name="docbook-html" depends="code-sniplets, docbook-taglib-xml, docbook.docbook-html">
     <docbook-html-macro master="${project.dir.doc.master}" output.dir="build/doc/" />
   </target>
 
-  <target name="docbook-pdf" depends="docbook.docbook-pdf">
+  <target name="docbook-pdf" depends="code-sniplets, docbook-taglib-xml, docbook.docbook-pdf">
     <docbook-pdf-macro master="${project.dir.doc.master}" output.dir="build/doc" />
+  </target>
+
+  <target name="docbook-taglib-xml" depends="annotations-xml">
+    <style in="build/classes/main/com/atanion/tobagoDocu.xml"
+      out="build/doc/tobagoDocu.xml" extension=".xml" style="doc/tld2docbook.xsl">
+    </style>
   </target>
 
 </project>

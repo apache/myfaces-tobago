@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
-"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+  "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd"
+ [
+    <!ENTITY test1 SYSTEM "file:../build/sniplets/test1.snip">
+    <!ENTITY taglib SYSTEM "file:../build/doc/tobagoDocu.xml">
+ ]>
 <book lang="en">
   <bookinfo>
     <title>Tobago Documentation</title>
@@ -33,6 +37,11 @@
       <title>Themes</title>
       <sect2 id="features.themes.config">
         <title>ThemeConfig</title>
+        <para>
+          <example><title>Test Listing</title>
+          <programlisting language="java">&test1;</programlisting>
+          </example>
+        </para>
       </sect2>
       <!--    <sect2>[CSS]</sect2>-->
       <!--    <sect2>[Developing Themes]</sect2>-->
@@ -79,9 +88,7 @@
     </sect1>
   </chapter>
 
-  <chapter id="tag-reference">
-    <title>Tag Reference</title>
-  </chapter>
+  &taglib;
 
   <chapter id="api">
     <title>API-Doc + Source-Doc</title>
