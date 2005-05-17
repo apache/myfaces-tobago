@@ -145,10 +145,16 @@ public class ResourceManager {
 
   public String getProperty(UIViewRoot viewRoot, String bundle,
       String propertyKey) {
+    return getProperty(viewRoot, bundle, propertyKey, null);
+  }
+  public String getProperty(UIViewRoot viewRoot, String bundle,
+      String propertyKey, Locale locale) {
     final String type = "property";
     String result;
     String clientProperties = ClientProperties.getInstance(viewRoot).getId();
-    Locale locale = viewRoot.getLocale();
+    if (locale == null) {
+      locale = viewRoot.getLocale();
+    }
     String key = key(clientProperties, locale, type, bundle, propertyKey);
     if ((result = (String) cache.get(key)) != null) {
       return result;

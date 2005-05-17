@@ -13,6 +13,7 @@ import javax.faces.component.UIViewRoot;
 import javax.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ResourceManagerUtil {
 
@@ -30,8 +31,12 @@ public class ResourceManagerUtil {
 
   public static String getProperty(
       FacesContext facesContext, String bundle, String key) {
+    return getProperty(facesContext, bundle, key, null);
+  }
+  public static String getProperty(
+      FacesContext facesContext, String bundle, String key, Locale locale) {
     UIViewRoot viewRoot = facesContext.getViewRoot();
-    String result = getResourceManager(facesContext).getProperty(viewRoot, bundle, key);
+    String result = getResourceManager(facesContext).getProperty(viewRoot, bundle, key, locale);
     if (result != null) {
       return result;
     } else {
