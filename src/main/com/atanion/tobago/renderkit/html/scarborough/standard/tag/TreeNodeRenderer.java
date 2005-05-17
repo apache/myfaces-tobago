@@ -222,6 +222,8 @@ public class TreeNodeRenderer extends RendererBase {
         writer.writeText(",", null);
         writer.writeText(Boolean.toString(treeState.isExpanded(node)), null);
       }
+      writer.writeText(",", null);
+      writer.writeText(Boolean.toString(root.isRequired()), null);
       writer.writeText(",treeResourcesHelp);\n", null);
 
       if (jsParentClientId != null) { // if not the root node

@@ -130,7 +130,7 @@ var TreeManager = {
 
 function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
     hideRoot, treeHiddenId, selectable, mutable,
-    formId, selected, marked, treeResources,
+    formId, selected, marked, required, treeResources,
     action, parent, icon) {
 	this.label = label;
 	this.id = id;
@@ -144,6 +144,7 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
   this.formId = formId;
   this.selected = selected;
   this.marked = marked;
+  this.required = required;
   this.treeResources = treeResources;
 	this.action = action;
 	this.icon = icon;
@@ -265,12 +266,11 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
 
 function TreeFolder(label, id, hideIcons, hideJunctions, hideRootJunction,
     hideRoot, treeHiddenId, selectable, mutable, formId, selected, marked,
-    expanded, treeResources,
-    action, parent, icon, openIcon) {
+    expanded, required, treeResources, action, parent, icon, openIcon) {
 	this.base = TreeNode;
 	this.base(label, id, hideIcons, hideJunctions, hideRootJunction,
-	    hideRoot, treeHiddenId, selectable, mutable, formId, selected, marked, treeResources,
-	    action, parent);
+	    hideRoot, treeHiddenId, selectable, mutable, formId, selected, marked,
+      required, treeResources, action, parent, icon);
   this.open = false;
   this.expanded = expanded;
 
@@ -423,9 +423,15 @@ function tobagoTreeListboxClearValueChangedMarker(hiddenId) {
 }
 
 function tobagoTreeListboxClick(element, hiddenId) {
-//  PrintDebug("onclick");
+//  PrintDebug("onchange");
   var rootNode = document.getElementById(hiddenId).rootNode;
-  if (! rootNode.valueChanged) {
+  PrintDebug("onchange : required = " + rootNode.required);
+
+  PrintDebug("old:" + element.oldValue + " new:" + element.selectedIndex);
+
+  if (! rootNode.required
+      && (element.oldValue == undefined || element.oldValue == element.selectedIndex)) {
+    PrintDebug("value NOT changed");
     document.getElementById(hiddenId + '-selectState').value = "";
     element.selectedIndex = -1;
 
@@ -434,44 +440,40 @@ function tobagoTreeListboxClick(element, hiddenId) {
     level = element.id.substr(level + 1) - 0;
     tobagoTreeListboxDisable(idPrefix, level + 1);
   }
-}
 
-function tobagoTreeListboxChange(element, hiddenId) {
-//  PrintDebug("onchange");
-  var rootNode = document.getElementById(hiddenId).rootNode;
+  if (element.oldValue != element.selectedIndex) {
+    element.oldValue = element.selectedIndex;
 
-//  rootNode.valueChanged = true;
-//  setTimeout("tobagoTreeListboxClearValueChangedMarker('" + hiddenId + "')", 100);
-
-  var level = element.id.lastIndexOf("_");
-  var idPrefix = element.id.substr(0, level);
-  level = element.id.substr(level + 1) - 0;
-  var actualLevel = 0;
+    var level = element.id.lastIndexOf("_");
+    var idPrefix = element.id.substr(0, level);
+    level = element.id.substr(level + 1) - 0;
+    var actualLevel = 0;
 
 
-  while (actualLevel < level) {
-    var selector = document.getElementById(idPrefix + "_" + actualLevel);
-    rootNode = rootNode.childNodes[selector.value];
-    actualLevel++;
-  }
+    while (actualLevel < level) {
+      var selector = document.getElementById(idPrefix + "_" + actualLevel);
+      rootNode = rootNode.childNodes[selector.value];
+      actualLevel++;
+    }
 
 
-  var index = element.value;
+    var index = element.value;
 //  PrintDebug("level = " + level + " selected = " + index);
 
-  var node = rootNode.childNodes[index];
+    var node = rootNode.childNodes[index];
 //  PrintDebug("clicked label = " + node.label);
 //  PrintDebug("clicked id = " + node.id);
-  var selectState = document.getElementById(hiddenId + '-selectState');
-  selectState.value = ";" + nodeStateId(node) + ";";
+    var selectState = document.getElementById(hiddenId + '-selectState');
+    selectState.value = ";" + nodeStateId(node) + ";";
 
-  if (node.childNodes && node.childNodes.length > 0) {
-    tobagoTreeListboxSetup(node, idPrefix, level + 1);
-  } else {
-    tobagoTreeListboxDisable(idPrefix, level + 1);
+    if (node.childNodes && node.childNodes.length > 0) {
+      tobagoTreeListboxSetup(node, idPrefix, level + 1);
+    } else {
+      tobagoTreeListboxDisable(idPrefix, level + 1);
+    }
+
   }
-
-  PrintDebug("selectState = " + selectState.value);
+  PrintDebug("selectState = " + document.getElementById(hiddenId + '-selectState').value);
 }
 
 
@@ -512,6 +514,7 @@ function tobagoTreeListboxDisable(idPrefix, start) {
   while (selector) {
     tobagoTreeListboxRemoveOptions(idPrefix, start++);
     addCssClass(selector, "tobago-treeListbox-unused");
+    selector.oldValue = -1;
     selector = document.getElementById(idPrefix + "_" + start);
   }
 }

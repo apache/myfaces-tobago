@@ -12,6 +12,7 @@ import com.atanion.tobago.taglib.decl.HasIdReference;
 import com.atanion.tobago.taglib.decl.HasNameReference;
 import com.atanion.tobago.taglib.decl.HasState;
 import com.atanion.tobago.taglib.decl.HasTreeNodeValue;
+import com.atanion.tobago.taglib.decl.IsRequired;
 import com.atanion.util.annotation.BodyContentDescription;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
@@ -29,7 +30,7 @@ import javax.faces.el.ValueBinding;
 @BodyContentDescription(anyTagOf="<f:facet>* <f:actionListener>?" )
 public class TreeListboxTag extends TobagoTag
     implements HasIdBindingAndRendered, HasTreeNodeValue, HasState,
-               HasIdReference, HasNameReference
+               HasIdReference, HasNameReference, IsRequired
     {
 
   private static final Log LOG = LogFactory.getLog(TreeListboxTag.class);
@@ -43,6 +44,8 @@ public class TreeListboxTag extends TobagoTag
   private String nameReference;
 
   private String selectable = "single";
+
+  private String required;
 
 
 // ----------------------------------------------------------- business methods
@@ -71,6 +74,9 @@ public class TreeListboxTag extends TobagoTag
     ComponentUtil.setStringProperty(
         component, ATTR_SELECTABLE, selectable, getIterationHelper());
 
+    ComponentUtil.setBooleanProperty(
+        component, ATTR_REQUIRED, required, getIterationHelper());
+
   }
 
   public void release() {
@@ -80,6 +86,7 @@ public class TreeListboxTag extends TobagoTag
     idReference = null;
     nameReference = null;
     selectable = "single";
+    required = null;
   }
 // ------------------------------------------------------------ getter + setter
 
@@ -133,6 +140,14 @@ public class TreeListboxTag extends TobagoTag
   @UIComponentTagAttribute(defaultValue="single")
   public void setSelectable(String selectable) {
     this.selectable = selectable;
+  }
+
+  public String getRequired() {
+    return required;
+  }
+
+  public void setRequired(String required) {
+    this.required = required;
   }
 }
 
