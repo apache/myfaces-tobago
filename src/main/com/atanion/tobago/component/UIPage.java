@@ -98,6 +98,10 @@ public class UIPage extends UIForm {
     // reset old submitted state
     setSubmitted(false);
 
+    // clear script Set's
+    getOnloadScripts().clear();
+    getScriptBlocks().clear();
+
     // find the form of the action command and set submitted to it and all
     // children
     String actionId = getActionId();
@@ -142,8 +146,6 @@ public class UIPage extends UIForm {
       facesContext.renderResponse();
     }
 
-    getOnloadScripts().clear();
-    getScriptBlocks().clear();
   }
 
   public List<KeyValuePair> getPostfields() {
