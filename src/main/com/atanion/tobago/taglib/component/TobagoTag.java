@@ -142,7 +142,6 @@ public abstract class TobagoTag extends UIComponentTag
       ComponentUtil.setStringProperty(uiLabel, ATTR_VALUE, label, getIterationHelper());
       ComponentUtil.setStringProperty(uiLabel, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
       ComponentUtil.setStringProperty(uiLabel, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
-      ComponentUtil.setStringProperty(uiLabel, ATTR_VALUE, label, getIterationHelper());
       component.getFacets().put(FACET_LABEL, uiLabel);
     }
   }

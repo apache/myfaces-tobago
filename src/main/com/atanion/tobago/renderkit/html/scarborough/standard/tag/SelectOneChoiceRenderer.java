@@ -85,17 +85,18 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
 
     Object value = component.getValue();
     for (SelectItem item : items) {
+      final Object itemValue = item.getValue();
       if (LOG.isDebugEnabled()) {
-        LOG.debug("item value = '" + item.getValue() + "'");
+        LOG.debug("item value = '" + itemValue + "'");
         LOG.debug("item class = '" + item.getClass().getName() + "'");
         LOG.debug("item label = '" + item.getLabel() + "'");
         LOG.debug("item descr = '" + item.getDescription() + "'");
       }
       writer.startElement("option", null);
       String formattedValue
-          = getFormattedValue(facesContext, component, item.getValue());
+          = getFormattedValue(facesContext, component, itemValue);
       writer.writeAttribute("value", formattedValue, null);
-      if (item.getValue().equals(value)) {
+      if (itemValue.equals(value)) {
         writer.writeAttribute("selected", "selected", null);
       }
       writer.writeText(item.getLabel(), null);

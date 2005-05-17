@@ -348,7 +348,18 @@ public abstract class RendererBase
     }
   }
 
-  protected String getFormattedValue(
+  protected static String getFormattedValue(
+      FacesContext facesContext, UIComponent component){
+    Object value = null;
+    if (component instanceof ValueHolder) {
+      value = ((ValueHolder)component).getLocalValue();
+      if (value == null) {
+        value =  ((ValueHolder)component).getValue();
+      }
+    }
+    return getFormattedValue(facesContext, component, value);
+  }
+  protected static String getFormattedValue(
       FacesContext context, UIComponent component, Object currentValue)
       throws ConverterException {
 

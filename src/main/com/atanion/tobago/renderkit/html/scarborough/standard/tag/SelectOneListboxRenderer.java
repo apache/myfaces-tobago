@@ -116,15 +116,16 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     for (SelectItem item : items) {
 
       writer.startElement("option", null);
+      final Object itemValue = item.getValue();
       String formattedValue
-          = getFormattedValue(facesContext, component, item.getValue());
+          = getFormattedValue(facesContext, component, itemValue);
       writer.writeAttribute("value", formattedValue, null);
-      if (item.getValue().equals(value)) {
+      if (itemValue.equals(value)) {
         writer.writeAttribute("selected", "selected", null);
       }
       writer.writeText(item.getLabel(), null);
       writer.endElement("option");
-//    LOG.debug("item-value" + item.getValue());
+//    LOG.debug("item-value" + itemValue);
     }
 
 

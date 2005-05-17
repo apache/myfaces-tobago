@@ -57,7 +57,7 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
     showRowRange = "none";
     showPageRange = "none";
     showDirectLinks = "none";
-    directLinkCount = null;
+    directLinkCount = "9";
     showHeader = null;
     pagingStart = "0";
     pagingLength = "100";

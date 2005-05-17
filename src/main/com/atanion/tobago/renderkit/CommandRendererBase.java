@@ -72,8 +72,9 @@ public abstract class CommandRendererBase extends RendererBase {
         onclick = "confirm('" + confirmation.getValue() + "') && " + onclick;
       } else {
         if (LOG.isWarnEnabled()) {
-          LOG.warn("Facet confirm is not supported for this type of button. " +
-              "id = '" + component.getClientId(facesContext) + "'");
+          LOG.warn("Facet '" + FACET_CONFIRMATION + "' is not supported for "
+              + "this type of button. id = '"
+              + component.getClientId(facesContext) + "'");
         }
       }
     }
