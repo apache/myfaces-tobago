@@ -197,6 +197,9 @@ function initCalendarParse(id, textBoxId) {
 
   var string = textBox.value;
   var date = new Date(getDateFromFormat(string, document.calendar.formatPattern));
+  if (date.getTime() == 0) {
+    date = new Date();
+  }
   var day = date.getDate();
   var month = date.getMonth() + 1;
   var year = date.getFullYear();
