@@ -15,7 +15,9 @@
     <xsl:param name="tagname" select="name"/>
     <sect1 id="tag-{$tagname}">
       <title>Tag
-        <classname><xsl:value-of select="name"/></classname>
+        <classname>
+          <xsl:value-of select="name"/>
+        </classname>
       </title>
       <para>
         <xsl:value-of select="description"/>
@@ -45,7 +47,9 @@
       </variablelist>
       <table>
         <title>Attributes of tag
-          <classname><xsl:value-of select="name"/></classname>
+          <classname>
+            <xsl:value-of select="name"/>
+          </classname>
         </title>
         <tgroup cols="6">
           <colspec colname="name" colwidth="3cm" align="left"/>
@@ -53,7 +57,7 @@
           <colspec colname="expr" colwidth="0.8cm" align="center"/>
           <colspec colname="type" colwidth="3.5cm" align="left"/>
           <colspec colname="default" colwidth="1.2cm" align="left"/>
-          <colspec colname="description" colwidth="6.6cm" align="left"/>
+          <colspec colname="description" colwidth="6.7cm" align="left"/>
           <thead>
             <row>
               <entry>Name</entry>
@@ -65,7 +69,9 @@
             </row>
           </thead>
           <tbody>
-            <xsl:apply-templates select="attribute"/>
+            <xsl:apply-templates select="attribute">
+              <xsl:sort select="name" />
+            </xsl:apply-templates>
           </tbody>
         </tgroup>
       </table>
@@ -77,7 +83,11 @@
     <xsl:param name="expression" select="ui-attribute-expression"/>
     <row>
       <entry>
-        <xsl:value-of select="name"/>
+        <indexterm>
+          <primary>
+            <xsl:value-of select="name"/>
+          </primary>
+        </indexterm>>
       </entry>
       <entry>
         <xsl:if test="$required = 'true'">X</xsl:if>
