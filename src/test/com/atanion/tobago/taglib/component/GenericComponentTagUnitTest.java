@@ -78,6 +78,7 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
         FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
     application = applicationFactory.getApplication();
     application.addComponent("javax.faces.Command", "javax.faces.component.UICommand");
+    application.addComponent("com.atanion.tobago.Command", "com.atanion.tobago.component.UICommand");
 
     facesContext.setApplication(application);
     UIViewRoot root = facesContext
