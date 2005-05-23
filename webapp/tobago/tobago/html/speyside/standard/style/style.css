@@ -298,7 +298,7 @@ div.tobago-box-default {
 
 .tobago-box-content {
   position: relative;
-  top: -1px;
+  top: 0px;
   border: 1px solid #000000;
   border-top: 0px solid black;
   background-color: #FAFAFA;
