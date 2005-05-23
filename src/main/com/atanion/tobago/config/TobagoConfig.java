@@ -25,15 +25,15 @@ public class TobagoConfig {
 
 // ----------------------------------------------------------------- attributes
 
-  private List supportedThemes;
+  private List<Theme> supportedThemes;
   private Theme defaultTheme;
-  private List resourceDirs;
-  private List mappingRules;
+  private List<String> resourceDirs;
+  private List<MappingRule> mappingRules;
 
 // ----------------------------------------------------------- business methods
 
   public TobagoConfig() {
-    supportedThemes = new ArrayList();
+    supportedThemes = new ArrayList<Theme>();
     resourceDirs = new ArrayList();
   }
 
@@ -43,7 +43,7 @@ public class TobagoConfig {
     }
 
     if (mappingRules == null) {
-      mappingRules = new ArrayList();
+      mappingRules = new ArrayList<MappingRule>();
     }
     mappingRules.add(mappingRule);
   }
@@ -92,7 +92,7 @@ public class TobagoConfig {
     return null;
   }
 
-  public Iterator getMappingRules() {
+  public Iterator<MappingRule> getMappingRules() {
     if (mappingRules == null) {
       return Collections.EMPTY_LIST.iterator();
     } else {
@@ -108,8 +108,7 @@ public class TobagoConfig {
     if (defaultTheme.getName().equals(name)) {
       return defaultTheme;
     }
-    for (Iterator i = supportedThemes.iterator(); i.hasNext();) {
-      Theme theme = (Theme) i.next();
+    for (Theme theme : supportedThemes) {
       if (theme.getName().equals(name)) {
         return theme;
       }
@@ -118,7 +117,7 @@ public class TobagoConfig {
     return defaultTheme;
   }
 
-  public List getSupportedThemes() {
+  public List<Theme> getSupportedThemes() {
     return Collections.unmodifiableList(supportedThemes);
   }
 
@@ -128,7 +127,7 @@ public class TobagoConfig {
     resourceDirs.add(resourceDir);
   }
 
-  public List getResourceDirs() {
+  public List<String> getResourceDirs() {
     return resourceDirs;
   }
 
