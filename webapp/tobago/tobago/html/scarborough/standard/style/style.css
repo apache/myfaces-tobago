@@ -31,7 +31,7 @@ div.tobago-tab-selected-inner {
 }
 div.tobago-tab-unselected-outer {
   border-color: #ddeeff #778899 #ddeeff #ddeeff;
-  border-width: 0.13ex;
+  border-width: 1px;
   border-style: solid;
 }
 div.tobago-tab-unselected-inner {
@@ -40,14 +40,14 @@ div.tobago-tab-unselected-inner {
 }
 div.tobago-tab-fulfill {
   border-color: #ddeeff;
-  border-width: 0px 0px 0.13ex 0px;
+  border-width: 0px 0px 1px 0px;
   border-style: solid;
 }
 td.tobago-tab-content {
   border-color: #ddeeff #778899 #778899 #ddeeff;
-  border-width: 0px 0.13ex 0.13ex 0.13ex;
+  border-width: 0px 1px 1px 1px;
   border-style: solid;
-  padding: 0.7ex 0.7em;
+  padding: 11px 11px;
 }
 
 
