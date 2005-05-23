@@ -3,6 +3,7 @@ package com.atanion.tobago.component;
 import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 import java.util.Iterator;
+import java.io.IOException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -63,5 +64,12 @@ public class UICommand extends javax.faces.component.UICommand {
 
   public void setActive(boolean active) {
     this.active = active;
+  }
+
+
+  public void encodeChildren(FacesContext facesContext) throws IOException {
+   if (isRendered() ) {
+     UILayout.getLayout(this).encodeChildrenOfComponent(facesContext, this);
+   }
   }
 }
