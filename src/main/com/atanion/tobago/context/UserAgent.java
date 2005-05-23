@@ -68,6 +68,10 @@ public class UserAgent implements Serializable {
     return MSIE.name.equals(name);
   }
 
+  public boolean isMozilla() {
+    return MOZILLA.name.equals(name);
+  }
+
   public Iterator iterator(){
     return iterator(false);
   }

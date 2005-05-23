@@ -11,6 +11,8 @@ import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoMultipartFormdataRequest;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
+import com.atanion.tobago.context.ClientProperties;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -112,7 +114,9 @@ public class FileRenderer extends InputRendererBase {
     writer.startElement("input", component);
     writer.writeAttribute("type", "file", null);
     writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
-    writer.writeAttribute("style", null, ATTR_STYLE);
+    if (!ClientProperties.getInstance(facesContext).getUserAgent().isMozilla()) {
+      writer.writeAttribute("style", null, ATTR_STYLE);
+    }
 //  fixme?  if (inline) {
 //      writer.writeAttribute("style", "float: left;", null);
 //    }
