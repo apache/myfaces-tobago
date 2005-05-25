@@ -17,6 +17,7 @@
 
   <chapter id="introduction">
     <title>Introduction</title>
+    <para>Dies ist ein Test. Eine Fussnote<footnote><para>Ja, genau!</para></footnote>.</para>
   </chapter>
 
   <chapter id="architecture">
