@@ -88,13 +88,6 @@
     <zip-theme name="inexsoClassic"/>
     <zip-theme name="sap"/>
 
-    <!--<zip-module
-      name="tobago-module-client"
-      classes="com/atanion/tobago/module/client/*.class"
-      webapp="webapp/tobago-module-client"
-      pattern="**"
-      faces="${src.main}/com/atanion/tobago/module/client" />-->
-
   </target>
 
   <target name="deploy-snapshot" depends="dist, bs:init-project-info, build-basic.deploy-snapshot"
@@ -117,7 +110,6 @@
     <deploy-module name="tobago-theme-inexso"/>
     <deploy-module name="tobago-theme-inexsoClassic"/>
     <deploy-module name="tobago-theme-sap"/>
-<!--    <deploy-module name="tobago-module-client"/>-->
 
   </target>
 
