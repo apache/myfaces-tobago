@@ -146,7 +146,7 @@ public class UIPage extends UIForm {
     if (LOG.isDebugEnabled()) {
       LOG.debug(command);
       LOG.debug(form);
-      ComponentUtil.debug(facesContext.getViewRoot(), 0);
+      LOG.debug(ComponentUtil.toString(facesContext.getViewRoot(), 0));
       if (form != null) {
         LOG.debug(form.getClientId(facesContext));
       }

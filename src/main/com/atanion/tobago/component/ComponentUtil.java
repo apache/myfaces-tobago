@@ -353,34 +353,41 @@ public class ComponentUtil {
     return null;
   }
 
-  public static void debug(UIComponent component, int offset) {
-    debug(component, offset, false);
+  public static String toString(UIComponent component, int offset) {
+    return toString(component, offset, false);
   }
 
-  private static void debug(UIComponent component, int offset, boolean asFacet) {
+  private static String toString(UIComponent component, int offset, boolean asFacet) {
+    StringBuffer result = new StringBuffer();
     if (component == null) {
-      LOG.debug("null");
-      return;
-    }
-    if (!asFacet) {
-      LOG.debug(spaces(offset) + debugComponent(component));
-    }
-    Map facets = component.getFacets();
-    if (facets.size() > 0) {
-      for (Iterator iter = facets.keySet().iterator(); iter.hasNext();) {
-        Object name = iter.next();
-        UIComponent facet = (UIComponent) facets.get(name);
-        LOG.debug(spaces(offset + 1) + "\"" + name + "\" = "
-            + debugComponent(facet));
-        debug(facet, offset + 1, true);
+      result.append("null");
+    } else {
+      result.append('\n');
+      if (!asFacet) {
+        result.append(spaces(offset) + toString(component));
+      }
+      Map facets = component.getFacets();
+      if (facets.size() > 0) {
+        for (Iterator iter = facets.keySet().iterator(); iter.hasNext();) {
+          Object name = iter.next();
+          UIComponent facet = (UIComponent) facets.get(name);
+          result.append('\n');
+          result.append(spaces(offset + 1));
+          result.append('\"');
+          result.append(name);
+          result.append("\" = ");
+          result.append(toString(facet));
+          result.append(toString(facet, offset + 1, true));
+        }
+      }
+      for (Iterator i = component.getChildren().iterator(); i.hasNext();) {
+        result.append(toString((UIComponent) i.next(), offset + 1, false));
       }
     }
-    for (Iterator i = component.getChildren().iterator(); i.hasNext();) {
-      debug((UIComponent) i.next(), offset + 1, false);
-    }
+    return result.toString();
   }
 
-  private static String debugComponent(UIComponent component) {
+  private static String toString(UIComponent component) {
       return component.getClass().getName()
           + '@' + Integer.toHexString(component.hashCode())
           + " " + component.getRendererType()

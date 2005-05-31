@@ -271,7 +271,7 @@ public class ViewHandlerImpl extends ViewHandler {
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("VIEW");
-      ComponentUtil.debug(facesContext.getViewRoot(), 0);
+      LOG.debug(ComponentUtil.toString(facesContext.getViewRoot(), 0));
     }
   }
 
