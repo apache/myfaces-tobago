@@ -6,24 +6,23 @@
 package com.atanion.tobago.component;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.model.PageState;
 import com.atanion.tobago.model.PageStateImpl;
-import com.atanion.util.collections.ListOrderedSet;
+import com.atanion.tobago.webapp.TobagoMultipartFormdataRequest;
 import com.atanion.util.KeyValuePair;
+import com.atanion.util.collections.ListOrderedSet;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class UIPage extends UIForm {
 
@@ -92,6 +91,28 @@ public class UIPage extends UIForm {
   }
 
   public void processDecodes(FacesContext facesContext) {
+
+    // multipart/form-data must use TobagoMultipartFormdataRequest
+    String contentType = (String) facesContext.getExternalContext().getRequestHeaderMap().get("content-type");
+    if (contentType.startsWith("multipart/form-data")) {
+      Object request = facesContext.getExternalContext().getRequest();
+      boolean okay = false;
+      if (request instanceof TobagoMultipartFormdataRequest) {
+        okay = true;
+      } else if (request instanceof HttpServletRequestWrapper) {
+        ServletRequest wrappedRequest
+            = ((HttpServletRequestWrapper) request).getRequest();
+        if (wrappedRequest instanceof TobagoMultipartFormdataRequest) {
+          okay = true;
+        }
+      }
+      if (! okay) {
+        LOG.error("Can't process multipart/form-data without TobagoRequest. " +
+            "Please check the web.xml and define a TobagoMultipartFormdataFilter. " +
+            "See documentation for <t:file>");
+        facesContext.addMessage(null, new FacesMessage("An error has occured!"));
+      }
+    }
 
     decode(facesContext);
 

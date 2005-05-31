@@ -5,16 +5,17 @@
  */
 package com.atanion.tobago.component;
 
+import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.taglib.component.ForEachTag;
+import com.atanion.tobago.util.RangeParser;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.FactoryFinder;
-import javax.faces.application.Application;
 import javax.faces.component.*;
-import javax.faces.component.UISelectItem;
 import javax.faces.component.UICommand;
+import javax.faces.component.UISelectItem;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.el.ValueBinding;
@@ -24,15 +25,9 @@ import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.atanion.tobago.TobagoConstants.*;
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.util.RangeParser;
 
 public class ComponentUtil {
 
@@ -363,7 +358,11 @@ public class ComponentUtil {
   }
 
   private static void debug(UIComponent component, int offset, boolean asFacet) {
-    if (! asFacet) {
+    if (component == null) {
+      LOG.debug("null");
+      return;
+    }
+    if (!asFacet) {
       LOG.debug(spaces(offset) + debugComponent(component));
     }
     Map facets = component.getFacets();
@@ -382,14 +381,11 @@ public class ComponentUtil {
   }
 
   private static String debugComponent(UIComponent component) {
-    String s = component.getClass().getName()
-                 + '@' + Integer.toHexString(component.hashCode())
-                 + " " + component.getRendererType()
-                 + " " + component.getId();
-
-    s += " " + component.getClientId(FacesContext.getCurrentInstance());
-
-    return s;
+      return component.getClass().getName()
+          + '@' + Integer.toHexString(component.hashCode())
+          + " " + component.getRendererType()
+          + " " + component.getId()
+          + " " + component.getClientId(FacesContext.getCurrentInstance());
   }
 
   private static String spaces(int n) {

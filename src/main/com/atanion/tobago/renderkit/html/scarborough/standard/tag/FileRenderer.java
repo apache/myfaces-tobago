@@ -6,18 +6,16 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoMultipartFormdataRequest;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
-import com.atanion.tobago.context.ClientProperties;
-
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
@@ -70,10 +68,10 @@ public class FileRenderer extends InputRendererBase {
       }
     }
     if (request == null) {
-      throw new FacesException(
-          "Cannot find a TobagoMultipartFormdataRequest. "
-          + "Please check that you have confitured a "
-          + "TobagoMultipartFormdataFilter in your web.xml.");
+      // should not be possible, because of the check in UIPage
+      LOG.error("Can't process multipart/form-data without TobagoRequest. " +
+          "Please check the web.xml and define a TobagoMultipartFormdataFilter. " +
+          "See documentation for <t:file>");
     }
 
     FileItem item = request.getFileItem(input.getClientId(facesContext));
