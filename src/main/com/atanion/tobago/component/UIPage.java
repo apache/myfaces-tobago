@@ -93,8 +93,9 @@ public class UIPage extends UIForm {
   public void processDecodes(FacesContext facesContext) {
 
     // multipart/form-data must use TobagoMultipartFormdataRequest
-    String contentType = (String) facesContext.getExternalContext().getRequestHeaderMap().get("content-type");
-    if (contentType.startsWith("multipart/form-data")) {
+    String contentType = (String) facesContext.getExternalContext()
+        .getRequestHeaderMap().get("content-type");
+    if (contentType != null && contentType.startsWith("multipart/form-data")) {
       Object request = facesContext.getExternalContext().getRequest();
       boolean okay = false;
       if (request instanceof TobagoMultipartFormdataRequest) {
