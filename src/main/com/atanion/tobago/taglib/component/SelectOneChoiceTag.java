@@ -26,6 +26,5 @@ import com.atanion.util.annotation.Tag;
 @BodyContentDescription(anyTagOf="(<f:selectItems>|<f:selectItem>|<t:selectItem>)+ <f:facet>* " )
 public class SelectOneChoiceTag extends SelectOneTag
     implements HasId, HasValue, IsDisabled, IsReadonly, HasOnchangeListener, IsInline,
-    HasLabelAndAccessKey, IsRendered, HasBinding, HasTip
-    {
+    HasLabelAndAccessKey, IsRendered, HasBinding, HasTip {
 }
