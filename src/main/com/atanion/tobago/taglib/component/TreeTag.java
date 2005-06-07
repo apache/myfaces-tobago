@@ -12,6 +12,7 @@ import com.atanion.tobago.taglib.decl.HasIdReference;
 import com.atanion.tobago.taglib.decl.HasNameReference;
 import com.atanion.tobago.taglib.decl.HasState;
 import com.atanion.tobago.taglib.decl.HasTreeNodeValue;
+import com.atanion.tobago.taglib.decl.IsRequired;
 import com.atanion.util.annotation.BodyContentDescription;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
@@ -27,7 +28,7 @@ import javax.faces.el.ValueBinding;
 @BodyContentDescription(anyTagOf="<f:facet>* <f:actionListener>?" )
 public class TreeTag extends TobagoTag
     implements HasIdBindingAndRendered, HasTreeNodeValue, HasState,
-               HasIdReference, HasNameReference {
+               HasIdReference, HasNameReference, IsRequired {
 
 // ----------------------------------------------------------------- attributes
 
@@ -45,6 +46,9 @@ public class TreeTag extends TobagoTag
   private String idReference;
   private String nameReference;
 
+
+  private String required;
+
 // ----------------------------------------------------------- business methods
 
   public String getComponentType() {
@@ -54,7 +58,8 @@ public class TreeTag extends TobagoTag
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    ComponentUtil.setStringProperty(component, ATTR_VALUE, value, getIterationHelper());
+    ComponentUtil.setStringProperty(
+        component, ATTR_VALUE, value, getIterationHelper());
     
     if (state != null && isValueReference(state)) {
       ValueBinding valueBinding = ComponentUtil.createValueBinding(
@@ -62,16 +67,28 @@ public class TreeTag extends TobagoTag
       component.setValueBinding(ATTR_STATE, valueBinding);
     }
 
-    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_JUNCTIONS, showJunctions, getIterationHelper());
-    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ICONS, showIcons, getIterationHelper());
-    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ROOT, showRoot, getIterationHelper());
-    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ROOT_JUNCTION, showRootJunction, getIterationHelper());
+    ComponentUtil.setBooleanProperty(
+        component, ATTR_SHOW_JUNCTIONS, showJunctions, getIterationHelper());
+    ComponentUtil.setBooleanProperty(
+        component, ATTR_SHOW_ICONS, showIcons, getIterationHelper());
+    ComponentUtil.setBooleanProperty(
+        component, ATTR_SHOW_ROOT, showRoot, getIterationHelper());
+    ComponentUtil.setBooleanProperty(component,
+        ATTR_SHOW_ROOT_JUNCTION, showRootJunction, getIterationHelper());
 
-    ComponentUtil.setStringProperty(component, ATTR_SELECTABLE, selectable, getIterationHelper());
-    ComponentUtil.setBooleanProperty(component, ATTR_MUTABLE, mutable, getIterationHelper());
+    ComponentUtil.setStringProperty(
+        component, ATTR_SELECTABLE, selectable, getIterationHelper());
+    ComponentUtil.setBooleanProperty(
+        component, ATTR_MUTABLE, mutable, getIterationHelper());
 
-    ComponentUtil.setStringProperty(component, ATTR_ID_REFERENCE, idReference, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_NAME_REFERENCE, nameReference, getIterationHelper());
+    ComponentUtil.setStringProperty(
+        component, ATTR_ID_REFERENCE, idReference, getIterationHelper());
+    ComponentUtil.setStringProperty(
+        component, ATTR_NAME_REFERENCE, nameReference, getIterationHelper());
+
+
+    ComponentUtil.setBooleanProperty(
+        component, ATTR_REQUIRED, required, getIterationHelper());
   }
 
   public void release() {
@@ -86,6 +103,7 @@ public class TreeTag extends TobagoTag
     mutable = null;
     idReference = null;
     nameReference = null;
+    required = null;
   }
 // ------------------------------------------------------------ getter + setter
 
@@ -209,6 +227,14 @@ public class TreeTag extends TobagoTag
 
   public void setNameReference(String nameReference) {
     this.nameReference = nameReference;
+  }
+
+  public String getRequired() {
+    return required;
+  }
+
+  public void setRequired(String required) {
+    this.required = required;
   }
 }
 

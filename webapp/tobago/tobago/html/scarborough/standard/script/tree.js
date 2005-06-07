@@ -42,9 +42,11 @@ function toggleSelect(node, treeHiddenId, uncheckedIcon, checkedIcon) {
   var icon = document.getElementById(node.id + '-markIcon');
   var treeNode;
   eval("treeNode = " + createJavascriptVariable(node.id) + ";");
+  PrintDebug("treeNode.required = " + treeNode.required);
   if (! (treeNode.selectable.match(/LeafOnly$/) && treeNode.childNodes.length > 0)) {
     if (treeNode.selectable.match(/single/)) {
-      if (! selectState.value.indexOf(";" + nodeStateId(node) + ";", 0) > -1) {
+      if (! (selectState.value.indexOf(";" + nodeStateId(node) + ";", 0) > -1)) {
+        PrintDebug("single selection changed");
         icon.src = checkedIcon;
         oldIcon = getIconForId(node, selectState.value);
         oldNode = getNodeForId(treeNode, selectState.value);
@@ -54,12 +56,27 @@ function toggleSelect(node, treeHiddenId, uncheckedIcon, checkedIcon) {
           oldIcon.src = uncheckedIcon;
         }
         selectState.value = ";" +  nodeStateId(node) + ";" ;
+      } else {
+        PrintDebug("single selection cleared");
+        if (! treeNode.required) {
+          icon.src = uncheckedIcon;
+          selectState.value = ";" ;
+        } else {
+          PrintDebug("single selection hold");
+        }
       }
     }
     else {
       if (selectState.value.indexOf(";" + nodeStateId(node) + ";", 0) > -1) {
-        icon.src = uncheckedIcon;
-        selectState.value = selectState.value.replace(";" + nodeStateId(node) + ";" , ";");
+        PrintDebug("selectState.value = " + selectState.value);
+        PrintDebug("nodeSelectState   = " + ";" + nodeStateId(node) + ";" );
+        PrintDebug("required          = " +  treeNode.required);
+        if (!(treeNode.required && selectState.value == ";" + nodeStateId(node) + ";") ) {
+          icon.src = uncheckedIcon;
+          selectState.value = selectState.value.replace(";" + nodeStateId(node) + ";" , ";");
+        }
+
+        PrintDebug("selectState.value = " + selectState.value);
       } else {
         icon.src = checkedIcon;
         selectState.value = selectState.value + nodeStateId(node) + ";" ;
@@ -84,7 +101,12 @@ function getIconForId(node, selectId) {
 
 function getNodeForId(node, selectId) {
 
-  selectId = selectId.match(/^;(.*);$/)[1];
+  var match = selectId.match(/^;(.*);$/);
+  if (match) {
+    selectId = match[1];
+  } else {
+      return null;
+  }
   while (node.parentNode) {
     node = node.parentNode;
     if (nodeStateId(node) == selectId) {
@@ -126,7 +148,7 @@ var TreeManager = {
   getId: function() {
     return "tobago.node." + this._counter++;
   }
-}
+};
 
 function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
     hideRoot, treeHiddenId, selectable, mutable,
@@ -183,7 +205,7 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
   }
 
   this.add = function (node) {
-  }
+  };
 
   this.toString = function (depth, last) { // merge with folder...
     var str = '';
@@ -223,7 +245,7 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
     }
     str += '</div>';
     return str;
-  }
+  };
 
   // is the node the last child of its paranet?
   this.isLast = function() {
@@ -231,7 +253,7 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
     var siblings = this.parentNode.childNodes;
     if (siblings.length == 0) return true;
     return (this == siblings[siblings.length-1]);
-  }
+  };
 
   this.indent = function(depth, last) {
     if (!depth) depth = 0;
@@ -250,7 +272,7 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
           : treeResources.getImage("I.gif")) + '" alt="">' + str;
     }
     return str;
-  }
+  };
 
   this.initSelection = function() {
     if (selected) {
@@ -289,7 +311,7 @@ function TreeFolder(label, id, hideIcons, hideJunctions, hideRootJunction,
   	node.parentNode = this;
   	this.childNodes[this.childNodes.length] = node;
   	return node;
-  }
+  };
 
   this.toString = function (depth, last) {
     if (!depth) depth = 0;
@@ -390,7 +412,7 @@ function TreeFolder(label, id, hideIcons, hideJunctions, hideRootJunction,
     str += '</div>';
 
     return str;
-  }
+  };
 
 
 
@@ -431,7 +453,7 @@ function tobagoTreeListboxChange(element, hiddenId) {
 
 
 function tobagoTreeListboxClick(element, hiddenId) {
-//  PrintDebug("onchange");
+  PrintDebug("onclick hiddenId = " + hiddenId);
   var rootNode = document.getElementById(hiddenId).rootNode;
   PrintDebug("onclick : required = " + rootNode.required);
 

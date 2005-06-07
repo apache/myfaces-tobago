@@ -195,7 +195,7 @@ public class TreeNodeRenderer extends RendererBase {
       writer.writeText(",'", null);
       writer.writeText(rootId, null);
       writer.writeText("',", null);
-      Object selectable = ComponentUtil.getAttribute(root, ATTR_SELECTABLE);
+      String selectable = ComponentUtil.getStringAttribute(root, ATTR_SELECTABLE) ;
       if (selectable != null
           && (!(selectable.equals("multi") || selectable.equals("multiLeafOnly")
           || selectable.equals("single") || selectable.equals("singleLeafOnly")))) {
@@ -215,7 +215,15 @@ public class TreeNodeRenderer extends RendererBase {
       writer.writeText(
           ComponentUtil.findPage(component).getFormId(facesContext), null);
       writer.writeText("',", null);
-      writer.writeText(Boolean.toString(treeState.isSelected(node)), null);
+      if (component.getChildCount() == 0
+          || (selectable != null && ! selectable.endsWith("LeafOnly"))) {
+        writer.writeText(Boolean.toString(treeState.isSelected(node)), null);
+      } else {
+        writer.writeText("false", null);
+        if (treeState.isSelected(node)) {
+          LOG.warn("Ignore selected FolderNode in LeafOnly selection tree!");
+        }
+      }
       writer.writeText(",", null);
       writer.writeText(Boolean.toString(treeState.isMarked(node)), null);
       if (component.getChildCount() > 0) {
