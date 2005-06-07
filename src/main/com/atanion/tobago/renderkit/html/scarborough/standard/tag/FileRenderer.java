@@ -36,6 +36,10 @@ public class FileRenderer extends InputRendererBase {
 
 // ///////////////////////////////////////////// code
 
+  public boolean getRendersChildren() {
+    return true;
+  }
+
   public int getComponentExtraWidth(
       FacesContext facesContext, UIComponent component) {
     int space = 0;
@@ -101,23 +105,12 @@ public class FileRenderer extends InputRendererBase {
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
-
-    UIComponent label = component.getFacet(FACET_LABEL);
-    if (label != null) {
-      writer.writeText("", null);
-      HtmlRendererUtil.encodeHtml(facesContext, label);
-    }
-
     writer.startElement("input", component);
     writer.writeAttribute("type", "file", null);
     writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
     if (!ClientProperties.getInstance(facesContext).getUserAgent().isMozilla()) {
       writer.writeAttribute("style", null, ATTR_STYLE);
     }
-//  fixme?  if (inline) {
-//      writer.writeAttribute("style", "float: left;", null);
-//    }
     writer.writeAttribute("name", clientId, null);
     writer.writeAttribute("id", clientId, null);
     writer.writeAttribute("readonly",
@@ -125,11 +118,6 @@ public class FileRenderer extends InputRendererBase {
     writer.writeAttribute("title", null, ATTR_TIP);
     writer.endElement("input");
 
-    if (!inline) {
-      writer.startElement("br", null);
-      writer.writeAttribute("style", "clear: left; line-height: 0px", null);
-      writer.endElement("br");
-    }
   }
 // ///////////////////////////////////////////// bean getter + setter
 

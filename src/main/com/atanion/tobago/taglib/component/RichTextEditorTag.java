@@ -14,6 +14,7 @@ import com.atanion.tobago.taglib.decl.HasWidth;
 import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
+import javax.servlet.jsp.JspException;
 
 /**
  * Renders a text editor.
@@ -31,6 +32,13 @@ public class RichTextEditorTag extends TextInputTag
 // /////////////////////////////////////////// constructors
 
 // /////////////////////////////////////////// code
+
+  public int doEndTag() throws JspException {
+    // todo: own layout for editor? 
+    int result = super.doEndTag();
+    getComponentInstance().getFacets().remove(FACET_LAYOUT);
+    return result;
+  }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);

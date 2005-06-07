@@ -5,11 +5,9 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.SelectOneRendererBase;
-import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
@@ -35,14 +33,14 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
 // ///////////////////////////////////////////// code
 
 
-  public void encodeEndTobago(FacesContext facesContext,
-      UIComponent uiComponent) throws IOException {
+  public boolean getRendersChildren() {
+    return true;
+  }
 
+  protected void renderMain(FacesContext facesContext, UIComponent uiComponent,
+                            TobagoResponseWriter writer) throws IOException {
     UISelectOne component = (UISelectOne)uiComponent;
     List<SelectItem> items = ComponentUtil.getSelectItems(component);
-
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("items.size() = '" + items.size() + "'");
@@ -52,31 +50,14 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
         || ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)
         || ComponentUtil.getBooleanAttribute(component, ATTR_READONLY);
 
-    UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
 
-    if (label != null) {
-      writer.startElement("table", component);
-      writer.writeAttribute("border", "0", null);
-      writer.writeAttribute("cellspacing", "0", null);
-      writer.writeAttribute("cellpadding", "0", null);
-      writer.writeAttribute("summary", "", null);
-      writer.writeAttribute("title", null, ATTR_TIP);
-      writer.startElement("tr", null);
-      writer.startElement("td", null);
-      writer.writeText("", null);
-
-      HtmlRendererUtil.encodeHtml(facesContext, label);
-
-      writer.endElement("td");
-      writer.startElement("td", null);
-    }
 
     writer.startElement("select", component);
     writer.writeAttribute("name", component.getClientId(facesContext), null);
     writer.writeAttribute("id", component.getClientId(facesContext), null);
     writer.writeAttribute("disabled", disabled);
-    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeAttribute("style", null, ATTR_STYLE);
+    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
     writer.writeAttribute("title", null, ATTR_TIP);
     String onchange = HtmlUtils.generateOnchange(component, facesContext);
     if (onchange != null) {
@@ -86,12 +67,6 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     Object value = component.getValue();
     for (SelectItem item : items) {
       final Object itemValue = item.getValue();
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("item value = '" + itemValue + "'");
-        LOG.debug("item class = '" + item.getClass().getName() + "'");
-        LOG.debug("item label = '" + item.getLabel() + "'");
-        LOG.debug("item descr = '" + item.getDescription() + "'");
-      }
       writer.startElement("option", null);
       String formattedValue
           = getFormattedValue(facesContext, component, itemValue);
@@ -104,20 +79,17 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     }
     writer.endElement("select");
 
-    if (label != null) {
-      writer.endElement("td");
-      writer.endElement("tr");
-      writer.endElement("table");
-    }
+
 
   }
 
   public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
     int space = 0;
 
-    if (component.getFacet(TobagoConstants.FACET_LABEL) != null) {
+    if (component.getFacet(FACET_LABEL) != null) {
       int labelWidht = LayoutUtil.getLabelWidth(component);
       space += labelWidht != 0 ? labelWidht : getLabelWidth(facesContext, component);
+      space += getConfiguredValue(facesContext, component, "labelSpace");
     }
 
     return space;

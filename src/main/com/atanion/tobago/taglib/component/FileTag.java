@@ -5,19 +5,23 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import static com.atanion.tobago.TobagoConstants.FACET_LAYOUT;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIInput;
 import com.atanion.tobago.component.UIPage;
+import com.atanion.tobago.component.UILabeledInputLayout;
 import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
 import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
 import com.atanion.tobago.taglib.decl.HasOnchangeListener;
 import com.atanion.tobago.taglib.decl.HasTip;
 import com.atanion.tobago.taglib.decl.IsDisabled;
+import com.atanion.tobago.TobagoConstants;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.servlet.jsp.JspException;
+import javax.faces.component.UIComponent;
 
 /**
  * Renders a file input field. 
@@ -33,6 +37,15 @@ public class FileTag extends InputTag
     UIPage form = ComponentUtil.findPage(getComponentInstance());
     form.getAttributes().put(ATTR_ENCTYPE, "multipart/form-data");
     return result;
+  }
+
+  public int doEndTag() throws JspException {
+    UIComponent component = getComponentInstance();
+    if (component.getFacet(FACET_LAYOUT) == null) {
+      UIComponent layout = ComponentUtil.createLabeledInputLayoutComponent();
+      component.getFacets().put(FACET_LAYOUT, layout);
+    }
+    return super.doEndTag();
   }
 
   public String getComponentType() {

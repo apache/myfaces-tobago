@@ -6,7 +6,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import javax.faces.component.UISelectOne;
+import com.atanion.tobago.component.UISelectOne;
+
 
 public class SelectOneTag extends InputTag{
 
@@ -14,4 +15,5 @@ public class SelectOneTag extends InputTag{
     return UISelectOne.COMPONENT_TYPE;
   }
 
+  
 }

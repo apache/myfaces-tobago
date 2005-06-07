@@ -497,6 +497,11 @@ public class ComponentUtil {
                 .createValueBinding(value);
   }
 
+  public static UIComponent createLabeledInputLayoutComponent() {
+    return createComponent(UILabeledInputLayout.COMPONENT_TYPE,
+        RENDERER_TYPE_LABELED_INPUT_LAYOUT);
+  }
+
   public static UIComponent createComponent(String componentType, String rendererType) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     return createComponent(facesContext, componentType, rendererType);
@@ -600,10 +605,10 @@ public class ComponentUtil {
   }
 
   
-  public static List<SelectItem> getItemsToRender(UISelectOne component) {
+  public static List<SelectItem> getItemsToRender(javax.faces.component.UISelectOne component) {
     return getItems(component);
   }
-  public static List<SelectItem> getItemsToRender(UISelectMany component) {
+  public static List<SelectItem> getItemsToRender(javax.faces.component.UISelectMany component) {
     return getItems(component);
   }
 

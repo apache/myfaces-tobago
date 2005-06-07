@@ -6,6 +6,8 @@
 package com.atanion.tobago.renderkit;
 
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -14,8 +16,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletRequest;
+import java.io.IOException;
 
-public class SelectOneRendererBase extends InputRendererBase {
+public abstract class SelectOneRendererBase extends InputRendererBase {
 
 // ///////////////////////////////////////////// constant
 
@@ -48,6 +51,21 @@ public class SelectOneRendererBase extends InputRendererBase {
       facesContext.addMessage(clientId, new FacesMessage("no value found", null));
       uiSelectOne.setValid(false);
     }
+  }
+
+
+  protected abstract void renderMain(FacesContext facesContext, UIComponent input,
+      TobagoResponseWriter writer) throws IOException;
+
+  public void encodeEndTobago(FacesContext facesContext,
+      UIComponent component)
+      throws IOException {
+    super.encodeEndTobago(facesContext, component);
+    TobagoResponseWriter writer = (TobagoResponseWriter)
+        facesContext.getResponseWriter();
+
+
+    renderMain(facesContext, component, writer);
   }
 
 // ///////////////////////////////////////////// bean getter + setter

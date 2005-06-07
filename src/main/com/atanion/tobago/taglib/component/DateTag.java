@@ -45,13 +45,17 @@ private static final Log LOG = LogFactory.getLog(DateTag.class);
   }
 
   public int doEndTag() throws JspException {
-    UIComponent component = getComponentInstance();
-    LOG.info("page ist " + ComponentUtil.findPage(component));
 
-    UIComponent picker = component.getFacet("picker");
-    if (picker == null) {
+    UIComponent component = getComponentInstance();
+    if (component.getFacet(FACET_LAYOUT) == null) {
+      UIComponent layout = ComponentUtil.createLabeledInputLayoutComponent();
+      component.getFacets().put(FACET_LAYOUT, layout);
+    }
+
+    if (component.getFacet(FACET_PICKER) == null) {
       createPicker(component);
     }
+
     return super.doEndTag();
   }
 
@@ -95,7 +99,7 @@ private static final Log LOG = LogFactory.getLog(DateTag.class);
     link.getChildren().add(image);
 
     // add link
-    component.getFacets().put("picker", link);
+    component.getFacets().put(FACET_PICKER, link);
   }
 }
 

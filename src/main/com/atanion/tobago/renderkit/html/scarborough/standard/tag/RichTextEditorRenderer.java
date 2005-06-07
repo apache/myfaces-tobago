@@ -194,53 +194,17 @@ public class RichTextEditorRenderer extends InputRendererBase {
 
 
 
+    command = (UICommand) ComponentUtil.createComponent(
+        facesContext, UICommand.COMPONENT_TYPE, RENDERER_TYPE_MENUCOMMAND);
+    toolbar.getChildren().add(command);
+    command.getAttributes().put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
+    command.getAttributes().put(ATTR_IMAGE, "image/config.gif");
+    command.getAttributes().put(ATTR_ACTION_STRING, "doEditorCommand(this);");
+
+
+
 
     return toolbar;
-  }
-
-  private void createToolbarButton(FacesContext facesContext,
-      UIInput component, ResponseWriter writer,
-      String command, boolean enabled, String onClick)
-      throws IOException {
-
-    String onMouseArgs = "this, 'tobago-richTextEditor-toolbar-button-hover'";
-    String onMouseOver = "addCssClass(" + onMouseArgs + ")";
-    String onMouseOut = "removeCssClass(" + onMouseArgs + ")";
-
-    String title = ResourceManagerUtil.getProperty(
-        facesContext, "tobago", "tobago.richtexteditor." + command + ".title");
-    writer.startElement("span", component);
-    String buttonStyle = "tobago-richTextEditor-toolbar-button-span"
-        + (enabled ? "-enabled" : "-disabled");
-    writer.writeAttribute("class", buttonStyle, null);
-    writer.writeAttribute("onclick", onClick, null);
-    if (enabled) {
-      writer.writeAttribute("onmouseover", onMouseOver, null);
-      writer.writeAttribute("onmouseout", onMouseOut, null);
-    }
-    writer.writeAttribute("unselectable", "on", null);
-    writer.writeAttribute("title", title, null);
-
-    UIComponent image = component.getFacet("toolbarImage-" + command);
-
-    if (image == null) {
-      Application application = facesContext.getApplication();
-      image = application.createComponent(UIGraphic.COMPONENT_TYPE);
-      image.getAttributes().put(TobagoConstants.ATTR_STYLE, "vertical-align: bottom;");
-      // image needs to be in component tree when rendering
-      component.getFacets().put("toolbarImage-" + command, image);
-    }
-    image.getAttributes().put(TobagoConstants.ATTR_VALUE,
-        "tobago-richText-" + command + ".gif");
-    HtmlRendererUtil.encodeHtml(facesContext, image);
-
-    writer.startElement("span", null);
-    writer.writeAttribute("class", "tobago-richTextEditor-toolbar-button-label", null);
-    String label = ResourceManagerUtil.getProperty(
-        facesContext, "tobago", "tobago.richtexteditor." + command + ".label");
-    writer.writeText(label, null);
-    writer.endElement("span");
-    writer.endElement("span");
   }
 // ///////////////////////////////////////////// bean getter + setter
 

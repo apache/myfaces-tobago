@@ -1,26 +1,18 @@
-/*
- * Copyright (c) 2002 Atanion GmbH, Germany
- * All rights reserved. Created Nov 20, 2002 at 11:39:23 AM.
- * $Id$
- */
 package com.atanion.tobago.component;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class UIInput extends javax.faces.component.UIInput {
+/**
+ * Created by IntelliJ IDEA.
+ * User: weber
+ * Date: May 31, 2005
+ * Time: 7:47:11 PM
+ * To change this template use File | Settings | File Templates.
+ */
+public class UISelectOne extends javax.faces.component.UISelectOne {
 
-  private static final Log LOG = LogFactory.getLog(UIInput.class);
-  public static final String COMPONENT_TYPE = "com.atanion.tobago.Input";
-
-  public void updateModel(FacesContext facesContext) {
-    if (ComponentUtil.mayUpdateModel(this)) {
-      super.updateModel(facesContext);
-    }
-  }
+  public static final String COMPONENT_TYPE = "com.atanion.tobago.SelectOne";
 
   public void encodeChildren(FacesContext facesContext) throws IOException {
    UILayout layout = UILayout.getLayout(this);
@@ -38,5 +30,4 @@ public class UIInput extends javax.faces.component.UIInput {
       super.encodeEnd(facesContext);
     }
   }
-
 }

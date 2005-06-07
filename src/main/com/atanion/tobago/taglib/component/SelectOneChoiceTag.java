@@ -5,6 +5,8 @@
  */
 package com.atanion.tobago.taglib.component;
 
+import com.atanion.tobago.component.UISelectOne;
+import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
@@ -18,6 +20,9 @@ import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.util.annotation.BodyContentDescription;
 import com.atanion.util.annotation.Tag;
 
+import javax.servlet.jsp.JspException;
+import javax.faces.component.UIComponent;
+
 @Tag(name="selectOneChoice")
 
 /**
@@ -26,5 +31,20 @@ import com.atanion.util.annotation.Tag;
 @BodyContentDescription(anyTagOf="(<f:selectItems>|<f:selectItem>|<t:selectItem>)+ <f:facet>* " )
 public class SelectOneChoiceTag extends SelectOneTag
     implements HasId, HasValue, IsDisabled, IsReadonly, HasOnchangeListener, IsInline,
-    HasLabelAndAccessKey, IsRendered, HasBinding, HasTip {
+    HasLabelAndAccessKey, IsRendered, HasBinding, HasTip
+    {
+
+  public String getComponentType() {
+    return UISelectOne.COMPONENT_TYPE;
+  }
+
+  public int doEndTag() throws JspException {
+
+    UIComponent component = getComponentInstance();
+    if (component.getFacet(FACET_LAYOUT) == null) {
+      UIComponent layout = ComponentUtil.createLabeledInputLayoutComponent();
+      component.getFacets().put(FACET_LAYOUT, layout);
+    }
+    return super.doEndTag();
+  }
 }

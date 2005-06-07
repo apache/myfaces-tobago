@@ -7,12 +7,15 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UIInput;
+import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.taglib.decl.HasBinding;
 import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.util.annotation.Tag;
 import com.atanion.util.annotation.TagAttribute;
 import com.atanion.util.annotation.UIComponentTagAttribute;
+
+import javax.faces.component.UIComponent;
 
 /**
  * Renders a 'hidden' input element.
@@ -21,7 +24,10 @@ import com.atanion.util.annotation.UIComponentTagAttribute;
 public class HiddenTag extends BeanTag
     implements HasId, HasBinding, HasValue {
 
-
+  protected void setProperties(UIComponent component) {
+    super.setProperties(component);
+    ComponentUtil.setBooleanProperty(component, ATTR_INLINE, "true", null);
+  }
 
   /**
    *  The component identifier for this component.

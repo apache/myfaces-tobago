@@ -9,7 +9,6 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.SelectManyRendererBase;
-import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
@@ -33,13 +32,18 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
 // ///////////////////////////////////////////// constructor
 
 // ///////////////////////////////////////////// code
+  
+  public boolean getRendersChildren() {
+    return true;
+  }
 
   public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
     int space = 0;
 
-    if (component.getFacet(TobagoConstants.FACET_LABEL) != null) {
-      int labelWidht = LayoutUtil.getLabelWidth(component);
-      space += labelWidht != 0 ? labelWidht : getLabelWidth(facesContext, component);
+    if (component.getFacet(FACET_LABEL) != null) {
+      int labelWidth = LayoutUtil.getLabelWidth(component);
+      space += labelWidth != 0 ? labelWidth : getLabelWidth(facesContext, component);
+      space += getConfiguredValue(facesContext, component, "labelSpace");
     }
 
     return space;
@@ -51,10 +55,10 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     int fixedHeight = -1;
-    String height = (String) component.getAttributes().get(TobagoConstants.ATTR_HEIGHT);
+    String height = (String) component.getAttributes().get(ATTR_HEIGHT);
     if (height != null) {
       try {
-        fixedHeight = Integer.parseInt(height.replaceAll("\\D", "") );
+        fixedHeight = Integer.parseInt(height.replaceAll("\\D", ""));
       } catch (NumberFormatException e) {
         LOG.warn("Can't parse " + height + " to int");
       }
@@ -79,25 +83,6 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
-
-    UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
-    if (label != null) {
-
-      writer.startElement("table", component);
-      writer.writeAttribute("border", "0", null);
-      writer.writeAttribute("cellspacing", "0", null);
-      writer.writeAttribute("cellpadding", "0", null);
-      writer.writeAttribute("summary", "", null);
-      writer.writeAttribute("title", null, ATTR_TIP);
-      writer.startElement("tr", null);
-      writer.startElement("td", null);
-      writer.writeText("", null);
-
-      HtmlRendererUtil.encodeHtml(facesContext, label);
-
-      writer.endElement("td");
-      writer.startElement("td", null);
-    }
 
     writer.startElement("select", component);
     String clientId = component.getClientId(facesContext);
@@ -130,12 +115,6 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
 
     writer.endElement("select");
-
-    if (label != null) {
-      writer.endElement("td");
-      writer.endElement("tr");
-      writer.endElement("table");
-    }
   }
 
 // ///////////////////////////////////////////// bean getter + setter

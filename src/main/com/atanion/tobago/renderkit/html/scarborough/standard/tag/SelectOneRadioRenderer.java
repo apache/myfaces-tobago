@@ -34,6 +34,11 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
 // ///////////////////////////////////////////// code
 
+  protected void renderMain(FacesContext facesContext, UIComponent input,
+                            TobagoResponseWriter writer) throws IOException {
+    // nothing to do here, this method is used by overwritten encodeEndTobago()
+  }
+
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 

@@ -15,8 +15,12 @@ import com.atanion.tobago.taglib.decl.HasValue;
 import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsReadonly;
 import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.util.annotation.BodyContentDescription;
 import com.atanion.util.annotation.Tag;
+
+import javax.servlet.jsp.JspException;
+import javax.faces.component.UIComponent;
 
 /**
  * Render a single selection option listbox.
@@ -27,4 +31,15 @@ public class SelectOneListboxTag extends SelectOneTag
     implements HasId, HasValue, IsDisabled, IsReadonly, HasOnchangeListener,
     HasLabelAndAccessKey, IsRendered, HasBinding, HasHeight, HasTip
     {
+
+
+  public int doEndTag() throws JspException {
+
+    UIComponent component = getComponentInstance();
+    if (component.getFacet(FACET_LAYOUT) == null) {
+      UIComponent layout = ComponentUtil.createLabeledInputLayoutComponent();
+      component.getFacets().put(FACET_LAYOUT, layout);
+    }
+    return super.doEndTag();
+  }
 }

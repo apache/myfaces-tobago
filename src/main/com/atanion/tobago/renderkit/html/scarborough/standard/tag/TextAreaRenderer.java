@@ -7,72 +7,25 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.HtmlUtils;
-import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
-import com.atanion.tobago.util.LayoutUtil;
+import com.atanion.tobago.renderkit.html.InRendererBase;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Iterator;
 
-public class TextAreaRenderer extends InputRendererBase {
-
-// ----------------------------------------------------------------- interfaces
+public class TextAreaRenderer extends InRendererBase {
 
 
-// ---------------------------- interface TobagoRenderer
-
-  public void encodeEndTobago(FacesContext facesContext,
-      UIComponent component) throws IOException {
-    UIComponent label = component.getFacet(FACET_LABEL);
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
-
-    if (label != null) {
-      writer.startElement("table", component);
-      writer.writeAttribute("border", "0", null);
-      writer.writeAttribute("cellspacing", "0", null);
-      writer.writeAttribute("cellpadding", "0", null);
-      writer.writeAttribute("summary", "", null);
-      writer.writeAttribute("title", null, ATTR_TIP);
-      writer.startElement("tr", null);
-      writer.startElement("td", null);
-      writer.writeText("", null);
-
-      HtmlRendererUtil.encodeHtml(facesContext, label);
-
-      writer.endElement("td");
-      writer.startElement("td", null);
-    }
-
-    renderMain(facesContext, (UIInput) component, writer);
-
-    if (label != null) {
-      writer.endElement("td");
-      writer.endElement("tr");
-      writer.endElement("table");
-    }
-    HtmlRendererUtil.renderFocusId(facesContext, component);
-  }
 
 // ----------------------------------------------------------- business methods
 
-  public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
-    int space = 0;
-    if (component.getFacet(FACET_LABEL) != null
-      || component.getAttributes().get(ATTR_LABEL) != null) {
-      int labelWidth = LayoutUtil.getLabelWidth(component);
-      space += labelWidth != 0 ? labelWidth : getLabelWidth(facesContext, component);
-    }
-    return space;
-  }
 
-  // refactor me (the position in the classhierachy)!!!
-  public static void renderMain(FacesContext facesContext, UIInput input,
+
+  protected void renderMain(FacesContext facesContext, UIInput input,
       TobagoResponseWriter writer) throws IOException {
     Iterator messages = facesContext.getMessages(
         input.getClientId(facesContext));

@@ -23,6 +23,8 @@ public class HiddenRenderer extends InputRendererBase {
 
 // ///////////////////////////////////////////// code
 
+  
+
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 

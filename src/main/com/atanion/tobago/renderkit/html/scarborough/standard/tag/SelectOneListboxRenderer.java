@@ -7,8 +7,6 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.SelectManyRendererBase;
 import com.atanion.tobago.renderkit.SelectOneRendererBase;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
@@ -17,12 +15,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UISelectMany;
 import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 public class SelectOneListboxRenderer extends SelectOneRendererBase {
@@ -37,23 +33,28 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
 
 // ///////////////////////////////////////////// code
 
+
+  public boolean getRendersChildren() {
+    return true;
+  }
+
   public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
     int space = 0;
 
-    if (component.getFacet(TobagoConstants.FACET_LABEL) != null) {
-      int labelWidht = LayoutUtil.getLabelWidth(component);
-      space += labelWidht != 0 ? labelWidht : getLabelWidth(facesContext, component);
+    if (component.getFacet(FACET_LABEL) != null) {
+      int labelWidth = LayoutUtil.getLabelWidth(component);
+      space += labelWidth != 0 ? labelWidth : getLabelWidth(facesContext, component);
+      space += getConfiguredValue(facesContext, component, "labelSpace");
     }
 
     return space;
   }
-
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     int fixedHeight = -1;
-    String height = (String) component.getAttributes().get(TobagoConstants.ATTR_HEIGHT);
+    String height = (String) component.getAttributes().get(ATTR_HEIGHT);
     if (height != null) {
       try {
-        fixedHeight = Integer.parseInt(height.replaceAll("\\D", "") );
+        fixedHeight = Integer.parseInt(height.replaceAll("\\D", ""));
       } catch (NumberFormatException e) {
         LOG.warn("Can't parse " + height + " to int");
       }
@@ -65,38 +66,11 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     return fixedHeight;
   }
 
-  public void encodeEndTobago(FacesContext facesContext,
-      UIComponent uiComponent) throws IOException {
+  protected void renderMain(FacesContext facesContext, UIComponent input,
+                            TobagoResponseWriter writer) throws IOException {
 
-    UISelectOne component = (UISelectOne) uiComponent;
-
+    UISelectOne component = (UISelectOne) input;
     List<SelectItem> items = ComponentUtil.getSelectItems(component);
-
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("items.size() = '" + items.size() + "'");
-    }
-
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
-
-    UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
-    if (label != null) {
-
-      writer.startElement("table", component);
-      writer.writeAttribute("border", "0", null);
-      writer.writeAttribute("cellspacing", "0", null);
-      writer.writeAttribute("cellpadding", "0", null);
-      writer.writeAttribute("summary", "", null);
-      writer.writeAttribute("title", null, ATTR_TIP);
-      writer.startElement("tr", null);
-      writer.startElement("td", null);
-      writer.writeText("", null);
-
-      HtmlRendererUtil.encodeHtml(facesContext, label);
-
-      writer.endElement("td");
-      writer.startElement("td", null);
-    }
 
     writer.startElement("select", component);
     String clientId = component.getClientId(facesContext);
@@ -130,12 +104,6 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
 
 
     writer.endElement("select");
-
-    if (label != null) {
-      writer.endElement("td");
-      writer.endElement("tr");
-      writer.endElement("table");
-    }
   }
 
 // ///////////////////////////////////////////// bean getter + setter

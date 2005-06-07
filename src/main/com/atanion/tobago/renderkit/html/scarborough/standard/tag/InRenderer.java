@@ -5,83 +5,93 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.tobago.TobagoConstants;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.html.InRendererBase;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
-import com.atanion.tobago.util.LayoutUtil;
+import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
+import javax.faces.convert.Converter;
+import javax.faces.convert.DateTimeConverter;
 import java.io.IOException;
+import java.util.Iterator;
 
 public class InRenderer extends InRendererBase{
-// ----------------------------------------------------------------- interfaces
-
-
-// ---------------------------- interface TobagoRenderer
-
-  public void encodeEndTobago(FacesContext facesContext,
-      UIComponent component)
-      throws IOException {
-    super.encodeEndTobago(facesContext, component);
-    UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
-    UIComponent picker = component.getFacet("picker");
-    TobagoResponseWriter writer = (TobagoResponseWriter)
-        facesContext.getResponseWriter();
-
-    if (label != null || picker != null) {
-      writer.startElement("table", component);
-      writer.writeAttribute("border", "0", null);
-      writer.writeAttribute("cellspacing", "0", null);
-      writer.writeAttribute("cellpadding", "0", null);
-      writer.writeAttribute("summary", "", null);
-      writer.writeAttribute("title", null, ATTR_TIP);
-      writer.startElement("tr", null);
-      writer.startElement("td", null);
-      writer.writeText("", null);
-    }
-    if (label != null) {
-      HtmlRendererUtil.encodeHtml(facesContext, label);
-
-      writer.endElement("td");
-      writer.startElement("td", null);
-    }
-
-    renderMain(facesContext, (UIInput) component, writer);
-
-
-    if (picker != null) {
-      writer.endElement("td");
-      writer.startElement("td", null);
-      writer.writeAttribute("style", "padding-left: 5px;", null);
-      renderPicker(facesContext, component, picker);
-    }
-
-    if (label != null || picker != null) {
-      writer.endElement("td");
-      writer.endElement("tr");
-      writer.endElement("table");
-    }
-    HtmlRendererUtil.renderFocusId(facesContext, component);
-  }
+  private static final Log LOG = LogFactory.getLog(InRenderer.class);
 
 // ----------------------------------------------------------- business methods
 
-  public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
-    int space = 0;
-    if (component.getFacet(TobagoConstants.FACET_LABEL) != null
-      || component.getAttributes().get(TobagoConstants.ATTR_LABEL) != null) {
-      int labelWidth = LayoutUtil.getLabelWidth(component);
-      space += labelWidth != 0 ? labelWidth : getLabelWidth(facesContext, component);
+  protected void renderMain(FacesContext facesContext, UIInput input,
+      TobagoResponseWriter writer) throws IOException {
+    Iterator messages = facesContext.getMessages(
+        input.getClientId(facesContext));
+    StringBuffer stringBuffer = new StringBuffer();
+    while (messages.hasNext()) {
+      FacesMessage message = (FacesMessage) messages.next();
+      stringBuffer.append(message.getDetail());
     }
-    if (component.getFacet("picker") != null) {
-      int pickerWidth = getConfiguredValue(facesContext, component, "pickerWidth");
 
-      space += pickerWidth;
+    String title = null;
+    if (stringBuffer.length() > 0) {
+      title = stringBuffer.toString();
     }
-    return space;
+
+    title = HtmlRendererUtil.addTip(
+            title, (String) input.getAttributes().get(ATTR_TIP));
+
+    String currentValue = getCurrentValue(facesContext, input);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("currentValue = '" + currentValue + "'");
+    }
+    String type = ComponentUtil.getBooleanAttribute(input,
+        ATTR_PASSWORD) ? "password" : "text";
+
+    String onchange = HtmlUtils.generateOnchange(input, facesContext);
+
+    String id = input.getClientId(facesContext);
+
+    writer.startElement("input", input);
+    writer.writeAttribute("type", type, null);
+    writer.writeAttribute("name", id, null);
+    writer.writeAttribute("id", id, null);
+    if (currentValue != null) {
+      writer.writeAttribute("value", currentValue, null);
+    }
+    if (title != null) {
+      writer.writeAttribute("title", title, null);
+    }
+    writer.writeAttribute("readonly",
+        ComponentUtil.getBooleanAttribute(input, ATTR_READONLY));
+    writer.writeAttribute("disabled",
+        ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED));
+    writer.writeAttribute("style", null, ATTR_STYLE);
+    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
+    if (onchange != null) {
+      // todo: create and use utility method to write attributes without quoting
+//      writer.writeAttribute("onchange", onchange, null);
+    }
+    writer.endElement("input");
+
+    if (input.getConverter() != null) {
+      Converter converter = input.getConverter();
+      if (converter instanceof DateTimeConverter) {
+        String pattern
+            = ((DateTimeConverter) converter).getPattern();
+        if (pattern != null) {
+          writer.startElement("input", input);
+          writer.writeAttribute("type", "hidden", null);
+          writer.writeAttribute("id", id + ":converterPattern", null);
+          writer.writeAttribute("value", pattern, null);
+          writer.endElement("input");
+        }
+      }
+    }
   }
 }
 
