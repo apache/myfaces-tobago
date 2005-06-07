@@ -5,6 +5,8 @@
  */
 package com.atanion.tobago.webapp;
 
+import static com.atanion.tobago.TobagoConstants.FORM_ACCEPT_CHARSET;
+
 import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -20,6 +22,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.io.UnsupportedEncodingException;
 
 public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
 
@@ -73,13 +76,20 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
           }
           LOG.debug(
               "Parameter : '" + key + "'='" + value + "' isFormField="
-              + item.isFormField());
+              + item.isFormField() + " contentType='" + item.getContentType() + "'");
 
         }
         if (item.isFormField()) {
           Object inStock = parameters.get(key);
           if (inStock == null) {
-            String[] values = {item.getString()};
+            String[] values;
+            try {
+              // Todo: enable configuration of  'accept-charset'
+              values = new String[] {item.getString(FORM_ACCEPT_CHARSET)};
+            } catch (UnsupportedEncodingException e) {
+              LOG.error("Catched: " + e.getMessage(), e);
+              values = new String[] {item.getString()};
+            }
             parameters.put(key, values);
           } else if (inStock instanceof String[]) { // double (or more) parameter
             String[] oldValues = (String[]) inStock;
@@ -88,7 +98,13 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
             for (; i < oldValues.length; i++) {
               values[i] = oldValues[i];
             }
-            values[i] = item.getString();
+            try {
+              // Todo: enable configuration of  'accept-charset'
+              values[i] = item.getString(FORM_ACCEPT_CHARSET);
+            } catch (UnsupportedEncodingException e) {
+              LOG.error("Catched: " + e.getMessage(), e);
+              values[i] = item.getString();
+            }
             parameters.put(key, values);
           } else {
             LOG.error(

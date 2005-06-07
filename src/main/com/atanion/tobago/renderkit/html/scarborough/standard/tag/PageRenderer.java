@@ -232,6 +232,8 @@ public class PageRenderer extends PageRendererBase {
     writer.writeAttribute("id", page.getFormId(facesContext), null);
     writer.writeAttribute("method", null, TobagoConstants.ATTR_METHOD);
     writer.writeAttribute("enctype", null, TobagoConstants.ATTR_ENCTYPE);
+    // Todo: enable configuration of  'accept-charset'
+    writer.writeAttribute("accept-charset", FORM_ACCEPT_CHARSET, null);
 
     writer.startElement("input", null);
     writer.writeAttribute("type", "hidden", null);

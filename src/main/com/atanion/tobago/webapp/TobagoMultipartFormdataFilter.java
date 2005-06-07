@@ -51,6 +51,11 @@ public class TobagoMultipartFormdataFilter implements Filter {
         String contentType = request.getContentType();
         if (contentType != null &&
             contentType.toLowerCase().startsWith("multipart/form-data")) {
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Wrapping " + request.getClass().getName()
+                + " with ContentType=\"" + contentType + "\" " +
+                "into TobagoMultipartFormdataRequest");
+          }
           wrapper = new TobagoMultipartFormdataRequest(
               (HttpServletRequest) request);
         } else {

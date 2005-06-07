@@ -142,6 +142,7 @@ public interface TobagoConstants {
   public static final String FACET_PAGER_LINKS = "pagerLinks";
   public static final String FACET_PAGER_PAGE = "pagerPage";
   public static final String FACET_PAGER_ROW = "pagerRow";
+  public static final String FACET_PICKER = "picker";
   public static final String FACET_RADIO = "radio";
   public static final String FACET_TOOL_BAR= "toolBar";
   public static final String FACET_TOOL_BAR_COMMAND = "toolBarCommand";
@@ -157,6 +158,7 @@ public interface TobagoConstants {
   public static final String RENDERER_TYPE_BUTTON = "Button";
   public static final String RENDERER_TYPE_HIDDEN = "Hidden";
   public static final String RENDERER_TYPE_DEFAULT_LAYOUT = "DefaultLayout";
+  public static final String RENDERER_TYPE_LABELED_INPUT_LAYOUT = "LabeledInputLayout";
   public static final String RENDERER_TYPE_GRID_LAYOUT = "GridLayout";
   public static final String RENDERER_TYPE_IN = "In";
   public static final String RENDERER_TYPE_IMAGE = "Image";
@@ -172,4 +174,6 @@ public interface TobagoConstants {
   public static final String RENDERER_TYPE_TREE_NODE = "TreeNode";
   public static final String RENDERER_TYPE_SHEET = "Sheet";
   public static final String RENDERER_TYPE_VERBATIM = "Verbatim";
+
+  public static final String FORM_ACCEPT_CHARSET = "utf-8";
 }
