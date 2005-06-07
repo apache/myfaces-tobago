@@ -168,6 +168,7 @@ public interface TobagoConstants {
   public static final String RENDERER_TYPE_MENUCOMMAND = "MenuCommand";
   public static final String RENDERER_TYPE_OUT = "Out";
   public static final String RENDERER_TYPE_PANEL = "Panel";
+  public static final String RENDERER_TYPE_SELECT_ONE_CHOICE = "SelectOneChoice";
   public static final String RENDERER_TYPE_SELECT_ONE_RADIO = "SelectOneRadio";
   public static final String RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX = "SelectBooleanCheckbox";
   public static final String RENDERER_TYPE_TOOL_BAR = "ToolBar";

@@ -22,6 +22,10 @@
     <validator-id>com.atanion.tobago.TreeLeafOnlyValidator</validator-id>
     <validator-class>com.atanion.tobago.validator.TreeLeafOnlyValidator</validator-class>
   </validator>
+  <validator>
+    <validator-id>com.atanion.tobago.SelectItemValueRequiredValidator</validator-id>
+    <validator-class>com.atanion.tobago.validator.SelectItemValueRequiredValidator</validator-class>
+  </validator>
 
   <component>
     <component-type>com.atanion.tobago.ColumnSelector</component-type>

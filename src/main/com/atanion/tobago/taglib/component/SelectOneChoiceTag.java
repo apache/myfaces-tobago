@@ -17,8 +17,11 @@ import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsInline;
 import com.atanion.tobago.taglib.decl.IsReadonly;
 import com.atanion.tobago.taglib.decl.IsRendered;
+import com.atanion.tobago.taglib.decl.IsRequired;
 import com.atanion.util.annotation.BodyContentDescription;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.servlet.jsp.JspException;
 import javax.faces.component.UIComponent;
@@ -46,5 +49,17 @@ public class SelectOneChoiceTag extends SelectOneTag
       component.getFacets().put(FACET_LAYOUT, layout);
     }
     return super.doEndTag();
+  }
+
+
+  /**
+   * Flag indicating that selecting an Item representing a Value is Required.
+   * If an SelectItem was choosen which underling value is an empty string an
+   * ValidationError occurs and a Error Message is rendered.
+   */
+  @TagAttribute(type=String.class)
+  @UIComponentTagAttribute(type="java.lang.Boolean")
+  public void setRequired(String required) {
+    super.setRequired(required);
   }
 }
