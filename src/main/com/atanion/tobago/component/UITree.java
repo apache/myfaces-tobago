@@ -5,6 +5,8 @@
  */
 package com.atanion.tobago.component;
 
+import static com.atanion.tobago.validator.SelectItemValueRequiredValidator.MESSAGE_VALUE_REQUIRED;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -28,6 +30,7 @@ import java.util.Iterator;
 import static com.atanion.tobago.TobagoConstants.*;
 import com.atanion.tobago.model.TreeState;
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.context.ResourceManagerUtil;
 
 public class UITree extends UIInput implements NamingContainer, ActionSource {
 
@@ -228,6 +231,15 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
   public void validate(FacesContext context) {
 
+
+    if (isRequired() && getState().getSelection().size() == 0) {
+      setValid(false);
+      String message = ResourceManagerUtil.getProperty(context, "tobago",
+              MESSAGE_VALUE_REQUIRED);
+      FacesMessage facesMessage = new FacesMessage(message);
+      facesMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
+      context.addMessage(getClientId(context), facesMessage);
+    }
 
     String selectable = ComponentUtil.getStringAttribute(this, ATTR_SELECTABLE);
     if (selectable != null && selectable.endsWith("LeafOnly")) {
