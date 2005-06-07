@@ -44,14 +44,14 @@ public class TreeListboxBoxRenderer extends RendererBase {
 
 
     String listboxId = treeId + SUBCOMPONENT_SEP + "cont_" + level;
-//    String onChange = "tobagoTreeListboxChange(this, '" + treeId + "')";
+    String onChange = "tobagoTreeListboxChange(this, '" + treeId + "')";
     String onClick = "tobagoTreeListboxClick(this, '" + treeId + "')";
     writer.startElement("select", component);
     writer.writeAttribute("id", listboxId, null);
     writer.writeAttribute("class", className, null);
     writer.writeAttribute("style" , null, ATTR_STYLE);
     writer.writeAttribute("size", "2", null);
-//    writer.writeAttribute("onchange", onChange, null);
+    writer.writeAttribute("onchange", onChange, null);
     writer.writeAttribute("onclick", onClick, null);
 
 

@@ -422,10 +422,18 @@ function tobagoTreeListboxClearValueChangedMarker(hiddenId) {
 
 }
 
+function tobagoTreeListboxChange(element, hiddenId) {
+  PrintDebug("onchange");
+  if (element.oldValue == undefined) {
+    element.oldValue = -1;
+  }
+}
+
+
 function tobagoTreeListboxClick(element, hiddenId) {
 //  PrintDebug("onchange");
   var rootNode = document.getElementById(hiddenId).rootNode;
-  PrintDebug("onchange : required = " + rootNode.required);
+  PrintDebug("onclick : required = " + rootNode.required);
 
   PrintDebug("old:" + element.oldValue + " new:" + element.selectedIndex);
 
