@@ -93,6 +93,9 @@ public class ViewHandlerImpl extends ViewHandler {
 */
   }
 
+
+  private static final boolean USE_TOBAGO_VIEW_ROOT = true;
+
   public UIViewRoot createView(FacesContext facesContext, String viewId) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("creating new view with viewId:        '" + viewId + "'");
@@ -104,7 +107,75 @@ public class ViewHandlerImpl extends ViewHandler {
     viewRoot.setLocale(viewHandler.calculateLocale(facesContext));
     viewRoot.setRenderKitId(viewHandler.calculateRenderKitId(facesContext));
 */
-    UIViewRoot viewRoot = base.createView(facesContext, viewId);
+    UIViewRoot viewRoot ; // = base.createView(facesContext, viewId);
+
+    if (USE_TOBAGO_VIEW_ROOT) {
+      // content of this scope is copied from com.sun.faces.application.ViewHandlerImpl.createView()
+      Log log = LOG;
+        FacesContext context = facesContext;
+        if (context == null) {
+            String message = "FacesContext is 'null'";
+            throw new NullPointerException(message);
+        }
+        Locale locale = null;
+        String renderKitId = null;
+
+        // use the locale from the previous view if is was one which will be
+        // the case if this is called from NavigationHandler. There wouldn't be
+        // one for the initial case.
+        if (context.getViewRoot() != null) {
+            locale = context.getViewRoot().getLocale();
+            renderKitId = context.getViewRoot().getRenderKitId();
+        }
+//        UIViewRoot result = new UIViewRoot();
+        UIViewRoot result = new com.atanion.tobago.component.UIViewRoot();
+        result.setViewId(viewId);
+        if (log.isDebugEnabled()) {
+            log.debug("Created new view for " + viewId);
+        }
+        // PENDING(): not sure if we should set the RenderKitId here.
+        // The UIViewRoot ctor sets the renderKitId to the default
+        // one.
+        // if there was no locale from the previous view, calculate the locale
+        // for this view.
+        if (locale == null) {
+            locale =
+                context.getApplication().getViewHandler().calculateLocale(
+                    context);
+            if (log.isDebugEnabled()) {
+                log.debug("Locale for this view as determined by calculateLocale "
+                          + locale.toString());
+            }
+        } else {
+            if (log.isDebugEnabled()) {
+                log.debug(
+                    "Using locale from previous view " + locale.toString());
+            }
+        }
+
+        if (renderKitId == null) {
+            renderKitId =
+                context.getApplication().getViewHandler().calculateRenderKitId(
+                    context);
+            if (log.isDebugEnabled()) {
+                log.debug("RenderKitId for this view as determined by calculateRenderKitId "
+                          + renderKitId);
+            }
+        } else {
+            if (log.isDebugEnabled()) {
+                log.debug(
+                    "Using renderKitId from previous view " + renderKitId);
+            }
+        }
+
+        result.setLocale(locale);
+        result.setRenderKitId(renderKitId);
+
+        viewRoot =  result;
+    } else {
+      viewRoot = base.createView(facesContext, viewId);
+    }
+
 
     ensureClientProperties(facesContext, viewRoot);
 
