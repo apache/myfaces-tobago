@@ -37,10 +37,6 @@ public class SelectOneChoiceTag extends SelectOneTag
     HasLabelAndAccessKey, IsRendered, HasBinding, HasTip
     {
 
-  public String getComponentType() {
-    return UISelectOne.COMPONENT_TYPE;
-  }
-
   public int doEndTag() throws JspException {
 
     UIComponent component = getComponentInstance();

@@ -46,8 +46,7 @@ public class UISelectOne extends javax.faces.component.UISelectOne {
   }
 
   public void validate(FacesContext facesContext) {
-    if (RENDERER_TYPE_SELECT_ONE_CHOICE.equals(getRendererType())
-        && ComponentUtil.getBooleanAttribute(this, ATTR_REQUIRED)) {
+    if (ComponentUtil.getBooleanAttribute(this, ATTR_REQUIRED)) {
 
       Object localValue = getLocalValue();
       if (localValue == null || "".equals(localValue)) {
