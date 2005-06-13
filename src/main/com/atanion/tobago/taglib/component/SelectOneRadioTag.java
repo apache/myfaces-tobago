@@ -16,6 +16,8 @@ import com.atanion.tobago.taglib.decl.IsInline;
 import com.atanion.tobago.taglib.decl.IsRendered;
 import com.atanion.util.annotation.BodyContentDescription;
 import com.atanion.util.annotation.Tag;
+import com.atanion.util.annotation.TagAttribute;
+import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.faces.component.UIComponent;
 
@@ -57,6 +59,17 @@ public class SelectOneRadioTag extends SelectOneTag
 
   public void setRenderRange(String renderRange) {
     this.renderRange = renderRange;
+  }
+
+  /**
+   * Flag indicating that selecting an Item representing a Value is Required.
+   * If an SelectItem was choosen which underling value is an empty string an
+   * ValidationError occurs and a Error Message is rendered.
+   */
+  @TagAttribute(type=String.class)
+  @UIComponentTagAttribute(type="java.lang.Boolean")
+  public void setRequired(String required) {
+    super.setRequired(required);
   }
 }
 

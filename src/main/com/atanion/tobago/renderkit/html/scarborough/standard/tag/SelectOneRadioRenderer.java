@@ -43,6 +43,10 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       UIComponent uiComponent) throws IOException {
 
     UISelectOne component = (UISelectOne) uiComponent;
+    String clientId = component.getClientId(facesContext);
+
+    ComponentUtil.findPage(component).getOnloadScripts().add("tobagoSelectOneRadioInit('" + clientId + "')");
+
     if (LOG.isDebugEnabled()) {
       for (Iterator i = component.getChildren().iterator(); i.hasNext();) {
         Object o = i.next();
@@ -82,7 +86,6 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         writer.startElement("td", null);
       }
 
-      String clientId = component.getClientId(facesContext);
       String id = clientId + NamingContainer.SEPARATOR_CHAR
           + NamingContainer.SEPARATOR_CHAR + item.getValue().toString();
 
@@ -92,7 +95,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       if (item.getValue().equals(value)) {
         writer.writeAttribute("checked", "checked", null);
       }
-      writer.writeAttribute("name", component.getClientId(facesContext), null);
+      writer.writeAttribute("name", clientId, null);
       writer.writeAttribute("id", id, null);
       String formattedValue
           = getFormattedValue(facesContext, component, item.getValue());
@@ -100,6 +103,10 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.writeAttribute("disabled",
           ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
       writer.writeAttribute("title", null, ATTR_TIP);
+      if (!ComponentUtil.getBooleanAttribute(component, ATTR_REQUIRED)) {
+//        writer.writeAttribute("onchange", "tobagoSelectOneRadioChange(this)", null);
+        writer.writeAttribute("onclick", "tobagoSelectOneRadioClick(this, '" + clientId + "')", null);
+      }
       writer.endElement("input");
 
       if (item.getLabel() != null) {

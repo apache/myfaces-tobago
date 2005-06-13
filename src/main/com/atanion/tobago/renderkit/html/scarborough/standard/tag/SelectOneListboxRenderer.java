@@ -83,8 +83,8 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     writer.writeAttribute("title", null, ATTR_TIP);
     writer.writeAttribute("size", 2, null); // should be greater 1
     if (!ComponentUtil.getBooleanAttribute(component, ATTR_REQUIRED)) {
-      writer.writeAttribute("onchange", "tobagoSelectOneChange(this)", null);
-      writer.writeAttribute("onclick", "tobagoSelectOneClick(this)", null);
+      writer.writeAttribute("onchange", "tobagoSelectOneListboxChange(this)", null);
+      writer.writeAttribute("onclick", "tobagoSelectOneListboxClick(this)", null);
     }
 
     Object value = component.getValue();

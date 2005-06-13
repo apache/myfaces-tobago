@@ -332,6 +332,40 @@ function findTableElement(element) {
 }
 
 
+function tobagoSelectOneListboxChange(element) {
+  if (element.oldValue == undefined) {
+    element.oldValue = -1;
+  }
+}
+function tobagoSelectOneListboxClick(element) {
+  if (element.oldValue == undefined || element.oldValue == element.selectedIndex) {
+    element.selectedIndex = -1;
+  }
+  element.oldValue = element.selectedIndex;
+}
+
+function tobagoSelectOneRadioInit(name) {
+  var elements = document.getElementsByName(name);
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].oldValue = elements[i].checked;
+  }
+}
+
+function tobagoSelectOneRadioClick(element, name) {
+  var elements = document.getElementsByName(name);
+  for (var i = 0; i < elements.length; i++) {
+    if (elements[i] != element) {
+      elements[i].checked = false;
+      elements[i].oldValue = false;
+    }
+  }
+  if (element.oldValue == element.checked) {
+    element.checked = false;
+  }
+  element.oldValue = element.checked;
+}
+
+
 
 function getBrowserInnerLeft() {
   var innerLeft;
@@ -497,4 +531,17 @@ function tobagoJsLogMouseUp() {
   if (log) {
     log.LogMove = false;
   }
+}
+
+
+function doEditorCommand(element, id) {
+  PrintDebug("doEditorCommand()");
+  var ta = document.getElementById(id);
+  var text = ta.value;
+  var marked = text.substring(ta.selectionStart, ta.selectionEnd);
+  PrintDebug("text = " + marked);
+  PrintDebug("von = " + ta.selectionStart + " bis =" + ta.selectionEnd);
+  ta.selectionStart--;
+  ta.focus();
+
 }
