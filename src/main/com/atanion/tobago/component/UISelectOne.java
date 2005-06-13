@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 
 import static com.atanion.tobago.TobagoConstants.ATTR_REQUIRED;
 import static com.atanion.tobago.TobagoConstants.RENDERER_TYPE_SELECT_ONE_CHOICE;
+import com.atanion.tobago.context.ResourceManagerUtil;
 
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
@@ -24,8 +25,8 @@ public class UISelectOne extends javax.faces.component.UISelectOne {
 
   private static final Log LOG = LogFactory.getLog(UISelectOne.class);
   public static final String COMPONENT_TYPE = "com.atanion.tobago.SelectOne";
-
-  private Validator validator;
+  public static final String MESSAGE_VALUE_REQUIRED
+      = "tobago.SelectOne.MESSAGE_VALUE_REQUIRED";
 
   public void encodeChildren(FacesContext facesContext) throws IOException {
    UILayout layout = UILayout.getLayout(this);
@@ -47,28 +48,18 @@ public class UISelectOne extends javax.faces.component.UISelectOne {
   public void validate(FacesContext facesContext) {
     if (RENDERER_TYPE_SELECT_ONE_CHOICE.equals(getRendererType())
         && ComponentUtil.getBooleanAttribute(this, ATTR_REQUIRED)) {
-      try {
-        getSelectItemValueRequiredValidator().validate(facesContext, this, null);
-      } catch (ValidatorException ve) {
-        // If the validator throws an exception, we're
-        // invalid, and we need to add a message
+
+      Object localValue = getLocalValue();
+      if (localValue == null || "".equals(localValue)) {
+        String message = ResourceManagerUtil.getProperty(
+                facesContext, "tobago", MESSAGE_VALUE_REQUIRED);
+        FacesMessage facesMessage = new FacesMessage(message);
+        facesMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
+        facesContext.addMessage(getClientId(facesContext), facesMessage);
         setValid(false);
-        FacesMessage message = ve.getFacesMessage();
-        if (message != null) {
-          message.setSeverity(FacesMessage.SEVERITY_ERROR);
-          facesContext.addMessage(getClientId(facesContext), message);
-        }
       }
     }
     super.validate(facesContext);
-  }
-
-  private Validator getSelectItemValueRequiredValidator() {
-    if (validator == null) {
-      final Application app = FacesContext.getCurrentInstance().getApplication();
-      validator = app.createValidator("com.atanion.tobago.SelectItemValueRequiredValidator");
-    }
-    return validator;
   }
 
 }

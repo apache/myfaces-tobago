@@ -5,11 +5,15 @@
  */
 package com.atanion.tobago.component;
 
-import static com.atanion.tobago.validator.SelectItemValueRequiredValidator.MESSAGE_VALUE_REQUIRED;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.atanion.tobago.TobagoConstants;
+import static com.atanion.tobago.TobagoConstants.*;
+import com.atanion.tobago.context.ResourceManagerUtil;
+import com.atanion.tobago.model.TreeState;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.component.ActionSource;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -18,19 +22,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionListener;
-import javax.faces.application.FacesMessage;
-import javax.faces.application.Application;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Iterator;
-
-import static com.atanion.tobago.TobagoConstants.*;
-import com.atanion.tobago.model.TreeState;
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.context.ResourceManagerUtil;
+import java.util.Set;
 
 public class UITree extends UIInput implements NamingContainer, ActionSource {
 
@@ -39,6 +38,8 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   private static final Log LOG = LogFactory.getLog(UITree.class);
 
   public static final String COMPONENT_TYPE="com.atanion.tobago.Tree";
+  public static final String MESSAGE_NOT_LEAF
+      = "tobago.tree.MESSAGE_NOT_LEAF";
 
   public static final String SEP = "-";
 
@@ -76,8 +77,6 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   private boolean showRootSet = false;
   private boolean showRootJunction = true;
   private boolean showRootJunctionSet = false;
-
-  private Validator validator;
 
 // --------------------------------------------------------------- constructors
 
@@ -235,7 +234,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     if (isRequired() && getState().getSelection().size() == 0) {
       setValid(false);
       String message = ResourceManagerUtil.getProperty(context, "tobago",
-              MESSAGE_VALUE_REQUIRED);
+              UISelectOne.MESSAGE_VALUE_REQUIRED);
       FacesMessage facesMessage = new FacesMessage(message);
       facesMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
       context.addMessage(getClientId(context), facesMessage);
@@ -244,17 +243,17 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     String selectable = ComponentUtil.getStringAttribute(this, ATTR_SELECTABLE);
     if (selectable != null && selectable.endsWith("LeafOnly")) {
 
-      try {
-        getLeafOnlyValidator().validate(context, this, null);
-      }
-      catch (ValidatorException ve) {
-        // If the validator throws an exception, we're
-        // invalid, and we need to add a message
-        setValid(false);
-        FacesMessage message = ve.getFacesMessage();
-        if (message != null) {
-          message.setSeverity(FacesMessage.SEVERITY_ERROR);
-          context.addMessage(getClientId(context), message);
+      Set<DefaultMutableTreeNode> selection = getState().getSelection();
+
+      for(DefaultMutableTreeNode node : selection) {
+        if (!node.isLeaf()) {
+          String message = ResourceManagerUtil.getProperty(
+                  context, "tobago", MESSAGE_NOT_LEAF);
+          setValid(false);
+          FacesMessage facesMessage = new FacesMessage(message);
+          facesMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
+          context.addMessage(getClientId(context), facesMessage);
+          break; // don't continue iteration, no dublicate messages needed
         }
       }
     }
@@ -282,14 +281,6 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   public void updateModel(FacesContext facesContext) {
     // nothig to update for tree's
     // todo: updateing the model here and *NOT* in the decode phase
-  }
-
-  private Validator getLeafOnlyValidator() {
-    if (validator == null) {
-      final Application app = FacesContext.getCurrentInstance().getApplication();
-      validator = app.createValidator("com.atanion.tobago.TreeLeafOnlyValidator");
-    }
-    return validator;
   }
 
 // ------------------------------------------------------------ getter + setter
