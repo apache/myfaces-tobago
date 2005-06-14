@@ -50,11 +50,9 @@ public class BoxRenderer extends BoxRendererBase {
           HtmlRendererUtil.getStyleAttributeValue(style, "height").replaceAll("\\D", "");
 
       int height = Integer.parseInt(heightString) - 1;
-      LOG.info("Height: " + height);
       style =
         HtmlRendererUtil.replaceStyleAttribute(style, "height", height + "px");
     } catch (Exception e) {
-      LOG.info(e);
     }
 
     writer.startElement("div", component);

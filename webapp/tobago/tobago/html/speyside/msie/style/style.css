@@ -1,5 +1,9 @@
 
 
+.tobago-box-default {
+  padding-bottom: 0px;
+}
+
 /* this div is expanding by content
    content is div with css-class tobago-box-content-inner*/
 .tobago-box-content {
