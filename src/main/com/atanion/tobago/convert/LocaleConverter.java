@@ -5,10 +5,7 @@
  */
 package com.atanion.tobago.convert;
 
-import com.atanion.util.StringUtils;
-
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
+import com.atanion.util.LocaleUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -28,19 +25,7 @@ public class LocaleConverter implements Converter {
 
   public Object getAsObject(
       FacesContext facesContext, UIComponent component, String value) {
-    Locale locale = null;
-    String[] strings = StringUtils.split(value, "_");
-    switch (strings.length) {
-      case 1:
-        locale = new Locale(strings[0]);
-        break;
-      case 2:
-        locale = new Locale(strings[0], strings[1]);
-        break;
-      case 3:
-        locale = new Locale(strings[0], strings[1], strings[2]);
-        break;
-    }
+    Locale locale = LocaleUtil.createLocale(value);
     if (locale == null) {
       throw new ConverterException("Can't parse " + value + " to a locale.");
     }
