@@ -27,6 +27,8 @@ import java.util.Map;
 
 public abstract class NonFacesRequestServlet extends HttpServlet {
 
+  private static final long serialVersionUID = -7448621953821447997L;
+
   private static final Log LOG = LogFactory.getLog(NonFacesRequestServlet.class);
 
   protected void service(HttpServletRequest request,
