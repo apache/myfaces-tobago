@@ -5,19 +5,17 @@
  */
 package com.atanion.tobago.application;
 
-import org.apache.fop.apps.Driver;
+import com.atanion.util.logging.CommonsLoggingLogger;
 import org.apache.avalon.framework.logger.Logger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.fop.apps.Driver;
 import org.xml.sax.InputSource;
 
-import javax.servlet.ServletResponse;
-import javax.servlet.ServletOutputStream;
 import javax.faces.FacesException;
-import java.io.StringWriter;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.ServletResponse;
 import java.io.StringReader;
-
-import com.atanion.tobago.renderkit.fo.scarborough.standard.tag.CommonsLoggingLogger;
 
 public class FopConverter {
 
