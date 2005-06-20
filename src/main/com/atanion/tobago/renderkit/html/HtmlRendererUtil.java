@@ -60,6 +60,7 @@ public class HtmlRendererUtil {
         LOG.debug("rendering " + component.getRendererType() + " " + component);
       }
 
+
       prepareRender(facesContext, component);
 
       component.encodeBegin(facesContext);

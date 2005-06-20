@@ -9,6 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.util.MessageFactory;
 import static com.atanion.tobago.TobagoConstants.*;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.model.TreeState;
@@ -233,10 +234,8 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
     if (isRequired() && getState().getSelection().size() == 0) {
       setValid(false);
-      String message = ResourceManagerUtil.getProperty(context, "tobago",
-              UISelectOne.MESSAGE_VALUE_REQUIRED);
-      FacesMessage facesMessage = new FacesMessage(message);
-      facesMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
+      FacesMessage facesMessage = MessageFactory.createFacesMessage(context,
+          UISelectOne.MESSAGE_VALUE_REQUIRED, FacesMessage.SEVERITY_ERROR);
       context.addMessage(getClientId(context), facesMessage);
     }
 
@@ -247,11 +246,8 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
       for(DefaultMutableTreeNode node : selection) {
         if (!node.isLeaf()) {
-          String message = ResourceManagerUtil.getProperty(
-                  context, "tobago", MESSAGE_NOT_LEAF);
-          setValid(false);
-          FacesMessage facesMessage = new FacesMessage(message);
-          facesMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
+          FacesMessage facesMessage = MessageFactory.createFacesMessage(
+              context, MESSAGE_NOT_LEAF, FacesMessage.SEVERITY_ERROR);
           context.addMessage(getClientId(context), facesMessage);
           break; // don't continue iteration, no dublicate messages needed
         }

@@ -10,10 +10,14 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.faces.context.FacesContext;
 import javax.faces.component.UIViewRoot;
+import javax.faces.application.FacesMessage;
 import javax.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.Map;
+import java.util.HashMap;
 
 public class ResourceManagerUtil {
 
@@ -30,17 +34,25 @@ public class ResourceManagerUtil {
   }
 
   public static String getProperty(
+      FacesContext facesContext, String bundle, String key, boolean forceResult) {
+    return getProperty(facesContext, bundle, key, null, forceResult);
+  }
+  public static String getProperty(
       FacesContext facesContext, String bundle, String key) {
-    return getProperty(facesContext, bundle, key, null);
+    return getProperty(facesContext, bundle, key, null, true);
   }
   public static String getProperty(
       FacesContext facesContext, String bundle, String key, Locale locale) {
+    return getProperty(facesContext, bundle, key, locale, true);
+  }
+  public static String getProperty(
+      FacesContext facesContext, String bundle, String key, Locale locale, boolean forceResult) {
     UIViewRoot viewRoot = facesContext.getViewRoot();
     String result = getResourceManager(facesContext).getProperty(viewRoot, bundle, key, locale);
-    if (result != null) {
-      return result;
-    } else {
+    if (result == null && forceResult) {
       return "???" + key + "???";
+    } else {
+      return result;
     }
   }
 

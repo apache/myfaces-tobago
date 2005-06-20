@@ -6,6 +6,7 @@ import org.apache.commons.logging.LogFactory;
 import static com.atanion.tobago.TobagoConstants.ATTR_REQUIRED;
 import static com.atanion.tobago.TobagoConstants.RENDERER_TYPE_SELECT_ONE_CHOICE;
 import com.atanion.tobago.context.ResourceManagerUtil;
+import com.atanion.tobago.util.MessageFactory;
 
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
@@ -50,10 +51,8 @@ public class UISelectOne extends javax.faces.component.UISelectOne {
 
       Object localValue = getLocalValue();
       if (localValue == null || "".equals(localValue)) {
-        String message = ResourceManagerUtil.getProperty(
-                facesContext, "tobago", MESSAGE_VALUE_REQUIRED);
-        FacesMessage facesMessage = new FacesMessage(message);
-        facesMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
+        FacesMessage facesMessage = MessageFactory.createFacesMessage(
+            facesContext, MESSAGE_VALUE_REQUIRED, FacesMessage.SEVERITY_ERROR);
         facesContext.addMessage(getClientId(facesContext), facesMessage);
         setValid(false);
       }

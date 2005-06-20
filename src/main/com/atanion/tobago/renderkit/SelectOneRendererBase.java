@@ -5,8 +5,11 @@
   */
 package com.atanion.tobago.renderkit;
 
+import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
+
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
+import com.atanion.tobago.context.ResourceManagerUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,6 +17,7 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectOne;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletRequest;
 import java.io.IOException;
@@ -43,14 +47,12 @@ public abstract class SelectOneRendererBase extends InputRendererBase {
     if (LOG.isDebugEnabled()) {
       LOG.debug("decode: key='" + clientId + "' value='" + newValue + "'");
     }
+    Object convertedValue = null;
     if (newValue != null) {
-      Object convertedValue = getConvertedValue(facesContext, component, newValue);
-      uiSelectOne.setValue(convertedValue);
-      uiSelectOne.setValid(true);
-    } else {
-      facesContext.addMessage(clientId, new FacesMessage("no value found", null));
-      uiSelectOne.setValid(false);
+      convertedValue = getConvertedValue(facesContext, component, newValue);
     }
+    uiSelectOne.setValue(convertedValue);
+    uiSelectOne.setValid(true);    
   }
 
 

@@ -16,8 +16,11 @@
     <variable-resolver>
       com.atanion.tobago.el.VariableResolverImpl
     </variable-resolver>
+    <message-bundle>
+      com.atanion.tobago.context.TobagoResourceBundle
+    </message-bundle>
   </application>
-  
+
 
   <component>
     <component-type>com.atanion.tobago.ColumnSelector</component-type>
