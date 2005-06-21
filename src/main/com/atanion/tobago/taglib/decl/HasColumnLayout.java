@@ -10,8 +10,8 @@ public interface HasColumnLayout {
   /**
    *
    * LayoutConstraints for column layout.
-   * Semicolon separated list of layout tokens ('&lt;x>*', '&lt;x>px' or '&lt;x>%').     
-   *
+   * Semicolon separated list of layout tokens ('*', '&lt;x>*', '&lt;x>px' or '&lt;x>%').
+   * Where '*' is equvalent to '1*'.
    */
   @TagAttribute @UIComponentTagAttribute()
   public void setColumns(String columns);

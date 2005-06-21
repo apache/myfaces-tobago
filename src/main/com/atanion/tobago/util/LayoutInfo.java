@@ -131,7 +131,11 @@ public class LayoutInfo{
       List list = new ArrayList();
       StringTokenizer tokenizer = new StringTokenizer(columnLayout, ";");
       while (tokenizer.hasMoreTokens()) {
-        list.add(tokenizer.nextToken().trim());
+        String token = tokenizer.nextToken().trim();
+        if ("*".equals(token)) {
+          token = "1*";
+        }
+        list.add(token);
       }
       tokens = (String[]) list.toArray(new String[list.size()] );
     }
@@ -359,6 +363,7 @@ public class LayoutInfo{
     }
   }
 
+/*
   public void parseAsterisks() {
     String[] tokens = getLayoutTokens();
     if (columnsLeft()) {
@@ -386,6 +391,7 @@ public class LayoutInfo{
       }
     }
   }
+*/
 
   public void parseColumnLayout(double space){
     parseColumnLayout(space,  0);
@@ -399,7 +405,7 @@ public class LayoutInfo{
       parsePixels();
       parsePercent(space);
       parsePortions();
-      parseAsterisks();
+//      parseAsterisks();
       handleSpaceLeft();
     }
 
