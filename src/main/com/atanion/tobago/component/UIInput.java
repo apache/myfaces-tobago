@@ -22,6 +22,11 @@ public class UIInput extends javax.faces.component.UIInput {
     }
   }
 
+  public void encodeBegin(FacesContext facesContext) throws IOException {
+    UILayout.getLayout(this).layoutBegin(facesContext, this);    
+    super.encodeBegin(facesContext);
+  }
+
   public void encodeChildren(FacesContext facesContext) throws IOException {
    UILayout layout = UILayout.getLayout(this);
    if (layout instanceof UILabeledInputLayout) {

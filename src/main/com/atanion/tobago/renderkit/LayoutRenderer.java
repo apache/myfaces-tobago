@@ -25,6 +25,7 @@ public abstract class LayoutRenderer extends RendererBase {
 
   public abstract void layoutWidth(FacesContext facesContext, UIComponent component) ;
   public abstract void layoutHeight(FacesContext facesContext, UIComponent component);
+  public abstract void prepareRender(FacesContext facesContext, UIComponent component);
 
 
   public void encodeChildrenOfComponent(FacesContext facesContext, UIComponent component)

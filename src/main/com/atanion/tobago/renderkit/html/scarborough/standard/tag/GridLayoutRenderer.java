@@ -13,6 +13,7 @@ import com.atanion.tobago.component.UILayout;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.component.UIPanel;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutInfo;
 import com.atanion.tobago.util.LayoutUtil;
@@ -245,7 +246,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
             writer.writeAttribute("class", cellClasses, null);
             writer.writeAttribute("style", cellStyle, null);
 
-            HtmlRendererUtil.encodeHtml(facesContext, cell);
+            RenderUtil.encode(facesContext, cell);
 
             writer.endElement("div");
             writer.endElement("td");

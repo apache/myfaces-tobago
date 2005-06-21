@@ -3,9 +3,9 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.atanion.tobago.renderkit.LayoutRenderer;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.LabeledLayoutRender;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
@@ -25,17 +25,26 @@ import java.io.IOException;
  * Time: 3:05:58 PM
  * To change this template use File | Settings | File Templates.
  */
-public class LabeledInputLayoutRenderer extends LayoutRenderer {
+public class LabeledInputLayoutRenderer extends DefaultLayoutRenderer implements LabeledLayoutRender{
 
   private static final Log LOG = LogFactory.getLog(LabeledInputLayoutRenderer.class);
 
+  public String getDefaultLayoutOrder() {
+    return "LCP";
+  }
+
   public void layoutWidth(FacesContext facesContext, UIComponent component) {
-    HtmlRendererUtil.layoutWidth(facesContext, component.getParent());
+    super.layoutWidth(facesContext, component.getParent());
   }
 
   public void layoutHeight(FacesContext facesContext, UIComponent component) {
-    HtmlRendererUtil.layoutHeight(facesContext, component.getParent());
+    super.layoutHeight(facesContext, component.getParent());
   }
+
+  public void prepareRender(FacesContext facesContext, UIComponent component) {
+    super.prepareRender(facesContext, component);
+  }
+
 
 
   public void encodeChildrenOfComponent(FacesContext facesContext, UIComponent component)
@@ -57,7 +66,7 @@ public class LabeledInputLayoutRenderer extends LayoutRenderer {
       writer.writeText("", null);
     }
     if (label != null) {
-      HtmlRendererUtil.encodeHtml(facesContext, label);
+      RenderUtil.encode(facesContext, label);
 
       writer.endElement("td");
       writer.startElement("td", null);
@@ -102,7 +111,6 @@ public class LabeledInputLayoutRenderer extends LayoutRenderer {
           + input.getClientId(facesContext);
       String command = "calendarWindow('" + url + "');";
       picker.getAttributes().put(ATTR_ACTION_STRING, command);
-      HtmlRendererUtil.createCssClass(facesContext, picker);
       RenderUtil.encode(facesContext, picker);
     }
   }

@@ -21,6 +21,12 @@ public class UISelectMany extends javax.faces.component.UISelectMany {
   public static final String COMPONENT_TYPE = "com.atanion.tobago.SelectMany";
 
 
+
+  public void encodeBegin(FacesContext facesContext) throws IOException {
+    UILayout.getLayout(this).layoutBegin(facesContext, this);
+    super.encodeBegin(facesContext);
+  }
+
   public void encodeChildren(FacesContext facesContext) throws IOException {
    UILayout layout = UILayout.getLayout(this);
    if (layout instanceof UILabeledInputLayout) {

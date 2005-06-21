@@ -20,6 +20,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.application.ViewHandler;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -46,6 +47,8 @@ public class LabeledInputLayoutRenderer extends
     UIComponent label = input.getFacet(FACET_LABEL);
     UIComponent picker = input.getFacet(FACET_PICKER);
 
+    debugLayout(input, label, picker);
+
     ClientProperties client
         = ClientProperties.getInstance(FacesContext.getCurrentInstance());
 
@@ -62,7 +65,7 @@ public class LabeledInputLayoutRenderer extends
         writer.writeAttribute("class", "tobago-label-td", null);
         writer.writeAttribute("valign", "top", null);
         writer.writeText("", null); // to ensure that the start-tag is closed!
-        HtmlRendererUtil.encodeHtml(facesContext, label);
+        RenderUtil.encode(facesContext, label);
         writer.endElement("td");
         writer.startElement("td", null);
         writer.startElement("img", null);
@@ -118,5 +121,29 @@ public class LabeledInputLayoutRenderer extends
     }
     HtmlRendererUtil.renderFocusId(facesContext, component);
 
+  }
+
+  private void debugLayout(UIInput input, UIComponent label, UIComponent picker) {
+    LOG.debug("\n\n###########################################################################");
+    LOG.debug("INPUT");
+    debugAttributes(input);
+    if (label != null) {
+      LOG.debug("------------------------");
+      LOG.debug("LABEL");
+      debugAttributes(label);
+    }
+    if (picker!= null) {
+      LOG.debug("------------------------");
+      LOG.debug("PICKER");
+      debugAttributes(picker);
+    }
+    LOG.debug("###########################################################################\n");
+  }
+
+  private void debugAttributes(UIComponent component) {
+    Map attributes = component.getAttributes();
+    for (Object o : attributes.keySet()) {
+      LOG.debug("  " + o + "='" + attributes.get(o) + "'");
+    }
   }
 }

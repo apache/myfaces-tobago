@@ -8,6 +8,7 @@ package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.taglib.component.ToolBarTag;
 import com.atanion.tobago.renderkit.BoxRendererBase;
+import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 
 import org.apache.commons.logging.Log;
@@ -82,7 +83,7 @@ public class BoxRenderer extends BoxRendererBase {
     String labelString
         = (String) component.getAttributes().get(TobagoConstants.ATTR_LABEL);
     if (label != null) {
-      HtmlRendererUtil.encodeHtml(facesContext, label);
+      RenderUtil.encode(facesContext, label);
     } else if (labelString != null) {
       writer.writeText(labelString, null);
     }
@@ -119,7 +120,7 @@ public class BoxRenderer extends BoxRendererBase {
     if (ToolBarTag.ICON_BIG.equals(attributes.get(ATTR_ICON_SIZE))) {
       attributes.put(ATTR_ICON_SIZE, ToolBarTag.ICON_SMALL);
     }
-    HtmlRendererUtil.encodeHtml(facesContext, toolbar);
+    RenderUtil.encode(facesContext, toolbar);
     writer.endElement("div");
   }
 

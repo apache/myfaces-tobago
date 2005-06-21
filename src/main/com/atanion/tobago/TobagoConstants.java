@@ -57,6 +57,7 @@ public interface TobagoConstants {
   public static final String ATTR_LAYOUT_MARGIN_RIGHT = "layoutMarginRight";
   public static final String ATTR_LAYOUT_MARGIN_TOP = "layoutMarginTop";
   public static final String ATTR_LAYOUT_ROWS = "layoutRows";
+  public static final String ATTR_LAYOUT_ORDER = "layoutOrder";
   public static final String ATTR_LAYOUT_TABLE_STYLE = "layoutTableStyle";
   public static final String ATTR_LAYOUT_WIDTH = "layoutWidth";
   public static final String ATTR_LEFT = "left";

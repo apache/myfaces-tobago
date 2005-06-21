@@ -56,15 +56,15 @@ public abstract class InRendererBase extends InputRendererBase {
 
   public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
     int space = 0;
-    if (component.getFacet(TobagoConstants.FACET_LABEL) != null) {
-      int labelWidht = LayoutUtil.getLabelWidth(component);
-      space += labelWidht != 0 ? labelWidht : getLabelWidth(facesContext, component);
-      space += getConfiguredValue(facesContext, component, "labelSpace");
-    }
-    if (component.getFacet("picker") != null) {
-      int pickerWidth = getConfiguredValue(facesContext, component, "pickerWidth");
-      space += pickerWidth;
-    }
+//    if (component.getFacet(TobagoConstants.FACET_LABEL) != null) {
+//      int labelWidht = LayoutUtil.getLabelWidth(component);
+//      space += labelWidht != 0 ? labelWidht : getLabelWidth(facesContext, component);
+//      space += getConfiguredValue(facesContext, component, "labelSpace");
+//    }
+//    if (component.getFacet("picker") != null) {
+//      int pickerWidth = getConfiguredValue(facesContext, component, "pickerWidth");
+//      space += pickerWidth;
+//    }
     return space;
   }
 }

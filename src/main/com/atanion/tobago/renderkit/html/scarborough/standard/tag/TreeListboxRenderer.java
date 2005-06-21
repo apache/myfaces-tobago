@@ -13,6 +13,7 @@ import com.atanion.tobago.component.UITreeListbox;
 import com.atanion.tobago.component.UITreeNode;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
+import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.util.LayoutUtil;
 
 import javax.faces.component.UIComponent;
@@ -86,7 +87,7 @@ public class TreeListboxRenderer extends TreeRenderer{
     writer.writeText("}\n", null);
 
 
-    HtmlRendererUtil.encodeHtml(facesContext, root);
+    RenderUtil.encode(facesContext, root);
 
     writer.writeText("var hidden =   document.getElementById('", null);
     writer.writeText(clientId, null);

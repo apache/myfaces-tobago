@@ -16,6 +16,7 @@ import com.atanion.tobago.component.UICommand;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.InputRendererBase;
+import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 
 import org.apache.commons.logging.Log;
@@ -99,7 +100,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     facesContext.getExternalContext().getRequestMap().put(
         "tobagoRichtextPreviewState", previewState ? Boolean.TRUE : Boolean.FALSE);
 
-    HtmlRendererUtil.encodeHtml(facesContext, toolbar);
+    RenderUtil.encode(facesContext, toolbar);
 //    renderToolBar(facesContext, writer, component);
 
     String content = getCurrentValue(facesContext, component);

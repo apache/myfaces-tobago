@@ -8,6 +8,7 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 
@@ -87,7 +88,7 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
     }
 
     if (label != null) {
-      HtmlRendererUtil.encodeHtml(facesContext, label);
+      RenderUtil.encode(facesContext, label);
     }
 
     if (label != null && ! inline) {

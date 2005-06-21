@@ -9,6 +9,7 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.UserAgent;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
+import com.atanion.tobago.renderkit.RenderUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -47,7 +48,7 @@ public class BoxRenderer extends com.atanion.tobago.renderkit.html.scarborough.s
       writer.startElement("b", null);
       writer.writeText("", null);
       if (label != null) {
-        HtmlRendererUtil.encodeHtml(facesContext, label);
+        RenderUtil.encode(facesContext, label);
       } else {
         writer.writeText(labelString, null);
       }

@@ -51,33 +51,6 @@ public class HtmlRendererUtil {
   }
 
 
-
-  public static void encodeHtml(FacesContext facesContext, UIComponent component)
-      throws IOException {
-    if (component.isRendered()) {
-
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("rendering " + component.getRendererType() + " " + component);
-      }
-
-
-      prepareRender(facesContext, component);
-
-      component.encodeBegin(facesContext);
-      if (component.getRendersChildren()) {
-        component.encodeChildren(facesContext);
-      } else {
-        Iterator kids = component.getChildren().iterator();
-        while (kids.hasNext()) {
-          UIComponent kid = (UIComponent) kids.next();
-          encodeHtml(facesContext, kid);
-        }
-      }
-      component.encodeEnd(facesContext);
-    }
-
-  }
-
   public static void prepareRender(FacesContext facesContext, UIComponent component) {
     createCssClass(facesContext, component);
     layoutWidth(facesContext, component);

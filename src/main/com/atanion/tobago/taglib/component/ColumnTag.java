@@ -38,10 +38,6 @@ public class ColumnTag extends TobagoTag
     return null;
   }
 
-  protected void provideLabel(UIComponent component) {
-   ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
-  }
-
   public void release() {
     super.release();
     sortable = null;

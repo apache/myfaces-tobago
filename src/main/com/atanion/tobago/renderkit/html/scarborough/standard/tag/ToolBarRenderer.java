@@ -503,7 +503,7 @@ public class ToolBarRenderer extends RendererBase {
       popupMenu.getAttributes().remove(ATTR_LABEL);
       popupMenu.getAttributes().remove(ATTR_LABEL_WITH_ACCESS_KEY);
       popupMenu.getAttributes().put(ATTR_IMAGE, "image/toolbarButtonMenu.gif");
-      HtmlRendererUtil.encodeHtml(facesContext, popupMenu);
+      RenderUtil.encode(facesContext, popupMenu);
     }
 
     writer.endElement("td");

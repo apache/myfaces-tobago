@@ -7,6 +7,7 @@ package com.atanion.tobago.renderkit.html.scarborough.mozilla_4_7.tag;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.renderkit.BoxRendererBase;
+import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 
 import javax.faces.component.UIComponent;
@@ -44,7 +45,7 @@ public class BoxRenderer extends BoxRendererBase {
       writer.writeAttribute("align", "left", null);
       writer.writeText("", null);
       if (label != null) {
-        HtmlRendererUtil.encodeHtml(facesContext, label);
+        RenderUtil.encode(facesContext, label);
       } else {
         writer.writeText(labelString, null);
       }

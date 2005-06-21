@@ -125,27 +125,6 @@ public abstract class TobagoTag extends UIComponentTag
     return iterator;
   }
 
-  // fixme: this is not nice!
-  protected void provideLabel(UIComponent component) {
-    final Map attributes = component.getAttributes();
-    String label = (String) attributes.get(ATTR_LABEL);
-    String labelWithAccessKey = (String) attributes.get(ATTR_LABEL_WITH_ACCESS_KEY);
-    String accessKey = (String) attributes.get(ATTR_ACCESS_KEY);
-
-    if (label != null | labelWithAccessKey != null | accessKey != null) {
-      Application application = getFacesContext().getApplication();
-      UIOutput uiLabel
-          = (UIOutput) application.createComponent(UIOutput.COMPONENT_TYPE);
-//    uiLabel.setRendererType("Out"); // fixme
-      uiLabel.setRendererType("Label");
-      uiLabel.setRendered(true);
-      ComponentUtil.setStringProperty(uiLabel, ATTR_VALUE, label, getIterationHelper());
-      ComponentUtil.setStringProperty(uiLabel, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
-      ComponentUtil.setStringProperty(uiLabel, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
-      component.getFacets().put(FACET_LABEL, uiLabel);
-    }
-  }
-
 // ------------------------------------------------------------ getter + setter
 
   public void setBinding(String binding) throws JspException {

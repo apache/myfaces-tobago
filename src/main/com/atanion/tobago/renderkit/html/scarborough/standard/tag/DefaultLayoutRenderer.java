@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.atanion.tobago.renderkit.LayoutRenderer;
+import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 
 import javax.faces.component.UIComponent;
@@ -30,12 +31,15 @@ public class DefaultLayoutRenderer extends LayoutRenderer {
     HtmlRendererUtil.layoutHeight(facesContext, component);
   }
 
+  public void prepareRender(FacesContext facesContext, UIComponent component) {
+    HtmlRendererUtil.prepareRender(facesContext, component);
+  }
 
   public void encodeChildrenOfComponent(FacesContext facesContext, UIComponent component)
       throws IOException {
       for (Iterator i = component.getChildren().iterator(); i.hasNext();) {
         UIComponent child = (UIComponent) i.next();
-        HtmlRendererUtil.encodeHtml(facesContext, child);
+        RenderUtil.encode(facesContext, child);
       }
   }
 }

@@ -41,11 +41,11 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
   public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
     int space = 0;
 
-    if (component.getFacet(FACET_LABEL) != null) {
-      int labelWidth = LayoutUtil.getLabelWidth(component);
-      space += labelWidth != 0 ? labelWidth : getLabelWidth(facesContext, component);
-      space += getConfiguredValue(facesContext, component, "labelSpace");
-    }
+//    if (component.getFacet(FACET_LABEL) != null) {
+//      int labelWidth = LayoutUtil.getLabelWidth(component);
+//      space += labelWidth != 0 ? labelWidth : getLabelWidth(facesContext, component);
+//      space += getConfiguredValue(facesContext, component, "labelSpace");
+//    }
 
     return space;
   }

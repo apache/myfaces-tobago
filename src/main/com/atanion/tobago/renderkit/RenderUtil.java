@@ -66,6 +66,10 @@ public class RenderUtil {
         LOG.debug("rendering " + component.getRendererType() + " " + component);
       }
 
+      LayoutRenderer layoutRenderer = (LayoutRenderer)
+          ComponentUtil.getRenderer(facesContext, UILayout.getLayout(component));
+      layoutRenderer.prepareRender(facesContext, component);
+
       component.encodeBegin(facesContext);
       if (component.getRendersChildren()) {
         component.encodeChildren(facesContext);

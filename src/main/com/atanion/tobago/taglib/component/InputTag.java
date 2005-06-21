@@ -33,15 +33,16 @@ public abstract class InputTag extends BeanTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_ONCHANGE, onchange, getIterationHelper());
-    ComponentUtil.setBooleanProperty(component, ATTR_FOCUS, focus, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_TIP, tip,
-        getIterationHelper());
-
-    provideLabel(component);
-
+    ComponentUtil.setStringProperty(component,
+        ATTR_ONCHANGE, onchange, getIterationHelper());
+    ComponentUtil.setBooleanProperty(component,
+        ATTR_FOCUS, focus, getIterationHelper());
+    ComponentUtil.setStringProperty(component,
+        ATTR_ACCESS_KEY, accessKey, getIterationHelper());
+    ComponentUtil.setStringProperty(component,
+        ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
+    ComponentUtil.setStringProperty(component,
+        ATTR_TIP, tip, getIterationHelper());
   }
 
 // ------------------------------------------------------------ getter + setter

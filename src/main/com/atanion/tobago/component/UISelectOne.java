@@ -29,6 +29,13 @@ public class UISelectOne extends javax.faces.component.UISelectOne {
   public static final String MESSAGE_VALUE_REQUIRED
       = "tobago.SelectOne.MESSAGE_VALUE_REQUIRED";
 
+
+
+  public void encodeBegin(FacesContext facesContext) throws IOException {
+    UILayout.getLayout(this).layoutBegin(facesContext, this);
+    super.encodeBegin(facesContext);
+  }
+
   public void encodeChildren(FacesContext facesContext) throws IOException {
    UILayout layout = UILayout.getLayout(this);
    if (layout instanceof UILabeledInputLayout) {

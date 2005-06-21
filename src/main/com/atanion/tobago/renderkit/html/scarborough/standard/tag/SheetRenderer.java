@@ -50,6 +50,7 @@ public class SheetRenderer extends RendererBase {
       = SUBCOMPONENT_SEP + "selected";
   public static final String PAGE_TO_ROW_POSTFIX
       = SUBCOMPONENT_SEP + Pager.PAGE_TO_ROW;
+  private static final Integer HEIGHT_0 = new Integer(0);
 
 // ----------------------------------------------------------------- interfaces
 
@@ -346,8 +347,8 @@ public class SheetRenderer extends RendererBase {
               grandkids.hasNext();) {
             UIComponent grandkid = (UIComponent) grandkids.next();
 
-            HtmlRendererUtil.createCssClass(facesContext, grandkid);
-            HtmlRendererUtil.layoutWidth(facesContext, grandkid);
+            // set height to 0 to prevent use of layoutheight from parent
+            grandkid.getAttributes().put(ATTR_LAYOUT_HEIGHT, HEIGHT_0);
             RenderUtil.encode(facesContext, grandkid);
           }
         }

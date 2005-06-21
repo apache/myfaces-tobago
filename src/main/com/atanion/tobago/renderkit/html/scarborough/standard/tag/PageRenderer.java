@@ -12,6 +12,7 @@ import com.atanion.tobago.component.UILayout;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.PageRendererBase;
+import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.taglib.component.PageTag;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
@@ -85,7 +86,7 @@ public class PageRenderer extends PageRendererBase {
       menubar.getAttributes().put(ATTR_PAGE_MENU, Boolean.TRUE);
       page.getOnloadScripts().add("setDivWidth('"
           + menubar.getClientId(facesContext) + "', getBrowserInnerWidth())");
-      HtmlRendererUtil.encodeHtml(facesContext, menubar);
+      RenderUtil.encode(facesContext, menubar);
     }
 
     UILayout.getLayout(component).encodeChildrenOfComponent(facesContext, component);    
@@ -266,7 +267,7 @@ public class PageRenderer extends PageRendererBase {
     List popups = (List) page.getAttributes().get(ATTR_POPUP_LIST);
     if (popups != null) {
       for (Iterator iter = popups.iterator(); iter.hasNext();) {
-        HtmlRendererUtil.encodeHtml(facesContext, (UIComponent) iter.next());
+        RenderUtil.encode(facesContext, (UIComponent) iter.next());
       }
     }
 
@@ -275,6 +276,7 @@ public class PageRenderer extends PageRendererBase {
     // debugging...
     if (ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot())
         .isDebugMode()) {
+
       for (Iterator ids = facesContext.getClientIdsWithMessages();
           ids.hasNext();) {
         String id = (String) ids.next();
@@ -284,7 +286,7 @@ public class PageRenderer extends PageRendererBase {
           errorMessageForDebugging(id, message, writer);
         }
       }
-/*
+      writer.writeText("FacesContext = " + facesContext, null);
       String keys = "";
       if (LOG.isInfoEnabled()) {
         keys = "<li> unused accessKeys : "
@@ -304,7 +306,6 @@ public class PageRenderer extends PageRendererBase {
           "background: #ffffff;\">" +
           "<ol id=\"Log\" style=\"font-family:Arial,sans-serif; " +
           "font-size:10pt\"><li>Ereignisliste</li> " + keys + "</ol> </div>");
-*/
 
     }
 
