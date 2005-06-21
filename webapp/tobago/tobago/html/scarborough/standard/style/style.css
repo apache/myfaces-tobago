@@ -589,6 +589,12 @@ div.tobago-richTextEditor-body {
   vertical-align: bottom;
 }
 
+/* object ------------------------------------------------------------------ */
+
+.tobago-object-default {
+  border: 0px solid black;
+}
+
 
 /* Toolbar ----------------------------------------------------------------- */
 .tobago-toolBar-default  {
