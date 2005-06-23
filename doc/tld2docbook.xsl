@@ -50,6 +50,14 @@
             </para>
           </listitem>
         </varlistentry>
+        <varlistentry>
+          <term>Description</term>
+          <listitem>
+            <para>
+              <xsl:value-of select="description"/>
+            </para>
+          </listitem>
+        </varlistentry>
       </variablelist>
       <table>
         <title>Attributes of tag
@@ -61,7 +69,7 @@
           <colspec colname="name" colwidth="2.5cm" align="left"/>
           <colspec colname="required" colwidth="0.8cm" align="center"/>
           <colspec colname="expr" colwidth="0.8cm" align="center"/>
-          <colspec colname="type" colwidth="2.5cm" align="left"/>
+          <colspec colname="type" colwidth="2.5cm" align="left" />
           <colspec colname="default" colwidth="1.2cm" align="left"/>
           <colspec colname="description" colwidth="8.2cm" align="left"/>
           <thead>

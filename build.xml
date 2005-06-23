@@ -151,11 +151,11 @@
   </target>
 
   <target name="docbook-html" depends="code-sniplets, docbook-taglib-xml, docbook.docbook-html">
-    <docbook-html-macro master="${project.dir.doc.master}" output.dir="build/doc/" />
+    <docbook-html-macro master="${project.dir.doc.master}" output.dir="build/doc/html/" />
   </target>
 
   <target name="docbook-pdf" depends="code-sniplets, docbook-taglib-xml, docbook.docbook-pdf">
-    <docbook-pdf-macro master="${project.dir.doc.master}" output.dir="build/doc" />
+    <docbook-pdf-macro master="${project.dir.doc.master}" output.dir="build/doc/pdf/" />
   </target>
 
   <target name="docbook-taglib-xml" depends="annotations-xml">
