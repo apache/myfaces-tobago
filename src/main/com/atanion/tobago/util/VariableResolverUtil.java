@@ -17,7 +17,6 @@ public class VariableResolverUtil {
     return resolveVariable(context, variable);
   }
 
-  /** @deprecated */
   public static Object resolveVariable(FacesContext context, String variable) {
     Application application = context.getApplication();
     VariableResolver variableResolver = application.getVariableResolver();
