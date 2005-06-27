@@ -597,14 +597,19 @@ public class ComponentUtil {
   public static String createPickerId(
       FacesContext facesContext, UIComponent component, String postfix) {
     String id = component.getId();
-    if (id == null || id.startsWith("_id")) {
-      id = component.getClientId(facesContext);
-      id = id.substring(id.lastIndexOf('_') + 3);
-    }
-    return "picker" + id + postfix;
+    id = getComponentId(facesContext, component);
+    return id + "_picker" + postfix;
   }
 
-  
+  public static String getComponentId(FacesContext facesContext, UIComponent component) {
+    String id = component.getId();
+    if (id == null) {
+      id = component.getClientId(facesContext).substring(id.lastIndexOf('_'));
+    }
+    return id;
+  }
+
+
   public static List<SelectItem> getItemsToRender(javax.faces.component.UISelectOne component) {
     return getItems(component);
   }

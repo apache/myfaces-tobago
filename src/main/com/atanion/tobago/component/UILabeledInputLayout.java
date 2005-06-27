@@ -35,7 +35,7 @@ public class UILabeledInputLayout extends UILayout
     if (! ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
 
       // do layout calculation for label, component and picker
-      UIComponent label = provideLabel(component);
+      UIComponent label = provideLabel(facesContext, component);
       UIComponent picker = component.getFacet(FACET_PICKER);
 
       RendererBase layoutRenderer = ComponentUtil.getRenderer(facesContext, this);
@@ -46,11 +46,9 @@ public class UILabeledInputLayout extends UILayout
       }
 
       String layoutTokens = ComponentUtil.getStringAttribute(this, ATTR_COLUMNS);
-      LOG.info("tokens = " + layoutTokens);
       if (layoutTokens == null) {
         layoutTokens = createDefaultLayoutTokens(facesContext, component, layoutOrder);
       }
-      LOG.info("tokens = " + layoutTokens);
 
       int space = LayoutUtil.getLayoutWidth(component);
       if (label != null) {
@@ -68,7 +66,6 @@ public class UILabeledInputLayout extends UILayout
           case 'L':
             if (label != null ) {
               int spaceForColumn = layoutInfo.getSpaceForColumn(i);
-              LOG.info("spaceForColumn L = " + spaceForColumn);
               label.getAttributes().put(ATTR_LAYOUT_WIDTH, spaceForColumn);
             }
             break;
@@ -76,7 +73,6 @@ public class UILabeledInputLayout extends UILayout
           case 'C':
             {
               int spaceForColumn = layoutInfo.getSpaceForColumn(i);
-              LOG.info("spaceForColumn = C" + spaceForColumn);
               component.getAttributes().put(ATTR_LAYOUT_WIDTH, spaceForColumn);
               HtmlRendererUtil.layoutWidth(facesContext, component);
             }
@@ -85,7 +81,6 @@ public class UILabeledInputLayout extends UILayout
           case 'P':
             if (picker != null) {
               int spaceForColumn = layoutInfo.getSpaceForColumn(i);
-              LOG.info("spaceForColumn = P" + spaceForColumn);
               picker.getAttributes().put(ATTR_LAYOUT_WIDTH, spaceForColumn);
               // prevent height layouting
               picker.getAttributes().put(ATTR_LAYOUT_HEIGHT, 0);
@@ -99,7 +94,7 @@ public class UILabeledInputLayout extends UILayout
 
   }
 
-  private UIComponent provideLabel(UIComponent component) {
+  private UIComponent provideLabel(FacesContext facesContext, UIComponent component) {
     UIComponent label = component.getFacet(FACET_LABEL);
 
 
@@ -124,6 +119,8 @@ public class UILabeledInputLayout extends UILayout
         Application application = getFacesContext().getApplication();
         label = (UIOutput) application.createComponent(UIOutput.COMPONENT_TYPE);
         label.setRendererType("Label");
+        String idprefix = ComponentUtil.getComponentId(facesContext, component);
+        label.setId(idprefix + "_" + FACET_LABEL);
         label.setRendered(true);
 
         if (labelText instanceof ValueBinding) {

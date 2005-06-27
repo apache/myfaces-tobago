@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.util.AccessKeyMap;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.component.UITabGroup;
@@ -204,6 +205,10 @@ public class TabGroupRenderer extends RendererBase {
           writer.writeAttribute("class", "tobago-tab-link", null);
           writer.writeAttribute("href", url, null);
           if (label.getAccessKey() != null) {
+            if (LOG.isWarnEnabled() && ! AccessKeyMap.addAccessKey(
+                facesContext, label.getAccessKey())) {
+              LOG.warn("dublicated accessKey : " + label.getAccessKey());
+            }
             writer.writeAttribute("accesskey", label.getAccessKey(), null);
             writer.writeAttribute("onfocus", "this.click();", null);
           }
