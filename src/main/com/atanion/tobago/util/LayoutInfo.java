@@ -140,6 +140,7 @@ public class LayoutInfo{
       tokens = (String[]) list.toArray(new String[list.size()] );
     }
     else {
+      defaultToken = "*".equals(defaultToken) ? "1*" : defaultToken;
       tokens = new String[count];
       for (int i = 0; i < tokens.length; i++) {
         tokens[i] = defaultToken;
@@ -247,8 +248,14 @@ public class LayoutInfo{
   }
 
   private void addSpace(int space, int i) {
-    spaces[i] += space;
-    spaceLeft -= space;
+    if (spaces[i] > HIDE) {
+      if (spaces[i] == FREE) {
+        spaces[i] = space;
+      } else {
+        spaces[i] += space;
+      }
+      spaceLeft -= space;
+    }
   }
 
 

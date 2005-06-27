@@ -50,7 +50,11 @@ public class UILabeledInputLayout extends UILayout
         layoutTokens = createDefaultLayoutTokens(facesContext, component, layoutOrder);
       }
 
-      int space = LayoutUtil.getLayoutWidth(component);
+      Integer layoutWidth = LayoutUtil.getLayoutWidth(component);
+      if (layoutWidth == null) {
+        return;
+      }
+      int space = layoutWidth;
       if (label != null) {
         space -= ThemeConfig.getValue(facesContext, component, "labelSpace");
       }

@@ -456,7 +456,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     final List rows = layout.ensureRows();
     String[] layoutTokens = LayoutInfo.createLayoutTokens(
         (String) layout.getAttributes().get(TobagoConstants.ATTR_ROWS),
-        rows.size(), rows.size() == 1 ? "*" : "fixed");
+        rows.size(), rows.size() == 1 ? "1*" : "fixed");
 
     for (int i = 0; i < rows.size(); i++) {
       boolean hidden = true;
