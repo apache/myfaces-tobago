@@ -18,8 +18,9 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 /**
  * This tag add client side script to the rendered page.
  */
-@Tag(name="script", bodyContent=BodyContent.TAGDEPENDENT)
-@BodyContentDescription(contentType="javascript")
+@Tag(name="script", bodyContent=BodyContent.JSP)
+//    @Tag(name="script", bodyContent=BodyContent.TAGDEPENDENT)
+//    @BodyContentDescription(contentType="javascript")
 public class ScriptTag extends BodyTagSupport  {
 
 // ----------------------------------------------------------------- attributes
