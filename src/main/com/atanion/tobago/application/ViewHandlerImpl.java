@@ -21,6 +21,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
 public class ViewHandlerImpl extends ViewHandler {
@@ -384,6 +385,9 @@ public class ViewHandlerImpl extends ViewHandler {
     if (LOG.isDebugEnabled()) {
       LOG.debug("restore view with viewId:             '" + viewId + "'");
     }
+    // this is only needed in the first request, the later will be handled by faces
+    // todo: maybe find a way to make this unneeded
+    handleEncoding(facesContext);
     UIViewRoot viewRoot = base.restoreView(facesContext, viewId);
     ensureClientProperties(facesContext, viewRoot);
     return viewRoot;
@@ -401,7 +405,6 @@ public class ViewHandlerImpl extends ViewHandler {
 //    }
   }
 
-/*
   private void handleEncoding(FacesContext facesContext) {
     HttpServletRequest request = (HttpServletRequest)
         facesContext.getExternalContext().getRequest();
@@ -421,7 +424,6 @@ public class ViewHandlerImpl extends ViewHandler {
       LOG.error("" + e, e);
     }
   }
-*/
 
   public void writeState(FacesContext facesContext) throws IOException {
     base.writeState(facesContext);
