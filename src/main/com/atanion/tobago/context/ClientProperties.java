@@ -87,6 +87,10 @@ public class ClientProperties implements Serializable {
     buffer.append('/');
     buffer.append(getUserAgent());
     id =  buffer.toString();
+    final UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
+    if (viewRoot instanceof com.atanion.tobago.component.UIViewRoot) {
+      ((com.atanion.tobago.component.UIViewRoot)viewRoot).updateRendererCachePrefix();
+    }
   }
 
 // ///////////////////////////////////////////// logic

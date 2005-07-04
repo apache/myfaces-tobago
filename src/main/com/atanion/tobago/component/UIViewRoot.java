@@ -3,6 +3,8 @@ package com.atanion.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.atanion.tobago.context.ClientProperties;
+
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
@@ -56,6 +58,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
 
       super();
       setRendererType(null);
+    updateRendererCachePrefix();
 
   }
 
@@ -507,5 +510,34 @@ return result;
 
   }
 
+
+  private ClientProperties clientProperties;
+
+  public ClientProperties getClientProperties() {
+    return clientProperties;
+  }
+
+  public void setClientProperties(ClientProperties clientProperties) {
+    this.clientProperties = clientProperties;
+    updateRendererCachePrefix();
+  }
+
+  private String rendererCachePrefix;
+  public String getRendererCachePrefix() {
+    return rendererCachePrefix;
+  }
+
+  private static final Log LOG = LogFactory.getLog(UIViewRoot.class);
+  public void updateRendererCachePrefix() {
+    StringBuffer sb = new StringBuffer();
+    if (clientProperties != null) {
+      sb.append(clientProperties.getId());
+    }
+    sb.append("/");
+    sb.append(locale);
+    sb.append("/tag/");
+    rendererCachePrefix = sb.toString();
+//    LOG.info("updateRendererCachePrefix :" + rendererCachePrefix);
+  }
 
 }

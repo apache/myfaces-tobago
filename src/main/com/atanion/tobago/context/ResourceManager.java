@@ -358,6 +358,55 @@ public class ResourceManager {
   }
 
   public Renderer getRenderer(UIViewRoot viewRoot, String name) {
+    Renderer renderer;
+    final String clientProperties;
+    final Locale locale;
+    final String key;
+    final String type = "tag";
+
+    if (viewRoot instanceof com.atanion.tobago.component.UIViewRoot) {
+      StringBuffer sb
+          = new StringBuffer(((com.atanion.tobago.component.UIViewRoot)viewRoot)
+          .getRendererCachePrefix());
+      sb.append(name);
+      key = sb.toString();
+
+      if ((renderer = (Renderer) cache.get(key)) != null) {
+        return renderer;
+      }
+
+      clientProperties = ClientProperties.getInstance(viewRoot).getId();
+      locale = viewRoot.getLocale();
+    } else {
+      clientProperties = ClientProperties.getInstance(viewRoot).getId();
+      locale = viewRoot.getLocale();
+      key = key(clientProperties, locale, type, name);
+
+      if ((renderer = (Renderer) cache.get(key)) != null) {
+        return renderer;
+      }
+    }
+
+
+//    Log.debug("key=" + key);
+
+    try {
+      Class clazz = (Class) getPaths(clientProperties, locale, classDirectories, "", type, name,
+          "", false, true, true, null, false, false).get(0);
+      renderer = (Renderer) clazz.newInstance();
+      cache.put(key, renderer);
+    } catch (Exception e) {
+      LOG.error(
+          "name = '" + name + "' clientProperties = '" + clientProperties +
+          "'",
+          e);
+      throw new RuntimeException(name, e);
+    }
+    return renderer;
+  }
+
+/*
+  public Renderer getRenderer(UIViewRoot viewRoot, String name) {
     final String type = "tag";
     Renderer renderer;
 
@@ -383,6 +432,7 @@ public class ResourceManager {
     }
     return renderer;
   }
+*/
 
   private String key(String clientProperties, Locale locale,
       String type, String name) {
