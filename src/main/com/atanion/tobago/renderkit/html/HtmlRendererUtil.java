@@ -36,12 +36,10 @@ public class HtmlRendererUtil {
     if (ComponentUtil.getBooleanAttribute(component, TobagoConstants.ATTR_FOCUS)) {
       UIPage page = ComponentUtil.findPage(component);
       String id = component.getClientId(facesContext);
-      if (page.getFocusId() != null && ! page.getFocusId().equals(id)) {
-        LOG.warn(
-          "page focusId = \"" + page.getFocusId() + "\" ignoring new value \""
-          + id + "\"");
-      }
-      else {
+      if (page.getFocusId() != null && !page.getFocusId().equals(id)) {
+        LOG.warn("page focusId = \"" + page.getFocusId() + "\" ignoring new value \""
+            + id + "\"");
+      } else {
         ResponseWriter writer = facesContext.getResponseWriter();
         startJavascript(writer);
         writer.write("focusId = '" + id + "';");
@@ -49,7 +47,6 @@ public class HtmlRendererUtil {
       }
     }
   }
-
 
   public static void prepareRender(FacesContext facesContext, UIComponent component) {
     createCssClass(facesContext, component);
@@ -74,14 +71,13 @@ public class HtmlRendererUtil {
 
 
   public static void createCssClass(FacesContext facesContext, UIComponent component) {
-      final String rendererType = component.getRendererType();
-      if (rendererType != null) {
-        String rendererName = ComponentUtil.getRenderer(facesContext, component).getRendererName(rendererType);
-        createClassAttribute(component, rendererName);
-      }
+    final String rendererType = component.getRendererType();
+    if (rendererType != null) {
+      String rendererName = ComponentUtil.getRenderer(facesContext, component).getRendererName(rendererType);
+      createClassAttribute(component, rendererName);
+    }
 
   }
-
 
   public static void writeLabelWithAccessKey(ResponseWriter writer,
       LabelWithAccessKey label)
@@ -101,7 +97,7 @@ public class HtmlRendererUtil {
 
   public static String getLayoutSpaceStyle(UIComponent component) {
     StringBuffer sb = new StringBuffer();
-    Integer  space = LayoutUtil.getLayoutSpace(component, TobagoConstants.ATTR_LAYOUT_WIDTH,
+    Integer space = LayoutUtil.getLayoutSpace(component, TobagoConstants.ATTR_LAYOUT_WIDTH,
         TobagoConstants.ATTR_LAYOUT_WIDTH);
     if (space != null) {
       sb.append(" width: ");
@@ -244,11 +240,12 @@ public class HtmlRendererUtil {
     int styleSpace = -1;
     try {
       styleSpace = Integer.parseInt(getStyleAttributeValue(style, width ? "width" : "height").replaceAll("\\D", ""));
-    } catch (Exception e) { /* ignore */}
+    } catch (Exception e) { /* ignore */
+    }
     if (styleSpace != -1) {
       int bodySpace = 0;
       int headerSpace = 0;
-      if (! width) {
+      if (!width) {
         if (renderer != null) {
           headerSpace = renderer.getHeaderHeight(facesContext, component);
         }
@@ -271,7 +268,7 @@ public class HtmlRendererUtil {
         headerStyle
             = headerStyle.replaceAll("height:\\s\\d+px;", "").trim();
         headerStyle += " height: " + headerSpace + "px;";
-            bodyStyle
+        bodyStyle
             = (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE_BODY);
         if (bodyStyle == null) {
           LOG.warn("bodyStyle attribute == null, set to empty String");
@@ -299,37 +296,51 @@ public class HtmlRendererUtil {
     }
   }
 
-  public static String updateClassAttribute(
-      String cssClass, String rendererName,
-      UIComponent component) {
+  private static String removeTobagoClasses(String s, String rendererName) {
+    int length = s.length();
+    if (length == 0) {
+      return s;
+    }
+    StringBuffer newS = new StringBuffer(length);
+    String toFind = "tobago-" + rendererName;
+    int lastSpace = 0;
+    for (int i = 0; i < length; i++) {
+      char c = s.charAt(i);
+      if (c == ' ' || i == length - 1) {
+        String part = s.substring(lastSpace == 0 ? 0 : lastSpace + 1, i + 1);
+        if (!part.startsWith(toFind)) {
+          newS.append(part);
+        }
+        lastSpace = i;
+      }
+    }
+    return newS.toString();
+  }
+
+  public static String updateClassAttribute(String cssClass, String rendererName, UIComponent component) {
     if (cssClass != null) {
       // first remove old tobago-<rendererName>-<type> classes from class-attribute
-      cssClass = cssClass.replaceAll(
-          "tobago-" + rendererName
-          + "-(default|disabled|readonly|inline|error)", "").trim();
-      // remove old tobago-<rendererName>-markup-<type> classes from class-attribute
-      cssClass = cssClass.replaceAll(
-          "tobago-" + rendererName + "-markup-(strong|deleted)", "").trim();
+      cssClass = removeTobagoClasses(cssClass, rendererName).trim();
     } else {
       cssClass = "";
     }
-    String tobagoClass = "tobago-" + rendererName + "-default ";
+    StringBuffer tobagoClass = new StringBuffer("tobago-").append(rendererName).append("-default ");
     if (ComponentUtil.getBooleanAttribute(component, TobagoConstants.ATTR_DISABLED)) {
-      tobagoClass += "tobago-" + rendererName + "-disabled ";
+      tobagoClass.append("tobago-").append(rendererName).append("-disabled ");
     }
     if (ComponentUtil.getBooleanAttribute(component, TobagoConstants.ATTR_READONLY)) {
-      tobagoClass += "tobago-" + rendererName + "-readonly ";
+      tobagoClass.append("tobago-").append(rendererName).append("-readonly ");
     }
     if (ComponentUtil.getBooleanAttribute(component, TobagoConstants.ATTR_INLINE)) {
-      tobagoClass += "tobago-" + rendererName + "-inline ";
+      tobagoClass.append("tobago-").append(rendererName).append("-inline ");
     }
     if (ComponentUtil.isError(component)) {
-      tobagoClass += "tobago-" + rendererName + "-error ";
+      tobagoClass.append("tobago-").append(rendererName).append("-error ");
     }
     String markup = ComponentUtil.getStringAttribute(component, TobagoConstants.ATTR_MARKUP);
     if (StringUtils.isNotEmpty(markup)) {
       if (markup.equals("strong") || markup.equals("deleted")) {
-        tobagoClass += "tobago-" + rendererName + "-markup-" + markup + " ";
+        tobagoClass.append("tobago-").append(rendererName).append("-markup-").append(markup).append(" ");
       } else {
         LOG.warn("Unknown markup='" + markup + "'");
       }
@@ -361,12 +372,23 @@ public class HtmlRendererUtil {
     if (tip != null) {
       if (title != null && title.length() > 0) {
         title += " :: ";
-      }
-      else {
+      } else {
         title = "";
       }
       title += tip;
     }
     return title;
   }
+
+  public static void main(String[] args) {
+    System.out.println(removeTobagoClasses("bla bla bla tobago-test-inline bla bla", "test"));
+    System.out.println(removeTobagoClasses("tobago-test-inline blablubber bla", "test"));
+    System.out.println(removeTobagoClasses("bla bla bla tobago-2test-inline bla tobago-test-blubber bla blubb", "test"));
+    System.out.println(removeTobagoClasses("bla bla bla tobago-testXXX", "test"));
+    System.out.println(removeTobagoClasses("tobago-test", "test"));
+    System.out.println(removeTobagoClasses(" x x ", "test"));
+    System.out.println(removeTobagoClasses("", "test"));
+    System.out.println(removeTobagoClasses("hallo", "test"));
+  }
+
 }
