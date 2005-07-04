@@ -9,6 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.taglib.component.MenuCommandTag;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.Pager;
@@ -121,43 +122,43 @@ public class SheetRenderer extends RendererBase {
     String selectedListString = getSelected(data, state);
     List<UIColumn> columnList = data.getColumns();
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement("input", null);
-    writer.writeAttribute("id", sheetId + WIDTHS_POSTFIX, null);
-    writer.writeAttribute("name", sheetId + WIDTHS_POSTFIX, null);
+    writer.writeIdAttribute(sheetId + WIDTHS_POSTFIX);
+    writer.writeNameAttribute(sheetId + WIDTHS_POSTFIX);
     writer.writeAttribute("type", "hidden", null);
     writer.writeAttribute("value", "", null);
     writer.endElement("input");
 
     writer.startElement("input", null);
-    writer.writeAttribute("id", sheetId + SELECTED_POSTFIX, null);
-    writer.writeAttribute("name", sheetId + SELECTED_POSTFIX, null);
+    writer.writeIdAttribute(sheetId + SELECTED_POSTFIX);
+    writer.writeNameAttribute(sheetId + SELECTED_POSTFIX);
     writer.writeAttribute("type", "hidden", null);
     writer.writeAttribute("value", selectedListString, null);
     writer.endElement("input");
 
     // Outher sheet div
     writer.startElement("div", null);
-    writer.writeAttribute("id", sheetId + "_outer_div", null);
-    writer.writeAttribute("class", "tobago-sheet-outer-div", null);
+    writer.writeIdAttribute(sheetId + "_outer_div");
+    writer.writeClassAttribute("tobago-sheet-outer-div");
     writer.writeAttribute("style", sheetStyle, null);
 
     boolean showHeader = data.isShowHeader();
     if (showHeader) {
       // begin rendering header
       writer.startElement("div", null);
-      writer.writeAttribute("id", sheetId + "_header_div", null);
-      writer.writeAttribute("class", "tobago-sheet-header-div", null);
+      writer.writeIdAttribute(sheetId + "_header_div");
+      writer.writeClassAttribute("tobago-sheet-header-div");
       writer.writeAttribute("style", headerStyle, null);
 
 //      writer.startElement("table", component);
-//      writer.writeAttribute("id", sheetId + "_header_table", null);
+//      writer.writeIdAttribute(sheetId + "_header_table");
 //      writer.writeAttribute("cellspacing", "0", null);
 //      writer.writeAttribute("cellpadding", "0", null);
 //      writer.writeAttribute("summary", "", null);
 //      writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_HEADER);
-//      writer.writeAttribute("class", "tobago-sheet-header-table", null);
+//      writer.writeClassAttribute("tobago-sheet-header-table");
 //
 //
 //      writer.startElement("tr", null);
@@ -173,12 +174,12 @@ public class SheetRenderer extends RendererBase {
         columnCount++;
       }
       writer.startElement("div", null);
-      writer.writeAttribute("id", sheetId + "_header_box_filler", null);
-      writer.writeAttribute("class", "tobago-sheet-header-box", null);
+      writer.writeIdAttribute(sheetId + "_header_box_filler");
+      writer.writeClassAttribute("tobago-sheet-header-box");
       writer.writeAttribute("style", "width: 0px", null);
 
       writer.startElement("div", null);
-      writer.writeAttribute("class", "tobago-sheet-header", null);
+      writer.writeClassAttribute("tobago-sheet-header");
       writer.write("&nbsp;");
       writer.endElement("div");
 
@@ -211,15 +212,15 @@ public class SheetRenderer extends RendererBase {
     }
 
     writer.startElement("div", null);
-    writer.writeAttribute("id", sheetId + "_data_div", null);
-    writer.writeAttribute("class", "tobago-sheet-body-div ", null);
+    writer.writeIdAttribute(sheetId + "_data_div");
+    writer.writeClassAttribute("tobago-sheet-body-div ");
     writer.writeAttribute("style", bodyStyle, null);
 
     writer.startElement("table", null);
     writer.writeAttribute("cellspacing", "0", null);
     writer.writeAttribute("cellpadding", "0", null);
     writer.writeAttribute("summary", "", null);
-    writer.writeAttribute("class", "tobago-sheet-body-table", null);
+    writer.writeClassAttribute("tobago-sheet-body-table");
     writer.writeAttribute("style", sheetBodyStyle, null);
 
     if (columnWidths != null) {
@@ -279,8 +280,8 @@ public class SheetRenderer extends RendererBase {
       requestMap.put(var, value);
 
       writer.startElement("tr", null);
-      writer.writeAttribute("class", rowClass, null);
-      writer.writeAttribute("id", sheetId + "_data_tr_" + rowIndex, null);
+      writer.writeClassAttribute(rowClass);
+      writer.writeIdAttribute(sheetId + "_data_tr_" + rowIndex);
       writer.writeText("", null);
 
 
@@ -303,18 +304,17 @@ public class SheetRenderer extends RendererBase {
 
         writer.startElement("td", column);
 
-        writer.writeAttribute("class", tdClass, null);
+        writer.writeClassAttribute(tdClass);
         writer.writeAttribute("style", tdStyle, null);
 
         writer.startElement("div", null);
-        writer.writeAttribute("id",
-            sheetId + "_data_row_" + visibleIndex + "_column" + columnIndex,
-            null);
-        writer.writeAttribute("class", "tobago-sheet-cell-outer", null);
+        writer.writeIdAttribute(
+            sheetId + "_data_row_" + visibleIndex + "_column" + columnIndex);
+        writer.writeClassAttribute("tobago-sheet-cell-outer");
         writer.writeAttribute("style", style, null);
 
         writer.startElement("div", null);
-        writer.writeAttribute("class", "tobago-sheet-cell-inner", null);
+        writer.writeClassAttribute("tobago-sheet-cell-inner");
         writer.writeText("", null);
 
 //        if (columnStyles > 0) {
@@ -338,9 +338,8 @@ public class SheetRenderer extends RendererBase {
 //            writer.writeAttribute("onclick",
 //                "tobagoSheetToggleSelectionState(event)", null);
           }
-          writer.writeAttribute("id",
-              sheetId + "_data_row_selector_" + rowIndex, null);
-          writer.writeAttribute("class", "tobago-sheet-column-selector", null);
+          writer.writeIdAttribute(sheetId + "_data_row_selector_" + rowIndex);
+          writer.writeClassAttribute("tobago-sheet-column-selector");
           writer.endElement("img");
         } else {
           for (Iterator grandkids = data.getRenderedChildrenOf(column).iterator();
@@ -359,12 +358,12 @@ public class SheetRenderer extends RendererBase {
       }
 
       writer.startElement("td", null);
-      writer.writeAttribute("class", "tobago-sheet-cell-td", null);
+      writer.writeClassAttribute("tobago-sheet-cell-td");
 
       writer.startElement("div", null);
-      writer.writeAttribute("id",
-          sheetId + "_data_row_" + visibleIndex + "_column_filler", null);
-      writer.writeAttribute("class", "tobago-sheet-cell-outer", null);
+      writer.writeIdAttribute(
+          sheetId + "_data_row_" + visibleIndex + "_column_filler");
+      writer.writeClassAttribute("tobago-sheet-cell-outer");
       writer.writeAttribute("style", "width: 0px;", null);
 
       writer.write("&nbsp;");
@@ -400,7 +399,7 @@ public class SheetRenderer extends RendererBase {
           + " top: " + (sheetHeight - footerHeight) + "px;";
 
       writer.startElement("div", data);
-      writer.writeAttribute("class", "tobago-sheet-footer", null);
+      writer.writeClassAttribute("tobago-sheet-footer");
       writer.writeAttribute("style", footerStyle, null);
 
 
@@ -423,7 +422,7 @@ public class SheetRenderer extends RendererBase {
         writer.startElement("span", null);
         writer.writeAttribute("onclick", "tobagoSheetEditPagingRow(this, '"
             + pagerCommandId + "', '" + pagingOnClick + "')", null);
-        writer.writeAttribute("class", className, null);
+        writer.writeClassAttribute(className);
         writer.writeAttribute("title", ResourceManagerUtil.getProperty(
             facesContext, "tobago", "sheetPagingInfoRowPagingTip"), null);
         writer.write(createSheetPagingInfo(data, facesContext,
@@ -437,7 +436,7 @@ public class SheetRenderer extends RendererBase {
             + " tobago-sheet-paging-span-" + showDirectLinks;
 
         writer.startElement("span", null);
-        writer.writeAttribute("class", className, null);
+        writer.writeClassAttribute(className);
         writeDirectPagingLinks(writer, facesContext, application, pager, data);
         writer.endElement("span");
       }
@@ -460,14 +459,14 @@ public class SheetRenderer extends RendererBase {
 
 
         writer.startElement("span", null);
-        writer.writeAttribute("class", className, null);
+        writer.writeClassAttribute(className);
         writer.writeText("", null);
 
 
         link(facesContext, application, pager, data.isAtBeginning(), Pager.FIRST, data);
         link(facesContext, application, pager, data.isAtBeginning(), Pager.PREV, data);
         writer.startElement("span", null);
-        writer.writeAttribute("class", "tobago-sheet-paging-pages-text", null);
+        writer.writeClassAttribute("tobago-sheet-paging-pages-text");
         writer.writeAttribute("onclick", "tobagoSheetEditPagingRow(this, '"
             + pagerCommandId + "', '" + pagingOnClick + "')", null);
         writer.writeAttribute("title", ResourceManagerUtil.getProperty(
@@ -696,9 +695,9 @@ public class SheetRenderer extends RendererBase {
         "image/" + command + (disabled ? "Disabled" : "") + ".gif");
     String onClick = ButtonRenderer.createOnClick(facesContext, link);
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement("img", null);
-    writer.writeAttribute("class", "tobago-sheet-footer-pager-button", null);
+    writer.writeClassAttribute("tobago-sheet-footer-pager-button");
     writer.writeAttribute("src", image, null);
     writer.writeAttribute("title", tip, null);
     writer.writeAttribute("onclick", onClick, null);
@@ -706,7 +705,7 @@ public class SheetRenderer extends RendererBase {
   }
 
   private void renderColumnHeader(FacesContext facesContext,
-      ResponseWriter writer, UIData component,
+      TobagoResponseWriter writer, UIData component,
       int columnCount, UIColumn column, String ascending, String descending,
       String image1x1, int sortMarkerWidth) throws IOException {
     String sheetId = component.getClientId(facesContext);
@@ -721,8 +720,8 @@ public class SheetRenderer extends RendererBase {
 
 
     writer.startElement("div", null);
-    writer.writeAttribute("id", sheetId + "_header_box_" + columnCount, null);
-    writer.writeAttribute("class", "tobago-sheet-header-box", null);
+    writer.writeIdAttribute(sheetId + "_header_box_" + columnCount);
+    writer.writeClassAttribute("tobago-sheet-header-box");
     writer.writeAttribute("style", divWidth, null);
 
 // ############################################
@@ -775,9 +774,8 @@ public class SheetRenderer extends RendererBase {
         = (String) column.getAttributes().get(TobagoConstants.ATTR_ALIGN);
 
     writer.startElement("div", null);
-    writer.writeAttribute("id", sheetId + "_header_outer_" + columnCount,
-        null);
-    writer.writeAttribute("class", "tobago-sheet-header" + sorterClass, null);
+    writer.writeIdAttribute(sheetId + "_header_outer_" + columnCount);
+    writer.writeClassAttribute("tobago-sheet-header" + sorterClass);
     if (align != null) {
       writer.writeAttribute("style", "text-align: " + align + ";", null);
     }
@@ -795,9 +793,8 @@ public class SheetRenderer extends RendererBase {
     writer.endElement("div");
 
     writer.startElement("div", null);
-    writer.writeAttribute("id", sheetId + "_header_resizer_" + columnCount,
-        null);
-    writer.writeAttribute("class", resizerClass, null);
+    writer.writeIdAttribute(sheetId + "_header_resizer_" + columnCount);
+    writer.writeClassAttribute(resizerClass);
     writer.write("&nbsp;");
     writer.endElement("div");
 
@@ -805,7 +802,7 @@ public class SheetRenderer extends RendererBase {
 // ############################################
     if (sorterImage != null) {
       writer.startElement("div", null);
-      writer.writeAttribute("class", "tobago-sheet-header-sort-div", null);
+      writer.writeClassAttribute("tobago-sheet-header-sort-div");
       writer.writeAttribute("title", sortTitle, null);
 
       writer.startElement("img", null);
@@ -824,7 +821,7 @@ public class SheetRenderer extends RendererBase {
 
 
   private void renderColumnSelectorHeader(FacesContext facesContext,
-      ResponseWriter writer, UIData component, UIColumn column)
+      TobagoResponseWriter writer, UIData component, UIColumn column)
       throws IOException {
     UIPanel menu = (UIPanel) column.getFacet(FACET_MENUPOPUP);
     if (menu == null) {
@@ -860,8 +857,8 @@ public class SheetRenderer extends RendererBase {
     }
 
     writer.startElement("div", null);
-    writer.writeAttribute("id", column.getClientId(facesContext), null);
-    writer.writeAttribute("class", "tobago-sheet-selector-menu", null);
+    writer.writeIdAttribute(column.getClientId(facesContext));
+    writer.writeClassAttribute("tobago-sheet-selector-menu");
     writer.endElement("div");
     RenderUtil.encode(facesContext, menu);
   }
@@ -901,7 +898,7 @@ public class SheetRenderer extends RendererBase {
     }
   }
 
-  private void writeDirectPagingLinks(ResponseWriter writer,
+  private void writeDirectPagingLinks(TobagoResponseWriter writer,
       FacesContext facesContext, Application application,
       MethodBinding methodBinding, UIData data)
       throws IOException {
@@ -1012,14 +1009,14 @@ public class SheetRenderer extends RendererBase {
     return link;
   }
 
-  private void writeLinkElement(ResponseWriter writer, String str, String skip,
+  private void writeLinkElement(TobagoResponseWriter writer, String str, String skip,
       String id, String hrefPostfix, boolean makeLink)
       throws IOException {
     String type = makeLink ? "a" : "span";
     writer.startElement(type, null);
-    writer.writeAttribute("class", "tobago-sheet-paging-links-link", null);
+    writer.writeClassAttribute("tobago-sheet-paging-links-link");
     if (makeLink) {
-      writer.writeAttribute("id", id + SUBCOMPONENT_SEP + "link_" + skip, null);
+      writer.writeIdAttribute(id + SUBCOMPONENT_SEP + "link_" + skip);
       writer.writeAttribute("href", "javascript: tobagoSheetSetPagerPage('"
           + id + "', '" + skip + hrefPostfix, null);
     }

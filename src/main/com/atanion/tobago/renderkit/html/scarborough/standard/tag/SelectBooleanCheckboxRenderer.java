@@ -73,9 +73,9 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
     writer.writeAttribute("type", "checkbox", null);
     writer.writeAttribute("value", "true", null);
     writer.writeAttribute("checked", checked);
-    writer.writeAttribute("name", component.getClientId(facesContext), null);
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
-    writer.writeAttribute("id", component.getClientId(facesContext), null);
+    writer.writeNameAttribute(component.getClientId(facesContext));
+    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeAttribute("disabled",
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
     writer.writeAttribute("title", null, ATTR_TIP);

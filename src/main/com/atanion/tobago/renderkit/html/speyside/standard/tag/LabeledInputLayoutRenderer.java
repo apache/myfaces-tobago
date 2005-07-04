@@ -62,7 +62,7 @@ public class LabeledInputLayoutRenderer extends
       writer.startElement("tr", null);
       if (label != null) {
         writer.startElement("td", null);
-        writer.writeAttribute("class", "tobago-label-td", null);
+        writer.writeClassAttribute("tobago-label-td");
         writer.writeAttribute("valign", "top", null);
         writer.writeText("", null); // to ensure that the start-tag is closed!
         RenderUtil.encode(facesContext, label);
@@ -96,7 +96,7 @@ public class LabeledInputLayoutRenderer extends
         writer.startElement("tr", null);
         if (label != null) {
           writer.startElement("td", null);
-          writer.writeAttribute("class", "tobago-label-td-underline-label", null);
+          writer.writeClassAttribute("tobago-label-td-underline-label");
           writer.startElement("img", null);
           writer.writeAttribute("src", image, null);
           writer.writeAttribute("border", "0", null);
@@ -104,7 +104,7 @@ public class LabeledInputLayoutRenderer extends
           writer.endElement("img");
           writer.endElement("td");
           writer.startElement("td", null);
-          writer.writeAttribute("class", "tobago-label-td-underline-spacer", null);
+          writer.writeClassAttribute("tobago-label-td-underline-spacer");
           writer.startElement("img", null);
           writer.writeAttribute("src", image, null);
           writer.writeAttribute("border", "0", null);

@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.scarborough.msie.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.MessageRendererBase;
@@ -67,13 +68,13 @@ public class MessageRenderer extends MessageRendererBase {
 
     Iterator iterator = facesContext.getMessages(clientId);
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
 
     if (iterator.hasNext()) {
 
       writer.startElement("span", component);
-      writer.writeAttribute("class", "tobago-validation-message", null);
+      writer.writeClassAttribute("tobago-validation-message");
       writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
 
       while (iterator.hasNext()) {

@@ -12,6 +12,7 @@ import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.util.CalendarUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -76,18 +77,18 @@ public class CalendarRenderer extends RendererBase {
 
     // rendering:
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement("table", component);
-    writer.writeAttribute("id", id, null);
+    writer.writeIdAttribute(id);
     // todo: use created standard classes
-    //writer.writeAttribute("class", null, "class");
-    writer.writeAttribute("class", "calendar", null);
+//    writer.writeComponentClass("class");
+    writer.writeClassAttribute("calendar");
     writer.writeAttribute("cellspacing", "0", null);
     writer.writeAttribute("cellpadding", "3", null);
     writer.writeAttribute("summary", "", null);
     // todo: use created standard classes
-    writer.writeAttribute("class", "calendar-header-tr", null);
+    writer.writeClassAttribute("calendar-header-tr");
 
     writer.startElement("tr", null);
     writer.startElement("th", null);
@@ -120,7 +121,7 @@ public class CalendarRenderer extends RendererBase {
 
     writer.startElement("th", null);
     writer.writeAttribute("align", "center", null);
-    writer.writeAttribute("id", id + ":title", null);
+    writer.writeIdAttribute(id + ":title");
     writer.writeText(dateFormat.format(calendar.getTime()), null);
     writer.endElement("th");
 
@@ -169,7 +170,7 @@ public class CalendarRenderer extends RendererBase {
     for (int week = 0; week < 6; ++week) {
 //    String style = (week < weekCount) ? "" : "style=\"display: none\"";
       writer.startElement("tr", null);
-      writer.writeAttribute("id", id + ":" + week, null);
+      writer.writeIdAttribute(id + ":" + week);
 //      writer.writeAttribute("style", style, null);
 
       for (int dayIt = 0; dayIt < 7; ++dayIt) {
@@ -180,8 +181,8 @@ public class CalendarRenderer extends RendererBase {
 
         writer.startElement("td", null);
         writer.writeAttribute("onclick", onclick, null);
-        writer.writeAttribute("id", id + ":" + week + ":" + dayIt, null);
-        writer.writeAttribute("class", getClass(date, model), null);
+        writer.writeIdAttribute(id + ":" + week + ":" + dayIt);
+        writer.writeClassAttribute(getClass(date, model));
         writer.writeAttribute("style", "cursor: pointer", null);
 
         writer.writeText(dayDescription, null);
@@ -198,40 +199,40 @@ public class CalendarRenderer extends RendererBase {
 
     writer.startElement("input", null);
     writer.writeAttribute("type", "hidden", null);
-    writer.writeAttribute("name", "/" + id + "/year", null);
-    writer.writeAttribute("id", id + ":year", null);
+    writer.writeNameAttribute("/" + id + "/year");
+    writer.writeIdAttribute(id + ":year");
     writer.writeAttribute("value", new Integer(calendar.get(Calendar.YEAR)), null);
     writer.endElement("input");
 
     writer.startElement("input", null);
     writer.writeAttribute("type", "hidden", null);
-    writer.writeAttribute("name", "/" + id + "/month", null);
-    writer.writeAttribute("id", id + ":month", null);
+    writer.writeNameAttribute("/" + id + "/month");
+    writer.writeIdAttribute(id + ":month");
     writer.writeAttribute("value", new Integer(1 + calendar.get(Calendar.MONTH)), null);
     writer.endElement("input");
 
     writer.startElement("input", null);
     writer.writeAttribute("type", "hidden", null);
-    writer.writeAttribute("name", "/" + id + "/day", null);
-    writer.writeAttribute("id", id + ":day", null);
+    writer.writeNameAttribute("/" + id + "/day");
+    writer.writeIdAttribute(id + ":day");
     writer.writeAttribute("value", new Integer(calendar.get(Calendar.DAY_OF_MONTH)), null);
     writer.endElement("input");
 
     writer.startElement("input", null);
     writer.writeAttribute("type", "hidden", null);
-    writer.writeAttribute("id", id + ":firstDayOfWeek", null);
+    writer.writeIdAttribute(id + ":firstDayOfWeek");
     writer.writeAttribute("value", Integer.toString(calendar.getFirstDayOfWeek()), null);
     writer.endElement("input");
 
     writer.startElement("input", null);
     writer.writeAttribute("type", "hidden", null);
-    writer.writeAttribute("id", id + ":monthNames", null);
+    writer.writeIdAttribute(id + ":monthNames");
     writer.writeAttribute("value", getMonthNames(locale), null);
     writer.endElement("input");
 
     writer.startElement("input", null);
     writer.writeAttribute("type", "hidden", null);
-    writer.writeAttribute("id", id + ":fieldId", null);
+    writer.writeIdAttribute(id + ":fieldId");
     writer.writeAttribute("value", "", null);
     writer.endElement("input");
 

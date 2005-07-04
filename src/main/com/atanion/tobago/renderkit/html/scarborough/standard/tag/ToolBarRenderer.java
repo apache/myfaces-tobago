@@ -57,11 +57,11 @@ public class ToolBarRenderer extends RendererBase {
       setToolBarHeight(facesContext, uiComponent);
 
       writer.startElement("div", toolbar);
-      writer.writeAttribute("id", toolbar.getClientId(facesContext), null);
-      writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+      writer.writeIdAttribute(toolbar.getClientId(facesContext));
+      writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
       writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
       writer.startElement("div", toolbar);
-      writer.writeAttribute("class", "tobago-toolbar-div-inner", null);
+      writer.writeClassAttribute("tobago-toolbar-div-inner");
     }
 
     boolean boxFacet = isBoxFacet(toolbar);
@@ -271,7 +271,7 @@ public class ToolBarRenderer extends RendererBase {
     final String mouseOutScript = "tobagoToolbarMousesout(" + args + ");";
 
     writer.startElement("div", null);
-    writer.writeAttribute("class", divClasses, null);
+    writer.writeClassAttribute(divClasses);
     if (!disabled) {
       writer.writeAttribute("onmouseover", mouseOverScript, null);
       writer.writeAttribute("onmouseout", mouseOutScript, null);
@@ -282,7 +282,7 @@ public class ToolBarRenderer extends RendererBase {
     writer.writeAttribute("cellspacing", "0", null);
     writer.writeAttribute("summary", "", null);
     writer.writeAttribute("border", "0", null);
-    writer.writeAttribute("class", tableClasses, null);
+    writer.writeClassAttribute(tableClasses);
     writer.startElement("tr", null);
 
 
@@ -320,12 +320,12 @@ public class ToolBarRenderer extends RendererBase {
         renderAnchorBegin(facesContext, writer, command, label, disabled);
       }
       writer.startElement("img", command);
-      writer.writeAttribute("id", graphicId, null);
+      writer.writeIdAttribute(graphicId);
       writer.writeAttribute("src", image, null);
       writer.writeAttribute("alt", "", null);
       writer.writeAttribute("title", null, ATTR_TIP);
       writer.writeAttribute("border", "0", null);
-      writer.writeAttribute("class", className, null);
+      writer.writeClassAttribute(className);
       if (render1pxImage) {
         writer.writeAttribute("style", "width: 1px;", null);
       }
@@ -350,7 +350,7 @@ public class ToolBarRenderer extends RendererBase {
 
     if (!ToolBarTag.LABEL_OFF.equals(labelPosition)) {
       writer.startElement("td", null);
-      writer.writeAttribute("class", "tobago-toolbar-label-td", null);
+      writer.writeClassAttribute("tobago-toolbar-label-td");
       writer.writeAttribute("align", "center", null);
       if (popupMenu != null) {
         writer.writeAttribute("style", "padding-right: 3px;", null);
@@ -460,7 +460,7 @@ public class ToolBarRenderer extends RendererBase {
       final LabelWithAccessKey label, final boolean disabled)
       throws IOException {
     writer.startElement("a", command);
-    writer.writeAttribute("class", "tobago-toolBar-button-link", null);
+    writer.writeClassAttribute("tobago-toolBar-button-link");
     writer.writeAttribute("title", null, ATTR_TIP);
     if (!disabled) {
       writer.writeAttribute("href", "#", null);
@@ -488,13 +488,12 @@ public class ToolBarRenderer extends RendererBase {
       String backgroundImage = ResourceManagerUtil.getImage(facesContext,
           "image/1x1.gif");
       writer.startElement("div", null);
-      writer.writeAttribute("id",
-          command.getClientId(facesContext) + SUBCOMPONENT_SEP + "popup", null);
-      writer.writeAttribute("class", "tobago-toolBar-button-menu", null);
+      writer.writeIdAttribute(
+          command.getClientId(facesContext) + SUBCOMPONENT_SEP + "popup");
+      writer.writeClassAttribute("tobago-toolBar-button-menu");
       writer.startElement("img", null);
       writer.writeAttribute("src", backgroundImage, null);
-      writer.writeAttribute("class",
-          "tobago-toolBar-button-menu-background-image", null);
+      writer.writeClassAttribute("tobago-toolBar-button-menu-background-image");
       writer.endElement("img");
       writer.endElement("div");
       popupMenu.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);

@@ -73,14 +73,14 @@ public class PageRenderer extends PageRendererBase {
 
     HtmlRendererUtil.prepareRender(facesContext, page);
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     // replace responseWriter and render page content
     StringWriter content = new StringWriter();
     ResponseWriter contentWriter = new TobagoResponseWriter(
         content, writer.getContentType(), writer.getCharacterEncoding());
     facesContext.setResponseWriter(contentWriter);
-        
+
     UIComponent menubar = page.getFacet(FACET_MENUBAR);
     if (menubar != null) {
       menubar.getAttributes().put(ATTR_PAGE_MENU, Boolean.TRUE);
@@ -89,7 +89,7 @@ public class PageRenderer extends PageRendererBase {
       RenderUtil.encode(facesContext, menubar);
     }
 
-    UILayout.getLayout(component).encodeChildrenOfComponent(facesContext, component);    
+    UILayout.getLayout(component).encodeChildrenOfComponent(facesContext, component);
 //    RenderUtil.encodeChildren(facesContext, page);
 
     // reset responseWriter and render page
@@ -125,7 +125,7 @@ public class PageRenderer extends PageRendererBase {
       writer.write(doctype);
       writer.write('\n');
     }
-    
+
     writer.startElement("html", null);
     writer.startElement("head", null);
 
@@ -221,16 +221,16 @@ public class PageRenderer extends PageRendererBase {
     writer.writeAttribute("onload", "onloadScript()", null);
     //this ist for ie to prevent scrollbars where none are needed
     writer.writeAttribute("scroll", "auto", null);
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
-    writer.writeAttribute("id", clientId, null);
+    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeIdAttribute(clientId);
 
 
 
     writer.startElement("form", page);
-    writer.writeAttribute("name",
-        clientId + TobagoConstants.SUBCOMPONENT_SEP + "form", null);
+    writer.writeNameAttribute(
+        clientId + TobagoConstants.SUBCOMPONENT_SEP + "form");
     writer.writeAttribute("action", formAction, null);
-    writer.writeAttribute("id", page.getFormId(facesContext), null);
+    writer.writeIdAttribute(page.getFormId(facesContext));
     writer.writeAttribute("method", null, TobagoConstants.ATTR_METHOD);
     writer.writeAttribute("enctype", null, TobagoConstants.ATTR_ENCTYPE);
     // Todo: enable configuration of  'accept-charset'
@@ -238,10 +238,10 @@ public class PageRenderer extends PageRendererBase {
 
     writer.startElement("input", null);
     writer.writeAttribute("type", "hidden", null);
-    writer.writeAttribute("name",
-        clientId + TobagoConstants.SUBCOMPONENT_SEP + "form-action", null);
-    writer.writeAttribute("id",
-        clientId + TobagoConstants.SUBCOMPONENT_SEP + "form-action", null);
+    writer.writeNameAttribute(
+        clientId + TobagoConstants.SUBCOMPONENT_SEP + "form-action");
+    writer.writeIdAttribute(
+        clientId + TobagoConstants.SUBCOMPONENT_SEP + "form-action");
     writer.writeAttribute("value", "", null);
     writer.endElement("input");
 
@@ -251,8 +251,8 @@ public class PageRenderer extends PageRendererBase {
     if (ViewHandlerImpl.USE_VIEW_MAP) {
       writer.startElement("input", null);
       writer.writeAttribute("type", "hidden", null);
-      writer.writeAttribute("name", ViewHandlerImpl.PAGE_ID, null);
-      writer.writeAttribute("id", ViewHandlerImpl.PAGE_ID, null);
+      writer.writeNameAttribute(ViewHandlerImpl.PAGE_ID);
+      writer.writeIdAttribute(ViewHandlerImpl.PAGE_ID);
       Object value = facesContext.getViewRoot().getAttributes().get(
           ViewHandlerImpl.PAGE_ID);
       writer.writeAttribute("value", (value != null ? value : ""), null);
@@ -260,7 +260,7 @@ public class PageRenderer extends PageRendererBase {
     }
 */
 
-    // write the proviously rendered page content 
+    // write the proviously rendered page content
     writer.write(content.toString());
 
     // write popup components

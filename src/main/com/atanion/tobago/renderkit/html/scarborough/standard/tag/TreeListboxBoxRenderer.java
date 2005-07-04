@@ -7,6 +7,7 @@ import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.component.UITreeListbox;
 import com.atanion.tobago.component.UITreeNode;
 import com.atanion.tobago.component.UITreeListboxBox;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -40,15 +41,15 @@ public class TreeListboxBoxRenderer extends RendererBase {
     }
 
     String treeId = tree.getClientId(facesContext);
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
 
     String listboxId = treeId + SUBCOMPONENT_SEP + "cont_" + level;
     String onChange = "tobagoTreeListboxChange(this, '" + treeId + "')";
     String onClick = "tobagoTreeListboxClick(this, '" + treeId + "')";
     writer.startElement("select", component);
-    writer.writeAttribute("id", listboxId, null);
-    writer.writeAttribute("class", className, null);
+    writer.writeIdAttribute(listboxId);
+    writer.writeClassAttribute(className);
     writer.writeAttribute("style" , null, ATTR_STYLE);
     writer.writeAttribute("size", "2", null);
     writer.writeAttribute("onchange", onChange, null);

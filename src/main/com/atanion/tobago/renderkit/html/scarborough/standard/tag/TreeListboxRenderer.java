@@ -15,6 +15,7 @@ import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.util.LayoutUtil;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -45,18 +46,18 @@ public class TreeListboxRenderer extends TreeRenderer{
     String clientId = tree.getClientId(facesContext);
     UITreeNode root = tree.getRoot();
 
-    ResponseWriter writer = facesContext.getResponseWriter();
 
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement("div", tree);
-    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
+    writer.writeComponentClass( ATTR_STYLE_CLASS);
     writer.writeAttribute("style", null, ATTR_STYLE);
 
     final Set<DefaultMutableTreeNode> selection = tree.getState().getSelection();
     final Iterator<DefaultMutableTreeNode> iterator = selection.iterator();
     writer.startElement("input", tree);
     writer.writeAttribute("type", "hidden", null);
-    writer.writeAttribute("name", clientId, null);
-    writer.writeAttribute("id", clientId, null);
+    writer.writeNameAttribute(clientId);
+    writer.writeIdAttribute(clientId);
     writer.writeAttribute("value", ";", null);
     writer.endElement("input");
 
@@ -68,8 +69,8 @@ public class TreeListboxRenderer extends TreeRenderer{
     }
     writer.startElement("input", tree);
     writer.writeAttribute("type", "hidden", null);
-    writer.writeAttribute("name", clientId + UITreeListbox.SELECT_STATE, null);
-    writer.writeAttribute("id", clientId + UITreeListbox.SELECT_STATE, null);
+    writer.writeNameAttribute(clientId + UITreeListbox.SELECT_STATE);
+    writer.writeIdAttribute(clientId + UITreeListbox.SELECT_STATE);
     writer.writeAttribute("value", value, null);
     writer.endElement("input");
 
@@ -127,7 +128,7 @@ public class TreeListboxRenderer extends TreeRenderer{
 //    writer.writeAttribute("cellspacing", "0", null);
 //    writer.writeAttribute("border", "0", null);
 //    writer.writeAttribute("summary", "", null);
-//    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
+//    writer.writeComponentClass(ATTR_STYLE_CLASS);
 //    writer.startElement("tr", null);
 //
 //
@@ -180,8 +181,8 @@ public class TreeListboxRenderer extends TreeRenderer{
 //    String listboxId = clientId + SUBCOMPONENT_SEP + "cont_" + level;
 //    String onChange = "tobagoTreeListboxChange(this, '" + clientId + "')";
 //    writer.startElement("select", null);
-//    writer.writeAttribute("id", listboxId, null);
-//    writer.writeAttribute("class", className, null);
+//    writer.writeIdAttribute(listboxId);
+//    writer.writeClassAttribute(className);
 //    writer.writeAttribute("style" , "width: 150px; height: 100px;", null);
 //    writer.writeAttribute("size", "2", null);
 //    writer.writeAttribute("onchange", onChange, null);

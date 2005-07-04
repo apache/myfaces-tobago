@@ -74,12 +74,12 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
 
     writer.startElement("select", component);
     String clientId = component.getClientId(facesContext);
-    writer.writeAttribute("name", clientId, null);
-    writer.writeAttribute("id", clientId, null);
+    writer.writeNameAttribute(clientId);
+    writer.writeIdAttribute(clientId);
     writer.writeAttribute("disabled",
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
     writer.writeAttribute("style", null, "style");
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
     writer.writeAttribute("title", null, ATTR_TIP);
     writer.writeAttribute("size", 2, null); // should be greater 1
     if (!ComponentUtil.getBooleanAttribute(component, ATTR_REQUIRED)) {

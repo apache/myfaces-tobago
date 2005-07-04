@@ -86,12 +86,12 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
     writer.startElement("select", component);
     String clientId = component.getClientId(facesContext);
-    writer.writeAttribute("name", clientId, null);
-    writer.writeAttribute("id", clientId, null);
+    writer.writeNameAttribute(clientId);
+    writer.writeIdAttribute(clientId);
     writer.writeAttribute("disabled",
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
     writer.writeAttribute("style", null, "style");
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
     writer.writeAttribute("multiple", "multiple", null);
     writer.writeAttribute("title", null, ATTR_TIP);
 

@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIForm;
 import com.atanion.tobago.component.UIGridLayout;
@@ -130,11 +131,11 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     final Map attributes = layout.getAttributes();
     List columnWidths =  (List) attributes.get(TobagoConstants.ATTR_WIDTH_LIST);
 
-    ResponseWriter writer = facesContext.getResponseWriter();
 
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement("table", layout);
     writer.writeAttribute("border", null, TobagoConstants.ATTR_BORDER);
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
     writer.writeAttribute("style", null, TobagoConstants.ATTR_LAYOUT_TABLE_STYLE);
     writer.writeAttribute("cellspacing", "0", null);
     writer.writeAttribute("cellpadding", "0", null);
@@ -231,7 +232,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
 
             writer.startElement("td", null);
-            writer.writeAttribute("class", "tobago-gridLayout-cell-td", null);
+            writer.writeClassAttribute("tobago-gridLayout-cell-td");
             writer.writeAttribute("style", cellStyle, null);
             if (spanX > 1) {
               writer.writeAttribute("colspan", Integer.toString(spanX), null);
@@ -243,7 +244,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
             writer.writeText("", null);
 
             writer.startElement("div", null);
-            writer.writeAttribute("class", cellClasses, null);
+            writer.writeClassAttribute(cellClasses);
             writer.writeAttribute("style", cellStyle, null);
 
             RenderUtil.encode(facesContext, cell);

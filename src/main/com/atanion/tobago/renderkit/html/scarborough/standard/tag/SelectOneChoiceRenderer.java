@@ -53,11 +53,11 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
 
 
     writer.startElement("select", component);
-    writer.writeAttribute("name", component.getClientId(facesContext), null);
-    writer.writeAttribute("id", component.getClientId(facesContext), null);
+    writer.writeNameAttribute(component.getClientId(facesContext));
+    writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeAttribute("disabled", disabled);
     writer.writeAttribute("style", null, ATTR_STYLE);
-    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
+    writer.writeComponentClass( ATTR_STYLE_CLASS);
     writer.writeAttribute("title", null, ATTR_TIP);
     String onchange = HtmlUtils.generateOnchange(component, facesContext);
     if (onchange != null) {

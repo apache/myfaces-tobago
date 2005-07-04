@@ -48,8 +48,8 @@ public class TextAreaRenderer extends InRendererBase {
     String onchange = HtmlUtils.generateOnchange(input, facesContext);
 
     writer.startElement("textarea", input);
-    writer.writeAttribute("name", clientId, null);
-    writer.writeAttribute("id", clientId, null);
+    writer.writeNameAttribute(clientId);
+    writer.writeIdAttribute(clientId);
     writer.writeAttribute("rows", null, ATTR_ROWS);
     if (title != null) {
       writer.writeAttribute("title", title, null);
@@ -59,7 +59,7 @@ public class TextAreaRenderer extends InRendererBase {
     writer.writeAttribute("disabled",
         ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED));
     writer.writeAttribute("style", null, ATTR_STYLE);
-    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
+    writer.writeComponentClass( ATTR_STYLE_CLASS);
     if (onchange != null) {
       writer.writeAttribute("onchange", onchange, null);
     }

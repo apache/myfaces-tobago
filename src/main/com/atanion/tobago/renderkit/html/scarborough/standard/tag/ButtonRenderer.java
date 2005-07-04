@@ -54,15 +54,15 @@ public class ButtonRenderer extends CommandRendererBase {
 
     writer.startElement("button", component);
     writer.writeAttribute("type", buttonType, null);
-    writer.writeAttribute("name", clientId, null);
-    writer.writeAttribute("id", clientId, null);
+    writer.writeNameAttribute(clientId);
+    writer.writeIdAttribute(clientId);
     writer.writeAttribute("title", null, ATTR_TIP);
     writer.writeAttribute("disabled", disabled);
     if (onclick != null) {
       writer.writeAttribute("onclick", onclick, null);
     }
     writer.writeAttribute("style", null, ATTR_STYLE);
-    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
+    writer.writeComponentClass( ATTR_STYLE_CLASS);
     if (label.getAccessKey() != null) {
       if (LOG.isInfoEnabled()
           && ! AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {

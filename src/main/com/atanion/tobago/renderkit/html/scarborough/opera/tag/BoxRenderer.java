@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.scarborough.opera.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.UserAgent;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
@@ -35,15 +36,15 @@ public class BoxRenderer extends com.atanion.tobago.renderkit.html.scarborough.s
     String labelString
         = (String) component.getAttributes().get(TobagoConstants.ATTR_LABEL);
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement("fieldset", component);
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
     writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
 
     if (label != null || labelString != null) {
       writer.startElement("legend", component);
-      writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+      writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
 
       writer.startElement("b", null);
       writer.writeText("", null);
@@ -61,7 +62,7 @@ public class BoxRenderer extends com.atanion.tobago.renderkit.html.scarborough.s
       }
     }
     writer.startElement("div", component);
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
     writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_INNER);
   }
 

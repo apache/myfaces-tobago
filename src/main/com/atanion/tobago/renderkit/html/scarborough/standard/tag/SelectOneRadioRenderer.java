@@ -91,12 +91,12 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
       writer.startElement("input", component);
       writer.writeAttribute("type", "radio", null);
-      writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+      writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
       if (item.getValue().equals(value)) {
         writer.writeAttribute("checked", "checked", null);
       }
-      writer.writeAttribute("name", clientId, null);
-      writer.writeAttribute("id", id, null);
+      writer.writeNameAttribute(clientId);
+      writer.writeIdAttribute(id);
       String formattedValue
           = getFormattedValue(facesContext, component, item.getValue());
       writer.writeAttribute("value", formattedValue, null);
@@ -120,7 +120,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         // fixme: use created UIOutput Label
         // fixme: see outcommented part
         writer.startElement("label", null);
-        writer.writeAttribute("class", "tobago-label-default", null);
+        writer.writeClassAttribute("tobago-label-default");
         writer.writeAttribute("for", id, null);
         writer.writeText(item.getLabel(), null);
         writer.endElement("label");

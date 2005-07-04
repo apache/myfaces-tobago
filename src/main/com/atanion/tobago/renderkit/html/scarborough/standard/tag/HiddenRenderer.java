@@ -7,6 +7,7 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.InputRendererBase;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -29,13 +30,13 @@ public class HiddenRenderer extends InputRendererBase {
       UIComponent component) throws IOException {
 
     String clientId = component.getClientId(facesContext);
-    
-    ResponseWriter writer = facesContext.getResponseWriter();
+
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement("input", component);
     writer.writeAttribute("type", "hidden", null);
-    writer.writeAttribute("name", clientId, null);
-    writer.writeAttribute("id", clientId, null);
+    writer.writeNameAttribute(clientId);
+    writer.writeIdAttribute(clientId);
     writer.writeAttribute("value", ComponentUtil.currentValue(component), null);
     writer.endElement("input");
   }

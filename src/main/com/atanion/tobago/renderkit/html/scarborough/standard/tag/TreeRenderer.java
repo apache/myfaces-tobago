@@ -14,6 +14,8 @@ import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.StringUtil;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -80,31 +82,31 @@ public class TreeRenderer extends RendererBase {
     String clientId = tree.getClientId(facesContext);
     UITreeNode root = tree.getRoot();
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement("div", tree);
-    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
+    writer.writeComponentClass( ATTR_STYLE_CLASS);
     writer.writeAttribute("style", null, ATTR_STYLE);
 
     writer.startElement("input", tree);
     writer.writeAttribute("type", "hidden", null);
-    writer.writeAttribute("name", clientId, null);
-    writer.writeAttribute("id", clientId, null);
+    writer.writeNameAttribute(clientId);
+    writer.writeIdAttribute(clientId);
     writer.writeAttribute("value", ";", null);
     writer.endElement("input");
 
     writer.startElement("input", tree);
     writer.writeAttribute("type", "hidden", null);
-    writer.writeAttribute("name", clientId + UITree.MARKER, null);
-    writer.writeAttribute("id", clientId + UITree.MARKER, null);
+    writer.writeNameAttribute(clientId + UITree.MARKER);
+    writer.writeIdAttribute(clientId + UITree.MARKER);
     writer.writeAttribute("value", "", null);
     writer.endElement("input");
 
     if (isSelectable(tree)) {
       writer.startElement("input", tree);
       writer.writeAttribute("type", "hidden", null);
-      writer.writeAttribute("name", clientId + UITree.SELECT_STATE, null);
-      writer.writeAttribute("id", clientId + UITree.SELECT_STATE, null);
+      writer.writeNameAttribute(clientId + UITree.SELECT_STATE);
+      writer.writeIdAttribute(clientId + UITree.SELECT_STATE);
       writer.writeAttribute("value", ";", null);
       writer.endElement("input");
     }
@@ -178,10 +180,10 @@ public class TreeRenderer extends RendererBase {
     writer.writeAttribute("cellspacing", "0", null);
     writer.writeAttribute("border", "0", null);
     writer.writeAttribute("summary", "", null);
-    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
+    writer.writeComponentClass( ATTR_STYLE_CLASS);
     writer.startElement("tr", null);
     writer.startElement("td", null);
-    writer.writeAttribute("id", clientId + "-cont", null);
+    writer.writeIdAttribute(clientId + "-cont");
     writer.writeComment("placeholder for treecontent");
     writer.endElement("td");
     writer.endElement("tr");

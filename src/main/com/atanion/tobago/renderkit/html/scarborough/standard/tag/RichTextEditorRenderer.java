@@ -7,6 +7,7 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.lib.richtext.WikiParser;
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.taglib.component.ToolBarTag;
 import com.atanion.tobago.taglib.component.ToolBarSelectOneTag;
 import com.atanion.tobago.taglib.component.CommandTag;
@@ -82,13 +83,13 @@ public class RichTextEditorRenderer extends InputRendererBase {
 
     String clientId = component.getClientId(facesContext);
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     String classes
         = (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE_CLASS);
 
     writer.startElement("div", component);
-    writer.writeAttribute("class", classes + " tobago-richTextEditor-container", null);
+    writer.writeClassAttribute(classes + " tobago-richTextEditor-container");
     writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
     // class, stly.width, style.height
 
@@ -108,13 +109,13 @@ public class RichTextEditorRenderer extends InputRendererBase {
     if (previewState) {
       writer.startElement("input", component);
       writer.writeAttribute("type", "hidden", null);
-      writer.writeAttribute("name", clientId, null);
+      writer.writeNameAttribute(clientId);
       writer.writeAttribute("value", content, null);
       writer.endElement("input");
 
       writer.startElement("div", component);
-      writer.writeAttribute("class", classes + " tobago-richTextEditor-body", null);
-      writer.writeAttribute("id", clientId, null);
+      writer.writeClassAttribute(classes + " tobago-richTextEditor-body");
+      writer.writeIdAttribute(clientId);
 
       writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_BODY);
 
@@ -124,9 +125,9 @@ public class RichTextEditorRenderer extends InputRendererBase {
     }
     else {
       writer.startElement("textarea", component);
-      writer.writeAttribute("class", classes + " tobago-richTextEditor-body", null);
-      writer.writeAttribute("name", clientId, null);
-      writer.writeAttribute("id", clientId, null);
+      writer.writeClassAttribute(classes + " tobago-richTextEditor-body");
+      writer.writeNameAttribute(clientId);
+      writer.writeIdAttribute(clientId);
       writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_BODY);
       String onchange = HtmlUtils.generateOnchange(component, facesContext);
       if (null != onchange) {

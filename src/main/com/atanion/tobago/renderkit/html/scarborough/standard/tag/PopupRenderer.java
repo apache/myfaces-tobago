@@ -14,6 +14,7 @@ import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPopup;
 import com.atanion.tobago.component.UIPage;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -33,20 +34,20 @@ public class PopupRenderer extends RendererBase {
   public void encodeBeginTobago(
       FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     UIPopup component = (UIPopup) uiComponent ;
     final String clientId = component.getClientId(facesContext);
     final String contentDivId = clientId + CONTENT_ID_POSTFIX;
     final String left = component.getLeft();
     final String top = component.getTop();
     writer.startElement("div", component);
-    writer.writeAttribute("id", clientId, null);
-    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
+    writer.writeIdAttribute(clientId);
+    writer.writeComponentClass( ATTR_STYLE_CLASS);
     writer.writeAttribute("onclick", "tobagoPopupBlink('" + clientId + "')", null);
     writer.endElement("div");
     writer.startElement("div", component);
-    writer.writeAttribute("id", contentDivId, null);
-    writer.writeAttribute("class", "tobago-popup-content", null);
+    writer.writeIdAttribute(contentDivId);
+    writer.writeClassAttribute("tobago-popup-content");
 
     StringBuffer style = new StringBuffer();
     if (component.getWidth() != null) {

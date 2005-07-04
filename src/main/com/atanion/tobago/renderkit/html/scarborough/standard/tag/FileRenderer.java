@@ -107,12 +107,12 @@ public class FileRenderer extends InputRendererBase {
 
     writer.startElement("input", component);
     writer.writeAttribute("type", "file", null);
-    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
+    writer.writeComponentClass( ATTR_STYLE_CLASS);
     if (!ClientProperties.getInstance(facesContext).getUserAgent().isMozilla()) {
       writer.writeAttribute("style", null, ATTR_STYLE);
     }
-    writer.writeAttribute("name", clientId, null);
-    writer.writeAttribute("id", clientId, null);
+    writer.writeNameAttribute(clientId);
+    writer.writeIdAttribute(clientId);
     writer.writeAttribute("readonly",
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
     writer.writeAttribute("title", null, ATTR_TIP);

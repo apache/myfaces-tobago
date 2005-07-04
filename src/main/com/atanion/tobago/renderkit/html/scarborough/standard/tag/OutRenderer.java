@@ -7,6 +7,7 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -30,7 +31,7 @@ public class OutRenderer extends RendererBase {
       text = "";
     }
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     boolean escape
         = ComponentUtil.getBooleanAttribute(component, ATTR_ESCAPE);
@@ -40,7 +41,7 @@ public class OutRenderer extends RendererBase {
     if (createSpan) {
       writer.startElement("span", component);
       writer.writeAttribute("style", null, ATTR_STYLE);
-      writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
+      writer.writeComponentClass( ATTR_STYLE_CLASS);
       writer.writeAttribute("title", null, ATTR_TIP);
     }
     if (escape) {

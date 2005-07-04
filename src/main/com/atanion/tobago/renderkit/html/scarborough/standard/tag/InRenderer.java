@@ -58,8 +58,8 @@ public class InRenderer extends InRendererBase{
 
     writer.startElement("input", input);
     writer.writeAttribute("type", type, null);
-    writer.writeAttribute("name", id, null);
-    writer.writeAttribute("id", id, null);
+    writer.writeNameAttribute(id);
+    writer.writeIdAttribute(id);
     if (currentValue != null) {
       writer.writeAttribute("value", currentValue, null);
     }
@@ -71,7 +71,7 @@ public class InRenderer extends InRendererBase{
     writer.writeAttribute("disabled",
         ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED));
     writer.writeAttribute("style", null, ATTR_STYLE);
-    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
+    writer.writeComponentClass( ATTR_STYLE_CLASS);
     if (onchange != null) {
       // todo: create and use utility method to write attributes without quoting
 //      writer.writeAttribute("onchange", onchange, null);
@@ -86,7 +86,7 @@ public class InRenderer extends InRendererBase{
         if (pattern != null) {
           writer.startElement("input", input);
           writer.writeAttribute("type", "hidden", null);
-          writer.writeAttribute("id", id + ":converterPattern", null);
+          writer.writeIdAttribute(id + ":converterPattern");
           writer.writeAttribute("value", pattern, null);
           writer.endElement("input");
         }

@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.util.AccessKeyMap;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
@@ -109,13 +110,13 @@ public class TabGroupRenderer extends RendererBase {
     UIPage page = ComponentUtil.findPage(component);
     page.getScriptFiles().add("script/tab.js");
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement("input", null);
     writer.writeAttribute("type", "hidden", null);
     writer.writeAttribute("value", Integer.toString(activeIndex), null);
-    writer.writeAttribute("name", hiddenId, null);
-    writer.writeAttribute("id", hiddenId, null);
+    writer.writeNameAttribute(hiddenId);
+    writer.writeIdAttribute(hiddenId);
     writer.endElement("input");
 
     // if a outer uiPage is presend, the virtual tab will go over all
@@ -143,8 +144,8 @@ public class TabGroupRenderer extends RendererBase {
         writer.writeAttribute("cellpadding", "0", null);
         writer.writeAttribute("cellspacing", "0", null);
         writer.writeAttribute("summary", "", null);
-        writer.writeAttribute("id",
-            component.getClientId(facesContext) + '.' + virtualTab, null);
+        writer.writeIdAttribute(
+            component.getClientId(facesContext) + '.' + virtualTab);
         writer.writeAttribute("style", oStyle.toString(), null);
 
         writer.startElement("tr", null);
@@ -196,13 +197,13 @@ public class TabGroupRenderer extends RendererBase {
           writer.writeAttribute("title", null, ATTR_TIP);
           
           writer.startElement("div", null);
-          writer.writeAttribute("class", outerClass, null);
+          writer.writeClassAttribute(outerClass);
 
           writer.startElement("div", null);
-          writer.writeAttribute("class", innerClass, null);
+          writer.writeClassAttribute(innerClass);
 
           writer.startElement("a", null);
-          writer.writeAttribute("class", "tobago-tab-link", null);
+          writer.writeClassAttribute("tobago-tab-link");
           writer.writeAttribute("href", url, null);
           if (label.getAccessKey() != null) {
             if (LOG.isWarnEnabled() && ! AccessKeyMap.addAccessKey(
@@ -229,7 +230,7 @@ public class TabGroupRenderer extends RendererBase {
         writer.writeAttribute("width", "100%", null);
 
         writer.startElement("div", null);
-        writer.writeAttribute("class", "tobago-tab-fulfill", null);
+        writer.writeClassAttribute("tobago-tab-fulfill");
 
         writer.startElement("img", null);
         writer.writeAttribute("src", image1x1, null);
@@ -254,13 +255,13 @@ public class TabGroupRenderer extends RendererBase {
     }
   }
 
-  protected void encodeContent(ResponseWriter writer, FacesContext facesContext, UIPanel activeTab) throws IOException {
+  protected void encodeContent(TobagoResponseWriter writer, FacesContext facesContext, UIPanel activeTab) throws IOException {
 
     String bodyStyle = (String)
         activeTab.getParent().getAttributes().get(TobagoConstants.ATTR_STYLE_BODY);
     writer.startElement("tr", null);
     writer.startElement("td", null);
-    writer.writeAttribute("class", "tobago-tab-content", null);
+    writer.writeClassAttribute("tobago-tab-content");
     writer.writeAttribute("style", bodyStyle, null);writer.writeText("", null);
     RenderUtil.encodeChildren(facesContext, activeTab);
     writer.endElement("td");

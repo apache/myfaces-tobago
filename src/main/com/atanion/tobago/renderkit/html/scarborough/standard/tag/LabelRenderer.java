@@ -9,6 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.renderkit.LabelWithAccessKey;
@@ -70,15 +71,15 @@ public class LabelRenderer extends RendererBase {
 
     // todo move into labelLayout ?
     createClassAttribute(component);
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement("a", output);
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
     writer.startElement("label", output);
     if (forValue != null) {
       writer.writeAttribute("for", forValue, null);
     }
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
     if (label.getAccessKey() != null) {
       if (LOG.isInfoEnabled()
           && ! AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {

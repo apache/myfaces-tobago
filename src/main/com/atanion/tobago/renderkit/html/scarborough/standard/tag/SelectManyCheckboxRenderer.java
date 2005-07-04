@@ -68,11 +68,11 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       writer.startElement("input", component);
       writer.writeAttribute("type", "checkbox", null);
 
-      writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+      writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
       writer.writeAttribute("checked",
           RenderUtil.contains(values, item.getValue()));
-      writer.writeAttribute("name", id, null);
-      writer.writeAttribute("id", itemId, null);
+      writer.writeNameAttribute(id);
+      writer.writeIdAttribute(itemId);
       String formattedValue
           = getFormattedValue(facesContext, component, item.getValue());
       writer.writeAttribute("value", formattedValue, null);
@@ -93,7 +93,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
         // fixme: use created UIOutput Label
         // fixme: see outcommented part
         writer.startElement("label", null);
-        writer.writeAttribute("class", "tobago-label-default", null);
+        writer.writeClassAttribute("tobago-label-default");
         writer.writeAttribute("for", itemId, null);
         writer.writeText(item.getLabel(), null);
         writer.endElement("label");

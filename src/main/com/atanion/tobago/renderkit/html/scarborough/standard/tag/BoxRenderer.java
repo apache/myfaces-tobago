@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.taglib.component.ToolBarTag;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.renderkit.BoxRendererBase;
@@ -39,15 +40,15 @@ public class BoxRenderer extends BoxRendererBase {
       style = HtmlRendererUtil.replaceStyleAttribute(style, "padding-bottom", "0px");
     }
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement("fieldset", component);
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
     writer.writeAttribute("style", style, null);
 
     if (label != null || labelString != null) {
       writer.startElement("legend", component);
-      writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+      writer.writeComponentClass(TobagoConstants.ATTR_STYLE_CLASS);
 
       writer.writeText("", null);
       if (label != null) {
@@ -62,9 +63,9 @@ public class BoxRenderer extends BoxRendererBase {
         component.getAttributes().get(TobagoConstants.ATTR_STYLE_INNER);
     if (toolbar != null) {
       writer.startElement("div", null);
-      writer.writeAttribute("class", "tobago-box-toolbar-div", null);
+      writer.writeClassAttribute("tobago-box-toolbar-div");
       writer.startElement("div", null);
-      writer.writeAttribute("class", "tobago-box-toolbar-span", null);
+      writer.writeClassAttribute("tobago-box-toolbar-span");
       final Map attributes = toolbar.getAttributes();
       attributes.put(
           TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER, Boolean.TRUE);
@@ -83,7 +84,7 @@ public class BoxRenderer extends BoxRendererBase {
       }
     }
     writer.startElement("div", component);
-    writer.writeAttribute("class", null, TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
     writer.writeAttribute("style", contentStyle, null);
 
   }

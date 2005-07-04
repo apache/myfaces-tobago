@@ -9,6 +9,7 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -64,11 +65,12 @@ public class ImageRenderer extends RendererBase {
     }
     String tip = (String) graphic.getAttributes().get(ATTR_TIP);
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement("img", graphic);
     final String clientId = graphic.getClientId(facesContext);
-    writer.writeAttribute("id", clientId, null);
+    writer.writeIdAttribute(clientId);
     if (ComponentUtil.isHoverEnabled(graphic) && !isDisabled(graphic)) {
       writer.writeAttribute("onmouseover",
           "tobagoImageMouseover('" + clientId + "')", null);
@@ -85,7 +87,7 @@ public class ImageRenderer extends RendererBase {
     writer.writeAttribute("border", border, null);
     writer.writeAttribute("height", null, ATTR_HEIGHT);
     writer.writeAttribute("style", null, ATTR_STYLE);
-    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
+    writer.writeComponentClass( ATTR_STYLE_CLASS);
     writer.endElement("img");
   }
 

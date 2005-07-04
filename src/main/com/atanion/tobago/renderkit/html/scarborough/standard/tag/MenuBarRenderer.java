@@ -56,9 +56,10 @@ public class MenuBarRenderer extends RendererBase {
       clientId = component.getParent().getClientId(facesContext);
     } else {
       clientId = component.getClientId(facesContext);
-      ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+
       writer.startElement("div", component);
-      writer.writeAttribute("id", clientId, null);
+      writer.writeIdAttribute(clientId);
       String cssClasses = (String) component.getAttributes().get(
           ATTR_STYLE_CLASS);
       if (ComponentUtil.getBooleanAttribute(component, ATTR_PAGE_MENU)) {
@@ -66,7 +67,7 @@ public class MenuBarRenderer extends RendererBase {
       } else {
         writer.writeAttribute("style", null, ATTR_STYLE);
       }
-      writer.writeAttribute("class", cssClasses, null);
+      writer.writeClassAttribute(cssClasses);
       writer.endElement("div");
     }
 
@@ -178,7 +179,7 @@ public class MenuBarRenderer extends RendererBase {
     addImage(writer, facesContext, image, disabled);
 
     writer.startElement("a", null);
-    writer.writeAttribute("class", spanClass, null);
+    writer.writeClassAttribute(spanClass);
     writer.writeAttribute("href", "#", null);
     writer.writeAttribute("onfocus", "tobagoMenuFocus(event)", null);
     writer.writeAttribute("onblur", "tobagoMenuBlur(event)", null);
@@ -224,7 +225,7 @@ public class MenuBarRenderer extends RendererBase {
       image = ResourceManagerUtil.getImage(facesContext, "image/blank.gif");
     }
     writer.startElement("img", null);
-    writer.writeAttribute("class", "tobago-menu-item-image", null);
+    writer.writeClassAttribute("tobago-menu-item-image");
     writer.writeAttribute("src", image, null);
     writer.endElement("img");
   }
@@ -399,7 +400,7 @@ public class MenuBarRenderer extends RendererBase {
     addImage(writer, facesContext, image, disabled);
 
     writer.startElement("a", null);
-    writer.writeAttribute("class", spanClass, null);
+    writer.writeClassAttribute(spanClass);
     if (label.getAccessKey() != null) {
       if (LOG.isInfoEnabled()
           && ! AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {

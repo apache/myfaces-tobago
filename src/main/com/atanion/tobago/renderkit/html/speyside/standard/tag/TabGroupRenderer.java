@@ -9,12 +9,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.component.UIPanel;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class TabGroupRenderer extends
@@ -22,7 +22,7 @@ public class TabGroupRenderer extends
 
   private static final Log LOG = LogFactory.getLog(TabGroupRenderer.class);
 
-  protected void encodeContent(ResponseWriter writer, FacesContext facesContext, UIPanel activeTab) throws IOException {
+  protected void encodeContent(TobagoResponseWriter writer, FacesContext facesContext, UIPanel activeTab) throws IOException {
 
     String bodyStyle = (String)
         activeTab.getParent().getAttributes().get(TobagoConstants.ATTR_STYLE_BODY);
@@ -33,14 +33,14 @@ public class TabGroupRenderer extends
     }
 
     writer.startElement("div", null);
-    writer.writeAttribute("class","tobago-tab-shadow", null);
+    writer.writeClassAttribute("tobago-tab-shadow");
     if (bodyStyle != null) {
       writer.writeAttribute("style", bodyStyle, null);
     }
 
 
     writer.startElement("div", null);
-    writer.writeAttribute("class", "tobago-tab-content", null);
+    writer.writeClassAttribute("tobago-tab-content");
 
     String height = HtmlRendererUtil.getStyleAttributeValue(bodyStyle, "height");
     if (height != null) {

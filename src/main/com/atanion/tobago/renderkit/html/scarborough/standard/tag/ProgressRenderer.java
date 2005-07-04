@@ -7,6 +7,8 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -55,15 +57,15 @@ public class ProgressRenderer extends RendererBase {
           + " %";
     }
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement("span", null);
     // todo: use tobago standard class names
-    writer.writeAttribute("class", "tobago-progress", null);
+    writer.writeClassAttribute("tobago-progress");
     writer.writeAttribute("title", title, null);
 
     writer.startElement("img", null);
-    writer.writeAttribute("class", "tobago-progress-color1", null);
+    writer.writeClassAttribute("tobago-progress-color1");
     writer.writeAttribute("src", image, null);
     writer.writeAttribute("alt", title, null);
     writer.writeAttribute("width", value1, null);
@@ -71,7 +73,7 @@ public class ProgressRenderer extends RendererBase {
     writer.endElement("img");
 
     writer.startElement("img", null);
-    writer.writeAttribute("class", "tobago-progress-color2", null);
+    writer.writeClassAttribute("tobago-progress-color2");
     writer.writeAttribute("src", image, null);
     writer.writeAttribute("alt", title, null);
     writer.writeAttribute("width", value2, null);

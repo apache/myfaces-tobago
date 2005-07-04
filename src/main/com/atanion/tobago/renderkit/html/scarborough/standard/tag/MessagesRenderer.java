@@ -6,6 +6,7 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.MessageRendererBase;
 import org.apache.commons.logging.Log;
@@ -47,14 +48,14 @@ public class MessagesRenderer extends MessageRendererBase {
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("facesContect is " + facesContext.getClass().getName());
     }
     if (facesContext.getMessages().hasNext()) { // in ie empty span gets a height
       writer.startElement("span", component);
-      writer.writeAttribute("class", "tobago-validation-message", null);
+      writer.writeClassAttribute("tobago-validation-message");
       writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
 
       // with id

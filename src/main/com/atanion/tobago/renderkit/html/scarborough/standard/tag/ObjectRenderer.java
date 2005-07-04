@@ -2,6 +2,7 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.context.ResourceManagerUtil;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -18,10 +19,10 @@ import java.io.IOException;
 public class ObjectRenderer extends RendererBase {
   public void encodeEndTobago(FacesContext facesContext, UIComponent component)
       throws IOException {
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement("iframe", component);
     writer.writeAttribute("src", null, ATTR_TARGET);
-    writer.writeAttribute("class", null, ATTR_STYLE_CLASS);
+    writer.writeComponentClass( ATTR_STYLE_CLASS);
     writer.writeAttribute("style", null, ATTR_STYLE);
 
     String noframes = ResourceManagerUtil.getProperty(
