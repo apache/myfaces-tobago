@@ -6,7 +6,7 @@
 package com.atanion.tobago.webapp;
 
 import com.atanion.xml.XmlUtils;
-import com.atanion.util.html.HtmlUtils;
+import com.atanion.tobago.util.HtmlWriterUtil;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -28,8 +28,8 @@ public class TobagoResponseWriter extends ResponseWriter {
 
   private static final Log LOG = LogFactory.getLog(TobagoResponseWriter.class);
 
-  private static final Set EMPTY_TAG
-      = new HashSet(
+  private static final Set<String> EMPTY_TAG
+      = new HashSet<String>(
           Arrays.asList(
               new String[]{
                 "br", "area", "link", "img", "param", "hr", "input", "col", "base",
@@ -48,7 +48,7 @@ public class TobagoResponseWriter extends ResponseWriter {
 
   private String characterEncoding;
 
-  private Stack stack;
+  private Stack<String>  stack;
 
   /** use XML instead HMTL */
   private boolean xml;
@@ -60,7 +60,7 @@ public class TobagoResponseWriter extends ResponseWriter {
   public TobagoResponseWriter(
       Writer writer, String contentType, String characterEncoding) {
     this.writer = writer;
-    this.stack = new Stack();
+    this.stack = new Stack<String>();
     this.contentType = contentType;
     this.characterEncoding = characterEncoding;
     if ("application/xhtml".equals(contentType)
@@ -137,7 +137,7 @@ public class TobagoResponseWriter extends ResponseWriter {
       if (xml) {
         write(XmlUtils.escape(value));
       } else {
-        write(HtmlUtils.escapeAttribute(value));
+        HtmlWriterUtil.writeText(writer, value);
       }
     }
   }
@@ -155,7 +155,7 @@ public class TobagoResponseWriter extends ResponseWriter {
         writer.write(XmlUtils.escape(text.toString()).toCharArray(), offset, length);
 // fixme: not nice:     XmlUtils.escape(text.toString()).toCharArray()
       } else {
-        writer.write(HtmlUtils.escapeAttribute(text.toString()).toCharArray(), offset, length);
+        HtmlWriterUtil.writeText(writer, text, offset, length);
       }
     }
 
@@ -203,7 +203,7 @@ public class TobagoResponseWriter extends ResponseWriter {
       LOG.debug("end Element: " + name);
     }
 
-    String top = (String) stack.pop();
+    String top = stack.pop();
     if (!top.equals(name)) {
       String trace = new Exception().getStackTrace()[1].toString();
       LOG.error(
@@ -283,7 +283,11 @@ public class TobagoResponseWriter extends ResponseWriter {
       if (xml) {
         writer.write(XmlUtils.escape(attribute));
       } else {
-        writer.write(HtmlUtils.escapeAttribute(attribute));
+        if (HtmlWriterUtil.attributeValueMustEscaped(name)) {
+          HtmlWriterUtil.writeAttributeValue(writer,attribute);
+        } else {
+          writer.write(attribute);
+        }
       }
       writer.write('\"');
     }
