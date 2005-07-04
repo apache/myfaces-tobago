@@ -19,13 +19,13 @@ public class HtmlWriterUtil {
 
   public static void writeAttributeValue(Writer out, char[] text)
       throws IOException {
-      writeAttributeValue(out, text, 0, text.length);
+      writeEncodedValue(out, text, 0, text.length, true);
   }
 
   public static void writeAttributeValue(
       Writer out, char[] text, int start, int length)
       throws IOException {
-    writeEncodedValue(out, text, start, length, false);
+    writeEncodedValue(out, text, start, length, true);
   }
 
 
@@ -37,7 +37,7 @@ public class HtmlWriterUtil {
   }
 
   static public void writeText(Writer out, char[] text) throws IOException {
-    writeText(out, text, 0, text.length);
+    writeEncodedValue(out, text, 0, text.length, false);
   }
 
   static public void writeText(Writer out, char[] text, int start, int length)
@@ -234,7 +234,7 @@ public class HtmlWriterUtil {
     }
     return true;
   }
-  
+
   //
   // Entities from HTML 4.0, section 24.2.1; character codes 0xA0 to 0xFF
   //
