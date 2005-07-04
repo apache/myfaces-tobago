@@ -34,6 +34,8 @@ public class ClientProperties implements Serializable {
   private UserAgent userAgent = UserAgent.DEFAULT;
   private boolean debugMode;
 
+  private String id;
+
 // ///////////////////////////////////////////// constructors
 
   private ClientProperties(FacesContext facesContext) {
@@ -73,6 +75,18 @@ public class ClientProperties implements Serializable {
     this.theme = TobagoConfig.getInstance(facesContext).getTheme(theme);
     LOG.info("theme='" + this.theme + "' from requestParameter "
         + "tobago.theme='" + theme + "'");
+    updateId();
+  }
+
+  private void updateId() {
+
+    StringBuffer buffer = new StringBuffer();
+    buffer.append(getContentType());
+    buffer.append('/');
+    buffer.append(getTheme());
+    buffer.append('/');
+    buffer.append(getUserAgent());
+    id =  buffer.toString();
   }
 
 // ///////////////////////////////////////////// logic
@@ -123,13 +137,7 @@ public class ClientProperties implements Serializable {
   }
 
   public String getId() {
-    StringBuffer buffer = new StringBuffer();
-    buffer.append(getContentType());
-    buffer.append('/');
-    buffer.append(getTheme());
-    buffer.append('/');
-    buffer.append(getUserAgent());
-    return buffer.toString();
+    return id;
   }
 
 // ///////////////////////////////////////////// bean getter + setter
@@ -140,6 +148,7 @@ public class ClientProperties implements Serializable {
 
   public void setContentType(String contentType) {
     this.contentType = contentType;
+    updateId();
   }
 
   public Theme getTheme() {
@@ -148,6 +157,7 @@ public class ClientProperties implements Serializable {
 
   public void setTheme(Theme theme) {
     this.theme = theme;
+    updateId();
   }
 
   public UserAgent getUserAgent() {
@@ -156,6 +166,7 @@ public class ClientProperties implements Serializable {
 
   public void setUserAgent(UserAgent userAgent) {
     this.userAgent = userAgent;
+    updateId();
   }
 
   public boolean isDebugMode() {
