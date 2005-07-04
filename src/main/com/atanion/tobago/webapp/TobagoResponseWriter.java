@@ -258,11 +258,55 @@ public class TobagoResponseWriter extends ResponseWriter {
 
   public void writeAttribute(String name, boolean on) throws IOException {
     if (on) {
-      writeAttribute(name, name, null);
+      // boolean attributes don't need escaped
+      writeAttribute(name, name, false);
     }
   }
 
+  public void writeComponentAttribute(String name, String property)
+      throws IOException {
+    writeAttribute(name, null, property, true);
+  }
+
   public void writeAttribute(String name, Object value, String property)
+      throws IOException {
+    writeAttribute(name, value, property, true);
+  }
+
+  public void writeAttribute(String name, Object value, boolean escape)
+      throws IOException {
+      writeAttribute(name, value.toString(), escape);
+  }
+  public void writeAttribute(String name, String value, boolean escape)
+      throws IOException {
+    if (!startStillOpen) {
+      String trace = new Exception().getStackTrace()[1].toString();
+      String error = "Cannot write attribute when start-tag not open. "
+          + "name = '" + name + "'"
+          + "value = '" + value + "' "
+          + trace.substring(trace.indexOf('('));
+      LOG.error(error);
+      throw new IllegalStateException(error);
+    }
+
+    if (value != null) {
+      writer.write(' ');
+      writer.write(name);
+      writer.write("=\"");
+      if (xml) {
+        writer.write(XmlUtils.escape(value));
+      } else {
+        if (escape && HtmlWriterUtil.attributeValueMustEscaped(name)) {
+          HtmlWriterUtil.writeAttributeValue(writer,value);
+        } else {
+          writer.write(value);
+        }
+      }
+      writer.write('\"');
+    }
+  }
+
+  public void writeAttribute(String name, Object value, String property, boolean escape)
       throws IOException {
     if (!startStillOpen) {
       String trace = new Exception().getStackTrace()[1].toString();
@@ -283,7 +327,7 @@ public class TobagoResponseWriter extends ResponseWriter {
       if (xml) {
         writer.write(XmlUtils.escape(attribute));
       } else {
-        if (HtmlWriterUtil.attributeValueMustEscaped(name)) {
+        if (escape && HtmlWriterUtil.attributeValueMustEscaped(name)) {
           HtmlWriterUtil.writeAttributeValue(writer,attribute);
         } else {
           writer.write(attribute);
@@ -292,6 +336,34 @@ public class TobagoResponseWriter extends ResponseWriter {
       writer.write('\"');
     }
   }
+
+
+
+  public void writeIdAttribute(String id) throws IOException {
+    writeAttribute("id", id, false);
+  }
+
+  public void writeNameAttribute(String id) throws IOException {
+    writeAttribute("name", id, false);
+  }
+
+  public void writeClassAttribute(String id) throws IOException {
+    writeAttribute("class", id, false);
+  }
+
+  public void writeComponentId(String property) throws IOException {
+    writeComponentAttribute("id", property);
+  }
+
+  public void writeComponentName(String property) throws IOException {
+    writeComponentAttribute("name", property);
+  }
+
+  public void writeComponentClass(String property) throws IOException {
+    writeComponentAttribute("class", property);
+  }
+
+
 
   public void writeURIAttribute(String s, Object obj, String s1)
       throws IOException {
