@@ -33,6 +33,9 @@ public class ComponentUtil {
 
   private static final Log LOG = LogFactory.getLog(ComponentUtil.class);
 
+  private static final String RENDER_KEY_PREFIX
+      = "com.atanion.tobago.component.ComponentUtil.RendererKeyPrefix_";
+
   public static UIPage findPage(UIComponent component) {
     while (component != null) {
       if (component instanceof UIPage) {
@@ -229,18 +232,30 @@ public class ComponentUtil {
   }
 
   // todo This should not be neseccary, but UIComponentBase.getRenderer() is protected
-  public static RendererBase getRenderer(
-      FacesContext facesContext, UIComponent component) {
-    String rendererType = component.getRendererType();
+  public static RendererBase getRenderer(FacesContext facesContext, UIComponent component){
+    return getRenderer(facesContext, component.getFamily(), component.getRendererType());
+
+  }
+
+  public static RendererBase getRenderer(FacesContext facesContext, String family, String rendererType) {
     if (rendererType == null) {
       return null;
     }
-    RenderKitFactory rkFactory = (RenderKitFactory)
-        FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
-    RenderKit renderKit = rkFactory.getRenderKit(
-        facesContext, facesContext.getViewRoot().getRenderKitId());
-    return (RendererBase)
-        renderKit.getRenderer(component.getFamily(), rendererType);
+
+    RendererBase renderer;
+
+    Map requestMap = facesContext.getExternalContext().getRequestMap();
+    renderer = (RendererBase) requestMap.get(RENDER_KEY_PREFIX + rendererType);
+
+    if (renderer == null) {
+      RenderKitFactory rkFactory = (RenderKitFactory)
+          FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+      RenderKit renderKit = rkFactory.getRenderKit(
+          facesContext, facesContext.getViewRoot().getRenderKitId());
+      renderer = (RendererBase) renderKit.getRenderer(family, rendererType);
+      requestMap.put(RENDER_KEY_PREFIX+ rendererType, renderer);
+    }
+    return renderer;
   }
 
   public static String currentValue(UIComponent component) {

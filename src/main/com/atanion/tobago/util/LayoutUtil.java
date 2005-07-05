@@ -146,12 +146,9 @@ public class LayoutUtil implements TobagoConstants{
       FacesContext facesContext, UIComponent component) {
     int width = 0;
     try {
-      RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(
-          "javax.faces.render.RenderKitFactory");
-      RenderKit renderKit = rkFactory.getRenderKit(facesContext,
-          facesContext.getViewRoot().getRenderKitId());
       InputRendererBase renderer = (InputRendererBase)
-          renderKit.getRenderer(UIInput.COMPONENT_FAMILY, TobagoConstants.RENDERER_TYPE_IN);
+          ComponentUtil.getRenderer(facesContext, UIInput.COMPONENT_FAMILY,
+              TobagoConstants.RENDERER_TYPE_IN);
       width = renderer.getLabelWidth(facesContext, component);
     } catch (Exception e) {
       if (LOG.isWarnEnabled()) {

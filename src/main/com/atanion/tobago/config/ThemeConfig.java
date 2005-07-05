@@ -6,6 +6,7 @@
 package com.atanion.tobago.config;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.ResourceManager;
 import com.atanion.tobago.context.ResourceManagerUtil;
@@ -55,10 +56,6 @@ public class ThemeConfig {
 
   private static Integer createValue(FacesContext facesContext,
       UIComponent component, String name) {
-    RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(
-        "javax.faces.render.RenderKitFactory");
-    RenderKit renderKit = rkFactory.getRenderKit(facesContext,
-        TobagoRenderKit.RENDER_KIT_ID);
     String family;
     String rendererType;
     if (component != null) {
@@ -68,7 +65,7 @@ public class ThemeConfig {
       family = UIInput.COMPONENT_FAMILY;
       rendererType = TobagoConstants.RENDERER_TYPE_IN;
     }
-    Renderer renderer = renderKit.getRenderer(family, rendererType);
+    Renderer renderer = ComponentUtil.getRenderer(facesContext, family, rendererType);
 
     Class clazz = renderer.getClass();
     if (LOG.isDebugEnabled()) {
