@@ -391,6 +391,7 @@ public class ResourceManager {
 //    Log.debug("key=" + key);
 
     try {
+      
       Class clazz = (Class) getPaths(clientProperties, locale, classDirectories, "", type, name,
           "", false, true, true, null, false, false).get(0);
       renderer = (Renderer) clazz.newInstance();
@@ -565,6 +566,44 @@ public class ResourceManager {
         miss++;
       }
       return value;
+    }
+  }
+
+  private class CacheKey {
+    private ClientProperties clientProperties;
+    private Locale locale;
+    private String type;
+    private String name;
+
+    public CacheKey(ClientProperties clientProperties, Locale locale,
+                    String type, String name) {
+      this.clientProperties = clientProperties;
+      this.locale = locale;
+      this.type = type;
+      this.name = name;
+    }
+
+    public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+
+      final CacheKey cacheKey = (CacheKey) o;
+
+      if (!clientProperties.equals(cacheKey.clientProperties)) return false;
+      if (!locale.equals(cacheKey.locale)) return false;
+      if (!name.equals(cacheKey.name)) return false;
+      if (type != null ? !type.equals(cacheKey.type) : cacheKey.type != null) return false;
+
+      return true;
+    }
+
+    public int hashCode() {
+      int result;
+      result = clientProperties.hashCode();
+      result = 29 * result + locale.hashCode();
+      result = 29 * result + (type != null ? type.hashCode() : 0);
+      result = 29 * result + name.hashCode();
+      return result;
     }
   }
 }

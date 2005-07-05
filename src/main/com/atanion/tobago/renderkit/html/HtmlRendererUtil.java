@@ -29,6 +29,12 @@ import java.util.Map;
 public class HtmlRendererUtil {
 
   private static final Log LOG = LogFactory.getLog(HtmlRendererUtil.class);
+  private static final String TOBAGO = "tobago-";
+  private static final String DEFAULT = "-default ";
+  private static final String DISABLED = "-disabled ";
+  private static final String READONLY = "-readonly ";
+  private static final String INLINE = "-inline ";
+  private static final String ERROR = "-error ";
 
   public static void renderFocusId(FacesContext facesContext, UIComponent component)
       throws IOException {
@@ -302,7 +308,7 @@ public class HtmlRendererUtil {
       return s;
     }
     StringBuffer newS = new StringBuffer(length);
-    String toFind = "tobago-" + rendererName;
+    String toFind = TOBAGO + rendererName;
     int lastSpace = 0;
     for (int i = 0; i < length; i++) {
       char c = s.charAt(i);
@@ -324,29 +330,30 @@ public class HtmlRendererUtil {
     } else {
       cssClass = "";
     }
-    StringBuffer tobagoClass = new StringBuffer("tobago-").append(rendererName).append("-default ");
+    StringBuffer prefix = new StringBuffer(TOBAGO).append(rendererName);
+    StringBuffer tobagoClass = new StringBuffer(64).append(prefix).append(DEFAULT);
     if (ComponentUtil.getBooleanAttribute(component, TobagoConstants.ATTR_DISABLED)) {
-      tobagoClass.append("tobago-").append(rendererName).append("-disabled ");
+      tobagoClass.append(prefix).append(DISABLED);
     }
     if (ComponentUtil.getBooleanAttribute(component, TobagoConstants.ATTR_READONLY)) {
-      tobagoClass.append("tobago-").append(rendererName).append("-readonly ");
+      tobagoClass.append(prefix).append(READONLY);
     }
     if (ComponentUtil.getBooleanAttribute(component, TobagoConstants.ATTR_INLINE)) {
-      tobagoClass.append("tobago-").append(rendererName).append("-inline ");
+      tobagoClass.append(prefix).append(INLINE);
     }
     if (ComponentUtil.isError(component)) {
-      tobagoClass.append("tobago-").append(rendererName).append("-error ");
+      tobagoClass.append(prefix).append(ERROR);
     }
     String markup = ComponentUtil.getStringAttribute(component, TobagoConstants.ATTR_MARKUP);
     if (StringUtils.isNotEmpty(markup)) {
       if (markup.equals("strong") || markup.equals("deleted")) {
-        tobagoClass.append("tobago-").append(rendererName).append("-markup-").append(markup).append(" ");
+        tobagoClass.append(prefix).append("-markup-").append(markup).append(" ");
       } else {
         LOG.warn("Unknown markup='" + markup + "'");
       }
     }
 
-    return tobagoClass + cssClass;
+    return tobagoClass.append(cssClass).toString();
   }
 
   public static void writeJavascript(ResponseWriter writer, String script)

@@ -482,7 +482,8 @@ return result;
    * @param locale The new localization Locale
    */
   public void setLocale(Locale locale) {
-      this.locale = locale;
+    this.locale = locale;
+    updateRendererCachePrefix();
   }
 
   // ----------------------------------------------------- StateHolder Methods
@@ -528,6 +529,7 @@ return result;
   }
 
   private static final Log LOG = LogFactory.getLog(UIViewRoot.class);
+
   public void updateRendererCachePrefix() {
     StringBuffer sb = new StringBuffer();
     if (clientProperties != null) {

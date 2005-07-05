@@ -39,29 +39,22 @@ public class ThemeConfig {
 
   public static int getValue(FacesContext facesContext, UIComponent component,
       String name) {
-    String rendererType;
-    if (component != null) {
-      rendererType = component.getRendererType();
-    } else {
-      rendererType = "DEFAULT";
-    }
-    UIViewRoot viewRoot = facesContext.getViewRoot();
-    String clientProperties = ClientProperties.getInstance(viewRoot).getId();
-    Locale locale = viewRoot.getLocale();
-    String mapKey = clientProperties + "/" + locale + "/"
-        + rendererType + "/" + name;
+
+    CacheKey key = new CacheKey(facesContext.getViewRoot(), component, name);
     Map cache = (Map) facesContext.getExternalContext()
         .getApplicationMap().get(THEME_CONFIG_CACHE);
-    Integer value = (Integer) cache.get(mapKey);
+
+    Integer value = (Integer) cache.get(key);
     if (value == null) {
       value = createValue(facesContext, component, name);
-      cache.put(mapKey, value);
+      cache.put(key, value);
     }
     return value.intValue();
   }
 
-  private static Integer createValue(FacesContext facesContext, UIComponent component,
-      String name) {
+
+  private static Integer createValue(FacesContext facesContext,
+      UIComponent component, String name) {
     RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(
         "javax.faces.render.RenderKitFactory");
     RenderKit renderKit = rkFactory.getRenderKit(facesContext,
@@ -120,5 +113,46 @@ public class ThemeConfig {
     return null;
   }
 
-// ///////////////////////////////////////////// bean getter + setter
+
+  private static class CacheKey {
+    private String  clientProperties;
+    private Locale locale;
+    private String rendererType;
+    private String name;
+
+    public CacheKey(UIViewRoot viewRoot, UIComponent component, String name) {
+      this.clientProperties = ClientProperties.getInstance(viewRoot).getId();
+      this.locale = viewRoot.getLocale();
+      if (component != null) {
+        rendererType = component.getRendererType();
+      } else {
+        rendererType = "DEFAULT";
+      }
+      this.name = name;
+    }
+
+    public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+
+      final CacheKey cacheKey = (CacheKey) o;
+
+      if (!clientProperties.equals(cacheKey.clientProperties)) return false;
+      if (!locale.equals(cacheKey.locale)) return false;
+      if (!name.equals(cacheKey.name)) return false;
+      if (!rendererType.equals(cacheKey.rendererType)) return false;
+
+      return true;
+    }
+
+    public int hashCode() {
+      int result;
+      result = clientProperties.hashCode();
+      result = 29 * result + locale.hashCode();
+      result = 29 * result + rendererType.hashCode();
+      result = 29 * result + name.hashCode();
+      return result;
+    }
+  }
+
 }
