@@ -5,7 +5,6 @@
  */
 package com.atanion.tobago.renderkit;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.context.ResourceManager;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
@@ -35,42 +34,27 @@ public class TobagoRenderKit extends RenderKit {
 
   public static final int PACKAGE_PREFIX_LENGTH = PACKAGE_PREFIX.length();
 
+  private ResourceManager resources;
+
   // fixme: use family
   public Renderer getRenderer(String family, String rendererType) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("family = '" + family + "'");
     }
-    String className = getRendererClassName(rendererType);
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    UIViewRoot viewRoot = facesContext.getViewRoot();
-    ResourceManager resources
-        = ResourceManagerUtil.getResourceManager(facesContext);
-    Renderer renderer = resources.getRenderer(viewRoot, className);
+    Renderer renderer = null;
+    if (rendererType != null) {
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      if (resources == null) {
+        resources = ResourceManagerUtil.getResourceManager(facesContext);
+      }
+      renderer = resources.getRenderer(facesContext.getViewRoot(), rendererType);
+    }
     if (renderer == null) {
       LOG.error(
           "The class witch was found by the ResourceManager can't be " +
-          "found, or instanciated: classname='" + className + "'");
+          "found, or instanciated: classname='" + rendererType + "'");
     }
     return renderer;
-  }
-
-  private String getRendererClassName(String rendererType) {
-    String name;
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("rendererType = '" + rendererType + "'");
-    }
-    if ("javax.faces.Text".equals(rendererType)) { // todo: find a better way
-      name = TobagoConstants.RENDERER_TYPE_OUT;
-    } else {
-      name = rendererType;
-    }
-    name = name + "Renderer";
-    if (name.startsWith("javax.faces.")) { // fixme: this is a hotfix from jsf1.0beta to jsf1.0fr
-      LOG.warn("patching renderer from " + name);
-      name = name.substring("javax.faces.".length());
-      LOG.warn("patching renderer to   " + name);
-    }
-    return name;
   }
 
   public ResponseWriter createResponseWriter(

@@ -7,6 +7,8 @@ package com.atanion.tobago.context;
 
 import com.atanion.tobago.config.TobagoConfig;
 import com.atanion.tobago.renderkit.TobagoRenderKit;
+import com.atanion.tobago.TobagoConstants;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -86,33 +88,37 @@ public class ResourceManager {
   public String getImage(UIViewRoot viewRoot, String name,
       boolean ignoreMissing) {
 //    final String type = "image";
-    final String type = null;
-    int dot = name.lastIndexOf('.');
-    if (dot == -1) {
-      dot = name.length();
-    }
-    String clientProperties = ClientProperties.getInstance(viewRoot).getId();
-    Locale locale = viewRoot.getLocale();
-
     String result = null;
-    String key = key(clientProperties, locale, type, name);
-//    Log.debug("key=" + key);
-    if ((result = (String) cache.get(key)) != null) {
-      // todo: cache null values
-      return result;
-    }
-    try {
-      List paths = getPaths(clientProperties, locale, resourceDirectories, "", type,
-          name.substring(0, dot), name.substring(dot), false, true, true, null,
-          true, ignoreMissing);
-      if (paths != null) {
-        result = (String) paths.get(0);
+    if (name != null) {
+      final String type = null;
+      int dot = name.lastIndexOf('.');
+      if (dot == -1) {
+        dot = name.length();
       }
-      // todo: cache null values
-      cache.put(key, result);
-    } catch (Exception e) {
-      LOG.error("name = '" + name
-          + "' clientProperties = '" + clientProperties + "'", e);
+      String clientPropertyId = ClientProperties.getInstance(viewRoot).getId();
+      Locale locale = viewRoot.getLocale();
+
+      result = null;
+//    String key = key(clientProperties, locale, type, name);
+      ImageCacheKey key = new ImageCacheKey(clientPropertyId, locale, name);
+//    Log.debug("key=" + key);
+      if ((result = (String) cache.get(key)) != null) {
+        // todo: cache null values
+        return result;
+      }
+      try {
+        List paths = getPaths(clientPropertyId, locale, resourceDirectories, "", type,
+            name.substring(0, dot), name.substring(dot), false, true, true, null,
+            true, ignoreMissing);
+        if (paths != null) {
+          result = (String) paths.get(0);
+        }
+        // todo: cache null values
+        cache.put(key, result);
+      } catch (Exception e) {
+        LOG.error("name = '" + name
+            + "' clientProperties = '" + clientPropertyId + "'", e);
+      }
     }
 
     return result;
@@ -120,25 +126,29 @@ public class ResourceManager {
 
   public String getJsp(UIViewRoot viewRoot, String name) {
     final String type = "jsp";
-    String result;
-    String clientProperties = ClientProperties.getInstance(viewRoot).getId();
-    Locale locale = viewRoot.getLocale();
+    String result = null;
+    if (name != null) {
+      String clientPropertyId = ClientProperties.getInstance(viewRoot).getId();
+      Locale locale = viewRoot.getLocale();
 
-    String key = key(clientProperties, locale, type, name);
+//    String key = key(clientProperties, locale, type, name);
+
+      JspCacheKey key = new JspCacheKey(clientPropertyId, locale, name);
 //    Log.debug("key=" + key);
-    if ((result = (String) cache.get(key)) != null) {
-      return result;
-    }
-    try {
-      result = (String) getPaths(clientProperties, locale, resourceDirectories, "",
-          type, name,
-          "", false, true, true, null, true, false).get(0);
-      cache.put(key, result);
-    } catch (Exception e) {
-      LOG.error(
-          "name = '" + name + "' clientProperties = '" + clientProperties +
-          "'",
-          e);
+      if ((result = (String) cache.get(key)) != null) {
+        return result;
+      }
+      try {
+        result = (String) getPaths(clientPropertyId, locale, resourceDirectories, "",
+            type, name,
+            "", false, true, true, null, true, false).get(0);
+        cache.put(key, result);
+      } catch (Exception e) {
+        LOG.error(
+            "name = '" + name + "' clientProperties = '" + clientPropertyId +
+            "'",
+            e);
+      }
     }
     return result;
   }
@@ -150,23 +160,27 @@ public class ResourceManager {
   public String getProperty(UIViewRoot viewRoot, String bundle,
       String propertyKey, Locale locale) {
     final String type = "property";
-    String result;
-    String clientProperties = ClientProperties.getInstance(viewRoot).getId();
-    if (locale == null) {
-      locale = viewRoot.getLocale();
+    String result = null;
+    if (bundle != null && propertyKey != null) {
+      String clientPropertyId = ClientProperties.getInstance(viewRoot).getId();
+      if (locale == null) {
+        locale = viewRoot.getLocale();
+      }
+//    String key = key(clientProperties, locale, type, bundle, propertyKey);
+
+      PropertyCacheKey key = new PropertyCacheKey(clientPropertyId, locale, bundle, propertyKey);
+      if ((result = (String) cache.get(key)) != null) {
+        return result;
+      }
+      List properties = getPaths(clientPropertyId, locale, resourceDirectories, "", type, bundle,
+          "", false, true, false, propertyKey, true, false);
+      if (properties != null) {
+        result = (String) properties.get(0);
+      } else {
+        result = null;
+      }
+      cache.put(key, result);
     }
-    String key = key(clientProperties, locale, type, bundle, propertyKey);
-    if ((result = (String) cache.get(key)) != null) {
-      return result;
-    }
-    List properties = getPaths(clientProperties, locale, resourceDirectories, "", type, bundle,
-        "", false, true, false, propertyKey, true, false);
-    if (properties != null) {
-      result = (String) properties.get(0);
-    } else {
-      result = null;
-    }
-    cache.put(key, result);
     return result;
   }
 
@@ -358,82 +372,107 @@ public class ResourceManager {
   }
 
   public Renderer getRenderer(UIViewRoot viewRoot, String name) {
-    Renderer renderer;
-    final String clientProperties;
+    Renderer renderer = null;
+    final String clientPropertyId;
     final Locale locale;
-    final String key;
     final String type = "tag";
+//    final Object key;
+    RendererCacheKey key;
+    if (name != null) {
+      if (viewRoot instanceof com.atanion.tobago.component.UIViewRoot) {
+//        key = new StringBuffer(((com.atanion.tobago.component.UIViewRoot)viewRoot)
+//            .getRendererCachePrefix()).append(name).toString();
+//      key = new RendererCacheKey(clientPropertyId, locale, name);
+        key = ((com.atanion.tobago.component.UIViewRoot)viewRoot).getRendererCacheKey();
+        key.setName(name);
 
-    if (viewRoot instanceof com.atanion.tobago.component.UIViewRoot) {
-      StringBuffer sb
-          = new StringBuffer(((com.atanion.tobago.component.UIViewRoot)viewRoot)
-          .getRendererCachePrefix());
-      sb.append(name);
-      key = sb.toString();
+        if ((renderer = (Renderer) cache.get(key)) != null) {
+          return renderer;
+        }
 
-      if ((renderer = (Renderer) cache.get(key)) != null) {
-        return renderer;
+        clientPropertyId = ClientProperties.getInstance(viewRoot).getId();
+        locale = viewRoot.getLocale();
+        key = new RendererCacheKey(clientPropertyId, locale, name);
+      } else {
+        clientPropertyId = ClientProperties.getInstance(viewRoot).getId();
+        locale = viewRoot.getLocale();
+//      key = key(clientPropertyId, locale, type, name);
+
+        key = new RendererCacheKey(clientPropertyId, locale, name);
+        if ((renderer = (Renderer) cache.get(key)) != null) {
+          return renderer;
+        }
       }
-
-      clientProperties = ClientProperties.getInstance(viewRoot).getId();
-      locale = viewRoot.getLocale();
-    } else {
-      clientProperties = ClientProperties.getInstance(viewRoot).getId();
-      locale = viewRoot.getLocale();
-      key = key(clientProperties, locale, type, name);
-
-      if ((renderer = (Renderer) cache.get(key)) != null) {
-        return renderer;
-      }
-    }
 
 
 //    Log.debug("key=" + key);
 
-    try {
-      
-      Class clazz = (Class) getPaths(clientProperties, locale, classDirectories, "", type, name,
-          "", false, true, true, null, false, false).get(0);
-      renderer = (Renderer) clazz.newInstance();
-      cache.put(key, renderer);
-    } catch (Exception e) {
-      LOG.error(
-          "name = '" + name + "' clientProperties = '" + clientProperties +
-          "'",
-          e);
-      throw new RuntimeException(name, e);
+      try {
+        name = getRendererClassName(name);
+        Class clazz = (Class) getPaths(clientPropertyId, locale, classDirectories, "", type, name,
+            "", false, true, true, null, false, false).get(0);
+        renderer = (Renderer) clazz.newInstance();
+        cache.put(key, renderer);
+      } catch (Exception e) {
+        LOG.error(
+            "name = '" + name + "' clientProperties = '" + clientPropertyId +
+                "'",
+            e);
+        throw new RuntimeException(name, e);
+      }
     }
     return renderer;
+  }
+
+
+
+  private String getRendererClassName(String rendererType) {
+    String name;
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("rendererType = '" + rendererType + "'");
+    }
+    if ("javax.faces.Text".equals(rendererType)) { // todo: find a better way
+      name = TobagoConstants.RENDERER_TYPE_OUT;
+    } else {
+      name = rendererType;
+    }
+    name = name + "Renderer";
+    if (name.startsWith("javax.faces.")) { // fixme: this is a hotfix from jsf1.0beta to jsf1.0fr
+      LOG.warn("patching renderer from " + name);
+      name = name.substring("javax.faces.".length());
+      LOG.warn("patching renderer to   " + name);
+    }
+    return name;
   }
 
 /*
-  public Renderer getRenderer(UIViewRoot viewRoot, String name) {
-    final String type = "tag";
-    Renderer renderer;
+    public Renderer getRenderer(UIViewRoot viewRoot, String name) {
+      final String type = "tag";
+      Renderer renderer;
 
-    String clientProperties = ClientProperties.getInstance(viewRoot).getId();
-    Locale locale = viewRoot.getLocale();
-    String key = key(clientProperties, locale, type, name);
-//    Log.debug("key=" + key);
-    if ((renderer = (Renderer) cache.get(key)) != null) {
+      String clientPropertiesID = ClientProperties.getInstance(viewRoot).getId();
+      Locale locale = viewRoot.getLocale();
+      String key = key(clientPropertiesID, locale, type, name);
+  //    Log.debug("key=" + key);
+      if ((renderer = (Renderer) cache.get(key)) != null) {
+        return renderer;
+      }
+
+      try {
+        Class clazz = (Class) getPaths(clientPropertiesID, locale, classDirectories, "", type, name,
+            "", false, true, true, null, false, false).get(0);
+        renderer = (Renderer) clazz.newInstance();
+        cache.put(key, renderer);
+      } catch (Exception e) {
+        LOG.error(
+            "name = '" + name + "' clientPropertiesID = '" + clientPropertiesID +
+            "'",
+            e);
+        throw new RuntimeException(name, e);
+      }
       return renderer;
     }
-
-    try {
-      Class clazz = (Class) getPaths(clientProperties, locale, classDirectories, "", type, name,
-          "", false, true, true, null, false, false).get(0);
-      renderer = (Renderer) clazz.newInstance();
-      cache.put(key, renderer);
-    } catch (Exception e) {
-      LOG.error(
-          "name = '" + name + "' clientProperties = '" + clientProperties +
-          "'",
-          e);
-      throw new RuntimeException(name, e);
-    }
-    return renderer;
-  }
-*/
+  */
 
   private String key(String clientProperties, Locale locale,
       String type, String name) {
@@ -451,26 +490,26 @@ public class ResourceManager {
   }
 
 /*
-  public String getScript(String clientProperties, String name) {
+  public String getScript(String clientPropertiesID, String name) {
     final String type = "script";
     int dot = name.lastIndexOf('.');
     if (dot == -1) {
       dot = name.length();
     }
     String result;
-    String key = key(clientProperties, type, name);
+    String key = key(clientPropertiesID, type, name);
 //    Log.debug("key=" + key);
     if ((result = (String) cache.get(key)) != null) {
       return result;
     }
     try {
-      result = (String) getPaths(clientProperties, resourceDirectories, "",
+      result = (String) getPaths(clientPropertiesID, resourceDirectories, "",
           type, name.substring(0, dot),
           name.substring(dot), false, true, true, null, true, false).get(0);
       cache.put(key, result);
     } catch (Exception e) {
       LOG.error(
-          "name = '" + name + "' clientProperties = '" + clientProperties +
+          "name = '" + name + "' clientPropertiesID = '" + clientPropertiesID +
           "'",
           e);
     }
@@ -487,30 +526,32 @@ public class ResourceManager {
   }
 
   private String[] getStrings(UIViewRoot viewRoot, String name, String type) {
-    int dot = name.lastIndexOf('.');
-    if (dot == -1) {
-      dot = name.length();
-    }
-    String clientProperties = ClientProperties.getInstance(viewRoot).getId();
-    Locale locale = viewRoot.getLocale();
-    String key = key(clientProperties, locale, type, name);
-
-    List matches = getPaths(clientProperties, locale, resourceDirectories, "",
-        type, name.substring(0, dot),
-        name.substring(dot), true, false, true, null, true, false);
-    String[] result;
+    String[] result = null;
+    if (name != null) {
+      int dot = name.lastIndexOf('.');
+      if (dot == -1) {
+        dot = name.length();
+      }
+      String clientPropertyId = ClientProperties.getInstance(viewRoot).getId();
+      Locale locale = viewRoot.getLocale();
+//    String key = key(clientProperties, locale, type, name);
+      CacheKey key = new CacheKey(clientPropertyId, locale, name);
 //    Log.debug("key=" + key);
-    if ((result = (String[]) cache.get(key)) != null) {
-      return result;
-    }
-    try {
-      result = (String[]) matches.toArray(new String[matches.size()]);
-      cache.put(key, result);
-    } catch (Exception e) {
-      LOG.error(
-          "name = '" + name + "' clientProperties = '" + clientProperties +
-          "'",
-          e);
+      if ((result = (String[]) cache.get(key)) != null) {
+        return result;
+      }
+      try {
+        List matches = getPaths(clientPropertyId, locale, resourceDirectories, "",
+            type, name.substring(0, dot),
+            name.substring(dot), true, false, true, null, true, false);
+        result = (String[]) matches.toArray(new String[matches.size()]);
+        cache.put(key, result);
+      } catch (Exception e) {
+        LOG.error(
+            "name = '" + name + "' clientProperties = '" + clientPropertyId +
+            "'",
+            e);
+      }
     }
     return result;
   }
@@ -518,21 +559,23 @@ public class ResourceManager {
   public String getThemeProperty(UIViewRoot viewRoot,
       String bundle, String propertyKey) {
     final String type = "property";
-    String result;
-    String clientProperties = ClientProperties.getInstance(viewRoot).getId();
-    Locale locale = viewRoot.getLocale();
-    String key = key(clientProperties, locale, type, bundle, propertyKey);
-    if ((result = (String) cache.get(key)) != null) {
-      return result;
+    String result = null;
+    if (bundle != null && propertyKey != null) {
+      String clientPropertyId = ClientProperties.getInstance(viewRoot).getId();
+      Locale locale = viewRoot.getLocale();
+      PropertyCacheKey key = new PropertyCacheKey(clientPropertyId, locale, bundle, propertyKey);
+      if ((result = (String) cache.get(key)) != null) {
+        return result;
+      }
+      List properties = getPaths(clientPropertyId, locale, resourceDirectories, "", type, bundle,
+          "", false, true, false, propertyKey, true, true);
+      if (properties != null) {
+        result = (String) properties.get(0);
+      } else {
+        result = null;
+      }
+      cache.put(key, result);
     }
-    List properties = getPaths(clientProperties, locale, resourceDirectories, "", type, bundle,
-        "", false, true, false, propertyKey, true, true);
-    if (properties != null) {
-      result = (String) properties.get(0);
-    } else {
-      result = null;
-    }
-    cache.put(key, result);
     return result;
   }
 
@@ -569,17 +612,159 @@ public class ResourceManager {
     }
   }
 
-  private class CacheKey {
-    private ClientProperties clientProperties;
-    private Locale locale;
-    private String type;
+// ----------------------------------------------------------- cacheKey classes
+
+
+  public static final class RendererCacheKey {
+    private final String clientPropertyId;
+    private final Locale locale;
     private String name;
 
-    public CacheKey(ClientProperties clientProperties, Locale locale,
-                    String type, String name) {
-      this.clientProperties = clientProperties;
+    public RendererCacheKey(String clientPropertyId, Locale locale, String name) {
+      this.clientPropertyId = clientPropertyId;
       this.locale = locale;
-      this.type = type;
+      this.name = name;
+    }
+
+    public void setName(String name) {
+      this.name = name;
+    }
+
+    public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+
+      final RendererCacheKey that = (RendererCacheKey) o;
+
+      if (!name.equals(that.name)) return false;
+      if (!locale.equals(that.locale)) return false;
+      if (!clientPropertyId.equals(that.clientPropertyId)) return false;
+
+      return true;
+    }
+
+    public int hashCode() {
+      int result;
+      result = clientPropertyId.hashCode();
+      result = 29 * result + locale.hashCode();
+      result = 29 * result + name.hashCode();
+      return result;
+    }
+  }
+
+  private final class ImageCacheKey {
+    private final String clientPropertyId;
+    private final Locale locale;
+    private final String name;
+
+    public ImageCacheKey(String clientPropertyId, Locale locale, String name) {
+      this.clientPropertyId = clientPropertyId;
+      this.locale = locale;
+      this.name = name;
+    }
+
+    public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+
+      final ImageCacheKey that = (ImageCacheKey) o;
+
+      if (!name.equals(that.name)) return false;
+      if (!locale.equals(that.locale)) return false;
+      if (!clientPropertyId.equals(that.clientPropertyId)) return false;
+
+      return true;
+    }
+
+    public int hashCode() {
+      int result;
+      result = clientPropertyId.hashCode();
+      result = 29 * result + (locale != null ? locale.hashCode() : 0);
+      result = 29 * result + name.hashCode();
+      return result;
+    }
+  }
+
+  private final class JspCacheKey {
+    private final String clientPropertyId;
+    private final Locale locale;
+    private final String name;
+
+    public JspCacheKey(String clientPropertyId, Locale locale, String name) {
+      this.clientPropertyId = clientPropertyId;
+      this.locale = locale;
+      this.name = name;
+    }
+
+    public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+
+      final JspCacheKey that = (JspCacheKey) o;
+
+      if (!name.equals(that.name)) return false;
+      if (!locale.equals(that.locale)) return false;
+      if (!clientPropertyId.equals(that.clientPropertyId)) return false;
+
+      return true;
+    }
+
+    public int hashCode() {
+      int result;
+      result = clientPropertyId.hashCode();
+      result = 29 * result + (locale != null ? locale.hashCode() : 0);
+      result = 29 * result + name.hashCode();
+      return result;
+    }
+  }
+
+  private final class PropertyCacheKey{
+    private final String clientPropertyId;
+    private final Locale locale;
+    private final String name;
+    private final String key;
+
+    public PropertyCacheKey(String clientPropertyId, Locale locale, String name, String key) {
+      this.clientPropertyId = clientPropertyId;
+      this.locale = locale;
+      this.name = name;
+      this.key = key;
+    }
+
+    public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+
+      final PropertyCacheKey that = (PropertyCacheKey) o;
+
+      if (!key.equals(that.key)) return false;
+      if (!name.equals(that.name)) return false;
+      if (!locale.equals(that.locale)) return false;
+      if (!clientPropertyId.equals(that.clientPropertyId)) return false;
+
+      return true;
+    }
+
+    public int hashCode() {
+      int result;
+      result = clientPropertyId.hashCode();
+      result = 29 * result + locale.hashCode();
+      result = 29 * result + name.hashCode();
+      result = 29 * result + key.hashCode();
+      return result;
+    }
+  }
+
+
+
+  private final class CacheKey{
+    private final String clientPropertyId;
+    private final Locale locale;
+    private final String name;
+
+    public CacheKey(String clientPropertyId, Locale locale, String name) {
+      this.clientPropertyId = clientPropertyId;
+      this.locale = locale;
       this.name = name;
     }
 
@@ -589,19 +774,17 @@ public class ResourceManager {
 
       final CacheKey cacheKey = (CacheKey) o;
 
-      if (!clientProperties.equals(cacheKey.clientProperties)) return false;
-      if (!locale.equals(cacheKey.locale)) return false;
       if (!name.equals(cacheKey.name)) return false;
-      if (type != null ? !type.equals(cacheKey.type) : cacheKey.type != null) return false;
+      if (!locale.equals(cacheKey.locale)) return false;
+      if (!clientPropertyId.equals(cacheKey.clientPropertyId)) return false;
 
       return true;
     }
 
     public int hashCode() {
       int result;
-      result = clientProperties.hashCode();
+      result = clientPropertyId.hashCode();
       result = 29 * result + locale.hashCode();
-      result = 29 * result + (type != null ? type.hashCode() : 0);
       result = 29 * result + name.hashCode();
       return result;
     }

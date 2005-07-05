@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.atanion.tobago.context.ClientProperties;
+import com.atanion.tobago.context.ResourceManager;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
@@ -528,17 +529,27 @@ return result;
     return rendererCachePrefix;
   }
 
+  private ResourceManager.RendererCacheKey rendererCacheKey;
+
+  public ResourceManager.RendererCacheKey getRendererCacheKey() {
+    return rendererCacheKey;
+  }
+
   private static final Log LOG = LogFactory.getLog(UIViewRoot.class);
 
   public void updateRendererCachePrefix() {
     StringBuffer sb = new StringBuffer();
     if (clientProperties != null) {
       sb.append(clientProperties.getId());
+      rendererCacheKey = new ResourceManager.RendererCacheKey(clientProperties.getId(), locale, null);
     }
     sb.append("/");
     sb.append(locale);
-    sb.append("/tag/");
+    sb.append("/");
     rendererCachePrefix = sb.toString();
+
+
+
 //    LOG.info("updateRendererCachePrefix :" + rendererCachePrefix);
   }
 
