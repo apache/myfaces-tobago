@@ -44,10 +44,7 @@ public class UIForm extends javax.faces.component.UIForm {
     super.setSubmitted(b);
 
     // set submitted for all subforms
-    List<UIForm> collect = new ArrayList<UIForm>();
-    ComponentUtil.findSubForms(collect, this);
-    for (int i = 0; i < collect.size(); i++) {
-      UIForm subForm = (UIForm) collect.get(i);
+    for (UIForm subForm : ComponentUtil.findSubForms(this)) {
       subForm.setSubmitted(b);
     }
   }
@@ -58,10 +55,7 @@ public class UIForm extends javax.faces.component.UIForm {
       LOG.debug("processValidators for form: " + getClientId(facesContext));
     }
     if (!isSubmitted()) {
-      List<UIForm> collect = new ArrayList<UIForm>();
-      ComponentUtil.findSubForms(collect, this);
-      for (int i = 0; i < collect.size(); i++) {
-        UIForm subForm = (UIForm) collect.get(i);
+      for (UIForm subForm : ComponentUtil.findSubForms(this)) {
         subForm.processValidators(facesContext);
       }
     } else {
@@ -80,9 +74,7 @@ public class UIForm extends javax.faces.component.UIForm {
       LOG.debug("processUpdates for form: " + getClientId(facesContext));
     }
     if (!isSubmitted()) {
-      List<UIForm> collect = new ArrayList<UIForm>();
-      ComponentUtil.findSubForms(collect, this);
-      for (UIForm subForm : collect) {
+      for (UIForm subForm : ComponentUtil.findSubForms(this)) {
         subForm.processUpdates(facesContext);
       }
     } else {

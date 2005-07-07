@@ -60,7 +60,14 @@ public class ComponentUtil {
    * Find all subforms of a component, and collects it.
    * It does not find subforms of subforms.
    */
-  public static void findSubForms(List<UIForm> collect, UIComponent component) {
+  public static List<UIForm> findSubForms(UIComponent component) {
+    List<UIForm> collect = new ArrayList<UIForm>();
+    findSubForms(collect, component);
+    return collect;
+  }
+
+  private static void findSubForms(List<UIForm> collect, UIComponent component) {
+    @SuppressWarnings(value = "unchecked") // because of the interface
     List<UIComponent> children = component.getChildren();
     for (UIComponent child : children) {
       if (child instanceof UIForm) {
@@ -83,12 +90,12 @@ public class ComponentUtil {
     UIComponent forComponent = findFor(component);
     if (forComponent != null) {
       String clientId = forComponent.getClientId(facesContext);
-      if (LOG.isDebugEnabled())  {
+      if (LOG.isDebugEnabled()) {
         LOG.debug("found clientId: '" + clientId + "'");
       }
       return clientId;
     }
-    if (LOG.isDebugEnabled())  {
+    if (LOG.isDebugEnabled()) {
       LOG.debug("found no clientId");
     }
     return null;
@@ -159,7 +166,7 @@ public class ComponentUtil {
       return false;
     }
     if (bool instanceof ValueBinding) {
-      bool = ((ValueBinding)bool).getValue(FacesContext.getCurrentInstance());
+      bool = ((ValueBinding) bool).getValue(FacesContext.getCurrentInstance());
     }
     if (bool instanceof Boolean) {
       return ((Boolean) bool).booleanValue();
@@ -177,7 +184,7 @@ public class ComponentUtil {
   public static Object getAttribute(UIComponent component, String name) {
     Object value = component.getAttributes().get(name);
     if (value instanceof ValueBinding) {
-      value = ((ValueBinding)value).getValue(FacesContext.getCurrentInstance());
+      value = ((ValueBinding) value).getValue(FacesContext.getCurrentInstance());
     }
     return value;
   }
@@ -204,15 +211,14 @@ public class ComponentUtil {
     }
   }
 
-  public static Character getCharakterAttribute(
-      UIComponent component, String name) {
+  public static Character getCharakterAttribute(UIComponent component, String name) {
     Object charakter = component.getAttributes().get(name);
     if (charakter == null) {
       return null;
     } else if (charakter instanceof Character) {
       return ((Character) charakter);
     } else if (charakter instanceof String) {
-      String asString = ((String)charakter);
+      String asString = ((String) charakter);
       return asString.length() > 0 ? new Character(asString.charAt(0)) : null;
     } else {
       LOG.warn("Unknown type '" + charakter.getClass().getName() +
@@ -232,7 +238,7 @@ public class ComponentUtil {
   }
 
   // todo This should not be neseccary, but UIComponentBase.getRenderer() is protected
-  public static RendererBase getRenderer(FacesContext facesContext, UIComponent component){
+  public static RendererBase getRenderer(FacesContext facesContext, UIComponent component) {
     return getRenderer(facesContext, component.getFamily(), component.getRendererType());
 
   }
@@ -250,10 +256,9 @@ public class ComponentUtil {
     if (renderer == null) {
       RenderKitFactory rkFactory = (RenderKitFactory)
           FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
-      RenderKit renderKit = rkFactory.getRenderKit(
-          facesContext, facesContext.getViewRoot().getRenderKitId());
+      RenderKit renderKit = rkFactory.getRenderKit(facesContext, facesContext.getViewRoot().getRenderKitId());
       renderer = (RendererBase) renderKit.getRenderer(family, rendererType);
-      requestMap.put(RENDER_KEY_PREFIX+ rendererType, renderer);
+      requestMap.put(RENDER_KEY_PREFIX + rendererType, renderer);
     }
     return renderer;
   }
@@ -282,7 +287,7 @@ public class ComponentUtil {
 
     for (Iterator kids = component.getChildren().iterator(); kids.hasNext();) {
       UIComponent kid = (UIComponent) kids.next();
-      if (LOG.isDebugEnabled())  {
+      if (LOG.isDebugEnabled()) {
         LOG.debug("kid " + kid);
         LOG.debug("kid " + kid.getClass().getName());
       }
@@ -291,16 +296,14 @@ public class ComponentUtil {
         if (value == null) {
           UISelectItem item = (UISelectItem) kid;
           if (kid instanceof com.atanion.tobago.component.UISelectItem) {
-            list.add(new com.atanion.tobago.model.SelectItem(
-                    (com.atanion.tobago.component.UISelectItem)kid));
+            list.add(new com.atanion.tobago.model.SelectItem((com.atanion.tobago.component.UISelectItem) kid));
           } else {
-            list.add(new SelectItem(
-                item.getItemValue() == null ? "" : item.getItemValue(),
+            list.add(new SelectItem(item.getItemValue() == null ? "" : item.getItemValue(),
                 item.getItemLabel(),
                 item.getItemDescription()));
           }
         } else if (value instanceof SelectItem) {
-          list.add((SelectItem)value);
+          list.add((SelectItem) value);
         } else {
           throw new IllegalArgumentException("TYPE ERROR: value NOT instanceof SelectItem. type=" +
               value.getClass().getName());
@@ -314,12 +317,12 @@ public class ComponentUtil {
           }
         }
         if (value == null) {
-          if (LOG.isDebugEnabled())  {
+          if (LOG.isDebugEnabled()) {
             LOG.debug("value is null");
           }
           continue;
         } else if (value instanceof SelectItem) {
-          list.add((SelectItem)value);
+          list.add((SelectItem) value);
         } else if (value instanceof SelectItem[]) {
           SelectItem items[] = (SelectItem[]) value;
           for (int i = 0; i < items.length; i++) {
@@ -327,7 +330,7 @@ public class ComponentUtil {
           }
         } else if (value instanceof Collection) {
           for (Iterator elements = ((Collection) value).iterator();
-              elements.hasNext(); list.add((SelectItem)elements.next())) {
+              elements.hasNext(); list.add((SelectItem) elements.next())) {
           }
         } else if (value instanceof Map) {
           for (Iterator keys = ((Map) value).keySet().iterator();
@@ -403,11 +406,11 @@ public class ComponentUtil {
   }
 
   private static String toString(UIComponent component) {
-      return component.getClass().getName()
-          + '@' + Integer.toHexString(component.hashCode())
-          + " " + component.getRendererType()
-          + " " + component.getId()
-          + " " + component.getClientId(FacesContext.getCurrentInstance());
+    return component.getClass().getName()
+        + '@' + Integer.toHexString(component.hashCode())
+        + " " + component.getRendererType()
+        + " " + component.getId()
+        + " " + component.getClientId(FacesContext.getCurrentInstance());
   }
 
   private static String spaces(int n) {
@@ -469,7 +472,6 @@ public class ComponentUtil {
   }
 
 
-
   public static final void setIntegerProperty(UIComponent component,
       String name, String value, ForEachTag.IterationHelper iterator) {
     if (value != null) {
@@ -509,7 +511,7 @@ public class ComponentUtil {
       value = iterator.replace(value);
     }
     return FacesContext.getCurrentInstance().getApplication()
-                .createValueBinding(value);
+        .createValueBinding(value);
   }
 
   public static UIComponent createLabeledInputLayoutComponent() {
@@ -522,30 +524,26 @@ public class ComponentUtil {
     return createComponent(facesContext, componentType, rendererType);
   }
 
-  public static UIComponent createComponent(
-      FacesContext facesContext, String componentType, String rendererType) {
+  public static UIComponent createComponent(FacesContext facesContext, String componentType, String rendererType) {
     UIComponent component
         = facesContext.getApplication().createComponent(componentType);
     component.setRendererType(rendererType);
     return component;
   }
 
-  public static UIColumn createTextColumn(
-      String label, String sortable, String align, String value) {
+  public static UIColumn createTextColumn(String label, String sortable, String align, String value) {
     UIComponent text = createComponent(UIOutput.COMPONENT_TYPE, RENDERER_TYPE_OUT);
     setStringProperty(text, ATTR_VALUE, value, null);
     return createColumn(label, sortable, align, text);
   }
 
-  public static UIColumn createColumn(
-      String label, String sortable, String align, UIComponent child) {
+  public static UIColumn createColumn(String label, String sortable, String align, UIComponent child) {
     UIColumn column = createColumn(label, sortable, align);
     column.getChildren().add(child);
     return column;
   }
 
-  private static UIColumn createColumn(
-      String label, String sortable, String align) {
+  private static UIColumn createColumn(String label, String sortable, String align) {
     UIColumn column = (UIColumn) createComponent(UIColumn.COMPONENT_TYPE, null);
     setStringProperty(column, ATTR_LABEL, label, null);
     setBooleanProperty(column, ATTR_SORTABLE, sortable, null);
@@ -558,13 +556,12 @@ public class ComponentUtil {
     final ValueBinding valueBinding = command.getValueBinding(ATTR_VALUE);
     if (valueBinding != null) {
       radio = (UISelectOne) createComponent(facesContext,
-              UISelectOne.COMPONENT_TYPE, RENDERER_TYPE_SELECT_ONE_RADIO);
+          UISelectOne.COMPONENT_TYPE, RENDERER_TYPE_SELECT_ONE_RADIO);
       command.getFacets().put(FACET_RADIO, radio);
       radio.setValueBinding(ATTR_VALUE, valueBinding);
     }
     return radio;
   }
-
 
 
   public static boolean hasSelectedValue(List<SelectItem> items, Object value) {
@@ -576,8 +573,7 @@ public class ComponentUtil {
     return false;
   }
 
-  public static UIComponent createUISelectBooleanFacet(
-      FacesContext facesContext, UICommand command) {
+  public static UIComponent createUISelectBooleanFacet(FacesContext facesContext, UICommand command) {
     UIComponent checkbox = null;
     final ValueBinding valueBinding = command.getValueBinding(ATTR_VALUE);
     if (valueBinding != null) {
@@ -596,21 +592,17 @@ public class ComponentUtil {
   private static int getAsInt(Object value) {
     int result;
     if (value instanceof Number) {
-      result = ((Number)value).intValue();
-    }
-    else if (value instanceof String ) {
+      result = ((Number) value).intValue();
+    } else if (value instanceof String) {
       result = Integer.parseInt((String) value);
-    }
-    else {
+    } else {
       throw new IllegalArgumentException("Can't convert " + value + " to int!");
     }
     return result;
   }
 
 
-
-  public static String createPickerId(
-      FacesContext facesContext, UIComponent component, String postfix) {
+  public static String createPickerId(FacesContext facesContext, UIComponent component, String postfix) {
     String id = component.getId();
     id = getComponentId(facesContext, component);
     return id + "_picker" + postfix;
@@ -628,6 +620,7 @@ public class ComponentUtil {
   public static List<SelectItem> getItemsToRender(javax.faces.component.UISelectOne component) {
     return getItems(component);
   }
+
   public static List<SelectItem> getItemsToRender(javax.faces.component.UISelectMany component) {
     return getItems(component);
   }
