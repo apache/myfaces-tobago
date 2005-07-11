@@ -34,10 +34,6 @@ public class ColumnSelectorTag extends TobagoTag
     return UIColumnSelector.COMPONENT_TYPE;
   }
 
-  public String getRendererType() {
-    return null;
-  }
-
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
    ComponentUtil.setStringProperty(component, ATTR_DISABLED, disabled, getIterationHelper());

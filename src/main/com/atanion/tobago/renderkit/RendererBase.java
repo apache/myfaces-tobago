@@ -234,8 +234,14 @@ public abstract class RendererBase
     return new Dimension(width, height);
   }
 
+  public int getFixedWidth(FacesContext facesContext, UIComponent component) {
+    return getFixedSpace(facesContext, component, true);
+  }
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    int fixedHeight = 0;
+    return getFixedSpace(facesContext, component, false);
+  }
+  public int getFixedSpace(FacesContext facesContext, UIComponent component, boolean width) {
+    int fixedSpace = 0;
 
     if (component instanceof UIPanel
         && ComponentUtil.getBooleanAttribute(component, ATTR_LAYOUT_DIRECTIVE)) {
@@ -245,16 +251,21 @@ public abstract class RendererBase
 
         RendererBase renderer = ComponentUtil.getRenderer(facesContext, child);
         if (renderer != null) {
-          fixedHeight = Math.max(
-              fixedHeight,
-              renderer.getFixedHeight(facesContext, child));
+          if (width) {
+            fixedSpace = Math.max(fixedSpace, renderer.getFixedWidth(facesContext, child));
+          } else {
+            fixedSpace = Math.max(fixedSpace, renderer.getFixedHeight(facesContext, child));
+          }
         }
       }
     } else {
-
-      fixedHeight = getConfiguredValue(facesContext, component, "fixedHeight");
+      if (width) {
+        fixedSpace = getConfiguredValue(facesContext, component, "fixedWidth");
+      } else {
+        fixedSpace = getConfiguredValue(facesContext, component, "fixedHeight");
+      }
     }
-    return fixedHeight;
+    return fixedSpace;
   }
 
   /**

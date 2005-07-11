@@ -125,6 +125,7 @@ public class UIData extends javax.faces.component.UIData {
         }
         LayoutInfo layoutInfo = new LayoutInfo(getColumns().size(),
             space, columnLayout);
+        parseFixedWidth(facesContext, layoutInfo);
         layoutInfo.parseColumnLayout(space);
         widthList = layoutInfo.getSpaceList();
       }
@@ -140,6 +141,49 @@ public class UIData extends javax.faces.component.UIData {
       }
     }
   }
+
+  private void parseFixedWidth(FacesContext facesContext, LayoutInfo layoutInfo)
+  {
+    String[] tokens = layoutInfo.getLayoutTokens();
+    for (int i = 0; i < tokens.length; i++) {
+      if (tokens[i].equals("fixed")) {
+        int width = 0;
+        final List<UIColumn> columns = getColumns();
+        if (! columns.isEmpty()) {
+          if (i < columns.size()) {
+            UIColumn column = columns.get(i);
+            if (column instanceof UIColumnSelector) {
+                RendererBase renderer
+                    = ComponentUtil.getRenderer(facesContext, column);
+              if (renderer == null) {
+                LOG.warn("can't find renderer for " + column.getClass().getName());
+                renderer = ComponentUtil.getRenderer(facesContext, UIPanel.COMPONENT_FAMILY, RENDERER_TYPE_OUT);
+              }
+              width = renderer.getFixedWidth(facesContext, column);
+
+            } else {
+              for (UIComponent component : (List<UIComponent>)column.getChildren()) {
+                RendererBase renderer
+                    = ComponentUtil.getRenderer(facesContext, component);
+                width += renderer.getFixedWidth(facesContext, component);
+              }
+            }
+            layoutInfo.update(width, i);
+          }
+          else {
+            layoutInfo.update(0, i);
+            if (LOG.isWarnEnabled()) {
+              LOG.warn("More LayoutTokens found than rows! skipping!");
+            }
+          }
+        }
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("set column " + i + " from fixed to with " + width);
+        }
+      }
+    }
+  }
+
 
   private void prepareDimensions(FacesContext facesContext) {
     // prepare width's in column's children components
