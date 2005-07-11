@@ -83,7 +83,7 @@ public class UIGridLayout extends UILayout {
   }
 
   private List createRows() {
-    List rows = new ArrayList();
+    List<Row> rows = new ArrayList<Row>();
     int columnCount = getColumnCount();
     List children = LayoutUtil.addChildren(new ArrayList(), getParent());
 
