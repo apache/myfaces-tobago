@@ -108,13 +108,13 @@ public class HtmlWriterUtil {
           if (isAttribute && ch == '&' && (i + 1 < end) && text[i + 1] != '{') {
             // HTML 4.0, section B.7.1: ampersands followed by
             // an open brace don't get escaped
-            addToBuffer(out, buff, buffIndex, buffLength, '&');
+            buffIndex = addToBuffer(out, buff, buffIndex, buffLength, '&');
           } else if (charsToEscape[ch] != null) {
             for (char cha : charsToEscape[ch]) {
-              addToBuffer(out, buff, buffIndex, buffLength, cha);
+              buffIndex = addToBuffer(out, buff, buffIndex, buffLength, cha);
             }
           } else {
-            addToBuffer(out, buff, buffIndex, buffLength, ch);
+            buffIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
           }
         } else if (ch <= 0xff) {
           // ISO-8859-1 entities: encode as needed
