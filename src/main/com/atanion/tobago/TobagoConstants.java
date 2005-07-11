@@ -178,4 +178,13 @@ public interface TobagoConstants {
   public static final String RENDERER_TYPE_VERBATIM = "Verbatim";
 
   public static final String FORM_ACCEPT_CHARSET = "utf-8";
+
+
+  public static final String TOBAGO_CSS_CLASS_PREFIX = "tobago-";
+  public static final String TOBAGO_CSS_CLASS_SUFFIX_DEFAULT = "-default ";
+  public static final String TOBAGO_CSS_CLASS_SUFFIX_DISABLED = "-disabled ";
+  public static final String TOBAGO_CSS_CLASS_SUFFIX_READONLY = "-readonly ";
+  public static final String TOBAGO_CSS_CLASS_SUFFIX_INLINE = "-inline ";
+  public static final String TOBAGO_CSS_CLASS_SUFFIX_ERROR = "-error ";
+
 }

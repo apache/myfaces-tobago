@@ -1,12 +1,13 @@
 package com.atanion.tobago.renderkit.html;
 
+import static com.atanion.tobago.TobagoConstants.*;
+
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.lang.StringUtils;
 
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.renderkit.LabelWithAccessKey;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.util.LayoutUtil;
@@ -15,7 +16,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.StringTokenizer;
 import java.util.Map;
 
@@ -29,17 +29,11 @@ import java.util.Map;
 public class HtmlRendererUtil {
 
   private static final Log LOG = LogFactory.getLog(HtmlRendererUtil.class);
-  private static final String TOBAGO = "tobago-";
-  private static final String DEFAULT = "-default ";
-  private static final String DISABLED = "-disabled ";
-  private static final String READONLY = "-readonly ";
-  private static final String INLINE = "-inline ";
-  private static final String ERROR = "-error ";
 
   public static void renderFocusId(FacesContext facesContext, UIComponent component)
       throws IOException {
 
-    if (ComponentUtil.getBooleanAttribute(component, TobagoConstants.ATTR_FOCUS)) {
+    if (ComponentUtil.getBooleanAttribute(component, ATTR_FOCUS)) {
       UIPage page = ComponentUtil.findPage(component);
       String id = component.getClientId(facesContext);
       if (page.getFocusId() != null && !page.getFocusId().equals(id)) {
@@ -63,16 +57,16 @@ public class HtmlRendererUtil {
   public static void prepareInnerStyle(UIComponent component) {
     String innerStyle = "";
     Integer innerSpaceInteger = (Integer)
-        component.getAttributes().get(TobagoConstants.ATTR_INNER_WIDTH);
+        component.getAttributes().get(ATTR_INNER_WIDTH);
     if (innerSpaceInteger != null && innerSpaceInteger.intValue() != -1) {
       innerStyle = "width: " + innerSpaceInteger + "px;";
     }
     innerSpaceInteger = (Integer)
-        component.getAttributes().get(TobagoConstants.ATTR_INNER_HEIGHT);
+        component.getAttributes().get(ATTR_INNER_HEIGHT);
     if (innerSpaceInteger != null && innerSpaceInteger.intValue() != -1) {
       innerStyle += " height: " + innerSpaceInteger + "px;";
     }
-    component.getAttributes().put(TobagoConstants.ATTR_STYLE_INNER, innerStyle);
+    component.getAttributes().put(ATTR_STYLE_INNER, innerStyle);
   }
 
 
@@ -103,15 +97,15 @@ public class HtmlRendererUtil {
 
   public static String getLayoutSpaceStyle(UIComponent component) {
     StringBuffer sb = new StringBuffer();
-    Integer space = LayoutUtil.getLayoutSpace(component, TobagoConstants.ATTR_LAYOUT_WIDTH,
-        TobagoConstants.ATTR_LAYOUT_WIDTH);
+    Integer space = LayoutUtil.getLayoutSpace(component, ATTR_LAYOUT_WIDTH,
+        ATTR_LAYOUT_WIDTH);
     if (space != null) {
       sb.append(" width: ");
       sb.append(space);
       sb.append("px;");
     }
-    space = LayoutUtil.getLayoutSpace(component, TobagoConstants.ATTR_LAYOUT_HEIGHT,
-        TobagoConstants.ATTR_LAYOUT_HEIGHT);
+    space = LayoutUtil.getLayoutSpace(component, ATTR_LAYOUT_HEIGHT,
+        ATTR_LAYOUT_HEIGHT);
     if (space != null) {
       sb.append(" height: ");
       sb.append(space);
@@ -137,9 +131,9 @@ public class HtmlRendererUtil {
 
   public static void replaceStyleAttribute(UIComponent component, String styleAttribute, String value) {
     final Map attributes = component.getAttributes();
-    String style = (String) attributes.get(TobagoConstants.ATTR_STYLE);
+    String style = (String) attributes.get(ATTR_STYLE);
     style = replaceStyleAttribute(style, styleAttribute, value);
-    attributes.put(TobagoConstants.ATTR_STYLE, style);
+    attributes.put(ATTR_STYLE, style);
   }
 
   public static String replaceStyleAttribute(String style, String name,
@@ -158,12 +152,12 @@ public class HtmlRendererUtil {
 
   public static void addCssClass(UIComponent component, String newClass) {
     final Map attributes = component.getAttributes();
-    String cssClass = (String) attributes.get(TobagoConstants.ATTR_STYLE_CLASS);
+    String cssClass = (String) attributes.get(ATTR_STYLE_CLASS);
     if (cssClass == null) {
-      attributes.put(TobagoConstants.ATTR_STYLE_CLASS, newClass);
+      attributes.put(ATTR_STYLE_CLASS, newClass);
     } else if (cssClass.indexOf(newClass + " ") == -1
         || !cssClass.equals(newClass) || !cssClass.endsWith(newClass)) {
-      attributes.put(TobagoConstants.ATTR_STYLE_CLASS, cssClass += " " + newClass);
+      attributes.put(ATTR_STYLE_CLASS, cssClass += " " + newClass);
     }
   }
 
@@ -185,33 +179,33 @@ public class HtmlRendererUtil {
     String styleAttribute;
     if (width) {
       layoutSpace = LayoutUtil.getLayoutWidth(component);
-      layoutAttribute = TobagoConstants.ATTR_LAYOUT_WIDTH;
+      layoutAttribute = ATTR_LAYOUT_WIDTH;
       styleAttribute = "width";
     } else {
       layoutSpace = LayoutUtil.getLayoutHeight(component);
-      layoutAttribute = TobagoConstants.ATTR_LAYOUT_HEIGHT;
+      layoutAttribute = ATTR_LAYOUT_HEIGHT;
       styleAttribute = "height";
     }
     int space = -1;
     if (layoutSpace != null) {
       space = layoutSpace.intValue();
     }
-    if (space == -1 && (!TobagoConstants.RENDERER_TYPE_OUT.equals(component.getRendererType()))) {
+    if (space == -1 && (!RENDERER_TYPE_OUT.equals(component.getRendererType()))) {
       UIComponent parent = component.getParent();
       space = LayoutUtil.getInnerSpace(facesContext, parent, width);
       if (space > 0 && !ComponentUtil.isFacetOf(component, parent)) {
         component.getAttributes().put(layoutAttribute, new Integer(space));
         if (width) {
-          component.getAttributes().remove(TobagoConstants.ATTR_INNER_WIDTH);
+          component.getAttributes().remove(ATTR_INNER_WIDTH);
         } else {
-          component.getAttributes().remove(TobagoConstants.ATTR_INNER_HEIGHT);
+          component.getAttributes().remove(ATTR_INNER_HEIGHT);
         }
       }
     }
     if (space > 0) {
       RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
       if (layoutSpace != null
-          || !ComponentUtil.getBooleanAttribute(component, TobagoConstants.ATTR_INLINE)) {
+          || !ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
         int styleSpace = space;
         if (renderer != null) {
           if (width) {
@@ -242,7 +236,7 @@ public class HtmlRendererUtil {
 
   public static void createHeaderAndBodyStyles(FacesContext facesContext, UIComponent component, boolean width) {
     RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
-    String style = (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE);
+    String style = (String) component.getAttributes().get(ATTR_STYLE);
     int styleSpace = -1;
     try {
       styleSpace = Integer.parseInt(getStyleAttributeValue(style, width ? "width" : "height").replaceAll("\\D", ""));
@@ -266,7 +260,7 @@ public class HtmlRendererUtil {
       } else {
         headerStyle =
             (String)
-            component.getAttributes().get(TobagoConstants.ATTR_STYLE_HEADER);
+            component.getAttributes().get(ATTR_STYLE_HEADER);
         if (headerStyle == null) {
           LOG.warn("headerStyle attribute == null, set to empty String");
           headerStyle = "";
@@ -275,7 +269,7 @@ public class HtmlRendererUtil {
             = headerStyle.replaceAll("height:\\s\\d+px;", "").trim();
         headerStyle += " height: " + headerSpace + "px;";
         bodyStyle
-            = (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE_BODY);
+            = (String) component.getAttributes().get(ATTR_STYLE_BODY);
         if (bodyStyle == null) {
           LOG.warn("bodyStyle attribute == null, set to empty String");
           bodyStyle = "";
@@ -283,22 +277,22 @@ public class HtmlRendererUtil {
         bodyStyle = bodyStyle.replaceAll("height:\\s\\d+px;", "").trim();
         bodyStyle += " height: " + bodySpace + "px;";
       }
-      component.getAttributes().put(TobagoConstants.ATTR_STYLE_HEADER, headerStyle);
-      component.getAttributes().put(TobagoConstants.ATTR_STYLE_BODY, bodyStyle);
+      component.getAttributes().put(ATTR_STYLE_HEADER, headerStyle);
+      component.getAttributes().put(ATTR_STYLE_BODY, bodyStyle);
     }
   }
 
   public static void createClassAttribute(UIComponent component, String name) {
     String rendererType = component.getRendererType();
     if (rendererType != null) {
-      Object styleClassO = component.getAttributes().get(TobagoConstants.ATTR_STYLE_CLASS);
+      Object styleClassO = component.getAttributes().get(ATTR_STYLE_CLASS);
       if (styleClassO != null && LOG.isDebugEnabled()) {
         LOG.debug("styleClassO = '" + styleClassO.getClass().getName() + "'");
       }
       String styleClass
-          = (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE_CLASS);
+          = (String) component.getAttributes().get(ATTR_STYLE_CLASS);
       styleClass = updateClassAttribute(styleClass, name, component);
-      component.getAttributes().put(TobagoConstants.ATTR_STYLE_CLASS, styleClass);
+      component.getAttributes().put(ATTR_STYLE_CLASS, styleClass);
     }
   }
 
@@ -308,7 +302,7 @@ public class HtmlRendererUtil {
       return s;
     }
     StringBuffer newS = new StringBuffer(length);
-    String toFind = TOBAGO + rendererName;
+    String toFind = TOBAGO_CSS_CLASS_PREFIX + rendererName;
     int lastSpace = 0;
     for (int i = 0; i < length; i++) {
       char c = s.charAt(i);
@@ -330,21 +324,21 @@ public class HtmlRendererUtil {
     } else {
       cssClass = "";
     }
-    StringBuffer prefix = new StringBuffer(TOBAGO).append(rendererName);
-    StringBuffer tobagoClass = new StringBuffer(64).append(prefix).append(DEFAULT);
-    if (ComponentUtil.getBooleanAttribute(component, TobagoConstants.ATTR_DISABLED)) {
-      tobagoClass.append(prefix).append(DISABLED);
+    StringBuffer prefix = new StringBuffer(TOBAGO_CSS_CLASS_PREFIX).append(rendererName);
+    StringBuffer tobagoClass = new StringBuffer(64).append(prefix).append(TOBAGO_CSS_CLASS_SUFFIX_DEFAULT);
+    if (ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
+      tobagoClass.append(prefix).append(TOBAGO_CSS_CLASS_SUFFIX_DISABLED);
     }
-    if (ComponentUtil.getBooleanAttribute(component, TobagoConstants.ATTR_READONLY)) {
-      tobagoClass.append(prefix).append(READONLY);
+    if (ComponentUtil.getBooleanAttribute(component, ATTR_READONLY)) {
+      tobagoClass.append(prefix).append(TOBAGO_CSS_CLASS_SUFFIX_READONLY);
     }
-    if (ComponentUtil.getBooleanAttribute(component, TobagoConstants.ATTR_INLINE)) {
-      tobagoClass.append(prefix).append(INLINE);
+    if (ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
+      tobagoClass.append(prefix).append(TOBAGO_CSS_CLASS_SUFFIX_INLINE);
     }
     if (ComponentUtil.isError(component)) {
-      tobagoClass.append(prefix).append(ERROR);
+      tobagoClass.append(prefix).append(TOBAGO_CSS_CLASS_SUFFIX_ERROR);
     }
-    String markup = ComponentUtil.getStringAttribute(component, TobagoConstants.ATTR_MARKUP);
+    String markup = ComponentUtil.getStringAttribute(component, ATTR_MARKUP);
     if (StringUtils.isNotEmpty(markup)) {
       if (markup.equals("strong") || markup.equals("deleted")) {
         tobagoClass.append(prefix).append("-markup-").append(markup).append(" ");
