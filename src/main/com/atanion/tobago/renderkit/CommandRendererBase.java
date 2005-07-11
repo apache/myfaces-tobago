@@ -29,7 +29,7 @@ public abstract class CommandRendererBase extends RendererBase {
 // ///////////////////////////////////////////// code
 
   public void decode(FacesContext facesContext, UIComponent component) {
-    boolean active = false;
+//    boolean active = false;
     if (ComponentUtil.isOutputOnly(component)) {
       return;
     }
@@ -46,7 +46,7 @@ public abstract class CommandRendererBase extends RendererBase {
       if (LOG.isDebugEnabled()) {
         LOG.debug("queueEvent");
       }
-      active = true;
+//      active = true;
       component.queueEvent(new ActionEvent(component));
 //      ((UICommand) component).fireActionEvent(facesContext);
 
@@ -58,9 +58,9 @@ public abstract class CommandRendererBase extends RendererBase {
 //        }
 //      }
     }
-    if (component instanceof UICommand) {
-      ((UICommand)component).setActive(active);
-    }
+//    if (component instanceof UICommand) {
+//      ((UICommand)component).setActive(active);
+//    }
   }
 
   public static String appendConfirmationScript(String onclick,
