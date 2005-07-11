@@ -43,26 +43,18 @@ public class ScriptTag extends BodyTagSupport  {
     UIPage page = (UIPage) pageTag.getComponentInstance();
 
     if (file != null) {
-      page.getScriptFiles().add(getValueFromEl(file));
+      page.getScriptFiles().add(ComponentUtil.getValueFromEl(file));
     }
     if (onload != null) {
-      page.getOnloadScripts().add(getValueFromEl(onload));
+      page.getOnloadScripts().add(ComponentUtil.getValueFromEl(onload));
     }
     if (bodyContent != null) {
       String script = bodyContent.getString();
       bodyContent.clearBody();
-      page.getScriptBlocks().add(getValueFromEl(script));
+      page.getScriptBlocks().add(ComponentUtil.getValueFromEl(script));
     }
 
     return EVAL_PAGE;
-  }
-
-  private String getValueFromEl(String script) {
-    if (UIComponentTag.isValueReference(script)) {
-      ValueBinding valueBinding = ComponentUtil.createValueBinding(script, null);
-      script = (String) valueBinding.getValue(FacesContext.getCurrentInstance());
-    }
-    return script;
   }
 
   public int doStartTag() throws JspException {
