@@ -1,7 +1,13 @@
 package com.atanion.tobago.util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.beanutils.converters.CharacterArrayConverter;
+
 import java.io.Writer;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.CharArrayWriter;
 
 /**
  * Created by IntelliJ IDEA.
@@ -105,7 +111,7 @@ public class HtmlWriterUtil {
 
     // Tilde or less...
         if (ch < 0xA0) {
-          if (isAttribute && ch == '&' && (i + 1 < end) && text[i + 1] != '{') {
+          if (isAttribute && ch == '&' && (i + 1 < end) && text[i + 1] == '{') {
             // HTML 4.0, section B.7.1: ampersands followed by
             // an open brace don't get escaped
             buffIndex = addToBuffer(out, buff, buffIndex, buffLength, '&');
