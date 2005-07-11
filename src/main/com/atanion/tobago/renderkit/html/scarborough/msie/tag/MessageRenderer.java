@@ -82,7 +82,7 @@ public class MessageRenderer extends MessageRendererBase {
 //      MessageFormat detail = new MessageFormat(formatString, tobagoContext.getLocale());
         writer.startElement("label", null);
         writer.writeAttribute("for", clientId, null);
-        writer.writeAttribute("title", message.getSummary(), null);
+        writer.writeAttribute("title", message.getDetail(), null);
         writer.writeText(message.getSummary(), null);
         writer.endElement("label");
 
