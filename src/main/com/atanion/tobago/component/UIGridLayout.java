@@ -74,15 +74,15 @@ public class UIGridLayout extends UILayout {
     return columnCount;
   }
 
-  public List ensureRows() {
-    List rows = (List) getAttributes().get(TobagoConstants.ATTR_LAYOUT_ROWS);
+  public List<Row> ensureRows() {
+    List<Row> rows = (List<Row>) getAttributes().get(TobagoConstants.ATTR_LAYOUT_ROWS);
     if (rows == null) {
       rows = createRows();
     }
     return rows;
   }
 
-  private List createRows() {
+  private List<Row> createRows() {
     List<Row> rows = new ArrayList<Row>();
     int columnCount = getColumnCount();
     List children = LayoutUtil.addChildren(new ArrayList(), getParent());

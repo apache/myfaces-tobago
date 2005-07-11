@@ -71,7 +71,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   public int calculateLayoutHeight(
       FacesContext facesContext, UIComponent component, boolean minimum) {
     UIGridLayout layout = (UIGridLayout) component;
-    final List rows = layout.ensureRows();
+    final List<UIGridLayout.Row> rows = layout.ensureRows();
     String rowLayout
         = (String) layout.getAttributes().get(TobagoConstants.ATTR_ROWS);
 
@@ -99,10 +99,10 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         height += Integer.parseInt(token.replaceAll("\\D", ""));
       }
       else if (token.equals("fixed")) {
-        height += getMaxHeight(facesContext, (UIGridLayout.Row) rows.get(i), false);
+        height += getMaxHeight(facesContext, rows.get(i), false);
       }
       else if (token.equals("minimum")) {
-        height += getMaxHeight(facesContext, (UIGridLayout.Row) rows.get(i), true);
+        height += getMaxHeight(facesContext, rows.get(i), true);
       }
       else {
         if (! minimum && LOG.isWarnEnabled()) {
@@ -111,7 +111,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
               + component.getClientId(facesContext) + " is "
               + component.getRendererType());
         }
-        height += getMaxHeight(facesContext, (UIGridLayout.Row) rows.get(i), minimum);
+        height += getMaxHeight(facesContext, rows.get(i), minimum);
       }
     }
 
@@ -157,9 +157,9 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     }
 
 
-    List rows = layout.ensureRows();
+    List<UIGridLayout.Row> rows = layout.ensureRows();
     for (int rowIndex = 0; rowIndex < rows.size(); rowIndex++) {
-      UIGridLayout.Row row = (UIGridLayout.Row) rows.get(rowIndex);
+      UIGridLayout.Row row = rows.get(rowIndex);
       if (! row.isHidden()) {
         writer.startElement("tr", null);
 
@@ -407,14 +407,14 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   private void layoutWidth(Integer innerWidth, UIGridLayout layout,
       FacesContext facesContext) {
 
-    final List rows = layout.ensureRows();
+    final List<UIGridLayout.Row> rows = layout.ensureRows();
     final int columnCount = layout.getColumnCount();
     final String[] layoutTokens = LayoutInfo.createLayoutTokens((String)
         layout.getAttributes().get(TobagoConstants.ATTR_COLUMNS), columnCount);
 
 
     if (! rows.isEmpty()) {
-      UIGridLayout.Row row = (UIGridLayout.Row) rows.get(0);
+      UIGridLayout.Row row = rows.get(0);
       final List cells = row.getElements();
 
       for (int i = 0; i< cells.size() ; i++) {
@@ -423,7 +423,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         if (isHidden(cell)) {
           hidden = true;
           for (int j = 1; j < rows.size(); j++) {
-            hidden &= isHidden(((UIGridLayout.Row)rows.get(j)).getElements().get(i));
+            hidden &= isHidden(rows.get(j).getElements().get(i));
           }
         }
         if (hidden) {
@@ -454,14 +454,14 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   private void layoutHeight(Integer innerHeight, UIGridLayout layout,
       FacesContext facesContext) {
 
-    final List rows = layout.ensureRows();
+    final List<UIGridLayout.Row> rows = layout.ensureRows();
     String[] layoutTokens = LayoutInfo.createLayoutTokens(
         (String) layout.getAttributes().get(TobagoConstants.ATTR_ROWS),
         rows.size(), rows.size() == 1 ? "1*" : "fixed");
 
     for (int i = 0; i < rows.size(); i++) {
       boolean hidden = true;
-      UIGridLayout.Row row = ((UIGridLayout.Row)rows.get(i));
+      UIGridLayout.Row row = rows.get(i);
       List cells = row.getElements();
       for (int j = 0; j < cells.size(); j++) {
         hidden &= isHidden(cells.get(j));
@@ -493,10 +493,10 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     for (int i = 0; i < tokens.length; i++) {
       if (tokens[i].equals("fixed")) {
         int height = 0;
-        final List rows = layout.ensureRows();
+        final List<UIGridLayout.Row> rows = layout.ensureRows();
         if (! rows.isEmpty()) {
           if (i < rows.size()) {
-            UIGridLayout.Row row = (UIGridLayout.Row) rows.get(i);
+            UIGridLayout.Row row = rows.get(i);
             height = getMaxHeight(facesContext, row, false);
             layoutInfo.update(height, i);
           }
@@ -539,7 +539,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
   private void setColumnWidths(UIGridLayout layout, LayoutInfo layoutInfo,
       FacesContext facesContext) {
-    List rows = layout.ensureRows();
+    List<UIGridLayout.Row> rows = layout.ensureRows();
 
     for (Iterator iter = rows.iterator(); iter.hasNext();) {
       UIGridLayout.Row row = (UIGridLayout.Row) iter.next();
@@ -566,10 +566,10 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
   private void setColumnHeights(UIGridLayout layout, LayoutInfo layoutInfo,
       FacesContext facesContext) {
-    List rows = layout.ensureRows();
+    List<UIGridLayout.Row> rows = layout.ensureRows();
 
     for (int i = 0; i < rows.size(); i++) {
-      UIGridLayout.Row row = (UIGridLayout.Row) rows.get(i);
+      UIGridLayout.Row row = rows.get(i);
       List cells = row.getElements();
       int columnCount = layout.getColumnCount();
       for (int j = 0; j < columnCount; j++) {
