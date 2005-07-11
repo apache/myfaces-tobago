@@ -241,6 +241,11 @@ public abstract class RendererBase
     return getFixedSpace(facesContext, component, false);
   }
   public int getFixedSpace(FacesContext facesContext, UIComponent component, boolean width) {
+
+    if (component == null) {
+      return 0;
+    }
+
     int fixedSpace = 0;
 
     if (component instanceof UIPanel
@@ -260,12 +265,30 @@ public abstract class RendererBase
       }
     } else {
       if (width) {
-        fixedSpace = getConfiguredValue(facesContext, component, "fixedWidth");
+        fixedSpace = getFixedSpace(facesContext, component, ATTR_WIDTH, "fixedWidth");
       } else {
-        fixedSpace = getConfiguredValue(facesContext, component, "fixedHeight");
+        fixedSpace = getFixedSpace(facesContext, component, ATTR_HEIGHT, "fixedHeight");
       }
     }
     return fixedSpace;
+  }
+
+  private int getFixedSpace(FacesContext facesContext, UIComponent component,
+                            String attr, String attrFixed) {
+    int intSpace = -1;
+    final String space = ComponentUtil.getStringAttribute(component, attr);
+    if (space != null) {
+      try {
+        intSpace = Integer.parseInt(space.replaceAll("\\D", ""));
+      } catch (NumberFormatException e) {
+        LOG.error("Catched: " + e.getMessage(), e);
+      }
+    }
+    if (intSpace == -1) {
+      return getConfiguredValue(facesContext, component, attrFixed);
+    } else {
+      return intSpace;
+    }
   }
 
   /**
