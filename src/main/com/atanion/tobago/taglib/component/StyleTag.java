@@ -6,6 +6,7 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UIPage;
+import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.taglib.decl.HasId;
 import com.atanion.util.annotation.BodyContent;
 import com.atanion.util.annotation.BodyContentDescription;
@@ -41,13 +42,13 @@ public class StyleTag extends BodyTagSupport implements HasId {
     UIPage page = (UIPage) pageTag.getComponentInstance();
 
     if (style != null) {
-      page.getStyleFiles().add(style);
+      page.getStyleFiles().add(ComponentUtil.getValueFromEl(style));
     }
 
     if (bodyContent != null) {
       String classes = bodyContent.getString();
       bodyContent.clearBody();
-      page.getStyleBlocks().add(classes);
+      page.getStyleBlocks().add(ComponentUtil.getValueFromEl(classes));
     }
 
     return EVAL_PAGE;
