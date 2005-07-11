@@ -512,6 +512,14 @@ public class ComponentUtil {
     }
     return FacesContext.getCurrentInstance().getApplication()
         .createValueBinding(value);
+  }      
+
+  public static String getValueFromEl(String script) {
+    if (UIComponentTag.isValueReference(script)) {
+      ValueBinding valueBinding = ComponentUtil.createValueBinding(script, null);
+      script = (String) valueBinding.getValue(FacesContext.getCurrentInstance());
+    }
+    return script;
   }
 
   public static UIComponent createLabeledInputLayoutComponent() {

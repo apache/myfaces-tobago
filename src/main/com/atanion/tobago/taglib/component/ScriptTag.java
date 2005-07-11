@@ -6,6 +6,7 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.UIPage;
+import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.util.annotation.BodyContent;
 import com.atanion.util.annotation.BodyContentDescription;
 import com.atanion.util.annotation.Tag;
@@ -14,6 +15,9 @@ import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.faces.webapp.UIComponentTag;
+import javax.faces.el.ValueBinding;
+import javax.faces.context.FacesContext;
 
 /**
  * This tag add client side script to the rendered page.
@@ -39,18 +43,26 @@ public class ScriptTag extends BodyTagSupport  {
     UIPage page = (UIPage) pageTag.getComponentInstance();
 
     if (file != null) {
-      page.getScriptFiles().add(file);
+      page.getScriptFiles().add(getValueFromEl(file));
     }
     if (onload != null) {
-      page.getOnloadScripts().add(onload);
+      page.getOnloadScripts().add(getValueFromEl(onload));
     }
     if (bodyContent != null) {
       String script = bodyContent.getString();
       bodyContent.clearBody();
-      page.getScriptBlocks().add(script);
+      page.getScriptBlocks().add(getValueFromEl(script));
     }
 
     return EVAL_PAGE;
+  }
+
+  private String getValueFromEl(String script) {
+    if (UIComponentTag.isValueReference(script)) {
+      ValueBinding valueBinding = ComponentUtil.createValueBinding(script, null);
+      script = (String) valueBinding.getValue(FacesContext.getCurrentInstance());
+    }
+    return script;
   }
 
   public int doStartTag() throws JspException {
