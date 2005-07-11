@@ -20,7 +20,7 @@ public class HtmlWriterUtilUnitTest extends TestCase {
             // HTML 4.0, section B.7.1: ampersands followed by
             // an open brace don't get escaped
   public final static String[] rawTexts= {
-      "öffnende spitze klammern werden in attributen nicht escaped <tagname >",
+      "oeffnende spitze klammern werden in attributen nicht escaped <tagname >",
       "& followed by an { -> &{ don't get escaped in attributes",
       "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
       "\u00a0\u00a1\u00a2\u00a3\u00a4\u00a5\u00a6\u00a7\u00a8\u00a9\u00aa\u00ab\u00ac\u00ad\u00ae\u00af",
@@ -32,7 +32,7 @@ public class HtmlWriterUtilUnitTest extends TestCase {
 
   };
   public final static String[] escapedTexts= {
-      "&ouml;ffnende spitze klammern werden in attributen nicht escaped &lt;tagname &gt;",
+      "oeffnende spitze klammern werden in attributen nicht escaped &lt;tagname &gt;",
       "&amp; followed by an { -&gt; &amp;{ don't get escaped in attributes",
       rawTexts[2], // no escape needed
       "&nbsp;&iexcl;&cent;&pound;&curren;&yen;&brvbar;&sect;&uml;&copy;&ordf;&laquo;&not;&shy;&reg;&macr;",
@@ -44,7 +44,7 @@ public class HtmlWriterUtilUnitTest extends TestCase {
   };
 
   public final static String[] escapedAttributes= {
-      "&ouml;ffnende spitze klammern werden in attributen nicht escaped <tagname &gt;",
+      "oeffnende spitze klammern werden in attributen nicht escaped <tagname &gt;",
       "&amp; followed by an { -&gt; &{ don't get escaped in attributes",
       rawTexts[2] // no escape needed
   };
