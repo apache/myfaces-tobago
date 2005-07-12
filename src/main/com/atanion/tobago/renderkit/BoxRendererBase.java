@@ -51,7 +51,7 @@ public abstract class BoxRendererBase extends RendererBase {
     UIComponent layout = UILayout.getLayout(component);
     if (layout != null) {
       RendererBase renderer = ComponentUtil.getRenderer(facesContext, layout);
-      height = renderer.getFixedHeight(facesContext, layout);
+      height = renderer.getFixedHeight(facesContext, component);
       if (height > -1) {
         return height;
       }

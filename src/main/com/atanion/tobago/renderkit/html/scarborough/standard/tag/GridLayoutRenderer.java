@@ -58,19 +58,18 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    UIGridLayout layout = (UIGridLayout) component;
     int height = calculateLayoutHeight(facesContext, component, false);
 
     RendererBase containerRenderer =
-        ComponentUtil.getRenderer(facesContext, layout.getParent());
-    height += containerRenderer.getHeaderHeight(facesContext, layout.getParent());
-    height += containerRenderer.getPaddingHeight(facesContext, layout.getParent());
+        ComponentUtil.getRenderer(facesContext, component);
+    height += containerRenderer.getHeaderHeight(facesContext, component);
+    height += containerRenderer.getPaddingHeight(facesContext, component);
     return height;
   }
 
   public int calculateLayoutHeight(
       FacesContext facesContext, UIComponent component, boolean minimum) {
-    UIGridLayout layout = (UIGridLayout) component;
+    UIGridLayout layout = (UIGridLayout) component.getFacet(FACET_LAYOUT);
     final List<UIGridLayout.Row> rows = layout.ensureRows();
     String rowLayout
         = (String) layout.getAttributes().get(TobagoConstants.ATTR_ROWS);
@@ -108,8 +107,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         if (! minimum && LOG.isWarnEnabled()) {
           LOG.warn("Unable to calculate Height for token '" + token
               + "'! using " + (minimum ? "'minimum'" : "'fixed'") + " , component:"
-              + component.getClientId(facesContext) + " is "
-              + component.getRendererType());
+              + layout.getClientId(facesContext) + " is "
+              + layout.getRendererType());
         }
         height += getMaxHeight(facesContext, rows.get(i), minimum);
       }
@@ -369,7 +368,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           (Integer) attributes.get(TobagoConstants.ATTR_INNER_HEIGHT);
     if (innerHeight != null && innerHeight.intValue() != -1) {
       int value = innerHeight.intValue();
-      int minimum = calculateLayoutHeight(facesContext, layout, true);
+      int minimum = calculateLayoutHeight(facesContext, layout.getParent(), true);
       if (minimum > value) {
         value = minimum;
         needVerticalScroolbar = true;

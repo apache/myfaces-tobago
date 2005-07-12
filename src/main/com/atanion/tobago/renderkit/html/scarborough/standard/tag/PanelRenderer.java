@@ -60,7 +60,7 @@ public class PanelRenderer extends RendererBase {
     UIComponent layout = component.getFacet("layout");
     if (layout != null) {
       RendererBase renderer = ComponentUtil.getRenderer(facesContext, layout);
-      height = renderer.getFixedHeight(facesContext, layout);
+      height = renderer.getFixedHeight(facesContext, component);
     }
     if (height < 0) {
 

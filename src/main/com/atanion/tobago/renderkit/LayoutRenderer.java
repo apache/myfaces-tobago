@@ -36,20 +36,18 @@ public abstract class LayoutRenderer extends RendererBase {
   }
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    UILayout layout = (UILayout) component;
     int height = 0;
 
-    UIComponent container = layout.getParent();
-    if (LOG.isInfoEnabled() &&  container.getChildCount() > 1) {
+    if (LOG.isInfoEnabled() &&  component.getChildCount() > 1) {
       LOG.info("Can't calculate fixedHeight! "
                  + "using estimation by contained components. ");
     }
-    height += LayoutUtil.calculateFixedHeightForChildren(facesContext, container);
+    height += LayoutUtil.calculateFixedHeightForChildren(facesContext, component);
 
     RendererBase containerRenderer =
-        ComponentUtil.getRenderer(facesContext, layout.getParent());
-    height += containerRenderer.getHeaderHeight(facesContext, layout.getParent());
-    height += containerRenderer.getPaddingHeight(facesContext, layout.getParent());
+        ComponentUtil.getRenderer(facesContext, component);
+    height += containerRenderer.getHeaderHeight(facesContext, component);
+    height += containerRenderer.getPaddingHeight(facesContext, component);
 
     return height;
   }
