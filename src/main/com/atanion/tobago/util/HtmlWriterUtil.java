@@ -20,12 +20,21 @@ public class HtmlWriterUtil {
 
   static public void writeAttributeValue(Writer out, String text)
       throws IOException {
-    writeAttributeValue(out, text.toCharArray());
+    writeAttributeValue(out, text.toCharArray(), 0, text.length());
+  }
+  static public void writeAttributeValue(Writer out, char[] buffer, String text)
+      throws IOException {
+    writeAttributeValue(out, buffer, text.toCharArray(), 0, text.length());
   }
 
   public static void writeAttributeValue(Writer out, char[] text)
       throws IOException {
       writeEncodedValue(out, text, 0, text.length, true);
+  }
+
+  public static void writeAttributeValue(Writer out, char[] buffer, char[] text)
+      throws IOException {
+      writeEncodedValue(out, buffer, text, 0, text.length, true);
   }
 
   public static void writeAttributeValue(
@@ -34,21 +43,43 @@ public class HtmlWriterUtil {
     writeEncodedValue(out, text, start, length, true);
   }
 
+  public static void writeAttributeValue(
+      Writer out, char[] buffer, char[] text, int start, int length)
+      throws IOException {
+    writeEncodedValue(out, buffer, text, start, length, true);
+  }
+
 
 
 
 
   static public void writeText(Writer out, String text) throws IOException {
-    writeText(out, text.toCharArray());
+    writeText(out, text.toCharArray(), 0, text.length());
+  }
+
+  static public void writeText(Writer out, char[] buffer, String text)
+      throws IOException {
+    writeText(out, buffer, text.toCharArray(), 0, text.length());
   }
 
   static public void writeText(Writer out, char[] text) throws IOException {
     writeEncodedValue(out, text, 0, text.length, false);
   }
 
+  static public void writeText(Writer out, char[] buffer, char[] text)
+      throws IOException {
+    writeEncodedValue(out, buffer, text, 0, text.length, false);
+  }
+
   static public void writeText(Writer out, char[] text, int start, int length)
       throws IOException {
     writeEncodedValue(out, text, start, length, false);
+  }
+
+  static public void writeText(
+      Writer out, char[] buffer, char[] text, int start, int length)
+      throws IOException {
+    writeEncodedValue(out, buffer, text, start, length, false);
   }
 
 //  static public void writeText(Writer out, char[] buffer, char[] text)

@@ -50,6 +50,8 @@ public class TobagoResponseWriter extends ResponseWriter {
 
   private Stack<String>  stack;
 
+  private char[] buffer;
+
   /** use XML instead HMTL */
   private boolean xml;
 
@@ -68,6 +70,7 @@ public class TobagoResponseWriter extends ResponseWriter {
         || "text/xml".equals(contentType)) {
       xml = true;
     }
+    buffer = new char[1028];
   }
 
 // ///////////////////////////////////////////// code
@@ -137,7 +140,7 @@ public class TobagoResponseWriter extends ResponseWriter {
       if (xml) {
         write(XmlUtils.escape(value));
       } else {
-        HtmlWriterUtil.writeText(writer, value);
+        HtmlWriterUtil.writeText(writer, buffer, value);
       }
     }
   }
@@ -155,7 +158,7 @@ public class TobagoResponseWriter extends ResponseWriter {
         writer.write(XmlUtils.escape(text.toString()).toCharArray(), offset, length);
 // fixme: not nice:     XmlUtils.escape(text.toString()).toCharArray()
       } else {
-        HtmlWriterUtil.writeText(writer, text, offset, length);
+        HtmlWriterUtil.writeText(writer, buffer, text, offset, length);
       }
     }
 
@@ -297,7 +300,7 @@ public class TobagoResponseWriter extends ResponseWriter {
         writer.write(XmlUtils.escape(value));
       } else {
         if (escape && HtmlWriterUtil.attributeValueMustEscaped(name)) {
-          HtmlWriterUtil.writeAttributeValue(writer,value);
+          HtmlWriterUtil.writeAttributeValue(writer, buffer, value);
         } else {
           writer.write(value);
         }
@@ -328,7 +331,7 @@ public class TobagoResponseWriter extends ResponseWriter {
         writer.write(XmlUtils.escape(attribute));
       } else {
         if (escape && HtmlWriterUtil.attributeValueMustEscaped(name)) {
-          HtmlWriterUtil.writeAttributeValue(writer,attribute);
+          HtmlWriterUtil.writeAttributeValue(writer, buffer, attribute);
         } else {
           writer.write(attribute);
         }
