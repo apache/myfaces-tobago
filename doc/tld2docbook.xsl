@@ -118,11 +118,11 @@
         </xsl:if>
       </entry>
       <entry>
-        <simplelist>
+        <!--<simplelist>--> <!--fixme: simplelist causes spacings in column, is tag needed? -->
           <xsl:apply-templates select="ui-attribute-type/class">
             <xsl:sort select="name"/>
           </xsl:apply-templates>
-        </simplelist>
+        <!--</simplelist>-->
       </entry>
       <entry>
         <xsl:value-of select="ui-attribute-default-value"/>
