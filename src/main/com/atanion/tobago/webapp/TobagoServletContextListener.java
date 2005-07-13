@@ -138,7 +138,9 @@ public class TobagoServletContextListener implements ServletContextListener {
       } else {
 //        Log.debug("add resc " + childPath);
         if (childPath.endsWith(".properties")) {
-          addProperties(servletContext, resources, childPath);
+          addProperties(servletContext, resources, childPath, false);
+//        } else if (childPath.endsWith(".xml")) {
+//          addProperties(servletContext, resources, childPath, true);
         } else {
           resources.add(childPath);
 //          Log.debug(childPath);
@@ -148,7 +150,7 @@ public class TobagoServletContextListener implements ServletContextListener {
   }
 
   private void addProperties(ServletContext servletContext, ResourceManager resources,
-      String childPath)
+      String childPath, boolean xml)
       throws ServletException {
 
     String directory = childPath.substring(0, childPath.lastIndexOf('/'));
@@ -170,7 +172,11 @@ public class TobagoServletContextListener implements ServletContextListener {
     InputStream stream = null;
     try {
       stream = servletContext.getResourceAsStream(childPath);
-      temp.load(stream);
+      if (xml) {
+        temp.loadFromXML(stream);
+      } else {
+        temp.load(stream);
+      }
     } catch (IOException e) {
       String msg = "while loading " + childPath;
       if (LOG.isErrorEnabled()) {
