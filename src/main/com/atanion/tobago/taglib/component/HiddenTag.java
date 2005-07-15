@@ -34,7 +34,8 @@ public class HiddenTag extends BeanTag
    *  This value must be unique within the closest
    *  parent component that is a naming container.
    */
-  @TagAttribute(required=true)
+//  @TagAttribute(required=true)
+  @TagAttribute()
   @UIComponentTagAttribute()
   public void setId(String id) {
     super.setId(id);

@@ -646,7 +646,11 @@ public class ResourceManager {
     public int hashCode() {
       int result;
       result = clientPropertyId.hashCode();
-      result = 29 * result + locale.hashCode();
+      if (locale != null) {
+        result = 29 * result + locale.hashCode();
+      } else {
+        LOG.warn("locale == null"); // fixme: this should no happen 
+      }
       result = 29 * result + name.hashCode();
       return result;
     }
