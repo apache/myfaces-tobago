@@ -14,6 +14,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
@@ -46,6 +47,10 @@ public class DefaultTreeActionListener implements ActionListener {
 
     FacesContext facesContext = FacesContext.getCurrentInstance();
     UIComponent component = actionEvent.getComponent().getParent();
+    if (component instanceof UIPanel) {
+      // component is toolbar
+      component = component.getParent();
+    }
     if (!(component instanceof UITree)) {
       LOG.error("No tree found!");
       return;

@@ -113,65 +113,19 @@ public class TreeRenderer extends RendererBase {
 
     if (ComponentUtil.getBooleanAttribute(tree, ATTR_MUTABLE)) {
 
-      Application application = facesContext.getApplication();
 
-      UITree.Command[] commands = tree.getCommands();
+//      writer.startElement("div", null);
+//      writer.writeAttribute("style", "border: 2px groove #ddeeff", null);
+//      writer.writeText("", null);
 
-      ActionListener handler;
-
-      ActionListener[] handlers = tree.getActionListeners();
-      if (handlers != null && handlers.length > 0) {
-        handler = handlers[0];
-      } else {
-        LOG.error("No actionListener found in tree, so tree editing will not work!");
-        handler = null;
+      UIComponent toolbar = tree.getFacet("mutableToolbar");
+      if (toolbar == null) {
+        toolbar = tree.getFacet("defaultToolbar");
       }
+      RenderUtil.encode(facesContext, toolbar);
 
-//      String type = (String)component.getAttributes().get(ATTR_ACTION_LISTENER);
-//        try {
-//          handler = ComponentUtil.createActionListener(type);
-//        } catch (JspException e) {
-//          LOG.error("", e);
-//          throw new IOException(e.toString());
-//        }
 
-      writer.startElement("div", null);
-      writer.writeAttribute("style", "border: 2px groove #ddeeff", null);
-      writer.writeText("", null);
-
-      UIComponent mutableToolbar = tree.getFacet("mutableToolbar");
-      if (null != mutableToolbar) {
-        RenderUtil.encodeChildren(facesContext, mutableToolbar);
-      } else { // default buttons
-        for (int i = 0; i < commands.length; i++) {
-          // create a UILink and add it to the UITree
-          UICommand link = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
-          link.setId("button" + i);
-          link.getAttributes().put(ATTR_ACTION_STRING,
-              commands[i].getCommand());
-          link.setRendererType(RENDERER_TYPE_LINK);
-          if (handler != null) {
-            link.addActionListener(handler);
-          }
-          tree.getFacets().put(commands[i].getCommand(), link);
-
-          // create a UIGraphic and add it to the UILink
-          UIGraphic image = (UIGraphic)
-              application.createComponent(UIGraphic.COMPONENT_TYPE);
-          image.setRendererType(RENDERER_TYPE_IMAGE);
-          image.setRendered(true);
-          image.setValue(
-              "image/tobago.tree." + commands[i].getCommand() + ".gif");
-          String title = ResourceManagerUtil.getProperty(facesContext, "tobago",
-              "tree" + StringUtil.firstToUpperCase(commands[i].getCommand()));
-          image.getAttributes().put(ATTR_TITLE, title);
-          link.getChildren().add(image);
-
-          RenderUtil.encode(facesContext, link);
-        }
-      }
-
-      writer.endElement("div");
+//      writer.endElement("div");
     }
 
 //    writer.startElement("div", null);

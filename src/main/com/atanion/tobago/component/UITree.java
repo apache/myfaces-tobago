@@ -9,16 +9,18 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.taglib.component.ToolBarTag;
 import com.atanion.tobago.util.MessageFactory;
+import com.atanion.tobago.util.StringUtil;
 import static com.atanion.tobago.TobagoConstants.*;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.model.TreeState;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.component.ActionSource;
-import javax.faces.component.NamingContainer;
-import javax.faces.component.UIComponent;
+import javax.faces.component.*;
 import javax.faces.component.UIInput;
+import javax.faces.component.UICommand;
+import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
@@ -138,8 +140,49 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   public void encodeBegin(FacesContext facesContext)
       throws IOException {
     recreateTreeNodes();
-
+    if (ComponentUtil.getBooleanAttribute(this, ATTR_MUTABLE)
+        && getFacet("mutableToolbar") == null
+        && getFacet("defaultToolbar") == null) {
+      createDefaultToolbar(facesContext);
+    }
     super.encodeBegin(facesContext);
+  }
+
+  public void createDefaultToolbar(FacesContext facesContext) {
+
+    UIComponent toolbar = ComponentUtil.createComponent(
+        facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_TOOL_BAR);
+    toolbar.getAttributes().put(ATTR_ICON_SIZE, ToolBarTag.ICON_SMALL);
+    toolbar.getAttributes().put(ATTR_LABEL_POSITION, ToolBarTag.LABEL_OFF);
+    ActionListener handler;
+    ActionListener[] handlers = getActionListeners();
+    if (handlers != null && handlers.length > 0) {
+      handler = handlers[0];
+    } else {
+      LOG.error("No actionListener found in tree, so tree editing will not work!");
+      handler = null;
+    }
+
+    UITree.Command[] commands = getCommands();
+    for (int i = 0; i < commands.length; i++) {
+      UICommand command = (UICommand) ComponentUtil.createComponent(
+          facesContext, UICommand.COMPONENT_TYPE, RENDERER_TYPE_LINK);
+      toolbar.getChildren().add(command);
+      command.setId("button" + i);
+      command.getAttributes().put(ATTR_ACTION_STRING, commands[i].getCommand());
+      if (handler != null) {
+        command.addActionListener(handler);
+      }
+      command.getAttributes().put(
+          ATTR_IMAGE, "image/tobago.tree." + commands[i].getCommand() + ".gif");
+      String title = ResourceManagerUtil.getProperty(facesContext, "tobago",
+          "tree" + StringUtil.firstToUpperCase(commands[i].getCommand()));
+      command.getAttributes().put(ATTR_TIP, title);
+
+    }
+
+    getFacets().put("defaultToolbar", toolbar);
+
   }
 
   private void recreateTreeNodes() {
