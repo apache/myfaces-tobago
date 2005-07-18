@@ -35,7 +35,7 @@ public class UILabeledInputLayout extends UILayout
     if (! ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
 
       // do layout calculation for label, component and picker
-      UIComponent label = provideLabel(facesContext, component);
+      UIComponent label = ComponentUtil.provideLabel(facesContext, component);
       UIComponent picker = component.getFacet(FACET_PICKER);
 
       RendererBase layoutRenderer = ComponentUtil.getRenderer(facesContext, this);
@@ -98,56 +98,6 @@ public class UILabeledInputLayout extends UILayout
 
   }
 
-  private UIComponent provideLabel(FacesContext facesContext, UIComponent component) {
-    UIComponent label = component.getFacet(FACET_LABEL);
-
-
-    if (label == null) {
-      final Map attributes = component.getAttributes();
-      Object labelText = component.getValueBinding(ATTR_LABEL);
-      if (labelText ==null) {
-        labelText = attributes.get(ATTR_LABEL);
-      }
-
-      Object labelWithAccessKey = component.getValueBinding(ATTR_LABEL_WITH_ACCESS_KEY);
-      if (labelWithAccessKey == null) {
-        labelWithAccessKey = attributes.get(ATTR_LABEL_WITH_ACCESS_KEY);
-      }
-
-      Object accessKey = component.getValueBinding(ATTR_ACCESS_KEY);
-      if (accessKey == null) {
-        accessKey = attributes.get(ATTR_ACCESS_KEY);
-      }
-
-      if (labelText != null || labelWithAccessKey != null || accessKey != null) {
-        Application application = getFacesContext().getApplication();
-        label = (UIOutput) application.createComponent(UIOutput.COMPONENT_TYPE);
-        label.setRendererType("Label");
-        String idprefix = ComponentUtil.getComponentId(facesContext, component);
-        label.setId(idprefix + "_" + FACET_LABEL);
-        label.setRendered(true);
-
-        if (labelText instanceof ValueBinding) {
-          label.setValueBinding(ATTR_VALUE, (ValueBinding) labelText);
-        } else if (labelText != null) {
-          label.getAttributes().put(ATTR_VALUE, labelText);
-        }
-        if (labelWithAccessKey instanceof ValueBinding) {
-          label.setValueBinding(ATTR_LABEL_WITH_ACCESS_KEY, (ValueBinding) labelWithAccessKey);
-        } else if (labelWithAccessKey != null) {
-          label.getAttributes().put(ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
-        }
-        if (accessKey instanceof ValueBinding) {
-          label.setValueBinding(ATTR_ACCESS_KEY, (ValueBinding) accessKey);
-        } else if (accessKey != null) {
-          label.getAttributes().put(ATTR_ACCESS_KEY, accessKey);
-        }
-
-        component.getFacets().put(FACET_LABEL, label);
-      }
-    }
-    return label;
-  }
 
   private String  createDefaultLayoutTokens(FacesContext facesContext, UIComponent component, String layoutOrder) {
     UIComponent label = component.getFacet(FACET_LABEL);

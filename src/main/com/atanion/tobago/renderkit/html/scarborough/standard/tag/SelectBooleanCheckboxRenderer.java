@@ -49,7 +49,7 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
+    UIComponent label = ComponentUtil.provideLabel(facesContext, component);
 
     boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
 

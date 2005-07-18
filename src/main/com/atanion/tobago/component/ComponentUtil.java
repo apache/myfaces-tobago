@@ -13,6 +13,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.FactoryFinder;
+import javax.faces.application.Application;
 import javax.faces.component.*;
 import javax.faces.component.UICommand;
 import javax.faces.component.UISelectItem;
@@ -624,6 +625,57 @@ public class ComponentUtil {
     return id;
   }
 
+  public static UIComponent provideLabel(FacesContext facesContext, UIComponent component) {
+    UIComponent label = component.getFacet(FACET_LABEL);
+
+
+    if (label == null) {
+      final Map attributes = component.getAttributes();
+      Object labelText = component.getValueBinding(ATTR_LABEL);
+      if (labelText ==null) {
+        labelText = attributes.get(ATTR_LABEL);
+      }
+
+      Object labelWithAccessKey = component.getValueBinding(ATTR_LABEL_WITH_ACCESS_KEY);
+      if (labelWithAccessKey == null) {
+        labelWithAccessKey = attributes.get(ATTR_LABEL_WITH_ACCESS_KEY);
+      }
+
+      Object accessKey = component.getValueBinding(ATTR_ACCESS_KEY);
+      if (accessKey == null) {
+        accessKey = attributes.get(ATTR_ACCESS_KEY);
+      }
+
+      if (labelText != null || labelWithAccessKey != null || accessKey != null) {
+        Application application = FacesContext.getCurrentInstance().getApplication();
+        label = (UIOutput) application.createComponent(UIOutput.COMPONENT_TYPE);
+        label.setRendererType("Label");
+        String idprefix = ComponentUtil.getComponentId(facesContext, component);
+        label.setId(idprefix + "_" + FACET_LABEL);
+        label.setRendered(true);
+
+        if (labelText instanceof ValueBinding) {
+          label.setValueBinding(ATTR_VALUE, (ValueBinding) labelText);
+        } else if (labelText != null) {
+          label.getAttributes().put(ATTR_VALUE, labelText);
+        }
+        if (labelWithAccessKey instanceof ValueBinding) {
+          label.setValueBinding(ATTR_LABEL_WITH_ACCESS_KEY, (ValueBinding) labelWithAccessKey);
+        } else if (labelWithAccessKey != null) {
+          label.getAttributes().put(ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
+        }
+        if (accessKey instanceof ValueBinding) {
+          label.setValueBinding(ATTR_ACCESS_KEY, (ValueBinding) accessKey);
+        } else if (accessKey != null) {
+          label.getAttributes().put(ATTR_ACCESS_KEY, accessKey);
+        }
+
+        component.getFacets().put(FACET_LABEL, label);
+      }
+    }
+    return label;
+  }
+  
 
   public static List<SelectItem> getItemsToRender(javax.faces.component.UISelectOne component) {
     return getItems(component);
