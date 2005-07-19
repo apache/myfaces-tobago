@@ -182,6 +182,10 @@ div.tobago-sheet-cell-inner span {
   vertical-align: top;
 }
 
+.tobago-sheet-footer-pager-button-disabled {
+  cursor: auto;
+}
+
 .tobago-sheet-paging-rows-span {
   cursor: pointer;
   vertical-align: top;

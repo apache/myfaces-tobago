@@ -64,23 +64,23 @@ public class SheetRenderer extends RendererBase {
 
     HtmlRendererUtil.createHeaderAndBodyStyles(facesContext, data);
 
-    String image1x1 = ResourceManagerUtil.getImage(facesContext,
+    final String image1x1 = ResourceManagerUtil.getImage(facesContext,
         "image/1x1.gif");
-    String ascending = ResourceManagerUtil.getImage(facesContext,
+    final String ascending = ResourceManagerUtil.getImage(facesContext,
         "image/ascending.gif");
-    String descending = ResourceManagerUtil.getImage(facesContext,
+    final String descending = ResourceManagerUtil.getImage(facesContext,
         "image/descending.gif");
 
-    String sheetId = data.getClientId(facesContext);
-    UIPage uiPage = ComponentUtil.findPage(data);
+    final String sheetId = data.getClientId(facesContext);
+    final UIPage uiPage = ComponentUtil.findPage(data);
     uiPage.getScriptFiles().add("script/tobago-sheet.js");
     uiPage.getOnloadScripts().add("initSheet(\"" + sheetId + "\");");
     uiPage.getStyleFiles().add("style/tobago-sheet.css");
 
-    String selectorDisabled
+    final String selectorDisabled
         = ResourceManagerUtil.getImage(facesContext,
             "image/sheetUncheckedDisabled.gif");
-    String unchecked
+    final String unchecked
         = ResourceManagerUtil.getImage(facesContext,
             "image/sheetUnchecked.gif");
     uiPage.getOnloadScripts().add(
@@ -92,14 +92,14 @@ public class SheetRenderer extends RendererBase {
     uiPage.getOnloadScripts().add("updateSelectionView(\"" + sheetId + "\")");
 
     final Map attributes = data.getAttributes();
-    String sheetStyle = (String) attributes.get(TobagoConstants.ATTR_STYLE);
-    String headerStyle =
+    final String sheetStyle = (String) attributes.get(TobagoConstants.ATTR_STYLE);
+    final String headerStyle =
         (String) attributes.get(TobagoConstants.ATTR_STYLE_HEADER);
 //    String sheetWidthString = LayoutUtil.getStyleAttributeValue(sheetStyle,
 //        "width");
-    String sheetHeightString = HtmlRendererUtil.getStyleAttributeValue(sheetStyle,
-        "height");
-    int sheetHeight;
+    final String sheetHeightString
+        = HtmlRendererUtil.getStyleAttributeValue(sheetStyle, "height");
+    final int sheetHeight;
     if (sheetHeightString != null) {
       sheetHeight = Integer.parseInt(sheetHeightString.replaceAll("\\D", ""));
     } else {
@@ -108,21 +108,22 @@ public class SheetRenderer extends RendererBase {
       sheetHeight = 100;
     }
     String bodyStyle = (String) attributes.get(TobagoConstants.ATTR_STYLE_BODY);
-    int footerHeight = ((Integer)
+    final int footerHeight = ((Integer)
         attributes.get(TobagoConstants.ATTR_FOOTER_HEIGHT)).intValue();
 
 
-    Application application = facesContext.getApplication();
-    SheetState state = data.getSheetState(facesContext);
-    Sorter sorter = data.getSorter();
+    final Application application = facesContext.getApplication();
+    final SheetState state = data.getSheetState(facesContext);
+    final Sorter sorter = data.getSorter();
     sorter.setStoredState(state);
-    MethodBinding pager = new Pager();
-    List<Integer> columnWidths = data.getWidthList();
+    final MethodBinding pager = new Pager();
+    final List<Integer> columnWidths = data.getWidthList();
 
-    String selectedListString = getSelected(data, state);
-    List<UIColumn> columnList = data.getColumns();
+    final String selectedListString = getSelected(data, state);
+    final List<UIColumn> columnList = data.getColumns();
 
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    final TobagoResponseWriter writer
+        = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement("input", null);
     writer.writeIdAttribute(sheetId + WIDTHS_POSTFIX);
@@ -144,27 +145,13 @@ public class SheetRenderer extends RendererBase {
     writer.writeClassAttribute("tobago-sheet-outer-div");
     writer.writeAttribute("style", sheetStyle, null);
 
-    boolean showHeader = data.isShowHeader();
+    final boolean showHeader = data.isShowHeader();
     if (showHeader) {
       // begin rendering header
       writer.startElement("div", null);
       writer.writeIdAttribute(sheetId + "_header_div");
       writer.writeClassAttribute("tobago-sheet-header-div");
       writer.writeAttribute("style", headerStyle, null);
-
-//      writer.startElement("table", component);
-//      writer.writeIdAttribute(sheetId + "_header_table");
-//      writer.writeAttribute("cellspacing", "0", null);
-//      writer.writeAttribute("cellpadding", "0", null);
-//      writer.writeAttribute("summary", "", null);
-//      writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_HEADER);
-//      writer.writeClassAttribute("tobago-sheet-header-table");
-//
-//
-//      writer.startElement("tr", null);
-//      writer.startElement("td", null);
-//      writer.writeAttribute("style", "white-space: nowrap;", null);
-
 
       int columnCount = 0;
       final int sortMarkerWidth = getAscendingMarkerWidth(facesContext, data);
@@ -184,9 +171,6 @@ public class SheetRenderer extends RendererBase {
       writer.endElement("div");
 
       writer.endElement("div");
-//      writer.endElement("td");
-//      writer.endElement("tr");
-//      writer.endElement("table");
       writer.endElement("div");
       // end rendering header
     }
@@ -195,7 +179,7 @@ public class SheetRenderer extends RendererBase {
 // BEGIN RENDER BODY CONTENT
     bodyStyle = HtmlRendererUtil.replaceStyleAttribute(bodyStyle, "height",
         (sheetHeight - footerHeight) + "px");
-    String space = HtmlRendererUtil.getStyleAttributeValue(bodyStyle, "width");
+    final String space = HtmlRendererUtil.getStyleAttributeValue(bodyStyle, "width");
     String sheetBodyStyle;
     if (space != null) {
       int intSpace = Integer.parseInt(space.replaceAll("\\D", ""));
@@ -240,12 +224,12 @@ public class SheetRenderer extends RendererBase {
           data.getRows());
     }
 
-    Map requestMap = facesContext.getExternalContext().getRequestMap();
-    String var = data.getVar();
+    final Map requestMap = facesContext.getExternalContext().getRequestMap();
+    final String var = data.getVar();
 
     boolean odd = false;
     int visibleIndex = -1;
-    int last = data.getFirst() + data.getRows();
+    final int last = data.getFirst() + data.getRows();
     for (int rowIndex = data.getFirst(); rowIndex < last; rowIndex++) {
       visibleIndex++;
       data.setRowIndex(rowIndex);
@@ -253,7 +237,7 @@ public class SheetRenderer extends RendererBase {
         break;
       }
       odd = !odd;
-      String rowClass = odd ?
+      final String rowClass = odd ?
           "tobago-sheet-content-odd " : "tobago-sheet-content-even ";
 
       if (LOG.isDebugEnabled()) {
@@ -261,17 +245,7 @@ public class SheetRenderer extends RendererBase {
         LOG.debug("list      " + data.getValue());
       }
 
-      Object value = data.getRowData();
-/*
-      Object value;
-      if (component.getValue() instanceof Object[]) {
-        Object[] valueArray = (Object[]) component.getValue();
-        value = valueArray[rowIndex];
-      } else {
-        List valueList = (List) component.getValue();
-        value = valueList.get(rowIndex);
-      }
-*/
+      final Object value = data.getRowData();
 
       if (LOG.isDebugEnabled()) {
         LOG.debug("element   " + value);
@@ -289,16 +263,16 @@ public class SheetRenderer extends RendererBase {
       for (UIColumn column : data.getColumns()) {
         columnIndex++;
 
-        String style = "width: " + columnWidths.get(columnIndex) + "px;";
+        final String style = "width: " + columnWidths.get(columnIndex) + "px;";
         String tdStyle = "";
-        String align = (String) column.getAttributes().get(
+        final String align = (String) column.getAttributes().get(
             TobagoConstants.ATTR_ALIGN);
         if (align != null) {
           tdStyle = "text-align: " + align;
         }
-        String cellClass = (String) column.getAttributes().get(
+        final String cellClass = (String) column.getAttributes().get(
             TobagoConstants.ATTR_STYLE_CLASS);
-        String tdClass = "tobago-sheet-cell-td " +
+        final String tdClass = "tobago-sheet-cell-td " +
             (cellClass != null ? cellClass : "");
 
 
@@ -317,26 +291,14 @@ public class SheetRenderer extends RendererBase {
         writer.writeClassAttribute("tobago-sheet-cell-inner");
         writer.writeText("", null);
 
-//        if (columnStyles > 0) {
-//          writer.writeAttribute("class", columnClasses[columnStyle++],
-//              "columnClasses");
-//          if (columnStyle >= columnStyles) {
-//            columnStyle = 0;
-//          }
-//        }
-
         if (column instanceof UIColumnSelector) {
-          boolean disabled
+          final boolean disabled
               = ComponentUtil.getBooleanAttribute(column, ATTR_DISABLED);
           writer.startElement("img", null);
           if (disabled) {
             writer.writeAttribute("src", selectorDisabled, null);
           } else {
             writer.writeAttribute("src", unchecked, null);
-//            writer.writeAttribute("onclick", "tobagoSheetToggleSelectionState(\""
-//                + sheetId + "\", " + rowIndex + ")", null);
-//            writer.writeAttribute("onclick",
-//                "tobagoSheetToggleSelectionState(event)", null);
           }
           writer.writeIdAttribute(sheetId + "_data_row_selector_" + rowIndex);
           writer.writeClassAttribute("tobago-sheet-column-selector");
@@ -384,17 +346,17 @@ public class SheetRenderer extends RendererBase {
 // END RENDER BODY CONTENT
 
 
-    String showRowRange
+    final String showRowRange
         = getPagingAttribute(data, ATTR_SHOW_ROW_RANGE);
-    String showPageRange
+    final String showPageRange
         = getPagingAttribute(data, ATTR_SHOW_PAGE_RANGE);
-    String showDirectLinks
+    final String showDirectLinks
         = getPagingAttribute(data, ATTR_SHOW_DIRECT_LINKS);
 
     if (isValidPagingValue(showRowRange)
         || isValidPagingValue(showPageRange)
         || isValidPagingValue(showDirectLinks)) {
-      String footerStyle = HtmlRendererUtil.replaceStyleAttribute(bodyStyle,
+      final String footerStyle = HtmlRendererUtil.replaceStyleAttribute(bodyStyle,
           "height", footerHeight + "px")
           + " top: " + (sheetHeight - footerHeight) + "px;";
 
@@ -414,9 +376,9 @@ public class SheetRenderer extends RendererBase {
         String pagingOnClick
             = ButtonRenderer.createOnClick(facesContext, pagerCommand);
         pagingOnClick = pagingOnClick.replaceAll("'", "\"");
-        String pagerCommandId = pagerCommand.getClientId(facesContext);
+        final String pagerCommandId = pagerCommand.getClientId(facesContext);
 
-        String className = "tobago-sheet-paging-rows-span"
+        final String className = "tobago-sheet-paging-rows-span"
             + " tobago-sheet-paging-span-" + showRowRange;
 
         writer.startElement("span", null);
@@ -432,7 +394,7 @@ public class SheetRenderer extends RendererBase {
 
 
       if (isValidPagingValue(showDirectLinks)) {
-        String className = "tobago-sheet-paging-links-span"
+        final String className = "tobago-sheet-paging-links-span"
             + " tobago-sheet-paging-span-" + showDirectLinks;
 
         writer.startElement("span", null);
@@ -452,9 +414,9 @@ public class SheetRenderer extends RendererBase {
         String pagingOnClick
             = ButtonRenderer.createOnClick(facesContext, pagerCommand);
         pagingOnClick = pagingOnClick.replaceAll("'", "\"");
-        String pagerCommandId = pagerCommand.getClientId(facesContext);
+        final String pagerCommandId = pagerCommand.getClientId(facesContext);
 
-        String className = "tobago-sheet-paging-pages-span"
+        final String className = "tobago-sheet-paging-pages-span"
             + " tobago-sheet-paging-span-" + showPageRange;
 
 
@@ -693,14 +655,17 @@ public class SheetRenderer extends RendererBase {
         "sheet" + command);
     String image = ResourceManagerUtil.getImage(facesContext,
         "image/" + command + (disabled ? "Disabled" : "") + ".gif");
-    String onClick = ButtonRenderer.createOnClick(facesContext, link);
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement("img", null);
-    writer.writeClassAttribute("tobago-sheet-footer-pager-button");
+    writer.writeClassAttribute("tobago-sheet-footer-pager-button"
+        + (disabled ? " tobago-sheet-footer-pager-button-disabled" : ""));
     writer.writeAttribute("src", image, null);
     writer.writeAttribute("title", tip, null);
-    writer.writeAttribute("onclick", onClick, null);
+    if (! disabled) {
+      String onClick = ButtonRenderer.createOnClick(facesContext, link);
+      writer.writeAttribute("onclick", onClick, null);
+    }
     writer.endElement("img");
   }
 
@@ -914,7 +879,7 @@ public class SheetRenderer extends RendererBase {
 
     int linkCount = ComponentUtil.getIntAttribute(data, ATTR_DIRECT_LINK_COUNT);
     linkCount--;  // current page needs no link
-    ArrayList prevs = new ArrayList(linkCount);
+    ArrayList<Integer> prevs = new ArrayList<Integer>(linkCount);
     int page = data.getPage();
     for (int i = 0; i < linkCount && page > 1; i++) {
       page--;
@@ -923,7 +888,7 @@ public class SheetRenderer extends RendererBase {
       }
     }
 
-    ArrayList nexts = new ArrayList(linkCount);
+    ArrayList<Integer> nexts = new ArrayList<Integer>(linkCount);
     page = data.getPage();
     for (int i = 0; i < linkCount && page < data.getPages(); i++) {
       page++;
