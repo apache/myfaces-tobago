@@ -48,16 +48,14 @@ public class CalendarRenderer extends RendererBase {
     page.getScriptFiles().add("script/calendar.js");
     page.getScriptFiles().add("script/dateConverter.js");
 
-    String id = output.getId();
+    String id = output.getClientId(facesContext);
 
-    String dateTextBoxId = (String) facesContext.getExternalContext()
-        .getRequestParameterMap().get("tobago.date.inputId");
+//    String dateTextBoxId = (String) facesContext.getExternalContext()
+//        .getRequestParameterMap().get("tobago.date.inputId");
+    String dateTextBoxId = (String) component.getAttributes().get(ATTR_CALENDAR_DATE_INPUT_ID);
+
     if (LOG.isDebugEnabled()) {
       LOG.debug("dateTextBoxId = '" + dateTextBoxId + "'");
-    }
-    if (dateTextBoxId != null) {
-      page.getOnloadScripts().add("initCalendarParse('"
-          + id + "', '" + dateTextBoxId + "');");
     }
 
     Locale locale = facesContext.getViewRoot().getLocale();
@@ -236,7 +234,17 @@ public class CalendarRenderer extends RendererBase {
     writer.writeAttribute("value", "", null);
     writer.endElement("input");
 
-    HtmlRendererUtil.writeJavascript(writer, "document.calendar = new Object();");
+//    HtmlRendererUtil.writeJavascript(writer, "document.calendar = new Object();");
+    HtmlRendererUtil.startJavascript(writer);
+    writer.writeText("document.calendar = new Object();", null);
+
+    if (dateTextBoxId != null) {
+//      page.getOnloadScripts().add("initCalendarParse('"
+//          + id + "', '" + dateTextBoxId + "');");
+       writer.writeText(
+           "initCalendarParse('" + id + "', '" + dateTextBoxId + "');", null);
+    }
+    HtmlRendererUtil.endJavascript(writer);
 //    writer.startElement("script", null);
 //    writer.writeAttribute("tyle", "text/javascript", null);
 //    writer.writeText("document.calendar = new Object();", null);

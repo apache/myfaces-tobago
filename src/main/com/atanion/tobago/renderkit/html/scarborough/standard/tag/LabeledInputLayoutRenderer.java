@@ -9,6 +9,7 @@ import com.atanion.tobago.renderkit.LabeledLayoutRender;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 
@@ -17,6 +18,8 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.application.ViewHandler;
 import java.io.IOException;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by IntelliJ IDEA.
@@ -102,16 +105,33 @@ public class LabeledInputLayoutRenderer extends DefaultLayoutRenderer implements
   }
 
   protected void renderPicker(FacesContext facesContext, UIComponent input,
-      UIComponent picker) throws IOException {
+                              UIComponent picker) throws IOException {
     if (picker != null) {
       ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
-      String url
-          = viewHandler.getActionURL(facesContext, ResourceManagerUtil.getJsp(facesContext, "datePicker.jsp"))
-          + "?tobago.date.inputId="
-          + input.getClientId(facesContext);
-      String command = "calendarWindow('" + url + "');";
-      picker.getAttributes().put(ATTR_ACTION_STRING, command);
+//      String url
+//          = viewHandler.getActionURL(facesContext, ResourceManagerUtil.getJsp(facesContext, "datePicker.jsp"))
+//          + "?tobago.date.inputId="
+//          + input.getClientId(facesContext);
+//      String command = "calendarWindow('" + url + "');";
+//      picker.getAttributes().put(ATTR_ACTION_STRING, command);
       RenderUtil.encode(facesContext, picker);
+
+      UIComponent popup = picker.getFacet(FACET_PICKER_POPUP);
+      if (popup != null) {
+        final UIPage page = ComponentUtil.findPage(input);
+
+        List popups = (List) page.getAttributes().get(ATTR_POPUP_LIST);
+        if (popups == null) {
+          popups = new ArrayList();
+          page.getAttributes().put(ATTR_POPUP_LIST, popups);
+        }
+        popups.add(popup);
+
+        
+
+      }
+
+
     }
   }
 }

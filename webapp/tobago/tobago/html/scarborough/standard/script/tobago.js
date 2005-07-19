@@ -30,6 +30,35 @@ function setAction(formId, actionId) {
   }
 }
 
+function openPickerPopup(event, formId, actionId, hiddenId) {
+  var hidden = document.getElementById(hiddenId);
+  if (hidden) {
+    // calculate position of command and size of window
+
+    var command = document.getElementById(actionId);
+    hidden.value = getBrowserInnerWidth() + "x" + getBrowserInnerHeight();
+    if (event) {
+      hidden.value = hidden.value + ":" + event.clientX + "x" + event.clientY;
+    }
+  }
+  submitAction(formId, actionId);
+}
+
+function closePickerPopup(popupId) {
+  var popup = document.getElementById(popupId);
+  if (popup) {
+    popup.parentNode.removeChild(popup);
+  }
+  popup = document.getElementById(popupId + getSubComponentSeparator() + "content");
+  if (popup) {
+    popup.parentNode.removeChild(popup);
+  }
+  popup = document.getElementById(popupId + getSubComponentSeparator() + "iframe");
+  if (popup) {
+    popup.parentNode.removeChild(popup);
+  }
+}
+
 function resetForm(formId) {
   var form = document.getElementById(formId);
   if (form) {
@@ -440,7 +469,8 @@ function tobagoToolbarFocus(element, event) {
 
 function tobagoSetupPopup(id, left, top) {
 //  alert("tobagoSetupPopup('" + id + "', '" + left + "', '"+ top + "')");
-  var div = document.getElementById(id);
+  var contentId = id + getSubComponentSeparator() + "content";
+  var div = document.getElementById(contentId);
   if (div) {
     var l = left.replace(/\D/g, "");
     if (l.length > 0) {
@@ -462,9 +492,15 @@ function tobagoSetupPopup(id, left, top) {
 //      alert("2 set top to " + t/2);
     }
 
+    var iframeId = id + getSubComponentSeparator() + "iframe";
+    var iframe = document.getElementById(iframeId);
+    if (iframe) {
+      iframe.style.left = div.style.left;
+      iframe.style.top = div.style.top;
+    }
 
-  } else {
-    alert("popup div mit id '" + id + "' nicht gefunden!");
+//  } else {
+//    alert("popup div mit id '" + id + "' nicht gefunden!");
   }
 
 }

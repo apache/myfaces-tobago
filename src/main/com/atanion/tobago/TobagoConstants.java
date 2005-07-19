@@ -17,6 +17,7 @@ public interface TobagoConstants {
   public static final String ATTR_BODY_CONTENT = "bodyContent";
   public static final String ATTR_BORDER = "border";
   public static final String ATTR_CHARSET = "charset";
+  public static final String ATTR_CALENDAR_DATE_INPUT_ID = "CalendarDateInputId";
   public static final String ATTR_CELLSPACING = "layoutCellspacing";
   public static final String ATTR_CLASSES_BLOCKS = "cssClassesBlocks";
   public static final String ATTR_CLIENT_PROPERTIES = "clientProperties";
@@ -79,6 +80,8 @@ public interface TobagoConstants {
   public static final String ATTR_PAGE_MENU = "pageMenu";
   public static final String ATTR_PASSWORD = "password";
   public static final String ATTR_POPUP_LIST = "popupList";
+  public static final String ATTR_POPUP_RESET = "popupReset";
+  public static final String ATTR_POPUP_CALENDAR_ID = "popupCalendarId";
   public static final String ATTR_PREFORMATED = "preformated";
   public static final String ATTR_READONLY = "readonly";
   public static final String ATTR_REFERENCE = "reference";

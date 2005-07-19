@@ -186,9 +186,9 @@ function initCalendar(id) {
 }
 
 function initCalendarParse(id, textBoxId) {
-  var textBox = window.opener.document.getElementById(textBoxId);
+  var textBox = document.getElementById(textBoxId);
   document.getElementById(id + ":fieldId").value = textBoxId;
-  var patternField = window.opener.document.getElementById(textBoxId + ":converterPattern");
+  var patternField = document.getElementById(textBoxId + ":converterPattern");
   if (patternField) {
     document.calendar.formatPattern = patternField.value;
   } else {
@@ -210,7 +210,7 @@ function initCalendarParse(id, textBoxId) {
 
 function writeIntoField(id) {
   var textBoxId = document.getElementById(id + ":fieldId");
-  var textBox = window.opener.document.getElementById(textBoxId.value);
+  var textBox = document.getElementById(textBoxId.value);
 
   var day = parseInt(document.getElementById(id + ":day").value);
   var month = parseInt(document.getElementById(id + ":month").value);
