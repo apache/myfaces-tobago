@@ -654,7 +654,7 @@ public class SheetRenderer extends RendererBase {
     String tip = ResourceManagerUtil.getProperty(facesContext, "tobago",
         "sheet" + command);
     String image = ResourceManagerUtil.getImage(facesContext,
-        "image/" + command + (disabled ? "Disabled" : "") + ".gif");
+        "image/sheet" + command + (disabled ? "Disabled" : "") + ".gif");
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement("img", null);

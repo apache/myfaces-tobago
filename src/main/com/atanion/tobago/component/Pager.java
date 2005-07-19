@@ -23,10 +23,10 @@ public class Pager extends MethodBinding {
 // ------------------------------------------------------------------ constants
 
   private static final Log LOG = LogFactory.getLog(Pager.class);
-  public static final String FIRST = "first";
-  public static final String PREV = "prev";
-  public static final String NEXT = "next";
-  public static final String LAST = "last";
+  public static final String FIRST = "First";
+  public static final String PREV = "Prev";
+  public static final String NEXT = "Next";
+  public static final String LAST = "Last";
   public static final String PAGE_TO_ROW = "pageToRow";
   public static final String PAGE_TO_PAGE = "pageToPage";
   public static final String LINK_TO_PAGE = "linkToPage";
