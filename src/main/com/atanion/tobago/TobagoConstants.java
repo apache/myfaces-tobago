@@ -144,6 +144,7 @@ public interface TobagoConstants {
   public static final String FACET_PAGER_PAGE = "pagerPage";
   public static final String FACET_PAGER_ROW = "pagerRow";
   public static final String FACET_PICKER = "picker";
+  public static final String FACET_PICKER_POPUP = "pickerPopup";
   public static final String FACET_RADIO = "radio";
   public static final String FACET_TOOL_BAR= "toolBar";
   public static final String FACET_TOOL_BAR_COMMAND = "toolBarCommand";
@@ -157,6 +158,7 @@ public interface TobagoConstants {
 
   public static final String RENDERER_TYPE_BOX = "Box";
   public static final String RENDERER_TYPE_BUTTON = "Button";
+  public static final String RENDERER_TYPE_CALENDAR = "Calendar";
   public static final String RENDERER_TYPE_HIDDEN = "Hidden";
   public static final String RENDERER_TYPE_DEFAULT_LAYOUT = "DefaultLayout";
   public static final String RENDERER_TYPE_LABELED_INPUT_LAYOUT = "LabeledInputLayout";
@@ -169,6 +171,7 @@ public interface TobagoConstants {
   public static final String RENDERER_TYPE_MENUCOMMAND = "MenuCommand";
   public static final String RENDERER_TYPE_OUT = "Out";
   public static final String RENDERER_TYPE_PANEL = "Panel";
+  public static final String RENDERER_TYPE_POPUP = "Popup";
   public static final String RENDERER_TYPE_SELECT_ONE_CHOICE = "SelectOneChoice";
   public static final String RENDERER_TYPE_SELECT_ONE_RADIO = "SelectOneRadio";
   public static final String RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX = "SelectBooleanCheckbox";
