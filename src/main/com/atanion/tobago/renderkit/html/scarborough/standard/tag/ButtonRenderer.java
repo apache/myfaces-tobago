@@ -73,9 +73,15 @@ public class ButtonRenderer extends CommandRendererBase {
     writer.writeText("", null); // force closing the start tag
 
 //  image
-    String image = (String) component.getAttributes().get(ATTR_IMAGE);
-    if (image != null) {
-      image = ResourceManagerUtil.getImage(facesContext, image);
+    String imageName = (String) component.getAttributes().get(ATTR_IMAGE);
+    if (imageName != null) {
+      String image = null;
+      if (disabled) {
+        image = ResourceManagerUtil.getDisabledImage(facesContext, imageName);
+      }
+      if (image == null) {
+        image = ResourceManagerUtil.getImage(facesContext, imageName);
+      }
       writer.startElement("img", null);
       writer.writeAttribute("src", image, null);
       writer.writeAttribute("alt", "", null);
@@ -84,7 +90,7 @@ public class ButtonRenderer extends CommandRendererBase {
 
 //  label
     if (label.getText() != null) {
-      if (image != null) {
+      if (imageName != null) {
         writer.writeText(" ", null); // separator: e.g. &nbsp;
       }
       HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
