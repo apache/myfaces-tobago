@@ -173,7 +173,7 @@ public class MenuBarRenderer extends RendererBase {
     ResponseWriter savedWriter = facesContext.getResponseWriter();
     StringWriter stringWriter = new StringWriter();
     TobagoResponseWriter writer
-        = new TobagoResponseWriter(stringWriter, "text/html", "UTF8");
+        = (TobagoResponseWriter) savedWriter.cloneWithWriter(stringWriter);
     facesContext.setResponseWriter(writer);
 
     addImage(writer, facesContext, image, disabled);
@@ -394,7 +394,7 @@ public class MenuBarRenderer extends RendererBase {
     ResponseWriter savedWriter = facesContext.getResponseWriter();
     StringWriter stringWriter = new StringWriter();
     TobagoResponseWriter writer
-        = new TobagoResponseWriter(stringWriter, "text/html", "UTF8");
+        = (TobagoResponseWriter) savedWriter.cloneWithWriter(stringWriter);
     facesContext.setResponseWriter(writer);
 
     addImage(writer, facesContext, image, disabled);

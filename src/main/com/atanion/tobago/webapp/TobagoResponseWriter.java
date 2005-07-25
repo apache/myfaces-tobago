@@ -58,10 +58,19 @@ public class TobagoResponseWriter extends ResponseWriter {
 
   private boolean insideScriptOrStyle = false;
 
+  private HtmlWriterUtil attributeWriter;
+  private HtmlWriterUtil textWriter;
+
+
 // ///////////////////////////////////////////// constructor
 
   public TobagoResponseWriter(
       Writer writer, String contentType, String characterEncoding) {
+//    LOG.info("new TobagoResponseWriter!");
+//    final StackTraceElement[] stackTrace = new Exception().getStackTrace();
+//    for (int i = 1; i < stackTrace.length && i < 5; i++) {
+//      LOG.info("  " + stackTrace[i].toString());
+//    }
     this.writer = writer;
     this.stack = new Stack<String>();
     this.contentType = contentType;
@@ -71,7 +80,8 @@ public class TobagoResponseWriter extends ResponseWriter {
         || "text/xml".equals(contentType)) {
       xml = true;
     }
-    buffer = new char[1028];
+    attributeWriter = new HtmlWriterUtil(this, characterEncoding, true);
+    textWriter = new HtmlWriterUtil(this, characterEncoding, false);
   }
 
 // ///////////////////////////////////////////// code
@@ -141,7 +151,7 @@ public class TobagoResponseWriter extends ResponseWriter {
       if (xml) {
         write(XmlUtils.escape(value));
       } else {
-        HtmlWriterUtil.writeText(writer, buffer, value);
+        textWriter.writeText(value);
       }
     }
   }
@@ -159,7 +169,7 @@ public class TobagoResponseWriter extends ResponseWriter {
         writer.write(XmlUtils.escape(text.toString()).toCharArray(), offset, length);
 // fixme: not nice:     XmlUtils.escape(text.toString()).toCharArray()
       } else {
-        HtmlWriterUtil.writeText(writer, buffer, text, offset, length);
+        textWriter.writeText(text, offset, length);
       }
     }
 
@@ -301,7 +311,7 @@ public class TobagoResponseWriter extends ResponseWriter {
         writer.write(XmlUtils.escape(value));
       } else {
         if (escape && HtmlWriterUtil.attributeValueMustEscaped(name)) {
-          HtmlWriterUtil.writeAttributeValue(writer, buffer, value);
+          attributeWriter.writeAttributeValue(value);
         } else {
           writer.write(value);
         }
@@ -332,7 +342,7 @@ public class TobagoResponseWriter extends ResponseWriter {
         writer.write(XmlUtils.escape(attribute));
       } else {
         if (escape && HtmlWriterUtil.attributeValueMustEscaped(name)) {
-          HtmlWriterUtil.writeAttributeValue(writer, buffer, attribute);
+          attributeWriter.writeAttributeValue(attribute);
         } else {
           writer.write(attribute);
         }

@@ -77,8 +77,7 @@ public class PageRenderer extends PageRendererBase {
 
     // replace responseWriter and render page content
     StringWriter content = new StringWriter();
-    ResponseWriter contentWriter = new TobagoResponseWriter(
-        content, writer.getContentType(), writer.getCharacterEncoding());
+    ResponseWriter contentWriter = writer.cloneWithWriter(content);         
     facesContext.setResponseWriter(contentWriter);
 
     UIComponent menubar = page.getFacet(FACET_MENUBAR);
@@ -221,7 +220,7 @@ public class PageRenderer extends PageRendererBase {
     writer.writeAttribute("onload", "onloadScript()", null);
     //this ist for ie to prevent scrollbars where none are needed
     writer.writeAttribute("scroll", "auto", null);
-    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeComponentClass();
     writer.writeIdAttribute(clientId);
 
 

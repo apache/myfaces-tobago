@@ -8,6 +8,12 @@ import java.io.Writer;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.CharArrayWriter;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Date;
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,68 +24,56 @@ import java.io.CharArrayWriter;
  */
 public class HtmlWriterUtil {
 
-  static public void writeAttributeValue(Writer out, String text)
+  private static final Log LOG = LogFactory.getLog(HtmlWriterUtil.class);
+
+  private Writer out;
+  private boolean utf8;
+  private char[][] charsToEscape;
+  private char[] buff;
+
+  public HtmlWriterUtil(Writer out, String characterEncoding, boolean attribute) {
+    this.out = out;
+    if ("utf-8".equalsIgnoreCase(characterEncoding)) {
+      utf8 = true;
+    }
+    charsToEscape = attribute ? ATTRIBUTE_CHARS_TO_ESCAPE : TEXT_CHARS_TO_ESCAPE;
+    buff = new char[1028];
+//    LOG.info("utf8 = " + utf8);
+
+  }
+
+
+  public void writeAttributeValue(String text)
       throws IOException {
-    writeAttributeValue(out, text.toCharArray(), 0, text.length());
+    writeAttributeValue(text.toCharArray(), 0, text.length());
   }
-  static public void writeAttributeValue(Writer out, char[] buffer, String text)
+
+  public void writeAttributeValue(char[] text)
       throws IOException {
-    writeAttributeValue(out, buffer, text.toCharArray(), 0, text.length());
+      writeEncodedValue(text, 0, text.length, true);
   }
 
-  public static void writeAttributeValue(Writer out, char[] text)
+  public void writeAttributeValue(
+      char[] text, int start, int length)
       throws IOException {
-      writeEncodedValue(out, text, 0, text.length, true);
+    writeEncodedValue(text, start, length, true);
   }
 
-  public static void writeAttributeValue(Writer out, char[] buffer, char[] text)
+
+
+
+
+  public void writeText(String text) throws IOException {
+    writeText(text.toCharArray(), 0, text.length());
+  }
+
+  public void writeText(char[] text) throws IOException {
+    writeEncodedValue(text, 0, text.length, false);
+  }
+
+  public void writeText(char[] text, int start, int length)
       throws IOException {
-      writeEncodedValue(out, buffer, text, 0, text.length, true);
-  }
-
-  public static void writeAttributeValue(
-      Writer out, char[] text, int start, int length)
-      throws IOException {
-    writeEncodedValue(out, text, start, length, true);
-  }
-
-  public static void writeAttributeValue(
-      Writer out, char[] buffer, char[] text, int start, int length)
-      throws IOException {
-    writeEncodedValue(out, buffer, text, start, length, true);
-  }
-
-
-
-
-
-  static public void writeText(Writer out, String text) throws IOException {
-    writeText(out, text.toCharArray(), 0, text.length());
-  }
-
-  static public void writeText(Writer out, char[] buffer, String text)
-      throws IOException {
-    writeText(out, buffer, text.toCharArray(), 0, text.length());
-  }
-
-  static public void writeText(Writer out, char[] text) throws IOException {
-    writeEncodedValue(out, text, 0, text.length, false);
-  }
-
-  static public void writeText(Writer out, char[] buffer, char[] text)
-      throws IOException {
-    writeEncodedValue(out, buffer, text, 0, text.length, false);
-  }
-
-  static public void writeText(Writer out, char[] text, int start, int length)
-      throws IOException {
-    writeEncodedValue(out, text, start, length, false);
-  }
-
-  static public void writeText(
-      Writer out, char[] buffer, char[] text, int start, int length)
-      throws IOException {
-    writeEncodedValue(out, buffer, text, start, length, false);
+    writeEncodedValue(text, start, length, false);
   }
 
 //  static public void writeText(Writer out, char[] buffer, char[] text)
@@ -95,24 +89,16 @@ public class HtmlWriterUtil {
 
 
 
-  static public void writeEncodedValue(
-      Writer out, char[] text, int start, int length, boolean isAttribute)
-      throws IOException {
-    char[] buff = new char[1028];
-    writeEncodedValue(out, buff, text, start, length, isAttribute);
-    buff = null;
-  }
 
-  private static void writeEncodedValue(Writer out,
-      char[] buff, char[] text, int start, int length, boolean isAttribute)
+  private void writeEncodedValue(char[] text, int start, int length, boolean isAttribute)
       throws IOException {
 
-    final char[][] charsToEscape;
-    if (isAttribute) {
-      charsToEscape = ATTRIBUTE_CHARS_TO_ESCAPE;
-    } else {
-      charsToEscape = TEXT_CHARS_TO_ESCAPE;
-    }
+//    final char[][] charsToEscape;
+//    if (isAttribute) {
+//      charsToEscape = ATTRIBUTE_CHARS_TO_ESCAPE;
+//    } else {
+//      charsToEscape = TEXT_CHARS_TO_ESCAPE;
+//    }
 
 
     int localIndex = -1;
@@ -121,7 +107,7 @@ public class HtmlWriterUtil {
     int end = start + length;
     for (int i = start; i < end; i++) {
       char ch = text[i];
-      if (ch >= 0xA0 || charsToEscape[ch] != null) {
+      if (ch >= charsToEscape.length || charsToEscape[ch] != null) {
         localIndex = i;
         break;
       }
@@ -141,7 +127,7 @@ public class HtmlWriterUtil {
         char ch = text[i];
 
     // Tilde or less...
-        if (ch < 0xA0) {
+        if (ch < charsToEscape.length) {
           if (isAttribute && ch == '&' && (i + 1 < end) && text[i + 1] == '{') {
             // HTML 4.0, section B.7.1: ampersands followed by
             // an open brace don't get escaped
@@ -153,6 +139,8 @@ public class HtmlWriterUtil {
           } else {
             buffIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
           }
+        } else if (utf8) {
+          buffIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
         } else if (ch <= 0xff) {
           // ISO-8859-1 entities: encode as needed
           buffIndex = flushBuffer(out, buff, buffIndex);
@@ -266,9 +254,30 @@ public class HtmlWriterUtil {
 
 
   public static boolean attributeValueMustEscaped(String name) {
-    if ("id".equals(name) || "name".equals(name) || "class".equals(name)) {
-      return false;
+    // this is 25% faster then the  .equals(name) version
+    // tested with 100 loops over 19871 names
+    //       (extracted from logfile over all demo pages)
+
+    final int i = name.length();
+    if (i == 2) {
+      if (name.charAt(0) == 'i' && name.charAt(1) == 'd') {
+        return false;
+      }
+    } else if (i == 4) {
+      if (name.charAt(0) == 'n' && name.charAt(1) == 'a'
+          && name.charAt(1) == 'm' && name.charAt(1) == 'e') {
+        return false;
+      }
+    } else if (i == 5) {
+      if (name.charAt(0) == 'c' && name.charAt(1) == 'l'
+          && name.charAt(1) == 'a' && name.charAt(1) == 's'
+          && name.charAt(1) == 's') {
+        return false;
+      }
     }
+//    if ("id".equals(name) || "name".equals(name) || "class".equals(name)) {
+//      return false;
+//    }
     return true;
   }
 
