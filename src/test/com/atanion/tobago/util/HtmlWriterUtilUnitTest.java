@@ -53,19 +53,22 @@ public class HtmlWriterUtilUnitTest extends TestCase {
 
   public void test() {
     CharArrayWriter writer = new CharArrayWriter();
+    HtmlWriterUtil textUtil = new HtmlWriterUtil(writer, "", false);
+    HtmlWriterUtil attributeUtil = new HtmlWriterUtil(writer, "", true);
 
     for (int i = 0; i < escapedTexts.length; i++) {
-      testText(writer, rawTexts[i], escapedTexts[i]);
+      testText(textUtil, writer, rawTexts[i], escapedTexts[i]);
       if (i < escapedAttributes.length) {
-        testAttributeValue(writer, rawTexts[i], escapedAttributes[i]);
+        testAttributeValue(attributeUtil, writer, rawTexts[i], escapedAttributes[i]);
       }
     }
   }
 
-  private void testText(CharArrayWriter writer, String text, String escaped) {
+  private void testText(HtmlWriterUtil writerUtil, CharArrayWriter writer,
+      String text, String escaped) {
     try {
       writer.reset();
-      HtmlWriterUtil.writeText(writer, text);
+      writerUtil.writeText(text);
       String result = String.valueOf(writer.toCharArray());
       assertEquals(result, escaped);
 
@@ -74,10 +77,11 @@ public class HtmlWriterUtilUnitTest extends TestCase {
     }
   }
 
-  private void testAttributeValue(CharArrayWriter writer, String text, String escaped) {
+  private void testAttributeValue(HtmlWriterUtil writerUtil,
+      CharArrayWriter writer, String text, String escaped) {
     try {
       writer.reset();
-      HtmlWriterUtil.writeAttributeValue(writer, text);
+      writerUtil.writeAttributeValue(text);
       String result = String.valueOf(writer.toCharArray());
       assertEquals(result, escaped);
 
