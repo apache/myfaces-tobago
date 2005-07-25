@@ -19,6 +19,7 @@ import com.atanion.tobago.taglib.decl.IsDisabled;
 import com.atanion.tobago.taglib.decl.IsInline;
 import com.atanion.tobago.taglib.decl.IsReadonly;
 import com.atanion.tobago.event.DatePickerController;
+import com.atanion.tobago.config.ThemeConfig;
 import com.atanion.util.annotation.Tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -124,8 +125,11 @@ private static final Log LOG = LogFactory.getLog(DateTag.class);
     popup.setId(idPrefix + "popup");
     attributes = popup.getAttributes();
     attributes.put(ATTR_POPUP_RESET, Boolean.TRUE);
-    attributes.put(ATTR_WIDTH, "300");
-    attributes.put(ATTR_HEIGHT, "300");
+    attributes.put(ATTR_WIDTH, String.valueOf(
+        ThemeConfig.getValue(facesContext, component, "CalendarPopupWidth")));
+    attributes.put(ATTR_HEIGHT, String.valueOf(
+        ThemeConfig.getValue(facesContext, component, "CalendarPopupHeight")));
+    LOG.info("size = " + attributes.get(ATTR_WIDTH) + "x" + attributes.get(ATTR_HEIGHT));
     final UIComponent box = ComponentUtil.createComponent(
         facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_BOX);
     popup.getChildren().add(box);
@@ -135,7 +139,6 @@ private static final Log LOG = LogFactory.getLog(DateTag.class);
         facesContext, UIGridLayout.COMPONENT_TYPE, RENDERER_TYPE_GRID_LAYOUT);
     box.getFacets().put(FACET_LAYOUT, layout);
     layout.setId(idPrefix + "layout");
-//    layout.getAttributes().put(ATTR_COLUMNS, "10px;1*;10px");
     layout.getAttributes().put(ATTR_ROWS, "1*;fixed;fixed");
 
     final UIComponent calendar = ComponentUtil.createComponent(

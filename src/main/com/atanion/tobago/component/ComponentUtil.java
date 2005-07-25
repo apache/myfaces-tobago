@@ -203,6 +203,13 @@ public class ComponentUtil {
     Object integer = component.getAttributes().get(name);
     if (integer instanceof Number) {
       return ((Number) integer).intValue();
+    } else if (integer instanceof String) {
+      try {
+        return Integer.parseInt((String) integer);
+      } catch (NumberFormatException e) {
+        LOG.warn("Can't parse number from string : \"" + integer + "\"!");
+        return defaultValue;
+      }
     } else if (integer == null) {
       return defaultValue;
     } else {
