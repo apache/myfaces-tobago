@@ -88,7 +88,7 @@ public class TobagoResponseWriter extends ResponseWriter {
           return null;
         }
       } else {
-        String trace = new Exception().getStackTrace()[2].toString();
+        String trace = getCallingClassStackTraceElementString();
         LOG.error(
             "Don't know what to do! " +
             "Property defined, but no component to get a value. "
@@ -98,7 +98,7 @@ public class TobagoResponseWriter extends ResponseWriter {
         return null;
       }
     } else {
-      String trace = new Exception().getStackTrace()[2].toString();
+      String trace = getCallingClassStackTraceElementString();
       LOG.error(
           "Don't know what to do! " +
           "No value and no property defined. "
@@ -209,7 +209,7 @@ public class TobagoResponseWriter extends ResponseWriter {
 
     String top = stack.pop();
     if (!top.equals(name)) {
-      String trace = new Exception().getStackTrace()[1].toString();
+      String trace = getCallingClassStackTraceElementString();
       LOG.error(
           "Element end with name='" + name + "' doesn't "
           + "match with top element on the stack='" + top + "' "
@@ -246,7 +246,7 @@ public class TobagoResponseWriter extends ResponseWriter {
     if (comment.indexOf("--") < 0) {
       write(comment);
     } else {
-      String trace = new Exception().getStackTrace()[1].toString();
+      String trace = getCallingClassStackTraceElementString();
       LOG.warn(
           "Comment must not contain the sequence '--', comment = '"
           + comment + "' " + trace.substring(trace.indexOf('(')));
@@ -284,7 +284,7 @@ public class TobagoResponseWriter extends ResponseWriter {
   public void writeAttribute(String name, String value, boolean escape)
       throws IOException {
     if (!startStillOpen) {
-      String trace = new Exception().getStackTrace()[1].toString();
+      String trace = getCallingClassStackTraceElementString();
       String error = "Cannot write attribute when start-tag not open. "
           + "name = '" + name + "'"
           + "value = '" + value + "' "
@@ -313,7 +313,7 @@ public class TobagoResponseWriter extends ResponseWriter {
   public void writeAttribute(String name, Object value, String property, boolean escape)
       throws IOException {
     if (!startStillOpen) {
-      String trace = new Exception().getStackTrace()[1].toString();
+      String trace = getCallingClassStackTraceElementString();
       String error = "Cannot write attribute when start-tag not open. "
           + "name = '" + name + "'"
           + "value = '" + value + "'"
@@ -341,6 +341,14 @@ public class TobagoResponseWriter extends ResponseWriter {
     }
   }
 
+  private String getCallingClassStackTraceElementString() {
+    final StackTraceElement[] stackTrace = new Exception().getStackTrace();
+    int i = 1;
+    while (stackTrace[i].getClassName().equals(this.getClass().getName())) {
+      i++;
+    }
+    return stackTrace[i].toString();
+  }
 
 
   public void writeIdAttribute(String id) throws IOException {
@@ -353,14 +361,6 @@ public class TobagoResponseWriter extends ResponseWriter {
 
   public void writeClassAttribute(String id) throws IOException {
     writeAttribute("class", id, false);
-  }
-
-  public void writeComponentId(String property) throws IOException {
-    writeComponentAttribute("id", property);
-  }
-
-  public void writeComponentName(String property) throws IOException {
-    writeComponentAttribute("name", property);
   }
 
   public void writeComponentClass() throws IOException {
