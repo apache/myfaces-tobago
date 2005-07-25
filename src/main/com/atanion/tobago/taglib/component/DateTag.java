@@ -129,7 +129,6 @@ private static final Log LOG = LogFactory.getLog(DateTag.class);
         ThemeConfig.getValue(facesContext, component, "CalendarPopupWidth")));
     attributes.put(ATTR_HEIGHT, String.valueOf(
         ThemeConfig.getValue(facesContext, component, "CalendarPopupHeight")));
-    LOG.info("size = " + attributes.get(ATTR_WIDTH) + "x" + attributes.get(ATTR_HEIGHT));
     final UIComponent box = ComponentUtil.createComponent(
         facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_BOX);
     popup.getChildren().add(box);
