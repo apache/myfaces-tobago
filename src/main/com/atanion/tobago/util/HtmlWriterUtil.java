@@ -107,7 +107,7 @@ public class HtmlWriterUtil {
     int end = start + length;
     for (int i = start; i < end; i++) {
       char ch = text[i];
-      if (ch >= charsToEscape.length || charsToEscape[ch] != null) {
+      if (ch >= charsToEscape.length - 1 || charsToEscape[ch] != null) {
         localIndex = i;
         break;
       }
@@ -127,7 +127,7 @@ public class HtmlWriterUtil {
         char ch = text[i];
 
     // Tilde or less...
-        if (ch < charsToEscape.length) {
+        if (ch < charsToEscape.length - 1) {
           if (isAttribute && ch == '&' && (i + 1 < end) && text[i + 1] == '{') {
             // HTML 4.0, section B.7.1: ampersands followed by
             // an open brace don't get escaped
