@@ -29,7 +29,8 @@ public class HiddenRenderer extends InputRendererBase {
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
-    String clientId = component.getClientId(facesContext);
+    final String clientId = component.getClientId(facesContext);
+    final String value = ComponentUtil.currentValue(component);
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
@@ -37,7 +38,7 @@ public class HiddenRenderer extends InputRendererBase {
     writer.writeAttribute("type", "hidden", null);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute("value", ComponentUtil.currentValue(component), null);
+    writer.writeAttribute("value", value != null ? value : "", null);
     writer.endElement("input");
   }
 
