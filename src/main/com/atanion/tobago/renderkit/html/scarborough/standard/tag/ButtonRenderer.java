@@ -62,7 +62,7 @@ public class ButtonRenderer extends CommandRendererBase {
       writer.writeAttribute("onclick", onclick, null);
     }
     writer.writeAttribute("style", null, ATTR_STYLE);
-    writer.writeComponentClass( ATTR_STYLE_CLASS);
+    writer.writeComponentClass();
     if (label.getAccessKey() != null) {
       if (LOG.isInfoEnabled()
           && ! AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {

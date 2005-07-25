@@ -73,7 +73,7 @@ public class LinkRenderer extends CommandRendererBase{
 
     if (!ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
       writer.startElement("a", component);
-      writer.writeComponentClass( ATTR_STYLE_CLASS);
+      writer.writeComponentClass();
       writer.writeNameAttribute(component.getClientId(facesContext));
       writer.writeAttribute("href", href, null);
       if (onclick != null) {

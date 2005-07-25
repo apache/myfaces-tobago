@@ -163,18 +163,18 @@ function initCalendar(id) {
       for (var column = 0; column < 7; ++column) {
         var el = document.getElementById(id + ":" + week + ":" + column);
         var d = (week * 7) + column - firstDayOffset + 1;
-        var styleClass = "day";
+        var styleClass = "tobago-calendar-day";
         var monthAfterClick = month;
         if (d <= 0) {
           d = prevMonthLength + d;
-          styleClass = "day-disabled";
+          styleClass = "tobago-calendar-day-disabled";
           monthAfterClick = month - 1;
         } else if (d > monthLength) {
-          styleClass = "day-disabled";
+          styleClass = "tobago-calendar-day-disabled";
           d -= monthLength;
           monthAfterClick = month + 1;
         } else if (d == day) {
-          styleClass = "day-selected";
+          styleClass = "tobago-calendar-day-selected";
         }
         el.className = styleClass;
         el.innerHTML = d;

@@ -5,7 +5,6 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.SelectOneRendererBase;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
@@ -91,7 +90,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
       writer.startElement("input", component);
       writer.writeAttribute("type", "radio", null);
-      writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
+      writer.writeComponentClass();
       if (item.getValue().equals(value)) {
         writer.writeAttribute("checked", "checked", null);
       }

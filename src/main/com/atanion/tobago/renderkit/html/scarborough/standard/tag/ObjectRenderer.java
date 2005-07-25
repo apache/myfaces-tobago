@@ -5,7 +5,6 @@ import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import javax.faces.component.UIComponent;
 import java.io.IOException;
 
@@ -22,7 +21,7 @@ public class ObjectRenderer extends RendererBase {
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement("iframe", component);
     writer.writeAttribute("src", null, ATTR_TARGET);
-    writer.writeComponentClass( ATTR_STYLE_CLASS);
+    writer.writeComponentClass();
     writer.writeAttribute("style", null, ATTR_STYLE);
 
     String noframes = ResourceManagerUtil.getProperty(

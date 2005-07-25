@@ -7,6 +7,7 @@ package com.atanion.tobago.webapp;
 
 import com.atanion.xml.XmlUtils;
 import com.atanion.tobago.util.HtmlWriterUtil;
+import com.atanion.tobago.TobagoConstants;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -362,8 +363,8 @@ public class TobagoResponseWriter extends ResponseWriter {
     writeComponentAttribute("name", property);
   }
 
-  public void writeComponentClass(String property) throws IOException {
-    writeComponentAttribute("class", property);
+  public void writeComponentClass() throws IOException {
+    writeComponentAttribute("class", TobagoConstants.ATTR_STYLE_CLASS);
   }
 
 

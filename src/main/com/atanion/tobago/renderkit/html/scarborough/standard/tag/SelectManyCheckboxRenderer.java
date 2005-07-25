@@ -5,7 +5,6 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.SelectManyRendererBase;
@@ -19,7 +18,6 @@ import javax.faces.component.UISelectMany;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
@@ -68,7 +66,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       writer.startElement("input", component);
       writer.writeAttribute("type", "checkbox", null);
 
-      writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
+      writer.writeComponentClass();
       writer.writeAttribute("checked",
           RenderUtil.contains(values, item.getValue()));
       writer.writeNameAttribute(id);

@@ -23,7 +23,6 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -134,7 +133,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement("table", layout);
     writer.writeAttribute("border", null, TobagoConstants.ATTR_BORDER);
-    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeComponentClass();
     writer.writeAttribute("style", null, TobagoConstants.ATTR_LAYOUT_TABLE_STYLE);
     writer.writeAttribute("cellspacing", "0", null);
     writer.writeAttribute("cellpadding", "0", null);

@@ -59,7 +59,7 @@ public class TextAreaRenderer extends InRendererBase {
     writer.writeAttribute("disabled",
         ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED));
     writer.writeAttribute("style", null, ATTR_STYLE);
-    writer.writeComponentClass( ATTR_STYLE_CLASS);
+    writer.writeComponentClass();
     if (onchange != null) {
       writer.writeAttribute("onchange", onchange, null);
     }

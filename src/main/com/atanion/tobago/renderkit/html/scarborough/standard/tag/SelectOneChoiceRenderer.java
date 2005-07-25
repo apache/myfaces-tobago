@@ -8,7 +8,6 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.SelectOneRendererBase;
-import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -57,7 +56,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeAttribute("disabled", disabled);
     writer.writeAttribute("style", null, ATTR_STYLE);
-    writer.writeComponentClass( ATTR_STYLE_CLASS);
+    writer.writeComponentClass();
     writer.writeAttribute("title", null, ATTR_TIP);
     String onchange = HtmlUtils.generateOnchange(component, facesContext);
     if (onchange != null) {

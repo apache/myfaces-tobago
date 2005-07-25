@@ -5,11 +5,9 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -74,7 +72,7 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
     writer.writeAttribute("value", "true", null);
     writer.writeAttribute("checked", checked);
     writer.writeNameAttribute(component.getClientId(facesContext));
-    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeComponentClass();
     writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeAttribute("disabled",
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));

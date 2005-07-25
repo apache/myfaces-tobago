@@ -11,7 +11,6 @@ import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
@@ -41,7 +40,7 @@ public class OutRenderer extends RendererBase {
     if (createSpan) {
       writer.startElement("span", component);
       writer.writeAttribute("style", null, ATTR_STYLE);
-      writer.writeComponentClass( ATTR_STYLE_CLASS);
+      writer.writeComponentClass();
       writer.writeAttribute("title", null, ATTR_TIP);
     }
     if (escape) {

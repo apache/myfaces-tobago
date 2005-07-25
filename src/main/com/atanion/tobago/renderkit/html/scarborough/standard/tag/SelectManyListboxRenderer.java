@@ -5,11 +5,9 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.SelectManyRendererBase;
-import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -91,7 +89,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     writer.writeAttribute("disabled",
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
     writer.writeAttribute("style", null, "style");
-    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeComponentClass();
     writer.writeAttribute("multiple", "multiple", null);
     writer.writeAttribute("title", null, ATTR_TIP);
 

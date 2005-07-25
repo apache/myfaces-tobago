@@ -58,7 +58,7 @@ public class BoxRenderer extends BoxRendererBase {
     }
 
     writer.startElement("div", component);
-    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeComponentClass();
     writer.writeAttribute("style", style, null);
 
     renderBoxHeader(facesContext, writer, component);

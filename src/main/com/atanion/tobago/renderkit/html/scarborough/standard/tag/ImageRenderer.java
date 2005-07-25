@@ -15,7 +15,6 @@ import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 import org.apache.commons.logging.Log;
@@ -87,7 +86,7 @@ public class ImageRenderer extends RendererBase {
     writer.writeAttribute("border", border, null);
     writer.writeAttribute("height", null, ATTR_HEIGHT);
     writer.writeAttribute("style", null, ATTR_STYLE);
-    writer.writeComponentClass( ATTR_STYLE_CLASS);
+    writer.writeComponentClass();
     writer.endElement("img");
   }
 

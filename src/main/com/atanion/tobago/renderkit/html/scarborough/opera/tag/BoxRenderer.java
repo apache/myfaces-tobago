@@ -14,7 +14,6 @@ import com.atanion.tobago.renderkit.RenderUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class BoxRenderer extends com.atanion.tobago.renderkit.html.scarborough.standard.tag.BoxRenderer {
@@ -39,12 +38,12 @@ public class BoxRenderer extends com.atanion.tobago.renderkit.html.scarborough.s
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement("fieldset", component);
-    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeComponentClass();
     writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
 
     if (label != null || labelString != null) {
       writer.startElement("legend", component);
-      writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
+      writer.writeComponentClass();
 
       writer.startElement("b", null);
       writer.writeText("", null);
@@ -62,7 +61,7 @@ public class BoxRenderer extends com.atanion.tobago.renderkit.html.scarborough.s
       }
     }
     writer.startElement("div", component);
-    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeComponentClass();
     writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_INNER);
   }
 

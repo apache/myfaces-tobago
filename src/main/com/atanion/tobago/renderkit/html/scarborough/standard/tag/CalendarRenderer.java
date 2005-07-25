@@ -21,7 +21,6 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -79,29 +78,25 @@ public class CalendarRenderer extends RendererBase {
 
     writer.startElement("table", component);
     writer.writeIdAttribute(id);
-    // todo: use created standard classes
-//    writer.writeComponentClass("class");
-    writer.writeClassAttribute("calendar");
+    writer.writeComponentClass();
     writer.writeAttribute("cellspacing", "0", null);
     writer.writeAttribute("cellpadding", "3", null);
     writer.writeAttribute("summary", "", null);
-    writer.writeAttribute("width", "100%", null);
 
     writer.startElement("tr", null);
-    // todo: use created standard classes
-    writer.writeClassAttribute("calendar-header-tr");
+    writer.writeClassAttribute("tobago-calendar-header-tr");
     writer.startElement("th", null);
     writer.writeAttribute("colspan", "7", null);
 
     writer.startElement("table", null);
     writer.writeAttribute("summary", "", null);
-    writer.writeAttribute("width", "100%", null);
+    writer.writeClassAttribute("tobago-calendar-header");
     writer.startElement("tr", null);
 
     writer.startElement("td", null);
     writer.writeAttribute("align", "left", null);
     writer.startElement("img", null);
-    writer.writeAttribute("style", "cursor: pointer", null);
+    writer.writeClassAttribute("tobago-calendar-header");
     writer.writeAttribute("alt", "", null);
     writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "image/calendarFastPrev.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', -12)", null);
@@ -111,7 +106,7 @@ public class CalendarRenderer extends RendererBase {
     writer.startElement("td", null);
     writer.writeAttribute("align", "left", null);
     writer.startElement("img", null);
-    writer.writeAttribute("style", "cursor: pointer", null);
+    writer.writeClassAttribute("tobago-calendar-header");
     writer.writeAttribute("alt", "", null);
     writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "image/calendarPrev.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', -1)", null);
@@ -119,7 +114,7 @@ public class CalendarRenderer extends RendererBase {
     writer.endElement("td");
 
     writer.startElement("th", null);
-    writer.writeAttribute("width", "100%", null);
+    writer.writeClassAttribute("tobago-calendar-header-center");
     writer.writeAttribute("align", "center", null);
     writer.writeIdAttribute(id + ":title");
     writer.writeText(dateFormat.format(calendar.getTime()), null);
@@ -128,7 +123,7 @@ public class CalendarRenderer extends RendererBase {
     writer.startElement("td", null);
     writer.writeAttribute("align", "right", null);
     writer.startElement("img", null);
-    writer.writeAttribute("style", "cursor: pointer", null);
+    writer.writeClassAttribute("tobago-calendar-header");
     writer.writeAttribute("alt", "", null);
     writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "image/calendarNext.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', 1)", null);
@@ -138,7 +133,7 @@ public class CalendarRenderer extends RendererBase {
     writer.startElement("td", null);
     writer.writeAttribute("align", "right", null);
     writer.startElement("img", null);
-    writer.writeAttribute("style", "cursor: pointer", null);
+    writer.writeClassAttribute("tobago-calendar-header");
     writer.writeAttribute("alt", "", null);
     writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "image/calendarFastNext.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', 12)", null);
@@ -160,7 +155,7 @@ public class CalendarRenderer extends RendererBase {
       dayName = StringUtils.substring(dayName, 0, 2);
 
       writer.startElement("th", null);
-      writer.writeAttribute("width", "14,3%", null);
+      writer.writeClassAttribute("tobago-calendar-inner-header");
       writer.writeText(dayName, null);
       writer.endElement("th");
     }
@@ -184,8 +179,6 @@ public class CalendarRenderer extends RendererBase {
         writer.writeAttribute("onclick", onclick, null);
         writer.writeIdAttribute(id + ":" + week + ":" + dayIt);
         writer.writeClassAttribute(getClass(date, model));
-        writer.writeAttribute("width", "14,3%", null);
-        writer.writeAttribute("style", "cursor: pointer;", null);
 
         writer.writeText(dayDescription, null);
 
@@ -257,7 +250,9 @@ public class CalendarRenderer extends RendererBase {
 
 
   private static String getClass(DateModel date, CalendarModel model) {
-    return (date.getMonth() == model.getMonth()) ? "day" : "day-disabled";
+    return (date.getMonth() == model.getMonth())
+        ? "tobago-calendar-day"
+        : "tobago-calendar-day-disabled";
   }
 
   private static String getMonthNames(Locale locale) {

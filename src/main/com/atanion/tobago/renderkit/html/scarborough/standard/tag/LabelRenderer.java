@@ -20,7 +20,6 @@ import com.atanion.tobago.util.AccessKeyMap;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class LabelRenderer extends RendererBase {
@@ -74,12 +73,12 @@ public class LabelRenderer extends RendererBase {
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement("a", output);
-    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeComponentClass();
     writer.startElement("label", output);
     if (forValue != null) {
       writer.writeAttribute("for", forValue, null);
     }
-    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeComponentClass();
     if (label.getAccessKey() != null) {
       if (LOG.isInfoEnabled()
           && ! AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {

@@ -8,7 +8,6 @@ package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.renderkit.InputRendererBase;
-import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoMultipartFormdataRequest;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
@@ -107,7 +106,7 @@ public class FileRenderer extends InputRendererBase {
 
     writer.startElement("input", component);
     writer.writeAttribute("type", "file", null);
-    writer.writeComponentClass( ATTR_STYLE_CLASS);
+    writer.writeComponentClass();
     if (!ClientProperties.getInstance(facesContext).getUserAgent().isMozilla()) {
       writer.writeAttribute("style", null, ATTR_STYLE);
     }

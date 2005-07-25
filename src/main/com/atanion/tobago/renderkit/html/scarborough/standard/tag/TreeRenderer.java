@@ -13,20 +13,14 @@ import com.atanion.tobago.model.TreeState;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
-import com.atanion.tobago.util.StringUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.application.Application;
 import javax.faces.component.NamingContainer;
-import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIGraphic;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.event.ActionListener;
 import java.io.IOException;
 
 public class TreeRenderer extends RendererBase {
@@ -85,7 +79,7 @@ public class TreeRenderer extends RendererBase {
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement("div", tree);
-    writer.writeComponentClass( ATTR_STYLE_CLASS);
+    writer.writeComponentClass();
     writer.writeAttribute("style", null, ATTR_STYLE);
 
     writer.startElement("input", tree);
@@ -134,7 +128,7 @@ public class TreeRenderer extends RendererBase {
     writer.writeAttribute("cellspacing", "0", null);
     writer.writeAttribute("border", "0", null);
     writer.writeAttribute("summary", "", null);
-    writer.writeComponentClass( ATTR_STYLE_CLASS);
+    writer.writeComponentClass();
     writer.startElement("tr", null);
     writer.startElement("td", null);
     writer.writeIdAttribute(clientId + "-cont");

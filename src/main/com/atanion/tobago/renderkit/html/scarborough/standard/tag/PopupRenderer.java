@@ -61,7 +61,7 @@ public class PopupRenderer extends RendererBase {
 
     writer.startElement("img", component);
     writer.writeIdAttribute(clientId);
-    writer.writeComponentClass( ATTR_STYLE_CLASS);
+    writer.writeComponentClass();
     writer.writeAttribute("onclick", "tobagoPopupBlink('" + clientId + "')", null);
     writer.writeAttribute("src", ResourceManagerUtil.getImage(facesContext, "image/1x1.gif"), null);
     writer.writeAttribute("galleryimg", "no", null);

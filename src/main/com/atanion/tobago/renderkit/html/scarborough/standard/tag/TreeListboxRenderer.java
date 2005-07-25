@@ -14,7 +14,6 @@ import com.atanion.tobago.component.UITreeNode;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -49,7 +48,7 @@ public class TreeListboxRenderer extends TreeRenderer{
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement("div", tree);
-    writer.writeComponentClass( ATTR_STYLE_CLASS);
+    writer.writeComponentClass();
     writer.writeAttribute("style", null, ATTR_STYLE);
 
     final Set<DefaultMutableTreeNode> selection = tree.getState().getSelection();

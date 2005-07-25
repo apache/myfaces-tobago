@@ -58,7 +58,7 @@ public class ToolBarRenderer extends RendererBase {
 
       writer.startElement("div", toolbar);
       writer.writeIdAttribute(toolbar.getClientId(facesContext));
-      writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
+      writer.writeComponentClass();
       writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
       writer.startElement("div", toolbar);
       writer.writeClassAttribute("tobago-toolbar-div-inner");

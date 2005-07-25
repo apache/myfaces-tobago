@@ -43,12 +43,12 @@ public class BoxRenderer extends BoxRendererBase {
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement("fieldset", component);
-    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeComponentClass();
     writer.writeAttribute("style", style, null);
 
     if (label != null || labelString != null) {
       writer.startElement("legend", component);
-      writer.writeComponentClass(TobagoConstants.ATTR_STYLE_CLASS);
+      writer.writeComponentClass();
 
       writer.writeText("", null);
       if (label != null) {
@@ -84,7 +84,7 @@ public class BoxRenderer extends BoxRendererBase {
       }
     }
     writer.startElement("div", component);
-    writer.writeComponentClass( TobagoConstants.ATTR_STYLE_CLASS);
+    writer.writeComponentClass();
     writer.writeAttribute("style", contentStyle, null);
 
   }
