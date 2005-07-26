@@ -5,18 +5,28 @@
  */
 package com.atanion.tobago.component;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.taglib.component.ForEachTag;
-import com.atanion.tobago.util.RangeParser;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.atanion.tobago.TobagoConstants;
+import static com.atanion.tobago.TobagoConstants.*;
+import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.taglib.component.ForEachTag;
+import com.atanion.tobago.util.RangeParser;
+
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
-import javax.faces.component.*;
+import javax.faces.component.EditableValueHolder;
+import javax.faces.component.UIColumn;
 import javax.faces.component.UICommand;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIGraphic;
+import javax.faces.component.UIOutput;
+import javax.faces.component.UIParameter;
+import javax.faces.component.UISelectBoolean;
 import javax.faces.component.UISelectItem;
+import javax.faces.component.UISelectItems;
+import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.el.ValueBinding;
@@ -26,9 +36,11 @@ import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
-import java.util.*;
-
-import static com.atanion.tobago.TobagoConstants.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class ComponentUtil {
 

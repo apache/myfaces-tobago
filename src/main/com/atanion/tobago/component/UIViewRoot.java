@@ -6,17 +6,17 @@ import org.apache.commons.logging.LogFactory;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.ResourceManager;
 
-import javax.faces.context.FacesContext;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
-import javax.faces.event.AbortProcessingException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
+import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Locale;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.PhaseId;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by IntelliJ IDEA.
@@ -524,32 +524,17 @@ return result;
     updateRendererCachePrefix();
   }
 
-  private String rendererCachePrefix;
-  public String getRendererCachePrefix() {
-    return rendererCachePrefix;
-  }
+  private ResourceManager.CacheKey rendererCacheKey;
 
-  private ResourceManager.RendererCacheKey rendererCacheKey;
-
-  public ResourceManager.RendererCacheKey getRendererCacheKey() {
+  public ResourceManager.CacheKey getRendererCacheKey() {
     return rendererCacheKey;
   }
 
   private static final Log LOG = LogFactory.getLog(UIViewRoot.class);
 
   public void updateRendererCachePrefix() {
-    StringBuffer sb = new StringBuffer();
-    if (clientProperties != null) {
-      sb.append(clientProperties.getId());
-      rendererCacheKey = new ResourceManager.RendererCacheKey(clientProperties.getId(), locale, null);
-    }
-    sb.append("/");
-    sb.append(locale);
-    sb.append("/");
-    rendererCachePrefix = sb.toString();
-
-
-
+    rendererCacheKey = ResourceManager.getRendererCacheKey(
+        clientProperties != null ? clientProperties.getId() : "null", locale);
 //    LOG.info("updateRendererCachePrefix :" + rendererCachePrefix);
   }
 

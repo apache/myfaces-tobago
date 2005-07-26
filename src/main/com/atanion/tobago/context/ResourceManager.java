@@ -5,12 +5,12 @@
  */
 package com.atanion.tobago.context;
 
-import com.atanion.tobago.config.TobagoConfig;
-import com.atanion.tobago.renderkit.TobagoRenderKit;
-import com.atanion.tobago.TobagoConstants;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.config.TobagoConfig;
+import com.atanion.tobago.renderkit.TobagoRenderKit;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.render.Renderer;
@@ -100,7 +100,7 @@ public class ResourceManager {
 
       result = null;
 //    String key = key(clientProperties, locale, type, name);
-      ImageCacheKey key = new ImageCacheKey(clientPropertyId, locale, name);
+      CacheKey key = new CacheKey(clientPropertyId, locale, name, CacheType.IMAGE);
 //    Log.debug("key=" + key);
       if ((result = (String) cache.get(key)) != null) {
         // todo: cache null values
@@ -133,7 +133,7 @@ public class ResourceManager {
 
 //    String key = key(clientProperties, locale, type, name);
 
-      JspCacheKey key = new JspCacheKey(clientPropertyId, locale, name);
+      CacheKey key = new CacheKey(clientPropertyId, locale, name, CacheType.JSP);
 //    Log.debug("key=" + key);
       if ((result = (String) cache.get(key)) != null) {
         return result;
@@ -168,7 +168,7 @@ public class ResourceManager {
       }
 //    String key = key(clientProperties, locale, type, bundle, propertyKey);
 
-      PropertyCacheKey key = new PropertyCacheKey(clientPropertyId, locale, bundle, propertyKey);
+      CacheKey key = new CacheKey(clientPropertyId, locale, bundle, propertyKey);
       if ((result = (String) cache.get(key)) != null) {
         return result;
       }
@@ -377,7 +377,7 @@ public class ResourceManager {
     final Locale locale;
     final String type = "tag";
 //    final Object key;
-    RendererCacheKey key;
+    CacheKey key;
     if (name != null) {
       if (viewRoot instanceof com.atanion.tobago.component.UIViewRoot) {
 //        key = new StringBuffer(((com.atanion.tobago.component.UIViewRoot)viewRoot)
@@ -392,13 +392,13 @@ public class ResourceManager {
 
         clientPropertyId = ClientProperties.getInstance(viewRoot).getId();
         locale = viewRoot.getLocale();
-        key = new RendererCacheKey(clientPropertyId, locale, name);
+        key = new CacheKey(clientPropertyId, locale, name, CacheType.RENDERER);
       } else {
         clientPropertyId = ClientProperties.getInstance(viewRoot).getId();
         locale = viewRoot.getLocale();
 //      key = key(clientPropertyId, locale, type, name);
 
-        key = new RendererCacheKey(clientPropertyId, locale, name);
+        key = new CacheKey(clientPropertyId, locale, name, CacheType.RENDERER);
         if ((renderer = (Renderer) cache.get(key)) != null) {
           return renderer;
         }
@@ -535,7 +535,7 @@ public class ResourceManager {
       String clientPropertyId = ClientProperties.getInstance(viewRoot).getId();
       Locale locale = viewRoot.getLocale();
 //    String key = key(clientProperties, locale, type, name);
-      CacheKey key = new CacheKey(clientPropertyId, locale, name);
+      CacheKey key = new CacheKey(clientPropertyId, locale, name, CacheType.MISC);
 //    Log.debug("key=" + key);
       if ((result = (String[]) cache.get(key)) != null) {
         return result;
@@ -563,7 +563,7 @@ public class ResourceManager {
     if (bundle != null && propertyKey != null) {
       String clientPropertyId = ClientProperties.getInstance(viewRoot).getId();
       Locale locale = viewRoot.getLocale();
-      PropertyCacheKey key = new PropertyCacheKey(clientPropertyId, locale, bundle, propertyKey);
+      CacheKey key = new CacheKey(clientPropertyId, locale, bundle, propertyKey);
       if ((result = (String) cache.get(key)) != null) {
         return result;
       }
@@ -612,164 +612,43 @@ public class ResourceManager {
     }
   }
 
+  static public CacheKey getRendererCacheKey(String clientPropertyId, Locale locale) {
+    return new CacheKey(clientPropertyId, locale, null, CacheType.RENDERER);
+  }
 // ----------------------------------------------------------- cacheKey classes
 
+  private enum CacheType {RENDERER, IMAGE, JSP, PROPERTY, MISC}
 
-  public static final class RendererCacheKey {
+  public final static class CacheKey{
     private final String clientPropertyId;
     private final Locale locale;
     private String name;
-
-    public RendererCacheKey(String clientPropertyId, Locale locale, String name) {
-      this.clientPropertyId = clientPropertyId;
-      this.locale = locale;
-      this.name = name;
-    }
-
-    public void setName(String name) {
-      this.name = name;
-    }
-
-    public boolean equals(Object o) {
-      if (this == o) return true;
-      if (o == null || getClass() != o.getClass()) return false;
-
-      final RendererCacheKey that = (RendererCacheKey) o;
-
-      if (!name.equals(that.name)) return false;
-      if (!locale.equals(that.locale)) return false;
-      if (!clientPropertyId.equals(that.clientPropertyId)) return false;
-
-      return true;
-    }
-
-    public int hashCode() {
-      int result;
-      result = clientPropertyId.hashCode();
-      if (locale != null) {
-        result = 29 * result + locale.hashCode();
-      } else {
-        LOG.warn("locale == null"); // fixme: this should no happen 
-      }
-      result = 29 * result + name.hashCode();
-      return result;
-    }
-  }
-
-  private final class ImageCacheKey {
-    private final String clientPropertyId;
-    private final Locale locale;
-    private final String name;
-
-    public ImageCacheKey(String clientPropertyId, Locale locale, String name) {
-      this.clientPropertyId = clientPropertyId;
-      this.locale = locale;
-      this.name = name;
-    }
-
-    public boolean equals(Object o) {
-      if (this == o) return true;
-      if (o == null || getClass() != o.getClass()) return false;
-
-      final ImageCacheKey that = (ImageCacheKey) o;
-
-      if (!name.equals(that.name)) return false;
-      if (!locale.equals(that.locale)) return false;
-      if (!clientPropertyId.equals(that.clientPropertyId)) return false;
-
-      return true;
-    }
-
-    public int hashCode() {
-      int result;
-      result = clientPropertyId.hashCode();
-      result = 29 * result + (locale != null ? locale.hashCode() : 0);
-      result = 29 * result + name.hashCode();
-      return result;
-    }
-  }
-
-  private final class JspCacheKey {
-    private final String clientPropertyId;
-    private final Locale locale;
-    private final String name;
-
-    public JspCacheKey(String clientPropertyId, Locale locale, String name) {
-      this.clientPropertyId = clientPropertyId;
-      this.locale = locale;
-      this.name = name;
-    }
-
-    public boolean equals(Object o) {
-      if (this == o) return true;
-      if (o == null || getClass() != o.getClass()) return false;
-
-      final JspCacheKey that = (JspCacheKey) o;
-
-      if (!name.equals(that.name)) return false;
-      if (!locale.equals(that.locale)) return false;
-      if (!clientPropertyId.equals(that.clientPropertyId)) return false;
-
-      return true;
-    }
-
-    public int hashCode() {
-      int result;
-      result = clientPropertyId.hashCode();
-      result = 29 * result + (locale != null ? locale.hashCode() : 0);
-      result = 29 * result + name.hashCode();
-      return result;
-    }
-  }
-
-  private final class PropertyCacheKey{
-    private final String clientPropertyId;
-    private final Locale locale;
-    private final String name;
     private final String key;
+    private final CacheType type;
 
-    public PropertyCacheKey(String clientPropertyId, Locale locale, String name, String key) {
+    private int hashCodeBase;
+    private int hashCode;
+
+    public CacheKey(String clientPropertyId, Locale locale, String name, String key) {
       this.clientPropertyId = clientPropertyId;
       this.locale = locale;
       this.name = name;
       this.key = key;
+      this.type = CacheType.PROPERTY;
+      calcHashCode();
     }
-
-    public boolean equals(Object o) {
-      if (this == o) return true;
-      if (o == null || getClass() != o.getClass()) return false;
-
-      final PropertyCacheKey that = (PropertyCacheKey) o;
-
-      if (!key.equals(that.key)) return false;
-      if (!name.equals(that.name)) return false;
-      if (!locale.equals(that.locale)) return false;
-      if (!clientPropertyId.equals(that.clientPropertyId)) return false;
-
-      return true;
-    }
-
-    public int hashCode() {
-      int result;
-      result = clientPropertyId.hashCode();
-      result = 29 * result + locale.hashCode();
-      result = 29 * result + name.hashCode();
-      result = 29 * result + key.hashCode();
-      return result;
-    }
-  }
-
-
-
-  private final class CacheKey{
-    private final String clientPropertyId;
-    private final Locale locale;
-    private final String name;
-
-    public CacheKey(String clientPropertyId, Locale locale, String name) {
+    public CacheKey(String clientPropertyId, Locale locale, String name, CacheType type) {
       this.clientPropertyId = clientPropertyId;
       this.locale = locale;
       this.name = name;
+      this.key = null;
+      this.type = type;
+      calcHashCode();
+    }
+
+    public void setName(String name) {
+      this.name = name;
+      updateHashCode();
     }
 
     public boolean equals(Object o) {
@@ -778,19 +657,29 @@ public class ResourceManager {
 
       final CacheKey cacheKey = (CacheKey) o;
 
-      if (!name.equals(cacheKey.name)) return false;
-      if (!locale.equals(cacheKey.locale)) return false;
+      if (! (type == cacheKey.type)) return false;
+      if (key != null ? !key.equals(cacheKey.key) : cacheKey.key != null) return false;
+      if (name != null ? !name.equals(cacheKey.name) : cacheKey.name != null) return false;
+      if (name != null ? !locale.equals(cacheKey.locale) : cacheKey.locale != null) return false;
       if (!clientPropertyId.equals(cacheKey.clientPropertyId)) return false;
 
       return true;
     }
 
+    private void calcHashCode() {
+      hashCodeBase = clientPropertyId.hashCode();
+      hashCodeBase = 29 * hashCode + (locale != null ? locale.hashCode() : 0);
+      hashCodeBase = 29 * hashCode + type.hashCode();
+      hashCodeBase = 29 * hashCode + (key != null ? key.hashCode() : 0);
+      updateHashCode();
+    }
+
+    private void updateHashCode() {
+      hashCode = 29 * hashCodeBase + (name != null ? name.hashCode() : 0);
+    }
+
     public int hashCode() {
-      int result;
-      result = clientPropertyId.hashCode();
-      result = 29 * result + locale.hashCode();
-      result = 29 * result + name.hashCode();
-      return result;
+      return hashCode;
     }
   }
 }
