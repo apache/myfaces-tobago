@@ -5,13 +5,13 @@
  */
 package com.atanion.tobago.webapp;
 
-import com.atanion.xml.XmlUtils;
-import com.atanion.tobago.util.HtmlWriterUtil;
-import com.atanion.tobago.TobagoConstants;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.util.HtmlWriterUtil;
+import com.atanion.xml.XmlUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
@@ -64,8 +64,8 @@ public class TobagoResponseWriter extends ResponseWriter {
 
 // ///////////////////////////////////////////// constructor
 
-  public TobagoResponseWriter(
-      Writer writer, String contentType, String characterEncoding) {
+  public TobagoResponseWriter(final Writer writer, final String contentType,
+                              final String characterEncoding) {
 //    LOG.info("new TobagoResponseWriter!");
 //    final StackTraceElement[] stackTrace = new Exception().getStackTrace();
 //    for (int i = 1; i < stackTrace.length && i < 5; i++) {
@@ -86,19 +86,19 @@ public class TobagoResponseWriter extends ResponseWriter {
 
 // ///////////////////////////////////////////// code
 
-  private String findValue(Object value, String property) {
+  private String findValue(final Object value, final String property) {
     if (value != null) {
-      return value.toString();
+      return value instanceof String ? (String) value : value.toString();
     } else if (property != null) {
       if (component != null) {
-        Object object = component.getAttributes().get(property);
+        final Object object = component.getAttributes().get(property);
         if (object != null) {
-          return object.toString();
+          return object instanceof String ? (String) object : object.toString();
         } else {
           return null;
         }
       } else {
-        String trace = getCallingClassStackTraceElementString();
+        final String trace = getCallingClassStackTraceElementString();
         LOG.error(
             "Don't know what to do! " +
             "Property defined, but no component to get a value. "
@@ -108,7 +108,7 @@ public class TobagoResponseWriter extends ResponseWriter {
         return null;
       }
     } else {
-      String trace = getCallingClassStackTraceElementString();
+      final String trace = getCallingClassStackTraceElementString();
       LOG.error(
           "Don't know what to do! " +
           "No value and no property defined. "
@@ -119,11 +119,12 @@ public class TobagoResponseWriter extends ResponseWriter {
     }
   }
 
-  public void write(char cbuf[], int off, int len) throws IOException {
+  public void write(final char cbuf[], final int off, final int len)
+      throws IOException {
     writer.write(cbuf, off, len);
   }
 
-  public void write(String str) throws IOException {
+  public void write(final String str) throws IOException {
     if (startStillOpen) {
       writer.write("\n>");
       startStillOpen = false;
@@ -139,12 +140,13 @@ public class TobagoResponseWriter extends ResponseWriter {
     writer.flush();
   }
 
-  public void writeText(Object text, String property) throws IOException {
+  public void writeText(final Object text, final String property)
+      throws IOException {
     if (startStillOpen) {
       writer.write("\n>");
       startStillOpen = false;
     }
-    String value = findValue(text, property);
+    final String value = findValue(text, property);
     if (insideScriptOrStyle) {
       write(value);
     } else {
@@ -156,7 +158,7 @@ public class TobagoResponseWriter extends ResponseWriter {
     }
   }
 
-  public void writeText(char text[], int offset, int length)
+  public void writeText(final char text[], final int offset, final int length)
       throws IOException {
     if (startStillOpen) {
       writer.write("\n>");
@@ -191,16 +193,12 @@ public class TobagoResponseWriter extends ResponseWriter {
     return characterEncoding;
   }
 
-  public void startElement(String name, UIComponent component)
+  public void startElement(final String name, final UIComponent component)
       throws IOException {
     this.component = component;
     stack.push(name);
 //    closeStartIfNecessary();
-    char firstChar = name.charAt(0);
-    if ((firstChar == 's' || firstChar == 'S')
-        && ("script".equalsIgnoreCase(name) || "style".equalsIgnoreCase(name))) {
-      insideScriptOrStyle = true;
-    }
+    insideScriptOrStyle = isScriptOrStyle(name);
     if (LOG.isDebugEnabled()) {
       LOG.debug("start Element: " + name);
     }
@@ -212,14 +210,38 @@ public class TobagoResponseWriter extends ResponseWriter {
     startStillOpen = true;
   }
 
-  public void endElement(String name) throws IOException {
+  private static boolean isScriptOrStyle(final String name) {
+    try {
+      switch (name.charAt(0)) {
+        case 's' :
+          switch (name.charAt(1)) {
+            case 'c' :
+              if (name.charAt(2) == 'r' && name.charAt(3) == 'i'
+                  && name.charAt(4) == 'p' && name.charAt(5) == 't' ) {
+                return true;
+              }
+            break;
+            case 't' :
+              if (name.charAt(2) == 'y' && name.charAt(3) == 'l'
+                  && name.charAt(4) == 'e') {
+                return true;
+              }
+            break;
+          }
+          break;
+      }
+    } catch (Exception e) { /* ignore  */ }
+    return false;
+  }
+
+  public void endElement(final String name) throws IOException {
     if (LOG.isDebugEnabled()) {
       LOG.debug("end Element: " + name);
     }
 
-    String top = stack.pop();
+    final String top = stack.pop();
     if (!top.equals(name)) {
-      String trace = getCallingClassStackTraceElementString();
+      final String trace = getCallingClassStackTraceElementString();
       LOG.error(
           "Element end with name='" + name + "' doesn't "
           + "match with top element on the stack='" + top + "' "
@@ -246,7 +268,7 @@ public class TobagoResponseWriter extends ResponseWriter {
     startStillOpen = false;
   }
 
-  public void writeComment(Object obj) throws IOException {
+  public void writeComment(final Object obj) throws IOException {
     if (startStillOpen) {
       writer.write("\n>");
       startStillOpen = false;
@@ -265,33 +287,33 @@ public class TobagoResponseWriter extends ResponseWriter {
     write("-->");
   }
 
-  public ResponseWriter cloneWithWriter(Writer writer) {
+  public ResponseWriter cloneWithWriter(final Writer writer) {
     return new TobagoResponseWriter(
         writer, getContentType(), getCharacterEncoding());
   }
 
-  public void writeAttribute(String name, boolean on) throws IOException {
+  public void writeAttribute(final String name, final boolean on) throws IOException {
     if (on) {
       // boolean attributes don't need escaped
       writeAttribute(name, name, false);
     }
   }
 
-  public void writeComponentAttribute(String name, String property)
+  public void writeComponentAttribute(final String name, final String property)
       throws IOException {
     writeAttribute(name, null, property, true);
   }
 
-  public void writeAttribute(String name, Object value, String property)
+  public void writeAttribute(final String name, final Object value, final String property)
       throws IOException {
     writeAttribute(name, value, property, true);
   }
 
-  public void writeAttribute(String name, Object value, boolean escape)
+  public void writeAttribute(final String name, final Object value, final boolean escape)
       throws IOException {
       writeAttribute(name, value.toString(), escape);
   }
-  public void writeAttribute(String name, String value, boolean escape)
+  public void writeAttribute(final String name, final String value, final boolean escape)
       throws IOException {
     if (!startStillOpen) {
       String trace = getCallingClassStackTraceElementString();
@@ -320,11 +342,12 @@ public class TobagoResponseWriter extends ResponseWriter {
     }
   }
 
-  public void writeAttribute(String name, Object value, String property, boolean escape)
+  public void writeAttribute(final String name, final Object value,
+                             final String property, final boolean escape)
       throws IOException {
     if (!startStillOpen) {
-      String trace = getCallingClassStackTraceElementString();
-      String error = "Cannot write attribute when start-tag not open. "
+      final String trace = getCallingClassStackTraceElementString();
+      final String error = "Cannot write attribute when start-tag not open. "
           + "name = '" + name + "'"
           + "value = '" + value + "'"
           + "property = '" + property + "' "
@@ -333,7 +356,7 @@ public class TobagoResponseWriter extends ResponseWriter {
       throw new IllegalStateException(error);
     }
 
-    String attribute = findValue(value, property);
+    final String attribute = findValue(value, property);
     if (attribute != null) {
       writer.write(' ');
       writer.write(name);
@@ -361,15 +384,15 @@ public class TobagoResponseWriter extends ResponseWriter {
   }
 
 
-  public void writeIdAttribute(String id) throws IOException {
+  public void writeIdAttribute(final String id) throws IOException {
     writeAttribute("id", id, false);
   }
 
-  public void writeNameAttribute(String id) throws IOException {
+  public void writeNameAttribute(final String id) throws IOException {
     writeAttribute("name", id, false);
   }
 
-  public void writeClassAttribute(String id) throws IOException {
+  public void writeClassAttribute(final String id) throws IOException {
     writeAttribute("class", id, false);
   }
 
@@ -379,7 +402,7 @@ public class TobagoResponseWriter extends ResponseWriter {
 
 
 
-  public void writeURIAttribute(String s, Object obj, String s1)
+  public void writeURIAttribute(final String s, final Object obj, final String s1)
       throws IOException {
     LOG.error("Not implemented yet!"); // fixme jsfbeta
   }

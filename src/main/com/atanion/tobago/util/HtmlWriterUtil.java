@@ -13,39 +13,40 @@ import java.io.Writer;
  * Time: 2:07:29 PM
  * To change this template use File | Settings | File Templates.
  */
-public class HtmlWriterUtil {
+public final class HtmlWriterUtil {
 
   private static final Log LOG = LogFactory.getLog(HtmlWriterUtil.class);
 
-  private Writer out;
-  private boolean utf8;
-  private char[][] charsToEscape;
-  private char[] buff;
+  private static final int BUFFER_SIZE = 1028;
+  private final Writer out;
+  private final boolean utf8;
+  private final char[][] charsToEscape;
+  private final char[] buff;
+
+  private int bufferIndex;
 
   public HtmlWriterUtil(Writer out, String characterEncoding, boolean attribute) {
     this.out = out;
-    if ("utf-8".equalsIgnoreCase(characterEncoding)) {
-      utf8 = true;
-    }
+    utf8 = "utf-8".equalsIgnoreCase(characterEncoding);
     charsToEscape = attribute ? ATTRIBUTE_CHARS_TO_ESCAPE : TEXT_CHARS_TO_ESCAPE;
-    buff = new char[1028];
+    buff = new char[BUFFER_SIZE];
 //    LOG.info("utf8 = " + utf8);
 
   }
 
 
-  public void writeAttributeValue(String text)
+  public void writeAttributeValue(final String text)
       throws IOException {
     writeAttributeValue(text.toCharArray(), 0, text.length());
   }
 
-  public void writeAttributeValue(char[] text)
+  public void writeAttributeValue(final char[] text)
       throws IOException {
       writeEncodedValue(text, 0, text.length, true);
   }
 
   public void writeAttributeValue(
-      char[] text, int start, int length)
+      final char[] text, final int start, final int length)
       throws IOException {
     writeEncodedValue(text, start, length, true);
   }
@@ -54,15 +55,15 @@ public class HtmlWriterUtil {
 
 
 
-  public void writeText(String text) throws IOException {
+  public void writeText(final String text) throws IOException {
     writeText(text.toCharArray(), 0, text.length());
   }
 
-  public void writeText(char[] text) throws IOException {
+  public void writeText(final char[] text) throws IOException {
     writeEncodedValue(text, 0, text.length, false);
   }
 
-  public void writeText(char[] text, int start, int length)
+  public void writeText(final char[] text, final int start, final int length)
       throws IOException {
     writeEncodedValue(text, start, length, false);
   }
@@ -81,7 +82,8 @@ public class HtmlWriterUtil {
 
 
 
-  private void writeEncodedValue(char[] text, int start, int length, boolean isAttribute)
+  private void writeEncodedValue(final char[] text, final int start,
+                                 final int length, final boolean isAttribute)
       throws IOException {
 
 //    final char[][] charsToEscape;
@@ -95,7 +97,7 @@ public class HtmlWriterUtil {
     int localIndex = -1;
 
 
-    int end = start + length;
+    final int end = start + length;
     for (int i = start; i < end; i++) {
       char ch = text[i];
       if (ch >= charsToEscape.length - 1 || charsToEscape[ch] != null) {
@@ -111,46 +113,43 @@ public class HtmlWriterUtil {
     // write until localIndex and then encode the remainder
       out.write(text, start, localIndex);
 
-      int buffLength = buff.length;
-      int buffIndex = 0;
-
       for (int i = localIndex; i < end; i++) {
-        char ch = text[i];
+        final char ch = text[i];
 
     // Tilde or less...
         if (ch < charsToEscape.length - 1) {
           if (isAttribute && ch == '&' && (i + 1 < end) && text[i + 1] == '{') {
             // HTML 4.0, section B.7.1: ampersands followed by
             // an open brace don't get escaped
-            buffIndex = addToBuffer(out, buff, buffIndex, buffLength, '&');
+            addToBuffer('&');
           } else if (charsToEscape[ch] != null) {
             for (char cha : charsToEscape[ch]) {
-              buffIndex = addToBuffer(out, buff, buffIndex, buffLength, cha);
+              addToBuffer(cha);
             }
           } else {
-            buffIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
+            addToBuffer(ch);
           }
         } else if (utf8) {
-          buffIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
+          addToBuffer(ch);
         } else if (ch <= 0xff) {
           // ISO-8859-1 entities: encode as needed
-          buffIndex = flushBuffer(out, buff, buffIndex);
+          flushBuffer();
 
           out.write('&');
           out.write(sISO8859_1_Entities[ch - 0xA0]);
           out.write(';');
         } else {
-          buffIndex = flushBuffer(out, buff, buffIndex);
+          flushBuffer();
 
           // Double-byte characters to encode.
           // PENDING: when outputting to an encoding that
           // supports double-byte characters (UTF-8, for example),
           // we should not be encoding
-          _writeDecRef(out, ch);
+          _writeDecRef(ch);
         }
       }
 
-      flushBuffer(out, buff, buffIndex);
+      flushBuffer();
     }
   }
 
@@ -160,7 +159,7 @@ public class HtmlWriterUtil {
    * the decimal version, but Netscape didn't support hex escapes until
    * 4.7.4.
    */
-  static private void _writeDecRef(Writer out, char ch) throws IOException {
+  private void _writeDecRef(final char ch) throws IOException {
       if (ch == '\u20ac') {
           out.write("&euro;");
           return;
@@ -214,19 +213,15 @@ public class HtmlWriterUtil {
    * Add a character to the buffer, flushing the buffer if the buffer is
    * full, and returning the new buffer index
    */
-  private static int addToBuffer(Writer out,
-                                 char[] buffer,
-                                 int bufferIndex,
-                                 int bufferLength,
-                                 char ch) throws IOException {
-      if (bufferIndex >= bufferLength) {
-          out.write(buffer, 0, bufferIndex);
+  private void addToBuffer(final char ch) throws IOException {
+      if (bufferIndex >= BUFFER_SIZE) {
+          out.write(buff, 0, bufferIndex);
           bufferIndex = 0;
       }
 
-      buffer[bufferIndex] = ch;
+      buff[bufferIndex] = ch;
 
-      return bufferIndex + 1;
+      bufferIndex += 1;
   }
 
 
@@ -234,39 +229,39 @@ public class HtmlWriterUtil {
    * Flush the contents of the buffer to the output stream
    * and return the reset buffer index
    */
-  private static int flushBuffer(Writer out,
-                                 char[] buffer,
-                                 int bufferIndex) throws IOException {
-      if (bufferIndex > 0)
-          out.write(buffer, 0, bufferIndex);
-
-      return 0;
+  private void flushBuffer() throws IOException {
+      if (bufferIndex > 0) {
+          out.write(buff, 0, bufferIndex);
+      }
+      bufferIndex = 0;
   }
 
-  public static boolean attributeValueMustEscaped(String name) {
+  public static boolean attributeValueMustEscaped(final String name) {
     // this is 30% faster then the  .equals(name) version
     // tested with 100 loops over 19871 names
     //       (extracted from logfile over all demo pages)
 
-    switch (name.charAt(0)) {
-      case 'i' : // 'id'
-        if (name.charAt(1) == 'd') {
-          return false;
-        }
-        break;
-      case 'n' : // 'name'
-        if (name.charAt(1) == 'a' && name.charAt(2) == 'm'
-            && name.charAt(3) == 'e') {
-          return false;
-        }
-        break;
-      case 'c' : // 'class'
-        if (name.charAt(1) == 'l' && name.charAt(2) == 'a'
-            && name.charAt(3) == 's' && name.charAt(4) == 's') {
-          return false;
-        }
-        break;
-    }
+    try {
+      switch (name.charAt(0)) {
+        case 'i' : // 'id'
+          if (name.charAt(1) == 'd') {
+            return false;
+          }
+          break;
+        case 'n' : // 'name'
+          if (name.charAt(1) == 'a' && name.charAt(2) == 'm'
+              && name.charAt(3) == 'e') {
+            return false;
+          }
+          break;
+        case 'c' : // 'class'
+          if (name.charAt(1) == 'l' && name.charAt(2) == 'a'
+              && name.charAt(3) == 's' && name.charAt(4) == 's') {
+            return false;
+          }
+          break;
+      }
+    } catch (Exception e) { /* ignore */ }
 //    if ("id".equals(name) || "name".equals(name) || "class".equals(name)) {
 //      return false;
 //    }
