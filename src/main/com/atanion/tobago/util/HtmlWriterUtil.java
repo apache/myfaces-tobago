@@ -2,18 +2,9 @@ package com.atanion.tobago.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.beanutils.converters.CharacterArrayConverter;
 
-import java.io.Writer;
 import java.io.IOException;
-import java.io.StringWriter;
-import java.io.CharArrayWriter;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
-import java.io.BufferedReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Date;
+import java.io.Writer;
 
 /**
  * Created by IntelliJ IDEA.
@@ -252,28 +243,29 @@ public class HtmlWriterUtil {
       return 0;
   }
 
-
   public static boolean attributeValueMustEscaped(String name) {
-    // this is 25% faster then the  .equals(name) version
+    // this is 30% faster then the  .equals(name) version
     // tested with 100 loops over 19871 names
     //       (extracted from logfile over all demo pages)
 
-    final int i = name.length();
-    if (i == 2) {
-      if (name.charAt(0) == 'i' && name.charAt(1) == 'd') {
-        return false;
-      }
-    } else if (i == 4) {
-      if (name.charAt(0) == 'n' && name.charAt(1) == 'a'
-          && name.charAt(1) == 'm' && name.charAt(1) == 'e') {
-        return false;
-      }
-    } else if (i == 5) {
-      if (name.charAt(0) == 'c' && name.charAt(1) == 'l'
-          && name.charAt(1) == 'a' && name.charAt(1) == 's'
-          && name.charAt(1) == 's') {
-        return false;
-      }
+    switch (name.charAt(0)) {
+      case 'i' : // 'id'
+        if (name.charAt(1) == 'd') {
+          return false;
+        }
+        break;
+      case 'n' : // 'name'
+        if (name.charAt(1) == 'a' && name.charAt(2) == 'm'
+            && name.charAt(3) == 'e') {
+          return false;
+        }
+        break;
+      case 'c' : // 'class'
+        if (name.charAt(1) == 'l' && name.charAt(2) == 'a'
+            && name.charAt(3) == 's' && name.charAt(4) == 's') {
+          return false;
+        }
+        break;
     }
 //    if ("id".equals(name) || "name".equals(name) || "class".equals(name)) {
 //      return false;
