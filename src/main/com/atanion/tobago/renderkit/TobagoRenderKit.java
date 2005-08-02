@@ -11,7 +11,6 @@ import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseStream;
 import javax.faces.context.ResponseWriter;
@@ -69,8 +68,9 @@ public class TobagoRenderKit extends RenderKit {
       contentType = "text/fo";
       LOG.warn("patching content type from " +contentTypeList + " to " + contentType+"'");
     } else {
-      throw new IllegalArgumentException("Content-Type '" + contentTypeList
-          + "' not supported!");
+      contentType = "text/html";
+      LOG.warn("Content-Type '" + contentTypeList + "' not supported!" +
+          " Using text/html");
     }
 
     return new TobagoResponseWriter(writer, contentType, characterEncoding);

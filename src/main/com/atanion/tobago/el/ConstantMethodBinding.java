@@ -24,6 +24,10 @@ public class ConstantMethodBinding extends MethodBinding {
     this.outcome = outcome;
   }
 
+  // todo: check if needed, in the moment this is needed for MyFaces state saving 
+  public ConstantMethodBinding() {
+  }
+
 // ///////////////////////////////////////////// code
 
   public Object invoke(FacesContext facescontext, Object aobj[])
