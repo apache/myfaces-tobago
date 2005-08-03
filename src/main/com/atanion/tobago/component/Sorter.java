@@ -49,6 +49,9 @@ public class Sorter extends MethodBinding {
     ascending = true;
   }
 
+  public Sorter() {
+  }
+
   public Object invoke(FacesContext facescontext, Object aobj[])
       throws EvaluationException, MethodNotFoundException {
     if (aobj[0] instanceof ActionEvent) {
