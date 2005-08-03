@@ -41,8 +41,6 @@ public class Sorter extends MethodBinding {
   private int column;
   private boolean ascending;
 
-  private Comparator comparator;
-
   public Sorter(UIData data) {
     this.data = data;
     column = -1;
@@ -126,8 +124,8 @@ public class Sorter extends MethodBinding {
         } else {
           // todo: locale / comparator parameter?
           // don't compare numbers with Collator.getInstance() comparator
-//          comparator = Collator.getInstance();
-          comparator = null;
+//        Comparator comparator = Collator.getInstance();
+          Comparator comparator = null;
           Comparator beanComparator
               = new BeanComparator(sortProperty, comparator, !ascending);
 //          comparator = new RowComparator(ascending, method);
