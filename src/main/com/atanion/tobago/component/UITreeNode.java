@@ -46,6 +46,9 @@ public class UITreeNode extends UIInput {
     initName();
   }
 
+  public UITreeNode() {
+  }
+
 // ///////////////////////////////////////////// code
 
   public boolean getRendersChildren() {
