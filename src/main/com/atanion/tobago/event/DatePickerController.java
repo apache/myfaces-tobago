@@ -30,16 +30,7 @@ public class DatePickerController extends MethodBinding {
   public static final String OPEN_POPUP = "openPopup";
   public static final String CLOSE_POPUP = "closePopup";
 
-  private static DatePickerController instance;
-
-  private DatePickerController() {
-  }
-
-  public static synchronized DatePickerController getInstance() {
-    if (instance == null) {
-      instance = new DatePickerController();
-    }
-    return instance;
+  public DatePickerController() {
   }
 
   public Object invoke(FacesContext facesContext, Object[] objects)
@@ -91,7 +82,7 @@ public class DatePickerController extends MethodBinding {
           }
           if (popupHeight == -1) {
             popupHeight = ThemeConfig.getValue(
-                facesContext, popup, "DatePopupHeight");
+                facesContext, popup, "CalendarPopupHeight");
             attributes.put(
                 TobagoConstants.ATTR_HEIGHT, String.valueOf(popupHeight));
           }

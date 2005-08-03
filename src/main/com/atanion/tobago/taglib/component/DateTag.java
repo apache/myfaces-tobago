@@ -94,6 +94,7 @@ private static final Log LOG = LogFactory.getLog(DateTag.class);
     FacesContext facesContext = FacesContext.getCurrentInstance();
     final String idPrefix
         = ComponentUtil.createPickerId(facesContext, component, "");
+    DatePickerController datePickerController = new DatePickerController();
 
     // create link
     UICommand link = (UICommand) ComponentUtil.createComponent(
@@ -104,7 +105,7 @@ private static final Log LOG = LogFactory.getLog(DateTag.class);
     Map<String, Object>  attributes = link.getAttributes();
     attributes.put(ATTR_TYPE, "script");
     link.setId(idPrefix + DatePickerController.OPEN_POPUP);
-    link.setActionListener(DatePickerController.getInstance());
+    link.setActionListener(datePickerController);
 
     UIInput hidden = (UIInput) ComponentUtil.createComponent(
         facesContext, UIInput.COMPONENT_TYPE, RENDERER_TYPE_HIDDEN);
@@ -157,7 +158,7 @@ private static final Log LOG = LogFactory.getLog(DateTag.class);
         + calendar.getClientId(facesContext) + "', '"
         + component.getClientId(facesContext) + "'); closePickerPopup('"
         + popup.getClientId(facesContext) + "')");
-    okButton.setActionListener(DatePickerController.getInstance());
+    okButton.setActionListener(datePickerController);
 
     final UICommand cancelButton = (UICommand) ComponentUtil.createComponent(facesContext,
         com.atanion.tobago.component.UICommand.COMPONENT_TYPE, RENDERER_TYPE_BUTTON);
@@ -167,9 +168,7 @@ private static final Log LOG = LogFactory.getLog(DateTag.class);
     attributes.put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
     attributes.put(ATTR_ACTION_STRING, "closePickerPopup('" + popup.getClientId(facesContext) + "')");
     cancelButton.setId(idPrefix +  DatePickerController.CLOSE_POPUP);
-    cancelButton.setActionListener(DatePickerController.getInstance());
-
-
+    cancelButton.setActionListener(datePickerController);
 
     // create image
     UIGraphic image = (UIGraphic) ComponentUtil.createComponent(
@@ -182,10 +181,6 @@ private static final Log LOG = LogFactory.getLog(DateTag.class);
 
     // add image
     link.getChildren().add(image);
-
-
-
-
   }
 }
 
