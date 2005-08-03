@@ -9,16 +9,12 @@ import javax.faces.el.MethodBinding;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodNotFoundException;
 import javax.faces.context.FacesContext;
+import java.io.Serializable;
 
-public class ConstantMethodBinding extends MethodBinding {
-
-// ///////////////////////////////////////////// constant
-
-// ///////////////////////////////////////////// attribute
+public class ConstantMethodBinding
+    extends MethodBinding implements Serializable {
 
   private String outcome;
-
-// ///////////////////////////////////////////// constructor
 
   public ConstantMethodBinding(String outcome) {
     this.outcome = outcome;
@@ -27,8 +23,6 @@ public class ConstantMethodBinding extends MethodBinding {
   // todo: check if needed, in the moment this is needed for MyFaces state saving 
   public ConstantMethodBinding() {
   }
-
-// ///////////////////////////////////////////// code
 
   public Object invoke(FacesContext facescontext, Object aobj[])
       throws EvaluationException, MethodNotFoundException {
@@ -43,7 +37,4 @@ public class ConstantMethodBinding extends MethodBinding {
   public String getExpressionString() {
     return outcome;
   }
-
-// ///////////////////////////////////////////// bean getter + setter
-
 }
