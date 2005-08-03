@@ -139,7 +139,7 @@ public class TobagoServletContextListener implements ServletContextListener {
 //        Log.debug("add resc " + childPath);
         if (childPath.endsWith(".properties")) {
           addProperties(servletContext, resources, childPath, false);
-//        } else if (childPath.endsWith(".xml")) {
+//        } else if (childPath.endsWith(".properties.xml")) {
 //          addProperties(servletContext, resources, childPath, true);
         } else {
           resources.add(childPath);
@@ -172,7 +172,9 @@ public class TobagoServletContextListener implements ServletContextListener {
     InputStream stream = null;
     try {
       stream = servletContext.getResourceAsStream(childPath);
+//      LOG.error(xml);
       if (xml) {
+//        LOG.error(childPath);
         temp.loadFromXML(stream);
       } else {
         temp.load(stream);
