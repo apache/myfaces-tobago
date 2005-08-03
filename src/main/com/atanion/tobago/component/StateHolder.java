@@ -11,5 +11,7 @@ import com.atanion.tobago.event.StateChangeListener;
  */
 public interface StateHolder {
 
+//  to be deleted
+
   public void addStateChangeListener(StateChangeListener tateChangeListener);
 }
