@@ -7,8 +7,7 @@
 package com.atanion.tobago.component;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
-import com.atanion.tobago.event.StateChangeListener;
+import com.atanion.tobago.event.TabChangeListener;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class UITabGroup extends UIPanel implements StateHolder{
+public class UITabGroup extends UIPanel {
 
 // ///////////////////////////////////////////// constant
 
@@ -93,20 +92,16 @@ public class UITabGroup extends UIPanel implements StateHolder{
     }
   }
 
-  public void addStateChangeListener(StateChangeListener listener) {
+  public void addTabChangeListener(TabChangeListener listener) {
     if (LOG.isWarnEnabled() && ! ComponentUtil.getBooleanAttribute(
         this, TobagoConstants.ATTR_SERVER_SIDE_TABS)) {
-      LOG.warn("Adding StateChangeListener to Client side Tabgroup!");
+      LOG.warn("Adding TabChangeListener to Client side Tabgroup!");
     }
     addFacesListener(listener);
   }
-  public void removeStateChangeListener(StateChangeListener listener) {
+
+  public void removeTabChangeListener(TabChangeListener listener) {
     removeFacesListener(listener);
-  }
-  public StateChangeListener[] getStateChangeListener(){
-    StateChangeListener listener[] =
-        (StateChangeListener[]) getFacesListeners(StateChangeListener.class);
-    return listener;
   }
 
 // ///////////////////////////////////////////// bean getter + setter

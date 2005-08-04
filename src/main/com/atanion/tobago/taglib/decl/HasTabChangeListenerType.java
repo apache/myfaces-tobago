@@ -6,9 +6,9 @@ import com.atanion.util.annotation.UIComponentTagAttribute;
 /**
  * $Id$
  */
-public interface HasStateChangeListenerType {
+public interface HasTabChangeListenerType {
   /**
-   * Fully qualified Java class name of a StateChangeListener to be
+   * Fully qualified Java class name of a TabChangeListener to be
    *  created and registered.
    */
   @TagAttribute @UIComponentTagAttribute(type={"java.util.List", "java.util.Map", "java.lang.Object[]"})

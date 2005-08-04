@@ -23,11 +23,11 @@ public class StateChangeEvent extends FacesEvent {
   }
 
   public boolean isAppropriateListener(FacesListener facesListener) {
-    return facesListener instanceof StateChangeListener;
+    return facesListener instanceof TabChangeListener;
   }
 
   public void processListener(FacesListener facesListener) {
-    ((StateChangeListener)facesListener).processStateChange(this);
+    ((TabChangeListener)facesListener).processStateChange(this);
   }
 
   public Object getOldState() {

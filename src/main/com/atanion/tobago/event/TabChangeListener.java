@@ -9,7 +9,7 @@ import javax.faces.event.FacesListener;
  * Time: 16:21:54
  * To change this template use File | Settings | File Templates.
  */
-public interface StateChangeListener extends FacesListener {
+public interface TabChangeListener extends FacesListener {
 
   public void processStateChange(StateChangeEvent stateChangeEvent);
 }
