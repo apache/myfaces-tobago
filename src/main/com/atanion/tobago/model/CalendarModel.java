@@ -62,20 +62,20 @@ public class CalendarModel {
 
   public String toString() {
     StringBuffer buffer = new StringBuffer();
-    buffer.append("Month: " + getMonth() + "\n");
+    buffer.append("Month: ").append(getMonth()).append("\n");
     int weekCount = getWeekCount();
     DecimalFormat format = new DecimalFormat("00");
     SimpleDateFormat dateFormat = new SimpleDateFormat("E");
     for (int day = 0; day < 7; ++day) {
       DateModel date = getDate(0, day);
       String dayName = dateFormat.format(date.getCalendar().getTime());
-      buffer.append(dayName.substring(0, 2) + " ");
+      buffer.append(dayName.substring(0, 2)).append(" ");
     }
     buffer.append("\n");
     for (int week = 0; week < weekCount; ++week) {
       for (int day = 0; day < 7; ++day) {
         DateModel date = getDate(week, day);
-        buffer.append(format.format(date.getDay()) + " ");
+        buffer.append(format.format(date.getDay())).append(" ");
       }
       buffer.append("\n");
     }

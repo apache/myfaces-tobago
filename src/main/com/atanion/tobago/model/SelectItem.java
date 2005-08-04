@@ -1,8 +1,5 @@
 package com.atanion.tobago.model;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.atanion.tobago.component.UISelectItem;
 
 /**
@@ -13,8 +10,6 @@ import com.atanion.tobago.component.UISelectItem;
  * To change this template use File | Settings | File Templates.
  */
 public class SelectItem extends javax.faces.model.SelectItem {
-
-  private static final Log LOG = LogFactory.getLog(SelectItem.class);
 
   private String image;
 

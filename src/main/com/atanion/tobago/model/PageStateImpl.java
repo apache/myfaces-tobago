@@ -10,9 +10,6 @@ import org.apache.commons.logging.LogFactory;
 
 public class PageStateImpl implements PageState {
 
-  private static final Log LOG = LogFactory.getLog(PageStateImpl.class);
-
-
   private int clientWidth;
   private int clientHeight;
 
