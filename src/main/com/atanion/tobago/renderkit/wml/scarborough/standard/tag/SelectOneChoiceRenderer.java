@@ -10,7 +10,6 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
-import com.atanion.util.KeyValuePair;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectOne;
@@ -19,6 +18,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.List;
+
+import org.apache.commons.collections.keyvalue.DefaultKeyValue;
 
 public class SelectOneChoiceRenderer extends RendererBase {
 
@@ -34,7 +35,7 @@ public class SelectOneChoiceRenderer extends RendererBase {
     String clientId = selectOne.getClientId(facesContext);
 
     if (page != null) {
-      page.getPostfields().add(new KeyValuePair(clientId, clientId));
+      page.getPostfields().add(new DefaultKeyValue(clientId, clientId));
     }
 
     ValueHolder label

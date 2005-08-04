@@ -5,13 +5,14 @@
  */
 package com.atanion.tobago.tool;
 
-import com.atanion.util.io.Io2String;
-import com.atanion.util.io.IoUtil;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -72,12 +73,12 @@ public class BuilderModel {
       InputStream stream = null;
       try {
         stream = servletContext.getResourceAsStream(page);
-        source = Io2String.read(stream);
+        source = IOUtils.toString(stream);
       } catch (IOException e) {
         LOG.error("", e);
         return "error"; // todo: error message
       } finally {
-        IoUtil.close(stream);
+        IOUtils.closeQuietly(stream);
       }
 
       return "viewSource";
@@ -94,7 +95,8 @@ public class BuilderModel {
 
       String realPath = servletContext.getRealPath(page);
       try {
-        Io2String.write(realPath, source);
+        // todo: use IOUtils.write when commons-io 1.1 is released
+        FileUtils.writeStringToFile(new File(realPath), source, System.getProperty("file.encoding"));
       } catch (IOException e) {
         LOG.error("", e);
         return "error"; // todo: error message

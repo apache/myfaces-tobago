@@ -1,27 +1,29 @@
 package com.atanion.tobago.component;
 
+import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.model.SheetState;
+import com.atanion.tobago.model.SortableByApplication;
+import com.atanion.tobago.util.BeanComparator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.atanion.tobago.model.SortableByApplication;
-import com.atanion.tobago.model.SheetState;
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.util.BeanComparator;
-
-import javax.faces.el.MethodBinding;
+import javax.faces.component.UIColumn;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.component.UIOutput;
+import javax.faces.component.UISelectBoolean;
+import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
+import javax.faces.el.MethodBinding;
 import javax.faces.el.MethodNotFoundException;
 import javax.faces.el.ValueBinding;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.component.*;
-import javax.faces.component.UIInput;
 import javax.faces.model.DataModel;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Collections;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.

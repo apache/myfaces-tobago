@@ -9,8 +9,9 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.model.PageState;
 import com.atanion.tobago.model.PageStateImpl;
 import com.atanion.tobago.webapp.TobagoMultipartFormdataRequest;
-import com.atanion.util.KeyValuePair;
-import com.atanion.util.collections.ListOrderedSet;
+import org.apache.commons.collections.KeyValue;
+import org.apache.commons.collections.list.SetUniqueList;
+import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,7 +23,11 @@ import javax.faces.el.ValueBinding;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.StringTokenizer;
 
 public class UIPage extends UIForm {
 
@@ -42,9 +47,9 @@ public class UIPage extends UIForm {
 
   private String actionId;
 
-  private List<KeyValuePair> postfields;
+  private List<KeyValue> postfields;
 
-  private ListOrderedSet scriptFiles;
+  private SetUniqueList scriptFiles;
 
   private Set<String> scriptBlocks;
 
@@ -58,16 +63,12 @@ public class UIPage extends UIForm {
 // ///////////////////////////////////////////// constructor
 
   public UIPage() {
-    scriptFiles = new ListOrderedSet();//ListOrderedSet.decorate(new HashSet());
-
-    scriptBlocks = new ListOrderedSet();//ListOrderedSet.decorate(new HashSet());
-
-    styleFiles = new ListOrderedSet();//ListOrderedSet.decorate(new HashSet());
+    scriptFiles = SetUniqueList.decorate(new ArrayList());
+    scriptBlocks = new ListOrderedSet();
+    styleFiles = new ListOrderedSet();
     styleFiles.add(DEFAULT_STYLE);
-
-    styleBlocks = new ListOrderedSet();//ListOrderedSet.decorate(new HashSet());
-
-    onloadScripts = new ListOrderedSet();//ListOrderedSet.decorate(new HashSet());
+    styleBlocks = new ListOrderedSet();
+    onloadScripts = new ListOrderedSet();
   }
 
 // ///////////////////////////////////////////// code
@@ -170,9 +171,9 @@ public class UIPage extends UIForm {
 
   }
 
-  public List<KeyValuePair> getPostfields() {
+  public List<KeyValue> getPostfields() {
     if (postfields == null) {
-      postfields = new ArrayList<KeyValuePair>();
+      postfields = new ArrayList<KeyValue>();
     }
     return postfields;
   }
@@ -239,7 +240,7 @@ public class UIPage extends UIForm {
     this.actionId = actionId;
   }
 
-  public ListOrderedSet getScriptFiles() {
+  public List<String> getScriptFiles() {
     return scriptFiles;
   }
 

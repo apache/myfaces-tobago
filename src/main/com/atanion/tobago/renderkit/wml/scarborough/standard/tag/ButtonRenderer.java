@@ -10,9 +10,10 @@ import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
-import com.atanion.util.KeyValuePair;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.collections.keyvalue.DefaultKeyValue;
+import org.apache.commons.collections.KeyValue;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -43,7 +44,7 @@ public class ButtonRenderer extends RendererBase {
           = (ValueHolder) command.getFacet(TobagoConstants.FACET_LABEL);
       String label = (String) labelComponent.getValue();
       page.getPostfields().add(
-          new KeyValuePair(command.getClientId(facesContext), label));
+          new DefaultKeyValue(command.getClientId(facesContext), label));
 
 
       writer.startElement("anchor", command);
@@ -52,7 +53,7 @@ public class ButtonRenderer extends RendererBase {
       writer.startElement("go", command);
       writer.writeAttribute("href", action, null);
 
-      for (KeyValuePair postField : page.getPostfields()) {
+      for (KeyValue postField : page.getPostfields()) {
         writer.startElement("postfield", command);
         writer.writeAttribute("name", postField.getKey(), null);
         writer.writeAttribute("value", postField.getValue(), null);

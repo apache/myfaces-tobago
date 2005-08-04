@@ -6,9 +6,8 @@
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.util.AccessKeyMap;
-import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.component.UILayout;
+import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ClientProperties;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.PageRendererBase;
@@ -16,7 +15,6 @@ import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.taglib.component.PageTag;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
-import com.atanion.util.collections.ListOrderedSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -29,11 +27,11 @@ import javax.faces.context.ResponseWriter;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.ArrayList;
 
 public class PageRenderer extends PageRendererBase {
 // ------------------------------------------------------------------ constants
@@ -167,7 +165,7 @@ public class PageRenderer extends PageRendererBase {
     }
 
     // script files
-    ListOrderedSet scriptFiles = page.getScriptFiles();
+    List<String> scriptFiles = page.getScriptFiles();
     scriptFiles.add(0, "script/tobago.js");
     for (Iterator i = scriptFiles.iterator(); i.hasNext();) {
       String script = (String) i.next();

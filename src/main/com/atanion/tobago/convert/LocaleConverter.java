@@ -5,7 +5,7 @@
  */
 package com.atanion.tobago.convert;
 
-import com.atanion.util.LocaleUtil;
+import com.atanion.tobago.util.LocaleUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

@@ -9,11 +9,7 @@ import com.atanion.tobago.config.ThemeConfig;
 import com.atanion.tobago.config.TobagoConfig;
 import com.atanion.tobago.config.TobagoConfigParser;
 import com.atanion.tobago.context.ResourceManager;
-import com.atanion.license.LicenseCheck;
-import com.atanion.license.License;
-import com.atanion.license.LicenseException;
-import com.atanion.util.io.IoUtil;
-
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -52,15 +48,6 @@ public class TobagoServletContextListener implements ServletContextListener {
     }
 
     try {
-
-      final License license = LicenseCheck.getLicense();
-      if (license == null || !license.isValid("tobago")) {
-        throw new LicenseException("No license or invalid license found: " + license);
-      } else {
-        if (LOG.isInfoEnabled()) {
-          LOG.info("Valid tobago license found: " + license);
-        }
-      }
 
       // tobago-config.xml
       TobagoConfig tobagoConfig = new TobagoConfig();
@@ -186,7 +173,7 @@ public class TobagoServletContextListener implements ServletContextListener {
       }
       throw new ServletException(msg, e);
     } finally {
-      IoUtil.close(stream);
+      IOUtils.closeQuietly(stream);
     }
 
     for (Enumeration e = temp.propertyNames(); e.hasMoreElements();) {

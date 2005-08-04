@@ -63,16 +63,13 @@ private static final Log LOG = LogFactory.getLog(DateTag.class);
 
     // ensure date script
 
-    final List<String>  scriptFiles
+    final List<String> scriptFiles
         = ComponentUtil.findPage(component).getScriptFiles();
     scriptFiles.add("script/date.js");
     scriptFiles.add("script/dateConverter.js");
+    scriptFiles.add("script/calendar.js");
 
-
-    if (component.getFacet(FACET_PICKER) == null) {
-      scriptFiles.add("script/calendar.js");
-      createPicker(component);
-    }
+    ensurePicker(component);
 
     return super.doEndTag();
   }
@@ -88,14 +85,18 @@ private static final Log LOG = LogFactory.getLog(DateTag.class);
   }
 
 
-  private void createPicker(UIComponent component) {
+  private void ensurePicker(UIComponent component) {
+
+    if (component.getFacet(FACET_PICKER) != null) {
+      return;
+    }
 
     // util
     FacesContext facesContext = FacesContext.getCurrentInstance();
     final String idPrefix
         = ComponentUtil.createPickerId(facesContext, component, "");
     DatePickerController datePickerController = new DatePickerController();
-
+    
     // create link
     UICommand link = (UICommand) ComponentUtil.createComponent(
             facesContext, UICommand.COMPONENT_TYPE, RENDERER_TYPE_LINK);
@@ -182,5 +183,6 @@ private static final Log LOG = LogFactory.getLog(DateTag.class);
     // add image
     link.getChildren().add(image);
   }
+
 }
 

@@ -5,7 +5,7 @@
  */
 package com.atanion.tobago.application;
 
-import com.atanion.util.logging.CommonsLoggingLogger;
+import com.atanion.tobago.util.CommonsLoggingLogger;
 import org.apache.avalon.framework.logger.Logger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

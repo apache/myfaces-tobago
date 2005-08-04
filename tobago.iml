@@ -6,6 +6,7 @@
     <exclude-output />
     <output-test url="file://$MODULE_DIR$/build/classes/test" />
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/apt/src/main" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
@@ -66,7 +67,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="atanion-commons" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -80,15 +80,6 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/oro-2.0.8.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/commons-collections-2.1.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -155,6 +146,33 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/commons-beanutils-1.7.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/commons-collections-3.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/apt/lib/ant-1.6.5.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/commons-io-1.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

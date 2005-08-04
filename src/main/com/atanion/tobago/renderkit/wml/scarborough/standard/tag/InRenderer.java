@@ -5,17 +5,16 @@
  */
 package com.atanion.tobago.renderkit.wml.scarborough.standard.tag;
 
-import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
+import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.util.KeyValuePair;
+import com.atanion.tobago.renderkit.RenderUtil;
+import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
+import org.apache.commons.collections.keyvalue.DefaultKeyValue;
 
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class InRenderer extends RendererBase {
@@ -35,7 +34,7 @@ public class InRenderer extends RendererBase {
     UIPage uiPage = ComponentUtil.findPage(component);
 
     if (uiPage != null){
-      uiPage.getPostfields().add(new KeyValuePair(clientId, clientId));
+      uiPage.getPostfields().add(new DefaultKeyValue(clientId, clientId));
     }
 
     UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);

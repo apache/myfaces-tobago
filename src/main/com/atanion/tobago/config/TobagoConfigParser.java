@@ -5,9 +5,8 @@
  */
 package com.atanion.tobago.config;
 
-import com.atanion.tobago.context.Theme;
-import com.atanion.util.io.IoUtil;
 import org.apache.commons.digester.Digester;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -76,7 +75,7 @@ public class TobagoConfigParser {
     } catch (Throwable e) {
       LOG.error(configPath, e);
     } finally {
-      IoUtil.close(input);
+      IOUtils.closeQuietly(input);
     }
   }
 

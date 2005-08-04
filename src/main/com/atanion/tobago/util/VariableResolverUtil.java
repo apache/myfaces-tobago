@@ -11,16 +11,9 @@ import javax.faces.el.VariableResolver;
 
 public class VariableResolverUtil {
 
-  /** @deprecated */
-  public static Object resolveVariable(String variable) {
-    FacesContext context = FacesContext.getCurrentInstance();
-    return resolveVariable(context, variable);
-  }
-
   public static Object resolveVariable(FacesContext context, String variable) {
     Application application = context.getApplication();
     VariableResolver variableResolver = application.getVariableResolver();
     return variableResolver.resolveVariable(context, variable);
   }
-
 }

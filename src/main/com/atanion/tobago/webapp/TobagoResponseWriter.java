@@ -5,13 +5,12 @@
  */
 package com.atanion.tobago.webapp;
 
+import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.util.HtmlWriterUtil;
+import com.atanion.tobago.util.XmlUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.util.HtmlWriterUtil;
-import com.atanion.xml.XmlUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;

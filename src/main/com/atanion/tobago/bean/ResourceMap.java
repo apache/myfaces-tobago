@@ -5,14 +5,12 @@
  */
 package com.atanion.tobago.bean;
 
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-import java.util.Properties;
-import java.io.InputStream;
 import java.io.IOException;
-
-import com.atanion.util.Resource;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class ResourceMap extends Properties {
 
@@ -30,7 +28,7 @@ public class ResourceMap extends Properties {
       LOG.debug("filename = '" + filename + "'");
     }
     try {
-      InputStream is = Resource.getInputStream(filename);
+      InputStream is = getClass().getClassLoader().getResourceAsStream(filename);
       if (is == null) {
         LOG.error("Cannot load resource map from file: " + filename);
       }

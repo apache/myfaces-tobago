@@ -5,13 +5,7 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.lib.richtext.WikiParser;
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
-import com.atanion.tobago.taglib.component.ToolBarTag;
-import com.atanion.tobago.taglib.component.ToolBarSelectOneTag;
-import com.atanion.tobago.taglib.component.CommandTag;
-import com.atanion.tobago.taglib.component.ToolBarSelectBooleanTag;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UICommand;
 import com.atanion.tobago.context.ResourceManagerUtil;
@@ -19,18 +13,17 @@ import com.atanion.tobago.renderkit.HtmlUtils;
 import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.RenderUtil;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
-
+import com.atanion.tobago.taglib.component.ToolBarSelectBooleanTag;
+import com.atanion.tobago.taglib.component.ToolBarTag;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.application.Application;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIGraphic;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class RichTextEditorRenderer extends InputRendererBase {
@@ -62,7 +55,10 @@ public class RichTextEditorRenderer extends InputRendererBase {
 
   public static String contentToHtml(String content) {
     try {
-      return WikiParser.toHtml(content);
+      LOG.warn("richtext switched off, because of dependencies");
+      return content;
+//  fixme: check dependencies
+//      return WikiParser.toHtml(content);
     } catch (Exception e) {
       LOG.error("failed to parser wiki markup", e);
     }

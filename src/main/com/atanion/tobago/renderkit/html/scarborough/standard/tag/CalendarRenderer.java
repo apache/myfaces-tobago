@@ -5,15 +5,14 @@
  */
 package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.model.CalendarModel;
-import com.atanion.model.DateModel;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
 import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.renderkit.RendererBase;
 import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
-import com.atanion.util.CalendarUtils;
+import com.atanion.tobago.model.DateModel;
+import com.atanion.tobago.model.CalendarModel;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -258,7 +257,8 @@ public class CalendarRenderer extends RendererBase {
   private static String getMonthNames(Locale locale) {
     SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMM", locale);
     StringBuffer buffer = new StringBuffer();
-    java.util.Calendar calendar = CalendarUtils.getCalendar(2000, 1, 1);
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(2000, 0, 1);
     for (int month = 0; month < 12; ++month) {
       if (month > 0) {
         buffer.append(',');
