@@ -7,6 +7,7 @@ package com.atanion.util.annotation;
  * $Id: BodyContent.java,v 1.3 2005/05/11 15:20:34 bommel Exp $
  */
 public enum BodyContent {
+
   JSP, EMPTY, TAGDEPENDENT;
 
   public String toString(){

@@ -25,7 +25,6 @@ import java.util.Collection;
  */
 public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollector {
 
-
   public Document createDom() throws ParserConfigurationException {
     javax.xml.parsers.DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setValidating(false);

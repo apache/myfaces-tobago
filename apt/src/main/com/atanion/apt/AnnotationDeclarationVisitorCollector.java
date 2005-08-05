@@ -5,7 +5,6 @@ import com.sun.mirror.declaration.MethodDeclaration;
 import com.sun.mirror.declaration.ClassDeclaration;
 import com.sun.mirror.declaration.InterfaceDeclaration;
 import com.sun.mirror.declaration.PackageDeclaration;
-import com.atanion.util.annotation.Taglib;
 
 import java.util.Set;
 import java.util.HashSet;

@@ -1,6 +1,5 @@
 package com.atanion.apt;
 
-import com.sun.mirror.util.SimpleDeclarationVisitor;
 import com.sun.mirror.declaration.MethodDeclaration;
 import com.sun.mirror.declaration.ClassDeclaration;
 import com.sun.mirror.declaration.AnnotationMirror;
@@ -11,8 +10,6 @@ import com.sun.tools.apt.mirror.declaration.EnumConstantDeclarationImpl;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
-import java.util.HashSet;
 
 /**
  * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.

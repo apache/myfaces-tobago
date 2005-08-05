@@ -17,7 +17,7 @@ import java.lang.annotation.ElementType;
 public @interface UIComponentTagAttribute {
 
   /** type of attribute in the UIComponent */
-  String[] type() default { "java.lang.String"};
+  String[] type() default {"java.lang.String"};
 
   /** allow faces expression language, e.g. #{bean}  */
   DynamicExpression expression() default DynamicExpression.VALUE_BINDING;
