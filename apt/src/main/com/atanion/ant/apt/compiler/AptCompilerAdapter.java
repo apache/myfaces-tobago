@@ -1,11 +1,11 @@
-package com.atanion.ant.apt.compiler;
-
-/**
+/*
  * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
  * Created: Feb 8, 2005 7:11:30 PM
  * User: bommel
  * $Id: AptCompilerAdapter.java,v 1.1 2005/03/05 15:00:36 bommel Exp $
  */
+package com.atanion.ant.apt.compiler;
+
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.compilers.DefaultCompilerAdapter;
@@ -18,7 +18,6 @@ import java.util.Enumeration;
 import java.util.Vector;
 
 import com.atanion.ant.apt.Apt;
-
 
 /**
  * The implementation of the apt compiler for JDK 1.5
@@ -68,7 +67,7 @@ public class AptCompilerAdapter extends DefaultCompilerAdapter {
         Vector options = apt.getOptions();
         Enumeration elements = options.elements();
         Apt.Option opt;
-        StringBuffer arg = null;
+        StringBuffer arg;
         while (elements.hasMoreElements()) {
             opt = (Apt.Option) elements.nextElement();
             arg = new StringBuffer();

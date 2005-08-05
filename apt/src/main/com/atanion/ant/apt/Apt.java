@@ -1,19 +1,3 @@
-package com.atanion.ant.apt;
-
-import org.apache.tools.ant.taskdefs.Javac;
-import org.apache.tools.ant.types.Path;
-import org.apache.tools.ant.types.Reference;
-import org.apache.tools.ant.Project;
-import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.util.JavaEnvUtils;
-
-import java.util.Vector;
-import java.io.File;
-
-import com.atanion.ant.apt.compiler.AptCompilerAdapter;
-import com.atanion.ant.apt.compiler.AptExternalCompilerAdapter;
-
-
 /*
  * Copyright  2002-2005 The Apache Software Foundation
  *
@@ -30,7 +14,20 @@ import com.atanion.ant.apt.compiler.AptExternalCompilerAdapter;
  *  limitations under the License.
  *
  */
+package com.atanion.ant.apt;
 
+import org.apache.tools.ant.taskdefs.Javac;
+import org.apache.tools.ant.types.Path;
+import org.apache.tools.ant.types.Reference;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.util.JavaEnvUtils;
+
+import java.util.Vector;
+import java.io.File;
+
+import com.atanion.ant.apt.compiler.AptCompilerAdapter;
+import com.atanion.ant.apt.compiler.AptExternalCompilerAdapter;
 
 /**
  * Apt Task for running the Annotation processing tool for JDK 1.5.  It derives
@@ -39,10 +36,8 @@ import com.atanion.ant.apt.compiler.AptExternalCompilerAdapter;
  *
  * @since Ant 1.7
  */
+public class Apt extends Javac {
 
-
-public class Apt
-        extends Javac {
     private boolean compile = true;
     private String factory;
     private Path factoryPath;
@@ -267,7 +262,3 @@ public class Apt
         super.execute();
     }
 }
-
-
-
-
