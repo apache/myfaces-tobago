@@ -2,7 +2,7 @@
  * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
  * Created: Apr 20, 2005 4:02:24 PM
  * User: bommel
- * $Id: $
+ * $Id$
  */
 package com.atanion.util.annotation;
 
@@ -13,7 +13,6 @@ import java.lang.annotation.ElementType;
 
 @Retention(value = RetentionPolicy.SOURCE)
 @Target(value = ElementType.TYPE)
-
 public @interface BodyContentDescription {
 
   String anyTagOf() default "";
