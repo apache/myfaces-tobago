@@ -10,14 +10,12 @@ import com.atanion.tobago.component.UITreeListboxBox;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import javax.faces.component.UIComponent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Mar 21, 2005
  * Time: 11:19:03 AM

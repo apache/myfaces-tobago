@@ -18,7 +18,6 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Jul 18, 2005
  * Time: 3:24:46 PM
@@ -53,17 +52,13 @@ public class DatePickerController extends MethodBinding {
           final String dimension = (String) facesContext.getExternalContext()
               .getRequestParameterMap().get(dimensionParameter);
 
-          int width = -1;
-          int height = -1;
-          int left = -1;
-          int top = -1;
           StringTokenizer st = new StringTokenizer(dimension, "x:");
-          width = nextDimensionToken(st,
+          int width = nextDimensionToken(st,
               ThemeConfig.getValue(facesContext, popup, "DefaultPageWidth"));
-          height = nextDimensionToken(st,
+          int height = nextDimensionToken(st,
               ThemeConfig.getValue(facesContext, popup, "DefaultPageHeight"));
-          left = nextDimensionToken(st, -1);
-          top = nextDimensionToken(st, -1);
+          int left = nextDimensionToken(st, -1);
+          int top = nextDimensionToken(st, -1);
           int popupWidth = ComponentUtil.getIntAttribute(
               popup, TobagoConstants.ATTR_WIDTH, -1);
           int popupHeight = ComponentUtil.getIntAttribute(

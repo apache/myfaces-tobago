@@ -5,11 +5,8 @@
  */
 package com.atanion.tobago.renderkit;
 
-import com.atanion.tobago.webapp.TobagoResponseWriter;
-import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UILayout;
-import com.atanion.tobago.TobagoConstants;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

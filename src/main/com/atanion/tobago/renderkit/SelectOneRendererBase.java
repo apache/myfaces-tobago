@@ -5,19 +5,14 @@
   */
 package com.atanion.tobago.renderkit;
 
-import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
-
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
-import com.atanion.tobago.context.ResourceManagerUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectOne;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletRequest;
 import java.io.IOException;

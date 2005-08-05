@@ -1,5 +1,4 @@
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Apr 5, 2005
  * Time: 3:23:40 PM
@@ -51,7 +50,6 @@ public class AccessKeyMap {
   public static boolean addAccessKey(FacesContext facesContext, Character key) {
     key = new Character(key.toString().toLowerCase().charAt(0));
     final AccessKeyMap instance = getInstance(facesContext);
-    HashSet set = instance.getSet();
     if (instance.getSet().contains(key)) {
       instance.addDublicated(key.charValue());
       return false;

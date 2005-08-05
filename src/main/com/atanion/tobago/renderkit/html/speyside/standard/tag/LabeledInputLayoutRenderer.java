@@ -1,29 +1,23 @@
 package com.atanion.tobago.renderkit.html.speyside.standard.tag;
 
+import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.context.ClientProperties;
+import com.atanion.tobago.context.ResourceManagerUtil;
+import com.atanion.tobago.context.SapTheme;
+import com.atanion.tobago.renderkit.RenderUtil;
+import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import com.atanion.tobago.renderkit.LayoutRenderer;
-import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.context.ClientProperties;
-import com.atanion.tobago.context.SapTheme;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.application.ViewHandler;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Feb 22, 2005
  * Time: 3:05:58 PM

@@ -50,8 +50,6 @@ public class TobagoResponseWriter extends ResponseWriter {
 
   private Stack<String>  stack;
 
-  private char[] buffer;
-
   /** use XML instead HMTL */
   private boolean xml;
 

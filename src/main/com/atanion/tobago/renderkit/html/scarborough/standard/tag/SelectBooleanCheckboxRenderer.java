@@ -38,7 +38,6 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
     }
   }
 
-
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 

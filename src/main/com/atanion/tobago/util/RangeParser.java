@@ -11,7 +11,6 @@ import java.util.StringTokenizer;
 
 public class RangeParser {
 
-
   public static int[] getIndices(String list) {
     List indexList = new ArrayList();
     StringTokenizer st = new StringTokenizer(list, ",");

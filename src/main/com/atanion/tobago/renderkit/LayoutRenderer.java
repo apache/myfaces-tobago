@@ -1,11 +1,10 @@
 package com.atanion.tobago.renderkit;
 
+import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.util.LayoutUtil;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UILayout;
-import com.atanion.tobago.util.LayoutUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -13,7 +12,6 @@ import java.io.IOException;
 
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Feb 22, 2005
  * Time: 3:05:58 PM

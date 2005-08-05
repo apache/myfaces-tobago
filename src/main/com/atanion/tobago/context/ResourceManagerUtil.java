@@ -8,16 +8,12 @@ package com.atanion.tobago.context;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIViewRoot;
-import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.Map;
-import java.util.HashMap;
 
 public class ResourceManagerUtil {
 

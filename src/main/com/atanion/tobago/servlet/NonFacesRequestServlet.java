@@ -21,9 +21,7 @@ import javax.faces.application.ViewHandler;
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContextFactory;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ExternalContext;
 import java.io.IOException;
-import java.util.Map;
 
 public abstract class NonFacesRequestServlet extends HttpServlet {
 

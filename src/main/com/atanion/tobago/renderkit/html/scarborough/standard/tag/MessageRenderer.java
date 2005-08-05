@@ -16,7 +16,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -38,8 +37,6 @@ public class MessageRenderer extends MessageRendererBase {
     }
     String clientId = null;
     if (component instanceof UIMessage) {
-      clientId = ((UIMessage)component).getFor();
-    } else if (component instanceof UIMessage) {
       clientId = ((UIMessage)component).getFor();
     }
     int count = 0;

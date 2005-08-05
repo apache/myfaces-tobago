@@ -1,19 +1,18 @@
 /*
  * Copyright (c) 2003 Atanion GmbH, Germany
  * All rights reserved. Created 07.02.2003 16:00:00.
- * : $
+ * $Id: $
  */
 package com.atanion.tobago.renderkit.wml.scarborough.standard.tag;
 
-import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
-import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.TobagoConstants;
+import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.renderkit.RenderUtil;
+import com.atanion.tobago.renderkit.RendererBase;
+import com.atanion.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class SelectBooleanCheckboxRenderer extends RendererBase {

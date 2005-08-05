@@ -10,11 +10,9 @@ import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.context.ResourceManagerUtil;
 import com.atanion.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.application.ViewHandler;
 import java.io.IOException;
@@ -22,7 +20,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Feb 22, 2005
  * Time: 3:05:58 PM
@@ -75,7 +72,7 @@ public class LabeledInputLayoutRenderer extends DefaultLayoutRenderer implements
       writer.startElement("td", null);
     }
 
-    renderComponent(facesContext, (UIInput) component);
+    renderComponent(facesContext, component);
 
 
     if (picker != null) {
@@ -126,12 +123,8 @@ public class LabeledInputLayoutRenderer extends DefaultLayoutRenderer implements
           page.getAttributes().put(ATTR_POPUP_LIST, popups);
         }
         popups.add(popup);
-
-        
-
       }
-
-
     }
   }
+
 }

@@ -6,17 +6,15 @@
 package com.atanion.tobago.renderkit;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.util.LayoutUtil;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UILayout;
+import com.atanion.tobago.util.LayoutUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
-import java.util.Iterator;
 
 public abstract class BoxRendererBase extends RendererBase {
 
@@ -62,7 +60,6 @@ public abstract class BoxRendererBase extends RendererBase {
           + "using estimation by contained components. ");
     }
 
-    height = 0;
     height = LayoutUtil.calculateFixedHeightForChildren(facesContext, component);
     height += getHeaderHeight(facesContext, component);
     height += getPaddingHeight(facesContext, component);

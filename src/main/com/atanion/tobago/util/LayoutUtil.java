@@ -1,7 +1,7 @@
 /*
   * Copyright (c) 2002 Atanion GmbH, Germany
   * All rights reserved. Created 01.07.2003 at 17:52:10.
-  * Id:  $
+  * $Id:  $
   */
 package com.atanion.tobago.util;
 
@@ -9,23 +9,20 @@ import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIForm;
 import com.atanion.tobago.component.UIPanel;
-import com.atanion.tobago.component.UITabGroup;
 import com.atanion.tobago.renderkit.InputRendererBase;
 import com.atanion.tobago.renderkit.RendererBase;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.FactoryFinder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
-import javax.faces.render.RenderKit;
-import javax.faces.render.RenderKitFactory;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.awt.*;
 
 public class LayoutUtil implements TobagoConstants{
 
