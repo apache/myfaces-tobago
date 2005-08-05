@@ -25,8 +25,7 @@ public class TobagoAnnotationProcessorFactory implements AnnotationProcessorFact
           "com.atanion.util.annotation.TagAttribute", "com.atanion.util.annotation.Taglib",
           "com.atanion.util.annotation.UIComponentTagAttribute" ));
 
-  private static final Collection<String> supportedOptions =
-      Collections.unmodifiableCollection(Collections.EMPTY_LIST);
+  private static final Collection<String> supportedOptions = Collections.emptyList();
 
   public Collection<String> supportedAnnotationTypes() {
     return supportedAnnotations;
