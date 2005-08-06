@@ -9,11 +9,11 @@ package com.atanion.tobago.taglib.component;
 import com.atanion.tobago.component.UISelectOne;
 
 
-public class SelectOneTag extends InputTag{
+public class SelectOneTag extends InputTag implements com.atanion.tobago.taglib.decl.SelectOneTag {
 
   public String getComponentType() {
     return UISelectOne.COMPONENT_TYPE;
   }
 
-  
+
 }

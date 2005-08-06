@@ -10,7 +10,7 @@ import com.atanion.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 
-public abstract class InputTag extends BeanTag {
+public abstract class InputTag extends BeanTag implements com.atanion.tobago.taglib.decl.InputTag {
 // ----------------------------------------------------------------- attributes
 
   private String onchange;

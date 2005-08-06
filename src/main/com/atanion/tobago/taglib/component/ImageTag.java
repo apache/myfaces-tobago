@@ -9,24 +9,12 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.HasBorder;
-import com.atanion.tobago.taglib.decl.HasDimension;
-import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
-import com.atanion.tobago.taglib.decl.HasTip;
-import com.atanion.util.annotation.BodyContent;
-import com.atanion.util.annotation.Tag;
-import com.atanion.util.annotation.TagAttribute;
-import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 
-/**
- *  Renders a Image.
- */
-@Tag(name="image", bodyContent=BodyContent.EMPTY)
 public class ImageTag extends TobagoTag
-    implements HasIdBindingAndRendered, HasBorder, HasDimension, HasTip {
+    implements com.atanion.tobago.taglib.decl.ImageTag {
 
   private String value;
   private String alt;
@@ -57,13 +45,6 @@ public class ImageTag extends TobagoTag
     return value;
   }
 
-  /**
-   *
-   * Absolute url to an image or image name to lookup in tobago resource path
-   *
-   */
-  @TagAttribute(required=true)
-  @UIComponentTagAttribute()
   public void setValue(String value) {
     this.value = value;
   }
@@ -72,13 +53,6 @@ public class ImageTag extends TobagoTag
     return alt;
   }
 
-  /**
-   *  
-   *  Alternate textual description of the image rendered by this component.
-   *
-   */
-  @TagAttribute
-  @UIComponentTagAttribute()
   public void setAlt(String alt) {
     this.alt = alt;
   }

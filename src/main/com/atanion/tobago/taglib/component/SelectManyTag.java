@@ -9,7 +9,8 @@ import javax.faces.component.UISelectMany;
  * Time: 4:59:34 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SelectManyTag extends InputTag {
+
+public class SelectManyTag extends InputTag implements com.atanion.tobago.taglib.decl.SelectManyTag {
   public String getComponentType() {
     return UISelectMany.COMPONENT_TYPE;
   }

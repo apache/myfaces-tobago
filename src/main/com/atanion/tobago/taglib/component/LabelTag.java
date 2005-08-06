@@ -6,40 +6,19 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.HasFor;
-import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
-import com.atanion.tobago.taglib.decl.HasLabelWithAccessKey;
-import com.atanion.tobago.taglib.decl.HasTip;
-import com.atanion.tobago.taglib.decl.HasValue;
-import com.atanion.tobago.taglib.decl.HasWidth;
-import com.atanion.tobago.taglib.decl.IsInline;
-import com.atanion.util.annotation.BodyContent;
-import com.atanion.util.annotation.Tag;
-import com.atanion.util.annotation.TagAttribute;
-import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
-/**
- * Renders a label component.
- */
-@Tag(name="label", bodyContent=BodyContent.EMPTY)
-public class LabelTag extends BeanTag
-    implements HasIdBindingAndRendered, HasLabelWithAccessKey, HasFor, IsInline,
-               HasWidth, HasTip
-               // todo: remove interface HasValue, use annotations at setter
-               , HasValue
-     {
+public class LabelTag extends BeanTag implements
+    com.atanion.tobago.taglib.decl.LabelTag {
 
-// ----------------------------------------------------------------- attributes
-
+  // TODO ?? _for ?
   private String _for;
   private String labelWithAccessKey;
   private String accessKey;
   private String tip;
 
-// ----------------------------------------------------------- business methods
 
   public String getComponentType() {
     return UIOutput.COMPONENT_TYPE;
@@ -71,15 +50,6 @@ public class LabelTag extends BeanTag
         ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip,
         getIterationHelper());
-  }
-
-
-  /**
-   *   Text value to display as label. Overwritten by 'labelWithAccessKey'
-   */
-  @TagAttribute @UIComponentTagAttribute()
-  public void setValue(String value) {
-    super.setValue(value);
   }
 
   public String getLabelWithAccessKey() {

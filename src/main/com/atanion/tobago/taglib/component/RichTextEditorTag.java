@@ -7,31 +7,15 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
-import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
-import com.atanion.tobago.taglib.decl.HasValue;
-import com.atanion.tobago.taglib.decl.HasWidth;
-import com.atanion.util.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 
-/**
- * Renders a text editor.
- */
-@Tag(name="richTextEditor")
 public class RichTextEditorTag extends TextInputTag
-    implements HasIdBindingAndRendered, HasValue, HasLabelAndAccessKey, HasWidth {
-
-  // ///////////////////////////////////////////// constant
-
-// /////////////////////////////////////////// attributes
+    implements com.atanion.tobago.taglib.decl.RichTextEditorTag {
 
   private String statePreview;
 
-// /////////////////////////////////////////// constructors
-
-// /////////////////////////////////////////// code
 
   public int doEndTag() throws JspException {
     // todo: own layout for editor? 
@@ -50,8 +34,6 @@ public class RichTextEditorTag extends TextInputTag
     super.release();
     statePreview = null;
   }
-
-// /////////////////////////////////////////// bean getter + setter
 
   public String getStatePreview() {
     return statePreview;

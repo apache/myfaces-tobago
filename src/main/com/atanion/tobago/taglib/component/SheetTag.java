@@ -321,7 +321,8 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
    * StateChangeEvent parameter, with a return type of void.
    *
    */
-  @TagAttribute @UIComponentTagAttribute()public void setStateChangeListener(String stateChangeListener) {
+  @TagAttribute @UIComponentTagAttribute()
+  public void setStateChangeListener(String stateChangeListener) {
     this.stateChangeListener = stateChangeListener;
   }
 }

@@ -7,20 +7,12 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UIInput;
-import com.atanion.tobago.component.UIPopup;
-import com.atanion.tobago.component.UIPanel;
 import com.atanion.tobago.component.UIGridLayout;
-import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
-import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
-import com.atanion.tobago.taglib.decl.HasTip;
-import com.atanion.tobago.taglib.decl.HasValue;
-import com.atanion.tobago.taglib.decl.IsDisabled;
-import com.atanion.tobago.taglib.decl.IsInline;
-import com.atanion.tobago.taglib.decl.IsReadonly;
-import com.atanion.tobago.event.DatePickerController;
+import com.atanion.tobago.component.UIInput;
+import com.atanion.tobago.component.UIPanel;
+import com.atanion.tobago.component.UIPopup;
 import com.atanion.tobago.config.ThemeConfig;
-import com.atanion.util.annotation.Tag;
+import com.atanion.tobago.event.DatePickerController;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -33,16 +25,10 @@ import javax.servlet.jsp.JspException;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Renders a date input field.
- */
-@Tag(name="date")
 public class DateTag extends InputTag
-    implements HasIdBindingAndRendered, HasValue, IsReadonly, IsDisabled,
-               IsInline, HasLabelAndAccessKey, HasTip {
+    implements com.atanion.tobago.taglib.decl.DateTag {
 
-private static final Log LOG = LogFactory.getLog(DateTag.class);
-  // ----------------------------------------------------------- business methods
+  private static final Log LOG = LogFactory.getLog(DateTag.class);
 
   public String getComponentType() {
     return UIInput.COMPONENT_TYPE;

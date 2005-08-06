@@ -5,37 +5,13 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.component.UISelectOne;
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.HasBinding;
-import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
-import com.atanion.tobago.taglib.decl.HasOnchangeListener;
-import com.atanion.tobago.taglib.decl.HasTip;
-import com.atanion.tobago.taglib.decl.HasValue;
-import com.atanion.tobago.taglib.decl.IsDisabled;
-import com.atanion.tobago.taglib.decl.IsInline;
-import com.atanion.tobago.taglib.decl.IsReadonly;
-import com.atanion.tobago.taglib.decl.IsRendered;
-import com.atanion.tobago.taglib.decl.IsRequired;
-import com.atanion.util.annotation.BodyContentDescription;
-import com.atanion.util.annotation.Tag;
-import com.atanion.util.annotation.TagAttribute;
-import com.atanion.util.annotation.UIComponentTagAttribute;
 
-import javax.servlet.jsp.JspException;
 import javax.faces.component.UIComponent;
+import javax.servlet.jsp.JspException;
 
-@Tag(name="selectOneChoice")
-
-/**
- * Render a single selection dropdown list.
- */
-@BodyContentDescription(anyTagOf="(<f:selectItems>|<f:selectItem>|<t:selectItem>)+ <f:facet>* " )
 public class SelectOneChoiceTag extends SelectOneTag
-    implements HasId, HasValue, IsDisabled, IsReadonly, HasOnchangeListener, IsInline,
-    HasLabelAndAccessKey, IsRendered, HasBinding, HasTip
-    {
+    implements com.atanion.tobago.taglib.decl.SelectOneChoiceTag {
 
   public int doEndTag() throws JspException {
 
@@ -47,14 +23,6 @@ public class SelectOneChoiceTag extends SelectOneTag
     return super.doEndTag();
   }
 
-
-  /**
-   * Flag indicating that selecting an Item representing a Value is Required.
-   * If an SelectItem was choosen which underling value is an empty string an
-   * ValidationError occurs and a Error Message is rendered.
-   */
-  @TagAttribute(type=String.class)
-  @UIComponentTagAttribute(type="java.lang.Boolean")
   public void setRequired(String required) {
     super.setRequired(required);
   }

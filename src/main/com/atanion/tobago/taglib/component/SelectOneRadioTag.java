@@ -6,45 +6,17 @@
 package com.atanion.tobago.taglib.component;
 
 import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.HasBinding;
-import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.HasOnchangeListener;
-import com.atanion.tobago.taglib.decl.HasRenderRange;
-import com.atanion.tobago.taglib.decl.HasValue;
-import com.atanion.tobago.taglib.decl.IsDisabled;
-import com.atanion.tobago.taglib.decl.IsInline;
-import com.atanion.tobago.taglib.decl.IsRendered;
-import com.atanion.util.annotation.BodyContentDescription;
-import com.atanion.util.annotation.Tag;
-import com.atanion.util.annotation.TagAttribute;
-import com.atanion.util.annotation.UIComponentTagAttribute;
 
 import javax.faces.component.UIComponent;
 
-/**
- *  Render a set of radiobuttons.
- */
-@Tag(name="selectOneRadio")
-@BodyContentDescription(anyTagOf="(<f:selectItems>|<f:selectItem>|<t:selectItem>)+ <f:facet>* " )
 public class SelectOneRadioTag extends SelectOneTag
-    implements HasValue, IsDisabled, HasId, HasOnchangeListener, IsInline,
-               HasRenderRange, IsRendered, HasBinding
-    {
-
-// /////////////////////////////////////////// constants
-
-// /////////////////////////////////////////// attributes
+    implements com.atanion.tobago.taglib.decl.SelectOneRadioTag {
 
   private String renderRange;
-
-// /////////////////////////////////////////// constructors
-
-// /////////////////////////////////////////// code
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
    ComponentUtil.setStringProperty(component, ATTR_RENDER_RANGE, renderRange, getIterationHelper());
-
   }
 
   public void release() {
@@ -52,7 +24,6 @@ public class SelectOneRadioTag extends SelectOneTag
     renderRange = null;
   }
 
-// /////////////////////////////////////////// bean getter + setter
   public String getRenderRange() {
     return renderRange;
   }
@@ -61,15 +32,5 @@ public class SelectOneRadioTag extends SelectOneTag
     this.renderRange = renderRange;
   }
 
-  /**
-   * Flag indicating that selecting an Item representing a Value is Required.
-   * If an SelectItem was choosen which underling value is an empty string an
-   * ValidationError occurs and a Error Message is rendered.
-   */
-  @TagAttribute(type=String.class)
-  @UIComponentTagAttribute(type="java.lang.Boolean")
-  public void setRequired(String required) {
-    super.setRequired(required);
-  }
 }
 

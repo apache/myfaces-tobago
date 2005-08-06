@@ -1,10 +1,10 @@
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.component.UIInput;
 import com.atanion.tobago.component.ComponentUtil;
+import com.atanion.tobago.component.UIInput;
 
-import javax.servlet.jsp.JspException;
 import javax.faces.component.UIComponent;
+import javax.servlet.jsp.JspException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,7 +13,7 @@ import javax.faces.component.UIComponent;
  * Time: 5:04:48 PM
  * To change this template use File | Settings | File Templates.
  */
-public class TextInputTag extends InputTag {
+public class TextInputTag extends InputTag implements com.atanion.tobago.taglib.decl.TextInputTag {
   public String getComponentType() {
     return UIInput.COMPONENT_TYPE;
   }

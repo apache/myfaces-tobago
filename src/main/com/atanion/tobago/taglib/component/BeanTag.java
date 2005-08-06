@@ -13,7 +13,7 @@ import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 
 
-public abstract class BeanTag extends TobagoTag {
+public abstract class BeanTag extends TobagoTag implements com.atanion.tobago.taglib.decl.BeanTag {
 
 // ///////////////////////////////////////////// constants
 

@@ -6,21 +6,17 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.Tag;
-import java.util.Map;
 
 public abstract class TobagoTag extends UIComponentTag
-    implements TobagoConstants {
+    implements com.atanion.tobago.taglib.decl.TobagoTag {
   // todo: in java 1.5 use: import static com.atanion.tobago.TobagoConstants.*;
 
 // ----------------------------------------------------------- class attributes
