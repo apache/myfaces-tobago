@@ -631,6 +631,10 @@ public class ResourceManager {
 
     public CacheKey(String clientPropertyId, Locale locale, String name, String key) {
       this.clientPropertyId = clientPropertyId;
+      if (locale == null) { //  fixme: should not happen, but does.
+        LOG.warn("locale == null");
+        locale = Locale.getDefault();
+      }
       this.locale = locale;
       this.name = name;
       this.key = key;
@@ -639,6 +643,10 @@ public class ResourceManager {
     }
     public CacheKey(String clientPropertyId, Locale locale, String name, CacheType type) {
       this.clientPropertyId = clientPropertyId;
+      if (locale == null) { //  fixme: should not happen, but does.
+        LOG.warn("locale == null");
+        locale = Locale.getDefault();
+      }
       this.locale = locale;
       this.name = name;
       this.key = null;
