@@ -39,9 +39,9 @@ public class ResourceManager {
 
   private final Cache cache;
 
-  private final List resourceDirectories;
+  private final List<String> resourceDirectories;
 
-  private final List classDirectories;
+  private final List<String> classDirectories;
 
   private TobagoConfig tobagoConfig;
 
@@ -50,8 +50,8 @@ public class ResourceManager {
   public ResourceManager() {
     resourceList = new Properties();
     cache = new Cache();
-    resourceDirectories = new ArrayList(2);
-    classDirectories = new ArrayList(1);
+    resourceDirectories = new ArrayList<String>(2);
+    classDirectories = new ArrayList<String>(1);
     classDirectories.add(TobagoRenderKit.PACKAGE_PREFIX.replace('.', '/'));
   }
 
@@ -199,7 +199,7 @@ public class ResourceManager {
     return buffer.toString();
   }
 
-  private List getPaths(String clientProperties, Locale locale, List mainDirectories, String prefix,
+  private List getPaths(String clientProperties, Locale locale, List<String> mainDirectories, String prefix,
       String subDir, String name, String suffix,
       boolean reverseOrder, boolean single, boolean returnKey,
       String key, boolean returnStrings, boolean ignoreMissing) {
@@ -214,18 +214,11 @@ public class ResourceManager {
     String path;
 
     // e.g. 1. application, 2. library or renderkit
-    Iterator mainDirectoryIterator = mainDirectories.iterator();
-    while (mainDirectoryIterator.hasNext()) {
-      String resourceDirectory = (String) mainDirectoryIterator.next();
-      Iterator themeIterator = theme.getFallbackList().iterator();
-      while (themeIterator.hasNext()) { // theme loop
-        Theme themeName = (Theme) themeIterator.next();
-        Iterator browserIterator = browser.iterator();
-        while (browserIterator.hasNext()) { // browser loop
-          String browserType = (String) browserIterator.next();
-          Iterator localeIterator = locales.iterator();
-          while (localeIterator.hasNext()) { // locale loop
-            String localeSuffix = (String) localeIterator.next();
+    for (String resourceDirectory : mainDirectories) {
+      for (Theme themeName : theme.getFallbackList()) { // theme loop
+        for (String browserType : browser.getFallbackList()) { // browser loop
+          for (Object locale1 : locales) { // locale loop
+            String localeSuffix = (String) locale1;
             path = makePath(resourceDirectory,
                 contentType,
                 themeName,
@@ -581,7 +574,7 @@ public class ResourceManager {
 
 // ------------------------------------------------------------ getter + setter
 
-  public List getResourceDirectories() {
+  public List<String> getResourceDirectories() {
     return resourceDirectories;
   }
 

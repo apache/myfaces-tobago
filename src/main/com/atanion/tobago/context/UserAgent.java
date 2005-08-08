@@ -74,11 +74,11 @@ public class UserAgent implements Serializable {
     return MOZILLA.name.equals(name);
   }
 
-  public Iterator iterator(){
-    return iterator(false);
+  public List<String> getFallbackList() {
+    return getFallbackList(false);
   }
 
-  public Iterator iterator(boolean reverseOrder) {
+  private List<String> getFallbackList(boolean reverseOrder) {
     List<String> list = new ArrayList<String>(3);
     if (version != null) {
       list.add(name + '_' + version);
@@ -90,7 +90,7 @@ public class UserAgent implements Serializable {
     if (reverseOrder){
       Collections.reverse(list);
     }
-    return list.iterator();
+    return list;
   }
 
 // ------------------------------------------------------------- static methods
