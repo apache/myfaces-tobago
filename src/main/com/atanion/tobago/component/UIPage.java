@@ -143,7 +143,7 @@ public class UIPage extends UIForm {
       command = findComponent(actionId);
     }
 
-    UIForm form = (UIForm) ComponentUtil.findForm(command);
+    UIForm form = ComponentUtil.findForm(command);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug(command);

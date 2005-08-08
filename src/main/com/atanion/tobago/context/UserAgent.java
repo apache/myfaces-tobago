@@ -14,6 +14,8 @@ import java.io.Serializable;
 public class UserAgent implements Serializable {
 // ------------------------------------------------------------------ constants
 
+  private static final long serialVersionUID = -3138810465122379395L;
+
   public static final String DEFAULT_NAME = "standard";
 
   public static final UserAgent DEFAULT = new UserAgent(null, null);

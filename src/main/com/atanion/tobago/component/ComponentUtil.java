@@ -80,7 +80,8 @@ public class ComponentUtil {
   }
 
   private static void findSubForms(List<UIForm> collect, UIComponent component) {
-    @SuppressWarnings(value = "unchecked") // because of the interface
+    //noinspection unchecked
+    @SuppressWarnings(value = "unchecked")
     List<UIComponent> children = component.getChildren();
     for (UIComponent child : children) {
       if (child instanceof UIForm) {
@@ -340,7 +341,6 @@ public class ComponentUtil {
           if (LOG.isDebugEnabled()) {
             LOG.debug("value is null");
           }
-          continue;
         } else if (value instanceof SelectItem) {
           list.add((SelectItem) value);
         } else if (value instanceof SelectItem[]) {
@@ -462,9 +462,8 @@ public class ComponentUtil {
 
   public static UIGraphic getFirstGraphicChild(UIComponent component) {
     UIGraphic graphic = null;
-    final Iterator iterator = component.getChildren().iterator();
-    while (iterator.hasNext()) {
-      UIComponent uiComponent = (UIComponent) iterator.next();
+    for (Object o : component.getChildren()) {
+      UIComponent uiComponent = (UIComponent) o;
       if (uiComponent instanceof UIGraphic) {
         graphic = (UIGraphic) uiComponent;
         break;
@@ -479,9 +478,8 @@ public class ComponentUtil {
 
   public static UIOutput getFirstNonGraphicChild(UIComponent component) {
     UIOutput output = null;
-    final Iterator iterator = component.getChildren().iterator();
-    while (iterator.hasNext()) {
-      UIComponent uiComponent = (UIComponent) iterator.next();
+    for (Object o : component.getChildren()) {
+      UIComponent uiComponent = (UIComponent) o;
       if ((uiComponent instanceof UIOutput) &&
           !(uiComponent instanceof UIGraphic)) {
         output = (UIOutput) uiComponent;

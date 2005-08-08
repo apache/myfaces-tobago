@@ -93,30 +93,30 @@ public class TobagoMultipartFormdataRequestUnitTest extends TestCase {
 
   public void testGetParameterValues() {
 
-    Set expectedSet;
-    Set actualSet;
+    Set<String> expectedSet;
+    Set<String> actualSet;
 
-    expectedSet = new HashSet(
+    expectedSet = new HashSet<String>(
         Arrays.asList(
             new String[]{
               "red", "green", "blue", "yellow"}));
     actualSet
-        = new HashSet(Arrays.asList(request.getParameterValues("color")));
+        = new HashSet<String>(Arrays.asList(request.getParameterValues("color")));
     assertEquals("color", expectedSet, actualSet);
 
-    expectedSet = new HashSet(
+    expectedSet = new HashSet<String>(
         Arrays.asList(
             new String[]{
               "Amsterdam", "Bonn", "Pisa"}));
-    actualSet = new HashSet(Arrays.asList(request.getParameterValues("city")));
+    actualSet = new HashSet<String>(Arrays.asList(request.getParameterValues("city")));
     assertEquals("city", expectedSet, actualSet);
 
-    expectedSet = new HashSet(
+    expectedSet = new HashSet<String>(
         Arrays.asList(
             new String[]{
               "Trinidad & Tobago"}));
     actualSet
-        = new HashSet(Arrays.asList(request.getParameterValues("country")));
+        = new HashSet<String>(Arrays.asList(request.getParameterValues("country")));
     assertEquals("country", expectedSet, actualSet);
 
     assertEquals("empty", null, request.getParameterValues("empty"));
@@ -124,13 +124,13 @@ public class TobagoMultipartFormdataRequestUnitTest extends TestCase {
 
   public void testGetParameterNames() {
 
-    Set actual = new HashSet();
+    Set<Object> actual = new HashSet<Object>();
     Enumeration e = request.getParameterNames();
     while (e.hasMoreElements()) {
       actual.add(e.nextElement());
     }
 
-    Set expected = new HashSet(
+    Set<String> expected = new HashSet<String>(
         Arrays.asList(
             new String[]{
               "color", "city", "country"}));
@@ -142,7 +142,7 @@ public class TobagoMultipartFormdataRequestUnitTest extends TestCase {
 
     Map actual = request.getParameterMap();
 
-    Map expected = new HashMap();
+    Map<String,String[]> expected = new HashMap<String, String[]>();
     expected.put("color", new String[]{"red", "green", "blue", "yellow"});
     expected.put("city", new String[]{"Amsterdam", "Bonn", "Pisa"});
     expected.put("country", new String[]{"Trinidad & Tobago"});
@@ -152,11 +152,11 @@ public class TobagoMultipartFormdataRequestUnitTest extends TestCase {
     Set keys = actual.keySet();
     for (Iterator iterator = keys.iterator(); iterator.hasNext();) {
       String key = (String) iterator.next();
-      String[] expectedStrings = (String[]) expected.get(key);
+      String[] expectedStrings = expected.get(key);
       String[] actualStrings = (String[]) actual.get(key);
       assertEquals(expectedStrings.length, actualStrings.length);
-      Set expectedSet = new HashSet(Arrays.asList(expectedStrings));
-      Set actualSet = new HashSet(Arrays.asList(actualStrings));
+      Set<String> expectedSet = new HashSet<String>(Arrays.asList(expectedStrings));
+      Set<String> actualSet = new HashSet<String>(Arrays.asList(actualStrings));
       assertEquals(expectedSet, actualSet);
     }
   }
