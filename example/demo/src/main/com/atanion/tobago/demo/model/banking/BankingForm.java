@@ -5,13 +5,9 @@
  */
 package com.atanion.tobago.demo.model.banking;
 
-import com.atanion.tobago.demo.TobagoDemoController;
-
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BankingForm {
 
@@ -86,12 +82,8 @@ public class BankingForm {
 // ///////////////////////////////////////////// action
 
   public String showTurnover() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
-    BankingForm form = TobagoDemoController.ensure(facesContext).getBanking();
-    Transaction[] transactions = form.getAccount().getTransactions();
-    form.setTransactions(transactions);
-    session.setAttribute("transactions", transactions);
+    Transaction[] transactions = getAccount().getTransactions();
+    setTransactions(transactions);
     return null;
   }
 

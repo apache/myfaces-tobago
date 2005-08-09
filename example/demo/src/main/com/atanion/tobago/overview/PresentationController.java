@@ -13,7 +13,6 @@ import javax.faces.component.UICommand;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
@@ -110,13 +109,13 @@ public class PresentationController {
     FacesContext facesContext = FacesContext.getCurrentInstance();
     ExternalContext externalContext = facesContext.getExternalContext();
     String viewId = facesContext.getViewRoot().getViewId();
-    ServletContext servletContext = (ServletContext) externalContext.getContext();
     HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
     response.setContentType("text/html;charset=UTF-8");
 
     try {
-      InputStream resourceAsStream = servletContext.getResourceAsStream(viewId);
+      InputStream resourceAsStream = externalContext.getResourceAsStream(viewId);
       InputStreamReader reader = new InputStreamReader(resourceAsStream);
+//      JspFormatter.writeJsp(reader, new PrintWriter(facesContext.getResponseWriter()));
       JspFormatter.writeJsp(reader,
           new PrintWriter(response.getOutputStream()));
     } catch (IOException e) {

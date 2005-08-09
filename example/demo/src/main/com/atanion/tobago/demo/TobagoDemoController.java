@@ -6,7 +6,6 @@
 package com.atanion.tobago.demo;
 
 import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.taglib.component.ToolBarTag;
 import com.atanion.tobago.component.ComponentUtil;
 import com.atanion.tobago.component.UIInput;
 import com.atanion.tobago.context.ResourceManagerUtil;
@@ -14,6 +13,7 @@ import com.atanion.tobago.demo.model.banking.BankingForm;
 import com.atanion.tobago.demo.model.solar.Solar;
 import com.atanion.tobago.demo.model.solar.SolarObject;
 import com.atanion.tobago.model.TreeState;
+import com.atanion.tobago.taglib.component.ToolBarTag;
 import com.atanion.tobago.tool.BuilderModel;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.lang.StringUtils;
@@ -21,12 +21,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
 import javax.faces.component.UIColumn;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
-import javax.servlet.http.HttpSession;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 import java.util.ArrayList;
@@ -309,19 +308,6 @@ public class TobagoDemoController {
   }
 
 // ///////////////////////////////////////////// code
-
-  public static TobagoDemoController ensure(FacesContext facesContext) {
-    HttpSession session = (HttpSession) facesContext.getExternalContext()
-        .getSession(true);
-
-    TobagoDemoController tobagoDemoController = (TobagoDemoController)
-        session.getAttribute("demo");
-    if (tobagoDemoController == null) {
-      tobagoDemoController = new TobagoDemoController();
-      session.setAttribute("demo", tobagoDemoController);
-    }
-    return tobagoDemoController;
-  }
 
   public void count() {
     counter++;

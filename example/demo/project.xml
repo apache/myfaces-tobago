@@ -7,16 +7,6 @@
 
   <dependencies>
 
-<!--
-    <dependency>
-      <groupId>atanion</groupId>
-      <artifactId>chronos</artifactId>
-      <version>SNAPSHOT</version>
-      <purpose>jar</purpose>
-      <purpose>war</purpose>
-    </dependency>
--->
-
     <dependency>
       <groupId>atanion</groupId>
       <artifactId>atanion-taglib-logging</artifactId>
@@ -31,18 +21,6 @@
       <purpose>jar</purpose>
       <purpose>war</purpose>
     </dependency>
-
-<!--
-    <dependency>
-      <groupId>atanion</groupId>
-      <artifactId>tobago-module-client</artifactId>
-      <type>zip</type>
-      <version>SNAPSHOT</version>
-      <purpose>module</purpose>
-      <purpose>jar</purpose>
-      <purpose>war</purpose>
-    </dependency>
--->
 
     <dependency>
       <groupId>atanion</groupId>
@@ -91,16 +69,6 @@
       <version>SNAPSHOT</version>
       <purpose>module</purpose>
     </dependency>
-
-<!--
-    <dependency>
-      <groupId>atanion</groupId>
-      <artifactId>atanion-commons</artifactId>
-      <version>SNAPSHOT</version>
-      <purpose>jar</purpose>
-      <purpose>war</purpose>
-    </dependency>
--->
 
     <dependency>
       <id>avalon-framework</id>
@@ -253,16 +221,6 @@
       <version>1.0-b2</version>
       <purpose>war</purpose>
     </dependency>
-
-<!--
-    <dependency>
-      <groupId>atanion</groupId>
-      <artifactId>license-tool</artifactId>
-      <version>1.0.3</version>
-      <purpose>jar</purpose>
-      <purpose>war</purpose>
-    </dependency>
--->
 
     <dependency>
       <id>javamail</id>
