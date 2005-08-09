@@ -8,8 +8,6 @@
   <target name="war" depends="compile" >
     <dependency-list baseDir="" property="list.module" dependencyFile="${basedir}/project.xml" delimiter="," purpose="module"/>
     <dependency-list baseDir="" property="list.war" dependencyFile="${basedir}/project.xml" delimiter="," purpose="war"/>
-    <property name="project.control.logging.file"
-      value="${log.dir}/${app}.log"/>
 
     <mkdir dir="${dist}" />
 
@@ -21,28 +19,10 @@
       <fileset dir="lib" includes="${list.module}"/>
     </unjar>
 
-    <!-- copy the templates -->
-    <copy todir="${build.config}/${app}" overwrite="true">
-      <fileset dir="config/${app}" />
-    </copy>
-    <!-- replace the templates -->
-    <replace
-        dir="${build.config}/${app}"
-        summary="true" >
-      <replacefilter
-        token="$${project.control.logging.file}"
-        value="${project.control.logging.file}"/>
-      <replacefilter
-        token="$${tobago-demo.download.serverUrl}"
-        value="${tobago-demo.download.serverUrl}"/>
-      <replacefilter
-        token="$${tomcat.exploded.dir}"
-        value="${tomcat.webapp}/${app}"/>
-    </replace>
     <!-- build the war-file -->
     <war warfile="${dist}/${app}.war"
-         webxml="webapp/${app}/WEB-INF/web.xml">
-      <fileset dir="webapp/${app}">
+         webxml="webapp/WEB-INF/web.xml">
+      <fileset dir="webapp">
         <include name="**"/>
         <exclude name="WEB-INF/**"/>
       </fileset>
@@ -56,26 +36,16 @@
       </lib>
       <!-- Application classes -->
       <classes dir="${build.classes.main}">
-        <include name="com/atanion/**/*.class" />
+        <include name="**/*.class" />
       </classes>
       <classes dir="${src.main}">
         <include name="**/*.properties" />
-        <include name="**/*.ser" />
+        <include name="**/*.xml" />
       </classes>
-      <!-- get the configured files -->
-      <classes dir="${build.config}/${app}">
-        <include name="log4j.xml" />
-      </classes>
-      <webinf dir="webapp/${app}/WEB-INF">
+      <webinf dir="webapp/WEB-INF">
         <include name="**"/>
         <exclude name="web.xml"/>
       </webinf>
-      <webinf dir="${build.config}/${app}">
-        <include name="faces-config.xml" />
-      </webinf>
-      <metainf dir="${build.config}/${app}" >
-        <include name="context.xml"/>
-      </metainf>
     </war>
   </target>
 

@@ -1,0 +1,297 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+
+<faces-config>
+
+  <application>
+    <locale-config>
+      <default-locale>en</default-locale>
+      <supported-locale>en_US</supported-locale>
+      <supported-locale>en_GB</supported-locale>
+      <supported-locale>de</supported-locale>
+      <supported-locale>de_DE</supported-locale>
+      <supported-locale>de_AT</supported-locale>
+      <supported-locale>de_CH</supported-locale>
+      <supported-locale>ja_JP</supported-locale>
+      <supported-locale>ru_RU</supported-locale>
+    </locale-config>
+  </application>
+
+  <managed-bean>
+    <managed-bean-name>demo</managed-bean-name>
+    <managed-bean-class>com.atanion.tobago.demo.TobagoDemoController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <lifecycle>
+    <phase-listener>
+      com.atanion.tobago.overview.SynchronizeNavigationPhaseListener
+    </phase-listener>
+  </lifecycle>
+
+  <navigation-rule>
+    <from-view-id>/builder/*</from-view-id>
+    <navigation-case>
+      <from-outcome>index</from-outcome>
+      <to-view-id>/builder/index.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>enterPagename</from-outcome>
+      <to-view-id>/builder/enterPagename.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>viewSource</from-outcome>
+      <to-view-id>/builder/viewSource.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/test/action1.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>next</from-outcome>
+      <to-view-id>/test/action2.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>previous</from-outcome>
+      <to-view-id>/test/action3.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/test/action2.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>next</from-outcome>
+      <to-view-id>/test/action3.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>previous</from-outcome>
+      <to-view-id>/test/action1.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/test/action3.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>next</from-outcome>
+      <to-view-id>/test/action1.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>previous</from-outcome>
+      <to-view-id>/test/action2.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <!-- miniHowto -->
+
+    <managed-bean>
+    <managed-bean-name>miniHowtoNavigation</managed-bean-name>
+    <managed-bean-class>com.atanion.tobago.overview.PresentationController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+      <property-name>pages</property-name>
+      <list-entries>
+        <value>mini-howto/intro</value>
+        <value>mini-howto/jspDefinition</value>
+        <value>mini-howto/navigationRules</value>
+        <value>mini-howto/classDefinition</value>
+        <value>mini-howto/theme</value>
+        <value>mini-howto/validation</value>
+        <value>mini-howto/i18n</value>
+      </list-entries>
+    </managed-property>
+  </managed-bean>
+
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>mini-howto/intro</from-outcome>
+      <to-view-id>/mini-howto/intro.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>mini-howto/jspDefinition</from-outcome>
+      <to-view-id>/mini-howto/jspDefinition.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>mini-howto/navigationRules</from-outcome>
+      <to-view-id>/mini-howto/navigationRules.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>mini-howto/classDefinition</from-outcome>
+      <to-view-id>/mini-howto/classDefinition.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>mini-howto/theme</from-outcome>
+      <to-view-id>/mini-howto/theme.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>mini-howto/validation</from-outcome>
+      <to-view-id>/mini-howto/validation.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>mini-howto/i18n</from-outcome>
+      <to-view-id>/mini-howto/i18n.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+
+  <!--  overview  -->
+
+  <managed-bean>
+    <managed-bean-name>overviewNavigation</managed-bean-name>
+    <managed-bean-class>com.atanion.tobago.overview.PresentationController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+      <property-name>pages</property-name>
+      <list-entries>
+        <value>overview/intro</value>
+        <value>overview/basicControls</value>
+        <value>overview/sheetControl</value>
+        <value>overview/treeControl</value>
+        <value>overview/tabControl</value>
+        <value>overview/toolbar</value>
+        <value>overview/validation</value>
+        <value>overview/form</value>
+        <value>overview/themes</value>
+        <value>overview/browser</value>
+        <value>overview/locale</value>
+        <value>overview/layout</value>
+      </list-entries>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>tokenManager</managed-bean-name>
+    <managed-bean-class>com.atanion.tobago.demo.download.TokenManager</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>overviewController</managed-bean-name>
+    <managed-bean-class>com.atanion.tobago.overview.OverviewController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>overview/intro</from-outcome>
+      <to-view-id>/overview/intro.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>overview/basicControls</from-outcome>
+      <to-view-id>/overview/basicControls.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>overview/sheetControl</from-outcome>
+      <to-view-id>/overview/sheetControl.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>overview/treeControl</from-outcome>
+      <to-view-id>/overview/treeControl.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>overview/tabControl</from-outcome>
+      <to-view-id>/overview/tabControl.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>overview/toolbar</from-outcome>
+      <to-view-id>/overview/toolbar.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>overview/validation</from-outcome>
+      <to-view-id>/overview/validation.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>overview/form</from-outcome>
+      <to-view-id>/overview/form.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>overview/themes</from-outcome>
+      <to-view-id>/overview/themes.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>overview/browser</from-outcome>
+      <to-view-id>/overview/browser.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>overview/locale</from-outcome>
+      <to-view-id>/overview/locale.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>overview/layout</from-outcome>
+      <to-view-id>/overview/layout.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>overview/download</from-outcome>
+      <to-view-id>/overview/download.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>overview/download_success</from-outcome>
+      <to-view-id>/overview/download_success.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>overview/download_error</from-outcome>
+      <to-view-id>/overview/download_error.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/overview/themes.jsp</from-view-id>
+    <navigation-case>
+      <from-action>#{clientConfigController.submit}</from-action>
+      <to-view-id>/overview/themes.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/overview/locale.jsp</from-view-id>
+    <navigation-case>
+      <from-action>#{clientConfigController.submit}</from-action>
+      <to-view-id>/overview/locale.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/utils.view</from-view-id>
+    <navigation-case>
+      <from-outcome>utils</from-outcome>
+      <to-view-id>/utils.view</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/file.view</from-view-id>
+    <navigation-case>
+      <from-outcome>show</from-outcome>
+      <to-view-id>/fileShow.view</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <lifecycle>
+    <phase-listener>
+      com.atanion.tobago.clientConfig.ClientConfigPhaseListener
+    </phase-listener>
+  </lifecycle>
+
+  <managed-bean>
+    <managed-bean-name>clientConfigController</managed-bean-name>
+    <managed-bean-class>com.atanion.tobago.clientConfig.ClientConfigController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <navigation-rule>
+    <from-view-id>/tobago-module-client/clientConfig.jsp</from-view-id>
+    <navigation-case>
+      <from-action>#{clientConfigController.submit}</from-action>
+      <to-view-id>/tobago-module-client/clientConfig.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <managed-bean>
+    <managed-bean-name>clientConfigController2</managed-bean-name>
+    <managed-bean-class>com.atanion.tobago.clientConfig.ClientConfigController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+</faces-config>
