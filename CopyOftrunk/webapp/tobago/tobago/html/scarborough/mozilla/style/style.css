@@ -1,0 +1,31 @@
+/* workaround for tree div problem.
+without a border the div get´s a scrollbar */
+/*
+.tobago-tree-default  {
+  border: 1px solid transparent;
+}
+*/
+
+/* Box ---------------------------------------------------------------- */
+/* fix scrollbar problem in divs without height set*/
+div.tobago-box-no-height {
+  padding-bottom: 1px;
+}
+
+/* Tree -------------------------------------------------------------------- */
+
+div.tobago-tree-default {
+  height: 100%;
+}
+
+table.tobago-tree-default {
+/* this fixes scroolbar bug in mozilla >= 1.6 */
+  margin: 1px;
+}
+
+/* toolBar -------------------------------------------------------------------- */
+
+.tobago-toolBar-button-menu-background-image {
+  width: 20px;
+  height: 17px;
+}

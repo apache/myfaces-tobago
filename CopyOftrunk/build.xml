@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+ * Copyright (c) 2001-2004 atanion GmbH, Germany
+ * All rights reserved.
+ * $Id$
+-->
+<project name="tobago" default="compile">
+
+  <property file="build.properties"/>
+  <property name="bs.home" location="../build-system"/>
+
+  <property name="tld.files"
+    value="build/classes/main/com/atanion/tobago/taglib/component/tobago.tld " />
+  <property name="tlddoc.windowtitle" value="Tobago Tag Library Documentation"/>
+
+  <import file="${bs.home}/build-basic.xml"/>
+
+  <property name="project.dir.doc.master" value="doc/master.xml"/>
+  <import file="${bs.home}/build-docbook.xml"/>
+
+  <target name="dist" depends="compile, annotations">
+    <mkdir dir="${dist}"/>
+    <jar jarfile="${dist}/tobago.jar">
+      <fileset dir="${build.classes.main}">
+        <include name="**/*.class"/>
+        <exclude name="com/atanion/tobago/renderkit/html/*/**/*.class"/>
+        <exclude name="com/atanion/tobago/renderkit/wml/*/**/*.class"/>
+        <exclude name="com/atanion/tobago/module/**/*.class"/>
+      </fileset>
+      <fileset dir="${src.main}">
+        <include name="com/atanion/tobago/config/tobago-config_1_0.dtd"/>
+      </fileset>
+      <metainf dir="${src.main}/com/atanion/tobago">
+        <include name="faces-config.xml"/>
+      </metainf>
+      <metainf dir="${build.classes.main}/com/atanion/tobago/taglib/component">
+        <include name="tobago.tld"/>
+      </metainf>
+    </jar>
+
+    <property name="module" value="${build}/module" />
+    <mkdir dir="${module}" />
+
+    <macrodef name="zip-module">
+      <attribute name="name"/>
+      <attribute name="classes"/>
+      <attribute name="webapp"/>
+      <attribute name="pattern"/>
+      <attribute name="faces"/>
+      <sequential>
+        <jar jarfile="${module}/@{name}.jar">
+          <fileset dir="${build.classes.main}">
+            <include name="@{classes}"/>
+          </fileset>
+          <metainf dir="@{faces}">
+            <include name="faces-config.xml"/>
+          </metainf>
+        </jar>
+        <jar jarfile="${dist}/@{name}.zip">
+          <fileset dir="@{webapp}">
+            <include name="@{pattern}"/>
+          </fileset>
+          <fileset dir="${module}">
+            <include name="@{name}.jar"/>
+          </fileset>
+        </jar>
+      </sequential>
+    </macrodef>
+
+    <macrodef name="zip-theme">
+      <attribute name="name"/>
+      <sequential>
+        <zip-module
+          name="tobago-theme-@{name}"
+          classes="com/atanion/tobago/renderkit/*/@{name}/**/*.class"
+          webapp="webapp/tobago"
+          pattern="tobago/*/@{name}/**"
+          faces="" />
+      </sequential>
+    </macrodef>
+
+    <zip-theme name="standard"/>
+    <zip-theme name="scarborough"/>
+    <zip-theme name="speyside"/>
+    <zip-theme name="charlotteville"/>
+    <zip-theme name="tui"/>
+    <zip-theme name="inexso"/>
+    <zip-theme name="inexsoClassic"/>
+    <zip-theme name="sap"/>
+
+  </target>
+
+  <target name="deploy-snapshot" depends="dist, bs:init-project-info, build-basic.deploy-snapshot"
+    description="Deploy an artifact into the local repository.">
+
+    <macrodef name="deploy-module">
+      <attribute name="name"/>
+      <sequential>
+        <default-deploy-artifact offline="true" version="SNAPSHOT"
+          source="${dist}/@{name}.zip" type="zip"
+          artifactId="@{name}"/>
+      </sequential>
+    </macrodef>
+
+    <deploy-module name="tobago-theme-standard"/>
+    <deploy-module name="tobago-theme-scarborough"/>
+    <deploy-module name="tobago-theme-speyside"/>
+    <deploy-module name="tobago-theme-charlotteville"/>
+    <deploy-module name="tobago-theme-tui"/>
+    <deploy-module name="tobago-theme-inexso"/>
+    <deploy-module name="tobago-theme-inexsoClassic"/>
+    <deploy-module name="tobago-theme-sap"/>
+
+  </target>
+
+      <!-- todo: move annotations to build-system -->
+  <target name="annotations" depends="bs:init, bs:get-libs-jar" >
+    <apt srcdir="${src.main}" fork="true"
+         classpathref="project.classpath.jar"
+         debug="on"
+         compile="false"
+         preprocessdir="${build.classes.main}"
+         factory="com.atanion.apt.TaglibAnnotationProcessorFactory"
+         factorypathref="project.classpath.jar" >
+      <option name="package" value="com.atanion.tobago.taglib.component" />
+      <option name="file" value="tobago.tld" />
+    </apt>
+  </target>
+
+  <target name="annotations-xml" depends="bs:init, bs:get-libs-jar" >
+    <apt srcdir="${src.main}" fork="true"
+         classpathref="project.classpath.run"
+         debug="on"
+         compile="false"
+         preprocessdir="${build.classes.main}"
+         factory="com.atanion.apt.TobagoAnnotationProcessorFactory"
+         factorypathref="project.classpath.run" >
+     </apt>
+  </target>
+
+  <target name="tlddoc" depends="annotations, bs:tlddoc" ></target>
+
+  <target name="code-sniplets">
+    <taskdef name="code-extract" classname="com.atanion.ant.project.CodeSnipletExtractTask"/>
+    <mkdir dir="build/sniplets" />
+    <code-extract outputDir="build/sniplets">
+      <fileset dir="src">
+        <include name="**/*.java"/>
+      </fileset>
+    </code-extract>
+  </target>
+
+  <target name="docbook-html" depends="code-sniplets, docbook-taglib-xml, docbook.docbook-html">
+    <docbook-html-macro master="${project.dir.doc.master}" output.dir="build/doc/html/" />
+  </target>
+
+  <target name="docbook-pdf" depends="code-sniplets, docbook-taglib-xml, docbook.docbook-pdf">
+    <docbook-pdf-macro master="${project.dir.doc.master}" output.dir="build/doc/pdf/" />
+  </target>
+
+  <target name="docbook-taglib-xml" depends="annotations-xml">
+    <style in="build/classes/main/com/atanion/tobagoDocu.xml"
+      out="build/doc/tobagoDocu.xml" extension=".xml" style="doc/tld2docbook.xsl">
+    </style>
+  </target>
+
+</project>

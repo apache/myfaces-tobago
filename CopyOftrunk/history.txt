@@ -1,0 +1,22 @@
+1.0.4 -
+* bugfix: direct input of page or row
+
+1.0.3 - 23.02.2005
+* refator: rename many tags and tag-attributes to have a consitent scheme
+* sheet paging: direct input of page or row
+* make UIForm tranparent for layouting.
+* refactor UISelectMany removed: workaround is no longer needed.
+* refactor Don't everwrite JSF component-types in faces-config.xml to prevent error messages.
+* refactor Color16 removed, will be replaced in later version with enhanced ColorSelect
+* refactor ViewHandlerImpl: using base RI Impl
+* refactor TobagoServletMapping: removed
+
+1.0.2 - 15.12.2004
+* bugfix: submit button in IE makes double submit
+* bugfix: NullPointerException with unknown browsers
+
+1.0.1 - 15.12.2004
+* eleminate "SNAPSHOT" dependencies
+
+1.0.0 - 15.12.2004
+* first release
