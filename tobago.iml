@@ -7,6 +7,7 @@
     <output-test url="file://$MODULE_DIR$/build/classes/test" />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/apt/src/main" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/example/demo/src/main" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
@@ -49,7 +50,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="atanion-mock" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+ * Copyright (c) 2001-2004 atanion GmbH, Germany
+ * All rights reserved.
+ * $Id: build.xml 865 2004-04-30 18:02:34 +0200 (Fr, 30 Apr 2004) lofwyr $
+-->
+<project name="tobago-demo" default="compile">
+  <property file="build.properties"/>
+  <property name="bs.home" location="../build-system"/>
+  <import file="${bs.home}/build-tomcat.xml"/>
+</project>
