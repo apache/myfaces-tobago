@@ -223,4 +223,13 @@
     </attribute>
   </mapping-rule>
 
+  <mapping-rule>
+    <request-uri>/screenshot.view</request-uri>
+    <forward-uri>screenshot/screenshot.jsp</forward-uri>
+    <attribute>
+      <key>sceenshotContent</key>
+      <value>screenshot/screenshot.jsp</value>
+    </attribute>
+  </mapping-rule>
+
 </tobago-config>

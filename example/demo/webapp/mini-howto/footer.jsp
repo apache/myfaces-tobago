@@ -14,11 +14,13 @@
     </t:cell>
 
     <t:button immediate="true"
+      image="image/prev.gif"
       action="#{miniHowtoNavigation.gotoPrevious}"
       disabled="#{miniHowtoNavigation.first}"
       label="#{overviewBundle.footer_previous}" />
 
     <t:button immediate="true"
+      image="image/next.gif"
       action="#{miniHowtoNavigation.gotoNext}"
       disabled="#{miniHowtoNavigation.last}"
       label="#{overviewBundle.footer_next}" />
