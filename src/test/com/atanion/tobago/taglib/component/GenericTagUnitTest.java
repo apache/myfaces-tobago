@@ -5,7 +5,7 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.mock.servlet.MockPageContext;
+import com.atanion.tobago.mock.servlet.MockPageContext;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

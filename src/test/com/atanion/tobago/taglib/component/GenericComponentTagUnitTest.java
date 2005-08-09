@@ -5,14 +5,14 @@
  */
 package com.atanion.tobago.taglib.component;
 
-import com.atanion.mock.faces.MockExternalContext;
-import com.atanion.mock.faces.MockFacesContext;
-import com.atanion.mock.faces.MockRenderKit;
-import com.atanion.mock.faces.MockViewTag;
-import com.atanion.mock.servlet.MockHttpServletRequest;
-import com.atanion.mock.servlet.MockHttpServletResponse;
-import com.atanion.mock.servlet.MockPageContext;
-import com.atanion.mock.servlet.MockServletContext;
+import com.atanion.tobago.mock.faces.MockExternalContext;
+import com.atanion.tobago.mock.faces.MockFacesContext;
+import com.atanion.tobago.mock.faces.MockRenderKit;
+import com.atanion.tobago.mock.faces.MockViewTag;
+import com.atanion.tobago.mock.servlet.MockHttpServletRequest;
+import com.atanion.tobago.mock.servlet.MockHttpServletResponse;
+import com.atanion.tobago.mock.servlet.MockPageContext;
+import com.atanion.tobago.mock.servlet.MockServletContext;
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.component.ComponentUtil;
 import org.apache.commons.logging.Log;
@@ -70,9 +70,9 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
     facesContext = new MockFacesContext(externalContext, lifecycle);
     // Set up Faces API Objects
     FactoryFinder.setFactory(FactoryFinder.APPLICATION_FACTORY,
-        "com.atanion.mock.faces.MockApplicationFactory");
+        "com.atanion.tobago.mock.faces.MockApplicationFactory");
     FactoryFinder.setFactory(FactoryFinder.RENDER_KIT_FACTORY,
-           "com.atanion.mock.faces.MockRenderKitFactory");
+           "com.atanion.tobago.mock.faces.MockRenderKitFactory");
 
     ApplicationFactory applicationFactory = (ApplicationFactory)
         FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);

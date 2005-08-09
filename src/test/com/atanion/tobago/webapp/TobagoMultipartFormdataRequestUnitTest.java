@@ -5,7 +5,7 @@
  */
 package com.atanion.tobago.webapp;
 
-import com.atanion.mock.servlet.MockHttpServletRequest;
+import com.atanion.tobago.mock.servlet.MockHttpServletRequest;
 import junit.framework.TestCase;
 import org.apache.commons.fileupload.FileItem;
 
