@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+  	PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+  	"http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+  <display-name>Tobago Demo Application</display-name>
+
+  <filter>
+    <filter-name>multipartFormdataFilter</filter-name>
+    <filter-class>com.atanion.tobago.webapp.TobagoMultipartFormdataFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>multipartFormdataFilter</filter-name>
+    <url-pattern>/faces/*</url-pattern>
+  </filter-mapping>
+
+<!--  workaround (e.g. for Oracle AS 10.1.2.0.0)-->
+  <listener>
+    <listener-class>com.atanion.tobago.webapp.TobagoServletContextListener</listener-class>
+  </listener>
+
+  <!-- servlet -->
+<!-- no longer needed since Weblogic 8.1 SP 3
+  <servlet>
+    <servlet-name>WeblogicWorkaroundServlet</servlet-name>
+    <servlet-class>com.atanion.tobago.webapp.WeblogicWorkaroundServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+-->
+
+  <servlet>
+    <servlet-name>DownloadServlet</servlet-name>
+    <servlet-class>com.atanion.tobago.demo.download.DownloadServlet</servlet-class>
+    <load-on-startup>4</load-on-startup>
+  </servlet>
+
+  <servlet>
+    <servlet-name>FacesServlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
+
+  <servlet>
+    <servlet-name>TemplateServlet</servlet-name>
+    <servlet-class>com.atanion.tobago.servlet.TemplateServlet</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+
+  <!-- servlet-mapping -->
+
+  <servlet-mapping>
+    <servlet-name>DownloadServlet</servlet-name>
+    <url-pattern>/download-tobago.zip</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>FacesServlet</servlet-name>
+    <url-pattern>/faces/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>TemplateServlet</servlet-name>
+    <url-pattern>*.view</url-pattern>
+  </servlet-mapping>
+
+  <!-- mime -->
+  <mime-mapping>
+    <extension>wml</extension>
+    <mime-type>text/vnd.wap.wml</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>wbmp</extension>
+    <mime-type>image/vnd.wap.wbmp</mime-type>
+  </mime-mapping>
+
+  <!-- The Usual Welcome File List -->
+    <welcome-file-list>
+      <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+  <error-page>
+    <exception-type>java.lang.Throwable</exception-type>
+    <location>/errorPage.jsp</location>
+  </error-page>
+
+</web-app>
