@@ -1,4 +1,4 @@
-<%@ page import="com.atanion.tobago.demo.jsp.JspFormatter,
+<%@ page import="org.apache.myfaces.tobago.demo.jsp.JspFormatter,
                  java.io.InputStreamReader,
                  java.io.PrintWriter"
 %><%@ page errorPage="/errorPage.jsp"

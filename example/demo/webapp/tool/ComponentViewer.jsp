@@ -1,4 +1,4 @@
-<%@ page import="com.atanion.tobago.config.ThemeConfig,
+<%@ page import="org.apache.myfaces.tobago.config.ThemeConfig,
                  javax.swing.BoundedRangeModel,
                  javax.swing.DefaultBoundedRangeModel,
                  javax.faces.context.FacesContext,

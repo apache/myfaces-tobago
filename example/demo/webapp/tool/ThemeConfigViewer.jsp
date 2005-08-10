@@ -1,4 +1,4 @@
-<%@ page import="com.atanion.tobago.clientConfig.ThemeConfigViewController"%>
+<%@ page import="org.apache.myfaces.tobago.clientConfig.ThemeConfigViewController"%>
  <%--
   $Id: ThemeConfigViewer.jsp 1203 2005-04-01 18:08:31 +0200 (Fr, 01 Apr 2005) lofwyr $
 --%>
@@ -16,7 +16,7 @@
   pageContext.setAttribute("controller", controller, PageContext.SESSION_SCOPE);
 %>
 
-<!-- jsp:useBean id="controller" class="com.atanion.tobago.tool.ThemeConfigViewcontroller"
+<!-- jsp:useBean id="controller" class="org.apache.myfaces.tobago.tobago.tool.ThemeConfigViewcontroller"
     scope="session" / -->
 
 <f:view >

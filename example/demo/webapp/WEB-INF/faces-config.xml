@@ -22,13 +22,13 @@
 
   <managed-bean>
     <managed-bean-name>demo</managed-bean-name>
-    <managed-bean-class>com.atanion.tobago.demo.TobagoDemoController</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.demo.TobagoDemoController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
   <lifecycle>
     <phase-listener>
-      com.atanion.tobago.overview.SynchronizeNavigationPhaseListener
+      org.apache.myfaces.tobago.overview.SynchronizeNavigationPhaseListener
     </phase-listener>
   </lifecycle>
 
@@ -88,7 +88,7 @@
 
     <managed-bean>
     <managed-bean-name>miniHowtoNavigation</managed-bean-name>
-    <managed-bean-class>com.atanion.tobago.overview.PresentationController</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.overview.PresentationController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     <managed-property>
       <property-name>pages</property-name>
@@ -140,7 +140,7 @@
 
   <managed-bean>
     <managed-bean-name>overviewNavigation</managed-bean-name>
-    <managed-bean-class>com.atanion.tobago.overview.PresentationController</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.overview.PresentationController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     <managed-property>
       <property-name>pages</property-name>
@@ -163,13 +163,13 @@
 
   <managed-bean>
     <managed-bean-name>tokenManager</managed-bean-name>
-    <managed-bean-class>com.atanion.tobago.demo.download.TokenManager</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.demo.download.TokenManager</managed-bean-class>
     <managed-bean-scope>application</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>overviewController</managed-bean-name>
-    <managed-bean-class>com.atanion.tobago.overview.OverviewController</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.overview.OverviewController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
@@ -257,7 +257,7 @@
   <managed-bean>
     <managed-bean-name>screenshotNavigation</managed-bean-name>
     <managed-bean-class>
-      com.atanion.tobago.overview.PresentationController</managed-bean-class>
+      org.apache.myfaces.tobago.overview.PresentationController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     <managed-property>
       <property-name>pages</property-name>
@@ -310,13 +310,13 @@
 
   <lifecycle>
     <phase-listener>
-      com.atanion.tobago.clientConfig.ClientConfigPhaseListener
+      org.apache.myfaces.tobago.clientConfig.ClientConfigPhaseListener
     </phase-listener>
   </lifecycle>
 
   <managed-bean>
     <managed-bean-name>clientConfigController</managed-bean-name>
-    <managed-bean-class>com.atanion.tobago.clientConfig.ClientConfigController</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.clientConfig.ClientConfigController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
@@ -330,7 +330,7 @@
 
   <managed-bean>
     <managed-bean-name>clientConfigController2</managed-bean-name>
-    <managed-bean-class>com.atanion.tobago.clientConfig.ClientConfigController</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.clientConfig.ClientConfigController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 

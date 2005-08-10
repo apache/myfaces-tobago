@@ -5,12 +5,12 @@
 <tobago-config>
 
   <theme-config>
-    <default-theme>com.atanion.tobago.context.SpeysideTheme</default-theme>
-    <supported-theme>com.atanion.tobago.context.ScarboroughTheme</supported-theme>
-<!--    <supported-theme>com.atanion.tobago.context.TuiTheme</supported-theme>-->
-    <supported-theme>com.atanion.tobago.context.InexsoTheme</supported-theme>
-    <supported-theme>com.atanion.tobago.context.SapTheme</supported-theme>
-<!--    <supported-theme>com.atanion.tobago.context.CharlottevilleTheme</supported-theme>-->
+    <default-theme>org.apache.myfaces.tobago.context.SpeysideTheme</default-theme>
+    <supported-theme>org.apache.myfaces.tobago.context.ScarboroughTheme</supported-theme>
+<!--    <supported-theme>org.apache.myfaces.tobago.context.TuiTheme</supported-theme>-->
+    <supported-theme>org.apache.myfaces.tobago.context.InexsoTheme</supported-theme>
+    <supported-theme>org.apache.myfaces.tobago.context.SapTheme</supported-theme>
+<!--    <supported-theme>org.apache.myfaces.tobago.context.CharlottevilleTheme</supported-theme>-->
   </theme-config>
 
   <resource-dir>tobago-app</resource-dir>

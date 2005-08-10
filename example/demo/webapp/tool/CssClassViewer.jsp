@@ -4,7 +4,7 @@
                  java.util.regex.Pattern,
                  java.util.regex.Matcher,
                  java.util.*,
-                 com.atanion.tobago.context.ResourceManagerUtil,
+                 org.apache.myfaces.tobago.context.ResourceManagerUtil,
                  javax.faces.context.FacesContext"%>
  <%-- Copyright (c) 2003 Atanion GmbH, Germany
   -- All rights reserved.

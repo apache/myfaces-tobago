@@ -22,13 +22,13 @@
         
   </t:box>
   <t:button action="redisplay">
-<%--    <f:actionListener type="com.atanion.tobago.demo.actionlistener.TreeSubmit" />--%>
+<%--    <f:actionListener type="org.apache.myfaces.tobago.demo.actionlistener.TreeSubmit" />--%>
     <t:out value="#{bundle.submit}" />
   </t:button>
 </f:subview>
 <%
 } catch (Throwable e) {
-  Log log = LogFactory.getLog("com.atanion.tobago.demo.jsp");
+  Log log = LogFactory.getLog("org.apache.myfaces.tobago.demo.jsp");
   if (log.isErrorEnabled()) {
     log.error("", e);
   }

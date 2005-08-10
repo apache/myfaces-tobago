@@ -1,7 +1,7 @@
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <jsp:useBean id="numbers"
-    class="com.atanion.tobago.demo.model.Numbers" scope="session" />
+    class="org.apache.myfaces.tobago.demo.model.Numbers" scope="session" />
 
 <f:view>
   <t:page label="Tobago Demo" id="page" width="750px" >

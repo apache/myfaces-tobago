@@ -10,7 +10,7 @@
 
   <filter>
     <filter-name>multipartFormdataFilter</filter-name>
-    <filter-class>com.atanion.tobago.webapp.TobagoMultipartFormdataFilter</filter-class>
+    <filter-class>org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>multipartFormdataFilter</filter-name>
@@ -19,14 +19,14 @@
 
 <!--  workaround (e.g. for Oracle AS 10.1.2.0.0)-->
   <listener>
-    <listener-class>com.atanion.tobago.webapp.TobagoServletContextListener</listener-class>
+    <listener-class>org.apache.myfaces.tobago.webapp.TobagoServletContextListener</listener-class>
   </listener>
 
   <!-- servlet -->
 <!-- no longer needed since Weblogic 8.1 SP 3
   <servlet>
     <servlet-name>WeblogicWorkaroundServlet</servlet-name>
-    <servlet-class>com.atanion.tobago.webapp.WeblogicWorkaroundServlet</servlet-class>
+    <servlet-class>org.apache.myfaces.tobago.webapp.WeblogicWorkaroundServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
 -->
@@ -39,7 +39,7 @@
 
   <servlet>
     <servlet-name>TemplateServlet</servlet-name>
-    <servlet-class>com.atanion.tobago.servlet.TemplateServlet</servlet-class>
+    <servlet-class>org.apache.myfaces.tobago.servlet.TemplateServlet</servlet-class>
     <load-on-startup>2</load-on-startup>
   </servlet>
 

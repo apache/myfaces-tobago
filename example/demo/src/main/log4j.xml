@@ -23,7 +23,7 @@
   </appender>
 
 <!--
-  <category name="com.atanion.tobago.config.ThemeConfig">
+  <category name="org.apache.myfaces.tobago.config.ThemeConfig">
     <priority value="debug"/> 
   </category>
 -->
@@ -32,31 +32,31 @@
 <!--    <priority value="info" />-->
 <!--  </category>-->
 
-<!--  <category name="com.atanion.tobago.demo">-->
+<!--  <category name="org.apache.myfaces.tobago.demo">-->
 <!--    <priority value="debug" />-->
 <!--  </category>-->
 
-<!--  <category name="com.atanion.tobago.miniHowto">-->
+<!--  <category name="org.apache.myfaces.tobago.miniHowto">-->
 <!--    <priority value="debug" />-->
 <!--  </category>-->
 
-<!--  <category name="com.atanion.tobago.overview">-->
+<!--  <category name="org.apache.myfaces.tobago.overview">-->
 <!--    <priority value="debug" />-->
 <!--  </category>-->
  
-<!--  <category name="com.atanion.tobago.util.LayoutInfo">-->
+<!--  <category name="org.apache.myfaces.tobago.util.LayoutInfo">-->
 <!--    <priority value="debug" />-->
 <!--  </category>-->
 
-  <!--<category name="com.atanion.tobago.config.ThemeConfig">-->
+  <!--<category name="org.apache.myfaces.tobago.config.ThemeConfig">-->
     <!--<priority value="debug" />-->
   <!--</category>-->
 
-<!--  <category name="com.atanion.tobago.application.ViewHandlerImpl">-->
+<!--  <category name="org.apache.myfaces.tobago.application.ViewHandlerImpl">-->
 <!--    <priority value="debug" />-->
 <!--  </category>-->
 
-  <!--<category name="com.atanion.tobago.component.ComponentUtil">-->
+  <!--<category name="org.apache.myfaces.tobago.component.ComponentUtil">-->
     <!--<priority value="debug" />-->
   <!--</category>-->
 
@@ -64,23 +64,23 @@
 <!--    <priority value="debug" />-->
 <!--  </category>-->
 
-  <!--<category name="com.atanion.tobago.webapp.TobagoMultipartFormdataRequest">-->
+  <!--<category name="org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest">-->
     <!--<priority value="debug" />-->
   <!--</category>-->
 
-  <!--<category name="com.atanion.tobago.overview">-->
+  <!--<category name="org.apache.myfaces.tobago.overview">-->
     <!--<priority value="debug" />-->
   <!--</category>-->
 
-  <!--<category name="com.atanion.tobago.component.UITree">-->
+  <!--<category name="org.apache.myfaces.tobago.component.UITree">-->
     <!--<priority value="debug" />-->
   <!--</category>-->
 
-  <!--<category name="com.atanion.tobago.component.UITreeNode">-->
+  <!--<category name="org.apache.myfaces.tobago.component.UITreeNode">-->
     <!--<priority value="debug" />-->
   <!--</category>-->
 
-  <!--<category name="com.atanion.tobago.demo.download">-->
+  <!--<category name="org.apache.myfaces.tobago.demo.download">-->
     <!--<priority value="debug" />-->
   <!--</category>-->
 

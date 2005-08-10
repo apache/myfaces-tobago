@@ -5,7 +5,7 @@
 %><%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %><%!
   private static final Log log
-      = LogFactory.getLog("com.atanion.tobago.demo.validation.jsp");
+      = LogFactory.getLog("org.apache.myfaces.tobago.demo.validation.jsp");
   %><%
   try {
 %>

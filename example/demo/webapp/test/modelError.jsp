@@ -1,5 +1,5 @@
 <%@ page import="javax.faces.context.FacesContext,
-                 com.atanion.tobago.context.ClientProperties"%>
+                 org.apache.myfaces.tobago.context.ClientProperties"%>
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%

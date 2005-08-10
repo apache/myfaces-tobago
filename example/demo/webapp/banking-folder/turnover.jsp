@@ -1,4 +1,4 @@
-<%@ page import="com.atanion.tobago.demo.model.banking.Transaction,
+<%@ page import="org.apache.myfaces.tobago.demo.model.banking.Transaction,
                  java.util.Date"
     %>
 <%@ page errorPage="/errorPage.jsp"

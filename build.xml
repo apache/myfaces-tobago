@@ -10,7 +10,7 @@
   <property name="bs.home" location="../build-system"/>
 
   <property name="tld.files"
-    value="build/classes/main/com/atanion/tobago/taglib/component/tobago.tld " />
+    value="build/classes/main/org/apache/myfaces/tobago/taglib/component/tobago.tld " />
   <property name="tlddoc.windowtitle" value="Tobago Tag Library Documentation"/>
 
   <import file="${bs.home}/build-basic.xml"/>
@@ -23,17 +23,17 @@
     <jar jarfile="${dist}/tobago.jar">
       <fileset dir="${build.classes.main}">
         <include name="**/*.class"/>
-        <exclude name="com/atanion/tobago/renderkit/html/*/**/*.class"/>
-        <exclude name="com/atanion/tobago/renderkit/wml/*/**/*.class"/>
-        <exclude name="com/atanion/tobago/module/**/*.class"/>
+        <exclude name="org/apache/myfaces/tobago/renderkit/html/*/**/*.class"/>
+        <exclude name="org/apache/myfaces/tobago/renderkit/wml/*/**/*.class"/>
+        <exclude name="org/apache/myfaces/tobago/module/**/*.class"/>
       </fileset>
       <fileset dir="${src.main}">
-        <include name="com/atanion/tobago/config/tobago-config_1_0.dtd"/>
+        <include name="org/apache/myfaces/tobago/config/tobago-config_1_0.dtd"/>
       </fileset>
-      <metainf dir="${src.main}/com/atanion/tobago">
+      <metainf dir="${src.main}/org/apache/myfaces/tobago">
         <include name="faces-config.xml"/>
       </metainf>
-      <metainf dir="${build.classes.main}/com/atanion/tobago/taglib/component">
+      <metainf dir="${build.classes.main}/org/apache/myfaces/tobago/taglib/component">
         <include name="tobago.tld"/>
       </metainf>
     </jar>
@@ -72,7 +72,7 @@
       <sequential>
         <zip-module
           name="tobago-theme-@{name}"
-          classes="com/atanion/tobago/renderkit/*/@{name}/**/*.class"
+          classes="org/apache/myfaces/tobago/renderkit/*/@{name}/**/*.class"
           webapp="webapp/tobago"
           pattern="tobago/*/@{name}/**"
           faces="" />
@@ -120,9 +120,9 @@
          debug="on"
          compile="false"
          preprocessdir="${build.classes.main}"
-         factory="com.atanion.apt.TaglibAnnotationProcessorFactory"
+         factory="org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory"
          factorypathref="project.classpath.jar" >
-      <option name="package" value="com.atanion.tobago.taglib.component" />
+      <option name="package" value="org.apache.myfaces.tobago.taglib.component" />
       <option name="file" value="tobago.tld" />
     </apt>
   </target>
@@ -133,7 +133,7 @@
          debug="on"
          compile="false"
          preprocessdir="${build.classes.main}"
-         factory="com.atanion.apt.TobagoAnnotationProcessorFactory"
+         factory="org.apache.myfaces.tobago.apt.TobagoAnnotationProcessorFactory"
          factorypathref="project.classpath.run" >
      </apt>
   </target>
@@ -159,7 +159,7 @@
   </target>
 
   <target name="docbook-taglib-xml" depends="annotations-xml">
-    <style in="build/classes/main/com/atanion/tobagoDocu.xml"
+    <style in="build/classes/main/org/apache/myfaces/tobagoDocu.xml"
       out="build/doc/tobagoDocu.xml" extension=".xml" style="doc/tld2docbook.xsl">
     </style>
   </target>

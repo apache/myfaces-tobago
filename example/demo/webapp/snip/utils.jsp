@@ -1,6 +1,6 @@
 <%@ page
   errorPage="/errorPage.jsp"
-  import="com.atanion.tobago.model.DateModel,
+  import="org.apache.myfaces.tobago.model.DateModel,
           java.util.GregorianCalendar,
           javax.swing.BoundedRangeModel,
           javax.swing.DefaultBoundedRangeModel,
@@ -11,7 +11,7 @@
           javax.faces.context.FacesContext"
 %><%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %><%!
-  private static final Log log = LogFactory.getLog("com.atanion.tobago-demo.utils.jsp");
+  private static final Log log = LogFactory.getLog("org.apache.myfaces.tobago-demo.utils.jsp");
 %>
 <f:subview id="utils_jsp" >
 <%

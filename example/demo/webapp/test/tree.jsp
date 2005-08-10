@@ -1,5 +1,5 @@
 <%@ page import="javax.swing.tree.DefaultMutableTreeNode,
-                 com.atanion.tobago.model.TreeState"%>
+                 org.apache.myfaces.tobago.model.TreeState"%>
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%!
