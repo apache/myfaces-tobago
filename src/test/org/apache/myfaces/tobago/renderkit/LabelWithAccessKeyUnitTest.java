@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2004 Atanion GmbH, Germany
  * All rights reserved. Created 07.09.2004 14:11:53.
- * $Id$
+ * $Id:LabelWithAccessKeyUnitTest.java 1300 2005-08-10 16:40:23 +0200 (Mi, 10 Aug 2005) lofwyr $
  */
 package org.apache.myfaces.tobago.renderkit;
 

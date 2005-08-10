@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2003 Atanion GmbH, Germany
  * All rights reserved. Created 17.03.2004 11:16:26.
- * $Id$
+ * $Id:StringUtilUnitTest.java 1300 2005-08-10 16:40:23 +0200 (Mi, 10 Aug 2005) lofwyr $
  */
 package org.apache.myfaces.tobago.util;
 
