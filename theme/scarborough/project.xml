@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<project>
+
+  <id>tobago</id>
+  <groupId>atanion</groupId>
+  <currentVersion>1.0.6-SNAPSHOT</currentVersion>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>atanion</groupId>
+      <artifactId>tobago</artifactId>
+      <version>SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <id>commons-logging</id>
+      <version>1.0.4</version>
+      <purpose>jar</purpose>
+    </dependency>
+
+    <dependency>
+      <groupId>jsf</groupId>
+      <artifactId>jsf-api</artifactId>
+      <version>1.1.01</version>
+      <purpose>jar</purpose>
+    </dependency>
+
+    <dependency>
+      <id>junit</id>
+      <version>3.8.1</version>
+      <purpose>jar</purpose>
+      <purpose>test</purpose>
+    </dependency>
+
+  </dependencies>
+</project>
