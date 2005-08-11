@@ -7,7 +7,7 @@
 <project name="tobago-apt" default="dist">
 
   <property file="build.properties"/>
-  <property name="bs.home" location="../../build-system"/>
+  <property name="bs.home" location="../../../build-system"/>
 
   <import file="${bs.home}/build-basic.xml"/>
 
