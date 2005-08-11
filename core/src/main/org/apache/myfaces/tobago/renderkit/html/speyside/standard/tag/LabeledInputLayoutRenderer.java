@@ -3,7 +3,6 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.context.SapTheme;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -86,7 +85,7 @@ public class LabeledInputLayoutRenderer extends
       }
       writer.endElement("td");
       writer.endElement("tr");
-      if (client.getTheme().getName() == SapTheme.NAME) {
+      if (client.getTheme().getName() == "sap") { // fixme: "sap"
         writer.startElement("tr", null);
         if (label != null) {
           writer.startElement("td", null);
