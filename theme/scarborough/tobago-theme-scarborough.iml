@@ -13,6 +13,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Tomcat" level="application_server_libraries" />
     <orderEntry type="module" module-name="tobago-core" />
+    <orderEntry type="module" module-name="tobago-theme-standard" />
     <orderEntryProperties />
   </component>
   <component name="VcsManagerConfiguration">
@@ -29,6 +30,10 @@
     <setting name="RUN_JASPER_VALIDATION" value="false" />
   </component>
   <component name="WebModuleProperties">
+    <containerElement type="module" name="tobago-theme-standard">
+      <attribute name="method" value="4" />
+      <attribute name="URI" value="&lt;N/A&gt;" />
+    </containerElement>
     <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/WEB-INF/web.xml" version="2.3" />
     <webroots>
       <root url="file://$MODULE_DIR$/webapp" relative="/" />
