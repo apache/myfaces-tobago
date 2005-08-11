@@ -3,16 +3,16 @@
  * All rights reserved. Created Dec 2, 2002 at 5:23:53 PM.
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UIData;
-import com.atanion.tobago.event.SheetStateChangeEvent;
-import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
-import com.atanion.util.annotation.BodyContentDescription;
-import com.atanion.util.annotation.Tag;
-import com.atanion.util.annotation.TagAttribute;
-import com.atanion.util.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIData;
+import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
@@ -308,7 +308,7 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type="com.atanion.tobago.model.SheetState")
+  @UIComponentTagAttribute(type="org.apache.myfaces.tobago.model.SheetState")
   public void setState(String state) {
     this.state = state;
   }

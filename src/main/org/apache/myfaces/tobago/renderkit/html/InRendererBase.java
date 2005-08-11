@@ -3,10 +3,10 @@
   * All rights reserved. Created 15.04.2003 at 09:26:24.
   * $Id$
   */
-package com.atanion.tobago.renderkit.html;
+package org.apache.myfaces.tobago.renderkit.html;
 
-import com.atanion.tobago.renderkit.InputRendererBase;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.renderkit.InputRendererBase;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

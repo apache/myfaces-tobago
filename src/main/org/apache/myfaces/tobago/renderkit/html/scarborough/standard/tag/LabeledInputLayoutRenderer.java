@@ -1,16 +1,16 @@
-package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.renderkit.LabeledLayoutRender;
-import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LabeledLayoutRender;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

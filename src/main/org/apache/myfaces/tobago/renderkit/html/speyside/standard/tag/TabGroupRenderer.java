@@ -3,22 +3,22 @@
  * All rights reserved. Created 07.02.2003 16:00:00.
  * $Id$
  */
-package com.atanion.tobago.renderkit.html.speyside.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
-import com.atanion.tobago.component.UIPanel;
-import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class TabGroupRenderer extends
-    com.atanion.tobago.renderkit.html.scarborough.standard.tag.TabGroupRenderer{
+    org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.TabGroupRenderer{
 
   private static final Log LOG = LogFactory.getLog(TabGroupRenderer.class);
 

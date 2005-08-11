@@ -3,14 +3,14 @@
  * All rights reserved. Created 16.03.2004 12:53:20.
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.taglib.decl.HasVar;
-import com.atanion.util.annotation.BodyContent;
-import com.atanion.util.annotation.Tag;
-import com.atanion.util.annotation.TagAttribute;
-import com.atanion.util.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.taglib.decl.HasVar;
+import org.apache.myfaces.tobago.apt.annotation.BodyContent;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.jsp.JspException;

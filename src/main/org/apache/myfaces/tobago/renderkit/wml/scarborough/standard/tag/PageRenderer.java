@@ -3,12 +3,12 @@
  * All rights reserved. Created 07.02.2003 16:00:00.
  * : $
  */
-package com.atanion.tobago.renderkit.wml.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.wml.scarborough.standard.tag;
 
-import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.renderkit.PageRendererBase;
-import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.renderkit.PageRendererBase;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

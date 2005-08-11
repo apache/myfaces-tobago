@@ -3,13 +3,13 @@
  * All rights reserved. Created 07.02.2003 16:00:00.
  * $Id$
  */
-package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UITree;
-import com.atanion.tobago.component.UITreeNode;
-import com.atanion.tobago.model.TreeState;
-import com.atanion.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UITree;
+import org.apache.myfaces.tobago.component.UITreeNode;
+import org.apache.myfaces.tobago.model.TreeState;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

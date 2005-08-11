@@ -1,11 +1,11 @@
-package com.atanion.tobago.event;
+package org.apache.myfaces.tobago.event;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.config.ThemeConfig;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;

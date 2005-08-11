@@ -3,12 +3,12 @@
  * All rights reserved. Created Nov 13, 2002 at 8:43:20 AM.
  * $Id$
  */
-package com.atanion.tobago.webapp;
+package org.apache.myfaces.tobago.webapp;
 
-import com.atanion.tobago.config.ThemeConfig;
-import com.atanion.tobago.config.TobagoConfig;
-import com.atanion.tobago.config.TobagoConfigParser;
-import com.atanion.tobago.context.ResourceManager;
+import org.apache.myfaces.tobago.config.ThemeConfig;
+import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.config.TobagoConfigParser;
+import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

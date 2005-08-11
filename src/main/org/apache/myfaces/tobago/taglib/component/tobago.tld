@@ -21,13 +21,13 @@
 
   <listener>
     <listener-class>
-      com.atanion.tobago.webapp.TobagoServletContextListener
+      org.apache.myfaces.tobago.webapp.TobagoServletContextListener
     </listener-class>
   </listener>
 
   <tag>
     <name>out</name>
-    <tag-class>com.atanion.tobago.taglib.component.OutTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.OutTag</tag-class>
     <body-content>JSP</body-content>
     <description>Renders a text</description>
     <attribute>
@@ -85,7 +85,7 @@
 
   <tag>
     <name>label</name>
-    <tag-class>com.atanion.tobago.taglib.component.LabelTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.LabelTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -168,7 +168,7 @@
 
   <tag>
     <name>in</name>
-    <tag-class>com.atanion.tobago.taglib.component.InTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.InTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>value</name>
@@ -286,7 +286,7 @@
 
   <tag>
     <name>textarea</name>
-    <tag-class>com.atanion.tobago.taglib.component.TextAreaTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.TextAreaTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -399,7 +399,7 @@
 
   <tag>
     <name>date</name>
-    <tag-class>com.atanion.tobago.taglib.component.DateTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.DateTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -487,7 +487,7 @@
 
   <tag>
     <name>file</name>
-    <tag-class>com.atanion.tobago.taglib.component.FileTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.FileTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -570,7 +570,7 @@
 
   <tag>
     <name>box</name>
-    <tag-class>com.atanion.tobago.taglib.component.BoxTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.BoxTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -612,7 +612,7 @@
 
   <tag>
     <name>selectBooleanCheckbox</name>
-    <tag-class>com.atanion.tobago.taglib.component.SelectBooleanCheckboxTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.SelectBooleanCheckboxTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -695,7 +695,7 @@
 
   <tag>
     <name>selectOneChoice</name>
-    <tag-class>com.atanion.tobago.taglib.component.SelectOneChoiceTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.SelectOneChoiceTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -783,7 +783,7 @@
 
   <tag>
     <name>selectManyListbox</name>
-    <tag-class>com.atanion.tobago.taglib.component.SelectManyListboxTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.SelectManyListboxTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -871,7 +871,7 @@
 
   <tag>
     <name>sheet</name>
-    <tag-class>com.atanion.tobago.taglib.component.SheetTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.SheetTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>value</name>
@@ -1008,7 +1008,7 @@
 
   <tag>
     <name>column</name>
-    <tag-class>com.atanion.tobago.taglib.component.ColumnTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.ColumnTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -1057,7 +1057,7 @@
 
   <tag>
     <name>columnSelector</name>
-    <tag-class>com.atanion.tobago.taglib.component.ColumnSelectorTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.ColumnSelectorTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>disabled</name>
@@ -1084,7 +1084,7 @@
 
   <tag>
     <name>button</name>
-    <tag-class>com.atanion.tobago.taglib.component.ButtonTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.ButtonTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -1177,7 +1177,7 @@
 
   <tag>
     <name>toolBarCommand</name>
-    <tag-class>com.atanion.tobago.taglib.component.ToolBarCommandTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.ToolBarCommandTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -1254,7 +1254,7 @@
 
   <tag>
     <name>link</name>
-    <tag-class>com.atanion.tobago.taglib.component.LinkTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.LinkTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -1341,7 +1341,7 @@
 
   <tag>
     <name>hidden</name>
-    <tag-class>com.atanion.tobago.taglib.component.HiddenTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.HiddenTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>value</name>
@@ -1369,7 +1369,7 @@
 
   <tag>
     <name>image</name>
-    <tag-class>com.atanion.tobago.taglib.component.ImageTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.ImageTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -1426,7 +1426,7 @@
 
   <tag>
     <name>gridLayout</name>
-    <tag-class>com.atanion.tobago.taglib.component.GridLayoutTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.GridLayoutTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -1489,7 +1489,7 @@
 
   <tag>
     <name>cell</name>
-    <tag-class>com.atanion.tobago.taglib.component.CellTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.CellTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>spanX</name>
@@ -1531,7 +1531,7 @@
 
   <tag>
     <name>page</name>
-    <tag-class>com.atanion.tobago.taglib.component.PageTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.PageTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>label</name>
@@ -1599,7 +1599,7 @@
 
   <tag>
     <name>style</name>
-    <tag-class>com.atanion.tobago.taglib.component.StyleTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.StyleTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>style</name>
@@ -1615,7 +1615,7 @@
 
   <tag>
     <name>script</name>
-    <tag-class>com.atanion.tobago.taglib.component.ScriptTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.ScriptTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>file</name>
@@ -1631,7 +1631,7 @@
 
   <tag>
     <name>form</name>
-    <tag-class>com.atanion.tobago.taglib.component.FormTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.FormTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -1671,7 +1671,7 @@
 
   <tag>
     <name>selectOneRadio</name>
-    <tag-class>com.atanion.tobago.taglib.component.SelectOneRadioTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.SelectOneRadioTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>value</name>
@@ -1723,7 +1723,7 @@
 
   <tag>
     <name>selectReference</name>
-    <tag-class>com.atanion.tobago.taglib.component.SelectReferenceTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.SelectReferenceTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -1760,7 +1760,7 @@
 
   <tag>
     <name>selectManyCheckbox</name>
-    <tag-class>com.atanion.tobago.taglib.component.SelectManyCheckboxTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.SelectManyCheckboxTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>value</name>
@@ -1807,7 +1807,7 @@
 
   <tag>
     <name>progress</name>
-    <tag-class>com.atanion.tobago.taglib.component.ProgressTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.ProgressTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>value</name>
@@ -1849,7 +1849,7 @@
 
   <tag>
     <name>tabGroup</name>
-    <tag-class>com.atanion.tobago.taglib.component.TabGroupTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.TabGroupTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -1896,7 +1896,7 @@
 
   <tag>
     <name>tab</name>
-    <tag-class>com.atanion.tobago.taglib.component.TabTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.TabTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -1964,7 +1964,7 @@
 
   <tag>
     <name>include</name>
-    <tag-class>com.atanion.tobago.taglib.component.IncludeTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.IncludeTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -1980,7 +1980,7 @@
 
   <tag>
     <name>calendar</name>
-    <tag-class>com.atanion.tobago.taglib.component.CalendarTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.CalendarTag</tag-class>
     <body-content>EMPTY</body-content>
     <attribute>
       <name>id</name>
@@ -2012,7 +2012,7 @@
 
   <tag>
     <name>tree</name>
-    <tag-class>com.atanion.tobago.taglib.component.TreeTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.TreeTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -2101,7 +2101,7 @@
 
   <tag>
     <name>treeListbox</name>
-    <tag-class>com.atanion.tobago.taglib.component.TreeListboxTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.TreeListboxTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -2149,7 +2149,7 @@
 
   <tag>
     <name>message</name>
-    <tag-class>com.atanion.tobago.taglib.component.MessageTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.MessageTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -2181,7 +2181,7 @@
 
   <tag>
     <name>messages</name>
-    <tag-class>com.atanion.tobago.taglib.component.MessagesTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.MessagesTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -2213,7 +2213,7 @@
 
   <tag>
     <name>panel</name>
-    <tag-class>com.atanion.tobago.taglib.component.PanelTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.PanelTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -2250,7 +2250,7 @@
 
   <tag>
     <name>richTextEditor</name>
-    <tag-class>com.atanion.tobago.taglib.component.RichTextEditorTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.RichTextEditorTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -2319,7 +2319,7 @@
 
   <tag>
     <name>loadBundle</name>
-    <tag-class>com.atanion.tobago.taglib.component.LoadBundleTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.LoadBundleTag</tag-class>
     <body-content>empty</body-content>
     <attribute>
       <name>basename</name>
@@ -2335,7 +2335,7 @@
 
   <tag>
     <name>toolBar</name>
-    <tag-class>com.atanion.tobago.taglib.component.ToolBarTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.ToolBarTag</tag-class>
     <body-content>JSP</body-content>
     <description>
       <![CDATA[
@@ -2410,7 +2410,7 @@
 
   <tag>
     <name>toolBarCheck</name>
-    <tag-class>com.atanion.tobago.taglib.component.ToolBarSelectBooleanTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.ToolBarSelectBooleanTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -2484,7 +2484,7 @@
 
   <tag>
     <name>toolBarSelectOne</name>
-    <tag-class>com.atanion.tobago.taglib.component.ToolBarSelectOneTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.ToolBarSelectOneTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -2542,7 +2542,7 @@
 
   <tag>
     <name>menuBar</name>
-    <tag-class>com.atanion.tobago.taglib.component.MenuBarTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.MenuBarTag</tag-class>
     <body-content>JSP</body-content>
     <description> <![CDATA[
         Renders a menu bar.<br>
@@ -2580,7 +2580,7 @@
 
   <tag>
     <name>menu</name>
-    <tag-class>com.atanion.tobago.taglib.component.MenuTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.MenuTag</tag-class>
     <body-content>JSP</body-content>
     <description><![CDATA[
         Container component to hold submenus and items.
@@ -2661,7 +2661,7 @@
 
   <tag>
     <name>menuItem</name>
-    <tag-class>com.atanion.tobago.taglib.component.MenuCommandTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.MenuCommandTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -2755,7 +2755,7 @@
 
   <tag>
     <name>menucheck</name>
-    <tag-class>com.atanion.tobago.taglib.component.MenuSelectBooleanTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.MenuSelectBooleanTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -2844,7 +2844,7 @@
 
   <tag>
     <name>menuradio</name>
-    <tag-class>com.atanion.tobago.taglib.component.MenuSelectOneTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.MenuSelectOneTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -2907,7 +2907,7 @@
 
   <tag>
     <name>menuSeparator</name>
-    <tag-class>com.atanion.tobago.taglib.component.MenuSeparatorTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag</tag-class>
     <body-content>empty</body-content>
     <attribute>
       <name>rendered</name>
@@ -2929,7 +2929,7 @@
 
   <tag>
     <name>forEach</name>
-    <tag-class>com.atanion.tobago.taglib.component.ForEachTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.ForEachTag</tag-class>
     <body-content>JSP</body-content>
     <description><![CDATA[ Replacement for the JSTL <c:foreach> tag. <br>
       This tags iterates over the body content without setting up an exported
@@ -2989,7 +2989,7 @@
 
   <tag>
     <name>tabChangeListener</name>
-    <tag-class>com.atanion.tobago.taglib.component.TabChangeListenerTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.TabChangeListenerTag</tag-class>
     <body-content>empty</body-content>
     <description> Register an StateChangedListener instance on the UIComponent
         associated with the closest parent UIComponent custom action.
@@ -3007,7 +3007,7 @@
 
   <tag>
     <name>popup</name>
-    <tag-class>com.atanion.tobago.taglib.component.PopupTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.PopupTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>id</name>
@@ -3047,7 +3047,7 @@
 
   <tag>
     <name>selectItem</name>
-    <tag-class>com.atanion.tobago.taglib.component.SelectItemTag</tag-class>
+    <tag-class>org.apache.myfaces.tobago.taglib.component.SelectItemTag</tag-class>
     <body-content>empty</body-content>
     <description>
       Add a child UISelectItem component to the UIComponent

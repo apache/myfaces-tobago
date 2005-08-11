@@ -4,10 +4,10 @@
  * Created: Dec 18, 2002 2:02:20 PM
  * $Id$
  */
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.event.TabChangeListener;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.event.TabChangeListener;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,7 +26,7 @@ public class UITabGroup extends UIPanel {
 
   private static final Log LOG = LogFactory.getLog(UITabGroup.class);
 
-  public static final String COMPONENT_TYPE = "com.atanion.tobago.TabGroup";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TabGroup";
 
 // ///////////////////////////////////////////// attribute
 

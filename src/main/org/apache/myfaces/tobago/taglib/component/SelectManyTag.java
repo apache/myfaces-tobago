@@ -1,4 +1,4 @@
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
 import javax.faces.component.UISelectMany;
 
@@ -10,7 +10,7 @@ import javax.faces.component.UISelectMany;
  * To change this template use File | Settings | File Templates.
  */
 
-public class SelectManyTag extends InputTag implements com.atanion.tobago.taglib.decl.SelectManyTag {
+public class SelectManyTag extends InputTag implements org.apache.myfaces.tobago.taglib.decl.SelectManyTag {
   public String getComponentType() {
     return UISelectMany.COMPONENT_TYPE;
   }

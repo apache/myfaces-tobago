@@ -1,4 +1,4 @@
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -18,7 +18,7 @@ public class UISelectMany extends javax.faces.component.UISelectMany {
 
   private static final Log LOG = LogFactory.getLog(UISelectMany.class);
 
-  public static final String COMPONENT_TYPE = "com.atanion.tobago.SelectMany";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SelectMany";
 
 
 

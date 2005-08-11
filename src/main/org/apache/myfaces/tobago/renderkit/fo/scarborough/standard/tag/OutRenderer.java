@@ -1,7 +1,7 @@
-package com.atanion.tobago.renderkit.fo.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.fo.scarborough.standard.tag;
 
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;

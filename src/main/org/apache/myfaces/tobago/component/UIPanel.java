@@ -1,6 +1,6 @@
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
-import com.atanion.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.context.FacesContext;
 import java.io.IOException;
@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class UIPanel extends javax.faces.component.UIPanel {
 
-  public static final String COMPONENT_TYPE = "com.atanion.tobago.Panel";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Panel";
 
 
   public void encodeBegin(FacesContext facesContext) throws IOException {

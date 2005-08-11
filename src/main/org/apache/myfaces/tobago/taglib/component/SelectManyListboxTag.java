@@ -4,10 +4,10 @@
  * Created on: 19.02.2002, 17:01:56
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UISelectMany;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UISelectMany;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
@@ -15,7 +15,7 @@ import javax.servlet.jsp.JspException;
 
 
 public class SelectManyListboxTag extends SelectManyTag
-    implements com.atanion.tobago.taglib.decl.SelectManyListboxTag {
+    implements org.apache.myfaces.tobago.taglib.decl.SelectManyListboxTag {
 
   public String getComponentType() {
     return UISelectMany.COMPONENT_TYPE;

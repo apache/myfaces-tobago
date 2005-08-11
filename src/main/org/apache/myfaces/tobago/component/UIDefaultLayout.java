@@ -3,12 +3,12 @@
  * All rights reserved. Created 06.12.2004 20:49:49.
  * $Id$
  */
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.atanion.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -17,8 +17,8 @@ public class UIDefaultLayout extends UILayout
     implements TobagoConstants {
   private static final Log LOG = LogFactory.getLog(UIDefaultLayout.class);
 
-  public static final String COMPONENT_TYPE = "com.atanion.tobago.DefaultLayout";
-  public static final String COMPONENT_FAMILY = "com.atanion.tobago.Layout";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.DefaultLayout";
+  public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.Layout";
 
 
   private static UIDefaultLayout instance;

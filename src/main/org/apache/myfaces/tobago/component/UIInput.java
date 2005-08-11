@@ -3,7 +3,7 @@
  * All rights reserved. Created Nov 20, 2002 at 11:39:23 AM.
  * $Id$
  */
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,7 +14,7 @@ import java.io.IOException;
 public class UIInput extends javax.faces.component.UIInput {
 
   private static final Log LOG = LogFactory.getLog(UIInput.class);
-  public static final String COMPONENT_TYPE = "com.atanion.tobago.Input";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Input";
 
   public void updateModel(FacesContext facesContext) {
     if (ComponentUtil.mayUpdateModel(this)) {

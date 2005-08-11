@@ -3,14 +3,14 @@
   * All rights reserved. Created 26.04.2004 at 19:57:16.
   * $Id$
   */
-package com.atanion.tobago.config;
+package org.apache.myfaces.tobago.config;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.context.ClientProperties;
-import com.atanion.tobago.context.ResourceManager;
-import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.context.ResourceManager;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -29,7 +29,7 @@ public class ThemeConfig {
   private static final Log LOG = LogFactory.getLog(ThemeConfig.class);
 
   public static final String THEME_CONFIG_CACHE
-      = "com.atanion.tobago.config.ThemeConfig.CACHE";
+      = "org.apache.myfaces.tobago.config.ThemeConfig.CACHE";
 
 // ----------------------------------------------------------- business methods
 

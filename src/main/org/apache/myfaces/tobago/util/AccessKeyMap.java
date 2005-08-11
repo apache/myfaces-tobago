@@ -4,7 +4,7 @@
  * Time: 3:23:40 PM
  * To change this template use File | Settings | File Templates.
  */
-package com.atanion.tobago.util;
+package org.apache.myfaces.tobago.util;
 
 import javax.faces.context.FacesContext;
 import java.util.Map;

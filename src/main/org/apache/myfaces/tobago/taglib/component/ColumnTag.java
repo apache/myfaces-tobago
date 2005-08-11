@@ -4,14 +4,14 @@
  * Created on: 19.02.2002, 19:01:56
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
-import com.atanion.tobago.taglib.decl.HasLabel;
-import com.atanion.util.annotation.Tag;
-import com.atanion.util.annotation.TagAttribute;
-import com.atanion.util.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
@@ -77,7 +77,7 @@ public class ColumnTag extends TobagoTag
    * Flag indicating whether or not this column is sortable.
    * To make a column sortable the data of the sheet must be one of
    * <code>java.util.List</code>, <code>Object[]</code> or instance of
-   * <code>com.atanion.tobago.model.SortableByApplication</code>.
+   * <code>org.apache.myfaces.tobago.model.SortableByApplication</code>.
    *
    */
   @TagAttribute

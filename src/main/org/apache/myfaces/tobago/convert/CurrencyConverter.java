@@ -3,7 +3,7 @@
  * All rights reserved. Created 09.12.2003 15:52:53.
  * $Id$
  */
-package com.atanion.tobago.convert;
+package org.apache.myfaces.tobago.convert;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

@@ -1,4 +1,4 @@
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -17,7 +17,7 @@ public class UITreeListboxBox extends UIComponentBase {
 
   private static final Log LOG = LogFactory.getLog(UITreeListboxBox.class);
 
-  public static final String COMPONENT_TYPE="com.atanion.tobago.TreeListboxBox";
+  public static final String COMPONENT_TYPE="org.apache.myfaces.tobago.TreeListboxBox";
   public static final String RENDERER_TYPE="TreeListboxBox";
 
   public static final String COMPONENT_FAMILY = "javax.faces.Output";

@@ -3,7 +3,7 @@
  * All rights reserved. Created 09.01.2004 11:57:24.
  * $Id$
  */
-package com.atanion.tobago.el;
+package org.apache.myfaces.tobago.el;
 
 import javax.faces.el.MethodBinding;
 import javax.faces.el.EvaluationException;

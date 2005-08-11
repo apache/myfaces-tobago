@@ -3,9 +3,9 @@
   * All rights reserved. Created 06.01.2003 at 15:33:42.
   * $Id$
   */
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
-import com.atanion.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;

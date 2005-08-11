@@ -1,13 +1,13 @@
 /*
  * Copyright (c) 2003 Atanion GmbH, Germany
  * All rights reserved. Created 07.02.2003 16:00:00.
- * $Id: $
+ * $Id$
  */
-package com.atanion.tobago.renderkit.html.scarborough.mozilla_4_7.tag;
+package org.apache.myfaces.tobago.renderkit.html.scarborough.mozilla_4_7.tag;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.renderkit.BoxRendererBase;
-import com.atanion.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

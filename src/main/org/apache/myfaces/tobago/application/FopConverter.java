@@ -3,9 +3,9 @@
  * All rights reserved. Created 30.11.2004 13:24:45.
  * $Id$
  */
-package com.atanion.tobago.application;
+package org.apache.myfaces.tobago.application;
 
-import com.atanion.tobago.util.CommonsLoggingLogger;
+import org.apache.myfaces.tobago.util.CommonsLoggingLogger;
 import org.apache.avalon.framework.logger.Logger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

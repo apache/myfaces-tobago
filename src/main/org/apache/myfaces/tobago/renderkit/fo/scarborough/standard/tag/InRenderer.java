@@ -1,10 +1,10 @@
-package com.atanion.tobago.renderkit.fo.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.fo.scarborough.standard.tag;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.renderkit.InputRendererBase;
-import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.renderkit.InputRendererBase;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

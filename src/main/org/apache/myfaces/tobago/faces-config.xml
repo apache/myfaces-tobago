@@ -11,110 +11,110 @@
       tobago
     </default-render-kit-id>
     <view-handler>
-      com.atanion.tobago.application.ViewHandlerImpl
+      org.apache.myfaces.tobago.application.ViewHandlerImpl
     </view-handler>
     <variable-resolver>
-      com.atanion.tobago.el.VariableResolverImpl
+      org.apache.myfaces.tobago.el.VariableResolverImpl
     </variable-resolver>
     <message-bundle>
-      com.atanion.tobago.context.TobagoResourceBundle
+      org.apache.myfaces.tobago.context.TobagoResourceBundle
     </message-bundle>
   </application>
 
 
   <component>
-    <component-type>com.atanion.tobago.ColumnSelector</component-type>
-    <component-class>com.atanion.tobago.component.UIColumnSelector</component-class>
+    <component-type>org.apache.myfaces.tobago.ColumnSelector</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UIColumnSelector</component-class>
   </component>
   <component>
-    <component-type>com.atanion.tobago.Command</component-type>
-    <component-class>com.atanion.tobago.component.UICommand</component-class>
+    <component-type>org.apache.myfaces.tobago.Command</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UICommand</component-class>
   </component>
   <component>
-    <component-type>com.atanion.tobago.Data</component-type>
-    <component-class>com.atanion.tobago.component.UIData</component-class>
+    <component-type>org.apache.myfaces.tobago.Data</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UIData</component-class>
   </component>
   <component>
-    <component-type>com.atanion.tobago.DefaultLayout</component-type>
-    <component-class>com.atanion.tobago.component.UIDefaultLayout</component-class>
+    <component-type>org.apache.myfaces.tobago.DefaultLayout</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UIDefaultLayout</component-class>
   </component>
   <component>
-    <component-type>com.atanion.tobago.Form</component-type>
-    <component-class>com.atanion.tobago.component.UIForm</component-class>
+    <component-type>org.apache.myfaces.tobago.Form</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UIForm</component-class>
   </component>
   <component>
-    <component-type>com.atanion.tobago.GridLayout</component-type>
-    <component-class>com.atanion.tobago.component.UIGridLayout</component-class>
+    <component-type>org.apache.myfaces.tobago.GridLayout</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UIGridLayout</component-class>
   </component>
   <component>
-    <component-type>com.atanion.tobago.Input</component-type>
-    <component-class>com.atanion.tobago.component.UIInput</component-class>
+    <component-type>org.apache.myfaces.tobago.Input</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UIInput</component-class>
   </component>
   <component>
-    <component-type>com.atanion.tobago.LabeledInputLayout</component-type>
-    <component-class>com.atanion.tobago.component.UILabeledInputLayout</component-class>
+    <component-type>org.apache.myfaces.tobago.LabeledInputLayout</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UILabeledInputLayout</component-class>
   </component>
   <component>
-    <component-type>com.atanion.tobago.Page</component-type>
-    <component-class>com.atanion.tobago.component.UIPage</component-class>
+    <component-type>org.apache.myfaces.tobago.Page</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UIPage</component-class>
   </component>
   <component>
-    <component-type>com.atanion.tobago.Panel</component-type>
-    <component-class>com.atanion.tobago.component.UIPanel</component-class>
+    <component-type>org.apache.myfaces.tobago.Panel</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UIPanel</component-class>
   </component>
   <component>
-    <component-type>com.atanion.tobago.Popup</component-type>
-    <component-class>com.atanion.tobago.component.UIPopup</component-class>
+    <component-type>org.apache.myfaces.tobago.Popup</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UIPopup</component-class>
   </component>
   <component>
-    <component-type>com.atanion.tobago.TabGroup</component-type>
-    <component-class>com.atanion.tobago.component.UITabGroup</component-class>
+    <component-type>org.apache.myfaces.tobago.TabGroup</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UITabGroup</component-class>
   </component>
   <component>
-    <component-type>com.atanion.tobago.Tree</component-type>
-    <component-class>com.atanion.tobago.component.UITree</component-class>
+    <component-type>org.apache.myfaces.tobago.Tree</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UITree</component-class>
   </component>
   <component>
-    <component-type>com.atanion.tobago.TreeListbox</component-type>
-    <component-class>com.atanion.tobago.component.UITreeListbox</component-class>
+    <component-type>org.apache.myfaces.tobago.TreeListbox</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UITreeListbox</component-class>
   </component>
   <component>
-    <component-type>com.atanion.tobago.TreeListboxBox</component-type>
-    <component-class>com.atanion.tobago.component.UITreeListboxBox</component-class>
+    <component-type>org.apache.myfaces.tobago.TreeListboxBox</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UITreeListboxBox</component-class>
   </component>
   <component>
-    <component-type>com.atanion.tobago.SelectItem</component-type>
-    <component-class>com.atanion.tobago.component.UISelectItem</component-class>
+    <component-type>org.apache.myfaces.tobago.SelectItem</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UISelectItem</component-class>
   </component>
   <component>
-    <component-type>com.atanion.tobago.SelectMany</component-type>
-    <component-class>com.atanion.tobago.component.UISelectMany</component-class>
+    <component-type>org.apache.myfaces.tobago.SelectMany</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UISelectMany</component-class>
   </component>
   <component>
-    <component-type>com.atanion.tobago.SelectOne</component-type>
-    <component-class>com.atanion.tobago.component.UISelectOne</component-class>
+    <component-type>org.apache.myfaces.tobago.SelectOne</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UISelectOne</component-class>
   </component>
 
   <converter>
-    <converter-id>com.atanion.tobago.Duration</converter-id>
-    <converter-class>com.atanion.tobago.convert.DurationConverter</converter-class>
+    <converter-id>org.apache.myfaces.tobago.Duration</converter-id>
+    <converter-class>org.apache.myfaces.tobago.convert.DurationConverter</converter-class>
   </converter>
   <converter>
-    <converter-for-class>com.atanion.tobago.context.Theme</converter-for-class>
-    <converter-class>com.atanion.tobago.convert.ThemeConverter</converter-class>
+    <converter-for-class>org.apache.myfaces.tobago.context.Theme</converter-for-class>
+    <converter-class>org.apache.myfaces.tobago.convert.ThemeConverter</converter-class>
   </converter>
   <converter>
     <converter-for-class>java.util.Locale</converter-for-class>
-    <converter-class>com.atanion.tobago.convert.LocaleConverter</converter-class>
+    <converter-class>org.apache.myfaces.tobago.convert.LocaleConverter</converter-class>
   </converter>
   <converter>
     <converter-for-class>java.util.Currency</converter-for-class>
-    <converter-class>com.atanion.tobago.convert.CurrencyConverter</converter-class>
+    <converter-class>org.apache.myfaces.tobago.convert.CurrencyConverter</converter-class>
   </converter>
 
   <render-kit>
     <render-kit-id>tobago</render-kit-id>
-    <render-kit-class>com.atanion.tobago.renderkit.TobagoRenderKit</render-kit-class>
+    <render-kit-class>org.apache.myfaces.tobago.renderkit.TobagoRenderKit</render-kit-class>
   </render-kit>
 
 </faces-config>

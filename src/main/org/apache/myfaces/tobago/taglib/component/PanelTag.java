@@ -3,12 +3,12 @@
   * All rights reserved. Created 28.04.2003 at 14:50:02.
   * $Id$
   */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.UIPanel;
-import com.atanion.tobago.taglib.decl.HasDimension;
-import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
-import com.atanion.util.annotation.Tag;
+import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.taglib.decl.HasDimension;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 
 /**
  * Intended for use in situations when only one UIComponent child can be

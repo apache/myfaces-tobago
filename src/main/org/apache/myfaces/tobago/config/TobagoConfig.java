@@ -3,9 +3,9 @@
  * All rights reserved. Created 24.06.2003 11:06:46.
  * Id: $
  */
-package com.atanion.tobago.config;
+package org.apache.myfaces.tobago.config;
 
-import com.atanion.tobago.context.Theme;
+import org.apache.myfaces.tobago.context.Theme;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -21,7 +21,7 @@ public class TobagoConfig {
   private static final Log LOG = LogFactory.getLog(TobagoConfig.class);
 
   public static final String TOBAGO_CONFIG
-      = "com.atanion.tobago.config.TobagoConfig";
+      = "org.apache.myfaces.tobago.config.TobagoConfig";
 
 // ----------------------------------------------------------------- attributes
 

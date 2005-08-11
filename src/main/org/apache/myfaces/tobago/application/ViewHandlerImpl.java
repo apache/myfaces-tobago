@@ -3,12 +3,12 @@
  * All rights reserved. Created 05.01.2004 15:46:54.
  * $Id$
  */
-package com.atanion.tobago.application;
+package org.apache.myfaces.tobago.application;
 
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.context.ClientProperties;
-import com.atanion.tobago.webapp.TobagoResponse;
-import com.atanion.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.webapp.TobagoResponse;
+import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -32,7 +32,7 @@ public class ViewHandlerImpl extends ViewHandler {
 
   public static final String PAGE_ID = "tobago::page-id";
 
-//  public static final String VIEW_MAP_IN_SESSION = "com.atanion.tobago.application.ViewHandlerImpl.viewMap";
+//  public static final String VIEW_MAP_IN_SESSION = "org.apache.myfaces.tobago.application.ViewHandlerImpl.viewMap";
 
   // fixme: only for testing...
 //  public static final boolean USE_VIEW_MAP = false;
@@ -129,7 +129,7 @@ public class ViewHandlerImpl extends ViewHandler {
             renderKitId = context.getViewRoot().getRenderKitId();
         }
 //        UIViewRoot result = new UIViewRoot();
-        UIViewRoot result = new com.atanion.tobago.component.UIViewRoot();
+        UIViewRoot result = new org.apache.myfaces.tobago.component.UIViewRoot();
         result.setViewId(viewId);
         if (log.isDebugEnabled()) {
             log.debug("Created new view for " + viewId);

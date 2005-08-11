@@ -3,14 +3,14 @@
  * All rights reserved. Created 07.02.2003 16:00:00.
  * : $
  */
-package com.atanion.tobago.renderkit.html.speyside.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
-import com.atanion.tobago.taglib.component.ToolBarTag;
-import com.atanion.tobago.renderkit.BoxRendererBase;
-import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
+import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

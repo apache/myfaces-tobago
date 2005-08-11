@@ -3,16 +3,16 @@
  * Created: Nov 20, 2002 11:30:31 PM
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
 
 public class CalendarTag extends TobagoTag
-    implements com.atanion.tobago.taglib.decl.CalendarTag {
+    implements org.apache.myfaces.tobago.taglib.decl.CalendarTag {
 
 // ----------------------------------------------------------------- attributes
 

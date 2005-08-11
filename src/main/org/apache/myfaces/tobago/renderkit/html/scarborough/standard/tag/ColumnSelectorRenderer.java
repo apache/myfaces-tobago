@@ -1,6 +1,6 @@
-package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 /**
  * Created by IntelliJ IDEA.

@@ -1,7 +1,7 @@
-package com.atanion.tobago.taglib.decl;
+package org.apache.myfaces.tobago.taglib.decl;
 
-import com.atanion.util.annotation.Tag;
-import com.atanion.util.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
 /*
  * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
@@ -13,7 +13,7 @@ import com.atanion.util.annotation.UIComponentTag;
  * Renders a date input field.
  */
 @Tag(name="date")
-@UIComponentTag(UIComponent="com.atanion.tobago.component.UIInput", RendererType=DateTag.RENDERER_TYPE_IN)
+@UIComponentTag(UIComponent="org.apache.myfaces.tobago.component.UIInput", RendererType=DateTag.RENDERER_TYPE_IN)
 public interface DateTag extends InputTag, HasIdBindingAndRendered, HasValue, IsReadonly, IsDisabled, IsInline, HasLabelAndAccessKey, HasTip {
 
 }

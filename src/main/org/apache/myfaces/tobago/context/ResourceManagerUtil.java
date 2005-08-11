@@ -3,7 +3,7 @@
  * All rights reserved. Created 30.03.2004 12:47:02.
  * $Id$
  */
-package com.atanion.tobago.context;
+package org.apache.myfaces.tobago.context;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

@@ -1,9 +1,9 @@
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.atanion.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -25,7 +25,7 @@ public class UITreeListbox extends UITree {
 
   private static final Log LOG = LogFactory.getLog(UITreeListbox.class);
 
-  public static final String COMPONENT_TYPE = "com.atanion.tobago.TreeListbox";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TreeListbox";
 
   public static final String BOXES_PREFIX = "boxes_";
 

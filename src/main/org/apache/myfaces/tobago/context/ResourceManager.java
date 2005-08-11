@@ -3,14 +3,14 @@
  * All rights reserved.
  * $Id$
  */
-package com.atanion.tobago.context;
+package org.apache.myfaces.tobago.context;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.config.TobagoConfig;
-import com.atanion.tobago.renderkit.TobagoRenderKit;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.renderkit.TobagoRenderKit;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.render.Renderer;
@@ -31,7 +31,7 @@ public class ResourceManager {
   private static final Log LOG = LogFactory.getLog(ResourceManager.class);
 
   public static final String RESOURCE_MANAGER
-      = "com.atanion.tobago.context.ResourceManager";
+      = "org.apache.myfaces.tobago.context.ResourceManager";
 
 // ----------------------------------------------------------------- attributes
 
@@ -372,11 +372,11 @@ public class ResourceManager {
 //    final Object key;
     CacheKey key;
     if (name != null) {
-      if (viewRoot instanceof com.atanion.tobago.component.UIViewRoot) {
-//        key = new StringBuffer(((com.atanion.tobago.component.UIViewRoot)viewRoot)
+      if (viewRoot instanceof org.apache.myfaces.tobago.component.UIViewRoot) {
+//        key = new StringBuffer(((org.apache.myfaces.tobago.component.UIViewRoot)viewRoot)
 //            .getRendererCachePrefix()).append(name).toString();
 //      key = new RendererCacheKey(clientPropertyId, locale, name);
-        key = ((com.atanion.tobago.component.UIViewRoot)viewRoot).getRendererCacheKey();
+        key = ((org.apache.myfaces.tobago.component.UIViewRoot)viewRoot).getRendererCacheKey();
         key.setName(name);
 
         if ((renderer = (Renderer) cache.get(key)) != null) {

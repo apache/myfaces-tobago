@@ -1,12 +1,12 @@
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import static com.atanion.tobago.TobagoConstants.ATTR_REQUIRED;
-import static com.atanion.tobago.TobagoConstants.RENDERER_TYPE_SELECT_ONE_CHOICE;
-import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.util.MessageFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_ONE_CHOICE;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.util.MessageFactory;
 
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
@@ -25,7 +25,7 @@ import java.io.IOException;
 public class UISelectOne extends javax.faces.component.UISelectOne {
 
   private static final Log LOG = LogFactory.getLog(UISelectOne.class);
-  public static final String COMPONENT_TYPE = "com.atanion.tobago.SelectOne";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SelectOne";
   public static final String MESSAGE_VALUE_REQUIRED
       = "tobago.SelectOne.MESSAGE_VALUE_REQUIRED";
 

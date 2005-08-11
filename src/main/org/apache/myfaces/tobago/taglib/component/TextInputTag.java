@@ -1,7 +1,7 @@
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIInput;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
@@ -13,7 +13,7 @@ import javax.servlet.jsp.JspException;
  * Time: 5:04:48 PM
  * To change this template use File | Settings | File Templates.
  */
-public class TextInputTag extends InputTag implements com.atanion.tobago.taglib.decl.TextInputTag {
+public class TextInputTag extends InputTag implements org.apache.myfaces.tobago.taglib.decl.TextInputTag {
   public String getComponentType() {
     return UIInput.COMPONENT_TYPE;
   }

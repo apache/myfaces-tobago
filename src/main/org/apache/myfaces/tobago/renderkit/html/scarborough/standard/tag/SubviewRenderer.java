@@ -3,14 +3,14 @@
  * All rights reserved. Created 07.02.2003 16:00:00.
  * $Id$
  */
-package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.component.BodyContentHandler;
-import com.atanion.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.BodyContentHandler;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

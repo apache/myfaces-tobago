@@ -1,6 +1,6 @@
-package com.atanion.tobago.renderkit.fo.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.fo.scarborough.standard.tag;
 
-import com.atanion.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 /**
  * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.

@@ -3,7 +3,7 @@
  * Created: 28.04.2004, 18:23:31
  * $Id$
  */
-package com.atanion.tobago.util;
+package org.apache.myfaces.tobago.util;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.Application;

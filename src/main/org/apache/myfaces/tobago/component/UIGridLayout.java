@@ -3,10 +3,10 @@
  * All rights reserved. Created Nov 20, 2002 at 11:39:23 AM.
  * $Id$
  */
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,8 +26,8 @@ public class UIGridLayout extends UILayout {
 
   private static final Log LOG = LogFactory.getLog(UIGridLayout.class);
 
-  public static final String COMPONENT_TYPE = "com.atanion.tobago.GridLayout";
-  public static final String COMPONENT_FAMILY = "com.atanion.tobago.GridLayout";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.GridLayout";
+  public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.GridLayout";
 
   public static final Marker FREE = new Marker("free");
   public static final String USED = "used";

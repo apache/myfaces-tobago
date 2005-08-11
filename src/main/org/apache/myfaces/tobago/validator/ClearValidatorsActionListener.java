@@ -3,9 +3,9 @@
  * All rights reserved. Created 22.10.2003 16:57:20.
  * $Id$
  */
-package com.atanion.tobago.validator;
+package org.apache.myfaces.tobago.validator;
 
-import com.atanion.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

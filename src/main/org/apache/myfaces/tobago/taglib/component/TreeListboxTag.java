@@ -3,20 +3,20 @@
  * All rights reserved. Created 28.01.2003 14:10:33.
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UITreeListbox;
-import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
-import com.atanion.tobago.taglib.decl.HasIdReference;
-import com.atanion.tobago.taglib.decl.HasNameReference;
-import com.atanion.tobago.taglib.decl.HasState;
-import com.atanion.tobago.taglib.decl.HasTreeNodeValue;
-import com.atanion.tobago.taglib.decl.IsRequired;
-import com.atanion.util.annotation.BodyContentDescription;
-import com.atanion.util.annotation.Tag;
-import com.atanion.util.annotation.TagAttribute;
-import com.atanion.util.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UITreeListbox;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasIdReference;
+import org.apache.myfaces.tobago.taglib.decl.HasNameReference;
+import org.apache.myfaces.tobago.taglib.decl.HasState;
+import org.apache.myfaces.tobago.taglib.decl.HasTreeNodeValue;
+import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

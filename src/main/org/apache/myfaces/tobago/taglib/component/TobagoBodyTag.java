@@ -4,9 +4,9 @@
  * Created on: 15.02.2002, 16:19:49
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.BodyContentHandler;
+import org.apache.myfaces.tobago.component.BodyContentHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

@@ -3,9 +3,9 @@
  * All rights reserved. Created 15.04.2004 19:00:46.
  * $Id$
  */
-package com.atanion.tobago.convert;
+package org.apache.myfaces.tobago.convert;
 
-import com.atanion.tobago.util.LocaleUtil;
+import org.apache.myfaces.tobago.util.LocaleUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

@@ -1,6 +1,6 @@
-package com.atanion.tobago.taglib.decl;
+package org.apache.myfaces.tobago.taglib.decl;
 
-import com.atanion.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.servlet.jsp.tagext.Tag;
 

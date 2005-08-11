@@ -3,7 +3,7 @@
  * All rights reserved. Created Oct 30, 2002 at 2:55:19 PM.
  * $Id$
  */
-package com.atanion.tobago.renderkit;
+package org.apache.myfaces.tobago.renderkit;
 
 public class StyleAttribute {
 

@@ -3,18 +3,18 @@
   * All rights reserved. Created 28.04.2003 at 15:29:36.
   * $Id$
   */
-package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 
-import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UIPopup;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
-import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.ClientProperties;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

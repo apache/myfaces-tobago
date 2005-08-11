@@ -4,12 +4,12 @@
  * Created on: 18.02.2002, 19:23:17
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.UIForm;
-import com.atanion.tobago.taglib.decl.HasBinding;
-import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.util.annotation.Tag;
+import org.apache.myfaces.tobago.component.UIForm;
+import org.apache.myfaces.tobago.taglib.decl.HasBinding;
+import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 
 @Tag(name="form")
 public class FormTag extends TobagoBodyTag implements HasBinding, HasId {

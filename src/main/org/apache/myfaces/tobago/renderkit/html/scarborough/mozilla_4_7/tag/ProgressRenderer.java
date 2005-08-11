@@ -3,9 +3,9 @@
  * All rights reserved. Created 07.02.2003 16:00:00.
  * : $
  */
-package com.atanion.tobago.renderkit.html.scarborough.mozilla_4_7.tag;
+package org.apache.myfaces.tobago.renderkit.html.scarborough.mozilla_4_7.tag;
 
-import com.atanion.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

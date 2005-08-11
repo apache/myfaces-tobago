@@ -3,11 +3,11 @@
  * All rights reserved. Created 07.01.2004 10:34:32.
  * $Id$
  */
-package com.atanion.tobago.webapp;
+package org.apache.myfaces.tobago.webapp;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.util.HtmlWriterUtil;
-import com.atanion.tobago.util.XmlUtils;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.util.HtmlWriterUtil;
+import org.apache.myfaces.tobago.util.XmlUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

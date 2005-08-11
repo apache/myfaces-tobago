@@ -3,7 +3,7 @@
  * All rights reserved. Created 20.12.2004 11:13:35.
  * $Id$
  */
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,7 +19,7 @@ public class UIPopup extends UIPanel implements NamingContainer {
   private String left;
   private String top;
 
-  public static final String COMPONENT_TYPE = "com.atanion.tobago.Popup";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Popup";
 
   public String getWidth() {
     return width;

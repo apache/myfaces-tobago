@@ -3,20 +3,20 @@
  * All rights reserved. Created 07.02.2003 16:00:00.
  * : $
  */
-package com.atanion.tobago.renderkit.html.scarborough.opera.tag;
+package org.apache.myfaces.tobago.renderkit.html.scarborough.opera.tag;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
-import com.atanion.tobago.context.ClientProperties;
-import com.atanion.tobago.context.UserAgent;
-import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
-import com.atanion.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.context.UserAgent;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class BoxRenderer extends com.atanion.tobago.renderkit.html.scarborough.standard.tag.BoxRenderer {
+public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.BoxRenderer {
 
 // ///////////////////////////////////////////// constant
 

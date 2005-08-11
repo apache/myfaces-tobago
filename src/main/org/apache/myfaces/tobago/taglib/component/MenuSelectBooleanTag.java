@@ -3,16 +3,16 @@
   * All rights reserved. Created 14.09.2004 at 12:49:33.
   * $Id$
   */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.taglib.decl.HasAction;
-import com.atanion.tobago.taglib.decl.HasBooleanValue;
-import com.atanion.tobago.taglib.decl.HasCommandType;
-import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
-import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
-import com.atanion.tobago.taglib.decl.IsDisabled;
-import com.atanion.tobago.taglib.decl.IsImmediateCommand;
-import com.atanion.util.annotation.Tag;
+import org.apache.myfaces.tobago.taglib.decl.HasAction;
+import org.apache.myfaces.tobago.taglib.decl.HasBooleanValue;
+import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 
 /**
  * Renders a checkable menuitem.

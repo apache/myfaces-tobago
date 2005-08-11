@@ -1,6 +1,6 @@
-package com.atanion.tobago.model;
+package org.apache.myfaces.tobago.model;
 
-import com.atanion.tobago.component.UISelectItem;
+import org.apache.myfaces.tobago.component.UISelectItem;
 
 /**
  * Created by IntelliJ IDEA.

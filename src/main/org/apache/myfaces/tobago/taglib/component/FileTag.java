@@ -3,18 +3,18 @@
  * All rights reserved. Created 14.08.2002 at 14:39:25.
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UIInput;
-import com.atanion.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.UIPage;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 
 
 public class FileTag extends InputTag
-    implements com.atanion.tobago.taglib.decl.FileTag {
+    implements org.apache.myfaces.tobago.taglib.decl.FileTag {
   // ----------------------------------------------------------- business methods
 
   public int doStartTag() throws JspException {

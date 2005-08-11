@@ -1,4 +1,4 @@
-package com.atanion.tobago.event;
+package org.apache.myfaces.tobago.event;
 
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;

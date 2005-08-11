@@ -3,10 +3,10 @@
  * All rights reserved. Created 12.01.2004 10:56:46.
  * $Id$
  */
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.taglib.component.OutTag;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.taglib.component.OutTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

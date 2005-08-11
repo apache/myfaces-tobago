@@ -3,9 +3,9 @@
   * All rights reserved. Created 14.04.2003 at 15:10:58.
   * $Id$
   */
-package com.atanion.tobago.renderkit;
+package org.apache.myfaces.tobago.renderkit;
 
-import com.atanion.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

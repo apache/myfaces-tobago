@@ -3,9 +3,9 @@
  * All rights reserved. Created 09.12.2003 15:52:53.
  * $Id$
  */
-package com.atanion.tobago.convert;
+package org.apache.myfaces.tobago.convert;
 
-import com.atanion.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -25,7 +25,7 @@ public class DurationConverter implements Converter {
 
   private static final Log LOG = LogFactory.getLog(DurationConverter.class);
 
-  public static final String CONVERTER_ID = "com.atanion.tobago.Duration";
+  public static final String CONVERTER_ID = "org.apache.myfaces.tobago.Duration";
 
   private static final String NANO = "nano";
   private static final String MILLI = "milli";

@@ -3,13 +3,13 @@
   * All rights reserved. Created 27.04.2004 at 18:33:04.
   * $Id$
   */
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
-import com.atanion.tobago.model.SheetState;
-import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.renderkit.html.scarborough.standard.tag.SheetRenderer;
-import com.atanion.tobago.util.LayoutInfo;
-import com.atanion.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.model.SheetState;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.SheetRenderer;
+import org.apache.myfaces.tobago.util.LayoutInfo;
+import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -24,14 +24,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import static com.atanion.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class UIData extends javax.faces.component.UIData {
 // ------------------------------------------------------------------ constants
 
   private static final Log LOG = LogFactory.getLog(UIData.class);
 
-  public static final String COMPONENT_TYPE = "com.atanion.tobago.Data";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Data";
 
 // ----------------------------------------------------------------- attributes
 

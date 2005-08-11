@@ -3,18 +3,18 @@
  * All rights reserved. Created 28.01.2003 14:07:00.
  * $Id$
  */
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.taglib.component.ToolBarTag;
-import com.atanion.tobago.util.MessageFactory;
-import com.atanion.tobago.util.StringUtil;
-import static com.atanion.tobago.TobagoConstants.*;
-import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.model.TreeState;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
+import org.apache.myfaces.tobago.util.MessageFactory;
+import org.apache.myfaces.tobago.util.StringUtil;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.model.TreeState;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.*;
@@ -40,7 +40,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
   private static final Log LOG = LogFactory.getLog(UITree.class);
 
-  public static final String COMPONENT_TYPE="com.atanion.tobago.Tree";
+  public static final String COMPONENT_TYPE="org.apache.myfaces.tobago.Tree";
   public static final String MESSAGE_NOT_LEAF
       = "tobago.tree.MESSAGE_NOT_LEAF";
 

@@ -4,13 +4,13 @@
  * Created on: 19.02.2002, 19:01:56
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 
-public abstract class InputTag extends BeanTag implements com.atanion.tobago.taglib.decl.InputTag {
+public abstract class InputTag extends BeanTag implements org.apache.myfaces.tobago.taglib.decl.InputTag {
 // ----------------------------------------------------------------- attributes
 
   private String onchange;

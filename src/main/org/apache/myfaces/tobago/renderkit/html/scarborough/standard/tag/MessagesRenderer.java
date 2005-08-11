@@ -3,12 +3,12 @@
  * All rights reserved. Created 07.02.2003 16:00:00.
  * $Id$
  */
-package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.renderkit.MessageRendererBase;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

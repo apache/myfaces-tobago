@@ -3,16 +3,16 @@
  * All rights reserved. Created 01.07.2003 10:07:23.
  * $Id$
  */
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.atanion.tobago.TobagoConstants;
-import static com.atanion.tobago.TobagoConstants.*;
-import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.taglib.component.ForEachTag;
-import com.atanion.tobago.util.RangeParser;
+import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.taglib.component.ForEachTag;
+import org.apache.myfaces.tobago.util.RangeParser;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
@@ -47,7 +47,7 @@ public class ComponentUtil {
   private static final Log LOG = LogFactory.getLog(ComponentUtil.class);
 
   private static final String RENDER_KEY_PREFIX
-      = "com.atanion.tobago.component.ComponentUtil.RendererKeyPrefix_";
+      = "org.apache.myfaces.tobago.component.ComponentUtil.RendererKeyPrefix_";
 
   public static UIPage findPage(UIComponent component) {
     while (component != null) {
@@ -316,8 +316,8 @@ public class ComponentUtil {
         Object value = ((UISelectItem) kid).getValue();
         if (value == null) {
           UISelectItem item = (UISelectItem) kid;
-          if (kid instanceof com.atanion.tobago.component.UISelectItem) {
-            list.add(new com.atanion.tobago.model.SelectItem((com.atanion.tobago.component.UISelectItem) kid));
+          if (kid instanceof org.apache.myfaces.tobago.component.UISelectItem) {
+            list.add(new org.apache.myfaces.tobago.model.SelectItem((org.apache.myfaces.tobago.component.UISelectItem) kid));
           } else {
             list.add(new SelectItem(item.getItemValue() == null ? "" : item.getItemValue(),
                 item.getItemLabel(),

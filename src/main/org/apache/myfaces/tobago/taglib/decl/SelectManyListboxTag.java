@@ -1,7 +1,7 @@
-package com.atanion.tobago.taglib.decl;
+package org.apache.myfaces.tobago.taglib.decl;
 
-import com.atanion.util.annotation.Tag;
-import com.atanion.util.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
 /*
  * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
@@ -13,7 +13,7 @@ import com.atanion.util.annotation.UIComponentTag;
  * Render a multi selection option listbox.
  */
 @Tag(name="selectManyListbox")
-@UIComponentTag(UIComponent="com.atanion.tobago.component.UISelectMany")
+@UIComponentTag(UIComponent="org.apache.myfaces.tobago.component.UISelectMany")
 public interface SelectManyListboxTag extends SelectManyTag, HasId, HasValue, IsDisabled, HasHeight, IsInline, HasLabelAndAccessKey, IsRendered, HasBinding, HasTip {
 
 }

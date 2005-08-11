@@ -1,4 +1,4 @@
-package com.atanion.tobago.renderkit;
+package org.apache.myfaces.tobago.renderkit;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

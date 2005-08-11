@@ -3,15 +3,15 @@
   * All rights reserved. Created 14.09.2004 at 12:03:45.
   * $Id$
   */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
-import com.atanion.tobago.taglib.decl.HasImage;
-import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
-import com.atanion.tobago.taglib.decl.IsDisabled;
-import com.atanion.util.annotation.BodyContentDescription;
-import com.atanion.util.annotation.Tag;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasImage;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
@@ -23,11 +23,11 @@ import javax.faces.component.UIPanel;
  */
 @Tag(name="menu")
 @BodyContentDescription(
-    anyClassOf={"com.atanion.tobago.taglib.component.MenuTag", 
-    "com.atanion.tobago.taglib.component.MenuCommandTag",
-    "com.atanion.tobago.taglib.component.MenuSelectBooleanTag",
-    "com.atanion.tobago.taglib.component.MenuSelectOneTag",
-    "com.atanion.tobago.taglib.component.MenuSeparatorTag" })
+    anyClassOf={"org.apache.myfaces.tobago.taglib.component.MenuTag",
+    "org.apache.myfaces.tobago.taglib.component.MenuCommandTag",
+    "org.apache.myfaces.tobago.taglib.component.MenuSelectBooleanTag",
+    "org.apache.myfaces.tobago.taglib.component.MenuSelectOneTag",
+    "org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag" })
 
 public class MenuTag extends TobagoTag
     implements HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled, HasImage {

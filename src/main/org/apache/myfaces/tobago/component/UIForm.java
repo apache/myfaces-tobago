@@ -3,7 +3,7 @@
  * All rights reserved. Created 23.06.2004 16:12:21.
  * $Id$
  */
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,7 +20,7 @@ public class UIForm extends javax.faces.component.UIForm {
 
   private static final Log LOG = LogFactory.getLog(UIForm.class);
 
-  public static final String COMPONENT_TYPE = "com.atanion.tobago.Form";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Form";
 
 // ///////////////////////////////////////////// attribute
 

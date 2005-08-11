@@ -3,7 +3,7 @@
  * All rights reserved. Created 05.02.2003 09:25:31.
  * $Id$
  */
-package com.atanion.tobago.model;
+package org.apache.myfaces.tobago.model;
 
 public interface PageState {
 

@@ -4,20 +4,20 @@
  * Created: Mon Jun 24 14:05:17 2002
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UIGridLayout;
-import com.atanion.tobago.taglib.decl.HasBinding;
-import com.atanion.tobago.taglib.decl.HasBorder;
-import com.atanion.tobago.taglib.decl.HasCellspacing;
-import com.atanion.tobago.taglib.decl.HasColumnLayout;
-import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.HasMargin;
-import com.atanion.tobago.taglib.decl.HasMargins;
-import com.atanion.tobago.taglib.decl.HasRowLayout;
-import com.atanion.util.annotation.BodyContent;
-import com.atanion.util.annotation.Tag;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIGridLayout;
+import org.apache.myfaces.tobago.taglib.decl.HasBinding;
+import org.apache.myfaces.tobago.taglib.decl.HasBorder;
+import org.apache.myfaces.tobago.taglib.decl.HasCellspacing;
+import org.apache.myfaces.tobago.taglib.decl.HasColumnLayout;
+import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.HasMargin;
+import org.apache.myfaces.tobago.taglib.decl.HasMargins;
+import org.apache.myfaces.tobago.taglib.decl.HasRowLayout;
+import org.apache.myfaces.tobago.apt.annotation.BodyContent;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;

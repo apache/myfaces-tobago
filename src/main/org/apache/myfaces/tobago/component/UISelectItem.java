@@ -1,6 +1,6 @@
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
-import com.atanion.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.el.ValueBinding;
 
@@ -13,7 +13,7 @@ import javax.faces.el.ValueBinding;
  */
 public class UISelectItem extends javax.faces.component.UISelectItem {
 
-  public static final String COMPONENT_TYPE = "com.atanion.tobago.SelectItem";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SelectItem";
 
 
   private String itemImage;

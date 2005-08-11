@@ -3,7 +3,7 @@
  * All rights reserved. Created 11.02.2005 08:50:13.
  * $Id$
  */
-package com.atanion.tobago.context;
+package org.apache.myfaces.tobago.context;
 
 public class InexsoTheme extends Theme {
 

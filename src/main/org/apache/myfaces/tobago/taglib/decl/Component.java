@@ -1,6 +1,6 @@
-package com.atanion.tobago.taglib.decl;
+package org.apache.myfaces.tobago.taglib.decl;
 
-import com.atanion.util.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 
 import javax.servlet.jsp.JspException;
 

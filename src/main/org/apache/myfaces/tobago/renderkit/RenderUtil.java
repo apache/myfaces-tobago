@@ -3,10 +3,10 @@
  * All rights reserved. Created 11.11.2003 11:16:41.
  * $Id$
  */
-package com.atanion.tobago.renderkit;
+package org.apache.myfaces.tobago.renderkit;
 
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UILayout;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UILayout;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -21,7 +21,7 @@ public class RenderUtil {
 
   private static final Log LOG = LogFactory.getLog(RenderUtil.class);
 
-  public static final String COMPONENT_IN_REQUEST = "com.atanion.tobago.component";
+  public static final String COMPONENT_IN_REQUEST = "org.apache.myfaces.tobago.component";
 
   public static boolean contains(Object[] list, Object value) {
     if (list == null) {

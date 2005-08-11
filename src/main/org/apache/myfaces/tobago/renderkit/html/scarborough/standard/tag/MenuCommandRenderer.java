@@ -3,9 +3,9 @@
   * All rights reserved. Created 21.09.2004 at 17:26:57.
   * $Id$
   */
-package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.tobago.renderkit.CommandRendererBase;
+import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

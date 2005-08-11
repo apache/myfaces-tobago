@@ -3,7 +3,7 @@
  * All rights reserved. Created 05.02.2003 09:25:31.
  * $Id$
  */
-package com.atanion.tobago.model;
+package org.apache.myfaces.tobago.model;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.Enumeration;

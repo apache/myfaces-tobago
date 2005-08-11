@@ -3,10 +3,10 @@
  * All rights reserved. Created 09.12.2003 15:52:53.
  * $Id$
  */
-package com.atanion.tobago.convert;
+package org.apache.myfaces.tobago.convert;
 
-import com.atanion.tobago.config.TobagoConfig;
-import com.atanion.tobago.context.Theme;
+import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.context.Theme;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,7 +22,7 @@ public class ThemeConverter implements Converter {
 
   private static final Log LOG = LogFactory.getLog(ThemeConverter.class);
 
-  public static final String CONVERTER_ID = "com.atanion.tobago.Theme";
+  public static final String CONVERTER_ID = "org.apache.myfaces.tobago.Theme";
 
 // ///////////////////////////////////////////// attribute
 

@@ -1,4 +1,4 @@
-package com.atanion.tobago.renderkit.fo.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.fo.scarborough.standard.tag;
 
 import javax.faces.component.UIComponent;
 import java.awt.*;

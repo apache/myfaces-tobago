@@ -3,11 +3,11 @@
  * All rights reserved.
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.UICommand;
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.el.ConstantMethodBinding;
+import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;

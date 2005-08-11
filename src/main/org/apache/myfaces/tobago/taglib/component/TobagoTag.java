@@ -4,9 +4,9 @@
  * Created on: 15.02.2002, 16:19:49
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -16,8 +16,8 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.Tag;
 
 public abstract class TobagoTag extends UIComponentTag
-    implements com.atanion.tobago.taglib.decl.TobagoTag {
-  // todo: in java 1.5 use: import static com.atanion.tobago.TobagoConstants.*;
+    implements org.apache.myfaces.tobago.taglib.decl.TobagoTag {
+  // todo: in java 1.5 use: import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 // ----------------------------------------------------------- class attributes
 

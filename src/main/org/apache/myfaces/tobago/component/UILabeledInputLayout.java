@@ -3,18 +3,18 @@
  * All rights reserved. Created 06.12.2004 20:49:49.
  * $Id$
  */
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.util.LayoutUtil;
-import com.atanion.tobago.util.LayoutInfo;
-import com.atanion.tobago.config.ThemeConfig;
-import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.renderkit.LabeledLayoutRender;
-import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.util.LayoutInfo;
+import org.apache.myfaces.tobago.config.ThemeConfig;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LabeledLayoutRender;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -27,8 +27,8 @@ public class UILabeledInputLayout extends UILayout
     implements TobagoConstants {
   private static final Log LOG = LogFactory.getLog(UILabeledInputLayout.class);
 
-  public static final String COMPONENT_TYPE = "com.atanion.tobago.LabeledInputLayout";
-  public static final String COMPONENT_FAMILY = "com.atanion.tobago.Layout";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.LabeledInputLayout";
+  public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.Layout";
 
   public void layoutBegin(FacesContext facesContext, UIComponent component) {
 

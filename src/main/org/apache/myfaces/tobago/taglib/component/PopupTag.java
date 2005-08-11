@@ -3,17 +3,17 @@
   * All rights reserved. Created 28.04.2003 at 14:50:02.
   * $Id$
   */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.component.UIPopup;
-import com.atanion.tobago.taglib.decl.HasDimension;
-import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.IsRendered;
-import com.atanion.util.annotation.Tag;
-import com.atanion.util.annotation.TagAttribute;
-import com.atanion.util.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.taglib.decl.HasDimension;
+import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.IsRendered;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

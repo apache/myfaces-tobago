@@ -3,19 +3,19 @@
  * Created: Oct 1, 2002 1:21:21 PM
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.context.ClientProperties;
-import com.atanion.tobago.taglib.decl.HasBinding;
-import com.atanion.tobago.taglib.decl.HasDimension;
-import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.HasLabel;
-import com.atanion.tobago.taglib.decl.HasState;
-import com.atanion.util.annotation.Tag;
-import com.atanion.util.annotation.TagAttribute;
-import com.atanion.util.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.taglib.decl.HasBinding;
+import org.apache.myfaces.tobago.taglib.decl.HasDimension;
+import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+import org.apache.myfaces.tobago.taglib.decl.HasState;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -34,7 +34,7 @@ public class PageTag extends TobagoBodyTag
 // ------------------------------------------------------------------ constants
 
   public static final String PAGE_IN_REQUEST =
-      "com.atanion.tobago.taglib.component.Page";
+      "org.apache.myfaces.tobago.taglib.component.Page";
 
 // ----------------------------------------------------------------- attributes
 

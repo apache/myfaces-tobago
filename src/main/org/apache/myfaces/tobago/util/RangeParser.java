@@ -3,7 +3,7 @@
   * All rights reserved. Created 29.03.2004 at 14:58:11.
   * $Id$
   */
-package com.atanion.tobago.util;
+package org.apache.myfaces.tobago.util;
 
 import java.util.ArrayList;
 import java.util.List;

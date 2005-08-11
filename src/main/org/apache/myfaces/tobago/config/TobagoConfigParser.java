@@ -3,7 +3,7 @@
  * All rights reserved. Created 24.06.2003 08:53:35.
  * Id: $
  */
-package com.atanion.tobago.config;
+package org.apache.myfaces.tobago.config;
 
 import org.apache.commons.digester.Digester;
 import org.apache.commons.io.IOUtils;

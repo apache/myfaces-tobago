@@ -3,15 +3,15 @@
  * Created: 23.07.2002 19:33:37
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
 public class LabelTag extends BeanTag implements
-    com.atanion.tobago.taglib.decl.LabelTag {
+    org.apache.myfaces.tobago.taglib.decl.LabelTag {
 
   // TODO ?? _for ?
   private String _for;

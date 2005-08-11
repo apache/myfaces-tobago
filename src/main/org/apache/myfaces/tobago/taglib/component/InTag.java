@@ -4,13 +4,13 @@
  * Created on: 15.02.2002, 17:01:56
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 public class InTag extends TextInputTag
-    implements com.atanion.tobago.taglib.decl.InTag {
+    implements org.apache.myfaces.tobago.taglib.decl.InTag {
 
   private String password;
 

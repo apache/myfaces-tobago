@@ -4,9 +4,9 @@
  * Created on: 15.02.2002, 17:44:18
  * $Id$
  */
-package com.atanion.tobago.renderkit;
+package org.apache.myfaces.tobago.renderkit;
 
-import com.atanion.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

@@ -4,15 +4,15 @@
  * Created on: 15.02.2002, 17:01:56
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UIGridLayout;
-import com.atanion.tobago.component.UIInput;
-import com.atanion.tobago.component.UIPanel;
-import com.atanion.tobago.component.UIPopup;
-import com.atanion.tobago.config.ThemeConfig;
-import com.atanion.tobago.event.DatePickerController;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIGridLayout;
+import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.config.ThemeConfig;
+import org.apache.myfaces.tobago.event.DatePickerController;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DateTag extends InputTag
-    implements com.atanion.tobago.taglib.decl.DateTag {
+    implements org.apache.myfaces.tobago.taglib.decl.DateTag {
 
   private static final Log LOG = LogFactory.getLog(DateTag.class);
 
@@ -135,7 +135,7 @@ public class DateTag extends InputTag
     calendar.getAttributes().put(ATTR_CALENDAR_DATE_INPUT_ID, component.getClientId(facesContext));
 
     final UICommand okButton = (UICommand) ComponentUtil.createComponent(facesContext,
-        com.atanion.tobago.component.UICommand.COMPONENT_TYPE, RENDERER_TYPE_BUTTON);
+        org.apache.myfaces.tobago.component.UICommand.COMPONENT_TYPE, RENDERER_TYPE_BUTTON);
     box.getChildren().add(okButton);
     okButton.setId(idPrefix + "ok" + DatePickerController.CLOSE_POPUP);
     attributes = okButton.getAttributes();
@@ -148,7 +148,7 @@ public class DateTag extends InputTag
     okButton.setActionListener(datePickerController);
 
     final UICommand cancelButton = (UICommand) ComponentUtil.createComponent(facesContext,
-        com.atanion.tobago.component.UICommand.COMPONENT_TYPE, RENDERER_TYPE_BUTTON);
+        org.apache.myfaces.tobago.component.UICommand.COMPONENT_TYPE, RENDERER_TYPE_BUTTON);
     box.getChildren().add(cancelButton);
     attributes = cancelButton.getAttributes();
     attributes.put(ATTR_LABEL, "Cancel");

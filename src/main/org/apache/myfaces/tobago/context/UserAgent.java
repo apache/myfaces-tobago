@@ -3,7 +3,7 @@
  * Created: 06.08.2002 13:42:01
  * $Id$
  */
-package com.atanion.tobago.context;
+package org.apache.myfaces.tobago.context;
 
 import java.util.Iterator;
 import java.util.Collections;

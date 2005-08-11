@@ -1,4 +1,4 @@
-package com.atanion.tobago.model;
+package org.apache.myfaces.tobago.model;
 
 /*
   * Copyright (c) 2002 Atanion GmbH, Germany

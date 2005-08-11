@@ -3,17 +3,17 @@
  * All rights reserved. Created 07.02.2003 15:44:53.
  * $Id$
  */
-package com.atanion.tobago.renderkit;
+package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.component.UIPanel;
-import com.atanion.tobago.config.ThemeConfig;
-import com.atanion.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.config.ThemeConfig;
+import org.apache.myfaces.tobago.util.LayoutUtil;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
@@ -30,7 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.awt.*;
 
-// todo: in java 1.5 use: import static com.atanion.tobago.TobagoConstants.*;
+// todo: in java 1.5 use: import static org.apache.myfaces.tobago.TobagoConstants.*;
 public abstract class RendererBase
     extends Renderer implements TobagoConstants, TobagoRenderer {
 

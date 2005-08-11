@@ -1,16 +1,16 @@
-package com.atanion.tobago.renderkit.html;
+package org.apache.myfaces.tobago.renderkit.html;
 
-import static com.atanion.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.lang.StringUtils;
 
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.renderkit.LabelWithAccessKey;
-import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.util.LayoutUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

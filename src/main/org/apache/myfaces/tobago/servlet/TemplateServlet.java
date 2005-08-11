@@ -3,11 +3,11 @@
  * All rights reserved. Created 14.06.2004 11:51:12.
  * $Id$
  */
-package com.atanion.tobago.servlet;
+package org.apache.myfaces.tobago.servlet;
 
-import com.atanion.tobago.config.Attribute;
-import com.atanion.tobago.config.MappingRule;
-import com.atanion.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.config.Attribute;
+import org.apache.myfaces.tobago.config.MappingRule;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

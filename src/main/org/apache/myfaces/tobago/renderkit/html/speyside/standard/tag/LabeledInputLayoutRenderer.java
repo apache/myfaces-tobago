@@ -1,12 +1,12 @@
-package com.atanion.tobago.renderkit.html.speyside.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
 
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.context.ClientProperties;
-import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.context.SapTheme;
-import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.SapTheme;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,7 +24,7 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class LabeledInputLayoutRenderer extends
-    com.atanion.tobago.renderkit.html.scarborough.standard.tag.LabeledInputLayoutRenderer {
+    org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.LabeledInputLayoutRenderer {
 
   private static final Log LOG = LogFactory.getLog(LabeledInputLayoutRenderer.class);
 

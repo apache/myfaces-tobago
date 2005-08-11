@@ -5,10 +5,10 @@
  */
 package org.apache.myfaces.tobago.component;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.model.PageState;
-import com.atanion.tobago.model.PageStateImpl;
-import com.atanion.tobago.webapp.TobagoMultipartFormdataRequest;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.model.PageState;
+import org.apache.myfaces.tobago.model.PageStateImpl;
+import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
 import org.apache.commons.collections.KeyValue;
 import org.apache.commons.collections.list.SetUniqueList;
 import org.apache.commons.collections.set.ListOrderedSet;
@@ -35,7 +35,7 @@ public class UIPage extends UIForm {
 
   private static final Log LOG = LogFactory.getLog(UIPage.class);
 
-  public static final String COMPONENT_TYPE = "com.atanion.tobago.Page";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Page";
 
   public static final String DEFAULT_STYLE = "style/style.css";
 

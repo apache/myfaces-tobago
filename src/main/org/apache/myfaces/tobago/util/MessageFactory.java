@@ -1,9 +1,9 @@
-package com.atanion.tobago.util;
+package org.apache.myfaces.tobago.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.atanion.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;

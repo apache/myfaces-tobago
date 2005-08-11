@@ -1,8 +1,8 @@
-package com.atanion.tobago.taglib.decl;
+package org.apache.myfaces.tobago.taglib.decl;
 
-import com.atanion.util.annotation.Tag;
-import com.atanion.util.annotation.UIComponentTag;
-import com.atanion.util.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 /*
  * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
@@ -14,7 +14,7 @@ import com.atanion.util.annotation.UIComponentTagAttribute;
  * Renders a 'hidden' input element.
  */
 @Tag(name="hidden")
-@UIComponentTag(UIComponent="com.atanion.tobago.component.UIInput")
+@UIComponentTag(UIComponent="org.apache.myfaces.tobago.component.UIInput")
 public interface HiddenTag extends BeanTag, HasId, HasBinding, HasValue {
 
   @UIComponentTagAttribute(type="java.lang.Boolean", defaultValue="true")

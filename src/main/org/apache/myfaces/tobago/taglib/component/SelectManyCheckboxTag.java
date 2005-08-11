@@ -3,11 +3,11 @@
  * Created: Sep 9, 2002 4:28:29 PM
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.util.annotation.BodyContentDescription;
-import com.atanion.util.annotation.Tag;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 
@@ -17,7 +17,7 @@ import javax.faces.component.UIComponent;
 @Tag(name="selectManyCheckbox")
 @BodyContentDescription(anyTagOf="(<f:selectItems>|<f:selectItem>|<t:selectItem>)+ <f:facet>* " )
 public class SelectManyCheckboxTag extends SelectManyTag
-    implements com.atanion.tobago.taglib.decl.SelectManyCheckboxTag {
+    implements org.apache.myfaces.tobago.taglib.decl.SelectManyCheckboxTag {
 // ----------------------------------------------------------------- attributes
 
   private String renderRange;

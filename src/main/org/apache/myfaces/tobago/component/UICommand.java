@@ -1,4 +1,4 @@
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
 import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class UICommand extends javax.faces.component.UICommand {
 
-  public static final String COMPONENT_TYPE = "com.atanion.tobago.Command";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Command";
 
 //  private boolean active;
 

@@ -1,9 +1,9 @@
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.model.SheetState;
-import com.atanion.tobago.model.SortableByApplication;
-import com.atanion.tobago.util.BeanComparator;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.model.SheetState;
+import org.apache.myfaces.tobago.model.SortableByApplication;
+import org.apache.myfaces.tobago.util.BeanComparator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

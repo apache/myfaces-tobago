@@ -3,7 +3,7 @@
  * All rights reserved.
  * $Id: BeanComparator.java,v 1.6 2004/05/19 14:57:13 lofwyr Exp $
  */
-package com.atanion.tobago.util;
+package org.apache.myfaces.tobago.util;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;

@@ -3,22 +3,22 @@
  * All rights reserved.
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.taglib.decl.HasAction;
-import com.atanion.tobago.taglib.decl.HasActionListener;
-import com.atanion.tobago.taglib.decl.HasCommandType;
-import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
-import com.atanion.tobago.taglib.decl.HasImage;
-import com.atanion.tobago.taglib.decl.HasLabelAndAccessKey;
-import com.atanion.tobago.taglib.decl.HasTarget;
-import com.atanion.tobago.taglib.decl.HasTip;
-import com.atanion.tobago.taglib.decl.IsDisabled;
-import com.atanion.tobago.taglib.decl.IsImmediateCommand;
-import com.atanion.tobago.taglib.decl.IsInline;
-import com.atanion.util.annotation.BodyContentDescription;
-import com.atanion.util.annotation.Tag;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.taglib.decl.HasAction;
+import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
+import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasImage;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.HasTarget;
+import org.apache.myfaces.tobago.taglib.decl.HasTip;
+import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
+import org.apache.myfaces.tobago.taglib.decl.IsInline;
+import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

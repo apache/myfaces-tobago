@@ -4,13 +4,13 @@
  * Created on: 18.02.2002, 19:23:17
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.UIPanel;
-import com.atanion.tobago.taglib.decl.HasDimension;
-import com.atanion.tobago.taglib.decl.HasIdBindingAndRendered;
-import com.atanion.tobago.taglib.decl.HasLabel;
-import com.atanion.util.annotation.Tag;
+import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.taglib.decl.HasDimension;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 
 /**
  * Renders a panel with border and title.

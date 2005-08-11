@@ -6,15 +6,15 @@
  * To change template for new class use
  * Code Style | Class Templates options (Tools | IDE Options).
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 
 public class ImageTag extends TobagoTag
-    implements com.atanion.tobago.taglib.decl.ImageTag {
+    implements org.apache.myfaces.tobago.taglib.decl.ImageTag {
 
   private String value;
   private String alt;

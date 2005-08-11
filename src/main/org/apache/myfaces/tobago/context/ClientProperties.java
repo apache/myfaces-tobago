@@ -3,10 +3,10 @@
  * Created: 23.07.2002 14:21:58
  * $Id$
  */
-package com.atanion.tobago.context;
+package org.apache.myfaces.tobago.context;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -88,8 +88,8 @@ public class ClientProperties implements Serializable {
     buffer.append(getUserAgent());
     id =  buffer.toString();
     final UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
-    if (viewRoot instanceof com.atanion.tobago.component.UIViewRoot) {
-      ((com.atanion.tobago.component.UIViewRoot)viewRoot).updateRendererCachePrefix();
+    if (viewRoot instanceof org.apache.myfaces.tobago.component.UIViewRoot) {
+      ((org.apache.myfaces.tobago.component.UIViewRoot)viewRoot).updateRendererCachePrefix();
     }
   }
 

@@ -3,21 +3,21 @@
   * All rights reserved. Created 28.04.2003 at 15:29:36.
   * $Id$
   */
-package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.util.AccessKeyMap;
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.renderkit.CommandRendererBase;
-import com.atanion.tobago.renderkit.LabelWithAccessKey;
-import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
-import com.atanion.tobago.taglib.component.ToolBarTag;
-import com.atanion.tobago.taglib.component.ToolBarSelectBooleanTag;
-import com.atanion.tobago.taglib.component.SelectOneCommandTag;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.util.AccessKeyMap;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
+import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
+import org.apache.myfaces.tobago.taglib.component.ToolBarSelectBooleanTag;
+import org.apache.myfaces.tobago.taglib.component.SelectOneCommandTag;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -158,10 +158,10 @@ public class ToolBarRenderer extends RendererBase {
         }
 
         String image = null;
-        if (item instanceof com.atanion.tobago.model.SelectItem) {
-          image = ((com.atanion.tobago.model.SelectItem)item).getImage();
+        if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
+          image = ((org.apache.myfaces.tobago.model.SelectItem)item).getImage();
         } else if (LOG.isDebugEnabled()) {
-          LOG.debug("select item is not com.atanion.tobago.model.SelectItem!");
+          LOG.debug("select item is not " + org.apache.myfaces.tobago.model.SelectItem.class.getName());
         }
         if (image == null) {
           image = "image/1x1.gif";

@@ -3,7 +3,7 @@
  * All rights reserved. Created 14.06.2004 10:41:44.
  * $Id$
  */
-package com.atanion.tobago.renderkit;
+package org.apache.myfaces.tobago.renderkit;
 
 import javax.faces.render.Renderer;
 

@@ -3,7 +3,7 @@
  * All rights reserved. Created 17.03.2004 11:12:44.
  * $Id$
  */
-package com.atanion.tobago.util;
+package org.apache.myfaces.tobago.util;
 
 public class StringUtil {
 

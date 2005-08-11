@@ -1,10 +1,10 @@
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.atanion.tobago.context.ClientProperties;
-import com.atanion.tobago.context.ResourceManager;
+import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.context.ResourceManager;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;

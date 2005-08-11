@@ -1,4 +1,4 @@
-package com.atanion.tobago.webapp;
+package org.apache.myfaces.tobago.webapp;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

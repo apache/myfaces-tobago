@@ -3,10 +3,10 @@
  * All rights reserved. Created 04.03.2005 12:28:08.
  * $Id$
  */
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.event.SheetStateChangeEvent;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 
 import javax.faces.el.MethodBinding;
 import javax.faces.el.EvaluationException;

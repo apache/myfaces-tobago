@@ -3,12 +3,12 @@
  * All rights reserved. Created 09.03.2004 12:26:39.
  * $Id$
  */
-package com.atanion.tobago.renderkit;
+package org.apache.myfaces.tobago.renderkit;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UILayout;
-import com.atanion.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UILayout;
+import org.apache.myfaces.tobago.util.LayoutUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

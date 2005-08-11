@@ -3,25 +3,25 @@
  * All rights reserved. Created 07.02.2003 16:00:00.
  * $Id$
  */
-package com.atanion.tobago.renderkit.html.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.webapp.TobagoResponseWriter;
-import com.atanion.tobago.taglib.component.MenuCommandTag;
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.Pager;
-import com.atanion.tobago.component.Sorter;
-import com.atanion.tobago.component.UIColumnSelector;
-import com.atanion.tobago.component.UIData;
-import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.model.SheetState;
-import com.atanion.tobago.renderkit.RenderUtil;
-import com.atanion.tobago.renderkit.RendererBase;
-import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.taglib.component.MenuCommandTag;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.Pager;
+import org.apache.myfaces.tobago.component.Sorter;
+import org.apache.myfaces.tobago.component.UIColumnSelector;
+import org.apache.myfaces.tobago.component.UIData;
+import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.model.SheetState;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIColumn;

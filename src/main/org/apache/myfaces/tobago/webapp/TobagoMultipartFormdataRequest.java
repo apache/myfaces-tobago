@@ -3,9 +3,9 @@
  * All rights reserved. Created 30.01.2003 17:00:56.
  * $Id$
  */
-package com.atanion.tobago.webapp;
+package org.apache.myfaces.tobago.webapp;
 
-import static com.atanion.tobago.TobagoConstants.FORM_ACCEPT_CHARSET;
+import static org.apache.myfaces.tobago.TobagoConstants.FORM_ACCEPT_CHARSET;
 
 import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;

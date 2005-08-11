@@ -1,7 +1,7 @@
-package com.atanion.tobago.renderkit.fo.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.fo.scarborough.standard.tag;
 
-import com.atanion.tobago.component.UIPage;
-import com.atanion.tobago.renderkit.PageRendererBase;
+import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

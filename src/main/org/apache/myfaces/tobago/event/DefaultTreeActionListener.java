@@ -3,12 +3,12 @@
  * All rights reserved. Created 14.02.2003 13:40:19.
  * $Id$
  */
-package com.atanion.tobago.event;
+package org.apache.myfaces.tobago.event;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.component.UITree;
-import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.model.TreeState;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.UITree;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.model.TreeState;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

@@ -3,13 +3,13 @@
  * All rights reserved. Created Oct 31, 2002 at 1:24:42 PM.
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.context.ResourceManagerUtil;
-import com.atanion.tobago.taglib.decl.HasId;
-import com.atanion.tobago.taglib.decl.HasStringValue;
-import com.atanion.util.annotation.BodyContent;
-import com.atanion.util.annotation.Tag;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.HasStringValue;
+import org.apache.myfaces.tobago.apt.annotation.BodyContent;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

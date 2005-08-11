@@ -3,17 +3,17 @@
  * All rights reserved. Created 07.02.2003 16:00:00.
  * : $
  */
-package com.atanion.tobago.renderkit.html.scarborough.mozilla.tag;
+package org.apache.myfaces.tobago.renderkit.html.scarborough.mozilla.tag;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 
 import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 import java.io.IOException;
 
 public class BoxRenderer extends
-    com.atanion.tobago.renderkit.html.scarborough.standard.tag.BoxRenderer {
+    org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.BoxRenderer {
 
   public void encodeBeginTobago(
       FacesContext facesContext, UIComponent component) throws IOException {

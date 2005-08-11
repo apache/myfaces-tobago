@@ -3,7 +3,7 @@
  * All rights reserved. Created 10.10.2003 08:47:10.
  * $Id$
  */
-package com.atanion.tobago.tool;
+package org.apache.myfaces.tobago.tool;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;

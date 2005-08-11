@@ -3,15 +3,15 @@
  * Created: Aug 13, 2002 3:04:03 PM
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 
 public class SelectOneChoiceTag extends SelectOneTag
-    implements com.atanion.tobago.taglib.decl.SelectOneChoiceTag {
+    implements org.apache.myfaces.tobago.taglib.decl.SelectOneChoiceTag {
 
   public int doEndTag() throws JspException {
 

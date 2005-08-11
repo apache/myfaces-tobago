@@ -1,16 +1,16 @@
 /*
   * Copyright (c) 2002 Atanion GmbH, Germany
   * All rights reserved. Created 01.07.2003 at 17:52:10.
-  * $Id:  $
+  * $Id$
   */
-package com.atanion.tobago.util;
+package org.apache.myfaces.tobago.util;
 
-import com.atanion.tobago.TobagoConstants;
-import com.atanion.tobago.component.ComponentUtil;
-import com.atanion.tobago.component.UIForm;
-import com.atanion.tobago.component.UIPanel;
-import com.atanion.tobago.renderkit.InputRendererBase;
-import com.atanion.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIForm;
+import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.renderkit.InputRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

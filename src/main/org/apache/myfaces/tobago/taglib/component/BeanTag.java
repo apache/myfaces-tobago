@@ -4,16 +4,16 @@
  * Created on: 15.02.2002, 16:19:49
  * $Id$
  */
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 
 
-public abstract class BeanTag extends TobagoTag implements com.atanion.tobago.taglib.decl.BeanTag {
+public abstract class BeanTag extends TobagoTag implements org.apache.myfaces.tobago.taglib.decl.BeanTag {
 
 // ///////////////////////////////////////////// constants
 

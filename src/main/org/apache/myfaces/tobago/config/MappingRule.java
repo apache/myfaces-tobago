@@ -1,9 +1,9 @@
 /*
  * Copyright (c) 2003 Atanion GmbH, Germany
  * All rights reserved. Created 24.06.2003 09:01:22.
- * $Id: $
+ * $Id$
  */
-package com.atanion.tobago.config;
+package org.apache.myfaces.tobago.config;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,7 +3,7 @@
  * All rights reserved. Created 24.11.2004 21:56:42.
  * $Id: CommonsLoggingLogger.java,v 1.1 2005/06/20 07:41:21 lofwyr Exp $
  */
-package com.atanion.tobago.util;
+package org.apache.myfaces.tobago.util;
 
 import org.apache.avalon.framework.logger.Logger;
 import org.apache.commons.logging.Log;

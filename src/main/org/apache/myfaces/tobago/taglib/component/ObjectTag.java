@@ -1,10 +1,10 @@
-package com.atanion.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.component;
 
-import com.atanion.util.annotation.Tag;
-import com.atanion.util.annotation.BodyContent;
-import com.atanion.util.annotation.UIComponentTagAttribute;
-import com.atanion.util.annotation.TagAttribute;
-import com.atanion.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.BodyContent;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIComponent;
