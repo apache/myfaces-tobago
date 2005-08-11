@@ -3,7 +3,7 @@
  * All rights reserved. Created Nov 19, 2002 5:00:55 PM.
  * $Id$
  */
-package com.atanion.tobago.component;
+package org.apache.myfaces.tobago.component;
 
 import com.atanion.tobago.TobagoConstants;
 import com.atanion.tobago.model.PageState;
