@@ -38,4 +38,20 @@
 
   </target>
 
+  <target name="fixcrlf">
+
+    <ant target="fixcrlf" dir="tool/apt" />
+    <ant target="fixcrlf" dir="core" />
+    <ant target="fixcrlf" dir="example/demo" />
+    <ant target="fixcrlf" dir="theme/standard" />
+    <ant target="fixcrlf" dir="theme/scarborough" />
+    <ant target="fixcrlf" dir="theme/speyside" />
+    <ant target="fixcrlf" dir="theme/tui" />
+    <ant target="fixcrlf" dir="theme/sap" />
+    <ant target="fixcrlf" dir="theme/charlotteville" />
+    <ant target="fixcrlf" dir="theme/inexso" />
+    <ant target="fixcrlf" dir="theme/inexsoClassic" />
+
+  </target>
+
 </project>
