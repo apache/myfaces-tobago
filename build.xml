@@ -10,6 +10,7 @@
 
     <ant target="deploy-snapshot" dir="tool/apt" />
     <ant target="deploy-snapshot" dir="core" />
+    <ant target="deploy-snapshot" dir="example/demo" />
     <ant target="deploy-snapshot" dir="theme/standard" />
     <ant target="deploy-snapshot" dir="theme/scarborough" />
     <ant target="deploy-snapshot" dir="theme/speyside" />
@@ -25,6 +26,7 @@
 
     <ant target="clean-all" dir="tool/apt" />
     <ant target="clean-all" dir="core" />
+    <ant target="clean-all" dir="example/demo" />
     <ant target="clean-all" dir="theme/standard" />
     <ant target="clean-all" dir="theme/scarborough" />
     <ant target="clean-all" dir="theme/speyside" />
