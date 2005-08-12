@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 
 import javax.faces.application.Application;
@@ -39,7 +40,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class SheetRenderer extends RendererBase {
+public class SheetRenderer extends RendererBase
+  implements SheetRendererWorkaround {
 
 // ------------------------------------------------------------------ constants
 

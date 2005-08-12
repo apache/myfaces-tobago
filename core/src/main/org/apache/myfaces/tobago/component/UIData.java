@@ -7,7 +7,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.SheetRenderer;
+import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
 import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.commons.logging.Log;
@@ -117,8 +117,8 @@ public class UIData extends javax.faces.component.UIData {
 
       if (widthList == null) {
         int space = LayoutUtil.getInnerSpace(facesContext, this, true);
-        SheetRenderer renderer
-            = (SheetRenderer) ComponentUtil.getRenderer(facesContext, this);
+        SheetRendererWorkaround renderer
+            = (SheetRendererWorkaround) ComponentUtil.getRenderer(facesContext, this);
         space -= renderer.getContentBorder(facesContext, this);
         if (renderer.needVerticalScrollbar(facesContext, this)) {
           space -= renderer.getScrollbarWidth(facesContext, this);

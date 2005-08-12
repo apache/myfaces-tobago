@@ -20,6 +20,18 @@
     </dependency>
 
     <dependency>
+      <id>commons-fileupload</id>
+      <version>1.0</version>
+      <purpose>jar</purpose>
+    </dependency>
+
+    <dependency>
+      <id>commons-lang</id>
+      <version>2.1</version>
+      <purpose>jar</purpose>
+    </dependency>
+
+    <dependency>
       <id>commons-logging</id>
       <version>1.0.4</version>
       <purpose>jar</purpose>
@@ -39,5 +51,12 @@
       <purpose>test</purpose>
     </dependency>
 
+    <dependency>
+      <id>servletapi</id>
+      <version>2.4</version>
+      <purpose>jar</purpose>
+      <purpose>test</purpose>
+    </dependency>
+    
   </dependencies>
 </project>

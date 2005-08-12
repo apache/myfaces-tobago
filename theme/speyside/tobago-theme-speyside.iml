@@ -14,6 +14,24 @@
     <orderEntry type="library" name="Tomcat" level="application_server_libraries" />
     <orderEntry type="module" module-name="tobago-core" />
     <orderEntry type="module" module-name="tobago-theme-scarborough" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../scarborough/lib/jsf-api-1.1.01.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../scarborough/lib/commons-logging-1.0.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntryProperties />
   </component>
   <component name="VcsManagerConfiguration">
