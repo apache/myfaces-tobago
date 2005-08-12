@@ -14,6 +14,18 @@
     </dependency>
 
     <dependency>
+      <groupId>atanion</groupId>
+      <artifactId>tobago-theme-standard</artifactId>
+      <version>SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>atanion</groupId>
+      <artifactId>tobago-theme-scarborough</artifactId>
+      <version>SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
       <id>commons-logging</id>
       <version>1.0.4</version>
       <purpose>jar</purpose>
