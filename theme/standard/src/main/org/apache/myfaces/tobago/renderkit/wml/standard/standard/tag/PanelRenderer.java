@@ -3,7 +3,7 @@
   * All rights reserved. Created 28.04.2003 at 15:29:36.
   * $Id$
   */
-package org.apache.myfaces.tobago.renderkit.wml.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
 
 import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.BodyContentHandler;

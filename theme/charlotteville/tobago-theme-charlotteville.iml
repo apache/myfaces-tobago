@@ -8,6 +8,8 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/build" />
+      <excludeFolder url="file://$MODULE_DIR$/lib" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -30,18 +32,6 @@
     <setting name="RUN_JASPER_VALIDATION" value="false" />
   </component>
   <component name="WebModuleProperties">
-    <containerElement type="module" name="tobago-theme-scarborough">
-      <attribute name="method" value="4" />
-      <attribute name="URI" value="&lt;N/A&gt;" />
-    </containerElement>
-    <containerElement type="module" name="tobago-theme-speyside">
-      <attribute name="method" value="4" />
-      <attribute name="URI" value="&lt;N/A&gt;" />
-    </containerElement>
-    <containerElement type="module" name="tobago-theme-standard">
-      <attribute name="method" value="4" />
-      <attribute name="URI" value="&lt;N/A&gt;" />
-    </containerElement>
     <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/WEB-INF/web.xml" version="2.3" />
     <webroots>
       <root url="file://$MODULE_DIR$/webapp" relative="/" />

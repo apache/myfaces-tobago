@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.renderkit.fo.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
 
 import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.ComponentUtil;
