@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+ * Copyright (c) 2001-2004 atanion GmbH, Germany
+ * All rights reserved.
+ * $Id: build.xml 1324 2005-08-12 07:35:45Z lofwyr $
+-->
+<project name="theme">
+
+  <target name="theme" depends="dist">
+    <jar jarfile="${dist}/${ant.project.name}.zip">
+      <fileset dir="webapp">
+        <include name="**/*"/>
+      </fileset>
+      <fileset dir="${dist}">
+        <include name="${ant.project.name}.jar"/>
+      </fileset>
+    </jar>
+  </target>
+
+</project>

@@ -10,5 +10,6 @@
   <property name="bs.home" location="../../../build-system"/>
 
   <import file="${bs.home}/build-basic.xml"/>
+  <import file="../../core/build-theme.xml"/>
 
 </project>
