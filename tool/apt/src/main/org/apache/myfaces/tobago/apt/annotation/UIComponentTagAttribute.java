@@ -21,7 +21,6 @@ import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 
 /*
- * Copyright (c) 2005 Atanion GmbH, Germany
  * All rights reserved. Created 05.03.2005 16:13:42.
  * $Id: UIComponentTagAttribute.java,v 1.4 2005/05/11 15:20:34 bommel Exp $
  */

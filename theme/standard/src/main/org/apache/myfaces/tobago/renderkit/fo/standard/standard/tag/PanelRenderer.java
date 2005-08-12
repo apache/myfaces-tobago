@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.util.Iterator;
 
 /**
- * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
  * Created: Nov 30, 2004 6:04:53 PM
  * User: bommel
  * $Id$

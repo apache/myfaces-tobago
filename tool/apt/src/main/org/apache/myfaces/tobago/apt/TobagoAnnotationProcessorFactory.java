@@ -26,7 +26,6 @@ import java.util.Arrays;
 import java.util.Set;
 
 /**
- * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
  * Created: Apr 27, 2005 4:27:27 PM
  * User: bommel
  * $Id: TobagoAnnotationProcessorFactory.java,v 1.1 2005/05/11 15:20:34 bommel Exp $

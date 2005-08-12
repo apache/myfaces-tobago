@@ -21,7 +21,6 @@ import java.text.DecimalFormat;
 import java.util.Locale;
 
 /**
- * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
  * Created: Dec 1, 2004 4:26:05 PM
  * User: bommel
  * $Id$

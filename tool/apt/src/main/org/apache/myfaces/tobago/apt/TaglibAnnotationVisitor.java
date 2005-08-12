@@ -34,7 +34,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.util.Collection;
 
 /**
- * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
  * Created: Mar 22, 2005 8:18:35 PM
  * User: bommel
  * $Id: TaglibAnnotationVisitor.java,v 1.9 2005/04/27 10:25:00 weber Exp $

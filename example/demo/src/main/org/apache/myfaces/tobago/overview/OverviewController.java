@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 /*
- * Copyright (c) 2003 Atanion GmbH, Germany
  * All rights reserved. Created 19.05.2004 18:47:47.
  * $Id: OverviewController.java 1269 2005-08-08 20:20:19 +0200 (Mo, 08 Aug 2005) lofwyr $
  */

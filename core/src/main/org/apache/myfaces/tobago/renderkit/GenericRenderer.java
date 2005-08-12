@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 /*
- * Copyright (c) 2003 Atanion GmbH, Germany
  * All rights reserved. Created 14.06.2004 10:41:44.
  * $Id$
  */

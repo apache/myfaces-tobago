@@ -27,7 +27,6 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
  * Created: Mar 22, 2005 8:10:05 PM
  * User: bommel
  * $Id: PrintAnnotationVisitor.java,v 1.1 2005/03/22 20:30:52 bommel Exp $

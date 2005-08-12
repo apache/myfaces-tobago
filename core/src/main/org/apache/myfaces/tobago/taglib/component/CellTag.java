@@ -28,7 +28,6 @@ import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 
 /*
-  * Copyright (c) 2002 Atanion GmbH, Germany
   * All rights reserved. Created 29.07.2003 at 15:09:53.
   * $Id$
   */

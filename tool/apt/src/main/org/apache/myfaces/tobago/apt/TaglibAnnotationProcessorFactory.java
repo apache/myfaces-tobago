@@ -26,7 +26,6 @@ import java.util.Collections;
 import java.util.Set;
 
 /**
- * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
  * Created: Mar 5, 2005 12:39:32 PM
  * User: bommel
  * $Id: TaglibAnnotationProcessorFactory.java,v 1.3 2005/04/20 18:39:06 bommel Exp $

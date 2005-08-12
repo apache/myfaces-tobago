@@ -39,7 +39,6 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
  * Created: Mar 22, 2005 8:14:29 PM
  * User: bommel
  * $Id: TaglibAnnotationProcessor.java,v 1.6 2005/05/11 15:20:34 bommel Exp $

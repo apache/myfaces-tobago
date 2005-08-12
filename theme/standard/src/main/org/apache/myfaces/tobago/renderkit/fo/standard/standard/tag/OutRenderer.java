@@ -24,7 +24,6 @@ import javax.faces.component.UIComponent;
 import java.io.IOException;
 
 /**
- * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
  * Created: Nov 29, 2004 7:02:04 PM
  * User: bommel
  * $Id$

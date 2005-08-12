@@ -29,7 +29,6 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
  * Created: Dec 1, 2004 7:25:02 PM
  * User: bommel
  * $Id$

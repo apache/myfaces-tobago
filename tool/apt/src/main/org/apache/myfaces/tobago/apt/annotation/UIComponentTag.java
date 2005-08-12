@@ -16,7 +16,6 @@
 package org.apache.myfaces.tobago.apt.annotation;
 
 /**
- * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
  * Created: Aug 5, 2005 3:11:18 PM
  * User: bommel
  * $Id: $

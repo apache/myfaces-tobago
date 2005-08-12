@@ -19,7 +19,6 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
 /*
- * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
  * Created: Aug 5, 2005 5:58:55 PM
  * User: bommel
  * $Id: $

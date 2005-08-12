@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 /*
- * Copyright (c) 2004 Atanion GmbH, Germany
  * All rights reserved. Created 24.11.2004 21:56:42.
  * $Id: CommonsLoggingLogger.java,v 1.1 2005/06/20 07:41:21 lofwyr Exp $
  */

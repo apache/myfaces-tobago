@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 /*
- * Copyright (c) 2005 Atanion GmbH, Germany
  * All rights reserved. Created 14.06.2005 13:45:11.
  * $Id: LocaleUtil.java,v 1.2 2005/06/15 15:24:42 lofwyr Exp $
  */

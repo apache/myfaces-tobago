@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 /*
- * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
  * Created: Feb 8, 2005 7:14:08 PM
  * User: bommel
  * $Id: AptExternalCompilerAdapter.java,v 1.1 2005/03/05 15:00:36 bommel Exp $

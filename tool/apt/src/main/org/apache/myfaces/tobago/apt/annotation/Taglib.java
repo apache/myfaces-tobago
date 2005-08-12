@@ -21,7 +21,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
  * Created: Apr 20, 2005 6:55:06 PM
  * User: bommel
  * $Id: Taglib.java,v 1.1 2005/04/20 18:39:09 bommel Exp $

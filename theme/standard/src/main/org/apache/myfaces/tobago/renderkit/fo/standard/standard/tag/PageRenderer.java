@@ -26,7 +26,6 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 /**
- * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
  * Created: Nov 18, 2004 6:06:54 PM
  * User: bommel
  * $Id$

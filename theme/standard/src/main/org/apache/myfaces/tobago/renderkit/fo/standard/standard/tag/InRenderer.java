@@ -30,7 +30,6 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 /**
- * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
  * Created: Dec 1, 2004 7:42:47 PM
  * User: bommel
  * $Id$

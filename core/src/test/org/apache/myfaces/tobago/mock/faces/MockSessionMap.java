@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 /*
- * Copyright (c) 2004 Atanion GmbH, Germany
  * All rights reserved. Created 26.08.2004 11:07:09.
  * $Id: MockSessionMap.java,v 1.1.1.1 2004/08/27 13:02:11 lofwyr Exp $
  */

@@ -36,7 +36,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.util.Collection;
 
 /**
- * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
  * Created: Apr 27, 2005 4:45:44 PM
  * User: bommel
  * $Id: TobagoAnnotationVisitor.java,v 1.4 2005/05/25 15:44:34 bommel Exp $

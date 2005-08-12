@@ -26,7 +26,6 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 /**
- * Copyright (c) 2003 Atanion GmbH, Germany. All rights reserved.
  * Created: Nov 29, 2004 4:48:29 PM
  * User: bommel
  * $Id$
