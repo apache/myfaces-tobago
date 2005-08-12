@@ -7,6 +7,10 @@
 
   <repositories>
     <repository>
+      <id>ibiblio</id>
+      <url>http://www.ibiblio.org/maven2</url>
+    </repository>
+    <repository>
       <id>shrek</id>
       <url>http://shrek/repository</url>
       <layout>legacy</layout>
