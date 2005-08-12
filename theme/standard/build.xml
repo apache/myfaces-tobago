@@ -4,7 +4,7 @@
  * All rights reserved.
  * $Id: build.xml 1316 2005-08-11 10:37:40Z lofwyr $
 -->
-<project name="tobago" default="compile">
+<project name="tobago-theme-standard" default="compile">
 
   <property file="build.properties"/>
   <property name="bs.home" location="../../../build-system"/>

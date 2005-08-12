@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <project>
 
-  <id>tobago</id>
+  <id>tobago-theme-scarborough</id>
   <groupId>atanion</groupId>
   <currentVersion>1.0.6-SNAPSHOT</currentVersion>
 
@@ -10,6 +10,12 @@
     <dependency>
       <groupId>atanion</groupId>
       <artifactId>tobago</artifactId>
+      <version>SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>atanion</groupId>
+      <artifactId>tobago-theme-standard</artifactId>
       <version>SNAPSHOT</version>
     </dependency>
 
