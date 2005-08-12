@@ -79,14 +79,14 @@
       </sequential>
     </macrodef>
 
-    <zip-theme name="standard"/>
-    <zip-theme name="scarborough"/>
-    <zip-theme name="speyside"/>
-    <zip-theme name="charlotteville"/>
-    <zip-theme name="tui"/>
-    <zip-theme name="inexso"/>
-    <zip-theme name="inexsoClassic"/>
-    <zip-theme name="sap"/>
+    <!--<zip-theme name="standard"/>-->
+    <!--<zip-theme name="scarborough"/>-->
+    <!--<zip-theme name="speyside"/>-->
+    <!--<zip-theme name="charlotteville"/>-->
+    <!--<zip-theme name="tui"/>-->
+    <!--<zip-theme name="inexso"/>-->
+    <!--<zip-theme name="inexsoClassic"/>-->
+    <!--<zip-theme name="sap"/>-->
 
   </target>
 
