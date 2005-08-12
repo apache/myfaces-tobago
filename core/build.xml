@@ -92,7 +92,7 @@
 
   <target name="deploy-snapshot" depends="dist, bs:init-project-info, build-basic.deploy-snapshot"
     description="Deploy an artifact into the local repository.">
-
+<!--
     <macrodef name="deploy-module">
       <attribute name="name"/>
       <sequential>
@@ -110,7 +110,7 @@
     <deploy-module name="tobago-theme-inexso"/>
     <deploy-module name="tobago-theme-inexsoClassic"/>
     <deploy-module name="tobago-theme-sap"/>
-
+-->
   </target>
 
       <!-- todo: move annotations to build-system -->
