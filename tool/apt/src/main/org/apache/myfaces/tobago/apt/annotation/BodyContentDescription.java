@@ -16,7 +16,7 @@
 /*
  * Created: Apr 20, 2005 4:02:24 PM
  * User: bommel
- * $Id$
+ * $Id: $
  */
 package org.apache.myfaces.tobago.apt.annotation;
 
