@@ -14,8 +14,6 @@
  *    limitations under the License.
  */
 /*
- * Copyright (c) 2001 Atanion GmbH, Germany
- * All rights reserved.
  * $Id: BeanComparator.java,v 1.6 2004/05/19 14:57:13 lofwyr Exp $
  */
 package org.apache.myfaces.tobago.util;

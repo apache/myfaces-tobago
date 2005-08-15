@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 /*
- * Copyright (c) 2002 Atanion GmbH, Germany
  * Created 06.09.2002 at 15:36:31.
  * $Id: Transaction.java 1014 2004-09-17 12:14:07 +0200 (Fr, 17 Sep 2004) lofwyr $
  */

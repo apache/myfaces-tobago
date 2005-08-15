@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 /*
- * Copyright (c) 2001 Atanion GmbH, Germany. All rights reserved.
  * Created on: 02.09.2002, 23:40:26
  * $Id: TagConverter.java,v 1.1.1.1 2004/04/15 18:41:00 idus Exp $
  */

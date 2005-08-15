@@ -14,8 +14,6 @@
  *    limitations under the License.
  */
 /*
- * Copyright (c) 2001 Atanion GmbH, Germany
- * All rights reserved.
  * $Id$
  */
 package org.apache.myfaces.tobago.taglib.component;

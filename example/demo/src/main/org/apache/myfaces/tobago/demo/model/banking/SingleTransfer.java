@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 /*
- * Copyright (c) 2002 Atanion GmbH, Germany
  * Created Oct 24, 2002 at 2:03:37 PM.
  * $Id: SingleTransfer.java 865 2004-04-30 18:02:34 +0200 (Fr, 30 Apr 2004) lofwyr $
  */

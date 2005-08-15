@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 /*
- * Copyright (c) 2002 Atanion GmbH, Germany
  * Created 21.08.2002 at 18:00:22.
  * $Id: SolarForm.java 865 2004-04-30 18:02:34 +0200 (Fr, 30 Apr 2004) lofwyr $
  */

@@ -14,8 +14,6 @@
  *    limitations under the License.
  */
 /*
- * Copyright (c) 2001 Atanion GmbH, Germany
- * All rights reserved.
  * $Id: TobagoDemoController.java 1270 2005-08-08 20:21:38 +0200 (Mo, 08 Aug 2005) lofwyr $
  */
 package org.apache.myfaces.tobago.demo;

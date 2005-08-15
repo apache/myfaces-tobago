@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 /*
- * Copyright (c) 2002 Atanion GmbH, Germany
  * Created 20.09.2002 at 10:54:32.
  * $Id: Planet.java 889 2004-05-26 14:52:59 +0200 (Mi, 26 Mai 2004) lofwyr $
  */
