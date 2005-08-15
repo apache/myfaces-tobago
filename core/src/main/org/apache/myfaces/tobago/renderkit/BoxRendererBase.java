@@ -48,10 +48,6 @@ public abstract class BoxRendererBase extends RendererBase {
 
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    // wenn hoehe gesetzt dann diese,
-    // sonst wenn layout vorhanden dieses fragen:
-    //       -> aus rowLayout berechnen
-    // sonst Warnung ausgebenn und addition der children's fixedHeight
 
     int height =
         ComponentUtil.getIntAttribute(component, TobagoConstants.ATTR_HEIGHT, -1);
