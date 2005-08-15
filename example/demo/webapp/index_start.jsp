@@ -16,10 +16,6 @@
 <%@ page errorPage="/errorPage.jsp"
 %><%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://www.atanion.com/taglib/logging" prefix="log" %>
-
-<log:factory var="LOG" />
-<log:debug var="LOG" message="Startpage" />
 
 <f:view>
   <t:loadBundle basename="demo" var="bundle" />
