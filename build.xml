@@ -54,4 +54,36 @@
 
   </target>
 
+  <target name="test">
+
+    <ant target="test" dir="tool/apt" />
+    <ant target="test" dir="core" />
+    <ant target="test" dir="example/demo" />
+    <!--<ant target="test" dir="theme/standard" />-->
+    <!--<ant target="test" dir="theme/scarborough" />-->
+    <!--<ant target="test" dir="theme/speyside" />-->
+    <!--<ant target="test" dir="theme/tui" />-->
+    <!--<ant target="test" dir="theme/sap" />-->
+    <!--<ant target="test" dir="theme/charlotteville" />-->
+    <!--<ant target="test" dir="theme/inexso" />-->
+    <!--<ant target="test" dir="theme/inexsoClassic" />-->
+
+  </target>
+
+
+  <target name="masterbuild" depends="reportdir, checkout, test, deploy-snapshot" />
+  <target name="cleanbuild" depends="clean-all, masterbuild"/>
+  <target name="reportdir">
+    <mkdir dir="build/report"/>
+    <mkdir dir="tool/apt/build/report"/>
+    <mkdir dir="core/build/report"/>
+    <mkdir dir="example/demo/build/report"/>
+  </target>
+  <target name="checkout">
+    <exec executable="svn">
+      <arg value="up"/>
+    </exec>
+  </target>
+
+
 </project>
