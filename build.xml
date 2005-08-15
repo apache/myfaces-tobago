@@ -40,7 +40,7 @@
 
   </target>
 
-  <target name="fixcrlf">
+  <target name="fixcrlf" description="Fix wrong crlf">
 
     <ant target="fixcrlf" dir="tool/apt" />
     <ant target="fixcrlf" dir="core" />
