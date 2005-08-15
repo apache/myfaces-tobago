@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+ * Copyright (c) 2001-2004 atanion GmbH, Germany
+ * All rights reserved.
+ * $Id: build.xml,v 1.3 2005/07/12 16:34:24 hennes Exp $
+
+ 'deploy' target requires Ant 1.6.2. For IDEA, please configure a
+ custom ant version.
+-->
+<project name="address-demo" default="deploy">
+
+  <property name="root" location="."/>
+  <property file="${root}/build.properties"/>
+  <property name="webapp.location" value="${root}/build/exploded/${ant.project.name}"/>
+
+  <property name="manager.url" value="http://localhost:8080/manager"/>
+  <property name="manager.username" value="tomcat"/>
+  <property name="manager.password" value="tomcat"/>
+
+  <path id="project.classpath">
+    <fileset dir="${root}/lib">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+
+  <target name="compile">
+    <mkdir dir="build/classes"/>
+    <javac srcdir="src" destdir="build/classes"
+      deprecation="on" debug="on"
+      target="1.3" source="1.3">
+      <classpath refid="project.classpath"/>
+    </javac>
+  </target>
+
+  <target name="war" depends="compile"
+    description="creates the web application">
+    <mkdir dir="build/dist"/>
+    <mkdir dir="build/themes"/>
+
+    <unjar dest="build/themes">
+      <fileset dir="${root}/lib" includes="*.zip"/>
+    </unjar>
+    <war warfile="build/dist/${ant.project.name}.war"
+      webxml="webapp/WEB-INF/web.xml">
+      <fileset dir="webapp">
+        <include name="**"/>
+        <exclude name="WEB-INF/**"/>
+      </fileset>
+      <fileset dir="build/themes">
+        <include name="tobago/**"/>
+      </fileset>
+      <lib dir="${root}/lib">
+        <include name="*.jar"/>
+        <exclude name="servletapi*.jar"/>
+        <exclude name="jsp-api*.jar"/>
+      </lib>
+      <lib dir="build/themes">
+        <include name="*.jar"/>
+      </lib>
+      <classes dir="build/classes">
+        <include name="**/*.class"/>
+      </classes>
+      <classes dir="src">
+        <include name="**/*.xml"/>
+      </classes>
+      <classes dir="${root}/src">
+        <include name="license.ser"/>
+      </classes>
+      <webinf dir="webapp/WEB-INF">
+        <include name="**"/>
+        <exclude name="web.xml"/>
+      </webinf>
+    </war>
+  </target>
+
+  <target name="clean"
+    description="cleans all generated files">
+    <delete dir="build"/>
+  </target>
+
+  <target name="check-tomcat" unless="tomcat.home">
+    <input message="Please, enter the location of Tomcat or configure tomcat.home in your build.properties."
+      addproperty="tomcat.home"/>
+    <fail unless="tomcat.home"
+      message="Tomcat home is not specified."/>
+    <fail message="Tomcat home is not specified.">
+      <condition>
+        <equals arg1="${tomcat.home}" arg2=""/>
+      </condition>
+    </fail>
+  </target>
+
+  <target name="init-deployer" depends="check-tomcat">
+    <path id="deployer.classpath">
+      <fileset dir="${tomcat.home}/server/lib">
+        <include name="*.jar"/>
+      </fileset>
+      <fileset dir="${tomcat.home}/common/lib">
+        <include name="*.jar"/>
+      </fileset>
+      <fileset dir="${tomcat.home}/bin">
+        <include name="*.jar"/>
+      </fileset>
+    </path>
+    <taskdef resource="org/apache/catalina/ant/catalina.tasks"
+      classpathref="deployer.classpath"/>
+  </target>
+
+  <target name="explode" depends="war, check-tomcat">
+    <mkdir dir="${webapp.location}"/>
+    <unwar src="build/dist/${ant.project.name}.war"
+      dest="${webapp.location}"/>
+  </target>
+
+  <target name="deploy" depends="explode,init-deployer"
+    description="deploys web application">
+    <deploy url="${manager.url}"
+      username="${manager.username}" password="${manager.password}"
+      path="/${ant.project.name}"
+      localWar="file:${root}/build/exploded/${ant.project.name}"/>
+  </target>
+
+  <target name="undeploy" depends="init-deployer"
+    description="undeploys web application">
+    <undeploy url="${manager.url}" failOnError="false"
+      username="${manager.username}" password="${manager.password}"
+      path="/${ant.project.name}"/>
+  </target>
+
+  <target name="undeploy-cleanup">
+    <delete dir="${webapp.location}" failonerror="false"/>
+    <delete dir="${webapp.location}.war"/>
+    <delete dir="${tomcat.home}/webapps/${ant.project.name}"/>
+    <delete dir="${tomcat.home}/work/Catalina/localhost/${ant.project.name}"/>
+  </target>
+
+  <target name="redeploy" depends="explode,init-deployer"
+    description="redeploys web application">
+    <reload url="${manager.url}"
+      username="${manager.username}" password="${manager.password}"
+      path="/${ant.project.name}"/>
+  </target>
+
+  <target name="stop-tomcat">
+    <java classname="org.apache.catalina.startup.Bootstrap" fork="true">
+      <classpath>
+        <fileset dir="${tomcat.home}\bin" includes="bootstrap.jar"/>
+      </classpath>
+      <arg line='stop'/>
+      <jvmarg value='-Dcatalina.home="${tomcat.home}"'/>
+    </java>
+  </target>
+
+  <target name="start-tomcat">
+    <java classname="org.apache.catalina.startup.Bootstrap" fork="true" spawn="true">
+      <classpath>
+        <fileset dir="${tomcat.home}\bin" includes="bootstrap.jar"/>
+      </classpath>
+      <arg line='start'/>
+      <jvmarg value='-Dcatalina.home="${tomcat.home}"'/>
+    </java>
+  </target>
+
+  <!-- these targets won't work due to timing issues -->
+  <target name="start" depends="undeploy-cleanup,start-tomcat,deploy"/>
+
+  <target name="stop" depends="undeploy,stop-tomcat,undeploy-cleanup"/>
+
+  <target name="restart" depends="stop,start"/>
+
+  <target name="dist">
+    <mkdir dir="build"/>
+    <zip file="build/${ant.project.name}.zip" basedir="."
+      excludes="demo/**, phase*/**, **/license.ser"/>
+  </target>
+
+  <target name="install-themes">
+    <mkdir dir="build/themes"/>
+    <mkdir dir="build/themes-lib"/>
+    <mkdir dir="build/themes-classes"/>
+
+    <unjar dest="build/themes">
+      <fileset dir="${root}/lib" includes="*.zip"/>
+    </unjar>
+    <move todir="build/themes-lib">
+      <fileset dir="build/themes" includes="*.jar"/>
+    </move>
+    <copy todir="build/themes-classes">
+      <fileset dir="${root}/src" includes="*.ser"/>
+    </copy>
+  </target>
+
+</project>

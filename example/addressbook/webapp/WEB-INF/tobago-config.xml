@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tobago-config PUBLIC
+    "-//Atanion GmbH//DTD Tobago Config 1.0//EN" "tobago-config_1_0.dtd">
+
+<tobago-config>
+
+  <theme-config>
+    <default-theme>com.atanion.tobago.context.SpeysideTheme</default-theme>
+  </theme-config>
+
+  <resource-dir>tobago</resource-dir>
+
+</tobago-config>

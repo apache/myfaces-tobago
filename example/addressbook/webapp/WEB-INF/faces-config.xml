@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+
+<faces-config>
+
+  <application>
+    <locale-config>
+      <default-locale>en</default-locale>
+    </locale-config>
+  </application>
+
+  <managed-bean>
+    <managed-bean-name>controller</managed-bean-name>
+    <managed-bean-class>com.atanion.tobago.demo.address.Controller</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>countries</managed-bean-name>
+    <managed-bean-class>com.atanion.tobago.demo.address.Countries</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+  </managed-bean>
+
+  <converter>
+    <converter-for-class>javax.mail.internet.InternetAddress</converter-for-class>
+    <converter-class>com.atanion.tobago.demo.address.AddressConverter</converter-class>
+  </converter>
+
+  <navigation-rule>
+    <from-view-id>/*</from-view-id>
+    <navigation-case>
+      <from-outcome>editor</from-outcome>
+      <to-view-id>/editor.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>list</from-outcome>
+      <to-view-id>/list.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+</faces-config>

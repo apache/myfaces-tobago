@@ -1,0 +1,1 @@
+<% response.sendRedirect(response.encodeRedirectURL("faces/list.jsp")); %>
