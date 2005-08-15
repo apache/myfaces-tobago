@@ -40,20 +40,20 @@
 
   </target>
 
-  <target name="fixcrlf" description="Fix wrong crlf">
+  <target name="deploy-snapshot-global">
 
-    <ant target="fixcrlf" dir="tool/apt" />
-    <ant target="fixcrlf" dir="core" />
-    <ant target="fixcrlf" dir="example/addressbook" />
-    <ant target="fixcrlf" dir="example/demo" />
-    <ant target="fixcrlf" dir="theme/standard" />
-    <ant target="fixcrlf" dir="theme/scarborough" />
-    <ant target="fixcrlf" dir="theme/speyside" />
-    <ant target="fixcrlf" dir="theme/tui" />
-    <ant target="fixcrlf" dir="theme/sap" />
-    <ant target="fixcrlf" dir="theme/charlotteville" />
-    <ant target="fixcrlf" dir="theme/inexso" />
-    <ant target="fixcrlf" dir="theme/inexsoClassic" />
+    <ant target="deploy-snapshot-global" dir="tool/apt" />
+    <ant target="deploy-snapshot-global" dir="core" />
+    <ant target="deploy-snapshot-global" dir="example/addressbook" />
+    <ant target="deploy-snapshot-global" dir="example/demo" />
+    <ant target="deploy-snapshot-global" dir="theme/standard" />
+    <ant target="deploy-snapshot-global" dir="theme/scarborough" />
+    <ant target="deploy-snapshot-global" dir="theme/speyside" />
+    <ant target="deploy-snapshot-global" dir="theme/tui" />
+    <ant target="deploy-snapshot-global" dir="theme/sap" />
+    <ant target="deploy-snapshot-global" dir="theme/charlotteville" />
+    <ant target="deploy-snapshot-global" dir="theme/inexso" />
+    <ant target="deploy-snapshot-global" dir="theme/inexsoClassic" />
 
   </target>
 
