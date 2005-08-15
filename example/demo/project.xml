@@ -64,6 +64,14 @@
 
     <dependency>
       <groupId>atanion</groupId>
+      <artifactId>tobago-theme-standard</artifactId>
+      <type>zip</type>
+      <version>SNAPSHOT</version>
+      <purpose>module</purpose>
+    </dependency>
+
+    <dependency>
+      <groupId>atanion</groupId>
       <artifactId>tobago-theme-charlotteville</artifactId>
       <type>zip</type>
       <version>SNAPSHOT</version>

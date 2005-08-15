@@ -32,6 +32,14 @@
     </dependency>
 
     <dependency>
+      <groupId>atanion</groupId>
+      <artifactId>tobago-theme-standard</artifactId>
+      <type>zip</type>
+      <version>SNAPSHOT</version>
+      <purpose>module</purpose>
+    </dependency>
+
+    <dependency>
       <id>commons-beanutils</id>
       <version>1.7.0</version>
       <purpose>war</purpose>

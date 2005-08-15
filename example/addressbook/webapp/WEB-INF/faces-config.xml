@@ -14,23 +14,22 @@
 
   <managed-bean>
     <managed-bean-name>controller</managed-bean-name>
-    <managed-bean-class>com.atanion.tobago.demo.address.Controller</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.example.addressbook.Controller</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>countries</managed-bean-name>
-    <managed-bean-class>com.atanion.tobago.demo.address.Countries</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.example.addressbook.Countries</managed-bean-class>
     <managed-bean-scope>application</managed-bean-scope>
   </managed-bean>
 
   <converter>
     <converter-for-class>javax.mail.internet.InternetAddress</converter-for-class>
-    <converter-class>com.atanion.tobago.demo.address.AddressConverter</converter-class>
+    <converter-class>org.apache.myfaces.tobago.example.addressbook.AddressConverter</converter-class>
   </converter>
 
   <navigation-rule>
-    <from-view-id>/*</from-view-id>
     <navigation-case>
       <from-outcome>editor</from-outcome>
       <to-view-id>/editor.jsp</to-view-id>

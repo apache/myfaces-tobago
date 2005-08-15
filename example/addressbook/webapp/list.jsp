@@ -1,7 +1,7 @@
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <f:view>
-  <t:page title="List of Addresses" width="640px" height="480px">
+  <t:page label="List of Addresses" width="640px" height="480px">
 
     <t:panel>
       <f:facet name="layout">
@@ -30,7 +30,7 @@
         <t:messages />
 
         <t:sheet columns="1*;1*" value="#{controller.addressList}"
-            var="address" stateBinding="#{controller.selectedAddresses}">
+            var="address" state="#{controller.selectedAddresses}">
           <t:column label="First Name" sortable="true">
             <t:out value="#{address.firstName}" />
           </t:column>

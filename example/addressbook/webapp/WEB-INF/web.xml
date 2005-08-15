@@ -10,7 +10,7 @@
 
   <!--  workaround for a bug in Oracle AS (e.g. 10.1.2.0.0)-->
   <listener>
-    <listener-class>com.atanion.tobago.webapp.TobagoServletContextListener</listener-class>
+    <listener-class>org.apache.myfaces.tobago.webapp.TobagoServletContextListener</listener-class>
   </listener>
 
   <!-- servlet -->
@@ -24,7 +24,7 @@
   <!-- workaround for a bug in Bea Weblogic 8.1 SP 2 and older -->
   <servlet>
     <servlet-name>WeblogicWorkaroundServlet</servlet-name>
-    <servlet-class>com.atanion.tobago.webapp.WeblogicWorkaroundServlet</servlet-class>
+    <servlet-class>org.apache.myfaces.tobago.webapp.WeblogicWorkaroundServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
 
