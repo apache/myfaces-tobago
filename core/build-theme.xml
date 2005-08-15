@@ -6,7 +6,9 @@
 -->
 <project name="theme">
 
-  <target name="theme" depends="dist">
+  <import file="${bs.home}/build-basic.xml"/>
+
+  <target name="dist" depends="build-basic.dist">
     <jar jarfile="${dist}/${ant.project.name}.zip">
       <fileset dir="webapp">
         <include name="**/*"/>
@@ -15,6 +17,15 @@
         <include name="${ant.project.name}.jar"/>
       </fileset>
     </jar>
+  </target>
+
+  <target name="deploy-snapshot"
+          depends="dist, bs:init-project-info, build-basic.deploy-snapshot"
+          description="Deploy an artifact into the local repository.">
+
+    <default-deploy-artifact offline="true" version="SNAPSHOT"
+                             source="${dist}/${ant.project.name}.zip" type="zip"
+                             artifactId="${ant.project.name}"/>
   </target>
 
 </project>
