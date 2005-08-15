@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 /*
- * All rights reserved. Created 22.10.2003 16:57:20.
+ * Created 22.10.2003 16:57:20.
  * $Id$
  */
 package org.apache.myfaces.tobago.validator;

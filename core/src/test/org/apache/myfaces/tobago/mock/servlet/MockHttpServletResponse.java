@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 /*
- * All rights reserved. Created 25.08.2004 11:10:04.
+ * Created 25.08.2004 11:10:04.
  * $Id: MockHttpServletResponse.java,v 1.1.1.1 2004/08/27 13:02:11 lofwyr Exp $
  */
 package org.apache.myfaces.tobago.mock.servlet;

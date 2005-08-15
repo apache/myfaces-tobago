@@ -15,7 +15,7 @@
  */
 /*
  * Copyright (c) 2002 Atanion GmbH, Germany
- * All rights reserved. Created 14.08.2002 at 14:39:25.
+ * Created 14.08.2002 at 14:39:25.
  * $Id$
  */
 package org.apache.myfaces.tobago.taglib.component;

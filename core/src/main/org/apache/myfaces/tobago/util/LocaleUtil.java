@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 /*
- * All rights reserved. Created 14.06.2005 13:45:11.
+ * Created 14.06.2005 13:45:11.
  * $Id: LocaleUtil.java,v 1.2 2005/06/15 15:24:42 lofwyr Exp $
  */
 package org.apache.myfaces.tobago.util;

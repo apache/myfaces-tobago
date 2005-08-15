@@ -14,8 +14,7 @@
  *    limitations under the License.
  */
 /*
- * Copyright (c) 2002 Atanion GmbH, Germany
- * All rights reserved. Created Nov 19, 2002 5:00:55 PM.
+ * Created Nov 19, 2002 5:00:55 PM.
  * $Id$
  */
 package org.apache.myfaces.tobago.component;

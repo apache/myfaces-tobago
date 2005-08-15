@@ -179,6 +179,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/core/tobago-core.iml" filepath="$PROJECT_DIR$/core/tobago-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/example/addressbook/tobago-example-addressbook.iml" filepath="$PROJECT_DIR$/example/addressbook/tobago-example-addressbook.iml" />
       <module fileurl="file://$PROJECT_DIR$/example/demo/tobago-example-demo.iml" filepath="$PROJECT_DIR$/example/demo/tobago-example-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/theme/charlotteville/tobago-theme-charlotteville.iml" filepath="$PROJECT_DIR$/theme/charlotteville/tobago-theme-charlotteville.iml" />
       <module fileurl="file://$PROJECT_DIR$/theme/inexso/tobago-theme-inexso.iml" filepath="$PROJECT_DIR$/theme/inexso/tobago-theme-inexso.iml" />

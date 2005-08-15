@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 /*
- * All rights reserved. Created 14.02.2003 13:40:19.
+ * Created 14.02.2003 13:40:19.
  * $Id$
  */
 package org.apache.myfaces.tobago.event;

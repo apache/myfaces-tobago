@@ -15,7 +15,7 @@
  */
 /*
  * Copyright (c) 2002 Atanion GmbH, Germany
- * All rights reserved. Created 20.09.2002 at 10:40:44.
+ * Created 20.09.2002 at 10:40:44.
  * $Id: Solar.java 1271 2005-08-08 20:44:11 +0200 (Mo, 08 Aug 2005) lofwyr $
  */
 package org.apache.myfaces.tobago.demo.model.solar;

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 /*
- * All rights reserved. Created 14.06.2004 11:51:12.
+ * Created 14.06.2004 11:51:12.
  * $Id$
  */
 package org.apache.myfaces.tobago.servlet;

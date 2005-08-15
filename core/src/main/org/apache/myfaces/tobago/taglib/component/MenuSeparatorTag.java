@@ -15,7 +15,7 @@
  */
 /*
 
-  * All rights reserved. Created 14.09.2004 at 12:03:45.
+  * Created 14.09.2004 at 12:03:45.
   * $Id$
   */
 package org.apache.myfaces.tobago.taglib.component;

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 /*
- * All rights reserved. Created 04.04.2005 11:08:27.
+ * Created 04.04.2005 11:08:27.
  * $Id:UITreeUnitTest.java 1300 2005-08-10 16:40:23 +0200 (Mi, 10 Aug 2005) lofwyr $
  */
 package org.apache.myfaces.tobago.component;

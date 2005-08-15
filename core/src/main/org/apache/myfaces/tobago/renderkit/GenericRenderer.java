@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 /*
- * All rights reserved. Created 14.06.2004 10:41:44.
+ * Created 14.06.2004 10:41:44.
  * $Id$
  */
 package org.apache.myfaces.tobago.renderkit;

@@ -28,7 +28,7 @@ import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 
 /*
-  * All rights reserved. Created 29.07.2003 at 15:09:53.
+  * Created 29.07.2003 at 15:09:53.
   * $Id$
   */
 

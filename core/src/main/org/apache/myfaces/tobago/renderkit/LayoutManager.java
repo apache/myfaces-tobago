@@ -19,7 +19,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 /*
-  * All rights reserved. Created 01.09.2003 at 12:45:50.
+  * Created 01.09.2003 at 12:45:50.
   * $Id$
   *
   */

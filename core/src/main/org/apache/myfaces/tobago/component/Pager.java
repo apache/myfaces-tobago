@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 /*
- * All rights reserved. Created 04.03.2005 12:28:08.
+ * Created 04.03.2005 12:28:08.
  * $Id$
  */
 package org.apache.myfaces.tobago.component;

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 /*
- * All rights reserved. Created 07.02.2003 16:00:00.
+ * Created 07.02.2003 16:00:00.
  * $Id$
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;

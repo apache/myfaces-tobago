@@ -16,7 +16,7 @@
 package org.apache.myfaces.tobago.model;
 
 /*
-  * All rights reserved. Created 20.04.2004 at 12:59:34.
+  * Created 20.04.2004 at 12:59:34.
   * $Id$
   */
 

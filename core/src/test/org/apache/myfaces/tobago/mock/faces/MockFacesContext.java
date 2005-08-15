@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 /*
- * All rights reserved. Created 26.08.2004 09:47:19.
+ * Created 26.08.2004 09:47:19.
  * $Id: MockFacesContext.java,v 1.1.1.1 2004/08/27 13:02:11 lofwyr Exp $
  */
 package org.apache.myfaces.tobago.mock.faces;

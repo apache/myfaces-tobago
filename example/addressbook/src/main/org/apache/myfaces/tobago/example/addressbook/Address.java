@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 /*
- * All rights reserved. Created 29.11.2004 17:25:39.
+ * Created 29.11.2004 17:25:39.
  * $Id: Address.java,v 1.1.1.1 2004/12/15 12:51:35 lofwyr Exp $
  */
 package org.apache.myfaces.tobago.example.addressbook;

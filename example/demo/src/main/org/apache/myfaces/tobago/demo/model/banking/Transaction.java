@@ -15,7 +15,7 @@
  */
 /*
  * Copyright (c) 2002 Atanion GmbH, Germany
- * All rights reserved. Created 06.09.2002 at 15:36:31.
+ * Created 06.09.2002 at 15:36:31.
  * $Id: Transaction.java 1014 2004-09-17 12:14:07 +0200 (Fr, 17 Sep 2004) lofwyr $
  */
 package org.apache.myfaces.tobago.demo.model.banking;

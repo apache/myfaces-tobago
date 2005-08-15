@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 /*
- * All rights reserved. Created 09.12.2003 15:52:53.
+ * Created 09.12.2003 15:52:53.
  * $Id$
  */
 package org.apache.myfaces.tobago.convert;

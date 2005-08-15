@@ -15,7 +15,7 @@
  */
 /*
  * Copyright (c) 2002 Atanion GmbH, Germany
- * All rights reserved. Created Nov 25, 2002 at 12:30:25 PM.
+ * Created Nov 25, 2002 at 12:30:25 PM.
  * $Id: TobagoConstants.java 842 2005-07-19 15:22:07Z weber $
  */
 package org.apache.myfaces.tobago;

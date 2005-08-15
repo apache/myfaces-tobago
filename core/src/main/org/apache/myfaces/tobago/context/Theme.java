@@ -15,7 +15,7 @@
  */
 /*
  * Copyright (c) 2002 Atanion GmbH, Germany
- * All rights reserved. Created Oct 30, 2002 at 10:58:22 AM.
+ * Created Oct 30, 2002 at 10:58:22 AM.
  * $Id$
  */
 package org.apache.myfaces.tobago.context;

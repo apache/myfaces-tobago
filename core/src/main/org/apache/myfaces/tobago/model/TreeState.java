@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 /*
- * All rights reserved. Created 05.02.2003 09:25:31.
+ * Created 05.02.2003 09:25:31.
  * $Id$
  */
 package org.apache.myfaces.tobago.model;

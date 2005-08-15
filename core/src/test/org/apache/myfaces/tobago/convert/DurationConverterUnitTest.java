@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 /*
- * All rights reserved. Created 15.12.2003 11:46:32.
+ * Created 15.12.2003 11:46:32.
  * $Id:DurationConverterUnitTest.java 1300 2005-08-10 16:40:23 +0200 (Mi, 10 Aug 2005) lofwyr $
  */
 package org.apache.myfaces.tobago.convert;

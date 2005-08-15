@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 /*
- * All rights reserved. Created 29.06.2004 11:07:07.
+ * Created 29.06.2004 11:07:07.
  * $Id:TobagoMultipartFormdataRequestUnitTest.java 1300 2005-08-10 16:40:23 +0200 (Mi, 10 Aug 2005) lofwyr $
  */
 package org.apache.myfaces.tobago.webapp;

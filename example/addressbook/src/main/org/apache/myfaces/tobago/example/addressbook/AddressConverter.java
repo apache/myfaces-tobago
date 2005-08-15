@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 /*
- * All rights reserved. Created 03.12.2004 00:08:01.
+ * Created 03.12.2004 00:08:01.
  * $Id: AddressConverter.java,v 1.1.1.1 2004/12/15 12:51:35 lofwyr Exp $
  */
 package org.apache.myfaces.tobago.example.addressbook;

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 /*
- * All rights reserved. Created Jan 20, 2003.
+ * Created Jan 20, 2003.
  * $Id$
  */
 package org.apache.myfaces.tobago.taglib.component;
