@@ -19,12 +19,12 @@
     </layout>
   </appender>
 
-  <category name="com.atanion.tobago.demo.address">
+  <category name="org.apache.myfaces.tobago.example.addressbook">
     <priority value="debug" />
   </category>
 
   <root>
-    <priority value="warn" />
+    <priority value="debug" />
     <appender-ref ref="console" />
   </root>
 
