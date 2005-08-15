@@ -5,7 +5,7 @@
 <tobago-config>
 
   <theme-config>
-    <default-theme>com.atanion.tobago.context.SpeysideTheme</default-theme>
+    <default-theme>org.apache.myfaces.tobago.context.SpeysideTheme</default-theme>
   </theme-config>
 
   <resource-dir>tobago</resource-dir>
