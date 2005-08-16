@@ -18,6 +18,6 @@
 
 <project name="tobago-demo" default="compile">
   <property file="build.properties"/>
-  <property name="bs.home" location="../../../build-system"/>
+  <property name="bs.home" location="../../../../../../project/build-system"/>
   <import file="${bs.home}/build-tomcat.xml"/>
 </project>
