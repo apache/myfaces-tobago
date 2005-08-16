@@ -128,89 +128,6 @@
     <setting name="RUN_JASPER_VALIDATION" value="false" />
   </component>
   <component name="WebModuleProperties">
-    <containerElement type="module" name="tobago-core">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/classes" />
-    </containerElement>
-    <containerElement type="module" name="tobago-tool-apt">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/classes" />
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/avalon-framework-cvs-20020806.jar" />
-      <url>jar://$MODULE_DIR$/../../core/lib/avalon-framework-cvs-20020806.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/batik-fop-0.20.5.jar" />
-      <url>jar://$MODULE_DIR$/../../core/lib/batik-fop-0.20.5.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/commons-beanutils-1.7.0.jar" />
-      <url>jar://$MODULE_DIR$/../../core/lib/commons-beanutils-1.7.0.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/commons-collections-3.1.jar" />
-      <url>jar://$MODULE_DIR$/../../core/lib/commons-collections-3.1.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/commons-digester-1.6.jar" />
-      <url>jar://$MODULE_DIR$/../../core/lib/commons-digester-1.6.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/commons-fileupload-1.0.jar" />
-      <url>jar://$MODULE_DIR$/../../core/lib/commons-fileupload-1.0.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/commons-io-1.0.jar" />
-      <url>jar://$MODULE_DIR$/../../core/lib/commons-io-1.0.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/commons-lang-2.1.jar" />
-      <url>jar://$MODULE_DIR$/../../core/lib/commons-lang-2.1.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/commons-logging-1.0.4.jar" />
-      <url>jar://$MODULE_DIR$/../../core/lib/commons-logging-1.0.4.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/fop-0.20.5.jar" />
-      <url>jar://$MODULE_DIR$/../../core/lib/fop-0.20.5.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/jsf-api-1.1.01.jar" />
-      <url>jar://$MODULE_DIR$/../../core/lib/jsf-api-1.1.01.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/jsp-api-2.0.jar" />
-      <url>jar://$MODULE_DIR$/../../core/lib/jsp-api-2.0.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/jstl-1.0.jar" />
-      <url>jar://$MODULE_DIR$/../../core/lib/jstl-1.0.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/junit-3.8.1.jar" />
-      <url>jar://$MODULE_DIR$/../../core/lib/junit-3.8.1.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/standard-1.0.5.jar" />
-      <url>jar://$MODULE_DIR$/../../core/lib/standard-1.0.5.jar!/</url>
-    </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/activation-1.0.2.jar" />
@@ -260,21 +177,6 @@
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/oro-2.0.8.jar" />
       <url>jar://$MODULE_DIR$/lib/oro-2.0.8.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/ant-1.6.5.jar" />
-      <url>jar://$MODULE_DIR$/../../tool/apt/lib/ant-1.6.5.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/commons-io-1.0.jar" />
-      <url>jar://$MODULE_DIR$/../../tool/apt/lib/commons-io-1.0.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/commons-lang-2.1.jar" />
-      <url>jar://$MODULE_DIR$/../../tool/apt/lib/commons-lang-2.1.jar!/</url>
     </containerElement>
     <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/webapp/WEB-INF/web.xml" version="2.3" />
     <webroots>
