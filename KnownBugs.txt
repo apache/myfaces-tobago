@@ -1,0 +1,9 @@
+
+known bugs in combination with myfaces:
+
+
+
+Subforms : current value of not submitted subforms will get lost.
+           is a bug in myfaces and fixed in myfaces-api from 09.08.2005
+
+Tree : treeState gets lost ; mutable doesn't works
