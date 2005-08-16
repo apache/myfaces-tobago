@@ -7,7 +7,7 @@
 <project name="tobago-all" default="deploy-snapshot">
 
 
-  
+
   <target name="deploy-snapshot">
 
     <ant target="deploy-snapshot" dir="tool/apt" />
@@ -73,6 +73,7 @@
   </target>
   <target name="deploy-build">
     <ant target="war" dir="example/addressbook"/>
+    <ant target="war" dir="example/demo"/>
   </target>
 
 
