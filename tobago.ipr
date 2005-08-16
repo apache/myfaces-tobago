@@ -178,17 +178,13 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/tobago.iml" filepath="$PROJECT_DIR$/tobago.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/tobago-core.iml" filepath="$PROJECT_DIR$/core/tobago-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/example/addressbook/tobago-example-addressbook.iml" filepath="$PROJECT_DIR$/example/addressbook/tobago-example-addressbook.iml" />
       <module fileurl="file://$PROJECT_DIR$/example/demo/tobago-example-demo.iml" filepath="$PROJECT_DIR$/example/demo/tobago-example-demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/theme/charlotteville/tobago-theme-charlotteville.iml" filepath="$PROJECT_DIR$/theme/charlotteville/tobago-theme-charlotteville.iml" />
-      <module fileurl="file://$PROJECT_DIR$/theme/inexso/tobago-theme-inexso.iml" filepath="$PROJECT_DIR$/theme/inexso/tobago-theme-inexso.iml" />
-      <module fileurl="file://$PROJECT_DIR$/theme/inexsoClassic/tobago-theme-inexsoClassic.iml" filepath="$PROJECT_DIR$/theme/inexsoClassic/tobago-theme-inexsoClassic.iml" />
-      <module fileurl="file://$PROJECT_DIR$/theme/sap/tobago-theme-sap.iml" filepath="$PROJECT_DIR$/theme/sap/tobago-theme-sap.iml" />
       <module fileurl="file://$PROJECT_DIR$/theme/scarborough/tobago-theme-scarborough.iml" filepath="$PROJECT_DIR$/theme/scarborough/tobago-theme-scarborough.iml" />
       <module fileurl="file://$PROJECT_DIR$/theme/speyside/tobago-theme-speyside.iml" filepath="$PROJECT_DIR$/theme/speyside/tobago-theme-speyside.iml" />
       <module fileurl="file://$PROJECT_DIR$/theme/standard/tobago-theme-standard.iml" filepath="$PROJECT_DIR$/theme/standard/tobago-theme-standard.iml" />
-      <module fileurl="file://$PROJECT_DIR$/theme/tui/tobago-theme-tui.iml" filepath="$PROJECT_DIR$/theme/tui/tobago-theme-tui.iml" />
       <module fileurl="file://$PROJECT_DIR$/tool/apt/tobago-tool-apt.iml" filepath="$PROJECT_DIR$/tool/apt/tobago-tool-apt.iml" />
     </modules>
   </component>
