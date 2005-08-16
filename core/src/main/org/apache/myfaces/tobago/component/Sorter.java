@@ -15,12 +15,12 @@
  */
 package org.apache.myfaces.tobago.component;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.model.SortableByApplication;
 import org.apache.myfaces.tobago.util.BeanComparator;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
@@ -53,21 +53,21 @@ public class Sorter extends MethodBinding {
 
   public static final String ID_PREFIX = "sorter_";
 
-  private UIData data;
+//  private UIData data;
 
-  private int column;
-  private boolean ascending;
+//  private int column;
+//  private boolean ascending;
 
   public Sorter(UIData data) {
-    this.data = data;
-    column = -1;
-    ascending = true;
+//    this.data = data;
+//    column = -1;
+//    ascending = true;
   }
 
   public Sorter() {
   }
 
-  public Object invoke(FacesContext facescontext, Object aobj[])
+  public Object invoke(FacesContext facesContext, Object aobj[])
       throws EvaluationException, MethodNotFoundException {
     if (aobj[0] instanceof ActionEvent) {
       javax.faces.component.UICommand command =
@@ -75,11 +75,14 @@ public class Sorter extends MethodBinding {
       if (LOG.isDebugEnabled()) {
         LOG.debug("sorterId = " + command.getId());
       }
-
+      UIData data = (UIData) command.getParent();
       Object value = data.getValue();
       if (value instanceof DataModel) {
         value = ((DataModel) value).getWrappedData();
       }
+      SheetState sheetState = data.getSheetState(facesContext);
+      int column = sheetState.getSortedColumn();
+      boolean ascending = sheetState.isAscending();
 
 
       if (value instanceof SortableByApplication
@@ -99,7 +102,8 @@ public class Sorter extends MethodBinding {
               ascending = true;
               column = actualColumn;
             }
-
+            sheetState.setAscending(ascending);
+            sheetState.setSortedColumn(column);
 
             uiColumn = data.getColumns().get(column);
             UIComponent child = getFirstSortableChild(uiColumn.getChildren());
@@ -153,7 +157,6 @@ public class Sorter extends MethodBinding {
             Arrays.sort((Object[]) value, beanComparator);
           }
         }
-        data.updateSheetState(facescontext);
       } else {  // DataModel?, ResultSet, Result or Object
         LOG.warn("Sorting not supported for type "
                    + (value != null ? value.getClass().toString() : "null"));
@@ -163,7 +166,7 @@ public class Sorter extends MethodBinding {
   }
 
   private void removeSortableAttribute(UIColumn uiColumn) {
-    LOG.warn("removing attribute sortable from column " + column);
+    LOG.warn("removing attribute sortable from column " + uiColumn.getId());
     uiColumn.getAttributes().remove(TobagoConstants.ATTR_SORTABLE);
   }
 
@@ -195,27 +198,5 @@ public class Sorter extends MethodBinding {
     return String.class;
   }
 
-  public int getColumn() {
-    return column;
-  }
-
-  public boolean isAscending() {
-    return ascending;
-  }
-
-  public void setColumn(int column) {
-    this.column = column;
-  }
-
-  public void setAscending(boolean ascending) {
-    this.ascending = ascending;
-  }
-
-  public void setStoredState(SheetState state) {
-    if (state != null) {
-      setColumn(state.getSortedColumn());
-      setAscending(state.isAscending());
-    }
-  }
 }
 

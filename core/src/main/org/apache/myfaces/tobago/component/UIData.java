@@ -19,13 +19,14 @@
   */
 package org.apache.myfaces.tobago.component;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
 import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.apache.myfaces.tobago.util.LayoutUtil;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
@@ -37,8 +38,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class UIData extends javax.faces.component.UIData {
 // ------------------------------------------------------------------ constants
@@ -273,21 +272,7 @@ public class UIData extends javax.faces.component.UIData {
 
   public void processUpdates(FacesContext context) {
     super.processUpdates(context);
-    updateSheetState(context);
-  }
-
-  public void updateSheetState(FacesContext facesContext) {
-    SheetState state = getSheetState(facesContext);
-    if (state != null) {
-      // ensure sorter
-      getSorter();
-      state.setSortedColumn(sorter != null ? sorter.getColumn() : -1);
-      state.setAscending(sorter != null && sorter.isAscending());
-      state.setSelected((String)
-          getAttributes().get(ATTR_SELECTED_LIST_STRING));
-      state.setColumnWidths((String)
-          getAttributes().get(ATTR_WIDTH_LIST_STRING));
-    }
+//    updateSheetState(context);
   }
 
 // ------------------------------------------------------------ getter + setter

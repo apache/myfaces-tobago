@@ -21,10 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.taglib.component.MenuCommandTag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.Pager;
 import org.apache.myfaces.tobago.component.Sorter;
@@ -37,6 +34,8 @@ import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.taglib.component.MenuCommandTag;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
@@ -130,8 +129,6 @@ public class SheetRenderer extends RendererBase
 
     final Application application = facesContext.getApplication();
     final SheetState state = data.getSheetState(facesContext);
-    final Sorter sorter = data.getSorter();
-    sorter.setStoredState(state);
     final MethodBinding pager = new Pager();
     final List<Integer> columnWidths = data.getWidthList();
 
@@ -734,8 +731,9 @@ public class SheetRenderer extends RendererBase
               "sheetTipSorting"),
           null);
 
-      if (sorter.getColumn() == columnCount) {
-        if (sorter.isAscending()) {
+      SheetState sheetState = component.getSheetState(facesContext);
+      if (sheetState.getSortedColumn() == columnCount) {
+        if (sheetState.isAscending()) {
           sorterImage = ascending;
           sortTitle = ResourceManagerUtil.getProperty(facesContext,
               "tobago", "sheetAscending");
@@ -768,7 +766,7 @@ public class SheetRenderer extends RendererBase
     } else {
       resizerClass =
           "tobago-sheet-header-resize tobago-sheet-header-resize-cursor";
-      renderColumnHeaderLabel(writer, column, columnCount, sorter, sortMarkerWidth, align,
+      renderColumnHeaderLabel(facesContext, writer, column, columnCount, sortMarkerWidth, align,
           image1x1);
     }
     writer.endElement("div");
@@ -856,14 +854,15 @@ public class SheetRenderer extends RendererBase
     return menuItem;
   }
 
-  private void renderColumnHeaderLabel(ResponseWriter writer, UIColumn column,
-      int columnCount, Sorter sorter, int sortMarkerWidth, String align,
-      String image1x1) throws IOException {
+  private void renderColumnHeaderLabel(FacesContext facesContext,
+                                       ResponseWriter writer, UIColumn column,
+                                       int columnCount, int sortMarkerWidth, String align,
+                                       String image1x1) throws IOException {
     String label
         = (String) column.getAttributes().get(TobagoConstants.ATTR_LABEL);
     if (label != null) {
       writer.writeText(label, null);
-      if (sorter.getColumn() == columnCount && "right".equals(align)) {
+      if (((UIData)column.getParent()).getSheetState(facesContext).getSortedColumn() == columnCount && "right".equals(align)) {
         writer.startElement("img", null);
         writer.writeAttribute("src", image1x1, null);
         writer.writeAttribute("alt", "", null);
