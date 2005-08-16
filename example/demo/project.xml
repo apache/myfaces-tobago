@@ -208,21 +208,6 @@
       <purpose>war</purpose>
     </dependency>
 
-    <dependency>
-      <id>javamail</id>
-      <version>1.3.1</version>
-      <purpose>jar</purpose>
-      <purpose>war</purpose>
-    </dependency>
-
-    <dependency>
-      <groupId>jaf</groupId>
-      <artifactId>activation</artifactId>
-      <version>1.0.2</version>
-      <purpose>war</purpose>
-      <purpose>jar</purpose>
-    </dependency>
-
 <!-- needed for java 1.4
     <dependency>
       <groupId>retroweaver</groupId>

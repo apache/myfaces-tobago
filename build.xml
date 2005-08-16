@@ -17,11 +17,6 @@
     <ant target="deploy-snapshot" dir="theme/standard" />
     <ant target="deploy-snapshot" dir="theme/scarborough" />
     <ant target="deploy-snapshot" dir="theme/speyside" />
-    <ant target="deploy-snapshot" dir="theme/tui" />
-    <ant target="deploy-snapshot" dir="theme/sap" />
-    <ant target="deploy-snapshot" dir="theme/charlotteville" />
-    <ant target="deploy-snapshot" dir="theme/inexso" />
-    <ant target="deploy-snapshot" dir="theme/inexsoClassic" />
 
   </target>
 
@@ -34,11 +29,6 @@
     <ant target="clean-all" dir="theme/standard" />
     <ant target="clean-all" dir="theme/scarborough" />
     <ant target="clean-all" dir="theme/speyside" />
-    <ant target="clean-all" dir="theme/tui" />
-    <ant target="clean-all" dir="theme/sap" />
-    <ant target="clean-all" dir="theme/charlotteville" />
-    <ant target="clean-all" dir="theme/inexso" />
-    <ant target="clean-all" dir="theme/inexsoClassic" />
 
   </target>
 
@@ -51,11 +41,6 @@
     <ant target="deploy-snapshot-global" dir="theme/standard" />
     <ant target="deploy-snapshot-global" dir="theme/scarborough" />
     <ant target="deploy-snapshot-global" dir="theme/speyside" />
-    <ant target="deploy-snapshot-global" dir="theme/tui" />
-    <ant target="deploy-snapshot-global" dir="theme/sap" />
-    <ant target="deploy-snapshot-global" dir="theme/charlotteville" />
-    <ant target="deploy-snapshot-global" dir="theme/inexso" />
-    <ant target="deploy-snapshot-global" dir="theme/inexsoClassic" />
 
   </target>
 
@@ -68,11 +53,6 @@
     <!--<ant target="test" dir="theme/standard" />-->
     <!--<ant target="test" dir="theme/scarborough" />-->
     <!--<ant target="test" dir="theme/speyside" />-->
-    <!--<ant target="test" dir="theme/tui" />-->
-    <!--<ant target="test" dir="theme/sap" />-->
-    <!--<ant target="test" dir="theme/charlotteville" />-->
-    <!--<ant target="test" dir="theme/inexso" />-->
-    <!--<ant target="test" dir="theme/inexsoClassic" />-->
 
   </target>
 
