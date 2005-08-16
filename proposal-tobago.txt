@@ -9,7 +9,7 @@ Weber, Philippe Hennes, Arvid Hülsebus, Bernd Bohmann, Detlef Bartetzko)
 
 (0) Rational
 
-The goal of Tobago is to provide the community with a good looking set of user 
+The goal of Tobago is to provide the community with a well designed set of user 
 interface components based on JSF and run on MyFaces.
 
 Tobago is more than just a tag library. The following statements characterize 
@@ -65,7 +65,7 @@ file the Corporate Contribution License Agreement.
 Two PMC members from the MyFaces project also want to become Tobago committers:
 Martin Marinschek and Matthias Wessendorf (both PMCs Myfaces).
 
-Allignment:
+Alignment:
 
 Tobago is a framework built on top of JSF and therefore works well with MyFaces.
 The project makes use of several Apache libraries like Commons, Taglibs and Ant.
