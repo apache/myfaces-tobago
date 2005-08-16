@@ -25,13 +25,6 @@
 
     <dependency>
       <groupId>atanion</groupId>
-      <artifactId>atanion-taglib-logging</artifactId>
-      <version>SNAPSHOT</version>
-      <purpose>war</purpose>
-    </dependency>
-
-    <dependency>
-      <groupId>atanion</groupId>
       <artifactId>tobago</artifactId>
       <version>SNAPSHOT</version>
       <purpose>jar</purpose>
