@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 /**
  * Renders a text editor.
  */
-@Tag(name="richTextEditor")
+// todo: switched off @Tag(name="richTextEditor")
 public interface RichTextEditorTag extends TextInputTag, HasIdBindingAndRendered, HasValue, HasLabelAndAccessKey, HasWidth {
   @TagAttribute @UIComponentTagAttribute(type="java.lang.Boolean")
   void setStatePreview(String statePreview);

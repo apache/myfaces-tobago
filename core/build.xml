@@ -19,7 +19,7 @@
 <project name="tobago" default="compile">
 
   <property file="build.properties"/>
-  <property name="bs.home" location="../../build-system"/>
+  <property name="bs.home" location="../../../../../project/build-system"/>
 
   <property name="tld.files"
     value="build/classes/main/org/apache/myfaces/tobago/taglib/component/tobago.tld " />
