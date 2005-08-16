@@ -48,58 +48,6 @@
     </phase-listener>
   </lifecycle>
 
-  <navigation-rule>
-    <from-view-id>/builder/*</from-view-id>
-    <navigation-case>
-      <from-outcome>index</from-outcome>
-      <to-view-id>/builder/index.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>enterPagename</from-outcome>
-      <to-view-id>/builder/enterPagename.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>viewSource</from-outcome>
-      <to-view-id>/builder/viewSource.jsp</to-view-id>
-    </navigation-case>
-  </navigation-rule>
-
-  <navigation-rule>
-    <from-view-id>/test/action1.jsp</from-view-id>
-    <navigation-case>
-      <from-outcome>next</from-outcome>
-      <to-view-id>/test/action2.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>previous</from-outcome>
-      <to-view-id>/test/action3.jsp</to-view-id>
-    </navigation-case>
-  </navigation-rule>
-
-  <navigation-rule>
-    <from-view-id>/test/action2.jsp</from-view-id>
-    <navigation-case>
-      <from-outcome>next</from-outcome>
-      <to-view-id>/test/action3.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>previous</from-outcome>
-      <to-view-id>/test/action1.jsp</to-view-id>
-    </navigation-case>
-  </navigation-rule>
-
-  <navigation-rule>
-    <from-view-id>/test/action3.jsp</from-view-id>
-    <navigation-case>
-      <from-outcome>next</from-outcome>
-      <to-view-id>/test/action1.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>previous</from-outcome>
-      <to-view-id>/test/action2.jsp</to-view-id>
-    </navigation-case>
-  </navigation-rule>
-
   <!-- miniHowto -->
 
     <managed-bean>
@@ -265,62 +213,6 @@
     <navigation-case>
       <from-action>#{clientConfigController.submit}</from-action>
       <to-view-id>/overview/locale.jsp</to-view-id>
-    </navigation-case>
-  </navigation-rule>
-
-  <!-- Screenshot -->
-
-  <managed-bean>
-    <managed-bean-name>screenshotNavigation</managed-bean-name>
-    <managed-bean-class>
-      org.apache.myfaces.tobago.overview.PresentationController</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-    <managed-property>
-      <property-name>pages</property-name>
-      <list-entries>
-        <value>screenshot/box</value>
-        <value>screenshot/button</value>
-        <value>screenshot/calendar</value>
-        <value>screenshot/date</value>
-        <value>screenshot/file</value>
-        <value>screenshot/image</value>
-        <value>screenshot/in</value>
-        <value>screenshot/label</value>
-        <value>screenshot/link</value>
-        <value>screenshot/menuBar</value>
-        <value>screenshot/menucheck</value>
-        <value>screenshot/menuradio</value>
-        <value>screenshot/messages</value>
-        <value>screenshot/out</value>
-        <value>screenshot/progress</value>
-        <value>screenshot/richTextEditor</value>
-        <value>screenshot/selectBooleanCheckbox</value>
-        <value>screenshot/selectManyListbox</value>
-        <value>screenshot/sheet</value>
-        <value>screenshot/tabGroup</value>
-        <value>screenshot/textarea</value>
-        <value>screenshot/toolBar</value>
-        <value>screenshot/toolBarCheck</value>
-        <value>screenshot/toolBarSelectOne</value>
-        <value>screenshot/tree</value>
-        <value>screenshot/treeListBox</value>
-      </list-entries>
-    </managed-property>
-  </managed-bean>
-
-  <navigation-rule>
-    <from-view-id>/utils.view</from-view-id>
-    <navigation-case>
-      <from-outcome>utils</from-outcome>
-      <to-view-id>/utils.view</to-view-id>
-    </navigation-case>
-  </navigation-rule>
-
-  <navigation-rule>
-    <from-view-id>/file.view</from-view-id>
-    <navigation-case>
-      <from-outcome>show</from-outcome>
-      <to-view-id>/fileShow.view</to-view-id>
     </navigation-case>
   </navigation-rule>
 
