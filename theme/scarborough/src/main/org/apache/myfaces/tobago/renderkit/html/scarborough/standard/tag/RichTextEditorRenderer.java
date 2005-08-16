@@ -40,6 +40,7 @@ import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
+/** todo: under construction */
 public class RichTextEditorRenderer extends InputRendererBase {
 
 // ///////////////////////////////////////////// constant
