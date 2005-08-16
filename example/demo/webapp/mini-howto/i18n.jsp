@@ -21,7 +21,7 @@
   <jsp:body>
     <t:panel>
       <f:facet name="layout">
-        <t:gridLayout rows="110px;1*;fixed;65px;38px;65px" />
+        <t:gridLayout rows="110px;110px;50px;1*;" />
       </f:facet>
 
       <t:out escape="false"  value="#{miniHowtoBundle.i18nText1}" />
@@ -34,13 +34,6 @@
 
       <t:box label="#{miniHowtoBundle.i18nCodeExampleBoxTitle2}" >
         <t:out escape="true" value="#{miniHowtoBundle.i18nCodeExample2}" />
-      </t:box>
-
-
-      <t:out escape="false"  value="#{miniHowtoBundle.i18nText3}" />
-
-      <t:box label="#{miniHowtoBundle.i18nCodeExampleBoxTitle3}" >
-        <t:out escape="true" value="#{miniHowtoBundle.i18nCodeExample3}" />
       </t:box>
 
     </t:panel>

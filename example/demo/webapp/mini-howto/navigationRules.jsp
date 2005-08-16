@@ -21,7 +21,7 @@
   <jsp:body>
     <t:panel>
       <f:facet name="layout">
-        <t:gridLayout rows="220px;1*;"/>
+        <t:gridLayout rows="80px;1*;80px"/>
       </f:facet>
 
       <t:out escape="false" value="#{miniHowtoBundle.navigationRulesText1}" />
@@ -29,6 +29,8 @@
       <t:box label="#{miniHowtoBundle.navigationRulesBoxTitle1}">
         <t:out value="#{miniHowtoBundle.navigationRules_codeExample1}" />
       </t:box>
+
+      <t:out escape="false" value="#{miniHowtoBundle.navigationRulesText2}" />
     </t:panel>
   </jsp:body>
 </layout:mini-howto>

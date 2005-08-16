@@ -18,6 +18,8 @@
 <f:view>
   <t:page label="List of Addresses" width="640px" height="480px">
 
+  <t:loadBundle basename="addressbook-demo" var="bundle"/>
+
     <t:panel>
       <f:facet name="layout">
         <t:gridLayout rows="10px;1*;10px" columns="10px;1*;10px"/>

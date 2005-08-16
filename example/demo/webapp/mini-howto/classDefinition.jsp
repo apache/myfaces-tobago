@@ -21,7 +21,7 @@
   <jsp:body>
     <t:panel>
       <f:facet name="layout">
-        <t:gridLayout rows="80px;1*;80px" />
+        <t:gridLayout rows="80px;1*;" />
       </f:facet>
 
       <t:out escape="false"  value="#{miniHowtoBundle.classDefinitionText1}" />
@@ -30,7 +30,7 @@
         <t:out value="#{miniHowtoBundle.classDefinitionCodeExample}" />
       </t:box>
 
-      <t:out escape="false"  value="#{miniHowtoBundle.classDefinitionText2}" />
+      <%--<t:out escape="false"  value="#{miniHowtoBundle.classDefinitionText2}" />--%>
 
     </t:panel>
   </jsp:body>

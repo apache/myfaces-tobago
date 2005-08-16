@@ -21,7 +21,7 @@
   <jsp:body>
     <t:panel>
       <f:facet name="layout">
-        <t:gridLayout rows="80px;150px;1*" />
+        <t:gridLayout rows="80px;1*" />
       </f:facet>
 
       <t:out value="#{miniHowtoBundle.themesText1}" escape="false" />
@@ -30,7 +30,7 @@
         <t:out value="#{miniHowtoBundle.themesCodeExample1}" />
       </t:box>
 
-      <t:out value="#{miniHowtoBundle.themesText2}" escape="false" />
+      <%--<t:out value="#{miniHowtoBundle.themesText2}" escape="false" />--%>
     </t:panel>
   </jsp:body>
 </layout:mini-howto>
