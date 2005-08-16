@@ -126,12 +126,6 @@
   </managed-bean>
 
   <managed-bean>
-    <managed-bean-name>tokenManager</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.demo.download.TokenManager</managed-bean-class>
-    <managed-bean-scope>application</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
     <managed-bean-name>overviewController</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.overview.OverviewController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
