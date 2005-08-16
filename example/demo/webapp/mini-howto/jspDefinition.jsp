@@ -21,7 +21,7 @@
   <jsp:body>
     <t:panel>
       <f:facet name="layout">
-        <t:gridLayout rows="125px;1*;115px"/>
+        <t:gridLayout rows="80px;1*;80px" />
       </f:facet>
 
       <t:out escape="false" value="#{miniHowtoBundle.jspDefinitionText1}"/>
