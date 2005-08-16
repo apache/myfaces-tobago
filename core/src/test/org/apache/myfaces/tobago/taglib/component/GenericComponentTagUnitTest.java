@@ -96,7 +96,7 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
 
     facesContext.setApplication(application);
     UIViewRoot root = facesContext
-        .getApplication().getViewHandler().createView(facesContext, null);
+        .getApplication().getViewHandler().createView(facesContext, "testViewId");
     root.setViewId("/viewId");
     facesContext.setViewRoot(root);
 
