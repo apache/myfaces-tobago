@@ -13,7 +13,8 @@
     limitations under the License.
 */
 
-function openPopup(url,name,width,height,x,y) {
+
+function openPopup(url,name,width,height,options,x,y) {
   //Defaults
   if (!name)  {
     var name= "name";
@@ -33,21 +34,35 @@ function openPopup(url,name,width,height,x,y) {
   if (!url) {
     var url = 'http://www.atanion.net';
   }
-  var options = "width=" + width + "," + "height=" + height;
+  if (!options) {
+    para = "";
+  }
 
+  var para = setPopupPara(width,height,options);
 
-//  alert("options" + options)
-//  document.write("isMac: " + isMac + "<br />");
-//  document.write("navigator.appVersion: " + navigator.appVersion + "<br />");
-//  document.write("navigator.appName: " + navigator.appName + "<br />");
-//  document.write("navigator.platform: " + navigator.platform + "<br />");
-//  document.write("userAgent: " + navigator.userAgent.toLowerCase() + "<br />");
-//  var ua = navigator.userAgent.toLowerCase();
-//  document.write(ua);
-//  if (ua.indexOf('firefox'))  {
-//    document.write("userAgent is index of firefox" + "<br />");
-//  } else  {
-//    document.write("userAgent is NOT index of firefox" + "<br />");
-//  }
-  window.open(url,name,options);
+  window.open(url,name,para);
+}
+
+function setPopupPara(width,height,options) {
+
+	var dirbar = "";
+	var locationbar = "";
+	var menubar = "";
+	var resizable = "";
+	var scrollbars = "";
+	var statusbar = "";
+	var toolbar = "";
+	if (options) {
+		if (options.indexOf("d") > -1 ) { dirbar = ",directories"	}
+		if (options.indexOf("l") > -1 ) { locationbar = ",location"	}
+		if (options.indexOf("m") > -1 ) { menubar = ",menubar"	}
+		if (options.indexOf("r") > -1 ) { resizable = ",resizable"	}
+		if (options.indexOf("s") > -1 ) { scrollbars = ",scrollbars" }
+		if (options.indexOf("u") > -1 ) { statusbar = ",status"	}
+		if (options.indexOf("t") > -1 ) { toolbar = ",toolbar"	}
+	}
+  var width=",width = " + width;
+  var height=",height = " + height;
+  return width + height + dirbar + locationbar + menubar + resizable + scrollbars +
+         statusbar + toolbar;
 }
