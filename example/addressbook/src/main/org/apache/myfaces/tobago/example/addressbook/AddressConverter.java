@@ -26,8 +26,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
 
 public class AddressConverter implements Converter {
 
@@ -38,12 +36,7 @@ public class AddressConverter implements Converter {
     if (reference == null || reference.length() == 0) {
       return null;
     }
-    try {
-      return new InternetAddress(reference);
-    } catch (AddressException e) {
-      LOG.error("", e);
-      throw new ConverterException(e);
-    }
+    return new EmailAddress(reference);
   }
 
   public String getAsString(

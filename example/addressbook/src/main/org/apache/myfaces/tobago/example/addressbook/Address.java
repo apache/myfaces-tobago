@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.example.addressbook;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.mail.internet.InternetAddress;
 import java.util.Date;
 import java.util.Locale;
 
@@ -40,7 +39,7 @@ public class Address {
   private String phone;
   private String mobile;
   private String fax;
-  private InternetAddress email;
+  private EmailAddress email;
   private Date dayOfBirth;
   private String note;
 
@@ -128,11 +127,11 @@ public class Address {
     this.fax = fax;
   }
 
-  public InternetAddress getEmail() {
+  public EmailAddress getEmail() {
     return email;
   }
 
-  public void setEmail(InternetAddress email) {
+  public void setEmail(EmailAddress email) {
     this.email = email;
   }
 

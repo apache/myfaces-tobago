@@ -41,7 +41,7 @@
   </managed-bean>
 
   <converter>
-    <converter-for-class>javax.mail.internet.InternetAddress</converter-for-class>
+    <converter-for-class>org.apache.myfaces.tobago.example.addressbook.EmailAddress</converter-for-class>
     <converter-class>org.apache.myfaces.tobago.example.addressbook.AddressConverter</converter-class>
   </converter>
 
