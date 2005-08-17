@@ -36,7 +36,6 @@ import java.util.ListIterator;
 import java.util.ConcurrentModificationException;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Jun 13, 2005
  * Time: 5:19:31 PM

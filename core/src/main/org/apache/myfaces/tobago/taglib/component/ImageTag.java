@@ -14,12 +14,9 @@
  *    limitations under the License.
  */
 /*
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Jun 3, 2002
  * Time: 3:10:17 PM
- * To change template for new class use
- * Code Style | Class Templates options (Tools | IDE Options).
  */
 package org.apache.myfaces.tobago.taglib.component;
 

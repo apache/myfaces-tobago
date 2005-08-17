@@ -21,7 +21,6 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Jan 26, 2005
  * Time: 11:28:20 AM

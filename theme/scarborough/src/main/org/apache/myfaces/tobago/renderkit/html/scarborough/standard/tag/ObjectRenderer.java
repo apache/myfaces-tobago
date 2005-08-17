@@ -24,7 +24,6 @@ import javax.faces.component.UIComponent;
 import java.io.IOException;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Jun 20, 2005
  * Time: 5:02:57 PM

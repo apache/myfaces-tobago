@@ -28,7 +28,6 @@ import java.util.Map;
 import java.util.HashMap;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Jun 14, 2005
  * Time: 5:40:04 PM

@@ -22,7 +22,6 @@ import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Apr 18, 2005
  * Time: 5:04:48 PM

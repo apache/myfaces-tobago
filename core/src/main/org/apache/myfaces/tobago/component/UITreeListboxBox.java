@@ -22,7 +22,6 @@ import javax.faces.component.UIComponentBase;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Mar 21, 2005
  * Time: 10:38:49 AM

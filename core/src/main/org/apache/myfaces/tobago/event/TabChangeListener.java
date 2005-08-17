@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.event;
 import javax.faces.event.FacesListener;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: 13.12.2004
  * Time: 16:21:54

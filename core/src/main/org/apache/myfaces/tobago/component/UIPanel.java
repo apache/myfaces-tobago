@@ -21,7 +21,6 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Feb 28, 2005
  * Time: 3:05:19 PM

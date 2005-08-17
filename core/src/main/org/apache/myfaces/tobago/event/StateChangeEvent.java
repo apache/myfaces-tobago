@@ -20,7 +20,6 @@ import javax.faces.event.FacesListener;
 import javax.faces.component.UIComponent;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: 13.12.2004
  * Time: 16:25:03

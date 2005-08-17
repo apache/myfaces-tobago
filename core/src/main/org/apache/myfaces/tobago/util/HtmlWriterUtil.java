@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Jun 28, 2005
  * Time: 2:07:29 PM

@@ -24,7 +24,6 @@ import java.util.Enumeration;
 import java.util.Collections;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Jun 14, 2005
  * Time: 2:24:44 PM

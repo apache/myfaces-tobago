@@ -31,7 +31,6 @@ import javax.faces.application.FacesMessage;
 import java.io.IOException;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: May 31, 2005
  * Time: 7:47:11 PM

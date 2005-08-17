@@ -21,7 +21,6 @@ import org.apache.myfaces.tobago.component.UICommand;
 import javax.faces.component.UIComponent;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Apr 26, 2005
  * Time: 3:03:44 PM

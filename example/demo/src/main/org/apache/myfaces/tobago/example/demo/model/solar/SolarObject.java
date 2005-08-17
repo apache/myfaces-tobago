@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Nov 5, 2002
  * Time: 7:15:14 PM

@@ -21,7 +21,6 @@ import java.io.CharArrayWriter;
 import java.io.IOException;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Jul 11, 2005
  * Time: 11:50:03 AM

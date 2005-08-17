@@ -21,7 +21,6 @@ import java.util.Iterator;
 import java.io.IOException;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Apr 4, 2005
  * Time: 5:02:10 PM

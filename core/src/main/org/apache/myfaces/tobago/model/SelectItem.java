@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.model;
 import org.apache.myfaces.tobago.component.UISelectItem;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Apr 5, 2005
  * Time: 6:11:16 PM

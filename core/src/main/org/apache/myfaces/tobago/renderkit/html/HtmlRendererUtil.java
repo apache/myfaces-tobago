@@ -35,7 +35,6 @@ import java.util.StringTokenizer;
 import java.util.Map;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Jan 11, 2005
  * Time: 4:59:36 PM

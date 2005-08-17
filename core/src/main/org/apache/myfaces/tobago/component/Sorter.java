@@ -41,7 +41,6 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Mar 7, 2005
  * Time: 4:01:27 PM

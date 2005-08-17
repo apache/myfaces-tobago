@@ -20,7 +20,6 @@ import org.apache.myfaces.tobago.TobagoConstants;
 import javax.faces.el.ValueBinding;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Apr 11, 2005
  * Time: 11:15:35 AM

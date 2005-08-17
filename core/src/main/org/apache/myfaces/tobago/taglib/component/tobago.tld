@@ -1524,8 +1524,7 @@
     <tag-class>
       org.apache.myfaces.tobago.taglib.component.LabeledInputLayoutTag</tag-class>
     <body-content>empty</body-content>
-    <description><![CDATA[Created by IntelliJ IDEA.
- User: weber
+    <description><![CDATA[User: weber
  Date: Jun 20, 2005
  Time: 6:44:48 PM]]></description>
     <attribute>

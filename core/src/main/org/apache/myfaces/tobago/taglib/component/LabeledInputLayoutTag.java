@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import javax.faces.component.UIComponent;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: Jun 20, 2005
  * Time: 6:44:48 PM

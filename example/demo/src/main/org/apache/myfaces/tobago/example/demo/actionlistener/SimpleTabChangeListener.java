@@ -22,7 +22,6 @@ import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.StateChangeEvent;
 
 /**
- * Created by IntelliJ IDEA.
  * User: weber
  * Date: 13.12.2004
  * Time: 16:55:44
