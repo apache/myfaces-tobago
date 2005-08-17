@@ -111,7 +111,6 @@ public interface TobagoConstants {
   public static final String ATTR_SCROLLBARS = "scrollbars";
   public static final String ATTR_SELECTED_LIST_STRING = "selectedListString";
   public static final String ATTR_SERVER_SIDE_TABS = "serverSideTab";
-  public static final String ATTR_SHEET_SORTER = "sheetSorter";
   public static final String ATTR_SORTABLE = "sortable";
   public static final String ATTR_CREATE_SPAN = "createSpan";
   public static final String ATTR_SELECTABLE = "selectable";

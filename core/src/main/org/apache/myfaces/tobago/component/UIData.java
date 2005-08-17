@@ -52,7 +52,10 @@ public class UIData extends javax.faces.component.UIData {
 
   private List<Integer> widthList;
 
+  // todo: should be removed?
   private Sorter sorter;
+
+  private SheetState state;
 
   private boolean showHeader = true;
   private boolean showHeaderSet = false;
@@ -75,17 +78,26 @@ public class UIData extends javax.faces.component.UIData {
     ensureColumnWidthList(facesContext, state);
   }
 
+  public void setState(SheetState state) {
+    this.state = state;
+  }
+
   public SheetState getSheetState(FacesContext facesContext) {
-    ValueBinding stateBinding = getValueBinding(ATTR_STATE);
-    if (stateBinding != null) {
-      SheetState state = (SheetState) stateBinding.getValue(facesContext);
-      if (state == null) {
-        state = new SheetState();
-        stateBinding.setValue(facesContext, state);
-      }
+    if (state != null) {
       return state;
     } else {
-      return null;
+      ValueBinding stateBinding = getValueBinding(ATTR_STATE);
+      if (stateBinding != null) {
+        SheetState state = (SheetState) stateBinding.getValue(facesContext);
+        if (state == null) {
+          state = new SheetState();
+          stateBinding.setValue(facesContext, state);
+        }
+        return state;
+      } else {
+        state = new SheetState();
+        return state;
+      }
     }
   }
 
@@ -287,11 +299,13 @@ public class UIData extends javax.faces.component.UIData {
     return columns;
   }
 
+  // todo: should be removed?
   public Sorter getSorter() {
-    if (sorter == null) {
-      sorter = new Sorter(this);
+    if (sorter != null) {
+      return sorter;
+    } else {
+      return new Sorter();
     }
-    return sorter;
   }
 
   public void setSorter(Sorter sorter) {

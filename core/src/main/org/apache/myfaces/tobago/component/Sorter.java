@@ -58,14 +58,14 @@ public class Sorter extends MethodBinding {
 //  private int column;
 //  private boolean ascending;
 
-  public Sorter(UIData data) {
+//  public Sorter(UIData data) {
 //    this.data = data;
 //    column = -1;
 //    ascending = true;
-  }
+//  }
 
-  public Sorter() {
-  }
+//  public Sorter() {
+//  }
 
   public Object invoke(FacesContext facesContext, Object aobj[])
       throws EvaluationException, MethodNotFoundException {
