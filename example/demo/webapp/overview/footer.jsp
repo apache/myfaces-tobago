@@ -19,11 +19,11 @@
 
   <t:panel id="a">
     <f:facet name="layout">
-      <t:gridLayout columns="70px;70px;130px;1*;130px"
+      <t:gridLayout columns="70px;70px;130px;1*"
           rows="15px;fixed" id="b"/>
     </f:facet>
 
-    <t:cell spanX="5" id="c">
+    <t:cell spanX="4" id="c">
       <hr />
     </t:cell>
 
@@ -44,8 +44,8 @@
 
     <t:cell  id="g"/>
 
-    <t:link id="atanion_link" action="http://www.atanion.com/"
-        type="navigate" image="image/poweredBy.gif" />
+    <%--<t:link id="atanion_link" action="http://www.atanion.com/"--%>
+        <%--type="navigate" image="image/poweredBy.gif" />--%>
 
   </t:panel>
 </f:subview>
