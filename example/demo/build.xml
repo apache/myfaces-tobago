@@ -16,7 +16,7 @@
  *    limitations under the License.
 -->
 
-<project name="tobago-demo" default="compile">
+<project name="tobago-example-demo" default="compile">
   <property file="build.properties"/>
   <property name="bs.home" location="../../../build-system"/>
   <import file="${bs.home}/build-tomcat.xml"/>

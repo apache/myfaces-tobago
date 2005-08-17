@@ -17,22 +17,22 @@
 -->
 
 <project>
-  <id>tobago-demo</id>
-  <groupId>atanion</groupId>
+  <id>tobago-example-demo</id>
+  <groupId>tobago</groupId>
   <currentVersion>1.0.0-dev-SNAPSHOT</currentVersion>
 
   <dependencies>
 
     <dependency>
-      <groupId>atanion</groupId>
-      <artifactId>tobago</artifactId>
+      <groupId>tobago</groupId>
+      <artifactId>tobago-core</artifactId>
       <version>SNAPSHOT</version>
       <purpose>jar</purpose>
       <purpose>war</purpose>
     </dependency>
 
     <dependency>
-      <groupId>atanion</groupId>
+      <groupId>tobago</groupId>
       <artifactId>tobago-theme-scarborough</artifactId>
       <type>zip</type>
       <version>SNAPSHOT</version>
@@ -40,7 +40,7 @@
     </dependency>
 
     <dependency>
-      <groupId>atanion</groupId>
+      <groupId>tobago</groupId>
       <artifactId>tobago-theme-speyside</artifactId>
       <type>zip</type>
       <version>SNAPSHOT</version>
@@ -48,7 +48,7 @@
     </dependency>
 
     <dependency>
-      <groupId>atanion</groupId>
+      <groupId>tobago</groupId>
       <artifactId>tobago-theme-standard</artifactId>
       <type>zip</type>
       <version>SNAPSHOT</version>

@@ -6,17 +6,15 @@
 -->
 <project name="tobago-all" default="deploy-snapshot">
 
-
-
   <target name="deploy-snapshot">
 
     <ant target="deploy-snapshot" dir="tool/apt" />
     <ant target="deploy-snapshot" dir="core" />
-    <ant target="deploy-snapshot" dir="example/addressbook" />
-    <ant target="deploy-snapshot" dir="example/demo" />
     <ant target="deploy-snapshot" dir="theme/standard" />
     <ant target="deploy-snapshot" dir="theme/scarborough" />
     <ant target="deploy-snapshot" dir="theme/speyside" />
+    <ant target="deploy-snapshot" dir="example/addressbook" />
+    <ant target="deploy-snapshot" dir="example/demo" />
 
   </target>
 
@@ -24,11 +22,11 @@
 
     <ant target="clean-all" dir="tool/apt" />
     <ant target="clean-all" dir="core" />
-    <ant target="clean-all" dir="example/addressbook" />
-    <ant target="clean-all" dir="example/demo" />
     <ant target="clean-all" dir="theme/standard" />
     <ant target="clean-all" dir="theme/scarborough" />
     <ant target="clean-all" dir="theme/speyside" />
+    <ant target="clean-all" dir="example/addressbook" />
+    <ant target="clean-all" dir="example/demo" />
 
   </target>
 
@@ -36,11 +34,11 @@
 
     <ant target="deploy-snapshot-global" dir="tool/apt" />
     <ant target="deploy-snapshot-global" dir="core" />
-    <ant target="deploy-snapshot-global" dir="example/addressbook" />
-    <ant target="deploy-snapshot-global" dir="example/demo" />
     <ant target="deploy-snapshot-global" dir="theme/standard" />
     <ant target="deploy-snapshot-global" dir="theme/scarborough" />
     <ant target="deploy-snapshot-global" dir="theme/speyside" />
+    <ant target="deploy-snapshot-global" dir="example/addressbook" />
+    <ant target="deploy-snapshot-global" dir="example/demo" />
 
   </target>
 
@@ -48,11 +46,11 @@
 
     <ant target="test" dir="tool/apt" />
     <ant target="test" dir="core" />
-    <ant target="test" dir="example/addressbook" />
-    <ant target="test" dir="example/demo" />
     <!--<ant target="test" dir="theme/standard" />-->
     <!--<ant target="test" dir="theme/scarborough" />-->
     <!--<ant target="test" dir="theme/speyside" />-->
+    <ant target="test" dir="example/addressbook" />
+    <ant target="test" dir="example/demo" />
 
   </target>
 

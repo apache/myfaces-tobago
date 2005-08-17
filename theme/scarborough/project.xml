@@ -19,19 +19,19 @@
 <project>
 
   <id>tobago-theme-scarborough</id>
-  <groupId>atanion</groupId>
+  <groupId>tobago</groupId>
   <currentVersion>1.0.6-SNAPSHOT</currentVersion>
 
   <dependencies>
 
     <dependency>
-      <groupId>atanion</groupId>
-      <artifactId>tobago</artifactId>
+      <groupId>tobago</groupId>
+      <artifactId>tobago-core</artifactId>
       <version>SNAPSHOT</version>
     </dependency>
 
     <dependency>
-      <groupId>atanion</groupId>
+      <groupId>tobago</groupId>
       <artifactId>tobago-theme-standard</artifactId>
       <version>SNAPSHOT</version>
     </dependency>

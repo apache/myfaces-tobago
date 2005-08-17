@@ -18,8 +18,8 @@
 
 <project>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>atanion</groupId>
-  <artifactId>tobago</artifactId>
+  <groupId>tobago</groupId>
+  <artifactId>tobago-core</artifactId>
   <packaging>jar</packaging>
   <version>1.0.5-SNAPSHOT</version>
 
@@ -166,7 +166,7 @@
     </dependency>
 
     <dependency>
-      <groupId>atanion</groupId>
+      <groupId>tobago</groupId>
       <artifactId>tobago-apt</artifactId>
       <version>SNAPSHOT</version>
     </dependency>
