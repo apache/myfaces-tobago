@@ -18,26 +18,19 @@
  */
 package org.apache.myfaces.tobago.demo;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.demo.model.banking.BankingForm;
 import org.apache.myfaces.tobago.demo.model.solar.Solar;
 import org.apache.myfaces.tobago.demo.model.solar.SolarObject;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
-import org.apache.myfaces.tobago.tool.BuilderModel;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIColumn;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
@@ -57,41 +50,11 @@ public class TobagoDemoController {
 
   private SelectItem[] salutationItems;
 
-  private String[][] phoneProtocols;
-
-  private SelectItem[] phoneProtocolItems;
-
-  private Integer one;
-
-  private SelectItem[] oneItems;
-
-  private String[] many;
-
-  private SelectItem[] manyItems;
-
   private Boolean[] bool;
 
   private Boolean boolTest;
 
-  private String url = "http://www.atanion.com";
-
   private String[] text;
-
-  private int counter;
-
-  private String lastCommand;
-
-  private boolean viewSource;
-
-  private String[] planet = new String[41];
-
-  private FileItem fileItem;
-
-  private String fileContent;
-
-  private List<FileItem> files;
-
-  private FileItem fileItem2;
 
   private SolarObject[] solarArray;
 
@@ -118,17 +81,10 @@ public class TobagoDemoController {
   private SelectItem[] selectionItems;
 
   private boolean mutable;
+
   private boolean required;
 
-  private Integer integer;
-
-  private Double aDouble;
-
   private Solar solar;
-
-  private BankingForm banking;
-
-  private BuilderModel builder;
 
   private Date date = new Date();
 
@@ -140,10 +96,6 @@ public class TobagoDemoController {
 
   private Object sheetState;
 
-  private boolean popup;
-
-  private String popupText;
-
   private String toolbarIconSize;
 
   private SelectItem[] toolbarIconItems;
@@ -152,12 +104,9 @@ public class TobagoDemoController {
 
   private SelectItem[] toolbarTextItems;
 
-  private String objectSrc;
-
 // ///////////////////////////////////////////// constructor
 
   public TobagoDemoController() {
-    planet = new String[41];
 
     String[] salutationKeys = {
       "salutation_unknown",
@@ -168,27 +117,6 @@ public class TobagoDemoController {
 
     salutationItems = getSelectItems(salutationKeys, "demo");
     salutation = new String[4];
-
-    String[] phoneProtocolKeys = {
-      "phoneProtocols_voice",
-      "phoneProtocols_fax",
-      "phoneProtocols_cell",
-      "phoneProtocols_pager",
-      "phoneProtocols_video",
-      "phoneProtocols_ums",
-      "phoneProtocols_msg"
-    };
-
-    phoneProtocolItems = getSelectItems(phoneProtocolKeys, "demo");
-    phoneProtocols = new String[4][];
-
-    oneItems = new SelectItem[]{
-      new SelectItem(new Integer(1), "Merkur"),
-      new SelectItem(new Integer(2), "Venus"),
-      new SelectItem(new Integer(3), "Erde"),
-      new SelectItem(new Integer(4), "Mars"),
-    };
-    manyItems = oneItems;
 
     bool = new Boolean[10];
     bool[0] = new Boolean(true);
@@ -218,12 +146,9 @@ public class TobagoDemoController {
         = "**strong text**\n\n__emphasis__\n\nnormaler text\n\n__dieses "
         +
         "ist emphasis__\n\n**und nochmal strong**\n\n**__ strong und emphasis__**";
-    viewSource = false;
     solarArray = SolarObject.getArray();
     solarArrayColumns = createSolarArrayColumns();
     solarArrayColumnLayout = "3*;3*;3*";
-    aDouble = new Double(1234.56);
-    integer = new Integer(1234567);
 
     tree = new DefaultMutableTreeNode(
         new Node("Root Node", "root"));
@@ -256,12 +181,6 @@ public class TobagoDemoController {
     showIcons = showJunctions = showRoot = showRootJunction = true;
 
     solar = new Solar();
-    banking = new BankingForm();
-    builder = new BuilderModel();
-
-    popup = false;
-    popupText = "empty";
-
 
     String[] toolbarIconKeys
         = {ToolBarTag.ICON_OFF, ToolBarTag.ICON_SMALL, ToolBarTag.ICON_BIG};
@@ -272,23 +191,9 @@ public class TobagoDemoController {
         {ToolBarTag.LABEL_OFF, ToolBarTag.LABEL_BOTTOM, ToolBarTag.LABEL_RIGHT};
     toolbarTextItems = getSelectItems(toolbarTextKeys, "demo");
     toolbarTextPosition = ToolBarTag.LABEL_BOTTOM;
-
-    fileContent = "NO CONTENT";
-
-    objectSrc = "none";
   }
 
   private List<UIColumn> createSolarArrayColumns() {
-
-  /* <t:column label="#{bundle.solarArrayPopulation}" sortable="true">
-        <t:in value="#{luminary.population}" width="100px" id="t_population" />
-      </t:column>
-      <t:column label="#{bundle.solarArrayDistance}" cssClass="custom-text-align-right"  sortable="true" align="right" >
-        <t:out value="#{luminary.distance}" id="t_distance" />
-      </t:column>
-      <t:column label="#{bundle.solarArrayPeriod}" cssClass="custom-text-align-right"  sortable="true" align="right" >
-        <t:out value="#{luminary.period}" id="t_period" />
-      </t:column> */
 
     List<UIColumn> columns = new ArrayList<UIColumn>(3);
 
@@ -322,10 +227,6 @@ public class TobagoDemoController {
 
 // ///////////////////////////////////////////// code
 
-  public void count() {
-    counter++;
-  }
-
   public void updateTree() {
 
   }
@@ -336,83 +237,11 @@ public class TobagoDemoController {
 
 // /////////////////////////////////////////////// action for links and buttons
 
-  public String clickLink() {
-    count();
-    lastCommand = methodName();
-    return "display";
-  }
-
-  public String clickLinkImage() {
-    count();
-    lastCommand = methodName();
-    return "display";
-  }
-
-  public String clickLinkInline() {
-    count();
-    lastCommand = methodName();
-    return "display";
-  }
-
   public String clickButton() {
-    count();
-    lastCommand = methodName();
+    LOG.info("clickButton");
     return "display";
   }
 
-  public String clickButtonImage() {
-    count();
-    lastCommand = methodName();
-    return "display";
-  }
-
-  public String clickButtonInline() {
-    count();
-    lastCommand = methodName();
-    return "display";
-  }
-
-  private String methodName() {
-    StackTraceElement stackTraceElement = new Exception().getStackTrace()[1];
-    return stackTraceElement.getMethodName();
-  }
-
-  public void addFile(ActionEvent actionEvent) {
-    if (StringUtils.isEmpty(fileItem.getName())) {
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      facesContext.addMessage(null,
-          new FacesMessage(
-              FacesMessage.SEVERITY_WARN, "no file ...", "no file ...")); /* fixme ?bersetzen  */
-      LOG.debug("addFile: no file ...");
-      return;
-    }
-    if (files == null) {
-      files = new ArrayList<FileItem>();
-    }
-    files.add(fileItem);
-    fileItem = null;
-  }
-
-  public void removeFile(ActionEvent actionEvent) {
-    UIComponent source = actionEvent.getComponent();
-    FileItem file = (FileItem) ComponentUtil.findParameter(source, "file");
-    LOG.debug("removing file from list size " + files.size());
-    LOG.debug("file " + file);
-    files.remove(file);
-    LOG.debug("list size " + files.size());
-    fileItem = null;
-  }
-
-
-
-  public String fileItemUpload() {
-    if (fileItem != null) {
-     fileContent = fileItem.getString();
-    } else {
-       fileContent = "NO CONTENT";
-    }
-    return "show";
-  }
 // ///////////////////////////////////////////// bean getter + setter
 
   public String getSelectable() {
@@ -435,54 +264,6 @@ public class TobagoDemoController {
     this.salutationItems = salutationItems;
   }
 
-  public Integer getOne() {
-    return one;
-  }
-
-  public void setOne(Integer one) {
-    this.one = one;
-  }
-
-  public SelectItem[] getOneItems() {
-    return oneItems;
-  }
-
-  public void setOneItems(SelectItem[] oneItems) {
-    this.oneItems = oneItems;
-  }
-
-  public String[] getMany() {
-    return many;
-  }
-
-  public void setMany(String[] many) {
-    this.many = many;
-  }
-
-  public SelectItem[] getManyItems() {
-    return manyItems;
-  }
-
-  public void setManyItems(SelectItem[] manyItems) {
-    this.manyItems = manyItems;
-  }
-
-  public String[][] getPhoneProtocols() {
-    return phoneProtocols;
-  }
-
-  public void setPhoneProtocols(String[][] phoneProtocols) {
-    this.phoneProtocols = phoneProtocols;
-  }
-
-  public SelectItem[] getPhoneProtocolItems() {
-    return phoneProtocolItems;
-  }
-
-  public void setPhoneProtocolItems(SelectItem[] phoneProtocolItems) {
-    this.phoneProtocolItems = phoneProtocolItems;
-  }
-
   public Boolean[] getBool() {
     return this.bool;
   }
@@ -499,76 +280,12 @@ public class TobagoDemoController {
     this.boolTest = boolTest;
   }
 
-  public String getUrl() {
-    return url;
-  }
-
-  public void setUrl(String v) {
-    this.url = v;
-  }
-
   public String[] getText() {
     return text;
   }
 
   public void setText(String[] text) {
     this.text = text;
-  }
-
-  public int getCounter() {
-    return counter;
-  }
-
-  public String getLastCommand() {
-    return lastCommand;
-  }
-
-  public void setLastCommand(String lastCommand) {
-    this.lastCommand = lastCommand;
-  }
-
-  public boolean isViewSource() {
-    return viewSource;
-  }
-
-  public void setViewSource(boolean b) {
-    viewSource = b;
-  }
-
-  public String[] getPlanet() {
-    return planet;
-  }
-
-  public void setPlanet(String[] planet) {
-    this.planet = planet;
-  }
-
-  public FileItem getFileItem() {
-    return fileItem;
-  }
-
-  public void setFileItem(FileItem fileItem) {
-    this.fileItem = fileItem;
-  }
-
-  public String getFileContent() {
-    return fileContent;
-  }
-
-  public List<FileItem> getFiles() {
-    return files;
-  }
-
-  public void setFiles(List<FileItem> files) {
-    this.files = files;
-  }
-
-  public FileItem getFileItem2() {
-    return fileItem2;
-  }
-
-  public void setFileItem2(FileItem fileItem2) {
-    this.fileItem2 = fileItem2;
   }
 
   public SolarObject[] getSolarArray() {
@@ -593,22 +310,6 @@ public class TobagoDemoController {
 
   public void setSolarArrayColumnLayout(String solarArrayColumnLayout) {
     this.solarArrayColumnLayout = solarArrayColumnLayout;
-  }
-
-  public Integer getInteger() {
-    return integer;
-  }
-
-  public void setInteger(Integer integer) {
-    this.integer = integer;
-  }
-
-  public Double getaDouble() {
-    return aDouble;
-  }
-
-  public void setaDouble(Double aDouble) {
-    this.aDouble = aDouble;
   }
 
   public DefaultMutableTreeNode getTree() {
@@ -707,22 +408,6 @@ public class TobagoDemoController {
     this.solar = solar;
   }
 
-  public BankingForm getBanking() {
-    return banking;
-  }
-
-  public void setBanking(BankingForm banking) {
-    this.banking = banking;
-  }
-
-  public BuilderModel getBuilder() {
-    return builder;
-  }
-
-  public void setBuilder(BuilderModel builder) {
-    this.builder = builder;
-  }
-
   public Date getDate() {
     return date;
   }
@@ -763,25 +448,6 @@ public class TobagoDemoController {
     this.sheetState = sheetState;
   }
 
-  public boolean isPopup() {
-    return popup;
-  }
-  public void showPopup() {
-    popup = true;
-  }
-  public String  hidePopup() {
-    popup = false;
-    return "utils";
-  }
-
-  public String getPopupText() {
-    return popupText;
-  }
-
-  public void setPopupText(String popupText) {
-    this.popupText = popupText;
-  }
-
   public SelectItem[] getToolbarIconItems() {
     return toolbarIconItems;
   }
@@ -814,30 +480,7 @@ public class TobagoDemoController {
 
   }
 
-  public String getObjectSrc() {
-    return objectSrc;
-  }
-
-  public void setObjectSrc(String objectSrc) {
-    this.objectSrc = objectSrc;
-  }
-
-  public String getObjectContentType() {
-    String value = "none";
-    if (objectSrc != null) {
-      if (objectSrc.endsWith(".pdf")) {
-        value = "application/pdf";
-      } else if (objectSrc.endsWith("swf")) {
-        value = "application/swf";
-      } else if (objectSrc.endsWith(".html")) {
-        value = "text/html";
-      } else if (objectSrc.endsWith(".xml")) {
-        value = "text/xml";
-      }
-    }
-    return value;
-  }
-  // /////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////
 // /////////////////////////////////////////////////////////////////////////
 // /////////////////////////////////////////////////////////////////////////
 
