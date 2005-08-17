@@ -4,7 +4,7 @@
  * All rights reserved.
  * $Id: build.xml 1316 2005-08-11 10:37:40Z lofwyr $
 -->
-<project name="tobago-all" default="deploy-snapshot">
+<project name="tobago-all" default="install">
 
   <target name="install">
 
