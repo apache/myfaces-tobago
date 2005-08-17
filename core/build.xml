@@ -45,7 +45,8 @@
          factorypathref="project.classpath.jar" />
   </target>
 
-  <target name="dist" depends="generate-tld,build-basic.dist">
+  <target name="dist" depends="generate-tld,build-basic.dist"
+      description="Create a distribution of the artifact.">
     <jar jarfile="${dist}/${ant.project.name}.jar" update="true">
       <fileset dir="${src.main}">
         <include name="org/apache/myfaces/tobago/config/tobago-config_1_0.dtd"/>

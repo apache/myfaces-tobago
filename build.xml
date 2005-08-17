@@ -31,12 +31,10 @@
   </target>
 
   <target name="test">
-<!--
     <ant target="test" dir="tool/apt" />
     <ant target="test" dir="core" />
     <ant target="test" dir="example/addressbook" />
     <ant target="test" dir="example/demo" />
--->
   </target>
 
   <!-- cruise control -->

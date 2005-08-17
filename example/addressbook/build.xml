@@ -22,6 +22,7 @@
   <property name="build-system.dir" location="${build-system.home}"/>
   <import file="${build-system.dir}/build-basic.xml"/>
 
-  <target name="dist" depends="build-basic.dist,war" />
+  <target name="dist" depends="build-basic.dist,war"
+      description="Create a distribution of the artifact."/>
 
 </project>
