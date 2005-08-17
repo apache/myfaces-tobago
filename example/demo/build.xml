@@ -17,7 +17,11 @@
 -->
 
 <project name="tobago-example-demo" default="compile">
-  <property file="build.properties"/>
-  <property name="bs.home" location="../../../build-system"/>
-  <import file="${bs.home}/build-tomcat.xml"/>
+
+  <property name="build-system.home" value="../../tool/build-system"/>
+  <property name="build-system.dir" location="${build-system.home}"/>
+  <import file="${build-system.dir}/build-basic.xml"/>
+
+  <target name="dist" depends="build-basic.dist,war" />
+
 </project>

@@ -17,49 +17,17 @@
 -->
 
 <project>
-
-  <id>tobago-theme-speyside</id>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>tobago-theme-scarborough</artifactId>
   <groupId>tobago</groupId>
-  <currentVersion>1.0.6-SNAPSHOT</currentVersion>
+  <version>1.0.6-SNAPSHOT</version>
 
   <dependencies>
 
     <dependency>
       <groupId>tobago</groupId>
-      <artifactId>tobago-core</artifactId>
-      <version>SNAPSHOT</version>
-    </dependency>
-
-    <dependency>
-      <groupId>tobago</groupId>
       <artifactId>tobago-theme-standard</artifactId>
-      <version>SNAPSHOT</version>
-    </dependency>
-
-    <dependency>
-      <groupId>tobago</groupId>
-      <artifactId>tobago-theme-scarborough</artifactId>
-      <version>SNAPSHOT</version>
-    </dependency>
-
-    <dependency>
-      <id>commons-logging</id>
-      <version>1.0.4</version>
-      <purpose>jar</purpose>
-    </dependency>
-
-    <dependency>
-      <groupId>jsf</groupId>
-      <artifactId>jsf-api</artifactId>
-      <version>1.1.01</version>
-      <purpose>jar</purpose>
-    </dependency>
-
-    <dependency>
-      <id>junit</id>
-      <version>3.8.1</version>
-      <purpose>jar</purpose>
-      <purpose>test</purpose>
+      <version>1.0.6-SNAPSHOT</version>
     </dependency>
 
   </dependencies>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Copyright 2002-2005 atanion GmbH.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+-->
+
+<project name="build-basic" default="dist">
+
+  <property name="build-system.dir" location="."/>
+
+  <property name="maven.task" value="maven-artifact-ant-2.0-alpha-3-dep.jar"/>
+  <property name="maven.task.jar" value="${build-system.dir}/${maven.task}"/>
+  <available file="${maven.task.jar}" property="maven.task.present"/>
+
+  <property name="build" value="build"/>
+  <property name="build.classes.main" value="${build}/classes/main"/>
+  <property name="build.classes.test" value="${build}/classes/test"/>
+  <property name="build.config" value="${build}/config"/>
+  <property name="dist" value="${build}/dist"/>
+
+  <property name="java.source.encoding" value="UTF-8"/>
+  <property name="java.version.source" value="1.5"/>
+  <property name="java.version.target" value="1.5"/>
+  <property name="java.version.bootclasspath" value=""/>
+  <property name="java.version.extdirs" value=""/>
+
+  <property name="src.main" value="src/main"/>
+  <property name="src.test" value="src/test"/>
+
+  <target name="download-task" unless="maven.task.present">
+    <get src="http://www.ibiblio.org/maven2/org/apache/maven/maven-artifact-ant/2.0-alpha-3/${maven.task}"
+        dest="${maven.task.jar}"/>
+  </target>
+
+  <target name="init-task" depends="download-task">
+    <typedef resource="org/apache/maven/artifact/ant/antlib.xml">
+      <classpath>
+        <pathelement location="${maven.task.jar}"/>
+      </classpath>
+    </typedef>
+  </target>
+
+  <target name="init" depends="init-task">
+    <pom file="pom.xml" id="pom"/>
+    <dependencies filesetId="pom.dependencies" pathId="project.classpath.jar" verbose="false">
+      <pom refid="pom"/>
+    </dependencies>
+  </target>
+
+  <target name="init-apt" depends="init">
+    <pom file="${build-system.dir}/dependencies.xml" id="dependencies"/>
+    <dependencies pathId="build.classpath.jar" verbose="false">
+      <pom refid="dependencies"/>
+    </dependencies>
+
+    <taskdef name="apt"
+        classname="org.apache.myfaces.tobago.apt.ant.Apt"
+        classpathref="build.classpath.jar"/>
+  </target>
+
+  <target name="compile" depends="fetch-libs">
+    <mkdir dir="${build.classes.main}"/>
+    <javac srcdir="${src.main}"
+      destdir="${build.classes.main}"
+      deprecation="on" debug="on"
+      encoding="${java.source.encoding}"
+      target="${java.version.target}" source="${java.version.source}"
+      bootclasspath="${java.version.bootclasspath}"
+      extdirs="${java.version.extdirs}" >
+      <classpath refid="project.classpath.jar"/>
+      <compilerarg value="-Xlint"/>
+    </javac>
+  </target>
+
+  <!-- not really necessary, but currently easier to include libs in IDE -->
+  <!-- XXX need flattenmapper for file sets to include POM dependencies directly -->
+  <target name="fetch-libs" depends="init">
+    <mkdir dir="lib"/>
+    <copy todir="lib">
+      <fileset refid="pom.dependencies"/>
+      <flattenmapper/>
+    </copy>
+  </target>
+
+  <target name="dist" depends="compile"
+    description="Create a distribution of the main artifact.">
+    <mkdir dir="${dist}"/>
+    <jar jarfile="${dist}/${pom.artifactId}.jar">
+      <fileset dir="${build.classes.main}">
+        <include name="**/*.class"/>
+      </fileset>
+      <fileset dir="${src.main}">
+        <include name="**/*.properties"/>
+        <include name="**/*.xml"/>
+        <include name="**/*.txt"/>
+        <include name="**/*.dtd"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <target name="install" depends="dist">
+    <install file="${dist}/${pom.artifactId}.jar">
+      <pom refid="pom"/>
+    </install>
+  </target>
+
+  <target name="clean" description="Delete temporary files.">
+    <delete dir="${build}" quiet="true"/>
+    <mkdir dir="${build}"/>
+  </target>
+
+  <target name="war" depends="compile" >
+
+    <mkdir dir="${dist}" />
+    <property name="module" value="${build}/module" />
+    <mkdir dir="${module}" />
+    <unjar dest="${module}">
+      <!-- XXX need selector for scope attribute in POM -->
+      <fileset dir="lib" includes="tobago-theme-*.zip"/>
+    </unjar>
+
+    <!-- build the war-file -->
+    <war warfile="${dist}/${pom.artifactId}.war"
+         webxml="webapp/WEB-INF/web.xml">
+      <fileset dir="webapp">
+        <include name="**"/>
+        <exclude name="WEB-INF/**"/>
+      </fileset>
+      <fileset dir="${module}">
+        <include name="tobago/**"/>
+        <include name="tobago-module-client/**"/>
+      </fileset>
+      <lib dir="${module}/WEB-INF/lib" includes="*.jar"/>
+      <lib dir="lib">
+        <include name="*.jar"/>
+        <exclude name="servletapi*"/>
+        <!-- XXX not used yet; use exclude via POM dependency scope -->
+        <exclude name="fop*"/>
+        <exclude name="avalon*"/>
+        <exclude name="batik*"/>
+        <!-- XXX use exclude via POM dependency scope -->
+        <exclude name="ant*"/>
+        <exclude name="junit*"/>
+        <exclude name="tobago-apt*"/>
+      </lib>
+      <!-- application classes -->
+      <classes dir="${build.classes.main}">
+        <include name="**/*.class" />
+      </classes>
+      <classes dir="${src.main}">
+        <include name="**/*.properties" />
+        <include name="**/*.xml" />
+      </classes>
+      <webinf dir="webapp/WEB-INF">
+        <include name="**"/>
+        <exclude name="web.xml"/>
+      </webinf>
+    </war>
+  </target>
+
+</project>

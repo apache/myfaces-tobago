@@ -16,10 +16,19 @@
  *    limitations under the License.
 -->
 
-<project name="tobago-theme-standard" default="compile">
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>tobago</groupId>
+  <artifactId>tobago-theme-standard</artifactId>
+  <version>1.0.6-SNAPSHOT</version>
 
-  <property name="build-system.home" value="../../tool/build-system"/>
-  <property name="build-system.dir" location="${build-system.home}"/>
-  <import file="${build-system.dir}/build-theme.xml"/>
+  <dependencies>
 
+    <dependency>
+      <groupId>tobago</groupId>
+      <artifactId>tobago-core</artifactId>
+      <version>1.0.6-SNAPSHOT</version>
+    </dependency>
+
+  </dependencies>
 </project>

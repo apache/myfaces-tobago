@@ -21,14 +21,9 @@
   <groupId>tobago</groupId>
   <artifactId>tobago-core</artifactId>
   <packaging>jar</packaging>
-  <version>1.0.5-SNAPSHOT</version>
+  <version>1.0.6-SNAPSHOT</version>
 
   <repositories>
-    <repository>
-      <id>shrek</id>
-      <url>http://shrek/repository</url>
-      <layout>legacy</layout>
-    </repository>
     <repository>
       <id>ibiblio</id>
       <url>http://www.ibiblio.org/maven2</url>
@@ -36,13 +31,6 @@
   </repositories>
 
   <dependencies>
-
-    <dependency>
-      <groupId>atanion</groupId>
-      <artifactId>atanion-mock</artifactId>
-      <version>1.0.1-SNAPSHOT</version>
-      <purpose>test</purpose>
-    </dependency>
 
     <dependency>
       <groupId>commons-beanutils</groupId>
@@ -107,13 +95,6 @@
       <version>20020627</version><!-- XXX wrong date -->
     </dependency>
 
-    <!--
-        <dependency>
-          <groupId>jsf</groupId>
-          <artifactId>jsf-api</artifactId>
-          <version>1.1.01</version>
-        </dependency>
-    -->
     <dependency>
       <groupId>jstl</groupId>
       <artifactId>jstl</artifactId>
@@ -125,29 +106,6 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-
-    <!-- XXX missing at ibiblio -->
-    <dependency>
-      <groupId>mockrunner</groupId>
-      <artifactId>mockrunner</artifactId>
-      <version>0.2.7</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>oro</groupId>
-      <artifactId>oro</artifactId>
-      <version>2.0.8</version>
-      <scope>compile</scope>
-    </dependency>
-
-    <!-- XXX missing at ibiblio -->
-    <dependency>
-      <groupId>retroweaver</groupId>
-      <artifactId>retroweaver-rt</artifactId>
-      <version>1.1</version>
       <scope>test</scope>
     </dependency>
 
@@ -168,7 +126,7 @@
     <dependency>
       <groupId>tobago</groupId>
       <artifactId>tobago-apt</artifactId>
-      <version>SNAPSHOT</version>
+      <version>1.0.0-SNAPSHOT</version>
     </dependency>
 
     <dependency>

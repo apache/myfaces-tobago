@@ -6,57 +6,45 @@
 -->
 <project name="tobago-all" default="deploy-snapshot">
 
-  <target name="deploy-snapshot">
+  <target name="install">
 
-    <ant target="deploy-snapshot" dir="tool/apt" />
-    <ant target="deploy-snapshot" dir="core" />
-    <ant target="deploy-snapshot" dir="theme/standard" />
-    <ant target="deploy-snapshot" dir="theme/scarborough" />
-    <ant target="deploy-snapshot" dir="theme/speyside" />
-    <ant target="deploy-snapshot" dir="example/addressbook" />
-    <ant target="deploy-snapshot" dir="example/demo" />
-
-  </target>
-
-  <target name="clean-all">
-
-    <ant target="clean-all" dir="tool/apt" />
-    <ant target="clean-all" dir="core" />
-    <ant target="clean-all" dir="theme/standard" />
-    <ant target="clean-all" dir="theme/scarborough" />
-    <ant target="clean-all" dir="theme/speyside" />
-    <ant target="clean-all" dir="example/addressbook" />
-    <ant target="clean-all" dir="example/demo" />
+    <ant target="install" dir="tool/apt" />
+    <ant target="install" dir="core" />
+    <ant target="install" dir="theme/standard" />
+    <ant target="install" dir="theme/scarborough" />
+    <ant target="install" dir="theme/speyside" />
+    <ant target="install" dir="example/addressbook" />
+    <ant target="install" dir="example/demo" />
 
   </target>
 
-  <target name="deploy-snapshot-global">
+  <target name="clean">
 
-    <ant target="deploy-snapshot-global" dir="tool/apt" />
-    <ant target="deploy-snapshot-global" dir="core" />
-    <ant target="deploy-snapshot-global" dir="theme/standard" />
-    <ant target="deploy-snapshot-global" dir="theme/scarborough" />
-    <ant target="deploy-snapshot-global" dir="theme/speyside" />
-    <ant target="deploy-snapshot-global" dir="example/addressbook" />
-    <ant target="deploy-snapshot-global" dir="example/demo" />
+    <ant target="clean" dir="tool/apt" />
+    <ant target="clean" dir="core" />
+    <ant target="clean" dir="theme/standard" />
+    <ant target="clean" dir="theme/scarborough" />
+    <ant target="clean" dir="theme/speyside" />
+    <ant target="clean" dir="example/addressbook" />
+    <ant target="clean" dir="example/demo" />
 
   </target>
 
   <target name="test">
-
+<!--
     <ant target="test" dir="tool/apt" />
     <ant target="test" dir="core" />
-    <!--<ant target="test" dir="theme/standard" />-->
-    <!--<ant target="test" dir="theme/scarborough" />-->
-    <!--<ant target="test" dir="theme/speyside" />-->
     <ant target="test" dir="example/addressbook" />
     <ant target="test" dir="example/demo" />
-
+-->
   </target>
 
+  <!-- cruise control -->
 
-  <target name="masterbuild" depends="reportdir, checkout, test, deploy-snapshot, deploy-build" />
-  <target name="cleanbuild" depends="clean-all, masterbuild"/>
+  <target name="masterbuild" depends="reportdir, checkout, test, install, deploy-build" />
+
+  <target name="cleanbuild" depends="clean, masterbuild"/>
+
   <target name="reportdir">
     <mkdir dir="build/report"/>
     <mkdir dir="tool/apt/build/report"/>
@@ -64,15 +52,16 @@
     <mkdir dir="example/addressbook/build/report"/>
     <mkdir dir="example/demo/build/report"/>
   </target>
+
   <target name="checkout">
     <exec executable="svn">
       <arg value="up"/>
     </exec>
   </target>
+
   <target name="deploy-build">
     <ant target="war" dir="example/addressbook"/>
     <ant target="war" dir="example/demo"/>
   </target>
-
 
 </project>

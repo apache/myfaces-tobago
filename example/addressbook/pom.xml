@@ -17,63 +17,43 @@
 -->
 
 <project>
-
-  <id>tobago-theme-scarborough</id>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>tobago-example-addressbook</artifactId>
   <groupId>tobago</groupId>
-  <currentVersion>1.0.6-SNAPSHOT</currentVersion>
+  <version>1.0.0-SNAPSHOT</version>
 
   <dependencies>
 
     <dependency>
       <groupId>tobago</groupId>
       <artifactId>tobago-core</artifactId>
-      <version>SNAPSHOT</version>
+      <version>1.0.6-SNAPSHOT</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>tobago</groupId>
+      <artifactId>tobago-theme-scarborough-zip</artifactId>
+      <type>zip</type>
+      <version>1.0.6-SNAPSHOT</version>
+      <scope>module</scope>
     </dependency>
 
     <dependency>
       <groupId>tobago</groupId>
-      <artifactId>tobago-theme-standard</artifactId>
-      <version>SNAPSHOT</version>
+      <artifactId>tobago-theme-speyside-zip</artifactId>
+      <type>zip</type>
+      <version>1.0.6-SNAPSHOT</version>
+      <scope>module</scope>
     </dependency>
 
     <dependency>
-      <id>commons-fileupload</id>
-      <version>1.0</version>
-      <purpose>jar</purpose>
+      <groupId>tobago</groupId>
+      <artifactId>tobago-theme-standard-zip</artifactId>
+      <type>zip</type>
+      <version>1.0.6-SNAPSHOT</version>
+      <scope>module</scope>
     </dependency>
 
-    <dependency>
-      <id>commons-lang</id>
-      <version>2.1</version>
-      <purpose>jar</purpose>
-    </dependency>
-
-    <dependency>
-      <id>commons-logging</id>
-      <version>1.0.4</version>
-      <purpose>jar</purpose>
-    </dependency>
-
-    <dependency>
-      <groupId>jsf</groupId>
-      <artifactId>jsf-api</artifactId>
-      <version>1.1.01</version>
-      <purpose>jar</purpose>
-    </dependency>
-
-    <dependency>
-      <id>junit</id>
-      <version>3.8.1</version>
-      <purpose>jar</purpose>
-      <purpose>test</purpose>
-    </dependency>
-
-    <dependency>
-      <id>servletapi</id>
-      <version>2.4</version>
-      <purpose>jar</purpose>
-      <purpose>test</purpose>
-    </dependency>
-    
   </dependencies>
+
 </project>

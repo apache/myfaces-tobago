@@ -18,42 +18,11 @@
 
 <project name="tobago-core" default="compile">
 
-  <property file="build.properties"/>
-  <property name="bs.home" location="../../build-system"/>
+  <property name="build-system.home" value="../tool/build-system"/>
+  <property name="build-system.dir" location="${build-system.home}"/>
+  <import file="${build-system.dir}/build-basic.xml"/>
 
-  <property name="tld.files"
-    value="build/classes/main/org/apache/myfaces/tobago/taglib/component/tobago.tld " />
-  <property name="tlddoc.windowtitle" value="Tobago Tag Library Documentation"/>
-
-  <import file="${bs.home}/build-basic.xml"/>
-
-  <property name="project.dir.doc.master" value="doc/master.xml"/>
-  <import file="${bs.home}/build-docbook.xml"/>
-
-  <target name="dist" depends="compile, annotations">
-    <mkdir dir="${dist}"/>
-    <jar jarfile="${dist}/${ant.project.name}.jar">
-      <fileset dir="${build.classes.main}">
-        <include name="**/*.class"/>
-        <exclude name="org/apache/myfaces/tobago/renderkit/html/*/**/*.class"/>
-        <exclude name="org/apache/myfaces/tobago/renderkit/wml/*/**/*.class"/>
-        <exclude name="org/apache/myfaces/tobago/module/**/*.class"/>
-      </fileset>
-      <fileset dir="${src.main}">
-        <include name="org/apache/myfaces/tobago/config/tobago-config_1_0.dtd"/>
-      </fileset>
-      <metainf dir="${src.main}/org/apache/myfaces/tobago">
-        <include name="faces-config.xml"/>
-      </metainf>
-      <metainf dir="${build.classes.main}/org/apache/myfaces/tobago/taglib/component">
-        <include name="tobago.tld"/>
-      </metainf>
-    </jar>
-
-  </target>
-
-      <!-- todo: move annotations to build-system -->
-  <target name="annotations" depends="bs:init, bs:get-libs-jar" >
+  <target name="generate-tld" depends="init-apt" >
     <apt srcdir="${src.main}" fork="true"
          classpathref="project.classpath.jar"
          debug="on"
@@ -66,41 +35,28 @@
     </apt>
   </target>
 
-  <target name="annotations-xml" depends="bs:init, bs:get-libs-jar" >
+  <target name="generate-tld-doc" depends="init-apt" >
     <apt srcdir="${src.main}" fork="true"
-         classpathref="project.classpath.run"
+         classpathref="project.classpath.jar"
          debug="on"
          compile="false"
          preprocessdir="${build.classes.main}"
          factory="org.apache.myfaces.tobago.apt.TobagoAnnotationProcessorFactory"
-         factorypathref="project.classpath.run" >
-     </apt>
+         factorypathref="project.classpath.jar" />
   </target>
 
-  <target name="tlddoc" depends="annotations, bs:tlddoc" ></target>
-
-  <target name="code-sniplets">
-    <taskdef name="code-extract" classname="com.atanion.ant.project.CodeSnipletExtractTask"/>
-    <mkdir dir="build/sniplets" />
-    <code-extract outputDir="build/sniplets">
-      <fileset dir="src">
-        <include name="**/*.java"/>
+  <target name="dist" depends="generate-tld,build-basic.dist">
+    <jar jarfile="${dist}/${ant.project.name}.jar" update="true">
+      <fileset dir="${src.main}">
+        <include name="org/apache/myfaces/tobago/config/tobago-config_1_0.dtd"/>
       </fileset>
-    </code-extract>
-  </target>
-
-  <target name="docbook-html" depends="code-sniplets, docbook-taglib-xml, docbook.docbook-html">
-    <docbook-html-macro master="${project.dir.doc.master}" output.dir="build/doc/html/" />
-  </target>
-
-  <target name="docbook-pdf" depends="code-sniplets, docbook-taglib-xml, docbook.docbook-pdf">
-    <docbook-pdf-macro master="${project.dir.doc.master}" output.dir="build/doc/pdf/" />
-  </target>
-
-  <target name="docbook-taglib-xml" depends="annotations-xml">
-    <style in="build/classes/main/org/apache/myfaces/tobagoDocu.xml"
-      out="build/doc/tobagoDocu.xml" extension=".xml" style="doc/tld2docbook.xsl">
-    </style>
+      <metainf dir="${src.main}/org/apache/myfaces/tobago">
+        <include name="faces-config.xml"/>
+      </metainf>
+      <metainf dir="${build.classes.main}/org/apache/myfaces/tobago/taglib/component">
+        <include name="tobago.tld"/>
+      </metainf>
+    </jar>
   </target>
 
 </project>

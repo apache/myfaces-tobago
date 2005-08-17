@@ -17,44 +17,26 @@
 -->
 
 <project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>build-system</groupId>
+  <artifactId>tobago-core</artifactId>
+  <version>empty</version>
 
-  <id>tobago-theme-standard</id>
-  <groupId>tobago</groupId>
-  <currentVersion>1.0.6-SNAPSHOT</currentVersion>
+  <repositories>
+    <repository>
+      <id>ibiblio</id>
+      <url>http://www.ibiblio.org/maven2</url>
+    </repository>
+  </repositories>
 
   <dependencies>
 
     <dependency>
       <groupId>tobago</groupId>
-      <artifactId>tobago-core</artifactId>
-      <version>SNAPSHOT</version>
-    </dependency>
-
-    <dependency>
-      <id>commons-collections</id>
-      <version>3.1</version>
-      <purpose>jar</purpose>
-    </dependency>
-
-    <dependency>
-      <id>commons-logging</id>
-      <version>1.0.4</version>
-      <purpose>jar</purpose>
-    </dependency>
-
-    <dependency>
-      <groupId>jsf</groupId>
-      <artifactId>jsf-api</artifactId>
-      <version>1.1.01</version>
-      <purpose>jar</purpose>
-    </dependency>
-
-    <dependency>
-      <id>junit</id>
-      <version>3.8.1</version>
-      <purpose>jar</purpose>
-      <purpose>test</purpose>
+      <artifactId>tobago-apt</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
     </dependency>
 
   </dependencies>
+
 </project>
