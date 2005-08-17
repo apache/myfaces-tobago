@@ -1,4 +1,6 @@
-<%--
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
  * Copyright 2002-2005 atanion GmbH.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,25 +14,19 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
---%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+-->
 
-<f:view>
+<!DOCTYPE tobago-config PUBLIC
+    "-//Atanion GmbH//DTD Tobago Config 1.0//EN" "tobago-config_1_0.dtd">
 
-  <t:loadBundle basename="demo" var="bundle" />
+<tobago-config>
 
-  <t:page label="Screenshot" id="page"
-    width="750px" height="1500px">
-    <f:facet name="layout">
-      <t:gridLayout columns="100px;1*" rows="100px;1*" />
-    </f:facet>
+  <theme-config>
+    <default-theme>org.apache.myfaces.tobago.context.SpeysideTheme</default-theme>
+    <supported-theme>org.apache.myfaces.tobago.context.ScarboroughTheme</supported-theme>
+  </theme-config>
 
-    <t:cell/>
-    <t:cell/>
+  <resource-dir>tobago-resource</resource-dir>
+  <resource-dir>tobago</resource-dir>
 
-    <t:cell/>
-    <jsp:doBody/>
-
-  </t:page>
-</f:view>
+</tobago-config>

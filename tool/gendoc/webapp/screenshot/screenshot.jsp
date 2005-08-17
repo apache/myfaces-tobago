@@ -22,67 +22,70 @@
 
 <t:panel>
   <f:facet name="layout">
-    <t:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;
-                        fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;
-                        fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;
+    <t:gridLayout rows="fixed;fixed;fixed;fixed;fixed;
+                        fixed;fixed;fixed;fixed;fixed;
+                        fixed;fixed;fixed;fixed;fixed;
+                        fixed;fixed;fixed;fixed;fixed;
+                        fixed;fixed;fixed;fixed;fixed;
                         fixed;fixed;fixed;1*"/>
+
   </f:facet>
 
-  <t:link action="screenshot/box" immediate="true" label="Box" />
+  <t:link type="navigate" action="box.jsp" immediate="true" label="Box" />
 
-  <t:link action="screenshot/button" immediate="true" label="Button" />
+  <t:link type="navigate" action="button.jsp" immediate="true" label="Button" />
 
-  <t:link action="screenshot/date" immediate="true" label="Date" />
+  <t:link type="navigate" action="date.jsp" immediate="true" label="Date" />
 
-  <t:link action="screenshot/calendar" immediate="true" label="Calendar" />
+  <t:link type="navigate" action="calendar.jsp" immediate="true" label="Calendar" />
 
-  <t:link action="screenshot/file" immediate="true" label="File" />
+  <t:link type="navigate" action="file.jsp" immediate="true" label="File" />
 
-  <t:link action="screenshot/image" immediate="true" label="Image" />
+  <t:link type="navigate" action="image.jsp" immediate="true" label="Image" />
 
-  <t:link action="screenshot/in" immediate="true" label="In" />
+  <t:link type="navigate" action="in.jsp" immediate="true" label="In" />
 
-  <t:link action="screenshot/label" immediate="true" label="Label" />
+  <t:link type="navigate" action="label.jsp" immediate="true" label="Label" />
 
-  <t:link action="screenshot/link" immediate="true" label="Link" />
+  <t:link type="navigate" action="link.jsp" immediate="true" label="Link" />
 
-  <t:link action="screenshot/menuBar" immediate="true" label="Menubar" />
+  <t:link type="navigate" action="menuBar.jsp" immediate="true" label="Menubar" />
 
-  <t:link action="screenshot/menucheck" immediate="true" label="Menucheck" />
+  <t:link type="navigate" action="menucheck.jsp" immediate="true" label="Menucheck" />
 
-  <t:link action="screenshot/menuradio" immediate="true" label="Menuradio" />
+  <t:link type="navigate" action="menuradio.jsp" immediate="true" label="Menuradio" />
 
-  <t:link action="screenshot/messages" immediate="true" label="Messages" />
+  <t:link type="navigate" action="messages.jsp" immediate="true" label="Messages" />
 
-  <t:link action="screenshot/out" immediate="true" label="Out" />
+  <t:link type="navigate" action="out.jsp" immediate="true" label="Out" />
 
-  <t:link action="screenshot/progress" immediate="true" label="Progress" />
+  <t:link type="navigate" action="progress.jsp" immediate="true" label="Progress" />
 
-  <t:link action="screenshot/richTextEditor" immediate="true" label="RichTextEditor" />
+  <t:link type="navigate" action="richTextEditor.jsp" immediate="true" label="RichTextEditor" />
 
-  <t:link action="screenshot/selectBooleanCheckbox" immediate="true" label="SelectBooleanCheckbox" />
+  <t:link type="navigate" action="selectBooleanCheckbox.jsp" immediate="true" label="SelectBooleanCheckbox" />
 
-  <t:link action="screenshot/selectManyListBox" immediate="true" label="SelectManyListbox" />
+  <t:link type="navigate" action="selectManyListBox.jsp" immediate="true" label="SelectManyListbox" />
 
-  <t:link action="screenshot/selectOneChoice" immediate="true" label="SelectOneChoice" />
+  <t:link type="navigate" action="selectOneChoice.jsp" immediate="true" label="SelectOneChoice" />
 
-  <t:link action="screenshot/selectOneListbox" immediate="true" label="SelectOneListbox" />
+  <t:link type="navigate" action="selectOneListbox.jsp" immediate="true" label="SelectOneListbox" />
 
-  <t:link action="screenshot/sheet" immediate="true" label="Sheet" />
+  <t:link type="navigate" action="sheet.jsp" immediate="true" label="Sheet" />
 
-  <t:link action="screenshot/tabGroup" immediate="true" label="TabGroup" />
+  <t:link type="navigate" action="tabGroup.jsp" immediate="true" label="TabGroup" />
 
-  <t:link action="screenshot/textarea" immediate="true" label="Textarea" />
+  <t:link type="navigate" action="textarea.jsp" immediate="true" label="Textarea" />
 
-  <t:link action="screenshot/tooBar" immediate="true" label="TooBar" />
+  <t:link type="navigate" action="toolBar.jsp" immediate="true" label="TooBar" />
 
-  <t:link action="screenshot/toolBarCheck" immediate="true" label="ToolBarCheck" />
+  <t:link type="navigate" action="toolBarCheck.jsp" immediate="true" label="ToolBarCheck" />
 
-  <t:link action="screenshot/tooBarSelectOne" immediate="true" label="TooBarSelectOne" />
+  <t:link type="navigate" action="toolBarSelectOne.jsp" immediate="true" label="TooBarSelectOne" />
 
-  <t:link action="screenshot/tree" immediate="true" label="Tree" />
+  <t:link type="navigate" action="tree.jsp" immediate="true" label="Tree" />
 
-  <t:link action="screenshot/treeListBox" immediate="true" label="TreeListBox" />
+  <t:link type="navigate" action="treeListBox.jsp" immediate="true" label="TreeListBox" />
 
 
   <t:cell/>

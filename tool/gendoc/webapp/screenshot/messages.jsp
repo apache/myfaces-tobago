@@ -34,8 +34,7 @@
         </f:facet>
 
          <t:cell/>
-         <t:button action="#{clientConfigController.submit}"
-             label="Submit" />
+         <t:button label="Submit" />
         </t:panel>
 
         <t:cell/>
