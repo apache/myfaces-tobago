@@ -107,11 +107,6 @@
     </dependency>
 
     <dependency>
-      <id>commons-io</id>
-      <version>1.0</version>
-    </dependency>
-
-    <dependency>
       <id>commons-lang</id>
       <version>2.1</version>
       <purpose>jar</purpose>
