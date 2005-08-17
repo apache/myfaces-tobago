@@ -107,6 +107,10 @@
         <include name="**/*.txt"/>
         <include name="**/*.dtd"/>
       </fileset>
+      <manifest>
+        <attribute name="Implementation-Title" value="${pom.artifactId}"/>
+        <attribute name="Implementation-Version" value="${pom.version}"/>
+      </manifest>
     </jar>
   </target>
 
