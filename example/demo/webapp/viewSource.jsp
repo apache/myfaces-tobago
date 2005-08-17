@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ page import="org.apache.myfaces.tobago.demo.jsp.JspFormatter,
+<%@ page import="org.apache.myfaces.tobago.example.demo.jsp.JspFormatter,
                  java.io.InputStreamReader,
                  java.io.PrintWriter"
 %><%@ page errorPage="/errorPage.jsp"

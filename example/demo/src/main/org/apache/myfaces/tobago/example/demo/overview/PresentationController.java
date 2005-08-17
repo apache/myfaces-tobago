@@ -17,9 +17,9 @@
  * Created 04.06.2004 09:27:14.
  * $Id: PresentationController.java 1269 2005-08-08 20:20:19 +0200 (Mo, 08 Aug 2005) lofwyr $
  */
-package org.apache.myfaces.tobago.demo.overview;
+package org.apache.myfaces.tobago.example.demo.overview;
 
-import org.apache.myfaces.tobago.demo.jsp.JspFormatter;
+import org.apache.myfaces.tobago.example.demo.jsp.JspFormatter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

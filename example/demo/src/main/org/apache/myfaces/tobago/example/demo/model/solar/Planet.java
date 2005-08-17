@@ -17,7 +17,7 @@
  * Created 20.09.2002 at 10:54:32.
  * $Id: Planet.java 889 2004-05-26 14:52:59 +0200 (Mi, 26 Mai 2004) lofwyr $
  */
-package org.apache.myfaces.tobago.demo.model.solar;
+package org.apache.myfaces.tobago.example.demo.model.solar;
 
 import java.util.List;
 import java.util.ArrayList;

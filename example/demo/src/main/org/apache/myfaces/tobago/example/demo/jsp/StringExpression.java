@@ -17,7 +17,7 @@
  * Created on: Apr 10, 2002, 11:04:12 PM
  * $Id: StringExpression.java,v 1.1.1.1 2004/04/15 18:40:59 idus Exp $
  */
-package org.apache.myfaces.tobago.demo.jsp;
+package org.apache.myfaces.tobago.example.demo.jsp;
 
 
 import org.apache.commons.logging.Log;

@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.apache.myfaces.tobago.demo.actionlistener;
+package org.apache.myfaces.tobago.example.demo.actionlistener;
 
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;

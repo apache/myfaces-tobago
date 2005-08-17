@@ -46,7 +46,7 @@
             selectable="#{demo.selectionType}"
             mutable="#{demo.mutable}"
             >
-          <f:actionListener type="org.apache.myfaces.tobago.demo.actionlistener.TreeEditor" />
+          <f:actionListener type="org.apache.myfaces.tobago.example.demo.actionlistener.TreeEditor" />
         </t:tree>
       </t:cell>
 

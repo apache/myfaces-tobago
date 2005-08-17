@@ -17,7 +17,7 @@
  * Created 21.08.2002 at 18:00:22.
  * $Id: ClientConfigController.java 1271 2005-08-08 20:44:11 +0200 (Mo, 08 Aug 2005) lofwyr $
  */
-package org.apache.myfaces.tobago.demo.clientConfig;
+package org.apache.myfaces.tobago.example.demo.clientConfig;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;

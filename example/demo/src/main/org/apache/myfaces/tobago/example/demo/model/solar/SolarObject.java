@@ -20,7 +20,7 @@
  * Time: 7:15:14 PM
  * To change this template use Options | File Templates.
  */
-package org.apache.myfaces.tobago.demo.model.solar;
+package org.apache.myfaces.tobago.example.demo.model.solar;
 
 import java.util.List;
 import java.util.ArrayList;

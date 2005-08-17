@@ -84,7 +84,7 @@
 
           <t:tabGroup id="tabMarsOuterForm2" serverside="true" state="#{demo.tabState2}" >
 
-            <t:tabChangeListener type="org.apache.myfaces.tobago.demo.actionlistener.SimpleTabChangeListener"/>
+            <t:tabChangeListener type="org.apache.myfaces.tobago.example.demo.actionlistener.SimpleTabChangeListener"/>
 
             <t:tab labelWithAccessKey="#{bundle.tabPlanet}">
               <t:panel >

@@ -38,13 +38,13 @@
 
   <managed-bean>
     <managed-bean-name>demo</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.demo.TobagoDemoController</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.TobagoDemoController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
   <lifecycle>
     <phase-listener>
-      org.apache.myfaces.tobago.demo.overview.SynchronizeNavigationPhaseListener
+      org.apache.myfaces.tobago.example.demo.overview.SynchronizeNavigationPhaseListener
     </phase-listener>
   </lifecycle>
 
@@ -52,7 +52,7 @@
 
     <managed-bean>
     <managed-bean-name>miniHowtoNavigation</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.demo.overview.PresentationController</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.overview.PresentationController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     <managed-property>
       <property-name>pages</property-name>
@@ -104,7 +104,7 @@
 
   <managed-bean>
     <managed-bean-name>overviewNavigation</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.demo.overview.PresentationController</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.overview.PresentationController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     <managed-property>
       <property-name>pages</property-name>
@@ -127,7 +127,7 @@
 
   <managed-bean>
     <managed-bean-name>overviewController</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.demo.overview.OverviewController</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.overview.OverviewController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
@@ -212,13 +212,13 @@
 
   <lifecycle>
     <phase-listener>
-      org.apache.myfaces.tobago.demo.clientConfig.ClientConfigPhaseListener
+      org.apache.myfaces.tobago.example.demo.clientConfig.ClientConfigPhaseListener
     </phase-listener>
   </lifecycle>
 
   <managed-bean>
     <managed-bean-name>clientConfigController</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.demo.clientConfig.ClientConfigController</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.clientConfig.ClientConfigController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
@@ -232,7 +232,7 @@
 
   <managed-bean>
     <managed-bean-name>clientConfigController2</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.demo.clientConfig.ClientConfigController</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.clientConfig.ClientConfigController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 

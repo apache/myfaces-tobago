@@ -16,7 +16,7 @@
 /*
  * $Id: TobagoDemoController.java 1270 2005-08-08 20:21:38 +0200 (Mo, 08 Aug 2005) lofwyr $
  */
-package org.apache.myfaces.tobago.demo;
+package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,8 +24,8 @@ import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.demo.model.solar.Solar;
-import org.apache.myfaces.tobago.demo.model.solar.SolarObject;
+import org.apache.myfaces.tobago.example.demo.model.solar.Solar;
+import org.apache.myfaces.tobago.example.demo.model.solar.SolarObject;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 
