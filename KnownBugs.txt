@@ -1,9 +1,8 @@
+Known bugs in combination with MyFaces:
 
-known bugs in combination with myfaces:
+Sheet: Selected rows are not working with myfaces yet.
 
-Sheet: selected rows are not working with myfaces yet.
+Subforms : Current value of not submitted subforms will get lost.
+           This is a bug in myfaces and fixed in myfaces-api from 09.08.2005
 
-Subforms : current value of not submitted subforms will get lost.
-           is a bug in myfaces and fixed in myfaces-api from 09.08.2005
-
-Tree : treeState gets lost ; mutable doesn't work
+Tree : TreeState is lost; Mutable version doesn't work.
