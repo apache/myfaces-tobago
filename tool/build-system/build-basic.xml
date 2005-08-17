@@ -57,29 +57,29 @@
 
   <target name="init" depends="init-task">
     <pom file="pom.xml" id="pom"/>
-    <dependencies filesetId="pom.dependencies" pathId="build.classpath.jar" verbose="false">
+    <dependencies filesetId="pom.dependencies" pathId="project.classpath.jar" verbose="false">
       <pom refid="pom"/>
     </dependencies>
 
-    <path id="build.classpath.test">
-      <path refid="build.classpath.jar"/>
+    <path id="project.classpath.test">
+      <path refid="project.classpath.jar"/>
       <pathelement path="${build.classes.main}/"/>
     </path>
     <path id="build.classpath.run">
-      <path refid="build.classpath.test"/>
+      <path refid="project.classpath.test"/>
       <pathelement path="${build.classes.test}/"/>
     </path>
   </target>
 
   <target name="init-apt" depends="init">
     <pom file="${build-system.dir}/dependencies.xml" id="dependencies"/>
-    <dependencies pathId="build.classpath.jar" verbose="false">
+    <dependencies pathId="build.classpath.apt" verbose="false">
       <pom refid="dependencies"/>
     </dependencies>
 
     <taskdef name="apt"
         classname="org.apache.myfaces.tobago.apt.ant.Apt"
-        classpathref="build.classpath.jar"/>
+        classpathref="build.classpath.apt"/>
   </target>
 
   <presetdef name="javac-default">
@@ -88,7 +88,7 @@
         target="${java.version.target}" source="${java.version.source}"
         bootclasspath="${java.version.bootclasspath}"
         extdirs="${java.version.extdirs}"
-        classpathref="build.classpath.jar">
+        classpathref="project.classpath.jar">
       <compilerarg value="-Xlint"/>
     </javac>
   </presetdef>
@@ -104,7 +104,7 @@
     <mkdir dir="${build.classes.test}"/>
     <javac-default srcdir="${src.test}"
         destdir="${build.classes.test}"
-        classpathref="build.classpath.test"/>
+        classpathref="project.classpath.test"/>
     <mkdir dir="${report.junit}"/>
     <junit printsummary="yes" haltonfailure="yes" haltonerror="yes"
       dir="${basedir}" maxmemory="128m">
@@ -159,6 +159,8 @@
   <target name="clean" description="Delete temporary files.">
     <delete dir="${build}" quiet="true"/>
     <mkdir dir="${build}"/>
+    <delete dir="lib" quiet="true"/>
+    <mkdir dir="lib"/>
   </target>
 
   <target name="war" depends="compile" description="Generate WAR archive.">
