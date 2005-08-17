@@ -26,7 +26,6 @@ import javax.servlet.jsp.JspException;
  * User: weber
  * Date: Apr 18, 2005
  * Time: 5:04:48 PM
- * To change this template use File | Settings | File Templates.
  */
 public class TextInputTag extends InputTag implements org.apache.myfaces.tobago.taglib.decl.TextInputTag {
   public String getComponentType() {

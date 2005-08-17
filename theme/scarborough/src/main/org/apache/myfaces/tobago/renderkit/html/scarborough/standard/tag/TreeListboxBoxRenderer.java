@@ -34,7 +34,6 @@ import java.util.List;
  * User: weber
  * Date: Mar 21, 2005
  * Time: 11:19:03 AM
- * To change this template use File | Settings | File Templates.
  */
 public class TreeListboxBoxRenderer extends RendererBase {
 

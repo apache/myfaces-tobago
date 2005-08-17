@@ -22,7 +22,6 @@ import org.apache.myfaces.tobago.component.UISelectItem;
  * User: weber
  * Date: Apr 5, 2005
  * Time: 6:11:16 PM
- * To change this template use File | Settings | File Templates.
  */
 public class SelectItem extends javax.faces.model.SelectItem {
 

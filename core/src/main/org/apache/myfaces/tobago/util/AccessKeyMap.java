@@ -17,7 +17,6 @@
  * User: weber
  * Date: Apr 5, 2005
  * Time: 3:23:40 PM
- * To change this template use File | Settings | File Templates.
  */
 package org.apache.myfaces.tobago.util;
 

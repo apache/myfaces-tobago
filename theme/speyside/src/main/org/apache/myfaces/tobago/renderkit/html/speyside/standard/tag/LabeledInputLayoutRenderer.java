@@ -35,7 +35,6 @@ import java.util.Map;
  * User: weber
  * Date: Feb 22, 2005
  * Time: 3:05:58 PM
- * To change this template use File | Settings | File Templates.
  */
 public class LabeledInputLayoutRenderer extends
     org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.LabeledInputLayoutRenderer {

@@ -39,7 +39,6 @@ import java.util.Map;
  * User: weber
  * Date: Jan 11, 2005
  * Time: 4:59:36 PM
- * To change this template use File | Settings | File Templates.
  */
 public class HtmlRendererUtil {
 

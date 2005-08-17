@@ -45,7 +45,6 @@ import java.util.List;
  * User: weber
  * Date: Mar 7, 2005
  * Time: 4:01:27 PM
- * To change this template use File | Settings | File Templates.
  */
 public class Sorter extends MethodBinding {
 

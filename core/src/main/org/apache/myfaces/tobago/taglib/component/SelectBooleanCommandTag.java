@@ -25,7 +25,6 @@ import javax.faces.component.UIComponent;
  * User: weber
  * Date: Apr 26, 2005
  * Time: 3:01:45 PM
- * To change this template use File | Settings | File Templates.
  */
 public class SelectBooleanCommandTag extends CommandTag {
   public static final String COMMAND_TYPE = "commandSelectBoolean";

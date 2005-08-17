@@ -25,7 +25,6 @@ import java.io.IOException;
  * User: weber
  * Date: Jul 11, 2005
  * Time: 11:50:03 AM
- * To change this template use File | Settings | File Templates.
  */
 public class HtmlWriterUtilUnitTest extends TestCase {
 

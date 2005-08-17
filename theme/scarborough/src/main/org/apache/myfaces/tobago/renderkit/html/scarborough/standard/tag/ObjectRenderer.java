@@ -28,7 +28,6 @@ import java.io.IOException;
  * User: weber
  * Date: Jun 20, 2005
  * Time: 5:02:57 PM
- * To change this template use File | Settings | File Templates.
  */
 public class ObjectRenderer extends RendererBase {
   public void encodeEndTobago(FacesContext facesContext, UIComponent component)

@@ -26,7 +26,6 @@ import java.util.List;
  * User: weber
  * Date: Mar 21, 2005
  * Time: 10:38:49 AM
- * To change this template use File | Settings | File Templates.
  */
 public class UITreeListboxBox extends UIComponentBase {
 

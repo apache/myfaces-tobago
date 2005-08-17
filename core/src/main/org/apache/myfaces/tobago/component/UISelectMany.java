@@ -27,7 +27,6 @@ import java.io.IOException;
  * User: weber
  * Date: May 31, 2005
  * Time: 7:47:11 PM
- * To change this template use File | Settings | File Templates.
  */
 public class UISelectMany extends javax.faces.component.UISelectMany {
 

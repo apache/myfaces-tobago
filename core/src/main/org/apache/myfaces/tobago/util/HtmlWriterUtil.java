@@ -26,7 +26,6 @@ import java.io.Writer;
  * User: weber
  * Date: Jun 28, 2005
  * Time: 2:07:29 PM
- * To change this template use File | Settings | File Templates.
  */
 public final class HtmlWriterUtil {
 

@@ -24,7 +24,6 @@ import javax.faces.el.ValueBinding;
  * User: weber
  * Date: Apr 11, 2005
  * Time: 11:15:35 AM
- * To change this template use File | Settings | File Templates.
  */
 public class UISelectItem extends javax.faces.component.UISelectItem {
 

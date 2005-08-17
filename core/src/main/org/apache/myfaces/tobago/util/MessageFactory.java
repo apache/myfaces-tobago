@@ -32,7 +32,6 @@ import java.util.HashMap;
  * User: weber
  * Date: Jun 14, 2005
  * Time: 5:40:04 PM
- * To change this template use File | Settings | File Templates.
  */
 public class MessageFactory {
 

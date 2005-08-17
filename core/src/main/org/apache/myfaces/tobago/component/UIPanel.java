@@ -25,7 +25,6 @@ import java.io.IOException;
  * User: weber
  * Date: Feb 28, 2005
  * Time: 3:05:19 PM
- * To change this template use File | Settings | File Templates.
  */
 public class UIPanel extends javax.faces.component.UIPanel {
 

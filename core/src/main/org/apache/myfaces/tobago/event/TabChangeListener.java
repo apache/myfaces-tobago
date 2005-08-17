@@ -22,7 +22,6 @@ import javax.faces.event.FacesListener;
  * User: weber
  * Date: 13.12.2004
  * Time: 16:21:54
- * To change this template use File | Settings | File Templates.
  */
 public interface TabChangeListener extends FacesListener {
 

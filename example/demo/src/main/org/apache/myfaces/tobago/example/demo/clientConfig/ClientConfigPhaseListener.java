@@ -25,7 +25,6 @@ import javax.faces.event.PhaseListener;
  * User: weber
  * Date: Jan 26, 2005
  * Time: 11:28:20 AM
- * To change this template use File | Settings | File Templates.
  */
 public class ClientConfigPhaseListener implements PhaseListener {
 

@@ -22,7 +22,6 @@ import javax.faces.component.UISelectMany;
  * User: weber
  * Date: Apr 18, 2005
  * Time: 4:59:34 PM
- * To change this template use File | Settings | File Templates.
  */
 
 public class SelectManyTag extends InputTag implements org.apache.myfaces.tobago.taglib.decl.SelectManyTag {

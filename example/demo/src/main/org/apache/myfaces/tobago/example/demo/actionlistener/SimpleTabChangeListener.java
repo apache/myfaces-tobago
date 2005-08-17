@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.event.StateChangeEvent;
  * User: weber
  * Date: 13.12.2004
  * Time: 16:55:44
- * To change this template use File | Settings | File Templates.
  */
 public class SimpleTabChangeListener implements TabChangeListener {
 

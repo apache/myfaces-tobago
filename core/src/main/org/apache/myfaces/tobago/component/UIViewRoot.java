@@ -40,7 +40,6 @@ import java.util.ConcurrentModificationException;
  * User: weber
  * Date: Jun 13, 2005
  * Time: 5:19:31 PM
- * To change this template use File | Settings | File Templates.
  */
 public class UIViewRoot extends javax.faces.component.UIViewRoot {
   // ------------------------------------------------------ Manifest Constants

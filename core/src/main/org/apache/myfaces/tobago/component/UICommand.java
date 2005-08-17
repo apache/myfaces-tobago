@@ -25,7 +25,6 @@ import java.io.IOException;
  * User: weber
  * Date: Apr 4, 2005
  * Time: 5:02:10 PM
- * To change this template use File | Settings | File Templates.
  */
 public class UICommand extends javax.faces.component.UICommand {
 

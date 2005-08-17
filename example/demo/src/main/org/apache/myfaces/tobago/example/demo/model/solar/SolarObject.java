@@ -18,7 +18,6 @@
  * User: weber
  * Date: Nov 5, 2002
  * Time: 7:15:14 PM
- * To change this template use Options | File Templates.
  */
 package org.apache.myfaces.tobago.example.demo.model.solar;
 

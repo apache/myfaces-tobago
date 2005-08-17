@@ -36,7 +36,6 @@ import java.util.StringTokenizer;
  * User: weber
  * Date: Jul 18, 2005
  * Time: 3:24:46 PM
- * To change this template use File | Settings | File Templates.
  */
 public class DatePickerController extends MethodBinding {
 

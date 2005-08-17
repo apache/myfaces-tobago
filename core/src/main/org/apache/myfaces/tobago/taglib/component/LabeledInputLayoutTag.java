@@ -29,7 +29,6 @@ import javax.faces.component.UIComponent;
  * User: weber
  * Date: Jun 20, 2005
  * Time: 6:44:48 PM
- * To change this template use File | Settings | File Templates.
  */
 @Tag(name="labeledInputLayout", bodyContent=BodyContent.EMPTY)
 public class LabeledInputLayoutTag extends TobagoTag {

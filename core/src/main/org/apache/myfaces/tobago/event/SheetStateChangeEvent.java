@@ -24,7 +24,6 @@ import javax.faces.component.UIComponent;
  * User: weber
  * Date: 13.12.2004
  * Time: 16:25:03
- * To change this template use File | Settings | File Templates.
  */
 public class SheetStateChangeEvent extends FacesEvent {
 
