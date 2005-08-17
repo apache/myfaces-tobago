@@ -52,22 +52,22 @@
 
       <%-- column --%>
 
-      <t:selectBooleanCheckbox label="#{bundle.treeShowIcons}"
+      <t:selectBooleanCheckbox label="#{overviewBundle.treeShowIcons}"
           value="#{demo.showIcons}" />
-      <t:selectBooleanCheckbox label="#{bundle.treeShowJunctions}"
+      <t:selectBooleanCheckbox label="#{overviewBundle.treeShowJunctions}"
           value="#{demo.showJunctions}" />
-      <t:selectBooleanCheckbox label="#{bundle.treeShowRootJunction}"
+      <t:selectBooleanCheckbox label="#{overviewBundle.treeShowRootJunction}"
           value="#{demo.showRootJunction}" />
-      <t:selectBooleanCheckbox label="#{bundle.treeShowRoot}"
+      <t:selectBooleanCheckbox label="#{overviewBundle.treeShowRoot}"
           value="#{demo.showRoot}" />
       <t:cell />
       <t:selectOneChoice value="#{demo.selectionType}">
         <f:selectItems value="#{demo.selectionItems}" />
       </t:selectOneChoice>
 
-      <t:selectBooleanCheckbox label="#{bundle.treeMutable}"
+      <t:selectBooleanCheckbox label="#{overviewBundle.treeMutable}"
           value="#{demo.mutable}" />
-      <t:button action="redisplay" label="#{bundle.submit}" />
+      <t:button action="redisplay" label="#{overviewBundle.submit}" />
 
       </t:box>
 

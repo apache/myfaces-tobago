@@ -162,14 +162,14 @@
 
             <t:menuItem type="script" action="alert('action 1')"  label="alert 1" />
 
-            <t:menuItem action="/" type="navigate" label="#{bundle.linkClickme}"
+            <t:menuItem action="/" type="navigate" label="#{overviewBundle.toolbar_linkClickme}"
                 image="image/config.gif" >
               <f:facet name="confirmation"><t:out value="Do you really want leave this demo?" /></f:facet>
             </t:menuItem>
 
             <t:menuItem action="http://www.atanion.com" type="navigate" disabled="true" label="disabled" />
 
-            <t:menucheck action="#{demo.clickButton}"  label="#{bundle.linkClickme}" value="#{demo.boolTest}" />
+            <t:menucheck action="#{demo.clickButton}"  label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.boolTest}" />
           </t:menu>
           <t:menu label="Menu 2">
 
@@ -179,13 +179,13 @@
 
               <t:menuItem type="script" action="alert('action 1')"  label="alert 1" image="image/date.gif" />
 
-              <t:menuItem action="/" type="navigate" label="#{bundle.linkClickme}" image="image/config.gif" >
+              <t:menuItem action="/" type="navigate" label="#{overviewBundle.toolbar_linkClickme}" image="image/config.gif" >
                 <f:facet name="confirmation"><t:out value="Do you really want leave this demo?" /></f:facet>
               </t:menuItem>
 
-              <t:menuItem action="http://www.atanion.com" type="navigate" disabled="true" label="#{bundle.linkClickme}" image="image/remove.gif" />
+              <t:menuItem action="http://www.atanion.com" type="navigate" disabled="true" label="#{overviewBundle.toolbar_linkClickme}" image="image/remove.gif" />
 
-            <t:menu label="#{bundle.selectSingleselect}">
+            <t:menu label="#{overviewBundle.toolbar_selectSingleselect}">
 
               <t:menuradio value="#{demo.salutation[0]}" >
                 <f:selectItems value="#{demo.salutationItems}" />
@@ -193,14 +193,14 @@
 
             </t:menu>
 
-              <t:menuItem action="#{demo.clickButton}"  label="#{bundle.linkClickme}" />
+              <t:menuItem action="#{demo.clickButton}"  label="#{overviewBundle.toolbar_linkClickme}" />
             </t:menu>
 
             <t:menuSeparator/>
 
-            <t:menucheck label="#{bundle.linkClickme}" value="#{demo.bool[0]}" />
-            <t:menucheck label="#{bundle.linkClickme}" value="#{demo.bool[1]}" />
-            <t:menucheck label="#{bundle.linkClickme}" value="#{demo.bool[2]}" />
+            <t:menucheck label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[0]}" />
+            <t:menucheck label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[1]}" />
+            <t:menucheck label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[2]}" />
 
           </t:menu>
 

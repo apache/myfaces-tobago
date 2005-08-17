@@ -36,22 +36,22 @@
             state="#{demo.sheetState}"
             showRowRange="left" showPageRange="right" showDirectLinks="center"
             pagingLength="7" directLinkCount="5" >
-          <t:column label="#{bundle.solarArrayName}" id="name" sortable="true">
+          <t:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true">
             <t:out value="#{luminary.name}" id="t_name" />
           </t:column>
-          <t:column label="#{bundle.solarArrayNumber}" id="number" sortable="false" align="center" >
+          <t:column label="#{overviewBundle.solarArrayNumber}" id="number" sortable="false" align="center" >
             <t:out value="#{luminary.number}" id="t_number"/>
           </t:column>
-          <t:column label="#{bundle.solarArrayOrbit}" sortable="true" >
+          <t:column label="#{overviewBundle.solarArrayOrbit}" sortable="true" >
             <t:out value="#{luminary.orbit}" id="t_orbit" />
           </t:column>
-          <t:column label="#{bundle.solarArrayPopulation}" sortable="true">
+          <t:column label="#{overviewBundle.solarArrayPopulation}" sortable="true">
             <t:in value="#{luminary.population}" id="t_population" />
           </t:column>
-          <t:column label="#{bundle.solarArrayDistance}" sortable="true" align="right" >
+          <t:column label="#{overviewBundle.solarArrayDistance}" sortable="true" align="right" >
             <t:out value="#{luminary.distance}" id="t_distance" />
           </t:column>
-          <t:column label="#{bundle.solarArrayPeriod}" sortable="true" align="right" >
+          <t:column label="#{overviewBundle.solarArrayPeriod}" sortable="true" align="right" >
             <t:out value="#{luminary.period}" id="t_period" />
           </t:column>
         </t:sheet>

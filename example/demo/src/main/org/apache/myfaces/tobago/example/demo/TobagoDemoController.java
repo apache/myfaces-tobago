@@ -202,13 +202,13 @@ public class TobagoDemoController {
     ComponentUtil.setStringProperty(
         textbox, TobagoConstants.ATTR_VALUE, "#{luminary.population}", null);
     columns.add(ComponentUtil.createColumn(
-        "#{bundle.solarArrayPopulation}", "true", null, textbox));
+        "#{overviewBundle.solarArrayPopulation}", "true", null, textbox));
 
     columns.add(ComponentUtil.createTextColumn(
-        "#{bundle.solarArrayDistance}", "true", "right", "#{luminary.distance}"));
+        "#{overviewBundle.solarArrayDistance}", "true", "right", "#{luminary.distance}"));
 
     columns.add(ComponentUtil.createTextColumn(
-        "#{bundle.solarArrayPeriod}", "true", "right", "#{luminary.period}"));
+        "#{overviewBundle.solarArrayPeriod}", "true", "right", "#{luminary.period}"));
 
 
     return columns;

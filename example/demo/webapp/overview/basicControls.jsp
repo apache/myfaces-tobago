@@ -62,7 +62,6 @@
           <t:gridLayout columns="1*;1*"  border="0"/>
         </f:facet>
         <t:selectOneRadio value="#{overviewController.radioValue}" id="rg0">
-          <f:facet name="label"><t:label value="#{bundle.radiogroup_0}" /></f:facet>
           <f:selectItems value="#{overviewController.items}" id="items0" />
         </t:selectOneRadio>
 

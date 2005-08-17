@@ -17,10 +17,9 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
 <f:view locale="#{clientConfigController.locale}">
-  <t:loadBundle basename="demo" var="bundle" />
   <f:loadBundle basename="org.apache.myfaces.tobago.example.demo.miniHowto.Resources" var="miniHowtoBundle" />
   <f:loadBundle basename="org.apache.myfaces.tobago.example.demo.overview.Resources" var="overviewBundle" />
-  <t:page label="#{bundle.pageTitle}" id="page"
+  <t:page label="#{overviewBundle.pageTitle}" id="page"
       width="750px" height="600px">
 
     <t:include value="mini-howto/menubar.jsp"/>
