@@ -23,7 +23,7 @@
       <f:facet name="layout">
         <t:gridLayout columns="100px;1*" rows="fixed;1*" />
       </f:facet>
-      <label>Solo Label</label>
+      <label>Single Label</label>
       <t:cell/>
 
       <t:cell/>

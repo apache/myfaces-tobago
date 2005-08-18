@@ -25,8 +25,8 @@
           <t:gridLayout rows="fixed;fixed;1*" />
         </f:facet>
 
-      <t:selectBooleanCheckbox label="#{bundle.solarSaturn}" value="#{demo.bool[0]}" id="bool0" />
-      <t:selectBooleanCheckbox label="#{bundle.solarJupiter}" value="#{demo.bool[1]}" id="bool1" />
+      <t:selectBooleanCheckbox label="Saturn" value="saturn" id="bool0" />
+      <t:selectBooleanCheckbox label="Jupiter" value="jupiter" id="bool1" />
       <t:cell/>
 
       </t:panel>

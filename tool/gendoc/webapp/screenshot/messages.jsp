@@ -1,3 +1,5 @@
+<%@ page import="javax.faces.context.FacesContext"%>
+<%@ page import="javax.faces.application.FacesMessage"%>
 <%--
  * Copyright 2002-2005 atanion GmbH.
  *
@@ -16,6 +18,10 @@
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
+<%
+  FacesContext facesContext = FacesContext.getCurrentInstance();
+  facesContext.addMessage(null, new FacesMessage("Required field"));
+%>
 
 <layout:screenshot>
   <f:subview id="messages">

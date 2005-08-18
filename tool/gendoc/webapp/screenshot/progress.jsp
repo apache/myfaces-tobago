@@ -35,7 +35,7 @@
           <t:gridLayout rows="fixed;1*" />
         </f:facet>
       <t:panel>
-        <t:label value="Progress: " />
+        <t:label value="Progress example: " />
         <t:progress value="#{progress}" />
       </t:panel>
       <t:cell/>
