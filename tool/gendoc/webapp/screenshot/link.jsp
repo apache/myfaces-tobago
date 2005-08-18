@@ -24,7 +24,7 @@
         <t:gridLayout columns="300px;1*" rows="fixed;1*" />
       </f:facet>
 
-      <t:link type="navigate" action="http://www.atanion.com" label="http://www.atanion.com" />
+      <t:link type="navigate" action="http://tobago.atanion.net" label="http://tobago.atanion.net" />
       <t:cell/>
 
       <t:cell/>

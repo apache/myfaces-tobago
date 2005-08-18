@@ -22,7 +22,7 @@
 
 <web-app>
 
-  <display-name>An Addressbook Demo with Tobago by Atanion</display-name>
+  <display-name>A simple addressbook demo with Tobago</display-name>
 
   <!--  workaround for a bug in Oracle AS (e.g. 10.1.2.0.0)-->
   <listener>

@@ -26,17 +26,10 @@ import java.text.CollationKey;
 import java.text.Collator;
 import java.util.Comparator;
 
-
 /**
- * BeanComparator.java
- *
- *
  * Created: Mon Apr 15 15:56:44 2002
- *
- * @author <a href="mailto: Volker.Weber@atanion.com "> Volker Weber</a>
+ * @author Volker Weber
  */
-
-
 
 public class BeanComparator implements Comparator  {
 

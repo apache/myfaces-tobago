@@ -32,7 +32,7 @@ manual layouting with HTML tables or other constructs is needed.
 
 A life demo can be found here: http://tobago.atanion.net
 
-The development of Tobago started three years ago.
+The development of Tobago started in 2002.
 
 (0.1) Criteria
 

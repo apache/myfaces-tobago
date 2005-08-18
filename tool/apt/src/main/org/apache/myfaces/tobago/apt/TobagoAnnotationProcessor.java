@@ -43,7 +43,7 @@ import java.util.Set;
  * $Id: TobagoAnnotationProcessor.java,v 1.1 2005/05/11 15:20:34 bommel Exp $
  */
 public class TobagoAnnotationProcessor implements AnnotationProcessor {
-  private String packageName = "com.atanion";
+  private String packageName = "org.apache.myfaces.tobago";
   private String fileName = "tobagoDocu.xml";
   protected final AnnotationProcessorEnvironment env;
   protected final Set<AnnotationTypeDeclaration> atds;
