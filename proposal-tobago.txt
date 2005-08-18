@@ -163,5 +163,6 @@ At the moment the MyFaces JIRA module could be used.
 (5) Apache sponsoring individuals
 
 Tobago is sponsored by MyFaces. Mentors are Martin Marinschek and Matthias 
-Wessendorf from the MyFaces project (both PMCs). Champion is Manfred Geiler 
-(MyFaces PMC Chair).
+Wessendorf from the MyFaces project (both PMCs). Champion is potentially
+Manfred Geiler (MyFaces PMC Chair), if an official (and not a member) of
+the ASF can be champion.

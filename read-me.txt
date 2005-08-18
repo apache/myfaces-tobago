@@ -30,3 +30,7 @@ Alternatively, you can run
 
 and deploy the WAR from the build/dist directory
 manually.
+
+Known Bugs
+----------
+Until we have a public issue tracker see KnownBugs.txt.
