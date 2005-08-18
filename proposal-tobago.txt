@@ -132,9 +132,9 @@ At the moment the existing mailing lists of the MyFaces project should be
 sufficient to discuss and announce Tobago topics. If not, we need the following 
 lists:
 
-	* tobago-dev
-	* tobago-user
-	* tobago-pmc
+  * tobago-dev
+  * tobago-user
+  * tobago-pmc
 
 (3.2) Subversion
 
@@ -148,17 +148,17 @@ At the moment the MyFaces JIRA module could be used.
 
 (4.1) Already ASF committers
 
-	* Martin Marinschek, martin.marinschek@gmail.com (PMC MyFaces)
-	* Matthias Wessendorf, mwessendorf@gmail.com (PMC MyFaces)
+  * Martin Marinschek, martin.marinschek@gmail.com (PMC MyFaces)
+  * Matthias Wessendorf, mwessendorf@gmail.com (PMC MyFaces)
 
 (4.2) Other committers
 
-	* Udo Schnurpfeil, udo@schnurpfeil.de
-	* Volker Weber, asf@weber-oldenburg.de
-	* Philippe Hennes, philippe.hennes@philstar.de
-	* Arvid Hülsebus, idus@krelon.com
-	* Bernd Bohmann, bernd.bohmann@atanion.com
-	* Detlef Bartetzko, detlef.bartetzko@gmail.com
+  * Udo Schnurpfeil, udo@schnurpfeil.de
+  * Volker Weber, asf@weber-oldenburg.de
+  * Philippe Hennes, philippe.hennes@philstar.de
+  * Arvid Hülsebus, idus@krelon.com
+  * Bernd Bohmann, bernd.bohmann@atanion.com
+  * Detlef Bartetzko, detlef.bartetzko@gmail.com
 
 (5) Apache sponsoring individuals
 
