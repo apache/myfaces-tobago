@@ -32,7 +32,7 @@ function openPopup(url,name,width,height,options,x,y) {
     var y = parseInt((window.screen.availHeight - height)/2);
   }
   if (!url) {
-    var url = 'http://www.atanion.net';
+    var url = '';
   }
   if (!options) {
     para = "";
