@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Copyright 2002-2005 atanion GmbH.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+-->
+
+<!--deploy on tomcat 5.5 or later -->
+<project name="tomcat" default="deploy" xmlns:tomcat="urn:catalina-ant">
+
+  <import file="build-basic.xml"/>
+
+  <!--XXX define tobago-home-->
+  <property file="../../build.properties"/>
+
+  <target name="tomcat:init" depends="init">
+
+    <!-- Project properties -->
+    <property name="tomcat.host" value="localhost"/>
+    <property name="tomcat.port" value="8080"/>
+    <property name="tomcat.manager.user" value="tomcat"/>
+    <property name="tomcat.manager.password" value="tomcat"/>
+    <property name="tomcat.webapp" value="${basedir}/build/dist"/>
+    <property name="tomcat.context.path" value="${ant.project.name}"/>
+
+    <!-- Task definitions -->
+    <pom file="${build-system.dir}/pom-tomcat.xml" id="pom-tomcat"/>
+    <dependencies pathId="tomcat.deployer.classpath" verbose="true">
+      <pom refid="pom-tomcat"/>
+    </dependencies>
+
+    <taskdef resource="org/apache/catalina/ant/catalina.tasks"
+             classpathref="tomcat.deployer.classpath"
+             uri="urn:catalina-ant"/>
+  </target>
+
+  <target name="upload" depends="tomcat:init, war">
+    <echo message="Local Deployment"/>
+    <unwar src="${basedir}/${dist}/${ant.project.name}.war"
+           dest="${tomcat.webapp}/${ant.project.name}"/>
+  </target>
+
+  <target name="deploy" depends="tomcat:init,upload"
+          description="Deploys a new (web-)application into the JSP/Servlet Container (Tomcat).">
+    <echo message="url      = http://${tomcat.host}:${tomcat.port}/manager/"/>
+    <echo message="username = ${tomcat.manager.user}"/>
+    <echo message="war      = file:${tomcat.webapp}/${ant.project.name}/"/>
+    <tomcat:deploy update="true"
+                   url="http://${tomcat.host}:${tomcat.port}/manager/"
+                   username="${tomcat.manager.user}"
+                   password="${tomcat.manager.password}"
+                   path="/${tomcat.context.path}"
+                   localWar="file:${tomcat.webapp}/${ant.project.name}/"/>
+  </target>
+
+  <target name="undeploy" depends="tomcat:init"
+          description="Undeploys an existing (web-)application, see deploy.">
+    <tomcat:undeploy url="http://${tomcat.host}:${tomcat.port}/manager/"
+                     username="${tomcat.manager.user}"
+                     password="${tomcat.manager.password}"
+                     path="/${tomcat.context.path}"/>
+  </target>
+
+</project>
