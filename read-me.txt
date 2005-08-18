@@ -1,0 +1,32 @@
+Building
+--------
+You need Ant 1.6.5 and Java 5 to build Tobago.
+Currently we use the Maven 2 Ant tasks for
+dependency management.
+
+In the main directory you can use
+
+  ant install
+
+to run the install target on all sub projects. This will
+put all necessary artifacts into your local repository.
+
+Demo
+----
+To deploy the demo on your Tomcat. Create a
+build.properties file based on build-sample.properties in
+the main directory.
+
+Make sure the manager user has the role manager; see
+<tomcat>/conf/tomcat-users.xml.
+
+Change into the demo directory example/demo and run
+
+  ant deploy
+
+Alternatively, you can run
+
+  ant war
+
+and deploy the WAR from the build/dist directory
+manually.

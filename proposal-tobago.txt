@@ -1,8 +1,4 @@
-﻿TobagoProposal
-
-* VERSION 1.0 *
-
-Proposal for new sub-project Tobago (of MyFaces)
+﻿Proposal for new sub-project Tobago (of MyFaces)
 
 18th August 2005, the Tobago Team (contributions by: Udo Schnurpfeil, Volker
 Weber, Philippe Hennes, Arvid Hülsebus, Bernd Bohmann, Detlef Bartetzko)
@@ -19,7 +15,7 @@ The focus of Tobago is to create business applications without the need for HTML
 design. The development of Tobago pages follows more the development of 
 conventional user interfaces than the creation of web pages. 
 
-The ui components are abstracted from HTML and any layout information that does 
+The UI components are abstracted from HTML and any layout information that does
 not belong to the general page structure. The final output format is determined 
 by the client/user-agent.
 
@@ -118,9 +114,15 @@ become a subproject of MyFaces.
 
 (2) Initial source
 
-The source code can be found under: http://www.atanion.net/repos/asf/tobago/trunk/
+The source code can be found under:
 
-The source code is provided under the Apache License, version 2.0
+  http://www.atanion.net/repos/asf/tobago/trunk/
+
+The source code is provided under the Apache License, version 2.0.
+
+A precompiled WAR for the demo can be found at:
+
+  http://www.atanion.com/tobago/tobago-example-demo.war
 
 (3) ASF resource to be created
 
