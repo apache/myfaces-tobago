@@ -4,7 +4,7 @@
 
 Proposal for new sub-project Tobago (of MyFaces)
 
-12th August 2005, The Tobago Team (contributions by: Udo Schnurpfeil, Volker
+18th August 2005, the Tobago Team (contributions by: Udo Schnurpfeil, Volker
 Weber, Philippe Hennes, Arvid Hülsebus, Bernd Bohmann, Detlef Bartetzko)
 
 (0) Rational

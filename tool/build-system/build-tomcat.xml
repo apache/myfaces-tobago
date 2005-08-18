@@ -16,13 +16,13 @@
  *    limitations under the License.
 -->
 
-<!--deploy on tomcat 5.5 or later -->
+<!-- deploy on tomcat 5.5 or later -->
 <project name="tomcat" default="deploy" xmlns:tomcat="urn:catalina-ant">
 
   <import file="build-basic.xml"/>
 
   <!--XXX define tobago-home-->
-  <property file="../../build.properties"/>
+  <property file="${build-system.dir}/../../build.properties"/>
 
   <target name="tomcat:init" depends="init">
 
@@ -36,40 +36,40 @@
 
     <!-- Task definitions -->
     <pom file="${build-system.dir}/pom-tomcat.xml" id="pom-tomcat"/>
-    <dependencies pathId="tomcat.deployer.classpath" verbose="true">
+    <dependencies pathId="tomcat.deployer.classpath" verbose="false">
       <pom refid="pom-tomcat"/>
     </dependencies>
 
     <taskdef resource="org/apache/catalina/ant/catalina.tasks"
-             classpathref="tomcat.deployer.classpath"
-             uri="urn:catalina-ant"/>
+        classpathref="tomcat.deployer.classpath"
+        uri="urn:catalina-ant"/>
   </target>
 
   <target name="upload" depends="tomcat:init, war">
     <echo message="Local Deployment"/>
     <unwar src="${basedir}/${dist}/${ant.project.name}.war"
-           dest="${tomcat.webapp}/${ant.project.name}"/>
+        dest="${tomcat.webapp}/${ant.project.name}"/>
   </target>
 
   <target name="deploy" depends="tomcat:init,upload"
-          description="Deploys a new (web-)application into the JSP/Servlet Container (Tomcat).">
+      description="Deploys a new (web-)application into the JSP/Servlet Container (Tomcat).">
     <echo message="url      = http://${tomcat.host}:${tomcat.port}/manager/"/>
     <echo message="username = ${tomcat.manager.user}"/>
     <echo message="war      = file:${tomcat.webapp}/${ant.project.name}/"/>
     <tomcat:deploy update="true"
-                   url="http://${tomcat.host}:${tomcat.port}/manager/"
-                   username="${tomcat.manager.user}"
-                   password="${tomcat.manager.password}"
-                   path="/${tomcat.context.path}"
-                   localWar="file:${tomcat.webapp}/${ant.project.name}/"/>
+        url="http://${tomcat.host}:${tomcat.port}/manager/"
+        username="${tomcat.manager.user}"
+        password="${tomcat.manager.password}"
+        path="/${tomcat.context.path}"
+        localWar="file:${tomcat.webapp}/${ant.project.name}/"/>
   </target>
 
   <target name="undeploy" depends="tomcat:init"
-          description="Undeploys an existing (web-)application, see deploy.">
+      description="Undeploys an existing (web-)application, see deploy.">
     <tomcat:undeploy url="http://${tomcat.host}:${tomcat.port}/manager/"
-                     username="${tomcat.manager.user}"
-                     password="${tomcat.manager.password}"
-                     path="/${tomcat.context.path}"/>
+        username="${tomcat.manager.user}"
+        password="${tomcat.manager.password}"
+        path="/${tomcat.context.path}"/>
   </target>
 
 </project>
