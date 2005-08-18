@@ -25,7 +25,7 @@
           <t:gridLayout rows="30px;1*" />
         </f:facet>
 
-        <t:image value="image/atanion.gif" height="27" width="399" />
+        <t:image value="image/tobago_head.gif" height="83" width="150" />
         <t:cell/>
 
       </t:panel>
