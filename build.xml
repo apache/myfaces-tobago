@@ -18,7 +18,14 @@
 
 <project name="tobago-all" default="install">
 
-  <target name="install">
+  <target name="info">
+    <exec executable="ant">
+      <arg value="-p"/>
+    </exec>
+  </target>
+
+  <target name="install"
+          description="Install all necessary artifacts into local m2 repository">
 
     <ant target="install" dir="tool/apt" />
     <ant target="install" dir="core" />
@@ -30,7 +37,7 @@
 
   </target>
 
-  <target name="clean">
+  <target name="clean" description="Clean out the output directories">
 
     <ant target="clean" dir="tool/apt" />
     <ant target="clean" dir="core" />
@@ -51,7 +58,7 @@
 
   <!-- cruise control -->
 
-  <target name="masterbuild" depends="reportdir, checkout, test, install, deploy-build" />
+  <target name="masterbuild" depends="reportdir, checkout, install, test, deploy-build" />
 
   <target name="cleanbuild" depends="clean, masterbuild"/>
 
@@ -63,13 +70,14 @@
     <mkdir dir="example/demo/build/report"/>
   </target>
 
-  <target name="checkout">
+  <target name="checkout" description="Get the latest source from the svn tree">
     <exec executable="svn">
       <arg value="up"/>
     </exec>
   </target>
 
-  <target name="deploy-build">
+  <target name="deploy-build" depends="install"
+          description="Deploy the examples on your tomcat. Description in readme.txt" >
     <ant target="war" dir="example/addressbook"/>
     <ant target="war" dir="example/demo"/>
   </target>
