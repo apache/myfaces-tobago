@@ -42,7 +42,7 @@
     <t:button action="#{miniHowtoNavigation.viewSource}"
         immediate="true" label="#{overviewBundle.footer_viewSource}" />
 
-    <t:cell />
+    <t:out value="#{overviewBundle.notTranslated}"/>
 
     <%--<t:link id="atanion_link" action="http://www.atanion.com/"--%>
         <%--type="navigate" image="image/poweredBy.gif" />--%>
