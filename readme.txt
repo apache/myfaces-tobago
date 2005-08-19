@@ -13,7 +13,7 @@ put all necessary artifacts into your local repository.
 
 Demo
 ----
-To deploy the demo on your Tomcat. Create a
+To deploy the demo on your Tomcat 5.5 create a
 build.properties file based on build-sample.properties in
 the main directory.
 
@@ -33,4 +33,4 @@ manually.
 
 Known Bugs
 ----------
-Until we have a public issue tracker see KnownBugs.txt.
+Until we have a public issue tracker see known-bugs.txt.
