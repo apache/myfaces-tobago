@@ -29,7 +29,7 @@
       <artifactId>tobago-core</artifactId>
       <version>1.0.6-SNAPSHOT</version>
     </dependency>
-    
+
     <dependency>
       <groupId>tobago</groupId>
       <artifactId>tobago-theme-scarborough-zip</artifactId>
@@ -52,6 +52,13 @@
       <type>zip</type>
       <version>1.0.6-SNAPSHOT</version>
       <scope>module</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.11</version>
+      <scope>war</scope>
     </dependency>
 
   </dependencies>
