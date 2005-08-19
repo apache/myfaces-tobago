@@ -32,6 +32,7 @@
     <ant target="install" dir="theme/standard" />
     <ant target="install" dir="theme/scarborough" />
     <ant target="install" dir="theme/speyside" />
+    <ant target="install" dir="theme/richmond" />
     <ant target="install" dir="example/addressbook" />
     <ant target="install" dir="example/demo" />
 
@@ -44,6 +45,7 @@
     <ant target="clean" dir="theme/standard" />
     <ant target="clean" dir="theme/scarborough" />
     <ant target="clean" dir="theme/speyside" />
+    <ant target="clean" dir="theme/richmond" />
     <ant target="clean" dir="example/addressbook" />
     <ant target="clean" dir="example/demo" />
 

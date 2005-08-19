@@ -24,6 +24,7 @@
   <theme-config>
     <default-theme>org.apache.myfaces.tobago.context.SpeysideTheme</default-theme>
     <supported-theme>org.apache.myfaces.tobago.context.ScarboroughTheme</supported-theme>
+    <supported-theme>org.apache.myfaces.tobago.context.RichmondTheme</supported-theme>
   </theme-config>
 
   <resource-dir>tobago-resource</resource-dir>

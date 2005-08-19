@@ -48,6 +48,14 @@
 
     <dependency>
       <groupId>tobago</groupId>
+      <artifactId>tobago-theme-richmond-zip</artifactId>
+      <type>zip</type>
+      <version>1.0.6-SNAPSHOT</version>
+      <scope>module</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>tobago</groupId>
       <artifactId>tobago-theme-standard-zip</artifactId>
       <type>zip</type>
       <version>1.0.6-SNAPSHOT</version>
