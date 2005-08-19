@@ -32,7 +32,7 @@ and deploy the WAR from the build/dist directory
 manually.
 
 It will create a log file in the app-server starting folder.
-You may want to change that in the log4j.xml
+You may want to change that in the src/main/log4j.xml
 
 Known Bugs
 ----------
