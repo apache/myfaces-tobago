@@ -16,9 +16,11 @@
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <f:view>
-  <t:page label="#{bundle.title}" width="640px" height="480px">
+  <t:page label="#{bundle.editorTitle}" width="640px" height="480px">
 
-  <t:loadBundle basename="addressbook-demo" var="bundle"/>
+    <f:loadBundle
+        basename="org.apache.myfaces.tobago.example.addressbook.Resources"
+        var="bundle" />
 
     <t:panel>
       <f:facet name="layout">
@@ -28,7 +30,7 @@
       <t:cell spanX="3" />
       <t:cell/>
 
-      <t:box label="Address Editor" >
+      <t:box label="#{bundle.editorBoxTitle}" >
         <f:facet name="layout">
           <t:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*;fixed"  />
         </f:facet>
@@ -36,17 +38,17 @@
         <t:messages />
 
         <t:in value="#{controller.currentAddress.firstName}"
-            label="First Name" required="true" />
+            label="#{bundle.editorFirstName}" required="true" />
 
         <t:in value="#{controller.currentAddress.lastName}"
-            label="Last Name" required="true" rendered="true" />
+            label="#{bundle.editorLastName}" required="true" rendered="true" />
 
         <t:panel>
           <f:facet name="layout">
             <t:gridLayout columns="6*;1*" />
           </f:facet>
           <t:in value="#{controller.currentAddress.street}"
-              label="Street / No" />
+              label="#{bundle.editorStreet}" />
           <t:in value="#{controller.currentAddress.houseNumber}" />
         </t:panel>
 
@@ -55,34 +57,34 @@
             <t:gridLayout columns="1*;1*" />
           </f:facet>
           <t:in value="#{controller.currentAddress.zipCode}"
-              label="ZIP / City" />
+              label="#{bundle.editorCity}" />
           <t:in value="#{controller.currentAddress.city}" />
         </t:panel>
 
         <t:selectOneChoice value="#{controller.currentAddress.country}"
-            label="Country">
+            label="#{bundle.editorCountry}">
           <f:selectItems value="#{countries}" />
         </t:selectOneChoice>
 
         <t:in value="#{controller.currentAddress.phone}"
-            label="Phone" />
+            label="#{bundle.editorPhone}" />
 
         <t:in value="#{controller.currentAddress.mobile}"
-            label="Mobile" />
+            label="#{bundle.editorMobile}" />
 
         <t:in value="#{controller.currentAddress.fax}"
-            label="Fax" />
+            label="#{bundle.editorFax}" />
 
         <t:in value="#{controller.currentAddress.email}"
-            label="Email" />
+            label="#{bundle.editorEmail}" />
 
         <t:date value="#{controller.currentAddress.dayOfBirth}"
-            label="Day of Birth">
+            label="#{bundle.editorBirthday}">
           <f:convertDateTime pattern="dd.MM.yyyy" />
         </t:date>
 
         <t:textarea value="#{controller.currentAddress.note}"
-            label="Note" />
+            label="#{bundle.editorNote}" />
 
         <t:panel>
           <f:facet name="layout">
@@ -91,9 +93,9 @@
 
           <t:cell />
           <t:button action="#{controller.storeAddress}"
-              label="Store" defaultCommand="true" />
+              labelWithAccessKey="#{bundle.editorStore}" defaultCommand="true" />
           <t:button action="list" immediate="true"
-              labelWithAccessKey="_Cancel" />
+              labelWithAccessKey="#{bundle.editorCancel}" />
         </t:panel>
 
       </t:box>

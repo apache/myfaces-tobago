@@ -16,9 +16,11 @@
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <f:view>
-  <t:page label="List of Addresses" width="640px" height="480px">
+  <t:page label="#{bundle.listPageTitle}" width="640px" height="480px">
 
-  <t:loadBundle basename="addressbook-demo" var="bundle"/>
+    <f:loadBundle
+        basename="org.apache.myfaces.tobago.example.addressbook.Resources"
+        var="bundle"/>
 
     <t:panel>
       <f:facet name="layout">
@@ -28,17 +30,17 @@
       <t:cell spanX="3" />
       <t:cell/>
 
-      <t:box label="Address Editor" >
+      <t:box label="#{bundle.listBoxTitle}" >
         <f:facet name="layout">
           <t:gridLayout rows="fixed;1*" />
         </f:facet>
         <f:facet name="toolBar">
           <t:toolBar>
-            <t:button label="New" action="#{controller.createAddress}" />
-            <t:button label="Edit" action="#{controller.editAddress}" />
-            <t:button label="Delete" action="#{controller.deleteAddresses}">
+            <t:button label="#{bundle.listNew}" action="#{controller.createAddress}" />
+            <t:button label="#{bundle.listEdit}" action="#{controller.editAddress}" />
+            <t:button label="#{bundle.listDelete}" action="#{controller.deleteAddresses}">
               <f:facet name="confirmation">
-                <t:out value="Do you want to delete the selected addresses?" />
+                <t:out value="#{bundle.listDeleteConfirmation}" />
               </f:facet>
             </t:button>
           </t:toolBar>
@@ -48,10 +50,10 @@
 
         <t:sheet columns="1*;1*" value="#{controller.addressList}"
             var="address" state="#{controller.selectedAddresses}">
-          <t:column label="First Name" sortable="true">
+          <t:column label="#{bundle.listFirstName}" sortable="true">
             <t:out value="#{address.firstName}" />
           </t:column>
-          <t:column label="Last Name" sortable="true">
+          <t:column label="#{bundle.listLastName}" sortable="true">
             <t:out value="#{address.lastName}" />
           </t:column>
         </t:sheet>
