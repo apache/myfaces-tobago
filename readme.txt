@@ -31,6 +31,9 @@ Alternatively, you can run
 and deploy the WAR from the build/dist directory
 manually.
 
+It will create a log file in the app-server starting folder.
+You may want to change that in the log4j.xml
+
 Known Bugs
 ----------
 Until we have a public issue tracker see known-bugs.txt.
