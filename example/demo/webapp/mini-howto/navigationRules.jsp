@@ -26,7 +26,7 @@
 
       <t:out escape="false" value="#{miniHowtoBundle.navigationRulesText1}" />
 
-      <t:box label="#{miniHowtoBundle.navigationRulesBoxTitle1}">
+      <t:box label="#{miniHowtoBundle.codeExample}">
         <t:out value="#{miniHowtoBundle.navigationRules_codeExample1}" />
       </t:box>
 

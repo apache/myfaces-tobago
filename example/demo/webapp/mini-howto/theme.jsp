@@ -26,7 +26,7 @@
 
       <t:out value="#{miniHowtoBundle.themesText1}" escape="false" />
 
-      <t:box label="#{miniHowtoBundle.themesCodeExampleBoxTitle1}">
+      <t:box label="#{miniHowtoBundle.codeExample}">
         <t:out value="#{miniHowtoBundle.themesCodeExample1}" />
       </t:box>
 

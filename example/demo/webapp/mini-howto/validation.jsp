@@ -21,12 +21,12 @@
   <jsp:body>
     <t:panel>
       <f:facet name="layout">
-        <t:gridLayout rows="80px;1*;50px" />
+        <t:gridLayout rows="80px;1*;70px" />
       </f:facet>
 
       <t:out value="#{miniHowtoBundle.validationText1}" escape="false" />
 
-      <t:box label="#{miniHowtoBundle.validationCodeExampleBoxTitle1}">
+      <t:box label="#{miniHowtoBundle.codeExample}">
         <t:out value="#{miniHowtoBundle.validationCodeExample1}" />
       </t:box>
 

@@ -21,18 +21,18 @@
   <jsp:body>
     <t:panel>
       <f:facet name="layout">
-        <t:gridLayout rows="110px;110px;50px;1*;" />
+        <t:gridLayout rows="150px;110px;50px;1*;" />
       </f:facet>
 
-      <t:out escape="false"  value="#{miniHowtoBundle.i18nText1}" />
+      <t:out escape="false" value="#{miniHowtoBundle.i18nText1}" />
 
-      <t:box label="#{miniHowtoBundle.i18nCodeExampleBoxTitle1}" >
+      <t:box label="#{miniHowtoBundle.codeExample}" >
         <t:out value="#{miniHowtoBundle.i18nCodeExample1}" />
       </t:box>
 
-      <t:out escape="false"  value="#{miniHowtoBundle.i18nText2}" />
+      <t:out escape="false" value="#{miniHowtoBundle.i18nText2}" />
 
-      <t:box label="#{miniHowtoBundle.i18nCodeExampleBoxTitle2}" >
+      <t:box label="#{miniHowtoBundle.codeExample}" >
         <t:out escape="true" value="#{miniHowtoBundle.i18nCodeExample2}" />
       </t:box>
 

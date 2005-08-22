@@ -25,7 +25,7 @@
       </f:facet>
 
       <t:out escape="false" value="#{miniHowtoBundle.jspDefinitionText1}"/>
-      <t:box label="#{miniHowtoBundle.jspDefinitionCodeExampleBoxTitle1}">
+      <t:box label="#{miniHowtoBundle.codeExample}">
         <t:out value="#{miniHowtoBundle.jspDefinitionCodeExample1}"/>
       </t:box>
       <t:out escape="false" value="#{miniHowtoBundle.jspDefinitionText2}"/>

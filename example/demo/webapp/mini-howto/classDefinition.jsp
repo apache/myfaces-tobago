@@ -26,7 +26,7 @@
 
       <t:out escape="false"  value="#{miniHowtoBundle.classDefinitionText1}" />
 
-      <t:box label="#{miniHowtoBundle.classDefinitionBoxTitle}" >
+      <t:box label="#{miniHowtoBundle.codeExample}" >
         <t:out value="#{miniHowtoBundle.classDefinitionCodeExample}" />
       </t:box>
 
