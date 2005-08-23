@@ -78,8 +78,7 @@
     </exec>
   </target>
 
-  <target name="deploy-build" depends="install"
-          description="Deploy the examples on your tomcat. Description in readme.txt" >
+  <target name="deploy-build" depends="install" >
     <ant target="war" dir="example/addressbook"/>
     <ant target="war" dir="example/demo"/>
   </target>
