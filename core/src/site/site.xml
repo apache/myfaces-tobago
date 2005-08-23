@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Maven">
+  <bannerLeft>
+    <name>Tobago</name>
+    <src>http://tobago.atanion.net/tobago-example-demo/tobago-resource/html/speyside/standard/image/tobago_head.gif</src>
+    <href>http://tobago.atanion.net</href>
+  </bannerLeft>
+  <bannerRight>
+    <name></name>
+  </bannerRight>
+  <body>
+    <links>
+      <item name="MyFaces" href="http://myfaces.apache.org/" />
+    </links>
+
+    <menu name="Tobago">
+      <item name="Introduction" href="index.html"/>
+      <item name="Demo" href="demo.html"/>
+    </menu>
+
+    ${reports}
+
+  </body>
+</project>
