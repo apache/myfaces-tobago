@@ -21,18 +21,74 @@
   <groupId>tobago</groupId>
   <artifactId>tobago-core</artifactId>
   <packaging>jar</packaging>
+  <name>Tobago</name>
   <version>1.0.6-SNAPSHOT</version>
+  <description>Tobago Core</description>
+  <url>http://tobago.atanion.net/</url>
+  <inceptionYear>2002</inceptionYear>
 
-  <repositories>
-    <repository>
-      <id>ibiblio</id>
-      <url>http://www.ibiblio.org/maven2</url>
-    </repository>
-    <repository>
-      <id>atanion</id>
-      <url>http://www.atanion.com/maven2</url>
-    </repository>
-  </repositories>
+  <developers>
+    <developer>
+      <id>lofwyr</id>
+      <name>Udo Schnurpfeil</name>
+      <email>udo.schnurpfeil@atanion.com</email>
+      <organization>atanion GmbH</organization>
+      <roles>
+        <role>Lead</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>weber</id>
+      <name>Volker Weber</name>
+      <email>volker.weber@atanion.com</email>
+      <organization>atanion GmbH</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>hennes</id>
+      <name>Philippe Hennes</name>
+      <email>philippe.hennes@atanion.com</email>
+      <organization>atanion GmbH</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>pleff</id>
+      <name>Detlef Bartetzko</name>
+      <email>detlef.bartetzko@atanion.com</email>
+      <organization>atanion GmbH</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>bommel</id>
+      <name>Bernd Bohmann</name>
+      <email>bernd.bohmann@atanion.com</email>
+      <organization>atanion GmbH</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>idus</id>
+      <name>Arvid Hülsebus</name>
+      <email>arvid.huelsebus@atanion.com</email>
+      <organization>atanion GmbH</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+  </developers>
 
   <dependencies>
 
@@ -153,6 +209,38 @@
 
   </dependencies>
 
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
+
+  <scm>
+    <connection>scm:svn:http://www.atanion.net/repos/asf/tobago/trunk/core/</connection>
+    <developerConnection>scm:svn:http://www.atanion.net/repos/asf/tobago/trunk/core/</developerConnection>
+    <url>http://www.atanion.net/repos/asf/tobago/trunk/core/</url>
+  </scm>
+
+  <organization>
+    <name>Tobago Team</name>
+    <url>http://tobago.atanion.net/</url>
+  </organization>
+
+  <repositories>
+    <repository>
+      <id>ibiblio</id>
+      <url>http://www.ibiblio.org/maven2</url>
+    </repository>
+    <repository>
+      <id>atanion</id>
+      <url>http://www.atanion.com/maven2</url>
+    </repository>
+  </repositories>
+
+
   <build>
     <sourceDirectory>src/main</sourceDirectory>
     <testSourceDirectory>src/test</testSourceDirectory>
@@ -167,4 +255,13 @@
       </plugin>
     </plugins>
   </build>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
 </project>
