@@ -19,13 +19,13 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UICommand;
@@ -212,7 +212,8 @@ public class TreeNodeRenderer extends RendererBase {
       String selectable = ComponentUtil.getStringAttribute(root, ATTR_SELECTABLE) ;
       if (selectable != null
           && (!(selectable.equals("multi") || selectable.equals("multiLeafOnly")
-          || selectable.equals("single") || selectable.equals("singleLeafOnly")))) {
+          || selectable.equals("single") || selectable.equals("singleLeafOnly")
+          || selectable.equals("sibling") || selectable.equals("siblingLeafOnly")))) {
         selectable = null;
       }
       if (selectable != null) {

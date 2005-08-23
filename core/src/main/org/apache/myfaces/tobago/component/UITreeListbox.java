@@ -17,11 +17,11 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class UITreeListbox extends UITree {
 
   public UITreeListbox() {
     super();
-    getAttributes().put(TobagoConstants.ATTR_SELECTABLE, "single");
+//    getAttributes().put(TobagoConstants.ATTR_SELECTABLE, "single");
   }
 // ----------------------------------------------------------- business methods
 
@@ -179,6 +179,10 @@ public class UITreeListbox extends UITree {
 
   public List<UITreeNode> getSelectionPath() {
     return selectionPath;
+  }
+
+  public boolean isSelectedNode(DefaultMutableTreeNode treeNode) {
+    return getState().getSelection().contains(treeNode);
   }
 }
 

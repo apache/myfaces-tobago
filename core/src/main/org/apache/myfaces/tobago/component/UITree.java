@@ -21,19 +21,20 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
-import org.apache.myfaces.tobago.util.MessageFactory;
-import org.apache.myfaces.tobago.util.StringUtil;
 import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.TreeState;
+import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
+import org.apache.myfaces.tobago.util.MessageFactory;
+import org.apache.myfaces.tobago.util.StringUtil;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.component.*;
-import javax.faces.component.UIInput;
+import javax.faces.component.ActionSource;
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UICommand;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
@@ -268,7 +269,8 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
         = ComponentUtil.getAttribute(this , ATTR_SELECTABLE);
     return selectable != null
         && (selectable.equals("multi") || selectable.equals("multiLeafOnly")
-            || selectable.equals("single") || selectable.equals("singleLeafOnly"));
+            || selectable.equals("single") || selectable.equals("singleLeafOnly")
+            || selectable.equals("sibling") || selectable.equals("siblingLeafOnly"));
   }
 
   public void processDecodes(FacesContext facesContext) {
