@@ -13,6 +13,6 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ page errorPage="/errorPage.jsp" %><%
+<%
   response.sendRedirect(response.encodeRedirectURL("faces/foreach.jsp"));
 %>
