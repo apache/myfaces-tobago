@@ -23,16 +23,20 @@ import org.apache.commons.digester.Digester;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.xml.sax.SAXException;
 
+import javax.faces.FacesException;
 import javax.servlet.ServletContext;
 import java.io.InputStream;
+import java.io.IOException;
 import java.net.URL;
 
 public class TobagoConfigParser {
 
   private static final Log LOG = LogFactory.getLog(TobagoConfigParser.class);
 
-  public static void parse(ServletContext context, TobagoConfig tobagoConfig) {
+  public static void parse(ServletContext context, TobagoConfig tobagoConfig)
+      throws IOException, SAXException, FacesException {
 
     Digester digester = new Digester();
     configure(tobagoConfig, digester);
@@ -70,7 +74,9 @@ public class TobagoConfigParser {
     return digester;
   }
 
-  private static void parse(ServletContext context, Digester digester) {
+  // todo: make it runnable without config file, using defaults
+  private static void parse(ServletContext context, Digester digester)
+      throws IOException, SAXException, FacesException {
 
     final String configPath = "/WEB-INF/tobago-config.xml";
     InputStream input = null;
@@ -80,14 +86,10 @@ public class TobagoConfigParser {
       if (input != null) {
         digester.parse(input);
       } else {
-        if (LOG.isInfoEnabled()) {
-          LOG.info(
+          throw new FacesException(
               "No config file found: '" + configPath + "'. " +
-              "Continuing without TobagoConfig");
-        }
+              "Tobago can't run without configuration.");
       }
-    } catch (Throwable e) {
-      LOG.error(configPath, e);
     } finally {
       IOUtils.closeQuietly(input);
     }
