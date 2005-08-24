@@ -1,8 +1,3 @@
-package org.apache.myfaces.tobago.example.foreach;
-
-import java.util.List;
-import java.util.ArrayList;
-
 /*
  * Copyright 2002-2005 atanion GmbH.
  *
@@ -18,15 +13,14 @@ import java.util.ArrayList;
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+package org.apache.myfaces.tobago.example.foreach;
 
+import java.util.List;
+import java.util.ArrayList;
 
 public class BirdList {
 
   List birds = null;
-
-  public BirdList() {
-
-  }
 
   public List getBirds() {
     if (birds == null) {
