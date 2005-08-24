@@ -240,7 +240,6 @@
 
   <scm>
     <connection>scm:svn:http://www.atanion.net/repos/asf/tobago/trunk/core/</connection>
-    <developerConnection>scm:svn:http://www.atanion.net/repos/asf/tobago/trunk/core/</developerConnection>
     <url>http://www.atanion.net/repos/asf/tobago/trunk/core/</url>
   </scm>
 
@@ -259,7 +258,6 @@
       <url>http://www.atanion.com/maven2</url>
     </repository>
   </repositories>
-
 
   <build>
     <sourceDirectory>src/main</sourceDirectory>

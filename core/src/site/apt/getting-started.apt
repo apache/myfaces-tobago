@@ -27,7 +27,7 @@ Deploying the Demo
   in the main directory.
 
   Make sure the manager user has the role manager; see
-  \<tomcat\>/conf/tomcat-users.xml.
+  $TOMCAT_HOME/conf/tomcat-users.xml.
 
   Change into the demo directory
   {{{http://www.atanion.net/repos/asf/tobago/trunk/example/demo/}example/demo}}
