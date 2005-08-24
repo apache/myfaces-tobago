@@ -29,39 +29,9 @@
 
   <developers>
     <developer>
-      <id>lofwyr</id>
-      <name>Udo Schnurpfeil</name>
-      <email>udo.schnurpfeil@atanion.com</email>
-      <organization>atanion GmbH</organization>
-      <roles>
-        <role>Lead</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>weber</id>
-      <name>Volker Weber</name>
-      <email>volker.weber@atanion.com</email>
-      <organization>atanion GmbH</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>hennes</id>
-      <name>Philippe Hennes</name>
-      <email>philippe.hennes@atanion.com</email>
-      <organization>atanion GmbH</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>pleff</id>
-      <name>Detlef Bartetzko</name>
-      <email>detlef.bartetzko@atanion.com</email>
+      <id>idus</id>
+      <name>Arvid H&#x00fc;lsebus</name>
+      <email>arvid.huelsebus@atanion.com</email>
       <organization>atanion GmbH</organization>
       <roles>
         <role>Developer</role>
@@ -79,9 +49,59 @@
       <timezone>+1</timezone>
     </developer>
     <developer>
-      <id>idus</id>
-      <name>Arvid Hülsebus</name>
-      <email>arvid.huelsebus@atanion.com</email>
+      <id>pleff</id>
+      <name>Detlef Bartetzko</name>
+      <email>detlef.bartetzko@atanion.com</email>
+      <organization>atanion GmbH</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>mmarinschek</id>
+      <name>Martin Marinschek</name>
+      <organization>Irian, Austria</organization>
+      <email>martin.marinschek@gmail.com</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>matzew</id>
+      <name>Matthias We&#x00df;endorf</name>
+      <organization>Pironet NDH AG, Germany</organization>
+      <email>mwessendorf@gmail.com</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>hennes</id>
+      <name>Philippe Hennes</name>
+      <email>philippe.hennes@atanion.com</email>
+      <organization>atanion GmbH</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>lofwyr</id>
+      <name>Udo Schnurpfeil</name>
+      <email>udo.schnurpfeil@atanion.com</email>
+      <organization>atanion GmbH</organization>
+      <roles>
+        <role>Lead</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>weber</id>
+      <name>Volker Weber</name>
+      <email>volker.weber@atanion.com</email>
       <organization>atanion GmbH</organization>
       <roles>
         <role>Developer</role>
