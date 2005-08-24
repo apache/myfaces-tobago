@@ -18,6 +18,10 @@
       <item name="Demo" href="demo.html"/>
     </menu>
 
+    <menu name="Documentation">
+      <item name="Getting Started" href="getting-started.html"/>
+    </menu>
+
     ${reports}
 
   </body>
