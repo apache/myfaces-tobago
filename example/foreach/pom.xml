@@ -70,19 +70,6 @@
     </dependency>
 
     <dependency>
-      <groupId>oro</groupId>
-      <artifactId>oro</artifactId>
-      <version>2.0.8</version>
-      <scope>compile</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>servletapi</groupId>
-      <artifactId>servletapi</artifactId>
-      <version>2.3</version>
-      <purpose>jar</purpose>
-    </dependency>
-    <dependency>
       <groupId>jstl</groupId>
       <artifactId>jstl</artifactId>
       <version>1.1.0</version>
@@ -95,7 +82,6 @@
       <version>1.1.2</version>
       <purpose>jar</purpose>
     </dependency>
-
 
   </dependencies>
 
