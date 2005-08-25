@@ -33,6 +33,7 @@
   <property name="java.source.encoding" value="UTF-8"/>
   <property name="java.version.source" value="1.5"/>
   <property name="java.version.target" value="1.5"/>
+  <property name="java.compilerargs" value=""/>
   <property name="java.version.bootclasspath" value=""/>
   <property name="java.version.extdirs" value=""/>
 
@@ -89,7 +90,7 @@
         bootclasspath="${java.version.bootclasspath}"
         extdirs="${java.version.extdirs}"
         classpathref="project.classpath.jar">
-      <compilerarg value="-Xlint"/>
+      <compilerarg line="${java.compilerargs}"/>
     </javac>
   </presetdef>
 
