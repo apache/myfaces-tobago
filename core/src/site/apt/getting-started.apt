@@ -2,6 +2,14 @@
  Getting Started
  ------
 
+Checking Out
+
+  Check out the sources by running the following:
+
++----------------------------------------
+  svn co http://www.atanion.net/repos/asf/tobago/trunk/ tobago
++----------------------------------------
+
 Building
 
   You need Ant 1.6.5 and Java 5 to build Tobago. Currently we use
