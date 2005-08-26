@@ -36,17 +36,16 @@ public class SheetState {
   private String selected;
   private String columnWidths;
 
+  public SheetState() {
+    resetSelected();
+  }
+
   public void resetSelected() {
     selected = "";
   }
 
-  public int[] getSelectedIndices() {
-    List list = parse(selected);
-    int[] indices = new int[list.size()];
-    for (int i = 0; i < indices.length; i++){
-      indices[i] = ((Integer)list.get(i)).intValue();
-    }
-    return indices;
+  public List<Integer> getSelectedIndices() {
+    return parse(selected);
   }
 
   public static List<Integer> parse(String widthListString) {
