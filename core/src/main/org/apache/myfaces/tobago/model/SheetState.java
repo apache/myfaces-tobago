@@ -86,12 +86,4 @@ public class SheetState {
   public void setColumnWidths(String columnWidths) {
     this.columnWidths = columnWidths;
   }
-
-  public String debugSorted() {
-    StringBuffer sb = new StringBuffer("\nsorted column = ");
-    sb.append(sortedColumn);
-    sb.append("\nascending = ");
-    sb.append(ascending);
-    return sb.toString();
-  }
 }
