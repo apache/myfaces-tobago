@@ -12,6 +12,10 @@
 *    See the License for the specific language governing permissions and
 *    limitations under the License.
 
+1.0.6 -
+* bugfix in UIData -> selection
+* change package names to org.apache.myfaces.tobago
+
 1.0.5 - 10.08.2005
 * last atanion release
 * many refatoring in the tag-names and attribute-names
