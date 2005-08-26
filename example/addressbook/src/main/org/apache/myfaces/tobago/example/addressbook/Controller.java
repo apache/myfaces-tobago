@@ -19,22 +19,21 @@
  */
 package org.apache.myfaces.tobago.example.addressbook;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.model.SheetState;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 public class Controller {
 
   private static final Log LOG = LogFactory.getLog(Controller.class);
 
-  private List addressList;
+  private List<Address> addressList;
 
   private Address currentAddress;
 
@@ -44,7 +43,7 @@ public class Controller {
 
   public Controller() {
     LOG.debug("Creating new Controller");
-    addressList = new ArrayList();
+    addressList = new ArrayList<Address>();
   }
 
   public String createAddress() {
@@ -56,13 +55,13 @@ public class Controller {
 
   public String editAddress() {
     LOG.debug("action: editAddress");
-    int[] selection = selectedAddresses.getSelectedIndices();
-    if (selection.length != 1) {
+    List<Integer> selection = selectedAddresses.getSelectedIndices();
+    if (selection.size() != 1) {
       FacesMessage error = new FacesMessage("Please select exactly one address.");
       FacesContext.getCurrentInstance().addMessage(null, error);
       return null;
     }
-    currentAddress = (Address) addressList.get(selection[0]);
+    currentAddress = addressList.get(selection.get(0));
     currentStored = true;
     return "editor";
   }
@@ -80,15 +79,15 @@ public class Controller {
 
   public String deleteAddresses() {
     LOG.debug("action: deleteAddresses");
-    int[] selection = selectedAddresses.getSelectedIndices();
-    if (selection.length < 1) {
+    List<Integer> selection = selectedAddresses.getSelectedIndices();
+    if (selection.size() < 1) {
       FacesMessage error = new FacesMessage("Please select at least one address.");
       FacesContext.getCurrentInstance().addMessage(null, error);
       return null;
     }
-    Arrays.sort(selection);
-    for (int i = selection.length - 1; i >= 0; i--) {
-      addressList.remove(selection[i]);
+    Collections.sort(selection);
+    for (int i = selection.size() - 1; i >= 0; i--) {
+      addressList.remove((int)selection.get(i));
     }
     selectedAddresses.resetSelected();
     return "list";
