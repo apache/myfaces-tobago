@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
 import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.util.StringUtil;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
@@ -117,7 +118,7 @@ public class UIData extends javax.faces.component.UIData {
     }
 
     if (widthListString != null) {
-      widthList = SheetState.parse(widthListString);
+      widthList = StringUtil.parseIntegerList(widthListString);
     }
     if (widthList != null && widthList.size() != columns.size()) {
       widthList = null;

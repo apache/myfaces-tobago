@@ -40,16 +40,10 @@ import java.util.List;
 
 public class LayoutUtil implements TobagoConstants{
 
-// ///////////////////////////////////////////// constant
-
   private static final Log LOG = LogFactory.getLog(LayoutUtil.class);
 
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
-
+  private LayoutUtil() {
+  }
 
   public static int getInnerSpace(FacesContext facesContext,
       UIComponent component, boolean width) {

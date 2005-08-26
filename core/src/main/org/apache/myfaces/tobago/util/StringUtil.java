@@ -19,7 +19,14 @@
  */
 package org.apache.myfaces.tobago.util;
 
+import java.util.List;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
 public class StringUtil {
+
+  private StringUtil() {
+  }
 
   public static String firstToUpperCase(String string) {
     if (string == null) {
@@ -33,6 +40,21 @@ public class StringUtil {
       default:
         return string.substring(0,1).toUpperCase() + string.substring(1);
     }
+  }
+
+  public static List<Integer> parseIntegerList(String integerList)
+      throws NumberFormatException {
+    List<Integer> list = new ArrayList<Integer>();
+
+    StringTokenizer tokenizer = new StringTokenizer(integerList, ", ");
+    while (tokenizer.hasMoreElements()) {
+      String token = tokenizer.nextToken().trim();
+      if (token.length() > 0) {
+        list.add(new Integer(token));
+      }
+    }
+
+    return list;
   }
 
 }

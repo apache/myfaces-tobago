@@ -27,6 +27,9 @@ import java.util.Locale;
 
 public class LocaleUtil {
 
+  private LocaleUtil() {
+  }
+
   public static Locale createLocale(String value) {
     Locale locale = null;
     String[] strings = StringUtils.split(value, "_");

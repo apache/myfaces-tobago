@@ -21,10 +21,12 @@ package org.apache.myfaces.tobago.model;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.Collections;
 
 public class SheetState {
 
@@ -45,25 +47,12 @@ public class SheetState {
   }
 
   public List<Integer> getSelectedIndices() {
-    return parse(selected);
-  }
-
-  public static List<Integer> parse(String widthListString) {
-    List<Integer> list = new ArrayList<Integer>();
-
-    StringTokenizer tokenizer = new StringTokenizer(widthListString, ",");
-    while (tokenizer.hasMoreElements()) {
-      String token = tokenizer.nextToken().trim();
-      if (token.length() > 0) {
-        try {
-          list.add(new Integer(token));
-        } catch (NumberFormatException e) {
-          LOG.warn(e.getMessage(), e);
-        }
-      }
+    try {
+      return StringUtil.parseIntegerList(selected);
+    } catch (NumberFormatException e) {
+      LOG.warn(selected, e);
+      return Collections.emptyList();
     }
-
-    return list;
   }
 
   public int getSortedColumn() {
