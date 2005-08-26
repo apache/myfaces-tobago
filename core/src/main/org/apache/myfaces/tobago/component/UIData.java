@@ -284,7 +284,21 @@ public class UIData extends javax.faces.component.UIData {
 
   public void processUpdates(FacesContext context) {
     super.processUpdates(context);
-//    updateSheetState(context);
+    updateSheetState(context);
+  }
+
+  private void updateSheetState(FacesContext facesContext) {
+    SheetState state = getSheetState(facesContext);
+    if (state != null) {
+      // ensure sorter
+//      getSorter();
+//      state.setSortedColumn(sorter != null ? sorter.getColumn() : -1);
+//      state.setAscending(sorter != null && sorter.isAscending());
+      state.setSelected((String)
+          getAttributes().get(ATTR_SELECTED_LIST_STRING));
+      state.setColumnWidths((String)
+          getAttributes().get(ATTR_WIDTH_LIST_STRING));
+    }
   }
 
 // ------------------------------------------------------------ getter + setter
