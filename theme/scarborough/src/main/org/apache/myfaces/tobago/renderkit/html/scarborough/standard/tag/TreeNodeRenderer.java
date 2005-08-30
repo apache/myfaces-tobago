@@ -181,6 +181,8 @@ public class TreeNodeRenderer extends RendererBase {
 
       ResponseWriter writer = facesContext.getResponseWriter();
 
+      String debuging = null;
+
       writer.writeText("var ", null);
       writer.writeText(jsClientId, null);
       writer.writeText(" = new ", null);
@@ -191,6 +193,9 @@ public class TreeNodeRenderer extends RendererBase {
       }
       writer.writeText("('", null);
       Object name = treeNode.getAttributes().get(ATTR_NAME);
+      if (LOG.isDebugEnabled()) {
+        debuging += name + " : ";
+      }
       if (name != null) {
         writer.writeText(name, null);
       } else {
@@ -232,9 +237,16 @@ public class TreeNodeRenderer extends RendererBase {
       writer.writeText("',", null);
       if (component.getChildCount() == 0
           || (selectable != null && ! selectable.endsWith("LeafOnly"))) {
-        writer.writeText(Boolean.toString(treeState.isSelected(node)), null);
+        boolean selected = treeState.isSelected(node);
+        writer.writeText(Boolean.toString(selected), null);
+        if (LOG.isDebugEnabled()) {
+          debuging += selected ? "S" : "-";
+        }
       } else {
         writer.writeText("false", null);
+        if (LOG.isDebugEnabled()) {
+          debuging += "-";
+        }
         if (treeState.isSelected(node)) {
           LOG.warn("Ignore selected FolderNode in LeafOnly selection tree!");
         }
@@ -243,7 +255,11 @@ public class TreeNodeRenderer extends RendererBase {
       writer.writeText(Boolean.toString(treeState.isMarked(node)), null);
       if (component.getChildCount() > 0) {
         writer.writeText(",", null);
-        writer.writeText(Boolean.toString(treeState.isExpanded(node)), null);
+        boolean expanded = treeState.isExpanded(node);
+        writer.writeText(Boolean.toString(expanded), null);
+        if (LOG.isDebugEnabled()) {
+          debuging += expanded ? "E" : "-";
+        }
       }
       writer.writeText(",", null);
       writer.writeText(Boolean.toString(root.isRequired()), null);
@@ -254,6 +270,9 @@ public class TreeNodeRenderer extends RendererBase {
         writer.writeText(".add(", null);
         writer.writeText(jsClientId, null);
         writer.writeText(");\n", null);
+      }
+      if (LOG.isDebugEnabled()) {
+        LOG.debug(debuging);
       }
     }
   }

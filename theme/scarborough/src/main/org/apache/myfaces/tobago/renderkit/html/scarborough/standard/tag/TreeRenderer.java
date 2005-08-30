@@ -19,6 +19,8 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
@@ -28,9 +30,6 @@ import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -68,7 +67,6 @@ public class TreeRenderer extends RendererBase {
         state.setMarker(null);
       }
     }
-
     tree.setValid(true);
   }
 
@@ -203,4 +201,12 @@ public class TreeRenderer extends RendererBase {
 
 // ///////////////////////////////////////////// bean getter + setter
 
+
+
+  protected String nodeStateId(FacesContext facesContext, UITreeNode node) {
+    // this must do the same as nodeStateId() in tree.js
+    String clientId = node.getClientId(facesContext);
+    int last = clientId.lastIndexOf(':') + 1;
+    return clientId.substring(last);
+  }
 }

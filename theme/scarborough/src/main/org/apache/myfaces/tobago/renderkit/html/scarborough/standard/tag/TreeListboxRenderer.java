@@ -21,13 +21,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -35,8 +35,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
-import java.util.Set;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 public class TreeListboxRenderer extends TreeRenderer{
 
@@ -55,30 +56,41 @@ public class TreeListboxRenderer extends TreeRenderer{
 
 
     UITreeListbox tree = (UITreeListbox) component;
+    tree.createSelectionPath();
 
     String clientId = tree.getClientId(facesContext);
     UITreeNode root = tree.getRoot();
 
 
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    UIPage page = ComponentUtil.findPage(tree);
+    if (LOG.isDebugEnabled()) {
+      page.getOnloadScripts().add("tbgTreeStates('" + clientId + "')");
+    }
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement("div", tree);
     writer.writeComponentClass();
     writer.writeAttribute("style", null, ATTR_STYLE);
 
-    final Set<DefaultMutableTreeNode> selection = tree.getState().getSelection();
-    final Iterator<DefaultMutableTreeNode> iterator = selection.iterator();
+    String value = ";";
+    List<UITreeNode> expandPath = tree.getExpandPath();
+    for (UITreeNode node : expandPath) {
+      value += nodeStateId(facesContext, node) + ";";
+    }
+
     writer.startElement("input", tree);
     writer.writeAttribute("type", "hidden", null);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute("value", ";", null);
+    writer.writeAttribute("value", value, null);
     writer.endElement("input");
 
-    String value = ";";
-    if (iterator.hasNext()) {
-      final DefaultMutableTreeNode node = iterator.next();
 
-//      value = node
+    final Set<DefaultMutableTreeNode> selection = tree.getState().getSelection();
+    final Iterator<DefaultMutableTreeNode> iterator = selection.iterator();
+    value = ";";
+    for (DefaultMutableTreeNode node : selection) {
+      value += nodeStateId(facesContext, tree.findUITreeNode(root, node)) + ";";
     }
     writer.startElement("input", tree);
     writer.writeAttribute("type", "hidden", null);
@@ -87,33 +99,31 @@ public class TreeListboxRenderer extends TreeRenderer{
     writer.writeAttribute("value", value, null);
     writer.endElement("input");
 
-    ComponentUtil.findPage(tree).getScriptFiles().add("script/tree.js");
+    page.getScriptFiles().add("script/tree.js");
 
     HtmlRendererUtil.startJavascript(writer);
 
-    writer.writeText("{", null);
+    writer.writeText("{\n", null);
 
-    writer.writeText("var treeResourcesHelp = new Object();\n", null);
-    writer.writeText("treeResourcesHelp.getImage = function (name) {\n", null);
+    writer.writeText("  var treeResourcesHelp = new Object();\n", null);
+    writer.writeText("  treeResourcesHelp.getImage = function (name) {\n", null);
     writer.writeText("    return \"", null);
     writer.writeText(ResourceManagerUtil.getImage(facesContext, "image/blank.gif"), null);
     writer.writeText("\";\n", null);
-    writer.writeText("}\n", null);
+    writer.writeText("  }\n", null);
 
 
     RenderUtil.encode(facesContext, root);
 
-    writer.writeText("var hidden =   document.getElementById('", null);
+    writer.writeText("  var hidden =   document.getElementById('", null);
     writer.writeText(clientId, null);
     writer.writeText("'); \n", null);
-    writer.writeText("hidden.rootNode = ", null);
+    writer.writeText("  hidden.rootNode = ", null);
     String rootNode = createJavascriptVariable(root.getClientId(facesContext));
     writer.writeText(rootNode, null);
     writer.writeText(";\n", null);
 
-    writer.writeText(rootNode, null);
-    writer.writeText(".initSelection();\n", null);
-    writer.writeText("}", null);
+    writer.writeText("}\n", null);
 
     HtmlRendererUtil.endJavascript(writer);
 
@@ -175,7 +185,7 @@ public class TreeListboxRenderer extends TreeRenderer{
 //  }
 
   public void encodeEndTobago(FacesContext facesContext,
-      UIComponent component) throws IOException {
+                              UIComponent component) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
     writer.endElement("div");
   }

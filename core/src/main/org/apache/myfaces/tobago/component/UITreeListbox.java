@@ -28,6 +28,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 
 /**
  * User: weber
@@ -47,6 +50,7 @@ public class UITreeListbox extends UITree {
 // ----------------------------------------------------------------- attributes
 
   private List<UITreeNode> selectionPath;
+  private List<UITreeNode> expandPath;
 
   private boolean encodingChildren = false;
 
@@ -58,21 +62,79 @@ public class UITreeListbox extends UITree {
   }
 // ----------------------------------------------------------- business methods
 
+
+  protected String nodeStateId(FacesContext facesContext, UITreeNode node) {
+    // this must do the same as nodeStateId() in tree.js
+    String clientId = node.getClientId(facesContext);
+    int last = clientId.lastIndexOf(':') + 1;
+    return clientId.substring(last);
+  }
+
   public void encodeBegin(FacesContext facesContext)
       throws IOException {
     getLayout().layoutBegin(facesContext, this);
+//    debugStates(facesContext);
+    fixSelectionType();
     super.encodeBegin(facesContext);
-    createSelectionPath();
+    debugStates(facesContext);
     createUIBoxes(facesContext);
+  }
+
+  @SuppressWarnings(value = "unchecked")
+  private void fixSelectionType() {
+    final Map  attributes = getAttributes();
+    Object selectable = attributes.get(TobagoConstants.ATTR_SELECTABLE);
+    if ("single".equals(selectable)
+        || "singleLeafOnly".equals(selectable)
+        || "siblingLeafOnly".equals(selectable)) {
+      return;
+    } else {
+      // fix to single
+      LOG.warn("Illegal attributeValue selectable : " + selectable + " set to 'single'");
+      attributes.put(TobagoConstants.ATTR_SELECTABLE, "single");
+    }
+  }
+
+  private void debugStates(FacesContext facesContext) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("#####################################################");
+      String state = "expandState : ;";
+      for (DefaultMutableTreeNode treeNode : getState().getExpandState()) {
+        state += nodeStateId(facesContext, findUITreeNode(getRoot(), treeNode)) + ";";
+      }
+      LOG.debug(state);
+
+      state = "selectState : ;";
+      for (DefaultMutableTreeNode treeNode : getState().getSelection()) {
+        state += nodeStateId(facesContext, findUITreeNode(getRoot(), treeNode)) + ";";
+      }
+      LOG.debug(state);
+
+      state = "selectionPath : ;";
+      for (UITreeNode treeNode : getSelectionPath()) {
+        state += nodeStateId(facesContext, treeNode) + ";";
+      }
+      LOG.debug(state);
+
+      state = "expandPath : ;";
+      for (UITreeNode treeNode : getExpandPath()) {
+        state += nodeStateId(facesContext, treeNode) + ";";
+      }
+      LOG.info(state);
+
+      LOG.debug("");
+    }
+
   }
 
   public void createSelectionPath() {
     selectionPath = new ArrayList<UITreeNode>();
+    expandPath = new ArrayList<UITreeNode>();
     if (isSelectableTree()) {
       Iterator iterator = getState().getSelection().iterator();
       if (iterator.hasNext()) {
         TreeNode treeNode = (TreeNode) iterator.next();
-        UITreeNode selectedNode = findSelectedComponent(getRoot(), treeNode);
+        UITreeNode selectedNode = findUITreeNode(getRoot(), treeNode);
         if (selectedNode != null) {
           UIComponent ancestor = selectedNode;
           while (ancestor != null && ancestor instanceof UITreeNode) {
@@ -82,6 +144,40 @@ public class UITreeListbox extends UITree {
         }
       }
     }
+    Set<DefaultMutableTreeNode> expandState = getState().getExpandState();
+    if (selectionPath.isEmpty()) {
+      DefaultMutableTreeNode treeNode = getRoot().getTreeNode();
+      createExpandPath(treeNode, expandState);
+      selectionPath.addAll(expandPath);
+    } else {
+      for (UITreeNode node : selectionPath) {
+        if (! node.getTreeNode().isLeaf()) {
+          expandPath.add(node);
+        }
+      }
+    }
+    if (expandPath.isEmpty()) {
+      expandPath.add(getRoot());
+    }
+    expandState.clear();
+    for (UITreeNode uiTreeNode : expandPath) {
+      expandState.add((DefaultMutableTreeNode) uiTreeNode.getValue());
+    }
+
+  }
+
+  private boolean createExpandPath(DefaultMutableTreeNode node,
+                                   Set<DefaultMutableTreeNode> expandState) {
+    if (expandState.contains(node)) {
+      expandPath.add(findUITreeNode(getRoot(), node));
+      for (int i = 0; i < node.getChildCount(); i++) {
+        if (createExpandPath((DefaultMutableTreeNode) node.getChildAt(i), expandState)) {
+          break;
+        }
+      }
+      return true;
+    }
+    return false;
   }
 
   private void createUIBoxes(FacesContext facesContext) {
@@ -179,6 +275,10 @@ public class UITreeListbox extends UITree {
 
   public List<UITreeNode> getSelectionPath() {
     return selectionPath;
+  }
+
+  public List<UITreeNode> getExpandPath() {
+    return expandPath;
   }
 
   public boolean isSelectedNode(DefaultMutableTreeNode treeNode) {
