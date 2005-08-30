@@ -510,6 +510,10 @@ public class TobagoDemoController {
     public void setId(String id) {
       this.id = id;
     }
+
+    public String toString() {
+      return "Node name="+name+" id="+id;
+    }
   }
 
 
