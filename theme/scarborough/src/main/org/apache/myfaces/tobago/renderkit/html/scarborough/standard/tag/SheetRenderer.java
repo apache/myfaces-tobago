@@ -133,7 +133,7 @@ public class SheetRenderer extends RendererBase
     final List<Integer> columnWidths = data.getWidthList();
 
     final String selectedListString = getSelected(data, state);
-    final List<UIColumn> columnList = data.getColumns();
+    final List<UIColumn> columnList = data.getRendererdColumns();
 
     final TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
@@ -273,7 +273,7 @@ public class SheetRenderer extends RendererBase
 
 
       int columnIndex = -1;
-      for (UIColumn column : data.getColumns()) {
+      for (UIColumn column : data.getRendererdColumns()) {
         columnIndex++;
 
         final String style = "width: " + columnWidths.get(columnIndex) + "px;";

@@ -103,7 +103,7 @@ public class Sorter extends MethodBinding {
             sheetState.setAscending(ascending);
             sheetState.setSortedColumn(column);
 
-            uiColumn = data.getColumns().get(column);
+            uiColumn = data.getRendererdColumns().get(column);
             UIComponent child = getFirstSortableChild(uiColumn.getChildren());
             if (child != null) {
               ValueBinding valueBinding = child.getValueBinding("value");
