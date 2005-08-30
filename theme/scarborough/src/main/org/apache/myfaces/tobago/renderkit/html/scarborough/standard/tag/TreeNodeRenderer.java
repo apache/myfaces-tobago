@@ -39,6 +39,7 @@ import javax.servlet.ServletRequest;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Map;
 
 public class TreeNodeRenderer extends RendererBase {
 
@@ -62,11 +63,11 @@ public class TreeNodeRenderer extends RendererBase {
     TreeState state = tree.getState();
     String treeId = tree.getClientId(facesContext);
     String nodeId = node.getId();
-    ServletRequest request
-        = (ServletRequest) facesContext.getExternalContext().getRequest();
+    final Map requestParameterMap
+        = facesContext.getExternalContext().getRequestParameterMap();
 
     { // expand state
-      String expandState = request.getParameter(treeId);
+      String expandState = (String) requestParameterMap.get(treeId);
       String searchString = ";" + nodeId + ";";
       if (expandState.indexOf(searchString) > -1) {
         state.addExpandState((DefaultMutableTreeNode) node.getValue());
@@ -74,7 +75,7 @@ public class TreeNodeRenderer extends RendererBase {
     }
 
     if (TreeRenderer.isSelectable(tree)) { // selection
-      String selected = request.getParameter(treeId + UITree.SELECT_STATE);
+      String selected = (String) requestParameterMap.get(treeId + UITree.SELECT_STATE);
       String searchString = ";" + nodeId + ";";
       if (selected.indexOf(searchString) > -1) {
         state.addSelection((DefaultMutableTreeNode) node.getValue());
@@ -82,7 +83,7 @@ public class TreeNodeRenderer extends RendererBase {
     }
 
     { // marker
-      String marked = request.getParameter(treeId + UITree.MARKER);
+      String marked = (String) requestParameterMap.get(treeId + UITree.MARKER);
       if (marked != null) {
         String searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeId;
 
@@ -150,7 +151,7 @@ public class TreeNodeRenderer extends RendererBase {
   }
 
   public void encodeBeginTobago(FacesContext facesContext,
-      UIComponent component) throws IOException {
+                                UIComponent component) throws IOException {
 
     UITreeNode treeNode = (UITreeNode) component;
 
