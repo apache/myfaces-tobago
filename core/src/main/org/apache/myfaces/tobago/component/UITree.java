@@ -83,7 +83,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
   private Command[] commands;
 
-  private ActionListener actionListener;
+  private static final String ACTION_LISTENER_KEY = "actionListenerKey";
 
   private TreeState state;
 
@@ -133,10 +133,11 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   }
 
   public void addActionListener(ActionListener actionListener) {
-    this.actionListener = actionListener;
+    getAttributes().put(ACTION_LISTENER_KEY, actionListener);
   }
 
   public ActionListener[] getActionListeners() {
+    ActionListener actionListener = (ActionListener) getAttributes().get(ACTION_LISTENER_KEY);
     if (actionListener != null) {
       return new ActionListener[] {actionListener};
     } else {
@@ -145,8 +146,9 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   }
 
   public void removeActionListener(ActionListener actionListener) {
-    if (actionListener.equals(this.actionListener)) {
-      this.actionListener = null;
+    ActionListener listener = (ActionListener) getAttributes().get(ACTION_LISTENER_KEY);
+    if (actionListener.equals(listener)) {
+      getAttributes().remove(ACTION_LISTENER_KEY);
     }
   }
 
