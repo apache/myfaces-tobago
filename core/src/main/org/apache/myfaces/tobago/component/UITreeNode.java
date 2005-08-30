@@ -40,7 +40,7 @@ public class UITreeNode extends UIInput {
 
 // ///////////////////////////////////////////// attribute
 
-  private String subReference;
+  private static final String SUB_REFERENCE_KEY = "subReferenceKey" ;
 
 // ///////////////////////////////////////////// constructor
 
@@ -49,9 +49,9 @@ public class UITreeNode extends UIInput {
     if (parent instanceof UITreeNode) {
       String parentSubReference = ((UITreeNode) parent).getSubReference();
       if (parentSubReference == null) {
-        subReference = "childAt[" + index + "]";
+        getAttributes().put(SUB_REFERENCE_KEY, "childAt[" + index + "]");
       } else {
-        subReference = parentSubReference + ".childAt[" + index + "]";
+        getAttributes().put(SUB_REFERENCE_KEY, parentSubReference + ".childAt[" + index + "]");
       }
     }
     setRendererType(TobagoConstants.RENDERER_TYPE_TREE_NODE);
@@ -70,7 +70,7 @@ public class UITreeNode extends UIInput {
   }
 
   public String getSubReference() {
-    return subReference;
+    return (String) getAttributes().get(SUB_REFERENCE_KEY);
   }
 
   public DefaultMutableTreeNode getTreeNode() {
@@ -80,11 +80,13 @@ public class UITreeNode extends UIInput {
   public Object getValue() {
     TreeNode value = null;
     UITree root = findTreeRoot();
+    String subReference = getSubReference();
     if (LOG.isDebugEnabled()) {
       LOG.debug("root         = '" + root + "'");
       LOG.debug("subReference = '" + subReference + "'");
     }
     TreeNode rootNode = (TreeNode) root.getValue();
+
     if (LOG.isDebugEnabled()) {
       LOG.debug("rootNode = '" + rootNode + "'");
     }
