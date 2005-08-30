@@ -9,6 +9,9 @@
 %>
 <f:view>
   <t:page>
+    <f:facet name="layout">
+      <t:gridLayout />
+    </f:facet>
     <c:forEach items="${birdList.birds}" varStatus="status" >
        <t:out value="#{birdList.birds[${status.index}]}" id="out${status.index}"/>
     </c:forEach>
