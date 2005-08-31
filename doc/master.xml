@@ -1,35 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
-  "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd"
- [
-    <!ENTITY test1 SYSTEM "file:../build/sniplets/test1.snip">
-    <!ENTITY taglib SYSTEM "file:../build/doc/tobagoDocu.xml">
- ]>
+    "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd"
+    [
+        <!ENTITY taglib SYSTEM "file:../build/doc/tobagoDocu.xml">
+        ]>
+<!--<!ENTITY test1 SYSTEM "file:../build/sniplets/test1.snip">-->
 <book lang="en">
   <bookinfo>
     <title>Tobago Documentation</title>
-    <corpname>atanion GmbH</corpname>
-    <copyrigth>
-      <holder>atanion GmbH</holder>
+    <copyright>
       <year>2005</year>
-    </copyrigth>
+      <holder>Atanion GmbH</holder>
+    </copyright>
   </bookinfo>
 
   <chapter id="introduction">
     <title>Introduction</title>
-    <para>Dies ist ein Test. Eine Fussnote<footnote><para>Ja, genau!</para></footnote>.</para>
+    <para>Dies ist ein Test. Eine Fussnote
+      <footnote>
+        <para>Ja, genau!</para>
+      </footnote>
+    </para>
   </chapter>
 
   <chapter id="architecture">
     <title>Architecture</title>
+    <para></para>
   </chapter>
 
   <chapter id="setup">
     <title>Setup</title>
+    <para></para>
   </chapter>
 
   <chapter id="example-address">
     <title>Example: Addressbook</title>
+    <para>A text about the addressbook example...</para>
   </chapter>
 
   <chapter id="features">
@@ -39,8 +45,10 @@
       <sect2 id="features.themes.config">
         <title>ThemeConfig</title>
         <para>
-          <example><title>Test Listing</title>
-          <programlisting language="java">&test1;</programlisting>
+          <example>
+            <title>Test Listing</title>
+            <programlisting lang="java">public sttaic void main()
+              {...}</programlisting>
           </example>
         </para>
       </sect2>
@@ -59,12 +67,15 @@
       <title>Controls</title>
       <sect2 id="features.controls.standard">
         <title>Standard Controls</title>
+        <para>content</para>
       </sect2>
       <sect2 id="features.controls.sheet">
         <title>Sheet</title>
+        <para></para>
       </sect2>
       <sect2 id="features.controls.tree">
         <title>Tree</title>
+        <para></para>
       </sect2>
     </sect1>
     <sect1 id="features.converter">
@@ -112,7 +123,7 @@
     </sect1>
   </chapter>
 
-<!--  <chapter>[Custom Controls]</chapter>-->
+  <!--  <chapter>[Custom Controls]</chapter>-->
 
   <chapter id="tips">
     <title>Tips and Tricks</title>
@@ -131,9 +142,9 @@
   </appendix>
 
   <index></index>
-<!--
-AddressDemo (Code)
-Standard-Setup (Code)
--->
+  <!--
+  AddressDemo (Code)
+  Standard-Setup (Code)
+  -->
 
 </book>
