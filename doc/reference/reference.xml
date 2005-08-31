@@ -2,7 +2,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
     "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd"
     [
-        <!ENTITY taglib SYSTEM "file:../build/doc/tobagoDocu.xml">
+        <!ENTITY taglib SYSTEM "file:../../core/build/classes/main/org/apache/myfaces/tobago/taglib/taglib-reference.xml">
         ]>
 <!--<!ENTITY test1 SYSTEM "file:../build/sniplets/test1.snip">-->
 <book lang="en">
