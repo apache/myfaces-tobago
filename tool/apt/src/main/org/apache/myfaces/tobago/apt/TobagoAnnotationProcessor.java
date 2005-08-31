@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
+import java.util.Map;
 
 /**
  * Created: Apr 27, 2005 4:37:16 PM
@@ -43,15 +44,25 @@ import java.util.Set;
  * $Id: TobagoAnnotationProcessor.java,v 1.1 2005/05/11 15:20:34 bommel Exp $
  */
 public class TobagoAnnotationProcessor implements AnnotationProcessor {
-  private String packageName = "org.apache.myfaces.tobago";
-  private String fileName = "tobagoDocu.xml";
   protected final AnnotationProcessorEnvironment env;
   protected final Set<AnnotationTypeDeclaration> atds;
+  protected String packageName = "org.apache.myfaces.tobago";
+  protected String fileName = "tobagoDocu.xml";
+  protected String packageKey = "-Apackage=";
+  protected String fileKey = "-Afile=";
 
   public TobagoAnnotationProcessor(Set<AnnotationTypeDeclaration> atds,
       AnnotationProcessorEnvironment env) {
     this.atds = atds;
     this.env = env;
+    for(Map.Entry<String,String> entry: env.getOptions().entrySet()) {
+      if (entry.getKey().startsWith(packageKey)) {
+        packageName = entry.getKey().substring(packageKey.length());
+      } else if (entry.getKey().startsWith(fileKey)) {
+        fileName = entry.getKey().substring(fileKey.length());
+      }
+
+    }
     this.env.getMessager().printNotice("Starting annotation process");
 
   }
