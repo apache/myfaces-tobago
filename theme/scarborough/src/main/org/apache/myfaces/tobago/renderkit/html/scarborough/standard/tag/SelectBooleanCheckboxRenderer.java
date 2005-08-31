@@ -20,15 +20,14 @@
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UISelectBoolean;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletRequest;
 import java.io.IOException;
 
 public class SelectBooleanCheckboxRenderer extends RendererBase {
@@ -40,8 +39,8 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
 
     UIInput uiInput = (UIInput) component;
 
-    String newValue = ((ServletRequest)facesContext.getExternalContext().getRequest())
-        .getParameter(uiInput.getClientId(facesContext));
+    String newValue = (String)facesContext.getExternalContext().getRequestParameterMap()
+        .get(uiInput.getClientId(facesContext));
 //    LogUtils.logParameter(((ServletRequest)facesContext.getExternalContext().getRequest()));
 //    LOG.debug("decode: key='" + uiInput.getClientId(facesContext)
 //        + "' value='" + newValue + "'  valid = " + uiInput.isValid());

@@ -19,16 +19,16 @@
  */
 package org.apache.myfaces.tobago.component;
 
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.model.PageState;
-import org.apache.myfaces.tobago.model.PageStateImpl;
-import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
 import org.apache.commons.collections.KeyValue;
 import org.apache.commons.collections.list.SetUniqueList;
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.model.PageState;
+import org.apache.myfaces.tobago.model.PageStateImpl;
+import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -122,6 +122,7 @@ public class UIPage extends UIForm {
           okay = true;
         }
       }
+      // TODO PortletRequest ??
       if (! okay) {
         LOG.error("Can't process multipart/form-data without TobagoRequest. " +
             "Please check the web.xml and define a TobagoMultipartFormdataFilter. " +

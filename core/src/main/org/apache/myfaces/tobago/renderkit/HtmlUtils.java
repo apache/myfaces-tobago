@@ -19,9 +19,9 @@
  */
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
@@ -30,7 +30,6 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.LongRangeValidator;
 import javax.faces.validator.Validator;
-import javax.servlet.http.HttpServletResponse;
 
 public class HtmlUtils {
 
@@ -98,12 +97,10 @@ public class HtmlUtils {
   // fixme: is this longer needed?
   public static String generateUrl(FacesContext facesContext, String url) {
     String result;
-    HttpServletResponse response = (HttpServletResponse)
-        facesContext.getExternalContext().getResponse();
     Application application = facesContext.getApplication();
     ViewHandler viewHandler = application.getViewHandler();
     if (!url.startsWith("/")) { // extern
-      result = response.encodeURL(url);
+      result = facesContext.getExternalContext().encodeActionURL(url);
     } else {
       result = viewHandler.getActionURL(facesContext, url);
     }

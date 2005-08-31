@@ -19,23 +19,22 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.component.UITabGroup;
 import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.component.UITabGroup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.StateChangeEvent;
+import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.StyleAttribute;
-import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.util.AccessKeyMap;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -46,7 +45,6 @@ import javax.faces.el.MethodNotFoundException;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.PhaseId;
-import javax.servlet.ServletRequest;
 import java.io.IOException;
 
 public class TabGroupRenderer extends RendererBase {
@@ -71,9 +69,8 @@ public class TabGroupRenderer extends RendererBase {
     int oldIndex = ((UITabGroup) component).getActiveIndex();
 
     String clientId = component.getClientId(facesContext);
-    String newValue
-        = ((ServletRequest) facesContext.getExternalContext().getRequest())
-        .getParameter(clientId + ACTIVE_INDEX_POSTFIX);
+    String newValue =
+        (String)facesContext.getExternalContext().getRequestParameterMap().get(clientId + ACTIVE_INDEX_POSTFIX);
     try {
       int activeIndex = Integer.parseInt(newValue);
       ((UITabGroup) component).setActiveIndex(activeIndex);

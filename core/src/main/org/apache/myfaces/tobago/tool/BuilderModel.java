@@ -81,12 +81,10 @@ public class BuilderModel {
       }
 
       FacesContext facesContext = FacesContext.getCurrentInstance();
-      ServletContext servletContext =
-          (ServletContext) facesContext.getExternalContext().getContext();
 
       InputStream stream = null;
       try {
-        stream = servletContext.getResourceAsStream(page);
+        stream = facesContext.getExternalContext().getResourceAsStream(page);
         source = IOUtils.toString(stream);
       } catch (IOException e) {
         LOG.error("", e);
@@ -104,6 +102,7 @@ public class BuilderModel {
       }
 
       FacesContext facesContext = FacesContext.getCurrentInstance();
+      // TODO ServletContext ???
       ServletContext servletContext =
           (ServletContext) facesContext.getExternalContext().getContext();
 

@@ -19,16 +19,14 @@
   */
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletRequest;
 import java.io.IOException;
 
 public abstract class SelectOneRendererBase extends InputRendererBase {
@@ -51,8 +49,8 @@ public abstract class SelectOneRendererBase extends InputRendererBase {
     UISelectOne uiSelectOne = (UISelectOne) component;
 
     String clientId = uiSelectOne.getClientId(facesContext);
-    Object newValue = ((ServletRequest) facesContext.getExternalContext().getRequest())
-        .getParameter(clientId);
+    Object newValue =
+        facesContext.getExternalContext().getRequestParameterMap().get(clientId);
     if (LOG.isDebugEnabled()) {
       LOG.debug("decode: key='" + clientId + "' value='" + newValue + "'");
     }

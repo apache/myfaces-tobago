@@ -19,6 +19,8 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
@@ -29,8 +31,6 @@ import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.taglib.component.PageTag;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
@@ -105,7 +105,7 @@ public class PageRenderer extends PageRendererBase {
 
     // reset responseWriter and render page
     facesContext.setResponseWriter(writer);
-
+    // TODO PortletRequest 
     HttpServletResponse response = (HttpServletResponse)
         facesContext.getExternalContext().getResponse();
 

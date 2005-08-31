@@ -19,15 +19,15 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -84,6 +84,7 @@ public class FileRenderer extends InputRendererBase {
         request = (TobagoMultipartFormdataRequest) wrappedRequest;
       }
     }
+    // TODO PortletRequest ??
     if (request == null) {
       // should not be possible, because of the check in UIPage
       LOG.error("Can't process multipart/form-data without TobagoRequest. " +

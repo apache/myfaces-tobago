@@ -19,14 +19,13 @@
   */
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectMany;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletRequest;
 
 public class SelectManyRendererBase extends RendererBase {
 
@@ -48,9 +47,8 @@ public class SelectManyRendererBase extends RendererBase {
 
     UISelectMany uiSelectMany = (UISelectMany) component;
 
-    String newValue[] = ((ServletRequest) facesContext.getExternalContext()
-        .getRequest())
-        .getParameterValues(uiSelectMany.getClientId(facesContext));
+    String newValue[] =
+        (String[]) facesContext.getExternalContext().getRequestParameterValuesMap().get(uiSelectMany.getClientId(facesContext));
     if (LOG.isDebugEnabled()) {
       LOG.debug("decode: key='" + component.getClientId(facesContext)
           + "' value='" + newValue + "'");

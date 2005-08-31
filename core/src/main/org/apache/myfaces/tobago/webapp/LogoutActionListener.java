@@ -22,12 +22,12 @@ package org.apache.myfaces.tobago.webapp;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.event.ActionListener;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ExternalContext;
 import javax.faces.FacesException;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.ActionListener;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
@@ -38,9 +38,12 @@ public class LogoutActionListener implements ActionListener {
   public void processAction(ActionEvent event) throws AbortProcessingException {
     FacesContext facesContext = FacesContext.getCurrentInstance();
     ExternalContext externalContext = facesContext.getExternalContext();
-    HttpSession session = (HttpSession) externalContext.getSession(false);
+    Object session = externalContext.getSession(false);
     if (session != null) {
-      session.invalidate();
+      if (session instanceof HttpSession) {
+        ((HttpSession)session).invalidate();
+      }
+      // TODO: PortletRequest ??
     }
     String forward = externalContext.getRequestContextPath() + "/";
     try {

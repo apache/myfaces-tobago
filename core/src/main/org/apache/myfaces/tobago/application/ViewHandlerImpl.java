@@ -19,12 +19,12 @@
  */
 package org.apache.myfaces.tobago.application;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.webapp.TobagoResponse;
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.FacesException;
 import javax.faces.application.ViewHandler;
@@ -322,6 +322,7 @@ public class ViewHandlerImpl extends ViewHandler {
         base.renderView(facesContext, viewRoot);
 //        facesContext.getExternalContext().dispatch(requestUri);
       } else {
+        // TODO PortletResponse ??
         if (facesContext.getExternalContext().getResponse() instanceof TobagoResponse) {
           ((TobagoResponse) facesContext.getExternalContext().getResponse()).setBuffering();
 
@@ -420,6 +421,7 @@ public class ViewHandlerImpl extends ViewHandler {
   }
 
   private void handleEncoding(FacesContext facesContext) {
+    // TODO extract ContentType and ContentEncoding from Header 'content-type'
     HttpServletRequest request = (HttpServletRequest)
         facesContext.getExternalContext().getRequest();
     if (LOG.isDebugEnabled()) {
