@@ -22,31 +22,35 @@
   <property name="build-system.dir" location="${build-system.home}"/>
   <import file="${build-system.dir}/build-basic.xml"/>
 
-  <target name="generate-tld" depends="init-apt" >
+  <target name="generate-tld" depends="init-apt">
     <apt srcdir="${src.main}" fork="true"
          classpathref="project.classpath.jar"
          debug="on"
          compile="false"
          preprocessdir="${build.classes.main}"
          factory="org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory"
-         factorypathref="project.classpath.jar" >
-      <option name="package" value="org.apache.myfaces.tobago.taglib.component" />
-      <option name="file" value="tobago.tld" />
+         factorypathref="project.classpath.jar">
+      <option name="package"
+              value="org.apache.myfaces.tobago.taglib.component"/>
+      <option name="file" value="tobago.tld"/>
     </apt>
   </target>
 
-  <target name="generate-tld-doc" depends="init-apt" >
+  <target name="generate-tag-reference" depends="init-apt">
     <apt srcdir="${src.main}" fork="true"
          classpathref="project.classpath.jar"
          debug="on"
          compile="false"
          preprocessdir="${build.classes.main}"
          factory="org.apache.myfaces.tobago.apt.TobagoAnnotationProcessorFactory"
-         factorypathref="project.classpath.jar" />
+         factorypathref="project.classpath.jar">
+      <option name="package" value="org.apache.myfaces.tobago.taglib"/>
+      <option name="file" value="tobago-reference.xml"/>
+    </apt>
   </target>
 
   <target name="dist" depends="generate-tld,build-basic.dist"
-      description="Create a distribution of the artifact.">
+          description="Create a distribution of the artifact.">
     <jar jarfile="${dist}/${ant.project.name}.jar" update="true">
       <fileset dir="${src.main}">
         <include name="org/apache/myfaces/tobago/config/tobago-config_1_0.dtd"/>
@@ -54,7 +58,8 @@
       <metainf dir="${src.main}/org/apache/myfaces/tobago">
         <include name="faces-config.xml"/>
       </metainf>
-      <metainf dir="${build.classes.main}/org/apache/myfaces/tobago/taglib/component">
+      <metainf
+          dir="${build.classes.main}/org/apache/myfaces/tobago/taglib/component">
         <include name="tobago.tld"/>
       </metainf>
     </jar>

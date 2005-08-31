@@ -44,10 +44,11 @@ import java.util.Map;
  * $Id: TobagoAnnotationProcessor.java,v 1.1 2005/05/11 15:20:34 bommel Exp $
  */
 public class TobagoAnnotationProcessor implements AnnotationProcessor {
+
+  private String packageName = "org.apache.myfaces.tobago";
+  private String fileName = "tag-reference.xml";
   protected final AnnotationProcessorEnvironment env;
   protected final Set<AnnotationTypeDeclaration> atds;
-  protected String packageName = "org.apache.myfaces.tobago";
-  protected String fileName = "tobagoDocu.xml";
   protected String packageKey = "-Apackage=";
   protected String fileKey = "-Afile=";
 
@@ -81,9 +82,8 @@ public class TobagoAnnotationProcessor implements AnnotationProcessor {
     try {
       env.getMessager().printNotice("Create DOM");
       Document document = visitor.createDom();
-
-          env.getFiler().createTextFile(Filer.Location.SOURCE_TREE, packageName,
-              new File(fileName), null);
+      writer = env.getFiler().createTextFile(Filer.Location.SOURCE_TREE, packageName,
+          new File(fileName), null);
       TransformerFactory transFactory = TransformerFactory.newInstance();
       Transformer transformer = transFactory.newTransformer();
       // TODO transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,
@@ -96,11 +96,11 @@ public class TobagoAnnotationProcessor implements AnnotationProcessor {
       env.getMessager().printNotice("Write to file " +packageName+ "."+fileName);
     } catch (ParserConfigurationException e) {
       // TODO
-      e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+      e.printStackTrace();
     } catch (TransformerException e) {
-      e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+      e.printStackTrace();
     } catch (IOException e) {
-      e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+      e.printStackTrace();
     } finally {
       IOUtils.closeQuietly(writer);
     }
