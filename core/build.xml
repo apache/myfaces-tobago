@@ -45,7 +45,7 @@
          factory="org.apache.myfaces.tobago.apt.TobagoAnnotationProcessorFactory"
          factorypathref="project.classpath.jar">
       <option name="package" value="org.apache.myfaces.tobago.taglib"/>
-      <option name="file" value="tobago-reference.xml"/>
+      <option name="file" value="tag-reference.xml"/>
     </apt>
   </target>
 

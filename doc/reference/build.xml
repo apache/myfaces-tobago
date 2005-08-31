@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Copyright 2002-2005 atanion GmbH.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+-->
+
+<project name="tobago-doc-reference" default="generate-html">
+
+  <property name="saxon.jar" value="../../../saxon-6.5.3.jar"/>
+  <property name="docbook.dir" value="../../../docbook-xsl-1.68.1"/>
+  <property name="docbook.saxon-extension.jar"
+            value="${docbook.dir}/extensions/saxon653.jar"/>
+
+  <property name="build-system.home" value="../../tool/build-system"/>
+  <property name="build-system.dir" location="${build-system.home}"/>
+  <import file="${build-system.dir}/build-basic.xml"/>
+
+  <target name="generate-html"
+          description="Creates the documentation as html output.">
+    <mkdir dir="build/html"></mkdir>
+    <mkdir dir="build/docbook"></mkdir>
+    <style in="../../core/build/classes/main/org/apache/myfaces/tobago/taglib/tag-reference.xml"
+       out="build/docbook/tag-reference.xml" extension=".xml" style="tag-reference2docbook.xsl">
+    </style>
+    <java classname="com.icl.saxon.StyleSheet" fork="true" failonerror="true">
+      <classpath>
+        <pathelement path="${saxon.jar}" />
+        <pathelement path="${docbook.saxon-extension.jar}"/>
+      </classpath>
+      <arg line="
+          reference.xml
+          ${docbook.dir}/html/chunk.xsl
+          use.extensions=1
+          textinsert.extension=1
+          base.dir=build/html/
+          use.id.as.filename=true
+          section.autolabel=true
+          toc.section.depth=3
+          table.footnote.number.format=1
+          css.decoration=true"/>
+      <!-- You can find the documentation of the style sheet params in the document
+           '/doc/html/index.html' in your docbook installation. -->
+    </java>
+  </target>
+
+  <target name="clean">
+    <delete dir="build" quiet="true"/>
+  </target>
+</project>
