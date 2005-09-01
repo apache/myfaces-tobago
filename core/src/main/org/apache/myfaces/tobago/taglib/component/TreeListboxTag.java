@@ -145,9 +145,11 @@ public class TreeListboxTag extends TobagoTag
    * Flag indicating whether or not this component should be render selectable items.
    *  Possible values are:
    *  <ul>
-   *  <li><strong>single</strong> : a singlesection tree is rendered
-   *  <li><strong>singleLeafOnly</strong> : a singlesection tree is rendered,
+   *  <li><strong>single</strong> : a singleselection tree is rendered
+   *  <li><strong>singleLeafOnly</strong> : a singleselection tree is rendered,
    *      only Leaf's are selectable
+   *  <li><strong>siblingLeafOnly</strong> : a multiselection tree is rendered,
+   *      where only sibling Leaf's are selectable
    *  </ul>
    */
   @TagAttribute
