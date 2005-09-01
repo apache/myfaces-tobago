@@ -601,6 +601,28 @@ function tobagoTreeListboxChange(element, hiddenId) {
   return;
 }
 
+function tbgGetParentNode(selectElement, rootNode) {
+  var actualNode = rootNode;
+  var level = selectElement.id.lastIndexOf("_");
+  var idPrefix = selectElement.id.substr(0, level);
+  level = selectElement.id.substr(level + 1) - 0;
+
+  var selector = document.getElementById(idPrefix + "_" + level);
+
+  var node = rootNode;
+  for (var actualLevel = 0 ;actualLevel < level; actualLevel++) {
+    for (var i = 0; i < node.childNodes.length; i++) {
+      if (node.childNodes[i].hasChildren() && node.childNodes[i].expanded) {
+        node = node.childNodes[i];
+        break;
+      }
+    }
+  }
+
+  return node;
+}
+
+
 function tbgGetActualNode(element, rootNode) {
   var actualNode = rootNode;
   var selectElement = element.parentNode;
@@ -678,7 +700,124 @@ function tbgTreeListboxClick(element, hiddenId) {
 //  PrintDebug("2 expandState : " + expandState.value);
 }
 
-function tobagoTreeListboxClick() {}
+function tobagoTreeListboxClick(selectElement, hiddenId) {
+
+  var rootNode = document.getElementById(hiddenId).rootNode;
+  var expandState = document.getElementById(hiddenId);
+  var selectState = document.getElementById(hiddenId + '-selectState');
+  PrintDebug("1 selectState : " + selectState.value);
+  PrintDebug("1 expandState : " + expandState.value);
+
+  var actualNode = tbgGetClickedNode(selectElement, rootNode);
+
+//  var actualNode = tbgGetActualNode(element, rootNode);
+
+
+  tbgSetExpand(actualNode, hiddenId);
+  tbgToggleSelect(actualNode, hiddenId);
+
+
+  // update gui
+  var parentNode = actualNode.parentNode;
+  for (var i = 0; i < selectElement.options.length; i++) {
+      selectElement.options[i].selected
+          = (parentNode.childNodes[i].selected
+             || (parentNode.childNodes[i].hasChildren() && parentNode.childNodes[i].expanded));
+  }
+
+  var level = selectElement.id.lastIndexOf("_");
+  var idPrefix = selectElement.id.substr(0, level);
+  level = selectElement.id.substr(level + 1) - 0;
+
+  parentSelectElement = document.getElementById(idPrefix + "_" + (level - 1));
+  if (parentSelectElement) {
+//    PrintDebug("clear parent");
+    parentNode = parentNode.parentNode;
+    for (var i = 0; i < parentSelectElement.options.length; i++) {
+      parentSelectElement.options[i].selected
+          = (parentNode.childNodes[i].hasChildren() && parentNode.childNodes[i].expanded);
+    }
+  }
+
+
+  if (actualNode.childNodes && actualNode.childNodes.length > 0 && actualNode.expanded ) {
+    tobagoTreeListboxSetup(actualNode, idPrefix, level + 1, hiddenId);
+  } else {
+    tobagoTreeListboxDisable(idPrefix, level + 1);
+  }
+  PrintDebug("2 selectState : " + selectState.value);
+  PrintDebug("2 expandState : " + expandState.value);
+
+}
+
+function tbgGetClickedNode(element, rootNode) {
+  // alle selected options von element aufsammeln
+  // alle selected nodes von actualNode aufsammeln
+  // die node die nur in einer der samlungen vorkommt ist die geclickte!
+  var parentNode = tbgGetParentNode(element, rootNode);
+
+  var idx = -1;
+
+  if (rootNode.selectable.match(/^single/)) {
+    idx = element.selectedIndex;
+    if (idx == -1) {
+      // node was deselected
+      for (var i = 0; i < parentNode.childNodes; i++ ) {
+        if (parentNode.childNodes[i].selected) {
+          idx = i;
+          break;
+        }
+      }
+    }
+  } else {
+
+    var selectedOptions = new Array();
+    var selectedNodes = new Array();
+
+    for (var i = 0 ; i < element.options.length; i++) {
+      if (element.options[i].selected) { selectedOptions[selectedOptions.length] = i; }
+    }
+
+
+    if (parentNode.hasChildren()) {
+      for (var i = 0; i < parentNode.childNodes.length; i++) {
+        if (parentNode.childNodes[i].selected) { selectedNodes[selectedNodes.length] = i; }
+      }
+    }
+    PrintDebug("parentNode = " + parentNode.label);
+    PrintDebug("selectedOptions = " + selectedOptions);
+    PrintDebug("selectedNodes   = " + selectedNodes);
+
+    // the array should differs only in one element. find the differnt.
+
+    if (selectedOptions.length == 1) {
+      idx = selectedOptions[0];
+    } else {
+      idx = tbgGetdif((selectedOptions.length > selectedNodes.length ? selectedOptions : selectedNodes), (selectedOptions.length > selectedNodes.length ? selectedNodes : selectedOptions));
+    }
+  }
+  PrintDebug("clicked index = " + idx);
+
+  if (idx > -1) {
+    PrintDebug("clicked Node was" + parentNode.childNodes[idx].label);
+    return parentNode.childNodes[idx];
+  }
+
+
+}
+
+function   tbgGetdif(bigArray, smallArray) {
+  if (smallArray.length < 1 && bigArray.length == 1) {
+    return bigArray[0];
+  }
+  for (var i = 0; i < smallArray.length; i++) {
+    if (bigArray[i] != smallArray[i]) {return bigArray[i]; }
+  }
+  return -1;
+}
+
+
+
 
 function tobagoTreeListboxSetup(node, idPrefix, level, hiddenId) {
   tobagoTreeListboxEnable(idPrefix, level);
@@ -695,8 +834,7 @@ function tobagoTreeListboxCreateOption(node, index, hiddenId) {
   }
   var option = new Option(label, index);
   option.hiddenId = hiddenId;
-  addEventListener(option, 'click', tbgTreeListboxClick);
-//  option.onClick = "tbgTreeListboxClick(this, '" + hiddenId + "')";
+//  addEventListener(option, 'click', tbgTreeListboxClick);
 
   return option;
 }

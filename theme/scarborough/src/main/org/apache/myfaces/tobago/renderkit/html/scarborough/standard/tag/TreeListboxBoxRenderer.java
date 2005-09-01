@@ -57,14 +57,14 @@ public class TreeListboxBoxRenderer extends RendererBase {
 
     String listboxId = treeId + SUBCOMPONENT_SEP + "cont_" + level;
 //    String onChange = "tobagoTreeListboxChange(this, '" + treeId + "')";
-//    String onClick = "tobagoTreeListboxClick(this, '" + treeId + "')";
+    String onClick = "tobagoTreeListboxClick(this, '" + treeId + "')";
     writer.startElement("select", component);
     writer.writeIdAttribute(listboxId);
     writer.writeClassAttribute(className);
     writer.writeAttribute("style" , null, ATTR_STYLE);
     writer.writeAttribute("size", "2", null);
 //    writer.writeAttribute("onchange", onChange, null);
-//    writer.writeAttribute("onclick", onClick, null);
+    writer.writeAttribute("onclick", onClick, null);
     writer.writeAttribute("multiple",
         "siblingLeafOnly".equals(tree.getAttributes().get(ATTR_SELECTABLE)));
 
@@ -76,7 +76,7 @@ public class TreeListboxBoxRenderer extends RendererBase {
       DefaultMutableTreeNode node = treeNode.getTreeNode();
 
       writer.startElement("option", null);
-      writer.writeAttribute("onclick", "tbgTreeListboxClick(this, '" + treeId + "')", null);
+//      writer.writeAttribute("onclick", "tbgTreeListboxClick(this, '" + treeId + "')", null);
       writer.writeAttribute("value", Integer.toString(i), null);
       if (treeNode.equals(tree.getSelectedNode(level))
           || tree.isSelectedNode(node)) {
