@@ -192,7 +192,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
       }
       command.getAttributes().put(
           ATTR_IMAGE, "image/tobago.tree." + commands[i].getCommand() + ".gif");
-      String title = ResourceManagerUtil.getProperty(facesContext, "tobago",
+      String title = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
           "tree" + StringUtil.firstToUpperCase(commands[i].getCommand()));
       command.getAttributes().put(ATTR_TIP, title);
 

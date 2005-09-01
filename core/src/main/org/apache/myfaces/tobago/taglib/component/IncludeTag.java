@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasStringValue;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
@@ -57,7 +58,8 @@ public class IncludeTag extends TagSupport implements HasId, HasStringValue {
         pageName = value;
       }
 
-      pageName = ResourceManagerUtil.getJsp(facesContext, pageName);
+      pageName = ResourceManagerFactory.getResourceManager(facesContext)
+          .getJsp(facesContext.getViewRoot(), pageName);
 
       if (LOG.isDebugEnabled()) {
         LOG.debug("include start pageName = '" + pageName + "'");

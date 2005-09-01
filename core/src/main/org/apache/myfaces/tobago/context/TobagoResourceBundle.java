@@ -38,7 +38,7 @@ public class TobagoResourceBundle extends ResourceBundle {
     }
     FacesContext facesContext = FacesContext.getCurrentInstance();
     ResourceManager resourceManager
-        = ResourceManagerUtil.getResourceManager(facesContext);
+        = ResourceManagerFactory.getResourceManager(facesContext);
     return resourceManager.getProperty(facesContext.getViewRoot(), "tobago", key);
   }
 

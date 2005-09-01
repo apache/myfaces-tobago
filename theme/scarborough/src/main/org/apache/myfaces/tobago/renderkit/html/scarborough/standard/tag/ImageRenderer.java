@@ -58,11 +58,11 @@ public class ImageRenderer extends RendererBase {
       } else {
         src = null;
         if (isDisabled(graphic)) {
-          src = ResourceManagerUtil.getImage(
+          src = ResourceManagerUtil.getImageWithPath(
               facesContext, createSrc(value, "Disabled"), true);
         }
         if (src == null) {
-          src = ResourceManagerUtil.getImage(facesContext, value);
+          src = ResourceManagerUtil.getImageWithPath(facesContext, value);
         }
         addImageSources(facesContext, graphic);
       }
@@ -113,12 +113,20 @@ public class ImageRenderer extends RendererBase {
   }
   public static void addImageSources(
       FacesContext facesContext, UIPage page, String src, String id) {
-    page.getOnloadScripts().add("addImageSources('" + id + "','"
-        + ResourceManagerUtil.getImage(facesContext, src, false) + "','"
-        + ResourceManagerUtil.getImage(facesContext, createSrc(src, "Disabled"),
-            true) + "','"
-        + ResourceManagerUtil.getImage(facesContext, createSrc(src, "Hover"),
-            true) + "');");
+    StringBuffer buffer = new StringBuffer();
+    buffer.append("addImageSources('");
+    buffer.append(id);
+    buffer.append("','");
+    buffer.append(ResourceManagerUtil.getImageWithPath(
+          facesContext, src, false));
+    buffer.append("','");
+    buffer.append(ResourceManagerUtil.getImageWithPath(
+          facesContext, createSrc(src, "Disabled"), true));
+    buffer.append("','");
+    buffer.append(ResourceManagerUtil.getImageWithPath(
+          facesContext, createSrc(src, "Hover"), true));
+    buffer.append("');");
+    page.getOnloadScripts().add(buffer.toString());
   }
 
   public static String createSrc(String src, String ext) {

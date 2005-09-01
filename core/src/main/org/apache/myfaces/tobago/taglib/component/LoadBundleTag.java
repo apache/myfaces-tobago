@@ -100,7 +100,7 @@ public class LoadBundleTag extends TagSupport implements HasVar {
       if (null == key) {
         return false;
       }
-      String value = ResourceManagerUtil.getProperty(
+      String value = ResourceManagerUtil.getPropertyNotNull(
           FacesContext.getCurrentInstance(), basename, key.toString());
       return value != null;
     }
@@ -121,7 +121,7 @@ public class LoadBundleTag extends TagSupport implements HasVar {
       if (null == key) {
         return null;
       }
-      String value = ResourceManagerUtil.getProperty(
+      String value = ResourceManagerUtil.getPropertyNotNull(
           FacesContext.getCurrentInstance(), basename, key.toString());
       return value;
     }

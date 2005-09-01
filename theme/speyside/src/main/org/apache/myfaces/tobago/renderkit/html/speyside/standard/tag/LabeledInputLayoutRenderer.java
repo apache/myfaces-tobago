@@ -50,7 +50,7 @@ public class LabeledInputLayoutRenderer extends
         facesContext.getResponseWriter();
 
     boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
-    String image = ResourceManagerUtil.getImage(facesContext, "image/1x1.gif");
+    String image = ResourceManagerUtil.getImageWithPath(facesContext, "image/1x1.gif");
     UIComponent label = input.getFacet(FACET_LABEL);
     UIComponent picker = input.getFacet(FACET_PICKER);
 

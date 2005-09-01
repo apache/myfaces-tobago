@@ -37,14 +37,14 @@ public class ObjectRenderer extends RendererBase {
     writer.writeComponentClass();
     writer.writeAttribute("style", null, ATTR_STYLE);
 
-    String noframes = ResourceManagerUtil.getProperty(
+    String noframes = ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "browser.noframe.message.prefix");
     writer.writeText(noframes + " ", null);
     writer.startElement("a", component);
     writer.writeAttribute("href", null, ATTR_TARGET);
     writer.writeText(null, ATTR_TARGET);
     writer.endElement("a");
-    noframes = ResourceManagerUtil.getProperty(
+    noframes = ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "browser.noframe.message.postfix");
     writer.writeText(" " + noframes, null);
 

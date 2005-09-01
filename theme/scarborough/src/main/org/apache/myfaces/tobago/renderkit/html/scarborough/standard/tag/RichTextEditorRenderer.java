@@ -176,7 +176,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     command.setValueBinding(ATTR_DISABLED, ComponentUtil.createValueBinding("#{! tobagoRichtextPreviewState}", null));
     command.setValueBinding(ATTR_VALUE, ComponentUtil.createValueBinding("#{!tobagoRichtextPreviewState}", null));
 
-    String title = ResourceManagerUtil.getProperty(
+    String title = ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "tobago.richtexteditor.edit.title");
     command.getAttributes().put(ATTR_TIP, title);
 
@@ -194,7 +194,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     command.setValueBinding(ATTR_DISABLED, ComponentUtil.createValueBinding("#{tobagoRichtextPreviewState}", null));
     command.setValueBinding(ATTR_VALUE, ComponentUtil.createValueBinding("#{tobagoRichtextPreviewState}", null));
 
-    title = ResourceManagerUtil.getProperty(
+    title = ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "tobago.richtexteditor.preview.title");
     command.getAttributes().put(ATTR_TIP, title);
     command.getAttributes().put(ATTR_ACTION_STRING, onClick);

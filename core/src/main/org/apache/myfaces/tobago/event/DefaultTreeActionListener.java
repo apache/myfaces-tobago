@@ -49,7 +49,7 @@ public class DefaultTreeActionListener implements ActionListener {
 // ///////////////////////////////////////////// code
 
   protected DefaultMutableTreeNode create(FacesContext facesContext) {
-    String label = ResourceManagerUtil.getProperty(facesContext, "tobago", "treeNodeNew");
+    String label = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "treeNodeNew");
     return new DefaultMutableTreeNode(label);
   }
 

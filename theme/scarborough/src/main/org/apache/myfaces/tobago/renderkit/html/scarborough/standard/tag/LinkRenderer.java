@@ -108,7 +108,7 @@ public class LinkRenderer extends CommandRendererBase{
 //  image
     String image = (String) component.getAttributes().get(ATTR_IMAGE);
     if (image != null) {
-      image = ResourceManagerUtil.getImage(facesContext, image);
+      image = ResourceManagerUtil.getImageWithPath(facesContext, image);
       writer.startElement("img", null);
       writer.writeAttribute("src", image, null);
       writer.writeAttribute("alt", "", null);

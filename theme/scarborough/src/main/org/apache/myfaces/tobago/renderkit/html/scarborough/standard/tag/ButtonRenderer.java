@@ -91,10 +91,10 @@ public class ButtonRenderer extends CommandRendererBase {
     if (imageName != null) {
       String image = null;
       if (disabled) {
-        image = ResourceManagerUtil.getDisabledImage(facesContext, imageName);
+        image = ResourceManagerUtil.getDisabledImageWithPath(facesContext, imageName);
       }
       if (image == null) {
-        image = ResourceManagerUtil.getImage(facesContext, imageName);
+        image = ResourceManagerUtil.getImageWithPath(facesContext, imageName);
       }
       writer.startElement("img", null);
       writer.writeAttribute("src", image, null);

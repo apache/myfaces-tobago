@@ -23,6 +23,8 @@ import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.ResourceManager;
+import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -40,6 +42,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.component.UISelectOne;
 import javax.faces.component.ValueHolder;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
@@ -416,7 +419,7 @@ public class ToolBarRenderer extends RendererBase {
   private String getImage(FacesContext facesContext, String name,
                           String iconSize, boolean disabled, boolean selected) {
     if (name == null) {
-      return ResourceManagerUtil.getImage(facesContext, "image/1x1.gif");
+      return ResourceManagerUtil.getImageWithPath(facesContext, "image/1x1.gif");
     }
     int pos = name.lastIndexOf('_');
     if (pos == -1) {
@@ -435,38 +438,41 @@ public class ToolBarRenderer extends RendererBase {
       size = "32";
     }
     String image = null;
+    ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
+    UIViewRoot viewRoot = facesContext.getViewRoot();
     if (disabled && selected) {
-      image = ResourceManagerUtil.getImage(
-          facesContext, key + "SelectedDisabled" + size + ext, true);
+      image = resourceManager.getImage(
+          viewRoot, key + "SelectedDisabled" + size + ext, true);
       if (image == null) {
-        image = ResourceManagerUtil.getImage(
-                facesContext, key + "SelectedDisabled" + ext, true);
+        image = resourceManager.getImage(
+                viewRoot, key + "SelectedDisabled" + ext, true);
       }
     }
     if (image == null && disabled) {
-      image = ResourceManagerUtil.getImage(
-          facesContext, key + "Disabled" + size + ext, true);
+      image = resourceManager.getImage(
+          viewRoot, key + "Disabled" + size + ext, true);
       if (image == null) {
-        image = ResourceManagerUtil.getImage(
-            facesContext, key + "Disabled" + ext, true);
+        image = resourceManager.getImage(
+            viewRoot, key + "Disabled" + ext, true);
       }
     }
     if (image == null && selected) {
-      image = ResourceManagerUtil.getImage(
-          facesContext, key + "Selected" + size + ext, true);
+      image = resourceManager.getImage(
+          viewRoot, key + "Selected" + size + ext, true);
       if (image == null) {
-        image = ResourceManagerUtil.getImage(
-            facesContext, key + "Selected" + ext, true);
+        image = resourceManager.getImage(
+            viewRoot, key + "Selected" + ext, true);
       }
     }
     if (image == null) {
       image
-          = ResourceManagerUtil.getImage(facesContext, key + size + ext, true);
+          = resourceManager.getImage(viewRoot, key + size + ext, true);
       if (image == null) {
-        image = ResourceManagerUtil.getImage(facesContext, key + ext, true);
+        image = resourceManager.getImage(viewRoot, key + ext, true);
       }
     }
-    return image;
+    String contextPath = facesContext.getExternalContext().getRequestContextPath();
+    return contextPath + image;
   }
 
   private void renderAnchorBegin(FacesContext facesContext,
@@ -499,7 +505,7 @@ public class ToolBarRenderer extends RendererBase {
     }
 
     if (popupMenu != null) {
-      String backgroundImage = ResourceManagerUtil.getImage(facesContext,
+      String backgroundImage = ResourceManagerUtil.getImageWithPath(facesContext,
           "image/1x1.gif");
       writer.startElement("div", null);
       writer.writeIdAttribute(

@@ -128,7 +128,7 @@ public class MenuBarRenderer extends RendererBase {
 
     sb.append("    menu.setSubitemArrowImage(\"");
     sb.append(
-        ResourceManagerUtil.getImage(facesContext, "image/MenuArrow.gif"));
+        ResourceManagerUtil.getImageWithPath(facesContext, "image/MenuArrow.gif"));
     sb.append("\");\n");
 
     if (ComponentUtil.getBooleanAttribute(component, ATTR_MENU_POPUP)) {
@@ -228,15 +228,15 @@ public class MenuBarRenderer extends RendererBase {
     if (image != null) {
       String disabledImage = null;
       if (disabled) {
-        disabledImage = ResourceManagerUtil.getDisabledImage(facesContext, image);
+        disabledImage = ResourceManagerUtil.getDisabledImageWithPath(facesContext, image);
       }
       if (disabledImage != null) {
         image = disabledImage;
       } else {
-        image = ResourceManagerUtil.getImage(facesContext, image);
+        image = ResourceManagerUtil.getImageWithPath(facesContext, image);
       }
     } else {
-      image = ResourceManagerUtil.getImage(facesContext, "image/blank.gif");
+      image = ResourceManagerUtil.getImageWithPath(facesContext, "image/blank.gif");
     }
     writer.startElement("img", null);
     writer.writeClassAttribute("tobago-menu-item-image");

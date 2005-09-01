@@ -52,6 +52,10 @@ public class ClientProperties implements Serializable {
 
 // ///////////////////////////////////////////// constructors
 
+  private ClientProperties() {
+    theme = null; // fixme
+  }
+
   private ClientProperties(FacesContext facesContext) {
 
     ExternalContext externalContext = facesContext.getExternalContext();
@@ -108,6 +112,10 @@ public class ClientProperties implements Serializable {
   }
 
 // ///////////////////////////////////////////// logic
+
+  public static ClientProperties getDefaultInstance() {
+    return new ClientProperties();
+  }
 
   public static ClientProperties getInstance(UIViewRoot viewRoot) {
 

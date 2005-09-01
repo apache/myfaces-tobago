@@ -167,7 +167,7 @@ public class TreeRenderer extends RendererBase {
       writer.writeText("treeResourcesHelp.", null);
       writer.writeText(images[i].replace('.', '_'), null);
       writer.writeText(" = \"", null);
-      writer.writeText(ResourceManagerUtil.getImage(facesContext, "image/" + images[i]), null);
+      writer.writeText(ResourceManagerUtil.getImageWithPath(facesContext, "image/" + images[i]), null);
       writer.writeText("\";\n", null);
     }
     writer.writeText("treeResourcesHelp.getImage = function (name) {\n", null);
@@ -176,7 +176,7 @@ public class TreeRenderer extends RendererBase {
     writer.writeText("    return result;\n", null);
     writer.writeText("  } else {\n", null);
     writer.writeText("    return \"", null);
-    writer.writeText(ResourceManagerUtil.getImage(facesContext, "image/blank.gif"), null);
+    writer.writeText(ResourceManagerUtil.getImageWithPath(facesContext, "image/blank.gif"), null);
     writer.writeText("\";\n", null);
     writer.writeText("  }\n", null);
     writer.writeText("}\n", null);

@@ -108,7 +108,7 @@ public class TreeListboxRenderer extends TreeRenderer{
     writer.writeText("  var treeResourcesHelp = new Object();\n", null);
     writer.writeText("  treeResourcesHelp.getImage = function (name) {\n", null);
     writer.writeText("    return \"", null);
-    writer.writeText(ResourceManagerUtil.getImage(facesContext, "image/blank.gif"), null);
+    writer.writeText(ResourceManagerUtil.getImageWithPath(facesContext, "image/blank.gif"), null);
     writer.writeText("\";\n", null);
     writer.writeText("  }\n", null);
 

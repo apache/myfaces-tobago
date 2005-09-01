@@ -219,7 +219,7 @@ public class TobagoDemoController {
     FacesContext facesContext = FacesContext.getCurrentInstance();
     SelectItem[] items = new SelectItem[keys.length];
     for (int i = 0; i < items.length; i++) {
-      String label = ResourceManagerUtil.getProperty(facesContext, bundle, keys[i]);
+      String label = ResourceManagerUtil.getPropertyNotNull(facesContext, bundle, keys[i]);
       items[i] = new SelectItem(keys[i], label);
     }
     return items;

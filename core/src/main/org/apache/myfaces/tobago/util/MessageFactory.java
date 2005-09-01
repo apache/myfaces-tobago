@@ -54,8 +54,7 @@ public class MessageFactory {
 
   private static String getMessageText(
       FacesContext facesContext, String bundle, String key) {
-    String message
-        = ResourceManagerUtil.getProperty(facesContext, bundle, key, false);
+    String message = ResourceManagerUtil.getProperty(facesContext, bundle, key);
     if (message == null || message.length() < 1) {
       try {
         Locale locale = facesContext.getViewRoot().getLocale();

@@ -19,8 +19,9 @@
  */
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.ResourceManager;
+import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -58,7 +59,7 @@ public class TobagoRenderKit extends RenderKit {
     if (rendererType != null) {
       FacesContext facesContext = FacesContext.getCurrentInstance();
       if (resources == null) {
-        resources = ResourceManagerUtil.getResourceManager(facesContext);
+        resources = ResourceManagerFactory.getResourceManager(facesContext);
       }
       renderer = resources.getRenderer(facesContext.getViewRoot(), rendererType);
     }

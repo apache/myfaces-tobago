@@ -29,6 +29,8 @@ import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UIData;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.ResourceManagerFactory;
+import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -42,6 +44,7 @@ import javax.faces.component.UIColumn;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.el.MethodBinding;
@@ -79,42 +82,46 @@ public class SheetRenderer extends RendererBase
 
     HtmlRendererUtil.createHeaderAndBodyStyles(facesContext, data);
 
-    final String image1x1 = ResourceManagerUtil.getImage(facesContext,
-        "image/1x1.gif");
-    final String ascending = ResourceManagerUtil.getImage(facesContext,
-        "image/ascending.gif");
-    final String descending = ResourceManagerUtil.getImage(facesContext,
-        "image/descending.gif");
+    ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
+    UIViewRoot viewRoot = facesContext.getViewRoot();
+    String contextPath = facesContext.getExternalContext().getRequestContextPath();
 
-    final String sheetId = data.getClientId(facesContext);
-    final UIPage uiPage = ComponentUtil.findPage(data);
+    String image1x1 = contextPath + resourceManager
+        .getImage(viewRoot, "image/1x1.gif");
+    String ascending = contextPath + resourceManager
+        .getImage(viewRoot, "image/ascending.gif");
+    String descending = contextPath + resourceManager
+        .getImage(viewRoot, "image/descending.gif");
+
+    String sheetId = data.getClientId(facesContext);
+    UIPage uiPage = ComponentUtil.findPage(data);
     uiPage.getScriptFiles().add("script/tobago-sheet.js");
     uiPage.getOnloadScripts().add("initSheet(\"" + sheetId + "\");");
     uiPage.getStyleFiles().add("style/tobago-sheet.css");
 
-    final String selectorDisabled
-        = ResourceManagerUtil.getImage(facesContext,
-            "image/sheetUncheckedDisabled.gif");
-    final String unchecked
-        = ResourceManagerUtil.getImage(facesContext,
-            "image/sheetUnchecked.gif");
+    String selectorDisabled = contextPath + resourceManager
+        .getImage(viewRoot, "image/sheetUncheckedDisabled.gif");
+    String unchecked = contextPath + resourceManager
+        .getImage(viewRoot, "image/sheetUnchecked.gif");
+    String checked = contextPath + resourceManager
+        .getImage(viewRoot, "image/sheetChecked.gif");
     uiPage.getOnloadScripts().add(
         "tobagoSheetSetUncheckedImage(\"" + sheetId + "\", \"" + unchecked + "\")");
     uiPage.getOnloadScripts().add("tobagoSheetSetCheckedImage(\"" + sheetId +
         "\", \""
-        + ResourceManagerUtil.getImage(facesContext, "image/sheetChecked.gif") +
+        + checked +
         "\")");
     uiPage.getOnloadScripts().add("updateSelectionView(\"" + sheetId + "\")");
 
-    final Map attributes = data.getAttributes();
-    final String sheetStyle = (String) attributes.get(TobagoConstants.ATTR_STYLE);
-    final String headerStyle =
+    Map attributes = data.getAttributes();
+    String sheetStyle = (String) attributes.get(TobagoConstants.ATTR_STYLE);
+    String headerStyle =
         (String) attributes.get(TobagoConstants.ATTR_STYLE_HEADER);
 //    String sheetWidthString = LayoutUtil.getStyleAttributeValue(sheetStyle,
 //        "width");
-    final String sheetHeightString
+    String sheetHeightString
         = HtmlRendererUtil.getStyleAttributeValue(sheetStyle, "height");
-    final int sheetHeight;
+    int sheetHeight;
     if (sheetHeightString != null) {
       sheetHeight = Integer.parseInt(sheetHeightString.replaceAll("\\D", ""));
     } else {
@@ -123,19 +130,18 @@ public class SheetRenderer extends RendererBase
       sheetHeight = 100;
     }
     String bodyStyle = (String) attributes.get(TobagoConstants.ATTR_STYLE_BODY);
-    final int footerHeight = ((Integer)
-        attributes.get(TobagoConstants.ATTR_FOOTER_HEIGHT)).intValue();
+    int footerHeight = (Integer) attributes.get(TobagoConstants.ATTR_FOOTER_HEIGHT);
 
 
-    final Application application = facesContext.getApplication();
-    final SheetState state = data.getSheetState(facesContext);
-    final MethodBinding pager = new Pager();
-    final List<Integer> columnWidths = data.getWidthList();
+    Application application = facesContext.getApplication();
+    SheetState state = data.getSheetState(facesContext);
+    MethodBinding pager = new Pager();
+    List<Integer> columnWidths = data.getWidthList();
 
-    final String selectedListString = getSelected(data, state);
-    final List<UIColumn> columnList = data.getRendererdColumns();
+    String selectedListString = getSelected(data, state);
+    List<UIColumn> columnList = data.getRendererdColumns();
 
-    final TobagoResponseWriter writer
+    TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement("input", null);
@@ -192,11 +198,11 @@ public class SheetRenderer extends RendererBase
 // BEGIN RENDER BODY CONTENT
     bodyStyle = HtmlRendererUtil.replaceStyleAttribute(bodyStyle, "height",
         (sheetHeight - footerHeight) + "px");
-    final String space = HtmlRendererUtil.getStyleAttributeValue(bodyStyle, "width");
+    String space = HtmlRendererUtil.getStyleAttributeValue(bodyStyle, "width");
     String sheetBodyStyle;
     if (space != null) {
       int intSpace = Integer.parseInt(space.replaceAll("\\D", ""));
-      intSpace -= columnWidths.get(columnWidths.size() - 1).intValue();
+      intSpace -= columnWidths.get(columnWidths.size() - 1);
       sheetBodyStyle =
           HtmlRendererUtil.replaceStyleAttribute(bodyStyle, "width", intSpace + "px");
     } else {
@@ -398,7 +404,7 @@ public class SheetRenderer extends RendererBase
         writer.writeAttribute("onclick", "tobagoSheetEditPagingRow(this, '"
             + pagerCommandId + "', '" + pagingOnClick + "')", null);
         writer.writeClassAttribute(className);
-        writer.writeAttribute("title", ResourceManagerUtil.getProperty(
+        writer.writeAttribute("title", ResourceManagerUtil.getPropertyNotNull(
             facesContext, "tobago", "sheetPagingInfoRowPagingTip"), null);
         writer.write(createSheetPagingInfo(data, facesContext,
             pagerCommandId, true));
@@ -444,7 +450,7 @@ public class SheetRenderer extends RendererBase
         writer.writeClassAttribute("tobago-sheet-paging-pages-text");
         writer.writeAttribute("onclick", "tobagoSheetEditPagingRow(this, '"
             + pagerCommandId + "', '" + pagingOnClick + "')", null);
-        writer.writeAttribute("title", ResourceManagerUtil.getProperty(
+        writer.writeAttribute("title", ResourceManagerUtil.getPropertyNotNull(
             facesContext, "tobago", "sheetPagingInfoPagePagingTip"), null);
         writer.write(createSheetPagingInfo(
             data, facesContext, pagerCommandId, false));
@@ -478,10 +484,10 @@ public class SheetRenderer extends RendererBase
       }
       String key;
       if (first != last) {
-        key = ResourceManagerUtil.getProperty(facesContext, "tobago",
+        key = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
             "sheetPagingInfo" + (row ? "Rows" : "Pages"));
       } else {
-        key = ResourceManagerUtil.getProperty(facesContext, "tobago",
+        key = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
             "sheetPagingInfoSingle" + (row ? "Row" : "Page"));
       }
       MessageFormat detail = new MessageFormat(key, locale);
@@ -493,7 +499,7 @@ public class SheetRenderer extends RendererBase
       sheetPagingInfo = detail.format(args);
     } else {
       sheetPagingInfo =
-          ResourceManagerUtil.getProperty(facesContext, "tobago",
+          ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
               "sheetPagingInfoEmpty" + (row ? "Row" : "Page"));
     }
     return sheetPagingInfo;
@@ -664,9 +670,9 @@ public class SheetRenderer extends RendererBase
 //    RenderUtil.encode(facesContext, link);
 
 
-    String tip = ResourceManagerUtil.getProperty(facesContext, "tobago",
+    String tip = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
         "sheet" + command);
-    String image = ResourceManagerUtil.getImage(facesContext,
+    String image = ResourceManagerUtil.getImageWithPath(facesContext,
         "image/sheet" + command + (disabled ? "Disabled" : "") + ".gif");
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
@@ -727,7 +733,7 @@ public class SheetRenderer extends RendererBase
       sortCommand.getClientId(facesContext); // this must called here to fix the ClientId
 
       writer.writeAttribute("title",
-          ResourceManagerUtil.getProperty(facesContext, "tobago",
+          ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
               "sheetTipSorting"),
           null);
 
@@ -735,11 +741,11 @@ public class SheetRenderer extends RendererBase
       if (sheetState.getSortedColumn() == columnCount) {
         if (sheetState.isAscending()) {
           sorterImage = ascending;
-          sortTitle = ResourceManagerUtil.getProperty(facesContext,
+          sortTitle = ResourceManagerUtil.getPropertyNotNull(facesContext,
               "tobago", "sheetAscending");
         } else {
           sorterImage = descending;
-          sortTitle = ResourceManagerUtil.getProperty(facesContext,
+          sortTitle = ResourceManagerUtil.getPropertyNotNull(facesContext,
               "tobago", "sheetDescending");
         }
       }
@@ -816,19 +822,19 @@ public class SheetRenderer extends RendererBase
 
       String sheetId = column.getParent().getClientId(facesContext);
       String action = "tobagoSheetSelectAll('" + sheetId + "')";
-      String label = ResourceManagerUtil.getProperty(facesContext, "tobago",
+      String label = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
           "sheetMenuSelect");
       UICommand menuItem = createMenuItem(application, label, action);
       menuItem.setId("menuSelectAll");
       menu.getChildren().add(menuItem);
       action = "tobagoSheetUnselectAll('" + sheetId + "')";
-      label = ResourceManagerUtil.getProperty(facesContext, "tobago",
+      label = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
           "sheetMenuUnselect");
       menuItem = createMenuItem(application, label, action);
       menuItem.setId("menuUnselectAll");
       menu.getChildren().add(menuItem);
       action = "tobagoSheetToggleAllSelections('" + sheetId + "')";
-      label = ResourceManagerUtil.getProperty(facesContext, "tobago",
+      label = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
           "sheetMenuToggleselect");
       menuItem = createMenuItem(application, label, action);
       menuItem.setId("menuToggleSelections");

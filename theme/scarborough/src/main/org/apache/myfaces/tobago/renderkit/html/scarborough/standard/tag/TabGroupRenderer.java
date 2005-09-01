@@ -95,7 +95,7 @@ public class TabGroupRenderer extends RendererBase {
 
     HtmlRendererUtil.createHeaderAndBodyStyles(facesContext, component);
 
-    String image1x1 = ResourceManagerUtil.getImage(facesContext, "image/1x1.gif");
+    String image1x1 = ResourceManagerUtil.getImageWithPath(facesContext, "image/1x1.gif");
 
      UIPanel[] tabs = component.getTabs();
     layoutTabs(facesContext, component, tabs);

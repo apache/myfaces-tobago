@@ -22,8 +22,9 @@ package org.apache.myfaces.tobago.config;
 import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ClientProperties;
-import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.ResourceManager;
+import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.logging.Log;
@@ -81,7 +82,7 @@ public class ThemeConfig {
       LOG.debug("search for '" + name + "' in '" + clazz.getName() + "'");
     }
     ResourceManager resourceManager
-        = ResourceManagerUtil.getResourceManager(facesContext);
+        = ResourceManagerFactory.getResourceManager(facesContext);
     UIViewRoot viewRoot = facesContext.getViewRoot();
     while (clazz != null) {
       String tag = getTagName(clazz);
