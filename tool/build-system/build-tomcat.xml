@@ -21,9 +21,6 @@
 
   <import file="build-basic.xml"/>
 
-  <!--XXX define tobago-home-->
-  <property file="${build-system.dir}/../../build.properties"/>
-
   <target name="tomcat:init" depends="init">
 
     <!-- Project properties -->

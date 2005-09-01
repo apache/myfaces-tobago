@@ -18,19 +18,25 @@
 
 <project name="tobago-doc-reference" default="generate-html">
 
-  <property name="saxon.jar" value="../../../saxon-6.5.3.jar"/>
-  <property name="docbook.dir" value="../../../docbook-xsl-1.68.1"/>
-  <property name="docbook.saxon-extension.jar"
-            value="${docbook.dir}/extensions/saxon653.jar"/>
-
   <property name="build-system.home" value="../../tool/build-system"/>
   <property name="build-system.dir" location="${build-system.home}"/>
   <import file="${build-system.dir}/build-basic.xml"/>
 
+  <!-- overwrite these properties in your build.properties file -->
+  <property name="saxon.jar" value="../../../saxon-6.5.3.jar"/>
+  <property name="docbook.dir" value="../../../docbook-xsl-1.68.1"/>
+
+  <property name="docbook.saxon-extension.jar"
+            value="${docbook.dir}/extensions/saxon653.jar"/>
+
   <target name="generate-html"
           description="Creates the documentation as html output.">
-    <mkdir dir="build/html"></mkdir>
-    <mkdir dir="build/docbook"></mkdir>
+    <!-- XXX add check if XML file already exists -->
+    <ant antfile="build.xml"
+         dir="../../core" target="generate-tag-reference"/>
+
+    <mkdir dir="build/html"/>
+    <mkdir dir="build/docbook"/>
     <style in="../../core/build/classes/main/org/apache/myfaces/tobago/taglib/tag-reference.xml"
        out="build/docbook/tag-reference.xml" extension=".xml" style="tag-reference2docbook.xsl">
     </style>
@@ -55,7 +61,4 @@
     </java>
   </target>
 
-  <target name="clean">
-    <delete dir="build" quiet="true"/>
-  </target>
 </project>

@@ -20,6 +20,9 @@
 
   <property name="build-system.dir" location="."/>
 
+  <!--XXX define tobago-home-->
+  <property file="${build-system.dir}/../../build.properties"/>
+  
   <property name="maven.task" value="maven-artifact-ant-2.0-alpha-3-dep.jar"/>
   <property name="maven.task.jar" value="${build-system.dir}/${maven.task}"/>
   <available file="${maven.task.jar}" property="maven.task.present"/>
