@@ -12,7 +12,10 @@
 *    See the License for the specific language governing permissions and
 *    limitations under the License.
 
-1.0.6 -
+1.0.7 - 
+
+1.0.6 - 02.09.2005
+* refactor ResourceManager
 * bugfix in UIData -> selection
 * change package names to org.apache.myfaces.tobago
 
