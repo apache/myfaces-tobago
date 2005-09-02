@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>tobago</groupId>
   <artifactId>tobago-apt</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.7-SNAPSHOT</version>
 
   <dependencies>
 

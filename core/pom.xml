@@ -22,7 +22,7 @@
   <artifactId>tobago-core</artifactId>
   <packaging>jar</packaging>
   <name>Tobago</name>
-  <version>1.0.6-SNAPSHOT</version>
+  <version>1.0.7-SNAPSHOT</version>
   <description>Tobago Core</description>
   <url>http://tobago.atanion.net/</url>
   <inceptionYear>2002</inceptionYear>
@@ -206,7 +206,7 @@
     <dependency>
       <groupId>tobago</groupId>
       <artifactId>tobago-apt</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <version>1.0.7-SNAPSHOT</version>
     </dependency>
 
     <dependency>

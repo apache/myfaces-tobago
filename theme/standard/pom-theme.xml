@@ -21,7 +21,7 @@
   <groupId>tobago</groupId>
   <artifactId>tobago-theme-standard-zip</artifactId>
   <packaging>zip</packaging>
-  <version>1.0.6-SNAPSHOT</version>
+  <version>1.0.7-SNAPSHOT</version>
 
   <dependencies>
     <!-- missing dependency tobago-theme-standard -->
