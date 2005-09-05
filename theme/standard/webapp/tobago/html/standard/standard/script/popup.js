@@ -45,6 +45,7 @@ function openPopup(url,name,width,height,options,x,y) {
 
 function setPopupPara(width,height,options) {
 
+	var parent = "";
 	var dirbar = "";
 	var locationbar = "";
 	var menubar = "";
@@ -53,6 +54,7 @@ function setPopupPara(width,height,options) {
 	var statusbar = "";
 	var toolbar = "";
 	if (options) {
+    if (options.indexOf("p") > -1 ) { parent = ",dependent"	}
 		if (options.indexOf("d") > -1 ) { dirbar = ",directories"	}
 		if (options.indexOf("l") > -1 ) { locationbar = ",location"	}
 		if (options.indexOf("m") > -1 ) { menubar = ",menubar"	}
@@ -63,6 +65,6 @@ function setPopupPara(width,height,options) {
 	}
   var width=",width = " + width;
   var height=",height = " + height;
-  return width + height + dirbar + locationbar + menubar + resizable + scrollbars +
-         statusbar + toolbar;
+  return width + height + parent + dirbar + locationbar
+      + menubar + resizable + scrollbars + statusbar + toolbar;
 }
