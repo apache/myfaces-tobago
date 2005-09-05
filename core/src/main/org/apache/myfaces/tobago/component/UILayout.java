@@ -21,13 +21,12 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutRenderer;
+import org.apache.myfaces.tobago.util.LayoutUtil;
 
-import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
@@ -78,7 +77,11 @@ public abstract class UILayout extends UIComponentBase implements TobagoConstant
   public static UILayout getLayout(UIComponent component) {
     UILayout layout = (UILayout) component.getFacet(TobagoConstants.FACET_LAYOUT);
     if (layout == null) {
-      layout = UIDefaultLayout.getInstance();
+      if (component instanceof LayoutProvider) {
+        layout = ((LayoutProvider) component).provideLayout();
+      } else {
+        layout = UIDefaultLayout.getInstance();
+      }
     }
     return layout;
   }

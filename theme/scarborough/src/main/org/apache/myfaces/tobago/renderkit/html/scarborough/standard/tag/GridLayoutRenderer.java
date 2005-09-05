@@ -19,30 +19,30 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPanel;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.apache.myfaces.tobago.util.LayoutUtil;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.awt.*;
 
 public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
@@ -82,7 +82,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
   public int calculateLayoutHeight(
       FacesContext facesContext, UIComponent component, boolean minimum) {
-    UIGridLayout layout = (UIGridLayout) component.getFacet(FACET_LAYOUT);
+    UIGridLayout layout = (UIGridLayout) UILayout.getLayout(component);
     final List<UIGridLayout.Row> rows = layout.ensureRows();
     String rowLayout
         = (String) layout.getAttributes().get(TobagoConstants.ATTR_ROWS);

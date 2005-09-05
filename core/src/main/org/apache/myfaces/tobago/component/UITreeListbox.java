@@ -37,7 +37,7 @@ import java.util.Set;
  * Date: Mar 16, 2005
  * Time: 12:33:08 PM
  */
-public class UITreeListbox extends UITree {
+public class UITreeListbox extends UITree implements LayoutProvider{
 
 // ------------------------------------------------------------------ constants
 
@@ -72,7 +72,7 @@ public class UITreeListbox extends UITree {
 
   public void encodeBegin(FacesContext facesContext)
       throws IOException {
-    getLayout().layoutBegin(facesContext, this);
+    UILayout.getLayout(this).layoutBegin(facesContext, this);
 //    debugStates(facesContext);
     fixSelectionType();
     super.encodeBegin(facesContext);
@@ -216,7 +216,7 @@ public class UITreeListbox extends UITree {
   public void encodeChildren(FacesContext facesContext) throws IOException {
     if (isRendered()) {
       encodingChildren = true;
-      getLayout().encodeChildrenOfComponent(facesContext, this);
+      UILayout.getLayout(this).encodeChildrenOfComponent(facesContext, this);
       encodingChildren = false;
     }
   }
@@ -253,26 +253,6 @@ public class UITreeListbox extends UITree {
 
 // ------------------------------------------------------------ getter + setter
 
-  private UILayout getLayout() {
-    UILayout layout = (UILayout) getFacet(TobagoConstants.FACET_LAYOUT);
-    if (layout == null) {
-      layout = (UILayout) getFacet(TobagoConstants.FACET_LAYOUT_DEFAULT);
-      if (layout == null) {
-        layout =
-            (UILayout) ComponentUtil.createComponent(
-                UIGridLayout.COMPONENT_TYPE,
-                TobagoConstants.RENDERER_TYPE_GRID_LAYOUT);
-        layout.getAttributes().put(TobagoConstants.ATTR_COLUMNS, "1*;1*;1*;1*");
-        layout.getAttributes().put(TobagoConstants.ATTR_ROWS, "1*;1*;1*;1*");
-        getFacets().put(TobagoConstants.FACET_LAYOUT_DEFAULT, layout);
-      }
-    }
-    if (layout instanceof UIGridLayout) {
-      ((UIGridLayout) layout).setIgnoreFree(true);
-    }
-    return layout;
-  }
-
   public List<UITreeNode> getSelectionPath() {
     return selectionPath;
   }
@@ -284,5 +264,27 @@ public class UITreeListbox extends UITree {
   public boolean isSelectedNode(DefaultMutableTreeNode treeNode) {
     return getState().getSelection().contains(treeNode);
   }
+
+// --------------------------------------------------- Interface LayoutProvider
+
+  public UILayout provideLayout() {
+    UILayout layout = (UILayout) getFacet(TobagoConstants.FACET_LAYOUT_DEFAULT);
+    if (layout == null) {
+      layout = (UILayout) ComponentUtil.createComponent(
+          UIGridLayout.COMPONENT_TYPE,
+          TobagoConstants.RENDERER_TYPE_GRID_LAYOUT);
+
+      String columns = "1*";
+      final DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) getValue();
+      for ( int i = 1; i < treeNode.getDepth(); i++) {
+        columns += ";1*";
+      }
+      layout.getAttributes().put(TobagoConstants.ATTR_COLUMNS, columns);
+      getFacets().put(TobagoConstants.FACET_LAYOUT_DEFAULT, layout);
+    }
+
+    return layout;
+  }
+
 }
 
