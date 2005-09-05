@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
     "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd"
-    [
-        <!ENTITY taglib SYSTEM "file:build/docbook/tag-reference.xml">
-        ]>
-<!--<!ENTITY test1 SYSTEM "file:../build/sniplets/test1.snip">-->
+    [ <!ENTITY taglib SYSTEM "file:build/docbook/tag-reference.xml"> ]>
 <book lang="en">
   <bookinfo>
-    <title>Tobago Documentation</title>
+    <title>Tobago Reference Manual</title>
     <copyright>
       <year>2005</year>
       <holder>Atanion GmbH</holder>
@@ -16,10 +13,49 @@
 
   <chapter id="introduction">
     <title>Introduction</title>
-    <para>Dies ist ein Test. Eine Fussnote
-      <footnote>
-        <para>Ja, genau!</para>
-      </footnote>
+    <para>
+      This is the
+      <application>Tobago</application>
+      reference documentation.
+    </para>
+    <para>
+      The goal of Tobago is to create and maintain a well-designed set of user
+      interface components based on the JavaServer Faces (
+      <abbrev>JSF</abbrev>
+      ) specification.
+    </para>
+    <para>
+      Tobago is more than just a tag library. The following statements
+      characterize Tobago and makes it different from other frameworks:
+      <itemizedlist>
+        <listitem>
+          The focus of Tobago is to create business applications without the
+          need for <abbrev>HTML</abbrev>
+          design. The development of Tobago pages follows more the development
+          of conventional user interfaces than the creation of web pages.
+        </listitem>
+        <listitem>
+          The UI components are abstracted from
+          <abbrev>HTML</abbrev>
+          and any layout information that does not belong to the general page structure.
+          The final output format is determined by the client/user-agent.
+        </listitem>
+        <listitem>
+          A theming mechanism makes it easy to change the look and feel and to
+          provide special implementations for certain browsers. A fallback
+          solution ensures that as much code is reused for new themes as
+          possible.
+        </listitem>
+        <listitem>
+          A layout manager is used to arrange the components automatically. This
+          means, no manual layouting with
+          <abbrev>HTML</abbrev>
+          tables or other constructs is needed.
+        </listitem>
+      </itemizedlist>
+      The
+      <link linkend='architecture'>next</link>
+      chapter will give a short description of the architecture.
     </para>
   </chapter>
 
@@ -100,6 +136,7 @@
     </sect1>
   </chapter>
 
+  <!-- the reference of the tag lib is generated -->
   &taglib;
 
   <chapter id="api">
