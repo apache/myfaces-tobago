@@ -55,7 +55,7 @@ public class Controller {
 
   public String editAddress() {
     LOG.debug("action: editAddress");
-    List<Integer> selection = selectedAddresses.getSelectedIndices();
+    List<Integer> selection = selectedAddresses.getSelectedRows();
     if (selection.size() != 1) {
       FacesMessage error = new FacesMessage("Please select exactly one address.");
       FacesContext.getCurrentInstance().addMessage(null, error);
@@ -79,7 +79,7 @@ public class Controller {
 
   public String deleteAddresses() {
     LOG.debug("action: deleteAddresses");
-    List<Integer> selection = selectedAddresses.getSelectedIndices();
+    List<Integer> selection = selectedAddresses.getSelectedRows();
     if (selection.size() < 1) {
       FacesMessage error = new FacesMessage("Please select at least one address.");
       FacesContext.getCurrentInstance().addMessage(null, error);

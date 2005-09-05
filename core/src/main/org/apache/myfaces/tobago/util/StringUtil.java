@@ -57,4 +57,13 @@ public class StringUtil {
     return list;
   }
 
+  public static String toString(List<Integer> intList) {
+    StringBuffer buffer = new StringBuffer(",");
+    for (Integer integer : intList) {
+      buffer.append(integer);
+      buffer.append(",");
+    }
+    return buffer.toString();
+  }
+
 }

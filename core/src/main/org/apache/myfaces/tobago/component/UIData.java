@@ -320,7 +320,7 @@ public class UIData extends javax.faces.component.UIData {
 //      getSorter();
 //      state.setSortedColumn(sorter != null ? sorter.getColumn() : -1);
 //      state.setAscending(sorter != null && sorter.isAscending());
-      state.setSelected((String)
+      state.setSelectedRows((List<Integer>)
           getAttributes().get(ATTR_SELECTED_LIST_STRING));
       state.setColumnWidths((String)
           getAttributes().get(ATTR_WIDTH_LIST_STRING));

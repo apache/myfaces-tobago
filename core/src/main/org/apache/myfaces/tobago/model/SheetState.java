@@ -35,24 +35,23 @@ public class SheetState {
 
   private int sortedColumn = -1;
   private boolean ascending;
-  private String selected;
   private String columnWidths;
+  private List<Integer> selectedRows;
 
   public SheetState() {
     resetSelected();
   }
 
   public void resetSelected() {
-    selected = "";
+    selectedRows = new ArrayList<Integer>();
   }
 
-  public List<Integer> getSelectedIndices() {
-    try {
-      return StringUtil.parseIntegerList(selected);
-    } catch (NumberFormatException e) {
-      LOG.warn(selected, e);
-      return Collections.emptyList();
-    }
+  public List<Integer> getSelectedRows() {
+    return selectedRows;
+  }
+
+  public void setSelectedRows(List<Integer> selectedRows) {
+    this.selectedRows = selectedRows;
   }
 
   public int getSortedColumn() {
@@ -69,14 +68,6 @@ public class SheetState {
 
   public void setAscending(boolean ascending) {
     this.ascending = ascending;
-  }
-
-  public String getSelected() {
-    return selected;
-  }
-
-  public void setSelected(String selected) {
-    this.selected = selected;
   }
 
   public String getColumnWidths() {

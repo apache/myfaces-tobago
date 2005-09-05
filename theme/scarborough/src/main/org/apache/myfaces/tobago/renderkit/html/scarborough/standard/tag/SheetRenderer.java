@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.util.StringUtil;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.Pager;
 import org.apache.myfaces.tobago.component.Sorter;
@@ -55,6 +56,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Collections;
 
 public class SheetRenderer extends RendererBase
   implements SheetRendererWorkaround {
@@ -138,7 +140,7 @@ public class SheetRenderer extends RendererBase
     MethodBinding pager = new Pager();
     List<Integer> columnWidths = data.getWidthList();
 
-    String selectedListString = getSelected(data, state);
+    String selectedRows = StringUtil.toString(getSelectedRows(data, state));
     List<UIColumn> columnList = data.getRendererdColumns();
 
     TobagoResponseWriter writer
@@ -155,7 +157,7 @@ public class SheetRenderer extends RendererBase
     writer.writeIdAttribute(sheetId + SELECTED_POSTFIX);
     writer.writeNameAttribute(sheetId + SELECTED_POSTFIX);
     writer.writeAttribute("type", "hidden", null);
-    writer.writeAttribute("value", selectedListString, null);
+    writer.writeAttribute("value", selectedRows, null);
     writer.endElement("input");
 
     // Outher sheet div
@@ -508,7 +510,6 @@ public class SheetRenderer extends RendererBase
   public void decode(FacesContext facesContext, UIComponent component) {
     super.decode(facesContext, component);
 
-
     String key = component.getClientId(facesContext) + WIDTHS_POSTFIX;
 
     Map requestParameterMap = facesContext.getExternalContext()
@@ -527,8 +528,16 @@ public class SheetRenderer extends RendererBase
       if (LOG.isDebugEnabled()) {
         LOG.debug("selected = " + selected);
       }
-      component.getAttributes().put(TobagoConstants.ATTR_SELECTED_LIST_STRING,
-          selected);
+      List<Integer> selectedRows;
+      try {
+        selectedRows = StringUtil.parseIntegerList(selected);
+      } catch (NumberFormatException e) {
+        LOG.warn(selected, e);
+        selectedRows = Collections.emptyList();
+      }
+
+      component.getAttributes().put(
+          TobagoConstants.ATTR_SELECTED_LIST_STRING, selectedRows);
     }
   }
 
@@ -633,13 +642,16 @@ public class SheetRenderer extends RendererBase
     return true;
   }
 
-  private String getSelected(UIData data, SheetState state) {
-    String selected = (String)
+  private List<Integer> getSelectedRows(UIData data, SheetState state) {
+    List<Integer> selected = (List<Integer>)
         data.getAttributes().get(TobagoConstants.ATTR_SELECTED_LIST_STRING);
     if (selected == null && state != null) {
-      selected = state.getSelected();
+      selected = state.getSelectedRows();
     }
-    return selected != null ? selected : "";
+    if (selected == null) {
+      selected = Collections.emptyList();
+    }
+    return selected;
   }
 
   private static void link(FacesContext facesContext, Application application,
