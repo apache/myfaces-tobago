@@ -18,7 +18,7 @@
 
 <project>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>tobago-theme-scarborough-zip</artifactId>
+  <artifactId>tobago-theme-scarborough</artifactId>
   <groupId>tobago</groupId>
   <version>1.0.7-SNAPSHOT</version>
 
@@ -26,7 +26,7 @@
 
     <dependency>
       <groupId>tobago</groupId>
-      <artifactId>tobago-theme-standard-zip</artifactId>
+      <artifactId>tobago-theme-standard</artifactId>
       <version>1.0.7-SNAPSHOT</version>
     </dependency>
 

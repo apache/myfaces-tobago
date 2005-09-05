@@ -19,7 +19,7 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
   <groupId>tobago</groupId>
-  <artifactId>tobago-theme-standard-zip</artifactId>
+  <artifactId>tobago-theme-standard</artifactId>
   <version>1.0.7-SNAPSHOT</version>
 
   <dependencies>
