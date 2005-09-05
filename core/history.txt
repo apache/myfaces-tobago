@@ -13,6 +13,7 @@
 *    limitations under the License.
 
 1.0.7 -
+* siblingLeafOnly mode for t:treeListbox
 * rename property "selected" to "selectedRows" in SheetState which is now
   a List<Integer>
 * add "p" option to openPopup()
