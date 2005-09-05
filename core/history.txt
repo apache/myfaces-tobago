@@ -12,7 +12,10 @@
 *    See the License for the specific language governing permissions and
 *    limitations under the License.
 
-1.0.7 - 
+1.0.7 -
+* rename property "selected" to "selectedRows" in SheetState which is now
+  a List<Integer>
+* add "p" option to openPopup()
 
 1.0.6 - 02.09.2005
 * refactor ResourceManager
