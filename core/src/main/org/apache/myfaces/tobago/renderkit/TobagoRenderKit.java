@@ -19,12 +19,11 @@
  */
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseStream;
@@ -85,7 +84,7 @@ public class TobagoRenderKit extends RenderKit {
     } else {
       contentType = "text/html";
       LOG.warn("Content-Type '" + contentTypeList + "' not supported!" +
-          " Using text/html");
+          " Using text/html", new Exception());
     }
 
     return new TobagoResponseWriter(writer, contentType, characterEncoding);

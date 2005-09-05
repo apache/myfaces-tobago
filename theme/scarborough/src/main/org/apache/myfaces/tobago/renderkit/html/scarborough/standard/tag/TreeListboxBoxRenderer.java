@@ -54,19 +54,23 @@ public class TreeListboxBoxRenderer extends RendererBase {
     String treeId = tree.getClientId(facesContext);
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
+    final boolean siblingMode
+        = "siblingLeafOnly".equals(tree.getAttributes().get(ATTR_SELECTABLE));
 
     String listboxId = treeId + SUBCOMPONENT_SEP + "cont_" + level;
-//    String onChange = "tobagoTreeListboxChange(this, '" + treeId + "')";
-    String onClick = "tobagoTreeListboxClick(this, '" + treeId + "')";
+    String onChange = "tbgTreeListboxChange(this, '" + treeId + "')";
+    String onClick  = "tbgTreeListboxClick(this, '" + treeId + "')";
     writer.startElement("select", component);
     writer.writeIdAttribute(listboxId);
     writer.writeClassAttribute(className);
     writer.writeAttribute("style" , null, ATTR_STYLE);
     writer.writeAttribute("size", "2", null);
-//    writer.writeAttribute("onchange", onChange, null);
+    if (siblingMode) {
+      writer.writeAttribute("onchange", onChange, null);
+    } else {
     writer.writeAttribute("onclick", onClick, null);
-    writer.writeAttribute("multiple",
-        "siblingLeafOnly".equals(tree.getAttributes().get(ATTR_SELECTABLE)));
+    }
+    writer.writeAttribute("multiple", siblingMode);
 
 
     List nodes = ((UITreeListboxBox)component).getNodes();

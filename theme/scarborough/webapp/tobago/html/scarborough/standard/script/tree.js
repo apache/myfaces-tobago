@@ -96,6 +96,7 @@ function tbgClearExpandStatesRecursiv(node, expandState) {
   }
 }
 
+
 function tbgUnexpand(node, expandState) {
   node.expanded = false;
   expandState.value
@@ -602,7 +603,6 @@ function tobagoTreeListboxChange(element, hiddenId) {
 }
 
 function tbgGetParentNode(selectElement, rootNode) {
-  var actualNode = rootNode;
   var level = selectElement.id.lastIndexOf("_");
   var idPrefix = selectElement.id.substr(0, level);
   level = selectElement.id.substr(level + 1) - 0;
@@ -646,67 +646,96 @@ function tbgGetActualNode(element, rootNode) {
 }
 
 
-function tbgTreeListboxClick(element, hiddenId) {
-  if (! hiddenId) {
-    // invoked by js created option
-    element = getActiveElement(element);
-    hiddenId = element.hiddenId;
-
+function tbgGetSelectionCount(element) {
+  var count = 0;
+  for (var i = 0; i < element.options.length; i++) {
+    if (element.options[i].selected) {count++;}
   }
-  var selectElement = element.parentNode;
+  return count;
+}
+
+function tbgClearSelectionStates(node) {
+  node.selected = false;
+  if (node.hasChildren()) {
+    for (var i = 0; i < node.childNodes.length; i++) {
+      tbgClearSelectionStates(node.childNodes[i]);
+    }
+  }
+}
+
+function tbgGetSelectedIndizes(element) {
+  var indizes = new Array();
+  for (var i = 0; i < element.options.length; i++) {
+    if (element.options[i].selected) {
+      indizes[indizes.length] = i;
+    }
+  }
+  return indizes;
+}
+
+function tbgTreeListboxChange(element, hiddenId) {
+  // this handler is invoked only in sibling mode
   var rootNode = document.getElementById(hiddenId).rootNode;
   var expandState = document.getElementById(hiddenId);
   var selectState = document.getElementById(hiddenId + '-selectState');
 //  PrintDebug("1 selectState : " + selectState.value);
 //  PrintDebug("1 expandState : " + expandState.value);
-  var actualNode = tbgGetActualNode(element, rootNode);
 
-//  PrintDebug("actualNode = " + actualNode.label);
-//  PrintDebug("selectable = " + actualNode.selectable);
+  var parentNode = tbgGetParentNode(element, rootNode);
 
-  tbgSetExpand(actualNode, hiddenId);
-  tbgToggleSelect(actualNode, hiddenId);
+  var singleSelection = tbgGetSelectionCount(element) == 1;
 
+  tbgClearSelectionStates(rootNode);
 
-  // update gui
-  var parentNode = actualNode.parentNode;
-  for (var i = 0; i < selectElement.options.length; i++) {
-      selectElement.options[i].selected
-          = (parentNode.childNodes[i].selected
-             || (parentNode.childNodes[i].hasChildren() && parentNode.childNodes[i].expanded));
-  }
+  var level = element.id.lastIndexOf("_");
+  var idPrefix = element.id.substr(0, level);
+  level = element.id.substr(level + 1) - 0;
 
-  var level = selectElement.id.lastIndexOf("_");
-  var idPrefix = selectElement.id.substr(0, level);
-  level = selectElement.id.substr(level + 1) - 0;
+  if (singleSelection) {
+    // if selected is folderNode : expand folder
+    // else : set new selected.
 
-  parentSelectElement = document.getElementById(idPrefix + "_" + (level - 1));
-  if (parentSelectElement) {
-//    PrintDebug("clear parent");
-    parentNode = parentNode.parentNode;
-    for (var i = 0; i < parentSelectElement.options.length; i++) {
-      parentSelectElement.options[i].selected
-          = (parentNode.childNodes[i].hasChildren() && parentNode.childNodes[i].expanded);
+    var actualNode = parentNode.childNodes[element.selectedIndex];
+    if (actualNode.hasChildren()) {
+      // actual node is folder : expand
+      tbgSetExpand(actualNode, hiddenId);
+      selectState.value = ";";
+      tobagoTreeListboxSetup(actualNode, idPrefix, level + 1, hiddenId);
+    } else {
+      tbgClearExpandStatesRecursiv(parentNode, expandState);
+      actualNode.selected = true;
+      selectState.value = ";" + nodeStateId(actualNode) + ";";
+
+      tobagoTreeListboxDisable(idPrefix, level + 1);
+    }
+  } else {
+    // multiselection
+
+    var selected = tbgGetSelectedIndizes(element);
+    selectState.value = ";";
+    for (var i = 0; i < selected.length; i++) {
+      var idx = selected[i];
+      if (!parentNode.childNodes[idx].hasChildren()) {
+        parentNode.childNodes[idx].selecded = true;
+        selectState.value += nodeStateId(parentNode.childNodes[idx]) + ";";
+      } else {
+        element.options[idx].selected = false;
+      }
     }
   }
 
-
-  if (actualNode.childNodes && actualNode.childNodes.length > 0 && actualNode.expanded ) {
-    tobagoTreeListboxSetup(actualNode, idPrefix, level + 1, hiddenId);
-  } else {
-    tobagoTreeListboxDisable(idPrefix, level + 1);
-  }
 //  PrintDebug("2 selectState : " + selectState.value);
 //  PrintDebug("2 expandState : " + expandState.value);
+
 }
 
-function tobagoTreeListboxClick(selectElement, hiddenId) {
+function tbgTreeListboxClick(selectElement, hiddenId) {
 
   var rootNode = document.getElementById(hiddenId).rootNode;
   var expandState = document.getElementById(hiddenId);
   var selectState = document.getElementById(hiddenId + '-selectState');
-  PrintDebug("1 selectState : " + selectState.value);
-  PrintDebug("1 expandState : " + expandState.value);
+//  PrintDebug("1 selectState : " + selectState.value);
+//  PrintDebug("1 expandState : " + expandState.value);
 
   var actualNode = tbgGetClickedNode(selectElement, rootNode);
 
@@ -745,8 +774,8 @@ function tobagoTreeListboxClick(selectElement, hiddenId) {
   } else {
     tobagoTreeListboxDisable(idPrefix, level + 1);
   }
-  PrintDebug("2 selectState : " + selectState.value);
-  PrintDebug("2 expandState : " + expandState.value);
+//  PrintDebug("2 selectState : " + selectState.value);
+//  PrintDebug("2 expandState : " + expandState.value);
 
 }
 
@@ -769,44 +798,16 @@ function tbgGetClickedNode(element, rootNode) {
         }
       }
     }
-  } else {
-
-    var selectedOptions = new Array();
-    var selectedNodes = new Array();
-
-    for (var i = 0 ; i < element.options.length; i++) {
-      if (element.options[i].selected) { selectedOptions[selectedOptions.length] = i; }
-    }
-
-
-    if (parentNode.hasChildren()) {
-      for (var i = 0; i < parentNode.childNodes.length; i++) {
-        if (parentNode.childNodes[i].selected) { selectedNodes[selectedNodes.length] = i; }
-      }
-    }
-    PrintDebug("parentNode = " + parentNode.label);
-    PrintDebug("selectedOptions = " + selectedOptions);
-    PrintDebug("selectedNodes   = " + selectedNodes);
-
-    // the array should differs only in one element. find the differnt.
-
-    if (selectedOptions.length == 1) {
-      idx = selectedOptions[0];
-    } else {
-      idx = tbgGetdif((selectedOptions.length > selectedNodes.length ? selectedOptions : selectedNodes), (selectedOptions.length > selectedNodes.length ? selectedNodes : selectedOptions));
-    }
   }
-  PrintDebug("clicked index = " + idx);
 
   if (idx > -1) {
-    PrintDebug("clicked Node was" + parentNode.childNodes[idx].label);
     return parentNode.childNodes[idx];
   }
 
 
 }
 
-function   tbgGetdif(bigArray, smallArray) {
+/*function   tbgGetdif(bigArray, smallArray) {
   if (smallArray.length < 1 && bigArray.length == 1) {
     return bigArray[0];
   }
@@ -814,7 +815,7 @@ function   tbgGetdif(bigArray, smallArray) {
     if (bigArray[i] != smallArray[i]) {return bigArray[i]; }
   }
   return -1;
-}
+}*/
 
 
 
