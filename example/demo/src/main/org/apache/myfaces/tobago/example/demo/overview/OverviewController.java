@@ -80,7 +80,7 @@ public class OverviewController {
   }
 
   public boolean getShowPopup() {
-    return "popupButton".equals(lastAction);
+    return "popupButton".equals(lastAction) || "popupButton2".equals(lastAction) ;
   }
 
 // ///////////////////////////////////////////// getter + setter
