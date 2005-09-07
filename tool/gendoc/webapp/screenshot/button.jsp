@@ -24,8 +24,9 @@
         <f:facet name="layout">
           <t:gridLayout columns="100px;1*" rows="fixed;1*" />
         </f:facet>
-
+<%-- code-sniplet-start id="button" --%>
         <t:button label="Save" />
+<%-- code-sniplet-end id="button" --%>
         <t:cell/>
 
         <t:cell spanX="2"/>

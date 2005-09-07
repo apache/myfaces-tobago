@@ -23,8 +23,9 @@
       <f:facet name="layout">
         <t:gridLayout columns="300px;1*" rows="fixed;1*" />
       </f:facet>
-
+<%-- code-sniplet-start id="file" --%>
       <t:file label="Upload file:" />
+<%-- code-sniplet-end id="file" --%>
       <t:cell/>
 
       <t:cell spanX="2"/>

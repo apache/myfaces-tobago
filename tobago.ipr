@@ -2,6 +2,13 @@
 <project version="4" relativePaths="true">
   <component name="AntConfiguration">
     <defaultAnt bundledAnt="true" />
+    <buildFile url="file://$PROJECT_DIR$/doc/reference/build.xml">
+      <additionalClassPath />
+      <antReference projectDefault="true" />
+      <customJdkName value="" />
+      <maximumHeapSize value="128" />
+      <properties />
+    </buildFile>
   </component>
   <component name="CodeStyleSettingsManager">
     <option name="PER_PROJECT_SETTINGS" />
@@ -182,10 +189,13 @@
       <module fileurl="file://$PROJECT_DIR$/core/tobago-core.iml" filepath="$PROJECT_DIR$/core/tobago-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/example/addressbook/tobago-example-addressbook.iml" filepath="$PROJECT_DIR$/example/addressbook/tobago-example-addressbook.iml" />
       <module fileurl="file://$PROJECT_DIR$/example/demo/tobago-example-demo.iml" filepath="$PROJECT_DIR$/example/demo/tobago-example-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../tobago-atanion/example/stuff/tobago-example-stuff.iml" filepath="$PROJECT_DIR$/../tobago-atanion/example/stuff/tobago-example-stuff.iml" />
+      <module fileurl="file://$PROJECT_DIR$/theme/richmond/tobago-theme-richmond.iml" filepath="$PROJECT_DIR$/theme/richmond/tobago-theme-richmond.iml" />
       <module fileurl="file://$PROJECT_DIR$/theme/scarborough/tobago-theme-scarborough.iml" filepath="$PROJECT_DIR$/theme/scarborough/tobago-theme-scarborough.iml" />
       <module fileurl="file://$PROJECT_DIR$/theme/speyside/tobago-theme-speyside.iml" filepath="$PROJECT_DIR$/theme/speyside/tobago-theme-speyside.iml" />
       <module fileurl="file://$PROJECT_DIR$/theme/standard/tobago-theme-standard.iml" filepath="$PROJECT_DIR$/theme/standard/tobago-theme-standard.iml" />
       <module fileurl="file://$PROJECT_DIR$/tool/apt/tobago-tool-apt.iml" filepath="$PROJECT_DIR$/tool/apt/tobago-tool-apt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tool/gendoc/tobago-tool-gendoc.iml" filepath="$PROJECT_DIR$/tool/gendoc/tobago-tool-gendoc.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="java version &quot;1.5.0_04&quot;" />

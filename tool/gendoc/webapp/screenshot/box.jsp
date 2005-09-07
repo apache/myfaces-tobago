@@ -24,9 +24,11 @@
       <t:gridLayout columns="100px;1*" rows="fixed;1*" />
     </f:facet>
 --%>
+<%-- code-sniplet-start id="box" --%>
 <t:box label="Groupbox Headline">
 
 </t:box>
+<%-- code-sniplet-end id="box" --%>
 <%--<t:cell/>
 
 <t:cell/>

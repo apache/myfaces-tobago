@@ -23,7 +23,9 @@
       <f:facet name="layout">
         <t:gridLayout columns="100px;1*" rows="fixed;1*" />
       </f:facet>
+<%-- code-sniplet-start id="label" --%>
       <label>Single Label</label>
+<%-- code-sniplet-end id="label" --%>      
       <t:cell/>
 
       <t:cell/>

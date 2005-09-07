@@ -44,7 +44,7 @@ import java.util.ArrayList;
  * Example:
  * <pre>
  * &lt;target name="code-extract">
- *   &lt;taskdef name="code-extract" classname="com.atanion.ant.project.CodeSnipletExtractTask"/>
+ *   &lt;taskdef name="code-extract" classname="org.apache.myfaces.tobago.ant.sniplet.CodeSnipletExtractTask"/>
  *   &lt;code-extract outputDir="build/sniplets">
  *     &lt;fileset dir="src">
  *       &lt;include name="*.java"/>
@@ -61,6 +61,7 @@ public class CodeSnipletExtractTask extends Task {
   private Pattern endPattern;
   private File outputDir;
   private String outputFileNamePattern;
+  private boolean stripLeadingSpaces;
 
   public void init() throws BuildException {
     startPattern = Pattern.compile(".*code-sniplet-start\\s*id\\s*=\\s*\"(\\w*)\".*");
@@ -86,6 +87,14 @@ public class CodeSnipletExtractTask extends Task {
 
   public void addConfiguredFileSet(FileSet files) {
     this.files = files;
+  }
+
+  public boolean isStripLeadingSpaces() {
+    return stripLeadingSpaces;
+  }
+
+  public void setStripLeadingSpaces(boolean stripLeadingSpaces) {
+    this.stripLeadingSpaces = stripLeadingSpaces;
   }
 
   public void execute() throws BuildException {
@@ -142,7 +151,8 @@ public class CodeSnipletExtractTask extends Task {
       String fileName = codeSniplet.getId()+".snip";
       File file = new File(outputDir, fileName);
       PrintWriter out = new PrintWriter(new FileOutputStream(file));
-      out.print(codeSniplet.getCode());
+      StringBuffer code = codeSniplet.getCode(stripLeadingSpaces);
+      out.print(code);
       out.close();
       log("Wrote: " + file.getName(), Project.MSG_INFO);
     }

@@ -22,7 +22,7 @@
   <property name="build-system.dir" location="${build-system.home}"/>
   <import file="${build-system.dir}/build-basic.xml"/>
 
-  <target name="generate-tld" depends="init-apt">
+  <target name="generate-tld" depends="init, init-apt">
     <apt srcdir="${src.main}" fork="true"
          classpathref="project.classpath.jar"
          debug="on"
@@ -36,7 +36,7 @@
     </apt>
   </target>
 
-  <target name="generate-tag-reference" depends="init-apt">
+  <target name="generate-tag-reference" depends="init, init-apt">
     <apt srcdir="${src.main}" fork="true"
          classpathref="project.classpath.jar"
          debug="on"

@@ -24,7 +24,7 @@
         <f:facet name="layout">
           <t:gridLayout rows="fixed;1*" />
         </f:facet>
-
+<%-- code-sniplet-start id="selectOneChoice" --%>
         <t:selectOneChoice value="selectOneChoice0" inline="true"
                            labelWithAccessKey="_Contact me: " >
           <t:selectItem itemLabel="Letter" itemValue="letter" />
@@ -32,6 +32,7 @@
           <t:selectItem itemLabel="eMail" itemValue="eMail" />
           <t:selectItem itemLabel="Fax" itemValue="fax" />
           </t:selectOneChoice>
+<%-- code-sniplet-end id="selectOneChoice" --%>
 
         <t:cell/>
 

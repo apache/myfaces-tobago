@@ -24,8 +24,9 @@
         <f:facet name="layout">
           <t:gridLayout columns="300px;1*" rows="fixed;1*" />
         </f:facet>
-
+<%-- code-sniplet-start id="date" --%>
         <t:date label="Day of birth" />
+<%-- code-sniplet-end id="date" --%>
         <t:cell/>
 
         <t:cell spanX="2"/>

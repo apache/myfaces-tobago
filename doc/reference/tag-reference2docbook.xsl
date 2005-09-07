@@ -1,11 +1,13 @@
 <?xml version="1.0"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  version="1.0">
+                version="1.0">
 
   <xsl:output method="xml" indent="yes"/>
 
   <xsl:template match="/">
-    <xsl:apply-templates select="//tag"/>
+    <xsl:apply-templates select="//tag">
+      <xsl:sort select="name"/>
+    </xsl:apply-templates>
   </xsl:template>
 
   <xsl:template match="tag">
@@ -47,15 +49,27 @@
             </para>
           </listitem>
         </varlistentry>
-        <varlistentry>
-          <term>Description</term>
-          <listitem>
-            <para>
-              <xsl:value-of select="description"/>
-            </para>
-          </listitem>
-        </varlistentry>
+        <!--<varlistentry>-->
+          <!--<term>Description</term>-->
+          <!--<listitem>-->
+            <!--<para>-->
+              <!--<xsl:value-of select="description"/>-->
+            <!--</para>-->
+          <!--</listitem>-->
+        <!--</varlistentry>-->
       </variablelist>
+      <example>
+        <title>Example of tag
+          <classname>
+            <xsl:value-of select="name"/>
+          </classname>
+        </title>
+        <programlisting lang="jsp">
+          <textobject>
+            <textdata fileref="../sniplets/{$tagname}.snip" />
+          </textobject>
+        </programlisting>
+      </example>
       <table>
         <title>Attributes of tag
           <classname>
@@ -63,12 +77,18 @@
           </classname>
         </title>
         <tgroup cols="6">
-          <colspec colname="name" colwidth="2.5cm" align="left"/>
-          <colspec colname="required" colwidth="0.8cm" align="center"/>
-          <colspec colname="expr" colwidth="0.8cm" align="center"/>
-          <colspec colname="type" colwidth="2.5cm" align="left" />
-          <colspec colname="default" colwidth="1.2cm" align="left"/>
-          <colspec colname="description" colwidth="8.2cm" align="left"/>
+          <!--<colspec colname="name" colwidth="2.5cm" align="left"/>-->
+          <!--<colspec colname="required" colwidth="0.8cm" align="center"/>-->
+          <!--<colspec colname="expr" colwidth="0.8cm" align="center"/>-->
+          <!--<colspec colname="type" colwidth="2.5cm" align="left"/>-->
+          <!--<colspec colname="default" colwidth="1.2cm" align="left"/>-->
+          <!--<colspec colname="description" colwidth="8.2cm" align="left"/>-->
+          <colspec colname="name" colwidth="4*" align="left"/>
+          <colspec colname="required" colwidth="1*" align="center"/>
+          <colspec colname="expr" colwidth="1*" align="center"/>
+          <colspec colname="type" colwidth="2*" align="left"/>
+          <colspec colname="default" colwidth="2*" align="left"/>
+          <colspec colname="description" colwidth="10*" align="left"/>
           <thead>
             <row>
               <entry>Name</entry>
@@ -116,9 +136,9 @@
       </entry>
       <entry>
         <!--<simplelist>--> <!--fixme: simplelist causes spacings in column, is tag needed? -->
-          <xsl:apply-templates select="ui-attribute-type/class">
-            <xsl:sort select="name"/>
-          </xsl:apply-templates>
+        <xsl:apply-templates select="ui-attribute-type/class">
+          <xsl:sort select="name"/>
+        </xsl:apply-templates>
         <!--</simplelist>-->
       </entry>
       <entry>
@@ -138,7 +158,9 @@
       <xsl:value-of select="name"/>
       <xsl:if test="not(starts-with($type-package,'java'))">
         <footnote id="{$attribute-name}-{$type-package}.{$type-class}">
-          <para><xsl:value-of select="package"/></para>
+          <para>
+            <xsl:value-of select="package"/>
+          </para>
         </footnote>
       </xsl:if>
     </member>

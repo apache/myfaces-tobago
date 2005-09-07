@@ -1,0 +1,14 @@
+.programlisting {
+  background-color:#d3d3d3;
+  border:1px solid black;
+}
+
+.table th {
+  background-color:#a9a9a9;
+  border:1px solid black;
+}
+
+.table td {
+  background-color:#d3d3d3;
+  border:1px solid black;
+}

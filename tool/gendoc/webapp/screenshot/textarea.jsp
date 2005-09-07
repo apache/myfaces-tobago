@@ -25,9 +25,10 @@
         <f:facet name="layout">
           <t:gridLayout rows="150px;1*" />
         </f:facet>
-
-          <t:textarea labelWithAccessKey="Enter your Text:" 
+<%-- code-sniplet-start id="textarea" --%>
+          <t:textarea labelWithAccessKey="Enter your Text:"
                       value="My new text goes here..." id="textarea0" />
+<%-- code-sniplet-end id="textarea" --%>        
         <t:cell/>
 
       </t:panel>

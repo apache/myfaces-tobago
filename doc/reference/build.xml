@@ -29,7 +29,16 @@
   <property name="docbook.saxon-extension.jar"
             value="${docbook.dir}/extensions/saxon653.jar"/>
 
-  <target name="generate-html"
+  <target name="sniplet-extract" depends="init-apt">
+    <mkdir dir="build/sniplets"/>
+    <sniplet-extract outputDir="build/sniplets" stripLeadingSpaces="true">
+      <fileset dir="../../tool/gendoc/webapp/screenshot">
+        <include name="*.jsp"/>
+      </fileset>
+    </sniplet-extract>
+  </target>
+
+  <target name="generate-html" depends="sniplet-extract"
           description="Creates the documentation as html output.">
     <!-- XXX add check if XML file already exists -->
     <ant antfile="build.xml"
@@ -37,12 +46,14 @@
 
     <mkdir dir="build/html"/>
     <mkdir dir="build/docbook"/>
-    <style in="../../core/build/classes/main/org/apache/myfaces/tobago/taglib/tag-reference.xml"
-       out="build/docbook/tag-reference.xml" extension=".xml" style="tag-reference2docbook.xsl">
+    <style
+        in="../../core/build/classes/main/org/apache/myfaces/tobago/taglib/tag-reference.xml"
+        out="build/docbook/tag-reference.xml" extension=".xml"
+        style="tag-reference2docbook.xsl">
     </style>
     <java classname="com.icl.saxon.StyleSheet" fork="true" failonerror="true">
       <classpath>
-        <pathelement path="${saxon.jar}" />
+        <pathelement path="${saxon.jar}"/>
         <pathelement path="${docbook.saxon-extension.jar}"/>
       </classpath>
       <arg line="
@@ -56,10 +67,24 @@
           toc.section.depth=2
           table.footnote.number.format=1
           css.decoration=true
-          chunk.section.depth=2"/>
+          chunk.section.depth=2
+          linenumbering.extension=true
+          html.stylesheet=tobago-reference.css
+          table.borders.with.css=true"/>
+
+      <!--table.cell.border.style=solid-->
+      <!--table.cell.border.thickness=1pt-->
+      <!--table.cell.border.color=black-->
+      <!--table.frame.border.style=solid-->
+      <!--table.frame.border.thickness=1pt-->
+      <!--table.frame.border.color=black-->
+      
+
       <!-- You can find the documentation of the style sheet params in the document
-           '/doc/html/index.html' in your docbook installation. -->
+ '/doc/html/index.html' in your docbook installation. -->
+
     </java>
+    <copy file="tobago-reference.css" todir="build/html"/>
   </target>
 
 </project>

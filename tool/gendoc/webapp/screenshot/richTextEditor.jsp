@@ -24,8 +24,9 @@
         <f:facet name="layout">
           <t:gridLayout rows="150px;1*" />
         </f:facet>
-
+<%-- code-sniplet-start id="richTextEditor" --%>
         <t:richTextEditor />
+<%-- code-sniplet-end id="richTextEditor" --%>
         <t:cell/>
 
       </t:panel>

@@ -30,8 +30,9 @@
         <f:facet name="layout">
           <t:gridLayout rows="fixed;1*;fixed" />
         </f:facet>
-
+<%-- code-sniplet-start id="messages" --%>
         <t:messages />
+<%-- code-sniplet-end id="messages" --%>
         <t:textarea label="Required Field" required="true" />
 
         <t:panel>

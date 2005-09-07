@@ -25,10 +25,10 @@
           <t:gridLayout rows="fixed;fixed;fixed;fixed;1*" />
         </f:facet>
 
-
+<%-- code-sniplet-start id="selectBooleanCheckbox" --%>
         <t:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelect0"
                              labelWithAccessKey="_Letter " />
-
+<%-- code-sniplet-end id="selectBooleanCheckbox" --%>
         <t:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelect1"
                              labelWithAccessKey="_Phone" />
 

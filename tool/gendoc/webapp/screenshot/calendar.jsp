@@ -18,16 +18,18 @@
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <layout:screenshot>
-<jsp:body>
-<%--    <f:facet name="layout">
-      <t:gridLayout columns="100px;1*" rows="fixed;1*" />
-    </f:facet>
---%>
-<t:calendar/>
-<%--<t:cell/>
+  <jsp:body>
+    <%--    <f:facet name="layout">
+          <t:gridLayout columns="100px;1*" rows="fixed;1*" />
+        </f:facet>
+    --%>
+    <%-- code-sniplet-start id="calendar" --%>
+    <t:calendar/>
+    <%-- code-sniplet-end id="calendar" --%>
+    <%--<t:cell/>
 
    <t:cell/>
    <t:cell/> --%>
 
-</jsp:body>
+  </jsp:body>
 </layout:screenshot>

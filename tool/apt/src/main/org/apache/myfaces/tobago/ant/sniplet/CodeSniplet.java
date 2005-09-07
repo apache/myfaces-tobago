@@ -15,10 +15,13 @@
  */
 package org.apache.myfaces.tobago.ant.sniplet;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class CodeSniplet {
 
   private String id;
-  private StringBuffer code;
+  private List<String> code;
   private String fileName;
   private int lineStart;
   private int lineEnd;
@@ -26,12 +29,12 @@ public class CodeSniplet {
   public CodeSniplet(String id, String fileName, int lineStart) {
     this.id = id;
     this.fileName = fileName;
-    this.code = new StringBuffer();
+    this.code = new ArrayList<String>();
     this.lineStart = lineStart;
   }
 
   public void addLine(String line) {
-    code.append(line).append("\n");
+    code.add(line);
   }
 
   public String getId() {
@@ -42,12 +45,33 @@ public class CodeSniplet {
     this.id = id;
   }
 
-  public StringBuffer getCode() {
-    return code;
-  }
-
-  public void setCode(StringBuffer code) {
-    this.code = code;
+  public StringBuffer getCode(boolean stripLeadingSpaces) {
+    int minSpaces = -1;
+    for (int i = 0; i < code.size(); i++) {
+      String s = code.get(i);
+      for (int j = 0; j < s.length(); j++) {
+        char c = s.charAt(j);
+        if (!Character.isWhitespace(c)) {
+          if (minSpaces == -1 || j < minSpaces) {
+            minSpaces = j;
+          }
+          break;
+        }
+      }
+    }
+    StringBuffer sb = new StringBuffer();
+    for (int i = 0; i < code.size(); i++) {
+      String s = code.get(i);
+      if (stripLeadingSpaces && s.length() > minSpaces && minSpaces != -1) {
+        sb.append(s.substring(minSpaces));
+      } else {
+        sb.append(s);
+      }
+      if (i < code.size() -1) {
+        sb.append("\n");
+      }
+    }
+    return sb;
   }
 
   public String getFileName() {

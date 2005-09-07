@@ -36,7 +36,9 @@
         </f:facet>
       <t:panel>
         <t:label value="Progress example: " />
+<%-- code-sniplet-start id="progress" --%>
         <t:progress value="#{progress}" />
+<%-- code-sniplet-end id="progress" --%>
       </t:panel>
       <t:cell/>
 

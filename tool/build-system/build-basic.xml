@@ -22,7 +22,7 @@
 
   <!--XXX define tobago-home-->
   <property file="${build-system.dir}/../../build.properties"/>
-  
+
   <property name="maven.task" value="maven-artifact-ant-2.0-alpha-3-dep.jar"/>
   <property name="maven.task.jar" value="${build-system.dir}/${maven.task}"/>
   <available file="${maven.task.jar}" property="maven.task.present"/>
@@ -47,7 +47,8 @@
   <property name="report.junit" value="${build}/report/junit"/>
 
   <target name="download-task" unless="maven.task.present">
-    <get src="http://www.ibiblio.org/maven2/org/apache/maven/maven-artifact-ant/2.0-alpha-3/${maven.task}"
+    <get
+        src="http://www.ibiblio.org/maven2/org/apache/maven/maven-artifact-ant/2.0-alpha-3/${maven.task}"
         dest="${maven.task.jar}"/>
   </target>
 
@@ -61,7 +62,8 @@
 
   <target name="init" depends="init-task">
     <pom file="pom.xml" id="pom"/>
-    <dependencies filesetId="pom.dependencies" pathId="project.classpath.jar" verbose="false">
+    <dependencies filesetId="pom.dependencies" pathId="project.classpath.jar"
+                  verbose="false">
       <pom refid="pom"/>
     </dependencies>
 
@@ -75,43 +77,46 @@
     </path>
   </target>
 
-  <target name="init-apt" depends="init">
+  <target name="init-apt" depends="init-task">
     <pom file="${build-system.dir}/dependencies.xml" id="dependencies"/>
     <dependencies pathId="build.classpath.apt" verbose="false">
       <pom refid="dependencies"/>
     </dependencies>
 
     <taskdef name="apt"
-        classname="org.apache.myfaces.tobago.apt.ant.Apt"
-        classpathref="build.classpath.apt"/>
+             classname="org.apache.myfaces.tobago.apt.ant.Apt"
+             classpathref="build.classpath.apt"/>
+    <taskdef name="sniplet-extract"
+             classname="org.apache.myfaces.tobago.ant.sniplet.CodeSnipletExtractTask"
+             classpathref="build.classpath.apt"/>
   </target>
 
   <presetdef name="javac-default">
     <javac deprecation="on" debug="on"
-        encoding="${java.source.encoding}"
-        target="${java.version.target}" source="${java.version.source}"
-        bootclasspath="${java.version.bootclasspath}"
-        extdirs="${java.version.extdirs}"
-        classpathref="project.classpath.jar">
+           encoding="${java.source.encoding}"
+           target="${java.version.target}" source="${java.version.source}"
+           bootclasspath="${java.version.bootclasspath}"
+           extdirs="${java.version.extdirs}"
+           classpathref="project.classpath.jar">
       <compilerarg line="${java.compilerargs}"/>
     </javac>
   </presetdef>
 
   <target name="compile" depends="fetch-libs"
-      description="Compiles the sources of the artifact.">
+          description="Compiles the sources of the artifact.">
     <mkdir dir="${build.classes.main}"/>
     <javac-default srcdir="${src.main}" destdir="${build.classes.main}"/>
   </target>
 
   <target name="test" depends="compile" if="src.test.present"
-      description="Run the unit tests.">
+          description="Run the unit tests.">
     <mkdir dir="${build.classes.test}"/>
     <javac-default srcdir="${src.test}"
-        destdir="${build.classes.test}"
-        classpathref="project.classpath.test"/>
+                   destdir="${build.classes.test}"
+                   classpathref="project.classpath.test"/>
     <mkdir dir="${report.junit}"/>
     <junit printsummary="yes" haltonfailure="yes" haltonerror="yes"
-      dir="${basedir}" maxmemory="128m">
+           dir="${basedir}" maxmemory="128m">
       <classpath refid="build.classpath.run"/>
       <formatter type="xml"/>
       <formatter type='brief' usefile='false'/>
@@ -134,7 +139,7 @@
   </target>
 
   <target name="dist" depends="compile"
-      description="Create a distribution of the artifact.">
+          description="Create a distribution of the artifact.">
     <mkdir dir="${dist}"/>
     <jar jarfile="${dist}/${pom.artifactId}.jar">
       <fileset dir="${build.classes.main}">
@@ -154,7 +159,7 @@
   </target>
 
   <target name="install" depends="dist"
-      description="Install artifact into the local repository.">
+          description="Install artifact into the local repository.">
     <install file="${dist}/${pom.artifactId}.jar">
       <pom refid="pom"/>
     </install>
@@ -178,7 +183,7 @@
 
     <!-- build the war-file -->
     <war warfile="${dist}/${pom.artifactId}.war"
-        webxml="webapp/WEB-INF/web.xml">
+         webxml="webapp/WEB-INF/web.xml">
       <fileset dir="webapp">
         <include name="**"/>
         <exclude name="WEB-INF/**"/>

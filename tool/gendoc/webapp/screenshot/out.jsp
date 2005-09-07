@@ -24,7 +24,7 @@
         <f:facet name="layout">
           <t:gridLayout rows="300px;1*" />
         </f:facet>
-
+<%-- code-sniplet-start id="out" --%>
           <t:out value="Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
             Quisque consequat, libero eget porta mattis, risus velit congue magna,
             at posuere sem orci vitae turpis. Integer pulvinar. Cras libero.
@@ -42,6 +42,7 @@
             ornare pulvinar. Sed nec velit. Ut ut orci. Nulla varius. Maecenas feugiat.
             Etiam varius ipsum et orci. Ut consectetuer odio sit amet libero. Nulla iaculis
             adipiscing purus. Maecenas a sed." />
+<%-- code-sniplet-end id="out" --%>
         <t:cell/>
 
       </t:panel>

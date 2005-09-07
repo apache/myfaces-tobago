@@ -23,9 +23,10 @@
       <f:facet name="layout">
         <t:gridLayout columns="300px;1*" rows="fixed;1*" />
       </f:facet>
-
+<%-- code-sniplet-start id="link" --%>
       <t:link type="navigate" action="http://www.apache.org"
               label="http://www.apache.org" />
+<%-- code-sniplet-end id="link" --%>      
       <t:cell/>
 
       <t:cell/>

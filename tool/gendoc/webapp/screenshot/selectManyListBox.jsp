@@ -24,7 +24,7 @@
         <f:facet name="layout">
           <t:gridLayout rows="40px;1*" />
         </f:facet>
-
+<%-- code-sniplet-start id="selectManyListbox" --%>
         <t:selectManyListbox inline="true" id="LabeledInlineMultiSelect"
                              labelWithAccessKey="Contact via: " height="90px">
           <f:selectItem itemValue="Phone" itemLabel="Phone" />
@@ -32,7 +32,7 @@
           <f:selectItem itemValue="Mobile" itemLabel="Mobile"/>
           <f:selectItem itemValue="Fax"  itemLabel="Faxscimile"/>
         </t:selectManyListbox>
-
+<%-- code-sniplet-end id="selectManyListbox" --%>
         <t:cell/>
 
       </t:panel>
