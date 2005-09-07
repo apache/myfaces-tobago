@@ -42,10 +42,7 @@ public class ViewHandlerImpl extends ViewHandler {
 
   private static final Log LOG = LogFactory.getLog(ViewHandlerImpl.class);
 
-  private static final boolean USE_TOBAGO_VIEW_ROOT = true;
-
   public static final String PAGE_ID = "tobago::page-id";
-
 
   private ViewHandler base;
 
@@ -172,10 +169,6 @@ public class ViewHandlerImpl extends ViewHandler {
   }
 
   private void handleEncoding(FacesContext facesContext) {
-
-    //String charset = extractCharset(facesContext);
-
-
     try {
       if (facesContext.getExternalContext() instanceof HttpServletRequest) {
         HttpServletRequest request =
@@ -195,25 +188,5 @@ public class ViewHandlerImpl extends ViewHandler {
     base.writeState(facesContext);
   }
 
-  private String extractCharset(FacesContext facesContext) {
-    String contentType = (String) facesContext.getExternalContext()
-        .getRequestHeaderMap().get("content-type");
-
-    if (contentType != null) {
-      int index = contentType.indexOf(";");
-      if (index != 0) {
-        int charsetIndex = contentType.indexOf("charset=");
-        if (charsetIndex != 0) {
-          String charset = contentType.substring(charsetIndex+8);
-          // charset can be quoted
-          charset = charset.replace('"', ' ');
-          return charset.trim();
-        }
-      }
-    }
-    return null;
-
-
-  }
 }
 
