@@ -31,7 +31,7 @@
     <developer>
       <id>idus</id>
       <name>Arvid H&#x00fc;lsebus</name>
-      <email>idus at krelon.com</email>
+      <email>idus@krelon.com</email>
       <organization>atanion GmbH, Germany</organization>
       <roles>
         <role>Developer</role>
@@ -41,7 +41,7 @@
     <developer>
       <id>bommel</id>
       <name>Bernd Bohmann</name>
-      <email>bernd.bohmann at atanion.com</email>
+      <email>bernd.bohmann@atanion.com</email>
       <organization>atanion GmbH, Germany</organization>
       <roles>
         <role>Developer</role>
@@ -51,7 +51,7 @@
     <developer>
       <id>pleff</id>
       <name>Detlef Bartetzko</name>
-      <email>detlef.bartetzko at atanion.com</email>
+      <email>detlef.bartetzko@atanion.com</email>
       <organization>atanion GmbH, Germany</organization>
       <roles>
         <role>Developer</role>
@@ -62,7 +62,7 @@
       <id>mmarinschek</id>
       <name>Martin Marinschek</name>
       <organization>Irian, Austria</organization>
-      <email>martin.marinschek at gmail.com</email>
+      <email>martin.marinschek@gmail.com</email>
       <roles>
         <role>Developer</role>
       </roles>
@@ -72,7 +72,7 @@
       <id>matzew</id>
       <name>Matthias We&#x00df;endorf</name>
       <organization>Pironet NDH AG, Germany</organization>
-      <email>mwessendorf at gmail.com</email>
+      <email>mwessendorf@gmail.com</email>
       <roles>
         <role>Developer</role>
       </roles>
@@ -81,7 +81,7 @@
     <developer>
       <id>hennes</id>
       <name>Philippe Hennes</name>
-      <email>philippe.hennes at philstar.de</email>
+      <email>philippe.hennes@philstar.de</email>
       <organization>atanion GmbH, Germany</organization>
       <roles>
         <role>Developer</role>
@@ -91,7 +91,7 @@
     <developer>
       <id>lofwyr</id>
       <name>Udo Schnurpfeil</name>
-      <email>udo at schnurpfeil.de</email>
+      <email>udo@schnurpfeil.de</email>
       <organization>atanion GmbH, Germany</organization>
       <roles>
         <role>Lead</role>
@@ -101,7 +101,7 @@
     <developer>
       <id>weber</id>
       <name>Volker Weber</name>
-      <email>asf at weber-oldenburg.de</email>
+      <email>asf@weber-oldenburg.de</email>
       <organization>atanion GmbH, Germany</organization>
       <roles>
         <role>Developer</role>
