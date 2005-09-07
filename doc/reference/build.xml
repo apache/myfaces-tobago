@@ -53,9 +53,10 @@
           base.dir=build/html/
           use.id.as.filename=true
           section.autolabel=true
-          toc.section.depth=3
+          toc.section.depth=2
           table.footnote.number.format=1
-          css.decoration=true"/>
+          css.decoration=true
+          chunk.section.depth=2"/>
       <!-- You can find the documentation of the style sheet params in the document
            '/doc/html/index.html' in your docbook installation. -->
     </java>

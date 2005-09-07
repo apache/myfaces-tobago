@@ -5,15 +5,12 @@
   <xsl:output method="xml" indent="yes"/>
 
   <xsl:template match="/">
-    <chapter id="taglib">
-      <title>Tobago Tag Library</title>
-      <xsl:apply-templates select="//tag"/>
-    </chapter>
+    <xsl:apply-templates select="//tag"/>
   </xsl:template>
 
   <xsl:template match="tag">
     <xsl:param name="tagname" select="name"/>
-    <sect1 id="tag-{$tagname}">
+    <sect2 id="tag-{$tagname}">
       <title>Tag
         <classname>
           <xsl:value-of select="name"/>
@@ -90,7 +87,7 @@
         </tgroup>
       </table>
       <!--      <footnoteref></footnoteref>-->
-    </sect1>
+    </sect2>
   </xsl:template>
 
   <xsl:template match="attribute">
