@@ -172,18 +172,20 @@ public class ViewHandlerImpl extends ViewHandler {
   }
 
   private void handleEncoding(FacesContext facesContext) {
-    // TODO extract ContentType and ContentEncoding from Header 'content-type'
-    String contentType = (String) facesContext.getExternalContext()
-        .getRequestHeaderMap().get("content-type");
 
-    HttpServletRequest request = (HttpServletRequest)
-        facesContext.getExternalContext().getRequest();
+    //String charset = extractCharset(facesContext);
+   
 
     try {
-      if (request.getCharacterEncoding() == null) {
-        request.setCharacterEncoding("UTF-8");
+      if (facesContext.getExternalContext() instanceof HttpServletRequest) {
+        HttpServletRequest request =
+            (HttpServletRequest) facesContext.getExternalContext().getRequest();
+        if (request.getCharacterEncoding() == null) {
+          request.setCharacterEncoding("UTF-8");
 
+        }
       }
+      // TODO PortletRequest
     } catch (UnsupportedEncodingException e) {
       LOG.error("" + e, e);
     }
@@ -191,6 +193,27 @@ public class ViewHandlerImpl extends ViewHandler {
 
   public void writeState(FacesContext facesContext) throws IOException {
     base.writeState(facesContext);
+  }
+
+  private String extractCharset(FacesContext facesContext) {
+    String contentType = (String) facesContext.getExternalContext()
+        .getRequestHeaderMap().get("content-type");
+
+    if (contentType != null) {
+      int index = contentType.indexOf(";");
+      if (index != 0) {
+        int charsetIndex = contentType.indexOf("charset=");
+        if (charsetIndex != 0) {
+          String charset = contentType.substring(charsetIndex+8);
+          // charset can be quoted
+          charset = charset.replace('"', ' ');
+          return charset.trim()
+        }
+      }
+    }
+    return null
+
+
   }
 }
 
