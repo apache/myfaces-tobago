@@ -26,12 +26,12 @@
           <t:gridLayout rows="60px;1*" />
         </f:facet>
 
-
             <t:toolBar id="toolbar0" iconSize="big">
               <t:toolBarCommand id="button0" label="Button" />
               <t:toolBarCommand id="button1" label="Accesskey Button" accessKey="B"/>
               <t:toolBarCommand id="button2" label="Image Button"
                                 image="image/toolbar_example_button.gif" />
+              <t:toolBarCommand id="button3" disabled="true" label="Disabled Button" />
             </t:toolBar>
 
         <t:cell/>
