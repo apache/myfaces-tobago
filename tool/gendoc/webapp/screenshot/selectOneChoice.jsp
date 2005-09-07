@@ -22,12 +22,16 @@
     <jsp:body>
       <t:panel>
         <f:facet name="layout">
-          <t:gridLayout rows=";1*" />
+          <t:gridLayout rows="fixed;1*" />
         </f:facet>
 
-        <t:selectOneChoice value="#{demo.salutation[2]}" inline="true">
-          <f:selectItems value="#{demo.salutationItems}" />
-        </t:selectOneChoice>
+        <t:selectOneChoice value="selectOneChoice0" inline="true"
+                           labelWithAccessKey="_Contact me: " >
+          <t:selectItem itemLabel="Letter" itemValue="letter" />
+          <t:selectItem itemLabel="Phone" itemValue="phone" />
+          <t:selectItem itemLabel="eMail" itemValue="eMail" />
+          <t:selectItem itemLabel="Fax" itemValue="fax" />
+          </t:selectOneChoice>
 
         <t:cell/>
 

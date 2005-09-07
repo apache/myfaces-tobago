@@ -13,3 +13,25 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
+
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
+
+<layout:screenshot>
+  <f:subview id="textarea">
+    <jsp:body>
+      <t:panel>
+        <f:facet name="layout">
+          <t:gridLayout rows="150px;1*" />
+        </f:facet>
+
+          <t:textarea labelWithAccessKey="Enter your Text:" 
+                      value="My new text goes here..." id="textarea0" />
+        <t:cell/>
+
+      </t:panel>
+
+    </jsp:body>
+  </f:subview>
+</layout:screenshot>

@@ -22,11 +22,23 @@
     <jsp:body>
       <t:panel>
         <f:facet name="layout">
-          <t:gridLayout rows="fixed;fixed;1*" />
+          <t:gridLayout rows="fixed;fixed;fixed;fixed;1*" />
         </f:facet>
 
-      <t:selectBooleanCheckbox label="Saturn" value="saturn" id="bool0" />
-      <t:selectBooleanCheckbox label="Jupiter" value="jupiter" id="bool1" />
+
+        <t:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelect0"
+                             labelWithAccessKey="_Letter " />
+
+        <t:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelect1"
+                             labelWithAccessKey="_Phone" />
+
+        <t:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelec2"
+                             labelWithAccessKey="_eMail " />
+
+        <t:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelect3"
+                             labelWithAccessKey="_Fax" />
+
+
       <t:cell/>
 
       </t:panel>

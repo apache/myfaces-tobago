@@ -19,7 +19,7 @@
 
 <project name="gendoc" default="compile">
 
-  <property name="build-system.home" value="..//build-system"/>
+  <property name="build-system.home" value="../../tool/build-system"/>
   <property name="build-system.dir" location="${build-system.home}"/>
   <import file="${build-system.dir}/build-tomcat.xml"/>
 

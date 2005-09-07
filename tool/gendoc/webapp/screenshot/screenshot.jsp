@@ -26,8 +26,7 @@
                         fixed;fixed;fixed;fixed;fixed;
                         fixed;fixed;fixed;fixed;fixed;
                         fixed;fixed;fixed;fixed;fixed;
-                        fixed;fixed;fixed;fixed;fixed;
-                        fixed;fixed;fixed;1*"/>
+                        fixed;fixed;fixed;fixed;1*"/>
 
   </f:facet>
 
@@ -77,7 +76,7 @@
 
   <t:link type="navigate" action="textarea.jsp" immediate="true" label="Textarea" />
 
-  <t:link type="navigate" action="toolBar.jsp" immediate="true" label="TooBar" />
+  <t:link type="navigate" action="toolBar.jsp" immediate="true" label="ToolBar" />
 
   <%--<t:link type="navigate" action="toolBarCheck.jsp" immediate="true" label="ToolBarCheck" />--%>
 

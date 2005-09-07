@@ -22,12 +22,15 @@
     <jsp:body>
       <t:panel>
         <f:facet name="layout">
-          <t:gridLayout rows="fixed;1*" />
+          <t:gridLayout rows="40px;1*" />
         </f:facet>
 
-        <t:selectManyListbox value="#{demo.phoneProtocols[3]}" inline="true"
-            id="LabeledInlineMultiSelect" >
-          <f:selectItems value="#{demo.phoneProtocolItems}" />
+        <t:selectManyListbox inline="true" id="LabeledInlineMultiSelect"
+                             labelWithAccessKey="Contact via: " height="90px">
+          <f:selectItem itemValue="Phone" itemLabel="Phone" />
+          <f:selectItem itemValue="eMail" itemLabel="eMail"/>
+          <f:selectItem itemValue="Mobile" itemLabel="Mobile"/>
+          <f:selectItem itemValue="Fax"  itemLabel="Faxscimile"/>
         </t:selectManyListbox>
 
         <t:cell/>
