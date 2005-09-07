@@ -158,7 +158,7 @@ At the moment the MyFaces JIRA module could be used.
   * Philippe Hennes, philippe.hennes@philstar.de
   * Arvid Hülsebus, idus@krelon.com
   * Bernd Bohmann, bernd.bohmann@atanion.com
-  * Detlef Bartetzko, detlef.bartetzko@gmail.com
+  * Detlef Bartetzko, detlef.bartetzko@atanion.com
 
 (5) Apache sponsoring individuals
 
