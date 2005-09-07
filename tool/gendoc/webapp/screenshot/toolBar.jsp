@@ -13,3 +13,32 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
+
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
+
+<layout:screenshot>
+  <f:subview id="toolBar">
+    <jsp:body>
+      <t:panel>
+        <f:facet name="layout">
+          <t:gridLayout rows="60px;1*" />
+        </f:facet>
+
+
+            <t:toolBar id="toolbar0" iconSize="big">
+              <t:toolBarCommand id="button0" label="Button" />
+              <t:toolBarCommand id="button1" label="Accesskey Button" accessKey="B"/>
+              <t:toolBarCommand id="button2" label="Image Button"
+                                image="image/toolbar_example_button.gif" />
+            </t:toolBar>
+
+        <t:cell/>
+
+      </t:panel>
+
+    </jsp:body>
+  </f:subview>
+</layout:screenshot>
+
