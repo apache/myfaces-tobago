@@ -174,7 +174,7 @@ public class ViewHandlerImpl extends ViewHandler {
   private void handleEncoding(FacesContext facesContext) {
 
     //String charset = extractCharset(facesContext);
-   
+
 
     try {
       if (facesContext.getExternalContext() instanceof HttpServletRequest) {
@@ -207,11 +207,11 @@ public class ViewHandlerImpl extends ViewHandler {
           String charset = contentType.substring(charsetIndex+8);
           // charset can be quoted
           charset = charset.replace('"', ' ');
-          return charset.trim()
+          return charset.trim();
         }
       }
     }
-    return null
+    return null;
 
 
   }
