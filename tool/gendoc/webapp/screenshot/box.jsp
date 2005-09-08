@@ -20,19 +20,22 @@
 
 <layout:screenshot>
 <jsp:body>
-<%--    <f:facet name="layout">
-      <t:gridLayout columns="100px;1*" rows="fixed;1*" />
-    </f:facet>
---%>
+  <f:subview id="image">
+    <t:panel>
+      <f:facet name="layout">
+        <t:gridLayout rows="200px;1*" columns="400px;1*" />
+      </f:facet>
 <%-- code-sniplet-start id="box" --%>
 <t:box label="Groupbox Headline">
 
 </t:box>
 <%-- code-sniplet-end id="box" --%>
-<%--<t:cell/>
 
-<t:cell/>
-<t:cell/> --%>
+      <t:cell/>
+      <t:cell/>
+      <t:cell/>
 
+      </t:panel>
+    </f:subview>
 </jsp:body>
 </layout:screenshot>

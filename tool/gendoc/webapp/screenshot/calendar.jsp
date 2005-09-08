@@ -19,17 +19,17 @@
 
 <layout:screenshot>
   <jsp:body>
-    <%--    <f:facet name="layout">
-          <t:gridLayout columns="100px;1*" rows="fixed;1*" />
-        </f:facet>
-    --%>
-    <%-- code-sniplet-start id="calendar" --%>
-    <t:calendar/>
-    <%-- code-sniplet-end id="calendar" --%>
-    <%--<t:cell/>
+    <f:facet name="layout">
+          <t:gridLayout columns="250px;1*" rows="250px;1*" />
+    </f:facet>
 
-   <t:cell/>
-   <t:cell/> --%>
+<%-- code-sniplet-start id="calendar" --%>
+  <t:calendar />
+<%-- code-sniplet-end id="calendar" --%>
+  <t:cell/>
+
+  <t:cell/>
+  <t:cell/>
 
   </jsp:body>
 </layout:screenshot>

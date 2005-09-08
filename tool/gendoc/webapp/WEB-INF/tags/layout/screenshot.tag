@@ -22,16 +22,17 @@
   <t:loadBundle basename="demo" var="bundle" />
 
   <t:page label="Screenshot" id="page"
-    width="750px" height="1500px">
+    width="750px" height="800px">
     <f:facet name="layout">
-      <t:gridLayout columns="100px;1*" rows="100px;1*" />
+      <t:gridLayout columns="5px;1*" rows="5px;1*" />
     </f:facet>
 
     <t:cell/>
     <t:cell/>
 
     <t:cell/>
+    <t:panel>
     <jsp:doBody/>
-
+    </t:panel>
   </t:page>
 </f:view>
