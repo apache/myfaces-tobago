@@ -45,9 +45,10 @@ public class TobagoResponseWriterUnitTest extends TestCase {
     assertEquals("simple tag", "<test\n></test>", stringWriter.toString());
   }
 
-  public void testCR() throws IOException {
+  public void testNonUtf8() throws IOException {
+    writer = new TobagoResponseWriter(stringWriter, "", "ISO-8859-1");
     writer.startElement("input", null);
-    writer.writeAttribute("value", "\nMöchte 100 Euro", null);
+    writer.writeAttribute("value", "Gutschein über 100 Euro.", null);
     writer.writeAttribute("readonly", true);
     writer.endElement("input");
   }
