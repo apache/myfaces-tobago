@@ -29,6 +29,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.FileOutputStream;
+import java.io.File;
 import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Set;
@@ -98,8 +100,8 @@ public class ResourceManagerFactory {
 //        Log.debug("add resc " + childPath);
         if (childPath.endsWith(".properties")) {
           addProperties(servletContext, resources, childPath, false);
-//        } else if (childPath.endsWith(".properties.xml")) {
-//          addProperties(servletContext, resources, childPath, true);
+        } else if (childPath.endsWith(".properties.xml")) {
+          addProperties(servletContext, resources, childPath, true);
         } else {
           resources.add(childPath);
 //          Log.debug(childPath);
@@ -118,13 +120,18 @@ public class ResourceManagerFactory {
 
     int begin = filename.indexOf('_') + 1;
     int end = filename.lastIndexOf('.');
+    if (xml) {
+      end = filename.lastIndexOf('.', end - 1);
+    }
 
     String locale;
+/*
     if (begin > 0) {
       locale = filename.substring(begin, end);
     } else {
       locale = "default";
     }
+*/
     locale = filename.substring(0, end);
 
 
@@ -132,12 +139,18 @@ public class ResourceManagerFactory {
     InputStream stream = null;
     try {
       stream = servletContext.getResourceAsStream(childPath);
-//      LOG.error(xml);
       if (xml) {
-//        LOG.error(childPath);
         temp.loadFromXML(stream);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug(childPath);
+          LOG.debug("xml properties: " + temp.size());
+        }
       } else {
         temp.load(stream);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug(childPath);
+          LOG.debug("    properties: " + temp.size());
+        }
       }
     } catch (IOException e) {
       String msg = "while loading " + childPath;
