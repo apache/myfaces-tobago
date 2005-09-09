@@ -329,7 +329,7 @@ public class TobagoResponseWriter extends ResponseWriter {
     if (!startStillOpen) {
       String trace = getCallingClassStackTraceElementString();
       String error = "Cannot write attribute when start-tag not open. "
-          + "name = '" + name + "'"
+          + "name = '" + name + "' "
           + "value = '" + value + "' "
           + trace.substring(trace.indexOf('('));
       LOG.error(error);
