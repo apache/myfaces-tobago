@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 public class TobagoResponseWriterUnitTest extends TestCase {
 
@@ -42,6 +43,13 @@ public class TobagoResponseWriterUnitTest extends TestCase {
     writer.startElement("test", null);
     writer.endElement("test");
     assertEquals("simple tag", "<test\n></test>", stringWriter.toString());
+  }
+
+  public void testCR() throws IOException {
+    writer.startElement("input", null);
+    writer.writeAttribute("value", "\nMöchte 100 Euro", null);
+    writer.writeAttribute("readonly", true);
+    writer.endElement("input");
   }
 
 }
