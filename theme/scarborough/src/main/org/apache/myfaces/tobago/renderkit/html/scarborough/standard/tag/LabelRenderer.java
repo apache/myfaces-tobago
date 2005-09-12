@@ -21,15 +21,14 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
+import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -86,6 +85,9 @@ public class LabelRenderer extends RendererBase {
     createClassAttribute(component);
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
+    writer.startElement("div", output);
+    writer.writeComponentClass();    
+    writer.writeAttribute("style", null, ATTR_STYLE);
     writer.startElement("a", output);
     writer.writeComponentClass();
     writer.startElement("label", output);
@@ -110,6 +112,7 @@ public class LabelRenderer extends RendererBase {
     }
     writer.endElement("label");
     writer.endElement("a");
+    writer.endElement("div");
   }
 
 }
