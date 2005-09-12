@@ -449,6 +449,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         new LayoutInfo(columnCount, innerWidth.intValue(), layoutTokens,
             layout.isIgnoreFree());
 
+    parseFixedWidth(layoutInfo, layout, facesContext);
     layoutInfo.parseColumnLayout(innerWidth.doubleValue(),
         getCellSpacing(facesContext, layout));
 
@@ -499,18 +500,31 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
   }
 
+  private void parseFixedWidth(LayoutInfo layoutInfo, UIGridLayout layout,
+      FacesContext facesContext) {
+    parseFixedSpace(layoutInfo, layout, true, facesContext);
+  }
   private void parseFixedHeight(LayoutInfo layoutInfo, UIGridLayout layout,
       FacesContext facesContext) {
+    parseFixedSpace(layoutInfo, layout, false, facesContext);
+  }
+  private void parseFixedSpace(LayoutInfo layoutInfo, UIGridLayout layout,
+                               boolean width, FacesContext facesContext) {
+
     String[] tokens = layoutInfo.getLayoutTokens();
     for (int i = 0; i < tokens.length; i++) {
       if (tokens[i].equals("fixed")) {
-        int height = 0;
+        int max = 0;
         final List<UIGridLayout.Row> rows = layout.ensureRows();
         if (! rows.isEmpty()) {
           if (i < rows.size()) {
-            UIGridLayout.Row row = rows.get(i);
-            height = getMaxHeight(facesContext, row, false);
-            layoutInfo.update(height, i);
+            if (width) {
+              max = getMaxWidth(facesContext, rows, i, false);
+            } else {
+              UIGridLayout.Row row = rows.get(i);
+              max = getMaxHeight(facesContext, row, false);
+            }
+            layoutInfo.update(max, i);
           }
           else {
             layoutInfo.update(0, i);
@@ -520,7 +534,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           }
         }
         if (LOG.isDebugEnabled()) {
-          LOG.debug("set column " + i + " from fixed to with " + height);
+          LOG.debug("set column " + i + " from fixed to with " + max);
         }
       }
     }
@@ -547,6 +561,25 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
       }
     }
     return maxHeight;
+  }
+
+  private int getMaxWidth(FacesContext facesContext, List<UIGridLayout.Row> rows, int column, boolean minimum) {
+    int maxWidth = 0;
+
+    for (UIGridLayout.Row row : rows) {
+      UIComponent component = (UIComponent) row.getElements().get(column);
+      int max = -1;
+      if (minimum) {
+        max = (int) LayoutUtil.getMinimumSize(facesContext, component).getWidth();
+      } else {
+        RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
+        if (renderer instanceof RendererBase) {
+          max = renderer.getFixedWidth(facesContext, component);
+        }
+      }
+      maxWidth = Math.max(maxWidth, max);
+    }
+    return maxWidth;
   }
 
   private void setColumnWidths(UIGridLayout layout, LayoutInfo layoutInfo,
