@@ -23,7 +23,7 @@
     <jsp:body>
       <t:panel>
         <f:facet name="layout">
-          <t:gridLayout rows="60px;1*" />
+          <t:gridLayout rows="60px;1*" columns="260px;1*"/>
         </f:facet>
 
             <t:toolBar id="toolbar0" iconSize="big">
@@ -34,6 +34,8 @@
               <t:toolBarCommand id="button3" disabled="true" label="Disabled Button" />
             </t:toolBar>
 
+        <t:cell/>
+        <t:cell/>
         <t:cell/>
 
       </t:panel>

@@ -20,7 +20,7 @@
 <f:view>
 
   <t:loadBundle basename="demo" var="bundle" />
-
+  
   <t:page label="Screenshot" id="page"
     width="750px" height="800px">
     <f:facet name="layout">

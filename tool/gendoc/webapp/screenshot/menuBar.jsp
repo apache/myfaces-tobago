@@ -22,7 +22,7 @@
     <jsp:body>
       <t:panel>
         <f:facet name="layout">
-          <t:gridLayout rows="fixed;1*"/>
+          <t:gridLayout rows="fixed;1*" columns="400px;1*"/>
         </f:facet>
         <%-- code-sniplet-start id="menuBar" --%>
         <t:menuBar>
@@ -59,6 +59,8 @@
           </t:menu>
         </t:menuBar>
         <%-- code-sniplet-end id="menuBar" --%>
+        <t:cell/>
+        <t:cell/>
         <t:cell/>
 
       </t:panel>

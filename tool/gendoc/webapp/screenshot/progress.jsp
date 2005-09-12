@@ -14,16 +14,16 @@
  *    limitations under the License.
 --%>
 <%@ page
-  errorPage="/errorPage.jsp"
-  import="javax.swing.DefaultBoundedRangeModel"
-%>
+    errorPage="/errorPage.jsp"
+    import="javax.swing.DefaultBoundedRangeModel"
+    %>
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 <%-- Progress --%>
 
 <%
-     DefaultBoundedRangeModel progress = new DefaultBoundedRangeModel(75, 0, 0, 100);
+  DefaultBoundedRangeModel progress = new DefaultBoundedRangeModel(75, 0, 0, 100);
   pageContext.setAttribute("progress", progress, PageContext.REQUEST_SCOPE);
 %>
 
@@ -32,16 +32,13 @@
     <jsp:body>
       <t:panel>
         <f:facet name="layout">
-          <t:gridLayout rows="fixed;1*" />
+          <t:gridLayout rows="fixed;1*" columns="100px;1* "/>
         </f:facet>
-      <t:panel>
-        <t:label value="Progress example: " />
-<%-- code-sniplet-start id="progress" --%>
-        <t:progress value="#{progress}" />
-<%-- code-sniplet-end id="progress" --%>
-      </t:panel>
-      <t:cell/>
-
+          <t:label value="Progress: " inline="true"/>
+          <%-- code-sniplet-start id="progress" --%>
+          <t:progress value="#{progress}"/>
+          <%-- code-sniplet-end id="progress" --%>
+        <t:cell/>
       </t:panel>
 
     </jsp:body>

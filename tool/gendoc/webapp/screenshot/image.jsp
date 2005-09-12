@@ -22,10 +22,10 @@
     <f:subview id="image">
       <t:panel>
         <f:facet name="layout">
-          <t:gridLayout rows="30px;1*" />
+          <t:gridLayout rows="90px;1*" />
         </f:facet>
 <%-- code-sniplet-start id="image" --%>
-        <t:image value="image/tobago_head.gif" height="83" width="150" />
+        <t:image value="image/tobago_head.gif" width="150" height="83" />
 <%-- code-sniplet-end id="image" --%>        
         <t:cell/>
 
