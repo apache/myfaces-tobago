@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -274,11 +275,19 @@ public class UITreeListbox extends UITree implements LayoutProvider{
           UIGridLayout.COMPONENT_TYPE,
           TobagoConstants.RENDERER_TYPE_GRID_LAYOUT);
 
+      int depth = ((DefaultMutableTreeNode) getValue()).getDepth();
+      final int defaultColumnCount = ThemeConfig.getValue(
+          FacesContext.getCurrentInstance(), this, "defaultColumnCount");
+
+      if (defaultColumnCount < depth) {
+        depth = defaultColumnCount;
+      }
+
       String columns = "1*";
-      final DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) getValue();
-      for ( int i = 1; i < treeNode.getDepth(); i++) {
+      for ( int i = 1; i < depth; i++) {
         columns += ";1*";
       }
+
       layout.getAttributes().put(TobagoConstants.ATTR_COLUMNS, columns);
       getFacets().put(TobagoConstants.FACET_LAYOUT_DEFAULT, layout);
     }
