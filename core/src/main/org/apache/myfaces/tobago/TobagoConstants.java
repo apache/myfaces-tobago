@@ -191,6 +191,7 @@ public interface TobagoConstants {
   public static final String RENDERER_TYPE_SELECT_ONE_CHOICE = "SelectOneChoice";
   public static final String RENDERER_TYPE_SELECT_ONE_RADIO = "SelectOneRadio";
   public static final String RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX = "SelectBooleanCheckbox";
+  public static final String RENDERER_TYPE_TIME = "Time";
   public static final String RENDERER_TYPE_TOOL_BAR = "ToolBar";
   public static final String RENDERER_TYPE_TREE_NODE = "TreeNode";
   public static final String RENDERER_TYPE_SHEET = "Sheet";

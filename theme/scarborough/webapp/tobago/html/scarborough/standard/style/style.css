@@ -642,6 +642,60 @@ div.tobago-richTextEditor-body {
   border: 0px solid black;
 }
 
+/* Time -------------------------------------------------------------------- */
+.tobago-time-default {
+  height: 25px;
+  position:relative;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.tobago-time-borderDiv {
+  border: 2px inset #bbccdd;
+  background: white;
+  height: 25px;
+  width: 58px;
+  position:absolute;
+  top: 0px;
+  left: 0px;"
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.tobago-time-borderDiv-seconds {
+  width: 87px;
+}
+
+.tobago-time-input {
+  height: 21px;
+  width: 25px;
+  border: 1px solid white;
+  background: white;
+  text-align: center;
+}
+
+.tobago-time-input-selected {
+  border: 1px solid red;
+}
+
+.tobago-time-sep {
+
+}
+
+.tobago-time-inc-image {
+  position:absolute;
+  top: 0px;
+  left: 63px;
+}
+.tobago-time-dec-image {
+  position:absolute;
+  bottom: 0px;
+  left: 63px;
+}
+.tobago-time-image-seconds {
+  left: 92;
+}
+
+
 
 /* Toolbar ----------------------------------------------------------------- */
 .tobago-toolBar-default  {

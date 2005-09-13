@@ -225,13 +225,180 @@ function initCalendarParse(id, textBoxId) {
 }
 
 function writeIntoField(id) {
-  var textBoxId = document.getElementById(id + ":fieldId");
+  var textBoxId = document.getElementById(id + ":calendar:fieldId");
   var textBox = document.getElementById(textBoxId.value);
 
-  var day = parseInt(document.getElementById(id + ":day").value);
-  var month = parseInt(document.getElementById(id + ":month").value);
-  var year = parseInt(document.getElementById(id + ":year").value);
-  var date = new Date(year, month - 1, day);
+  var day = parseInt(document.getElementById(id + ":calendar:day").value);
+  var month = parseInt(document.getElementById(id + ":calendar:month").value);
+  var year = parseInt(document.getElementById(id + ":calendar:year").value);
+
+  var idPrefix = id + ":time" + getSubComponentSeparator();
+  var hour = document.getElementById(idPrefix + "hour");
+  if (hour) {
+    hour = parseInt(hour.value, 10);
+  } else {
+    hour = 0;
+  }
+  var minute = document.getElementById(idPrefix + "minute");
+  if (minute) {
+    minute = parseInt(minute.value, 10);
+  } else {
+    minute = 0;
+  }
+  var second = document.getElementById(idPrefix + "second");
+  if (second) {
+    second = parseInt(second.value, 10);
+  } else {
+    second = 0;
+  }
+  var date = new Date(year, month - 1, day, hour, minute, second);
   textBox.value = formatDate(date, document.calendar.formatPattern);
 //  alert(document.calendar.formatPattern);
 }
+
+// ------------------------------------------------------------------
+
+function tbgGetTimeInput(imageButton) {
+  if (imageButton.parentNode.selectedId) {
+    input = document.getElementById(imageButton.parentNode.selectedId);
+  } else {
+    var id = imageButton.id.substring(0, imageButton.id.lastIndexOf(":"));
+    input = document.getElementById(id + ":hour");
+  }
+  return input;
+}
+
+function tbgSetTimeInputValue(input, value) {
+
+//  PrintDebug("value = " + value);
+  if (input.parentNode.parentNode.hourMode) {
+    if (value < 0) {
+      value = 23;
+    } else if (value > 23) { // todo: 12/24 hour mode ?
+      value = 0;
+    }
+  } else {
+    if (value < 0) {
+      value = 59;
+    } else if (value > 59) {
+      value = 0;
+    }
+  }
+  if (value < 10) {
+    value = "0" + value;
+  }
+  input.value = value;
+  var id = input.id.substring(0,input.id.lastIndexOf(getSubComponentSeparator()));
+  PrintDebug("id ist = " + id);
+  var hidden = document.getElementById(id);
+  if (hidden) {
+     var idPrefix = id + getSubComponentSeparator();
+     var hour = document.getElementById(idPrefix + "hour");
+    if (hour) {
+      hour = parseInt(hour.value, 10);
+      if (hour < 10) {
+        hour = "0" + hour;
+      }
+    } else {
+      hour = "00";
+    }
+    var minute = document.getElementById(idPrefix + "minute");
+    if (minute) {
+      minute = parseInt(minute.value, 10);
+      if (minute < 10) {
+        minute = "0" + minute;
+      }
+    } else {
+      minute = "00";
+    }
+    hidden.value = hour + ":" + minute;
+
+    var second = document.getElementById(idPrefix + "second");
+    if (second) {
+      second = parseInt(second.value, 10);
+      if (second < 10) {
+        second = "0" + second;
+      }
+      hidden.value = hidden.value + ":" + second;
+    }
+    PrintDebug("hidden = " + hidden.value);
+  }
+  input.focus();
+//  PrintDebug("value 2 = " + input.value);
+}
+
+function tbgDecTime(imageButton, hour) {
+  var input = tbgGetTimeInput(imageButton);
+  tbgSetTimeInputValue(input, input.value - 1);
+}
+function tbgIncTime(imageButton, hour) {
+  var input = tbgGetTimeInput(imageButton);
+  tbgSetTimeInputValue(input, input.value - 0 + 1)
+}
+
+function tbgTimerInputFocus(input, hour) {
+//  PrintDebug("focus " + input.id + " hourMode=" + hour);
+  input.parentNode.parentNode.selectedId = input.id;
+  input.parentNode.parentNode.hourMode = hour;
+  addCssClass(input, "tobago-time-input-selected");
+  input.oldValue = input.value;
+}
+
+function tbgTimerInputBlur(input) {
+//  PrintDebug("value XX = " + input.value);
+  var value = parseInt(input.value, 10);
+//  PrintDebug("value 3  = " + value);
+  if (value == NaN) {
+    input.value = input.oldValue;
+    return;
+  }
+  if (input.parentNode.parentNode.hourMode) {
+    if (value > 23 || value < 0) {
+      value = input.oldValue;
+    }
+  } else {
+    if (value > 59 || value < 0) {
+      value = input.oldValue;
+    }
+  }
+  tbgSetTimeInputValue(input, value)
+  removeCssClass(input, "tobago-time-input-selected");
+//  PrintDebug("value  4= " + input.value);
+}
+
+function tbgInitTimeParse(id) {
+  var time = document.getElementById(id);
+  if (time) {
+
+    var patternField = document.getElementById(id + ":converterPattern");
+    var formatPattern;
+    if (patternField) {
+      formatPattern = patternField.value;
+    } else {
+      formatPattern = "HH:mm";
+    }
+
+
+    var date = new Date(getDateFromFormat(time.value, document.calendar.formatPattern));
+    if (date.getTime() == 0) {
+      date = new Date();
+    }
+    var hours = date.getHours();
+    var minutes = date.getMinutes() + 1;
+    var seconds = date.getSeconds();
+
+    tbgInitTimeData(time, hours, minutes, seconds);
+    PrintDebug("init time :" + hours + ":" + minutes + ":" + seconds);
+  }
+}
+
+function tbgInitTimeData(id, hours, minutes, seconds) {
+  var element = document.getElementById(id + getSubComponentSeparator() + "time");
+  if (element) {
+
+  }
+}
+
+
+
+

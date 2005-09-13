@@ -497,6 +497,38 @@ label.tobago-label-error {
   background-color: #E8E8E8;
 }
 
+/* Time -------------------------------------------------------------------- */
+.tobago-time-default {
+  height: 20px;
+}
+
+.tobago-time-borderDiv {
+  border: 1px solid black;
+  height: 20px;
+  width: 55px;
+}
+
+.tobago-time-borderDiv-seconds {
+  width: 83px;
+}
+.tobago-time-input {
+  height: 18px;
+}
+
+.tobago-time-sep {
+  font: 12px arial, helvetica, sans-serif;
+}
+
+.tobago-time-inc-image {
+  left: 60px;
+}
+.tobago-time-dec-image {
+  left: 60px;
+}
+.tobago-time-image-seconds {
+  left: 88;
+}
+
 /* treeListbox -------------------------------------------------------------- */
 .tobago-treeListbox-default  {
   font: 12px arial, helvetica, sans-serif;
