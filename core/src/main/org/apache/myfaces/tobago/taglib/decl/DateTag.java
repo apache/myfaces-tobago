@@ -28,6 +28,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
  */
 @Tag(name="date")
 @UIComponentTag(UIComponent="org.apache.myfaces.tobago.component.UIInput", RendererType=DateTag.RENDERER_TYPE_IN)
-public interface DateTag extends InputTag, HasIdBindingAndRendered, HasValue, IsReadonly, IsDisabled, IsInline, HasLabelAndAccessKey, HasTip {
+public interface DateTag extends InputTag, HasIdBindingAndRendered, HasValue, IsReadonly, IsDisabled, IsInline, HasLabelAndAccessKey, HasTip, IsRequired {
 
 }
