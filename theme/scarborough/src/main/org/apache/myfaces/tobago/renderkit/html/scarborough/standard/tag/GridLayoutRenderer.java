@@ -517,21 +517,22 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         int max = 0;
         final List<UIGridLayout.Row> rows = layout.ensureRows();
         if (! rows.isEmpty()) {
-          if (i < rows.size()) {
-            if (width) {
-              max = getMaxWidth(facesContext, rows, i, false);
-            } else {
+          if (width) {
+            max = getMaxWidth(facesContext, rows, i, false);
+          } else {
+            if (i < rows.size()) {      //
               UIGridLayout.Row row = rows.get(i);
               max = getMaxHeight(facesContext, row, false);
+            } else {
+              layoutInfo.update(0, i);
+              if (LOG.isWarnEnabled()) {
+                LOG.warn("More LayoutTokens found than rows! skipping! tokens = "
+                    + LayoutInfo.tokensToString(tokens) + "  components = "
+                    + rows.size());
+              }
             }
-            layoutInfo.update(max, i);
           }
-          else {
-            layoutInfo.update(0, i);
-            if (LOG.isWarnEnabled()) {
-              LOG.warn("More LayoutTokens found than rows! skipping!");
-            }
-          }
+          layoutInfo.update(max, i);
         }
         if (LOG.isDebugEnabled()) {
           LOG.debug("set column " + i + " from fixed to with " + max);
@@ -567,17 +568,19 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     int maxWidth = 0;
 
     for (UIGridLayout.Row row : rows) {
-      UIComponent component = (UIComponent) row.getElements().get(column);
-      int max = -1;
-      if (minimum) {
-        max = (int) LayoutUtil.getMinimumSize(facesContext, component).getWidth();
-      } else {
-        RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
-        if (renderer instanceof RendererBase) {
-          max = renderer.getFixedWidth(facesContext, component);
+      if (column < row.getElements().size()) {
+        UIComponent component = (UIComponent) row.getElements().get(column);
+        int max = -1;
+        if (minimum) {
+          max = (int) LayoutUtil.getMinimumSize(facesContext, component).getWidth();
+        } else {
+          RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
+          if (renderer instanceof RendererBase) {
+            max = renderer.getFixedWidth(facesContext, component);
+          }
         }
+        maxWidth = Math.max(maxWidth, max);
       }
-      maxWidth = Math.max(maxWidth, max);
     }
     return maxWidth;
   }
