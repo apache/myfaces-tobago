@@ -289,7 +289,6 @@ function tbgSetTimeInputValue(input, value) {
   }
   input.value = value;
   var id = input.id.substring(0,input.id.lastIndexOf(getSubComponentSeparator()));
-  PrintDebug("id ist = " + id);
   var hidden = document.getElementById(id);
   if (hidden) {
      var idPrefix = id + getSubComponentSeparator();
@@ -321,7 +320,6 @@ function tbgSetTimeInputValue(input, value) {
       }
       hidden.value = hidden.value + ":" + second;
     }
-    PrintDebug("hidden = " + hidden.value);
   }
 //  PrintDebug("value 2 = " + input.value);
 }
@@ -399,19 +397,31 @@ function tbgInitTimeData(id, hours, minutes, seconds) {
     var idPrefix = id + getSubComponentSeparator();
     var hourField = document.getElementById(idPrefix + "hour");
     if (hourField) {
-      hourField.value = hours;
+      hourField.value = hours < 10 ? "0" + hours : hours;
     }
     var minuteField = document.getElementById(idPrefix + "minute");
     if (minuteField) {
-      minuteField.value = minutes;
+      minuteField.value = minutes < 10 ? "0" + minutes : minutes;
     }
     var secondsField = document.getElementById(idPrefix + "second");
     if (secondsField) {
-      secondsField.value = seconds;
+      secondsField.value = seconds < 10 ? "0" + seconds : seconds;
     }
   }
 }
 
-
+function tbgTimerKeyUp(inputElement, event) {
+  if (! event) {
+    event = window.event;
+  }
+  switch (event.keyCode) {
+    case 38:
+      tbgSetTimeInputValue(inputElement, inputElement.value - 0 + 1);
+      break;
+    case 40:
+      tbgSetTimeInputValue(inputElement, inputElement.value - 1);
+      break;
+  }
+}
 
 

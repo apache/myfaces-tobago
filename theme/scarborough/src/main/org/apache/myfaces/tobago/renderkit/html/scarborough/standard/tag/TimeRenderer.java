@@ -186,6 +186,7 @@ public class TimeRenderer extends InRendererBase{
     writer.writeClassAttribute("tobago-time-input");
     writer.writeAttribute("onfocus", "tbgTimerInputFocus(this, " + hourMode + ")", false);
     writer.writeAttribute("onblur", "tbgTimerInputBlur(this)", false);
+    writer.writeAttribute("onkeyup", "tbgTimerKeyUp(this, event)", false);
     writer.writeAttribute("value", hour, true);
     writer.endElement("input");
   }
