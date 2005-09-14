@@ -57,6 +57,12 @@ textarea.tobago-richTextEditor-body {
   height: 23px;
 }
 
+
+.tobago-time-input {
+ margin-top: -1px;
+ margin-bottom: -1px;
+}
+
 .tobago-toolBar-default {
   height: 31px;
 }

@@ -657,10 +657,11 @@ div.tobago-richTextEditor-body {
   width: 58px;
   position: absolute;
   top: 0px;
-  left: 0px;"
+  left: 0px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
 }
+
 .tobago-time-borderDiv-seconds {
   width: 87px;
 }

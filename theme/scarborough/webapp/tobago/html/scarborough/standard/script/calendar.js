@@ -323,17 +323,18 @@ function tbgSetTimeInputValue(input, value) {
     }
     PrintDebug("hidden = " + hidden.value);
   }
-  input.focus();
 //  PrintDebug("value 2 = " + input.value);
 }
 
 function tbgDecTime(imageButton, hour) {
   var input = tbgGetTimeInput(imageButton);
   tbgSetTimeInputValue(input, input.value - 1);
+  input.focus();
 }
 function tbgIncTime(imageButton, hour) {
   var input = tbgGetTimeInput(imageButton);
   tbgSetTimeInputValue(input, input.value - 0 + 1)
+  input.focus();
 }
 
 function tbgTimerInputFocus(input, hour) {
