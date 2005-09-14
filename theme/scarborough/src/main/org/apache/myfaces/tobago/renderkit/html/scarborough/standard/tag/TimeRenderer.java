@@ -154,6 +154,7 @@ public class TimeRenderer extends InRendererBase{
     writer.startElement("input", input);
     writer.writeAttribute("type", "hidden", false);
     writer.writeIdAttribute(id);
+    writer.writeNameAttribute(id);
     writer.writeAttribute("value", hour + ":" + minute + ":" + second, false);
     writer.endElement("input");
 
