@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -127,16 +128,10 @@ public class LabeledInputLayoutRenderer extends DefaultLayoutRenderer implements
 //      picker.getAttributes().put(ATTR_ACTION_STRING, command);
       RenderUtil.encode(facesContext, picker);
 
-      UIComponent popup = picker.getFacet(FACET_PICKER_POPUP);
+      UIPopup popup = (UIPopup) picker.getFacet(FACET_PICKER_POPUP);
       if (popup != null) {
-        final UIPage page = ComponentUtil.findPage(input);
-
-        List popups = (List) page.getAttributes().get(ATTR_POPUP_LIST);
-        if (popups == null) {
-          popups = new ArrayList();
-          page.getAttributes().put(ATTR_POPUP_LIST, popups);
-        }
-        popups.add(popup);
+        UIPage page = ComponentUtil.findPage(input);
+        page.getPopups().add(popup);
       }
     }
   }

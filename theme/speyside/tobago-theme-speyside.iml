@@ -18,7 +18,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../scarborough/lib/jsf-api-1.1.01.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/myfaces-api-svn233162.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -27,7 +27,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../scarborough/lib/commons-logging-1.0.4.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/commons-logging-1.0.4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -49,6 +49,16 @@
     <setting name="RUN_JASPER_VALIDATION" value="false" />
   </component>
   <component name="WebModuleProperties">
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/commons-logging-1.0.4.jar" />
+      <url>jar://$MODULE_DIR$/lib/commons-logging-1.0.4.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/myfaces-api-svn233162.jar" />
+      <url>jar://$MODULE_DIR$/lib/myfaces-api-svn233162.jar!/</url>
+    </containerElement>
     <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/WEB-INF/web.xml" version="2.3" />
     <webroots>
       <root url="file://$MODULE_DIR$/webapp" relative="/" />

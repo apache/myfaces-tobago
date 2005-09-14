@@ -275,11 +275,10 @@ public class PageRenderer extends PageRendererBase {
     writer.write(content.toString());
 
     // write popup components
-    List popups = (List) page.getAttributes().get(ATTR_POPUP_LIST);
-    if (popups != null) {
-      for (Iterator iter = popups.iterator(); iter.hasNext();) {
-        RenderUtil.encode(facesContext, (UIComponent) iter.next());
-      }
+    // beware of ConcurrentModificationException in cascating popups! 
+    for (int i = 0; i < page.getPopups().size(); i++) {
+      UIComponent popup = page.getPopups().get(i);
+      RenderUtil.encode(facesContext, popup);
     }
 
     writer.endElement("form");
