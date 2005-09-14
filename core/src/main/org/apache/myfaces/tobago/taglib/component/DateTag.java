@@ -179,6 +179,9 @@ public class DateTag extends InputTag
       timePanel.getChildren().add(time);
       time.setId("time");
       time.getAttributes().put(ATTR_CALENDAR_DATE_INPUT_ID, component.getClientId(facesContext));
+      if (converterPattern.indexOf('s') > -1) {
+        time.getAttributes().put(ATTR_POPUP_CALENDAR_FORCE_TIME , true);
+      }
 
 
       cell = ComponentUtil.createComponent(

@@ -83,6 +83,8 @@ public class TimeRenderer extends InRendererBase{
           converterPattern += ":ss";
         }
       }
+    } else if (ComponentUtil.getBooleanAttribute(input, ATTR_POPUP_CALENDAR_FORCE_TIME)) {
+      converterPattern += ":ss";
     }
 
     boolean hasSeconds = converterPattern.indexOf('s') > -1;
