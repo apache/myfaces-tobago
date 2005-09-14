@@ -366,11 +366,11 @@ function tbgTimerInputBlur(input) {
 //  PrintDebug("value  4= " + input.value);
 }
 
-function tbgInitTimeParse(id) {
-  var time = document.getElementById(id);
+function tbgInitTimeParse(timeId, dateId) {
+  var time = document.getElementById(dateId);
   if (time) {
 
-    var patternField = document.getElementById(id + ":converterPattern");
+    var patternField = document.getElementById(dateId + ":converterPattern");
     var formatPattern;
     if (patternField) {
       formatPattern = patternField.value;
@@ -379,23 +379,35 @@ function tbgInitTimeParse(id) {
     }
 
 
-    var date = new Date(getDateFromFormat(time.value, document.calendar.formatPattern));
+    var date = new Date(getDateFromFormat(time.value, formatPattern));
     if (date.getTime() == 0) {
       date = new Date();
     }
     var hours = date.getHours();
-    var minutes = date.getMinutes() + 1;
+    var minutes = date.getMinutes();
     var seconds = date.getSeconds();
 
-    tbgInitTimeData(time, hours, minutes, seconds);
     PrintDebug("init time :" + hours + ":" + minutes + ":" + seconds);
+    tbgInitTimeData(timeId, hours, minutes, seconds);
   }
 }
 
 function tbgInitTimeData(id, hours, minutes, seconds) {
-  var element = document.getElementById(id + getSubComponentSeparator() + "time");
+  var element = document.getElementById(id);
   if (element) {
-
+    var idPrefix = id + getSubComponentSeparator();
+    var hourField = document.getElementById(idPrefix + "hour");
+    if (hourField) {
+      hourField.value = hours;
+    }
+    var minuteField = document.getElementById(idPrefix + "minute");
+    if (minuteField) {
+      minuteField.value = minutes;
+    }
+    var secondsField = document.getElementById(idPrefix + "second");
+    if (secondsField) {
+      secondsField.value = seconds;
+    }
   }
 }
 

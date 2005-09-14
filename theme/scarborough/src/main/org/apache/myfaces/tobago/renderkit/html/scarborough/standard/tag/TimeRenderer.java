@@ -159,6 +159,15 @@ public class TimeRenderer extends InRendererBase{
     writer.endElement("input");
 
 
+    String dateTextBoxId = (String) input.getAttributes().get(ATTR_CALENDAR_DATE_INPUT_ID);
+
+    if (dateTextBoxId != null) {
+      HtmlRendererUtil.startJavascript(writer);
+      writer.writeText(
+          "tbgInitTimeParse('" + id + "', '" + dateTextBoxId + "');", null);
+      HtmlRendererUtil.endJavascript(writer);
+    }
+
     writer.endElement("div");
   }
 
