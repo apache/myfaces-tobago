@@ -513,6 +513,13 @@ label.tobago-label-error {
 }
 .tobago-time-input {
   height: 18px;
+  font: 12px arial, helvetica, sans-serif;
+  color: #000000;
+}
+
+.tobago-time-input-selected {
+  border: 1px solid #E8E8E8;
+  background: #E8E8E8;
 }
 
 .tobago-time-sep {
