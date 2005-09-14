@@ -73,6 +73,8 @@ public class UIPage extends UIForm {
 
   private Set<String> onloadScripts;
 
+  private List<UIPopup> popups;
+
 
 // ///////////////////////////////////////////// constructor
 
@@ -83,6 +85,7 @@ public class UIPage extends UIForm {
     styleFiles.add(DEFAULT_STYLE);
     styleBlocks = new ListOrderedSet();
     onloadScripts = new ListOrderedSet();
+    popups = new ArrayList<UIPopup>();
   }
 
 // ///////////////////////////////////////////// code
@@ -273,5 +276,9 @@ public class UIPage extends UIForm {
 
   public Set<String> getOnloadScripts() {
     return onloadScripts;
+  }
+
+  public List<UIPopup> getPopups() {
+    return popups;
   }
 }

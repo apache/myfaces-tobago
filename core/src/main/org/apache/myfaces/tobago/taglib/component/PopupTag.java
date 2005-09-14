@@ -55,14 +55,9 @@ public class PopupTag extends TobagoBodyTag
 
   public int doStartTag() throws JspException {
     int result = super.doStartTag();
-    UIComponent component = getComponentInstance();
+    UIPopup component = (UIPopup) getComponentInstance();
     UIPage page = ComponentUtil.findPage(component);
-    List popups = (List) page.getAttributes().get(ATTR_POPUP_LIST);
-    if (popups == null) {
-      popups = new ArrayList();
-      page.getAttributes().put(ATTR_POPUP_LIST, popups);
-    }
-    popups.add(component);
+    page.getPopups().add(component);
     return result;
   }
 

@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasDimension;
@@ -68,13 +69,12 @@ public class PageTag extends TobagoBodyTag
 
   public int doEndTag() throws JspException {
     pageContext.removeAttribute(PAGE_IN_REQUEST, PageContext.REQUEST_SCOPE);
-    List popups = (List) getComponentInstance().getAttributes().get(ATTR_POPUP_LIST);
+    UIPage page = (UIPage) getComponentInstance();
+    List<UIPopup> popups = page.getPopups();
     int result = super.doEndTag();
 
     // clear popups;
-    if (popups != null) {
-      popups.clear();
-    }
+    popups.clear();
 
     // reseting doctype and charset
     doctype = "loose";
