@@ -26,15 +26,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class LayoutInfo{
+public class LayoutInfo {
 
   private static final int FREE = -1;
   private static final Log LOG = LogFactory.getLog(LayoutInfo.class);
   public static final int HIDE = -2;
   public static final String HIDE_CELL = "hide";
-
-
-
 
   private int cellsLeft;
   private int spaceLeft;
@@ -53,27 +50,27 @@ public class LayoutInfo{
       this.layoutTokens = layoutTokens;
     } else if (layoutTokens.length > cellCount) {
       if (! ignoreMismatch && LOG.isWarnEnabled()) {
-        LOG.warn("More layoutToken's (" + layoutTokens.length
-            + ") than cell's (" + cellCount + ")! Cutting leavings!"
-            + " tokens was " + tokensToString(layoutTokens));
+        LOG.warn("More tokens (" + layoutTokens.length
+            + ") for layout than cells (" + cellCount + ") found! Ignoring"
+            + " redundant tokens. Token string was: "
+            + tokensToString(layoutTokens));
       }
       this.layoutTokens = new String[cellCount];
       for (int i = 0; i < cellCount; i++) {
         this.layoutTokens[i] = layoutTokens[i];
       }
-    }
-    else {
+    } else {
       if (! ignoreMismatch && LOG.isWarnEnabled()) {
         LOG.warn(Integer.toString(cellCount - layoutTokens.length)
-            + "More cell's than layoutToken's! Set missing token's to '1*'! +"
-            + " tokens was " + tokensToString(layoutTokens));
+            + "More cells ("+cellCount+") than tokens ("+layoutTokens.length
+            +") for layout found! Setting missing tokens to '1*'."
+            + " Token string was: " + tokensToString(layoutTokens));
       }
       this.layoutTokens = new String[cellCount];
       for (int i = 0; i < cellCount; i++) {
         if (i < layoutTokens.length) {
           this.layoutTokens[i] = layoutTokens[i];
-        }
-        else {
+        } else {
           this.layoutTokens[i] = "1*";
         }
       }
@@ -88,13 +85,13 @@ public class LayoutInfo{
     }
   }
 
-  public void update(int space, int index){
+  public void update(int space, int index) {
 
 
     if (space > spaceLeft) {
       if (LOG.isDebugEnabled()) {
-        LOG.debug("More space need(" + space + ") than avaliable(" + spaceLeft
-            + ")! Cutting to fit!");
+        LOG.debug("More space (" + space + ") needed than available (" + spaceLeft
+            + ")! Cutting to fit.");
       }
       space = spaceLeft;
     }
@@ -103,26 +100,25 @@ public class LayoutInfo{
     cellsLeft--;
     if (index < spaces.length) {
       spaces[index] = space;
-      if (spaceLeft <1 && columnsLeft()) {
+      if (spaceLeft < 1 && columnsLeft()) {
         if (LOG.isWarnEnabled()) {
-          LOG.warn("There are columns left but no more Space! cellsLeft="
-                     + cellsLeft + "  tokens=" + tokensToString(layoutTokens));
+          LOG.warn("There are columns left but no more space! cellsLeft="
+              + cellsLeft + ", tokens=" + tokensToString(layoutTokens));
         }
       }
-    }
-    else {
-      LOG.warn("More Space to assign (" + space + "px) but no more column's!"
-          + " More layoutTokens than column tag's?");
+    } else {
+      LOG.warn("More space to assign (" + space + "px) but no more columns!"
+          + " More layout tokens than column tags?");
     }
   }
 
-  public boolean columnsLeft(){
+  public boolean columnsLeft() {
     return cellsLeft > 0;
   }
 
 
   public void handleIllegalTokens() {
-    for (int i = 0 ; i<spaces.length; i++) {
+    for (int i = 0; i < spaces.length; i++) {
       if (isFree(i)) {
         if (LOG.isWarnEnabled()) {
           LOG.warn("Illegal layout token pattern \"" + layoutTokens[i]
@@ -139,7 +135,7 @@ public class LayoutInfo{
   }
 
   public static String[] createLayoutTokens(String columnLayout, int count,
-                                            String defaultToken) {
+      String defaultToken) {
     String[] tokens;
     if (columnLayout != null) {
       List list = new ArrayList();
@@ -151,9 +147,8 @@ public class LayoutInfo{
         }
         list.add(token);
       }
-      tokens = (String[]) list.toArray(new String[list.size()] );
-    }
-    else {
+      tokens = (String[]) list.toArray(new String[list.size()]);
+    } else {
       defaultToken = "*".equals(defaultToken) ? "1*" : defaultToken;
       tokens = new String[count];
       for (int i = 0; i < tokens.length; i++) {
@@ -166,7 +161,7 @@ public class LayoutInfo{
     return tokens;
   }
 
-  public static String listToTokenString(List list){
+  public static String listToTokenString(List list) {
     String[] tokens = new String[list.size()];
     for (int i = 0; i < list.size(); i++) {
       tokens[i] = list.get(i).toString();
@@ -223,7 +218,7 @@ public class LayoutInfo{
       }
 
       for (int i = 0; i < layoutTokens.length; i++) {
-        if ("*".equals(layoutTokens[i]) ) {
+        if ("*".equals(layoutTokens[i])) {
           addSpace(spaceLeft, i);
           break;
         }
@@ -273,24 +268,19 @@ public class LayoutInfo{
   }
 
 
-
-
-
-
-
   public void parseHides(int padding) {
     String[] tokens = getLayoutTokens();
     for (int i = 0; i < tokens.length; i++) {
       if (tokens[i].equals(HIDE_CELL)) {
-          update(0, i);
-          spaces[i] = HIDE;
+        update(0, i);
+        spaces[i] = HIDE;
         if (i != 0) {
           spaceLeft += padding;
         }
         if (LOG.isDebugEnabled()) {
-            LOG.debug("set column " + i + " from " + tokens[i]
-                + " to hide " );
-         }
+          LOG.debug("set column " + i + " from " + tokens[i]
+              + " to hide ");
+        }
       }
     }
   }
@@ -347,7 +337,7 @@ public class LayoutInfo{
       //   1. count portions
       int portions = 0;
       for (int i = 0; i < tokens.length; i++) {
-        if (isFree(i)  && tokens[i].matches("^\\d+\\*")) {
+        if (isFree(i) && tokens[i].matches("^\\d+\\*")) {
           String token = tokens[i].substring(0, tokens[i].length() - 1);
           try {
             int portion = Integer.parseInt(token);
@@ -363,7 +353,7 @@ public class LayoutInfo{
       if (portions > 0) {
         int widthForPortions = getSpaceLeft();
         for (int i = 0; i < tokens.length; i++) {
-          if (isFree(i)  && tokens[i].matches("^\\d+\\*")) {
+          if (isFree(i) && tokens[i].matches("^\\d+\\*")) {
             String token = tokens[i].substring(0, tokens[i].length() - 1);
             try {
               int portion = Integer.parseInt(token);
@@ -414,12 +404,12 @@ public class LayoutInfo{
   }
 */
 
-  public void parseColumnLayout(double space){
-    parseColumnLayout(space,  0);
+  public void parseColumnLayout(double space) {
+    parseColumnLayout(space, 0);
   }
 
   public void parseColumnLayout(
-      double space, int padding){
+      double space, int padding) {
 
     if (hasLayoutTokens()) {
       parseHides(padding);
