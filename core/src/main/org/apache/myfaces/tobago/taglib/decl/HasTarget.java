@@ -29,5 +29,5 @@ public interface HasTarget {
    *
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setTarget(String target);
+  void setTarget(String target);
 }

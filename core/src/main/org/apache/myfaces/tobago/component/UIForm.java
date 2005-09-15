@@ -24,9 +24,7 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 public class UIForm extends javax.faces.component.UIForm {
 

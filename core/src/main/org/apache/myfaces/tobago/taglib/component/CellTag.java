@@ -15,17 +15,18 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIPanel;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /*
   * Created 29.07.2003 at 15:09:53.

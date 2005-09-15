@@ -30,5 +30,5 @@ public interface HasNameReference {
    *
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setNameReference(String name);
+  void setNameReference(String name);
 }

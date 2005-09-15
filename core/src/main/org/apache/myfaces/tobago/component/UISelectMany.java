@@ -19,7 +19,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
 import java.io.IOException;
 
 /**

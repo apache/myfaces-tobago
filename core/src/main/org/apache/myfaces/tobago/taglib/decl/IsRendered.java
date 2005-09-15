@@ -27,5 +27,5 @@ public interface IsRendered {
    * (during Render Response Phase), or processed on any subsequent form submit.
    */
   @TagAttribute @UIComponentTagAttribute(type="java.lang.Boolean", defaultValue="true")
-  public void setRendered(String rendered);
+  void setRendered(String rendered);
 }

@@ -15,14 +15,12 @@
  */
 package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
 
-import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -64,7 +62,7 @@ public class InRenderer extends InputRendererBase {
 
   public void encodeEndTobago(FacesContext facesContext,
         UIComponent component) throws IOException {
-    UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
+    UIComponent label = component.getFacet(FACET_LABEL);
 
     ResponseWriter writer = facesContext.getResponseWriter();
     Layout layout = Layout.getLayout(component.getParent());

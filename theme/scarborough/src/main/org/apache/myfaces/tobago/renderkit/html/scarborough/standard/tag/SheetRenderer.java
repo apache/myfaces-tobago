@@ -21,23 +21,23 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.util.StringUtil;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.Pager;
 import org.apache.myfaces.tobago.component.Sorter;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UIData;
 import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManager;
+import org.apache.myfaces.tobago.context.ResourceManagerFactory;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.taglib.component.MenuCommandTag;
+import org.apache.myfaces.tobago.util.StringUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.Application;
@@ -52,11 +52,11 @@ import javax.faces.el.MethodBinding;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Collections;
 
 public class SheetRenderer extends RendererBase
   implements SheetRendererWorkaround {
@@ -116,9 +116,9 @@ public class SheetRenderer extends RendererBase
     uiPage.getOnloadScripts().add("updateSelectionView(\"" + sheetId + "\")");
 
     Map attributes = data.getAttributes();
-    String sheetStyle = (String) attributes.get(TobagoConstants.ATTR_STYLE);
+    String sheetStyle = (String) attributes.get(ATTR_STYLE);
     String headerStyle =
-        (String) attributes.get(TobagoConstants.ATTR_STYLE_HEADER);
+        (String) attributes.get(ATTR_STYLE_HEADER);
 //    String sheetWidthString = LayoutUtil.getStyleAttributeValue(sheetStyle,
 //        "width");
     String sheetHeightString
@@ -131,8 +131,8 @@ public class SheetRenderer extends RendererBase
       LOG.error("no height in parent container, setting to 100");
       sheetHeight = 100;
     }
-    String bodyStyle = (String) attributes.get(TobagoConstants.ATTR_STYLE_BODY);
-    int footerHeight = (Integer) attributes.get(TobagoConstants.ATTR_FOOTER_HEIGHT);
+    String bodyStyle = (String) attributes.get(ATTR_STYLE_BODY);
+    int footerHeight = (Integer) attributes.get(ATTR_FOOTER_HEIGHT);
 
 
     Application application = facesContext.getApplication();
@@ -287,12 +287,12 @@ public class SheetRenderer extends RendererBase
         final String style = "width: " + columnWidths.get(columnIndex) + "px;";
         String tdStyle = "";
         final String align = (String) column.getAttributes().get(
-            TobagoConstants.ATTR_ALIGN);
+            ATTR_ALIGN);
         if (align != null) {
           tdStyle = "text-align: " + align;
         }
         final String cellClass = (String) column.getAttributes().get(
-            TobagoConstants.ATTR_STYLE_CLASS);
+            ATTR_STYLE_CLASS);
         final String tdClass = "tobago-sheet-cell-td " +
             (cellClass != null ? cellClass : "");
 
@@ -517,7 +517,7 @@ public class SheetRenderer extends RendererBase
     if (requestParameterMap.containsKey(key)) {
       String widths = (String) requestParameterMap.get(key);
       if (widths.trim().length() > 0) {
-        component.getAttributes().put(TobagoConstants.ATTR_WIDTH_LIST_STRING,
+        component.getAttributes().put(ATTR_WIDTH_LIST_STRING,
             widths);
       }
     }
@@ -537,7 +537,7 @@ public class SheetRenderer extends RendererBase
       }
 
       component.getAttributes().put(
-          TobagoConstants.ATTR_SELECTED_LIST_STRING, selectedRows);
+          ATTR_SELECTED_LIST_STRING, selectedRows);
     }
   }
 
@@ -566,7 +566,7 @@ public class SheetRenderer extends RendererBase
     }
 
     String style = (String) data.getAttributes().get(
-        TobagoConstants.ATTR_STYLE);
+        ATTR_STYLE);
     String heightString = HtmlRendererUtil.getStyleAttributeValue(style, "height");
     if (heightString != null) {
       int first = data.getFirst();
@@ -594,7 +594,7 @@ public class SheetRenderer extends RendererBase
 
   private void storeFooterHeight(FacesContext facesContext,
       UIComponent component) {
-    component.getAttributes().put(TobagoConstants.ATTR_FOOTER_HEIGHT,
+    component.getAttributes().put(ATTR_FOOTER_HEIGHT,
         new Integer(getFooterHeight(facesContext, component)));
   }
 
@@ -644,7 +644,7 @@ public class SheetRenderer extends RendererBase
 
   private List<Integer> getSelectedRows(UIData data, SheetState state) {
     List<Integer> selected = (List<Integer>)
-        data.getAttributes().get(TobagoConstants.ATTR_SELECTED_LIST_STRING);
+        data.getAttributes().get(ATTR_SELECTED_LIST_STRING);
     if (selected == null && state != null) {
       selected = state.getSelectedRows();
     }
@@ -709,7 +709,7 @@ public class SheetRenderer extends RendererBase
     Sorter sorter = component.getSorter();
 
     List columnWidths
-        = (List) component.getAttributes().get(TobagoConstants.ATTR_WIDTH_LIST);
+        = (List) component.getAttributes().get(ATTR_WIDTH_LIST);
     String divWidth = "width: " +
         (((Integer) columnWidths.get(columnCount)).intValue()) +
         "px;";
@@ -728,7 +728,7 @@ public class SheetRenderer extends RendererBase
     String sortTitle = "";
     boolean sortable =
         ComponentUtil.getBooleanAttribute(column,
-            TobagoConstants.ATTR_SORTABLE);
+            ATTR_SORTABLE);
     if (sortable && !(column instanceof UIColumnSelector)) {
       String sorterId = Sorter.ID_PREFIX + columnCount;
       String onclick = "submitAction('"
@@ -738,7 +738,7 @@ public class SheetRenderer extends RendererBase
       writer.writeAttribute("onclick", onclick, null);
       UICommand sortCommand = (UICommand)
           application.createComponent(UICommand.COMPONENT_TYPE);
-      sortCommand.setRendererType(TobagoConstants.RENDERER_TYPE_LINK);
+      sortCommand.setRendererType(RENDERER_TYPE_LINK);
       sortCommand.setActionListener(sorter);
       sortCommand.setId(sorterId);
       component.getFacets().put(sorterId, sortCommand);
@@ -768,7 +768,7 @@ public class SheetRenderer extends RendererBase
 // ############################################
 
     String align
-        = (String) column.getAttributes().get(TobagoConstants.ATTR_ALIGN);
+        = (String) column.getAttributes().get(ATTR_ALIGN);
 
     writer.startElement("div", null);
     writer.writeIdAttribute(sheetId + "_header_outer_" + columnCount);
@@ -877,7 +877,7 @@ public class SheetRenderer extends RendererBase
                                        int columnCount, int sortMarkerWidth, String align,
                                        String image1x1) throws IOException {
     String label
-        = (String) column.getAttributes().get(TobagoConstants.ATTR_LABEL);
+        = (String) column.getAttributes().get(ATTR_LABEL);
     if (label != null) {
       writer.writeText(label, null);
       if (((UIData)column.getParent()).getSheetState(facesContext).getSortedColumn() == columnCount && "right".equals(align)) {
@@ -996,12 +996,12 @@ public class SheetRenderer extends RendererBase
       String command, boolean disabled, MethodBinding methodBinding) {
     UICommand link;
     link = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
-    link.setRendererType(TobagoConstants.RENDERER_TYPE_LINK);
+    link.setRendererType(RENDERER_TYPE_LINK);
     link.setRendered(true);
     link.setId(command);
-    link.getAttributes().put(TobagoConstants.ATTR_ACTION_STRING, command);
-    link.getAttributes().put(TobagoConstants.ATTR_INLINE, Boolean.TRUE);
-    link.getAttributes().put(TobagoConstants.ATTR_DISABLED,
+    link.getAttributes().put(ATTR_ACTION_STRING, command);
+    link.getAttributes().put(ATTR_INLINE, Boolean.TRUE);
+    link.getAttributes().put(ATTR_DISABLED,
         Boolean.valueOf(disabled));
     link.setActionListener(methodBinding);
     return link;

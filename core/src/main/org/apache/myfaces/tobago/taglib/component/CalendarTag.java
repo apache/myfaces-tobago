@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 
 public class CalendarTag extends TobagoTag

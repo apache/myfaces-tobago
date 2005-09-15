@@ -19,10 +19,10 @@
  */
 package org.apache.myfaces.tobago.context;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.io.Serializable;
 
 abstract public class Theme implements Serializable {
 

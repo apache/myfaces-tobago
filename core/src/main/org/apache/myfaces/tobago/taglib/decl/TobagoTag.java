@@ -15,8 +15,6 @@
  */
 package org.apache.myfaces.tobago.taglib.decl;
 
-import org.apache.myfaces.tobago.TobagoConstants;
-
 import javax.servlet.jsp.tagext.Tag;
 
 /**
@@ -24,6 +22,6 @@ import javax.servlet.jsp.tagext.Tag;
  * User: bommel
  * $Id: $
  */
-public interface TobagoTag extends Tag, TobagoConstants {
+public interface TobagoTag extends Tag {
 
 }

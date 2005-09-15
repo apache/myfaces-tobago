@@ -19,14 +19,13 @@
  */
 package org.apache.myfaces.tobago.component;
 
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
+import org.apache.myfaces.tobago.util.LayoutUtil;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.Serializable;
@@ -73,12 +72,12 @@ public class UIGridLayout extends UILayout {
   }
 
   private void clearRows() {
-    getAttributes().remove(TobagoConstants.ATTR_LAYOUT_ROWS);
+    getAttributes().remove(ATTR_LAYOUT_ROWS);
   }
 
   public int getColumnCount() {
     String columns =
-        ComponentUtil.getStringAttribute(this, TobagoConstants.ATTR_COLUMNS);
+        ComponentUtil.getStringAttribute(this, ATTR_COLUMNS);
     int columnCount;
     if (columns != null) {
       columnCount = 1 + StringUtils.countMatches(columns, ";");
@@ -89,7 +88,7 @@ public class UIGridLayout extends UILayout {
   }
 
   public List<Row> ensureRows() {
-    List<Row> rows = (List<Row>) getAttributes().get(TobagoConstants.ATTR_LAYOUT_ROWS);
+    List<Row> rows = (List<Row>) getAttributes().get(ATTR_LAYOUT_ROWS);
     if (rows == null) {
       rows = createRows();
     }
@@ -122,7 +121,7 @@ public class UIGridLayout extends UILayout {
         ((Row) rows.get(i)).fill(c, c + spanX, component.isRendered());
       }
     }
-    getAttributes().put(TobagoConstants.ATTR_LAYOUT_ROWS, rows);
+    getAttributes().put(ATTR_LAYOUT_ROWS, rows);
     return rows;
   }
 
@@ -138,12 +137,12 @@ public class UIGridLayout extends UILayout {
 
   public static int getSpanX(UIComponent component) {
     return ComponentUtil.getIntAttribute(
-        component, TobagoConstants.ATTR_SPAN_X, 1);
+        component, ATTR_SPAN_X, 1);
   }
 
   public static int getSpanY(UIComponent component) {
     return ComponentUtil.getIntAttribute(
-        component, TobagoConstants.ATTR_SPAN_Y, 1);
+        component, ATTR_SPAN_Y, 1);
   }
 
 // ///////////////////////////////////////////// bean getter + setter

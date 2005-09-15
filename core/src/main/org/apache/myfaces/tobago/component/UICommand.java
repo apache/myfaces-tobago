@@ -15,10 +15,10 @@
  */
 package org.apache.myfaces.tobago.component;
 
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
-import java.util.Iterator;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * User: weber

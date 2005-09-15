@@ -21,8 +21,6 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.apache.myfaces.tobago.TobagoConstants;
 import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.taglib.component.ForEachTag;
@@ -721,10 +719,10 @@ public class ComponentUtil {
     List<SelectItem> selectItems = ComponentUtil.getSelectItems(component);
 
     String renderRange = (String)
-        component.getAttributes().get(TobagoConstants.ATTR_RENDER_RANGE_EXTERN);
+        component.getAttributes().get(ATTR_RENDER_RANGE_EXTERN);
     if (renderRange == null) {
       renderRange = (String)
-          component.getAttributes().get(TobagoConstants.ATTR_RENDER_RANGE);
+          component.getAttributes().get(ATTR_RENDER_RANGE);
     }
     if (renderRange == null) {
       return selectItems;

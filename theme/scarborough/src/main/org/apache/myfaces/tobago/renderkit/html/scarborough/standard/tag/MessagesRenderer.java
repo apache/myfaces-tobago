@@ -19,12 +19,12 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -70,7 +70,7 @@ public class MessagesRenderer extends MessageRendererBase {
     if (facesContext.getMessages().hasNext()) { // in ie empty span gets a height
       writer.startElement("span", component);
       writer.writeClassAttribute("tobago-validation-message");
-      writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
+      writer.writeAttribute("style", null, ATTR_STYLE);
 
       // with id
       String focusId = null;

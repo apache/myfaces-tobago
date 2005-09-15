@@ -21,12 +21,11 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.context.FacesContext;
 import java.io.IOException;
@@ -39,7 +38,7 @@ public class TabGroupRenderer extends
   protected void encodeContent(TobagoResponseWriter writer, FacesContext facesContext, UIPanel activeTab) throws IOException {
 
     String bodyStyle = (String)
-        activeTab.getParent().getAttributes().get(TobagoConstants.ATTR_STYLE_BODY);
+        activeTab.getParent().getAttributes().get(ATTR_STYLE_BODY);
     writer.startElement("tr", null);
     writer.startElement("td", null);
     if (bodyStyle != null) {

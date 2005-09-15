@@ -19,7 +19,7 @@
  */
 package org.apache.myfaces.tobago;
 
-public interface TobagoConstants {
+public final class TobagoConstants {
 
   public static final String SUBCOMPONENT_SEP = "::";
 
@@ -208,4 +208,7 @@ public interface TobagoConstants {
   public static final String TOBAGO_CSS_CLASS_SUFFIX_INLINE = "-inline ";
   public static final String TOBAGO_CSS_CLASS_SUFFIX_ERROR = "-error ";
 
+  private TobagoConstants() {
+    // to prevent instantiation
+  }
 }

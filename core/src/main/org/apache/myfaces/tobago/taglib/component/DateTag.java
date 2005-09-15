@@ -19,6 +19,7 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.ComponentUtil;

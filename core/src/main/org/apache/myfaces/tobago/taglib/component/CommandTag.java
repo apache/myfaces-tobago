@@ -18,14 +18,15 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public abstract class CommandTag extends TobagoTag {
 // ----------------------------------------------------------------- attributes

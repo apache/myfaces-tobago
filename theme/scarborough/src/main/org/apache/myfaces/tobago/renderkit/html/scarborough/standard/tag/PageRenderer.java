@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ClientProperties;
@@ -239,20 +239,20 @@ public class PageRenderer extends PageRendererBase {
 
     writer.startElement("form", page);
     writer.writeNameAttribute(
-        clientId + TobagoConstants.SUBCOMPONENT_SEP + "form");
+        clientId + SUBCOMPONENT_SEP + "form");
     writer.writeAttribute("action", formAction, null);
     writer.writeIdAttribute(page.getFormId(facesContext));
-    writer.writeAttribute("method", null, TobagoConstants.ATTR_METHOD);
-    writer.writeAttribute("enctype", null, TobagoConstants.ATTR_ENCTYPE);
+    writer.writeAttribute("method", null, ATTR_METHOD);
+    writer.writeAttribute("enctype", null, ATTR_ENCTYPE);
     // Todo: enable configuration of  'accept-charset'
     writer.writeAttribute("accept-charset", FORM_ACCEPT_CHARSET, null);
 
     writer.startElement("input", null);
     writer.writeAttribute("type", "hidden", null);
     writer.writeNameAttribute(
-        clientId + TobagoConstants.SUBCOMPONENT_SEP + "form-action");
+        clientId + SUBCOMPONENT_SEP + "form-action");
     writer.writeIdAttribute(
-        clientId + TobagoConstants.SUBCOMPONENT_SEP + "form-action");
+        clientId + SUBCOMPONENT_SEP + "form-action");
     writer.writeAttribute("value", "", null);
     writer.endElement("input");
 

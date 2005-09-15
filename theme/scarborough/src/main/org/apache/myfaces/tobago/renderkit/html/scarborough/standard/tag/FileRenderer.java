@@ -36,6 +36,7 @@ import javax.faces.convert.ConverterException;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class FileRenderer extends InputRendererBase {
 

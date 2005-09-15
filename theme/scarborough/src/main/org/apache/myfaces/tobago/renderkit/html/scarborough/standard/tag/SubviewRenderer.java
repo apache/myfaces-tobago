@@ -19,10 +19,9 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
-
-import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BODY_CONTENT;
 import org.apache.myfaces.tobago.component.BodyContentHandler;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
@@ -54,7 +53,7 @@ public class SubviewRenderer extends RendererBase {
     ResponseWriter writer = facesContext.getResponseWriter();
 
     BodyContentHandler bodyContentHandler = (BodyContentHandler)
-        component.getAttributes().get(TobagoConstants.ATTR_BODY_CONTENT);
+        component.getAttributes().get(ATTR_BODY_CONTENT);
     if (bodyContentHandler != null) {
       writer.write(bodyContentHandler.getBodyContent());
     }

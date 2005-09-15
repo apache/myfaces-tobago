@@ -19,18 +19,18 @@
  */
 package org.apache.myfaces.tobago.context;
 
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CLIENT_PROPERTIES;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.io.Serializable;
 
 public class ClientProperties implements Serializable {
 
@@ -121,7 +121,7 @@ public class ClientProperties implements Serializable {
   public static ClientProperties getInstance(UIViewRoot viewRoot) {
 
     ClientProperties instance = (ClientProperties)
-        viewRoot.getAttributes().get(TobagoConstants.ATTR_CLIENT_PROPERTIES);
+        viewRoot.getAttributes().get(ATTR_CLIENT_PROPERTIES);
     return instance;
   }
 

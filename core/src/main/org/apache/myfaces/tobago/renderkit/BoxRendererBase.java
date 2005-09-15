@@ -19,16 +19,15 @@
  */
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public abstract class BoxRendererBase extends RendererBase {
 
@@ -50,7 +49,7 @@ public abstract class BoxRendererBase extends RendererBase {
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
 
     int height =
-        ComponentUtil.getIntAttribute(component, TobagoConstants.ATTR_HEIGHT, -1);
+        ComponentUtil.getIntAttribute(component, ATTR_HEIGHT, -1);
     if (height != -1) {
       return height;
     }

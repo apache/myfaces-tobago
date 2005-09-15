@@ -19,8 +19,8 @@
  */
 package org.apache.myfaces.tobago.util;
 
-import javax.faces.context.FacesContext;
 import javax.faces.application.Application;
+import javax.faces.context.FacesContext;
 import javax.faces.el.VariableResolver;
 
 public class VariableResolverUtil {

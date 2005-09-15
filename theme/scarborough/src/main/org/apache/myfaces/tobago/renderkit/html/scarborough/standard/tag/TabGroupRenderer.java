@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPanel;
@@ -54,7 +54,7 @@ public class TabGroupRenderer extends RendererBase {
   private static final Log LOG = LogFactory.getLog(TabGroupRenderer.class);
 
   public static final String ACTIVE_INDEX_POSTFIX
-      = TobagoConstants.SUBCOMPONENT_SEP + "activeIndex";
+      = SUBCOMPONENT_SEP + "activeIndex";
 
 // ///////////////////////////////////////////// attribute
 
@@ -101,7 +101,7 @@ public class TabGroupRenderer extends RendererBase {
     layoutTabs(facesContext, component, tabs);
 
     int activeIndex;
-    ValueBinding stateBinding = component.getValueBinding(TobagoConstants.ATTR_STATE);
+    ValueBinding stateBinding = component.getValueBinding(ATTR_STATE);
 
     Object state
         = stateBinding != null ? stateBinding.getValue(facesContext) : null;
@@ -134,14 +134,14 @@ public class TabGroupRenderer extends RendererBase {
     // selected with stylesheet.
 
     boolean serverSideTab = ComponentUtil.getBooleanAttribute(component,
-        TobagoConstants.ATTR_SERVER_SIDE_TABS);
+        ATTR_SERVER_SIDE_TABS);
 
     for (int virtualTab = 0; virtualTab < tabs.length; virtualTab++) {
 
       if (!serverSideTab || virtualTab == activeIndex) {
 
         StyleAttribute oStyle = new StyleAttribute(
-            (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE));
+            (String) component.getAttributes().get(ATTR_STYLE));
         if (virtualTab != activeIndex) {
           oStyle.add("display", "none");
         }
@@ -168,7 +168,7 @@ public class TabGroupRenderer extends RendererBase {
         writer.writeAttribute("cellpadding", "0", null);
         writer.writeAttribute("cellspacing", "0", null);
         writer.writeAttribute("summary", "", null);
-        writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_HEADER);
+        writer.writeAttribute("style", null, ATTR_STYLE_HEADER);
 
         writer.startElement("tr", null);
         writer.writeAttribute("valign", "bottom", null);
@@ -268,7 +268,7 @@ public class TabGroupRenderer extends RendererBase {
   protected void encodeContent(TobagoResponseWriter writer, FacesContext facesContext, UIPanel activeTab) throws IOException {
 
     String bodyStyle = (String)
-        activeTab.getParent().getAttributes().get(TobagoConstants.ATTR_STYLE_BODY);
+        activeTab.getParent().getAttributes().get(ATTR_STYLE_BODY);
     writer.startElement("tr", null);
     writer.startElement("td", null);
     writer.writeClassAttribute("tobago-tab-content");
@@ -281,7 +281,7 @@ public class TabGroupRenderer extends RendererBase {
   public int getFixedHeight(FacesContext facesContext, UIComponent uiComponent) {
     UITabGroup component = (UITabGroup) uiComponent;
     int height =
-        ComponentUtil.getIntAttribute(component, TobagoConstants.ATTR_HEIGHT, -1);
+        ComponentUtil.getIntAttribute(component, ATTR_HEIGHT, -1);
 
     int fixedHeight;
     if (height != -1) {
@@ -304,9 +304,9 @@ public class TabGroupRenderer extends RendererBase {
   private void layoutTabs(FacesContext facesContext, UITabGroup component,
       UIPanel[] tabs) {
     Object layoutWidth =
-        component.getAttributes().get(TobagoConstants.ATTR_LAYOUT_WIDTH);
+        component.getAttributes().get(ATTR_LAYOUT_WIDTH);
     Object layoutHeight =
-        component.getAttributes().get(TobagoConstants.ATTR_LAYOUT_HEIGHT);
+        component.getAttributes().get(ATTR_LAYOUT_HEIGHT);
 
     for (int i = 0; i < tabs.length; i++) {
       UIPanel tab = tabs[i];

@@ -21,8 +21,7 @@ package org.apache.myfaces.tobago.context;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.renderkit.TobagoRenderKit;
 
@@ -446,7 +445,7 @@ public class ResourceManagerImpl implements ResourceManager {
       LOG.debug("rendererType = '" + rendererType + "'");
     }
     if ("javax.faces.Text".equals(rendererType)) { // todo: find a better way
-      name = TobagoConstants.RENDERER_TYPE_OUT;
+      name = RENDERER_TYPE_OUT;
     } else {
       name = rendererType;
     }

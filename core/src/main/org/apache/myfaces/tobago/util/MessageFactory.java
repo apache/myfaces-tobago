@@ -17,15 +17,14 @@ package org.apache.myfaces.tobago.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import java.util.ResourceBundle;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.ResourceBundle;
 
 /**
  * User: weber

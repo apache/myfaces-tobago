@@ -35,6 +35,7 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class TreeRenderer extends RendererBase {
 

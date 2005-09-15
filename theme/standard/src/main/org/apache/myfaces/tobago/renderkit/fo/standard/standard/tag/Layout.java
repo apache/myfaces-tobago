@@ -16,7 +16,6 @@
 package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
 
 import javax.faces.component.UIComponent;
-import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.Locale;
 

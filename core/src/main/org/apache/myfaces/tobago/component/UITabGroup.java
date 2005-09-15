@@ -20,11 +20,10 @@
  */
 package org.apache.myfaces.tobago.component;
 
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.event.TabChangeListener;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
+import org.apache.myfaces.tobago.event.TabChangeListener;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -68,9 +67,9 @@ public class UITabGroup extends UIPanel {
 
   private void resetTabLayout() {
     for (UIPanel tab : getTabs()) {
-        tab.getAttributes().remove(TobagoConstants.ATTR_LAYOUT_WIDTH);
+        tab.getAttributes().remove(ATTR_LAYOUT_WIDTH);
 //        tab.getAttributes().remove(TobagoConstants.ATTR_INNER_WIDTH);
-        tab.getAttributes().remove(TobagoConstants.ATTR_LAYOUT_HEIGHT);
+        tab.getAttributes().remove(ATTR_LAYOUT_HEIGHT);
 //        tab.getAttributes().remove(TobagoConstants.ATTR_INNER_HEIGHT);
     }
   }
@@ -100,7 +99,7 @@ public class UITabGroup extends UIPanel {
   }
 
   public void updateState(FacesContext facesContext) {
-    ValueBinding stateBinding = getValueBinding(TobagoConstants.ATTR_STATE);
+    ValueBinding stateBinding = getValueBinding(ATTR_STATE);
     if (stateBinding != null) {
       stateBinding.setValue(facesContext, new Integer(activeIndex));
     }
@@ -108,7 +107,7 @@ public class UITabGroup extends UIPanel {
 
   public void addTabChangeListener(TabChangeListener listener) {
     if (LOG.isWarnEnabled() && ! ComponentUtil.getBooleanAttribute(
-        this, TobagoConstants.ATTR_SERVER_SIDE_TABS)) {
+        this, ATTR_SERVER_SIDE_TABS)) {
       LOG.warn("Adding TabChangeListener to Client side Tabgroup!");
     }
     addFacesListener(listener);

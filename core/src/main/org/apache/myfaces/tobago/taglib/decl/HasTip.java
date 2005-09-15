@@ -26,5 +26,5 @@ public interface HasTip {
    *  Text value to display as tooltip.
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setTip(String tip);
+  void setTip(String tip);
 }

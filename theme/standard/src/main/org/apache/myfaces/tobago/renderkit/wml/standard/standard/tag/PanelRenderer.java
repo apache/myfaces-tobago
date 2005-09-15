@@ -19,12 +19,11 @@
   */
 package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
 
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BODY_CONTENT;
 import org.apache.myfaces.tobago.component.BodyContentHandler;
 import org.apache.myfaces.tobago.component.UIPanel;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -53,7 +52,7 @@ public class PanelRenderer extends RendererBase {
 
     UIPanel component = (UIPanel) uiComponent ;
     BodyContentHandler bodyContentHandler = (BodyContentHandler)
-        component.getAttributes().get(TobagoConstants.ATTR_BODY_CONTENT);
+        component.getAttributes().get(ATTR_BODY_CONTENT);
 
     if (bodyContentHandler != null) {
       ResponseWriter writer = facesContext.getResponseWriter();

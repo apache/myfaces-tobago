@@ -19,14 +19,15 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.BodyContent;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.taglib.decl.HasFor;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIMessage;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * Renders error/validation message.

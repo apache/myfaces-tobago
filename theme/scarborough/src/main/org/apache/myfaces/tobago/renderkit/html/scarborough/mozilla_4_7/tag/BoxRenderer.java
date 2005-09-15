@@ -19,7 +19,7 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.mozilla_4_7.tag;
 
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 
@@ -35,9 +35,9 @@ public class BoxRenderer extends BoxRendererBase {
       FacesContext facesContext, UIComponent component) throws IOException {
 
 
-    UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
+    UIComponent label = component.getFacet(FACET_LABEL);
     String labelString
-        = (String) component.getAttributes().get(TobagoConstants.ATTR_LABEL);
+        = (String) component.getAttributes().get(ATTR_LABEL);
 
 
     ResponseWriter writer = facesContext.getResponseWriter();
@@ -45,7 +45,7 @@ public class BoxRenderer extends BoxRendererBase {
     // todo: move fix style attributes to style.css (border, padding, align, etc)
 
     writer.startElement("table", component);
-    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
+    writer.writeAttribute("style", null, ATTR_STYLE);
     writer.writeAttribute("border", "1", null);
     writer.writeAttribute("cellpadding", "5", null);
     writer.writeAttribute("cellspacing", "0", null);
@@ -91,7 +91,7 @@ public class BoxRenderer extends BoxRendererBase {
 
   public int getPaddingHeight(FacesContext facesContext, UIComponent component) {
     return 10
-        + (component.getFacet(TobagoConstants.FACET_LABEL) != null ? 25 : 0);
+        + (component.getFacet(FACET_LABEL) != null ? 25 : 0);
   }
 
 // ///////////////////////////////////////////// bean getter + setter

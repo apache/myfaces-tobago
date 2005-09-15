@@ -27,8 +27,8 @@ import org.xml.sax.SAXException;
 
 import javax.faces.FacesException;
 import javax.servlet.ServletContext;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 
 public class TobagoConfigParser {

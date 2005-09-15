@@ -19,11 +19,11 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -35,7 +35,7 @@ public class TabRenderer extends RendererBase {
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
 
     int height =
-        ComponentUtil.getIntAttribute(component, TobagoConstants.ATTR_HEIGHT, -1);
+        ComponentUtil.getIntAttribute(component, ATTR_HEIGHT, -1);
 
     if (height == -1) {
       height = PanelRenderer.getFixedHeightForPanel(component, facesContext);

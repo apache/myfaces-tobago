@@ -20,6 +20,7 @@ import org.apache.myfaces.tobago.component.UIInput;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * User: weber

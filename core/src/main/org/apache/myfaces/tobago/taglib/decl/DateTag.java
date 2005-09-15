@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.taglib.decl;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_IN;
 
 /*
  * Created: Aug 5, 2005 5:03:15 PM
@@ -27,7 +28,11 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
  * Renders a date input field.
  */
 @Tag(name="date")
-@UIComponentTag(UIComponent="org.apache.myfaces.tobago.component.UIInput", RendererType=DateTag.RENDERER_TYPE_IN)
-public interface DateTag extends InputTag, HasIdBindingAndRendered, HasValue, IsReadonly, IsDisabled, IsInline, HasLabelAndAccessKey, HasTip, IsRequired {
+@UIComponentTag(
+    UIComponent="org.apache.myfaces.tobago.component.UIInput",
+    RendererType=RENDERER_TYPE_IN)
+public interface DateTag
+    extends InputTag, HasIdBindingAndRendered, HasValue, IsReadonly,
+    IsDisabled, IsInline, HasLabelAndAccessKey, HasTip, IsRequired {
 
 }

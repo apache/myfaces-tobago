@@ -19,7 +19,7 @@
  */
 package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
 
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BODY_CONTENT;
 import org.apache.myfaces.tobago.component.BodyContentHandler;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
@@ -46,7 +46,7 @@ public class BoxRenderer extends BoxRendererBase {
         = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     BodyContentHandler bodyContentHandler = (BodyContentHandler)
-        panel.getAttributes().get(TobagoConstants.ATTR_BODY_CONTENT);
+        panel.getAttributes().get(ATTR_BODY_CONTENT);
 
     writer.write(bodyContentHandler.getBodyContent());
     // </card> ?

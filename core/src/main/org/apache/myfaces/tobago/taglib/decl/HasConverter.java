@@ -29,5 +29,5 @@ public interface HasConverter {
    *  ConverterId of a registered converter.
    */
   @TagAttribute @UIComponentTagAttribute(expression=DynamicExpression.NONE)
-  public void setConverter(String converter);
+  void setConverter(String converter);
 }

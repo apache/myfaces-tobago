@@ -19,14 +19,15 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import org.apache.myfaces.tobago.component.BodyContentHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.BodyContentHandler;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTag;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public abstract class TobagoBodyTag extends TobagoTag implements BodyTag {
 // ----------------------------------------------------------- class attributes

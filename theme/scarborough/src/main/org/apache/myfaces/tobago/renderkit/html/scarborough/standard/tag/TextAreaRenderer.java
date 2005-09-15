@@ -30,6 +30,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Iterator;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class TextAreaRenderer extends InRendererBase {
 

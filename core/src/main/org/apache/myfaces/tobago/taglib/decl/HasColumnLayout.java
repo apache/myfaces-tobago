@@ -29,5 +29,5 @@ public interface HasColumnLayout {
    * Where '*' is equvalent to '1*'.
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setColumns(String columns);
+  void setColumns(String columns);
 }

@@ -19,6 +19,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICommand;
 
 import javax.faces.component.UIComponent;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * User: weber

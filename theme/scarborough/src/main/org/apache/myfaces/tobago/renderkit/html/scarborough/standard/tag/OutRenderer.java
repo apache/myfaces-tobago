@@ -27,6 +27,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.StringTokenizer;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class OutRenderer extends RendererBase {
 

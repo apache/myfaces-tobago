@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.component.UIInput;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class TimeTag extends InputTag
     implements org.apache.myfaces.tobago.taglib.decl.TimeTag {
@@ -43,9 +44,6 @@ public class TimeTag extends InputTag
       UIComponent layout = ComponentUtil.createLabeledInputLayoutComponent();
       component.getFacets().put(FACET_LAYOUT, layout);
     }
-
-    
-
 
     return super.doEndTag();
   }

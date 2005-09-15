@@ -19,15 +19,14 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
 
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
@@ -92,11 +91,11 @@ public class BoxRenderer extends BoxRendererBase {
 
     writer.startElement("div", component);
     writer.writeClassAttribute("tobago-box-header");
-    UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
+    UIComponent label = component.getFacet(FACET_LABEL);
     writer.startElement("span", null);
     writer.writeClassAttribute("tobago-box-header-label");
     String labelString
-        = (String) component.getAttributes().get(TobagoConstants.ATTR_LABEL);
+        = (String) component.getAttributes().get(ATTR_LABEL);
     if (label != null) {
       RenderUtil.encode(facesContext, label);
     } else if (labelString != null) {
@@ -128,7 +127,7 @@ public class BoxRenderer extends BoxRendererBase {
     }
     writer.startElement("div", null);
     writer.writeClassAttribute(className);
-    attributes.put(TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER, Boolean.TRUE);
+    attributes.put(ATTR_SUPPPRESS_TOOLBAR_CONTAINER, Boolean.TRUE);
     if (ToolBarTag.LABEL_BOTTOM.equals(attributes.get(ATTR_LABEL_POSITION))) {
       attributes.put(ATTR_LABEL_POSITION, ToolBarTag.LABEL_RIGHT);
     }

@@ -19,11 +19,12 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * Render a group of checkboxes.

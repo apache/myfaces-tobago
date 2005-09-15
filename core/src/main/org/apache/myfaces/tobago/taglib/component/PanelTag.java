@@ -19,10 +19,10 @@
   */
 package org.apache.myfaces.tobago.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.taglib.decl.HasDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 
 /**
  * Intended for use in situations when only one UIComponent child can be

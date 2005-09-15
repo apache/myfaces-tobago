@@ -28,5 +28,5 @@ public interface HasLabel {
    *   Text value to display as label. Overwritten by 'labelWithAccessKey'
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setLabel(String label);
+  void setLabel(String label);
 }

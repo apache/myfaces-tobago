@@ -31,5 +31,5 @@ public interface HasActionListener {
    *
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setActionListener(String actionListener);
+  void setActionListener(String actionListener);
 }

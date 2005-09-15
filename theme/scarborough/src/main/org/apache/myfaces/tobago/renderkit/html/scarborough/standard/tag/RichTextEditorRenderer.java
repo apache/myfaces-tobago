@@ -19,7 +19,9 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -30,8 +32,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.taglib.component.ToolBarSelectBooleanTag;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
@@ -60,7 +60,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
         && actionId.equals(component.getClientId(facesContext) + CHANGE_BUTTON)){
       boolean state
           = ComponentUtil.getBooleanAttribute(component, ATTR_STATE_PREVIEW);
-      component.getAttributes().put(TobagoConstants.ATTR_STATE_PREVIEW,
+      component.getAttributes().put(ATTR_STATE_PREVIEW,
           new Boolean(! state));
       facesContext.renderResponse();
 
@@ -97,11 +97,11 @@ public class RichTextEditorRenderer extends InputRendererBase {
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     String classes
-        = (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE_CLASS);
+        = (String) component.getAttributes().get(ATTR_STYLE_CLASS);
 
     writer.startElement("div", component);
     writer.writeClassAttribute(classes + " tobago-richTextEditor-container");
-    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
+    writer.writeAttribute("style", null, ATTR_STYLE);
     // class, stly.width, style.height
 
     UIComponent toolbar = component.getFacet(FACET_TOOL_BAR);
@@ -128,7 +128,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
       writer.writeClassAttribute(classes + " tobago-richTextEditor-body");
       writer.writeIdAttribute(clientId);
 
-      writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_BODY);
+      writer.writeAttribute("style", null, ATTR_STYLE_BODY);
 
       writer.write(RichTextEditorRenderer.contentToHtml(content));
 
@@ -139,7 +139,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
       writer.writeClassAttribute(classes + " tobago-richTextEditor-body");
       writer.writeNameAttribute(clientId);
       writer.writeIdAttribute(clientId);
-      writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_BODY);
+      writer.writeAttribute("style", null, ATTR_STYLE_BODY);
       String onchange = HtmlUtils.generateOnchange(component, facesContext);
       if (null != onchange) {
         writer.writeAttribute("onchange", onchange, null);

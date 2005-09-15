@@ -19,10 +19,10 @@
  */
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 
@@ -42,18 +42,16 @@ public final class LabelWithAccessKey {
 
   public LabelWithAccessKey(UIComponent component) {
 
-    if (TobagoConstants.RENDERER_TYPE_LABEL.equals(component.getRendererType())) {
-      text = (String) component.getAttributes().get(
-          TobagoConstants.ATTR_VALUE);
+    if (RENDERER_TYPE_LABEL.equals(component.getRendererType())) {
+      text = (String) component.getAttributes().get(ATTR_VALUE);
     } else {
-      text = (String) component.getAttributes().get(
-              TobagoConstants.ATTR_LABEL);
+      text = (String) component.getAttributes().get(ATTR_LABEL);
     }
 
     accessKey = ComponentUtil.getCharakterAttribute(
-        component, TobagoConstants.ATTR_ACCESS_KEY);
+        component, ATTR_ACCESS_KEY);
     String labelWithAccessKey = (String) component.getAttributes().get(
-        TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY);
+        ATTR_LABEL_WITH_ACCESS_KEY);
 
     setup(labelWithAccessKey);
 

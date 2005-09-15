@@ -17,23 +17,20 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.LabeledLayoutRender;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.renderkit.LabeledLayoutRender;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
+import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.application.ViewHandler;
 import java.io.IOException;
-import java.util.List;
-import java.util.ArrayList;
 
 /**
  * User: weber
@@ -64,7 +61,7 @@ public class LabeledInputLayoutRenderer extends DefaultLayoutRenderer implements
 
   public void encodeChildrenOfComponent(FacesContext facesContext, UIComponent component)
       throws IOException {
-    UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
+    UIComponent label = component.getFacet(FACET_LABEL);
     UIComponent picker = component.getFacet(FACET_PICKER);
     TobagoResponseWriter writer = (TobagoResponseWriter)
         facesContext.getResponseWriter();

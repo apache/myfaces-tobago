@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -46,9 +46,9 @@ public class LabelRenderer extends RendererBase {
 
     UIComponent parent = findParent(component);
 
-    String styleClass = (String) component.getAttributes().get(TobagoConstants.ATTR_STYLE_CLASS);
+    String styleClass = (String) component.getAttributes().get(ATTR_STYLE_CLASS);
     styleClass = HtmlRendererUtil.updateClassAttribute(styleClass, name, parent);
-    component.getAttributes().put(TobagoConstants.ATTR_STYLE_CLASS, styleClass);
+    component.getAttributes().put(ATTR_STYLE_CLASS, styleClass);
   }
 
   private UIComponent findParent(UIComponent component) {

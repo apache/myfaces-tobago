@@ -19,11 +19,10 @@
  */
 package org.apache.myfaces.tobago.context;
 
-import java.util.Iterator;
-import java.util.Collections;
-import java.util.ArrayList;
-import java.util.List;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class UserAgent implements Serializable {
 // ------------------------------------------------------------------ constants

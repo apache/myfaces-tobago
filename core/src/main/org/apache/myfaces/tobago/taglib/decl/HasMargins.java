@@ -28,26 +28,26 @@ public interface HasMargins {
    *
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setMarginTop(String margin);
+  void setMarginTop(String margin);
   /**
    *
    * Right margin between container component and layouted children.
    *
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setMarginRight(String margin);
+  void setMarginRight(String margin);
   /**
    *  
    * Bottom margin between container component and layouted children.
    *
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setMarginBottom(String margin);
+  void setMarginBottom(String margin);
   /**
    *
    * Left margin between container component and layouted children.    
    *
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setMarginLeft(String margin);
+  void setMarginLeft(String margin);
 }

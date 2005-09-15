@@ -25,7 +25,8 @@ import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.model.PageState;
 import org.apache.myfaces.tobago.model.PageStateImpl;
 import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
@@ -103,7 +104,7 @@ public class UIPage extends UIForm {
   public String getFormId(FacesContext facesContext) {
     if (formId == null) {
       formId = getClientId(facesContext)
-          + TobagoConstants.SUBCOMPONENT_SEP + "form";
+          + SUBCOMPONENT_SEP + "form";
     }
     return formId;
   }
@@ -213,7 +214,7 @@ public class UIPage extends UIForm {
     String value = null;
     try {
       name = getClientId(facesContext)
-              + TobagoConstants.SUBCOMPONENT_SEP + "form-clientDimension";
+              + SUBCOMPONENT_SEP + "form-clientDimension";
       value = (String) facesContext.getExternalContext()
               .getRequestParameterMap().get(name);
       StringTokenizer tokenizer = new StringTokenizer(value, ";");
@@ -227,7 +228,7 @@ public class UIPage extends UIForm {
   }
 
   public PageState getPageState(FacesContext facesContext) {
-    ValueBinding stateBinding = getValueBinding(TobagoConstants.ATTR_STATE);
+    ValueBinding stateBinding = getValueBinding(ATTR_STATE);
     if (stateBinding != null) {
       PageState state = (PageState) stateBinding.getValue(facesContext);
       if (state == null) {

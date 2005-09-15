@@ -15,12 +15,10 @@
  */
 package org.apache.myfaces.tobago.renderkit.html;
 
-import static org.apache.myfaces.tobago.TobagoConstants.*;
-
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
 import org.apache.commons.lang.StringUtils;
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
@@ -31,17 +29,21 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
-import java.util.StringTokenizer;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 /**
  * User: weber
  * Date: Jan 11, 2005
  * Time: 4:59:36 PM
  */
-public class HtmlRendererUtil {
+public final class HtmlRendererUtil {
 
   private static final Log LOG = LogFactory.getLog(HtmlRendererUtil.class);
+
+  private HtmlRendererUtil() {
+    // to prevent instantiation
+  }
 
   public static void renderFocusId(FacesContext facesContext, UIComponent component)
       throws IOException {
@@ -71,12 +73,13 @@ public class HtmlRendererUtil {
     String innerStyle = "";
     Integer innerSpaceInteger = (Integer)
         component.getAttributes().get(ATTR_INNER_WIDTH);
-    if (innerSpaceInteger != null && innerSpaceInteger.intValue() != -1) {
+    if (innerSpaceInteger != null && innerSpaceInteger != -1) {
       innerStyle = "width: " + innerSpaceInteger + "px;";
     }
     innerSpaceInteger = (Integer)
         component.getAttributes().get(ATTR_INNER_HEIGHT);
-    if (innerSpaceInteger != null && innerSpaceInteger.intValue() != -1) {
+    if (innerSpaceInteger == null || innerSpaceInteger == -1) {
+    } else {
       innerStyle += " height: " + innerSpaceInteger + "px;";
     }
     component.getAttributes().put(ATTR_STYLE_INNER, innerStyle);
@@ -102,7 +105,7 @@ public class HtmlRendererUtil {
     } else {
       writer.writeText(text.substring(0, pos), null);
       writer.write("<u>");
-      writer.writeText(new Character(text.charAt(pos)), null);
+      writer.writeText(text.charAt(pos), null);
       writer.write("</u>");
       writer.writeText(text.substring(pos + 1), null);
     }

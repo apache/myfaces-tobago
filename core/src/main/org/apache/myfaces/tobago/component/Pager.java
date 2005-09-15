@@ -19,18 +19,18 @@
  */
 package org.apache.myfaces.tobago.component;
 
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
-
-import javax.faces.el.MethodBinding;
-import javax.faces.el.EvaluationException;
-import javax.faces.el.MethodNotFoundException;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-import javax.faces.component.UICommand;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
+
+import javax.faces.component.UICommand;
+import javax.faces.context.FacesContext;
+import javax.faces.el.EvaluationException;
+import javax.faces.el.MethodBinding;
+import javax.faces.el.MethodNotFoundException;
+import javax.faces.event.ActionEvent;
 
 public class Pager extends MethodBinding {
 
@@ -58,7 +58,7 @@ public class Pager extends MethodBinding {
       UICommand command = (UICommand) ((ActionEvent) aobj[0]).getSource();
       UIData data = (UIData) command.getParent();
       String action = (String)
-          command.getAttributes().get(TobagoConstants.ATTR_ACTION_STRING);
+          command.getAttributes().get(ATTR_ACTION_STRING);
 
       if (LOG.isDebugEnabled()) {
         LOG.debug("action = '" + action + "'");
@@ -78,7 +78,7 @@ public class Pager extends MethodBinding {
       } else if (PAGE_TO_ROW.equals(action)) {
         String startRow = (String) facesContext.getExternalContext()
             .getRequestParameterMap().get(command.getClientId(
-                facesContext) + TobagoConstants.SUBCOMPONENT_SEP +
+                facesContext) + SUBCOMPONENT_SEP +
             "value");
         if (startRow != null) {
           try {
@@ -95,14 +95,14 @@ public class Pager extends MethodBinding {
         } else {
           LOG.error("Can't find 'PageToRow' parameter : " +
               command.getClientId(facesContext) +
-              TobagoConstants.SUBCOMPONENT_SEP +
+              SUBCOMPONENT_SEP +
               "value");
         }
       } else if (PAGE_TO_PAGE.equals(action)) {
         String startRow = (String)
             facesContext.getExternalContext().getRequestParameterMap().get(command.getClientId(
                 facesContext) +
-            TobagoConstants.SUBCOMPONENT_SEP +
+            SUBCOMPONENT_SEP +
             "value");
         if (startRow != null) {
           try {
@@ -126,7 +126,7 @@ public class Pager extends MethodBinding {
         } else {
           LOG.error("Can't find 'PageToRow' parameter : " +
               command.getClientId(facesContext) +
-              TobagoConstants.SUBCOMPONENT_SEP +
+              SUBCOMPONENT_SEP +
               "value");
         }
       } else {

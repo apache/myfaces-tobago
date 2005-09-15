@@ -19,9 +19,6 @@
  */
 package org.apache.myfaces.tobago.model;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class PageStateImpl implements PageState {
 
   private int clientWidth;

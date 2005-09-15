@@ -28,5 +28,5 @@ public interface HasImage {
    *
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setImage(String image);
+  void setImage(String image);
 }

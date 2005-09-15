@@ -19,11 +19,11 @@
   */
 package org.apache.myfaces.tobago.component;
 
-import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -54,7 +54,7 @@ public class UITreeNode extends UIInput {
         getAttributes().put(SUB_REFERENCE_KEY, parentSubReference + ".childAt[" + index + "]");
       }
     }
-    setRendererType(TobagoConstants.RENDERER_TYPE_TREE_NODE);
+    setRendererType(RENDERER_TYPE_TREE_NODE);
     parent.getChildren().add(this);
     initId();
     initName();
@@ -126,7 +126,7 @@ public class UITreeNode extends UIInput {
     if (treeNode != null) {
       String nameReference
           = (String) root.getAttributes().get(
-              TobagoConstants.ATTR_NAME_REFERENCE);
+              ATTR_NAME_REFERENCE);
       if (nameReference != null) {
         try {
           name = BeanUtils.getProperty(treeNode, nameReference);
@@ -139,7 +139,7 @@ public class UITreeNode extends UIInput {
       if (name == null) {
         name = toString();
       }
-      getAttributes().put(TobagoConstants.ATTR_NAME, name);
+      getAttributes().put(ATTR_NAME, name);
     }
   }
 
@@ -150,7 +150,7 @@ public class UITreeNode extends UIInput {
     if (treeNode != null) {
       String idReference
           = (String) root.getAttributes().get(
-              TobagoConstants.ATTR_ID_REFERENCE);
+              ATTR_ID_REFERENCE);
       if (idReference != null) {
         try {
           id = BeanUtils.getProperty(treeNode, idReference);

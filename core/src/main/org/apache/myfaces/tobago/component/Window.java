@@ -22,10 +22,9 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.application.ViewHandler;
 import javax.faces.application.Application;
+import javax.faces.application.ViewHandler;
 import javax.faces.context.FacesContext;
-import java.util.Set;
 
 public class Window {
 

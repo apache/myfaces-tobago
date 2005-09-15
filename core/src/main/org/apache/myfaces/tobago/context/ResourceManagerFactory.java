@@ -29,8 +29,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.FileOutputStream;
-import java.io.File;
 import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Set;

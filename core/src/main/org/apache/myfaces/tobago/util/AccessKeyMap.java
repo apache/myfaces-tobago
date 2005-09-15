@@ -21,8 +21,8 @@
 package org.apache.myfaces.tobago.util;
 
 import javax.faces.context.FacesContext;
-import java.util.Map;
 import java.util.HashSet;
+import java.util.Map;
 
 public class AccessKeyMap {
 

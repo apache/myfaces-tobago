@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.model.SortableByApplication;
 import org.apache.myfaces.tobago.util.BeanComparator;
@@ -165,7 +166,7 @@ public class Sorter extends MethodBinding {
 
   private void removeSortableAttribute(UIColumn uiColumn) {
     LOG.warn("removing attribute sortable from column " + uiColumn.getId());
-    uiColumn.getAttributes().remove(TobagoConstants.ATTR_SORTABLE);
+    uiColumn.getAttributes().remove(ATTR_SORTABLE);
   }
 
   private UIComponent getFirstSortableChild(List children) {

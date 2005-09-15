@@ -19,13 +19,13 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
@@ -41,9 +41,9 @@ public class BoxRenderer extends BoxRendererBase {
 
     HtmlRendererUtil.prepareInnerStyle(component);
 
-    UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
+    UIComponent label = component.getFacet(FACET_LABEL);
     String labelString
-        = (String) component.getAttributes().get(TobagoConstants.ATTR_LABEL);
+        = (String) component.getAttributes().get(ATTR_LABEL);
     String style = (String) component.getAttributes().get(getAttrStyleKey());
     UIPanel toolbar = (UIPanel) component.getFacet(FACET_TOOL_BAR);
     if (toolbar != null) {
@@ -74,7 +74,7 @@ public class BoxRenderer extends BoxRendererBase {
     }
 
     String contentStyle = (String)
-        component.getAttributes().get(TobagoConstants.ATTR_STYLE_INNER);
+        component.getAttributes().get(ATTR_STYLE_INNER);
     if (toolbar != null) {
       writer.startElement("div", null);
       writer.writeClassAttribute("tobago-box-toolbar-div");
@@ -82,7 +82,7 @@ public class BoxRenderer extends BoxRendererBase {
       writer.writeClassAttribute("tobago-box-toolbar-span");
       final Map attributes = toolbar.getAttributes();
       attributes.put(
-          TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER, Boolean.TRUE);
+          ATTR_SUPPPRESS_TOOLBAR_CONTAINER, Boolean.TRUE);
       if (ToolBarTag.LABEL_BOTTOM.equals(attributes.get(ATTR_LABEL_POSITION))) {
         attributes.put(ATTR_LABEL_POSITION, ToolBarTag.LABEL_RIGHT);
       }
@@ -116,7 +116,7 @@ public class BoxRenderer extends BoxRendererBase {
   }
 
   protected String getAttrStyleKey() {
-    return TobagoConstants.ATTR_STYLE;
+    return ATTR_STYLE;
   }
 
   public int getPaddingHeight(FacesContext facesContext, UIComponent component) {

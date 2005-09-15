@@ -19,11 +19,11 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -54,7 +54,7 @@ public class VerbatimRenderer extends RendererBase  {
       return;
     }
 
-    if (ComponentUtil.getBooleanAttribute(component, TobagoConstants.ATTR_ESCAPE)) {
+    if (ComponentUtil.getBooleanAttribute(component, ATTR_ESCAPE)) {
       writer.writeText(value, null);
     }
     else {

@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCHANGE;
 
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
@@ -78,8 +78,7 @@ public class HtmlUtils {
       }
     }
 
-    Object onchange = component.getAttributes().get(
-        TobagoConstants.ATTR_ONCHANGE);
+    Object onchange = component.getAttributes().get(ATTR_ONCHANGE);
     if (onchange != null) { // append the onchange attribute
       if (buffer.length() > 0) {
         buffer.append(" && ");

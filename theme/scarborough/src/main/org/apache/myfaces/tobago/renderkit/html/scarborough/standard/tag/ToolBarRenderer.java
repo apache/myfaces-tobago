@@ -19,30 +19,30 @@
   */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.util.AccessKeyMap;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.context.ResourceManager;
-import org.apache.myfaces.tobago.context.ResourceManagerFactory;
-import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
-import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
-import org.apache.myfaces.tobago.taglib.component.ToolBarSelectBooleanTag;
-import org.apache.myfaces.tobago.taglib.component.SelectOneCommandTag;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.context.ResourceManager;
+import org.apache.myfaces.tobago.context.ResourceManagerFactory;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
+import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.taglib.component.SelectOneCommandTag;
+import org.apache.myfaces.tobago.taglib.component.ToolBarSelectBooleanTag;
+import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
+import org.apache.myfaces.tobago.util.AccessKeyMap;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.component.UISelectOne;
-import javax.faces.component.ValueHolder;
 import javax.faces.component.UIViewRoot;
+import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
@@ -68,7 +68,7 @@ public class ToolBarRenderer extends RendererBase {
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
     boolean suppressContainer = ComponentUtil.getBooleanAttribute(toolbar,
-        TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER);
+        ATTR_SUPPPRESS_TOOLBAR_CONTAINER);
 
     if (!suppressContainer) {
       setToolBarHeight(facesContext, uiComponent);
@@ -76,7 +76,7 @@ public class ToolBarRenderer extends RendererBase {
       writer.startElement("div", toolbar);
       writer.writeIdAttribute(toolbar.getClientId(facesContext));
       writer.writeComponentClass();
-      writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
+      writer.writeAttribute("style", null, ATTR_STYLE);
       writer.startElement("div", toolbar);
       writer.writeClassAttribute("tobago-toolbar-div-inner");
     }

@@ -28,5 +28,5 @@ public interface IsDefaultCommand {
    *
    */
   @TagAttribute @UIComponentTagAttribute(type="java.lang.Boolean", defaultValue="false")
-  public void setDefaultCommand(String defaultCommand);
+  void setDefaultCommand(String defaultCommand);
 }

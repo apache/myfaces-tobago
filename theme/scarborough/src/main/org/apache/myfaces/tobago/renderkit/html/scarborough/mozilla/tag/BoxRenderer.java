@@ -19,11 +19,11 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.mozilla.tag;
 
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class BoxRenderer extends
@@ -36,7 +36,7 @@ public class BoxRenderer extends
   }
 
   protected String getAttrStyleKey() {
-    return TobagoConstants.ATTR_STYLE_BODY;
+    return ATTR_STYLE_BODY;
   }
 
 // ///////////////////////////////////////////// bean getter + setter

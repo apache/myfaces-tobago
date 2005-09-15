@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 
 public class SelectOneListboxTag extends SelectOneTag

@@ -19,13 +19,13 @@
  */
 package org.apache.myfaces.tobago.el;
 
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.context.FacesContext;
 import java.security.Principal;
-import java.util.Map;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 
 public class UserWrapper {

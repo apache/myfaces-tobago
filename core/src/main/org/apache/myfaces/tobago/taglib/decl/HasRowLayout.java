@@ -29,5 +29,5 @@ public interface HasRowLayout {
    *
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setRows(String rows);
+  void setRows(String rows);
 }

@@ -30,5 +30,5 @@ public interface HasIdReference {
    *
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setIdReference(String id);
+  void setIdReference(String id);
 }

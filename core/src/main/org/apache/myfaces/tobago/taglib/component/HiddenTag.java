@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
 
 import javax.faces.component.UIComponent;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class HiddenTag extends BeanTag
     implements org.apache.myfaces.tobago.taglib.decl.HiddenTag {

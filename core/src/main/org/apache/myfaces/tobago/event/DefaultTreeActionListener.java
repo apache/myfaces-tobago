@@ -19,13 +19,12 @@
  */
 package org.apache.myfaces.tobago.event;
 
-import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.TreeState;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
@@ -74,7 +73,7 @@ public class DefaultTreeActionListener implements ActionListener {
     TreeState treeState = tree.getState();
     DefaultMutableTreeNode marker = treeState.getMarker();
     String command = (String) actionEvent.getComponent().getAttributes().get(
-        TobagoConstants.ATTR_ACTION_STRING);
+        ATTR_ACTION_STRING);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("marker      " + marker);

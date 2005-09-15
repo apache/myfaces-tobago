@@ -19,18 +19,13 @@
   */
 package org.apache.myfaces.tobago.renderkit;
 
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 public class PageRendererBase extends RendererBase {
-
-// ------------------------------------------------------------------ constants
-
-  private static final Log LOG = LogFactory.getLog(PageRendererBase.class);
 
 // ----------------------------------------------------------- business methods
 

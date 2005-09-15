@@ -28,5 +28,5 @@ public interface HasBorder {
    *
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setBorder(String border);
+  void setBorder(String border);
 }

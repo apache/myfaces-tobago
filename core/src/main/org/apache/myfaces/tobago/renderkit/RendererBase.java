@@ -21,8 +21,7 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPanel;
@@ -38,15 +37,15 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 import javax.faces.render.Renderer;
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.awt.*;
 
 // todo: in java 1.5 use: import static org.apache.myfaces.tobago.TobagoConstants.*;
 public abstract class RendererBase
-    extends Renderer implements TobagoConstants, TobagoRenderer {
+    extends Renderer implements TobagoRenderer {
 
 
 // ///////////////////////////////////////////// constant
@@ -180,7 +179,7 @@ public abstract class RendererBase
       LOG.debug("rendererType = '" + rendererType + "'");
     }
     if ("javax.faces.Text".equals(rendererType)) { // todo: find a better way
-      name = TobagoConstants.RENDERER_TYPE_OUT;
+      name = RENDERER_TYPE_OUT;
     } else {
       name = rendererType;
     }

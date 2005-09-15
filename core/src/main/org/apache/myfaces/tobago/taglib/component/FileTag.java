@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.component.UIPage;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 
 public class FileTag extends InputTag

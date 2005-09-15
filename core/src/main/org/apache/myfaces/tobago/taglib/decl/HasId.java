@@ -28,5 +28,5 @@ public interface HasId {
    *  parent component that is a naming container.
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setId(String id);
+  void setId(String id);
 }

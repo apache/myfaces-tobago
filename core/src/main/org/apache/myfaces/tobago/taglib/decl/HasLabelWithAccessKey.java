@@ -28,7 +28,7 @@ public interface HasLabelWithAccessKey {
    * If text contains an underscore the next character overwrites 'accesskey'.
    */
   @TagAttribute @UIComponentTagAttribute()
-      public void setLabelWithAccessKey(String key);
+      void setLabelWithAccessKey(String key);
 
 
   /**
@@ -36,5 +36,5 @@ public interface HasLabelWithAccessKey {
    */
 //  @TagAttribute @UIComponentTagAttribute(type = String.class)
   @TagAttribute @UIComponentTagAttribute(type={"java.lang.String", "java.lang.Character"})
-      public void setAccessKey(String key);
+      void setAccessKey(String key);
 }

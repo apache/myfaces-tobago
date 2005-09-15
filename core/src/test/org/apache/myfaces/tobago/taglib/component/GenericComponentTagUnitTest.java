@@ -19,6 +19,11 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.mock.faces.MockExternalContext;
 import org.apache.myfaces.tobago.mock.faces.MockFacesContext;
 import org.apache.myfaces.tobago.mock.faces.MockRenderKit;
@@ -27,10 +32,6 @@ import org.apache.myfaces.tobago.mock.servlet.MockHttpServletRequest;
 import org.apache.myfaces.tobago.mock.servlet.MockHttpServletResponse;
 import org.apache.myfaces.tobago.mock.servlet.MockPageContext;
 import org.apache.myfaces.tobago.mock.servlet.MockServletContext;
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
@@ -137,18 +138,18 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
       tobagoTag.doStartTag();
       UIComponent component = tobagoTag.getComponentInstance();
       UICommand command = (UICommand) component;
-      Object disabled = component.getAttributes().get(TobagoConstants.ATTR_DISABLED);
+      Object disabled = component.getAttributes().get(ATTR_DISABLED);
       LOG.debug("disabled = '" + disabled + "'");
       Map attributes = component.getAttributes();
       for (Iterator i = attributes.keySet().iterator(); i.hasNext(); ){
         Object value = i.next();
         LOG.debug("value = "  + value);
       }
-      Object height = attributes.get(TobagoConstants.ATTR_HEIGHT);
+      Object height = attributes.get(ATTR_HEIGHT);
       LOG.debug("height = '" + height + "'");
 
-      assertTrue(ComponentUtil.getBooleanAttribute(command, TobagoConstants.ATTR_DISABLED));
-      assertFalse(ComponentUtil.getBooleanAttribute(command, TobagoConstants.ATTR_HEIGHT));
+      assertTrue(ComponentUtil.getBooleanAttribute(command, ATTR_DISABLED));
+      assertFalse(ComponentUtil.getBooleanAttribute(command, ATTR_HEIGHT));
     }
   }
 }

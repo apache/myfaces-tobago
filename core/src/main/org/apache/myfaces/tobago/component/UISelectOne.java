@@ -17,17 +17,11 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_ONE_CHOICE;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.util.MessageFactory;
 
-import javax.faces.context.FacesContext;
-import javax.faces.validator.Validator;
-import javax.faces.validator.ValidatorException;
-import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 /**

@@ -29,5 +29,5 @@ public interface HasState {
    *
    */
   @TagAttribute @UIComponentTagAttribute(type="java.lang.Object")
-  public void setState(String state);
+  void setState(String state);
 }

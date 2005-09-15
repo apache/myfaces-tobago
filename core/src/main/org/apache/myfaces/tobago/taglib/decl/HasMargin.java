@@ -28,5 +28,5 @@ public interface HasMargin {
    *
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setMargin(String margin);
+  void setMargin(String margin);
 }

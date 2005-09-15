@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.webapp;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import org.apache.myfaces.tobago.util.HtmlWriterUtil;
 import org.apache.myfaces.tobago.util.XmlUtils;
 
@@ -411,7 +411,7 @@ public class TobagoResponseWriter extends ResponseWriter {
   }
 
   public void writeComponentClass() throws IOException {
-    writeComponentAttribute("class", TobagoConstants.ATTR_STYLE_CLASS);
+    writeComponentAttribute("class", ATTR_STYLE_CLASS);
   }
 
 

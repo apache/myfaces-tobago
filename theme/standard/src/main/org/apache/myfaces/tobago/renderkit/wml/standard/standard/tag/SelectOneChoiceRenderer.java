@@ -19,7 +19,8 @@
  */
 package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
 
-import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.commons.collections.keyvalue.DefaultKeyValue;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -32,8 +33,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.List;
-
-import org.apache.commons.collections.keyvalue.DefaultKeyValue;
 
 public class SelectOneChoiceRenderer extends RendererBase {
 
@@ -53,7 +52,7 @@ public class SelectOneChoiceRenderer extends RendererBase {
     }
 
     ValueHolder label
-        = (ValueHolder) selectOne.getFacet(TobagoConstants.FACET_LABEL);
+        = (ValueHolder) selectOne.getFacet(FACET_LABEL);
     if (label != null) {
       writer.writeText(label, null);
     }

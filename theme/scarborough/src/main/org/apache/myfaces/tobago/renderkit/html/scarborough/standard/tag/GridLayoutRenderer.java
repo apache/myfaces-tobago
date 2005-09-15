@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.component.UIGridLayout;
@@ -85,7 +85,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     UIGridLayout layout = (UIGridLayout) UILayout.getLayout(component);
     final List<UIGridLayout.Row> rows = layout.ensureRows();
     String rowLayout
-        = (String) layout.getAttributes().get(TobagoConstants.ATTR_ROWS);
+        = (String) layout.getAttributes().get(ATTR_ROWS);
 
     if (rowLayout == null && ! minimum && LOG.isDebugEnabled()) {
       LOG.debug("No rowLayout found using " + (minimum ? "'minimum'" : "'fixed'")
@@ -141,14 +141,14 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     layoutMargins(layout);
 
     final Map attributes = layout.getAttributes();
-    List columnWidths =  (List) attributes.get(TobagoConstants.ATTR_WIDTH_LIST);
+    List columnWidths =  (List) attributes.get(ATTR_WIDTH_LIST);
 
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement("table", layout);
-    writer.writeAttribute("border", null, TobagoConstants.ATTR_BORDER);
+    writer.writeAttribute("border", null, ATTR_BORDER);
     writer.writeComponentClass();
-    writer.writeAttribute("style", null, TobagoConstants.ATTR_LAYOUT_TABLE_STYLE);
+    writer.writeAttribute("style", null, ATTR_LAYOUT_TABLE_STYLE);
     writer.writeAttribute("cellspacing", "0", null);
     writer.writeAttribute("cellpadding", "0", null);
     writer.writeAttribute("summary", "", null);
@@ -203,7 +203,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
             int spanX = UIGridLayout.getSpanX(cell);
             int spanY = UIGridLayout.getSpanY(cell);
             String cssClasses =
-                (String) attributes.get(TobagoConstants.ATTR_STYLE_CLASS);
+                (String) attributes.get(ATTR_STYLE_CLASS);
             cssClasses = (cssClasses == null ? "" : cssClasses);
             String cellClasses = "";
             if (rowIndex == 0) {
@@ -314,7 +314,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   private int getBorder(UIComponent component) {
     int border = 0;
     String borderWidth
-        = (String) component.getAttributes().get(TobagoConstants.ATTR_BORDER);
+        = (String) component.getAttributes().get(ATTR_BORDER);
     try {
       if (borderWidth != null) {
         border = Integer.parseInt(borderWidth);
@@ -353,7 +353,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
   private int getCellSpacing(FacesContext facesContext, UIComponent component) {
     String cellspacing = (String) component.getAttributes().get(
-        TobagoConstants.ATTR_CELLSPACING);
+        ATTR_CELLSPACING);
     if (cellspacing instanceof String) {
       try {
         return Integer.parseInt(cellspacing);
@@ -378,7 +378,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
     boolean needVerticalScroolbar = false;
     Integer innerHeight =
-          (Integer) attributes.get(TobagoConstants.ATTR_INNER_HEIGHT);
+          (Integer) attributes.get(ATTR_INNER_HEIGHT);
     if (innerHeight != null && innerHeight.intValue() != -1) {
       int value = innerHeight.intValue();
       int minimum = calculateLayoutHeight(facesContext, layout.getParent(), true);
@@ -392,7 +392,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
 
     Integer innerWidth =
-          (Integer) attributes.get(TobagoConstants.ATTR_INNER_WIDTH);
+          (Integer) attributes.get(ATTR_INNER_WIDTH);
     if (innerWidth != null && innerWidth.intValue() != -1) {
       int value
           = innerWidth.intValue() - getWidthSpacingSum(layout, facesContext);
@@ -422,7 +422,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     final List<UIGridLayout.Row> rows = layout.ensureRows();
     final int columnCount = layout.getColumnCount();
     final String[] layoutTokens = LayoutInfo.createLayoutTokens((String)
-        layout.getAttributes().get(TobagoConstants.ATTR_COLUMNS), columnCount);
+        layout.getAttributes().get(ATTR_COLUMNS), columnCount);
 
 
     if (! rows.isEmpty()) {
@@ -454,7 +454,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         getCellSpacing(facesContext, layout));
 
     setColumnWidths(layout, layoutInfo, facesContext);
-    layout.getAttributes().put(TobagoConstants.ATTR_WIDTH_LIST,
+    layout.getAttributes().put(ATTR_WIDTH_LIST,
         layoutInfo.getSpaceList());
   }
 
@@ -469,7 +469,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
     final List<UIGridLayout.Row> rows = layout.ensureRows();
     String[] layoutTokens = LayoutInfo.createLayoutTokens(
-        (String) layout.getAttributes().get(TobagoConstants.ATTR_ROWS),
+        (String) layout.getAttributes().get(ATTR_ROWS),
         rows.size(), rows.size() == 1 ? "1*" : "fixed");
 
     for (int i = 0; i < rows.size(); i++) {
@@ -606,7 +606,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           }
           cellWidth += (spanX - 1) * getCellSpacing(facesContext, layout);
           LayoutUtil.maybeSetLayoutAttribute(cell,
-              TobagoConstants.ATTR_LAYOUT_WIDTH, new Integer(cellWidth));
+              ATTR_LAYOUT_WIDTH, new Integer(cellWidth));
         }
       }
     }
@@ -636,12 +636,12 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
             LOG.debug("set height of " + cellHeight + "px to "
                 + cell.getRendererType());
           }
-          cell.getAttributes().put(TobagoConstants.ATTR_LAYOUT_HEIGHT,
+          cell.getAttributes().put(ATTR_LAYOUT_HEIGHT,
               new Integer(cellHeight));
           cell.getAttributes().remove(ATTR_INNER_HEIGHT);
           if (cell instanceof UIPanel
               && ComponentUtil.getBooleanAttribute(cell,
-                  TobagoConstants.ATTR_LAYOUT_DIRECTIVE)
+                  ATTR_LAYOUT_DIRECTIVE)
           || cell instanceof UIForm) {
             List children = LayoutUtil.addChildren(new ArrayList(), cell);
             for (Iterator childs = children.iterator(); childs.hasNext();) {
@@ -650,7 +650,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
                 LOG.debug("set height of " + cellHeight + "px to "
                     + component.getRendererType());
               }
-              component.getAttributes().put(TobagoConstants.ATTR_LAYOUT_HEIGHT,
+              component.getAttributes().put(ATTR_LAYOUT_HEIGHT,
                   new Integer(cellHeight));
               component.getAttributes().remove(ATTR_INNER_HEIGHT);
 
@@ -676,18 +676,18 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   private void layoutMargins(UIGridLayout layout) {
     String margin
         = (String) layout.getAttributes().get(
-            TobagoConstants.ATTR_LAYOUT_MARGIN);
+            ATTR_LAYOUT_MARGIN);
     String marginTop
-        = getMargin(layout, TobagoConstants.ATTR_LAYOUT_MARGIN_TOP, margin);
+        = getMargin(layout, ATTR_LAYOUT_MARGIN_TOP, margin);
     String marginRight
-        = getMargin(layout, TobagoConstants.ATTR_LAYOUT_MARGIN_RIGHT, margin);
+        = getMargin(layout, ATTR_LAYOUT_MARGIN_RIGHT, margin);
     String marginBottom
-        = getMargin(layout, TobagoConstants.ATTR_LAYOUT_MARGIN_BOTTOM, margin);
+        = getMargin(layout, ATTR_LAYOUT_MARGIN_BOTTOM, margin);
     String marginLeft
-        = getMargin(layout, TobagoConstants.ATTR_LAYOUT_MARGIN_LEFT, margin);
+        = getMargin(layout, ATTR_LAYOUT_MARGIN_LEFT, margin);
 
     String style = (String) layout.getAttributes().get(
-        TobagoConstants.ATTR_STYLE);
+        ATTR_STYLE);
 
     if (style != null) {
       style = addStyle(style, "margin-top", marginTop);
@@ -695,7 +695,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
       style = addStyle(style, "margin-bottom", marginBottom);
       style = addStyle(style, "margin-left", marginLeft);
 
-      layout.getAttributes().put(TobagoConstants.ATTR_LAYOUT_TABLE_STYLE,
+      layout.getAttributes().put(ATTR_LAYOUT_TABLE_STYLE,
           style);
     }
   }
@@ -722,12 +722,12 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     UIGridLayout layout = (UIGridLayout) component;
     String margin
         = (String) layout.getAttributes().get(
-            TobagoConstants.ATTR_LAYOUT_MARGIN);
+            ATTR_LAYOUT_MARGIN);
 
     extra += getMaginAsInt(
-        getMargin(layout, TobagoConstants.ATTR_LAYOUT_MARGIN_RIGHT, margin));
+        getMargin(layout, ATTR_LAYOUT_MARGIN_RIGHT, margin));
     extra += getMaginAsInt(
-        getMargin(layout, TobagoConstants.ATTR_LAYOUT_MARGIN_LEFT, margin));
+        getMargin(layout, ATTR_LAYOUT_MARGIN_LEFT, margin));
 
     return extra;
   }
@@ -738,12 +738,12 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     UIGridLayout layout = (UIGridLayout) component;
     String margin
         = (String) layout.getAttributes().get(
-            TobagoConstants.ATTR_LAYOUT_MARGIN);
+            ATTR_LAYOUT_MARGIN);
 
     extra += getMaginAsInt(
-        getMargin(layout, TobagoConstants.ATTR_LAYOUT_MARGIN_TOP, margin));
+        getMargin(layout, ATTR_LAYOUT_MARGIN_TOP, margin));
     extra += getMaginAsInt(
-        getMargin(layout, TobagoConstants.ATTR_LAYOUT_MARGIN_BOTTOM, margin));
+        getMargin(layout, ATTR_LAYOUT_MARGIN_BOTTOM, margin));
     return extra;
   }
 

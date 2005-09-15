@@ -31,5 +31,5 @@ public interface IsImmediateCommand {
    *
    */
   @TagAttribute @UIComponentTagAttribute(type="java.lang.Boolean")
-  public void setImmediate(String immediate);
+  void setImmediate(String immediate);
 }

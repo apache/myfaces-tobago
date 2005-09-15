@@ -15,15 +15,12 @@
  */
 package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
 
-import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.component.UIComponent;
 import java.io.IOException;
-import java.util.Iterator;
 
 /**
  * Created: Nov 30, 2004 6:20:54 PM
@@ -65,7 +62,7 @@ public class BoxRenderer extends FoRendererBase {
     FoUtils.writeBorder(writer, borderWidth);
     FoUtils.layoutBlockContainer(writer, height, width, x, y);
     //writer.writeAttribute("padding", Layout.getMM(padding), null);
-    String labelString = (String) component.getAttributes().get(TobagoConstants.ATTR_LABEL);
+    String labelString = (String) component.getAttributes().get(ATTR_LABEL);
     FoUtils.writeTextBlockAlignStart(writer, component, labelString);
     // TODO UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
     FoUtils.endBlockContainer(writer);

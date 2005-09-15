@@ -28,5 +28,5 @@ public interface HasCellspacing {
    *
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setCellspacing(String cellspacing);
+  void setCellspacing(String cellspacing);
 }

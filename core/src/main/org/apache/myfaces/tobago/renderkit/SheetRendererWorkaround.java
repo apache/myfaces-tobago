@@ -21,8 +21,8 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.myfaces.tobago.component.UIData;
 
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 
 // fixme: this is only a workaround to separate the theme from the core
 /** @deprecated */

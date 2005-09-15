@@ -22,6 +22,8 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
+
 public class InTag extends TextInputTag
     implements org.apache.myfaces.tobago.taglib.decl.InTag {
 

@@ -19,39 +19,39 @@
   */
 package org.apache.myfaces.tobago.util;
 
-import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
-import java.awt.Dimension;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class LayoutUtil implements TobagoConstants{
+public final class LayoutUtil {
 
   private static final Log LOG = LogFactory.getLog(LayoutUtil.class);
 
   private LayoutUtil() {
+    // to prevent instantiation
   }
 
   public static int getInnerSpace(FacesContext facesContext,
       UIComponent component, boolean width) {
     String attribute;
     if (width) {
-      attribute = TobagoConstants.ATTR_INNER_WIDTH;
+      attribute = ATTR_INNER_WIDTH;
     } else {
-      attribute = TobagoConstants.ATTR_INNER_HEIGHT;
+      attribute = ATTR_INNER_HEIGHT;
     }
     Integer innerSpace = (Integer) component.getAttributes().get(attribute);
 
@@ -123,7 +123,7 @@ public class LayoutUtil implements TobagoConstants{
       UIComponent label = component.getFacet("label");
       if (label != null) {
         String labelWidth = (String) label.getAttributes().get(
-            TobagoConstants.ATTR_WIDTH);
+            ATTR_WIDTH);
         if (labelWidth != null) {
           try {
             width = Integer.parseInt(labelWidth.replaceAll("\\D", ""));
@@ -153,7 +153,7 @@ public class LayoutUtil implements TobagoConstants{
     try {
       InputRendererBase renderer = (InputRendererBase)
           ComponentUtil.getRenderer(facesContext, UIInput.COMPONENT_FAMILY,
-              TobagoConstants.RENDERER_TYPE_IN);
+              RENDERER_TYPE_IN);
       width = renderer.getLabelWidth(facesContext, component);
     } catch (Exception e) {
       if (LOG.isWarnEnabled()) {
@@ -169,13 +169,13 @@ public class LayoutUtil implements TobagoConstants{
 
 
   public static Integer getLayoutWidth(UIComponent component) {
-    return getLayoutSpace(component, TobagoConstants.ATTR_WIDTH,
-        TobagoConstants.ATTR_LAYOUT_WIDTH);
+    return getLayoutSpace(component, ATTR_WIDTH,
+        ATTR_LAYOUT_WIDTH);
   }
 
   public static Integer getLayoutHeight(UIComponent component) {
-    return getLayoutSpace(component, TobagoConstants.ATTR_HEIGHT,
-        TobagoConstants.ATTR_LAYOUT_HEIGHT);
+    return getLayoutSpace(component, ATTR_HEIGHT,
+        ATTR_LAYOUT_HEIGHT);
   }
 
   public static Integer getLayoutSpace(UIComponent component,
@@ -236,21 +236,21 @@ public class LayoutUtil implements TobagoConstants{
 
   public static void maybeSetLayoutAttribute(UIComponent cell, String attribute,
       Integer value) {
-    if (TobagoConstants.RENDERER_TYPE_OUT.equals(cell.getRendererType())) {
+    if (RENDERER_TYPE_OUT.equals(cell.getRendererType())) {
       return;
     }
     if (LOG.isDebugEnabled()) {
       LOG.debug("set " + value + " to " + cell.getRendererType());
     }
     cell.getAttributes().put(attribute, value);
-    if (TobagoConstants.ATTR_LAYOUT_WIDTH.equals(attribute)) {
-      cell.getAttributes().remove(TobagoConstants.ATTR_INNER_WIDTH);
-    } else if (TobagoConstants.ATTR_LAYOUT_HEIGHT.equals(attribute)){
-      cell.getAttributes().remove(TobagoConstants.ATTR_INNER_HEIGHT);
+    if (ATTR_LAYOUT_WIDTH.equals(attribute)) {
+      cell.getAttributes().remove(ATTR_INNER_WIDTH);
+    } else if (ATTR_LAYOUT_HEIGHT.equals(attribute)){
+      cell.getAttributes().remove(ATTR_INNER_HEIGHT);
     }
     if (cell instanceof UIPanel
         && ComponentUtil.getBooleanAttribute(cell,
-            TobagoConstants.ATTR_LAYOUT_DIRECTIVE)) {
+            ATTR_LAYOUT_DIRECTIVE)) {
       List children = LayoutUtil.addChildren(new ArrayList(), cell);
       for (Iterator childs = children.iterator(); childs.hasNext();) {
         UIComponent component = (UIComponent) childs.next();

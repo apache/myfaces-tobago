@@ -21,20 +21,20 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.renderkit.html.InRendererBase;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.InRendererBase;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.application.FacesMessage;
 import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
 import java.io.IOException;
 import java.util.Iterator;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class InRenderer extends InRendererBase{
   private static final Log LOG = LogFactory.getLog(InRenderer.class);

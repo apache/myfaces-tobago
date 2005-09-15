@@ -19,14 +19,15 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.Tag;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public abstract class TobagoTag extends UIComponentTag
     implements org.apache.myfaces.tobago.taglib.decl.TobagoTag {

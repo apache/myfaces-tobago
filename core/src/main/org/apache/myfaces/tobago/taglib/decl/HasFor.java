@@ -26,5 +26,5 @@ public interface HasFor {
    *  Id of the component, this is related to. 
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setFor(String _for);
+  void setFor(String _for);
 }

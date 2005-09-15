@@ -30,6 +30,8 @@ import javax.faces.component.UISelectBoolean;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
+import static org.apache.myfaces.tobago.TobagoConstants.*;
+
 public class SelectBooleanCheckboxRenderer extends RendererBase {
 
   public void decode(FacesContext facesContext, UIComponent component) {

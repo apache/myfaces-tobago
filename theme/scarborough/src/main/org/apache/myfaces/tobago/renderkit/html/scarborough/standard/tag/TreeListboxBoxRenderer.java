@@ -28,6 +28,7 @@ import javax.faces.context.FacesContext;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.util.List;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * User: weber

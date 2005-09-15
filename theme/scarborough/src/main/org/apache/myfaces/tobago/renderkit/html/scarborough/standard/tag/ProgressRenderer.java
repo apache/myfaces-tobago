@@ -19,19 +19,18 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
-import javax.swing.BoundedRangeModel;
-import javax.swing.DefaultBoundedRangeModel;
+import javax.swing.*;
 import java.io.IOException;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class ProgressRenderer extends RendererBase {
 

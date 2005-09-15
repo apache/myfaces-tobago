@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.application;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CLIENT_PROPERTIES;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.webapp.TobagoResponse;
@@ -87,8 +87,7 @@ public class ViewHandlerImpl extends ViewHandler {
     if (viewRoot != null) {
       ClientProperties clientProperties
           = ClientProperties.getInstance(facesContext);
-      viewRoot.getAttributes().put(
-          TobagoConstants.ATTR_CLIENT_PROPERTIES, clientProperties);
+      viewRoot.getAttributes().put(ATTR_CLIENT_PROPERTIES, clientProperties);
     }
   }
 

@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
 import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.TreeState;
@@ -350,7 +349,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     if (state != null) {
         return state;
     }
-    ValueBinding valueBinding = getValueBinding(TobagoConstants.ATTR_STATE);
+    ValueBinding valueBinding = getValueBinding(ATTR_STATE);
     if (valueBinding != null) {
         return (TreeState) valueBinding.getValue(getFacesContext());
     } else {

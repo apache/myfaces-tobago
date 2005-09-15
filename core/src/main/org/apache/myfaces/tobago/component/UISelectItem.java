@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.tobago.component;
 
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 
 import javax.faces.el.ValueBinding;
 
@@ -40,7 +40,7 @@ public class UISelectItem extends javax.faces.component.UISelectItem {
       return itemImage;
     }
 
-    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_IMAGE);
+    ValueBinding vb = getValueBinding(ATTR_IMAGE);
     if (vb != null) {
       return ((String) vb.getValue(getFacesContext()));
     } else {

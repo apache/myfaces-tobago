@@ -19,10 +19,10 @@
  */
 package org.apache.myfaces.tobago.el;
 
-import javax.faces.el.MethodBinding;
-import javax.faces.el.EvaluationException;
-import javax.faces.el.MethodNotFoundException;
 import javax.faces.context.FacesContext;
+import javax.faces.el.EvaluationException;
+import javax.faces.el.MethodBinding;
+import javax.faces.el.MethodNotFoundException;
 import java.io.Serializable;
 
 public class ConstantMethodBinding

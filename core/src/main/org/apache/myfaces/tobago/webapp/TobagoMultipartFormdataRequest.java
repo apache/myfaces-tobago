@@ -19,24 +19,23 @@
  */
 package org.apache.myfaces.tobago.webapp;
 
-import static org.apache.myfaces.tobago.TobagoConstants.FORM_ACCEPT_CHARSET;
-
 import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.FORM_ACCEPT_CHARSET;
 
 import javax.faces.FacesException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.io.UnsupportedEncodingException;
 
 public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
 

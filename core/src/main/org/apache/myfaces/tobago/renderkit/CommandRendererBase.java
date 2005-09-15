@@ -19,15 +19,15 @@
   */
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.myfaces.tobago.component.ComponentUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public abstract class CommandRendererBase extends RendererBase {
 

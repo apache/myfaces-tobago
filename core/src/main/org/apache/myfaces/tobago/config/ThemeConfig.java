@@ -19,16 +19,15 @@
   */
 package org.apache.myfaces.tobago.config;
 
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.context.ClientProperties;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.context.ResourceManager;
-import org.apache.myfaces.tobago.context.ResourceManagerFactory;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_IN;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.context.ResourceManager;
+import org.apache.myfaces.tobago.context.ResourceManagerFactory;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -73,7 +72,7 @@ public class ThemeConfig {
       rendererType = component.getRendererType();
     } else {
       family = UIInput.COMPONENT_FAMILY;
-      rendererType = TobagoConstants.RENDERER_TYPE_IN;
+      rendererType = RENDERER_TYPE_IN;
     }
     Renderer renderer = ComponentUtil.getRenderer(facesContext, family, rendererType);
 

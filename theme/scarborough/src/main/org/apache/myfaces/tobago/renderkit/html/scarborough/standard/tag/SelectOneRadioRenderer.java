@@ -19,11 +19,11 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -34,6 +34,7 @@ import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class SelectOneRadioRenderer extends SelectOneRendererBase {
 

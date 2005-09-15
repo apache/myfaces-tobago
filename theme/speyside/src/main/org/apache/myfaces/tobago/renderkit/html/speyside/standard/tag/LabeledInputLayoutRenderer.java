@@ -30,6 +30,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Map;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * User: weber

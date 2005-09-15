@@ -15,17 +15,14 @@
  */
 package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
 
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BODY_CONTENT;
 import org.apache.myfaces.tobago.component.BodyContentHandler;
 import org.apache.myfaces.tobago.component.UIPanel;
-import org.apache.myfaces.tobago.TobagoConstants;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.component.UIComponent;
 import java.io.IOException;
-import java.util.Iterator;
 
 /**
  * Created: Nov 30, 2004 6:04:53 PM
@@ -48,7 +45,7 @@ public class PanelRenderer extends FoRendererBase {
 
     UIPanel component = (UIPanel) uiComponent ;
     BodyContentHandler bodyContentHandler = (BodyContentHandler)
-        component.getAttributes().get(TobagoConstants.ATTR_BODY_CONTENT);
+        component.getAttributes().get(ATTR_BODY_CONTENT);
 
     if (bodyContentHandler != null) {
       ResponseWriter writer = facesContext.getResponseWriter();

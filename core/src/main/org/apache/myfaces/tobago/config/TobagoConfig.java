@@ -19,9 +19,9 @@
  */
 package org.apache.myfaces.tobago.config;
 
-import org.apache.myfaces.tobago.context.Theme;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.context.Theme;
 
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;

@@ -19,13 +19,14 @@
  */
 package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
 
-import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.commons.collections.keyvalue.DefaultKeyValue;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.commons.collections.keyvalue.DefaultKeyValue;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -51,7 +52,7 @@ public class InRenderer extends RendererBase {
       uiPage.getPostfields().add(new DefaultKeyValue(clientId, clientId));
     }
 
-    UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
+    UIComponent label = component.getFacet(FACET_LABEL);
     if (label != null) {
       RenderUtil.encode(facesContext, label);
     }
@@ -59,7 +60,7 @@ public class InRenderer extends RendererBase {
     String currentValue = ComponentUtil.currentValue(component);
 
     String type = ComponentUtil.getBooleanAttribute(
-        component, TobagoConstants.ATTR_PASSWORD) ? "password" : "text";
+        component, ATTR_PASSWORD) ? "password" : "text";
 
     writer.startElement("input", component);
     writer.writeAttribute("name", clientId, null);

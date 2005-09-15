@@ -35,5 +35,5 @@ public interface HasAction {
    *
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setAction(String action);
+  void setAction(String action);
 }

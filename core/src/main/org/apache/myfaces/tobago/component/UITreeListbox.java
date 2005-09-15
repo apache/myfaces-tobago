@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 
 import javax.faces.component.UIComponent;
@@ -84,7 +84,7 @@ public class UITreeListbox extends UITree implements LayoutProvider{
   @SuppressWarnings(value = "unchecked")
   private void fixSelectionType() {
     final Map  attributes = getAttributes();
-    Object selectable = attributes.get(TobagoConstants.ATTR_SELECTABLE);
+    Object selectable = attributes.get(ATTR_SELECTABLE);
     if ("single".equals(selectable)
         || "singleLeafOnly".equals(selectable)
         || "siblingLeafOnly".equals(selectable)) {
@@ -92,7 +92,7 @@ public class UITreeListbox extends UITree implements LayoutProvider{
     } else {
       // fix to single
       LOG.warn("Illegal attributeValue selectable : " + selectable + " set to 'single'");
-      attributes.put(TobagoConstants.ATTR_SELECTABLE, "single");
+      attributes.put(ATTR_SELECTABLE, "single");
     }
   }
 
@@ -269,11 +269,11 @@ public class UITreeListbox extends UITree implements LayoutProvider{
 // --------------------------------------------------- Interface LayoutProvider
 
   public UILayout provideLayout() {
-    UILayout layout = (UILayout) getFacet(TobagoConstants.FACET_LAYOUT_DEFAULT);
+    UILayout layout = (UILayout) getFacet(FACET_LAYOUT_DEFAULT);
     if (layout == null) {
       layout = (UILayout) ComponentUtil.createComponent(
           UIGridLayout.COMPONENT_TYPE,
-          TobagoConstants.RENDERER_TYPE_GRID_LAYOUT);
+          RENDERER_TYPE_GRID_LAYOUT);
 
       int depth = ((DefaultMutableTreeNode) getValue()).getDepth();
       final int defaultColumnCount = ThemeConfig.getValue(
@@ -288,8 +288,8 @@ public class UITreeListbox extends UITree implements LayoutProvider{
         columns += ";1*";
       }
 
-      layout.getAttributes().put(TobagoConstants.ATTR_COLUMNS, columns);
-      getFacets().put(TobagoConstants.FACET_LAYOUT_DEFAULT, layout);
+      layout.getAttributes().put(ATTR_COLUMNS, columns);
+      getFacets().put(FACET_LAYOUT_DEFAULT, layout);
     }
 
     return layout;

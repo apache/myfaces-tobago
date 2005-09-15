@@ -31,5 +31,5 @@ public interface HasBooleanValue {
    */
   @TagAttribute
   @UIComponentTagAttribute(type="java.lang.Boolean")
-  public void setValue(String value);
+  void setValue(String value);
 }

@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class SelectOneRadioTag extends SelectOneTag
     implements org.apache.myfaces.tobago.taglib.decl.SelectOneRadioTag {

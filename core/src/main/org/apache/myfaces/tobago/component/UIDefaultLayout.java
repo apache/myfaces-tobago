@@ -22,13 +22,11 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.apache.myfaces.tobago.TobagoConstants;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
-public class UIDefaultLayout extends UILayout
-    implements TobagoConstants {
+public class UIDefaultLayout extends UILayout {
   private static final Log LOG = LogFactory.getLog(UIDefaultLayout.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.DefaultLayout";

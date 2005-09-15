@@ -32,5 +32,5 @@ public interface HasCommandType {
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue="submit")
-  public void setType(String type);
+  void setType(String type);
 }

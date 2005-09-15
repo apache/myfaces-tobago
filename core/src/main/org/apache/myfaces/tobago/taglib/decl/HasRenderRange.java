@@ -26,5 +26,5 @@ public interface HasRenderRange {
    *  Range of items to render.
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setRenderRange(String range);
+  void setRenderRange(String range);
 }

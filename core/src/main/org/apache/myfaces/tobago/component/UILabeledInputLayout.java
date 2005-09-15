@@ -21,24 +21,18 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.util.LayoutUtil;
-import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.apache.myfaces.tobago.config.ThemeConfig;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.LabeledLayoutRender;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.util.LayoutInfo;
+import org.apache.myfaces.tobago.util.LayoutUtil;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
-import javax.faces.application.Application;
-import javax.faces.el.ValueBinding;
-import java.util.Map;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
-public class UILabeledInputLayout extends UILayout
-    implements TobagoConstants {
+public class UILabeledInputLayout extends UILayout {
   private static final Log LOG = LogFactory.getLog(UILabeledInputLayout.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.LabeledInputLayout";

@@ -17,8 +17,7 @@ package org.apache.myfaces.tobago.event;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 
@@ -57,7 +56,7 @@ public class DatePickerController extends MethodBinding {
       if (commandId.endsWith(OPEN_POPUP)) {
 
         final UIComponent popup
-            = command.getFacet(TobagoConstants.FACET_PICKER_POPUP);
+            = command.getFacet(FACET_PICKER_POPUP);
         if (popup != null) {
           popup.setRendered(true);
           final String dimensionParameter
@@ -74,26 +73,26 @@ public class DatePickerController extends MethodBinding {
           int left = nextDimensionToken(st, -1);
           int top = nextDimensionToken(st, -1);
           int popupWidth = ComponentUtil.getIntAttribute(
-              popup, TobagoConstants.ATTR_WIDTH, -1);
+              popup, ATTR_WIDTH, -1);
           int popupHeight = ComponentUtil.getIntAttribute(
-              popup, TobagoConstants.ATTR_HEIGHT, -1);
+              popup, ATTR_HEIGHT, -1);
           int popupLeft = ComponentUtil.getIntAttribute(
-              popup, TobagoConstants.ATTR_LEFT, -1);
+              popup, ATTR_LEFT, -1);
           int popupTop = ComponentUtil.getIntAttribute(
-              popup, TobagoConstants.ATTR_TOP, -1);
+              popup, ATTR_TOP, -1);
 
           final Map<String, String>  attributes = popup.getAttributes();
           if (popupWidth == -1) {
             popupWidth = ThemeConfig.getValue(
                 facesContext, popup, "CalendarPopupWidth");
             attributes.put(
-                TobagoConstants.ATTR_WIDTH, String.valueOf(popupWidth));
+                ATTR_WIDTH, String.valueOf(popupWidth));
           }
           if (popupHeight == -1) {
             popupHeight = ThemeConfig.getValue(
                 facesContext, popup, "CalendarPopupHeight");
             attributes.put(
-                TobagoConstants.ATTR_HEIGHT, String.valueOf(popupHeight));
+                ATTR_HEIGHT, String.valueOf(popupHeight));
           }
 
           if (popupLeft == -1) {
@@ -105,7 +104,7 @@ public class DatePickerController extends MethodBinding {
             } else {
               popupLeft = (width - popupWidth) / 2;
             }
-            attributes.put(TobagoConstants.ATTR_LEFT,
+            attributes.put(ATTR_LEFT,
                 (popupLeft > 0 ? String.valueOf(popupLeft) : "0"));
           }
 
@@ -120,7 +119,7 @@ public class DatePickerController extends MethodBinding {
             } else {
               popupTop = (height - popupHeight) / 2;
             }
-            attributes.put(TobagoConstants.ATTR_TOP,
+            attributes.put(ATTR_TOP,
                 (popupTop > 0 ? String.valueOf(popupTop) : "0"));
           }
         }

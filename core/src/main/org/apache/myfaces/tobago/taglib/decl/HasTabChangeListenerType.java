@@ -27,5 +27,5 @@ public interface HasTabChangeListenerType {
    *  created and registered.
    */
   @TagAttribute @UIComponentTagAttribute(type={"java.util.List", "java.util.Map", "java.lang.Object[]"})
-  public void setType(String type);
+  void setType(String type);
 }

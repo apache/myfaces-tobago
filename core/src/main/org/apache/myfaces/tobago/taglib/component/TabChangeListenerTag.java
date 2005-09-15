@@ -15,14 +15,14 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UITabGroup;
-import org.apache.myfaces.tobago.event.TabChangeListener;
-import org.apache.myfaces.tobago.taglib.decl.HasTabChangeListenerType;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UITabGroup;
+import org.apache.myfaces.tobago.event.TabChangeListener;
+import org.apache.myfaces.tobago.taglib.decl.HasTabChangeListenerType;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

@@ -19,9 +19,9 @@
  */
 package org.apache.myfaces.tobago.model;
 
-import java.util.Calendar;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class CalendarModel {
 

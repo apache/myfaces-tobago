@@ -26,5 +26,5 @@ public interface HasWidth {
    *  The width for this component.
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setWidth(String width);
+  void setWidth(String width);
 }

@@ -15,8 +15,6 @@
  */
 package org.apache.myfaces.tobago.component;
 
-import org.apache.myfaces.tobago.TobagoConstants;
-
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 

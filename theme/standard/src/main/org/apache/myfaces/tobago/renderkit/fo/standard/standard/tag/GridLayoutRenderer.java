@@ -15,10 +15,10 @@
  */
 package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.UIGridLayout;
-import org.apache.myfaces.tobago.renderkit.LayoutManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.UIGridLayout;
+import org.apache.myfaces.tobago.renderkit.LayoutManager;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIMessages;

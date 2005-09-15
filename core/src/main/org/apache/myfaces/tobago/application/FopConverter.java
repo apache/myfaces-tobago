@@ -19,11 +19,11 @@
  */
 package org.apache.myfaces.tobago.application;
 
-import org.apache.myfaces.tobago.util.CommonsLoggingLogger;
 import org.apache.avalon.framework.logger.Logger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.fop.apps.Driver;
+import org.apache.myfaces.tobago.util.CommonsLoggingLogger;
 import org.xml.sax.InputSource;
 
 import javax.faces.FacesException;

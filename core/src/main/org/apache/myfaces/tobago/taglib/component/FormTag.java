@@ -19,10 +19,10 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 
 @Tag(name="form")
 public class FormTag extends TobagoBodyTag implements HasBinding, HasId {

@@ -20,7 +20,8 @@ package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_IN;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -34,9 +35,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 
 public class TobagoDemoController {
 
@@ -119,16 +120,16 @@ public class TobagoDemoController {
     salutation = new String[4];
 
     bool = new Boolean[10];
-    bool[0] = new Boolean(true);
-    bool[1] = new Boolean(false);
-    bool[2] = new Boolean(true);
-    bool[3] = new Boolean(false);
-    bool[4] = new Boolean(true);
-    bool[5] = new Boolean(false);
-    bool[6] = new Boolean(true);
-    bool[7] = new Boolean(false);
-    bool[8] = new Boolean(true);
-    bool[9] = new Boolean(false);
+    bool[0] = true;
+    bool[1] = false;
+    bool[2] = true;
+    bool[3] = false;
+    bool[4] = true;
+    bool[5] = false;
+    bool[6] = true;
+    bool[7] = false;
+    bool[8] = true;
+    bool[9] = false;
     boolTest = Boolean.TRUE;
 
     text = new String[11];
@@ -198,9 +199,9 @@ public class TobagoDemoController {
     List<UIColumn> columns = new ArrayList<UIColumn>(3);
 
     UIInput textbox = (UIInput)
-        ComponentUtil.createComponent(UIInput.COMPONENT_TYPE, TobagoConstants.RENDERER_TYPE_IN);
+        ComponentUtil.createComponent(UIInput.COMPONENT_TYPE, RENDERER_TYPE_IN);
     ComponentUtil.setStringProperty(
-        textbox, TobagoConstants.ATTR_VALUE, "#{luminary.population}", null);
+        textbox, ATTR_VALUE, "#{luminary.population}", null);
     columns.add(ComponentUtil.createColumn(
         "#{overviewBundle.solarArrayPopulation}", "true", null, textbox));
 

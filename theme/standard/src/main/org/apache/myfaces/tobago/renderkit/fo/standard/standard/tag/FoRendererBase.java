@@ -15,17 +15,16 @@
  */
 package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
 
-import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.LayoutManager;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-
-import javax.faces.context.FacesContext;
-import javax.faces.component.UIComponent;
-import javax.faces.render.Renderer;
-import java.io.IOException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.renderkit.LayoutManager;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.render.Renderer;
+import java.io.IOException;
 
 /**
  * Created: Dec 3, 2004 12:07:38 AM

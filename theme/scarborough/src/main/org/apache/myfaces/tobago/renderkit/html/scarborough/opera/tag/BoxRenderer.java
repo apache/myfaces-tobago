@@ -19,12 +19,12 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.opera.tag;
 
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.UserAgent;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -45,15 +45,15 @@ public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbo
 
     HtmlRendererUtil.prepareInnerStyle(component);
 
-    UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
+    UIComponent label = component.getFacet(FACET_LABEL);
     String labelString
-        = (String) component.getAttributes().get(TobagoConstants.ATTR_LABEL);
+        = (String) component.getAttributes().get(ATTR_LABEL);
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement("fieldset", component);
     writer.writeComponentClass();
-    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
+    writer.writeAttribute("style", null, ATTR_STYLE);
 
     if (label != null || labelString != null) {
       writer.startElement("legend", component);
@@ -76,7 +76,7 @@ public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbo
     }
     writer.startElement("div", component);
     writer.writeComponentClass();
-    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_INNER);
+    writer.writeAttribute("style", null, ATTR_STYLE_INNER);
   }
 
   public int getPaddingWidth(FacesContext facesContext, UIComponent component) {

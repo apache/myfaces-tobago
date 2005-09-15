@@ -19,10 +19,10 @@
  */
 package org.apache.myfaces.tobago.component;
 
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.taglib.component.OutTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
+import org.apache.myfaces.tobago.taglib.component.OutTag;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -58,8 +58,8 @@ public class BodyContentHandler {
           (javax.faces.component.UIOutput) verbatimTag.getComponentInstance();
       verbatim.setValue(rawContent);
       verbatim.setRendererType(verbatimTag.getRendererType());
-      verbatim.getAttributes().remove(TobagoConstants.ATTR_ESCAPE);
-      verbatim.getAttributes().remove(TobagoConstants.ATTR_CREATE_SPAN);
+      verbatim.getAttributes().remove(ATTR_ESCAPE);
+      verbatim.getAttributes().remove(ATTR_CREATE_SPAN);
       verbatimTag.doEndTag();
     } catch (JspException e) {
       LOG.debug("", e);
@@ -90,7 +90,7 @@ public class BodyContentHandler {
       LOG.debug(" " + child.getClass().getName());
       LOG.debug(" " + child.getId());
       LOG.debug(" " + child.getClientId(facesContext));
-      if (child.getRendererType().equals(TobagoConstants.RENDERER_TYPE_VERBATIM)) {
+      if (child.getRendererType().equals(RENDERER_TYPE_VERBATIM)) {
         LOG.debug(" " + ComponentUtil.currentValue(component));
       }
       LOG.debug("-------------------------------------------");

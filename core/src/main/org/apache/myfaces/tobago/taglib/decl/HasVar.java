@@ -31,5 +31,5 @@ public interface HasVar {
    */
   @TagAttribute(required=true)
   @UIComponentTagAttribute()
-  public void setVar(String var);
+  void setVar(String var);
 }

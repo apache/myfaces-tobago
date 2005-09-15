@@ -19,6 +19,8 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.BodyContent;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
@@ -29,11 +31,10 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasMargin;
 import org.apache.myfaces.tobago.taglib.decl.HasMargins;
 import org.apache.myfaces.tobago.taglib.decl.HasRowLayout;
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 @Tag(name="gridLayout", bodyContent=BodyContent.EMPTY)
 public class GridLayoutTag extends TobagoTag

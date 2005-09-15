@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class ImageTag extends TobagoTag
     implements org.apache.myfaces.tobago.taglib.decl.ImageTag {

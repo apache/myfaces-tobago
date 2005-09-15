@@ -38,6 +38,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class TimeRenderer extends InRendererBase{
 

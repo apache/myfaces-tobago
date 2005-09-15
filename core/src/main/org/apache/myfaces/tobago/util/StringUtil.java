@@ -19,8 +19,8 @@
  */
 package org.apache.myfaces.tobago.util;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class StringUtil {

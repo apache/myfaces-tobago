@@ -19,15 +19,15 @@
  */
 package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
 
-import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.commons.collections.KeyValue;
+import org.apache.commons.collections.keyvalue.DefaultKeyValue;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.collections.keyvalue.DefaultKeyValue;
-import org.apache.commons.collections.KeyValue;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -49,13 +49,13 @@ public class ButtonRenderer extends RendererBase {
         = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     String type = (String) command.getAttributes().get(
-        TobagoConstants.ATTR_TYPE);
+        ATTR_TYPE);
     String action = (String) command.getAttributes().get(
-        TobagoConstants.ATTR_ACTION_STRING);
+        ATTR_ACTION_STRING);
 
     if ("submit".equals(type) && page != null) {
       ValueHolder labelComponent
-          = (ValueHolder) command.getFacet(TobagoConstants.FACET_LABEL);
+          = (ValueHolder) command.getFacet(FACET_LABEL);
       String label = (String) labelComponent.getValue();
       page.getPostfields().add(
           new DefaultKeyValue(command.getClientId(facesContext), label));

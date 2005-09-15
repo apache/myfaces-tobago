@@ -19,12 +19,12 @@
  */
 package org.apache.myfaces.tobago.el;
 
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-import javax.faces.el.VariableResolver;
-import javax.faces.el.EvaluationException;
 import javax.faces.context.FacesContext;
+import javax.faces.el.EvaluationException;
+import javax.faces.el.VariableResolver;
 
 public class VariableResolverImpl extends VariableResolver {
 

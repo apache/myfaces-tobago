@@ -32,6 +32,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface HiddenTag extends BeanTag, HasId, HasBinding, HasValue {
 
   @UIComponentTagAttribute(type="java.lang.Boolean", defaultValue="true")
-  public void setInline(String inline);
+  void setInline(String inline);
 
 }

@@ -19,13 +19,13 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.msie.tag;
 
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -86,7 +86,7 @@ public class MessageRenderer extends MessageRendererBase {
 
       writer.startElement("span", component);
       writer.writeClassAttribute("tobago-validation-message");
-      writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE);
+      writer.writeAttribute("style", null, ATTR_STYLE);
 
       while (iterator.hasNext()) {
         FacesMessage message = (FacesMessage) iterator.next();

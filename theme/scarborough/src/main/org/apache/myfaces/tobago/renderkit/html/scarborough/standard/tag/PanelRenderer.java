@@ -19,15 +19,15 @@
   */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BODY_CONTENT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import org.apache.myfaces.tobago.component.BodyContentHandler;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPanel;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
@@ -59,7 +59,7 @@ public class PanelRenderer extends RendererBase {
     // sonst Warnung ausgebenn und addition der children's fixedHeight
 
     int height =
-        ComponentUtil.getIntAttribute(component, TobagoConstants.ATTR_HEIGHT, -1);
+        ComponentUtil.getIntAttribute(component, ATTR_HEIGHT, -1);
 
     if (height == -1) {
       height = getFixedHeightForPanel(component, facesContext);
@@ -127,7 +127,7 @@ public class PanelRenderer extends RendererBase {
 
     UIPanel component = (UIPanel) uiComponent ;
     BodyContentHandler bodyContentHandler = (BodyContentHandler)
-        component.getAttributes().get(TobagoConstants.ATTR_BODY_CONTENT);
+        component.getAttributes().get(ATTR_BODY_CONTENT);
 
     if (bodyContentHandler != null) {
       ResponseWriter writer = facesContext.getResponseWriter();
