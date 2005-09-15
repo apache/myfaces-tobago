@@ -111,6 +111,7 @@ public class DateTag extends InputTag
             facesContext, UICommand.COMPONENT_TYPE, RENDERER_TYPE_LINK);
     component.getFacets().put(FACET_PICKER, link);
 
+    link.setImmediate(true);
     link.setRendered(true);
     Map<String, Object>  attributes = link.getAttributes();
     attributes.put(ATTR_TYPE, "script");
