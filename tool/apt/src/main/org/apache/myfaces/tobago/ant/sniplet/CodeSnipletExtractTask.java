@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * This task extracts lines from source files marked with a tag. Such a sniplet starts with
+ * This task extracts lines from source fileSets marked with a tag. Such a sniplet starts with
  * <p/>
  * code-sniplet-start id="id"
  * <p/>
@@ -39,7 +39,7 @@ import java.util.ArrayList;
  * Its allowed to have nested and even entangled tags. Each sniplet gets ist own output file
  * in the output directory. The name of the file is [id].txt.
  * <p/>
- * The files to process are specified by a fileset.
+ * The fileSets to process are specified by a fileset.
  * <p/>
  * Example:
  * <pre>
@@ -56,7 +56,7 @@ import java.util.ArrayList;
 public class CodeSnipletExtractTask extends Task {
 
   private List<CodeSniplet> sniplets;
-  private FileSet files;
+  private List<FileSet> fileSets;
   private Pattern startPattern;
   private Pattern endPattern;
   private File outputDir;
@@ -67,6 +67,7 @@ public class CodeSnipletExtractTask extends Task {
     startPattern = Pattern.compile(".*code-sniplet-start\\s*id\\s*=\\s*\"(\\w*)\".*");
     endPattern = Pattern.compile(".*code-sniplet-end\\s*id\\s*=\\s*\"(\\w*)\".*");
     this.sniplets = new ArrayList<CodeSniplet>();
+    this.fileSets = new ArrayList<FileSet>();
   }
 
   public String getOutputFileNamePattern() {
@@ -85,8 +86,8 @@ public class CodeSnipletExtractTask extends Task {
     this.outputDir = outputDir;
   }
 
-  public void addConfiguredFileSet(FileSet files) {
-    this.files = files;
+  public void addConfiguredFileSet(FileSet fileSet) {
+    this.fileSets.add(fileSet);
   }
 
   public boolean isStripLeadingSpaces() {
@@ -98,47 +99,51 @@ public class CodeSnipletExtractTask extends Task {
   }
 
   public void execute() throws BuildException {
-    DirectoryScanner dirScanner = files.getDirectoryScanner(getProject());
-    dirScanner.scan();
-    String[] includedFiles = dirScanner.getIncludedFiles();
-    for (int i = 0; i < includedFiles.length; i++) {
-      String fileS = includedFiles[i];
-      LineNumberReader in = null;
-      try {
-        in = new LineNumberReader(new FileReader(files.getDir(getProject()) + File.separator + fileS));
-        String line = in.readLine();
-        while (line != null) {
-          Matcher startMatcher = startPattern.matcher(line);
-          if (startMatcher.matches()) {
-            startSniplet(startMatcher.group(1), fileS, in.getLineNumber());
-          } else {
-            Matcher endMatcher = endPattern.matcher(line);
-            if (endMatcher.matches()) {
-              endSniplet(endMatcher.group(1), fileS, in.getLineNumber());
+    for (int k = 0; k < fileSets.size(); k++) {
+      FileSet fileSet = fileSets.get(k);
+      DirectoryScanner dirScanner = fileSet.getDirectoryScanner(getProject());
+      dirScanner.scan();
+      String[] includedFiles = dirScanner.getIncludedFiles();
+      for (int i = 0; i < includedFiles.length; i++) {
+        String fileS = includedFiles[i];
+        LineNumberReader in = null;
+        try {
+          in = new LineNumberReader(new FileReader(fileSet.getDir(getProject())
+              + File.separator + fileS));
+          String line = in.readLine();
+          while (line != null) {
+            Matcher startMatcher = startPattern.matcher(line);
+            if (startMatcher.matches()) {
+              startSniplet(startMatcher.group(1), fileS, in.getLineNumber());
             } else {
-              addLine(line);
+              Matcher endMatcher = endPattern.matcher(line);
+              if (endMatcher.matches()) {
+                endSniplet(endMatcher.group(1), fileS, in.getLineNumber());
+              } else {
+                addLine(line);
+              }
+            }
+            line = in.readLine();
+          }
+          for (int j = 0; j < sniplets.size(); j++) {
+            CodeSniplet codeSniplet = (CodeSniplet) sniplets.get(j);
+            if (codeSniplet.getLineEnd() == 0) {
+              codeSniplet.setLineEnd(in.getLineNumber());
+              log("Unclosed sniplet '" + codeSniplet.getId() + "' in file '" + codeSniplet.getFileName() + "' at line '"
+                  + codeSniplet.getLineStart() + "'. Forcing close", Project.MSG_WARN);
             }
           }
-          line = in.readLine();
-        }
-        for (int j = 0; j < sniplets.size(); j++) {
-          CodeSniplet codeSniplet = (CodeSniplet) sniplets.get(j);
-          if (codeSniplet.getLineEnd() == 0) {
-            codeSniplet.setLineEnd(in.getLineNumber());
-            log("Unclosed sniplet '" + codeSniplet.getId() + "' in file '" + codeSniplet.getFileName() + "' at line '"
-                + codeSniplet.getLineStart() + "'. Forcing close", Project.MSG_WARN);
-          }
-        }
-        createOutput();
-        sniplets = new ArrayList<CodeSniplet>();
-      } catch (IOException e) {
-        throw new BuildException(e);
-      } finally {
-        if (in != null) {
-          try {
-            in.close();
-          } catch (IOException e) {
-            throw new BuildException(e);
+          createOutput();
+          sniplets = new ArrayList<CodeSniplet>();
+        } catch (IOException e) {
+          throw new BuildException(e);
+        } finally {
+          if (in != null) {
+            try {
+              in.close();
+            } catch (IOException e) {
+              throw new BuildException(e);
+            }
           }
         }
       }
@@ -148,7 +153,7 @@ public class CodeSnipletExtractTask extends Task {
   private void createOutput() throws FileNotFoundException {
     for (int i = 0; i < sniplets.size(); i++) {
       CodeSniplet codeSniplet = (CodeSniplet) sniplets.get(i);
-      String fileName = codeSniplet.getId()+".snip";
+      String fileName = codeSniplet.getId() + ".snip";
       File file = new File(outputDir, fileName);
       PrintWriter out = new PrintWriter(new FileOutputStream(file));
       StringBuffer code = codeSniplet.getCode(stripLeadingSpaces);
@@ -163,7 +168,7 @@ public class CodeSnipletExtractTask extends Task {
       CodeSniplet codeSniplet = (CodeSniplet) sniplets.get(i);
       if (codeSniplet.getId().equals(id)) {
         throw new BuildException("Duplicate sniplet declaration '" + id + "' in file '" + fileName + "' at line '"
-            + lineNumber + "'. First declaration was in file '"+codeSniplet.getFileName()+"' at line '"
+            + lineNumber + "'. First declaration was in file '" + codeSniplet.getFileName() + "' at line '"
             + codeSniplet.getLineStart() + "'.");
       }
     }

@@ -25,12 +25,13 @@
       </f:facet>
 
       <t:out escape="false" value="#{overviewBundle.layout_text}" />
-
+<%-- code-sniplet-start id="layoutManagementExample" --%>
       <t:box label="#{overviewBundle.layout_exampleTitle}">
         <f:facet name="layout">
           <t:gridLayout columns="1*;1*" rows="fixed;fixed;fixed;fixed;fixed;*"/>
         </f:facet>
-        <t:selectOneChoice value="#{overviewController.singleValue}" label="#{overviewBundle.layout_salutation}">
+        <t:selectOneChoice value="#{overviewController.singleValue}"
+                           label="#{overviewBundle.layout_salutation}">
           <f:selectItems value="#{overviewController.items}" />
         </t:selectOneChoice>
         <t:cell/>
@@ -52,7 +53,7 @@
           <t:textarea value="" label="#{overviewBundle.layout_note}" />
         </t:cell>
       </t:box>
-
+<%-- code-sniplet-end id="layoutManagementExample" --%>
     </t:panel>
   </jsp:body>
 </layout:overview>

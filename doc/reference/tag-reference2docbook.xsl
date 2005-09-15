@@ -50,12 +50,12 @@
           </listitem>
         </varlistentry>
         <!--<varlistentry>-->
-          <!--<term>Description</term>-->
-          <!--<listitem>-->
-            <!--<para>-->
-              <!--<xsl:value-of select="description"/>-->
-            <!--</para>-->
-          <!--</listitem>-->
+        <!--<term>Description</term>-->
+        <!--<listitem>-->
+        <!--<para>-->
+        <!--<xsl:value-of select="description"/>-->
+        <!--</para>-->
+        <!--</listitem>-->
         <!--</varlistentry>-->
       </variablelist>
       <example>
@@ -66,7 +66,7 @@
         </title>
         <programlisting lang="jsp">
           <textobject>
-            <textdata fileref="../sniplets/{$tagname}.snip" />
+            <textdata fileref="../sniplets/{$tagname}.snip"/>
           </textobject>
         </programlisting>
       </example>
@@ -117,6 +117,12 @@
     <xsl:param name="type-class" select="ui-attribute-type/class/name"/>
 
     <row>
+      <xsl:if test="position() mod 2 = 1">
+        <xsl:attribute name="class">tobago-reference-row-odd</xsl:attribute>
+      </xsl:if>
+      <xsl:if test="position() mod 2 != 1">
+        <xsl:attribute name="class">tobago-reference-row-even</xsl:attribute>
+      </xsl:if>
       <entry>
         <xsl:value-of select="name"/>
         <indexterm>

@@ -1,0 +1,14 @@
+<chapter id="architecture">
+  <title>Architecture</title>
+  <para>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="image/screen.png" format="PNG"/>
+      </imageobject>
+      <caption>
+        <para>test image
+        </para>
+      </caption>
+    </mediaobject>
+  </para>
+</chapter>

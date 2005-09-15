@@ -35,6 +35,9 @@
       <fileset dir="../../tool/gendoc/webapp/screenshot">
         <include name="*.jsp"/>
       </fileset>
+      <fileset dir="../../example/demo/webapp/overview">
+        <include name="*.jsp"/>
+      </fileset>
     </sniplet-extract>
   </target>
 
@@ -45,6 +48,7 @@
          dir="../../core" target="generate-tag-reference"/>
 
     <mkdir dir="build/html"/>
+    <mkdir dir="build/html/image"/>
     <mkdir dir="build/docbook"/>
     <style
         in="../../core/build/classes/main/org/apache/myfaces/tobago/taglib/tag-reference.xml"
@@ -72,19 +76,16 @@
           html.stylesheet=tobago-reference.css
           table.borders.with.css=true"/>
 
-      <!--table.cell.border.style=solid-->
-      <!--table.cell.border.thickness=1pt-->
-      <!--table.cell.border.color=black-->
-      <!--table.frame.border.style=solid-->
-      <!--table.frame.border.thickness=1pt-->
-      <!--table.frame.border.color=black-->
-      
-
       <!-- You can find the documentation of the style sheet params in the document
  '/doc/html/index.html' in your docbook installation. -->
 
     </java>
     <copy file="tobago-reference.css" todir="build/html"/>
+    <copy todir="build/html/image">
+      <fileset dir="image">
+        <include name="*.png"/>
+      </fileset>
+    </copy>
   </target>
 
 </project>
