@@ -18,7 +18,7 @@
 
 <f:view locale="#{clientConfigController.locale}">
   <f:loadBundle basename="org.apache.myfaces.tobago.example.demo.miniHowto.Resources" var="miniHowtoBundle" />
-  <f:loadBundle basename="org.apache.myfaces.tobago.example.demo.overview.Resources" var="overviewBundle" />
+  <t:loadBundle basename="Resources" var="overviewBundle" />
   <t:page label="#{miniHowtoBundle.pageTitle}" id="page"
       width="750px" height="600px">
 
