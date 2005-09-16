@@ -178,7 +178,7 @@
     <dependency>
       <groupId>jstl</groupId>
       <artifactId>jstl</artifactId>
-      <version>1.0</version>
+      <version>1.1.0</version>
       <scope>compile</scope>
     </dependency>
 
@@ -199,7 +199,7 @@
     <dependency>
       <groupId>taglibs</groupId>
       <artifactId>standard</artifactId>
-      <version>1.0.5</version>
+      <version>1.1.2</version>
       <scope>compile</scope>
     </dependency>
 
@@ -212,13 +212,13 @@
     <dependency>
       <groupId>myfaces</groupId>
       <artifactId>myfaces-api</artifactId>
-      <version>svn233162</version>
+      <version>svn289586</version>
     </dependency>
 
     <dependency>
       <groupId>myfaces</groupId>
       <artifactId>myfaces-impl</artifactId>
-      <version>svn233162</version>
+      <version>svn289586</version>
     </dependency>
 
     <dependency>

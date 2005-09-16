@@ -16,7 +16,7 @@
 <%@ page import="javax.faces.context.FacesContext"%>
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <f:subview id="navigator" >
   <t:panel>
     <f:facet name="layout">
