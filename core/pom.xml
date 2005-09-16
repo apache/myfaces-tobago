@@ -212,13 +212,13 @@
     <dependency>
       <groupId>myfaces</groupId>
       <artifactId>myfaces-api</artifactId>
-      <version>svn289586</version>
+      <version>svn233162</version>
     </dependency>
 
     <dependency>
       <groupId>myfaces</groupId>
       <artifactId>myfaces-impl</artifactId>
-      <version>svn289586</version>
+      <version>svn233162</version>
     </dependency>
 
     <dependency>
