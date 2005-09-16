@@ -17,7 +17,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
 <f:view locale="#{clientConfigController.locale}">
-  <t:loadBundle basename="Resources" var="overviewBundle" />
+  <t:loadBundle basename="overview" var="overviewBundle" />
   <t:page label="#{overviewBundle.pageTitle}" id="page"
       width="750px" height="600px">
 
