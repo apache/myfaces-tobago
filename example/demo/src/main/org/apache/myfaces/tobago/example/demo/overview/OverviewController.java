@@ -19,13 +19,13 @@
  */
 package org.apache.myfaces.tobago.example.demo.overview;
 
-import javax.faces.component.UIViewRoot;
+import org.apache.myfaces.tobago.context.ResourceManager;
+import org.apache.myfaces.tobago.context.ResourceManagerFactory;
+
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import java.util.Date;
-import java.util.PropertyResourceBundle;
-import java.util.ResourceBundle;
 
 public class OverviewController {
 
@@ -66,10 +66,11 @@ public class OverviewController {
 // ///////////////////////////////////////////// util
 
   private static SelectItem[] getSelectItems(
-      String[] keys, ResourceBundle resources) {
+      String[] keys, ResourceManager resourceManager, String resource) {
     SelectItem[] items = new SelectItem[keys.length];
     for (int i = 0; i < items.length; i++) {
-      String label = resources.getString(keys[i]);
+      String label = resourceManager.getProperty(
+          FacesContext.getCurrentInstance().getViewRoot(), resource, keys[i]);
       items[i] = new SelectItem(keys[i], label);
     }
     return items;
@@ -86,11 +87,9 @@ public class OverviewController {
 // ///////////////////////////////////////////// getter + setter
 
   public SelectItem[] getItems() {
-    UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
-    ResourceBundle resources = PropertyResourceBundle.getBundle(
-        OverviewController.class.getPackage().getName() + ".Resources",
-        viewRoot.getLocale());
-    return getSelectItems(ITEM_KEYS, resources);
+    ResourceManager resourceManager = ResourceManagerFactory
+        .getResourceManager(FacesContext.getCurrentInstance());
+    return getSelectItems(ITEM_KEYS, resourceManager, "overview");
   }
 
 // ///////////////////////////////////////////// bean getter + setter
