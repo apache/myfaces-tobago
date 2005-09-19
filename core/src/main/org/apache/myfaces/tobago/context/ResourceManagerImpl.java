@@ -104,7 +104,6 @@ public class ResourceManagerImpl implements ResourceManager {
 //    final String type = "image";
     String result = null;
     if (name != null) {
-      final String type = null;
       int dot = name.lastIndexOf('.');
       if (dot == -1) {
         dot = name.length();
@@ -119,7 +118,7 @@ public class ResourceManagerImpl implements ResourceManager {
       if (result == null) {
         // todo: cache null values
         try {
-          List paths = getPaths(clientPropertyId, locale, resourceDirectories, "", type,
+          List paths = getPaths(clientPropertyId, locale, resourceDirectories, "", null,
               name.substring(0, dot), name.substring(dot), false, true, true, null,
               true, ignoreMissing);
           if (paths != null) {
