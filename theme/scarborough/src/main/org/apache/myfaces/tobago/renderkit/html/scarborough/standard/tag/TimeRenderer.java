@@ -127,22 +127,43 @@ public class TimeRenderer extends InRendererBase{
 
     writer.endElement("div");
 
+    String imageId = idPrefix + "inc";
+    String imageSrc = "image/timeIncrement.gif";
+    ImageRenderer.addImageSources(
+        facesContext, ComponentUtil.findPage(input), imageSrc, imageId);
     writer.startElement("img");
-    writer.writeIdAttribute(idPrefix + "inc");
+    writer.writeIdAttribute(imageId);
     writer.writeAttribute("onclick", "tbgIncTime(this)", false);
     writer.writeClassAttribute("tobago-time-inc-image"
         + (hasSeconds ? " tobago-time-image-seconds" : ""));
-    writer.writeAttribute("src", ResourceManagerUtil.getImageWithPath(facesContext, "image/timeIncrement.gif"), true);
+    writer.writeAttribute("src", ResourceManagerUtil.getImageWithPath(facesContext, imageSrc), true);
     writer.writeAttribute("alt", "", false); // todo: tip
+
+    if (!ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED)) {
+      writer.writeAttribute("onmouseover",
+          "tobagoImageMouseover('" + imageId + "')", null);
+      writer.writeAttribute("onmouseout",
+          "tobagoImageMouseout('" + imageId + "')", null);
+    }
     writer.endElement("img");
 
+    imageId = idPrefix + "dec";
+    imageSrc = "image/timeDecrement.gif";
+    ImageRenderer.addImageSources(
+        facesContext, ComponentUtil.findPage(input), imageSrc, imageId);
     writer.startElement("img");
-    writer.writeIdAttribute(idPrefix + "dec");
+    writer.writeIdAttribute(imageId);
     writer.writeAttribute("onclick", "tbgDecTime(this)", false);
     writer.writeClassAttribute("tobago-time-dec-image"
         + (hasSeconds ? " tobago-time-image-seconds" : ""));
-    writer.writeAttribute("src", ResourceManagerUtil.getImageWithPath(facesContext, "image/timeDecrement.gif"), true);
-    writer.writeAttribute("alt", "", false); // todo: tip
+    writer.writeAttribute("src", ResourceManagerUtil.getImageWithPath(facesContext, imageSrc), true);
+    writer.writeAttribute("alt", "", false); // todo: tip    
+    if (!ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED)) {
+      writer.writeAttribute("onmouseover",
+          "tobagoImageMouseover('" + imageId + "')", null);
+      writer.writeAttribute("onmouseout",
+          "tobagoImageMouseout('" + imageId + "')", null);
+    }
     writer.endElement("img");
 
 
