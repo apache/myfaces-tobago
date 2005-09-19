@@ -114,6 +114,7 @@ public class DateTag extends InputTag
 
     link.setImmediate(true);
     link.setRendered(true);
+    link.setImmediate(true);
     Map<String, Object>  attributes = link.getAttributes();
     attributes.put(ATTR_TYPE, "script");
     link.setId(idPrefix + DatePickerController.OPEN_POPUP);
