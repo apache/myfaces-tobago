@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Copyright 2002-2005 atanion GmbH.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+-->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--# $Id: spellchecker.properties.xml,v 1.1 2005/09/09 14:50:08 lofwyr Exp $-->
+
+<properties>
+
+  <!--  navigate -->
+  <entry key="pageTitle">Addressbook Mini Howto</entry>
+  <entry key="intro">Introduction</entry>
+  <entry key="navigationRules">Navigationrules</entry>
+  <entry key="classDefinition">Class description</entry>
+  <entry key="jspDefinition">JSP´s</entry>
+  <entry key="theme">Themes</entry>
+  <entry key="validation">Validation</entry>
+  <entry key="i18n">Internationalisation</entry>
+  <entry key="overview">Overview</entry>
+  <entry key="overviewNavigateTooltip">Link to the Tobago Overview</entry>
+  <entry key="codeExample">Code example</entry>
+
+  <!-- Intro -->
+  <entry key="introText1">&lt;b&gt;Introduction&lt;/b&gt; &lt;br /&gt;
+    Easy development of webapplications is the main goal of Tobago. And how easy it
+    is to develop a simple addressbook webapplication is what we want to show
+    you in this short guide. The addressbook application will support different
+    themes, validate user input and will be internationalized.&lt;br /&gt; In
+    the next steps we will do the following: &lt;ul&gt;
+    &lt;li&gt;Programming of the JSP´s&lt;/li&gt;
+    &lt;li&gt;Define the navigation rules&lt;/li&gt;
+    &lt;li&gt;Implement the business logic&lt;/li&gt;
+    &lt;li&gt;Include a second theme&lt;/li&gt;
+    &lt;li&gt;Validate the User entries&lt;/li&gt;
+    &lt;li&gt;Internationalize the application&lt;/li&gt;
+    &lt;/ul&gt;
+    The addressbook will be a very simple application for demo use. It mainly
+    features storing of address data plus some additional info of the contact,
+    such as e-mail, phonenumbers, birthday etc.
+  </entry>
+
+  <!-- JSP Pages -->
+  <entry key="jspDefinitionText1">&lt;b&gt;JSP´s&lt;/b&gt; &lt;br /&gt;
+    For this simple application you just need two JSP´s with Tobago elements.
+    One to store and one to display the contact data. For displaying the
+    contact´s we will use a Tobago sheet. To enter the data there will be a page
+    with some input elements and a Tobago date control to enter the
+    birthdate.</entry>
+  <entry key="jspDefinitionCodeExample1">...
+    &lt;t:sheet columns=&quot;1*;1*&quot;
+                value=&quot;#{controller.addressList}&quot;var=&quot;address&quot;
+                stateBinding=&quot;#{controller.selectedAddresses}&quot;
+            &lt;t:column label=&quot;First Name&quot; sortable=&quot;true&quot;&gt;
+                    &lt;t:out value=&quot;#{address.firstName}&quot; /&gt;
+            &lt;/t:column&gt;
+            &lt;t:column label=&quot;Last Name&quot; sortable=&quot;true&quot;&gt;
+                &lt;t:out value=&quot;#{address.lastName}&quot;/&gt;
+            &lt;/t:column&gt;
+    &lt;/t:sheet&gt; &lt;br /&gt;
+    ...</entry>
+  <entry key="jspDefinitionText2">This is a part of the code example for the
+    sheet component. The addresses which the sheet will display are delivered by
+    a list object which is bound to the sheet via the stateBinding attribute. In
+    the coloums you simply have to refer to the values in the list via the given
+    variable ´address´.</entry>
+
+
+  <!-- Navigation Rules -->
+  <entry key="navigationRulesText1">&lt;b&gt;Navigation rules&lt;/b&gt;&lt;br /&gt;&lt;br
+    /&gt;
+    In the application the navigation ist configured from view to view in the
+    file: ´faces-config.xml´.</entry>
+  <entry key="navigationRules_codeExample1">&lt;navigation-rule&gt;
+            &lt;navigation-case&gt;
+                        &lt;from-outcome&gt;editor&lt;/from-outcome&gt;
+                        &lt;to-view-id&gt;/editor.jsp&lt;/to-view-id&gt;
+            &lt;/navigation-case&gt;
+            &lt;navigation-case&gt;
+                        &lt;from-outcome&gt;list&lt;/from-outcome&gt;
+                        &lt;to-view-id&gt;/list.jsp&lt;/to-view-id&gt;
+            &lt;/navigation-case&gt;
+&lt;/navigation-rule&gt;</entry>
+  <entry key="navigationRulesText2">You get the outcome string defined here from
+    the application itself as return value. This string is always the next
+    rendered page, in this example the outcome can be ´list´ or
+    ´editor´.</entry>
+
+  <!-- Class Description -->
+  <entry key="classDefinitionText1">&lt;b&gt;The Controller Class&lt;/b&gt;&lt;br
+    /&gt;&lt;br /&gt;
+    The business logic, like storing/getting the data etc. is done by the
+    ´Controller´ class. The return string of the executed method represents the
+    outcome for the navigation.</entry>
+
+  <entry key="classDefinitionCodeExample">...
+public String storeAddress() {
+                        if (currentStored) {
+            // nothing to do for this backend
+            } else {
+                        addressList.add(currentAddress);
+                        selectedAddresses.resetSelected();
+            }
+            return &quot;list&quot;;
+}
+...</entry>
+
+
+  <!-- Themes -->
+  <entry key="themesText1">&lt;b&gt;Theme configuration&lt;/b&gt; &lt;br /&gt;&lt;br
+    /&gt;
+    In Tobago it's easy to give an application a well designed look. You can use
+    prepared themes like speyside oder scarborough, just to name two.&lt;br /&gt;&lt;br
+    /&gt;
+    The only thing you have to do is weconfigure them at the right place. This is
+    done in the tobago-config.xml by defining a default theme.</entry>
+
+  <entry key="themesCodeExample1">...
+&lt;tobago-config&gt;
+            &lt;theme-config&gt;
+                        &lt;default-theme&gt;org.apache.myfaces.tobago.context.SpeysideTheme&lt;/default-theme&gt;
+            &lt;/theme-config&gt;
+            &lt;resource-dir&gt;tobago&lt;/resource-dir&gt;
+&lt;/tobago-config&gt;
+...</entry>
+
+
+  <!-- Validation -->
+  <entry key="validationText1">&lt;b&gt;Validation of user input&lt;/b&gt; &lt;br
+    /&gt;&lt;br /&gt;
+  Tobago supports the user by validating entered data if the developer
+  configured validation for input elements. To do that, the developer simply has
+  to bind a validator to a specific input field and configure the validation
+  method (e.g. only strings, e-mail patterns or numbers from 1 to 10 etc.).&lt;br
+  /&gt;</entry>
+
+  <entry key="validationCodeExample1">&lt;t:box label=&quot;Address Editor&quot;&gt;
+        &lt;f:facet name=&quot;layout&quot;&gt;
+                &lt;t:gridLayout rows=&quot;fixed;{...};fixed;&quot; /&gt; 
+        &lt;/f:facet&gt;
+        &lt;t:messages /&gt;&lt;br /&gt;
+        &lt;t:in value=&quot;#{controller.currentAddress.firstName}&quot;
+                label=&quot;First Name&quot; required=&quot;true&quot; /&gt;
+...
+&lt;/t:box&gt;</entry>
+
+  <entry key="validationText2">In this example a required validator is bound to
+    the ´first name´ input field. It just tells the user that he has to enter
+    some text. If you want to give the user a hint what he has made wrong (and
+    that is what you generally want ;-)), you have to place the tobago messages
+    tag on the page. If error messages are in the faces context, they are
+    rendered at this defined place.</entry>
+
+  <entry key="i18nText1">&lt;b&gt;Internationalisation&lt;/b&gt; &lt;br /&gt;
+    The last step in our short guide is to i18n the application. Since now we
+    just entered the values for the labels as hardcoded text. If we want our
+    application to support more languages, we have to separate the language
+    specific contents from the JSP´s. This is done by putting all language
+    specific text into a resource bundle and load this bundle on each page where
+    we want to use it. In this property file we have unique key/value
+    combinations for te translation. Everywhere where we want internationalsized
+    text we have to refer to the key. &lt;br /&gt;&lt;br /&gt;
+    Therefor you have to tell the application where to find the key, so we have
+    to load the resources bundle first as said before:</entry>
+
+  <entry key="i18nCodeExample1">&lt;f:loadBundle basename=&quot;org.apache.myfaces.tobago.example.addressbook.Resources&quot;
+                var=&quot;bundle&quot;/&gt;</entry>
+
+  <entry key="i18nText2">To use the translated text for example in the attribute
+    of an input field we have to refer to the resource bundle by the given
+    variable (in this case ´bundle´) and the key.</entry>
+
+  <entry key="i18nCodeExample2">&lt;t:button label=&quot;#{bundle.listNew}&quot;
+                action=&quot;#{controller.createAddress}&quot; /&gt;</entry>
+
+</properties>

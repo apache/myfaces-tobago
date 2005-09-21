@@ -180,18 +180,6 @@
       <from-outcome>overview/layout</from-outcome>
       <to-view-id>/overview/layout.jsp</to-view-id>
     </navigation-case>
-    <navigation-case>
-      <from-outcome>overview/download</from-outcome>
-      <to-view-id>/overview/download.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>overview/download_success</from-outcome>
-      <to-view-id>/overview/download_success.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>overview/download_error</from-outcome>
-      <to-view-id>/overview/download_error.jsp</to-view-id>
-    </navigation-case>
   </navigation-rule>
 
   <navigation-rule>

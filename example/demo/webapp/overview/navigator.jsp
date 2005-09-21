@@ -118,15 +118,6 @@
     <t:link action="overview/layout" immediate="true"
         actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.layout}" />
 
-<%--
-     <f:verbatim>
-        <t:image value="image/navigate-pointer.gif" width="16px" height="16px"
-        rendered="#{overviewNavigation.currentPage == 'overview/download'}" />
-    </f:verbatim>
-    <t:link action="overview/download" immediate="true"
-        actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.download}" />
---%>
-
     <t:cell spanX="2">
       <f:verbatim>
         <hr width="80%"/>

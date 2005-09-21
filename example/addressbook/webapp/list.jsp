@@ -16,11 +16,9 @@
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <f:view>
-  <t:page label="#{bundle.listPageTitle}" width="640px" height="480px">
+  <t:loadBundle basename="addressbook" var="bundle"/>
 
-    <f:loadBundle
-        basename="org.apache.myfaces.tobago.example.addressbook.Resources"
-        var="bundle"/>
+  <t:page label="#{bundle.listPageTitle}" width="640px" height="480px">
 
     <t:panel>
       <f:facet name="layout">

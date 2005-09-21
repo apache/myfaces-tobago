@@ -52,9 +52,6 @@
             <t:menuItem action="overview/layout" immediate="true"
                              actionListener="#{overviewNavigation.navigate}"
                              label="#{overviewBundle.layout}" />
-           <%-- <t:menuItem action="overview/download" immediate="true"
-                             actionListener="#{overviewNavigation.navigate}"
-                             label="#{overviewBundle.download}" />--%>
 
 <%--
             <t:menuSeparator />
