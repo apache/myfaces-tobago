@@ -44,7 +44,8 @@
               label="#{overviewBundle.basic_dateLabel}">
             <f:convertDateTime pattern="dd.MM.yyyy" />
           </t:date>
-          <t:time label="#{overviewBundle.basic_timeLabel}" />
+          <t:time label="#{overviewBundle.basic_timeLabel}"
+                  value="#{overviewController.basicTime}" />
         </t:panel>
 
         <t:textarea value="#{overviewController.basicArea}"
