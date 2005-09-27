@@ -117,7 +117,7 @@ public class TobagoDemoController {
     };
 
     salutationItems = getSelectItems(salutationKeys, "demo");
-    salutation = new String[4];
+    this.salutation = new String[]{"" ,"" ,"" ,""};
 
     bool = new Boolean[10];
     bool[0] = true;
