@@ -73,9 +73,9 @@ public class TabGroupRenderer extends RendererBase {
         (String)facesContext.getExternalContext().getRequestParameterMap().get(clientId + ACTIVE_INDEX_POSTFIX);
     try {
       int activeIndex = Integer.parseInt(newValue);
-      ((UITabGroup) component).setActiveIndex(activeIndex);
-      ((UITabGroup) component).updateState(facesContext);
       if (activeIndex != oldIndex) {
+        ((UITabGroup) component).setActiveIndex(activeIndex);
+//      ((UITabGroup) component).updateState(facesContext); should be (and is) done in updateModel phase!
         StateChangeEvent event = new StateChangeEvent(component,
             new Integer(oldIndex), new Integer(activeIndex));
         event.setPhaseId(PhaseId.UPDATE_MODEL_VALUES);
