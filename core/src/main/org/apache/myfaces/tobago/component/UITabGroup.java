@@ -41,6 +41,8 @@ public class UITabGroup extends UIPanel {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TabGroup";
 
+  public static final String RENDERED_INDEX
+      = "org.apache.myfaces.tobago.component.UITabGroup.RENDERED_INDEX";
 // ///////////////////////////////////////////// attribute
 
   private int activeIndex;
@@ -51,6 +53,11 @@ public class UITabGroup extends UIPanel {
 
   public boolean getRendersChildren() {
     return true;
+  }
+
+  public void encodeBegin(FacesContext facesContext) throws IOException {
+    setRenderedIndex(activeIndex);
+    super.encodeBegin(facesContext);
   }
 
   public void encodeChildren(FacesContext context)
@@ -93,9 +100,49 @@ public class UITabGroup extends UIPanel {
     return getTabs()[activeIndex];
   }
 
+  public void processDecodes(FacesContext context) {
+    if (ComponentUtil.getBooleanAttribute(this, ATTR_SERVER_SIDE_TABS)) {
+
+      if (context == null) throw new NullPointerException("context");
+      if (!isRendered()) return;
+      UIPanel renderedTab = getTabs()[getRenderedIndex()];
+      renderedTab.processDecodes(context);
+      try
+      {
+        decode(context);
+      }
+      catch (RuntimeException e)
+      {
+        context.renderResponse();
+        throw e;
+      }
+    } else {
+      super.processDecodes(context);
+    }
+  }
+
+  public void processValidators(FacesContext context) {
+    if (ComponentUtil.getBooleanAttribute(this, ATTR_SERVER_SIDE_TABS)) {
+      if (context == null) throw new NullPointerException("context");
+      if (!isRendered()) return;
+      UIPanel renderedTab = getTabs()[getRenderedIndex()];
+      renderedTab.processValidators(context);
+    } else {
+      super.processValidators(context);
+    }
+  }
+
   public void processUpdates(FacesContext context) {
-    super.processUpdates(context);
-    updateState(context);
+    if (ComponentUtil.getBooleanAttribute(this, ATTR_SERVER_SIDE_TABS)) {
+      if (context == null) throw new NullPointerException("context");
+      if (!isRendered()) return;
+      UIPanel renderedTab = getTabs()[getRenderedIndex()];
+      renderedTab.processUpdates(context);
+      updateState(context);
+    } else {
+      super.processUpdates(context);
+      updateState(context);
+    }
   }
 
   public void updateState(FacesContext facesContext) {
@@ -115,6 +162,14 @@ public class UITabGroup extends UIPanel {
 
   public void removeTabChangeListener(TabChangeListener listener) {
     removeFacesListener(listener);
+  }
+
+
+  private void setRenderedIndex(int index) {
+    getAttributes().put(RENDERED_INDEX, new Integer(index));
+  }
+  private int getRenderedIndex() {
+    return ((Integer)getAttributes().get(RENDERED_INDEX)).intValue();
   }
 
 // ///////////////////////////////////////////// bean getter + setter
