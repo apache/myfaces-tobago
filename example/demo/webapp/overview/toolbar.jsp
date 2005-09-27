@@ -187,8 +187,8 @@
 
             <t:menu label="#{overviewBundle.toolbar_selectSingleselect}">
 
-              <t:menuradio value="#{demo.salutation[0]}" >
-                <f:selectItems value="#{demo.salutationItems}" />
+              <t:menuradio value="#{overviewController.radioValue}" >
+                <f:selectItems value="#{overviewController.items}" />
               </t:menuradio>
 
             </t:menu>
