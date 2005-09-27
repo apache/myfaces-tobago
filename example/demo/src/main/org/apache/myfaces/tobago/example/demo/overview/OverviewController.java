@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.example.demo.overview;
 
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
+import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -41,6 +42,20 @@ public class OverviewController {
     "basic_itemMrs",
   };
 
+  private static final String[] TREE_SELECT_MODE_KEYS = {
+    "none",
+    "single",
+    "singleLeafOnly",
+    "multi",
+    "multiLeafOnly"
+  };
+
+  private static final String[] TREELISTBOX_SELECT_MODE_KEYS = {
+    "single",
+    "singleLeafOnly",
+    "siblingLeafOnly"
+  };
+
 // ///////////////////////////////////////////// attribute
 
   private String radioValue;
@@ -57,6 +72,12 @@ public class OverviewController {
 
   private Date basicTime = new Date();
 
+  private String treeSelectMode;
+
+  private String treeListboxSelectMode;
+
+  private Integer treeTabsState;
+
   private String lastAction;
 
 // ///////////////////////////////////////////// constructor
@@ -64,7 +85,10 @@ public class OverviewController {
   public OverviewController() {
     radioValue = ITEM_KEYS[0];
     singleValue = ITEM_KEYS[0];
+    treeSelectMode = TREE_SELECT_MODE_KEYS[0];
+    treeListboxSelectMode = TREELISTBOX_SELECT_MODE_KEYS[0];
     multiValue = new String[0];
+    treeTabsState = new Integer(0);
   }
 
 // ///////////////////////////////////////////// action
@@ -77,6 +101,8 @@ public class OverviewController {
     for (int i = 0; i < items.length; i++) {
       String label = resourceManager.getProperty(
           FacesContext.getCurrentInstance().getViewRoot(), resource, keys[i]);
+      LOG.info("label = " + label + "");
+      if (label == null) {label = keys[i];}
       items[i] = new SelectItem(keys[i], label);
     }
     return items;
@@ -96,6 +122,28 @@ public class OverviewController {
     ResourceManager resourceManager = ResourceManagerFactory
         .getResourceManager(FacesContext.getCurrentInstance());
     return getSelectItems(ITEM_KEYS, resourceManager, "overview");
+  }
+
+  public SelectItem[] getItems2() {
+    ResourceManager resourceManager = ResourceManagerFactory
+        .getResourceManager(FacesContext.getCurrentInstance());
+    return getSelectItems(TREE_SELECT_MODE_KEYS, resourceManager, "overview");
+
+  }
+
+
+  public SelectItem[] getTreeSelectModeItems() {
+    ResourceManager resourceManager = ResourceManagerFactory
+        .getResourceManager(FacesContext.getCurrentInstance());
+    return getSelectItems(TREE_SELECT_MODE_KEYS, resourceManager, "overview");
+
+  }
+
+  public SelectItem[] getTreeListboxSelectModeItems() {
+    ResourceManager resourceManager = ResourceManagerFactory
+        .getResourceManager(FacesContext.getCurrentInstance());
+    return getSelectItems(TREELISTBOX_SELECT_MODE_KEYS, resourceManager, "overview");
+
   }
 
 // ///////////////////////////////////////////// bean getter + setter
@@ -140,6 +188,22 @@ public class OverviewController {
     this.basicTime = basicTime;
   }
 
+  public String getTreeSelectMode() {
+    return treeSelectMode;
+  }
+
+  public void setTreeSelectMode(String treeSelectMode) {
+    this.treeSelectMode = treeSelectMode;
+  }
+
+  public String getTreeListboxSelectMode() {
+    return treeListboxSelectMode;
+  }
+
+  public void setTreeListboxSelectMode(String treeListboxSelectMode) {
+    this.treeListboxSelectMode = treeListboxSelectMode;
+  }
+
   public String getBasicInput() {
     return basicInput;
   }
@@ -158,5 +222,13 @@ public class OverviewController {
 
   public String getLastAction() {
     return lastAction;
+  }
+
+  public Integer getTreeTabsState() {
+    return treeTabsState;
+  }
+
+  public void setTreeTabsState(Integer treeTabsState) {
+    this.treeTabsState = treeTabsState;
   }
 }

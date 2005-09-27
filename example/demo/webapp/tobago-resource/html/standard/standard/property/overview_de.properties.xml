@@ -86,6 +86,13 @@
   <entry key="treeMultiselect">Auswählbar</entry>
   <entry key="treeMutable">Veränderbar</entry>
 
+  <entry key="none">Nicht Auswählbar</entry>
+  <entry key="single">Einfache Auswahl</entry>
+  <entry key="singleLeafOnly">Einfache Auswahl, nur Blätter</entry>
+  <entry key="multi">Mehrfach Auswahl</entry>
+  <entry key="multiLeafOnly">Mehrfach Auswahl, nur Blätter</entry>
+  <entry key="siblingLeafOnly">Mehrfach Auswahl, nur Blätter einer Ebene</entry>
+
 <!--  tab -->
   <entry key="tab_sampleTitle">Tab Beispiel</entry>
   <entry key="tab_text">Das Tab-Control stellt so genannte Tab-Panels zur Verfügung. &lt;ul style="margin-top: 2px;"&gt; &lt;li style="line-height: 130%;"&gt;Die Steuerung kann server- oder clientseitig erfolgen.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Tab-Controls können verschachtelt werden.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Innerhalb von Tab-Controls können wiederum   beliebige Controls angeordnet werden.&lt;/li&gt; &lt;/ul&gt;</entry>
