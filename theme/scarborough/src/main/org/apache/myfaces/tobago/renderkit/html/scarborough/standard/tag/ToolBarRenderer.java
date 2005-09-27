@@ -421,12 +421,9 @@ public class ToolBarRenderer extends RendererBase {
     if (name == null) {
       return ResourceManagerUtil.getImageWithPath(facesContext, "image/1x1.gif");
     }
-    int pos = name.lastIndexOf('_');
+    int pos = name.lastIndexOf('.');
     if (pos == -1) {
-      pos = name.lastIndexOf('.');
-    }
-    if (pos == -1) {
-      pos = name.length(); // avoid exception if no '_' or '.' in name
+      pos = name.length(); // avoid exception if no '.' in name
     }
     String key = name.substring(0, pos);
     String ext = name.substring(pos);
@@ -472,6 +469,7 @@ public class ToolBarRenderer extends RendererBase {
       }
     }
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
+    LOG.info("getImage for " + name + ", " + iconSize + ", " + disabled + ", " + selected + " = " + image);
     return contextPath + image;
   }
 
