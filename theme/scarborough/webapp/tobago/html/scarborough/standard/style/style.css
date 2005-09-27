@@ -686,11 +686,13 @@ div.tobago-richTextEditor-body {
   position:absolute;
   top: 0px;
   left: 63px;
+  cursor: pointer;
 }
 .tobago-time-dec-image {
   position:absolute;
   bottom: 0px;
   left: 63px;
+  cursor: pointer;
 }
 .tobago-time-image-seconds {
   left: 92;
