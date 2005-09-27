@@ -201,7 +201,7 @@ public class MockExternalContext extends ExternalContext {
 
 
     public String encodeNamespace(String aValue) {
-        throw new UnsupportedOperationException();
+        return aValue;
     }
 
 
