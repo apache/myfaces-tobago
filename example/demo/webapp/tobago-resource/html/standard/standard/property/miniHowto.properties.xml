@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!--
  * Copyright 2002-2005 atanion GmbH.
@@ -83,7 +83,7 @@
   <!-- Navigation Rules -->
   <entry key="navigationRulesText1">&lt;b&gt;Navigation rules&lt;/b&gt;&lt;br /&gt;&lt;br
     /&gt;
-    In the application the navigation ist configured from view to view in the
+    In the application the navigation is configured from view to view in the
     file: ´faces-config.xml´.</entry>
   <entry key="navigationRules_codeExample1">&lt;navigation-rule&gt;
             &lt;navigation-case&gt;
@@ -96,7 +96,7 @@
             &lt;/navigation-case&gt;
 &lt;/navigation-rule&gt;</entry>
   <entry key="navigationRulesText2">You get the outcome string defined here from
-    the application itself as return value. This string is always the next
+    the application itself as the return value. This string is always the next
     rendered page, in this example the outcome can be ´list´ or
     ´editor´.</entry>
 
@@ -124,8 +124,7 @@ public String storeAddress() {
   <entry key="themesText1">&lt;b&gt;Theme configuration&lt;/b&gt; &lt;br /&gt;&lt;br
     /&gt;
     In Tobago it's easy to give an application a well designed look. You can use
-    prepared themes like speyside oder scarborough, just to name two.&lt;br /&gt;&lt;br
-    /&gt;
+    prepared themes like speyside oder scarborough, just to name two.
     The only thing you have to do is weconfigure them at the right place. This is
     done in the tobago-config.xml by defining a default theme.</entry>
 
@@ -168,17 +167,16 @@ public String storeAddress() {
   <entry key="i18nText1">&lt;b&gt;Internationalisation&lt;/b&gt; &lt;br /&gt;
     The last step in our short guide is to i18n the application. Since now we
     just entered the values for the labels as hardcoded text. If we want our
-    application to support more languages, we have to separate the language
+    application to support multiple languages, we have to separate the language
     specific contents from the JSP´s. This is done by putting all language
-    specific text into a resource bundle and load this bundle on each page where
-    we want to use it. In this property file we have unique key/value
-    combinations for te translation. Everywhere where we want internationalsized
-    text we have to refer to the key. &lt;br /&gt;&lt;br /&gt;
-    Therefor you have to tell the application where to find the key, so we have
-    to load the resources bundle first as said before:</entry>
+    specific text into a XML resource bundle and load this bundle on each page where
+    we want to use it. In this XML file we have entry tags containing the key 
+    as a tag attribute. The tag contains the translated text. 
+    Everywhere where we want internationalsized text we have to refer to the key.&lt;br /&gt;
+    Therefor you have to tell the application where to find the key, for that we have
+    to load the resource bundle first as said before:</entry>
 
-  <entry key="i18nCodeExample1">&lt;f:loadBundle basename=&quot;org.apache.myfaces.tobago.example.addressbook.Resources&quot;
-                var=&quot;bundle&quot;/&gt;</entry>
+  <entry key="i18nCodeExample1">&lt;t:loadBundle basename=&quot;addressbook&quot; var=&quot;bundle&quot;/&gt;</entry>
 
   <entry key="i18nText2">To use the translated text for example in the attribute
     of an input field we have to refer to the resource bundle by the given

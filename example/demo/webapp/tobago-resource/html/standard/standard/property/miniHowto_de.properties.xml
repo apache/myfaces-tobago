@@ -120,8 +120,8 @@
     jeweils die der Sprache zugehörige Übersetzung liefern. In der Applikation
     wird dann nur noch die entsprechende Variable genutzt die durch den
     übersetzten Text ersetzt wird. Die deutsche Übersetzung wird in der
-    deutschen Property Datei festgelegt Resources_de.properties.&lt;br /&gt;&lt;br
-    /&gt;Um das Bundle verfügbar zu machen, muss es auf der JSP Seite geladen
+    deutschen Property Datei festgelegt miniHowto_de.properties.xml. &lt;br /&gt;
+    Um das Bundle verfügbar zu machen, muss es auf der JSP Seite geladen
     werden:</entry>
   <entry key="i18nCodeExampleBoxTitle1">Code Beispiel</entry>
 
