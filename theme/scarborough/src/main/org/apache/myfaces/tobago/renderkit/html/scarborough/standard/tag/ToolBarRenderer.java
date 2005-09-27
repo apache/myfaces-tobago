@@ -469,7 +469,7 @@ public class ToolBarRenderer extends RendererBase {
       }
     }
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
-    LOG.info("getImage for " + name + ", " + iconSize + ", " + disabled + ", " + selected + " = " + image);
+//    LOG.info("getImage for " + name + ", " + iconSize + ", " + disabled + ", " + selected + " = " + image);
     return contextPath + image;
   }
 
