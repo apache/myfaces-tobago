@@ -21,6 +21,8 @@ package org.apache.myfaces.tobago.example.demo.overview;
 
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -30,6 +32,8 @@ import java.util.Date;
 public class OverviewController {
 
 // ///////////////////////////////////////////// constant
+
+  private static final Log LOG = LogFactory.getLog(OverviewController.class);
 
   private static final String[] ITEM_KEYS = {
     "basic_itemUnknown",
@@ -50,6 +54,8 @@ public class OverviewController {
   private String basicArea = "";
 
   private Date basicDate = new Date();
+
+  private Date basicTime = new Date();
 
   private String lastAction;
 
@@ -124,6 +130,14 @@ public class OverviewController {
 
   public void setBasicDate(Date basicDate) {
     this.basicDate = basicDate;
+  }
+
+  public Date getBasicTime() {
+    return basicTime;
+  }
+
+  public void setBasicTime(Date basicTime) {
+    this.basicTime = basicTime;
   }
 
   public String getBasicInput() {
