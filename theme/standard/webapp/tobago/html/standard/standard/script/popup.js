@@ -40,7 +40,11 @@ function openPopup(url,name,width,height,options,x,y) {
 
   var para = setPopupPara(width,height,options);
 
-  window.open(url,name,para);
+  var newwin = window.open(url,name,para);
+
+  if (window.focus) {
+    newwin.focus()
+  }
 }
 
 function setPopupPara(width,height,options) {
