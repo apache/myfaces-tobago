@@ -23,7 +23,8 @@
   <!--XXX define tobago-home-->
   <property file="${build-system.dir}/../../build.properties"/>
 
-  <property name="maven.task" value="maven-artifact-ant-2.0-alpha-3-dep.jar"/>
+  <property name="maven.task.version" value="2.0-beta-2"/>
+  <property name="maven.task" value="maven-artifact-ant-${maven.task.version}-dep.jar"/>
   <property name="maven.task.jar" value="${build-system.dir}/${maven.task}"/>
   <available file="${maven.task.jar}" property="maven.task.present"/>
 
@@ -48,7 +49,7 @@
 
   <target name="download-task" unless="maven.task.present">
     <get
-        src="http://www.ibiblio.org/maven2/org/apache/maven/maven-artifact-ant/2.0-alpha-3/${maven.task}"
+        src="http://www.ibiblio.org/maven2/org/apache/maven/maven-artifact-ant/${maven.task.version}/${maven.task}"
         dest="${maven.task.jar}"/>
   </target>
 
