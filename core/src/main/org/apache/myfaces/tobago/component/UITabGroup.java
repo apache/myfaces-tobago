@@ -30,7 +30,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class UITabGroup extends UIPanel {
@@ -49,22 +48,30 @@ public class UITabGroup extends UIPanel {
 
 // ///////////////////////////////////////////// constructor
 
+  public UITabGroup() {
+    LOG.warn("    SYSID=" + System.identityHashCode(this));
+  }
+
 // ///////////////////////////////////////////// code
 
+  @Override
   public boolean getRendersChildren() {
     return true;
   }
 
+  @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {
     setRenderedIndex(activeIndex);
     super.encodeBegin(facesContext);
   }
 
+  @Override
   public void encodeChildren(FacesContext context)
       throws IOException {
     // childeren are rendered by encodeEnd'jsp
   }
 
+  @Override
   public void encodeEnd(FacesContext facesContext) throws IOException {
     resetTabLayout();
     super.encodeEnd(facesContext);
@@ -82,29 +89,34 @@ public class UITabGroup extends UIPanel {
   }
 
   public UIPanel[] getTabs() {
-    List tabs = new ArrayList();
-    for (Iterator kids = getChildren().iterator(); kids.hasNext();) {
-      UIComponent kid = (UIComponent) kids.next();
+    List<UIPanel> tabs = new ArrayList<UIPanel>();
+    for (Object o : getChildren()) {
+      UIComponent kid = (UIComponent) o;
       if (kid instanceof UIPanel) {
         if (kid.isRendered()) {
-          tabs.add(kid);
+          tabs.add((UIPanel)kid);
         }
       } else {
         LOG.error("Invalid component in UITabGroup: " + kid);
       }
     }
-    return (UIPanel[]) tabs.toArray(new UIPanel[tabs.size()]);
+    return tabs.toArray(new UIPanel[tabs.size()]);
   }
 
   public UIPanel getActiveTab() {
     return getTabs()[activeIndex];
   }
 
+  @Override
   public void processDecodes(FacesContext context) {
     if (ComponentUtil.getBooleanAttribute(this, ATTR_SERVER_SIDE_TABS)) {
 
-      if (context == null) throw new NullPointerException("context");
-      if (!isRendered()) return;
+      if (context == null) {
+        throw new NullPointerException("context");
+      }
+      if (!isRendered()) {
+        return;
+      }
       UIPanel renderedTab = getTabs()[getRenderedIndex()];
       renderedTab.processDecodes(context);
       try
@@ -121,10 +133,15 @@ public class UITabGroup extends UIPanel {
     }
   }
 
+  @Override
   public void processValidators(FacesContext context) {
     if (ComponentUtil.getBooleanAttribute(this, ATTR_SERVER_SIDE_TABS)) {
-      if (context == null) throw new NullPointerException("context");
-      if (!isRendered()) return;
+      if (context == null) {
+        throw new NullPointerException("context");
+      }
+      if (!isRendered()) {
+        return;
+      }
       UIPanel renderedTab = getTabs()[getRenderedIndex()];
       renderedTab.processValidators(context);
     } else {
@@ -132,10 +149,15 @@ public class UITabGroup extends UIPanel {
     }
   }
 
+  @Override
   public void processUpdates(FacesContext context) {
     if (ComponentUtil.getBooleanAttribute(this, ATTR_SERVER_SIDE_TABS)) {
-      if (context == null) throw new NullPointerException("context");
-      if (!isRendered()) return;
+      if (context == null) {
+        throw new NullPointerException("context");
+      }
+      if (!isRendered()) {
+        return;
+      }
       UIPanel renderedTab = getTabs()[getRenderedIndex()];
       renderedTab.processUpdates(context);
       updateState(context);
@@ -148,7 +170,7 @@ public class UITabGroup extends UIPanel {
   public void updateState(FacesContext facesContext) {
     ValueBinding stateBinding = getValueBinding(ATTR_STATE);
     if (stateBinding != null) {
-      stateBinding.setValue(facesContext, new Integer(activeIndex));
+      stateBinding.setValue(facesContext, activeIndex);
     }
   }
 
@@ -164,12 +186,19 @@ public class UITabGroup extends UIPanel {
     removeFacesListener(listener);
   }
 
-
   private void setRenderedIndex(int index) {
-    getAttributes().put(RENDERED_INDEX, new Integer(index));
+    LOG.warn("set SYSID=" + System.identityHashCode(this));
+    getAttributes().put(RENDERED_INDEX, index);
   }
+
   private int getRenderedIndex() {
-    return ((Integer)getAttributes().get(RENDERED_INDEX)).intValue();
+    LOG.warn("get SYSID=" + System.identityHashCode(this));
+    Integer integer = (Integer) getAttributes().get(RENDERED_INDEX);
+    if (integer == null) {
+      LOG.warn("FIXME!!! Bug TGB-118");
+      integer = 0;
+    }
+    return integer;
   }
 
 // ///////////////////////////////////////////// bean getter + setter
