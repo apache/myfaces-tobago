@@ -48,10 +48,6 @@ public class UITabGroup extends UIPanel {
 
 // ///////////////////////////////////////////// constructor
 
-  public UITabGroup() {
-    LOG.warn("    SYSID=" + System.identityHashCode(this));
-  }
-
 // ///////////////////////////////////////////// code
 
   @Override
@@ -61,6 +57,16 @@ public class UITabGroup extends UIPanel {
 
   @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {
+
+    ValueBinding stateBinding = getValueBinding(ATTR_STATE);
+    Object state
+        = stateBinding != null ? stateBinding.getValue(facesContext) : null;
+    if (state instanceof Integer) {
+      activeIndex = ((Integer) state).intValue();
+    } else if (state != null) {
+      LOG.warn("Illegal class in stateBinding: " + state.getClass().getName());
+    }
+
     setRenderedIndex(activeIndex);
     super.encodeBegin(facesContext);
   }
@@ -187,12 +193,10 @@ public class UITabGroup extends UIPanel {
   }
 
   private void setRenderedIndex(int index) {
-    LOG.warn("set SYSID=" + System.identityHashCode(this));
     getAttributes().put(RENDERED_INDEX, index);
   }
 
   private int getRenderedIndex() {
-    LOG.warn("get SYSID=" + System.identityHashCode(this));
     Integer integer = (Integer) getAttributes().get(RENDERED_INDEX);
     if (integer == null) {
       LOG.warn("FIXME!!! Bug TGB-118");

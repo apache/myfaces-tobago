@@ -42,7 +42,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.MethodNotFoundException;
-import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.PhaseId;
 import java.io.IOException;
@@ -100,20 +99,8 @@ public class TabGroupRenderer extends RendererBase {
      UIPanel[] tabs = component.getTabs();
     layoutTabs(facesContext, component, tabs);
 
-    int activeIndex;
-    ValueBinding stateBinding = component.getValueBinding(ATTR_STATE);
+    int activeIndex = component.getActiveIndex();
 
-    Object state
-        = stateBinding != null ? stateBinding.getValue(facesContext) : null;
-    if (state == null) {
-      activeIndex = component.getActiveIndex();
-    } else if (state instanceof Integer) {
-      activeIndex = ((Integer) state).intValue();
-      component.setActiveIndex(activeIndex);
-    } else {
-      LOG.warn("Illegal class in stateBinding: " + state.getClass().getName());
-      activeIndex = component.getActiveIndex();
-    }
     String hiddenId = component.getClientId(facesContext)
         + TabGroupRenderer.ACTIVE_INDEX_POSTFIX;
 
