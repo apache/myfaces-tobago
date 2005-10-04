@@ -82,7 +82,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
   private Command[] commands;
 
-  private static final String ACTION_LISTENER_KEY = "actionListenerKey";
+  private ActionListener actionListener;
 
   private TreeState state;
 
@@ -132,11 +132,10 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   }
 
   public void addActionListener(ActionListener actionListener) {
-    getAttributes().put(ACTION_LISTENER_KEY, actionListener);
+    this.actionListener = actionListener;
   }
 
   public ActionListener[] getActionListeners() {
-    ActionListener actionListener = (ActionListener) getAttributes().get(ACTION_LISTENER_KEY);
     if (actionListener != null) {
       return new ActionListener[] {actionListener};
     } else {
@@ -145,9 +144,8 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   }
 
   public void removeActionListener(ActionListener actionListener) {
-    ActionListener listener = (ActionListener) getAttributes().get(ACTION_LISTENER_KEY);
-    if (actionListener.equals(listener)) {
-      getAttributes().remove(ACTION_LISTENER_KEY);
+    if (actionListener.equals(this.actionListener)) {
+      this.actionListener = null;
     }
   }
 
@@ -339,6 +337,19 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     // todo: updateing the model here and *NOT* in the decode phase
   }
 
+
+  public Object saveState(FacesContext context) {
+    Object[] state = new Object[2];
+    state[0] = super.saveState(context);
+    state[1] = actionListener;
+    return state;
+  }
+
+  public void restoreState(FacesContext context, Object state) {
+    Object[] values = (Object[]) state;
+    super.restoreState(context, values[0]);
+    actionListener = (ActionListener) values[1];
+  }
 // ------------------------------------------------------------ getter + setter
 
   public Command[] getCommands() {
