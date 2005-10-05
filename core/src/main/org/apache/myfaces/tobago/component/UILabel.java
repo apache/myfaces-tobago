@@ -37,7 +37,9 @@ public class UILabel extends UIOutput {
   @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {
     String _for = (String) getAttributes().get(TobagoConstants.ATTR_FOR);
-    LOG.info("_for = '" + _for + "'");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("_for = '" + _for + "'");
+    }
     if ("@auto".equals(_for)) {
       for(Object object : getParent().getChildren()) {
         UIComponent child = (UIComponent) object;
