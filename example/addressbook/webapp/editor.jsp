@@ -15,6 +15,8 @@
 --%>
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib tagdir="/WEB-INF/tags/tobago-extension" prefix="tx" %>
+
 <f:view>
   <t:loadBundle basename="addressbook" var="bundle" />
 
@@ -35,11 +37,12 @@
 
         <t:messages />
 
-        <t:in value="#{controller.currentAddress.firstName}"
+        <tx:in value="#{controller.currentAddress.firstName}"
             label="#{bundle.editorFirstName}" required="true" />
 
-        <t:in value="#{controller.currentAddress.lastName}"
-            label="#{bundle.editorLastName}" required="true" rendered="true" />
+        <tx:label value="#{bundle.editorLastName}">
+           <t:in value="#{controller.currentAddress.lastName}" required="true"/>
+        </tx:label>
 
         <t:panel>
           <f:facet name="layout">
@@ -64,16 +67,16 @@
           <f:selectItems value="#{countries}" />
         </t:selectOneChoice>
 
-        <t:in value="#{controller.currentAddress.phone}"
+        <tx:in value="#{controller.currentAddress.phone}"
             label="#{bundle.editorPhone}" />
 
-        <t:in value="#{controller.currentAddress.mobile}"
+        <tx:in value="#{controller.currentAddress.mobile}"
             label="#{bundle.editorMobile}" />
 
-        <t:in value="#{controller.currentAddress.fax}"
+        <tx:in value="#{controller.currentAddress.fax}"
             label="#{bundle.editorFax}" />
 
-        <t:in value="#{controller.currentAddress.email}"
+        <tx:in value="#{controller.currentAddress.email}"
             label="#{bundle.editorEmail}" />
 
         <t:date value="#{controller.currentAddress.dayOfBirth}"

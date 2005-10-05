@@ -67,6 +67,10 @@
     <component-class>org.apache.myfaces.tobago.component.UIInput</component-class>
   </component>
   <component>
+    <component-type>org.apache.myfaces.tobago.Label</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UILabel</component-class>
+  </component>
+  <component>
     <component-type>org.apache.myfaces.tobago.LabeledInputLayout</component-type>
     <component-class>org.apache.myfaces.tobago.component.UILabeledInputLayout</component-class>
   </component>

@@ -16,6 +16,7 @@
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
+<%@ taglib tagdir="/WEB-INF/tags/tobago-extension" prefix="tx" %>
 
 <layout:overview>
   <jsp:body>
@@ -38,8 +39,9 @@
           <f:facet name="layout">
             <t:gridLayout />
           </f:facet>
-          <t:in value="#{overviewController.basicInput}"
-              label="#{overviewBundle.basic_textboxLabel}" />
+          <tx:label value="#{overviewBundle.basic_textboxLabel}" tip="test">
+            <t:in value="#{overviewController.basicInput}" />
+          </tx:label>
           <t:date value="#{overviewController.basicDate}"
               label="#{overviewBundle.basic_dateLabel}">
             <f:convertDateTime pattern="dd.MM.yyyy" />

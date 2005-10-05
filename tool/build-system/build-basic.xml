@@ -190,8 +190,8 @@
         <exclude name="WEB-INF/**"/>
       </fileset>
       <fileset dir="${module}">
-        <include name="tobago/**"/>
-        <include name="tobago-module-client/**"/>
+        <include name="**/*"/>
+        <exclude name="META-INF"/>
       </fileset>
       <lib dir="${module}/WEB-INF/lib" includes="*.jar"/>
       <lib dir="lib">

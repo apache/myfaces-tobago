@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UILabel;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -34,15 +35,16 @@ public class LabelTag extends BeanTag implements
   private String accessKey;
   private String tip;
 
-
+  @Override
   public String getComponentType() {
-    return UIOutput.COMPONENT_TYPE;
+    return UILabel.COMPONENT_TYPE;
   }
 
   public String getFor() {
     return _for;
   }
 
+  @Override
   public void release() {
     super.release();
     accessKey = null;
@@ -55,6 +57,7 @@ public class LabelTag extends BeanTag implements
     this._for = _for;
   }
 
+  @Override
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     ComponentUtil.setStringProperty(
