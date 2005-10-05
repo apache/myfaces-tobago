@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -36,21 +37,18 @@ import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 
 import javax.faces.component.UIComponent;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
- *  Renders a link element.
+ * Renders a link element.
  */
-@Tag(name="link")
-@BodyContentDescription(anyTagOf="facestag")
+@Tag(name = "link")
+@BodyContentDescription(anyTagOf = "facestag")
 public class LinkTag extends CommandTag
     implements HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled,
-               HasAction, HasActionListener, IsInline, HasCommandType,
-               HasTarget, HasTip, IsImmediateCommand, HasImage {
+    HasAction, HasActionListener, IsInline, HasCommandType,
+    HasTarget, HasTip, IsImmediateCommand, HasImage {
 
-// /////////////////////////////////////////// constants
-     private static final Log LOG = LogFactory.getLog(LinkTag.class);
-// /////////////////////////////////////////// attributes
+  private static final Log LOG = LogFactory.getLog(LinkTag.class);
 
   private String target;
   private String label;
@@ -60,19 +58,16 @@ public class LinkTag extends CommandTag
   private String tip;
   private String defaultCommand;
 
-// /////////////////////////////////////////// constructors
-
-// /////////////////////////////////////////// code
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_TARGET, target, getIterationHelper());
-   ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
-   ComponentUtil.setStringProperty(component, ATTR_IMAGE, image, getIterationHelper());
-   ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
-   ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_TIP, tip, getIterationHelper());
-   ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_TARGET, target);
+    ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
+    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
+    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey);
+    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
+    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
+    ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand);
   }
 
   public void release() {
@@ -83,9 +78,7 @@ public class LinkTag extends CommandTag
     accessKey = null;
     labelWithAccessKey = null;
     tip = null;
-   }
-
-// /////////////////////////////////////////// bean getter + setter
+  }
 
   public String getTarget() {
     return target;
@@ -131,7 +124,7 @@ public class LinkTag extends CommandTag
     this.tip = tip;
   }
 
-public void setDefaultCommand(String defaultCommand) {
+  public void setDefaultCommand(String defaultCommand) {
     this.defaultCommand = defaultCommand;
   }
 }

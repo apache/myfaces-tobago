@@ -19,39 +19,24 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.ValueHolder;
-import javax.faces.context.FacesContext;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 
 public abstract class BeanTag extends TobagoTag implements org.apache.myfaces.tobago.taglib.decl.BeanTag {
-
-// ///////////////////////////////////////////// constants
-
-// ///////////////////////////////////////////// attributes
 
   private String converter;
   private String value;
   private String required;
 
-// ///////////////////////////////////////////// constructors
-
-// ///////////////////////////////////////////// code
-
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ValueHolder valueHolder = (ValueHolder) component;
-    if (converter != null && valueHolder.getConverter() == null) {
-      valueHolder.setConverter(
-          FacesContext.getCurrentInstance().getApplication().createConverter(
-              converter));
-    }
-
-    ComponentUtil.setBooleanProperty(component, ATTR_REQUIRED, required, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_VALUE, value, getIterationHelper());
+    ComponentUtil.setConverter(component, converter);
+    ComponentUtil.setBooleanProperty(component, ATTR_REQUIRED, required);
+    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
   }
 
   public void release() {
@@ -60,8 +45,6 @@ public abstract class BeanTag extends TobagoTag implements org.apache.myfaces.to
     this.value = null;
     this.required = null;
   }
-
-// ///////////////////////////////////////////// bean getter + setter
 
   public String getConverter() {
     return converter;

@@ -33,17 +33,13 @@ import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-@Tag(name="include", bodyContent=BodyContent.EMPTY)
+@Tag(name = "include", bodyContent = BodyContent.EMPTY)
 public class IncludeTag extends TagSupport implements HasId, HasStringValue {
-// ----------------------------------------------------------- class attributes
 
   private static final Log LOG = LogFactory.getLog(IncludeTag.class);
 
-// ----------------------------------------------------------------- attributes
-
   private String value;
 
-// ----------------------------------------------------------- business methods
 
   public int doStartTag() throws JspException {
     String pageName = null;
@@ -79,7 +75,6 @@ public class IncludeTag extends TagSupport implements HasId, HasStringValue {
     super.release();
   }
 
-// ------------------------------------------------------------ getter + setter
 
   public String getValue() {
     return value;

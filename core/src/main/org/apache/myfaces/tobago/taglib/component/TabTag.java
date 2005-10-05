@@ -19,6 +19,7 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPanel;
@@ -27,18 +28,13 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 
 import javax.faces.component.UIComponent;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * renders a tab within a tabgroup.
  */
-@Tag(name="tab")
+@Tag(name = "tab")
 public class TabTag extends TobagoBodyTag
-    implements   HasIdBindingAndRendered, HasLabelAndAccessKey, HasTip
-     {
-
-// ----------------------------------------------------------- business methods
-
+    implements HasIdBindingAndRendered, HasLabelAndAccessKey, HasTip {
 
   private String label;
   private String accessKey;
@@ -52,11 +48,10 @@ public class TabTag extends TobagoBodyTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_TIP, tip,
-        getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
+    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey);
+    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
+    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
   }
 
   public void release() {

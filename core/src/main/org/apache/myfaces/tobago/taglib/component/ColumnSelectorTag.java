@@ -19,8 +19,7 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -30,19 +29,15 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 
 import javax.faces.component.UIComponent;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * Renders a column with checkboxes to mark selected row's.
  */
-@Tag(name="columnSelector", bodyContent=BodyContent.EMPTY)
+@Tag(name = "columnSelector", bodyContent = BodyContent.EMPTY)
 public class ColumnSelectorTag extends TobagoTag
-    implements IsDisabled, IsRendered, HasBinding
-    {
+    implements IsDisabled, IsRendered, HasBinding {
 
-  private static final Log LOG = LogFactory.getLog(ColumnSelectorTag.class);
-
-  private String disabled ;
+  private String disabled;
 
   public String getComponentType() {
     return UIColumnSelector.COMPONENT_TYPE;
@@ -50,7 +45,7 @@ public class ColumnSelectorTag extends TobagoTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_DISABLED, disabled, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_DISABLED, disabled);
   }
 
   public void release() {

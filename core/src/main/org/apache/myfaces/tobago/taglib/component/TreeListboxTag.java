@@ -19,8 +19,7 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -35,22 +34,15 @@ import org.apache.myfaces.tobago.taglib.decl.HasTreeNodeValue;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
 import javax.faces.component.UIComponent;
-import javax.faces.el.ValueBinding;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * Renders a listbox view of a tree.
  */
-@Tag(name="treeListbox")
-@BodyContentDescription(anyTagOf="<f:facet>* <f:actionListener>?" )
+@Tag(name = "treeListbox")
+@BodyContentDescription(anyTagOf = "<f:facet>* <f:actionListener>?")
 public class TreeListboxTag extends TobagoTag
     implements HasIdBindingAndRendered, HasTreeNodeValue, HasState,
-               HasIdReference, HasNameReference, IsRequired
-    {
-
-  private static final Log LOG = LogFactory.getLog(TreeListboxTag.class);
-
-// ----------------------------------------------------------------- attributes
+    HasIdReference, HasNameReference, IsRequired {
 
   private String value;
   private String state;
@@ -62,9 +54,6 @@ public class TreeListboxTag extends TobagoTag
 
   private String required;
 
-
-// ----------------------------------------------------------- business methods
-
   public String getComponentType() {
     return UITreeListbox.COMPONENT_TYPE;
   }
@@ -72,25 +61,13 @@ public class TreeListboxTag extends TobagoTag
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    ComponentUtil.setStringProperty(
-        component, ATTR_VALUE, value, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
+    ComponentUtil.setValueBinding(component, ATTR_STATE, state);
 
-    if (state != null && isValueReference(state)) {
-      ValueBinding valueBinding = ComponentUtil.createValueBinding(
-          state, getIterationHelper());
-      component.setValueBinding(ATTR_STATE, valueBinding);
-    }
-
-    ComponentUtil.setStringProperty(
-        component, ATTR_ID_REFERENCE, idReference, getIterationHelper());
-    ComponentUtil.setStringProperty(
-        component, ATTR_NAME_REFERENCE, nameReference, getIterationHelper());
-
-    ComponentUtil.setStringProperty(
-        component, ATTR_SELECTABLE, selectable, getIterationHelper());
-
-    ComponentUtil.setBooleanProperty(
-        component, ATTR_REQUIRED, required, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_ID_REFERENCE, idReference);
+    ComponentUtil.setStringProperty(component, ATTR_NAME_REFERENCE, nameReference);
+    ComponentUtil.setStringProperty(component, ATTR_SELECTABLE, selectable);
+    ComponentUtil.setBooleanProperty(component, ATTR_REQUIRED, required);
 
   }
 
@@ -103,7 +80,6 @@ public class TreeListboxTag extends TobagoTag
     selectable = "single";
     required = null;
   }
-// ------------------------------------------------------------ getter + setter
 
   public String getValue() {
     return value;
@@ -144,17 +120,17 @@ public class TreeListboxTag extends TobagoTag
 
   /**
    * Flag indicating whether or not this component should be render selectable items.
-   *  Possible values are:
-   *  <ul>
-   *  <li><strong>single</strong> : a singleselection tree is rendered
-   *  <li><strong>singleLeafOnly</strong> : a singleselection tree is rendered,
-   *      only Leaf's are selectable
-   *  <li><strong>siblingLeafOnly</strong> : a multiselection tree is rendered,
-   *      where only sibling Leaf's are selectable
-   *  </ul>
+   * Possible values are:
+   * <ul>
+   * <li><strong>single</strong> : a singleselection tree is rendered
+   * <li><strong>singleLeafOnly</strong> : a singleselection tree is rendered,
+   * only Leaf's are selectable
+   * <li><strong>siblingLeafOnly</strong> : a multiselection tree is rendered,
+   * where only sibling Leaf's are selectable
+   * </ul>
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue="single")
+  @UIComponentTagAttribute(defaultValue = "single")
   public void setSelectable(String selectable) {
     this.selectable = selectable;
   }

@@ -19,8 +19,7 @@
   */
 package org.apache.myfaces.tobago.taglib.component;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
@@ -33,16 +32,15 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * Renders a popup panel.
  */
-@Tag(name="popup")
+@Tag(name = "popup")
 public class PopupTag extends TobagoBodyTag
     implements HasId, IsRendered, HasDimension {
 
-  private static final Log LOG = LogFactory.getLog(PopupTag.class);
+
   private String width;
   private String height;
   private String left;
@@ -60,16 +58,6 @@ public class PopupTag extends TobagoBodyTag
     return result;
   }
 
- /* protected String getFacetName() {
-    String name = "tobagoPopup";
-    int idx = 0;
-    while (getParentUIComponentTag(pageContext).getComponentInstance().
-        getFacet(name + idx) != null) {
-      idx++;
-    }
-    return name + idx;
-  }*/
-
   public void release() {
     super.release();
     width = null;
@@ -80,10 +68,10 @@ public class PopupTag extends TobagoBodyTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_WIDTH, width, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_HEIGHT, height, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_LEFT, left, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_TOP, top, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_WIDTH, width);
+    ComponentUtil.setStringProperty(component, ATTR_HEIGHT, height);
+    ComponentUtil.setStringProperty(component, ATTR_LEFT, left);
+    ComponentUtil.setStringProperty(component, ATTR_TOP, top);
   }
 
   public void setWidth(String width) {
@@ -95,7 +83,7 @@ public class PopupTag extends TobagoBodyTag
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type="java.lang.Integer")
+  @UIComponentTagAttribute(type = "java.lang.Integer")
   public void setHeight(String height) {
     this.height = height;
   }
@@ -105,13 +93,13 @@ public class PopupTag extends TobagoBodyTag
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type="java.lang.Integer")
+  @UIComponentTagAttribute(type = "java.lang.Integer")
   public void setLeft(String left) {
     this.left = left;
   }
 
   @TagAttribute
-  @UIComponentTagAttribute(type="java.lang.Integer")
+  @UIComponentTagAttribute(type = "java.lang.Integer")
   public void setTop(String top) {
     this.top = top;
   }

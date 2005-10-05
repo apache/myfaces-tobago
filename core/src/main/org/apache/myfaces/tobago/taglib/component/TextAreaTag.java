@@ -19,13 +19,13 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class TextAreaTag extends TextInputTag
-     implements org.apache.myfaces.tobago.taglib.decl.TextAreaTag {
+    implements org.apache.myfaces.tobago.taglib.decl.TextAreaTag {
 
   private String rows;
 
@@ -36,7 +36,7 @@ public class TextAreaTag extends TextInputTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_ROWS, rows, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_ROWS, rows);
   }
 
   public String getRows() {

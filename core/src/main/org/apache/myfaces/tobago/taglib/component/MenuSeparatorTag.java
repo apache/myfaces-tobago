@@ -20,6 +20,7 @@
   */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COMMAND_TYPE;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -28,12 +29,11 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * Renders a separator.
  */
-@Tag(name="menuSeparator", bodyContent=BodyContent.EMPTY)
+@Tag(name = "menuSeparator", bodyContent = BodyContent.EMPTY)
 public class MenuSeparatorTag extends TobagoTag
     implements IsRendered, HasBinding {
 
@@ -43,7 +43,7 @@ public class MenuSeparatorTag extends TobagoTag
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     component.setRendererType(null);
-   ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, MENU_TYPE, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, MENU_TYPE);
   }
 
   public String getComponentType() {

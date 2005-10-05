@@ -151,6 +151,7 @@ public class ToolBarRenderer extends RendererBase {
     UISelectOne radio = (UISelectOne) command.getFacet(FACET_RADIO);
     if (radio == null) {
       radio = ComponentUtil.createUISelectOneFacet(facesContext, command);
+      radio.setId(facesContext.getViewRoot().createUniqueId());
     }
 
 
@@ -218,6 +219,7 @@ public class ToolBarRenderer extends RendererBase {
     UIComponent checkbox = command.getFacet(FACET_CHECKBOX);
     if (checkbox == null) {
       checkbox = ComponentUtil.createUISelectBooleanFacet(facesContext, command);
+      checkbox.setId(facesContext.getViewRoot().createUniqueId());
     }
 
     final boolean checked = ComponentUtil.getBooleanAttribute(command, ATTR_VALUE);

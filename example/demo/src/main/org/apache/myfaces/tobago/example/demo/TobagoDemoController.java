@@ -35,9 +35,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.ArrayList;
 
 public class TobagoDemoController {
 
@@ -201,7 +201,7 @@ public class TobagoDemoController {
     UIInput textbox = (UIInput)
         ComponentUtil.createComponent(UIInput.COMPONENT_TYPE, RENDERER_TYPE_IN);
     ComponentUtil.setStringProperty(
-        textbox, ATTR_VALUE, "#{luminary.population}", null);
+        textbox, ATTR_VALUE, "#{luminary.population}");
     columns.add(ComponentUtil.createColumn(
         "#{overviewBundle.solarArrayPopulation}", "true", null, textbox));
 

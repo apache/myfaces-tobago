@@ -19,6 +19,7 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -33,19 +34,15 @@ import org.apache.myfaces.tobago.taglib.decl.HasTreeNodeValue;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
 import javax.faces.component.UIComponent;
-import javax.faces.el.ValueBinding;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * Renders a tree view.
  */
-@Tag(name="tree")
-@BodyContentDescription(anyTagOf="<f:facet>* <f:actionListener>?" )
+@Tag(name = "tree")
+@BodyContentDescription(anyTagOf = "<f:facet>* <f:actionListener>?")
 public class TreeTag extends TobagoTag
     implements HasIdBindingAndRendered, HasTreeNodeValue, HasState,
-               HasIdReference, HasNameReference, IsRequired {
-
-// ----------------------------------------------------------------- attributes
+    HasIdReference, HasNameReference, IsRequired {
 
   private String value;
   private String state;
@@ -61,10 +58,7 @@ public class TreeTag extends TobagoTag
   private String idReference;
   private String nameReference;
 
-
   private String required;
-
-// ----------------------------------------------------------- business methods
 
   public String getComponentType() {
     return UITree.COMPONENT_TYPE;
@@ -73,37 +67,20 @@ public class TreeTag extends TobagoTag
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    ComponentUtil.setStringProperty(
-        component, ATTR_VALUE, value, getIterationHelper());
-    
-    if (state != null && isValueReference(state)) {
-      ValueBinding valueBinding = ComponentUtil.createValueBinding(
-          state, getIterationHelper());
-      component.setValueBinding(ATTR_STATE, valueBinding);
-    }
+    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
+    ComponentUtil.setValueBinding(component, ATTR_STATE, state);
 
-    ComponentUtil.setBooleanProperty(
-        component, ATTR_SHOW_JUNCTIONS, showJunctions, getIterationHelper());
-    ComponentUtil.setBooleanProperty(
-        component, ATTR_SHOW_ICONS, showIcons, getIterationHelper());
-    ComponentUtil.setBooleanProperty(
-        component, ATTR_SHOW_ROOT, showRoot, getIterationHelper());
-    ComponentUtil.setBooleanProperty(component,
-        ATTR_SHOW_ROOT_JUNCTION, showRootJunction, getIterationHelper());
+    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_JUNCTIONS, showJunctions);
+    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ICONS, showIcons);
+    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ROOT, showRoot);
+    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ROOT_JUNCTION, showRootJunction);
 
-    ComponentUtil.setStringProperty(
-        component, ATTR_SELECTABLE, selectable, getIterationHelper());
-    ComponentUtil.setBooleanProperty(
-        component, ATTR_MUTABLE, mutable, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_SELECTABLE, selectable);
+    ComponentUtil.setBooleanProperty(component, ATTR_MUTABLE, mutable);
 
-    ComponentUtil.setStringProperty(
-        component, ATTR_ID_REFERENCE, idReference, getIterationHelper());
-    ComponentUtil.setStringProperty(
-        component, ATTR_NAME_REFERENCE, nameReference, getIterationHelper());
-
-
-    ComponentUtil.setBooleanProperty(
-        component, ATTR_REQUIRED, required, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_ID_REFERENCE, idReference);
+    ComponentUtil.setStringProperty(component, ATTR_NAME_REFERENCE, nameReference);
+    ComponentUtil.setBooleanProperty(component, ATTR_REQUIRED, required);
   }
 
   public void release() {
@@ -120,7 +97,6 @@ public class TreeTag extends TobagoTag
     nameReference = null;
     required = null;
   }
-// ------------------------------------------------------------ getter + setter
 
   public String getValue() {
     return value;
@@ -147,7 +123,7 @@ public class TreeTag extends TobagoTag
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type="java.lang.Boolean", defaultValue="false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
   public void setShowIcons(String showIcons) {
     this.showIcons = showIcons;
   }
@@ -161,7 +137,7 @@ public class TreeTag extends TobagoTag
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type="java.lang.Boolean", defaultValue="false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
   public void setShowJunctions(String showJunctions) {
     this.showJunctions = showJunctions;
   }
@@ -174,7 +150,7 @@ public class TreeTag extends TobagoTag
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type="java.lang.Boolean", defaultValue="false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
   public void setShowRoot(String showRoot) {
     this.showRoot = showRoot;
   }
@@ -187,7 +163,7 @@ public class TreeTag extends TobagoTag
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type="java.lang.Boolean", defaultValue="false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
   public void setShowRootJunction(String showRootJunction) {
     this.showRootJunction = showRootJunction;
   }
@@ -206,19 +182,19 @@ public class TreeTag extends TobagoTag
 
   /**
    * Flag indicating whether or not this component should be render selectable items.
-   *  Possible values are:
-   *  <ul>
-   *  <li><strong>multi</strong> : a multisection tree is rendered
-   *  <li><strong>single</strong> : a singlesection tree is rendered
-   *  <li><strong>multiLeafOnly</strong> : a multisection tree is rendered,
-   *      only Leaf's are selectable
-   *  <li><strong>singleLeafOnly</strong> : a singlesection tree is rendered,
-   *      only Leaf's are selectable
-   *  </ul>
-   *  For any other value or if this attribute is omited the items are not selectable.
+   * Possible values are:
+   * <ul>
+   * <li><strong>multi</strong> : a multisection tree is rendered
+   * <li><strong>single</strong> : a singlesection tree is rendered
+   * <li><strong>multiLeafOnly</strong> : a multisection tree is rendered,
+   * only Leaf's are selectable
+   * <li><strong>singleLeafOnly</strong> : a singlesection tree is rendered,
+   * only Leaf's are selectable
+   * </ul>
+   * For any other value or if this attribute is omited the items are not selectable.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue="off")
+  @UIComponentTagAttribute(defaultValue = "off")
   public void setSelectable(String selectable) {
     this.selectable = selectable;
   }
@@ -231,7 +207,7 @@ public class TreeTag extends TobagoTag
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type="java.lang.Boolean", defaultValue="false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
   public void setMutable(String mutable) {
     this.mutable = mutable;
   }
@@ -252,4 +228,3 @@ public class TreeTag extends TobagoTag
     this.required = required;
   }
 }
-

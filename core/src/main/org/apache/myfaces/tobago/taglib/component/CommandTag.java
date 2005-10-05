@@ -18,97 +18,43 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICommand;
-import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 
-import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.el.MethodBinding;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public abstract class CommandTag extends TobagoTag {
-// ----------------------------------------------------------------- attributes
 
   private String disabled;
-
   private String action;
   private String actionListener;
-
   private String type;
-
   private String immediate;
-
-// ----------------------------------------------------------- business methods
 
   public String getComponentType() {
     return UICommand.COMPONENT_TYPE;
   }
 
   protected void setProperties(UIComponent component) {
-    UICommand command = (UICommand) component;
     super.setProperties(component);
-
-   ComponentUtil.setBooleanProperty(component, ATTR_DISABLED, disabled, getIterationHelper());
-   ComponentUtil.setStringProperty(component, ATTR_TYPE, type, getIterationHelper());
-//   ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand, getIterationHelper());
-   ComponentUtil.setBooleanProperty(component, ATTR_IMMEDIATE, immediate, getIterationHelper());
-
-
-
-    String commandType;
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final Application application = facesContext.getApplication();
-    if (type != null && isValueReference(type)) {
-         commandType = (String)
-             application.createValueBinding(type).getValue(facesContext);
-    }
-    else {
-      commandType = type;
-    }
-    if (commandType != null &&
-        (commandType.equals(COMMAND_TYPE_NAVIGATE)
-        || commandType.equals(COMMAND_TYPE_RESET)
-        || commandType.equals(COMMAND_TYPE_SCRIPT))) {
-     ComponentUtil.setStringProperty(component, ATTR_ACTION_STRING, action, getIterationHelper());
-    }
-    else {
-      if (action != null) {
-        if (isValueReference(action)) {
-          MethodBinding binding = application.createMethodBinding(action, null);
-          ((UICommand)component).setAction(binding);
-        } else {
-          ((UICommand)component).setAction(new ConstantMethodBinding(action));
-        }
-      }
-    }
-
-
-
-    if (actionListener != null) {
-      if (isValueReference(actionListener)) {
-        Class arguments[] = {javax.faces.event.ActionEvent.class};
-        MethodBinding binding
-            = application.createMethodBinding(actionListener, arguments);
-        command.setActionListener(binding);
-      } else {
-        throw new IllegalArgumentException(
-            "Must be a valueReference (actionListener): " + actionListener);
-      }
-    }
+    UICommand command = (UICommand) component;
+    ComponentUtil.setBooleanProperty(component, ATTR_DISABLED, disabled);
+    ComponentUtil.setStringProperty(component, ATTR_TYPE, type);
+//   ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand);
+    ComponentUtil.setBooleanProperty(component, ATTR_IMMEDIATE, immediate);
+    ComponentUtil.setAction(component, type, action);
+    ComponentUtil.setActionListener(command, actionListener);
   }
 
   public void release() {
     super.release();
-    action= null;
-    actionListener= null;
+    action = null;
+    actionListener = null;
     type = null;
     disabled = null;
     immediate = null;
   }
-
-// ------------------------------------------------------------ getter + setter
 
   public String getAction() {
     return action;
@@ -125,7 +71,6 @@ public abstract class CommandTag extends TobagoTag {
   public void setActionListener(String actionListener) {
     this.actionListener = actionListener;
   }
-
 
   public String getType() {
     return type;

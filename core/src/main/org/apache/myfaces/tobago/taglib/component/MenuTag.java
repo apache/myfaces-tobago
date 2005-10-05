@@ -19,6 +19,7 @@
   */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -29,27 +30,22 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
- *
- *       Container component to hold submenus and items.
- *
+ * Container component to hold submenus and items.
  */
-@Tag(name="menu")
+@Tag(name = "menu")
 @BodyContentDescription(
-    anyClassOf={"org.apache.myfaces.tobago.taglib.component.MenuTag",
-    "org.apache.myfaces.tobago.taglib.component.MenuCommandTag",
-    "org.apache.myfaces.tobago.taglib.component.MenuSelectBooleanTag",
-    "org.apache.myfaces.tobago.taglib.component.MenuSelectOneTag",
-    "org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag" })
+    anyClassOf = {"org.apache.myfaces.tobago.taglib.component.MenuTag",
+        "org.apache.myfaces.tobago.taglib.component.MenuCommandTag",
+        "org.apache.myfaces.tobago.taglib.component.MenuSelectBooleanTag",
+        "org.apache.myfaces.tobago.taglib.component.MenuSelectOneTag",
+        "org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag"})
 
 public class MenuTag extends TobagoTag
     implements HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled, HasImage {
+
   public static final String MENU_TYPE = "menu";
-
-
-// ----------------------------------------------------------------- attributes
 
   private String label;
   private String image;
@@ -57,15 +53,14 @@ public class MenuTag extends TobagoTag
   private String labelWithAccessKey;
 //  private String disabled;
 
-// ----------------------------------------------------------- business methods
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     component.setRendererType(null);
-   ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
-   ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
-   ComponentUtil.setStringProperty(component, ATTR_IMAGE, image, getIterationHelper());
-   ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, "menu", getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
+    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey);
+    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
+    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
+    ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, "menu");
   }
 
   public String getComponentType() {

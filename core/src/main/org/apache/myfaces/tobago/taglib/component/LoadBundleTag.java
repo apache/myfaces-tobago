@@ -38,15 +38,12 @@ import java.util.Set;
  * from the tobago resource path, and expose it (as a Map) in the request
  * attributes of the current request.
  */
-@Tag(name="loadBundle", bodyContent=BodyContent.EMPTY)
+@Tag(name = "loadBundle", bodyContent = BodyContent.EMPTY)
 public class LoadBundleTag extends TagSupport implements HasVar {
-// ----------------------------------------------------------------- attributes
 
   private String basename;
 
   private String var;
-
-// ----------------------------------------------------------- business methods
 
   public int doStartTag() throws JspException {
     Map toStore = new BundleMapWrapper(basename);
@@ -68,9 +65,9 @@ public class LoadBundleTag extends TagSupport implements HasVar {
   }
 
   /**
-   *  Base name of the resource bundle to be loaded.
+   * Base name of the resource bundle to be loaded.
    */
-  @TagAttribute(required=true)
+  @TagAttribute(required = true)
   @UIComponentTagAttribute()
   public void setBasename(String basename) {
     this.basename = basename;
@@ -83,9 +80,9 @@ public class LoadBundleTag extends TagSupport implements HasVar {
   public void setVar(String var) {
     this.var = var;
   }
-// -------------------------------------------------------------- inner classes
 
   private static class BundleMapWrapper implements Map {
+
     private String basename;
 
     public BundleMapWrapper(String basename) {

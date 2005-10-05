@@ -19,6 +19,7 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.taglib.decl.HasAction;
@@ -32,7 +33,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 
 import javax.faces.component.UIComponent;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * Renders a command button within a toolbar.
@@ -43,26 +43,22 @@ public class ToolBarCommandTag extends CommandTag
     IsDisabled, HasAction, HasActionListener, HasCommandType,
     HasTip, IsImmediateCommand {
 
-// ----------------------------------------------------------------- attributes
-
   private String label;
   private String image;
   private String accessKey;
   private String labelWithAccessKey;
   private String tip;
 
-// ----------------------------------------------------------- business methods
-
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
     component.setRendererType(RENDERER_TYPE_BUTTON);
 
-    ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_TIP, tip, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
+    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
+    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey);
+    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
+    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
   }
 
   public void release() {
@@ -74,7 +70,6 @@ public class ToolBarCommandTag extends CommandTag
     tip = null;
   }
 
-// ------------------------------------------------------------ getter + setter
 
   public String getAccessKey() {
     return accessKey;

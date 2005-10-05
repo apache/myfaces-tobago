@@ -19,6 +19,8 @@
   */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDER_RANGE;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -28,22 +30,17 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * Renders a set of option related to and same type as the <strong>for</strong>
  * component.
  */
-@Tag(name="selectReference", bodyContent=BodyContent.EMPTY)
+@Tag(name = "selectReference", bodyContent = BodyContent.EMPTY)
 public class SelectReferenceTag extends TobagoTag
     implements HasIdBindingAndRendered {
-// ----------------------------------------------------------------- attributes
 
   private String _for;
-
   private String renderRange;
-
-// ----------------------------------------------------------- business methods
 
   public String getComponentType() {
     return UIOutput.COMPONENT_TYPE;
@@ -59,11 +56,10 @@ public class SelectReferenceTag extends TobagoTag
     renderRange = null;
   }
 
-
   /**
-   *  Id of the component, this is related to.
+   * Id of the component, this is related to.
    */
-  @TagAttribute(required=true)
+  @TagAttribute(required = true)
   @UIComponentTagAttribute()
   public void setFor(String _for) {
     this._for = _for;
@@ -71,21 +67,18 @@ public class SelectReferenceTag extends TobagoTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_FOR, _for, getIterationHelper());
-   ComponentUtil.setStringProperty(component, ATTR_RENDER_RANGE, renderRange, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_FOR, _for);
+    ComponentUtil.setStringProperty(component, ATTR_RENDER_RANGE, renderRange);
   }
-
-// ------------------------------------------------------------ getter + setter
 
   public String getRenderRange() {
     return renderRange;
   }
 
-
   /**
-   *  Range of items to render.
+   * Range of items to render.
    */
-  @TagAttribute(required=true)
+  @TagAttribute(required = true)
   @UIComponentTagAttribute()
   public void setRenderRange(String renderRange) {
     this.renderRange = renderRange;

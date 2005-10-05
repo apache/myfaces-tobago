@@ -28,11 +28,9 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 /**
  * Renders a panel with border and title.
  */
-@Tag(name="box")
+@Tag(name = "box")
 public class BoxTag extends TobagoBodyTag
     implements HasIdBindingAndRendered, HasDimension, HasLabel {
-
-// ----------------------------------------------------------- business methods
 
   public String getComponentType() {
     return UIPanel.COMPONENT_TYPE;

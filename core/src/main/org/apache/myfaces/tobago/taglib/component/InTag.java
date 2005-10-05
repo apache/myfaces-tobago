@@ -19,10 +19,10 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class InTag extends TextInputTag
     implements org.apache.myfaces.tobago.taglib.decl.InTag {
@@ -37,8 +37,7 @@ public class InTag extends TextInputTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setBooleanProperty(component, ATTR_PASSWORD, password,
-        getIterationHelper());
+    ComponentUtil.setBooleanProperty(component, ATTR_PASSWORD, password);
   }
 
   public String getPassword() {

@@ -20,11 +20,11 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class ImageTag extends TobagoTag
     implements org.apache.myfaces.tobago.taglib.decl.ImageTag {
@@ -40,10 +40,10 @@ public class ImageTag extends TobagoTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_ALT, alt, getIterationHelper());
-   ComponentUtil.setStringProperty(component, ATTR_BORDER, border, getIterationHelper());
-   ComponentUtil.setStringProperty(component, ATTR_VALUE, value, getIterationHelper());
-   ComponentUtil.setStringProperty(component, ATTR_TIP, tip, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_ALT, alt);
+    ComponentUtil.setStringProperty(component, ATTR_BORDER, border);
+    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
+    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
   }
 
   public void release() {

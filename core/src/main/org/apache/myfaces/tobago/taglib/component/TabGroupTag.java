@@ -19,6 +19,8 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SERVER_SIDE_TABS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -30,23 +32,17 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasState;
 
 import javax.faces.component.UIComponent;
-import javax.faces.el.ValueBinding;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * Renders a tabpanel.
  */
-@Tag(name="tabGroup")
-@BodyContentDescription(anyTagOf="(<t:tab>* " )
+@Tag(name = "tabGroup")
+@BodyContentDescription(anyTagOf = "(<t:tab>* ")
 public class TabGroupTag extends TobagoTag
-    implements HasIdBindingAndRendered, HasDimension, HasState
-    {
-// ----------------------------------------------------------------- attributes
+    implements HasIdBindingAndRendered, HasDimension, HasState {
 
   private String serverside;
   private String state;
-
-// ----------------------------------------------------------- business methods
 
   public String getComponentType() {
     return UITabGroup.COMPONENT_TYPE;
@@ -54,13 +50,8 @@ public class TabGroupTag extends TobagoTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setBooleanProperty(component, ATTR_SERVER_SIDE_TABS, serverside, getIterationHelper());
-
-    // todo: check, if it is an writeable object
-    if (state != null && isValueReference(state)) {
-      ValueBinding valueBinding = ComponentUtil.createValueBinding(state, getIterationHelper());
-      component.setValueBinding(ATTR_STATE, valueBinding);
-    }
+    ComponentUtil.setBooleanProperty(component, ATTR_SERVER_SIDE_TABS, serverside);
+    ComponentUtil.setValueBinding(component, ATTR_STATE, state);
   }
 
   public void release() {
@@ -68,8 +59,6 @@ public class TabGroupTag extends TobagoTag
     serverside = null;
     state = null;
   }
-
-// ------------------------------------------------------------ getter + setter
 
   public String getServerside() {
     return serverside;
@@ -80,7 +69,7 @@ public class TabGroupTag extends TobagoTag
    * Flag indicating that tab switching is done by server request.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type="java.lang.Boolean", defaultValue="false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
   public void setServerside(String serverside) {
     this.serverside = serverside;
   }

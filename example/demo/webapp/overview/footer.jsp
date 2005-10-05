@@ -24,7 +24,7 @@
     </f:facet>
 
     <t:cell spanX="4" id="c">
-      <hr />
+     <f:verbatim><hr /></f:verbatim>
     </t:cell>
 
     <t:button immediate="true"

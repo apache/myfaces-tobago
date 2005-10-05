@@ -19,31 +19,23 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIData;
-import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
-import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.el.MethodBinding;
-import javax.faces.el.ValueBinding;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * Render a sheet element.
  */
-@Tag(name="sheet")
-@BodyContentDescription(anyTagOf="<t:column>* <t:columnSelector>?" )
-public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
-    {
-
-// ----------------------------------------------------------------- attributes
+@Tag(name = "sheet")
+@BodyContentDescription(anyTagOf = "<t:column>* <t:columnSelector>?")
+public class SheetTag extends TobagoTag implements HasIdBindingAndRendered {
 
   private String var;
   private String showRowRange = "none";
@@ -87,58 +79,23 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
     super.setProperties(component);
     UIData data = (UIData) component;
 
-    ComponentUtil.setStringProperty(data, ATTR_SHOW_ROW_RANGE,
-        showRowRange, getIterationHelper());
-    ComponentUtil.setStringProperty(data, ATTR_SHOW_PAGE_RANGE,
-        showPageRange, getIterationHelper());
-    ComponentUtil.setStringProperty(data, ATTR_SHOW_DIRECT_LINKS,
-        showDirectLinks, getIterationHelper());
-    ComponentUtil.setIntegerProperty(data, ATTR_DIRECT_LINK_COUNT,
-        directLinkCount, getIterationHelper());
-    ComponentUtil.setBooleanProperty(data, ATTR_SHOW_HEADER, showHeader,
-        getIterationHelper());
-    ComponentUtil.setIntegerProperty(data, ATTR_FIRST, pagingStart,
-        getIterationHelper());
-    ComponentUtil.setIntegerProperty(data, ATTR_ROWS, pagingLength,
-        getIterationHelper());
-    ComponentUtil.setStringProperty(data, ATTR_COLUMNS, columns,
-        getIterationHelper());
-    ComponentUtil.setStringProperty(data, ATTR_VALUE, value,
-        getIterationHelper());
-    ComponentUtil.setStringProperty(data, ATTR_FORCE_VERTICAL_SCROLLBAR,
-        forceVerticalScrollbar, getIterationHelper());
-
-//   todo: works this? or use that: data.setVar(var);
-    ComponentUtil.setStringProperty(data, ATTR_VAR, var,
-        getIterationHelper());
-
+    ComponentUtil.setStringProperty(data, ATTR_SHOW_ROW_RANGE, showRowRange);
+    ComponentUtil.setStringProperty(data, ATTR_SHOW_PAGE_RANGE, showPageRange);
+    ComponentUtil.setStringProperty(data, ATTR_SHOW_DIRECT_LINKS, showDirectLinks);
+    ComponentUtil.setIntegerProperty(data, ATTR_DIRECT_LINK_COUNT, directLinkCount);
+    ComponentUtil.setBooleanProperty(data, ATTR_SHOW_HEADER, showHeader);
+    ComponentUtil.setIntegerProperty(data, ATTR_FIRST, pagingStart);
+    ComponentUtil.setIntegerProperty(data, ATTR_ROWS, pagingLength);
+    ComponentUtil.setStringProperty(data, ATTR_COLUMNS, columns);
+    ComponentUtil.setStringProperty(data, ATTR_VALUE, value);
+    ComponentUtil.setStringProperty(data, ATTR_FORCE_VERTICAL_SCROLLBAR, forceVerticalScrollbar);
+    // todo: works this? or use that: data.setVar(var);
+    ComponentUtil.setStringProperty(data, ATTR_VAR, var);
     data.getAttributes().put(ATTR_INNER_WIDTH, new Integer(-1));
-
-    // todo: check, if it is an writeable object
-    if (state != null && isValueReference(state)) {
-      ValueBinding valueBinding = ComponentUtil.createValueBinding(
-          state, getIterationHelper());
-      data.setValueBinding(ATTR_STATE, valueBinding);
-    }
-
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final Application application = facesContext.getApplication();
-
-    if (stateChangeListener != null) {
-      if (isValueReference(stateChangeListener)) {
-        Class arguments[] = {SheetStateChangeEvent.class};
-        MethodBinding binding
-            = application.createMethodBinding(stateChangeListener, arguments);
-        data.setStateChangeListener(binding);
-      } else {
-        throw new IllegalArgumentException(
-            "Must be a valueReference (actionListener): " + stateChangeListener);
-      }
-    }
+    ComponentUtil.setValueBinding(component, ATTR_STATE, state);
+    ComponentUtil.setStateChangeListener(data, stateChangeListener);
 
   }
-
-// ------------------------------------------------------------ getter + setter
 
   public String getColumns() {
     return columns;
@@ -146,12 +103,10 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
 
 
   /**
-   *
    * LayoutConstraints for column layout.
    * Semicolon separated list of layout tokens ('<x>*', '<x>px' or '<x>%').
-   *
    */
-  @TagAttribute(required=true)
+  @TagAttribute(required = true)
   @UIComponentTagAttribute()
   public void setColumns(String columns) {
     this.columns = columns;
@@ -162,12 +117,10 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
   }
 
   /**
-   *
-   *    Flag indicating the header should rendered.
-   *
+   * Flag indicating the header should rendered.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type="java.lang.Boolean", defaultValue="true")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
   public void setShowHeader(String showHeader) {
     this.showHeader = showHeader;
   }
@@ -177,13 +130,11 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
   }
 
   /**
-   *
-   *   The number of rows to display, starting with the one identified by the
-   *   "pageingStart" property.
-   *
+   * The number of rows to display, starting with the one identified by the
+   * "pageingStart" property.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type="java.lang.Integer", defaultValue="100")
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "100")
   public void setPagingLength(String pagingLength) {
     this.pagingLength = pagingLength;
   }
@@ -196,13 +147,11 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
     return stateChangeListener;
   }
 
-   /**
-   *
-   *   Zero-relative row number of the first row to be displayed.
-   *
+  /**
+   * Zero-relative row number of the first row to be displayed.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type="java.lang.Integer", defaultValue="0")
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "0")
   public void setPagingStart(String pagingStart) {
     this.pagingStart = pagingStart;
   }
@@ -212,12 +161,11 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
   }
 
   /**
-   *  The sheet's data.
-   *  
+   * The sheet's data.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type={"java.lang.Object[]", "java.util.List", "javax.servlet.jsp.jstl.sql.Result",
-                                 "java.sql.ResultSet", "java.lang.Object", "javax.faces.model.DataModel"})
+  @UIComponentTagAttribute(type = {"java.lang.Object[]", "java.util.List", "javax.servlet.jsp.jstl.sql.Result",
+      "java.sql.ResultSet", "java.lang.Object", "javax.faces.model.DataModel"})
   public void setValue(String value) {
     this.value = value;
   }
@@ -226,117 +174,102 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered
     return var;
   }
 
-   /**
-   *
+  /**
    * Name of a request-scope attribute under which the model data for the row
    * selected by the current value of the "rowIndex" property
    * (i.e. also the current value of the "rowData" property) will be exposed.
-   *
    */
-  @TagAttribute(required=true)
+  @TagAttribute(required = true)
   @UIComponentTagAttribute()
   public void setVar(String var) {
     this.var = var;
   }
 
-   /**
-   *
-   *   The count of rendered direct paging links in the sheet's footer.<br />
-   *    The <strong>default</strong> is 9.
-   *
+  /**
+   * The count of rendered direct paging links in the sheet's footer.<br />
+   * The <strong>default</strong> is 9.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type="java.lang.Integer", defaultValue="9")
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "9")
   public void setDirectLinkCount(String directLinkCount) {
     this.directLinkCount = directLinkCount;
   }
 
   /**
-   *
    * Flag indicating whether or not this sheet should reserve space for
-   *      vertical toolbar when calculating column width's.<br>
-   *      Possible values are: <pre>
+   * vertical toolbar when calculating column width's.<br>
+   * Possible values are: <pre>
    *      'auto'  : sheet try to estimate the need of scrollbar,
    *                this is the default.
    *      'true'  : space for scroolbar is reserved.
    *      'false' : no space is reserved.
    *      </pre>
-   *
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue="auto")
+  @UIComponentTagAttribute(defaultValue = "auto")
   public void setForceVerticalScrollbar(String forceVerticalScrollbar) {
     this.forceVerticalScrollbar = forceVerticalScrollbar;
   }
 
   /**
-   *
-   *   Flag indicating whether or not a range of direct paging links should be
-   *   rendered in the sheet's footer.<br />
-   *    Valid values are <strong>left</strong>, <strong>center</strong>,
-   *    <strong>right</strong> and <strong>none</strong>.
-   *    The <strong>default</strong> is <code>none</code>.
-   *
+   * Flag indicating whether or not a range of direct paging links should be
+   * rendered in the sheet's footer.<br />
+   * Valid values are <strong>left</strong>, <strong>center</strong>,
+   * <strong>right</strong> and <strong>none</strong>.
+   * The <strong>default</strong> is <code>none</code>.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue="none")
+  @UIComponentTagAttribute(defaultValue = "none")
   public void setShowDirectLinks(String showDirectLinks) {
     this.showDirectLinks = showDirectLinks;
   }
 
-   /**
-   *
-   *   Flag indicating whether and where the range pages should
-   *    rendered in the sheet's footer. Rendering this range also offers the
-   *    capability to enter the index displayed page directly.<br />
-   *    Valid values are <strong>left</strong>, <strong>center</strong>,
-   *    <strong>right</strong> and <strong>none</strong>.
-   *    The <strong>default</strong> is <code>none</code>.
-   *
+  /**
+   * Flag indicating whether and where the range pages should
+   * rendered in the sheet's footer. Rendering this range also offers the
+   * capability to enter the index displayed page directly.<br />
+   * Valid values are <strong>left</strong>, <strong>center</strong>,
+   * <strong>right</strong> and <strong>none</strong>.
+   * The <strong>default</strong> is <code>none</code>.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue="none")
+  @UIComponentTagAttribute(defaultValue = "none")
   public void setShowPageRange(String showPageRange) {
     this.showPageRange = showPageRange;
   }
 
 
   /**
-   *
-   *    Flag indicating whether or not the range of displayed rows should
-   *   rendered in the sheet's footer. Rendering this range also offers the
-   *    capability to enter the index of the start row directly. <br />
-   *    Valid values are <strong>left</strong>, <strong>center</strong>,
-   *    <strong>right</strong> and <strong>none</strong>.
-   *    The <strong>default</strong> is <code>none</code>.
-   *
+   * Flag indicating whether or not the range of displayed rows should
+   * rendered in the sheet's footer. Rendering this range also offers the
+   * capability to enter the index of the start row directly. <br />
+   * Valid values are <strong>left</strong>, <strong>center</strong>,
+   * <strong>right</strong> and <strong>none</strong>.
+   * The <strong>default</strong> is <code>none</code>.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue="none")
+  @UIComponentTagAttribute(defaultValue = "none")
   public void setShowRowRange(String showRowRange) {
     this.showRowRange = showRowRange;
   }
 
   /**
-   *
    * Sheet state saving object.
-   *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type="org.apache.myfaces.tobago.model.SheetState")
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.model.SheetState")
   public void setState(String state) {
     this.state = state;
   }
 
-   /**
-   *
+  /**
    * MethodBinding representing an stateChangeListener method that will be
    * notified when the state was changed by the user.
    * The expression must evaluate to a public method that takes an
    * StateChangeEvent parameter, with a return type of void.
-   *
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute()
   public void setStateChangeListener(String stateChangeListener) {
     this.stateChangeListener = stateChangeListener;
   }

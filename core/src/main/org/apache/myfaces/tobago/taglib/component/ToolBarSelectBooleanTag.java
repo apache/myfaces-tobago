@@ -15,6 +15,7 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.taglib.decl.HasAction;
@@ -27,16 +28,15 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 
 import javax.faces.component.UIComponent;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 
 /**
  * Renders a selectable command button within a toolbar.
  */
-@Tag(name="toolBarCheck")
+@Tag(name = "toolBarCheck")
 public class ToolBarSelectBooleanTag extends SelectBooleanCommandTag
     implements HasIdBindingAndRendered, HasLabelAndAccessKey, HasCommandType,
-               HasImage, IsDisabled, HasAction, HasBooleanValue, IsImmediateCommand {
+    HasImage, IsDisabled, HasAction, HasBooleanValue, IsImmediateCommand {
 
   private String image;
 
@@ -44,7 +44,7 @@ public class ToolBarSelectBooleanTag extends SelectBooleanCommandTag
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
   }
 
   public void release() {

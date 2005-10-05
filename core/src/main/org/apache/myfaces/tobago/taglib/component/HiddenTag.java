@@ -19,18 +19,18 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
 
 import javax.faces.component.UIComponent;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class HiddenTag extends BeanTag
     implements org.apache.myfaces.tobago.taglib.decl.HiddenTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setBooleanProperty(component, ATTR_INLINE, "true", null);
+    ComponentUtil.setBooleanProperty(component, ATTR_INLINE, "true");
   }
 
   public String getComponentType() {

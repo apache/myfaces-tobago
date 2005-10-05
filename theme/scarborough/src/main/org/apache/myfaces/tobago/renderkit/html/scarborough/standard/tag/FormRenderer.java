@@ -19,8 +19,6 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BODY_CONTENT;
-import org.apache.myfaces.tobago.component.BodyContentHandler;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -28,7 +26,6 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class FormRenderer extends RendererBase {
@@ -55,13 +52,13 @@ public class FormRenderer extends RendererBase {
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    //ResponseWriter writer = facesContext.getResponseWriter();
 
-    BodyContentHandler bodyContentHandler = (BodyContentHandler)
-        component.getAttributes().get(ATTR_BODY_CONTENT);
-    if (bodyContentHandler != null) {
-      writer.write(bodyContentHandler.getBodyContent());
-    }
+    //BodyContentHandler bodyContentHandler = (BodyContentHandler)
+    //    component.getAttributes().get(ATTR_BODY_CONTENT);
+    //if (bodyContentHandler != null) {
+    //  writer.write(bodyContentHandler.getBodyContent());
+    //}
 
   }
   

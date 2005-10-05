@@ -31,18 +31,9 @@ import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 /**
  * Renders a submenu with select one items.
  */
-@Tag(name="menuradio")
+@Tag(name = "menuradio")
 public class MenuSelectOneTag extends SelectOneCommandTag
     implements HasIdBindingAndRendered, HasLabel, IsDisabled, HasAction,
-               HasCommandType, HasValue, IsImmediateCommand {
-
-
-// ----------------------------------------------------------------- attributes
-
-// ----------------------------------------------------------- business methods
-
-
-// ------------------------------------------------------------ getter + setter
-
+    HasCommandType, HasValue, IsImmediateCommand {
 
 }

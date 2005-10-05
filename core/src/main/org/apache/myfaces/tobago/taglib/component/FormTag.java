@@ -24,9 +24,8 @@ import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 
-@Tag(name="form")
+@Tag(name = "form")
 public class FormTag extends TobagoBodyTag implements HasBinding, HasId {
-// ----------------------------------------------------------- business methods
 
   public String getComponentType() {
     return UIForm.COMPONENT_TYPE;

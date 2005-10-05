@@ -28,23 +28,15 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
  * Intended for use in situations when only one UIComponent child can be
  * nested, such as in the case of facets.
  */
-@Tag(name="panel")
+@Tag(name = "panel")
 public class PanelTag extends TobagoBodyTag
     implements HasIdBindingAndRendered, HasDimension {
 
-// ///////////////////////////////////////////// constant
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
 
   public String getComponentType() {
     return UIPanel.COMPONENT_TYPE;
   }
 
-// ///////////////////////////////////////////// bean getter + setter
 
 }
 

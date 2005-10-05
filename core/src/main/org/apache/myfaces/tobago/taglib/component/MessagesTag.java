@@ -19,6 +19,7 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -27,25 +28,16 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIMessages;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * Renders error/validation messages.
  */
-@Tag(name="messages", bodyContent=BodyContent.EMPTY)
+@Tag(name = "messages", bodyContent = BodyContent.EMPTY)
 public class MessagesTag extends TobagoTag
     implements HasIdBindingAndRendered, HasFor {
 
-
-// ///////////////////////////////////////////// constant
-
-// ///////////////////////////////////////////// attribute
-
   private String _for;
 
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
 
   public String getComponentType() {
     return UIMessages.COMPONENT_TYPE;
@@ -53,15 +45,13 @@ public class MessagesTag extends TobagoTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_FOR, _for, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_FOR, _for);
   }
 
   public void release() {
     super.release();
     _for = null;
   }
-  
-// ///////////////////////////////////////////// bean getter + setter
 
   public String getFor() {
     return _for;

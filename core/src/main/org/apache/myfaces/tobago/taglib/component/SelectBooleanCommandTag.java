@@ -15,11 +15,11 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICommand;
 
 import javax.faces.component.UIComponent;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * User: weber
@@ -27,6 +27,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.*;
  * Time: 3:01:45 PM
  */
 public class SelectBooleanCommandTag extends CommandTag {
+
   public static final String COMMAND_TYPE = "commandSelectBoolean";
   private String label;
   private String accessKey;
@@ -42,11 +43,11 @@ public class SelectBooleanCommandTag extends CommandTag {
 
     component.setRendererType(RENDERER_TYPE_MENUCOMMAND);
 
-    ComponentUtil.setStringProperty(component, ATTR_VALUE, value, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, COMMAND_TYPE, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
+    ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, COMMAND_TYPE);
+    ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
+    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey);
+    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
   }
 
   public void release() {

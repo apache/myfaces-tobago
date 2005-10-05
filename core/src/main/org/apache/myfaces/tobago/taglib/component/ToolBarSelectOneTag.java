@@ -26,9 +26,9 @@ import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 /**
  * Renders a set of radio command button's within a toolbar.
  */
-@Tag(name="toolBarSelectOne")
+@Tag(name = "toolBarSelectOne")
 public class ToolBarSelectOneTag extends SelectOneCommandTag
     implements HasIdBindingAndRendered, IsDisabled, HasAction, HasCommandType,
-               HasValue, IsImmediateCommand {
-  
+    HasValue, IsImmediateCommand {
+
 }

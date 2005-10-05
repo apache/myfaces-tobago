@@ -19,10 +19,10 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDER_RANGE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class SelectOneRadioTag extends SelectOneTag
     implements org.apache.myfaces.tobago.taglib.decl.SelectOneRadioTag {
@@ -31,7 +31,7 @@ public class SelectOneRadioTag extends SelectOneTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_RENDER_RANGE, renderRange, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_RENDER_RANGE, renderRange);
   }
 
   public void release() {

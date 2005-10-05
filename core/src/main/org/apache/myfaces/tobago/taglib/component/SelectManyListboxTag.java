@@ -19,13 +19,12 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UISelectMany;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
-
 
 
 public class SelectManyListboxTag extends SelectManyTag
@@ -37,6 +36,7 @@ public class SelectManyListboxTag extends SelectManyTag
 
   public int doEndTag() throws JspException {
     UIComponent component = getComponentInstance();
+    // TODO remove this
     UIComponent facet = component.getFacet(FACET_LAYOUT);
     if (facet == null) {
       UIComponent layout = ComponentUtil.createLabeledInputLayoutComponent();

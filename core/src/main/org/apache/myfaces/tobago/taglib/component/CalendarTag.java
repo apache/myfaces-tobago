@@ -19,21 +19,18 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 
 public class CalendarTag extends TobagoTag
     implements org.apache.myfaces.tobago.taglib.decl.CalendarTag {
 
-// ----------------------------------------------------------------- attributes
-
   private String value;
 
-// ----------------------------------------------------------- business methods
 
   public String getComponentType() {
     return UIOutput.COMPONENT_TYPE;
@@ -46,7 +43,7 @@ public class CalendarTag extends TobagoTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_VALUE, value, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
   }
 
   public void setValue(String value) {

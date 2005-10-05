@@ -19,27 +19,20 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import static javax.faces.convert.DateTimeConverter.CONVERTER_ID;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
 
-import javax.faces.component.UIComponent;
-import javax.faces.convert.DateTimeConverter;
-import javax.faces.convert.Converter;
-import javax.faces.context.FacesContext;
 import javax.faces.application.Application;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.DateTimeConverter;
+import static javax.faces.convert.DateTimeConverter.CONVERTER_ID;
 import javax.servlet.jsp.JspException;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
-
 import java.util.TimeZone;
 
 public class TimeTag extends InputTag
     implements org.apache.myfaces.tobago.taglib.decl.TimeTag {
-
-  private static final Log LOG = LogFactory.getLog(TimeTag.class);
 
   public String getComponentType() {
     return UIInput.COMPONENT_TYPE;
@@ -48,11 +41,12 @@ public class TimeTag extends InputTag
   public int doEndTag() throws JspException {
 
     UIInput component = (UIInput) getComponentInstance();
+    // TODO remove this
     if (component.getFacet(FACET_LAYOUT) == null) {
       UIComponent layout = ComponentUtil.createLabeledInputLayoutComponent();
       component.getFacets().put(FACET_LAYOUT, layout);
     }
-
+    // TODO
     if (component.getConverter() == null) {
       Application application
           = FacesContext.getCurrentInstance().getApplication();

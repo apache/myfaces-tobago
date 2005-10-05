@@ -19,6 +19,7 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -36,21 +37,18 @@ import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 
 import javax.faces.component.UIComponent;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * Renders a button element.
  */
 // fixme: bodyContent
-@Tag(name="button")
-@BodyContentDescription(anyTagOf="facestag")
+@Tag(name = "button")
+@BodyContentDescription(anyTagOf = "facestag")
 public class ButtonTag extends CommandTag
     implements HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
-               IsDisabled, HasAction, HasActionListener, HasCommandType,
-               IsImmediateCommand, IsDefaultCommand,
-               HasWidth, HasTip, IsInline
-    {
-// ----------------------------------------------------------------- attributes
+    IsDisabled, HasAction, HasActionListener, HasCommandType,
+    IsImmediateCommand, IsDefaultCommand,
+    HasWidth, HasTip, IsInline {
 
   private String label;
   private String image;
@@ -59,16 +57,15 @@ public class ButtonTag extends CommandTag
   private String tip;
   private String defaultCommand;
 
-// ----------------------------------------------------------- business methods
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_TIP, tip, getIterationHelper());
-    ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
+    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
+    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey);
+    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
+    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
+    ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand);
   }
 
   public void release() {
@@ -81,7 +78,6 @@ public class ButtonTag extends CommandTag
     defaultCommand = null;
   }
 
-// ------------------------------------------------------------ getter + setter
 
   public String getAccessKey() {
     return accessKey;

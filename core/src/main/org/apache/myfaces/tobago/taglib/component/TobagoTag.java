@@ -21,62 +21,32 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.Tag;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public abstract class TobagoTag extends UIComponentTag
     implements org.apache.myfaces.tobago.taglib.decl.TobagoTag {
-  // todo: in java 1.5 use: import static org.apache.myfaces.tobago.TobagoConstants.*;
-
-// ----------------------------------------------------------- class attributes
 
   private static final Log LOG = LogFactory.getLog(TobagoTag.class);
 
-// ----------------------------------------------------------------- attributes
-
   protected String label;
-
   private String title;
-
   private String width;
-
   private String height;
-
   private String hidden;
-
   private String readonly;
-
   private String disabled;
-
   private String inline;
-
-  private String localBinding;
-
-// ----------------------------------------------------------- business methods
 
   public int doStartTag() throws JspException {
     if (LOG.isDebugEnabled()) {
       LOG.debug("doStartTag() rendererType  " + getRendererType());
       LOG.debug("doStartTag() componentType " + getComponentType());
     }
-
-    final UIComponentTag parent = getParentUIComponentTag(pageContext);
-    if (parent instanceof TobagoBodyTag) {
-      ((TobagoBodyTag) parent).handleBodyContent();
-    } else {
-      // plain-text/html will not collected in this case.
-    }
-
-    ForEachTag.IterationHelper iterationHelper = getIterationHelper();
-    if (iterationHelper != null && localBinding != null) { // todo: ask Volker is this is correct
-      setBinding(iterationHelper.replace(localBinding));
-    }
-
     return super.doStartTag();
   }
 
@@ -107,39 +77,17 @@ public abstract class TobagoTag extends UIComponentTag
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    ComponentUtil.setStringProperty(component, ATTR_LABEL, label, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_TITLE, title, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
+    ComponentUtil.setStringProperty(component, ATTR_TITLE, title);
 
-    ComponentUtil.setBooleanProperty(component, ATTR_DISABLED, disabled, getIterationHelper());
-    ComponentUtil.setBooleanProperty(component, ATTR_READONLY, readonly, getIterationHelper());
-    ComponentUtil.setBooleanProperty(component, ATTR_HIDDEN, hidden, getIterationHelper());
-    ComponentUtil.setBooleanProperty(component, ATTR_INLINE, inline, getIterationHelper());
+    ComponentUtil.setBooleanProperty(component, ATTR_DISABLED, disabled);
+    ComponentUtil.setBooleanProperty(component, ATTR_READONLY, readonly);
+    ComponentUtil.setBooleanProperty(component, ATTR_HIDDEN, hidden);
+    ComponentUtil.setBooleanProperty(component, ATTR_INLINE, inline);
 
-    ComponentUtil.setStringProperty(component, ATTR_WIDTH, width, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_HEIGHT, height, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_WIDTH, width);
+    ComponentUtil.setStringProperty(component, ATTR_HEIGHT, height);
 
-//    provideLabel(component);
-  }
-
-
-  protected ForEachTag.IterationHelper getIterationHelper() {
-    ForEachTag.IterationHelper iterator = null;
-    Tag parent = getParent();
-
-    while (parent != null && ! (parent instanceof ForEachTag)) {
-      parent = parent.getParent();
-    }
-    if (parent != null) {
-      iterator = ((ForEachTag)parent).getIterationHelper();
-    }
-    return iterator;
-  }
-
-// ------------------------------------------------------------ getter + setter
-
-  public void setBinding(String binding) throws JspException {
-    super.setBinding(binding);
-    localBinding = binding;
   }
 
   public String getDisabled() {
@@ -169,6 +117,7 @@ public abstract class TobagoTag extends UIComponentTag
   public String getInline() {
     return inline;
   }
+
   public void setInline(String inline) {
     this.inline = inline;
   }
@@ -205,4 +154,3 @@ public abstract class TobagoTag extends UIComponentTag
     this.width = width;
   }
 }
-

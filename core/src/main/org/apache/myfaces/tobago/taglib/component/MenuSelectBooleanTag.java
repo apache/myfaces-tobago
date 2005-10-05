@@ -31,18 +31,9 @@ import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 /**
  * Renders a checkable menuitem.
  */
-@Tag(name="menucheck")
+@Tag(name = "menucheck")
 public class MenuSelectBooleanTag extends SelectBooleanCommandTag
     implements HasIdBindingAndRendered, IsDisabled, HasAction, HasCommandType,
-               HasBooleanValue, HasLabelAndAccessKey, IsImmediateCommand{
-
-// ----------------------------------------------------------------- attributes
-
-
-// ----------------------------------------------------------- business methods
-
-
-// ------------------------------------------------------------ getter + setter
-
+    HasBooleanValue, HasLabelAndAccessKey, IsImmediateCommand {
 
 }

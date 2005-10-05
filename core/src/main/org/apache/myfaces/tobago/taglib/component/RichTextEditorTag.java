@@ -19,13 +19,16 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE_PREVIEW;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
-/** todo: under construction */
+/**
+ * todo: under construction
+ */
 public class RichTextEditorTag extends TextInputTag
     implements org.apache.myfaces.tobago.taglib.decl.RichTextEditorTag {
 
@@ -41,8 +44,7 @@ public class RichTextEditorTag extends TextInputTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-
-   ComponentUtil.setBooleanProperty(component, ATTR_STATE_PREVIEW, statePreview, getIterationHelper());
+    ComponentUtil.setBooleanProperty(component, ATTR_STATE_PREVIEW, statePreview);
   }
 
   public void release() {

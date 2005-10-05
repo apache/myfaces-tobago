@@ -19,18 +19,18 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ENCTYPE;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UIPage;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 
 public class FileTag extends InputTag
     implements org.apache.myfaces.tobago.taglib.decl.FileTag {
-  // ----------------------------------------------------------- business methods
 
   public int doStartTag() throws JspException {
     int result = super.doStartTag();
@@ -51,7 +51,6 @@ public class FileTag extends InputTag
   public String getComponentType() {
     return UIInput.COMPONENT_TYPE;
   }
-
 
   public void setValue(String value) {
     super.setValue(value);

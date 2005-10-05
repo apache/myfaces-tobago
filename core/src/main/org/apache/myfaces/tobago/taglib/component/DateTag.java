@@ -19,9 +19,9 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIInput;
@@ -62,8 +62,7 @@ public class DateTag extends InputTag
       component.getFacets().put(FACET_LAYOUT, layout);
     }
 
-
-    // ensure date script
+    // TODO ensure date script move to RenderKit
 
     final List<String> scriptFiles
         = ComponentUtil.findPage(component).getScriptFiles();
@@ -103,13 +102,13 @@ public class DateTag extends InputTag
     final Converter converter = ((UIOutput) component).getConverter();
     LOG.info("converter = " + converter);
     if (converter instanceof DateTimeConverter) {
-      converterPattern = ((DateTimeConverter)converter).getPattern();
+      converterPattern = ((DateTimeConverter) converter).getPattern();
       LOG.info("converterPattern = " + converterPattern);
     }
 
     // create link
     UICommand link = (UICommand) ComponentUtil.createComponent(
-            facesContext, UICommand.COMPONENT_TYPE, RENDERER_TYPE_LINK);
+        facesContext, UICommand.COMPONENT_TYPE, RENDERER_TYPE_LINK);
     component.getFacets().put(FACET_PICKER, link);
 
     link.setImmediate(true);
@@ -129,7 +128,6 @@ public class DateTag extends InputTag
         + ComponentUtil.findPage(component).getFormId(facesContext) + "', '"
         + link.getClientId(facesContext) + "', '"
         + hidden.getClientId(facesContext) + "')");
-
 
     // create popup
     final UIComponent popup = ComponentUtil.createComponent(
@@ -160,7 +158,7 @@ public class DateTag extends InputTag
     calendar.setId("calendar");
     calendar.getAttributes().put(ATTR_CALENDAR_DATE_INPUT_ID, component.getClientId(facesContext));
 
-    if (converterPattern.indexOf('h') > -1 || converterPattern.indexOf('H') > -1 ) {
+    if (converterPattern.indexOf('h') > -1 || converterPattern.indexOf('H') > -1) {
       // add time input
       LOG.info("adding time ");
       final UIComponent timePanel = ComponentUtil.createComponent(
@@ -183,7 +181,7 @@ public class DateTag extends InputTag
       time.setId("time");
       time.getAttributes().put(ATTR_CALENDAR_DATE_INPUT_ID, component.getClientId(facesContext));
       if (converterPattern.indexOf('s') > -1) {
-        time.getAttributes().put(ATTR_POPUP_CALENDAR_FORCE_TIME , true);
+        time.getAttributes().put(ATTR_POPUP_CALENDAR_FORCE_TIME, true);
       }
 
 
@@ -191,7 +189,6 @@ public class DateTag extends InputTag
           facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_PANEL);
       cell.setId("cell2");
       timePanel.getChildren().add(cell);
-
 
 
     } else {
@@ -228,7 +225,7 @@ public class DateTag extends InputTag
 
     // create image
     UIGraphic image = (UIGraphic) ComponentUtil.createComponent(
-            facesContext, UIGraphic.COMPONENT_TYPE, RENDERER_TYPE_IMAGE);
+        facesContext, UIGraphic.COMPONENT_TYPE, RENDERER_TYPE_IMAGE);
     image.setRendered(true);
     image.setValue("image/date.gif");
     image.getAttributes().put(ATTR_ALT, ""); //todo: i18n

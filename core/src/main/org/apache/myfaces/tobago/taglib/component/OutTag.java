@@ -19,21 +19,19 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class OutTag extends BeanTag implements
     org.apache.myfaces.tobago.taglib.decl.OutTag {
-// ----------------------------------------------------------------- attributes
 
   private String escape = "true";
   private String markup;
   private String tip;
 
-// ----------------------------------------------------------- business methods
 
   public String getComponentType() {
     return UIOutput.COMPONENT_TYPE;
@@ -48,20 +46,16 @@ public class OutTag extends BeanTag implements
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setBooleanProperty(component, ATTR_ESCAPE, escape, getIterationHelper());
+    ComponentUtil.setBooleanProperty(component, ATTR_ESCAPE, escape);
     // TODO ???? SPAN ?
-    ComponentUtil.setBooleanProperty(component, ATTR_CREATE_SPAN, "true", getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_MARKUP, markup, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_TIP, tip, getIterationHelper());
+    ComponentUtil.setBooleanProperty(component, ATTR_CREATE_SPAN, "true");
+    ComponentUtil.setStringProperty(component, ATTR_MARKUP, markup);
+    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
   }
-
-// ------------------------------------------------------------ getter + setter
-
 
   public String getEscape() {
     return escape;
   }
-
 
   public void setEscape(String escape) {
     this.escape = escape;

@@ -24,6 +24,7 @@ import javax.faces.component.UISelectMany;
  */
 
 public class SelectManyTag extends InputTag implements org.apache.myfaces.tobago.taglib.decl.SelectManyTag {
+
   public String getComponentType() {
     return UISelectMany.COMPONENT_TYPE;
   }

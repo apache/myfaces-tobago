@@ -15,8 +15,8 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -27,17 +27,14 @@ import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 
 import javax.faces.component.UIComponent;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * Add a child UISelectItem component to the UIComponent
- *  associated with the closed parent UIComponent custom
- *  action.
+ * associated with the closed parent UIComponent custom
+ * action.
  */
-@Tag(name="selectItem", bodyContent=BodyContent.EMPTY)
+@Tag(name = "selectItem", bodyContent = BodyContent.EMPTY)
 public class SelectItemTag extends TobagoTag implements HasBinding, HasId {
-
-  private static final Log LOG = LogFactory.getLog(SelectItemTag.class);
 
   private String itemDescription;
 
@@ -62,12 +59,12 @@ public class SelectItemTag extends TobagoTag implements HasBinding, HasId {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, "itemDescription", itemDescription, getIterationHelper());
-    ComponentUtil.setBooleanProperty(component, "itemDisabled", itemDisabled, getIterationHelper());
-    ComponentUtil.setStringProperty(component, "itemLabel", itemLabel, getIterationHelper());
-    ComponentUtil.setStringProperty(component, "itemValue", itemValue, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_VALUE, value, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_IMAGE, itemImage, getIterationHelper());
+    ComponentUtil.setStringProperty(component, "itemDescription", itemDescription);
+    ComponentUtil.setBooleanProperty(component, "itemDisabled", itemDisabled);
+    ComponentUtil.setStringProperty(component, "itemLabel", itemLabel);
+    ComponentUtil.setStringProperty(component, "itemValue", itemValue);
+    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
+    ComponentUtil.setStringProperty(component, ATTR_IMAGE, itemImage);
   }
 
   public void release() {
@@ -83,11 +80,13 @@ public class SelectItemTag extends TobagoTag implements HasBinding, HasId {
   public String getItemDescription() {
     return itemDescription;
   }
+
   /**
    * Flag indicating whether the option created
-   *  by this component is disabled.
+   * by this component is disabled.
    */
-  @TagAttribute @UIComponentTagAttribute(type={"java.lang.Boolean"}, defaultValue="false")
+  @TagAttribute
+  @UIComponentTagAttribute(type = {"java.lang.Boolean"}, defaultValue = "false")
 
   public void setItemDescription(String itemDescription) {
     this.itemDescription = itemDescription;
@@ -99,10 +98,10 @@ public class SelectItemTag extends TobagoTag implements HasBinding, HasId {
 
   /**
    * Flag indicating whether the option created
-   *  by this component is disabled.
+   * by this component is disabled.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type={"java.lang.Boolean"}, defaultValue="false")
+  @UIComponentTagAttribute(type = {"java.lang.Boolean"}, defaultValue = "false")
   public void setItemDisabled(String itemDisabled) {
     this.itemDisabled = itemDisabled;
   }
@@ -141,7 +140,8 @@ public class SelectItemTag extends TobagoTag implements HasBinding, HasId {
    * Value binding expression pointing at a SelectItem instance containing
    * the information for this option.
    */
-  @TagAttribute @UIComponentTagAttribute(type="javax.faces.model.SelectItem")
+  @TagAttribute
+  @UIComponentTagAttribute(type = "javax.faces.model.SelectItem")
   public void setValue(String value) {
     this.value = value;
   }

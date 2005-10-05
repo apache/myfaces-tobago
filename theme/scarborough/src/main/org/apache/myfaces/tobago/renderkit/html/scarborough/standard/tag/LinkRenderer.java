@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.BodyContentHandler;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
@@ -35,16 +35,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class LinkRenderer extends CommandRendererBase{
 
   private static final Log LOG = LogFactory.getLog(LinkRenderer.class);
-
-// ----------------------------------------------------------------- interfaces
-
-
-// ---------------------------- interface TobagoRenderer
 
   public void encodeBeginTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
@@ -127,15 +121,7 @@ public class LinkRenderer extends CommandRendererBase{
 
   public void encodeEndTobago(FacesContext facesContext, UIComponent component)
       throws IOException {
-    BodyContentHandler bodyContentHandler = (BodyContentHandler)
-        component.getAttributes().get(ATTR_BODY_CONTENT);
-
     ResponseWriter writer = facesContext.getResponseWriter();
-
-    if (bodyContentHandler != null) {
-      writer.writeText(bodyContentHandler.getBodyContent(), null);
-    }
-
     if (!ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
       writer.endElement("a");
     }

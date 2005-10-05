@@ -15,6 +15,7 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -23,21 +24,18 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UILabeledInputLayout;
 
 import javax.faces.component.UIComponent;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * User: weber
  * Date: Jun 20, 2005
  * Time: 6:44:48 PM
  */
-@Tag(name="labeledInputLayout", bodyContent=BodyContent.EMPTY)
+@Tag(name = "labeledInputLayout", bodyContent = BodyContent.EMPTY)
 public class LabeledInputLayoutTag extends TobagoTag {
 
   private String layout;
 
   private String layoutOrder;
-
-
 
 
   public String getComponentType() {
@@ -51,7 +49,7 @@ public class LabeledInputLayoutTag extends TobagoTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     ComponentUtil.setStringProperty(
-        component, ATTR_COLUMNS, layout, getIterationHelper());
+        component, ATTR_COLUMNS, layout);
   }
 
   /**

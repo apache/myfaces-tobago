@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -50,7 +51,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Iterator;
 import java.util.List;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class MenuBarRenderer extends RendererBase {
 // ------------------------------------------------------------------ constants
@@ -70,7 +70,7 @@ public class MenuBarRenderer extends RendererBase {
       clientId = component.getParent().getClientId(facesContext);
     } else {
       clientId = component.getClientId(facesContext);
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+      TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
       writer.startElement("div", component);
       writer.writeIdAttribute(clientId);
@@ -315,6 +315,7 @@ public class MenuBarRenderer extends RendererBase {
     UIComponent checkbox = command.getFacet(FACET_CHECKBOX);
     if (checkbox == null) {
       checkbox = ComponentUtil.createUISelectBooleanFacet(facesContext, command);
+      checkbox.setId(facesContext.getViewRoot().createUniqueId());
     }
 
     final boolean checked = ComponentUtil.getBooleanAttribute(command, ATTR_VALUE);
@@ -352,6 +353,7 @@ public class MenuBarRenderer extends RendererBase {
     UISelectOne radio = (UISelectOne) command.getFacet(FACET_RADIO);
     if (radio == null) {
       radio = ComponentUtil.createUISelectOneFacet(facesContext, command);
+      radio.setId(facesContext.getViewRoot().createUniqueId());
     }
 
 

@@ -19,13 +19,12 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public abstract class InputTag extends BeanTag implements org.apache.myfaces.tobago.taglib.decl.InputTag {
-// ----------------------------------------------------------------- attributes
 
   private String onchange;
   private String focus;
@@ -33,7 +32,6 @@ public abstract class InputTag extends BeanTag implements org.apache.myfaces.tob
   private String labelWithAccessKey;
   private String tip;
 
-// ----------------------------------------------------------- business methods
 
   public void release() {
     super.release();
@@ -42,24 +40,16 @@ public abstract class InputTag extends BeanTag implements org.apache.myfaces.tob
     accessKey = null;
     labelWithAccessKey = null;
     tip = null;
-
   }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component,
-        ATTR_ONCHANGE, onchange, getIterationHelper());
-    ComponentUtil.setBooleanProperty(component,
-        ATTR_FOCUS, focus, getIterationHelper());
-    ComponentUtil.setStringProperty(component,
-        ATTR_ACCESS_KEY, accessKey, getIterationHelper());
-    ComponentUtil.setStringProperty(component,
-        ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
-    ComponentUtil.setStringProperty(component,
-        ATTR_TIP, tip, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_ONCHANGE, onchange);
+    ComponentUtil.setBooleanProperty(component, ATTR_FOCUS, focus);
+    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey);
+    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
+    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
   }
-
-// ------------------------------------------------------------ getter + setter
 
   public String getOnchange() {
     return onchange;
@@ -72,6 +62,7 @@ public abstract class InputTag extends BeanTag implements org.apache.myfaces.tob
   public String getFocus() {
     return focus;
   }
+
   public void setFocus(String focus) {
     this.focus = focus;
   }

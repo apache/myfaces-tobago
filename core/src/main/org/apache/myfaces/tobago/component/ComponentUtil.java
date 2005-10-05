@@ -22,6 +22,8 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.*;
+import org.apache.myfaces.tobago.el.ConstantMethodBinding;
+import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.taglib.component.ForEachTag;
 import org.apache.myfaces.tobago.util.RangeParser;
@@ -41,6 +43,7 @@ import javax.faces.component.UISelectItems;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionListener;
 import javax.faces.model.SelectItem;
@@ -501,7 +504,16 @@ public class ComponentUtil {
     return output;
   }
 
-
+  public static final void setIntegerProperty(UIComponent component,
+      String name, String value) {
+    if (value != null) {
+      if (UIComponentTag.isValueReference(value)) {
+        component.setValueBinding(name, createValueBinding(value));
+      } else {
+        component.getAttributes().put(name, new Integer(value));
+      }
+    }
+  }
   public static final void setIntegerProperty(UIComponent component,
       String name, String value, ForEachTag.IterationHelper iterator) {
     if (value != null) {
@@ -512,7 +524,16 @@ public class ComponentUtil {
       }
     }
   }
-
+   public static final void setBooleanProperty(UIComponent component,
+      String name, String value) {
+    if (value != null) {
+      if (UIComponentTag.isValueReference(value)) {
+        component.setValueBinding(name, createValueBinding(value));
+      } else {
+        component.getAttributes().put(name, Boolean.valueOf(value));
+      }
+    }
+  }
   public static final void setBooleanProperty(UIComponent component,
       String name, String value, ForEachTag.IterationHelper iterator) {
     if (value != null) {
@@ -535,6 +556,20 @@ public class ComponentUtil {
     }
   }
 
+  public static final void setStringProperty(UIComponent component, String name,
+      String value) {
+    if (value != null) {
+      if (UIComponentTag.isValueReference(value)) {
+        component.setValueBinding(name, createValueBinding(value));
+      } else {
+        component.getAttributes().put(name, value);
+      }
+    }
+  }
+  public static ValueBinding createValueBinding(String value) {
+    return FacesContext.getCurrentInstance().getApplication()
+        .createValueBinding(value);
+  }
   public static ValueBinding createValueBinding(String value,
       ForEachTag.IterationHelper iterator) {
     if (iterator != null) {
@@ -583,9 +618,9 @@ public class ComponentUtil {
 
   private static UIColumn createColumn(String label, String sortable, String align) {
     UIColumn column = (UIColumn) createComponent(UIColumn.COMPONENT_TYPE, null);
-    setStringProperty(column, ATTR_LABEL, label, null);
-    setBooleanProperty(column, ATTR_SORTABLE, sortable, null);
-    setStringProperty(column, ATTR_ALIGN, align, null);
+    setStringProperty(column, ATTR_LABEL, label);
+    setBooleanProperty(column, ATTR_SORTABLE, sortable);
+    setStringProperty(column, ATTR_ALIGN, align);
     return column;
   }
 
@@ -742,5 +777,83 @@ public class ComponentUtil {
       }
     }
     return items;
+  }
+
+  public static void setConverter(UIComponent component, String converter) {
+    ValueHolder valueHolder = (ValueHolder) component;
+    if (converter != null && valueHolder.getConverter() == null) {
+      valueHolder.setConverter(
+          FacesContext.getCurrentInstance().getApplication().createConverter(
+              converter));
+    }
+  }
+
+  public static void setAction(UIComponent component, String type, String action) {
+    String commandType;
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final Application application = facesContext.getApplication();
+    if (type != null && UIComponentTag.isValueReference(type)) {
+         commandType = (String)
+             application.createValueBinding(type).getValue(facesContext);
+    } else {
+      commandType = type;
+    }
+    if (commandType != null &&
+        (commandType.equals(COMMAND_TYPE_NAVIGATE)
+        || commandType.equals(COMMAND_TYPE_RESET)
+        || commandType.equals(COMMAND_TYPE_SCRIPT))) {
+     setStringProperty(component, ATTR_ACTION_STRING, action);
+    } else {
+      if (action != null) {
+        if (UIComponentTag.isValueReference(action)) {
+          MethodBinding binding = application.createMethodBinding(action, null);
+          ((org.apache.myfaces.tobago.component.UICommand)component).setAction(binding);
+        } else {
+          ((org.apache.myfaces.tobago.component.UICommand)component).setAction(new ConstantMethodBinding(action));
+        }
+      }
+    }
+
+  }
+
+  public static void setActionListener(org.apache.myfaces.tobago.component.UICommand command, String actionListener) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final Application application = facesContext.getApplication();
+    if (actionListener != null) {
+      if (UIComponentTag.isValueReference(actionListener)) {
+        Class arguments[] = {javax.faces.event.ActionEvent.class};
+        MethodBinding binding
+            = application.createMethodBinding(actionListener, arguments);
+        command.setActionListener(binding);
+      } else {
+        throw new IllegalArgumentException(
+            "Must be a valueReference (actionListener): " + actionListener);
+      }
+    }
+  }
+
+  public static void setValueBinding(UIComponent component, String name, String state) {
+    // todo: check, if it is an writeable object
+    if (state != null && UIComponentTag.isValueReference(state)) {
+      ValueBinding valueBinding = createValueBinding(state);
+      component.setValueBinding(name, valueBinding);
+    }
+  }
+
+  public static void setStateChangeListener(UIData data, String stateChangeListener) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final Application application = facesContext.getApplication();
+
+    if (stateChangeListener != null) {
+      if (UIComponentTag.isValueReference(stateChangeListener)) {
+        Class arguments[] = {SheetStateChangeEvent.class};
+        MethodBinding binding
+            = application.createMethodBinding(stateChangeListener, arguments);
+        data.setStateChangeListener(binding);
+      } else {
+        throw new IllegalArgumentException(
+            "Must be a valueReference (actionListener): " + stateChangeListener);
+      }
+    }
   }
 }

@@ -15,6 +15,7 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -23,14 +24,11 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
-@Tag(name="object", bodyContent=BodyContent.EMPTY)
+@Tag(name = "object", bodyContent = BodyContent.EMPTY)
 public class ObjectTag extends TobagoTag {
 
   private String src;
-
-
 
   public String getComponentType() {
     return UIOutput.COMPONENT_TYPE;
@@ -38,8 +36,7 @@ public class ObjectTag extends TobagoTag {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(
-        component, ATTR_TARGET, src, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_TARGET, src);
   }
 
   public String getSrc() {
@@ -48,8 +45,7 @@ public class ObjectTag extends TobagoTag {
 
 
   /**
-   *  URI to object source
-   *
+   * URI to object source
    */
   @TagAttribute()
   @UIComponentTagAttribute()

@@ -15,12 +15,12 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * User: weber
@@ -28,12 +28,14 @@ import static org.apache.myfaces.tobago.TobagoConstants.*;
  * Time: 5:04:48 PM
  */
 public class TextInputTag extends InputTag implements org.apache.myfaces.tobago.taglib.decl.TextInputTag {
+
   public String getComponentType() {
     return UIInput.COMPONENT_TYPE;
   }
 
   public int doEndTag() throws JspException {
     UIComponent component = getComponentInstance();
+    // TODO remove this
     if (component.getFacet(FACET_LAYOUT) == null) {
       UIComponent layout = ComponentUtil.createLabeledInputLayoutComponent();
       component.getFacets().put(FACET_LAYOUT, layout);

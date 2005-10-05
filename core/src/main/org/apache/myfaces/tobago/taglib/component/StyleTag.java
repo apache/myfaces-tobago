@@ -21,10 +21,8 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
-import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
@@ -35,20 +33,16 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 /**
  * Add a style tag.
  * Collected bodyContent is rendered as content into a style tag.
- *
  */
-@Tag(name="style", bodyContent=BodyContent.TAGDEPENDENT)
-@BodyContentDescription(contentType="css")
+@Tag(name = "style", bodyContent = BodyContent.TAGDEPENDENT)
+@BodyContentDescription(contentType = "css")
 public class StyleTag extends BodyTagSupport implements HasId {
-  
-// ----------------------------------------------------------------- attributes
 
   public String style;
 
-// ----------------------------------------------------------- business methods
-
   public int doEndTag() throws JspException {
-    PageTag pageTag = PageTag.findPageTag(pageContext);
+
+    PageTag pageTag = (PageTag) findAncestorWithClass(this, PageTag.class);
     if (pageTag == null) {
       throw new JspException("Use of Script outside of Page not allowed");
     }
@@ -77,20 +71,15 @@ public class StyleTag extends BodyTagSupport implements HasId {
     style = null;
   }
 
-// ------------------------------------------------------------ getter + setter
-
   public String getStyle() {
     return style;
   }
 
-
   /**
-   *
    * Name of the stylsheet file to add to page.
-   *
    */
   @TagAttribute
-  @UIComponentTagAttribute(expression=DynamicExpression.NONE)
+  //@UIComponentTagAttribute(expression=DynamicExpression.NONE)
   public void setStyle(String style) {
     this.style = style;
   }

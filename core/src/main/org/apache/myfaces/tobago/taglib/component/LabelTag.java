@@ -19,12 +19,11 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UILabel;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class LabelTag extends BeanTag implements
     org.apache.myfaces.tobago.taglib.decl.LabelTag {
@@ -60,14 +59,10 @@ public class LabelTag extends BeanTag implements
   @Override
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(
-        component, ATTR_FOR, _for, getIterationHelper());
-    ComponentUtil.setStringProperty(
-        component, ATTR_ACCESS_KEY, accessKey, getIterationHelper());
-    ComponentUtil.setStringProperty(component,
-        ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey, getIterationHelper());
-    ComponentUtil.setStringProperty(component, ATTR_TIP, tip,
-        getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_FOR, _for);
+    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey);
+    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
+    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
   }
 
   public String getLabelWithAccessKey() {

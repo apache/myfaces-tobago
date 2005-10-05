@@ -19,11 +19,11 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 
 public class SelectOneListboxTag extends SelectOneTag
@@ -32,6 +32,7 @@ public class SelectOneListboxTag extends SelectOneTag
   public int doEndTag() throws JspException {
 
     UIComponent component = getComponentInstance();
+    // TODO remove this
     if (component.getFacet(FACET_LAYOUT) == null) {
       UIComponent layout = ComponentUtil.createLabeledInputLayoutComponent();
       component.getFacets().put(FACET_LAYOUT, layout);

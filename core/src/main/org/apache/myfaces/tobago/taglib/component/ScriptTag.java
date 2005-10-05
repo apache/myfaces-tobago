@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 
@@ -31,20 +30,17 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 /**
  * This tag add client side script to the rendered page.
  */
-@Tag(name="script", bodyContent=BodyContent.JSP)
+@Tag(name = "script", bodyContent = BodyContent.JSP)
 //    @Tag(name="script", bodyContent=BodyContent.TAGDEPENDENT)
 //    @BodyContentDescription(contentType="javascript")
-public class ScriptTag extends BodyTagSupport  {
-
-// ----------------------------------------------------------------- attributes
+public class ScriptTag extends BodyTagSupport {
 
   private String file;
-
   private String onload;
 
-// ----------------------------------------------------------- business methods
   public int doEndTag() throws JspException {
-    PageTag pageTag = PageTag.findPageTag(pageContext); // todo: find uiPage directly
+
+    PageTag pageTag = (PageTag) findAncestorWithClass(this, PageTag.class);
     if (pageTag == null) {
       throw new JspException("Use of Script outside of Page not allowed");
     }
@@ -76,10 +72,6 @@ public class ScriptTag extends BodyTagSupport  {
     onload = null;
   }
 
-// ------------------------------------------------------------ getter + setter
-
-// ///////////////////////////////////////////// bean getter + setter
-
   public String getFile() {
     return file;
   }
@@ -89,7 +81,6 @@ public class ScriptTag extends BodyTagSupport  {
    * Absolute url to script file or script name to lookup in tobago resource path
    */
   @TagAttribute
-  @UIComponentTagAttribute()
   public void setFile(String file) {
     this.file = file;
   }
@@ -103,7 +94,6 @@ public class ScriptTag extends BodyTagSupport  {
    * A script function which is invoked during onLoad Handler on the client.
    */
   @TagAttribute
-  @UIComponentTagAttribute()
   public void setOnload(String onload) {
     this.onload = onload;
   }

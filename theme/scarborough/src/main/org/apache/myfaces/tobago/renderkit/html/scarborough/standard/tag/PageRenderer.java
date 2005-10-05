@@ -29,7 +29,6 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.taglib.component.PageTag;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.Application;
@@ -126,7 +125,7 @@ public class PageRenderer extends PageRendererBase {
     String viewId = facesContext.getViewRoot().getViewId();
     String formAction = viewHandler.getActionURL(facesContext, viewId);
 
-    String charset = (String) page.getAttributes().get(ATTR_CHARSET);
+    //String charset = (String) page.getAttributes().get(ATTR_CHARSET);
 
     String title = (String) page.getAttributes().get(ATTR_LABEL);
 
@@ -142,11 +141,11 @@ public class PageRenderer extends PageRendererBase {
 
     // meta
     // TODO duplicate; see PageTag.doStartTag()
-    writer.startElement("meta", null);
-    writer.writeAttribute("http-equiv", "Content-Type", null);
-    writer.writeAttribute(
-        "content", PageTag.generateContentType(charset), null);
-    writer.endElement("meta");
+    //writer.startElement("meta", null);
+    //writer.writeAttribute("http-equiv", "Content-Type", null);
+    //writer.writeAttribute(
+    //    "content", PageTag.generateContentType(charset), null);
+    //writer.endElement("meta");
 
     // title
     writer.startElement("title", null);

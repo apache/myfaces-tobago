@@ -27,19 +27,17 @@ import org.apache.myfaces.tobago.taglib.decl.HasWidth;
 import javax.faces.component.UIPanel;
 
 /**
- * 
- *       Renders a menu bar.<br>
- *       Add menu bar as facet name="menuBar" to page tag or use it anywhere
- *       on page.<br>
- *
+ * Renders a menu bar.<br>
+ * Add menu bar as facet name="menuBar" to page tag or use it anywhere
+ * on page.<br>
  */
-@Tag(name="menuBar")
+@Tag(name = "menuBar")
 @BodyContentDescription(
-    anyClassOf={"org.apache.myfaces.tobago.taglib.component.MenuTag",
-    "org.apache.myfaces.tobago.taglib.component.MenuCommandTag",
-    "org.apache.myfaces.tobago.taglib.component.MenuSelectBooleanTag",
-    "org.apache.myfaces.tobago.taglib.component.MenuSelectOneTag",
-    "org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag" })
+    anyClassOf = {"org.apache.myfaces.tobago.taglib.component.MenuTag",
+        "org.apache.myfaces.tobago.taglib.component.MenuCommandTag",
+        "org.apache.myfaces.tobago.taglib.component.MenuSelectBooleanTag",
+        "org.apache.myfaces.tobago.taglib.component.MenuSelectOneTag",
+        "org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag"})
 public class MenuBarTag extends TobagoBodyTag
     implements HasIdBindingAndRendered, HasWidth {
 

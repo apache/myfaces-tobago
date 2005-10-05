@@ -19,36 +19,32 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDER_RANGE;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * Render a group of checkboxes.
  */
-@Tag(name="selectManyCheckbox")
-@BodyContentDescription(anyTagOf="(<f:selectItems>|<f:selectItem>|<t:selectItem>)+ <f:facet>* " )
+@Tag(name = "selectManyCheckbox")
+@BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<t:selectItem>)+ <f:facet>* ")
 public class SelectManyCheckboxTag extends SelectManyTag
     implements org.apache.myfaces.tobago.taglib.decl.SelectManyCheckboxTag {
-// ----------------------------------------------------------------- attributes
 
   private String renderRange;
 
-// ----------------------------------------------------------- business methods
-
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-   ComponentUtil.setStringProperty(component, ATTR_RENDER_RANGE, renderRange, getIterationHelper());
+    ComponentUtil.setStringProperty(component, ATTR_RENDER_RANGE, renderRange);
   }
 
   public void release() {
     super.release();
     renderRange = null;
   }
-// ------------------------------------------------------------ getter + setter
 
   public String getRenderRange() {
     return renderRange;
