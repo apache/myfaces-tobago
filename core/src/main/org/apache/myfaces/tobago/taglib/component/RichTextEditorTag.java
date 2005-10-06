@@ -30,7 +30,7 @@ import javax.servlet.jsp.JspException;
  * todo: under construction
  */
 public class RichTextEditorTag extends TextInputTag
-    implements org.apache.myfaces.tobago.taglib.decl.RichTextEditorTag {
+    implements org.apache.myfaces.tobago.taglib.component.RichTextEditorTagDeclaration {
 
   private String statePreview;
 

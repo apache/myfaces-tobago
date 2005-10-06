@@ -13,31 +13,23 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.taglib.decl.*;
 
 /*
- * Created: Aug 5, 2005 5:00:41 PM
+ * Created: Aug 5, 2005 5:03:15 PM
  * User: bommel
  * $Id: $
  */
-
 /**
- * Renders a multiline text input control.
+ * Renders a date input field.
  */
-@Tag(name="textarea")
-public interface TextAreaTag extends TextInputTag, HasIdBindingAndRendered,
-        HasValue, HasConverter, IsReadonly, IsDisabled, HasDimension, HasOnchangeListener, 
-        IsFocus, IsRequired, HasLabelAndAccessKey, HasTip {
+@Tag(name="time")
+@UIComponentTag(UIComponent="org.apache.myfaces.tobago.component.UIInput", RendererType=RENDERER_TYPE_TIME)
+public interface TimeTagDeclaration extends InputTagDeclaration, HasIdBindingAndRendered, HasValue, IsReadonly, IsDisabled, IsInline, HasLabelAndAccessKey, HasTip {
 
-  /**
-   *  The row count for this component.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute()
-  void setRows(String rows);
 }

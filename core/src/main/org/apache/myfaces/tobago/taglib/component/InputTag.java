@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 
-public abstract class InputTag extends BeanTag implements org.apache.myfaces.tobago.taglib.decl.InputTag {
+public abstract class InputTag extends BeanTag implements InputTagDeclaration {
 
   private String onchange;
   private String focus;

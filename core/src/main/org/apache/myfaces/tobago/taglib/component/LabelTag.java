@@ -25,8 +25,7 @@ import org.apache.myfaces.tobago.component.UILabel;
 
 import javax.faces.component.UIComponent;
 
-public class LabelTag extends BeanTag implements
-    org.apache.myfaces.tobago.taglib.decl.LabelTag {
+public class LabelTag extends BeanTag implements LabelTagDeclaration {
 
   // TODO ?? _for ?
   private String _for;

@@ -26,8 +26,7 @@ import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 
 
-public class SelectOneListboxTag extends SelectOneTag
-    implements org.apache.myfaces.tobago.taglib.decl.SelectOneListboxTag {
+public class SelectOneListboxTag extends SelectOneTag implements SelectOneListboxTagDeclaration {
 
   public int doEndTag() throws JspException {
 

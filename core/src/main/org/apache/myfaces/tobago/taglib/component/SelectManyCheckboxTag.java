@@ -31,8 +31,7 @@ import javax.faces.component.UIComponent;
  */
 @Tag(name = "selectManyCheckbox")
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<t:selectItem>)+ <f:facet>* ")
-public class SelectManyCheckboxTag extends SelectManyTag
-    implements org.apache.myfaces.tobago.taglib.decl.SelectManyCheckboxTag {
+public class SelectManyCheckboxTag extends SelectManyTag implements SelectManyCheckboxTagDeclaration {
 
   private String renderRange;
 

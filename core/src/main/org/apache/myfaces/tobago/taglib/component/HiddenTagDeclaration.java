@@ -13,26 +13,28 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.HasBinding;
+import org.apache.myfaces.tobago.taglib.decl.HasValue;
 
 /*
- * Created: Aug 5, 2005 4:53:25 PM
+ * Created: Aug 5, 2005 4:08:32 PM
  * User: bommel
  * $Id: $
  */
 /**
- * Renders a text input field.
+ * Renders a 'hidden' input element.
  */
-@Tag(name="in")
-@BodyContentDescription(anyTagOf="facestag")
-public interface InTag
-    extends TextInputTag, HasValue, HasIdBindingAndRendered,
-    HasConverter, IsReadonly, IsDisabled, HasWidth, HasOnchangeListener,
-    IsInline, IsFocus, IsRequired, HasTip, HasLabelAndAccessKey,
-    IsPassword {
+@Tag(name="hidden")
+@UIComponentTag(UIComponent="org.apache.myfaces.tobago.component.UIInput")
+public interface HiddenTagDeclaration extends BeanTagDeclaration, HasId, HasBinding, HasValue {
+
+  @UIComponentTagAttribute(type="java.lang.Boolean", defaultValue="true")
+  void setInline(String inline);
+
 }

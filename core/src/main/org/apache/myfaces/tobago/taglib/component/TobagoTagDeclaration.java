@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.taglib.component;
 
 import javax.servlet.jsp.tagext.Tag;
 
@@ -22,6 +22,6 @@ import javax.servlet.jsp.tagext.Tag;
  * User: bommel
  * $Id: $
  */
-public interface TobagoTag extends Tag {
+public interface TobagoTagDeclaration extends Tag {
 
 }

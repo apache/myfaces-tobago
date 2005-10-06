@@ -13,22 +13,15 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
 
-/*
- * Created: Aug 5, 2005 5:54:37 PM
+/**
+ * Created: Aug 5, 2005 3:30:35 PM
  * User: bommel
  * $Id: $
  */
-
-/**
- * Render a group of checkboxes.
- */
-@Tag(name="selectManyCheckbox")
-@BodyContentDescription(anyTagOf="(<f:selectItems>|<f:selectItem>|<t:selectItem>)+ <f:facet>* " )
-public interface SelectManyCheckboxTag extends SelectManyTag, HasValue, IsDisabled, HasId, IsInline, HasRenderRange, IsRendered, HasBinding {
+public interface BeanTagDeclaration extends TobagoTagDeclaration {
 
 }

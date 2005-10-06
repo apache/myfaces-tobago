@@ -25,8 +25,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
-public class OutTag extends BeanTag implements
-    org.apache.myfaces.tobago.taglib.decl.OutTag {
+public class OutTag extends BeanTag implements OutTagDeclaration {
 
   private String escape = "true";
   private String markup;

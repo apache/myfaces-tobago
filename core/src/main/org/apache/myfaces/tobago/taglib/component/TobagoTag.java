@@ -29,7 +29,7 @@ import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 
 public abstract class TobagoTag extends UIComponentTag
-    implements org.apache.myfaces.tobago.taglib.decl.TobagoTag {
+    implements TobagoTagDeclaration {
 
   private static final Log LOG = LogFactory.getLog(TobagoTag.class);
 

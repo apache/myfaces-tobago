@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import javax.faces.component.UIComponent;
 
 public class TextAreaTag extends TextInputTag
-    implements org.apache.myfaces.tobago.taglib.decl.TextAreaTag {
+    implements TextAreaTagDeclaration {
 
   private String rows;
 

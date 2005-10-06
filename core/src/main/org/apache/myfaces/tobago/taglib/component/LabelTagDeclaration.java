@@ -13,13 +13,14 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.taglib.decl.*;
 
 /*
  * Created: Aug 5, 2005 3:48:09 PM
@@ -32,7 +33,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 @Tag(name="label", bodyContent= BodyContent.EMPTY)
 @UIComponentTag(UIComponent="javax.faces.component.UIOutput")
-public interface LabelTag extends BeanTag, HasIdBindingAndRendered, HasLabelWithAccessKey, HasFor, IsInline, HasWidth, HasTip, HasValue {
+public interface LabelTagDeclaration extends BeanTagDeclaration, HasIdBindingAndRendered, HasLabelWithAccessKey, HasFor, IsInline, HasWidth, HasTip, HasValue {
 
   /**
    *   Text value to display as label. Overwritten by 'labelWithAccessKey'

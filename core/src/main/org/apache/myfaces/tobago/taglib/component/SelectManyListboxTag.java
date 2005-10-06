@@ -27,8 +27,7 @@ import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 
 
-public class SelectManyListboxTag extends SelectManyTag
-    implements org.apache.myfaces.tobago.taglib.decl.SelectManyListboxTag {
+public class SelectManyListboxTag extends SelectManyTag implements SelectManyListboxTagDeclaration {
 
   public String getComponentType() {
     return UISelectMany.COMPONENT_TYPE;

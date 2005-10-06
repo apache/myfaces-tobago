@@ -13,10 +13,14 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasValue;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.HasWidth;
 
 /*
  * Created: Aug 5, 2005 4:58:19 PM
@@ -27,7 +31,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  * Renders a text editor.
  */
 // todo: switched off @Tag(name="richTextEditor")
-public interface RichTextEditorTag extends TextInputTag, HasIdBindingAndRendered, HasValue, HasLabelAndAccessKey, HasWidth {
+public interface RichTextEditorTagDeclaration extends TextInputTagDeclaration, HasIdBindingAndRendered, HasValue, HasLabelAndAccessKey, HasWidth {
   @TagAttribute @UIComponentTagAttribute(type="java.lang.Boolean")
   void setStatePreview(String statePreview);
 }

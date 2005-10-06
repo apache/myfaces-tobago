@@ -23,7 +23,7 @@ import javax.faces.component.UISelectMany;
  * Time: 4:59:34 PM
  */
 
-public class SelectManyTag extends InputTag implements org.apache.myfaces.tobago.taglib.decl.SelectManyTag {
+public class SelectManyTag extends InputTag implements SelectManyTagDeclaration {
 
   public String getComponentType() {
     return UISelectMany.COMPONENT_TYPE;

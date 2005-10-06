@@ -29,8 +29,7 @@ import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 
 
-public class FileTag extends InputTag
-    implements org.apache.myfaces.tobago.taglib.decl.FileTag {
+public class FileTag extends InputTag implements FileTagDeclaration {
 
   public int doStartTag() throws JspException {
     int result = super.doStartTag();

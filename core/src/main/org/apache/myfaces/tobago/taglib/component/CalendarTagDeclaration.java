@@ -13,30 +13,34 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasValue;
 
 /*
- * Created: Aug 5, 2005 3:55:04 PM
+ * Created: Aug 6, 2005 3:24:33 PM
  * User: bommel
  * $Id: $
  */
 /**
- * Renders a progressbar.
+ * Renders a calendar.
  */
-@Tag(name="progress", bodyContent= BodyContent.EMPTY)
+@Tag(name="calendar", bodyContent= BodyContent.EMPTY)
 @UIComponentTag(UIComponent="javax.faces.component.UIOutput")
-public interface ProgressTag extends BeanTag, HasIdBindingAndRendered, HasTip {
+public interface CalendarTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasValue {
 
   /**
-   * The current value of this component.
+   *  The current value of this component.
+   *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type={"javax.swing.BoundedRangeModel"})
+  @UIComponentTagAttribute(type={"java.util.Calendar", "java.util.Date"})
   void setValue(String value);
 }

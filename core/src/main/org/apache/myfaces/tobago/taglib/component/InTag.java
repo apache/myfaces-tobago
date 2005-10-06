@@ -24,8 +24,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 
-public class InTag extends TextInputTag
-    implements org.apache.myfaces.tobago.taglib.decl.InTag {
+public class InTag extends TextInputTag implements InTagDeclaration {
 
   private String password;
 

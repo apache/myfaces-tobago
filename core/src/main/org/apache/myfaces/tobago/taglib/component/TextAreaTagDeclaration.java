@@ -13,44 +13,31 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-
-
+import org.apache.myfaces.tobago.taglib.decl.*;
 
 /*
- * Created: Aug 6, 2005 3:19:55 PM
+ * Created: Aug 5, 2005 5:00:41 PM
  * User: bommel
  * $Id: $
  */
+
 /**
- *  Renders a Image.
+ * Renders a multiline text input control.
  */
-@Tag(name="image", bodyContent= BodyContent.EMPTY)
-@UIComponentTag(UIComponent="javax.faces.component.UIGraphic")
-public interface ImageTag extends TobagoTag, HasIdBindingAndRendered, HasBorder, HasDimension, HasTip {
+@Tag(name="textarea")
+public interface TextAreaTagDeclaration extends TextInputTagDeclaration, HasIdBindingAndRendered,
+        HasValue, HasConverter, IsReadonly, IsDisabled, HasDimension, HasOnchangeListener,
+        IsFocus, IsRequired, HasLabelAndAccessKey, HasTip {
 
   /**
-   *
-   * Absolute url to an image or image name to lookup in tobago resource path
-   *
-   */
-  @TagAttribute(required=true)
-  @UIComponentTagAttribute()
-  void setValue(String value);
-
-  /**
-   *
-   *  Alternate textual description of the image rendered by this component.
-   *
+   *  The row count for this component.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  void setAlt(String alt);
-
+  void setRows(String rows);
 }

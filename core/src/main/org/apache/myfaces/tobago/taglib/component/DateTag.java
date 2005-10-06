@@ -41,8 +41,7 @@ import javax.servlet.jsp.JspException;
 import java.util.List;
 import java.util.Map;
 
-public class DateTag extends InputTag
-    implements org.apache.myfaces.tobago.taglib.decl.DateTag {
+public class DateTag extends InputTag implements DateTagDeclaration {
 
   private static final Log LOG = LogFactory.getLog(DateTag.class);
 

@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import javax.faces.component.UIComponent;
 
 
-public abstract class BeanTag extends TobagoTag implements org.apache.myfaces.tobago.taglib.decl.BeanTag {
+public abstract class BeanTag extends TobagoTag implements BeanTagDeclaration {
 
   private String converter;
   private String value;

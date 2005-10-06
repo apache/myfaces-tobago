@@ -109,7 +109,7 @@ public class TobagoAnnotationVisitor extends AnnotationDeclarationVisitorCollect
   private void appendTag(InterfaceDeclaration decl, Element parent, Document document) {
     Tag annotationTag = decl.getAnnotation(Tag.class);
     if (annotationTag != null) {
-      String className = decl.getQualifiedName().replaceAll("decl", "component");
+      String className = decl.getQualifiedName().replaceAll("Declaration", "");
       Element tagElement = createTag(decl, annotationTag, className, document);
       addAttributes(decl, tagElement, document);
       parent.appendChild(tagElement);

@@ -13,12 +13,14 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.taglib.component.InputTagDeclaration;
+import org.apache.myfaces.tobago.taglib.decl.*;
 
 /*
  * Created: Aug 5, 2005 5:15:50 PM
@@ -30,7 +32,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 @Tag(name="file")
 @UIComponentTag(UIComponent="org.apache.myfaces.tobago.component.UIInput")
-public interface FileTag extends InputTag, HasIdBindingAndRendered, IsDisabled, HasLabelAndAccessKey, HasOnchangeListener, HasTip {
+public interface FileTagDeclaration extends InputTagDeclaration, HasIdBindingAndRendered, IsDisabled, HasLabelAndAccessKey, HasOnchangeListener, HasTip {
 
   /**
    * Value binding expression pointing to a

@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import javax.faces.component.UIComponent;
 
 public class SelectOneRadioTag extends SelectOneTag
-    implements org.apache.myfaces.tobago.taglib.decl.SelectOneRadioTag {
+    implements SelectOneRadioTagDeclaration {
 
   private String renderRange;
 

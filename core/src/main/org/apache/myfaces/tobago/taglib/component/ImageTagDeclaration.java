@@ -13,31 +13,47 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasBorder;
+import org.apache.myfaces.tobago.taglib.decl.HasDimension;
+import org.apache.myfaces.tobago.taglib.decl.HasTip;
 
 /*
- * Created: Aug 6, 2005 3:24:33 PM
- * User: bommel
- * $Id: $
- */
+* Created: Aug 6, 2005 3:19:55 PM
+* User: bommel
+* $Id: $
+*/
 /**
- * Renders a calendar.
+ *  Renders a Image.
  */
-@Tag(name="calendar", bodyContent= BodyContent.EMPTY)
-@UIComponentTag(UIComponent="javax.faces.component.UIOutput")
-public interface CalendarTag extends TobagoTag, HasIdBindingAndRendered, HasValue {
+@Tag(name="image", bodyContent= BodyContent.EMPTY)
+@UIComponentTag(UIComponent="javax.faces.component.UIGraphic")
+public interface ImageTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasBorder, HasDimension, HasTip {
 
   /**
-   *  The current value of this component.
+   *
+   * Absolute url to an image or image name to lookup in tobago resource path
+   *
+   */
+  @TagAttribute(required=true)
+  @UIComponentTagAttribute()
+  void setValue(String value);
+
+  /**
+   *
+   *  Alternate textual description of the image rendered by this component.
    *
    */
   @TagAttribute
-  @UIComponentTagAttribute(type={"java.util.Calendar", "java.util.Date"})
-  void setValue(String value);
+  @UIComponentTagAttribute()
+  void setAlt(String alt);
+
 }

@@ -13,21 +13,13 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-
-/*
- * Created: Aug 5, 2005 5:58:55 PM
+/**
+ * Created: Aug 5, 2005 4:18:38 PM
  * User: bommel
  * $Id: $
  */
-/**
- * Render a multi selection option listbox.
- */
-@Tag(name="selectManyListbox")
-@UIComponentTag(UIComponent="org.apache.myfaces.tobago.component.UISelectMany")
-public interface SelectManyListboxTag extends SelectManyTag, HasId, HasValue, IsDisabled, HasHeight, IsInline, HasLabelAndAccessKey, IsRendered, HasBinding, HasTip {
+public interface InputTagDeclaration extends BeanTagDeclaration {
 
 }

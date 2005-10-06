@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import javax.faces.component.UISelectBoolean;
 
 public class SelectBooleanCheckboxTag extends InputTag
-    implements org.apache.myfaces.tobago.taglib.decl.SelectBooleanCheckboxTag {
+    implements org.apache.myfaces.tobago.taglib.component.SelectBooleanCheckboxTagDeclaration {
 
   public String getComponentType() {
     return UISelectBoolean.COMPONENT_TYPE;

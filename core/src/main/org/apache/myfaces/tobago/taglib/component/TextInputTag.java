@@ -27,7 +27,7 @@ import javax.servlet.jsp.JspException;
  * Date: Apr 18, 2005
  * Time: 5:04:48 PM
  */
-public class TextInputTag extends InputTag implements org.apache.myfaces.tobago.taglib.decl.TextInputTag {
+public class TextInputTag extends InputTag implements TextInputTagDeclaration {
 
   public String getComponentType() {
     return UIInput.COMPONENT_TYPE;

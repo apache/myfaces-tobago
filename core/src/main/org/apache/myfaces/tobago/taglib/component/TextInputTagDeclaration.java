@@ -13,23 +13,16 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
-/*
- * Created: Aug 5, 2005 5:18:50 PM
+/**
+ * Created: Aug 5, 2005 4:47:53 PM
  * User: bommel
  * $Id: $
  */
-/**
- * Renders a checkbox.
- */
-@Tag(name="selectBooleanCheckbox")
-@BodyContentDescription(anyTagOf="<f:facet>* " )
-@UIComponentTag(UIComponent="javax.faces.component.UISelectBoolean")
-public interface SelectBooleanCheckboxTag extends InputTag, HasIdBindingAndRendered, HasLabelAndAccessKey, HasBooleanValue, IsDisabled, IsInline, HasTip {
+@UIComponentTag(UIComponent="org.apache.myfaces.tobago.component.UIInput")
+public interface TextInputTagDeclaration extends InputTagDeclaration {
 
 }

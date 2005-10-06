@@ -103,7 +103,7 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
     Tag annotationTag = decl.getAnnotation(Tag.class);
     if (annotationTag != null) {
       // TODO configure replacement
-      String className = decl.getQualifiedName().replaceAll("decl", "component");
+      String className = decl.getQualifiedName().replaceAll("Declaration", "");
       //System.err.println(className);
       Element tag = createTag(document, annotationTag, className, decl);
       addAttributes(decl, tag, document);

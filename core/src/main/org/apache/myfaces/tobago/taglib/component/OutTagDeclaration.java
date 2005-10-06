@@ -13,13 +13,14 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.taglib.decl.*;
 
 /*
  * Created: Aug 5, 2005 3:32:40 PM
@@ -34,7 +35,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 @BodyContentDescription(anyTagOf="f:converter|f:convertNumber|f:convertDateTime|...")
 @UIComponentTag(UIComponent="javax.faces.component.UIOutput")
 
-public interface OutTag extends BeanTag, HasIdBindingAndRendered, HasConverter, IsInline, HasTip, HasValue {
+public interface OutTagDeclaration extends BeanTagDeclaration, HasIdBindingAndRendered, HasConverter, IsInline, HasTip, HasValue {
 
   /**
    *  The current value of this component.

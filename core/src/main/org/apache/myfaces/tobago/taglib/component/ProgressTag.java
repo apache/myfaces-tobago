@@ -26,8 +26,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
 
-public class ProgressTag extends BeanTag
-    implements org.apache.myfaces.tobago.taglib.decl.ProgressTag {
+public class ProgressTag extends BeanTag implements ProgressTagDeclaration {
 
   private String tip;
 

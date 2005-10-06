@@ -26,8 +26,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
 
-public class CalendarTag extends TobagoTag
-    implements org.apache.myfaces.tobago.taglib.decl.CalendarTag {
+public class CalendarTag extends TobagoTag implements CalendarTagDeclaration {
 
   private String value;
 

@@ -32,7 +32,7 @@ import javax.servlet.jsp.JspException;
 import java.util.TimeZone;
 
 public class TimeTag extends InputTag
-    implements org.apache.myfaces.tobago.taglib.decl.TimeTag {
+    implements TimeTagDeclaration {
 
   public String getComponentType() {
     return UIInput.COMPONENT_TYPE;

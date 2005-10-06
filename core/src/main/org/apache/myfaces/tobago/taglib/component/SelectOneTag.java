@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.component.UISelectOne;
 
 
-public class SelectOneTag extends InputTag implements org.apache.myfaces.tobago.taglib.decl.SelectOneTag {
+public class SelectOneTag extends InputTag implements SelectOneTagDeclaration {
 
   public String getComponentType() {
     return UISelectOne.COMPONENT_TYPE;

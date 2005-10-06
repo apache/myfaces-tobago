@@ -25,8 +25,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 
-public class SelectOneChoiceTag extends SelectOneTag
-    implements org.apache.myfaces.tobago.taglib.decl.SelectOneChoiceTag {
+public class SelectOneChoiceTag extends SelectOneTag implements SelectOneChoiceTagDeclaration {
 
   public int doEndTag() throws JspException {
 
