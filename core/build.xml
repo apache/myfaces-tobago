@@ -22,8 +22,19 @@
   <property name="build-system.dir" location="${build-system.home}"/>
   <import file="${build-system.dir}/build-basic.xml"/>
 
-  <target name="generate-tld" depends="init, init-apt">
-    <apt srcdir="${src.main}" fork="true"
+  <target name="check-tld" >
+    <uptodate property="tldBuild.notRequired"
+              targetfile="${build.classes.main}/org/apache/myfaces/tobago/taglib/component/tobago.tld">
+      <srcfiles dir="${src.main}"
+                includes="org/apache/myfaces/tobago/taglib/component/**,org/apache/myfaces/tobago/taglib/decl/**"/>
+    </uptodate>
+    <echo message="tld build not required: ${tldBuild.notRequired}"/>
+  </target>
+
+  <target name="generate-tld" depends="init, init-apt, check-tld" unless="tldBuild.notRequired">
+    <apt srcdir="${src.main}"
+         includes="org/apache/myfaces/tobago/taglib/component/**,org/apache/myfaces/tobago/taglib/decl/**"
+         fork="true"
          classpathref="project.classpath.jar"
          debug="on"
          compile="false"
@@ -36,8 +47,34 @@
     </apt>
   </target>
 
+  <target name="check-extension-tld" >
+    <uptodate property="exttldBuild.notRequired"
+              targetfile="${build.classes.main}/org/apache/myfaces/tobago/taglib/extension/tobago-extension.tld">
+      <srcfiles dir="${src.main}"
+                includes="org/apache/myfaces/tobago/taglib/extension/**,org/apache/myfaces/tobago/taglib/decl/**"/>
+    </uptodate>
+    <echo message="tld build not required: ${exttldBuild.notRequired}"/>
+  </target>
+
+  <target name="generate-extension-tld" depends="init, init-apt, check-extension-tld" unless="exttldBuild.notRequired">
+    <apt srcdir="${src.main}"
+         includes="org/apache/myfaces/tobago/taglib/extension/**,org/apache/myfaces/tobago/taglib/decl/**"
+         fork="true"
+         classpathref="project.classpath.jar"
+         debug="on"
+         compile="false"
+         preprocessdir="${build.classes.main}"
+         factory="org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory"
+         factorypathref="project.classpath.jar">
+      <option name="package"
+              value="org.apache.myfaces.tobago.taglib.extension"/>
+      <option name="file" value="tobago-extension.tld"/>
+    </apt>
+  </target>
+
   <target name="generate-tag-reference" depends="init, init-apt">
     <apt srcdir="${src.main}" fork="true"
+         includes="org/apache/myfaces/tobago/taglib/component/**,org/apache/myfaces/tobago/taglib/decl/**"
          classpathref="project.classpath.jar"
          debug="on"
          compile="false"
@@ -49,7 +86,7 @@
     </apt>
   </target>
 
-  <target name="dist" depends="generate-tld,build-basic.dist"
+  <target name="dist" depends="generate-tld, generate-extension-tld, build-basic.dist"
           description="Create a distribution of the artifact.">
     <jar jarfile="${dist}/${ant.project.name}.jar" update="true">
       <fileset dir="${src.main}">
@@ -63,7 +100,7 @@
         <include name="tobago.tld"/>
       </metainf>
       <metainf
-          dir="${src.main}/org/apache/myfaces/tobago/taglib/extension">
+          dir="${build.classes.main}/org/apache/myfaces/tobago/taglib/extension">
         <include name="tobago-extension.tld"/>
       </metainf>
     </jar>

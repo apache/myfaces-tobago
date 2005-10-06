@@ -29,8 +29,10 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 /**
  * Renders a multiline text input control.
  */
-@Tag(name="textarea", bodyContent= BodyContent.EMPTY)
-public interface TextAreaTag extends TextInputTag, HasIdBindingAndRendered, HasValue, IsReadonly, IsDisabled, HasDimension, HasOnchangeListener, IsFocus, IsRequired, HasLabelAndAccessKey, HasTip {
+@Tag(name="textarea")
+public interface TextAreaTag extends TextInputTag, HasIdBindingAndRendered,
+        HasValue, HasConverter, IsReadonly, IsDisabled, HasDimension, HasOnchangeListener, 
+        IsFocus, IsRequired, HasLabelAndAccessKey, HasTip {
 
   /**
    *  The row count for this component.
