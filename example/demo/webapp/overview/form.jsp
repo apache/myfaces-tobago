@@ -14,6 +14,7 @@
  *    limitations under the License.
 --%>
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
@@ -41,11 +42,11 @@
           </f:facet>
 
           <t:form id="form1" >
-            <t:in value="#{demo.text[0]}" required="true" label="#{overviewBundle.newValue1}" />
+            <tx:in value="#{demo.text[0]}" required="true" label="#{overviewBundle.newValue1}" />
             <t:cell spanY="2" >
               <t:button label="#{overviewBundle.submitForm1}" />
             </t:cell>
-            <t:in value="#{demo.text[0]}" readonly="true" label="#{overviewBundle.modelValue1}" />
+            <tx:in value="#{demo.text[0]}" readonly="true" label="#{overviewBundle.modelValue1}" />
           </t:form>
 
         </t:box>
@@ -56,11 +57,11 @@
           </f:facet>
 
           <t:form id="form2">
-            <t:in value="#{demo.text[1]}" required="true" label="#{overviewBundle.newValue2}" />
+            <tx:in value="#{demo.text[1]}" required="true" label="#{overviewBundle.newValue2}" />
             <t:cell spanY="2" >
                <t:button label="#{overviewBundle.submitForm2}" />
             </t:cell>
-            <t:in value="#{demo.text[1]}" readonly="true" label="#{overviewBundle.modelValue2}" />
+            <tx:in value="#{demo.text[1]}" readonly="true" label="#{overviewBundle.modelValue2}" />
           </t:form>
         </t:box>
 

@@ -15,24 +15,21 @@
  */
 package org.apache.myfaces.tobago.taglib.decl;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/*
- * Created: Aug 5, 2005 4:53:25 PM
- * User: bommel
- * $Id: $
- */
 /**
- * Renders a text input field.
+ * Created: Okt 9, 2005
+ * User: lofwyr
+ * $Id: IsRequired.java 1343 2005-08-12 13:51:16Z lofwyr $
  */
-@Tag(name="in")
-@BodyContentDescription(anyTagOf="facestag")
-public interface InTag
-    extends TextInputTag, HasValue, HasIdBindingAndRendered,
-    HasConverter, IsReadonly, IsDisabled, HasWidth, HasOnchangeListener,
-    IsInline, IsFocus, IsRequired, HasTip, HasLabelAndAccessKey,
-    IsPassword {
+public interface IsPassword {
+
+  /**
+   * Flag indicating whether or not this component should be rendered as
+   * password field , so you will not see the typed charakters.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type="java.lang.Boolean", defaultValue = "false")
+  void setPassword(String password);
 }

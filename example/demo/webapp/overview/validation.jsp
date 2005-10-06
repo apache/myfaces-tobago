@@ -14,6 +14,7 @@
  *    limitations under the License.
 --%>
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
@@ -35,17 +36,17 @@
           <f:facet name="layout">
             <t:gridLayout columns="1*;1*" />
           </f:facet>
-          <t:in label="#{overviewBundle.validation_number}"
+          <tx:in label="#{overviewBundle.validation_number}"
               required="true">
             <f:validateLength minimum="7" maximum="7" />
             <f:validateLongRange />
-          </t:in>
-          <t:in label="#{overviewBundle.validation_price}">
+          </tx:in>
+          <tx:in label="#{overviewBundle.validation_price}">
             <f:validateDoubleRange minimum="0.01" maximum="1000" />
-          </t:in>
+          </tx:in>
         </t:panel>
 
-        <t:textarea label="#{overviewBundle.validation_description}"
+        <tx:textarea label="#{overviewBundle.validation_description}"
             required="true"  />
 
         <t:messages />

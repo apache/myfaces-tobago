@@ -16,7 +16,7 @@
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
-<%@ taglib tagdir="/WEB-INF/tags/tobago-extension" prefix="tx" %>
+<%@ taglib uri="http://www.atanion.com/tobago/extension" prefix="tx" %>
 
 <layout:overview>
   <jsp:body>
@@ -50,7 +50,7 @@
                   value="#{overviewController.basicTime}" />
         </t:panel>
 
-        <t:textarea value="#{overviewController.basicArea}"
+        <tx:textarea value="#{overviewController.basicArea}"
           label="#{overviewBundle.basic_textareaLabel}" />
       </t:box>
 
@@ -102,7 +102,7 @@
             actionListener="#{overviewController.click}"
             width="100px"  label="#{overviewBundle.basic_buttonAction}" />
         <t:cell spanX="3">
-          <t:in value="#{overviewController.lastAction}" readonly="true"
+          <tx:in value="#{overviewController.lastAction}" readonly="true"
             label="#{overviewBundle.basic_lastActionLabel}" />
         </t:cell>
       </t:box>

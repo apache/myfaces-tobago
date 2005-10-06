@@ -14,8 +14,8 @@
  *    limitations under the License.
 --%>
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib tagdir="/WEB-INF/tags/tobago-extension" prefix="tx" %>
 
 <f:view>
   <t:loadBundle basename="addressbook" var="bundle" />
@@ -40,6 +40,8 @@
         <tx:in value="#{controller.currentAddress.firstName}"
             label="#{bundle.editorFirstName}" required="true" />
 
+        <%--<tx:in label="#{bundle.editorLastName}"--%>
+           <%--value="#{controller.currentAddress.lastName}" required="true"/>--%>
         <tx:label value="#{bundle.editorLastName}">
            <t:in value="#{controller.currentAddress.lastName}" required="true"/>
         </tx:label>
@@ -48,7 +50,7 @@
           <f:facet name="layout">
             <t:gridLayout columns="6*;1*" />
           </f:facet>
-          <t:in value="#{controller.currentAddress.street}"
+          <tx:in value="#{controller.currentAddress.street}"
               label="#{bundle.editorStreet}" />
           <t:in value="#{controller.currentAddress.houseNumber}" />
         </t:panel>
@@ -57,7 +59,7 @@
           <f:facet name="layout">
             <t:gridLayout columns="1*;1*" />
           </f:facet>
-          <t:in value="#{controller.currentAddress.zipCode}"
+          <tx:in value="#{controller.currentAddress.zipCode}"
               label="#{bundle.editorCity}" />
           <t:in value="#{controller.currentAddress.city}" />
         </t:panel>
@@ -84,7 +86,7 @@
           <f:convertDateTime pattern="dd.MM.yyyy" />
         </t:date>
 
-        <t:textarea value="#{controller.currentAddress.note}"
+        <tx:textarea value="#{controller.currentAddress.note}"
             label="#{bundle.editorNote}" />
 
         <t:panel>

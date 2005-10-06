@@ -14,23 +14,36 @@
  *    limitations under the License.
 --%>
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
-<%@ taglib tagdir="/WEB-INF/tags/tobago-extension" prefix="tx" %>
+<%@ taglib uri="http://www.atanion.com/tobago/extension" prefix="tx" %>
 
+<%@ attribute name="binding" %>
+<%@ attribute name="converter" %>
+<%@ attribute name="disabled" %>
+<%@ attribute name="id" %>
 <%@ attribute name="label" %>
-<%@ attribute name="value" %>
+<%@ attribute name="readonly" %>
+<%@ attribute name="rendered" %>
 <%@ attribute name="required" %>
+<%@ attribute name="tip" %>
+<%@ attribute name="value" %>
 
-<tx:label value="${label}">
-   <t:in value="${value}" required="${required}"/>
-</tx:label>
-
+<tx:label
+    tip="${tip}"
+    value="${label}">
+  <t:in
+      binding="${binding}"
+      converter="${converter}"
+      disabled="${disabled}"
+      id="${id}"
+      readonly="${readonly}"
+      rendered="${rendered}"
+      required="${required}"
+      tip="${tip}"
+      value="${value}">
 <%--
-<t:panel>
-  <f:facet name="layout">
-    <t:gridLayout columns="100px;*"/>
-  </f:facet>
-  <t:label value="${label}" />
-  <t:in value="${value}" required="${required}"/>
-  <!--<u:labelSolver  />-->
-</t:panel>
+  <c:if test="${value != null}">
+    <jsp:attribute name="value">${value}</jsp:attribute>
+  </c:if>
 --%>
+ </t:in>
+</tx:label>

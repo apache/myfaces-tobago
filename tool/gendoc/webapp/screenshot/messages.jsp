@@ -16,6 +16,7 @@
  *    limitations under the License.
 --%>
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 <%
@@ -33,7 +34,7 @@
 <%-- code-sniplet-start id="messages" --%>
         <t:messages />
 <%-- code-sniplet-end id="messages" --%>
-        <t:textarea label="Required Field" required="true" />
+        <tx:textarea label="Required Field" required="true" />
 
         <t:panel>
         <f:facet name="layout">

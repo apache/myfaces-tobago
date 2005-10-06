@@ -62,6 +62,10 @@
           dir="${build.classes.main}/org/apache/myfaces/tobago/taglib/component">
         <include name="tobago.tld"/>
       </metainf>
+      <metainf
+          dir="${src.main}/org/apache/myfaces/tobago/taglib/extension">
+        <include name="tobago-extension.tld"/>
+      </metainf>
     </jar>
   </target>
 

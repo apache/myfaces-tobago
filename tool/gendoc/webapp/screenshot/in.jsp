@@ -14,6 +14,7 @@
  *    limitations under the License.
 --%>
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
@@ -24,7 +25,7 @@
         <t:gridLayout columns="300px;1*" rows="fixed;1*" />
       </f:facet>
 <%-- code-sniplet-start id="in" --%>
-      <t:in label="Credit Card No.:" />
+      <tx:in label="Credit Card No.:" />
 <%-- code-sniplet-end id="in" --%>      
       <t:cell/>
 

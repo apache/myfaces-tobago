@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.component.UIPage;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.faces.context.FacesContext;
 
 /**
  * This tag add client side script to the rendered page.
@@ -38,14 +39,15 @@ public class ScriptTag extends BodyTagSupport {
   private String file;
   private String onload;
 
+  @Override
   public int doEndTag() throws JspException {
 
-    PageTag pageTag = (PageTag) findAncestorWithClass(this, PageTag.class);
-    if (pageTag == null) {
-      throw new JspException("Use of Script outside of Page not allowed");
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    UIPage page = ComponentUtil.findPage(facesContext);
+    if (page == null) {
+      throw new JspException("Use of ScriptTag cannot find Page. " +
+          "Check you have defined the ScriptTag inside of the PageTag!");
     }
-
-    UIPage page = (UIPage) pageTag.getComponentInstance();
 
     if (file != null) {
       page.getScriptFiles().add(ComponentUtil.getValueFromEl(file));
@@ -62,10 +64,12 @@ public class ScriptTag extends BodyTagSupport {
     return EVAL_PAGE;
   }
 
+  @Override
   public int doStartTag() throws JspException {
     return EVAL_BODY_BUFFERED;
   }
 
+  @Override
   public void release() {
     super.release();
     file = null;

@@ -14,6 +14,7 @@
  *    limitations under the License.
 --%>
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
@@ -38,9 +39,9 @@
               <t:panel >
                 <f:facet name="layout"><t:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
                 <t:cell />
-                <t:in value="#{demo.solar.planets[0].diameter}"
+                <tx:in value="#{demo.solar.planets[0].diameter}"
                     label="#{overviewBundle.solarPlanetDiameter}" />
-                <t:in value="#{demo.solar.planets[0].mass}"
+                <tx:in value="#{demo.solar.planets[0].mass}"
                     label="#{overviewBundle.solarPlanetMass}" />
                 <t:cell />
               </t:panel>
@@ -49,9 +50,9 @@
               <t:panel >
                 <f:facet name="layout"><t:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
                 <t:cell />
-                <t:in value="#{demo.solar.planets[0].sunDistance}"
+                <tx:in value="#{demo.solar.planets[0].sunDistance}"
                    label="#{overviewBundle.solarPlanetSunDistance}" />
-                <t:in value="#{demo.solar.planets[0].timeOfCirculation}"
+                <tx:in value="#{demo.solar.planets[0].timeOfCirculation}"
                    label="#{overviewBundle.solarPlanetTimeOfCirculation}" />
                 <t:cell />
               </t:panel>
@@ -90,9 +91,9 @@
               <t:panel >
                 <f:facet name="layout"><t:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
                 <t:cell />
-                <t:in value="#{demo.solar.planets[0].diameter}"
+                <tx:in value="#{demo.solar.planets[0].diameter}"
                     label="#{overviewBundle.solarPlanetDiameter}" />
-                <t:in value="#{demo.solar.planets[0].mass}"
+                <tx:in value="#{demo.solar.planets[0].mass}"
                     label="#{overviewBundle.solarPlanetMass}" />
                 <t:cell />
               </t:panel>
@@ -101,9 +102,9 @@
               <t:panel >
                 <f:facet name="layout"><t:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
                 <t:cell />
-                <t:in value="#{demo.solar.planets[0].sunDistance}"
+                <tx:in value="#{demo.solar.planets[0].sunDistance}"
                    label="#{overviewBundle.solarPlanetSunDistance}" />
-                <t:in value="#{demo.solar.planets[0].timeOfCirculation}"
+                <tx:in value="#{demo.solar.planets[0].timeOfCirculation}"
                    label="#{overviewBundle.solarPlanetTimeOfCirculation}" />
                 <t:cell />
               </t:panel>

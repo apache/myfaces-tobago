@@ -14,6 +14,7 @@
  *    limitations under the License.
 --%>
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
@@ -36,21 +37,21 @@
         </t:selectOneChoice>
         <t:cell/>
 
-        <t:in value="" label="#{overviewBundle.layout_firstName}" />
-        <t:in value="" label="#{overviewBundle.layout_lastName}" />
+        <tx:in value="" label="#{overviewBundle.layout_firstName}" />
+        <tx:in value="" label="#{overviewBundle.layout_lastName}" />
 
         <t:cell spanX="2">
-          <t:in value="" label="#{overviewBundle.layout_co}" />
+          <tx:in value="" label="#{overviewBundle.layout_co}" />
         </t:cell>
 
-        <t:in value="" label="#{overviewBundle.layout_street}" />
-        <t:in value="" label="#{overviewBundle.layout_streetNumber}" />
+        <tx:in value="" label="#{overviewBundle.layout_street}" />
+        <tx:in value="" label="#{overviewBundle.layout_streetNumber}" />
 
-        <t:in value="" label="#{overviewBundle.layout_zipCode}" />
-        <t:in value="" label="#{overviewBundle.layout_city}" />
+        <tx:in value="" label="#{overviewBundle.layout_zipCode}" />
+        <tx:in value="" label="#{overviewBundle.layout_city}" />
 
         <t:cell spanX="2">
-          <t:textarea value="" label="#{overviewBundle.layout_note}" />
+          <tx:textarea value="" label="#{overviewBundle.layout_note}" />
         </t:cell>
       </t:box>
 <%-- code-sniplet-end id="layoutManagementExample" --%>

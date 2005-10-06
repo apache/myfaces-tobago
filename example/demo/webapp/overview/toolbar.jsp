@@ -14,6 +14,7 @@
  *    limitations under the License.
 --%>
 <%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
@@ -134,7 +135,7 @@
         </t:toolBar>
         </t:cell>
 
-        <t:in value="#{overviewController.lastAction}" readonly="true"
+        <tx:in value="#{overviewController.lastAction}" readonly="true"
             label="#{overviewBundle.basic_lastActionLabel}" />
 
         <t:selectOneChoice value="#{demo.toolbarTextPosition}" >

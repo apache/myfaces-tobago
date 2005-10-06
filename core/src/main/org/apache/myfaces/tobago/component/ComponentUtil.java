@@ -64,6 +64,9 @@ public class ComponentUtil {
   private static final String RENDER_KEY_PREFIX
       = "org.apache.myfaces.tobago.component.ComponentUtil.RendererKeyPrefix_";
 
+  private ComponentUtil() {
+  }
+
   public static UIPage findPage(UIComponent component) {
     while (component != null) {
       if (component instanceof UIPage) {
@@ -73,6 +76,28 @@ public class ComponentUtil {
     }
     return null;
   }
+
+  public static UIPage findPage(FacesContext facesContext) {
+    return findPageBreadthFirst(facesContext.getViewRoot());
+  }
+
+  private static UIPage findPageBreadthFirst(UIComponent component) {
+    for (Object o : component.getChildren()) {
+      UIComponent child = (UIComponent) o;
+      if (child instanceof UIPage) {
+        return (UIPage) child;
+      }
+    }
+    for (Object o : component.getChildren()) {
+      UIComponent child = (UIComponent) o;
+      UIPage result = findPageBreadthFirst(child);
+      if (result != null) {
+        return result;
+      }
+    }
+    return null;
+  }
+
 
   public static UIForm findForm(UIComponent component) {
     while (component != null) {
