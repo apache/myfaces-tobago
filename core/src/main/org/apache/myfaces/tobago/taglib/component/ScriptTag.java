@@ -45,7 +45,7 @@ public class ScriptTag extends BodyTagSupport {
     FacesContext facesContext = FacesContext.getCurrentInstance();
     UIPage page = ComponentUtil.findPage(facesContext);
     if (page == null) {
-      throw new JspException("Use of ScriptTag cannot find Page. " +
+      throw new JspException("The ScriptTag cannot find UIPage. " +
           "Check you have defined the ScriptTag inside of the PageTag!");
     }
 

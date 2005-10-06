@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.faces.context.FacesContext;
 
 /**
  * Add a style tag.
@@ -42,12 +43,12 @@ public class StyleTag extends BodyTagSupport implements HasId {
 
   public int doEndTag() throws JspException {
 
-    PageTag pageTag = (PageTag) findAncestorWithClass(this, PageTag.class);
-    if (pageTag == null) {
-      throw new JspException("Use of Script outside of Page not allowed");
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    UIPage page = ComponentUtil.findPage(facesContext);
+    if (page == null) {
+      throw new JspException("The StyleTag cannot find the UIPage. " +
+          "Check you have defined the StyleTag inside of the PageTag!");
     }
-
-    UIPage page = (UIPage) pageTag.getComponentInstance();
 
     if (style != null) {
       page.getStyleFiles().add(ComponentUtil.getValueFromEl(style));
