@@ -19,6 +19,8 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
@@ -26,16 +28,25 @@ import javax.faces.component.UIComponent;
 
 public class InTag extends TextInputTag implements InTagDeclaration {
 
+  private static final Log LOG = LogFactory.getLog(InTag.class);
+
   private String password;
 
-
+  @Override
   public void release() {
     super.release();
     password = null;
   }
 
+  @Override
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
+
+    if (label != null) {
+      LOG.warn("the label attribute is deprecated in t:in, " +
+          "please use tx:in instead.");
+    }
+
     ComponentUtil.setBooleanProperty(component, ATTR_PASSWORD, password);
   }
 

@@ -42,6 +42,7 @@ public abstract class TobagoTag extends UIComponentTag
   private String disabled;
   private String inline;
 
+  @Override
   public int doStartTag() throws JspException {
     if (LOG.isDebugEnabled()) {
       LOG.debug("doStartTag() rendererType  " + getRendererType());
@@ -50,6 +51,7 @@ public abstract class TobagoTag extends UIComponentTag
     return super.doStartTag();
   }
 
+  @Override
   public String getRendererType() {
     String name = getClass().getName();
     int beginIndex = name.lastIndexOf('.');
@@ -62,6 +64,7 @@ public abstract class TobagoTag extends UIComponentTag
     return name.substring(beginIndex, endIndex);
   }
 
+  @Override
   public void release() {
     super.release();
     hidden = null;
@@ -74,6 +77,7 @@ public abstract class TobagoTag extends UIComponentTag
     height = null;
   }
 
+  @Override
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
