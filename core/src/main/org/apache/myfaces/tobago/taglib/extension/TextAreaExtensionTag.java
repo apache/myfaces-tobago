@@ -15,8 +15,7 @@
  */
 package org.apache.myfaces.tobago.taglib.extension;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.taglib.component.TextAreaTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -27,8 +26,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -37,8 +34,6 @@ public class TextAreaExtensionTag extends BodyTagSupport
     implements HasValue, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled,
     IsRequired, HasTip, HasLabel, IsFocus {
-
-  private static final Log LOG = LogFactory.getLog(TextAreaExtensionTag.class);
 
   private String binding;
   private String converter;
@@ -57,8 +52,6 @@ public class TextAreaExtensionTag extends BodyTagSupport
   @Override
   public int doStartTag() throws JspException {
 
-    LOG.info("doStartTag");
-
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
     if (label != null) {
@@ -66,6 +59,9 @@ public class TextAreaExtensionTag extends BodyTagSupport
     }
     if (tip != null) {
       labelTag.setTip(tip);
+    }
+    if (rendered != null) {
+      labelTag.setRendered(rendered);
     }
     labelTag.setParent(getParent());
     labelTag.doStartTag();
@@ -92,9 +88,6 @@ public class TextAreaExtensionTag extends BodyTagSupport
     }
     if (readonly != null) {
       textAreaTag.setReadonly(readonly);
-    }
-    if (rendered != null) {
-      textAreaTag.setRendered(rendered);
     }
     if (required != null) {
       textAreaTag.setRequired(required);

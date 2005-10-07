@@ -15,8 +15,7 @@
  */
 package org.apache.myfaces.tobago.taglib.extension;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.taglib.component.InTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -24,11 +23,10 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.IsFocus;
+import org.apache.myfaces.tobago.taglib.decl.IsPassword;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
-import org.apache.myfaces.tobago.taglib.decl.IsPassword;
-import org.apache.myfaces.tobago.taglib.decl.IsFocus;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -37,8 +35,6 @@ public class InExtensionTag extends BodyTagSupport
     implements HasValue, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled,
     IsRequired, HasTip, HasLabel, IsPassword, IsFocus {
-
-  private static final Log LOG = LogFactory.getLog(InExtensionTag.class);
 
   private String binding;
   private String converter;
@@ -58,8 +54,6 @@ public class InExtensionTag extends BodyTagSupport
   @Override
   public int doStartTag() throws JspException {
 
-    LOG.info("doStartTag");
-
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
     if (label != null) {
@@ -67,6 +61,9 @@ public class InExtensionTag extends BodyTagSupport
     }
     if (tip != null) {
       labelTag.setTip(tip);
+    }
+    if (rendered != null) {
+      labelTag.setRendered(rendered);
     }
     labelTag.setParent(getParent());
     labelTag.doStartTag();
@@ -96,9 +93,6 @@ public class InExtensionTag extends BodyTagSupport
     }
     if (readonly != null) {
       inTag.setReadonly(readonly);
-    }
-    if (rendered != null) {
-      inTag.setRendered(rendered);
     }
     if (required != null) {
       inTag.setRequired(required);
@@ -155,8 +149,6 @@ public class InExtensionTag extends BodyTagSupport
   public void setConverter(String converter) {
     this.converter = converter;
   }
-
-
 
   public void setPassword(String password) {
     this.password = password;

@@ -15,14 +15,12 @@
  */
 package org.apache.myfaces.tobago.taglib.extension;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.taglib.component.GridLayoutTag;
 import org.apache.myfaces.tobago.taglib.component.LabelTag;
 import org.apache.myfaces.tobago.taglib.component.PanelTag;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 
 import javax.faces.webapp.FacetTag;
 import javax.servlet.jsp.JspException;
@@ -32,20 +30,21 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class LabelExtensionTag extends BodyTagSupport
     implements HasValue, HasTip {
 
-  private static final Log LOG = LogFactory.getLog(LabelExtensionTag.class);
-
   private String value;
   private String tip;
+  private String rendered;
 
   private PanelTag panelTag;
 
   @Override
   public int doStartTag() throws JspException {
 
-    LOG.info("doStartTag");
     panelTag = new PanelTag();
     panelTag.setPageContext(pageContext);
     panelTag.setParent(getParent()); // ???
+    if (rendered != null) {
+      panelTag.setRendered(rendered);
+    }
     panelTag.doStartTag();
 
     FacetTag facetTag = new FacetTag();
@@ -90,6 +89,7 @@ public class LabelExtensionTag extends BodyTagSupport
     super.release();
     value = null;
     tip = null;
+    rendered = null;
   }
 
   public void setValue(String value) {
@@ -98,5 +98,9 @@ public class LabelExtensionTag extends BodyTagSupport
 
   public void setTip(String tip) {
     this.tip = tip;
+  }
+
+  public void setRendered(String rendered) {
+    this.rendered = rendered;
   }
 }
