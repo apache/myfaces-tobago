@@ -78,13 +78,15 @@
 
 <!--  tree -->
   <entry key="tree_sampleTitle">Baum Beispiel</entry>
-  <entry key="tree_text">Das Tree-Control stellt einen Baum dar, der aus Applikationsdaten erzeugt wird. Die wichtigsten Eigenschaften sind: &lt;ul style="margin-top: 2px;"&gt; &lt;li style="line-height: 130%;"&gt;Die Darstellung von Icons und Baumstruktur wird   über Attribute gesteuert.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Die Möglichkeit den Baum als "single" oder "multiselect" zu definieren,   also einen oder mehrere Knoten auszuwählbar zu machen.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Editiermodus zum einfachen Bearbeiten von   Baumstrukturen in der Applikation.&lt;/li&gt; &lt;/ul&gt;</entry>
+  <entry key="tree_text">Das Tree-Control stellt einen Baum dar, der aus Applikationsdaten erzeugt wird. Die wichtigsten Eigenschaften sind: &lt;ul style="margin-top: 2px;"&gt; &lt;li style="line-height: 130%;"&gt;Die Darstellung von Icons und Baumstruktur wird   über Attribute gesteuert.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Die Möglichkeit den Baum als "single" oder "multiselect" zu definieren,   also einen oder mehrere Knoten auszuwählbar zu machen.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Editiermodus zum einfachen Bearbeiten von   Baumstrukturen in der Applikation.&lt;/li&gt; &lt;/ul&gt; Desweiteren stellt der TreeListbox einen vertikalen Baum dar. Dieser kann z.B. zur Kategorisierung dienen.</entry>
   <entry key="treeShowIcons">Symbole darstellen</entry>
   <entry key="treeShowRoot">Wurzel darstellen</entry>
   <entry key="treeShowJunctions">Linien darstellen</entry>
   <entry key="treeShowRootJunction">Wurzellinie darstellen</entry>
   <entry key="treeMultiselect">Auswählbar</entry>
   <entry key="treeMutable">Veränderbar</entry>
+  <entry key="treeLabel">Tree</entry>
+  <entry key="treeListboxLabel">Listbox</entry>
 
   <entry key="none">Nicht Auswählbar</entry>
   <entry key="single">Einfache Auswahl</entry>

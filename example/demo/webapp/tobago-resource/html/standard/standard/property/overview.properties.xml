@@ -102,13 +102,14 @@
 </entry>
 
 <!--  tree -->
-<entry key="tree_sampleTitle">Tree Example</entry>
+<entry key="tree_sampleTitle">Tree Example's</entry>
 <entry key="tree_text">The tree control displays a tree which is generated from application data. The key features are:
     &lt;ul style="margin-top: 2px;"&gt;
     &lt;li style="line-height: 130%;"&gt;Attributes control the rendering of the tree.&lt;/li&gt;
     &lt;li style="line-height: 130%;"&gt;The possibility to define the tree as "single" or "multiselect", i.e. select one or multiple nodes of the tree.
     &lt;li style="line-height: 130%;"&gt;Editing mode for simple handling of tree structures inside the application.&lt;/li&gt;
     &lt;/ul&gt;
+    Furthermore there is a TreeListbox Control, which can be described as a vertical tree. This is handy for categorization actions.
   </entry>
 <entry key="treeShowIcons">show icons</entry>
 <entry key="treeShowRoot">show root node</entry>
@@ -116,6 +117,8 @@
 <entry key="treeShowRootJunction">show first junction</entry>
 <entry key="treeMultiselect">selectable</entry>
 <entry key="treeMutable">mutable</entry>
+<entry key="treeLabel">Tree</entry>
+<entry key="treeListboxLabel">Listbox</entry>
 
 
 <entry key="none">Not selectable</entry>
