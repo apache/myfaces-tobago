@@ -13,54 +13,54 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <f:view>
-  <t:loadBundle basename="addressbook" var="bundle"/>
+  <tc:loadBundle basename="addressbook" var="bundle"/>
 
-  <t:page label="#{bundle.listPageTitle}" width="640px" height="480px">
+  <tc:page label="#{bundle.listPageTitle}" width="640px" height="480px">
 
-    <t:panel>
+    <tc:panel>
       <f:facet name="layout">
-        <t:gridLayout rows="10px;1*;10px" columns="10px;1*;10px"/>
+        <tc:gridLayout rows="10px;1*;10px" columns="10px;1*;10px"/>
       </f:facet>
 
-      <t:cell spanX="3" />
-      <t:cell/>
+      <tc:cell spanX="3" />
+      <tc:cell/>
 
-      <t:box label="#{bundle.listBoxTitle}" >
+      <tc:box label="#{bundle.listBoxTitle}" >
         <f:facet name="layout">
-          <t:gridLayout rows="fixed;1*" />
+          <tc:gridLayout rows="fixed;1*" />
         </f:facet>
         <f:facet name="toolBar">
-          <t:toolBar>
-            <t:button label="#{bundle.listNew}" action="#{controller.createAddress}" />
-            <t:button label="#{bundle.listEdit}" action="#{controller.editAddress}" />
-            <t:button label="#{bundle.listDelete}" action="#{controller.deleteAddresses}">
+          <tc:toolBar>
+            <tc:button label="#{bundle.listNew}" action="#{controller.createAddress}" />
+            <tc:button label="#{bundle.listEdit}" action="#{controller.editAddress}" />
+            <tc:button label="#{bundle.listDelete}" action="#{controller.deleteAddresses}">
               <f:facet name="confirmation">
-                <t:out value="#{bundle.listDeleteConfirmation}" />
+                <tc:out value="#{bundle.listDeleteConfirmation}" />
               </f:facet>
-            </t:button>
-          </t:toolBar>
+            </tc:button>
+          </tc:toolBar>
         </f:facet>
 
-        <t:messages />
+        <tc:messages />
 
-        <t:sheet columns="1*;1*" value="#{controller.addressList}"
+        <tc:sheet columns="1*;1*" value="#{controller.addressList}"
             var="address" state="#{controller.selectedAddresses}">
-          <t:column label="#{bundle.listFirstName}" sortable="true">
-            <t:out value="#{address.firstName}" />
-          </t:column>
-          <t:column label="#{bundle.listLastName}" sortable="true">
-            <t:out value="#{address.lastName}" />
-          </t:column>
-        </t:sheet>
+          <tc:column label="#{bundle.listFirstName}" sortable="true">
+            <tc:out value="#{address.firstName}" />
+          </tc:column>
+          <tc:column label="#{bundle.listLastName}" sortable="true">
+            <tc:out value="#{address.lastName}" />
+          </tc:column>
+        </tc:sheet>
 
-      </t:box>
+      </tc:box>
 
-      <t:cell/>
-      <t:cell spanX="3" />
-    </t:panel>
+      <tc:cell/>
+      <tc:cell spanX="3" />
+    </tc:panel>
 
-  </t:page>
+  </tc:page>
 </f:view>

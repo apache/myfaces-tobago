@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.taglib.decl.*;
  * Render a single selection option listbox.
  */
 @Tag(name="selectOneListbox")
-@BodyContentDescription(anyTagOf="(<f:selectItems>|<f:selectItem>|<t:selectItem>)+ <f:facet>* " )
+@BodyContentDescription(anyTagOf="(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* " )
 public interface SelectOneListboxTagDeclaration extends SelectOneTagDeclaration, HasId, HasValue, IsDisabled, IsReadonly, HasOnchangeListener, HasLabelAndAccessKey, IsRendered, HasBinding, HasHeight, HasTip {
 
   /**

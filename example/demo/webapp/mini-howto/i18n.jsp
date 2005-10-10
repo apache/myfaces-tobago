@@ -13,29 +13,29 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <layout:mini-howto>
   <jsp:body>
-    <t:panel>
+    <tc:panel>
       <f:facet name="layout">
-        <t:gridLayout rows="150px;110px;50px;1*;" />
+        <tc:gridLayout rows="150px;110px;50px;1*;" />
       </f:facet>
 
-      <t:out escape="false" value="#{miniHowtoBundle.i18nText1}" />
+      <tc:out escape="false" value="#{miniHowtoBundle.i18nText1}" />
 
-      <t:box label="#{miniHowtoBundle.codeExample}" >
-        <t:out value="#{miniHowtoBundle.i18nCodeExample1}" />
-      </t:box>
+      <tc:box label="#{miniHowtoBundle.codeExample}" >
+        <tc:out value="#{miniHowtoBundle.i18nCodeExample1}" />
+      </tc:box>
 
-      <t:out escape="false" value="#{miniHowtoBundle.i18nText2}" />
+      <tc:out escape="false" value="#{miniHowtoBundle.i18nText2}" />
 
-      <t:box label="#{miniHowtoBundle.codeExample}" >
-        <t:out escape="true" value="#{miniHowtoBundle.i18nCodeExample2}" />
-      </t:box>
+      <tc:box label="#{miniHowtoBundle.codeExample}" >
+        <tc:out escape="true" value="#{miniHowtoBundle.i18nCodeExample2}" />
+      </tc:box>
 
-    </t:panel>
+    </tc:panel>
   </jsp:body>
 </layout:mini-howto>

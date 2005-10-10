@@ -13,99 +13,99 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 <%@ taglib uri="http://www.atanion.com/tobago/extension" prefix="tx" %>
 
 <layout:overview>
   <jsp:body>
-    <t:panel >
+    <tc:panel >
       <f:facet name="layout">
-        <t:gridLayout border="0" rows="20px;fixed;1*;20px;fixed;1*;20px;fixed" />
-  <%--      <t:gridLayout border="0" rows="1*;6*;1*;1*;6*;1*;1*;6*" />--%>
+        <tc:gridLayout border="0" rows="20px;fixed;1*;20px;fixed;1*;20px;fixed" />
+  <%--      <tc:gridLayout border="0" rows="1*;6*;1*;1*;6*;1*;1*;6*" />--%>
       </f:facet>
 
   <%--row    --%>
-      <t:out escape="false" value="#{overviewBundle.basic_text_input}" />
+      <tc:out escape="false" value="#{overviewBundle.basic_text_input}" />
 
   <%--row    --%>
-      <t:box label="#{overviewBundle.basicControls_sampleInputTitle}" >
+      <tc:box label="#{overviewBundle.basicControls_sampleInputTitle}" >
         <f:facet name="layout">
-          <t:gridLayout columns="1*;1*"  border="0" />
+          <tc:gridLayout columns="1*;1*"  border="0" />
         </f:facet>
 
-        <t:panel >
+        <tc:panel >
           <f:facet name="layout">
-            <t:gridLayout />
+            <tc:gridLayout />
           </f:facet>
           <tx:label value="#{overviewBundle.basic_textboxLabel}" tip="test">
-            <t:in value="#{overviewController.basicInput}" />
+            <tc:in value="#{overviewController.basicInput}" />
           </tx:label>
-          <t:date value="#{overviewController.basicDate}"
+          <tc:date value="#{overviewController.basicDate}"
               label="#{overviewBundle.basic_dateLabel}">
             <f:convertDateTime pattern="dd.MM.yyyy" />
-          </t:date>
-          <t:time label="#{overviewBundle.basic_timeLabel}"
+          </tc:date>
+          <tc:time label="#{overviewBundle.basic_timeLabel}"
                   value="#{overviewController.basicTime}" />
-        </t:panel>
+        </tc:panel>
 
         <tx:textarea value="#{overviewController.basicArea}"
           label="#{overviewBundle.basic_textareaLabel}" />
-      </t:box>
+      </tc:box>
 
   <%--row    --%>
-      <t:cell /> <%-- spacer--%>
+      <tc:cell /> <%-- spacer--%>
 
   <%--row    --%>
-      <t:out escape="false" value="#{overviewBundle.basic_text_select}" />
+      <tc:out escape="false" value="#{overviewBundle.basic_text_select}" />
 
   <%--row    --%>
-      <t:box label="#{overviewBundle.basicControls_sampleSelectTitle}" >
+      <tc:box label="#{overviewBundle.basicControls_sampleSelectTitle}" >
         <f:facet name="layout">
-          <t:gridLayout columns="1*;1*"  border="0"/>
+          <tc:gridLayout columns="1*;1*"  border="0"/>
         </f:facet>
-        <t:selectOneRadio value="#{overviewController.radioValue}" id="rg0">
+        <tc:selectOneRadio value="#{overviewController.radioValue}" id="rg0">
           <f:selectItems value="#{overviewController.items}" id="items0" />
-        </t:selectOneRadio>
+        </tc:selectOneRadio>
 
-        <t:panel >
+        <tc:panel >
           <f:facet name="layout">
-            <t:gridLayout rows="fixed;fixed"/>
+            <tc:gridLayout rows="fixed;fixed"/>
           </f:facet>
-          <t:selectManyCheckbox value="#{overviewController.multiValue}" id="cbg0" renderRange="1-2" >
+          <tc:selectManyCheckbox value="#{overviewController.multiValue}" id="cbg0" renderRange="1-2" >
             <f:selectItems value="#{overviewController.items}" id="itemsg0" />
-          </t:selectManyCheckbox>
-          <t:selectOneChoice value="#{overviewController.singleValue}">
+          </tc:selectManyCheckbox>
+          <tc:selectOneChoice value="#{overviewController.singleValue}">
             <f:selectItems value="#{overviewController.items}" />
-          </t:selectOneChoice>
-        </t:panel>
-      </t:box>
+          </tc:selectOneChoice>
+        </tc:panel>
+      </tc:box>
   <%--row    --%>
-      <t:cell /> <%-- spacer--%>
+      <tc:cell /> <%-- spacer--%>
 
   <%--row    --%>
-      <t:out escape="false" value="#{overviewBundle.basic_text_action}" />
+      <tc:out escape="false" value="#{overviewBundle.basic_text_action}" />
 
   <%--row    --%>
-      <t:box label="#{overviewBundle.basicControls_sampleLinkTitle}" >
+      <tc:box label="#{overviewBundle.basicControls_sampleLinkTitle}" >
         <f:facet name="layout">
-          <t:gridLayout columns="1*;1*;1*" border="0"/>
+          <tc:gridLayout columns="1*;1*;1*" border="0"/>
         </f:facet>
-        <t:link id="link" action="overview/basicControls"
+        <tc:link id="link" action="overview/basicControls"
             actionListener="#{overviewController.click}"
             label="#{overviewBundle.basic_linkAction}" />
-        <t:link id="image" action="overview/basicControls"
+        <tc:link id="image" action="overview/basicControls"
             actionListener="#{overviewController.click}"
             image="image/image_button.gif" />
-        <t:button id="button" action="overview/basicControls"
+        <tc:button id="button" action="overview/basicControls"
             actionListener="#{overviewController.click}"
             width="100px"  label="#{overviewBundle.basic_buttonAction}" />
-        <t:cell spanX="3">
+        <tc:cell spanX="3">
           <tx:in value="#{overviewController.lastAction}" readonly="true"
             label="#{overviewBundle.basic_lastActionLabel}" />
-        </t:cell>
-      </t:box>
-    </t:panel>
+        </tc:cell>
+      </tc:box>
+    </tc:panel>
   </jsp:body>
 </layout:overview>

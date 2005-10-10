@@ -13,39 +13,39 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <f:subview id="footer" >
 
-  <t:panel>
+  <tc:panel>
     <f:facet name="layout">
-      <t:gridLayout columns="70px;70px;130px;1*"
+      <tc:gridLayout columns="70px;70px;130px;1*"
           rows="15px;fixed"/>
     </f:facet>
 
-    <t:cell spanX="4">
+    <tc:cell spanX="4">
       <f:verbatim><hr /></f:verbatim>
-    </t:cell>
+    </tc:cell>
 
-    <t:button immediate="true"
+    <tc:button immediate="true"
       image="image/prev.gif"
       action="#{miniHowtoNavigation.gotoPrevious}"
       disabled="#{miniHowtoNavigation.first}"
       label="#{overviewBundle.footer_previous}" />
 
-    <t:button immediate="true"
+    <tc:button immediate="true"
       image="image/next.gif"
       action="#{miniHowtoNavigation.gotoNext}"
       disabled="#{miniHowtoNavigation.last}"
       label="#{overviewBundle.footer_next}" />
 
-    <t:button action="#{miniHowtoNavigation.viewSource}"
+    <tc:button action="#{miniHowtoNavigation.viewSource}"
         immediate="true" label="#{overviewBundle.footer_viewSource}" />
 
-    <t:out value="#{overviewBundle.notTranslated}"/>
+    <tc:out value="#{overviewBundle.notTranslated}"/>
 
-    <%--<t:link id="atanion_link" action="http://www.atanion.com/"--%>
+    <%--<tc:link id="atanion_link" action="http://www.atanion.com/"--%>
         <%--type="navigate" image="image/poweredBy.gif" />--%>
 
-  </t:panel>
+  </tc:panel>
 </f:subview>

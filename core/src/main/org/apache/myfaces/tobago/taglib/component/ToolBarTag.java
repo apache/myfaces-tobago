@@ -57,7 +57,7 @@ import javax.faces.component.UIPanel;
  */
 
 @Tag(name = "toolBar")
-@BodyContentDescription(anyTagOf = "(<t:toolBarCommand>|<t:toolBarSelectBoolean>|<t:toolBarSelectOne>)* ")
+@BodyContentDescription(anyTagOf = "(<tc:toolBarCommand>|<tc:toolBarSelectBoolean>|<tc:toolBarSelectOne>)* ")
 public class ToolBarTag extends PanelTag
     implements HasIdBindingAndRendered, HasWidth {
 

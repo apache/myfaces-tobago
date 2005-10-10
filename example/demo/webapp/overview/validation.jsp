@@ -13,28 +13,28 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://www.atanion.com/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <layout:overview>
   <jsp:body>
-    <t:panel>
+    <tc:panel>
       <f:facet name="layout">
-        <t:gridLayout rows="80px;200px;1*;" />
+        <tc:gridLayout rows="80px;200px;1*;" />
       </f:facet>
 
-      <t:out escape="false" value="#{overviewBundle.validation_text}" />
+      <tc:out escape="false" value="#{overviewBundle.validation_text}" />
 
-      <t:box label="#{overviewBundle.validation_sampleTitle}" >
+      <tc:box label="#{overviewBundle.validation_sampleTitle}" >
         <f:facet name="layout">
-          <t:gridLayout rows="fixed;1*;fixed;fixed" />
+          <tc:gridLayout rows="fixed;1*;fixed;fixed" />
         </f:facet>
 
-        <t:panel>
+        <tc:panel>
           <f:facet name="layout">
-            <t:gridLayout columns="1*;1*" />
+            <tc:gridLayout columns="1*;1*" />
           </f:facet>
           <tx:in label="#{overviewBundle.validation_number}"
               required="true">
@@ -44,24 +44,24 @@
           <tx:in label="#{overviewBundle.validation_price}">
             <f:validateDoubleRange minimum="0.01" maximum="1000" />
           </tx:in>
-        </t:panel>
+        </tc:panel>
 
         <tx:textarea label="#{overviewBundle.validation_description}"
             required="true"  />
 
-        <t:messages />
+        <tc:messages />
 
-        <t:panel>
+        <tc:panel>
           <f:facet name="layout">
-            <t:gridLayout columns="1*;100px"   />
+            <tc:gridLayout columns="1*;100px"   />
           </f:facet>
-          <t:cell/>
-          <t:button action="#{clientConfigController.submit}"
+          <tc:cell/>
+          <tc:button action="#{clientConfigController.submit}"
               label="#{overviewBundle.validation_submit}" />
-        </t:panel>
+        </tc:panel>
 
-      </t:box>
-      <t:cell />
-    </t:panel>
+      </tc:box>
+      <tc:cell />
+    </tc:panel>
   </jsp:body>
 </layout:overview>

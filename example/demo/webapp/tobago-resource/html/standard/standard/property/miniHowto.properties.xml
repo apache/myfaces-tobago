@@ -62,16 +62,16 @@
     with some input elements and a Tobago date control to enter the
     birthdate.</entry>
   <entry key="jspDefinitionCodeExample1">...
-    &lt;t:sheet columns=&quot;1*;1*&quot;
+    &lt;tc:sheet columns=&quot;1*;1*&quot;
                 value=&quot;#{controller.addressList}&quot;var=&quot;address&quot;
                 stateBinding=&quot;#{controller.selectedAddresses}&quot;
-            &lt;t:column label=&quot;First Name&quot; sortable=&quot;true&quot;&gt;
-                    &lt;t:out value=&quot;#{address.firstName}&quot; /&gt;
-            &lt;/t:column&gt;
-            &lt;t:column label=&quot;Last Name&quot; sortable=&quot;true&quot;&gt;
-                &lt;t:out value=&quot;#{address.lastName}&quot;/&gt;
-            &lt;/t:column&gt;
-    &lt;/t:sheet&gt; &lt;br /&gt;
+            &lt;tc:column label=&quot;First Name&quot; sortable=&quot;true&quot;&gt;
+                    &lt;tc:out value=&quot;#{address.firstName}&quot; /&gt;
+            &lt;/tc:column&gt;
+            &lt;tc:column label=&quot;Last Name&quot; sortable=&quot;true&quot;&gt;
+                &lt;tc:out value=&quot;#{address.lastName}&quot;/&gt;
+            &lt;/tc:column&gt;
+    &lt;/tc:sheet&gt; &lt;br /&gt;
     ...</entry>
   <entry key="jspDefinitionText2">This is a part of the code example for the
     sheet component. The addresses which the sheet will display are delivered by
@@ -147,15 +147,15 @@ public String storeAddress() {
   method (e.g. only strings, e-mail patterns or numbers from 1 to 10 etc.).&lt;br
   /&gt;</entry>
 
-  <entry key="validationCodeExample1">&lt;t:box label=&quot;Address Editor&quot;&gt;
+  <entry key="validationCodeExample1">&lt;tc:box label=&quot;Address Editor&quot;&gt;
         &lt;f:facet name=&quot;layout&quot;&gt;
-                &lt;t:gridLayout rows=&quot;fixed;{...};fixed;&quot; /&gt; 
+                &lt;tc:gridLayout rows=&quot;fixed;{...};fixed;&quot; /&gt; 
         &lt;/f:facet&gt;
-        &lt;t:messages /&gt;&lt;br /&gt;
-        &lt;t:in value=&quot;#{controller.currentAddress.firstName}&quot;
+        &lt;tc:messages /&gt;&lt;br /&gt;
+        &lt;tc:in value=&quot;#{controller.currentAddress.firstName}&quot;
                 label=&quot;First Name&quot; required=&quot;true&quot; /&gt;
 ...
-&lt;/t:box&gt;</entry>
+&lt;/tc:box&gt;</entry>
 
   <entry key="validationText2">In this example a required validator is bound to
     the ´first name´ input field. It just tells the user that he has to enter
@@ -176,13 +176,13 @@ public String storeAddress() {
     Therefor you have to tell the application where to find the key, for that we have
     to load the resource bundle first as said before:</entry>
 
-  <entry key="i18nCodeExample1">&lt;t:loadBundle basename=&quot;addressbook&quot; var=&quot;bundle&quot;/&gt;</entry>
+  <entry key="i18nCodeExample1">&lt;tc:loadBundle basename=&quot;addressbook&quot; var=&quot;bundle&quot;/&gt;</entry>
 
   <entry key="i18nText2">To use the translated text for example in the attribute
     of an input field we have to refer to the resource bundle by the given
     variable (in this case ´bundle´) and the key.</entry>
 
-  <entry key="i18nCodeExample2">&lt;t:button label=&quot;#{bundle.listNew}&quot;
+  <entry key="i18nCodeExample2">&lt;tc:button label=&quot;#{bundle.listNew}&quot;
                 action=&quot;#{controller.createAddress}&quot; /&gt;</entry>
 
 </properties>

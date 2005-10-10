@@ -14,31 +14,31 @@
  *    limitations under the License.
 --%>
 
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <layout:screenshot>
   <f:subview id="toolBar">
     <jsp:body>
-      <t:panel>
+      <tc:panel>
         <f:facet name="layout">
-          <t:gridLayout rows="60px;1*" columns="260px;1*"/>
+          <tc:gridLayout rows="60px;1*" columns="260px;1*"/>
         </f:facet>
 
-            <t:toolBar id="toolbar0" iconSize="big">
-              <t:toolBarCommand id="button0" label="Button" />
-              <t:toolBarCommand id="button1" label="Accesskey Button" accessKey="B"/>
-              <t:toolBarCommand id="button2" label="Image Button"
+            <tc:toolBar id="toolbar0" iconSize="big">
+              <tc:toolBarCommand id="button0" label="Button" />
+              <tc:toolBarCommand id="button1" label="Accesskey Button" accessKey="B"/>
+              <tc:toolBarCommand id="button2" label="Image Button"
                                 image="image/toolbar_example_button.gif" />
-              <t:toolBarCommand id="button3" disabled="true" label="Disabled Button" />
-            </t:toolBar>
+              <tc:toolBarCommand id="button3" disabled="true" label="Disabled Button" />
+            </tc:toolBar>
 
-        <t:cell/>
-        <t:cell/>
-        <t:cell/>
+        <tc:cell/>
+        <tc:cell/>
+        <tc:cell/>
 
-      </t:panel>
+      </tc:panel>
 
     </jsp:body>
   </f:subview>

@@ -13,41 +13,41 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <layout:overview>
   <jsp:body>
-    <t:panel>
+    <tc:panel>
       <f:facet name="layout">
-          <t:gridLayout rows="130px;150px;1* " />
+          <tc:gridLayout rows="130px;150px;1* " />
       </f:facet>
 
-      <t:out escape="false" value="#{overviewBundle.theme_text}" />
+      <tc:out escape="false" value="#{overviewBundle.theme_text}" />
 
-      <t:box label="#{overviewBundle.theme_title}" >
+      <tc:box label="#{overviewBundle.theme_title}" >
         <f:facet name="layout">
-          <t:gridLayout rows="fixed;1*;fixed" />
+          <tc:gridLayout rows="fixed;1*;fixed" />
         </f:facet>
 
-        <t:selectOneChoice value="#{clientConfigController2.theme}"
+        <tc:selectOneChoice value="#{clientConfigController2.theme}"
             label="#{overviewBundle.theme_label}">
           <f:selectItems value="#{clientConfigController2.themeItems}" />
-        </t:selectOneChoice>
+        </tc:selectOneChoice>
 
-        <t:cell/>
+        <tc:cell/>
 
-        <t:panel>
+        <tc:panel>
           <f:facet name="layout">
-            <t:gridLayout columns="*;100px"   />
+            <tc:gridLayout columns="*;100px"   />
           </f:facet>
-          <t:cell/>
-          <t:button action="#{clientConfigController2.submit}" label="#{overviewBundle.theme_submit}" />
-        </t:panel>
+          <tc:cell/>
+          <tc:button action="#{clientConfigController2.submit}" label="#{overviewBundle.theme_submit}" />
+        </tc:panel>
 
-      </t:box>
-      <t:cell />
-    </t:panel>
+      </tc:box>
+      <tc:cell />
+    </tc:panel>
   </jsp:body>
 </layout:overview>

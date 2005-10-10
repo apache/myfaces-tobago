@@ -130,7 +130,7 @@ public class UIPage extends UIForm {
       if (! okay) {
         LOG.error("Can't process multipart/form-data without TobagoRequest. " +
             "Please check the web.xml and define a TobagoMultipartFormdataFilter. " +
-            "See documentation for <t:file>");
+            "See documentation for <tc:file>");
         facesContext.addMessage(null, new FacesMessage("An error has occured!"));
       }
     }

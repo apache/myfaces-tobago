@@ -13,37 +13,37 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
 <f:view locale="#{clientConfigController.locale}">
-  <t:loadBundle basename="miniHowto" var="miniHowtoBundle" />
-  <t:loadBundle basename="overview" var="overviewBundle" />
-  <t:page label="#{miniHowtoBundle.pageTitle}" id="page"
+  <tc:loadBundle basename="miniHowto" var="miniHowtoBundle" />
+  <tc:loadBundle basename="overview" var="overviewBundle" />
+  <tc:page label="#{miniHowtoBundle.pageTitle}" id="page"
       width="750px" height="600px">
 
-    <t:include value="mini-howto/menubar.jsp"/>
+    <tc:include value="mini-howto/menubar.jsp"/>
 
     <f:facet name="layout">
-      <t:gridLayout border="0" columns="1*;4*"
+      <tc:gridLayout border="0" columns="1*;4*"
         margin="10px" rows="100px;*;40px"  />
     </f:facet>
 
-    <t:cell spanX="2">
-      <t:include value="overview/header.jsp"/>
-    </t:cell>
+    <tc:cell spanX="2">
+      <tc:include value="overview/header.jsp"/>
+    </tc:cell>
 
-    <t:cell spanY="2" >
-      <t:include value="mini-howto/navigator.jsp"/>
-    </t:cell>
+    <tc:cell spanY="2" >
+      <tc:include value="mini-howto/navigator.jsp"/>
+    </tc:cell>
 
-    <t:cell>
+    <tc:cell>
       <jsp:doBody/>
-    </t:cell>
+    </tc:cell>
 
-    <t:cell>
-      <t:include value="mini-howto/footer.jsp"/>
-    </t:cell>
+    <tc:cell>
+      <tc:include value="mini-howto/footer.jsp"/>
+    </tc:cell>
 
-  </t:page>
+  </tc:page>
 </f:view>

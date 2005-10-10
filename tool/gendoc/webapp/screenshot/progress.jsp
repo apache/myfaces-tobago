@@ -17,7 +17,7 @@
     errorPage="/errorPage.jsp"
     import="javax.swing.DefaultBoundedRangeModel"
     %>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 <%-- Progress --%>
@@ -30,16 +30,16 @@
 <layout:screenshot>
   <f:subview id="progress">
     <jsp:body>
-      <t:panel>
+      <tc:panel>
         <f:facet name="layout">
-          <t:gridLayout rows="fixed;1*" columns="100px;1* "/>
+          <tc:gridLayout rows="fixed;1*" columns="100px;1* "/>
         </f:facet>
-          <t:label value="Progress: " inline="true"/>
+          <tc:label value="Progress: " inline="true"/>
           <%-- code-sniplet-start id="progress" --%>
-          <t:progress value="#{progress}"/>
+          <tc:progress value="#{progress}"/>
           <%-- code-sniplet-end id="progress" --%>
-        <t:cell/>
-      </t:panel>
+        <tc:cell/>
+      </tc:panel>
 
     </jsp:body>
   </f:subview>

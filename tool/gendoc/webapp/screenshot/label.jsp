@@ -13,24 +13,24 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <layout:screenshot>
   <jsp:body>
-    <t:panel>
+    <tc:panel>
       <f:facet name="layout">
-        <t:gridLayout columns="100px;1*" rows="fixed;1*" />
+        <tc:gridLayout columns="100px;1*" rows="fixed;1*" />
       </f:facet>
 <%-- code-sniplet-start id="label" --%>
       <label>Single Label</label>
 <%-- code-sniplet-end id="label" --%>      
-      <t:cell/>
+      <tc:cell/>
 
-      <t:cell/>
-      <t:cell/>
-    </t:panel>
+      <tc:cell/>
+      <tc:cell/>
+    </tc:panel>
 
   </jsp:body>
 </layout:screenshot>

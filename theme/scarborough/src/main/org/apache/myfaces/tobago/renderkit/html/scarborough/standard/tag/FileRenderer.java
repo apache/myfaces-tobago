@@ -90,7 +90,7 @@ public class FileRenderer extends InputRendererBase {
       // should not be possible, because of the check in UIPage
       LOG.error("Can't process multipart/form-data without TobagoRequest. " +
           "Please check the web.xml and define a TobagoMultipartFormdataFilter. " +
-          "See documentation for <t:file>");
+          "See documentation for <tc:file>");
     }
 
     FileItem item = request.getFileItem(input.getClientId(facesContext));

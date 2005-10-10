@@ -13,29 +13,29 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://www.atanion.com/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
 <f:view>
-  <t:loadBundle basename="addressbook" var="bundle" />
+  <tc:loadBundle basename="addressbook" var="bundle" />
 
-  <t:page label="#{bundle.editorTitle}" width="640px" height="480px">
+  <tc:page label="#{bundle.editorTitle}" width="640px" height="480px">
 
-    <t:panel>
+    <tc:panel>
       <f:facet name="layout">
-        <t:gridLayout rows="10px;1*;10px" columns="10px;1*;10px"/>
+        <tc:gridLayout rows="10px;1*;10px" columns="10px;1*;10px"/>
       </f:facet>
 
-      <t:cell spanX="3" />
-      <t:cell/>
+      <tc:cell spanX="3" />
+      <tc:cell/>
 
-      <t:box label="#{bundle.editorBoxTitle}" >
+      <tc:box label="#{bundle.editorBoxTitle}" >
         <f:facet name="layout">
-          <t:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*;fixed"  />
+          <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*;fixed"  />
         </f:facet>
 
-        <t:messages />
+        <tc:messages />
 
         <tx:in value="#{controller.currentAddress.firstName}"
             label="#{bundle.editorFirstName}" required="true" />
@@ -43,31 +43,31 @@
         <%--<tx:in label="#{bundle.editorLastName}"--%>
            <%--value="#{controller.currentAddress.lastName}" required="true"/>--%>
         <tx:label value="#{bundle.editorLastName}">
-           <t:in value="#{controller.currentAddress.lastName}" required="true"/>
+           <tc:in value="#{controller.currentAddress.lastName}" required="true"/>
         </tx:label>
 
-        <t:panel>
+        <tc:panel>
           <f:facet name="layout">
-            <t:gridLayout columns="6*;1*" />
+            <tc:gridLayout columns="6*;1*" />
           </f:facet>
           <tx:in value="#{controller.currentAddress.street}"
               label="#{bundle.editorStreet}" />
-          <t:in value="#{controller.currentAddress.houseNumber}" />
-        </t:panel>
+          <tc:in value="#{controller.currentAddress.houseNumber}" />
+        </tc:panel>
 
-        <t:panel>
+        <tc:panel>
           <f:facet name="layout">
-            <t:gridLayout columns="1*;1*" />
+            <tc:gridLayout columns="1*;1*" />
           </f:facet>
           <tx:in value="#{controller.currentAddress.zipCode}"
               label="#{bundle.editorCity}" />
-          <t:in value="#{controller.currentAddress.city}" />
-        </t:panel>
+          <tc:in value="#{controller.currentAddress.city}" />
+        </tc:panel>
 
-        <t:selectOneChoice value="#{controller.currentAddress.country}"
+        <tc:selectOneChoice value="#{controller.currentAddress.country}"
             label="#{bundle.editorCountry}">
           <f:selectItems value="#{countries}" />
-        </t:selectOneChoice>
+        </tc:selectOneChoice>
 
         <tx:in value="#{controller.currentAddress.phone}"
             label="#{bundle.editorPhone}" />
@@ -81,31 +81,31 @@
         <tx:in value="#{controller.currentAddress.email}"
             label="#{bundle.editorEmail}" />
 
-        <t:date value="#{controller.currentAddress.dayOfBirth}"
+        <tc:date value="#{controller.currentAddress.dayOfBirth}"
             label="#{bundle.editorBirthday}">
           <f:convertDateTime pattern="dd.MM.yyyy" />
-        </t:date>
+        </tc:date>
 
         <tx:textarea value="#{controller.currentAddress.note}"
             label="#{bundle.editorNote}" />
 
-        <t:panel>
+        <tc:panel>
           <f:facet name="layout">
-            <t:gridLayout columns="3*;1*;1*"  />
+            <tc:gridLayout columns="3*;1*;1*"  />
           </f:facet>
 
-          <t:cell />
-          <t:button action="#{controller.storeAddress}"
+          <tc:cell />
+          <tc:button action="#{controller.storeAddress}"
               labelWithAccessKey="#{bundle.editorStore}" defaultCommand="true" />
-          <t:button action="list" immediate="true"
+          <tc:button action="list" immediate="true"
               labelWithAccessKey="#{bundle.editorCancel}" />
-        </t:panel>
+        </tc:panel>
 
-      </t:box>
+      </tc:box>
 
-      <t:cell/>
-      <t:cell spanX="3" />
+      <tc:cell/>
+      <tc:cell spanX="3" />
 
-    </t:panel>
-  </t:page>
+    </tc:panel>
+  </tc:page>
 </f:view>

@@ -13,28 +13,28 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t"%>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc"%>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
 
 <f:subview id="header">
-  <t:panel>
+  <tc:panel>
     <f:facet name="layout">
-      <t:gridLayout columns="150px;*;200px" />
+      <tc:gridLayout columns="150px;*;200px" />
     </f:facet>
 
-    <t:link action="overview/intro" immediate="true"
+    <tc:link action="overview/intro" immediate="true"
         actionListener="#{overviewNavigation.navigate}"
         image="image/tobago_head.gif" />
 
-    <t:cell />
+    <tc:cell />
 
-    <t:panel>
+    <tc:panel>
       <f:facet name="layout">
-        <t:gridLayout rows="fixed;fixed;*" />
+        <tc:gridLayout rows="fixed;fixed;*" />
       </f:facet>
-      <t:out value="#{clientConfigController.localizedTheme}" />
-      <t:out value="#{clientConfigController.localizedLocale}" />
-      <t:cell />
-    </t:panel>
-  </t:panel>
+      <tc:out value="#{clientConfigController.localizedTheme}" />
+      <tc:out value="#{clientConfigController.localizedLocale}" />
+      <tc:cell />
+    </tc:panel>
+  </tc:panel>
 </f:subview>

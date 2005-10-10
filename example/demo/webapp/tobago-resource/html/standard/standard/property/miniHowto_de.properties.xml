@@ -107,7 +107,7 @@
 
   <entry key="validationText2">Mit Hilfe des required Attributs wird das Feld
     auf beliebigen Inhalt geprüft. Um die evtl. auftretende Fehlermeldung später
-    anzuzeigen, muss ein &lt;t:messages&gt; auf der JSP platziert werden. An
+    anzuzeigen, muss ein &lt;tc:messages&gt; auf der JSP platziert werden. An
     dieser Stelle werden die Fehlermeldungen ausgegeben.</entry>
 
 

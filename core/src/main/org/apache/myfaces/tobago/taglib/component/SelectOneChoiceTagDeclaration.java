@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.taglib.decl.*;
  * Render a single selection dropdown list.
  */
 @Tag(name="selectOneChoice")
-@BodyContentDescription(anyTagOf="(<f:selectItems>|<f:selectItem>|<t:selectItem>)+ <f:facet>* " )
+@BodyContentDescription(anyTagOf="(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* " )
 public interface SelectOneChoiceTagDeclaration extends SelectOneTagDeclaration, HasId, HasValue, IsDisabled, IsReadonly, HasOnchangeListener, IsInline, HasLabelAndAccessKey, IsRendered, HasBinding, HasTip {
 
   /**

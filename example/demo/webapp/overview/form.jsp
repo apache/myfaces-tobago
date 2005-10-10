@@ -13,69 +13,69 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://www.atanion.com/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <layout:overview>
   <jsp:body>
-    <t:panel>
+    <tc:panel>
       <f:facet name="layout">
-        <t:gridLayout />
+        <tc:gridLayout />
       </f:facet>
 
   <%--
-      <t:out escape="false" value="#{overviewBundle.form_text1}" />
+      <tc:out escape="false" value="#{overviewBundle.form_text1}" />
   --%>
 
-      <t:box label="#{overviewBundle.form_outTitle}">
+      <tc:box label="#{overviewBundle.form_outTitle}">
         <f:facet name="layout">
-          <t:gridLayout rows="1*;fixed;fixed;fixed" />
+          <tc:gridLayout rows="1*;fixed;fixed;fixed" />
         </f:facet>
 
-        <t:out escape="false" value="#{overviewBundle.form_text2}" />
+        <tc:out escape="false" value="#{overviewBundle.form_text2}" />
 
-        <t:box label="#{overviewBundle.form_in1Title}">
+        <tc:box label="#{overviewBundle.form_in1Title}">
           <f:facet name="layout">
-            <t:gridLayout rows="fixed;fixed;" columns="1*;100px"  />
+            <tc:gridLayout rows="fixed;fixed;" columns="1*;100px"  />
           </f:facet>
 
-          <t:form id="form1" >
+          <tc:form id="form1" >
             <tx:in value="#{demo.text[0]}" required="true" label="#{overviewBundle.newValue1}" />
-            <t:cell spanY="2" >
-              <t:button label="#{overviewBundle.submitForm1}" />
-            </t:cell>
+            <tc:cell spanY="2" >
+              <tc:button label="#{overviewBundle.submitForm1}" />
+            </tc:cell>
             <tx:in value="#{demo.text[0]}" readonly="true" label="#{overviewBundle.modelValue1}" />
-          </t:form>
+          </tc:form>
 
-        </t:box>
+        </tc:box>
 
-        <t:box label="#{overviewBundle.form_in2Title}">
+        <tc:box label="#{overviewBundle.form_in2Title}">
           <f:facet name="layout">
-            <t:gridLayout rows="fixed;fixed" columns="1*;100px"/>
+            <tc:gridLayout rows="fixed;fixed" columns="1*;100px"/>
           </f:facet>
 
-          <t:form id="form2">
+          <tc:form id="form2">
             <tx:in value="#{demo.text[1]}" required="true" label="#{overviewBundle.newValue2}" />
-            <t:cell spanY="2" >
-               <t:button label="#{overviewBundle.submitForm2}" />
-            </t:cell>
+            <tc:cell spanY="2" >
+               <tc:button label="#{overviewBundle.submitForm2}" />
+            </tc:cell>
             <tx:in value="#{demo.text[1]}" readonly="true" label="#{overviewBundle.modelValue2}" />
-          </t:form>
-        </t:box>
+          </tc:form>
+        </tc:box>
 
-        <t:panel>
+        <tc:panel>
           <f:facet name="layout">
-            <t:gridLayout columns="*;150px"   />
+            <tc:gridLayout columns="*;150px"   />
           </f:facet>
 
-          <t:cell/>
-          <t:button label="#{overviewBundle.submitAll}" />
+          <tc:cell/>
+          <tc:button label="#{overviewBundle.submitAll}" />
 
-        </t:panel>
+        </tc:panel>
 
-      </t:box>
-    </t:panel>
+      </tc:box>
+    </tc:panel>
   </jsp:body>
 </layout:overview>

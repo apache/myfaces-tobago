@@ -13,16 +13,16 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
 <%@ attribute name="value" %>
 <%@ attribute name="tip" %>
 
-<t:panel>
+<tc:panel>
   <f:facet name="layout">
-    <t:gridLayout columns="fixed;*"/>
+    <tc:gridLayout columns="fixed;*"/>
   </f:facet>
-  <t:label value="${value}" tip="${tip}" for="@auto"/>
+  <tc:label value="${value}" tip="${tip}" for="@auto"/>
   <jsp:doBody/>
-</t:panel>
+</tc:panel>

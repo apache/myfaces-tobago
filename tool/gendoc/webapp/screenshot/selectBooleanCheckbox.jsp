@@ -13,35 +13,35 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <layout:screenshot>
   <f:subview id="selectBooleanCheckbox">
     <jsp:body>
-      <t:panel>
+      <tc:panel>
         <f:facet name="layout">
-          <t:gridLayout rows="fixed;fixed;fixed;fixed;1*" />
+          <tc:gridLayout rows="fixed;fixed;fixed;fixed;1*" />
         </f:facet>
 
 <%-- code-sniplet-start id="selectBooleanCheckbox" --%>
-        <t:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelect0"
+        <tc:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelect0"
                              labelWithAccessKey="_Letter " />
 <%-- code-sniplet-end id="selectBooleanCheckbox" --%>
-        <t:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelect1"
+        <tc:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelect1"
                              labelWithAccessKey="_Phone" />
 
-        <t:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelec2"
+        <tc:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelec2"
                              labelWithAccessKey="_eMail " />
 
-        <t:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelect3"
+        <tc:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelect3"
                              labelWithAccessKey="_Fax" />
 
 
-      <t:cell/>
+      <tc:cell/>
 
-      </t:panel>
+      </tc:panel>
 
     </jsp:body>
   </f:subview>

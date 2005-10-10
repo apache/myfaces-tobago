@@ -13,50 +13,50 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <layout:overview>
   <jsp:body>
-    <t:panel>
+    <tc:panel>
       <f:facet name="layout">
-        <t:gridLayout rows="2*;3*" />
+        <tc:gridLayout rows="2*;3*" />
       </f:facet>
 
-      <t:out escape="false" value="#{overviewBundle.sheet_text}" />
+      <tc:out escape="false" value="#{overviewBundle.sheet_text}" />
 
-      <t:box label="#{overviewBundle.sheet_sampleTitle}" >
+      <tc:box label="#{overviewBundle.sheet_sampleTitle}" >
         <f:facet name="layout">
-          <t:gridLayout />
+          <tc:gridLayout />
         </f:facet>
 
-        <t:sheet value="#{demo.solarArray}" id="sheet"
+        <tc:sheet value="#{demo.solarArray}" id="sheet"
             columns="3*;1*;3*;3*;3*;3*" var="luminary"
             state="#{demo.sheetState}"
             showRowRange="left" showPageRange="right" showDirectLinks="center"
             pagingLength="7" directLinkCount="5" >
-          <t:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true">
-            <t:out value="#{luminary.name}" id="t_name" />
-          </t:column>
-          <t:column label="#{overviewBundle.solarArrayNumber}" id="number" sortable="false" align="center" >
-            <t:out value="#{luminary.number}" id="t_number"/>
-          </t:column>
-          <t:column label="#{overviewBundle.solarArrayOrbit}" sortable="true" >
-            <t:out value="#{luminary.orbit}" id="t_orbit" />
-          </t:column>
-          <t:column label="#{overviewBundle.solarArrayPopulation}" sortable="true">
-            <t:in value="#{luminary.population}" id="t_population" />
-          </t:column>
-          <t:column label="#{overviewBundle.solarArrayDistance}" sortable="true" align="right" >
-            <t:out value="#{luminary.distance}" id="t_distance" />
-          </t:column>
-          <t:column label="#{overviewBundle.solarArrayPeriod}" sortable="true" align="right" >
-            <t:out value="#{luminary.period}" id="t_period" />
-          </t:column>
-        </t:sheet>
+          <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true">
+            <tc:out value="#{luminary.name}" id="t_name" />
+          </tc:column>
+          <tc:column label="#{overviewBundle.solarArrayNumber}" id="number" sortable="false" align="center" >
+            <tc:out value="#{luminary.number}" id="t_number"/>
+          </tc:column>
+          <tc:column label="#{overviewBundle.solarArrayOrbit}" sortable="true" >
+            <tc:out value="#{luminary.orbit}" id="t_orbit" />
+          </tc:column>
+          <tc:column label="#{overviewBundle.solarArrayPopulation}" sortable="true">
+            <tc:in value="#{luminary.population}" id="t_population" />
+          </tc:column>
+          <tc:column label="#{overviewBundle.solarArrayDistance}" sortable="true" align="right" >
+            <tc:out value="#{luminary.distance}" id="t_distance" />
+          </tc:column>
+          <tc:column label="#{overviewBundle.solarArrayPeriod}" sortable="true" align="right" >
+            <tc:out value="#{luminary.period}" id="t_period" />
+          </tc:column>
+        </tc:sheet>
 
-      </t:box>
-    </t:panel>
+      </tc:box>
+    </tc:panel>
   </jsp:body>
 </layout:overview>

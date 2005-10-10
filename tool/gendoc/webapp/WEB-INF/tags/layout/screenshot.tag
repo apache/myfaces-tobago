@@ -13,26 +13,26 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
 
 <f:view>
 
-  <t:loadBundle basename="demo" var="bundle" />
+  <tc:loadBundle basename="demo" var="bundle" />
   
-  <t:page label="Screenshot" id="page"
+  <tc:page label="Screenshot" id="page"
     width="750px" height="800px">
     <f:facet name="layout">
-      <t:gridLayout columns="5px;1*" rows="5px;1*" />
+      <tc:gridLayout columns="5px;1*" rows="5px;1*" />
     </f:facet>
 
-    <t:cell/>
-    <t:cell/>
+    <tc:cell/>
+    <tc:cell/>
 
-    <t:cell/>
-    <t:panel>
+    <tc:cell/>
+    <tc:panel>
     <jsp:doBody/>
-    </t:panel>
-  </t:page>
+    </tc:panel>
+  </tc:page>
 </f:view>

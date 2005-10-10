@@ -13,30 +13,30 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <layout:screenshot>
   <f:subview id="selectOneChoice">
     <jsp:body>
-      <t:panel>
+      <tc:panel>
         <f:facet name="layout">
-          <t:gridLayout rows="fixed;1*" />
+          <tc:gridLayout rows="fixed;1*" />
         </f:facet>
 <%-- code-sniplet-start id="selectOneChoice" --%>
-        <t:selectOneChoice value="selectOneChoice0" inline="true"
+        <tc:selectOneChoice value="selectOneChoice0" inline="true"
                            labelWithAccessKey="_Contact me: " >
-          <t:selectItem itemLabel="Letter" itemValue="letter" />
-          <t:selectItem itemLabel="Phone" itemValue="phone" />
-          <t:selectItem itemLabel="eMail" itemValue="eMail" />
-          <t:selectItem itemLabel="Fax" itemValue="fax" />
-          </t:selectOneChoice>
+          <tc:selectItem itemLabel="Letter" itemValue="letter" />
+          <tc:selectItem itemLabel="Phone" itemValue="phone" />
+          <tc:selectItem itemLabel="eMail" itemValue="eMail" />
+          <tc:selectItem itemLabel="Fax" itemValue="fax" />
+          </tc:selectOneChoice>
 <%-- code-sniplet-end id="selectOneChoice" --%>
 
-        <t:cell/>
+        <tc:cell/>
 
-      </t:panel>
+      </tc:panel>
 
     </jsp:body>
   </f:subview>

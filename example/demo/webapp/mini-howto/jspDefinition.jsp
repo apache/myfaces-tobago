@@ -13,22 +13,22 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <layout:mini-howto>
   <jsp:body>
-    <t:panel>
+    <tc:panel>
       <f:facet name="layout">
-        <t:gridLayout rows="80px;1*;80px" />
+        <tc:gridLayout rows="80px;1*;80px" />
       </f:facet>
 
-      <t:out escape="false" value="#{miniHowtoBundle.jspDefinitionText1}"/>
-      <t:box label="#{miniHowtoBundle.codeExample}">
-        <t:out value="#{miniHowtoBundle.jspDefinitionCodeExample1}"/>
-      </t:box>
-      <t:out escape="false" value="#{miniHowtoBundle.jspDefinitionText2}"/>
-    </t:panel>
+      <tc:out escape="false" value="#{miniHowtoBundle.jspDefinitionText1}"/>
+      <tc:box label="#{miniHowtoBundle.codeExample}">
+        <tc:out value="#{miniHowtoBundle.jspDefinitionCodeExample1}"/>
+      </tc:box>
+      <tc:out escape="false" value="#{miniHowtoBundle.jspDefinitionText2}"/>
+    </tc:panel>
   </jsp:body>
 </layout:mini-howto>

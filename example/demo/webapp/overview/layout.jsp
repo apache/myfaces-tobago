@@ -13,36 +13,36 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://www.atanion.com/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <layout:overview>
   <jsp:body>
-    <t:panel>
+    <tc:panel>
       <f:facet name="layout">
-        <t:gridLayout rows="2*;7*" />
+        <tc:gridLayout rows="2*;7*" />
       </f:facet>
 
-      <t:out escape="false" value="#{overviewBundle.layout_text}" />
+      <tc:out escape="false" value="#{overviewBundle.layout_text}" />
 <%-- code-sniplet-start id="layoutManagementExample" --%>
-      <t:box label="#{overviewBundle.layout_exampleTitle}">
+      <tc:box label="#{overviewBundle.layout_exampleTitle}">
         <f:facet name="layout">
-          <t:gridLayout columns="1*;1*" rows="fixed;fixed;fixed;fixed;fixed;*"/>
+          <tc:gridLayout columns="1*;1*" rows="fixed;fixed;fixed;fixed;fixed;*"/>
         </f:facet>
-        <t:selectOneChoice value="#{overviewController.singleValue}"
+        <tc:selectOneChoice value="#{overviewController.singleValue}"
                            label="#{overviewBundle.layout_salutation}">
           <f:selectItems value="#{overviewController.items}" />
-        </t:selectOneChoice>
-        <t:cell/>
+        </tc:selectOneChoice>
+        <tc:cell/>
 
         <tx:in value="" label="#{overviewBundle.layout_firstName}" />
         <tx:in value="" label="#{overviewBundle.layout_lastName}" />
 
-        <t:cell spanX="2">
+        <tc:cell spanX="2">
           <tx:in value="" label="#{overviewBundle.layout_co}" />
-        </t:cell>
+        </tc:cell>
 
         <tx:in value="" label="#{overviewBundle.layout_street}" />
         <tx:in value="" label="#{overviewBundle.layout_streetNumber}" />
@@ -50,11 +50,11 @@
         <tx:in value="" label="#{overviewBundle.layout_zipCode}" />
         <tx:in value="" label="#{overviewBundle.layout_city}" />
 
-        <t:cell spanX="2">
+        <tc:cell spanX="2">
           <tx:textarea value="" label="#{overviewBundle.layout_note}" />
-        </t:cell>
-      </t:box>
+        </tc:cell>
+      </tc:box>
 <%-- code-sniplet-end id="layoutManagementExample" --%>
-    </t:panel>
+    </tc:panel>
   </jsp:body>
 </layout:overview>

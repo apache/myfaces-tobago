@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://www.atanion.com/tobago/extension" prefix="tx" %>
 
 <%@ attribute name="binding" %>
@@ -30,7 +30,7 @@
 <tx:label
     tip="${tip}"
     value="${label}">
-  <t:in
+  <tc:in
       binding="${binding}"
       converter="${converter}"
       disabled="${disabled}"
@@ -45,5 +45,5 @@
     <jsp:attribute name="value">${value}</jsp:attribute>
   </c:if>
 --%>
- </t:in>
+ </tc:in>
 </tx:label>

@@ -13,57 +13,57 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <layout:screenshot>
   <f:subview id="menu">
     <jsp:body>
-      <t:panel>
+      <tc:panel>
         <f:facet name="layout">
-          <t:gridLayout rows="fixed;1*" columns="400px;1*"/>
+          <tc:gridLayout rows="fixed;1*" columns="400px;1*"/>
         </f:facet>
         <%-- code-sniplet-start id="menuBar" --%>
-        <t:menuBar>
-          <t:menu labelWithAccessKey="_File">
-            <t:menuItem label="New File"/>
-            <t:menuItem label="Open File"/>
-            <t:menuItem label="Save"/>
-            <t:menuItem label="Print"/>
-            <t:menuSeparator/>
-            <t:menuItem label="Exit"/>
-            <t:menucheck label="Administration Mode"/>
-          </t:menu>
+        <tc:menuBar>
+          <tc:menu labelWithAccessKey="_File">
+            <tc:menuItem label="New File"/>
+            <tc:menuItem label="Open File"/>
+            <tc:menuItem label="Save"/>
+            <tc:menuItem label="Print"/>
+            <tc:menuSeparator/>
+            <tc:menuItem label="Exit"/>
+            <tc:menucheck label="Administration Mode"/>
+          </tc:menu>
 
           <%-- code-sniplet-start id="menu" --%>
-          <t:menu labelWithAccessKey="_Edit">
-            <t:menuItem label="Copy"/>
-            <t:menuItem label="Cut"/>
-            <t:menuItem label="Paste"/>
+          <tc:menu labelWithAccessKey="_Edit">
+            <tc:menuItem label="Copy"/>
+            <tc:menuItem label="Cut"/>
+            <tc:menuItem label="Paste"/>
             <%-- code-sniplet-start id="menuItem" --%>
-            <t:menuItem label="Delete"/>
+            <tc:menuItem label="Delete"/>
             <%-- code-sniplet-end id="menuItem" --%>
-            <t:menuSeparator/>
-            <t:menu labelWithAccessKey="_Delete">
-              <t:menuItem label="As Spam"/>
-              <t:menuItem label="As Newsletter"/>
-              <t:menuItem label="As Uninteresting"/>
-            </t:menu>
-          </t:menu>
+            <tc:menuSeparator/>
+            <tc:menu labelWithAccessKey="_Delete">
+              <tc:menuItem label="As Spam"/>
+              <tc:menuItem label="As Newsletter"/>
+              <tc:menuItem label="As Uninteresting"/>
+            </tc:menu>
+          </tc:menu>
           <%-- code-sniplet-end id="menu" --%>
 
-          <t:menu labelWithAccessKey="_View">
-            <t:menuItem label="Snap to Grid"/>
-            <t:menuItem label="Show Rulers"/>
-          </t:menu>
-        </t:menuBar>
+          <tc:menu labelWithAccessKey="_View">
+            <tc:menuItem label="Snap to Grid"/>
+            <tc:menuItem label="Show Rulers"/>
+          </tc:menu>
+        </tc:menuBar>
         <%-- code-sniplet-end id="menuBar" --%>
-        <t:cell/>
-        <t:cell/>
-        <t:cell/>
+        <tc:cell/>
+        <tc:cell/>
+        <tc:cell/>
 
-      </t:panel>
+      </tc:panel>
 
     </jsp:body>
   </f:subview>

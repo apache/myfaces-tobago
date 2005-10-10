@@ -34,7 +34,7 @@ import javax.faces.component.UIComponent;
  * Render a sheet element.
  */
 @Tag(name = "sheet")
-@BodyContentDescription(anyTagOf = "<t:column>* <t:columnSelector>?")
+@BodyContentDescription(anyTagOf = "<tc:column>* <tc:columnSelector>?")
 public class SheetTag extends TobagoTag implements HasIdBindingAndRendered {
 
   private String var;

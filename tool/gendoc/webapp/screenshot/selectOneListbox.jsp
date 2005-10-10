@@ -14,31 +14,31 @@
  *    limitations under the License.
 --%>
 
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <layout:screenshot>
   <f:subview id="selectoneListbox">
     <jsp:body>
-      <t:panel>
+      <tc:panel>
         <f:facet name="layout">
-          <t:gridLayout rows="40px;1*" columns="300px;1*" />
+          <tc:gridLayout rows="40px;1*" columns="300px;1*" />
         </f:facet>
 <%-- code-sniplet-start id="selectOneListbox" --%>
-        <t:selectOneListbox id="LabeledInlineSingleSelect"
+        <tc:selectOneListbox id="LabeledInlineSingleSelect"
                              labelWithAccessKey="Contact via: " height="90px">
           <f:selectItem itemValue="Phone" itemLabel="Phone" />
           <f:selectItem itemValue="eMail" itemLabel="eMail"/>
           <f:selectItem itemValue="Mobile" itemLabel="Mobile"/>
           <f:selectItem itemValue="Fax"  itemLabel="Faxscimile"/>
-        </t:selectOneListbox>
+        </tc:selectOneListbox>
 <%-- code-sniplet-end id="selectOneListbox" --%>
-        <t:cell/>
-        <t:cell/>
-        <t:cell/>
+        <tc:cell/>
+        <tc:cell/>
+        <tc:cell/>
 
-      </t:panel>
+      </tc:panel>
 
     </jsp:body>
   </f:subview>

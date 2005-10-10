@@ -13,16 +13,16 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="t" %>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <layout:screenshot>
 <jsp:body>
 
-<t:panel>
+<tc:panel>
   <f:facet name="layout">
-    <t:gridLayout rows="fixed;fixed;fixed;fixed;fixed;
+    <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;
                         fixed;fixed;fixed;fixed;fixed;
                         fixed;fixed;fixed;fixed;fixed;
                         fixed;fixed;fixed;fixed;fixed;
@@ -30,66 +30,66 @@
 
   </f:facet>
 
-  <t:link type="navigate" action="box.jsp" immediate="true" label="Box" />
+  <tc:link type="navigate" action="box.jsp" immediate="true" label="Box" />
 
-  <t:link type="navigate" action="button.jsp" immediate="true" label="Button" />
+  <tc:link type="navigate" action="button.jsp" immediate="true" label="Button" />
 
-  <t:link type="navigate" action="date.jsp" immediate="true" label="Date" />
+  <tc:link type="navigate" action="date.jsp" immediate="true" label="Date" />
 
-  <t:link type="navigate" action="calendar.jsp" immediate="true" label="Calendar" />
+  <tc:link type="navigate" action="calendar.jsp" immediate="true" label="Calendar" />
 
-  <t:link type="navigate" action="file.jsp" immediate="true" label="File" />
+  <tc:link type="navigate" action="file.jsp" immediate="true" label="File" />
 
-  <t:link type="navigate" action="image.jsp" immediate="true" label="Image" />
+  <tc:link type="navigate" action="image.jsp" immediate="true" label="Image" />
 
-  <t:link type="navigate" action="in.jsp" immediate="true" label="In" />
+  <tc:link type="navigate" action="in.jsp" immediate="true" label="In" />
 
-  <t:link type="navigate" action="label.jsp" immediate="true" label="Label" />
+  <tc:link type="navigate" action="label.jsp" immediate="true" label="Label" />
 
-  <t:link type="navigate" action="link.jsp" immediate="true" label="Link" />
+  <tc:link type="navigate" action="link.jsp" immediate="true" label="Link" />
 
-  <t:link type="navigate" action="menuBar.jsp" immediate="true" label="Menubar" />
+  <tc:link type="navigate" action="menuBar.jsp" immediate="true" label="Menubar" />
 
-  <t:link type="navigate" action="menucheck.jsp" immediate="true" label="Menucheck" />
+  <tc:link type="navigate" action="menucheck.jsp" immediate="true" label="Menucheck" />
 
-  <t:link type="navigate" action="menuradio.jsp" immediate="true" label="Menuradio" />
+  <tc:link type="navigate" action="menuradio.jsp" immediate="true" label="Menuradio" />
 
-  <t:link type="navigate" action="messages.jsp" immediate="true" label="Messages" />
+  <tc:link type="navigate" action="messages.jsp" immediate="true" label="Messages" />
 
-  <t:link type="navigate" action="out.jsp" immediate="true" label="Out" />
+  <tc:link type="navigate" action="out.jsp" immediate="true" label="Out" />
 
-  <t:link type="navigate" action="progress.jsp" immediate="true" label="Progress" />
+  <tc:link type="navigate" action="progress.jsp" immediate="true" label="Progress" />
 
-  <%--<t:link type="navigate" action="richTextEditor.jsp" immediate="true" label="RichTextEditor" />--%>
+  <%--<tc:link type="navigate" action="richTextEditor.jsp" immediate="true" label="RichTextEditor" />--%>
 
-  <t:link type="navigate" action="selectBooleanCheckbox.jsp" immediate="true" label="SelectBooleanCheckbox" />
+  <tc:link type="navigate" action="selectBooleanCheckbox.jsp" immediate="true" label="SelectBooleanCheckbox" />
 
-  <t:link type="navigate" action="selectManyListBox.jsp" immediate="true" label="SelectManyListbox" />
+  <tc:link type="navigate" action="selectManyListBox.jsp" immediate="true" label="SelectManyListbox" />
 
-  <t:link type="navigate" action="selectOneChoice.jsp" immediate="true" label="SelectOneChoice" />
+  <tc:link type="navigate" action="selectOneChoice.jsp" immediate="true" label="SelectOneChoice" />
 
-  <t:link type="navigate" action="selectOneListbox.jsp" immediate="true" label="SelectOneListbox" />
+  <tc:link type="navigate" action="selectOneListbox.jsp" immediate="true" label="SelectOneListbox" />
 
-  <t:link type="navigate" action="sheet.jsp" immediate="true" label="Sheet" />
+  <tc:link type="navigate" action="sheet.jsp" immediate="true" label="Sheet" />
 
-  <%--<t:link type="navigate" action="tabGroup.jsp" immediate="true" label="TabGroup" />--%>
+  <%--<tc:link type="navigate" action="tabGroup.jsp" immediate="true" label="TabGroup" />--%>
 
-  <t:link type="navigate" action="textarea.jsp" immediate="true" label="Textarea" />
+  <tc:link type="navigate" action="textarea.jsp" immediate="true" label="Textarea" />
 
-  <t:link type="navigate" action="toolBar.jsp" immediate="true" label="ToolBar" />
+  <tc:link type="navigate" action="toolBar.jsp" immediate="true" label="ToolBar" />
 
-  <%--<t:link type="navigate" action="toolBarCheck.jsp" immediate="true" label="ToolBarCheck" />--%>
+  <%--<tc:link type="navigate" action="toolBarCheck.jsp" immediate="true" label="ToolBarCheck" />--%>
 
-  <%--<t:link type="navigate" action="toolBarSelectOne.jsp" immediate="true" label="TooBarSelectOne" />--%>
+  <%--<tc:link type="navigate" action="toolBarSelectOne.jsp" immediate="true" label="TooBarSelectOne" />--%>
 
-  <t:link type="navigate" action="tree.jsp" immediate="true" label="Tree" />
+  <tc:link type="navigate" action="tree.jsp" immediate="true" label="Tree" />
 
-  <t:link type="navigate" action="treeListBox.jsp" immediate="true" label="TreeListBox" />
+  <tc:link type="navigate" action="treeListBox.jsp" immediate="true" label="TreeListBox" />
 
 
-  <t:cell/>
+  <tc:cell/>
 
-</t:panel>
+</tc:panel>
 
 </jsp:body>
 </layout:screenshot>

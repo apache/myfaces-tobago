@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.taglib.decl.*;
  * Render a group of checkboxes.
  */
 @Tag(name="selectManyCheckbox")
-@BodyContentDescription(anyTagOf="(<f:selectItems>|<f:selectItem>|<t:selectItem>)+ <f:facet>* " )
+@BodyContentDescription(anyTagOf="(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* " )
 public interface SelectManyCheckboxTagDeclaration extends SelectManyTagDeclaration, HasValue, IsDisabled, HasId, IsInline, HasRenderRange, IsRendered, HasBinding {
 
 }

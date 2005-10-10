@@ -37,7 +37,7 @@ import javax.faces.component.UIComponent;
  * Renders a tabpanel.
  */
 @Tag(name = "tabGroup")
-@BodyContentDescription(anyTagOf = "(<t:tab>* ")
+@BodyContentDescription(anyTagOf = "(<tc:tab>* ")
 public class TabGroupTag extends TobagoTag
     implements HasIdBindingAndRendered, HasDimension, HasState {
 

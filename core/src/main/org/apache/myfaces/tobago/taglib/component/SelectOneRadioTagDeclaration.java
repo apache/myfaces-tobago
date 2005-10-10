@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.taglib.decl.*;
  *  Render a set of radiobuttons.
  */
 @Tag(name="selectOneRadio")
-@BodyContentDescription(anyTagOf="(<f:selectItems>|<f:selectItem>|<t:selectItem>)+ <f:facet>* " )
+@BodyContentDescription(anyTagOf="(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* " )
 public interface SelectOneRadioTagDeclaration extends SelectOneTagDeclaration, HasValue, IsDisabled, HasId, HasOnchangeListener, IsInline, HasRenderRange, IsRendered, HasBinding {
 
   /**
