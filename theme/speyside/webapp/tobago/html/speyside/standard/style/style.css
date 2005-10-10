@@ -468,8 +468,13 @@ label.tobago-label-error {
 /* selectOneChoice --------------------------------------------------------- */
 
 .tobago-selectOneChoice-default  {
+  border: 1px solid #000000;
   font: 12px arial, helvetica, sans-serif;
   color: #000000;
+}
+
+.tobago-selectOneChoice-error  {
+  border: 1px solid #FF0000;
 }
 
 /* selectManyListbox ------------------------------------------------------- */
