@@ -86,6 +86,13 @@
 
 }
 
+.tobago-menuBar-separator  {
+  width: 90%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
 
 .tobago-menu-item-hover {
   background: #ccddee;
