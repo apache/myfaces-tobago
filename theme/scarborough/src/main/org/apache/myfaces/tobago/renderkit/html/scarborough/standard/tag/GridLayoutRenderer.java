@@ -255,6 +255,10 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
             writer.writeText("", null);
 
+            if (ComponentUtil.getAttribute(layout, ATTR_CELLSPACING) != null) {
+              cellStyle += " padding: " + getCellSpacing(facesContext, layout) + "px;";
+            }
+
             writer.startElement("div", null);
             writer.writeClassAttribute(cellClasses);
             writer.writeAttribute("style", cellStyle, null);
