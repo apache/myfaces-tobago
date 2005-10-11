@@ -455,7 +455,8 @@ public class MenuBarRenderer extends RendererBase {
   }
 
   private void addMenuSeparator(StringBuffer sb, String var) {
-    String html = "<hr class=\"tobago-menuBar-separator\">";
+    String html = "<div style=\"text-align: center;\">" +
+    "<hr class=\"tobago-menuBar-separator\"></div>";
 
     sb.append("    ");
     sb.append(var);
