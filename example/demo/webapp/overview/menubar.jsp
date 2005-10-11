@@ -46,6 +46,7 @@
             <tc:menuItem action="overview/browser" immediate="true"
                              actionListener="#{overviewNavigation.navigate}"
                              label="#{overviewBundle.browser}" />
+              <tc:menuSeparator />
             <tc:menuItem action="overview/locale" immediate="true"
                              actionListener="#{overviewNavigation.navigate}"
                              label="#{overviewBundle.locale}" />
