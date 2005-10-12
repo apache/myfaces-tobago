@@ -23,7 +23,7 @@
   <!--XXX define tobago-home-->
   <property file="${build-system.dir}/../../build.properties"/>
 
-  <property name="maven.task.version" value="2.0-beta-2"/>
+  <property name="maven.task.version" value="2.0-beta-3"/>
   <property name="maven.task" value="maven-artifact-ant-${maven.task.version}-dep.jar"/>
   <property name="maven.task.jar" value="${build-system.dir}/${maven.task}"/>
   <available file="${maven.task.jar}" property="maven.task.present"/>

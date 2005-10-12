@@ -76,13 +76,6 @@
       <scope>compile</scope>
     </dependency>
 
-    <dependency>
-      <groupId>servletapi</groupId>
-      <artifactId>servletapi</artifactId>
-      <version>2.3</version>
-      <purpose>jar</purpose>
-    </dependency>
-
   </dependencies>
 
 </project>

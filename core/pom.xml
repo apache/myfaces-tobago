@@ -18,97 +18,15 @@
 
 <project>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>tobago</groupId>
+  <parent>
+    <groupId>tobago</groupId>
+    <artifactId>tobago</artifactId>
+    <version>1.0.7-SNAPSHOT</version>
+  </parent>
   <artifactId>tobago-core</artifactId>
   <packaging>jar</packaging>
-  <name>Tobago</name>
-  <version>1.0.7-SNAPSHOT</version>
+  <name>Tobago Core</name>
   <description>Tobago Core</description>
-  <url>http://tobago.atanion.net/</url>
-  <inceptionYear>2002</inceptionYear>
-
-  <developers>
-    <developer>
-      <id>idus</id>
-      <name>Arvid H&#x00fc;lsebus</name>
-      <email>idus@krelon.com</email>
-      <organization>atanion GmbH, Germany</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>bommel</id>
-      <name>Bernd Bohmann</name>
-      <email>bernd.bohmann@atanion.com</email>
-      <organization>atanion GmbH, Germany</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>pleff</id>
-      <name>Detlef Bartetzko</name>
-      <email>detlef.bartetzko@atanion.com</email>
-      <organization>atanion GmbH, Germany</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>mmarinschek</id>
-      <name>Martin Marinschek</name>
-      <organization>Irian, Austria</organization>
-      <email>martin.marinschek@gmail.com</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>matzew</id>
-      <name>Matthias We&#x00df;endorf</name>
-      <organization>Pironet NDH AG, Germany</organization>
-      <email>mwessendorf@gmail.com</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>hennes</id>
-      <name>Philippe Hennes</name>
-      <email>philippe.hennes@philstar.de</email>
-      <organization>atanion GmbH, Germany</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>lofwyr</id>
-      <name>Udo Schnurpfeil</name>
-      <email>udo@schnurpfeil.de</email>
-      <organization>atanion GmbH, Germany</organization>
-      <roles>
-        <role>Lead</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>weber</id>
-      <name>Volker Weber</name>
-      <email>asf@weber-oldenburg.de</email>
-      <organization>atanion GmbH, Germany</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-  </developers>
 
   <dependencies>
 
@@ -228,58 +146,5 @@
     </dependency>
 
   </dependencies>
-
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </reporting>
-
-  <scm>
-    <connection>scm:svn:http://www.atanion.net/repos/asf/tobago/trunk/core/</connection>
-    <url>http://www.atanion.net/repos/asf/tobago/trunk/core/</url>
-  </scm>
-
-  <organization>
-    <name>Tobago Team</name>
-    <url>http://tobago.atanion.net/</url>
-  </organization>
-
-  <repositories>
-    <repository>
-      <id>ibiblio</id>
-      <url>http://www.ibiblio.org/maven2</url>
-    </repository>
-    <repository>
-      <id>atanion</id>
-      <url>http://www.atanion.com/maven2</url>
-    </repository>
-  </repositories>
-
-  <build>
-    <sourceDirectory>src/main</sourceDirectory>
-    <testSourceDirectory>src/test</testSourceDirectory>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
 
 </project>

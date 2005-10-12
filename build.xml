@@ -18,13 +18,17 @@
 
 <project name="tobago-all" default="install">
 
+  <property name="build-system.home" value="tool/build-system"/>
+  <property name="build-system.dir" location="${build-system.home}"/>
+  <import file="${build-system.dir}/build-basic.xml"/>
+
   <target name="info">
     <exec executable="ant">
       <arg value="-p"/>
     </exec>
   </target>
 
-  <target name="install"
+  <target name="install" depends="install-master-pom"
           description="Install all necessary artifacts into local m2 repository">
 
     <ant target="install" dir="tool/apt" />
@@ -37,6 +41,13 @@
     <ant target="install" dir="example/demo" />
 
   </target>
+
+  <target name="install-master-pom" depends="init">
+    <install file="pom.xml">
+      <pom refid="pom"/>
+    </install>
+  </target>
+
 
   <target name="clean" description="Clean out the output directories">
 
