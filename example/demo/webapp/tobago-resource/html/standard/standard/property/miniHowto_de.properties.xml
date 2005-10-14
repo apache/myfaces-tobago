@@ -22,12 +22,12 @@
 <properties>
   <entry key="pageTitle">Adressbuch Mini Howto</entry>
   <entry key="intro">Übersicht</entry>
-  <entry key="classDefinition">Klassen Beschreibung</entry>
+  <entry key="classDefinition">Klassen</entry>
   <entry key="navigationRules">Navigations Regeln</entry>
   <entry key="jspDefinition">JSP Seiten</entry>
   <entry key="theme">Themes</entry>
   <entry key="validation">Validation</entry>
-  <entry key="i18n">Internationalisierung</entry>
+  <entry key="i18n">I18n</entry>
   <entry key="codeExample">Sheet Code Beispiel:</entry>
 
 

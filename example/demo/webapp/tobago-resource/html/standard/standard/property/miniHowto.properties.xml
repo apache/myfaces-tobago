@@ -26,11 +26,11 @@
   <entry key="pageTitle">Addressbook Mini Howto</entry>
   <entry key="intro">Introduction</entry>
   <entry key="navigationRules">Navigationrules</entry>
-  <entry key="classDefinition">Class description</entry>
+  <entry key="classDefinition">Classes</entry>
   <entry key="jspDefinition">JSP´s</entry>
   <entry key="theme">Themes</entry>
   <entry key="validation">Validation</entry>
-  <entry key="i18n">Internationalisation</entry>
+  <entry key="i18n">I18n</entry>
   <entry key="overview">Overview</entry>
   <entry key="overviewNavigateTooltip">Link to the Tobago Overview</entry>
   <entry key="codeExample">Code example</entry>
