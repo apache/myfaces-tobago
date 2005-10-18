@@ -23,8 +23,8 @@
   <import file="${build-system.dir}/build-basic.xml"/>
 
   <!-- overwrite these properties in your build.properties file -->
-  <property name="saxon.jar" value="../../../saxon-6.5.3.jar"/>
-  <property name="docbook.dir" value="../../../docbook-xsl-1.68.1"/>
+  <property name="saxon.jar" value="tool/saxon-6.5.3.jar"/>
+  <property name="docbook.dir" value="tool/docbook/docbook-xsl-1.68.1"/>
 
   <property name="docbook.saxon-extension.jar"
             value="${docbook.dir}/extensions/saxon653.jar"/>
@@ -84,6 +84,7 @@
     <copy todir="build/html/image">
       <fileset dir="image">
         <include name="*.png"/>
+        <include name="*.gif"/>
       </fileset>
     </copy>
   </target>
