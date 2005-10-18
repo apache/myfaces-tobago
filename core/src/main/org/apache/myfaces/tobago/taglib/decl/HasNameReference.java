@@ -23,9 +23,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 public interface HasNameReference {
   /**
-   * Bean propperty reference to fetch the label for the treeNode's.<br>
+   * Bean property reference to fetch the label for the treeNode's.<br>
    * Example:<br>
-   *   a idRefrerence="userObject.name" try to invoke
+   *   a idReference="userObject.name" try's to invoke
    *   <code>&lt;UITreeNode>.getUserObject().getName()<code> to fetch the label.
    *
    */
