@@ -70,6 +70,18 @@
           </textobject>
         </programlisting>
       </example>
+      <example>
+        <title>Screenshot of tag
+          <classname>
+            <xsl:value-of select="name"/>
+          </classname>
+        </title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="image/{$tagname}.png" fileformat="png" />
+          </imageobject>
+        </mediaobject>
+      </example>
       <table>
         <title>Attributes of tag
           <classname>
