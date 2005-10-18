@@ -24,8 +24,8 @@
         <tc:gridLayout columns="100px;1*" rows="fixed;1*" />
       </f:facet>
 <%-- code-sniplet-start id="label" --%>
-      <label>Single Label</label>
-<%-- code-sniplet-end id="label" --%>      
+      <tc:label accessKey="S" value="Single Label"></tc:label>
+<%-- code-sniplet-end id="label" --%>
       <tc:cell/>
 
       <tc:cell/>
