@@ -327,6 +327,21 @@ public class UIData extends javax.faces.component.UIData {
     }
   }
 
+  public Object saveState(FacesContext context) {
+    Object[] saveState = new Object[3];
+    saveState[0] = super.saveState(context);
+    saveState[1] = state;
+    saveState[2] = sorter;
+    return saveState;
+  }
+
+  public void restoreState(FacesContext context, Object savedState) {
+    Object[] values = (Object[]) savedState;
+    super.restoreState(context, values[0]);
+    state = (SheetState) values[1];
+    sorter = (Sorter) values[2];
+  }
+
 // ------------------------------------------------------------ getter + setter
 
   public List<UIColumn> getAllColumns() {
