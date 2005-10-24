@@ -45,6 +45,7 @@ public class UITabGroup extends UIPanel {
 // ///////////////////////////////////////////// attribute
 
   private int activeIndex;
+  private int renderedIndex;
 
 // ///////////////////////////////////////////// constructor
 
@@ -192,18 +193,20 @@ public class UITabGroup extends UIPanel {
     removeFacesListener(listener);
   }
 
-  private void setRenderedIndex(int index) {
-    getAttributes().put(RENDERED_INDEX, index);
+  public Object saveState(FacesContext context) {
+    Object[] state = new Object[2];
+    state[0] = super.saveState(context);
+    state[1] = new Integer(renderedIndex);
+    // activeIndex don't need to be saved
+    return state;
   }
 
-  private int getRenderedIndex() {
-    Integer integer = (Integer) getAttributes().get(RENDERED_INDEX);
-    if (integer == null) {
-      LOG.warn("FIXME!!! Bug TGB-118");
-      integer = 0;
-    }
-    return integer;
+  public void restoreState(FacesContext context, Object state) {
+    Object[] values = (Object[]) state;
+    super.restoreState(context, values[0]);
+    renderedIndex = ((Integer)values[1]).intValue();
   }
+
 
 // ///////////////////////////////////////////// bean getter + setter
 
@@ -213,5 +216,13 @@ public class UITabGroup extends UIPanel {
 
   public void setActiveIndex(int activeIndex) {
     this.activeIndex = activeIndex;
+  }
+
+  private void setRenderedIndex(int index) {
+    renderedIndex = index;
+  }
+
+  private int getRenderedIndex() {
+    return renderedIndex;
   }
 }
