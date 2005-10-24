@@ -34,7 +34,7 @@
 
   <target name="dist" depends="build-basic.dist,init-theme-pom">
     <jar jarfile="${dist}/${pom-theme.artifactId}.${pom-theme.packaging}">
-      <fileset dir="webapp">
+      <fileset dir="src/main/webapp">
         <include name="**/*"/>
       </fileset>
       <zipfileset dir="${dist}" includes="${pom.artifactId}.jar"

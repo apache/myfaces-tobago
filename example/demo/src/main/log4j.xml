@@ -21,7 +21,7 @@
 <log4j:configuration>
 
   <appender name="logfile" class="org.apache.log4j.FileAppender">
-    <param name="File"   value="tobago-example-demo.log" />
+    <param name="File"   value="/tmp/tobago-demo.log" />
     <param name="Append" value="true" />
     <param name="Encoding" value="UTF-8" />
     <layout class="org.apache.log4j.PatternLayout">
@@ -44,6 +44,62 @@
     <priority value="debug"/>
   </category>
 -->
+
+<!--  <category name="org.apache.commons">-->
+<!--    <priority value="info" />-->
+<!--  </category>-->
+
+<!--  <category name="org.apache.myfaces.tobago.demo">-->
+<!--    <priority value="debug" />-->
+<!--  </category>-->
+
+<!--  <category name="org.apache.myfaces.tobago.miniHowto">-->
+<!--    <priority value="debug" />-->
+<!--  </category>-->
+
+<!--  <category name="org.apache.myfaces.tobago.overview">-->
+<!--    <priority value="debug" />-->
+<!--  </category>-->
+
+<!--  <category name="org.apache.myfaces.tobago.util.LayoutInfo">-->
+<!--    <priority value="debug" />-->
+<!--  </category>-->
+
+  <!--<category name="org.apache.myfaces.tobago.config.ThemeConfig">-->
+    <!--<priority value="debug" />-->
+  <!--</category>-->
+
+  <!--<category name="org.apache.myfaces.tobago.application.ViewHandlerImpl">-->
+    <!--<priority value="debug" />-->
+  <!--</category>-->
+
+  <!--<category name="org.apache.myfaces.tobago.component.ComponentUtil">-->
+    <!--<priority value="debug" />-->
+  <!--</category>-->
+
+<!--  <category name="org.apache.catalina.core.ApplicationDispatcher">-->
+<!--    <priority value="debug" />-->
+<!--  </category>-->
+
+  <!--<category name="org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest">-->
+    <!--<priority value="debug" />-->
+  <!--</category>-->
+
+  <!--<category name="org.apache.myfaces.tobago.overview">-->
+    <!--<priority value="debug" />-->
+  <!--</category>-->
+
+  <!--<category name="org.apache.myfaces.tobago.component.UITree">-->
+    <!--<priority value="debug" />-->
+  <!--</category>-->
+
+  <!--<category name="org.apache.myfaces.tobago.component.UITreeNode">-->
+    <!--<priority value="debug" />-->
+  <!--</category>-->
+
+  <category name="org.apache.myfaces.tobago.renderkit.InputRendererBase">
+    <priority value="debug" />
+  </category>
 
   <root>
     <priority value="info" />

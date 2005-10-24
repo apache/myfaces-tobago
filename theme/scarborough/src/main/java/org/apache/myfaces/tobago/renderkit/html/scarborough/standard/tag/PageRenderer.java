@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.util.AccessKeyMap;
 
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
@@ -295,7 +296,7 @@ public class PageRenderer extends PageRendererBase {
           errorMessageForDebugging(id, message, writer);
         }
       }
-/*      writer.writeText("FacesContext = " + facesContext, null);
+      writer.writeText("FacesContext = " + facesContext, null);
       String keys = "";
       if (LOG.isInfoEnabled()) {
         keys = "<li> unused accessKeys : "
@@ -315,7 +316,6 @@ public class PageRenderer extends PageRendererBase {
           "background: #ffffff;\">" +
           "<ol id=\"Log\" style=\"font-family:Arial,sans-serif; " +
           "font-size:10pt\"><li>Ereignisliste</li> " + keys + "</ol> </div>");
-*/
 
     }
 

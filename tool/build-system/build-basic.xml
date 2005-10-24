@@ -41,8 +41,8 @@
   <property name="java.version.bootclasspath" value=""/>
   <property name="java.version.extdirs" value=""/>
 
-  <property name="src.main" value="src/main"/>
-  <property name="src.test" value="src/test"/>
+  <property name="src.main" value="src/main/java"/>
+  <property name="src.test" value="src/test/java"/>
   <available file="${src.test}" property="src.test.present"/>
   <property name="test.class.suffix" value="UnitTest"/>
   <property name="report.junit" value="${build}/report/junit"/>
@@ -184,8 +184,8 @@
 
     <!-- build the war-file -->
     <war warfile="${dist}/${pom.artifactId}.war"
-         webxml="webapp/WEB-INF/web.xml">
-      <fileset dir="webapp">
+         webxml="src/main/webapp/WEB-INF/web.xml">
+      <fileset dir="src/main/webapp">
         <include name="**"/>
         <exclude name="WEB-INF/**"/>
       </fileset>
@@ -215,7 +215,7 @@
         <include name="**/*.properties"/>
         <include name="**/*.xml"/>
       </classes>
-      <webinf dir="webapp/WEB-INF">
+      <webinf dir="src/main/webapp/WEB-INF">
         <include name="**"/>
         <exclude name="web.xml"/>
       </webinf>

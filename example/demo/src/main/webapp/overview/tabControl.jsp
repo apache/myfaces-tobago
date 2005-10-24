@@ -30,19 +30,43 @@
     <tc:box label="#{overviewBundle.tab_sampleTitle}" >
       <f:facet name="layout"> <tc:gridLayout /> </f:facet>
 
+<<<<<<< .mine
+      <t:tabGroup id="tabs" state="#{demo.tabState0}"  serverside="true">
+=======
       <tc:tabGroup id="tabs" state="#{demo.tabState0}" >
+>>>>>>> .r1835
 
         <tc:tab label="#{overviewBundle.tabClientSide}" >
 
+<<<<<<< .mine
+          <t:tabGroup id="tabMarsOuterForm" state="#{demo.tabState1}"  serverside="true">
+            <t:tab labelWithAccessKey="#{overviewBundle.tabPlanet}">
+              <t:panel >
+                <%--<f:facet name="layout"><t:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>--%>
+                <f:facet name="layout"><t:gridLayout rows="1*;fixed;fixed;1*;fixed" /></f:facet>
+                <t:cell />
+=======
           <tc:tabGroup id="tabMarsOuterForm" state="#{demo.tabState1}" >
             <tc:tab labelWithAccessKey="#{overviewBundle.tabPlanet}">
               <tc:panel >
                 <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
                 <tc:cell />
+>>>>>>> .r1835
                 <tx:in value="#{demo.solar.planets[0].diameter}"
                     label="#{overviewBundle.solarPlanetDiameter}" />
                 <tx:in value="#{demo.solar.planets[0].mass}"
                     label="#{overviewBundle.solarPlanetMass}" />
+<<<<<<< .mine
+                <t:cell />
+                <t:button label="submit"/>
+              </t:panel>
+            </t:tab>
+            <t:tab labelWithAccessKey="#{overviewBundle.tabInsolar}">
+              <t:panel >
+                <%--<f:facet name="layout"><t:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>--%>
+                <f:facet name="layout"><t:gridLayout rows="1*;fixed;fixed;1*;fixed" /></f:facet>
+                <t:cell />
+=======
                 <tc:cell />
               </tc:panel>
             </tc:tab>
@@ -50,10 +74,21 @@
               <tc:panel >
                 <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
                 <tc:cell />
+>>>>>>> .r1835
                 <tx:in value="#{demo.solar.planets[0].sunDistance}"
                    label="#{overviewBundle.solarPlanetSunDistance}" />
                 <tx:in value="#{demo.solar.planets[0].timeOfCirculation}"
                    label="#{overviewBundle.solarPlanetTimeOfCirculation}" />
+<<<<<<< .mine
+                <t:cell />
+                <t:button label="submit"/>
+              </t:panel>
+            </t:tab>
+            <t:tab label="#{overviewBundle.tabMoons}" accessKey="#{overviewBundle.tabMoonsAccessKey}">
+              <t:panel>
+                <f:facet name="layout"><t:gridLayout  /></f:facet>
+                <t:sheet value="#{demo.solar.planets[0].moons}"
+=======
                 <tc:cell />
               </tc:panel>
             </tc:tab>
@@ -61,6 +96,7 @@
               <tc:panel>
                 <f:facet name="layout"><tc:gridLayout  /></f:facet>
                 <tc:sheet value="#{demo.solar.planets[0].moons}"
+>>>>>>> .r1835
                   columns="2*;1*;2*;2*" var="moon">
                   <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true">
                     <tc:out value="#{moon.name}" id="t_name" />
@@ -87,14 +123,33 @@
 
             <tc:tabChangeListener type="org.apache.myfaces.tobago.example.demo.actionlistener.SimpleTabChangeListener"/>
 
+<<<<<<< .mine
+            <t:tab labelWithAccessKey="#{overviewBundle.tabPlanet}">
+              <t:panel >
+                <%--<f:facet name="layout"><t:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>--%>
+                <f:facet name="layout"><t:gridLayout rows="1*;fixed;fixed;1*;fixed" /></f:facet>
+                <t:cell />
+=======
             <tc:tab labelWithAccessKey="#{overviewBundle.tabPlanet}">
               <tc:panel >
                 <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
                 <tc:cell />
+>>>>>>> .r1835
                 <tx:in value="#{demo.solar.planets[0].diameter}"
                     label="#{overviewBundle.solarPlanetDiameter}" />
                 <tx:in value="#{demo.solar.planets[0].mass}"
                     label="#{overviewBundle.solarPlanetMass}" />
+<<<<<<< .mine
+                <t:cell />
+                <t:button label="submit"/>
+              </t:panel>
+            </t:tab>
+            <t:tab labelWithAccessKey="#{overviewBundle.tabInsolar}">
+              <t:panel >
+                <%--<f:facet name="layout"><t:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>--%>
+                <f:facet name="layout"><t:gridLayout rows="1*;fixed;fixed;1*;fixed" /></f:facet>
+                <t:cell />
+=======
                 <tc:cell />
               </tc:panel>
             </tc:tab>
@@ -102,10 +157,21 @@
               <tc:panel >
                 <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
                 <tc:cell />
+>>>>>>> .r1835
                 <tx:in value="#{demo.solar.planets[0].sunDistance}"
                    label="#{overviewBundle.solarPlanetSunDistance}" />
                 <tx:in value="#{demo.solar.planets[0].timeOfCirculation}"
                    label="#{overviewBundle.solarPlanetTimeOfCirculation}" />
+<<<<<<< .mine
+                <t:cell />
+                <t:button label="submit"/>
+              </t:panel>
+            </t:tab>
+            <t:tab label="#{overviewBundle.tabMoons}">
+              <t:panel>
+                <f:facet name="layout"><t:gridLayout /></f:facet>
+                <t:sheet value="#{demo.solar.planets[0].moons}"
+=======
                 <tc:cell />
               </tc:panel>
             </tc:tab>
@@ -113,6 +179,7 @@
               <tc:panel>
                 <f:facet name="layout"><tc:gridLayout /></f:facet>
                 <tc:sheet value="#{demo.solar.planets[0].moons}"
+>>>>>>> .r1835
                   columns="2*;1*;2*;2*" var="moon">
                   <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true">
                     <tc:out value="#{moon.name}" id="t_name" />

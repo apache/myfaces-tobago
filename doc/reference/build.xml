@@ -32,10 +32,10 @@
   <target name="sniplet-extract" depends="init-apt">
     <mkdir dir="build/sniplets"/>
     <sniplet-extract outputDir="build/sniplets" stripLeadingSpaces="true">
-      <fileset dir="../../tool/gendoc/webapp/screenshot">
+      <fileset dir="../../tool/gendoc/src/main/webapp/screenshot">
         <include name="*.jsp"/>
       </fileset>
-      <fileset dir="../../example/demo/webapp/overview">
+      <fileset dir="../../example/demo/src/main/webapp/overview">
         <include name="*.jsp"/>
       </fileset>
     </sniplet-extract>
