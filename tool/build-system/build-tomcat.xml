@@ -42,7 +42,7 @@
         uri="urn:catalina-ant"/>
   </target>
 
-  <target name="upload" depends="tomcat:init, war">
+  <target name="upload" depends="tomcat:init">
     <echo message="Local Deployment"/>
     <unwar src="${basedir}/${dist}/${ant.project.name}.war"
         dest="${tomcat.webapp}/${ant.project.name}"/>
