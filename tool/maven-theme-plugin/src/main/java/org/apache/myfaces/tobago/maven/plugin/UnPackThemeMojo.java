@@ -1,0 +1,135 @@
+package org.apache.myfaces.tobago.maven.plugin;
+/*
+ * Copyright 2001-2005 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0(the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.codehaus.plexus.archiver.ArchiverException;
+import org.codehaus.plexus.archiver.UnArchiver;
+import org.codehaus.plexus.archiver.manager.ArchiverManager;
+import org.codehaus.plexus.archiver.manager.NoSuchArchiverException;
+import org.codehaus.plexus.util.FileUtils;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+
+/**
+ * Created by IntelliJ IDEA.
+ * User: bommel
+ *
+ * @version $Id:  $
+ * @goal resources
+ * @phase process-resources
+ * @requiresDependencyResolution compile
+ */
+public class UnPackThemeMojo extends AbstractThemeMojo {
+  /**
+   * To look up Archiver/UnArchiver implementations
+   *
+   * @parameter expression="${component.org.codehaus.plexus.archiver.manager.ArchiverManager}"
+   * @required
+   */
+  protected ArchiverManager archiverManager;
+
+  /**
+   * Directory to unpack JARs into if needed
+   *
+   * @parameter expression="${project.build.directory}/theme/work"
+   * @required
+   */
+  protected File workDirectory;
+
+  /**
+   * The directory where the webapp is built.
+   *
+   * @parameter expression="${project.build.directory}/${project.build.finalName}"
+   * @required
+   */
+  private File webappDirectory;
+
+  /**
+   * @parameter expression="${plugin.artifacts}"
+   * @required
+   */
+  private List pluginArtifacts;
+
+  public void execute() throws MojoExecutionException {
+
+    Iterator artifacts =  getProject().getDependencyArtifacts().iterator();
+    while (artifacts.hasNext()) {
+      if (!workDirectory.exists()) {
+        workDirectory.mkdirs();
+      }
+      Artifact artifact = (Artifact) artifacts.next();
+       getLog().debug("Expanding theme "+ artifact);
+      if (Artifact.SCOPE_PROVIDED.equals(artifact.getScope()) &&
+          "jar".equals(artifact.getType())&&
+          "THEME".equals(artifact.getClassifier())) {
+
+        String name = artifact.getFile().getName();
+        getLog().debug("Expanding theme "+ name);
+        File tempLocation = new File(workDirectory, name.substring(0, name.length() - 4));
+        boolean process = false;
+        if (!tempLocation.exists()) {
+          tempLocation.mkdirs();
+          process = true;
+        } else if (artifact.getFile().lastModified() > tempLocation.lastModified()) {
+          process = true;
+        }
+        if (process) {
+          File file = artifact.getFile();
+          try {
+            unpack(file, tempLocation);
+            String[] fileNames = getThemeFiles(tempLocation);
+            for (String fileName : fileNames) {
+
+              File fromFile = new File(tempLocation, fileName);
+              File toFile = new File(webappDirectory, fileName);
+              try {
+                FileUtils.copyFile(fromFile, toFile);
+              } catch (IOException e) {
+                throw new MojoExecutionException("Error copy file: " + fromFile + "to: " + toFile, e);
+              }
+            }
+          } catch (NoSuchArchiverException e) {
+            this.getLog().info("Skip unpacking dependency file with unknown extension: " + file.getPath());
+          }
+        }
+      }
+    }
+  }
+
+  private void unpack(File file, File location)
+      throws MojoExecutionException, NoSuchArchiverException {
+    String archiveExt = FileUtils.getExtension(file.getAbsolutePath()).toLowerCase();
+    try {
+      UnArchiver unArchiver = archiverManager.getUnArchiver(archiveExt);
+      unArchiver.setSourceFile(file);
+      unArchiver.setDestDirectory(location);
+      unArchiver.extract();
+    } catch (IOException e) {
+      throw new MojoExecutionException("Error unpacking file: " + file + "to: " + location, e);
+    } catch (ArchiverException e) {
+      throw new MojoExecutionException("Error unpacking file: " + file + "to: " + location, e);
+    }
+  }
+}
+
+
