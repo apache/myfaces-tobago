@@ -28,7 +28,7 @@
     <property name="tomcat.port" value="8080"/>
     <property name="tomcat.manager.user" value="tomcat"/>
     <property name="tomcat.manager.password" value="tomcat"/>
-    <property name="tomcat.webapp" value="${basedir}/build/dist"/>
+    <property name="tomcat.webapp" value="${basedir}"/>
     <property name="tomcat.context.path" value="${ant.project.name}"/>
 
     <!-- Task definitions -->
