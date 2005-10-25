@@ -12,16 +12,16 @@ Checking Out
 
 Building
 
-  You need Ant 1.6.5 and Java 5 to build Tobago. Currently we use
-  the {{{http://maven.apache.org/maven2/ant-tasks.html}Maven 2 Ant tasks}} for
-  dependency management.
+  You need {{{http://maven.apache.org/download.html}Maven 2}}, {{{http://ant.apache.org/bindownload.cgi}Ant 1.6.5}}
+  and {{{http://java.sun.com/j2se/1.5.0/download.jsp}Java 5}} to build Tobago.
+
 
   In the
   {{{http://www.atanion.net/repos/asf/tobago/trunk/}main directory}}
   you can use
 
 +----------------------------------------
-  ant install
+  mvn install
 +----------------------------------------
 
   to run the install target on all sub projects. This will
@@ -29,7 +29,7 @@ Building
 
 Deploying the Demo
 
-  To deploy the demo on your Tomcat 5.5 create a
+  To deploy the demo on your local Tomcat 5.5 create a
   build.properties file based on
   {{{http://www.atanion.net/repos/asf/tobago/trunk/build-sample.properties}build-sample.properties}}
   in the main directory.
@@ -42,18 +42,19 @@ Deploying the Demo
   and run
 
 +----------------------------------------
+  mvn war:war
   ant deploy
 +----------------------------------------
 
   Alternatively, you can run
 
 +----------------------------------------
-  ant war
+  mvn war:war
 +----------------------------------------
 
-  and deploy the WAR from the build/dist directory
+  and deploy the WAR from the target directory
   manually.
 
   The demo application will create a log file in the app-server
   starting folder. You may want to change that in
-  {{{http://www.atanion.net/repos/asf/tobago/trunk/example/demo/src/main/log4j.xml}src/main/log4j.xml}}.
+  {{{http://www.atanion.net/repos/asf/tobago/trunk/example/demo/src/main/webapp/WEB-INF/classes/log4j.xml}src/main/webapp/WEB-INF/classes/log4j.xml}}.
