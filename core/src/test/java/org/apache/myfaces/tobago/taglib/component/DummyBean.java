@@ -15,11 +15,11 @@
  */
 /*
  * Created 27.08.2004 09:18:42.
- * $Id:TestBean.java 1300 2005-08-10 16:40:23 +0200 (Mi, 10 Aug 2005) lofwyr $
+ * $Id:DummyBean.java 1300 2005-08-10 16:40:23 +0200 (Mi, 10 Aug 2005) lofwyr $
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-public class TestBean {
+public class DummyBean {
 // ----------------------------------------------------------------- attributes
 
   private boolean male;
@@ -30,7 +30,7 @@ public class TestBean {
 
 // --------------------------------------------------------------- constructors
 
-  public TestBean(boolean male, int size, String name) {
+  public DummyBean(boolean male, int size, String name) {
     this.male = male;
     this.size = size;
     this.name = name;

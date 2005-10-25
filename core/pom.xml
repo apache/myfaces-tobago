@@ -27,7 +27,45 @@
   <packaging>jar</packaging>
   <name>Tobago Core</name>
   <description>Tobago Core</description>
-
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>tobago</groupId>
+        <artifactId>maven-apt-plugin</artifactId>
+        <version>${version}</version>
+        <executions>
+          <execution>
+            <id>tobago-components</id>
+            <phase>process-resources</phase>
+            <goals><goal>execute</goal></goals>
+            <configuration>
+              <generated>src/main/resources/META-INF</generated>
+              <aptOptions>package=org.apache.myfaces.tobago.taglib.component,file=tobago.tld</aptOptions>
+              <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
+              <excludes>
+                <exclude>org/apache/myfaces/tobago/taglib/extension/*.java</exclude>
+              </excludes>
+              <nocompile>true</nocompile>
+             </configuration>
+          </execution>
+          <execution>
+            <id>tobago-extensions</id>
+            <phase>process-resources</phase>
+            <goals><goal>execute</goal></goals>
+            <configuration>
+              <generated>src/main/resources/META-INF</generated>
+              <aptOptions>package=org.apache.myfaces.tobago.taglib.extension,file=tobago-extension.tld</aptOptions>
+              <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
+              <excludes>
+                <exclude>org/apache/myfaces/tobago/taglib/component/*.java</exclude>
+              </excludes>
+              <nocompile>true</nocompile>
+             </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
   <dependencies>
 
     <dependency>
@@ -61,7 +99,7 @@
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-      <version>1.0</version>
+      <version>1.1</version>
       <scope>compile</scope>
     </dependency>
 
@@ -83,7 +121,7 @@
       <groupId>fop</groupId>
       <artifactId>fop</artifactId>
       <version>0.20.5</version>
-      <scope>compile</scope>
+      <scope>provided</scope>
     </dependency>
 
     <!-- XXX not transitive from fop -->
@@ -91,6 +129,7 @@
       <groupId>avalon-framework</groupId>
       <artifactId>avalon-framework</artifactId>
       <version>20020627</version><!-- XXX wrong date -->
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
@@ -108,13 +147,6 @@
     </dependency>
 
     <dependency>
-      <groupId>servletapi</groupId>
-      <artifactId>servletapi</artifactId>
-      <version>2.3</version>
-      <scope>compile</scope>
-    </dependency>
-
-    <dependency>
       <groupId>taglibs</groupId>
       <artifactId>standard</artifactId>
       <version>1.1.2</version>
@@ -124,25 +156,44 @@
     <dependency>
       <groupId>tobago</groupId>
       <artifactId>tobago-apt</artifactId>
-      <version>1.0.7-SNAPSHOT</version>
+      <version>${version}</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>myfaces</groupId>
       <artifactId>myfaces-api</artifactId>
       <version>1.1.0</version>
+      <scope>compile</scope>
     </dependency>
 
     <dependency>
       <groupId>myfaces</groupId>
       <artifactId>myfaces-impl</artifactId>
       <version>1.1.0</version>
+      <scope>compile</scope>
     </dependency>
 
     <dependency>
       <groupId>jspapi</groupId>
       <artifactId>jsp-api</artifactId>
       <version>2.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.3</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>sun.jdk</groupId>
+      <artifactId>tools</artifactId>
+      <version>1.5.0</version>
+      <scope>system</scope>
+      <systemPath>${java.home}/../lib/tools.jar</systemPath>
     </dependency>
 
   </dependencies>

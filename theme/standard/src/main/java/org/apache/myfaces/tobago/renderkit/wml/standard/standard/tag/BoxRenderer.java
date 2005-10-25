@@ -19,11 +19,7 @@
  */
 package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BODY_CONTENT;
-import org.apache.myfaces.tobago.component.BodyContentHandler;
-import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -40,15 +36,15 @@ public class BoxRenderer extends BoxRendererBase {
   public void encodeEndTobago(FacesContext facesContext, UIComponent component)
       throws IOException {
 
-    UIPanel panel = (UIPanel) component;
+    //UIPanel panel = (UIPanel) component;
 
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
+    //TobagoResponseWriter writer
+      //  = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    BodyContentHandler bodyContentHandler = (BodyContentHandler)
-        panel.getAttributes().get(ATTR_BODY_CONTENT);
+    //BodyContentHandler bodyContentHandler = (BodyContentHandler)
+    //    panel.getAttributes().get(ATTR_BODY_CONTENT);
 
-    writer.write(bodyContentHandler.getBodyContent());
+    //writer.write(bodyContentHandler.getBodyContent());
     // </card> ?
   }
 }

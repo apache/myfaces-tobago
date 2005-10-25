@@ -21,7 +21,7 @@
 <log4j:configuration>
 
   <appender name="logfile" class="org.apache.log4j.FileAppender">
-    <param name="File"   value="/tmp/tobago-demo.log" />
+    <param name="File"   value="tobago-example-demo.log" />
     <param name="Append" value="true" />
     <param name="Encoding" value="UTF-8" />
     <layout class="org.apache.log4j.PatternLayout">

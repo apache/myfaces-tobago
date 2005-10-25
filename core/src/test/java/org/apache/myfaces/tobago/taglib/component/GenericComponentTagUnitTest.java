@@ -110,8 +110,8 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
     } catch (IllegalArgumentException e) {
         ;
     }
-    request.setAttribute("peter", new TestBean(true, 20, "Peter"));
-    request.setAttribute("marry", new TestBean(false, 17, "Marry"));
+    request.setAttribute("peter", new DummyBean(true, 20, "Peter"));
+    request.setAttribute("marry", new DummyBean(false, 17, "Marry"));
   }
 
   public void testComponent() throws JspException {
