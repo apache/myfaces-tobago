@@ -58,6 +58,8 @@ public abstract class AbstractAPTMojo extends AbstractMojo
      * method used to compile.
      */
     private static final String APT_METHOD_NAME = "process";
+    private static final String APT_METHOD_NAME_OLD = "compile";
+
 
     /**
      * store info about modification of system classpath for Apt compiler
@@ -206,11 +208,21 @@ public abstract class AbstractAPTMojo extends AbstractMojo
             }
             Class c = this.getClass().forName( APT_ENTRY_POINT ); // getAptCompilerClass();
             Object compiler = c.newInstance();
-            Method compile = c.getMethod( APT_METHOD_NAME, new Class[] {
+            try {
+              Method compile = c.getMethod( APT_METHOD_NAME, new Class[] {
                     PrintWriter.class, (new String[] {}).getClass() } );
-            result = ((Integer) //
-            compile.invoke( compiler, new Object[] { new PrintWriter( writer ),
-                    cmd.toArray( new String[cmd.size()] ) } )).intValue();
+              result = ((Integer) //
+              compile.invoke( compiler, new Object[] { new PrintWriter( writer ),
+                      cmd.toArray( new String[cmd.size()] ) } )).intValue();
+            } catch(NoSuchMethodException e) {
+              // ignore
+              Method compile = c.getMethod( APT_METHOD_NAME_OLD, new Class[] {
+                    (new String[] {}).getClass(),  PrintWriter.class } );
+              result = ((Integer) //
+              compile.invoke( compiler, new Object[] {
+                      cmd.toArray( new String[cmd.size()] ),  new PrintWriter( writer )} )).intValue();
+            }
+
 
         } catch ( Exception ex )
         {
