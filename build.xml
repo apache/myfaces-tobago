@@ -28,18 +28,11 @@
     </exec>
   </target>
 
-  <target name="install" depends="install-master-pom"
-          description="Install all necessary artifacts into local m2 repository">
-
-    <ant target="install" dir="tool/apt" />
-    <ant target="install" dir="core" />
-    <ant target="install" dir="theme/standard" />
-    <ant target="install" dir="theme/scarborough" />
-    <ant target="install" dir="theme/speyside" />
-    <ant target="install" dir="theme/richmond" />
-    <ant target="install" dir="example/addressbook" />
-    <ant target="install" dir="example/demo" />
-
+  <target name="install" >
+    <echo>Please use Maven2</echo>
+    <echo></echo>
+    <echo>mvn install</echo>
+    <echo></echo>
   </target>
 
   <target name="install-master-pom" depends="init">
