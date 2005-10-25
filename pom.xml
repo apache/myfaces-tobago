@@ -5,7 +5,7 @@
   <packaging>pom</packaging>
   <name>Tobago</name>
   <version>1.0.7-SNAPSHOT</version>
-  <description>Tobago Core</description>
+  <description>Tobago</description>
   <url>http://tobago.atanion.net/</url>
   <inceptionYear>2002</inceptionYear>
 
@@ -102,8 +102,8 @@
   </reporting>
 
   <scm>
-    <connection>scm:svn:http://www.atanion.net/repos/asf/tobago/trunk/core/</connection>
-    <url>http://www.atanion.net/repos/asf/tobago/trunk/core/</url>
+    <connection>scm:svn:http://www.atanion.net/repos/asf/tobago/trunk/</connection>
+    <url>http://www.atanion.net/repos/asf/tobago/trunk/</url>
   </scm>
 
   <organization>
@@ -123,8 +123,7 @@
   </repositories>
 
   <build>
-    <sourceDirectory>src/main/java</sourceDirectory>
-    <testSourceDirectory>src/test/java</testSourceDirectory>
+    <defaultGoal>install</defaultGoal>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -146,8 +145,17 @@
   </licenses>
 
   <modules>
+    <module>tool/maven-apt-plugin</module>
+    <module>tool/maven-theme-plugin</module>
     <module>tool/apt</module>
     <module>core</module>
+    <module>theme/standard</module>
+    <module>theme/scarborough</module>
+    <module>theme/speyside</module>
+    <module>theme/richmond</module>
+    <module>example/demo</module>
+    <module>example/addressbook</module>
+    <module>example/foreach</module>
   </modules>
 
 </project>
