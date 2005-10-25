@@ -1,0 +1,45 @@
+ ------
+ Maven 2 Compiler Plugin 
+ ------
+ Juraj Burian
+ <jubu@volny.cz>
+ ------
+ October 12, 2005
+
+How to Use
+
+  This example shows how to set the -A, generated excludes argument of the Apt.
+ 
+  It also shows how to exclude certain files on the items to be compiled.
+ 
+-------------------
+<project>
+   ...
+      <build>
+         ...
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-apt-plugin</artifactId>
+                <configuration>
+                    <generated>src/generated<generated>
+                    <A>debug, loglevel=3</A>
+                    <target>1.5</target>
+                    <excludes>
+                        <exclude implementation="java.lang.String">**/*Point*.java</exclude>
+                    </excludes>
+                </configuration>
+             </plugin>
+         </plugins>
+         ...
+      </build>
+   ...
+</project>
+-------------------
+
+  There are other parameters that you can configure includes/include, debug, showWarnings etc.
+  
+  There are unsupported options, namely: -version, -help, -factorypath.
+  
+  For full documentation, click {{{index.html}here}}.
+ 

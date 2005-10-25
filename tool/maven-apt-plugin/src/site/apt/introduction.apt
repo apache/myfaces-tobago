@@ -1,0 +1,12 @@
+ ------
+ Maven 2 Apt Plugin 
+ ------
+ Juraj Burian
+ <jubu@volny.cz>
+ ------
+ October 12, 2005
+
+Introduction
+
+ This plugin provides the basic APT (Annotation Processing Tool) facilities. 
+
