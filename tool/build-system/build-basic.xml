@@ -23,16 +23,16 @@
   <!--XXX define tobago-home-->
   <property file="${build-system.dir}/../../build.properties"/>
 
-  <property name="maven.task.version" value="2.0-beta-3"/>
+  <property name="maven.task.version" value="2.0"/>
   <property name="maven.task" value="maven-artifact-ant-${maven.task.version}-dep.jar"/>
   <property name="maven.task.jar" value="${build-system.dir}/${maven.task}"/>
   <available file="${maven.task.jar}" property="maven.task.present"/>
 
-  <property name="build" value="build"/>
-  <property name="build.classes.main" value="${build}/classes/main"/>
-  <property name="build.classes.test" value="${build}/classes/test"/>
+  <property name="build" value="target"/>
+  <property name="build.classes.main" value="${build}/classes"/>
+  <property name="build.classes.test" value="${build}/test-classes"/>
   <property name="build.config" value="${build}/config"/>
-  <property name="dist" value="${build}/dist"/>
+  <property name="dist" value="${build}"/>
 
   <property name="java.source.encoding" value="UTF-8"/>
   <property name="java.version.source" value="1.5"/>
