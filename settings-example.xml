@@ -1,0 +1,12 @@
+<settings>
+  <servers>
+
+   <server> 
+      <!-- example tomcat configuration -->
+      <username>tomcat</username>
+      <password>tomcat</password>
+      <id>tomcat</id>
+    </server>
+
+  </servers>
+</settings>
