@@ -134,6 +134,13 @@
         </configuration>
       </plugin>
     </plugins>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-ftp</artifactId>
+        <version>1.0-alpha-3</version>
+      </extension>
+    </extensions>
   </build>
 
   <licenses>
@@ -157,5 +164,17 @@
     <module>example/addressbook</module>
     <module>example/foreach</module>
   </modules>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>snapshot</id>
+      <name>Atanion Development Repository</name>
+      <url>ftp://www.atanion.com/maven2</url>
+    </snapshotRepository>
+    <site>
+      <id>website</id>
+      <url>scp://shrek/home/resource/tobago-site</url>
+    </site>
+  </distributionManagement>
 
 </project>
