@@ -122,6 +122,21 @@
     </repository>
   </repositories>
 
+  <pluginRepositories>
+    <pluginRepository>
+      <!--releases>
+        <enabled>false</enabled>
+      </releases-->
+      <snapshots><enabled>true</enabled></snapshots>
+      <id>atanion</id>
+      <url>http://www.atanion.com/maven2</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>ibiblio</id>
+      <url>http://www.ibiblio.org/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
+
   <build>
     <defaultGoal>install</defaultGoal>
     <plugins>
