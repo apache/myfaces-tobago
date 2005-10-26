@@ -12,15 +12,15 @@ put all necessary artifacts into your local repository.
 Demo
 ----
 To deploy the demo on your local Tomcat 5.5 create a
-build.properties file based on build-sample.properties in
-the main directory.
+~/.m2/settings.xml file based on settings-example.xml.
 
 Make sure the manager user has the role manager; see
 <tomcat>/conf/tomcat-users.xml.
 
 
-  mvn war:war
-  ant deploy
+  mvn tomcat:deploy
+  or
+  mvn tomcat:redeploy
 
 Alternatively, you can run
 
