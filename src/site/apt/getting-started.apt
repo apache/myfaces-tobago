@@ -30,9 +30,8 @@ Building
 Deploying the Demo
 
   To deploy the demo on your local Tomcat 5.5 create a
-  build.properties file based on
-  {{{http://www.atanion.net/repos/asf/tobago/trunk/build-sample.properties}build-sample.properties}}
-  in the main directory.
+  ~/.m2/settings.xml file based on
+  {{{http://www.atanion.net/repos/asf/tobago/trunk/settings-example.xml}settings-example.xml}}.
 
   Make sure the manager user has the role manager; see
   $TOMCAT_HOME/conf/tomcat-users.xml.
@@ -42,8 +41,9 @@ Deploying the Demo
   and run
 
 +----------------------------------------
-  mvn war:war
-  ant deploy
+  mvn tomcat:deploy
+  or
+  mvn tomcat:redeploy
 +----------------------------------------
 
   Alternatively, you can run
