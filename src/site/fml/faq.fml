@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<faqs title="Frequently Asked Questions">
+
+  <part id="build">
+    <faq id="maven-mirror">
+      <question>How configure a maven mirror?</question>
+      <answer>
+        TODO
+      </answer>
+    </faq>
+    <faq id="offline-build">
+      <question>How configure a offline build?</question>
+      <answer>
+        TODI
+      </answer>
+    </faq>
+  </part>
+</faqs>
+
