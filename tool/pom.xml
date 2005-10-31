@@ -8,7 +8,7 @@
   <packaging>pom</packaging>
   <name>Tobago tool</name>
   <groupId>tobago</groupId>
-  <artifactId>tobago-tool</artifactId>
+  <artifactId>tool</artifactId>
   <modules>
     <module>maven-apt-plugin</module>
     <module>maven-theme-plugin</module>

@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>tobago</groupId>
-    <artifactId>tobago-tool</artifactId>
+    <artifactId>tool</artifactId>
     <version>1.0.7-SNAPSHOT</version>
   </parent>
   <groupId>tobago</groupId>
-  <artifactId>tobago-apt</artifactId>
+  <artifactId>apt</artifactId>
   <packaging>jar</packaging>
   <name>Tobago Apt</name>
   <description>Tobago Apt</description>
