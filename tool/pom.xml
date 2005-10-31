@@ -1,0 +1,17 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>tobago</groupId>
+    <artifactId>tobago</artifactId>
+    <version>1.0.7-SNAPSHOT</version>
+  </parent>
+  <packaging>pom</packaging>
+  <name>Tobago tool</name>
+  <groupId>tobago</groupId>
+  <artifactId>tobago-tool</artifactId>
+  <modules>
+    <module>maven-apt-plugin</module>
+    <module>maven-theme-plugin</module>
+    <module>apt</module>
+  </modules>
+</project>
