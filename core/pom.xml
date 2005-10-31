@@ -23,11 +23,12 @@
     <artifactId>tobago</artifactId>
     <version>1.0.7-SNAPSHOT</version>
   </parent>
-  <artifactId>tobago-core</artifactId>
+  <artifactId>core</artifactId>
   <packaging>jar</packaging>
   <name>Tobago Core</name>
   <description>Tobago Core</description>
   <build>
+    <finalName>${groupId}-${artifactId}-${version}</finalName>
     <plugins>
       <plugin>
         <groupId>tobago</groupId>

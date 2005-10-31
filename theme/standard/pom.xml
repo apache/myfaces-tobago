@@ -20,12 +20,13 @@
   <modelVersion>4.0.0</modelVersion>
    <parent>
     <groupId>tobago</groupId>
-    <artifactId>tobago</artifactId>
+    <artifactId>theme</artifactId>
     <version>1.0.7-SNAPSHOT</version>
   </parent>
-  <artifactId>tobago-theme-standard</artifactId>
+  <artifactId>standard</artifactId>
   <name>Tobago theme standard</name>
   <build>
+    <finalName>${groupId}-theme-${artifactId}-${version}</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -48,7 +49,7 @@
 
     <dependency>
       <groupId>tobago</groupId>
-      <artifactId>tobago-core</artifactId>
+      <artifactId>core</artifactId>
       <version>${version}</version>
       <scope>compile</scope>
        <exclusions>

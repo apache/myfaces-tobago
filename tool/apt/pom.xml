@@ -11,6 +11,9 @@
   <packaging>jar</packaging>
   <name>Tobago Apt</name>
   <description>Tobago Apt</description>
+  <build>
+    <finalName>${groupId}-${artifactId}-${version}</finalName>
+  </build>
   <reporting>
     <plugins>
       <plugin>
