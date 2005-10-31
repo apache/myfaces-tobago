@@ -8,7 +8,29 @@
   <description>Tobago</description>
   <url>http://tobago.atanion.net/</url>
   <inceptionYear>2002</inceptionYear>
-
+  <issueManagement>
+    <system>jira</system>
+    <url>http://issues.apache.org/jira/browse/MYFACES</url>
+  </issueManagement>
+  <ciManagement>
+    <system>continuum</system>
+  </ciManagement>
+  <mailingLists>
+    <mailingList>
+      <name>Myfaces User List</name>
+      <subscribe>users-subscribe@myfaces.apache.org</subscribe>
+      <unsubscribe>users-unsubscribe@myfaces.apache.org</unsubscribe>
+      <post>users@myfaces.apache.org</post>
+      <archive>http://www.mail-archive.com/users%40myfaces.apache.org/</archive>
+    </mailingList>
+    <mailingList>
+      <name>Myfaces Devloper list</name>
+      <subscribe>dev-subscribe@myfaces.apache.org</subscribe>
+      <unsubscribe>dev-unsubscribe@myfaces.apache.org</unsubscribe>
+      <post>users@myfaces.apache.org</post>
+      <archive>http://www.mail-archive.com/dev%40myfaces.apache.org/</archive>
+    </mailingList>
+  </mailingLists>
   <developers>
     <developer>
       <id>idus</id>
@@ -97,6 +119,14 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>taglist-maven-plugin</artifactId>
+        <version>2.0-beta-1</version>
+        <configuration>
+          <tags>TODO, @todo, FIXME, @deprecated</tags>
+        </configuration>
       </plugin>
     </plugins>
   </reporting>
