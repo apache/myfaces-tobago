@@ -1,0 +1,18 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>tobago</groupId>
+    <artifactId>tobago</artifactId>
+    <version>1.0.7-SNAPSHOT</version>
+  </parent>
+  <packaging>pom</packaging>
+  <name>Tobago theme</name>
+  <groupId>tobago</groupId>
+  <artifactId>theme</artifactId>
+  <modules>
+    <module>standard</module>
+    <module>scarborough</module>
+    <module>speyside</module>
+    <module>richmond</module>
+  </modules>
+</project>
