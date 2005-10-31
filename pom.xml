@@ -207,13 +207,8 @@
   <modules>
     <module>tool</module>
     <module>core</module>
-    <module>theme/standard</module>
-    <module>theme/scarborough</module>
-    <module>theme/speyside</module>
-    <module>theme/richmond</module>
-    <module>example/demo</module>
-    <module>example/addressbook</module>
-    <module>example/foreach</module>
+    <module>theme</module>
+    <module>example</module>
   </modules>
 
   <distributionManagement>
