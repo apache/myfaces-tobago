@@ -3,15 +3,36 @@
 
   <part id="build">
     <faq id="maven-mirror">
-      <question>How configure a maven mirror?</question>
+      <question>How to configure a maven mirror?</question>
       <answer>
-        TODO
+        If you want to set a different mirror for some reason, you can use your
+        settings.xml and add the following lines:
+        +----------------------------------------
+        <mirrors>
+          <mirror>
+            <id>mirrorID</id>
+            <name>Give it a name</name>
+            <url>The url of the mirror</url>
+            <mirrorOf>The server ID of the repository being mirrored. 
+              This must not match the mirror ID</mirrorOf>
+          </mirror>
+        </mirrors>
+        +----------------------------------------
       </answer>
     </faq>
     <faq id="offline-build">
-      <question>How configure a offline build?</question>
+      <question>How to configure an offline build?</question>
       <answer>
-        TODI
+        If you run into problems with fetching jars from the online repository,
+        in the settings.xml you can configure maven not to fetch them but to use
+        the ones allready in your local repository:
+
+        +----------------------------------------
+        <settings>
+          <offline/>
+        </settings>
+        +----------------------------------------
+
       </answer>
     </faq>
   </part>
