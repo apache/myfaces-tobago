@@ -1,4 +1,5 @@
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>tobago</groupId>
   <artifactId>tobago</artifactId>
@@ -18,6 +19,41 @@
       <notifier>
         <configuration>
           <address>bernd.bohmann@atanion.com</address>
+        </configuration>
+      </notifier>
+      <notifier>
+        <configuration>
+          <address>detlef.bartetzko@atanion.com</address>
+        </configuration>
+      </notifier>
+      <notifier>
+        <configuration>
+          <address>idus@krelon.com</address>
+        </configuration>
+      </notifier>
+      <notifier>
+        <configuration>
+          <address>martin.marinschek@gmail.com</address>
+        </configuration>
+      </notifier>
+      <notifier>
+        <configuration>
+          <address>asf@weber-oldenburg.de</address>
+        </configuration>
+      </notifier>
+      <notifier>
+        <configuration>
+          <address>udo@schnurpfeil.de</address>
+        </configuration>
+      </notifier>
+      <notifier>
+        <configuration>
+          <address>mwessendorf@gmail.com</address>
+        </configuration>
+      </notifier>
+      <notifier>
+        <configuration>
+          <address>philippe.hennes@philstar.de</address>
         </configuration>
       </notifier>
     </notifiers>
