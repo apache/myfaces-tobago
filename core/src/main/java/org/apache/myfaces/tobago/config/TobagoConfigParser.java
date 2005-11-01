@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2005 atanion GmbH.
+ * Copyright 2002-2005 The Apache Software Foundation.
  * 
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -105,7 +105,7 @@ public class TobagoConfigParser {
     }
     if (null != url) {
       digester.register(
-          "-//Atanion GmbH//DTD Tobago Config 1.0//EN",
+          "-//The Apache Software Foundation//DTD Tobago Config 1.0//EN",
           url.toString());
     } else {
       LOG.warn(

@@ -1,7 +1,7 @@
 <%@ page import="javax.faces.context.FacesContext"%>
 <%@ page import="javax.faces.application.FacesMessage"%>
 <%--
- * Copyright 2002-2005 atanion GmbH.
+ * Copyright 2002-2005 The Apache Software Foundation.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
