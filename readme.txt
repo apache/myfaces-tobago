@@ -24,7 +24,7 @@ Make sure the manager user has the role manager; see
 
 Alternatively, you can run
 
-  mvn war:war
+  mvn package
 
 and deploy the WAR from the target directory
 manually.
