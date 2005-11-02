@@ -32,25 +32,31 @@ import java.util.List;
 public class Controller {
 
   private static final Log LOG = LogFactory.getLog(Controller.class);
+  private static final String OUTCOME_LIST = "list";
+  private static final String OUTCOME_EDITOR = "editor";
 
-  private List<Address> addressList;
-
+  private List<Address> currentAddressList;
   private Address currentAddress;
-
-  private boolean currentStored;
-
   private SheetState selectedAddresses;
+
+  private AddressDAO addressDAO;
 
   public Controller() {
     LOG.debug("Creating new Controller");
-    addressList = new ArrayList<Address>();
+    currentAddressList = new ArrayList<Address>();
+  }
+
+  public void setAddressDAO(AddressDAO addressDAO) {
+    this.addressDAO = addressDAO;
+    LOG.debug("AddressDAO set.");
+    ApplicationContext ctx = FacesContextUtils.getWebApplicationContext(FacesContext.getCurrentInstance());
+    LOG.debug("applicationContext: "+ctx);
   }
 
   public String createAddress() {
     LOG.debug("action: createAddress");
     currentAddress = new Address();
-    currentStored = false;
-    return "editor";
+    return OUTCOME_EDITOR;
   }
 
   public String editAddress() {
@@ -61,20 +67,16 @@ public class Controller {
       FacesContext.getCurrentInstance().addMessage(null, error);
       return null;
     }
-    currentAddress = addressList.get(selection.get(0));
-    currentStored = true;
-    return "editor";
+    Address selectedAddress = currentAddressList.get(selection.get(0));
+    currentAddress.fill(selectedAddress);
+    return OUTCOME_EDITOR;
   }
 
   public String storeAddress() {
     LOG.debug("action: storeAddress");
-    if (currentStored) {
-      // nothing to do for this backend
-    } else {
-      addressList.add(currentAddress);
-      selectedAddresses.resetSelected();
-    }
-    return "list";
+    currentAddress = addressDAO.updateAddress(currentAddress);
+    selectedAddresses.resetSelected();
+    return OUTCOME_LIST;
   }
 
   public String deleteAddresses() {
@@ -85,16 +87,18 @@ public class Controller {
       FacesContext.getCurrentInstance().addMessage(null, error);
       return null;
     }
-    Collections.sort(selection);
+    Collections.sort(selection); // why?
     for (int i = selection.size() - 1; i >= 0; i--) {
-      addressList.remove((int)selection.get(i));
+      Address address = currentAddressList.get(selection.get(i));
+      addressDAO.removeAddress(address);
     }
     selectedAddresses.resetSelected();
-    return "list";
+    currentAddressList = addressDAO.findAddresses();
+    return OUTCOME_LIST;
   }
 
-  public List getAddressList() {
-    return addressList;
+  public List getCurrentAddressList() {
+    return currentAddressList;
   }
 
   public Address getCurrentAddress() {

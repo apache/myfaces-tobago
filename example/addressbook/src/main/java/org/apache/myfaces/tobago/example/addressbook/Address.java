@@ -29,6 +29,7 @@ public class Address {
 
   private static final Log LOG = LogFactory.getLog(Address.class);
 
+  private int id;
   private String firstName;
   private String lastName;
   private String street;
@@ -45,6 +46,31 @@ public class Address {
 
   public Address() {
     LOG.debug("Creating new Address");
+  }
+
+  public void fill(Address fromAddress) {
+    id = fromAddress.getId();
+    firstName = fromAddress.getFirstName();
+    lastName = fromAddress.getLastName();
+    street = fromAddress.getStreet();
+    houseNumber = fromAddress.getHouseNumber();
+    city = fromAddress.getCity();
+    zipCode = fromAddress.getZipCode();
+    country = fromAddress.getCountry();
+    phone = fromAddress.getPhone();
+    mobile = fromAddress.getMobile();
+    fax = fromAddress.getFax();
+    email = fromAddress.getEmail();
+    dayOfBirth = fromAddress.getDayOfBirth();
+    note = fromAddress.getNote();
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   public String getFirstName() {

@@ -46,7 +46,7 @@
 
         <tc:messages />
 
-        <tc:sheet columns="1*;1*" value="#{controller.addressList}"
+        <tc:sheet columns="1*;1*" value="#{controller.currentAddressList}"
             var="address" state="#{controller.selectedAddresses}">
           <tc:column label="#{bundle.listFirstName}" sortable="true">
             <tc:out value="#{address.firstName}" />
