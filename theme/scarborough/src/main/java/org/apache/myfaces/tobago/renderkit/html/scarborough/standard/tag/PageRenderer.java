@@ -1,12 +1,12 @@
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
+ *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
  *    You may obtain a copy of the License at
- * 
+ *
  *        http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *    Unless required by applicable law or agreed to in writing, software
  *    distributed under the License is distributed on an "AS IS" BASIS,
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,8 +29,8 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
@@ -89,7 +89,7 @@ public class PageRenderer extends PageRendererBase {
 
     // replace responseWriter and render page content
     StringWriter content = new StringWriter();
-    ResponseWriter contentWriter = writer.cloneWithWriter(content);         
+    ResponseWriter contentWriter = writer.cloneWithWriter(content);
     facesContext.setResponseWriter(contentWriter);
 
     UIComponent menubar = page.getFacet(FACET_MENUBAR);
@@ -105,7 +105,7 @@ public class PageRenderer extends PageRendererBase {
 
     // reset responseWriter and render page
     facesContext.setResponseWriter(writer);
-    // TODO PortletRequest 
+    // TODO PortletRequest
     HttpServletResponse response = (HttpServletResponse)
         facesContext.getExternalContext().getResponse();
 
@@ -126,7 +126,7 @@ public class PageRenderer extends PageRendererBase {
     String viewId = facesContext.getViewRoot().getViewId();
     String formAction = viewHandler.getActionURL(facesContext, viewId);
 
-    //String charset = (String) page.getAttributes().get(ATTR_CHARSET);
+    String charset = (String) page.getAttributes().get(ATTR_CHARSET);
 
     String title = (String) page.getAttributes().get(ATTR_LABEL);
 
@@ -142,11 +142,12 @@ public class PageRenderer extends PageRendererBase {
 
     // meta
     // TODO duplicate; see PageTag.doStartTag()
-    //writer.startElement("meta", null);
-    //writer.writeAttribute("http-equiv", "Content-Type", null);
-    //writer.writeAttribute(
-    //    "content", PageTag.generateContentType(charset), null);
-    //writer.endElement("meta");
+//    writer.startElement("meta", null);
+//    writer.writeAttribute("http-equiv", "Content-Type", null);
+//    writer.writeAttribute(
+//        "content", generateContentType(facesContext, charset), null);
+//    writer.endElement("meta");
+    response.setContentType(generateContentType(facesContext, charset));
 
     // title
     writer.startElement("title", null);
@@ -386,5 +387,19 @@ public class PageRenderer extends PageRendererBase {
   public boolean getRendersChildren() {
     return true;
   }
+
+  private String generateContentType(FacesContext facesContext, String charset) {
+    StringBuffer sb = new StringBuffer("text/");
+    ClientProperties clientProperties
+        = ClientProperties.getInstance(facesContext.getViewRoot());
+    sb.append(clientProperties.getContentType());
+    if (charset == null) {
+      charset = "UTF-8";
+    }
+    sb.append("; charset=");
+    sb.append(charset);
+    return sb.toString();
+  }
+
 }
 
