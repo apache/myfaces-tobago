@@ -22,6 +22,8 @@ package org.apache.myfaces.tobago.example.addressbook;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.model.SheetState;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.jsf.FacesContextUtils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
