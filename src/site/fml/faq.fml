@@ -1,13 +1,15 @@
 <?xml version="1.0"?>
 <faqs title="Frequently Asked Questions">
 
-  <part id="build">
+  <part id="faq">
     <faq id="maven-mirror">
       <question>How to configure a maven mirror?</question>
       <answer>
+        <p>
         If you want to set a different mirror for some reason, you can use your
         settings.xml and add the following lines:
-        +----------------------------------------
+        </p>
+        <source><![CDATA[
         <mirrors>
           <mirror>
             <id>mirrorID</id>
@@ -17,22 +19,22 @@
               This must not match the mirror ID</mirrorOf>
           </mirror>
         </mirrors>
-        +----------------------------------------
+         ]]></source>
       </answer>
     </faq>
     <faq id="offline-build">
       <question>How to configure an offline build?</question>
       <answer>
+        <p>
         If you run into problems with fetching jars from the online repository,
         in the settings.xml you can configure maven not to fetch them but to use
         the ones allready in your local repository:
-
-        +----------------------------------------
+        </p>
+      <source><![CDATA[
         <settings>
           <offline/>
         </settings>
-        +----------------------------------------
-
+        ]]></source>
       </answer>
     </faq>
   </part>
