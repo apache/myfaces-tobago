@@ -26,6 +26,7 @@ import com.sun.mirror.declaration.InterfaceDeclaration;
 import com.sun.mirror.declaration.MethodDeclaration;
 import com.sun.mirror.declaration.PackageDeclaration;
 import com.sun.mirror.type.InterfaceType;
+import com.sun.mirror.apt.AnnotationProcessorEnvironment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -39,6 +40,12 @@ import java.util.Collection;
  * $Id: TaglibAnnotationVisitor.java,v 1.9 2005/04/27 10:25:00 weber Exp $
  */
 public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollector {
+
+  protected final AnnotationProcessorEnvironment env;
+
+  public TaglibAnnotationVisitor(AnnotationProcessorEnvironment env) {
+    this.env = env;
+  }
 
   public Document createDom() throws ParserConfigurationException {
     javax.xml.parsers.DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -104,7 +111,10 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
     if (annotationTag != null) {
       // TODO configure replacement
       String className = decl.getQualifiedName().replaceAll("Declaration", "");
-      //System.err.println(className);
+      String msg = "Replacing: " + decl.getQualifiedName()
+          + " -> " + className;
+      System.err.println(msg);
+      env.getMessager().printNotice(msg);
       Element tag = createTag(document, annotationTag, className, decl);
       addAttributes(decl, tag, document);
       parent.appendChild(tag);
