@@ -48,6 +48,7 @@
                 <exclude>org/apache/myfaces/tobago/taglib/extension/*.java</exclude>
               </excludes>
               <nocompile>true</nocompile>
+              <encoding>UTF-8</encoding>
              </configuration>
           </execution>
           <execution>
