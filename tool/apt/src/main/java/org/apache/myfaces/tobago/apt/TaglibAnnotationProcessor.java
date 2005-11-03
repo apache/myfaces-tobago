@@ -69,7 +69,7 @@ public class TaglibAnnotationProcessor implements AnnotationProcessor {
   }
 
   public void process() {
-    TaglibAnnotationVisitor visitor = new TaglibAnnotationVisitor();
+    TaglibAnnotationVisitor visitor = new TaglibAnnotationVisitor(env);
     
     for (AnnotationTypeDeclaration atd : atds) {
       env.getMessager().printNotice("Collecting annotation "+atd);
