@@ -49,7 +49,7 @@ Deploying the Demo
   Alternatively, you can run
 
 +----------------------------------------
-  mvn war:war
+  mvn package
 +----------------------------------------
 
   and deploy the WAR from the target directory
