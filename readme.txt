@@ -20,7 +20,7 @@ Make sure the manager user has the role manager; see
 
   mvn tomcat:deploy
   or
-  mvn tomcat:redeploy
+  mvn tomcat:undeploy tomcat:deploy
 
 Alternatively, you can run
 
