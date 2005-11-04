@@ -59,35 +59,35 @@
   <dependencies>
     <dependency>
       <groupId>tobago</groupId>
-      <artifactId>scarborough</artifactId>
+      <artifactId>tobago-theme-scarborough</artifactId>
       <version>${version}</version>
       <classifier>THEME</classifier>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>tobago</groupId>
-      <artifactId>speyside</artifactId>
+      <artifactId>tobago-theme-speyside</artifactId>
       <version>${version}</version>
       <classifier>THEME</classifier>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>tobago</groupId>
-      <artifactId>richmond</artifactId>
+      <artifactId>tobago-theme-richmond</artifactId>
       <version>${version}</version>
       <classifier>THEME</classifier>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>tobago</groupId>
-      <artifactId>standard</artifactId>
+      <artifactId>tobago-theme-standard</artifactId>
       <version>${version}</version>
       <classifier>THEME</classifier>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>tobago</groupId>
-      <artifactId>core</artifactId>
+      <artifactId>tobago-core</artifactId>
       <version>${version}</version>
       <scope>compile</scope>
       <exclusions>
