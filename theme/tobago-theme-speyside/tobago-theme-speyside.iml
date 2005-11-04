@@ -1,0 +1,156 @@
+<module relativePaths="false" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <exclude-output></exclude-output>
+    <orderEntry type="inheritedJdk"></orderEntry>
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/src/main/java"/></content>
+    <orderEntry type="sourceFolder" forTests="false"></orderEntry>
+    <output url="file://$MODULE_DIR$/target/classes"/>
+    <output-test url="file://$MODULE_DIR$/target/test-classes"/>
+    <orderEntry type="module-library">
+      <library name="junit">
+        <CLASSES>
+          <root url="jar://C:/Dokumente und Einstellungen/hennes/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="servlet-api">
+        <CLASSES>
+          <root url="jar://C:/Dokumente und Einstellungen/hennes/.m2/repository/javax/servlet/servlet-api/2.3/servlet-api-2.3.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="myfaces-impl">
+        <CLASSES>
+          <root url="jar://C:/Dokumente und Einstellungen/hennes/.m2/repository/myfaces/myfaces-impl/1.1.0/myfaces-impl-1.1.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="tobago-theme-scarborough">
+        <CLASSES>
+          <root url="jar://C:/Dokumente und Einstellungen/hennes/.m2/repository/tobago/tobago-theme-scarborough/1.0.7-SNAPSHOT/tobago-theme-scarborough-1.0.7-SNAPSHOT.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-logging">
+        <CLASSES>
+          <root url="jar://C:/Dokumente und Einstellungen/hennes/.m2/repository/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="tobago-core">
+        <CLASSES>
+          <root url="jar://C:/Dokumente und Einstellungen/hennes/.m2/repository/tobago/tobago-core/1.0.7-SNAPSHOT/tobago-core-1.0.7-SNAPSHOT.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jstl">
+        <CLASSES>
+          <root url="jar://C:/Dokumente und Einstellungen/hennes/.m2/repository/jstl/jstl/1.1.0/jstl-1.1.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-lang">
+        <CLASSES>
+          <root url="jar://C:/Dokumente und Einstellungen/hennes/.m2/repository/commons-lang/commons-lang/2.1/commons-lang-2.1.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-beanutils">
+        <CLASSES>
+          <root url="jar://C:/Dokumente und Einstellungen/hennes/.m2/repository/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-collections">
+        <CLASSES>
+          <root url="jar://C:/Dokumente und Einstellungen/hennes/.m2/repository/commons-collections/commons-collections/3.1/commons-collections-3.1.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-digester">
+        <CLASSES>
+          <root url="jar://C:/Dokumente und Einstellungen/hennes/.m2/repository/commons-digester/commons-digester/1.6/commons-digester-1.6.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-fileupload">
+        <CLASSES>
+          <root url="jar://C:/Dokumente und Einstellungen/hennes/.m2/repository/commons-fileupload/commons-fileupload/1.0/commons-fileupload-1.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="standard">
+        <CLASSES>
+          <root url="jar://C:/Dokumente und Einstellungen/hennes/.m2/repository/taglibs/standard/1.1.2/standard-1.1.2.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="myfaces-api">
+        <CLASSES>
+          <root url="jar://C:/Dokumente und Einstellungen/hennes/.m2/repository/myfaces/myfaces-api/1.1.0/myfaces-api-1.1.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-io">
+        <CLASSES>
+          <root url="jar://C:/Dokumente und Einstellungen/hennes/.m2/repository/commons-io/commons-io/1.1/commons-io-1.1.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="tobago-theme-standard">
+        <CLASSES>
+          <root url="jar://C:/Dokumente und Einstellungen/hennes/.m2/repository/tobago/tobago-theme-standard/1.0.7-SNAPSHOT/tobago-theme-standard-1.0.7-SNAPSHOT.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+  </component>
+  <component name="ModuleRootManager"></component>
+</module>
