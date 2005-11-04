@@ -175,7 +175,8 @@
   </reporting>
 
   <scm>
-    <connection>scm:svn:http://www.atanion.net/repos/asf/tobago/trunk/</connection>
+    <connection>
+      scm:svn:http://www.atanion.net/repos/asf/tobago/trunk/</connection>
     <url>http://www.atanion.net/repos/asf/tobago/trunk/</url>
   </scm>
 
@@ -200,7 +201,9 @@
       <!--releases>
         <enabled>false</enabled>
       </releases-->
-      <snapshots><enabled>true</enabled></snapshots>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
       <id>atanion</id>
       <url>http://www.atanion.com/maven2</url>
     </pluginRepository>
@@ -242,7 +245,7 @@
 
   <modules>
     <module>tool</module>
-    <module>core</module>
+    <module>tobago-core</module>
     <module>theme</module>
     <module>example</module>
   </modules>
