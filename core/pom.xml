@@ -63,6 +63,7 @@
                 <exclude>org/apache/myfaces/tobago/taglib/component/*.java</exclude>
               </excludes>
               <nocompile>true</nocompile>
+              <encoding>UTF-8</encoding>
              </configuration>
           </execution>
         </executions>
