@@ -1,0 +1,98 @@
+/*
+ * Copyright 2002-2005 The Apache Software Foundation.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+fieldset.tobago-box-default {
+  padding: 0px;
+  padding-left: 10px;
+}
+
+.tobago-box-header-toolbar-div {
+  right: -5px;
+}
+
+.tobago-box-toolbar-div {
+  top: -15px;
+  right: -2px;
+  height: 31px;
+/*  padding-top: 1px;*/
+}
+
+.tobago-box-toolbar-span {
+  padding-bottom: 0px;
+}
+
+.tobago-textArea-default {
+  margin-top: -1 px;
+  margin-bottom: -1 px;
+}
+
+.tobago-in-default {
+  margin-top: -1 px;
+  margin-bottom: -1 px;
+}
+
+textarea.tobago-richTextEditor-body {
+  margin-top: -1 px;
+  margin-bottom: -1 px;
+}
+
+.tobago-label-default {
+  margin-top: -2px;
+}
+
+.tobago-file-default {
+  height: 23px;
+}
+
+
+.tobago-time-input {
+ margin-top: -1px;
+ margin-bottom: -1px;
+}
+
+.tobago-toolBar-default {
+  height: 31px;
+}
+/*
+.tobago-toolBar-div-inner {
+ height: 27px;
+}*/
+
+
+.tobago-toolBar-button-hover-first {
+ padding-left: 6px;
+}
+.tobago-box-toolBar-button-hover-last {
+ padding-right: 6px;
+}
+
+.tobago-toolBar-button-image {
+  margin-bottom: 0px;
+  position: relative;
+  top: -1px;
+}
+
+
+.tobago-toolBar-button-popup-span {
+  padding-right: 10px;
+}
+
+.tobago-toolBar-button-menu {
+}
+
+a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:active.tobago-toolBar-button-link {
+   color: #000000;
+}
