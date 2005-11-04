@@ -55,7 +55,7 @@
     </dependency>
     <dependency>
       <groupId>tobago</groupId>
-      <artifactId>core</artifactId>
+      <artifactId>tobago-core</artifactId>
       <version>${version}</version>
       <scope>compile</scope>
       <exclusions>
