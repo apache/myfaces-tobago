@@ -40,7 +40,7 @@
             <phase>process-resources</phase>
             <goals><goal>execute</goal></goals>
             <configuration>
-              <generated>src/main/resources/META-INF</generated>
+              <generated>target/classes/META-INF</generated>
               <aptOptions>package=org.apache.myfaces.tobago.taglib.component,file=tobago.tld</aptOptions>
               <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
               <excludes>
@@ -55,7 +55,7 @@
             <phase>process-resources</phase>
             <goals><goal>execute</goal></goals>
             <configuration>
-              <generated>src/main/resources/META-INF</generated>
+              <generated>target/classes/META-INF</generated>
               <aptOptions>package=org.apache.myfaces.tobago.taglib.extension,file=tobago-extension.tld</aptOptions>
               <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
               <excludes>
@@ -69,9 +69,10 @@
       </plugin>
     </plugins>
   </build>
-  <!-- wait until checkstyle 4.0 is released
+
   <reporting>
     <plugins>
+      <!-- wait until checkstyle 4.0 is released
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
@@ -82,9 +83,19 @@
         </configuration>
 
       </plugin>
+      -->
+      <!-- pmd has problems with annotations
+      <plugin>
+       <groupId>org.apache.maven.plugins</groupId>
+       <artifactId>maven-pmd-plugin</artifactId>
+       <configuration>
+         <targetJdk>1.5</targetJdk>
+       </configuration>
+      </plugin>
+      -->
     </plugins>
   </reporting>
-  -->
+
   <dependencies>
 
     <dependency>
