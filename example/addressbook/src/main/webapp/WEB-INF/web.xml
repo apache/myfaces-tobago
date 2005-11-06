@@ -28,6 +28,15 @@
     <listener-class>org.apache.myfaces.tobago.webapp.TobagoServletContextListener</listener-class>
   </listener>
 
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/applicationContext.xml</param-value>
+  </context-param>
+
   <!-- servlet -->
 
   <servlet>
