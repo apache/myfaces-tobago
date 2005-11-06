@@ -78,6 +78,7 @@ public class Controller {
     LOG.debug("action: storeAddress");
     currentAddress = addressDAO.updateAddress(currentAddress);
     selectedAddresses.resetSelected();
+    currentAddressList = addressDAO.findAddresses();
     return OUTCOME_LIST;
   }
 
