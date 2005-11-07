@@ -19,12 +19,17 @@
  */
 package org.apache.myfaces.tobago.example.addressbook;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
 public class InMemoryAddressDAO implements AddressDAO {
+
+  private static final Log LOG = LogFactory.getLog(InMemoryAddressDAO.class);
 
   private List<Address> addresses;
 
@@ -33,17 +38,22 @@ public class InMemoryAddressDAO implements AddressDAO {
   }
 
   public synchronized Address updateAddress(Address address) {
+    LOG.debug("Trying address: "+address);
     Address storedAddress = getAddress(address.getId());
     if (storedAddress == null) {
-      address.setId(addresses.size());
+      address.setId(addresses.size()+1);
+      LOG.debug("Creating address: "+address);
       addresses.add(address);
     } else {
+      LOG.debug("Updating address : "+address);
+      LOG.debug("Stored address is: "+storedAddress);
       storedAddress.fill(address);
     }
     return address;
   }
 
   public synchronized List<Address> findAddresses() {
+    LOG.debug("Find addresses: "+addresses);
     return Collections.unmodifiableList(addresses);
   }
 

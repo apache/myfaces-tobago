@@ -176,4 +176,8 @@ public class Address {
   public void setNote(String note) {
     this.note = note;
   }
+
+  public String toString() {
+    return id+": "+firstName+" "+lastName;
+  }
 }

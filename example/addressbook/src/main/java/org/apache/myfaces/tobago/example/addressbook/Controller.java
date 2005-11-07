@@ -34,6 +34,7 @@ import java.util.List;
 public class Controller {
 
   private static final Log LOG = LogFactory.getLog(Controller.class);
+
   private static final String OUTCOME_LIST = "list";
   private static final String OUTCOME_EDITOR = "editor";
 
