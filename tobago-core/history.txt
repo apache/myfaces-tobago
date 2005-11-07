@@ -13,6 +13,7 @@
 *    limitations under the License.
 
 1.0.7 -
+* build system changed to maven2
 * refactor TobagoConstants changed from interface -> class (using static import)
 * ResourceMananger supports XML properties now
 * siblingLeafOnly mode for t:treeListbox
