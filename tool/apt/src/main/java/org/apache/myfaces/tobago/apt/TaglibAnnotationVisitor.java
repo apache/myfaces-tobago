@@ -33,6 +33,8 @@ import org.w3c.dom.Element;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.util.Collection;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created: Mar 22, 2005 8:18:35 PM
@@ -47,14 +49,19 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
     this.env = env;
   }
 
-  public Document createDom() throws ParserConfigurationException {
+  public List<DocumentAndFileName>  createDom() throws ParserConfigurationException {
     javax.xml.parsers.DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setValidating(false);
     javax.xml.parsers.DocumentBuilder parser = dbf.newDocumentBuilder();
-    Document document = parser.newDocument();
-    if (collectedPackageDeclations.size() > 0) {
-      PackageDeclaration packageDeclaration = collectedPackageDeclations.get(0);
+    List<DocumentAndFileName> tlds = new ArrayList<DocumentAndFileName>();
+    for (PackageDeclaration packageDeclaration :collectedPackageDeclations) {
+      DocumentAndFileName documentAndFileName = new DocumentAndFileName();
+      Document document = parser.newDocument();
       Taglib taglibAnnotation = packageDeclaration.getAnnotation(Taglib.class);
+      documentAndFileName.setDocument(document);
+      documentAndFileName.setPackageName(packageDeclaration.getQualifiedName());
+      documentAndFileName.setFileName(taglibAnnotation.fileName());
+      tlds.add(documentAndFileName);
       Element taglib = document.createElement("taglib");
       addLeafTextElement(taglibAnnotation.tlibVersion(), "tlib-version", taglib, document);
       addLeafTextElement(taglibAnnotation.jspVersion(), "jsp-version", taglib, document);
@@ -73,17 +80,19 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
       }
 
       for (ClassDeclaration decl : collectedClassDeclations) {
-        appendTag(decl, taglib, document);
+        if (decl.getPackage().equals(packageDeclaration)) {
+          appendTag(decl, taglib, document);
+        }
       }
       for (InterfaceDeclaration decl : collectedInterfaceDeclations) {
-        appendTag(decl, taglib, document);
+        if (decl.getPackage().equals(packageDeclaration)) {
+          appendTag(decl, taglib, document);
+        }
       }
       document.appendChild(taglib);
-    } else {
-      throw new IllegalArgumentException("No taglib def found");
-    }
-    return document;
 
+    }
+    return tlds;
   }
 
   private void addLeafTextElement(String text, String node, Element parent, Document document) {
@@ -110,10 +119,12 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
     Tag annotationTag = decl.getAnnotation(Tag.class);
     if (annotationTag != null) {
       // TODO configure replacement
-      String className = decl.getQualifiedName().replaceAll("Declaration", "");
+
+      String className =
+          decl.getQualifiedName().substring(0, decl.getQualifiedName().length()-"Declaration".length());
+      //decl.getQualifiedName().replaceAll("Declaration", "");
       String msg = "Replacing: " + decl.getQualifiedName()
           + " -> " + className;
-      System.err.println(msg);
       env.getMessager().printNotice(msg);
       Element tag = createTag(document, annotationTag, className, decl);
       addAttributes(decl, tag, document);

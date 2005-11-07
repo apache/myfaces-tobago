@@ -36,31 +36,12 @@
         <version>${version}</version>
         <executions>
           <execution>
-            <id>tobago-components</id>
+            <id>tobago-tlds</id>
             <phase>process-resources</phase>
             <goals><goal>execute</goal></goals>
             <configuration>
               <generated>target/classes/META-INF</generated>
-              <aptOptions>package=org.apache.myfaces.tobago.taglib.component,file=tobago.tld</aptOptions>
               <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
-              <excludes>
-                <exclude>org/apache/myfaces/tobago/taglib/extension/*.java</exclude>
-              </excludes>
-              <nocompile>true</nocompile>
-              <encoding>UTF-8</encoding>
-             </configuration>
-          </execution>
-          <execution>
-            <id>tobago-extensions</id>
-            <phase>process-resources</phase>
-            <goals><goal>execute</goal></goals>
-            <configuration>
-              <generated>target/classes/META-INF</generated>
-              <aptOptions>package=org.apache.myfaces.tobago.taglib.extension,file=tobago-extension.tld</aptOptions>
-              <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
-              <excludes>
-                <exclude>org/apache/myfaces/tobago/taglib/component/*.java</exclude>
-              </excludes>
               <nocompile>true</nocompile>
               <encoding>UTF-8</encoding>
              </configuration>
@@ -185,7 +166,7 @@
 
     <dependency>
       <groupId>tobago</groupId>
-      <artifactId>tobago-apt</artifactId>
+      <artifactId>apt</artifactId>
       <version>${version}</version>
       <scope>provided</scope>
     </dependency>

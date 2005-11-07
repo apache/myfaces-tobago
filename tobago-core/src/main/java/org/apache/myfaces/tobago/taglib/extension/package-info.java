@@ -18,5 +18,7 @@
  * (C) Copyright 2002-2005 The Apache Software Foundation</h2>
  */
 @org.apache.myfaces.tobago.apt.annotation.Taglib(
-    shortName = "tx", uri = "http://www.atanion.com/tobago/extension")
+    shortName = "tx",
+    uri = "http://www.atanion.com/tobago/extension",
+    fileName= "tobago-extension.tld")
 package org.apache.myfaces.tobago.taglib.extension;

@@ -47,23 +47,11 @@ public class TaglibAnnotationProcessor implements AnnotationProcessor {
 
   protected final AnnotationProcessorEnvironment env;
   protected final Set<AnnotationTypeDeclaration> atds;
-  protected String packageName = "org.apache.myfaces.tobago.taglib.component";
-  protected String fileName = "tobago3.tld";
-  protected String packageKey = "-Apackage=";
-  protected String fileKey = "-Afile=";
+
   public TaglibAnnotationProcessor(Set<AnnotationTypeDeclaration> atds,
       AnnotationProcessorEnvironment env) {
     this.atds = atds;
     this.env = env;
-    for(Map.Entry<String,String> entry: env.getOptions().entrySet()) {
-      if (entry.getKey().startsWith(packageKey)) {
-        packageName = entry.getKey().substring(packageKey.length());
-      } else if (entry.getKey().startsWith(fileKey)) {
-        fileName = entry.getKey().substring(fileKey.length());
-      }
-
-    }
-
     this.env.getMessager().printNotice("Starting annotation process");
 
   }
@@ -80,28 +68,31 @@ public class TaglibAnnotationProcessor implements AnnotationProcessor {
     }
     PrintWriter writer = null;
     try {
-      env.getMessager().printNotice("Create DOM");
-      Document document = visitor.createDom();
-
-      writer = env.getFiler().createTextFile(Filer.Location.SOURCE_TREE, packageName,
-          new File(fileName), null);
-      TransformerFactory transFactory = TransformerFactory.newInstance();
-      Transformer transformer = transFactory.newTransformer();
-      transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,
-          "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN");
-      transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,
-          "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd");
-      transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-      transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-      transformer.transform(new DOMSource(document), new StreamResult(writer));
-      env.getMessager().printNotice("Write to file " +packageName+ "."+fileName);
+      for (DocumentAndFileName documentAndFileName: visitor.createDom()) {
+        env.getMessager().printNotice("Create DOM");
+        writer = env.getFiler().createTextFile(Filer.Location.SOURCE_TREE,
+            documentAndFileName.getPackageName(),
+            new File(documentAndFileName.getFileName()), null);
+        TransformerFactory transFactory = TransformerFactory.newInstance();
+        Transformer transformer = transFactory.newTransformer();
+        transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,
+            "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN");
+        transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,
+            "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd");
+        transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.transform(new DOMSource(documentAndFileName.getDocument()),
+            new StreamResult(writer));
+        env.getMessager().printNotice("Write to file " +documentAndFileName.getPackageName()+" "+
+            documentAndFileName.getFileName());
+      }
     } catch (ParserConfigurationException e) {
       // TODO
-      e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+      e.printStackTrace();
     } catch (TransformerException e) {
-      e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+      e.printStackTrace();
     } catch (IOException e) {
-      e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+      e.printStackTrace();
     } finally {
       IOUtils.closeQuietly(writer);
     }
