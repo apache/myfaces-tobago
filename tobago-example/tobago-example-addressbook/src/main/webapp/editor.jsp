@@ -95,9 +95,9 @@
           </f:facet>
 
           <tc:cell />
-          <tc:button action="#{controller.storeAddress}"
+          <tc:button action="store"
               labelWithAccessKey="#{bundle.editorStore}" defaultCommand="true" />
-          <tc:button action="list" immediate="true"
+          <tc:button action="cancel" immediate="true"
               labelWithAccessKey="#{bundle.editorCancel}" />
         </tc:panel>
 

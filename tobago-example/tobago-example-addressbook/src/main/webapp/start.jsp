@@ -13,4 +13,21 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<jsp:forward page="faces/start.jsp"/>
+<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<f:view>
+
+  <tc:page label="Start" width="640px" height="480px">
+
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout rows="fixed; 1*" columns="100px; 1*"/>
+      </f:facet>
+
+      <tc:button label="Start" action="dialog:Adresslist" />
+      <tc:cell/>
+
+      <tc:cell spanX="2"/>
+    </tc:panel>
+  </tc:page>
+</f:view>

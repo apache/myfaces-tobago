@@ -32,6 +32,20 @@
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
 
+  <!-- Shale Application Controller Filter -->
+  <filter>
+    <filter-name>shale</filter-name>
+    <filter-class>
+      org.apache.shale.faces.ShaleApplicationFilter
+    </filter-class>
+  </filter>
+
+  <!-- Shale Application Controller Filter Mapping -->
+  <filter-mapping>
+    <filter-name>shale</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>/WEB-INF/applicationContext.xml</param-value>

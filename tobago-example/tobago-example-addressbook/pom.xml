@@ -172,6 +172,22 @@
         </exclusion>
       </exclusions>
     </dependency>
+    <dependency>
+      <groupId>shale</groupId>
+      <artifactId>shale-core</artifactId>
+      <version>svn331593</version>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>servletapi</groupId>
+          <artifactId>servletapi</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>myfaces</groupId>
+          <artifactId>myfaces-jsf-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
   </dependencies>
 
 </project>
