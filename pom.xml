@@ -281,7 +281,7 @@
     <module>tool</module>
     <module>tobago-core</module>
     <module>theme</module>
-    <module>example</module>
+    <module>tobago-example</module>
   </modules>
 
   <distributionManagement>

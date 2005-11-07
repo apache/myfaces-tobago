@@ -16,20 +16,19 @@
  *    limitations under the License.
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>tobago</groupId>
-    <artifactId>example</artifactId>
+    <artifactId>tobago-example</artifactId>
     <version>1.0.7-SNAPSHOT</version>
   </parent>
-  <artifactId>tobago-example-addressbook</artifactId>
+  <artifactId>tobago-example-demo</artifactId>
   <packaging>war</packaging>
-  <name>Tobago example addressbook</name>
+  <name>Tobago example demo</name>
   <build>
-    <finalName>tobago-example-addressbook</finalName>
+    <finalName>tobago-example-demo</finalName>
     <plugins>
       <plugin>
         <groupId>tobago</groupId>
@@ -38,9 +37,7 @@
         <executions>
           <execution>
             <phase>process-resources</phase>
-            <goals>
-              <goal>resources</goal>
-            </goals>
+            <goals><goal>resources</goal></goals>
           </execution>
         </executions>
       </plugin>
@@ -99,79 +96,32 @@
           <artifactId>tools</artifactId>
         </exclusion>
       </exclusions>
+
     </dependency>
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>1.2.11</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>oro</groupId>
+      <artifactId>oro</artifactId>
+      <version>2.0.8</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>javax.servlet</groupId>
+       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
       <version>2.3</version>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>springframework</groupId>
-      <artifactId>spring-core</artifactId>
-      <version>1.2.5</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>1.2.5</version>
-      <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>xerces</groupId>
-          <artifactId>xerces</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>xml-apis</groupId>
-          <artifactId>xml-apis</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>springframework</groupId>
-      <artifactId>spring-beans</artifactId>
-      <version>1.2.5</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>springframework</groupId>
-      <artifactId>spring-web</artifactId>
-      <version>1.2.5</version>
-      <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.faces</groupId>
-          <artifactId>jsf-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>servlet-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>servletapi</groupId>
-          <artifactId>servletapi</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jsp-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>myfaces</groupId>
-          <artifactId>myfaces-jsf-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-  </dependencies>
+    <!--<dependency>-->
+      <!--<groupId>myfaces</groupId>-->
+      <!--<artifactId>tomahawk</artifactId>-->
+      <!--<version>1.1.0</version>-->
+      <!--<purpose>jar</purpose>-->
+    <!--</dependency>-->
 
+  </dependencies>
 </project>

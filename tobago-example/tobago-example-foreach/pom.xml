@@ -21,7 +21,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>tobago</groupId>
-    <artifactId>example</artifactId>
+    <artifactId>tobago-example</artifactId>
     <version>1.0.7-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-example-foreach</artifactId>

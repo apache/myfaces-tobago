@@ -9,7 +9,7 @@
   <packaging>pom</packaging>
   <name>Tobago examples</name>
   <groupId>tobago</groupId>
-  <artifactId>example</artifactId>
+  <artifactId>tobago-example</artifactId>
   <modules>
     <module>tobago-example-addressbook</module>
     <module>tobago-example-demo</module>
