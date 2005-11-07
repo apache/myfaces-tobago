@@ -158,6 +158,7 @@
   </developers>
 
   <reporting>
+    <excludeDefaults>true</excludeDefaults>
     <plugins>
       <plugin>
         <inherited>false</inherited>
@@ -165,6 +166,14 @@
         <artifactId>maven-project-info-reports-plugin</artifactId>
         <reportSets>
           <reportSet>
+            <id>deps</id>
+            <reports>
+              <report>dependencies</report>
+            </reports>
+          </reportSet>
+          <reportSet>
+            <id>rest</id>
+            <inherited>false</inherited>
             <reports>
               <report>project-team</report>
               <report>mailing-list</report>
@@ -177,13 +186,27 @@
       </plugin>
       
       <plugin>
+        <inherited>false</inherited>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>changelog-maven-plugin</artifactId>
+        <configuration><basedir>${basedir}</basedir></configuration>
       </plugin>
      
 
     </plugins>
   </reporting>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
 
   <scm>
     <connection>scm:svn:http://www.atanion.net/repos/asf/tobago/trunk/</connection>
