@@ -12,7 +12,7 @@
     </faq>
     <faq id="tobago/RI">
       <question>Does tobago run on the Sun RI?</question>
-      <answer><p>Tobago should be run with Sun RI and MyFaces.</p></answer>
+      <answer><p>Tobago should run with Sun RI and MyFaces.</p></answer>
     </faq>
     <faq id="tobago/myfaces extension">
       <question>Can I mixed tobago and myfaces extensions in the same webapp?</question>
