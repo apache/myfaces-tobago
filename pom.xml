@@ -278,7 +278,7 @@
   </licenses>
 
   <modules>
-    <module>tool</module>
+    <module>tobago-tool</module>
     <module>tobago-core</module>
     <module>tobago-theme</module>
     <module>tobago-example</module>

@@ -9,10 +9,10 @@
   <packaging>pom</packaging>
   <name>Tobago tool</name>
   <groupId>tobago</groupId>
-  <artifactId>tool</artifactId>
+  <artifactId>tobago-tool</artifactId>
   <modules>
     <module>maven-apt-plugin</module>
     <module>maven-theme-plugin</module>
-    <module>apt</module>
+    <module>tobago-tool-apt</module>
   </modules>
 </project>

@@ -7,7 +7,7 @@
     <version>1.0.7-SNAPSHOT</version>
   </parent>
   <groupId>tobago</groupId>
-  <artifactId>apt</artifactId>
+  <artifactId>tobago-tool-apt</artifactId>
   <packaging>jar</packaging>
   <name>Tobago Apt</name>
   <description>Tobago Apt</description>
