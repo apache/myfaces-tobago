@@ -17,7 +17,7 @@
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>tobago</groupId>
@@ -38,13 +38,15 @@
           <execution>
             <id>tobago-tlds</id>
             <phase>process-resources</phase>
-            <goals><goal>execute</goal></goals>
+            <goals>
+              <goal>execute</goal>
+            </goals>
             <configuration>
               <generated>target/classes/META-INF</generated>
               <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
               <nocompile>true</nocompile>
               <encoding>UTF-8</encoding>
-             </configuration>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -53,6 +55,32 @@
 
   <reporting>
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>surefire-report-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>taglist-maven-plugin</artifactId>
+        <version>2.0-beta-1</version>
+        <configuration>
+          <tags>TODO, @todo, FIXME, @deprecated</tags>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jxr-maven-plugin</artifactId>
+      </plugin>
+
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+
+
       <!-- wait until checkstyle 4.0 is released
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -139,7 +167,8 @@
     <dependency>
       <groupId>avalon-framework</groupId>
       <artifactId>avalon-framework</artifactId>
-      <version>20020627</version><!-- XXX wrong date -->
+      <version>20020627</version>
+      <!-- XXX wrong date -->
       <scope>provided</scope>
     </dependency>
 
