@@ -280,7 +280,7 @@
   <modules>
     <module>tool</module>
     <module>tobago-core</module>
-    <module>theme</module>
+    <module>tobago-theme</module>
     <module>tobago-example</module>
   </modules>
 

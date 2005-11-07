@@ -9,7 +9,7 @@
   <packaging>pom</packaging>
   <name>Tobago theme</name>
   <groupId>tobago</groupId>
-  <artifactId>theme</artifactId>
+  <artifactId>tobago-theme</artifactId>
   <modules>
     <module>tobago-theme-standard</module>
     <module>tobago-theme-scarborough</module>
