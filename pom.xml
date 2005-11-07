@@ -7,7 +7,7 @@
   <name>Tobago</name>
   <version>1.0.7-SNAPSHOT</version>
   <description>Tobago</description>
-  <url>http://tobago.atanion.net/</url>
+  <url>http://tobago.atanion.net/site/</url>
   <inceptionYear>2002</inceptionYear>
   <issueManagement>
     <system>jira</system>
@@ -166,15 +166,8 @@
         <artifactId>maven-project-info-reports-plugin</artifactId>
         <reportSets>
           <reportSet>
-            <id>deps</id>
             <reports>
               <report>dependencies</report>
-            </reports>
-          </reportSet>
-          <reportSet>
-            <id>rest</id>
-            <inherited>false</inherited>
-            <reports>
               <report>project-team</report>
               <report>mailing-list</report>
               <report>issue-tracking</report>
