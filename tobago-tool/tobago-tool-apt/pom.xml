@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>tobago</groupId>
-    <artifactId>tool</artifactId>
+    <artifactId>tobago-tool</artifactId>
     <version>1.0.7-SNAPSHOT</version>
   </parent>
   <groupId>tobago</groupId>
@@ -11,9 +11,6 @@
   <packaging>jar</packaging>
   <name>Tobago Apt</name>
   <description>Tobago Apt</description>
-  <build>
-    <finalName>${groupId}-${artifactId}-${version}</finalName>
-  </build>
   <!-- wait until checkstyle 4.0 is released
   <reporting>
     <plugins>
