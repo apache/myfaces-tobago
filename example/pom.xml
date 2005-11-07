@@ -7,12 +7,12 @@
     <version>1.0.7-SNAPSHOT</version>
   </parent>
   <packaging>pom</packaging>
-  <name>Tobago example</name>
+  <name>Tobago examples</name>
   <groupId>tobago</groupId>
   <artifactId>example</artifactId>
   <modules>
-    <module>demo</module>
-    <module>addressbook</module>
-    <module>foreach</module>
+    <module>tobago-example-addressbook</module>
+    <module>tobago-example-demo</module>
+    <module>tobago-example-foreach</module>
   </modules>
 </project>

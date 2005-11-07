@@ -24,7 +24,7 @@
     <artifactId>example</artifactId>
     <version>1.0.7-SNAPSHOT</version>
   </parent>
-  <artifactId>foreach</artifactId>
+  <artifactId>tobago-example-foreach</artifactId>
   <packaging>war</packaging>
   <name>Tobago example foreach</name>
   <build>
