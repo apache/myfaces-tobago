@@ -239,6 +239,11 @@
     <extensions>
       <extension>
         <groupId>org.apache.maven.wagon</groupId>
+         <artifactId>wagon-ssh-external</artifactId>
+         <version>1.0-alpha-5</version>
+      </extension>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
         <artifactId>wagon-ftp</artifactId>
         <version>1.0-alpha-3</version>
       </extension>
@@ -268,7 +273,7 @@
     </snapshotRepository>
     <site>
       <id>website</id>
-      <url>scp://shrek/home/resource/tobago-site</url>
+      <url>scpexe://shrek/home/resource/tobago-site</url>
     </site>
   </distributionManagement>
 

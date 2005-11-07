@@ -2,7 +2,36 @@
 <faqs title="Frequently Asked Questions">
 
   <part id="faq">
-    <faq id="maven-mirror">
+    <faq id="howto">
+      <question>Documentation or HowTo for using tobago?</question>
+       <answer><p>
+         <a href="http://tobago.atanion.net/tobago-example-demo/faces/mini-howto/intro.jsp">Mini Howto</a>
+         </p>
+         <a href="http://tobago.atanion.net/tobago-example-demo/">Demo</a>
+          </answer>
+    </faq>
+    <faq id="tobago/RI">
+      <question>Does tobago run on the Sun RI?</question>
+      <answer><p>Tobago should be run with Sun RI and MyFaces.</p></answer>
+    </faq>
+    <faq id="tobago/myfaces extension">
+      <question>Can I mixed tobago and myfaces extensions in the same webapp?</question>
+       <answer>
+         <p>Jsf only supports one renderkit (renderkitId) per page (f:view).
+          Because tobago has it's own renderkitId you can't use any none tobago
+          components that need a renderer.</p>
+       </answer>
+    </faq>
+    <faq id="tiles/sitemesh">
+      <question>Would/could tobago replace tiles? Could I ignore tiles and sitemesh in the favor of tobago or not?
+      </question>
+       <answer>
+         <p>Tobago would/could not replace it. But sometimes your may not need it, when you are using Tobago.
+If you want to position and size your components automatically, you can do that with a Tobago LayoutManager.
+If you want e.g. your header and sidebar will be rendered without writing doublicate code, you may use JSP 2.0 tag files or tiles/sitemesh.</p>
+       </answer>
+    </faq>
+     <faq id="maven-mirror">
       <question>How to configure a maven mirror?</question>
       <answer>
         <p>
