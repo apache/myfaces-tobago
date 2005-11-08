@@ -100,7 +100,7 @@ public class LabeledInputLayoutRenderer extends
       }
       writer.endElement("td");
       writer.endElement("tr");
-      if (client.getTheme().getName() == "sap") { // fixme: "sap"
+      if (client.getTheme().getName() == "sap") { // FIXME: "sap"
         writer.startElement("tr", null);
         if (label != null) {
           writer.startElement("td", null);

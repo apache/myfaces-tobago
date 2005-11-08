@@ -35,7 +35,7 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
-// fixme: is this class thread-safe?
+// FIXME: is this class thread-safe?
 
 public class ResourceManagerImpl implements ResourceManager {
 
@@ -116,7 +116,7 @@ public class ResourceManagerImpl implements ResourceManager {
 //    Log.debug("key=" + key);
       result = (String) cache.get(key);
       if (result == null) {
-        // todo: cache null values
+        // TODO: cache null values
         try {
           List paths = getPaths(clientPropertyId, locale, resourceDirectories, "", null,
               name.substring(0, dot), name.substring(dot), false, true, true, null,
@@ -124,7 +124,7 @@ public class ResourceManagerImpl implements ResourceManager {
           if (paths != null) {
             result = (String) paths.get(0);
           }
-          // todo: cache null values
+          // TODO: cache null values
           cache.put(key, result);
         } catch (Exception e) {
           LOG.error("name = '" + name
@@ -443,13 +443,13 @@ public class ResourceManagerImpl implements ResourceManager {
     if (LOG.isDebugEnabled()) {
       LOG.debug("rendererType = '" + rendererType + "'");
     }
-    if ("javax.faces.Text".equals(rendererType)) { // todo: find a better way
+    if ("javax.faces.Text".equals(rendererType)) { // TODO: find a better way
       name = RENDERER_TYPE_OUT;
     } else {
       name = rendererType;
     }
     name = name + "Renderer";
-    if (name.startsWith("javax.faces.")) { // fixme: this is a hotfix from jsf1.0beta to jsf1.0fr
+    if (name.startsWith("javax.faces.")) { // FIXME: this is a hotfix from jsf1.0beta to jsf1.0fr
       LOG.warn("patching renderer from " + name);
       name = name.substring("javax.faces.".length());
       LOG.warn("patching renderer to   " + name);
@@ -643,7 +643,7 @@ public class ResourceManagerImpl implements ResourceManager {
 
     public CacheKey(String clientPropertyId, Locale locale, String name, String key) {
       this.clientPropertyId = clientPropertyId;
-      if (locale == null) { //  fixme: should not happen, but does.
+      if (locale == null) { //  FIXME: should not happen, but does.
         LOG.warn("locale == null");
         locale = Locale.getDefault();
       }
@@ -655,7 +655,7 @@ public class ResourceManagerImpl implements ResourceManager {
     }
     public CacheKey(String clientPropertyId, Locale locale, String name, CacheType type) {
       this.clientPropertyId = clientPropertyId;
-      if (locale == null) { //  fixme: should not happen, but does.
+      if (locale == null) { //  FIXME: should not happen, but does.
         LOG.warn("locale == null");
         locale = Locale.getDefault();
       }

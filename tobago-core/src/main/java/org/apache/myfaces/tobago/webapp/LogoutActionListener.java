@@ -50,7 +50,7 @@ public class LogoutActionListener implements ActionListener {
       externalContext.redirect(forward);
     } catch (IOException e) {
       LOG.error("", e);
-      // todo: may do error handling
+      // TODO: may do error handling
       throw new FacesException("Can't redirect to '" + forward + "'");
     }
     facesContext.responseComplete();

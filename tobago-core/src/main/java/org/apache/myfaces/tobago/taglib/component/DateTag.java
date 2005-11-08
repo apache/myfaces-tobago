@@ -79,7 +79,7 @@ public class DateTag extends InputTag implements DateTagDeclaration {
 
 //    ValueHolder holder = (ValueHolder) component;
 //    FacesContext context = FacesContext.getCurrentInstance();
-//    Converter converter = context.getApplication().createConverter("Date"); fixme
+//    Converter converter = context.getApplication().createConverter("Date"); FIXME
 //    holder.setConverter(converter);
 
   }
@@ -191,7 +191,7 @@ public class DateTag extends InputTag implements DateTagDeclaration {
 
 
     } else {
-      // add empty cell  // todo: remove if popup height calculation relays on content
+      // add empty cell  // TODO: remove if popup height calculation relays on content
       LOG.info("adding cell ");
       final UIComponent cell = ComponentUtil.createComponent(
           facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_PANEL);
@@ -227,7 +227,7 @@ public class DateTag extends InputTag implements DateTagDeclaration {
         facesContext, UIGraphic.COMPONENT_TYPE, RENDERER_TYPE_IMAGE);
     image.setRendered(true);
     image.setValue("image/date.gif");
-    image.getAttributes().put(ATTR_ALT, ""); //todo: i18n
+    image.getAttributes().put(ATTR_ALT, ""); //TODO: i18n
     image.getAttributes().put(ATTR_STYLE_CLASS, "tobago-input-picker");
     image.setId(idPrefix + "image");
 

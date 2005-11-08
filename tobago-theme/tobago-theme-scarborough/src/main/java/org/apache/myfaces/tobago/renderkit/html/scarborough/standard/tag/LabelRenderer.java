@@ -81,7 +81,7 @@ public class LabelRenderer extends RendererBase {
 
     String forValue = ComponentUtil.findClientIdFor(output, facesContext);
 
-    // todo move into labelLayout ?
+    // TODO move into labelLayout ?
     createClassAttribute(component);
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 

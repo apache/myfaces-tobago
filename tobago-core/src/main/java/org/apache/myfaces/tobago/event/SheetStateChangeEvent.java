@@ -31,11 +31,11 @@ public class SheetStateChangeEvent extends FacesEvent {
   }
 
   public boolean isAppropriateListener(FacesListener facesListener) {
-    return true;    //todo
+    return true;    //TODO
   }
 
   public void processListener(FacesListener facesListener) {
-    //todo
+    //TODO
   }
 
 }

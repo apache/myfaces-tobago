@@ -62,7 +62,7 @@ public class TemplateServlet extends HttpServlet {
       LOG.debug("requestUri = '" + requestUri + "'");
     }
 
-    if (requestUri.endsWith(".view")) { // todo: make .view configurable
+    if (requestUri.endsWith(".view")) { // TODO: make .view configurable
       String error = "cannot find URI in config file: '" + requestUri + "'";
       LOG.error(error);
       throw new ServletException(error);

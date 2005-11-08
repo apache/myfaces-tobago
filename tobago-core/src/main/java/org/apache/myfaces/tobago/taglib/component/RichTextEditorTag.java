@@ -27,7 +27,7 @@ import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 
 /**
- * todo: under construction
+ * TODO: under construction
  */
 public class RichTextEditorTag extends TextInputTag
     implements org.apache.myfaces.tobago.taglib.component.RichTextEditorTagDeclaration {
@@ -36,7 +36,7 @@ public class RichTextEditorTag extends TextInputTag
 
 
   public int doEndTag() throws JspException {
-    // todo: own layout for editor? 
+    // TODO: own layout for editor?
     int result = super.doEndTag();
     getComponentInstance().getFacets().remove(FACET_LAYOUT);
     return result;

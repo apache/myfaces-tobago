@@ -329,7 +329,7 @@ public class ToolBarRenderer extends RendererBase {
           label.getText() != null)
           || popupMenu != null) && !render1pxImage) {
         writer.writeAttribute("style", "padding-right: 3px;", null);
-        // todo: make this '3px' configurable
+        // TODO: make this '3px' configurable
       }
 
       String className = "tobago-image-default tobago-toolBar-button-image"
@@ -373,7 +373,7 @@ public class ToolBarRenderer extends RendererBase {
       writer.writeAttribute("align", "center", null);
       if (popupMenu != null) {
         writer.writeAttribute("style", "padding-right: 3px;", null);
-        // todo: make this '3px' configurable
+        // TODO: make this '3px' configurable
       }
 
       if (label.getText() != null) {

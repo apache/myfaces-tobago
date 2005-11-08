@@ -334,7 +334,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
   public void updateModel(FacesContext facesContext) {
     // nothig to update for tree's
-    // todo: updateing the model here and *NOT* in the decode phase
+    // TODO: updateing the model here and *NOT* in the decode phase
   }
 
 

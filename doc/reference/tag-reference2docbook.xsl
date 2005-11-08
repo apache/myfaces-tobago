@@ -153,7 +153,7 @@
         </xsl:if>
       </entry>
       <entry>
-        <!--<simplelist>--> <!--fixme: simplelist causes spacings in column, is tag needed? -->
+        <!--<simplelist>--> <!--FIXME: simplelist causes spacings in column, is tag needed? -->
         <xsl:apply-templates select="ui-attribute-type/class">
           <xsl:sort select="name"/>
         </xsl:apply-templates>

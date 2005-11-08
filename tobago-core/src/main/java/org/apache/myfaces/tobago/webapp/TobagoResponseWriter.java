@@ -180,7 +180,7 @@ public class TobagoResponseWriter extends ResponseWriter {
     } else {
       if (xml) {
         writer.write(XmlUtils.escape(text.toString()).toCharArray(), offset, length);
-// fixme: not nice:     XmlUtils.escape(text.toString()).toCharArray()
+// FIXME: not nice:     XmlUtils.escape(text.toString()).toCharArray()
       } else {
         textWriter.writeText(text, offset, length);
       }
@@ -276,7 +276,7 @@ public class TobagoResponseWriter extends ResponseWriter {
       }
       writer.write("</");
       writer.write(name);
-//      writer.write("\n>"); // fixme: this makes problems with Tidy
+//      writer.write("\n>"); // FIXME: this makes problems with Tidy
       writer.write(">");
     }
     startStillOpen = false;
@@ -418,7 +418,7 @@ public class TobagoResponseWriter extends ResponseWriter {
 
   public void writeURIAttribute(final String s, final Object obj, final String s1)
       throws IOException {
-    LOG.error("Not implemented yet!"); // fixme jsfbeta
+    LOG.error("Not implemented yet!"); // FIXME jsfbeta
   }
 
 // ///////////////////////////////////////////// bean getter + setter

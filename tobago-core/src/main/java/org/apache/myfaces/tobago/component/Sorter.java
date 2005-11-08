@@ -142,7 +142,7 @@ public class Sorter extends MethodBinding {
         if (value instanceof SortableByApplication) {
           ((SortableByApplication) value).sortBy(sortProperty);
         } else {
-          // todo: locale / comparator parameter?
+          // TODO: locale / comparator parameter?
           // don't compare numbers with Collator.getInstance() comparator
 //        Comparator comparator = Collator.getInstance();
           Comparator comparator = null;

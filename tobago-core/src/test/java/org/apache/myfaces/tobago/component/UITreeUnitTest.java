@@ -24,7 +24,7 @@ import junit.framework.TestCase;
 public class UITreeUnitTest extends TestCase {
 
   public void testShowIcons() {
-    // todo
+    // TODO
   }
 
 }

@@ -41,7 +41,7 @@ import javax.faces.component.UIComponent;
 /**
  * Renders a button element.
  */
-// fixme: bodyContent
+// FIXME: bodyContent
 @Tag(name = "button")
 @BodyContentDescription(anyTagOf = "facestag")
 public class ButtonTag extends CommandTag

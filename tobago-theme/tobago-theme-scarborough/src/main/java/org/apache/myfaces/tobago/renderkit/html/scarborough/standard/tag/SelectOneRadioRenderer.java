@@ -131,8 +131,8 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
           writer.startElement("td", null);
         }
 
-        // fixme: use created UIOutput Label
-        // fixme: see outcommented part
+        // FIXME: use created UIOutput Label
+        // FIXME: see outcommented part
         writer.startElement("label", null);
         writer.writeClassAttribute("tobago-label-default");
         writer.writeAttribute("for", id, null);

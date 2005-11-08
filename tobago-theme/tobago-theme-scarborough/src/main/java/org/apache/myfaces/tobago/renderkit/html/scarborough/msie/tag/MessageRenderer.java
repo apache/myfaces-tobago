@@ -63,7 +63,7 @@ public class MessageRenderer extends MessageRendererBase {
     }
 
     if (count != 0) {
-      return count * 20; // fixme: depends on theme
+      return count * 20; // FIXME: depends on theme
     } else {
       return 1;
     }

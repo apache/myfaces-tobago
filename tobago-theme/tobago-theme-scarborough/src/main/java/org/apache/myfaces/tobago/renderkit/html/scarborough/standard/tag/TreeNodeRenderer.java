@@ -95,7 +95,7 @@ public class TreeNodeRenderer extends RendererBase {
     }
 
     // link
-    // fixme: this is equal to the CommandRendererBase, why not use that code?
+    // FIXME: this is equal to the CommandRendererBase, why not use that code?
     String actionId = ComponentUtil.findPage(component).getActionId();
     if (LOG.isDebugEnabled()) {
       LOG.debug("actionId = '" + actionId + "'");
@@ -111,7 +111,7 @@ public class TreeNodeRenderer extends RendererBase {
         UIParameter parameter = ensureTreeNodeParameter(treeNodeCommand);
         parameter.setValue(node.getId());
 //        LOG.error("no longer supported: treeNodeCommand.fireActionEvent(facesContext));");
-//        treeNodeCommand.fireActionEvent(facesContext); // fixme jsfbeta
+//        treeNodeCommand.fireActionEvent(facesContext); // FIXME jsfbeta
 //        component.queueEvent(new ActionEvent(component));
         treeNodeCommand.queueEvent(new ActionEvent(treeNodeCommand));
       }

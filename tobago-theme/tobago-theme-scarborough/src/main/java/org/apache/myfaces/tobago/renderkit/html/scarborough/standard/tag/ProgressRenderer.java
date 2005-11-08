@@ -73,7 +73,7 @@ public class ProgressRenderer extends RendererBase {
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement("span", null);
-    // todo: use tobago standard class names
+    // TODO: use tobago standard class names
     writer.writeClassAttribute("tobago-progress");
     writer.writeAttribute("title", title, null);
 

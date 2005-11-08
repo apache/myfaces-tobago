@@ -93,7 +93,7 @@ public class HtmlUtils {
     }
   }
 
-  // fixme: is this longer needed?
+  // FIXME: is this longer needed?
   public static String generateUrl(FacesContext facesContext, String url) {
     String result;
     Application application = facesContext.getApplication();

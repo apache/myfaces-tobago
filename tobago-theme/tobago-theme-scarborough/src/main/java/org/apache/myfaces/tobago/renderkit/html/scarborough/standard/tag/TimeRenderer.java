@@ -137,7 +137,7 @@ public class TimeRenderer extends InRendererBase{
     writer.writeClassAttribute("tobago-time-inc-image"
         + (hasSeconds ? " tobago-time-image-seconds" : ""));
     writer.writeAttribute("src", ResourceManagerUtil.getImageWithPath(facesContext, imageSrc), true);
-    writer.writeAttribute("alt", "", false); // todo: tip
+    writer.writeAttribute("alt", "", false); // TODO: tip
 
     if (!ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED)) {
       writer.writeAttribute("onmouseover",
@@ -157,7 +157,7 @@ public class TimeRenderer extends InRendererBase{
     writer.writeClassAttribute("tobago-time-dec-image"
         + (hasSeconds ? " tobago-time-image-seconds" : ""));
     writer.writeAttribute("src", ResourceManagerUtil.getImageWithPath(facesContext, imageSrc), true);
-    writer.writeAttribute("alt", "", false); // todo: tip    
+    writer.writeAttribute("alt", "", false); // TODO: tip
     if (!ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED)) {
       writer.writeAttribute("onmouseover",
           "tobagoImageMouseover('" + imageId + "')", null);

@@ -298,7 +298,7 @@ public class ComponentUtil {
     return false;
   }
 
-  // todo This should not be neseccary, but UIComponentBase.getRenderer() is protected
+  // TODO This should not be neseccary, but UIComponentBase.getRenderer() is protected
   public static RendererBase getRenderer(FacesContext facesContext, UIComponent component) {
     return getRenderer(facesContext, component.getFamily(), component.getRendererType());
 
@@ -858,7 +858,7 @@ public class ComponentUtil {
   }
 
   public static void setValueBinding(UIComponent component, String name, String state) {
-    // todo: check, if it is an writeable object
+    // TODO: check, if it is an writeable object
     if (state != null && UIComponentTag.isValueReference(state)) {
       ValueBinding valueBinding = createValueBinding(state);
       component.setValueBinding(name, valueBinding);

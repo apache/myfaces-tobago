@@ -42,7 +42,7 @@ public class VariableResolverImpl extends VariableResolver {
       throws EvaluationException {
 
     if ("user".equals(name)) {
-      // todo: optimize me: put it in request?
+      // TODO: optimize me: put it in request?
       if (LOG.isDebugEnabled()) {
         LOG.debug("resolving: " + name);
       }

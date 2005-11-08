@@ -149,7 +149,7 @@ public final class HtmlWriterUtil {
           flushBuffer();
 
           out.write('&');
-//          fixme? write(String) sets the startStillOpen=false
+//          FIXME? write(String) sets the startStillOpen=false
 //          out.write(sISO8859_1_Entities[ch - 0xA0]);
           for (char c : sISO8859_1_Entities[ch - 0xA0].toCharArray()) {
             out.write(c);

@@ -26,8 +26,8 @@
     </f:facet>
 
     <%
-      // fixme: this hotfix ensures that, "overviewNavigation" is available
-      // fixme: for JSTL-Tags <c:if>
+      // FIXME: this hotfix ensures that, "overviewNavigation" is available
+      // FIXME: for JSTL-Tags <c:if>
       FacesContext facesContext = FacesContext.getCurrentInstance();
       facesContext.getApplication().getVariableResolver()
           .resolveVariable(facesContext, "overviewNavigation");

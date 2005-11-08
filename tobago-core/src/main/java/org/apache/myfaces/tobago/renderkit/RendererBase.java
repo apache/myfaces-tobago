@@ -43,7 +43,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-// todo: in java 1.5 use: import static org.apache.myfaces.tobago.TobagoConstants.*;
+// TODO: in java 1.5 use: import static org.apache.myfaces.tobago.TobagoConstants.*;
 public abstract class RendererBase
     extends Renderer implements TobagoRenderer {
 
@@ -76,7 +76,7 @@ public abstract class RendererBase
       LOG.debug("*** begin    " + component);
     }
     try {
-      // todo: this is HTML move in Layout
+      // TODO: this is HTML move in Layout
 
 //      if (! (component instanceof UIPage)) {
 //        LayoutManager layoutManager = getLayoutManager(facesContext, component);
@@ -163,7 +163,7 @@ public abstract class RendererBase
   public void decode(FacesContext facesContext, UIComponent component) {
     // nothing to do
 
-    // fixme later:
+    // FIXME later:
     if (component instanceof UIInput) {
       LOG.warn(
           "decode() should be overwritten! Renderer: " +
@@ -178,12 +178,12 @@ public abstract class RendererBase
     if (LOG.isDebugEnabled()) {
       LOG.debug("rendererType = '" + rendererType + "'");
     }
-    if ("javax.faces.Text".equals(rendererType)) { // todo: find a better way
+    if ("javax.faces.Text".equals(rendererType)) { // TODO: find a better way
       name = RENDERER_TYPE_OUT;
     } else {
       name = rendererType;
     }
-    if (name.startsWith("javax.faces.")) { // fixme: this is a hotfix from jsf1.0beta to jsf1.0fr
+    if (name.startsWith("javax.faces.")) { // FIXME: this is a hotfix from jsf1.0beta to jsf1.0fr
       LOG.warn("patching renderer from " + name);
       name = name.substring("javax.faces.".length());
       LOG.warn("patching renderer to   " + name);

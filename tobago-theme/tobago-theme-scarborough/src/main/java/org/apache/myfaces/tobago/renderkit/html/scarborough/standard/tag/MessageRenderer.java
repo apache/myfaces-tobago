@@ -67,7 +67,7 @@ public class MessageRenderer extends MessageRendererBase {
       UIComponent uiComponent) throws IOException {
 
 
-    // fixme: must be refactored! Bitte daran denken die msie version auch umzubauen!!!
+    // FIXME: must be refactored! Bitte daran denken die msie version auch umzubauen!!!
 
     UIMessage component = (UIMessage) uiComponent;
 

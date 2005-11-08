@@ -127,7 +127,7 @@ public class SheetRenderer extends RendererBase
     if (sheetHeightString != null) {
       sheetHeight = Integer.parseInt(sheetHeightString.replaceAll("\\D", ""));
     } else {
-      // fixme: nullpointer if height not defined
+      // FIXME: nullpointer if height not defined
       LOG.error("no height in parent container, setting to 100");
       sheetHeight = 100;
     }
@@ -662,7 +662,7 @@ public class SheetRenderer extends RendererBase
     link = createPagingCommand(application, command, disabled, pager);
 
 //    image = (UIGraphic) application.createComponent(UIGraphic.COMPONENT_TYPE);
-//    image.setRendererType("Image"); //fixme: use constant ?
+//    image.setRendererType("Image"); //FIXME: use constant ?
 //    image.setRendered(true);
 //    image.getAttributes().put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
 //    if (disabled) {

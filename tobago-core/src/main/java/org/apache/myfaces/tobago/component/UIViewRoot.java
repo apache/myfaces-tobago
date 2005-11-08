@@ -88,7 +88,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
 //  Events are private member of UIViewRoot, so we have to copy anny code
 //  accessing them.
 //
-  // todo: remove if fixed in stable release!
+  // TODO: remove if fixed in stable release!
 
 
   public static final int ANY_PHASE_ORDINAL = PhaseId.ANY_PHASE.getOrdinal();

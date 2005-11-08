@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasWidth;
 /**
  * Renders a text editor.
  */
-// todo: switched off @Tag(name="richTextEditor")
+// TODO: switched off @Tag(name="richTextEditor")
 public interface RichTextEditorTagDeclaration extends TextInputTagDeclaration, HasIdBindingAndRendered, HasValue, HasLabelAndAccessKey, HasWidth {
   @TagAttribute @UIComponentTagAttribute(type="java.lang.Boolean")
   void setStatePreview(String statePreview);

@@ -219,7 +219,7 @@ function toggleSelect(node, treeHiddenId, uncheckedIcon, checkedIcon) {
         // actual node is not selected -> set selection
         if (treeNode.selectable.match(/^siblings/)) {
            // remove all nodes which are not siblings of actual node
-          // todo:
+          // TODO:
 
 
         } else {
@@ -318,7 +318,7 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
 	this.action = action;
 	this.icon = icon;
 	this.childNodes = [];
-// fixme: page:form
+// FIXME: page:form
 	this.onclick
 	  = mutable
       ? "storeMarker(this.parentNode, '" + treeHiddenId + "')"
@@ -383,7 +383,7 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
       str += '<a class="tree-item-label" href="' + this.action + '" id="'
         + this.id + '-anchor">' + this.label + '</a>';
     } else {
-    // todo: mozilla shoud use href="javascript:;" and ie href="#"
+    // TODO: mozilla shoud use href="javascript:;" and ie href="#"
       str += '<a class="tree-item-label" href="#"' //
         + ' onclick="' + this.onclick + '"'
         + ' onfocus="' + this.onfocus + '"'
@@ -545,7 +545,7 @@ function TreeFolder(label, id, hideIcons, hideJunctions, hideRootJunction,
         str += '<a class="tree-folder-label" href="' + this.action + '" id="'
         + this.id + '-anchor">' + this.label + '</a>';
       } else {
-    // todo: mozilla shoud use href="javascript:;" and ie href="#"
+    // TODO: mozilla shoud use href="javascript:;" and ie href="#"
         str += '<a class="tree-folder-label" href="#"'
             + ' onclick="' + this.onclick + '"'
             + ' onfocus="' + this.onfocus + '"'

@@ -54,7 +54,7 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered {
 // ----------------------------------------------------------- business methods
 
   public String getComponentType() {
-    // todo: implement uidata with overridden processUpdates to store state
+    // TODO: implement uidata with overridden processUpdates to store state
     return UIData.COMPONENT_TYPE;
   }
 
@@ -89,7 +89,7 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered {
     ComponentUtil.setStringProperty(data, ATTR_COLUMNS, columns);
     ComponentUtil.setStringProperty(data, ATTR_VALUE, value);
     ComponentUtil.setStringProperty(data, ATTR_FORCE_VERTICAL_SCROLLBAR, forceVerticalScrollbar);
-    // todo: works this? or use that: data.setVar(var);
+    // TODO: works this? or use that: data.setVar(var);
     ComponentUtil.setStringProperty(data, ATTR_VAR, var);
     data.getAttributes().put(ATTR_INNER_WIDTH, new Integer(-1));
     ComponentUtil.setValueBinding(component, ATTR_STATE, state);

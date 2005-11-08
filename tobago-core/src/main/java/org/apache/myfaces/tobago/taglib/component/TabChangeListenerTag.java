@@ -31,7 +31,7 @@ import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-// todo: maybe drop this tag and do that with an attribute in tabGroup
+// TODO: maybe drop this tag and do that with an attribute in tabGroup
 
 /**
  * Register an TabChangedListener instance on the UIComponent

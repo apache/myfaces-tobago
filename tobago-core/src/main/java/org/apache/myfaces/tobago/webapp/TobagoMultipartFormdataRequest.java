@@ -67,7 +67,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
       DiskFileUpload fileUpload = new DiskFileUpload();
       fileUpload.setSizeMax(1024 * 1024);
       fileUpload.setRepositoryPath(System.getProperty("java.io.tmpdir"));
-      // todo: make sizeMax and repositoryPath configurable
+      // TODO: make sizeMax and repositoryPath configurable
       List itemList;
       try {
         itemList = fileUpload.parseRequest(request);
@@ -97,7 +97,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
           if (inStock == null) {
             String[] values;
             try {
-              // Todo: enable configuration of  'accept-charset'
+              // TODO: enable configuration of  'accept-charset'
               values = new String[] {item.getString(FORM_ACCEPT_CHARSET)};
             } catch (UnsupportedEncodingException e) {
               LOG.error("Catched: " + e.getMessage(), e);
@@ -112,7 +112,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
               values[i] = oldValues[i];
             }
             try {
-              // Todo: enable configuration of  'accept-charset'
+              // TODO: enable configuration of  'accept-charset'
               values[i] = item.getString(FORM_ACCEPT_CHARSET);
             } catch (UnsupportedEncodingException e) {
               LOG.error("Catched: " + e.getMessage(), e);

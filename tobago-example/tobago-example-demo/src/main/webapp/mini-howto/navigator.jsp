@@ -25,7 +25,7 @@
     </f:facet>
 
     <%
-      // fixme: this hotfix ensures that, "miniHowtoNavigation" is available
+      // FIXME: this hotfix ensures that, "miniHowtoNavigation" is available
       // for JSTL-Tags
       FacesContext facesContext = FacesContext.getCurrentInstance();
       facesContext.getApplication().getVariableResolver()

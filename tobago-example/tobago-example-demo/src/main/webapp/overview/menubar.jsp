@@ -56,7 +56,7 @@
 
 <%--
             <tc:menuSeparator />
-fixme: this doesn't work
+FIXME: this doesn't work
             <tc:menuItem action="#{miniHowtoNavigation.currentPage}"
                 type="navigate" label="#{overviewBundle.miniHowto}" />
 --%>

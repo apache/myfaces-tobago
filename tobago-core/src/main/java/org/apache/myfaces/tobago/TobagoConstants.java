@@ -170,7 +170,7 @@ public final class TobagoConstants {
   public static final String COMMAND_TYPE_SUBMIT = "submit";
   public static final String COMMAND_TYPE_RESET = "reset";
   public static final String COMMAND_TYPE_NAVIGATE = "navigate";
-  // todo: find an abstract way, to avoid this
+  // TODO: find an abstract way, to avoid this
   public static final String COMMAND_TYPE_SCRIPT = "script";
 
   public static final String RENDERER_TYPE_BOX = "Box";

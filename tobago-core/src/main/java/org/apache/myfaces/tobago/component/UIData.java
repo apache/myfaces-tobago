@@ -53,7 +53,7 @@ public class UIData extends javax.faces.component.UIData {
 
   private List<Integer> widthList;
 
-  // todo: should be removed?
+  // TODO: should be removed?
   private Sorter sorter;
 
   private SheetState state;
@@ -364,7 +364,7 @@ public class UIData extends javax.faces.component.UIData {
     return columns;
   }
 
-  // todo: should be removed?
+  // TODO: should be removed?
   public Sorter getSorter() {
     if (sorter != null) {
       return sorter;

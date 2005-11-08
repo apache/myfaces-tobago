@@ -87,7 +87,7 @@ public class InRenderer extends InRendererBase{
     writer.writeAttribute("style", null, ATTR_STYLE);
     writer.writeComponentClass();
     if (onchange != null) {
-      // todo: create and use utility method to write attributes without quoting
+      // TODO: create and use utility method to write attributes without quoting
 //      writer.writeAttribute("onchange", onchange, null);
     }
     writer.endElement("input");

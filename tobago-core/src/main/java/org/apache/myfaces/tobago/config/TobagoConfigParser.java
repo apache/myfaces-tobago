@@ -74,7 +74,7 @@ public class TobagoConfigParser {
     return digester;
   }
 
-  // todo: make it runnable without config file, using defaults
+  // TODO: make it runnable without config file, using defaults
   private static void parse(ServletContext context, Digester digester)
       throws IOException, SAXException, FacesException {
 
@@ -104,6 +104,9 @@ public class TobagoConfigParser {
       LOG.debug("registering dtd: url=" + url);
     }
     if (null != url) {
+      digester.register(
+          "-//Atanion GmbH//DTD Tobago Config 1.0//EN",
+          url.toString());
       digester.register(
           "-//The Apache Software Foundation//DTD Tobago Config 1.0//EN",
           url.toString());

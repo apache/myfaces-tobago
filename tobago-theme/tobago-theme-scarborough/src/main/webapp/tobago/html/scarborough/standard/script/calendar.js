@@ -274,7 +274,7 @@ function tbgSetTimeInputValue(input, value) {
   if (input.parentNode.parentNode.hourMode) {
     if (value < 0) {
       value = 23;
-    } else if (value > 23) { // todo: 12/24 hour mode ?
+    } else if (value > 23) { // TODO: 12/24 hour mode ?
       value = 0;
     }
   } else {

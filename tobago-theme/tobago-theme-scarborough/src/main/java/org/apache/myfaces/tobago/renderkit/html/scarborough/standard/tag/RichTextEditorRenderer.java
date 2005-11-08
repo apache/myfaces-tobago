@@ -40,7 +40,7 @@ import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-/** todo: under construction */
+/** TODO: under construction */
 public class RichTextEditorRenderer extends InputRendererBase {
 
 // ///////////////////////////////////////////// constant
@@ -72,7 +72,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     try {
       LOG.warn("richtext switched off, because of dependencies");
       return content;
-//  fixme: check dependencies
+//  FIXME: check dependencies
 //      return WikiParser.toHtml(content);
     } catch (Exception e) {
       LOG.error("failed to parser wiki markup", e);
@@ -90,7 +90,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
 
     boolean previewState
         = ComponentUtil.getBooleanAttribute(component, ATTR_STATE_PREVIEW);
-    // fixme: remove this when i18n is ok
+    // FIXME: remove this when i18n is ok
 
     String clientId = component.getClientId(facesContext);
 

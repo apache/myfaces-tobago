@@ -150,13 +150,13 @@ public class UIPage extends UIForm {
     if (LOG.isDebugEnabled()) {
       LOG.debug("actionId = '" + actionId + "'");
     }
-    if (actionId == null) { // todo: check why this is needed for dateControl
+    if (actionId == null) { // TODO: check why this is needed for dateControl
       return;
     }
 
     UIComponent command = findComponent(actionId);
 
-    // fixme: hotfix for UICommand inside of a sheet.
+    // FIXME: hotfix for UICommand inside of a sheet.
     while (command == null && actionId.indexOf(':') != -1) {
       actionId = StringUtils.substring(actionId, 0, actionId.lastIndexOf(':'));
       command = findComponent(actionId);

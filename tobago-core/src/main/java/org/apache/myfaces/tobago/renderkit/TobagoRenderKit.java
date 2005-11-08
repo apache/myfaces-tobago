@@ -49,7 +49,7 @@ public class TobagoRenderKit extends RenderKit {
 
   private ResourceManager resources;
 
-  // fixme: use family
+  // FIXME: use family
   public Renderer getRenderer(String family, String rendererType) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("family = '" + family + "'");
@@ -91,7 +91,7 @@ public class TobagoRenderKit extends RenderKit {
   }
 
 
-// ///////////////////////////////////////////// todo
+// ///////////////////////////////////////////// TODO
 
   public void addRenderer(String family, String rendererType, Renderer renderer) {
 //    synchronized(renderers) {
@@ -103,20 +103,20 @@ public class TobagoRenderKit extends RenderKit {
     }
     LOG.error(
         "This method isn't implemented yet, and should not be called: "
-        + new Exception().getStackTrace()[0].getMethodName()); //fixme jsf1.0
+        + new Exception().getStackTrace()[0].getMethodName()); //FIXME jsf1.0
   }
 
   public ResponseStateManager getResponseStateManager() {
     LOG.error(
         "This method isn't implemented yet, and should not be called: "
-        + new Exception().getStackTrace()[0].getMethodName()); //fixme jsfbeta
+        + new Exception().getStackTrace()[0].getMethodName()); //FIXME jsfbeta
     return null;
   }
 
   public ResponseStream createResponseStream(OutputStream outputstream) {
     LOG.error(
         "This method isn't implemented yet, and should not be called: "
-        + new Exception().getStackTrace()[0].getMethodName()); //fixme jsfbeta
+        + new Exception().getStackTrace()[0].getMethodName()); //FIXME jsfbeta
     return null;
   }
 }

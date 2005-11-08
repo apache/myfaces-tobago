@@ -34,7 +34,7 @@ public class ConstantMethodBinding
     this.outcome = outcome;
   }
 
-  // todo: check if needed, in the moment this is needed for MyFaces state saving 
+  // TODO: check if needed, in the moment this is needed for MyFaces state saving
   public ConstantMethodBinding() {
   }
 

@@ -88,7 +88,7 @@ public class BuilderModel {
         source = IOUtils.toString(stream);
       } catch (IOException e) {
         LOG.error("", e);
-        return "error"; // todo: error message
+        return "error"; // TODO: error message
       } finally {
         IOUtils.closeQuietly(stream);
       }
@@ -108,11 +108,11 @@ public class BuilderModel {
 
       String realPath = servletContext.getRealPath(page);
       try {
-        // todo: use IOUtils.write when commons-io 1.1 is released
+        // TODO: use IOUtils.write when commons-io 1.1 is released
         FileUtils.writeStringToFile(new File(realPath), source, System.getProperty("file.encoding"));
       } catch (IOException e) {
         LOG.error("", e);
-        return "error"; // todo: error message
+        return "error"; // TODO: error message
       }
 
       return "viewSource";

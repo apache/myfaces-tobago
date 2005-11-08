@@ -115,7 +115,7 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
   }
 
   public void testComponent() throws JspException {
-//    for (int i = 0; i < componentTagList.length; i++) { todo
+//    for (int i = 0; i < componentTagList.length; i++) { TODO
     for (int i = 0; i < 1; i++) {
       UIComponentTag tag = componentTagList[i];
       LOG.info("testing tag: " + tag.getClass().getName());

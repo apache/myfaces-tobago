@@ -62,7 +62,7 @@ public class PageRenderer extends PageRendererBase {
   private static final String LOOSE =
       "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"" +
       /*" \"http://www.w3.org/TR/html4/loose.dtd\*/">";
-  // todo: this is commented, because the some pages in IE and mozilla
+  // TODO: this is commented, because the some pages in IE and mozilla
   // does work properly with it:
   // tobago-demo: sometimes the body has not height=100% in mozilla.
 
@@ -245,7 +245,7 @@ public class PageRenderer extends PageRendererBase {
     writer.writeIdAttribute(page.getFormId(facesContext));
     writer.writeAttribute("method", null, ATTR_METHOD);
     writer.writeAttribute("enctype", null, ATTR_ENCTYPE);
-    // Todo: enable configuration of  'accept-charset'
+    // TODO: enable configuration of  'accept-charset'
     writer.writeAttribute("accept-charset", FORM_ACCEPT_CHARSET, null);
 
     writer.startElement("input", null);
@@ -257,7 +257,7 @@ public class PageRenderer extends PageRendererBase {
     writer.writeAttribute("value", "", null);
     writer.endElement("input");
 
-// todo: this is needed for the "BACK-BUTTON-PROBLEM"
+// TODO: this is needed for the "BACK-BUTTON-PROBLEM"
 // but may no longer needed
 /*
     if (ViewHandlerImpl.USE_VIEW_MAP) {

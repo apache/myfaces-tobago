@@ -42,7 +42,7 @@ public class BoxRenderer extends BoxRendererBase {
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
-    // todo: move fix style attributes to style.css (border, padding, align, etc)
+    // TODO: move fix style attributes to style.css (border, padding, align, etc)
 
     writer.startElement("table", component);
     writer.writeAttribute("style", null, ATTR_STYLE);

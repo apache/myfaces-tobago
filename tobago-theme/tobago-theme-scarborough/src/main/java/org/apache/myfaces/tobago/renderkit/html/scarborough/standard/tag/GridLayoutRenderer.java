@@ -60,7 +60,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     Dimension dimension = null;
 
     int height = getFixedHeight(facesContext, component);
-    int width = -1; // todo. implement getFixedWidth
+    int width = -1; // TODO. implement getFixedWidth
 
 
 

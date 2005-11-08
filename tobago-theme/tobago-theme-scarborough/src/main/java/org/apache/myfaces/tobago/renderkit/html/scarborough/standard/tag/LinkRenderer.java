@@ -106,7 +106,7 @@ public class LinkRenderer extends CommandRendererBase{
       writer.startElement("img", null);
       writer.writeAttribute("src", image, null);
       writer.writeAttribute("alt", "", null);
-      writer.writeAttribute("border", "0", null); // todo: is border=0 setting via style possible?
+      writer.writeAttribute("border", "0", null); // TODO: is border=0 setting via style possible?
       writer.endElement("img");
     }
 

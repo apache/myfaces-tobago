@@ -87,7 +87,7 @@
         <artifactId>taglist-maven-plugin</artifactId>
         <version>2.0-beta-1</version>
         <configuration>
-          <tags>TODO, @todo, FIXME, @deprecated</tags>
+          <tags>TODO, @todo, FIXME, XXX, @deprecated</tags>
         </configuration>
       </plugin>
       <!-- wait until checkstyle 4.0 is released

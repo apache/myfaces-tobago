@@ -43,7 +43,7 @@
 
       <%--
                   <tc:menuSeparator />
-      fixme: this doesn't work
+      FIXME: this doesn't work
                   <tc:menuItem action="/overview/intro.view" type="navigate"
                                    label="#{miniHowtoBundle.overview}" />
       --%>

@@ -141,7 +141,7 @@ public class ViewHandlerImpl extends ViewHandler {
       }
     } catch (Exception e) {
 //      if (contentType.indexOf("fo") > -1) {
-      // fixme ignoring this for OutputStream for pdf generation
+      // FIXME ignoring this for OutputStream for pdf generation
 //        LOG.info("ignoring Exception for FO/PDF generation");
 //      } else {
       LOG.error("requestUri '" + requestUri + "'", e);
@@ -160,7 +160,7 @@ public class ViewHandlerImpl extends ViewHandler {
       LOG.debug("restore view with viewId:             '" + viewId + "'");
     }
     // this is only needed in the first request, the later will be handled by faces
-    // todo: maybe find a way to make this unneeded
+    // TODO: maybe find a way to make this unneeded
     handleEncoding(facesContext);
     UIViewRoot viewRoot = base.restoreView(facesContext, viewId);
     ensureClientProperties(facesContext, viewRoot);
