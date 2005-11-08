@@ -64,6 +64,8 @@ If you want your header and sidebar rendered without writing dublicate code, you
           <offline/>
         </settings>
         ]]></source>
+        <p>or use the mvn -o switch</p>
+
       </answer>
     </faq>
   </part>
