@@ -12,6 +12,7 @@
   <artifactId>tobago-example</artifactId>
   <modules>
     <module>tobago-example-addressbook</module>
+    <module>tobago-example-blank</module>
     <module>tobago-example-demo</module>
     <module>tobago-example-foreach</module>
   </modules>
