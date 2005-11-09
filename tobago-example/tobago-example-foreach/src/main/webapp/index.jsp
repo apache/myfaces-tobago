@@ -13,6 +13,4 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%
-  response.sendRedirect(response.encodeRedirectURL("faces/foreach.jsp"));
-%>
+<jsp:forward page="faces/foreach.jsp" />;

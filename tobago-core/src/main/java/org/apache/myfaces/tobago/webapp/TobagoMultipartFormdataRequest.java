@@ -144,11 +144,9 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
 
 
   public String getParameter(String key) {
-    String parameter;
+    String parameter = null;
     String[] values = (String[]) parameters.get(key);
-    if (values == null) {
-      parameter = null;
-    } else {
+    if (values != null) {
       parameter = values[0];
     }
     return parameter;

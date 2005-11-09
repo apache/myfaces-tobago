@@ -57,11 +57,6 @@ public class UITreeListbox extends UITree implements LayoutProvider{
 
   private List<UITreeListboxBox> boxes;
 
-  public UITreeListbox() {
-    super();
-//    getAttributes().put(TobagoConstants.ATTR_SELECTABLE, "single");
-  }
-// ----------------------------------------------------------- business methods
 
 
   protected String nodeStateId(FacesContext facesContext, UITreeNode node) {
@@ -243,11 +238,9 @@ public class UITreeListbox extends UITree implements LayoutProvider{
   }
 
   public UITreeNode getSelectedNode(int level) {
-    UITreeNode selectedComponent;
+    UITreeNode selectedComponent = null;
     if (selectionPath.size() > level + 1) {
       selectedComponent = selectionPath.get(level + 1);
-    } else {
-      selectedComponent = null;
     }
     return selectedComponent;
   }

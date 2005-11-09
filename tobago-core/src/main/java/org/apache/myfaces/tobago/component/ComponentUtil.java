@@ -156,15 +156,9 @@ public class ComponentUtil {
   }
 
   public static UIComponent findFor(UIComponent component) {
-    String forValue
-        = (String) component.getAttributes().get(ATTR_FOR);
+    String forValue = (String) component.getAttributes().get(ATTR_FOR);
     if (forValue == null) {
-      UIComponent parent = component.getParent();
-      if (parent != null) {
-        return parent;
-      } else {
-        return null;
-      }
+      return component.getParent();
     }
     return component.findComponent(forValue);
   }

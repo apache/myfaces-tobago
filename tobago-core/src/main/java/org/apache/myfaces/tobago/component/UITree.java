@@ -168,13 +168,12 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
         facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_TOOL_BAR);
     toolbar.getAttributes().put(ATTR_ICON_SIZE, ToolBarTag.ICON_SMALL);
     toolbar.getAttributes().put(ATTR_LABEL_POSITION, ToolBarTag.LABEL_OFF);
-    ActionListener handler;
+    ActionListener handler = null;
     ActionListener[] handlers = getActionListeners();
     if (handlers != null && handlers.length > 0) {
       handler = handlers[0];
     } else {
       LOG.error("No actionListener found in tree, so tree editing will not work!");
-      handler = null;
     }
 
     UITree.Command[] commands = getCommands();

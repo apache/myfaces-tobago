@@ -391,13 +391,13 @@ public class UIData extends javax.faces.component.UIData {
 
   public boolean isShowHeader() {
     if (showHeaderSet) {
-        return (showHeader);
+        return showHeader;
     }
     ValueBinding vb = getValueBinding(ATTR_SHOW_HEADER);
     if (vb != null) {
         return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
     } else {
-        return (this.showHeader);
+        return showHeader;
     }
   }
 
