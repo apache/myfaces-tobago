@@ -41,8 +41,16 @@ public class Address {
   private String mobile;
   private String fax;
   private EmailAddress email;
+  private String icq;
+  private String homePage;
   private Date dayOfBirth;
   private String note;
+
+  private String company;
+  private String jobTitle;
+  private String jobPhone;
+  private String jobEmail;
+  private String jobHomePage;
 
   public Address() {
     LOG.debug("Creating new Address");
@@ -161,6 +169,22 @@ public class Address {
     this.email = email;
   }
 
+  public String getIcq() {
+    return icq;
+  }
+
+  public void setIcq(String icq) {
+    this.icq = icq;
+  }
+
+  public String getHomePage() {
+    return homePage;
+  }
+
+  public void setHomePage(String homePage) {
+    this.homePage = homePage;
+  }
+
   public Date getDayOfBirth() {
     return dayOfBirth;
   }
@@ -175,6 +199,46 @@ public class Address {
 
   public void setNote(String note) {
     this.note = note;
+  }
+
+  public String getCompany() {
+    return company;
+  }
+
+  public void setCompany(String company) {
+    this.company = company;
+  }
+
+  public String getJobTitle() {
+    return jobTitle;
+  }
+
+  public void setJobTitle(String jobTitle) {
+    this.jobTitle = jobTitle;
+  }
+
+  public String getJobPhone() {
+    return jobPhone;
+  }
+
+  public void setJobPhone(String jobPhone) {
+    this.jobPhone = jobPhone;
+  }
+
+  public String getJobEmail() {
+    return jobEmail;
+  }
+
+  public void setJobEmail(String jobEmail) {
+    this.jobEmail = jobEmail;
+  }
+
+  public String getJobHomePage() {
+    return jobHomePage;
+  }
+
+  public void setJobHomePage(String jobHomePage) {
+    this.jobHomePage = jobHomePage;
   }
 
   public String toString() {

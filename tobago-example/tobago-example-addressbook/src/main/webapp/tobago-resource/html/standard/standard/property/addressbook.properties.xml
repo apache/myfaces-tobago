@@ -24,6 +24,9 @@
 <!-- Editor -->
   <entry key="editorTitle">Addressbook Editor</entry>
   <entry key="editorBoxTitle">Address Editor</entry>
+  <entry key="editorTabPersonal">Personal</entry>
+  <entry key="editorTabBusiness">Business</entry>
+  <entry key="editorTabMisc">Misc</entry>
   <entry key="editorFirstName">First Name:</entry>
   <entry key="editorLastName">Last Name:</entry>
   <entry key="editorStreet">Street / No.:</entry>
@@ -33,7 +36,11 @@
   <entry key="editorMobile">Mobile:</entry>
   <entry key="editorFax">Fax:</entry>
   <entry key="editorEmail">eMail:</entry>
+  <entry key="editorIcq">ICQ:</entry>
+  <entry key="editorHomepage">Homepage:</entry>
   <entry key="editorBirthday">Day of Birth:</entry>
+  <entry key="editorJobCompany">Company:</entry>
+  <entry key="editorJobTitle">Job Title:</entry>
   <entry key="editorNote">Note:</entry>
   <entry key="editorStore">_Store</entry>
   <entry key="editorCancel">_Cancel</entry>

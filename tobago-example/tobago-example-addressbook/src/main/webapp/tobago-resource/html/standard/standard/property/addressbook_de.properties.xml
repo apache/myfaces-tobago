@@ -22,32 +22,38 @@
 
 <properties>
 
-<!-- Editor -->
+  <!-- Editor -->
 
-<entry key="editorTitle">Adressbuch Editor</entry>
-<entry key="editorBoxTitle">Adressbuch Editor</entry>
-<entry key="editorFirstName">Vorname:</entry>
-<entry key="editorLastName">Nachname:</entry>
-<entry key="editorStreet">Straße / Nr.:</entry>
-<entry key="editorCity">PLZ / Ort:</entry>
-<entry key="editorCountry">Land:</entry>
-<entry key="editorPhone">Telefon:</entry>
-<entry key="editorMobile">Handy:</entry>
-<entry key="editorFax">Fax:</entry>
-<entry key="editorEmail">eMail:</entry>
-<entry key="editorBirthday">Geburtstag:</entry>
-<entry key="editorNote">Bemerkungen:</entry>
-<entry key="editorStore">_Speichern</entry>
-<entry key="editorCancel">_Abbrechen</entry>
+  <entry key="editorTitle">Adressbuch Editor</entry>
+  <entry key="editorBoxTitle">Adressbuch Editor</entry>
+  <entry key="editorTabPersonal">Persönlich</entry>
+  <entry key="editorTabBusiness">Geschäftlich</entry>
+  <entry key="editorTabMisc">Weiteres</entry>  
+  <entry key="editorFirstName">Vorname:</entry>
+  <entry key="editorLastName">Nachname:</entry>
+  <entry key="editorStreet">Straße / Nr.:</entry>
+  <entry key="editorCity">PLZ / Ort:</entry>
+  <entry key="editorCountry">Land:</entry>
+  <entry key="editorPhone">Telefon:</entry>
+  <entry key="editorMobile">Handy:</entry>
+  <entry key="editorFax">Fax:</entry>
+  <entry key="editorEmail">eMail:</entry>
+  <entry key="editorBirthday">Geburtstag:</entry>
+  <entry key="editorJobCompany">Firma:</entry>
+  <entry key="editorJobTitle">Job Titel:</entry>
+  <entry key="editorNote">Bemerkungen:</entry>
+  <entry key="editorStore">_Speichern</entry>
+  <entry key="editorCancel">_Abbrechen</entry>
 
-<!-- List -->
+  <!-- List -->
 
-<entry key="listPageTitle">Adressen</entry>
-<entry key="listBoxTitle">Adressen Editor</entry>
-<entry key="listNew">Neu</entry>
-<entry key="listEdit">Ändern</entry>
-<entry key="listDelete">Löschen</entry>
-<entry key="listFirstName">Vorname</entry>
-<entry key="listLastName">Nachname</entry>
-<entry key="listDeleteConfirmation">Wollen Sie diesen Eintrag wirklich löschen?</entry>
+  <entry key="listPageTitle">Adressen</entry>
+  <entry key="listBoxTitle">Adressen Editor</entry>
+  <entry key="listNew">Neu</entry>
+  <entry key="listEdit">Ändern</entry>
+  <entry key="listDelete">Löschen</entry>
+  <entry key="listFirstName">Vorname</entry>
+  <entry key="listLastName">Nachname</entry>
+  <entry key="listDeleteConfirmation">Wollen Sie diesen Eintrag wirklich
+    löschen?</entry>
 </properties>
