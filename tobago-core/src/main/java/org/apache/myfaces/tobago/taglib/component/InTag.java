@@ -25,17 +25,25 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
+import javax.faces.webapp.UIComponentTag;
+import javax.faces.context.FacesContext;
+import javax.faces.el.MethodBinding;
+
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 public class InTag extends TextInputTag implements InTagDeclaration {
 
   private static final Log LOG = LogFactory.getLog(InTag.class);
 
   private String password;
+  private String suggestMethod;
 
   @Override
   public void release() {
     super.release();
     password = null;
+    suggestMethod = null;
   }
 
   @Override
@@ -48,6 +56,19 @@ public class InTag extends TextInputTag implements InTagDeclaration {
     }
 
     ComponentUtil.setBooleanProperty(component, ATTR_PASSWORD, password);
+    setSuggestMethodBinding(component, suggestMethod);
+  }
+
+  private void setSuggestMethodBinding(UIComponent component, String suggestMethod) {
+    if (suggestMethod != null) {
+      if (UIComponentTag.isValueReference(suggestMethod)) {
+        final MethodBinding methodBinding = FacesContext.getCurrentInstance().getApplication()
+            .createMethodBinding(suggestMethod, new Class[]{String.class});
+        component.getAttributes().put("suggestMethod", methodBinding);
+      } else {
+        component.getAttributes().put("suggestMethod", suggestMethod);
+      }
+    }
   }
 
   public String getPassword() {
@@ -56,5 +77,19 @@ public class InTag extends TextInputTag implements InTagDeclaration {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public String getSuggestMethod() {
+    return suggestMethod;
+  }
+
+  /**
+   *
+   * @param suggestMethod
+   */
+  @TagAttribute
+  @UIComponentTagAttribute( defaultValue = "none")
+  public void setSuggestMethod(String suggestMethod) {
+    this.suggestMethod = suggestMethod;
   }
 }

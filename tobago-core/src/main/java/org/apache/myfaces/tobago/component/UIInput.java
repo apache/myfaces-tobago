@@ -21,11 +21,16 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 
 import javax.faces.context.FacesContext;
+import javax.faces.component.UIComponent;
 import java.io.IOException;
+import java.util.Iterator;
 
-public class UIInput extends javax.faces.component.UIInput {
+public class UIInput extends javax.faces.component.UIInput implements AjaxComponent {
 
   private static final Log LOG = LogFactory.getLog(UIInput.class);
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Input";
@@ -58,4 +63,28 @@ public class UIInput extends javax.faces.component.UIInput {
     }
   }
 
+  public void encodeAjax(FacesContext facesContext) throws IOException {
+    AjaxUtils.encodeAjaxComponent(facesContext, this);
+  }
+
+  public void processAjax(FacesContext facesContext) throws IOException {
+    final String ajaxId = (String) facesContext.getExternalContext().
+        getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
+    if (ajaxId.equals(getClientId(facesContext))) {
+      encodeAjax(facesContext);
+    } else {final Iterator facetsAndChildren = getFacetsAndChildren();
+      while (facetsAndChildren.hasNext()) {
+        UIComponent child = (UIComponent) facetsAndChildren.next();
+        if (child instanceof AjaxComponent) {
+          ((AjaxComponent)child).processAjax(facesContext);
+        }
+        else {
+          AjaxUtils.processAjax(facesContext, child);
+        }
+        if (facesContext.getResponseComplete()) {
+          return;
+        }
+      }
+    }
+  }
 }

@@ -48,7 +48,8 @@ public class LoadBundleTag extends TagSupport implements HasVar {
   public int doStartTag() throws JspException {
     Map toStore = new BundleMapWrapper(basename);
     FacesContext.getCurrentInstance().getExternalContext()
-        .getRequestMap().put(var, toStore);
+        .getSessionMap().put(var, toStore);
+//        .getRequestMap().put(var, toStore);
 
     return EVAL_BODY_INCLUDE;
   }

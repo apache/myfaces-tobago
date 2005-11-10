@@ -40,7 +40,8 @@
             <tc:gridLayout />
           </f:facet>
           <tx:label value="#{overviewBundle.basic_textboxLabel}" tip="test">
-            <tc:in value="#{overviewController.basicInput}" />
+            <tc:in value="#{overviewController.basicInput}"
+              suggestMethod="#{overviewController.getInputSuggestItems}"/>
           </tx:label>
           <tc:date value="#{overviewController.basicDate}"
               label="#{overviewBundle.basic_dateLabel}">
@@ -51,7 +52,7 @@
         </tc:panel>
 
         <tx:textarea value="#{overviewController.basicArea}"
-          label="#{overviewBundle.basic_textareaLabel}" />
+          label="#{overviewBundle.basic_textareaLabel}" required="true"/>
       </tc:box>
 
   <%--row    --%>

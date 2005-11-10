@@ -20,18 +20,25 @@ var newWidth = 0;
 
 function initSheet(sheetId) {
   //PrintDebug("initSheet(" + sheetId +")");
+
+  // ToDo: find a better way to fix the problem
+  // IE needs this in case of ajax loading of style classes
+  var outherDiv = document.getElementById(sheetId + "_outer_div");
+  outherDiv.className = outherDiv.className;
+  outherDiv.innerHTML = outherDiv.innerHTML;
+
   var i = 0;
   var element = document.getElementById(sheetId + "_header_div");
   if (element) {
-    addEventListener(element, "mousemove", doResize);
-    addEventListener(element, "mouseup", endResize);
+    tbgAddEventListener(element, "mousemove", doResize);
+    tbgAddEventListener(element, "mouseup", endResize);
     element = document.getElementById(sheetId + "_data_div");
-    addEventListener(element, "scroll", doScroll);
+    tbgAddEventListener(element, "scroll", doScroll);
 	  var resizer = document.getElementById(sheetId + "_header_resizer_" + i++ );
 	  while (resizer) {
       if (resizer.className.match(/tobago-sheet-header-resize-cursor/)) {
-	      addEventListener(resizer, "click", stopEventPropagation);
-	      addEventListener(resizer, "mousedown", beginResize);
+	      tbgAddEventListener(resizer, "click", stopEventPropagation);
+	      tbgAddEventListener(resizer, "mousedown", beginResize);
       }
       resizer = document.getElementById(sheetId + "_header_resizer_" + i++ );
     }
@@ -61,7 +68,7 @@ function addSelectionListener(sheetId) {
     i++;
     while (row) {
 //       PrintDebug("rowId = " + row.id + "   next i=" + i);
-      addEventListener(row, "click", doSelection);
+      tbgAddEventListener(row, "click", doSelection);
       row = document.getElementById(sheetId + "_data_tr_" + i++ );
     }
     //PrintDebug("preSelected rows = " + document.getElementById(sheetId + "::selected").value);
@@ -549,9 +556,9 @@ function tobagoSheetEditPagingRow(span, commandId, onClickCommand, commandName) 
       input.name=hiddenId;
       input.className = "tobago-sheet-paging-input";
       input.onClickCommand = onClickCommand;
-      addEventListener(input, 'blur', delayedHideInput);
-      //addEventListener(input, 'keyup', keyUp);
-      addEventListener(input, 'keydown', keyEvent);
+      tbgAddEventListener(input, 'blur', delayedHideInput);
+      //tbgAddEventListener(input, 'keyup', keyUp);
+      tbgAddEventListener(input, 'keydown', keyEvent);
     }
     input.value=text.innerHTML;
     span.replaceChild(input, text);
@@ -606,4 +613,6 @@ function keyEvent(event) {
   }
 }
 
+// This MUST be the last line !
+Tobago.registerScript("/html/scarborough/standard/script/tobago-sheet.js");
 

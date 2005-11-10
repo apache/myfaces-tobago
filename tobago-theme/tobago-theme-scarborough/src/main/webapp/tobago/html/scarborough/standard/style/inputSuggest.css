@@ -1,0 +1,19 @@
+.ajaxPopup { 
+    position:absolute; width:250px; background-color:white;
+    border:1px solid #888; margin:0px; padding:0px;
+}
+.ajaxPopup li.selected {
+    background-color: #ffb;
+}
+.ajaxPopup ul {
+    list-style-type:none;margin:0px;padding:0px;
+}
+
+input.myFacesInputSuggestAjax{
+	background: url('throbber.gif') no-repeat 100% 2px;
+    background-color: white;
+}
+
+input.myFacesInputSuggestAjaxThrobbing{
+	background-position: 100% -18px;
+}

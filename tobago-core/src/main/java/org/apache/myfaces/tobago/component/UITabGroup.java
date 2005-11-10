@@ -24,6 +24,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.event.TabChangeListener;
+import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -31,8 +34,9 @@ import javax.faces.el.ValueBinding;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 
-public class UITabGroup extends UIPanel {
+public class UITabGroup extends UIPanel implements AjaxComponent {
 
 // ///////////////////////////////////////////// constant
 
@@ -207,6 +211,40 @@ public class UITabGroup extends UIPanel {
     renderedIndex = ((Integer)values[1]).intValue();
   }
 
+  public void encodeAjax(FacesContext facesContext) throws IOException {
+    ValueBinding stateBinding = getValueBinding(ATTR_STATE);
+    Object state
+        = stateBinding != null ? stateBinding.getValue(facesContext) : null;
+    if (state instanceof Integer) {
+      activeIndex = ((Integer) state).intValue();
+    } else if (state != null) {
+      LOG.warn("Illegal class in stateBinding: " + state.getClass().getName());
+    }
+
+    setRenderedIndex(activeIndex);
+    AjaxUtils.encodeAjaxComponent(facesContext, this);
+  }
+
+  public void processAjax(FacesContext facesContext) throws IOException {
+    final String ajaxId = (String) facesContext.getExternalContext().
+        getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
+    if (ajaxId.equals(getClientId(facesContext))) {
+      encodeAjax(facesContext);
+    } else {final Iterator facetsAndChildren = getFacetsAndChildren();
+      while (facetsAndChildren.hasNext()) {
+        UIComponent child = (UIComponent) facetsAndChildren.next();
+        if (child instanceof AjaxComponent) {
+          ((AjaxComponent)child).processAjax(facesContext);
+        }
+        else {
+          AjaxUtils.processAjax(facesContext, child);
+        }
+        if (facesContext.getResponseComplete()) {
+          return;
+        }
+      }
+    }
+  }
 
 // ///////////////////////////////////////////// bean getter + setter
 

@@ -192,7 +192,7 @@ function setUserAgent() {
   }
 }
 
-function addEventListener(element, event, myFunction) {
+function tbgAddEventListener(element, event, myFunction) {
   if (element.addEventListener) { // this is DOM2
      element.addEventListener(event, myFunction, false);
   }
@@ -201,7 +201,7 @@ function addEventListener(element, event, myFunction) {
   }
 }
 
-function removeEventListener(element, event, myFunction) {
+function tbgRemoveEventListener(element, event, myFunction) {
   if (element.removeEventListener) { // this is DOM2
     element.removeEventListener(event, myFunction, true);
   }

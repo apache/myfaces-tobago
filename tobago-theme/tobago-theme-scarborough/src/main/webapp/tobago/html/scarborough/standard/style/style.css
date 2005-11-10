@@ -630,6 +630,29 @@ div.tobago-richTextEditor-body {
 }
 
 
+.tobago-in-suggest-popup {
+  position:absolute;
+  overflow: hidden;
+  width:250px;
+  background-color:white;
+  border:1px solid #888;
+  margin:0px;
+  padding:0px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.tobago-in-suggest-popup li {  
+  white-space: nowrap;
+}
+.tobago-in-suggest-popup li.selected {
+    background-color: #ffb;
+}
+.tobago-in-suggest-popup ul {
+  list-style-type:none;
+  margin:0px;
+  padding:0px;
+}
+
 /* end --------------------------------------------------------------------- */
 
 .tobago-input-picker {

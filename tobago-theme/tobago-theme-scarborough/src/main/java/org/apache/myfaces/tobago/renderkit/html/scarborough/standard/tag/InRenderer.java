@@ -28,15 +28,23 @@ import org.apache.myfaces.tobago.renderkit.html.InRendererBase;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.application.ViewHandler;
 import javax.faces.component.UIInput;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
+import javax.faces.el.MethodBinding;
 import java.io.IOException;
 import java.util.Iterator;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import java.util.List;
 
-public class InRenderer extends InRendererBase{
+import static org.apache.myfaces.tobago.TobagoConstants.*;
+import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
+import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+
+public class InRenderer extends InRendererBase implements AjaxRenderer {
   private static final Log LOG = LogFactory.getLog(InRenderer.class);
 
 // ----------------------------------------------------------- business methods
@@ -86,6 +94,7 @@ public class InRenderer extends InRendererBase{
         ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED));
     writer.writeAttribute("style", null, ATTR_STYLE);
     writer.writeComponentClass();
+    writer.writeAttribute("autocomplete", "off", false);
     if (onchange != null) {
       // TODO: create and use utility method to write attributes without quoting
 //      writer.writeAttribute("onchange", onchange, null);
@@ -106,6 +115,114 @@ public class InRenderer extends InRendererBase{
         }
       }
     }
+
+    // input suggest
+    if (input.getAttributes().get("suggestMethod") != null) {
+      // Todo: check for valid binding
+
+      String popupId = id + SUBCOMPONENT_SEP + "ajaxPopup";
+      String viewId = facesContext.getViewRoot().getViewId();
+      ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
+      String actionURL = viewHandler.getActionURL(facesContext, viewId);
+
+//      final UIPage page = ComponentUtil.findPage(input);
+//      page.getScriptFiles().add("script/effects.js");
+//      page.getScriptFiles().add("script/dragdrop.js");
+//      page.getScriptFiles().add("script/controls.js");
+//      page.getScriptFiles().add("script/inputSuggest.js");
+
+      writer.startElement("div");
+//      writer.writeClassAttribute("ajaxPopup");
+      writer.writeClassAttribute("tobago-in-suggest-popup");
+      writer.writeIdAttribute(popupId);
+      writer.endElement("div");
+
+      final String[] scripts = new String[]{
+          "script/effects.js",
+          "script/dragdrop.js",
+          "script/controls.js",
+          "script/inputSuggest.js"
+      };
+      String function = "return entry";
+      if (facesContext.getApplication().getStateManager().isSavingStateInClient(facesContext)) {
+        function +=
+            "+'&jsf_tree_64='+encodeURIComponent($('jsf_tree_64').value)" +
+            "+'&jsf_state_64='+encodeURIComponent($('jsf_state_64').value)" +
+            "+'&jsf_viewid='+encodeURIComponent($('jsf_viewid').value)";
+      }
+
+      final String[] cmds = {
+          "new Ajax.MyFacesAutocompleter(",
+          "    '" + id + "',",
+          "    '" + popupId + "',",
+          "    '" + AjaxUtils.createUrl(facesContext, id) + "',",
+          "    { method:       'post',",
+          "      asynchronous: true,",
+          "      parameters: '',",
+          "      callback: function(element,entry) {" + function + ";}",
+          "    });"
+      };
+
+      HtmlRendererUtil.writeScriptLoader(facesContext, scripts, cmds);
+
+//      HtmlRendererUtil.startJavascript(writer);
+//
+//      writer.writeText("{\n", null);
+//      writer.writeText("  var suggestDiv = document.getElementById('" + popupId + "');\n", null);
+//      writer.writeText("  var suggestParent = suggestDiv.parentNode;\n", null);
+//      writer.writeText("  var bodyNode = document.getElementById('" + page.getClientId(facesContext) + "');\n", null);
+//      writer.writeText("  suggestParent.removeChild(suggestDiv);\n", null);
+//      writer.writeText("  bodyNode.appendChild(suggestDiv);\n", null);
+//      writer.writeText("}\n", null);
+//
+//      HtmlRendererUtil.endJavascript(writer);
+
+    }
+
   }
+
+  public void encodeAjax(FacesContext context, UIComponent uiComponent) throws IOException
+  {
+    AjaxUtils.checkParamValidity(context, uiComponent, UIInput.class);
+
+
+    UIInput input = (UIInput) uiComponent;
+
+    MethodBinding mb;
+    Object o = input.getAttributes().get("suggestMethod");
+    if (o instanceof MethodBinding) {
+      mb = (MethodBinding) o;
+    } else {
+      // should never occur
+      return;
+    }
+
+
+    int maxSuggestedCount = 25 ;//input.getMaxSuggestedItems()!=null
+//        ? input.getMaxSuggestedItems().intValue()
+//        : DEFAULT_MAX_SUGGESTED_ITEMS;
+
+    List suggesteds = (List) mb.invoke(context,new Object[]{
+        AjaxPhaseListener.getValueForComponent(context, uiComponent)});
+
+
+    StringBuffer buf = new StringBuffer();
+    buf.append("<ul>");
+
+    int suggestedCount=0;
+    for (Iterator i = suggesteds.iterator() ; i.hasNext() ; suggestedCount++)
+    {
+      if( suggestedCount > maxSuggestedCount )
+        break;
+
+      buf.append("<li>");
+      buf.append(i.next().toString());
+      buf.append("</li>");
+    }
+    buf.append("</ul>");
+
+    context.getResponseWriter().write(buf.toString());
+  }
+
 }
 

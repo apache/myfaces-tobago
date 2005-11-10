@@ -34,5 +34,5 @@ public interface InTagDeclaration
     extends TextInputTagDeclaration, HasValue, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasWidth, HasOnchangeListener,
     IsInline, IsFocus, IsRequired, HasTip, HasLabelAndAccessKey,
-    IsPassword {
+    IsPassword, HasSuggestMethod {
 }

@@ -24,6 +24,8 @@ import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -382,6 +384,53 @@ public final class HtmlRendererUtil {
   public static void endJavascript(ResponseWriter writer) throws IOException {
     writer.writeText("\n// -->\n", null);
     writer.endElement("script");
+  }
+
+  public static void writeScriptLoader(FacesContext facesContext, String sctipt)
+      throws IOException {
+    writeScriptLoader(facesContext, new String[] {sctipt}, null);
+  }
+
+  public static void writeScriptLoader(
+      FacesContext facesContext, String[] scripts, String[] afterLoadCmds)
+      throws IOException {
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) facesContext.getResponseWriter();
+    startJavascript(writer);
+
+    String allScripts
+        = ResourceManagerUtil.getScriptsAsJSArray(facesContext, scripts);
+
+    writer.writeText("new Tobago.ScriptLoader(\n    ", null);
+    writer.writeText(allScripts, null);
+    writer.writeText(",\n    function() {", null);
+    if (afterLoadCmds != null && afterLoadCmds.length > 0) {
+      writer.writeText("eval(\n", null);
+      for (int i = 0; i < afterLoadCmds.length; i++) {
+        writer.writeText(i == 0 ? "          " : "        + ", null);
+        writer.writeText("\"" + afterLoadCmds[i].replace("\"", "\\\"") + "\"\n", null);
+      }
+      writer.writeText("\n    )", null);
+    }
+    writer.writeText("}).ensureScripts();", null);
+
+    endJavascript(writer);
+  }
+
+  public static void writeStyleLoader(
+      FacesContext facesContext, String[] styles) throws IOException {
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) facesContext.getResponseWriter();
+    startJavascript(writer);
+
+    String allStyles
+        = ResourceManagerUtil.getStylesAsJSArray(facesContext, styles);
+
+    writer.writeText("Tobago.ensureStyleFiles(\n    ", null);
+    writer.writeText(allStyles, null);
+    writer.writeText(");", null);
+
+    endJavascript(writer);
   }
 
 

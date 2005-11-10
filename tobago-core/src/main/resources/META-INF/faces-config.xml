@@ -137,4 +137,8 @@
     <render-kit-class>org.apache.myfaces.tobago.renderkit.TobagoRenderKit</render-kit-class>
   </render-kit>
 
+  <lifecycle>
+    <phase-listener>org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener</phase-listener>
+  </lifecycle>
+                  
 </faces-config>

@@ -28,7 +28,10 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import javax.faces.component.UIComponent;
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
 
 public class OverviewController {
 
@@ -230,5 +233,18 @@ public class OverviewController {
 
   public void setTreeTabsState(Integer treeTabsState) {
     this.treeTabsState = treeTabsState;
+  }
+
+  
+  public List getInputSuggestItems(String prefix) {
+    LOG.info("createing items for prefix :\"" + prefix + "\"");
+    List li = new ArrayList();
+    li.add(prefix+1);
+    li.add(prefix+2);
+    li.add(prefix+3);
+    li.add(prefix+4);
+    li.add(prefix+5);
+    li.add(prefix+6);
+    return li;
   }
 }

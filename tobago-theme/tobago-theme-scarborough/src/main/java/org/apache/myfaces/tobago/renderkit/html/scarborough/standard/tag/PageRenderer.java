@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.*;
+import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ClientProperties;
@@ -181,7 +182,13 @@ public class PageRenderer extends PageRendererBase {
 
     // script files
     List<String> scriptFiles = page.getScriptFiles();
-    scriptFiles.add(0, "script/tobago.js");
+    // prototype.js and tobago.js needs to be first!
+    addScripts(writer, facesContext, "script/prototype.js");
+    addScripts(writer, facesContext, "script/tobago.js");
+    // remove  prototype.js and tobago.js from list to prevent dublicated rendering of script tags
+    scriptFiles.remove("script/prototype.js");
+    scriptFiles.remove("script/tobago.js");
+    // render remaining script tags
     for (Iterator i = scriptFiles.iterator(); i.hasNext();) {
       String script = (String) i.next();
       addScripts(writer, facesContext, script);

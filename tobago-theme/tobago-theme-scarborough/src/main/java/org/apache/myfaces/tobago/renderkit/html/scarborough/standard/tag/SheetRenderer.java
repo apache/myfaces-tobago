@@ -22,12 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.*;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.Pager;
-import org.apache.myfaces.tobago.component.Sorter;
-import org.apache.myfaces.tobago.component.UIColumnSelector;
-import org.apache.myfaces.tobago.component.UIData;
-import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.*;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -87,6 +82,7 @@ public class SheetRenderer extends RendererBase
     ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
     UIViewRoot viewRoot = facesContext.getViewRoot();
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
+    String sheetId = data.getClientId(facesContext);
 
     String image1x1 = contextPath + resourceManager
         .getImage(viewRoot, "image/1x1.gif");
@@ -94,26 +90,37 @@ public class SheetRenderer extends RendererBase
         .getImage(viewRoot, "image/ascending.gif");
     String descending = contextPath + resourceManager
         .getImage(viewRoot, "image/descending.gif");
-
-    String sheetId = data.getClientId(facesContext);
-    UIPage uiPage = ComponentUtil.findPage(data);
-    uiPage.getScriptFiles().add("script/tobago-sheet.js");
-    uiPage.getOnloadScripts().add("initSheet(\"" + sheetId + "\");");
-    uiPage.getStyleFiles().add("style/tobago-sheet.css");
-
     String selectorDisabled = contextPath + resourceManager
         .getImage(viewRoot, "image/sheetUncheckedDisabled.gif");
     String unchecked = contextPath + resourceManager
         .getImage(viewRoot, "image/sheetUnchecked.gif");
     String checked = contextPath + resourceManager
         .getImage(viewRoot, "image/sheetChecked.gif");
-    uiPage.getOnloadScripts().add(
-        "tobagoSheetSetUncheckedImage(\"" + sheetId + "\", \"" + unchecked + "\")");
-    uiPage.getOnloadScripts().add("tobagoSheetSetCheckedImage(\"" + sheetId +
-        "\", \""
-        + checked +
-        "\")");
-    uiPage.getOnloadScripts().add("updateSelectionView(\"" + sheetId + "\")");
+
+    if (!AJAX_ENABLED) {
+      UIPage uiPage = ComponentUtil.findPage(data);
+      uiPage.getScriptFiles().add("script/tobago-sheet.js");
+      uiPage.getOnloadScripts().add("initSheet(\"" + sheetId + "\");");
+      uiPage.getStyleFiles().add("style/tobago-sheet.css");
+      uiPage.getOnloadScripts().add(
+          "tobagoSheetSetUncheckedImage(\"" + sheetId + "\", \"" + unchecked + "\")");
+      uiPage.getOnloadScripts().add("tobagoSheetSetCheckedImage(\"" + sheetId +
+          "\", \""
+          + checked +
+          "\")");
+      uiPage.getOnloadScripts().add("updateSelectionView(\"" + sheetId + "\")");
+    } else {
+      HtmlRendererUtil.writeStyleLoader(facesContext, new String[] {"style/tobago-sheet.css"});
+      final String[] scripts = new String[]{"script/tobago-sheet.js"};
+      final String[] cmds = {
+          "initSheet(\"" + sheetId + "\");",
+          "tobagoSheetSetUncheckedImage(\"" + sheetId + "\", \"" + unchecked + "\");",
+          "tobagoSheetSetCheckedImage(\"" + sheetId + "\", \"" + checked + "\");",
+          "updateSelectionView(\"" + sheetId + "\");"
+      };
+
+      HtmlRendererUtil.writeScriptLoader(facesContext, scripts, cmds);
+    }
 
     Map attributes = data.getAttributes();
     String sheetStyle = (String) attributes.get(ATTR_STYLE);

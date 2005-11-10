@@ -835,7 +835,7 @@ function tobagoTreeListboxCreateOption(node, index, hiddenId) {
   }
   var option = new Option(label, index);
   option.hiddenId = hiddenId;
-//  addEventListener(option, 'click', tbgTreeListboxClick);
+//  tbgAddEventListener(option, 'click', tbgTreeListboxClick);
 
   return option;
 }
