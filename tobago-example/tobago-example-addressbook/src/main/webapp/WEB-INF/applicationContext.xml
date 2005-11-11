@@ -20,7 +20,9 @@
 <beans>
 
   <bean id="addressDAO"
-      class="org.apache.myfaces.tobago.example.addressbook.InMemoryAddressDAO"
-      singleton="true" />
+        class="org.apache.myfaces.tobago.example.addressbook.XStreamAddressDAO"
+        singleton="true">
+    <property name="storageFileName" value="addresses.xml"/>
+  </bean>
 
 </beans>

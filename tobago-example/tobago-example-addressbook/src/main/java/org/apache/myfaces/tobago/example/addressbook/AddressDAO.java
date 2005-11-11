@@ -22,9 +22,9 @@ import java.util.List;
 
 public interface AddressDAO {
 
-  Address updateAddress(Address address);
+  Address updateAddress(Address address) throws AddressDAOException;
 
-  List<Address> findAddresses();
+  List<Address> findAddresses() throws AddressDAOException;
 
-  void removeAddress(Address address);
+  void removeAddress(Address address) throws AddressDAOException;
 }

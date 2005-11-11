@@ -46,14 +46,15 @@ public class Controller {
 
   public Controller() {
     LOG.debug("Creating new Controller");
-    currentAddressList = new ArrayList<Address>();
   }
 
-  public void setAddressDAO(AddressDAO addressDAO) {
+  public void setAddressDAO(AddressDAO addressDAO) throws AddressDAOException {
     this.addressDAO = addressDAO;
     LOG.debug("AddressDAO set.");
     ApplicationContext ctx = FacesContextUtils.getWebApplicationContext(FacesContext.getCurrentInstance());
     LOG.debug("applicationContext: "+ctx);
+    currentAddressList = addressDAO.findAddresses();
+    currentAddress = new Address();
   }
 
   public String createAddress() {
@@ -75,7 +76,7 @@ public class Controller {
     return OUTCOME_EDITOR;
   }
 
-  public String storeAddress() {
+  public String storeAddress() throws AddressDAOException {
     LOG.debug("action: storeAddress");
     currentAddress = addressDAO.updateAddress(currentAddress);
     selectedAddresses.resetSelected();
@@ -83,7 +84,7 @@ public class Controller {
     return OUTCOME_LIST;
   }
 
-  public String deleteAddresses() {
+  public String deleteAddresses() throws AddressDAOException {
     LOG.debug("action: deleteAddresses");
     List<Integer> selection = selectedAddresses.getSelectedRows();
     if (selection.size() < 1) {

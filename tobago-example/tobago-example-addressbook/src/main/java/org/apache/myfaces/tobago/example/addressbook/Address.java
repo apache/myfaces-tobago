@@ -70,7 +70,15 @@ public class Address {
     fax = fromAddress.getFax();
     email = fromAddress.getEmail();
     dayOfBirth = fromAddress.getDayOfBirth();
+    homePage = fromAddress.getHomePage();
+
     note = fromAddress.getNote();
+
+    company = fromAddress.getCompany();
+    jobTitle = fromAddress.getJobTitle();
+    jobPhone = fromAddress.getJobPhone();
+    jobEmail = fromAddress.getJobEmail();
+    jobHomePage = fromAddress.getJobHomePage();
   }
 
   public int getId() {
