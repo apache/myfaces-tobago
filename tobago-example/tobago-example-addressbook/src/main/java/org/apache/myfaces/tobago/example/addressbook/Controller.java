@@ -56,7 +56,8 @@ public class Controller {
   public void setAddressDAO(AddressDAO addressDAO) throws AddressDAOException {
     this.addressDAO = addressDAO;
     LOG.debug("AddressDAO set.");
-    ApplicationContext ctx = FacesContextUtils.getWebApplicationContext(FacesContext.getCurrentInstance());
+    ApplicationContext ctx
+        = FacesContextUtils.getWebApplicationContext(FacesContext.getCurrentInstance());
     LOG.debug("applicationContext: "+ctx);
     currentAddressList = addressDAO.findAddresses();
     currentAddress = new Address();
