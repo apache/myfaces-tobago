@@ -41,6 +41,30 @@
                 <tc:out value="#{bundle.listDeleteConfirmation}" />
               </f:facet>
             </tc:button>
+            <tc:button label="Select Columns" action="#{controller.selectColumns}">
+              <f:facet name="popup">
+                <tc:popup width="300px" height="200px" left="200px" top="200px"
+                    rendered="#{controller.renderPopup}" id="popup">
+                  <f:facet name="layout">
+                    <tc:gridLayout rows="fixed;fixed;fixed;1*;fixed" />
+                  </f:facet>
+
+                  <tc:selectBooleanCheckbox label="First Name" value="#{controller.renderFirstName}"/>
+                  <tc:selectBooleanCheckbox label="Last Name" value="#{controller.renderLastName}"/>
+                  <tc:selectBooleanCheckbox label="Birthday" value="#{controller.renderDayOfBirth}"/>
+                  <tc:cell/>
+                  <tc:panel>
+                    <f:facet name="layout">
+                      <tc:gridLayout columns="1*;100px;100px" />
+                    </f:facet>
+                    <tc:cell/>
+                    <tc:button action="#{controller.cancelPopup}" label="OK" defaultCommand="true"/>
+                    <tc:button action="#{controller.cancelPopup}" label="Cancel" immediate="true"/>
+                  </tc:panel>
+
+                </tc:popup>
+              </f:facet>
+            </tc:button>
           </tc:toolBar>
         </f:facet>
 
@@ -48,11 +72,19 @@
 
         <tc:sheet columns="1*;1*" value="#{controller.currentAddressList}"
             var="address" state="#{controller.selectedAddresses}">
-          <tc:column label="#{bundle.listFirstName}" sortable="true">
+          <tc:column label="#{bundle.listFirstName}" sortable="true"
+                     rendered="#{controller.renderFirstName}">
             <tc:out value="#{address.firstName}" />
           </tc:column>
-          <tc:column label="#{bundle.listLastName}" sortable="true">
+          <tc:column label="#{bundle.listLastName}" sortable="true"
+                     rendered="#{controller.renderLastName}">
             <tc:out value="#{address.lastName}" />
+          </tc:column>
+          <tc:column label="Birthday" sortable="true"
+                     rendered="#{controller.renderDayOfBirth}">
+            <tc:out value="#{address.dayOfBirth}">
+              <f:convertDateTime pattern="dd.MM.yyyy" />
+            </tc:out>
           </tc:column>
         </tc:sheet>
 

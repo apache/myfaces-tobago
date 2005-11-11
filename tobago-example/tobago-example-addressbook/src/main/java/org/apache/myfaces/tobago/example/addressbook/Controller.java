@@ -42,6 +42,11 @@ public class Controller {
   private Address currentAddress;
   private SheetState selectedAddresses;
 
+  private boolean renderPopup;
+  private boolean renderFirstName = true;
+  private boolean renderLastName = true;
+  private boolean renderDayOfBirth = false;
+
   private AddressDAO addressDAO;
 
   public Controller() {
@@ -116,5 +121,47 @@ public class Controller {
 
   public void setSelectedAddresses(SheetState selectedAddresses) {
     this.selectedAddresses = selectedAddresses;
+  }
+
+  public boolean isRenderPopup() {
+    return renderPopup;
+  }
+
+  public void setRenderPopup(boolean renderPopup) {
+    this.renderPopup = renderPopup;
+  }
+
+  public String selectColumns() {
+    setRenderPopup(true);
+    return OUTCOME_LIST;
+  }
+
+  public String cancelPopup() {
+    setRenderPopup(false);
+    return OUTCOME_LIST;
+  }
+
+  public boolean isRenderFirstName() {
+    return renderFirstName;
+  }
+
+  public void setRenderFirstName(boolean renderFirstName) {
+    this.renderFirstName = renderFirstName;
+  }
+
+  public boolean isRenderLastName() {
+    return renderLastName;
+  }
+
+  public void setRenderLastName(boolean renderLastName) {
+    this.renderLastName = renderLastName;
+  }
+
+  public boolean isRenderDayOfBirth() {
+    return renderDayOfBirth;
+  }
+
+  public void setRenderDayOfBirth(boolean renderDayOfBirth) {
+    this.renderDayOfBirth = renderDayOfBirth;
   }
 }
