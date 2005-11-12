@@ -34,19 +34,16 @@
         <groupId>tobago</groupId>
         <artifactId>maven-apt-plugin</artifactId>
         <version>${version}</version>
+        <configuration>
+          <generated>target/classes/META-INF</generated>
+          <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
+          <nocompile>true</nocompile>
+          <encoding>UTF-8</encoding>
+        </configuration>
         <executions>
           <execution>
             <id>tobago-tlds</id>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>execute</goal>
-            </goals>
-            <configuration>
-              <generated>target/classes/META-INF</generated>
-              <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
-              <nocompile>true</nocompile>
-              <encoding>UTF-8</encoding>
-            </configuration>
+            <goals><goal>execute</goal></goals>
           </execution>
         </executions>
       </plugin>
@@ -94,21 +91,21 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.0-beta-1</version>
+        <version>2.0-beta-2-SNAPSHOT</version>
 
         <configuration>
           <propertiesFile>../src/main/resources/config/tobago_checks.xml</propertiesFile>
         </configuration>
 
-      </plugin>
-      -->
+      </plugin>  -->
+
       <!-- pmd has problems with annotations
       <plugin>
-       <groupId>org.apache.maven.plugins</groupId>
-       <artifactId>maven-pmd-plugin</artifactId>
-       <configuration>
-         <targetJdk>1.5</targetJdk>
-       </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <configuration>
+          <targetJdk>1.5</targetJdk>
+        </configuration>
       </plugin>
       -->
     </plugins>
