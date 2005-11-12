@@ -212,13 +212,16 @@ public class UITabGroup extends UIPanel implements AjaxComponent {
   }
 
   public void encodeAjax(FacesContext facesContext) throws IOException {
-    ValueBinding stateBinding = getValueBinding(ATTR_STATE);
-    Object state
-        = stateBinding != null ? stateBinding.getValue(facesContext) : null;
-    if (state instanceof Integer) {
-      activeIndex = ((Integer) state).intValue();
-    } else if (state != null) {
-      LOG.warn("Illegal class in stateBinding: " + state.getClass().getName());
+    if (activeIndex < 0 || !(activeIndex < getTabs().length)) {
+      LOG.info("This should never occur! Problem in decoding?");
+      ValueBinding stateBinding = getValueBinding(ATTR_STATE);
+      Object state
+          = stateBinding != null ? stateBinding.getValue(facesContext) : null;
+      if (state instanceof Integer) {
+        activeIndex = ((Integer) state).intValue();
+      } else if (state != null) {
+        LOG.warn("Illegal class in stateBinding: " + state.getClass().getName());
+      }
     }
 
     setRenderedIndex(activeIndex);
@@ -229,6 +232,8 @@ public class UITabGroup extends UIPanel implements AjaxComponent {
     final String ajaxId = (String) facesContext.getExternalContext().
         getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
     if (ajaxId.equals(getClientId(facesContext))) {
+      // TODO what about invoking StateChangeListener ?
+      
       encodeAjax(facesContext);
     } else {final Iterator facetsAndChildren = getFacetsAndChildren();
       while (facetsAndChildren.hasNext()) {
@@ -260,7 +265,7 @@ public class UITabGroup extends UIPanel implements AjaxComponent {
     renderedIndex = index;
   }
 
-  private int getRenderedIndex() {
+  public int getRenderedIndex() {
     return renderedIndex;
   }
 }

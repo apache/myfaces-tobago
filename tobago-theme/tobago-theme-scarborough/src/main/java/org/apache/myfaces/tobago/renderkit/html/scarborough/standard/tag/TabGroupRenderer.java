@@ -69,7 +69,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
       return;
     }
 
-    int oldIndex = ((UITabGroup) component).getActiveIndex();
+    int oldIndex = ((UITabGroup) component).getRenderedIndex();
 
     String clientId = component.getClientId(facesContext);
     final Map parameters

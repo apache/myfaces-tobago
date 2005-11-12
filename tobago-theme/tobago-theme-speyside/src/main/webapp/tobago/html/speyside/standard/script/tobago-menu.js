@@ -74,3 +74,6 @@ function getToolBarButtonMenuTopOffset() {
 function getSheetSelectorMenuTopOffset() {
   return -2;
 }
+
+// This MUST be the last line !
+Tobago.registerScript("/html/speyside/standard/script/tobago-menu.js");

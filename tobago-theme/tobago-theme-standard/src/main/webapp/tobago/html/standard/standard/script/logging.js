@@ -181,3 +181,7 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype).extend({
     Event.stop(event);
   }
 });
+
+
+// This MUST be the last line !
+Tobago.registerScript("/html/standard/standard/script/logging.js");

@@ -83,7 +83,7 @@ Tobago.TabGroup.prototype = Object.extend(Object.extend(new Ajax.Base(), {
   },
 
   onComplete: function(request) {
-    LOG.debug("tabgroup loaded ");
+    LOG.debug("tabgroup loaded : ");
     this.element = this.parent.firstChild;
     this.setUp();
   }

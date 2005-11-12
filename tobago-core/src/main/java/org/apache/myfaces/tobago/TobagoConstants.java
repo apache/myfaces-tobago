@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago;
 public final class TobagoConstants {
 
   public static final boolean AJAX_ENABLED = false;
+//  public static final boolean AJAX_ENABLED = true;
 
   public static final String SUBCOMPONENT_SEP = "::";
 

@@ -51,6 +51,8 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
+import java.util.ArrayList;
 
 public class MenuBarRenderer extends RendererBase {
 // ------------------------------------------------------------------ constants
@@ -96,13 +98,30 @@ public class MenuBarRenderer extends RendererBase {
 
   protected void addScriptsAndStyles(FacesContext facesContext,
       UIComponent component, final String clientId, String setupFunction,
-      String scriptBlock) {
+      String scriptBlock) throws IOException {
     final UIPage page = ComponentUtil.findPage(component);
-    page.getScriptBlocks().add(scriptBlock);
-    page.getOnloadScripts().add(setupFunction + "('"
-        + clientId + "', '" + page.getClientId(facesContext) + "');");
     page.getScriptFiles().add("script/tobago-menu.js");
     page.getStyleFiles().add("style/tobago-menu.css");
+    String function = setupFunction + "('" + clientId + "', '"
+        + page.getClientId(facesContext) + "');";
+
+    if (AJAX_ENABLED) {
+      HtmlRendererUtil.writeStyleLoader(
+          facesContext, new String[] {"style/tobago-menu.css"});
+      StringTokenizer st = new StringTokenizer(scriptBlock, "\n");
+      ArrayList<String>  lines = new ArrayList<String>();
+      while (st.hasMoreTokens()) {
+        lines.add(st.nextToken());
+      }
+      lines.add(function);
+      HtmlRendererUtil.writeScriptLoader(facesContext,
+          new String[] {"script/tobago-menu.js"},
+          lines.toArray(new String[lines.size()]));
+
+    } else {
+      page.getScriptBlocks().add(scriptBlock);
+      page.getOnloadScripts().add(function);
+    }
   }
 
   protected String createSetupFunction(FacesContext facesContext,
@@ -375,7 +394,7 @@ public class MenuBarRenderer extends RendererBase {
             label.text = labelText;
           }
         } else {
-          LOG.warn("Menu item has label=null. UICommand.getClientId()=" 
+          LOG.warn("Menu item has label=null. UICommand.getClientId()="
               + command.getClientId(facesContext));
         }
         String formattedValue
