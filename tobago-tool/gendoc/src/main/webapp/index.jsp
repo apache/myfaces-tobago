@@ -13,6 +13,4 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%
-  response.sendRedirect(response.encodeRedirectURL("faces/screenshot/screenshot.jsp"));
-%>
+<jsp:forward page="faces/screenshot/screenshot.jsp"/>
