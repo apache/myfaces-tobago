@@ -130,8 +130,17 @@ Tobago.ScriptLoader.prototype = {
 
 var LOG = new Object();
 Object.extend(LOG, {
+    IdBase: "TbgLog",
+    show: function() {
+      var logArea = document.getElementsByTagName("body")[0].tbgLogArea;
+      if (logArea) {
+        logArea.show();
+      }
+    },
     debug: function(text) {PrintDebug(text);},
     info  : function(text) {PrintDebug(text);},
     warn: function(text) {PrintDebug(text);},
     error: function(text) {PrintDebug(text);}
+
 });
+

@@ -30,7 +30,6 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.Application;
@@ -188,6 +187,17 @@ public class PageRenderer extends PageRendererBase {
     // remove  prototype.js and tobago.js from list to prevent dublicated rendering of script tags
     scriptFiles.remove("script/prototype.js");
     scriptFiles.remove("script/tobago.js");
+
+    boolean showClientLogging = false;
+    final boolean debugMode =
+        ClientProperties.getInstance(facesContext.getViewRoot()).isDebugMode();
+//        true; showClientLogging = true;
+    if (debugMode) {
+      scriptFiles.add("script/effects.js");
+      scriptFiles.add("script/dragdrop.js");
+      scriptFiles.add("script/logging.js");
+    }
+
     // render remaining script tags
     for (Iterator i = scriptFiles.iterator(); i.hasNext();) {
       String script = (String) i.next();
@@ -218,6 +228,7 @@ public class PageRenderer extends PageRendererBase {
       writer.write(onload);
       writer.write('\n');
     }
+    if (showClientLogging) {writer.write("LOG.show()"); }
     writer.write("}\n");
 
     int debugCounter = 0;
@@ -243,7 +254,15 @@ public class PageRenderer extends PageRendererBase {
     writer.writeComponentClass();
     writer.writeIdAttribute(clientId);
 
-
+    if (debugMode) {
+      final String[] jsFiles = new String[] {
+          "script/effects.js",
+          "script/dragdrop.js",
+          "script/logging.js"
+      };
+      final String[] jsCommand = new String[]{"new LOG.LogArea({hide: true});"};
+      HtmlRendererUtil.writeScriptLoader(facesContext, jsFiles, jsCommand);
+    }
 
     writer.startElement("form", page);
     writer.writeNameAttribute(
@@ -292,8 +311,7 @@ public class PageRenderer extends PageRendererBase {
     writer.endElement("form");
 
     // debugging...
-    if (ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot())
-        .isDebugMode()) {
+    if (debugMode) {
 
       for (Iterator ids = facesContext.getClientIdsWithMessages();
           ids.hasNext();) {
@@ -305,30 +323,17 @@ public class PageRenderer extends PageRendererBase {
         }
       }
       writer.writeText("FacesContext = " + facesContext, null);
-      String keys = "";
-      if (LOG.isInfoEnabled()) {
-        keys = "<li> unused accessKeys : "
-            + AccessKeyMap.getUnusedKeys(facesContext) + "</li>";
-        String dublicated = AccessKeyMap.getDublicatedKeys(facesContext);
-        if (dublicated.length() > 0) {
-          keys += "<li> dublicated accessKeys : " + dublicated + "</li>";
-        }
-      }
-
-      writer.write("<div onmousedown=\"tobagoJsLogMouseDown(event)\" " +
-          "onmousemove=\"tobagoJsLogMouseMove(event)\" " +
-          "onmouseup=\"tobagoJsLogMouseUp()\" " +
-          "id=\"LogDiv\" " +
-          "style=\"position:  absolute; right: 2px; top: 30px; " +
-          "height: 500px;width: 400px; overflow: auto;border:1px solid red; " +
-          "background: #ffffff;\">" +
-          "<ol id=\"Log\" style=\"font-family:Arial,sans-serif; " +
-          "font-size:10pt\"><li>Ereignisliste</li> " + keys + "</ol> </div>");
-
     }
 
     writer.endElement("body");
     writer.endElement("html");
+
+    if (LOG.isInfoEnabled()) {
+      LOG.info("unused AccessKeys    : "
+          + AccessKeyMap.getUnusedKeys(facesContext));
+      LOG.info("dublicated AccessKeys: "
+          + AccessKeyMap.getDublicatedKeys(facesContext));
+    }
   }
 
 // ----------------------------------------------------------- business methods
