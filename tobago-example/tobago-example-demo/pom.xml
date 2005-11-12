@@ -36,14 +36,9 @@
         <version>${version}</version>
         <executions>
           <execution>
-            <phase>process-resources</phase>
             <goals><goal>resources</goal></goals>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
