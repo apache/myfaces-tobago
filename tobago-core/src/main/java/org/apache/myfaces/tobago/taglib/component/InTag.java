@@ -83,12 +83,6 @@ public class InTag extends TextInputTag implements InTagDeclaration {
     return suggestMethod;
   }
 
-  /**
-   *
-   * @param suggestMethod
-   */
-  @TagAttribute
-  @UIComponentTagAttribute( defaultValue = "none")
   public void setSuggestMethod(String suggestMethod) {
     this.suggestMethod = suggestMethod;
   }

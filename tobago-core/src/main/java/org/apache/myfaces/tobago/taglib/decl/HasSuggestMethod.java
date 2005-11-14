@@ -17,19 +17,20 @@ package org.apache.myfaces.tobago.taglib.decl;
 
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 
 /**
- * $Id: HasWidth.java 1886 2005-11-01 21:03:54Z bommel $
+ * $Id:  $
  */
 public interface HasSuggestMethod {
-  
+
   /**
    *
    * 
    * @param suggestMethod
    */
    @TagAttribute
-   @UIComponentTagAttribute( defaultValue = "none")
+   @UIComponentTagAttribute(expression = DynamicExpression.METHOD_BINDING)
    public void setSuggestMethod(String suggestMethod) ;
-	  
+
 }

@@ -21,7 +21,6 @@ Make sure the manager user has the role manager; see
   mvn tomcat:deploy
   or
   mvn tomcat:undeploy tomcat:deploy
-  (the redeploy, doesn't update reliable)
 
 Alternatively, you can run
 

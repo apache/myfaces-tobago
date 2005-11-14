@@ -46,8 +46,6 @@ Deploying the Demo
   mvn tomcat:undeploy tomcat:deploy
 +----------------------------------------
 
-  Unfortunaly, mvn tomcat:redeploy doesn't update the application reliable.
-
   Alternatively, you can run
 
 +----------------------------------------

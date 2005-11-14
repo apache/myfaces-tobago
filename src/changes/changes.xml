@@ -1,0 +1,17 @@
+<document>
+  <properties>
+    <title>Changes Tobago</title>
+    <author email="bernd.bohmann@atanion.com">bommel</author>
+  </properties>
+  <body>
+
+    <release version="1.0.7-SNAPSHOT" date="in SVN">
+      <action dev="bommel" type="update">
+        Changed the Public identifier in tobago-config.xml from "-//Atanion GmbH//DTD Tobago Config 1.0//EN"
+        to "-//The Apache Software Foundation//DTD Tobago Config 1.0//EN"
+      </action>
+    </release>
+
+</body>
+</document>
+
