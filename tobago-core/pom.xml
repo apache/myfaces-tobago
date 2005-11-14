@@ -87,6 +87,11 @@
           <tags>TODO, FIXME, XXX, @deprecated</tags>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>net.sourceforge.maven-taglib</groupId>
+        <artifactId>maven-taglib-plugin</artifactId>
+        <configuration><taglib.src.dir>${basedir}/target/classes/META-INF/</taglib.src.dir></configuration>
+      </plugin>
       <!-- wait until checkstyle 4.0 is released
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

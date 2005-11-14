@@ -11,7 +11,7 @@
   <inceptionYear>2002</inceptionYear>
   <issueManagement>
     <system>jira</system>
-    <url>http://issues.apache.org/jira/browse/MYFACES</url>
+    <url>http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10600</url>
   </issueManagement>
   <ciManagement>
     <system>continuum</system>
@@ -177,7 +177,15 @@
           </reportSet>
         </reportSets>
       </plugin>
-      
+
+      <plugin>
+        <inherited>false</inherited>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>changes-maven-plugin</artifactId>
+        <configuration>
+          <component>12310166</component>
+        </configuration>
+      </plugin>
       <plugin>
         <inherited>false</inherited>
         <groupId>org.codehaus.mojo</groupId>
