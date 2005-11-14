@@ -35,6 +35,7 @@ public @interface Taglib {
   String shortName();
   String uri();
   String fileName() default "";
+  String displayName() default "";
   // TODO change to Class !!
   String [] listener() default {};
 

@@ -39,7 +39,7 @@ import java.util.ArrayList;
 /**
  * Created: Mar 22, 2005 8:18:35 PM
  * User: bommel
- * $Id: TaglibAnnotationVisitor.java,v 1.9 2005/04/27 10:25:00 weber Exp $
+ * $Id:  $
  */
 public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollector {
 
@@ -67,10 +67,16 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
       addLeafTextElement(taglibAnnotation.jspVersion(), "jsp-version", taglib, document);
       addLeafTextElement(taglibAnnotation.shortName(), "short-name", taglib, document);
       addLeafTextElement(taglibAnnotation.uri(), "uri", taglib, document);
+      String displayName = taglibAnnotation.displayName();
+      if (displayName==null||displayName.length()==0) {
+        displayName = taglibAnnotation.shortName();
+      }
+      addLeafTextElement(displayName, "display-name", taglib, document);
       String description = packageDeclaration.getDocComment();
       if (description != null) {
         addLeafCDATAElement(description, "description", taglib, document);
       }
+      // TODO iterator
       if (taglibAnnotation.listener().length > 0) {
         Element listener = document.createElement("listener");
         String listenerClass = taglibAnnotation.listener()[0];

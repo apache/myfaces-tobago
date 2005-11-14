@@ -20,5 +20,5 @@
 @org.apache.myfaces.tobago.apt.annotation.Taglib(
     shortName = "tx",
     uri = "http://www.atanion.com/tobago/extension",
-    fileName= "tobago-extension.tld")
+    fileName= "tobago-extension.tld", displayName = "Tobago Extensions")
 package org.apache.myfaces.tobago.taglib.extension;

@@ -23,7 +23,7 @@
 @org.apache.myfaces.tobago.apt.annotation.Taglib(
     shortName = "tc", uri = "http://www.atanion.com/tobago/component",
     listener = "org.apache.myfaces.tobago.webapp.TobagoServletContextListener",
-    fileName = "tobago.tld")
+    fileName = "tobago.tld", displayName = "Tobago Components")
 package org.apache.myfaces.tobago.taglib.component;
 
 
