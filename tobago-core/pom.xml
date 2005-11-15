@@ -94,7 +94,10 @@
       <plugin>
         <groupId>net.sourceforge.maven-taglib</groupId>
         <artifactId>maven-taglib-plugin</artifactId>
-        <configuration><taglib.src.dir>${basedir}/target/classes/META-INF/</taglib.src.dir></configuration>
+        <configuration>
+          <taglib.src.dir>${basedir}/target/classes/META-INF/</taglib.src.dir>
+          <tldDocDir>${basedir}/target/site/tlddoc</tldDocDir>
+          </configuration>
       </plugin>
       <!-- wait until checkstyle 4.0 is released
       <plugin>
