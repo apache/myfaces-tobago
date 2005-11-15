@@ -20,11 +20,13 @@ import org.apache.maven.model.Resource;
 import org.codehaus.plexus.compiler.util.scan.SourceInclusionScanner;
 import org.codehaus.plexus.compiler.util.scan.StaleSourceScanner;
 import org.codehaus.plexus.compiler.util.scan.mapping.SuffixMapping;
+import org.codehaus.plexus.compiler.util.scan.mapping.SingleTargetSourceMapping;
 
 import java.io.File;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Iterator;
 
 /**
  * @author <a href="mailto:jubu@volny.cz">Juraj Burian</a>
@@ -45,6 +47,12 @@ public class AptMojo extends AbstractAPTMojo
      */
     private String generated;
 
+    /**
+     *  A List of tagetFiles for SingleSourceTargetMapping
+     *
+     * @parameter
+     */
+    private List targetFiles;
     /**
      * The source directories containing the sources to be compiled.
      * 
@@ -72,7 +80,7 @@ public class AptMojo extends AbstractAPTMojo
      */
     private File outputDirectory;
 
-    
+
     protected String getGenerated()
     {
         return generated;
@@ -124,10 +132,20 @@ public class AptMojo extends AbstractAPTMojo
         if( includes.isEmpty() )
         {
             includes.add( "**/*.java" );
-            //scanner = new StaleSourceScanner( staleMillis, includes, excludes );
         }
         scanner = new StaleSourceScanner( staleMillis, includes, excludes );
-        scanner.addSourceMapping( new SuffixMapping( ".java", ".class" ) );
+        if ( targetFiles.size() > 0 )
+        {
+            for ( Iterator it = targetFiles.iterator() ; it.hasNext() ; )
+            {
+                String file = (String) it.next();
+                scanner.addSourceMapping(new SingleTargetSourceMapping(".java", file));
+            }
+        }
+        else
+        {
+            scanner.addSourceMapping( new SuffixMapping( ".java", ".class" ) );
+        }
         return scanner;
     }
 }

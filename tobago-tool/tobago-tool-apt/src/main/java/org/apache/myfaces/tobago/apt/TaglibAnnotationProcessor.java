@@ -83,6 +83,7 @@ public class TaglibAnnotationProcessor implements AnnotationProcessor {
             new StreamResult(writer));
         env.getMessager().printNotice("Write to file " +documentAndFileName.getPackageName()+" "+
             documentAndFileName.getFileName());
+        IOUtils.closeQuietly(writer);
       }
     } catch (ParserConfigurationException e) {
       // TODO

@@ -101,27 +101,27 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
     return tlds;
   }
 
-  private void addLeafTextElement(String text, String node, Element parent, Document document) {
+  protected void addLeafTextElement(String text, String node, Element parent, Document document) {
     Element element = document.createElement(node);
     element.appendChild(document.createTextNode(text));
     parent.appendChild(element);
   }
 
-  private void addLeafCDATAElement(String text, String node, Element parent, Document document) {
+  protected void addLeafCDATAElement(String text, String node, Element parent, Document document) {
     Element element = document.createElement(node);
     element.appendChild(document.createCDATASection(text));
     parent.appendChild(element);
   }
 
-  private void appendTag(ClassDeclaration decl, Element parent, Document document) {
+  protected void appendTag(ClassDeclaration decl, Element parent, Document document) {
     Tag annotationTag = decl.getAnnotation(Tag.class);
     String className = decl.getQualifiedName();
-    Element tag = createTag(document, annotationTag, className, decl);
+    Element tag = createTag(decl, annotationTag, className, document);
     addAttributes(decl, tag, document);
     parent.appendChild(tag);
   }
 
-  private void appendTag(InterfaceDeclaration decl, Element parent, Document document) {
+  protected void appendTag(InterfaceDeclaration decl, Element parent, Document document) {
     Tag annotationTag = decl.getAnnotation(Tag.class);
     if (annotationTag != null) {
       // TODO configure replacement
@@ -132,13 +132,13 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
       String msg = "Replacing: " + decl.getQualifiedName()
           + " -> " + className;
       env.getMessager().printNotice(msg);
-      Element tag = createTag(document, annotationTag, className, decl);
+      Element tag = createTag(decl, annotationTag, className, document);
       addAttributes(decl, tag, document);
       parent.appendChild(tag);
     }
   }
 
-  private Element createTag(Document document, Tag annotationTag, String className, Declaration decl) {
+  protected Element createTag(Declaration decl, Tag annotationTag, String className, Document document) {
     Element tagElement = document.createElement("tag");
     addLeafTextElement(annotationTag.name(), "name", tagElement, document);
     addLeafTextElement(className, "tag-class", tagElement, document);
@@ -160,7 +160,7 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
     return tagElement;
   }
 
-  private void addDescription(Declaration decl, Element element, Document document) {
+  protected void addDescription(Declaration decl, Element element, Document document) {
     String comment = decl.getDocComment();
     if (comment != null) {
       int index = comment.indexOf('@');
@@ -171,14 +171,14 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
     }
   }
 
-  public void addAttributes(Collection<InterfaceType> interfaces, Element tagElement, Document document) {
+  protected void addAttributes(Collection<InterfaceType> interfaces, Element tagElement, Document document) {
     for (InterfaceType type : interfaces) {
       addAttributes(type.getDeclaration(), tagElement, document);
     }
 
   }
 
-  private void addAttributes(InterfaceDeclaration type, Element tagElement, Document document) {
+  protected void addAttributes(InterfaceDeclaration type, Element tagElement, Document document) {
     addAttributes(type.getSuperinterfaces(), tagElement, document);
     for (MethodDeclaration decl : collectedMethodDeclations) {
       if (decl.getDeclaringType().equals(type)) {
@@ -187,7 +187,7 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
     }
   }
 
-  public void addAttributes(ClassDeclaration d, Element tagElement, Document document) {
+  protected void addAttributes(ClassDeclaration d, Element tagElement, Document document) {
     for (MethodDeclaration decl : collectedMethodDeclations) {
       if (d.getQualifiedName().
           equals(decl.getDeclaringType().getQualifiedName())) {
@@ -200,7 +200,7 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
     }
   }
 
-  private void addAttribute(MethodDeclaration d, Element tagElement,
+  protected void addAttribute(MethodDeclaration d, Element tagElement,
       Document document) {
     TagAttribute tagAttribute = d.getAnnotation(TagAttribute.class);
     if (tagAttribute != null) {

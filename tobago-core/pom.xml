@@ -28,13 +28,17 @@
   <packaging>jar</packaging>
   <name>Tobago Core</name>
   <description>Tobago Core</description>
-  <build>
+   <build>
     <plugins>
       <plugin>
         <groupId>tobago</groupId>
         <artifactId>maven-apt-plugin</artifactId>
         <version>${version}</version>
         <configuration>
+          <targetFiles>
+            <targetFile>org/apache/myfaces/tobago/taglib/component/tobago.tld</targetFile>
+            <targetFile>org/apache/myfaces/tobago/taglib/extension/tobago-extension.tld</targetFile>
+          </targetFiles>
           <generated>target/classes/META-INF</generated>
           <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
           <nocompile>true</nocompile>
@@ -242,4 +246,34 @@
 
   </dependencies>
 
+  <profiles>
+    <profile>
+      <id>generate-tag-reference</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>tobago</groupId>
+            <artifactId>maven-apt-plugin</artifactId>
+            <version>${version}</version>
+            <configuration>
+              <targetFiles>
+                <targetFile>org/apache/myfaces/tobago/taglib/component/tobago.xml</targetFile>
+                <targetFile>org/apache/myfaces/tobago/taglib/extension/tobago-extension.xml</targetFile>
+              </targetFiles>
+              <generated>target/doc</generated>
+              <factory>org.apache.myfaces.tobago.apt.TobagoAnnotationProcessorFactory</factory>
+              <nocompile>true</nocompile>
+              <encoding>UTF-8</encoding>
+            </configuration>
+            <executions>
+              <execution>
+                <id>tobago-doc</id>
+                <goals><goal>execute</goal></goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

@@ -182,7 +182,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
             // we need to have tools.jar in lasspath
             // due to bug in Apt compiler, system classpath must be modified but in future:
             // TODO try separate ClassLoader (see Plexus compiler api)
-            if( false == isClasspathModified )
+            if( !isClasspathModified )
             {
                 URL toolsJar = new File( System.getProperty( "java.home" ),
                         "../lib/tools.jar" ).toURL();
@@ -198,9 +198,9 @@ public abstract class AbstractAPTMojo extends AbstractMojo
             setAptSpecifics( cmd );
             setStandards( cmd );
             setClasspath( cmd );
-            if( false == setSourcepath( cmd ) )
+            if( !setSourcepath( cmd ) )
             {
-                if( true == getLog().isDebugEnabled() )
+                if( getLog().isDebugEnabled() )
                 {
                     getLog().debug( "there are not stale sources." );
                 }
@@ -234,7 +234,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
                 throw new MojoExecutionException( this, "Compilation error.",
                         writer.getBuffer().toString() );
             }
-            if( true == getLog().isDebugEnabled() )
+            if( getLog().isDebugEnabled() )
             {
                 String r = writer.getBuffer().toString();
                 if( 0 != r.length() )
@@ -256,7 +256,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         while( tokenizer.hasMoreElements() )
         {
             String option = tokenizer.nextToken().trim();
-            if( false == option.startsWith( "-A" ) )
+            if( !option.startsWith( "-A" ) )
             {
                 option = "-A" + option;
             }
@@ -272,7 +272,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
                     + getGenerated();
             File generatedDir = new File( g );
             cmdAdd( cmd, "-s", generatedDir.getCanonicalPath() );
-            if( false == generatedDir.exists() )
+            if( !generatedDir.exists() )
             {
                 generatedDir.mkdirs();
             }
@@ -281,7 +281,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
             throw new MojoExecutionException( //
                     "Generated directory is invalid.", e );
         }
-        if( true == nocompile )
+        if( nocompile )
         {
             cmdAdd( cmd, "-nocompile" );
         }
@@ -293,15 +293,15 @@ public abstract class AbstractAPTMojo extends AbstractMojo
 
     private void setStandards( List cmd ) throws MojoExecutionException
     {
-        if( true == debug )
+        if( debug )
         {
             cmdAdd( cmd, "-g" );
         }
-        if( false == showWarnings )
+        if( !showWarnings )
         {
             cmdAdd( cmd, "-nowarn" );
         }
-        if( true == showDeprecation )
+        if( showDeprecation )
         {
             cmdAdd( cmd, "-depecation" );
         }
@@ -309,14 +309,14 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         {
             cmdAdd( cmd, "-encoding", encoding );
         }
-        if( true == verbose )
+        if( verbose )
         {
             cmdAdd( cmd, "-verbose" );
         }
         // add output directory
         try
         {
-            if( false == getOutputDirectory().exists() )
+            if( !getOutputDirectory().exists() )
             {
                 getOutputDirectory().mkdirs();
             }
@@ -333,10 +333,10 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         boolean has = false;
         // sources ....
         Iterator it = getCompileSourceRoots().iterator();
-        while( true == it.hasNext() )
+        while( it.hasNext() )
         {
             File srcFile = new File( (String) it.next() );
-            if( true == srcFile.isDirectory() )
+            if( srcFile.isDirectory() )
             {
                 Collection sources = null;
                 try
@@ -354,14 +354,14 @@ public abstract class AbstractAPTMojo extends AbstractMojo
                     getLog().debug(
                             "sources from: " + srcFile.getAbsolutePath() );
                     String s = "";
-                    for( Iterator jt = sources.iterator(); true == jt.hasNext(); )
+                    for( Iterator jt = sources.iterator(); jt.hasNext(); )
                     {
                         s += jt.next() + "\n";
                     }
                     getLog().debug( s );
                 }
                 Iterator jt = sources.iterator();
-                while( true == jt.hasNext() )
+                while( jt.hasNext() )
                 {
                     File src = (File) jt.next();
                     cmd.add( src.getAbsolutePath() );
@@ -375,8 +375,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
     private void setClasspath( List cmd ) throws MojoExecutionException
     {
         StringBuffer buffer = new StringBuffer();
-        for( Iterator it = getClasspathElements().iterator(); true == it
-                .hasNext(); )
+        for( Iterator it = getClasspathElements().iterator(); it.hasNext(); )
         {
             buffer.append( it.next() );
             if( it.hasNext() )
