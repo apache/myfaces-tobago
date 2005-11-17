@@ -26,9 +26,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 
-/**
- * Render a group of checkboxes.
- */
+
 
 public class SelectManyCheckboxTag extends SelectManyTag implements SelectManyCheckboxTagDeclaration {
 
