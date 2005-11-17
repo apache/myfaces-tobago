@@ -29,8 +29,7 @@ import javax.faces.component.UIComponent;
 /**
  * Render a group of checkboxes.
  */
-@Tag(name = "selectManyCheckbox")
-@BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
+
 public class SelectManyCheckboxTag extends SelectManyTag implements SelectManyCheckboxTagDeclaration {
 
   private String renderRange;
