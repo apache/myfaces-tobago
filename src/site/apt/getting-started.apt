@@ -7,7 +7,7 @@ Checking Out
   Check out the sources by running the following:
 
 +----------------------------------------
-  svn co http://www.atanion.net/repos/asf/tobago/trunk/ tobago
+  svn checkout http://svn.apache.org/repos/asf/incubator/tobago/trunk/ tobago
 +----------------------------------------
 
 Building
@@ -17,7 +17,7 @@ Building
 
 
   In the
-  {{{http://www.atanion.net/repos/asf/tobago/trunk/}main directory}}
+  {{{http://svn.apache.org/repos/asf/incubator/tobago/trunk/}main directory}}
   you can use
 
 +----------------------------------------
@@ -31,13 +31,13 @@ Deploying the Demo
 
   To deploy the demo on your local Tomcat 5.5 create a
   ~/.m2/settings.xml file based on
-  {{{http://www.atanion.net/repos/asf/tobago/trunk/settings-example.xml}settings-example.xml}}.
+  {{{http://svn.apache.org/repos/asf/incubator/tobago/trunk/settings-example.xml}settings-example.xml}}.
 
   Make sure the manager user has the role manager; see
   $TOMCAT_HOME/conf/tomcat-users.xml.
 
   Change into the demo directory
-  {{{http://www.atanion.net/repos/asf/tobago/trunk/tobago-example/tobago-example-demo/}tobago-example/tobago-example-demo}}
+  {{{http://svn.apache.org/repos/asf/incubator/tobago/trunk/tobago-example/tobago-example-demo/}tobago-example/tobago-example-demo}}
   and run
 
 +----------------------------------------
@@ -57,4 +57,4 @@ Deploying the Demo
 
   The demo application will create a log file in the app-server
   starting folder. You may want to change that in
-  {{{http://www.atanion.net/repos/asf/tobago/trunk/tobago-example/tobago-example-demo/src/main/webapp/WEB-INF/classes/log4j.xml}src/main/webapp/WEB-INF/classes/log4j.xml}}.
+  {{{http://svn.apache.org/repos/asf/incubator/tobago/trunk/tobago-example/tobago-example-demo/src/main/webapp/WEB-INF/classes/log4j.xml}src/main/webapp/WEB-INF/classes/log4j.xml}}.

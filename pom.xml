@@ -36,42 +36,7 @@
     <notifiers>
       <notifier>
         <configuration>
-          <address>bernd.bohmann@atanion.com</address>
-        </configuration>
-      </notifier>
-      <notifier>
-        <configuration>
-          <address>detlef.bartetzko@atanion.com</address>
-        </configuration>
-      </notifier>
-      <notifier>
-        <configuration>
-          <address>idus@krelon.com</address>
-        </configuration>
-      </notifier>
-      <notifier>
-        <configuration>
-          <address>martin.marinschek@gmail.com</address>
-        </configuration>
-      </notifier>
-      <notifier>
-        <configuration>
-          <address>asf@weber-oldenburg.de</address>
-        </configuration>
-      </notifier>
-      <notifier>
-        <configuration>
-          <address>udo@schnurpfeil.de</address>
-        </configuration>
-      </notifier>
-      <notifier>
-        <configuration>
-          <address>mwessendorf@gmail.com</address>
-        </configuration>
-      </notifier>
-      <notifier>
-        <configuration>
-          <address>philippe.hennes@philstar.de</address>
+          <address>commits@myfaces.apache.org</address>
         </configuration>
       </notifier>
     </notifiers>
@@ -82,14 +47,21 @@
       <subscribe>users-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>users-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>users@myfaces.apache.org</post>
-      <archive>http://www.mail-archive.com/users%40myfaces.apache.org/</archive>
+      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-users</archive>
     </mailingList>
     <mailingList>
-      <name>Myfaces Devloper list</name>
+      <name>Myfaces Developer list</name>
       <subscribe>dev-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>dev-unsubscribe@myfaces.apache.org</unsubscribe>
-      <post>users@myfaces.apache.org</post>
-      <archive>http://www.mail-archive.com/dev%40myfaces.apache.org/</archive>
+      <post>dev@myfaces.apache.org</post>
+      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-dev</archive>
+    </mailingList>
+    <mailingList>
+      <name>Myfaces Commits list</name>
+      <subscribe>commits-subscribe@myfaces.apache.org</subscribe>
+      <unsubscribe>commits-unsubscribe@myfaces.apache.org</unsubscribe>
+      <post>do not post</post>
+      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-commits</archive>
     </mailingList>
   </mailingLists>
   <developers>
@@ -228,14 +200,17 @@
 
 
   <scm>
-    <connection>scm:svn:http://www.atanion.net/repos/asf/tobago/trunk/</connection>
-    <url>http://www.atanion.net/repos/asf/tobago/trunk/</url>
+
+    <connection>scm:svn:http://svn.apache.org/repos/asf/incubator/tobago/trunk/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/incubator/tobago/trunk/</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/incubator/tobago/trunk/</url>
+
   </scm>
 
   <organization>
-    <name>Tobago Team</name>
-    <url>http://tobago.atanion.net/</url>
-  </organization>
+     <name>Apache Software Foundation</name>
+     <url>http://www.apache.org/</url>
+   </organization>
 
   <repositories>
     <repository>
