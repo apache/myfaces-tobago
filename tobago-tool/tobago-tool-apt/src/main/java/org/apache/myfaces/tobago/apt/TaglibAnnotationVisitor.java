@@ -15,26 +15,28 @@
  */
 package org.apache.myfaces.tobago.apt;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
-import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.Taglib;
+import com.sun.mirror.apt.AnnotationProcessorEnvironment;
 import com.sun.mirror.declaration.ClassDeclaration;
 import com.sun.mirror.declaration.Declaration;
 import com.sun.mirror.declaration.InterfaceDeclaration;
 import com.sun.mirror.declaration.MethodDeclaration;
 import com.sun.mirror.declaration.PackageDeclaration;
 import com.sun.mirror.type.InterfaceType;
-import com.sun.mirror.apt.AnnotationProcessorEnvironment;
+import org.apache.myfaces.tobago.apt.annotation.BodyContent;
+import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.Taglib;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.util.Collection;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created: Mar 22, 2005 8:18:35 PM
@@ -76,23 +78,21 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
       if (description != null) {
         addLeafCDATAElement(description, "description", taglib, document);
       }
-      // TODO iterator
-      if (taglibAnnotation.listener().length > 0) {
+      for (String listenerClass : taglibAnnotation.listener()) {
         Element listener = document.createElement("listener");
-        String listenerClass = taglibAnnotation.listener()[0];
         // TODO check listenerClass implements ServletContextListener !!
         addLeafTextElement(listenerClass, "listener-class", listener, document);
         taglib.appendChild(listener);
       }
-
+      Set<String> tagSet = new HashSet<String>();
       for (ClassDeclaration decl : collectedClassDeclations) {
         if (decl.getPackage().equals(packageDeclaration)) {
-          appendTag(decl, taglib, document);
+          appendTag(decl, taglib, tagSet, document);
         }
       }
       for (InterfaceDeclaration decl : collectedInterfaceDeclations) {
         if (decl.getPackage().equals(packageDeclaration)) {
-          appendTag(decl, taglib, document);
+          appendTag(decl, taglib, tagSet, document);
         }
       }
       document.appendChild(taglib);
@@ -113,17 +113,19 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
     parent.appendChild(element);
   }
 
-  protected void appendTag(ClassDeclaration decl, Element parent, Document document) {
+  protected void appendTag(ClassDeclaration decl, Element parent, Set<String> tagSet, Document document) {
     Tag annotationTag = decl.getAnnotation(Tag.class);
+    checkDuplicates(annotationTag, tagSet);
     String className = decl.getQualifiedName();
     Element tag = createTag(decl, annotationTag, className, document);
     addAttributes(decl, tag, document);
     parent.appendChild(tag);
   }
 
-  protected void appendTag(InterfaceDeclaration decl, Element parent, Document document) {
+  protected void appendTag(InterfaceDeclaration decl, Element parent, Set<String> tagSet, Document document) {
     Tag annotationTag = decl.getAnnotation(Tag.class);
     if (annotationTag != null) {
+      checkDuplicates(annotationTag, tagSet);
       // TODO configure replacement
 
       String className =
@@ -158,6 +160,14 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
     addLeafTextElement(bodyContent.toString(), "body-content", tagElement, document);
     addDescription(decl, tagElement, document);
     return tagElement;
+  }
+
+  private void checkDuplicates(Tag annotationTag, Set<String> tagSet) {
+    if (tagSet.contains(annotationTag.name())) {
+      throw new IllegalArgumentException("tag with name " + annotationTag.name() + " already defined!");
+    } else {
+      tagSet.add(annotationTag.name());
+    }
   }
 
   protected void addDescription(Declaration decl, Element element, Document document) {
