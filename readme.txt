@@ -35,3 +35,4 @@ You may want to change that in the src/main/webapp/WEB-INF/classes/log4j.xml
 Known Bugs
 ----------
 Until we have a public issue tracker see known-bugs.txt.
+
