@@ -89,7 +89,7 @@ public class PackThemeMojo extends AbstractThemeMojo {
   /**
    * Single directory for extra files to include in the ZIP.
    *
-   * @parameter expression="${basedir}/src/main/webapp"
+   * @parameter expression="${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit"
    * @required
    */
   private File warSourceDirectory;
@@ -168,7 +168,7 @@ public class PackThemeMojo extends AbstractThemeMojo {
         String[] fileNames = getThemeFiles(sourceDirectory);
         for (int i = 0; i < fileNames.length; i++) {
           FileUtils.copyFile(new File(sourceDirectory, fileNames[i]),
-              new File(webappDirectory, fileNames[i]));
+              new File(webappDirectory, "tobago/" + fileNames[i]));
         }
       }
     }
