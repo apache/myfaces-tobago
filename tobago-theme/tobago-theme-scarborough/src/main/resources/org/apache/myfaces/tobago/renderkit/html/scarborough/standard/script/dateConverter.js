@@ -1,335 +1,436 @@
-// ===================================================================
-// Author: Matt Kruse <matt@mattkruse.com>
-// WWW: http://www.mattkruse.com/
-//
-// NOTICE: You may use this code for any purpose, commercial or
-// private, without any further permission from the author. You may
-// remove this notice from your final code if you wish, however it is
-// appreciated by the author if at least my web site address is kept.
-//
-// You may *NOT* re-distribute this code in any way except through its
-// use. That means, you can include it in your product, or your web
-// site, or any other form where the code is actually being used. You
-// may not put the plain javascript up on your site for download or
-// include it in your javascript libraries for download.
-// If you wish to share this code with others, please just point them
-// to the URL instead.
-// Please DO NOT link directly to my .js files from your site. Copy
-// the files to your server and use them there. Thank you.
-// ===================================================================
+/*
+ * Copyright 2004 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-// HISTORY
-// ------------------------------------------------------------------
-// May 17, 2003: Fixed bug in parseDate() for dates <1970
-// March 11, 2003: Added parseDate() function
-// March 11, 2003: Added "NNN" formatting option. Doesn't match up
-//                 perfectly with SimpleDateFormat formats, but
-//                 backwards-compatability was required.
+// copied Revision 326068
+// from http://svn.apache.org/viewcvs.cgi/myfaces/tomahawk/trunk/src/java/org/apache/myfaces/custom/calendar/resource/date.js
+// XXX: reuse Tomahawk date.js
 
-// ------------------------------------------------------------------
-// These functions use the same 'format' strings as the
-// java.text.SimpleDateFormat class, with minor exceptions.
-// The format string consists of the following abbreviations:
-//
-// Field        | Full Form          | Short Form
-// -------------+--------------------+-----------------------
-// Year         | yyyy (4 digits)    | yy (2 digits), y (2 or 4 digits)
-// Month        | MMM (name or abbr.)| MM (2 digits), M (1 or 2 digits)
-//              | NNN (abbr.)        |
-// Day of Month | dd (2 digits)      | d (1 or 2 digits)
-// Day of Week  | EE (name)          | E (abbr)
-// Hour (1-12)  | hh (2 digits)      | h (1 or 2 digits)
-// Hour (0-23)  | HH (2 digits)      | H (1 or 2 digits)
-// Hour (0-11)  | KK (2 digits)      | K (1 or 2 digits)
-// Hour (1-24)  | kk (2 digits)      | k (1 or 2 digits)
-// Minute       | mm (2 digits)      | m (1 or 2 digits)
-// Second       | ss (2 digits)      | s (1 or 2 digits)
-// AM/PM        | a                  |
-//
-// NOTE THE DIFFERENCE BETWEEN MM and mm! Month=MM, not mm!
-// Examples:
-//  "MMM d, y" matches: January 01, 2000
-//                      Dec 1, 1900
-//                      Nov 20, 00
-//  "M/d/yy"   matches: 01/20/00
-//                      9/2/00
-//  "MMM dd, yyyy hh:mm:ssa" matches: "January 01, 2000 12:30:45AM"
-// ------------------------------------------------------------------
+DateFormatSymbols = function() {
+  this.eras = new Array('BC', 'AD');
+  this.months = new Array('January', 'February', 'March', 'April',
+      'May', 'June', 'July', 'August', 'September', 'October',
+      'November', 'December');
+  this.shortMonths = new Array('Jan', 'Feb', 'Mar', 'Apr',
+      'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct',
+      'Nov', 'Dec');
+  this.weekdays = new Array('Sunday', 'Monday', 'Tuesday',
+      'Wednesday', 'Thursday', 'Friday', 'Saturday');
+  this.shortWeekdays = new Array('Sun', 'Mon', 'Tue',
+      'Wed', 'Thu', 'Fri', 'Sat');
+  this.ampms = new Array('AM', 'PM');
+  this.zoneStrings = new Array(new Array(0, 'long-name', 'short-name'));
+  var threshold = new Date();
+  threshold.setYear(threshold.getYear() - 80);
+  this.twoDigitYearStart = threshold;
+}
 
-var MONTH_NAMES=new Array('January','February','March','April','May','June','July','August','September','October','November','December','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
-var DAY_NAMES=new Array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sun','Mon','Tue','Wed','Thu','Fri','Sat');
-function LZ(x) {return(x<0||x>9?"":"0")+x}
+SimpleDateFormatParserContext = function() {
+  this.newIndex = 0;
+  this.retValue = 0;
+  this.year = 0;
+  this.ambigousYear = false;
+  this.month = 0;
+  this.day = 0;
+  this.dayOfWeek = 0;
+  this.hour = 0;
+  this.min = 0;
+  this.sec = 0;
+  this.ampm = 0;
+  this.dateStr = "";
+}
 
-// ------------------------------------------------------------------
-// isDate ( date_string, format_string )
-// Returns true if date string matches format of format string and
-// is a valid date. Else returns false.
-// It is recommended that you trim whitespace around the value before
-// passing it to this function, as whitespace is NOT ignored!
-// ------------------------------------------------------------------
-function isDate(val,format) {
-	var date=getDateFromFormat(val,format);
-	if (date==0) { return false; }
-	return true;
-	}
+SimpleDateFormat = function(pattern, dateFormatSymbols) {
+  this.pattern = pattern;
+  this.dateFormatSymbols
+      = dateFormatSymbols ? dateFormatSymbols : new DateFormatSymbols();
+}
 
-// -------------------------------------------------------------------
-// compareDates(date1,date1format,date2,date2format)
-//   Compare two date strings to see which is greater.
-//   Returns:
-//   1 if date1 is greater than date2
-//   0 if date2 is greater than date1 of if they are the same
-//  -1 if either of the dates is in an invalid format
-// -------------------------------------------------------------------
-function compareDates(date1,dateformat1,date2,dateformat2) {
-	var d1=getDateFromFormat(date1,dateformat1);
-	var d2=getDateFromFormat(date2,dateformat2);
-	if (d1==0 || d2==0) {
-		return -1;
-		}
-	else if (d1 > d2) {
-		return 1;
-		}
-	return 0;
-	}
+SimpleDateFormat.prototype._handle = function(dateStr, date, parse) {
+  var patternIndex = 0;
+  var dateIndex = 0;
+  var commentMode = false;
+  var lastChar = 0;
+  var currentChar = 0;
+  var nextChar = 0;
+  var patternSub = null;
 
-// ------------------------------------------------------------------
-// formatDate (date_object, format)
-// Returns a date in the output format specified.
-// The format string uses the same abbreviations as in getDateFromFormat()
-// ------------------------------------------------------------------
-function formatDate(date,format) {
-	format=format+"";
-	var result="";
-	var i_format=0;
-	var c="";
-	var token="";
-	var y=date.getYear()+"";
-	var M=date.getMonth()+1;
-	var d=date.getDate();
-	var E=date.getDay();
-	var H=date.getHours();
-	var m=date.getMinutes();
-	var s=date.getSeconds();
-	var yyyy,yy,MMM,MM,dd,hh,h,mm,ss,ampm,HH,H,KK,K,kk,k;
-	// Convert real date parts into formatted versions
-	var value=new Object();
-	if (y.length < 4) {y=""+(y-0+1900);}
-	value["y"]=""+y;
-	value["yyyy"]=y;
-	value["yy"]=y.substring(2,4);
-	value["M"]=M;
-	value["MM"]=LZ(M);
-	value["MMM"]=MONTH_NAMES[M-1];
-	value["NNN"]=MONTH_NAMES[M+11];
-	value["d"]=d;
-	value["dd"]=LZ(d);
-	value["E"]=DAY_NAMES[E+7];
-	value["EE"]=DAY_NAMES[E];
-	value["H"]=H;
-	value["HH"]=LZ(H);
-	if (H==0){value["h"]=12;}
-	else if (H>12){value["h"]=H-12;}
-	else {value["h"]=H;}
-	value["hh"]=LZ(value["h"]);
-	if (H>11){value["K"]=H-12;} else {value["K"]=H;}
-	value["k"]=H+1;
-	value["KK"]=LZ(value["K"]);
-	value["kk"]=LZ(value["k"]);
-	if (H > 11) { value["a"]="PM"; }
-	else { value["a"]="AM"; }
-	value["m"]=m;
-	value["mm"]=LZ(m);
-	value["s"]=s;
-	value["ss"]=LZ(s);
-	while (i_format < format.length) {
-		c=format.charAt(i_format);
-		token="";
-		while ((format.charAt(i_format)==c) && (i_format < format.length)) {
-			token += format.charAt(i_format++);
-			}
-		if (value[token] != null) { result=result + value[token]; }
-		else { result=result + token; }
-		}
-	return result;
-	}
+  var context = new SimpleDateFormatParserContext();
 
-// ------------------------------------------------------------------
-// Utility functions for parsing in getDateFromFormat()
-// ------------------------------------------------------------------
-function _isInteger(val) {
-	var digits="1234567890";
-	for (var i=0; i < val.length; i++) {
-		if (digits.indexOf(val.charAt(i))==-1) { return false; }
-		}
-	return true;
-	}
-function _getInt(str,i,minlength,maxlength) {
-	for (var x=maxlength; x>=minlength; x--) {
-		var token=str.substring(i,i+x);
-		if (token.length < minlength) { return null; }
-		if (_isInteger(token)) { return token; }
-		}
-	return null;
-	}
+  if (date != null) {
+    context.year = this._fullYearFromDate(date.getYear());
+    context.month = date.getMonth();
+    context.day = date.getDate();
+    context.dayOfWeek = date.getDay();
+    context.hour = date.getHours();
+    context.min = date.getMinutes();
+    context.sec = date.getSeconds();
+  }
 
-// ------------------------------------------------------------------
-// getDateFromFormat( date_string , format_string )
-//
-// This function takes a date string and a format string. It matches
-// If the date string matches the format string, it returns the
-// getTime() of the date. If it does not match, it returns 0.
-// ------------------------------------------------------------------
-function getDateFromFormat(val,format) {
-	val=val+"";
-	format=format+"";
-	var i_val=0;
-	var i_format=0;
-	var c="";
-	var token="";
-	var token2="";
-	var x,y;
-	var now=new Date();
-	var year=now.getYear();
-	var month=now.getMonth()+1;
-	var date=1;
-	var hh=now.getHours();
-	var mm=now.getMinutes();
-	var ss=now.getSeconds();
-	var ampm="";
+  while (patternIndex < this.pattern.length) {
+    currentChar = this.pattern.charAt(patternIndex);
 
-	while (i_format < format.length) {
-		// Get next token from format string
-		c=format.charAt(i_format);
-		token="";
-		while ((format.charAt(i_format)==c) && (i_format < format.length)) {
-			token += format.charAt(i_format++);
-			}
-		// Extract contents of value based on format token
-		if (token=="yyyy" || token=="yy" || token=="y") {
-			if (token=="yyyy") { x=4;y=4; }
-			if (token=="yy")   { x=2;y=2; }
-			if (token=="y")    { x=2;y=4; }
-			year=_getInt(val,i_val,x,y);
-			if (year==null) { return 0; }
-			i_val += year.length;
-			if (year.length==2) {
-				if (year > 70) { year=1900+(year-0); }
-				else { year=2000+(year-0); }
-				}
-			}
-		else if (token=="MMM"||token=="NNN"){
-			month=0;
-			for (var i=0; i<MONTH_NAMES.length; i++) {
-				var month_name=MONTH_NAMES[i];
-				if (val.substring(i_val,i_val+month_name.length).toLowerCase()==month_name.toLowerCase()) {
-					if (token=="MMM"||(token=="NNN"&&i>11)) {
-						month=i+1;
-						if (month>12) { month -= 12; }
-						i_val += month_name.length;
-						break;
-						}
-					}
-				}
-			if ((month < 1)||(month>12)){return 0;}
-			}
-		else if (token=="EE"||token=="E"){
-			for (var i=0; i<DAY_NAMES.length; i++) {
-				var day_name=DAY_NAMES[i];
-				if (val.substring(i_val,i_val+day_name.length).toLowerCase()==day_name.toLowerCase()) {
-					i_val += day_name.length;
-					break;
-					}
-				}
-			}
-		else if (token=="MM"||token=="M") {
-			month=_getInt(val,i_val,token.length,2);
-			if(month==null||(month<1)||(month>12)){return 0;}
-			i_val+=month.length;}
-		else if (token=="dd"||token=="d") {
-			date=_getInt(val,i_val,token.length,2);
-			if(date==null||(date<1)||(date>31)){return 0;}
-			i_val+=date.length;}
-		else if (token=="hh"||token=="h") {
-			hh=_getInt(val,i_val,token.length,2);
-			if(hh==null||(hh<1)||(hh>12)){return 0;}
-			i_val+=hh.length;}
-		else if (token=="HH"||token=="H") {
-			hh=_getInt(val,i_val,token.length,2);
-			if(hh==null||(hh<0)||(hh>23)){return 0;}
-			i_val+=hh.length;}
-		else if (token=="KK"||token=="K") {
-			hh=_getInt(val,i_val,token.length,2);
-			if(hh==null||(hh<0)||(hh>11)){return 0;}
-			i_val+=hh.length;}
-		else if (token=="kk"||token=="k") {
-			hh=_getInt(val,i_val,token.length,2);
-			if(hh==null||(hh<1)||(hh>24)){return 0;}
-			i_val+=hh.length;hh--;}
-		else if (token=="mm"||token=="m") {
-			mm=_getInt(val,i_val,token.length,2);
-			if(mm==null||(mm<0)||(mm>59)){return 0;}
-			i_val+=mm.length;}
-		else if (token=="ss"||token=="s") {
-			ss=_getInt(val,i_val,token.length,2);
-			if(ss==null||(ss<0)||(ss>59)){return 0;}
-			i_val+=ss.length;}
-		else if (token=="a") {
-			if (val.substring(i_val,i_val+2).toLowerCase()=="am") {ampm="AM";}
-			else if (val.substring(i_val,i_val+2).toLowerCase()=="pm") {ampm="PM";}
-			else {return 0;}
-			i_val+=2;}
-		else {
-			if (val.substring(i_val,i_val+token.length)!=token) {return 0;}
-			else {i_val+=token.length;}
-			}
-		}
-	// If there are any trailing characters left in the value, it doesn't match
-	if (i_val != val.length) { return 0; }
-	// Is date valid for month?
-	if (month==2) {
-		// Check for leap year
-		if ( ( (year%4==0)&&(year%100 != 0) ) || (year%400==0) ) { // leap year
-			if (date > 29){ return 0; }
-			}
-		else { if (date > 28) { return 0; } }
-		}
-	if ((month==4)||(month==6)||(month==9)||(month==11)) {
-		if (date > 30) { return 0; }
-		}
-	// Correct hours value
-	if (hh<12 && ampm=="PM") { hh=hh-0+12; }
-	else if (hh>11 && ampm=="AM") { hh-=12; }
-	var newdate=new Date(year,month-1,date,hh,mm,ss);
-	return newdate.getTime();
-	}
+    if (patternIndex < (this.pattern.length - 1)) {
+      nextChar = this.pattern.charAt(patternIndex + 1);
+    } else {
+      nextChar = 0;
+    }
 
-// ------------------------------------------------------------------
-// parseDate( date_string [, prefer_euro_format] )
-//
-// This function takes a date string and tries to match it to a
-// number of possible date formats to get the value. It will try to
-// match against the following international formats, in this order:
-// y-M-d   MMM d, y   MMM d,y   y-MMM-d   d-MMM-y  MMM d
-// M/d/y   M-d-y      M.d.y     MMM-d     M/d      M-d
-// d/M/y   d-M-y      d.M.y     d-MMM     d/M      d-M
-// A second argument may be passed to instruct the method to search
-// for formats like d/M/y (european format) before M/d/y (American).
-// Returns a Date object or null if no patterns match.
-// ------------------------------------------------------------------
+    if (currentChar == '\'' && lastChar != '\\') {
+      commentMode = !commentMode;
+      patternIndex++;
+    } else {
+      if (!commentMode) {
+        if (currentChar == '\\' && lastChar != '\\') {
+          patternIndex++;
+        } else {
+          if (patternSub == null)
+            patternSub = "";
+
+          patternSub += currentChar;
+
+          if (currentChar != nextChar) {
+            this._handlePatternSub(context, patternSub,
+                dateStr, dateIndex, parse);
+
+            patternSub = null;
+
+            if (context.newIndex < 0)
+              break;
+
+            dateIndex = context.newIndex;
+          }
+
+          patternIndex++;
+        }
+      } else {
+        if (parse) {
+          if (this.pattern.charAt(patternIndex) != dateStr.charAt(dateIndex)) {
+            //invalid character in dateString
+            return null;
+          }
+        } else {
+          context.dateStr += this.pattern.charAt(patternIndex);
+        }
+
+        patternIndex++;
+        dateIndex++;
+      }
+    }
+
+    lastChar = currentChar;
+  }
+
+  this._handlePatternSub(context, patternSub, dateStr, dateIndex, parse);
+  return context;
+};
+
+SimpleDateFormat.prototype.parse = function(dateStr) {
+  if (!dateStr || dateStr.length == 0) {
+    return null;
+  }
+
+  var context = this._handle(dateStr, null, true);
+
+  if (context.retvalue == -1) {
+    return null;
+  }
+
+  this._adjustTwoDigitYear(context);
+
+  return this._createDateFromContext(context);
+};
+
+SimpleDateFormat.prototype._createDateFromContext = function(context) {
+  return new Date(context.year, context.month,
+      context.day, context.hour, context.min, context.sec);
+};
+
+SimpleDateFormat.prototype.format = function(date) {
+  var context = this._handle(null, date, false);
+
+  return context.dateStr;
+};
+
+SimpleDateFormat.prototype._parseString
+    = function(context, dateStr, dateIndex, strings) {
+  var fragment = dateStr.substr(dateIndex);
+  var index = this._prefixOf(strings, fragment);
+  if (index != -1) {
+    context.retValue = index;
+    context.newIndex = dateIndex + strings[index].length;
+    return context;
+  }
+
+  context.retValue = -1;
+  context.newIndex = -1;
+  return context;
+};
+
+SimpleDateFormat.prototype._parseNum
+    = function(context, dateStr, posCount, dateIndex) {
+  for (var i = Math.min(posCount, dateStr.length - dateIndex); i > 0; i--) {
+    var numStr = dateStr.substring(dateIndex, dateIndex + i);
+
+    context.retValue = this._parseInt(numStr);
+    if (context.retValue == -1) {
+      continue;
+    }
+
+    context.newIndex = dateIndex + i;
+    return context;
+  }
+
+  context.retValue = -1;
+  context.newIndex = -1;
+  return context;
+};
+
+SimpleDateFormat.prototype._handlePatternSub
+    = function(context, patternSub, dateStr, dateIndex, parse) {
+  if (patternSub == null || patternSub.length == 0)
+    return;
+
+  if (patternSub.charAt(0) == 'y') {
+    if (parse) {
+      /* XXX @Arvid: whatever we do, we need to try to parse
+          the full year format - length means nothing for
+          parsing, only for formatting, so says SimpleDateFormat javadoc.
+          only if we run into problems as there are no separator chars, we
+          should use exact length parsing - how are we going to handle this?
+
+          Additionally, the threshold was not quite correct - it needs to
+          be set to current date - 80years...
+
+          this is done after parsing now!
+
+      if (patternSub.length <= 3) {
+        this._parseNum(context, dateStr,2,dateIndex);
+        context.year = (context.retValue < 26)
+            ? 2000 + context.retValue : 1900 + context.retValue;
+      } else {
+        this._parseNum(context, dateStr,4,dateIndex);
+        context.year = context.retValue;
+      }*/
+      this._parseNum(context, dateStr, 4, dateIndex);
+
+      if ((context.newIndex - dateIndex) < 4) {
+        context.year = context.retValue + 1900;
+        context.ambigousYear = true;
+      } else {
+        context.year = context.retValue;
+      }
+    } else {
+      this._formatNum(context, context.year,
+          patternSub.length <= 3 ? 2 : 4, true);
+    }
+  } else if (patternSub.charAt(0) == 'M') {
+    if (parse) {
+      if (patternSub.length == 3) {
+        var fragment = dateStr.substr(dateIndex, 3);
+        var index = this._indexOf(this.dateFormatSymbols.shortMonths, fragment);
+        if (index != -1) {
+          context.month = index;
+          context.newIndex = dateIndex + 3;
+        }
+      } else if (patternSub.length >= 4) {
+        var fragment = dateStr.substr(dateIndex);
+        var index = this._prefixOf(this.dateFormatSymbols.months, fragment);
+        if (index != -1) {
+          context.month = index;
+          context.newIndex = dateIndex
+              + this.dateFormatSymbols.months[index].length;
+        }
+      } else {
+        this._parseNum(context, dateStr, 2, dateIndex);
+        context.month = context.retValue - 1;
+      }
+    } else {
+      if (patternSub.length == 3) {
+        context.dateStr += this.dateFormatSymbols.shortMonths[context.month];
+      } else if (patternSub.length >= 4) {
+        context.dateStr += this.dateFormatSymbols.months[context.month];
+      } else {
+        this._formatNum(context, context.month + 1, patternSub.length);
+      }
+    }
+  } else if (patternSub.charAt(0) == 'd') {
+    if (parse) {
+      this._parseNum(context, dateStr, 2, dateIndex);
+      context.day = context.retValue;
+    } else {
+      this._formatNum(context, context.day, patternSub.length);
+    }
+  } else if (patternSub.charAt(0) == 'E') {
+    if (parse) {
+      // XXX dayOfWeek is not used to generate date at the moment
+      if (patternSub.length <= 3) {
+        var fragment = dateStr.substr(dateIndex, 3);
+        var index = this._indexOf(this.dateFormatSymbols.shortWeekdays, fragment);
+        if (index != -1) {
+          context.dayOfWeek = index;
+          context.newIndex = dateIndex + 3;
+        }
+      } else {
+        var fragment = dateStr.substr(dateIndex);
+        var index = this._prefixOf(this.dateFormatSymbols.weekdays, fragment);
+        if (index != -1) {
+          context.dayOfWeek = index;
+          context.newIndex = dateIndex
+              + this.dateFormatSymbols.weekdays[index].length;
+        }
+      }
+    } else {
+      if (patternSub.length <= 3) {
+        context.dateStr
+            += this.dateFormatSymbols.shortWeekdays[context.dayOfWeek];
+      } else {
+        context.dateStr += this.dateFormatSymbols.weekdays[context.dayOfWeek];
+      }
+    }
+  } else if (patternSub.charAt(0) == 'H' || patternSub.charAt(0) == 'h') {
+    if (parse) {
+      this._parseNum(context, dateStr, 2, dateIndex);
+      context.hour = context.retValue;
+    } else {
+      this._formatNum(context, context.hour, patternSub.length);
+    }
+  } else if (patternSub.charAt(0) == 'm') {
+    if (parse) {
+      this._parseNum(context, dateStr, 2, dateIndex);
+      context.min = context.retValue;
+    } else {
+      this._formatNum(context, context.min, patternSub.length);
+    }
+  } else if (patternSub.charAt(0) == 's') {
+    if (parse) {
+      this._parseNum(context, dateStr, 2, dateIndex);
+      context.sec = context.retValue;
+    } else {
+      this._formatNum(context, context.sec, patternSub.length);
+    }
+  } else if (patternSub.charAt(0) == 'a') {
+    if (parse) {
+      this._parseString(context, dateStr, dateIndex, this.dateFormatSymbols.ampms);
+      context.ampm = context.retValue;
+    } else {
+      context.dateStr += this.dateFormatSymbols.ampms[context.ampm];
+    }
+  } else {
+    if (parse) {
+      context.newIndex = dateIndex + patternSub.length;
+    } else {
+      context.dateStr += patternSub;
+    }
+  }
+};
+
+SimpleDateFormat.prototype._formatNum
+    = function (context, num, length, ensureLength) {
+  var str = num + "";
+
+  while (str.length < length)
+    str = "0" + str;
+
+  // XXX do we have to distinguish left and right 'cutting'
+  //ensureLength - enable cutting only for parameters like the year, the other
+  if (ensureLength && str.length > length) {
+    str = str.substr(str.length - length);
+  }
+
+  context.dateStr += str;
+};
+
+// perhaps add to Array.prototype
+SimpleDateFormat.prototype._indexOf = function (array, value) {
+  for (var i = 0; i < array.length; ++i) {
+    if (array[i] == value) {
+      return i;
+    }
+  }
+  return -1;
+};
+
+SimpleDateFormat.prototype._prefixOf = function (array, value) {
+  for (var i = 0; i < array.length; ++i) {
+    if (value.indexOf(array[i]) == 0) {
+      return i;
+    }
+  }
+  return -1;
+};
+
+SimpleDateFormat.prototype._parseInt = function(value) {
+  var sum = 0;
+  for (var i = 0; i < value.length; i++) {
+    var c = value.charAt(i);
+
+    if (c < '0' || c > '9') {
+      return -1;
+    }
+    sum = sum * 10 + (c - '0');
+  }
+  return sum;
+};
+
+SimpleDateFormat.prototype._fullYearFromDate = function(year) {
+  var yearStr = year + "";
+  if (yearStr.length < 4) {
+    return year + 1900;
+  }
+  return year;
+};
+
+SimpleDateFormat.prototype._adjustTwoDigitYear = function(context) {
+  if (context.ambigousYear) {
+    var date = this._createDateFromContext(context);
+    var threshold = this.dateFormatSymbols.twoDigitYearStart;
+    if (date.getTime() < threshold.getTime()) {
+      context.year += 100;
+    }
+  }
+};
+
+function getDateFromFormat(input, format) {
+  var f = new SimpleDateFormat(format);
+  return f.parse(input);
+}
+
+function formatDate(date, format) {
+  var f = new SimpleDateFormat(format);
+  return f.format(date);
+}
+
 function parseDate(val) {
-	var preferEuro=(arguments.length==2)?arguments[1]:false;
-	generalFormats=new Array('y-M-d','MMM d, y','MMM d,y','y-MMM-d','d-MMM-y','MMM d');
-	monthFirst=new Array('M/d/y','M-d-y','M.d.y','MMM-d','M/d','M-d');
-	dateFirst =new Array('d/M/y','d-M-y','d.M.y','d-MMM','d/M','d-M');
-	var checkList=new Array('generalFormats',preferEuro?'dateFirst':'monthFirst',preferEuro?'monthFirst':'dateFirst');
-	var d=null;
-	for (var i=0; i<checkList.length; i++) {
-		var l=window[checkList[i]];
-		for (var j=0; j<l.length; j++) {
-			d=getDateFromFormat(val,l[j]);
-			if (d!=0) { return new Date(d); }
-			}
-		}
-	return null;
-	}
+  var preferEuro = (arguments.length == 2) ? arguments[1] : false;
+  generalFormats = new Array(
+      'y-M-d', 'MMM d, y', 'MMM d,y', 'y-MMM-d', 'd-MMM-y', 'MMM d');
+  monthFirst = new Array('M/d/y', 'M-d-y', 'M.d.y', 'MMM-d', 'M/d', 'M-d');
+  dateFirst = new Array('d/M/y', 'd-M-y', 'd.M.y', 'd-MMM', 'd/M', 'd-M');
+  var checkList = new Array('generalFormats', preferEuro ? 'dateFirst'
+      : 'monthFirst', preferEuro ? 'monthFirst' : 'dateFirst');
+  var d = null;
+  for (var i = 0; i < checkList.length; i++) {
+    var l = window[checkList[i]];
+    for (var j = 0; j < l.length; j++) {
+      var format = new SimpleDateFormat(l[j]);
+      d = format.parse(val);
+      if (d != 0) {
+        return new Date(d);
+      }
+    }
+  }
+  return null;
+}
