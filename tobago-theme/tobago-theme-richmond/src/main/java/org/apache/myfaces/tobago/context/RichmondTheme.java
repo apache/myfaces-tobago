@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!--
+/*
  * Copyright 2002-2005 The Apache Software Foundation.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,21 +12,19 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
--->
+ */
+/*
+* Created 11.02.2005 08:50:13.
+* $Id: RichmondTheme.java 1886 2005-11-01 21:03:54Z bommel $
+*/
+package org.apache.myfaces.tobago.context;
 
-<!DOCTYPE tobago-config PUBLIC
-    "-//The Apache Software Foundation//DTD Tobago Config 1.0//EN" "tobago-config_1_0.dtd">
+public class RichmondTheme extends Theme {
 
-<tobago-config>
+  public static final String NAME = "richmond";
+  public static final String DISPLAY_NAME = "Richmond";
 
-  <theme-config>
-    <default-theme>org.apache.myfaces.tobago.context.SpeysideTheme</default-theme>
-    <supported-theme>org.apache.myfaces.tobago.context.ScarboroughTheme</supported-theme>
-    <supported-theme>org.apache.myfaces.tobago.context.RichmondTheme</supported-theme>
-  </theme-config>
-
-  <resource-dir>tobago-resource</resource-dir>
-  <resource-dir>tobago</resource-dir>
-
-</tobago-config>
-
+  public RichmondTheme() {
+    super(NAME, DISPLAY_NAME, new SpeysideTheme());
+  }
+}

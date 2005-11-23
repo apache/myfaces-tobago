@@ -69,13 +69,13 @@
       <classifier>THEME</classifier>
       <scope>provided</scope>
     </dependency>
-    <!--dependency>
+    <dependency>
       <groupId>tobago</groupId>
       <artifactId>tobago-theme-richmond</artifactId>
       <version>${version}</version>
       <classifier>THEME</classifier>
       <scope>provided</scope>
-    </dependency-->
+    </dependency>
     <dependency>
       <groupId>tobago</groupId>
       <artifactId>tobago-theme-standard</artifactId>

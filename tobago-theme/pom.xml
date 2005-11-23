@@ -32,7 +32,7 @@
     <module>tobago-theme-standard</module>
     <module>tobago-theme-scarborough</module>
     <module>tobago-theme-speyside</module>
-    <!--module>tobago-theme-richmond</module-->
+    <module>tobago-theme-richmond</module>
 <!--    <module>tobago-theme-boccoo</module>-->
   </modules>
 </project>

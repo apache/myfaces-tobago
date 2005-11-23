@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!--
+/*
  * Copyright 2002-2005 The Apache Software Foundation.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,21 +12,8 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
--->
+ */
 
-<!DOCTYPE tobago-config PUBLIC
-    "-//The Apache Software Foundation//DTD Tobago Config 1.0//EN" "tobago-config_1_0.dtd">
-
-<tobago-config>
-
-  <theme-config>
-    <default-theme>org.apache.myfaces.tobago.context.SpeysideTheme</default-theme>
-    <supported-theme>org.apache.myfaces.tobago.context.ScarboroughTheme</supported-theme>
-    <supported-theme>org.apache.myfaces.tobago.context.RichmondTheme</supported-theme>
-  </theme-config>
-
-  <resource-dir>tobago-resource</resource-dir>
-  <resource-dir>tobago</resource-dir>
-
-</tobago-config>
-
+a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:active.tobago-toolBar-button-link {
+  color: #3366CC;
+}

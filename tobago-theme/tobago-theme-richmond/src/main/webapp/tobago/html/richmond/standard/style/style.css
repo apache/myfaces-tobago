@@ -1,0 +1,354 @@
+/*
+ * Copyright 2002-2005 The Apache Software Foundation.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+.tobago-link-default {
+  font: bold 12px arial, helvetica, sans-serif;
+  color: #3366cc;
+  text-decoration: none;
+}
+
+a:link.tobago-link-default, a:visited.tobago-link-default, a:active.tobago-link-default {
+  color: #3366cc;
+}
+
+hr  {
+  border-top: 1px solid #3366CC;
+  border-right: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
+  border-left: 1px solid #ffffff;
+}
+
+/* Headlines Navigation */
+h1  {
+  color: #3366CC;
+}
+
+h5  {
+  font: bold;
+  color: #3366CC;
+}
+
+/* - Calendar --------------------------------------------------------------- */
+td.tobago-calendar-day-selected {
+  background-color: #99CCFF;
+}
+
+/* - Tree ------------------------------------------------------------------- */
+
+a.tree-folder-label:hover, a.tree-item-label:hover  {
+  color: #6699ff;
+  text-decoration: underline;
+}
+
+a.tree-folder-label:focus, a.tree-item-label:focus {
+  background: #d6ebff;
+  color: #3366cc;
+}
+
+.tree-junction {
+	width: 19px;
+	height: 16px;
+}
+
+/* Progress Control --------------------------------------------------------- */
+
+img.tobago-progress-color1 {
+  background-color: #3366cc;
+}
+
+img.tobago-progress-color2 {
+  background-color: #6699ff;
+}
+
+
+/* - File Upload ------------------------------------------------------------ */
+
+.tobago-file-default  {
+  height: 20px;
+}
+
+
+/* page --------------------------------------------------------------------- */
+.tobago-page-default  {
+  background: #ffffff;
+  font: 11px arial, helvetica, sans-serif;
+  color: #3366CC;
+  margin-bottom: 0px;
+  scrollbar-base-color: #3366CC;
+  scrollbar-3dlight-color: #3366cc;
+  scrollbar-darkshadow-color: #3366CC;
+  scrollbar-arrow-color: #3366cc;
+  scrollbar-face-color: #FFFFFF;
+  scrollbar-highlight-color: #FFFFFF;
+  scrollbar-shadow-color: #3366CC;
+}
+
+/* box ----------------------------------------------------------------- */
+
+.tobago-box-default {
+  background: #E6E6E6;
+  border: 0px solid #FF9900;
+}
+
+.tobago-box-header {
+  background: #FFCC66 none;
+  height: 20px;
+  border: 1px solid #FF9900;
+  border-bottom: 0px dotted #FF9900;
+  font: bold 12px arial, helvetica, sans-serif;
+  color: #3366CC;
+  padding-left: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.tobago-box-content {
+  border: 1px solid #FF9900;
+  border-top: 0px solid #FF9900;
+  background-color: #E6E6E6;
+  padding: 5px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* tobago button ------------------------------------------------------------ */
+.tobago-button-default  {
+  border: 1px #FF7D00 solid;
+  background: #FFCC66;
+  font: 11px arial, helvetica, sans-serif;
+  color: #3366CC;
+}
+
+.tobago-button-disabled {
+  color: gray;
+}
+
+/* tobago label ------------------------------------------------------------ */
+
+div.tobago-label-default  {
+  background: #99ccff;
+}
+
+label.tobago-label-default {
+  color: #3366cc;
+}
+
+.tobago-label-td-underline-label {
+  background: #99ccff;
+  height: 1px;
+}
+
+.tobago-label-td-underline-spacer {
+  background: #e6e6e6;
+}
+
+/* Tab ---------------------------------------------------------------------- */
+a:link.tobago-tab-link, a:visited.tobago-tab-link, a:active.tobago-tab-link {
+  font: bold 12px Arial, Helvetica, sans-serif;
+  color: #D6EBFF;
+}
+
+div.tobago-tab-selected-outer {
+  border-color: #3366CC;
+  padding: 0.2ex 0.2em;
+  background: #6699FF url(none) repeat-x top;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+div.tobago-tab-selected-inner {
+  font: bold 12px arial, helvetica, sans-serif;
+  color: #3366CC;
+}
+
+div.tobago-tab-unselected-outer {
+  border-color: #3366CC;
+  background: #6699FF url(none) repeat-x top;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+div.tobago-tab-unselected-inner {
+  font: bold 12px arial, helvetica, sans-serif;
+  color: #3366CC;
+}
+
+div.tobago-tab-fulfill {
+  border-color: #3366CC;
+  margin: 1px;
+  margin-bottom:0px;
+  margin-top:0px;
+  margin-left:0px;
+}
+
+.tobago-tab-content {
+  border: 1px solid #3366CC;
+  border-top: 0px solid transparent;
+  padding: 14px 10px 12px 13px;
+  background: #FFFFFF;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.tobago-tab-shadow {
+  background: #FFFFFF;
+  border: 0px solid #FFFFFF;
+  border-top: 0px solid transparent;
+  border-left: 0px solid transparent;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+a:link.tab, a:visited.tab, a:active.tab {
+  font-family: bold 12px arial, helvetica, sans-serif;
+  color: #3366CC;
+}
+
+/* textArea -------------------------------------------------------------- */
+
+.tobago-textArea-default  {
+  font: 12px arial, helvetica, sans-serif;
+  color: #3366CC;
+  border: 1px solid #3366CC;
+}
+
+.tobago-textArea-readonly  {
+  background-color: #e6e6e6;
+}
+
+.tobago-textArea-disabled  {
+  color: #808080;
+  background-color: #e6e6e6;
+}
+
+.tobago-textArea-error  {
+  border: 1px solid #ff0000;
+}
+
+/* in ---------------------------------------------------------------------- */
+
+.tobago-in-default  {
+  border: 1px #3366CC solid;
+  height: 20px;
+  font: 12px arial, helvetica, sans-serif;
+  color: #3366CC;
+}
+
+.tobago-in-readonly  {
+  background-color: #e6e6e6;
+  color: #3366cc;
+}
+
+.tobago-in-disabled  {
+  color: #3366cc;
+  background-color: #e6e6e6;
+}
+
+.tobago-in-error  {
+  border: 1px solid #ff0000;
+}
+
+/* Time -------------------------------------------------------------------- */
+.tobago-time-default {
+  height: 20px;
+}
+
+.tobago-time-borderDiv {
+  border: 1px solid #3366CC;
+}
+
+.tobago-time-input {
+  font: 12px arial, helvetica, sans-serif;
+  color: #3366CC;
+}
+
+.tobago-time-input-selected {
+  border: 1px solid #FFFFFF;
+  background: #D6EBFF;
+}
+
+/* Toolbar ----------------------------------------------------------------- */
+.tobago-toolBar-default  {
+  height: 20px;
+  border: 1px solid #FF9900;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+
+.tobago-toolBar-div-inner {
+  margin-left: -1px;
+  padding: 0px;
+}
+
+.tobago-toolBar-button-span {
+  font: bold 12px arial, helvetica, sans-serif;
+  color: #3366CC;
+  padding-top: 2px;
+  padding-left: 5px;
+  padding-bottom: 2px;
+  padding-right: 5px;
+  margin: 1px;
+  border: 0px solid black;
+}
+
+.tobago-toolbar-button-table {
+  font: bold 12px arial, helvetica, sans-serif;
+  color: #3366CC;
+}
+
+.tobago-toolbar-button-table-disabled {
+  color: GrayText;
+}
+
+.tobago-toolBar-button-box-facet-selected-enabled {
+  cursor: pointer;
+  margin: 0px;
+  border-left: 1px solid #808080;
+  border-right: 1px solid #FFFFFF;
+  background: #FFCC66 url(../image/toolbarButtonBoxFacetSelectEnabled.gif) repeat-x top;
+}
+
+.tobago-toolBar-button-enabled {
+  cursor: pointer;
+}
+
+.tobago-toolBar-button-disabled {
+  color: GrayText;
+}
+
+.tobago-toolBar-button-hover {
+  border: 1px solid #FF9900;
+  background: #FAB54D;
+  margin: 0px;
+}
+
+.tobago-toolBar-button-image {
+ vertical-align: bottom;
+ margin-bottom: 0px;
+}
+
+.tobago-toolBar-button-label {
+  padding-left: 5px;
+}
+
+/* Validation ----------------------------------------------------------------- */
+.tobago-validation-message {
+  color: #ff0000;
+  font: 14px arial, helvetica, sans-serif;
+}

@@ -21,67 +21,46 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>tobago</groupId>
-    <artifactId>tobago-example</artifactId>
+    <artifactId>tobago-theme</artifactId>
     <version>1.0.7-SNAPSHOT</version>
   </parent>
-  <artifactId>tobago-example-foreach</artifactId>
-  <packaging>war</packaging>
-  <name>Tobago example foreach</name>
+  <artifactId>tobago-theme-richmond</artifactId>
+  <packaging>jar</packaging>
+  <name>Tobago theme richmond</name>
   <build>
-    <finalName>tobago-example-foreach</finalName>
     <plugins>
       <plugin>
         <groupId>tobago</groupId>
         <artifactId>maven-theme-plugin</artifactId>
-        <version>${version}</version>
         <executions>
           <execution>
-            <goals>
-              <goal>resources</goal>
-            </goals>
+            <phase>package</phase>
+            <goals><goal>theme</goal></goals>
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>tomcat-maven-plugin</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <configuration>
-          <server>tomcat</server>
-          <update>true</update>
-          <!--url>change if not http://localhost:8080/manager</url-->
-        </configuration>
-      </plugin>
     </plugins>
   </build>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>dependencies</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
   <dependencies>
-    <dependency>
-      <groupId>tobago</groupId>
-      <artifactId>tobago-theme-scarborough</artifactId>
-      <version>${version}</version>
-      <classifier>THEME</classifier>
-      <scope>provided</scope>
-    </dependency>
     <dependency>
       <groupId>tobago</groupId>
       <artifactId>tobago-theme-speyside</artifactId>
       <version>${version}</version>
-      <classifier>THEME</classifier>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>tobago</groupId>
-      <artifactId>tobago-theme-richmond</artifactId>
-      <version>${version}</version>
-      <classifier>THEME</classifier>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>tobago</groupId>
-      <artifactId>tobago-theme-standard</artifactId>
-      <version>${version}</version>
-      <classifier>THEME</classifier>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>tobago</groupId>
@@ -96,13 +75,7 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.11</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
+       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
       <version>2.3</version>
       <scope>provided</scope>
