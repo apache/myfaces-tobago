@@ -57,6 +57,8 @@
                   target="Exit"/>
       <transition outcome="store"
                   target="Store"/>
+      <transition outcome="editor"
+                  target="View"/>
     </view>
 
     <action name="Store"

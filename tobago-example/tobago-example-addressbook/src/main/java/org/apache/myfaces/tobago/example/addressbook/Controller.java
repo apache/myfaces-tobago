@@ -21,13 +21,13 @@ package org.apache.myfaces.tobago.example.addressbook;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.fileupload.FileItem;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.jsf.FacesContextUtils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -48,6 +48,9 @@ public class Controller {
   private boolean renderDayOfBirth = false;
 
   private AddressDAO addressDAO;
+
+  private FileItem uploadedFile;
+  private boolean renderFileUploadPopup;
 
   public Controller() {
     LOG.debug("Creating new Controller");
@@ -124,8 +127,22 @@ public class Controller {
     this.selectedAddresses = selectedAddresses;
   }
 
+  public boolean isRenderFileUploadPopup() {
+    return renderFileUploadPopup;
+  }
+
+  public void setRenderFileUploadPopup(boolean renderFileUploadPopup) {
+    LOG.debug(">>> "+renderFileUploadPopup);
+    this.renderFileUploadPopup = renderFileUploadPopup;
+  }
+
   public boolean isRenderPopup() {
     return renderPopup;
+  }
+
+  public String cancelFileUploadPopup() {
+    setRenderFileUploadPopup(false);
+    return OUTCOME_EDITOR;
   }
 
   public void setRenderPopup(boolean renderPopup) {
@@ -165,4 +182,18 @@ public class Controller {
   public void setRenderDayOfBirth(boolean renderDayOfBirth) {
     this.renderDayOfBirth = renderDayOfBirth;
   }
+
+  public FileItem getUploadedFile() {
+    return uploadedFile;
+  }
+
+  public void setUploadedFile(FileItem uploadedFile) {
+    this.uploadedFile = uploadedFile;
+  }
+
+  public String renderFileUploadPopup() {
+    setRenderFileUploadPopup(true);
+    return OUTCOME_EDITOR;
+  }
+
 }

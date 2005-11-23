@@ -24,6 +24,7 @@ import org.apache.commons.logging.LogFactory;
 
 import java.util.Date;
 import java.util.Locale;
+import java.io.File;
 
 public class Address {
 
@@ -51,6 +52,7 @@ public class Address {
   private String jobPhone;
   private String jobEmail;
   private String jobHomePage;
+  private static final String EMPTY_PORTRAIT = "image/empty_portrait.png";
 
   public Address() {
     LOG.debug("Creating new Address");
@@ -249,7 +251,16 @@ public class Address {
     this.jobHomePage = jobHomePage;
   }
 
+  public String getImageFileName() {
+    String fileName = id + ".png";
+    if (new File(fileName).exists()) {
+      return fileName;
+    } else {
+      return EMPTY_PORTRAIT;
+    }
+  }
+
   public String toString() {
-    return id+": "+firstName+" "+lastName;
+    return id + ": " + firstName + " " + lastName;
   }
 }
