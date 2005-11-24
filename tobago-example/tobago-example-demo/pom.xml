@@ -20,7 +20,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>tobago</groupId>
+    <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
     <version>1.0.7-SNAPSHOT</version>
   </parent>
@@ -31,7 +31,7 @@
     <finalName>tobago-example-demo</finalName>
     <plugins>
       <plugin>
-        <groupId>tobago</groupId>
+        <groupId>org.apache.myfaces.tobago</groupId>
         <artifactId>maven-theme-plugin</artifactId>
         <version>${version}</version>
         <executions>
@@ -54,35 +54,35 @@
   </build>
   <dependencies>
     <dependency>
-      <groupId>tobago</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-scarborough</artifactId>
       <version>${version}</version>
       <classifier>THEME</classifier>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>tobago</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-speyside</artifactId>
       <version>${version}</version>
       <classifier>THEME</classifier>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>tobago</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-richmond</artifactId>
       <version>${version}</version>
       <classifier>THEME</classifier>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>tobago</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-standard</artifactId>
       <version>${version}</version>
       <classifier>THEME</classifier>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>tobago</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-core</artifactId>
       <version>${version}</version>
       <scope>compile</scope>

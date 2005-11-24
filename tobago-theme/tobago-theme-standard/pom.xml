@@ -20,7 +20,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
    <parent>
-    <groupId>tobago</groupId>
+    <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
     <version>1.0.7-SNAPSHOT</version>
   </parent>
@@ -30,7 +30,7 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>tobago</groupId>
+        <groupId>org.apache.myfaces.tobago</groupId>
         <artifactId>maven-theme-plugin</artifactId>
         <executions>
           <execution>
@@ -58,7 +58,7 @@
   <dependencies>
 
     <dependency>
-      <groupId>tobago</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-core</artifactId>
       <version>${version}</version>
       <scope>compile</scope>

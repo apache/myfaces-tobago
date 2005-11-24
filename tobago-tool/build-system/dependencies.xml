@@ -32,7 +32,7 @@
   <dependencies>
 
     <dependency>
-      <groupId>tobago</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-apt</artifactId>
       <version>1.0.7-SNAPSHOT</version>
     </dependency>

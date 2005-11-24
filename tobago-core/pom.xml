@@ -20,7 +20,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>tobago</groupId>
+    <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago</artifactId>
     <version>1.0.7-SNAPSHOT</version>
   </parent>
@@ -31,7 +31,7 @@
    <build>
     <plugins>
       <plugin>
-        <groupId>tobago</groupId>
+        <groupId>org.apache.myfaces.tobago</groupId>
         <artifactId>maven-apt-plugin</artifactId>
         <version>${version}</version>
         <configuration>
@@ -91,14 +91,14 @@
           <tags>TODO, FIXME, XXX, @deprecated</tags>
         </configuration>
       </plugin>
-      <!--plugin>
+      <plugin>
         <groupId>net.sourceforge.maven-taglib</groupId>
         <artifactId>maven-taglib-plugin</artifactId>
         <configuration>
           <taglib.src.dir>${basedir}/target/classes/META-INF/</taglib.src.dir>
           <tldDocDir>${basedir}/target/site/tlddoc</tldDocDir>
           </configuration>
-      </plugin-->
+      </plugin>
       <!-- wait until checkstyle 4.0 is released
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -217,7 +217,7 @@
     </dependency>
 
     <dependency>
-      <groupId>tobago</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-tool-apt</artifactId>
       <version>${version}</version>
       <scope>provided</scope>
@@ -267,7 +267,7 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>tobago</groupId>
+            <groupId>org.apache.myfaces.tobago</groupId>
             <artifactId>maven-apt-plugin</artifactId>
             <version>${version}</version>
             <configuration>
