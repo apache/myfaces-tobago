@@ -136,10 +136,6 @@ public class Controller {
     this.renderFileUploadPopup = renderFileUploadPopup;
   }
 
-  public boolean isRenderPopup() {
-    return renderPopup;
-  }
-
   public String cancelFileUploadPopup() {
     setRenderFileUploadPopup(false);
     return OUTCOME_EDITOR;
@@ -147,6 +143,10 @@ public class Controller {
 
   public void setRenderPopup(boolean renderPopup) {
     this.renderPopup = renderPopup;
+  }
+
+ public boolean isRenderPopup() {
+    return renderPopup;
   }
 
   public String selectColumns() {
@@ -191,7 +191,8 @@ public class Controller {
     this.uploadedFile = uploadedFile;
   }
 
-  public String renderFileUploadPopup() {
+  public String popupFileUpload() {
+    LOG.error("AHHHHHHH");
     setRenderFileUploadPopup(true);
     return OUTCOME_EDITOR;
   }

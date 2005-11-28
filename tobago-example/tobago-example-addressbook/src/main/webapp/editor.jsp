@@ -89,17 +89,16 @@
                   <tc:gridLayout rows="160px" columns="120px"/>
                 </f:facet>
                 <tc:button image="#{controller.currentAddress.imageFileName}"
-                    action="#{controller.currentAddress.renderFileUploadPopup}">
-                  <f:facet name="popup">
-                    <tc:popup width="300px" height="200px" left="200px"
-                              top="200px" rendered="#{controller.renderFileUploadPopup}"
-                              id="popup">
-                      <tc:file
-                          value="#{controller.currentAddress.uploadedFile}"/>
-                      <tc:button action="#{controller.cancelPopup}" label="OK" defaultCommand="true"/>
-                      <tc:button action="#{controller.cancelPopup}" label="Cancel"/>
-                    </tc:popup>
-                  </f:facet>
+                    action="#{controller.popupFileUpload}">
+                  <%--<f:facet name="popup">--%>
+                    <%--<tc:popup width="300px" height="200px" left="200px"--%>
+                              <%--top="200px" rendered="#{controller.renderFileUploadPopup}"--%>
+                              <%--id="popup-fileUpload">--%>
+                      <%--<tc:file value="#{controller.uploadedFile}"/>--%>
+                      <%--<%--<tc:button action="#{controller.cancelPopup}" label="OK" defaultCommand="true"/>--%>--%>
+                      <%--<%--<tc:button action="#{controller.cancelPopup}" label="Cancel"/>--%>--%>
+                    <%--</tc:popup>--%>
+                  <%--</f:facet>--%>
                 </tc:button>
               </tc:panel>
             </tc:panel>
