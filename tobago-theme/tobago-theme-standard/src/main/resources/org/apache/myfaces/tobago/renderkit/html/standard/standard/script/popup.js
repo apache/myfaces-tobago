@@ -74,4 +74,4 @@ function setPopupPara(width,height,options) {
 }
 
 // This MUST be the last line !
-Tobago.registerScript("/html/standard/standard/script/popup.js");
+if (Tobago != undefined) Tobago.registerScript("/html/standard/standard/script/popup.js");
