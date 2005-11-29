@@ -32,7 +32,7 @@ import java.text.ParseException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
-public class DateUnitTest extends JavaScriptTestCase {
+public class DateUnitTest extends AbstractJavaScriptTestCase {
 
   private static final int[] YEAR_MONTH_DAY
       = {Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH};

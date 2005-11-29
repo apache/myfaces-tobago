@@ -30,7 +30,7 @@ import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.JavaScriptException;
 
-public abstract class JavaScriptTestCase extends TestCase {
+public abstract class AbstractJavaScriptTestCase extends TestCase {
 
   protected Context cx;
   protected Scriptable scope;
@@ -44,6 +44,10 @@ public abstract class JavaScriptTestCase extends TestCase {
   protected void tearDown() throws Exception {
     Context.exit();
   }
+
+  public void testDummy() {
+
+}
 
   protected Object eval(String script) throws JavaScriptException {
     return cx.evaluateString(scope, script, "test", 1, null);
