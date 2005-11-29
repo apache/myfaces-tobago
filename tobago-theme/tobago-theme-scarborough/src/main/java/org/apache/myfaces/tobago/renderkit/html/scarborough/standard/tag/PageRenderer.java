@@ -103,6 +103,19 @@ public class PageRenderer extends PageRendererBase {
     UILayout.getLayout(component).encodeChildrenOfComponent(facesContext, component);
 //    RenderUtil.encodeChildren(facesContext, page);
 
+// render popups into buffer
+    StringWriter popups = new StringWriter();
+    contentWriter = writer.cloneWithWriter(popups);
+    facesContext.setResponseWriter(contentWriter);
+
+    // write popup components
+    // beware of ConcurrentModificationException in cascating popups!
+    for (int i = 0; i < page.getPopups().size(); i++) {
+      UIComponent popup = page.getPopups().get(i);
+      RenderUtil.encode(facesContext, popup);
+    }
+    
+
     // reset responseWriter and render page
     facesContext.setResponseWriter(writer);
     // TODO PortletRequest
@@ -301,12 +314,8 @@ public class PageRenderer extends PageRendererBase {
     // write the proviously rendered page content
     writer.write(content.toString());
 
-    // write popup components
-    // beware of ConcurrentModificationException in cascating popups! 
-    for (int i = 0; i < page.getPopups().size(); i++) {
-      UIComponent popup = page.getPopups().get(i);
-      RenderUtil.encode(facesContext, popup);
-    }
+    // write the previously rendered popups
+    writer.write(popups.toString());
 
     writer.endElement("form");
 
