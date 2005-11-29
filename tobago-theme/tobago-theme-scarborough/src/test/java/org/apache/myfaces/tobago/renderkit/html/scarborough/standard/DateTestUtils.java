@@ -45,6 +45,7 @@ public class DateTestUtils {
     SimpleDateFormat dateFormat = new SimpleDateFormat(format, locale);
     for (int day = min; day <= max; ++day) {
       Calendar calendar = Calendar.getInstance();
+      calendar.clear();
       calendar.set(field, day);
       Date date = calendar.getTime();
       names.add(dateFormat.format(date));
