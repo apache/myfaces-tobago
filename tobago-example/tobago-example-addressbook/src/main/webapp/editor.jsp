@@ -13,8 +13,8 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
-<%@ taglib uri="http://www.atanion.com/tobago/extension" prefix="tx" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
 <f:view>

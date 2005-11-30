@@ -4,7 +4,7 @@
   <tlib-version>1.0</tlib-version>
   <jsp-version>1.2</jsp-version>
   <short-name>tx</short-name>
-  <uri>http://www.atanion.com/tobago/extension</uri>
+  <uri>http://myfaces.apache.org/tobago/extension</uri>
   <description><![CDATA[ <h2>Tobago Framework Extension Tag Library</h2>]]></description>
   <tag>
     <name>in</name>

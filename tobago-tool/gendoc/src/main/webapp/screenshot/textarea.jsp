@@ -14,7 +14,7 @@
  *    limitations under the License.
 --%>
 
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
