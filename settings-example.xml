@@ -9,4 +9,16 @@
     </server>
 
   </servers>
+
+  <!--
+  <mirrors>
+    <mirror>
+       <id>myserver</id>
+       <name>Mirror of http://www.ibiblio.org/maven2/</name>
+       <url>http://localhost:9999/maven2/</url>
+       <mirrorOf>ibiblio</mirrorOf>
+     </mirror>
+   </mirrors>
+  -->
+
 </settings>
