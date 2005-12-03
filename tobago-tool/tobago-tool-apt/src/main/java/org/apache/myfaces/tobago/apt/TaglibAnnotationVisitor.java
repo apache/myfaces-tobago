@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.Taglib;
+import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -171,13 +172,36 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
   }
 
   protected void addDescription(Declaration decl, Element element, Document document) {
+    StringBuffer description = new StringBuffer();
+
+    Deprecated deprecated = decl.getAnnotation(Deprecated.class);
+    if (deprecated != null) {
+      description.append("**** Deprecated. Will be removed in a future version **** ");
+    }
+
+    Preliminary preliminary = decl.getAnnotation(Preliminary.class);
+    if (preliminary != null) {
+      description.append("**** Preliminary. Maybe subject to changed in a future version");
+      if (preliminary.value().length()>0) {
+        description.append(": ");
+        description.append(preliminary.value());
+        description.append(" ");
+      }
+      description.append("**** ");
+    }
     String comment = decl.getDocComment();
     if (comment != null) {
       int index = comment.indexOf('@');
       if (index != -1) {
         comment = comment.substring(0, index);
       }
-      addLeafCDATAElement(comment.trim(), "description", element, document);
+      comment = comment.trim();
+      if (comment.length() > 0) {
+        description.append(comment);
+      }
+    }
+    if (description.length() > 0) {
+      addLeafCDATAElement(description.toString(), "description", element, document);
     }
   }
 

@@ -34,6 +34,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 @Tag(name = "include", bodyContent = BodyContent.EMPTY)
+@Deprecated()
 public class IncludeTag extends TagSupport implements HasId, HasStringValue {
 
   private static final Log LOG = LogFactory.getLog(IncludeTag.class);

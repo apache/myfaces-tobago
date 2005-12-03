@@ -139,7 +139,7 @@ public class AptMojo extends AbstractAPTMojo
             for ( Iterator it = targetFiles.iterator() ; it.hasNext() ; )
             {
                 String file = (String) it.next();
-                scanner.addSourceMapping(new SingleTargetSourceMapping(".java", file));
+                scanner.addSourceMapping( new SingleTargetSourceMapping(".java", file ) );
             }
         }
         else

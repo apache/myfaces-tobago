@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -40,6 +41,7 @@ import javax.faces.component.UIComponent;
  */
 @Tag(name = "tree")
 @BodyContentDescription(anyTagOf = "<f:facet>* <f:actionListener>?")
+@Preliminary("Implement a var attribute for the tree like in the sheet")
 public class TreeTag extends TobagoTag
     implements HasIdBindingAndRendered, HasTreeNodeValue, HasState,
     HasIdReference, HasNameReference, IsRequired {

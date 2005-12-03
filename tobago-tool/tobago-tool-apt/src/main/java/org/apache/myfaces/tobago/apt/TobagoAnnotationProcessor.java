@@ -75,6 +75,7 @@ public class TobagoAnnotationProcessor implements AnnotationProcessor {
         writer = env.getFiler().createTextFile(Filer.Location.SOURCE_TREE,
                 documentAndFileName.getPackageName(), new File(fileName), null);
         TransformerFactory transFactory = TransformerFactory.newInstance();
+        transFactory.setAttribute("indent-number", 2);
         Transformer transformer = transFactory.newTransformer();
         // TODO transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,
         //   "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN");

@@ -72,12 +72,12 @@ public class TaglibAnnotationProcessor implements AnnotationProcessor {
             documentAndFileName.getPackageName(),
             new File(documentAndFileName.getFileName()), null);
         TransformerFactory transFactory = TransformerFactory.newInstance();
+        transFactory.setAttribute("indent-number", 2);
         Transformer transformer = transFactory.newTransformer();
         transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,
             "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN");
         transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,
             "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd");
-        transformer.setOutputProperty(OutputKeys.METHOD, "xml");
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.transform(new DOMSource(documentAndFileName.getDocument()),
             new StreamResult(writer));

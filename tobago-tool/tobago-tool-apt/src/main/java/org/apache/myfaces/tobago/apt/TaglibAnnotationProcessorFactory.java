@@ -38,8 +38,7 @@ public class TaglibAnnotationProcessorFactory implements AnnotationProcessorFact
       = Collections.unmodifiableCollection(Arrays.asList("org.apache.myfaces.tobago.apt.annotation.Tag",
           "org.apache.myfaces.tobago.apt.annotation.TagAttribute", "org.apache.myfaces.tobago.apt.annotation.Taglib" ));
 
-  private static final Collection<String> supportedOptions =
-      Collections.unmodifiableCollection(Arrays.asList("package", "file"));
+  private static final Collection<String> supportedOptions = Collections.emptySet();
 
   public Collection<String> supportedAnnotationTypes() {
     return supportedAnnotations;

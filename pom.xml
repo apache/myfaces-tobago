@@ -173,7 +173,7 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>changes-maven-plugin</artifactId>
         <configuration>
-          <component>12310166</component>
+          <component>12310553</component>
         </configuration>
       </plugin>
       <plugin>

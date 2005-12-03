@@ -49,6 +49,7 @@ If you want your header and sidebar rendered without writing dublicate code, you
           </mirror>
         </mirrors>
          ]]></source>
+        <p>See: <a href="http://maven.apache.org/guides/mini/guide-mirror-settings.html">Guide mirror settings</a></p>
       </answer>
     </faq>
     <faq id="offline-build">

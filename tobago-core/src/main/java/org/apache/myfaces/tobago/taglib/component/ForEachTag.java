@@ -43,6 +43,8 @@ import java.util.regex.Pattern;
  * replacement is done, and so no ability to use the <code>var</code> in el.
  */
 @Tag(name = "forEach")
+@Deprecated()
+
 public class ForEachTag extends BodyTagSupport implements HasVar {
 
   private static final Log LOG = LogFactory.getLog(ForEachTag.class);
