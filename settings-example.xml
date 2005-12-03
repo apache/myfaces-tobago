@@ -13,9 +13,9 @@
   <!--
   <mirrors>
     <mirror>
-       <id>myserver</id>
+       <id>planetmirror</id>
        <name>Mirror of http://www.ibiblio.org/maven2/</name>
-       <url>http://localhost:9999/maven2/</url>
+       <url>http://public.planetmirror.com/maven2</url>
        <mirrorOf>ibiblio</mirrorOf>
      </mirror>
    </mirrors>

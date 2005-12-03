@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.apt.annotation;
 
 /**
  * Mark the code as 'Preliminary'.
- * The interface maybe subject to chang in a future version.
+ * The interface maybe subject to changed in a future version.
  *
  */
 public @interface Preliminary {
