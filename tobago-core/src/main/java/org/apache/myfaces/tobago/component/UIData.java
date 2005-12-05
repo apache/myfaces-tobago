@@ -328,10 +328,11 @@ public class UIData extends javax.faces.component.UIData {
   }
 
   public Object saveState(FacesContext context) {
-    Object[] saveState = new Object[3];
+    Object[] saveState = new Object[4];
     saveState[0] = super.saveState(context);
     saveState[1] = state;
     saveState[2] = sorter;
+    saveState[3] = stateChangeListener;
     return saveState;
   }
 
@@ -340,6 +341,7 @@ public class UIData extends javax.faces.component.UIData {
     super.restoreState(context, values[0]);
     state = (SheetState) values[1];
     sorter = (Sorter) values[2];
+    stateChangeListener = (MethodBinding) values[3];
   }
 
 // ------------------------------------------------------------ getter + setter

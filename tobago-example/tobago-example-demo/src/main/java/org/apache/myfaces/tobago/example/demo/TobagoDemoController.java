@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.example.demo.model.solar.Solar;
 import org.apache.myfaces.tobago.example.demo.model.solar.SolarObject;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
+import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 
 import javax.faces.component.UIColumn;
 import javax.faces.context.FacesContext;
@@ -447,6 +448,11 @@ public class TobagoDemoController {
 
   public void setSheetState(Object sheetState) {
     this.sheetState = sheetState;
+  }
+
+  public void stateChangeListener(SheetStateChangeEvent e) {
+    LOG.error("SheetState has Changed: " + e);
+
   }
 
   public SelectItem[] getToolbarIconItems() {

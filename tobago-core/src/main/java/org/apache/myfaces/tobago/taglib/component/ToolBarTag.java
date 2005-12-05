@@ -27,10 +27,11 @@ import org.apache.myfaces.tobago.taglib.decl.HasWidth;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
-
-/**
+/*
  * Created 29.07.2003 at 15:09:53.
  * $Id$
+*/
+/**
  * <p/>
  * Renders a toolbar.<p>
  * Allowed subcomponents are subtypes of UICommand i.e.
