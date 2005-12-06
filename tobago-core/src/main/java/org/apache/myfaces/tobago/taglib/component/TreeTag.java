@@ -41,7 +41,7 @@ import javax.faces.component.UIComponent;
  */
 @Tag(name = "tree")
 @BodyContentDescription(anyTagOf = "<f:facet>* <f:actionListener>?")
-@Preliminary("Implement a var attribute for the tree like in the sheet")
+@Preliminary("Implement a var attribute for the tree like in the sheet (http://issues.apache.org/jira/browse/MYFACES-903)")
 public class TreeTag extends TobagoTag
     implements HasIdBindingAndRendered, HasTreeNodeValue, HasState,
     HasIdReference, HasNameReference, IsRequired {
