@@ -46,7 +46,6 @@
     <phase-listener>
       org.apache.myfaces.tobago.example.demo.overview.SynchronizeNavigationPhaseListener
     </phase-listener>    
-    <phase-listener>org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener</phase-listener>
   </lifecycle>
 
   <!-- miniHowto -->
