@@ -161,7 +161,7 @@ public class UIData extends javax.faces.component.UIData {
           if (allTokens[i] != null) {
             layoutTokens[j] = allTokens[i];
             j++;
-          }          
+          }
         }
       }
 
@@ -328,11 +328,14 @@ public class UIData extends javax.faces.component.UIData {
   }
 
   public Object saveState(FacesContext context) {
-    Object[] saveState = new Object[4];
+    Object[] saveState = new Object[5];
     saveState[0] = super.saveState(context);
     saveState[1] = state;
     saveState[2] = sorter;
     saveState[3] = stateChangeListener;
+    if (showHeaderSet) {
+      saveState[4] = showHeader;
+    }
     return saveState;
   }
 
@@ -342,6 +345,10 @@ public class UIData extends javax.faces.component.UIData {
     state = (SheetState) values[1];
     sorter = (Sorter) values[2];
     stateChangeListener = (MethodBinding) values[3];
+    if (values[4] != null) {
+      showHeaderSet = true;
+      showHeader = (Boolean) values[4];
+    }
   }
 
 // ------------------------------------------------------------ getter + setter
