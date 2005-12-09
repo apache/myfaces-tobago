@@ -16,7 +16,6 @@
 <%@ page import="org.apache.myfaces.tobago.example.demo.jsp.JspFormatter,
                  java.io.InputStreamReader,
                  java.io.PrintWriter"
-%><%@ page errorPage="/errorPage.jsp"
 %><%
   String jsp = request.getParameter("jsp");
 
