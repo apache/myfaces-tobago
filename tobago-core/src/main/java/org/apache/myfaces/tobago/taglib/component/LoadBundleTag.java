@@ -59,8 +59,6 @@ public class LoadBundleTag extends TagSupport implements HasVar {
     var = null;
   }
 
-// ------------------------------------------------------------ getter + setter
-
   public String getBasename() {
     return basename;
   }
@@ -108,10 +106,6 @@ public class LoadBundleTag extends TagSupport implements HasVar {
     }
 
     public Set entrySet() {
-      throw new UnsupportedOperationException();
-    }
-
-    public boolean equals(Object obj) {
       throw new UnsupportedOperationException();
     }
 
