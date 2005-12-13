@@ -26,7 +26,9 @@
       <item name="Getting Started" href="getting-started.html"/>
       <item name="FAQ" href="faq.html"/>
     </menu>
-
+    
+    ${parentProject}
+    ${modules}
     ${reports}
 
   </body>

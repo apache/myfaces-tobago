@@ -26,7 +26,7 @@
   </parent>
   <artifactId>tobago-theme-standard</artifactId>
   <packaging>jar</packaging>
-  <name>Tobago theme standard</name>
+  <name>Tobago Theme Standard</name>
   <build>
     <plugins>
       <plugin>

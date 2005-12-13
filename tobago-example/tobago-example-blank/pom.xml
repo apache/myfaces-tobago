@@ -26,7 +26,7 @@
   </parent>
   <artifactId>tobago-example-blank</artifactId>
   <packaging>war</packaging>
-  <name>Tobago example blank</name>
+  <name>Tobago Example Blank</name>
   <build>
     <finalName>tobago-example-blank</finalName>
     <plugins>
@@ -99,7 +99,7 @@
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>1.2.11</version>
-      <scope>provided</scope>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>

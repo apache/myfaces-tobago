@@ -26,7 +26,7 @@
   </parent>
   <artifactId>tobago-example-foreach</artifactId>
   <packaging>war</packaging>
-  <name>Tobago example foreach</name>
+  <name>Tobago Example Foreach</name>
   <build>
     <finalName>tobago-example-foreach</finalName>
     <plugins>

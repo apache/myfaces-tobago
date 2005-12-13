@@ -7,7 +7,7 @@
     <version>1.0.7-SNAPSHOT</version>
   </parent>
   <packaging>pom</packaging>
-  <name>Tobago examples</name>
+  <name>Tobago Examples</name>
   <groupId>org.apache.myfaces.tobago</groupId>
   <artifactId>tobago-example</artifactId>
   <modules>

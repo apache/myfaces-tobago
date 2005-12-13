@@ -460,6 +460,12 @@ public class ComponentUtil {
   }
 
   private static String toString(UIComponent component) {
+    if (component instanceof javax.faces.component.UIViewRoot) {
+      return component.getClass().getName()
+          + '@' + Integer.toHexString(component.hashCode())
+          + " " + component.getRendererType()
+          + " " + ((javax.faces.component.UIViewRoot)component).getViewId();
+    }
     return component.getClass().getName()
         + '@' + Integer.toHexString(component.hashCode())
         + " " + component.getRendererType()

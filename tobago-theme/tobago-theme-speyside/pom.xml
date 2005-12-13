@@ -26,7 +26,7 @@
   </parent>
   <artifactId>tobago-theme-speyside</artifactId>
   <packaging>jar</packaging>
-  <name>Tobago theme speyside</name>
+  <name>Tobago Theme Speyside</name>
   <build>
     <plugins>
       <plugin>
