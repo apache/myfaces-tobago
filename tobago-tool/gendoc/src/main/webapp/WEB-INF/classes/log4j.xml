@@ -3,10 +3,13 @@
 
 <log4j:configuration>
 
-  <appender name="console" class="org.apache.log4j.ConsoleAppender">
+  <appender name="logfile" class="org.apache.log4j.FileAppender">
+    <param name="File"   value="gendoc.log" />
+    <param name="Append" value="true" />
+    <param name="Encoding" value="UTF-8" />
     <layout class="org.apache.log4j.PatternLayout">
       <param name="ConversionPattern"
-          value="%d{yyyy-MM-dd HH:mm:ss} %15t %-5p - %c:%L - %m%n"/>
+          value="%d{yyyy-MM-dd HH:mm:ss} %-5p - %c:%L - %m%n"/>
       <!--
         %d{...} date pattern
         %p      priority
@@ -21,7 +24,7 @@
 
   <root>
     <priority value="info" />
-    <appender-ref ref="console" />
+    <appender-ref ref="logfile" />
   </root>
 
 </log4j:configuration>
