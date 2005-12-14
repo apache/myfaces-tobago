@@ -15,11 +15,13 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import org.apache.myfaces.tobago.taglib.decl.HasValidator;
+
 /**
  * Created: Aug 5, 2005 4:18:38 PM
  * User: bommel
  * $Id: $
  */
-public interface InputTagDeclaration extends BeanTagDeclaration {
+public interface InputTagDeclaration extends BeanTagDeclaration, HasValidator {
 
 }

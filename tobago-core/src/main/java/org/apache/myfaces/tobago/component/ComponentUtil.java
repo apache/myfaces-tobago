@@ -613,8 +613,10 @@ public class ComponentUtil {
   }
 
   public static UIComponent createLabeledInputLayoutComponent() {
-    return createComponent(UILabeledInputLayout.COMPONENT_TYPE,
+    UIComponent component = createComponent(UILabeledInputLayout.COMPONENT_TYPE,
         RENDERER_TYPE_LABELED_INPUT_LAYOUT);
+    component.setId(FacesContext.getCurrentInstance().getViewRoot().createUniqueId());
+    return component;
   }
 
   public static UIComponent createComponent(String componentType, String rendererType) {
@@ -802,6 +804,17 @@ public class ComponentUtil {
       }
     }
     return items;
+  }
+  public static void setValidator(UIComponent component, String validator) {
+    EditableValueHolder editableValueHolder = (EditableValueHolder) component;
+    if (validator != null && editableValueHolder.getValidator() == null) {
+      if (UIComponentTag.isValueReference(validator)) {
+        Class arguments[] =  { FacesContext.class, UIComponent.class, Object.class };
+        MethodBinding methodBinding =
+            FacesContext.getCurrentInstance().getApplication().createMethodBinding(validator,arguments);
+        ((EditableValueHolder)component).setValidator(methodBinding);
+      }
+    }
   }
 
   public static void setConverter(UIComponent component, String converter) {

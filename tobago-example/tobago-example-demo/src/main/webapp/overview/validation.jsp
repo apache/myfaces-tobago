@@ -44,6 +44,8 @@
           <tx:in label="#{overviewBundle.validation_price}">
             <f:validateDoubleRange minimum="0.01" maximum="1000" />
           </tx:in>
+           <tx:in label="#{overviewBundle.validation_custom}" validator="#{demo.customValidator}" >
+          </tx:in>
         </tc:panel>
 
         <tx:textarea label="#{overviewBundle.validation_description}"

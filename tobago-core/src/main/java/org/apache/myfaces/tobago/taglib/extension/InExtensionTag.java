@@ -27,17 +27,19 @@ import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsPassword;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 @Tag(name="in")
 public class InExtensionTag extends BodyTagSupport
-    implements HasValue, HasIdBindingAndRendered,
+    implements HasValue, HasValidator, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled,
     IsRequired, HasTip, HasLabel, IsPassword, IsFocus {
 
   private String binding;
   private String converter;
+  private String validator;
   private String disabled;
   private String focus;
   private String label;
@@ -79,6 +81,9 @@ public class InExtensionTag extends BodyTagSupport
     if (converter != null) {
       inTag.setConverter(converter);
     }
+    if (validator != null) {
+      inTag.setValidator(validator);
+    }
     if (disabled != null) {
       inTag.setDisabled(disabled);
     }
@@ -115,6 +120,7 @@ public class InExtensionTag extends BodyTagSupport
     super.release();
     binding = null;
     converter = null;
+    validator = null;
     disabled = null;
     focus = null;
     label = null;
@@ -150,6 +156,9 @@ public class InExtensionTag extends BodyTagSupport
     this.converter = converter;
   }
 
+  public void setValidator(String validator) {
+    this.validator = validator;
+  }
   public void setPassword(String password) {
     this.password = password;
   }

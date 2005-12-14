@@ -31,6 +31,7 @@ public abstract class InputTag extends BeanTag implements InputTagDeclaration {
   private String accessKey;
   private String labelWithAccessKey;
   private String tip;
+  private String validator;
 
 
   public void release() {
@@ -40,6 +41,7 @@ public abstract class InputTag extends BeanTag implements InputTagDeclaration {
     accessKey = null;
     labelWithAccessKey = null;
     tip = null;
+    validator = null;
   }
 
   protected void setProperties(UIComponent component) {
@@ -49,6 +51,7 @@ public abstract class InputTag extends BeanTag implements InputTagDeclaration {
     ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey);
     ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
+    ComponentUtil.setValidator(component, validator);
   }
 
   public String getOnchange() {
@@ -89,6 +92,14 @@ public abstract class InputTag extends BeanTag implements InputTagDeclaration {
 
   public void setTip(String tip) {
     this.tip = tip;
+  }
+
+  public String getValidator() {
+    return validator;
+  }
+
+  public void setValidator(String validator) {
+    this.validator = validator;
   }
 }
 

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
+ *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
  *    You may obtain a copy of the License at
- * 
+ *
  *        http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *    Unless required by applicable law or agreed to in writing, software
  *    distributed under the License is distributed on an "AS IS" BASIS,
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,18 +19,25 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 
-/**
- * $Id$
+/*
+ * Created by IntelliJ IDEA.
+ * User: bommel
+ * Date: 13.12.2005
+ * Time: 20:10:50
  */
-public interface HasActionListener {
+
+/**
+ *
+ */
+public interface HasValidator {
   /**
-   *
-   *  MethodBinding representing an action listener method that will be
-   * notified when this component is activated by the user.
-   * The expression must evaluate to a public method that takes an ActionEvent
-   * parameter, with a return type of void.
-   *
+   * A method binding EL expression,
+   * accepting FacesContext, UIComponent,
+   * and Object parameters, and returning void, that validates
+   * the component's local value.
    */
-  @TagAttribute @UIComponentTagAttribute(expression=DynamicExpression.METHOD_BINDING)
-  void setActionListener(String actionListener);
+   @TagAttribute
+   @UIComponentTagAttribute(type="javax.faces.el.MethodBinding",
+       expression = DynamicExpression.METHOD_BINDING)
+   public void setValidator(String validator) ;
 }

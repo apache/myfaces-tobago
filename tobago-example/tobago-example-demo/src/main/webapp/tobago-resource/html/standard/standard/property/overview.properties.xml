@@ -193,6 +193,7 @@
 <entry key="validation_description">Description</entry>
 <entry key="validation_number">Number</entry>
 <entry key="validation_price">Price</entry>
+<entry key="validation_custom">Custom Validator</entry>  
 <entry key="validation_submit">Submit</entry>
 
 <entry key="validation_text">Tobago provides easy to use possibilities for validation of user input.

@@ -32,8 +32,11 @@ import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 
 import javax.faces.component.UIColumn;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.faces.validator.ValidatorException;
+import javax.faces.application.FacesMessage;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 import java.util.ArrayList;
@@ -453,6 +456,16 @@ public class TobagoDemoController {
   public void stateChangeListener(SheetStateChangeEvent e) {
     LOG.error("SheetState has Changed: " + e);
 
+  }
+
+  public void customValidator(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    if (value == null) {
+      return;
+    }
+    if (!"Tobago".equals(value)) {
+      throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please type in 'Tobago'",
+          "Please type in 'Tobago'"));
+    }
   }
 
   public SelectItem[] getToolbarIconItems() {

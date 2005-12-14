@@ -16,6 +16,9 @@
 package org.apache.myfaces.tobago.taglib.extension;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.taglib.component.TextAreaTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -26,13 +29,14 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 @Tag(name="textarea")
 public class TextAreaExtensionTag extends BodyTagSupport
     implements HasValue, HasIdBindingAndRendered,
-    HasConverter, IsReadonly, IsDisabled,
+    HasConverter, HasValidator, IsReadonly, IsDisabled,
     IsRequired, HasTip, HasLabel, IsFocus {
 
   private String binding;
@@ -45,6 +49,7 @@ public class TextAreaExtensionTag extends BodyTagSupport
   private String required;
   private String tip;
   private String value;
+  private String validator;
 
   private LabelExtensionTag labelTag;
   private TextAreaTag textAreaTag;
@@ -76,6 +81,9 @@ public class TextAreaExtensionTag extends BodyTagSupport
     }
     if (converter != null) {
       textAreaTag.setConverter(converter);
+    }
+    if (validator != null) {
+      textAreaTag.setValidator(validator);
     }
     if (disabled != null) {
       textAreaTag.setDisabled(disabled);
@@ -110,6 +118,7 @@ public class TextAreaExtensionTag extends BodyTagSupport
     super.release();
     binding = null;
     converter = null;
+    validator = null;
     disabled = null;
     focus = null;
     label = null;
@@ -142,6 +151,10 @@ public class TextAreaExtensionTag extends BodyTagSupport
 
   public void setConverter(String converter) {
     this.converter = converter;
+  }
+
+  public void setValidator(String validator) {
+    this.validator = validator;
   }
 
   public void setReadonly(String readonly) {

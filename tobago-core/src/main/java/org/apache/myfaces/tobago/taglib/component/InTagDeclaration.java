@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.taglib.component.TextInputTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.*;
 
 /*
