@@ -462,7 +462,7 @@ public class TobagoDemoController {
     if (value == null) {
       return;
     }
-    if (!"Tobago".equals(value)) {
+    if (!"tobago".equalsIgnoreCase(value.toString())) {
       throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please type in 'Tobago'",
           "Please type in 'Tobago'"));
     }
