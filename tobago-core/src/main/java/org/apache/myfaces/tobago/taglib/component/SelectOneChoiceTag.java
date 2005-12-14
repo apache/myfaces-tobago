@@ -21,21 +21,33 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 
 public class SelectOneChoiceTag extends SelectOneTag implements SelectOneChoiceTagDeclaration {
 
-  public int doEndTag() throws JspException {
+  private static final Log LOG = LogFactory.getLog(InTag.class);
 
-    UIComponent component = getComponentInstance();
-    // TODO remove this
-    if (component.getFacet(FACET_LAYOUT) == null) {
-      UIComponent layout = ComponentUtil.createLabeledInputLayoutComponent();
-      component.getFacets().put(FACET_LAYOUT, layout);
+//  public int doEndTag() throws JspException {
+
+//    UIComponent component = getComponentInstance();
+    // TODO remove this: use tx:
+//    if (component.getFacet(FACET_LAYOUT) == null) {
+//      UIComponent layout = ComponentUtil.createLabeledInputLayoutComponent();
+//      component.getFacets().put(FACET_LAYOUT, layout);
+//    }
+//    return super.doEndTag();
+//  }
+
+  protected void setProperties(UIComponent component) {
+    if (label != null) {
+      LOG.warn("the label attribute is deprecated in tc:selectOneChoice, " +
+          "please use tx:selectOneChoice instead.");
     }
-    return super.doEndTag();
+    super.setProperties(component);
   }
 
   public void setRequired(String required) {
