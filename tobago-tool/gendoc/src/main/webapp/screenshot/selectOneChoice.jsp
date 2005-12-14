@@ -14,6 +14,7 @@
  *    limitations under the License.
 --%>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
@@ -25,13 +26,13 @@
           <tc:gridLayout rows="fixed;1*" />
         </f:facet>
 <%-- code-sniplet-start id="selectOneChoice" --%>
-        <tc:selectOneChoice value="selectOneChoice0" inline="true"
-                           labelWithAccessKey="_Contact me: " >
+        <tx:selectOneChoice value="selectOneChoice0" inline="true"
+                           label="Contact me: " >
           <tc:selectItem itemLabel="Letter" itemValue="letter" />
           <tc:selectItem itemLabel="Phone" itemValue="phone" />
           <tc:selectItem itemLabel="eMail" itemValue="eMail" />
           <tc:selectItem itemLabel="Fax" itemValue="fax" />
-          </tc:selectOneChoice>
+        </tx:selectOneChoice>
 <%-- code-sniplet-end id="selectOneChoice" --%>
 
         <tc:cell/>

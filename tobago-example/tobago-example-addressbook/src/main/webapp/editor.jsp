@@ -77,11 +77,11 @@
                   <tc:in value="#{controller.currentAddress.city}"/>
                 </tc:panel>
 
-                <tc:selectOneChoice
+                <tx:selectOneChoice
                     value="#{controller.currentAddress.country}"
                     label="#{bundle.editorCountry}">
                   <f:selectItems value="#{countries}"/>
-                </tc:selectOneChoice>
+                </tx:selectOneChoice>
                 <tc:cell></tc:cell>
               </tc:panel>
               <tc:panel>
