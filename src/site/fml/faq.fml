@@ -22,16 +22,6 @@
           components that need a renderer.</p>
        </answer>
     </faq>
-    <faq id="tobago/facelets">
-      <question>It is possible to combine tobago with facelets?</question>
-      <answer>
-        <p>It doesn't make sense.</p>
-        <p>Facelets are based on HTML-designed JSP source code.</p>
-        <p>Tobago on the other side abstracts from HTML. There are no HTML-Tags in the JSP source code.
-           There are only abstract tags. The Renderkit converts it to HTML or any other ML.
-           The idea of Tobago is: The theme controls the look-and-feel of the page.</p>
-      </answer>
-    </faq>
     <faq id="tiles/sitemesh">
       <question>Can tobago replace tiles? Can I ignore tiles and sitemesh in the favor of tobago or not?
       </question>
