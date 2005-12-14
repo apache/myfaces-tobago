@@ -20,39 +20,33 @@
 package org.apache.myfaces.tobago.taglib.component;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ENCTYPE;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 
 
 public class FileTag extends InputTag implements FileTagDeclaration {
 
+  private static final Log LOG = LogFactory.getLog(FileTag.class);
+
   public int doStartTag() throws JspException {
     int result = super.doStartTag();
     UIPage form = ComponentUtil.findPage(getComponentInstance());
     form.getAttributes().put(ATTR_ENCTYPE, "multipart/form-data");
-    return result;
-  }
 
-  public int doEndTag() throws JspException {
-    UIComponent component = getComponentInstance();
-    if (component.getFacet(FACET_LAYOUT) == null) {
-      UIComponent layout = ComponentUtil.createLabeledInputLayoutComponent();
-      component.getFacets().put(FACET_LAYOUT, layout);
+    if (label != null) {
+      LOG.warn("the label attribute is deprecated in t:in, " +
+          "please use tx:in instead.");
     }
-    return super.doEndTag();
+
+    return result;
   }
 
   public String getComponentType() {
     return UIInput.COMPONENT_TYPE;
   }
-
-  public void setValue(String value) {
-    super.setValue(value);
-  }
 }
-

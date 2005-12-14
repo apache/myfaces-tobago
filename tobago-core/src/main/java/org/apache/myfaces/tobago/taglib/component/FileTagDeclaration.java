@@ -32,7 +32,9 @@ import org.apache.myfaces.tobago.taglib.decl.*;
  */
 @Tag(name="file")
 @UIComponentTag(UIComponent="org.apache.myfaces.tobago.component.UIInput")
-public interface FileTagDeclaration extends InputTagDeclaration, HasIdBindingAndRendered, IsDisabled, HasLabelAndAccessKey, HasOnchangeListener, HasTip {
+public interface FileTagDeclaration
+    extends InputTagDeclaration, HasIdBindingAndRendered, IsDisabled,
+    HasLabelAndAccessKey, HasOnchangeListener, HasTip {
 
   /**
    * Value binding expression pointing to a
