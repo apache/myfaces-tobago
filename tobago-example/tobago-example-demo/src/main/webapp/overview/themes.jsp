@@ -14,6 +14,7 @@
  *    limitations under the License.
 --%>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
@@ -31,10 +32,10 @@
           <tc:gridLayout rows="fixed;1*;fixed" />
         </f:facet>
 
-        <tc:selectOneChoice value="#{clientConfigController2.theme}"
+        <tx:selectOneChoice value="#{clientConfigController2.theme}"
             label="#{overviewBundle.theme_label}">
           <f:selectItems value="#{clientConfigController2.themeItems}" />
-        </tc:selectOneChoice>
+        </tx:selectOneChoice>
 
         <tc:cell/>
 

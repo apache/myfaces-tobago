@@ -31,10 +31,10 @@
         <f:facet name="layout">
           <tc:gridLayout columns="1*;1*" rows="fixed;fixed;fixed;fixed;fixed;*"/>
         </f:facet>
-        <tc:selectOneChoice value="#{overviewController.singleValue}"
+        <tx:selectOneChoice value="#{overviewController.singleValue}"
                            label="#{overviewBundle.layout_salutation}">
           <f:selectItems value="#{overviewController.items}" />
-        </tc:selectOneChoice>
+        </tx:selectOneChoice>
         <tc:cell/>
 
         <tx:in value="" label="#{overviewBundle.layout_firstName}" />
