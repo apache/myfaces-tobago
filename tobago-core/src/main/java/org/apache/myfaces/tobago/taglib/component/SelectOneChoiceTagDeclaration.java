@@ -32,7 +32,10 @@ import org.apache.myfaces.tobago.taglib.decl.*;
  */
 @Tag(name="selectOneChoice")
 @BodyContentDescription(anyTagOf="(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* " )
-public interface SelectOneChoiceTagDeclaration extends SelectOneTagDeclaration, HasId, HasValue, IsDisabled, IsReadonly, HasOnchangeListener, IsInline, HasLabelAndAccessKey, IsRendered, HasBinding, HasTip {
+public interface SelectOneChoiceTagDeclaration
+    extends SelectOneTagDeclaration, HasId, HasValue, IsDisabled,
+    IsReadonly, HasOnchangeListener, IsInline, HasLabelAndAccessKey,
+    IsRendered, HasBinding, HasTip {
 
   /**
    * Flag indicating that selecting an Item representing a Value is Required.
