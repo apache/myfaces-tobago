@@ -33,13 +33,5 @@ public class TextInputTag extends InputTag implements TextInputTagDeclaration {
     return UIInput.COMPONENT_TYPE;
   }
 
-  public int doEndTag() throws JspException {
-    UIComponent component = getComponentInstance();
-    // TODO remove this
-    if (component.getFacet(FACET_LAYOUT) == null) {
-      UIComponent layout = ComponentUtil.createLabeledInputLayoutComponent();
-      component.getFacets().put(FACET_LAYOUT, layout);
-    }
-    return super.doEndTag();
-  }
+ 
 }
