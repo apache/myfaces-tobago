@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2002-2005 The Apache Software Foundation.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<!-- $Source$ -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+<!-- Client Configuration -->
+<entry key="configTitle">=Client configuration of the Tobago framework</entry>
+<entry key="configTheme">Theme</entry>
+<entry key="configThemeWithAccessKey">_Theme</entry>
+<entry key="configThemeText">Which theme should be used?</entry>
+<entry key="configDebugMode">Use _debug mode</entry>
+<entry key="configLocale">Locale</entry>
+<entry key="configLocaleText">Which Locale should be used?</entry>
+<entry key="configContentType">Content type</entry>
+<entry key="configContentTypeText">Which Content-Type should be used?</entry>
+<entry key="configSubmit">=Submit</entry>
+<entry key="configButtonText">Configuration</entry>
+<entry key="configCachecoverage">Cache coverage</entry>
+
+<!-- Sheet -->
+<entry key="sheetFirst">first page</entry>
+<entry key="sheetPrev">previous page</entry>
+<entry key="sheetNext">next page</entry>
+<entry key="sheetLast">last page</entry>
+<entry key="sheetTipSorting">sort by this column</entry>
+<entry key="sheetAscending">ascending</entry>
+<entry key="sheetDescending">descending</entry>
+<entry key="sheetPagingInfoRows">Rows &lt;span id="{3}"&gt;{0}&lt;/span&gt; to {1} of {2}</entry>
+<entry key="sheetPagingInfoSingleRow">Row &lt;span id="{3}"&gt;{0}&lt;/span&gt; of {2}</entry>
+<entry key="sheetPagingInfoEmptyRow">No rows available</entry>
+<entry key="sheetPagingInfoRowPagingTip">Click here, to change the first displayed row.</entry>
+<entry key="sheetPagingInfoPages">Page &lt;span id="{3}"&gt;{0}&lt;/span&gt; of {1}</entry>
+<entry key="sheetPagingInfoSinglePage">Page &lt;span id="{3}"&gt;{0}&lt;/span&gt; of {1}</entry>
+<entry key="sheetPagingInfoEmptyPage"></entry>
+<entry key="sheetPagingInfoPagePagingTip">Click here, to change the displayed page.</entry>
+<entry key="sheetMenuToggleselect">Invert selections</entry>
+<entry key="sheetMenuUnselect">Unselect all</entry>
+<entry key="sheetMenuSelect">Select all</entry>
+
+<!-- Tree -->
+<entry key="treeNew">new</entry>
+<entry key="treeDelete">delete</entry>
+<entry key="treeEdit">edit</entry>
+<entry key="treeCut">cut</entry>
+<entry key="treeCopy">copy</entry>
+<entry key="treePaste">paste</entry>
+<entry key="treeMoveUp">move up</entry>
+<entry key="treeMoveDown">move down</entry>
+<entry key="treeNodeNew">New Node</entry>
+
+<!-- requiredvalidator -->
+<entry key="tobago.requiredvalidator.message.empty.summary">Required field.</entry>
+<entry key="tobago.requiredvalidator.message.empty.detail">Field is required.</entry>
+
+ <!-- longrangevalidator -->
+<entry key="tobago.longrangevalidator.message.range.summary">Not in range.</entry>
+<entry key="tobago.longrangevalidator.message.range.detail">Value must be between {0} and {1}.</entry>
+<entry key="tobago.longrangevalidator.message.type.summary">Wrong type.</entry>
+<entry key="tobago.longrangevalidator.message.type.detail">Value is not of the correct type.</entry>
+<entry key="tobago.message.number_conversion_error.summary">Unable to convert number.</entry>
+<entry key="tobago.message.number_conversion_error.detail">Unable to convert ''{0}'' to number type {1}.</entry>
+<entry key="tobago.message.conversion_error.summary">Unable to convert.</entry>
+<entry key="tobago.message.conversion_error.detail">Unable to convert ''{0}'' to type {1}.</entry>
+<entry key="tobago.tree.MESSAGE_NOT_LEAF">Only leaf selection allowed.</entry>
+<entry key="tobago.SelectOne.MESSAGE_VALUE_REQUIRED">Selection required</entry>
+
+<!-- richtexteditor -->
+<entry key="tobago.richtexteditor.edit.label">Edit</entry>
+<entry key="tobago.richtexteditor.edit.title">Switch to editor mode.</entry>
+<entry key="tobago.richtexteditor.preview.label">Preview</entry>
+<entry key="tobago.richtexteditor.preview.title">Switch to preview mode.</entry>
+<entry key="browser.noframe.message.prefix">[ Your user agent does not support frames or is currently configured not to display frames. However, you may visit</entry>
+<entry key="browser.noframe.message.postfix">the related document. ]</entry>
+
+
+<!--  jsf messages -->
+<entry key="javax.faces.validator.LengthValidator.MAXIMUM">Maximum of "{0}" characters exceeded!</entry>
+<entry key="javax.faces.validator.LengthValidator.MAXIMUM_detail">Value is longer than allowable maximum of "{0}" characters!</entry>
+<entry key="javax.faces.validator.LengthValidator.MINIMUM">Minimum of "{0}" characters !</entry>
+<entry key="javax.faces.validator.LengthValidator.MINIMUM_detail">Value is shorter than allowable minimum of "{0}" characters!</entry>
+
+</properties>
