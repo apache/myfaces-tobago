@@ -19,17 +19,14 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
-import javax.servlet.jsp.JspException;
 
 public class SelectOneChoiceTag extends SelectOneTag implements SelectOneChoiceTagDeclaration {
 
-  private static final Log LOG = LogFactory.getLog(InTag.class);
+  private static final Log LOG = LogFactory.getLog(SelectOneChoiceTag.class);
 
 //  public int doEndTag() throws JspException {
 

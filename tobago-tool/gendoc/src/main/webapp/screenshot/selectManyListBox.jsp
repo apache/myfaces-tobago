@@ -14,6 +14,7 @@
  *    limitations under the License.
 --%>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
@@ -22,16 +23,16 @@
     <jsp:body>
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout rows="40px;1*" />
+          <tc:gridLayout rows="45px;1*" />
         </f:facet>
 <%-- code-sniplet-start id="selectManyListbox" --%>
-        <tc:selectManyListbox inline="true" id="LabeledInlineMultiSelect"
-                             labelWithAccessKey="Contact via: " height="90px">
+        <tx:selectManyListbox inline="true" id="LabeledInlineMultiSelect"
+                             label="Contact via: ">
           <f:selectItem itemValue="Phone" itemLabel="Phone" />
           <f:selectItem itemValue="eMail" itemLabel="eMail"/>
           <f:selectItem itemValue="Mobile" itemLabel="Mobile"/>
           <f:selectItem itemValue="Fax"  itemLabel="Faxscimile"/>
-        </tc:selectManyListbox>
+        </tx:selectManyListbox>
 <%-- code-sniplet-end id="selectManyListbox" --%>
         <tc:cell/>
 

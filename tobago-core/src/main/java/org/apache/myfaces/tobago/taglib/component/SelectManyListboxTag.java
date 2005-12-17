@@ -19,20 +19,21 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+
 import org.apache.myfaces.tobago.component.UISelectMany;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
-import javax.servlet.jsp.JspException;
-
 
 public class SelectManyListboxTag extends SelectManyTag implements SelectManyListboxTagDeclaration {
+
+  private static final Log LOG = LogFactory.getLog(SelectManyListboxTag.class);
 
   public String getComponentType() {
     return UISelectMany.COMPONENT_TYPE;
   }
-
+  /*
   public int doEndTag() throws JspException {
     UIComponent component = getComponentInstance();
     // TODO remove this
@@ -42,5 +43,13 @@ public class SelectManyListboxTag extends SelectManyTag implements SelectManyLis
       component.getFacets().put(FACET_LAYOUT, layout);
     }
     return super.doEndTag();
+  } */
+
+  protected void setProperties(UIComponent component) {
+    if (label != null) {
+      LOG.warn("the label attribute is deprecated in tc:selectManyListbox, " +
+          "please use tx:selectManyListbox instead.");
+    }
+    super.setProperties(component);
   }
 }

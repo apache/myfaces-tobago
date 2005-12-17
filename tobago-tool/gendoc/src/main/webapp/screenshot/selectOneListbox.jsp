@@ -15,6 +15,7 @@
 --%>
 
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
@@ -23,16 +24,16 @@
     <jsp:body>
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout rows="40px;1*" columns="300px;1*" />
+          <tc:gridLayout rows="90px;1*" columns="300px;1*" />
         </f:facet>
 <%-- code-sniplet-start id="selectOneListbox" --%>
-        <tc:selectOneListbox id="LabeledInlineSingleSelect"
-                             labelWithAccessKey="Contact via: " height="90px">
+        <tx:selectOneListbox id="LabeledInlineSingleSelect"
+                             label="Contact via: " height="90px">
           <f:selectItem itemValue="Phone" itemLabel="Phone" />
           <f:selectItem itemValue="eMail" itemLabel="eMail"/>
           <f:selectItem itemValue="Mobile" itemLabel="Mobile"/>
           <f:selectItem itemValue="Fax"  itemLabel="Faxscimile"/>
-        </tc:selectOneListbox>
+        </tx:selectOneListbox>
 <%-- code-sniplet-end id="selectOneListbox" --%>
         <tc:cell/>
         <tc:cell/>

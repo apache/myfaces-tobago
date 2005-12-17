@@ -19,16 +19,18 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
-import javax.servlet.jsp.JspException;
 
 
 public class SelectOneListboxTag extends SelectOneTag implements SelectOneListboxTagDeclaration {
 
-  public int doEndTag() throws JspException {
+  private static final Log LOG = LogFactory.getLog(SelectOneListboxTag.class);
+
+
+  /*public int doEndTag() throws JspException {
 
     UIComponent component = getComponentInstance();
     // TODO remove this
@@ -37,6 +39,14 @@ public class SelectOneListboxTag extends SelectOneTag implements SelectOneListbo
       component.getFacets().put(FACET_LAYOUT, layout);
     }
     return super.doEndTag();
+  } */
+
+  protected void setProperties(UIComponent component) {
+    if (label != null) {
+      LOG.warn("the label attribute is deprecated in tc:selectOneListbox, " +
+          "please use tx:selectOneListbox instead.");
+    }
+    super.setProperties(component);
   }
 
 }

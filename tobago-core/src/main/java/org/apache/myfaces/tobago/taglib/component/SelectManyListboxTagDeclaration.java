@@ -29,6 +29,8 @@ import org.apache.myfaces.tobago.taglib.decl.*;
  */
 @Tag(name="selectManyListbox")
 @UIComponentTag(UIComponent="org.apache.myfaces.tobago.component.UISelectMany")
-public interface SelectManyListboxTagDeclaration extends SelectManyTagDeclaration, HasId, HasValue, IsDisabled, HasHeight, IsInline, HasLabelAndAccessKey, IsRendered, HasBinding, HasTip {
+public interface SelectManyListboxTagDeclaration
+    extends SelectManyTagDeclaration, HasId, HasValue, IsDisabled, 
+    HasHeight, IsInline, HasLabelAndAccessKey, IsRendered, HasBinding, HasTip {
 
 }

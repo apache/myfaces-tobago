@@ -1,12 +1,12 @@
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
+ *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
  *    You may obtain a copy of the License at
- * 
+ *
  *        http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *    Unless required by applicable law or agreed to in writing, software
  *    distributed under the License is distributed on an "AS IS" BASIS,
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,46 +19,54 @@
  */
 package org.apache.myfaces.tobago.taglib.extension;
 
-import org.apache.myfaces.tobago.taglib.component.SelectOneChoiceTag;
-import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
-import org.apache.myfaces.tobago.taglib.decl.HasLabel;
-import org.apache.myfaces.tobago.taglib.decl.HasOnchangeListener;
-import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.HasHeight;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
-import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasBinding;
+import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
+import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+import org.apache.myfaces.tobago.taglib.component.SelectManyListboxTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 
-import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.JspException;
 
-@Tag(name="selectOneChoice")
-public class SelectOneChoiceExtensionTag
-    extends BodyTagSupport
-    implements HasId, HasValue, IsDisabled,
-    IsReadonly, HasOnchangeListener, IsInline, HasLabel,
-    IsRendered, HasBinding, HasTip , HasValidator, HasConverter {
+/*
+ * Created by IntelliJ IDEA.
+ * User: bommel
+ * Date: 16.12.2005
+ * Time: 19:12:33
+ * To change this template use File | Settings | File Templates.
+ */
+@Tag(name="selectManyListbox")
+public class SelectManyListboxExtensionTag extends BodyTagSupport
+    implements HasId, HasValue, IsDisabled, HasHeight, IsInline,
+    HasLabel, //HasLabelAndAccessKey,
+    IsRendered, HasBinding, HasTip, HasConverter, HasValidator  {
 
   private String required;
   private String value;
   private String disabled;
   private String readonly;
   private String onchange;
+  private String labelWithAccessKey;
   private String inline;
   private String label;
   private String rendered;
   private String binding;
   private String tip;
-  private String validator;
+  private String accessKey;
+  private String height;
   private String converter;
+  private String validator;
 
   private LabelExtensionTag labelTag;
-  private SelectOneChoiceTag selectOneChoiceTag;
+  private SelectManyListboxTag selectManyListboxTag;
 
   @Override
   public int doStartTag() throws JspException {
@@ -74,51 +82,61 @@ public class SelectOneChoiceExtensionTag
     if (rendered != null) {
       labelTag.setRendered(rendered);
     }
+    /* TODO accessKey
+    if (labelWithAccessKey != null) {
+      label.setLabelWithAccessKey(labelWithAccessKey);
+    }
+    if (accessKey !=null) {
+      label.setAccessKey(accessKey);
+    } */
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 
-    selectOneChoiceTag = new SelectOneChoiceTag();
-    selectOneChoiceTag.setPageContext(pageContext);
+    selectManyListboxTag = new SelectManyListboxTag();
+    selectManyListboxTag.setPageContext(pageContext);
     if (value != null) {
-      selectOneChoiceTag.setValue(value);
-    }
-    if (validator != null) {
-      selectOneChoiceTag.setValidator(validator);
-    }
-    if (converter != null) {
-      selectOneChoiceTag.setConverter(converter);
+      selectManyListboxTag.setValue(value);
     }
     if (binding != null) {
-      selectOneChoiceTag.setBinding(binding);
-    }
-    if (onchange != null) {
-      selectOneChoiceTag.setOnchange(onchange);
-    }
-    if (disabled != null) {
-      selectOneChoiceTag.setDisabled(disabled);
+      selectManyListboxTag.setBinding(binding);
     }
 
+    if (onchange != null) {
+      selectManyListboxTag.setOnchange(onchange);
+    }
+    if (validator != null) {
+      selectManyListboxTag.setValidator(validator);
+    }
+    if (converter != null) {
+      selectManyListboxTag.setConverter(converter);
+    }
+    if (disabled != null) {
+      selectManyListboxTag.setDisabled(disabled);
+    }
     if (inline != null) {
-      selectOneChoiceTag.setFocus(inline);
+      selectManyListboxTag.setFocus(inline);
     }
     if (id != null) {
-      selectOneChoiceTag.setId(id);
+      selectManyListboxTag.setId(id);
+    }
+    if (height != null) {
+      selectManyListboxTag.setHeight(height);
     }
     if (readonly != null) {
-      selectOneChoiceTag.setReadonly(readonly);
+      selectManyListboxTag.setReadonly(readonly);
     }
     if (required != null) {
-      selectOneChoiceTag.setRequired(required);
+      selectManyListboxTag.setRequired(required);
     }
-    selectOneChoiceTag.setParent(labelTag);
-    selectOneChoiceTag.doStartTag();
+    selectManyListboxTag.setParent(labelTag);
+    selectManyListboxTag.doStartTag();
 
     return super.doStartTag();
   }
 
   @Override
   public int doEndTag() throws JspException {
-    selectOneChoiceTag.doEndTag();
+    selectManyListboxTag.doEndTag();
     labelTag.doEndTag();
     return super.doEndTag();
   }
@@ -131,10 +149,13 @@ public class SelectOneChoiceExtensionTag
     disabled = null;
     inline = null;
     label = null;
-    converter = null;
-    validator = null;
+    labelWithAccessKey = null;
+    accessKey = null;
+    height = null;
     readonly = null;
     rendered = null;
+    converter = null;
+    validator = null;
     required = null;
     tip = null;
     value = null;
@@ -146,10 +167,6 @@ public class SelectOneChoiceExtensionTag
 
   public void setValue(String value) {
     this.value = value;
-  }
-
-  public void setValidator(String validator) {
-    this.validator = validator;
   }
 
   public void setDisabled(String disabled) {
@@ -164,16 +181,32 @@ public class SelectOneChoiceExtensionTag
     this.onchange = onchange;
   }
 
-  public void setConverter(String converter) {
-    this.converter = converter;
-  }
-
   public void setInline(String inline) {
     this.inline = inline;
   }
 
   public void setLabel(String label) {
     this.label = label;
+  }
+
+  public void setHeight(String height) {
+    this.height = height;
+  }
+
+  public void setLabelWithAccessKey(String labelWithAccessKey) {
+    this.labelWithAccessKey = labelWithAccessKey;
+  }
+
+  public void setAccessKey(String accessKey) {
+    this.accessKey = accessKey;
+  }
+
+  public void setValidator(String validator) {
+    this.validator = validator;
+  }
+
+  public void setConverter(String converter) {
+    this.converter = converter;
   }
 
   public void setRendered(String rendered) {
@@ -187,5 +220,4 @@ public class SelectOneChoiceExtensionTag
   public void setTip(String tip) {
     this.tip = tip;
   }
-
 }
