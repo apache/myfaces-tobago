@@ -22,6 +22,8 @@ package org.apache.myfaces.tobago.taglib.component;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
@@ -31,8 +33,9 @@ import static javax.faces.convert.DateTimeConverter.CONVERTER_ID;
 import javax.servlet.jsp.JspException;
 import java.util.TimeZone;
 
-public class TimeTag extends InputTag
-    implements TimeTagDeclaration {
+public class TimeTag extends InputTag implements TimeTagDeclaration {
+
+  private static final Log LOG = LogFactory.getLog(TimeTag.class);
 
   public String getComponentType() {
     return UIInput.COMPONENT_TYPE;
@@ -46,7 +49,7 @@ public class TimeTag extends InputTag
       UIComponent layout = ComponentUtil.createLabeledInputLayoutComponent();
       component.getFacets().put(FACET_LAYOUT, layout);
     } */
-    // TODO
+    // TODO  move to renderkit
     if (component.getConverter() == null) {
       Application application
           = FacesContext.getCurrentInstance().getApplication();
@@ -60,5 +63,12 @@ public class TimeTag extends InputTag
     return super.doEndTag();
   }
 
+  protected void setProperties(UIComponent component) {
+    if (label != null) {
+      LOG.warn("the label attribute is deprecated in tc:time, " +
+          "please use tx:time instead.");
+    }
+    super.setProperties(component);
+  }
 }
 
