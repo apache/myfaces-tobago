@@ -26,10 +26,13 @@ import org.apache.myfaces.tobago.taglib.decl.*;
  * $Id: $
  */
 /**
- * Renders a date input field.
+ * Renders a time input field.
  */
 @Tag(name="time")
-@UIComponentTag(UIComponent="org.apache.myfaces.tobago.component.UIInput", RendererType=RENDERER_TYPE_TIME)
-public interface TimeTagDeclaration extends InputTagDeclaration, HasIdBindingAndRendered, HasValue, IsReadonly, IsDisabled, IsInline, HasLabelAndAccessKey, HasTip {
+@UIComponentTag(UIComponent="org.apache.myfaces.tobago.component.UIInput",
+    RendererType=RENDERER_TYPE_TIME)
+public interface TimeTagDeclaration
+    extends InputTagDeclaration, HasIdBindingAndRendered, HasValue,
+    IsReadonly, IsDisabled, IsInline, HasLabelAndAccessKey, HasTip {
 
 }

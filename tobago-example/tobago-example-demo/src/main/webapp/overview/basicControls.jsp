@@ -47,7 +47,7 @@
               label="#{overviewBundle.basic_dateLabel}">
             <f:convertDateTime pattern="dd.MM.yyyy" />
           </tc:date>
-          <tc:time label="#{overviewBundle.basic_timeLabel}"
+          <tx:time label="#{overviewBundle.basic_timeLabel}"
                   value="#{overviewController.basicTime}" />
         </tc:panel>
 
