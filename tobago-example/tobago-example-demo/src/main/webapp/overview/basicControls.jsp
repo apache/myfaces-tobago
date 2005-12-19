@@ -43,10 +43,10 @@
             <tc:in value="#{overviewController.basicInput}"
               suggestMethod="#{overviewController.getInputSuggestItems}"/>
           </tx:label>
-          <tc:date value="#{overviewController.basicDate}"
+          <tx:date value="#{overviewController.basicDate}"
               label="#{overviewBundle.basic_dateLabel}">
             <f:convertDateTime pattern="dd.MM.yyyy" />
-          </tc:date>
+          </tx:date>
           <tx:time label="#{overviewBundle.basic_timeLabel}"
                   value="#{overviewController.basicTime}" />
         </tc:panel>

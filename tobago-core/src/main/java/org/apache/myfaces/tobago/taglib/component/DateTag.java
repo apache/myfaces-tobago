@@ -53,13 +53,14 @@ public class DateTag extends InputTag implements DateTagDeclaration {
     return RENDERER_TYPE_IN;
   }
 
+
   public int doEndTag() throws JspException {
 
     UIComponent component = getComponentInstance();
-    if (component.getFacet(FACET_LAYOUT) == null) {
+    /*if (component.getFacet(FACET_LAYOUT) == null) {
       UIComponent layout = ComponentUtil.createLabeledInputLayoutComponent();
       component.getFacets().put(FACET_LAYOUT, layout);
-    }
+    } */
 
     // TODO ensure date script move to RenderKit
 
@@ -75,6 +76,10 @@ public class DateTag extends InputTag implements DateTagDeclaration {
   }
 
   protected void setProperties(UIComponent component) {
+    if (label != null) {
+      LOG.warn("the label attribute is deprecated in tc:date, " +
+          "please use tx:date instead.");
+    }
     super.setProperties(component);
 
 //    ValueHolder holder = (ValueHolder) component;

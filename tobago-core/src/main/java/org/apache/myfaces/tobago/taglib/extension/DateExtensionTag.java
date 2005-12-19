@@ -1,0 +1,192 @@
+/*
+ * Copyright 2002-2005 The Apache Software Foundation.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+package org.apache.myfaces.tobago.taglib.extension;
+
+import org.apache.myfaces.tobago.taglib.decl.HasValue;
+import org.apache.myfaces.tobago.taglib.decl.HasValidator;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasConverter;
+import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
+import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasTip;
+import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+import org.apache.myfaces.tobago.taglib.decl.IsFocus;
+import org.apache.myfaces.tobago.taglib.decl.IsInline;
+import org.apache.myfaces.tobago.taglib.component.DateTag;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+
+import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.JspException;
+
+/*
+ * Created by IntelliJ IDEA.
+ * User: bommel
+ * Date: 19.12.2005
+ * Time: 20:13:26
+ * To change this template use File | Settings | File Templates.
+ */
+/**
+ * Renders a date input field.
+ */
+@Tag(name="date")
+public class DateExtensionTag extends BodyTagSupport
+    implements HasValue, HasValidator, HasIdBindingAndRendered,
+    HasConverter, IsReadonly, IsDisabled,
+    IsRequired, HasTip, HasLabel,  IsFocus, IsInline {
+
+  private String binding;
+  private String converter;
+  private String validator;
+  private String disabled;
+  private String focus;
+  private String label;
+  private String readonly;
+  private String rendered;
+  private String required;
+  private String tip;
+  private String value;
+  private String inline;
+
+  private LabelExtensionTag labelTag;
+  private DateTag dateTag;
+
+  @Override
+  public int doStartTag() throws JspException {
+
+    labelTag = new LabelExtensionTag();
+    labelTag.setPageContext(pageContext);
+    if (label != null) {
+      labelTag.setValue(label);
+    }
+    if (tip != null) {
+      labelTag.setTip(tip);
+    }
+    if (rendered != null) {
+      labelTag.setRendered(rendered);
+    }
+    labelTag.setParent(getParent());
+    labelTag.doStartTag();
+
+    dateTag = new DateTag();
+    dateTag.setPageContext(pageContext);
+    if (value != null) {
+      dateTag.setValue(value);
+    }
+    if (binding != null) {
+      dateTag.setBinding(binding);
+    }
+    if (converter != null) {
+      dateTag.setConverter(converter);
+    }
+    if (validator != null) {
+      dateTag.setValidator(validator);
+    }
+    if (disabled != null) {
+      dateTag.setDisabled(disabled);
+    }
+    if (focus != null) {
+      dateTag.setFocus(focus);
+    }
+    if (id != null) {
+      dateTag.setId(id);
+    }
+    if (inline != null) {
+      dateTag.setInline(inline);
+    }
+    if (readonly != null) {
+      dateTag.setReadonly(readonly);
+    }
+    if (required != null) {
+      dateTag.setRequired(required);
+    }
+    dateTag.setParent(labelTag);
+    dateTag.doStartTag();
+
+    return super.doStartTag();
+  }
+
+  @Override
+  public int doEndTag() throws JspException {
+    dateTag.doEndTag();
+    labelTag.doEndTag();
+    return super.doEndTag();
+  }
+
+  @Override
+  public void release() {
+    super.release();
+    binding = null;
+    converter = null;
+    validator = null;
+    disabled = null;
+    focus = null;
+    label = null;
+    inline = null;
+    readonly = null;
+    rendered = null;
+    required = null;
+    tip = null;
+    value = null;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
+  }
+
+  public void setLabel(String label) {
+    this.label = label;
+  }
+
+  public void setFocus(String focus) {
+    this.focus = focus;
+  }
+
+  public void setBinding(String binding) {
+    this.binding = binding;
+  }
+
+  public void setRendered(String rendered) {
+    this.rendered = rendered;
+  }
+
+  public void setConverter(String converter) {
+    this.converter = converter;
+  }
+
+  public void setValidator(String validator) {
+    this.validator = validator;
+  }
+  public void setInline(String inline) {
+    this.inline = inline;
+  }
+
+  public void setReadonly(String readonly) {
+    this.readonly = readonly;
+  }
+
+  public void setDisabled(String disabled) {
+    this.disabled = disabled;
+  }
+
+  public void setRequired(String required) {
+    this.required = required;
+  }
+
+  public void setTip(String tip) {
+    this.tip = tip;
+  }
+}
