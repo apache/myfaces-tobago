@@ -42,10 +42,10 @@ public class TimeTag extends InputTag
 
     UIInput component = (UIInput) getComponentInstance();
     // TODO remove this
-    if (component.getFacet(FACET_LAYOUT) == null) {
+    /*if (component.getFacet(FACET_LAYOUT) == null) {
       UIComponent layout = ComponentUtil.createLabeledInputLayoutComponent();
       component.getFacets().put(FACET_LAYOUT, layout);
-    }
+    } */
     // TODO
     if (component.getConverter() == null) {
       Application application
