@@ -124,10 +124,10 @@
                 <tx:in value="#{controller.currentAddress.homePage}"
                        label="#{bundle.editorHomepage}"/>
 
-                <tc:date value="#{controller.currentAddress.dayOfBirth}"
+                <tx:date value="#{controller.currentAddress.dayOfBirth}"
                          label="#{bundle.editorBirthday}">
                   <f:convertDateTime pattern="dd.MM.yyyy"/>
-                </tc:date>
+                </tx:date>
 
                 <tc:cell/>
               </tc:panel>
