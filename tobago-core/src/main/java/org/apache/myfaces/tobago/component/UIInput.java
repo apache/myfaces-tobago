@@ -42,11 +42,12 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
   }
 
   public void encodeBegin(FacesContext facesContext) throws IOException {
+    // TODO change this should be renamed to DimensionUtils.prepare!!!
     UILayout.getLayout(this).layoutBegin(facesContext, this);    
     super.encodeBegin(facesContext);
   }
 
-  public void encodeChildren(FacesContext facesContext) throws IOException {
+  /*public void encodeChildren(FacesContext facesContext) throws IOException {
    UILayout layout = UILayout.getLayout(this);
    if (layout instanceof UILabeledInputLayout) {
      if (isRendered() ) {
@@ -55,13 +56,14 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
    } else {
      super.encodeChildren(facesContext);
    }
-  }
+  } */
 
-  public void encodeEnd(FacesContext facesContext) throws IOException {
-    if (! (UILayout.getLayout(this) instanceof UILabeledInputLayout)) {
+  /*public void encodeEnd(FacesContext facesContext) throws IOException {
+
+    //if (! (UILayout.getLayout(this) instanceof UILabeledInputLayout)) {
       super.encodeEnd(facesContext);
-    }
-  }
+    //}
+  } */
 
   public void encodeAjax(FacesContext facesContext) throws IOException {
     AjaxUtils.encodeAjaxComponent(facesContext, this);

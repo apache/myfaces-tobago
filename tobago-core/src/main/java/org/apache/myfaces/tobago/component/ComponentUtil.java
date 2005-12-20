@@ -612,12 +612,12 @@ public class ComponentUtil {
     return script;
   }
 
-  public static UIComponent createLabeledInputLayoutComponent() {
+  /*public static UIComponent createLabeledInputLayoutComponent() {
     UIComponent component = createComponent(UILabeledInputLayout.COMPONENT_TYPE,
         RENDERER_TYPE_LABELED_INPUT_LAYOUT);
     component.setId(FacesContext.getCurrentInstance().getViewRoot().createUniqueId());
     return component;
-  }
+  } */
 
   public static UIComponent createComponent(String componentType, String rendererType) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();

@@ -167,12 +167,12 @@ public final class LayoutUtil {
     return getDefaultLabelWidth(FacesContext.getCurrentInstance(), null);
   }
 
-
+  //TODO Change this to DimensionUtils.getWidth?
   public static Integer getLayoutWidth(UIComponent component) {
     return getLayoutSpace(component, ATTR_WIDTH,
         ATTR_LAYOUT_WIDTH);
   }
-
+  //TODO Change this to DimensionUtils.getHeight?
   public static Integer getLayoutHeight(UIComponent component) {
     return getLayoutSpace(component, ATTR_HEIGHT,
         ATTR_LAYOUT_HEIGHT);
@@ -280,9 +280,6 @@ public final class LayoutUtil {
     }
     return height;
   }
-
-
-  //  ////////////////////////////////////////////////////////////////
 
   public static Dimension getMinimumSize(
       FacesContext facesContext, UIComponent component) {

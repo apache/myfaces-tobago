@@ -47,7 +47,7 @@
         <configuration>
           <server>tomcat</server>
           <update>true</update>
-          <!--url>change if not http://localhost:8080/manager</url-->
+          <!--url>http://mononoke:8080/manager</url-->
         </configuration>
       </plugin>
     </plugins>

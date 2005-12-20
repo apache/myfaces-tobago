@@ -92,7 +92,8 @@ public class UIPage extends UIForm {
 // ///////////////////////////////////////////// code
 
   public void encodeBegin(FacesContext facesContext) throws IOException {
-    UILayout.getLayout(this).layoutBegin(facesContext, this);
+    // TODO change this should be renamed to DimensionUtils.prepare!!!
+    UILayout.getLayout(this).layoutBegin(facesContext, this);  
     super.encodeBegin(facesContext);
   }
 

@@ -46,6 +46,7 @@ public class UIDefaultLayout extends UILayout {
 
   public void layoutBegin(FacesContext facesContext, UIComponent component) {
     super.layoutBegin(facesContext, component);
+    //TODO why is this needed? 
     for (Object child : component.getChildren()) {
       ((UIComponent)child).getAttributes().remove(ATTR_INNER_WIDTH);
       ((UIComponent)child).getAttributes().remove(ATTR_INNER_HEIGHT);

@@ -38,22 +38,15 @@ import java.util.Iterator;
 
 public class UITabGroup extends UIPanel implements AjaxComponent {
 
-// ///////////////////////////////////////////// constant
-
   private static final Log LOG = LogFactory.getLog(UITabGroup.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TabGroup";
 
   public static final String RENDERED_INDEX
       = "org.apache.myfaces.tobago.component.UITabGroup.RENDERED_INDEX";
-// ///////////////////////////////////////////// attribute
 
   private int activeIndex;
   private int renderedIndex;
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
 
   @Override
   public boolean getRendersChildren() {
@@ -93,9 +86,7 @@ public class UITabGroup extends UIPanel implements AjaxComponent {
   private void resetTabLayout() {
     for (UIPanel tab : getTabs()) {
         tab.getAttributes().remove(ATTR_LAYOUT_WIDTH);
-//        tab.getAttributes().remove(TobagoConstants.ATTR_INNER_WIDTH);
         tab.getAttributes().remove(ATTR_LAYOUT_HEIGHT);
-//        tab.getAttributes().remove(TobagoConstants.ATTR_INNER_HEIGHT);
     }
   }
 
@@ -130,12 +121,9 @@ public class UITabGroup extends UIPanel implements AjaxComponent {
       }
       UIPanel renderedTab = getTabs()[getRenderedIndex()];
       renderedTab.processDecodes(context);
-      try
-      {
+      try {
         decode(context);
-      }
-      catch (RuntimeException e)
-      {
+      } catch (RuntimeException e) {
         context.renderResponse();
         throw e;
       }
@@ -198,10 +186,10 @@ public class UITabGroup extends UIPanel implements AjaxComponent {
   }
 
   public Object saveState(FacesContext context) {
-    Object[] state = new Object[2];
+    Object[] state = new Object[3];
     state[0] = super.saveState(context);
     state[1] = new Integer(renderedIndex);
-    // activeIndex don't need to be saved
+    state[2] = new Integer(activeIndex);
     return state;
   }
 
@@ -209,6 +197,7 @@ public class UITabGroup extends UIPanel implements AjaxComponent {
     Object[] values = (Object[]) state;
     super.restoreState(context, values[0]);
     renderedIndex = ((Integer)values[1]).intValue();
+    activeIndex = ((Integer)values[2]).intValue();
   }
 
   public void encodeAjax(FacesContext facesContext) throws IOException {
@@ -240,8 +229,7 @@ public class UITabGroup extends UIPanel implements AjaxComponent {
         UIComponent child = (UIComponent) facetsAndChildren.next();
         if (child instanceof AjaxComponent) {
           ((AjaxComponent)child).processAjax(facesContext);
-        }
-        else {
+        } else {
           AjaxUtils.processAjax(facesContext, child);
         }
         if (facesContext.getResponseComplete()) {
@@ -251,7 +239,6 @@ public class UITabGroup extends UIPanel implements AjaxComponent {
     }
   }
 
-// ///////////////////////////////////////////// bean getter + setter
 
   public int getActiveIndex() {
     return activeIndex;
