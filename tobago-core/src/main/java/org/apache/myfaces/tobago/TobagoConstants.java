@@ -21,8 +21,8 @@ package org.apache.myfaces.tobago;
 
 public final class TobagoConstants {
 
-  public static final boolean AJAX_ENABLED = false;
-//  public static final boolean AJAX_ENABLED = true;
+//  public static final boolean AJAX_ENABLED = false;
+  public static final boolean AJAX_ENABLED = true;
 
   public static final String SUBCOMPONENT_SEP = "::";
 
@@ -179,14 +179,15 @@ public final class TobagoConstants {
   public static final String RENDERER_TYPE_BOX = "Box";
   public static final String RENDERER_TYPE_BUTTON = "Button";
   public static final String RENDERER_TYPE_CALENDAR = "Calendar";
-  public static final String RENDERER_TYPE_HIDDEN = "Hidden";
+  public static final String RENDERER_TYPE_DATE = "Date";
   public static final String RENDERER_TYPE_DEFAULT_LAYOUT = "DefaultLayout";
-  public static final String RENDERER_TYPE_LABELED_INPUT_LAYOUT = "LabeledInputLayout";
   public static final String RENDERER_TYPE_GRID_LAYOUT = "GridLayout";
+  public static final String RENDERER_TYPE_HIDDEN = "Hidden";
   public static final String RENDERER_TYPE_IN = "In";
   public static final String RENDERER_TYPE_IMAGE = "Image";
   public static final String RENDERER_TYPE_LINK = "Link";
   public static final String RENDERER_TYPE_LABEL = "Label";
+  public static final String RENDERER_TYPE_LABELED_INPUT_LAYOUT = "LabeledInputLayout";
   public static final String RENDERER_TYPE_MENUBAR = "MenuBar";
   public static final String RENDERER_TYPE_MENUCOMMAND = "MenuCommand";
   public static final String RENDERER_TYPE_OUT = "Out";

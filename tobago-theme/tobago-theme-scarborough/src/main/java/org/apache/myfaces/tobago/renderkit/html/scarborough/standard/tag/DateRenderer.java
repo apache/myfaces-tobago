@@ -19,17 +19,216 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
+import org.apache.myfaces.tobago.component.*;
+import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.config.ThemeConfig;
+import org.apache.myfaces.tobago.event.DatePickerController;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-public class DateRenderer extends RendererBase {
+import javax.faces.component.UICommand;
+import javax.faces.component.*;
+import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.DateTimeConverter;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+public class DateRenderer extends InRenderer {
 
 // ///////////////////////////////////////////// constant
 
+  private static final Log LOG = LogFactory.getLog(DateRenderer.class);
 // ///////////////////////////////////////////// attribute
 
 // ///////////////////////////////////////////// constructor
 
 // ///////////////////////////////////////////// code
+
+  protected void renderMain(FacesContext facesContext, UIInput input, TobagoResponseWriter writer) throws IOException {
+
+
+    final List<String> scriptFiles
+        = ComponentUtil.findPage(input).getScriptFiles();
+    scriptFiles.add("script/date.js");
+    scriptFiles.add("script/dateConverter.js");
+    scriptFiles.add("script/calendar.js");
+
+    String classes = ComponentUtil.getStringAttribute(input, ATTR_STYLE_CLASS);
+    classes = classes.replaceAll("tobago-date-", "tobago-in-");
+    input.getAttributes().put(ATTR_STYLE_CLASS, classes);
+    super.renderMain(facesContext, input, writer);
+
+    UIComponent picker = input.getFacet(FACET_PICKER);
+    if (picker == null) {
+      picker = createPicker(input);
+      input.getFacets().put(FACET_PICKER, picker);
+    }
+    RenderUtil.encode(facesContext, picker);
+
+    UIPopup popup = (UIPopup) picker.getFacet(FACET_PICKER_POPUP);
+    if (popup != null) {
+      UIPage page = ComponentUtil.findPage(input);
+      page.getPopups().add(popup);
+    }
+  }
+
+  private UIComponent createPicker(UIComponent component) {
+
+    // util
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    final String idPrefix
+        = ComponentUtil.createPickerId(facesContext, component, "");
+    DatePickerController datePickerController = new DatePickerController();
+
+    String converterPattern = "yyyy-MM-dd"; // from calendar.js  initCalendarParse
+    final Converter converter = ((UIOutput) component).getConverter();
+    if (converter instanceof DateTimeConverter) {
+      converterPattern = ((DateTimeConverter) converter).getPattern();
+      LOG.info("converterPattern = " + converterPattern);
+    }
+
+    // create link
+    UICommand link = (UICommand) ComponentUtil.createComponent(
+        facesContext, UICommand.COMPONENT_TYPE, RENDERER_TYPE_LINK);
+//    component.getFacets().put(FACET_PICKER, link);
+
+    link.setImmediate(true);
+    link.setRendered(true);
+    link.setImmediate(true);
+    Map<String, Object>  attributes = link.getAttributes();
+    attributes.put(ATTR_TYPE, "script");
+    link.setId(idPrefix + DatePickerController.OPEN_POPUP);
+    link.setActionListener(datePickerController);
+    attributes.put(ATTR_LAYOUT_WIDTH, getConfiguredValue(facesContext, component, "pickerWidth"));
+
+    org.apache.myfaces.tobago.component.UIInput hidden = (org.apache.myfaces.tobago.component.UIInput) ComponentUtil.createComponent(
+        facesContext, org.apache.myfaces.tobago.component.UIInput.COMPONENT_TYPE, RENDERER_TYPE_HIDDEN);
+    link.getChildren().add(hidden);
+    hidden.setId(idPrefix + "Dimension");
+    // attributes map is still of link
+    attributes.put(ATTR_ACTION_STRING, "openPickerPopup(event, '"
+        + ComponentUtil.findPage(component).getFormId(facesContext) + "', '"
+        + link.getClientId(facesContext) + "', '"
+        + hidden.getClientId(facesContext) + "')");
+
+    // create popup
+    final UIComponent popup = ComponentUtil.createComponent(
+        facesContext, UIPopup.COMPONENT_TYPE, RENDERER_TYPE_POPUP);
+    link.getFacets().put(FACET_PICKER_POPUP, popup);
+    popup.setRendered(false);
+    popup.setId(idPrefix + "popup");
+    attributes = popup.getAttributes();
+    attributes.put(ATTR_POPUP_RESET, Boolean.TRUE);
+    attributes.put(ATTR_WIDTH, String.valueOf(
+        ThemeConfig.getValue(facesContext, component, "CalendarPopupWidth")));
+    attributes.put(ATTR_HEIGHT, String.valueOf(
+        ThemeConfig.getValue(facesContext, component, "CalendarPopupHeight")));
+    final UIComponent box = ComponentUtil.createComponent(
+        facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_BOX);
+    popup.getChildren().add(box);
+    box.setId("box");
+    box.getAttributes().put(ATTR_LABEL, "datePicker");
+    UIComponent layout = ComponentUtil.createComponent(
+        facesContext, UIGridLayout.COMPONENT_TYPE, RENDERER_TYPE_GRID_LAYOUT);
+    box.getFacets().put(FACET_LAYOUT, layout);
+    layout.setId("layout");
+    layout.getAttributes().put(ATTR_ROWS, "1*;fixed;fixed;fixed");
+
+    final UIComponent calendar = ComponentUtil.createComponent(
+        facesContext, UIOutput.COMPONENT_TYPE, RENDERER_TYPE_CALENDAR);
+    box.getChildren().add(calendar);
+    calendar.setId("calendar");
+    calendar.getAttributes().put(ATTR_CALENDAR_DATE_INPUT_ID, component.getClientId(facesContext));
+
+    if (converterPattern.indexOf('h') > -1 || converterPattern.indexOf('H') > -1) {
+      // add time input
+      LOG.info("adding time ");
+      final UIComponent timePanel = ComponentUtil.createComponent(
+          facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_PANEL);
+      timePanel.setId("timePanel");
+      box.getChildren().add(timePanel);
+      layout = ComponentUtil.createComponent(
+          facesContext, UIGridLayout.COMPONENT_TYPE, RENDERER_TYPE_GRID_LAYOUT);
+      timePanel.getFacets().put(FACET_LAYOUT, layout);
+      layout.setId("timePanelLayout");
+      layout.getAttributes().put(ATTR_COLUMNS, "1*;fixed;1*");
+      UIComponent cell = ComponentUtil.createComponent(
+          facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_PANEL);
+      cell.setId("cell1");
+      timePanel.getChildren().add(cell);
+
+      final UIComponent time = ComponentUtil.createComponent(
+          facesContext, org.apache.myfaces.tobago.component.UIInput.COMPONENT_TYPE, RENDERER_TYPE_TIME);
+      timePanel.getChildren().add(time);
+      time.setId("time");
+      time.getAttributes().put(ATTR_CALENDAR_DATE_INPUT_ID, component.getClientId(facesContext));
+      if (converterPattern.indexOf('s') > -1) {
+        time.getAttributes().put(ATTR_POPUP_CALENDAR_FORCE_TIME, true);
+      }
+
+
+      cell = ComponentUtil.createComponent(
+          facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_PANEL);
+      cell.setId("cell2");
+      timePanel.getChildren().add(cell);
+
+
+    } else {
+      // add empty cell  // TODO: remove if popup height calculation relays on content
+      LOG.info("adding cell ");
+      final UIComponent cell = ComponentUtil.createComponent(
+          facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_PANEL);
+      cell.setId("emptyCell");
+      box.getChildren().add(cell);
+    }
+
+    final UICommand okButton = (UICommand) ComponentUtil.createComponent(facesContext,
+        org.apache.myfaces.tobago.component.UICommand.COMPONENT_TYPE, RENDERER_TYPE_BUTTON);
+    box.getChildren().add(okButton);
+    okButton.setId("ok" + DatePickerController.CLOSE_POPUP);
+    attributes = okButton.getAttributes();
+    attributes.put(ATTR_LABEL, "OK");
+    attributes.put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
+    attributes.put(ATTR_ACTION_STRING, "writeIntoField('"
+        + popup.getClientId(facesContext) + "', '"
+        + component.getClientId(facesContext) + "'); closePickerPopup('"
+        + popup.getClientId(facesContext) + "')");
+    okButton.setActionListener(datePickerController);
+
+    final UICommand cancelButton = (UICommand) ComponentUtil.createComponent(facesContext,
+        org.apache.myfaces.tobago.component.UICommand.COMPONENT_TYPE, RENDERER_TYPE_BUTTON);
+    box.getChildren().add(cancelButton);
+    attributes = cancelButton.getAttributes();
+    attributes.put(ATTR_LABEL, "Cancel");
+    attributes.put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
+    attributes.put(ATTR_ACTION_STRING, "closePickerPopup('" + popup.getClientId(facesContext) + "')");
+    cancelButton.setId(DatePickerController.CLOSE_POPUP);
+    cancelButton.setActionListener(datePickerController);
+
+    // create image
+    UIGraphic image = (UIGraphic) ComponentUtil.createComponent(
+        facesContext, UIGraphic.COMPONENT_TYPE, RENDERER_TYPE_IMAGE);
+    image.setRendered(true);
+    image.setValue("image/date.gif");
+    image.getAttributes().put(ATTR_ALT, ""); //TODO: i18n
+    image.getAttributes().put(ATTR_STYLE_CLASS, "tobago-input-picker");
+    image.setId(idPrefix + "image");
+
+    // add image
+    link.getChildren().add(image);
+
+    return link;
+  }
+
+  public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
+    return getConfiguredValue(facesContext, component, "pickerWidth");
+  }
 
 // ///////////////////////////////////////////// bean getter + setter
 
