@@ -337,10 +337,10 @@ public class PageRenderer extends PageRendererBase {
     writer.endElement("body");
     writer.endElement("html");
 
-    if (LOG.isInfoEnabled()) {
-      LOG.info("unused AccessKeys    : "
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("unused AccessKeys    : "
           + AccessKeyMap.getUnusedKeys(facesContext));
-      LOG.info("dublicated AccessKeys: "
+      LOG.debug("dublicated AccessKeys: "
           + AccessKeyMap.getDublicatedKeys(facesContext));
     }
   }
