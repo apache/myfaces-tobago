@@ -273,13 +273,13 @@ public class SheetRenderer extends RendererBase
         LOG.debug("list      " + data.getValue());
       }
 
-      final Object value = data.getRowData();
+      //final Object value = data.getRowData();
 
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("element   " + value);
-      }
+      //*if (LOG.isDebugEnabled()) {
+      //  LOG.debug("element   " + value);
+      //}
 
-      requestMap.put(var, value);
+      //requestMap.put(var, value);
 
       writer.startElement("tr", null);
       writer.writeClassAttribute(rowClass);
@@ -366,7 +366,7 @@ public class SheetRenderer extends RendererBase
 
     data.setRowIndex(-1);
 
-    requestMap.remove(var);
+    //requestMap.remove(var);
 
     writer.endElement("table");
     writer.endElement("div");

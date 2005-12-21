@@ -50,14 +50,14 @@
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-users</archive>
     </mailingList>
     <mailingList>
-      <name>Myfaces Developer list</name>
+      <name>Myfaces Developer List</name>
       <subscribe>dev-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>dev-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>dev@myfaces.apache.org</post>
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-dev</archive>
     </mailingList>
     <mailingList>
-      <name>Myfaces Commits list</name>
+      <name>Myfaces Commits List</name>
       <subscribe>commits-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>commits-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>do not post</post>
