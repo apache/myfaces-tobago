@@ -21,6 +21,10 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
+import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
+import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
@@ -29,8 +33,8 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ViewHandler;
-import javax.faces.component.UIInput;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
@@ -38,11 +42,6 @@ import javax.faces.el.MethodBinding;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
-
-import static org.apache.myfaces.tobago.TobagoConstants.*;
-import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
-import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 
 public class InRenderer extends InRendererBase implements AjaxRenderer {
   private static final Log LOG = LogFactory.getLog(InRenderer.class);
@@ -74,6 +73,10 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
     String type = ComponentUtil.getBooleanAttribute(input,
         ATTR_PASSWORD) ? "password" : "text";
 
+    // Todo: check for valid binding
+    boolean renderAjaxSuggest
+        = input.getAttributes().get("suggestMethod") != null;
+
     String onchange = HtmlUtils.generateOnchange(input, facesContext);
 
     String id = input.getClientId(facesContext);
@@ -94,7 +97,9 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
         ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED));
     writer.writeAttribute("style", null, ATTR_STYLE);
     writer.writeComponentClass();
-    writer.writeAttribute("autocomplete", "off", false);
+    if (renderAjaxSuggest) {
+      writer.writeAttribute("autocomplete", "off", false);
+    }
     if (onchange != null) {
       // TODO: create and use utility method to write attributes without quoting
 //      writer.writeAttribute("onchange", onchange, null);
@@ -117,8 +122,7 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
     }
 
     // input suggest
-    if (input.getAttributes().get("suggestMethod") != null) {
-      // Todo: check for valid binding
+    if (renderAjaxSuggest) {
 
       String popupId = id + SUBCOMPONENT_SEP + "ajaxPopup";
       String viewId = facesContext.getViewRoot().getViewId();

@@ -21,10 +21,10 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.LayoutUtil;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -403,16 +403,14 @@ public final class HtmlRendererUtil {
 
     writer.writeText("new Tobago.ScriptLoader(\n    ", null);
     writer.writeText(allScripts, null);
-    writer.writeText(",\n    function() {", null);
     if (afterLoadCmds != null && afterLoadCmds.length > 0) {
-      writer.writeText("eval(\n", null);
+      writer.writeText(", \n", null);
       for (int i = 0; i < afterLoadCmds.length; i++) {
         writer.writeText(i == 0 ? "          " : "        + ", null);
         writer.writeText("\"" + afterLoadCmds[i].replace("\"", "\\\"") + "\"\n", null);
       }
-      writer.writeText("\n    )", null);
     }
-    writer.writeText("}).ensureScripts();", null);
+    writer.writeText(");", null);
 
     endJavascript(writer);
   }

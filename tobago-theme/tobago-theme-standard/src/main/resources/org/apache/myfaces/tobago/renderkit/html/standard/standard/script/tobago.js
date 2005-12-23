@@ -21,17 +21,14 @@ Object.extend(Tobago, {
 
   registeredScripts: {},
 
+  scriptLoaders: new Array(),
+
   registerScript: function(scriptId) {
-    PrintDebug("register :" + scriptId);
+    LOG.info("register :" + scriptId);
     this.registeredScripts[this.genScriptId(scriptId)] = true;
-//    eval("this.registeredScripts." + this.genScriptId(scriptId) + " = true;");
-//    LOG.debug(" test " + this.hasScript(this.genScriptId(scriptId)));
   },
 
   hasScript: function(scriptId) {
-//    var yes = false;
-//    eval("yes = this.registeredScripts." + this.genScriptId(scriptId) + ";");
-//    return yes;
     return this.registeredScripts[this.genScriptId(scriptId)];
   },
 
@@ -76,6 +73,62 @@ Object.extend(Tobago, {
     for (var i = 0; i < names.length; i++) {
       this.ensureStyleFile(names[i]);
     }
+  },
+
+  pageIsComplete: false,
+
+  pageComplete: function() {
+    LOG.debug("PageComplete");
+    this.pageIsComplete = true;
+    this.registerCurrentScripts();
+    this.startScriptLoaders();
+  },
+
+  isPageComplete: function(){
+    return this.pageIsComplete;
+  },
+
+  scriptLoadingActive: false,
+
+  addScriptLoader: function(scriptLoader) {
+    if (! this.pageIsComplete || this.scriptLoadingActive) {
+//      LOG.debug("add one scriptLoader");
+      this.scriptLoaders.push(scriptLoader);
+    } else {
+//     LOG.debug("executing one scriptLoader");
+      this.scriptLoadingActive = true;
+      scriptLoader.ensureScripts();
+    }
+  },
+
+  registerCurrentScripts: function() {
+    var children = document.getElementsByTagName('head')[0].childNodes;
+    for (var i = 0; i < children.length; i++) {
+      var child = children[i];
+      if (child.tagName.toUpperCase() == "SCRIPT"){
+        Tobago.registerScript(child.src);
+      }
+    }
+  },
+
+  startScriptLoaders: function() {
+//    LOG.debug("start 1 of " + this.scriptLoaders.length + " Loaders");
+    if (this.scriptLoaders.length > 0) {
+      this.scriptLoadingActive = true;
+      this.scriptLoaders.shift().ensureScripts();
+    } else {
+      this.scriptLoadingActive = false;
+    }
+  },
+
+  listScriptFiles: function() {
+    var children = document.getElementsByTagName('head')[0].childNodes;
+    for (var i = 0; i < children.length; i++) {
+      var child = children[i];
+      if (child.tagName.toUpperCase() == "SCRIPT"){
+        LOG.debug("script.src=" + child.src);
+      }
+    }
   }
 
 });
@@ -85,62 +138,75 @@ Tobago.ScriptLoader.prototype = {
   initialize: function(names, doAfter) {
     this.scriptIndex = 0;
     this.names = names;
-    this.doAfter = doAfter || Prototype.emptyFunction;
-//    LOG.debug("doAfter = " + doAfter);
+    this.doAfter = doAfter || ";";
+    Tobago.addScriptLoader(this);
   },
 
   ensureScript: function(src) {
     this.actualScript = src;
     if (!Tobago.hasScript(this.actualScript)) {
-      var script = document.createElement('script');
-      script.type = "text/javascript";
-      script.src = src;
+      this.scriptElement = document.createElement('script');
+      this.scriptElement.type = "text/javascript";
+      this.scriptElement.src = src;
+      if (typeof(this.scriptElement.onreadystatechange) != "undefined") {
+//        LOG.debug("Set script.onreadystatechange ");
+        this.scriptElement.onreadystatechange = this.stateReady.bind(this);
+      } else {
+//        LOG.debug("Set script.onload");
+        this.scriptElement.onload = this.stateOnLoad.bind(this);
+      }
       var head = document.getElementsByTagName('head')[0];
-      head.appendChild(script);
-      this.checkIndex = 0;
-      setTimeout(this.checkForScript.bind(this), 1);
+      head.appendChild(this.scriptElement);
     } else {
       this.ensureScripts();
     }
 
   },
 
-  checkForScript: function() {
-    this.checkIndex++;
-    // wait up to 10 seconds for loading the script
-    if (Tobago.hasScript(this.actualScript) || this.checkIndex > 1000) {
-      LOG.debug("checkIndex = " + this.checkIndex);
-      this.ensureScripts();
-    } else {
-      setTimeout(this.checkForScript.bind(this), 10);
-    }
+  stateReady: function() {
+//      LOG.debug("State " + window.event.srcElement.readyState + " : " + this.actualScript);
+      if (window.event.srcElement.readyState == "loaded"
+          || window.event.srcElement.readyState == "complete" ) {
+        this.scriptElement.onreadystatechange = null;
+        Tobago.registerScript(this.actualScript);
+        this.ensureScripts();
+      }
+  },
+
+  stateOnLoad: function() {
+//    LOG.debug("OnLoad " + this.actualScript);
+    this.scriptElement.onload = null;
+    Tobago.registerScript(this.actualScript);
+    this.ensureScripts();
   },
 
   ensureScripts: function() {
+//      LOG.debug("scriptIndex =  " + this.scriptIndex + "/" + this.names.length );
     if (this.scriptIndex < this.names.length) {
       this.ensureScript(this.names[this.scriptIndex++]);
     } else {
-//      LOG.debug("now do After() : checkIndex = " + this.checkIndex);
-      this.doAfter();
+//      LOG.debug("now do After() : file=" + this.actualScript);
+//          if (this.actualScript.indexOf('tabgroup') > -1) {
+//      LOG.debug("doAfter=" + this.doAfter);
+//              }
+      eval(this.doAfter);
+
+//          } else {
+//              LOG.debug("doAfter = " + this.doAfter)
+//          }
+      Tobago.startScriptLoaders();
     }
   }
 }
 
 
-
-var LOG = new Object();
-Object.extend(LOG, {
-    IdBase: "TbgLog",
-    show: function() {
-      var logArea = document.getElementsByTagName("body")[0].tbgLogArea;
-      if (logArea) {
-        logArea.show();
-      }
-    },
-    debug: function(text) {PrintDebug(text);},
-    info  : function(text) {PrintDebug(text);},
-    warn: function(text) {PrintDebug(text);},
-    error: function(text) {PrintDebug(text);}
-
-});
+if (typeof(LOG) == "undefined") {
+  var LOG = {
+      debug: function(text) {},
+      info  : function(text) {},
+      warn: function(text) {},
+      error: function(text) {alert(text)},
+      show: function() {}
+  };
+}
 

@@ -954,7 +954,3 @@ function tobagoMenuOpenMenu(element, event) {
 function tobagoSetSubMenuContainerVisible(id){
   document.getElementById(id).menuItem.setSubMenuContainerVisibility("visible");
 }
-
-
-// This MUST be the last line !
-Tobago.registerScript("/html/scarborough/standard/script/tobago-menu.js");

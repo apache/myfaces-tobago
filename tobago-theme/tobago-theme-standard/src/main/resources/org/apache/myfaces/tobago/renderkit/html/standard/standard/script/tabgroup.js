@@ -15,8 +15,7 @@
  */
 
 
-Tobago.TabGroup = Class.create();
-Tobago.TabGroup.prototype = Object.extend(Object.extend(new Ajax.Base(), {
+Tobago.TabGroupBase = {
   initialize: function(tabGroupId, activeIndex, form, url) {
     this.tabGroupId = tabGroupId,
     this.activeIndex = activeIndex;
@@ -55,14 +54,14 @@ Tobago.TabGroup.prototype = Object.extend(Object.extend(new Ajax.Base(), {
     if (event) {
       var aId = Event.findElement(event, 'A').id;
       this.activeIndex = aId.substring(aId.lastIndexOf(getSubComponentSeparator()) + getSubComponentSeparator().length);
-      LOG.debug("aId = " + aId + " request tab index " + this.activeIndex);
+      LOG.debug("Request tab with index " + this.activeIndex);
 
       var hidden = $(this.tabGroupId + getSubComponentSeparator() + "activeIndex");
       if (hidden) {
         hidden.value = this.activeIndex;
       }
       else {
-        LOG.warn("Kein hidden für '" + this.tabGroupId + getSubComponentSeparator() + "activeIndex" + "'");
+        LOG.warn("No hidden field for tabindex Id='" + this.tabGroupId + getSubComponentSeparator() + "activeIndex" + "'");
         LOG.warn("aId = " + aId);
       }
 
@@ -71,13 +70,13 @@ Tobago.TabGroup.prototype = Object.extend(Object.extend(new Ajax.Base(), {
         hidden.value = this.tabGroupId;
       }
       else {
-        LOG.error("Kein hidden für '" + this.form.id + "-action" + "'");
+        LOG.error("No hidden field for actionIndex Id='" + this.form.id + "-action" + "'");
         LOG.error("aId = " + aId);
         return;
       }
       new Ajax.Updater(this.parent, this.url+ '&' + Form.serialize(this.form), this.options);
     } else {
-      PrintDebug("No Event");
+      LOG.info("No reload Event");
     }
 
   },
@@ -88,7 +87,7 @@ Tobago.TabGroup.prototype = Object.extend(Object.extend(new Ajax.Base(), {
     this.setUp();
   }
 
-}));
+}
 
-// This MUST be the last line !
-Tobago.registerScript("/html/standard/standard/script/tabgroup.js");
+Tobago.TabGroup = Class.create();
+Tobago.TabGroup.prototype = Object.extend(new Ajax.Base(), Tobago.TabGroupBase);

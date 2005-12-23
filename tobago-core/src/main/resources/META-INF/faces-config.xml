@@ -38,6 +38,10 @@
   </application>
 
 
+  <lifecycle>
+    <phase-listener>org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener</phase-listener>
+  </lifecycle>
+  
   <component>
     <component-type>org.apache.myfaces.tobago.ColumnSelector</component-type>
     <component-class>org.apache.myfaces.tobago.component.UIColumnSelector</component-class>
@@ -137,8 +141,5 @@
     <render-kit-class>org.apache.myfaces.tobago.renderkit.TobagoRenderKit</render-kit-class>
   </render-kit>
 
-  <lifecycle>
-    <phase-listener>org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener</phase-listener>
-  </lifecycle>
                   
 </faces-config>

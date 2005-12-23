@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.*;
-import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ClientProperties;
@@ -30,6 +29,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.Application;
@@ -41,11 +41,7 @@ import javax.faces.context.ResponseWriter;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class PageRenderer extends PageRendererBase {
 // ------------------------------------------------------------------ constants
@@ -201,10 +197,10 @@ public class PageRenderer extends PageRendererBase {
     scriptFiles.remove("script/prototype.js");
     scriptFiles.remove("script/tobago.js");
 
-    boolean showClientLogging = false;
+    boolean hideClientLogging = true;
     final boolean debugMode =
         ClientProperties.getInstance(facesContext.getViewRoot()).isDebugMode();
-//        true; showClientLogging = true;
+//        true; hideClientLogging = false;
     if (debugMode) {
       scriptFiles.add("script/effects.js");
       scriptFiles.add("script/dragdrop.js");
@@ -241,7 +237,7 @@ public class PageRenderer extends PageRendererBase {
       writer.write(onload);
       writer.write('\n');
     }
-    if (showClientLogging) {writer.write("LOG.show()"); }
+    writer.write("  Tobago.pageComplete();");
     writer.write("}\n");
 
     int debugCounter = 0;
@@ -273,7 +269,8 @@ public class PageRenderer extends PageRendererBase {
           "script/dragdrop.js",
           "script/logging.js"
       };
-      final String[] jsCommand = new String[]{"new LOG.LogArea({hide: true});"};
+      final String[] jsCommand
+          = new String[]{"new LOG.LogArea({hide: " + hideClientLogging + "});"};
       HtmlRendererUtil.writeScriptLoader(facesContext, jsFiles, jsCommand);
     }
 

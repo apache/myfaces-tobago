@@ -533,18 +533,8 @@ function tobagoPopupBlinkOff(id) {
 }
 
 function PrintDebug(Text) {
-  var log = document.getElementById("Log");
-  if (log) {
-    //Text = new Date().getTime() + " : " + Text ;
-    LogEintrag = document.createElement("li");
-    neuerText = document.createTextNode(Text);
-    LogEintrag.appendChild(neuerText);
-    log.appendChild(LogEintrag);
-    log = document.getElementById("LogDiv");
-    if (log) {
-      log.scrollTop = log.scrollHeight;
-    }
-  }
+  LOG.debug("using of deprecated PrintDebug!");
+  LOG.debug(Text);
 }
 
 function tobagoJsLogMouseDown(event) {

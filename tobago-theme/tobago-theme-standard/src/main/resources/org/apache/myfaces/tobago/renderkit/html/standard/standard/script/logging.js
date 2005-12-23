@@ -15,8 +15,71 @@
  */
 
 
+var LOG = new Object();
+Object.extend(LOG, {
+    IdBase: "TbgLog",
+    messages: new Array(),
+    appenders: new Array(),
+    DEBUG: 1,
+    INFO:  2,
+    WARN:  3,
+    ERROR: 4,
+
+    show: function() {
+      for (var i = 0 ; i < this.appenders.length; i++) {
+        var appender = this.appenders[i];
+        if (appender.show) {
+          appender.show();
+        }
+      }
+    },
+
+    addAppender: function(appender) {
+      this.appenders.push(appender);
+    },
+
+    addMessage: function(msg) {
+      this.messages.push(msg);
+      for (var i = 0 ; i < this.appenders.length; i++) {
+        var appender = this.appenders[i];
+        if (appender.append
+            && typeof(msg.type) == "number"
+            && appender.logFor(msg.type)) {
+          appender.append(msg);
+        }
+      }
+    },
+
+    debug: function(text) {
+      this.addMessage(new LOG.LogMessage(LOG.DEBUG, text));
+    },
+
+    info  : function(text) {
+      this.addMessage(new LOG.LogMessage(LOG.INFO, text));
+    },
+
+    warn: function(text) {
+      this.addMessage(new LOG.LogMessage(LOG.WARN, text));
+    },
+
+    error: function(text) {
+      this.addMessage(new LOG.LogMessage(LOG.ERROR, text));
+    },
+
+    bindOnWindow: function() {
+      window.onerror = this.windowError.bind(this);
+    },
+
+    windowError: function(msg, url, line){
+		  var message = "Error in (" + (url || window.location) + ") on line "+ line +" with message (" + msg + ")";
+		  this.error(message);	
+    }
+});
+LOG.bindOnWindow();
+
+
 LOG.LogArea = Class.create();
-LOG.LogArea.prototype = Object.extend(Draggable.prototype).extend({
+LOG.LogArea.prototype = Object.extend(Draggable.prototype, {
   initialize: function() {
     var options = Object.extend({
       handle: false,
@@ -25,8 +88,14 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype).extend({
       endeffect: Prototype.emptyFunction,
       zindex: 1000,
       revert: false,
-      hide: false
+      snap: false,   // false, or xy or [x,y] or function(x,y){ return [x,y] }
+
+      // logging
+      hide: false,
+      severity: LOG.DEBUG
     }, arguments[0] || {});
+
+    this.options = options;
 
     if ($(LOG.IdBase)) {
       return;
@@ -36,6 +105,7 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype).extend({
 //    this.element.id = LOG.IdBase + "Element"
     this.setUpLogDiv(this.element, "30px", "2px", "400px", "500px", "1px solid red", "#aaaaaa");
     this.element.style.paddingTop = "25px";
+    this.element.style.overflow = "hidden";
     this.element.style.zIndex = "9010";
 
     this.dragHandleTop = document.createElement("DIV");
@@ -52,6 +122,13 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype).extend({
     this.clearButton.style.height = "20px";
     this.clearButton.innerHTML = "Clear";
     this.dragHandleTop.appendChild(this.clearButton);
+
+    this.oldButton = document.createElement("BUTTON");
+    this.oldButton.style.marginLeft = "20px";
+    this.oldButton.style.height = "20px";
+//    this.hideButton.style.float = "right";
+    this.oldButton.innerHTML = "Get old";
+    this.dragHandleTop.appendChild(this.oldButton);
 
     this.hideButton = document.createElement("BUTTON");
     this.hideButton.style.marginLeft = "20px";
@@ -88,41 +165,31 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype).extend({
 //    this.setUpHandleDiv(this.resizeHandleSW, null, "0px", "0px", null, "5px", "5px", null, "#000000", "sw-resize");
 //    this.element.appendChild(this.resizeHandleSW);
 
-    tmpElement = document.createElement("DIV");
-    tmpElement.style.overflow = "auto";
-    tmpElement.style.widht = "100%";
-    tmpElement.style.height = "100%";
-    tmpElement.style.background = "#ffffff";
-    this.element.appendChild(tmpElement);
+    this.scrollElement = document.createElement("DIV");
+    this.scrollElement.style.overflow = "auto";
+    this.scrollElement.style.widht = "100%";
+    this.scrollElement.style.height = "100%";
+    this.scrollElement.style.background = "#ffffff";
+    this.element.appendChild(this.scrollElement);
 
     this.logList = document.createElement("OL");
     this.logList.style.fontFamily = "Arial, sans-serif";
     this.logList.style.fontSize = "10pt";
     this.logList.id = "Log";
-    tmpElement.appendChild(this.logList);
+    this.scrollElement.appendChild(this.logList);
 
     this.handle       = options.handle ? $(options.handle) : this.element;
 
     Element.makePositioned(this.element); // fix IE
 
-    this.offsetX      = 0;
-    this.offsetY      = 0;
-    this.originalLeft = this.currentLeft();
-    this.originalTop  = this.currentTop();
-    this.originalX    = this.element.offsetLeft;
-    this.originalY    = this.element.offsetTop;
-    this.originalZ    = parseInt(this.element.style.zIndex || "0");
+    this.delta    = this.currentDelta();
 
-    this.options      = options;
-
-    this.active       = false;
     this.dragging     = false;
 
-    this.eventMouseDown = this.startDrag.bindAsEventListener(this);
-    this.eventMouseUp   = this.endDrag.bindAsEventListener(this);
-    this.eventMouseMove = this.update.bindAsEventListener(this);
-    this.eventKeypress  = this.keyPress.bindAsEventListener(this);
+    this.eventMouseDown = this.initDrag.bindAsEventListener(this);
+
     this.eventClear     = this.clearList.bindAsEventListener(this);
+    this.eventOld      = this.getOld.bindAsEventListener(this);
     this.eventHide      = this.hide.bindAsEventListener(this);
     this.eventStopEvent  = this.stopEvent.bindAsEventListener(this);
 
@@ -131,28 +198,32 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype).extend({
     Event.observe(this.dragHandleRight, "mousedown", this.eventMouseDown);
     Event.observe(this.dragHandleBottom, "mousedown", this.eventMouseDown);
     Event.observe(this.dragHandleLeft, "mousedown", this.eventMouseDown);
+
     Event.observe(this.clearButton, "click", this.eventClear);
     Event.observe(this.clearButton, "mousedown", this.eventStopEvent);
+    Event.observe(this.oldButton, "click", this.eventOld);
+    Event.observe(this.oldButton, "mousedown", this.eventStopEvent);
     Event.observe(this.hideButton, "click", this.eventHide);
     Event.observe(this.hideButton, "mousedown", this.eventStopEvent);
-    Event.observe(document, "mouseup", this.eventMouseUp);
-    Event.observe(document, "mousemove", this.eventMouseMove);
-    Event.observe(document, "keypress", this.eventKeypress);
+
+    Draggables.register(this);
 
     this.body = document.getElementsByTagName("body")[0];
     this.body.tbgLogArea = this;
 
-    if (!this.options.hide) {
-      this.show();
+    if (this.options.hide) {
+      this.element.style.display = 'none';
     }
+    this.body.appendChild(this.element);
+    LOG.addAppender(this);
   },
 
   show: function() {
-    this.body.appendChild(this.element);
+    this.element.style.display = '';
   },
 
   hide: function() {
-    this.body.removeChild(this.element);
+    this.element.style.display = 'none';
   },
 
   setUpLogDiv: function(element, top, right, width, height, border, background) {
@@ -177,11 +248,54 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype).extend({
     this.logList.innerHTML = "";
   },
 
+  getOld: function() {
+    for (var i = 0 ; i < LOG.messages.length; i++) {
+      this.append(LOG.messages[i]);
+    }
+  },
+
   stopEvent: function(event) {
     Event.stop(event);
+  },
+
+  scrollToBottom: function() {
+    this.scrollElement.scrollTop = this.scrollElement.scrollHeight;
+  },
+
+  append: function(message) {
+    if (typeof(message.type) == "number" && !this.logFor(message.type)) {
+      return;
+    }
+
+    var listElement = document.createElement("li");
+
+    var logMessage;
+    if (typeof(message) == "string") {
+      logMessage = document.createTextNode(message);
+    } else if (typeof(message.type) == "number") {
+      // TODO severity marker
+      logMessage = document.createTextNode(message.message);
+    }
+    listElement.appendChild(logMessage);
+    this.logList.appendChild(listElement);
+
+    this.scrollToBottom();
+  },
+
+  logFor: function(severity) {
+    return (severity >= this.options.severity);
   }
 });
 
+LOG.LogMessage = Class.create();
+LOG.LogMessage.prototype = {
+    initialize: function(type, message) {
+      this.type = type;
+      this.message = message;
+      this.time = new Date();
+    },
 
-// This MUST be the last line !
-Tobago.registerScript("/html/standard/standard/script/logging.js");
+    displayOn: function(type) {
+      return this.type <= type;
+    }
+}

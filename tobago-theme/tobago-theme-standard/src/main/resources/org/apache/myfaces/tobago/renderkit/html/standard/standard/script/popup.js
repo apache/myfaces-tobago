@@ -72,6 +72,3 @@ function setPopupPara(width,height,options) {
   return width + height + parent + dirbar + locationbar
       + menubar + resizable + scrollbars + statusbar + toolbar;
 }
-
-// This MUST be the last line !
-if (typeof(Tobago) != "undefined") { Tobago.registerScript("/html/standard/standard/script/popup.js"); }

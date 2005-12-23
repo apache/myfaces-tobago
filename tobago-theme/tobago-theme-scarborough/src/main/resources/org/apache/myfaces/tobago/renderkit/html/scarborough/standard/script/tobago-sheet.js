@@ -411,9 +411,7 @@ function adjustHeaderDiv(sheetId) {
       box = document.getElementById(sheetId + "_header_box_" + idx++);
     }
   if (clientWidth == 0) {
-    PrintDebug("clientWidth 1 = " + clientWidth);
     clientWidth = Math.min(contentWidth, boxSum);
-    PrintDebug("clientWidth 2 = " + clientWidth);
   }
   var headerDiv = document.getElementById(sheetId + "_header_div");
   var minWidth = contentWidth - getScrollbarWidth(); // div width - scrollbar width
@@ -612,7 +610,4 @@ function keyEvent(event) {
     }
   }
 }
-
-// This MUST be the last line !
-Tobago.registerScript("/html/scarborough/standard/script/tobago-sheet.js");
 

@@ -17,7 +17,3 @@
 function getToolBarButtonMenuTopOffset() {
   return -1;
 }
-
-
-// This MUST be the last line !
-Tobago.registerScript("/html/speyside/msie/script/tobago-menu.js");
