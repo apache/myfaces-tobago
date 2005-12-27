@@ -144,7 +144,7 @@ SimpleDateFormat.prototype.parse = function(dateStr) {
 
   var context = this._handle(dateStr, null, true);
 
-  if (context.retvalue == -1) {
+  if (context.retValue == -1) {
     return null;
   }
 
