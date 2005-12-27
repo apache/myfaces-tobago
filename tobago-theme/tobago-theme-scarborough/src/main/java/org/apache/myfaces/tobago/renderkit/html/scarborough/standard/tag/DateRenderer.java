@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.event.DatePickerController;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UICommand;
@@ -52,12 +53,20 @@ public class DateRenderer extends InRenderer {
 
   protected void renderMain(FacesContext facesContext, UIInput input, TobagoResponseWriter writer) throws IOException {
 
+    final String[] scripts = {
+        "script/date.js",
+        "script/dateConverter.js",
+        "script/calendar.js"};
 
     final List<String> scriptFiles
         = ComponentUtil.findPage(input).getScriptFiles();
-    scriptFiles.add("script/date.js");
-    scriptFiles.add("script/dateConverter.js");
-    scriptFiles.add("script/calendar.js");
+    for (String script : scripts) {
+      scriptFiles.add(script);
+    }
+
+    if (AJAX_ENABLED) {
+      HtmlRendererUtil.writeScriptLoader(facesContext, scripts, null);
+    }
 
     String classes = ComponentUtil.getStringAttribute(input, ATTR_STYLE_CLASS);
     classes = classes.replaceAll("tobago-date-", "tobago-in-");

@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
@@ -35,13 +36,31 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import java.io.StringWriter;
 
 public class TreeRenderer extends RendererBase {
 
 // ///////////////////////////////////////////// constant
 
   private static final Log LOG = LogFactory.getLog(TreeRenderer.class);
+
+  // tree resources (TREE_IMAGES)
+  private static final String[] TREE_IMAGES = {
+      "openfoldericon.gif",
+      "foldericon.gif",
+      "unchecked.gif",
+      "checked.gif",
+      "new.gif",
+      "T.gif",
+      "L.gif",
+      "I.gif",
+      "Lminus.gif",
+      "Tminus.gif",
+      "Rminus.gif",
+      "Lplus.gif",
+      "Tplus.gif",
+      "Rplus.gif",
+  };
 
 // ///////////////////////////////////////////// attribute
 
@@ -151,53 +170,74 @@ public class TreeRenderer extends RendererBase {
     writer.endElement("table");
 //    writer.endElement("div");
 
-    ComponentUtil.findPage(tree).getScriptFiles().add("script/tree.js");
 
-    HtmlRendererUtil.startJavascript(writer);
-    writer.writeText("{", null);
+    String script = createJavascript(facesContext, clientId, root);
 
-    // tree resources (images)
-    String[] images = {
-      "openfoldericon.gif", "foldericon.gif", "unchecked.gif", "checked.gif",
-      "new.gif", "T.gif", "L.gif", "I.gif",
-      "Lminus.gif", "Tminus.gif", "Rminus.gif",
-      "Lplus.gif", "Tplus.gif", "Rplus.gif",
-    };
-    writer.writeText("var treeResourcesHelp = new Object();\n", null);
-    for (int i = 0; i < images.length; i++) {
-      writer.writeText("treeResourcesHelp.", null);
-      writer.writeText(images[i].replace('.', '_'), null);
-      writer.writeText(" = \"", null);
-      writer.writeText(ResourceManagerUtil.getImageWithPath(facesContext, "image/" + images[i]), null);
-      writer.writeText("\";\n", null);
+    final String[] scripts = {"script/tree.js"};
+    ComponentUtil.findPage(tree).getScriptFiles().add(scripts[0]);
+
+    if (! AJAX_ENABLED) {
+      HtmlRendererUtil.startJavascript(writer);
+      writer.writeText(script, null);
+      HtmlRendererUtil.endJavascript(writer);
+    } else {
+      HtmlRendererUtil.writeScriptLoader(facesContext, scripts,
+          new String[] {script.replaceAll("\n", " ")});
     }
-    writer.writeText("treeResourcesHelp.getImage = function (name) {\n", null);
-    writer.writeText("  var result = this[name.replace('.', '_')];\n", null);
-    writer.writeText("  if (result) {\n", null);
-    writer.writeText("    return result;\n", null);
-    writer.writeText("  } else {\n", null);
-    writer.writeText("    return \"", null);
-    writer.writeText(ResourceManagerUtil.getImageWithPath(facesContext, "image/blank.gif"), null);
-    writer.writeText("\";\n", null);
-    writer.writeText("  }\n", null);
-    writer.writeText("}\n", null);
-
-    RenderUtil.encode(facesContext, root);
-
-    writer.writeText("  var treeDiv = document.getElementById('", null);
-    writer.writeText(clientId, null);
-    writer.writeText("-cont');\n", null);
-    writer.writeText("treeDiv.innerHTML = ", null);
-    String rootNode = createJavascriptVariable(root.getClientId(facesContext));
-    writer.writeText(rootNode, null);
-    writer.writeText(".toString(0, true);\n", null);
-
-    writer.writeText(rootNode, null);
-    writer.writeText(".initSelection();\n", null);
-    writer.writeText("}", null);
-    HtmlRendererUtil.endJavascript(writer);
 
     writer.endElement("div");
+  }
+
+  private String createJavascript(FacesContext facesContext, String clientId,
+                                  UITreeNode root)
+  throws IOException {
+    StringBuffer sb = new StringBuffer();
+
+    sb.append("{");
+
+    sb.append("var treeResourcesHelp = new Object();\n");
+    for (int i = 0; i < TREE_IMAGES.length; i++) {
+      sb.append("treeResourcesHelp.");
+      sb.append(TREE_IMAGES[i].replace('.', '_'));
+      sb.append(" = \"");
+      sb.append(ResourceManagerUtil.getImageWithPath(facesContext, "image/" + TREE_IMAGES[i]));
+      sb.append("\";\n");
+    }
+    sb.append("treeResourcesHelp.getImage = function (name) {\n");
+    sb.append("  var result = this[name.replace('.', '_')];\n");
+    sb.append("  if (result) {\n");
+    sb.append("    return result;\n");
+    sb.append("  } else {\n");
+    sb.append("    return \"");
+    sb.append(ResourceManagerUtil.getImageWithPath(facesContext, "image/blank.gif"));
+    sb.append("\";\n");
+    sb.append("  }\n");
+    sb.append("};\n");
+
+    sb.append(getNodesAsJavascript(facesContext, root));
+
+    sb.append("  var treeDiv = document.getElementById('");
+    sb.append(clientId);
+    sb.append("-cont');\n");
+    sb.append("treeDiv.innerHTML = ");
+    String rootNode = createJavascriptVariable(root.getClientId(facesContext));
+    sb.append(rootNode);
+    sb.append(".toString(0, true);\n");
+
+    sb.append(rootNode);
+    sb.append(".initSelection();\n");
+
+    sb.append("}");
+    return sb.toString();
+  }
+
+  protected String getNodesAsJavascript(FacesContext facesContext, UITreeNode root) throws IOException {
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    StringWriter stringWriter = new StringWriter();
+    facesContext.setResponseWriter(writer.cloneWithWriter(stringWriter));
+    RenderUtil.encode(facesContext, root);
+    facesContext.setResponseWriter(writer);
+    return stringWriter.toString();
   }
 
 // ///////////////////////////////////////////// bean getter + setter

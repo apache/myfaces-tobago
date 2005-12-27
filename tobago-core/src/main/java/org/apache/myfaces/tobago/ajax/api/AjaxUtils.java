@@ -2,10 +2,10 @@ package org.apache.myfaces.tobago.ajax.api;
 
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
-import javax.faces.context.FacesContext;
-import javax.faces.component.UIComponent;
-import javax.faces.render.Renderer;
 import javax.faces.application.ViewHandler;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -21,6 +21,19 @@ public class AjaxUtils {
 
 
   public static void processAjax(FacesContext facesContext, UIComponent component) throws IOException {
+
+    component.processValidators(facesContext);
+
+    if (! facesContext.getRenderResponse()) {
+      component.processUpdates(facesContext);
+    }
+
+    // invokeApplication here ??
+
+    renderAjax(facesContext, component);
+  }
+
+  private static void renderAjax(FacesContext facesContext, UIComponent component) throws IOException {
     final Iterator facetsAndChildren = component.getFacetsAndChildren();
     while (facetsAndChildren.hasNext()) {
       UIComponent child = (UIComponent) facetsAndChildren.next();
@@ -28,13 +41,12 @@ public class AjaxUtils {
         ((AjaxComponent)child).processAjax(facesContext);
       }
       else {
-        processAjax(facesContext, child);
+        renderAjax(facesContext, child);
       }
       if (facesContext.getResponseComplete()) {
         return;
       }
     }
-
   }
 
   public static void checkParamValidity(FacesContext facesContext, UIComponent uiComponent, Class compClass)

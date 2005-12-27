@@ -424,7 +424,9 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
   this.initSelection = function() {
     if (this.selected) {
       var selectState = document.getElementById(treeHiddenId + '-selectState');
-      selectState.value = selectState.value + nodeStateId(this) + ";" ;
+      if (selectState) {
+        selectState.value = selectState.value + nodeStateId(this) + ";";
+      }
     }
   };
 

@@ -21,12 +21,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.AJAX_ENABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -38,7 +39,6 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class TreeListboxRenderer extends TreeRenderer{
 
@@ -100,35 +100,48 @@ public class TreeListboxRenderer extends TreeRenderer{
     writer.writeAttribute("value", value, null);
     writer.endElement("input");
 
-    page.getScriptFiles().add("script/tree.js");
+    String script = createJavascript(facesContext, clientId, root);
 
-    HtmlRendererUtil.startJavascript(writer);
+    final String[] scripts = {"script/tree.js"};
+    ComponentUtil.findPage(tree).getScriptFiles().add(scripts[0]);
 
-    writer.writeText("{\n", null);
+    if (! AJAX_ENABLED) {
+      HtmlRendererUtil.startJavascript(writer);
+      writer.writeText(script, null);
+      HtmlRendererUtil.endJavascript(writer);
+    } else {
+      HtmlRendererUtil.writeScriptLoader(facesContext, scripts,
+          new String[] {script.replaceAll("\n", " ")});
+    }
 
-    writer.writeText("  var treeResourcesHelp = new Object();\n", null);
-    writer.writeText("  treeResourcesHelp.getImage = function (name) {\n", null);
-    writer.writeText("    return \"", null);
-    writer.writeText(ResourceManagerUtil.getImageWithPath(facesContext, "image/blank.gif"), null);
-    writer.writeText("\";\n", null);
-    writer.writeText("  }\n", null);
+  }
 
+  private String  createJavascript(FacesContext facesContext, String clientId,
+                                   UITreeNode root) throws IOException {
 
-    RenderUtil.encode(facesContext, root);
+    StringBuffer sb = new StringBuffer();
+    sb.append("{\n");
 
-    writer.writeText("  var hidden =   document.getElementById('", null);
-    writer.writeText(clientId, null);
-    writer.writeText("'); \n", null);
-    writer.writeText("  hidden.rootNode = ", null);
+    sb.append("  var treeResourcesHelp = new Object();\n");
+    sb.append("  treeResourcesHelp.getImage = function (name) {\n");
+    sb.append("    return \"");
+    sb.append(ResourceManagerUtil.getImageWithPath(facesContext, "image/blank.gif"));
+    sb.append("\";\n");
+    sb.append("  };;\n");
+
+    sb.append(getNodesAsJavascript(facesContext, root));
+
+    sb.append("  var hidden =   document.getElementById('");
+    sb.append(clientId);
+    sb.append("'); \n");
+    sb.append("  hidden.rootNode = ");
     String rootNode = createJavascriptVariable(root.getClientId(facesContext));
-    writer.writeText(rootNode, null);
-    writer.writeText(";\n", null);
+    sb.append(rootNode);
+    sb.append(";\n");
 
-    writer.writeText("}\n", null);
+    sb.append("}\n");
 
-    HtmlRendererUtil.endJavascript(writer);
-
-
+    return sb.toString();
   }
 
 //  public void encodeChildrenTobago(
