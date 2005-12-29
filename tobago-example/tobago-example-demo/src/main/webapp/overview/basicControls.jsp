@@ -52,7 +52,7 @@
         </tc:panel>
 
         <tx:textarea value="#{overviewController.basicArea}"
-          label="#{overviewBundle.basic_textareaLabel}" required="true"/>
+          label="#{overviewBundle.basic_textareaLabel}" />
       </tc:box>
 
   <%--row    --%>
