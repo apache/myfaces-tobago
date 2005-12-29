@@ -20,49 +20,48 @@
 
 <layout:overview>
   <jsp:body>
-    <tc:panel >
+    <tc:panel>
       <f:facet name="layout">
         <tc:gridLayout border="0" rows="20px;fixed;1*;20px;fixed;1*;20px;fixed" />
-  <%--      <tc:gridLayout border="0" rows="1*;6*;1*;1*;6*;1*;1*;6*" />--%>
       </f:facet>
 
-  <%--row    --%>
+  <%-- row --%>
       <tc:out escape="false" value="#{overviewBundle.basic_text_input}" />
 
-  <%--row    --%>
-      <tc:box label="#{overviewBundle.basicControls_sampleInputTitle}" >
+  <%-- row --%>
+      <tc:box label="#{overviewBundle.basicControls_sampleInputTitle}">
         <f:facet name="layout">
-          <tc:gridLayout columns="1*;1*"  border="0" />
+          <tc:gridLayout columns="1*;1*" border="0" />
         </f:facet>
 
-        <tc:panel >
+        <tc:panel>
           <f:facet name="layout">
             <tc:gridLayout />
           </f:facet>
           <tx:label value="#{overviewBundle.basic_textboxLabel}" tip="test">
             <tc:in value="#{overviewController.basicInput}"
-              suggestMethod="#{overviewController.getInputSuggestItems}"/>
+                suggestMethod="#{overviewController.getInputSuggestItems}" />
           </tx:label>
           <tx:date value="#{overviewController.basicDate}"
               label="#{overviewBundle.basic_dateLabel}">
             <f:convertDateTime pattern="dd.MM.yyyy" />
           </tx:date>
           <tx:time label="#{overviewBundle.basic_timeLabel}"
-                  value="#{overviewController.basicTime}" />
+              value="#{overviewController.basicTime}" />
         </tc:panel>
 
         <tx:textarea value="#{overviewController.basicArea}"
           label="#{overviewBundle.basic_textareaLabel}" />
       </tc:box>
 
-  <%--row    --%>
-      <tc:cell /> <%-- spacer--%>
+  <%-- row --%>
+      <tc:cell />
 
-  <%--row    --%>
+  <%-- row --%>
       <tc:out escape="false" value="#{overviewBundle.basic_text_select}" />
 
-  <%--row    --%>
-      <tc:box label="#{overviewBundle.basicControls_sampleSelectTitle}" >
+  <%-- row --%>
+      <tc:box label="#{overviewBundle.basicControls_sampleSelectTitle}">
         <f:facet name="layout">
           <tc:gridLayout columns="1*;1*"  border="0"/>
         </f:facet>
@@ -70,11 +69,11 @@
           <f:selectItems value="#{overviewController.items}" id="items0" />
         </tc:selectOneRadio>
 
-        <tc:panel >
+        <tc:panel>
           <f:facet name="layout">
             <tc:gridLayout rows="fixed;fixed"/>
           </f:facet>
-          <tc:selectManyCheckbox value="#{overviewController.multiValue}" id="cbg0" renderRange="1-2" >
+          <tc:selectManyCheckbox value="#{overviewController.multiValue}" id="cbg0" renderRange="1-2">
             <f:selectItems value="#{overviewController.items}" id="itemsg0" />
           </tc:selectManyCheckbox>
           <tc:selectOneChoice value="#{overviewController.singleValue}">
@@ -82,14 +81,14 @@
           </tc:selectOneChoice>
         </tc:panel>
       </tc:box>
-  <%--row    --%>
-      <tc:cell /> <%-- spacer--%>
+  <%-- row --%>
+      <tc:cell />
 
-  <%--row    --%>
+  <%-- row --%>
       <tc:out escape="false" value="#{overviewBundle.basic_text_action}" />
 
-  <%--row    --%>
-      <tc:box label="#{overviewBundle.basicControls_sampleLinkTitle}" >
+  <%-- row --%>
+      <tc:box label="#{overviewBundle.basicControls_sampleLinkTitle}">
         <f:facet name="layout">
           <tc:gridLayout columns="1*;1*;1*" border="0"/>
         </f:facet>
