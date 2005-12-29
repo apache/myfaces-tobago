@@ -133,11 +133,12 @@ public class Pager extends MethodBinding {
         LOG.error("Unkown action: " + action);
       }
 
-      MethodBinding stateChangeListener = data.getStateChangeListener();
+      /*MethodBinding stateChangeListener = data.getStateChangeListener();
       if (stateChangeListener != null) {
         stateChangeListener.invoke(facesContext,
             new Object[] {new SheetStateChangeEvent(data)});
-      }
+      } */
+      data.queueEvent(new SheetStateChangeEvent(data));
     } else {
       if (LOG.isDebugEnabled()) {
         LOG.debug("aobj[0] instanceof '" + aobj[0] + "'");

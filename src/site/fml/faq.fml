@@ -10,6 +10,13 @@
          <a href="http://tobago.atanion.net/tobago-example-demo/">Demo</a>
           </answer>
     </faq>
+    <faq id="hello-world">
+      <question>Where i can find a Hello World example and a list of needed jars?</question>
+        <answer><p>
+          Please look at <a href="http://svn.apache.org/repos/asf/incubator/tobago/trunk/tobago-example/tobago-example-blank/">tobago-example-blank</a>.
+         </p>
+        </answer>
+    </faq>
     <faq id="tobago/RI">
       <question>Does tobago run with the Sun RI?</question>
       <answer><p>Tobago should run with Sun RI and with MyFaces.</p></answer>

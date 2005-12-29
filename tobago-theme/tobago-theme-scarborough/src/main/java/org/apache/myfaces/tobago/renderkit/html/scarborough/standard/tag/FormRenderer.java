@@ -30,14 +30,6 @@ import java.io.IOException;
 
 public class FormRenderer extends RendererBase {
 
-// ///////////////////////////////////////////// constant
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
-
   public void decode(FacesContext facesContext, UIComponent component) {
     UIForm form = (UIForm) component;
     UIPage page = ComponentUtil.findPage(form);
@@ -61,8 +53,6 @@ public class FormRenderer extends RendererBase {
     //}
 
   }
-  
-// ///////////////////////////////////////////// bean getter + setter
 
 }
 

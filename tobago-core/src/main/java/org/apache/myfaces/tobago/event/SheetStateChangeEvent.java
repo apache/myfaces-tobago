@@ -31,11 +31,11 @@ public class SheetStateChangeEvent extends FacesEvent {
   }
 
   public boolean isAppropriateListener(FacesListener facesListener) {
-    return true;    //TODO
+    return facesListener instanceof SheetStateChangeListener;
   }
 
   public void processListener(FacesListener facesListener) {
-    //TODO
+    ((SheetStateChangeListener)facesListener).processSheetStateChange(this);
   }
 
 }

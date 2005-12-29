@@ -24,12 +24,12 @@ import javax.faces.event.FacesListener;
  * Date: 13.12.2004
  * Time: 16:25:03
  */
-public class StateChangeEvent extends FacesEvent {
+public class TabChangeEvent extends FacesEvent {
 
   private Object oldState;
   private Object newState;
 
-  public StateChangeEvent(UIComponent uiComponent, Object oldState, Object newState) {
+  public TabChangeEvent(UIComponent uiComponent, Object oldState, Object newState) {
     super(uiComponent);
     this.oldState = oldState;
     this.newState = newState;
@@ -40,7 +40,7 @@ public class StateChangeEvent extends FacesEvent {
   }
 
   public void processListener(FacesListener facesListener) {
-    ((TabChangeListener)facesListener).processStateChange(this);
+    ((TabChangeListener)facesListener).processTabChange(this);
   }
 
   public Object getOldState() {

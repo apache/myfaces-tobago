@@ -28,26 +28,29 @@ import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
 import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.util.StringUtil;
+import org.apache.myfaces.tobago.event.SheetStateChangeSource;
+import org.apache.myfaces.tobago.event.SheetStateChangeListener;
+import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
+import javax.faces.el.EvaluationException;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.AbortProcessingException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class UIData extends javax.faces.component.UIData {
-// ------------------------------------------------------------------ constants
+public class UIData extends javax.faces.component.UIData implements SheetStateChangeSource {
 
   private static final Log LOG = LogFactory.getLog(UIData.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Data";
-
-// ----------------------------------------------------------------- attributes
 
   private MethodBinding stateChangeListener;
 
@@ -61,7 +64,6 @@ public class UIData extends javax.faces.component.UIData {
   private boolean showHeader = true;
   private boolean showHeaderSet = false;
 
-// ----------------------------------------------------------- business methods
 
   public void encodeBegin(FacesContext facesContext) throws IOException {
     UILayout.prepareDimension(facesContext, this);
@@ -384,6 +386,50 @@ public class UIData extends javax.faces.component.UIData {
 
   public void setSorter(Sorter sorter) {
     this.sorter = sorter;
+  }
+
+  public void queueEvent(FacesEvent facesEvent) {
+    if (facesEvent instanceof SheetStateChangeEvent) {
+      UIComponent parent = getParent();
+      if (parent == null) {
+        throw new IllegalStateException("component is not a descendant of a UIViewRoot");
+      }
+      parent.queueEvent(facesEvent);
+    } else {
+      super.queueEvent(facesEvent);
+    }
+
+  }
+
+  public void broadcast(FacesEvent facesEvent) throws AbortProcessingException {
+    super.broadcast(facesEvent);
+    if ( facesEvent instanceof SheetStateChangeEvent) {
+      MethodBinding sheetChangeListenerBinding = getStateChangeListener();
+      if (sheetChangeListenerBinding != null) {
+        try {
+          sheetChangeListenerBinding.invoke(getFacesContext(), new Object[]{(SheetStateChangeEvent)facesEvent});
+        } catch (EvaluationException e) {
+          Throwable cause = e.getCause();
+          if (cause != null && cause instanceof AbortProcessingException) {
+            throw (AbortProcessingException)cause;
+          } else {
+            throw e;
+          }
+        }
+      }
+    }
+  }
+
+  public void addStateChangeListener(SheetStateChangeListener listener) {
+    addFacesListener(listener);
+  }
+
+  public SheetStateChangeListener[] getStateChangeListeners() {
+    return  (SheetStateChangeListener[])getFacesListeners(SheetStateChangeListener.class);
+  }
+
+  public void removeStateChangeListener(SheetStateChangeListener listener) {
+    removeFacesListener(listener);
   }
 
   public MethodBinding getStateChangeListener() {

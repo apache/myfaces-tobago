@@ -24,5 +24,6 @@ import javax.faces.event.FacesListener;
  */
 public interface TabChangeListener extends FacesListener {
 
-  public void processStateChange(StateChangeEvent stateChangeEvent);
+  public void processTabChange(TabChangeEvent tabChangeEvent);
+
 }

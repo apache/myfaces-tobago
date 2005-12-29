@@ -28,18 +28,11 @@ import java.util.Iterator;
 
 public class UIForm extends javax.faces.component.UIForm {
 
-// ///////////////////////////////////////////// constant
-
   private static final Log LOG = LogFactory.getLog(UIForm.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Form";
 
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
-
+  // TODO can this removed?
   public void processDecodes(FacesContext facesContext) {
 
     // Process this component itself
@@ -98,7 +91,4 @@ public class UIForm extends javax.faces.component.UIForm {
       }
     }
   }
-
-// ///////////////////////////////////////////// bean getter + setter
-
 }

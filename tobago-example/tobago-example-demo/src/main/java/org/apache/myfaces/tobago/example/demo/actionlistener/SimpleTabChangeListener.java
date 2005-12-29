@@ -19,7 +19,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 
 import org.apache.myfaces.tobago.event.TabChangeListener;
-import org.apache.myfaces.tobago.event.StateChangeEvent;
+import org.apache.myfaces.tobago.event.TabChangeEvent;
 
 /**
  * User: weber
@@ -30,9 +30,9 @@ public class SimpleTabChangeListener implements TabChangeListener {
 
   private static final Log LOG = LogFactory.getLog(SimpleTabChangeListener.class);
 
-  public void processStateChange(StateChangeEvent stateChangeEvent) {
-    LOG.info("TabState has Changed: from " + stateChangeEvent.getOldState()
-        + " to " + stateChangeEvent.getNewState());
+  public void processTabChange(TabChangeEvent tabChangeEvent) {
+    LOG.info("TabState has Changed: from " + tabChangeEvent.getOldState()
+        + " to " + tabChangeEvent.getNewState());
 
   }
 }

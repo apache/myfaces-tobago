@@ -167,6 +167,13 @@
           </reportSet>
         </reportSets>
       </plugin>
+      <!--plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <configLocation>org/apache/myfaces/tobago/checkstyle.xml</configLocation>
+        </configuration>
+      </plugin-->
 
       <plugin>
         <inherited>false</inherited>
@@ -264,6 +271,11 @@
         <artifactId>wagon-ftp</artifactId>
         <version>1.0-alpha-3</version>
       </extension>
+      <!--extension>
+        <groupId>org.apache.myfaces.tobago</groupId>
+        <artifactId>build-tools</artifactId>
+        <version>${version}</version>
+      </extension-->
     </extensions>
   </build>
 

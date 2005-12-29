@@ -30,15 +30,7 @@ import java.util.Map;
 
 public class InputRendererBase extends RendererBase {
 
-// ///////////////////////////////////////////// constant
-
   private static final Log LOG = LogFactory.getLog(InputRendererBase.class);
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
 
   public void decode(FacesContext context, UIComponent component) {
     UIInput uiInput;
@@ -73,8 +65,6 @@ public class InputRendererBase extends RendererBase {
   public int getLabelWidth(FacesContext facesContext, UIComponent component) {
     return getConfiguredValue(facesContext, component, "labelWidth");
   }
-
-// ///////////////////////////////////////////// bean getter + setter
 
 }
 

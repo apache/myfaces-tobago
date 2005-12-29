@@ -24,6 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.event.TabChangeListener;
+import org.apache.myfaces.tobago.event.TabChangeSource;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
@@ -31,12 +32,16 @@ import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
+import javax.faces.el.MethodBinding;
+import javax.faces.el.EvaluationException;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.AbortProcessingException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
 
-public class UITabGroup extends UIPanel implements AjaxComponent {
+public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponent {
 
   private static final Log LOG = LogFactory.getLog(UITabGroup.class);
 
@@ -47,6 +52,8 @@ public class UITabGroup extends UIPanel implements AjaxComponent {
 
   private int activeIndex;
   private int renderedIndex;
+
+  private MethodBinding tabChangeListener = null;
 
   @Override
   public boolean getRendersChildren() {
@@ -166,6 +173,32 @@ public class UITabGroup extends UIPanel implements AjaxComponent {
     }
   }
 
+  public void broadcast(FacesEvent facesEvent) throws AbortProcessingException {
+    super.broadcast(facesEvent);
+
+    MethodBinding tabChangeListenerBinding = getTabChangeListener();
+    if (tabChangeListenerBinding != null) {
+      try {
+        tabChangeListenerBinding.invoke(getFacesContext(), new Object[]{facesEvent});
+      } catch (EvaluationException e) {
+        Throwable cause = e.getCause();
+        if (cause != null && cause instanceof AbortProcessingException) {
+          throw (AbortProcessingException)cause;
+        } else {
+          throw e;
+        }
+      }
+    }
+  }
+
+  public void setTabChangeListener(MethodBinding tabStateChangeListener) {
+    this.tabChangeListener = tabStateChangeListener;
+  }
+
+  public MethodBinding getTabChangeListener() {
+    return tabChangeListener;
+  }
+
   public void updateState(FacesContext facesContext) {
     ValueBinding stateBinding = getValueBinding(ATTR_STATE);
     if (stateBinding != null) {
@@ -185,11 +218,16 @@ public class UITabGroup extends UIPanel implements AjaxComponent {
     removeFacesListener(listener);
   }
 
+  public TabChangeListener[] getTabChangeListeners() {
+    return (TabChangeListener[]) getFacesListeners(TabChangeListener.class);
+  }
+
   public Object saveState(FacesContext context) {
-    Object[] state = new Object[3];
+    Object[] state = new Object[4];
     state[0] = super.saveState(context);
     state[1] = new Integer(renderedIndex);
     state[2] = new Integer(activeIndex);
+    state[3] = tabChangeListener;
     return state;
   }
 
@@ -198,6 +236,7 @@ public class UITabGroup extends UIPanel implements AjaxComponent {
     super.restoreState(context, values[0]);
     renderedIndex = ((Integer)values[1]).intValue();
     activeIndex = ((Integer)values[2]).intValue();
+    tabChangeListener = (MethodBinding) values[3];
   }
 
   public void encodeAjax(FacesContext facesContext) throws IOException {
@@ -221,7 +260,7 @@ public class UITabGroup extends UIPanel implements AjaxComponent {
     final String ajaxId = (String) facesContext.getExternalContext().
         getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
     if (ajaxId.equals(getClientId(facesContext))) {
-      // TODO what about invoking StateChangeListener ?
+      // TODO what about invoking TabChangeListener ?
       
       encodeAjax(facesContext);
     } else {final Iterator facetsAndChildren = getFacetsAndChildren();

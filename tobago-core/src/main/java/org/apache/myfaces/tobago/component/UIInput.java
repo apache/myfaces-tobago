@@ -35,6 +35,7 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
   private static final Log LOG = LogFactory.getLog(UIInput.class);
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Input";
 
+  // TODO can this removed?
   public void updateModel(FacesContext facesContext) {
     if (ComponentUtil.mayUpdateModel(this)) {
       super.updateModel(facesContext);
@@ -46,24 +47,6 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
     UILayout.getLayout(this).layoutBegin(facesContext, this);    
     super.encodeBegin(facesContext);
   }
-
-  /*public void encodeChildren(FacesContext facesContext) throws IOException {
-   UILayout layout = UILayout.getLayout(this);
-   if (layout instanceof UILabeledInputLayout) {
-     if (isRendered() ) {
-       layout.encodeChildrenOfComponent(facesContext, this);
-     }
-   } else {
-     super.encodeChildren(facesContext);
-   }
-  } */
-
-  /*public void encodeEnd(FacesContext facesContext) throws IOException {
-
-    //if (! (UILayout.getLayout(this) instanceof UILabeledInputLayout)) {
-      super.encodeEnd(facesContext);
-    //}
-  } */
 
   public void encodeAjax(FacesContext facesContext) throws IOException {
     AjaxUtils.encodeAjaxComponent(facesContext, this);

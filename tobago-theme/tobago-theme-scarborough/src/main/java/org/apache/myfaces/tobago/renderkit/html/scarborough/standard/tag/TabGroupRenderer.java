@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UITabGroup;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.event.StateChangeEvent;
+import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -37,7 +37,6 @@ import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
-import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -79,7 +78,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
       int activeIndex = Integer.parseInt(newValue);
       if (activeIndex != oldIndex) {
         ((UITabGroup) component).setActiveIndex(activeIndex);
-        StateChangeEvent event = new StateChangeEvent(component,
+        TabChangeEvent event = new TabChangeEvent(component,
             new Integer(oldIndex), new Integer(activeIndex));
         event.setPhaseId(PhaseId.UPDATE_MODEL_VALUES);
         component.queueEvent(event);
