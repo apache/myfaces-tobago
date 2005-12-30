@@ -122,8 +122,11 @@ function setFirstElementsFocus() {
         if (element != null) {
           types += "type=" + element.type + ' id=' + element.id + '\n';
           if (!element.disabled && checkFocusType(element.type)){
-            element.focus();
-            break foriLoop;
+            try { // focus() on not visible elements breaks IE
+              element.focus();
+              break foriLoop;
+            } catch(ex) { }
+
           }
         }
       }
