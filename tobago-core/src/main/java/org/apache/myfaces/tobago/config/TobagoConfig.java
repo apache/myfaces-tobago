@@ -43,6 +43,7 @@ public class TobagoConfig {
   private Theme defaultTheme;
   private List<String> resourceDirs;
   private List<MappingRule> mappingRules;
+  private boolean ajaxEnabled;
 
 // ----------------------------------------------------------- business methods
 
@@ -145,6 +146,13 @@ public class TobagoConfig {
     return resourceDirs;
   }
 
+  public boolean isAjaxEnabled() {
+    return ajaxEnabled;
+  }
+
+  public void setAjaxEnabled(String value) {
+    this.ajaxEnabled = Boolean.valueOf(value);
+  }
 // ------------------------------------------------------------ getter + setter
 
   public Theme getDefaultTheme() {

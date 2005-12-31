@@ -24,35 +24,24 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
-import org.apache.myfaces.tobago.renderkit.HtmlUtils;
-import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.*;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.taglib.component.MenuCommandTag;
-import org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag;
-import org.apache.myfaces.tobago.taglib.component.MenuTag;
-import org.apache.myfaces.tobago.taglib.component.SelectBooleanCommandTag;
-import org.apache.myfaces.tobago.taglib.component.SelectOneCommandTag;
+import org.apache.myfaces.tobago.taglib.component.*;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UICommand;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
-import javax.faces.component.UISelectOne;
-import javax.faces.component.ValueHolder;
+import javax.faces.component.*;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.ArrayList;
 
 public class MenuBarRenderer extends RendererBase {
 // ------------------------------------------------------------------ constants
@@ -105,7 +94,7 @@ public class MenuBarRenderer extends RendererBase {
     String function = setupFunction + "('" + clientId + "', '"
         + page.getClientId(facesContext) + "');";
 
-    if (AJAX_ENABLED) {
+    if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
       HtmlRendererUtil.writeStyleLoader(
           facesContext, new String[] {"style/tobago-menu.css"});
       StringTokenizer st = new StringTokenizer(scriptBlock, "\n");

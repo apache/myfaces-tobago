@@ -25,6 +25,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.*;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.config.ThemeConfig;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.event.DatePickerController;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
@@ -64,7 +65,7 @@ public class DateRenderer extends InRenderer {
       scriptFiles.add(script);
     }
 
-    if (AJAX_ENABLED) {
+    if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
       HtmlRendererUtil.writeScriptLoader(facesContext, scripts, null);
     }
 

@@ -71,6 +71,9 @@ public class TobagoConfigParser {
     // resource dirs
     digester.addCallMethod("tobago-config/resource-dir", "addResourceDir", 0);
 
+    // enable ajax
+    digester.addCallMethod("tobago-config/enable-ajax", "setAjaxEnabled", 0);
+
     return digester;
   }
 

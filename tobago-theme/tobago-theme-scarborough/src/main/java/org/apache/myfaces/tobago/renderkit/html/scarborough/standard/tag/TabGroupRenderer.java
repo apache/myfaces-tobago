@@ -22,10 +22,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.*;
+import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UITabGroup;
-import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
@@ -35,8 +38,6 @@ import org.apache.myfaces.tobago.renderkit.StyleAttribute;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -112,7 +113,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
 
     UIPage page = ComponentUtil.findPage(component);
     page.getScriptFiles().add("script/tab.js");
-    if (AJAX_ENABLED && ! serverSideTab) {
+    if (TobagoConfig.getInstance(facesContext).isAjaxEnabled() && ! serverSideTab) {
       HtmlRendererUtil.writeScriptLoader(facesContext, "script/tab.js");
 
     }
@@ -149,7 +150,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
             serverSideTab, image1x1);
         writer.endElement("div");
 
-        if (AJAX_ENABLED && serverSideTab) {
+        if (TobagoConfig.getInstance(facesContext).isAjaxEnabled() && serverSideTab) {
           final String formId
               = ComponentUtil.findPage(component).getFormId(facesContext);
           final String[] scripts = new String[]{"script/tabgroup.js"};
@@ -202,7 +203,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
 
       String url;
 
-      if (AJAX_ENABLED && serverSideTab) {
+      if (TobagoConfig.getInstance(facesContext).isAjaxEnabled() && serverSideTab) {
         url = "#";
       }  else if (serverSideTab) {
         url = "javascript:tobago_requestTab('"
@@ -311,6 +312,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
         new StyleAttribute((String) component.getAttributes().get(ATTR_STYLE)),
         ComponentUtil.getBooleanAttribute(component, ATTR_SERVER_SIDE_TABS),
         ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"));
+    context.responseComplete();
   }
 
   public int getFixedHeight(FacesContext facesContext, UIComponent uiComponent) {

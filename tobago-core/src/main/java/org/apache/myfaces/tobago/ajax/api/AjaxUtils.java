@@ -1,5 +1,7 @@
 package org.apache.myfaces.tobago.ajax.api;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.application.ViewHandler;
@@ -18,36 +20,36 @@ import java.util.Iterator;
  */
 public class AjaxUtils {
 
+  private static final Log LOG = LogFactory.getLog(AjaxUtils.class);
 
-
-  public static void processAjax(FacesContext facesContext, UIComponent component) throws IOException {
-
-    component.processValidators(facesContext);
-
-    if (! facesContext.getRenderResponse()) {
-      component.processUpdates(facesContext);
-    }
-
-    // invokeApplication here ??
-
-    renderAjax(facesContext, component);
-  }
-
-  private static void renderAjax(FacesContext facesContext, UIComponent component) throws IOException {
-    final Iterator facetsAndChildren = component.getFacetsAndChildren();
-    while (facetsAndChildren.hasNext()) {
-      UIComponent child = (UIComponent) facetsAndChildren.next();
-      if (child instanceof AjaxComponent) {
-        ((AjaxComponent)child).processAjax(facesContext);
-      }
-      else {
-        renderAjax(facesContext, child);
-      }
-      if (facesContext.getResponseComplete()) {
-        return;
-      }
-    }
-  }
+//  public static void processAjax(FacesContext facesContext, UIComponent component) throws IOException {
+//
+//    component.processValidators(facesContext);
+//
+//    if (! facesContext.getRenderResponse()) {
+//      component.processUpdates(facesContext);
+//    }
+//
+//    // invokeApplication here ??
+//
+//    renderAjax(facesContext, component);
+//  }
+//
+//  private static void renderAjax(FacesContext facesContext, UIComponent component) throws IOException {
+//    final Iterator facetsAndChildren = component.getFacetsAndChildren();
+//    while (facetsAndChildren.hasNext()) {
+//      UIComponent child = (UIComponent) facetsAndChildren.next();
+//      if (child instanceof AjaxComponent) {
+//        ((AjaxComponent)child).processAjax(facesContext);
+//      }
+//      else {
+//        renderAjax(facesContext, child);
+//      }
+//      if (facesContext.getResponseComplete()) {
+//        return;
+//      }
+//    }
+//  }
 
   public static void checkParamValidity(FacesContext facesContext, UIComponent uiComponent, Class compClass)
   {
@@ -86,5 +88,48 @@ public class AjaxUtils {
     final String actionURL = viewHandler.getActionURL(facesContext, viewId);
     return facesContext.getExternalContext().encodeActionURL(
         actionURL+"?affectedAjaxComponent=" + clientId);
+  }
+
+  public static void processAjax(FacesContext facesContext, UIComponent component)
+      throws IOException {
+    if (component instanceof AjaxComponent) {
+      ((AjaxComponent) component).processAjax(facesContext);
+    } else {
+      processAjaxOnChildren(facesContext, component);
+    }
+  }
+
+  public static void processActiveAjaxComponent(FacesContext facesContext,
+                                                UIComponent component)
+      throws IOException {
+
+    if (component instanceof AjaxComponent) {
+
+      component.processValidators(facesContext);
+
+      if (! facesContext.getRenderResponse()) {
+        component.processUpdates(facesContext);
+      }
+
+/*      if (! facesContext.getRenderResponse()) {
+  // TODO: what about invokeApplication ??
+}*/
+
+      ((AjaxComponent)component).encodeAjax(facesContext);
+    } else {
+      LOG.error("Can't process non AjaxComponent : \""
+          + component.getClientId(facesContext) + "\" = "
+          + component.getClass().getName());
+    }
+  }
+
+  public static void processAjaxOnChildren(FacesContext facesContext,
+                                           UIComponent component)
+      throws IOException {
+
+      final Iterator<UIComponent> facetsAndChildren = component.getFacetsAndChildren();
+      while (facetsAndChildren.hasNext() && !facesContext.getResponseComplete()) {
+        AjaxUtils.processAjax(facesContext, facetsAndChildren.next());
+      }
   }
 }

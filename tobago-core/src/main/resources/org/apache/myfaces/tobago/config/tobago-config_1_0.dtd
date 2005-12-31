@@ -18,7 +18,7 @@
 
 <!ENTITY % Boolean "(true|false|yes|no)">
 
-<!ELEMENT tobago-config (theme-config, resource-dir+, mapping-rule*)>
+<!ELEMENT tobago-config (theme-config, resource-dir+, mapping-rule*, ajax-enabled)>
 
 <!ELEMENT theme-config (default-theme, supported-theme*)>
 <!ELEMENT default-theme (#PCDATA)>
@@ -37,3 +37,5 @@
 <!ELEMENT attribute (key, value)>
 <!ELEMENT key (#PCDATA)>
 <!ELEMENT value (#PCDATA)>
+
+<!ELEMENT ajax-enabled (#PCDATA)>

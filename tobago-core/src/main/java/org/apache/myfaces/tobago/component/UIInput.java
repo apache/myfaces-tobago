@@ -22,13 +22,11 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 
 import javax.faces.context.FacesContext;
-import javax.faces.component.UIComponent;
 import java.io.IOException;
-import java.util.Iterator;
 
 public class UIInput extends javax.faces.component.UIInput implements AjaxComponent {
 
@@ -57,19 +55,8 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
         getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
     if (ajaxId.equals(getClientId(facesContext))) {
       encodeAjax(facesContext);
-    } else {final Iterator facetsAndChildren = getFacetsAndChildren();
-      while (facetsAndChildren.hasNext()) {
-        UIComponent child = (UIComponent) facetsAndChildren.next();
-        if (child instanceof AjaxComponent) {
-          ((AjaxComponent)child).processAjax(facesContext);
-        }
-        else {
-          AjaxUtils.processAjax(facesContext, child);
-        }
-        if (facesContext.getResponseComplete()) {
-          return;
-        }
-      }
+    } else {
+      AjaxUtils.processAjaxOnChildren(facesContext, this);
     }
   }
 }

@@ -226,6 +226,7 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
     buf.append("</ul>");
 
     context.getResponseWriter().write(buf.toString());
+    context.responseComplete();
   }
 
 }

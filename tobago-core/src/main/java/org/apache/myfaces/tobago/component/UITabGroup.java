@@ -23,23 +23,22 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.*;
+import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
+import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource;
-import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
-import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
-import javax.faces.el.MethodBinding;
 import javax.faces.el.EvaluationException;
-import javax.faces.event.FacesEvent;
+import javax.faces.el.MethodBinding;
+import javax.faces.el.ValueBinding;
 import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Iterator;
 
 public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponent {
 
@@ -241,7 +240,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
 
   public void encodeAjax(FacesContext facesContext) throws IOException {
     if (activeIndex < 0 || !(activeIndex < getTabs().length)) {
-      LOG.info("This should never occur! Problem in decoding?");
+      LOG.error("This should never occur! Problem in decoding?");
       ValueBinding stateBinding = getValueBinding(ATTR_STATE);
       Object state
           = stateBinding != null ? stateBinding.getValue(facesContext) : null;
@@ -257,24 +256,13 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
   }
 
   public void processAjax(FacesContext facesContext) throws IOException {
-    final String ajaxId = (String) facesContext.getExternalContext().
-        getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
+    final String ajaxId = (String) facesContext.getExternalContext()
+        .getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
+
     if (ajaxId.equals(getClientId(facesContext))) {
-      // TODO what about invoking TabChangeListener ?
-      
-      encodeAjax(facesContext);
-    } else {final Iterator facetsAndChildren = getFacetsAndChildren();
-      while (facetsAndChildren.hasNext()) {
-        UIComponent child = (UIComponent) facetsAndChildren.next();
-        if (child instanceof AjaxComponent) {
-          ((AjaxComponent)child).processAjax(facesContext);
-        } else {
-          AjaxUtils.processAjax(facesContext, child);
-        }
-        if (facesContext.getResponseComplete()) {
-          return;
-        }
-      }
+      AjaxUtils.processActiveAjaxComponent(facesContext, this);
+    } else {
+      AjaxUtils.processAjaxOnChildren(facesContext, this);
     }
   }
 

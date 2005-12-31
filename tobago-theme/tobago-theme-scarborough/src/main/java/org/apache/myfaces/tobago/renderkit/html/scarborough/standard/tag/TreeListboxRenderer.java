@@ -21,12 +21,12 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.AJAX_ENABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeNode;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -105,7 +105,7 @@ public class TreeListboxRenderer extends TreeRenderer{
     final String[] scripts = {"script/tree.js"};
     ComponentUtil.findPage(tree).getScriptFiles().add(scripts[0]);
 
-    if (! AJAX_ENABLED) {
+    if (! TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
       HtmlRendererUtil.startJavascript(writer);
       writer.writeText(script, null);
       HtmlRendererUtil.endJavascript(writer);

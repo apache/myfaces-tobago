@@ -23,6 +23,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.*;
+import org.apache.myfaces.tobago.component.UIData;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -36,9 +38,8 @@ import org.apache.myfaces.tobago.util.StringUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.Application;
-import javax.faces.component.UIColumn;
+import javax.faces.component.*;
 import javax.faces.component.UICommand;
-import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -46,12 +47,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.el.MethodBinding;
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 public class SheetRenderer extends RendererBase
   implements SheetRendererWorkaround {
@@ -97,7 +93,7 @@ public class SheetRenderer extends RendererBase
     String checked = contextPath + resourceManager
         .getImage(viewRoot, "image/sheetChecked.gif");
 
-    if (!AJAX_ENABLED) {
+    if (!TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
       UIPage uiPage = ComponentUtil.findPage(data);
       uiPage.getScriptFiles().add("script/tobago-sheet.js");
       uiPage.getOnloadScripts().add("initSheet(\"" + sheetId + "\");");
