@@ -136,8 +136,8 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
 //      page.getScriptFiles().add("script/inputSuggest.js");
 
       writer.startElement("div");
-//      writer.writeClassAttribute("ajaxPopup");
       writer.writeClassAttribute("tobago-in-suggest-popup");
+      writer.writeAttribute("style", "display: none;", null);
       writer.writeIdAttribute(popupId);
       writer.endElement("div");
 
@@ -156,7 +156,7 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
       }
 
       final String[] cmds = {
-          "new Ajax.MyFacesAutocompleter(",
+          "new Tobago.Autocompleter(",
           "    '" + id + "',",
           "    '" + popupId + "',",
           "    '" + AjaxUtils.createUrl(facesContext, id) + "',",

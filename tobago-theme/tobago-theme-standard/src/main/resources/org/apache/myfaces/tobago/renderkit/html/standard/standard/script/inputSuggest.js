@@ -15,8 +15,8 @@
  */
 
 
-Ajax.MyFacesAutocompleter = Class.create();
-Ajax.MyFacesAutocompleter.prototype = Object.extend(new Autocompleter.Base(),
+Tobago.Autocompleter = Class.create();
+Tobago.Autocompleter.prototype = Object.extend(new Autocompleter.Base(),
 Object.extend(new Ajax.Base(), {
   initialize: function(element, update, url, options) {
 	  this.baseInitialize(element, update, options);
