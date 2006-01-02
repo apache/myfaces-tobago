@@ -318,17 +318,24 @@ public class PageRenderer extends PageRendererBase {
 
     // debugging...
     if (debugMode) {
-
+      List<String> logMessages = new ArrayList<String>();
       for (Iterator ids = facesContext.getClientIdsWithMessages();
           ids.hasNext();) {
         String id = (String) ids.next();
         for (Iterator messages = facesContext.getMessages(id);
             messages.hasNext();) {
           FacesMessage message = (FacesMessage) messages.next();
-          errorMessageForDebugging(id, message, writer);
+          logMessages.add(errorMessageForDebugging(id, message));
         }
       }
-      writer.writeText("FacesContext = " + facesContext, null);
+      if (! logMessages.isEmpty()) {
+        logMessages.add(0, "LOG.show();");
+      }
+      
+      logMessages.add("LOG.info(\"FacesContext = " + facesContext + "\");");
+
+      HtmlRendererUtil.writeScriptLoader(facesContext, null,
+          logMessages.toArray(new String[logMessages.size()] ));
     }
 
     writer.endElement("body");
@@ -385,6 +392,17 @@ public class PageRenderer extends PageRendererBase {
     writer.endElement("div");
     writer.startElement("br", null);
     writer.endElement("br");
+  }
+
+  private String errorMessageForDebugging(String id, FacesMessage message) {
+    StringBuffer sb = new StringBuffer("LOG.info(\"FacesMessage: [");
+    sb.append(id != null ? id : "null");
+    sb.append("][");
+    sb.append(message.getSummary() == null ? "null" : message.getSummary());
+    sb.append("/");
+    sb.append(message.getDetail() == null ? "null" : message.getDetail());
+    sb.append("]\");");
+    return sb.toString();
   }
 
   private String generateDoctype(UIPage page) {

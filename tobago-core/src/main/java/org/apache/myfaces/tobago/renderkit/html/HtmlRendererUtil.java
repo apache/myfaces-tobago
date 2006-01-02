@@ -398,8 +398,10 @@ public final class HtmlRendererUtil {
         = (TobagoResponseWriter) facesContext.getResponseWriter();
     startJavascript(writer);
 
-    String allScripts
-        = ResourceManagerUtil.getScriptsAsJSArray(facesContext, scripts);
+    String allScripts = "[]";
+    if (scripts != null) {
+      allScripts = ResourceManagerUtil.getScriptsAsJSArray(facesContext, scripts);
+    }
 
     writer.writeText("new Tobago.ScriptLoader(\n    ", null);
     writer.writeText(allScripts, null);
