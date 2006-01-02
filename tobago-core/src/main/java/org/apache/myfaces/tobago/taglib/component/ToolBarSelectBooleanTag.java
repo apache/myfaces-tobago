@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasImage;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 
@@ -36,7 +37,7 @@ import javax.faces.component.UIComponent;
 @Tag(name = "toolBarCheck")
 public class ToolBarSelectBooleanTag extends SelectBooleanCommandTag
     implements HasIdBindingAndRendered, HasLabelAndAccessKey, HasCommandType,
-    HasImage, IsDisabled, HasAction, HasBooleanValue, IsImmediateCommand {
+    HasImage, IsDisabled, HasAction, HasBooleanValue, HasTip, IsImmediateCommand {
 
   private String image;
 

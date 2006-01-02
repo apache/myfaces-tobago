@@ -33,6 +33,8 @@ public class SelectBooleanCommandTag extends CommandTag {
   private String accessKey;
   private String labelWithAccessKey;
   private String value;
+  private String tip;
+
 
   public String getComponentType() {
     return UICommand.COMPONENT_TYPE;
@@ -48,6 +50,7 @@ public class SelectBooleanCommandTag extends CommandTag {
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
     ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey);
     ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
+    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
   }
 
   public void release() {
@@ -76,5 +79,13 @@ public class SelectBooleanCommandTag extends CommandTag {
 
   public void setLabelWithAccessKey(String labelWithAccessKey) {
     this.labelWithAccessKey = labelWithAccessKey;
+  }
+
+  public String getTip() {
+    return tip;
+  }
+
+  public void setTip(String tip) {
+    this.tip = tip;
   }
 }
