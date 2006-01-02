@@ -31,6 +31,9 @@ import org.apache.myfaces.tobago.util.StringUtil;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SheetStateChangeListener;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
+import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
+import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
@@ -46,7 +49,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class UIData extends javax.faces.component.UIData implements SheetStateChangeSource {
+public class UIData extends javax.faces.component.UIData
+    implements SheetStateChangeSource, AjaxComponent {
 
   private static final Log LOG = LogFactory.getLog(UIData.class);
 
@@ -461,5 +465,20 @@ public class UIData extends javax.faces.component.UIData implements SheetStateCh
     this.showHeaderSet = true;
   }
 
+  public void encodeAjax(FacesContext facesContext) throws IOException {    
+    setupState(facesContext);
+    prepareDimensions(facesContext);
+    AjaxUtils.encodeAjaxComponent(facesContext, this);
+  }
 
+  public void processAjax(FacesContext facesContext) throws IOException {
+    final String ajaxId = (String) facesContext.getExternalContext()
+        .getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
+    LOG.info("ajaxId= " + ajaxId + "  :: clientId = " + getClientId(facesContext));
+    if (ajaxId.equals(getClientId(facesContext))) {
+      AjaxUtils.processActiveAjaxComponent(facesContext, this);
+    } else {
+      AjaxUtils.processAjaxOnChildren(facesContext, this);
+    }
+  }
 }

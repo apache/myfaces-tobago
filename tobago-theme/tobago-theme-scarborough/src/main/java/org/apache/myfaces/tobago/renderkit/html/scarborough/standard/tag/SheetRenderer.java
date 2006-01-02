@@ -36,6 +36,8 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.taglib.component.MenuCommandTag;
 import org.apache.myfaces.tobago.util.StringUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 
 import javax.faces.application.Application;
 import javax.faces.component.*;
@@ -50,7 +52,7 @@ import java.text.MessageFormat;
 import java.util.*;
 
 public class SheetRenderer extends RendererBase
-  implements SheetRendererWorkaround {
+  implements SheetRendererWorkaround, AjaxRenderer {
 
 // ------------------------------------------------------------------ constants
 
@@ -75,6 +77,62 @@ public class SheetRenderer extends RendererBase
 
     HtmlRendererUtil.createHeaderAndBodyStyles(facesContext, data);
 
+    final String sheetId = data.getClientId(facesContext);
+    String sheetStyle = (String) data.getAttributes().get(ATTR_STYLE);
+
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) facesContext.getResponseWriter();
+
+    // Outher sheet div
+    writer.startElement("div", null);
+    writer.writeIdAttribute(sheetId + "_outer_div");
+    writer.writeClassAttribute("tobago-sheet-outer-div");
+    writer.writeAttribute("style", sheetStyle, null);
+
+    renderSheet(facesContext, data);
+
+    writer.endElement("div");
+
+    ResourceManager resourceManager
+        = ResourceManagerFactory.getResourceManager(facesContext);
+    UIViewRoot viewRoot = facesContext.getViewRoot();
+    String contextPath = facesContext.getExternalContext().getRequestContextPath();
+
+    String unchecked = contextPath
+        + resourceManager .getImage(viewRoot, "image/sheetUnchecked.gif");
+    String checked = contextPath
+        + resourceManager .getImage(viewRoot, "image/sheetChecked.gif");
+
+    final String[] styles = new String[]{"style/tobago-sheet.css"};
+    final String[] scripts = new String[]{"script/tobago-sheet.js"};
+    final String[] cmds = {
+        "initSheet(\"" + sheetId + "\");",
+        "tobagoSheetSetUncheckedImage(\"" + sheetId + "\", \"" + unchecked + "\");",
+        "tobagoSheetSetCheckedImage(\"" + sheetId + "\", \"" + checked + "\");",
+        "updateSelectionView(\"" + sheetId + "\");",
+        "" // placeholder for ajax sheet object creation
+    };
+
+    ComponentUtil.addStyles(data, styles);
+    ComponentUtil.addScripts(data, scripts);
+
+    if (!TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
+      ComponentUtil.addOnloadCommands(data, cmds);
+    } else {
+      HtmlRendererUtil.writeStyleLoader(facesContext, styles);
+      // add creation of ajax object
+      final String formId
+              = ComponentUtil.findPage(data).getFormId(facesContext);
+      cmds[cmds.length -1] = "new Tobago.Sheet(\"" + sheetId + "\", "
+          + "\"" + formId + "\", "
+          + "\"" + AjaxUtils.createUrl(facesContext, sheetId) + "\");";
+      HtmlRendererUtil.writeScriptLoader(facesContext, scripts, cmds);
+    }
+  }
+
+  private void renderSheet(FacesContext facesContext, UIData data) throws IOException {
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) facesContext.getResponseWriter();
     ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
     UIViewRoot viewRoot = facesContext.getViewRoot();
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
@@ -90,34 +148,7 @@ public class SheetRenderer extends RendererBase
         .getImage(viewRoot, "image/sheetUncheckedDisabled.gif");
     String unchecked = contextPath + resourceManager
         .getImage(viewRoot, "image/sheetUnchecked.gif");
-    String checked = contextPath + resourceManager
-        .getImage(viewRoot, "image/sheetChecked.gif");
-
-    if (!TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
-      UIPage uiPage = ComponentUtil.findPage(data);
-      uiPage.getScriptFiles().add("script/tobago-sheet.js");
-      uiPage.getOnloadScripts().add("initSheet(\"" + sheetId + "\");");
-      uiPage.getStyleFiles().add("style/tobago-sheet.css");
-      uiPage.getOnloadScripts().add(
-          "tobagoSheetSetUncheckedImage(\"" + sheetId + "\", \"" + unchecked + "\")");
-      uiPage.getOnloadScripts().add("tobagoSheetSetCheckedImage(\"" + sheetId +
-          "\", \""
-          + checked +
-          "\")");
-      uiPage.getOnloadScripts().add("updateSelectionView(\"" + sheetId + "\")");
-    } else {
-      HtmlRendererUtil.writeStyleLoader(facesContext, new String[] {"style/tobago-sheet.css"});
-      final String[] scripts = new String[]{"script/tobago-sheet.js"};
-      final String[] cmds = {
-          "initSheet(\"" + sheetId + "\");",
-          "tobagoSheetSetUncheckedImage(\"" + sheetId + "\", \"" + unchecked + "\");",
-          "tobagoSheetSetCheckedImage(\"" + sheetId + "\", \"" + checked + "\");",
-          "updateSelectionView(\"" + sheetId + "\");"
-      };
-
-      HtmlRendererUtil.writeScriptLoader(facesContext, scripts, cmds);
-    }
-
+    
     Map attributes = data.getAttributes();
     String sheetStyle = (String) attributes.get(ATTR_STYLE);
     String headerStyle =
@@ -146,8 +177,6 @@ public class SheetRenderer extends RendererBase
     String selectedRows = StringUtil.toString(getSelectedRows(data, state));
     List<UIColumn> columnList = data.getRendererdColumns();
 
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement("input", null);
     writer.writeIdAttribute(sheetId + WIDTHS_POSTFIX);
@@ -163,11 +192,6 @@ public class SheetRenderer extends RendererBase
     writer.writeAttribute("value", selectedRows, null);
     writer.endElement("input");
 
-    // Outher sheet div
-    writer.startElement("div", null);
-    writer.writeIdAttribute(sheetId + "_outer_div");
-    writer.writeClassAttribute("tobago-sheet-outer-div");
-    writer.writeAttribute("style", sheetStyle, null);
 
     final boolean showHeader = data.isShowHeader();
     if (showHeader) {
@@ -198,7 +222,6 @@ public class SheetRenderer extends RendererBase
       writer.endElement("div");
       // end rendering header
     }
-
 
 // BEGIN RENDER BODY CONTENT
     bodyStyle = HtmlRendererUtil.replaceStyleAttribute(bodyStyle, "height",
@@ -329,7 +352,7 @@ public class SheetRenderer extends RendererBase
           writer.endElement("img");
         } else {
           for (Iterator grandkids = data.getRenderedChildrenOf(column).iterator();
-              grandkids.hasNext();) {
+               grandkids.hasNext();) {
             UIComponent grandkid = (UIComponent) grandkids.next();
 
             // set height to 0 to prevent use of layoutheight from parent
@@ -423,6 +446,7 @@ public class SheetRenderer extends RendererBase
 
         writer.startElement("span", null);
         writer.writeClassAttribute(className);
+        writer.writeIdAttribute(sheetId + SUBCOMPONENT_SEP + "pagingLinks");
         writeDirectPagingLinks(writer, facesContext, application, pager, data);
         writer.endElement("span");
       }
@@ -446,6 +470,7 @@ public class SheetRenderer extends RendererBase
 
         writer.startElement("span", null);
         writer.writeClassAttribute(className);
+        writer.writeIdAttribute(sheetId + SUBCOMPONENT_SEP + "pagingPages");
         writer.writeText("", null);
 
 
@@ -467,8 +492,6 @@ public class SheetRenderer extends RendererBase
       writer.endElement("span");
       writer.endElement("div");
     }
-
-    writer.endElement("div");
   }
 
 // ----------------------------------------------------------- business methods
@@ -692,6 +715,8 @@ public class SheetRenderer extends RendererBase
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement("img", null);
+    writer.writeIdAttribute(data.getClientId(facesContext)
+        + SUBCOMPONENT_SEP + "pagingPages" + SUBCOMPONENT_SEP + command);
     writer.writeClassAttribute("tobago-sheet-footer-pager-button"
         + (disabled ? " tobago-sheet-footer-pager-button-disabled" : ""));
     writer.writeAttribute("src", image, null);
@@ -1027,6 +1052,13 @@ public class SheetRenderer extends RendererBase
 
   public int getContentBorder(FacesContext facesContext, UIData data) {
     return getConfiguredValue(facesContext, data, "contentBorder");
+  }
+
+  public void encodeAjax(FacesContext facesContext, UIComponent component)
+      throws IOException {
+    AjaxUtils.checkParamValidity(facesContext, component, UIData.class);
+    renderSheet(facesContext, (UIData) component);
+    facesContext.responseComplete();
   }
 
 // -------------------------------------------------------------- inner classes

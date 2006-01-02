@@ -77,6 +77,25 @@ public class ComponentUtil {
     return null;
   }
 
+  public static void addStyles(UIComponent component, String[] styles) {
+    UIPage uiPage = ComponentUtil.findPage(component);
+    for (String style : styles) {
+      uiPage.getStyleFiles().add(style);
+    }
+  }
+  public static void addScripts(UIComponent component, String[] scripts) {
+    UIPage uiPage = ComponentUtil.findPage(component);
+    for (String script : scripts) {
+      uiPage.getScriptFiles().add(script);
+    }
+  }
+  public static void addOnloadCommands(UIComponent component, String[] cmds) {
+    UIPage uiPage = ComponentUtil.findPage(component);
+    for (String cmd : cmds) {
+      uiPage.getOnloadScripts().add(cmd);
+    }
+  }
+
   public static UIPage findPage(FacesContext facesContext) {
     return findPageBreadthFirst(facesContext.getViewRoot());
   }

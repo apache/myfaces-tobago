@@ -19,6 +19,10 @@ Object.extend(Tobago, {
 
   scriptIdRegExp: new RegExp("[/.-]", 'g'),
 
+  componentSeparator: ":",
+
+  subComponentSeparator: "::",  
+
   registeredScripts: {},
 
   scriptLoaders: new Array(),
