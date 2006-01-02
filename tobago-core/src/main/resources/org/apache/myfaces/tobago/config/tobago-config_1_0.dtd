@@ -38,4 +38,4 @@
 <!ELEMENT key (#PCDATA)>
 <!ELEMENT value (#PCDATA)>
 
-<!ELEMENT ajax-enabled (#PCDATA)>
+<!ELEMENT enable-ajax (#PCDATA)>

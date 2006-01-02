@@ -105,15 +105,17 @@ public class AjaxUtils {
 
     if (component instanceof AjaxComponent) {
 
+      // TODO: handle phaseListeners ??
+
       component.processValidators(facesContext);
 
       if (! facesContext.getRenderResponse()) {
         component.processUpdates(facesContext);
       }
 
-/*      if (! facesContext.getRenderResponse()) {
-  // TODO: what about invokeApplication ??
-}*/
+      if (! facesContext.getRenderResponse()) {
+        facesContext.getViewRoot().processApplication(facesContext);
+      }
 
       ((AjaxComponent)component).encodeAjax(facesContext);
     } else {

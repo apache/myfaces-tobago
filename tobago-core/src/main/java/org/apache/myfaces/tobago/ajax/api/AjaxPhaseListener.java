@@ -48,7 +48,7 @@ import java.util.Map;
  */
 public class AjaxPhaseListener implements PhaseListener
 {
-  private static Log log= LogFactory.getLog(AjaxPhaseListener.class);
+  private static Log LOG = LogFactory.getLog(AjaxPhaseListener.class);
   public static final String AJAX_COMPONENT_ID = "affectedAjaxComponent";
 
 
@@ -77,7 +77,7 @@ public class AjaxPhaseListener implements PhaseListener
       }
       else
       {
-        log.error("No value found for this component : "+possibleClientId);
+        LOG.error("No value found for this component : "+possibleClientId);
         return null;
       }
     }
@@ -96,8 +96,8 @@ public class AjaxPhaseListener implements PhaseListener
     if(externalContext.getRequestParameterMap().containsKey(AJAX_COMPONENT_ID))
     {
       try {
-        if (log.isDebugEnabled()) {
-          log.debug("AJAX: componentID gefunden :"
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("AJAX: componentID gefunden :"
               + externalContext.getRequestParameterMap().get(AJAX_COMPONENT_ID));
         }
 
@@ -115,6 +115,11 @@ public class AjaxPhaseListener implements PhaseListener
         AjaxUtils.processAjax(facesContext, viewRoot);
 
         StringBuffer buf = new StringBuffer(content.toString());
+
+
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Size of AjaxResponse:\n" + buf.length());
+        }
 
         buf.insert(0,Integer.toHexString(buf.length())+"\r\n");
         buf.append("\r\n"+0+"\r\n\r\n");
@@ -141,7 +146,7 @@ public class AjaxPhaseListener implements PhaseListener
         facesContext.responseComplete();
 
       } catch (IOException e) {
-        log.error("Exception while processing Ajax", e);
+        LOG.error("Exception while processing Ajax", e);
       }
     }
   }
@@ -198,12 +203,12 @@ public class AjaxPhaseListener implements PhaseListener
 //        }
 //        catch (IOException e)
 //        {
-//          log.error("Exception while rendering ajax-response",e);
+//          LOG.error("Exception while rendering ajax-response",e);
 //        }
 //      }
 //      else
 //      {
-//        log.error("Found component is no ajaxComponent : "
+//        LOG.error("Found component is no ajaxComponent : "
 //            + ajaxComponent.getClass().getName()
 //            + "  ID =" + ajaxComponent.getClientId(facesContext));
 //      }
@@ -228,7 +233,7 @@ public class AjaxPhaseListener implements PhaseListener
     final Map requestParameterMap = externalContext.getRequestParameterMap();
     if(requestParameterMap.containsKey(AJAX_COMPONENT_ID)) {
       // TODO: error handling when ajax request came after session has expired
-      log.error("Ignoring AjaxRequest without valid component tree!");
+      LOG.error("Ignoring AjaxRequest without valid component tree!");
       facesContext.responseComplete();
     }
   }
