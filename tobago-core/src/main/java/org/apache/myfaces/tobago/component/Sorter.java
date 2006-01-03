@@ -22,6 +22,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.model.SortableByApplication;
 import org.apache.myfaces.tobago.util.BeanComparator;
+import org.apache.myfaces.tobago.util.ValueBindingComparator;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
@@ -83,6 +84,7 @@ public class Sorter extends MethodBinding {
       int column = sheetState.getSortedColumn();
       boolean ascending = sheetState.isAscending();
 
+      Comparator comparator = null;
 
       if (value instanceof SortableByApplication
         || value instanceof List
@@ -108,18 +110,29 @@ public class Sorter extends MethodBinding {
             UIComponent child = getFirstSortableChild(uiColumn.getChildren());
             if (child != null) {
               ValueBinding valueBinding = child.getValueBinding("value");
-              String expressionString = valueBinding.getExpressionString();
-              if (expressionString.startsWith("#{") &&
-                    expressionString.endsWith("}")) {
-                expressionString =
-                    expressionString.substring(2,
-                        expressionString.length() - 1);
-              }
               String var = data.getVar();
-              sortProperty = expressionString.substring(var.length() + 1);
-              if (LOG.isDebugEnabled()) {
-                LOG.debug("Sort property is " + sortProperty);
+
+              if (valueBinding != null) {
+                if (isSimpleProperty(valueBinding.getExpressionString())) {
+                  String expressionString = valueBinding.getExpressionString();
+                  if (expressionString.startsWith("#{") &&
+                      expressionString.endsWith("}")) {
+                    expressionString =
+                        expressionString.substring(2,
+                            expressionString.length() - 1);
+                  }
+                  sortProperty = expressionString.substring(var.length() + 1);
+
+                  comparator = new BeanComparator(sortProperty, null, !ascending);
+
+                  if (LOG.isDebugEnabled()) {
+                    LOG.debug("Sort property is " + sortProperty);
+                  }
+                } else {
+                  comparator = new ValueBindingComparator(facesContext, var, valueBinding, !ascending);
+                }
               }
+
             } else {
               LOG.error("No sortable component found!");
               removeSortableAttribute(uiColumn);
@@ -140,20 +153,17 @@ public class Sorter extends MethodBinding {
         }
 
         if (value instanceof SortableByApplication) {
-          ((SortableByApplication) value).sortBy(sortProperty);
+//          ((SortableByApplication) value).sortBy(sortProperty);
         } else {
           // TODO: locale / comparator parameter?
           // don't compare numbers with Collator.getInstance() comparator
 //        Comparator comparator = Collator.getInstance();
-          Comparator comparator = null;
-          Comparator beanComparator
-              = new BeanComparator(sortProperty, comparator, !ascending);
 //          comparator = new RowComparator(ascending, method);
 
           if (value instanceof List) {
-            Collections.sort((List) value, beanComparator);
+            Collections.sort((List) value, comparator);
           } else { // if (value instanceof Object[]) {
-            Arrays.sort((Object[]) value, beanComparator);
+            Arrays.sort((Object[]) value, comparator);
           }
         }
       } else {  // DataModel?, ResultSet, Result or Object
@@ -162,6 +172,10 @@ public class Sorter extends MethodBinding {
       }
     }
     return null;
+  }
+
+  private boolean isSimpleProperty(String expressionString) {
+    return expressionString.matches("^#\\{(\\w+(\\.\\w)*)\\}$");
   }
 
   private void removeSortableAttribute(UIColumn uiColumn) {
