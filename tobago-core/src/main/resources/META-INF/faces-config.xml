@@ -119,6 +119,12 @@
     <component-class>org.apache.myfaces.tobago.component.UISelectOne</component-class>
   </component>
 
+  <!-- use tobagos UIViewRoot -->
+  <component>
+    <component-type>javax.faces.ViewRoot</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UIViewRoot</component-class>
+  </component>
+
   <converter>
     <converter-id>org.apache.myfaces.tobago.Duration</converter-id>
     <converter-class>org.apache.myfaces.tobago.convert.DurationConverter</converter-class>
