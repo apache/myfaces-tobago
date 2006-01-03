@@ -1,6 +1,6 @@
 <%@ page import="org.apache.myfaces.tobago.util.VariableResolverUtil"%>
 <%@ page import="javax.faces.context.FacesContext"%>
-<%@ taglib uri="http://www.atanion.com/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
