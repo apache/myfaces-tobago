@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UITabGroup;
+import static org.apache.myfaces.tobago.component.UITabGroup.*;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
@@ -108,15 +109,11 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
 
     final String clientId = component.getClientId(facesContext);
     final String hiddenId = clientId + TabGroupRenderer.ACTIVE_INDEX_POSTFIX;
-    final boolean serverSideTab
-            = ComponentUtil.getBooleanAttribute(component, ATTR_SERVER_SIDE_TABS);
+
+    final String switchType = ComponentUtil.getStringAttribute(component, ATTR_SWITCH_TYPE);
 
     UIPage page = ComponentUtil.findPage(component);
     page.getScriptFiles().add("script/tab.js");
-    if (TobagoConfig.getInstance(facesContext).isAjaxEnabled() && ! serverSideTab) {
-      HtmlRendererUtil.writeScriptLoader(facesContext, "script/tab.js");
-
-    }
 
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
@@ -134,7 +131,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
 
     for (int virtualTab = 0; virtualTab < tabs.length; virtualTab++) {
 
-      if (!serverSideTab || virtualTab == activeIndex) {
+      if (SWITCH_TYPE_CLIENT.equals(switchType) || virtualTab == activeIndex) {
 
         StyleAttribute oStyle = new StyleAttribute(
             (String) component.getAttributes().get(ATTR_STYLE));
@@ -147,13 +144,17 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
 
         writer.startElement("div", null);
         renderTabGroupView(facesContext, writer, component, virtualTab, oStyle,
-            serverSideTab, image1x1);
+            switchType, image1x1);
         writer.endElement("div");
 
-        if (TobagoConfig.getInstance(facesContext).isAjaxEnabled() && serverSideTab) {
+        if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()
+            && SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
           final String formId
               = ComponentUtil.findPage(component).getFormId(facesContext);
-          final String[] scripts = new String[]{"script/tabgroup.js"};
+          final String[] scripts = new String[]{
+              "script/tab.js",
+              "script/tabgroup.js"
+          };
           final String[] cmds = {
               "new Tobago.TabGroup(",
               "    '" + clientId + "', ",
@@ -169,7 +170,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
 
   private void renderTabGroupView(
       FacesContext facesContext, TobagoResponseWriter writer, UITabGroup component,
-      int virtualTab, StyleAttribute oStyle, boolean serverSideTab, String image1x1)
+      int virtualTab, StyleAttribute oStyle, String switchType, String image1x1)
       throws IOException {
     UIPanel[] tabs = component.getTabs();
     writer.startElement("table", null);
@@ -203,13 +204,16 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
 
       String url;
 
-      if (TobagoConfig.getInstance(facesContext).isAjaxEnabled() && serverSideTab) {
+      LOG.info("switchtype ist = " + switchType);
+      if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()
+          && SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
         url = "#";
-      }  else if (serverSideTab) {
+      }  else if (SWITCH_TYPE_RELOAD_PAGE.equals(switchType)
+          || SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
         url = "javascript:tobago_requestTab('"
             + clientId + "'," + i + ",'"
             + ComponentUtil.findPage(component).getFormId(facesContext) + "')";
-      } else {
+      } else {   //  SWITCH_TYPE_CLIENT
         url = "javascript:tobago_selectTab('"
             + clientId + "'," + i + ','
             + tabs.length + ')';
@@ -310,7 +314,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
         (UITabGroup)component,
         ((UITabGroup)component).getActiveIndex(),
         new StyleAttribute((String) component.getAttributes().get(ATTR_STYLE)),
-        ComponentUtil.getBooleanAttribute(component, ATTR_SERVER_SIDE_TABS),
+        SWITCH_TYPE_RELOAD_TAB,
         ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"));
     context.responseComplete();
   }

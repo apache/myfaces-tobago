@@ -111,7 +111,7 @@ public final class TobagoConstants {
   public static final String ATTR_SCROLLBAR_HEIGHT = "scrollbarHeight";
   public static final String ATTR_SCROLLBARS = "scrollbars";
   public static final String ATTR_SELECTED_LIST_STRING = "selectedListString";
-  public static final String ATTR_SERVER_SIDE_TABS = "serverSideTab";
+//  public static final String ATTR_SERVER_SIDE_TABS = "serverSideTab";
   public static final String ATTR_SORTABLE = "sortable";
   public static final String ATTR_CREATE_SPAN = "createSpan";
   public static final String ATTR_SELECTABLE = "selectable";
@@ -135,6 +135,7 @@ public final class TobagoConstants {
   public static final String ATTR_STYLE_INNER = "style_inner";
   public static final String ATTR_STYLE_FILES  = "styleFiles";
   public static final String ATTR_SUPPPRESS_TOOLBAR_CONTAINER = "suppressToolbarContainer";
+  public static final String ATTR_SWITCH_TYPE = "switchType";
   public static final String ATTR_TARGET = "target";
   public static final String ATTR_TIME_STYLE = "timeStyle";
   public static final String ATTR_TIMEZONE = "timezone";

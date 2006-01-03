@@ -53,6 +53,9 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
   private int renderedIndex;
 
   private MethodBinding tabChangeListener = null;
+  public static final String SWITCH_TYPE_CLIENT = "client";
+  public static final String SWITCH_TYPE_RELOAD_PAGE = "reloadPage";
+  public static final String SWITCH_TYPE_RELOAD_TAB = "reloadTab";
 
   @Override
   public boolean getRendersChildren() {
@@ -117,7 +120,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
 
   @Override
   public void processDecodes(FacesContext context) {
-    if (ComponentUtil.getBooleanAttribute(this, ATTR_SERVER_SIDE_TABS)) {
+    if (! isClientType()) {
 
       if (context == null) {
         throw new NullPointerException("context");
@@ -140,7 +143,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
 
   @Override
   public void processValidators(FacesContext context) {
-    if (ComponentUtil.getBooleanAttribute(this, ATTR_SERVER_SIDE_TABS)) {
+    if (! isClientType()) {
       if (context == null) {
         throw new NullPointerException("context");
       }
@@ -156,7 +159,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
 
   @Override
   public void processUpdates(FacesContext context) {
-    if (ComponentUtil.getBooleanAttribute(this, ATTR_SERVER_SIDE_TABS)) {
+    if (! isClientType()) {
       if (context == null) {
         throw new NullPointerException("context");
       }
@@ -206,11 +209,16 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
   }
 
   public void addTabChangeListener(TabChangeListener listener) {
-    if (LOG.isWarnEnabled() && ! ComponentUtil.getBooleanAttribute(
-        this, ATTR_SERVER_SIDE_TABS)) {
+    if (LOG.isWarnEnabled() && ! isClientType()) {
       LOG.warn("Adding TabChangeListener to Client side Tabgroup!");
     }
     addFacesListener(listener);
+  }
+
+  private boolean isClientType() {
+    final String switchType
+        = ComponentUtil.getStringAttribute(this, ATTR_SWITCH_TYPE);
+    return (switchType == null || switchType.equals(SWITCH_TYPE_CLIENT));
   }
 
   public void removeTabChangeListener(TabChangeListener listener) {

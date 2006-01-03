@@ -19,14 +19,17 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SERVER_SIDE_TABS;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SWITCH_TYPE;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITabGroup;
+import static org.apache.myfaces.tobago.component.UITabGroup.*;
 import org.apache.myfaces.tobago.taglib.decl.HasDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasState;
@@ -41,8 +44,11 @@ import javax.faces.component.UIComponent;
 public class TabGroupTag extends TobagoTag
     implements HasIdBindingAndRendered, HasDimension, HasState {
 
+  private static final Log LOG = LogFactory.getLog(TabGroupTag.class);
+
   private String serverside;
   private String state;
+  private String switchType;
 
   public String getComponentType() {
     return UITabGroup.COMPONENT_TYPE;
@@ -50,8 +56,27 @@ public class TabGroupTag extends TobagoTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setBooleanProperty(component, ATTR_SERVER_SIDE_TABS, serverside);
     ComponentUtil.setValueBinding(component, ATTR_STATE, state);
+    if (switchType != null) {
+
+      if (SWITCH_TYPE_RELOAD_PAGE.equals(switchType)) {
+        ComponentUtil.setStringProperty(component, ATTR_SWITCH_TYPE, SWITCH_TYPE_RELOAD_PAGE);
+      } else if (SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
+        ComponentUtil.setStringProperty(component, ATTR_SWITCH_TYPE, SWITCH_TYPE_RELOAD_TAB);
+      } else if (SWITCH_TYPE_CLIENT.equals(switchType)) {
+        ComponentUtil.setStringProperty(component, ATTR_SWITCH_TYPE, SWITCH_TYPE_CLIENT);
+      } else {
+        LOG.warn("Illegal switchType value: \"" + switchType + "\" using default: \"" + SWITCH_TYPE_CLIENT + "\"");
+        ComponentUtil.setStringProperty(component, ATTR_SWITCH_TYPE, SWITCH_TYPE_CLIENT);
+      }
+    } else {
+      if (Boolean.valueOf(serverside)) {
+        ComponentUtil.setStringProperty(component, ATTR_SWITCH_TYPE, SWITCH_TYPE_RELOAD_PAGE);
+      } else {
+        ComponentUtil.setStringProperty(component, ATTR_SWITCH_TYPE, SWITCH_TYPE_CLIENT);
+      }
+    }
+
   }
 
   public void release() {
@@ -67,15 +92,31 @@ public class TabGroupTag extends TobagoTag
 
   /**
    * Flag indicating that tab switching is done by server request.
+   * @deprecated
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  @Deprecated
   public void setServerside(String serverside) {
     this.serverside = serverside;
   }
 
   public void setState(String state) {
     this.state = state;
+  }
+
+  /**
+   * Flag indicating how tab switching should be done.
+   *
+   * Possible values are:
+   *   "client"     : Tab switching id done on client, no server Request. This is default.
+   *   "reloadPage" : Tab switching id done by server request. Full page is reloaded.
+   *   "reloadTab"  : Tab switching id done by server request. Only the Tab is reloaded.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.String", defaultValue = SWITCH_TYPE_CLIENT)
+  public void setSwitchType(String switchType) {
+    this.switchType = switchType;
   }
 }
 
