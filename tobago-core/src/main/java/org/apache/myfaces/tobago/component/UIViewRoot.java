@@ -76,8 +76,14 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
 //    LOG.info("updateRendererCachePrefix :" + rendererCachePrefix);
   }
 
-
-
+  public void broadcastEventsForPhase(FacesContext context, PhaseId phaseId) {
+    _broadcastForPhase(phaseId);
+    if (context.getRenderResponse() || context.getResponseComplete())
+    {
+        clearEvents();
+    }
+  }
+  
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 //

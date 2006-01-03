@@ -3,10 +3,12 @@ package org.apache.myfaces.tobago.ajax.api;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIViewRoot;
 
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
 import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.util.Iterator;
@@ -104,17 +106,20 @@ public class AjaxUtils {
       throws IOException {
 
     if (component instanceof AjaxComponent) {
+      final UIViewRoot viewRoot = (UIViewRoot) facesContext.getViewRoot();
 
       // TODO: handle phaseListeners ??
 
       component.processValidators(facesContext);
+      viewRoot.broadcastEventsForPhase(facesContext, PhaseId.PROCESS_VALIDATIONS);
 
       if (! facesContext.getRenderResponse()) {
         component.processUpdates(facesContext);
+        viewRoot.broadcastEventsForPhase(facesContext, PhaseId.UPDATE_MODEL_VALUES);
       }
 
       if (! facesContext.getRenderResponse()) {
-        facesContext.getViewRoot().processApplication(facesContext);
+        viewRoot.processApplication(facesContext);
       }
 
       ((AjaxComponent)component).encodeAjax(facesContext);
