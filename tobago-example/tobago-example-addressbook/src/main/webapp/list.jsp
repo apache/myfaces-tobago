@@ -34,9 +34,9 @@
         </f:facet>
         <f:facet name="toolBar">
           <tc:toolBar>
-            <tc:button label="#{bundle.listNew}" action="create" />
-            <tc:button label="#{bundle.listEdit}" action="edit" />
-            <tc:button label="#{bundle.listDelete}" action="delete">
+            <tc:button label="#{bundle.listNew}" action="#{controller.createAddress}" />
+            <tc:button label="#{bundle.listEdit}" action="#{controller.editAddress}" />
+            <tc:button label="#{bundle.listDelete}" action="#{controller.deleteAddresses}">
               <f:facet name="confirmation">
                 <tc:out value="#{bundle.listDeleteConfirmation}" />
               </f:facet>

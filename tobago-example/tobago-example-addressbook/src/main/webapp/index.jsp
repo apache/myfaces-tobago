@@ -13,4 +13,4 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<jsp:forward page="faces/start.jsp"/>
+<jsp:forward page="faces/list.jsp"/>
