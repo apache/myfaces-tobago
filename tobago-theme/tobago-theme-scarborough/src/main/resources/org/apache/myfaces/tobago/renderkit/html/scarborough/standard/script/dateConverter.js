@@ -15,7 +15,7 @@
  */
 
 // copied Revision 326068
-// from http://svn.apache.org/viewcvs.cgi/myfaces/tomahawk/trunk/src/java/org/apache/myfaces/custom/calendar/resource/date.js
+// from http://svn.apache.org/viewcvs.cgi/myfaces/tomahawk/trunk/src/main/java/org/apache/myfaces/custom/calendar/resource/date.js
 // XXX: reuse Tomahawk date.js
 
 DateFormatSymbols = function() {
@@ -241,6 +241,9 @@ SimpleDateFormat.prototype._handlePatternSub
       if (patternSub.length == 3) {
         var fragment = dateStr.substr(dateIndex, 3);
         var index = this._indexOf(this.dateFormatSymbols.shortMonths, fragment);
+        log("shortMonths: " + this.dateFormatSymbols.shortMonths);
+        log("fragment: " + fragment);
+        log("index: " + index);
         if (index != -1) {
           context.month = index;
           context.newIndex = dateIndex + 3;
@@ -257,6 +260,7 @@ SimpleDateFormat.prototype._handlePatternSub
         this._parseNum(context, dateStr, 2, dateIndex);
         context.month = context.retValue - 1;
       }
+      log("month: " + context.month);
     } else {
       if (patternSub.length == 3) {
         context.dateStr += this.dateFormatSymbols.shortMonths[context.month];
