@@ -22,15 +22,11 @@
 
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout rows="10px;1*;10px" columns="10px;1*;10px"/>
+        <tc:gridLayout margin="10px"/>
       </f:facet>
-
-      <tc:cell spanX="3" />
-      <tc:cell/>
-
       <tc:box label="#{bundle.listBoxTitle}" >
         <f:facet name="layout">
-          <tc:gridLayout rows="fixed;1*" />
+          <tc:gridLayout rows="fixed;1*"/>
         </f:facet>
         <f:facet name="toolBar">
           <tc:toolBar>
@@ -89,10 +85,6 @@
         </tc:sheet>
 
       </tc:box>
-
-      <tc:cell/>
-      <tc:cell spanX="3" />
     </tc:panel>
-
   </tc:page>
 </f:view>

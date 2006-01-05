@@ -24,11 +24,8 @@
 
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout rows="10px;1*;10px" columns="10px;1*;10px"/>
+        <tc:gridLayout margin="10px"/>
       </f:facet>
-
-      <tc:cell spanX="3" />
-      <tc:cell/>
 
       <tc:box label="#{bundle.editorBoxTitle}" >
         <f:facet name="layout">
@@ -185,9 +182,6 @@
         </tc:panel>
 
       </tc:box>
-
-      <tc:cell/>
-      <tc:cell spanX="3" />
 
     </tc:panel>
   </tc:page>
