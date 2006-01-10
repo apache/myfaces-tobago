@@ -137,7 +137,6 @@ Tobago.SheetBase = {
 
   reloadWithAction: function(action) {
     LOG.debug("reload sheet with action \"" + action + "\"");
-    this.createOverlay(this.element);
     var hidden = $(this.form.id + "-action");
     if (hidden) {
       hidden.value = action;
@@ -145,6 +144,7 @@ Tobago.SheetBase = {
       LOG.error("No hidden field for form action Id='" + this.form.id + "-action" + "'");
       return;
     }
+    this.createOverlay(this.element);
     new Ajax.Updater(this.element, this.url+ '&' + Form.serialize(this.form), this.options);
   },
 
@@ -209,7 +209,7 @@ Tobago.SheetBase = {
     if (input) {
 
       var keyCode;
-      if (event.which) {
+      if (event.which) {                  
         keyCode = event.which;
       } else {
         keyCode = event.keyCode;
@@ -231,6 +231,7 @@ Tobago.SheetBase = {
     this.setup();
   },
 
+  // TODO: remove dublicated code : this is also in tabgroup.js
   createOverlay: function(element) {
     var overlay = document.createElement('div');
     overlay.style.position = "absolute";

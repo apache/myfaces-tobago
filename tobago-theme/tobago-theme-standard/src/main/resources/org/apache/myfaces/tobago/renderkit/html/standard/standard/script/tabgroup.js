@@ -74,6 +74,7 @@ Tobago.TabGroupBase = {
         LOG.error("aId = " + aId);
         return;
       }
+      this.createOverlay(this.parent);
       new Ajax.Updater(this.parent, this.url+ '&' + Form.serialize(this.form), this.options);
     } else {
       LOG.info("No reload Event");
@@ -85,6 +86,20 @@ Tobago.TabGroupBase = {
     LOG.debug("tabgroup loaded : ");
     this.element = this.parent.firstChild;
     this.setUp();
+  },
+
+  // TODO: remove dublicated code : this is also in tobago-sheet.js  
+  createOverlay: function(element) {
+    var overlay = document.createElement('div');
+    overlay.style.position = "absolute";
+    overlay.style.top = "0px";
+    overlay.style.left = "0px";
+    overlay.style.width = element.offsetWidth + 'px';
+    overlay.style.height = element.offsetHeight + 'px';
+    overlay.style.cursor = "wait";
+    // TODO: better z-index strategie
+    overlay.style.zIndex = 10000;
+    element.appendChild(overlay);
   }
 
 }
