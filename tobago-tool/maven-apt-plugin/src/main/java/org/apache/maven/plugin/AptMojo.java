@@ -48,11 +48,17 @@ public class AptMojo extends AbstractAPTMojo
     private String generated;
 
     /**
-     *  A List of tagetFiles for SingleSourceTargetMapping
+     *  A List of targetFiles for SingleSourceTargetMapping
      *
      * @parameter
      */
     private List targetFiles;
+    /**
+     *  targetPath for generated resources
+     *
+     * @parameter
+     */
+    private String resourceTargetPath;
     /**
      * The source directories containing the sources to be compiled.
      * 
@@ -106,6 +112,10 @@ public class AptMojo extends AbstractAPTMojo
         super.execute();
         project.addCompileSourceRoot( getGenerated() );
         Resource resource = new Resource();
+        if ( resourceTargetPath != null )
+        {
+            resource.setTargetPath(resourceTargetPath);
+        }
         resource.setDirectory( getGenerated() );
         resource.addExclude( "**/*.java" );
         project.addResource( resource );

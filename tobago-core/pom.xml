@@ -39,7 +39,8 @@
             <targetFile>org/apache/myfaces/tobago/taglib/component/tobago.tld</targetFile>
             <targetFile>org/apache/myfaces/tobago/taglib/extension/tobago-extension.tld</targetFile>
           </targetFiles>
-          <generated>target/classes/META-INF</generated>
+          <resourceTargetPath>META-INF</resourceTargetPath>
+          <generated>target/generated-tld</generated>
           <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
           <nocompile>true</nocompile>
           <encoding>UTF-8</encoding>

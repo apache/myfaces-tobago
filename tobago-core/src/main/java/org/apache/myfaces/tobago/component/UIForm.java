@@ -32,10 +32,12 @@ public class UIForm extends javax.faces.component.UIForm {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Form";
 
-  // TODO can this removed?
+
   public void processDecodes(FacesContext facesContext) {
 
-    // Process this component itself
+    // Process this component first
+    // to know the active actionId
+    // for the following childrend
     decode(facesContext);
 
     Iterator kids = getFacetsAndChildren();
