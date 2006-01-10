@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.ajax.api;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
@@ -114,29 +115,7 @@ public class AjaxPhaseListener implements PhaseListener
 
         AjaxUtils.processAjax(facesContext, viewRoot);
 
-        StringBuffer buf = new StringBuffer(content.toString());
-
-
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Size of AjaxResponse:\n" + buf.length());
-        }
-
-        buf.insert(0,Integer.toHexString(buf.length())+"\r\n");
-        buf.append("\r\n"+0+"\r\n\r\n");
-
-        //todo: fix this to work in PortletRequest as well
-        if(externalContext.getResponse() instanceof HttpServletResponse)
-        {
-          final HttpServletResponse httpServletResponse
-              = (HttpServletResponse) externalContext.getResponse();
-          httpServletResponse.addHeader("Transfer-Encoding", "chunked");
-          PrintWriter responseWriter = httpServletResponse.getWriter();
-          // buf.delete(buf.indexOf("<"), buf.indexOf(">")+1);
-          responseWriter.print(buf.toString());
-          //System.out.println("PhaseListener: buf = " + buf.toString());
-          responseWriter.flush();
-          responseWriter.close();
-        }
+        writeAjaxResponse(facesContext, content.toString());
 
         final StateManager stateManager
             = facesContext.getApplication().getStateManager();
@@ -148,6 +127,34 @@ public class AjaxPhaseListener implements PhaseListener
       } catch (IOException e) {
         LOG.error("Exception while processing Ajax", e);
       }
+    }
+  }
+
+  private void writeAjaxResponse(FacesContext facesContext, String content)
+      throws IOException {
+
+    ExternalContext externalContext = facesContext.getExternalContext();
+    StringBuffer buf = new StringBuffer(content.toString());
+
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Size of AjaxResponse:\n" + buf.length());
+    }
+
+    buf.insert(0,Integer.toHexString(buf.length())+"\r\n");
+    buf.append("\r\n"+0+"\r\n\r\n");
+
+    //todo: fix this to work in PortletRequest as well
+    if(externalContext.getResponse() instanceof HttpServletResponse)
+    {
+      final HttpServletResponse httpServletResponse
+          = (HttpServletResponse) externalContext.getResponse();
+      httpServletResponse.addHeader("Transfer-Encoding", "chunked");
+      PrintWriter responseWriter = httpServletResponse.getWriter();
+      // buf.delete(buf.indexOf("<"), buf.indexOf(">")+1);
+      responseWriter.print(buf.toString());
+      //System.out.println("PhaseListener: buf = " + buf.toString());
+      responseWriter.flush();
+      responseWriter.close();
     }
   }
 
@@ -228,13 +235,23 @@ public class AjaxPhaseListener implements PhaseListener
       return;
     }
 
-    FacesContext facesContext = event.getFacesContext();
-    final ExternalContext externalContext = facesContext.getExternalContext();
-    final Map requestParameterMap = externalContext.getRequestParameterMap();
-    if(requestParameterMap.containsKey(AJAX_COMPONENT_ID)) {
-      // TODO: error handling when ajax request came after session has expired
-      LOG.error("Ignoring AjaxRequest without valid component tree!");
-      facesContext.responseComplete();
+    try {
+      FacesContext facesContext = event.getFacesContext();
+      final ExternalContext externalContext = facesContext.getExternalContext();
+      final Map requestParameterMap = externalContext.getRequestParameterMap();
+      if(requestParameterMap.containsKey(AJAX_COMPONENT_ID)) {
+        LOG.error("Ignoring AjaxRequest without valid component tree!");
+
+        final String message = ResourceManagerUtil.getPropertyNotNull(
+            facesContext, "tobago", "tobago.ajax.response.error");
+
+        writeAjaxResponse(facesContext, message);
+
+        facesContext.responseComplete();
+      }
+
+    } catch (IOException e) {
+      LOG.error("Exception while processing Ajax", e);
     }
   }
 

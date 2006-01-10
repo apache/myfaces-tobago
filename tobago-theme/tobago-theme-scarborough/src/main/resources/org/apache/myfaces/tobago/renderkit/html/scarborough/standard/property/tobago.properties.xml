@@ -95,4 +95,6 @@
 <entry key="javax.faces.validator.LengthValidator.MINIMUM">Minimum of "{0}" characters !</entry>
 <entry key="javax.faces.validator.LengthValidator.MINIMUM_detail">Value is shorter than allowable minimum of "{0}" characters!</entry>
 
+  <entry key="tobago.ajax.response.error">Server Error: unable to serve request. Probably a session timeout!</entry>
+
 </properties>
