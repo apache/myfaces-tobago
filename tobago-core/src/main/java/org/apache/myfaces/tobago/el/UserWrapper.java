@@ -58,7 +58,7 @@ public class UserWrapper {
       FacesContext facesContext = FacesContext.getCurrentInstance();
       boolean inRole = facesContext.getExternalContext().isUserInRole(role);
       if (LOG.isDebugEnabled()) {
-        LOG.debug("inRole: " + inRole);
+        LOG.debug("is in role '"+ key + "': " + inRole);
       }
       return new Boolean(inRole);
     }
