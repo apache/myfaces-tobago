@@ -34,7 +34,7 @@
         <directory>src/main/resources</directory>
       </resource>
       <resource>
-        <targetPath>target/classes/META-INF</targetPath>
+        <targetPath>META-INF</targetPath>
         <directory>target/generated-tld</directory>
       </resource>
     </resources>
