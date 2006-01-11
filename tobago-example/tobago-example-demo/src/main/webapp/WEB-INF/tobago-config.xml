@@ -33,5 +33,5 @@
   <!--test for new theme build mechanism-->
   <!--<resource-dir>org/apache/myfaces/tobago/renderkit</resource-dir>-->
 
-  <enable-ajax>false</enable-ajax>
+  <ajax-enabled>false</ajax-enabled>
 </tobago-config>
