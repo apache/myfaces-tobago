@@ -58,7 +58,23 @@
     <load-on-startup>2</load-on-startup>
   </servlet>
 
+  <!--test for the theme mechandism-->
+<!--
+  <servlet>
+    <servlet-name>ResourceServlet</servlet-name>
+    <servlet-class>org.apache.myfaces.tobago.servlet.ResourceServlet</servlet-class>
+  </servlet>
+-->
+
   <!-- servlet-mapping -->
+
+  <!--test for the theme mechandism-->
+<!--
+  <servlet-mapping>
+    <servlet-name>ResourceServlet</servlet-name>
+    <url-pattern>/org/apache/myfaces/tobago/renderkit/*</url-pattern>
+  </servlet-mapping>
+-->
 
   <servlet-mapping>
     <servlet-name>FacesServlet</servlet-name>
@@ -81,13 +97,8 @@
   </mime-mapping>
 
   <!-- The Usual Welcome File List -->
-    <welcome-file-list>
-      <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
-
-  <error-page>
-    <exception-type>java.lang.Throwable</exception-type>
-    <location>/errorPage.jsp</location>
-  </error-page>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
 
 </web-app>

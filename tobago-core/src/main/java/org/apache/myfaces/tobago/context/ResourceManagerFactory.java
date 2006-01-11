@@ -32,6 +32,8 @@ import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Set;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipEntry;
 
 public class ResourceManagerFactory {
 
@@ -39,6 +41,8 @@ public class ResourceManagerFactory {
 
   public static final String RESOURCE_MANAGER
       = "org.apache.myfaces.tobago.context.ResourceManager";
+
+  public static final boolean USE_JAR_THEME_RESOURCE = false;
 
   private ResourceManagerFactory() {
   }
@@ -62,6 +66,9 @@ public class ResourceManagerFactory {
     assert !initialized;
     ResourceManagerImpl resources = new ResourceManagerImpl();
     locateResources(servletContext, resources, "/");
+    if (USE_JAR_THEME_RESOURCE) {
+      locateResources2(servletContext, resources);
+    }
     for (String dir : tobagoConfig.getResourceDirs()) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("Locating resources in dir: " + dir);
@@ -73,6 +80,67 @@ public class ResourceManagerFactory {
     resources.setTobagoConfig(tobagoConfig);
     initialized = true;
   }
+
+  private static void locateResources2(
+      ServletContext servletContext, ResourceManagerImpl resources)
+      throws ServletException {
+    String path = "/WEB-INF/lib/";
+    String resourcePrefix = "/tobago-theme-resources/";
+    LOG.info("childPath = '" + path + "'");
+    Set<String> resourcePaths = servletContext.getResourcePaths(path);
+    for (String childPath : resourcePaths) {
+      LOG.info("childPath = '" + childPath + "'");
+      if (childPath.equals(path)) {
+        continue;
+      }
+      if (childPath.startsWith(path + "tobago-theme-")
+          && childPath.endsWith(".jar")) {
+
+        InputStream stream = null;
+        try {
+          stream = servletContext.getResourceAsStream(childPath);
+          ZipInputStream zip = new ZipInputStream(stream);
+          while (zip.available() > 0) {
+            ZipEntry nextEntry = zip.getNextEntry();
+            if (nextEntry == null || nextEntry.isDirectory()) {
+              continue;
+            }
+            String name = nextEntry.getName();
+            LOG.info("name = '" + name + "'");
+            String prefix = "org/apache/myfaces/tobago/renderkit/";
+            if (name.startsWith(prefix)) {
+              if (name.endsWith(".gif")
+                  || name.endsWith(".jpg")
+                  || name.endsWith(".png")
+                  || name.endsWith(".js")
+                  || name.endsWith(".css")) {
+//                String resourceKey = resourcePrefix + name.substring(prefix.length());
+                LOG.info("*  /" + name);
+                resources.add("/" + name);
+              } else if (name.endsWith(".properties")) {
+//                String resourceKey = resourcePrefix + name.substring(prefix.length());
+                LOG.info("** " + name);
+                addProperties2(resources, name, prefix, resourcePrefix, false);
+              } else if (name.endsWith(".properties.xml")) {
+//                String resourceKey = resourcePrefix + name.substring(prefix.length());
+                LOG.info("** " + name);
+                addProperties2(resources, name, prefix, resourcePrefix, true);
+              }
+            }
+          }
+        } catch (IOException e) {
+          String msg = "while loading " + childPath;
+          if (LOG.isErrorEnabled()) {
+            LOG.error(msg, e);
+          }
+          throw new ServletException(msg, e);
+        } finally {
+          IOUtils.closeQuietly(stream);
+        }
+      }
+    }
+  }
+
 
   private static void locateResources(
       ServletContext servletContext, ResourceManagerImpl resources, String path)
@@ -169,6 +237,70 @@ public class ResourceManagerFactory {
     }
   }
 
+  private static void addProperties2(
+      ResourceManagerImpl resources,
+      String childPath, String prefix, String resourcePrefix, boolean xml)
+      throws ServletException {
+
+//    resourcePrefix = "/tobago/"; // fixme
+
+    String directory = childPath.substring(0, childPath.lastIndexOf('/'));
+    String filename = childPath.substring(childPath.lastIndexOf('/') + 1);
+
+    int begin = filename.indexOf('_') + 1;
+    int end = filename.lastIndexOf('.');
+    if (xml) {
+      end = filename.lastIndexOf('.', end - 1);
+    }
+
+    String locale;
+/*
+    if (begin > 0) {
+      locale = filename.substring(begin, end);
+    } else {
+      locale = "default";
+    }
+*/
+    locale = filename.substring(0, end);
+
+
+    Properties temp = new Properties();
+    InputStream stream = null;
+    try {
+      stream = ResourceManagerFactory.class.getClassLoader().getResourceAsStream(childPath);
+      if (xml) {
+        temp.loadFromXML(stream);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug(childPath);
+          LOG.debug("xml properties: " + temp.size());
+        }
+      } else {
+        temp.load(stream);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug(childPath);
+          LOG.debug("    properties: " + temp.size());
+        }
+      }
+    } catch (IOException e) {
+      String msg = "while loading " + childPath;
+      if (LOG.isErrorEnabled()) {
+        LOG.error(msg, e);
+      }
+      throw new ServletException(msg, e);
+    } finally {
+      IOUtils.closeQuietly(stream);
+    }
+
+    for (Enumeration e = temp.propertyNames(); e.hasMoreElements();) {
+      String key = (String) e.nextElement();
+//      String prepath = resourcePrefix + directory.substring(prefix.length());
+      String prepath = directory;
+      resources.add('/' + prepath + '/' + locale + '/' + key, temp.getProperty(key));
+      if (LOG.isDebugEnabled()) {
+        LOG.debug('/' + prepath + '/' + locale + '/' + key + "=" + temp.getProperty(key));
+      }
+    }
+  }
 
   public static void release(ServletContext servletContext) {
     assert initialized;
