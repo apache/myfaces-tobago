@@ -30,7 +30,7 @@
       <%-- column --%>
 
       <tc:box label="#{overviewBundle.tree_sampleTitle}" >
-        <tc:tabGroup state="#{overviewController.treeTabsState}" serverside="true">
+        <tc:tabGroup state="#{overviewController.treeTabsState}" switchType="reloadTab">
           <tc:tab label="#{overviewBundle.treeLabel}">
         <f:facet name="layout">
           <tc:gridLayout columns="2*;1*" />

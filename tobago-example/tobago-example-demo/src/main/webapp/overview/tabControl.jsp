@@ -83,7 +83,7 @@
 
         <tc:tab label="#{overviewBundle.tabServerSide}" >
 
-          <tc:tabGroup id="tabMarsOuterForm2" serverside="true" state="#{demo.tabState2}" >
+          <tc:tabGroup id="tabMarsOuterForm2" switchType="reloadTab" state="#{demo.tabState2}" >
 
             <tc:tabChangeListener type="org.apache.myfaces.tobago.example.demo.actionlistener.SimpleTabChangeListener"/>
 
