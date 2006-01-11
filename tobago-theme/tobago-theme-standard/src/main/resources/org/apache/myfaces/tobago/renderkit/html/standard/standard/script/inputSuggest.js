@@ -54,7 +54,7 @@ Object.extend(new Ajax.Base(), {
     this.options.parameters = this.options.callback
         ? this.options.callback(this.element, entry) : entry;
 
-    var form = Tobago.getFormElement(page);
+    var form = Tobago.getFormElement(this.page);
     var url = form.action + "?affectedAjaxComponent=" + this.element.id;
     LOG.debug("start new request");
     new Ajax.Request(url, this.options);
