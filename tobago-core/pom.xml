@@ -29,6 +29,16 @@
   <name>Tobago Core</name>
   <description>Tobago Core</description>
    <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+      <resource>
+        <targetPath>target/classes/META-INF</targetPath>
+        <directory>target/generated-tld</directory>
+      </resource>
+    </resources>
+
     <plugins>
       <plugin>
         <groupId>org.apache.myfaces.tobago</groupId>
