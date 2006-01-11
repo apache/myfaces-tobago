@@ -16,11 +16,10 @@
 
 
 Tobago.SheetBase = {
-  initialize: function(sheetId, form, url) {
+  initialize: function(sheetId, page) {
     this.sheetId = sheetId,
     this.element = $(sheetId + "_outer_div");
-    this.form = $(form);
-    this.url = url;
+    this.page = $(page);
 
     this.options = {
       method: 'post',
@@ -137,15 +136,8 @@ Tobago.SheetBase = {
 
   reloadWithAction: function(action) {
     LOG.debug("reload sheet with action \"" + action + "\"");
-    var hidden = $(this.form.id + "-action");
-    if (hidden) {
-      hidden.value = action;
-    } else {
-      LOG.error("No hidden field for form action Id='" + this.form.id + "-action" + "'");
-      return;
-    }
-    this.createOverlay(this.element);
-    new Ajax.Updater(this.element, this.url+ '&' + Form.serialize(this.form), this.options);
+    Tobago.Updater.update(this.element, this.page, action, this.sheetId, this.options);
+
   },
 
   insertPageTarget: function() {

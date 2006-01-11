@@ -5,7 +5,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIViewRoot;
 
-import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
@@ -83,14 +82,6 @@ public class AjaxUtils {
     }
   }
 
-
-  public static String createUrl(final FacesContext facesContext, final String clientId) {
-    final String viewId = facesContext.getViewRoot().getViewId();
-    final ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
-    final String actionURL = viewHandler.getActionURL(facesContext, viewId);
-    return facesContext.getExternalContext().encodeActionURL(
-        actionURL+"?affectedAjaxComponent=" + clientId);
-  }
 
   public static void processAjax(FacesContext facesContext, UIComponent component)
       throws IOException {

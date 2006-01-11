@@ -18,12 +18,12 @@
 Tobago.Autocompleter = Class.create();
 Tobago.Autocompleter.prototype = Object.extend(new Autocompleter.Base(),
 Object.extend(new Ajax.Base(), {
-  initialize: function(element, update, url, options) {
-	  this.baseInitialize(element, update, options);
+  initialize: function(element, page, options) {
+	  this.baseInitialize(element, $(element).id + Tobago.subComponentSeparator + "ajaxPopup", options);
     this.options.asynchronous = true;
     this.options.onComplete   = this.onComplete.bind(this)
     this.options.method       = 'post';
-    this.url                  = url;
+    this.page                  = $(page);
     this.options.onShow       =
         function(element, update){
           element.autoCompleter.setup();
@@ -53,8 +53,11 @@ Object.extend(new Ajax.Base(), {
 
     this.options.parameters = this.options.callback
         ? this.options.callback(this.element, entry) : entry;
+
+    var form = Tobago.getFormElement(page);
+    var url = form.action + "?affectedAjaxComponent=" + this.element.id;
     LOG.debug("start new request");
-    new Ajax.Request(this.url, this.options);
+    new Ajax.Request(url, this.options);
   },
 
   onComplete: function(request) {

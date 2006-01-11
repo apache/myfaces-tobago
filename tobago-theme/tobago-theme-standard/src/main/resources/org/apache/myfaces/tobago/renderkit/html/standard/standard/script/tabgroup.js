@@ -16,12 +16,11 @@
 
 
 Tobago.TabGroupBase = {
-  initialize: function(tabGroupId, activeIndex, form, url) {
+  initialize: function(tabGroupId, activeIndex, page) {
     this.tabGroupId = tabGroupId,
     this.activeIndex = activeIndex;
     this.element = $(tabGroupId + '.' + activeIndex);
-    this.form = $(form);
-    this.url = url;
+    this.page = $(page);
 
     this.options = {
       method: 'post',
@@ -65,17 +64,7 @@ Tobago.TabGroupBase = {
         LOG.warn("aId = " + aId);
       }
 
-      hidden = $(this.form.id + "-action");
-      if (hidden) {
-        hidden.value = this.tabGroupId;
-      }
-      else {
-        LOG.error("No hidden field for actionIndex Id='" + this.form.id + "-action" + "'");
-        LOG.error("aId = " + aId);
-        return;
-      }
-      this.createOverlay(this.parent);
-      new Ajax.Updater(this.parent, this.url+ '&' + Form.serialize(this.form), this.options);
+      Tobago.Updater.update(this.parent, this.page, this.tabGroupId, this.tabGroupId, this.options);
     } else {
       LOG.info("No reload Event");
     }

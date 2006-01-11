@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.InRendererBase;
@@ -129,7 +130,7 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
       ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
       String actionURL = viewHandler.getActionURL(facesContext, viewId);
 
-//      final UIPage page = ComponentUtil.findPage(input);
+      final UIPage page = ComponentUtil.findPage(input);
 //      page.getScriptFiles().add("script/effects.js");
 //      page.getScriptFiles().add("script/dragdrop.js");
 //      page.getScriptFiles().add("script/controls.js");
@@ -158,8 +159,7 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
       final String[] cmds = {
           "new Tobago.Autocompleter(",
           "    '" + id + "',",
-          "    '" + popupId + "',",
-          "    '" + AjaxUtils.createUrl(facesContext, id) + "',",
+          "    '" + page.getClientId(facesContext) + "',",
           "    { method:       'post',",
           "      asynchronous: true,",
           "      parameters: '',",

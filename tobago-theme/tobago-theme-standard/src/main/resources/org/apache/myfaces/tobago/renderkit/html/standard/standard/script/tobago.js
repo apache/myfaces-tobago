@@ -133,6 +133,25 @@ Object.extend(Tobago, {
         LOG.debug("script.src=" + child.src);
       }
     }
+  },
+
+  getFormElement: function(page) {
+    page = $(page);
+    return $(page.id + Tobago.subComponentSeparator + "form");
+  },
+
+  createOverlay: function(element) {
+    var overlay = document.createElement('div');
+    overlay.style.position = "absolute";
+    overlay.style.top = "0px";
+    overlay.style.left = "0px";
+    overlay.style.width = element.offsetWidth + 'px';
+    overlay.style.height = element.offsetHeight + 'px';
+    overlay.style.cursor = "wait";
+    // TODO: better z-index strategie
+    overlay.style.zIndex = 10000;
+    element.appendChild(overlay);
+    return overlay;
   }
 
 });
@@ -202,6 +221,34 @@ Tobago.ScriptLoader.prototype = {
     }
   }
 }
+
+Tobago.Updater = new Object();
+Object.extend(Tobago.Updater, {
+  update: function(container, page, actionId, ajaxComponentId, options) {
+
+    var form = Tobago.getFormElement(page);
+    if (!form) {
+      LOG.error("Can't find form Tag!");
+      return;
+    }
+
+    var hidden = $(form.id + "-action");
+    if (hidden) {
+      hidden.value = actionId;
+//      LOG.debug("set action to : \"" + hidden.value + "\"");
+    } else {
+      LOG.error("No hidden field for form action Id='" + form.id + "-action" + "'");
+      return;
+    }
+
+    var url = form.action + "?affectedAjaxComponent=" + ajaxComponentId
+        + '&' + Form.serialize(form);
+
+    Tobago.createOverlay(container);
+    //    LOG.debug("request url = " + url);
+    new Ajax.Updater(container, url, options);
+  }
+});
 
 
 if (typeof(LOG) == "undefined") {
