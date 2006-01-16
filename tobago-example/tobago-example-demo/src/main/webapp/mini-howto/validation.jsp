@@ -21,7 +21,7 @@
   <jsp:body>
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout rows="80px;1*;70px" />
+        <tc:gridLayout rows="80px;170px;70px;*" />
       </f:facet>
 
       <tc:out value="#{miniHowtoBundle.validationText1}" escape="false" />
@@ -31,6 +31,8 @@
       </tc:box>
 
       <tc:out value="#{miniHowtoBundle.validationText2}" escape="false" />
+
+      <tc:cell />
 
     </tc:panel>
   </jsp:body>

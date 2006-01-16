@@ -21,17 +21,17 @@
   <jsp:body>
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout rows="80px;1*;" />
+        <tc:gridLayout rows="80px;220px;*"/>
       </f:facet>
 
-      <tc:out escape="false"  value="#{miniHowtoBundle.classDefinitionText1}" />
+      <tc:out escape="false" value="#{miniHowtoBundle.classDefinitionText1}"/>
 
-      <tc:box label="#{miniHowtoBundle.codeExample}" >
-        <tc:out value="#{miniHowtoBundle.classDefinitionCodeExample}" />
+      <tc:box label="#{miniHowtoBundle.codeExample}">
+        <tc:out value="#{miniHowtoBundle.classDefinitionCodeExample}"/>
       </tc:box>
 
       <%--<tc:out escape="false"  value="#{miniHowtoBundle.classDefinitionText2}" />--%>
-
+      <tc:cell/>
     </tc:panel>
   </jsp:body>
 </layout:mini-howto>
