@@ -22,7 +22,7 @@
   <jsp:body>
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout rows="130px;120px;1*"  />
+        <tc:gridLayout rows="80px;120px;1*"  />
       </f:facet>
 
       <tc:out escape="false" value="#{overviewBundle.locale_text}" />

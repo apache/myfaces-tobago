@@ -21,7 +21,7 @@
   <jsp:body>
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout rows="2*;3*" />
+        <tc:gridLayout rows="2*;4*" />
       </f:facet>
 
       <tc:out escape="false" value="#{overviewBundle.sheet_text}" />
@@ -35,7 +35,7 @@
             columns="3*;1*;3*;3*;3*;3*" var="luminary"
             state="#{demo.sheetState}"
             showRowRange="left" showPageRange="right" showDirectLinks="center"
-            pagingLength="7" directLinkCount="5" stateChangeListener="#{demo.stateChangeListener}">
+            pagingLength="8" directLinkCount="5" stateChangeListener="#{demo.stateChangeListener}">
           <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true">
             <tc:out value="#{luminary.name}" id="t_name" />
           </tc:column>

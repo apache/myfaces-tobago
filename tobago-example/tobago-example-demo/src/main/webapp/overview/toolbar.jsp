@@ -22,7 +22,7 @@
   <jsp:body>
     <tc:panel id="pageToolbar" >
       <f:facet name="layout">
-        <tc:gridLayout rows="80px;fixed;10px;1*;fixed;10px"  id="pageToolbarLayout"/>
+        <tc:gridLayout rows="65px;fixed;1px;70px;fixed;50px"  id="pageToolbarLayout"/>
 <%--        <tc:gridLayout rows="80px;1*;10px;100px;1*;10px"  id="pageToolbarLayout"/>--%>
       </f:facet>
 

@@ -22,7 +22,7 @@
   <jsp:body>
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout rows="1*;3*" />
+        <tc:gridLayout rows="1*;4*" />
       </f:facet>
 
       <tc:out escape="false" value="#{overviewBundle.tab_text}" />

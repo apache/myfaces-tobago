@@ -31,7 +31,7 @@
 
       <tc:box label="#{overviewBundle.form_outTitle}">
         <f:facet name="layout">
-          <tc:gridLayout rows="1*;fixed;fixed;fixed" />
+          <tc:gridLayout rows="80px;fixed;fixed;fixed" />
         </f:facet>
 
         <tc:out escape="false" value="#{overviewBundle.form_text2}" />
@@ -67,14 +67,13 @@
 
         <tc:panel>
           <f:facet name="layout">
-            <tc:gridLayout columns="*;150px"   />
+            <tc:gridLayout columns="*;150px" rows="fixed;*"  />
           </f:facet>
 
           <tc:cell/>
           <tc:button label="#{overviewBundle.submitAll}" />
-
+          <tc:cell spanX="2" />
         </tc:panel>
-
       </tc:box>
     </tc:panel>
   </jsp:body>
