@@ -15,5 +15,6 @@
     <module>tobago-example-blank</module>
     <module>tobago-example-demo</module>
     <module>tobago-example-foreach</module>
+    <module>tobago-example-nonfacesrequest</module>
   </modules>
 </project>
