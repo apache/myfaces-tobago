@@ -30,14 +30,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 public class TreeEditor extends DefaultTreeActionListener {
 
-// ///////////////////////////////////////////// constant
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
-
   protected String nextId() {
     return "m" + System.currentTimeMillis();
   }
@@ -56,13 +48,9 @@ public class TreeEditor extends DefaultTreeActionListener {
   }
 
   public void processAction(ActionEvent event) throws AbortProcessingException {
-
     super.processAction(event);
-
     FacesContext facesContext = FacesContext.getCurrentInstance();
     facesContext.renderResponse();
   }
-
-// ///////////////////////////////////////////// bean getter + setter
 
 }

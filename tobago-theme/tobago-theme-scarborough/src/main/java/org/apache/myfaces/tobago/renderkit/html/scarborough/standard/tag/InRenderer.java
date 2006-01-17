@@ -75,8 +75,11 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
         ATTR_PASSWORD) ? "password" : "text";
 
     // Todo: check for valid binding
-    boolean renderAjaxSuggest
-        = input.getAttributes().get("suggestMethod") != null;
+    boolean renderAjaxSuggest = false;
+    if (input instanceof org.apache.myfaces.tobago.component.UIInput) {
+      renderAjaxSuggest =
+          ((org.apache.myfaces.tobago.component.UIInput)input).getSuggestMethod() != null;
+    }
 
     String onchange = HtmlUtils.generateOnchange(input, facesContext);
 
@@ -187,13 +190,15 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
 
   public void encodeAjax(FacesContext context, UIComponent uiComponent) throws IOException
   {
-    AjaxUtils.checkParamValidity(context, uiComponent, UIInput.class);
+    AjaxUtils.checkParamValidity(context, uiComponent,
+        org.apache.myfaces.tobago.component.UIInput.class);
 
 
-    UIInput input = (UIInput) uiComponent;
+    org.apache.myfaces.tobago.component.UIInput input = 
+        (org.apache.myfaces.tobago.component.UIInput) uiComponent;
 
     MethodBinding mb;
-    Object o = input.getAttributes().get("suggestMethod");
+    Object o = input.getSuggestMethod();
     if (o instanceof MethodBinding) {
       mb = (MethodBinding) o;
     } else {

@@ -234,7 +234,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
     state[0] = super.saveState(context);
     state[1] = new Integer(renderedIndex);
     state[2] = new Integer(activeIndex);
-    state[3] = tabChangeListener;
+    state[3] =  saveAttachedState(context, tabChangeListener);
     return state;
   }
 
@@ -243,7 +243,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
     super.restoreState(context, values[0]);
     renderedIndex = ((Integer)values[1]).intValue();
     activeIndex = ((Integer)values[2]).intValue();
-    tabChangeListener = (MethodBinding) values[3];
+    tabChangeListener = (MethodBinding) restoreAttachedState(context, values[3]);
   }
 
   public void encodeAjax(FacesContext facesContext) throws IOException {

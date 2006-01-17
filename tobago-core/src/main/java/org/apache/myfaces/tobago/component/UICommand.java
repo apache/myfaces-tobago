@@ -29,9 +29,6 @@ public class UICommand extends javax.faces.component.UICommand {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Command";
 
-//  private boolean active;
-
-
   public void processDecodes(FacesContext context) {
 
       if (context == null) {
@@ -52,33 +49,13 @@ public class UICommand extends javax.faces.component.UICommand {
           throw e;
       }
 
-//    if (active) {
-      // Process all facets and children of this component
       Iterator kids = getFacetsAndChildren();
       while (kids.hasNext()) {
           UIComponent kid = (UIComponent) kids.next();
           kid.processDecodes(context);
       }
-//    }
 
   }
-
-  public void processValidators(FacesContext facesContext) {
-//    if (active) {
-      super.processValidators(facesContext);
-//    }
-  }
-
-  public void processUpdates(FacesContext facesContext) {
-//    if (active) {
-      super.processUpdates(facesContext);
-//    }
-  }
-
-//  public void setActive(boolean active) {
-//    this.active = active;
-//  }
-
 
   public void encodeChildren(FacesContext facesContext) throws IOException {
    if (isRendered() ) {

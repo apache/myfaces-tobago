@@ -12,8 +12,7 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
- */
-/*
+ *
  * $Id$
  */
 package org.apache.myfaces.tobago.taglib.component;
@@ -92,4 +91,3 @@ public abstract class CommandTag extends TobagoTag {
     this.disabled = disabled;
   }
 }
-

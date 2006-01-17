@@ -37,15 +37,7 @@ import javax.swing.tree.MutableTreeNode;
 
 public class DefaultTreeActionListener implements ActionListener {
 
-// ///////////////////////////////////////////// constant
-
   private static final Log LOG = LogFactory.getLog(DefaultTreeActionListener.class);
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
 
   protected DefaultMutableTreeNode create(FacesContext facesContext) {
     String label = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "treeNodeNew");
@@ -133,7 +125,4 @@ public class DefaultTreeActionListener implements ActionListener {
       }
     }
   }
-
-// ///////////////////////////////////////////// bean getter + setter
-
 }

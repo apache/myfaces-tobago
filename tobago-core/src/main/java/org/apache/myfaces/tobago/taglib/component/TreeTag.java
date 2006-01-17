@@ -33,8 +33,10 @@ import org.apache.myfaces.tobago.taglib.decl.HasNameReference;
 import org.apache.myfaces.tobago.taglib.decl.HasState;
 import org.apache.myfaces.tobago.taglib.decl.HasTreeNodeValue;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.ActionSource;
 
 /**
  * Renders a tree view.
@@ -44,7 +46,7 @@ import javax.faces.component.UIComponent;
 @Preliminary("Implement a var attribute for the tree like in the sheet (http://issues.apache.org/jira/browse/MYFACES-903)")
 public class TreeTag extends TobagoTag
     implements HasIdBindingAndRendered, HasTreeNodeValue, HasState,
-    HasIdReference, HasNameReference, IsRequired {
+    HasIdReference, HasActionListener, HasNameReference, IsRequired {
 
   private String value;
   private String state;
@@ -61,6 +63,8 @@ public class TreeTag extends TobagoTag
   private String nameReference;
 
   private String required;
+
+  private String actionListener;
 
   public String getComponentType() {
     return UITree.COMPONENT_TYPE;
@@ -83,6 +87,7 @@ public class TreeTag extends TobagoTag
     ComponentUtil.setStringProperty(component, ATTR_ID_REFERENCE, idReference);
     ComponentUtil.setStringProperty(component, ATTR_NAME_REFERENCE, nameReference);
     ComponentUtil.setBooleanProperty(component, ATTR_REQUIRED, required);
+    ComponentUtil.setActionListener((ActionSource)component, actionListener);
   }
 
   public void release() {
@@ -98,6 +103,7 @@ public class TreeTag extends TobagoTag
     idReference = null;
     nameReference = null;
     required = null;
+    actionListener = null;
   }
 
   public String getValue() {
@@ -120,7 +126,12 @@ public class TreeTag extends TobagoTag
     return showIcons;
   }
 
-
+  public void setActionListener(String actionListener) {
+    this.actionListener = actionListener;
+  }
+  public String getActionListener() {
+    return actionListener;
+  }
   /**
    *
    */

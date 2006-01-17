@@ -26,12 +26,37 @@ import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 
 import javax.faces.context.FacesContext;
+import javax.faces.el.MethodBinding;
 import java.io.IOException;
 
 public class UIInput extends javax.faces.component.UIInput implements AjaxComponent {
 
   private static final Log LOG = LogFactory.getLog(UIInput.class);
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Input";
+
+  private javax.faces.el.MethodBinding suggestMethod;
+
+  public void restoreState(FacesContext context, Object state) {
+    Object values[] = (Object[])state;
+    super.restoreState(context, values[0]);
+    suggestMethod = (MethodBinding)restoreAttachedState(context, values[1]);
+  }
+
+  public Object saveState(FacesContext context) {
+    Object values[] = new Object[2];
+    values[0] = super.saveState(context);
+    values[1] = saveAttachedState(context, suggestMethod);
+    return values;
+  }
+
+  public MethodBinding getSuggestMethod() {
+    return suggestMethod;
+  }
+
+  public void setSuggestMethod(MethodBinding suggestMethod) {
+    this.suggestMethod = suggestMethod;
+  }
+
 
   // TODO can this removed?
   public void updateModel(FacesContext facesContext) {

@@ -39,6 +39,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionListener;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.AbortProcessingException;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -82,8 +84,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
   private Command[] commands;
 
-  private ActionListener actionListener;
-
+  private MethodBinding actionListener;
   private TreeState state;
 
   private boolean showJunctions = true;
@@ -115,6 +116,17 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
 // ---------------------------- interface ActionSource
 
+  public void broadcast(FacesEvent event) throws AbortProcessingException {
+    super.broadcast(event);
+
+    MethodBinding binding = getActionListener();
+
+    if (binding != null) {
+      FacesContext context = getFacesContext();
+      binding.invoke(context, new Object[] { event });
+    }
+  }
+
   public MethodBinding getAction() {
     return null;
   }
@@ -124,29 +136,23 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   }
 
   public MethodBinding getActionListener() {
-    return null;
+    return actionListener;
   }
 
-  public void setActionListener(MethodBinding methodBinding) {
-
-  }
-
-  public void addActionListener(ActionListener actionListener) {
+  public void setActionListener(MethodBinding actionListener) {
     this.actionListener = actionListener;
   }
 
+  public void addActionListener(ActionListener actionListener) {
+    addFacesListener(actionListener);
+  }
+
   public ActionListener[] getActionListeners() {
-    if (actionListener != null) {
-      return new ActionListener[] {actionListener};
-    } else {
-      return new ActionListener[0];
-    }
+    return (ActionListener[]) getFacesListeners(ActionListener.class);
   }
 
   public void removeActionListener(ActionListener actionListener) {
-    if (actionListener.equals(this.actionListener)) {
-      this.actionListener = null;
-    }
+    removeFacesListener(actionListener);
   }
 
 // ----------------------------------------------------------- business methods
@@ -161,18 +167,16 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     }
     super.encodeBegin(facesContext);
   }
-
+  // TODO move this to renderkit
   public void createDefaultToolbar(FacesContext facesContext) {
 
     UIComponent toolbar = ComponentUtil.createComponent(
         facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_TOOL_BAR);
     toolbar.getAttributes().put(ATTR_ICON_SIZE, ToolBarTag.ICON_SMALL);
     toolbar.getAttributes().put(ATTR_LABEL_POSITION, ToolBarTag.LABEL_OFF);
-    ActionListener handler = null;
     ActionListener[] handlers = getActionListeners();
-    if (handlers != null && handlers.length > 0) {
-      handler = handlers[0];
-    } else {
+
+    if ( (handlers == null || handlers.length == 0) && getActionListener() == null ) {
       LOG.error("No actionListener found in tree, so tree editing will not work!");
     }
 
@@ -183,9 +187,11 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
       toolbar.getChildren().add(command);
       command.setId("button" + i);
       command.getAttributes().put(ATTR_ACTION_STRING, commands[i].getCommand());
-      if (handler != null) {
-        command.addActionListener(handler);
+
+      for (ActionListener listener : getActionListeners()) {
+        command.addActionListener(listener);
       }
+      command.setActionListener(getActionListener());
       command.getAttributes().put(
           ATTR_IMAGE, "image/tobago.tree." + commands[i].getCommand() + ".gif");
       String title = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
@@ -340,14 +346,14 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   public Object saveState(FacesContext context) {
     Object[] state = new Object[2];
     state[0] = super.saveState(context);
-    state[1] = actionListener;
+    state[1] = saveAttachedState(context, actionListener);
     return state;
   }
 
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
     super.restoreState(context, values[0]);
-    actionListener = (ActionListener) values[1];
+    actionListener = (MethodBinding) restoreAttachedState(context, values[1]);
   }
 // ------------------------------------------------------------ getter + setter
 

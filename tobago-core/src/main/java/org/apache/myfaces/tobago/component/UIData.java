@@ -338,7 +338,7 @@ public class UIData extends javax.faces.component.UIData
     saveState[0] = super.saveState(context);
     saveState[1] = state;
     saveState[2] = sorter;
-    saveState[3] = stateChangeListener;
+    saveState[3] =  saveAttachedState(context, stateChangeListener);
     if (showHeaderSet) {
       saveState[4] = showHeader;
     }
@@ -350,7 +350,7 @@ public class UIData extends javax.faces.component.UIData
     super.restoreState(context, values[0]);
     state = (SheetState) values[1];
     sorter = (Sorter) values[2];
-    stateChangeListener = (MethodBinding) values[3];
+    stateChangeListener = (MethodBinding) restoreAttachedState(context, values[3]);
     if (values[4] != null) {
       showHeaderSet = true;
       showHeader = (Boolean) values[4];

@@ -24,8 +24,9 @@ import org.apache.commons.logging.LogFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-
-public class SheetState {
+import java.io.Serializable;
+// TODO find a better solution for this 
+public class SheetState implements Serializable {
 
   private static final Log LOG = LogFactory.getLog(SheetState.class);
   public static final String SEPARATOR = ",";

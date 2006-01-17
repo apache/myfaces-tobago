@@ -41,6 +41,7 @@ import javax.faces.component.UISelectBoolean;
 import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectItems;
 import javax.faces.component.ValueHolder;
+import javax.faces.component.ActionSource;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.el.MethodBinding;
@@ -873,7 +874,20 @@ public class ComponentUtil {
 
   }
 
-  public static void setActionListener(org.apache.myfaces.tobago.component.UICommand command, String actionListener) {
+  public static void setSuggestMethodBinding(UIComponent component, String suggestMethod) {
+    if (suggestMethod != null) {
+      if (UIComponentTag.isValueReference(suggestMethod)) {
+        final MethodBinding methodBinding = FacesContext.getCurrentInstance().getApplication()
+            .createMethodBinding(suggestMethod, new Class[]{String.class});
+        ((UIInput)component).setSuggestMethod(methodBinding);
+      } else {
+        throw new IllegalArgumentException(
+            "Must be a valueReference (suggestMethod): " + suggestMethod);
+      }
+    }
+  }
+  
+  public static void setActionListener(ActionSource command, String actionListener) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final Application application = facesContext.getApplication();
     if (actionListener != null) {
