@@ -21,7 +21,17 @@ package org.apache.myfaces.tobago.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_DIRECTIVE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MINIMUM_SIZE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_IN;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.component.UIPanel;
@@ -32,9 +42,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
-import java.awt.*;
+import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public final class LayoutUtil {
@@ -65,7 +74,7 @@ public final class LayoutUtil {
         spaceInteger = getLayoutHeight(component);
       }
       if (spaceInteger != null) {
-        space = spaceInteger.intValue();
+        space = spaceInteger;
       }
 
 //      if (space < 0 && component.getParent() instanceof UIComponentBase) {
@@ -74,16 +83,15 @@ public final class LayoutUtil {
       }
 
       if (space != -1) {
-        innerSpace =
-            new Integer(getInnerSpace(facesContext, component, space, width));
+        innerSpace = getInnerSpace(facesContext, component, space, width);
       } else {
-        innerSpace = new Integer(-1);
+        innerSpace = -1;
       }
 
       component.getAttributes().put(attribute, innerSpace);
     }
 
-    return innerSpace.intValue();
+    return innerSpace;
   }
 
   public static int getInnerSpace(FacesContext facesContext, UIComponent component,
@@ -195,9 +203,9 @@ public final class LayoutUtil {
     return null;
   }
 
-  public static List addChildren(List children, UIComponent panel) {
-    for (Iterator iter = panel.getChildren().iterator(); iter.hasNext();) {
-      UIComponent child = (UIComponent) iter.next();
+  public static List<UIComponent> addChildren(List<UIComponent> children, UIComponent panel) {
+    for (Object o : panel.getChildren()) {
+      UIComponent child = (UIComponent) o;
       if (isTransparentForLayout(child)) {
         addChildren(children, child);
       } else {
@@ -251,19 +259,17 @@ public final class LayoutUtil {
     if (cell instanceof UIPanel
         && ComponentUtil.getBooleanAttribute(cell,
             ATTR_LAYOUT_DIRECTIVE)) {
-      List children = LayoutUtil.addChildren(new ArrayList(), cell);
-      for (Iterator childs = children.iterator(); childs.hasNext();) {
-        UIComponent component = (UIComponent) childs.next();
+      List<UIComponent> children = addChildren(new ArrayList<UIComponent>(), cell);
+      for (UIComponent component : children) {
         maybeSetLayoutAttribute(component, attribute, value);
       }
     }
   }
 
-
   public static int calculateFixedHeightForChildren(FacesContext facesContext, UIComponent component) {
     int height = 0;
-    for (Iterator iterator = component.getChildren().iterator(); iterator.hasNext();) {
-      UIComponent child = (UIComponent) iterator.next();
+    for (Object o : component.getChildren()) {
+      UIComponent child = (UIComponent) o;
       RendererBase renderer = ComponentUtil.getRenderer(facesContext, child);
       if (renderer == null
           && child instanceof UINamingContainer
@@ -293,7 +299,7 @@ public final class LayoutUtil {
     }
     if (dimension == null) {
       dimension = new Dimension(-1, -1);
-    }    
+    }
     return dimension;
   }
 

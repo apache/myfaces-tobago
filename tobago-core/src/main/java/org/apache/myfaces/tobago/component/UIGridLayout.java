@@ -22,7 +22,10 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_ROWS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SPAN_X;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SPAN_Y;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 
 import javax.faces.component.UIComponent;
@@ -30,12 +33,9 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class UIGridLayout extends UILayout {
-
-// ///////////////////////////////////////////// constant
 
   private static final Log LOG = LogFactory.getLog(UIGridLayout.class);
 
@@ -45,30 +45,29 @@ public class UIGridLayout extends UILayout {
   public static final Marker FREE = new Marker("free");
   public static final String USED = "used";
 
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
-
+  @Override
   public String getFamily() {
     return COMPONENT_FAMILY;
   }
 
   private boolean ignoreFree;
 
+  @Override
   public boolean getRendersChildren() {
     return true;
   }
 
+  @Override
   public void encodeChildren(FacesContext context)
       throws IOException {
     // do nothing here
   }
 
-  public void encodeChildrenOfComponent(FacesContext facesContext, UIComponent component) throws IOException {
-    clearRows();
+  @Override
+  public void encodeChildrenOfComponent(
+      FacesContext facesContext, UIComponent component) throws IOException {
     super.encodeChildrenOfComponent(facesContext, component);
+    clearRows();
   }
 
   private void clearRows() {
@@ -98,10 +97,10 @@ public class UIGridLayout extends UILayout {
   private List<Row> createRows() {
     List<Row> rows = new ArrayList<Row>();
     int columnCount = getColumnCount();
-    List children = LayoutUtil.addChildren(new ArrayList(), getParent());
+    List<UIComponent> children
+        = LayoutUtil.addChildren(new ArrayList<UIComponent>(), getParent());
 
-    for (Iterator iterator = children.iterator(); iterator.hasNext();) {
-      UIComponent component = (UIComponent) iterator.next();
+    for (UIComponent component : children) {
       int spanX = getSpanX(component);
       int spanY = getSpanY(component);
 
@@ -109,16 +108,16 @@ public class UIGridLayout extends UILayout {
       if (r == rows.size()) {
         rows.add(new Row(columnCount));
       }
-      int c = ((Row) rows.get(r)).nextFreeColumn();
-      ((Row) rows.get(r)).addControl(component, spanX);
-      ((Row) rows.get(r)).fill(c + 1, c + spanX, component.isRendered());
+      int c = rows.get(r).nextFreeColumn();
+      rows.get(r).addControl(component, spanX);
+      rows.get(r).fill(c + 1, c + spanX, component.isRendered());
 
       for (int i = r + 1; i < r + spanY; i++) {
 
         if (i == rows.size()) {
           rows.add(new Row(columnCount));
         }
-        ((Row) rows.get(i)).fill(c, c + spanX, component.isRendered());
+        rows.get(i).fill(c, c + spanX, component.isRendered());
       }
     }
     getAttributes().put(ATTR_LAYOUT_ROWS, rows);
@@ -155,7 +154,7 @@ public class UIGridLayout extends UILayout {
     this.ignoreFree = ignoreFree;
   }
 
-  // ///////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////
 // ///////////////////////////////////////////// class Row
 // ///////////////////////////////////////////////////////////////
 
@@ -188,11 +187,10 @@ public class UIGridLayout extends UILayout {
         LOG.error("end:     " + end);
         LOG.error("columns: " + columns);
         LOG.error("Actual cells:");
-        for (Iterator i = cells.iterator(); i.hasNext();) {
-          Object component = i.next();
+        for (Object component : cells) {
           if (component instanceof UIComponent) {
-            LOG.error("Cell-ID: " + ((UIComponent)component).getId()
-                + " " + ((UIComponent)component).getRendererType());
+            LOG.error("Cell-ID: " + ((UIComponent) component).getId()
+                + " " + ((UIComponent) component).getRendererType());
           } else {
             LOG.error("Cell:    " + component); // e.g. marker
           }
@@ -208,7 +206,9 @@ public class UIGridLayout extends UILayout {
 
     private int nextFreeColumn() {
       for (int i = 0; i < columns; i++) {
-        if (FREE.equals(cells.get(i))) return i;
+        if (FREE.equals(cells.get(i))) {
+          return i;
+        }
       }
       return -1;
     }
@@ -253,6 +253,7 @@ public class UIGridLayout extends UILayout {
       this.rendered = rendered;
     }
 
+    @Override
     public String toString() {
       return name;
     }
