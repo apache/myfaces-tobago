@@ -15,10 +15,24 @@
 --%>
 <html>
 <body>
+<p>
+If you have configured "/faces/*" as url-pattern for the Faces Servlet use these external links:<br/>
+
 <a href="faces/FishServlet?id=0">faces/FishServlet?id=0</a><br/>
 <a href="faces/FishServlet?id=1">faces/FishServlet?id=1</a><br/>
 <a href="faces/FishServlet?id=2">faces/FishServlet?id=2</a><br/>
 <a href="faces/FishServlet?id=3">faces/FishServlet?id=3</a><br/>
 <a href="faces/FishServlet?id=4">faces/FishServlet?id=4</a><br/>
+</p>
+
+<p>
+If you have configured "*.jsf" as url-pattern for the Faces Servlet use these external links:<br/>
+
+<a href="FishServlet.jsf?id=0">FishServlet.jsf?id=0</a><br/>
+<a href="FishServlet.jsf?id=1">FishServlet.jsf?id=1</a><br/>
+<a href="FishServlet.jsf?id=2">FishServlet.jsf?id=2</a><br/>
+<a href="FishServlet.jsf?id=3">FishServlet.jsf?id=3</a><br/>
+<a href="FishServlet.jsf?id=4">FishServlet.jsf?id=4</a><br/>
+</p>
 </body>
 </html>

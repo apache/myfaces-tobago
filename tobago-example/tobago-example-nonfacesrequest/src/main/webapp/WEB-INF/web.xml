@@ -55,15 +55,18 @@
 
   <servlet-mapping>
     <servlet-name>FacesServlet</servlet-name>
-    <url-pattern>/faces/*</url-pattern>
+    <!--<url-pattern>/faces/*</url-pattern>-->
+    <url-pattern>*.jsf</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
     <servlet-name>FishServlet</servlet-name>
-    <!--for sun ri (tested with version 1.1.01)-->
+    <!--for sun ri with /faces/* mapping (tested with version 1.1.01)-->
     <!--<url-pattern>/FishServlet</url-pattern>-->
-    <!--for myfaces (tested with version 1.1.1)-->
-    <url-pattern>/faces/FishServlet</url-pattern>
+    <!--for myfaces with /faces/* mapping (tested with version 1.1.1)-->
+    <!--<url-pattern>/faces/FishServlet</url-pattern>-->
+    <!--for myfaces and sun-ri with *.jsf mapping-->
+    <url-pattern>/FishServlet.jsf</url-pattern>
   </servlet-mapping>
 
   <!-- The Usual Welcome File List -->
