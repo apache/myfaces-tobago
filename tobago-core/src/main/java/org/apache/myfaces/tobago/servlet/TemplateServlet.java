@@ -35,6 +35,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Iterator;
 
+/**
+ * @deprecated Please use JSP 2.0 tag-files or an other template mechanism.
+ */
+@Deprecated
 public class TemplateServlet extends HttpServlet {
 
 // ///////////////////////////////////////////// constant
