@@ -21,7 +21,7 @@
   <tc:page label="#{overviewBundle.pageTitle}" id="page"
       width="750px" height="600px">
 
-    <tc:include value="overview/menubar.jsp" />
+    <jsp:include page="/overview/menubar.jsp" />
 
     <f:facet name="layout">
       <tc:gridLayout border="0" columns="1*;4*"
@@ -29,11 +29,11 @@
     </f:facet>
 
     <tc:cell spanX="2">
-      <tc:include value="overview/header.jsp"/>
+      <jsp:include page="/overview/header.jsp"/>
     </tc:cell>
 
     <tc:cell spanY="2" >
-      <tc:include value="overview/navigator.jsp"/>
+      <jsp:include page="/overview/navigator.jsp"/>
     </tc:cell>
 
     <tc:cell>
@@ -41,7 +41,7 @@
     </tc:cell>
 
     <tc:cell>
-      <tc:include value="overview/footer.jsp" />
+      <jsp:include page="/overview/footer.jsp" />
     </tc:cell>
 
   </tc:page>

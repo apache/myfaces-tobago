@@ -22,7 +22,7 @@
   <tc:page label="#{miniHowtoBundle.pageTitle}" id="page"
       width="750px" height="600px">
 
-    <tc:include value="mini-howto/menubar.jsp"/>
+    <jsp:include page="/mini-howto/menubar.jsp"/>
 
     <f:facet name="layout">
       <tc:gridLayout border="0" columns="1*;4*"
@@ -30,11 +30,11 @@
     </f:facet>
 
     <tc:cell spanX="2">
-      <tc:include value="overview/header.jsp"/>
+      <jsp:include page="/overview/header.jsp"/>
     </tc:cell>
 
     <tc:cell spanY="2" >
-      <tc:include value="mini-howto/navigator.jsp"/>
+      <jsp:include page="/mini-howto/navigator.jsp"/>
     </tc:cell>
 
     <tc:cell>
@@ -42,7 +42,7 @@
     </tc:cell>
 
     <tc:cell>
-      <tc:include value="mini-howto/footer.jsp"/>
+      <jsp:include page="/mini-howto/footer.jsp"/>
     </tc:cell>
 
   </tc:page>
