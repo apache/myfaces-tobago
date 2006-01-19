@@ -461,7 +461,6 @@ public class UIData extends javax.faces.component.UIData
   }
 
   public void setShowHeader(boolean showHeader) {
-    LOG.info("", new Exception());
     this.showHeader = showHeader;
     this.showHeaderSet = true;
   }
