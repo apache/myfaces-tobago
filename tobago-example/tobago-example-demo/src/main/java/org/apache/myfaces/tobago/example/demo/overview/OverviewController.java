@@ -19,19 +19,17 @@
  */
 package org.apache.myfaces.tobago.example.demo.overview;
 
-import org.apache.myfaces.tobago.context.ResourceManager;
-import org.apache.myfaces.tobago.context.ResourceManagerFactory;
-import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.context.ResourceManager;
+import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
-import javax.faces.component.UIComponent;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.ArrayList;
 
 public class OverviewController {
 
@@ -83,6 +81,8 @@ public class OverviewController {
 
   private String lastAction;
 
+  private SheetConfig sheetConfig;
+
 // ///////////////////////////////////////////// constructor
 
   public OverviewController() {
@@ -92,6 +92,7 @@ public class OverviewController {
     treeListboxSelectMode = TREELISTBOX_SELECT_MODE_KEYS[0];
     multiValue = new String[0];
     treeTabsState = new Integer(0);
+    sheetConfig = new SheetConfig();
   }
 
 // ///////////////////////////////////////////// action
@@ -235,7 +236,14 @@ public class OverviewController {
     this.treeTabsState = treeTabsState;
   }
 
-  
+  public SheetConfig getSheetConfig() {
+    return sheetConfig;
+  }
+
+  public void setSheetConfig(SheetConfig sheetConfig) {
+    this.sheetConfig = sheetConfig;
+  }
+
   public List getInputSuggestItems(String prefix) {
     LOG.info("createing items for prefix :\"" + prefix + "\"");
     List li = new ArrayList();

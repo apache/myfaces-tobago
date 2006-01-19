@@ -45,7 +45,10 @@
   <lifecycle>
     <phase-listener>
       org.apache.myfaces.tobago.example.demo.overview.SynchronizeNavigationPhaseListener
-    </phase-listener>    
+    </phase-listener>
+    <phase-listener>
+      org.apache.myfaces.tobago.util.DebugPhaseListener
+    </phase-listener>
   </lifecycle>
 
   <!-- miniHowto -->
