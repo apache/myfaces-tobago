@@ -23,6 +23,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.NamingContainer;
+import javax.faces.context.FacesContext;
 
 public class UIPopup extends UIPanel implements NamingContainer {
 
@@ -34,6 +35,27 @@ public class UIPopup extends UIPanel implements NamingContainer {
   private String top;
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Popup";
+
+  public Object saveState(FacesContext facesContext) {
+    Object[] saveState = new Object[5];
+    saveState[0] = super.saveState(facesContext);
+    saveState[1] = width;
+    saveState[2] = height;
+    saveState[3] = width;
+    saveState[4] = top;
+    return saveState;
+  }
+
+
+
+  public void restoreState(FacesContext context, Object savedState) {
+    Object[] values = (Object[]) savedState;
+    super.restoreState(context, values[0]);
+    width  =  (String) values[1];
+    height = (String) values[2];
+    left   = (String) values[3];
+    top    = (String) values[4];
+  }
 
   public String getWidth() {
     return width;
