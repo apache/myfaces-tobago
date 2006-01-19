@@ -203,7 +203,6 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
 
       String url;
 
-      LOG.info("switchtype ist = " + switchType);
       if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()
           && SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
         url = "#";

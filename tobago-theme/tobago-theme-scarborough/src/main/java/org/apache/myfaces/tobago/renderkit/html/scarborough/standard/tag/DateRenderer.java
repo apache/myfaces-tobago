@@ -100,7 +100,6 @@ public class DateRenderer extends InRenderer {
     final Converter converter = ((UIOutput) component).getConverter();
     if (converter instanceof DateTimeConverter) {
       converterPattern = ((DateTimeConverter) converter).getPattern();
-      LOG.info("converterPattern = " + converterPattern);
     }
 
     // create link
@@ -158,7 +157,6 @@ public class DateRenderer extends InRenderer {
 
     if (converterPattern.indexOf('h') > -1 || converterPattern.indexOf('H') > -1) {
       // add time input
-      LOG.info("adding time ");
       final UIComponent timePanel = ComponentUtil.createComponent(
           facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_PANEL);
       timePanel.setId("timePanel");
@@ -191,7 +189,6 @@ public class DateRenderer extends InRenderer {
 
     } else {
       // add empty cell  // TODO: remove if popup height calculation relays on content
-      LOG.info("adding cell ");
       final UIComponent cell = ComponentUtil.createComponent(
           facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_PANEL);
       cell.setId("emptyCell");

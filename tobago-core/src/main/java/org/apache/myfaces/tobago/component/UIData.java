@@ -22,27 +22,27 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.*;
+import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
+import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
+import org.apache.myfaces.tobago.event.SheetStateChangeListener;
+import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
 import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.util.StringUtil;
-import org.apache.myfaces.tobago.event.SheetStateChangeSource;
-import org.apache.myfaces.tobago.event.SheetStateChangeListener;
-import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
-import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
-import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
-import javax.faces.el.EvaluationException;
-import javax.faces.event.FacesEvent;
 import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -461,6 +461,7 @@ public class UIData extends javax.faces.component.UIData
   }
 
   public void setShowHeader(boolean showHeader) {
+    LOG.info("", new Exception());
     this.showHeader = showHeader;
     this.showHeaderSet = true;
   }
@@ -474,7 +475,6 @@ public class UIData extends javax.faces.component.UIData
   public void processAjax(FacesContext facesContext) throws IOException {
     final String ajaxId = (String) facesContext.getExternalContext()
         .getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
-    LOG.info("ajaxId= " + ajaxId + "  :: clientId = " + getClientId(facesContext));
     if (ajaxId.equals(getClientId(facesContext))) {
       AjaxUtils.processActiveAjaxComponent(facesContext, this);
     } else {
