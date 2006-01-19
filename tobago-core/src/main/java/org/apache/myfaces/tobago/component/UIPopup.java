@@ -41,7 +41,7 @@ public class UIPopup extends UIPanel implements NamingContainer {
     saveState[0] = super.saveState(facesContext);
     saveState[1] = width;
     saveState[2] = height;
-    saveState[3] = width;
+    saveState[3] = left;
     saveState[4] = top;
     return saveState;
   }
