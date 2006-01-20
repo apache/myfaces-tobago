@@ -138,7 +138,7 @@ function MenuItem(label, action, disabled) {
         html += '</div>';
         if (isIE()) {
           html += '<iframe'
-              + ' id="' + this.id + getSubComponentSeparator() + 'iframe" >'
+              + ' id="' + this.id + getSubComponentSeparator() + 'iframe"'
               + ' class="tobago-menuBar-subitem-iframe" '
               + ' style="display: none; visibility: hidden;"'
               + ' frameborder="0" scrolling="no" ></iframe>';
