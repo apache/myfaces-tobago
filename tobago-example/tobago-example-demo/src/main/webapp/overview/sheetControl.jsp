@@ -35,75 +35,74 @@
           <tc:toolBar >
             <tc:toolBarCommand action="#{overviewController.sheetConfig.configSheet}"
                                label="#"
-                               tip="#{overviewBundle.sheet_configTip}">
-              <f:facet name="popup" >
-                <tc:popup width="300" height="250"
-                    rendered="#{overviewController.sheetConfig.sheetConfigPopup}">
-                  <tc:box label="#{overviewBundle.sheet_configTitle}" >
+                               tip="#{overviewBundle.sheet_configTip}" />
+            <f:facet name="popup" >
+              <tc:popup width="300" height="250"
+                        rendered="#{overviewController.sheetConfig.sheetConfigPopup}">
+                <tc:box label="#{overviewBundle.sheet_configTitle}" >
+                  <f:facet name="layout">
+                    <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*;fixed"/>
+                  </f:facet>
+                  <tx:selectOneChoice label="showHeader"
+                                      value="#{overviewController.sheetConfig.sheetShowHeader}"
+                                      tip="TODO: show Header Text">
+                    <f:selectItem itemValue="#{true}" itemLabel="True" />
+                    <f:selectItem itemValue="#{false}" itemLabel="False" />
+                  </tx:selectOneChoice>
+                  <tx:in label="pagingStart"
+                         value="#{overviewController.sheetConfig.sheetPagingStart}"
+                         tip="TODO: paging Start Text" >
+                    <f:validateLongRange minimum="0" />
+                  </tx:in>
+                  <tx:in label="pagingLength"
+                         value="#{overviewController.sheetConfig.sheetPagingLength}"
+                         tip="TODO: paging Lenght Text" >
+                    <f:validateLongRange minimum="1" />
+                  </tx:in>
+
+                  <tx:selectOneChoice label="showRowRange"
+                                      value="#{overviewController.sheetConfig.sheetRowPagingPosition}"
+                                      tip="TODO: paging DirectLinkCount Text" >
+                    <f:selectItems value="#{overviewController.sheetConfig.sheetPagingPositionItems}" />
+                  </tx:selectOneChoice>
+
+                  <tx:selectOneChoice label="showPageRange"
+                                      value="#{overviewController.sheetConfig.sheetPagePagingPosition}"
+                                      tip="TODO: paging DirectLinkCount Text" >
+                    <f:selectItems value="#{overviewController.sheetConfig.sheetPagingPositionItems}" />
+                  </tx:selectOneChoice>
+
+                  <tx:selectOneChoice label="showDirectLinks"
+                                      value="#{overviewController.sheetConfig.sheetDirectPagingPosition}"
+                                      tip="TODO: paging DirectLinkCount Text" >
+                    <f:selectItems value="#{overviewController.sheetConfig.sheetPagingPositionItems}" />
+                  </tx:selectOneChoice>
+
+                  <tx:selectOneChoice label="directLinkCount"
+                                      value="#{overviewController.sheetConfig.sheetDirectLinkCount}"
+                                      tip="TODO: paging DirectLinkCount Text" >
+                    <f:selectItems value="#{overviewController.sheetConfig.sheetDirectLinkCountItems}" />
+                  </tx:selectOneChoice>
+
+                  <tc:cell />
+
+                  <tc:cell>
                     <f:facet name="layout">
-                      <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*;fixed"/>
+                      <tc:gridLayout columns="100px;1*;100px"
+                                     marginLeft="10px" marginRight="10px"/>
                     </f:facet>
-                    <tx:selectOneChoice label="showHeader"
-                        value="#{overviewController.sheetConfig.sheetShowHeader}"
-                        tip="TODO: show Header Text">
-                       <f:selectItem itemValue="#{true}" itemLabel="True" />
-                       <f:selectItem itemValue="#{false}" itemLabel="False" />
-                    </tx:selectOneChoice>
-                    <tx:in label="pagingStart"
-                      value="#{overviewController.sheetConfig.sheetPagingStart}"
-                        tip="TODO: paging Start Text" >
-                      <f:validateLongRange minimum="0" />
-                    </tx:in>
-                    <tx:in label="pagingLength"
-                      value="#{overviewController.sheetConfig.sheetPagingLength}"
-                        tip="TODO: paging Lenght Text" >
-                      <f:validateLongRange minimum="1" />
-                    </tx:in>
-
-                    <tx:selectOneChoice label="showRowRange"
-                      value="#{overviewController.sheetConfig.sheetRowPagingPosition}"
-                        tip="TODO: paging DirectLinkCount Text" >
-                      <f:selectItems value="#{overviewController.sheetConfig.sheetPagingPositionItems}" />
-                    </tx:selectOneChoice>
-
-                    <tx:selectOneChoice label="showPageRange"
-                      value="#{overviewController.sheetConfig.sheetPagePagingPosition}"
-                        tip="TODO: paging DirectLinkCount Text" >
-                      <f:selectItems value="#{overviewController.sheetConfig.sheetPagingPositionItems}" />
-                    </tx:selectOneChoice>
-
-                    <tx:selectOneChoice label="showDirectLinks"
-                      value="#{overviewController.sheetConfig.sheetDirectPagingPosition}"
-                        tip="TODO: paging DirectLinkCount Text" >
-                      <f:selectItems value="#{overviewController.sheetConfig.sheetPagingPositionItems}" />
-                    </tx:selectOneChoice>
-
-                    <tx:selectOneChoice label="directLinkCount"
-                      value="#{overviewController.sheetConfig.sheetDirectLinkCount}"
-                        tip="TODO: paging DirectLinkCount Text" >
-                      <f:selectItems value="#{overviewController.sheetConfig.sheetDirectLinkCountItems}" />
-                    </tx:selectOneChoice>
+                    <tc:button action="#{overviewController.sheetConfig.configSheet}"
+                               immediate="true"
+                               label="Cancel" />
 
                     <tc:cell />
+                    <tc:button action="#{overviewController.sheetConfig.configSheet}"
+                               label="Ok" />
+                  </tc:cell>
 
-                    <tc:cell>
-                      <f:facet name="layout">
-                        <tc:gridLayout columns="100px;1*;100px"
-                            marginLeft="10px" marginRight="10px"/>
-                      </f:facet>
-                      <tc:button action="#{overviewController.sheetConfig.configSheet}"
-                                 immediate="true"
-                                 label="Cancel" />
-
-                      <tc:cell />
-                      <tc:button action="#{overviewController.sheetConfig.configSheet}"
-                                 label="Ok" />
-                    </tc:cell>
-
-                  </tc:box>
-                </tc:popup>
+                </tc:box>
+              </tc:popup>
               </f:facet>
-            </tc:toolBarCommand>
           </tc:toolBar>
         </f:facet>
 
