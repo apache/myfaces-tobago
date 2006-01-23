@@ -91,7 +91,7 @@ public class OverviewController {
     treeSelectMode = TREE_SELECT_MODE_KEYS[0];
     treeListboxSelectMode = TREELISTBOX_SELECT_MODE_KEYS[0];
     multiValue = new String[0];
-    treeTabsState = new Integer(0);
+    treeTabsState = 0;
     sheetConfig = new SheetConfig();
   }
 
@@ -244,9 +244,9 @@ public class OverviewController {
     this.sheetConfig = sheetConfig;
   }
 
-  public List getInputSuggestItems(String prefix) {
+  public List<String> getInputSuggestItems(String prefix) {
     LOG.info("createing items for prefix :\"" + prefix + "\"");
-    List li = new ArrayList();
+    List<String> li = new ArrayList<String>();
     li.add(prefix+1);
     li.add(prefix+2);
     li.add(prefix+3);
