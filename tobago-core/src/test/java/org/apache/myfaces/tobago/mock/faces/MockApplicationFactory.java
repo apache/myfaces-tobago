@@ -19,8 +19,6 @@
  */
 package org.apache.myfaces.tobago.mock.faces;
 
-import org.apache.myfaces.tobago.mock.faces.MockApplication;
-
 import javax.faces.application.Application;
 import javax.faces.application.ApplicationFactory;
 

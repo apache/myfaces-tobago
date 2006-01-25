@@ -21,18 +21,18 @@ package org.apache.myfaces.tobago.mock.servlet;
 
 import org.apache.commons.collections.iterators.IteratorEnumeration;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpSession;
-import javax.servlet.ServletInputStream;
 import javax.servlet.RequestDispatcher;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Enumeration;
-import java.util.Locale;
-import java.io.IOException;
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.security.Principal;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class MockHttpServletRequest implements HttpServletRequest {
 // ----------------------------------------------------------------- attributes

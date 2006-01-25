@@ -19,10 +19,10 @@
  */
 package org.apache.myfaces.tobago.renderkit;
 
+import junit.framework.TestCase;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
-
-import junit.framework.TestCase;
 
 public class LabelWithAccessKeyUnitTest extends TestCase {
 

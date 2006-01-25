@@ -13,11 +13,12 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  * 
- * $Id: $
+ * $Id$
  */
 package org.apache.myfaces.tobago.component;
 
 import junit.framework.TestCase;
+
 import javax.faces.model.ArrayDataModel;
 
 /**

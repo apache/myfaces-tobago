@@ -19,7 +19,19 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FIRST;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FORCE_VERTICAL_SCROLLBAR;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DIRECT_LINKS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_HEADER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_PAGE_RANGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROW_RANGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VAR;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;

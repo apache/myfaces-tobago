@@ -19,10 +19,10 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import org.apache.myfaces.tobago.mock.servlet.MockPageContext;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.mock.servlet.MockPageContext;
 import org.xml.sax.SAXException;
 
 import javax.servlet.jsp.tagext.Tag;

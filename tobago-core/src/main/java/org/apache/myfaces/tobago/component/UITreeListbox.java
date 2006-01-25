@@ -17,7 +17,10 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT_DEFAULT;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_GRID_LAYOUT;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 
 import javax.faces.component.UIComponent;

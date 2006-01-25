@@ -19,19 +19,19 @@
  */
 package org.apache.myfaces.tobago.mock.faces;
 
-import javax.faces.el.ValueBinding;
+import javax.faces.application.Application;
+import javax.faces.component.StateHolder;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.PropertyNotFoundException;
-import javax.faces.el.VariableResolver;
 import javax.faces.el.PropertyResolver;
 import javax.faces.el.ReferenceSyntaxException;
-import javax.faces.component.StateHolder;
-import javax.faces.application.Application;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ExternalContext;
+import javax.faces.el.ValueBinding;
+import javax.faces.el.VariableResolver;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
 
 /**
  * <p>Mock implementation of {@link javax.faces.el.ValueBinding} that supports a limited

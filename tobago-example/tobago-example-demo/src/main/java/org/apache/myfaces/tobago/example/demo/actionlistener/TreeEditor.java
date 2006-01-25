@@ -19,9 +19,9 @@
  */
 package org.apache.myfaces.tobago.example.demo.actionlistener;
 
-import org.apache.myfaces.tobago.example.demo.TobagoDemoController;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.DefaultTreeActionListener;
+import org.apache.myfaces.tobago.example.demo.TobagoDemoController;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;

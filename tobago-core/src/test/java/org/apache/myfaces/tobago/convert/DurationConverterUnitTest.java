@@ -19,10 +19,8 @@
  */
 package org.apache.myfaces.tobago.convert;
 
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 import junit.framework.TestCase;
-
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_UNIT;
 import org.apache.myfaces.tobago.component.UIInput;
 
 import javax.faces.convert.Converter;

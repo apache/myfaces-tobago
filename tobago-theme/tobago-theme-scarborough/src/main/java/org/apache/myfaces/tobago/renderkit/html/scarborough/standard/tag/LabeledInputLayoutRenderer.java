@@ -17,7 +17,10 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_PICKER;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_PICKER_POPUP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;

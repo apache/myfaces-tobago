@@ -21,6 +21,13 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_ORDER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_PICKER;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.renderkit.LabeledLayoutRender;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -30,7 +37,6 @@ import org.apache.myfaces.tobago.util.LayoutUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class UILabeledInputLayout extends UILayout {
   private static final Log LOG = LogFactory.getLog(UILabeledInputLayout.class);

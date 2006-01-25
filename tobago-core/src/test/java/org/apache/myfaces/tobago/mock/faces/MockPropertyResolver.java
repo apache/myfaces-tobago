@@ -21,11 +21,11 @@ package org.apache.myfaces.tobago.mock.faces;
 
 import org.apache.commons.beanutils.PropertyUtils;
 
-import javax.faces.el.PropertyResolver;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.PropertyNotFoundException;
-import java.util.Map;
+import javax.faces.el.PropertyResolver;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 
 /**
  * <p>Mock implementation of {@link javax.faces.el.PropertyResolver} that supports a limited

@@ -16,22 +16,22 @@
 
 package org.apache.myfaces.tobago.taglib.extension;
 
-import org.apache.myfaces.tobago.taglib.decl.HasValue;
-import org.apache.myfaces.tobago.taglib.decl.HasValidator;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.taglib.component.TimeTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
-import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
-import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-import org.apache.myfaces.tobago.taglib.decl.IsRequired;
-import org.apache.myfaces.tobago.taglib.decl.HasTip;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+import org.apache.myfaces.tobago.taglib.decl.HasTip;
+import org.apache.myfaces.tobago.taglib.decl.HasValidator;
+import org.apache.myfaces.tobago.taglib.decl.HasValue;
+import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
-import org.apache.myfaces.tobago.taglib.component.TimeTag;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
+import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
-import javax.servlet.jsp.tagext.BodyTagSupport;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /*
  * Created by IntelliJ IDEA.

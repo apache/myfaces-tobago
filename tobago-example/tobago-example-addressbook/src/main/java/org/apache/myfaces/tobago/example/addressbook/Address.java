@@ -22,9 +22,9 @@ package org.apache.myfaces.tobago.example.addressbook;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.io.File;
 import java.util.Date;
 import java.util.Locale;
-import java.io.File;
 
 public class Address {
 

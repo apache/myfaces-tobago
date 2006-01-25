@@ -15,8 +15,6 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
-
 /**
  * Created: Aug 5, 2005 3:30:35 PM
  * User: bommel

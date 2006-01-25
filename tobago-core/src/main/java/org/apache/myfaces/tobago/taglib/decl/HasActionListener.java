@@ -15,9 +15,9 @@
  */
 package org.apache.myfaces.tobago.taglib.decl;
 
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 
 /**
  * $Id$

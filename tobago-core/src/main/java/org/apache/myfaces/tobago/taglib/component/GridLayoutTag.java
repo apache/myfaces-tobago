@@ -19,7 +19,16 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BORDER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CELLSPACING;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN_BOTTOM;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN_LEFT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN_RIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN_TOP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_ROWS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;

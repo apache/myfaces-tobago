@@ -20,14 +20,14 @@
 package org.apache.myfaces.tobago.mock.faces;
 
 import javax.servlet.http.HttpSession;
-import java.util.Map;
-import java.util.Iterator;
-import java.util.Enumeration;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Collection;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 final class MockSessionMap implements Map {
 

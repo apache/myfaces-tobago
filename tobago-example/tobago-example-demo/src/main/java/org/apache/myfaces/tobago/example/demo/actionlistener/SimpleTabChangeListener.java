@@ -15,11 +15,10 @@
  */
 package org.apache.myfaces.tobago.example.demo.actionlistener;
 
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
-
-import org.apache.myfaces.tobago.event.TabChangeListener;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
+import org.apache.myfaces.tobago.event.TabChangeListener;
 
 /**
  * User: weber

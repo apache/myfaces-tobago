@@ -19,7 +19,14 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.taglib.decl.*;
+import org.apache.myfaces.tobago.taglib.decl.HasBinding;
+import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.HasOnchangeListener;
+import org.apache.myfaces.tobago.taglib.decl.HasRenderRange;
+import org.apache.myfaces.tobago.taglib.decl.HasValue;
+import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.IsInline;
+import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 
 /*
  * Created: Aug 5, 2005 6:11:03 PM

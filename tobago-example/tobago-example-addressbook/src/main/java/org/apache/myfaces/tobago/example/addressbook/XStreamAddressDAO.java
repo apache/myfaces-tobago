@@ -19,19 +19,18 @@
  */
 package org.apache.myfaces.tobago.example.addressbook;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.FileWriter;
 import java.io.File;
-
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class XStreamAddressDAO implements AddressDAO {
 

@@ -19,21 +19,21 @@
  */
 package org.apache.myfaces.tobago.mock.faces;
 
-import javax.faces.context.ExternalContext;
 import javax.faces.FacesException;
+import javax.faces.context.ExternalContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
-import java.util.Enumeration;
-import java.net.URL;
-import java.net.MalformedURLException;
-import java.io.InputStream;
-import java.io.IOException;
 
 public class MockExternalContext extends ExternalContext {
 

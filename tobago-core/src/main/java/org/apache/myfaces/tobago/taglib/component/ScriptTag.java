@@ -24,9 +24,9 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 
+import javax.faces.context.FacesContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
-import javax.faces.context.FacesContext;
 
 /**
  * This tag add client side script to the rendered page.

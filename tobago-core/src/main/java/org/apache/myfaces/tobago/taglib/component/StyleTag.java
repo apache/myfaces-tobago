@@ -27,9 +27,9 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 
+import javax.faces.context.FacesContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
-import javax.faces.context.FacesContext;
 
 /**
  * Add a style tag.

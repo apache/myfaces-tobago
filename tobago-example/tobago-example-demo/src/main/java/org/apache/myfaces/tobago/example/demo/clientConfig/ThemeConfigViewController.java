@@ -24,7 +24,11 @@ import org.apache.commons.collections.keyvalue.DefaultKeyValue;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BUTTON;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_IN;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LINK;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_ONE_RADIO;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 
 import javax.faces.component.UIComponent;

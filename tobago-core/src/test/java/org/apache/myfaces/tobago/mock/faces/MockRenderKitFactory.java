@@ -19,12 +19,12 @@
  */
 package org.apache.myfaces.tobago.mock.faces;
 
+import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
-import javax.faces.context.FacesContext;
-import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 public class MockRenderKitFactory extends RenderKitFactory {
 

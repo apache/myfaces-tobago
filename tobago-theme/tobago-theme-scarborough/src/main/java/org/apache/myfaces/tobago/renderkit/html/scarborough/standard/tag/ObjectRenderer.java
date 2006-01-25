@@ -15,6 +15,8 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -22,12 +24,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-
-/**
- * User: weber
- * Date: Jun 20, 2005
- * Time: 5:02:57 PM
- */import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class ObjectRenderer extends RendererBase {
   public void encodeEndTobago(FacesContext facesContext, UIComponent component)

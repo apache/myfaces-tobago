@@ -19,8 +19,8 @@
  */
 package org.apache.myfaces.tobago.mock.faces;
 
-import javax.faces.webapp.UIComponentTag;
 import javax.faces.component.UIViewRoot;
+import javax.faces.webapp.UIComponentTag;
 
 public class MockViewTag extends UIComponentTag {
 

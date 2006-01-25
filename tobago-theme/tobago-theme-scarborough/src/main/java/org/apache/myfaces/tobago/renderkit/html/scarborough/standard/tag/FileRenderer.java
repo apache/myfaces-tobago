@@ -22,6 +22,10 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
@@ -36,7 +40,6 @@ import javax.faces.convert.ConverterException;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class FileRenderer extends InputRendererBase {
 

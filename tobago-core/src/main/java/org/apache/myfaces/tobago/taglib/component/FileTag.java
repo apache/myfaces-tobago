@@ -19,12 +19,12 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ENCTYPE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.jsp.JspException;
 

@@ -25,7 +25,6 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
 
 public class AddressConverter implements Converter {
 

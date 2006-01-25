@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.mock.servlet;
 
 import javax.servlet.jsp.JspWriter;
-import java.io.PrintWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class MockJspWriter extends JspWriter {
 

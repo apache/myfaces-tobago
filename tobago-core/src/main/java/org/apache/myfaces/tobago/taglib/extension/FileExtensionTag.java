@@ -15,13 +15,13 @@
  */
 package org.apache.myfaces.tobago.taglib.extension;
 
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.taglib.component.FileTag;
 import org.apache.myfaces.tobago.taglib.component.InputTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-import org.apache.myfaces.tobago.taglib.decl.HasLabel;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;

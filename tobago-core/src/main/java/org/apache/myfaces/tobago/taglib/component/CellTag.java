@@ -17,7 +17,11 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_DIRECTIVE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SCROLLBARS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SPAN_X;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SPAN_Y;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_PANEL;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;

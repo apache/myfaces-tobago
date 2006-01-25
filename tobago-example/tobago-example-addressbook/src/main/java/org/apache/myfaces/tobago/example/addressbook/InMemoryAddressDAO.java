@@ -22,10 +22,10 @@ package org.apache.myfaces.tobago.example.addressbook;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 public class InMemoryAddressDAO implements AddressDAO {
 

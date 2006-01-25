@@ -21,7 +21,14 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_INNER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_TOOL_BAR;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;

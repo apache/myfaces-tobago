@@ -20,8 +20,6 @@
 package org.apache.myfaces.tobago.taglib.component;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDER_RANGE;
-import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;

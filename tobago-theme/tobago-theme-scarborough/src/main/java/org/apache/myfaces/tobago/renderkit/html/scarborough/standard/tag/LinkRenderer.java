@@ -21,7 +21,17 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TYPE;
+import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_NAVIGATE;
+import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_RESET;
+import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_SCRIPT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;

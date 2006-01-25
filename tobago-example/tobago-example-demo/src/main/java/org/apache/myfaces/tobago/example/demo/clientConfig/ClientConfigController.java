@@ -19,11 +19,11 @@
  */
 package org.apache.myfaces.tobago.example.demo.clientConfig;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.application.Application;
 import javax.faces.context.FacesContext;

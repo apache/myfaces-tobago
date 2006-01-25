@@ -22,9 +22,9 @@ package org.apache.myfaces.tobago.model;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.Serializable;
 // TODO find a better solution for this 
 public class SheetState implements Serializable {
 

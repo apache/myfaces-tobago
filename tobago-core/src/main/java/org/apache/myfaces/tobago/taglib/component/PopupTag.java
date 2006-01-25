@@ -19,7 +19,10 @@
   */
 package org.apache.myfaces.tobago.taglib.component;
 
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LEFT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TOP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;

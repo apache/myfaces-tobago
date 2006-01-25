@@ -29,8 +29,8 @@ import javax.servlet.jsp.el.VariableResolver;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 public class MockPageContext extends PageContext {
 

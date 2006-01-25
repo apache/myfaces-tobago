@@ -22,7 +22,10 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SWITCH_TYPE;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;

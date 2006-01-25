@@ -19,9 +19,9 @@
  */
 package org.apache.myfaces.tobago.example.demo.overview;
 
-import org.apache.myfaces.tobago.example.demo.jsp.JspFormatter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.example.demo.jsp.JspFormatter;
 
 import javax.faces.component.UICommand;
 import javax.faces.context.ExternalContext;

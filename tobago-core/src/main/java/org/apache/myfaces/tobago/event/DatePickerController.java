@@ -17,7 +17,11 @@ package org.apache.myfaces.tobago.event;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LEFT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TOP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_PICKER_POPUP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 

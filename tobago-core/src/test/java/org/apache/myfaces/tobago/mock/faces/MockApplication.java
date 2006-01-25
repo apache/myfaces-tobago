@@ -19,26 +19,26 @@
  */
 package org.apache.myfaces.tobago.mock.faces;
 
+import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.application.NavigationHandler;
-import javax.faces.application.ViewHandler;
 import javax.faces.application.StateManager;
-import javax.faces.event.ActionListener;
-import javax.faces.el.PropertyResolver;
-import javax.faces.el.VariableResolver;
-import javax.faces.el.ValueBinding;
-import javax.faces.el.MethodBinding;
-import javax.faces.el.ReferenceSyntaxException;
+import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
-import javax.faces.FacesException;
-import javax.faces.validator.Validator;
-import javax.faces.convert.Converter;
 import javax.faces.context.FacesContext;
-import java.util.Locale;
-import java.util.Iterator;
+import javax.faces.convert.Converter;
+import javax.faces.el.MethodBinding;
+import javax.faces.el.PropertyResolver;
+import javax.faces.el.ReferenceSyntaxException;
+import javax.faces.el.ValueBinding;
+import javax.faces.el.VariableResolver;
+import javax.faces.event.ActionListener;
+import javax.faces.validator.Validator;
 import java.util.Collection;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
 
 public class MockApplication extends Application {
 // ----------------------------------------------------------------- attributes

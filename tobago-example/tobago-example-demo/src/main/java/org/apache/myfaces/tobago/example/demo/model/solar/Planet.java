@@ -19,8 +19,8 @@
  */
 package org.apache.myfaces.tobago.example.demo.model.solar;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Planet {
 

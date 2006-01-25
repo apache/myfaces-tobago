@@ -22,6 +22,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MUTABLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_NAME;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
@@ -40,7 +43,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class TreeNodeRenderer extends RendererBase {
 

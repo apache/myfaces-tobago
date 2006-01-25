@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
@@ -33,7 +34,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.List;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 

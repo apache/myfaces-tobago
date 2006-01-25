@@ -19,6 +19,9 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -29,8 +32,6 @@ import javax.faces.component.UIInput;
 import javax.faces.component.UISelectBoolean;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class SelectBooleanCheckboxRenderer extends RendererBase {
 

@@ -20,7 +20,13 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACCESS_KEY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;

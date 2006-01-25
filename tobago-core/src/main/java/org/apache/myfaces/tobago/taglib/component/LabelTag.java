@@ -19,7 +19,10 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACCESS_KEY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UILabel;
 

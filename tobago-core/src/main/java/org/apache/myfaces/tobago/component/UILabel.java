@@ -23,9 +23,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
 
-import javax.faces.context.FacesContext;
-import javax.faces.component.UIOutput;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class UILabel extends UIOutput {

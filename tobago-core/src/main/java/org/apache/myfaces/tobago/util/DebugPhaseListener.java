@@ -19,9 +19,9 @@ package org.apache.myfaces.tobago.util;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.event.PhaseListener;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
+import javax.faces.event.PhaseListener;
 
 /**
  * Created by IntelliJ IDEA.

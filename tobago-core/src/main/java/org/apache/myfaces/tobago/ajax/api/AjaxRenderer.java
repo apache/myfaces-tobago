@@ -15,8 +15,8 @@
  */
 package org.apache.myfaces.tobago.ajax.api;
 
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 /**

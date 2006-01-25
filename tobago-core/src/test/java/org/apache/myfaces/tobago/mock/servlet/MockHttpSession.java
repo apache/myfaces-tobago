@@ -21,12 +21,12 @@ package org.apache.myfaces.tobago.mock.servlet;
 
 import org.apache.commons.collections.iterators.IteratorEnumeration;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionContext;
-import javax.servlet.ServletContext;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MockHttpSession implements HttpSession {
 

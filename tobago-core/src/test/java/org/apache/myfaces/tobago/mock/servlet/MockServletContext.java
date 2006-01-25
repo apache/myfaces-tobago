@@ -20,14 +20,14 @@
 package org.apache.myfaces.tobago.mock.servlet;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.Servlet;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Enumeration;
 import java.util.Set;
-import java.net.URL;
-import java.net.MalformedURLException;
-import java.io.InputStream;
 
 public class MockServletContext implements ServletContext {
 

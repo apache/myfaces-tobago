@@ -19,9 +19,9 @@
  */
 package org.apache.myfaces.tobago.example.demo.jsp;
 
-import org.apache.myfaces.tobago.util.XmlUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.util.XmlUtils;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 

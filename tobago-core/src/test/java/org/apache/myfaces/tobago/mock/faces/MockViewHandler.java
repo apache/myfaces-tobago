@@ -19,13 +19,13 @@
  */
 package org.apache.myfaces.tobago.mock.faces;
 
-import javax.faces.application.ViewHandler;
-import javax.faces.context.FacesContext;
-import javax.faces.component.UIViewRoot;
 import javax.faces.FacesException;
+import javax.faces.application.ViewHandler;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKitFactory;
-import java.util.Locale;
 import java.io.IOException;
+import java.util.Locale;
 
 public class MockViewHandler extends ViewHandler {
 

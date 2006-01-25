@@ -21,7 +21,13 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_LIST_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_HEADER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;

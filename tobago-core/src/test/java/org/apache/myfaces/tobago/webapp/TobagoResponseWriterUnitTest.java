@@ -16,13 +16,11 @@
 package org.apache.myfaces.tobago.webapp;
 
 import junit.framework.TestCase;
-
-import java.io.StringWriter;
-import java.io.IOException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+
+import java.io.IOException;
+import java.io.StringWriter;
 
 public class TobagoResponseWriterUnitTest extends TestCase {
 

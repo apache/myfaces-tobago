@@ -17,7 +17,20 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.taglib.decl.*;
+import org.apache.myfaces.tobago.taglib.decl.HasConverter;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.HasOnchangeListener;
+import org.apache.myfaces.tobago.taglib.decl.HasSuggestMethod;
+import org.apache.myfaces.tobago.taglib.decl.HasTip;
+import org.apache.myfaces.tobago.taglib.decl.HasValue;
+import org.apache.myfaces.tobago.taglib.decl.HasWidth;
+import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.IsFocus;
+import org.apache.myfaces.tobago.taglib.decl.IsInline;
+import org.apache.myfaces.tobago.taglib.decl.IsPassword;
+import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
+import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
 /*
  * Created: Aug 5, 2005 4:53:25 PM

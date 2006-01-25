@@ -21,7 +21,14 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HIDDEN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TITLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;

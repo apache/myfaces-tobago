@@ -19,7 +19,10 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CREATE_SPAN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;

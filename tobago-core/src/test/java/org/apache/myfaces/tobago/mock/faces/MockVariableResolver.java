@@ -19,9 +19,9 @@
  */
 package org.apache.myfaces.tobago.mock.faces;
 
-import javax.faces.el.VariableResolver;
-import javax.faces.context.FacesContext;
 import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.el.VariableResolver;
 import java.util.Map;
 
 /**

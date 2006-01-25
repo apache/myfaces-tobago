@@ -15,12 +15,7 @@
  */
 package org.apache.myfaces.tobago.taglib.component;
 
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
-
-import javax.faces.component.UIComponent;
-import javax.servlet.jsp.JspException;
 
 /**
  * User: weber

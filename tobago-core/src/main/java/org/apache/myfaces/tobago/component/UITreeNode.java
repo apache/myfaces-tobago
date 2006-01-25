@@ -23,7 +23,10 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ID_REFERENCE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_NAME;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_NAME_REFERENCE;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_TREE_NODE;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;

@@ -21,6 +21,12 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BORDER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -32,7 +38,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class ImageRenderer extends RendererBase {
   

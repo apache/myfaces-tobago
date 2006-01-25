@@ -32,8 +32,8 @@ import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Set;
-import java.util.zip.ZipInputStream;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public class ResourceManagerFactory {
 

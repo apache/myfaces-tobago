@@ -19,22 +19,22 @@
  */
 package org.apache.myfaces.tobago.mock.faces;
 
-import javax.faces.render.RenderKit;
-import javax.faces.render.Renderer;
-import javax.faces.render.ResponseStateManager;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIPanel;
-import javax.faces.component.UIComponent;
-import javax.faces.context.ResponseWriter;
-import javax.faces.context.ResponseStream;
 import javax.faces.context.FacesContext;
-import java.util.Map;
-import java.util.HashMap;
-import java.io.Writer;
-import java.io.OutputStream;
+import javax.faces.context.ResponseStream;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.RenderKit;
+import javax.faces.render.Renderer;
+import javax.faces.render.ResponseStateManager;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MockRenderKit extends RenderKit {
 

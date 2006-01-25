@@ -21,10 +21,14 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_DEFAULT_LAYOUT;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class UIDefaultLayout extends UILayout {
   private static final Log LOG = LogFactory.getLog(UIDefaultLayout.class);

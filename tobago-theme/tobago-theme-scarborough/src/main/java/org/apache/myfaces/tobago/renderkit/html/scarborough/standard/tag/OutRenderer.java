@@ -19,6 +19,10 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CREATE_SPAN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -27,7 +31,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.StringTokenizer;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 public class OutRenderer extends RendererBase {
 

@@ -19,8 +19,6 @@
  */
 package org.apache.myfaces.tobago.example.demo.jsp;
 
-import org.apache.myfaces.tobago.example.demo.jsp.JspTagConverter;
-
 import javax.servlet.jsp.JspWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

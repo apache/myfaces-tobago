@@ -15,8 +15,8 @@
  */
 package org.apache.myfaces.tobago.example.foreach;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BirdList {
 

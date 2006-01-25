@@ -21,7 +21,11 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACCESS_KEY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;

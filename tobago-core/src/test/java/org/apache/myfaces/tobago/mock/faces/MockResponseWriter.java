@@ -19,10 +19,10 @@
  */
 package org.apache.myfaces.tobago.mock.faces;
 
-import javax.faces.context.ResponseWriter;
 import javax.faces.component.UIComponent;
-import java.io.Writer;
+import javax.faces.context.ResponseWriter;
 import java.io.IOException;
+import java.io.Writer;
 
 public class MockResponseWriter extends ResponseWriter {
 

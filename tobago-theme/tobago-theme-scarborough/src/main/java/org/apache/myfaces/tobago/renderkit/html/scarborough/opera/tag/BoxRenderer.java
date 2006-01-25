@@ -19,7 +19,10 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.scarborough.opera.tag;
 
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_INNER;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;

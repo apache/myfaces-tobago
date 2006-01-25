@@ -21,7 +21,9 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import org.apache.myfaces.tobago.renderkit.LayoutRenderer;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 

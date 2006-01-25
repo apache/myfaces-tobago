@@ -15,6 +15,12 @@
  */
 package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_PICKER;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -22,15 +28,11 @@ import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Map;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
 
 /**
  * User: weber
