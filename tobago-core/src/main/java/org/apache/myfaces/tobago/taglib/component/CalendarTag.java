@@ -1,3 +1,4 @@
+package org.apache.myfaces.tobago.taglib.component;
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
  * 
@@ -17,7 +18,6 @@
  * Created: Nov 20, 2002 11:30:31 PM
  * $Id$
  */
-package org.apache.myfaces.tobago.taglib.component;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -29,7 +29,6 @@ import javax.faces.component.UIOutput;
 public class CalendarTag extends TobagoTag implements CalendarTagDeclaration {
 
   private String value;
-
 
   public String getComponentType() {
     return UIOutput.COMPONENT_TYPE;

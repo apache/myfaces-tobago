@@ -1,3 +1,4 @@
+package org.apache.myfaces.tobago.taglib.decl;
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
  * 
@@ -13,7 +14,6 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.apache.myfaces.tobago.taglib.decl;
 
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
@@ -26,5 +26,5 @@ public interface HasHeight {
    *  The height for this component.
    */
   @TagAttribute @UIComponentTagAttribute()
-  public void setHeight(String height);
+  void setHeight(String height);
 }

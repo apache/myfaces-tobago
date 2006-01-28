@@ -1,3 +1,4 @@
+package org.apache.myfaces.tobago.taglib.component;
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
  * 
@@ -17,7 +18,6 @@
  * Created: Aug 13, 2002 3:04:03 PM
  * $Id$
  */
-package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -28,26 +28,10 @@ public class SelectOneChoiceTag extends SelectOneTag implements SelectOneChoiceT
 
   private static final Log LOG = LogFactory.getLog(SelectOneChoiceTag.class);
 
-//  public int doEndTag() throws JspException {
-
-//    UIComponent component = getComponentInstance();
-    // TODO remove this: use tx:
-//    if (component.getFacet(FACET_LAYOUT) == null) {
-//      UIComponent layout = ComponentUtil.createLabeledInputLayoutComponent();
-//      component.getFacets().put(FACET_LAYOUT, layout);
-//    }
-//    return super.doEndTag();
-//  }
-
   protected void setProperties(UIComponent component) {
     if (label != null) {
-      LOG.warn("the label attribute is deprecated in tc:selectOneChoice, " +
-          "please use tx:selectOneChoice instead.");
+      LOG.warn("the label attribute is deprecated in tc:selectOneChoice, please use tx:selectOneChoice instead.");
     }
     super.setProperties(component);
-  }
-
-  public void setRequired(String required) {
-    super.setRequired(required);
   }
 }

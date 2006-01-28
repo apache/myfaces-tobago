@@ -1,3 +1,4 @@
+package org.apache.myfaces.tobago.taglib.component;
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
  * 
@@ -13,7 +14,6 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
@@ -31,14 +31,14 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
 /**
  * Renders a progressbar.
  */
-@Tag(name="progress", bodyContent= BodyContent.EMPTY)
-@UIComponentTag(UIComponent="javax.faces.component.UIOutput")
+@Tag(name = "progress", bodyContent = BodyContent.EMPTY)
+@UIComponentTag(UIComponent = "javax.faces.component.UIOutput")
 public interface ProgressTagDeclaration extends BeanTagDeclaration, HasIdBindingAndRendered, HasTip {
 
   /**
    * The current value of this component.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type={"javax.swing.BoundedRangeModel"})
+  @UIComponentTagAttribute(type = { "javax.swing.BoundedRangeModel" } )
   void setValue(String value);
 }

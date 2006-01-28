@@ -1,3 +1,4 @@
+package org.apache.myfaces.tobago.ajax.api;
 /**
  * Copyright 2004 The Apache Software Foundation.
  *
@@ -13,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.tobago.ajax.api;
 
 import javax.faces.context.FacesContext;
 import java.io.IOException;
@@ -25,9 +25,8 @@ import java.io.IOException;
  * @version $Revision: $ $Date: $
  *          <p/>
  */
-public interface AjaxComponent
-{
-    public void encodeAjax(FacesContext context) throws IOException;
+public interface AjaxComponent {
+  void encodeAjax(FacesContext context) throws IOException;
 
-    public void processAjax(FacesContext context) throws IOException;
+  void processAjax(FacesContext context) throws IOException;
 }

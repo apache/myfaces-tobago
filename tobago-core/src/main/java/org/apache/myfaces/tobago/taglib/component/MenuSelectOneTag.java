@@ -1,3 +1,4 @@
+package org.apache.myfaces.tobago.taglib.component;
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
  * 
@@ -17,7 +18,6 @@
   * Created 14.09.2004 at 12:03:45.
   * $Id$
   */
-package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.taglib.decl.HasAction;
