@@ -144,7 +144,7 @@ public class AptMojo extends AbstractAPTMojo
             includes.add( "**/*.java" );
         }
         scanner = new StaleSourceScanner( staleMillis, includes, excludes );
-        if ( targetFiles.size() > 0 )
+        if ( targetFiles!=null && targetFiles.size() > 0 )
         {
             for ( Iterator it = targetFiles.iterator() ; it.hasNext() ; )
             {

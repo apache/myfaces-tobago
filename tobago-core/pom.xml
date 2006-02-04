@@ -68,10 +68,6 @@
 
   <reporting>
     <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jxr-maven-plugin</artifactId>
-      </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -82,18 +78,10 @@
           <excludes>**/package-info.java</excludes>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-      </plugin>
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>surefire-report-maven-plugin</artifactId>
       </plugin>
 
       <plugin>
@@ -104,10 +92,10 @@
           <tags>TODO, FIXME, XXX, @deprecated</tags>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>net.sourceforge.maven-taglib</groupId>
         <artifactId>maven-taglib-plugin</artifactId>
-        <!--version>2.1-SNAPSHOT</version-->
         <configuration>
           <taglib.src.dir>${basedir}/target/classes/META-INF/</taglib.src.dir>
           <tldDocDir>${basedir}/target/site/tlddoc</tldDocDir>

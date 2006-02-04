@@ -3,17 +3,17 @@
 <!--
  * Copyright 2002-2005 The Apache Software Foundation.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -152,30 +152,26 @@
   <reporting>
     <excludeDefaults>true</excludeDefaults>
     <plugins>
+
       <plugin>
-        <inherited>false</inherited>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jxr-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>surefire-report-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>dependencies</report>
-              <report>project-team</report>
-              <report>mailing-list</report>
-              <report>issue-tracking</report>
-              <report>license</report>
-              <report>scm</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-      <!--plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <configuration>
-          <configLocation>org/apache/myfaces/tobago/checkstyle.xml</configLocation>
-        </configuration>
-      </plugin-->
+       </plugin>
 
       <plugin>
         <inherited>false</inherited>
@@ -185,6 +181,7 @@
           <component>12310553</component>
         </configuration>
       </plugin>
+
       <plugin>
         <inherited>false</inherited>
         <groupId>org.codehaus.mojo</groupId>
@@ -192,8 +189,8 @@
         <configuration><basedir>${basedir}</basedir></configuration>
       </plugin>
      
+     </plugins>
 
-    </plugins>
   </reporting>
 
   <dependencies>
@@ -206,7 +203,6 @@
     </dependency>
 
   </dependencies>
-
 
   <scm>
 
@@ -223,6 +219,16 @@
 
   <repositories>
     <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>apache-maven-snapshots</id>
+      <url>http://cvs.apache.org/maven-snapshot-repository</url>
+    </repository>
+    <repository>
       <id>ibiblio</id>
       <url>http://www.ibiblio.org/maven2</url>
     </repository>
@@ -234,9 +240,9 @@
 
   <pluginRepositories>
     <pluginRepository>
-      <!--releases>
+      <releases>
         <enabled>false</enabled>
-      </releases-->
+      </releases>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
@@ -273,11 +279,11 @@
         <artifactId>wagon-ftp</artifactId>
         <version>1.0-alpha-3</version>
       </extension>
-      <!--extension>
-        <groupId>org.apache.myfaces.tobago</groupId>
+      <extension>
+        <groupId>org.apache.myfaces.maven</groupId>
         <artifactId>build-tools</artifactId>
-        <version>${version}</version>
-      </extension-->
+        <version>1.0.0-SNAPSHOT</version>
+      </extension>
     </extensions>
   </build>
 

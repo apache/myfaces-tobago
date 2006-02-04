@@ -11,23 +11,28 @@
   <packaging>jar</packaging>
   <name>Tobago Apt</name>
   <description>Tobago Apt</description>
-  <!-- wait until checkstyle 4.0 is released
+
   <reporting>
     <plugins>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jxr-maven-plugin</artifactId>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.0-beta-1</version>
-       
         <configuration>
-           plugin has no configuration item for own checkstyle rules
-          <propertiesFile>../../src/main/resources/config/tobago_checks.xml</propertiesFile>
+          <configLocation>org/apache/myfaces/tobago/checkstyle.xml</configLocation>
+          <xrefLocation>xref</xrefLocation>
+          <excludes>**/package-info.java</excludes>
         </configuration>
-
       </plugin>
+
     </plugins>
   </reporting>
-  -->
+ 
   <dependencies>
 
     <dependency>

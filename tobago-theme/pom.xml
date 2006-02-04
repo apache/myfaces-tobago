@@ -30,10 +30,6 @@
   <artifactId>tobago-theme</artifactId>
   <reporting>
     <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jxr-maven-plugin</artifactId>
-      </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -44,6 +40,7 @@
           <excludes>**/package-info.java</excludes>
         </configuration>
       </plugin>
+
     </plugins>
   </reporting>
   <modules>
