@@ -16,11 +16,6 @@
     <plugins>
 
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jxr-maven-plugin</artifactId>
-      </plugin>
-
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <configuration>
@@ -32,7 +27,7 @@
 
     </plugins>
   </reporting>
- 
+
   <dependencies>
 
     <dependency>
