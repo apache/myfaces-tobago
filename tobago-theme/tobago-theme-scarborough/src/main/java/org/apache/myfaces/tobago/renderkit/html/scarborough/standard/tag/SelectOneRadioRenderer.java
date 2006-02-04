@@ -1,23 +1,25 @@
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /*
  * Created 07.02.2003 16:00:00.
  * $Id$
  */
-package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,15 +43,8 @@ import java.util.List;
 
 public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
-// ///////////////////////////////////////////// constant
-
   private static final Log LOG = LogFactory.getLog(SelectOneRadioRenderer.class);
 
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
 
   protected void renderMain(FacesContext facesContext, UIComponent input,
                             TobagoResponseWriter writer) throws IOException {
@@ -86,7 +81,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    if (! inline) {
+    if (!inline) {
       writer.startElement("table", component);
       writer.writeAttribute("border", "0", null);
       writer.writeAttribute("cellspacing", "0", null);
@@ -98,7 +93,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     Object value = component.getValue();
     for (SelectItem item : items) {
 
-      if (! inline) {
+      if (!inline) {
         writer.startElement("tr", null);
         writer.startElement("td", null);
       }
@@ -129,7 +124,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       if (item.getLabel() != null) {
 
 
-        if (! inline) {
+        if (!inline) {
           writer.endElement("td");
           writer.startElement("td", null);
         }
@@ -152,12 +147,12 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 //        RenderUtil.encode(label);
 
       }
-      if (! inline) {
+      if (!inline) {
         writer.endElement("td");
         writer.endElement("tr");
       }
     }
-    if (! inline) {
+    if (!inline) {
       writer.endElement("table");
     }
   }
@@ -167,7 +162,6 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         = ComponentUtil.getItemsToRender((UISelectOne) component);
     return items.size() * super.getFixedHeight(facesContext, component);
   }
-// ///////////////////////////////////////////// bean getter + setter
 
 }
 

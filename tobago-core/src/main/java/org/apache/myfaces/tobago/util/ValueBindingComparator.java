@@ -1,5 +1,21 @@
 package org.apache.myfaces.tobago.util;
 
+/*
+ * Copyright 2002-2005 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -9,21 +25,6 @@ import java.text.CollationKey;
 import java.text.Collator;
 import java.util.Comparator;
 import java.util.Map;
-/*
- * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- */
 
 /**
  * Created: Mon Apr 15 15:56:44 2002
@@ -57,14 +58,16 @@ public class ValueBindingComparator implements Comparator  {
     this.reverse = reverse;
   }
 
-  public ValueBindingComparator(FacesContext facesContext, String var, ValueBinding valueBinding, Comparator comparator) {
+  public ValueBindingComparator(FacesContext facesContext, String var,
+      ValueBinding valueBinding, Comparator comparator) {
     this.facesContext = facesContext;
     this.var = var;
     this.valueBinding = valueBinding;
     this.comparator = comparator;
   }
 
-  public ValueBindingComparator(FacesContext facesContext, String var, ValueBinding valueBinding, boolean reverse, Comparator comparator) {
+  public ValueBindingComparator(FacesContext facesContext, String var,
+      ValueBinding valueBinding, boolean reverse, Comparator comparator) {
     this.facesContext = facesContext;
     this.var = var;
     this.valueBinding = valueBinding;
@@ -73,19 +76,30 @@ public class ValueBindingComparator implements Comparator  {
   }
 
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
 
     final ValueBindingComparator that = (ValueBindingComparator) o;
 
-    if (reverse != that.reverse) return false;
-    if (comparator != null ? !comparator.equals(that.comparator) : that.comparator != null)
+    if (reverse != that.reverse) {
       return false;
-    if (facesContext != null ? !facesContext.equals(that.facesContext) : that.facesContext != null)
+    }
+    if (comparator != null ? !comparator.equals(that.comparator) : that.comparator != null) {
       return false;
-    if (valueBinding != null ? !valueBinding.equals(that.valueBinding) : that.valueBinding != null)
+    }
+    if (facesContext != null ? !facesContext.equals(that.facesContext) : that.facesContext != null) {
       return false;
-    if (var != null ? !var.equals(that.var) : that.var != null) return false;
+    }
+    if (valueBinding != null ? !valueBinding.equals(that.valueBinding) : that.valueBinding != null) {
+      return false;
+    }
+    if (var != null ? !var.equals(that.var) : that.var != null) {
+      return false;
+    }
 
     return true;
   }
@@ -134,9 +148,9 @@ public class ValueBindingComparator implements Comparator  {
       }
     }
 
-    if (! obj1.getClass().isInstance(obj2)) {
-      throw new ClassCastException(obj1.getClass().getName() + " != " +
-                                   obj2.getClass().getName());
+    if (!obj1.getClass().isInstance(obj2)) {
+      throw new ClassCastException(obj1.getClass().getName() + " != "
+          + obj2.getClass().getName());
     }
 
     int result;
@@ -144,24 +158,21 @@ public class ValueBindingComparator implements Comparator  {
 
     if (comparator instanceof Collator) {
       CollationKey collationKey1
-          = ((Collator)comparator).getCollationKey(obj1.toString());
+          = ((Collator) comparator).getCollationKey(obj1.toString());
       CollationKey collationKey2
-          = ((Collator)comparator).getCollationKey(obj2.toString());
+          = ((Collator) comparator).getCollationKey(obj2.toString());
       result = collationKey1.compareTo(collationKey2);
 
     } else if (comparator != null) {
       result = comparator.compare(obj1, obj2);
     } else {
       if (obj1 instanceof Comparable) {
-        result = ((Comparable)obj1).compareTo(obj2);
-      }
-      else {
+        result = ((Comparable) obj1).compareTo(obj2);
+      } else {
         result = obj1.toString().compareTo(obj2.toString());
       }
     }
     return reverse ? -result : result;
   }
 
-  // ----------------------------------------------------------- getter + setter
-  
 }

@@ -1,23 +1,20 @@
+package org.apache.myfaces.tobago.component;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-/*
-  * Created 27.04.2004 at 18:33:04.
-  * $Id$
-  */
-package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -69,7 +66,7 @@ public class UIData extends javax.faces.component.UIData
   // TODO: should be removed?
   private Sorter sorter;
 
-  private SheetState state;
+  private SheetState sheetState;
 
   private boolean showHeader = true;
   private boolean showHeaderSet = false;
@@ -92,12 +89,12 @@ public class UIData extends javax.faces.component.UIData
   }
 
   public void setState(SheetState state) {
-    this.state = state;
+    this.sheetState = state;
   }
 
   public SheetState getSheetState(FacesContext facesContext) {
-    if (state != null) {
-      return state;
+    if (sheetState != null) {
+      return sheetState;
     } else {
       ValueBinding stateBinding = getValueBinding(ATTR_STATE);
       if (stateBinding != null) {
@@ -108,14 +105,14 @@ public class UIData extends javax.faces.component.UIData
         }
         return state;
       } else {
-        state = new SheetState();
-        return state;
+        sheetState = new SheetState();
+        return sheetState;
       }
     }
   }
 
   private void ensureColumnWidthList(FacesContext facesContext, SheetState state) {
-    List<Integer> widthList = null;
+    List<Integer> currrentWidthList = null;
     List<UIColumn> columns = getRendererdColumns();
 
     final Map attributes = getAttributes();
@@ -130,14 +127,14 @@ public class UIData extends javax.faces.component.UIData
     }
 
     if (widthListString != null) {
-      widthList = StringUtil.parseIntegerList(widthListString);
+      currrentWidthList = StringUtil.parseIntegerList(widthListString);
     }
-    if (widthList != null && widthList.size() != columns.size()) {
-      widthList = null;
+    if (currrentWidthList != null && currrentWidthList.size() != columns.size()) {
+      currrentWidthList = null;
     }
 
 
-    if (widthList == null) {
+    if (currrentWidthList == null) {
       String columnLayout =
           (String) attributes.get(ATTR_COLUMNS);
       List<UIColumn> allColumns = getAllColumns();
@@ -190,29 +187,28 @@ public class UIData extends javax.faces.component.UIData
           space, layoutTokens, false);
       parseFixedWidth(facesContext, layoutInfo);
       layoutInfo.parseColumnLayout(space);
-      widthList = layoutInfo.getSpaceList();
+      currrentWidthList = layoutInfo.getSpaceList();
 
     }
 
-    if (widthList != null) {
-      if (columns.size() != widthList.size()) {
-        LOG.warn("widthList.size() = " + widthList.size() +
-            " != columns.size() = " + columns.size() + "  widthList : "
-            + LayoutInfo.listToTokenString(widthList));
+    if (currrentWidthList != null) {
+      if (columns.size() != currrentWidthList.size()) {
+        LOG.warn("widthList.size() = " + currrentWidthList.size()
+            + " != columns.size() = " + columns.size() + "  widthList : "
+            + LayoutInfo.listToTokenString(currrentWidthList));
       } else {
-        this.widthList = widthList;
+        this.widthList = currrentWidthList;
       }
     }
   }
 
-  private void parseFixedWidth(FacesContext facesContext, LayoutInfo layoutInfo)
-  {
+  private void parseFixedWidth(FacesContext facesContext, LayoutInfo layoutInfo) {
     String[] tokens = layoutInfo.getLayoutTokens();
     for (int i = 0; i < tokens.length; i++) {
       if (tokens[i].equals("fixed")) {
         int width = 0;
         final List<UIColumn> columns = getRendererdColumns();
-        if (! columns.isEmpty()) {
+        if (!columns.isEmpty()) {
           if (i < columns.size()) {
             UIColumn column = columns.get(i);
             if (column instanceof UIColumnSelector) {
@@ -225,15 +221,14 @@ public class UIData extends javax.faces.component.UIData
               width = renderer.getFixedWidth(facesContext, column);
 
             } else {
-              for (UIComponent component : (List<UIComponent>)column.getChildren()) {
+              for (UIComponent component : (List<UIComponent>) column.getChildren()) {
                 RendererBase renderer
                     = ComponentUtil.getRenderer(facesContext, component);
                 width += renderer.getFixedWidth(facesContext, component);
               }
             }
             layoutInfo.update(width, i);
-          }
-          else {
+          } else {
             layoutInfo.update(0, i);
             if (LOG.isWarnEnabled()) {
               LOG.warn("More LayoutTokens found than rows! skipping!");
@@ -268,8 +263,7 @@ public class UIData extends javax.faces.component.UIData
                 + "Can't set width for column " + i + " to " + width);
           }
         }
-      }
-      else {
+      } else {
         LOG.warn("More columns than columnSizes! "
             + "Can't set width for column " + i);
       }
@@ -288,7 +282,7 @@ public class UIData extends javax.faces.component.UIData
     if ((first % rows) > 0) {
       return (first / rows) + 1;
     } else {
-      return (first / rows) ;
+      return (first / rows);
     }
   }
 
@@ -342,9 +336,9 @@ public class UIData extends javax.faces.component.UIData
   public Object saveState(FacesContext context) {
     Object[] saveState = new Object[5];
     saveState[0] = super.saveState(context);
-    saveState[1] = state;
+    saveState[1] = sheetState;
     saveState[2] = sorter;
-    saveState[3] =  saveAttachedState(context, stateChangeListener);
+    saveState[3] = saveAttachedState(context, stateChangeListener);
     if (showHeaderSet) {
       saveState[4] = showHeader;
     }
@@ -354,7 +348,7 @@ public class UIData extends javax.faces.component.UIData
   public void restoreState(FacesContext context, Object savedState) {
     Object[] values = (Object[]) savedState;
     super.restoreState(context, values[0]);
-    state = (SheetState) values[1];
+    sheetState = (SheetState) values[1];
     sorter = (Sorter) values[2];
     stateChangeListener = (MethodBinding) restoreAttachedState(context, values[3]);
     if (values[4] != null) {
@@ -363,13 +357,12 @@ public class UIData extends javax.faces.component.UIData
     }
   }
 
-// ------------------------------------------------------------ getter + setter
 
   public List<UIColumn> getAllColumns() {
     List<UIColumn> columns = new ArrayList<UIColumn>();
-    for (UIComponent kid : (List<UIComponent>)getChildren()) {
+    for (UIComponent kid : (List<UIComponent>) getChildren()) {
       if (kid instanceof UIColumn) {
-        columns.add((UIColumn)kid);
+        columns.add((UIColumn) kid);
       }
     }
     return columns;
@@ -377,9 +370,9 @@ public class UIData extends javax.faces.component.UIData
 
   public List<UIColumn> getRendererdColumns() {
     List<UIColumn> columns = new ArrayList<UIColumn>();
-    for (UIComponent kid : (List<UIComponent>)getChildren()) {
+    for (UIComponent kid : (List<UIComponent>) getChildren()) {
       if (kid instanceof UIColumn && kid.isRendered()) {
-        columns.add((UIColumn)kid);
+        columns.add((UIColumn) kid);
       }
     }
     return columns;
@@ -413,15 +406,15 @@ public class UIData extends javax.faces.component.UIData
 
   public void broadcast(FacesEvent facesEvent) throws AbortProcessingException {
     super.broadcast(facesEvent);
-    if ( facesEvent instanceof SheetStateChangeEvent) {
+    if (facesEvent instanceof SheetStateChangeEvent) {
       MethodBinding sheetChangeListenerBinding = getStateChangeListener();
       if (sheetChangeListenerBinding != null) {
         try {
-          sheetChangeListenerBinding.invoke(getFacesContext(), new Object[]{(SheetStateChangeEvent)facesEvent});
+          sheetChangeListenerBinding.invoke(getFacesContext(), new Object[]{(SheetStateChangeEvent) facesEvent});
         } catch (EvaluationException e) {
           Throwable cause = e.getCause();
           if (cause != null && cause instanceof AbortProcessingException) {
-            throw (AbortProcessingException)cause;
+            throw (AbortProcessingException) cause;
           } else {
             throw e;
           }
@@ -435,7 +428,7 @@ public class UIData extends javax.faces.component.UIData
   }
 
   public SheetStateChangeListener[] getStateChangeListeners() {
-    return  (SheetStateChangeListener[])getFacesListeners(SheetStateChangeListener.class);
+    return  (SheetStateChangeListener[]) getFacesListeners(SheetStateChangeListener.class);
   }
 
   public void removeStateChangeListener(SheetStateChangeListener listener) {

@@ -1,19 +1,20 @@
+package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,11 +34,8 @@ import java.io.IOException;
  * $Id$
  */
 public class InRenderer extends InputRendererBase {
-// ------------------------------------------------------------------ constants
 
   private static final Log LOG = LogFactory.getLog(InRenderer.class);
-
-// ----------------------------------------------------------- business methods
 
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
@@ -71,7 +69,9 @@ public class InRenderer extends InputRendererBase {
 
     if (label != null) {
       if (!Layout.isInLayout(component)) {
-        FoUtils.startBlockContainer(writer, component);   FoUtils.layoutBlockContainer(writer, FoUtils.DEFAULT_HEIGHT,layout.getWidth()/2, layout.getX(), layout.getY() );
+        FoUtils.startBlockContainer(writer, component);
+        FoUtils.layoutBlockContainer(writer, FoUtils.DEFAULT_HEIGHT,
+            layout.getWidth()/2, layout.getX(), layout.getY());
       }
       RenderUtil.encode(facesContext, label);
       if (!Layout.isInLayout(component)) {
@@ -85,7 +85,9 @@ public class InRenderer extends InputRendererBase {
       text = "";
     }
     if (!Layout.isInLayout(component)) {
-      FoUtils.startBlockContainer(writer, component); FoUtils.layoutBlockContainer(writer, FoUtils.DEFAULT_HEIGHT, layout.getWidth()/2, layout.getX()+layout.getWidth()/2, layout.getY());
+      FoUtils.startBlockContainer(writer, component);
+      FoUtils.layoutBlockContainer(writer, FoUtils.DEFAULT_HEIGHT, 
+          layout.getWidth()/2, layout.getX()+layout.getWidth()/2, layout.getY());
     }
     FoUtils.writeTextBlockAlignLeft(writer, component, "TextBox");
     if (!Layout.isInLayout(component)) {

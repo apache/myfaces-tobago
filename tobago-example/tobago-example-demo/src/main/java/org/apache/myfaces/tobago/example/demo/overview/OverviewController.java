@@ -1,23 +1,25 @@
+package org.apache.myfaces.tobago.example.demo.overview;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /*
  * Created 19.05.2004 18:47:47.
  * $Id: OverviewController.java 1269 2005-08-08 20:20:19 +0200 (Mo, 08 Aug 2005) lofwyr $
  */
-package org.apache.myfaces.tobago.example.demo.overview;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,8 +34,6 @@ import java.util.Date;
 import java.util.List;
 
 public class OverviewController {
-
-// ///////////////////////////////////////////// constant
 
   private static final Log LOG = LogFactory.getLog(OverviewController.class);
 
@@ -56,8 +56,6 @@ public class OverviewController {
     "singleLeafOnly",
     "siblingLeafOnly"
   };
-
-// ///////////////////////////////////////////// attribute
 
   private String radioValue;
 
@@ -83,7 +81,6 @@ public class OverviewController {
 
   private SheetConfig sheetConfig;
 
-// ///////////////////////////////////////////// constructor
 
   public OverviewController() {
     radioValue = ITEM_KEYS[0];
@@ -95,10 +92,6 @@ public class OverviewController {
     sheetConfig = new SheetConfig();
   }
 
-// ///////////////////////////////////////////// action
-
-// ///////////////////////////////////////////// util
-
   private static SelectItem[] getSelectItems(
       String[] keys, ResourceManager resourceManager, String resource) {
     SelectItem[] items = new SelectItem[keys.length];
@@ -106,7 +99,9 @@ public class OverviewController {
       String label = resourceManager.getProperty(
           FacesContext.getCurrentInstance().getViewRoot(), resource, keys[i]);
       LOG.info("label = " + label + "");
-      if (label == null) {label = keys[i];}
+      if (label == null) {
+        label = keys[i];
+      }
       items[i] = new SelectItem(keys[i], label);
     }
     return items;
@@ -117,10 +112,8 @@ public class OverviewController {
   }
 
   public boolean getShowPopup() {
-    return "popupButton".equals(lastAction) || "popupButton2".equals(lastAction) ;
+    return "popupButton".equals(lastAction) || "popupButton2".equals(lastAction);
   }
-
-// ///////////////////////////////////////////// getter + setter
 
   public SelectItem[] getItems() {
     ResourceManager resourceManager = ResourceManagerFactory
@@ -149,8 +142,6 @@ public class OverviewController {
     return getSelectItems(TREELISTBOX_SELECT_MODE_KEYS, resourceManager, "overview");
 
   }
-
-// ///////////////////////////////////////////// bean getter + setter
 
   public String getRadioValue() {
     return radioValue;

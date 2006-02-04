@@ -1,23 +1,20 @@
+package org.apache.myfaces.tobago.renderkit;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-/*
- * Created 07.02.2003 15:44:53.
- * $Id$
- */
-package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -47,12 +44,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-// TODO: in java 1.5 use: import static org.apache.myfaces.tobago.TobagoConstants.*;
 public abstract class RendererBase
     extends Renderer implements TobagoRenderer {
-
-
-// ///////////////////////////////////////////// constant
 
   private static final Log LOG = LogFactory.getLog(RendererBase.class);
 
@@ -62,17 +55,11 @@ public abstract class RendererBase
 
   public static final String END_POSTFIX = "";
 
-// ///////////////////////////////////////////// attribute
+  private String beginSniplet;
 
-  protected String beginSniplet;
+  private String childrenSniplet;
 
-  protected String childrenSniplet;
-
-  protected String endSniplet;
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
+  private String endSniplet;
 
   public void encodeBegin(FacesContext facesContext, UIComponent component)
       throws IOException {
@@ -80,15 +67,6 @@ public abstract class RendererBase
       LOG.debug("*** begin    " + component);
     }
     try {
-      // TODO: this is HTML move in Layout
-
-//      if (! (component instanceof UIPage)) {
-//        LayoutManager layoutManager = getLayoutManager(facesContext, component);
-//
-//        if (layoutManager != null) {
-//          layoutManager.layoutBegin(facesContext, component);
-//        }
-//      }
       encodeBeginTobago(facesContext, component);
     } catch (IOException e) {
       throw e;
@@ -114,27 +92,8 @@ public abstract class RendererBase
     if (component instanceof UIPage) {
       LOG.info("UUUUUUUUUUUUUUUUUUUUU UIPage XXXXXXXXXXXXXXXXXXXXXXXXXXXXxx");
     }
-//    UIComponent layout = null;
-    //if (LayoutUtil.isTransparentForLayout(component)) {
-    //   layout = component.getParent().getFacet("layout");
-    //} else {
-//      layout = component.getFacet("layout");
-    //}
-//    if (layout != null) {
-      // ((LayoutManager)ComponentUtil.getRenderer(layout, facesContext))
-       //     .layoutBegin(facesContext, component);
-//      layout.encodeBegin(facesContext);
-      /*for (Iterator iterator = component.getChildren().iterator(); iterator.hasNext();) {
-        UIComponent child = (UIComponent) iterator.next();
-        ((LayoutManager)ComponentUtil.getRenderer(layout, facesContext))
-            .layoutBegin(facesContext, child);
-      }*/
-//      layout.encodeChildren(facesContext);
-//      layout.encodeEnd(facesContext);
-//    } else {
 
-      encodeChildrenTobago(facesContext, component);
-//    }
+    encodeChildrenTobago(facesContext, component);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("*   children " + component);
@@ -169,9 +128,8 @@ public abstract class RendererBase
 
     // FIXME later:
     if (component instanceof UIInput) {
-      LOG.warn(
-          "decode() should be overwritten! Renderer: " +
-          this.getClass().getName());
+      LOG.warn("decode() should be overwritten! Renderer: "
+          + this.getClass().getName());
     }
   }
 
@@ -311,13 +269,12 @@ public abstract class RendererBase
   /**
    * Normally not needed to overrwrite
    * */
-  public void encodeBeginTobago(
-      FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBeginTobago(FacesContext facesContext,
+      UIComponent component) throws IOException {
   }
 
-  public void encodeChildrenTobago(
-      FacesContext facesContext, UIComponent component)
-      throws IOException {
+  public void encodeChildrenTobago(FacesContext facesContext,
+      UIComponent component) throws IOException {
     for (Iterator i = component.getChildren().iterator(); i.hasNext();) {
       UIComponent child = (UIComponent) i.next();
       //l
@@ -335,8 +292,7 @@ public abstract class RendererBase
     }
   }
 
-  public void encodeEndTobago (
-      FacesContext facesContext,
+  public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
   }
 
@@ -391,7 +347,7 @@ public abstract class RendererBase
     }
     if (converter != null && submittedValue instanceof String) {
       result
-          = converter.getAsObject(context, component, (String)submittedValue);
+          = converter.getAsObject(context, component, (String) submittedValue);
       return result;
     } else {
       throw new ConverterException("type conversion error: "
@@ -403,9 +359,9 @@ public abstract class RendererBase
       FacesContext facesContext, UIComponent component){
     Object value = null;
     if (component instanceof ValueHolder) {
-      value = ((ValueHolder)component).getLocalValue();
+      value = ((ValueHolder) component).getLocalValue();
       if (value == null) {
-        value =  ((ValueHolder)component).getValue();
+        value =  ((ValueHolder) component).getValue();
       }
     }
     return getFormattedValue(facesContext, component, value);
@@ -438,9 +394,5 @@ public abstract class RendererBase
       return converter.getAsString(context, component, currentValue);
     }
   }
-
-
-
-// ///////////////////////////////////////////// bean getter + setter
 
 }

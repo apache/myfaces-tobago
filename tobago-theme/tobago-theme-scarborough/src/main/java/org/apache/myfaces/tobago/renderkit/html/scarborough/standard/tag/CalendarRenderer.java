@@ -1,23 +1,25 @@
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /*
  * Created 07.02.2003 16:00:00.
  * $Id$
  */
-package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -44,15 +46,9 @@ import java.util.Locale;
 
 public class CalendarRenderer extends RendererBase {
 
-// ///////////////////////////////////////////// constant
 
   private static final Log LOG = LogFactory.getLog(CalendarRenderer.class);
 
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
 
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
@@ -63,8 +59,6 @@ public class CalendarRenderer extends RendererBase {
 
     String id = output.getClientId(facesContext);
 
-//    String dateTextBoxId = (String) facesContext.getExternalContext()
-//        .getRequestParameterMap().get("tobago.date.inputId");
     String dateTextBoxId = (String) component.getAttributes().get(ATTR_CALENDAR_DATE_INPUT_ID);
 
     if (LOG.isDebugEnabled()) {
@@ -112,7 +106,8 @@ public class CalendarRenderer extends RendererBase {
     writer.startElement("img", null);
     writer.writeClassAttribute("tobago-calendar-header");
     writer.writeAttribute("alt", "", null);
-    writer.writeAttribute("src", ResourceManagerUtil.getImageWithPath(facesContext, "image/calendarFastPrev.gif"), null);
+    writer.writeAttribute("src",
+        ResourceManagerUtil.getImageWithPath(facesContext, "image/calendarFastPrev.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', -12)", null);
     writer.endElement("img");
     writer.endElement("td");
@@ -149,7 +144,8 @@ public class CalendarRenderer extends RendererBase {
     writer.startElement("img", null);
     writer.writeClassAttribute("tobago-calendar-header");
     writer.writeAttribute("alt", "", null);
-    writer.writeAttribute("src", ResourceManagerUtil.getImageWithPath(facesContext, "image/calendarFastNext.gif"), null);
+    writer.writeAttribute("src",
+        ResourceManagerUtil.getImageWithPath(facesContext, "image/calendarFastNext.gif"), null);
     writer.writeAttribute("onclick", "addMonth('" + id + "', 12)", null);
     writer.endElement("img");
     writer.endElement("td");
@@ -206,62 +202,45 @@ public class CalendarRenderer extends RendererBase {
     }
     writer.endElement("table");
 
-    writer.startElement("input", null);
-    writer.writeAttribute("type", "hidden", null);
-    writer.writeNameAttribute("/" + id + "/year");
-    writer.writeIdAttribute(id + ":year");
-    writer.writeAttribute("value", new Integer(calendar.get(Calendar.YEAR)), null);
-    writer.endElement("input");
+    writeInputHidden(writer, "/" + id + "/year", id + ":year", Integer.toString(calendar.get(Calendar.YEAR)));
 
-    writer.startElement("input", null);
-    writer.writeAttribute("type", "hidden", null);
-    writer.writeNameAttribute("/" + id + "/month");
-    writer.writeIdAttribute(id + ":month");
-    writer.writeAttribute("value", new Integer(1 + calendar.get(Calendar.MONTH)), null);
-    writer.endElement("input");
+    writeInputHidden(writer, "/" + id + "/month", id + ":month", Integer.toString(1 + calendar.get(Calendar.MONTH)));
 
-    writer.startElement("input", null);
-    writer.writeAttribute("type", "hidden", null);
-    writer.writeNameAttribute("/" + id + "/day");
-    writer.writeIdAttribute(id + ":day");
-    writer.writeAttribute("value", new Integer(calendar.get(Calendar.DAY_OF_MONTH)), null);
-    writer.endElement("input");
+    writeInputHidden(writer, "/" + id + "/day", id + ":day", Integer.toString(calendar.get(Calendar.DAY_OF_MONTH)));
 
-    writer.startElement("input", null);
-    writer.writeAttribute("type", "hidden", null);
-    writer.writeIdAttribute(id + ":firstDayOfWeek");
-    writer.writeAttribute("value", Integer.toString(calendar.getFirstDayOfWeek()), null);
-    writer.endElement("input");
+    writeInputHidden(writer, id + ":firstDayOfWeek", Integer.toString(calendar.getFirstDayOfWeek()), null);
 
-    writer.startElement("input", null);
-    writer.writeAttribute("type", "hidden", null);
-    writer.writeIdAttribute(id + ":monthNames");
-    writer.writeAttribute("value", getMonthNames(locale), null);
-    writer.endElement("input");
+    writeInputHidden(writer, id + ":monthNames", getMonthNames(locale), null);
 
-    writer.startElement("input", null);
-    writer.writeAttribute("type", "hidden", null);
-    writer.writeIdAttribute(id + ":fieldId");
-    writer.writeAttribute("value", "", null);
-    writer.endElement("input");
+    writeInputHidden(writer, id + ":fieldId", "");
 
-//    HtmlRendererUtil.writeJavascript(writer, "document.calendar = new Object();");
     HtmlRendererUtil.startJavascript(writer);
     writer.writeText("document.calendar = new Object();", null);
 
     if (dateTextBoxId != null) {
-//      page.getOnloadScripts().add("initCalendarParse('"
-//          + id + "', '" + dateTextBoxId + "');");
        writer.writeText(
            "initCalendarParse('" + id + "', '" + dateTextBoxId + "');", null);
     }
     HtmlRendererUtil.endJavascript(writer);
-//    writer.startElement("script", null);
-//    writer.writeAttribute("tyle", "text/javascript", null);
-//    writer.writeText("document.calendar = new Object();", null);
-//    writer.endElement("script");
   }
+  private void writeInputHidden(TobagoResponseWriter writer,
+       String id, Object value) throws IOException {
+     writer.startElement("input", null);
+     writer.writeAttribute("type", "hidden", null);
+     writer.writeIdAttribute(id);
+     writer.writeAttribute("value", value, null);
+     writer.endElement("input");
+   }
 
+  private void writeInputHidden(TobagoResponseWriter writer, String name,
+      String id, Object value) throws IOException {
+    writer.startElement("input", null);
+    writer.writeAttribute("type", "hidden", null);
+    writer.writeNameAttribute(name);
+    writer.writeIdAttribute(id);
+    writer.writeAttribute("value", value, null);
+    writer.endElement("input");
+  }
 
   private static String getClass(DateModel date, CalendarModel model) {
     return (date.getMonth() == model.getMonth())
@@ -283,8 +262,6 @@ public class CalendarRenderer extends RendererBase {
     }
     return buffer.toString();
   }
-
-// ///////////////////////////////////////////// bean getter + setter
 
 }
 

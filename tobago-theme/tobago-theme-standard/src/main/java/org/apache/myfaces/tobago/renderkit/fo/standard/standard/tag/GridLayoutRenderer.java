@@ -1,19 +1,20 @@
+package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -90,7 +91,8 @@ public class GridLayoutRenderer extends FoRendererBase
   private void layoutEnd(FacesContext facesContext, UIComponent component) {
     Layout layout = Layout.getLayout(component.getParent());
     if (layout == null) {
-      throw new IllegalStateException("no Layout from "+component.getParent()+" "+component.getParent().getClientId(facesContext));
+      throw new IllegalStateException("no Layout from " + component.getParent() + " "
+          + component.getParent().getClientId(facesContext));
     }
     layout.setOrientation(Layout.TOP_ORIENTATION);
     if (component.getAttributes().get("columns")!=null) {
@@ -105,10 +107,10 @@ public class GridLayoutRenderer extends FoRendererBase
     //}
     List children = component.getParent().getChildren();
     ResponseWriter writer = facesContext.getResponseWriter();
-    LOG.error("parent ist " +
-        component.getParent() + "|"+ component.getParent().getClientId(facesContext)+
-        " component ist " + component + "|"+component.getClientId(facesContext));
-    if (children.size()>0) {
+    LOG.error("parent is " + component.getParent() + "|"
+        + component.getParent().getClientId(facesContext) + " component is "
+        + component + "|"+component.getClientId(facesContext));
+    if (children.size() > 0) {
       int incrementX = layout.getWidth()/children.size();
       int incrementY = layout.getHeight()/children.size();
       int height = layout.getHeight();
@@ -116,15 +118,15 @@ public class GridLayoutRenderer extends FoRendererBase
       int x = layout.getX();
       int y = layout.getY();
 
-    for (int i = 0; i<children.size();i++) {
+    for (int i = 0; i < children.size(); i++) {
       LOG.error("i = " + i + " size = " + children.size());
 
       UIComponent cell = (UIComponent) children.get(i);
       //LOG.error(cell+ " | "+cell.getClientId(facesContext));
-      if (! (cell instanceof UIMessages||cell instanceof UIGridLayout)) {
+      if (!(cell instanceof UIMessages || cell instanceof UIGridLayout)) {
       try {
         FoUtils.startBlockContainer(writer, component);
-        if (layout.getOrientation()==Layout.TOP_ORIENTATION) {
+        if (layout.getOrientation() == Layout.TOP_ORIENTATION) {
 
           FoUtils.layoutBlockContainer(writer, incrementY,
               width, x, y+incrementY*i);

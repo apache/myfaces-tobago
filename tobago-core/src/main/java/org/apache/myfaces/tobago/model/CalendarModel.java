@@ -1,23 +1,26 @@
+package org.apache.myfaces.tobago.model;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /*
  * Created: Nov 20, 2002 10:05:10 PM
  * $Id: CalendarModel.java,v 1.1.1.1 2004/04/15 18:41:00 idus Exp $
  */
-package org.apache.myfaces.tobago.model;
+
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -25,9 +28,9 @@ import java.util.Calendar;
 
 public class CalendarModel {
 
-  DateModel[][] calendarArray;
-  int firstDayOffset;
-  int firstDayOfWeek;
+  private DateModel[][] calendarArray;
+  private int firstDayOffset;
+  //private int firstDayOfWeek;
 
   public CalendarModel(Calendar calendar) {
 //    int weekCount = CalendarUtils.weekCount(calendar);
@@ -38,7 +41,7 @@ public class CalendarModel {
     c.set(Calendar.DAY_OF_MONTH, 1);
     // assert c.isLenient() : "'add -x days' may not work in a non-lenient calendar";
     firstDayOffset = firstDayOffset(c);
-    firstDayOfWeek = c.getFirstDayOfWeek();
+    //firstDayOfWeek = c.getFirstDayOfWeek();
     c.add(Calendar.DAY_OF_WEEK, -firstDayOffset);
     for (int week = 0; week < weekCount; ++week) {
       for (int day = 0; day < 7; ++day) {

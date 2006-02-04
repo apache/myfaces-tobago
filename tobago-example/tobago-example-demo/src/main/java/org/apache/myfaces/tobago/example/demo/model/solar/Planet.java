@@ -1,30 +1,30 @@
+package org.apache.myfaces.tobago.example.demo.model.solar;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /*
  * Created 20.09.2002 at 10:54:32.
  * $Id: Planet.java 889 2004-05-26 14:52:59 +0200 (Mi, 26 Mai 2004) lofwyr $
  */
-package org.apache.myfaces.tobago.example.demo.model.solar;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Planet {
-
-// ///////////////////////////////////////////// constant
 
   public static final Planet MERCURY
       = new Planet("NN", "NN", "NN", "NN", new ArrayList());
@@ -35,15 +35,11 @@ public class Planet {
   public static final Planet MARS
       = new Planet("6794", "6.421e26", "227940000", "686.98", SolarObject.getSatellites("Mars"));
 
-// ///////////////////////////////////////////// attribute
-
-  String diameter;
-  String mass;
-  String sunDistance;
-  String timeOfCirculation;
-  List moons;
-
-// ///////////////////////////////////////////// constructor
+  private String diameter;
+  private String mass;
+  private String sunDistance;
+  private String timeOfCirculation;
+  private List moons;
 
   public Planet(Planet planet) {
     this.diameter = planet.diameter;
@@ -61,9 +57,6 @@ public class Planet {
     this.timeOfCirculation = timeOfCirculation;
     this.moons = moons;
   }
-// ///////////////////////////////////////////// code
-
-// ///////////////////////////////////////////// bean getter + setter
 
   public String getDiameter() {
     return diameter;

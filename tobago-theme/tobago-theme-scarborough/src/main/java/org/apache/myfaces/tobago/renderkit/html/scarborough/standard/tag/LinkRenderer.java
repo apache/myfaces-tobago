@@ -1,23 +1,25 @@
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /*
  * Created 07.02.2003 16:00:00.
  * $Id$
  */
-package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -62,21 +64,19 @@ public class LinkRenderer extends CommandRendererBase{
       if (action == null) {
         LOG.warn("keine Action in Link : id " + component.getClientId(facesContext)
             + " label = " + component.getAttributes().get(ATTR_LABEL)
-            + " labelwithkey = " + component.getAttributes().get(ATTR_LABEL_WITH_ACCESS_KEY)
-            );
+            + " labelwithkey = " + component.getAttributes().get(ATTR_LABEL_WITH_ACCESS_KEY));
         action = "";
       }
       href = HtmlUtils.generateUrl(facesContext, action);
     } else if (COMMAND_TYPE_RESET.equals(type)) {
-      href = "javascript:resetForm('" +
-          ComponentUtil.findPage(component).getFormId(facesContext) +
-          "')";
+      href = "javascript:resetForm('"
+          + ComponentUtil.findPage(component).getFormId(facesContext) + "')";
     } else if (COMMAND_TYPE_SCRIPT.equals(type)) {
       href = "#";
       onclick = action;
     } else { // default: Action.TYPE_SUBMIT
-      href = "javascript:submitAction('" +
-          ComponentUtil.findPage(component).getFormId(facesContext)
+      href = "javascript:submitAction('"
+          + ComponentUtil.findPage(component).getFormId(facesContext)
           + "','" + component.getClientId(facesContext) + "')";
     }
 
@@ -99,12 +99,12 @@ public class LinkRenderer extends CommandRendererBase{
       }
       writer.writeAttribute("title", null, ATTR_TIP);
       writer.writeAttribute("target", null, ATTR_TARGET);
-      if (label.getAccessKey() != null) {
+      if (label.getAccessKey1() != null) {
         if (LOG.isInfoEnabled()
-            && ! AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-          LOG.info("dublicated accessKey : " + label.getAccessKey());
+            && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey1())) {
+          LOG.info("dublicated accessKey : " + label.getAccessKey1());
         }
-        writer.writeAttribute("accesskey", label.getAccessKey(), null);
+        writer.writeAttribute("accesskey", label.getAccessKey1(), null);
       }
       writer.writeText("", null); // force closing the start tag
     }

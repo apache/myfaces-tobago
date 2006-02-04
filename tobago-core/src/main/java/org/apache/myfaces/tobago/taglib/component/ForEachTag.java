@@ -1,19 +1,20 @@
+package org.apache.myfaces.tobago.taglib.component;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -51,7 +52,7 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
 
   public static final String ALL = "-1";
 
-  private String items;
+  private String forEachItems;
 
   private String var;
 
@@ -73,7 +74,7 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
     }
 
 
-    String replacement = items.trim();
+    String replacement = forEachItems.trim();
     if (replacement.startsWith("#{") && replacement.endsWith("}")) {
       replacement = replacement.substring(2, replacement.length() - 1);
     }
@@ -82,9 +83,9 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
     int stop = getIntValue(end);
     Object[] keys = null;
     if (stop == IterationHelper.ALL) {
-      if (UIComponentTag.isValueReference(items)) {
+      if (UIComponentTag.isValueReference(forEachItems)) {
         final Object items
-            = ComponentUtil.createValueBinding(this.items, null).getValue(facesContext);
+            = ComponentUtil.createValueBinding(this.forEachItems, null).getValue(facesContext);
         if (items instanceof List) {
           stop = ((List) items).size();
         } else if (items instanceof Object[]) {
@@ -104,7 +105,7 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
           LOG.error("Illegal items object : " + items.getClass().getName());
         }
       } else {
-        LOG.error("Not a ValueBinding : \"" + items + "\"");
+        LOG.error("Not a ValueBinding : \"" + forEachItems + "\"");
       }
       if (stop == IterationHelper.ALL) {
         stop = 0;
@@ -137,7 +138,7 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
 
   public void release() {
     super.release();
-    items = null;
+    forEachItems = null;
     var = null;
     begin = "0";
     end = ALL;
@@ -154,7 +155,7 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
   @TagAttribute
   @UIComponentTagAttribute(type = {"java.util.List", "java.util.Map", "java.lang.Object[]"})
   public void setItems(String items) {
-    this.items = items;
+    this.forEachItems = items;
   }
 
   public void setVar(String var) {
@@ -166,7 +167,7 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
    * Index at which the iteration begins.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = {"java.lang.Integer"}, defaultValue = "0")
+  @UIComponentTagAttribute(type = { "java.lang.Integer" }, defaultValue = "0")
   public void setBegin(String begin) {
     this.begin = begin;
   }
@@ -177,7 +178,7 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
    * Defaults to <code>items.length()</code>.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = {"java.lang.Integer"}, defaultValue = "items.lenght()")
+  @UIComponentTagAttribute(type = { "java.lang.Integer" }, defaultValue = "items.lenght()")
   public void setEnd(String end) {
     this.end = end;
   }
@@ -187,7 +188,7 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
    * Index increments every iteration by this value.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = {"java.lang.Integer"}, defaultValue = "1")
+  @UIComponentTagAttribute(type = { "java.lang.Integer" }, defaultValue = "1")
   public void setStep(String step) {
     this.step = step;
   }
@@ -200,11 +201,11 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
 
     public static final int ALL = -1;
 
-    private int position;
-    private int stop;
-    private int step;
-    private String replacement;
-    private Object[] keys;
+    private int helperPosition;
+    private int helperStop;
+    private int helperStep;
+    private String helperReplacement;
+    private Object[] helperKeys;
 
     private Pattern pattern;
 
@@ -213,14 +214,14 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
     }
 
     public boolean next() {
-      position += step;
-      return position < stop;
+      helperPosition += helperStep;
+      return helperPosition < helperStop;
     }
 
     public String replace(String binding) {
       final String result = pattern.matcher(binding).replaceAll(
-          "$1" + replacement + "["
-              + (keys == null ? Integer.toString(position) : "'" + keys[position] + "'")
+          "$1" + helperReplacement + "["
+              + (helperKeys == null ? Integer.toString(helperPosition) : "'" + helperKeys[helperPosition] + "'")
               + "]$2");
       if (LOG.isDebugEnabled()) {
         LOG.debug("transform \"" + binding + "\" to \"" + result + "\"");
@@ -229,21 +230,21 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
     }
 
     public void reset() {
-      position = 0;
-      stop = ALL;
-      step = 1;
-      replacement = null;
-      keys = null;
+      helperPosition = 0;
+      helperStop = ALL;
+      helperStep = 1;
+      helperReplacement = null;
+      helperKeys = null;
     }
 
 
     public void init(String replacement, String var, int position, int stop,
         int step, Object[] keys) {
-      this.replacement = replacement;
-      this.position = position;
-      this.stop = stop;
-      this.step = step;
-      this.keys = keys;
+      this.helperReplacement = replacement;
+      this.helperPosition = position;
+      this.helperStop = stop;
+      this.helperStep = step;
+      this.helperKeys = keys;
       pattern = Pattern.compile("(\\W *?[^\\.] *?)" + var + "( *?\\W)");
     }
   }

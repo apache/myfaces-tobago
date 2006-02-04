@@ -1,23 +1,25 @@
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /*
  * Created 07.02.2003 16:00:00.
  * $Id$
  */
-package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -63,18 +65,11 @@ import java.util.Map;
 
 public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
 
-// ///////////////////////////////////////////// constant
-
   private static final Log LOG = LogFactory.getLog(TabGroupRenderer.class);
 
   public static final String ACTIVE_INDEX_POSTFIX
       = SUBCOMPONENT_SEP + "activeIndex";
 
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
   public void decode(FacesContext facesContext, UIComponent component) {
     if (ComponentUtil.isOutputOnly(component)) {
       return;
@@ -85,7 +80,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     String clientId = component.getClientId(facesContext);
     final Map parameters
         = facesContext.getExternalContext().getRequestParameterMap();
-    String newValue = (String)parameters.get(clientId + ACTIVE_INDEX_POSTFIX);
+    String newValue = (String) parameters.get(clientId + ACTIVE_INDEX_POSTFIX);
     try {
       int activeIndex = Integer.parseInt(newValue);
       if (activeIndex != oldIndex) {
@@ -112,7 +107,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     String image1x1
         = ResourceManagerUtil.getImageWithPath(facesContext, "image/1x1.gif");
 
-     UIPanel[] tabs = component.getTabs();
+    UIPanel[] tabs = component.getTabs();
     layoutTabs(facesContext, component, tabs);
 
     final int activeIndex = component.getActiveIndex();
@@ -253,12 +248,12 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
       writer.writeClassAttribute("tobago-tab-link");
       writer.writeIdAttribute(clientId + "." + virtualTab + SUBCOMPONENT_SEP + i);
       writer.writeAttribute("href", url, null);
-      if (label.getAccessKey() != null) {
-        if (LOG.isWarnEnabled() && ! AccessKeyMap.addAccessKey(
-            facesContext, label.getAccessKey())) {
-          LOG.warn("dublicated accessKey : " + label.getAccessKey());
+      if (label.getAccessKey1() != null) {
+        if (LOG.isWarnEnabled()
+            && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey1())) {
+          LOG.warn("dublicated accessKey : " + label.getAccessKey1());
         }
-        writer.writeAttribute("accesskey", label.getAccessKey(), null);
+        writer.writeAttribute("accesskey", label.getAccessKey1(), null);
 //        writer.writeAttribute("onfocus", "this.click();", null);
       }
       if (label.getText() != null) {
@@ -293,22 +288,21 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     writer.endElement("td");
     writer.endElement("tr");
 
-
-
     encodeContent(writer, facesContext, activeTab);
-
 
     writer.endElement("table");
   }
 
-  protected void encodeContent(TobagoResponseWriter writer, FacesContext facesContext, UIPanel activeTab) throws IOException {
+  protected void encodeContent(TobagoResponseWriter writer,
+      FacesContext facesContext, UIPanel activeTab) throws IOException {
 
     String bodyStyle = (String)
         activeTab.getParent().getAttributes().get(ATTR_STYLE_BODY);
     writer.startElement("tr", null);
     writer.startElement("td", null);
     writer.writeClassAttribute("tobago-tab-content");
-    writer.writeAttribute("style", bodyStyle, null);writer.writeText("", null);
+    writer.writeAttribute("style", bodyStyle, null);
+    writer.writeText("", null);
     RenderUtil.encodeChildren(facesContext, activeTab);
     writer.endElement("td");
     writer.endElement("tr");
@@ -318,9 +312,9 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     AjaxUtils.checkParamValidity(context, component, UITabGroup.class);
 
     renderTabGroupView(context,
-        (TobagoResponseWriter)context.getResponseWriter(),
-        (UITabGroup)component,
-        ((UITabGroup)component).getActiveIndex(),
+        (TobagoResponseWriter) context.getResponseWriter(),
+        (UITabGroup) component,
+        ((UITabGroup) component).getActiveIndex(),
         new StyleAttribute((String) component.getAttributes().get(ATTR_STYLE)),
         SWITCH_TYPE_RELOAD_TAB,
         ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"));
@@ -369,17 +363,16 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
 
 
   }
-// ///////////////////////////////////////////// bean getter + setter
 
   public class TabController extends MethodBinding {
 
     public static final String ID_PREFIX = "tab_";
 
     public Object invoke(FacesContext facesContext, Object[] objects)
-        throws EvaluationException, MethodNotFoundException {
+        throws EvaluationException {
 
       if (objects[0] instanceof ActionEvent) {
-        UICommand command  = (UICommand) ((ActionEvent)objects[0]).getSource();
+        UICommand command  = (UICommand) ((ActionEvent) objects[0]).getSource();
         if (LOG.isDebugEnabled()) {
           LOG.debug("Id = " + command.getId());
         }
@@ -388,9 +381,8 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
           try {
             int newTab =
                 Integer.parseInt(command.getId().substring(ID_PREFIX.length()));
-          }
-          catch (Exception e) {
-
+          } catch (Exception e) {
+            // ignore
           }
         }
       }

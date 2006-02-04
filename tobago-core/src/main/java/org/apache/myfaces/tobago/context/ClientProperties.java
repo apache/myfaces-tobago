@@ -1,23 +1,26 @@
+package org.apache.myfaces.tobago.context;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /*
  * Created: 23.07.2002 14:21:58
  * $Id$
  */
-package org.apache.myfaces.tobago.context;
+
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,14 +37,10 @@ import java.util.Locale;
 
 public class ClientProperties implements Serializable {
 
-// ///////////////////////////////////////////// constants
-
   private static final String CLIENT_PROPERTIES_IN_SESSION
       = ClientProperties.class.getName();
 
   private static final Log LOG = LogFactory.getLog(ClientProperties.class);
-
-// ///////////////////////////////////////////// attributes
 
   private String contentType = "html";
   private Theme theme;
@@ -49,8 +48,6 @@ public class ClientProperties implements Serializable {
   private boolean debugMode;
 
   private String id;
-
-// ///////////////////////////////////////////// constructors
 
   private ClientProperties(TobagoConfig tobagoConfig) {
     theme = tobagoConfig.getDefaultTheme();
@@ -72,9 +69,9 @@ public class ClientProperties implements Serializable {
         + "Accept='" + accept + "'");
 
     // user agent
-    String userAgent
+    String requestUserAgent
         = (String) externalContext.getRequestHeaderMap().get("User-Agent");
-    this.userAgent = UserAgent.getInstance(userAgent);
+    this.userAgent = UserAgent.getInstance(requestUserAgent);
     LOG.info("userAgent='" + this.userAgent + "' from header "
         + "User-Agent='" + userAgent + "'");
 
@@ -89,9 +86,9 @@ public class ClientProperties implements Serializable {
     LOG.info("debug-mode=" + debugMode);
 
     // theme
-    String theme
+    String requestTheme
         = (String) externalContext.getRequestParameterMap().get("tobago.theme");
-    this.theme = TobagoConfig.getInstance(facesContext).getTheme(theme);
+    this.theme = TobagoConfig.getInstance(facesContext).getTheme(requestTheme);
     LOG.info("theme='" + this.theme + "' from requestParameter "
         + "tobago.theme='" + theme + "'");
     updateId();
@@ -108,11 +105,9 @@ public class ClientProperties implements Serializable {
     id = buffer.toString();
     final UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
     if (viewRoot instanceof org.apache.myfaces.tobago.component.UIViewRoot) {
-      ((org.apache.myfaces.tobago.component.UIViewRoot)viewRoot).updateRendererCachePrefix();
+      ((org.apache.myfaces.tobago.component.UIViewRoot) viewRoot).updateRendererCachePrefix();
     }
   }
-
-// ///////////////////////////////////////////// logic
 
   public static ClientProperties getDefaultInstance(FacesContext facesContext) {
     return new ClientProperties(TobagoConfig.getInstance(facesContext));
@@ -167,8 +162,6 @@ public class ClientProperties implements Serializable {
     return id;
   }
 
-// ///////////////////////////////////////////// bean getter + setter
-
   public String getContentType() {
     return contentType;
   }
@@ -204,5 +197,4 @@ public class ClientProperties implements Serializable {
     this.debugMode = debugMode;
   }
 
-  // /////////////////////////////////////////////
 }

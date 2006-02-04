@@ -1,23 +1,25 @@
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /*
  * Created 07.02.2003 16:00:00.
  * $Id$
  */
-package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -64,23 +66,13 @@ import java.util.Map;
 
 public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
-// ///////////////////////////////////////////// constant
-
   private static final Log LOG = LogFactory.getLog(GridLayoutRenderer.class);
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
 
   public Dimension getFixedSize(FacesContext facesContext, UIComponent component) {
     Dimension dimension = null;
 
     int height = getFixedHeight(facesContext, component);
     int width = -1; // TODO. implement getFixedWidth
-
-
 
     dimension = new Dimension(width, height);
 
@@ -105,7 +97,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     String rowLayout
         = (String) layout.getAttributes().get(ATTR_ROWS);
 
-    if (rowLayout == null && ! minimum && LOG.isDebugEnabled()) {
+    if (rowLayout == null && !minimum && LOG.isDebugEnabled()) {
       LOG.debug("No rowLayout found using " + (minimum ? "'minimum'" : "'fixed'")
           + " for all " + rows.size() + " rows of "
           + layout.getClientId(facesContext) + " !");
@@ -127,15 +119,12 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
       String token = layoutTokens[i];
       if (token.matches("\\d+px")) {
         height += Integer.parseInt(token.replaceAll("\\D", ""));
-      }
-      else if (token.equals("fixed")) {
+      } else if (token.equals("fixed")) {
         height += getMaxHeight(facesContext, rows.get(i), false);
-      }
-      else if (token.equals("minimum")) {
+      } else if (token.equals("minimum")) {
         height += getMaxHeight(facesContext, rows.get(i), true);
-      }
-      else {
-        if (! minimum && LOG.isWarnEnabled()) {
+      } else {
+        if (!minimum && LOG.isWarnEnabled()) {
           LOG.warn("Unable to calculate Height for token '" + token
               + "'! using " + (minimum ? "'minimum'" : "'fixed'") + " , component:"
               + layout.getClientId(facesContext) + " is "
@@ -175,7 +164,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
       writer.startElement("colgroup", null);
       for (int i = 0; i < columnWidths.size(); i++) {
         int cellWidth
-            = ((Integer)columnWidths.get(i)).intValue();
+            = ((Integer) columnWidths.get(i)).intValue();
         if (cellWidth != LayoutInfo.HIDE) {
           cellWidth += getCellPadding(facesContext, layout, i);
           writer.startElement("col", null);
@@ -190,7 +179,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     List<UIGridLayout.Row> rows = layout.ensureRows();
     for (int rowIndex = 0; rowIndex < rows.size(); rowIndex++) {
       UIGridLayout.Row row = rows.get(rowIndex);
-      if (! row.isHidden()) {
+      if (!row.isHidden()) {
         writer.startElement("tr", null);
 
         List cells = row.getElements();
@@ -198,17 +187,17 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           boolean hide = false;
 
           if (columnWidths != null) {
-            Integer columWidth = ((Integer)columnWidths.get(columnIndex));
+            Integer columWidth = ((Integer) columnWidths.get(columnIndex));
             hide = columWidth.intValue() == LayoutInfo.HIDE;
           }
-          if (! hide) {
+          if (!hide) {
 
             Object object = cells.get(columnIndex);
             if (object.toString().equals(UIGridLayout.USED)) {
               continue; // ignore the markers UIGridLayout.Used
             }
             if (object.equals(UIGridLayout.FREE)) {
-              if (LOG.isWarnEnabled() && ! layout.isIgnoreFree()) {
+              if (LOG.isWarnEnabled() && !layout.isIgnoreFree()) {
                 LOG.warn("There are free blocks in the layout: id='"
                     + layout.getClientId(facesContext)
                     + "'");
@@ -245,19 +234,18 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
             int cellHeight = -1;
             try {
-              Integer  layoutHeight = LayoutUtil.getLayoutHeight(cell);
+              Integer layoutHeight = LayoutUtil.getLayoutHeight(cell);
               if (layoutHeight != null) {
                 cellHeight = layoutHeight.intValue();
               }
             } catch (Exception e) {
+              // ignore
             } // ignore, use 0
 
             int topPadding = getCellPadding(facesContext, layout, rowIndex);
-            String cellStyle
-                = (cellWidth != -1 ? "width: " + cellWidth + "px;" : "")
-                + (cellHeight != -1 ?
-                " height: " + (cellHeight + topPadding) + "px;" : ""
-                );
+            String cellStyle =
+                (cellWidth != -1 ? "width: " + cellWidth + "px;" : "")
+                + (cellHeight != -1 ? " height: " + (cellHeight + topPadding) + "px;" : "");
             cellStyle += getOverflow(cell);
 
 
@@ -298,8 +286,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
       UIComponent component) throws IOException {
     if (component.getParent() instanceof UIPage) {
       LOG.error("XXXXXXXXXXXXXXXXXXXXXXX  never XXXXXXXXXXXXXXXXXXXXXX", new Exception());
-    }
-    else {
+    } else {
       encodeChildrenOfComponent(facesContext, component.getParent());
     }
   }
@@ -309,16 +296,13 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
     String scrollbars = (String) cell.getAttributes().get(ATTR_SCROLLBARS);
     if (scrollbars != null) {
-      if (scrollbars.equals("false") ) {
+      if (scrollbars.equals("false")) {
         overflow = " overflow: hidden;";
-      }
-      else if (scrollbars.equals("true") ) {
+      } else if (scrollbars.equals("true")) {
         overflow = " overflow: scroll;";
-      }
-      else if (scrollbars.equals("auto") ) {
+      } else if (scrollbars.equals("auto")) {
         overflow = " overflow: auto;";
-      }
-      else {
+      } else {
         if (LOG.isWarnEnabled()) {
           LOG.warn("Illegal value for attribute 'scrollbars' : " + scrollbars);
         }
@@ -381,8 +365,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         return Integer.parseInt(cellspacing);
       } catch (NumberFormatException e) {
         if (LOG.isWarnEnabled()) {
-          LOG.warn("Illegal value for cellspacing : " + cellspacing +
-              " using default");
+          LOG.warn("Illegal value for cellspacing : " + cellspacing
+              + " using default");
         }
         // ignore and return defaut value
       }
@@ -447,11 +431,11 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         layout.getAttributes().get(ATTR_COLUMNS), columnCount);
 
 
-    if (! rows.isEmpty()) {
+    if (!rows.isEmpty()) {
       UIGridLayout.Row row = rows.get(0);
       final List cells = row.getElements();
 
-      for (int i = 0; i< cells.size() ; i++) {
+      for (int i = 0; i < cells.size(); i++) {
         Object cell = cells.get(i);
         boolean hidden = false;
         if (isHidden(cell)) {
@@ -481,9 +465,9 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   }
 
   private boolean isHidden(Object cell) {
-    return (cell instanceof UIComponent && !((UIComponent)cell).isRendered())
+    return (cell instanceof UIComponent && !((UIComponent) cell).isRendered())
               || (cell instanceof UIGridLayout.Marker
-                  && ! ((UIGridLayout.Marker)cell).isRendered());
+                  && !((UIGridLayout.Marker) cell).isRendered());
   }
 
   private void layoutHeight(Integer innerHeight, UIGridLayout layout,
@@ -538,7 +522,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
       if (tokens[i].equals("fixed")) {
         int max = 0;
         final List<UIGridLayout.Row> rows = layout.ensureRows();
-        if (! rows.isEmpty()) {
+        if (!rows.isEmpty()) {
           if (width) {
             max = getMaxWidth(facesContext, rows, i, false);
           } else {

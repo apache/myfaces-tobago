@@ -1,5 +1,21 @@
 package org.apache.myfaces.tobago.event;
 
+/*
+ * Copyright 2002-2005 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 /**
  * Created by IntelliJ IDEA.
  * User: bommel
@@ -9,13 +25,13 @@ package org.apache.myfaces.tobago.event;
  */
 public interface TabChangeSource {
 
-  public javax.faces.el.MethodBinding getTabChangeListener();
+  javax.faces.el.MethodBinding getTabChangeListener();
 
-  public void setTabChangeListener(javax.faces.el.MethodBinding actionListener);
+  void setTabChangeListener(javax.faces.el.MethodBinding actionListener);
 
-  public void addTabChangeListener(TabChangeListener listener);
+  void addTabChangeListener(TabChangeListener listener);
 
-  public TabChangeListener[] getTabChangeListeners();
+  TabChangeListener[] getTabChangeListeners();
 
-  public void removeTabChangeListener(TabChangeListener listener);
+  void removeTabChangeListener(TabChangeListener listener);
 }

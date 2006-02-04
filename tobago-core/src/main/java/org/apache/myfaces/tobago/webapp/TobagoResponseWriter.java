@@ -1,23 +1,20 @@
+package org.apache.myfaces.tobago.webapp;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-/*
- * Created 07.01.2004 10:34:32.
- * $Id$
- */
-package org.apache.myfaces.tobago.webapp;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -38,8 +35,6 @@ import java.util.Stack;
 
 public class TobagoResponseWriter extends ResponseWriter {
 
-// ///////////////////////////////////////////// constant
-
   private static final Log LOG = LogFactory.getLog(TobagoResponseWriter.class);
 
   private static final Set<String> EMPTY_TAG
@@ -49,8 +44,6 @@ public class TobagoResponseWriter extends ResponseWriter {
                 "br", "area", "link", "img", "param", "hr", "input", "col", "base",
                 "meta"}));
 
-
-// ///////////////////////////////////////////// attribute
 
   private Writer writer;
 
@@ -72,9 +65,6 @@ public class TobagoResponseWriter extends ResponseWriter {
   private HtmlWriterUtil attributeWriter;
   private HtmlWriterUtil textWriter;
 
-
-// ///////////////////////////////////////////// constructor
-
   public TobagoResponseWriter(final Writer writer, final String contentType,
                               final String characterEncoding) {
 //    LOG.info("new TobagoResponseWriter!");
@@ -95,8 +85,6 @@ public class TobagoResponseWriter extends ResponseWriter {
     textWriter = new HtmlWriterUtil(this, characterEncoding, false);
   }
 
-// ///////////////////////////////////////////// code
-
   private String findValue(final Object value, final String property) {
     if (value != null) {
       return value instanceof String ? (String) value : value.toString();
@@ -110,9 +98,8 @@ public class TobagoResponseWriter extends ResponseWriter {
         }
       } else {
         final String trace = getCallingClassStackTraceElementString();
-        LOG.error(
-            "Don't know what to do! " +
-            "Property defined, but no component to get a value. "
+        LOG.error("Don't know what to do! "
+            + "Property defined, but no component to get a value. "
             + trace.substring(trace.indexOf('(')));
         LOG.error("value = '" + value + "'");
         LOG.error("property = '" + property + "'");
@@ -120,9 +107,8 @@ public class TobagoResponseWriter extends ResponseWriter {
       }
     } else {
       final String trace = getCallingClassStackTraceElementString();
-      LOG.error(
-          "Don't know what to do! " +
-          "No value and no property defined. "
+      LOG.error("Don't know what to do! "
+          + "No value and no property defined. "
           + trace.substring(trace.indexOf('(')));
       LOG.error("value = '" + value + "'");
       LOG.error("property = '" + property + "'");
@@ -130,7 +116,7 @@ public class TobagoResponseWriter extends ResponseWriter {
     }
   }
 
-  public void write(final char cbuf[], final int off, final int len)
+  public void write(final char[] cbuf, final int off, final int len)
       throws IOException {
     writer.write(cbuf, off, len);
   }
@@ -169,7 +155,7 @@ public class TobagoResponseWriter extends ResponseWriter {
     }
   }
 
-  public void writeText(final char text[], final int offset, final int length)
+  public void writeText(final char[] text, final int offset, final int length)
       throws IOException {
     if (startStillOpen) {
       writer.write("\n>");
@@ -207,9 +193,9 @@ public class TobagoResponseWriter extends ResponseWriter {
   public void startElement(final String name) throws IOException {
     startElement(name, null);
   }
-  public void startElement(final String name, final UIComponent component)
+  public void startElement(final String name, final UIComponent currentComponent)
       throws IOException {
-    this.component = component;
+    this.component = currentComponent;
     stack.push(name);
 //    closeStartIfNecessary();
     insideScriptOrStyle = isScriptOrStyle(name);
@@ -231,7 +217,7 @@ public class TobagoResponseWriter extends ResponseWriter {
           switch (name.charAt(1)) {
             case 'c' :
               if (name.charAt(2) == 'r' && name.charAt(3) == 'i'
-                  && name.charAt(4) == 'p' && name.charAt(5) == 't' ) {
+                  && name.charAt(4) == 'p' && name.charAt(5) == 't') {
                 return true;
               }
             break;
@@ -241,10 +227,16 @@ public class TobagoResponseWriter extends ResponseWriter {
                 return true;
               }
             break;
+            default:
+              return false;
           }
           break;
+        default:
+          return false;
       }
-    } catch (Exception e) { /* ignore  */ }
+    } catch (Exception e) {
+      /* ignore  */
+    }
     return false;
   }
 
@@ -256,8 +248,7 @@ public class TobagoResponseWriter extends ResponseWriter {
     final String top = stack.pop();
     if (!top.equals(name)) {
       final String trace = getCallingClassStackTraceElementString();
-      LOG.error(
-          "Element end with name='" + name + "' doesn't "
+      LOG.error("Element end with name='" + name + "' doesn't "
           + "match with top element on the stack='" + top + "' "
           + trace.substring(trace.indexOf('(')));
     }
@@ -301,9 +292,9 @@ public class TobagoResponseWriter extends ResponseWriter {
     write("-->");
   }
 
-  public ResponseWriter cloneWithWriter(final Writer writer) {
+  public ResponseWriter cloneWithWriter(final Writer originalWriter) {
     return new TobagoResponseWriter(
-        writer, getContentType(), getCharacterEncoding());
+        originalWriter, getContentType(), getCharacterEncoding());
   }
 
   public void writeAttribute(final String name, final boolean on) throws IOException {
@@ -420,7 +411,5 @@ public class TobagoResponseWriter extends ResponseWriter {
       throws IOException {
     LOG.error("Not implemented yet!"); // FIXME jsfbeta
   }
-
-// ///////////////////////////////////////////// bean getter + setter
 
 }

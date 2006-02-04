@@ -1,23 +1,25 @@
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /*
  * Created 07.02.2003 16:00:00.
  * $Id$
  */
-package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -68,19 +70,19 @@ public class PageRenderer extends PageRendererBase {
 //      default value is 'loose'
 
   private static final String LOOSE =
-      "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"" +
-      /*" \"http://www.w3.org/TR/html4/loose.dtd\*/">";
+      "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\""
+          + /*" \"http://www.w3.org/TR/html4/loose.dtd\*/">";
   // TODO: this is commented, because the some pages in IE and mozilla
   // does work properly with it:
   // tobago-demo: sometimes the body has not height=100% in mozilla.
 
   private static final String STRICT =
-      "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"" +
-      " \"http://www.w3.org/TR/html4/strict.dtd\">";
+      "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\""
+          + " \"http://www.w3.org/TR/html4/strict.dtd\">";
 
   private static final String FRAMESET =
-      "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\"" +
-      " \"http://www.w3.org/TR/html4/frameset.dtd\">";
+      "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\""
+          + " \"http://www.w3.org/TR/html4/frameset.dtd\">";
 
 // ----------------------------------------------------------------- interfaces
 
@@ -340,14 +342,14 @@ public class PageRenderer extends PageRendererBase {
           logMessages.add(errorMessageForDebugging(id, message));
         }
       }
-      if (! logMessages.isEmpty()) {
+      if (!logMessages.isEmpty()) {
         logMessages.add(0, "LOG.show();");
       }
       
       logMessages.add("LOG.info(\"FacesContext = " + facesContext + "\");");
 
       HtmlRendererUtil.writeScriptLoader(facesContext, null,
-          logMessages.toArray(new String[logMessages.size()] ));
+          logMessages.toArray(new String[logMessages.size()]));
     }
 
     writer.endElement("body");
@@ -375,7 +377,7 @@ public class PageRenderer extends PageRendererBase {
       scripts = ResourceManagerUtil.getScripts(facesContext, script);
     }
     for (String scriptString : scripts) {
-      if (scriptString.length() > 0 ) {
+      if (scriptString.length() > 0) {
         writer.startElement("script", null);
         writer.writeAttribute("src", scriptString, null);
         writer.writeAttribute("type", "text/javascript", null);

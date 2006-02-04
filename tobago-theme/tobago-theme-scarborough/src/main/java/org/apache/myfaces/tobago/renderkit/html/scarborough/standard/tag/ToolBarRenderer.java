@@ -1,23 +1,25 @@
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /*
   * Created 28.04.2003 at 15:29:36.
   * $Id$
   */
-package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -71,14 +73,8 @@ import java.util.Map;
 
 public class ToolBarRenderer extends RendererBase {
 
-// ------------------------------------------------------------------ constants
-
   private static final Log LOG = LogFactory.getLog(ToolBarRenderer.class);
 
-// ----------------------------------------------------------------- interfaces
-
-
-// ---------------------------- interface TobagoRenderer
 
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
@@ -196,7 +192,7 @@ public class ToolBarRenderer extends RendererBase {
 
         String image = null;
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
-          image = ((org.apache.myfaces.tobago.model.SelectItem)item).getImage();
+          image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
         } else if (LOG.isDebugEnabled()) {
           LOG.debug("select item is not " + org.apache.myfaces.tobago.model.SelectItem.class.getName());
         }
@@ -295,7 +291,7 @@ public class ToolBarRenderer extends RendererBase {
     String graphicId = clientId + SUBCOMPONENT_SEP + "icon";
 
     String extraHoverClass = "";
-    if (addExtraHoverClass == true) {
+    if (addExtraHoverClass) {
       if (!boxFacet) {
         extraHoverClass = " tobago-toolBar-button-hover-first";
       } else {
@@ -323,10 +319,8 @@ public class ToolBarRenderer extends RendererBase {
     writer.writeClassAttribute(tableClasses);
     writer.startElement("tr", null);
 
-
     boolean anchorOnLabel =
         label.getText() != null && !ToolBarTag.LABEL_OFF.equals(labelPosition);
-
 
     if (!ToolBarTag.ICON_OFF.equals(iconSize)) {
       if (iconName != null) {
@@ -344,9 +338,10 @@ public class ToolBarRenderer extends RendererBase {
           && label.getText() != null));
 
 
-      if (((!ToolBarTag.LABEL_OFF.equals(labelPosition) &&
-          label.getText() != null)
-          || popupMenu != null) && !render1pxImage) {
+      if (((!ToolBarTag.LABEL_OFF.equals(labelPosition)
+            && label.getText() != null)
+           || popupMenu != null)
+          && !render1pxImage) {
         writer.writeAttribute("style", "padding-right: 3px;", null);
         // TODO: make this '3px' configurable
       }
@@ -394,7 +389,6 @@ public class ToolBarRenderer extends RendererBase {
         writer.writeAttribute("style", "padding-right: 3px;", null);
         // TODO: make this '3px' configurable
       }
-
       if (label.getText() != null) {
         renderAnchorBegin(facesContext, writer, command, label, disabled);
         HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
@@ -402,8 +396,6 @@ public class ToolBarRenderer extends RendererBase {
       }
       writer.endElement("td");
     }
-
-
     if (!popupOn2 && popupMenu != null) {
       renderPopupTd(facesContext, writer, command, popupMenu,
           false);
@@ -504,12 +496,12 @@ public class ToolBarRenderer extends RendererBase {
     if (!disabled) {
       writer.writeAttribute("href", "#", null);
       writer.writeAttribute("onfocus", "tobagoToolbarFocus(this, event)", null);
-      if (label.getAccessKey() != null) {
+      if (label.getAccessKey1() != null) {
         if (LOG.isInfoEnabled()
-                && ! AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-          LOG.info("dublicated accessKey : " + label.getAccessKey());
+                && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey1())) {
+          LOG.info("dublicated accessKey : " + label.getAccessKey1());
         }
-        writer.writeAttribute("accesskey", label.getAccessKey(), null);
+        writer.writeAttribute("accesskey", label.getAccessKey1(), null);
       }
     }
   }

@@ -1,23 +1,20 @@
+package org.apache.myfaces.tobago.model;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-/*
- * Created 05.02.2003 09:25:31.
- * $Id$
- */
-package org.apache.myfaces.tobago.model;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.Enumeration;
@@ -32,11 +29,8 @@ import java.util.Set;
  * 3. marker: last used action object<br />
  */
 public class TreeState {
-// ------------------------------------------------------------------ constants
 
   public static final String SEP = ";";
-
-// ----------------------------------------------------------------- attributes
 
   private Set<DefaultMutableTreeNode> selection;
   private Set<DefaultMutableTreeNode> expandState;
@@ -44,14 +38,10 @@ public class TreeState {
   private DefaultMutableTreeNode lastMarker;
   private String lastCommand;
 
-// --------------------------------------------------------------- constructors
-
   public TreeState() {
     selection = new HashSet<DefaultMutableTreeNode>();
     expandState = new HashSet<DefaultMutableTreeNode>();
   }
-
-// ----------------------------------------------------------- business methods
 
   public void addExpandState(DefaultMutableTreeNode expandStateItem) {
     expandState.add(expandStateItem);
@@ -79,13 +69,11 @@ public class TreeState {
   }
 
   public void expand(DefaultMutableTreeNode node, int level) {
-    if (level <= 0) {
-      // nothing to do
-    } else {
-      if (! expandState.contains(node)) {
+    if (level > 0) {
+      if (!expandState.contains(node)) {
         expandState.add(node);
       }
-      for (Enumeration i = node.children(); i.hasMoreElements(); ) {
+      for (Enumeration i = node.children(); i.hasMoreElements();) {
         DefaultMutableTreeNode child = (DefaultMutableTreeNode) i.nextElement();
         expand(child, level - 1);
       }
@@ -94,12 +82,12 @@ public class TreeState {
 
   /** Expands all parents which contains selected children. */
   public void expandSelection() {
-    for (Iterator i = selection.iterator(); i.hasNext(); ) {
+    for (Iterator i = selection.iterator(); i.hasNext();) {
       DefaultMutableTreeNode selected = (DefaultMutableTreeNode) i.next();
       for (DefaultMutableTreeNode parent = (DefaultMutableTreeNode) selected.getParent();
            parent != null;
            parent = (DefaultMutableTreeNode) parent.getParent()) {
-        if (! expandState.contains(parent)) {
+        if (!expandState.contains(parent)) {
           expandState.add(parent);
         }
       }
@@ -117,8 +105,6 @@ public class TreeState {
   public boolean isSelected(DefaultMutableTreeNode node) {
     return selection.contains(node);
   }
-
-// ------------------------------------------------------------ getter + setter
 
   public Set<DefaultMutableTreeNode> getExpandState() {
     return expandState;

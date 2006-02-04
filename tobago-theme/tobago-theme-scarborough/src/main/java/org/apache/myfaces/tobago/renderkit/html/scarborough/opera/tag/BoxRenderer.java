@@ -1,23 +1,25 @@
+package org.apache.myfaces.tobago.renderkit.html.scarborough.opera.tag;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /*
  * Created 07.02.2003 16:00:00.
  * : $
  */
-package org.apache.myfaces.tobago.renderkit.html.scarborough.opera.tag;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
@@ -34,14 +36,6 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.BoxRenderer {
-
-// ///////////////////////////////////////////// constant
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
 
   public void encodeBeginTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
@@ -71,7 +65,7 @@ public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbo
       }
       writer.endElement("b");
       writer.endElement("legend");
-      if (! ClientProperties.getInstance(facesContext.getViewRoot())
+      if (!ClientProperties.getInstance(facesContext.getViewRoot())
           .getUserAgent().equals(UserAgent.OPERA_7_11)) {
         writer.startElement("br", null);
         writer.endElement("br");
@@ -85,8 +79,6 @@ public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbo
   public int getPaddingWidth(FacesContext facesContext, UIComponent component) {
     return 4;
   }
-
-// ///////////////////////////////////////////// bean getter + setter
 
 }
 

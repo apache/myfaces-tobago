@@ -1,23 +1,20 @@
+package org.apache.myfaces.tobago.component;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-/*
-  * Created 06.01.2003 at 15:33:42.
-  * $Id$
-  */
-package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
@@ -37,15 +34,9 @@ import javax.swing.tree.TreeNode;
 
 public class UITreeNode extends UIInput {
 
-// ///////////////////////////////////////////// constant
-
   private static final Log LOG = LogFactory.getLog(UITreeNode.class);
 
-// ///////////////////////////////////////////// attribute
-
-  private static final String SUB_REFERENCE_KEY = "subReferenceKey" ;
-
-// ///////////////////////////////////////////// constructor
+  private static final String SUB_REFERENCE_KEY = "subReferenceKey";
 
   protected UITreeNode(UIComponent parent, int index) {
     super();
@@ -207,9 +198,6 @@ public class UITreeNode extends UIInput {
   protected Object emergencyValue() {
     return new DefaultMutableTreeNode("Default");
   }
-
-
-// ///////////////////////////////////////////// bean getter + setter
 
 }
 

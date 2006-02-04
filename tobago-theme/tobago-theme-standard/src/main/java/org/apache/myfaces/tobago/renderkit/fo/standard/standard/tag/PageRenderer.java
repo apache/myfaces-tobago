@@ -1,19 +1,20 @@
+package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,17 +35,16 @@ public class PageRenderer extends PageRendererBase {
 
   private static final Log LOG = LogFactory.getLog(PageRenderer.class);
 
-  private static String HEADER = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
-  private static String FO_ROOT = "fo:root";
-  private static String FO_XMLNS = "xmlns:fo";
-  private static String FO_LAYOUT = "fo:layout-master-set";
-  private static String FO_URL = "http://www.w3.org/1999/XSL/Format";
-  private static String PAGE_MASTER = "fo:simple-page-master";
-  private static String MASTER_NAME = "master-name";
+  private static final String HEADER = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
+  private static final String FO_ROOT = "fo:root";
+  private static final String FO_XMLNS = "xmlns:fo";
+  private static final String FO_LAYOUT = "fo:layout-master-set";
+  private static final String FO_URL = "http://www.w3.org/1999/XSL/Format";
+  private static final String PAGE_MASTER = "fo:simple-page-master";
+  private static final String MASTER_NAME = "master-name";
 
   public void encodeChildren(FacesContext facesContext, UIComponent component)
        throws IOException {
-    System.err.println("EncodeChildren")  ;
     LOG.error("Encode Children");
     super.encodeChildren(facesContext, component);
   }
@@ -57,9 +57,8 @@ public class PageRenderer extends PageRendererBase {
     UIPage page = (UIPage) component;
     Layout layout = new Layout(2100, 2970);
     int margin = 60;
-    Layout in = layout.createWithMargin( margin*2, margin*2, margin, margin);
+    Layout in = layout.createWithMargin(margin*2, margin*2, margin, margin);
     in.setParent(layout);
-
 
 
     ResponseWriter writer = facesContext.getResponseWriter();

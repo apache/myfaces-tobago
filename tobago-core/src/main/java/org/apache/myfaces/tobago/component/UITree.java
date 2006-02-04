@@ -1,23 +1,20 @@
+package org.apache.myfaces.tobago.component;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-/*
- * Created 28.01.2003 14:07:00.
- * $Id$
- */
-package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -65,13 +62,10 @@ import java.util.Set;
 
 public class UITree extends UIInput implements NamingContainer, ActionSource {
 
-// ------------------------------------------------------------------ constants
-
   private static final Log LOG = LogFactory.getLog(UITree.class);
 
-  public static final String COMPONENT_TYPE="org.apache.myfaces.tobago.Tree";
-  public static final String MESSAGE_NOT_LEAF
-      = "tobago.tree.MESSAGE_NOT_LEAF";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Tree";
+  public static final String MESSAGE_NOT_LEAF = "tobago.tree.MESSAGE_NOT_LEAF";
 
   public static final String SEP = "-";
 
@@ -93,12 +87,10 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   public static final String COMMAND_MOVE_UP = "moveUp";
   public static final String COMMAND_MOVE_DOWN = "moveDown";
 
-// ----------------------------------------------------------------- attributes
+  private Command[] treeCommands;
 
-  private Command[] commands;
-
-  private MethodBinding actionListener;
-  private TreeState state;
+  private MethodBinding actionListenerBinding;
+  private TreeState treeState;
 
   private boolean showJunctions = true;
   private boolean showJunctionsSet = false;
@@ -109,10 +101,8 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   private boolean showRootJunction = true;
   private boolean showRootJunctionSet = false;
 
-// --------------------------------------------------------------- constructors
-
   public UITree() {
-    commands = new Command[]{
+    treeCommands = new Command[]{
       new Command(COMMAND_NEW),
       new Command(COMMAND_DELETE),
       new Command(COMMAND_EDIT),
@@ -124,9 +114,6 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     };
   }
 
-// ----------------------------------------------------------------- interfaces
-
-
 // ---------------------------- interface ActionSource
 
   public void broadcast(FacesEvent event) throws AbortProcessingException {
@@ -136,7 +123,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
     if (binding != null) {
       FacesContext context = getFacesContext();
-      binding.invoke(context, new Object[] { event });
+      binding.invoke(context, new Object[] {event});
     }
   }
 
@@ -149,11 +136,11 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   }
 
   public MethodBinding getActionListener() {
-    return actionListener;
+    return actionListenerBinding;
   }
 
   public void setActionListener(MethodBinding actionListener) {
-    this.actionListener = actionListener;
+    this.actionListenerBinding = actionListener;
   }
 
   public void addActionListener(ActionListener actionListener) {
@@ -167,8 +154,6 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   public void removeActionListener(ActionListener actionListener) {
     removeFacesListener(actionListener);
   }
-
-// ----------------------------------------------------------- business methods
 
   public void encodeBegin(FacesContext facesContext)
       throws IOException {
@@ -189,7 +174,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     toolbar.getAttributes().put(ATTR_LABEL_POSITION, ToolBarTag.LABEL_OFF);
     ActionListener[] handlers = getActionListeners();
 
-    if ( (handlers == null || handlers.length == 0) && getActionListener() == null ) {
+    if ((handlers == null || handlers.length == 0) && getActionListener() == null) {
       LOG.error("No actionListener found in tree, so tree editing will not work!");
     }
 
@@ -264,7 +249,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   public UITreeNode findUITreeNode(UITreeNode node, TreeNode treeNode) {
     UITreeNode found = null;
     if (node.getTreeNode().equals(treeNode)) {
-      return found = node;
+      return node;
     } else {
       for (Iterator iter = node.getChildren().iterator(); iter.hasNext();) {
         UITreeNode uiTreeNode = (UITreeNode) iter.next();
@@ -306,8 +291,6 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   }
 
   public void validate(FacesContext context) {
-
-
     if (isRequired() && getState().getSelection().size() == 0) {
       setValid(false);
       FacesMessage facesMessage = MessageFactory.createFacesMessage(context,
@@ -320,7 +303,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
       Set<DefaultMutableTreeNode> selection = getState().getSelection();
 
-      for(DefaultMutableTreeNode node : selection) {
+      for (DefaultMutableTreeNode node : selection) {
         if (!node.isLeaf()) {
           FacesMessage facesMessage = MessageFactory.createFacesMessage(
               context, MESSAGE_NOT_LEAF, FacesMessage.SEVERITY_ERROR);
@@ -335,8 +318,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
       for (Validator validator : getValidators()) {
         try {
           validator.validate(context, this, null);
-        }
-        catch (ValidatorException ve) {
+        } catch (ValidatorException ve) {
           // If the validator throws an exception, we're
           // invalid, and we need to add a message
           setValid(false);
@@ -359,24 +341,23 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   public Object saveState(FacesContext context) {
     Object[] state = new Object[2];
     state[0] = super.saveState(context);
-    state[1] = saveAttachedState(context, actionListener);
+    state[1] = saveAttachedState(context, actionListenerBinding);
     return state;
   }
 
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
     super.restoreState(context, values[0]);
-    actionListener = (MethodBinding) restoreAttachedState(context, values[1]);
+    actionListenerBinding = (MethodBinding) restoreAttachedState(context, values[1]);
   }
-// ------------------------------------------------------------ getter + setter
 
   public Command[] getCommands() {
-    return commands;
+    return treeCommands;
   }
 
   public TreeState getState() {
-    if (state != null) {
-        return state;
+    if (treeState != null) {
+        return treeState;
     }
     ValueBinding valueBinding = getValueBinding(ATTR_STATE);
     if (valueBinding != null) {
@@ -387,7 +368,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   }
 
   public void setState(TreeState state) {
-    this.state = state;
+    this.treeState = state;
   }
 
   public boolean isShowJunctions() {
@@ -457,8 +438,6 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     this.showRootJunction = showRootJunction;
     this.showRootJunctionSet = true;
   }
-
-// -------------------------------------------------------------- inner classes
 
   public static class Command implements Serializable {
     private String command;

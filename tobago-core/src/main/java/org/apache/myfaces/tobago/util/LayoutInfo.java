@@ -1,23 +1,20 @@
+package org.apache.myfaces.tobago.util;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-/*
-  * Created 10.11.2003 at 13:23:46.
-  * $Id$
-  */
-package org.apache.myfaces.tobago.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -49,7 +46,7 @@ public class LayoutInfo {
     if (layoutTokens.length == cellCount) {
       this.layoutTokens = layoutTokens;
     } else if (layoutTokens.length > cellCount) {
-      if (! ignoreMismatch && LOG.isWarnEnabled()) {
+      if (!ignoreMismatch && LOG.isWarnEnabled()) {
         LOG.warn("More tokens (" + layoutTokens.length
             + ") for layout than cells (" + cellCount + ") found! Ignoring"
             + " redundant tokens. Token string was: "
@@ -60,10 +57,10 @@ public class LayoutInfo {
         this.layoutTokens[i] = layoutTokens[i];
       }
     } else {
-      if (! ignoreMismatch && LOG.isWarnEnabled()) {
+      if (!ignoreMismatch && LOG.isWarnEnabled()) {
         LOG.warn(Integer.toString(cellCount - layoutTokens.length)
-            + "More cells ("+cellCount+") than tokens ("+layoutTokens.length
-            +") for layout found! Setting missing tokens to '1*'."
+            + "More cells (" + cellCount + ") than tokens (" + layoutTokens.length
+            + ") for layout found! Setting missing tokens to '1*'."
             + " Token string was: " + tokensToString(layoutTokens));
       }
       this.layoutTokens = new String[cellCount];
@@ -233,7 +230,7 @@ public class LayoutInfo {
             addSpace(1, i);
           }
         }
-        if (! found) {
+        if (!found) {
           break;
         }
       }
@@ -245,11 +242,11 @@ public class LayoutInfo {
       LOG.debug("spaces after spread  :" + arrayAsString(spaces));
     }
   }
-
-  private String arrayAsString(int[] spaces) {
+  //TODO replace with Arrays.asList ..
+  private String arrayAsString(int[] currentSpaces) {
     StringBuffer sb = new StringBuffer("[");
-    for (int i = 0; i < spaces.length; i++) {
-      sb.append(spaces[i]);
+    for (int i = 0; i < currentSpaces.length; i++) {
+      sb.append(currentSpaces[i]);
       sb.append(", ");
     }
     sb.replace(sb.lastIndexOf(", "), sb.length(), "]");

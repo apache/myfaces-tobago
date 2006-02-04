@@ -1,5 +1,21 @@
 package org.apache.myfaces.tobago.ajax.api;
 
+/*
+ * Copyright 2004-2006 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -52,17 +68,16 @@ public class AjaxUtils {
 //    }
 //  }
 
-  public static void checkParamValidity(FacesContext facesContext, UIComponent uiComponent, Class compClass)
-  {
-    if(facesContext == null)
+  public static void checkParamValidity(FacesContext facesContext, UIComponent uiComponent, Class compClass) {
+    if (facesContext == null) {
       throw new NullPointerException("facesContext may not be null");
-    if(uiComponent == null)
+    }
+    if (uiComponent == null) {
       throw new NullPointerException("uiComponent may not be null");
-
+    }
     //if (compClass != null && !(compClass.isAssignableFrom(uiComponent.getClass())))
     // why isAssignableFrom with additional getClass method call if isInstance does the same?
-    if (compClass != null && !(compClass.isInstance(uiComponent)))
-    {
+    if (compClass != null && !(compClass.isInstance(uiComponent))) {
       throw new IllegalArgumentException("uiComponent : "
           + uiComponent.getClass().getName() + " is not instance of "
           + compClass.getName() + " as it should be");
@@ -73,11 +88,14 @@ public class AjaxUtils {
 
 
   public static void encodeAjaxComponent(FacesContext facesContext, UIComponent component) throws IOException {
-    if (facesContext == null) throw new NullPointerException("facesContext");
-    if (!component.isRendered()) return;
+    if (facesContext == null) {
+      throw new NullPointerException("facesContext");
+    }
+    if (!component.isRendered()) {
+      return;
+    }
     Renderer renderer = ComponentUtil.getRenderer(facesContext, component);
-    if (renderer != null && renderer instanceof AjaxRenderer)
-    {
+    if (renderer != null && renderer instanceof AjaxRenderer) {
       ((AjaxRenderer) renderer).encodeAjax(facesContext, component);
     }
   }
@@ -104,16 +122,16 @@ public class AjaxUtils {
       component.processValidators(facesContext);
       viewRoot.broadcastEventsForPhase(facesContext, PhaseId.PROCESS_VALIDATIONS);
 
-      if (! facesContext.getRenderResponse()) {
+      if (!facesContext.getRenderResponse()) {
         component.processUpdates(facesContext);
         viewRoot.broadcastEventsForPhase(facesContext, PhaseId.UPDATE_MODEL_VALUES);
       }
 
-      if (! facesContext.getRenderResponse()) {
+      if (!facesContext.getRenderResponse()) {
         viewRoot.processApplication(facesContext);
       }
 
-      ((AjaxComponent)component).encodeAjax(facesContext);
+      ((AjaxComponent) component).encodeAjax(facesContext);
     } else {
       LOG.error("Can't process non AjaxComponent : \""
           + component.getClientId(facesContext) + "\" = "
@@ -122,12 +140,11 @@ public class AjaxUtils {
   }
 
   public static void processAjaxOnChildren(FacesContext facesContext,
-                                           UIComponent component)
-      throws IOException {
+      UIComponent component) throws IOException {
 
-      final Iterator<UIComponent> facetsAndChildren = component.getFacetsAndChildren();
-      while (facetsAndChildren.hasNext() && !facesContext.getResponseComplete()) {
-        AjaxUtils.processAjax(facesContext, facetsAndChildren.next());
-      }
+    final Iterator<UIComponent> facetsAndChildren = component.getFacetsAndChildren();
+    while (facetsAndChildren.hasNext() && !facesContext.getResponseComplete()) {
+      AjaxUtils.processAjax(facesContext, facetsAndChildren.next());
+    }
   }
 }

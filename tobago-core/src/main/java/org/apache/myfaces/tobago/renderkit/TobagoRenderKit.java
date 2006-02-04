@@ -1,23 +1,20 @@
+package org.apache.myfaces.tobago.renderkit;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-/*
- * Created 08.04.2003 10:45:30.
- * $Id$
- */
-package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -42,8 +39,7 @@ public class TobagoRenderKit extends RenderKit {
 
   public static final String PACKAGE_PREFIX
       = TobagoRenderKit.class.getName().substring(
-          0,
-          TobagoRenderKit.class.getName().lastIndexOf('.'));
+          0, TobagoRenderKit.class.getName().lastIndexOf('.'));
 
   public static final int PACKAGE_PREFIX_LENGTH = PACKAGE_PREFIX.length();
 
@@ -63,9 +59,8 @@ public class TobagoRenderKit extends RenderKit {
       renderer = resources.getRenderer(facesContext.getViewRoot(), rendererType);
     }
     if (renderer == null) {
-      LOG.error(
-          "The class witch was found by the ResourceManager can't be " +
-          "found, or instanciated: classname='" + rendererType + "'");
+      LOG.error("The class witch was found by the ResourceManager can't be "
+          + "found, or instanciated: classname='" + rendererType + "'");
     }
     return renderer;
   }
@@ -77,14 +72,14 @@ public class TobagoRenderKit extends RenderKit {
       contentType = "text/html";
     } else if (contentTypeList.indexOf("text/html") > -1) {
       contentType = "text/html";
-      LOG.warn("patching content type from " +contentTypeList + " to " + contentType+"'");
+      LOG.warn("patching content type from " + contentTypeList + " to " + contentType + "'");
     } else if (contentTypeList.indexOf("text/fo") > -1) {
       contentType = "text/fo";
-      LOG.warn("patching content type from " +contentTypeList + " to " + contentType+"'");
+      LOG.warn("patching content type from " + contentTypeList + " to " + contentType + "'");
     } else {
       contentType = "text/html";
-      LOG.warn("Content-Type '" + contentTypeList + "' not supported!" +
-          " Using text/html", new Exception());
+      LOG.warn("Content-Type '" + contentTypeList + "' not supported!"
+          + " Using text/html", new Exception());
     }
 
     return new TobagoResponseWriter(writer, contentType, characterEncoding);

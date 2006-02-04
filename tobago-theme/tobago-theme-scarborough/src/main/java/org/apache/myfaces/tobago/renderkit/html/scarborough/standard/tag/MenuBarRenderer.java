@@ -1,23 +1,25 @@
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /*
   * Created 28.04.2003 at 15:29:36.
   * $Id$
   */
-package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -72,14 +74,9 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class MenuBarRenderer extends RendererBase {
-// ------------------------------------------------------------------ constants
 
   private static final Log LOG = LogFactory.getLog(MenuBarRenderer.class);
 
-// ----------------------------------------------------------------- interfaces
-
-
-// ---------------------------- interface TobagoRenderer
 
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
@@ -110,8 +107,6 @@ public class MenuBarRenderer extends RendererBase {
     addScriptsAndStyles(facesContext, component, clientId, setupFunction,
         scriptBuffer.toString());
   }
-
-// ----------------------------------------------------------- business methods
 
   protected void addScriptsAndStyles(FacesContext facesContext,
       UIComponent component, final String clientId, String setupFunction,
@@ -193,9 +188,8 @@ public class MenuBarRenderer extends RendererBase {
     }
 
     String name = var + "_" + i++;
-    sb.append(
-        "    var " + name + " = " + createMenuEntry(facesContext, menu) +
-        ";\n");
+    sb.append("    var " + name + " = "
+        + createMenuEntry(facesContext, menu) + ";\n");
     sb.append("    " + var + ".addMenuItem(" + name + ");\n");
     addMenuEntrys(sb, name, facesContext, menu, false);
     return i;
@@ -236,12 +230,12 @@ public class MenuBarRenderer extends RendererBase {
     writer.writeAttribute("onkeydown", "tobagoMenuKeyDown(event)", null);
     writer.writeAttribute("onkeypress", "tobagoMenuKeyPress(event)", null);
     if (label.getText() != null) {
-      if (label.getAccessKey() != null) {
+      if (label.getAccessKey1() != null) {
         if (LOG.isInfoEnabled()
-            && ! AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-          LOG.info("dublicated accessKey : " + label.getAccessKey());
+            && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey1())) {
+          LOG.info("dublicated accessKey : " + label.getAccessKey1());
         }
-        writer.writeAttribute("accesskey", label.getAccessKey(), null);
+        writer.writeAttribute("accesskey", label.getAccessKey1(), null);
       }
       HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
     }
@@ -331,9 +325,9 @@ public class MenuBarRenderer extends RendererBase {
     } else if (COMMAND_TYPE_SCRIPT.equals(type)) {
       onclick = command;
     } else { // default: Action.TYPE_SUBMIT
-      onclick = "submitAction('" +
-          ComponentUtil.findPage(component).getFormId(facesContext) +
-          "','" + clientId + "')";
+      onclick = "submitAction('"
+          + ComponentUtil.findPage(component).getFormId(facesContext)
+          + "','" + clientId + "')";
     }
     return onclick;
   }
@@ -402,13 +396,13 @@ public class MenuBarRenderer extends RendererBase {
       String onClickPostfix = onClick != null ? "') ; " + onClick : "";
       for (SelectItem item : items) {
         final String labelText = item.getLabel();
-        label.accessKey = null;
+        label.setAccessKey(null);
         if (labelText != null) {
           if (labelText.indexOf(LabelWithAccessKey.INDICATOR) > -1) {
-            label.text = null;
+            label.setText(null);
             label.setup(labelText);
           } else {
-            label.text = labelText;
+            label.setText(labelText);
           }
         } else {
           LOG.warn("Menu item has label=null. UICommand.getClientId()="
@@ -453,12 +447,12 @@ public class MenuBarRenderer extends RendererBase {
 
     writer.startElement("a", null);
     writer.writeClassAttribute(spanClass);
-    if (label.getAccessKey() != null) {
+    if (label.getAccessKey1() != null) {
       if (LOG.isInfoEnabled()
-          && ! AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-        LOG.info("dublicated accessKey : " + label.getAccessKey());
+          && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey1())) {
+        LOG.info("dublicated accessKey : " + label.getAccessKey1());
       }
-      writer.writeAttribute("accesskey", label.getAccessKey(), null);
+      writer.writeAttribute("accesskey", label.getAccessKey1(), null);
     }
     writer.writeAttribute("href", "#", null);
     writer.writeAttribute("onfocus", "tobagoMenuFocus(event)", null);
@@ -491,8 +485,8 @@ public class MenuBarRenderer extends RendererBase {
   }
 
   private void addMenuSeparator(StringBuffer sb, String var) {
-    String html = "<div style=\"text-align: center;\">" +
-    "<hr class=\"tobago-menuBar-separator\"></div>";
+    String html = "<div style=\"text-align: center;\">"
+        + "<hr class=\"tobago-menuBar-separator\"></div>";
 
     sb.append("    ");
     sb.append(var);

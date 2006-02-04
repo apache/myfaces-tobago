@@ -1,5 +1,7 @@
-/**
- * Copyright 2004 The Apache Software Foundation.
+package org.apache.myfaces.tobago.ajax.api;
+
+/*
+ * Copyright 2004-2006 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.tobago.ajax.api;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -37,7 +38,6 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Map;
 
-
 /**
  *
  *  !! adapted copy of sandbox org.apache.myfaces.custom.ajax.api.AjaxPhaseListener !!
@@ -47,37 +47,29 @@ import java.util.Map;
  *          <p/>
  *          $Log: $
  */
-public class AjaxPhaseListener implements PhaseListener
-{
-  private static Log LOG = LogFactory.getLog(AjaxPhaseListener.class);
+public class AjaxPhaseListener implements PhaseListener {
+  private static final Log LOG = LogFactory.getLog(AjaxPhaseListener.class);
   public static final String AJAX_COMPONENT_ID = "affectedAjaxComponent";
 
 
   public static Object getValueForComponent(
-      FacesContext facesContext, UIComponent component)
-  {
+      FacesContext facesContext, UIComponent component) {
     String possibleClientId = component.getClientId(facesContext);
 
     final Map requestParameterMap
         = facesContext.getExternalContext().getRequestParameterMap();
-    if(requestParameterMap.containsKey(possibleClientId))
-    {
+    if(requestParameterMap.containsKey(possibleClientId)) {
       return requestParameterMap.get(possibleClientId);
-    }
-    else
-    {
-      possibleClientId = (String)requestParameterMap.get(AJAX_COMPONENT_ID);
+    } else {
+      possibleClientId = (String) requestParameterMap.get(AJAX_COMPONENT_ID);
 
       UIViewRoot root = facesContext.getViewRoot();
 
       UIComponent ajaxComponent = root.findComponent(possibleClientId);
 
-      if(ajaxComponent==component)
-      {
+      if(ajaxComponent==component) {
         return requestParameterMap.get(possibleClientId);
-      }
-      else
-      {
+      } else {
         LOG.error("No value found for this component : "+possibleClientId);
         return null;
       }
@@ -94,8 +86,7 @@ public class AjaxPhaseListener implements PhaseListener
     FacesContext facesContext = event.getFacesContext();
 
     final ExternalContext externalContext = facesContext.getExternalContext();
-    if(externalContext.getRequestParameterMap().containsKey(AJAX_COMPONENT_ID))
-    {
+    if(externalContext.getRequestParameterMap().containsKey(AJAX_COMPONENT_ID)) {
       try {
         if (LOG.isDebugEnabled()) {
           LOG.debug("AJAX: componentID gefunden :"
@@ -140,12 +131,11 @@ public class AjaxPhaseListener implements PhaseListener
       LOG.debug("Size of AjaxResponse:\n" + buf.length());
     }
 
-    buf.insert(0,Integer.toHexString(buf.length())+"\r\n");
+    buf.insert(0, Integer.toHexString(buf.length())+"\r\n");
     buf.append("\r\n"+0+"\r\n\r\n");
 
-    //todo: fix this to work in PortletRequest as well
-    if(externalContext.getResponse() instanceof HttpServletResponse)
-    {
+    //TODO: fix this to work in PortletRequest as well
+    if(externalContext.getResponse() instanceof HttpServletResponse) {
       final HttpServletResponse httpServletResponse
           = (HttpServletResponse) externalContext.getResponse();
       httpServletResponse.addHeader("Transfer-Encoding", "chunked");
@@ -255,8 +245,7 @@ public class AjaxPhaseListener implements PhaseListener
     }
   }
 
-  public PhaseId getPhaseId()
-  {
+  public PhaseId getPhaseId() {
     return PhaseId.ANY_PHASE;
     //return PhaseId.RESTORE_VIEW;
 //        return PhaseId.INVOKE_APPLICATION;

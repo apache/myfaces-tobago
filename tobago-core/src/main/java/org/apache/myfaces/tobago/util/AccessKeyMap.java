@@ -1,24 +1,20 @@
+package org.apache.myfaces.tobago.util;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-/**
- * User: weber
- * Date: Apr 5, 2005
- * Time: 3:23:40 PM
- */
-package org.apache.myfaces.tobago.util;
 
 import javax.faces.context.FacesContext;
 import java.util.HashSet;
@@ -30,20 +26,21 @@ public class AccessKeyMap {
       'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
       'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
-  private final static String request_map_key = "accessKeysRequestMapKey";
-
-  public static AccessKeyMap getInstance(FacesContext facesContext) {
-    final Map requestMap = facesContext.getExternalContext().getRequestMap();
-    AccessKeyMap keyMap = (AccessKeyMap) requestMap.get(request_map_key);
-    if (keyMap == null) {
-      keyMap = new AccessKeyMap();
-      requestMap.put(request_map_key, keyMap);
-    }
-    return keyMap;
-  }
+  private static final String REQUEST_MAP_KEY = "accessKeysRequestMapKey";
 
   private HashSet set;
   private String dublicated = "";
+
+
+  public static AccessKeyMap getInstance(FacesContext facesContext) {
+    final Map requestMap = facesContext.getExternalContext().getRequestMap();
+    AccessKeyMap keyMap = (AccessKeyMap) requestMap.get(REQUEST_MAP_KEY);
+    if (keyMap == null) {
+      keyMap = new AccessKeyMap();
+      requestMap.put(REQUEST_MAP_KEY, keyMap);
+    }
+    return keyMap;
+  }
 
   private AccessKeyMap() {
     set = new HashSet();
@@ -82,7 +79,7 @@ public class AccessKeyMap {
     HashSet set = getInstance(facesContext).getSet();
     StringBuffer sb = new StringBuffer();
     for (int i = 0; i < KEYS.length; i++) {
-      if (! set.contains(new Character(KEYS[i]))) {
+      if (!set.contains(new Character(KEYS[i]))) {
         sb.append(KEYS[i]);
       }
     }

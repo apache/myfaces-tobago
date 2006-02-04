@@ -1,23 +1,20 @@
+package org.apache.myfaces.tobago.context;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-/*
- * Created: 06.08.2002 13:42:01
- * $Id$
- */
-package org.apache.myfaces.tobago.context;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,7 +22,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class UserAgent implements Serializable {
-// ------------------------------------------------------------------ constants
 
   private static final long serialVersionUID = -3138810465122379395L;
 
@@ -64,20 +60,17 @@ public class UserAgent implements Serializable {
 
   public static final UserAgent MOZILLA_5_0_R1_6 = new UserAgent("mozilla", "5_0_r1_6");
 
-// ----------------------------------------------------------------- attributes
 
   private String name;
 
   private String version;
 
-// --------------------------------------------------------------- constructors
 
   private UserAgent(String name, String version){
     this.name    = name;
     this.version = version;
   }
 
-// ----------------------------------------------------------- business methods
 
   public boolean isMsie() {
     return MSIE.name.equals(name);
@@ -106,8 +99,6 @@ public class UserAgent implements Serializable {
     return list;
   }
 
-// ------------------------------------------------------------- static methods
-
   public static UserAgent getInstance(String header){
     if (header == null) {
       return DEFAULT;
@@ -128,7 +119,7 @@ public class UserAgent implements Serializable {
       if (header.indexOf("msie 5.0") > -1) {
         if (header.indexOf("mac") > -1) {
           return MSIE_5_0_MAC;
-        }else {
+        } else {
           return MSIE_5_0;
         }
       } else if (header.indexOf("msie 5.5") > -1) {
@@ -136,7 +127,7 @@ public class UserAgent implements Serializable {
       } else if (header.indexOf("msie 6.0") > -1) {
          if (header.indexOf("mac") > -1) {
           return MSIE_6_0_MAC;
-        }else {
+        } else {
           return MSIE_6_0;
         }
       } else {
@@ -148,8 +139,7 @@ public class UserAgent implements Serializable {
       } else if (header.indexOf("mozilla 5.0") > -1) {
         if (header.indexOf("rv:1.6") > -1) {
           return MOZILLA_5_0_R1_6;
-        }
-        else {
+        } else {
           return MOZILLA_5_0;
         }
       } else {
@@ -204,7 +194,6 @@ public class UserAgent implements Serializable {
      return DEFAULT;
    }
 
-// ---------------------------------------------------------- canonical methods
 
   /** @deprecated don't use toString() functionallity! */
   public String toString() {

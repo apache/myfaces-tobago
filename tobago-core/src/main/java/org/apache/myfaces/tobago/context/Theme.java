@@ -1,39 +1,32 @@
+package org.apache.myfaces.tobago.context;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-/*
- * Created Oct 30, 2002 at 10:58:22 AM.
- * $Id$
- */
-package org.apache.myfaces.tobago.context;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-abstract public class Theme implements Serializable {
-
-// ----------------------------------------------------------------- attributes
+public abstract class Theme implements Serializable {
 
   private String name;
   private String displayName;
   private Theme fallback;
   private List<Theme> fallbackList;
-
-// --------------------------------------------------------------- constructors
 
   protected Theme(String name, String displayName, Theme fallback) {
     this.name = name;
@@ -46,8 +39,6 @@ abstract public class Theme implements Serializable {
     }
     fallbackList = Collections.unmodifiableList(collect);
   }
-
-// ------------------------------------------------------------ getter + setter
 
   public String getDisplayName() {
     return displayName;
@@ -65,20 +56,26 @@ abstract public class Theme implements Serializable {
     return name;
   }
 
-// ---------------------------------------------------------- canonical methods
-
   public String toString() {
     return name;
   }
 
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
 
     final Theme theme = (Theme) o;
 
-    if (fallback != null ? !fallback.equals(theme.fallback) : theme.fallback != null) return false;
-    if (name != null ? !name.equals(theme.name) : theme.name != null) return false;
+    if (fallback != null ? !fallback.equals(theme.fallback) : theme.fallback != null) {
+      return false;
+    }
+    if (name != null ? !name.equals(theme.name) : theme.name != null) {
+      return false;
+    }
 
     return true;
   }

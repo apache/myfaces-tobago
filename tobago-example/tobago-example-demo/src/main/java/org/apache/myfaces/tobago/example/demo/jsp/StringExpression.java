@@ -1,23 +1,25 @@
+package org.apache.myfaces.tobago.example.demo.jsp;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /*
  * Created on: Apr 10, 2002, 11:04:12 PM
  * $Id: StringExpression.java,v 1.1.1.1 2004/04/15 18:40:59 idus Exp $
  */
-package org.apache.myfaces.tobago.example.demo.jsp;
 
 
 import org.apache.commons.logging.Log;
@@ -46,13 +48,13 @@ public class StringExpression implements Serializable {
     return string;
   }
 
-  public String substitute(Map<String,String> variables) {
+  public String substitute(Map<String, String> variables) {
     return replaceVariables(string, variables);
   }
 
   // implementation copied from ant.ProjectHelper
   private static String replaceVariables(
-      String stringExpression, Map<String,String> variables) {
+      String stringExpression, Map<String, String> variables) {
     if (stringExpression == null) {
       return null;
     }
@@ -112,7 +114,7 @@ public class StringExpression implements Serializable {
   }
 
   public static void main(String[] args) {
-    Map<String,String> env = new HashMap<String, String>();
+    Map<String, String> env = new HashMap<String, String>();
     env.put("v1", "var1");
     env.put("v2", "var2");
     String expression = "bla${v1}blup${v2}";

@@ -1,23 +1,20 @@
+package org.apache.myfaces.tobago.context;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-/*
- * All rights reserved.
- * $Id$
- */
-package org.apache.myfaces.tobago.context;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -39,11 +36,7 @@ import java.util.StringTokenizer;
 
 public class ResourceManagerImpl implements ResourceManager {
 
-// ------------------------------------------------------------------ constants
-
   private static final Log LOG = LogFactory.getLog(ResourceManagerImpl.class);
-
-// ----------------------------------------------------------------- attributes
 
   private final Properties resourceList;
 
@@ -55,8 +48,6 @@ public class ResourceManagerImpl implements ResourceManager {
 
   private TobagoConfig tobagoConfig;
 
-// --------------------------------------------------------------- constructors
-
   public ResourceManagerImpl() {
     resourceList = new Properties();
     cache = new Cache();
@@ -64,8 +55,6 @@ public class ResourceManagerImpl implements ResourceManager {
     classDirectories = new ArrayList<String>(1);
     classDirectories.add(TobagoRenderKit.PACKAGE_PREFIX.replace('.', '/'));
   }
-
-// ----------------------------------------------------------- business methods
 
   public void add(String resourceKey) {
     if (LOG.isDebugEnabled()) {
@@ -127,8 +116,7 @@ public class ResourceManagerImpl implements ResourceManager {
           // TODO: cache null values
           cache.put(key, result);
         } catch (Exception e) {
-          LOG.error("name = '" + name
-              + "' clientProperties = '" + clientPropertyId + "'", e);
+          LOG.error("name = '" + name + "' clientProperties = '" + clientPropertyId + "'", e);
         }
       }
     }
@@ -153,19 +141,16 @@ public class ResourceManagerImpl implements ResourceManager {
 
       CacheKey key = new CacheKey(clientPropertyId, locale, name, CacheType.JSP);
 //    Log.debug("key=" + key);
-      if ((result = (String) cache.get(key)) != null) {
+      result = (String) cache.get(key);
+      if (result != null) {
         return result;
       }
       try {
         result = (String) getPaths(clientPropertyId, locale, resourceDirectories, "",
-            type, name,
-            "", false, true, true, null, true, false).get(0);
+            type, name, "", false, true, true, null, true, false).get(0);
         cache.put(key, result);
       } catch (Exception e) {
-        LOG.error(
-            "name = '" + name + "' clientProperties = '" + clientPropertyId +
-            "'",
-            e);
+        LOG.error("name = '" + name + "' clientProperties = '" + clientPropertyId + "'", e);
       }
     }
     return result;
@@ -188,7 +173,8 @@ public class ResourceManagerImpl implements ResourceManager {
 //    String key = key(clientProperties, locale, type, bundle, propertyKey);
 
       CacheKey key = new CacheKey(clientPropertyId, locale, bundle, propertyKey);
-      if ((result = (String) cache.get(key)) != null) {
+      result = (String) cache.get(key);
+      if (result != null) {
         return result;
       }
       List properties = getPaths(clientPropertyId, locale, resourceDirectories, "", type, bundle,
@@ -395,10 +381,10 @@ public class ResourceManagerImpl implements ResourceManager {
 //        key = new StringBuffer(((org.apache.myfaces.tobago.component.UIViewRoot)viewRoot)
 //            .getRendererCachePrefix()).append(name).toString();
 //      key = new RendererCacheKey(clientPropertyId, locale, name);
-        key = ((org.apache.myfaces.tobago.component.UIViewRoot)viewRoot).getRendererCacheKey();
+        key = ((org.apache.myfaces.tobago.component.UIViewRoot) viewRoot).getRendererCacheKey();
         key.setName(name);
-
-        if ((renderer = (Renderer) cache.get(key)) != null) {
+        renderer = (Renderer) cache.get(key);
+        if (renderer != null) {
           return renderer;
         }
 
@@ -411,7 +397,8 @@ public class ResourceManagerImpl implements ResourceManager {
 //      key = key(clientPropertyId, locale, type, name);
 
         key = new CacheKey(clientPropertyId, locale, name, CacheType.RENDERER);
-        if ((renderer = (Renderer) cache.get(key)) != null) {
+        renderer = (Renderer) cache.get(key);
+        if (renderer != null) {
           return renderer;
         }
       }
@@ -426,10 +413,7 @@ public class ResourceManagerImpl implements ResourceManager {
         renderer = (Renderer) clazz.newInstance();
         cache.put(key, renderer);
       } catch (Exception e) {
-        LOG.error(
-            "name = '" + name + "' clientProperties = '" + clientPropertyId +
-                "'",
-            e);
+        LOG.error("name = '" + name + "' clientProperties = '" + clientPropertyId + "'", e);
         throw new RuntimeException(name, e);
       }
     }
@@ -549,7 +533,8 @@ public class ResourceManagerImpl implements ResourceManager {
 //    String key = key(clientProperties, locale, type, name);
       CacheKey key = new CacheKey(clientPropertyId, locale, name, CacheType.MISC);
 //    Log.debug("key=" + key);
-      if ((result = (String[]) cache.get(key)) != null) {
+      result = (String[]) cache.get(key);
+      if (result != null) {
         return result;
       }
       try {
@@ -559,10 +544,7 @@ public class ResourceManagerImpl implements ResourceManager {
         result = (String[]) matches.toArray(new String[matches.size()]);
         cache.put(key, result);
       } catch (Exception e) {
-        LOG.error(
-            "name = '" + name + "' clientProperties = '" + clientPropertyId +
-            "'",
-            e);
+        LOG.error("name = '" + name + "' clientProperties = '" + clientPropertyId + "'", e);
       }
     }
     return result;
@@ -576,7 +558,8 @@ public class ResourceManagerImpl implements ResourceManager {
       String clientPropertyId = ClientProperties.getInstance(viewRoot).getId();
       Locale locale = viewRoot.getLocale();
       CacheKey key = new CacheKey(clientPropertyId, locale, bundle, propertyKey);
-      if ((result = (String) cache.get(key)) != null) {
+      result = (String) cache.get(key);
+      if (result != null) {
         return result;
       }
       List properties = getPaths(clientPropertyId, locale, resourceDirectories, "", type, bundle,
@@ -605,9 +588,9 @@ public class ResourceManagerImpl implements ResourceManager {
 
   private class Cache extends HashMap {
 
-    int found;
+    private int found;
 
-    int miss;
+    private int miss;
 
     public Object put(Object key, Object value) {
       return super.put(key, value);
@@ -624,14 +607,14 @@ public class ResourceManagerImpl implements ResourceManager {
     }
   }
 
-  static public CacheKey getRendererCacheKey(String clientPropertyId, Locale locale) {
+  public static CacheKey getRendererCacheKey(String clientPropertyId, Locale locale) {
     return new CacheKey(clientPropertyId, locale, null, CacheType.RENDERER);
   }
 // ----------------------------------------------------------- cacheKey classes
 
   private enum CacheType {RENDERER, IMAGE, JSP, PROPERTY, MISC}
 
-  public final static class CacheKey{
+  public static final class CacheKey {
     private final String clientPropertyId;
     private final Locale locale;
     private String name;
@@ -672,16 +655,30 @@ public class ResourceManagerImpl implements ResourceManager {
     }
 
     public boolean equals(Object o) {
-      if (this == o) return true;
-      if (o == null || getClass() != o.getClass()) return false;
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
 
       final CacheKey cacheKey = (CacheKey) o;
 
-      if (! (type == cacheKey.type)) return false;
-      if (key != null ? !key.equals(cacheKey.key) : cacheKey.key != null) return false;
-      if (name != null ? !name.equals(cacheKey.name) : cacheKey.name != null) return false;
-      if (name != null ? !locale.equals(cacheKey.locale) : cacheKey.locale != null) return false;
-      if (!clientPropertyId.equals(cacheKey.clientPropertyId)) return false;
+      if (!(type == cacheKey.type)) {
+        return false;
+      }
+      if (key != null ? !key.equals(cacheKey.key) : cacheKey.key != null) {
+        return false;
+      }
+      if (name != null ? !name.equals(cacheKey.name) : cacheKey.name != null) {
+        return false;
+      }
+      if (name != null ? !locale.equals(cacheKey.locale) : cacheKey.locale != null) {
+        return false;
+      }
+      if (!clientPropertyId.equals(cacheKey.clientPropertyId)) {
+        return false;
+      }
 
       return true;
     }

@@ -1,23 +1,20 @@
+package org.apache.myfaces.tobago.component;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-/*
- * Created 20.08.2004 09:22:40.
- * $Id$
- */
-package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -28,11 +25,7 @@ import javax.faces.context.FacesContext;
 
 public class Window {
 
-// ///////////////////////////////////////////// constant
-
   private static final Log LOG = LogFactory.getLog(Window.class);
-
-// ///////////////////////////////////////////// attribute
 
   private String viewId;
   private String name;
@@ -41,8 +34,6 @@ public class Window {
   private int left = 100;
   private int top = 100;
   private boolean dependent;
-
-// ///////////////////////////////////////////// constructor
 
   public Window(String viewId) {
     this.viewId = viewId;
@@ -61,8 +52,6 @@ public class Window {
     this.left = x;
     this.top = y;
   }
-
-// ///////////////////////////////////////////// code
 
   public void activate(UIPage page) {
     page.getScriptFiles().add("script/popup.js");
@@ -95,8 +84,6 @@ public class Window {
     buffer.append("');");
     page.getOnloadScripts().add(buffer.toString());
   }
-
-// ///////////////////////////////////////////// bean getter + setter
 
   public String getViewId() {
     return viewId;

@@ -1,23 +1,20 @@
+package org.apache.myfaces.tobago.component;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-/*
- * Created 06.12.2004 20:49:49.
- * $Id$
- */
-package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -46,7 +43,7 @@ public class UILabeledInputLayout extends UILayout {
 
   public void layoutBegin(FacesContext facesContext, UIComponent component) {
 
-    if (! ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
+    if (!ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
 
       // do layout calculation for label, component and picker
       UIComponent label = ComponentUtil.provideLabel(facesContext, component);
@@ -56,7 +53,7 @@ public class UILabeledInputLayout extends UILayout {
 
       String layoutOrder = ComponentUtil.getStringAttribute(this, ATTR_LAYOUT_ORDER);
       if (layoutOrder == null) {
-        layoutOrder = ((LabeledLayoutRender)layoutRenderer).getDefaultLayoutOrder();
+        layoutOrder = ((LabeledLayoutRender) layoutRenderer).getDefaultLayoutOrder();
       }
 
       String layoutTokens = ComponentUtil.getStringAttribute(this, ATTR_COLUMNS);
@@ -82,23 +79,22 @@ public class UILabeledInputLayout extends UILayout {
       for (int i = 0; i<layoutOrder.length(); i++) {
         switch (layoutOrder.toUpperCase().charAt(i)) {
           case 'L':
-            if (label != null ) {
-              int spaceForColumn = layoutInfo.getSpaceForColumn(i);
+            int spaceForColumn;
+            if (label != null) {
+              spaceForColumn = layoutInfo.getSpaceForColumn(i);
               label.getAttributes().put(ATTR_LAYOUT_WIDTH, spaceForColumn);
             }
             break;
 
           case 'C':
-            {
-              int spaceForColumn = layoutInfo.getSpaceForColumn(i);
-              component.getAttributes().put(ATTR_LAYOUT_WIDTH, spaceForColumn);
-              HtmlRendererUtil.layoutWidth(facesContext, component);
-            }
+            spaceForColumn = layoutInfo.getSpaceForColumn(i);
+            component.getAttributes().put(ATTR_LAYOUT_WIDTH, spaceForColumn);
+            HtmlRendererUtil.layoutWidth(facesContext, component);
             break;
 
           case 'P':
             if (picker != null) {
-              int spaceForColumn = layoutInfo.getSpaceForColumn(i);
+              spaceForColumn = layoutInfo.getSpaceForColumn(i);
               picker.getAttributes().put(ATTR_LAYOUT_WIDTH, spaceForColumn);
               // prevent height layouting
               picker.getAttributes().put(ATTR_LAYOUT_HEIGHT, 0);
@@ -127,10 +123,10 @@ public class UILabeledInputLayout extends UILayout {
     }
 
     StringBuffer sb = new StringBuffer();
-    for (int i = 0; i<layoutOrder.length(); i++) {
+    for (int i = 0; i < layoutOrder.length(); i++) {
       switch (layoutOrder.toUpperCase().charAt(i)) {
         case 'L':
-          if (label != null ) {
+          if (label != null) {
             sb.append(labelWidth + "px;");
           } else {
             sb.append("0px;");
@@ -155,7 +151,6 @@ public class UILabeledInputLayout extends UILayout {
     }
     return sb.substring(0, sb.length() -1);
   }
-
 
   public String getFamily() {
     return COMPONENT_FAMILY;

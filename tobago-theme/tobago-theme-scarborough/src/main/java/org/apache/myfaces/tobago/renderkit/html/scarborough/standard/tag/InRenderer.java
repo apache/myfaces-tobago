@@ -1,23 +1,25 @@
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /*
  * Created 07.02.2003 16:00:00.
  * $Id$
  */
-package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -52,8 +54,6 @@ import java.util.List;
 public class InRenderer extends InRendererBase implements AjaxRenderer {
   private static final Log LOG = LogFactory.getLog(InRenderer.class);
 
-// ----------------------------------------------------------- business methods
-
   protected void renderMain(FacesContext facesContext, UIInput input,
       TobagoResponseWriter writer) throws IOException {
     Iterator messages = facesContext.getMessages(
@@ -83,7 +83,7 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
     boolean renderAjaxSuggest = false;
     if (input instanceof org.apache.myfaces.tobago.component.UIInput) {
       renderAjaxSuggest =
-          ((org.apache.myfaces.tobago.component.UIInput)input).getSuggestMethod() != null;
+          ((org.apache.myfaces.tobago.component.UIInput) input).getSuggestMethod() != null;
     }
 
     String onchange = HtmlUtils.generateOnchange(input, facesContext);
@@ -159,9 +159,9 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
       String function = "return entry";
       if (facesContext.getApplication().getStateManager().isSavingStateInClient(facesContext)) {
         function +=
-            "+'&jsf_tree_64='+encodeURIComponent($('jsf_tree_64').value)" +
-            "+'&jsf_state_64='+encodeURIComponent($('jsf_state_64').value)" +
-            "+'&jsf_viewid='+encodeURIComponent($('jsf_viewid').value)";
+            "+'&jsf_tree_64='+encodeURIComponent($('jsf_tree_64').value)"
+                + "+'&jsf_state_64='+encodeURIComponent($('jsf_state_64').value)"
+                + "+'&jsf_viewid='+encodeURIComponent($('jsf_viewid').value)";
       }
 
       final String[] cmds = {
@@ -212,22 +212,22 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
     }
 
 
-    int maxSuggestedCount = 25 ;//input.getMaxSuggestedItems()!=null
+    int maxSuggestedCount = 25; //input.getMaxSuggestedItems()!=null
 //        ? input.getMaxSuggestedItems().intValue()
 //        : DEFAULT_MAX_SUGGESTED_ITEMS;
 
-    List suggesteds = (List) mb.invoke(context,new Object[]{
+    List suggesteds = (List) mb.invoke(context, new Object[]{
         AjaxPhaseListener.getValueForComponent(context, uiComponent)});
 
 
     StringBuffer buf = new StringBuffer();
     buf.append("<ul>");
 
-    int suggestedCount=0;
-    for (Iterator i = suggesteds.iterator() ; i.hasNext() ; suggestedCount++)
-    {
-      if( suggestedCount > maxSuggestedCount )
+    int suggestedCount = 0;
+    for (Iterator i = suggesteds.iterator(); i.hasNext(); suggestedCount++) {
+      if (suggestedCount > maxSuggestedCount) {
         break;
+      }
 
       buf.append("<li>");
       buf.append(i.next().toString());

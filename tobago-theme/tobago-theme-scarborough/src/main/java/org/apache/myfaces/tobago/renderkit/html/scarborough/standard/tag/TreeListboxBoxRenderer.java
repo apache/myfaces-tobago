@@ -1,19 +1,20 @@
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -45,7 +46,7 @@ public class TreeListboxBoxRenderer extends RendererBase {
   public void encodeEndTobago(FacesContext facesContext, UIComponent component)
       throws IOException {
 
-    int level = ((UITreeListboxBox)component).getLevel();
+    int level = ((UITreeListboxBox) component).getLevel();
 
     UITreeListbox tree = (UITreeListbox) component.getParent();
     List<UITreeNode> selectionPath = tree.getSelectionPath();
@@ -72,12 +73,12 @@ public class TreeListboxBoxRenderer extends RendererBase {
     if (siblingMode) {
       writer.writeAttribute("onchange", onChange, null);
     } else {
-    writer.writeAttribute("onclick", onClick, null);
+      writer.writeAttribute("onclick", onClick, null);
     }
     writer.writeAttribute("multiple", siblingMode);
 
 
-    List nodes = ((UITreeListboxBox)component).getNodes();
+    List nodes = ((UITreeListboxBox) component).getNodes();
 
     for (int i = 0; i < nodes.size(); i++) {
       UITreeNode treeNode = (UITreeNode) nodes.get(i);
@@ -97,8 +98,6 @@ public class TreeListboxBoxRenderer extends RendererBase {
       }
       writer.endElement("option");
     }
-
-
     writer.endElement("select");
   }
 

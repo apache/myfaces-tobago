@@ -1,24 +1,20 @@
+package org.apache.myfaces.tobago.component;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-/*
- * All rights reserved.
- * Created: Dec 18, 2002 2:02:20 PM
- * $Id$
- */
-package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -108,7 +104,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
       UIComponent kid = (UIComponent) o;
       if (kid instanceof UIPanel) {
         if (kid.isRendered()) {
-          tabs.add((UIPanel)kid);
+          tabs.add((UIPanel) kid);
         }
       } else {
         LOG.error("Invalid component in UITabGroup: " + kid);
@@ -123,7 +119,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
 
   @Override
   public void processDecodes(FacesContext context) {
-    if (! isClientType()) {
+    if (!isClientType()) {
 
       if (context == null) {
         throw new NullPointerException("context");
@@ -146,7 +142,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
 
   @Override
   public void processValidators(FacesContext context) {
-    if (! isClientType()) {
+    if (!isClientType()) {
       if (context == null) {
         throw new NullPointerException("context");
       }
@@ -162,7 +158,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
 
   @Override
   public void processUpdates(FacesContext context) {
-    if (! isClientType()) {
+    if (!isClientType()) {
       if (context == null) {
         throw new NullPointerException("context");
       }
@@ -188,7 +184,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
       } catch (EvaluationException e) {
         Throwable cause = e.getCause();
         if (cause != null && cause instanceof AbortProcessingException) {
-          throw (AbortProcessingException)cause;
+          throw (AbortProcessingException) cause;
         } else {
           throw e;
         }
@@ -212,7 +208,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
   }
 
   public void addTabChangeListener(TabChangeListener listener) {
-    if (LOG.isWarnEnabled() && ! isClientType()) {
+    if (LOG.isWarnEnabled() && !isClientType()) {
       LOG.warn("Adding TabChangeListener to Client side Tabgroup!");
     }
     addFacesListener(listener);
@@ -237,15 +233,15 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
     state[0] = super.saveState(context);
     state[1] = new Integer(renderedIndex);
     state[2] = new Integer(activeIndex);
-    state[3] =  saveAttachedState(context, tabChangeListener);
+    state[3] = saveAttachedState(context, tabChangeListener);
     return state;
   }
 
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
     super.restoreState(context, values[0]);
-    renderedIndex = ((Integer)values[1]).intValue();
-    activeIndex = ((Integer)values[2]).intValue();
+    renderedIndex = ((Integer) values[1]).intValue();
+    activeIndex = ((Integer) values[2]).intValue();
     tabChangeListener = (MethodBinding) restoreAttachedState(context, values[3]);
   }
 

@@ -1,23 +1,25 @@
+package org.apache.myfaces.tobago.example.demo.jsp;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /*
  * Created on: 02.09.2002, 23:37:54
  * $Id: JspTagConverter.java,v 1.1.1.1 2004/04/15 18:41:00 idus Exp $
  */
-package org.apache.myfaces.tobago.example.demo.jsp;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,28 +32,28 @@ import java.util.Map;
 
 public class JspTagConverter extends AbstractConverter {
 
-  private static final Log log = LogFactory.getLog(JspTagConverter.class);
+  private static final Log LOG = LogFactory.getLog(JspTagConverter.class);
 
   private TagConverter tagConverter = new TagConverter();
-  private Map<String,String> tags = new HashMap<String, String>();
+  private Map<String, String> tags = new HashMap<String, String>();
 
   public Pattern initPattern() throws MalformedPatternException {
 //    return compiler.compile("(?s)<%.*?%>");
 //    return compiler.compile("(?s)<%(--)?.*?\\1%>");
-    return compiler.compile("(?s)(<%--.*?--%>)|(<%.*?%>)");
+    return getCompiler().compile("(?s)(<%--.*?--%>)|(<%.*?%>)");
   }
 
   public String highlightJavaKeyword(String java) {
-    return util.substitute("s/(\\bassert\\b|break\\b|\\bbyte\\b|\\bboolean\\b" +
-        "|\\bcatch\\b|\\bcase\\b|\\bchar\\b|\\bcontinue\\b|\\bdouble\\b" +
-        "|\\bdo\\b|\\belse\\b|\\bextends\\b|\\bfalse\\b|\\bfinal\\b" +
-        "|\\bfloat\\b|\\bfor\\b|\\bfinally\\b|\\bif\\b|\\bimplements\\b" +
-        "|\\bint\\b|\\binterface\\b|\\binstanceof\\b|\\blong\\b|\\blength\\b" +
-        "|\\bnew\\b|\\bnull\\b|\\bprivate\\b|\\bprotected\\b|\\bpublic\\b" +
-        "|\\breturn\\b|\\bswitch\\b|\\bsynchronized\\b|\\bshort\\b" +
-        "|\\bstatic\\b|\\bsuper\\b|\\btry\\b|\\btrue\\b|\\bthis\\b" +
-        "|\\bthrow\\b|\\bthrows\\b|\\bvoid\\b|\\bwhile\\b)" +
-        "/<span class=\"keyword\">$1<\\/span>/g", java);
+    return getUtil().substitute("s/(\\bassert\\b|break\\b|\\bbyte\\b|\\bboolean\\b"
+        + "|\\bcatch\\b|\\bcase\\b|\\bchar\\b|\\bcontinue\\b|\\bdouble\\b"
+        + "|\\bdo\\b|\\belse\\b|\\bextends\\b|\\bfalse\\b|\\bfinal\\b"
+        + "|\\bfloat\\b|\\bfor\\b|\\bfinally\\b|\\bif\\b|\\bimplements\\b"
+        + "|\\bint\\b|\\binterface\\b|\\binstanceof\\b|\\blong\\b|\\blength\\b"
+        + "|\\bnew\\b|\\bnull\\b|\\bprivate\\b|\\bprotected\\b|\\bpublic\\b"
+        + "|\\breturn\\b|\\bswitch\\b|\\bsynchronized\\b|\\bshort\\b"
+        + "|\\bstatic\\b|\\bsuper\\b|\\btry\\b|\\btrue\\b|\\bthis\\b"
+        + "|\\bthrow\\b|\\bthrows\\b|\\bvoid\\b|\\bwhile\\b)"
+        + "/<span class=\"keyword\">$1<\\/span>/g", java);
   }
 
   public String convertMatch(String fragment) {
@@ -75,14 +77,14 @@ public class JspTagConverter extends AbstractConverter {
       tag = highlightJavaKeyword(tag);
       tag = "<span class=\"jsp-tag\">" + tag + "</span>";
     } else {
-      log.error("error: " + fragment);
+      LOG.error("error: " + fragment);
     }
     tags.put(key, tag);
     return "${" + key + "}";
   }
 
   public String convert(String input) {
-    String result;// = StringUtils.replace(input, "$", "$$");
+    String result; // = StringUtils.replace(input, "$", "$$");
     result = super.convert(input);
     result = tagConverter.convert(result);
     StringExpression stringExpression = new StringExpression(result);

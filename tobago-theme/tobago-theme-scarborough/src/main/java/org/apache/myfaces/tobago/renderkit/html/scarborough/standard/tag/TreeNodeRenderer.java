@@ -1,23 +1,25 @@
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /*
  * Created 07.02.2003 16:00:00.
  * $Id$
  */
-package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.logging.Log;
@@ -46,15 +48,7 @@ import java.util.Map;
 
 public class TreeNodeRenderer extends RendererBase {
 
-// ///////////////////////////////////////////// constant
-
   private static final Log LOG = LogFactory.getLog(TreeNodeRenderer.class);
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
 
   public void decode(FacesContext facesContext, UIComponent component) {
     if (ComponentUtil.isOutputOnly(component)) {
@@ -69,44 +63,43 @@ public class TreeNodeRenderer extends RendererBase {
     final Map requestParameterMap
         = facesContext.getExternalContext().getRequestParameterMap();
 
-    { // expand state
-      String expandState = (String) requestParameterMap.get(treeId);
-      String searchString = ";" + nodeId + ";";
-      if (expandState.indexOf(searchString) > -1) {
-        state.addExpandState((DefaultMutableTreeNode) node.getValue());
-      }
+    // expand state
+    String expandState = (String) requestParameterMap.get(treeId);
+    String searchString = ";" + nodeId + ";";
+    if (expandState.indexOf(searchString) > -1) {
+      state.addExpandState((DefaultMutableTreeNode) node.getValue());
     }
+
 
     if (TreeRenderer.isSelectable(tree)) { // selection
       String selected = (String) requestParameterMap.get(treeId + UITree.SELECT_STATE);
-      String searchString = ";" + nodeId + ";";
+      searchString = ";" + nodeId + ";";
       if (selected.indexOf(searchString) > -1) {
         state.addSelection((DefaultMutableTreeNode) node.getValue());
       }
     }
 
-    { // marker
-      String marked = (String) requestParameterMap.get(treeId + UITree.MARKER);
-      if (marked != null) {
-        String searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeId;
+    // marker
+    String marked = (String) requestParameterMap.get(treeId + UITree.MARKER);
+    if (marked != null) {
+      searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeId;
 
-        if (marked.equals(searchString)) {
-          state.setMarker((DefaultMutableTreeNode) node.getValue());
-        }
+      if (marked.equals(searchString)) {
+        state.setMarker((DefaultMutableTreeNode) node.getValue());
       }
     }
+
 
     // link
     // FIXME: this is equal to the CommandRendererBase, why not use that code?
     String actionId = ComponentUtil.findPage(component).getActionId();
     if (LOG.isDebugEnabled()) {
       LOG.debug("actionId = '" + actionId + "'");
-      LOG.debug("nodeId = '" + treeId + NamingContainer.SEPARATOR_CHAR +
-          nodeId +
-          "'");
+      LOG.debug("nodeId = '" + treeId + NamingContainer.SEPARATOR_CHAR
+          + nodeId + "'");
     }
-    if (actionId != null &&
-        actionId.equals(treeId + NamingContainer.SEPARATOR_CHAR + nodeId)) {
+    if (actionId != null
+        && actionId.equals(treeId + NamingContainer.SEPARATOR_CHAR + nodeId)) {
       UICommand treeNodeCommand
           = (UICommand) tree.getFacet(UITree.FACET_TREE_NODE_COMMAND);
       if (treeNodeCommand != null) {
@@ -218,7 +211,7 @@ public class TreeNodeRenderer extends RendererBase {
       writer.writeText(",'", null);
       writer.writeText(rootId, null);
       writer.writeText("',", null);
-      String selectable = ComponentUtil.getStringAttribute(root, ATTR_SELECTABLE) ;
+      String selectable = ComponentUtil.getStringAttribute(root, ATTR_SELECTABLE);
       if (selectable != null
           && (!(selectable.equals("multi") || selectable.equals("multiLeafOnly")
           || selectable.equals("single") || selectable.equals("singleLeafOnly")
@@ -240,7 +233,7 @@ public class TreeNodeRenderer extends RendererBase {
           ComponentUtil.findPage(component).getFormId(facesContext), null);
       writer.writeText("',", null);
       if (component.getChildCount() == 0
-          || (selectable != null && ! selectable.endsWith("LeafOnly"))) {
+          || (selectable != null && !selectable.endsWith("LeafOnly"))) {
         boolean selected = treeState.isSelected(node);
         writer.writeText(Boolean.toString(selected), null);
         if (LOG.isDebugEnabled()) {

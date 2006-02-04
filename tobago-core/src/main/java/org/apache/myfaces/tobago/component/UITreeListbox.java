@@ -1,19 +1,20 @@
+package org.apache.myfaces.tobago.component;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -35,23 +36,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
 /**
  * User: weber
  * Date: Mar 16, 2005
  * Time: 12:33:08 PM
  */
-public class UITreeListbox extends UITree implements LayoutProvider{
-
-// ------------------------------------------------------------------ constants
+public class UITreeListbox extends UITree implements LayoutProvider {
 
   private static final Log LOG = LogFactory.getLog(UITreeListbox.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TreeListbox";
 
   public static final String BOXES_PREFIX = "boxes_";
-
-// ----------------------------------------------------------------- attributes
 
   private List<UITreeNode> selectionPath;
   private List<UITreeNode> expandPath;
@@ -151,7 +147,7 @@ public class UITreeListbox extends UITree implements LayoutProvider{
       selectionPath.addAll(expandPath);
     } else {
       for (UITreeNode node : selectionPath) {
-        if (! node.getTreeNode().isLeaf()) {
+        if (!node.getTreeNode().isLeaf()) {
           expandPath.add(node);
         }
       }
@@ -249,8 +245,6 @@ public class UITreeListbox extends UITree implements LayoutProvider{
     return selectedComponent;
   }
 
-// ------------------------------------------------------------ getter + setter
-
   public List<UITreeNode> getSelectionPath() {
     return selectionPath;
   }
@@ -281,7 +275,7 @@ public class UITreeListbox extends UITree implements LayoutProvider{
       }
 
       String columns = "1*";
-      for ( int i = 1; i < depth; i++) {
+      for (int i = 1; i < depth; i++) {
         columns += ";1*";
       }
 

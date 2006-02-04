@@ -1,23 +1,20 @@
+package org.apache.myfaces.tobago.taglib.component;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-/*
- * Created 28.01.2003 14:10:33.
- * $Id$
- */
-package org.apache.myfaces.tobago.taglib.component;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ID_REFERENCE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MUTABLE;
@@ -53,7 +50,8 @@ import javax.faces.component.UIComponent;
  */
 @Tag(name = "tree")
 @BodyContentDescription(anyTagOf = "<f:facet>* <f:actionListener>?")
-@Preliminary("Implement a var attribute for the tree like in the sheet (http://issues.apache.org/jira/browse/MYFACES-903)")
+@Preliminary(
+    "Implement a var attribute for the tree like in the sheet (http://issues.apache.org/jira/browse/MYFACES-903)")
 public class TreeTag extends TobagoTag
     implements HasIdBindingAndRendered, HasTreeNodeValue, HasState,
     HasIdReference, HasActionListener, HasNameReference, IsRequired {
@@ -97,7 +95,7 @@ public class TreeTag extends TobagoTag
     ComponentUtil.setStringProperty(component, ATTR_ID_REFERENCE, idReference);
     ComponentUtil.setStringProperty(component, ATTR_NAME_REFERENCE, nameReference);
     ComponentUtil.setBooleanProperty(component, ATTR_REQUIRED, required);
-    ComponentUtil.setActionListener((ActionSource)component, actionListener);
+    ComponentUtil.setActionListener((ActionSource) component, actionListener);
   }
 
   public void release() {

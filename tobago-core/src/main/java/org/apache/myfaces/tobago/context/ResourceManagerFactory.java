@@ -1,23 +1,20 @@
+package org.apache.myfaces.tobago.context;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-/*
- * Created 30.03.2004 12:47:02.
- * $Id: ResourceManagerUtil.java 1361 2005-08-15 09:46:20Z lofwyr $
- */
-package org.apache.myfaces.tobago.context;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -149,28 +146,27 @@ public class ResourceManagerFactory {
     Set<String> resourcePaths = servletContext.getResourcePaths(path);
     if (resourcePaths == null || resourcePaths.isEmpty()) {
       if (LOG.isErrorEnabled()) {
-        LOG.error("ResourcePath empty! Please check the web.xml file!" +
-            " path='" + path + "'");
+        LOG.error("ResourcePath empty! Please check the web.xml file!"
+            + " path='" + path + "'");
       }
       return;
     }
     for (String childPath : resourcePaths) {
       if (childPath.endsWith("/")) {
-        if (childPath.equals(path)) {
-          // ignore, because weblogic puts the path directory itself in the Set
-        } else {
-//          Log.debug("dir      " + childPath);
+        // ignore, because weblogic puts the path directory itself in the Set
+        if (!childPath.equals(path)) {
+          //Log.debug("dir      " + childPath);
           locateResources(servletContext, resources, childPath);
         }
       } else {
-//        Log.debug("add resc " + childPath);
+        //Log.debug("add resc " + childPath);
         if (childPath.endsWith(".properties")) {
           addProperties(servletContext, resources, childPath, false);
         } else if (childPath.endsWith(".properties.xml")) {
           addProperties(servletContext, resources, childPath, true);
         } else {
           resources.add(childPath);
-//          Log.debug(childPath);
+          //Log.debug(childPath);
         }
       }
     }

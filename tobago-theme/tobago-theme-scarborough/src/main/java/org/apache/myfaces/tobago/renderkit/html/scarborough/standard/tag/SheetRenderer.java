@@ -1,23 +1,25 @@
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /*
  * Created 07.02.2003 16:00:00.
  * $Id$
  */
-package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -307,11 +309,10 @@ public class SheetRenderer extends RendererBase
     // Print the Content
 
     if (LOG.isDebugEnabled()) {
-      LOG.debug("first = " + data.getFirst() + "   rows = " +
-          data.getRows());
+      LOG.debug("first = " + data.getFirst() + "   rows = " + data.getRows());
     }
 
-    final Map requestMap = facesContext.getExternalContext().getRequestMap();
+    //final Map requestMap = facesContext.getExternalContext().getRequestMap();
     final String var = data.getVar();
 
     boolean odd = false;
@@ -324,8 +325,7 @@ public class SheetRenderer extends RendererBase
         break;
       }
       odd = !odd;
-      final String rowClass = odd ?
-          "tobago-sheet-content-odd " : "tobago-sheet-content-even ";
+      final String rowClass = odd ? "tobago-sheet-content-odd " : "tobago-sheet-content-even ";
 
       if (LOG.isDebugEnabled()) {
         LOG.debug("var       " + var);
@@ -359,8 +359,8 @@ public class SheetRenderer extends RendererBase
         }
         final String cellClass = (String) column.getAttributes().get(
             ATTR_STYLE_CLASS);
-        final String tdClass = "tobago-sheet-cell-td " +
-            (cellClass != null ? cellClass : "");
+        final String tdClass = "tobago-sheet-cell-td "
+            + (cellClass != null ? cellClass : "");
 
 
         writer.startElement("td", column);
@@ -695,8 +695,8 @@ public class SheetRenderer extends RendererBase
   }
 
   private boolean isValidPagingValue(String value) {
-    return "left".equals(value) || "center".equals(value) ||
-        "right".equals(value);
+    return "left".equals(value) || "center".equals(value)
+        || "right".equals(value);
   }
 
   private int getAscendingMarkerWidth(FacesContext facesContext,
@@ -761,7 +761,7 @@ public class SheetRenderer extends RendererBase
         + (disabled ? " tobago-sheet-footer-pager-button-disabled" : ""));
     writer.writeAttribute("src", image, null);
     writer.writeAttribute("title", tip, null);
-    if (! disabled) {
+    if (!disabled) {
       String onClick = ButtonRenderer.createOnClick(facesContext, link);
       writer.writeAttribute("onclick", onClick, null);
     }
@@ -778,9 +778,8 @@ public class SheetRenderer extends RendererBase
 
     List columnWidths
         = (List) component.getAttributes().get(ATTR_WIDTH_LIST);
-    String divWidth = "width: " +
-        (((Integer) columnWidths.get(columnCount)).intValue()) +
-        "px;";
+    String divWidth =
+        "width: " + (((Integer) columnWidths.get(columnCount)).intValue()) + "px;";
 
 
     writer.startElement("div", null);
@@ -801,8 +800,7 @@ public class SheetRenderer extends RendererBase
       String sorterId = Sorter.ID_PREFIX + columnCount;
       String onclick = "submitAction('"
           + ComponentUtil.findPage(component).getFormId(facesContext)
-          + "','" + component.getClientId(facesContext) + ":" + sorterId +
-          "')";
+          + "','" + component.getClientId(facesContext) + ":" + sorterId + "')";
       writer.writeAttribute("onclick", onclick, null);
       UICommand sortCommand = (UICommand)
           application.createComponent(UICommand.COMPONENT_TYPE);
@@ -948,7 +946,8 @@ public class SheetRenderer extends RendererBase
         = (String) column.getAttributes().get(ATTR_LABEL);
     if (label != null) {
       writer.writeText(label, null);
-      if (((UIData)column.getParent()).getSheetState(facesContext).getSortedColumn() == columnCount && "right".equals(align)) {
+      if (((UIData) column.getParent()).getSheetState(facesContext).getSortedColumn()
+          == columnCount && "right".equals(align)) {
         writer.startElement("img", null);
         writer.writeAttribute("src", image1x1, null);
         writer.writeAttribute("alt", "", null);
@@ -998,8 +997,8 @@ public class SheetRenderer extends RendererBase
       }
     }
 
-    if (prevs.size() > (linkCount / 2) &&
-        nexts.size() > (linkCount - (linkCount / 2))) {
+    if (prevs.size() > (linkCount / 2)
+        && nexts.size() > (linkCount - (linkCount / 2))) {
       while (prevs.size() > (linkCount / 2)) {
         prevs.remove(0);
       }
@@ -1100,8 +1099,6 @@ public class SheetRenderer extends RendererBase
     renderSheet(facesContext, (UIData) component);
     facesContext.responseComplete();
   }
-
-// -------------------------------------------------------------- inner classes
 
 }
 

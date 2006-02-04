@@ -1,19 +1,20 @@
+package org.apache.myfaces.tobago.component;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -53,22 +54,9 @@ public class Sorter extends MethodBinding {
 
   public static final String ID_PREFIX = "sorter_";
 
-//  private UIData data;
 
-//  private int column;
-//  private boolean ascending;
-
-//  public Sorter(UIData data) {
-//    this.data = data;
-//    column = -1;
-//    ascending = true;
-//  }
-
-//  public Sorter() {
-//  }
-
-  public Object invoke(FacesContext facesContext, Object aobj[])
-      throws EvaluationException, MethodNotFoundException {
+  public Object invoke(FacesContext facesContext, Object[] aobj)
+      throws EvaluationException {
     if (aobj[0] instanceof ActionEvent) {
       javax.faces.component.UICommand command =
           (javax.faces.component.UICommand) ((ActionEvent) aobj[0]).getSource();
@@ -115,8 +103,8 @@ public class Sorter extends MethodBinding {
               if (valueBinding != null) {
                 if (isSimpleProperty(valueBinding.getExpressionString())) {
                   String expressionString = valueBinding.getExpressionString();
-                  if (expressionString.startsWith("#{") &&
-                      expressionString.endsWith("}")) {
+                  if (expressionString.startsWith("#{")
+                      && expressionString.endsWith("}")) {
                     expressionString =
                         expressionString.substring(2,
                             expressionString.length() - 1);
@@ -139,8 +127,7 @@ public class Sorter extends MethodBinding {
               return null;
             }
           } catch (Exception e) {
-            LOG.error("Error while extracting sortMethod :" + e.getMessage(),
-                e);
+            LOG.error("Error while extracting sortMethod :" + e.getMessage(), e);
             if (uiColumn != null) {
               removeSortableAttribute(uiColumn);
             }
@@ -152,9 +139,11 @@ public class Sorter extends MethodBinding {
           return null;
         }
 
-        if (value instanceof SortableByApplication) {
-//          ((SortableByApplication) value).sortBy(sortProperty);
-        } else {
+        //if (value instanceof SortableByApplication) {
+            //((SortableByApplication) value).sortBy(sortProperty);
+
+          // TODO ???? sortable by application
+        if (!(value instanceof SortableByApplication)) {
           // TODO: locale / comparator parameter?
           // don't compare numbers with Collator.getInstance() comparator
 //        Comparator comparator = Collator.getInstance();
@@ -196,8 +185,8 @@ public class Sorter extends MethodBinding {
         || child instanceof UISelectOne
         || child instanceof UISelectBoolean) {
         continue;
-      } else if (child instanceof UIInput &&
-        TobagoConstants.RENDERER_TYPE_HIDDEN.equals(child.getRendererType())) {
+      } else if (child instanceof UIInput
+          && TobagoConstants.RENDERER_TYPE_HIDDEN.equals(child.getRendererType())) {
         continue;
       } else if (child instanceof UIOutput) {
         break;

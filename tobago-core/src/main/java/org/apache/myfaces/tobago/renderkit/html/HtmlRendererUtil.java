@@ -1,19 +1,20 @@
+package org.apache.myfaces.tobago.renderkit.html;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-package org.apache.myfaces.tobago.renderkit.html;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -100,8 +101,7 @@ public final class HtmlRendererUtil {
     }
     innerSpaceInteger = (Integer)
         component.getAttributes().get(ATTR_INNER_HEIGHT);
-    if (innerSpaceInteger == null || innerSpaceInteger == -1) {
-    } else {
+    if (innerSpaceInteger != null && innerSpaceInteger != -1) {
       innerStyle += " height: " + innerSpaceInteger + "px;";
     }
     component.getAttributes().put(ATTR_STYLE_INNER, innerStyle);
@@ -195,7 +195,8 @@ public final class HtmlRendererUtil {
       attributes.put(ATTR_STYLE_CLASS, newClass);
     } else if (cssClass.indexOf(newClass + " ") == -1
         || !cssClass.equals(newClass) || !cssClass.endsWith(newClass)) {
-      attributes.put(ATTR_STYLE_CLASS, cssClass += " " + newClass);
+      cssClass += " " + newClass;
+      attributes.put(ATTR_STYLE_CLASS, cssClass);
     }
   }
 
@@ -278,7 +279,8 @@ public final class HtmlRendererUtil {
     int styleSpace = -1;
     try {
       styleSpace = Integer.parseInt(getStyleAttributeValue(style, width ? "width" : "height").replaceAll("\\D", ""));
-    } catch (Exception e) { /* ignore */
+    } catch (Exception e) {
+      /* ignore */
     }
     if (styleSpace != -1) {
       int bodySpace = 0;
@@ -469,7 +471,8 @@ public final class HtmlRendererUtil {
   public static void main(String[] args) {
     System.out.println(removeTobagoClasses("bla bla bla tobago-test-inline bla bla", "test"));
     System.out.println(removeTobagoClasses("tobago-test-inline blablubber bla", "test"));
-    System.out.println(removeTobagoClasses("bla bla bla tobago-2test-inline bla tobago-test-blubber bla blubb", "test"));
+    System.out.println(removeTobagoClasses("bla bla bla tobago-2test-inline bla tobago-test-blubber bla blubb",
+        "test"));
     System.out.println(removeTobagoClasses("bla bla bla tobago-testXXX", "test"));
     System.out.println(removeTobagoClasses("tobago-test", "test"));
     System.out.println(removeTobagoClasses(" x x ", "test"));

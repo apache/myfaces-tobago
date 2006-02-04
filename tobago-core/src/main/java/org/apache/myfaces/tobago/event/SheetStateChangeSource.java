@@ -1,6 +1,22 @@
 package org.apache.myfaces.tobago.event;
 
 /*
+ * Copyright 2002-2005 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 18.12.2005
@@ -9,13 +25,13 @@ package org.apache.myfaces.tobago.event;
  */
 public interface SheetStateChangeSource {
 
-    public javax.faces.el.MethodBinding getStateChangeListener();
+  javax.faces.el.MethodBinding getStateChangeListener();
 
-    public void setStateChangeListener(javax.faces.el.MethodBinding actionListener);
+  void setStateChangeListener(javax.faces.el.MethodBinding actionListener);
 
-    public void addStateChangeListener(SheetStateChangeListener listener);
+  void addStateChangeListener(SheetStateChangeListener listener);
 
-    public SheetStateChangeListener[] getStateChangeListeners();
+  SheetStateChangeListener[] getStateChangeListeners();
 
-    public void removeStateChangeListener(SheetStateChangeListener listener);
+  void removeStateChangeListener(SheetStateChangeListener listener);
 }

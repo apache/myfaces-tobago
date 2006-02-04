@@ -3,20 +3,21 @@
 <!--
  * Copyright 2002-2005 The Apache Software Foundation.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
@@ -68,25 +69,26 @@
   <reporting>
     <plugins>
       <plugin>
-        <inherited>false</inherited>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jxr-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <configLocation>org/apache/myfaces/tobago/checkstyle.xml</configLocation>
+          <xrefLocation>xref</xrefLocation>
+          <excludes>**/package-info.java</excludes>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>dependencies</report>
-            </reports>
-          </reportSet>
-        </reportSets>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-      </plugin>
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jxr-maven-plugin</artifactId>
       </plugin>
 
       <plugin>
@@ -111,24 +113,13 @@
           <tldDocDir>${basedir}/target/site/tlddoc</tldDocDir>
           </configuration>
       </plugin>
-      
-      <!-- wait until checkstyle 4.0 is released
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.0-beta-2-SNAPSHOT</version>
-
-        <configuration>
-          <propertiesFile>../src/main/resources/config/tobago_checks.xml</propertiesFile>
-        </configuration>
-
-      </plugin>  -->
 
       <!-- pmd has problems with annotations
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
         <configuration>
+          <linkXref>true</linkXref>
           <targetJdk>1.5</targetJdk>
         </configuration>
       </plugin>
@@ -237,16 +228,18 @@
     </dependency>
 
     <dependency>
-      <groupId>myfaces</groupId>
+      <!--groupId>myfaces</groupId-->
+      <groupId>org.apache.myfaces.core</groupId>
       <artifactId>myfaces-api</artifactId>
-      <version>1.1.1</version>
+      <version>1.1.2-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
 
     <dependency>
-      <groupId>myfaces</groupId>
+      <!--groupId>myfaces</groupId-->
+      <groupId>org.apache.myfaces.core</groupId>
       <artifactId>myfaces-impl</artifactId>
-      <version>1.1.1</version>
+      <version>1.1.2-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
 

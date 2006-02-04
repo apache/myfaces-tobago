@@ -1,22 +1,24 @@
+package org.apache.myfaces.tobago.example.demo;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /*
  * $Id: TobagoDemoController.java 1270 2005-08-08 20:21:38 +0200 (Mo, 08 Aug 2005) lofwyr $
  */
-package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -45,11 +47,7 @@ import java.util.List;
 
 public class TobagoDemoController {
 
-// ///////////////////////////////////////////// constant
-
   private static final Log LOG = LogFactory.getLog(TobagoDemoController.class);
-
-// ///////////////////////////////////////////// attribute
 
   private String[] salutation;
 
@@ -109,7 +107,6 @@ public class TobagoDemoController {
 
   private SelectItem[] toolbarTextItems;
 
-// ///////////////////////////////////////////// constructor
 
   public TobagoDemoController() {
 
@@ -121,7 +118,7 @@ public class TobagoDemoController {
     };
 
     salutationItems = getSelectItems(salutationKeys, "demo");
-    this.salutation = new String[]{"" ,"" ,"" ,""};
+    this.salutation = new String[]{"", "", "", ""};
 
     bool = new Boolean[10];
     bool[0] = true;
@@ -149,11 +146,10 @@ public class TobagoDemoController {
     text[9] = "longer Text abcdefg hijklmnop";
     text[10]
         = "**strong text**\n\n__emphasis__\n\nnormaler text\n\n__dieses "
-        +
-        "ist emphasis__\n\n**und nochmal strong**\n\n**__ strong und emphasis__**";
+        + "ist emphasis__\n\n**und nochmal strong**\n\n**__ strong und emphasis__**";
     solarArray = SolarObject.getArray();
     solarArrayColumns = createSolarArrayColumns();
-    solarArrayColumnLayout = "3*;3*;3*";
+    solarArrayColumnLayout = "3*; 3*; 3*";
 
     tree = new DefaultMutableTreeNode(
         new Node("Root Node", "root"));
@@ -183,7 +179,10 @@ public class TobagoDemoController {
     selectionItems = getSelectItems(values, "demo");
     selectionType = (String) selectionItems[0].getValue();
 
-    showIcons = showJunctions = showRoot = showRootJunction = true;
+    showIcons = true;
+    showJunctions = true;
+    showRoot = true;
+    showRootJunction = true;
 
     solar = new Solar();
 
@@ -230,8 +229,6 @@ public class TobagoDemoController {
     return items;
   }
 
-// ///////////////////////////////////////////// code
-
   public void updateTree() {
 
   }
@@ -240,14 +237,10 @@ public class TobagoDemoController {
     return new Node(name, id);
   }
 
-// /////////////////////////////////////////////// action for links and buttons
-
   public String clickButton() {
     LOG.info("clickButton");
     return "display";
   }
-
-// ///////////////////////////////////////////// bean getter + setter
 
   public String getSelectable() {
     return multiselect ? "multi" : "none";
@@ -499,10 +492,6 @@ public class TobagoDemoController {
   public void setNull(Object o) {
 
   }
-
-// /////////////////////////////////////////////////////////////////////////
-// /////////////////////////////////////////////////////////////////////////
-// /////////////////////////////////////////////////////////////////////////
 
   public static class Node {
 

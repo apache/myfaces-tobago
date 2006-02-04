@@ -1,23 +1,20 @@
+package org.apache.myfaces.tobago.tool;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-/*
- * Created 10.10.2003 08:47:10.
- * $Id$
- */
-package org.apache.myfaces.tobago.tool;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -32,22 +29,11 @@ import java.io.InputStream;
 
 public class BuilderModel {
 
-// /////////////////////////////////////////// constants
-
   private static final Log LOG = LogFactory.getLog(BuilderModel.class);
-
-// /////////////////////////////////////////// attributes
 
   private String page = "builder/index.jsp";
   private String source;
 
-// /////////////////////////////////////////// constructors
-
-// /////////////////////////////////////////// code
-
-// /////////////////////////////////////////// utils
-
-// /////////////////////////////////////////// bean getter + setter
 
   public String getPage() {
     return page;
@@ -65,59 +51,55 @@ public class BuilderModel {
     this.source = source;
   }
 
-// /////////////////////////////////////////// actions
-
-    public String open() {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("invoke!!!");
-      }
-
-      return "enterPagename";
+  public String open() {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("invoke!!!");
     }
 
-    public String loadPage() {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("invoke!!!");
-      }
+    return "enterPagename";
+  }
 
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-
-      InputStream stream = null;
-      try {
-        stream = facesContext.getExternalContext().getResourceAsStream(page);
-        source = IOUtils.toString(stream);
-      } catch (IOException e) {
-        LOG.error("", e);
-        return "error"; // TODO: error message
-      } finally {
-        IOUtils.closeQuietly(stream);
-      }
-
-      return "viewSource";
+  public String loadPage() {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("invoke!!!");
     }
 
-    public String savePage() {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("invoke!!!");
-      }
+    FacesContext facesContext = FacesContext.getCurrentInstance();
 
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      // TODO ServletContext ???
-      ServletContext servletContext =
-          (ServletContext) facesContext.getExternalContext().getContext();
-
-      String realPath = servletContext.getRealPath(page);
-      try {
-        // TODO: use IOUtils.write when commons-io 1.1 is released
-        FileUtils.writeStringToFile(new File(realPath), source, System.getProperty("file.encoding"));
-      } catch (IOException e) {
-        LOG.error("", e);
-        return "error"; // TODO: error message
-      }
-
-      return "viewSource";
+    InputStream stream = null;
+    try {
+      stream = facesContext.getExternalContext().getResourceAsStream(page);
+      source = IOUtils.toString(stream);
+    } catch (IOException e) {
+      LOG.error("", e);
+      return "error"; // TODO: error message
+    } finally {
+      IOUtils.closeQuietly(stream);
     }
 
-// /////////////////////////////////////////// action getter
+    return "viewSource";
+  }
+
+  public String savePage() {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("invoke!!!");
+    }
+
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    // TODO ServletContext ???
+    ServletContext servletContext =
+        (ServletContext) facesContext.getExternalContext().getContext();
+
+    String realPath = servletContext.getRealPath(page);
+    try {
+      // TODO: use IOUtils.write when commons-io 1.1 is released
+      FileUtils.writeStringToFile(new File(realPath), source, System.getProperty("file.encoding"));
+    } catch (IOException e) {
+      LOG.error("", e);
+      return "error"; // TODO: error message
+    }
+
+    return "viewSource";
+  }
 
 }

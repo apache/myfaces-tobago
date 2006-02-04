@@ -1,23 +1,25 @@
+package org.apache.myfaces.tobago.component;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /*
  * Created 01.07.2003 10:07:23.
  * $Id$
  */
-package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -206,19 +208,20 @@ public class ComponentUtil {
 
   public static boolean isInActiveForm(UIComponent component) {
     while (component != null) {
-//      log.debug("compoent= " + component.getClientId(FacesContext.getCurrentInstance()) + " " + component.getRendererType());
+      //log.debug("compoent= " + component.getClientId(FacesContext.getCurrentInstance())
+      // + " " + component.getRendererType());
       if (component instanceof UIForm) {
         UIForm form = (UIForm) component;
         if (form.isSubmitted()) {
-//          log.debug("in active form = " + form.getClientId(FacesContext.getCurrentInstance()));
+          //log.debug("in active form = " + form.getClientId(FacesContext.getCurrentInstance()));
           return true;
-        } else {
-//          log.debug("form found but not active = " + form.getClientId(FacesContext.getCurrentInstance()));
-        }
+        } /*else {
+          log.debug("form found but not active = " + form.getClientId(FacesContext.getCurrentInstance()));
+        } */
       }
       component = component.getParent();
     }
-//    log.debug("not in an active form");
+    //log.debug("not in an active form");
     return false;
   }
 
@@ -227,8 +230,8 @@ public class ComponentUtil {
       FacesContext facesContext = FacesContext.getCurrentInstance();
       Iterator messages
           = facesContext.getMessages(component.getClientId(facesContext));
-      return !((EditableValueHolder) component).isValid() ||
-          messages.hasNext();
+      return !((EditableValueHolder) component).isValid()
+          || messages.hasNext();
     }
     return false;
   }
@@ -239,9 +242,8 @@ public class ComponentUtil {
   }
 
   public static boolean mayValidate(UIComponent component) {
-    return
-        !isOutputOnly(component) &&
-        ComponentUtil.isInActiveForm(component);
+    return !isOutputOnly(component)
+            && ComponentUtil.isInActiveForm(component);
   }
 
   public static boolean mayUpdateModel(UIComponent component) {
@@ -264,8 +266,8 @@ public class ComponentUtil {
           + "attribute: '" + name + "' comp: '" + component + "'");
       return Boolean.getBoolean((String) bool);
     } else {
-      LOG.warn("Unknown type '" + bool.getClass().getName() +
-          "' for boolean attribute: " + name + " comp: " + component);
+      LOG.warn("Unknown type '" + bool.getClass().getName()
+          + "' for boolean attribute: " + name + " comp: " + component);
       return false;
     }
   }
@@ -301,8 +303,8 @@ public class ComponentUtil {
     } else if (integer == null) {
       return defaultValue;
     } else {
-      LOG.warn("Unknown type '" + integer.getClass().getName() +
-          "' for integer attribute: " + name + " comp: " + component);
+      LOG.warn("Unknown type '" + integer.getClass().getName()
+          + "' for integer attribute: " + name + " comp: " + component);
       return defaultValue;
     }
   }
@@ -317,8 +319,8 @@ public class ComponentUtil {
       String asString = ((String) charakter);
       return asString.length() > 0 ? new Character(asString.charAt(0)) : null;
     } else {
-      LOG.warn("Unknown type '" + charakter.getClass().getName() +
-          "' for integer attribute: " + name + " comp: " + component);
+      LOG.warn("Unknown type '" + charakter.getClass().getName()
+          + "' for integer attribute: " + name + " comp: " + component);
       return null;
     }
   }
@@ -392,7 +394,8 @@ public class ComponentUtil {
         if (value == null) {
           UISelectItem item = (UISelectItem) kid;
           if (kid instanceof org.apache.myfaces.tobago.component.UISelectItem) {
-            list.add(new org.apache.myfaces.tobago.model.SelectItem((org.apache.myfaces.tobago.component.UISelectItem) kid));
+            list.add(new org.apache.myfaces.tobago.model.SelectItem(
+                (org.apache.myfaces.tobago.component.UISelectItem) kid));
           } else {
             list.add(new SelectItem(item.getItemValue() == null ? "" : item.getItemValue(),
                 item.getItemLabel(),
@@ -401,8 +404,8 @@ public class ComponentUtil {
         } else if (value instanceof SelectItem) {
           list.add((SelectItem) value);
         } else {
-          throw new IllegalArgumentException("TYPE ERROR: value NOT instanceof SelectItem. type=" +
-              value.getClass().getName());
+          throw new IllegalArgumentException("TYPE ERROR: value NOT instanceof SelectItem. type="
+              + value.getClass().getName());
         }
       } else if (kid instanceof UISelectItems) {
         Object value = ((UISelectItems) kid).getValue();
@@ -419,18 +422,16 @@ public class ComponentUtil {
         } else if (value instanceof SelectItem) {
           list.add((SelectItem) value);
         } else if (value instanceof SelectItem[]) {
-          SelectItem items[] = (SelectItem[]) value;
-          for (int i = 0; i < items.length; i++) {
-            list.add(items[i]);
+          SelectItem[] items = (SelectItem[]) value;
+          for (SelectItem item : items) {
+            list.add(item);
           }
         } else if (value instanceof Collection) {
-          for (Iterator elements = ((Collection) value).iterator();
-              elements.hasNext(); list.add((SelectItem) elements.next())) {
+          for (Object o : ((Collection) value)) {
+            list.add((SelectItem) o);
           }
         } else if (value instanceof Map) {
-          for (Iterator keys = ((Map) value).keySet().iterator();
-              keys.hasNext();) {
-            Object key = keys.next();
+          for (Object key : ((Map) value).keySet()) {
             if (key != null) {
               Object val = ((Map) value).get(key);
               if (val != null) {
@@ -439,9 +440,9 @@ public class ComponentUtil {
             }
           }
         } else {
-          throw new IllegalArgumentException("TYPE ERROR: value NOT instanceof " +
-              "SelectItem, SelectItem[], Collection, Map. type=" +
-              value.getClass().getName());
+          throw new IllegalArgumentException("TYPE ERROR: value NOT instanceof "
+              + "SelectItem, SelectItem[], Collection, Map. type="
+              + value.getClass().getName());
         }
       }
     }
@@ -450,8 +451,8 @@ public class ComponentUtil {
   }
 
   public static Object findParameter(UIComponent component, String name) {
-    for (Iterator i = component.getChildren().iterator(); i.hasNext();) {
-      UIComponent child = (UIComponent) i.next();
+    for (Object o : component.getChildren()) {
+      UIComponent child = (UIComponent) o;
       if (child instanceof UIParameter) {
         UIParameter parameter = (UIParameter) child;
         if (LOG.isDebugEnabled()) {
@@ -481,8 +482,7 @@ public class ComponentUtil {
       }
       Map facets = component.getFacets();
       if (facets.size() > 0) {
-        for (Iterator iter = facets.keySet().iterator(); iter.hasNext();) {
-          Object name = iter.next();
+        for (Object name : facets.keySet()) {
           UIComponent facet = (UIComponent) facets.get(name);
           result.append('\n');
           result.append(spaces(offset + 1));
@@ -493,8 +493,8 @@ public class ComponentUtil {
           result.append(toString(facet, offset + 1, true));
         }
       }
-      for (Iterator i = component.getChildren().iterator(); i.hasNext();) {
-        result.append(toString((UIComponent) i.next(), offset + 1, false));
+      for (Object o : component.getChildren()) {
+        result.append(toString((UIComponent) o, offset + 1, false));
       }
     }
     return result.toString();
@@ -505,7 +505,7 @@ public class ComponentUtil {
       return component.getClass().getName()
           + '@' + Integer.toHexString(component.hashCode())
           + " " + component.getRendererType()
-          + " " + ((javax.faces.component.UIViewRoot)component).getViewId();
+          + " " + ((javax.faces.component.UIViewRoot) component).getViewId();
     }
     return component.getClass().getName()
         + '@' + Integer.toHexString(component.hashCode())
@@ -539,8 +539,6 @@ public class ComponentUtil {
     }
   }
 
-// ///////////////////////////////////////////// bean getter + setter
-
   public static UIGraphic getFirstGraphicChild(UIComponent component) {
     UIGraphic graphic = null;
     for (Object o : component.getChildren()) {
@@ -561,8 +559,8 @@ public class ComponentUtil {
     UIOutput output = null;
     for (Object o : component.getChildren()) {
       UIComponent uiComponent = (UIComponent) o;
-      if ((uiComponent instanceof UIOutput) &&
-          !(uiComponent instanceof UIGraphic)) {
+      if ((uiComponent instanceof UIOutput)
+          && !(uiComponent instanceof UIGraphic)) {
         output = (UIOutput) uiComponent;
         break;
       }
@@ -570,7 +568,7 @@ public class ComponentUtil {
     return output;
   }
 
-  public static final void setIntegerProperty(UIComponent component,
+  public static void setIntegerProperty(UIComponent component,
       String name, String value) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
@@ -580,7 +578,7 @@ public class ComponentUtil {
       }
     }
   }
-  public static final void setIntegerProperty(UIComponent component,
+  public static void setIntegerProperty(UIComponent component,
       String name, String value, ForEachTag.IterationHelper iterator) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
@@ -590,7 +588,7 @@ public class ComponentUtil {
       }
     }
   }
-   public static final void setBooleanProperty(UIComponent component,
+   public static void setBooleanProperty(UIComponent component,
       String name, String value) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
@@ -600,7 +598,7 @@ public class ComponentUtil {
       }
     }
   }
-  public static final void setBooleanProperty(UIComponent component,
+  public static void setBooleanProperty(UIComponent component,
       String name, String value, ForEachTag.IterationHelper iterator) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
@@ -611,7 +609,7 @@ public class ComponentUtil {
     }
   }
 
-  public static final void setStringProperty(UIComponent component, String name,
+  public static void setStringProperty(UIComponent component, String name,
       String value, ForEachTag.IterationHelper iterator) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
@@ -622,7 +620,7 @@ public class ComponentUtil {
     }
   }
 
-  public static final void setStringProperty(UIComponent component, String name,
+  public static void setStringProperty(UIComponent component, String name,
       String value) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
@@ -850,10 +848,12 @@ public class ComponentUtil {
     EditableValueHolder editableValueHolder = (EditableValueHolder) component;
     if (validator != null && editableValueHolder.getValidator() == null) {
       if (UIComponentTag.isValueReference(validator)) {
-        Class arguments[] =  { FacesContext.class, UIComponent.class, Object.class };
+        Class[] arguments = {
+            FacesContext.class, UIComponent.class, Object.class
+        };
         MethodBinding methodBinding =
-            FacesContext.getCurrentInstance().getApplication().createMethodBinding(validator,arguments);
-        ((EditableValueHolder)component).setValidator(methodBinding);
+            FacesContext.getCurrentInstance().getApplication().createMethodBinding(validator, arguments);
+        ((EditableValueHolder) component).setValidator(methodBinding);
       }
     }
   }
@@ -877,18 +877,18 @@ public class ComponentUtil {
     } else {
       commandType = type;
     }
-    if (commandType != null &&
-        (commandType.equals(COMMAND_TYPE_NAVIGATE)
-        || commandType.equals(COMMAND_TYPE_RESET)
-        || commandType.equals(COMMAND_TYPE_SCRIPT))) {
-     setStringProperty(component, ATTR_ACTION_STRING, action);
+    if (commandType != null
+        && (commandType.equals(COMMAND_TYPE_NAVIGATE)
+          || commandType.equals(COMMAND_TYPE_RESET)
+          || commandType.equals(COMMAND_TYPE_SCRIPT))) {
+      setStringProperty(component, ATTR_ACTION_STRING, action);
     } else {
       if (action != null) {
         if (UIComponentTag.isValueReference(action)) {
           MethodBinding binding = application.createMethodBinding(action, null);
-          ((org.apache.myfaces.tobago.component.UICommand)component).setAction(binding);
+          ((org.apache.myfaces.tobago.component.UICommand) component).setAction(binding);
         } else {
-          ((org.apache.myfaces.tobago.component.UICommand)component).setAction(new ConstantMethodBinding(action));
+          ((org.apache.myfaces.tobago.component.UICommand) component).setAction(new ConstantMethodBinding(action));
         }
       }
     }
@@ -899,8 +899,8 @@ public class ComponentUtil {
     if (suggestMethod != null) {
       if (UIComponentTag.isValueReference(suggestMethod)) {
         final MethodBinding methodBinding = FacesContext.getCurrentInstance().getApplication()
-            .createMethodBinding(suggestMethod, new Class[]{String.class});
-        ((UIInput)component).setSuggestMethod(methodBinding);
+            .createMethodBinding(suggestMethod, new Class[] {String.class});
+        ((UIInput) component).setSuggestMethod(methodBinding);
       } else {
         throw new IllegalArgumentException(
             "Must be a valueReference (suggestMethod): " + suggestMethod);
@@ -913,7 +913,7 @@ public class ComponentUtil {
     final Application application = facesContext.getApplication();
     if (actionListener != null) {
       if (UIComponentTag.isValueReference(actionListener)) {
-        Class arguments[] = {javax.faces.event.ActionEvent.class};
+        Class[] arguments = {javax.faces.event.ActionEvent.class};
         MethodBinding binding
             = application.createMethodBinding(actionListener, arguments);
         command.setActionListener(binding);
@@ -938,7 +938,7 @@ public class ComponentUtil {
 
     if (stateChangeListener != null) {
       if (UIComponentTag.isValueReference(stateChangeListener)) {
-        Class arguments[] = {SheetStateChangeEvent.class};
+        Class[] arguments = {SheetStateChangeEvent.class};
         MethodBinding binding
             = application.createMethodBinding(stateChangeListener, arguments);
         data.setStateChangeListener(binding);

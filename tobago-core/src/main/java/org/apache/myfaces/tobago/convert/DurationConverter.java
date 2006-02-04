@@ -1,23 +1,20 @@
+package org.apache.myfaces.tobago.convert;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-/*
- * Created 09.12.2003 15:52:53.
- * $Id$
- */
-package org.apache.myfaces.tobago.convert;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -35,8 +32,6 @@ import java.util.StringTokenizer;
 
 public class DurationConverter implements Converter {
 
-// ///////////////////////////////////////////// constant
-
   private static final Log LOG = LogFactory.getLog(DurationConverter.class);
 
   public static final String CONVERTER_ID = "org.apache.myfaces.tobago.Duration";
@@ -48,12 +43,6 @@ public class DurationConverter implements Converter {
   private static final String HOUR = "hour";
   private static final String DAY = "day";
   private static final String YEAR = "year";
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
 
   public String getAsString(
       FacesContext facesContext, UIComponent component, Object object)
@@ -153,8 +142,5 @@ public class DurationConverter implements Converter {
     }
     return factor;
   }
-
-
-// ///////////////////////////////////////////// bean getter + setter
 
 }

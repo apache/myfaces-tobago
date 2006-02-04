@@ -1,23 +1,25 @@
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /*
  * Created 07.02.2003 16:00:00.
  * $Id$
  */
-package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -35,15 +37,7 @@ import java.io.IOException;
 
 public class ProgressRenderer extends RendererBase {
 
-// ///////////////////////////////////////////// constant
-
   private static final Log LOG = LogFactory.getLog(ProgressRenderer.class);
-
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
 
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
@@ -54,7 +48,7 @@ public class ProgressRenderer extends RendererBase {
 
     if (model == null) {
       LOG.warn("'null' value found! Using dummy Model instead!");
-      model = new DefaultBoundedRangeModel(40,1,0,100);
+      model = new DefaultBoundedRangeModel(40, 1, 0, 100);
     }
 
     String image = ResourceManagerUtil.getImageWithPath(facesContext, "image/1x1.gif");
@@ -66,8 +60,8 @@ public class ProgressRenderer extends RendererBase {
 
     String title = (String) component.getAttributes().get(ATTR_TIP);
     if (title == null) {
-      title = Integer.toString(100 * model.getValue() /
-          (model.getMaximum() - model.getMinimum()))
+      title = Integer.toString(100 * model.getValue()
+          / (model.getMaximum() - model.getMinimum()))
           + " %";
     }
 
@@ -96,8 +90,6 @@ public class ProgressRenderer extends RendererBase {
 
     writer.endElement("span");
   }
-  
-// ///////////////////////////////////////////// bean getter + setter
 
 }
 

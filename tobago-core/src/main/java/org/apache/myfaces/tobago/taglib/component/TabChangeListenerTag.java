@@ -1,19 +1,20 @@
+package org.apache.myfaces.tobago.taglib.component;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
@@ -47,7 +48,7 @@ public class TabChangeListenerTag extends TagSupport
    * instance to be created.</p>
    */
   private String type = null;
-  private String type_ = null;
+  private String typeString = null;
 
 
   /**
@@ -58,7 +59,7 @@ public class TabChangeListenerTag extends TagSupport
   @UIComponentTagAttribute()
   public void setType(String type) {
 
-    this.type_ = type;
+    this.typeString = type;
 
   }
 
@@ -86,11 +87,11 @@ public class TabChangeListenerTag extends TagSupport
     }
 
     // evaluate any VB expression that we were passed
-    if (UIComponentTag.isValueReference(type_)) {
-      ValueBinding valueBinding = ComponentUtil.createValueBinding(type_, null);
+    if (UIComponentTag.isValueReference(typeString)) {
+      ValueBinding valueBinding = ComponentUtil.createValueBinding(typeString, null);
       type = (String) valueBinding.getValue(FacesContext.getCurrentInstance());
     } else {
-      type = type_;
+      type = typeString;
     }
 
     // Create and register an instance with the appropriate component

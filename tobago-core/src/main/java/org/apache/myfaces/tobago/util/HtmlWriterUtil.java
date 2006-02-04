@@ -1,19 +1,20 @@
+package org.apache.myfaces.tobago.util;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-package org.apache.myfaces.tobago.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -55,7 +56,7 @@ public final class HtmlWriterUtil {
 
   public void writeAttributeValue(final char[] text)
       throws IOException {
-      writeEncodedValue(text, 0, text.length, true);
+    writeEncodedValue(text, 0, text.length, true);
   }
 
   public void writeAttributeValue(
@@ -63,9 +64,6 @@ public final class HtmlWriterUtil {
       throws IOException {
     writeEncodedValue(text, start, length, true);
   }
-
-
-
 
 
   public void writeText(final String text) throws IOException {
@@ -93,10 +91,8 @@ public final class HtmlWriterUtil {
 //  }
 
 
-
-
   private void writeEncodedValue(final char[] text, final int start,
-                                 final int length, final boolean isAttribute)
+      final int length, final boolean isAttribute)
       throws IOException {
 
 //    final char[][] charsToEscape;
@@ -120,16 +116,16 @@ public final class HtmlWriterUtil {
     }
 
     if (localIndex == -1) {
-    // no need to escape
+      // no need to escape
       out.write(text, start, length);
     } else {
-    // write until localIndex and then encode the remainder
+      // write until localIndex and then encode the remainder
       out.write(text, start, localIndex);
 
       for (int i = localIndex; i < end; i++) {
         final char ch = text[i];
 
-    // Tilde or less...
+        // Tilde or less...
         if (ch < charsToEscape.length - 1) {
           if (isAttribute && ch == '&' && (i + 1 < end) && text[i + 1] == '{') {
             // HTML 4.0, section B.7.1: ampersands followed by
@@ -151,7 +147,7 @@ public final class HtmlWriterUtil {
           out.write('&');
 //          FIXME? write(String) sets the startStillOpen=false
 //          out.write(sISO8859_1_Entities[ch - 0xA0]);
-          for (char c : sISO8859_1_Entities[ch - 0xA0].toCharArray()) {
+          for (char c : ISO8859_1_ENTITIES[ch - 0xA0].toCharArray()) {
             out.write(c);
           }
           out.write(';');
@@ -162,7 +158,7 @@ public final class HtmlWriterUtil {
           // PENDING: when outputting to an encoding that
           // supports double-byte characters (UTF-8, for example),
           // we should not be encoding
-          _writeDecRef(ch);
+          writeDecRef(ch);
         }
       }
 
@@ -176,43 +172,43 @@ public final class HtmlWriterUtil {
    * the decimal version, but Netscape didn't support hex escapes until
    * 4.7.4.
    */
-  private void _writeDecRef(final char ch) throws IOException {
-      if (ch == '\u20ac') {
-          out.write("&euro;");
-          return;
-      }
-      out.write("&#");
-      // Formerly used String.valueOf().  This version tests out
-      // about 40% faster in a microbenchmark (and on systems where GC is
-      // going gonzo, it should be even better)
-      int i = (int) ch;
-      if (i > 10000) {
-          out.write('0' + (i / 10000));
-          i = i % 10000;
-          out.write('0' + (i / 1000));
-          i = i % 1000;
-          out.write('0' + (i / 100));
-          i = i % 100;
-          out.write('0' + (i / 10));
-          i = i % 10;
-          out.write('0' + i);
-      } else if (i > 1000) {
-          out.write('0' + (i / 1000));
-          i = i % 1000;
-          out.write('0' + (i / 100));
-          i = i % 100;
-          out.write('0' + (i / 10));
-          i = i % 10;
-          out.write('0' + i);
-      } else {
-          out.write('0' + (i / 100));
-          i = i % 100;
-          out.write('0' + (i / 10));
-          i = i % 10;
-          out.write('0' + i);
-      }
+  private void writeDecRef(final char ch) throws IOException {
+    if (ch == '\u20ac') {
+      out.write("&euro;");
+      return;
+    }
+    out.write("&#");
+    // Formerly used String.valueOf().  This version tests out
+    // about 40% faster in a microbenchmark (and on systems where GC is
+    // going gonzo, it should be even better)
+    int i = (int) ch;
+    if (i > 10000) {
+      out.write('0' + (i / 10000));
+      i = i % 10000;
+      out.write('0' + (i / 1000));
+      i = i % 1000;
+      out.write('0' + (i / 100));
+      i = i % 100;
+      out.write('0' + (i / 10));
+      i = i % 10;
+      out.write('0' + i);
+    } else if (i > 1000) {
+      out.write('0' + (i / 1000));
+      i = i % 1000;
+      out.write('0' + (i / 100));
+      i = i % 100;
+      out.write('0' + (i / 10));
+      i = i % 10;
+      out.write('0' + i);
+    } else {
+      out.write('0' + (i / 100));
+      i = i % 100;
+      out.write('0' + (i / 10));
+      i = i % 10;
+      out.write('0' + i);
+    }
 
-      out.write(';');
+    out.write(';');
   }
 
   //
@@ -231,14 +227,14 @@ public final class HtmlWriterUtil {
    * full, and returning the new buffer index
    */
   private void addToBuffer(final char ch) throws IOException {
-      if (bufferIndex >= BUFFER_SIZE) {
-          out.write(buff, 0, bufferIndex);
-          bufferIndex = 0;
-      }
+    if (bufferIndex >= BUFFER_SIZE) {
+      out.write(buff, 0, bufferIndex);
+      bufferIndex = 0;
+    }
 
-      buff[bufferIndex] = ch;
+    buff[bufferIndex] = ch;
 
-      bufferIndex += 1;
+    bufferIndex += 1;
   }
 
 
@@ -247,10 +243,10 @@ public final class HtmlWriterUtil {
    * and return the reset buffer index
    */
   private void flushBuffer() throws IOException {
-      if (bufferIndex > 0) {
-          out.write(buff, 0, bufferIndex);
-      }
-      bufferIndex = 0;
+    if (bufferIndex > 0) {
+      out.write(buff, 0, bufferIndex);
+    }
+    bufferIndex = 0;
   }
 
   public static boolean attributeValueMustEscaped(final String name) {
@@ -277,18 +273,19 @@ public final class HtmlWriterUtil {
             return false;
           }
           break;
+        default:
+          return true;
       }
-    } catch (Exception e) { /* ignore */ }
-//    if ("id".equals(name) || "name".equals(name) || "class".equals(name)) {
-//      return false;
-//    }
+    } catch (Exception e) {
+      /* ignore */
+    }
     return true;
   }
 
   //
   // Entities from HTML 4.0, section 24.2.1; character codes 0xA0 to 0xFF
   //
-  static private final String[] sISO8859_1_Entities = new String[]{
+  private static final String[] ISO8859_1_ENTITIES = new String[]{
       "nbsp",
       "iexcl",
       "cent",
@@ -387,9 +384,9 @@ public final class HtmlWriterUtil {
       "yuml"
   };
 
-  private static char[][] ATTRIBUTE_CHARS_TO_ESCAPE;
+  private static final char[][] ATTRIBUTE_CHARS_TO_ESCAPE;
 
-  private static char[][] TEXT_CHARS_TO_ESCAPE;
+  private static final char[][] TEXT_CHARS_TO_ESCAPE;
 
   static {
     // init lookup arrays
@@ -401,7 +398,7 @@ public final class HtmlWriterUtil {
     ATTRIBUTE_CHARS_TO_ESCAPE[0x3E] = "&gt;".toCharArray(); // 0x3E  '>'
 
     TEXT_CHARS_TO_ESCAPE = new char[ATTRIBUTE_CHARS_TO_ESCAPE.length][];
-    for (int i = 0 ; i < ATTRIBUTE_CHARS_TO_ESCAPE.length; i++) {
+    for (int i = 0; i < ATTRIBUTE_CHARS_TO_ESCAPE.length; i++) {
       TEXT_CHARS_TO_ESCAPE[i] = ATTRIBUTE_CHARS_TO_ESCAPE[i];
     }
     TEXT_CHARS_TO_ESCAPE[0x3C] = "&lt;".toCharArray(); // 0x  '<'

@@ -1,23 +1,20 @@
+package org.apache.myfaces.tobago.config;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
- * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- * 
- *        http://www.apache.org/licenses/LICENSE-2.0
- * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-/*
- * Created 24.06.2003 11:06:46.
- * Id: $
- */
-package org.apache.myfaces.tobago.config;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,14 +27,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class TobagoConfig {
-// ------------------------------------------------------------------ constants
-
   private static final Log LOG = LogFactory.getLog(TobagoConfig.class);
 
   public static final String TOBAGO_CONFIG
       = "org.apache.myfaces.tobago.config.TobagoConfig";
-
-// ----------------------------------------------------------------- attributes
 
   private List<Theme> supportedThemes;
   private Theme defaultTheme;
@@ -45,7 +38,6 @@ public class TobagoConfig {
   private List<MappingRule> mappingRules;
   private boolean ajaxEnabled;
 
-// ----------------------------------------------------------- business methods
 
   public TobagoConfig() {
     supportedThemes = new ArrayList<Theme>();
@@ -65,7 +57,7 @@ public class TobagoConfig {
 
   public void setDefaultThemeClass(String name) {
     try {
-      defaultTheme = (Theme)Class.forName(name).newInstance();
+      defaultTheme = (Theme) Class.forName(name).newInstance();
     } catch (Exception e) {
       String error = "Cannot create Theme from name: '" + name + "'";
       LOG.error(error, e);
@@ -79,7 +71,7 @@ public class TobagoConfig {
 
   public void addSupportedThemeClass(String name) {
     try {
-      Theme theme = (Theme)Class.forName(name).newInstance();
+      Theme theme = (Theme) Class.forName(name).newInstance();
       supportedThemes.add(theme);
     } catch (Exception e) {
       String error = "Cannot create Theme from name: '" + name + "'";
@@ -137,7 +129,6 @@ public class TobagoConfig {
   }
 
   public void addResourceDir(String resourceDir) {
-
     LOG.info("resourceDir = '" + resourceDir + "'");
     resourceDirs.add(resourceDir);
   }
@@ -153,7 +144,6 @@ public class TobagoConfig {
   public void setAjaxEnabled(String value) {
     this.ajaxEnabled = Boolean.valueOf(value);
   }
-// ------------------------------------------------------------ getter + setter
 
   public Theme getDefaultTheme() {
     return defaultTheme;
