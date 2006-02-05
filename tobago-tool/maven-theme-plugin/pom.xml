@@ -12,17 +12,16 @@
   <name>Maven Tobago Theme Plugin</name>
   <reporting>
     <plugins>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>dependencies</report>
-            </reports>
-          </reportSet>
-        </reportSets>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <configLocation>config/maven_checks.xml</configLocation>
+          <xrefLocation>xref</xrefLocation>
+        </configuration>
       </plugin>
+
     </plugins>
   </reporting>
   <dependencies>
