@@ -32,7 +32,7 @@ public final class TobagoConstants {
   public static final String ATTR_CELLSPACING = "layoutCellspacing";
   public static final String ATTR_CLASSES_BLOCKS = "cssClassesBlocks";
   public static final String ATTR_CLIENT_PROPERTIES = "clientProperties";
-  public static final String ATTR_COLUMNS = "colunms";
+  public static final String ATTR_COLUMNS = "columns";
   public static final String ATTR_DATE_STYLE = "dateStyle";
   public static final String ATTR_DEFAULT_COMMAND = "defaultCommand";
   public static final String ATTR_DIRECT_LINK_COUNT = "directLinkCount";
