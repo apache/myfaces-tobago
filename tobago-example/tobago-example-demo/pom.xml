@@ -31,6 +31,7 @@
   <build>
     <finalName>tobago-example-demo</finalName>
     <plugins>
+      <!--may be removed after solving http://issues.apache.org/jira/browse/MYFACES-1106-->
       <plugin>
         <groupId>org.apache.myfaces.tobago</groupId>
         <artifactId>maven-theme-plugin</artifactId>
