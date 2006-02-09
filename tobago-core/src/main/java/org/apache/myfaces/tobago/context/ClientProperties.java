@@ -145,7 +145,7 @@ public class ClientProperties implements Serializable {
 
     String string = locale.toString();
     String prefix = propertyPathMode ? "" : "_";
-    List locales = new ArrayList(4);
+    List<String> locales = new ArrayList<String>(4);
     locales.add(prefix + string);
     int underscore;
     while ((underscore = string.lastIndexOf('_')) > 0) {

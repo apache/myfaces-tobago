@@ -41,7 +41,7 @@ public class TobagoConfig {
 
   public TobagoConfig() {
     supportedThemes = new ArrayList<Theme>();
-    resourceDirs = new ArrayList();
+    resourceDirs = new ArrayList<String>();
   }
 
   public void addMappingRule(MappingRule mappingRule) {
@@ -101,7 +101,8 @@ public class TobagoConfig {
 
   public Iterator<MappingRule> getMappingRules() {
     if (mappingRules == null) {
-      return Collections.EMPTY_LIST.iterator();
+      List<MappingRule> objects = Collections.emptyList();
+      return objects.iterator();
     } else {
       return mappingRules.iterator();
     }
