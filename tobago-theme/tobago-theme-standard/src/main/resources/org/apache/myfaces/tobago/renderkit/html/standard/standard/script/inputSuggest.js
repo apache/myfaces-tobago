@@ -48,16 +48,16 @@ Object.extend(new Ajax.Base(), {
   },
 
   getUpdatedChoices: function() {
-    entry = encodeURIComponent(this.element.name) + '=' 
-        + encodeURIComponent(this.getToken());
-
-    this.options.parameters = this.options.callback
-        ? this.options.callback(this.element, entry) : entry;
+    // TODO: add client-side state to parameters
+    // TODO: this also needs updating state on client after getting response
+    this.options.parameters =
+        "affectedAjaxComponent=" + encodeURIComponent(this.element.id)
+        + "&" + encodeURIComponent(this.element.name) + '='
+        + encodeURIComponent(this.element.value);
 
     var form = Tobago.getFormElement(this.page);
-    var url = form.action + "?affectedAjaxComponent=" + this.element.id;
     LOG.debug("start new request");
-    new Ajax.Request(url, this.options);
+    new Ajax.Request(form.action, this.options);
   },
 
   onComplete: function(request) {

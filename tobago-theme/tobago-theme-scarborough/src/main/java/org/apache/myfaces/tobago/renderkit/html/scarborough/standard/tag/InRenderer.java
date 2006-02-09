@@ -134,15 +134,12 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
     if (renderAjaxSuggest) {
 
       String popupId = id + SUBCOMPONENT_SEP + "ajaxPopup";
-      String viewId = facesContext.getViewRoot().getViewId();
-      ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
-      String actionURL = viewHandler.getActionURL(facesContext, viewId);
 
       final UIPage page = ComponentUtil.findPage(input);
-//      page.getScriptFiles().add("script/effects.js");
-//      page.getScriptFiles().add("script/dragdrop.js");
-//      page.getScriptFiles().add("script/controls.js");
-//      page.getScriptFiles().add("script/inputSuggest.js");
+      page.getScriptFiles().add("script/effects.js");
+      page.getScriptFiles().add("script/dragdrop.js");
+      page.getScriptFiles().add("script/controls.js");
+      page.getScriptFiles().add("script/inputSuggest.js");
 
       writer.startElement("div");
       writer.writeClassAttribute("tobago-in-suggest-popup");
@@ -156,13 +153,6 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
           "script/controls.js",
           "script/inputSuggest.js"
       };
-      String function = "return entry";
-      if (facesContext.getApplication().getStateManager().isSavingStateInClient(facesContext)) {
-        function +=
-            "+'&jsf_tree_64='+encodeURIComponent($('jsf_tree_64').value)"
-                + "+'&jsf_state_64='+encodeURIComponent($('jsf_state_64').value)"
-                + "+'&jsf_viewid='+encodeURIComponent($('jsf_viewid').value)";
-      }
 
       final String[] cmds = {
           "new Tobago.Autocompleter(",
@@ -170,25 +160,11 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
           "    '" + page.getClientId(facesContext) + "',",
           "    { method:       'post',",
           "      asynchronous: true,",
-          "      parameters: '',",
-          "      callback: function(element,entry) {" + function + ";}",
+          "      parameters: ''",
           "    });"
       };
 
       HtmlRendererUtil.writeScriptLoader(facesContext, scripts, cmds);
-
-//      HtmlRendererUtil.startJavascript(writer);
-//
-//      writer.writeText("{\n", null);
-//      writer.writeText("  var suggestDiv = document.getElementById('" + popupId + "');\n", null);
-//      writer.writeText("  var suggestParent = suggestDiv.parentNode;\n", null);
-//      writer.writeText("  var bodyNode = document.getElementById('" + page.getClientId(facesContext) + "');\n", null);
-//      writer.writeText("  suggestParent.removeChild(suggestDiv);\n", null);
-//      writer.writeText("  bodyNode.appendChild(suggestDiv);\n", null);
-//      writer.writeText("}\n", null);
-//
-//      HtmlRendererUtil.endJavascript(writer);
-
     }
 
   }
@@ -199,7 +175,7 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
         org.apache.myfaces.tobago.component.UIInput.class);
 
 
-    org.apache.myfaces.tobago.component.UIInput input = 
+    org.apache.myfaces.tobago.component.UIInput input =
         (org.apache.myfaces.tobago.component.UIInput) uiComponent;
 
     MethodBinding mb;
