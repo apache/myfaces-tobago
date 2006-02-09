@@ -81,6 +81,55 @@ public class ResourceManagerFactory {
     initialized = true;
   }
 
+  private static void locateResourcesInWar(
+      ServletContext servletContext, ResourceManagerImpl resources, String path)
+      throws ServletException {
+
+    if (path.equals("/WEB-INF/") || path.equals("/WEB-INF/lib/")) {
+      if (USE_JAR_THEME_RESOURCE) {
+        // continue
+      } else {
+        return; // ignore
+      }
+    } else if (path.startsWith("/WEB-INF/")) {
+      return; // ignore
+    }
+
+    Set<String> resourcePaths = servletContext.getResourcePaths(path);
+    if (resourcePaths == null || resourcePaths.isEmpty()) {
+      if (LOG.isErrorEnabled()) {
+        LOG.error("ResourcePath empty! Please check the tobago-config.xml file!"
+            + " path='" + path + "'");
+      }
+      return;
+    }
+    for (String childPath : resourcePaths) {
+      if (childPath.endsWith("/")) {
+        // ignore, because weblogic puts the path directory itself in the Set
+        if (!childPath.equals(path)) {
+          LOG.debug("childPath dir " + childPath);
+          locateResourcesInWar(servletContext, resources, childPath);
+        }
+      } else {
+        //Log.debug("add resc " + childPath);
+        if (childPath.endsWith(".properties")) {
+          InputStream inputStream = servletContext.getResourceAsStream(childPath);
+          addProperties(inputStream, resources, childPath, false);
+        } else if (childPath.endsWith(".properties.xml")) {
+          InputStream inputStream = servletContext.getResourceAsStream(childPath);
+          addProperties(inputStream, resources, childPath, true);
+        } else if (childPath.startsWith("/WEB-INF/lib/") && childPath.endsWith(".jar")) {
+          if (USE_JAR_THEME_RESOURCE) {
+            locateResourcesInLib(servletContext, resources, childPath);
+          }
+        } else {
+          resources.add(childPath);
+          //Log.debug(childPath);
+        }
+      }
+    }
+  }
+
   private static void locateResourcesInLib(
       ServletContext servletContext, ResourceManagerImpl resources, String jarPath)
       throws ServletException {
@@ -145,55 +194,6 @@ public class ResourceManagerFactory {
       }
     }
     return false;
-  }
-
-  private static void locateResourcesInWar(
-      ServletContext servletContext, ResourceManagerImpl resources, String path)
-      throws ServletException {
-
-    if (path.equals("/WEB-INF/") || path.equals("/WEB-INF/lib/")) {
-      if (USE_JAR_THEME_RESOURCE) {
-        // continue
-      } else {
-        return; // ignore
-      }
-    } else if (path.startsWith("/WEB-INF/")) {
-      return; // ignore
-    }
-
-    Set<String> resourcePaths = servletContext.getResourcePaths(path);
-    if (resourcePaths == null || resourcePaths.isEmpty()) {
-      if (LOG.isErrorEnabled()) {
-        LOG.error("ResourcePath empty! Please check the tobago-config.xml file!"
-            + " path='" + path + "'");
-      }
-      return;
-    }
-    for (String childPath : resourcePaths) {
-      if (childPath.endsWith("/")) {
-        // ignore, because weblogic puts the path directory itself in the Set
-        if (!childPath.equals(path)) {
-          LOG.info("childPath dir " + childPath);
-          locateResourcesInWar(servletContext, resources, childPath);
-        }
-      } else {
-        //Log.debug("add resc " + childPath);
-        if (childPath.endsWith(".properties")) {
-          InputStream inputStream = servletContext.getResourceAsStream(childPath);
-          addProperties(inputStream, resources, childPath, false);
-        } else if (childPath.endsWith(".properties.xml")) {
-          InputStream inputStream = servletContext.getResourceAsStream(childPath);
-          addProperties(inputStream, resources, childPath, true);
-        } else if (childPath.startsWith("/WEB-INF/lib/") && childPath.endsWith(".jar")) {
-          if (USE_JAR_THEME_RESOURCE) {
-            locateResourcesInLib(servletContext, resources, childPath);
-          }
-        } else {
-          resources.add(childPath);
-          //Log.debug(childPath);
-        }
-      }
-    }
   }
 
   private static void addProperties(
