@@ -21,6 +21,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.context.Theme;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +30,7 @@ import java.io.InputStream;
 
 /**
  * User: lofwyr
- * Date: 10.11.2005 21:36:20
+ * @since 1.0.7
  *
  * XXX This class is in development. Please don't use it in
  * production environment!
@@ -37,6 +38,7 @@ import java.io.InputStream;
 public class ResourceServlet extends HttpServlet {
 
   private static final Log LOG = LogFactory.getLog(ResourceServlet.class);
+  private static final int BUFFER_SIZE = 1024;
 
   protected void service(
       HttpServletRequest request, HttpServletResponse response)
@@ -52,9 +54,7 @@ public class ResourceServlet extends HttpServlet {
 
     LOG.info("L " + resource);
 
-    InputStream is
-        = Theme.class.getClassLoader().getResourceAsStream(resource);
-
+    // todo: maybe support more extensions (configurable?)
     if (requestURI.endsWith(".gif")) {
       response.setContentType("image/gif");
     } else if (requestURI.endsWith(".png")) {
@@ -65,11 +65,20 @@ public class ResourceServlet extends HttpServlet {
       response.setContentType("text/javascript");
     } else if (requestURI.endsWith(".css")) {
       response.setContentType("text/css");
+    } else {
+      LOG.warn("Unsupported file extension, will be ignored for security " +
+          "reasons. resource='" + resource + "'");
+      response.setStatus(403); // todo: is there a constant in servlet API for "forbidden"?
     }
 
-    int c;
-    while (-1 != (c = is.read())) {
-      response.getOutputStream().write(c);
+    InputStream inputStream
+        = Theme.class.getClassLoader().getResourceAsStream(resource);
+    ServletOutputStream outputStream = response.getOutputStream();
+
+    byte[] buffer = new byte[BUFFER_SIZE];
+    int number;
+    while (-1 != (number = inputStream.read(buffer))) {
+      outputStream.write(buffer, 0, number);
     }
   }
 }
