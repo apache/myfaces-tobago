@@ -117,8 +117,8 @@ public class AptCompilerAdapter extends DefaultCompilerAdapter {
             Object compiler = c.newInstance();
             Method compile = c.getMethod(APT_METHOD_NAME,
                     new Class[]{(new String[]{}).getClass()});
-            int result = ((Integer) compile.invoke
-                    (compiler, new Object[]{cmd.getArguments()}))
+            int result = ((Integer) compile.invoke(compiler,
+                new Object[]{cmd.getArguments()}))
                     .intValue();
             return (result == APT_COMPILER_SUCCESS);
         } catch (BuildException be) {

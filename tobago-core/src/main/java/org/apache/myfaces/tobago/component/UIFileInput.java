@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.component;
+package org.apache.myfaces.tobago.component;
 
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
@@ -16,20 +16,26 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIHiddenInput;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ENCTYPE;
 
 import javax.faces.component.UIComponent;
 
-public class HiddenTag extends BeanTag implements HiddenTagDeclaration {
+/**
+ * Created by IntelliJ IDEA.
+ * User: bommel
+ * Date: 10.02.2006
+ * Time: 19:02:13
+ * To change this template use File | Settings | File Templates.
+ */
+public class UIFileInput extends javax.faces.component.UIInput {
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.FileInput";
 
-  protected void setProperties(UIComponent component) {
-    super.setProperties(component);
-    ComponentUtil.setBooleanProperty(component, ATTR_INLINE, "true");
+  public void setParent(UIComponent uiComponent) {
+    super.setParent(uiComponent);
+    UIPage form = ComponentUtil.findPage(uiComponent);
+    if (form != null) {
+      form.getAttributes().put(ATTR_ENCTYPE, "multipart/form-data");
+    }
   }
 
-  public String getComponentType() {
-    return UIHiddenInput.COMPONENT_TYPE;
-  }
 }

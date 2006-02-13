@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.apt.annotation;
+package org.apache.myfaces.tobago.taglib.component;
 
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
@@ -16,22 +16,18 @@ package org.apache.myfaces.tobago.apt.annotation;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.taglib.decl.HasDimension;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+
 /**
- * Created: Apr 20, 2005 5:08:01 PM
- * User: bommel
- * $Id: BodyContent.java,v 1.3 2005/05/11 15:20:34 bommel Exp $
+ * Renders a panel with border and title.
  */
-public enum BodyContent {
+@Tag(name = "box")
+@UIComponentTag(UIComponent = "org.apache.myfaces.tobago.component.UIPanel")
 
-  JSP, EMPTY, TAGDEPENDENT;
-
-  public String toString(){
-    switch (this) {
-      case JSP: return "JSP";
-      case EMPTY: return "empty";
-      case TAGDEPENDENT: return "tagdependent";
-      default:
-        throw new IllegalStateException("Unexpected BodyContent "+name());
-    }
-  }
+public interface BoxTagDeclaration extends TobagoTagDeclaration,
+    HasIdBindingAndRendered, HasDimension, HasLabel {
 }

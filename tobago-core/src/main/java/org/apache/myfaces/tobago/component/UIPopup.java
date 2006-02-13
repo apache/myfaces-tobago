@@ -20,6 +20,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.NamingContainer;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 public class UIPopup extends UIPanel implements NamingContainer {
@@ -32,6 +33,18 @@ public class UIPopup extends UIPanel implements NamingContainer {
   private String top;
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Popup";
+
+  public void processDecodes(FacesContext facesContext) {
+    super.processDecodes(facesContext);
+    // XXX find a better way
+    addToPage();
+  }
+
+  public void setParent(UIComponent uiComponent) {
+    super.setParent(uiComponent);
+    // XXX find a better way
+    addToPage();
+  }
 
   public Object saveState(FacesContext context) {
     Object[] saveState = new Object[5];
@@ -83,4 +96,12 @@ public class UIPopup extends UIPanel implements NamingContainer {
   public void setTop(String top) {
     this.top = top;
   }
+
+  private void addToPage() {
+      UIPage page = ComponentUtil.findPage(this);
+      if (page != null) {
+        page.getPopups().add(this);
+      }
+    }
+
 }

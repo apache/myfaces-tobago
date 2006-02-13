@@ -16,18 +16,14 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.UIPanel;
-import org.apache.myfaces.tobago.taglib.decl.HasDimension;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 
 /**
  * Renders a panel with border and title.
  */
-@Tag(name = "box")
+
 public class BoxTag extends TobagoBodyTag
-    implements HasIdBindingAndRendered, HasDimension, HasLabel {
+    implements BoxTagDeclaration {
 
   public String getComponentType() {
     return UIPanel.COMPONENT_TYPE;

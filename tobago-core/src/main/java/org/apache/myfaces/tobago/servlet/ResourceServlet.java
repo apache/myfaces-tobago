@@ -73,6 +73,7 @@ public class ResourceServlet extends HttpServlet {
 
     InputStream inputStream
         = Theme.class.getClassLoader().getResourceAsStream(resource);
+    
     ServletOutputStream outputStream = response.getOutputStream();
 
     byte[] buffer = new byte[BUFFER_SIZE];

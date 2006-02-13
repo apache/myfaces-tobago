@@ -35,7 +35,7 @@ import java.util.Map;
 public class PrintAnnotationVisitor extends AnnotationDeclarationVisitorCollector {
 
   public void print() {
-    for (ClassDeclaration decl : collectedClassDeclations) {
+    for (ClassDeclaration decl : getCollectedClassDeclations()) {
       printClassDeclaration(decl);
     }
   }
@@ -80,7 +80,7 @@ public class PrintAnnotationVisitor extends AnnotationDeclarationVisitorCollecto
   }
 
   public void printMethods(ClassDeclaration d) {
-    for (MethodDeclaration decl : collectedMethodDeclations) {
+    for (MethodDeclaration decl : getCollectedMethodDeclations()) {
       if (d.getQualifiedName().
           equals(decl.getDeclaringType().getQualifiedName())) {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");

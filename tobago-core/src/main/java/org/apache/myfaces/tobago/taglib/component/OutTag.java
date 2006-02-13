@@ -26,9 +26,10 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIOutput;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
+
 
 public class OutTag extends BeanTag implements OutTagDeclaration {
 

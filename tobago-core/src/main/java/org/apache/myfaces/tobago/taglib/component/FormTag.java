@@ -16,13 +16,10 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.UIForm;
-import org.apache.myfaces.tobago.taglib.decl.HasBinding;
-import org.apache.myfaces.tobago.taglib.decl.HasId;
 
-@Tag(name = "form")
-public class FormTag extends TobagoBodyTag implements HasBinding, HasId {
+
+public class FormTag extends TobagoBodyTag implements FormTagDeclaration {
 
   public String getComponentType() {
     return UIForm.COMPONENT_TYPE;

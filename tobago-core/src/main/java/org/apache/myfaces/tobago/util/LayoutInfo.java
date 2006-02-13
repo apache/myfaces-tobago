@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -421,7 +422,13 @@ public class LayoutInfo {
       handleIllegalTokens();
     }
   }
-
-
+  public String toString() {
+    return new ToStringBuilder(this).
+        append("cellLeft", cellsLeft).
+        append("spaceLeft", spaceLeft).
+        append("spaces", spaces).
+        append("layoutTokens", layoutTokens).
+        toString();
+  }
 }
 

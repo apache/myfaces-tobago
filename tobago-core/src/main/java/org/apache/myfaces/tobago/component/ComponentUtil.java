@@ -45,6 +45,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_RADIO;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_ONE_RADIO;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CREATE_SPAN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -673,6 +675,8 @@ public class ComponentUtil {
   public static UIColumn createTextColumn(String label, String sortable, String align, String value) {
     UIComponent text = createComponent(UIOutput.COMPONENT_TYPE, RENDERER_TYPE_OUT);
     setStringProperty(text, ATTR_VALUE, value, null);
+    setBooleanProperty(text, ATTR_CREATE_SPAN, "false");
+    setBooleanProperty(text, ATTR_ESCAPE, "false");
     return createColumn(label, sortable, align, text);
   }
 

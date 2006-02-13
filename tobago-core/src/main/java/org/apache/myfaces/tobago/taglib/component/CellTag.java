@@ -18,17 +18,12 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_DIRECTIVE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SCROLLBARS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SPAN_X;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SPAN_Y;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_PANEL;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIPanel;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.component.UICell;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
@@ -38,12 +33,8 @@ import javax.servlet.jsp.JspException;
  * $Id$
  */
 
-/**
- * Renders a layout cell.
- * A panel with ability to span over more than one layout cells.
- */
-@Tag(name = "cell")
-public class CellTag extends TobagoBodyTag implements HasIdBindingAndRendered {
+
+public class CellTag extends TobagoBodyTag implements CellTagDeclaration {
 
   private static final Log LOG = LogFactory.getLog(CellTag.class);
 
@@ -55,7 +46,7 @@ public class CellTag extends TobagoBodyTag implements HasIdBindingAndRendered {
 
 
   public String getComponentType() {
-    return UIPanel.COMPONENT_TYPE;
+    return UICell.COMPONENT_TYPE;
   }
 
   public int doStartTag() throws JspException {
@@ -72,8 +63,6 @@ public class CellTag extends TobagoBodyTag implements HasIdBindingAndRendered {
     ComponentUtil.setIntegerProperty(component, ATTR_SPAN_X, spanX);
     ComponentUtil.setIntegerProperty(component, ATTR_SPAN_Y, spanY);
     ComponentUtil.setStringProperty(component, ATTR_SCROLLBARS, scrollbars);
-
-    component.getAttributes().put(ATTR_LAYOUT_DIRECTIVE, Boolean.TRUE);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("spanX=" + spanX + " spanY=" + spanY);
@@ -94,11 +83,6 @@ public class CellTag extends TobagoBodyTag implements HasIdBindingAndRendered {
     return spanX;
   }
 
-  /**
-   * Count of layout column's to span over.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = { "java.lang.Integer" }, defaultValue = "1")
   public void setSpanX(String spanX) {
     this.spanX = spanX;
   }
@@ -107,11 +91,6 @@ public class CellTag extends TobagoBodyTag implements HasIdBindingAndRendered {
     return spanY;
   }
 
-  /**
-   * Count of layout row's to span over.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = { "java.lang.Integer" }, defaultValue = "1")
   public void setSpanY(String spanY) {
     this.spanY = spanY;
   }
@@ -120,15 +99,6 @@ public class CellTag extends TobagoBodyTag implements HasIdBindingAndRendered {
     return scrollbars;
   }
 
-
-  /**
-   * possible values are:
-   * 'false' : no scrollbars should rendered
-   * 'true'  : scrollbars should always rendered
-   * 'auto'  : scrollbars should rendered when needed
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "false")
   public void setScrollbars(String scrollbars) {
     this.scrollbars = scrollbars;
   }

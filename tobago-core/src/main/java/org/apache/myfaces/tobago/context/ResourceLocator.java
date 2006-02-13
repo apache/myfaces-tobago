@@ -14,6 +14,7 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipEntry;
 import java.io.InputStream;
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * This class helps to locate all resources of the ResourceManager.
@@ -50,6 +51,9 @@ class ResourceLocator {
   public void init()
       throws ServletException {
     locateResourcesInWar(servletContext, resourceManager, "/");
+    if (USE_JAR_THEME_RESOURCE) {
+      locateResourcesInLib(resourceManager);
+    }
     for (String dir : resourceDirs) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("Locating resources in dir: " + dir);
@@ -62,16 +66,13 @@ class ResourceLocator {
       ServletContext servletContext, ResourceManagerImpl resources, String path)
       throws ServletException {
 
-    if (path.equals("/WEB-INF/") || path.equals("/WEB-INF/lib/")) {
-      if (USE_JAR_THEME_RESOURCE) {
-        // continue
-      } else {
-        return; // ignore
-      }
-    } else if (path.startsWith("/WEB-INF/")) {
+    if (path.startsWith("/WEB-INF/")) {
       return; // ignore
     }
-
+    // fix for jetty6
+    if (path.endsWith("/") && path.length() > 1) {
+      path = path.substring(0, path.length() - 1);
+    }
     Set<String> resourcePaths = servletContext.getResourcePaths(path);
     if (resourcePaths == null || resourcePaths.isEmpty()) {
       if (LOG.isErrorEnabled()) {
@@ -84,7 +85,7 @@ class ResourceLocator {
       if (childPath.endsWith("/")) {
         // ignore, because weblogic puts the path directory itself in the Set
         if (!childPath.equals(path)) {
-          LOG.debug("childPath dir " + childPath);
+          LOG.error("childPath dir " + childPath);
           locateResourcesInWar(servletContext, resources, childPath);
         }
       } else {
@@ -95,84 +96,70 @@ class ResourceLocator {
         } else if (childPath.endsWith(".properties.xml")) {
           InputStream inputStream = servletContext.getResourceAsStream(childPath);
           addProperties(inputStream, resources, childPath, true);
-        } else
-        if (childPath.startsWith("/WEB-INF/lib/") && childPath.endsWith(".jar"))
-        {
-          if (USE_JAR_THEME_RESOURCE) {
-            locateResourcesInLib(servletContext, resources, childPath);
-          }
         } else {
           resources.add(childPath);
-          //Log.debug(childPath);
         }
       }
     }
   }
 
-  private void locateResourcesInLib(
-      ServletContext servletContext, ResourceManagerImpl resources, String jarPath)
+  private void locateResourcesInLib(ResourceManagerImpl resources)
       throws ServletException {
 
     InputStream stream = null;
     try {
-      if (findThemeDescriptor(servletContext, jarPath)) {
+      LOG.error("Loading tobago-theme.xml");
+      Enumeration<URL> urls = getClass().getClassLoader().getResources("META-INF/tobago-theme.xml");
 
-        ClassLoader classLoader = ResourceManagerFactory.class.getClassLoader();
-
-        stream = servletContext.getResourceAsStream(jarPath);
-        ZipInputStream zip = new ZipInputStream(stream);
-        while (zip.available() > 0) {
-          ZipEntry nextEntry = zip.getNextEntry();
-          if (nextEntry == null || nextEntry.isDirectory()) {
-            continue;
-          }
-          String name = "/" + nextEntry.getName();
-          LOG.info("name = '" + name + "'");
-          String prefix = "/org/apache/myfaces/tobago/renderkit/";
-          if (name.startsWith(prefix)) {
-            if (name.endsWith(".class")) {
-              // ignore the class files
-            } else if (name.endsWith(".properties")) {
-              LOG.info("** " + name.substring(1));
-              InputStream inputStream = classLoader.getResourceAsStream(name.substring(1));
-              addProperties(inputStream, resources, name, false);
-            } else if (name.endsWith(".properties.xml")) {
-              LOG.info("** " + name.substring(1));
-              InputStream inputStream = classLoader.getResourceAsStream(name.substring(1));
-              LOG.info(inputStream);
-              addProperties(inputStream, resources, name, true);
-            } else {
-              resources.add(name);
+      while (urls.hasMoreElements()) {
+        URL themeUrl = urls.nextElement();
+        // TODO other protocols
+        if ("jar".equals(themeUrl.getProtocol())) {
+          String fileName = themeUrl.toString().substring(4, themeUrl.toString().indexOf("!"));
+          ClassLoader classLoader = ResourceManagerFactory.class.getClassLoader();
+          URL jarFile = new URL(fileName);
+          try {
+            stream = jarFile.openStream();
+            ZipInputStream zip = new ZipInputStream(stream);
+            while (zip.available() > 0) {
+              ZipEntry nextEntry = zip.getNextEntry();
+              if (nextEntry == null || nextEntry.isDirectory()) {
+                continue;
+              }
+              String name = "/" + nextEntry.getName();
+              //LOG.error("name = '" + name + "'");
+              String prefix = "/org/apache/myfaces/tobago/renderkit/";
+              if (name.startsWith(prefix)) {
+                if (name.endsWith(".class")) {
+                  // ignore the class files
+                } else if (name.endsWith(".properties")) {
+                  LOG.info("** " + name.substring(1));
+                  InputStream inputStream = classLoader.getResourceAsStream(name.substring(1));
+                  addProperties(inputStream, resources, name, false);
+                } else if (name.endsWith(".properties.xml")) {
+                  LOG.info("** " + name.substring(1));
+                  InputStream inputStream = classLoader.getResourceAsStream(name.substring(1));
+                  LOG.info(inputStream);
+                  addProperties(inputStream, resources, name, true);
+                } else {
+                  resources.add(name);
+                }
+              }
             }
+          } finally {
+            IOUtils.closeQuietly(stream);
           }
+        } else {
+          LOG.error("Unknown protocol "+themeUrl);
         }
       }
     } catch (IOException e) {
-      String msg = "while loading " + jarPath;
+      String msg = "while loading ";
       if (LOG.isErrorEnabled()) {
         LOG.error(msg, e);
       }
       throw new ServletException(msg, e);
-    } finally {
-      IOUtils.closeQuietly(stream);
     }
-  }
-
-  private boolean findThemeDescriptor(
-      ServletContext servletContext, String jarPath) throws IOException {
-    InputStream stream = servletContext.getResourceAsStream(jarPath);
-    ZipInputStream zip = new ZipInputStream(stream);
-    while (zip.available() > 0) {
-      ZipEntry nextEntry = zip.getNextEntry();
-      if (nextEntry == null || nextEntry.isDirectory()) {
-        continue;
-      }
-      String name = nextEntry.getName();
-      if (name.equals("META-INF/tobago-theme.xml")) {
-        return true;
-      }
-    }
-    return false;
   }
 
   private void addProperties(

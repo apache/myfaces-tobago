@@ -34,28 +34,45 @@ import java.util.ArrayList;
  */
 public class AnnotationDeclarationVisitorCollector extends SimpleDeclarationVisitor {
 
-  protected Set<MethodDeclaration> collectedMethodDeclations = new HashSet<MethodDeclaration>();
-  protected Set<ClassDeclaration> collectedClassDeclations = new HashSet<ClassDeclaration>();
-  protected Set<InterfaceDeclaration> collectedInterfaceDeclations = new HashSet<InterfaceDeclaration>();
-  protected List<PackageDeclaration> collectedPackageDeclations = new ArrayList<PackageDeclaration>();
+  private Set<MethodDeclaration> collectedMethodDeclations = new HashSet<MethodDeclaration>();
+  private Set<ClassDeclaration> collectedClassDeclations = new HashSet<ClassDeclaration>();
+  private Set<InterfaceDeclaration> collectedInterfaceDeclations = new HashSet<InterfaceDeclaration>();
+  private List<PackageDeclaration> collectedPackageDeclations = new ArrayList<PackageDeclaration>();
+
+  public Set<MethodDeclaration> getCollectedMethodDeclations() {
+    return collectedMethodDeclations;
+  }
+
+  public Set<ClassDeclaration> getCollectedClassDeclations() {
+    return collectedClassDeclations;
+  }
+
+  public Set<InterfaceDeclaration> getCollectedInterfaceDeclations() {
+    return collectedInterfaceDeclations;
+  }
+
+  public List<PackageDeclaration> getCollectedPackageDeclations() {
+    return collectedPackageDeclations;
+  }
+
 
   public void visitMethodDeclaration(MethodDeclaration d) {
-    if (!collectedMethodDeclations.contains(d) &&
-        !d.getAnnotationMirrors().isEmpty()) {
+    if (!collectedMethodDeclations.contains(d)
+        && !d.getAnnotationMirrors().isEmpty()) {
       collectedMethodDeclations.add(d);
     }
   }
 
   public void visitPackageDeclaration(PackageDeclaration d) {
-    if (!collectedPackageDeclations.contains(d) &&
-        !d.getAnnotationMirrors().isEmpty()) {
+    if (!collectedPackageDeclations.contains(d)
+        && !d.getAnnotationMirrors().isEmpty()) {
       collectedPackageDeclations.add(d);
     }
 
   }
   public void visitInterfaceDeclaration(InterfaceDeclaration d) {
-    if (!collectedInterfaceDeclations.contains(d) &&
-        !d.getAnnotationMirrors().isEmpty()) {
+    if (!collectedInterfaceDeclations.contains(d)
+        && !d.getAnnotationMirrors().isEmpty()) {
       collectedInterfaceDeclations.add(d);
     }
   }
@@ -65,8 +82,8 @@ public class AnnotationDeclarationVisitorCollector extends SimpleDeclarationVisi
     // TODO why this needed????
     visitPackageDeclaration(d.getPackage());
 
-    if (!collectedClassDeclations.contains(d) &&
-        !d.getAnnotationMirrors().isEmpty()) {
+    if (!collectedClassDeclations.contains(d)
+        && !d.getAnnotationMirrors().isEmpty()) {
       collectedClassDeclations.add(d);
     }
   }

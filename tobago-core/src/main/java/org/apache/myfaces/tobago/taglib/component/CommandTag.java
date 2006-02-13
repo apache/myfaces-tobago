@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.UICommand;
 
 import javax.faces.component.UIComponent;
 
-public abstract class CommandTag extends TobagoTag {
+public abstract class CommandTag extends TobagoTag implements CommandTagDeclaration {
 
   private String disabled;
   private String action;

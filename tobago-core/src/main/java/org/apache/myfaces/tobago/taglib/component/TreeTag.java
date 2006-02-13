@@ -27,34 +27,14 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROOT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROOT_JUNCTION;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
-import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
-import org.apache.myfaces.tobago.apt.annotation.Preliminary;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
-import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasIdReference;
-import org.apache.myfaces.tobago.taglib.decl.HasNameReference;
-import org.apache.myfaces.tobago.taglib.decl.HasState;
-import org.apache.myfaces.tobago.taglib.decl.HasTreeNodeValue;
-import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 
-/**
- * Renders a tree view.
- */
-@Tag(name = "tree")
-@BodyContentDescription(anyTagOf = "<f:facet>* <f:actionListener>?")
-@Preliminary(
-    "Implement a var attribute for the tree like in the sheet (http://issues.apache.org/jira/browse/MYFACES-903)")
-public class TreeTag extends TobagoTag
-    implements HasIdBindingAndRendered, HasTreeNodeValue, HasState,
-    HasIdReference, HasActionListener, HasNameReference, IsRequired {
+
+public class TreeTag extends TobagoTag implements TreeTagDeclaration {
 
   private String value;
   private String state;
@@ -140,11 +120,7 @@ public class TreeTag extends TobagoTag
   public String getActionListener() {
     return actionListener;
   }
-  /**
-   *
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+
   public void setShowIcons(String showIcons) {
     this.showIcons = showIcons;
   }
@@ -153,12 +129,6 @@ public class TreeTag extends TobagoTag
     return showJunctions;
   }
 
-
-  /**
-   *
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
   public void setShowJunctions(String showJunctions) {
     this.showJunctions = showJunctions;
   }
@@ -167,11 +137,6 @@ public class TreeTag extends TobagoTag
     return showRoot;
   }
 
-  /**
-   *
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
   public void setShowRoot(String showRoot) {
     this.showRoot = showRoot;
   }
@@ -180,11 +145,6 @@ public class TreeTag extends TobagoTag
     return showRootJunction;
   }
 
-  /**
-   *
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
   public void setShowRootJunction(String showRootJunction) {
     this.showRootJunction = showRootJunction;
   }
@@ -201,21 +161,6 @@ public class TreeTag extends TobagoTag
     return selectable;
   }
 
-  /**
-   * Flag indicating whether or not this component should be render selectable items.
-   * Possible values are:
-   * <ul>
-   * <li><strong>multi</strong> : a multisection tree is rendered
-   * <li><strong>single</strong> : a singlesection tree is rendered
-   * <li><strong>multiLeafOnly</strong> : a multisection tree is rendered,
-   * only Leaf's are selectable
-   * <li><strong>singleLeafOnly</strong> : a singlesection tree is rendered,
-   * only Leaf's are selectable
-   * </ul>
-   * For any other value or if this attribute is omited the items are not selectable.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "off")
   public void setSelectable(String selectable) {
     this.selectable = selectable;
   }
@@ -224,11 +169,6 @@ public class TreeTag extends TobagoTag
     return mutable;
   }
 
-  /**
-   *
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
   public void setMutable(String mutable) {
     this.mutable = mutable;
   }

@@ -25,32 +25,12 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
-import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.taglib.decl.HasAction;
-import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
-import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasImage;
-import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.taglib.decl.HasTarget;
-import org.apache.myfaces.tobago.taglib.decl.HasTip;
-import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
-import org.apache.myfaces.tobago.taglib.decl.IsInline;
 
 import javax.faces.component.UIComponent;
 
-/**
- * Renders a link element.
- */
-@Tag(name = "link")
-@BodyContentDescription(anyTagOf = "facestag")
 public class LinkTag extends CommandTag
-    implements HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled,
-    HasAction, HasActionListener, IsInline, HasCommandType,
-    HasTarget, HasTip, IsImmediateCommand, HasImage {
+    implements LinkTagDeclaration {
 
   private static final Log LOG = LogFactory.getLog(LinkTag.class);
 

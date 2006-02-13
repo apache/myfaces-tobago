@@ -20,13 +20,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UIInput;
 
-import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.DateTimeConverter;
-import static javax.faces.convert.DateTimeConverter.CONVERTER_ID;
 import javax.servlet.jsp.JspException;
-import java.util.TimeZone;
 
 public class TimeTag extends InputTag implements TimeTagDeclaration {
 
@@ -38,17 +33,6 @@ public class TimeTag extends InputTag implements TimeTagDeclaration {
 
   public int doEndTag() throws JspException {
 
-    UIInput component = (UIInput) getComponentInstance();
-    // TODO  move to renderkit
-    if (component.getConverter() == null) {
-      Application application
-          = FacesContext.getCurrentInstance().getApplication();
-      DateTimeConverter converter
-          = (DateTimeConverter) application.createConverter(CONVERTER_ID);
-      converter.setPattern("HH:mm");
-      converter.setTimeZone(TimeZone.getDefault());
-      component.setConverter(converter);
-    }
 
     return super.doEndTag();
   }

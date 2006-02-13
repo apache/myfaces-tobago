@@ -34,7 +34,7 @@ public abstract class Theme implements Serializable {
     this.fallback = fallback;
     List<Theme> collect = new ArrayList<Theme>();
     for (Theme parent = this;
-        parent != null; parent = parent.getFallback()) {
+         parent != null; parent = parent.getFallback()) {
       collect.add(parent);
     }
     fallbackList = Collections.unmodifiableList(collect);

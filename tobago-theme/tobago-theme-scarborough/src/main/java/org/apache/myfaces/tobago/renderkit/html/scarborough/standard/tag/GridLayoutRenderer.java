@@ -28,7 +28,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CELLSPACING;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_DIRECTIVE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN_BOTTOM;
@@ -47,7 +46,7 @@ import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.component.UICell;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
@@ -645,10 +644,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           cell.getAttributes().put(ATTR_LAYOUT_HEIGHT,
               new Integer(cellHeight));
           cell.getAttributes().remove(ATTR_INNER_HEIGHT);
-          if (cell instanceof UIPanel
-              && ComponentUtil.getBooleanAttribute(cell,
-                  ATTR_LAYOUT_DIRECTIVE)
-          || cell instanceof UIForm) {
+          if (cell instanceof UICell || cell instanceof UIForm) {
             List children = LayoutUtil.addChildren(new ArrayList(), cell);
             for (Iterator childs = children.iterator(); childs.hasNext();) {
               UIComponent component = (UIComponent) childs.next();

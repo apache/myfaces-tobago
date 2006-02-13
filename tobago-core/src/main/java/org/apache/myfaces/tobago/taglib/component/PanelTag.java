@@ -21,22 +21,14 @@ package org.apache.myfaces.tobago.taglib.component;
  * $Id$
  */
 
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.component.UIPanel;
-import org.apache.myfaces.tobago.taglib.decl.HasDimension;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
-/**
- * Intended for use in situations when only one UIComponent child can be
- * nested, such as in the case of facets.
- */
-@Tag(name = "panel")
+import org.apache.myfaces.tobago.component.UIPanel;
+
 public class PanelTag extends TobagoBodyTag
-    implements HasIdBindingAndRendered, HasDimension {
+    implements PanelTagDeclaration {
 
   public String getComponentType() {
     return UIPanel.COMPONENT_TYPE;
   }
-
 }
 

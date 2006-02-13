@@ -60,8 +60,6 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered {
   private String state;
   private String stateChangeListener;
 
-// ----------------------------------------------------------- business methods
-
   public String getComponentType() {
     // TODO: implement uidata with overridden processUpdates to store state
     return UIData.COMPONENT_TYPE;

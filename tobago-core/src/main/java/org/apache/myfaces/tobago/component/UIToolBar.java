@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.apt.annotation;
+package org.apache.myfaces.tobago.component;
 
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
@@ -17,21 +17,23 @@ package org.apache.myfaces.tobago.apt.annotation;
  */
 
 /**
- * Created: Apr 20, 2005 5:08:01 PM
+ * Created by IntelliJ IDEA.
  * User: bommel
- * $Id: BodyContent.java,v 1.3 2005/05/11 15:20:34 bommel Exp $
+ * Date: 11.02.2006
+ * Time: 14:48:46
+ * To change this template use File | Settings | File Templates.
  */
-public enum BodyContent {
+public class UIToolBar extends javax.faces.component.UIPanel {
 
-  JSP, EMPTY, TAGDEPENDENT;
+  public static final String LABEL_BOTTOM = "bottom";
+  public static final String LABEL_RIGHT = "right";
+  public static final String LABEL_OFF = "off";
 
-  public String toString(){
-    switch (this) {
-      case JSP: return "JSP";
-      case EMPTY: return "empty";
-      case TAGDEPENDENT: return "tagdependent";
-      default:
-        throw new IllegalStateException("Unexpected BodyContent "+name());
-    }
-  }
+  public static final String ICON_SMALL = "small";
+  public static final String ICON_BIG = "big";
+  public static final String ICON_OFF = "off";
+
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.ToolBar";
+
+
 }

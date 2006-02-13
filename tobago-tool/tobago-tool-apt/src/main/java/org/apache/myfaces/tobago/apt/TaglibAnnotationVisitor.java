@@ -47,7 +47,7 @@ import java.util.Set;
  */
 public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollector {
 
-  protected final AnnotationProcessorEnvironment env;
+  private final AnnotationProcessorEnvironment env;
 
   public TaglibAnnotationVisitor(AnnotationProcessorEnvironment env) {
     this.env = env;
@@ -58,7 +58,7 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
     dbf.setValidating(false);
     javax.xml.parsers.DocumentBuilder parser = dbf.newDocumentBuilder();
     List<DocumentAndFileName> tlds = new ArrayList<DocumentAndFileName>();
-    for (PackageDeclaration packageDeclaration :collectedPackageDeclations) {
+    for (PackageDeclaration packageDeclaration :getCollectedPackageDeclations()) {
       DocumentAndFileName documentAndFileName = new DocumentAndFileName();
       Document document = parser.newDocument();
       Taglib taglibAnnotation = packageDeclaration.getAnnotation(Taglib.class);
@@ -87,12 +87,12 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
         taglib.appendChild(listener);
       }
       Set<String> tagSet = new HashSet<String>();
-      for (ClassDeclaration decl : collectedClassDeclations) {
+      for (ClassDeclaration decl : getCollectedClassDeclations()) {
         if (decl.getPackage().equals(packageDeclaration)) {
           appendTag(decl, taglib, tagSet, document);
         }
       }
-      for (InterfaceDeclaration decl : collectedInterfaceDeclations) {
+      for (InterfaceDeclaration decl : getCollectedInterfaceDeclations()) {
         if (decl.getPackage().equals(packageDeclaration)) {
           appendTag(decl, taglib, tagSet, document);
         }
@@ -153,7 +153,8 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
     if (contentDescription != null) {
       if (bodyContent.equals(BodyContent.JSP)
           && contentDescription.contentType().length() > 0) {
-        throw new IllegalArgumentException("contentType " + contentDescription.contentType() + " for bodyContent JSP not allowed!");
+        throw new IllegalArgumentException("contentType " + contentDescription.contentType()
+            + " for bodyContent JSP not allowed!");
       } else if (bodyContent.equals(BodyContent.TAGDEPENDENT)
           && contentDescription.contentType().length() == 0) {
         throw new IllegalArgumentException("contentType should set for tagdependent bodyContent");
@@ -215,7 +216,7 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
 
   protected void addAttributes(InterfaceDeclaration type, Element tagElement, Document document) {
     addAttributes(type.getSuperinterfaces(), tagElement, document);
-    for (MethodDeclaration decl : collectedMethodDeclations) {
+    for (MethodDeclaration decl : getCollectedMethodDeclations()) {
       if (decl.getDeclaringType().equals(type)) {
         addAttribute(decl, tagElement, document);
       }
@@ -223,7 +224,7 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
   }
 
   protected void addAttributes(ClassDeclaration d, Element tagElement, Document document) {
-    for (MethodDeclaration decl : collectedMethodDeclations) {
+    for (MethodDeclaration decl : getCollectedMethodDeclations()) {
       if (d.getQualifiedName().
           equals(decl.getDeclaringType().getQualifiedName())) {
         addAttribute(decl, tagElement, document);
@@ -242,16 +243,20 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
       String simpleName = d.getSimpleName();
       if (simpleName.startsWith("set")) {
         Element attribute = document.createElement("attribute");
-        addLeafTextElement(simpleName.substring(3, 4).toLowerCase() + simpleName.substring(4), "name", attribute, document);
+        addLeafTextElement(simpleName.substring(3, 4).toLowerCase() + simpleName.substring(4),
+            "name", attribute, document);
         addLeafTextElement(Boolean.toString(tagAttribute.required()), "required", attribute, document);
         addLeafTextElement(Boolean.toString(tagAttribute.rtexprvalue()), "rtexprvalue", attribute, document);
         addDescription(d, attribute, document);
         tagElement.appendChild(attribute);
-        // TODO add description
       } else {
         throw new IllegalArgumentException("Only setter allowed found: " + simpleName);
       }
     }
+  }
+
+  public AnnotationProcessorEnvironment getEnv() {
+    return env;
   }
 
 }

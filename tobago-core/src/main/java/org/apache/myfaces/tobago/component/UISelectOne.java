@@ -16,7 +16,6 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import org.apache.myfaces.tobago.util.MessageFactory;
 
 import javax.faces.application.FacesMessage;
@@ -35,12 +34,12 @@ public class UISelectOne extends javax.faces.component.UISelectOne {
 
   public void encodeBegin(FacesContext facesContext) throws IOException {
     // TODO change this should be renamed to DimensionUtils.prepare!!!
-    UILayout.getLayout(this).layoutBegin(facesContext, this);
+    //UILayout.getLayout(this).layoutBegin(facesContext, this);
     super.encodeBegin(facesContext);
   }
 
   public void validate(FacesContext facesContext) {
-    if (ComponentUtil.getBooleanAttribute(this, ATTR_REQUIRED)) {
+    if (isRequired()) {
 
       Object localValue = getLocalValue();
       if (localValue == null || "".equals(localValue)) {

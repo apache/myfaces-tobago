@@ -17,26 +17,31 @@ package org.apache.myfaces.tobago.component;
  */
 
 import javax.faces.context.FacesContext;
-import java.io.IOException;
+
 
 /**
- * User: weber
- * Date: Feb 28, 2005
- * Time: 3:05:19 PM
+ * Created by IntelliJ IDEA.
+ * User: bommel
+ * Date: 10.02.2006
+ * Time: 19:13:51
+ * To change this template use File | Settings | File Templates.
  */
-public class UIPanel extends javax.faces.component.UIPanel {
+public class UIHiddenInput extends javax.faces.component.UIInput {
 
-  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Panel";
+  private boolean inline = true;
 
-  public void encodeBegin(FacesContext facesContext) throws IOException {
-    // TODO change this should be renamed to DimensionUtils.prepare!!!
-    //UILayout.getLayout(this).layoutBegin(facesContext, this);
-    super.encodeBegin(facesContext);
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.HiddenInput";
+
+  public void restoreState(FacesContext context, Object state) {
+    Object[] values = (Object[]) state;
+    super.restoreState(context, values[0]);
+    inline = (Boolean) values[1];
   }
 
-  public void encodeChildren(FacesContext facesContext) throws IOException {
-   if (isRendered()) {
-     UILayout.getLayout(this).encodeChildrenOfComponent(facesContext, this);
-   }
+  public Object saveState(FacesContext context) {
+    Object[] values  = new Object[2];
+    values[0] = super.saveState(context);
+    values[1] = inline;
+    return values;
   }
 }

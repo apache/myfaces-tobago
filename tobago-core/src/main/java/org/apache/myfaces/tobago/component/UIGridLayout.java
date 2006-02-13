@@ -42,6 +42,8 @@ public class UIGridLayout extends UILayout {
   public static final Marker FREE = new Marker("free");
   public static final String USED = "used";
 
+
+
   @Override
   public String getFamily() {
     return COMPONENT_FAMILY;
@@ -148,10 +150,6 @@ public class UIGridLayout extends UILayout {
   public void setIgnoreFree(boolean ignoreFree) {
     this.ignoreFree = ignoreFree;
   }
-
-// ///////////////////////////////////////////////////////////////
-// ///////////////////////////////////////////// class Row
-// ///////////////////////////////////////////////////////////////
 
   public static class Row implements Serializable {
 

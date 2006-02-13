@@ -16,6 +16,8 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LEFT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TOP;
@@ -24,14 +26,12 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.taglib.decl.HasDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 
 import javax.faces.component.UIComponent;
-import javax.servlet.jsp.JspException;
 
 /**
  * Renders a popup panel.
@@ -39,8 +39,7 @@ import javax.servlet.jsp.JspException;
 @Tag(name = "popup")
 public class PopupTag extends TobagoBodyTag
     implements HasId, IsRendered, HasDimension {
-
-
+  private static final Log LOG = LogFactory.getLog(PopupTag.class);
   private String width;
   private String height;
   private String left;
@@ -48,14 +47,6 @@ public class PopupTag extends TobagoBodyTag
 
   public String getComponentType() {
     return UIPopup.COMPONENT_TYPE;
-  }
-
-  public int doStartTag() throws JspException {
-    int result = super.doStartTag();
-    UIPopup component = (UIPopup) getComponentInstance();
-    UIPage page = ComponentUtil.findPage(component);
-    page.getPopups().add(component);
-    return result;
   }
 
   public void release() {

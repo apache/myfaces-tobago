@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.apt.annotation;
+package org.apache.myfaces.tobago.taglib.component;
 
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
@@ -16,22 +16,16 @@ package org.apache.myfaces.tobago.apt.annotation;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+
 /**
- * Created: Apr 20, 2005 5:08:01 PM
+ * Created by IntelliJ IDEA.
  * User: bommel
- * $Id: BodyContent.java,v 1.3 2005/05/11 15:20:34 bommel Exp $
+ * Date: 10.02.2006
+ * Time: 22:03:07
+ * To change this template use File | Settings | File Templates.
  */
-public enum BodyContent {
 
-  JSP, EMPTY, TAGDEPENDENT;
-
-  public String toString(){
-    switch (this) {
-      case JSP: return "JSP";
-      case EMPTY: return "empty";
-      case TAGDEPENDENT: return "tagdependent";
-      default:
-        throw new IllegalStateException("Unexpected BodyContent "+name());
-    }
-  }
+@UIComponentTag(UIComponent = "org.apache.myfaces.tobago.component.UICommand")
+public interface CommandTagDeclaration extends TobagoTagDeclaration {
 }

@@ -64,6 +64,6 @@ public interface OutTagDeclaration extends
    * Possible values are 'none', 'strong' and 'deleted'
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none")
+  @UIComponentTagAttribute(defaultValue = "none", allowedValues = { "none", "strong", "deleted" })
   void setMarkup(String markup);
 }

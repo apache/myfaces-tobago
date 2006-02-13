@@ -19,13 +19,12 @@ package org.apache.myfaces.tobago.renderkit;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_DIRECTIVE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.component.UICell;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 
@@ -223,8 +222,7 @@ public abstract class RendererBase
 
     int fixedSpace = 0;
 
-    if (component instanceof UIPanel
-        && ComponentUtil.getBooleanAttribute(component, ATTR_LAYOUT_DIRECTIVE)) {
+    if (component instanceof UICell) {
       List children = LayoutUtil.addChildren(new ArrayList(), component);
       for (Iterator childs = children.iterator(); childs.hasNext();) {
         UIComponent child = (UIComponent) childs.next();

@@ -34,6 +34,8 @@ public @interface UIComponentTagAttribute {
   /** type of attribute in the UIComponent */
   String[] type() default {"java.lang.String"};
 
+  String[] allowedValues() default { };
+
   /** allow faces expression language, e.g. #{bean}  */
   DynamicExpression expression() default DynamicExpression.VALUE_BINDING;
 

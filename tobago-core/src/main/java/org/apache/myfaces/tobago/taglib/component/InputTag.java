@@ -34,7 +34,6 @@ public abstract class InputTag extends BeanTag implements InputTagDeclaration {
   private String tip;
   private String validator;
 
-
   public void release() {
     super.release();
     this.onchange = null;

@@ -27,21 +27,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
-import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.taglib.decl.HasAction;
-import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
-import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasImage;
-import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.taglib.decl.HasTip;
-import org.apache.myfaces.tobago.taglib.decl.HasWidth;
-import org.apache.myfaces.tobago.taglib.decl.IsDefaultCommand;
-import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
-import org.apache.myfaces.tobago.taglib.decl.IsInline;
 
 import javax.faces.component.UIComponent;
 
@@ -49,13 +35,8 @@ import javax.faces.component.UIComponent;
  * Renders a button element.
  */
 // FIXME: bodyContent
-@Tag(name = "button")
-@BodyContentDescription(anyTagOf = "facestag")
 public class ButtonTag extends CommandTag
-    implements HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
-    IsDisabled, HasAction, HasActionListener, HasCommandType,
-    IsImmediateCommand, IsDefaultCommand,
-    HasWidth, HasTip, IsInline {
+    implements ButtonTagDeclaration {
 
   private String label;
   private String image;

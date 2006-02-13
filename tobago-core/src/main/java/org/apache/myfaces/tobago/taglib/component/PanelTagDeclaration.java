@@ -16,32 +16,24 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.taglib.decl.HasDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasValue;
 
-/*
- * Created: Aug 6, 2005 3:24:33 PM
+/**
+ * Created by IntelliJ IDEA.
  * User: bommel
- * $Id: $
+ * Date: 11.02.2006
+ * Time: 13:54:04
+ * To change this template use File | Settings | File Templates.
  */
 /**
- * Renders a calendar.
+ * Intended for use in situations when only one UIComponent child can be
+ * nested, such as in the case of facets.
  */
-@Tag(name = "calendar", bodyContent = BodyContent.EMPTY)
-@UIComponentTag(UIComponent = "javax.faces.component.UIOutput")
-public interface CalendarTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasValue {
-
-  /**
-   *  The current value of this component.
-   *
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = { "java.util.Calendar",
-      "java.util.Date" })
-  void setValue(String value);
+@Tag(name = "panel")
+@UIComponentTag(UIComponent = "org.apache.myfaces.tobago.component.UIPanel")
+public interface PanelTagDeclaration extends TobagoTagDeclaration,
+    HasIdBindingAndRendered, HasDimension {
 }

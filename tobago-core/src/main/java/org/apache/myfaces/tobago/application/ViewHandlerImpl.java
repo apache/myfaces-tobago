@@ -170,12 +170,11 @@ public class ViewHandlerImpl extends ViewHandler {
 
   private void handleEncoding(FacesContext facesContext) {
     try {
-      if (facesContext.getExternalContext() instanceof HttpServletRequest) {
+      if (facesContext.getExternalContext().getRequest() instanceof HttpServletRequest) {
         HttpServletRequest request =
             (HttpServletRequest) facesContext.getExternalContext().getRequest();
         if (request.getCharacterEncoding() == null) {
           request.setCharacterEncoding("UTF-8");
-
         }
       }
       // TODO PortletRequest

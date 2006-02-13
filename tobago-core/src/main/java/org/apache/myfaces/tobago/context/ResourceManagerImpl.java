@@ -403,7 +403,6 @@ public class ResourceManagerImpl implements ResourceManager {
         }
       }
 
-
 //    Log.debug("key=" + key);
 
       try {
@@ -419,7 +418,6 @@ public class ResourceManagerImpl implements ResourceManager {
     }
     return renderer;
   }
-
 
 
   private String getRendererClassName(String rendererType) {
@@ -584,7 +582,6 @@ public class ResourceManagerImpl implements ResourceManager {
     this.tobagoConfig = tobagoConfig;
   }
 
-// -------------------------------------------------------------- inner classes
 
   private class Cache extends HashMap {
 
@@ -612,7 +609,8 @@ public class ResourceManagerImpl implements ResourceManager {
   }
 // ----------------------------------------------------------- cacheKey classes
 
-  private enum CacheType {RENDERER, IMAGE, JSP, PROPERTY, MISC}
+  private enum CacheType {
+    RENDERER, IMAGE, JSP, PROPERTY, MISC}
 
   public static final class CacheKey {
     private final String clientPropertyId;
@@ -636,6 +634,7 @@ public class ResourceManagerImpl implements ResourceManager {
       this.type = CacheType.PROPERTY;
       calcHashCode();
     }
+
     public CacheKey(String clientPropertyId, Locale locale, String name, CacheType type) {
       this.clientPropertyId = clientPropertyId;
       if (locale == null) { //  FIXME: should not happen, but does.

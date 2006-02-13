@@ -20,7 +20,11 @@ import com.sun.mirror.apt.AnnotationProcessorEnvironment;
 import com.sun.mirror.declaration.Declaration;
 import com.sun.mirror.declaration.MethodDeclaration;
 import org.apache.commons.lang.ClassUtils;
-import org.apache.myfaces.tobago.apt.annotation.*;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.BodyContent;
+import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -118,7 +122,6 @@ public class TobagoAnnotationVisitor extends TaglibAnnotationVisitor {
         addDescription(d, attribute, document);
 
         tagElement.appendChild(attribute);
-        // TODO add description
       } else {
         throw new IllegalArgumentException("Only setter allowed found: " + simpleName);
       }

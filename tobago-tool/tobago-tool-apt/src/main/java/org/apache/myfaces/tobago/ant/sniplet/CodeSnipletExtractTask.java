@@ -22,11 +22,17 @@ import org.apache.tools.ant.Task;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.types.FileSet;
 
-import java.io.*;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.List;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.LineNumberReader;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.FileOutputStream;
 
 /**
  * This task extracts lines from source fileSets marked with a tag. Such a sniplet starts with

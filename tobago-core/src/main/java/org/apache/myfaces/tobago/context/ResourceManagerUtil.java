@@ -94,7 +94,7 @@ public class ResourceManagerUtil {
 
   public static String getScriptsAsJSArray(FacesContext facesContext, String[] names) {
     List<String> fileNames = new ArrayList<String>();
-    for (String  name : names) {
+    for (String name : names) {
       fileNames.addAll(getScripts(facesContext, name));
     }
     return toJSArray(fileNames);
@@ -102,7 +102,7 @@ public class ResourceManagerUtil {
 
   public static String getStylesAsJSArray(FacesContext facesContext, String[] names) {
     List<String> fileNames = new ArrayList<String>();
-    for (String  name : names) {
+    for (String name : names) {
       fileNames.addAll(getStyles(facesContext, name));
     }
     return toJSArray(fileNames);
@@ -111,12 +111,12 @@ public class ResourceManagerUtil {
   public static String toJSArray(List<String> list) {
     StringBuffer sb = new StringBuffer();
     for (String name : list) {
-        if (sb.length() > 0) {
-          sb.append(", ");
-        }
-        sb.append('\'');
-        sb.append(name);
-        sb.append('\'');
+      if (sb.length() > 0) {
+        sb.append(", ");
+      }
+      sb.append('\'');
+      sb.append(name);
+      sb.append('\'');
     }
     return "[" + sb.toString() + "]";
   }

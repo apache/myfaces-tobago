@@ -18,70 +18,36 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
-import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasWidth;
+import org.apache.myfaces.tobago.component.UIToolBar;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
+
 /*
  * Created 29.07.2003 at 15:09:53.
  * $Id$
 */
-/**
- * <p/>
- * Renders a toolbar.<p>
- * Allowed subcomponents are subtypes of UICommand i.e.
- * <code>'button'</code> and <code>'link'</code> tags.
- * These are rendered by ToolbarRenderer, so the result has
- * no difference.<p>
- * To add an dropdown menu to a button add a facet <code>'menupopup'</code>
- * containing a
- * <a href="../tobago/menu.html"><code>&lt;tobago:menu></code></a>
- * tag to the button. Label's and Image's on those menu tag's are ignored
- * and replaced by the renderer.
- * <pre>
- *      <tobago:button commandName="alert('test 0')" type="script"
- *          label="Alert 0" >
- *        <f:facet name="menupopup">
- *          <tobago:menu>
- *            <tobago:menuItem action="alert('test 1')" type="script" label="Alert 1"/>
- *            <tobago:menuItem action="alert('test 2')" type="script" label="Alert 2"/>
- *            <tobago:menuItem action="alert('test 3')" type="script" label="Alert 3"/>
- *          </tobago:menu>
- *        </f:facet>
- *      </tobago:button>
- *      </pre>
- */
-
-@Tag(name = "toolBar")
-@BodyContentDescription(anyTagOf = "(<tc:toolBarCommand>|<tc:toolBarSelectBoolean>|<tc:toolBarSelectOne>)* ")
 public class ToolBarTag extends PanelTag
-    implements HasIdBindingAndRendered, HasWidth {
+    implements ToolBarTagDeclaration {
 
-  public static final String LABEL_BOTTOM = "bottom";
-  public static final String LABEL_RIGHT = "right";
-  public static final String LABEL_OFF = "off";
+  public static final String LABEL_BOTTOM = UIToolBar.LABEL_BOTTOM;
+  public static final String LABEL_RIGHT = UIToolBar.LABEL_RIGHT;
+  public static final String LABEL_OFF = UIToolBar.LABEL_OFF;
 
-  public static final String ICON_SMALL = "small";
-  public static final String ICON_BIG = "big";
-  public static final String ICON_OFF = "off";
+  public static final String ICON_SMALL = UIToolBar.ICON_SMALL;
+  public static final String ICON_BIG = UIToolBar.ICON_BIG;
+  public static final String ICON_OFF = UIToolBar.ICON_OFF;
 
   private String labelPosition = LABEL_BOTTOM;
   private String iconSize = ICON_SMALL;
 
 
   public String getComponentType() {
-    return UIPanel.COMPONENT_TYPE;
+    return UIToolBar.COMPONENT_TYPE;
   }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-
     ComponentUtil.setStringProperty(component, ATTR_LABEL_POSITION, labelPosition);
     ComponentUtil.setStringProperty(component, ATTR_ICON_SIZE, iconSize);
   }
@@ -92,23 +58,10 @@ public class ToolBarTag extends PanelTag
     iconSize = ICON_SMALL;
   }
 
-
-  /**
-   * Position of the button label, possible values are: right, bottom, off.
-   * If toolbar is facet of box: bottom is changed to right!
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "bottom")
   public void setLabelPosition(String labelPosition) {
     this.labelPosition = labelPosition;
   }
 
-
-  /**
-   * Size of button images, possible values are: small, big, off.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "small")
   public void setIconSize(String iconSize) {
     this.iconSize = iconSize;
   }

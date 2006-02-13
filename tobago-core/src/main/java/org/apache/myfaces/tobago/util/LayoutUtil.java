@@ -22,7 +22,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_DIRECTIVE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MINIMUM_SIZE;
@@ -31,6 +30,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_IN;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIForm;
+import org.apache.myfaces.tobago.component.UICell;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -224,11 +224,7 @@ public final class LayoutUtil {
 
 //  also Forms are transparent for layouting
 
-    if (component instanceof UIForm) {
-      return true;
-    }
-
-    return false;
+    return component instanceof UIForm;
   }
 
   public static UIComponent getLayoutParent(UIComponent component) {
@@ -253,9 +249,7 @@ public final class LayoutUtil {
     } else if (ATTR_LAYOUT_HEIGHT.equals(attribute)) {
       cell.getAttributes().remove(ATTR_INNER_HEIGHT);
     }
-    if (cell instanceof UIPanel
-        && ComponentUtil.getBooleanAttribute(cell,
-            ATTR_LAYOUT_DIRECTIVE)) {
+    if (cell instanceof UICell) {
       List<UIComponent> children = addChildren(new ArrayList<UIComponent>(), cell);
       for (UIComponent component : children) {
         maybeSetLayoutAttribute(component, attribute, value);
