@@ -51,6 +51,7 @@ public class Pager extends MethodBinding {
     if (aobj[0] instanceof ActionEvent) {
       UICommand command = (UICommand) ((ActionEvent) aobj[0]).getSource();
       UIData data = (UIData) command.getParent();
+      int first = -1;
       String action = (String)
           command.getAttributes().get(ATTR_ACTION_STRING);
 
@@ -59,16 +60,16 @@ public class Pager extends MethodBinding {
       }
 
       if (FIRST.equals(action)) {
-        data.setFirst(0);
+        first = 0;
       } else if (PREV.equals(action)) {
         int start = data.getFirst() - data.getRows();
-        data.setFirst(start < 0 ? 0 : start);
+        first = start < 0 ? 0 : start;
       } else if (NEXT.equals(action)) {
         int start = data.getFirst() + data.getRows();
         int last = data.getLastPageIndex();
-        data.setFirst(start > data.getRowCount() ? last : start);
+        first = start > data.getRowCount() ? last : start;
       } else if (LAST.equals(action)) {
-        data.setFirst(data.getLastPageIndex());
+        first = data.getLastPageIndex();
       } else if (PAGE_TO_ROW.equals(action)) {
         String startRow = (String) facesContext.getExternalContext()
             .getRequestParameterMap().get(command.getClientId(
@@ -81,7 +82,7 @@ public class Pager extends MethodBinding {
             } else if (start < 0) {
               start = 0;
             }
-            data.setFirst(start);
+            first = start;
           } catch (NumberFormatException e) {
             LOG.error("Catched: " + e.getMessage());
           }
@@ -107,7 +108,7 @@ public class Pager extends MethodBinding {
             } else if (start < 0) {
               start = 0;
             }
-            data.setFirst(start);
+            first = start;
           } catch (NumberFormatException e) {
             LOG.error("Catched: " + e.getMessage());
           }
@@ -118,6 +119,10 @@ public class Pager extends MethodBinding {
         }
       } else {
         LOG.error("Unkown action: " + action);
+      }
+      if (first != -1) {
+        data.setFirst(first);
+        data.getSheetState(facesContext).setFirst(first);
       }
 
       data.queueEvent(new SheetStateChangeEvent(data));

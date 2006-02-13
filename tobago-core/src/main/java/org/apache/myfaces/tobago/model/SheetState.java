@@ -28,6 +28,7 @@ public class SheetState implements Serializable {
   private static final Log LOG = LogFactory.getLog(SheetState.class);
   public static final String SEPARATOR = ",";
 
+  private int first = -1;
   private int sortedColumn = -1;
   private boolean ascending;
   private String columnWidths;
@@ -71,5 +72,13 @@ public class SheetState implements Serializable {
 
   public void setColumnWidths(String columnWidths) {
     this.columnWidths = columnWidths;
+  }
+
+  public int getFirst() {
+    return first;
+  }
+
+  public void setFirst(int first) {
+    this.first = first;
   }
 }
