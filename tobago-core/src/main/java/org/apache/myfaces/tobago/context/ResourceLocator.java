@@ -3,6 +3,7 @@ package org.apache.myfaces.tobago.context;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -30,28 +31,28 @@ class ResourceLocator {
 // todo: Test for new theme build mechanism still under development
 // http://issues.apache.org/jira/browse/MYFACES-1106
 // to activate you have to do:
-// 1. set USE_JAR_THEME_RESOURCE = true, of course
+// 1. set load-themes-from-classpath = true in the tobago-config.xml
 // 2. add resource-path in tobago-config.xml
 // 3. add ResourceServlet in web.xml
-  public static final boolean USE_JAR_THEME_RESOURCE = false;
 
   private ServletContext servletContext;
   private ResourceManagerImpl resourceManager;
   private List<String> resourceDirs;
-
+  private TobagoConfig tobagoConfig;
 
   public ResourceLocator(
       ServletContext servletContext, ResourceManagerImpl resourceManager,
-      List<String> resourceDirs) {
+      List<String> resourceDirs, TobagoConfig tobagoConfig) {
     this.servletContext = servletContext;
     this.resourceManager = resourceManager;
     this.resourceDirs = resourceDirs;
+    this.tobagoConfig = tobagoConfig;
   }
 
   public void init()
       throws ServletException {
     locateResourcesInWar(servletContext, resourceManager, "/");
-    if (USE_JAR_THEME_RESOURCE) {
+    if (tobagoConfig.isLoadThemesFromClasspath()) {
       locateResourcesInLib(resourceManager);
     }
     for (String dir : resourceDirs) {
@@ -106,6 +107,7 @@ class ResourceLocator {
   private void locateResourcesInLib(ResourceManagerImpl resources)
       throws ServletException {
 
+//    ThemeParser parser = new ThemeParser(tobagoConfig);
     InputStream stream = null;
     try {
       LOG.error("Loading tobago-theme.xml");
@@ -113,6 +115,9 @@ class ResourceLocator {
 
       while (urls.hasMoreElements()) {
         URL themeUrl = urls.nextElement();
+
+//        parser.parse(themeUrl.openStream());
+
         // TODO other protocols
         if ("jar".equals(themeUrl.getProtocol())) {
           String fileName = themeUrl.toString().substring(4, themeUrl.toString().indexOf("!"));
@@ -153,7 +158,7 @@ class ResourceLocator {
           LOG.error("Unknown protocol "+themeUrl);
         }
       }
-    } catch (IOException e) {
+    } catch (Exception e) {
       String msg = "while loading ";
       if (LOG.isErrorEnabled()) {
         LOG.error(msg, e);

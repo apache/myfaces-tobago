@@ -49,7 +49,7 @@ public class ResourceManagerFactory {
     ResourceManagerImpl resourceManager = new ResourceManagerImpl();
 
     ResourceLocator resourceLocator = new ResourceLocator(
-        servletContext, resourceManager, tobagoConfig.getResourceDirs());
+        servletContext, resourceManager, tobagoConfig.getResourceDirs(), tobagoConfig);
     resourceLocator.init();
 
     servletContext.setAttribute(RESOURCE_MANAGER, resourceManager);

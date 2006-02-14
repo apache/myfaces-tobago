@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.config;
 
 /*
  * Created 24.06.2003 08:53:35.
- * Id: $
+ * $Id$
  */
 
 import org.apache.commons.digester.Digester;
@@ -70,6 +70,9 @@ public class TobagoConfigParser {
         "tobago-config/mapping-rule/attribute/key", "setKey", 0);
     digester.addCallMethod(
         "tobago-config/mapping-rule/attribute/value", "setValue", 0);
+
+    // enable loading theme from classpath
+    digester.addCallMethod("tobago-config/load-themes-from-classpath", "setLoadThemesFromClasspath", 0);
 
     // resource dirs
     digester.addCallMethod("tobago-config/resource-dir", "addResourceDir", 0);

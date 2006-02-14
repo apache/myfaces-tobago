@@ -34,13 +34,16 @@ public class TobagoConfig {
 
   private List<Theme> supportedThemes;
   private Theme defaultTheme;
+  private List<Theme> availableThemes;
   private List<String> resourceDirs;
+  private boolean loadThemesFromClasspath;
   private List<MappingRule> mappingRules;
   private boolean ajaxEnabled;
 
 
   public TobagoConfig() {
     supportedThemes = new ArrayList<Theme>();
+    availableThemes = new ArrayList<Theme>();
     resourceDirs = new ArrayList<String>();
   }
 
@@ -129,6 +132,10 @@ public class TobagoConfig {
     return Collections.unmodifiableList(supportedThemes);
   }
 
+  public List<Theme> getAvailableThemes() {
+    return availableThemes;
+  }
+
   public void addResourceDir(String resourceDir) {
     LOG.info("resourceDir = '" + resourceDir + "'");
     resourceDirs.add(resourceDir);
@@ -144,6 +151,14 @@ public class TobagoConfig {
 
   public void setAjaxEnabled(String value) {
     this.ajaxEnabled = Boolean.valueOf(value);
+  }
+
+  public boolean isLoadThemesFromClasspath() {
+    return loadThemesFromClasspath;
+  }
+
+  public void setLoadThemesFromClasspath(String loadThemesFromClasspath) {
+    this.loadThemesFromClasspath = Boolean.valueOf(loadThemesFromClasspath);
   }
 
   public Theme getDefaultTheme() {
