@@ -22,6 +22,8 @@ var tobagoImageSources = null;
 
 function submitAction(formId, actionId) {
   setAction(formId, actionId);
+// todo: why this doesn't work?  document.body.onunload = onunloadScript;
+  window.onunload = onunloadScript;
   var form = document.getElementById(formId);
   if (form) {
     form.submit();
@@ -198,8 +200,7 @@ function setUserAgent() {
 function tbgAddEventListener(element, event, myFunction) {
   if (element.addEventListener) { // this is DOM2
      element.addEventListener(event, myFunction, false);
-  }
-  else { // IE
+  } else { // IE
     element.attachEvent("on" + event, myFunction);
   }
 }

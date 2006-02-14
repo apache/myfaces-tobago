@@ -67,6 +67,10 @@ public class UIPage extends UIForm {
 
   private Set<String> onloadScripts;
 
+  private Set<String> onunloadScripts;
+
+  private Set<String> onexitScripts;
+
   private List<UIPopup> popups;
 
   public UIPage() {
@@ -76,6 +80,8 @@ public class UIPage extends UIForm {
     styleFiles.add(DEFAULT_STYLE);
     styleBlocks = new ListOrderedSet();
     onloadScripts = new ListOrderedSet();
+    onunloadScripts = new ListOrderedSet();
+    onexitScripts = new ListOrderedSet();
     popups = new ArrayList<UIPopup>();
   }
 
@@ -131,6 +137,8 @@ public class UIPage extends UIForm {
 
     // clear script Set's
     getOnloadScripts().clear();
+    getOnunloadScripts().clear();
+    getOnexitScripts().clear();
     getScriptBlocks().clear();
 
     // find the form of the action command and set submitted to it and all
@@ -266,6 +274,14 @@ public class UIPage extends UIForm {
 
   public Set<String> getOnloadScripts() {
     return onloadScripts;
+  }
+
+  public Set<String> getOnunloadScripts() {
+    return onunloadScripts;
+  }
+
+  public Set<String> getOnexitScripts() {
+    return onexitScripts;
   }
 
   public List<UIPopup> getPopups() {

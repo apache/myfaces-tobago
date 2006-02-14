@@ -40,6 +40,8 @@ public class ScriptTag extends BodyTagSupport {
 
   private String file;
   private String onload;
+  private String onunload;
+  private String onexit;
 
   @Override
   public int doEndTag() throws JspException {
@@ -56,6 +58,12 @@ public class ScriptTag extends BodyTagSupport {
     }
     if (onload != null) {
       page.getOnloadScripts().add(ComponentUtil.getValueFromEl(onload));
+    }
+    if (onunload != null) {
+      page.getOnunloadScripts().add(ComponentUtil.getValueFromEl(onunload));
+    }
+    if (onexit != null) {
+      page.getOnexitScripts().add(ComponentUtil.getValueFromEl(onexit));
     }
     if (bodyContent != null) {
       String script = bodyContent.getString();
@@ -76,6 +84,8 @@ public class ScriptTag extends BodyTagSupport {
     super.release();
     file = null;
     onload = null;
+    onunload = null;
+    onexit = null;
   }
 
   public String getFile() {
@@ -102,6 +112,25 @@ public class ScriptTag extends BodyTagSupport {
   @TagAttribute
   public void setOnload(String onload) {
     this.onload = onload;
+  }
+
+  /**
+   * A script function which is invoked during onUnload Handler on the client,
+   * if the action is a normal submit inside of Tobago.
+   */
+  @TagAttribute
+  public void setOnunload(String onunload) {
+    this.onunload = onunload;
+  }
+
+  /**
+   * A script function which is invoked during onUnload Handler on the client,
+   * when the unload is invoked to a non Tobago page.
+   * E.g. close-button, back-button, entering new url, etc.
+   */
+  @TagAttribute
+  public void setOnexit(String onexit) {
+    this.onexit = onexit;
   }
 }
 

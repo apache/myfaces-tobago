@@ -240,10 +240,8 @@ public class PageRenderer extends PageRendererBase {
 //      writer.endElement("script");
     }
 
-    // onload script
     HtmlRendererUtil.startJavascript(writer);
-//    writer.startElement("script", null);
-//    writer.writeAttribute("type", "text/javascript", null);
+    // onload script
     writer.write("function onloadScript() {\n");
     writer.write("onloadScriptDefault();\n");
 
@@ -252,6 +250,22 @@ public class PageRenderer extends PageRendererBase {
       writer.write('\n');
     }
     writer.write("  Tobago.pageComplete();");
+    writer.write("}\n");
+
+    // onunload script
+    writer.write("function onunloadScript() {\n");
+    for (String onunload : page.getOnunloadScripts()) {
+      writer.write(onunload);
+      writer.write('\n');
+    }
+    writer.write("}\n");
+
+    // onexit script
+    writer.write("function onexitScript() {\n");
+    for (String onexit : page.getOnexitScripts()) {
+      writer.write(onexit);
+      writer.write('\n');
+    }
     writer.write("}\n");
 
     int debugCounter = 0;
@@ -272,6 +286,7 @@ public class PageRenderer extends PageRendererBase {
     writer.endElement("head");
     writer.startElement("body", page);
     writer.writeAttribute("onload", "onloadScript()", null);
+    writer.writeAttribute("onunload", "onexitScript()", null);
     //this ist for ie to prevent scrollbars where none are needed
     writer.writeAttribute("scroll", "auto", null);
     writer.writeComponentClass();
