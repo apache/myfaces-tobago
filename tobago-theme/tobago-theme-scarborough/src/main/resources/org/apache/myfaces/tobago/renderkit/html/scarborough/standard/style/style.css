@@ -175,7 +175,7 @@ th.tobago-calendar-header-center {
   width: 100%;
 }
 th.tobago-calendar-inner-header {
-  width: 14,3%;
+  width: 14%;
 }
 
 img.tobago-calendar-header {
@@ -183,7 +183,7 @@ img.tobago-calendar-header {
 }
 
 td.tobago-calendar-day, td.tobago-calendar-day-disabled, td.tobago-calendar-day-selected {
-  width: 14,3%;
+  width: 14%;
   text-align: center;
   cursor: pointer;
 }
@@ -226,7 +226,7 @@ button img  {
   margin-right: 5px;
 }
 
-//* selectBooleanCheckbox --------------------------------------------------- */
+/* selectBooleanCheckbox --------------------------------------------------- */
 
 .tobago-selectBooleanCheckbox-default {
   background: transparent;
