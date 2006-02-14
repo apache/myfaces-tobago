@@ -16,8 +16,6 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 
 import javax.faces.context.FacesContext;
@@ -25,8 +23,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
 public class ResourceManagerFactory {
-
-  private static final Log LOG = LogFactory.getLog(ResourceManagerFactory.class);
 
   public static final String RESOURCE_MANAGER
       = "org.apache.myfaces.tobago.context.ResourceManager";
@@ -59,7 +55,7 @@ public class ResourceManagerFactory {
     servletContext.setAttribute(RESOURCE_MANAGER, resourceManager);
 
     resourceManager.setTobagoConfig(tobagoConfig);
-    ResourceManagerFactory.initialized = true;
+    initialized = true;
   }
 
 
