@@ -107,7 +107,7 @@ class ResourceLocator {
   private void locateResourcesInLib(ResourceManagerImpl resources)
       throws ServletException {
 
-//    ThemeParser parser = new ThemeParser(tobagoConfig);
+    ThemeParser parser = new ThemeParser();
     InputStream stream = null;
     try {
       LOG.error("Loading tobago-theme.xml");
@@ -116,7 +116,8 @@ class ResourceLocator {
       while (urls.hasMoreElements()) {
         URL themeUrl = urls.nextElement();
 
-//        parser.parse(themeUrl.openStream());
+        Theme theme = parser.parse(themeUrl);
+        String prefix = ensureSlash(theme.getResourcePath());
 
         // TODO other protocols
         if ("jar".equals(themeUrl.getProtocol())) {
@@ -132,8 +133,6 @@ class ResourceLocator {
                 continue;
               }
               String name = "/" + nextEntry.getName();
-              //LOG.error("name = '" + name + "'");
-              String prefix = "/org/apache/myfaces/tobago/renderkit/";
               if (name.startsWith(prefix)) {
                 if (name.endsWith(".class")) {
                   // ignore the class files
@@ -165,6 +164,16 @@ class ResourceLocator {
       }
       throw new ServletException(msg, e);
     }
+  }
+
+  private String ensureSlash(String resourcePath) {
+    if (!resourcePath.startsWith("/")) {
+      resourcePath = '/' + resourcePath;
+    }
+    if (!resourcePath.endsWith("/")) {
+      resourcePath = resourcePath + '/';
+    }
+    return resourcePath;
   }
 
   private void addProperties(

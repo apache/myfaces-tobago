@@ -60,6 +60,7 @@ public class TobagoConfig {
 
   public void setDefaultThemeClass(String name) {
     try {
+      
       defaultTheme = (Theme) Class.forName(name).newInstance();
     } catch (Exception e) {
       String error = "Cannot create Theme from name: '" + name + "'";

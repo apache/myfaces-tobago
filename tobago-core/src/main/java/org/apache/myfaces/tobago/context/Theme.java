@@ -21,12 +21,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class Theme implements Serializable {
+public class Theme implements Serializable {
 
   private String name;
+  private String resourcePath;
   private String displayName;
   private Theme fallback;
   private List<Theme> fallbackList;
+
+  public Theme() {
+  }
 
   protected Theme(String name, String displayName, Theme fallback) {
     this.name = name;
@@ -54,6 +58,18 @@ public abstract class Theme implements Serializable {
 
   public String getName() {
     return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getResourcePath() {
+    return resourcePath;
+  }
+
+  public void setResourcePath(String resourcePath) {
+    this.resourcePath = resourcePath;
   }
 
   public String toString() {
@@ -86,5 +102,7 @@ public abstract class Theme implements Serializable {
     result = 29 * result + (fallback != null ? fallback.hashCode() : 0);
     return result;
   }
+
+
 }
 

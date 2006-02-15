@@ -21,5 +21,6 @@
   http://issues.apache.org/jira/browse/MYFACES-1106
 -->
 <tobago-theme>
+  <name>org.apache.myfaces.tobago.theme.Standard</name>
   <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
 </tobago-theme>
