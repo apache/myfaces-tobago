@@ -19,7 +19,7 @@ var oldX = 0;
 var newWidth = 0;
 
 function initSheet(sheetId) {
-  //PrintDebug("initSheet(" + sheetId +")");
+  LOG.debug("initSheet(" + sheetId +")");
 
   // ToDo: find a better way to fix the problem
   // IE needs this in case of ajax loading of style classes
@@ -49,7 +49,7 @@ function initSheet(sheetId) {
     setupHeader(sheetId);
   }
   else {
-    PrintDebug("Kann sheet mit id=\"" + sheetId + "\" nicht finden!");
+    LOG.debug("Kann sheet mit id=\"" + sheetId + "\" nicht finden!");
   }
 
   var sheet = document.getElementById(sheetId + "_outer_div");
@@ -67,21 +67,21 @@ function addSelectionListener(sheetId) {
     var i = row.id.substring(row.id.lastIndexOf("_data_tr_") + 9);
     i++;
     while (row) {
-//       PrintDebug("rowId = " + row.id + "   next i=" + i);
+//       LOG.debug("rowId = " + row.id + "   next i=" + i);
       tbgAddEventListener(row, "click", doSelection);
       row = document.getElementById(sheetId + "_data_tr_" + i++ );
     }
-    //PrintDebug("preSelected rows = " + document.getElementById(sheetId + "::selected").value);
+    //LOG.debug("preSelected rows = " + document.getElementById(sheetId + "::selected").value);
   }
 }
 
 function getFirstSelectionRow(sheetId) {
   var element = document.getElementById(sheetId + "_data_row_0_column0");// data div
   while (element && element.id.search(new RegExp("^" + sheetId + "_data_tr_\\d+$")) == -1) {
-    //PrintDebug("element id = " + element.id);
+    //LOG.debug("element id = " + element.id);
     element = element.parentNode;
   }
-  //PrintDebug("element id = " + element.id);
+  //LOG.debug("element id = " + element.id);
   return element;
 }
 
@@ -93,8 +93,8 @@ function doSelection(event) {
 
   clearSelection();
 
-  //PrintDebug("event.ctrlKey = " + event.ctrlKey);
-  //PrintDebug("event.shiftKey = " + event.shiftKey);
+  //LOG.debug("event.ctrlKey = " + event.ctrlKey);
+  //LOG.debug("event.shiftKey = " + event.shiftKey);
 
   var srcElement;
   if (event.target) {
@@ -103,7 +103,7 @@ function doSelection(event) {
   else {
     srcElement = event.srcElement;
   }
-//  PrintDebug("srcElement = " + srcElement.tagName);
+//  LOG.debug("srcElement = " + srcElement.tagName);
   if (! isInputElement(srcElement.tagName)) {
 
 
@@ -112,7 +112,7 @@ function doSelection(event) {
       dataRow = dataRow.parentNode;
     }
     var rowId = dataRow.id;
-    //PrintDebug("rowId = " + rowId);
+    //LOG.debug("rowId = " + rowId);
     var sheetId = rowId.substring(0, rowId.lastIndexOf("_data_tr_"));
     var hidden = document.getElementById(sheetId + "::selected");
     var selected = hidden.value;
@@ -120,7 +120,7 @@ function doSelection(event) {
     var rowIndex = rowId.substring(rowId.lastIndexOf("_data_tr_") + 9);
     var selector = document.getElementById(sheetId + "_data_row_selector_" + rowIndex);
 
-    //PrintDebug("last id = " + sheet.tobagoLastClickedRowId);
+    //LOG.debug("last id = " + sheet.tobagoLastClickedRowId);
 
     if (! event.ctrlKey && ! selector) {
       // clearAllSelections();
@@ -135,7 +135,7 @@ function doSelection(event) {
       tobagoSheetToggleSelectionForRow(dataRow, hidden);
     }
     updateSelectionView(sheetId, hidden.value);
-    //PrintDebug("selected rows = " + hidden.value);
+    //LOG.debug("selected rows = " + hidden.value);
   }
 }
 
@@ -284,10 +284,10 @@ function doScroll(event) {
   var dataPanel = getActiveElement(event);
   var sheetId = dataPanel.id.substring(0, dataPanel.id.lastIndexOf("_data_div"));
   var headerPanel = document.getElementById(sheetId + "_header_div");
-  //PrintDebug("header / data  " + headerPanel.scrollLeft + "/" + dataPanel.scrollLeft);
+  //LOG.debug("header / data  " + headerPanel.scrollLeft + "/" + dataPanel.scrollLeft);
   headerPanel.scrollLeft = dataPanel.scrollLeft;
-  //PrintDebug("header / data  " + headerPanel.scrollLeft + "/" + dataPanel.scrollLeft);
-  //PrintDebug("----------------------------------------------");
+  //LOG.debug("header / data  " + headerPanel.scrollLeft + "/" + dataPanel.scrollLeft);
+  //LOG.debug("----------------------------------------------");
 }
 
 
@@ -414,12 +414,12 @@ function adjustHeaderDiv(sheetId) {
     clientWidth = Math.min(contentWidth, boxSum);
   }
   var headerDiv = document.getElementById(sheetId + "_header_div");
-  var minWidth = contentWidth - getScrollbarWidth(); // div width - scrollbar width
+  var minWidth = contentWidth - getScrollbarWidth() - getContentBorderWidth(); // div width - scrollbar width
   minWidth = Math.max(minWidth, 0); // not less than 0
   headerDiv.style.width = Math.max(clientWidth, minWidth);
   var fillBox = document.getElementById(sheetId + "_header_box_filler");
   fillBox.style.width = Math.max(headerDiv.style.width.replace(/px/, "") - boxSum, 0);
-//  PrintDebug("adjustHeaderDiv(" + sheetId + ") : clientWidth = " + clientWidth + " :: width => " + headerDiv.style.width);
+//  LOG.debug("adjustHeaderDiv(" + sheetId + ") : clientWidth = " + clientWidth + " :: width => " + headerDiv.style.width);
   //headerDiv.style.width = clientWidth;
 }
 
@@ -430,6 +430,10 @@ function getScrollbarWidth() {
   else {
     return 17;
   }
+}
+
+function getContentBorderWidth() {
+  return 2;
 }
 
 function setupHeader(sheetId) {
@@ -539,13 +543,13 @@ function tobagoSheetEditPagingRow(span, commandId, onClickCommand, commandName) 
 
   var text = document.getElementById(commandId + getSubComponentSeparator() + "text");
   if (text) {
-    PrintDebug("text gefunden");
+    LOG.debug("text gefunden");
     span = text.parentNode;
     var hiddenId = commandId + getSubComponentSeparator() +  "value";
     span.style.cursor = 'auto';
     input = text.inputElement;
     if (! input) {
-      PrintDebug("creating new input");
+      LOG.debug("creating new input");
       input = document.createElement('input');
       text.inputElement = input;
       input.textElement = text;      
@@ -564,7 +568,7 @@ function tobagoSheetEditPagingRow(span, commandId, onClickCommand, commandName) 
     input.select();
   }
   else {
-    PrintDebug("Can't find start field! ");
+    LOG.debug("Can't find start field! ");
   }
 }
 
@@ -574,7 +578,7 @@ function delayedHideInput(event) {
   if (input) {
     setTimeout('hideInput("' + input.id + '", 100)');
   } else {
-    PrintDebug("Can't find input field! ");
+    LOG.debug("Can't find input field! ");
   }
 }
 function hideInput(inputId) {
@@ -583,7 +587,7 @@ function hideInput(inputId) {
     input.parentNode.style.cursor = 'pointer';
     input.parentNode.replaceChild(input.textElement, input);
   } else {
-    PrintDebug("Can't find input field! " + inputId);
+    LOG.debug("Can't find input field! " + inputId);
   }
 }
 
@@ -591,21 +595,21 @@ function keyEvent(event) {
   var input = getActiveElement(event);
   var keyCode;
   if (event.which) {
-//    PrintDebug('mozilla');
+//    LOG.debug('mozilla');
     keyCode = event.which;
   } else {
-//    PrintDebug('ie');
+//    LOG.debug('ie');
     keyCode = event.keyCode;
   }
   if (keyCode == 13) {
-    //PrintDebug('new="' + input.value + '" old="' + input.textElement.innerHTML + '"');
+    //LOG.debug('new="' + input.value + '" old="' + input.textElement.innerHTML + '"');
     if (input.value != input.textElement.innerHTML) {
-      //PrintDebug('changed : onClick = "' + input.onClickCommand + '"');
+      //LOG.debug('changed : onClick = "' + input.onClickCommand + '"');
       input.submitted = true;
       eval(input.onClickCommand);
     }
     else {
-      //PrintDebug('NOT changed');
+      //LOG.debug('NOT changed');
       hideInput(input.id);
     }
   }
