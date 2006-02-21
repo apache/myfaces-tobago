@@ -216,10 +216,6 @@ public abstract class RendererBase
   }
   public int getFixedSpace(FacesContext facesContext, UIComponent component, boolean width) {
 
-    if (component == null) {
-      return 0;
-    }
-
     int fixedSpace = 0;
 
     if (component instanceof UICell) {
@@ -249,7 +245,10 @@ public abstract class RendererBase
   private int getFixedSpace(FacesContext facesContext, UIComponent component,
                             String attr, String attrFixed) {
     int intSpace = -1;
-    final String space = ComponentUtil.getStringAttribute(component, attr);
+    String space = null;
+    if (component != null) {
+      space = ComponentUtil.getStringAttribute(component, attr);
+    }
     if (space != null) {
       try {
         intSpace = Integer.parseInt(space.replaceAll("\\D", ""));
