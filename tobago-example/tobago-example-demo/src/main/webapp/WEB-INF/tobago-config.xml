@@ -37,5 +37,5 @@
   <!--<resource-dir>org/apache/myfaces/tobago/renderkit</resource-dir>-->
   <!--this may not necessary, if there is a META-INF/theme-config.xml in a later version -->
 
-  <ajax-enabled>false</ajax-enabled>
+  <ajax-enabled>true</ajax-enabled>
 </tobago-config>
