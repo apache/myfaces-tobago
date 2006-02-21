@@ -32,7 +32,7 @@ public class LabelWithAccessKeyUnitTest extends TestCase {
     LabelWithAccessKey label = new LabelWithAccessKey(component);
     assertEquals("Save", label.getText());
     assertEquals(-1, label.getPos());
-    assertEquals(null, label.getAccessKey1());
+    assertEquals(null, label.getAccessKey());
   }
 
   // code-sniplet-start id="test1"
@@ -43,7 +43,7 @@ public class LabelWithAccessKeyUnitTest extends TestCase {
     LabelWithAccessKey label = new LabelWithAccessKey(component);
     assertEquals("Save", label.getText());
     assertEquals(0, label.getPos());
-    assertEquals(new Character('s'), label.getAccessKey1());
+    assertEquals(new Character('s'), label.getAccessKey());
   }
   // code-sniplet-end id="test1"
 
@@ -54,7 +54,7 @@ public class LabelWithAccessKeyUnitTest extends TestCase {
     LabelWithAccessKey label = new LabelWithAccessKey(component);
     assertEquals("Save", label.getText());
     assertEquals(3, label.getPos());
-    assertEquals(new Character('E'), label.getAccessKey1());
+    assertEquals(new Character('E'), label.getAccessKey());
   }
 
   public void testAmpersand() {
@@ -63,7 +63,7 @@ public class LabelWithAccessKeyUnitTest extends TestCase {
     LabelWithAccessKey label = new LabelWithAccessKey(component);
     assertEquals("Save", label.getText());
     assertEquals(0, label.getPos());
-    assertEquals(new Character('S'), label.getAccessKey1());
+    assertEquals(new Character('S'), label.getAccessKey());
   }
 
   public void testAmpersandAtEnd() {
@@ -72,7 +72,7 @@ public class LabelWithAccessKeyUnitTest extends TestCase {
     LabelWithAccessKey label = new LabelWithAccessKey(component);
     assertEquals("Save", label.getText());
     assertEquals(-1, label.getPos());
-    assertEquals(null, label.getAccessKey1());
+    assertEquals(null, label.getAccessKey());
   }
 
   public void testAmpersandNo() {
@@ -81,7 +81,7 @@ public class LabelWithAccessKeyUnitTest extends TestCase {
     LabelWithAccessKey label = new LabelWithAccessKey(component);
     assertEquals("Save", label.getText());
     assertEquals(-1, label.getPos());
-    assertEquals(null, label.getAccessKey1());
+    assertEquals(null, label.getAccessKey());
   }
 
   public void testMixed() {
@@ -92,7 +92,7 @@ public class LabelWithAccessKeyUnitTest extends TestCase {
     LabelWithAccessKey label = new LabelWithAccessKey(component);
     assertEquals("Save", label.getText());
     assertEquals(2, label.getPos());
-    assertEquals(new Character('v'), label.getAccessKey1());
+    assertEquals(new Character('v'), label.getAccessKey());
   }
 
 }

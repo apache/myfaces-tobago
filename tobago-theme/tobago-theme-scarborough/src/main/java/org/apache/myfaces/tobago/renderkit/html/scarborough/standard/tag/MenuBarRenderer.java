@@ -230,12 +230,12 @@ public class MenuBarRenderer extends RendererBase {
     writer.writeAttribute("onkeydown", "tobagoMenuKeyDown(event)", null);
     writer.writeAttribute("onkeypress", "tobagoMenuKeyPress(event)", null);
     if (label.getText() != null) {
-      if (label.getAccessKey1() != null) {
+      if (label.getAccessKey() != null) {
         if (LOG.isInfoEnabled()
-            && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey1())) {
-          LOG.info("dublicated accessKey : " + label.getAccessKey1());
+            && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
+          LOG.info("dublicated accessKey : " + label.getAccessKey());
         }
-        writer.writeAttribute("accesskey", label.getAccessKey1(), null);
+        writer.writeAttribute("accesskey", label.getAccessKey(), null);
       }
       HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
     }
@@ -447,12 +447,12 @@ public class MenuBarRenderer extends RendererBase {
 
     writer.startElement("a", null);
     writer.writeClassAttribute(spanClass);
-    if (label.getAccessKey1() != null) {
+    if (label.getAccessKey() != null) {
       if (LOG.isInfoEnabled()
-          && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey1())) {
-        LOG.info("dublicated accessKey : " + label.getAccessKey1());
+          && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
+        LOG.info("dublicated accessKey : " + label.getAccessKey());
       }
-      writer.writeAttribute("accesskey", label.getAccessKey1(), null);
+      writer.writeAttribute("accesskey", label.getAccessKey(), null);
     }
     writer.writeAttribute("href", "#", null);
     writer.writeAttribute("onfocus", "tobagoMenuFocus(event)", null);

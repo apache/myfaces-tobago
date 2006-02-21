@@ -248,12 +248,12 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
       writer.writeClassAttribute("tobago-tab-link");
       writer.writeIdAttribute(clientId + "." + virtualTab + SUBCOMPONENT_SEP + i);
       writer.writeAttribute("href", url, null);
-      if (label.getAccessKey1() != null) {
+      if (label.getAccessKey() != null) {
         if (LOG.isWarnEnabled()
-            && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey1())) {
-          LOG.warn("dublicated accessKey : " + label.getAccessKey1());
+            && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
+          LOG.warn("dublicated accessKey : " + label.getAccessKey());
         }
-        writer.writeAttribute("accesskey", label.getAccessKey1(), null);
+        writer.writeAttribute("accesskey", label.getAccessKey(), null);
 //        writer.writeAttribute("onfocus", "this.click();", null);
       }
       if (label.getText() != null) {

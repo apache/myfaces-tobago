@@ -100,12 +100,12 @@ public class LabelRenderer extends RendererBase {
       writer.writeAttribute("for", forValue, null);
     }
     writer.writeComponentClass();
-    if (label.getAccessKey1() != null) {
+    if (label.getAccessKey() != null) {
       if (LOG.isInfoEnabled()
-          && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey1())) {
-        LOG.info("dublicated accessKey : " + label.getAccessKey1());
+          && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
+        LOG.info("dublicated accessKey : " + label.getAccessKey());
       }
-      writer.writeAttribute("accesskey", label.getAccessKey1(), null);
+      writer.writeAttribute("accesskey", label.getAccessKey(), null);
     }
     if (width != null) {
       writer.writeAttribute("style", "width: " + width + "px;", null);

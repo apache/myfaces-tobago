@@ -89,7 +89,7 @@ public final class LabelWithAccessKey {
     return text;
   }
 
-  public Character getAccessKey1() {
+  public Character getAccessKey() {
     return accessKey;
   }
 

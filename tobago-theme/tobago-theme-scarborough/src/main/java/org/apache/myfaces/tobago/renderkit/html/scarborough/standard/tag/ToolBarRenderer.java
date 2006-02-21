@@ -496,12 +496,12 @@ public class ToolBarRenderer extends RendererBase {
     if (!disabled) {
       writer.writeAttribute("href", "#", null);
       writer.writeAttribute("onfocus", "tobagoToolbarFocus(this, event)", null);
-      if (label.getAccessKey1() != null) {
+      if (label.getAccessKey() != null) {
         if (LOG.isInfoEnabled()
-                && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey1())) {
-          LOG.info("dublicated accessKey : " + label.getAccessKey1());
+                && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
+          LOG.info("dublicated accessKey : " + label.getAccessKey());
         }
-        writer.writeAttribute("accesskey", label.getAccessKey1(), null);
+        writer.writeAttribute("accesskey", label.getAccessKey(), null);
       }
     }
   }
