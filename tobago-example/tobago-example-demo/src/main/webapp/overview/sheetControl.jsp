@@ -106,7 +106,7 @@
           </tc:toolBar>
         </f:facet>
 
-        <tc:sheet value="#{demo.solarArray}" id="sheet"
+        <tc:sheet value="#{demo.solarList}" id="sheet"
             columns="3*;1*;3*;3*;3*;3*" var="luminary"
             state="#{demo.sheetState}"
             showHeader="#{overviewController.sheetConfig.sheetShowHeader}"
@@ -116,7 +116,8 @@
             pagingStart="#{overviewController.sheetConfig.sheetPagingStart}"
             pagingLength="#{overviewController.sheetConfig.sheetPagingLength}"
             directLinkCount="#{overviewController.sheetConfig.sheetDirectLinkCount}"
-            stateChangeListener="#{demo.stateChangeListener}">
+            stateChangeListener="#{demo.stateChangeListener}"
+            sortActionListener="#{overviewController.sheetSorter}">
           <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true">
             <tc:out value="#{luminary.name}" id="t_name" />
           </tc:column>

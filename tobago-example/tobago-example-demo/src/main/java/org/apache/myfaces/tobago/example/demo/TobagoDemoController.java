@@ -61,6 +61,8 @@ public class TobagoDemoController {
 
   private SolarObject[] solarArray;
 
+  private List<SolarObject> solarList;
+
   private List<UIColumn> solarArrayColumns;
 
   private String solarArrayColumnLayout;
@@ -148,6 +150,7 @@ public class TobagoDemoController {
         = "**strong text**\n\n__emphasis__\n\nnormaler text\n\n__dieses "
         + "ist emphasis__\n\n**und nochmal strong**\n\n**__ strong und emphasis__**";
     solarArray = SolarObject.getArray();
+    solarList = SolarObject.getList();
     solarArrayColumns = createSolarArrayColumns();
     solarArrayColumnLayout = "3*; 3*; 3*";
 
@@ -292,6 +295,14 @@ public class TobagoDemoController {
 
   public void setSolarArray(SolarObject[] solarArray) {
     this.solarArray = solarArray;
+  }
+
+  public List<SolarObject> getSolarList() {
+    return solarList;
+  }
+
+  public void setSolarList(List<SolarObject> solarList) {
+    this.solarList = solarList;
   }
 
   public List<UIColumn> getSolarArrayColumns() {

@@ -34,6 +34,9 @@ Tobago.SheetBase = {
     LOG.debug("New Sheet with id " + this.sheetId);
   },
 
+  sortOnclickRegExp :
+      new RegExp("submitAction\\(('|\")(.*?)('|\") *, *('|\")(.*?)('|\")\\)"),
+
   setup: function() {
 
     // setup sorting headers
@@ -42,7 +45,18 @@ Tobago.SheetBase = {
     var headerBox = $(idPrefix + i++);
     while (headerBox) {
       if (headerBox.onclick) {
+        var match = this.sortOnclickRegExp.exec(headerBox.onclick.valueOf());
+//        LOG.debug("match[0] = " + match[0]);
+//        LOG.debug("match[1] = " + match[1]);
+//        LOG.debug("*match[2] = " + match[2]);
+//        LOG.debug("match[3] = " + match[3]);
+//        LOG.debug("match[4] = " + match[4]);
+//        LOG.debug("*match[5] = " + match[5]);
+//        LOG.debug("match[6] = " + match[6]);
+//        headerBox.formId = match[2];
+        headerBox.sorterId = match[5];
         headerBox.onclick = null;
+//        LOG.debug("headerBox.id = " + headerBox.id);
         Event.observe(headerBox, "click", this.doSort.bindAsEventListener(this));
       }
       headerBox = $(idPrefix + i++);
@@ -97,10 +111,12 @@ Tobago.SheetBase = {
 
   doSort: function(event) {
     var element = Event.element(event);
-    var idx = element.id.lastIndexOf('_');
-    idx = element.id.substring(idx + 1);
-    var action = this.sheetId + Tobago.componentSeparator + "sorter_" + idx;
-    this.reloadWithAction(action);
+    if (!element.sorterId) {
+      element = element.parentNode;
+    }
+//    LOG.debug("element.id = " + element.id);
+//    LOG.debug("sorterId = " + element.sorterId);
+    this.reloadWithAction(element.sorterId);
   },
 
   doPagingDirect: function(event) {

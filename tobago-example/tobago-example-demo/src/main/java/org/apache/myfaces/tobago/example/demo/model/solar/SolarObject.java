@@ -176,7 +176,17 @@ public class SolarObject {
     return array;
   }
 
-  public static List<SolarObject> getSatellites(String center) {
+
+  public static List<SolarObject> getList() {
+    SolarObject[] array = getArray();
+    List<SolarObject> list = new ArrayList<SolarObject>(array.length);
+    for (SolarObject object : array) {
+      list.add(object);
+    }
+    return list;
+  }
+
+    public static List<SolarObject> getSatellites(String center) {
     List<SolarObject> collect = new ArrayList<SolarObject>();
     SolarObject[] all = getArray();
     for (int i = 0; i < all.length; i++) {

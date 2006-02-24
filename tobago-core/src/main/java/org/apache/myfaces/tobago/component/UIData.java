@@ -53,12 +53,14 @@ public class UIData extends javax.faces.component.UIData
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Data";
 
+  public static final String FACET_SORTER = "sorter";
+  public static final String SORTER_ID = "sorter";
+
   private MethodBinding stateChangeListener;
 
   private List<Integer> widthList;
 
-  // TODO: should be removed?
-  private Sorter sorter;
+  private MethodBinding sortActionListener;
 
   private SheetState sheetState;
 
@@ -320,10 +322,10 @@ public class UIData extends javax.faces.component.UIData
   private void updateSheetState(FacesContext facesContext) {
     SheetState state = getSheetState(facesContext);
     if (state != null) {
-      // ensure sorter
-//      getSorter();
-//      state.setSortedColumn(sorter != null ? sorter.getColumn() : -1);
-//      state.setAscending(sorter != null && sorter.isAscending());
+      // ensure sortActionListener
+//      getSortActionListener();
+//      state.setSortedColumn(sortActionListener != null ? sortActionListener.getColumn() : -1);
+//      state.setAscending(sortActionListener != null && sortActionListener.isAscending());
       state.setSelectedRows((List<Integer>)
           getAttributes().get(ATTR_SELECTED_LIST_STRING));
       state.setColumnWidths((String)
@@ -335,7 +337,7 @@ public class UIData extends javax.faces.component.UIData
     Object[] saveState = new Object[5];
     saveState[0] = super.saveState(context);
     saveState[1] = sheetState;
-    saveState[2] = sorter;
+    saveState[2] = saveAttachedState(context, sortActionListener);
     saveState[3] = saveAttachedState(context, stateChangeListener);
     if (showHeaderSet) {
       saveState[4] = showHeader;
@@ -347,7 +349,7 @@ public class UIData extends javax.faces.component.UIData
     Object[] values = (Object[]) savedState;
     super.restoreState(context, values[0]);
     sheetState = (SheetState) values[1];
-    sorter = (Sorter) values[2];
+    sortActionListener = (MethodBinding) restoreAttachedState(context, values[2]);
     stateChangeListener = (MethodBinding) restoreAttachedState(context, values[3]);
     if (values[4] != null) {
       showHeaderSet = true;
@@ -376,17 +378,16 @@ public class UIData extends javax.faces.component.UIData
     return columns;
   }
 
-  // TODO: should be removed?
-  public Sorter getSorter() {
-    if (sorter != null) {
-      return sorter;
+  public MethodBinding getSortActionListener() {
+    if (sortActionListener != null) {
+      return sortActionListener;
     } else {
       return new Sorter();
     }
   }
 
-  public void setSorter(Sorter sorter) {
-    this.sorter = sorter;
+  public void setSortActionListener(MethodBinding sortActionListener) {
+    this.sortActionListener = sortActionListener;
   }
 
   public void queueEvent(FacesEvent facesEvent) {

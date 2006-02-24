@@ -23,9 +23,12 @@ package org.apache.myfaces.tobago.example.demo.overview;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.Sorter;
+import org.apache.myfaces.tobago.component.UIData;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 
+import javax.faces.component.UICommand;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
@@ -109,6 +112,19 @@ public class OverviewController {
 
   public void click(ActionEvent actionEvent) {
     lastAction = actionEvent.getComponent().getId();
+  }
+
+  
+  public void sheetSorter(ActionEvent event) {
+    Object eventSource = event.getSource();
+    UIData data = (UIData) ((UICommand) eventSource).getParent().getParent();
+    List list = (List) data.getValue();
+    Object sun = list.remove(0);
+    Object[] objects = new Object[1];
+    objects[0] = event;
+    Sorter sorter = new Sorter();
+    sorter.invoke(FacesContext.getCurrentInstance(), objects);
+    list.add(0, sun);
   }
 
   public boolean getShowPopup() {

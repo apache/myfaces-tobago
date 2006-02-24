@@ -47,7 +47,7 @@ public class SheetConfig {
   private boolean sheetConfigPopup;
 
   public SheetConfig() {
-    sheetPagingStart = 1;
+    sheetPagingStart = 0;
     sheetPagingLength = 7;
     sheetDirectLinkCount = 5;
     sheetDirectLinkCountItems = createSheetDirectLinkCountItems();

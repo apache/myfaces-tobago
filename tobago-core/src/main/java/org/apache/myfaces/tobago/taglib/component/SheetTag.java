@@ -16,19 +16,7 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FIRST;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FORCE_VERTICAL_SCROLLBAR;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DIRECT_LINKS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_HEADER;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_PAGE_RANGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROW_RANGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VAR;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -59,6 +47,7 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered {
   private String forceVerticalScrollbar;
   private String state;
   private String stateChangeListener;
+  private String sortActionListener;
 
   public String getComponentType() {
     // TODO: implement uidata with overridden processUpdates to store state
@@ -80,6 +69,7 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered {
     forceVerticalScrollbar = null;
     state = null;
     stateChangeListener = null;
+    sortActionListener = null;
   }
 
   protected void setProperties(UIComponent component) {
@@ -101,6 +91,7 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered {
     data.getAttributes().put(ATTR_INNER_WIDTH, new Integer(-1));
     ComponentUtil.setValueBinding(component, ATTR_STATE, state);
     ComponentUtil.setStateChangeListener(data, stateChangeListener);
+    ComponentUtil.setSortActionListener(data, sortActionListener);
 
   }
 
@@ -280,5 +271,24 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered {
   public void setStateChangeListener(String stateChangeListener) {
     this.stateChangeListener = stateChangeListener;
   }
+
+  /**
+   * MethodBinding representing an actionListener method that will be
+   * invoked when sorting was requested by the user.
+   * Use this if your application needs special handling for sorting columns.
+   * If this is not set and the sortable attribute column is not false the sheet
+   * implementation will use a default sort method.
+   * The expression must evaluate to a public method that takes an
+   * ActionEvent parameter, with a return type of void.
+   * The parent of the actionEvents source will be the UIColumn object for that
+   * the sorting is requested,
+   * <code>UIColumn column = (UIColumn)actionEvent.getSource().getParent()</code>.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setSortActionListener(String sortActionListener) {
+    this.sortActionListener = sortActionListener;
+  }
+
 }
 

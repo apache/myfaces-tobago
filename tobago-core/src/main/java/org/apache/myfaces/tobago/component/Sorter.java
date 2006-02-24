@@ -21,15 +21,12 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
 import org.apache.myfaces.tobago.model.SheetState;
-import org.apache.myfaces.tobago.model.SortableByApplication;
 import org.apache.myfaces.tobago.util.BeanComparator;
 import org.apache.myfaces.tobago.util.ValueBindingComparator;
 
-import javax.faces.component.UIColumn;
-import javax.faces.component.UIComponent;
+import javax.faces.component.*;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIOutput;
-import javax.faces.component.UISelectBoolean;
 import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
@@ -37,11 +34,7 @@ import javax.faces.el.MethodNotFoundException;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.DataModel;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * User: weber
@@ -52,8 +45,6 @@ public class Sorter extends MethodBinding {
 
   private static final Log LOG = LogFactory.getLog(Sorter.class);
 
-  public static final String ID_PREFIX = "sorter_";
-
 
   public Object invoke(FacesContext facesContext, Object[] aobj)
       throws EvaluationException {
@@ -63,87 +54,66 @@ public class Sorter extends MethodBinding {
       if (LOG.isDebugEnabled()) {
         LOG.debug("sorterId = " + command.getId());
       }
-      UIData data = (UIData) command.getParent();
+      UIColumn column = (UIColumn) command.getParent();
+      UIData data = (UIData) column.getParent();
+
       Object value = data.getValue();
       if (value instanceof DataModel) {
         value = ((DataModel) value).getWrappedData();
       }
       SheetState sheetState = data.getSheetState(facesContext);
-      int column = sheetState.getSortedColumn();
-      boolean ascending = sheetState.isAscending();
 
       Comparator comparator = null;
 
-      if (value instanceof SortableByApplication
-        || value instanceof List
-        || value instanceof Object[]) {
+      if (value instanceof List || value instanceof Object[]) {
         String sortProperty;
 
-        if (command.getId() != null && command.getId().startsWith(ID_PREFIX)) {
-          UIColumn uiColumn = null;
-          try {
-            int actualColumn =
-                Integer.parseInt(
-                    command.getId().substring(ID_PREFIX.length()));
-            if (actualColumn == column) {
-              ascending = !ascending;
-            } else {
-              ascending = true;
-              column = actualColumn;
-            }
-            sheetState.setAscending(ascending);
-            sheetState.setSortedColumn(column);
-
-            uiColumn = data.getRendererdColumns().get(column);
-            UIComponent child = getFirstSortableChild(uiColumn.getChildren());
-            if (child != null) {
-              ValueBinding valueBinding = child.getValueBinding("value");
-              String var = data.getVar();
-
-              if (valueBinding != null) {
-                if (isSimpleProperty(valueBinding.getExpressionString())) {
-                  String expressionString = valueBinding.getExpressionString();
-                  if (expressionString.startsWith("#{")
-                      && expressionString.endsWith("}")) {
-                    expressionString =
-                        expressionString.substring(2,
-                            expressionString.length() - 1);
-                  }
-                  sortProperty = expressionString.substring(var.length() + 1);
-
-                  comparator = new BeanComparator(sortProperty, null, !ascending);
-
-                  if (LOG.isDebugEnabled()) {
-                    LOG.debug("Sort property is " + sortProperty);
-                  }
-                } else {
-                  comparator = new ValueBindingComparator(facesContext, var, valueBinding, !ascending);
-                }
-              }
-
-            } else {
-              LOG.error("No sortable component found!");
-              removeSortableAttribute(uiColumn);
-              return null;
-            }
-          } catch (Exception e) {
-            LOG.error("Error while extracting sortMethod :" + e.getMessage(), e);
-            if (uiColumn != null) {
-              removeSortableAttribute(uiColumn);
-            }
+        try {
+          if (!updateSheetState(data, column, sheetState)) {
             return null;
           }
-        } else {
-          LOG.error(
-              "Sorter.invoke() with illegal id in ActionEvent's source");
+
+          UIComponent child = getFirstSortableChild(column.getChildren());
+          if (child != null) {
+            ValueBinding valueBinding = child.getValueBinding("value");
+            String var = data.getVar();
+
+            if (valueBinding != null) {
+              if (isSimpleProperty(valueBinding.getExpressionString())) {
+                String expressionString = valueBinding.getExpressionString();
+                if (expressionString.startsWith("#{")
+                    && expressionString.endsWith("}")) {
+                  expressionString =
+                      expressionString.substring(2,
+                          expressionString.length() - 1);
+                }
+                sortProperty = expressionString.substring(var.length() + 1);
+
+                comparator = new BeanComparator(
+                    sortProperty, null, !sheetState.isAscending());
+
+                if (LOG.isDebugEnabled()) {
+                  LOG.debug("Sort property is " + sortProperty);
+                }
+              } else {
+                comparator = new ValueBindingComparator(
+                    facesContext, var, valueBinding, !sheetState.isAscending());
+              }
+            }
+
+          } else {
+            LOG.error("No sortable component found!");
+            removeSortableAttribute(column);
+            return null;
+          }
+        } catch (Exception e) {
+          LOG.error("Error while extracting sortMethod :" + e.getMessage(), e);
+          if (column != null) {
+            removeSortableAttribute(column);
+          }
           return null;
         }
 
-        //if (value instanceof SortableByApplication) {
-            //((SortableByApplication) value).sortBy(sortProperty);
-
-          // TODO ???? sortable by application
-        if (!(value instanceof SortableByApplication)) {
           // TODO: locale / comparator parameter?
           // don't compare numbers with Collator.getInstance() comparator
 //        Comparator comparator = Collator.getInstance();
@@ -151,16 +121,43 @@ public class Sorter extends MethodBinding {
 
           if (value instanceof List) {
             Collections.sort((List) value, comparator);
-          } else { // if (value instanceof Object[]) {
+          } else { // value is instanceof Object[]
             Arrays.sort((Object[]) value, comparator);
           }
-        }
+
       } else {  // DataModel?, ResultSet, Result or Object
         LOG.warn("Sorting not supported for type "
                    + (value != null ? value.getClass().toString() : "null"));
       }
     }
     return null;
+  }
+
+  private boolean updateSheetState(UIData data, UIColumn uiColumn, SheetState sheetState) {
+    int actualColumn = -1;
+    List<UIColumn> rendererdColumns = data.getRendererdColumns();
+    for (int i = 0; i < rendererdColumns.size(); i++) {
+      if (uiColumn == rendererdColumns.get(i)) {
+        actualColumn = i;
+        break;
+      }
+    }
+    if (actualColumn == -1) {
+      LOG.warn("Can't find column to sort in rendered columns of sheet!");
+      return false;
+    }
+
+    int column = sheetState.getSortedColumn();
+    boolean ascending = sheetState.isAscending();
+    if (actualColumn == column) {
+      ascending = !ascending;
+    } else {
+      ascending = true;
+      column = actualColumn;
+    }
+    sheetState.setAscending(ascending);
+    sheetState.setSortedColumn(column);
+    return true;
   }
 
   private boolean isSimpleProperty(String expressionString) {
