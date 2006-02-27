@@ -78,6 +78,10 @@
     <component-class>org.apache.myfaces.tobago.component.UIInput</component-class>
   </component>
   <component>
+    <component-type>org.apache.myfaces.tobago.HiddenInput</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UIHiddenInput</component-class>
+  </component>
+  <component>
     <component-type>org.apache.myfaces.tobago.Output</component-type>
     <component-class>org.apache.myfaces.tobago.component.UIOutput</component-class>
   </component>
