@@ -20,6 +20,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
+import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.BeanComparator;
 import org.apache.myfaces.tobago.util.ValueBindingComparator;
@@ -32,7 +33,6 @@ import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.MethodNotFoundException;
 import javax.faces.el.ValueBinding;
-import javax.faces.event.ActionEvent;
 import javax.faces.model.DataModel;
 import java.util.*;
 
@@ -48,14 +48,13 @@ public class Sorter extends MethodBinding {
 
   public Object invoke(FacesContext facesContext, Object[] aobj)
       throws EvaluationException {
-    if (aobj[0] instanceof ActionEvent) {
-      javax.faces.component.UICommand command =
-          (javax.faces.component.UICommand) ((ActionEvent) aobj[0]).getSource();
+    if (aobj[0] instanceof SortActionEvent) {
+      SortActionEvent sortEvent = (SortActionEvent) aobj[0];
       if (LOG.isDebugEnabled()) {
-        LOG.debug("sorterId = " + command.getId());
+        LOG.debug("sorterId = " + sortEvent.getComponent().getId());
       }
-      UIColumn column = (UIColumn) command.getParent();
-      UIData data = (UIData) column.getParent();
+      UIColumn column = sortEvent.getColumn();
+      UIData data = sortEvent.getSheet();
 
       Object value = data.getValue();
       if (value instanceof DataModel) {

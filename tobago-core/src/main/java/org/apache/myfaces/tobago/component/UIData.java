@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeListener;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
+import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
@@ -333,6 +334,8 @@ public class UIData extends javax.faces.component.UIData
     }
   }
 
+
+
   public Object saveState(FacesContext context) {
     Object[] saveState = new Object[5];
     saveState[0] = super.saveState(context);
@@ -391,6 +394,7 @@ public class UIData extends javax.faces.component.UIData
   }
 
   public void queueEvent(FacesEvent facesEvent) {
+
     if (facesEvent instanceof SheetStateChangeEvent) {
       UIComponent parent = getParent();
       if (parent == null) {
@@ -398,9 +402,19 @@ public class UIData extends javax.faces.component.UIData
       }
       parent.queueEvent(facesEvent);
     } else {
-      super.queueEvent(facesEvent);
+      UIComponent source = facesEvent.getComponent();
+      UIComponent parent = source.getParent();
+//      if (parent == this
+//          && source.getId() != null ) {
+//        super.queueEvent(new PageActionEvent(this));
+//      } else
+      if (parent.getParent() == this
+          && source.getId() != null && source.getId().endsWith(SORTER_ID)) {
+        super.queueEvent(new SortActionEvent(source));
+      } else {
+        super.queueEvent(facesEvent);
+      }
     }
-
   }
 
   public void broadcast(FacesEvent facesEvent) throws AbortProcessingException {

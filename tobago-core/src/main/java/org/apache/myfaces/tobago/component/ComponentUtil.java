@@ -901,8 +901,8 @@ public class ComponentUtil {
     final Application application = facesContext.getApplication();
     if (actionListener != null) {
       if (UIComponentTag.isValueReference(actionListener)) {
-        MethodBinding binding
-            = application.createMethodBinding(actionListener, ACTION_LISTENER_ARGS);
+        MethodBinding binding = application.createMethodBinding(
+            actionListener, ACTION_LISTENER_ARGS);
         data.setSortActionListener(binding);
       } else {
         throw new IllegalArgumentException(
