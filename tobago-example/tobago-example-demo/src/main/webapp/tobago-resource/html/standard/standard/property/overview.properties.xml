@@ -188,6 +188,11 @@
   </entry>
 <entry key="toolbar_linkClickme">click me</entry>
 <entry key="toolbar_selectSingleselect">Single selection</entry>
+<entry key="right">right</entry>
+<entry key="bottom">bottom</entry>
+<entry key="off">off</entry>
+<entry key="small">small</entry>
+<entry key="big">big</entry>
 
 
 <!--  validation -->

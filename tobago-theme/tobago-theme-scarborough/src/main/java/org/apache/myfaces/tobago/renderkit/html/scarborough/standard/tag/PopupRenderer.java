@@ -76,13 +76,16 @@ public class PopupRenderer extends RendererBase {
     contentStyle.append(top != null ? top : "50");
     contentStyle.append("; ");
 
-    writer.startElement("img", component);
+    writer.startElement("div", component);
     writer.writeIdAttribute(clientId);
     writer.writeComponentClass();
     writer.writeAttribute("onclick", "tobagoPopupBlink('" + clientId + "')", null);
-    writer.writeAttribute("src", ResourceManagerUtil.getImageWithPath(facesContext, "image/1x1.gif"), null);
-    writer.writeAttribute("galleryimg", "no", null);
-    writer.endElement("img");
+    if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
+      String bgImage = ResourceManagerUtil.getImageWithPath(facesContext, "image/popupBg.png");
+      writer.writeAttribute("style", "background: none; " +
+          "filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" +
+          bgImage + "', sizingMethod='scale');", null);    }
+    writer.endElement("div");
     if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
       writer.startElement("iframe", component);
       writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + "iframe");
