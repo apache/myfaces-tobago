@@ -236,6 +236,8 @@ Tobago.SheetBase = {
 
   onComplete: function() {
     LOG.debug("sheet reloaded");
+    initSheet(this.sheetId);
+    updateSelectionView(this.sheetId);
     this.setup();
   }
 
