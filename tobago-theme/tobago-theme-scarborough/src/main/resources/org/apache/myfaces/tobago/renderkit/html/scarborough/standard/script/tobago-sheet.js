@@ -421,6 +421,12 @@ function adjustHeaderDiv(sheetId) {
   fillBox.style.width = Math.max(headerDiv.style.width.replace(/px/, "") - boxSum, 0);
 //  LOG.debug("adjustHeaderDiv(" + sheetId + ") : clientWidth = " + clientWidth + " :: width => " + headerDiv.style.width);
   //headerDiv.style.width = clientWidth;
+  var clientWidth2 = contentDiv.clientWidth;
+  if (clientWidth > clientWidth2) {
+    // IE needs this
+    headerDiv.style.width = Math.max(clientWidth2, minWidth);
+//    LOG.debug("second time adjustHeaderDiv(" + sheetId + ") : clientWidth2 = " + clientWidth2 + " :: width => " + headerDiv.style.width);
+  }
 }
 
 function getScrollbarWidth() {

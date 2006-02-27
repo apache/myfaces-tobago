@@ -23,7 +23,39 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COMMAND_TYPE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOOTER_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FORCE_VERTICAL_SCROLLBAR;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP_TYPE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_LIST_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DIRECT_LINKS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_PAGE_RANGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROW_RANGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TYPE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_SCRIPT;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUPOPUP;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_PAGER_PAGE;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_PAGER_ROW;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LINK;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUBAR;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -44,13 +76,22 @@ import org.apache.myfaces.tobago.util.StringUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.Application;
-import javax.faces.component.*;
+import javax.faces.component.UIColumn;
+import javax.faces.component.UICommand;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIPanel;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.el.MethodBinding;
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class SheetRenderer extends RendererBase
   implements SheetRendererWorkaround, AjaxRenderer {
@@ -230,7 +271,11 @@ public class SheetRenderer extends RendererBase
     String sheetBodyStyle;
     if (space != null) {
       int intSpace = Integer.parseInt(space.replaceAll("\\D", ""));
-      intSpace -= columnWidths.get(columnWidths.size() - 1);
+//      intSpace -= columnWidths.get(columnWidths.size() - 1);
+      intSpace -= getContentBorder(facesContext, data);
+      if (needVerticalScrollbar(facesContext, data)) {
+        intSpace -= getScrollbarWidth(facesContext, data);
+      }
       sheetBodyStyle =
           HtmlRendererUtil.replaceStyleAttribute(bodyStyle, "width", intSpace + "px");
     } else {
