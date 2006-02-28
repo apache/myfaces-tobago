@@ -125,7 +125,7 @@ public class ValueBindingComparator extends ComparatorBase {
       ValueBindingComparator.LOG.error(e.getMessage(), e);
       return 0;
     }
-return super.internalCompare(obj1, obj2);
+    return super.internalCompare(obj1, obj2);
   }
 
 }
