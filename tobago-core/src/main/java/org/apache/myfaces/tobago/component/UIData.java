@@ -18,7 +18,13 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_LIST_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_HEADER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
@@ -394,23 +400,24 @@ public class UIData extends javax.faces.component.UIData
   }
 
   public void queueEvent(FacesEvent facesEvent) {
+    UIComponent parent = getParent();
+    if (parent == null) {
+      throw new IllegalStateException(
+          "component is not a descendant of a UIViewRoot");
+    }
 
     if (facesEvent instanceof SheetStateChangeEvent) {
-      UIComponent parent = getParent();
-      if (parent == null) {
-        throw new IllegalStateException("component is not a descendant of a UIViewRoot");
-      }
       parent.queueEvent(facesEvent);
     } else {
       UIComponent source = facesEvent.getComponent();
-      UIComponent parent = source.getParent();
-//      if (parent == this
+      UIComponent sourceParent = source.getParent();
+//      if (sourceParent == this
 //          && source.getId() != null ) {
-//        super.queueEvent(new PageActionEvent(this));
+//        parent.queueEvent(new PageActionEvent(this));
 //      } else
-      if (parent.getParent() == this
+      if (sourceParent.getParent() == this
           && source.getId() != null && source.getId().endsWith(SORTER_ID)) {
-        super.queueEvent(new SortActionEvent(source));
+        parent.queueEvent(new SortActionEvent(source));
       } else {
         super.queueEvent(facesEvent);
       }
