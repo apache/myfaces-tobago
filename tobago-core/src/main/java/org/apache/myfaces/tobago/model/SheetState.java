@@ -18,7 +18,10 @@ package org.apache.myfaces.tobago.model;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.UIData;
+import org.apache.myfaces.tobago.event.SortActionEvent;
 
+import javax.faces.component.UIColumn;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +40,8 @@ public class SheetState implements Serializable {
   public SheetState() {
     resetSelected();
   }
+
+
 
   public void resetSelected() {
     selectedRows = new ArrayList<Integer>();
@@ -80,5 +85,30 @@ public class SheetState implements Serializable {
 
   public void setFirst(int first) {
     this.first = first;
+  }
+
+  public boolean updateSortState(SortActionEvent sortEvent) {
+    UIData sheet = sortEvent.getSheet();
+    UIColumn uiColumn = sortEvent.getColumn();
+    int actualColumn = -1;
+    List<UIColumn> rendererdColumns = sheet.getRendererdColumns();
+    for (int i = 0; i < rendererdColumns.size(); i++) {
+      if (uiColumn == rendererdColumns.get(i)) {
+        actualColumn = i;
+        break;
+      }
+    }
+    if (actualColumn == -1) {
+      LOG.warn("Can't find column to sort in rendered columns of sheet!");
+      return false;
+    }
+
+    if (actualColumn == sortedColumn) {
+      ascending = !ascending;
+    } else {
+      ascending = true;
+      sortedColumn = actualColumn;
+    }
+    return true;
   }
 }

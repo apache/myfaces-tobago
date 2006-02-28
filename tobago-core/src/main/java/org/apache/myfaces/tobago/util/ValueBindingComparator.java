@@ -21,8 +21,6 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
-import java.text.CollationKey;
-import java.text.Collator;
 import java.util.Comparator;
 import java.util.Map;
 
@@ -31,7 +29,7 @@ import java.util.Map;
  * @author Volker Weber
  */
 
-public class ValueBindingComparator implements Comparator  {
+public class ValueBindingComparator extends ComparatorBase {
 
   private static final Log LOG = LogFactory.getLog(ValueBindingComparator.class);
 
@@ -41,10 +39,6 @@ public class ValueBindingComparator implements Comparator  {
 
   private ValueBinding valueBinding;
 
-  private Comparator comparator;
-
-  private boolean reverse;
-
   public ValueBindingComparator(FacesContext facesContext, String var, ValueBinding valueBinding) {
     this.facesContext = facesContext;
     this.var = var;
@@ -52,27 +46,26 @@ public class ValueBindingComparator implements Comparator  {
   }
 
   public ValueBindingComparator(FacesContext facesContext, String var, ValueBinding valueBinding, boolean reverse) {
+    super(reverse);
     this.facesContext = facesContext;
     this.var = var;
     this.valueBinding = valueBinding;
-    this.reverse = reverse;
   }
 
   public ValueBindingComparator(FacesContext facesContext, String var,
       ValueBinding valueBinding, Comparator comparator) {
+    super(comparator);
     this.facesContext = facesContext;
     this.var = var;
     this.valueBinding = valueBinding;
-    this.comparator = comparator;
   }
 
   public ValueBindingComparator(FacesContext facesContext, String var,
       ValueBinding valueBinding, boolean reverse, Comparator comparator) {
+    super(reverse, comparator);
     this.facesContext = facesContext;
     this.var = var;
     this.valueBinding = valueBinding;
-    this.reverse = reverse;
-    this.comparator = comparator;
   }
 
   public boolean equals(Object o) {
@@ -85,10 +78,7 @@ public class ValueBindingComparator implements Comparator  {
 
     final ValueBindingComparator that = (ValueBindingComparator) o;
 
-    if (reverse != that.reverse) {
-      return false;
-    }
-    if (comparator != null ? !comparator.equals(that.comparator) : that.comparator != null) {
+    if (! super.equals(o)) {
       return false;
     }
     if (facesContext != null ? !facesContext.equals(that.facesContext) : that.facesContext != null) {
@@ -109,8 +99,7 @@ public class ValueBindingComparator implements Comparator  {
     result = (facesContext != null ? facesContext.hashCode() : 0);
     result = 29 * result + (var != null ? var.hashCode() : 0);
     result = 29 * result + (valueBinding != null ? valueBinding.hashCode() : 0);
-    result = 29 * result + (comparator != null ? comparator.hashCode() : 0);
-    result = 29 * result + (reverse ? 1 : 0);
+    result = 29 * result + super.hashCode();
     return result;
   }
 
@@ -136,43 +125,7 @@ public class ValueBindingComparator implements Comparator  {
       ValueBindingComparator.LOG.error(e.getMessage(), e);
       return 0;
     }
-
-    if (obj1 == null || obj2 == null) {
-      if (obj1 == null && obj2 == null) {
-        return 0;
-      }
-      if (obj1 == null) {
-        return reverse ? 1 : -1;
-      } else {
-        return reverse ? -1 : 1;
-      }
-    }
-
-    if (!obj1.getClass().isInstance(obj2)) {
-      throw new ClassCastException(obj1.getClass().getName() + " != "
-          + obj2.getClass().getName());
-    }
-
-    int result;
-
-
-    if (comparator instanceof Collator) {
-      CollationKey collationKey1
-          = ((Collator) comparator).getCollationKey(obj1.toString());
-      CollationKey collationKey2
-          = ((Collator) comparator).getCollationKey(obj2.toString());
-      result = collationKey1.compareTo(collationKey2);
-
-    } else if (comparator != null) {
-      result = comparator.compare(obj1, obj2);
-    } else {
-      if (obj1 instanceof Comparable) {
-        result = ((Comparable) obj1).compareTo(obj2);
-      } else {
-        result = obj1.toString().compareTo(obj2.toString());
-      }
-    }
-    return reverse ? -result : result;
+return super.internalCompare(obj1, obj2);
   }
 
 }

@@ -20,8 +20,6 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.text.CollationKey;
-import java.text.Collator;
 import java.util.Comparator;
 
 /**
@@ -29,34 +27,30 @@ import java.util.Comparator;
  * @author Volker Weber
  */
 
-public class BeanComparator implements Comparator  {
+public class BeanComparator extends ComparatorBase {
 
   private static final Log LOG = LogFactory.getLog(BeanComparator.class);
 
   private String property;
 
-  private Comparator comparator;
-
-  private boolean reverse;
 
   public BeanComparator(String property) {
     this.property = property;
   }
 
   public BeanComparator(String property, boolean reverse) {
+    super(reverse);
     this.property = property;
-    this.reverse = reverse;
   }
 
   public BeanComparator(String property, Comparator comparator) {
+    super(comparator);
     this.property = property;
-    this.comparator = comparator;
   }
 
   public BeanComparator(String property, Comparator comparator, boolean reverse) {
+    super(reverse, comparator);
     this.property = property;
-    this.comparator = comparator;
-    this.reverse = reverse;
   }
 
   /**
@@ -65,9 +59,12 @@ public class BeanComparator implements Comparator  {
    * @return <description>
    */
   public boolean equals(Object param1) {
+    if (this == param1) {
+      return true;
+    }
     if (param1 instanceof BeanComparator) {
       return ((BeanComparator) param1).getProperty().equals(property)
-          && ((BeanComparator) param1).getComparator().equals(comparator);
+          && super.equals(param1);
     }
     return false;
   }
@@ -75,7 +72,7 @@ public class BeanComparator implements Comparator  {
   public int hashCode() {
     int result;
     result = (property != null ? property.hashCode() : 0);
-    result = 29 * result + (comparator != null ? comparator.hashCode() : 0);
+    result = 29 * result + super.hashCode();
     return result;
   }
 
@@ -99,49 +96,10 @@ public class BeanComparator implements Comparator  {
       return 0;
     }
 
-    if (obj1 == null || obj2 == null) {
-      if (obj1 == null && obj2 == null) {
-        return 0;
-      }
-      if (obj1 == null) {
-        return reverse ? 1 : -1;
-      } else {
-        return reverse ? -1 : 1;
-      }
-    }
-
-    if (!obj1.getClass().isInstance(obj2)) {
-      throw new ClassCastException(obj1.getClass().getName() + " != "
-          + obj2.getClass().getName());
-    }
-
-    int result;
-
-
-    if (comparator instanceof Collator) {
-      CollationKey collationKey1
-          = ((Collator) comparator).getCollationKey(obj1.toString());
-      CollationKey collationKey2
-          = ((Collator) comparator).getCollationKey(obj2.toString());
-      result = collationKey1.compareTo(collationKey2);
-
-    } else if (comparator != null) {
-      result = comparator.compare(obj1, obj2);
-    } else {
-      if (obj1 instanceof Comparable) {
-        result = ((Comparable) obj1).compareTo(obj2);
-      } else {
-        result = obj1.toString().compareTo(obj2.toString());
-      }
-    }
-    return reverse ? -result : result;
+    return internalCompare(obj1, obj2);
   }
 
   public String getProperty() {
     return this.property;
-  }
-
-  public Comparator getComparator() {
-    return comparator;
   }
 }

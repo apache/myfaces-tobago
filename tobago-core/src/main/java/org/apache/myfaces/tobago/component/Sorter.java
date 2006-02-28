@@ -25,16 +25,22 @@ import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.BeanComparator;
 import org.apache.myfaces.tobago.util.ValueBindingComparator;
 
-import javax.faces.component.*;
+import javax.faces.component.UIColumn;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIOutput;
+import javax.faces.component.UISelectBoolean;
 import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.MethodNotFoundException;
 import javax.faces.el.ValueBinding;
 import javax.faces.model.DataModel;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: weber
@@ -45,6 +51,7 @@ public class Sorter extends MethodBinding {
 
   private static final Log LOG = LogFactory.getLog(Sorter.class);
 
+  private Comparator comparator;
 
   public Object invoke(FacesContext facesContext, Object[] aobj)
       throws EvaluationException {
@@ -62,13 +69,13 @@ public class Sorter extends MethodBinding {
       }
       SheetState sheetState = data.getSheetState(facesContext);
 
-      Comparator comparator = null;
+      Comparator actualComparator = null;
 
       if (value instanceof List || value instanceof Object[]) {
         String sortProperty;
 
         try {
-          if (!updateSheetState(data, column, sheetState)) {
+          if (!sheetState.updateSortState(sortEvent)) {
             return null;
           }
 
@@ -88,15 +95,15 @@ public class Sorter extends MethodBinding {
                 }
                 sortProperty = expressionString.substring(var.length() + 1);
 
-                comparator = new BeanComparator(
-                    sortProperty, null, !sheetState.isAscending());
+                actualComparator = new BeanComparator(
+                    sortProperty, comparator, !sheetState.isAscending());
 
                 if (LOG.isDebugEnabled()) {
                   LOG.debug("Sort property is " + sortProperty);
                 }
               } else {
-                comparator = new ValueBindingComparator(
-                    facesContext, var, valueBinding, !sheetState.isAscending());
+                actualComparator = new ValueBindingComparator(facesContext, var,
+                    valueBinding, !sheetState.isAscending(), comparator);
               }
             }
 
@@ -119,9 +126,9 @@ public class Sorter extends MethodBinding {
 //          comparator = new RowComparator(ascending, method);
 
           if (value instanceof List) {
-            Collections.sort((List) value, comparator);
+            Collections.sort((List) value, actualComparator);
           } else { // value is instanceof Object[]
-            Arrays.sort((Object[]) value, comparator);
+            Arrays.sort((Object[]) value, actualComparator);
           }
 
       } else {  // DataModel?, ResultSet, Result or Object
@@ -130,33 +137,6 @@ public class Sorter extends MethodBinding {
       }
     }
     return null;
-  }
-
-  private boolean updateSheetState(UIData data, UIColumn uiColumn, SheetState sheetState) {
-    int actualColumn = -1;
-    List<UIColumn> rendererdColumns = data.getRendererdColumns();
-    for (int i = 0; i < rendererdColumns.size(); i++) {
-      if (uiColumn == rendererdColumns.get(i)) {
-        actualColumn = i;
-        break;
-      }
-    }
-    if (actualColumn == -1) {
-      LOG.warn("Can't find column to sort in rendered columns of sheet!");
-      return false;
-    }
-
-    int column = sheetState.getSortedColumn();
-    boolean ascending = sheetState.isAscending();
-    if (actualColumn == column) {
-      ascending = !ascending;
-    } else {
-      ascending = true;
-      column = actualColumn;
-    }
-    sheetState.setAscending(ascending);
-    sheetState.setSortedColumn(column);
-    return true;
   }
 
   private boolean isSimpleProperty(String expressionString) {
@@ -196,5 +176,12 @@ public class Sorter extends MethodBinding {
     return String.class;
   }
 
+  public Comparator getComparator() {
+    return comparator;
+  }
+
+  public void setComparator(Comparator comparator) {
+    this.comparator = comparator;
+  }
 }
 
