@@ -52,18 +52,19 @@ Object.extend(Tobago, {
     var children = document.getElementsByTagName('head')[0].childNodes;
     for (var i = 0; i < children.length; i++) {
       var child = children[i];
-      if (child.tagName.toUpperCase() == "LINK"
-          && child.href == name
-          && child.ref == "stylesheet"
-          && child.type == "text/css"){
-        return true;
+      if (child.tagName.toUpperCase() == "LINK") {
+        if (child.rel == "stylesheet"
+            && child.type == "text/css"
+            && name ==  child.href.replace(/^http:\/\/.*?\//,"/")){
+          return true;
+        }
       }
     }
     return false;
   },
 
   ensureStyleFile: function(name) {
-    if (!this.styleFileLoaded()) {
+    if (!this.styleFileLoaded(name)) {
       var style = document.createElement('link');
       style.rel  = "stylesheet";
       style.type = "text/css";
