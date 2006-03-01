@@ -23,7 +23,39 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COMMAND_TYPE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOOTER_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FORCE_VERTICAL_SCROLLBAR;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP_TYPE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_LIST_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DIRECT_LINKS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_PAGE_RANGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROW_RANGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TYPE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_SCRIPT;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUPOPUP;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_PAGER_PAGE;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_PAGER_ROW;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LINK;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUBAR;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -46,13 +78,21 @@ import org.apache.myfaces.tobago.util.StringUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.Application;
-import javax.faces.component.*;
+import javax.faces.component.UIColumn;
+import javax.faces.component.UICommand;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIPanel;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.el.MethodBinding;
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class SheetRenderer extends RendererBase
   implements SheetRendererWorkaround, AjaxRenderer {
@@ -65,7 +105,7 @@ public class SheetRenderer extends RendererBase
       = SUBCOMPONENT_SEP + "widths";
   public static final String SELECTED_POSTFIX
       = SUBCOMPONENT_SEP + "selected";
-  private static final Integer HEIGHT_0 = new Integer(0);
+  private static final Integer HEIGHT_0 = 0;
 
 // ----------------------------------------------------------------- interfaces
 
@@ -260,9 +300,9 @@ public class SheetRenderer extends RendererBase
 
     if (columnWidths != null) {
       writer.startElement("colgroup", null);
-      for (int i = 0; i < columnWidths.size(); i++) {
+      for (Integer columnWidth : columnWidths) {
         writer.startElement("col", null);
-        writer.writeAttribute("width", columnWidths.get(i), null);
+        writer.writeAttribute("width", columnWidth, null);
         writer.endElement("col");
       }
       writer.endElement("colgroup");
@@ -353,10 +393,7 @@ public class SheetRenderer extends RendererBase
           writer.writeClassAttribute("tobago-sheet-column-selector");
           writer.endElement("img");
         } else {
-          for (Iterator grandkids = data.getRenderedChildrenOf(column).iterator();
-               grandkids.hasNext();) {
-            UIComponent grandkid = (UIComponent) grandkids.next();
-
+          for (UIComponent grandkid : data.getRenderedChildrenOf(column)) {
             // set height to 0 to prevent use of layoutheight from parent
             grandkid.getAttributes().put(ATTR_LAYOUT_HEIGHT, HEIGHT_0);
             RenderUtil.encode(facesContext, grandkid);
@@ -522,10 +559,11 @@ public class SheetRenderer extends RendererBase
       }
       MessageFormat detail = new MessageFormat(key, locale);
       Object[] args = {
-        new Integer(first),
-        new Integer(last),
-        new Integer(data.getRowCount()),
-        pagerCommandId + SUBCOMPONENT_SEP + "text"};
+          first,
+          last,
+          data.getRowCount(),
+          pagerCommandId + SUBCOMPONENT_SEP + "text"
+      };
       sheetPagingInfo = detail.format(args);
     } else {
       sheetPagingInfo =
@@ -623,7 +661,7 @@ public class SheetRenderer extends RendererBase
   private void storeFooterHeight(FacesContext facesContext,
       UIComponent component) {
     component.getAttributes().put(ATTR_FOOTER_HEIGHT,
-        new Integer(getFooterHeight(facesContext, component)));
+        getFooterHeight(facesContext, component));
   }
 
   private int getFooterHeight(FacesContext facesContext, UIComponent component) {
@@ -740,8 +778,7 @@ public class SheetRenderer extends RendererBase
 
     List columnWidths
         = (List) component.getAttributes().get(ATTR_WIDTH_LIST);
-    String divWidth =
-        "width: " + (((Integer) columnWidths.get(columnCount)).intValue()) + "px;";
+    String divWidth = "width: " + columnWidths.get(columnCount) + "px;";
 
 
     writer.startElement("div", null);

@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.event.PageActionEvent;
@@ -42,12 +42,12 @@ public class SheetPageCommandRenderer extends LinkRenderer {
     }
     if (actionId != null && actionId.equals(clientId)) {
 
-      PageAction action = null;
+      PageAction action;
       try {
         action = PageAction.valueOf(component.getId());
       } catch (Exception e) {
         LOG.error("Illegal value for PageAction :" + component.getId());
-        return; 
+        return;
       }
       PageActionEvent event = new PageActionEvent(component, action);
 
@@ -55,12 +55,11 @@ public class SheetPageCommandRenderer extends LinkRenderer {
         case ToPage:
         case ToRow:
           Map map = facesContext.getExternalContext().getRequestParameterMap();
-          Object value
-              = map.get(clientId + TobagoConstants.SUBCOMPONENT_SEP + "value");
+          Object value = map.get(clientId + SUBCOMPONENT_SEP + "value");
           try {
             event.setValue(Integer.parseInt((String) value));
           } catch (Exception e) {
-            LOG.error("Can't parse value for action " + action + ": " + value);
+            LOG.error("Can't parse value for action " + action.name() + ": " + value);
           }
           break;
         default:

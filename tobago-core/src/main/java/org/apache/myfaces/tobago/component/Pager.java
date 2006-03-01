@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 
@@ -44,14 +43,12 @@ public class Pager extends MethodBinding {
       UIData sheet = pageEvent.getSheet();
       int first = -1;
 
-      PageAction action = pageEvent.getAction();
-
       if (LOG.isDebugEnabled()) {
-        LOG.debug("action = '" + action.name() + "'");
+        LOG.debug("action = '" + pageEvent.getAction().name() + "'");
       }
 
       int start, last;
-      switch(action) {
+      switch(pageEvent.getAction()) {
         case First:
           first = 0;
           break;
