@@ -98,7 +98,7 @@ Tobago.SheetBase = {
 
 
     // setup row paging
-    var rowText = $(this.sheetId + Tobago.componentSeparator + "pageToRow" + Tobago.subComponentSeparator + "text");
+    var rowText = $(this.sheetId + Tobago.componentSeparator + "ToRow" + Tobago.subComponentSeparator + "text");
     if (rowText) {
       var parent = rowText.parentNode;
 //      LOG.debug("row : onclick =" + parent.onclick);
@@ -121,7 +121,7 @@ Tobago.SheetBase = {
 
   doPagingDirect: function(event) {
     var element = Event.element(event);
-    var action = this.sheetId + Tobago.componentSeparator + "pageToPage";
+    var action = this.sheetId + Tobago.componentSeparator + "ToPage";
 
     var page = element.id.lastIndexOf('_');
     page = element.id.substring(page + 1);
@@ -157,11 +157,11 @@ Tobago.SheetBase = {
   },
 
   insertPageTarget: function() {
-    this.insertTarget(this.sheetId + Tobago.componentSeparator + "pageToPage");
+    this.insertTarget(this.sheetId + Tobago.componentSeparator + "ToPage");
   },
 
   insertRowTarget: function() {
-    this.insertTarget(this.sheetId + Tobago.componentSeparator + "pageToRow");
+    this.insertTarget(this.sheetId + Tobago.componentSeparator + "ToRow");
   },
 
   insertTarget: function(actionId) {

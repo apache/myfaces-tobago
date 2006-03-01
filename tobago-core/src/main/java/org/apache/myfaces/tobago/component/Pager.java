@@ -18,28 +18,18 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+import org.apache.myfaces.tobago.event.PageAction;
+import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 
-import javax.faces.component.UICommand;
 import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.MethodNotFoundException;
-import javax.faces.event.ActionEvent;
 
 public class Pager extends MethodBinding {
 
   private static final Log LOG = LogFactory.getLog(Pager.class);
-  public static final String FIRST = "First";
-  public static final String PREV = "Prev";
-  public static final String NEXT = "Next";
-  public static final String LAST = "Last";
-  public static final String PAGE_TO_ROW = "pageToRow";
-  public static final String PAGE_TO_PAGE = "pageToPage";
-  public static final String LINK_TO_PAGE = "linkToPage";
-
 
   public Class getType(FacesContext facescontext)
       throws MethodNotFoundException {
@@ -48,84 +38,64 @@ public class Pager extends MethodBinding {
 
   public Object invoke(FacesContext facesContext, Object[] aobj)
       throws EvaluationException {
-    if (aobj[0] instanceof ActionEvent) {
-      UICommand command = (UICommand) ((ActionEvent) aobj[0]).getSource();
-      UIData data = (UIData) command.getParent();
+    if (aobj[0] instanceof PageActionEvent) {
+      PageActionEvent pageEvent = (PageActionEvent) aobj[0];
+
+      UIData sheet = pageEvent.getSheet();
       int first = -1;
-      String action = (String)
-          command.getAttributes().get(ATTR_ACTION_STRING);
+
+      PageAction action = pageEvent.getAction();
 
       if (LOG.isDebugEnabled()) {
-        LOG.debug("action = '" + action + "'");
+        LOG.debug("action = '" + action.name() + "'");
       }
 
-      if (FIRST.equals(action)) {
-        first = 0;
-      } else if (PREV.equals(action)) {
-        int start = data.getFirst() - data.getRows();
-        first = start < 0 ? 0 : start;
-      } else if (NEXT.equals(action)) {
-        int start = data.getFirst() + data.getRows();
-        int last = data.getLastPageIndex();
-        first = start > data.getRowCount() ? last : start;
-      } else if (LAST.equals(action)) {
-        first = data.getLastPageIndex();
-      } else if (PAGE_TO_ROW.equals(action)) {
-        String startRow = (String) facesContext.getExternalContext()
-            .getRequestParameterMap().get(command.getClientId(
-                facesContext) + SUBCOMPONENT_SEP + "value");
-        if (startRow != null) {
-          try {
-            int start = Integer.parseInt(startRow) - 1;
-            if (start > data.getLastPageIndex()) {
-              start = data.getLastPageIndex();
-            } else if (start < 0) {
-              start = 0;
-            }
-            first = start;
-          } catch (NumberFormatException e) {
-            LOG.error("Catched: " + e.getMessage());
+      int start, last;
+      switch(action) {
+        case First:
+          first = 0;
+          break;
+        case Prev:
+          start = sheet.getFirst() - sheet.getRows();
+          first = start < 0 ? 0 : start;
+          break;
+        case Next:
+          start = sheet.getFirst() + sheet.getRows();
+          last = sheet.getLastPageIndex();
+          first = start > sheet.getRowCount() ? last : start;
+          break;
+        case Last:
+          first = sheet.getLastPageIndex();
+          break;
+        case ToRow:
+          start = pageEvent.getValue() -1;
+          if (start > sheet.getLastPageIndex()) {
+            start = sheet.getLastPageIndex();
+          } else if (start < 0) {
+            start = 0;
           }
-        } else {
-          LOG.error("Can't find 'PageToRow' parameter : "
-              + command.getClientId(facesContext)
-              + SUBCOMPONENT_SEP + "value");
-        }
-      } else if (PAGE_TO_PAGE.equals(action)) {
-        String startRow = (String)
-            facesContext.getExternalContext().getRequestParameterMap().get(command.getClientId(
-                facesContext) + SUBCOMPONENT_SEP + "value");
-        if (startRow != null) {
-          try {
-            int start = Integer.parseInt(startRow) - 1;
-            if (LOG.isDebugEnabled()) {
-              LOG.debug("start = " + start + "  data.getRows() = "
-                  + data.getRows() + " => start = " + (start * data.getRows()));
-            }
-            start = start * data.getRows();
-            if (start > data.getLastPageIndex()) {
-              start = data.getLastPageIndex();
-            } else if (start < 0) {
-              start = 0;
-            }
-            first = start;
-          } catch (NumberFormatException e) {
-            LOG.error("Catched: " + e.getMessage());
+          first = start;
+          break;
+        case ToPage:
+          start = pageEvent.getValue() -1;
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("start = " + start + "  sheet.getRows() = "
+                + sheet.getRows() + " => start = " + (start * sheet.getRows()));
           }
-        } else {
-          LOG.error("Can't find 'PageToRow' parameter : "
-              + command.getClientId(facesContext) + SUBCOMPONENT_SEP
-              + "value");
-        }
-      } else {
-        LOG.error("Unkown action: " + action);
+          start = start * sheet.getRows();
+          if (start > sheet.getLastPageIndex()) {
+            start = sheet.getLastPageIndex();
+          } else if (start < 0) {
+            start = 0;
+          }
+          first = start;
+          break;
+        default:
+          // can't happen
       }
-      if (first != -1) {
-        data.setFirst(first);
-        data.getSheetState(facesContext).setFirst(first);
-      }
-
-      data.queueEvent(new SheetStateChangeEvent(data));
+      sheet.setFirst(first);
+      sheet.getSheetState(facesContext).setFirst(first);
+      sheet.queueEvent(new SheetStateChangeEvent(sheet));
     } else {
       if (LOG.isDebugEnabled()) {
         LOG.debug("aobj[0] instanceof '" + aobj[0] + "'");

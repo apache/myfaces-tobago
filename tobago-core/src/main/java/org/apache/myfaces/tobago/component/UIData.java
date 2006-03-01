@@ -18,20 +18,11 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_LIST_STRING;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_HEADER;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
-import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
-import org.apache.myfaces.tobago.event.SheetStateChangeListener;
-import org.apache.myfaces.tobago.event.SheetStateChangeSource;
-import org.apache.myfaces.tobago.event.SortActionEvent;
+import org.apache.myfaces.tobago.event.*;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
@@ -406,15 +397,13 @@ public class UIData extends javax.faces.component.UIData
           "component is not a descendant of a UIViewRoot");
     }
 
-    if (facesEvent instanceof SheetStateChangeEvent) {
+    if (facesEvent.getComponent() == this
+        && (facesEvent instanceof SheetStateChangeEvent
+        || facesEvent instanceof PageActionEvent)) {
       parent.queueEvent(facesEvent);
     } else {
       UIComponent source = facesEvent.getComponent();
       UIComponent sourceParent = source.getParent();
-//      if (sourceParent == this
-//          && source.getId() != null ) {
-//        parent.queueEvent(new PageActionEvent(this));
-//      } else
       if (sourceParent.getParent() == this
           && source.getId() != null && source.getId().endsWith(SORTER_ID)) {
         parent.queueEvent(new SortActionEvent(source));

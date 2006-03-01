@@ -23,39 +23,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COMMAND_TYPE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOOTER_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FORCE_VERTICAL_SCROLLBAR;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP_TYPE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_LIST_STRING;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DIRECT_LINKS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_PAGE_RANGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROW_RANGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TYPE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
-import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_SCRIPT;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUPOPUP;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_PAGER_PAGE;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_PAGER_ROW;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LINK;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUBAR;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -66,32 +34,25 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import static org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.SheetPageCommandRenderer.PAGE_RENDERER_TYPE;
 import org.apache.myfaces.tobago.taglib.component.MenuCommandTag;
 import org.apache.myfaces.tobago.util.StringUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.Application;
-import javax.faces.component.UIColumn;
-import javax.faces.component.UICommand;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
-import javax.faces.component.UIViewRoot;
+import javax.faces.component.*;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.el.MethodBinding;
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 public class SheetRenderer extends RendererBase
   implements SheetRendererWorkaround, AjaxRenderer {
@@ -104,8 +65,6 @@ public class SheetRenderer extends RendererBase
       = SUBCOMPONENT_SEP + "widths";
   public static final String SELECTED_POSTFIX
       = SUBCOMPONENT_SEP + "selected";
-  public static final String PAGE_TO_ROW_POSTFIX
-      = SUBCOMPONENT_SEP + Pager.PAGE_TO_ROW;
   private static final Integer HEIGHT_0 = new Integer(0);
 
 // ----------------------------------------------------------------- interfaces
@@ -460,7 +419,7 @@ public class SheetRenderer extends RendererBase
             FACET_PAGER_ROW);
         if (pagerCommand == null) {
           pagerCommand = createPagingCommand(
-                  application, Pager.PAGE_TO_ROW, false, pager);
+                  application, PageAction.ToRow, false, pager);
           data.getFacets().put(FACET_PAGER_ROW, pagerCommand);
         }
         String pagingOnClick
@@ -499,7 +458,7 @@ public class SheetRenderer extends RendererBase
             = (UICommand) data.getFacet(FACET_PAGER_PAGE);
         if (pagerCommand == null) {
           pagerCommand = createPagingCommand(
-              application, Pager.PAGE_TO_PAGE, false, pager);
+              application, PageAction.ToPage, false, pager);
           data.getFacets().put(FACET_PAGER_PAGE, pagerCommand);
         }
         String pagingOnClick
@@ -517,8 +476,8 @@ public class SheetRenderer extends RendererBase
         writer.writeText("", null);
 
 
-        link(facesContext, application, pager, data.isAtBeginning(), Pager.FIRST, data);
-        link(facesContext, application, pager, data.isAtBeginning(), Pager.PREV, data);
+        link(facesContext, application, pager, data.isAtBeginning(), PageAction.First, data);
+        link(facesContext, application, pager, data.isAtBeginning(), PageAction.Prev, data);
         writer.startElement("span", null);
         writer.writeClassAttribute("tobago-sheet-paging-pages-text");
         writer.writeAttribute("onclick", "tobagoSheetEditPagingRow(this, '"
@@ -528,8 +487,8 @@ public class SheetRenderer extends RendererBase
         writer.write(createSheetPagingInfo(
             data, facesContext, pagerCommandId, false));
         writer.endElement("span");
-        link(facesContext, application, pager, data.isAtEnd(), Pager.NEXT, data);
-        link(facesContext, application, pager, data.isAtEnd(), Pager.LAST, data);
+        link(facesContext, application, pager, data.isAtEnd(), PageAction.Next, data);
+        link(facesContext, application, pager, data.isAtEnd(), PageAction.Last, data);
       }
 
       writer.endElement("span");
@@ -724,7 +683,7 @@ public class SheetRenderer extends RendererBase
   }
 
   private static void link(FacesContext facesContext, Application application,
-      MethodBinding pager, boolean disabled, String command, UIData data)
+      MethodBinding pager, boolean disabled, PageAction command, UIData data)
       throws IOException {
     UICommand link;
 //    UIGraphic image;
@@ -747,19 +706,19 @@ public class SheetRenderer extends RendererBase
 
 
 
-    data.getFacets().put(command, link);
+    data.getFacets().put(command.name(), link);
 //    RenderUtil.encode(facesContext, link);
 
 
     String tip = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
-        "sheet" + command);
+        "sheet" + command.name());
     String image = ResourceManagerUtil.getImageWithPath(facesContext,
-        "image/sheet" + command + (disabled ? "Disabled" : "") + ".gif");
+        "image/sheet" + command.name() + (disabled ? "Disabled" : "") + ".gif");
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement("img", null);
     writer.writeIdAttribute(data.getClientId(facesContext)
-        + SUBCOMPONENT_SEP + "pagingPages" + SUBCOMPONENT_SEP + command);
+        + SUBCOMPONENT_SEP + "pagingPages" + SUBCOMPONENT_SEP + command.name());
     writer.writeClassAttribute("tobago-sheet-footer-pager-button"
         + (disabled ? " tobago-sheet-footer-pager-button-disabled" : ""));
     writer.writeAttribute("src", image, null);
@@ -978,7 +937,7 @@ public class SheetRenderer extends RendererBase
     UICommand pagerCommand = (UICommand) data.getFacet(FACET_PAGER_PAGE);
     if (pagerCommand == null) {
       pagerCommand = createPagingCommand(
-          application, Pager.PAGE_TO_PAGE, false, methodBinding);
+          application, PageAction.ToPage, false, methodBinding);
       data.getFacets().put(FACET_PAGER_PAGE, pagerCommand);
     }
     String pagerCommandId = pagerCommand.getClientId(facesContext);
@@ -992,7 +951,7 @@ public class SheetRenderer extends RendererBase
     for (int i = 0; i < linkCount && page > 1; i++) {
       page--;
       if (page > 0) {
-        prevs.add(0, new Integer(page));
+        prevs.add(0, page);
       }
     }
 
@@ -1001,7 +960,7 @@ public class SheetRenderer extends RendererBase
     for (int i = 0; i < linkCount && page < data.getPages(); i++) {
       page++;
       if (page > 1) {
-        nexts.add(new Integer(page));
+        nexts.add(page);
       }
     }
 
@@ -1024,41 +983,41 @@ public class SheetRenderer extends RendererBase
     }
 
     String name;
-    int skip = prevs.size() > 0 ? ((Integer) prevs.get(0)).intValue() : 1;
+    int skip = prevs.size() > 0 ? ((Integer) prevs.get(0)) : 1;
     if (skip > 1) {
       skip -= (linkCount - (linkCount / 2));
       skip--;
       name = "...";
       if (skip < 1) {
         skip = 1;
-        if (((Integer) prevs.get(0)).intValue() == 2) {
+        if (prevs.get(0) == 2) {
           name = "1";
         }
       }
       writeLinkElement(writer, name, Integer.toString(skip),
           pagerCommandId, hrefPostfix, true);
     }
-    for (Iterator iter = prevs.iterator(); iter.hasNext();) {
-      name = ((Integer) iter.next()).toString();
+    for (Integer prev : prevs) {
+      name = prev.toString();
       writeLinkElement(writer, name, name, pagerCommandId, hrefPostfix, true);
     }
     name = Integer.toString(data.getPage());
     writeLinkElement(writer, name, name, pagerCommandId, hrefPostfix, false);
 
-    for (Iterator iter = nexts.iterator(); iter.hasNext();) {
-      name = ((Integer) iter.next()).toString();
+    for (Integer next : nexts) {
+      name = next.toString();
       writeLinkElement(writer, name, name, pagerCommandId, hrefPostfix, true);
     }
 
     skip = nexts.size() > 0
-        ? ((Integer) nexts.get(nexts.size() - 1)).intValue() : data.getPages();
+        ? ((Integer) nexts.get(nexts.size() - 1)) : data.getPages();
     if (skip < data.getPages()) {
       skip += linkCount / 2;
       skip++;
       name = "...";
       if (skip > data.getPages()) {
         skip = data.getPages();
-        if (((Integer) nexts.get(nexts.size() - 1)).intValue() == skip - 1) {
+        if ((nexts.get(nexts.size() - 1)) == skip - 1) {
           name = Integer.toString(skip);
         }
       }
@@ -1068,13 +1027,13 @@ public class SheetRenderer extends RendererBase
   }
 
   private static UICommand createPagingCommand(Application application,
-      String command, boolean disabled, MethodBinding methodBinding) {
+      PageAction command, boolean disabled, MethodBinding methodBinding) {
     UICommand link;
     link = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
-    link.setRendererType(RENDERER_TYPE_LINK);
+    link.setRendererType(PAGE_RENDERER_TYPE);
     link.setRendered(true);
-    link.setId(command);
-    link.getAttributes().put(ATTR_ACTION_STRING, command);
+    link.setId(command.name());
+//    link.getAttributes().put(ATTR_ACTION_STRING, command);
     link.getAttributes().put(ATTR_INLINE, Boolean.TRUE);
     link.getAttributes().put(ATTR_DISABLED,
         Boolean.valueOf(disabled));
