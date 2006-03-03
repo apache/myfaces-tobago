@@ -416,7 +416,7 @@ public class UIData extends javax.faces.component.UIData
       UIComponent sourceParent = source.getParent();
       if (sourceParent.getParent() == this
           && source.getId() != null && source.getId().endsWith(SORTER_ID)) {
-        parent.queueEvent(new SortActionEvent(source));
+        parent.queueEvent(new SortActionEvent(this, (UIColumn) sourceParent));
       } else {
         super.queueEvent(facesEvent);
       }
@@ -426,17 +426,28 @@ public class UIData extends javax.faces.component.UIData
   public void broadcast(FacesEvent facesEvent) throws AbortProcessingException {
     super.broadcast(facesEvent);
     if (facesEvent instanceof SheetStateChangeEvent) {
-      MethodBinding sheetChangeListenerBinding = getStateChangeListener();
-      if (sheetChangeListenerBinding != null) {
-        try {
-          sheetChangeListenerBinding.invoke(getFacesContext(), new Object[]{(SheetStateChangeEvent) facesEvent});
-        } catch (EvaluationException e) {
-          Throwable cause = e.getCause();
-          if (cause != null && cause instanceof AbortProcessingException) {
-            throw (AbortProcessingException) cause;
-          } else {
-            throw e;
-          }
+      MethodBinding methodBinding = getStateChangeListener();
+      Object[] objects = new Object[]{(SheetStateChangeEvent) facesEvent};
+      invokeMethodBinding(methodBinding, objects);
+    } else if (facesEvent instanceof SortActionEvent) {
+      SortActionEvent sortEvent = (SortActionEvent) facesEvent;
+      getSheetState(getFacesContext()).updateSortState(sortEvent);
+      MethodBinding methodBinding = getSortActionListener();
+      Object[] objects = new Object[]{sortEvent};
+      invokeMethodBinding(methodBinding, objects);
+    }
+  }
+
+  private void invokeMethodBinding(MethodBinding methodBinding, Object[] objects) {
+    if (methodBinding != null) {
+      try {
+        methodBinding.invoke(getFacesContext(), objects);
+      } catch (EvaluationException e) {
+        Throwable cause = e.getCause();
+        if (cause != null && cause instanceof AbortProcessingException) {
+          throw (AbortProcessingException) cause;
+        } else {
+          throw e;
         }
       }
     }

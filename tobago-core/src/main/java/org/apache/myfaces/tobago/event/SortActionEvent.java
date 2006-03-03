@@ -18,26 +18,27 @@ package org.apache.myfaces.tobago.event;
 import org.apache.myfaces.tobago.component.UIData;
 
 import javax.faces.component.UIColumn;
-import javax.faces.component.UIComponent;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.PhaseId;
 
 public class SortActionEvent extends ActionEvent {
 
-  public SortActionEvent(UIComponent uiComponent) {
-    super(uiComponent);
+  UIColumn column;
+
+  public SortActionEvent(UIData sheet, UIColumn column) {
+    super(sheet);
+    this.column = column;
+    setPhaseId(PhaseId.INVOKE_APPLICATION);
   }
 
-  /**
-   * Convenience method to get the UIColumn to sort.
-   */
   public UIColumn getColumn() {
-    return (UIColumn) getComponent().getParent();
+    return column;
   }
 
   /**
    * Convenience method to get the UIData Component. 
    */
   public UIData getSheet() {
-    return (UIData) getColumn().getParent();
+    return (UIData) getComponent();
   }
 }

@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.model;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.UIData;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 
 import javax.faces.component.UIColumn;
@@ -32,7 +31,7 @@ public class SheetState implements Serializable {
   public static final String SEPARATOR = ",";
 
   private int first = -1;
-  private int sortedColumn = -1;
+  private String  sortedColumnId;
   private boolean ascending;
   private String columnWidths;
   private List<Integer> selectedRows;
@@ -55,12 +54,12 @@ public class SheetState implements Serializable {
     this.selectedRows = selectedRows;
   }
 
-  public int getSortedColumn() {
-    return sortedColumn;
+  public String getSortedColumnId() {
+    return sortedColumnId;
   }
 
-  public void setSortedColumn(int sortedColumn) {
-    this.sortedColumn = sortedColumn;
+  public void setSortedColumnId(String sortedColumnId) {
+    this.sortedColumnId = sortedColumnId;
   }
 
   public boolean isAscending() {
@@ -87,28 +86,15 @@ public class SheetState implements Serializable {
     this.first = first;
   }
 
-  public boolean updateSortState(SortActionEvent sortEvent) {
-    UIData sheet = sortEvent.getSheet();
-    UIColumn uiColumn = sortEvent.getColumn();
-    int actualColumn = -1;
-    List<UIColumn> rendererdColumns = sheet.getRendererdColumns();
-    for (int i = 0; i < rendererdColumns.size(); i++) {
-      if (uiColumn == rendererdColumns.get(i)) {
-        actualColumn = i;
-        break;
-      }
-    }
-    if (actualColumn == -1) {
-      LOG.warn("Can't find column to sort in rendered columns of sheet!");
-      return false;
-    }
+  public void updateSortState(SortActionEvent sortEvent) {
 
-    if (actualColumn == sortedColumn) {
+    UIColumn actualColumn = sortEvent.getColumn();
+
+    if (actualColumn.getId().equals(sortedColumnId)) {
       ascending = !ascending;
     } else {
       ascending = true;
-      sortedColumn = actualColumn;
+      sortedColumnId = actualColumn.getId();
     }
-    return true;
   }
 }

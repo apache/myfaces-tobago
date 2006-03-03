@@ -820,7 +820,7 @@ public class SheetRenderer extends RendererBase
           null);
 
       SheetState sheetState = component.getSheetState(facesContext);
-      if (sheetState.getSortedColumn() == columnCount) {
+      if (column.getId().equals(sheetState.getSortedColumnId())) {
         if (sheetState.isAscending()) {
           sorterImage = ascending;
           sortTitle = ResourceManagerUtil.getPropertyNotNull(facesContext,
@@ -854,7 +854,7 @@ public class SheetRenderer extends RendererBase
     } else {
       resizerClass =
           "tobago-sheet-header-resize tobago-sheet-header-resize-cursor";
-      renderColumnHeaderLabel(facesContext, writer, column, columnCount, sortMarkerWidth, align,
+      renderColumnHeaderLabel(facesContext, writer, column, sortMarkerWidth, align,
           image1x1);
     }
     writer.endElement("div");
@@ -944,14 +944,16 @@ public class SheetRenderer extends RendererBase
 
   private void renderColumnHeaderLabel(FacesContext facesContext,
                                        ResponseWriter writer, UIColumn column,
-                                       int columnCount, int sortMarkerWidth, String align,
+                                       int sortMarkerWidth, String align,
                                        String image1x1) throws IOException {
     String label
         = (String) column.getAttributes().get(ATTR_LABEL);
     if (label != null) {
       writer.writeText(label, null);
-      if (((UIData) column.getParent()).getSheetState(facesContext).getSortedColumn()
-          == columnCount && "right".equals(align)) {
+      SheetState sheetState
+          = ((UIData) column.getParent()).getSheetState(facesContext);
+      if (column.getId().equals(sheetState.getSortedColumnId())
+          && "right".equals(align)) {
         writer.startElement("img", null);
         writer.writeAttribute("src", image1x1, null);
         writer.writeAttribute("alt", "", null);

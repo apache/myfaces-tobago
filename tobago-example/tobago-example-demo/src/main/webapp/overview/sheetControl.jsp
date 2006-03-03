@@ -124,16 +124,16 @@
           <tc:column label="#{overviewBundle.solarArrayNumber}" id="number" sortable="false" align="center" >
             <tc:out value="#{luminary.number}" id="t_number"/>
           </tc:column>
-          <tc:column label="#{overviewBundle.solarArrayOrbit}" sortable="true" >
+          <tc:column label="#{overviewBundle.solarArrayOrbit}" sortable="true" id="orbit">
             <tc:out value="#{luminary.orbit}" id="t_orbit" />
           </tc:column>
-          <tc:column label="#{overviewBundle.solarArrayPopulation}" sortable="true">
+          <tc:column label="#{overviewBundle.solarArrayPopulation}" sortable="true" id="population">
             <tc:in value="#{luminary.population}" id="t_population" />
           </tc:column>
-          <tc:column label="#{overviewBundle.solarArrayDistance}" sortable="true" align="right" >
+          <tc:column label="#{overviewBundle.solarArrayDistance}" sortable="true" align="right" id="distance">
             <tc:out value="#{luminary.distance}" id="t_distance" />
           </tc:column>
-          <tc:column label="#{overviewBundle.solarArrayPeriod}" sortable="true" align="right" >
+          <tc:column label="#{overviewBundle.solarArrayPeriod}" sortable="true" align="right" id="period">
             <tc:out value="#{luminary.period}" id="t_period" />
           </tc:column>
         </tc:sheet>

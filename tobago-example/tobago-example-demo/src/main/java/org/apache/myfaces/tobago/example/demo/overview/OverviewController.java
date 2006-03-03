@@ -23,15 +23,19 @@ package org.apache.myfaces.tobago.example.demo.overview;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.Sorter;
+import org.apache.myfaces.tobago.component.UIData;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.event.SortActionEvent;
+import org.apache.myfaces.tobago.example.demo.model.solar.SolarObject;
+import org.apache.myfaces.tobago.model.SheetState;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -113,14 +117,74 @@ public class OverviewController {
     lastAction = actionEvent.getComponent().getId();
   }
 
-  
+
   public void sheetSorter(ActionEvent event) {
     if (event instanceof SortActionEvent) {
       SortActionEvent sortEvent = (SortActionEvent) event;
-      List list = (List) sortEvent.getSheet().getValue();
-      Object sun = list.remove(0);
-      Object[] objects = new Object[] {sortEvent};
-      new Sorter().invoke(FacesContext.getCurrentInstance(), objects);
+      String columnId = sortEvent.getColumn().getId();
+      UIData sheet = sortEvent.getSheet();
+      List<SolarObject> list = (List<SolarObject>) sheet.getValue();
+      SolarObject sun = list.remove(0);
+
+      Comparator<SolarObject> comparator = null;
+
+      if ("name".equals(columnId)) {
+        comparator = new Comparator() {
+          public int compare(Object o1, Object o2) {
+            String s1 = ((SolarObject) o1).getName();
+            String s2 = ((SolarObject) o2).getName();
+            return s1.compareToIgnoreCase(s2);
+          }
+        };
+      } else if ("orbit".equals(columnId)) {
+        comparator = new Comparator() {
+          public int compare(Object o1, Object o2) {
+            String s1 = ((SolarObject) o1).getOrbit();
+            String s2 = ((SolarObject) o2).getOrbit();
+            return s1.compareToIgnoreCase(s2);
+          }
+        };
+      } else if ("population".equals(columnId)) {
+        comparator = new Comparator() {
+          public int compare(Object o1, Object o2) {
+            String s1 = ((SolarObject) o1).getPopulation();
+            String s2 = ((SolarObject) o2).getPopulation();
+            Integer i1 = -1;
+            try {
+              i1 = new Integer(s1.replaceAll("\\D", "").trim());
+            } catch (NumberFormatException e) { }
+            Integer i2 = -1;
+            try {
+              i2 = new Integer(s2.replaceAll("\\D", "").trim());
+            } catch (NumberFormatException e) { }
+            return i1.compareTo(i2);
+          }
+        };
+      } else if ("distance".equals(columnId)) {
+        comparator = new Comparator() {
+          public int compare(Object o1, Object o2) {
+            Integer i1 = ((SolarObject) o1).getDistance();
+            Integer i2 = ((SolarObject) o2).getDistance();
+            return i1.compareTo(i2);
+          }
+        };
+      } else if ("period".equals(columnId)) {
+        comparator = new Comparator() {
+          public int compare(Object o1, Object o2) {
+            Double i1 = ((SolarObject) o1).getPeriod();
+            Double i2 = ((SolarObject) o2).getPeriod();
+            return i1.compareTo(i2);
+          }
+        };
+      }
+
+      Collections.sort(list, comparator);
+      SheetState sheetState
+          = sheet.getSheetState(FacesContext.getCurrentInstance());
+      if (!sheetState.isAscending()) {
+        Collections.reverse(list);
+      }
+
       list.add(0, sun);
     }
   }

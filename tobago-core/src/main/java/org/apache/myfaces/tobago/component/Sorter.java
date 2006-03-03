@@ -75,9 +75,6 @@ public class Sorter extends MethodBinding {
         String sortProperty;
 
         try {
-          if (!sheetState.updateSortState(sortEvent)) {
-            return null;
-          }
 
           UIComponent child = getFirstSortableChild(column.getChildren());
           if (child != null) {
