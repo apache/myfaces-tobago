@@ -24,7 +24,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
 
 /**
  * Created by IntelliJ IDEA.
@@ -33,21 +32,32 @@ import java.util.Properties;
  * Time: 11:08:45
  * To change this template use File | Settings | File Templates.
  */
-public class Test {
-  private static final Log LOG = LogFactory.getLog(Test.class);
+public class TestBean {
+  private static final Log LOG = LogFactory.getLog(TestBean.class);
 
   private ResultSet resultSet = null;
+  private Connection connection = null;
 
-  public Test() {
+  private String name;
+  private String number;
+  private String orbit;
+  private String distance;
+  private String period;
+  private String incl;
+  private String eccen;
+  private String discoverer;
+  private String discoverYear;
+
+  public TestBean() {
 
     try {
       //Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
       Class.forName("org.hsqldb.jdbcDriver" ).newInstance();
-      LOG.error("Loaded the appropriate driver.");
+      LOG.info("Loaded the appropriate driver.");
 
-      Properties props = new Properties();
-      props.put("user", "user1");
-      props.put("password", "user1");
+      //Properties props = new Properties();
+      //props.put("user", "user1");
+      //props.put("password", "user1");
 
       /*
         The connection specifies create=true to cause
@@ -60,33 +70,35 @@ public class Test {
       */
       //Connection conn = DriverManager.getConnection("jdbc:derby:" +
       //    "derbyDB;create=true", props);
-      Connection conn = DriverManager.getConnection("jdbc:hsqldb:mem:aname", "sa", "");
+      connection = DriverManager.getConnection("jdbc:hsqldb:mem:aname", "sa", "");
 
-      LOG.error("Connected to and created database derbyDB");
+      LOG.info("Connected to and created database derbyDB");
 
-      conn.setAutoCommit(false);
+      connection.setAutoCommit(false);
 
-      Statement statement = conn.createStatement();
+      Statement statement = connection.createStatement();
       try {
         statement.execute("create table solarObject(name varchar(10), number varchar(5), "
             + "orbit varchar(10), distance varchar(10), period varchar(10), "
             + "incl varchar(10), eccen varchar(10), discoverer varchar(20), "
             + "discoverYear varchar(4))");
         PreparedStatement ps =
-            conn.prepareStatement("insert into solarObject values (?,?,?,?,?,?,?,?,?)");
+            connection.prepareStatement("insert into solarObject values (?,?,?,?,?,?,?,?,?)");
         for (String[] aSTRINGS : STRINGS) {
           for (int j = 0; j < aSTRINGS.length; j++) {
             ps.setString(j + 1, aSTRINGS[j]);
           }
           int inserted = ps.executeUpdate();
-          LOG.error(inserted + " Row(s) inserted");
+          if (LOG.isDebugEnabled()) {
+            LOG.debug(inserted + " Row(s) inserted");
+          }
         }
-        conn.commit();
+        connection.commit();
       } catch (SQLException e) {
         LOG.error("", e);
       }
 
-      Statement query = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+      Statement query = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
       resultSet = query.executeQuery("select * from solarObject");
 
     } catch (Exception e) {
@@ -94,9 +106,98 @@ public class Test {
     }
   }
 
+  public String getName() {
+    return name;
+  }
+
+  public String getNumber() {
+    return number;
+  }
+
+  public String getOrbit() {
+    return orbit;
+  }
+
+  public String getDistance() {
+    return distance;
+  }
+
+  public String getPeriod() {
+    return period;
+  }
+
+  public String getIncl() {
+    return incl;
+  }
+
+  public String getEccen() {
+    return eccen;
+  }
+
+  public String getDiscoverer() {
+    return discoverer;
+  }
+
+  public String getDiscoverYear() {
+    return discoverYear;
+  }
+
+  public String select(String id) {
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    try {
+      ps = connection.prepareStatement("select * from solarObject where name = ? ");
+      ps.setString(1, id);
+      rs = ps.executeQuery();
+      if (rs.next()) {
+        name = rs.getString(1);
+        number = rs.getString(2);
+        orbit = rs.getString(3);
+        distance = rs.getString(4);
+        period = rs.getString(5);
+        incl = rs.getString(6);
+        eccen = rs.getString(7);
+        discoverer = rs.getString(8);
+        discoverYear = rs.getString(9);
+        return "solarDetail";
+      } else {
+        name = null;
+        number = null;
+        orbit = null;
+        distance = null;
+        period = null;
+        incl = null;
+        eccen = null;
+        discoverer = null;
+        discoverYear = null;
+      }
+    } catch (SQLException e) {
+      LOG.error("", e);
+    } finally {
+      if (rs != null) {
+        try {
+          rs.close();
+        } catch (SQLException e) {
+           // ignore
+        }
+      }
+      if (ps != null) {
+        try {
+          ps.close();
+        } catch (SQLException e) {
+          // ignore
+        }
+      }
+    }
+
+    return "solarList";
+
+  }
 
   public ResultSet getSolarObjects() {
-    LOG.error("getting solar objects");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("getting solar objects");
+    }
     return resultSet;
   }
 

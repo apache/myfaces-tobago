@@ -10,7 +10,7 @@
             columns="1*;1*;1*;1*;1*;1*;1*;1*;2*" var="solarObject"
             showHeader="true"  showPageRange="center" pagingLength="10" >
           <tc:column label="Name" sortable="true">
-             <tc:link label="#{solarObject.name}" type="navigate" action="EntityDetails?id=#{solarObject.name}"/>
+             <tc:link label="#{solarObject.name}" type="navigate" action="SolarDetail?id=#{solarObject.name}"/>
           </tc:column>
           <tc:column label="Number" id="number" sortable="false"
                      align="center" >
@@ -34,8 +34,8 @@
           <tc:column label="Discoverer" sortable="true" align="right" >
             <tc:out value="#{solarObject.discoverer}" />
           </tc:column>
-          <tc:column label="DiscovererYear" sortable="true" align="right" >
-            <tc:out value="#{solarObject.discovererYear}" />
+          <tc:column label="DiscoverYear" sortable="true" align="right" >
+            <tc:out value="#{solarObject.discoverYear}" />
           </tc:column>
         </tc:sheet>
     </tc:box>

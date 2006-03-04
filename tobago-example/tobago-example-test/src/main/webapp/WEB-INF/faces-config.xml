@@ -33,10 +33,20 @@
   </application>
 
   <managed-bean>
-      <managed-bean-name>test</managed-bean-name>
-      <managed-bean-class>org.apache.myfaces.tobago.example.test.Test</managed-bean-class>
-      <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
+    <managed-bean-name>test</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.test.TestBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
 
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>solarList</from-outcome>
+      <to-view-id>/solarList.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>solarDetail</from-outcome>
+      <to-view-id>/solarDetail.jsp</to-view-id>
+    </navigation-case>
+ </navigation-rule>
 
 </faces-config>

@@ -21,7 +21,7 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
     version="2.4">
 
-  <display-name>Blank Tobago Application</display-name>
+  <display-name>Test Tobago Application</display-name>
 
   <filter>
     <filter-name>multipartFormdataFilter</filter-name>
@@ -45,6 +45,12 @@
     <load-on-startup>1</load-on-startup>
   </servlet>
 -->
+
+  <servlet>
+    <servlet-name>SolarServlet</servlet-name>
+    <servlet-class>org.apache.myfaces.tobago.example.test.SolarServlet</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
 
   <servlet>
     <servlet-name>FacesServlet</servlet-name>
@@ -76,14 +82,20 @@
   </servlet-mapping>
 
   <servlet-mapping>
+    <servlet-name>SolarServlet</servlet-name>
+    <!--for sun ri with /faces/* mapping (tested with version 1.1.01)-->
+    <!--<url-pattern>/FishServlet</url-pattern>-->
+    <!--for myfaces with /faces/* mapping (tested with version 1.1.1)-->
+    <!--<url-pattern>/faces/FishServlet</url-pattern>-->
+    <!--for myfaces and sun-ri with *.jsf mapping-->
+    <url-pattern>/faces/SolarDetail</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
     <servlet-name>TemplateServlet</servlet-name>
     <url-pattern>*.view</url-pattern>
   </servlet-mapping>
 
-  <servlet-mapping>
-    <servlet-name>ResourceServlet</servlet-name>
-    <url-pattern>/org/apache/myfaces/tobago/renderkit/*</url-pattern>
-  </servlet-mapping>
 
   <!-- mime -->
   <mime-mapping>
