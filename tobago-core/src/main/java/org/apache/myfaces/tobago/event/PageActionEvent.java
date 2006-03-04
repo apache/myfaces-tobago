@@ -32,6 +32,9 @@ public class PageActionEvent extends ActionEvent {
     this.action = action;
   }
 
+  /**
+   * Returns the action type ({@link PageAction}).
+   */
   public PageAction getAction() {
     return action;
   }
@@ -40,10 +43,17 @@ public class PageActionEvent extends ActionEvent {
     this.value = value;
   }
 
+  /**
+   * Returns the value for action types {@link PageAction.TO_ROW}
+   * and {@link PageAction.TO_PAGE}. 
+   */
   public int getValue() {
     return value;
   }
 
+ /**
+  * Convenience method to get the UIData Component.
+  */
   public UIData getSheet() {
     return (UIData) getComponent();
   }

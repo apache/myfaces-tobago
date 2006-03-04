@@ -32,6 +32,11 @@ public class SortActionEvent extends ActionEvent {
     setPhaseId(PhaseId.INVOKE_APPLICATION);
   }
 
+  /**
+   * Returns the UIColumn object for which this event is triggert.
+   *
+   * @return UIColumn
+   */
   public UIColumn getColumn() {
     return column;
   }

@@ -121,8 +121,10 @@ public class OverviewController {
   public void sheetSorter(ActionEvent event) {
     if (event instanceof SortActionEvent) {
       SortActionEvent sortEvent = (SortActionEvent) event;
-      String columnId = sortEvent.getColumn().getId();
-      UIData sheet = sortEvent.getSheet();
+      UIData sheet = sortEvent.getSheet();      
+      SheetState sheetState
+          = sheet.getSheetState(FacesContext.getCurrentInstance());
+      String columnId = sheetState.getSortedColumnId();
       List<SolarObject> list = (List<SolarObject>) sheet.getValue();
       SolarObject sun = list.remove(0);
 
@@ -179,8 +181,6 @@ public class OverviewController {
       }
 
       Collections.sort(list, comparator);
-      SheetState sheetState
-          = sheet.getSheetState(FacesContext.getCurrentInstance());
       if (!sheetState.isAscending()) {
         Collections.reverse(list);
       }

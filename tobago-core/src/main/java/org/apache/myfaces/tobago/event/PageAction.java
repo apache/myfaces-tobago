@@ -21,31 +21,54 @@ import java.util.Map;
 
 public enum PageAction {
 
+  /**
+   * First page is requested
+   */
   FIRST {
     public String getToken() {
       return "First";
     }
   },
+
+  /**
+   * Next page is requested
+   */
   NEXT {
     public String getToken() {
       return "Next";
     }
   },
+
+  /**
+   * Previous page is requested
+   */
   PREV {
     public String getToken() {
       return "Prev";
     }
   },
+
+  /**
+   * Next page is requested
+   */
   LAST {
     public String getToken() {
       return "Last";
     }
   },
+
+  /**
+   * A specified row is requested
+   */
   TO_ROW {
     public String getToken() {
       return "ToRow";
     }
   },
+
+  /**
+   * A specified page is requested
+   */
   TO_PAGE {
     public String getToken() {
       return "ToPage";
@@ -53,7 +76,7 @@ public enum PageAction {
   };
 
   private static final Map<String, PageAction> mapping;
-    
+
   static {
     mapping = new HashMap<String, PageAction>();
 

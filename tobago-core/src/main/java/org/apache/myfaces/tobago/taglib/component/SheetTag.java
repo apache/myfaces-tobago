@@ -16,7 +16,19 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FIRST;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FORCE_VERTICAL_SCROLLBAR;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DIRECT_LINKS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_HEADER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_PAGE_RANGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROW_RANGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VAR;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -276,13 +288,18 @@ public class SheetTag extends TobagoTag implements HasIdBindingAndRendered {
    * MethodBinding representing an actionListener method that will be
    * invoked when sorting was requested by the user.
    * Use this if your application needs special handling for sorting columns.
-   * If this is not set and the sortable attribute column is not false the sheet
+   * If this is not set and the sortable attribute column is set to true the sheet
    * implementation will use a default sort method.
    * The expression must evaluate to a public method that takes an
    * ActionEvent parameter, with a return type of void.
-   * The parent of the actionEvents source will be the UIColumn object for that
-   * the sorting is requested,
-   * <code>UIColumn column = (UIColumn)actionEvent.getSource().getParent()</code>.
+   * The method will recieve a SortActionEvent,
+   * The method should sort according to the sortColumnId and direction getting from
+   * the sheets SheetState object.*//*
+   * The expression must evaluate to a public method that takes an
+   * ActionEvent parameter, with a return type of void.
+   * The method will recieve a {@link SortActionEvent},
+   * The method should sort according to the sortColumnId and direction getting from
+   * the sheets {@link SheetState} object.
    */
   @TagAttribute
   @UIComponentTagAttribute()

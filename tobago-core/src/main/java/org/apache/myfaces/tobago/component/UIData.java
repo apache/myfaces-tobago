@@ -263,8 +263,8 @@ public class UIData extends javax.faces.component.UIData
             UIComponent child = (UIComponent) column.getChildren().get(0);
             int cellPaddingWidth = ((RendererBase) getRenderer(facesContext))
                 .getConfiguredValue(facesContext, this, "cellPaddingWidth");
-            child.getAttributes().put(ATTR_LAYOUT_WIDTH,
-                new Integer(width.intValue() - cellPaddingWidth));
+            child.getAttributes().put(
+                ATTR_LAYOUT_WIDTH, width - cellPaddingWidth);
           } else {
             LOG.warn("More or less than 1 child in column! "
                 + "Can't set width for column " + i + " to " + width);
@@ -456,7 +456,7 @@ public class UIData extends javax.faces.component.UIData
         methodBinding.invoke(getFacesContext(), objects);
       } catch (EvaluationException e) {
         Throwable cause = e.getCause();
-        if (cause != null && cause instanceof AbortProcessingException) {
+        if (cause instanceof AbortProcessingException) {
           throw (AbortProcessingException) cause;
         } else {
           throw e;
