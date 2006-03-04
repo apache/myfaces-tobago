@@ -77,7 +77,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
       boolean state
           = ComponentUtil.getBooleanAttribute(component, ATTR_STATE_PREVIEW);
       component.getAttributes().put(ATTR_STATE_PREVIEW,
-          new Boolean(!state));
+          Boolean.valueOf(!state));
       facesContext.renderResponse();
 
     }

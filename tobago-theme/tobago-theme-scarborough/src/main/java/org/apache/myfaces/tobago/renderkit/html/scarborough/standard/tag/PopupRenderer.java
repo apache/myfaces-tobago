@@ -82,9 +82,9 @@ public class PopupRenderer extends RendererBase {
     writer.writeAttribute("onclick", "tobagoPopupBlink('" + clientId + "')", null);
     if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
       String bgImage = ResourceManagerUtil.getImageWithPath(facesContext, "image/popupBg.png");
-      writer.writeAttribute("style", "background: none; " +
-          "filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" +
-          bgImage + "', sizingMethod='scale');", null);    }
+      writer.writeAttribute("style", "background: none; "
+          + "filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"
+          + bgImage + "', sizingMethod='scale');", null);    }
     writer.endElement("div");
     if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
       writer.startElement("iframe", component);

@@ -125,7 +125,7 @@ public class AjaxPhaseListener implements PhaseListener {
       throws IOException {
 
     ExternalContext externalContext = facesContext.getExternalContext();
-    StringBuffer buf = new StringBuffer(content.toString());
+    StringBuffer buf = new StringBuffer(content);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("Size of AjaxResponse:\n" + buf.length());

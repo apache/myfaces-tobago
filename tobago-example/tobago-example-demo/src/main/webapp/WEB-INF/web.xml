@@ -36,6 +36,10 @@
   <listener>
     <listener-class>org.apache.myfaces.tobago.webapp.TobagoServletContextListener</listener-class>
   </listener>
+  <!-- activate this for jetty -->
+  <!--listener>
+    <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
+  </listener-->
 
   <!-- servlet -->
 <!-- no longer needed since Weblogic 8.1 SP 3
@@ -58,29 +62,7 @@
     <load-on-startup>2</load-on-startup>
   </servlet>
 
-  <!--
-    todo: Test still under development
-    http://issues.apache.org/jira/browse/MYFACES-1106
-  -->
-<!--
-  <servlet>
-    <servlet-name>ResourceServlet</servlet-name>
-    <servlet-class>org.apache.myfaces.tobago.servlet.ResourceServlet</servlet-class>
-  </servlet>
--->
-
   <!-- servlet-mapping -->
-
-  <!--
-    todo: Test still under development
-    http://issues.apache.org/jira/browse/MYFACES-1106
-  -->
-<!--
-  <servlet-mapping>
-    <servlet-name>ResourceServlet</servlet-name>
-    <url-pattern>/org/apache/myfaces/tobago/renderkit/*</url-pattern>
-  </servlet-mapping>
--->
 
   <servlet-mapping>
     <servlet-name>FacesServlet</servlet-name>
@@ -97,6 +79,7 @@
     <extension>wml</extension>
     <mime-type>text/vnd.wap.wml</mime-type>
   </mime-mapping>
+
   <mime-mapping>
     <extension>wbmp</extension>
     <mime-type>image/vnd.wap.wbmp</mime-type>

@@ -31,7 +31,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.component.UICell;
-import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 

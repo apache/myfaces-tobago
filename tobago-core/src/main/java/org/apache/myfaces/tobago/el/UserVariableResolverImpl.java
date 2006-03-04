@@ -23,14 +23,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.VariableResolver;
 
-public class VariableResolverImpl extends VariableResolver {
+public class UserVariableResolverImpl extends VariableResolver {
 
-  private static final Log LOG = LogFactory.getLog(VariableResolverImpl.class);
+  private static final Log LOG = LogFactory.getLog(UserVariableResolverImpl.class);
 
   private VariableResolver base;
   private UserWrapper userWrapper;
 
-  public VariableResolverImpl(VariableResolver base) {
+  public UserVariableResolverImpl(VariableResolver base) {
     LOG.info("Hiding ri base implemation: " + base);
     this.base = base;
   }

@@ -18,10 +18,10 @@ package org.apache.myfaces.tobago.servlet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.io.IOUtils;
 import org.apache.myfaces.tobago.context.Theme;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,29 +30,31 @@ import java.io.InputStream;
 
 /**
  * User: lofwyr
- * @since 1.0.7
  *
- * XXX This class is in development. Please don't use it in
- * production environment!
+ * @since 1.0.7
+ *        <p/>
+ *        XXX This class is in development. Please don't use it in
+ *        production environment!
  */
 public class ResourceServlet extends HttpServlet {
 
   private static final Log LOG = LogFactory.getLog(ResourceServlet.class);
-  private static final int BUFFER_SIZE = 1024;
 
   protected void service(
       HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    LOG.info("C " + request.getContextPath());
-    LOG.info("Q " + request.getQueryString());
     String requestURI = request.getRequestURI();
-    LOG.info("R " + requestURI);
 
     String resource = requestURI.substring(
         request.getContextPath().length() + 1); // todo: make it "stable"
 
-    LOG.info("L " + resource);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("C " + request.getContextPath());
+      LOG.debug("Q " + request.getQueryString());
+      LOG.debug("R " + requestURI);
+      LOG.debug("L " + resource);
+    }
 
     // todo: maybe support more extensions (configurable?)
     if (requestURI.endsWith(".gif")) {
@@ -66,20 +68,16 @@ public class ResourceServlet extends HttpServlet {
     } else if (requestURI.endsWith(".css")) {
       response.setContentType("text/css");
     } else {
-      LOG.warn("Unsupported file extension, will be ignored for security " +
-          "reasons. resource='" + resource + "'");
-      response.setStatus(403); // todo: is there a constant in servlet API for "forbidden"?
+      LOG.warn("Unsupported file extension, will be ignored for security "
+          + "reasons. resource='" + resource + "'");
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
     }
-
-    InputStream inputStream
-        = Theme.class.getClassLoader().getResourceAsStream(resource);
-    
-    ServletOutputStream outputStream = response.getOutputStream();
-
-    byte[] buffer = new byte[BUFFER_SIZE];
-    int number;
-    while (-1 != (number = inputStream.read(buffer))) {
-      outputStream.write(buffer, 0, number);
+    InputStream inputStream = null;
+    try {
+      inputStream = Theme.class.getClassLoader().getResourceAsStream(resource);
+      IOUtils.copy(inputStream, response.getOutputStream());
+    } finally {
+      IOUtils.closeQuietly(inputStream);
     }
   }
 }

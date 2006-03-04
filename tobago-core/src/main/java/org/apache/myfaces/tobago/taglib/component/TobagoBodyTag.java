@@ -59,8 +59,7 @@ public abstract class TobagoBodyTag extends TobagoTag implements BodyTag {
     if (bodyContent != null) {
       String content = bodyContent.getString();
       //bodyContent.clearBody();
-      String tmp = new String(content); // FIXME: is this not a bit slow? It is needed?
-      tmp = tmp.replace('\n', ' ');
+      String tmp = content.replace('\n', ' ');
       if (tmp.trim().length() > 0) { // if there are only whitespaces: drop bodyContent
         return false;
       }

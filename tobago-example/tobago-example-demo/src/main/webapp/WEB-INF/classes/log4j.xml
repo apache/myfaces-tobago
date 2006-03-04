@@ -81,9 +81,9 @@
 <!--    <priority value="debug" />-->
 <!--  </category>-->
 
-  <!--<category name="org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest">-->
-    <!--<priority value="debug" />-->
-  <!--</category>-->
+  <category name="org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag,SheetPageCommandRenderer">
+    <priority value="debug" />
+  </category>
 
   <!--<category name="org.apache.myfaces.tobago.overview">-->
     <!--<priority value="debug" />-->
@@ -97,9 +97,9 @@
     <!--<priority value="debug" />-->
   <!--</category>-->
 
-  <category name="org.apache.myfaces.tobago.renderkit.InputRendererBase">
+  <!--<category name="org.apache.myfaces.tobago.renderkit.InputRendererBase">
     <priority value="debug" />
-  </category>
+  </category>-->
 
   <root>
     <priority value="info" />

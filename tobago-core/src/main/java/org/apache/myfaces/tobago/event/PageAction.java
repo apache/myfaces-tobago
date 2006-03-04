@@ -1,4 +1,8 @@
 package org.apache.myfaces.tobago.event;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
  *
@@ -16,10 +20,56 @@ package org.apache.myfaces.tobago.event;
  */
 
 public enum PageAction {
-  First,
-  Next,
-  Prev,
-  Last,
-  ToRow,
-  ToPage
+
+  FIRST {
+    public String getToken() {
+      return "First";
+    }
+  },
+  NEXT {
+    public String getToken() {
+      return "Next";
+    }
+  },
+  PREV {
+    public String getToken() {
+      return "Prev";
+    }
+  },
+  LAST {
+    public String getToken() {
+      return "Last";
+    }
+  },
+  TO_ROW {
+    public String getToken() {
+      return "ToRow";
+    }
+  },
+  TO_PAGE {
+    public String getToken() {
+      return "ToPage";
+    }
+  };
+
+  private static final Map<String, PageAction> mapping;
+    
+  static {
+    mapping = new HashMap<String, PageAction>();
+
+    for (PageAction action : values()) {
+      mapping.put(action.getToken(), action);
+    }
+  }
+
+  public static PageAction parse(String name) {
+    PageAction value = mapping.get(name);
+    if (value != null) {
+      return value;
+    } else {
+      throw new IllegalArgumentException("Unknown name: " + name);
+    }
+  }
+
+  public abstract String getToken();
 }

@@ -34,7 +34,7 @@ public enum DynamicExpression {
       case NONE:
         return "NONE";
     }
-    throw new IllegalStateException("Unexpected DynamicExpression "+ name());
+    throw new IllegalStateException("Unexpected DynamicExpression " + name());
   }
 
 }

@@ -1,4 +1,5 @@
 package org.apache.myfaces.tobago.event;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
  *
@@ -23,7 +24,7 @@ import javax.faces.event.PhaseId;
 
 public class SortActionEvent extends ActionEvent {
 
-  UIColumn column;
+  private UIColumn column;
 
   public SortActionEvent(UIData sheet, UIColumn column) {
     super(sheet);

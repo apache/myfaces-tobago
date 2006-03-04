@@ -398,9 +398,7 @@ public final class HtmlWriterUtil {
     ATTRIBUTE_CHARS_TO_ESCAPE[0x3E] = "&gt;".toCharArray(); // 0x3E  '>'
 
     TEXT_CHARS_TO_ESCAPE = new char[ATTRIBUTE_CHARS_TO_ESCAPE.length][];
-    for (int i = 0; i < ATTRIBUTE_CHARS_TO_ESCAPE.length; i++) {
-      TEXT_CHARS_TO_ESCAPE[i] = ATTRIBUTE_CHARS_TO_ESCAPE[i];
-    }
+    System.arraycopy(ATTRIBUTE_CHARS_TO_ESCAPE, 0, TEXT_CHARS_TO_ESCAPE, 0, ATTRIBUTE_CHARS_TO_ESCAPE.length);
     TEXT_CHARS_TO_ESCAPE[0x3C] = "&lt;".toCharArray(); // 0x  '<'
 
   }

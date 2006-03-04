@@ -78,7 +78,7 @@ public class ValueBindingComparator extends ComparatorBase {
 
     final ValueBindingComparator that = (ValueBindingComparator) o;
 
-    if (! super.equals(o)) {
+    if (!super.equals(o)) {
       return false;
     }
     if (facesContext != null ? !facesContext.equals(that.facesContext) : that.facesContext != null) {

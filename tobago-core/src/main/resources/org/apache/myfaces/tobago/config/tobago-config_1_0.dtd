@@ -18,7 +18,7 @@
 
 <!ENTITY % Boolean "(true|false|yes|no)">
 
-<!ELEMENT tobago-config (theme-config, resource-dir+, load-themes-from-classpath?, mapping-rule*, ajax-enabled?)>
+<!ELEMENT tobago-config (theme-config, resource-dir+, load-theme-resources-from-classpath?, mapping-rule*, ajax-enabled?)>
 
 <!ELEMENT theme-config (default-theme, supported-theme*)>
 <!ELEMENT default-theme (#PCDATA)>
@@ -30,7 +30,7 @@
 
 <!ELEMENT resource-dir (#PCDATA)>
 
-<!ELEMENT load-themes-from-classpath (#PCDATA)>
+<!ELEMENT load-theme-resources-from-classpath (#PCDATA)>
 
 <!ELEMENT mapping-rule (request-uri, forward-uri, attribute*)>
 <!ELEMENT request-uri (#PCDATA)>

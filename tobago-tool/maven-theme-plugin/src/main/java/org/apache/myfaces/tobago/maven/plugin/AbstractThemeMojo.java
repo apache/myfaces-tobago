@@ -1,4 +1,5 @@
 package org.apache.myfaces.tobago.maven.plugin;
+
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
  *
@@ -45,6 +46,7 @@ public abstract class AbstractThemeMojo extends AbstractMojo {
     DirectoryScanner scanner = new DirectoryScanner();
     scanner.setBasedir(sourceDir);
     scanner.setIncludes(new String[]{"**"});
+    scanner.setExcludes(new String [] {"**/*.properties", "**/*.properties.xml","**/*.class",});
     scanner.scan();
     return scanner.getIncludedFiles();
   }

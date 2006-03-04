@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICell;
 
 import javax.faces.component.UIComponent;
-import javax.servlet.jsp.JspException;
 
 /*
  * Created 29.07.2003 at 15:09:53.
@@ -47,10 +46,6 @@ public class CellTag extends TobagoBodyTag implements CellTagDeclaration {
 
   public String getComponentType() {
     return UICell.COMPONENT_TYPE;
-  }
-
-  public int doStartTag() throws JspException {
-    return super.doStartTag();
   }
 
   public String getRendererType() {

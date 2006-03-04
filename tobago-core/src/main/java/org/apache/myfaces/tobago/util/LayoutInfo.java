@@ -54,9 +54,7 @@ public class LayoutInfo {
             + tokensToString(layoutTokens));
       }
       this.layoutTokens = new String[cellCount];
-      for (int i = 0; i < cellCount; i++) {
-        this.layoutTokens[i] = layoutTokens[i];
-      }
+      System.arraycopy(layoutTokens, 0, this.layoutTokens, 0, cellCount);
     } else {
       if (!ignoreMismatch && LOG.isWarnEnabled()) {
         LOG.warn(Integer.toString(cellCount - layoutTokens.length)
@@ -169,11 +167,11 @@ public class LayoutInfo {
 
   public static String tokensToString(String[] tokens) {
     StringBuffer sb = new StringBuffer();
-    for (int i = 0; i < tokens.length; i++) {
+    for (String token : tokens) {
       if (sb.length() != 0) {
         sb.append(";");
       }
-      sb.append(tokens[i]);
+      sb.append(token);
     }
     sb.insert(0, "\"");
     sb.append("\"");
@@ -202,8 +200,8 @@ public class LayoutInfo {
 
   public List<Integer> getSpaceList() {
     List<Integer> list = new ArrayList<Integer>(spaces.length);
-    for (int i = 0; i < spaces.length; i++) {
-      list.add(new Integer(spaces[i]));
+    for (int space : spaces) {
+      list.add(new Integer(space));
     }
     return list;
   }
@@ -246,8 +244,8 @@ public class LayoutInfo {
   //TODO replace with Arrays.asList ..
   private String arrayAsString(int[] currentSpaces) {
     StringBuffer sb = new StringBuffer("[");
-    for (int i = 0; i < currentSpaces.length; i++) {
-      sb.append(currentSpaces[i]);
+    for (int currentSpace : currentSpaces) {
+      sb.append(currentSpace);
       sb.append(", ");
     }
     sb.replace(sb.lastIndexOf(", "), sb.length(), "]");
@@ -338,8 +336,7 @@ public class LayoutInfo {
         if (isFree(i) && tokens[i].matches("^\\d+\\*")) {
           String token = tokens[i].substring(0, tokens[i].length() - 1);
           try {
-            int portion = Integer.parseInt(token);
-            portions += portion;
+            portions += Integer.parseInt(token);
           } catch (NumberFormatException e) {
             if (LOG.isWarnEnabled()) {
               LOG.warn("NumberFormatException parsing " + tokens[i]);

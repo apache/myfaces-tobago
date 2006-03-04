@@ -23,7 +23,30 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACCESS_KEY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CREATE_SPAN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HOVER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDER_RANGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDER_RANGE_EXTERN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
+import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_NAVIGATE;
+import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_RESET;
+import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_SCRIPT;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_CHECKBOX;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_RADIO;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_ONE_RADIO;
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -32,10 +55,18 @@ import org.apache.myfaces.tobago.util.RangeParser;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
-import javax.faces.component.*;
+import javax.faces.component.ActionSource;
+import javax.faces.component.EditableValueHolder;
+import javax.faces.component.UIColumn;
 import javax.faces.component.UICommand;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIGraphic;
 import javax.faces.component.UIOutput;
+import javax.faces.component.UIParameter;
+import javax.faces.component.UISelectBoolean;
 import javax.faces.component.UISelectItem;
+import javax.faces.component.UISelectItems;
+import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.el.MethodBinding;
@@ -47,7 +78,11 @@ import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class ComponentUtil {
 
@@ -231,7 +266,7 @@ public class ComponentUtil {
       bool = ((ValueBinding) bool).getValue(FacesContext.getCurrentInstance());
     }
     if (bool instanceof Boolean) {
-      return ((Boolean) bool).booleanValue();
+      return (Boolean) bool;
     } else if (bool instanceof String) {
       LOG.warn("Searching for a boolean, but find a String. Should not happen. "
           + "attribute: '" + name + "' comp: '" + component + "'");
@@ -297,8 +332,8 @@ public class ComponentUtil {
   }
 
   public static boolean isFacetOf(UIComponent component, UIComponent parent) {
-    for (Iterator i = parent.getFacets().keySet().iterator(); i.hasNext();) {
-      UIComponent facet = parent.getFacet((String) i.next());
+    for (Object o : parent.getFacets().keySet()) {
+      UIComponent facet = parent.getFacet((String) o);
       if (component.equals(facet)) {
         return true;
       }
@@ -354,8 +389,8 @@ public class ComponentUtil {
 
     ArrayList<SelectItem> list = new ArrayList<SelectItem>();
 
-    for (Iterator kids = component.getChildren().iterator(); kids.hasNext();) {
-      UIComponent kid = (UIComponent) kids.next();
+    for (Object o1 : component.getChildren()) {
+      UIComponent kid = (UIComponent) o1;
       if (LOG.isDebugEnabled()) {
         LOG.debug("kid " + kid);
         LOG.debug("kid " + kid.getClass().getName());
@@ -449,7 +484,8 @@ public class ComponentUtil {
     } else {
       result.append('\n');
       if (!asFacet) {
-        result.append(spaces(offset) + toString(component));
+        result.append(spaces(offset));
+        result.append(toString(component));
       }
       Map facets = component.getFacets();
       if (facets.size() > 0) {
@@ -472,17 +508,20 @@ public class ComponentUtil {
   }
 
   private static String toString(UIComponent component) {
+    StringBuffer buf = new StringBuffer(component.getClass().getName());
+    buf.append('@');
+    buf.append(Integer.toHexString(component.hashCode()));
+    buf.append(" ");
+    buf.append(component.getRendererType());
+    buf.append(" ");
     if (component instanceof javax.faces.component.UIViewRoot) {
-      return component.getClass().getName()
-          + '@' + Integer.toHexString(component.hashCode())
-          + " " + component.getRendererType()
-          + " " + ((javax.faces.component.UIViewRoot) component).getViewId();
+      buf.append(((javax.faces.component.UIViewRoot) component).getViewId());
+    } else {
+      buf.append(component.getId());
+      buf.append(" ");
+      buf.append(component.getClientId(FacesContext.getCurrentInstance()));
     }
-    return component.getClass().getName()
-        + '@' + Integer.toHexString(component.hashCode())
-        + " " + component.getRendererType()
-        + " " + component.getId()
-        + " " + component.getClientId(FacesContext.getCurrentInstance());
+    return buf.toString();
   }
 
   private static String spaces(int n) {
@@ -715,16 +754,17 @@ public class ComponentUtil {
 
 
   public static String createPickerId(FacesContext facesContext, UIComponent component, String postfix) {
-    String id = component.getId();
-    id = getComponentId(facesContext, component);
+    //String id = component.getId();
+    String id = getComponentId(facesContext, component);
     return id + "_picker" + postfix;
   }
 
   public static String getComponentId(FacesContext facesContext, UIComponent component) {
     String id = component.getId();
-    if (id == null) {
-      id = component.getClientId(facesContext).substring(id.lastIndexOf('_'));
-    }
+    //if (id == null) {
+      // XXX What is this?
+    //  id = component.getClientId(facesContext).substring(id.lastIndexOf('_'));
+    //}
     return id;
   }
 
@@ -751,7 +791,7 @@ public class ComponentUtil {
 
       if (labelText != null || labelWithAccessKey != null || accessKey != null) {
         Application application = FacesContext.getCurrentInstance().getApplication();
-        label = (UIOutput) application.createComponent(UIOutput.COMPONENT_TYPE);
+        label = application.createComponent(UIOutput.COMPONENT_TYPE);
         label.setRendererType("Label");
         String idprefix = ComponentUtil.getComponentId(facesContext, component);
         label.setId(idprefix + "_" + FACET_LABEL);
@@ -806,8 +846,8 @@ public class ComponentUtil {
     List<SelectItem> items = new ArrayList<SelectItem>(indices.length);
 
     if (selectItems.size() != 0) {
-      for (int i = 0; i < indices.length; i++) {
-        items.add(selectItems.get(indices[i]));
+      for (int indice : indices) {
+        items.add(selectItems.get(indice));
       }
     } else {
       LOG.warn("No items found! rendering dummys instead!");

@@ -26,6 +26,5 @@
   </theme-config>
 
   <resource-dir>tobago-resource</resource-dir>
-  <resource-dir>tobago</resource-dir>
-
+  <resource-dir>org/apache/myfaces/tobago/renderkit</resource-dir>
 </tobago-config>

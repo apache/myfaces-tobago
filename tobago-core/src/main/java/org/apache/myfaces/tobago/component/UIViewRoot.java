@@ -133,7 +133,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
           } catch (ConcurrentModificationException cme) {
             int eventIndex = listiterator.previousIndex();
             events.remove(eventIndex);
-            listiterator = events.listIterator();
+            //listiterator = events.listIterator();
           }
         }
       }

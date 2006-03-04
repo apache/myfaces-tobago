@@ -87,7 +87,7 @@
           </configuration>
       </plugin>
 
-      <!-- pmd has problems with annotations
+      <!-- pmd has problems with annotations    -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
@@ -96,7 +96,7 @@
           <targetJdk>1.5</targetJdk>
         </configuration>
       </plugin>
-      -->
+
     </plugins>
   </reporting>
 

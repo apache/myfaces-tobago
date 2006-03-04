@@ -40,7 +40,6 @@ import org.apache.myfaces.tobago.renderkit.html.InRendererBase;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
@@ -169,8 +168,7 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
 
   }
 
-  public void encodeAjax(FacesContext context, UIComponent uiComponent) throws IOException
-  {
+  public void encodeAjax(FacesContext context, UIComponent uiComponent) throws IOException {
     AjaxUtils.checkParamValidity(context, uiComponent,
         org.apache.myfaces.tobago.component.UIInput.class);
 

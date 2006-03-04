@@ -589,10 +589,6 @@ public class ResourceManagerImpl implements ResourceManager {
 
     private int miss;
 
-    public Object put(Object key, Object value) {
-      return super.put(key, value);
-    }
-
     public Object get(Object key) {
       Object value = super.get(key);
       if (value != null) {
@@ -675,11 +671,8 @@ public class ResourceManagerImpl implements ResourceManager {
       if (name != null ? !locale.equals(cacheKey.locale) : cacheKey.locale != null) {
         return false;
       }
-      if (!clientPropertyId.equals(cacheKey.clientPropertyId)) {
-        return false;
-      }
+      return clientPropertyId.equals(cacheKey.clientPropertyId);
 
-      return true;
     }
 
     private void calcHashCode() {

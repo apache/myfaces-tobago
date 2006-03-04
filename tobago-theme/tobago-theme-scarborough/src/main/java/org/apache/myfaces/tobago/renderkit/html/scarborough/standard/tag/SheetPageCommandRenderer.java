@@ -1,4 +1,5 @@
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
  *
@@ -30,7 +31,7 @@ import java.util.Map;
 
 public class SheetPageCommandRenderer extends LinkRenderer {
 
-  private final Log LOG = LogFactory.getLog(SheetPageCommandRenderer.class);
+  private static final Log LOG = LogFactory.getLog(SheetPageCommandRenderer.class);
 
   public static final String PAGE_RENDERER_TYPE = "SheetPageCommand";
 
@@ -45,17 +46,20 @@ public class SheetPageCommandRenderer extends LinkRenderer {
 
       PageAction action;
       try {
-        action = PageAction.valueOf(component.getId());
+        action = PageAction.parse(component.getId());
+        if (action == null) {
+          LOG.error("Illegal value for PageAction :" + component.getId());
+          return;
+        }
       } catch (Exception e) {
         LOG.error("Illegal value for PageAction :" + component.getId());
         return;
       }
-      PageActionEvent event
-          = new PageActionEvent((UIData) component.getParent(), action);
+      PageActionEvent event = new PageActionEvent((UIData) component.getParent(), action);
 
       switch(action) {
-        case ToPage:
-        case ToRow:
+        case TO_PAGE:
+        case TO_ROW:
           Map map = facesContext.getExternalContext().getRequestParameterMap();
           Object value = map.get(clientId + SUBCOMPONENT_SEP + "value");
           try {
@@ -67,10 +71,7 @@ public class SheetPageCommandRenderer extends LinkRenderer {
         default:
           // nothing more to do
       }
-
       component.queueEvent(event);
     }
   }
-
-
 }

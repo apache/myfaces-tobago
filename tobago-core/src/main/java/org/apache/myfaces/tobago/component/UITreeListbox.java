@@ -83,7 +83,6 @@ public class UITreeListbox extends UITree implements LayoutProvider {
     if ("single".equals(selectable)
         || "singleLeafOnly".equals(selectable)
         || "siblingLeafOnly".equals(selectable)) {
-      return;
     } else {
       // fix to single
       LOG.warn("Illegal attributeValue selectable : " + selectable + " set to 'single'");
@@ -94,29 +93,33 @@ public class UITreeListbox extends UITree implements LayoutProvider {
   private void debugStates(FacesContext facesContext) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("#####################################################");
-      String state = "expandState : ;";
+      StringBuffer state = new StringBuffer("expandState : ;");
       for (DefaultMutableTreeNode treeNode : getState().getExpandState()) {
-        state += nodeStateId(facesContext, findUITreeNode(getRoot(), treeNode)) + ";";
+        state.append(nodeStateId(facesContext, findUITreeNode(getRoot(), treeNode)));
+        state.append(";");
       }
       LOG.debug(state);
 
-      state = "selectState : ;";
+      state = new StringBuffer("selectState : ;");
       for (DefaultMutableTreeNode treeNode : getState().getSelection()) {
-        state += nodeStateId(facesContext, findUITreeNode(getRoot(), treeNode)) + ";";
+        state.append(nodeStateId(facesContext, findUITreeNode(getRoot(), treeNode)));
+        state.append(";");
       }
       LOG.debug(state);
 
-      state = "selectionPath : ;";
+      state = new StringBuffer("selectionPath : ;");
       for (UITreeNode treeNode : getSelectionPath()) {
-        state += nodeStateId(facesContext, treeNode) + ";";
+        state.append(nodeStateId(facesContext, treeNode));
+        state.append(";");
       }
       LOG.debug(state);
 
-      state = "expandPath : ;";
+      state = new StringBuffer("expandPath : ;");
       for (UITreeNode treeNode : getExpandPath()) {
-        state += nodeStateId(facesContext, treeNode) + ";";
+        state.append(nodeStateId(facesContext, treeNode));
+        state.append(";");
       }
-      LOG.info(state);
+      LOG.debug(state);
 
       LOG.debug("");
     }
@@ -200,8 +203,7 @@ public class UITreeListbox extends UITree implements LayoutProvider {
       children = Collections.EMPTY_LIST;
     }
     List<UITreeNode> nodes = new ArrayList<UITreeNode>(children.size());
-    for (Iterator iter = children.iterator(); iter.hasNext();) {
-      Object node = iter.next();
+    for (Object node : children) {
       if (node instanceof UITreeNode) {
         nodes.add((UITreeNode) node);
       }
@@ -274,12 +276,12 @@ public class UITreeListbox extends UITree implements LayoutProvider {
         depth = defaultColumnCount;
       }
 
-      String columns = "1*";
+      StringBuffer columns = new StringBuffer("1*");
       for (int i = 1; i < depth; i++) {
-        columns += ";1*";
+        columns.append(";1*");
       }
 
-      layout.getAttributes().put(ATTR_COLUMNS, columns);
+      layout.getAttributes().put(ATTR_COLUMNS, columns.toString());
       getFacets().put(FACET_LAYOUT_DEFAULT, layout);
     }
 

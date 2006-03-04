@@ -1,5 +1,21 @@
 package org.apache.myfaces.tobago.context;
 
+/*
+ * Copyright 2002-2005 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,7 +47,7 @@ class ResourceLocator {
 // todo: Test for new theme build mechanism still under development
 // http://issues.apache.org/jira/browse/MYFACES-1106
 // to activate you have to do:
-// 1. set load-themes-from-classpath = true in the tobago-config.xml
+// 1. set load-theme-resources-from-classpath = true in the tobago-config.xml
 // 2. add resource-path in tobago-config.xml
 // 3. add ResourceServlet in web.xml
 
@@ -52,9 +68,9 @@ class ResourceLocator {
   public void init()
       throws ServletException {
     locateResourcesInWar(servletContext, resourceManager, "/");
-    if (tobagoConfig.isLoadThemesFromClasspath()) {
-      locateResourcesInLib(resourceManager);
-    }
+
+    locateResourcesInLib(resourceManager);
+    
     for (String dir : resourceDirs) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("Locating resources in dir: " + dir);
@@ -76,17 +92,17 @@ class ResourceLocator {
     }
     Set<String> resourcePaths = servletContext.getResourcePaths(path);
     if (resourcePaths == null || resourcePaths.isEmpty()) {
-      if (LOG.isErrorEnabled()) {
-        LOG.error("ResourcePath empty! Please check the tobago-config.xml file!"
+      LOG.error("ResourcePath empty! Please check the tobago-config.xml file!"
             + " path='" + path + "'");
-      }
       return;
     }
     for (String childPath : resourcePaths) {
       if (childPath.endsWith("/")) {
         // ignore, because weblogic puts the path directory itself in the Set
         if (!childPath.equals(path)) {
-          LOG.error("childPath dir " + childPath);
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("childPath dir " + childPath);
+          }
           locateResourcesInWar(servletContext, resources, childPath);
         }
       } else {
@@ -108,7 +124,6 @@ class ResourceLocator {
       throws ServletException {
 
     ThemeParser parser = new ThemeParser();
-    InputStream stream = null;
     try {
       LOG.error("Loading tobago-theme.xml");
       Enumeration<URL> urls = getClass().getClassLoader().getResources("META-INF/tobago-theme.xml");
@@ -124,6 +139,7 @@ class ResourceLocator {
           String fileName = themeUrl.toString().substring(4, themeUrl.toString().indexOf("!"));
           ClassLoader classLoader = ResourceManagerFactory.class.getClassLoader();
           URL jarFile = new URL(fileName);
+          InputStream stream = null;
           try {
             stream = jarFile.openStream();
             ZipInputStream zip = new ZipInputStream(stream);
@@ -146,7 +162,9 @@ class ResourceLocator {
                   LOG.info(inputStream);
                   addProperties(inputStream, resources, name, true);
                 } else {
-                  resources.add(name);
+                  if (tobagoConfig.isLoadThemesFromClasspath()) {
+                    resources.add(name);
+                  }
                 }
               }
             }

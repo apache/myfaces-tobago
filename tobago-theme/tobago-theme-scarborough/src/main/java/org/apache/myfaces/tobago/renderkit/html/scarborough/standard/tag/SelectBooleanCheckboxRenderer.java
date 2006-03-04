@@ -51,7 +51,7 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
 //    LOG.debug("decode: key='" + uiInput.getClientId(facesContext)
 //        + "' value='" + newValue + "'  valid = " + uiInput.isValid());
     if (newValue != null) {
-      uiInput.setValue(new Boolean(newValue));
+      uiInput.setValue(Boolean.valueOf(newValue));
     } else {
       uiInput.setValue(Boolean.FALSE);
     }

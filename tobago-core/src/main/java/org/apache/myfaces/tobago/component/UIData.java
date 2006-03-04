@@ -50,7 +50,6 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -149,7 +148,7 @@ public class UIData extends javax.faces.component.UIData
 
       if (columnLayout == null && allColumns.size() > 0) {
         StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < allColumns.size(); i++) {
+        for (UIColumn allColumn : allColumns) {
           sb.append("1*;");
         }
         columnLayout = sb.deleteCharAt(sb.lastIndexOf(";")).toString();
@@ -174,9 +173,9 @@ public class UIData extends javax.faces.component.UIData
         String[] allTokens = layoutTokens;
         layoutTokens = new String[columns.size()];
         int j = 0;
-        for (int i = 0; i < allTokens.length; i++) {
-          if (allTokens[i] != null) {
-            layoutTokens[j] = allTokens[i];
+        for (String allToken : allTokens) {
+          if (allToken != null) {
+            layoutTokens[j] = allToken;
             j++;
           }
         }
@@ -300,8 +299,8 @@ public class UIData extends javax.faces.component.UIData
 
   public List<UIComponent> getRenderedChildrenOf(UIColumn column) {
     List<UIComponent> children = new ArrayList<UIComponent>();
-    for (Iterator kids = column.getChildren().iterator(); kids.hasNext();) {
-      UIComponent kid = (UIComponent) kids.next();
+    for (Object o : column.getChildren()) {
+      UIComponent kid = (UIComponent) o;
       if (kid.isRendered()) {
         children.add(kid);
       }
@@ -313,8 +312,17 @@ public class UIData extends javax.faces.component.UIData
     return getFirst() == 0;
   }
 
+  public boolean hasRowCount() {
+    return getRowCount() != -1;
+  }
+
   public boolean isAtEnd() {
-    return getFirst() >= getLastPageIndex();
+    if (!hasRowCount()) {
+      setRowIndex(getFirst()+getRows()+1);
+      return !isRowAvailable();
+    } else {
+      return getFirst() >= getLastPageIndex();
+    }
   }
 
   public int getLastPageIndex() {

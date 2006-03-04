@@ -179,7 +179,7 @@ public class UITreeNode extends UIInput {
   protected Object checkValue(Object currentValue) {
 
     if (currentValue == null) {
-      LOG.error("currentValue is null: '" + currentValue + "'");
+      LOG.error("currentValue is null");
       currentValue = emergencyValue();
     }
 

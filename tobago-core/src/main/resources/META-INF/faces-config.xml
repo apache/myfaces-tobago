@@ -29,9 +29,6 @@
     <view-handler>
       org.apache.myfaces.tobago.application.ViewHandlerImpl
     </view-handler>
-    <variable-resolver>
-      org.apache.myfaces.tobago.el.VariableResolverImpl
-    </variable-resolver>
     <message-bundle>
       org.apache.myfaces.tobago.context.TobagoResourceBundle
     </message-bundle>

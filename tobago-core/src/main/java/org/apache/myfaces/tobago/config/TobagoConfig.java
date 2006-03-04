@@ -36,7 +36,7 @@ public class TobagoConfig {
   private Theme defaultTheme;
   private List<Theme> availableThemes;
   private List<String> resourceDirs;
-  private boolean loadThemesFromClasspath;
+  private boolean loadThemesFromClasspath = true;
   private List<MappingRule> mappingRules;
   private boolean ajaxEnabled;
 

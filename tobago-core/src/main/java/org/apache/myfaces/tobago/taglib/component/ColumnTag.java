@@ -18,23 +18,14 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 
-/**
- * Renders a UIComponent that represents a single column of data within a
- * parent UIData component.
- */
-@Tag(name = "column")
+
 public class ColumnTag extends TobagoTag
-    implements HasIdBindingAndRendered, HasLabel {
+    implements ColumnTagDeclaration {
 
   private String sortable;
   private String align;
@@ -63,12 +54,6 @@ public class ColumnTag extends TobagoTag
     return align;
   }
 
-
-  /**
-   * Alignment of this column.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute()
   public void setAlign(String align) {
     this.align = align;
   }
@@ -77,14 +62,7 @@ public class ColumnTag extends TobagoTag
     return sortable;
   }
 
-  /**
-   * Flag indicating whether or not this column is sortable.
-   * To make a column sortable the data of the sheet must be one of
-   * <code>java.util.List</code>, <code>Object[]</code> or instance of
-   * <code>org.apache.myfaces.tobago.model.SortableByApplication</code>.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = { "java.lang.Boolean" }, defaultValue = "false")
+
   public void setSortable(String sortable) {
     this.sortable = sortable;
   }

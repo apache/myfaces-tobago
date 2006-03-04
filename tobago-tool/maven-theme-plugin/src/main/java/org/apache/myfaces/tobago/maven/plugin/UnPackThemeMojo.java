@@ -27,8 +27,11 @@ import org.codehaus.plexus.util.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.FileInputStream;
 import java.util.Iterator;
 import java.util.List;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipEntry;
 
 /**
  * Created by IntelliJ IDEA.
@@ -70,6 +73,35 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
    */
   private List pluginArtifacts;
 
+  private boolean findThemeDescriptor(File jarFile) throws MojoExecutionException {
+    ZipInputStream zip = null;
+    try {
+      zip = new ZipInputStream(new FileInputStream(jarFile));
+      while (zip.available() > 0) {
+        ZipEntry nextEntry = zip.getNextEntry();
+        if (nextEntry == null || nextEntry.isDirectory()) {
+          continue;
+        }
+        String name = nextEntry.getName();
+        if (name.equals("META-INF/tobago-theme.xml")) {
+          return true;
+        }
+      }
+    } catch (IOException e) {
+      throw new MojoExecutionException("Error find ThemeDescriptor", e);
+    } finally {
+      if (zip != null) {
+        try {
+          zip.close();
+        } catch (IOException e) {
+          // ignore
+        }
+      }
+    }
+
+    return false;
+  }
+
   public void execute() throws MojoExecutionException {
 
     Iterator artifacts =  getProject().getDependencyArtifacts().iterator();
@@ -79,9 +111,9 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
       }
       Artifact artifact = (Artifact) artifacts.next();
        getLog().debug("Expanding theme "+ artifact);
-      if (Artifact.SCOPE_PROVIDED.equals(artifact.getScope()) &&
-          "jar".equals(artifact.getType())&&
-          "THEME".equals(artifact.getClassifier())) {
+
+      if (Artifact.SCOPE_COMPILE.equals(artifact.getScope()) &&
+          "jar".equals(artifact.getType())&& findThemeDescriptor(artifact.getFile())) {
 
         String name = artifact.getFile().getName();
         getLog().debug("Expanding theme "+ name);

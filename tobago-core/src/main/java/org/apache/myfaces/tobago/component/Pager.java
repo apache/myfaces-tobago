@@ -47,24 +47,31 @@ public class Pager extends MethodBinding {
         LOG.debug("action = '" + pageEvent.getAction().name() + "'");
       }
 
-      int start, last;
+      int start;
       switch(pageEvent.getAction()) {
-        case First:
+        case FIRST:
           first = 0;
           break;
-        case Prev:
+        case PREV:
           start = sheet.getFirst() - sheet.getRows();
           first = start < 0 ? 0 : start;
           break;
-        case Next:
-          start = sheet.getFirst() + sheet.getRows();
-          last = sheet.getLastPageIndex();
-          first = start > sheet.getRowCount() ? last : start;
+        case NEXT:
+          if (sheet.hasRowCount()) {
+            start = sheet.getFirst() + sheet.getRows();
+            first = start > sheet.getRowCount() ? sheet.getLastPageIndex() : start;
+          } else {
+            if (sheet.isAtEnd()) {
+              first = sheet.getFirst();
+            } else {
+              first = sheet.getFirst() + sheet.getRows();
+            }
+          }
           break;
-        case Last:
+        case LAST:
           first = sheet.getLastPageIndex();
           break;
-        case ToRow:
+        case TO_ROW:
           start = pageEvent.getValue() -1;
           if (start > sheet.getLastPageIndex()) {
             start = sheet.getLastPageIndex();
@@ -73,7 +80,7 @@ public class Pager extends MethodBinding {
           }
           first = start;
           break;
-        case ToPage:
+        case TO_PAGE:
           start = pageEvent.getValue() -1;
           if (LOG.isDebugEnabled()) {
             LOG.debug("start = " + start + "  sheet.getRows() = "

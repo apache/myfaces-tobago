@@ -28,14 +28,7 @@
   </theme-config>
 
   <resource-dir>tobago-resource</resource-dir>
-  <resource-dir>tobago</resource-dir>
-
-  <!--
-    todo: Test for new theme build mechanism still under development
-    http://issues.apache.org/jira/browse/MYFACES-1106
-  -->
-  <!--<resource-dir>org/apache/myfaces/tobago/renderkit</resource-dir>-->
-  <!--this may not necessary, if there is a META-INF/theme-config.xml in a later version -->
-
+  <resource-dir>org/apache/myfaces/tobago/renderkit</resource-dir>
+  <load-theme-resources-from-classpath>false</load-theme-resources-from-classpath>
   <ajax-enabled>true</ajax-enabled>
 </tobago-config>
