@@ -59,7 +59,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.Pager;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UIData;
 import org.apache.myfaces.tobago.config.TobagoConfig;
@@ -85,7 +84,6 @@ import javax.faces.component.UIPanel;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.el.MethodBinding;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -211,7 +209,6 @@ public class SheetRenderer extends RendererBase
 
     Application application = facesContext.getApplication();
     SheetState state = data.getSheetState(facesContext);
-    MethodBinding pager = new Pager();
     List<Integer> columnWidths = data.getWidthList();
 
     String selectedRows = StringUtil.toString(getSelectedRows(data, state));
@@ -456,7 +453,7 @@ public class SheetRenderer extends RendererBase
             FACET_PAGER_ROW);
         if (pagerCommand == null) {
           pagerCommand = createPagingCommand(
-                  application, PageAction.ToRow, false, pager);
+                  application, PageAction.ToRow, false);
           data.getFacets().put(FACET_PAGER_ROW, pagerCommand);
         }
         String pagingOnClick
@@ -486,7 +483,7 @@ public class SheetRenderer extends RendererBase
         writer.startElement("span", null);
         writer.writeClassAttribute(className);
         writer.writeIdAttribute(sheetId + SUBCOMPONENT_SEP + "pagingLinks");
-        writeDirectPagingLinks(writer, facesContext, application, pager, data);
+        writeDirectPagingLinks(writer, facesContext, application, data);
         writer.endElement("span");
       }
 
@@ -495,7 +492,7 @@ public class SheetRenderer extends RendererBase
             = (UICommand) data.getFacet(FACET_PAGER_PAGE);
         if (pagerCommand == null) {
           pagerCommand = createPagingCommand(
-              application, PageAction.ToPage, false, pager);
+              application, PageAction.ToPage, false);
           data.getFacets().put(FACET_PAGER_PAGE, pagerCommand);
         }
         String pagingOnClick
@@ -513,8 +510,8 @@ public class SheetRenderer extends RendererBase
         writer.writeText("", null);
 
 
-        link(facesContext, application, pager, data.isAtBeginning(), PageAction.First, data);
-        link(facesContext, application, pager, data.isAtBeginning(), PageAction.Prev, data);
+        link(facesContext, application, data.isAtBeginning(), PageAction.First, data);
+        link(facesContext, application, data.isAtBeginning(), PageAction.Prev, data);
         writer.startElement("span", null);
         writer.writeClassAttribute("tobago-sheet-paging-pages-text");
         writer.writeAttribute("onclick", "tobagoSheetEditPagingRow(this, '"
@@ -524,8 +521,8 @@ public class SheetRenderer extends RendererBase
         writer.write(createSheetPagingInfo(
             data, facesContext, pagerCommandId, false));
         writer.endElement("span");
-        link(facesContext, application, pager, data.isAtEnd(), PageAction.Next, data);
-        link(facesContext, application, pager, data.isAtEnd(), PageAction.Last, data);
+        link(facesContext, application, data.isAtEnd(), PageAction.Next, data);
+        link(facesContext, application, data.isAtEnd(), PageAction.Last, data);
       }
 
       writer.endElement("span");
@@ -721,32 +718,11 @@ public class SheetRenderer extends RendererBase
   }
 
   private static void link(FacesContext facesContext, Application application,
-      MethodBinding pager, boolean disabled, PageAction command, UIData data)
+                           boolean disabled, PageAction command, UIData data)
       throws IOException {
-    UICommand link;
-//    UIGraphic image;
-    link = createPagingCommand(application, command, disabled, pager);
-
-//    image = (UIGraphic) application.createComponent(UIGraphic.COMPONENT_TYPE);
-//    image.setRendererType("Image"); //FIXME: use constant ?
-//    image.setRendered(true);
-//    image.getAttributes().put(TobagoConstants.ATTR_I18N, Boolean.TRUE);
-//    if (disabled) {
-//      image.setValue(command + "Disabled.gif");
-//    } else {
-//      image.setValue(command + ".gif");
-//    }
-//    image.getAttributes().put(TobagoConstants.ATTR_TITLE,
-//        ResourceManagerUtil.getProperty(facesContext, "tobago",
-//            "sheet" + command));
-//    link.getChildren().add(image);
-
-
-
+    UICommand link= createPagingCommand(application, command, disabled);
 
     data.getFacets().put(command.name(), link);
-//    RenderUtil.encode(facesContext, link);
-
 
     String tip = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
         "sheet" + command.name());
@@ -774,7 +750,6 @@ public class SheetRenderer extends RendererBase
       String image1x1, int sortMarkerWidth) throws IOException {
     String sheetId = component.getClientId(facesContext);
     Application application = facesContext.getApplication();
-    MethodBinding sorter = component.getSortActionListener();
 
     List columnWidths
         = (List) component.getAttributes().get(ATTR_WIDTH_LIST);
@@ -804,7 +779,6 @@ public class SheetRenderer extends RendererBase
         sortCommand
             = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
         sortCommand.setRendererType(RENDERER_TYPE_LINK);
-        sortCommand.setActionListener(sorter);
         sortCommand.setId(sorterId);
         column.getFacets().put(UIData.FACET_SORTER, sortCommand);        
       }
@@ -850,7 +824,7 @@ public class SheetRenderer extends RendererBase
     String resizerClass;
     if (column instanceof UIColumnSelector) {
       resizerClass = "tobago-sheet-header-resize";
-      renderColumnSelectorHeader(facesContext, writer, component, column);
+      renderColumnSelectorHeader(facesContext, writer, column);
     } else {
       resizerClass =
           "tobago-sheet-header-resize tobago-sheet-header-resize-cursor";
@@ -888,7 +862,7 @@ public class SheetRenderer extends RendererBase
 
 
   private void renderColumnSelectorHeader(FacesContext facesContext,
-      TobagoResponseWriter writer, UIData component, UIColumn column)
+      TobagoResponseWriter writer, UIColumn column)
       throws IOException {
     UIPanel menu = (UIPanel) column.getFacet(FACET_MENUPOPUP);
     if (menu == null) {
@@ -970,13 +944,12 @@ public class SheetRenderer extends RendererBase
   }
 
   private void writeDirectPagingLinks(TobagoResponseWriter writer,
-      FacesContext facesContext, Application application,
-      MethodBinding methodBinding, UIData data)
+      FacesContext facesContext, Application application, UIData data)
       throws IOException {
     UICommand pagerCommand = (UICommand) data.getFacet(FACET_PAGER_PAGE);
     if (pagerCommand == null) {
       pagerCommand = createPagingCommand(
-          application, PageAction.ToPage, false, methodBinding);
+          application, PageAction.ToPage, false);
       data.getFacets().put(FACET_PAGER_PAGE, pagerCommand);
     }
     String pagerCommandId = pagerCommand.getClientId(facesContext);
@@ -1066,7 +1039,7 @@ public class SheetRenderer extends RendererBase
   }
 
   private static UICommand createPagingCommand(Application application,
-      PageAction command, boolean disabled, MethodBinding methodBinding) {
+                                               PageAction command, boolean disabled) {
     UICommand link;
     link = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
     link.setRendererType(PAGE_RENDERER_TYPE);
@@ -1076,7 +1049,6 @@ public class SheetRenderer extends RendererBase
     link.getAttributes().put(ATTR_INLINE, Boolean.TRUE);
     link.getAttributes().put(ATTR_DISABLED,
         Boolean.valueOf(disabled));
-    link.setActionListener(methodBinding);
     return link;
   }
 

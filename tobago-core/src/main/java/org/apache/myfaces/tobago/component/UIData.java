@@ -429,6 +429,10 @@ public class UIData extends javax.faces.component.UIData
       MethodBinding methodBinding = getStateChangeListener();
       Object[] objects = new Object[]{(SheetStateChangeEvent) facesEvent};
       invokeMethodBinding(methodBinding, objects);
+    } else if (facesEvent instanceof PageActionEvent) {
+      PageActionEvent pageEvent = (PageActionEvent) facesEvent;
+      Object[] objects = new Object[]{pageEvent};
+      invokeMethodBinding(new Pager(), objects);
     } else if (facesEvent instanceof SortActionEvent) {
       SortActionEvent sortEvent = (SortActionEvent) facesEvent;
       getSheetState(getFacesContext()).updateSortState(sortEvent);

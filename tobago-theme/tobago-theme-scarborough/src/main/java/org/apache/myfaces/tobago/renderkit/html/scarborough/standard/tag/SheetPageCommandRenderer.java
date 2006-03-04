@@ -19,6 +19,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIData;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 
@@ -49,7 +50,8 @@ public class SheetPageCommandRenderer extends LinkRenderer {
         LOG.error("Illegal value for PageAction :" + component.getId());
         return;
       }
-      PageActionEvent event = new PageActionEvent(component, action);
+      PageActionEvent event
+          = new PageActionEvent((UIData) component.getParent(), action);
 
       switch(action) {
         case ToPage:
