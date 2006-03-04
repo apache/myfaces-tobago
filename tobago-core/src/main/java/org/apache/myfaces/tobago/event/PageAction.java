@@ -49,7 +49,7 @@ public enum PageAction {
   },
 
   /**
-   * Next page is requested
+   * Last page is requested
    */
   LAST {
     public String getToken() {
