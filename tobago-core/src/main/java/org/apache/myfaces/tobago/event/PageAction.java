@@ -1,8 +1,5 @@
 package org.apache.myfaces.tobago.event;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
  *
@@ -18,6 +15,9 @@ import java.util.Map;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import java.util.HashMap;
+import java.util.Map;
 
 public enum PageAction {
 
@@ -75,18 +75,18 @@ public enum PageAction {
     }
   };
 
-  private static final Map<String, PageAction> mapping;
+  private static final Map<String, PageAction> MAPPING;
 
   static {
-    mapping = new HashMap<String, PageAction>();
+    MAPPING = new HashMap<String, PageAction>();
 
     for (PageAction action : values()) {
-      mapping.put(action.getToken(), action);
+      MAPPING.put(action.getToken(), action);
     }
   }
 
   public static PageAction parse(String name) {
-    PageAction value = mapping.get(name);
+    PageAction value = MAPPING.get(name);
     if (value != null) {
       return value;
     } else {
