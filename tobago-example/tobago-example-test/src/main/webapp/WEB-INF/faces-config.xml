@@ -41,11 +41,11 @@
   <navigation-rule>
     <navigation-case>
       <from-outcome>solarList</from-outcome>
-      <to-view-id>/solarList.jsp</to-view-id>
+      <to-view-id>solarList.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>solarDetail</from-outcome>
-      <to-view-id>/solarDetail.jsp</to-view-id>
+      <to-view-id>solarDetail.jsp</to-view-id>
     </navigation-case>
  </navigation-rule>
 

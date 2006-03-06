@@ -8,7 +8,7 @@
     </f:facet>
     <tc:box >
        <f:facet name="layout">
-          <tc:gridLayout columns="1*" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;*"/>
+          <tc:gridLayout columns="1*" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;*;fixed"/>
         </f:facet>
        <tx:in value="#{test.name}" label="Name" readonly="true" />
        <tx:in value="#{test.number}" label="Number" readonly="true" />
@@ -20,6 +20,13 @@
        <tx:in value="#{test.discoverer}" label="Discoverer" readonly="true" />
        <tx:in value="#{test.discoverYear}" label="DiscoverYear" readonly="true" />  
        <tc:cell/>
+        <tc:panel>
+          <f:facet name="layout">
+            <tc:gridLayout columns="4*;1*"  />
+          </f:facet>
+          <tc:cell />
+          <tc:button action="solarList" label="Return To List" defaultCommand="true" />
+        </tc:panel>
     </tc:box>
   </tc:page>
 </f:view>
