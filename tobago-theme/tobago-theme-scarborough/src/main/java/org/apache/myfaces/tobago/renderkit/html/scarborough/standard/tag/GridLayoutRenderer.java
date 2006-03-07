@@ -42,11 +42,11 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UICell;
 import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.component.UICell;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
@@ -56,7 +56,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.awt.Dimension;
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -114,6 +114,9 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
     int height = 0;
     for (int i = 0; i < size; i++) {
+      if (!rowIsRendered(rows.get(i))) {
+        break;
+      }
       height += getCellPadding(facesContext, layout,  i);
       String token = layoutTokens[i];
       if (token.matches("\\d+px")) {
@@ -134,6 +137,18 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     }
 
     return height;
+  }
+
+  private boolean rowIsRendered(UIGridLayout.Row row) {
+    for (Object element : row.getElements()) {
+      if (element instanceof UIComponent) {
+        UIComponent component = (UIComponent) element;
+        if (component.isRendered()) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   public void encodeChildrenOfComponent(FacesContext facesContext, UIComponent component)
@@ -224,7 +239,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
             if (columnWidths != null) {
               cellWidth = 0;
               for (int i = columnIndex;
-                  i < columnIndex + spanX && i < columnWidths.size(); i++) {
+                   i < columnIndex + spanX && i < columnWidths.size(); i++) {
                 cellWidth += ((Integer) columnWidths.get(i)).intValue()
                     + getCellPadding(facesContext, layout, i);
               }
