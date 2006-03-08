@@ -77,6 +77,7 @@ public class MenuBarRenderer extends RendererBase {
 
   private static final Log LOG = LogFactory.getLog(MenuBarRenderer.class);
 
+  public static final String SEARCH_ID_POSTFIX = SUBCOMPONENT_SEP + "popup";
 
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
@@ -147,7 +148,7 @@ public class MenuBarRenderer extends RendererBase {
     sb.append("function ");
     sb.append(setupFunction);
     sb.append("(id, pageId) {\n");
-    sb.append("  var searchId = id + '" + SUBCOMPONENT_SEP + "popup';\n");
+    sb.append("  var searchId = id + '" + SEARCH_ID_POSTFIX + "';\n");
     sb.append("  var menubar = document.getElementById(searchId);\n");
     sb.append("  if (! menubar) {\n");
     sb.append("    searchId  = id;\n");

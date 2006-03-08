@@ -630,15 +630,23 @@ label.tobago-label-error {
   background: #dddddd;
 }
 
-
 .tobago-toolBar-button-menu {
   width:  15px;
   height: 15px;
 }
 
+/*
+  ! css classes tobago-toolBar-button-hover and tobago-toolBar-button-menu-focus
+    should have the same content, but needs different names !
+*/
 .tobago-toolBar-button-hover {
   border: 1px solid black;
   background: #c5c5c5;
+  margin: 0px;
+}
+.tobago-toolBar-button-menu-focus {
+  border: 1px solid black;
+  background: #bbbbbb;
   margin: 0px;
 }
 

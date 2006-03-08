@@ -74,3 +74,5 @@ function getToolBarButtonMenuTopOffset() {
 function getSheetSelectorMenuTopOffset() {
   return -2;
 }
+
+Tobago.Menu.toolbarLeftOffset = 1;

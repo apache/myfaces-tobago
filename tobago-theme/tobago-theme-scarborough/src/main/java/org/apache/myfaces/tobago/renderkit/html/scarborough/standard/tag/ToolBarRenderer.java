@@ -263,8 +263,8 @@ public class ToolBarRenderer extends RendererBase {
     }
 
     final String clientId = command.getClientId(facesContext);
-    final boolean disabled = ComponentUtil.getBooleanAttribute(command,
-        ATTR_DISABLED);
+    final boolean disabled
+        = ComponentUtil.getBooleanAttribute(command, ATTR_DISABLED);
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
     final UIComponent popupMenu = command.getFacet(FACET_MENUPOPUP);
 
@@ -408,25 +408,16 @@ public class ToolBarRenderer extends RendererBase {
 
   private String createOnClick(FacesContext facesContext,
       UIComponent component) {
-    return ButtonRenderer.createOnClick(facesContext, component);
-//    String type = (String) component.getAttributes().get(ATTR_TYPE);
-//    String command = (String) component.getAttributes().get(ATTR_ACTION_STRING);
-//    String clientId = component.getClientId(facesContext);
-//    String onclick;
-//
-//    if (COMMAND_TYPE_NAVIGATE.equals(type)) {
-//      onclick = "navigateToUrl('"
-//          + HtmlUtils.generateUrl(facesContext, command) + "')";
-//    } else if (COMMAND_TYPE_RESET.equals(type)) {
-//      onclick = null;
-//    } else if (COMMAND_TYPE_SCRIPT.equals(type)) {
-//      onclick = command;
-//    } else { // default: Action.TYPE_SUBMIT
-//      onclick = "submitAction('" +
-//          ComponentUtil.findPage(component).getFormId(facesContext) +
-//          "','" + clientId + "')";
-//    }
-//    return onclick;
+    if ( component.getFacet(FACET_MENUPOPUP) != null
+        && ((UICommand) component).getAction() == null
+        && ((UICommand) component).getActionListener() == null
+        && ((UICommand) component).getActionListeners().length == 0) {
+      String searchId = component.getClientId(facesContext)
+          + MenuBarRenderer.SEARCH_ID_POSTFIX;
+      return "tobagoButtonOpenMenu(this, '" + searchId + "')";
+    } else {
+      return ButtonRenderer.createOnClick(facesContext, component);
+    }
   }
 
   private String getImage(FacesContext facesContext, String name,

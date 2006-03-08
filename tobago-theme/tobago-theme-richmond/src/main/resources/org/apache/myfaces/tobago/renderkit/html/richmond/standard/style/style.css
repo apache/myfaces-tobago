@@ -336,9 +336,18 @@ a:link.tab, a:visited.tab, a:active.tab {
   color: GrayText;
 }
 
+/*
+  ! css classes tobago-toolBar-button-hover and tobago-toolBar-button-menu-focus
+    should have the same content, but needs different names !
+*/
 .tobago-toolBar-button-hover {
   border: 1px solid #FF9900;
   background: #FAB54D;
+  margin: 0px;
+}
+.tobago-toolBar-button-menu-focus {
+  border: 1px solid #FF9900;
+  background: #FF9900;
   margin: 0px;
 }
 

@@ -70,8 +70,8 @@
           </f:facet>
         </tc:toolBarCommand>
 
-        <tc:toolBarCommand id="DropDown" action="overview/toolbar"
-          actionListener="#{overviewController.click}" label="#{overviewBundle.toolbar_dropDownAction}" >
+        <tc:toolBarCommand id="DropDown"
+                           label="#{overviewBundle.toolbar_dropDownAction}" >
           <f:facet name="menupopup">
             <tc:menu>
               <tc:menuItem action="alert('test 1')" type="script" label="Alert 1"/>

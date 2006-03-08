@@ -809,7 +809,20 @@ div.tobago-richTextEditor-body {
 /*  background: yellow;*/
 }
 
+/*
+  ! css classes tobago-toolBar-button-hover and tobago-toolBar-button-menu-focus
+    should have the same content, but needs different names !
+*/
 .tobago-toolBar-button-hover {
+  margin: 0px;
+  border-left: 1px solid #ddeeff;
+  border-right: 1px solid #6688aa;
+  border-top: 1px solid #ddeeff;
+  border-bottom: 1px solid #6688aa;
+  background: #ccddee;
+}
+
+.tobago-toolBar-button-menu-focus {
   margin: 0px;
   border-left: 1px solid #ddeeff;
   border-right: 1px solid #6688aa;
