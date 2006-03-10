@@ -151,7 +151,12 @@ public class UIPage extends UIForm {
       return;
     }
 
-    UIComponent command = findComponent(currentActionId);
+    UIComponent command = null;
+    try {
+      command = findComponent(currentActionId);
+    } catch (IllegalArgumentException e) {
+      // FIXME: hotfix for TOBAGO-43
+    }
 
     // FIXME: hotfix for UICommand inside of a sheet.
     while (command == null && currentActionId.indexOf(':') != -1) {
