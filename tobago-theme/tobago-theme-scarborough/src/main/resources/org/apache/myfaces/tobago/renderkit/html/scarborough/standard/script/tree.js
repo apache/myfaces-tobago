@@ -15,7 +15,7 @@
  */
 
 function toggle(node, treeHiddenId, openFolderIcon, folderIcon) {
-//  PrintDebug("toggle("+node+", "+treeHiddenId+", " + openFolderIcon + ", "+ folderIcon +")");
+//  LOG.debug("toggle("+node+", "+treeHiddenId+", " + openFolderIcon + ", "+ folderIcon +")");
   var content = document.getElementById(node.id + "-cont");
   if (content) {
     var selectState = document.getElementById(treeHiddenId + '-selectState');
@@ -48,12 +48,12 @@ function toggle(node, treeHiddenId, openFolderIcon, folderIcon) {
 }
 
 function tbgTreeStates(hiddenId) {
-  PrintDebug("expandState =" + document.getElementById(hiddenId).value);
-  PrintDebug("selectState =" + document.getElementById(hiddenId + "-selectState").value);
+  LOG.debug("expandState =" + document.getElementById(hiddenId).value);
+  LOG.debug("selectState =" + document.getElementById(hiddenId + "-selectState").value);
 }
 
 function tbgToggleExpand(node, treeHiddenId) {
-  PrintDebug("tbgToggleExpand(" + node.label + ", " + treeHiddenId + ")");
+  LOG.debug("tbgToggleExpand(" + node.label + ", " + treeHiddenId + ")");
   var expandState = document.getElementById(treeHiddenId);
   if (node.expanded) {
     node.expanded = false;
@@ -67,14 +67,14 @@ function tbgToggleExpand(node, treeHiddenId) {
 
 function tbgSetExpand(node, treeHiddenId) {
   var expandState = document.getElementById(treeHiddenId);
-//  PrintDebug("tbgSetExpand(" + node.label + ", " + treeHiddenId + ") :: state = " + expandState.value);
+//  LOG.debug("tbgSetExpand(" + node.label + ", " + treeHiddenId + ") :: state = " + expandState.value);
   if (node.hasChildren() && ! node.expanded) {
     node.expanded = true;
     expandState.value = expandState.value + nodeStateId(node) + ";";
   }
   if (node.parentNode) {
     for (var i = 0; i < node.parentNode.childNodes.length; i++) {
-//      PrintDebug(node.parentNode.childNodes[i].label + " := " + node.parentNode.childNodes[i].expanded);
+//      LOG.debug(node.parentNode.childNodes[i].label + " := " + node.parentNode.childNodes[i].expanded);
       if (node.parentNode.childNodes[i].expanded ){
         tbgClearExpandStatesRecursiv(node.parentNode.childNodes[i], expandState);
         if (node.parentNode.childNodes[i] != node) {
@@ -83,7 +83,7 @@ function tbgSetExpand(node, treeHiddenId) {
       }
     }
   }
-//  PrintDebug("tbgSetExpand -> expanded = " + expandState.value);
+//  LOG.debug("tbgSetExpand -> expanded = " + expandState.value);
 }
 
 
@@ -105,7 +105,7 @@ function tbgUnexpand(node, expandState) {
 
 
 function tbgToggleSelect(node, treeHiddenId) {
-//  PrintDebug("tbgToggleSelect(" + node.label + ", " + treeHiddenId + ")");
+//  LOG.debug("tbgToggleSelect(" + node.label + ", " + treeHiddenId + ")");
   if (!node.selectable) {
     return;
   }
@@ -137,10 +137,10 @@ function tbgToggleSelect(node, treeHiddenId) {
     if (!node.selectable.match(/LeafOnly$/) || !node.hasChildren()) {
       node.selected = true;
       selectState.value = selectState.value + nodeStateId(node) + ";"
-//      PrintDebug("selectable = " + node.selectable);
+//      LOG.debug("selectable = " + node.selectable);
     }
   }
-//  PrintDebug("tbgToggleSelect -> selected = " + selectState.value);
+//  LOG.debug("tbgToggleSelect -> selected = " + selectState.value);
 }
 
 function tbgUnselect(node, selectState) {
@@ -161,7 +161,7 @@ function clearSelectionExcept(node, selectState, selectedNode) {
 }
 
 function clearSelectionExceptSibling(node, selectState, selectedNode) {
-//  PrintDebug(node.label + "  ---");
+//  LOG.debug(node.label + "  ---");
   if (node.parentNode && selectedNode.parentNode != node.parentNode) {
     tbgUnselect(node, selectState);
   }
@@ -179,11 +179,11 @@ function toggleSelect(node, treeHiddenId, uncheckedIcon, checkedIcon) {
   var icon = document.getElementById(node.id + '-markIcon');
   var treeNode;
   eval("treeNode = " + createJavascriptVariable(node.id) + ";");
-//  PrintDebug("treeNode.required = " + treeNode.required);
+//  LOG.debug("treeNode.required = " + treeNode.required);
   if (! (treeNode.selectable.match(/LeafOnly$/) && treeNode.childNodes.length > 0)) {
     if (treeNode.selectable.match(/^single/)) {
       if (! (selectState.value.indexOf(";" + nodeStateId(node) + ";", 0) > -1)) {
-//        PrintDebug("single selection changed");
+//        LOG.debug("single selection changed");
         icon.src = checkedIcon;
         oldIcon = getIconForId(node, selectState.value);
         oldNode = getNodeForId(treeNode, selectState.value);
@@ -194,27 +194,27 @@ function toggleSelect(node, treeHiddenId, uncheckedIcon, checkedIcon) {
         }
         selectState.value = ";" +  nodeStateId(node) + ";" ;
       } else {
-//        PrintDebug("single selection cleared");
+//        LOG.debug("single selection cleared");
         if (! treeNode.required) {
           icon.src = uncheckedIcon;
           selectState.value = ";" ;
         } else {
-//          PrintDebug("single selection hold");
+//          LOG.debug("single selection hold");
         }
       }
     }
     else {
       if (selectState.value.indexOf(";" + nodeStateId(node) + ";", 0) > -1) {
         // actual node is selected -> remove selection
-//        PrintDebug("selectState.value = " + selectState.value);
-//        PrintDebug("nodeSelectState   = " + ";" + nodeStateId(node) + ";" );
-//        PrintDebug("required          = " +  treeNode.required);
+//        LOG.debug("selectState.value = " + selectState.value);
+//        LOG.debug("nodeSelectState   = " + ";" + nodeStateId(node) + ";" );
+//        LOG.debug("required          = " +  treeNode.required);
         if (!(treeNode.required && selectState.value == ";" + nodeStateId(node) + ";") ) {
           icon.src = uncheckedIcon;
           selectState.value = selectState.value.replace(";" + nodeStateId(node) + ";" , ";");
         }
 
-//        PrintDebug("selectState.value = " + selectState.value);
+//        LOG.debug("selectState.value = " + selectState.value);
       } else {
         // actual node is not selected -> set selection
         if (treeNode.selectable.match(/^siblings/)) {
@@ -327,7 +327,7 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
             + "', '" + treeResources.getImage("unchecked.gif")
             + "', '" + treeResources.getImage("checked.gif")
             + "')"
-	      : "submitAction('" + formId + "','" + id + "')";
+	      : "Tobago.submitAction('" + id + "')";
 	this.onfocus = "storeMarker(this.parentNode, '" + treeHiddenId + "')";
 //	this.ondblclick = "toggle(this.parentNode, '" + treeHiddenId + "')";
 
@@ -680,8 +680,8 @@ function tbgTreeListboxChange(element, hiddenId) {
   var rootNode = document.getElementById(hiddenId).rootNode;
   var expandState = document.getElementById(hiddenId);
   var selectState = document.getElementById(hiddenId + '-selectState');
-//  PrintDebug("1 selectState : " + selectState.value);
-//  PrintDebug("1 expandState : " + expandState.value);
+//  LOG.debug("1 selectState : " + selectState.value);
+//  LOG.debug("1 expandState : " + expandState.value);
 
   var parentNode = tbgGetParentNode(element, rootNode);
 
@@ -726,8 +726,8 @@ function tbgTreeListboxChange(element, hiddenId) {
     }
   }
 
-//  PrintDebug("2 selectState : " + selectState.value);
-//  PrintDebug("2 expandState : " + expandState.value);
+//  LOG.debug("2 selectState : " + selectState.value);
+//  LOG.debug("2 expandState : " + expandState.value);
 
 }
 
@@ -736,8 +736,8 @@ function tbgTreeListboxClick(selectElement, hiddenId) {
   var rootNode = document.getElementById(hiddenId).rootNode;
   var expandState = document.getElementById(hiddenId);
   var selectState = document.getElementById(hiddenId + '-selectState');
-//  PrintDebug("1 selectState : " + selectState.value);
-//  PrintDebug("1 expandState : " + expandState.value);
+//  LOG.debug("1 selectState : " + selectState.value);
+//  LOG.debug("1 expandState : " + expandState.value);
 
   var actualNode = tbgGetClickedNode(selectElement, rootNode);
 
@@ -762,7 +762,7 @@ function tbgTreeListboxClick(selectElement, hiddenId) {
 
   parentSelectElement = document.getElementById(idPrefix + "_" + (level - 1));
   if (parentSelectElement) {
-//    PrintDebug("clear parent");
+//    LOG.debug("clear parent");
     parentNode = parentNode.parentNode;
     for (var i = 0; i < parentSelectElement.options.length; i++) {
       parentSelectElement.options[i].selected
@@ -776,8 +776,8 @@ function tbgTreeListboxClick(selectElement, hiddenId) {
   } else {
     tobagoTreeListboxDisable(idPrefix, level + 1);
   }
-//  PrintDebug("2 selectState : " + selectState.value);
-//  PrintDebug("2 expandState : " + expandState.value);
+//  LOG.debug("2 selectState : " + selectState.value);
+//  LOG.debug("2 expandState : " + expandState.value);
 
 }
 
@@ -837,7 +837,7 @@ function tobagoTreeListboxCreateOption(node, index, hiddenId) {
   }
   var option = new Option(label, index);
   option.hiddenId = hiddenId;
-//  tbgAddEventListener(option, 'click', tbgTreeListboxClick);
+//  Tobago.addEventListener(option, 'click', tbgTreeListboxClick);
 
   return option;
 }
@@ -853,7 +853,7 @@ function tobagoTreeListboxEnable(idPrefix, start) {
   var selector = document.getElementById(idPrefix + "_" + start);
   while (selector) {
     tobagoTreeListboxRemoveOptions(idPrefix, start++);
-    removeCssClass(selector, "tobago-treeListbox-unused");
+    Tobago.removeCssClass(selector, "tobago-treeListbox-unused");
     selector = document.getElementById(idPrefix + "_" + start);
   }
 }
@@ -862,7 +862,7 @@ function tobagoTreeListboxDisable(idPrefix, start) {
   var selector = document.getElementById(idPrefix + "_" + start);
   while (selector) {
     tobagoTreeListboxRemoveOptions(idPrefix, start++);
-    addCssClass(selector, "tobago-treeListbox-unused");
+    Tobago.addCssClass(selector, "tobago-treeListbox-unused");
     selector.oldValue = -1;
     selector = document.getElementById(idPrefix + "_" + start);
   }

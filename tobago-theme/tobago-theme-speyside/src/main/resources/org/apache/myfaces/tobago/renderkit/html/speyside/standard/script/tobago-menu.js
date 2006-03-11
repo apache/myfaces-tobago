@@ -63,7 +63,7 @@ function getPopupImageTop(popup) {
     return "0px";
   }
   else {
-    PrintDebug("unbekanter Popup Typ :" + popup);
+    LOG.debug("unbekanter Popup Typ :" + popup);
     return "0px";
   }
 }

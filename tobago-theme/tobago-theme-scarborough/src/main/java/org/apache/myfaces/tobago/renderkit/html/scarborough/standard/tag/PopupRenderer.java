@@ -79,7 +79,7 @@ public class PopupRenderer extends RendererBase {
     writer.startElement("div", component);
     writer.writeIdAttribute(clientId);
     writer.writeComponentClass();
-    writer.writeAttribute("onclick", "tobagoPopupBlink('" + clientId + "')", null);
+    writer.writeAttribute("onclick", "Tobago.popupBlink('" + clientId + "')", null);
     if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
       String bgImage = ResourceManagerUtil.getImageWithPath(facesContext, "image/popupBg.png");
       writer.writeAttribute("style", "background: none; "
@@ -109,7 +109,7 @@ public class PopupRenderer extends RendererBase {
 
     writer.endElement("div");
 
-    String setupScript = "tobagoSetupPopup('" + clientId + "', '"
+    String setupScript = "Tobago.setupPopup('" + clientId + "', '"
         + component.getLeft() + "', '" + component.getTop() + "');";
     HtmlRendererUtil.writeJavascript(writer, setupScript);
 

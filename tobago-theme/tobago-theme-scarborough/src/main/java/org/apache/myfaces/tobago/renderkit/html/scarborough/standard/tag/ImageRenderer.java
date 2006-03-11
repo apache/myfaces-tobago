@@ -88,9 +88,9 @@ public class ImageRenderer extends RendererBase {
     writer.writeIdAttribute(clientId);
     if (ComponentUtil.isHoverEnabled(graphic) && !isDisabled(graphic)) {
       writer.writeAttribute("onmouseover",
-          "tobagoImageMouseover('" + clientId + "')", null);
+          "Tobago.imageMouseover('" + clientId + "')", null);
       writer.writeAttribute("onmouseout",
-          "tobagoImageMouseout('" + clientId + "')", null);
+          "Tobago.imageMouseout('" + clientId + "')", null);
     }
     if (src != null) {
       writer.writeAttribute("src", src, null);
@@ -114,7 +114,7 @@ public class ImageRenderer extends RendererBase {
   public static void addImageSources(
       FacesContext facesContext, UIPage page, String src, String id) {
     StringBuffer buffer = new StringBuffer();
-    buffer.append("addImageSources('");
+    buffer.append("Tobago.addImageSources('");
     buffer.append(id);
     buffer.append("','");
     buffer.append(ResourceManagerUtil.getImageWithPath(

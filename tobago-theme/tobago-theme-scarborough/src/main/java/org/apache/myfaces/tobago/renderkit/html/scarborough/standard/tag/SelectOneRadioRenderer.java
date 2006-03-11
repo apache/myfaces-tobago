@@ -57,7 +57,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     UISelectOne component = (UISelectOne) uiComponent;
     String clientId = component.getClientId(facesContext);
 
-    ComponentUtil.findPage(component).getOnloadScripts().add("tobagoSelectOneRadioInit('" + clientId + "')");
+    ComponentUtil.findPage(component).getOnloadScripts().add("Tobago.selectOneRadioInit('" + clientId + "')");
 
     if (LOG.isDebugEnabled()) {
       for (Iterator i = component.getChildren().iterator(); i.hasNext();) {
@@ -116,8 +116,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
           ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
       writer.writeAttribute("title", null, ATTR_TIP);
       if (!ComponentUtil.getBooleanAttribute(component, ATTR_REQUIRED)) {
-//        writer.writeAttribute("onchange", "tobagoSelectOneRadioChange(this)", null);
-        writer.writeAttribute("onclick", "tobagoSelectOneRadioClick(this, '" + clientId + "')", null);
+        writer.writeAttribute("onclick", "Tobago.selectOneRadioClick(this, '" + clientId + "')", null);
       }
       writer.endElement("input");
 

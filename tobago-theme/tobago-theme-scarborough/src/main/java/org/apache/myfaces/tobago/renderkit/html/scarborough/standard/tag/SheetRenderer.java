@@ -71,8 +71,7 @@ import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import static org.apache.myfaces.tobago.renderkit.html.scarborough.
-    standard.tag.SheetPageCommandRenderer.PAGE_RENDERER_TYPE;
+import static org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.SheetPageCommandRenderer.PAGE_RENDERER_TYPE;
 import org.apache.myfaces.tobago.taglib.component.MenuCommandTag;
 import org.apache.myfaces.tobago.util.StringUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -779,9 +778,8 @@ public class SheetRenderer extends RendererBase
         column.getFacets().put(UIData.FACET_SORTER, sortCommand);
       }
 
-      String onclick = "submitAction('"
-          + ComponentUtil.findPage(component).getFormId(facesContext)
-          + "','" + sortCommand.getClientId(facesContext) + "')";
+      String onclick = "Tobago.submitAction('"
+          + sortCommand.getClientId(facesContext) + "')";
       writer.writeAttribute("onclick", onclick, null);
 
       writer.writeAttribute("title",

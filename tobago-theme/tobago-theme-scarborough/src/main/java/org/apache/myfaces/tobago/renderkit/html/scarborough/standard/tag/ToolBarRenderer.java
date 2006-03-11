@@ -301,8 +301,8 @@ public class ToolBarRenderer extends RendererBase {
     final String args = "this, 'tobago-toolBar-button-hover"
         + (boxFacet ? " tobago-toolBar-button-box-facet-hover" : "")
         + extraHoverClass + "', '" + graphicId + "'";
-    final String mouseOverScript = "tobagoToolbarMousesover(" + args + ");";
-    final String mouseOutScript = "tobagoToolbarMousesout(" + args + ");";
+    final String mouseOverScript = "Tobago.toolbarMousesover(" + args + ");";
+    final String mouseOutScript = "Tobago.toolbarMousesout(" + args + ");";
 
     writer.startElement("div", null);
     writer.writeClassAttribute(divClasses);
@@ -486,7 +486,7 @@ public class ToolBarRenderer extends RendererBase {
     writer.writeAttribute("title", null, ATTR_TIP);
     if (!disabled) {
       writer.writeAttribute("href", "#", null);
-      writer.writeAttribute("onfocus", "tobagoToolbarFocus(this, event)", null);
+      writer.writeAttribute("onfocus", "Tobago.toolbarFocus(this, event)", null);
       if (label.getAccessKey() != null) {
         if (LOG.isInfoEnabled()
                 && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {

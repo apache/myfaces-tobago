@@ -69,15 +69,13 @@ public class LinkRenderer extends CommandRendererBase{
       }
       href = HtmlUtils.generateUrl(facesContext, action);
     } else if (COMMAND_TYPE_RESET.equals(type)) {
-      href = "javascript:resetForm('"
-          + ComponentUtil.findPage(component).getFormId(facesContext) + "')";
+      href = "javascript:Tobago.resetForm()";
     } else if (COMMAND_TYPE_SCRIPT.equals(type)) {
       href = "#";
       onclick = action;
     } else { // default: Action.TYPE_SUBMIT
-      href = "javascript:submitAction('"
-          + ComponentUtil.findPage(component).getFormId(facesContext)
-          + "','" + component.getClientId(facesContext) + "')";
+      href = "javascript:Tobago.submitAction('"
+          + component.getClientId(facesContext) + "')";
     }
 
     onclick =

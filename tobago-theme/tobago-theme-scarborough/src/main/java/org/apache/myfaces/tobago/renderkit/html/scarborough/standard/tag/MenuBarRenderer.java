@@ -176,7 +176,7 @@ public class MenuBarRenderer extends RendererBase {
     sb.append("  }\n");
     sb.append("  else {\n");
     sb.append(
-        "    PrintDebug('kein Element mit id: ' + searchId + ' gefunden!');\n");
+        "    LOG.debug('kein Element mit id: ' + searchId + ' gefunden!');\n");
     sb.append("  }\n");
     sb.append("}\n");
     return setupFunction;
@@ -319,16 +319,14 @@ public class MenuBarRenderer extends RendererBase {
     String onclick;
 
     if (COMMAND_TYPE_NAVIGATE.equals(type)) {
-      onclick = "navigateToUrl('"
+      onclick = "Tobago.navigateToUrl('"
           + HtmlUtils.generateUrl(facesContext, command) + "')";
     } else if (COMMAND_TYPE_RESET.equals(type)) {
       onclick = null;
     } else if (COMMAND_TYPE_SCRIPT.equals(type)) {
       onclick = command;
     } else { // default: Action.TYPE_SUBMIT
-      onclick = "submitAction('"
-          + ComponentUtil.findPage(component).getFormId(facesContext)
-          + "','" + clientId + "')";
+      onclick = "Tobago.submitAction('" + clientId + "')";
     }
     return onclick;
   }

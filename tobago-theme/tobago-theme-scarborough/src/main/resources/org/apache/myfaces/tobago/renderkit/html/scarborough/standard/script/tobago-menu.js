@@ -24,12 +24,12 @@ function initMenuComponents(divId, pageId, popup) {
   var menubar = document.getElementById(divId);
   if (menubar && menubar.menu) {
     menubar.menu.menubar = menubar;
-    var top = getAbsoluteTop(menubar) + getMenubarBorderWidth();
-    var left = getAbsoluteLeft(menubar) + getMenubarBorderWidth();
+    var top = Tobago.getAbsoluteTop(menubar) + getMenubarBorderWidth();
+    var left = Tobago.getAbsoluteLeft(menubar) + getMenubarBorderWidth();
     if (popup) {
-      left = left + getElementWidth(menubar) - getPopupMenuWidth();
+      left = left + menubar.scrollWidth - getPopupMenuWidth();
       menubar.menu.popup = popup;
-      //PrintDebug("popupType = " + popup);
+      //LOG.debug("popupType = " + popup);
     }
     var body = document.getElementById(pageId);
     var className = "tobago-menuBar-container";
@@ -64,7 +64,7 @@ function initMenuComponents(divId, pageId, popup) {
     setItemsVisible(menubar.menu);
   }
   else {
-    PrintDebug("keine menubar mit id ='" + divId + "'gefunden!");
+    LOG.debug("keine menubar mit id ='" + divId + "'gefunden!");
   }
 }
 
@@ -77,7 +77,7 @@ function createSubmenus(menu) {
 
 function createMenuRoot(id) {
   var menu = new MenuItem();
-  menu.id = id + getSubComponentSeparator() + Tobago.Menu.MENU_ROOT_ID;
+  menu.id = id + Tobago.SUB_COMPONENT_SEP + Tobago.Menu.MENU_ROOT_ID;
   menu.level = 0;
   return menu;
 }
@@ -92,16 +92,16 @@ function MenuItem(label, action, disabled) {
     var index = this.subItems.length;
     this.subItems[index] = menuItem;
     menuItem.parent = this;
-    menuItem.id = this.id + getSubComponentSeparator() + index;
+    menuItem.id = this.id + Tobago.SUB_COMPONENT_SEP + index;
     menuItem.index = index;
     menuItem.level = this.level + 1;
   };
 
   this.toHtml = function(createSubItems) {
     var html = "";
-//    PrintDebug("toHtml() for"  + this.id + " l=" + this.level);
+//    LOG.debug("toHtml() for"  + this.id + " l=" + this.level);
     if (this.level > 1 || (this.level == 1 && ! createSubItems)) {
-//      PrintDebug("create menuitem" + this.id);
+//      LOG.debug("create menuitem" + this.id);
       var onClick = "";
       if (this.action) {
         onClick = ' onclick="tobagoMenuItemOnmouseout(this, true) ; ' + this.action + '"';
@@ -122,23 +122,23 @@ function MenuItem(label, action, disabled) {
             + onClick;
       }
       html += '>' + this.label + "</div>";
-          //PrintDebug("adding menu entry '" + this.label + "'");
+          //LOG.debug("adding menu entry '" + this.label + "'");
     }
     if (this.level == 0 || (createSubItems && this.subItems.length > 0)) {
-//      PrintDebug("create subitems " + this.id);
+//      LOG.debug("create subitems " + this.id);
 
       if (this.level != 0) {
         html += '<div class="tobago-menuBar-subitem-container"'
-            + ' id="' + this.id + getSubComponentSeparator() + 'items" >';
+            + ' id="' + this.id + Tobago.SUB_COMPONENT_SEP + 'items" >';
       }
       for (var i = 0; i< this.subItems.length; i++) {
         html += this.subItems[i].toHtml(createSubItems);
       }
       if (this.level != 0) {
         html += '</div>';
-        if (isIE()) {
+        if (document.all) {
           html += '<iframe'
-              + ' id="' + this.id + getSubComponentSeparator() + 'iframe"'
+              + ' id="' + this.id + Tobago.SUB_COMPONENT_SEP + 'iframe"'
               + ' class="tobago-menuBar-subitem-iframe" '
               + ' style="display: none; visibility: hidden;"'
               + ' frameborder="0" scrolling="no" ></iframe>';
@@ -164,16 +164,16 @@ function MenuItem(label, action, disabled) {
     } else {
       containerParent = this.htmlElement;
     }
-    var parentLeft = getAbsoluteLeft(containerParent) + leftOffset;
-    var parentTop = getAbsoluteTop(containerParent) ;
+    var parentLeft = Tobago.getAbsoluteLeft(containerParent) + leftOffset;
+    var parentTop = Tobago.getAbsoluteTop(containerParent) ;
     var parentWidth = this.htmlElement.style.width.replace(/\D/g,"") - 0;
     var parentHeight = this.htmlElement.style.height.replace(/\D/g,"") - 0;
     
     
-    var innerLeft = getBrowserInnerLeft();
-    var innerTop = getBrowserInnerTop();
-    var innerWidth = getBrowserInnerWidth();
-    var innerHeight = getBrowserInnerHeight();
+    var innerLeft = Tobago.getBrowserInnerLeft();
+    var innerTop = Tobago.getBrowserInnerTop();
+    var innerWidth = Tobago.getBrowserInnerWidth();
+    var innerHeight = Tobago.getBrowserInnerHeight();
     var innerRight = innerLeft + innerWidth;
     var innerBottom = innerTop + innerHeight;
 
@@ -239,12 +239,12 @@ function MenuItem(label, action, disabled) {
 
   this.onMouseOver = function() {
     this.mouseOver = true;
-    //PrintDebug("onMouseOver " + this.id + " level :" + this.level);
+    //LOG.debug("onMouseOver " + this.id + " level :" + this.level);
     clearTimeout(this.onBlurTimer);
 
     if (this.level == 1) {
       if (! this.isNeighbourOpen()) {
-        addCssClass(this.htmlElement, "tobago-menu-item-hover");
+        Tobago.addCssClass(this.htmlElement, "tobago-menu-item-hover");
       }
       else {
         this.focusLabelTag();
@@ -260,7 +260,7 @@ function MenuItem(label, action, disabled) {
 
   this.onMouseOut = function(clicked) {
     this.mouseOver = false;
-    //PrintDebug("onMouseOut " + this.id + " clicked = " + clicked);
+    //LOG.debug("onMouseOut " + this.id + " clicked = " + clicked);
     clearTimeout(this.hoverTimer);
     if (clicked) {
       //this.blurLabelTag();
@@ -268,15 +268,15 @@ function MenuItem(label, action, disabled) {
       this.focusLost();
     }
     else {
-      removeCssClass(this.htmlElement, "tobago-menu-item-hover");
+      Tobago.removeCssClass(this.htmlElement, "tobago-menu-item-hover");
     }
   };
 
   this.onFocus = function() {
     this.focus = true;
-    addCssClass(this.htmlElement, "tobago-menu-item-focus");
+    Tobago.addCssClass(this.htmlElement, "tobago-menu-item-focus");
     if (this.menuButton) {
-      addCssClass(this.menuButton, "tobago-toolBar-button-menu-focus");
+      Tobago.addCssClass(this.menuButton, "tobago-toolBar-button-menu-focus");
     }
     this.openSubMenus();
     
@@ -286,22 +286,22 @@ function MenuItem(label, action, disabled) {
     }
   };
   this.onBlur = function() {
-    //PrintDebug("onBlur " + this.id);
+    //LOG.debug("onBlur " + this.id);
     this.focus = false;
     this.onBlurTimer = setTimeout("tobagoFocusLost('" + this.id + "')",
         getFocusLostTimeout());
   };
 
   this.focusLost = function() {
-    //PrintDebug("focusLost " + this.id);
+    //LOG.debug("focusLost " + this.id);
     if (this.level > 0
         && (!this.mouseOver)
         && !(this.level != 1 && this.focus)
         &&  ! this.childHasFocus()) {
       this.hideSubMenus();
-      removeCssClass(this.htmlElement, "tobago-menu-item-focus");
+      Tobago.removeCssClass(this.htmlElement, "tobago-menu-item-focus");
       if (this.menuButton) {
-        removeCssClass(this.menuButton, "tobago-toolBar-button-menu-focus");
+        Tobago.removeCssClass(this.menuButton, "tobago-toolBar-button-menu-focus");
       }
       this.parent.focusLost();
     }
@@ -313,7 +313,7 @@ function MenuItem(label, action, disabled) {
   };
 
   this.focusLabelTag = function() {
-    //PrintDebug("setze Focus " + this.id);
+    //LOG.debug("setze Focus " + this.id);
     var element = this.getLabelTag();
     if (element) {
       try {
@@ -324,7 +324,7 @@ function MenuItem(label, action, disabled) {
     }
   };
   this.blurLabelTag = function() {
-    //PrintDebug("entferne Focus " + this.id);
+    //LOG.debug("entferne Focus " + this.id);
     var element = this.getLabelTag();
     if (element) {
       element.blur();
@@ -464,7 +464,7 @@ function MenuItem(label, action, disabled) {
   };
 
   this.collapse = function() {
-    //PrintDebug("collapse " + this.id);
+    //LOG.debug("collapse " + this.id);
     if (this.level < 2) {
       var aTag = this.getLabelTag();
       if (aTag) {
@@ -549,7 +549,7 @@ function adjustPopupImage(menu) {
       img.style.top = getPopupImageTop(menu.popup);
     }
     else {
-      PrintDebug("kein IMG im popup");
+      LOG.debug("kein IMG im popup");
     }
   }
 }
@@ -568,16 +568,16 @@ function setItemWidth(menu) {
 
         if (! width) {
           width = 0;
-          var re = new RegExp("(.*" + getSubComponentSeparator() +")\\d$");
+          var re = new RegExp("(.*" + Tobago.SUB_COMPONENT_SEP +")\\d$");
           var childIdPrefix = menu.id.match(re)[1];
           var i = 0;
           var childElement = document.getElementById(childIdPrefix + i++);
           while (childElement) {
-            //PrintDebug("item " + childElement.id + "  -->" + childElement.scrollWidth) ;//+ ":::" + childElement.innerHTML);
+            //LOG.debug("item " + childElement.id + "  -->" + childElement.scrollWidth) ;//+ ":::" + childElement.innerHTML);
             width = Math.max(width, childElement.scrollWidth);
             childElement = document.getElementById(childIdPrefix + i++);
           }
-          //PrintDebug("das waren " + (i-1) + " items  ---> width wird " + width);
+          //LOG.debug("das waren " + (i-1) + " items  ---> width wird " + width);
           width += getMenuArrowWidth();
           menu.parent.childWidth = width;
         }
@@ -644,7 +644,7 @@ function setItemPositions(menu) {
         var left = 0;
         if (menu.level == 2 && menu.parent.parent.popup) {
           if (menu.parent.parent.popup == "ToolbarButton") {
-            left = getPopupMenuWidth() - getElementWidth(menu.parent.parent.menubar);
+            left = getPopupMenuWidth() - menu.parent.parent.menubar.scrollWidth;
           }  
           if (menu.parent.subItemContainer) {
             menu.parent.subItemContainer.style.left = left + "px";
@@ -691,18 +691,18 @@ function initMenuItems(menu) {
     menu.htmlElement.menuItem = menu;
     if (menu.parent && menu.parent.menubar
         && menu.parent.menubar.className.match(/tobago-menuBar-page-facet/)) {
-      addCssClass(menu.htmlElement, 'tobago-menuBar-item-page-facet');
+      Tobago.addCssClass(menu.htmlElement, 'tobago-menuBar-item-page-facet');
     }
     menu.subItemContainer =
-        document.getElementById(menu.id + getSubComponentSeparator() + 'items');
+        document.getElementById(menu.id + Tobago.SUB_COMPONENT_SEP + 'items');
     menu.subItemIframe =
-        document.getElementById(menu.id + getSubComponentSeparator() + 'iframe');
+        document.getElementById(menu.id + Tobago.SUB_COMPONENT_SEP + 'iframe');
     if (menu.subItemIframe) {
       menu.subItemIframe.style.visibility = "hidden";
       menu.subItemIframe.style.position = "absolute";
       menu.subItemIframe.style.border = "0px solid black";
       menu.subItemIframe.style.zIndex
-          = tobagoGetRuntimeStyle(menu.htmlElement).zIndex - 1;
+          = Tobago.getRuntimeStyle(menu.htmlElement).zIndex - 1;
     }
   }
   for (var i = 0; i < menu.subItems.length; i++) {
@@ -775,7 +775,7 @@ function getPopupImageTop(popup) {
     return "0px";
   }
   else {
-    PrintDebug("unbekanter Popup Typ :" + popup);
+    LOG.debug("unbekanter Popup Typ :" + popup);
     return "0px";
   }
 }
@@ -792,11 +792,11 @@ function menuCheckToggle(id) {
   var element = document.getElementById(id);
   var form = document.forms[0];
   if (element) {
-    //PrintDebug("remove  " + id);
+    //LOG.debug("remove  " + id);
     form.removeChild(element);
   }
   else {
-    //PrintDebug("adding " + id);
+    //LOG.debug("adding " + id);
     element = document.createElement('INPUT');
     element.type = 'hidden';
     element.name = id;
@@ -823,50 +823,38 @@ function tobagoMenuFocus(event) {
   if (! event) {
     event = window.event;
   }
-  var element = getActiveElement(event);
+  var element = Tobago.element(event);
   element.parentNode.menuItem.onFocus();
 }
 function tobagoMenuBlur(event) {
-  //PrintDebug("tobagoMenuBlur" );
+  //LOG.debug("tobagoMenuBlur" );
 
   if (! event) {
     event = window.event;
   }
-  var element = getActiveElement(event);
+  var element = Tobago.element(event);
   element.parentNode.menuItem.onBlur();
 }
 
 function tobagoMenuDown(event) {
-  var element = getActiveElement(event);
+  var element = Tobago.element(event);
   element.parentNode.menuItem.keyDown();
 }
 function tobagoMenuUp(event) {
-  var element = getActiveElement(event);
+  var element = Tobago.element(event);
   element.parentNode.menuItem.keyUp();
 }
 function tobagoMenuLeft(event) {
-  var element = getActiveElement(event);
+  var element = Tobago.element(event);
   element.parentNode.menuItem.keyLeft();
 }
 function tobagoMenuRight(event) {
-  var element = getActiveElement(event);
+  var element = Tobago.element(event);
   element.parentNode.menuItem.keyRight();
 }
 
-function stopEventPropagation(event) {
-  if (event.stopPropagation) {
-    //PrintDebug("event.stopPropagation() " + event.cancelable);
-    event.preventDefault();
-    event.stopPropagation();
-  }
-  else {
-    //PrintDebug("event.cancelBubble = true");
-    event.cancelBubble = true;
-  }
-}
-
 function tobagoMenuItemCollapse(event) {
-  var element = getActiveElement(event);
+  var element = Tobago.element(event);
   element.parentNode.menuItem.collapse();
 }
 
@@ -953,23 +941,23 @@ function tobagoMenuItemOnmouseout(element, clicked) {
 }
 /*
 function tobagoMenuItemOnfocus(element) {
-  PrintDebug("tobagoMenuItemOnfocus " + element.id);
+  LOG.debug("tobagoMenuItemOnfocus " + element.id);
   element.menuItem.onFocus();
 }
 function tobagoMenuItemOnblur(element) {
-  PrintDebug("tobagoMenuItemOnblur " + element.id);
+  LOG.debug("tobagoMenuItemOnblur " + element.id);
   element.menuItem.onBlur();
 }
 */
 function tobagoMenuOpenMenu(element, event) {
   if (event) {
-    stopEventPropagation(event);
+    Tobago.stopEventPropagation(event);
   }
   element.menuItem.openMenu();
 }
 function tobagoButtonOpenMenu(button, idPrefix) {
-  var menu = $(idPrefix + Tobago.subComponentSeparator
-      + Tobago.Menu.MENU_ROOT_ID + Tobago.subComponentSeparator + 0);
+  var menu = Tobago.element(idPrefix + Tobago.SUB_COMPONENT_SEP
+      + Tobago.Menu.MENU_ROOT_ID + Tobago.SUB_COMPONENT_SEP + 0);
   if (menu) {
     menu.menuItem.setMenuButton(button);
     tobagoMenuOpenMenu(menu);

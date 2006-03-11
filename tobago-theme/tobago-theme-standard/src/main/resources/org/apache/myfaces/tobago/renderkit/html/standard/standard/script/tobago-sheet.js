@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2005 atanion GmbH.
+ *    Copyright 2002-2005 The Apache Software Foundation.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@
 Tobago.SheetBase = {
   initialize: function(sheetId, page) {
     this.sheetId = sheetId,
-    this.element = $(sheetId + "_outer_div");
-    this.page = $(page);
+    this.element = Tobago.element(sheetId + "_outer_div");
+    this.page = Tobago.element(page);
 
     this.options = {
       method: 'post',
@@ -34,15 +34,14 @@ Tobago.SheetBase = {
     LOG.debug("New Sheet with id " + this.sheetId);
   },
 
-  sortOnclickRegExp :
-      new RegExp("submitAction\\(('|\")(.*?)('|\") *, *('|\")(.*?)('|\")\\)"),
+  sortOnclickRegExp : new RegExp("Tobago.submitAction\\(('|\")(.*?)('|\")\\)"),
 
   setup: function() {
 
     // setup sorting headers
     var i = 0;
     var idPrefix = this.sheetId + "_header_box_";
-    var headerBox = $(idPrefix + i++);
+    var headerBox = Tobago.element(idPrefix + i++);
     while (headerBox) {
       if (headerBox.onclick) {
         var match = this.sortOnclickRegExp.exec(headerBox.onclick.valueOf());
@@ -51,19 +50,19 @@ Tobago.SheetBase = {
 //        LOG.debug("*match[2] = " + match[2]);
 //        LOG.debug("match[3] = " + match[3]);
 //        LOG.debug("match[4] = " + match[4]);
-//        LOG.debug("*match[5] = " + match[5]);
+//        LOG.debug("match[5] = " + match[5]);
 //        LOG.debug("match[6] = " + match[6]);
 //        headerBox.formId = match[2];
-        headerBox.sorterId = match[5];
+        headerBox.sorterId = match[2];
         headerBox.onclick = null;
 //        LOG.debug("headerBox.id = " + headerBox.id);
         Event.observe(headerBox, "click", this.doSort.bindAsEventListener(this));
       }
-      headerBox = $(idPrefix + i++);
+      headerBox = Tobago.element(idPrefix + i++);
     }
 
     // setup paging links
-    var linkBox = $(this.sheetId + Tobago.subComponentSeparator + "pagingLinks");
+    var linkBox = Tobago.element(this.sheetId + Tobago.SUB_COMPONENT_SEP + "pagingLinks");
     if (linkBox) {
       for (i = 0 ; i < linkBox.childNodes.length ; i++) {
         var child = linkBox.childNodes[i];
@@ -75,7 +74,7 @@ Tobago.SheetBase = {
     }
 
     // setup paging pages
-    linkBox = $(this.sheetId + Tobago.subComponentSeparator + "pagingPages");
+    linkBox = Tobago.element(this.sheetId + Tobago.SUB_COMPONENT_SEP + "pagingPages");
     if (linkBox) {
       for (i = 0 ; i < linkBox.childNodes.length ; i++) {
         var child = linkBox.childNodes[i];
@@ -98,7 +97,7 @@ Tobago.SheetBase = {
 
 
     // setup row paging
-    var rowText = $(this.sheetId + Tobago.componentSeparator + "ToRow" + Tobago.subComponentSeparator + "text");
+    var rowText = Tobago.element(this.sheetId + Tobago.COMPONENT_SEP + "ToRow" + Tobago.SUB_COMPONENT_SEP + "text");
     if (rowText) {
       var parent = rowText.parentNode;
 //      LOG.debug("row : onclick =" + parent.onclick);
@@ -121,14 +120,14 @@ Tobago.SheetBase = {
 
   doPagingDirect: function(event) {
     var element = Event.element(event);
-    var action = this.sheetId + Tobago.componentSeparator + "ToPage";
+    var action = this.sheetId + Tobago.COMPONENT_SEP + "ToPage";
 
     var page = element.id.lastIndexOf('_');
     page = element.id.substring(page + 1);
     var hidden = document.createElement('input');
     hidden.type = 'hidden';
     hidden.value = page;
-    hidden.name = action + Tobago.subComponentSeparator +  "value";
+    hidden.name = action + Tobago.SUB_COMPONENT_SEP +  "value";
     this.element.appendChild(hidden);
 
     this.reloadWithAction(action);
@@ -137,15 +136,15 @@ Tobago.SheetBase = {
   doPaging: function(event) {
     var element = Event.element(event);
     var action = "unset";
-    // TODO: replace '::' in regexp by Tobago.subComponentSeparator
+    // TODO: replace '::' in regexp by Tobago.SUB_COMPONENT_SEP
     if (element.id.match(/::pagingPages::First$/)){
-      action = this.sheetId + Tobago.componentSeparator +"First";
+      action = this.sheetId + Tobago.COMPONENT_SEP +"First";
     } else if (element.id.match(/::pagingPages::Prev$/)){
-      action = this.sheetId + Tobago.componentSeparator +"Prev";
+      action = this.sheetId + Tobago.COMPONENT_SEP +"Prev";
     } else if (element.id.match(/::pagingPages::Next$/)){
-      action = this.sheetId + Tobago.componentSeparator +"Next";
+      action = this.sheetId + Tobago.COMPONENT_SEP +"Next";
     } else if (element.id.match(/::pagingPages::Last$/)){
-      action = this.sheetId + Tobago.componentSeparator +"Last";
+      action = this.sheetId + Tobago.COMPONENT_SEP +"Last";
     }
     this.reloadWithAction(action);
   },
@@ -157,22 +156,22 @@ Tobago.SheetBase = {
   },
 
   insertPageTarget: function() {
-    this.insertTarget(this.sheetId + Tobago.componentSeparator + "ToPage");
+    this.insertTarget(this.sheetId + Tobago.COMPONENT_SEP + "ToPage");
   },
 
   insertRowTarget: function() {
-    this.insertTarget(this.sheetId + Tobago.componentSeparator + "ToRow");
+    this.insertTarget(this.sheetId + Tobago.COMPONENT_SEP + "ToRow");
   },
 
   insertTarget: function(actionId) {
 //    LOG.debug("insertTarget('" + actionId + "')")
-    var textId = actionId + Tobago.subComponentSeparator + "text";
-    var text = $(textId);
+    var textId = actionId + Tobago.SUB_COMPONENT_SEP + "text";
+    var text = Tobago.element(textId);
     if (text) {
       var span = text.parentNode;
-      var hiddenId = actionId + getSubComponentSeparator() +  "value";
+      var hiddenId = actionId + Tobago.SUB_COMPONENT_SEP +  "value";
       span.style.cursor = 'auto';
-      var input = $(hiddenId);
+      var input = Tobago.element(hiddenId);
       if (! input) {
         input = document.createElement('input');
         input.type='text';

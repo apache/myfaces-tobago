@@ -80,7 +80,7 @@ public final class HtmlRendererUtil {
       } else {
         ResponseWriter writer = facesContext.getResponseWriter();
         startJavascript(writer);
-        writer.write("focusId = '" + id + "';");
+        writer.write("Tobago.focusId = '" + id + "';");
         endJavascript(writer);
       }
     }
@@ -430,8 +430,10 @@ public final class HtmlRendererUtil {
     if (afterLoadCmds != null && afterLoadCmds.length > 0) {
       writer.writeText(", \n", null);
       for (int i = 0; i < afterLoadCmds.length; i++) {
+        String cmd
+            = afterLoadCmds[i].replace("\\", "\\\\").replace("\"", "\\\"");
         writer.writeText(i == 0 ? "          " : "        + ", null);
-        writer.writeText("\"" + afterLoadCmds[i].replace("\"", "\\\"") + "\"\n", null);
+        writer.writeText("\"" + cmd + "\"\n", null);
       }
     }
     writer.writeText(");", null);

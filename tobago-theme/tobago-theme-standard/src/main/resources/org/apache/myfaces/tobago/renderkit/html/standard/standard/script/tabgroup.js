@@ -19,8 +19,8 @@ Tobago.TabGroupBase = {
   initialize: function(tabGroupId, activeIndex, page) {
     this.tabGroupId = tabGroupId,
     this.activeIndex = activeIndex;
-    this.element = $(tabGroupId + '.' + activeIndex);
-    this.page = $(page);
+    this.element = Tobago.element(tabGroupId + '.' + activeIndex);
+    this.page = Tobago.element(page);
 
     this.options = {
       method: 'post',
@@ -37,14 +37,14 @@ Tobago.TabGroupBase = {
   setUp: function() {
 //    LOG.debug("setup tabgroup " + this.element.id);
     var i = 0;
-    var idPrefix = this.element.id + getSubComponentSeparator();
-    var anchor = $(idPrefix + i++);
+    var idPrefix = this.element.id + Tobago.SUB_COMPONENT_SEP;
+    var anchor = Tobago.element(idPrefix + i++);
     while (anchor) {
 //      LOG.debug("observe tab " + anchor.id);
 //      if (i != this.activeIndex) {
         Event.observe(anchor, "click", this.reload.bindAsEventListener(this));
 //      }
-      anchor = $(idPrefix + i++);
+      anchor = Tobago.element(idPrefix + i++);
     }
 
   },
@@ -52,15 +52,15 @@ Tobago.TabGroupBase = {
   reload: function(event) {
     if (event) {
       var aId = Event.findElement(event, 'A').id;
-      this.activeIndex = aId.substring(aId.lastIndexOf(getSubComponentSeparator()) + getSubComponentSeparator().length);
+      this.activeIndex = aId.substring(aId.lastIndexOf(Tobago.SUB_COMPONENT_SEP) + Tobago.SUB_COMPONENT_SEP.length);
       LOG.debug("Request tab with index " + this.activeIndex);
 
-      var hidden = $(this.tabGroupId + getSubComponentSeparator() + "activeIndex");
+      var hidden = Tobago.element(this.tabGroupId + Tobago.SUB_COMPONENT_SEP + "activeIndex");
       if (hidden) {
         hidden.value = this.activeIndex;
       }
       else {
-        LOG.warn("No hidden field for tabindex Id='" + this.tabGroupId + getSubComponentSeparator() + "activeIndex" + "'");
+        LOG.warn("No hidden field for tabindex Id='" + this.tabGroupId + Tobago.SUB_COMPONENT_SEP + "activeIndex" + "'");
         LOG.warn("aId = " + aId);
       }
 

@@ -23,24 +23,24 @@ function initSheet(sheetId) {
 
   // ToDo: find a better way to fix the problem
   // IE needs this in case of ajax loading of style classes
-  var outherDiv = document.getElementById(sheetId + "_outer_div");
+  var outherDiv = Tobago.element(sheetId + "_outer_div");
   outherDiv.className = outherDiv.className;
   outherDiv.innerHTML = outherDiv.innerHTML;
 
   var i = 0;
-  var element = document.getElementById(sheetId + "_header_div");
+  var element = Tobago.element(sheetId + "_header_div");
   if (element) {
-    tbgAddEventListener(element, "mousemove", doResize);
-    tbgAddEventListener(element, "mouseup", endResize);
-    element = document.getElementById(sheetId + "_data_div");
-    tbgAddEventListener(element, "scroll", doScroll);
-	  var resizer = document.getElementById(sheetId + "_header_resizer_" + i++ );
+    Tobago.addEventListener(element, "mousemove", doResize);
+    Tobago.addEventListener(element, "mouseup", endResize);
+    element = Tobago.element(sheetId + "_data_div");
+    Tobago.addEventListener(element, "scroll", doScroll);
+	  var resizer = Tobago.element(sheetId + "_header_resizer_" + i++ );
 	  while (resizer) {
       if (resizer.className.match(/tobago-sheet-header-resize-cursor/)) {
-	      tbgAddEventListener(resizer, "click", stopEventPropagation);
-	      tbgAddEventListener(resizer, "mousedown", beginResize);
+	      Tobago.addEventListener(resizer, "click", Tobago.stopEventPropagation);
+	      Tobago.addEventListener(resizer, "mousedown", beginResize);
       }
-      resizer = document.getElementById(sheetId + "_header_resizer_" + i++ );
+      resizer = Tobago.element(sheetId + "_header_resizer_" + i++ );
     }
 
     adjustHeaderDiv(sheetId);
@@ -52,7 +52,7 @@ function initSheet(sheetId) {
     LOG.debug("Kann sheet mit id=\"" + sheetId + "\" nicht finden!");
   }
 
-  var sheet = document.getElementById(sheetId + "_outer_div");
+  var sheet = Tobago.element(sheetId + "_outer_div");
   var firstSelectionRow = getFirstSelectionRow(sheetId);
   if (firstSelectionRow) {
     sheet.tobagoLastClickedRowId = firstSelectionRow.id;
@@ -68,15 +68,15 @@ function addSelectionListener(sheetId) {
     i++;
     while (row) {
 //       LOG.debug("rowId = " + row.id + "   next i=" + i);
-      tbgAddEventListener(row, "click", doSelection);
-      row = document.getElementById(sheetId + "_data_tr_" + i++ );
+      Tobago.addEventListener(row, "click", doSelection);
+      row = Tobago.element(sheetId + "_data_tr_" + i++ );
     }
-    //LOG.debug("preSelected rows = " + document.getElementById(sheetId + "::selected").value);
+    //LOG.debug("preSelected rows = " + Tobago.element(sheetId + "::selected").value);
   }
 }
 
 function getFirstSelectionRow(sheetId) {
-  var element = document.getElementById(sheetId + "_data_row_0_column0");// data div
+  var element = Tobago.element(sheetId + "_data_row_0_column0");// data div
   while (element && element.id.search(new RegExp("^" + sheetId + "_data_tr_\\d+$")) == -1) {
     //LOG.debug("element id = " + element.id);
     element = element.parentNode;
@@ -91,7 +91,7 @@ function doSelection(event) {
     event = window.event;
   }
 
-  clearSelection();
+  Tobago.clearSelection();
 
   //LOG.debug("event.ctrlKey = " + event.ctrlKey);
   //LOG.debug("event.shiftKey = " + event.shiftKey);
@@ -107,18 +107,18 @@ function doSelection(event) {
   if (! isInputElement(srcElement.tagName)) {
 
 
-    var dataRow = getActiveElement(event);
+    var dataRow = Tobago.element(event);
     while (dataRow.id.search(new RegExp("_data_tr_\\d+$")) == -1) {
       dataRow = dataRow.parentNode;
     }
     var rowId = dataRow.id;
     //LOG.debug("rowId = " + rowId);
     var sheetId = rowId.substring(0, rowId.lastIndexOf("_data_tr_"));
-    var hidden = document.getElementById(sheetId + "::selected");
+    var hidden = Tobago.element(sheetId + "::selected");
     var selected = hidden.value;
-    var sheet = document.getElementById(sheetId + "_outer_div");
+    var sheet = Tobago.element(sheetId + "_outer_div");
     var rowIndex = rowId.substring(rowId.lastIndexOf("_data_tr_") + 9);
-    var selector = document.getElementById(sheetId + "_data_row_selector_" + rowIndex);
+    var selector = Tobago.element(sheetId + "_data_row_selector_" + rowIndex);
 
     //LOG.debug("last id = " + sheet.tobagoLastClickedRowId);
 
@@ -153,22 +153,22 @@ function isInputElement(tagName) {
 function updateSelectionView(sheetId, selected) {
   if (! selected) {
     var hidden =
-      document.getElementById(sheetId + getSubComponentSeparator() + "selected");
+      Tobago.element(sheetId + Tobago.SUB_COMPONENT_SEP + "selected");
     if (hidden) {
       selected = hidden.value;
     }
   }
   var row = getFirstSelectionRow(sheetId);
   if (row) {
-    var outerDiv = document.getElementById(sheetId + "_outer_div");
+    var outerDiv = Tobago.element(sheetId + "_outer_div");
     var i = row.id.substring(row.id.lastIndexOf("_data_tr_") + 9);
   }  
   while (row) {
 
-    var selector = document.getElementById(sheetId + "_data_row_selector_" + i);
+    var selector = Tobago.element(sheetId + "_data_row_selector_" + i);
     var re = new RegExp("," + i +",");
     var classes = row.className;
-    var img = document.getElementById(sheetId + "_data_row_selector_" + i);
+    var img = Tobago.element(sheetId + "_data_row_selector_" + i);
     if (selected.search(re) == -1) { // not selected: remove selection class
       row.className = classes.replace(/tobago-sheet-row-selected/g, "");
 
@@ -184,16 +184,16 @@ function updateSelectionView(sheetId, selected) {
         img.src = outerDiv.checkedImage;
       }
     }
-    row = document.getElementById(sheetId + "_data_tr_" + ++i );
+    row = Tobago.element(sheetId + "_data_tr_" + ++i );
   }
 }
 
 function selectRange(dataRow, lastId, hidden) {
-  var lastRow = document.getElementById(lastId);
+  var lastRow = Tobago.element(lastId);
   var firstIndex = lastRow.id.substring(lastRow.id.lastIndexOf("_data_tr_") + 9) - 0;
   var lastIndex  = dataRow.id.substring(dataRow.id.lastIndexOf("_data_tr_") + 9) - 0;
   var sheetId = hidden.id.substring(
-      0,hidden.id.lastIndexOf(getSubComponentSeparator() + "selected"));
+      0,hidden.id.lastIndexOf(Tobago.SUB_COMPONENT_SEP + "selected"));
 
   var start;
   var end;
@@ -208,7 +208,7 @@ function selectRange(dataRow, lastId, hidden) {
   for (var i = start; i <= end; i++) {
     var re = new RegExp("," + i + ",");
     if (hidden.value.search(re) == -1) {
-      var selector = document.getElementById(sheetId + "_data_row_selector_" + i);
+      var selector = Tobago.element(sheetId + "_data_row_selector_" + i);
       if (!selector || !selector.src.match(/Disabled/)) {
         hidden.value = hidden.value + "," + i + ",";
       }
@@ -223,7 +223,7 @@ function tobagoSheetToggleSelectionForRow(dataRow, hidden) {
 
 //function tobagoSheetToggleSelectionState(sheetId, rowIndex) {
 //  var hidden
-//  = document.getElementById(sheetId + getSubComponentSeparator() + "selected");
+//  = Tobago.element(sheetId + Tobago.SUB_COMPONENT_SEP + "selected");
 // tobagoSheetToggleSelection(rowIndex, hidden);
 //  updateSelectionView(sheetId, hidden.value);
 //}
@@ -244,10 +244,10 @@ function tobagoSheetToggleSelectionState(event) {
   var sheetId = imgElement.id.substr(0, imgElement.id.lastIndexOf("_data_row_selector_"));
   var rowIndex = imgElement.id.substr(
       imgElement.id.lastIndexOf("_data_row_selector_") + 19) - 0;
-  var row = document.getElementById(sheetId + "_data_tr_" + rowIndex);
-  var sheet = document.getElementById(sheetId + "_outer_div");
+  var row = Tobago.element(sheetId + "_data_tr_" + rowIndex);
+  var sheet = Tobago.element(sheetId + "_outer_div");
   var hidden
-    = document.getElementById(sheetId + getSubComponentSeparator() + "selected");
+    = Tobago.element(sheetId + Tobago.SUB_COMPONENT_SEP + "selected");
 
   if (event.shiftKey) {
       selectRange(row, sheet.tobagoLastClickedRowId, hidden);
@@ -260,10 +260,10 @@ function tobagoSheetToggleSelectionState(event) {
 
 function tobagoSheetToggleSelection(rowIndex, hidden) {
   var sheetId = hidden.id.substring(
-      0,hidden.id.lastIndexOf(getSubComponentSeparator() + "selected"));
-  document.getElementById(sheetId + "_outer_div").tobagoLastClickedRowId
-      = document.getElementById(sheetId + "_data_tr_" + rowIndex).id;
-  var selector = document.getElementById(sheetId + "_data_row_selector_" + rowIndex);
+      0,hidden.id.lastIndexOf(Tobago.SUB_COMPONENT_SEP + "selected"));
+  Tobago.element(sheetId + "_outer_div").tobagoLastClickedRowId
+      = Tobago.element(sheetId + "_data_tr_" + rowIndex).id;
+  var selector = Tobago.element(sheetId + "_data_row_selector_" + rowIndex);
   if (!selector || !selector.src.match(/Disabled/)) {
     var re = new RegExp("," + rowIndex + ",");
     if (hidden.value.search(re) != -1) {
@@ -281,9 +281,9 @@ function doScroll(event) {
   if (! event) {
     event = window.event;
   }
-  var dataPanel = getActiveElement(event);
+  var dataPanel = Tobago.element(event);
   var sheetId = dataPanel.id.substring(0, dataPanel.id.lastIndexOf("_data_div"));
-  var headerPanel = document.getElementById(sheetId + "_header_div");
+  var headerPanel = Tobago.element(sheetId + "_header_div");
   //LOG.debug("header / data  " + headerPanel.scrollLeft + "/" + dataPanel.scrollLeft);
   headerPanel.scrollLeft = dataPanel.scrollLeft;
   //LOG.debug("header / data  " + headerPanel.scrollLeft + "/" + dataPanel.scrollLeft);
@@ -334,10 +334,10 @@ function endResize(event) {
     var columnNr = activeElement.id.substring(activeElement.id.lastIndexOf("_")+1, activeElement.id.length);
     var sheetId = activeElement.id.substring(0, activeElement.id.lastIndexOf("_header_resizer"));
     var row = 0;
-    var cell = document.getElementById(sheetId + "_data_row_" + i++ + "_column" + columnNr);
+    var cell = Tobago.element(sheetId + "_data_row_" + i++ + "_column" + columnNr);
     while (cell) {
       cell.style.width = newWidth + "px";
-      cell = document.getElementById(sheetId + "_data_row_" + i++ + "_column" + columnNr);
+      cell = Tobago.element(sheetId + "_data_row_" + i++ + "_column" + columnNr);
     }
 
     adjustScrollBars(sheetId);
@@ -350,49 +350,49 @@ function endResize(event) {
 
 function storeSizes(sheetId) {
   var index = 0;
-  var header = document.getElementById(sheetId + "_header_box_" + index++);
+  var header = Tobago.element(sheetId + "_header_box_" + index++);
   var widths = "";
   while (header) {
     width = header.style.width.replace(/px/, "");
     widths = widths + "," + width;
-    header = document.getElementById(sheetId + "_header_box_" + index++);
+    header = Tobago.element(sheetId + "_header_box_" + index++);
   }
 
-  var hidden = document.getElementById(sheetId + "::widths");
+  var hidden = Tobago.element(sheetId + "::widths");
   hidden.value = widths;
 }
 
 function adjustResizer(sheetId) {
   // opera needs this
-  if (opera) {
+  if (window.opera) {
     var position = 5;
     var index = 0;
-    var resizer = document.getElementById(sheetId + "_header_resizer_" + index);
+    var resizer = Tobago.element(sheetId + "_header_resizer_" + index);
     while (resizer) {
       resizer.style.right = - position;
-      var headerBox = document.getElementById(sheetId + "_header_box_" + index++);
+      var headerBox = Tobago.element(sheetId + "_header_box_" + index++);
       var width = headerBox.style.width.replace(/px/, "") - 0;
       position += width;
-      resizer = document.getElementById(sheetId + "_header_resizer_" + index);
+      resizer = Tobago.element(sheetId + "_header_resizer_" + index);
     }
   }
 }
 
 function adjustScrollBars(sheetId) {
-  var dataFiller = document.getElementById(sheetId + "_data_row_0_column_filler");
+  var dataFiller = Tobago.element(sheetId + "_data_row_0_column_filler");
   if (dataFiller) {
     dataFiller.style.width = "0px";
-    var contentDiv = document.getElementById(sheetId + "_data_div");
+    var contentDiv = Tobago.element(sheetId + "_data_div");
     var clientWidth = contentDiv.clientWidth;
 
     if (contentDiv.scrollWidth <= clientWidth) {
       var width = 0;
       var i = 0;
-      var cellDiv = document.getElementById(sheetId + "_data_row_0_column" + i++);
+      var cellDiv = Tobago.element(sheetId + "_data_row_0_column" + i++);
       while (cellDiv) {
         var tmp = cellDiv.style.width.replace(/px/, "") - 0 ;
         width += tmp;
-        cellDiv = document.getElementById(sheetId + "_data_row_0_column" + i++);
+        cellDiv = Tobago.element(sheetId + "_data_row_0_column" + i++);
       }
       dataFiller.style.width = Math.max((clientWidth - width), 0) + "px";
     }
@@ -400,24 +400,26 @@ function adjustScrollBars(sheetId) {
 }
 
 function adjustHeaderDiv(sheetId) {
-  var contentDiv = document.getElementById(sheetId + "_data_div");
+  var contentDiv = Tobago.element(sheetId + "_data_div");
+  var contentTable = contentDiv.getElementsByTagName("table")[0];
+  contentTable.style.width = "10px";
   var contentWidth = contentDiv.style.width.replace(/px/, "") - 0;
   var clientWidth = contentDiv.clientWidth;
     var boxSum = 0;
     var idx = 0;
-    var box = document.getElementById(sheetId + "_header_box_" + idx++);
+    var box = Tobago.element(sheetId + "_header_box_" + idx++);
     while (box) {
       boxSum += (box.style.width.replace(/px/, "") - 0);
-      box = document.getElementById(sheetId + "_header_box_" + idx++);
+      box = Tobago.element(sheetId + "_header_box_" + idx++);
     }
   if (clientWidth == 0) {
     clientWidth = Math.min(contentWidth, boxSum);
   }
-  var headerDiv = document.getElementById(sheetId + "_header_div");
+  var headerDiv = Tobago.element(sheetId + "_header_div");
   var minWidth = contentWidth - getScrollbarWidth() - getContentBorderWidth(); // div width - scrollbar width
   minWidth = Math.max(minWidth, 0); // not less than 0
   headerDiv.style.width = Math.max(clientWidth, minWidth);
-  var fillBox = document.getElementById(sheetId + "_header_box_filler");
+  var fillBox = Tobago.element(sheetId + "_header_box_filler");
   fillBox.style.width = Math.max(headerDiv.style.width.replace(/px/, "") - boxSum, 0);
 //  LOG.debug("adjustHeaderDiv(" + sheetId + ") : clientWidth = " + clientWidth + " :: width => " + headerDiv.style.width);
   //headerDiv.style.width = clientWidth;
@@ -427,10 +429,17 @@ function adjustHeaderDiv(sheetId) {
     headerDiv.style.width = Math.max(clientWidth2, minWidth);
 //    LOG.debug("second time adjustHeaderDiv(" + sheetId + ") : clientWidth2 = " + clientWidth2 + " :: width => " + headerDiv.style.width);
   }
+  contentTable.style.width = contentDiv.clientWidth + "px";
+//  LOG.debug("div width   :" + contentDiv.clientWidth);
+//  LOG.debug("table width :" + contentTable.clientWidth);
+//  LOG.debug("boxSum      :" + boxSum);
+//  LOG.debug("filler      :" + fillBox.clientWidth);
+//  LOG.debug("fillerstyle :" + fillBox.style.width);
+//  LOG.debug("##########################################");
 }
 
 function getScrollbarWidth() {
-  if (gecko) {
+  if (navigator.userAgent.indexOf("Gecko") != -1) {
     return 16;
   }
   else {
@@ -443,10 +452,10 @@ function getContentBorderWidth() {
 }
 
 function setupHeader(sheetId) {
-  var headerBox = document.getElementById(sheetId + "_header_box_0");
+  var headerBox = Tobago.element(sheetId + "_header_box_0");
   if (headerBox) {
 
-    if (opera) {
+    if (window.opera) {
     headerBox.style.marginLeft = "0px";
     }
 
@@ -461,23 +470,23 @@ function setActiveElement(event) {
   if (! event) {
     event = window.event;
   }
-  activeElement = getActiveElement(event);
+  activeElement = Tobago.element(event);
 }
 
 function getHeaderBox(element) {
     var boxId = element.id.replace(/_header_resizer_/, "_header_box_");
-    return document.getElementById(boxId);
+    return Tobago.element(boxId);
 }
 
 function tobagoSheetSetUncheckedImage(sheetId, image) {
-  var div = document.getElementById(sheetId + "_outer_div");
+  var div = Tobago.element(sheetId + "_outer_div");
   if (div) {
     div.uncheckedImage = image;
   }
 }
 
 function tobagoSheetSetCheckedImage(sheetId, image) {
-  var div = document.getElementById(sheetId + "_outer_div");
+  var div = Tobago.element(sheetId + "_outer_div");
   if (div) {
     div.checkedImage = image;
   }
@@ -485,35 +494,35 @@ function tobagoSheetSetCheckedImage(sheetId, image) {
 
 function tobagoSheetSelectAll(sheetId) {
   var hidden
-    = document.getElementById(sheetId + getSubComponentSeparator() + "selected");
+    = Tobago.element(sheetId + Tobago.SUB_COMPONENT_SEP + "selected");
   var row = getFirstSelectionRow(sheetId);
   var i = row.id.substring(row.id.lastIndexOf("_data_tr_") + 9);
   while (row) {
-    var selector = document.getElementById(sheetId + "_data_row_selector_" + i);
+    var selector = Tobago.element(sheetId + "_data_row_selector_" + i);
     if (!selector || !selector.src.match(/Disabled/)) {
       var re = new RegExp("," + i + ",");
       if (hidden.value.search(re) == -1) {
         hidden.value = hidden.value + "," + i + ",";
       }
     }
-    row = document.getElementById(sheetId + "_data_tr_" + ++i );
+    row = Tobago.element(sheetId + "_data_tr_" + ++i );
   }
   updateSelectionView(sheetId, hidden.value);
 }
 function tobagoSheetUnselectAll(sheetId) {
   var hidden
-    = document.getElementById(sheetId + getSubComponentSeparator() + "selected");
+    = Tobago.element(sheetId + Tobago.SUB_COMPONENT_SEP + "selected");
   var row = getFirstSelectionRow(sheetId);
-  var selector = document.getElementById(sheetId + "_data_row_selector_" + i);
+  var selector = Tobago.element(sheetId + "_data_row_selector_" + i);
   if (selector) {
     var i = row.id.substring(row.id.lastIndexOf("_data_tr_") + 9);
     while (row) {
-      var selector = document.getElementById(sheetId + "_data_row_selector_" + i);
+      var selector = Tobago.element(sheetId + "_data_row_selector_" + i);
       if (!selector || !selector.src.match(/Disabled/)) {
         var re = new RegExp("," + i + ",", 'g');
         hidden.value = hidden.value.replace(re, "");
       }
-      row = document.getElementById(sheetId + "_data_tr_" + ++i );
+      row = Tobago.element(sheetId + "_data_tr_" + ++i );
     }
   } else {
     hidden.value = "";
@@ -523,35 +532,35 @@ function tobagoSheetUnselectAll(sheetId) {
 
 function tobagoSheetToggleAllSelections(sheetId) {
   var hidden
-    = document.getElementById(sheetId + getSubComponentSeparator() + "selected");
+    = Tobago.element(sheetId + Tobago.SUB_COMPONENT_SEP + "selected");
   var row = getFirstSelectionRow(sheetId);
   var i = row.id.substring(row.id.lastIndexOf("_data_tr_") + 9);
   while (row) {
     tobagoSheetToggleSelection(i, hidden);
-    row = document.getElementById(sheetId + "_data_tr_" + ++i );
+    row = Tobago.element(sheetId + "_data_tr_" + ++i );
   }
   updateSelectionView(sheetId, hidden.value);
 }
 
 
 function tobagoSheetSetPagerPage(commandId, page, submitCommand) {
-  var element = document.getElementById(
-      commandId + getSubComponentSeparator() + "link_" + page);
+  var element = Tobago.element(
+      commandId + Tobago.SUB_COMPONENT_SEP + "link_" + page);
   var hidden = document.createElement('input');
   hidden.type = 'hidden';
   hidden.value = page;
-  hidden.name = commandId + getSubComponentSeparator() +  "value";
+  hidden.name = commandId + Tobago.SUB_COMPONENT_SEP +  "value";
   element.parentNode.appendChild(hidden);
   eval(submitCommand);
 }
 
 function tobagoSheetEditPagingRow(span, commandId, onClickCommand, commandName) {
 
-  var text = document.getElementById(commandId + getSubComponentSeparator() + "text");
+  var text = Tobago.element(commandId + Tobago.SUB_COMPONENT_SEP + "text");
   if (text) {
     LOG.debug("text gefunden");
     span = text.parentNode;
-    var hiddenId = commandId + getSubComponentSeparator() +  "value";
+    var hiddenId = commandId + Tobago.SUB_COMPONENT_SEP +  "value";
     span.style.cursor = 'auto';
     input = text.inputElement;
     if (! input) {
@@ -564,9 +573,9 @@ function tobagoSheetEditPagingRow(span, commandId, onClickCommand, commandName) 
       input.name=hiddenId;
       input.className = "tobago-sheet-paging-input";
       input.onClickCommand = onClickCommand;
-      tbgAddEventListener(input, 'blur', delayedHideInput);
-      //tbgAddEventListener(input, 'keyup', keyUp);
-      tbgAddEventListener(input, 'keydown', keyEvent);
+      Tobago.addEventListener(input, 'blur', delayedHideInput);
+      //Tobago.addEventListener(input, 'keyup', keyUp);
+      Tobago.addEventListener(input, 'keydown', keyEvent);
     }
     input.value=text.innerHTML;
     span.replaceChild(input, text);
@@ -580,7 +589,7 @@ function tobagoSheetEditPagingRow(span, commandId, onClickCommand, commandName) 
 
 
 function delayedHideInput(event) {
-  var input = getActiveElement(event);
+  var input = Tobago.element(event);
   if (input) {
     setTimeout('hideInput("' + input.id + '", 100)');
   } else {
@@ -588,7 +597,7 @@ function delayedHideInput(event) {
   }
 }
 function hideInput(inputId) {
-  var input = document.getElementById(inputId);
+  var input = Tobago.element(inputId);
   if (input && !input.submitted) {
     input.parentNode.style.cursor = 'pointer';
     input.parentNode.replaceChild(input.textElement, input);
@@ -598,7 +607,7 @@ function hideInput(inputId) {
 }
 
 function keyEvent(event) {
-  var input = getActiveElement(event);
+  var input = Tobago.element(event);
   var keyCode;
   if (event.which) {
 //    LOG.debug('mozilla');

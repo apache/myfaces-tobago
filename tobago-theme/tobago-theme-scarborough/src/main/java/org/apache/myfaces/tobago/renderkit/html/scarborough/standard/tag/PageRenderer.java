@@ -105,8 +105,8 @@ public class PageRenderer extends PageRendererBase {
     UIComponent menubar = page.getFacet(FACET_MENUBAR);
     if (menubar != null) {
       menubar.getAttributes().put(ATTR_PAGE_MENU, Boolean.TRUE);
-      page.getOnloadScripts().add("setDivWidth('"
-          + menubar.getClientId(facesContext) + "', getBrowserInnerWidth())");
+      page.getOnloadScripts().add("Tobago.setElementWidth('"
+          + menubar.getClientId(facesContext) + "', Tobago.getBrowserInnerWidth())");
       RenderUtil.encode(facesContext, menubar);
     }
 
@@ -230,26 +230,17 @@ public class PageRenderer extends PageRendererBase {
     // focus id
     String focusId = page.getFocusId();
     if (focusId != null) {
-      HtmlRendererUtil.writeJavascript(writer, "focusId = '" + focusId + "';");
-
-//      writer.startElement("script", null);
-//      writer.writeAttribute("type", "text/javascript", null);
-//      writer.write("focusId = '");
-//      writer.write(focusId);
-//      writer.write("';");
-//      writer.endElement("script");
+      HtmlRendererUtil.writeJavascript(writer, "Tobago.focusId = '" + focusId + "';");
     }
 
     HtmlRendererUtil.startJavascript(writer);
     // onload script
-    writer.write("function onloadScript() {\n");
-    writer.write("onloadScriptDefault();\n");
+    writer.write("Tobago.applicationOnload = function() {\n");
 
     for (String onload : page.getOnloadScripts()) {
       writer.write(onload);
       writer.write('\n');
     }
-    writer.write("  Tobago.pageComplete();");
     writer.write("}\n");
 
     // onunload script
@@ -285,7 +276,7 @@ public class PageRenderer extends PageRendererBase {
 
     writer.endElement("head");
     writer.startElement("body", page);
-    writer.writeAttribute("onload", "onloadScript()", null);
+    writer.writeAttribute("onload", "Tobago.init('" + clientId + "')", null);
     writer.writeAttribute("onunload", "onexitScript()", null);
     //this ist for ie to prevent scrollbars where none are needed
     writer.writeAttribute("scroll", "auto", null);
@@ -427,9 +418,11 @@ public class PageRenderer extends PageRendererBase {
     StringBuffer sb = new StringBuffer("LOG.info(\"FacesMessage: [");
     sb.append(id != null ? id : "null");
     sb.append("][");
-    sb.append(message.getSummary() == null ? "null" : message.getSummary());
+    sb.append(message.getSummary() == null ? "null"
+        : message.getSummary().replace("\\", "\\\\").replace("\"", "\\\""));
     sb.append("/");
-    sb.append(message.getDetail() == null ? "null" : message.getDetail());
+    sb.append(message.getDetail() == null ? "null"
+        : message.getDetail().replace("\\", "\\\\").replace("\"", "\\\""));
     sb.append("]\");");
     return sb.toString();
   }

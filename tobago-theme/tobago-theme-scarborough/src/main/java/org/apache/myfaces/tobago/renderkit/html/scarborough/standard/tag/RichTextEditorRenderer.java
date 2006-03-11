@@ -195,8 +195,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
         facesContext, "tobago", "tobago.richtexteditor.edit.title");
     command.getAttributes().put(ATTR_TIP, title);
 
-    String onClick = "submitAction('"
-        + ComponentUtil.findPage(component).getFormId(facesContext) + "', '"
+    String onClick = "Tobago.submitAction('"
         + clientId + RichTextEditorRenderer.CHANGE_BUTTON + "')";
     command.getAttributes().put(ATTR_ACTION_STRING, onClick);
 
@@ -219,7 +218,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     toolbar.getChildren().add(command);
     command.getAttributes().put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
     command.getAttributes().put(ATTR_IMAGE, "image/config.gif");
-    command.getAttributes().put(ATTR_ACTION_STRING, "doEditorCommand(this);");
+    command.getAttributes().put(ATTR_ACTION_STRING, "Tobago.doEditorCommand(this);");
 
     return toolbar;
   }

@@ -147,9 +147,9 @@ public class TimeRenderer extends InRendererBase{
 
     if (!ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED)) {
       writer.writeAttribute("onmouseover",
-          "tobagoImageMouseover('" + imageId + "')", null);
+          "Tobago.imageMouseover('" + imageId + "')", null);
       writer.writeAttribute("onmouseout",
-          "tobagoImageMouseout('" + imageId + "')", null);
+          "Tobago.imageMouseout('" + imageId + "')", null);
     }
     writer.endElement("img");
 
@@ -166,9 +166,9 @@ public class TimeRenderer extends InRendererBase{
     writer.writeAttribute("alt", "", false); // TODO: tip
     if (!ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED)) {
       writer.writeAttribute("onmouseover",
-          "tobagoImageMouseover('" + imageId + "')", null);
+          "Tobago.imageMouseover('" + imageId + "')", null);
       writer.writeAttribute("onmouseout",
-          "tobagoImageMouseout('" + imageId + "')", null);
+          "Tobago.imageMouseout('" + imageId + "')", null);
     }
     writer.endElement("img");
 

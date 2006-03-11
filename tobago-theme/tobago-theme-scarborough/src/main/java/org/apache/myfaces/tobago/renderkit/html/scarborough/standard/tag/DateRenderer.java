@@ -148,8 +148,7 @@ public class DateRenderer extends InRenderer {
     link.getChildren().add(hidden);
     hidden.setId(idPrefix + "Dimension");
     // attributes map is still of link
-    attributes.put(ATTR_ACTION_STRING, "openPickerPopup(event, '"
-        + ComponentUtil.findPage(component).getFormId(facesContext) + "', '"
+    attributes.put(ATTR_ACTION_STRING, "Tobago.openPickerPopup(event, '"
         + link.getClientId(facesContext) + "', '"
         + hidden.getClientId(facesContext) + "')");
 
@@ -231,7 +230,7 @@ public class DateRenderer extends InRenderer {
     attributes.put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
     attributes.put(ATTR_ACTION_STRING, "writeIntoField('"
         + popup.getClientId(facesContext) + "', '"
-        + component.getClientId(facesContext) + "'); closePickerPopup('"
+        + component.getClientId(facesContext) + "'); Tobago.closePickerPopup('"
         + popup.getClientId(facesContext) + "')");
     okButton.setActionListener(datePickerController);
 
@@ -241,7 +240,7 @@ public class DateRenderer extends InRenderer {
     attributes = cancelButton.getAttributes();
     attributes.put(ATTR_LABEL, "Cancel");
     attributes.put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
-    attributes.put(ATTR_ACTION_STRING, "closePickerPopup('" + popup.getClientId(facesContext) + "')");
+    attributes.put(ATTR_ACTION_STRING, "Tobago.closePickerPopup('" + popup.getClientId(facesContext) + "')");
     cancelButton.setId(DatePickerController.CLOSE_POPUP);
     cancelButton.setActionListener(datePickerController);
 

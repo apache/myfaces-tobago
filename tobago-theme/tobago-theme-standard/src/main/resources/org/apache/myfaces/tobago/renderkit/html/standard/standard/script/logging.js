@@ -17,63 +17,74 @@
 
 var LOG = new Object();
 Object.extend(LOG, {
-    IdBase: "TbgLog",
-    messages: new Array(),
-    appenders: new Array(),
-    DEBUG: 1,
-    INFO:  2,
-    WARN:  3,
-    ERROR: 4,
+  IdBase: "TbgLog",
+  messages: new Array(),
+  appenders: new Array(),
+  DEBUG: 1,
+  INFO:  2,
+  WARN:  3,
+  ERROR: 4,
 
-    show: function() {
-      for (var i = 0 ; i < this.appenders.length; i++) {
-        var appender = this.appenders[i];
-        if (appender.show) {
-          appender.show();
-        }
+  show: function() {
+    for (var i = 0 ; i < this.appenders.length; i++) {
+      var appender = this.appenders[i];
+      if (appender.show) {
+        appender.show();
       }
-    },
-
-    addAppender: function(appender) {
-      this.appenders.push(appender);
-    },
-
-    addMessage: function(msg) {
-      this.messages.push(msg);
-      for (var i = 0 ; i < this.appenders.length; i++) {
-        var appender = this.appenders[i];
-        if (appender.append
-            && typeof(msg.type) == "number"
-            && appender.logFor(msg.type)) {
-          appender.append(msg);
-        }
-      }
-    },
-
-    debug: function(text) {
-      this.addMessage(new LOG.LogMessage(LOG.DEBUG, text));
-    },
-
-    info  : function(text) {
-      this.addMessage(new LOG.LogMessage(LOG.INFO, text));
-    },
-
-    warn: function(text) {
-      this.addMessage(new LOG.LogMessage(LOG.WARN, text));
-    },
-
-    error: function(text) {
-      this.addMessage(new LOG.LogMessage(LOG.ERROR, text));
-    },
-
-    bindOnWindow: function() {
-      window.onerror = this.windowError.bind(this);
-    },
-
-    windowError: function(msg, url, line){
-		  var message = "Error in (" + (url || window.location) + ") on line "+ line +" with message (" + msg + ")";
-		  this.error(message);	
     }
+  },
+
+  addAppender: function(appender) {
+    this.appenders.push(appender);
+  },
+
+  addMessage: function(msg) {
+    this.messages.push(msg);
+    for (var i = 0 ; i < this.appenders.length; i++) {
+      var appender = this.appenders[i];
+      if (appender.append
+          && typeof(msg.type) == "number"
+          && appender.logFor(msg.type)) {
+        appender.append(msg);
+      }
+    }
+  },
+
+  debug: function(text) {
+    this.addMessage(new LOG.LogMessage(LOG.DEBUG, text));
+  },
+
+  info  : function(text) {
+    this.addMessage(new LOG.LogMessage(LOG.INFO, text));
+  },
+
+  warn: function(text) {
+    this.addMessage(new LOG.LogMessage(LOG.WARN, text));
+  },
+
+  error: function(text) {
+    this.show();
+    this.addMessage(new LOG.LogMessage(LOG.ERROR, text));
+  },
+
+  bindOnWindow: function() {
+    window.onerror = this.windowError.bind(this);
+  },
+
+  windowError: function(msg, url, line){
+    var message = "Error in (" + (url || window.location) + ") on line "+ line +" with message (" + msg + ")";
+    this.error(message);
+  },
+
+  listScriptFiles: function() {
+    var children = document.getElementsByTagName('head')[0].childNodes;
+    for (var i = 0; i < children.length; i++) {
+      var child = children[i];
+      if (child.tagName.toUpperCase() == "SCRIPT"){
+        this.debug("script.src=" + child.src);
+      }
+    }
+  }
 });
 LOG.bindOnWindow();
 
@@ -97,7 +108,7 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype, {
 
     this.options = options;
 
-    if ($(LOG.IdBase)) {
+    if (Tobago.element(LOG.IdBase)) {
       return;
     }
 
@@ -178,7 +189,7 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype, {
     this.logList.id = "Log";
     this.scrollElement.appendChild(this.logList);
 
-    this.handle       = options.handle ? $(options.handle) : this.element;
+    this.handle       = options.handle ? Tobago.element(options.handle) : this.element;
 
     Element.makePositioned(this.element); // fix IE
 
