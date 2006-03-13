@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_LIST_STRING;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_HEADER;
@@ -265,7 +266,8 @@ public class UIData extends javax.faces.component.UIData
                 .getConfiguredValue(facesContext, this, "cellPaddingWidth");
             child.getAttributes().put(
                 ATTR_LAYOUT_WIDTH, width - cellPaddingWidth);
-          } else {
+            child.getAttributes().remove(ATTR_INNER_WIDTH);
+           } else {
             LOG.warn("More or less than 1 child in column! "
                 + "Can't set width for column " + i + " to " + width);
           }

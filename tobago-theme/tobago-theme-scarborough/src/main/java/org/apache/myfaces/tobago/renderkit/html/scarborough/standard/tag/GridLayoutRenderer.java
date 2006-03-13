@@ -56,7 +56,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.awt.*;
+import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -399,7 +399,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     boolean needVerticalScroolbar = false;
     Integer innerHeight =
           (Integer) attributes.get(ATTR_INNER_HEIGHT);
-    if (innerHeight != null && innerHeight.intValue() != -1) {
+    if (innerHeight != null && innerHeight.intValue() > 0) {
       int value = innerHeight.intValue();
       int minimum = calculateLayoutHeight(facesContext, layout.getParent(), true);
       if (minimum > value) {
