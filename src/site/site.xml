@@ -7,13 +7,15 @@
   </bannerLeft>
   <bannerRight>
     <name>MyFaces</name>
-    <src>http://myfaces.apache.org/images/logo.png</src>
-    <href>http://myfaces.apache.org/</href>
+    <src>http://incubator.apache.org/images/apache-incubator-logo.png</src>
+    <href>http://incubator.apache.org</href>
+    <!--src>http://myfaces.apache.org/images/logo.png</src-->
+    <!--href>http://myfaces.apache.org/</href-->
   </bannerRight>
   <body>
     <links>
-      <item name="Tobago Core" href="http://tobago.atanion.net/site/tobago-core/"/>
-      <item name="Tobago" href="http://tobago.atanion.net/site/" />
+      <item name="Tobago Core" href="tobago-core/"/>
+      <item name="Tobago" href="http://incubator.apache.org/tobago" />
       <item name="MyFaces" href="http://myfaces.apache.org/" />
     </links>
 
@@ -24,6 +26,7 @@
 
     <menu name="Documentation">
       <item name="Getting Started" href="getting-started.html"/>
+      <item name="Roadmap" href="roadmap.html" />
       <item name="FAQ" href="faq.html"/>
     </menu>
     
