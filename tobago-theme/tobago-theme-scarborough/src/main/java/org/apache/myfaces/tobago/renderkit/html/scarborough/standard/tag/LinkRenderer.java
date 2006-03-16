@@ -87,15 +87,14 @@ public class LinkRenderer extends CommandRendererBase{
 
     LabelWithAccessKey label = new LabelWithAccessKey(component);
 
-    if (!ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
+    if (ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
+      writer.startElement("span", component);
+    } else {
       writer.startElement("a", component);
-      writer.writeComponentClass();
-      writer.writeNameAttribute(component.getClientId(facesContext));
       writer.writeAttribute("href", href, null);
       if (onclick != null) {
         writer.writeAttribute("onclick", onclick, null);
       }
-      writer.writeAttribute("title", null, ATTR_TIP);
       writer.writeAttribute("target", null, ATTR_TARGET);
       if (label.getAccessKey() != null) {
         if (LOG.isInfoEnabled()
@@ -104,8 +103,13 @@ public class LinkRenderer extends CommandRendererBase{
         }
         writer.writeAttribute("accesskey", label.getAccessKey(), null);
       }
-      writer.writeText("", null); // force closing the start tag
     }
+    writer.writeComponentClass();
+    writer.writeNameAttribute(component.getClientId(facesContext));
+    writer.writeAttribute("title", null, ATTR_TIP);
+
+    //TODO: check if this is still needed
+    writer.writeText("", null); // force closing the start tag
 
 //  image
     String image = (String) component.getAttributes().get(ATTR_IMAGE);
@@ -130,7 +134,9 @@ public class LinkRenderer extends CommandRendererBase{
   public void encodeEndTobago(FacesContext facesContext, UIComponent component)
       throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
-    if (!ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
+    if (ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
+      writer.endElement("span");
+    } else {
       writer.endElement("a");
     }
   }
