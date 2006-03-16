@@ -18,6 +18,10 @@
   padding-bottom: 0px;
 }
 
+label.tobago-label-default  {
+  margin-top: 2px;
+}
+
 /* this div is expanding by content
    content is div with css-class tobago-box-content-inner*/
 .tobago-box-content {

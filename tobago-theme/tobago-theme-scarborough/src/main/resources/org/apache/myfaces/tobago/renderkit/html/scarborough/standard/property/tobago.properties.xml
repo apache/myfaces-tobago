@@ -29,7 +29,7 @@
 <entry key="configLocaleText">Which Locale should be used?</entry>
 <entry key="configContentType">Content type</entry>
 <entry key="configContentTypeText">Which Content-Type should be used?</entry>
-<entry key="configSubmit">=Submit</entry>
+<entry key="configSubmit">Submit</entry>
 <entry key="configButtonText">Configuration</entry>
 <entry key="configCachecoverage">Cache coverage</entry>
 

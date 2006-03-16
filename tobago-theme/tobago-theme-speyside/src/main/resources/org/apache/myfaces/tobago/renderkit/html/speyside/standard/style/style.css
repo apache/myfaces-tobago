@@ -87,7 +87,7 @@ img.tobago-progress-color2 {
 
 a:link.tobago-tab-link, a:visited.tobago-tab-link, a:active.tobago-tab-link {
   font: 12px Arial, Helvetica, sans-serif;
-   color: #660000;
+  color: #660000;
 }
 
 div.tobago-tab-selected-outer {
@@ -160,7 +160,7 @@ a:link.tab, a:visited.tab, a:active.tab {
 	padding: 0px;
 	margin: 0px;
 	font: icon;
-	color: black;
+	color: #000000;
 	white-space: nowrap;
 }
 
@@ -298,6 +298,7 @@ div.tobago-box-default {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+
 .tobago-box-header-label {
   padding-top: 2px;
   padding-bottom: 2px;
