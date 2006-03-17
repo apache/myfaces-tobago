@@ -22,7 +22,19 @@ Tobago.Sheet = function(sheetId) {
 
   this.prototype = new Ajax.Base();
 
-  this.sortOnclickRegExp = new RegExp("Tobago.submitAction\\(('|\")(.*?)('|\")\\)");
+  this.sortOnclickRegExp
+      = new RegExp("Tobago.submitAction\\(('|\")(.*?)('|\")\\)");
+
+  this.ppPrefix
+      = Tobago.SUB_COMPONENT_SEP + "pagingPages" + Tobago.SUB_COMPONENT_SEP;
+
+  this.firstRegExp = new RegExp(this.ppPrefix + "First$");
+
+  this.prevRegExp = new RegExp(this.ppPrefix + "Prev$");
+
+  this.nextRegExp = new RegExp(this.ppPrefix + "Next$");
+
+  this.lastRegExp = new RegExp(this.ppPrefix + "Last$");
 
   this.setup = function() {
 
@@ -42,41 +54,44 @@ Tobago.Sheet = function(sheetId) {
 //        LOG.debug("match[6] = " + match[6]);
 //        headerBox.formId = match[2];
         headerBox.sorterId = match[2];
-        headerBox.onclick = null;
+        delete headerBox.onclick;
 //        LOG.debug("headerBox.id = " + headerBox.id);
-        Event.observe(headerBox, "click", this.doSort.bindAsEventListener(this));
+        Tobago.addBindEventListener(headerBox, "click", this, "doSort");
       }
       headerBox = Tobago.element(idPrefix + i++);
     }
 
     // setup paging links
-    var linkBox = Tobago.element(this.sheetId + Tobago.SUB_COMPONENT_SEP + "pagingLinks");
+    idPrefix = this.sheetId + Tobago.SUB_COMPONENT_SEP;
+    var linkBox = Tobago.element(idPrefix + "pagingLinks");
     if (linkBox) {
       for (i = 0 ; i < linkBox.childNodes.length ; i++) {
         var child = linkBox.childNodes[i];
         if (child.nodeType == 1 && child.tagName.toUpperCase() == "A") {
           child.href = "#";
-          Event.observe(child, "click", this.doPagingDirect.bindAsEventListener(this));
+          Tobago.addBindEventListener(child, "click", this, "doPagingDirect");
         }
       }
     }
 
     // setup paging pages
-    linkBox = Tobago.element(this.sheetId + Tobago.SUB_COMPONENT_SEP + "pagingPages");
+    linkBox = Tobago.element(idPrefix + "pagingPages");
     if (linkBox) {
       for (i = 0 ; i < linkBox.childNodes.length ; i++) {
         var child = linkBox.childNodes[i];
         if (child.nodeType == 1 && child.tagName.toUpperCase() == "IMG") {
           // first, prev, next and last commands
           if (child.onclick) {
-            child.onclick = null;
-            Event.observe(child, "click", this.doPaging.bindAsEventListener(this));
+            delete child.onclick;
+            Tobago.addBindEventListener(child, "click", this, "doPaging");
           }
         } else if (child.nodeType == 1 && child.tagName.toUpperCase() == "SPAN") {
 //          LOG.debug("Page : onclick =" + child.onclick);
           if (child.onclick) {
-            child.onclick = null;
-            Event.observe(child, "click", this.insertPageTarget.bindAsEventListener(this));
+            delete child.onclick;
+            var toPageId = this.sheetId + Tobago.COMPONENT_SEP + "ToPage";
+            Tobago.addEventListener(child, "click",
+                Tobago.bind(this, "insertTarget", toPageId));
           }
 
         }
@@ -85,13 +100,15 @@ Tobago.Sheet = function(sheetId) {
 
 
     // setup row paging
-    var rowText = Tobago.element(this.sheetId + Tobago.COMPONENT_SEP + "ToRow" + Tobago.SUB_COMPONENT_SEP + "text");
+    var toRowId = this.sheetId + Tobago.COMPONENT_SEP + "ToRow";
+    var rowText = Tobago.element(toRowId + Tobago.SUB_COMPONENT_SEP + "text");
     if (rowText) {
       var parent = rowText.parentNode;
 //      LOG.debug("row : onclick =" + parent.onclick);
       if (parent.onclick) {
-        parent.onclick = null;
-        Event.observe(parent, "click", this.insertRowTarget.bindAsEventListener(this));
+        delete parent.onclick;
+        Tobago.addEventListener(parent, "click",
+            Tobago.bind(this, "insertTarget", toRowId));
       }
     }
   };
@@ -124,14 +141,13 @@ Tobago.Sheet = function(sheetId) {
   this.doPaging = function(event) {
     var element = Event.element(event);
     var action = "unset";
-    // TODO: replace '::' in regexp by Tobago.SUB_COMPONENT_SEP
-    if (element.id.match(/::pagingPages::First$/)){
+    if (element.id.match(this.firstRegExp)){
       action = this.sheetId + Tobago.COMPONENT_SEP +"First";
-    } else if (element.id.match(/::pagingPages::Prev$/)){
+    } else if (element.id.match(this.prevRegExp)){
       action = this.sheetId + Tobago.COMPONENT_SEP +"Prev";
-    } else if (element.id.match(/::pagingPages::Next$/)){
+    } else if (element.id.match(this.nextRegExp)){
       action = this.sheetId + Tobago.COMPONENT_SEP +"Next";
-    } else if (element.id.match(/::pagingPages::Last$/)){
+    } else if (element.id.match(this.lastRegExp)){
       action = this.sheetId + Tobago.COMPONENT_SEP +"Last";
     }
     this.reloadWithAction(action);
@@ -143,15 +159,7 @@ Tobago.Sheet = function(sheetId) {
 
   };
 
-  this.insertPageTarget = function() {
-    this.insertTarget(this.sheetId + Tobago.COMPONENT_SEP + "ToPage");
-  };
-
-  this.insertRowTarget = function() {
-    this.insertTarget(this.sheetId + Tobago.COMPONENT_SEP + "ToRow");
-  };
-
-  this.insertTarget = function(actionId) {
+  this.insertTarget = function(event, actionId) {
 //    LOG.debug("insertTarget('" + actionId + "')")
     var textId = actionId + Tobago.SUB_COMPONENT_SEP + "text";
     var text = Tobago.element(textId);
@@ -167,8 +175,8 @@ Tobago.Sheet = function(sheetId) {
         input.name=hiddenId;
         input.className = "tobago-sheet-paging-input";
         input.actionId = actionId;
-        Event.observe(input, "blur", this.delayedHideInput.bindAsEventListener(this));
-        Event.observe(input, "keydown", this.doKeyEvent.bindAsEventListener(this));
+        Tobago.addBindEventListener(input, "blur", this, "delayedHideInput");
+        Tobago.addBindEventListener(input, "keydown", this, "doKeyEvent");
         input.style.display = 'none';
         span.insertBefore(input, text);
       }
@@ -187,7 +195,7 @@ Tobago.Sheet = function(sheetId) {
     var element = Event.element(event);
     if (element) {
       this.textInput = element;
-      setTimeout(this.hideInput.bind(this), 100);
+      setTimeout(Tobago.bind(this, "hideInput"), 100);
     }
   };
 
@@ -231,7 +239,7 @@ Tobago.Sheet = function(sheetId) {
   this.options = {
     method: 'post',
     asynchronous: true,
-    onComplete: this.onComplete.bind(this),
+    onComplete: Tobago.bind(this, "onComplete"),
     parameters: '',
     evalScripts: true
   };

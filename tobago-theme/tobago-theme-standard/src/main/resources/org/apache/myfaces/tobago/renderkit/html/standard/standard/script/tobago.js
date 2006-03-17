@@ -649,6 +649,57 @@ var Tobago = {
     }
   },
 
+  /**
+   * Returns a function which binds the named function 'func' of the object 'object'.
+   * additional arguments to bind function are added to the arguments at
+   * function call.
+   * E.g.:
+   * var f = Tobago.bind(Tobago, "setElementWidth");
+   * will bind Tobago.setElementWidth(...) to f(...)
+   * and
+   * var f = Tobago.bind(Tobago, "setElementWidth", id, width);
+   * will bind Tobago.setElementWidth(id, widt) to f()
+   * and
+   * var f = Tobago.bind(Tobago, "setElementWidth", width);
+   * will bind Tobago.setElementWidth(id, width) to f(id)
+   *
+   */
+  bind: function(object, func) {
+    var rest = [];
+    for (var i = 2; i < arguments.length; i++) {
+      rest.push(arguments[i])
+    }
+    return function() {
+      var args = [];
+      for (var i = 0; i < arguments.length; i++) {
+        args.push(arguments[i])
+      }
+      object[func].apply(object, args.concat(rest));
+    }
+  },
+
+  /**
+   * Returns a function which binds the named function 'func' of the object 'object'
+   * as eventListener.
+   * E.g.:
+   * var f = Tobago.bindAsEventListener(Tobago, "doSomthing");
+   * will bind Tobago.doSomthing(event) to f(event)
+   */
+  bindAsEventListener: function(object, func) {
+    return function(event) {
+      object[func].call(object, event || window.event);
+    }
+  },
+
+  /**
+   * Adds a function which binds the named function 'func' of the object 'object'
+   * as eventListener to a element.
+   */
+  addBindEventListener: function(element, event, object, func) {
+    this.addEventListener(element, event, this.bindAsEventListener(object, func));
+  },
+
+
    /**
     * Stop event bubbling
     */
