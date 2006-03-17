@@ -160,7 +160,7 @@ function MenuItem(label, action, disabled) {
     var leftOffset = 0;
     if (this.menuButton) {
       containerParent = this.menuButton;
-      leftOffset = Tobago.Menu.toolbarLeftOffset;
+      leftOffset = Tobago.Config.get("Menu", "toolbarLeftOffset");
     } else {
       containerParent = this.htmlElement;
     }
@@ -778,10 +778,6 @@ function getPopupImageTop(popup) {
     LOG.debug("unbekanter Popup Typ :" + popup);
     return "0px";
   }
-}
-
-function getToolBarButtonMenuTopOffset() {
-  return -1;
 }
 
 function getSheetSelectorMenuTopOffset() {

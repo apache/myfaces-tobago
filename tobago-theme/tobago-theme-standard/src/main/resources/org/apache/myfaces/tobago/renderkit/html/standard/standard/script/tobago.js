@@ -14,8 +14,7 @@
  *    limitations under the License.
  */
 
-var Tobago = new Object();
-Object.extend(Tobago, {
+var Tobago = {
 
   // -------- Constants -------------------------------------------------------
 
@@ -63,8 +62,6 @@ Object.extend(Tobago, {
 
   images: {},
 
-  imageSources: new Array(),
-
    /**
     * Object to store already loaded scriptfiles.
     * to prevent multiple loading via ajax requests.
@@ -85,20 +82,6 @@ Object.extend(Tobago, {
     * Flag indicating that currently a scriptLoader is running.
     */
   scriptLoadingActive: false,
-
-
-  // TODO mv configuration items to Tobago.Config object
-
-   /**
-    * 2 * borderWidth of popup content div
-    * TODO check correctness for different themes
-    */
-  popupBorderWidth: 4,
-
-   /**
-    * scrollbar witdh, may be browser specific
-    */
-  scrollbarWidth: 15,
 
   // -------- Functions -------------------------------------------------------
 
@@ -126,6 +109,20 @@ Object.extend(Tobago, {
     this.startScriptLoaders();
   },
 
+  /**
+    * Wrapper function to call application generated onunload function
+    */
+  onunload: function() {
+    this.applicationOnunload();
+  },
+
+  /**
+    * Wrapper function to call application generated onexit function
+    */
+  onexit: function() {
+    this.applicationOnunload();
+  },
+
    /**
     * return true if page loading is complete.
     */
@@ -140,7 +137,7 @@ Object.extend(Tobago, {
   submitAction: function(actionId) {
     this.setAction(actionId);
     // todo: why this doesn't work?  document.body.onunload = onunloadScript;
-    window.onunload = onunloadScript;
+    window.onunload = Tobago.onunload;
     if (this.form) {
       this.form.submit();
     }
@@ -307,39 +304,14 @@ Object.extend(Tobago, {
     }
   },
 
-
-   /**
-    * Register a imageSource.
-    */
-  addImageSources: function(id, normal, disabled, hover) {
-    var sources = new Array(4);
-    sources[0] = id;
-    sources[1] = normal;
-    sources[2] = disabled;
-    sources[3] = hover;
-    this.imageSources[this.imageSources.length] = sources;
-    //LOG.debug("here are " + tobagoImageSources.length + " images");
-  },
-
-   /**
-    * Return the imageSource for given id.
-    */
-  getImageSources: function(id) {
-    for (var i = 0; i < this.imageSources.length ; i++) {
-      if (this.imageSources[i][0] == id) {
-        return this.imageSources[i];
-      }
-    }
-  },
-
    /**
     * Mouseover function for images.
     */
   imageMouseover: function(id) {
     var image = this.element(id);
-    var sourcen = this.getImageSources(id);
-    if (sourcen && sourcen[3] != 'null' && sourcen[3] != image.src) {
-      image.src = sourcen[3];
+    var hover = this.images[id].hover;
+    if (hover != 'null' && hover != image.src) {
+      image.src = hover;
     }
   },
 
@@ -348,9 +320,9 @@ Object.extend(Tobago, {
     */
   imageMouseout: function(id) {
     var image = this.element(id);
-    var sourcen = this.getImageSources(id);
-    if (sourcen && sourcen[1] != 'null' && sourcen[1] != image.src) {
-      image.src = sourcen[1];
+    var normal = this.images[id].normal;
+    if (normal != 'null' && normal != image.src) {
+      image.src = normal;
     }
   },
 
@@ -448,7 +420,8 @@ Object.extend(Tobago, {
         div.style.left = l;
         //      alert("1 set left to " + l);
       } else {
-        l = this.getBrowserInnerWidth() - div.clientWidth - this.popupBorderWidth;
+        l = this.getBrowserInnerWidth() - div.clientWidth
+            - Tobago.Config.get("Popup", "borderWidth");
         div.style.left = l/2;
         //      alert("2 set left to " + l/2);
       }
@@ -458,7 +431,8 @@ Object.extend(Tobago, {
         div.style.top = t;
         //      alert("1 set top to " + t);
       } else {
-        t = this.getBrowserInnerHeight() - div.clientHeight - this.popupBorderWidth;
+        t = this.getBrowserInnerHeight() - div.clientHeight
+            - Tobago.Config.get("Popup", "borderWidth");
         div.style.top = t/2;
         //      alert("2 set top to " + t/2);
       }
@@ -762,7 +736,7 @@ Object.extend(Tobago, {
     } else {
       innerWidth = window.innerWidth;
       if (document.body.scrollHeight > window.innerHeight) {
-        innerWidth -= this.scrollbarWidth;
+        innerWidth -= Tobago.Config.get("Tobago", "scrollbarWidth");
       }
     }
     return innerWidth;
@@ -826,20 +800,23 @@ Object.extend(Tobago, {
     LOG.error("arg ist unbekannt : " + typeof arg + " : " + arg);
     return undefined;
   }
-});
+};
 
 
+Tobago.Image = function(id, normal, disabled, hover) {
+  this.id = id;
+  this.normal = normal;
+  this.disabled = disabled;
+  this.hover = hover;
+  Tobago.images[id] = this;
+};
 
-Tobago.ScriptLoader = Class.create();
-Tobago.ScriptLoader.prototype = {
-  initialize: function(names, doAfter) {
-    this.scriptIndex = 0;
-    this.names = names;
-    this.doAfter = doAfter || ";";
-    Tobago.addScriptLoader(this);
-  },
+Tobago.ScriptLoader = function(names, doAfter) {
+  this.scriptIndex = 0;
+  this.names = names;
+  this.doAfter = doAfter || ";";
 
-  ensureScript: function(src) {
+  this.ensureScript = function(src) {
     this.actualScript = src;
     if (!Tobago.hasScript(this.actualScript)) {
       this.scriptElement = document.createElement('script');
@@ -858,9 +835,9 @@ Tobago.ScriptLoader.prototype = {
       this.ensureScripts();
     }
 
-  },
+  };
 
-  stateReady: function() {
+  this.stateReady = function() {
 //      LOG.debug("State " + window.event.srcElement.readyState + " : " + this.actualScript);
       if (window.event.srcElement.readyState == "loaded"
           || window.event.srcElement.readyState == "complete" ) {
@@ -868,16 +845,16 @@ Tobago.ScriptLoader.prototype = {
         Tobago.registerScript(this.actualScript);
         this.ensureScripts();
       }
-  },
+  };
 
-  stateOnLoad: function() {
+  this.stateOnLoad = function() {
 //    LOG.debug("OnLoad " + this.actualScript);
     this.scriptElement.onload = null;
     Tobago.registerScript(this.actualScript);
     this.ensureScripts();
-  },
+  };
 
-  ensureScripts: function() {
+  this.ensureScripts = function() {
 //      LOG.debug("scriptIndex =  " + this.scriptIndex + "/" + this.names.length );
     if (this.scriptIndex < this.names.length) {
       this.ensureScript(this.names[this.scriptIndex++]);
@@ -898,11 +875,12 @@ Tobago.ScriptLoader.prototype = {
 //          }
       Tobago.startScriptLoaders();
     }
-  }
-}
+  };
 
-Tobago.Updater = new Object();
-Object.extend(Tobago.Updater, {
+  Tobago.addScriptLoader(this);
+};
+
+Tobago.Updater = {
   update: function(container, page, actionId, ajaxComponentId, options) {
 
     Tobago.action.value = actionId;
@@ -914,7 +892,7 @@ Object.extend(Tobago.Updater, {
     //    LOG.debug("request url = " + url);
     new Ajax.Updater(container, url, options);
   }
-});
+};
 
 
 

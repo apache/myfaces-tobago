@@ -207,9 +207,11 @@ public class PageRenderer extends PageRendererBase {
     // prototype.js and tobago.js needs to be first!
     addScripts(writer, facesContext, "script/prototype.js");
     addScripts(writer, facesContext, "script/tobago.js");
+    addScripts(writer, facesContext, "script/theme-config.js");
     // remove  prototype.js and tobago.js from list to prevent dublicated rendering of script tags
     scriptFiles.remove("script/prototype.js");
     scriptFiles.remove("script/tobago.js");
+    scriptFiles.remove("script/theme-config.js");
 
     boolean hideClientLogging = true;
     final boolean debugMode =
@@ -235,29 +237,14 @@ public class PageRenderer extends PageRendererBase {
 
     HtmlRendererUtil.startJavascript(writer);
     // onload script
-    writer.write("Tobago.applicationOnload = function() {\n");
-
-    for (String onload : page.getOnloadScripts()) {
-      writer.write(onload);
-      writer.write('\n');
-    }
-    writer.write("}\n");
+    writeEventFunction(writer, page.getOnloadScripts(), "load");
 
     // onunload script
-    writer.write("function onunloadScript() {\n");
-    for (String onunload : page.getOnunloadScripts()) {
-      writer.write(onunload);
-      writer.write('\n');
-    }
-    writer.write("}\n");
+    writeEventFunction(writer, page.getOnunloadScripts(), "unload");
 
     // onexit script
-    writer.write("function onexitScript() {\n");
-    for (String onexit : page.getOnexitScripts()) {
-      writer.write(onexit);
-      writer.write('\n');
-    }
-    writer.write("}\n");
+    writeEventFunction(writer, page.getOnexitScripts(), "exit");
+
 
     int debugCounter = 0;
     for (String script : page.getScriptBlocks()) {
@@ -277,7 +264,7 @@ public class PageRenderer extends PageRendererBase {
     writer.endElement("head");
     writer.startElement("body", page);
     writer.writeAttribute("onload", "Tobago.init('" + clientId + "')", null);
-    writer.writeAttribute("onunload", "onexitScript()", null);
+    writer.writeAttribute("onunload", "Tobago.onexit();", null);
     //this ist for ie to prevent scrollbars where none are needed
     writer.writeAttribute("scroll", "auto", null);
     writer.writeComponentClass();
@@ -367,6 +354,21 @@ public class PageRenderer extends PageRendererBase {
       LOG.debug("dublicated AccessKeys: "
           + AccessKeyMap.getDublicatedKeys(facesContext));
     }
+  }
+
+  private void writeEventFunction(
+      TobagoResponseWriter writer, Set<String> eventFunctions, String event)
+      throws IOException {
+    writer.write("Tobago.applicationOn" + event + " = function() {\n  ");
+    for (String function : eventFunctions) {
+      writer.write(function);
+      if (!function.trim().endsWith(";")) {
+        writer.write(";\n  ");
+      } else {
+        writer.write("\n  ");
+      }
+    }
+    writer.write("\n}\n");
   }
 
 // ----------------------------------------------------------- business methods

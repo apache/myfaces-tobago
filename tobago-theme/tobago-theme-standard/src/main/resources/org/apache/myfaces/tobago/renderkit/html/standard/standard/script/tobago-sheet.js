@@ -15,28 +15,16 @@
  */
 
 
-Tobago.SheetBase = {
-  initialize: function(sheetId, page) {
-    this.sheetId = sheetId,
-    this.element = Tobago.element(sheetId + "_outer_div");
-    this.page = Tobago.element(page);
+Tobago.Sheet = function(sheetId) {
+  this.sheetId = sheetId;
 
-    this.options = {
-      method: 'post',
-      asynchronous: true,
-      onComplete: this.onComplete.bind(this),
-      parameters: '',
-      evalScripts: true
-    };
+  this.element = Tobago.element(sheetId + "_outer_div");
 
-//    this.parent = this.element.parentNode;
-    this.setup();
-    LOG.debug("New Sheet with id " + this.sheetId);
-  },
+  this.prototype = new Ajax.Base();
 
-  sortOnclickRegExp : new RegExp("Tobago.submitAction\\(('|\")(.*?)('|\")\\)"),
+  this.sortOnclickRegExp = new RegExp("Tobago.submitAction\\(('|\")(.*?)('|\")\\)");
 
-  setup: function() {
+  this.setup = function() {
 
     // setup sorting headers
     var i = 0;
@@ -106,9 +94,9 @@ Tobago.SheetBase = {
         Event.observe(parent, "click", this.insertRowTarget.bindAsEventListener(this));
       }
     }
-  },
+  };
 
-  doSort: function(event) {
+  this.doSort = function(event) {
     var element = Event.element(event);
     if (!element.sorterId) {
       element = element.parentNode;
@@ -116,9 +104,9 @@ Tobago.SheetBase = {
 //    LOG.debug("element.id = " + element.id);
 //    LOG.debug("sorterId = " + element.sorterId);
     this.reloadWithAction(element.sorterId);
-  },
+  };
 
-  doPagingDirect: function(event) {
+  this.doPagingDirect = function(event) {
     var element = Event.element(event);
     var action = this.sheetId + Tobago.COMPONENT_SEP + "ToPage";
 
@@ -131,9 +119,9 @@ Tobago.SheetBase = {
     this.element.appendChild(hidden);
 
     this.reloadWithAction(action);
-  },
+  };
 
-  doPaging: function(event) {
+  this.doPaging = function(event) {
     var element = Event.element(event);
     var action = "unset";
     // TODO: replace '::' in regexp by Tobago.SUB_COMPONENT_SEP
@@ -147,23 +135,23 @@ Tobago.SheetBase = {
       action = this.sheetId + Tobago.COMPONENT_SEP +"Last";
     }
     this.reloadWithAction(action);
-  },
+  };
 
-  reloadWithAction: function(action) {
+  this.reloadWithAction = function(action) {
     LOG.debug("reload sheet with action \"" + action + "\"");
-    Tobago.Updater.update(this.element, this.page, action, this.sheetId, this.options);
+    Tobago.Updater.update(this.element, null, action, this.sheetId, this.options);
 
-  },
+  };
 
-  insertPageTarget: function() {
+  this.insertPageTarget = function() {
     this.insertTarget(this.sheetId + Tobago.COMPONENT_SEP + "ToPage");
-  },
+  };
 
-  insertRowTarget: function() {
+  this.insertRowTarget = function() {
     this.insertTarget(this.sheetId + Tobago.COMPONENT_SEP + "ToRow");
-  },
+  };
 
-  insertTarget: function(actionId) {
+  this.insertTarget = function(actionId) {
 //    LOG.debug("insertTarget('" + actionId + "')")
     var textId = actionId + Tobago.SUB_COMPONENT_SEP + "text";
     var text = Tobago.element(textId);
@@ -193,25 +181,25 @@ Tobago.SheetBase = {
     else {
       LOG.error("Can't find text field with id = \"" + textId + "\"!");
     }
-  },
+  };
 
-  delayedHideInput: function(event) {
+  this.delayedHideInput = function(event) {
     var element = Event.element(event);
     if (element) {
       this.textInput = element;
       setTimeout(this.hideInput.bind(this), 100);
     }
-  },
+  };
 
-  hideInput: function() {
+  this.hideInput = function() {
     if (this.textInput) {
       this.textInput.parentNode.style.cursor = 'pointer';
       this.textInput.style.display = 'none';
       this.textInput.nextSibling.style.display = '';
     }
-  },
+  };
 
-  doKeyEvent: function(event) {
+  this.doKeyEvent = function(event) {
     var input = Event.element(event);
     if (input) {
 
@@ -231,16 +219,23 @@ Tobago.SheetBase = {
         }
       }
     }
-  },
+  };
 
-  onComplete: function() {
+  this.onComplete = function() {
     LOG.debug("sheet reloaded");
     initSheet(this.sheetId);
     updateSelectionView(this.sheetId);
     this.setup();
-  }
+  };
 
+  this.options = {
+    method: 'post',
+    asynchronous: true,
+    onComplete: this.onComplete.bind(this),
+    parameters: '',
+    evalScripts: true
+  };
+
+  this.setup();
+  LOG.debug("New Sheet with id " + this.sheetId);
 }
-
-Tobago.Sheet = Class.create();
-Tobago.Sheet.prototype = Object.extend(new Ajax.Base(), Tobago.SheetBase);

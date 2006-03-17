@@ -153,10 +153,7 @@ public class SheetRenderer extends RendererBase
     } else {
       HtmlRendererUtil.writeStyleLoader(facesContext, styles);
       // add creation of ajax object
-      final String pageId
-              = ComponentUtil.findPage(data).getClientId(facesContext);
-      cmds[cmds.length -1]
-          = "new Tobago.Sheet(\"" + sheetId + "\", \"" + pageId + "\");";
+      cmds[cmds.length -1] = "new Tobago.Sheet(\"" + sheetId + "\");";
       HtmlRendererUtil.writeScriptLoader(facesContext, scripts, cmds);
     }
   }

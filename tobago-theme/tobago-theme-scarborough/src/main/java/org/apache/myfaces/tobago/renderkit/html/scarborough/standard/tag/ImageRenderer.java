@@ -114,7 +114,7 @@ public class ImageRenderer extends RendererBase {
   public static void addImageSources(
       FacesContext facesContext, UIPage page, String src, String id) {
     StringBuffer buffer = new StringBuffer();
-    buffer.append("Tobago.addImageSources('");
+    buffer.append("new Tobago.Image('");
     buffer.append(id);
     buffer.append("','");
     buffer.append(ResourceManagerUtil.getImageWithPath(

@@ -67,12 +67,3 @@ function getPopupImageTop(popup) {
     return "0px";
   }
 }
-function getToolBarButtonMenuTopOffset() {
-  return -1;
-}
-
-function getSheetSelectorMenuTopOffset() {
-  return -2;
-}
-
-Tobago.Menu.toolbarLeftOffset = 1;

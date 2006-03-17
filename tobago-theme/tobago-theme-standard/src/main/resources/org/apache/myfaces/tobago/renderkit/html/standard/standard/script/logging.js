@@ -84,8 +84,19 @@ Object.extend(LOG, {
         this.debug("script.src=" + child.src);
       }
     }
+  },
+
+  listThemeConfig : function() {
+    for (var name in Tobago.Config) {
+      if (typeof Tobago.Config[name] == 'object' && name != "fallbackNames") {
+        for (var key in Tobago.Config[name]) {
+          LOG.debug(name + "." + key + " = " + Tobago.Config[name][key]);
+        }
+      }
+    }
   }
 });
+
 LOG.bindOnWindow();
 
 

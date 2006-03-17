@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Copyright 2002-2005 atanion GmbH.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,6 +14,18 @@
  *    limitations under the License.
  */
 
-function getToolBarButtonMenuTopOffset() {
-  return -1;
-}
+
+Tobago.Config.set("Tobago", "themeConfig", "scarborough/standard");
+
+ /**
+  * 2 * borderWidth of popup content div
+  * TODO check correctness for different themes
+  */
+Tobago.Config.set("Popup", "borderWidth", 4);
+
+
+/**
+ * Additional top offset for toolbar button dropdown menu
+ */
+ Tobago.Config.set("Menu", "toolbarTopOffset", -1);
+
