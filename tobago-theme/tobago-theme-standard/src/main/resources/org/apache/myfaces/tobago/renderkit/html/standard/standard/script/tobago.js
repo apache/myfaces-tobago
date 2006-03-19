@@ -113,14 +113,14 @@ var Tobago = {
     * Wrapper function to call application generated onunload function
     */
   onunload: function() {
-    this.applicationOnunload();
+    Tobago.applicationOnunload();
   },
 
   /**
     * Wrapper function to call application generated onexit function
     */
   onexit: function() {
-    this.applicationOnunload();
+    Tobago.applicationOnexit();
   },
 
    /**
