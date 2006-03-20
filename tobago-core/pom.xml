@@ -87,7 +87,7 @@
           </configuration>
       </plugin>
 
-      <!-- pmd has problems with annotations    -->
+      <!-- pmd has problems with annotations   
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
@@ -95,7 +95,7 @@
           <linkXref>true</linkXref>
           <targetJdk>1.5</targetJdk>
         </configuration>
-      </plugin>
+      </plugin-->
 
     </plugins>
   </reporting>
@@ -200,8 +200,8 @@
       <scope>provided</scope>
     </dependency>
 
-<!--
-    <dependency>
+
+  <!--  <dependency>
       <groupId>javax.faces</groupId>
       <artifactId>jsf-api</artifactId>
       <version>1.1</version>
@@ -213,24 +213,24 @@
       <artifactId>jsf-impl</artifactId>
       <version>1.1</version>
       <scope>compile</scope>
-    </dependency>
--->
+    </dependency>-->
+
 
     <dependency>
-      <groupId>org.apache.myfaces.core</groupId>
-      <!--groupId>org.apache.myfaces.core</groupId-->
+      <groupId>myfaces</groupId>
+      <!--<groupId>org.apache.myfaces.core</groupId>-->
       <artifactId>myfaces-api</artifactId>
-      <version>1.1.3-SNAPSHOT</version>
-      <!--version>1.1.2-SNAPSHOT</version-->
+      <version>1.1.1</version>
+      <!--<version>1.1.3-SNAPSHOT</version>-->
       <scope>compile</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.myfaces.core</groupId>
-      <!--groupId>org.apache.myfaces.core</groupId-->
+      <groupId>myfaces</groupId>
+      <!--<groupId>org.apache.myfaces.core</groupId>-->
       <artifactId>myfaces-impl</artifactId>
-      <version>1.1.3-SNAPSHOT</version>
-      <!--version>1.1.2-SNAPSHOT</version-->
+      <version>1.1.1</version>
+      <!--<version>1.1.3-SNAPSHOT</version>-->
       <scope>compile</scope>
     </dependency>
 
