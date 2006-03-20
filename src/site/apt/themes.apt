@@ -26,7 +26,7 @@ Theme Handling
       [[b]] Unpack the resources (no classes and no properties)
          of the theme into the war. You may use the maven-theme-plugin
 
-      [[b]] Set <<<load-theme-resources-from-classpath=false>>>
+      [[c]] Set <<<load-theme-resources-from-classpath=false>>>
          in  <<<tobago-config.xml>>>
 
       []
