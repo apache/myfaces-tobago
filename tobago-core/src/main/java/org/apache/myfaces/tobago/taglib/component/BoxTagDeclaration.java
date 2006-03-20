@@ -28,6 +28,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 @Tag(name = "box")
 @UIComponentTag(UIComponent = "org.apache.myfaces.tobago.component.UIPanel")
 
-public interface BoxTagDeclaration extends TobagoTagDeclaration,
+public interface BoxTagDeclaration extends TobagoBodyTagDeclaration,
     HasIdBindingAndRendered, HasDimension, HasLabel {
 }

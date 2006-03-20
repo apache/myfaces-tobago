@@ -1,0 +1,60 @@
+ ------
+ Theme Handling
+ ------
+
+Theme Handling
+
+ You have 2 possibilities:
+
+   [[1]] For easy development:
+
+      [[a]] Put the theme jar in the classpath
+
+      [[b]] Define a ResourceServlet in the <<<web.xml>>>
+         and bind it to the url-pattern of the theme-path
+
+      [[c]] Ensure <<<load-theme-resources-from-classpath=true>>>
+         in <<<tobago-config.xml>>> (is default)
+
+      []
+      You can see the use in the {{{http://svn.apache.org/repos/asf/incubator/tobago/trunk/tobago-example/tobago-example-blank/}tobago-example-blank}}
+
+   [[1]] For production:
+
+      [[a]] Put the theme jar in the classpath
+
+      [[b]] Unpack the resources (no classes and no properties)
+         of the theme into the war. You may use the maven-theme-plugin
+
+      [[b]] Set <<<load-theme-resources-from-classpath=false>>>
+         in  <<<tobago-config.xml>>>
+
+      []
+      You can see the use in the {{{http://svn.apache.org/repos/asf/incubator/tobago/trunk/tobago-example/tobago-example-demo/}tobago-example-demo}}
+
+ []
+ Note:
+   The <<<tobago-theme-\<name\>-\<version\>-THEME.jar>>> is no longer needed.
+   You need only the <<<tobago-theme-\<name\>-\<version\>.jar>>>
+   So you may remove some tags in the pom, if you are using maven2:
+
++------------------------------------------+
+   <classifier>THEME</classifier>
+   <scope>provided</scope>
++------------------------------------------+
+
+   And the <<<\<resource-dir\>>>> in the <<<tobago-config.xml>>> has changed from
+
++------------------------------------------+
+   <resource-dir>tobago</resource-dir>
++------------------------------------------+
+
+   to :
+
++------------------------------------------+
+   <resource-dir>org/apache/myfaces/tobago/renderkit</resource-dir>
++------------------------------------------+
+
+ This will be maybe unnecessary in a future version.
+ Maybe the resource-dir will be automatically resolved by the theme configuration.
+

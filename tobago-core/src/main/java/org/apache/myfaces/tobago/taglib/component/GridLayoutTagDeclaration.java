@@ -16,24 +16,28 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.HasBorder;
+import org.apache.myfaces.tobago.taglib.decl.HasCellspacing;
+import org.apache.myfaces.tobago.taglib.decl.HasMargin;
+import org.apache.myfaces.tobago.taglib.decl.HasMargins;
+import org.apache.myfaces.tobago.taglib.decl.HasColumnLayout;
+import org.apache.myfaces.tobago.taglib.decl.HasRowLayout;
+import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.taglib.decl.HasDimension;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 /**
  * Created by IntelliJ IDEA.
  * User: bommel
- * Date: 11.02.2006
- * Time: 13:54:04
+ * Date: 14.03.2006
+ * Time: 16:58:13
  * To change this template use File | Settings | File Templates.
  */
-/**
- * Intended for use in situations when only one UIComponent child can be
- * nested, such as in the case of facets.
- */
-@Tag(name = "panel")
-@UIComponentTag(UIComponent = "org.apache.myfaces.tobago.component.UIPanel")
-public interface PanelTagDeclaration extends TobagoBodyTagDeclaration,
-    HasIdBindingAndRendered, HasDimension {
+
+@Tag(name = "gridLayout", bodyContent = BodyContent.EMPTY)
+@UIComponentTag(UIComponent = "org.apache.myfaces.tobago.component.UIGridLayout" )
+public interface GridLayoutTagDeclaration extends TobagoTagDeclaration, HasId, HasBorder, HasCellspacing, HasMargin,
+    HasMargins, HasColumnLayout, HasRowLayout, HasBinding {
 }

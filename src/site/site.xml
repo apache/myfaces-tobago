@@ -3,7 +3,8 @@
   <bannerLeft>
     <name>Tobago</name>
     <src>images/tobago_head.gif</src>
-    <href>http://tobago.atanion.net</href>
+    <!--href>http://tobago.atanion.net</href-->
+    <href>http://incubator.apache.org/tobago</href>
   </bannerLeft>
   <bannerRight>
     <name>MyFaces</name>
@@ -27,6 +28,7 @@
     <menu name="Documentation">
       <item name="Getting Started" href="getting-started.html"/>
       <item name="Roadmap" href="roadmap.html" />
+      <item name="Theme Handling" href="themes.html" />
       <item name="FAQ" href="faq.html"/>
     </menu>
     

@@ -63,7 +63,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.component.UISelectOne;
 import javax.faces.component.UIViewRoot;
-import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
@@ -157,9 +156,7 @@ public class ToolBarRenderer extends RendererBase {
       throws IOException {
 
     String onClick = createOnClick(facesContext, command);
-    onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
-        facesContext);
-
+    onClick = CommandRendererBase.appendConfirmationScript(onClick, command, facesContext);
 
     List<SelectItem> items = ComponentUtil.getSelectItems(command);
 
@@ -171,7 +168,7 @@ public class ToolBarRenderer extends RendererBase {
 
 
     if (radio != null) {
-      Object value = ((ValueHolder) radio).getValue();
+      Object value = radio.getValue();
 
       boolean markFirst = !ComponentUtil.hasSelectedValue(items, value);
       String radioId = radio.getClientId(facesContext);
@@ -241,14 +238,12 @@ public class ToolBarRenderer extends RendererBase {
 
     String onClick = createOnClick(facesContext, command);
 
-    if (checkbox != null) {
-      String clientId = checkbox.getClientId(facesContext);
-      onClick = RenderUtil.addMenuCheckToggle(clientId, onClick);
-      if (checked) {
-        HtmlRendererUtil.startJavascript(writer);
-        writer.write("    menuCheckToggle('" + clientId + "');\n");
-        HtmlRendererUtil.endJavascript(writer);
-      }
+    String clientId = checkbox.getClientId(facesContext);
+    onClick = RenderUtil.addMenuCheckToggle(clientId, onClick);
+    if (checked) {
+      HtmlRendererUtil.startJavascript(writer);
+      writer.write("    menuCheckToggle('" + clientId + "');\n");
+      HtmlRendererUtil.endJavascript(writer);
     }
 
     renderToolbarButton(facesContext, command, writer, boxFacet, addExtraHoverClass, checked, onClick);

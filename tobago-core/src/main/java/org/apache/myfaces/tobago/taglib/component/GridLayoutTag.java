@@ -24,28 +24,15 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN_BOTTO
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN_LEFT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN_RIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN_TOP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_ROWS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIGridLayout;
-import org.apache.myfaces.tobago.taglib.decl.HasBinding;
-import org.apache.myfaces.tobago.taglib.decl.HasBorder;
-import org.apache.myfaces.tobago.taglib.decl.HasCellspacing;
-import org.apache.myfaces.tobago.taglib.decl.HasColumnLayout;
-import org.apache.myfaces.tobago.taglib.decl.HasId;
-import org.apache.myfaces.tobago.taglib.decl.HasMargin;
-import org.apache.myfaces.tobago.taglib.decl.HasMargins;
-import org.apache.myfaces.tobago.taglib.decl.HasRowLayout;
 
 import javax.faces.component.UIComponent;
-import javax.servlet.jsp.JspException;
 
-@Tag(name = "gridLayout", bodyContent = BodyContent.EMPTY)
+
 public class GridLayoutTag extends TobagoTag
-    implements HasId, HasBorder, HasCellspacing, HasMargin, HasMargins,
-    HasColumnLayout, HasRowLayout, HasBinding {
+    implements GridLayoutTagDeclaration {
 
   private String border;
   private String cellspacing;
@@ -55,17 +42,8 @@ public class GridLayoutTag extends TobagoTag
   private String marginRight;
   private String marginBottom;
   private String marginLeft;
-
   private String columns;
   private String rows;
-
-
-  public int doStartTag() throws JspException {
-    final int result = super.doStartTag();
-    // TODO remove this
-    getComponentInstance().getAttributes().remove(ATTR_LAYOUT_ROWS);
-    return result;
-  }
 
   public String getComponentType() {
     return UIGridLayout.COMPONENT_TYPE;

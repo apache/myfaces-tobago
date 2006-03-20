@@ -3,7 +3,8 @@
   <bannerLeft>
     <name>Tobago</name>
     <src>http://tobago.atanion.net/site/images/tobago_head.gif</src>
-    <href>http://tobago.atanion.net</href>
+    <!--href>http://tobago.atanion.net</href-->
+    <href>http://incubator.apache.org/tobago</href>
   </bannerLeft>
   <bannerRight>
     <name>MyFaces</name>
@@ -12,8 +13,8 @@
   </bannerRight>
   <body>
     <links>
-      <item name="Tobago Core" href="http://tobago.atanion.net/site/tobago-core/"/>
-      <item name="Tobago" href="http://tobago.atanion.net/site/" />
+      <item name="Tobago Core" href="."/>
+      <item name="Tobago" href=".." />
       <item name="MyFaces" href="http://myfaces.apache.org/" />
     </links>
     

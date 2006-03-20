@@ -51,20 +51,20 @@ public class ButtonRenderer extends CommandRendererBase {
 
   private static final Log LOG = LogFactory.getLog(ButtonRenderer.class);
 
-
   public void encodeBeginTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
     String clientId = component.getClientId(facesContext);
     String buttonType = createButtonType(component);
 
-    String onclick = createOnClick(facesContext, component);
-    onclick = CommandRendererBase.appendConfirmationScript(
-        onclick, component, facesContext);
+    String onclick;
 
-    boolean disabled
-        = ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED);
+    boolean disabled = ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED);
     if (disabled) {
       onclick = "";
+    } else {
+      onclick = createOnClick(facesContext, component);
+      onclick = CommandRendererBase.appendConfirmationScript(onclick, component,
+          facesContext);
     }
 
     TobagoResponseWriter writer
@@ -120,17 +120,8 @@ public class ButtonRenderer extends CommandRendererBase {
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
-
-    //BodyContentHandler bodyContentHandler = (BodyContentHandler)
-    //    component.getAttributes().get(ATTR_BODY_CONTENT);
-
-    //if (bodyContentHandler != null) {
-    //  writer.writeText(bodyContentHandler.getBodyContent(), null);
-    //}
     writer.endElement("button");
   }
-
-// ----------------------------------------------------------- business methods
 
   private String createButtonType(UIComponent component) {
     String buttonType;
@@ -170,4 +161,3 @@ public class ButtonRenderer extends CommandRendererBase {
     return onclick;
   }
 }
-

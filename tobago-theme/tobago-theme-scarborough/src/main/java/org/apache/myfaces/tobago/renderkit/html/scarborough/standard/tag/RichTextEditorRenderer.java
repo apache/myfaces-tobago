@@ -76,8 +76,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
         && actionId.equals(component.getClientId(facesContext) + CHANGE_BUTTON)) {
       boolean state
           = ComponentUtil.getBooleanAttribute(component, ATTR_STATE_PREVIEW);
-      component.getAttributes().put(ATTR_STATE_PREVIEW,
-          Boolean.valueOf(!state));
+      component.getAttributes().put(ATTR_STATE_PREVIEW, !state);
       facesContext.renderResponse();
 
     }

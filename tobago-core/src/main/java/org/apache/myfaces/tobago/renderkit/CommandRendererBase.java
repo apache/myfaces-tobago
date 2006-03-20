@@ -31,7 +31,7 @@ public abstract class CommandRendererBase extends RendererBase {
   private static final Log LOG = LogFactory.getLog(CommandRendererBase.class);
 
   public void decode(FacesContext facesContext, UIComponent component) {
-//    boolean active = false;
+
     if (ComponentUtil.isOutputOnly(component)) {
       return;
     }
@@ -48,21 +48,8 @@ public abstract class CommandRendererBase extends RendererBase {
       if (LOG.isDebugEnabled()) {
         LOG.debug("queueEvent");
       }
-//      active = true;
       component.queueEvent(new ActionEvent(component));
-//      ((UICommand) component).fireActionEvent(facesContext);
-
-//      UIForm form = ComponentUtil.findForm(component);
-//      if (form != null) {
-//        form.setSubmitted(true);
-//        if (LOG.isDebugEnabled()) {
-//          LOG.debug("setting Form Active: " + form.getClientId(facesContext));
-//        }
-//      }
     }
-//    if (component instanceof UICommand) {
-//      ((UICommand)component).setActive(active);
-//    }
   }
 
   public static String appendConfirmationScript(String onclick,

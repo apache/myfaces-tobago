@@ -46,14 +46,6 @@ public class FormRenderer extends RendererBase {
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
-    //ResponseWriter writer = facesContext.getResponseWriter();
-
-    //BodyContentHandler bodyContentHandler = (BodyContentHandler)
-    //    component.getAttributes().get(ATTR_BODY_CONTENT);
-    //if (bodyContentHandler != null) {
-    //  writer.write(bodyContentHandler.getBodyContent());
-    //}
-
   }
 
 }

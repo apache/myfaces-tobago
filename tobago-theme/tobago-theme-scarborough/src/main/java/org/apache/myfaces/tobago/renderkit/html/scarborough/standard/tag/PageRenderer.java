@@ -137,9 +137,8 @@ public class PageRenderer extends PageRendererBase {
     response.setDateHeader("Expires", 1);
 
     if (LOG.isDebugEnabled()) {
-      for (Iterator i = page.getAttributes().entrySet().iterator();
-          i.hasNext();) {
-        Map.Entry entry = (Map.Entry) i.next();
+      for (Object o : page.getAttributes().entrySet()) {
+        Map.Entry entry = (Map.Entry) o;
         LOG.debug("*** '" + entry.getKey() + "' -> '" + entry.getValue() + "'");
       }
     }
@@ -224,8 +223,8 @@ public class PageRenderer extends PageRendererBase {
     }
 
     // render remaining script tags
-    for (Iterator i = scriptFiles.iterator(); i.hasNext();) {
-      String script = (String) i.next();
+    for (String scriptFile : scriptFiles) {
+      String script = (String) scriptFile;
       addScripts(writer, facesContext, script);
     }
 

@@ -27,9 +27,8 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyContent;
-import javax.servlet.jsp.tagext.BodyTag;
 
-public abstract class TobagoBodyTag extends TobagoTag implements BodyTag {
+public abstract class TobagoBodyTag extends TobagoTag implements TobagoBodyTagDeclaration {
 
   private static final Log LOG = LogFactory.getLog(TobagoBodyTag.class);
 

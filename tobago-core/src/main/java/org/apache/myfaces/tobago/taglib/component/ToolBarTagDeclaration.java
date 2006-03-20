@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.UIToolBar;
 
 /**
  * Created by IntelliJ IDEA.
@@ -65,15 +66,15 @@ public interface ToolBarTagDeclaration extends PanelTagDeclaration {
    * If toolbar is facet of box: bottom is changed to right!
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "bottom",
-      allowedValues = {"bottom", "right", "off"})
+  @UIComponentTagAttribute(defaultValue = UIToolBar.LABEL_BOTTOM,
+      allowedValues = {UIToolBar.LABEL_BOTTOM, UIToolBar.LABEL_RIGHT, UIToolBar.LABEL_OFF})
   void setLabelPosition(String labelPosition);
 
   /**
    * Size of button images, possible values are: small, big, off.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "small",
-      allowedValues = {"small", "big", "off"})
+  @UIComponentTagAttribute(defaultValue = UIToolBar.ICON_SMALL,
+      allowedValues = {UIToolBar.ICON_SMALL, UIToolBar.ICON_BIG, UIToolBar.ICON_OFF})
   void setIconSize(String iconSize);
 }
