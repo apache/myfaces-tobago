@@ -337,11 +337,14 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     // TODO: updateing the model here and *NOT* in the decode phase
   }
 
-
   public Object saveState(FacesContext context) {
-    Object[] state = new Object[2];
+    Object[] state = new Object[6];
     state[0] = super.saveState(context);
     state[1] = saveAttachedState(context, actionListenerBinding);
+    state[2] = showJunctionsSet ? showJunctions : null;
+    state[3] = showIconsSet ? showIcons : null;
+    state[4] = showRootSet ? showRoot : null;
+    state[5] = showRootJunctionSet ? showRootJunction : null;
     return state;
   }
 
@@ -349,6 +352,22 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     Object[] values = (Object[]) state;
     super.restoreState(context, values[0]);
     actionListenerBinding = (MethodBinding) restoreAttachedState(context, values[1]);
+    if (values[2] != null) {
+      showJunctions = (Boolean) values[2];
+      showJunctionsSet = true;
+    }
+    if (values[3] != null) {
+      showIcons = (Boolean) values[3];
+      showIconsSet = true;
+    }
+    if (values[4] != null) {
+      showRoot = (Boolean) values[4];
+      showRootSet = true;
+    }
+    if (values[5] != null) {
+      showRootJunction = (Boolean) values[5];
+      showRootJunctionSet = true;
+    }
   }
 
   public Command[] getCommands() {
