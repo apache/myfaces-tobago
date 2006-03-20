@@ -29,3 +29,13 @@ Tobago.Config.set("Popup", "borderWidth", 4);
  */
  Tobago.Config.set("Menu", "toolbarTopOffset", -1);
 
+
+/**
+ * Additional top offset for sheet selector dropdown menu
+ */
+ Tobago.Config.set("Menu", "SheetSelectorMenuTopOffset", -1);
+
+/**
+ * Additional top offset for toolbar dropdown menu
+ */
+ Tobago.Config.set("Menu", "ToolBarButtonMenuTopOffset", -1);

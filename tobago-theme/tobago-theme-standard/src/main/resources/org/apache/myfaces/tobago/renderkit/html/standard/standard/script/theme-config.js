@@ -66,3 +66,14 @@ Tobago.Config.set("Menu", "toolbarLeftOffset", 0);
   * Additional top offset for toolbar button dropdown menu
   */
 Tobago.Config.set("Menu", "toolbarTopOffset", 0);
+
+
+/**
+ * Additional top offset for sheet selector dropdown menu
+ */
+ Tobago.Config.set("Menu", "SheetSelectorMenuTopOffset", 0);
+
+/**
+ * Additional top offset for toolbar dropdown menu
+ */
+ Tobago.Config.set("Menu", "ToolBarButtonMenuTopOffset", 0);

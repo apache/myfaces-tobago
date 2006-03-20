@@ -619,7 +619,7 @@ function setItemPositions(menu) {
         var itemHeight = getItemHeight(menu);
         var top = 0;
         if (menu.parent.popup) {
-          eval("top = get" + menu.parent.popup + "MenuTopOffset()");
+          top = Tobago.Config.get("Menu", menu.parent.popup + "MenuTopOffset");
         }
         menu.htmlElement.style.top = top +"px";
         menu.htmlElement.style.height = itemHeight + "px";
