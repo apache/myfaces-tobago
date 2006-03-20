@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 14.03.2006
@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
  */
 
 @Tag(name = "gridLayout", bodyContent = BodyContent.EMPTY)
-@UIComponentTag(UIComponent = "org.apache.myfaces.tobago.component.UIGridLayout" )
+@UIComponentTag(UIComponent = "org.apache.myfaces.tobago.component.UIGridLayout")
 public interface GridLayoutTagDeclaration extends TobagoTagDeclaration, HasId, HasBorder, HasCellspacing, HasMargin,
     HasMargins, HasColumnLayout, HasRowLayout, HasBinding {
 }

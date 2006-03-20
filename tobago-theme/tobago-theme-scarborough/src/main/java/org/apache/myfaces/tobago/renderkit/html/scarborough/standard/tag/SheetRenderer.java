@@ -766,7 +766,7 @@ public class SheetRenderer extends RendererBase
       UICommand sortCommand = (UICommand) column.getFacet(UIData.FACET_SORTER);
       if (sortCommand == null) {
         String columnId = column.getClientId(facesContext);
-        String sorterId = columnId.substring(columnId.lastIndexOf(":") + 1 )
+        String sorterId = columnId.substring(columnId.lastIndexOf(":") + 1)
             + "_" + UIData.SORTER_ID;
         sortCommand
             = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);

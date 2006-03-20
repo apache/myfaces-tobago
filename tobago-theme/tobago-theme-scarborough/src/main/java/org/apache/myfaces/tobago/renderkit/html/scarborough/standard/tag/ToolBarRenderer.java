@@ -403,7 +403,7 @@ public class ToolBarRenderer extends RendererBase {
 
   private String createOnClick(FacesContext facesContext,
       UIComponent component) {
-    if ( component.getFacet(FACET_MENUPOPUP) != null
+    if (component.getFacet(FACET_MENUPOPUP) != null
         && ((UICommand) component).getAction() == null
         && ((UICommand) component).getActionListener() == null
         && ((UICommand) component).getActionListeners().length == 0) {
