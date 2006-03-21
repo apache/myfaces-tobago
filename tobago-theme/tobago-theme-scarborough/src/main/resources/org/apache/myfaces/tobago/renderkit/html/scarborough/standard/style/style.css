@@ -20,6 +20,11 @@ a:link.tobago-link-default, a:visited.tobago-link-default, a:active.tobago-link-
   font-size: 15px;
 }
 */
+
+table.tobago-gridLayout-default {
+  table-layout: fixed;
+}
+
 form  {
   margin: 0px;
 }
@@ -39,32 +44,36 @@ div.tobago-tab-selected-outer {
   border-width: 0.13ex 0.13ex 0px 0.13ex;
   border-style: solid;
   padding: 0.2ex 0.2em;
+
 }
 div.tobago-tab-selected-inner {
   margin: 0px 0.7em;
   white-space: nowrap;
 }
+
 div.tobago-tab-unselected-outer {
   border-color: #ddeeff #778899 #ddeeff #ddeeff;
   border-width: 1px;
   border-style: solid;
 }
+
 div.tobago-tab-unselected-inner {
   margin: 0px 0.7em;
   white-space: nowrap;
 }
+
 div.tobago-tab-fulfill {
   border-color: #ddeeff;
   border-width: 0px 0px 1px 0px;
   border-style: solid;
 }
+
 td.tobago-tab-content {
   border-color: #ddeeff #778899 #778899 #ddeeff;
   border-width: 0px 1px 1px 1px;
   border-style: solid;
   padding: 11px 11px;
 }
-
 
 a:link.tab, a:visited.tab, a:active.tab {
   font-family: arial, helvetica, sans-serif;
