@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.event.PageActionEvent;
-import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
@@ -99,7 +98,7 @@ public class Pager extends MethodBinding {
       }
       sheet.setFirst(first);
       sheet.getSheetState(facesContext).setFirst(first);
-      sheet.queueEvent(new SheetStateChangeEvent(sheet));
+//      sheet.queueEvent(new SheetStateChangeEvent(sheet));
     } else {
       if (LOG.isDebugEnabled()) {
         LOG.debug("aobj[0] instanceof '" + aobj[0] + "'");

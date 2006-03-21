@@ -436,25 +436,20 @@ public class UIData extends javax.faces.component.UIData
   public void broadcast(FacesEvent facesEvent) throws AbortProcessingException {
     super.broadcast(facesEvent);
     if (facesEvent instanceof SheetStateChangeEvent) {
-      MethodBinding methodBinding = getStateChangeListener();
-      Object[] objects = new Object[]{(SheetStateChangeEvent) facesEvent};
-      invokeMethodBinding(methodBinding, objects);
+      invokeMethodBinding(getStateChangeListener(), facesEvent);
     } else if (facesEvent instanceof PageActionEvent) {
-      PageActionEvent pageEvent = (PageActionEvent) facesEvent;
-      Object[] objects = new Object[]{pageEvent};
-      invokeMethodBinding(new Pager(), objects);
+      invokeMethodBinding(new Pager(), facesEvent);
+      invokeMethodBinding(getStateChangeListener(), new SheetStateChangeEvent(this));
     } else if (facesEvent instanceof SortActionEvent) {
-      SortActionEvent sortEvent = (SortActionEvent) facesEvent;
-      getSheetState(getFacesContext()).updateSortState(sortEvent);
-      MethodBinding methodBinding = getSortActionListener();
-      Object[] objects = new Object[]{sortEvent};
-      invokeMethodBinding(methodBinding, objects);
+      getSheetState(getFacesContext()).updateSortState((SortActionEvent) facesEvent);
+      invokeMethodBinding(getSortActionListener(), facesEvent);
     }
   }
 
-  private void invokeMethodBinding(MethodBinding methodBinding, Object[] objects) {
-    if (methodBinding != null) {
+  private void invokeMethodBinding(MethodBinding methodBinding, FacesEvent event) {
+    if (methodBinding != null && event != null) {
       try {
+        Object[] objects = new Object [] { event };
         methodBinding.invoke(getFacesContext(), objects);
       } catch (EvaluationException e) {
         Throwable cause = e.getCause();
