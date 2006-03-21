@@ -54,7 +54,8 @@ Tobago.Sheet = function(sheetId) {
 //        LOG.debug("match[6] = " + match[6]);
 //        headerBox.formId = match[2];
         headerBox.sorterId = match[2];
-        delete headerBox.onclick;
+//        delete headerBox.onclick;
+        headerBox.onclick = null;
 //        LOG.debug("headerBox.id = " + headerBox.id);
         Tobago.addBindEventListener(headerBox, "click", this, "doSort");
       }
@@ -82,13 +83,15 @@ Tobago.Sheet = function(sheetId) {
         if (child.nodeType == 1 && child.tagName.toUpperCase() == "IMG") {
           // first, prev, next and last commands
           if (child.onclick) {
-            delete child.onclick;
+//            delete child.onclick;
+            child.onclick = null;
             Tobago.addBindEventListener(child, "click", this, "doPaging");
           }
         } else if (child.nodeType == 1 && child.tagName.toUpperCase() == "SPAN") {
 //          LOG.debug("Page : onclick =" + child.onclick);
           if (child.onclick) {
-            delete child.onclick;
+//            delete child.onclick;
+            child.onclick = null;
             var toPageId = this.sheetId + Tobago.COMPONENT_SEP + "ToPage";
             Tobago.addEventListener(child, "click",
                 Tobago.bind(this, "insertTarget", toPageId));
@@ -106,7 +109,8 @@ Tobago.Sheet = function(sheetId) {
       var parent = rowText.parentNode;
 //      LOG.debug("row : onclick =" + parent.onclick);
       if (parent.onclick) {
-        delete parent.onclick;
+//        delete parent.onclick;
+        parent.onclick = null;
         Tobago.addEventListener(parent, "click",
             Tobago.bind(this, "insertTarget", toRowId));
       }
