@@ -54,7 +54,6 @@
 
 }
 
-
 .tobago-sheet-header{
 	border-color: #ddeeff #6688aa #6688aa #ddeeff;
 	/*border-color: red black green yellow;*/
@@ -91,9 +90,11 @@
 	top: 0px;
 	width: 10px;
 }
+
 .tobago-sheet-header-resize-cursor{
 	cursor: e-resize;
 }
+
 .tobago-sheet-header-sort-div {
   cursor: pointer;
 	height: 100%;
