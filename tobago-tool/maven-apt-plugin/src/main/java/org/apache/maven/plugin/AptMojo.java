@@ -86,6 +86,12 @@ public class AptMojo extends AbstractAPTMojo
      */
     private File outputDirectory;
 
+    /**
+     * Force apt call without staleness chhecking.
+     *
+     * @parameter default-value="false"
+     */
+    private boolean force;
 
     protected String getGenerated()
     {
@@ -110,7 +116,8 @@ public class AptMojo extends AbstractAPTMojo
     public void execute() throws MojoExecutionException
     {
         super.execute();
-        project.addCompileSourceRoot( getGenerated() );
+        project.addCompileSourceRoot( 
+            new File( project.getBasedir(), getGenerated() ).getPath() );
         Resource resource = new Resource();
         if ( resourceTargetPath != null )
         {
@@ -143,6 +150,12 @@ public class AptMojo extends AbstractAPTMojo
         {
             includes.add( "**/*.java" );
         }
+
+        if (force)
+        {
+            return new AllSourcesInclusionScanner(includes, excludes);
+        }
+
         scanner = new StaleSourceScanner( staleMillis, includes, excludes );
         if ( targetFiles!=null && targetFiles.size() > 0 )
         {
