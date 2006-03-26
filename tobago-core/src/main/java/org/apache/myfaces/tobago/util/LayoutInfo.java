@@ -100,6 +100,7 @@ public class LayoutInfo {
         if (LOG.isWarnEnabled()) {
           LOG.warn("There are columns left but no more space! cellsLeft="
               + cellsLeft + ", tokens=" + tokensToString(layoutTokens));
+          LOG.warn("calculated spaces = " + tokensToString(spaces));
         }
       }
     } else {
@@ -134,7 +135,7 @@ public class LayoutInfo {
       String defaultToken) {
     String[] tokens;
     if (columnLayout != null) {
-      List list = new ArrayList();
+      List<String>  list = new ArrayList<String>();
       StringTokenizer tokenizer = new StringTokenizer(columnLayout, ";");
       while (tokenizer.hasMoreTokens()) {
         String token = tokenizer.nextToken().trim();
@@ -143,7 +144,7 @@ public class LayoutInfo {
         }
         list.add(token);
       }
-      tokens = (String[]) list.toArray(new String[list.size()]);
+      tokens = list.toArray(new String[list.size()]);
     } else {
       defaultToken = "*".equals(defaultToken) ? "1*" : defaultToken;
       tokens = new String[count];
@@ -163,6 +164,14 @@ public class LayoutInfo {
       tokens[i] = list.get(i).toString();
     }
     return tokensToString(tokens);
+  }
+
+  public static String tokensToString(int[] tokens) {
+    String[] strings = new String[tokens.length];
+    for (int i = 0 ; i < tokens.length ; i++) {
+      strings[i] = Integer.toString(tokens[i]);
+    }
+    return tokensToString(strings);
   }
 
   public static String tokensToString(String[] tokens) {
@@ -201,7 +210,7 @@ public class LayoutInfo {
   public List<Integer> getSpaceList() {
     List<Integer> list = new ArrayList<Integer>(spaces.length);
     for (int space : spaces) {
-      list.add(new Integer(space));
+      list.add(space);
     }
     return list;
   }
