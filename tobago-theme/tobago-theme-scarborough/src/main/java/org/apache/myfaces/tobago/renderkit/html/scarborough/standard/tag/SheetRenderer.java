@@ -128,32 +128,29 @@ public class SheetRenderer extends RendererBase
     ResourceManager resourceManager
         = ResourceManagerFactory.getResourceManager(facesContext);
     UIViewRoot viewRoot = facesContext.getViewRoot();
-    String contextPath = facesContext.getExternalContext().getRequestContextPath();
+    String contextPath
+        = facesContext.getExternalContext().getRequestContextPath();
 
     String unchecked = contextPath
-        + resourceManager .getImage(viewRoot, "image/sheetUnchecked.gif");
+        + resourceManager.getImage(viewRoot, "image/sheetUnchecked.gif");
     String checked = contextPath
-        + resourceManager .getImage(viewRoot, "image/sheetChecked.gif");
+        + resourceManager.getImage(viewRoot, "image/sheetChecked.gif");
+    boolean ajaxEnabled = TobagoConfig.getInstance(facesContext).isAjaxEnabled();
 
     final String[] styles = new String[]{"style/tobago-sheet.css"};
     final String[] scripts = new String[]{"script/tobago-sheet.js"};
     final String[] cmds = {
-        "initSheet(\"" + sheetId + "\");",
-        "tobagoSheetSetUncheckedImage(\"" + sheetId + "\", \"" + unchecked + "\");",
-        "tobagoSheetSetCheckedImage(\"" + sheetId + "\", \"" + checked + "\");",
-        "updateSelectionView(\"" + sheetId + "\");",
-        "" // placeholder for ajax sheet object creation
+        "new Tobago.Sheet(\"" + sheetId + "\", " + ajaxEnabled
+            + ", \"" + checked + "\", \"" + unchecked + "\");"
     };
 
     ComponentUtil.addStyles(data, styles);
     ComponentUtil.addScripts(data, scripts);
 
-    if (!TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
+    if (!ajaxEnabled) {
       ComponentUtil.addOnloadCommands(data, cmds);
     } else {
       HtmlRendererUtil.writeStyleLoader(facesContext, styles);
-      // add creation of ajax object
-      cmds[cmds.length -1] = "new Tobago.Sheet(\"" + sheetId + "\");";
       HtmlRendererUtil.writeScriptLoader(facesContext, scripts, cmds);
     }
   }
@@ -868,19 +865,19 @@ public class SheetRenderer extends RendererBase
       menu.getAttributes().put(ATTR_IMAGE, "image/sheetSelectorMenu.gif");
 
       String sheetId = column.getParent().getClientId(facesContext);
-      String action = "tobagoSheetSelectAll('" + sheetId + "')";
+      String action = "Tobago.Sheets.selectAll('" + sheetId + "')";
       String label = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
           "sheetMenuSelect");
       UICommand menuItem = createMenuItem(application, label, action);
       menuItem.setId("menuSelectAll");
       menu.getChildren().add(menuItem);
-      action = "tobagoSheetUnselectAll('" + sheetId + "')";
+      action = "Tobago.Sheets.unSelectAll('" + sheetId + "')";
       label = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
           "sheetMenuUnselect");
       menuItem = createMenuItem(application, label, action);
       menuItem.setId("menuUnselectAll");
       menu.getChildren().add(menuItem);
-      action = "tobagoSheetToggleAllSelections('" + sheetId + "')";
+      action = "Tobago.Sheets.toggleAllSelections('" + sheetId + "')";
       label = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
           "sheetMenuToggleselect");
       menuItem = createMenuItem(application, label, action);
