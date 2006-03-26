@@ -160,6 +160,12 @@ public class UIData extends javax.faces.component.UIData
       }
       String[] layoutTokens
           = LayoutInfo.createLayoutTokens(columnLayout, allColumns.size(), "1*");
+      if (layoutTokens.length != allColumns.size()) {
+        LOG.warn("Count of columnLayout tokens != count of columns! "
+            + "Using default token '1*' for all columns");
+        layoutTokens
+            = LayoutInfo.createLayoutTokens(null, allColumns.size(), "1*");
+      }
 
       // here we have layoutTokens for all columns
       // now remove tokens for unrendered columns
