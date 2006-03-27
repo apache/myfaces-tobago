@@ -154,6 +154,8 @@ div.tobago-sheet-cell-inner span {
 .tobago-sheet-footer {
   z-index: 1000;
   position: absolute;
+  left: 0px;
+  top: 0px;
   text-align: center;
   overflow: hidden;
   box-sizing: border-box;
