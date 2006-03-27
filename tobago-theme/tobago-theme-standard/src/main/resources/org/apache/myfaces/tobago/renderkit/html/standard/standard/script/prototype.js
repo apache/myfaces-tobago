@@ -773,6 +773,10 @@ Object.extend(Object.extend(Ajax.Updater.prototype, Ajax.Request.prototype), {
       this.containers.success : this.containers.failure;
     var response = this.transport.responseText;
 
+    if (response.match(/^[0-9a-fA-F]+\r\n/) && response.match(/\r\n0\r\n\r\n$/)) {
+      response = response.replace(/^[0-9a-fA-F]+\r\n/, "").replace(/\r\n0\r\n\r\n$/, "");
+    }
+
     if (!this.options.evalScripts)
       response = response.stripScripts();
 
