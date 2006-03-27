@@ -170,7 +170,7 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
 
   this.doSort = function(event) {
     var element = Event.element(event);
-    if (!element.sorterId) {
+    while (element && !element.sorterId) {
       element = element.parentNode;
     }
 //    LOG.debug("element.id = " + element.id);
