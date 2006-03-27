@@ -128,7 +128,8 @@ public class AjaxPhaseListener implements PhaseListener {
     StringBuffer buf = new StringBuffer(content);
 
     if (LOG.isDebugEnabled()) {
-      LOG.debug("Size of AjaxResponse:\n" + buf.length());
+      LOG.debug("Size of AjaxResponse:\n" + buf.length()
+          + " = 0x" + Integer.toHexString(buf.length()));
     }
 
     buf.insert(0, Integer.toHexString(buf.length())+"\r\n");
@@ -147,77 +148,6 @@ public class AjaxPhaseListener implements PhaseListener {
       responseWriter.close();
     }
   }
-
-//  public void afterPhaseOld(PhaseEvent event)
-//  {
-//    FacesContext facesContext = event.getFacesContext();
-//
-//    final ExternalContext externalContext = facesContext.getExternalContext();
-//    final Map requestParameterMap = externalContext.getRequestParameterMap();
-//    if(requestParameterMap.containsKey(AJAX_COMPONENT_ID))
-//    {
-//      UIViewRoot root = facesContext.getViewRoot();
-//
-//      UIComponent ajaxComponent = root.findComponent(
-//          (String)requestParameterMap.get(AJAX_COMPONENT_ID));
-//
-//      if(ajaxComponent instanceof AjaxComponent)
-//      {
-//
-//        try
-//        {
-//          StringWriter content = new StringWriter();
-//          RenderKitFactory renderFactory = (RenderKitFactory)
-//              FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
-//          RenderKit renderKit = renderFactory.getRenderKit(
-//              facesContext, facesContext.getViewRoot().getRenderKitId());
-//
-//          ResponseWriter contentWriter
-//              = renderKit.createResponseWriter(content, null , null);
-//
-//          facesContext.setResponseWriter(contentWriter);
-//
-//          ((AjaxComponent) ajaxComponent).encodeAjax(facesContext);
-//
-//          StringBuffer buf = new StringBuffer(content.toString());
-//
-//          buf.insert(0,Integer.toHexString(buf.length())+"\r\n");
-//          buf.append("\r\n"+0+"\r\n\r\n");
-//
-//          //todo: fix this to work in PortletRequest as well
-//          if(externalContext.getResponse() instanceof HttpServletResponse)
-//          {
-//            final HttpServletResponse httpServletResponse
-//                = (HttpServletResponse) externalContext.getResponse();
-//            httpServletResponse.addHeader("Transfer-Encoding", "chunked");
-//            PrintWriter responseWriter = httpServletResponse.getWriter();
-//            // buf.delete(buf.indexOf("<"), buf.indexOf(">")+1);
-//            responseWriter.print(buf.toString());
-//            //System.out.println("PhaseListener: buf = " + buf.toString());
-//            responseWriter.flush();
-//            responseWriter.close();
-//          }
-//        }
-//        catch (IOException e)
-//        {
-//          LOG.error("Exception while rendering ajax-response",e);
-//        }
-//      }
-//      else
-//      {
-//        LOG.error("Found component is no ajaxComponent : "
-//            + ajaxComponent.getClass().getName()
-//            + "  ID =" + ajaxComponent.getClientId(facesContext));
-//      }
-//
-//      final StateManager stateManager
-//          = facesContext.getApplication().getStateManager();
-//      if (!stateManager.isSavingStateInClient(facesContext)){
-//        stateManager.saveSerializedView(facesContext);
-//      }
-//      facesContext.responseComplete();
-//    }
-//  }
 
   public void beforePhase(PhaseEvent event) {
 
