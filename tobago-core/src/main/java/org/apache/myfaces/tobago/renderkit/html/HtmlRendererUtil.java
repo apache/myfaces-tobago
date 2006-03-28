@@ -390,6 +390,35 @@ public final class HtmlRendererUtil {
     return tobagoClass.append(cssClass).toString();
   }
 
+  public static void addImageSources(
+      FacesContext facesContext, ResponseWriter writer, String src, String id)
+      throws IOException {
+    StringBuffer buffer = new StringBuffer();
+    buffer.append("new Tobago.Image('");
+    buffer.append(id);
+    buffer.append("','");
+    buffer.append(ResourceManagerUtil.getImageWithPath(
+          facesContext, src, false));
+    buffer.append("','");
+    buffer.append(ResourceManagerUtil.getImageWithPath(
+          facesContext, createSrc(src, "Disabled"), true));
+    buffer.append("','");
+    buffer.append(ResourceManagerUtil.getImageWithPath(
+          facesContext, createSrc(src, "Hover"), true));
+    buffer.append("');");
+    writeJavascript(writer, buffer.toString());
+  }
+
+  public static String createSrc(String src, String ext) {
+    int dot = src.lastIndexOf('.');
+    if (dot == -1) {
+      LOG.warn("Image src without extension: '" + src + "'");
+      return src;
+    } else {
+      return src.substring(0, dot) + ext + src.substring(dot);
+    }
+  }
+
   public static void writeJavascript(ResponseWriter writer, String script)
       throws IOException {
     startJavascript(writer);

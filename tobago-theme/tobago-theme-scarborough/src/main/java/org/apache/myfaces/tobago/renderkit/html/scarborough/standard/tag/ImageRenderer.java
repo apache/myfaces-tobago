@@ -30,9 +30,9 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UICommand;
@@ -49,6 +49,9 @@ public class ImageRenderer extends RendererBase {
 
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
+
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+
     UIGraphic graphic = (UIGraphic) component;
     final String value = graphic.getUrl();
     String src = value;
@@ -61,12 +64,13 @@ public class ImageRenderer extends RendererBase {
         src = null;
         if (isDisabled(graphic)) {
           src = ResourceManagerUtil.getImageWithPath(
-              facesContext, createSrc(value, "Disabled"), true);
+              facesContext, HtmlRendererUtil.createSrc(value, "Disabled"), true);
         }
         if (src == null) {
           src = ResourceManagerUtil.getImageWithPath(facesContext, value);
         }
-        addImageSources(facesContext, graphic);
+        HtmlRendererUtil.addImageSources(facesContext, writer, graphic.getUrl(),
+            graphic.getClientId(facesContext));
       }
     }
 
@@ -81,7 +85,6 @@ public class ImageRenderer extends RendererBase {
     String tip = (String) graphic.getAttributes().get(ATTR_TIP);
 
 
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement("img", graphic);
     final String clientId = graphic.getClientId(facesContext);
@@ -104,29 +107,6 @@ public class ImageRenderer extends RendererBase {
     writer.writeAttribute("style", null, ATTR_STYLE);
     writer.writeComponentClass();
     writer.endElement("img");
-  }
-
-  public static void addImageSources(
-      FacesContext facesContext, UIGraphic graphic) {
-    addImageSources(facesContext, ComponentUtil.findPage(graphic),
-        graphic.getUrl(), graphic.getClientId(facesContext));
-  }
-  public static void addImageSources(
-      FacesContext facesContext, UIPage page, String src, String id) {
-    StringBuffer buffer = new StringBuffer();
-    buffer.append("new Tobago.Image('");
-    buffer.append(id);
-    buffer.append("','");
-    buffer.append(ResourceManagerUtil.getImageWithPath(
-          facesContext, src, false));
-    buffer.append("','");
-    buffer.append(ResourceManagerUtil.getImageWithPath(
-          facesContext, createSrc(src, "Disabled"), true));
-    buffer.append("','");
-    buffer.append(ResourceManagerUtil.getImageWithPath(
-          facesContext, createSrc(src, "Hover"), true));
-    buffer.append("');");
-    page.getOnloadScripts().add(buffer.toString());
   }
 
   public static String createSrc(String src, String ext) {

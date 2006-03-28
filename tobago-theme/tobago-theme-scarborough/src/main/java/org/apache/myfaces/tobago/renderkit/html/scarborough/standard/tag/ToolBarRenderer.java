@@ -318,10 +318,8 @@ public class ToolBarRenderer extends RendererBase {
         label.getText() != null && !ToolBarTag.LABEL_OFF.equals(labelPosition);
 
     if (!ToolBarTag.ICON_OFF.equals(iconSize)) {
-      if (iconName != null) {
-        ImageRenderer.addImageSources(facesContext,
-            ComponentUtil.findPage(command), iconName, graphicId);
-      }
+      HtmlRendererUtil.addImageSources(facesContext, writer,
+          iconName != null ? iconName : "image/1x1.gif", graphicId);
 
       writer.startElement("td", command);
       writer.writeAttribute("align", "center", null);

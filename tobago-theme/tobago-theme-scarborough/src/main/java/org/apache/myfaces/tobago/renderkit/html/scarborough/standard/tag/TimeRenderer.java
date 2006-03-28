@@ -135,8 +135,7 @@ public class TimeRenderer extends InRendererBase{
 
     String imageId = idPrefix + "inc";
     String imageSrc = "image/timeIncrement.gif";
-    ImageRenderer.addImageSources(
-        facesContext, ComponentUtil.findPage(input), imageSrc, imageId);
+    HtmlRendererUtil.addImageSources(facesContext, writer, imageSrc, imageId);
     writer.startElement("img");
     writer.writeIdAttribute(imageId);
     writer.writeAttribute("onclick", "tbgIncTime(this)", false);
@@ -155,8 +154,7 @@ public class TimeRenderer extends InRendererBase{
 
     imageId = idPrefix + "dec";
     imageSrc = "image/timeDecrement.gif";
-    ImageRenderer.addImageSources(
-        facesContext, ComponentUtil.findPage(input), imageSrc, imageId);
+    HtmlRendererUtil.addImageSources(facesContext, writer, imageSrc, imageId);
     writer.startElement("img");
     writer.writeIdAttribute(imageId);
     writer.writeAttribute("onclick", "tbgDecTime(this)", false);
