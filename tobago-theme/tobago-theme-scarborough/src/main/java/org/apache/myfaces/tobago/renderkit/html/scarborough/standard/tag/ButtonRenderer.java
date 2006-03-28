@@ -154,7 +154,9 @@ public class ButtonRenderer extends CommandRendererBase {
     } else if (COMMAND_TYPE_SCRIPT.equals(type)) {
       onclick = command;
     } else if (defaultCommand) {
-      onclick = "Tobago.setAction('" + clientId + "');";
+      ComponentUtil.findPage(component).setDefaultActionId(clientId);
+//      onclick = "Tobago.setAction('" + clientId + "');";
+      onclick = null;
     } else {
       onclick = "Tobago.submitAction('" + clientId + "');";
     }

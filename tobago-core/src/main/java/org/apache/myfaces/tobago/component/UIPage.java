@@ -55,6 +55,8 @@ public class UIPage extends UIForm {
 
   private String actionId;
 
+  private String defaultActionId;
+
   private List<KeyValue> postfields;
 
   private SetUniqueList scriptFiles;
@@ -85,6 +87,7 @@ public class UIPage extends UIForm {
     popups = new ArrayList<UIPopup>();
   }
 
+  @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {
     // TODO change this should be renamed to DimensionUtils.prepare!!!
     //UILayout.getLayout(this).layoutBegin(facesContext, this);
@@ -92,8 +95,8 @@ public class UIPage extends UIForm {
   }
 
 
+  @Override
   public void encodeChildren(FacesContext context) throws IOException {
-
   }
 
   public String getFormId(FacesContext facesContext) {
@@ -104,6 +107,7 @@ public class UIPage extends UIForm {
     return formId;
   }
 
+  @Override
   public void processDecodes(FacesContext facesContext) {
 
     // multipart/form-data must use TobagoMultipartFormdataRequest
@@ -199,6 +203,7 @@ public class UIPage extends UIForm {
     return postfields;
   }
 
+  @Override
   public void processUpdates(FacesContext context) {
     super.processUpdates(context);
     updatePageState(context);
@@ -212,7 +217,7 @@ public class UIPage extends UIForm {
   }
 
   private void decodePageState(FacesContext facesContext, PageState pageState) {
-    String name = null;
+    String name;
     String value = null;
     try {
       name = getClientId(facesContext)
@@ -259,6 +264,14 @@ public class UIPage extends UIForm {
 
   public void setActionId(String actionId) {
     this.actionId = actionId;
+  }
+
+  public String getDefaultActionId() {
+    return defaultActionId;
+  }
+
+  public void setDefaultActionId(String defaultActionId) {
+    this.defaultActionId = defaultActionId;
   }
 
   public List<String> getScriptFiles() {

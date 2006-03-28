@@ -90,12 +90,13 @@ var Tobago = {
    * Tobagos central init function.
    * Called via onload attribure of body tag
    */
-  init: function(pageId) {
+  init: function(pageId, defaultActionId) {
 //    new LOG.LogArea({hide: false});
 //    LOG.show();
     this.page = this.element(pageId);
     this.form = this.element(this.page.id + this.SUB_COMPONENT_SEP + "form");
     this.action = this.element(this.form.id + '-action')
+    this.action.value = defaultActionId;
     this.clientDimension
         = this.createInput("hidden", this.form.id + '-clientDimension');
     this.form.appendChild(this.clientDimension);

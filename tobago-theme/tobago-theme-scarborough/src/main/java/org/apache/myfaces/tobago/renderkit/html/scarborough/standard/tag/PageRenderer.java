@@ -259,10 +259,12 @@ public class PageRenderer extends PageRendererBase {
 
     HtmlRendererUtil.endJavascript(writer);
 //    writer.endElement("script");
-
+    String defaultActionId = page.getDefaultActionId() != null
+        ? page.getDefaultActionId() : "";
     writer.endElement("head");
     writer.startElement("body", page);
-    writer.writeAttribute("onload", "Tobago.init('" + clientId + "')", null);
+    writer.writeAttribute("onload",
+        "Tobago.init('" + clientId + "', '" + defaultActionId + "');", null);
     writer.writeAttribute("onunload", "Tobago.onexit();", null);
     //this ist for ie to prevent scrollbars where none are needed
     writer.writeAttribute("scroll", "auto", null);
