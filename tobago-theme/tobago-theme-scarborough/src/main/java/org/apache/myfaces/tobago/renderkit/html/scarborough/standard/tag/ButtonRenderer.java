@@ -148,15 +148,15 @@ public class ButtonRenderer extends CommandRendererBase {
 
     if (COMMAND_TYPE_NAVIGATE.equals(type)) {
       onclick = "Tobago.navigateToUrl('"
-          + HtmlUtils.generateUrl(facesContext, command) + "')";
+          + HtmlUtils.generateUrl(facesContext, command) + "');";
     } else if (COMMAND_TYPE_RESET.equals(type)) {
       onclick = null;
     } else if (COMMAND_TYPE_SCRIPT.equals(type)) {
       onclick = command;
     } else if (defaultCommand) {
-      onclick = "Tobago.setAction('" + clientId + "')";
+      onclick = "Tobago.setAction('" + clientId + "');";
     } else {
-      onclick = "Tobago.submitAction('" + clientId + "')";
+      onclick = "Tobago.submitAction('" + clientId + "');";
     }
     return onclick;
   }
