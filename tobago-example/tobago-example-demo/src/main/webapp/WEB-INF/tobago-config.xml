@@ -22,13 +22,12 @@
 <tobago-config>
 
   <theme-config>
-    <default-theme>org.apache.myfaces.tobago.context.SpeysideTheme</default-theme>
-    <supported-theme>org.apache.myfaces.tobago.context.ScarboroughTheme</supported-theme>
-    <supported-theme>org.apache.myfaces.tobago.context.RichmondTheme</supported-theme>
+    <default-theme>speyside</default-theme>
+    <supported-theme>scarborough</supported-theme>
+    <supported-theme>richmond</supported-theme>
   </theme-config>
 
   <resource-dir>tobago-resource</resource-dir>
-  <resource-dir>org/apache/myfaces/tobago/renderkit</resource-dir>
   <load-theme-resources-from-classpath>false</load-theme-resources-from-classpath>
   <ajax-enabled>true</ajax-enabled>
 </tobago-config>
