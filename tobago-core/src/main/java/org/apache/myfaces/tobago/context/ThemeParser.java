@@ -39,7 +39,7 @@ class ThemeParser {
 
   private Digester digester;
 
-  public ThemeParser() {
+  ThemeParser() {
     digester = new Digester();
     configure();
   }
@@ -49,22 +49,26 @@ class ThemeParser {
 // todo   digester.setValidating(true);
     digester.setValidating(false);
 
-    digester.addCallMethod("tobago-theme/resource-path", "setResourcePath", 0);
     digester.addCallMethod("tobago-theme/name", "setName", 0);
+    digester.addCallMethod("tobago-theme/deprecated-name", "setDeprecatedName", 0);
+    digester.addCallMethod("tobago-theme/resource-path", "setResourcePath", 0);
+    digester.addCallMethod("tobago-theme/fallback", "setFallbackName", 0);
 
     return digester;
   }
 
-  public Theme parse(URL url)
+  public ThemeImpl parse(URL url)
       throws IOException, SAXException, FacesException {
 
     InputStream inputStream = null;
     try {
       inputStream = url.openStream();
-      Theme theme = new Theme();
+      ThemeImpl theme = new ThemeImpl();
       digester.push(theme);
       digester.parse(inputStream);
-      LOG.info("Found theme: '" + theme + "'");
+      if (LOG.isInfoEnabled()) {
+        LOG.info("Found theme: '" + theme.getName() + "'");
+      }
       return theme;
     } finally {
       IOUtils.closeQuietly(inputStream);

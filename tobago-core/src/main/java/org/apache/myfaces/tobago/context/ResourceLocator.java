@@ -19,14 +19,12 @@ package org.apache.myfaces.tobago.context;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.config.TobagoConfig;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import java.util.Set;
 import java.util.Properties;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipEntry;
 import java.io.InputStream;
@@ -53,30 +51,22 @@ class ResourceLocator {
 
   private ServletContext servletContext;
   private ResourceManagerImpl resourceManager;
-  private List<String> resourceDirs;
-  private TobagoConfig tobagoConfig;
+  private ThemeBuilder themeBuilder;
+  private boolean loadThemesFromClasspath;
 
   public ResourceLocator(
       ServletContext servletContext, ResourceManagerImpl resourceManager,
-      List<String> resourceDirs, TobagoConfig tobagoConfig) {
+      ThemeBuilder tobagoConfig, boolean loadThemesFromClasspath) {
     this.servletContext = servletContext;
     this.resourceManager = resourceManager;
-    this.resourceDirs = resourceDirs;
-    this.tobagoConfig = tobagoConfig;
+    this.themeBuilder = tobagoConfig;
+    this.loadThemesFromClasspath = loadThemesFromClasspath;
   }
 
   public void init()
       throws ServletException {
     locateResourcesInWar(servletContext, resourceManager, "/");
-
-    locateResourcesInLib(resourceManager);
-    
-    for (String dir : resourceDirs) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("Locating resources in dir: " + dir);
-      }
-      resourceManager.addResourceDirectory(dir);
-    }
+    locateResourcesFromClasspath(resourceManager);
   }
 
   private void locateResourcesInWar(
@@ -120,18 +110,19 @@ class ResourceLocator {
     }
   }
 
-  private void locateResourcesInLib(ResourceManagerImpl resources)
+  private void locateResourcesFromClasspath(ResourceManagerImpl resources)
       throws ServletException {
 
     ThemeParser parser = new ThemeParser();
     try {
-      LOG.error("Loading tobago-theme.xml");
+      LOG.info("Loading tobago-theme.xml");
       Enumeration<URL> urls = getClass().getClassLoader().getResources("META-INF/tobago-theme.xml");
 
       while (urls.hasMoreElements()) {
         URL themeUrl = urls.nextElement();
 
-        Theme theme = parser.parse(themeUrl);
+        ThemeImpl theme = parser.parse(themeUrl);
+        themeBuilder.addTheme(theme);
         String prefix = ensureSlash(theme.getResourcePath());
 
         // TODO other protocols
@@ -162,7 +153,7 @@ class ResourceLocator {
                   LOG.info(inputStream);
                   addProperties(inputStream, resources, name, true);
                 } else {
-                  if (tobagoConfig.isLoadThemesFromClasspath()) {
+                  if (loadThemesFromClasspath) {
                     resources.add(name);
                   }
                 }

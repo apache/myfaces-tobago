@@ -89,8 +89,8 @@ public class ClientProperties implements Serializable {
     String requestTheme
         = (String) externalContext.getRequestParameterMap().get("tobago.theme");
     this.theme = TobagoConfig.getInstance(facesContext).getTheme(requestTheme);
-    LOG.info("theme='" + this.theme + "' from requestParameter "
-        + "tobago.theme='" + theme + "'");
+    LOG.info("theme='" + theme.getName() + "' from requestParameter "
+        + "tobago.theme='" + requestTheme + "'");
     updateId();
   }
 
@@ -99,11 +99,11 @@ public class ClientProperties implements Serializable {
     StringBuffer buffer = new StringBuffer();
     buffer.append(getContentType());
     buffer.append('/');
-    buffer.append(getTheme());
+    buffer.append(getTheme().getName());
     buffer.append('/');
     buffer.append(getUserAgent());
     id = buffer.toString();
-    final UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
+    UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
     if (viewRoot instanceof org.apache.myfaces.tobago.component.UIViewRoot) {
       ((org.apache.myfaces.tobago.component.UIViewRoot) viewRoot).updateRendererCachePrefix();
     }

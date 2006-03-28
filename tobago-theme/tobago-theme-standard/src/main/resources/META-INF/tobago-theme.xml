@@ -18,9 +18,10 @@
 
 <!--
   todo: Test still under development
-  http://issues.apache.org/jira/browse/MYFACES-1106
+  http://issues.apache.org/jira/browse/TOBAGO-20
 -->
 <tobago-theme>
-  <name>org.apache.myfaces.tobago.theme.Standard</name>
+  <name>standard</name>
+  <deprecated-name>org.apache.myfaces.tobago.context.StandardTheme</deprecated-name>
   <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
 </tobago-theme>

@@ -43,21 +43,25 @@ public class ResourceManagerFactory {
     return (ResourceManager) servletContext.getAttribute(RESOURCE_MANAGER);
   }
 
-  public static void init(ServletContext servletContext, TobagoConfig tobagoConfig)
+  public static ResourceManagerImpl init(
+      ServletContext servletContext, TobagoConfig tobagoConfig)
       throws ServletException {
     assert !initialized;
     ResourceManagerImpl resourceManager = new ResourceManagerImpl();
 
+    ThemeBuilder themeBuilder = new ThemeBuilder();
     ResourceLocator resourceLocator = new ResourceLocator(
-        servletContext, resourceManager, tobagoConfig.getResourceDirs(), tobagoConfig);
+        servletContext, resourceManager, themeBuilder,
+        tobagoConfig.isLoadThemesFromClasspath());
     resourceLocator.init();
+    tobagoConfig.setAvailableThemes(themeBuilder.resolveThemes());
 
     servletContext.setAttribute(RESOURCE_MANAGER, resourceManager);
 
-    resourceManager.setTobagoConfig(tobagoConfig);
     initialized = true;
-  }
 
+    return resourceManager;
+  }
 
   public static void release(ServletContext servletContext) {
     assert initialized;

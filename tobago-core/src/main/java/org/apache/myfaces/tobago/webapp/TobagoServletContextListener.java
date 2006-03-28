@@ -22,6 +22,8 @@ import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.config.TobagoConfigParser;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
+import org.apache.myfaces.tobago.context.ResourceManager;
+import org.apache.myfaces.tobago.context.ResourceManagerImpl;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -53,8 +55,18 @@ public class TobagoServletContextListener implements ServletContextListener {
       TobagoConfigParser.parse(servletContext, tobagoConfig);
       servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
 
+      // todo: cleanup, use one central TobagoConfig, no singleton ResourceManager
       // resources
-      ResourceManagerFactory.init(servletContext, tobagoConfig);
+      ResourceManagerImpl resourceManager
+          = ResourceManagerFactory.init(servletContext, tobagoConfig);
+      resourceManager.setTobagoConfig(tobagoConfig);
+      for (String dir : tobagoConfig.getResourceDirs()) {
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Locating resources in dir: " + dir);
+        }
+        resourceManager.addResourceDirectory(dir);
+      }
+      tobagoConfig.resoveThemes();
 
       // theme config cache
       servletContext.setAttribute(ThemeConfig.THEME_CONFIG_CACHE, new HashMap());

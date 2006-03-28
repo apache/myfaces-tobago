@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class TobagoConfig {
   private static final Log LOG = LogFactory.getLog(TobagoConfig.class);
@@ -33,17 +34,19 @@ public class TobagoConfig {
       = "org.apache.myfaces.tobago.config.TobagoConfig";
 
   private List<Theme> supportedThemes;
+  private List<String> supportedThemeNames;
   private Theme defaultTheme;
-  private List<Theme> availableThemes;
+  private String defaultThemeName;
   private List<String> resourceDirs;
   private boolean loadThemesFromClasspath = true;
   private List<MappingRule> mappingRules;
   private boolean ajaxEnabled;
+  private Map<String, Theme> availableTheme;
 
 
   public TobagoConfig() {
+    supportedThemeNames = new ArrayList<String>();
     supportedThemes = new ArrayList<Theme>();
-    availableThemes = new ArrayList<Theme>();
     resourceDirs = new ArrayList<String>();
   }
 
@@ -58,35 +61,40 @@ public class TobagoConfig {
     mappingRules.add(mappingRule);
   }
 
-  public void setDefaultThemeClass(String name) {
-    try {
-      
-      defaultTheme = (Theme) Class.forName(name).newInstance();
-    } catch (Exception e) {
-      String error = "Cannot create Theme from name: '" + name + "'";
-      LOG.error(error, e);
-      throw new RuntimeException(error, e);
-    }
+  public void addSupportedThemeName(String name) {
+    supportedThemeNames.add(name);
+  }
+
+  public void resoveThemes() {
+
+    defaultTheme = availableTheme.get(defaultThemeName);
+    checkThemeIsAvailable(defaultThemeName, defaultTheme);
     if (LOG.isDebugEnabled()) {
-      LOG.debug("name = '" + name + "'");
+      LOG.debug("name = '" + defaultThemeName + "'");
       LOG.debug("defaultTheme = '" + defaultTheme + "'");
+    }
+
+    for (String name : supportedThemeNames) {
+      Theme theme = availableTheme.get(name);
+      checkThemeIsAvailable(name, theme);
+      supportedThemes.add(theme);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("name = '" + name + "'");
+        LOG.debug("supportedThemes.last() = '" + supportedThemes.get(supportedThemes.size() - 1) + "'");
+      }
     }
   }
 
-  public void addSupportedThemeClass(String name) {
-    try {
-      Theme theme = (Theme) Class.forName(name).newInstance();
-      supportedThemes.add(theme);
-    } catch (Exception e) {
-      String error = "Cannot create Theme from name: '" + name + "'";
-      LOG.error(error, e);
-      throw new RuntimeException(error, e);
-    }
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("name = '" + name + "'");
-      LOG.debug("supportedThemes.last() = '" + supportedThemes.get(supportedThemes.size() - 1) + "'");
+  private void checkThemeIsAvailable(String name, Theme theme) {
+    if (theme == null) {
+      String error = "Theme not found! name: '" + name + "'. " +
+          "Please ensure you have a tobago-theme.xml file in your " +
+          "theme jar. Found the following themes: " + availableTheme.keySet();
+      LOG.error(error);
+      throw new RuntimeException(error);
     }
   }
+
 
   public static TobagoConfig getInstance(FacesContext facesContext) {
     return (TobagoConfig) facesContext.getExternalContext()
@@ -129,12 +137,12 @@ public class TobagoConfig {
     return defaultTheme;
   }
 
-  public List<Theme> getSupportedThemes() {
-    return Collections.unmodifiableList(supportedThemes);
+  public void setDefaultThemeName(String defaultThemeName) {
+    this.defaultThemeName = defaultThemeName;
   }
 
-  public List<Theme> getAvailableThemes() {
-    return availableThemes;
+  public List<Theme> getSupportedThemes() {
+    return Collections.unmodifiableList(supportedThemes);
   }
 
   public void addResourceDir(String resourceDir) {
@@ -164,6 +172,10 @@ public class TobagoConfig {
 
   public Theme getDefaultTheme() {
     return defaultTheme;
+  }
+
+  public void setAvailableThemes(Map<String, Theme> availableTheme) {
+    this.availableTheme = availableTheme;
   }
 }
 

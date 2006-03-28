@@ -334,7 +334,7 @@ public class ResourceManagerImpl implements ResourceManager {
     searchtext.append('/');
     searchtext.append(language);
     searchtext.append('/');
-    searchtext.append(theme);
+    searchtext.append(theme.getName());
     searchtext.append('/');
     searchtext.append(browser);
     if (subDir != null) {

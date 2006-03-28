@@ -18,10 +18,11 @@
 
 <!--
   todo: Test still under development
-  http://issues.apache.org/jira/browse/MYFACES-1106
+  http://issues.apache.org/jira/browse/TOBAGO-20
 -->
 <tobago-theme>
-  <name>org.apache.myfaces.tobago.theme.Richmond</name>
+  <name>richmond</name>
+  <deprecated-name>org.apache.myfaces.tobago.context.RichmondTheme</deprecated-name>
   <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
-  <fallback>org.apache.myfaces.tobago.theme.Speyside</fallback>
+  <fallback>speyside</fallback>
 </tobago-theme>
