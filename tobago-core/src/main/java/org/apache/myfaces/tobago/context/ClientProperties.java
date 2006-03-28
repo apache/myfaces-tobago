@@ -141,7 +141,8 @@ public class ClientProperties implements Serializable {
     return client;
   }
 
-  public static List getLocaleList(Locale locale, boolean propertyPathMode) {
+  public static List<String> getLocaleList(
+      Locale locale, boolean propertyPathMode) {
 
     String string = locale.toString();
     String prefix = propertyPathMode ? "" : "_";

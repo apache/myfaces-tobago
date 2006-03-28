@@ -26,6 +26,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 
 public class TobagoConfig {
   private static final Log LOG = LogFactory.getLog(TobagoConfig.class);
@@ -37,7 +39,7 @@ public class TobagoConfig {
   private List<String> supportedThemeNames;
   private Theme defaultTheme;
   private String defaultThemeName;
-  private List<String> resourceDirs;
+  private Set<String> resourceDirs;
   private boolean loadThemesFromClasspath = true;
   private List<MappingRule> mappingRules;
   private boolean ajaxEnabled;
@@ -47,7 +49,7 @@ public class TobagoConfig {
   public TobagoConfig() {
     supportedThemeNames = new ArrayList<String>();
     supportedThemes = new ArrayList<Theme>();
-    resourceDirs = new ArrayList<String>();
+    resourceDirs = new HashSet<String>();
   }
 
   public void addMappingRule(MappingRule mappingRule) {
@@ -146,11 +148,13 @@ public class TobagoConfig {
   }
 
   public void addResourceDir(String resourceDir) {
-    LOG.info("resourceDir = '" + resourceDir + "'");
+    if (LOG.isInfoEnabled()) {
+      LOG.info("adding resourceDir = '" + resourceDir + "'");
+    }
     resourceDirs.add(resourceDir);
   }
 
-  public List<String> getResourceDirs() {
+  public Set<String> getResourceDirs() {
     return resourceDirs;
   }
 

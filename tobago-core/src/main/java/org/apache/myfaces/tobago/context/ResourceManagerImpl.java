@@ -1,7 +1,7 @@
 package org.apache.myfaces.tobago.context;
 
 /*
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Copyright 2002-2006 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +20,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.renderkit.TobagoRenderKit;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.render.Renderer;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
@@ -42,18 +40,12 @@ public class ResourceManagerImpl implements ResourceManager {
 
   private final Cache cache;
 
-  private final List<String> resourceDirectories;
-
-  private final List<String> classDirectories;
-
   private TobagoConfig tobagoConfig;
 
-  public ResourceManagerImpl() {
+  public ResourceManagerImpl(TobagoConfig tobagoConfig) {
     resourceList = new Properties();
     cache = new Cache();
-    resourceDirectories = new ArrayList<String>(2);
-    classDirectories = new ArrayList<String>(1);
-    classDirectories.add(TobagoRenderKit.PACKAGE_PREFIX.replace('.', '/'));
+    this.tobagoConfig = tobagoConfig;
   }
 
   public void add(String resourceKey) {
@@ -69,14 +61,6 @@ public class ResourceManagerImpl implements ResourceManager {
           "adding resourceKey = '" + resourceKey + "' value='" + value + "'");
     }
     resourceList.put(resourceKey, value);
-  }
-
-  public void addResourceDirectory(String resourceDirectory) {
-    this.resourceDirectories.add(resourceDirectory);
-    if (LOG.isDebugEnabled()) {
-      LOG.debug(
-          "Adding resourceDirectory '" + resourceDirectory + "' to " + this);
-    }
   }
 
   public double getCacheCoverage() {
@@ -107,7 +91,7 @@ public class ResourceManagerImpl implements ResourceManager {
       if (result == null) {
         // TODO: cache null values
         try {
-          List paths = getPaths(clientPropertyId, locale, resourceDirectories, "", null,
+          List paths = getPaths(clientPropertyId, locale, "", null,
               name.substring(0, dot), name.substring(dot), false, true, true, null,
               true, ignoreMissing);
           if (paths != null) {
@@ -146,7 +130,7 @@ public class ResourceManagerImpl implements ResourceManager {
         return result;
       }
       try {
-        result = (String) getPaths(clientPropertyId, locale, resourceDirectories, "",
+        result = (String) getPaths(clientPropertyId, locale, "",
             type, name, "", false, true, true, null, true, false).get(0);
         cache.put(key, result);
       } catch (Exception e) {
@@ -177,7 +161,7 @@ public class ResourceManagerImpl implements ResourceManager {
       if (result != null) {
         return result;
       }
-      List properties = getPaths(clientPropertyId, locale, resourceDirectories, "", type, bundle,
+      List properties = getPaths(clientPropertyId, locale, "", type, bundle,
           "", false, true, false, propertyKey, true, false);
       if (properties != null) {
         result = (String) properties.get(0);
@@ -204,7 +188,7 @@ public class ResourceManagerImpl implements ResourceManager {
     return buffer.toString();
   }
 
-  private List getPaths(String clientProperties, Locale locale, List<String> mainDirectories, String prefix,
+  private List getPaths(String clientProperties, Locale locale, String prefix,
       String subDir, String name, String suffix,
       boolean reverseOrder, boolean single, boolean returnKey,
       String key, boolean returnStrings, boolean ignoreMissing) {
@@ -214,12 +198,12 @@ public class ResourceManagerImpl implements ResourceManager {
     String contentType = tokenizer.nextToken();
     Theme theme = tobagoConfig.getTheme(tokenizer.nextToken());
     UserAgent browser = UserAgent.getInstanceForId(tokenizer.nextToken());
-    List locales = ClientProperties.getLocaleList(locale, false);
+    List<String> locales = ClientProperties.getLocaleList(locale, false);
 
     String path;
 
     // e.g. 1. application, 2. library or renderkit
-    for (String resourceDirectory : mainDirectories) {
+    for (String resourceDirectory : tobagoConfig.getResourceDirs()) {
       for (Theme themeName : theme.getFallbackList()) { // theme loop
         for (String browserType : browser.getFallbackList()) { // browser loop
           for (Object locale1 : locales) { // locale loop
@@ -268,9 +252,7 @@ public class ResourceManagerImpl implements ResourceManager {
         }
       }
     }
-    Iterator localeIterator = locales.iterator();
-    while (localeIterator.hasNext()) { // locale loop
-      String localeSuffix = (String) localeIterator.next();
+    for (String localeSuffix : locales) { // locale loop
       path = makePath(name, localeSuffix, suffix, key);
       if (LOG.isDebugEnabled()) {
         LOG.debug("testing path: " + path);
@@ -307,7 +289,7 @@ public class ResourceManagerImpl implements ResourceManager {
     if (matches.size() == 0) {
       if (!ignoreMissing) {
         LOG.error("Path not found, and no fallback. Using empty string.\n"
-            + "mainDirs = '" + mainDirectories
+            + "resourceDirs = '" + tobagoConfig.getResourceDirs()
             + "' contentType = '" + contentType
             + "' theme = '" + theme
             + "' browser = '" + browser
@@ -407,7 +389,7 @@ public class ResourceManagerImpl implements ResourceManager {
 
       try {
         name = getRendererClassName(name);
-        Class clazz = (Class) getPaths(clientPropertyId, locale, classDirectories, "", type, name,
+        Class clazz = (Class) getPaths(clientPropertyId, locale, "", type, name,
             "", false, true, true, null, false, false).get(0);
         renderer = (Renderer) clazz.newInstance();
         cache.put(key, renderer);
@@ -536,7 +518,7 @@ public class ResourceManagerImpl implements ResourceManager {
         return result;
       }
       try {
-        List matches = getPaths(clientPropertyId, locale, resourceDirectories, "",
+        List matches = getPaths(clientPropertyId, locale, "",
             type, name.substring(0, dot),
             name.substring(dot), true, false, true, null, true, false);
         result = (String[]) matches.toArray(new String[matches.size()]);
@@ -560,7 +542,7 @@ public class ResourceManagerImpl implements ResourceManager {
       if (result != null) {
         return result;
       }
-      List properties = getPaths(clientPropertyId, locale, resourceDirectories, "", type, bundle,
+      List properties = getPaths(clientPropertyId, locale, "", type, bundle,
           "", false, true, false, propertyKey, true, true);
       if (properties != null) {
         result = (String) properties.get(0);
@@ -571,17 +553,6 @@ public class ResourceManagerImpl implements ResourceManager {
     }
     return result;
   }
-
-// ------------------------------------------------------------ getter + setter
-
-  public List<String> getResourceDirectories() {
-    return resourceDirectories;
-  }
-
-  public void setTobagoConfig(TobagoConfig tobagoConfig) {
-    this.tobagoConfig = tobagoConfig;
-  }
-
 
   private class Cache extends HashMap {
 

@@ -63,7 +63,7 @@ class ResourceLocator {
     this.loadThemesFromClasspath = loadThemesFromClasspath;
   }
 
-  public void init()
+  public void locate()
       throws ServletException {
     locateResourcesInWar(servletContext, resourceManager, "/");
     locateResourcesFromClasspath(resourceManager);

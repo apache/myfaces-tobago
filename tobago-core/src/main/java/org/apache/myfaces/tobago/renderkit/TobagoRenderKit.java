@@ -37,12 +37,6 @@ public class TobagoRenderKit extends RenderKit {
 
   public static final String RENDER_KIT_ID = "tobago";
 
-  public static final String PACKAGE_PREFIX
-      = TobagoRenderKit.class.getName().substring(
-          0, TobagoRenderKit.class.getName().lastIndexOf('.'));
-
-  public static final int PACKAGE_PREFIX_LENGTH = PACKAGE_PREFIX.length();
-
   private ResourceManager resources;
 
   // FIXME: use family

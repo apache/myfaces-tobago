@@ -34,7 +34,6 @@ class ThemeImpl implements Theme, Serializable {
 
   private String deprecatedName;
 
-  // TODO: is to be implemented
   private String resourcePath;
 
   private ThemeImpl fallback;
@@ -107,7 +106,7 @@ class ThemeImpl implements Theme, Serializable {
   }
 
   public String toString() {
-    LOG.warn("Should not be called!", new Exception());
+//    LOG.warn("Should not be called!", new Exception());
     return name;
   }
 }
