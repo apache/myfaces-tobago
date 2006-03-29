@@ -30,6 +30,7 @@ import java.util.zip.ZipEntry;
 import java.io.InputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.net.MalformedURLException;
 
 /**
  * This class helps to locate all resources of the ResourceManager.
@@ -126,10 +127,20 @@ class ResourceLocator {
         String prefix = ensureSlash(theme.getResourcePath());
 
         // TODO other protocols
-        if ("jar".equals(themeUrl.getProtocol())) {
+        String protocol = themeUrl.getProtocol();
+        // tomcat uses jar
+        // weblogic uses zip
+        if ("jar".equals(protocol) || "zip".equals(protocol)) {
+          LOG.info("themeUrl = '" + themeUrl + "'");
           String fileName = themeUrl.toString().substring(4, themeUrl.toString().indexOf("!"));
           ClassLoader classLoader = ResourceManagerFactory.class.getClassLoader();
-          URL jarFile = new URL(fileName);
+          URL jarFile;
+          try {
+            jarFile = new URL(fileName);
+          } catch (MalformedURLException e) {
+            // workaround for weblogic on windows
+            jarFile = new URL("file:" + fileName);
+          }
           InputStream stream = null;
           try {
             stream = jarFile.openStream();
@@ -163,7 +174,7 @@ class ResourceLocator {
             IOUtils.closeQuietly(stream);
           }
         } else {
-          LOG.error("Unknown protocol "+themeUrl);
+          LOG.error("Unknown protocol '"+themeUrl + "'");
         }
       }
     } catch (Exception e) {
