@@ -310,7 +310,7 @@ var Tobago = {
     */
   imageMouseover: function(id) {
     var image = this.element(id);
-    if (image) {
+    if (image && this.images[id]) {
       var hover = this.images[id].hover;
       if (hover != 'null' && hover != image.src) {
         image.src = hover;
@@ -323,7 +323,7 @@ var Tobago = {
     */
   imageMouseout: function(id) {
     var image = this.element(id);
-    if (image) {
+    if (image && this.images[id]) {
       var normal = this.images[id].normal;
       if (normal != 'null' && normal != image.src) {
         image.src = normal;
