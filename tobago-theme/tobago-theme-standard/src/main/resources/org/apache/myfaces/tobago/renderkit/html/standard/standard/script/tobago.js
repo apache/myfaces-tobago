@@ -310,9 +310,11 @@ var Tobago = {
     */
   imageMouseover: function(id) {
     var image = this.element(id);
-    var hover = this.images[id].hover;
-    if (hover != 'null' && hover != image.src) {
-      image.src = hover;
+    if (image) {
+      var hover = this.images[id].hover;
+      if (hover != 'null' && hover != image.src) {
+        image.src = hover;
+      }
     }
   },
 
@@ -321,9 +323,11 @@ var Tobago = {
     */
   imageMouseout: function(id) {
     var image = this.element(id);
-    var normal = this.images[id].normal;
-    if (normal != 'null' && normal != image.src) {
-      image.src = normal;
+    if (image) {
+      var normal = this.images[id].normal;
+      if (normal != 'null' && normal != image.src) {
+        image.src = normal;
+      }
     }
   },
 
