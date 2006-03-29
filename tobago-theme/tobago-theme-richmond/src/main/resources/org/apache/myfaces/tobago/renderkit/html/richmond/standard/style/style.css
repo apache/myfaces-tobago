@@ -36,6 +36,7 @@ hr  {
 }
 
 /* Headlines Navigation */
+/* TODO: where are these tag used in libray? should moved to example?*/
 h1  {
   color: #3366CC;
 }

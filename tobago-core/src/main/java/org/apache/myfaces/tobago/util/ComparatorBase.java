@@ -44,7 +44,7 @@ public abstract class ComparatorBase implements Comparator {
     this.comparator = comparator;
   }
 
-  protected int internalCompare(Object obj1, Object obj2){
+  protected int internalCompare(Object obj1, Object obj2) {
 
     if (obj1 == null || obj2 == null) {
       if (obj1 == null && obj2 == null) {

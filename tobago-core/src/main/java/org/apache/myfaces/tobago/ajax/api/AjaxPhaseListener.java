@@ -58,7 +58,7 @@ public class AjaxPhaseListener implements PhaseListener {
 
     final Map requestParameterMap
         = facesContext.getExternalContext().getRequestParameterMap();
-    if(requestParameterMap.containsKey(possibleClientId)) {
+    if (requestParameterMap.containsKey(possibleClientId)) {
       return requestParameterMap.get(possibleClientId);
     } else {
       possibleClientId = (String) requestParameterMap.get(AJAX_COMPONENT_ID);
@@ -67,10 +67,10 @@ public class AjaxPhaseListener implements PhaseListener {
 
       UIComponent ajaxComponent = root.findComponent(possibleClientId);
 
-      if(ajaxComponent==component) {
+      if (ajaxComponent == component) {
         return requestParameterMap.get(possibleClientId);
       } else {
-        LOG.error("No value found for this component : "+possibleClientId);
+        LOG.error("No value found for this component : " + possibleClientId);
         return null;
       }
     }
@@ -86,7 +86,7 @@ public class AjaxPhaseListener implements PhaseListener {
     FacesContext facesContext = event.getFacesContext();
 
     final ExternalContext externalContext = facesContext.getExternalContext();
-    if(externalContext.getRequestParameterMap().containsKey(AJAX_COMPONENT_ID)) {
+    if (externalContext.getRequestParameterMap().containsKey(AJAX_COMPONENT_ID)) {
       try {
         if (LOG.isDebugEnabled()) {
           LOG.debug("AJAX: componentID gefunden :"
@@ -110,7 +110,7 @@ public class AjaxPhaseListener implements PhaseListener {
 
         final StateManager stateManager
             = facesContext.getApplication().getStateManager();
-        if (!stateManager.isSavingStateInClient(facesContext)){
+        if (!stateManager.isSavingStateInClient(facesContext)) {
           stateManager.saveSerializedView(facesContext);
         }
         facesContext.responseComplete();
@@ -132,11 +132,11 @@ public class AjaxPhaseListener implements PhaseListener {
           + " = 0x" + Integer.toHexString(buf.length()));
     }
 
-    buf.insert(0, Integer.toHexString(buf.length())+"\r\n");
-    buf.append("\r\n"+0+"\r\n\r\n");
+    buf.insert(0, Integer.toHexString(buf.length()) + "\r\n");
+    buf.append("\r\n" + 0 + "\r\n\r\n");
 
     //TODO: fix this to work in PortletRequest as well
-    if(externalContext.getResponse() instanceof HttpServletResponse) {
+    if (externalContext.getResponse() instanceof HttpServletResponse) {
       final HttpServletResponse httpServletResponse
           = (HttpServletResponse) externalContext.getResponse();
       httpServletResponse.addHeader("Transfer-Encoding", "chunked");
@@ -159,7 +159,7 @@ public class AjaxPhaseListener implements PhaseListener {
       FacesContext facesContext = event.getFacesContext();
       final ExternalContext externalContext = facesContext.getExternalContext();
       final Map requestParameterMap = externalContext.getRequestParameterMap();
-      if(requestParameterMap.containsKey(AJAX_COMPONENT_ID)) {
+      if (requestParameterMap.containsKey(AJAX_COMPONENT_ID)) {
         LOG.error("Ignoring AjaxRequest without valid component tree!");
 
         final String message = ResourceManagerUtil.getPropertyNotNull(
