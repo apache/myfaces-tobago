@@ -208,9 +208,9 @@ public class CalendarRenderer extends RendererBase {
 
     writeInputHidden(writer, "/" + id + "/day", id + ":day", Integer.toString(calendar.get(Calendar.DAY_OF_MONTH)));
 
-    writeInputHidden(writer, id + ":firstDayOfWeek", Integer.toString(calendar.getFirstDayOfWeek()), null);
+    writeInputHidden(writer, id + ":firstDayOfWeek", Integer.toString(calendar.getFirstDayOfWeek()));
 
-    writeInputHidden(writer, id + ":monthNames", getMonthNames(locale), null);
+    writeInputHidden(writer, id + ":monthNames", getMonthNames(locale));
 
     writeInputHidden(writer, id + ":fieldId", "");
 
@@ -225,18 +225,16 @@ public class CalendarRenderer extends RendererBase {
   }
   private void writeInputHidden(TobagoResponseWriter writer,
        String id, Object value) throws IOException {
-     writer.startElement("input", null);
-     writer.writeAttribute("type", "hidden", null);
-     writer.writeIdAttribute(id);
-     writer.writeAttribute("value", value, null);
-     writer.endElement("input");
+    writeInputHidden(writer, null, id, value);
    }
 
   private void writeInputHidden(TobagoResponseWriter writer, String name,
       String id, Object value) throws IOException {
     writer.startElement("input", null);
     writer.writeAttribute("type", "hidden", null);
-    writer.writeNameAttribute(name);
+    if (name != null) {
+      writer.writeNameAttribute(name);
+    }
     writer.writeIdAttribute(id);
     writer.writeAttribute("value", value, null);
     writer.endElement("input");
