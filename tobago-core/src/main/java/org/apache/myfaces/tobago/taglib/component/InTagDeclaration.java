@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
@@ -43,6 +44,9 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
  */
 @Tag(name = "in")
 @BodyContentDescription(anyTagOf = "facestag")
+@UIComponentTag(ComponentType = "org.apache.myfaces.tobago.Input",
+    UIComponent = "org.apache.myfaces.tobago.component.UIInput",
+    RendererType = "In")
 public interface InTagDeclaration
     extends TextInputTagDeclaration, HasValue, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasWidth, HasOnchangeListener,

@@ -37,7 +37,10 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
  * Render a multi selection option listbox.
  */
 @Tag(name = "selectManyListbox")
-@UIComponentTag(UIComponent = "org.apache.myfaces.tobago.component.UISelectMany")
+@UIComponentTag(ComponentType = "org.apache.myfaces.tobago.SelectMany",
+    UIComponent = "org.apache.myfaces.tobago.component.UISelectMany",
+    RendererType = "SelectManyListbox")
+
 public interface SelectManyListboxTagDeclaration
     extends SelectManyTagDeclaration, HasId, HasValue, IsDisabled, 
     HasHeight, IsInline, HasLabelAndAccessKey, IsRendered, HasBinding, HasTip {

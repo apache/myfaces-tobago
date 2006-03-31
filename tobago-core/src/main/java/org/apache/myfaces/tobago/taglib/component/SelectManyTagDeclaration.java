@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
  * User: bommel
  * $Id: $
  */
-@UIComponentTag(UIComponent = "javax.faces.component.UISelectMany")
+
 public interface SelectManyTagDeclaration extends InputTagDeclaration {
 
 }

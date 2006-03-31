@@ -16,9 +16,8 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 10.02.2006
@@ -26,6 +25,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
  * To change this template use File | Settings | File Templates.
  */
 
-@UIComponentTag(UIComponent = "org.apache.myfaces.tobago.component.UICommand")
+
 public interface CommandTagDeclaration extends TobagoTagDeclaration {
 }

@@ -29,7 +29,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
  * To change this template use File | Settings | File Templates.
  */
 @Tag(name = "form")
-@UIComponentTag(UIComponent = "org.apache.myfaces.tobago.component.UIForm")
+@UIComponentTag(ComponentType = "org.apache.myfaces.tobago.Form",
+    UIComponent = "org.apache.myfaces.tobago.component.UIForm",
+    RendererType = "Form")
 public interface FormTagDeclaration extends TobagoBodyTagDeclaration,
     HasBinding, HasId {
 }

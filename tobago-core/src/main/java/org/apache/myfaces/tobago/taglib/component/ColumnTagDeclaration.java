@@ -36,7 +36,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
  * parent UIData component.
  */
 @Tag(name = "column")
-@UIComponentTag(UIComponent = "javax.faces.component.UIColumn")
+@UIComponentTag(ComponentType = "org.apache.myfaces.tobago.Column",
+    UIComponent = "javax.faces.component.UIColumn",
+    RendererType = "Column")
 public interface ColumnTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasLabel {
   /**
    * Alignment of this column.
@@ -52,6 +54,7 @@ public interface ColumnTagDeclaration extends TobagoTagDeclaration, HasIdBinding
    * <code>org.apache.myfaces.tobago.model.SortableByApplication</code>.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = { "java.lang.Boolean" }, defaultValue = "false")
+  @UIComponentTagAttribute(type = { "java.lang.Boolean" },
+      defaultValue = "false")
   void setSortable(String sortable);
 }

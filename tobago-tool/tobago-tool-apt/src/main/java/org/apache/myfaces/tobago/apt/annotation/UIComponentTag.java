@@ -34,8 +34,8 @@ public @interface UIComponentTag {
 
   String UIComponent();
 
+  String ComponentType();
+
   String RendererType() default "";
-
-
 
 }

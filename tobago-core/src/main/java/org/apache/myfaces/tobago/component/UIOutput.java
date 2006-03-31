@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.component;
 import javax.faces.context.FacesContext;
 
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 09.02.2006
@@ -50,6 +50,38 @@ public class UIOutput extends javax.faces.component.UIOutput {
     values[3] = tip;
     values[4] = createSpan;
     return values;
+  }
+
+  public boolean isEscape() {
+    return escape;
+  }
+
+  public void setEscape(boolean escape) {
+    this.escape = escape;
+  }
+
+  public String getMarkup() {
+    return markup;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
+  }
+
+  public String getTip() {
+    return tip;
+  }
+
+  public void setTip(String tip) {
+    this.tip = tip;
+  }
+
+  public boolean isCreateSpan() {
+    return createSpan;
+  }
+
+  public void setCreateSpan(boolean createSpan) {
+    this.createSpan = createSpan;
   }
 
 }

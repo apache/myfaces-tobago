@@ -32,16 +32,22 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 10.02.2006
  * Time: 22:00:03
  * To change this template use File | Settings | File Templates.
  */
+
+/**
+ * Renders a button element.
+ */
 @Tag(name = "button")
 @BodyContentDescription(anyTagOf = "facestag")
-@UIComponentTag(UIComponent = "org.apache.myfaces.tobago.component.UIPanel")
+@UIComponentTag(ComponentType = "org.apache.myfaces.tobago.Command",
+    UIComponent = "org.apache.myfaces.tobago.component.UICommand",
+    RendererType = "Button")
 
 public interface ButtonTagDeclaration extends CommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,

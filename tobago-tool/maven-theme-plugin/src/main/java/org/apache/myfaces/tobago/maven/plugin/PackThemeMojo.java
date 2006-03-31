@@ -29,7 +29,6 @@ import org.codehaus.plexus.util.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -114,7 +113,7 @@ public class PackThemeMojo extends AbstractThemeMojo {
   /**
    * Executes the WarMojo on the current project.
    *
-   * @throws org.apache.maven.plugin.MojoExecutionException
+   * @throws org.apache.myfaces.maven.plugin.MojoExecutionException
    *          if an error occured while building the webapp
    */
   public void execute()

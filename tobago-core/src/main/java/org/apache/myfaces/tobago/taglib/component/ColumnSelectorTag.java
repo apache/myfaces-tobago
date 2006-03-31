@@ -21,18 +21,12 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
-import org.apache.myfaces.tobago.taglib.decl.HasBinding;
-import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 
 import javax.faces.component.UIComponent;
 
-/**
- * Renders a column with checkboxes to mark selected row's.
- */
-@Tag(name = "columnSelector", bodyContent = BodyContent.EMPTY)
+
 public class ColumnSelectorTag extends TobagoTag
-    implements IsDisabled, IsRendered, HasBinding {
+    implements ColumnSelectorTagDeclaration {
 
   private String disabled;
 

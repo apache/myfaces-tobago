@@ -35,7 +35,9 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
  * A panel with ability to span over more than one layout cells.
  */
 @Tag(name = "cell")
-@UIComponentTag(UIComponent = "org.apache.myfaces.tobago.component.UICell")
+@UIComponentTag(ComponentType = "org.apache.myfaces.tobago.Cell",
+    UIComponent = "org.apache.myfaces.tobago.component.UICell",
+    RendererType = "Panel")
 public interface CellTagDeclaration extends TobagoBodyTagDeclaration, 
     HasIdBindingAndRendered {
 

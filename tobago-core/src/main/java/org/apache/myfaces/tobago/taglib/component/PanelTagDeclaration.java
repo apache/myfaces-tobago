@@ -21,7 +21,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.taglib.decl.HasDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 11.02.2006
@@ -33,7 +33,9 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
  * nested, such as in the case of facets.
  */
 @Tag(name = "panel")
-@UIComponentTag(UIComponent = "org.apache.myfaces.tobago.component.UIPanel")
+@UIComponentTag(ComponentType = "org.apache.myfaces.tobago.Panel",
+    UIComponent = "org.apache.myfaces.tobago.component.UIPanel",
+    RendererType = "Panel")
 public interface PanelTagDeclaration extends TobagoBodyTagDeclaration,
     HasIdBindingAndRendered, HasDimension {
 }

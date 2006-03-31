@@ -21,28 +21,18 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOCUS_ID;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_METHOD;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
-import org.apache.myfaces.tobago.taglib.decl.HasBinding;
-import org.apache.myfaces.tobago.taglib.decl.HasDimension;
-import org.apache.myfaces.tobago.taglib.decl.HasId;
-import org.apache.myfaces.tobago.taglib.decl.HasLabel;
-import org.apache.myfaces.tobago.taglib.decl.HasState;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 import java.util.List;
 
-/**
- * TODO description of page tag
- */
-@Tag(name = "page")
+
+
 public class PageTag extends TobagoBodyTag
-    implements HasLabel, HasId, HasDimension, HasBinding, HasState {
+    implements PageTagDeclaration {
 
   private String doctype = "loose";
 
@@ -93,18 +83,7 @@ public class PageTag extends TobagoBodyTag
   }
 
 
-  /**
-   * values for doctype :
-   * 'strict'   : HTML 4.01 Strict DTD
-   * 'loose'    : HTML 4.01 Transitional DTD
-   * 'frameset' : HTML 4.01 Frameset DTD
-   * all other values are ignored and no DOCTYPE is set.
-   * default value is 'loose'
-   *
-   * @param doctype
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "loose")
+
   public void setDoctype(String doctype) {
     this.doctype = doctype;
   }
@@ -121,17 +100,6 @@ public class PageTag extends TobagoBodyTag
     return focusId;
   }
 
-
-  /**
-   * Contains the id of the component witch should have the focus after
-   * loading the page.
-   * Set to emtpy string for disabling setting of focus.
-   * Default (null) enables the "auto focus" feature.
-   *
-   * @param focusId
-   */
-  @TagAttribute
-  @UIComponentTagAttribute()
   public void setFocusId(String focusId) {
     this.focusId = focusId;
   }

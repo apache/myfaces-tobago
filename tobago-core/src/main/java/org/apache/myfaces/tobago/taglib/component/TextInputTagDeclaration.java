@@ -16,14 +16,12 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-
 /**
  * Created: Aug 5, 2005 4:47:53 PM
  * User: bommel
  * $Id: $
  */
-@UIComponentTag(UIComponent = "org.apache.myfaces.tobago.component.UIInput")
+
 public interface TextInputTagDeclaration extends InputTagDeclaration {
 
 }

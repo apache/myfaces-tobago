@@ -45,12 +45,10 @@ import java.util.Set;
  * User: bommel
  * $Id:  $
  */
-public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollector {
-
-  private final AnnotationProcessorEnvironment env;
+public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
 
   public TaglibAnnotationVisitor(AnnotationProcessorEnvironment env) {
-    this.env = env;
+    super(env);
   }
 
   public List<DocumentAndFileName>  createDom() throws ParserConfigurationException {
@@ -101,18 +99,6 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
 
     }
     return tlds;
-  }
-
-  protected void addLeafTextElement(String text, String node, Element parent, Document document) {
-    Element element = document.createElement(node);
-    element.appendChild(document.createTextNode(text));
-    parent.appendChild(element);
-  }
-
-  protected void addLeafCDATAElement(String text, String node, Element parent, Document document) {
-    Element element = document.createElement(node);
-    element.appendChild(document.createCDATASection(text));
-    parent.appendChild(element);
   }
 
   protected void appendTag(ClassDeclaration decl, Element parent, Set<String> tagSet, Document document) {
@@ -255,8 +241,5 @@ public class TaglibAnnotationVisitor extends AnnotationDeclarationVisitorCollect
     }
   }
 
-  public AnnotationProcessorEnvironment getEnv() {
-    return env;
-  }
 
 }

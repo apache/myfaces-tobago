@@ -224,8 +224,7 @@ public class PageRenderer extends PageRendererBase {
 
     // render remaining script tags
     for (String scriptFile : scriptFiles) {
-      String script = (String) scriptFile;
-      addScripts(writer, facesContext, script);
+      addScripts(writer, facesContext, scriptFile);
     }
 
     // focus id

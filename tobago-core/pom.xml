@@ -201,7 +201,7 @@
     </dependency>
 
 
-  <!--  <dependency>
+   <!-- <dependency>
       <groupId>javax.faces</groupId>
       <artifactId>jsf-api</artifactId>
       <version>1.1</version>
@@ -214,7 +214,6 @@
       <version>1.1</version>
       <scope>compile</scope>
     </dependency>-->
-
 
     <dependency>
       <groupId>myfaces</groupId>
@@ -280,6 +279,37 @@
             <executions>
               <execution>
                 <id>tobago-doc</id>
+                <goals><goal>execute</goal></goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>generate-facelet-taglib</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.myfaces.tobago</groupId>
+            <artifactId>maven-apt-plugin</artifactId>
+            <version>${version}</version>
+            <configuration>
+              <excludes>
+                <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>
+              </excludes>
+              <targetFiles>
+                <targetFile>tobago.taglib.xml</targetFile>
+              </targetFiles>
+              <resourceTargetPath>META-INF</resourceTargetPath>
+              <generated>target/generated-tld</generated>
+              <factory>org.apache.myfaces.tobago.apt.FaceletAnnotationProcessorFactory</factory>
+              <nocompile>true</nocompile>
+              <encoding>UTF-8</encoding>
+            </configuration>
+            <executions>
+              <execution>
+                <id>tobago-facelet-taglib</id>
                 <goals><goal>execute</goal></goals>
               </execution>
             </executions>

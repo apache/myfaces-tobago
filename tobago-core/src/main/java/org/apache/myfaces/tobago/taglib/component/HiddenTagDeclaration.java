@@ -32,7 +32,9 @@ import org.apache.myfaces.tobago.taglib.decl.HasValue;
  * Renders a 'hidden' input element.
  */
 @Tag(name = "hidden")
-@UIComponentTag(UIComponent = "org.apache.myfaces.tobago.component.UIInput")
+@UIComponentTag(ComponentType = "org.apache.myfaces.tobago.HiddenInput",
+    UIComponent = "org.apache.myfaces.tobago.component.UIHiddenInput",
+    RendererType = "Hidden")
 public interface HiddenTagDeclaration extends BeanTagDeclaration, HasId, HasBinding, HasValue {
 
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")

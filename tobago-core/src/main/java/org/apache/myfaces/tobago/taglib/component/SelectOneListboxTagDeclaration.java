@@ -20,6 +20,7 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasHeight;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
@@ -41,6 +42,9 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
  */
 @Tag(name = "selectOneListbox")
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
+@UIComponentTag(ComponentType = "org.apache.myfaces.tobago.SelectOne",
+    UIComponent = "org.apache.myfaces.tobago.component.UISelectOne",
+    RendererType = "SelectOneListbox")
 public interface SelectOneListboxTagDeclaration extends SelectOneTagDeclaration, HasId, HasValue, IsDisabled,
     IsReadonly, HasOnchangeListener, HasLabelAndAccessKey, IsRendered, HasBinding, HasHeight, HasTip {
 

@@ -3,15 +3,15 @@
   <bannerLeft>
     <name>Tobago</name>
     <src>images/tobago_head.gif</src>
-    <!--href>http://tobago.atanion.net</href-->
+    <!--<href>http://tobago.atanion.net</href>-->
     <href>http://incubator.apache.org/tobago</href>
   </bannerLeft>
   <bannerRight>
     <name>MyFaces</name>
     <src>http://incubator.apache.org/images/apache-incubator-logo.png</src>
     <href>http://incubator.apache.org</href>
-    <!--src>http://myfaces.apache.org/images/logo.png</src-->
-    <!--href>http://myfaces.apache.org/</href-->
+    <!--<src>http://myfaces.apache.org/images/logo.png</src>-->
+    <!--<href>http://myfaces.apache.org/</href>-->
   </bannerRight>
   <body>
     <links>

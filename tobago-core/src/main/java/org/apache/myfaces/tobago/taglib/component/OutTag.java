@@ -52,7 +52,7 @@ public class OutTag extends BeanTag implements OutTagDeclaration {
     super.setProperties(component);
     ComponentUtil.setBooleanProperty(component, ATTR_ESCAPE, escape);
     // TODO ???? SPAN ?
-    ComponentUtil.setBooleanProperty(component, ATTR_CREATE_SPAN, "true");
+    //ComponentUtil.setBooleanProperty(component, ATTR_CREATE_SPAN, "true");
     ComponentUtil.setStringProperty(component, ATTR_MARKUP, markup);
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
   }

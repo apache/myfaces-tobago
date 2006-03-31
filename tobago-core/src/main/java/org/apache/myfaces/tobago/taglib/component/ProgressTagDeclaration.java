@@ -33,7 +33,9 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
  * Renders a progressbar.
  */
 @Tag(name = "progress", bodyContent = BodyContent.EMPTY)
-@UIComponentTag(UIComponent = "javax.faces.component.UIOutput")
+@UIComponentTag(ComponentType = "javax.faces.Output",
+    UIComponent = "javax.faces.component.UIOutput",
+    RendererType = "Progress")
 public interface ProgressTagDeclaration extends BeanTagDeclaration, HasIdBindingAndRendered, HasTip {
 
   /**

@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.taglib.decl.HasAction;
 import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
 import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
@@ -43,6 +44,9 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
  */
 @Tag(name = "link")
 @BodyContentDescription(anyTagOf = "facestag")
+@UIComponentTag(ComponentType = "org.apache.myfaces.tobago.Command",
+    UIComponent = "org.apache.myfaces.tobago.component.UICommand",
+    RendererType = "Link")
 public interface LinkTagDeclaration extends CommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled,
     HasAction, HasActionListener, IsInline, HasCommandType,
