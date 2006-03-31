@@ -20,4 +20,11 @@ and install the missing artifact with
  -DartifactId=jsf-facelets -Dversion=1.0.14 -Dpackaging=jar
 
 
+Enable the generating of the tobago.taglib.xml in the
+tobago-core with the profile generate-facelet-taglib
+
+ mvn -Pgenerate-facelet-taglib
+
+
+
 
