@@ -1,4 +1,4 @@
-package org.apache.maven.plugin;
+package org.apache.myfaces.maven.plugin;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
@@ -18,11 +18,11 @@ package org.apache.maven.plugin;
 
 import java.io.File;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.maven.model.Resource;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.compiler.util.scan.SimpleSourceInclusionScanner;
 import org.codehaus.plexus.compiler.util.scan.SourceInclusionScanner;
 import org.codehaus.plexus.compiler.util.scan.StaleSourceScanner;

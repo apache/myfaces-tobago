@@ -1,4 +1,4 @@
-package org.apache.maven.plugin;
+package org.apache.myfaces.maven.plugin;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
@@ -22,7 +22,6 @@ import java.io.StringWriter;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -30,6 +29,8 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.compiler.util.scan.SourceInclusionScanner;
 
 /**

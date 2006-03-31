@@ -1,4 +1,4 @@
-package org.apache.maven.plugin;
+package org.apache.myfaces.maven.plugin;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
@@ -17,6 +17,7 @@ package org.apache.maven.plugin;
  */
 
 import org.apache.maven.model.Resource;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.compiler.util.scan.SourceInclusionScanner;
 import org.codehaus.plexus.compiler.util.scan.StaleSourceScanner;
 import org.codehaus.plexus.compiler.util.scan.mapping.SuffixMapping;

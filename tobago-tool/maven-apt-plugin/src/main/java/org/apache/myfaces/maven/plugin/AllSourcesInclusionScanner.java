@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.maven.plugin;
+package org.apache.myfaces.maven.plugin;
 
 import org.codehaus.plexus.compiler.util.scan.AbstractSourceInclusionScanner;
 import org.codehaus.plexus.compiler.util.scan.InclusionScanException;
