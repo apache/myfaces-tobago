@@ -21,32 +21,29 @@ package org.apache.myfaces.tobago.taglib.component;
   * $Id$
   */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COMMAND_TYPE;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.UIMenuSeparator;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
 
-/**
- * Renders a separator.
- */
-@Tag(name = "menuSeparator", bodyContent = BodyContent.EMPTY)
+
+
 public class MenuSeparatorTag extends TobagoTag
-    implements IsRendered, HasBinding {
+    implements MenuSeparatorTagDeclaration {
 
-  public static final String MENU_TYPE = "menuSeparator";
+  //public static final String MENU_TYPE = "menuSeparator";
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     component.setRendererType(null);
-    ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, MENU_TYPE);
+    //ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, MENU_TYPE);
   }
 
   public String getComponentType() {
-    return UIOutput.COMPONENT_TYPE;
+    return UIMenuSeparator.COMPONENT_TYPE;
   }
 }

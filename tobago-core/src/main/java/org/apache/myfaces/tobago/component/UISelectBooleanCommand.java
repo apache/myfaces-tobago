@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.component;
+package org.apache.myfaces.tobago.component;
 
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
@@ -16,7 +16,14 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-public class MenuSelectBooleanTag extends SelectBooleanCommandTag
-    implements MenuSelectBooleanTagDeclaration {
+/*
+ * Created by IntelliJ IDEA.
+ * User: bommel
+ * Date: 31.03.2006
+ * Time: 21:16:45
+ * To change this template use File | Settings | File Templates.
+ */
+public class UISelectBooleanCommand extends UICommand {
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SelectBooleanCommand";
 
 }

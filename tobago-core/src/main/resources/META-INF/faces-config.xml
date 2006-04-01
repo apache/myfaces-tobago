@@ -87,6 +87,18 @@
     <component-class>org.apache.myfaces.tobago.component.UILabel</component-class>
   </component>
   <component>
+    <component-type>org.apache.myfaces.tobago.Menu</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UIMenu</component-class>
+  </component>
+  <component>
+    <component-type>org.apache.myfaces.tobago.MenuCommand</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UIMenuCommand</component-class>
+  </component>
+  <component>
+    <component-type>org.apache.myfaces.tobago.MenuSeparator</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UIMenuSeparator</component-class>
+  </component>
+  <component>
     <component-type>org.apache.myfaces.tobago.Page</component-type>
     <component-class>org.apache.myfaces.tobago.component.UIPage</component-class>
   </component>
@@ -133,6 +145,14 @@
   <component>
     <component-type>org.apache.myfaces.tobago.SelectOne</component-type>
     <component-class>org.apache.myfaces.tobago.component.UISelectOne</component-class>
+  </component>
+  <component>
+    <component-type>org.apache.myfaces.tobago.SelectOneCommand</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UISelectOneCommand</component-class>
+  </component>
+  <component>
+    <component-type>org.apache.myfaces.tobago.SelectBooleanCommand</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UISelectBooleanCommand</component-class>
   </component>
 
   <!-- use tobagos UIViewRoot -->

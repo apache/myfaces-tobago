@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
  * nested, such as in the case of facets.
  */
 @Tag(name = "panel")
-@UIComponentTag(ComponentType = "org.apache.myfaces.tobago.Panel",
+@UIComponentTag(
     UIComponent = "org.apache.myfaces.tobago.component.UIPanel",
     RendererType = "Panel")
 public interface PanelTagDeclaration extends TobagoBodyTagDeclaration,

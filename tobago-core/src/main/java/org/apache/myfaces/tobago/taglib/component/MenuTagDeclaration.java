@@ -17,7 +17,9 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasWidth;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.HasImage;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -25,16 +27,15 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 /*
  * Created by IntelliJ IDEA.
  * User: bommel
- * Date: 14.03.2006
- * Time: 17:14:12
+ * Date: 31.03.2006
+ * Time: 21:49:41
  * To change this template use File | Settings | File Templates.
  */
+
 /**
- * Renders a menu bar.<br>
- * Add menu bar as facet name="menuBar" to page tag or use it anywhere
- * on page.<br>
+ * Container component to hold submenus and items.
  */
-@Tag(name = "menuBar")
+@Tag(name = "menu")
 @BodyContentDescription(
     anyClassOf = { "org.apache.myfaces.tobago.taglib.component.MenuTag",
         "org.apache.myfaces.tobago.taglib.component.MenuCommandTag",
@@ -42,7 +43,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
         "org.apache.myfaces.tobago.taglib.component.MenuSelectOneTag",
         "org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag" })
 @UIComponentTag(
-    UIComponent = "javax.faces.component.UIPanel",
-    RendererType = "MenuBar")
-public interface MenuBarTagDeclaration extends TobagoBodyTagDeclaration, HasIdBindingAndRendered, HasWidth {
+    UIComponent = "org.apache.myfaces.tobago.component.UIMenu")
+public interface MenuTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasLabelAndAccessKey,
+    IsDisabled, HasImage {
 }

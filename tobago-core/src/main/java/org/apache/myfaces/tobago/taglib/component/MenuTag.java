@@ -17,36 +17,19 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACCESS_KEY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COMMAND_TYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
-import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasImage;
-import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.component.UIMenu;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
 
-/**
- * Container component to hold submenus and items.
- */
-@Tag(name = "menu")
-@BodyContentDescription(
-    anyClassOf = { "org.apache.myfaces.tobago.taglib.component.MenuTag",
-        "org.apache.myfaces.tobago.taglib.component.MenuCommandTag",
-        "org.apache.myfaces.tobago.taglib.component.MenuSelectBooleanTag",
-        "org.apache.myfaces.tobago.taglib.component.MenuSelectOneTag",
-        "org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag" })
 
 public class MenuTag extends TobagoTag
-    implements HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled, HasImage {
+    implements MenuTagDeclaration {
 
-  public static final String MENU_TYPE = "menu";
+  //public static final String MENU_TYPE = "menu";
 
   private String label;
   private String image;
@@ -61,11 +44,11 @@ public class MenuTag extends TobagoTag
     ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey);
     ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
     ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
-    ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, "menu");
+    //ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, "menu");
   }
 
   public String getComponentType() {
-    return UIPanel.COMPONENT_TYPE;
+    return UIMenu.COMPONENT_TYPE;
   }
 
 

@@ -24,7 +24,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COMMAND_TYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
@@ -42,12 +41,12 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAN
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_TOOL_BAR;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.taglib.component.ToolBarSelectBooleanTag;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -182,10 +181,9 @@ public class RichTextEditorRenderer extends InputRendererBase {
 //    toolbar.getChildren().add(command);
 
     command = (UICommand) ComponentUtil.createComponent(
-        facesContext, UICommand.COMPONENT_TYPE, RENDERER_TYPE_MENUCOMMAND);
+        facesContext, UISelectBooleanCommand.COMPONENT_TYPE, RENDERER_TYPE_MENUCOMMAND);
     toolbar.getChildren().add(command);
     command.getAttributes().put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
-    command.getAttributes().put(ATTR_COMMAND_TYPE, ToolBarSelectBooleanTag.COMMAND_TYPE);
     command.getAttributes().put(ATTR_IMAGE, "image/tobago-richtext-edit.gif");
     command.setValueBinding(ATTR_DISABLED, ComponentUtil.createValueBinding("#{! tobagoRichtextPreviewState}", null));
     command.setValueBinding(ATTR_VALUE, ComponentUtil.createValueBinding("#{!tobagoRichtextPreviewState}", null));
@@ -199,10 +197,10 @@ public class RichTextEditorRenderer extends InputRendererBase {
     command.getAttributes().put(ATTR_ACTION_STRING, onClick);
 
     command = (UICommand) ComponentUtil.createComponent(
-        facesContext, UICommand.COMPONENT_TYPE, RENDERER_TYPE_MENUCOMMAND);
+        facesContext, UISelectBooleanCommand.COMPONENT_TYPE, RENDERER_TYPE_MENUCOMMAND);
     toolbar.getChildren().add(command);
     command.getAttributes().put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
-    command.getAttributes().put(ATTR_COMMAND_TYPE, ToolBarSelectBooleanTag.COMMAND_TYPE);
+    //command.getAttributes().put(ATTR_COMMAND_TYPE, ToolBarSelectBooleanTag.COMMAND_TYPE);
     command.getAttributes().put(ATTR_IMAGE, "image/tobago-richtext-preview.gif");
     command.setValueBinding(ATTR_DISABLED, ComponentUtil.createValueBinding("#{tobagoRichtextPreviewState}", null));
     command.setValueBinding(ATTR_VALUE, ComponentUtil.createValueBinding("#{tobagoRichtextPreviewState}", null));

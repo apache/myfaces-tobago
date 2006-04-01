@@ -42,7 +42,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
  * Renders a multiline text input control.
  */
 @Tag(name = "textarea")
-@UIComponentTag(ComponentType = "org.apache.myfaces.tobago.Input",
+@UIComponentTag(
     UIComponent = "org.apache.myfaces.tobago.component.UIInput",
     RendererType = "Textarea")
 public interface TextAreaTagDeclaration extends TextInputTagDeclaration, HasIdBindingAndRendered,

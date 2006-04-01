@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabel;
  * Renders a panel with border and title.
  */
 @Tag(name = "box")
-@UIComponentTag(ComponentType = "org.apache.myfaces.tobago.Panel",
+@UIComponentTag(
     UIComponent = "org.apache.myfaces.tobago.component.UIPanel",
     RendererType = "Box")
 

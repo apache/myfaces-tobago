@@ -16,22 +16,34 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.taglib.decl.HasBinding;
-import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.HasAction;
+import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
+import org.apache.myfaces.tobago.taglib.decl.HasBooleanValue;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
- * Date: 11.02.2006
- * Time: 14:29:26
+ * Date: 31.03.2006
+ * Time: 21:46:55
  * To change this template use File | Settings | File Templates.
  */
-@Tag(name = "form")
+
+/**
+ * Renders a checkable menuitem.
+ */
+
+@Tag(name = "menucheck")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UIForm",
-    RendererType = "Form")
-public interface FormTagDeclaration extends TobagoBodyTagDeclaration,
-    HasBinding, HasId {
+    UIComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
+    RendererType = "MenuCommand")
+
+public interface MenuSelectBooleanTagDeclaration extends TobagoTagDeclaration, CommandTagDeclaration,
+    HasIdBindingAndRendered, IsDisabled, HasAction, HasCommandType, HasBooleanValue, HasLabelAndAccessKey,
+    IsImmediateCommand {
 }

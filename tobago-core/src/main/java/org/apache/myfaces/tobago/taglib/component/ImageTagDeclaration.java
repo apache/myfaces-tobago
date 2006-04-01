@@ -35,7 +35,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
  *  Renders a Image.
  */
 @Tag(name = "image", bodyContent = BodyContent.EMPTY)
-@UIComponentTag(ComponentType = "javax.faces.Graphic",
+@UIComponentTag(
     UIComponent = "javax.faces.component.UIGraphic",
     RendererType = "Image")
 public interface ImageTagDeclaration extends TobagoTagDeclaration,

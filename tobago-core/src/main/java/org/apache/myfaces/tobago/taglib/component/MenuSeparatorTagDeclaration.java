@@ -16,23 +16,26 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-/*
-  * Created 14.09.2004 at 12:03:45.
-  * $Id$
-  */
-
+import org.apache.myfaces.tobago.taglib.decl.IsRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.taglib.decl.HasAction;
-import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasLabel;
-import org.apache.myfaces.tobago.taglib.decl.HasValue;
-import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 
+/*
+ * Created by IntelliJ IDEA.
+ * User: bommel
+ * Date: 31.03.2006
+ * Time: 22:05:46
+ * To change this template use File | Settings | File Templates.
+ */
 
-public class MenuSelectOneTag extends SelectOneCommandTag
-    implements MenuSelectOneTagDeclaration {
+/**
+ * Renders a separator.
+ */
+@Tag(name = "menuSeparator", bodyContent = BodyContent.EMPTY)
+@UIComponentTag(
+    UIComponent = "org.apache.myfaces.tobago.component.UIMenuSeparator")
 
+public interface MenuSeparatorTagDeclaration extends TobagoTagDeclaration, IsRendered, HasBinding {
 }

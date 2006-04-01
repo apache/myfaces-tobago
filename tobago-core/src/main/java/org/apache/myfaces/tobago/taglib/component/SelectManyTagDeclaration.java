@@ -16,7 +16,6 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
 /**
  * Created: Aug 5, 2005 5:22:44 PM

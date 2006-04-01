@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
+import java.lang.reflect.Field;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -86,22 +87,33 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
   }
 
   protected Element createTag(InterfaceDeclaration decl, Tag annotationTag, Document document) {
-    Element tagElement = document.createElement("tag");
     UIComponentTag componentTag = decl.getAnnotation(UIComponentTag.class);
     if (componentTag == null) {
       return null;
     }
-    addLeafTextElement(annotationTag.name(), "tag-name", tagElement, document);
+    try {
+      Element tagElement = document.createElement("tag");
 
-    Element component = document.createElement("component");
-    addLeafTextElement(componentTag.ComponentType(), "component-type", component, document);
-    String rendererType = componentTag.RendererType();
-    if (rendererType != null && rendererType.length() > 0) {
-      addLeafTextElement(rendererType, "renderer-type", component, document);
+      addLeafTextElement(annotationTag.name(), "tag-name", tagElement, document);
+
+      Element component = document.createElement("component");
+
+      Class uiComponentClass = Class.forName(componentTag.UIComponent());
+      Field componentField = uiComponentClass.getField("COMPONENT_TYPE");
+      String componentType = (String)componentField.get(null);
+
+      addLeafTextElement(componentType, "component-type", component, document);
+      String rendererType = componentTag.RendererType();
+      if (rendererType != null && rendererType.length() > 0) {
+        addLeafTextElement(rendererType, "renderer-type", component, document);
+      }
+      tagElement.appendChild(component);
+
+      return tagElement;
+    } catch (Exception e) {
+      e.printStackTrace();
     }
-    tagElement.appendChild(component);
-
-    return tagElement;
+    return null;
   }
 
   public AnnotationProcessorEnvironment getEnv() {

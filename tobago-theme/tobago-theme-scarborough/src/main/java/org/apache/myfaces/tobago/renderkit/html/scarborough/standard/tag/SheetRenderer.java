@@ -25,7 +25,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COMMAND_TYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOOTER_HEIGHT;
@@ -61,6 +60,8 @@ import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UIData;
+import org.apache.myfaces.tobago.component.UIMenuCommand;
+import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
@@ -72,7 +73,6 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import static org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.SheetPageCommandRenderer.PAGE_RENDERER_TYPE;
-import org.apache.myfaces.tobago.taglib.component.MenuCommandTag;
 import org.apache.myfaces.tobago.util.StringUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -855,13 +855,12 @@ public class SheetRenderer extends RendererBase
     UIPanel menu = (UIPanel) column.getFacet(FACET_MENUPOPUP);
     if (menu == null) {
       final Application application = facesContext.getApplication();
-      menu = (UIPanel) application.createComponent(UIPanel.COMPONENT_TYPE);
+      menu = (UIPanel) application.createComponent(UIMenu.COMPONENT_TYPE);
       menu.setId("selectorMenu");
       column.getFacets().put(FACET_MENUPOPUP, menu);
       menu.setRendererType(RENDERER_TYPE_MENUBAR);
       menu.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
       menu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "SheetSelector");
-      menu.getAttributes().put(ATTR_COMMAND_TYPE, "menu");
       menu.getAttributes().put(ATTR_IMAGE, "image/sheetSelectorMenu.gif");
 
       String sheetId = column.getParent().getClientId(facesContext);
@@ -895,9 +894,8 @@ public class SheetRenderer extends RendererBase
   private UICommand createMenuItem(final Application application, String label,
       String action) {
     UICommand menuItem
-        = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+        = (UICommand) application.createComponent(UIMenuCommand.COMPONENT_TYPE);
     menuItem.setRendererType(RENDERER_TYPE_MENUCOMMAND);
-    menuItem.getAttributes().put(ATTR_COMMAND_TYPE, MenuCommandTag.COMMAND_TYPE);
     menuItem.getAttributes().put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
     menuItem.getAttributes().put(ATTR_ACTION_STRING, action);
     menuItem.getAttributes().put(ATTR_LABEL, label);

@@ -24,7 +24,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COMMAND_TYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP;
@@ -42,6 +41,11 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_RADIO;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIMenuCommand;
+import org.apache.myfaces.tobago.component.UIMenuSeparator;
+import org.apache.myfaces.tobago.component.UISelectOneCommand;
+import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
+import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
@@ -50,11 +54,6 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.taglib.component.MenuCommandTag;
-import org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag;
-import org.apache.myfaces.tobago.taglib.component.MenuTag;
-import org.apache.myfaces.tobago.taglib.component.SelectBooleanCommandTag;
-import org.apache.myfaces.tobago.taglib.component.SelectOneCommandTag;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -280,11 +279,9 @@ public class MenuBarRenderer extends RendererBase {
       UIComponent entry = (UIComponent) o;
       if (entry instanceof UICommand) {
         addMenuEntry(sb, var, facesContext, (UICommand) entry);
-      } else if (MenuSeparatorTag.MENU_TYPE.equals(
-          entry.getAttributes().get(ATTR_COMMAND_TYPE))) {
+      } else if (entry instanceof UIMenuSeparator) {
         addMenuSeparator(sb, var);
-      } else if (MenuTag.MENU_TYPE.equals(
-          entry.getAttributes().get(ATTR_COMMAND_TYPE))) {
+      } else if (entry instanceof UIMenu) {
         i = addMenu(sb, var, facesContext, (UIPanel) entry, i);
       } else if (warn) {
         LOG.error("Illegal UIComponent class in menuBar: "
@@ -296,14 +293,11 @@ public class MenuBarRenderer extends RendererBase {
   private void addMenuEntry(StringBuffer sb, String var, FacesContext facesContext,
       UICommand command) throws IOException {
     String onClick = createOnClick(facesContext, command);
-    if (MenuCommandTag.COMMAND_TYPE.equals(
-        command.getAttributes().get(ATTR_COMMAND_TYPE))) {
+    if (command instanceof UIMenuCommand) {
       addCommand(sb, var, facesContext, command, onClick);
-    } else if (SelectBooleanCommandTag.COMMAND_TYPE.equals(
-        command.getAttributes().get(ATTR_COMMAND_TYPE))) {
+    } else if (command instanceof UISelectBooleanCommand) {
       addSelectBoolean(sb, var, facesContext, command, onClick);
-    } else if (SelectOneCommandTag.COMMAND_TYPE.equals(
-        command.getAttributes().get(ATTR_COMMAND_TYPE))) {
+    } else if (command instanceof UISelectOneCommand) {
       addSelectOne(sb, var, facesContext, command, onClick);
     }
   }

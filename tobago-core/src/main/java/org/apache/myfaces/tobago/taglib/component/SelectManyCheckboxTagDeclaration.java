@@ -38,7 +38,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
  */
 @Tag(name = "selectManyCheckbox")
 @BodyContentDescription(anyTagOf= "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
-@UIComponentTag(ComponentType = "javax.faces.SelectMany",
+@UIComponentTag(
     UIComponent = "javax.faces.component.UISelectMany",
     RendererType = "SelectManyCheckbox")
 public interface SelectManyCheckboxTagDeclaration extends

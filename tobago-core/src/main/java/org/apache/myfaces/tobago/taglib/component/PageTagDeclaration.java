@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
  * TODO description of page tag
  */
 @Tag(name = "page")
-@UIComponentTag(ComponentType = "org.apache.myfaces.tobago.Page",
+@UIComponentTag(
     UIComponent = "org.apache.myfaces.tobago.component.UIPage",
     RendererType = "Page")
 

@@ -59,7 +59,7 @@ import org.apache.myfaces.tobago.component.UIToolBar;
 
 @Tag(name = "toolBar")
 @BodyContentDescription(anyTagOf = "(<tc:toolBarCommand>|<tc:toolBarSelectBoolean>|<tc:toolBarSelectOne>)* ")
-@UIComponentTag(ComponentType = "org.apache.myfaces.tobago.ToolBar",
+@UIComponentTag(
     UIComponent = "org.apache.myfaces.tobago.component.UIToolBar",
     RendererType = "ToolBar")
 public interface ToolBarTagDeclaration extends PanelTagDeclaration {

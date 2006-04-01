@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasValue;
  * Renders a 'hidden' input element.
  */
 @Tag(name = "hidden")
-@UIComponentTag(ComponentType = "org.apache.myfaces.tobago.HiddenInput",
+@UIComponentTag(
     UIComponent = "org.apache.myfaces.tobago.component.UIHiddenInput",
     RendererType = "Hidden")
 public interface HiddenTagDeclaration extends BeanTagDeclaration, HasId, HasBinding, HasValue {

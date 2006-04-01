@@ -17,44 +17,40 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
 /*
  * Created by IntelliJ IDEA.
  * User: bommel
- * Date: 20.02.2006
- * Time: 22:10:07
+ * Date: 31.03.2006
+ * Time: 22:02:37
  * To change this template use File | Settings | File Templates.
  */
 
 /**
- * Renders a UIComponent that represents a single column of data within a
- * parent UIData component.
+ * Renders a set of option related to and same type as the <strong>for</strong>
+ * component.
  */
-@Tag(name = "column")
+@Tag(name = "selectReference", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
-    UIComponent = "javax.faces.component.UIColumn",
-    RendererType = "Column")
-public interface ColumnTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasLabel {
+    UIComponent = "javax.faces.component.UIOutput",
+    RendererType = "SelectReference")
+public interface SelectReferenceTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered {
   /**
-   * Alignment of this column.
+   * Id of the component, this is related to.
    */
-  @TagAttribute
+  @TagAttribute(required = true)
   @UIComponentTagAttribute()
-  void setAlign(String align);
+  void setFor(String forComponent);
 
   /**
-   * Flag indicating whether or not this column is sortable.
-   * To make a column sortable the data of the sheet must be one of
-   * <code>java.util.List</code>, <code>Object[]</code> or instance of
-   * <code>org.apache.myfaces.tobago.model.SortableByApplication</code>.
+   * Range of items to render.
    */
-  @TagAttribute
-  @UIComponentTagAttribute(type = { "java.lang.Boolean" },
-      defaultValue = "false")
-  void setSortable(String sortable);
+  @TagAttribute(required = true)
+  @UIComponentTagAttribute()
+  void setRenderRange(String renderRange);
 }

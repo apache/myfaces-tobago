@@ -16,39 +16,31 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.HasAction;
 import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
 import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasImage;
-import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.taglib.decl.HasTarget;
-import org.apache.myfaces.tobago.taglib.decl.HasTip;
-import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
-import org.apache.myfaces.tobago.taglib.decl.IsInline;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
- * Date: 11.02.2006
- * Time: 13:16:47
+ * Date: 31.03.2006
+ * Time: 21:14:17
  * To change this template use File | Settings | File Templates.
  */
-
 /**
- * Renders a link element.
+ * Renders a menu item.
  */
-@Tag(name = "link")
-@BodyContentDescription(anyTagOf = "facestag")
+@Tag(name = "menuItem")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UICommand",
-    RendererType = "Link")
-public interface LinkTagDeclaration extends CommandTagDeclaration,
-    HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled,
-    HasAction, HasActionListener, IsInline, HasCommandType,
-    HasTarget, HasTip, IsImmediateCommand, HasImage {
+    UIComponent = "org.apache.myfaces.tobago.component.UIMenuCommand",
+    RendererType = "MenuCommand")
+public interface MenuCommandTagDeclaration extends TobagoTagDeclaration, CommandTagDeclaration, HasIdBindingAndRendered,
+    HasLabelAndAccessKey, IsDisabled, HasAction, HasActionListener, HasCommandType, HasImage, IsImmediateCommand {
 }

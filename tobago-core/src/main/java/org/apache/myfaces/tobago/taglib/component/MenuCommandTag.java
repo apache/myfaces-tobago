@@ -17,38 +17,29 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACCESS_KEY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COMMAND_TYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.taglib.decl.HasAction;
-import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
-import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasImage;
-import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
+import org.apache.myfaces.tobago.component.UIMenuCommand;
 
 import javax.faces.component.UIComponent;
 
-/**
- * Renders a menu item.
- */
-@Tag(name = "menuItem")
-public class MenuCommandTag extends CommandTag
-    implements HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled, HasAction,
-    HasActionListener, HasCommandType, HasImage, IsImmediateCommand {
 
-  public static final String COMMAND_TYPE = "menuCommand";
+public class MenuCommandTag extends CommandTag
+    implements MenuCommandTagDeclaration {
+
+  //public static final String COMMAND_TYPE = "menuCommand";
 
   private String image;
   private String label;
   private String accessKey;
   private String labelWithAccessKey;
+
+  public String getComponentType() {
+    return UIMenuCommand.COMPONENT_TYPE;
+  }
 
   public void release() {
     super.release();
@@ -62,7 +53,7 @@ public class MenuCommandTag extends CommandTag
     super.setProperties(component);
     component.setRendererType(RENDERER_TYPE_MENUCOMMAND);
     ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
-    ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, COMMAND_TYPE);
+    //ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, COMMAND_TYPE);
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
     ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey);
     ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);

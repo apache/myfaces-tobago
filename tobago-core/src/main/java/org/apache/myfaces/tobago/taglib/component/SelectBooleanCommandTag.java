@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACCESS_KEY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COMMAND_TYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
@@ -25,6 +24,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 
 import javax.faces.component.UIComponent;
 
@@ -35,7 +35,7 @@ import javax.faces.component.UIComponent;
  */
 public class SelectBooleanCommandTag extends CommandTag {
 
-  public static final String COMMAND_TYPE = "commandSelectBoolean";
+  //public static final String COMMAND_TYPE = "commandSelectBoolean";
   private String label;
   private String accessKey;
   private String labelWithAccessKey;
@@ -44,14 +44,14 @@ public class SelectBooleanCommandTag extends CommandTag {
 
 
   public String getComponentType() {
-    return UICommand.COMPONENT_TYPE;
+    return UISelectBooleanCommand.COMPONENT_TYPE;
   }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     component.setRendererType(RENDERER_TYPE_MENUCOMMAND);
     ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
-    ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, COMMAND_TYPE);
+    //ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, COMMAND_TYPE);
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
     ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey);
     ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);

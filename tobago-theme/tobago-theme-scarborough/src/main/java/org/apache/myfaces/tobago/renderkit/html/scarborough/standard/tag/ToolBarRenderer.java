@@ -23,7 +23,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COMMAND_TYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
@@ -44,6 +43,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BOX;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UISelectOneCommand;
+import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -52,8 +53,6 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.taglib.component.SelectOneCommandTag;
-import org.apache.myfaces.tobago.taglib.component.ToolBarSelectBooleanTag;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -137,11 +136,9 @@ public class ToolBarRenderer extends RendererBase {
       final UICommand command, TobagoResponseWriter writer, boolean boxFacet,
       boolean addExtraHoverClass)
       throws IOException {
-    if (ToolBarSelectBooleanTag.COMMAND_TYPE.equals(
-        command.getAttributes().get(ATTR_COMMAND_TYPE))) {
+    if (command instanceof UISelectBooleanCommand) {
       renderSelectBoolean(facesContext, command, writer, boxFacet, addExtraHoverClass);
-    } else if (SelectOneCommandTag.COMMAND_TYPE.equals(
-        command.getAttributes().get(ATTR_COMMAND_TYPE))) {
+    } else if (command instanceof UISelectOneCommand) {
       renderSelectOne(facesContext, command, writer, boxFacet, addExtraHoverClass);
     } else {
 

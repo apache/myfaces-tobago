@@ -19,7 +19,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
  * Renders a column with checkboxes to mark selected row's.
  */
 @Tag(name = "columnSelector", bodyContent = BodyContent.EMPTY)
-@UIComponentTag(ComponentType = "org.apache.myfaces.tobago.ColumnSelector",
+@UIComponentTag(
     UIComponent = "org.apache.myfaces.tobago.component.UIColumnSelector",
     RendererType = "ColumnSelector")
 public interface ColumnSelectorTagDeclaration extends TobagoTagDeclaration, IsDisabled, IsRendered, HasBinding {

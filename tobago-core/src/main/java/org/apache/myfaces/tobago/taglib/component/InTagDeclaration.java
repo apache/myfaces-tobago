@@ -44,7 +44,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
  */
 @Tag(name = "in")
 @BodyContentDescription(anyTagOf = "facestag")
-@UIComponentTag(ComponentType = "org.apache.myfaces.tobago.Input",
+@UIComponentTag(
     UIComponent = "org.apache.myfaces.tobago.component.UIInput",
     RendererType = "In")
 public interface InTagDeclaration
