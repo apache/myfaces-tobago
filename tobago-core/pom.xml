@@ -312,6 +312,7 @@
               </execution>
               <execution>
                 <id>tobago-facelet-taglib</id>
+                <phase>process-classes</phase>
                 <goals><goal>execute</goal></goals>
                 <configuration>
                   <excludes>
@@ -323,7 +324,7 @@
                   <resourceTargetPath>META-INF</resourceTargetPath>
                   <generated>target/generated-tld</generated>
                   <factory>org.apache.myfaces.tobago.apt.FaceletAnnotationProcessorFactory</factory>
-                  <nocompile>true</nocompile>
+                  <!--nocompile>true</nocompile-->
                   <encoding>UTF-8</encoding>
                 </configuration>
               </execution>
