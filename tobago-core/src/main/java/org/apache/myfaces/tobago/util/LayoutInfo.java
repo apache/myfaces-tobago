@@ -168,7 +168,7 @@ public class LayoutInfo {
 
   public static String tokensToString(int[] tokens) {
     String[] strings = new String[tokens.length];
-    for (int i = 0 ; i < tokens.length ; i++) {
+    for (int i = 0; i < tokens.length; i++) {
       strings[i] = Integer.toString(tokens[i]);
     }
     return tokensToString(strings);

@@ -16,11 +16,11 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasWidth;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
 /*
  * Created by IntelliJ IDEA.

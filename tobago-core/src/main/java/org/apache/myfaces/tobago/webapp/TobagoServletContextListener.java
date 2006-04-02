@@ -22,7 +22,6 @@ import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.config.TobagoConfigParser;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
-import org.apache.myfaces.tobago.context.Theme;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;

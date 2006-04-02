@@ -21,12 +21,7 @@ package org.apache.myfaces.tobago.taglib.component;
   * $Id$
   */
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.UIMenuSeparator;
-import org.apache.myfaces.tobago.taglib.decl.HasBinding;
-import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 
 import javax.faces.component.UIComponent;
 

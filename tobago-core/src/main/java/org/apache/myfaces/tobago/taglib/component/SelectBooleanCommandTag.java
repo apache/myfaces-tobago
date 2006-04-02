@@ -23,7 +23,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 
 import javax.faces.component.UIComponent;

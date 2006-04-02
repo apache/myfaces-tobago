@@ -88,9 +88,9 @@ public class TobagoConfig {
 
   private void checkThemeIsAvailable(String name, Theme theme) {
     if (theme == null) {
-      String error = "Theme not found! name: '" + name + "'. " +
-          "Please ensure you have a tobago-theme.xml file in your " +
-          "theme jar. Found the following themes: " + availableTheme.keySet();
+      String error = "Theme not found! name: '" + name + "'. "
+          + "Please ensure you have a tobago-theme.xml file in your "
+          + "theme jar. Found the following themes: " + availableTheme.keySet();
       LOG.error(error);
       throw new RuntimeException(error);
     }

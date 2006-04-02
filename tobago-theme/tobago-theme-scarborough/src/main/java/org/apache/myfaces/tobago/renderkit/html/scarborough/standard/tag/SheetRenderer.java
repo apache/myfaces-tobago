@@ -72,7 +72,8 @@ import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import static org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.SheetPageCommandRenderer.PAGE_RENDERER_TYPE;
+import static
+    org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.SheetPageCommandRenderer.PAGE_RENDERER_TYPE;
 import org.apache.myfaces.tobago.util.StringUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 

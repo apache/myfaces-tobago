@@ -16,17 +16,17 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.apt.annotation.BodyContent;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasBorder;
 import org.apache.myfaces.tobago.taglib.decl.HasCellspacing;
+import org.apache.myfaces.tobago.taglib.decl.HasColumnLayout;
+import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasMargin;
 import org.apache.myfaces.tobago.taglib.decl.HasMargins;
-import org.apache.myfaces.tobago.taglib.decl.HasColumnLayout;
 import org.apache.myfaces.tobago.taglib.decl.HasRowLayout;
-import org.apache.myfaces.tobago.taglib.decl.HasBinding;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
 /*
  * Created by IntelliJ IDEA.

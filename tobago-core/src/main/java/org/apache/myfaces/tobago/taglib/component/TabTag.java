@@ -20,7 +20,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
-
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPanel;
 

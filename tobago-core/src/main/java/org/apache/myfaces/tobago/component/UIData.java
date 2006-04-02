@@ -455,7 +455,7 @@ public class UIData extends javax.faces.component.UIData
   private void invokeMethodBinding(MethodBinding methodBinding, FacesEvent event) {
     if (methodBinding != null && event != null) {
       try {
-        Object[] objects = new Object [] { event };
+        Object[] objects = new Object [] {event};
         methodBinding.invoke(getFacesContext(), objects);
       } catch (EvaluationException e) {
         Throwable cause = e.getCause();

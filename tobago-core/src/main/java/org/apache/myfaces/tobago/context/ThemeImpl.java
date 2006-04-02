@@ -1,13 +1,5 @@
 package org.apache.myfaces.tobago.context;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.io.Serializable;
-
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
  *
@@ -23,6 +15,14 @@ import java.io.Serializable;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.io.Serializable;
 
 class ThemeImpl implements Theme, Serializable {
 

@@ -16,10 +16,10 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.taglib.decl.HasBinding;
-import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.taglib.decl.HasBinding;
+import org.apache.myfaces.tobago.taglib.decl.HasId;
 
 /**
  * Created by IntelliJ IDEA.

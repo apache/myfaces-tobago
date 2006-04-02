@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.taglib.component;
  * $Id$
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CREATE_SPAN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
