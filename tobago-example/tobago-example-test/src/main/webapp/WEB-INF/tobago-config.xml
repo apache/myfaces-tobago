@@ -22,10 +22,8 @@
 <tobago-config>
 
   <theme-config>
-    <default-theme>org.apache.myfaces.tobago.context.SpeysideTheme</default-theme>
+    <default-theme>speyside</default-theme>
   </theme-config>
 
   <resource-dir>tobago-resource</resource-dir>
-  <resource-dir>org/apache/myfaces/tobago/renderkit</resource-dir>
-  <load-theme-resources-from-classpath>true</load-theme-resources-from-classpath>
 </tobago-config>

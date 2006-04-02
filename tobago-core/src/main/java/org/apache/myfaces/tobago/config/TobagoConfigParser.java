@@ -71,9 +71,6 @@ public class TobagoConfigParser {
     digester.addCallMethod(
         "tobago-config/mapping-rule/attribute/value", "setValue", 0);
 
-    // enable loading theme from classpath
-    digester.addCallMethod("tobago-config/load-theme-resources-from-classpath", "setLoadThemesFromClasspath", 0);
-
     // resource dirs
     digester.addCallMethod("tobago-config/resource-dir", "addResourceDir", 0);
 

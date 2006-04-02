@@ -30,6 +30,7 @@
 
 <!ELEMENT resource-dir (#PCDATA)>
 
+<!-- deprecated -->
 <!ELEMENT load-theme-resources-from-classpath (#PCDATA)>
 
 <!ELEMENT mapping-rule (request-uri, forward-uri, attribute*)>

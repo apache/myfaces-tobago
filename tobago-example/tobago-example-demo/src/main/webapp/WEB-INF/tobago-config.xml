@@ -28,6 +28,5 @@
   </theme-config>
 
   <resource-dir>tobago-resource</resource-dir>
-  <load-theme-resources-from-classpath>false</load-theme-resources-from-classpath>
   <ajax-enabled>true</ajax-enabled>
 </tobago-config>

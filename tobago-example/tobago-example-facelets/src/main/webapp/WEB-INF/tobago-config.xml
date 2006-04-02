@@ -22,7 +22,7 @@
 <tobago-config>
 
   <theme-config>
-    <default-theme>org.apache.myfaces.tobago.context.SpeysideTheme</default-theme>
+    <default-theme>speyside</default-theme>
   </theme-config>
 
   <resource-dir>tobago-resource</resource-dir>

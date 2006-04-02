@@ -131,7 +131,7 @@ public String storeAddress() {
   <entry key="themesCodeExample1">...
 &lt;tobago-config&gt;
             &lt;theme-config&gt;
-                        &lt;default-theme&gt;org.apache.myfaces.tobago.context.SpeysideTheme&lt;/default-theme&gt;
+                        &lt;default-theme&gt;speyside&lt;/default-theme&gt;
             &lt;/theme-config&gt;
             &lt;resource-dir&gt;tobago&lt;/resource-dir&gt;
 &lt;/tobago-config&gt;

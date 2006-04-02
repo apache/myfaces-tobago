@@ -53,8 +53,7 @@ public class ResourceManagerFactory {
 
     ThemeBuilder themeBuilder = new ThemeBuilder();
     ResourceLocator resourceLocator = new ResourceLocator(
-        servletContext, resourceManager, themeBuilder,
-        tobagoConfig.isLoadThemesFromClasspath());
+        servletContext, resourceManager, themeBuilder);
     resourceLocator.locate();
     Map<String, Theme> availableThemes = themeBuilder.resolveThemes();
     tobagoConfig.setAvailableThemes(availableThemes);

@@ -43,25 +43,16 @@ class ResourceLocator {
 
   private static final Log LOG = LogFactory.getLog(ResourceLocator.class);
 
-// todo: Test for new theme build mechanism still under development
-// http://issues.apache.org/jira/browse/MYFACES-1106
-// to activate you have to do:
-// 1. set load-theme-resources-from-classpath = true in the tobago-config.xml
-// 2. add resource-path in tobago-config.xml
-// 3. add ResourceServlet in web.xml
-
   private ServletContext servletContext;
   private ResourceManagerImpl resourceManager;
   private ThemeBuilder themeBuilder;
-  private boolean loadThemesFromClasspath;
 
   public ResourceLocator(
       ServletContext servletContext, ResourceManagerImpl resourceManager,
-      ThemeBuilder tobagoConfig, boolean loadThemesFromClasspath) {
+      ThemeBuilder tobagoConfig) {
     this.servletContext = servletContext;
     this.resourceManager = resourceManager;
     this.themeBuilder = tobagoConfig;
-    this.loadThemesFromClasspath = loadThemesFromClasspath;
   }
 
   public void locate()
@@ -126,7 +117,6 @@ class ResourceLocator {
         themeBuilder.addTheme(theme);
         String prefix = ensureSlash(theme.getResourcePath());
 
-        // TODO other protocols
         String protocol = themeUrl.getProtocol();
         // tomcat uses jar
         // weblogic uses zip
@@ -164,9 +154,7 @@ class ResourceLocator {
                   LOG.info(inputStream);
                   addProperties(inputStream, resources, name, true);
                 } else {
-                  if (loadThemesFromClasspath) {
-                    resources.add(name);
-                  }
+                  resources.add(name);
                 }
               }
             }
@@ -174,7 +162,9 @@ class ResourceLocator {
             IOUtils.closeQuietly(stream);
           }
         } else {
-          LOG.error("Unknown protocol '"+themeUrl + "'");
+          String error = "Unknown protocol '" + themeUrl + "'";
+          LOG.error(error);
+          throw new Exception(error);
         }
       }
     } catch (Exception e) {
@@ -204,21 +194,12 @@ class ResourceLocator {
     String directory = childPath.substring(0, childPath.lastIndexOf('/'));
     String filename = childPath.substring(childPath.lastIndexOf('/') + 1);
 
-    int begin = filename.indexOf('_') + 1;
     int end = filename.lastIndexOf('.');
     if (xml) {
       end = filename.lastIndexOf('.', end - 1);
     }
 
-    String locale;
-/*
-    if (begin > 0) {
-      locale = filename.substring(begin, end);
-    } else {
-      locale = "default";
-    }
-*/
-    locale = filename.substring(0, end);
+    String locale = filename.substring(0, end);
 
 
     Properties temp = new Properties();

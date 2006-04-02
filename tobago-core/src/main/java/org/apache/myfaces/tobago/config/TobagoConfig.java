@@ -40,7 +40,6 @@ public class TobagoConfig {
   private Theme defaultTheme;
   private String defaultThemeName;
   private Set<String> resourceDirs;
-  private boolean loadThemesFromClasspath = true;
   private List<MappingRule> mappingRules;
   private boolean ajaxEnabled;
   private Map<String, Theme> availableTheme;
@@ -164,14 +163,6 @@ public class TobagoConfig {
 
   public void setAjaxEnabled(String value) {
     this.ajaxEnabled = Boolean.valueOf(value);
-  }
-
-  public boolean isLoadThemesFromClasspath() {
-    return loadThemesFromClasspath;
-  }
-
-  public void setLoadThemesFromClasspath(String loadThemesFromClasspath) {
-    this.loadThemesFromClasspath = Boolean.valueOf(loadThemesFromClasspath);
   }
 
   public Theme getDefaultTheme() {
