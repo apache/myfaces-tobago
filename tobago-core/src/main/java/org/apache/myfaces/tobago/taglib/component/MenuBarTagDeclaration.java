@@ -42,7 +42,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
         "org.apache.myfaces.tobago.taglib.component.MenuSelectOneTag",
         "org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag" })
 @UIComponentTag(
-    UIComponent = "javax.faces.component.UIPanel",
-    RendererType = "MenuBar")
+    uiComponent = "javax.faces.component.UIPanel",
+    rendererType = "MenuBar")
 public interface MenuBarTagDeclaration extends TobagoBodyTagDeclaration, HasIdBindingAndRendered, HasWidth {
 }

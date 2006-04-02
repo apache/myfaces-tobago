@@ -44,8 +44,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 @Tag(name = "selectOneChoice")
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UISelectOne",
-    RendererType = "SelectOneChoice")
+    uiComponent = "org.apache.myfaces.tobago.component.UISelectOne",
+    rendererType = "SelectOneChoice")
 public interface SelectOneChoiceTagDeclaration
     extends SelectOneTagDeclaration, HasId, HasValue, IsDisabled,
     IsReadonly, HasOnchangeListener, IsInline, HasLabelAndAccessKey,

@@ -17,21 +17,14 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.taglib.decl.HasFor;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIMessages;
 
-/**
- * Renders error/validation messages.
- */
-@Tag(name = "messages", bodyContent = BodyContent.EMPTY)
+
 public class MessagesTag extends TobagoTag
-    implements HasIdBindingAndRendered, HasFor {
+    implements MessagesTagDeclaration {
 
   private String forComponent;
 

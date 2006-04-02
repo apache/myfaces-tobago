@@ -39,8 +39,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
  */
 @Tag(name = "menuItem")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UIMenuCommand",
-    RendererType = "MenuCommand")
+    uiComponent = "org.apache.myfaces.tobago.component.UIMenuCommand",
+    rendererType = "MenuCommand")
 public interface MenuCommandTagDeclaration extends TobagoTagDeclaration, CommandTagDeclaration, HasIdBindingAndRendered,
     HasLabelAndAccessKey, IsDisabled, HasAction, HasActionListener, HasCommandType, HasImage, IsImmediateCommand {
 }

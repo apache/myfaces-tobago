@@ -37,8 +37,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 @Tag(name = "selectBooleanCheckbox")
 @BodyContentDescription(anyTagOf = "<f:facet>* ")
 @UIComponentTag(
-    UIComponent = "javax.faces.component.UISelectBoolean",
-    RendererType = "SelectBooleanCheckbox")
+    uiComponent = "javax.faces.component.UISelectBoolean",
+    rendererType = "SelectBooleanCheckbox")
 public interface SelectBooleanCheckboxTagDeclaration extends InputTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, HasBooleanValue, IsDisabled, IsInline, HasTip {
 

@@ -34,8 +34,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
  */
 @Tag(name = "progress", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
-    UIComponent = "javax.faces.component.UIOutput",
-    RendererType = "Progress")
+    uiComponent = "javax.faces.component.UIOutput",
+    rendererType = "Progress")
 public interface ProgressTagDeclaration extends BeanTagDeclaration, HasIdBindingAndRendered, HasTip {
 
   /**

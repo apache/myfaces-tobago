@@ -98,12 +98,12 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
 
       Element component = document.createElement("component");
 
-      Class uiComponentClass = Class.forName(componentTag.UIComponent());
+      Class uiComponentClass = Class.forName(componentTag.uiComponent());
       Field componentField = uiComponentClass.getField("COMPONENT_TYPE");
       String componentType = (String)componentField.get(null);
 
       addLeafTextElement(componentType, "component-type", component, document);
-      String rendererType = componentTag.RendererType();
+      String rendererType = componentTag.rendererType();
       if (rendererType != null && rendererType.length() > 0) {
         addLeafTextElement(rendererType, "renderer-type", component, document);
       }

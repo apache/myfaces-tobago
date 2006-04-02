@@ -43,8 +43,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
  */
 @Tag(name = "textarea")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UIInput",
-    RendererType = "Textarea")
+    uiComponent = "org.apache.myfaces.tobago.component.UIInput",
+    rendererType = "Textarea")
 public interface TextAreaTagDeclaration extends TextInputTagDeclaration, HasIdBindingAndRendered,
         HasValue, HasConverter, IsReadonly, IsDisabled, HasDimension, HasOnchangeListener,
         IsFocus, IsRequired, HasLabelAndAccessKey, HasTip {

@@ -40,8 +40,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 @Tag(name = "out")
 @BodyContentDescription(anyTagOf = "f:converter|f:convertNumber|f:convertDateTime|...")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UIOutput",
-    RendererType = "Out")
+    uiComponent = "org.apache.myfaces.tobago.component.UIOutput",
+    rendererType = "Out")
 
 public interface OutTagDeclaration extends
     BeanTagDeclaration, HasIdBindingAndRendered, HasConverter, IsInline, HasTip, HasValue {

@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITabGroup;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_CLIENT;
@@ -40,6 +41,9 @@ import javax.faces.component.UIComponent;
  */
 @Tag(name = "tabGroup")
 @BodyContentDescription(anyTagOf = "(<tc:tab>* ")
+@UIComponentTag(
+    uiComponent = "org.apache.myfaces.tobago.component.UITabGroup",
+    rendererType = "TabGroupTag")
 public class TabGroupTag extends TobagoTag
     implements HasIdBindingAndRendered, HasDimension, HasState {
 

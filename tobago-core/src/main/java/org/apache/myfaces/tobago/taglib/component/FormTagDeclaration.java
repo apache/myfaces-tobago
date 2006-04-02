@@ -30,8 +30,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
  */
 @Tag(name = "form")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UIForm",
-    RendererType = "Form")
+    uiComponent = "org.apache.myfaces.tobago.component.UIForm",
+    rendererType = "Form")
 public interface FormTagDeclaration extends TobagoBodyTagDeclaration,
     HasBinding, HasId {
 }

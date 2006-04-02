@@ -16,30 +16,17 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LEFT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TOP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPopup;
-import org.apache.myfaces.tobago.taglib.decl.HasDimension;
-import org.apache.myfaces.tobago.taglib.decl.HasId;
-import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 
 import javax.faces.component.UIComponent;
 
-/**
- * Renders a popup panel.
- */
-@Tag(name = "popup")
 public class PopupTag extends TobagoBodyTag
-    implements HasId, IsRendered, HasDimension {
-  private static final Log LOG = LogFactory.getLog(PopupTag.class);
+    implements PopupTagDeclaration {
   private String width;
   private String height;
   private String left;
@@ -69,28 +56,14 @@ public class PopupTag extends TobagoBodyTag
     this.width = width;
   }
 
-
-  /**
-   *
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Integer")
   public void setHeight(String height) {
     this.height = height;
   }
 
-
-  /**
-   *
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Integer")
   public void setLeft(String left) {
     this.left = left;
   }
 
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Integer")
   public void setTop(String top) {
     this.top = top;
   }

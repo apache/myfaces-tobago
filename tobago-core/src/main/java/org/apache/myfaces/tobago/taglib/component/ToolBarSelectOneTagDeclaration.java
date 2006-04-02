@@ -38,8 +38,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
  */
 @Tag(name = "toolBarSelectOne")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UISelectOneCommand",
-    RendererType = "MenuCommand")
+    uiComponent = "org.apache.myfaces.tobago.component.UISelectOneCommand",
+    rendererType = "MenuCommand")
 public interface ToolBarSelectOneTagDeclaration extends TobagoTagDeclaration, CommandTagDeclaration,
     HasIdBindingAndRendered, IsDisabled, HasAction, HasCommandType, HasValue, IsImmediateCommand {
 }

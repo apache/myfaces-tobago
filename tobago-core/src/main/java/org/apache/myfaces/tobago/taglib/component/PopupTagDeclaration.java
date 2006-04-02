@@ -16,26 +16,37 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasBinding;
+import org.apache.myfaces.tobago.taglib.decl.HasDimension;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
 /*
  * Created by IntelliJ IDEA.
  * User: bommel
- * Date: 31.03.2006
- * Time: 22:05:46
+ * Date: 02.04.2006
+ * Time: 16:11:02
  * To change this template use File | Settings | File Templates.
  */
-
 /**
- * Renders a separator.
+ * Renders a popup panel.
  */
-@Tag(name = "menuSeparator", bodyContent = BodyContent.EMPTY)
+@Tag(name = "popup")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIMenuSeparator")
+    uiComponent = "org.apache.myfaces.tobago.component.UIPopup",
+    rendererType = "Popup")
+public interface PopupTagDeclaration extends TobagoBodyTagDeclaration, HasId, IsRendered, HasDimension {
+  /**
+   *
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  void setLeft(String left);
 
-public interface MenuSeparatorTagDeclaration extends TobagoTagDeclaration, IsRendered, HasBinding {
+  @TagAttribute
+  @UIComponentTagAttribute()
+  void setTop(String top);
 }

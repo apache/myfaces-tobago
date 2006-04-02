@@ -41,8 +41,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 @Tag(name = "selectOneRadio")
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UISelectOne",
-    RendererType = "SelectOneRadio")
+    uiComponent = "org.apache.myfaces.tobago.component.UISelectOne",
+    rendererType = "SelectOneRadio")
 public interface SelectOneRadioTagDeclaration extends SelectOneTagDeclaration, HasValue, IsDisabled, HasId,
     HasOnchangeListener, IsInline, HasRenderRange, IsRendered, HasBinding {
 

@@ -45,8 +45,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @Preliminary(
     "Implement a var attribute for the tree like in the sheet (http://issues.apache.org/jira/browse/MYFACES-903)")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UITree",
-    RendererType = "Tree")
+    uiComponent = "org.apache.myfaces.tobago.component.UITree",
+    rendererType = "Tree")
 public interface TreeTagDeclaration extends TobagoTagDeclaration,
     HasIdBindingAndRendered, HasTreeNodeValue, HasState,
     HasIdReference, HasActionListener, HasNameReference, IsRequired {

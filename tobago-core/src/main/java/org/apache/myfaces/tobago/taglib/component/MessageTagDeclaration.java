@@ -16,8 +16,8 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.taglib.decl.IsRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasBinding;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasFor;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -25,17 +25,17 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 /*
  * Created by IntelliJ IDEA.
  * User: bommel
- * Date: 31.03.2006
- * Time: 22:05:46
+ * Date: 02.04.2006
+ * Time: 15:55:21
  * To change this template use File | Settings | File Templates.
  */
 
 /**
- * Renders a separator.
+ * Renders error/validation message.
  */
-@Tag(name = "menuSeparator", bodyContent = BodyContent.EMPTY)
+@Tag(name = "message", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIMenuSeparator")
-
-public interface MenuSeparatorTagDeclaration extends TobagoTagDeclaration, IsRendered, HasBinding {
+    uiComponent = "javax.faces.compoent.UIMessage",
+    rendererType = "Message")
+public interface MessageTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasFor {
 }

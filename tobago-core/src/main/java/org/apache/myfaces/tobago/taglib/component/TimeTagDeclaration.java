@@ -37,8 +37,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
  */
 @Tag(name = "time")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UIInput",
-    RendererType=RENDERER_TYPE_TIME)
+    uiComponent = "org.apache.myfaces.tobago.component.UIInput",
+    rendererType =RENDERER_TYPE_TIME)
 public interface TimeTagDeclaration
     extends InputTagDeclaration, HasIdBindingAndRendered, HasValue,
     IsReadonly, IsDisabled, IsInline, HasLabelAndAccessKey, HasTip {

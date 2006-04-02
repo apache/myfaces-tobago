@@ -45,8 +45,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 @Tag(name = "link")
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UICommand",
-    RendererType = "Link")
+    uiComponent = "org.apache.myfaces.tobago.component.UICommand",
+    rendererType = "Link")
 public interface LinkTagDeclaration extends CommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled,
     HasAction, HasActionListener, IsInline, HasCommandType,

@@ -34,8 +34,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
  */
 @Tag(name = "panel")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UIPanel",
-    RendererType = "Panel")
+    uiComponent = "org.apache.myfaces.tobago.component.UIPanel",
+    rendererType = "Panel")
 public interface PanelTagDeclaration extends TobagoBodyTagDeclaration,
     HasIdBindingAndRendered, HasDimension {
 }

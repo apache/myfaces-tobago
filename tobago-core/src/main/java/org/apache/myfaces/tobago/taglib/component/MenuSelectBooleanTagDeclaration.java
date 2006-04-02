@@ -40,8 +40,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
 @Tag(name = "menucheck")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
-    RendererType = "MenuCommand")
+    uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
+    rendererType = "MenuCommand")
 
 public interface MenuSelectBooleanTagDeclaration extends TobagoTagDeclaration, CommandTagDeclaration,
     HasIdBindingAndRendered, IsDisabled, HasAction, HasCommandType, HasBooleanValue, HasLabelAndAccessKey,

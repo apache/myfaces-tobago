@@ -20,21 +20,14 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
+
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPanel;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.taglib.decl.HasTip;
 
 import javax.faces.component.UIComponent;
 
-/**
- * renders a tab within a tabgroup.
- */
-@Tag(name = "tab")
 public class TabTag extends TobagoBodyTag
-    implements HasIdBindingAndRendered, HasLabelAndAccessKey, HasTip {
+    implements TabTagDeclaration {
 
   private String label;
   private String accessKey;

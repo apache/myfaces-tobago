@@ -17,17 +17,13 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
-@Tag(name = "object", bodyContent = BodyContent.EMPTY)
-public class ObjectTag extends TobagoTag {
+
+public class ObjectTag extends TobagoTag implements ObjectTagDeclaration {
 
   private String src;
 
@@ -44,12 +40,6 @@ public class ObjectTag extends TobagoTag {
     return src;
   }
 
-
-  /**
-   * URI to object source
-   */
-  @TagAttribute()
-  @UIComponentTagAttribute()
   public void setSrc(String src) {
     this.src = src;
   }

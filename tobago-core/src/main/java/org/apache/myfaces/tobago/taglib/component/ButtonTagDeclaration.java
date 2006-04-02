@@ -46,8 +46,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 @Tag(name = "button")
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UICommand",
-    RendererType = "Button")
+    uiComponent = "org.apache.myfaces.tobago.component.UICommand",
+    rendererType = "Button")
 
 public interface ButtonTagDeclaration extends CommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,

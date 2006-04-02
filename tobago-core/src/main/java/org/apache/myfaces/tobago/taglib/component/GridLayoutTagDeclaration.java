@@ -38,8 +38,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
 @Tag(name = "gridLayout", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UIGridLayout",
-    RendererType = "GridLayout")
+    uiComponent = "org.apache.myfaces.tobago.component.UIGridLayout",
+    rendererType = "GridLayout")
 public interface GridLayoutTagDeclaration extends TobagoTagDeclaration, HasId, HasBorder, HasCellspacing, HasMargin,
     HasMargins, HasColumnLayout, HasRowLayout, HasBinding {
 }

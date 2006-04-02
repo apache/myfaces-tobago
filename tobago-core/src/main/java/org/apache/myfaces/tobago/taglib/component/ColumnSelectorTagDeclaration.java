@@ -20,7 +20,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
  */
 @Tag(name = "columnSelector", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UIColumnSelector",
-    RendererType = "ColumnSelector")
+    uiComponent = "org.apache.myfaces.tobago.component.UIColumnSelector",
+    rendererType = "ColumnSelector")
 public interface ColumnSelectorTagDeclaration extends TobagoTagDeclaration, IsDisabled, IsRendered, HasBinding {
 }

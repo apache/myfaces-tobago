@@ -40,8 +40,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
  */
 @Tag(name = "label", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UILabel",
-    RendererType = "Label")
+    uiComponent = "org.apache.myfaces.tobago.component.UILabel",
+    rendererType = "Label")
 public interface LabelTagDeclaration extends BeanTagDeclaration, HasIdBindingAndRendered,
     HasLabelWithAccessKey, HasFor, IsInline, HasWidth, HasTip, HasValue {
 

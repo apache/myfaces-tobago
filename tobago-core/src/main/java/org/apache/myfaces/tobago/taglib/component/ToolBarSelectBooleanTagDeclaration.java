@@ -41,8 +41,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
  */
 @Tag(name = "toolBarCheck")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
-    RendererType = "MenuCommand")
+    uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
+    rendererType = "MenuCommand")
 public interface ToolBarSelectBooleanTagDeclaration extends TobagoTagDeclaration, CommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, HasCommandType, HasImage, IsDisabled, HasAction, HasBooleanValue,
     HasTip, IsImmediateCommand {

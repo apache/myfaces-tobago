@@ -38,8 +38,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
  */
 @Tag(name = "selectManyListbox")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UISelectMany",
-    RendererType = "SelectManyListbox")
+    uiComponent = "org.apache.myfaces.tobago.component.UISelectMany",
+    rendererType = "SelectManyListbox")
 
 public interface SelectManyListboxTagDeclaration
     extends SelectManyTagDeclaration, HasId, HasValue, IsDisabled, 

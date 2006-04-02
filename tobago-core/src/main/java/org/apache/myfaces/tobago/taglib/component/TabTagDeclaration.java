@@ -16,26 +16,27 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.taglib.decl.IsRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasBinding;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
 /*
  * Created by IntelliJ IDEA.
  * User: bommel
- * Date: 31.03.2006
- * Time: 22:05:46
+ * Date: 02.04.2006
+ * Time: 16:29:31
  * To change this template use File | Settings | File Templates.
  */
 
 /**
- * Renders a separator.
+ * renders a tab within a tabgroup.
  */
-@Tag(name = "menuSeparator", bodyContent = BodyContent.EMPTY)
+@Tag(name = "tab")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIMenuSeparator")
-
-public interface MenuSeparatorTagDeclaration extends TobagoTagDeclaration, IsRendered, HasBinding {
+    uiComponent = "org.apache.myfaces.tobago.component.UIPanel",
+    rendererType = "TabGroupTag")
+public interface TabTagDeclaration extends TobagoBodyTagDeclaration, HasIdBindingAndRendered, HasLabelAndAccessKey,
+    HasTip {
 }

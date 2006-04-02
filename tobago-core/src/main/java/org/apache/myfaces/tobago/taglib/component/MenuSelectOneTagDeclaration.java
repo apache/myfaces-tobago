@@ -39,8 +39,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
  */
 @Tag(name = "menuradio")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UISelectOneCommand",
-    RendererType = "MenuCommand")
+    uiComponent = "org.apache.myfaces.tobago.component.UISelectOneCommand",
+    rendererType = "MenuCommand")
 public interface MenuSelectOneTagDeclaration extends TobagoTagDeclaration, CommandTagDeclaration,
     HasIdBindingAndRendered, HasLabel, IsDisabled, HasAction, HasCommandType, HasValue, IsImmediateCommand {
 }

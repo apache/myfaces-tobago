@@ -32,8 +32,8 @@ import java.lang.annotation.ElementType;
 
 public @interface UIComponentTag {
 
-  String UIComponent();
+  String uiComponent();
 
-  String RendererType() default "";
+  String rendererType() default "";
 
 }

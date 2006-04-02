@@ -45,8 +45,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @Tag(name = "in")
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UIInput",
-    RendererType = "In")
+    uiComponent = "org.apache.myfaces.tobago.component.UIInput",
+    rendererType = "In")
 public interface InTagDeclaration
     extends TextInputTagDeclaration, HasValue, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasWidth, HasOnchangeListener,

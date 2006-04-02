@@ -34,8 +34,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasValue;
  */
 @Tag(name = "calendar", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
-    UIComponent = "javax.faces.component.UIOutput",
-    RendererType = "Calendar")
+    uiComponent = "javax.faces.component.UIOutput",
+    rendererType = "Calendar")
 public interface CalendarTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasValue {
 
   /**

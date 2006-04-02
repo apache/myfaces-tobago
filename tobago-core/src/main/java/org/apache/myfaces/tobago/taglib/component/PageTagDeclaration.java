@@ -38,8 +38,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
  */
 @Tag(name = "page")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UIPage",
-    RendererType = "Page")
+    uiComponent = "org.apache.myfaces.tobago.component.UIPage",
+    rendererType = "Page")
 
 public interface PageTagDeclaration extends TobagoBodyTagDeclaration, HasLabel, HasId, HasDimension, HasBinding,
     HasState {

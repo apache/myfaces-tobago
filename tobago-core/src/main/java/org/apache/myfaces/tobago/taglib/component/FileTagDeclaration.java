@@ -36,8 +36,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
  */
 @Tag(name = "file")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UIFileInput",
-    RendererType = "File")
+    uiComponent = "org.apache.myfaces.tobago.component.UIFileInput",
+    rendererType = "File")
 public interface FileTagDeclaration
     extends InputTagDeclaration, HasIdBindingAndRendered, IsDisabled,
     HasLabelAndAccessKey, HasOnchangeListener, HasTip {

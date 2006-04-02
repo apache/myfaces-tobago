@@ -43,7 +43,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
         "org.apache.myfaces.tobago.taglib.component.MenuSelectOneTag",
         "org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag" })
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UIMenu")
+    uiComponent = "org.apache.myfaces.tobago.component.UIMenu")
 public interface MenuTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasLabelAndAccessKey,
     IsDisabled, HasImage {
 }

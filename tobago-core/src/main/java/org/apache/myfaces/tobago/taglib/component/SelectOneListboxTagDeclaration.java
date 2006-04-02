@@ -43,8 +43,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 @Tag(name = "selectOneListbox")
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
-    UIComponent = "org.apache.myfaces.tobago.component.UISelectOne",
-    RendererType = "SelectOneListbox")
+    uiComponent = "org.apache.myfaces.tobago.component.UISelectOne",
+    rendererType = "SelectOneListbox")
 public interface SelectOneListboxTagDeclaration extends SelectOneTagDeclaration, HasId, HasValue, IsDisabled,
     IsReadonly, HasOnchangeListener, HasLabelAndAccessKey, IsRendered, HasBinding, HasHeight, HasTip {
 
