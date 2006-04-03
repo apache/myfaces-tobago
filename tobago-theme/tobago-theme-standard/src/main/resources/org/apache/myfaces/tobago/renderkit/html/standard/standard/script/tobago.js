@@ -116,7 +116,6 @@ var Tobago = {
   onSubmit: function() {
     if (!this.isSubmit) {
       this.isSubmit = true;
-      LOG.debug("set isSubmit to " + this.isSubmit);
       var clientDimension
           = this.createInput("hidden", this.form.id + '-clientDimension');
       clientDimension.value
@@ -129,7 +128,6 @@ var Tobago = {
     * Wrapper function to call application generated onunload function
     */
   onUnload: function() {
-    LOG.debug("isSubmit is " + this.isSubmit);
     if (this.isSubmit && this.applicationOnunload) {
       this.applicationOnunload();
     } else if (!this.isSubmit && this.applicationOnexit) {
