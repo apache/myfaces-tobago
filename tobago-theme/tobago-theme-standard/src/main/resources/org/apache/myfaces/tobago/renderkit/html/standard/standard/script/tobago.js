@@ -83,6 +83,8 @@ var Tobago = {
     */
   scriptLoadingActive: false,
 
+  isSubmit: false,
+
   // -------- Functions -------------------------------------------------------
 
 
@@ -90,18 +92,19 @@ var Tobago = {
    * Tobagos central init function.
    * Called via onload attribure of body tag
    */
-  init: function(pageId, defaultActionId) {
+  init: function(pageId) {
 //    new LOG.LogArea({hide: false});
 //    LOG.show();
     this.page = this.element(pageId);
     this.form = this.element(this.page.id + this.SUB_COMPONENT_SEP + "form");
+    this.addBindEventListener(this.form, "submit", this, "onSubmit");
     this.action = this.element(this.form.id + '-action')
-    this.action.value = defaultActionId;
-    this.clientDimension
-        = this.createInput("hidden", this.form.id + '-clientDimension');
-    this.form.appendChild(this.clientDimension);
 
-    this.applicationOnload();
+    this.addBindEventListener(window, "unload", this, "onUnload");
+
+    if (this.applicationOnload) {
+      this.applicationOnload();
+    }
 
     this.setFocus();
 
@@ -110,18 +113,28 @@ var Tobago = {
     this.startScriptLoaders();
   },
 
-  /**
-    * Wrapper function to call application generated onunload function
-    */
-  onunload: function() {
-    Tobago.applicationOnunload();
+  onSubmit: function() {
+    if (!this.isSubmit) {
+      this.isSubmit = true;
+      LOG.debug("set isSubmit to " + this.isSubmit);
+      var clientDimension
+          = this.createInput("hidden", this.form.id + '-clientDimension');
+      clientDimension.value
+          = document.body.clientWidth + ";" + document.body.clientHeight;
+      this.form.appendChild(clientDimension);
+    }
   },
 
   /**
-    * Wrapper function to call application generated onexit function
+    * Wrapper function to call application generated onunload function
     */
-  onexit: function() {
-    Tobago.applicationOnexit();
+  onUnload: function() {
+    LOG.debug("isSubmit is " + this.isSubmit);
+    if (this.isSubmit && this.applicationOnunload) {
+      this.applicationOnunload();
+    } else if (!this.isSubmit && this.applicationOnexit) {
+      this.applicationOnexit();
+    }
   },
 
    /**
@@ -136,21 +149,9 @@ var Tobago = {
     * Submitting the page with specified actionId.
     */
   submitAction: function(actionId) {
-    this.setAction(actionId);
-    // todo: why this doesn't work?  document.body.onunload = onunloadScript;
-    window.onunload = Tobago.onunload;
-    if (this.form) {
-      this.form.submit();
-    }
-  },
-
-   /**
-    * Set the actionId and clientDimension
-    */
-  setAction: function(actionId) {
     this.action.value = actionId;
-    this.clientDimension.value
-        = document.body.clientWidth + ";" + document.body.clientHeight;
+    this.onSubmit();
+    this.form.submit();
   },
 
    /**

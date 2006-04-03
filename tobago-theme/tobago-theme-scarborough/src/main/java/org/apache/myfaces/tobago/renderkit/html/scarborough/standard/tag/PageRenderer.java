@@ -263,8 +263,8 @@ public class PageRenderer extends PageRendererBase {
     writer.endElement("head");
     writer.startElement("body", page);
     writer.writeAttribute("onload",
-        "Tobago.init('" + clientId + "', '" + defaultActionId + "');", null);
-    writer.writeAttribute("onunload", "Tobago.onexit();", null);
+        "Tobago.init('" + clientId + "');", null);
+//    writer.writeAttribute("onunload", "Tobago.onexit();", null);
     //this ist for ie to prevent scrollbars where none are needed
     writer.writeAttribute("scroll", "auto", null);
     writer.writeComponentClass();
@@ -297,7 +297,7 @@ public class PageRenderer extends PageRendererBase {
         clientId + SUBCOMPONENT_SEP + "form-action");
     writer.writeIdAttribute(
         clientId + SUBCOMPONENT_SEP + "form-action");
-    writer.writeAttribute("value", "", null);
+    writer.writeAttribute("value", defaultActionId, null);
     writer.endElement("input");
 
 // TODO: this is needed for the "BACK-BUTTON-PROBLEM"
@@ -359,16 +359,18 @@ public class PageRenderer extends PageRendererBase {
   private void writeEventFunction(
       TobagoResponseWriter writer, Set<String> eventFunctions, String event)
       throws IOException {
-    writer.write("Tobago.applicationOn" + event + " = function() {\n  ");
-    for (String function : eventFunctions) {
-      writer.write(function);
-      if (!function.trim().endsWith(";")) {
-        writer.write(";\n  ");
-      } else {
-        writer.write("\n  ");
+    if (! eventFunctions.isEmpty()) {
+      writer.write("Tobago.applicationOn" + event + " = function() {\n  ");
+      for (String function : eventFunctions) {
+        writer.write(function);
+        if (!function.trim().endsWith(";")) {
+          writer.write(";\n  ");
+        } else {
+          writer.write("\n  ");
+        }
       }
+      writer.write("\n}\n");
     }
-    writer.write("\n}\n");
   }
 
 // ----------------------------------------------------------- business methods
