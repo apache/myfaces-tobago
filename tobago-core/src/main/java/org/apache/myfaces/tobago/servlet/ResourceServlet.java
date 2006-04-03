@@ -16,10 +16,9 @@ package org.apache.myfaces.tobago.servlet;
  * limitations under the License.
  */
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.io.IOUtils;
-import org.apache.myfaces.tobago.context.Theme;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -40,6 +39,7 @@ public class ResourceServlet extends HttpServlet {
 
   private static final Log LOG = LogFactory.getLog(ResourceServlet.class);
 
+  @Override
   protected void service(
       HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
@@ -49,13 +49,8 @@ public class ResourceServlet extends HttpServlet {
     String resource = requestURI.substring(
         request.getContextPath().length() + 1); // todo: make it "stable"
 
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("C " + request.getContextPath());
-      LOG.debug("Q " + request.getQueryString());
-      LOG.debug("R " + requestURI);
-      LOG.debug("L " + resource);
-    }
-
+//    response.setHeader("Cache-Control", "max-age=3600");
+//    response.setDateHeader("Expires", 3600);
     // todo: maybe support more extensions (configurable?)
     if (requestURI.endsWith(".gif")) {
       response.setContentType("image/gif");
@@ -74,7 +69,7 @@ public class ResourceServlet extends HttpServlet {
     }
     InputStream inputStream = null;
     try {
-      inputStream = Theme.class.getClassLoader().getResourceAsStream(resource);
+      inputStream = ResourceServlet.class.getClassLoader().getResourceAsStream(resource);
       IOUtils.copy(inputStream, response.getOutputStream());
     } finally {
       IOUtils.closeQuietly(inputStream);

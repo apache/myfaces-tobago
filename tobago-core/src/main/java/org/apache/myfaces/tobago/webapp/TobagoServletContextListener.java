@@ -49,8 +49,8 @@ public class TobagoServletContextListener implements ServletContextListener {
     try {
 
       // tobago-config.xml
-      TobagoConfig tobagoConfig = new TobagoConfig();
-      TobagoConfigParser.parse(servletContext, tobagoConfig);
+      TobagoConfig tobagoConfig
+          = new TobagoConfigParser().parse(servletContext);
       servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
 
       // todo: cleanup, use one central TobagoConfig, no singleton ResourceManager

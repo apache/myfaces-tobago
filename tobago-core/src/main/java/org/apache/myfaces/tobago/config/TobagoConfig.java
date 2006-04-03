@@ -134,7 +134,8 @@ public class TobagoConfig {
         return theme;
       }
     }
-    LOG.debug("searching theme '" + name + "' not found. Using default: " + defaultTheme);
+    LOG.debug("searching theme '" + name + "' not found. "
+        + "Using default: " + defaultTheme);
     return defaultTheme;
   }
 
@@ -163,6 +164,12 @@ public class TobagoConfig {
 
   public void setAjaxEnabled(String value) {
     this.ajaxEnabled = Boolean.valueOf(value);
+  }
+
+  @Deprecated
+  public void setLoadThemesFromClasspath(String loadThemesFromClasspath) {
+    LOG.warn("Deprecated: setting load-theme-resources-from-classpath is "
+        + "no longer supported");
   }
 
   public Theme getDefaultTheme() {

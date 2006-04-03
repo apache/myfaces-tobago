@@ -38,15 +38,17 @@ public class TobagoConfigParser {
   private static final Log LOG = LogFactory.getLog(TobagoConfigParser.class);
   private static final String TOBAGO_CONFIG_DTD = "/org/apache/myfaces/tobago/config/tobago-config_1_0.dtd";
 
-  public static void parse(ServletContext context, TobagoConfig tobagoConfig)
+  public TobagoConfig parse(ServletContext context)
       throws IOException, SAXException, FacesException {
 
+    TobagoConfig tobagoConfig = new TobagoConfig();
     Digester digester = new Digester();
     configure(tobagoConfig, digester);
     parse(context, digester);
+    return tobagoConfig;
   }
 
-  private static Digester configure(TobagoConfig config, Digester digester) {
+  private Digester configure(TobagoConfig config, Digester digester) {
 
     digester.push(config);
     digester.setValidating(true);
@@ -71,6 +73,9 @@ public class TobagoConfigParser {
     digester.addCallMethod(
         "tobago-config/mapping-rule/attribute/value", "setValue", 0);
 
+    // XXX: deprecated! will ever be true (will be removed in next release after 1.0.7)
+    digester.addCallMethod("tobago-config/load-theme-resources-from-classpath", "setLoadThemesFromClasspath", 0);
+
     // resource dirs
     digester.addCallMethod("tobago-config/resource-dir", "addResourceDir", 0);
 
@@ -81,10 +86,10 @@ public class TobagoConfigParser {
   }
 
   // TODO: make it runnable without config file, using defaults
-  private static void parse(ServletContext context, Digester digester)
+  private void parse(ServletContext context, Digester digester)
       throws IOException, SAXException, FacesException {
 
-    final String configPath = "/WEB-INF/tobago-config.xml";
+    String configPath = "/WEB-INF/tobago-config.xml";
     InputStream input = null;
     registerDtd(digester);
     try {
@@ -100,8 +105,8 @@ public class TobagoConfigParser {
     }
   }
 
-  private static void registerDtd(Digester digester) {
-    URL url = TobagoConfigParser.class.getResource(TOBAGO_CONFIG_DTD);
+  private void registerDtd(Digester digester) {
+    URL url = getClass().getResource(TOBAGO_CONFIG_DTD);
     if (LOG.isDebugEnabled()) {
       LOG.debug("registering dtd: url=" + url);
     }
