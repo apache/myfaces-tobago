@@ -35,7 +35,7 @@
         <tc:tab label="#{overviewBundle.tabClientSide}" >
 
           <tc:tabGroup id="tabMarsOuterForm" state="#{demo.tabState1}" >
-            <tc:tab labelWithAccessKey="#{overviewBundle.tabPlanet}">
+            <tc:tab label="#{overviewBundle.tabPlanet}">
               <tc:panel >
                 <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
                 <tc:cell />
@@ -46,7 +46,7 @@
                 <tc:cell />
               </tc:panel>
             </tc:tab>
-            <tc:tab labelWithAccessKey="#{overviewBundle.tabInsolar}">
+            <tc:tab label="#{overviewBundle.tabInsolar}">
               <tc:panel >
                 <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
                 <tc:cell />
@@ -57,7 +57,7 @@
                 <tc:cell />
               </tc:panel>
             </tc:tab>
-            <tc:tab label="#{overviewBundle.tabMoons}" accessKey="#{overviewBundle.tabMoonsAccessKey}">
+            <tc:tab label="#{overviewBundle.tabMoons}">
               <tc:panel>
                 <f:facet name="layout"><tc:gridLayout  /></f:facet>
                 <tc:sheet value="#{demo.solar.planets[0].moons}"
@@ -87,7 +87,7 @@
 
             <tc:tabChangeListener type="org.apache.myfaces.tobago.example.demo.actionlistener.SimpleTabChangeListener"/>
 
-            <tc:tab labelWithAccessKey="#{overviewBundle.tabPlanet}">
+            <tc:tab label="#{overviewBundle.tabPlanet}">
               <tc:panel >
                 <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
                 <tc:cell />
@@ -98,7 +98,7 @@
                 <tc:cell />
               </tc:panel>
             </tc:tab>
-            <tc:tab labelWithAccessKey="#{overviewBundle.tabInsolar}">
+            <tc:tab label="#{overviewBundle.tabInsolar}">
               <tc:panel >
                 <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
                 <tc:cell />

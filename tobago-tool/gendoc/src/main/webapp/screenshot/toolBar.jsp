@@ -28,7 +28,7 @@
 
             <tc:toolBar id="toolbar0" iconSize="big">
               <tc:toolBarCommand id="button0" label="Button" />
-              <tc:toolBarCommand id="button1" label="Accesskey Button" accessKey="B"/>
+              <tc:toolBarCommand id="button1" label="Accesskey _Button"/>
               <tc:toolBarCommand id="button2" label="Image Button"
                                 image="image/toolbar_example_button.gif" />
               <tc:toolBarCommand id="button3" disabled="true" label="Disabled Button" />

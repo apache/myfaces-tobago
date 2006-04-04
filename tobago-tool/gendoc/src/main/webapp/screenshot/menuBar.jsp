@@ -26,7 +26,7 @@
         </f:facet>
         <%-- code-sniplet-start id="menuBar" --%>
         <tc:menuBar>
-          <tc:menu labelWithAccessKey="_File">
+          <tc:menu label="_File">
             <tc:menuItem label="New File"/>
             <tc:menuItem label="Open File"/>
             <tc:menuItem label="Save"/>
@@ -37,7 +37,7 @@
           </tc:menu>
 
           <%-- code-sniplet-start id="menu" --%>
-          <tc:menu labelWithAccessKey="_Edit">
+          <tc:menu label="_Edit">
             <tc:menuItem label="Copy"/>
             <tc:menuItem label="Cut"/>
             <tc:menuItem label="Paste"/>
@@ -45,7 +45,7 @@
             <tc:menuItem label="Delete"/>
             <%-- code-sniplet-end id="menuItem" --%>
             <tc:menuSeparator/>
-            <tc:menu labelWithAccessKey="_Delete">
+            <tc:menu label="_Delete">
               <tc:menuItem label="As Spam"/>
               <tc:menuItem label="As Newsletter"/>
               <tc:menuItem label="As Uninteresting"/>
@@ -53,7 +53,7 @@
           </tc:menu>
           <%-- code-sniplet-end id="menu" --%>
 
-          <tc:menu labelWithAccessKey="_View">
+          <tc:menu label="_View">
             <tc:menuItem label="Snap to Grid"/>
             <tc:menuItem label="Show Rulers"/>
           </tc:menu>

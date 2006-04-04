@@ -119,8 +119,8 @@
 <entry key="treeShowRootJunction">show first junction</entry>
 <entry key="treeMultiselect">selectable</entry>
 <entry key="treeMutable">mutable</entry>
-<entry key="treeLabel">Tree</entry>
-<entry key="treeListboxLabel">Listbox</entry>
+<entry key="treeLabel">Tre_e</entry>
+<entry key="treeListboxLabel">Listbo_x</entry>
 
 
 <entry key="none">Not selectable</entry>
@@ -145,8 +145,7 @@
 <entry key="tabServerSide">Server side tabbing</entry>
 <entry key="tabPlanet">Data of the _Planets</entry>
 <entry key="tabInsolar">In the _Solarsystem</entry>
-<entry key="tabMoons">Moons</entry>
-<entry key="tabMoonsAccessKey">m</entry>
+<entry key="tabMoons">_Moons</entry>
 
 
 <!--  solar -->

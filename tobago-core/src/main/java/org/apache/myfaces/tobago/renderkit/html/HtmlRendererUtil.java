@@ -133,6 +133,56 @@ public final class HtmlRendererUtil {
     }
   }
 
+  public static void addClickAcceleratorKey(
+      FacesContext facesContext, String clientId, char key)
+      throws IOException {
+    addClickAcceleratorKey(facesContext, clientId, key, null);
+  }
+
+  public static void addClickAcceleratorKey(
+      FacesContext facesContext, String clientId, char key, String modifier)
+      throws IOException {
+    StringBuffer buffer
+        = createOnclickAcceleratorKeyJsStatement(clientId, key, modifier);
+    writeScriptLoader(facesContext, null, new String[] {buffer.toString()});
+  }
+
+  public static void addAcceleratorKey(
+      FacesContext facesContext, String func, char key) throws IOException {
+    addAcceleratorKey(facesContext, func, key, null);
+  }
+
+  public static void addAcceleratorKey(
+      FacesContext facesContext, String func, char key, String modifier)
+      throws IOException {
+    StringBuffer buffer = createAcceleratorKeyJsStatement(func, key, modifier);
+    writeScriptLoader(facesContext, null, new String[] {buffer.toString()});
+  }
+
+  public static StringBuffer createOnclickAcceleratorKeyJsStatement(
+      String clientId, char key, String modifier) {
+    String func = "Tobago.clickOnElement('" + clientId + "');";
+    return createAcceleratorKeyJsStatement(func, key, modifier);
+  }
+
+  public static StringBuffer createAcceleratorKeyJsStatement(
+      String func, char key, String modifier) {
+    StringBuffer buffer = new StringBuffer();
+    buffer.append("new Tobago.AcceleratorKey(function() {");
+    buffer.append(func);
+    if (! func.endsWith(";")) {
+      buffer.append(';');
+    }
+    buffer.append("}, \"");
+    buffer.append(key);
+    if (modifier !=  null) {
+      buffer.append("\", \"");
+      buffer.append(modifier);
+    }
+    buffer.append("\");");
+    return buffer;
+  }
+
   public static String getLayoutSpaceStyle(UIComponent component) {
     StringBuffer sb = new StringBuffer();
     Integer space = LayoutUtil.getLayoutSpace(component, ATTR_LAYOUT_WIDTH,

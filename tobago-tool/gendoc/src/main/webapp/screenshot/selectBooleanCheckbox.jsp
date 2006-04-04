@@ -27,16 +27,16 @@
 
 <%-- code-sniplet-start id="selectBooleanCheckbox" --%>
         <tc:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelect0"
-                             labelWithAccessKey="_Letter " />
+                             label="_Letter " />
 <%-- code-sniplet-end id="selectBooleanCheckbox" --%>
         <tc:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelect1"
-                             labelWithAccessKey="_Phone" />
+                             label="_Phone" />
 
         <tc:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelec2"
-                             labelWithAccessKey="_eMail " />
+                             label="_eMail " />
 
         <tc:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelect3"
-                             labelWithAccessKey="_Fax" />
+                             label="_Fax" />
 
 
       <tc:cell/>

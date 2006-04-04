@@ -105,7 +105,6 @@
   <entry key="tabPlanet">_Planetendaten</entry>
   <entry key="tabInsolar">im _Sonnensystem</entry>
   <entry key="tabMoons">Monde</entry>
-<!-- tabMoonsAccessKey=m -->
 
 <!--  solar -->
   <entry key="solarPlanetDiameter">Durchmesser</entry>

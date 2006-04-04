@@ -35,7 +35,7 @@
         <tc:messages />
 
         <tc:tabGroup>
-        <tc:tab labelWithAccessKey="#{bundle.editorTabPersonal}">
+        <tc:tab label="#{bundle.editorTabPersonal}">
           <tc:panel>
             <f:facet name="layout">
               <tc:gridLayout rows="fixed;fixed"/>
@@ -131,7 +131,7 @@
             </tc:panel>
           </tc:tab>
 
-          <tc:tab labelWithAccessKey="#{bundle.editorTabBusiness}">
+          <tc:tab label="#{bundle.editorTabBusiness}">
             <tc:panel>
               <f:facet name="layout">
                 <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;1*" />
@@ -156,7 +156,7 @@
             </tc:panel>
           </tc:tab>
 
-          <tc:tab labelWithAccessKey="#{bundle.editorTabMisc}">
+          <tc:tab label="#{bundle.editorTabMisc}">
             <tc:panel>
               <f:facet name="layout">
                 <tc:gridLayout rows="1*" />
@@ -176,9 +176,9 @@
 
           <tc:cell />
           <tc:button action="#{controller.storeAddress}"
-              labelWithAccessKey="#{bundle.editorStore}" defaultCommand="true" />
+              label="#{bundle.editorStore}" defaultCommand="true" />
           <tc:button action="list" immediate="true"
-              labelWithAccessKey="#{bundle.editorCancel}" />
+              label="#{bundle.editorCancel}" />
         </tc:panel>
 
       </tc:box>

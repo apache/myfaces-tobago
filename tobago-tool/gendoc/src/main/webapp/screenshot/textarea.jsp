@@ -26,7 +26,7 @@
           <tc:gridLayout rows="150px;1*"  columns="400px;1*"/>
         </f:facet>
 <%-- code-sniplet-start id="textarea" --%>
-          <tc:textarea labelWithAccessKey="Enter your Text:"
+          <tc:textarea label="Enter your Text:"
                       value="My new text goes here..." id="textarea0" />
 <%-- code-sniplet-end id="textarea" --%>        
         <tc:cell/>
