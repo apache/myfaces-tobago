@@ -21,12 +21,12 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasFor;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelWithAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
-import org.apache.myfaces.tobago.taglib.decl.HasWidth;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 
 /*
@@ -43,7 +43,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
     uiComponent = "org.apache.myfaces.tobago.component.UILabel",
     rendererType = "Label")
 public interface LabelTagDeclaration extends BeanTagDeclaration, HasIdBindingAndRendered,
-    HasLabelWithAccessKey, HasFor, IsInline, HasWidth, HasTip, HasValue {
+    HasLabelWithAccessKey, HasFor, IsInline, HasDeprecatedWidth, HasTip, HasValue {
 
   /**
    *   Text value to display as label. Overwritten by 'labelWithAccessKey'

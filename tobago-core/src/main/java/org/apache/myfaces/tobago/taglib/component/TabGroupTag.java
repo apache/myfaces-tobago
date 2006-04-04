@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.component.UITabGroup;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_CLIENT;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_PAGE;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_TAB;
-import org.apache.myfaces.tobago.taglib.decl.HasDimension;
+import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasState;
 
@@ -45,7 +45,7 @@ import javax.faces.component.UIComponent;
     uiComponent = "org.apache.myfaces.tobago.component.UITabGroup",
     rendererType = "TabGroupTag")
 public class TabGroupTag extends TobagoTag
-    implements HasIdBindingAndRendered, HasDimension, HasState {
+    implements HasIdBindingAndRendered, HasDeprecatedDimension, HasState {
 
   private static final Log LOG = LogFactory.getLog(TabGroupTag.class);
 
@@ -53,10 +53,12 @@ public class TabGroupTag extends TobagoTag
   private String state;
   private String switchType;
 
+  @Override
   public String getComponentType() {
     return UITabGroup.COMPONENT_TYPE;
   }
 
+  @Override
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     ComponentUtil.setValueBinding(component, ATTR_STATE, state);
@@ -82,6 +84,7 @@ public class TabGroupTag extends TobagoTag
 
   }
 
+  @Override
   public void release() {
     super.release();
     serverside = null;

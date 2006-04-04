@@ -25,11 +25,9 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 
 /*
- * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 02.04.2006
  * Time: 16:11:02
- * To change this template use File | Settings | File Templates.
  */
 /**
  * Renders a popup panel.
@@ -39,9 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
     uiComponent = "org.apache.myfaces.tobago.component.UIPopup",
     rendererType = "Popup")
 public interface PopupTagDeclaration extends TobagoBodyTagDeclaration, HasId, IsRendered, HasDimension {
-  /**
-   *
-   */
+
   @TagAttribute
   @UIComponentTagAttribute()
   void setLeft(String left);

@@ -28,6 +28,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 
@@ -38,6 +40,8 @@ import javax.faces.component.UIComponent;
 public class ButtonTag extends CommandTag
     implements ButtonTagDeclaration {
 
+  private static final Log LOG = LogFactory.getLog(ButtonTag.class);
+
   private String label;
   private String image;
   private String accessKey;
@@ -46,6 +50,7 @@ public class ButtonTag extends CommandTag
   private String defaultCommand;
 
 
+  @Override
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
@@ -56,6 +61,7 @@ public class ButtonTag extends CommandTag
     ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand);
   }
 
+  @Override
   public void release() {
     super.release();
     label = null;
@@ -83,10 +89,12 @@ public class ButtonTag extends CommandTag
     this.image = image;
   }
 
+  @Override
   public String getLabel() {
     return label;
   }
 
+  @Override
   public void setLabel(String label) {
     this.label = label;
   }

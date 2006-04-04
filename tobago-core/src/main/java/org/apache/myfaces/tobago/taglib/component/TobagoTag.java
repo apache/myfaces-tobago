@@ -93,9 +93,14 @@ public abstract class TobagoTag extends UIComponentTag
     ComponentUtil.setBooleanProperty(component, ATTR_HIDDEN, hidden);
     ComponentUtil.setBooleanProperty(component, ATTR_INLINE, inline);
 
+    if (width != null) {
+      LOG.warn("the with attribute is deprecated, please use a layout manager. (" + getClass().getSimpleName() + ")");
+    }
     ComponentUtil.setStringProperty(component, ATTR_WIDTH, width);
+    if (height != null) {
+      LOG.warn("the height attribute is deprecated, please use a layout manager. (" + getClass().getSimpleName() + ")");
+    }
     ComponentUtil.setStringProperty(component, ATTR_HEIGHT, height);
-
   }
 
   public String getDisabled() {

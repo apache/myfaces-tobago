@@ -20,7 +20,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.taglib.component.SelectOneListboxTag;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
-import org.apache.myfaces.tobago.taglib.decl.HasHeight;
+import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedHeight;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasOnchangeListener;
@@ -50,7 +50,7 @@ public class SelectOneListboxExtensionTag
     extends BodyTagSupport implements HasId, HasValue, IsDisabled,
     HasLabel, // HasLabelAndAccessKey,
     IsReadonly, HasOnchangeListener, IsRendered,
-    HasBinding, HasHeight, HasTip , IsRequired, HasConverter, HasValidator {
+    HasBinding, HasDeprecatedHeight, HasTip , IsRequired, HasConverter, HasValidator {
   private String required;
   private String value;
   private String disabled;

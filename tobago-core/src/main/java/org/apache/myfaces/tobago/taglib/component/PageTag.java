@@ -21,6 +21,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOCUS_ID;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_METHOD;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
@@ -28,8 +30,6 @@ import org.apache.myfaces.tobago.component.UIPopup;
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 import java.util.List;
-
-
 
 public class PageTag extends TobagoBodyTag
     implements PageTagDeclaration {
@@ -45,6 +45,9 @@ public class PageTag extends TobagoBodyTag
 
   private String label;
 
+  private String width;
+
+  private String height;
 
   public int doEndTag() throws JspException {
     UIPage page = (UIPage) getComponentInstance();
@@ -71,6 +74,8 @@ public class PageTag extends TobagoBodyTag
     state = null;
     focusId = null;
     label = null;
+    width = null;
+    height = null;
   }
 
   protected void setProperties(UIComponent component) {
@@ -80,9 +85,9 @@ public class PageTag extends TobagoBodyTag
     ComponentUtil.setStringProperty(component, ATTR_FOCUS_ID, focusId);
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
     ComponentUtil.setValueBinding(component, ATTR_STATE, state);
+    ComponentUtil.setStringProperty(component, ATTR_WIDTH, width);
+    ComponentUtil.setStringProperty(component, ATTR_HEIGHT, height);
   }
-
-
 
   public void setDoctype(String doctype) {
     this.doctype = doctype;
@@ -110,6 +115,22 @@ public class PageTag extends TobagoBodyTag
 
   public void setLabel(String label) {
     this.label = label;
+  }
+
+  public String getWidth() {
+    return width;
+  }
+
+  public void setWidth(String width) {
+    this.width = width;
+  }
+
+  public String getHeight() {
+    return height;
+  }
+
+  public void setHeight(String height) {
+    this.height = height;
   }
 }
 

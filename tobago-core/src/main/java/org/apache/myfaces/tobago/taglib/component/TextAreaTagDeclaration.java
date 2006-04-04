@@ -21,7 +21,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
-import org.apache.myfaces.tobago.taglib.decl.HasDimension;
+import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasOnchangeListener;
@@ -46,7 +46,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
     uiComponent = "org.apache.myfaces.tobago.component.UIInput",
     rendererType = "Textarea")
 public interface TextAreaTagDeclaration extends TextInputTagDeclaration, HasIdBindingAndRendered,
-        HasValue, HasConverter, IsReadonly, IsDisabled, HasDimension, HasOnchangeListener,
+        HasValue, HasConverter, IsReadonly, IsDisabled, HasDeprecatedDimension, HasOnchangeListener,
         IsFocus, IsRequired, HasLabelAndAccessKey, HasTip {
 
   /**

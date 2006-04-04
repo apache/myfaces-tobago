@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.taglib.decl.HasDimension;
+import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 /*
@@ -37,5 +37,5 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
     uiComponent = "org.apache.myfaces.tobago.component.UIPanel",
     rendererType = "Panel")
 public interface PanelTagDeclaration extends TobagoBodyTagDeclaration,
-    HasIdBindingAndRendered, HasDimension {
+    HasIdBindingAndRendered, HasDeprecatedDimension {
 }

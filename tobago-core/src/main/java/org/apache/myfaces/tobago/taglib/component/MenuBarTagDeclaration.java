@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasWidth;
 
 /*
  * Created by IntelliJ IDEA.
@@ -44,5 +44,5 @@ import org.apache.myfaces.tobago.taglib.decl.HasWidth;
 @UIComponentTag(
     uiComponent = "javax.faces.component.UIPanel",
     rendererType = "MenuBar")
-public interface MenuBarTagDeclaration extends TobagoBodyTagDeclaration, HasIdBindingAndRendered, HasWidth {
+public interface MenuBarTagDeclaration extends TobagoBodyTagDeclaration, HasIdBindingAndRendered, HasDeprecatedWidth {
 }

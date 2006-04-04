@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 /**
  * $Id$
  */
+@Deprecated
 public interface HasLabelWithAccessKey {
 
   /**

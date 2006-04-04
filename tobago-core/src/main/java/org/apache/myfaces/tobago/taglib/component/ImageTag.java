@@ -20,6 +20,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BORDER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
@@ -31,25 +33,34 @@ public class ImageTag extends TobagoTag implements ImageTagDeclaration {
   private String alt;
   private String border;
   private String tip;
+  private String width;
+  private String height;
 
+  @Override
   public String getComponentType() {
     return UIGraphic.COMPONENT_TYPE;
   }
 
+  @Override
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     ComponentUtil.setStringProperty(component, ATTR_ALT, alt);
     ComponentUtil.setStringProperty(component, ATTR_BORDER, border);
     ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
+    ComponentUtil.setStringProperty(component, ATTR_WIDTH, width);
+    ComponentUtil.setStringProperty(component, ATTR_HEIGHT, height);
   }
 
+  @Override
   public void release() {
     super.release();
     this.alt = null;
     this.border = null;
     this.value = null;
     this.tip = null;
+    width = null;
+    height = null;
   }
 
   public String getValue() {
@@ -82,5 +93,21 @@ public class ImageTag extends TobagoTag implements ImageTagDeclaration {
 
   public void setTip(String tip) {
     this.tip = tip;
+  }
+
+  public String getWidth() {
+    return width;
+  }
+
+  public void setWidth(String width) {
+    this.width = width;
+  }
+
+  public String getHeight() {
+    return height;
+  }
+
+  public void setHeight(String height) {
+    this.height = height;
   }
 }
