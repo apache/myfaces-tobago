@@ -25,14 +25,21 @@
     <version>1.0.7-SNAPSHOT</version>
   </parent>
   <packaging>pom</packaging>
-  <name>Tobago Theme</name>
+  <name>Tobago Themes</name>
   <groupId>org.apache.myfaces.tobago</groupId>
   <artifactId>tobago-theme</artifactId>
+
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/incubator/tobago/trunk/theme</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/incubator/tobago/trunk/theme</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/incubator/tobago/trunk/theme</url>
+  </scm>
+
   <modules>
-    <module>tobago-theme-standard</module>
-    <module>tobago-theme-scarborough</module>
-    <module>tobago-theme-speyside</module>
-    <module>tobago-theme-richmond</module>
+    <module>standard</module>
+    <module>scarborough</module>
+    <module>speyside</module>
+    <module>richmond</module>
     <module>charlotteville</module>
 <!--    <module>tobago-theme-boccoo</module>-->
   </modules>

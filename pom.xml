@@ -318,7 +318,7 @@
   <modules>
     <module>tobago-tool</module>
     <module>tobago-core</module>
-    <module>tobago-theme</module>
+    <module>theme</module>
   </modules>
 
   <distributionManagement>

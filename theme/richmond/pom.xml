@@ -42,6 +42,13 @@
       </plugin>
     </plugins>
   </reporting>
+
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/incubator/tobago/trunk/theme/richmond</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/incubator/tobago/trunk/theme/richmond</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/incubator/tobago/trunk/theme/richmond</url>
+  </scm>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
