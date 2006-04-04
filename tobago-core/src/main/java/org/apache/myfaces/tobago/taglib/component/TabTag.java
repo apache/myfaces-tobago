@@ -16,21 +16,20 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 
 public class TabTag extends TobagoBodyTag
     implements TabTagDeclaration {
+  private final Log LOG = LogFactory.getLog(TabTag.class);
 
   private String label;
-  private String accessKey;
-  private String labelWithAccessKey;
   private String tip;
 
 
@@ -41,16 +40,12 @@ public class TabTag extends TobagoBodyTag
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
-    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey);
-    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
   }
 
   public void release() {
     super.release();
     label = null;
-    accessKey = null;
-    labelWithAccessKey = null;
     tip = null;
   }
 
@@ -63,19 +58,22 @@ public class TabTag extends TobagoBodyTag
   }
 
   public String getAccessKey() {
-    return accessKey;
+    return null;
   }
 
   public void setAccessKey(String accessKey) {
-    this.accessKey = accessKey;
+    LOG.warn("Attibute 'accessKey' is deprecated, " +
+        "and will removed soon!");
   }
 
   public String getLabelWithAccessKey() {
-    return labelWithAccessKey;
+    return label;
   }
 
   public void setLabelWithAccessKey(String labelWithAccessKey) {
-    this.labelWithAccessKey = labelWithAccessKey;
+    LOG.warn("Attibute 'labelWithAccessKey' is deprecated, " +
+        "and will removed soon! Please use 'label' instead.");
+    setLabel(labelWithAccessKey);
   }
 
   public String getTip() {

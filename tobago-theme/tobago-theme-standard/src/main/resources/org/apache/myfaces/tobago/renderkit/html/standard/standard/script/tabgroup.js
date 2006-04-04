@@ -51,7 +51,8 @@ Tobago.TabGroupBase = {
 
   reload: function(event) {
     if (event) {
-      var aId = Event.findElement(event, 'A').id;
+      var element = Tobago.element(event);
+      var aId = Tobago.findAnchestorWithTagName(element, 'span').id;
       this.activeIndex = aId.substring(aId.lastIndexOf(Tobago.SUB_COMPONENT_SEP) + Tobago.SUB_COMPONENT_SEP.length);
       LOG.debug("Request tab with index " + this.activeIndex);
 
@@ -64,11 +65,24 @@ Tobago.TabGroupBase = {
         LOG.warn("aId = " + aId);
       }
 
+      this.removeRelatedAcceleratorKeys(aId.substring(0, aId.lastIndexOf(Tobago.SUB_COMPONENT_SEP) + Tobago.SUB_COMPONENT_SEP.length));
+
       Tobago.Updater.update(this.parent, this.page, this.tabGroupId, this.tabGroupId, this.options);
     } else {
       LOG.info("No reload Event");
     }
 
+  },
+
+  removeRelatedAcceleratorKeys: function(idPrefix) {
+    var regex = new RegExp("Tobago.clickOnElement\\(\"" + idPrefix);
+    for (var name in Tobago.acceleratorKeys) {
+      if (typeof Tobago.acceleratorKeys[name] == 'object'
+          && typeof Tobago.acceleratorKeys[name].func == 'function'
+          && regex.test(Tobago.acceleratorKeys[name].func.valueOf())) {
+        Tobago.acceleratorKeys.remove(Tobago.acceleratorKeys[name]);
+      }
+    }
   },
 
   onComplete: function(request) {

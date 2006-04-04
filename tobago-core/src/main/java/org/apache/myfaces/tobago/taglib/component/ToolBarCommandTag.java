@@ -16,10 +16,8 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BUTTON;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
@@ -33,6 +31,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 
@@ -45,10 +45,10 @@ public class ToolBarCommandTag extends CommandTag
     IsDisabled, HasAction, HasActionListener, HasCommandType,
     HasTip, IsImmediateCommand {
 
+  private final Log LOG = LogFactory.getLog(ToolBarCommandTag.class);
+
   private String label;
   private String image;
-  private String accessKey;
-  private String labelWithAccessKey;
   private String tip;
 
   protected void setProperties(UIComponent component) {
@@ -58,8 +58,6 @@ public class ToolBarCommandTag extends CommandTag
 
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
     ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
-    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey);
-    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
   }
 
@@ -67,18 +65,7 @@ public class ToolBarCommandTag extends CommandTag
     super.release();
     label = null;
     image = null;
-    accessKey = null;
-    labelWithAccessKey = null;
     tip = null;
-  }
-
-
-  public String getAccessKey() {
-    return accessKey;
-  }
-
-  public void setAccessKey(String accessKey) {
-    this.accessKey = accessKey;
   }
 
   public String getImage() {
@@ -97,16 +84,27 @@ public class ToolBarCommandTag extends CommandTag
     this.label = label;
   }
 
+  public void setTip(String tip) {
+    this.tip = tip;
+  }
+
+  public String getAccessKey() {
+    return null;
+  }
+
+  public void setAccessKey(String accessKey) {
+    LOG.warn("Attibute 'accessKey' is deprecated, " +
+        "and will removed soon!");
+  }
+
   public String getLabelWithAccessKey() {
-    return labelWithAccessKey;
+    return null;
   }
 
   public void setLabelWithAccessKey(String labelWithAccessKey) {
-    this.labelWithAccessKey = labelWithAccessKey;
-  }
-
-  public void setTip(String tip) {
-    this.tip = tip;
+    LOG.warn("Attibute 'labelWithAccessKey' is deprecated, " +
+        "and will removed soon! Please use 'label' instead.");
+    setLabel(labelWithAccessKey);
   }
 }
 

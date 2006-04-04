@@ -16,14 +16,14 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 
@@ -34,10 +34,10 @@ import javax.faces.component.UIComponent;
  */
 public class SelectBooleanCommandTag extends CommandTag {
 
+  private final Log LOG = LogFactory.getLog(SelectBooleanCommandTag.class);
+
   //public static final String COMMAND_TYPE = "commandSelectBoolean";
   private String label;
-  private String accessKey;
-  private String labelWithAccessKey;
   private String value;
   private String tip;
 
@@ -52,8 +52,6 @@ public class SelectBooleanCommandTag extends CommandTag {
     ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
     //ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, COMMAND_TYPE);
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
-    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey);
-    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
   }
 
@@ -61,8 +59,6 @@ public class SelectBooleanCommandTag extends CommandTag {
     super.release();
     value = null;
     label = null;
-    accessKey = null;
-    labelWithAccessKey = null;
   }
 
   public String getValue() {
@@ -77,12 +73,23 @@ public class SelectBooleanCommandTag extends CommandTag {
     this.label = label;
   }
 
+  public String getAccessKey() {
+    return null;
+  }
+
   public void setAccessKey(String accessKey) {
-    this.accessKey = accessKey;
+    LOG.warn("Attibute 'accessKey' is deprecated, " +
+        "and will removed soon!");
+  }
+
+  public String getLabelWithAccessKey() {
+    return null;
   }
 
   public void setLabelWithAccessKey(String labelWithAccessKey) {
-    this.labelWithAccessKey = labelWithAccessKey;
+    LOG.warn("Attibute 'labelWithAccessKey' is deprecated, " +
+        "and will removed soon! Please use 'label' instead.");
+    setLabel(labelWithAccessKey);
   }
 
   public String getTip() {

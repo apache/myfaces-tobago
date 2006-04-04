@@ -23,7 +23,6 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CREATE_SPAN;
@@ -32,7 +31,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HOVER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDER_RANGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDER_RANGE_EXTERN;
@@ -772,17 +770,7 @@ public class ComponentUtil {
         labelText = attributes.get(ATTR_LABEL);
       }
 
-      Object labelWithAccessKey = component.getValueBinding(ATTR_LABEL_WITH_ACCESS_KEY);
-      if (labelWithAccessKey == null) {
-        labelWithAccessKey = attributes.get(ATTR_LABEL_WITH_ACCESS_KEY);
-      }
-
-      Object accessKey = component.getValueBinding(ATTR_ACCESS_KEY);
-      if (accessKey == null) {
-        accessKey = attributes.get(ATTR_ACCESS_KEY);
-      }
-
-      if (labelText != null || labelWithAccessKey != null || accessKey != null) {
+      if (labelText != null) {
         Application application = FacesContext.getCurrentInstance().getApplication();
         label = application.createComponent(UIOutput.COMPONENT_TYPE);
         label.setRendererType("Label");
@@ -794,16 +782,6 @@ public class ComponentUtil {
           label.setValueBinding(ATTR_VALUE, (ValueBinding) labelText);
         } else if (labelText != null) {
           label.getAttributes().put(ATTR_VALUE, labelText);
-        }
-        if (labelWithAccessKey instanceof ValueBinding) {
-          label.setValueBinding(ATTR_LABEL_WITH_ACCESS_KEY, (ValueBinding) labelWithAccessKey);
-        } else if (labelWithAccessKey != null) {
-          label.getAttributes().put(ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
-        }
-        if (accessKey instanceof ValueBinding) {
-          label.setValueBinding(ATTR_ACCESS_KEY, (ValueBinding) accessKey);
-        } else if (accessKey != null) {
-          label.getAttributes().put(ATTR_ACCESS_KEY, accessKey);
         }
 
         component.getFacets().put(FACET_LABEL, label);

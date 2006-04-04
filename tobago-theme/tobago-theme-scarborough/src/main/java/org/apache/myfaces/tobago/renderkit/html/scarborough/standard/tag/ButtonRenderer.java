@@ -83,13 +83,6 @@ public class ButtonRenderer extends CommandRendererBase {
     }
     writer.writeAttribute("style", null, ATTR_STYLE);
     writer.writeComponentClass();
-    if (label.getAccessKey() != null) {
-      if (LOG.isInfoEnabled()
-          && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-        LOG.info("dublicated accessKey : " + label.getAccessKey());
-      }
-      writer.writeAttribute("accesskey", label.getAccessKey(), null);
-    }
     writer.writeText("", null); // force closing the start tag
 
 //  image
@@ -114,6 +107,17 @@ public class ButtonRenderer extends CommandRendererBase {
         writer.writeText(" ", null); // separator: e.g. &nbsp;
       }
       HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
+    }
+
+// AcceleratorKey
+
+    if (label.getAccessKey() != null) {
+      if (LOG.isInfoEnabled()
+          && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
+        LOG.info("dublicated accessKey : " + label.getAccessKey());
+      }
+      HtmlRendererUtil.addClickAcceleratorKey(
+          facesContext, clientId, label.getAccessKey());
     }
   }
 

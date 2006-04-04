@@ -16,12 +16,12 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIMenu;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 
@@ -29,20 +29,18 @@ import javax.faces.component.UIComponent;
 public class MenuTag extends TobagoTag
     implements MenuTagDeclaration {
 
+  private final Log LOG = LogFactory.getLog(MenuTag.class);
+
   //public static final String MENU_TYPE = "menu";
 
   private String label;
   private String image;
-  private String accessKey;
-  private String labelWithAccessKey;
 //  private String disabled;
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     component.setRendererType(null);
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
-    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey);
-    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
     ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
     //ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, "menu");
   }
@@ -55,8 +53,6 @@ public class MenuTag extends TobagoTag
   public void release() {
     super.release();
     label = null;
-    accessKey = null;
-    labelWithAccessKey = null;
   }
 
   public String getLabel() {
@@ -67,23 +63,30 @@ public class MenuTag extends TobagoTag
     this.label = label;
   }
 
-  public void setAccessKey(String accessKey) {
-    this.accessKey = accessKey;
-  }
-
-  public String getLabelWithAccessKey() {
-    return labelWithAccessKey;
-  }
-
-  public void setLabelWithAccessKey(String labelWithAccessKey) {
-    this.labelWithAccessKey = labelWithAccessKey;
-  }
-
   public String getImage() {
     return image;
   }
 
   public void setImage(String image) {
     this.image = image;
+  }
+
+  public String getAccessKey() {
+    return null;
+  }
+
+  public void setAccessKey(String accessKey) {
+    LOG.warn("Attibute 'accessKey' is deprecated, " +
+        "and will removed soon!");
+  }
+
+  public String getLabelWithAccessKey() {
+    return null;
+  }
+
+  public void setLabelWithAccessKey(String labelWithAccessKey) {
+    LOG.warn("Attibute 'labelWithAccessKey' is deprecated, " +
+        "and will removed soon! Please use 'label' instead.");
+    setLabel(labelWithAccessKey);
   }
 }

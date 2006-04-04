@@ -28,7 +28,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP_TYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
@@ -174,11 +173,7 @@ public class ToolBarRenderer extends RendererBase {
       for (SelectItem item : items) {
         final String labelText = item.getLabel();
         if (labelText != null) {
-          if (labelText.indexOf(LabelWithAccessKey.INDICATOR) > -1) {
-            command.getAttributes().put(ATTR_LABEL_WITH_ACCESS_KEY, labelText);
-          } else {
-            command.getAttributes().put(ATTR_LABEL, labelText);
-          }
+          command.getAttributes().put(ATTR_LABEL, labelText);
         } else {
           LOG.warn("Menu item has label=null. UICommand.getClientId()="
               + command.getClientId(facesContext));
@@ -482,7 +477,10 @@ public class ToolBarRenderer extends RendererBase {
                 && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
           LOG.info("dublicated accessKey : " + label.getAccessKey());
         }
-        writer.writeAttribute("accesskey", label.getAccessKey(), null);
+        String id = command.getClientId(facesContext) + SUBCOMPONENT_SEP + "link";
+        writer.writeIdAttribute(id);
+      HtmlRendererUtil.addClickAcceleratorKey(
+          facesContext, id, label.getAccessKey());
       }
     }
   }
@@ -512,7 +510,6 @@ public class ToolBarRenderer extends RendererBase {
       popupMenu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "ToolBarButton");
       popupMenu.setRendererType(RENDERER_TYPE_MENUBAR);
       popupMenu.getAttributes().remove(ATTR_LABEL);
-      popupMenu.getAttributes().remove(ATTR_LABEL_WITH_ACCESS_KEY);
       popupMenu.getAttributes().put(ATTR_IMAGE, "image/toolbarButtonMenu.gif");
       RenderUtil.encode(facesContext, popupMenu);
     }

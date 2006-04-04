@@ -16,21 +16,20 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOCUS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCHANGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 
 public abstract class InputTag extends BeanTag implements InputTagDeclaration {
-
+  private final Log LOG = LogFactory.getLog(InputTag.class);
+  
   private String onchange;
   private String focus;
-  private String accessKey;
-  private String labelWithAccessKey;
   private String tip;
   private String validator;
 
@@ -38,8 +37,6 @@ public abstract class InputTag extends BeanTag implements InputTagDeclaration {
     super.release();
     this.onchange = null;
     this.focus = null;
-    accessKey = null;
-    labelWithAccessKey = null;
     tip = null;
     validator = null;
   }
@@ -48,8 +45,6 @@ public abstract class InputTag extends BeanTag implements InputTagDeclaration {
     super.setProperties(component);
     ComponentUtil.setStringProperty(component, ATTR_ONCHANGE, onchange);
     ComponentUtil.setBooleanProperty(component, ATTR_FOCUS, focus);
-    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey);
-    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
     ComponentUtil.setValidator(component, validator);
   }
@@ -71,19 +66,22 @@ public abstract class InputTag extends BeanTag implements InputTagDeclaration {
   }
 
   public String getAccessKey() {
-    return accessKey;
+    return null;
   }
 
   public void setAccessKey(String accessKey) {
-    this.accessKey = accessKey;
+    LOG.warn("Attibute 'accessKey' is deprecated, " +
+        "and will removed soon!");
   }
 
   public String getLabelWithAccessKey() {
-    return labelWithAccessKey;
+    return null;
   }
 
   public void setLabelWithAccessKey(String labelWithAccessKey) {
-    this.labelWithAccessKey = labelWithAccessKey;
+    LOG.warn("Attibute 'labelWithAccessKey' is deprecated, " +
+        "and will removed soon! Please use 'label' instead.");
+    setLabel(labelWithAccessKey);
   }
 
   public String getTip() {

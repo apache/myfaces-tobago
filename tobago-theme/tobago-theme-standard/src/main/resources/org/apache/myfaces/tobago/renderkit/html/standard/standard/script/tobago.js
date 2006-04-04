@@ -14,6 +14,24 @@
  *    limitations under the License.
  */
 
+var TbgTimer = {
+    startTbgJs: new Date(),
+
+    log: function() {
+      var tbgjs = this.endTbgJs.getTime() - this.startTbgJs.getTime();
+//      var htmljs = this.endBody.getTime() - this.startHtml.getTime();
+      var bodyjs = this.endBody.getTime() - this.startBody.getTime();
+      var onloadjs = this.endOnload.getTime() - this.startOnload.getTime();
+      var totaljs = this.endOnload.getTime() - this.startTbgJs.getTime();
+      LOG.show();
+      LOG.debug("parse tobago.js " + tbgjs);
+//      LOG.debug("parse htmltotal " + htmljs);
+      LOG.debug("parse body " + bodyjs);
+      LOG.debug("execute onload " + onloadjs);
+      LOG.debug("total " + totaljs);
+    }
+};
+
 var Tobago = {
 
   // -------- Constants -------------------------------------------------------
@@ -62,6 +80,69 @@ var Tobago = {
 
   images: {},
 
+  acceleratorKeys: {
+    set: function(keyAccelerator) {
+      var key = keyAccelerator.modifier + keyAccelerator.key;
+      if (this[key]) {
+        LOG.warn("Ignoring dublicate key: " + keyAccelerator.modifier + "-" + keyAccelerator.key + " with function :" + keyAccelerator.func.valueOf());
+      } else {
+//        LOG.debug("add accelerator for " + keyAccelerator.modifier + "-" + keyAccelerator.key);
+        this[key] = keyAccelerator;
+      }
+    },
+
+    get: function(event) {
+      if (!event.type == "keypress") {
+        return;
+      }
+      var keyCode = event.which ? event.which : event.keyCode;
+      if (keyCode == 0) {
+        return;
+      }
+      var key = String.fromCharCode(keyCode).toLowerCase();
+      var mod = "";
+      if (event.altKey) {
+        mod += "alt";
+      }
+      if (event.ctrlKey) {
+        mod += "ctrl";
+      }
+      if (event.shiftKey) {
+        mod += "shift";
+      }
+      if (mod.length == 0) {
+        mod = "none";
+      }
+//      LOG.debug("event for " + mod + "-" + key);
+      return this[mod + key];
+    },
+
+    remove: function(keyAccelerator) {
+      var key = keyAccelerator.modifier + keyAccelerator.key;
+      if (this[key]) {
+//        LOG.debug("delete accelerator for " + keyAccelerator.modifier + "-" + keyAccelerator.key);
+        delete this[key];
+      }
+    },
+
+    observe: function(event) {
+      if (! event) {
+        event = window.event;
+      }
+//      LOG.debug("keypress: keycode " + (event.which ? event.which : event.keyCode));
+      var keyAccelerator = this.get(event);
+      if (keyAccelerator) {
+//        LOG.debug("accelerator found!");
+        event.cancelBubble = true;
+        if (event.stopPropagation) {
+          event.stopPropagation(); // this is DOM2
+          event.preventDefault();
+        }
+        return keyAccelerator.func(event);
+      }
+    }
+  },
+
    /**
     * Object to store already loaded scriptfiles.
     * to prevent multiple loading via ajax requests.
@@ -95,6 +176,7 @@ var Tobago = {
   init: function(pageId) {
 //    new LOG.LogArea({hide: false});
 //    LOG.show();
+    TbgTimer.startOnload = new Date();
     this.page = this.element(pageId);
     this.form = this.element(this.page.id + this.SUB_COMPONENT_SEP + "form");
     this.addBindEventListener(this.form, "submit", this, "onSubmit");
@@ -108,9 +190,13 @@ var Tobago = {
 
     this.setFocus();
 
+    this.addBindEventListener(document, "keypress", this.acceleratorKeys, "observe");
+
     this.pageIsComplete = true;
     this.registerCurrentScripts();
     this.startScriptLoaders();
+    TbgTimer.endOnload = new Date();
+    TbgTimer.log();
   },
 
   onSubmit: function() {
@@ -473,7 +559,30 @@ var Tobago = {
   },
 
 // -------- Util functions ----------------------------------------------------
-    // TODO move util function in Tobago.Utils object
+
+  clickOnElement: function(id) {
+    var element = this.element(id);
+//    LOG.debug("id = " + id + "  element = " + typeof element);
+    if (element) {
+      if (element.click) {
+//        LOG.debug("click on element");
+        element.click()
+      } else {
+//        LOG.debug("click on new button");
+        var a = document.createElement("input")
+        a.type = "button";
+        a.style.width = "0px;";
+        a.style.height = "0px;";
+        a.style.border = "0px;";
+        a.style.padding = "0px;";
+        a.style.margin = "0px;";
+//        a.addEventListener("click", function(event) {LOG.debug("button onclick : event " + typeof event);}, false);
+        element.appendChild(a);
+        a.click();
+        element.removeChild(a);
+      }
+    }
+  },
 
    /**
     * Sets the focus to the requested element or to the first possible if
@@ -609,6 +718,7 @@ var Tobago = {
     */
     // TODO what if no anchestor found?
   findAnchestorWithTagName: function(element, tagName) {
+    element = this.element(element);
     while (element.parentNode && (!element.tagName ||
         (element.tagName.toUpperCase() != tagName.toUpperCase())))
       element = element.parentNode;
@@ -879,6 +989,33 @@ Tobago.Image = function(id, normal, disabled, hover) {
   Tobago.images[id] = this;
 };
 
+Tobago.AcceleratorKey = function(func, key, modifier) {
+  this.func = func;
+  this.key = key.toLowerCase();
+  if (! modifier) {
+    modifier = "alt";
+  }
+  this.modifier = modifier;
+  if (document.all && (modifier == "alt" || modifier == "ctrl")) {
+    // keys with modifier 'alt' and 'ctrl' are not catched in IE
+    // so special code needed
+    if (modifier == "alt") {
+      // can't make document.createElement("span").accesskey = key working
+      // so need to create a element via innerHTML
+      var span = document.createElement("span");
+      document.body.appendChild(span);
+      var aPrefix = "<A href=\"javascript:;\" tabindex=\"-1\" accesskey=\"";
+      var aPostfix = "\" onclick=\"return false;\" ></a>";
+      span.innerHTML = aPrefix + key.toLowerCase() + aPostfix;
+      span.firstChild.attachEvent("onfocus", function(event) {func(event);});
+    } else {
+      LOG.warn("Can't observe key event for "  + modifier + "-" + key);
+    }
+  } else {
+    Tobago.acceleratorKeys.set(this);
+  }
+};
+
 Tobago.ScriptLoader = function(names, doAfter) {
   this.scriptIndex = 0;
   this.names = names;
@@ -985,3 +1122,4 @@ if (typeof(LOG) == "undefined") {
   };
 }
 
+TbgTimer.endTbgJs = new Date();

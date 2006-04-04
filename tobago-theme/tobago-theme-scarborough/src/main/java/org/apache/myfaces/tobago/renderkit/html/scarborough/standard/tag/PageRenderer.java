@@ -280,6 +280,7 @@ public class PageRenderer extends PageRendererBase {
           = new String[]{"new LOG.LogArea({hide: " + hideClientLogging + "});"};
       HtmlRendererUtil.writeScriptLoader(facesContext, jsFiles, jsCommand);
     }
+    HtmlRendererUtil.writeJavascript(writer, "TbgTimer.startBody = new Date();");
 
     writer.startElement("form", page);
     writer.writeNameAttribute(

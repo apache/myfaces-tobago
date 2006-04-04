@@ -96,17 +96,12 @@ public class LabelRenderer extends RendererBase {
     writer.startElement("a", output);
     writer.writeComponentClass();
     writer.startElement("label", output);
+    String clientId = output.getClientId(facesContext);
+    writer.writeIdAttribute(clientId);
     if (forValue != null) {
       writer.writeAttribute("for", forValue, null);
     }
     writer.writeComponentClass();
-    if (label.getAccessKey() != null) {
-      if (LOG.isInfoEnabled()
-          && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-        LOG.info("dublicated accessKey : " + label.getAccessKey());
-      }
-      writer.writeAttribute("accesskey", label.getAccessKey(), null);
-    }
     if (width != null) {
       writer.writeAttribute("style", "width: " + width + "px;", null);
     }
@@ -117,6 +112,15 @@ public class LabelRenderer extends RendererBase {
     }
     writer.endElement("label");
     writer.endElement("a");
+
+    if (label.getAccessKey() != null) {
+      if (LOG.isInfoEnabled()
+          && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
+        LOG.info("dublicated accessKey : " + label.getAccessKey());
+      }      
+      HtmlRendererUtil.addClickAcceleratorKey(
+          facesContext, clientId, label.getAccessKey());
+    }
     writer.endElement("div");
   }
 

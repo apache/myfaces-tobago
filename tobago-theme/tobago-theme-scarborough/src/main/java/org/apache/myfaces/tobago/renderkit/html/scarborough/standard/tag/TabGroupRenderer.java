@@ -206,18 +206,18 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     for (int i = 0; i < tabs.length; i++) {
       UIPanel tab = tabs[i];
 
-      String url;
+      String onclick;
 
       if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()
           && SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
-        url = "#";
+        onclick = null;
       }  else if (SWITCH_TYPE_RELOAD_PAGE.equals(switchType)
           || SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
-        url = "javascript:tobago_requestTab('"
+        onclick = "tobago_requestTab('"
             + clientId + "'," + i + ",'"
             + ComponentUtil.findPage(component).getFormId(facesContext) + "')";
       } else {   //  SWITCH_TYPE_CLIENT
-        url = "javascript:tobago_selectTab('"
+        onclick = "tobago_selectTab('"
             + clientId + "'," + i + ','
             + tabs.length + ')';
       }
@@ -244,25 +244,28 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
       writer.startElement("div", null);
       writer.writeClassAttribute(innerClass);
 
-      writer.startElement("a", null);
+      writer.startElement("span", null);
       writer.writeClassAttribute("tobago-tab-link");
-      writer.writeIdAttribute(clientId + "." + virtualTab + SUBCOMPONENT_SEP + i);
-      writer.writeAttribute("href", url, null);
-      if (label.getAccessKey() != null) {
-        if (LOG.isWarnEnabled()
-            && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-          LOG.warn("dublicated accessKey : " + label.getAccessKey());
-        }
-        writer.writeAttribute("accesskey", label.getAccessKey(), null);
-//        writer.writeAttribute("onfocus", "this.click();", null);
+      String tabId = clientId + "." + virtualTab + SUBCOMPONENT_SEP + i;
+      writer.writeIdAttribute(tabId);
+      if (onclick != null) {
+        writer.writeAttribute("onclick", onclick, null);
       }
       if (label.getText() != null) {
         HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
       } else {
         writer.writeText(Integer.toString(i+1), null);
       }
-      writer.endElement("a");
+      writer.endElement("span");
 
+      if (label.getAccessKey() != null) {
+        if (LOG.isWarnEnabled()
+            && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
+          LOG.warn("dublicated accessKey : " + label.getAccessKey());
+        }
+      HtmlRendererUtil.addClickAcceleratorKey(
+          facesContext, tabId, label.getAccessKey());
+      }
       writer.endElement("div");
       writer.endElement("div");
       writer.endElement("td");

@@ -20,7 +20,7 @@ public final class TobagoConstants {
 
   public static final String SUBCOMPONENT_SEP = "::";
 
-  public static final String ATTR_ACCESS_KEY = "accessKey";
+//  public static final String ATTR_ACCESS_KEY = "accessKey";
   public static final String ATTR_ACTION_STRING = "actionString";
   public static final String ATTR_ACTION_LISTENER = "actionListener";
   public static final String ATTR_ALIGN = "align";
@@ -60,7 +60,7 @@ public final class TobagoConstants {
   public static final String ATTR_INNER_WIDTH = "innerWidth";
   public static final String ATTR_LABEL = "label";
   public static final String ATTR_LABEL_POSITION = "labelPosition";
-  public static final String ATTR_LABEL_WITH_ACCESS_KEY = "labelWithAccessKey";
+//  public static final String ATTR_LABEL_WITH_ACCESS_KEY = "labelWithAccessKey";
   public static final String ATTR_LAYOUT_HEIGHT = "layoutHeight";
   public static final String ATTR_LAYOUT_MARGIN = "layoutMargin";
   public static final String ATTR_LAYOUT_MARGIN_BOTTOM = "layoutMarginBottom";

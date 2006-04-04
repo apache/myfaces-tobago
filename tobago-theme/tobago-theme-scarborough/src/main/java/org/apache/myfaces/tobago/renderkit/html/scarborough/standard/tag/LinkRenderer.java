@@ -27,7 +27,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TYPE;
@@ -60,11 +59,12 @@ public class LinkRenderer extends CommandRendererBase{
     String type = (String) component.getAttributes().get(ATTR_TYPE);
     String action = (String) component.getAttributes().get(ATTR_ACTION_STRING);
 
+    String clientId = component.getClientId(facesContext);
     if (COMMAND_TYPE_NAVIGATE.equals(type)) {
       if (action == null) {
-        LOG.warn("keine Action in Link : id " + component.getClientId(facesContext)
-            + " label = " + component.getAttributes().get(ATTR_LABEL)
-            + " labelwithkey = " + component.getAttributes().get(ATTR_LABEL_WITH_ACCESS_KEY));
+        LOG.warn("keine Action in Link : id " + clientId
+            + " label = " + component.getAttributes().get(ATTR_LABEL));
+//            + " labelwithkey = " + component.getAttributes().get(ATTR_LABEL_WITH_ACCESS_KEY));
         action = "";
       }
       href = HtmlUtils.generateUrl(facesContext, action);
@@ -75,7 +75,7 @@ public class LinkRenderer extends CommandRendererBase{
       onclick = action;
     } else { // default: Action.TYPE_SUBMIT
       href = "javascript:Tobago.submitAction('"
-          + component.getClientId(facesContext) + "')";
+          + clientId + "')";
     }
 
     onclick =
@@ -96,16 +96,10 @@ public class LinkRenderer extends CommandRendererBase{
         writer.writeAttribute("onclick", onclick, null);
       }
       writer.writeAttribute("target", null, ATTR_TARGET);
-      if (label.getAccessKey() != null) {
-        if (LOG.isInfoEnabled()
-            && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-          LOG.info("dublicated accessKey : " + label.getAccessKey());
-        }
-        writer.writeAttribute("accesskey", label.getAccessKey(), null);
-      }
     }
     writer.writeComponentClass();
-    writer.writeNameAttribute(component.getClientId(facesContext));
+    writer.writeIdAttribute(clientId);
+    writer.writeNameAttribute(clientId);
     writer.writeAttribute("title", null, ATTR_TIP);
 
     //TODO: check if this is still needed
@@ -129,6 +123,15 @@ public class LinkRenderer extends CommandRendererBase{
       }
       HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
     }
+
+      if (label.getAccessKey() != null) {
+        if (LOG.isInfoEnabled()
+            && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
+          LOG.info("dublicated accessKey : " + label.getAccessKey());
+        }
+
+      HtmlRendererUtil.addClickAcceleratorKey(
+          facesContext, clientId, label.getAccessKey());}
   }
 
   public void encodeEndTobago(FacesContext facesContext, UIComponent component)

@@ -69,26 +69,30 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.Map;
 
 public class MenuBarRenderer extends RendererBase {
 
   private static final Log LOG = LogFactory.getLog(MenuBarRenderer.class);
 
   public static final String SEARCH_ID_POSTFIX = SUBCOMPONENT_SEP + "popup";
+  private static final String MENU_ACCELERATOR_KEYS = "menuAcceleratorKeys";
 
   public void encodeEndTobago(FacesContext facesContext,
-      UIComponent component) throws IOException {
+                              UIComponent component) throws IOException {
     String clientId;
 
+    Map attributes = component.getAttributes();
     if (ComponentUtil.getBooleanAttribute(component, ATTR_MENU_POPUP)) {
       clientId = component.getParent().getClientId(facesContext);
     } else {
       clientId = component.getClientId(facesContext);
-      TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+      TobagoResponseWriter writer
+          = (TobagoResponseWriter) facesContext.getResponseWriter();
 
       writer.startElement("div", component);
       writer.writeIdAttribute(clientId);
-      String cssClasses = (String) component.getAttributes().get(
+      String cssClasses = (String) attributes.get(
           ATTR_STYLE_CLASS);
       if (ComponentUtil.getBooleanAttribute(component, ATTR_PAGE_MENU)) {
         cssClasses += "tobago-menuBar-page-facet";
@@ -98,17 +102,23 @@ public class MenuBarRenderer extends RendererBase {
       writer.writeClassAttribute(cssClasses);
       writer.endElement("div");
     }
-
+    attributes.put(MENU_ACCELERATOR_KEYS, new ArrayList<String>());
     StringBuffer scriptBuffer = new StringBuffer();
     String setupFunction
         = createSetupFunction(facesContext, component, clientId, scriptBuffer);
     addScriptsAndStyles(facesContext, component, clientId, setupFunction,
         scriptBuffer.toString());
+    List<String> accKeyFunctions
+        = (List<String>) attributes.remove(MENU_ACCELERATOR_KEYS);
+    if (!accKeyFunctions.isEmpty()) {
+      HtmlRendererUtil.writeScriptLoader(facesContext, null,
+          accKeyFunctions.toArray(new String[accKeyFunctions.size()]));
+    }
   }
 
   protected void addScriptsAndStyles(FacesContext facesContext,
-      UIComponent component, final String clientId, String setupFunction,
-      String scriptBlock) throws IOException {
+                                     UIComponent component, final String clientId, String setupFunction,
+                                     String scriptBlock) throws IOException {
     final UIPage page = ComponentUtil.findPage(component);
     page.getScriptFiles().add("script/tobago-menu.js");
     page.getStyleFiles().add("style/tobago-menu.css");
@@ -135,7 +145,7 @@ public class MenuBarRenderer extends RendererBase {
   }
 
   protected String createSetupFunction(FacesContext facesContext,
-      UIComponent component, final String clientId, StringBuffer sb)
+                                       UIComponent component, final String clientId, StringBuffer sb)
       throws IOException {
     String setupFunction = "setupMenu"
         +
@@ -180,7 +190,7 @@ public class MenuBarRenderer extends RendererBase {
   }
 
   private int addMenu(StringBuffer sb, String var, FacesContext facesContext,
-      UIPanel menu, int i) throws IOException {
+                      UIPanel menu, int i) throws IOException {
     if (!menu.isRendered()) {
       return i;
     }
@@ -232,7 +242,10 @@ public class MenuBarRenderer extends RendererBase {
             && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
           LOG.info("dublicated accessKey : " + label.getAccessKey());
         }
-        writer.writeAttribute("accesskey", label.getAccessKey(), null);
+        if (! disabled) {
+          writer.writeIdAttribute(uiPanel.getClientId(facesContext));
+          addAcceleratorKey(facesContext, uiPanel, label.getAccessKey());
+        }
       }
       HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
     }
@@ -248,6 +261,23 @@ public class MenuBarRenderer extends RendererBase {
 
 
     return "new MenuItem('" + removeLFs(stringWriter.toString()) + "', null)";
+  }
+
+  private void addAcceleratorKey(
+      FacesContext facesContext, UIComponent component, Character accessKey) {
+    String clientId = component.getClientId(facesContext);
+    while (component != null && !component.getAttributes().containsKey(MENU_ACCELERATOR_KEYS)) {
+      component = component.getParent();
+    }
+    if (component != null) {
+      List<String> keys
+          = (List<String>) component.getAttributes().get(MENU_ACCELERATOR_KEYS);
+      String jsStatement = HtmlRendererUtil.createOnclickAcceleratorKeyJsStatement(
+          clientId, accessKey, null).toString();
+      keys.add(jsStatement);
+    } else {
+      LOG.warn("Can't find menu root component!");
+    }
   }
 
   private void addImage(TobagoResponseWriter writer, FacesContext facesContext,
@@ -272,7 +302,7 @@ public class MenuBarRenderer extends RendererBase {
   }
 
   private void addMenuEntrys(StringBuffer sb, String var,
-      FacesContext facesContext, UIComponent component, boolean warn)
+                             FacesContext facesContext, UIComponent component, boolean warn)
       throws IOException {
     int i = 0;
     for (Object o : component.getChildren()) {
@@ -291,7 +321,7 @@ public class MenuBarRenderer extends RendererBase {
   }
 
   private void addMenuEntry(StringBuffer sb, String var, FacesContext facesContext,
-      UICommand command) throws IOException {
+                            UICommand command) throws IOException {
     String onClick = createOnClick(facesContext, command);
     if (command instanceof UIMenuCommand) {
       addCommand(sb, var, facesContext, command, onClick);
@@ -303,7 +333,7 @@ public class MenuBarRenderer extends RendererBase {
   }
 
   private String createOnClick(FacesContext facesContext,
-      UIComponent component) {
+                               UIComponent component) {
     String type = (String) component.getAttributes().get(ATTR_TYPE);
     String command = (String) component.getAttributes().get(ATTR_ACTION_STRING);
     String clientId = component.getClientId(facesContext);
@@ -323,13 +353,13 @@ public class MenuBarRenderer extends RendererBase {
   }
 
   private void addCommand(StringBuffer sb, String var, FacesContext facesContext,
-      UICommand command, String onClick) throws IOException {
+                          UICommand command, String onClick) throws IOException {
     String image = (String) command.getAttributes().get(ATTR_IMAGE);
     addMenuItem(sb, var, facesContext, command, image, onClick);
   }
 
   private void addSelectBoolean(StringBuffer sb, String var,
-      FacesContext facesContext, UICommand command, String onClick)
+                                FacesContext facesContext, UICommand command, String onClick)
       throws IOException {
 
     UIComponent checkbox = command.getFacet(FACET_CHECKBOX);
@@ -350,7 +380,7 @@ public class MenuBarRenderer extends RendererBase {
   }
 
   private void addMenuItem(StringBuffer sb, String var, FacesContext facesContext,
-      UICommand command, String image, String onClick) throws IOException {
+                           UICommand command, String image, String onClick) throws IOException {
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
     onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
         facesContext);
@@ -358,7 +388,7 @@ public class MenuBarRenderer extends RendererBase {
   }
 
   private void addSelectOne(StringBuffer sb, String var,
-      FacesContext facesContext, UICommand command, String onClick)
+                            FacesContext facesContext, UICommand command, String onClick)
       throws IOException {
     onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
         facesContext);
@@ -410,9 +440,9 @@ public class MenuBarRenderer extends RendererBase {
   }
 
   private void addMenuItem(StringBuffer sb, String var,
-      FacesContext facesContext,
-      UICommand command, LabelWithAccessKey label, String image,
-      String onClick) throws IOException {
+                           FacesContext facesContext,
+                           UICommand command, LabelWithAccessKey label, String image,
+                           String onClick) throws IOException {
     if (!command.isRendered()) {
       return;
     }
@@ -437,7 +467,11 @@ public class MenuBarRenderer extends RendererBase {
           && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
         LOG.info("dublicated accessKey : " + label.getAccessKey());
       }
-      writer.writeAttribute("accesskey", label.getAccessKey(), null);
+
+      if (! disabled) {
+        writer.writeIdAttribute(command.getClientId(facesContext));
+        addAcceleratorKey(facesContext, command, label.getAccessKey());
+      }
     }
     writer.writeAttribute("href", "#", null);
     writer.writeAttribute("onfocus", "tobagoMenuFocus(event)", null);

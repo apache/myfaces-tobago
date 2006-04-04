@@ -18,12 +18,9 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LABEL;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 
@@ -44,37 +41,24 @@ public final class LabelWithAccessKey {
       text = (String) component.getAttributes().get(ATTR_LABEL);
     }
 
-    accessKey = ComponentUtil.getCharakterAttribute(
-        component, ATTR_ACCESS_KEY);
-    String labelWithAccessKey = (String) component.getAttributes().get(
-        ATTR_LABEL_WITH_ACCESS_KEY);
-
-    setup(labelWithAccessKey);
+    setup(text);
 
   }
 
-  public void setup(String labelWithAccessKey) {
-    if (labelWithAccessKey != null && (accessKey != null || text != null)) {
-      LOG.warn("labelWithAccessKey overwrites accessKey or label: "
-         + "labelWithAccessKey='" + labelWithAccessKey + "', "
-         + "accessKey ='" + accessKey + "', "
-         + "label='" + text + "'.");
-    }
+  public void setup(String label) {
 
-    if (labelWithAccessKey != null) {
-      pos = labelWithAccessKey.indexOf(INDICATOR);
+    if (label != null) {
+      pos = label.indexOf(INDICATOR);
       if (pos == -1) {
-        LOG.warn("no "+INDICATOR +" in labelWithAccessKey"
-            + "labelWithAccessKey='" + labelWithAccessKey + "'.");
-        text = labelWithAccessKey;
-      } else if (pos == labelWithAccessKey.length() - 1) {
-        LOG.warn(INDICATOR + " in labelWithAccessKey is last char, this is not allowed"
-          + "labelWithAccessKey='" + labelWithAccessKey + "'.");
-        text = labelWithAccessKey.substring(0, labelWithAccessKey.length() - 1);
+        text = label;
+      } else if (pos == label.length() - 1) {
+        LOG.warn(INDICATOR + " in label is last char, this is not allowed"
+          + "label='" + label + "'.");
+        text = label.substring(0, label.length() - 1);
         pos = -1;
       } else {
-        text = labelWithAccessKey.substring(0, pos)
-            + labelWithAccessKey.substring(pos + 1);
+        text = label.substring(0, pos)
+            + label.substring(pos + 1);
         accessKey = new Character(text.charAt(pos));
       }
     } else {

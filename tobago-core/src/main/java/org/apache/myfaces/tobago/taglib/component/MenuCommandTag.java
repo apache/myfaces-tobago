@@ -16,26 +16,25 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_WITH_ACCESS_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 
 
 public class MenuCommandTag extends CommandTag
     implements MenuCommandTagDeclaration {
+  private final Log LOG = LogFactory.getLog(MenuCommandTag.class);
 
   //public static final String COMMAND_TYPE = "menuCommand";
 
   private String image;
   private String label;
-  private String accessKey;
-  private String labelWithAccessKey;
 
   public String getComponentType() {
     return UIMenuCommand.COMPONENT_TYPE;
@@ -45,8 +44,6 @@ public class MenuCommandTag extends CommandTag
     super.release();
     image = null;
     label = null;
-    accessKey = null;
-    labelWithAccessKey = null;
   }
 
   protected void setProperties(UIComponent component) {
@@ -55,8 +52,6 @@ public class MenuCommandTag extends CommandTag
     ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
     //ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, COMMAND_TYPE);
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
-    ComponentUtil.setStringProperty(component, ATTR_ACCESS_KEY, accessKey);
-    ComponentUtil.setStringProperty(component, ATTR_LABEL_WITH_ACCESS_KEY, labelWithAccessKey);
   }
 
   public String getImage() {
@@ -71,15 +66,22 @@ public class MenuCommandTag extends CommandTag
     this.label = label;
   }
 
+  public String getAccessKey() {
+    return null;
+  }
+
   public void setAccessKey(String accessKey) {
-    this.accessKey = accessKey;
+    LOG.warn("Attibute 'accessKey' is deprecated, " +
+        "and will removed soon!");
   }
 
   public String getLabelWithAccessKey() {
-    return labelWithAccessKey;
+    return null;
   }
 
   public void setLabelWithAccessKey(String labelWithAccessKey) {
-    this.labelWithAccessKey = labelWithAccessKey;
+    LOG.warn("Attibute 'labelWithAccessKey' is deprecated, " +
+        "and will removed soon! Please use 'label' instead.");
+    setLabel(labelWithAccessKey);
   }
 }
