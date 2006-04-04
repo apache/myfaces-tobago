@@ -26,7 +26,11 @@
   <name>Tobago</name>
   <version>1.0.7-SNAPSHOT</version>
   <description>Tobago</description>
-  <url>http://tobago.atanion.net/site/</url>
+  <prerequisites>
+    <maven>2.0.3</maven>
+  </prerequisites>
+  <url>http://incubator.apache.org/tobago</url>
+  <!--<url>http://tobago.atanion.net/site/</url>-->
   <inceptionYear>2002</inceptionYear>
   <issueManagement>
     <system>jira</system>
@@ -315,7 +319,6 @@
     <module>tobago-tool</module>
     <module>tobago-core</module>
     <module>tobago-theme</module>
-    <module>tobago-example</module>
   </modules>
 
   <distributionManagement>
@@ -326,8 +329,12 @@
     </snapshotRepository>
     <site>
       <id>website</id>
-      <url>scpexe://shrek/home/resource/tobago-site</url>
+      <url>scpexe://minotaur.apache.org/www/incubator.apache.org/tobago</url>
     </site>
+    <!--<site>-->
+      <!--<id>website</id>-->
+      <!--<url>scpexe://shrek/home/resource/tobago-site</url>-->
+    <!--</site>-->
     <!--site>
       <id>website</id>
       <url>scpexe://www.apache.org/home/bommel/public_html</url>
