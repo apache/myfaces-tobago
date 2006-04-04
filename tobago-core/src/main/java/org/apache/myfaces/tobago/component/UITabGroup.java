@@ -208,7 +208,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
   }
 
   public void addTabChangeListener(TabChangeListener listener) {
-    if (LOG.isWarnEnabled() && !isClientType()) {
+    if (LOG.isWarnEnabled() && isClientType()) {
       LOG.warn("Adding TabChangeListener to Client side Tabgroup!");
     }
     addFacesListener(listener);
