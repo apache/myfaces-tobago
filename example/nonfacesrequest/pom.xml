@@ -44,6 +44,13 @@
       
     </plugins>
   </build>
+
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/incubator/tobago/trunk/example/nonfacesrequest</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/incubator/tobago/trunk/example/nonfacesrequest</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/incubator/tobago/trunk/example/nonfacesrequest</url>
+  </scm>
+  
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>

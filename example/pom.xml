@@ -29,12 +29,19 @@
   <name>Tobago Examples</name>
   <groupId>org.apache.myfaces.tobago</groupId>
   <artifactId>tobago-example</artifactId>
+
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/incubator/tobago/trunk/example</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/incubator/tobago/trunk/example</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/incubator/tobago/trunk/example</url>
+  </scm>
+
   <modules>
-    <module>tobago-example-addressbook</module>
-    <module>tobago-example-blank</module>
-    <module>tobago-example-demo</module>
-    <module>tobago-example-foreach</module>
-    <module>tobago-example-nonfacesrequest</module>
-    <module>tobago-example-test</module>
+    <module>addressbook</module>
+    <module>blank</module>
+    <module>demo</module>
+    <module>foreach</module>
+    <module>nonfacesrequest</module>
+    <module>test</module>
   </modules>
 </project>

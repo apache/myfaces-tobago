@@ -24,12 +24,13 @@
     <artifactId>tobago-example</artifactId>
     <version>1.0.7-SNAPSHOT</version>
   </parent>
-  <artifactId>tobago-example-facelets</artifactId>
+  <artifactId>tobago-example-blank</artifactId>
   <packaging>war</packaging>
-  <name>Tobago Example Facelets</name>
+  <name>Tobago Example Blank</name>
   <build>
-    <finalName>tobago-example-facelets</finalName>
+    <finalName>tobago-example-blank</finalName>
     <plugins>
+
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>tomcat-maven-plugin</artifactId>
@@ -40,8 +41,16 @@
           <url>http://localhost:8080/manager</url>
         </configuration>
       </plugin>
+
     </plugins>
   </build>
+
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/incubator/tobago/trunk/example/blank</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/incubator/tobago/trunk/example/blank</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/incubator/tobago/trunk/example/blank</url>
+  </scm>
+  
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
@@ -74,23 +83,6 @@
           <artifactId>tools</artifactId>
         </exclusion>
       </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>javax.el</groupId>
-      <artifactId>el-api</artifactId>
-      <version>1.0</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.el</groupId>
-      <artifactId>el-ri</artifactId>
-      <version>1.0</version>
-      <scope>runtime</scope>
-    </dependency><dependency>
-      <groupId>com.sun.facelets</groupId>
-      <artifactId>jsf-facelets</artifactId>
-      <version>1.0.14</version>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>log4j</groupId>

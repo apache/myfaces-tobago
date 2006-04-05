@@ -315,9 +315,11 @@
     </license>
   </licenses>
 
+  <!--todo: use profile to activate all modules-->
   <modules>
     <module>tobago-tool</module>
-    <module>tobago-core</module>
+    <module>example</module>
+    <module>core</module>
     <module>theme</module>
   </modules>
 

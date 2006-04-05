@@ -24,13 +24,12 @@
     <artifactId>tobago-example</artifactId>
     <version>1.0.7-SNAPSHOT</version>
   </parent>
-  <artifactId>tobago-example-test</artifactId>
+  <artifactId>tobago-example-facelets</artifactId>
   <packaging>war</packaging>
-  <name>Tobago Example Test</name>
+  <name>Tobago Example Facelets</name>
   <build>
-    <finalName>tobago-example-test</finalName>
+    <finalName>tobago-example-facelets</finalName>
     <plugins>
-
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>tomcat-maven-plugin</artifactId>
@@ -41,17 +40,15 @@
           <url>http://localhost:8080/manager</url>
         </configuration>
       </plugin>
-
-      <plugin>
-        <groupId>org.mortbay.jetty</groupId>
-        <artifactId>maven-jetty6-plugin</artifactId>
-        <configuration>
-          <scanIntervalSeconds>10</scanIntervalSeconds>
-        </configuration>
-      </plugin>
-      
     </plugins>
   </build>
+
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/incubator/tobago/trunk/example/facelets</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/incubator/tobago/trunk/example/facelets</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/incubator/tobago/trunk/example/facelets</url>
+  </scm>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
@@ -86,6 +83,23 @@
       </exclusions>
     </dependency>
     <dependency>
+      <groupId>javax.el</groupId>
+      <artifactId>el-api</artifactId>
+      <version>1.0</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.el</groupId>
+      <artifactId>el-ri</artifactId>
+      <version>1.0</version>
+      <scope>runtime</scope>
+    </dependency><dependency>
+      <groupId>com.sun.facelets</groupId>
+      <artifactId>jsf-facelets</artifactId>
+      <version>1.0.14</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>1.2.11</version>
@@ -103,18 +117,5 @@
       <version>2.0</version>
       <scope>provided</scope>
     </dependency>
-    <!--dependency>
-      <groupId>org.apache.derby</groupId>
-      <artifactId>derby</artifactId>
-      <version>10.1.1.0</version>
-      <scope>runtime</scope>
-    </dependency-->
-    <dependency>
-      <groupId>hsqldb</groupId>
-      <artifactId>hsqldb</artifactId>
-      <version>1.8.0.1</version>
-      <scope>runtime</scope>
-    </dependency>
-
   </dependencies>
 </project>
