@@ -318,7 +318,7 @@
   <!--todo: use profile to activate all modules-->
   <modules>
     <module>tobago-tool</module>
-    <module>example</module>
+    <!--<module>example</module>-->
     <module>core</module>
     <module>theme</module>
   </modules>
