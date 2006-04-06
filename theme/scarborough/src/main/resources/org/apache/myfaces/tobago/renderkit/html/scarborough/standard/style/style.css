@@ -31,11 +31,11 @@ form  {
 
 /* Tab ------------------------------------------------------------------ */
 
-a:link.tobago-tab-link, a:visited.tobago-tab-link, a:active.tobago-tab-link {
+tobago-tab-link {
   font-family: arial, helvetica, sans-serif;
 /*  font-size: 14px; */
   color: #000000;
-  text-decoration: none;
+  cursor: pointer;
   white-space: nowrap;
 }
 
@@ -802,6 +802,10 @@ div.tobago-richTextEditor-body {
   color: #778899;
 }
 
+.tobago-toolbar-button-table-box-facet-disabled {
+  color: #778899;
+}
+
 .tobago-toolbar-label-td {
   height: 19px;
 /*  background: lime;*/
@@ -861,7 +865,7 @@ a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:activ
    color: inherit;
 }
 /*
-a:link.tobago-tab-link, a:visited.tobago-tab-link, a:active.tobago-tab-link {
+tobago-tab-link {
    text-decoration: none;
 }
  */

@@ -85,7 +85,7 @@ img.tobago-progress-color2 {
 
 /* Tab ---------------------------------------------------------------------- */
 
-a:link.tobago-tab-link, a:visited.tobago-tab-link, a:active.tobago-tab-link {
+tobago-tab-link {
   font: 12px Arial, Helvetica, sans-serif;
   color: #660000;
 }
@@ -582,11 +582,17 @@ label.tobago-label-error {
   font: bold 12px arial, helvetica, sans-serif;
   color: #660000;
 }
+
 .tobago-toolbar-button-table {
   font: bold 12px arial, helvetica, sans-serif;
   color: #660000;
 }
+
 .tobago-toolbar-button-table-disabled {
+  color: #808080;
+}
+
+.tobago-toolbar-button-table-box-facet-disabled {
   color: #808080;
 }
 

@@ -163,7 +163,7 @@ label.tobago-label-default {
 }
 
 /* Tab ---------------------------------------------------------------------- */
-a:link.tobago-tab-link, a:visited.tobago-tab-link, a:active.tobago-tab-link {
+tobago-tab-link {
   font: bold 12px Arial, Helvetica, sans-serif;
   color: #D6EBFF;
 }
@@ -318,6 +318,10 @@ a:link.tab, a:visited.tab, a:active.tab {
 }
 
 .tobago-toolbar-button-table-disabled {
+  color: GrayText;
+}
+
+.tobago-toolbar-button-table-box-facet-disabled {
   color: GrayText;
 }
 
