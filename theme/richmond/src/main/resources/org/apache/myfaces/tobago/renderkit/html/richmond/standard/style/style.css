@@ -163,7 +163,7 @@ label.tobago-label-default {
 }
 
 /* Tab ---------------------------------------------------------------------- */
-tobago-tab-link {
+.tobago-tab-link {
   font: bold 12px Arial, Helvetica, sans-serif;
   color: #D6EBFF;
 }

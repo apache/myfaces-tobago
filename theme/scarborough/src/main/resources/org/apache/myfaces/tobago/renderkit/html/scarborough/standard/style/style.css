@@ -31,7 +31,7 @@ form  {
 
 /* Tab ------------------------------------------------------------------ */
 
-tobago-tab-link {
+.tobago-tab-link {
   font-family: arial, helvetica, sans-serif;
 /*  font-size: 14px; */
   color: #000000;
@@ -865,7 +865,7 @@ a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:activ
    color: inherit;
 }
 /*
-tobago-tab-link {
+.tobago-tab-link {
    text-decoration: none;
 }
  */

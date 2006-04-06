@@ -85,7 +85,7 @@ img.tobago-progress-color2 {
 
 /* Tab ---------------------------------------------------------------------- */
 
-tobago-tab-link {
+.tobago-tab-link {
   font: 12px Arial, Helvetica, sans-serif;
   color: #660000;
 }
