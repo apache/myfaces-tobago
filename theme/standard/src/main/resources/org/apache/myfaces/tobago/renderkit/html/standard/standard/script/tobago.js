@@ -14,24 +14,6 @@
  *    limitations under the License.
  */
 
-var TbgTimer = {
-    startTbgJs: new Date(),
-
-    log: function() {
-      var tbgjs = this.endTbgJs.getTime() - this.startTbgJs.getTime();
-//      var htmljs = this.endBody.getTime() - this.startHtml.getTime();
-      var bodyjs = this.endBody.getTime() - this.startBody.getTime();
-      var onloadjs = this.endOnload.getTime() - this.startOnload.getTime();
-      var totaljs = this.endOnload.getTime() - this.startTbgJs.getTime();
-      LOG.show();
-      LOG.debug("parse tobago.js " + tbgjs);
-//      LOG.debug("parse htmltotal " + htmljs);
-      LOG.debug("parse body " + bodyjs);
-      LOG.debug("execute onload " + onloadjs);
-      LOG.debug("total " + totaljs);
-    }
-};
-
 var Tobago = {
 
   // -------- Constants -------------------------------------------------------
@@ -176,7 +158,6 @@ var Tobago = {
   init: function(pageId) {
 //    new LOG.LogArea({hide: false});
 //    LOG.show();
-    TbgTimer.startOnload = new Date();
     this.page = this.element(pageId);
     this.form = this.element(this.page.id + this.SUB_COMPONENT_SEP + "form");
     this.addBindEventListener(this.form, "submit", this, "onSubmit");
@@ -195,8 +176,6 @@ var Tobago = {
     this.pageIsComplete = true;
     this.registerCurrentScripts();
     this.startScriptLoaders();
-    TbgTimer.endOnload = new Date();
-    TbgTimer.log();
   },
 
   onSubmit: function() {
@@ -1088,14 +1067,30 @@ Tobago.ScriptLoader = function(names, doAfter) {
 Tobago.Updater = {
   update: function(container, page, actionId, ajaxComponentId, options) {
 
-    Tobago.action.value = actionId;
+    if (this.hasTransport()) {
+      Tobago.action.value = actionId;
 
-    var url = Tobago.form.action + "?affectedAjaxComponent=" + ajaxComponentId
-        + '&' + Form.serialize(Tobago.form);
+      var url = Tobago.form.action + "?affectedAjaxComponent=" + ajaxComponentId
+          + '&' + Form.serialize(Tobago.form);
 
-    Tobago.createOverlay(container);
-    //    LOG.debug("request url = " + url);
-    new Ajax.Updater(container, url, options);
+      Tobago.createOverlay(container);
+      //    LOG.debug("request url = " + url);
+      new Ajax.Updater(container, url, options);
+    } else {
+      LOG.info("No Ajax transport found! Doing full page reload.");
+      Tobago.submitAction(actionId);
+    }
+  },
+
+  hasTransport: function() {
+    if (typeof this.transportFound == 'undefined') {
+      if (Ajax.getTransport()) {
+        this.transportFound = true;
+      } else {
+        this.transportFound = false;
+      }
+    }
+    return this.transportFound;
   }
 };
 
@@ -1122,4 +1117,3 @@ if (typeof(LOG) == "undefined") {
   };
 }
 
-TbgTimer.endTbgJs = new Date();
