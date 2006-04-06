@@ -64,10 +64,12 @@ Tobago.TabGroupBase = {
         LOG.warn("No hidden field for tabindex Id='" + this.tabGroupId + Tobago.SUB_COMPONENT_SEP + "activeIndex" + "'");
         LOG.warn("aId = " + aId);
       }
-
-      this.removeRelatedAcceleratorKeys(aId.substring(0, aId.lastIndexOf(Tobago.SUB_COMPONENT_SEP) + Tobago.SUB_COMPONENT_SEP.length));
-
-      Tobago.Updater.update(this.parent, this.page, this.tabGroupId, this.tabGroupId, this.options);
+      if (Tobago.Updater.hasTransport()) {
+        this.removeRelatedAcceleratorKeys(aId.substring(0, aId.lastIndexOf(Tobago.SUB_COMPONENT_SEP) + Tobago.SUB_COMPONENT_SEP.length));
+        Tobago.Updater.update(this.parent, this.page, this.tabGroupId, this.tabGroupId, this.options);
+      } else {
+        Tobago.submitAction(this.tabGroupId);
+      }
     } else {
       LOG.info("No reload Event");
     }
