@@ -23,7 +23,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SWITCH_TYPE;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
-import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource;
@@ -261,18 +260,6 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
     setRenderedIndex(activeIndex);
     AjaxUtils.encodeAjaxComponent(facesContext, this);
   }
-
-  public void processAjax(FacesContext facesContext) throws IOException {
-    final String ajaxId = (String) facesContext.getExternalContext()
-        .getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
-
-    if (ajaxId.equals(getClientId(facesContext))) {
-      AjaxUtils.processActiveAjaxComponent(facesContext, this);
-    } else {
-      AjaxUtils.processAjaxOnChildren(facesContext, this);
-    }
-  }
-
 
   public int getActiveIndex() {
     return activeIndex;

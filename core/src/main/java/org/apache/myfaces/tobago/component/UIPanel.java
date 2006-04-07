@@ -16,6 +16,10 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
+import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
@@ -24,7 +28,8 @@ import java.io.IOException;
  * Date: Feb 28, 2005
  * Time: 3:05:19 PM
  */
-public class UIPanel extends javax.faces.component.UIPanel {
+public class UIPanel extends javax.faces.component.UIPanel
+    implements AjaxComponent {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Panel";
 
@@ -38,5 +43,21 @@ public class UIPanel extends javax.faces.component.UIPanel {
    if (isRendered()) {
      UILayout.getLayout(this).encodeChildrenOfComponent(facesContext, this);
    }
+  }
+
+
+  public void encodeAjax(FacesContext facesContext) throws IOException {
+    AjaxUtils.encodeAjaxComponent(facesContext, this);    
+  }
+
+  public void processAjax(FacesContext facesContext) throws IOException {
+    final String ajaxId = (String) facesContext.getExternalContext()
+        .getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
+
+    if (ajaxId.equals(getClientId(facesContext))) {
+      AjaxUtils.processActiveAjaxComponent(facesContext, this);
+    } else {
+      AjaxUtils.processAjaxOnChildren(facesContext, this);
+    }
   }
 }

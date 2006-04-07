@@ -136,6 +136,8 @@ var Tobago = {
     */
   scriptLoaders: new Array(),
 
+  ajaxComponents: {},
+
    /**
     * Flag indicating that the page is complete loaded.
     */
@@ -366,6 +368,25 @@ var Tobago = {
       this.scriptLoaders.shift().ensureScripts();
     } else {
       this.scriptLoadingActive = false;
+    }
+  },
+
+  addAjaxComponent: function(componentId, containerId) {
+    if (! containerId) {
+      containerId = componentId;
+    }
+    this.ajaxComponents[componentId] = containerId;
+  },
+
+  reloadComponent: function(id, actionId) {
+    var containerId = this.ajaxComponents[id];
+    if (containerId) {
+      if (!actionId) {
+        actionId = containerId;
+      }
+      Tobago.Updater.update(this.element(containerId), this.page, actionId, id);
+    } else {
+      LOG.warn("Can't find container for '" + id + "'! skip reload!");
     }
   },
 
@@ -1065,6 +1086,14 @@ Tobago.ScriptLoader = function(names, doAfter) {
 };
 
 Tobago.Updater = {
+
+  options: {
+    method: 'post',
+    asynchronous: true,
+    parameters: '',
+    evalScripts: true
+  },
+
   update: function(container, page, actionId, ajaxComponentId, options) {
 
     if (this.hasTransport()) {
@@ -1075,7 +1104,7 @@ Tobago.Updater = {
 
       Tobago.createOverlay(container);
       //    LOG.debug("request url = " + url);
-      new Ajax.Updater(container, url, options);
+      new Ajax.Updater(container, url, options || this.options);
     } else {
       LOG.info("No Ajax transport found! Doing full page reload.");
       Tobago.submitAction(actionId);

@@ -31,6 +31,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_INNER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_TOOL_BAR;
+import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
@@ -44,7 +46,7 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Map;
 
-public class BoxRenderer extends BoxRendererBase {
+public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 
   private static final Log LOG = LogFactory.getLog(BoxRenderer.class);
 
@@ -72,10 +74,20 @@ public class BoxRenderer extends BoxRendererBase {
       // TODO
     }
 
+    String clientId = component.getClientId(facesContext);
+
     writer.startElement("div", component);
     writer.writeComponentClass();
+    writer.writeIdAttribute(clientId);
     writer.writeAttribute("style", style, null);
 
+    HtmlRendererUtil.writeJavascript(writer,
+        "Tobago.addAjaxComponent(\"" + clientId + "\")");
+
+    encodeBeginInner(facesContext, writer, component);
+  }
+
+  private void encodeBeginInner(FacesContext facesContext, TobagoResponseWriter writer, UIComponent component) throws IOException {
     renderBoxHeader(facesContext, writer, component);
 
 
@@ -89,7 +101,7 @@ public class BoxRenderer extends BoxRendererBase {
 
 
   protected void renderBoxHeader(FacesContext facesContext,
-      TobagoResponseWriter writer, UIComponent component) throws IOException {
+                                 TobagoResponseWriter writer, UIComponent component) throws IOException {
 
     writer.startElement("div", component);
     writer.writeClassAttribute("tobago-box-header");
@@ -115,14 +127,19 @@ public class BoxRenderer extends BoxRendererBase {
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
-    writer.endElement("div");
-    writer.endElement("div");
+
+    encodeEndInner(writer);
 
     writer.endElement("div");
   }
 
+  private void encodeEndInner(ResponseWriter writer) throws IOException {
+    writer.endElement("div");
+    writer.endElement("div");
+  }
+
   protected void renderToolbar(FacesContext facesContext,
-      TobagoResponseWriter writer, UIPanel toolbar) throws IOException {
+                               TobagoResponseWriter writer, UIPanel toolbar) throws IOException {
     final Map attributes = toolbar.getAttributes();
     String className = "tobago-box-header-toolbar-div";
     if (ToolBarTag.LABEL_OFF.equals(attributes.get(ATTR_LABEL_POSITION))) {
@@ -141,5 +158,15 @@ public class BoxRenderer extends BoxRendererBase {
     writer.endElement("div");
   }
 
+  public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
+    AjaxUtils.checkParamValidity(facesContext, component, UIPanel.class);
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) facesContext.getResponseWriter();
+
+    encodeBeginInner(facesContext, writer, component);
+    component.encodeChildren(facesContext);
+    encodeEndInner(writer);
+    facesContext.responseComplete();
+  }
 }
 

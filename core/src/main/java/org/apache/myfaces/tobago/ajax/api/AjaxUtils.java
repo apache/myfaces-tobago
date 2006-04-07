@@ -119,16 +119,26 @@ public class AjaxUtils {
 
       // TODO: handle phaseListeners ??
 
-      component.processValidators(facesContext);
-      viewRoot.broadcastEventsForPhase(facesContext, PhaseId.PROCESS_VALIDATIONS);
+      if (!facesContext.getRenderResponse()) {
+        component.processValidators(facesContext);
+        viewRoot.broadcastEventsForPhase(facesContext, PhaseId.PROCESS_VALIDATIONS);
+      } else if (LOG.isDebugEnabled()) {
+        LOG.debug("Skipping validate");
+      }
 
       if (!facesContext.getRenderResponse()) {
         component.processUpdates(facesContext);
         viewRoot.broadcastEventsForPhase(facesContext, PhaseId.UPDATE_MODEL_VALUES);
+      } else if (LOG.isDebugEnabled()) {
+
+      }  {
+        LOG.debug("Skipping updates");
       }
 
       if (!facesContext.getRenderResponse()) {
         viewRoot.processApplication(facesContext);
+      } else if (LOG.isDebugEnabled()) {
+        LOG.debug("Skipping application");
       }
 
       ((AjaxComponent) component).encodeAjax(facesContext);
