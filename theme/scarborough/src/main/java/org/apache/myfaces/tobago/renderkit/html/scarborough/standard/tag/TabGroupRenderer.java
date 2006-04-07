@@ -119,6 +119,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
 
     UIPage page = ComponentUtil.findPage(component);
     page.getScriptFiles().add("script/tab.js");
+    page.getScriptFiles().add("script/tabgroup.js");
 
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
