@@ -96,7 +96,7 @@ public class TabGroupTag extends TobagoTag
    *   "reloadTab"  : Tab switching id done by server request. Only the Tab is reloaded.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.String", defaultValue = "client")
+  @UIComponentTagAttribute(type = "java.lang.String", defaultValue = SWITCH_TYPE_CLIENT)
   public void setSwitchType(String switchType) {
     this.switchType = switchType;
   }

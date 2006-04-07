@@ -50,7 +50,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
   private int activeIndex;
   private int renderedIndex;
 
-  private String switchType = SWITCH_TYPE_CLIENT;
+  private String switchType;
 
   private MethodBinding tabChangeListener = null;
   public static final String SWITCH_TYPE_CLIENT = "client";
@@ -294,6 +294,9 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
         || SWITCH_TYPE_RELOAD_PAGE.equals(value)
         || SWITCH_TYPE_RELOAD_TAB.equals(value)) {
       return value;
+    } else if (value == null){
+      // return default
+      return SWITCH_TYPE_CLIENT;
     } else {
       LOG.warn("Illegal value for attribute switchtype : " + switchType
           + " Using default value " + SWITCH_TYPE_CLIENT);
