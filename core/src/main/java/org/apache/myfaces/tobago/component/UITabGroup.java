@@ -50,6 +50,8 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
   private int activeIndex;
   private int renderedIndex;
 
+  private String switchType = SWITCH_TYPE_CLIENT;
+
   private MethodBinding tabChangeListener = null;
   public static final String SWITCH_TYPE_CLIENT = "client";
   public static final String SWITCH_TYPE_RELOAD_PAGE = "reloadPage";
@@ -67,7 +69,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
     Object state
         = stateBinding != null ? stateBinding.getValue(facesContext) : null;
     if (state instanceof Integer) {
-      activeIndex = ((Integer) state).intValue();
+      activeIndex = (Integer) state;
     } else if (state != null) {
       LOG.warn("Illegal class in stateBinding: " + state.getClass().getName());
     }
@@ -214,8 +216,6 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
   }
 
   private boolean isClientType() {
-    final String switchType
-        = ComponentUtil.getStringAttribute(this, ATTR_SWITCH_TYPE);
     return (switchType == null || switchType.equals(SWITCH_TYPE_CLIENT));
   }
 
@@ -228,20 +228,22 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
   }
 
   public Object saveState(FacesContext context) {
-    Object[] state = new Object[4];
+    Object[] state = new Object[5];
     state[0] = super.saveState(context);
-    state[1] = new Integer(renderedIndex);
-    state[2] = new Integer(activeIndex);
+    state[1] = renderedIndex;
+    state[2] = activeIndex;
     state[3] = saveAttachedState(context, tabChangeListener);
+    state[4] = switchType;
     return state;
   }
 
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
     super.restoreState(context, values[0]);
-    renderedIndex = ((Integer) values[1]).intValue();
-    activeIndex = ((Integer) values[2]).intValue();
+    renderedIndex = (Integer) values[1];
+    activeIndex = (Integer) values[2];
     tabChangeListener = (MethodBinding) restoreAttachedState(context, values[3]);
+    switchType = (String) values[4];
   }
 
   public void encodeAjax(FacesContext facesContext) throws IOException {
@@ -251,7 +253,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
       Object state
           = stateBinding != null ? stateBinding.getValue(facesContext) : null;
       if (state instanceof Integer) {
-        activeIndex = ((Integer) state).intValue();
+        activeIndex = (Integer) state;
       } else if (state != null) {
         LOG.warn("Illegal class in stateBinding: " + state.getClass().getName());
       }
@@ -275,5 +277,31 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
 
   public int getRenderedIndex() {
     return renderedIndex;
+  }
+
+  public String getSwitchType() {
+    String value = null;
+    if (switchType != null) {
+      value = switchType;
+    } else {
+      ValueBinding vb = getValueBinding(ATTR_SWITCH_TYPE);
+      if (vb != null) {
+        value = (String) vb.getValue(FacesContext.getCurrentInstance());
+      }
+    }
+
+    if (SWITCH_TYPE_CLIENT.equals(value)
+        || SWITCH_TYPE_RELOAD_PAGE.equals(value)
+        || SWITCH_TYPE_RELOAD_TAB.equals(value)) {
+      return value;
+    } else {
+      LOG.warn("Illegal value for attribute switchtype : " + switchType
+          + " Using default value " + SWITCH_TYPE_CLIENT);
+      return SWITCH_TYPE_CLIENT ;
+    }
+  }
+
+  public void setSwitchType(String switchType) {
+    this.switchType = switchType;
   }
 }

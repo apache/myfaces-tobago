@@ -29,7 +29,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SWITCH_TYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
@@ -115,7 +114,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     final String clientId = component.getClientId(facesContext);
     final String hiddenId = clientId + TabGroupRenderer.ACTIVE_INDEX_POSTFIX;
 
-    final String switchType = ComponentUtil.getStringAttribute(component, ATTR_SWITCH_TYPE);
+    final String switchType = component.getSwitchType();
 
     UIPage page = ComponentUtil.findPage(component);
     page.getScriptFiles().add("script/tab.js");
