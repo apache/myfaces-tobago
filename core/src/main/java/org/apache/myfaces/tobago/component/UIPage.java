@@ -179,21 +179,20 @@ public class UIPage extends UIForm {
       }
     }
 
+    Iterator kids = getFacetsAndChildren();
+    while (kids.hasNext()) {
+      UIComponent kid = (UIComponent) kids.next();
+      kid.processDecodes(facesContext);
+    }
+
     if (form != null) {
       form.setSubmitted(true);
-
-      Iterator kids = getFacetsAndChildren();
-      while (kids.hasNext()) {
-        UIComponent kid = (UIComponent) kids.next();
-        kid.processDecodes(facesContext);
-      }
     } else {
       if (LOG.isDebugEnabled()) {
         LOG.debug("No form found! Rerender the view.");
       }
       facesContext.renderResponse();
     }
-
   }
 
   public List<KeyValue> getPostfields() {
