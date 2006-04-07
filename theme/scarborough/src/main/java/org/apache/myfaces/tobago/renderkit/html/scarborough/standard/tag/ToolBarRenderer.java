@@ -42,8 +42,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BOX;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UISelectOneCommand;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
+import org.apache.myfaces.tobago.component.UISelectOneCommand;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -268,9 +268,9 @@ public class ToolBarRenderer extends RendererBase {
         + (boxFacet ? " tobago-toolbar-button-box-facet" : "");
 
     String tableClasses = "tobago-toolbar-button-table"
+        + (boxFacet ? " tobago-toolbar-button-table-box-facet" : "")
         + " tobago-toolbar-button-table-" + (boxFacet ? "box-facet-" : "")
-        + (selected ? "selected-" : "") + (disabled ? "disabled" : "enabled")
-        + (boxFacet ? " tobago-toolbar-button-table-box-facet" : "");
+        + (selected ? "selected-" : "") + (disabled ? "disabled" : "enabled");
 
 
     String iconName = (String) command.getAttributes().get(ATTR_IMAGE);
@@ -467,7 +467,7 @@ public class ToolBarRenderer extends RendererBase {
       final LabelWithAccessKey label, final boolean disabled)
       throws IOException {
     writer.startElement("a", command);
-    writer.writeClassAttribute("tobago-toolBar-button-link");
+    writer.writeClassAttribute("tobago-toolBar-button-link" + (disabled ? "tobago-toolBar-button-link-disabled" : ""));
     writer.writeAttribute("title", null, ATTR_TIP);
     if (!disabled) {
       writer.writeAttribute("href", "#", null);
