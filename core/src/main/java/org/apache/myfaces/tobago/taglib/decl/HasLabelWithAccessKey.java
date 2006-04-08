@@ -26,17 +26,22 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface HasLabelWithAccessKey {
 
   /**
-   * Text value to display as label. Overwites 'label'.
+   * Deprecated! Use 'label' instead.
+   * Text value to display as label.
    * If text contains an underscore the next character overwrites 'accesskey'.
+   * @deprecated
    */
   @TagAttribute @UIComponentTagAttribute()
+  @Deprecated
   void setLabelWithAccessKey(String key);
 
 
   /**
-   * Character used as accesskey. Overwritten by 'labelWithAccessKey'.
+   * Deprecated! Has not longer any function.
+   * @deprecated
    */
 //  @TagAttribute @UIComponentTagAttribute(type = String.class)
   @TagAttribute @UIComponentTagAttribute(type = { "java.lang.String", "java.lang.Character" })
+  @Deprecated
   void setAccessKey(String key);
 }
