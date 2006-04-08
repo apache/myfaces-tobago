@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
 @Tag(name = "tab")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPanel",
-    rendererType = "TabGroupTag")
+    rendererType = "Tab")
 public interface TabTagDeclaration extends TobagoBodyTagDeclaration, HasIdBindingAndRendered, HasLabelAndAccessKey,
     HasTip {
 }

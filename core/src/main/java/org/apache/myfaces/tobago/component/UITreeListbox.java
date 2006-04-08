@@ -83,6 +83,8 @@ public class UITreeListbox extends UITree implements LayoutProvider {
     if ("single".equals(selectable)
         || "singleLeafOnly".equals(selectable)
         || "siblingLeafOnly".equals(selectable)) {
+    } else if (selectable == null) {
+      attributes.put(ATTR_SELECTABLE, "single");
     } else {
       // fix to single
       LOG.warn("Illegal attributeValue selectable : " + selectable + " set to 'single'");

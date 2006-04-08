@@ -26,6 +26,10 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_HEADER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DIRECT_LINKS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_PAGE_RANGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROW_RANGE;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
@@ -64,17 +68,18 @@ public class UIData extends javax.faces.component.UIData
   public static final String FACET_SORTER = "sorter";
   public static final String SORTER_ID = "sorter";
 
+  public static final String NONE = "none";
+  public static final int DEFAULT_DIRECT_LINK_COUNT = 9;
+
   private MethodBinding stateChangeListener;
-
   private List<Integer> widthList;
-
   private MethodBinding sortActionListener;
-
   private SheetState sheetState;
-
-  private boolean showHeader = true;
-  private boolean showHeaderSet = false;
-
+  private Boolean showHeader;
+  private String showRowRange;
+  private String showPageRange;
+  private String showDirectLinks;
+  private Integer directLinkCount;
 
   public void encodeBegin(FacesContext facesContext) throws IOException {
     UILayout.prepareDimension(facesContext, this);
@@ -89,6 +94,70 @@ public class UIData extends javax.faces.component.UIData
     setupState(facesContext);
     prepareDimensions(facesContext);
     super.encodeEnd(facesContext);
+  }
+
+  public String getShowRowRange() {
+    if (showRowRange != null) {
+      return showRowRange;
+    }
+    ValueBinding vb = getValueBinding(ATTR_SHOW_ROW_RANGE);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return NONE;
+    }
+  }
+
+  public void setShowRowRange(String showRowRange) {
+    this.showRowRange = showRowRange;
+  }
+
+  public String getShowPageRange() {
+    if (showPageRange != null) {
+      return showPageRange;
+    }
+    ValueBinding vb = getValueBinding(ATTR_SHOW_PAGE_RANGE);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return NONE;
+    }
+  }
+
+  public void setShowPageRange(String showPageRange) {
+    this.showPageRange = showPageRange;
+  }
+
+  public String getShowDirectLinks() {
+    if (showDirectLinks != null) {
+      return showDirectLinks;
+    }
+    ValueBinding vb = getValueBinding(ATTR_SHOW_DIRECT_LINKS);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return NONE;
+    }
+  }
+
+  public void setShowDirectLinks(String showDirectLinks) {
+    this.showDirectLinks = showDirectLinks;
+  }
+
+  public Integer getDirectLinkCount() {
+    if (directLinkCount != null) {
+      return directLinkCount;
+    }
+    ValueBinding vb = getValueBinding(ATTR_DIRECT_LINK_COUNT);
+    if (vb != null) {
+      return (Integer) vb.getValue(getFacesContext());
+    } else {
+      return DEFAULT_DIRECT_LINK_COUNT;
+    }
+  }
+
+  public void setDirectLinkCount(Integer directLinkCount) {
+    this.directLinkCount = directLinkCount;
   }
 
   private void setupState(FacesContext facesContext) {
@@ -360,14 +429,16 @@ public class UIData extends javax.faces.component.UIData
 
 
   public Object saveState(FacesContext context) {
-    Object[] saveState = new Object[5];
+    Object[] saveState = new Object[9];
     saveState[0] = super.saveState(context);
     saveState[1] = sheetState;
     saveState[2] = saveAttachedState(context, sortActionListener);
     saveState[3] = saveAttachedState(context, stateChangeListener);
-    if (showHeaderSet) {
-      saveState[4] = showHeader;
-    }
+    saveState[4] = showHeader;
+    saveState[5] = showRowRange;
+    saveState[6] = showPageRange;
+    saveState[7] = showDirectLinks;
+    saveState[8] = directLinkCount;
     return saveState;
   }
 
@@ -377,10 +448,12 @@ public class UIData extends javax.faces.component.UIData
     sheetState = (SheetState) values[1];
     sortActionListener = (MethodBinding) restoreAttachedState(context, values[2]);
     stateChangeListener = (MethodBinding) restoreAttachedState(context, values[3]);
-    if (values[4] != null) {
-      showHeaderSet = true;
-      showHeader = (Boolean) values[4];
-    }
+    showHeader = (Boolean) values[4];
+    showRowRange = (String) values[5];
+    showPageRange = (String) values[6];
+    showDirectLinks = (String) values[7];
+    directLinkCount = (Integer) values[8];
+
   }
 
 
@@ -493,20 +566,19 @@ public class UIData extends javax.faces.component.UIData
   }
 
   public boolean isShowHeader() {
-    if (showHeaderSet) {
+    if (showHeader != null) {
         return showHeader;
     }
     ValueBinding vb = getValueBinding(ATTR_SHOW_HEADER);
     if (vb != null) {
         return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
     } else {
-        return showHeader;
+        return showHeader == null || showHeader;
     }
   }
 
   public void setShowHeader(boolean showHeader) {
     this.showHeader = showHeader;
-    this.showHeaderSet = true;
   }
 
   public void encodeAjax(FacesContext facesContext) throws IOException {    
