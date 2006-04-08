@@ -26,7 +26,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 public interface HasLabel {
   /**
-   *   Text value to display as label. Overwritten by 'labelWithAccessKey'
+   * Text value to display as label.
+   * If text contains an underscore the next character is used as accesskey.
    */
   @TagAttribute @UIComponentTagAttribute()
   void setLabel(String label);
