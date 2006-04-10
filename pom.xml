@@ -29,8 +29,7 @@
   <prerequisites>
     <maven>2.0.3</maven>
   </prerequisites>
-  <url>http://incubator.apache.org/tobago</url>
-  <!--<url>http://tobago.atanion.net/site/</url>-->
+  <url>http://myfaces.apache.org/tobago</url>
   <inceptionYear>2002</inceptionYear>
   <issueManagement>
     <system>jira</system>
@@ -52,15 +51,23 @@
       <name>Myfaces User List</name>
       <subscribe>users-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>users-unsubscribe@myfaces.apache.org</unsubscribe>
-      <post>users@myfaces.apache.org</post>
+      <post>do not post to users@myfaces.apache.org unless subscribed</post>
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-users</archive>
+      <otherArchives>
+        <otherArchive>http://www.mail-archive.com/users@myfaces.apache.org/</otherArchive>
+        <otherArchive>http://www.nabble.com/MyFaces---Users-f181.html</otherArchive>
+      </otherArchives>
     </mailingList>
     <mailingList>
       <name>Myfaces Developer List</name>
       <subscribe>dev-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>dev-unsubscribe@myfaces.apache.org</unsubscribe>
-      <post>dev@myfaces.apache.org</post>
+      <post>do not post to dev@myfaces.apache.org unless subscribed</post>
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-dev</archive>
+      <otherArchives>
+        <otherArchive>http://www.mail-archive.com/dev@myfaces.apache.org/</otherArchive>
+        <otherArchive>http://www.nabble.com/My-Faces---Dev-f182.html</otherArchive>
+      </otherArchives>
     </mailingList>
     <mailingList>
       <name>Myfaces Commits List</name>
@@ -68,6 +75,13 @@
       <unsubscribe>commits-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>do not post</post>
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-commits</archive>
+    </mailingList>
+    <mailingList>
+      <name>Myfaces Announcements List</name>
+      <subscribe>announce-subscribe@myfaces.apache.org</subscribe>
+      <unsubscribe>announce-unsubscribe@myfaces.apache.org</unsubscribe>
+      <post>do not post</post>
+      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-announce</archive>
     </mailingList>
   </mailingLists>
   <developers>
@@ -331,16 +345,12 @@
     </snapshotRepository>
     <site>
       <id>website</id>
-      <url>scpexe://minotaur.apache.org/www/incubator.apache.org/tobago</url>
+      <url>scpexe://minotaur.apache.org/www/myfaces.apache.org/tobago/</url>
     </site>
     <!--<site>-->
       <!--<id>website</id>-->
       <!--<url>scpexe://shrek/home/resource/tobago-site</url>-->
     <!--</site>-->
-    <!--site>
-      <id>website</id>
-      <url>scpexe://www.apache.org/home/bommel/public_html</url>
-    </site-->
   </distributionManagement>
 
 </project>
