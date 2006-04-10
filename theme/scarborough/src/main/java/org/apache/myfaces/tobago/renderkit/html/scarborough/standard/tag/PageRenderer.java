@@ -360,7 +360,7 @@ public class PageRenderer extends PageRendererBase {
   private void writeEventFunction(
       TobagoResponseWriter writer, Set<String> eventFunctions, String event)
       throws IOException {
-    if (! eventFunctions.isEmpty()) {
+    if (!eventFunctions.isEmpty()) {
       writer.write("Tobago.applicationOn" + event + " = function() {\n  ");
       for (String function : eventFunctions) {
         writer.write(function);

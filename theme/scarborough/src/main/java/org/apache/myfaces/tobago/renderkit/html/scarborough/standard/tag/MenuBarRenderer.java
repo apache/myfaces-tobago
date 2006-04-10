@@ -242,7 +242,7 @@ public class MenuBarRenderer extends RendererBase {
             && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
           LOG.info("dublicated accessKey : " + label.getAccessKey());
         }
-        if (! disabled) {
+        if (!disabled) {
           writer.writeIdAttribute(uiPanel.getClientId(facesContext));
           addAcceleratorKey(facesContext, uiPanel, label.getAccessKey());
         }
@@ -468,7 +468,7 @@ public class MenuBarRenderer extends RendererBase {
         LOG.info("dublicated accessKey : " + label.getAccessKey());
       }
 
-      if (! disabled) {
+      if (!disabled) {
         writer.writeIdAttribute(command.getClientId(facesContext));
         addAcceleratorKey(facesContext, command, label.getAccessKey());
       }

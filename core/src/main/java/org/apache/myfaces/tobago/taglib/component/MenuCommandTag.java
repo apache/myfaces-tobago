@@ -29,7 +29,7 @@ import javax.faces.component.UIComponent;
 
 public class MenuCommandTag extends CommandTag
     implements MenuCommandTagDeclaration {
-  private final Log LOG = LogFactory.getLog(MenuCommandTag.class);
+  private static final Log LOG = LogFactory.getLog(MenuCommandTag.class);
 
   //public static final String COMMAND_TYPE = "menuCommand";
 
@@ -71,8 +71,8 @@ public class MenuCommandTag extends CommandTag
   }
 
   public void setAccessKey(String accessKey) {
-    LOG.warn("Attibute 'accessKey' is deprecated, " +
-        "and will removed soon!");
+    LOG.warn("Attibute 'accessKey' is deprecated, "
+        + "and will removed soon!");
   }
 
   public String getLabelWithAccessKey() {
@@ -80,8 +80,8 @@ public class MenuCommandTag extends CommandTag
   }
 
   public void setLabelWithAccessKey(String labelWithAccessKey) {
-    LOG.warn("Attibute 'labelWithAccessKey' is deprecated, " +
-        "and will removed soon! Please use 'label' instead.");
+    LOG.warn("Attibute 'labelWithAccessKey' is deprecated, "
+        + "and will removed soon! Please use 'label' instead.");
     setLabel(labelWithAccessKey);
   }
 }

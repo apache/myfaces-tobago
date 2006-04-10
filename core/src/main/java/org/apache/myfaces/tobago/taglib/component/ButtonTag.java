@@ -69,8 +69,8 @@ public class ButtonTag extends CommandTag
   }
 
   public void setAccessKey(String accessKey) {
-    LOG.warn("Attibute 'accessKey' is deprecated, " +
-        "and will removed soon!");
+    LOG.warn("Attibute 'accessKey' is deprecated, "
+        + "and will removed soon!");
   }
 
   public String getImage() {
@@ -96,8 +96,8 @@ public class ButtonTag extends CommandTag
   }
 
   public void setLabelWithAccessKey(String labelWithAccessKey) {
-    LOG.warn("Attibute 'labelWithAccessKey' is deprecated, " +
-        "and will removed soon! Please use 'label' instead.");
+    LOG.warn("Attibute 'labelWithAccessKey' is deprecated, "
+        + "and will removed soon! Please use 'label' instead.");
     setLabel(labelWithAccessKey);
   }
 

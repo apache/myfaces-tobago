@@ -20,32 +20,17 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BUTTON;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.taglib.decl.HasAction;
-import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
-import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasImage;
-import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.taglib.decl.HasTip;
-import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 
-/**
- * Renders a command button within a toolbar.
- */
-@Tag(name = "toolBarCommand")
-public class ToolBarCommandTag extends CommandTag
-    implements HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
-    IsDisabled, HasAction, HasActionListener, HasCommandType,
-    HasTip, IsImmediateCommand {
 
-  private final Log LOG = LogFactory.getLog(ToolBarCommandTag.class);
+public class ToolBarCommandTag extends CommandTag
+    implements ToolBarCommandTagDeclaration {
+
+  private static final Log LOG = LogFactory.getLog(ToolBarCommandTag.class);
 
   private String label;
   private String image;
@@ -53,9 +38,7 @@ public class ToolBarCommandTag extends CommandTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-
     component.setRendererType(RENDERER_TYPE_BUTTON);
-
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
     ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
@@ -93,8 +76,8 @@ public class ToolBarCommandTag extends CommandTag
   }
 
   public void setAccessKey(String accessKey) {
-    LOG.warn("Attibute 'accessKey' is deprecated, " +
-        "and will removed soon!");
+    LOG.warn("Attibute 'accessKey' is deprecated, "
+        + "and will removed soon!");
   }
 
   public String getLabelWithAccessKey() {
@@ -102,8 +85,8 @@ public class ToolBarCommandTag extends CommandTag
   }
 
   public void setLabelWithAccessKey(String labelWithAccessKey) {
-    LOG.warn("Attibute 'labelWithAccessKey' is deprecated, " +
-        "and will removed soon! Please use 'label' instead.");
+    LOG.warn("Attibute 'labelWithAccessKey' is deprecated, "
+        + "and will removed soon! Please use 'label' instead.");
     setLabel(labelWithAccessKey);
   }
 }

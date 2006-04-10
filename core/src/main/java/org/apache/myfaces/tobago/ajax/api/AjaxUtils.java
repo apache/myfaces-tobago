@@ -130,8 +130,6 @@ public class AjaxUtils {
         component.processUpdates(facesContext);
         viewRoot.broadcastEventsForPhase(facesContext, PhaseId.UPDATE_MODEL_VALUES);
       } else if (LOG.isDebugEnabled()) {
-
-      }  {
         LOG.debug("Skipping updates");
       }
 

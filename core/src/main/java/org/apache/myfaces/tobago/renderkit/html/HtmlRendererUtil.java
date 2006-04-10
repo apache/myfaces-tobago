@@ -170,7 +170,7 @@ public final class HtmlRendererUtil {
     StringBuffer buffer = new StringBuffer();
     buffer.append("new Tobago.AcceleratorKey(function() {");
     buffer.append(func);
-    if (! func.endsWith(";")) {
+    if (!func.endsWith(";")) {
       buffer.append(';');
     }
     buffer.append("}, \"");

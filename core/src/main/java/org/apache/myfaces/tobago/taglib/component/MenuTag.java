@@ -29,7 +29,7 @@ import javax.faces.component.UIComponent;
 public class MenuTag extends TobagoTag
     implements MenuTagDeclaration {
 
-  private final Log LOG = LogFactory.getLog(MenuTag.class);
+  private static final Log LOG = LogFactory.getLog(MenuTag.class);
 
   //public static final String MENU_TYPE = "menu";
 
@@ -76,8 +76,8 @@ public class MenuTag extends TobagoTag
   }
 
   public void setAccessKey(String accessKey) {
-    LOG.warn("Attibute 'accessKey' is deprecated, " +
-        "and will removed soon!");
+    LOG.warn("Attibute 'accessKey' is deprecated, "
+        + "and will removed soon!");
   }
 
   public String getLabelWithAccessKey() {
@@ -85,8 +85,8 @@ public class MenuTag extends TobagoTag
   }
 
   public void setLabelWithAccessKey(String labelWithAccessKey) {
-    LOG.warn("Attibute 'labelWithAccessKey' is deprecated, " +
-        "and will removed soon! Please use 'label' instead.");
+    LOG.warn("Attibute 'labelWithAccessKey' is deprecated, "
+        + "and will removed soon! Please use 'label' instead.");
     setLabel(labelWithAccessKey);
   }
 }

@@ -300,7 +300,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
     } else {
       LOG.warn("Illegal value for attribute switchtype : " + switchType
           + " Using default value " + SWITCH_TYPE_CLIENT);
-      return SWITCH_TYPE_CLIENT ;
+      return SWITCH_TYPE_CLIENT;
     }
   }
 

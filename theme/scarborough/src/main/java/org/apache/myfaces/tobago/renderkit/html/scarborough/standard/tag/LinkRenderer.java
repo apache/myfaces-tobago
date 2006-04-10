@@ -131,7 +131,8 @@ public class LinkRenderer extends CommandRendererBase{
         }
 
       HtmlRendererUtil.addClickAcceleratorKey(
-          facesContext, clientId, label.getAccessKey());}
+          facesContext, clientId, label.getAccessKey());
+      }
   }
 
   public void encodeEndTobago(FacesContext facesContext, UIComponent component)

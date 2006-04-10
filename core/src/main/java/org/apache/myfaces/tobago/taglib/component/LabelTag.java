@@ -26,7 +26,7 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.component.UIComponent;
 
 public class LabelTag extends BeanTag implements LabelTagDeclaration {
-  private final Log LOG = LogFactory.getLog(LabelTag.class);
+  private static final Log LOG = LogFactory.getLog(LabelTag.class);
 
   private String forComponent;
   private String tip;
@@ -63,8 +63,8 @@ public class LabelTag extends BeanTag implements LabelTagDeclaration {
   }
 
   public void setAccessKey(String accessKey) {
-    LOG.warn("Attibute 'accessKey' is deprecated, " +
-        "and will removed soon!");
+    LOG.warn("Attibute 'accessKey' is deprecated, "
+        + "and will removed soon!");
   }
 
   public String getLabelWithAccessKey() {
@@ -72,8 +72,8 @@ public class LabelTag extends BeanTag implements LabelTagDeclaration {
   }
 
   public void setLabelWithAccessKey(String labelWithAccessKey) {
-    LOG.warn("Attibute 'labelWithAccessKey' is deprecated, " +
-        "and will removed soon! Please use 'label' instead.");
+    LOG.warn("Attibute 'labelWithAccessKey' is deprecated, "
+        + "and will removed soon! Please use 'label' instead.");
     setLabel(labelWithAccessKey);
   }
 
