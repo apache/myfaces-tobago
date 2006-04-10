@@ -368,9 +368,21 @@ public class ComponentUtil {
   public static String currentValue(UIComponent component) {
     String currentValue = null;
     if (component instanceof ValueHolder) {
-      Object value = ((ValueHolder) component).getValue();
+      Object value;
+      if (component instanceof EditableValueHolder) {
+        value = ((EditableValueHolder) component).getSubmittedValue();
+        if (value != null) {
+          return (String) value;
+        }
+      }
+
+      value = ((ValueHolder) component).getValue();
       if (value != null) {
         Converter converter = ((ValueHolder) component).getConverter();
+        if (converter == null) {
+          FacesContext context = FacesContext.getCurrentInstance();
+          converter = context.getApplication().createConverter(value.getClass());
+        }
         if (converter != null) {
           currentValue =
               converter.getAsString(FacesContext.getCurrentInstance(),
