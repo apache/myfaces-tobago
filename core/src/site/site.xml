@@ -12,7 +12,7 @@
   </bannerRight>
   <body>
     <links>
-      <item name="MyFaces Overview" href="http://myfaces.apache.org/"/>
+      <item name="MyFaces" href="http://myfaces.apache.org/"/>
       <item name="API" href="http://myfaces.apache.org/api"/>
       <item name="Impl" href="http://myfaces.apache.org/impl"/>
       <item name="Tomahawk" href="http://myfaces.apache.org/tomahawk"/>
@@ -25,7 +25,7 @@
       <item name="Demo" href="http://myfaces.apache.org/tobago/demo.html"/>
       <item name="Core" href="http://myfaces.apache.org/tobago/tobago-core/"/>
     </menu>
-    
+
     ${parentProject}
     ${modules}
     ${reports}
