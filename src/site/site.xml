@@ -11,15 +11,20 @@
     <href>http://myfaces.apache.org/</href>
   </bannerRight>
   <body>
+
     <links>
-      <item name="Tobago Core" href="tobago-core/"/>
-      <item name="Tobago" href="http://myfaces.apache.org/tobago" />
-      <item name="MyFaces" href="http://myfaces.apache.org/" />
+      <item name="MyFaces Overview" href="http://myfaces.apache.org/"/>
+      <item name="API" href="http://myfaces.apache.org/api"/>
+      <item name="Impl" href="http://myfaces.apache.org/impl"/>
+      <item name="Tomahawk" href="http://myfaces.apache.org/tomahawk"/>
+      <item name="Sandbox" href="http://myfaces.apache.org/sandbox"/>
+      <item name="Tobago" href="http://myfaces.apache.org/tobago"/>
     </links>
 
     <menu name="Tobago">
-      <item name="Introduction" href="index.html"/>
-      <item name="Demo" href="demo.html"/>
+      <item name="Introduction" href="http://myfaces.apache.org/tobago/index.html"/>
+      <item name="Demo" href="http://myfaces.apache.org/tobago/demo.html"/>
+      <item name="Core" href="http://myfaces.apache.org/tobago/tobago-core/"/>
     </menu>
 
     <menu name="Documentation">
