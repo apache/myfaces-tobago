@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 @Tag(name = "sheet")
 @BodyContentDescription(anyTagOf = "<tc:column>* <tc:columnSelector>?")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UISheet",
+    uiComponent = "org.apache.myfaces.tobago.component.UIData",
     rendererType = "Sheet")
 
 public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered {
