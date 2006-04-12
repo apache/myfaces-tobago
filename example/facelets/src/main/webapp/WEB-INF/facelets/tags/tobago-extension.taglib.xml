@@ -8,4 +8,12 @@
 		<tag-name>in</tag-name>
 		<source>in.xhtml</source>
 	</tag>
+  <tag>
+		<tag-name>date</tag-name>
+		<source>date.xhtml</source>
+	</tag>
+  <tag>
+		<tag-name>textarea</tag-name>
+		<source>textarea.xhtml</source>
+	</tag>
 </facelet-taglib>

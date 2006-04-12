@@ -30,6 +30,30 @@ public class UICommand extends javax.faces.component.UICommand {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Command";
 
+  private boolean defaultCommand;
+
+  public boolean isDefaultCommand() {
+    return defaultCommand;
+  }
+
+  public void setDefaultCommand(boolean defaultCommand) {
+    this.defaultCommand = defaultCommand;
+  }
+
+  public Object saveState(FacesContext context) {
+      Object[] saveState = new Object[2];
+      saveState[0] = super.saveState(context);
+      saveState[1] = defaultCommand;    
+      return saveState;
+    }
+
+    public void restoreState(FacesContext context, Object savedState) {
+      Object[] values = (Object[]) savedState;
+      super.restoreState(context, values[0]);
+      defaultCommand = (Boolean)values[1];
+    }
+
+
   public void processDecodes(FacesContext context) {
 
     if (context == null) {

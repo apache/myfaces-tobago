@@ -6,6 +6,7 @@
       <tc:gridLayout/>
     </f:facet>
     <tc:out value="Hello World!"/>
-    <tx:in label="foo" value="bar"/>
+    <tx:in label="foo" value="#{counter.count}"/>
+    <tc:button label="Count++" defaultCommand="true" />
   </tc:page>
 </f:view>

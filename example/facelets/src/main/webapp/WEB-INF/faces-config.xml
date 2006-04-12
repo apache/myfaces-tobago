@@ -35,4 +35,10 @@
     </locale-config>
   </application>
 
+  <managed-bean>
+    <managed-bean-name>counter</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.facelets.Counter</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
 </faces-config>

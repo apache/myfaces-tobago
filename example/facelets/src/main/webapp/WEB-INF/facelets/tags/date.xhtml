@@ -16,13 +16,13 @@ THIS TEXT WILL BE REMOVED
       <tc:gridLayout columns="fixed;*"/>
     </f:facet>
     <tc:label value="${label}" for="@auto" tip="${tip}"/>
-    <tc:in value="${value}" required="${required}" readonly="${readonly}"
+    <tc:date value="${value}" required="${required}" readonly="${readonly}"
         converter="${converter}" disabled="${disabled}" >
       <c:if test="${! empty validator}">
-        <f:attribute name="validator" value="${validator}" />
+         <f:attribute name="validator" value="${validator}" />
       </c:if>
       <ui:insert/>
-    </tc:in>
+    </tc:date>
   </tc:panel>
 </ui:composition>
 THIS TEXT WILL BE REMOVED AS WELL

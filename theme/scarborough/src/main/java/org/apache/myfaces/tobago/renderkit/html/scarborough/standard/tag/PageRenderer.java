@@ -287,7 +287,7 @@ public class PageRenderer extends PageRendererBase {
         clientId + SUBCOMPONENT_SEP + "form");
     writer.writeAttribute("action", formAction, null);
     writer.writeIdAttribute(page.getFormId(facesContext));
-    writer.writeAttribute("method", null, ATTR_METHOD);
+    writer.writeAttribute("method", getMethod(page), null);
     writer.writeAttribute("enctype", null, ATTR_ENCTYPE);
     // TODO: enable configuration of  'accept-charset'
     writer.writeAttribute("accept-charset", FORM_ACCEPT_CHARSET, null);
@@ -431,11 +431,15 @@ public class PageRenderer extends PageRendererBase {
     sb.append("]\");");
     return sb.toString();
   }
-
+  private String getMethod(UIPage page) {
+    String method = (String) page.getAttributes().get(ATTR_METHOD);
+    return method == null?"post":method;
+  }
   private String generateDoctype(UIPage page) {
     String doctype = (String) page.getAttributes().get(ATTR_DOCTYPE);
     String type = null;
-    if ("loose".equals(doctype)) {
+    if (doctype == null || "loose".equals(doctype)) {
+      //default
       type = LOOSE;
     } else if ("strict".equals(doctype)) {
       type = STRICT;
