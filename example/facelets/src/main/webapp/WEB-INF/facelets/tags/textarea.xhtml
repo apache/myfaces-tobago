@@ -9,18 +9,12 @@
 THIS TEXT WILL BE REMOVED
 <ui:composition>
   <tc:panel>
-    <c:if test="${! empty rendered}">
-      <f:attribute name="rendered" value="${rendered}" />
-    </c:if>
     <f:facet name="layout">
       <tc:gridLayout columns="fixed;*"/>
     </f:facet>
     <tc:label value="${label}" for="@auto" tip="${tip}"/>
-    <tc:textarea value="${value}" required="${required}" readonly="${readonly}"
-        converter="${converter}" disabled="${disabled}" >
-      <c:if test="${! empty validator}">
-        <f:attribute name="validator" value="${validator}" />
-      </c:if>
+    <tc:textarea value="${value}" required="${required}"
+        readonly="${readonly}" disabled="${disabled}">
       <ui:insert/>
     </tc:textarea>
   </tc:panel>

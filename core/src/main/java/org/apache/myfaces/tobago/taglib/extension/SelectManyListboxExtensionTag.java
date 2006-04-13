@@ -43,21 +43,18 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @Tag(name = "selectManyListbox")
 public class SelectManyListboxExtensionTag extends BodyTagSupport
     implements HasId, HasValue, IsDisabled, HasDeprecatedHeight, IsInline,
-    HasLabel, //HasLabelAndAccessKey,
-    IsRendered, HasBinding, HasTip, HasConverter, HasValidator  {
+    HasLabel, IsRendered, HasBinding, HasTip, HasConverter, HasValidator  {
 
   private String required;
   private String value;
   private String disabled;
   private String readonly;
   private String onchange;
-  private String labelWithAccessKey;
   private String inline;
   private String label;
   private String rendered;
   private String binding;
   private String tip;
-  private String accessKey;
   private String height;
   private String converter;
   private String validator;
@@ -146,8 +143,6 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
     disabled = null;
     inline = null;
     label = null;
-    labelWithAccessKey = null;
-    accessKey = null;
     height = null;
     readonly = null;
     rendered = null;
@@ -188,14 +183,6 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
 
   public void setHeight(String height) {
     this.height = height;
-  }
-
-  public void setLabelWithAccessKey(String labelWithAccessKey) {
-    this.labelWithAccessKey = labelWithAccessKey;
-  }
-
-  public void setAccessKey(String accessKey) {
-    this.accessKey = accessKey;
   }
 
   public void setValidator(String validator) {

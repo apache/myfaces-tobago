@@ -4,20 +4,19 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://java.sun.com/jstl/core"
-      xmlns:tc="http://myfaces.apache.org/tobago/component"
-    xmlns:tx="http://myfaces.apache.org/tobago/facelet-extension" >
+      xmlns:tc="http://myfaces.apache.org/tobago/component">
 
 THIS TEXT WILL BE REMOVED
 <ui:composition>
-  <tc:panel>
+  <tc:panel rendered="${rendered}">
     <f:facet name="layout">
       <tc:gridLayout columns="fixed;*"/>
     </f:facet>
     <tc:label value="${label}" for="@auto" tip="${tip}"/>
-    <tc:in value="${value}" required="${required}"
-        readonly="${readonly}" disabled="${disabled}" >
+    <tc:file value="${value}"
+        readonly="${readonly}" disabled="${disabled}">
       <ui:insert/>
-    </tc:in>
+    </tc:file>
   </tc:panel>
 </ui:composition>
 THIS TEXT WILL BE REMOVED AS WELL

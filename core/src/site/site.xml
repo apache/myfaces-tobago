@@ -2,7 +2,7 @@
 <project name="Tobago core">
   <bannerLeft>
     <name>Tobago</name>
-    <src>http://tobago.atanion.net/site/images/tobago_head.gif</src>
+    <src>http://myfaces.apache.org/tobago/images/tobago_head.gif</src>
     <href>http://myfaces.apache.org/tobago</href>
   </bannerLeft>
   <bannerRight>

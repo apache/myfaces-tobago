@@ -44,4 +44,13 @@
     <module>nonfacesrequest</module>
     <module>test</module>
   </modules>
+
+  <profiles>
+    <profile>
+      <id>all-modules</id>
+      <modules>
+        <module>facelets</module>
+      </modules>
+    </profile>
+  </profiles>
 </project>

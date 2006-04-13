@@ -329,10 +329,8 @@
     </license>
   </licenses>
 
-  <!--todo: use profile to activate all modules-->
   <modules>
     <module>tobago-tool</module>
-    <!--<module>example</module>-->
     <module>core</module>
     <module>theme</module>
   </modules>
@@ -347,10 +345,16 @@
       <id>website</id>
       <url>scpexe://minotaur.apache.org/www/myfaces.apache.org/tobago/</url>
     </site>
-    <!--<site>-->
-      <!--<id>website</id>-->
-      <!--<url>scpexe://shrek/home/resource/tobago-site</url>-->
-    <!--</site>-->
   </distributionManagement>
+
+  <profiles>
+    <profile>
+      <id>all-modules</id>
+      <modules>
+        <module>example</module>
+        <module>tobago-assembly</module>
+      </modules>
+    </profile>
+  </profiles>
 
 </project>

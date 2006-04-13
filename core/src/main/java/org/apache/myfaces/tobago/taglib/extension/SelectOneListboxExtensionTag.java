@@ -48,21 +48,18 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @Tag(name = "selectOneListbox")
 public class SelectOneListboxExtensionTag
     extends BodyTagSupport implements HasId, HasValue, IsDisabled,
-    HasLabel, // HasLabelAndAccessKey,
-    IsReadonly, HasOnchangeListener, IsRendered,
+    HasLabel, IsReadonly, HasOnchangeListener, IsRendered,
     HasBinding, HasDeprecatedHeight, HasTip , IsRequired, HasConverter, HasValidator {
   private String required;
   private String value;
   private String disabled;
   private String readonly;
   private String onchange;
-  private String labelWithAccessKey;
   private String inline;
   private String label;
   private String rendered;
   private String binding;
   private String tip;
-  private String accessKey;
   private String height;
   private String converter;
   private String validator;
@@ -84,13 +81,6 @@ public class SelectOneListboxExtensionTag
     if (rendered != null) {
       labelTag.setRendered(rendered);
     }
-    /* TODO accessKey
-    if (labelWithAccessKey != null) {
-      label.setLabelWithAccessKey(labelWithAccessKey);
-    }
-    if (accessKey !=null) {
-      label.setAccessKey(accessKey);
-    }*/
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 
@@ -150,8 +140,6 @@ public class SelectOneListboxExtensionTag
     disabled = null;
     inline = null;
     label = null;
-    labelWithAccessKey = null;
-    accessKey = null;
     height = null;
     readonly = null;
     rendered = null;
@@ -194,13 +182,6 @@ public class SelectOneListboxExtensionTag
     this.height = height;
   }
 
-  public void setLabelWithAccessKey(String labelWithAccessKey) {
-    this.labelWithAccessKey = labelWithAccessKey;
-  }
-
-  public void setAccessKey(String accessKey) {
-    this.accessKey = accessKey;
-  }
 
   public void setValidator(String validator) {
     this.validator = validator;

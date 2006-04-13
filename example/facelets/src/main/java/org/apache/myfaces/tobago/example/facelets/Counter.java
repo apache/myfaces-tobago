@@ -16,6 +16,11 @@ package org.apache.myfaces.tobago.example.facelets;
  * limitations under the License.
  */
 
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
+
 public class Counter {
   private int count;
 
@@ -25,6 +30,16 @@ public class Counter {
 
   public void setCount(int count) {
     this.count = count;
+  }
+
+  public void customValidator(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    if (value == null) {
+      return;
+    }
+    if (!"tobago".equalsIgnoreCase(value.toString())) {
+      throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please type in 'Tobago'",
+          "Please type in 'Tobago'"));
+    }
   }
 
 }
