@@ -148,6 +148,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
         writer.endElement("div");
 
         writer.startElement("div", null);
+        writer.writeIdAttribute(clientId);
         renderTabGroupView(facesContext, writer, component, virtualTab, oStyle,
             switchType, image1x1);
         writer.endElement("div");
@@ -163,8 +164,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
           final String[] cmds = {
               "new Tobago.TabGroup(",
               "    '" + clientId + "', ",
-              "    '" + activeIndex + "', ",
-              "    '" + pageId + "');"
+              "    '" + activeIndex + "');"
           };
           HtmlRendererUtil.writeScriptLoader(facesContext, scripts, cmds);
         }

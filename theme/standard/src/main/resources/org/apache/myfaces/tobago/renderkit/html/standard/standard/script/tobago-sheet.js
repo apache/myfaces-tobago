@@ -49,11 +49,11 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
   this.oldX = 0;
   this.newWidth = 0;
 
-  this.outerDiv = Tobago.element(this.id + "_outer_div");
-
-  if (this.ajaxEnabled) {
-    this.prototype = new Ajax.Base();
-  }
+  this.outerDivId    = this.id + "_outer_div";
+  this.headerDivId   = this.id + "_header_div";
+  this.contentDivId  = this.id + "_data_div";
+  this.selectedId    = this.id + Tobago.SUB_COMPONENT_SEP +"selected";
+  this.headerWidthsId = this.id + Tobago.SUB_COMPONENT_SEP + "widths"
 
   this.sortOnclickRegExp
       = new RegExp("Tobago.submitAction\\(('|\")(.*?)('|\")\\)");
@@ -72,17 +72,10 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
   this.firstRowRegExp = new RegExp("^" + this.id + "_data_tr_\\d+$");
 
   this.setupElements = function() {
-    this.headerDiv = Tobago.element(this.id + "_header_div");
-    this.contentDiv = Tobago.element(this.id + "_data_div");
-    this.contentTable = this.contentDiv.getElementsByTagName("table")[0];
 
-    this.selected
-        = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP +"selected");
-    this.headerWidths = Tobago.element(this.id + "::widths");
-
-    this.firstRow = this.getFirstRow();
-    this.firstRowIndex = (this.firstRow != undefined)
-        ? this.firstRow.id.substring(this.firstRow.id.lastIndexOf("_data_tr_") + 9)
+    this.firstRowId = this.getFirstRowId();
+    this.firstRowIndex = (this.firstRowId != undefined)
+        ? this.firstRowId.substring(this.firstRowId.lastIndexOf("_data_tr_") + 9)
         : -1;
 
   };
@@ -188,7 +181,7 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
     hidden.type = 'hidden';
     hidden.value = page;
     hidden.name = action + Tobago.SUB_COMPONENT_SEP +  "value";
-    this.outerDiv.appendChild(hidden);
+    Tobago.element(this.outerDivId).appendChild(hidden);
 
     this.reloadWithAction(action);
   };
@@ -210,7 +203,8 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
 
   this.reloadWithAction = function(action) {
     LOG.debug("reload sheet with action \"" + action + "\"");
-    Tobago.Updater.update(this.outerDiv, null, action, this.id, this.options);
+    var divElement = Tobago.element(this.outerDivId);
+    Tobago.Updater.update(divElement, null, action, this.id, this.options);
 
   };
 
@@ -299,9 +293,11 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
 
   this.setupResizer = function() {
     var i = 0;
-    Tobago.addBindEventListener(this.headerDiv, "mousemove", this, "doResize");
-    Tobago.addBindEventListener(this.headerDiv, "mouseup", this, "endResize");
-    Tobago.addBindEventListener(this.contentDiv, "scroll", this, "doScroll");
+    var headerDiv = Tobago.element(this.headerDivId);
+    var contentDiv = Tobago.element(this.contentDivId)
+    Tobago.addBindEventListener(headerDiv, "mousemove", this, "doResize");
+    Tobago.addBindEventListener(headerDiv, "mouseup", this, "endResize");
+    Tobago.addBindEventListener(contentDiv, "scroll", this, "doScroll");
     var resizer = Tobago.element(this.id + "_header_resizer_" + i++ );
     while (resizer) {
       if (resizer.className.match(/tobago-sheet-header-resize-cursor/)) {
@@ -317,8 +313,9 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
 
     // ToDo: find a better way to fix this problem
     // IE needs this in case of ajax loading of style classes
-    this.outerDiv.className = this.outerDiv.className;
-    this.outerDiv.innerHTML = this.outerDiv.innerHTML;
+    var outerDiv = Tobago.element(this.outerDivId);
+    outerDiv.className = outerDiv.className;
+    outerDiv.innerHTML = outerDiv.innerHTML;
 
     this.setupElements();
 
@@ -329,7 +326,7 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
 
     this.setupHeader();
 
-    if (this.firstRow) {
+    if (this.firstRowId) {
       this.tobagoLastClickedRowId = this.firstRowIndex;
     }
     this.addSelectionListener();
@@ -347,12 +344,14 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
   this.adjustScrollBars = function() {
     var dataFiller = Tobago.element(this.id + "_data_row_0_column_filler");
     if (dataFiller) {
-      var tableWidth = this.contentTable.style.width;
-      this.contentTable.style.width = "10px";
+      var contentDiv = Tobago.element(this.contentDivId);
+      var contentTable = contentDiv.getElementsByTagName("table")[0];
+      var tableWidth = contentTable.style.width;
+      contentTable.style.width = "10px";
       dataFiller.style.width = "0px";
-      var clientWidth = this.contentDiv.clientWidth;
+      var clientWidth = contentDiv.clientWidth;
 
-      if (this.contentDiv.scrollWidth <= clientWidth) {
+      if (contentDiv.scrollWidth <= clientWidth) {
         var width = 0;
         var i = 0;
         var cellDiv = Tobago.element(this.id + "_data_row_0_column" + i++);
@@ -363,12 +362,12 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
         }
         dataFiller.style.width = Math.max((clientWidth - width), 0) + "px";
       }
-      this.contentTable.style.width = tableWidth;
+      contentTable.style.width = tableWidth;
     }
   };
 
   this.addSelectionListener = function() {
-    var row = this.firstRow;
+    var row = Tobago.element(this.firstRowId);
     if (row) {
       var i = this.firstRowIndex;
       i++;
@@ -406,7 +405,7 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
 
       if (! event.ctrlKey && ! selector) {
         // clearAllSelections();
-        this.selected.value = "";
+        Tobago.element(this.selectedId).value = "";
       }
 
       if (event.shiftKey) {
@@ -422,8 +421,8 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
   };
 
   this.updateSelectionView = function(sheetId) {
-    var selected = this.selected.value;
-    var row = this.firstRow;
+    var selected = Tobago.element(this.selectedId).value;
+    var row = Tobago.element(this.firstRowId);
     var i = this.firstRowIndex;
     while (row) {
 
@@ -461,11 +460,12 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
     var selector = Tobago.element(this.id + "_data_row_selector_" + rowIndex);
     if (!selector || !selector.src.match(/Disabled/)) {
       var re = new RegExp("," + rowIndex + ",");
-      if (this.selected.value.search(re) != -1) {
-        this.selected.value = this.selected.value.replace(re, "");
+      var selected = Tobago.element(this.selectedId);
+      if (selected.value.search(re) != -1) {
+        selected.value = selected.value.replace(re, "");
       }
       else {
-        this.selected.value = this.selected.value + "," + rowIndex + ",";
+        selected.value = selected.value + "," + rowIndex + ",";
       }
     }
   };
@@ -484,25 +484,26 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
       start = firstIndex;
       end = lastIndex;
     }
+    var selected = Tobago.element(this.selectedId);
     for (var i = start; i <= end; i++) {
       var re = new RegExp("," + i + ",");
-      if (this.selected.value.search(re) == -1) {
+      if (selected.value.search(re) == -1) {
         var selector = Tobago.element(this.id + "_data_row_selector_" + i);
         if (!selector || !selector.src.match(/Disabled/)) {
-          this.selected.value = this.selected.value + "," + i + ",";
+          selected.value = selected.value + "," + i + ",";
         }
       }
     }
   };
 
-  this.getFirstRow = function() {
+  this.getFirstRowId = function() {
     var element = Tobago.element(this.id + "_data_row_0_column0");// data div
     while (element && element.id.search(this.firstRowRegExp) == -1) {
 //      LOG.debug("element id = " + element.id);
       element = element.parentNode;
     }
-//    LOG.debug("element id = " + element.id);
-    return element;
+//    LOG.debug("firstRowId = " + element.id);
+    return element ? element.id : undefined;
   };
 
   this.setupHeader = function() {
@@ -537,9 +538,12 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
   };
 
   this.adjustHeaderDiv = function () {
-    this.contentTable.style.width = "10px";
-    var contentWidth = this.contentDiv.style.width.replace(/px/, "") - 0;
-    var clientWidth = this.contentDiv.clientWidth;
+    var headerDiv = Tobago.element(this.headerDivId);
+    var contentDiv = Tobago.element(this.contentDivId);
+    var contentTable = contentDiv.getElementsByTagName("table")[0];
+    contentTable.style.width = "10px";
+    var contentWidth = contentDiv.style.width.replace(/px/, "") - 0;
+    var clientWidth = contentDiv.clientWidth;
     var boxSum = 0;
     var idx = 0;
     var box = Tobago.element(this.id + "_header_box_" + idx++);
@@ -553,18 +557,18 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
     var minWidth = contentWidth - Tobago.Config.get("Sheet", "scrollbarWidth")
                    - Tobago.Config.get("Sheet", "contentBorderWidth");
     minWidth = Math.max(minWidth, 0); // not less than 0
-    this.headerDiv.style.width = Math.max(clientWidth, minWidth);
+    headerDiv.style.width = Math.max(clientWidth, minWidth);
     var fillBox = Tobago.element(this.id + "_header_box_filler");
-    fillBox.style.width = Math.max(this.headerDiv.style.width.replace(/px/, "") - boxSum, 0);
+    fillBox.style.width = Math.max(headerDiv.style.width.replace(/px/, "") - boxSum, 0);
     //  LOG.debug("adjustHeaderDiv(" + sheetId + ") : clientWidth = " + clientWidth + " :: width => " + headerDiv.style.width);
     //headerDiv.style.width = clientWidth;
-    var clientWidth2 = this.contentDiv.clientWidth;
+    var clientWidth2 = contentDiv.clientWidth;
     if (clientWidth > clientWidth2) {
       // IE needs this
-      this.headerDiv.style.width = Math.max(clientWidth2, minWidth);
+      headerDiv.style.width = Math.max(clientWidth2, minWidth);
       //    LOG.debug("second time adjustHeaderDiv(" + sheetId + ") : clientWidth2 = " + clientWidth2 + " :: width => " + headerDiv.style.width);
     }
-    this.contentTable.style.width = this.contentDiv.clientWidth + "px";
+    contentTable.style.width = contentDiv.clientWidth + "px";
     //  LOG.debug("div width   :" + contentDiv.clientWidth);
     //  LOG.debug("table width :" + contentTable.clientWidth);
     //  LOG.debug("boxSum      :" + boxSum);
@@ -645,12 +649,13 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
       widths = widths + "," + width;
       header = Tobago.element(idPrefix + index++);
     }
-    this.headerWidths.value = widths;
+    Tobago.element(this.headerWidths).value = widths;
   };
 
   this.doScroll = function(event) {
     //LOG.debug("header / data  " + this.headerDiv.scrollLeft + "/" + this.contentDiv.scrollLeft);
-    this.headerDiv.scrollLeft = this.contentDiv.scrollLeft;
+    Tobago.element(this.headerDivId).scrollLeft
+        = Tobago.element(this.contentDivId).scrollLeft;
     //LOG.debug("header / data  " + this.headerDiv.scrollLeft + "/" + this.contentDiv.scrollLeft);
     //LOG.debug("----------------------------------------------");
   };
@@ -658,14 +663,15 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
 
 
   this.selectAll = function() {
-    var row = this.firstRow;
+    var row = Tobago.element(this.firstRowId);
     var i = this.firstRowIndex;
+    var selected = Tobago.element(this.selectedId);
     while (row) {
       var selector = Tobago.element(this.id + "_data_row_selector_" + i);
       if (!selector || !selector.src.match(/Disabled/)) {
         var re = new RegExp("," + i + ",");
-        if (this.selected.value.search(re) == -1) {
-          this.selected.value = this.selected.value + "," + i + ",";
+        if (selected.value.search(re) == -1) {
+          selected.value = selected.value + "," + i + ",";
         }
       }
       row = Tobago.element(this.id + "_data_tr_" + ++i );
@@ -674,7 +680,8 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
   };
 
   this.unSelectAll = function() {
-    var row = this.firstRow;
+    var selected = Tobago.element(this.selectedId);
+    var row = Tobago.element(this.firstRowId);
     var selector = Tobago.element(this.id + "_data_row_selector_" + i);
     if (selector) {
       var i = this.firstRowIndex;
@@ -682,18 +689,18 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
         selector = Tobago.element(this.id + "_data_row_selector_" + i);
         if (!selector || !selector.src.match(/Disabled/)) {
           var re = new RegExp("," + i + ",", 'g');
-          this.selected.value = this.selected.value.replace(re, "");
+          selected.value = selected.value.replace(re, "");
         }
         row = Tobago.element(this.id + "_data_tr_" + ++i );
       }
     } else {
-      this.selected.value = "";
+      selected.value = "";
     }
     this.updateSelectionView();
   };
 
   this.toggleAllSelections = function(sheetId) {
-    var row = this.firstRow;
+    var row = Tobago.element(this.firstRowId);
     var i = this.firstRowIndex;
     while (row) {
       this.toggleSelection(i);

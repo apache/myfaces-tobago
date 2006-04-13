@@ -15,41 +15,72 @@
  */
 
 
-Tobago.TabGroupBase = {
-  initialize: function(tabGroupId, activeIndex, page) {
-    this.tabGroupId = tabGroupId,
-    this.activeIndex = activeIndex;
-    this.element = Tobago.element(tabGroupId + '.' + activeIndex);
-    this.page = Tobago.element(page);
+Tobago.TabGroup = function(tabGroupId, activeIndex, page) {
+  this.tabGroupId = tabGroupId,
+      this.activeIndex = activeIndex;
+  this.activeTabId  = tabGroupId + '.' + activeIndex;
+  LOG.debug("activeTabId : " + this.activeTabId);
 
-    this.options = {
+  Tobago.element(this.tabGroupId).jsObject = this;
+  Tobago.addJsObject(this);
+
+//  var htmlId = this.tabGroupId;
+//
+//  var onComplete = function() {
+//    LOG.debug("htmlId = " + htmlId);
+//    var obj = document.getElementById(htmlId).jsObject;
+//    LOG.debug("obj = " + typeof obj);
+//    obj.onComplete.apply(obj, []);
+//  };
+
+  //    this.options.onComplete = this.onComplete.bind(this);
+
+  this.options = {
       method: 'post',
       asynchronous: true,
-      onComplete: this.onComplete.bind(this),
       parameters: '',
-      evalScripts: true
-    };
+      evalScripts: true,
+      onComplete: Tobago.bind(this, "onComplete")
+  };
 
-    this.parent = this.element.parentNode;
-    this.setUp();
-  },
+  LOG.debug("opnclomplete = " + this.options.onComplete);
 
-  setUp: function() {
-//    LOG.debug("setup tabgroup " + this.element.id);
+  this.setUp();
+};
+
+Tobago.TabGroup.prototype.setUp = function() {
+    LOG.debug("tabgroup id " + this.tabGroupId);
+    LOG.debug("setup tabgroup " + this.activeTabId);
+    LOG.debug("activeIndex " + this.activeIndex);
     var i = 0;
-    var idPrefix = this.element.id + Tobago.SUB_COMPONENT_SEP;
+    var idPrefix = this.activeTabId + Tobago.SUB_COMPONENT_SEP;
+
+//    var htmlId = this.tabGroupId;
     var anchor = Tobago.element(idPrefix + i++);
     while (anchor) {
-//      LOG.debug("observe tab " + anchor.id);
+      LOG.debug("observe tab " + anchor.id);
 //      if (i != this.activeIndex) {
-        Event.observe(anchor, "click", this.reload.bindAsEventListener(this));
+//        Event.observe(anchor, "click", this.reload.bindAsEventListener(this));
 //      }
+
+//      var onClick = function(event) {
+//        LOG.debug("htmlId = " + htmlId);
+//        var obj = document.getElementById(htmlId).jsObject;
+//        LOG.debug("obj = " + obj);
+//        LOG.debug("obj.reload = " + obj.reload);
+//        obj.reload.call(obj, event);
+//      };
+
+//      Tobago.addEventListener(anchor, "click", onClick);
+      Tobago.addBindEventListener(anchor, "click", this, "reload");
       anchor = Tobago.element(idPrefix + i++);
     }
 
-  },
 
-  reload: function(event) {
+};
+
+Tobago.TabGroup.prototype.reload = function(event) {
+  LOG.debug("Reload ");
     if (event) {
       var element = Tobago.element(event);
       var aId = Tobago.findAnchestorWithTagName(element, 'span').id;
@@ -66,7 +97,8 @@ Tobago.TabGroupBase = {
       }
       if (Tobago.Updater.hasTransport()) {
         this.removeRelatedAcceleratorKeys(aId.substring(0, aId.lastIndexOf(Tobago.SUB_COMPONENT_SEP) + Tobago.SUB_COMPONENT_SEP.length));
-        Tobago.Updater.update(this.parent, this.page, this.tabGroupId, this.tabGroupId, this.options);
+        var container = Tobago.element(this.tabGroupId);
+        Tobago.Updater.update(container, Tobago.page, this.tabGroupId, this.tabGroupId, this.options);
       } else {
         Tobago.submitAction(this.tabGroupId);
       }
@@ -74,9 +106,9 @@ Tobago.TabGroupBase = {
       LOG.info("No reload Event");
     }
 
-  },
+};
 
-  removeRelatedAcceleratorKeys: function(idPrefix) {
+Tobago.TabGroup.prototype.removeRelatedAcceleratorKeys = function(idPrefix) {
     var regex = new RegExp("Tobago.clickOnElement\\(\"" + idPrefix);
     for (var name in Tobago.acceleratorKeys) {
       if (typeof Tobago.acceleratorKeys[name] == 'object'
@@ -85,15 +117,11 @@ Tobago.TabGroupBase = {
         Tobago.acceleratorKeys.remove(Tobago.acceleratorKeys[name]);
       }
     }
-  },
+};
 
-  onComplete: function(request) {
+Tobago.TabGroup.prototype.onComplete = function(request) {
     LOG.debug("tabgroup loaded : ");
-    this.element = this.parent.firstChild;
+    this.activeTabId = Tobago.element(this.tabGroupId).firstChild.id;
+    LOG.debug("activeTabId : " + this.activeTabId);
     this.setUp();
-  }
-
-}
-
-Tobago.TabGroup = Class.create();
-Tobago.TabGroup.prototype = Object.extend(new Ajax.Base(), Tobago.TabGroupBase);
+};

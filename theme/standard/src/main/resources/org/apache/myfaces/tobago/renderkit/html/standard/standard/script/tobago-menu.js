@@ -16,6 +16,29 @@
 
 
 Tobago.Menu = {
-  MENU_ROOT_ID : "menuroot"
-    
+  MENU_ROOT_ID : "menuroot",
+
+  destroy: function(node) {
+    if (!node.addMenuItem) {
+      return;
+    }
+
+    this.deleteReferences(node);
+    for (var i = 0; i < node.subItems.length; i++) {
+      this.destroy(node.subItems[i]);
+    }
+  },
+
+  deleteReferences: function(node) {
+    if (node.menubar) {
+      delete node.menubar.menu;
+      delete node.menubar;
+    }
+    if (node.htmlElement) {
+      delete node.htmlElement.menuItem;
+      delete node.htmlElement;
+      delete node.subItemContainer;
+      delete node.subItemIframe;
+    }
+  }    
 }

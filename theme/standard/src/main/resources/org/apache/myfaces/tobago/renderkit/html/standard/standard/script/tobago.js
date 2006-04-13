@@ -60,7 +60,19 @@ var Tobago = {
     */
   focusId: null,
 
+  htmlIdIndex: 0,
+
+  createHtmlId: function() {
+    var id = "__tbg_id_" + this.htmlIdIndex++;
+    LOG.debug("created id = " + id);
+    return id;
+  },
+
   images: {},
+
+  jsObjects: new Array(),
+
+  eventListeners: new Array(),
 
   acceleratorKeys: {
     set: function(keyAccelerator) {
@@ -200,6 +212,60 @@ var Tobago = {
     } else if (!this.isSubmit && this.applicationOnexit) {
       this.applicationOnexit();
     }
+    this.destroyObjects();
+  },
+
+  addJsObject: function(obj) {
+    this.jsObjects[this.jsObjects.length] = obj;
+  },
+
+  destroyObjects: function() {
+    delete this.page;
+    delete this.form;
+    delete this.action;
+    this.removeEventListeners();
+    for (var i = 0; i < this.jsObjects.length; i++) {
+      this.destroyObject(this.jsObjects[i]);
+    }
+    this.jsObjects.length = 0;
+    delete this.jsObjects;
+  },
+
+  removeEventListeners: function() {
+    var count = 0;
+    for (var i = 0; i < this.eventListeners.length; i++) {
+      var el = this.eventListeners[i];
+      this.removeEventListener(el);
+      delete el.element;
+      delete el.event;
+      delete el.func;
+      this.eventListeners[i] = undefined;
+      count++;
+    }
+    delete this.eventListeners;
+//    alert(count + " EverntListener geloescht");
+  },
+
+  destroyObject: function(obj) {
+    if (obj.addMenuItem) {
+      // Menu Object
+      Tobago.Menu.destroy(obj);
+    } else if (obj.htmlElement) {
+      // test
+      delete obj.htmlElement.jsObjects;
+      delete obj.htmlElement;
+    }
+    else {
+      // Unknown Object --> delete all properties
+      if (typeof obj == 'Object') {
+        for (var name in obj) {
+           delete obj[name];
+        }
+      } else if (typeof obj == 'Array') {
+        obj.length = 0;
+      }
+    }
+
   },
 
    /**
@@ -757,10 +823,11 @@ var Tobago = {
     * Add a eventListener to a htmlElement
     */
   addEventListener: function(element, event, myFunction) {
-    if (element.addEventListener) { // this is DOM2
-      element.addEventListener(event, myFunction, false);
+    var el = new Tobago.EventListener(element, event, myFunction);
+    if (el.element.addEventListener) { // this is DOM2
+      el.element.addEventListener(el.event, el.func, false);
     } else { // IE
-      element.attachEvent("on" + event, myFunction);
+      el.element.attachEvent("on" + el.event, el.func);
     }
   },
 
@@ -768,6 +835,11 @@ var Tobago = {
     * Remove a eventListener from a htmlElement
     */
   removeEventListener: function(element, event, myFunction) {
+    if (!event && !myFunction && element.element && element.event && element.func) {
+      myFunction = element.func;
+      event = element.event;
+      element = element.element;
+    }
     if (element.removeEventListener) { // this is DOM2
       element.removeEventListener(event, myFunction, true);
     }
@@ -975,7 +1047,9 @@ var Tobago = {
     } catch(ex) {
       return undefined;
     }
+    if (! (typeof arg == 'undefined')) {
     LOG.error("arg ist unbekannt : " + typeof arg + " : " + arg);
+    }
     return undefined;
   }
 };
@@ -987,6 +1061,13 @@ Tobago.Image = function(id, normal, disabled, hover) {
   this.disabled = disabled;
   this.hover = hover;
   Tobago.images[id] = this;
+};
+
+Tobago.EventListener = function(element, event, func) {
+  this.element = element;
+  this.event = event;
+  this.func = func;
+  Tobago.eventListeners[Tobago.eventListeners.length] = this;
 };
 
 Tobago.AcceleratorKey = function(func, key, modifier) {

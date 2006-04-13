@@ -79,6 +79,7 @@ function createMenuRoot(id) {
   var menu = new MenuItem();
   menu.id = id + Tobago.SUB_COMPONENT_SEP + Tobago.Menu.MENU_ROOT_ID;
   menu.level = 0;
+  Tobago.addJsObject(menu);
   return menu;
 }
 
