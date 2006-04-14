@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 
 /*
  * Created by IntelliJ IDEA.
@@ -180,7 +181,8 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
    * StateChangeEvent parameter, with a return type of void.
    */
   @TagAttribute
-  @UIComponentTagAttribute()
+  @UIComponentTagAttribute(type = "javax.faces.el.MethodBinding",
+       expression = DynamicExpression.METHOD_BINDING)
   void setStateChangeListener(String stateChangeListener);
 
   /**
@@ -201,7 +203,8 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
    * the sheets {@link org.apache.myfaces.tobago.model.SheetState} object.
    */
   @TagAttribute
-  @UIComponentTagAttribute()
+  @UIComponentTagAttribute(type = "javax.faces.el.MethodBinding",
+       expression = DynamicExpression.METHOD_BINDING)
   void setSortActionListener(String sortActionListener);
 
 }

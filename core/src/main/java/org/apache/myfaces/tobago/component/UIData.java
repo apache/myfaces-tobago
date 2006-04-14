@@ -38,6 +38,7 @@ import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeListener;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionEvent;
+import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
@@ -59,7 +60,7 @@ import java.util.List;
 import java.util.Map;
 
 public class UIData extends javax.faces.component.UIData
-    implements SheetStateChangeSource, AjaxComponent {
+    implements SheetStateChangeSource, SortActionSource, AjaxComponent {
 
   private static final Log LOG = LogFactory.getLog(UIData.class);
 
@@ -567,13 +568,13 @@ public class UIData extends javax.faces.component.UIData
 
   public boolean isShowHeader() {
     if (showHeader != null) {
-        return showHeader;
+      return showHeader;
     }
     ValueBinding vb = getValueBinding(ATTR_SHOW_HEADER);
     if (vb != null) {
-        return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
+      return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
     } else {
-        return showHeader == null || showHeader;
+      return true;
     }
   }
 

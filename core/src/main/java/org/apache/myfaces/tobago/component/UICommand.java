@@ -16,12 +16,15 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 import java.io.IOException;
 import java.util.Iterator;
 
-/**
+/*
  * User: weber
  * Date: Apr 4, 2005
  * Time: 5:02:10 PM
@@ -30,10 +33,18 @@ public class UICommand extends javax.faces.component.UICommand {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Command";
 
-  private boolean defaultCommand;
+  private Boolean defaultCommand;
 
   public boolean isDefaultCommand() {
-    return defaultCommand;
+    if (defaultCommand != null) {
+      return defaultCommand;
+    }
+    ValueBinding vb = getValueBinding(ATTR_DEFAULT_COMMAND);
+    if (vb != null) {
+      return Boolean.TRUE.equals(vb.getValue(getFacesContext()));
+    } else {
+      return false;
+    }
   }
 
   public void setDefaultCommand(boolean defaultCommand) {
@@ -50,7 +61,7 @@ public class UICommand extends javax.faces.component.UICommand {
     public void restoreState(FacesContext context, Object savedState) {
       Object[] values = (Object[]) savedState;
       super.restoreState(context, values[0]);
-      defaultCommand = (Boolean)values[1];
+      defaultCommand = (Boolean) values[1];
     }
 
 

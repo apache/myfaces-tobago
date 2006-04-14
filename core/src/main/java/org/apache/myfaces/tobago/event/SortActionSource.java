@@ -19,19 +19,13 @@ package org.apache.myfaces.tobago.event;
 /*
  * Created by IntelliJ IDEA.
  * User: bommel
- * Date: 22.12.2005
- * Time: 23:01:03
+ * Date: 14.04.2006
+ * Time: 10:42:38
  * To change this template use File | Settings | File Templates.
  */
-public interface TabChangeSource {
+public interface SortActionSource {
 
-  javax.faces.el.MethodBinding getTabChangeListener();
+  javax.faces.el.MethodBinding getSortActionListener();
 
-  void setTabChangeListener(javax.faces.el.MethodBinding actionListener);
-
-  void addTabChangeListener(TabChangeListener listener);
-
-  TabChangeListener[] getTabChangeListeners();
-
-  void removeTabChangeListener(TabChangeListener listener);
+  void setSortActionListener(javax.faces.el.MethodBinding actionListener);
 }

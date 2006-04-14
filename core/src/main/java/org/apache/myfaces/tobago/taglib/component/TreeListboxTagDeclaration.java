@@ -42,7 +42,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 @Tag(name = "treeListbox")
 @BodyContentDescription(anyTagOf = "<f:facet>* <f:actionListener>?")
 @Preliminary(
-    "Implement a var attribute for the tree like in the sheet (http://issues.apache.org/jira/browse/MYFACES-903)")
+    "Implement a var attribute for the tree like in the sheet (http://issues.apache.org/jira/browse/TOBAGO-18)")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeListbox",
     rendererType = "TreeListbox")
