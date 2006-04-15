@@ -36,6 +36,26 @@
     <url>http://svn.apache.org/viewcvs.cgi/incubator/tobago/trunk/example</url>
   </scm>
 
+  <repositories>
+    <repository>
+      <id>atanion</id>
+      <url>http://www.atanion.com/maven2</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>atanion</id>
+      <url>http://www.atanion.com/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
+
   <modules>
     <module>addressbook</module>
     <module>blank</module>

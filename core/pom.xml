@@ -29,7 +29,8 @@
   <packaging>jar</packaging>
   <name>Tobago Core</name>
   <description>Tobago Core</description>
-   <build>
+  
+  <build>
     <resources>
       <resource>
         <directory>src/main/resources</directory>
@@ -70,15 +71,6 @@
     <plugins>
 
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>taglist-maven-plugin</artifactId>
-        <version>2.0-beta-1</version>
-        <configuration>
-          <tags>TODO, FIXME, XXX, @deprecated</tags>
-        </configuration>
-      </plugin>
-
-      <plugin>
         <groupId>net.sourceforge.maven-taglib</groupId>
         <artifactId>maven-taglib-plugin</artifactId>
         <configuration>
@@ -86,20 +78,6 @@
           <tldDocDir>${basedir}/target/site/tlddoc</tldDocDir>
           </configuration>
       </plugin>
-
-      <!-- pmd has problems with annotations
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <exclude>**/package-info.java</exclude>
-          </excludes>
-          <encoding>UTF-8</encoding>
-          <linkXref>true</linkXref>
-          <targetJdk>1.5</targetJdk>
-        </configuration>
-      </plugin-->
 
     </plugins>
   </reporting>
@@ -378,6 +356,23 @@
                 <id>attach-tlddoc</id>
                 <goals><goal>taglibdocjar</goal></goals>
                </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>attach-source</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-source</id>
+                <goals><goal>jar</goal></goals>
+              </execution>
             </executions>
           </plugin>
         </plugins>

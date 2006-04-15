@@ -173,6 +173,14 @@
 
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
+        <artifactId>taglist-maven-plugin</artifactId>
+        <configuration>
+          <tags>TODO, FIXME, XXX, @deprecated</tags>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
         <artifactId>jxr-maven-plugin</artifactId>
       </plugin>
 
@@ -214,6 +222,22 @@
         <configuration><basedir>${basedir}</basedir></configuration>
       </plugin>
 
+      <!-- pmd has problems with annotations -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>**/package-info.java</exclude>
+            <exclude>org/apache/myfaces/tobago/apt/annotation/*.java</exclude>
+          </excludes>
+          <encoding>UTF-8</encoding>
+          <linkXref>true</linkXref>
+          <targetJdk>1.5</targetJdk>
+        </configuration>
+      </plugin>
+
+
       <!--plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
@@ -247,9 +271,9 @@
   </scm>
 
   <organization>
-     <name>Apache Software Foundation</name>
-     <url>http://www.apache.org/</url>
-   </organization>
+    <name>Apache Software Foundation</name>
+    <url>http://www.apache.org/</url>
+  </organization>
 
   <repositories>
     <repository>
@@ -262,33 +286,8 @@
       <id>apache-maven-snapshots</id>
       <url>http://cvs.apache.org/maven-snapshot-repository</url>
     </repository>
-    <repository>
-      <id>ibiblio</id>
-      <url>http://www.ibiblio.org/maven2</url>
-    </repository>
-    <repository>
-      <id>atanion</id>
-      <url>http://www.atanion.com/maven2</url>
-    </repository>
   </repositories>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <id>atanion</id>
-      <url>http://www.atanion.com/maven2</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>ibiblio</id>
-      <url>http://www.ibiblio.org/maven2</url>
-    </pluginRepository>
-  </pluginRepositories>
-
+  
   <build>
     <defaultGoal>install</defaultGoal>
     <plugins>
@@ -306,12 +305,12 @@
       <extension>
         <groupId>org.apache.maven.wagon</groupId>
          <artifactId>wagon-ssh-external</artifactId>
-         <version>1.0-alpha-5</version>
+         <version>1.0-alpha-6</version>
       </extension>
       <extension>
         <groupId>org.apache.maven.wagon</groupId>
         <artifactId>wagon-ftp</artifactId>
-        <version>1.0-alpha-3</version>
+        <version>1.0-alpha-6</version>
       </extension>
       <extension>
         <groupId>org.apache.myfaces.maven</groupId>
@@ -336,10 +335,16 @@
   </modules>
 
   <distributionManagement>
+    <repository>
+      <id>apache-maven</id>
+      <name>Apache Maven Repository</name>
+      <url>scpexe://minotaur.apache.org/www/www.apache.org/dist/maven-repository</url>
+    </repository>
     <snapshotRepository>
-      <id>snapshot</id>
-      <name>Atanion Development Repository</name>
-      <url>ftp://www.atanion.com/maven2</url>
+      <uniqueVersion>false</uniqueVersion>
+      <id>apache-maven-snapshots</id>
+      <name>Apache Maven Snapshot Repository</name>
+      <url>scpexe://minotaur.apache.org/www/cvs.apache.org/maven-snapshot-repository</url>
     </snapshotRepository>
     <site>
       <id>website</id>
