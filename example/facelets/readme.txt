@@ -23,7 +23,7 @@ and install the missing artifact with
 Please build the tobago-facelets.jar in contrib/facelets.
 This arifact requires the tobago-core-sources.jar artifact.
 The tobago-core-sources.jar is generated with the profile
-attach-source int core (mvn -P attach-source).
+attach-source in core (mvn -P attach-source).
 
 
 
