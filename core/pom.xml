@@ -283,53 +283,7 @@
         </plugins>
       </build>
     </profile>
-    <profile>
-      <id>generate-facelet-taglib</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.myfaces.tobago</groupId>
-            <artifactId>maven-apt-plugin</artifactId>
-            <version>${version}</version>
-            <executions>
-              <execution>
-                <id>tobago-tlds</id>
-                <goals><goal>execute</goal></goals>
-                <configuration>
-                  <targetFiles>
-                    <targetFile>org/apache/myfaces/tobago/taglib/component/tobago.tld</targetFile>
-                    <targetFile>org/apache/myfaces/tobago/taglib/extension/tobago-extension.tld</targetFile>
-                  </targetFiles>
-                  <resourceTargetPath>META-INF</resourceTargetPath>
-                  <generated>target/generated-tld</generated>
-                  <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
-                  <nocompile>true</nocompile>
-                  <encoding>UTF-8</encoding>
-                </configuration>
-              </execution>
-              <execution>
-                <id>tobago-facelet-taglib</id>
-                <phase>process-classes</phase>
-                <goals><goal>execute</goal></goals>
-                <configuration>
-                  <excludes>
-                    <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>
-                  </excludes>
-                  <targetFiles>
-                    <targetFile>tobago.taglib.xml</targetFile>
-                  </targetFiles>
-                  <resourceTargetPath>META-INF</resourceTargetPath>
-                  <generated>target/generated-tld</generated>
-                  <factory>org.apache.myfaces.tobago.apt.FaceletAnnotationProcessorFactory</factory>
-                  <nocompile>true</nocompile>
-                  <encoding>UTF-8</encoding>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
+
     <profile>
       <id>generate-assembly</id>
       <build>

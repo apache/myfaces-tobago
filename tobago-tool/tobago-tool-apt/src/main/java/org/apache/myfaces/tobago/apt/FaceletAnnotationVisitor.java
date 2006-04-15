@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.apt;
  */
 
 import com.sun.mirror.apt.AnnotationProcessorEnvironment;
+import com.sun.mirror.apt.Filer;
 import com.sun.mirror.declaration.PackageDeclaration;
 import com.sun.mirror.declaration.InterfaceDeclaration;
 
@@ -27,14 +28,22 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 import java.lang.reflect.Field;
+import java.io.File;
+import java.io.Writer;
+import java.io.IOException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.apache.myfaces.tobago.apt.annotation.Taglib;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.codehaus.modello.generator.java.javasource.JCompUnit;
+import org.codehaus.modello.generator.java.javasource.JClass;
+import org.codehaus.modello.generator.java.javasource.JField;
+import org.codehaus.modello.generator.java.javasource.JConstructor;
+import org.codehaus.modello.generator.java.javasource.JSourceWriter;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 30.03.2006
@@ -47,7 +56,7 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
     super(env);
   }
 
-  public List<DocumentAndFileName> createDom() throws ParserConfigurationException {
+  public List<DocumentAndFileName> createDom() throws ParserConfigurationException, IOException {
     javax.xml.parsers.DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setValidating(false);
     javax.xml.parsers.DocumentBuilder parser = dbf.newDocumentBuilder();
@@ -61,59 +70,96 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
       documentAndFileName.setFileName(taglibAnnotation.fileName());
       tlds.add(documentAndFileName);
       Element taglib = document.createElement("facelet-taglib");
-      addLeafTextElement(taglibAnnotation.uri(), "namespace", taglib, document);
       Set<String> tagSet = new HashSet<String>();
+      String packageName = "org.apache.myfaces.tobago.facelets";
+
+
+      JClass libraryClass = new JClass("TobagoLibrary");
+      libraryClass.setPackageName(packageName);
+
+      addLeafTextElement(libraryClass.getName(), "library-class", taglib, document);
+            document.appendChild(taglib);
+
+
+      JCompUnit unit = new JCompUnit(libraryClass);
+      libraryClass.setSuperClass("AbstractTagLibrary");
+      libraryClass.addImport("com.sun.facelets.tag.AbstractTagLibrary");
+
+      JField nameSpace = new JField(new JClass("String"),"NAMESPACE");
+      nameSpace.getModifiers().setFinal(true);
+      nameSpace.getModifiers().setStatic(true);
+      nameSpace.getModifiers().makePublic();
+      nameSpace.setInitString("\""+taglibAnnotation.uri()+"\"");
+      libraryClass.addField(nameSpace);
+
+      JField instance = new JField(libraryClass,"INSTANCE");
+      instance.getModifiers().setFinal(true);
+      instance.getModifiers().setStatic(true);
+      instance.getModifiers().makePublic();
+      instance.setInitString("new "+libraryClass.getName(true) +"()");
+      libraryClass.addField(instance);
+      JConstructor constructor = libraryClass.createConstructor();
+      constructor.getSourceCode().add("super(NAMESPACE);");
+
+
 
       for (InterfaceDeclaration decl : getCollectedInterfaceDeclations()) {
         if (decl.getPackage().equals(packageDeclaration)) {
-          appendComponent(decl, taglib, tagSet, document);
+          appendComponent(constructor, decl, tagSet);
         }
       }
-      document.appendChild(taglib);
+
+      Writer writer = env.getFiler().createTextFile(Filer.Location.SOURCE_TREE,
+            packageName,
+            new File(libraryClass.getName(true)+".java"), null);
+      JSourceWriter sourceWriter = new JSourceWriter(writer);
+      unit.print(sourceWriter);
 
     }
     return tlds;
   }
 
-  protected void appendComponent(InterfaceDeclaration decl, Element parent, Set<String> tagSet, Document document) {
+  protected void appendComponent(JConstructor constructor, InterfaceDeclaration decl, Set<String> tagSet) {
 
     Tag annotationTag = decl.getAnnotation(Tag.class);
     if (annotationTag != null) {
-      Element tag = createTag(decl, annotationTag, document);
-      if (tag != null) {
-        parent.appendChild(tag);
-      }
+      createTag(constructor,decl, annotationTag);
+
     }
   }
 
-  protected Element createTag(InterfaceDeclaration decl, Tag annotationTag, Document document) {
+  protected void createTag(JConstructor constructor,InterfaceDeclaration decl, Tag annotationTag) {
     UIComponentTag componentTag = decl.getAnnotation(UIComponentTag.class);
     if (componentTag == null) {
-      return null;
+      return ;
     }
     try {
-      Element tagElement = document.createElement("tag");
-
-      addLeafTextElement(annotationTag.name(), "tag-name", tagElement, document);
-
-      Element component = document.createElement("component");
-
       Class uiComponentClass = Class.forName(componentTag.uiComponent());
+
+      StringBuffer addComponent = new StringBuffer("addComponent(\"");
+      addComponent.append(annotationTag.name());
+
       Field componentField = uiComponentClass.getField("COMPONENT_TYPE");
       String componentType = (String)componentField.get(null);
 
-      addLeafTextElement(componentType, "component-type", component, document);
+      addComponent.append("\", \"");
+      addComponent.append(componentType);
+      addComponent.append("\", ");
       String rendererType = componentTag.rendererType();
       if (rendererType != null && rendererType.length() > 0) {
-        addLeafTextElement(rendererType, "renderer-type", component, document);
+        addComponent.append("\"");
+        addComponent.append(rendererType);
+        addComponent.append("\", ");
+      } else {
+        addComponent.append("null,");
       }
-      tagElement.appendChild(component);
+      addComponent.append("TobagoComponentHandler.class);");
+      constructor.getSourceCode().add("");
+      constructor.getSourceCode().add(addComponent.toString());
 
-      return tagElement;
     } catch (Exception e) {
       e.printStackTrace();
     }
-    return null;
   }
 
   public AnnotationProcessorEnvironment getEnv() {

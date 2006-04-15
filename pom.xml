@@ -287,7 +287,7 @@
       <url>http://cvs.apache.org/maven-snapshot-repository</url>
     </repository>
   </repositories>
-  
+
   <build>
     <defaultGoal>install</defaultGoal>
     <plugins>
@@ -358,6 +358,7 @@
       <modules>
         <module>example</module>
         <module>tobago-assembly</module>
+        <module>contrib</module>
       </modules>
     </profile>
   </profiles>

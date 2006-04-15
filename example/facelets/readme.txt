@@ -20,10 +20,10 @@ and install the missing artifact with
  -DartifactId=jsf-facelets -Dversion=1.0.14 -Dpackaging=jar
 
 
-Enable the generating of the tobago.taglib.xml in the
-tobago-core with the profile generate-facelet-taglib
-
- mvn -Pgenerate-facelet-taglib
+Please build the tobago-facelets.jar in contrib/facelets.
+This arifact requires the tobago-core-sources.jar artifact.
+The tobago-core-sources.jar is generated with the profile
+attach-source int core (mvn -P attach-source).
 
 
 
