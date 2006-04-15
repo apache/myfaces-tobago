@@ -1,6 +1,6 @@
 Building
 --------
-You need Maven2, Ant 1.6.5 and Java 5 to build Tobago.
+You need Maven2 (at least 2.0.3), Ant 1.6.5 and Java 5 to build Tobago.
 
 In the main directory you can use
 
@@ -31,17 +31,5 @@ manually.
 
 It will create a log file in the app-server starting folder.
 You may want to change that in the src/main/webapp/WEB-INF/classes/log4j.xml
-
-
-Incubation Disclaimer
----------------------
-
-Tobago is an effort undergoing incubation at the Apache Software Foundation (ASF),
-sponsored by the MyFaces PMC. Incubation is required of all newly accepted
-projects until a further review indicates that the infrastructure, communications,
-and decision making process have stabilized in a manner consistent with other
-successful ASF projects. While incubation status is not necessarily a reflection
-of the completeness or stability of the code, it does indicate that the project
-has yet to be fully endorsed by the ASF.
 
 
