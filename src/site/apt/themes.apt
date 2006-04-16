@@ -14,7 +14,7 @@ Theme Handling
          and bind it to the url-pattern of the theme-path
 
       []
-      You can see the use in the {{{http://svn.apache.org/repos/asf/incubator/tobago/trunk/example/blank/}tobago-example-blank}}
+      You can see the use in the {{{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/blank/}tobago-example-blank}}
 
    [[1]] For production:
 
@@ -24,7 +24,7 @@ Theme Handling
          of the theme into the war. You may use the maven-theme-plugin
 
       []
-      You can see the use in the {{{http://svn.apache.org/repos/asf/incubator/tobago/trunk/example/demo/}tobago-example-demo}}
+      You can see the use in the {{{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/demo/}tobago-example-demo}}
 
  []
  Note:

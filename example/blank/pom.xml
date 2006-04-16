@@ -46,9 +46,9 @@
   </build>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/incubator/tobago/trunk/example/blank</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/incubator/tobago/trunk/example/blank</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/incubator/tobago/trunk/example/blank</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/blank</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/blank</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/trunk/example/blank</url>
   </scm>
   
   <dependencies>

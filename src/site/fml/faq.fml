@@ -13,7 +13,7 @@
     <faq id="hello-world">
       <question>Where i can find a Hello World example and a list of needed jars?</question>
         <answer><p>
-          Please look at <a href="http://svn.apache.org/repos/asf/incubator/tobago/trunk/tobago-example/tobago-example-blank/">tobago-example-blank</a>.
+          Please look at <a href="http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/blank/">tobago-example-blank</a>.
          </p>
         </answer>
     </faq>
