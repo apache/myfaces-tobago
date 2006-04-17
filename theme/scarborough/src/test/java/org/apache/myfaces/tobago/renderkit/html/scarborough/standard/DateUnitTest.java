@@ -45,7 +45,7 @@ public class DateUnitTest extends AbstractJavaScriptTestCase {
   );
 
   private static Date createDate(int year, int month, int day) {
-    Calendar calendar = Calendar.getInstance();
+    Calendar calendar = Calendar.getInstance(Locale.ENGLISH); // XXX
     calendar.set(Calendar.YEAR, year);
     calendar.set(Calendar.MONTH, month - 1);
     calendar.set(Calendar.DAY_OF_MONTH, day);
