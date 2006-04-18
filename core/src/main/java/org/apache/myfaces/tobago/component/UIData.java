@@ -30,6 +30,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DIRECT_LINKS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_PAGE_RANGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROW_RANGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FIRST;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
@@ -86,7 +87,12 @@ public class UIData extends javax.faces.component.UIData
     UILayout.prepareDimension(facesContext, this);
     SheetState state = getSheetState(facesContext);
     if (state.getFirst() > -1 && state.getFirst() < getRowCount()) {
-      setFirst(state.getFirst());
+      ValueBinding valueBinding = getValueBinding(ATTR_FIRST);
+      if (valueBinding != null) {
+        valueBinding.setValue(facesContext, state.getFirst());
+      } else {
+        setFirst(state.getFirst());
+      }
     }
     super.encodeBegin(facesContext);
   }
@@ -364,6 +370,7 @@ public class UIData extends javax.faces.component.UIData
   public int getPage() {
     int first = getFirst() + 1;
     int rows = getRows();
+
     if ((first % rows) > 0) {
       return (first / rows) + 1;
     } else {
