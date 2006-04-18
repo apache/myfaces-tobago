@@ -23,10 +23,19 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_ROWS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SPAN_X;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SPAN_Y;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BORDER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CELLSPACING;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN_BOTTOM;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN_LEFT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN_RIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN_TOP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -42,6 +51,160 @@ public class UIGridLayout extends UILayout {
   public static final Marker FREE = new Marker("free");
   public static final String USED = "used";
 
+  private String border;
+  private String cellspacing;
+
+  private String margin;
+  private String marginTop;
+  private String marginRight;
+  private String marginBottom;
+  private String marginLeft;
+  private String columns;
+  private String rows;
+
+  public String getMarginTop() {
+    if (marginTop != null) {
+      return marginTop;
+    }
+    ValueBinding vb = getValueBinding(ATTR_LAYOUT_MARGIN_TOP);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return marginTop;
+    }
+  }
+
+  public String getMarginRight() {
+    if (marginRight != null) {
+      return marginRight;
+    }
+    ValueBinding vb = getValueBinding(ATTR_LAYOUT_MARGIN_RIGHT);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return marginRight;
+    }
+  }
+
+  public String getMarginBottom() {
+    if (marginBottom != null) {
+      return marginBottom;
+    }
+    ValueBinding vb = getValueBinding(ATTR_LAYOUT_MARGIN_BOTTOM);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return marginBottom;
+    }
+  }
+
+  public String getMarginLeft() {
+    if (marginLeft != null) {
+      return marginLeft;
+    }
+    ValueBinding vb = getValueBinding(ATTR_LAYOUT_MARGIN_LEFT);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return marginLeft;
+    }
+  }
+
+  public String getMargin() {
+    if (margin != null) {
+      return margin;
+    }
+    ValueBinding vb = getValueBinding(ATTR_LAYOUT_MARGIN);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return margin;
+    }
+  }
+
+  public String getRows() {
+    if (rows != null) {
+      return rows;
+    }
+    ValueBinding vb = getValueBinding(ATTR_ROWS);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return rows;
+    }
+  }
+
+  public String getColumns() {
+    if (columns != null) {
+      return columns;
+    }
+    ValueBinding vb = getValueBinding(ATTR_COLUMNS);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return columns;
+    }
+  }
+
+  public String getCellspacing() {
+    if (cellspacing != null) {
+      return cellspacing;
+    }
+    ValueBinding vb = getValueBinding(ATTR_CELLSPACING);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return cellspacing;
+    }
+  }
+
+  public String getBorder() {
+    if (border != null) {
+      return border;
+    }
+    ValueBinding vb = getValueBinding(ATTR_BORDER);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return border;
+    }
+  }
+
+  public void setBorder(String border) {
+    this.border = border;
+  }
+
+  public void setCellspacing(String cellspacing) {
+    this.cellspacing = cellspacing;
+  }
+
+  public void setMargin(String margin) {
+    this.margin = margin;
+  }
+
+  public void setMarginTop(String marginTop) {
+    this.marginTop = marginTop;
+  }
+
+  public void setMarginRight(String marginRight) {
+    this.marginRight = marginRight;
+  }
+
+  public void setMarginBottom(String marginBottom) {
+    this.marginBottom = marginBottom;
+  }
+
+  public void setMarginLeft(String marginLeft) {
+    this.marginLeft = marginLeft;
+  }
+
+  public void setColumns(String columns) {
+    this.columns = columns;
+  }
+
+  public void setRows(String rows) {
+    this.rows = rows;
+  }
 
 
   @Override

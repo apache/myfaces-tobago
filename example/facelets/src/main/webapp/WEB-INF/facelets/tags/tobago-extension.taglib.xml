@@ -32,8 +32,4 @@
 		<tag-name>selectManyListbox</tag-name>
 		<source>selectManyListbox.xhtml</source>
 	</tag>
-  <tag>
-     <tag-name>attribute</tag-name>
-     <handler-class>org.apache.myfaces.tobago.example.facelets.AttributeHandler</handler-class>
-   </tag>
 </facelet-taglib>

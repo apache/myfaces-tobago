@@ -7,7 +7,7 @@
     </f:facet>
     <tc:out value="Hello World!"/>
     <tx:in label="foo" value="#{counter.count}" >
-       <tx:attribute name="validator" value="#{counter.customValidator}" />
+       <tc:attribute name="validator" value="#{counter.customValidator}" />
     </tx:in>
     <tc:button label="Count++" defaultCommand="true" />
   </tc:page>
