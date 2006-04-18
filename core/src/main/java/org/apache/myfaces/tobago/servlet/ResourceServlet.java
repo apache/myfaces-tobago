@@ -70,7 +70,11 @@ public class ResourceServlet extends HttpServlet {
     InputStream inputStream = null;
     try {
       inputStream = ResourceServlet.class.getClassLoader().getResourceAsStream(resource);
-      IOUtils.copy(inputStream, response.getOutputStream());
+      if (inputStream != null) {
+        IOUtils.copy(inputStream, response.getOutputStream());
+      } else {
+        LOG.warn("Resource '" + resource + "' not found!");
+      }
     } finally {
       IOUtils.closeQuietly(inputStream);
     }

@@ -21,9 +21,11 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
+import javax.faces.el.ValueBinding;
 import java.io.IOException;
 
 public class UIInput extends javax.faces.component.UIInput implements AjaxComponent {
@@ -31,21 +33,42 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
   private static final Log LOG = LogFactory.getLog(UIInput.class);
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Input";
 
+  private Boolean readonly;
+  ;
   private javax.faces.el.MethodBinding suggestMethod;
 
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
     super.restoreState(context, values[0]);
     suggestMethod = (MethodBinding) restoreAttachedState(context, values[1]);
+    readonly = (Boolean) values[2];
   }
 
   public Object saveState(FacesContext context) {
-    Object[] values  = new Object[2];
+    Object[] values = new Object[3];
     values[0] = super.saveState(context);
     values[1] = saveAttachedState(context, suggestMethod);
+    values[2] = readonly;
     return values;
   }
-  
+
+  public boolean isReadonly() {
+    if (readonly != null) {
+      return readonly;
+    }
+    ValueBinding vb = getValueBinding(ATTR_READONLY);
+    if (vb != null) {
+      return (Boolean.TRUE.equals(vb.getValue(getFacesContext())));
+    } else {
+      return false;
+    }
+  }
+
+  public void setReadonly(boolean readonly) {
+    this.readonly = readonly;
+  }
+
+
   public MethodBinding getSuggestMethod() {
     return suggestMethod;
   }
