@@ -1,20 +1,20 @@
 package org.apache.myfaces.tobago.component;
 
 /*
-* Copyright 2002-2005 The Apache Software Foundation.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*      http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright 2002-2005 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
@@ -77,18 +77,17 @@ public class UIToolBar extends javax.faces.component.UIPanel {
   }
 
   public Object saveState(FacesContext context) {
-      Object[] saveState = new Object[3];
-      saveState[0] = super.saveState(context);
-      saveState[1] = labelPosition;
-      saveState[2] = iconSize;
-
-      return saveState;
+    Object[] saveState = new Object[3];
+    saveState[0] = super.saveState(context);
+    saveState[1] = labelPosition;
+    saveState[2] = iconSize;
+    return saveState;
   }
 
   public void restoreState(FacesContext context, Object savedState) {
     Object[] values = (Object[]) savedState;
     super.restoreState(context, values[0]);
-    labelPosition = (String)values[1];
-    iconSize = (String) values[2];  
+    labelPosition = (String) values[1];
+    iconSize = (String) values[2];
   }
 }

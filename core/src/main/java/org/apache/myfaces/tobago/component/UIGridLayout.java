@@ -224,7 +224,7 @@ public class UIGridLayout extends UILayout {
   public void restoreState(FacesContext context, Object savedState) {
     Object[] values = (Object[]) savedState;
     super.restoreState(context, values[0]);
-    rows = (String)values[1];
+    rows = (String) values[1];
     columns = (String) values[2];
     margin = (String) values[3];
     marginLeft = (String) values[4];

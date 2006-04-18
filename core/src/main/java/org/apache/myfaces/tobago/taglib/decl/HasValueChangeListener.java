@@ -37,5 +37,5 @@ public interface HasValueChangeListener {
    */
   @TagAttribute
   @UIComponentTagAttribute(expression = DynamicExpression.METHOD_BINDING)
-  public void setValueChangeListener(String valueChangeListener);
+  void setValueChangeListener(String valueChangeListener);
 }
