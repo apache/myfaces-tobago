@@ -34,8 +34,21 @@
     <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/trunk/theme/scarborough</url>
   </scm>
 
-  <dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>**/DateUnitTest*</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
+  <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-standard</artifactId>
