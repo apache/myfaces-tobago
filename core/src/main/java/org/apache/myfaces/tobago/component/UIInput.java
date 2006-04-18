@@ -34,7 +34,6 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Input";
 
   private Boolean readonly;
-  ;
   private javax.faces.el.MethodBinding suggestMethod;
 
   public void restoreState(FacesContext context, Object state) {

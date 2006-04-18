@@ -43,6 +43,10 @@
     <component-class>org.apache.myfaces.tobago.component.UICell</component-class>
   </component>
   <component>
+    <component-type>org.apache.myfaces.tobago.Column</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UIColumn</component-class>
+  </component>
+  <component>
     <component-type>org.apache.myfaces.tobago.ColumnSelector</component-type>
     <component-class>org.apache.myfaces.tobago.component.UIColumnSelector</component-class>
   </component>
