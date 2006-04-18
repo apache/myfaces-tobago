@@ -33,8 +33,8 @@ import org.apache.myfaces.tobago.event.SortActionEvent;
  * To change this template use File | Settings | File Templates.
  */
 public class SortActionSourceRule extends MetaRule {
-  public final static Class[] ACTION_LISTENER_SIG = new Class[]{SortActionEvent.class};
-  public final static SortActionSourceRule INSTANCE = new SortActionSourceRule();
+  public static final Class[] ACTION_LISTENER_SIG = new Class[]{SortActionEvent.class};
+  public static final SortActionSourceRule INSTANCE = new SortActionSourceRule();
 
   public Metadata applyRule(String name, TagAttribute attribute,
       MetadataTarget metadataTarget) {
@@ -46,7 +46,7 @@ public class SortActionSourceRule extends MetaRule {
     return null;
   }
 
-  final static class SortActionListenerMapper extends Metadata {
+  static final class SortActionListenerMapper extends Metadata {
 
     private final TagAttribute attribute;
 

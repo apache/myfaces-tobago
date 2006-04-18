@@ -33,8 +33,8 @@ import org.apache.myfaces.tobago.event.TabChangeEvent;
  * To change this template use File | Settings | File Templates.
  */
 public class TabChangeSourceRule extends MetaRule {
-  public final static Class[] ACTION_LISTENER_SIG = new Class[]{TabChangeEvent.class};
-  public final static SortActionSourceRule INSTANCE = new SortActionSourceRule();
+  public static final Class[] ACTION_LISTENER_SIG = new Class[]{TabChangeEvent.class};
+  public static final SortActionSourceRule INSTANCE = new SortActionSourceRule();
 
   public Metadata applyRule(String name, TagAttribute attribute,
       MetadataTarget metadataTarget) {
@@ -46,7 +46,7 @@ public class TabChangeSourceRule extends MetaRule {
     return null;
   }
 
-  final static class TabChangeListenerMapper extends Metadata {
+  static final class TabChangeListenerMapper extends Metadata {
 
     private final TagAttribute attribute;
 

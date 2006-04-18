@@ -24,7 +24,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.EditableValueHolder;
 
 import com.sun.facelets.FaceletContext;
-import com.sun.facelets.FaceletException;
 import com.sun.facelets.el.ELAdaptor;
 import com.sun.facelets.el.LegacyMethodBinding;
 import com.sun.facelets.tag.TagAttribute;
@@ -34,7 +33,7 @@ import com.sun.facelets.tag.TagHandler;
 
 public final class AttributeHandler extends TagHandler {
   private static final Class [] VALIDATOR =
-      new Class[] { FacesContext.class, UIComponent.class, Object.class } ;
+      new Class[] {FacesContext.class, UIComponent.class, Object.class};
 
   private final TagAttribute name;
 
@@ -47,7 +46,7 @@ public final class AttributeHandler extends TagHandler {
   }
 
   public void apply(FaceletContext ctx, UIComponent parent)
-      throws FacesException, FaceletException, ELException {
+      throws FacesException, ELException {
     if (parent == null) {
       throw new TagException(tag, "Parent UIComponent was null");
     }

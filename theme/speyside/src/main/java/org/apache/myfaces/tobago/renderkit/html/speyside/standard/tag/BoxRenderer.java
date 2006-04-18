@@ -87,7 +87,8 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     encodeBeginInner(facesContext, writer, component);
   }
 
-  private void encodeBeginInner(FacesContext facesContext, TobagoResponseWriter writer, UIComponent component) throws IOException {
+  private void encodeBeginInner(FacesContext facesContext,
+      TobagoResponseWriter writer, UIComponent component) throws IOException {
     renderBoxHeader(facesContext, writer, component);
 
 
@@ -101,7 +102,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 
 
   protected void renderBoxHeader(FacesContext facesContext,
-                                 TobagoResponseWriter writer, UIComponent component) throws IOException {
+      TobagoResponseWriter writer, UIComponent component) throws IOException {
 
     writer.startElement("div", component);
     writer.writeClassAttribute("tobago-box-header");

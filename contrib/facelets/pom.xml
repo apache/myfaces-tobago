@@ -26,6 +26,12 @@
       <resource>
         <targetPath>META-INF</targetPath>
         <directory>target/generated-sources</directory>
+        <includes>
+          <include>**/*.xml</include>
+        </includes>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
       </resource>
     </resources>
 
