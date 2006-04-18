@@ -25,11 +25,11 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SPAN_X;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SPAN_Y;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BORDER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CELLSPACING;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN_BOTTOM;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN_LEFT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN_RIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN_TOP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARGIN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARGIN_BOTTOM;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARGIN_LEFT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARGIN_RIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARGIN_TOP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 
@@ -66,7 +66,7 @@ public class UIGridLayout extends UILayout {
     if (marginTop != null) {
       return marginTop;
     }
-    ValueBinding vb = getValueBinding(ATTR_LAYOUT_MARGIN_TOP);
+    ValueBinding vb = getValueBinding(ATTR_MARGIN_TOP);
     if (vb != null) {
       return (String) vb.getValue(getFacesContext());
     } else {
@@ -78,7 +78,7 @@ public class UIGridLayout extends UILayout {
     if (marginRight != null) {
       return marginRight;
     }
-    ValueBinding vb = getValueBinding(ATTR_LAYOUT_MARGIN_RIGHT);
+    ValueBinding vb = getValueBinding(ATTR_MARGIN_RIGHT);
     if (vb != null) {
       return (String) vb.getValue(getFacesContext());
     } else {
@@ -90,7 +90,7 @@ public class UIGridLayout extends UILayout {
     if (marginBottom != null) {
       return marginBottom;
     }
-    ValueBinding vb = getValueBinding(ATTR_LAYOUT_MARGIN_BOTTOM);
+    ValueBinding vb = getValueBinding(ATTR_MARGIN_BOTTOM);
     if (vb != null) {
       return (String) vb.getValue(getFacesContext());
     } else {
@@ -102,7 +102,7 @@ public class UIGridLayout extends UILayout {
     if (marginLeft != null) {
       return marginLeft;
     }
-    ValueBinding vb = getValueBinding(ATTR_LAYOUT_MARGIN_LEFT);
+    ValueBinding vb = getValueBinding(ATTR_MARGIN_LEFT);
     if (vb != null) {
       return (String) vb.getValue(getFacesContext());
     } else {
@@ -114,7 +114,7 @@ public class UIGridLayout extends UILayout {
     if (margin != null) {
       return margin;
     }
-    ValueBinding vb = getValueBinding(ATTR_LAYOUT_MARGIN);
+    ValueBinding vb = getValueBinding(ATTR_MARGIN);
     if (vb != null) {
       return (String) vb.getValue(getFacesContext());
     } else {

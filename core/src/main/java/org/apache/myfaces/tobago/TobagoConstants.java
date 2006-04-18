@@ -62,11 +62,11 @@ public final class TobagoConstants {
   public static final String ATTR_LABEL_POSITION = "labelPosition";
 //  public static final String ATTR_LABEL_WITH_ACCESS_KEY = "labelWithAccessKey";
   public static final String ATTR_LAYOUT_HEIGHT = "layoutHeight";
-  public static final String ATTR_LAYOUT_MARGIN = "layoutMargin";
-  public static final String ATTR_LAYOUT_MARGIN_BOTTOM = "layoutMarginBottom";
-  public static final String ATTR_LAYOUT_MARGIN_LEFT = "layoutMarginLeft";
-  public static final String ATTR_LAYOUT_MARGIN_RIGHT = "layoutMarginRight";
-  public static final String ATTR_LAYOUT_MARGIN_TOP = "layoutMarginTop";
+  public static final String ATTR_MARGIN = "margin";
+  public static final String ATTR_MARGIN_BOTTOM = "marginBottom";
+  public static final String ATTR_MARGIN_LEFT = "marginLeft";
+  public static final String ATTR_MARGIN_RIGHT = "marginRight";
+  public static final String ATTR_MARGIN_TOP = "marginTop";
   public static final String ATTR_LAYOUT_ROWS = "layoutRows";
   public static final String ATTR_LAYOUT_ORDER = "layoutOrder";
   public static final String ATTR_LAYOUT_TABLE_STYLE = "layoutTableStyle";

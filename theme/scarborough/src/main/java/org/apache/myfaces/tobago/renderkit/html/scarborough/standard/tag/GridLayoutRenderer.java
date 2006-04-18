@@ -29,11 +29,11 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN_BOTTOM;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN_LEFT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN_RIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_MARGIN_TOP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARGIN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARGIN_BOTTOM;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARGIN_LEFT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARGIN_RIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARGIN_TOP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_TABLE_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
@@ -693,15 +693,15 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   private void layoutMargins(UIGridLayout layout) {
     String margin
         = (String) layout.getAttributes().get(
-            ATTR_LAYOUT_MARGIN);
+            ATTR_MARGIN);
     String marginTop
-        = getMargin(layout, ATTR_LAYOUT_MARGIN_TOP, margin);
+        = getMargin(layout, ATTR_MARGIN_TOP, margin);
     String marginRight
-        = getMargin(layout, ATTR_LAYOUT_MARGIN_RIGHT, margin);
+        = getMargin(layout, ATTR_MARGIN_RIGHT, margin);
     String marginBottom
-        = getMargin(layout, ATTR_LAYOUT_MARGIN_BOTTOM, margin);
+        = getMargin(layout, ATTR_MARGIN_BOTTOM, margin);
     String marginLeft
-        = getMargin(layout, ATTR_LAYOUT_MARGIN_LEFT, margin);
+        = getMargin(layout, ATTR_MARGIN_LEFT, margin);
 
     String style = (String) layout.getAttributes().get(
         ATTR_STYLE);
@@ -739,12 +739,12 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     UIGridLayout layout = (UIGridLayout) component;
     String margin
         = (String) layout.getAttributes().get(
-            ATTR_LAYOUT_MARGIN);
+            ATTR_MARGIN);
 
     extra += getMaginAsInt(
-        getMargin(layout, ATTR_LAYOUT_MARGIN_RIGHT, margin));
+        getMargin(layout, ATTR_MARGIN_RIGHT, margin));
     extra += getMaginAsInt(
-        getMargin(layout, ATTR_LAYOUT_MARGIN_LEFT, margin));
+        getMargin(layout, ATTR_MARGIN_LEFT, margin));
 
     return extra;
   }
@@ -755,12 +755,12 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     UIGridLayout layout = (UIGridLayout) component;
     String margin
         = (String) layout.getAttributes().get(
-            ATTR_LAYOUT_MARGIN);
+            ATTR_MARGIN);
 
     extra += getMaginAsInt(
-        getMargin(layout, ATTR_LAYOUT_MARGIN_TOP, margin));
+        getMargin(layout, ATTR_MARGIN_TOP, margin));
     extra += getMaginAsInt(
-        getMargin(layout, ATTR_LAYOUT_MARGIN_BOTTOM, margin));
+        getMargin(layout, ATTR_MARGIN_BOTTOM, margin));
     return extra;
   }
 
