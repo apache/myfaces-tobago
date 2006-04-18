@@ -22,7 +22,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
-import org.apache.myfaces.tobago.taglib.decl.HasOnchangeListener;
+import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -37,12 +38,13 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @Tag(name = "selectOneChoice")
 public class SelectOneChoiceExtensionTag
     extends BodyTagSupport
-    implements HasId, HasValue, IsDisabled,
-    IsReadonly, HasOnchangeListener, IsInline, HasLabel,
+    implements HasId, HasValue, HasValueChangeListener, IsDisabled,
+    IsReadonly, HasOnchange, IsInline, HasLabel,
     IsRendered, HasBinding, HasTip , HasValidator, HasConverter {
 
   private String required;
   private String value;
+  private String valueChangeListener;
   private String disabled;
   private String readonly;
   private String onchange;
@@ -78,6 +80,9 @@ public class SelectOneChoiceExtensionTag
     selectOneChoiceTag.setPageContext(pageContext);
     if (value != null) {
       selectOneChoiceTag.setValue(value);
+    }
+    if (valueChangeListener != null) {
+      selectOneChoiceTag.setValueChangeListener(valueChangeListener);
     }
     if (validator != null) {
       selectOneChoiceTag.setValidator(validator);
@@ -135,6 +140,7 @@ public class SelectOneChoiceExtensionTag
     required = null;
     tip = null;
     value = null;
+    valueChangeListener = null;
   }
 
   public void setRequired(String required) {
@@ -143,6 +149,10 @@ public class SelectOneChoiceExtensionTag
 
   public void setValue(String value) {
     this.value = value;
+  }
+
+  public void setValueChangeListener(String valueChangeListener) {
+    this.valueChangeListener = valueChangeListener;
   }
 
   public void setValidator(String validator) {

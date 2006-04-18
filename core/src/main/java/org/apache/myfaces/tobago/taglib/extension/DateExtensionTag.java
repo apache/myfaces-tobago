@@ -29,6 +29,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
+import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -45,8 +47,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 @Tag(name = "date")
 public class DateExtensionTag extends BodyTagSupport
-    implements HasValue, HasValidator, HasIdBindingAndRendered,
-    HasConverter, IsReadonly, IsDisabled,
+    implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
+    HasConverter, IsReadonly, IsDisabled, HasOnchange,
     IsRequired, HasTip, HasLabel,  IsFocus, IsInline {
 
   private String binding;
@@ -60,7 +62,10 @@ public class DateExtensionTag extends BodyTagSupport
   private String required;
   private String tip;
   private String value;
+  private String valueChangeListener;
   private String inline;
+  private String onchange;
+
 
   private LabelExtensionTag labelTag;
   private DateTag dateTag;
@@ -87,6 +92,9 @@ public class DateExtensionTag extends BodyTagSupport
     if (value != null) {
       dateTag.setValue(value);
     }
+    if (valueChangeListener != null) {
+      dateTag.setValueChangeListener(valueChangeListener);
+    }
     if (binding != null) {
       dateTag.setBinding(binding);
     }
@@ -98,6 +106,9 @@ public class DateExtensionTag extends BodyTagSupport
     }
     if (disabled != null) {
       dateTag.setDisabled(disabled);
+    }
+    if (onchange != null) {
+      dateTag.setOnchange(onchange);
     }
     if (focus != null) {
       dateTag.setFocus(focus);
@@ -142,14 +153,25 @@ public class DateExtensionTag extends BodyTagSupport
     required = null;
     tip = null;
     value = null;
+    valueChangeListener = null;
+    onchange = null;
+
   }
 
   public void setValue(String value) {
     this.value = value;
   }
 
+  public void setValueChangeListener(String valueChangeListener) {
+    this.valueChangeListener = valueChangeListener;
+  }
+
   public void setLabel(String label) {
     this.label = label;
+  }
+
+  public void setOnchange(String onchange) {
+    this.onchange = onchange;
   }
 
   public void setFocus(String focus) {

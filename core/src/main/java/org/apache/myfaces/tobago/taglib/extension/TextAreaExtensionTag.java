@@ -28,14 +28,16 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
+import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 @Tag(name = "textarea")
 public class TextAreaExtensionTag extends BodyTagSupport
-    implements HasValue, HasIdBindingAndRendered,
+    implements HasValue, HasValueChangeListener, HasIdBindingAndRendered,
     HasConverter, HasValidator, IsReadonly, IsDisabled,
-    IsRequired, HasTip, HasLabel, IsFocus {
+    IsRequired, HasTip, HasLabel, IsFocus, HasOnchange {
 
   private String binding;
   private String converter;
@@ -47,7 +49,9 @@ public class TextAreaExtensionTag extends BodyTagSupport
   private String required;
   private String tip;
   private String value;
+  private String valueChangeListener;
   private String validator;
+  private String onchange;
 
   private LabelExtensionTag labelTag;
   private TextAreaTag textAreaTag;
@@ -74,6 +78,9 @@ public class TextAreaExtensionTag extends BodyTagSupport
     if (value != null) {
       textAreaTag.setValue(value);
     }
+    if (valueChangeListener != null) {
+      textAreaTag.setValueChangeListener(valueChangeListener);
+    }
     if (binding != null) {
       textAreaTag.setBinding(binding);
     }
@@ -82,6 +89,9 @@ public class TextAreaExtensionTag extends BodyTagSupport
     }
     if (validator != null) {
       textAreaTag.setValidator(validator);
+    }
+     if (onchange != null) {
+      textAreaTag.setOnchange(onchange);
     }
     if (disabled != null) {
       textAreaTag.setDisabled(disabled);
@@ -125,10 +135,16 @@ public class TextAreaExtensionTag extends BodyTagSupport
     required = null;
     tip = null;
     value = null;
+    onchange = null;
+    valueChangeListener = null;
   }
 
   public void setValue(String value) {
     this.value = value;
+  }
+
+  public void setValueChangeListener(String valueChangeListener) {
+    this.valueChangeListener = valueChangeListener;
   }
 
   public void setLabel(String label) {
@@ -154,6 +170,11 @@ public class TextAreaExtensionTag extends BodyTagSupport
   public void setValidator(String validator) {
     this.validator = validator;
   }
+
+  public void setOnchange(String onchange) {
+    this.onchange = onchange;
+  }
+
 
   public void setReadonly(String readonly) {
     this.readonly = readonly;

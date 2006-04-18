@@ -20,17 +20,17 @@ import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/**
+/*
  * Created: Apr 9, 2005 3:14:01 PM
  * User: bommel
  * $Id$
  */
-public interface HasOnchangeListener {
+public interface HasOnchange {
 
   /**
    * Clientside script function to add to this component's onchange handler.
    */
   @TagAttribute
-  @UIComponentTagAttribute(expression = DynamicExpression.METHOD_BINDING)
+  @UIComponentTagAttribute()
   void setOnchange(String onchange);
 }

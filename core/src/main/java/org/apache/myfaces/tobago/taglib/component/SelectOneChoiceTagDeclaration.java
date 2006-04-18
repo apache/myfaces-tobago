@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.taglib.decl.HasOnchangeListener;
+import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
@@ -48,7 +48,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
     rendererType = "SelectOneChoice")
 public interface SelectOneChoiceTagDeclaration
     extends SelectOneTagDeclaration, HasId, HasValue, IsDisabled,
-    IsReadonly, HasOnchangeListener, IsInline, HasLabelAndAccessKey,
+    IsReadonly, HasOnchange, IsInline, HasLabelAndAccessKey,
     IsRendered, HasBinding, HasTip {
 
   /**

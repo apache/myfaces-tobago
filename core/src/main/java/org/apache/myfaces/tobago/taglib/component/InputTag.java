@@ -24,14 +24,16 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.EditableValueHolder;
 
 public abstract class InputTag extends BeanTag implements InputTagDeclaration {
   private static final Log LOG = LogFactory.getLog(InputTag.class);
-  
+
   private String onchange;
   private String focus;
   private String tip;
   private String validator;
+  private String valueChangeListener;
 
   public void release() {
     super.release();
@@ -39,6 +41,7 @@ public abstract class InputTag extends BeanTag implements InputTagDeclaration {
     this.focus = null;
     tip = null;
     validator = null;
+    valueChangeListener = null;
   }
 
   protected void setProperties(UIComponent component) {
@@ -46,7 +49,11 @@ public abstract class InputTag extends BeanTag implements InputTagDeclaration {
     ComponentUtil.setStringProperty(component, ATTR_ONCHANGE, onchange);
     ComponentUtil.setBooleanProperty(component, ATTR_FOCUS, focus);
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
-    ComponentUtil.setValidator(component, validator);
+    if (component instanceof EditableValueHolder) {
+      EditableValueHolder editableValueHolder = (EditableValueHolder) component;
+      ComponentUtil.setValidator(editableValueHolder, validator);
+      ComponentUtil.setValueChangeListener(editableValueHolder, valueChangeListener);
+    }
   }
 
   public String getOnchange() {
@@ -98,6 +105,14 @@ public abstract class InputTag extends BeanTag implements InputTagDeclaration {
 
   public void setValidator(String validator) {
     this.validator = validator;
+  }
+
+  public String getValueChangeListener() {
+    return valueChangeListener;
+  }
+
+  public void setValueChangeListener(String valueChangeListener) {
+    this.valueChangeListener = valueChangeListener;
   }
 }
 

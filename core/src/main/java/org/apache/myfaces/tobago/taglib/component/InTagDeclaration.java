@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.taglib.decl.HasOnchangeListener;
+import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
 import org.apache.myfaces.tobago.taglib.decl.HasSuggestMethod;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
@@ -49,7 +49,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
     rendererType = "In")
 public interface InTagDeclaration
     extends TextInputTagDeclaration, HasValue, HasIdBindingAndRendered,
-    HasConverter, IsReadonly, IsDisabled, HasDeprecatedWidth, HasOnchangeListener,
+    HasConverter, IsReadonly, IsDisabled, HasDeprecatedWidth, HasOnchange,
     IsInline, IsFocus, IsRequired, HasTip, HasLabelAndAccessKey,
     IsPassword, HasSuggestMethod {
 }

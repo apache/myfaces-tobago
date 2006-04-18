@@ -71,6 +71,7 @@ import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
@@ -90,7 +91,9 @@ public class ComponentUtil {
       = "org.apache.myfaces.tobago.component.ComponentUtil.RendererKeyPrefix_";
 
   private static final Class[] ACTION_LISTENER_ARGS = {ActionEvent.class};
-
+  private static final Class[] VALUE_CHANGE_LISTENER_ARGS = {ValueChangeEvent.class};
+  private static final Class[] VALIDATOR_ARGS =
+      {FacesContext.class, UIComponent.class, Object.class};
 
   private ComponentUtil() {
   }
@@ -840,16 +843,12 @@ public class ComponentUtil {
     }
     return items;
   }
-  public static void setValidator(UIComponent component, String validator) {
-    EditableValueHolder editableValueHolder = (EditableValueHolder) component;
+  public static void setValidator(EditableValueHolder editableValueHolder, String validator) {
     if (validator != null && editableValueHolder.getValidator() == null) {
       if (UIComponentTag.isValueReference(validator)) {
-        Class[] arguments = {
-            FacesContext.class, UIComponent.class, Object.class
-        };
         MethodBinding methodBinding =
-            FacesContext.getCurrentInstance().getApplication().createMethodBinding(validator, arguments);
-        ((EditableValueHolder) component).setValidator(methodBinding);
+            FacesContext.getCurrentInstance().getApplication().createMethodBinding(validator, VALIDATOR_ARGS);
+        editableValueHolder.setValidator(methodBinding);
       }
     }
   }
@@ -918,6 +917,22 @@ public class ComponentUtil {
       }
     }
   }
+
+  public static void setValueChangeListener(EditableValueHolder valueHolder, String valueChangeListener) {
+     final FacesContext facesContext = FacesContext.getCurrentInstance();
+     final Application application = facesContext.getApplication();
+     if (valueChangeListener != null) {
+       if (UIComponentTag.isValueReference(valueChangeListener)) {
+         MethodBinding binding
+             = application.createMethodBinding(valueChangeListener, VALUE_CHANGE_LISTENER_ARGS);
+         valueHolder.setValueChangeListener(binding);
+       } else {
+         throw new IllegalArgumentException(
+             "Must be a valueReference (valueChangeListener): " + valueChangeListener);
+       }
+     }
+   }
+
 
   public static void setSortActionListener(UIData data, String actionListener) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();

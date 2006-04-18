@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedHeight;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
-import org.apache.myfaces.tobago.taglib.decl.HasOnchangeListener;
+import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -47,11 +48,12 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 @Tag(name = "selectOneListbox")
 public class SelectOneListboxExtensionTag
-    extends BodyTagSupport implements HasId, HasValue, IsDisabled,
-    HasLabel, IsReadonly, HasOnchangeListener, IsRendered,
+    extends BodyTagSupport implements HasId, HasValue, HasValueChangeListener, IsDisabled,
+    HasLabel, IsReadonly, HasOnchange, IsRendered,
     HasBinding, HasDeprecatedHeight, HasTip , IsRequired, HasConverter, HasValidator {
   private String required;
   private String value;
+  private String valueChangeListener;
   private String disabled;
   private String readonly;
   private String onchange;
@@ -88,6 +90,9 @@ public class SelectOneListboxExtensionTag
     selectOneListboxTag.setPageContext(pageContext);
     if (value != null) {
       selectOneListboxTag.setValue(value);
+    }
+    if (valueChangeListener != null) {
+      selectOneListboxTag.setValueChangeListener(valueChangeListener);
     }
     if (binding != null) {
       selectOneListboxTag.setBinding(binding);
@@ -148,6 +153,7 @@ public class SelectOneListboxExtensionTag
     required = null;
     tip = null;
     value = null;
+    valueChangeListener = null;
   }
 
   public void setRequired(String required) {
@@ -156,6 +162,10 @@ public class SelectOneListboxExtensionTag
 
   public void setValue(String value) {
     this.value = value;
+  }
+
+  public void setValueChangeListener(String valueChangeListener) {
+    this.valueChangeListener = valueChangeListener;
   }
 
   public void setDisabled(String disabled) {

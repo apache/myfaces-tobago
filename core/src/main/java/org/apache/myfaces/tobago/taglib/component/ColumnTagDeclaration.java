@@ -37,8 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabel;
  */
 @Tag(name = "column")
 @UIComponentTag(
-    uiComponent = "javax.faces.component.UIColumn",
-    rendererType = "Column")
+    uiComponent = "javax.faces.component.UIColumn")
 public interface ColumnTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasLabel {
   /**
    * Alignment of this column.

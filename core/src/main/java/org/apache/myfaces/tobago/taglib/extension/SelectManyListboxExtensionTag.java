@@ -29,6 +29,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
+import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -42,11 +44,12 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 @Tag(name = "selectManyListbox")
 public class SelectManyListboxExtensionTag extends BodyTagSupport
-    implements HasId, HasValue, IsDisabled, HasDeprecatedHeight, IsInline,
-    HasLabel, IsRendered, HasBinding, HasTip, HasConverter, HasValidator  {
+    implements HasId, HasValue, HasValueChangeListener, IsDisabled, HasDeprecatedHeight, IsInline,
+    HasLabel, IsRendered, HasBinding, HasTip, HasConverter, HasValidator, HasOnchange  {
 
   private String required;
   private String value;
+  private String valueChangeListener;
   private String disabled;
   private String readonly;
   private String onchange;
@@ -91,10 +94,12 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
     if (value != null) {
       selectManyListboxTag.setValue(value);
     }
+     if (valueChangeListener != null) {
+      selectManyListboxTag.setValueChangeListener(valueChangeListener);
+    }
     if (binding != null) {
       selectManyListboxTag.setBinding(binding);
     }
-
     if (onchange != null) {
       selectManyListboxTag.setOnchange(onchange);
     }
@@ -151,6 +156,7 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
     required = null;
     tip = null;
     value = null;
+    valueChangeListener = null;
   }
 
   public void setRequired(String required) {
@@ -159,6 +165,10 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
 
   public void setValue(String value) {
     this.value = value;
+  }
+
+  public void setValueChangeListener(String valueChangeListener) {
+    this.valueChangeListener = valueChangeListener;
   }
 
   public void setDisabled(String disabled) {

@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.component;
+package org.apache.myfaces.tobago.facelets;
 
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
@@ -16,16 +16,20 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.taglib.decl.HasValidator;
-import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
-import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
-import org.apache.myfaces.tobago.taglib.decl.HasValue;
+import com.sun.facelets.tag.AbstractTagLibrary;
 
-/**
- * Created: Aug 5, 2005 4:18:38 PM
+/*
+ * Created by IntelliJ IDEA.
  * User: bommel
- * $Id: $
+ * Date: 18.04.2006
+ * Time: 14:22:52
+ * To change this template use File | Settings | File Templates.
  */
-public interface InputTagDeclaration extends BeanTagDeclaration, HasValidator, HasOnchange, HasValue, HasValueChangeListener {
+public class AbstractTobagoTagLibrary  extends AbstractTagLibrary {
+
+  public AbstractTobagoTagLibrary(String namespace) {
+    super(namespace);
+    addTagHandler("attribute", AttributeHandler.class);
+  }
 
 }

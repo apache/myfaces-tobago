@@ -22,7 +22,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.taglib.decl.HasOnchangeListener;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 
@@ -40,7 +39,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
     rendererType = "File")
 public interface FileTagDeclaration
     extends InputTagDeclaration, HasIdBindingAndRendered, IsDisabled,
-    HasLabelAndAccessKey, HasOnchangeListener, HasTip {
+    HasLabelAndAccessKey, HasTip {
 
   /**
    * Value binding expression pointing to a

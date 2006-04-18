@@ -74,7 +74,7 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
       String packageName = "org.apache.myfaces.tobago.facelets";
 
 
-      JClass libraryClass = new JClass("TobagoLibrary");
+      JClass libraryClass = new JClass("TobagoTagLibrary");
       libraryClass.setPackageName(packageName);
 
       addLeafTextElement(libraryClass.getName(), "library-class", taglib, document);
@@ -82,8 +82,7 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
 
 
       JCompUnit unit = new JCompUnit(libraryClass);
-      libraryClass.setSuperClass("AbstractTagLibrary");
-      libraryClass.addImport("com.sun.facelets.tag.AbstractTagLibrary");
+      libraryClass.setSuperClass("AbstractTobagoTagLibrary");
 
       JField nameSpace = new JField(new JClass("String"),"NAMESPACE");
       nameSpace.getModifiers().setFinal(true);

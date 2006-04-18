@@ -1,20 +1,25 @@
 package org.apache.myfaces.tobago.component;
 
 /*
- * Copyright 2002-2005 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+* Copyright 2002-2005 The Apache Software Foundation.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
+
+import javax.faces.el.ValueBinding;
 
 /**
  * Created by IntelliJ IDEA.
@@ -34,6 +39,41 @@ public class UIToolBar extends javax.faces.component.UIPanel {
   public static final String ICON_OFF = "off";
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.ToolBar";
+
+  private String labelPosition;
+  private String iconSize;
+
+  public String getLabelPosition() {
+    if (labelPosition != null) {
+      return labelPosition;
+    }
+    ValueBinding vb = getValueBinding(ATTR_LABEL_POSITION);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return LABEL_BOTTOM;
+    }
+  }
+
+  public void setLabelPosition(String labelPosition) {
+    this.labelPosition = labelPosition;
+  }
+
+  public String getIconSize() {
+    if (iconSize != null) {
+      return iconSize;
+    }
+    ValueBinding vb = getValueBinding(ATTR_ICON_SIZE);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return ICON_SMALL;
+    }
+  }
+
+  public void setIconSize(String iconSize) {
+    this.iconSize = iconSize;
+  }
 
 
 }

@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.taglib.decl.HasOnchangeListener;
+import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
@@ -46,7 +46,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedHeight;
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOne",
     rendererType = "SelectOneListbox")
 public interface SelectOneListboxTagDeclaration extends SelectOneTagDeclaration, HasId, HasValue, IsDisabled,
-    IsReadonly, HasOnchangeListener, HasLabelAndAccessKey, IsRendered, HasBinding, HasDeprecatedHeight, HasTip {
+    IsReadonly, HasOnchange, HasLabelAndAccessKey, IsRendered, HasBinding, HasDeprecatedHeight, HasTip {
 
   /**
    * Flag indicating that selecting an Item representing a Value is Required.

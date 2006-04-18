@@ -29,6 +29,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
+import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -45,8 +47,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 @Tag(name = "time")
 public class TimeExtensionTag extends BodyTagSupport
-    implements HasValue, HasValidator, HasIdBindingAndRendered,
-    HasConverter, IsReadonly, IsDisabled,
+    implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
+    HasConverter, IsReadonly, IsDisabled, HasOnchange,
     IsRequired, HasTip, HasLabel,  IsFocus, IsInline {
 
   private String binding;
@@ -60,7 +62,9 @@ public class TimeExtensionTag extends BodyTagSupport
   private String required;
   private String tip;
   private String value;
+  private String valueChangeListener;
   private String inline;
+  private String onchange;
 
   private LabelExtensionTag labelTag;
   private TimeTag timeTag;
@@ -87,6 +91,9 @@ public class TimeExtensionTag extends BodyTagSupport
     if (value != null) {
       timeTag.setValue(value);
     }
+    if (valueChangeListener != null) {
+      timeTag.setValueChangeListener(valueChangeListener);
+    }
     if (binding != null) {
       timeTag.setBinding(binding);
     }
@@ -95,6 +102,9 @@ public class TimeExtensionTag extends BodyTagSupport
     }
     if (validator != null) {
       timeTag.setValidator(validator);
+    }
+     if (onchange != null) {
+      timeTag.setOnchange(onchange);
     }
     if (disabled != null) {
       timeTag.setDisabled(disabled);
@@ -142,10 +152,16 @@ public class TimeExtensionTag extends BodyTagSupport
     required = null;
     tip = null;
     value = null;
+    onchange = null;
+    valueChangeListener = null;
   }
 
   public void setValue(String value) {
     this.value = value;
+  }
+
+  public void setValueChangeListener(String valueChangeListener) {
+    this.valueChangeListener = valueChangeListener;
   }
 
   public void setLabel(String label) {
@@ -171,6 +187,11 @@ public class TimeExtensionTag extends BodyTagSupport
   public void setValidator(String validator) {
     this.validator = validator;
   }
+
+  public void setOnchange(String onchange) {
+    this.onchange = onchange;
+  }
+
   public void setInline(String inline) {
     this.inline = inline;
   }

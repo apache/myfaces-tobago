@@ -29,13 +29,15 @@ import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsPassword;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
+import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 @Tag(name = "in")
 public class InExtensionTag extends BodyTagSupport
-    implements HasValue, HasValidator, HasIdBindingAndRendered,
-    HasConverter, IsReadonly, IsDisabled,
+    implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
+    HasConverter, IsReadonly, IsDisabled, HasOnchange,
     IsRequired, HasTip, HasLabel, IsPassword, IsFocus {
 
   private String binding;
@@ -50,6 +52,8 @@ public class InExtensionTag extends BodyTagSupport
   private String required;
   private String tip;
   private String value;
+  private String valueChangeListener;
+  private String onchange;
 
   private LabelExtensionTag labelTag;
   private InTag inTag;
@@ -76,6 +80,9 @@ public class InExtensionTag extends BodyTagSupport
     if (value != null) {
       inTag.setValue(value);
     }
+    if (valueChangeListener != null) {
+      inTag.setValueChangeListener(valueChangeListener);
+    }
     if (binding != null) {
       inTag.setBinding(binding);
     }
@@ -84,6 +91,9 @@ public class InExtensionTag extends BodyTagSupport
     }
     if (validator != null) {
       inTag.setValidator(validator);
+    }
+     if (onchange != null) {
+      inTag.setOnchange(onchange);
     }
     if (disabled != null) {
       inTag.setDisabled(disabled);
@@ -131,10 +141,16 @@ public class InExtensionTag extends BodyTagSupport
     required = null;
     tip = null;
     value = null;
+    valueChangeListener = null;
+    onchange = null;
   }
 
   public void setValue(String value) {
     this.value = value;
+  }
+
+  public void setValueChangeListener(String valueChangeListener) {
+    this.valueChangeListener = valueChangeListener;
   }
 
   public void setLabel(String label) {
@@ -155,6 +171,10 @@ public class InExtensionTag extends BodyTagSupport
 
   public void setConverter(String converter) {
     this.converter = converter;
+  }
+
+  public void setOnchange(String onchange) {
+    this.onchange = onchange;
   }
 
   public void setValidator(String validator) {

@@ -33,10 +33,13 @@ public class FileExtensionTag extends BodyTagSupport
 
   private String binding;
   private String label;
+  private String value;
+  private String valueChangeListener;
   private String validator;
   private String disabled;
   private String rendered;
   private String tip;
+  private String onchange;
 
   private LabelExtensionTag labelTag;
   private FileTag fileTag;
@@ -60,6 +63,12 @@ public class FileExtensionTag extends BodyTagSupport
 
     fileTag = new FileTag();
     fileTag.setPageContext(pageContext);
+    if (value != null) {
+      fileTag.setValue(value);
+    }
+    if (valueChangeListener != null) {
+      fileTag.setValueChangeListener(valueChangeListener);
+    }
     if (binding != null) {
       fileTag.setBinding(binding);
     }
@@ -71,6 +80,9 @@ public class FileExtensionTag extends BodyTagSupport
     }
     if (id != null) {
       fileTag.setId(id);
+    }
+    if (onchange != null) {
+      fileTag.setOnchange(onchange);
     }
     fileTag.setParent(labelTag);
     fileTag.doStartTag();
@@ -92,10 +104,25 @@ public class FileExtensionTag extends BodyTagSupport
     validator = null;
     disabled = null;
     tip = null;
+    onchange = null;
+    value = null;
+    valueChangeListener = null;
   }
 
   public void setLabel(String label) {
     this.label = label;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
+  }
+
+  public void setValueChangeListener(String valueChangeListener) {
+    this.valueChangeListener = valueChangeListener;
+  }
+
+  public void setOnchange(String onchange) {
+    this.onchange = onchange;
   }
 
   public void setBinding(String binding) {
