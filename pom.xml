@@ -394,8 +394,13 @@
       <id>all-modules</id>
       <modules>
         <module>example</module>
-        <module>tobago-assembly</module>
         <module>contrib</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>generate-assembly</id>
+      <modules>
+        <module>tobago-assembly</module>
       </modules>
     </profile>
   </profiles>
