@@ -206,6 +206,34 @@ public class UIGridLayout extends UILayout {
     this.rows = rows;
   }
 
+  public Object saveState(FacesContext context) {
+    Object[] saveState = new Object[10];
+    saveState[0] = super.saveState(context);
+    saveState[1] = rows;
+    saveState[2] = columns;
+    saveState[3] = margin;
+    saveState[4] = marginLeft;
+    saveState[5] = marginRight;
+    saveState[6] = marginTop;
+    saveState[7] = marginBottom;
+    saveState[8] = border;
+    saveState[9] = cellspacing;
+    return saveState;
+  }
+
+  public void restoreState(FacesContext context, Object savedState) {
+    Object[] values = (Object[]) savedState;
+    super.restoreState(context, values[0]);
+    rows = (String)values[1];
+    columns = (String) values[2];
+    margin = (String) values[3];
+    marginLeft = (String) values[4];
+    marginRight = (String) values[5];
+    marginTop = (String) values[6];
+    marginBottom = (String) values[7];
+    border = (String) values[8];
+    cellspacing = (String) values[9];   
+  }
 
   @Override
   public String getFamily() {

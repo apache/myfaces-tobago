@@ -20,6 +20,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
 
 import javax.faces.el.ValueBinding;
+import javax.faces.context.FacesContext;
 
 /**
  * Created by IntelliJ IDEA.
@@ -75,5 +76,19 @@ public class UIToolBar extends javax.faces.component.UIPanel {
     this.iconSize = iconSize;
   }
 
+  public Object saveState(FacesContext context) {
+      Object[] saveState = new Object[3];
+      saveState[0] = super.saveState(context);
+      saveState[1] = labelPosition;
+      saveState[2] = iconSize;
 
+      return saveState;
+  }
+
+  public void restoreState(FacesContext context, Object savedState) {
+    Object[] values = (Object[]) savedState;
+    super.restoreState(context, values[0]);
+    labelPosition = (String)values[1];
+    iconSize = (String) values[2];  
+  }
 }
