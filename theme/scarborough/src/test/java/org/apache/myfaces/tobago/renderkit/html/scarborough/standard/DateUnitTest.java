@@ -22,17 +22,17 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard;
 
 import org.mozilla.javascript.JavaScriptException;
 
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Arrays;
 import java.util.Locale;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 
-public class DateUnitTest extends AbstractJavaScriptTestCase {
+public class DateUnitTest extends AbstractJavaScriptTestBase {
 
   private static final int[] YEAR_MONTH_DAY
       = {Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH};

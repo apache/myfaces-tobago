@@ -21,16 +21,15 @@
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard;
 
 import junit.framework.TestCase;
-
-import java.io.IOException;
-import java.io.FileReader;
-import java.io.File;
-
-import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.JavaScriptException;
+import org.mozilla.javascript.Scriptable;
 
-public abstract class AbstractJavaScriptTestCase extends TestCase {
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+public abstract class AbstractJavaScriptTestBase extends TestCase {
 
   protected Context cx;
   protected Scriptable scope;
