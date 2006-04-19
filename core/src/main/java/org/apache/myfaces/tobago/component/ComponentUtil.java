@@ -23,7 +23,8 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_NAVIGATE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_SCRIPT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CREATE_SPAN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
@@ -55,7 +56,7 @@ import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
 import javax.faces.component.ActionSource;
 import javax.faces.component.EditableValueHolder;
-import javax.faces.component.UIColumn;
+
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
@@ -876,7 +877,13 @@ public class ComponentUtil {
         && (commandType.equals(COMMAND_TYPE_NAVIGATE)
           || commandType.equals(COMMAND_TYPE_RESET)
           || commandType.equals(COMMAND_TYPE_SCRIPT))) {
-      setStringProperty(component, ATTR_ACTION_STRING, action);
+      if (commandType.equals(COMMAND_TYPE_NAVIGATE)) {
+        setStringProperty(component, ATTR_ACTION_NAVIGATE, action);
+      } else if (commandType.equals(COMMAND_TYPE_SCRIPT)) {
+        setStringProperty(component, ATTR_ACTION_SCRIPT, action);
+      } else {
+        LOG.warn("Type reset is not supported");
+      }
     } else {
       if (action != null) {
         if (UIComponentTag.isValueReference(action)) {

@@ -23,16 +23,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_NAVIGATE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_SCRIPT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TYPE;
-import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_NAVIGATE;
-import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_RESET;
-import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_SCRIPT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
@@ -129,34 +126,35 @@ public class ButtonRenderer extends CommandRendererBase {
 
   private String createButtonType(UIComponent component) {
     String buttonType;
-    String type = (String) component.getAttributes().get(ATTR_TYPE);
+    //String type = (String) component.getAttributes().get(ATTR_TYPE);
 
     boolean defaultCommand = ComponentUtil.getBooleanAttribute(component,
         ATTR_DEFAULT_COMMAND);
-    if (COMMAND_TYPE_RESET.equals(type)) {
-      buttonType = "reset";
-    } else { // default: Action.TYPE_SUBMIT
+    //if (COMMAND_TYPE_RESET.equals(type)) {
+    //  buttonType = "reset";
+    //} else { // default: Action.TYPE_SUBMIT
       buttonType = defaultCommand ? "submit" : "button";
-    }
+    //}
     return buttonType;
   }
 
   public static String createOnClick(FacesContext facesContext,
       UIComponent component) {
-    String type = (String) component.getAttributes().get(ATTR_TYPE);
-    String command = (String) component.getAttributes().get(ATTR_ACTION_STRING);
+    //String type = (String) component.getAttributes().get(ATTR_TYPE);
+    //String command = (String) component.getAttributes().get(ATTR_ACTION_STRING);
     String clientId = component.getClientId(facesContext);
     boolean defaultCommand = ComponentUtil.getBooleanAttribute(component,
         ATTR_DEFAULT_COMMAND);
     String onclick;
 
-    if (COMMAND_TYPE_NAVIGATE.equals(type)) {
+    if (component.getAttributes().containsKey(ATTR_ACTION_NAVIGATE)) {
       onclick = "Tobago.navigateToUrl('"
-          + HtmlUtils.generateUrl(facesContext, command) + "');";
-    } else if (COMMAND_TYPE_RESET.equals(type)) {
-      onclick = null;
-    } else if (COMMAND_TYPE_SCRIPT.equals(type)) {
-      onclick = command;
+          + HtmlUtils.generateUrl(facesContext, (String) component.getAttributes().get(ATTR_ACTION_NAVIGATE)) + "');";
+      // FIXME !!
+      //} else if (COMMAND_TYPE_RESET.equals(type)) {
+    //  onclick = null;
+    } else if (component.getAttributes().containsKey(ATTR_ACTION_SCRIPT)) {
+      onclick = (String) component.getAttributes().get(ATTR_ACTION_SCRIPT);
     } else if (defaultCommand) {
       ComponentUtil.findPage(component).setDefaultActionId(clientId);
 //      onclick = "Tobago.setAction('" + clientId + "');";

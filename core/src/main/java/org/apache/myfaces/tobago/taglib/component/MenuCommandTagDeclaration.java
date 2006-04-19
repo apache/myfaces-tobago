@@ -18,8 +18,6 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.taglib.decl.HasAction;
-import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
 import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasImage;
@@ -37,10 +35,10 @@ import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 /**
  * Renders a menu item.
  */
-@Tag(name = "menuItem")
+@Tag(name = "menuItem", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenuCommand",
     rendererType = "MenuCommand")
 public interface MenuCommandTagDeclaration extends TobagoTagDeclaration, CommandTagDeclaration, HasIdBindingAndRendered,
-    HasLabelAndAccessKey, IsDisabled, HasAction, HasActionListener, HasCommandType, HasImage, IsImmediateCommand {
+    HasLabelAndAccessKey, IsDisabled,  HasCommandType, HasImage, IsImmediateCommand {
 }

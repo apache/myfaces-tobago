@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
@@ -183,8 +182,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
       UICommand command = (UICommand) ComponentUtil.createComponent(
           facesContext, UICommand.COMPONENT_TYPE, RENDERER_TYPE_LINK);
       toolbar.getChildren().add(command);
-      command.setId("button" + i);
-      command.getAttributes().put(ATTR_ACTION_STRING, commands[i].getCommand());
+      command.setId(commands[i].getCommand());
 
       for (ActionListener listener : getActionListeners()) {
         command.addActionListener(listener);

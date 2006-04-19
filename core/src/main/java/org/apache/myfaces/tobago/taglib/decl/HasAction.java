@@ -26,15 +26,15 @@ public interface HasAction {
   /**
    *
    * Action to invoke when clicked.
-   * Depends on 'type' attribute:
-   * If type is NOT 'navigate', 'reset' or 'script' this must be a
-   * MethodBinding representing the application action to invoke when
+   * This must be a MethodBinding or a String representing the application action to invoke when
    * this component is activated by the user.
-   * The expression must evaluate to a public method that takes no parameters,
+   * The MethodBinding must evaluate to a public method that takes no parameters,
    * and returns a String (the logical outcome) which is passed to the
    * NavigationHandler for this application.
+   * The String is directly passed to the Navigationhandler.
    *
    */
   @TagAttribute @UIComponentTagAttribute()
   void setAction(String action);
+  
 }

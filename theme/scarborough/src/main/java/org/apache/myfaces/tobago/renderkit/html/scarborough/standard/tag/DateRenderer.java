@@ -23,7 +23,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_SCRIPT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CALENDAR_DATE_INPUT_ID;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
@@ -34,9 +34,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_CALENDAR_FORC
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_RESET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_SCRIPT;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_PICKER;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_PICKER_POPUP;
@@ -137,7 +135,6 @@ public class DateRenderer extends InRenderer {
     link.setRendered(true);
     link.setImmediate(true);
     Map<String, Object>  attributes = link.getAttributes();
-    attributes.put(ATTR_TYPE, "script");
     link.setId(idPrefix + DatePickerController.OPEN_POPUP);
     link.setActionListener(datePickerController);
     attributes.put(ATTR_LAYOUT_WIDTH, getConfiguredValue(facesContext, component, "pickerWidth"));
@@ -148,7 +145,7 @@ public class DateRenderer extends InRenderer {
     link.getChildren().add(hidden);
     hidden.setId(idPrefix + "Dimension");
     // attributes map is still of link
-    attributes.put(ATTR_ACTION_STRING, "Tobago.openPickerPopup(event, '"
+    attributes.put(ATTR_ACTION_SCRIPT, "Tobago.openPickerPopup(event, '"
         + link.getClientId(facesContext) + "', '"
         + hidden.getClientId(facesContext) + "')");
 
@@ -227,8 +224,7 @@ public class DateRenderer extends InRenderer {
     okButton.setId("ok" + DatePickerController.CLOSE_POPUP);
     attributes = okButton.getAttributes();
     attributes.put(ATTR_LABEL, "OK");
-    attributes.put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
-    attributes.put(ATTR_ACTION_STRING, "writeIntoField('"
+    attributes.put(ATTR_ACTION_SCRIPT, "writeIntoField('"
         + popup.getClientId(facesContext) + "', '"
         + component.getClientId(facesContext) + "'); Tobago.closePickerPopup('"
         + popup.getClientId(facesContext) + "')");
@@ -239,8 +235,8 @@ public class DateRenderer extends InRenderer {
     box.getChildren().add(cancelButton);
     attributes = cancelButton.getAttributes();
     attributes.put(ATTR_LABEL, "Cancel");
-    attributes.put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
-    attributes.put(ATTR_ACTION_STRING, "Tobago.closePickerPopup('" + popup.getClientId(facesContext) + "')");
+    //attributes.put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
+    attributes.put(ATTR_ACTION_SCRIPT, "Tobago.closePickerPopup('" + popup.getClientId(facesContext) + "')");
     cancelButton.setId(DatePickerController.CLOSE_POPUP);
     cancelButton.setActionListener(datePickerController);
 

@@ -23,7 +23,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_SCRIPT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
@@ -44,10 +44,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
-import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_SCRIPT;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUPOPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_PAGER_PAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_PAGER_ROW;
@@ -897,8 +895,7 @@ public class SheetRenderer extends RendererBase
     UICommand menuItem
         = (UICommand) application.createComponent(UIMenuCommand.COMPONENT_TYPE);
     menuItem.setRendererType(RENDERER_TYPE_MENUCOMMAND);
-    menuItem.getAttributes().put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
-    menuItem.getAttributes().put(ATTR_ACTION_STRING, action);
+    menuItem.getAttributes().put(ATTR_ACTION_SCRIPT, action);
     menuItem.getAttributes().put(ATTR_LABEL, label);
     return menuItem;
   }

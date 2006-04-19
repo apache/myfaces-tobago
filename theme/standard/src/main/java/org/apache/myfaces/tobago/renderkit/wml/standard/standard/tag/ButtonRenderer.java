@@ -25,8 +25,8 @@ import org.apache.commons.collections.KeyValue;
 import org.apache.commons.collections.keyvalue.DefaultKeyValue;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TYPE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_SCRIPT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_NAVIGATE;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
@@ -51,13 +51,11 @@ public class ButtonRenderer extends RendererBase {
 
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
+     // TODO
+    //String action = (String) command.getAttributes().get(ATTR_ACTION);
 
-    String type = (String) command.getAttributes().get(
-        ATTR_TYPE);
-    String action = (String) command.getAttributes().get(
-        ATTR_ACTION_STRING);
-
-    if ("submit".equals(type) && page != null) {
+    if (!command.getAttributes().containsKey(ATTR_ACTION_NAVIGATE)
+        &&!command.getAttributes().containsKey(ATTR_ACTION_SCRIPT)) {
       ValueHolder labelComponent
           = (ValueHolder) command.getFacet(FACET_LABEL);
       String label = (String) labelComponent.getValue();
@@ -69,7 +67,7 @@ public class ButtonRenderer extends RendererBase {
       writer.writeText(label, null);
 
       writer.startElement("go", command);
-      writer.writeAttribute("href", action, null);
+      //writer.writeAttribute("href", action, null);
 
       for (KeyValue postField : page.getPostfields()) {
         writer.startElement("postfield", command);
@@ -80,8 +78,7 @@ public class ButtonRenderer extends RendererBase {
       writer.endElement("go");
       writer.endElement("anchor");
     } else {
-      LOG.error("button type \""
-          + type + "\" is not supported!");
+      LOG.error("button type navigate or script is not supported!");
     }
   }
 }

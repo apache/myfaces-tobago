@@ -132,7 +132,11 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     Element tagElement = document.createElement("tag");
     addLeafTextElement(annotationTag.name(), "name", tagElement, document);
     addLeafTextElement(className, "tag-class", tagElement, document);
-
+    String tagExtraInfo = annotationTag.tagExtraInfoClassName();
+    if (tagExtraInfo != null&& tagExtraInfo.length() > 0) {
+      // TODO check tagExtraInfo extends TagExtraInfo         
+      addLeafTextElement(tagExtraInfo, "tei-class", tagElement, document);
+    }
     BodyContent bodyContent = annotationTag.bodyContent();
     BodyContentDescription contentDescription = decl.getAnnotation(BodyContentDescription.class);
     // TODO more error checking

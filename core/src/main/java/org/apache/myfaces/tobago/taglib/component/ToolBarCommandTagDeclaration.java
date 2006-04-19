@@ -16,17 +16,15 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.taglib.decl.HasImage;
-import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-import org.apache.myfaces.tobago.taglib.decl.HasAction;
-import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
-import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
-import org.apache.myfaces.tobago.taglib.decl.HasTip;
-import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasImage;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.HasTip;
+import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 
 /*
  * Created by IntelliJ IDEA.
@@ -39,11 +37,11 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 /**
  * Renders a command button within a toolbar.
  */
-@Tag(name = "toolBarCommand")
+@Tag(name = "toolBarCommand", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UICommand",
     rendererType = "Button")
 public interface ToolBarCommandTagDeclaration extends CommandTagDeclaration, HasIdBindingAndRendered,
-    HasLabelAndAccessKey, HasImage, IsDisabled, HasAction, HasActionListener, HasCommandType, HasTip,
+    HasLabelAndAccessKey, HasImage, IsDisabled, HasCommandType, HasTip,
     IsImmediateCommand {
 }

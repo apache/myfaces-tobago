@@ -23,7 +23,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_SCRIPT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_NAVIGATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
@@ -56,11 +57,12 @@ public class LinkRenderer extends CommandRendererBase{
     String onclick = null;
     String href;
 
-    String type = (String) component.getAttributes().get(ATTR_TYPE);
-    String action = (String) component.getAttributes().get(ATTR_ACTION_STRING);
+    //String type = (String) component.getAttributes().get(ATTR_TYPE);
+    //String action = (String) component.getAttributes().get(ATTR_ACTION_STRING);
 
     String clientId = component.getClientId(facesContext);
-    if (COMMAND_TYPE_NAVIGATE.equals(type)) {
+    if (component.getAttributes().containsKey(ATTR_ACTION_NAVIGATE)) {
+      String action = (String) component.getAttributes().get(ATTR_ACTION_NAVIGATE);
       if (action == null) {
         LOG.warn("keine Action in Link : id " + clientId
             + " label = " + component.getAttributes().get(ATTR_LABEL));
@@ -68,11 +70,11 @@ public class LinkRenderer extends CommandRendererBase{
         action = "";
       }
       href = HtmlUtils.generateUrl(facesContext, action);
-    } else if (COMMAND_TYPE_RESET.equals(type)) {
-      href = "javascript:Tobago.resetForm()";
-    } else if (COMMAND_TYPE_SCRIPT.equals(type)) {
+    //} else if (COMMAND_TYPE_RESET.equals(type)) {
+    //  href = "javascript:Tobago.resetForm()";
+    } else  if (component.getAttributes().containsKey(ATTR_ACTION_SCRIPT)) {
+      onclick = (String) component.getAttributes().get(ATTR_ACTION_SCRIPT);
       href = "#";
-      onclick = action;
     } else { // default: Action.TYPE_SUBMIT
       href = "javascript:Tobago.submitAction('"
           + clientId + "')";

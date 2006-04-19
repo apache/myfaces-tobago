@@ -49,19 +49,18 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <!--<groupId>myfaces</groupId>-->
+      <groupId>javax.servlet</groupId>
+      <artifactId>jsp-api</artifactId>
+      <version>2.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>org.apache.myfaces.core</groupId>
       <artifactId>myfaces-api</artifactId>
-      <!--<version>1.1.1</version>-->
       <version>1.1.2</version>
       <scope>provided</scope>
     </dependency>
-    <!--<dependency>-->
-      <!--<groupId>myfaces</groupId>-->
-      <!--<artifactId>myfaces-api</artifactId>-->
-      <!--<version>1.1.1</version>-->
-      <!--<scope>provided</scope>-->
-    <!--</dependency>-->
+
     <dependency>
       <groupId>org.codehaus.modello</groupId>
       <artifactId>modello-core</artifactId>

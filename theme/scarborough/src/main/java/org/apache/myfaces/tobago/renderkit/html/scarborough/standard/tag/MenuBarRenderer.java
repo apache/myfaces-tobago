@@ -23,7 +23,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
+
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP;
@@ -31,14 +31,12 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP_TYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PAGE_MENU;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
-import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_NAVIGATE;
-import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_RESET;
-import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_SCRIPT;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_CHECKBOX;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_RADIO;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_NAVIGATE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_SCRIPT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
@@ -334,20 +332,18 @@ public class MenuBarRenderer extends RendererBase {
 
   private String createOnClick(FacesContext facesContext,
                                UIComponent component) {
-    String type = (String) component.getAttributes().get(ATTR_TYPE);
-    String command = (String) component.getAttributes().get(ATTR_ACTION_STRING);
     String clientId = component.getClientId(facesContext);
     String onclick;
 
-    if (COMMAND_TYPE_NAVIGATE.equals(type)) {
+    if (component.getAttributes().containsKey(ATTR_ACTION_NAVIGATE)) {
       onclick = "Tobago.navigateToUrl('"
-          + HtmlUtils.generateUrl(facesContext, command) + "')";
-    } else if (COMMAND_TYPE_RESET.equals(type)) {
-      onclick = null;
-    } else if (COMMAND_TYPE_SCRIPT.equals(type)) {
-      onclick = command;
+          + HtmlUtils.generateUrl(facesContext, (String) component.getAttributes().get(ATTR_ACTION_NAVIGATE)) + "');";
+    //} else if (COMMAND_TYPE_RESET.equals(type)) {
+    //  onclick = null;
+    } else if (component.getAttributes().containsKey(ATTR_ACTION_SCRIPT)) {
+      onclick = (String) component.getAttributes().get(ATTR_ACTION_SCRIPT);
     } else { // default: Action.TYPE_SUBMIT
-      onclick = "Tobago.submitAction('" + clientId + "')";
+      onclick = "Tobago.submitAction('" + clientId + "');";
     }
     return onclick;
   }

@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.taglib.decl.HasAction;
 import org.apache.myfaces.tobago.taglib.decl.HasBooleanValue;
 import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -38,12 +37,12 @@ import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
  * Renders a checkable menuitem.
  */
 
-@Tag(name = "menucheck")
+@Tag(name = "menucheck", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
     rendererType = "MenuCommand")
 
 public interface MenuSelectBooleanTagDeclaration extends TobagoTagDeclaration, CommandTagDeclaration,
-    HasIdBindingAndRendered, IsDisabled, HasAction, HasCommandType, HasBooleanValue, HasLabelAndAccessKey,
+    HasIdBindingAndRendered, IsDisabled, HasCommandType, HasBooleanValue, HasLabelAndAccessKey,
     IsImmediateCommand {
 }

@@ -19,8 +19,6 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.taglib.decl.HasAction;
-import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
 import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -43,7 +41,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 /**
  * Renders a button element.
  */
-@Tag(name = "button")
+@Tag(name = "button", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UICommand",
@@ -51,6 +49,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 
 public interface ButtonTagDeclaration extends CommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
-    IsDisabled, HasAction, HasActionListener, HasCommandType,
+    IsDisabled, HasCommandType,
     IsImmediateCommand, IsDefaultCommand, HasDeprecatedWidth, HasTip, IsInline {
 }

@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 /**
  * Renders a submenu with select one items.
  */
-@Tag(name = "menuradio")
+@Tag(name = "menuradio", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOneCommand",
     rendererType = "MenuCommand")

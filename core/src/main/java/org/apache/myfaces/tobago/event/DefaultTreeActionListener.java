@@ -23,7 +23,6 @@ package org.apache.myfaces.tobago.event;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_STRING;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.TreeState;
@@ -66,8 +65,7 @@ public class DefaultTreeActionListener implements ActionListener {
     UITree tree = (UITree) component;
     TreeState treeState = tree.getState();
     DefaultMutableTreeNode marker = treeState.getMarker();
-    String command = (String) actionEvent.getComponent().getAttributes().get(
-        ATTR_ACTION_STRING);
+    String command = actionEvent.getComponent().getId();
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("marker      " + marker);

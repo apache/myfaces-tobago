@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.apt.annotation;
+package org.apache.myfaces.tobago.taglib.decl;
 
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
@@ -16,25 +16,18 @@ package org.apache.myfaces.tobago.apt.annotation;
  * limitations under the License.
  */
 
-import javax.servlet.jsp.tagext.TagExtraInfo;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/**
- * Created: Mar 8, 2005 5:40:59 PM
+/*
+ * Created by IntelliJ IDEA.
  * User: bommel
- * $Id: Tag.java,v 1.2 2005/04/20 18:39:09 bommel Exp $
+ * Date: 19.04.2006
+ * Time: 11:41:03
+ * To change this template use File | Settings | File Templates.
  */
-@Retention(value = RetentionPolicy.SOURCE)
-@Target(value = ElementType.TYPE)
-
-public @interface Tag {
-  String name();
-
-  BodyContent bodyContent() default BodyContent.JSP;
-
-  String tagExtraInfoClassName() default "";
+public interface HasNavigate {
+  @TagAttribute @UIComponentTagAttribute()
+  void setNavigate(String navigate);
 
 }
