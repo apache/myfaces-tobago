@@ -385,15 +385,23 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
       event = window.event;
     }
 
-    Tobago.clearSelection();
+    var srcElement;
+    if (event.target) {
+      // W3C DOM level 2
+      srcElement = event.target;
+    } else {
+      // IE
+      srcElement = event.srcElement;
+    }
 
     //LOG.debug("event.ctrlKey = " + event.ctrlKey);
     //LOG.debug("event.shiftKey = " + event.shiftKey);
+    //LOG.debug("srcElement = " + srcElement.tagName);
 
-    var srcElement = Tobago.element(event);
-    //  LOG.debug("srcElement = " + srcElement.tagName);
     if (! Tobago.isInputElement(srcElement.tagName)) {
 
+      Tobago.clearSelection();
+      
       var dataRow = Tobago.element(event);
       while (dataRow.id.search(new RegExp("_data_tr_\\d+$")) == -1) {
         dataRow = dataRow.parentNode;
