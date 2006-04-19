@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:tc="http://myfaces.apache.org/tobago/component">
+
+THIS TEXT WILL BE REMOVED
+<ui:composition>
+  <c:if test="${empty rendered}">
+    <c:set var="rendered" value="true"/>
+  </c:if>
+  <tc:panel rendered="${rendered}">
+    <f:facet name="layout">
+      <tc:gridLayout columns="fixed;*"/>
+    </f:facet>
+    <tc:label value="${label}" for="@auto" tip="${tip}"/>
+    <tc:selectOneListbox value="${value}" required="${required}"
+        readonly="${readonly}" disabled="${disabled}">
+      <ui:insert/>
+    </tc:selectOneListbox>
+  </tc:panel>
+</ui:composition>
+THIS TEXT WILL BE REMOVED AS WELL
+
+</html>

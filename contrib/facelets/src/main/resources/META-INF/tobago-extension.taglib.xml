@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE facelet-taglib PUBLIC
+  "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
+  "facelet-taglib_1_0.dtd">
+<facelet-taglib>
+  <namespace>http://myfaces.apache.org/tobago/facelet-extension</namespace>
+	<tag>
+		<tag-name>in</tag-name>
+		<source>in.xhtml</source>
+	</tag>
+  <tag>
+		<tag-name>date</tag-name>
+		<source>date.xhtml</source>
+	</tag>
+  <tag>
+		<tag-name>textarea</tag-name>
+		<source>textarea.xhtml</source>
+	</tag>
+  <tag>
+		<tag-name>file</tag-name>
+		<source>file.xhtml</source>
+	</tag>
+  <tag>
+		<tag-name>selectOneChoice</tag-name>
+		<source>selectOneChoice.xhtml</source>
+	</tag>
+  <tag>
+		<tag-name>selectOneListbox</tag-name>
+		<source>selectOneListbox.xhtml</source>
+	</tag>
+  <tag>
+		<tag-name>selectManyListbox</tag-name>
+		<source>selectManyListbox.xhtml</source>
+	</tag>
+</facelet-taglib>
