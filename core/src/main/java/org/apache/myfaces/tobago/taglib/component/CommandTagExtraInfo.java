@@ -43,7 +43,7 @@ public class CommandTagExtraInfo extends TagExtraInfo {
   }
 
   private ValidationMessage[] generateValidationMessages(TagData data) {
-    ValidationMessage messages[]  = new ValidationMessage[1];
+    ValidationMessage[] messages = new ValidationMessage[1];
         messages [0] = new ValidationMessage(data.getId(),
             "Only one Attribute of action, script and navigate is allowed");
     return messages;

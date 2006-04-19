@@ -35,7 +35,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 /**
  * Renders a set of radio command button's within a toolbar.
  */
-@Tag(name = "toolBarSelectOne", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
+@Tag(name = "toolBarSelectOne",
+    tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOneCommand",
     rendererType = "MenuCommand")

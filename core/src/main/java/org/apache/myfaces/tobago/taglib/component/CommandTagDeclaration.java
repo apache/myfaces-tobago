@@ -1,10 +1,5 @@
 package org.apache.myfaces.tobago.taglib.component;
 
-import org.apache.myfaces.tobago.taglib.decl.HasAction;
-import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
-import org.apache.myfaces.tobago.taglib.decl.HasScript;
-import org.apache.myfaces.tobago.taglib.decl.HasNavigate;
-
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
  *
@@ -21,6 +16,11 @@ import org.apache.myfaces.tobago.taglib.decl.HasNavigate;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.taglib.decl.HasAction;
+import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
+import org.apache.myfaces.tobago.taglib.decl.HasScript;
+import org.apache.myfaces.tobago.taglib.decl.HasNavigate;
+
 
 /*
  * Created by IntelliJ IDEA.
@@ -31,5 +31,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasNavigate;
  */
 
 
-public interface CommandTagDeclaration extends TobagoTagDeclaration, HasAction, HasActionListener, HasScript, HasNavigate {
+public interface CommandTagDeclaration extends TobagoTagDeclaration,
+    HasAction, HasActionListener, HasScript, HasNavigate {
 }
