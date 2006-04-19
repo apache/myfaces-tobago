@@ -231,8 +231,9 @@ td.tobago-calendar-day-selected {
   font-weight: normal;
 }
 
-button img  {
+.tobago-button-default img  {
   margin-right: 5px;
+  vertical-align: middle;
 }
 
 /* selectBooleanCheckbox --------------------------------------------------- */
