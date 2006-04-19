@@ -23,11 +23,7 @@
 
   <display-name>Blank Tobago Application</display-name>
 
-  <context-param>
-    <param-name>facelets.LIBRARIES</param-name>
-    <param-value>/WEB-INF/facelets/tags/tobago-extension.taglib.xml</param-value>
-  </context-param>
-
+  
   <context-param>
     <param-name>facelets.DEVELOPMENT</param-name>
     <param-value>true</param-value>
