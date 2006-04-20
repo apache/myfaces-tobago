@@ -19,16 +19,13 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.taglib.decl.HasVar;
+import org.apache.myfaces.tobago.util.BundleMapWrapper;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
-import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Load a resource bundle localized for the Locale of the current view
@@ -64,7 +61,6 @@ public class LoadBundleTag extends TagSupport implements HasVar {
    * Base name of the resource bundle to be loaded.
    */
   @TagAttribute(required = true)
-  @UIComponentTagAttribute()
   public void setBasename(String basename) {
     this.basename = basename;
   }
@@ -72,80 +68,16 @@ public class LoadBundleTag extends TagSupport implements HasVar {
   public String getVar() {
     return var;
   }
-
+  /**
+   *
+   * Name of a session-scope attribute under which the bundle data
+   * will be exposed.
+   *
+   */
+  @TagAttribute(required = true)
   public void setVar(String var) {
     this.var = var;
   }
 
-  private static class BundleMapWrapper implements Map {
-
-    private String basename;
-
-    public BundleMapWrapper(String basename) {
-      this.basename = basename;
-    }
-
-    public void clear() {
-      throw new UnsupportedOperationException();
-    }
-
-    public boolean containsKey(Object key) {
-      if (null == key) {
-        return false;
-      }
-      String value = ResourceManagerUtil.getPropertyNotNull(
-          FacesContext.getCurrentInstance(), basename, key.toString());
-      return value != null;
-    }
-
-    public boolean containsValue(Object value) {
-      throw new UnsupportedOperationException();
-    }
-
-    public Set entrySet() {
-      throw new UnsupportedOperationException();
-    }
-
-    public Object get(Object key) {
-      if (null == key) {
-        return null;
-      }
-      String value = ResourceManagerUtil.getPropertyNotNull(
-          FacesContext.getCurrentInstance(), basename, key.toString());
-      return value;
-    }
-
-    public int hashCode() {
-      return basename.hashCode();
-    }
-
-    public boolean isEmpty() {
-      throw new UnsupportedOperationException();
-    }
-
-    public Set keySet() {
-      throw new UnsupportedOperationException();
-    }
-
-    public Object put(Object k, Object v) {
-      throw new UnsupportedOperationException();
-    }
-
-    public void putAll(Map t) {
-      throw new UnsupportedOperationException();
-    }
-
-    public Object remove(Object k) {
-      throw new UnsupportedOperationException();
-    }
-
-    public int size() {
-      throw new UnsupportedOperationException();
-    }
-
-    public Collection values() {
-      throw new UnsupportedOperationException();
-    }
-  }
 }
 

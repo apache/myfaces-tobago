@@ -19,11 +19,9 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UITabGroup;
 import org.apache.myfaces.tobago.event.TabChangeListener;
-import org.apache.myfaces.tobago.taglib.decl.HasTabChangeListenerType;
+import org.apache.myfaces.tobago.event.TabChangeSource;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -32,36 +30,38 @@ import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-// TODO: maybe drop this tag and do that with an attribute in tabGroup
-
 /**
  * Register an TabChangedListener instance on the UIComponent
  * associated with the closest parent UIComponent custom action.
  */
 @Tag(name = "tabChangeListener", bodyContent = BodyContent.EMPTY)
-public class TabChangeListenerTag extends TagSupport
-    implements HasTabChangeListenerType {
+public class TabChangeListenerTag extends TagSupport {
 
 
   /**
    * <p>The fully qualified class name of the {@link TabChangeListener}
    * instance to be created.</p>
    */
-  private String type = null;
-  private String typeString = null;
-
-
+  private String type;
+  private String binding;
   /**
    * Fully qualified Java class name of a TabChangeListener to be
    * created and registered.
    */
   @TagAttribute(required = true)
-  @UIComponentTagAttribute()
   public void setType(String type) {
-
-    this.typeString = type;
-
+    this.type = type;
   }
+
+  /**
+   * The value binding expression to a TabChangeListener.
+   */
+  @TagAttribute
+  public void setBinding(String binding) {
+    this.binding = binding;
+  }
+
+
 
   /**
    * <p>Create a new instance of the specified {@link TabChangeListener}
@@ -78,38 +78,56 @@ public class TabChangeListenerTag extends TagSupport
     UIComponentTag tag =
         UIComponentTag.getParentUIComponentTag(pageContext);
     if (tag == null) {
-      throw new JspException("com.sun.faces.NOT_NESTED_IN_FACES_TAG_ERROR");
+      // TODO Message resource i18n
+      throw new JspException("Not nested in faces tag");
     }
 
-    // Nothing to do unless this tag created a component
     if (!tag.getCreated()) {
       return (SKIP_BODY);
     }
 
-    // evaluate any VB expression that we were passed
-    if (UIComponentTag.isValueReference(typeString)) {
-      ValueBinding valueBinding = ComponentUtil.createValueBinding(typeString, null);
-      type = (String) valueBinding.getValue(FacesContext.getCurrentInstance());
-    } else {
-      type = typeString;
-    }
-
-    // Create and register an instance with the appropriate component
-    TabChangeListener handler = createStateChangeListener();
-
     UIComponent component = tag.getComponentInstance();
     if (component == null) {
-      throw new JspException("com.sun.faces.NULL_COMPONENT_ERROR");
+      // TODO Message resource i18n
+      throw new JspException("Component Instance is null");
     }
-    // We need to cast here because addTabChangeListener
-    // method does not apply to al components (it is not a method on
-    // UIComponent).
-    if (component instanceof UITabGroup) {
-      ((UITabGroup) component).addTabChangeListener(handler);
+    if (!(component instanceof TabChangeSource)) {
+      // TODO Message resource i18n
+      throw new JspException("Component "+ component.getClass().getName() + " is not instanceof TabChangeSource");
+    }
+    TabChangeSource changeSource = (TabChangeSource) component;
+
+    TabChangeListener handler = null;
+
+    if (UIComponentTag.isValueReference(binding)) {
+      ValueBinding valueBinding = ComponentUtil.createValueBinding(binding);
+      if (valueBinding != null) {
+        Object obj = valueBinding.getValue(FacesContext.getCurrentInstance());
+        if (obj != null && obj instanceof TabChangeListener) {
+          handler = (TabChangeListener) obj;
+        }
+      }
     }
 
+    if (handler == null && type != null) {
+      String className;
+      // evaluate any VB expression that we were passed
+      if (UIComponentTag.isValueReference(type)) {
+        ValueBinding typeValueBinding = ComponentUtil.createValueBinding(type);
+        className = (String) typeValueBinding.getValue(FacesContext.getCurrentInstance());
+      } else {
+        className = type;
+      }
+      handler = createStateChangeListener(className);
+      if (handler != null && binding != null) {
+        ComponentUtil.setValueForValueBinding(binding, handler);
+      }
+    }
+    if (handler != null) {
+      changeSource.addTabChangeListener(handler);
+    }
+    // TODO else LOG.warn?
     return (SKIP_BODY);
-
   }
 
 
@@ -118,7 +136,7 @@ public class TabChangeListenerTag extends TagSupport
    */
   public void release() {
     this.type = null;
-
+    this.binding = null;
   }
 
   /**
@@ -127,9 +145,9 @@ public class TabChangeListenerTag extends TagSupport
    *
    * @throws javax.servlet.jsp.JspException if a new instance cannot be created
    */
-  protected TabChangeListener createStateChangeListener() throws JspException {
+  protected TabChangeListener createStateChangeListener(String className) throws JspException {
     try {
-      Class clazz = getClass().getClassLoader().loadClass(type);
+      Class clazz = getClass().getClassLoader().loadClass(className);
       return ((TabChangeListener) clazz.newInstance());
     } catch (Exception e) {
       throw new JspException(e);

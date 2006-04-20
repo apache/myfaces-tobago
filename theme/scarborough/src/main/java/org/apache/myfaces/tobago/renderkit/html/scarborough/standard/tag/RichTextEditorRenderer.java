@@ -185,8 +185,8 @@ public class RichTextEditorRenderer extends InputRendererBase {
     toolbar.getChildren().add(command);
 
     command.getAttributes().put(ATTR_IMAGE, "image/tobago-richtext-edit.gif");
-    command.setValueBinding(ATTR_DISABLED, ComponentUtil.createValueBinding("#{! tobagoRichtextPreviewState}", null));
-    command.setValueBinding(ATTR_VALUE, ComponentUtil.createValueBinding("#{!tobagoRichtextPreviewState}", null));
+    command.setValueBinding(ATTR_DISABLED, ComponentUtil.createValueBinding("#{! tobagoRichtextPreviewState}"));
+    command.setValueBinding(ATTR_VALUE, ComponentUtil.createValueBinding("#{!tobagoRichtextPreviewState}"));
 
     String title = ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "tobago.richtexteditor.edit.title");
@@ -201,8 +201,8 @@ public class RichTextEditorRenderer extends InputRendererBase {
     toolbar.getChildren().add(command);
     //command.getAttributes().put(ATTR_COMMAND_TYPE, ToolBarSelectBooleanTag.COMMAND_TYPE);
     command.getAttributes().put(ATTR_IMAGE, "image/tobago-richtext-preview.gif");
-    command.setValueBinding(ATTR_DISABLED, ComponentUtil.createValueBinding("#{tobagoRichtextPreviewState}", null));
-    command.setValueBinding(ATTR_VALUE, ComponentUtil.createValueBinding("#{tobagoRichtextPreviewState}", null));
+    command.setValueBinding(ATTR_DISABLED, ComponentUtil.createValueBinding("#{tobagoRichtextPreviewState}"));
+    command.setValueBinding(ATTR_VALUE, ComponentUtil.createValueBinding("#{tobagoRichtextPreviewState}"));
 
     title = ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "tobago.richtexteditor.preview.title");

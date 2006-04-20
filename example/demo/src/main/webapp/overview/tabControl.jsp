@@ -85,7 +85,8 @@
 
           <tc:tabGroup id="tabMarsOuterForm2" switchType="reloadTab" state="#{demo.tabState2}" >
 
-            <tc:tabChangeListener type="org.apache.myfaces.tobago.example.demo.actionlistener.SimpleTabChangeListener"/>
+            <tc:tabChangeListener type="org.apache.myfaces.tobago.example.demo.actionlistener.SimpleTabChangeListener"
+                binding="#{demo.tabChangeListener}" />
 
             <tc:tab label="#{overviewBundle.tabPlanet}">
               <tc:panel >

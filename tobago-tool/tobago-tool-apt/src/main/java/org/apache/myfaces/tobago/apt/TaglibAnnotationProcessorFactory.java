@@ -33,20 +33,21 @@ import java.util.Set;
  */
 public class TaglibAnnotationProcessorFactory implements AnnotationProcessorFactory {
 
+  private static final Collection<String> SUPPORTED_ANNOTATIONS
+      = Collections.unmodifiableCollection(Arrays.asList("org.apache.myfaces.tobago.apt.annotation.Tag",
+          "org.apache.myfaces.tobago.apt.annotation.TagAttribute",
+          "org.apache.myfaces.tobago.apt.annotation.Taglib"));
+
+  private static final Collection<String> SUPPORTED_OPTIONS = Collections.emptySet();
+
   private TaglibAnnotationProcessor annotationProcessor = null;
 
-  private static final Collection<String> supportedAnnotations
-      = Collections.unmodifiableCollection(Arrays.asList("org.apache.myfaces.tobago.apt.annotation.Tag",
-          "org.apache.myfaces.tobago.apt.annotation.TagAttribute", "org.apache.myfaces.tobago.apt.annotation.Taglib" ));
-
-  private static final Collection<String> supportedOptions = Collections.emptySet();
-
   public Collection<String> supportedAnnotationTypes() {
-    return supportedAnnotations;
+    return SUPPORTED_ANNOTATIONS;
   }
 
   public Collection<String> supportedOptions() {
-    return supportedOptions;
+    return SUPPORTED_OPTIONS;
   }
 
   public AnnotationProcessor getProcessorFor(Set<AnnotationTypeDeclaration> atds,

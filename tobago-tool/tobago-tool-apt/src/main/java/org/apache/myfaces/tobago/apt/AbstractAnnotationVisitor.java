@@ -28,7 +28,7 @@ import com.sun.mirror.apt.AnnotationProcessorEnvironment;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class AbstractAnnotationVisitor extends AnnotationDeclarationVisitorCollector {
-  protected final AnnotationProcessorEnvironment env;
+  private final AnnotationProcessorEnvironment env;
 
   public AbstractAnnotationVisitor(AnnotationProcessorEnvironment env) {
     this.env = env;

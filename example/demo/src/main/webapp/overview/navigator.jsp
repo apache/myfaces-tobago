@@ -13,110 +13,77 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-<%@ page import="javax.faces.context.FacesContext"%>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
-<f:subview id="navigator" >
+<f:subview id="navigator">
   <tc:panel>
     <f:facet name="layout">
       <tc:gridLayout columns="16px;1*"
-         rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*" />
-<%--         rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*" />--%>
+                     rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*"/>
+      <%--         rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*" />--%>
     </f:facet>
 
-    <%
-      // FIXME: this hotfix ensures that, "overviewNavigation" is available
-      // FIXME: for JSTL-Tags <c:if>
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      facesContext.getApplication().getVariableResolver()
-          .resolveVariable(facesContext, "overviewNavigation");
-    %>
-
-    <f:verbatim>
-      <tc:image value="image/navigate-pointer.gif"
-        width="16px" height="16px"
-        rendered="#{overviewNavigation.currentPage == 'overview/intro'}"  />
-    </f:verbatim>
+    <tc:image value="image/navigate-pointer.gif"
+              width="16px" height="16px"
+              rendered="#{overviewNavigation.currentPage == 'overview/intro'}"/>
     <tc:link action="overview/intro" immediate="true"
-        actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.intro}" />
+             actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.intro}"/>
 
-    <f:verbatim>
-      <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
-        rendered="#{overviewNavigation.currentPage == 'overview/basicControls'}" />
-    </f:verbatim>
+    <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
+              rendered="#{overviewNavigation.currentPage == 'overview/basicControls'}"/>
     <tc:link action="overview/basicControls" immediate="true"
-        actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.basicControls}" />
+             actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.basicControls}"/>
 
-    <f:verbatim>
-        <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
-        rendered="#{overviewNavigation.currentPage == 'overview/sheetControl'}" />
-    </f:verbatim>
+    <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
+              rendered="#{overviewNavigation.currentPage == 'overview/sheetControl'}"/>
     <tc:link action="overview/sheetControl" immediate="true"
-        actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.sheetControl}" />
+             actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.sheetControl}"/>
 
-    <f:verbatim>
-        <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
-        rendered="#{overviewNavigation.currentPage == 'overview/treeControl'}" />
-    </f:verbatim>
+    <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
+              rendered="#{overviewNavigation.currentPage == 'overview/treeControl'}"/>
     <tc:link action="overview/treeControl" immediate="true"
-        actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.treeControl}" />
+             actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.treeControl}"/>
 
-    <f:verbatim>
-        <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
-        rendered="#{overviewNavigation.currentPage == 'overview/tabControl'}" />
-    </f:verbatim>
+    <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
+              rendered="#{overviewNavigation.currentPage == 'overview/tabControl'}"/>
     <tc:link action="overview/tabControl" immediate="true"
-        actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.tabControl}" />
+             actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.tabControl}"/>
 
-    <f:verbatim>
-        <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
-        rendered="#{overviewNavigation.currentPage == 'overview/toolbar'}" />
-    </f:verbatim>
+    <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
+              rendered="#{overviewNavigation.currentPage == 'overview/toolbar'}"/>
     <tc:link action="overview/toolbar" immediate="true"
-        actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.toolbar}" />
+             actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.toolbar}"/>
 
-    <f:verbatim>
-        <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
-        rendered="#{overviewNavigation.currentPage == 'overview/validation'}" />
-    </f:verbatim>
+    <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
+              rendered="#{overviewNavigation.currentPage == 'overview/validation'}"/>
     <tc:link action="overview/validation" immediate="true"
-        actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.validation}" />
+             actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.validation}"/>
 
-    <f:verbatim>
-        <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
-        rendered="#{overviewNavigation.currentPage == 'overview/form'}" />
-    </f:verbatim>
+    <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
+              rendered="#{overviewNavigation.currentPage == 'overview/form'}"/>
     <tc:link action="overview/form" immediate="true"
-        actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.form}" />
+             actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.form}"/>
 
-    <f:verbatim>
-        <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
-        rendered="#{overviewNavigation.currentPage == 'overview/themes'}" />
-    </f:verbatim>
+    <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
+              rendered="#{overviewNavigation.currentPage == 'overview/themes'}"/>
     <tc:link action="overview/themes" immediate="true"
-        actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.themes}" />
+             actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.themes}"/>
 
-    <f:verbatim>
-        <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
-        rendered="#{overviewNavigation.currentPage == 'overview/browser'}" />
-    </f:verbatim>
+    <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
+              rendered="#{overviewNavigation.currentPage == 'overview/browser'}"/>
     <tc:link action="overview/browser" immediate="true"
-        actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.browser}" />
+             actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.browser}"/>
 
-    <f:verbatim>
-        <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
-        rendered="#{overviewNavigation.currentPage == 'overview/locale'}" />
-    </f:verbatim>
+    <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
+              rendered="#{overviewNavigation.currentPage == 'overview/locale'}"/>
     <tc:link action="overview/locale" immediate="true"
-        actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.locale}" />
+             actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.locale}"/>
 
-    <f:verbatim>
-        <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
-        rendered="#{overviewNavigation.currentPage == 'overview/layout'}" />
-    </f:verbatim>
+    <tc:image value="image/navigate-pointer.gif" width="16px" height="16px"
+              rendered="#{overviewNavigation.currentPage == 'overview/layout'}"/>
     <tc:link action="overview/layout" immediate="true"
-        actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.layout}" />
+             actionListener="#{overviewNavigation.navigate}" label="#{overviewBundle.layout}"/>
 
     <tc:cell spanX="2">
       <f:verbatim>
@@ -124,12 +91,12 @@
       </f:verbatim>
     </tc:cell>
 
-    <tc:cell />
+    <tc:cell/>
     <tc:link action="#{miniHowtoNavigation.getCurrentPage}" immediate="true"
-      tip="#{overviewBundle.miniHowtoNavigateTooltip}"
-      label="#{overviewBundle.miniHowto}" />
+             tip="#{overviewBundle.miniHowtoNavigateTooltip}"
+             label="#{overviewBundle.miniHowto}"/>
 
-    <tc:cell spanX="2" />
+    <tc:cell spanX="2"/>
 
   </tc:panel>
 </f:subview>

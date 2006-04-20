@@ -47,8 +47,8 @@ import org.apache.commons.io.IOUtils;
  */
 public class FaceletAnnotationProcessor implements AnnotationProcessor {
 
-  protected final AnnotationProcessorEnvironment env;
-  protected final Set<AnnotationTypeDeclaration> atds;
+  private final AnnotationProcessorEnvironment env;
+  private final Set<AnnotationTypeDeclaration> atds;
 
   public FaceletAnnotationProcessor(Set<AnnotationTypeDeclaration> atds,
       AnnotationProcessorEnvironment env) {

@@ -85,7 +85,7 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
     if (stop == IterationHelper.ALL) {
       if (UIComponentTag.isValueReference(forEachItems)) {
         final Object items
-            = ComponentUtil.createValueBinding(this.forEachItems, null).getValue(facesContext);
+            = ComponentUtil.createValueBinding(this.forEachItems).getValue(facesContext);
         if (items instanceof List) {
           stop = ((List) items).size();
         } else if (items instanceof Object[]) {

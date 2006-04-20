@@ -44,22 +44,21 @@ import java.util.Set;
  */
 public class TaglibAnnotationProcessor implements AnnotationProcessor {
 
-  protected final AnnotationProcessorEnvironment env;
-  protected final Set<AnnotationTypeDeclaration> atds;
+  private final AnnotationProcessorEnvironment env;
+  private final Set<AnnotationTypeDeclaration> atds;
 
   public TaglibAnnotationProcessor(Set<AnnotationTypeDeclaration> atds,
       AnnotationProcessorEnvironment env) {
     this.atds = atds;
     this.env = env;
     this.env.getMessager().printNotice("Starting annotation process");
-
   }
 
   public void process() {
     TaglibAnnotationVisitor visitor = new TaglibAnnotationVisitor(env);
     
     for (AnnotationTypeDeclaration atd : atds) {
-      env.getMessager().printNotice("Collecting annotation "+atd);
+      env.getMessager().printNotice("Collecting annotation " + atd);
       Collection<Declaration> decls = env.getDeclarationsAnnotatedWith(atd);
       for (Declaration decl : decls) {
         decl.accept(DeclarationVisitors.getDeclarationScanner(visitor, DeclarationVisitors.NO_OP));
@@ -82,8 +81,8 @@ public class TaglibAnnotationProcessor implements AnnotationProcessor {
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.transform(new DOMSource(documentAndFileName.getDocument()),
             new StreamResult(writer));
-        env.getMessager().printNotice("Write to file " +documentAndFileName.getPackageName()+" "+
-            documentAndFileName.getFileName());
+        env.getMessager().printNotice("Write to file " + documentAndFileName.getPackageName()
+            + " " + documentAndFileName.getFileName());
         IOUtils.closeQuietly(writer);
       }
     } catch (ParserConfigurationException e) {

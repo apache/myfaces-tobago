@@ -45,8 +45,8 @@ import java.util.Set;
  */
 public class TobagoAnnotationProcessor implements AnnotationProcessor {
 
-  protected final AnnotationProcessorEnvironment env;
-  protected final Set<AnnotationTypeDeclaration> atds;
+  private final AnnotationProcessorEnvironment env;
+  private final Set<AnnotationTypeDeclaration> atds;
 
   public TobagoAnnotationProcessor(Set<AnnotationTypeDeclaration> atds,
       AnnotationProcessorEnvironment env) {

@@ -49,7 +49,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_ONE
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.taglib.component.ForEachTag;
 import org.apache.myfaces.tobago.util.RangeParser;
 
 import javax.faces.FactoryFinder;
@@ -602,16 +601,7 @@ public class ComponentUtil {
       }
     }
   }
-  public static void setIntegerProperty(UIComponent component,
-      String name, String value, ForEachTag.IterationHelper iterator) {
-    if (value != null) {
-      if (UIComponentTag.isValueReference(value)) {
-        component.setValueBinding(name, createValueBinding(value, iterator));
-      } else {
-        component.getAttributes().put(name, new Integer(value));
-      }
-    }
-  }
+
    public static void setBooleanProperty(UIComponent component,
       String name, String value) {
     if (value != null) {
@@ -619,27 +609,6 @@ public class ComponentUtil {
         component.setValueBinding(name, createValueBinding(value));
       } else {
         component.getAttributes().put(name, Boolean.valueOf(value));
-      }
-    }
-  }
-  public static void setBooleanProperty(UIComponent component,
-      String name, String value, ForEachTag.IterationHelper iterator) {
-    if (value != null) {
-      if (UIComponentTag.isValueReference(value)) {
-        component.setValueBinding(name, createValueBinding(value, iterator));
-      } else {
-        component.getAttributes().put(name, Boolean.valueOf(value));
-      }
-    }
-  }
-
-  public static void setStringProperty(UIComponent component, String name,
-      String value, ForEachTag.IterationHelper iterator) {
-    if (value != null) {
-      if (UIComponentTag.isValueReference(value)) {
-        component.setValueBinding(name, createValueBinding(value, iterator));
-      } else {
-        component.getAttributes().put(name, value);
       }
     }
   }
@@ -654,22 +623,19 @@ public class ComponentUtil {
       }
     }
   }
+  public static void setValueForValueBinding(String name, Object value) {
+    FacesContext context = FacesContext.getCurrentInstance();
+    ValueBinding valueBinding = context.getApplication().createValueBinding(name);
+    valueBinding.setValue(context, value);
+  }
   public static ValueBinding createValueBinding(String value) {
     return FacesContext.getCurrentInstance().getApplication()
         .createValueBinding(value);
   }
-  public static ValueBinding createValueBinding(String value,
-      ForEachTag.IterationHelper iterator) {
-    if (iterator != null) {
-      value = iterator.replace(value);
-    }
-    return FacesContext.getCurrentInstance().getApplication()
-        .createValueBinding(value);
-  }      
 
   public static String getValueFromEl(String script) {
     if (UIComponentTag.isValueReference(script)) {
-      ValueBinding valueBinding = ComponentUtil.createValueBinding(script, null);
+      ValueBinding valueBinding = ComponentUtil.createValueBinding(script);
       script = (String) valueBinding.getValue(FacesContext.getCurrentInstance());
     }
     return script;
@@ -689,7 +655,7 @@ public class ComponentUtil {
 
   public static UIColumn createTextColumn(String label, String sortable, String align, String value) {
     UIComponent text = createComponent(UIOutput.COMPONENT_TYPE, RENDERER_TYPE_OUT);
-    setStringProperty(text, ATTR_VALUE, value, null);
+    setStringProperty(text, ATTR_VALUE, value);
     setBooleanProperty(text, ATTR_CREATE_SPAN, "false");
     setBooleanProperty(text, ATTR_ESCAPE, "false");
     return createColumn(label, sortable, align, text);

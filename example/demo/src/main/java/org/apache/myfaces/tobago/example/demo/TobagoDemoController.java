@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
+import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.example.demo.model.solar.Solar;
 import org.apache.myfaces.tobago.example.demo.model.solar.SolarObject;
 import org.apache.myfaces.tobago.model.TreeState;
@@ -108,6 +109,8 @@ public class TobagoDemoController {
   private String toolbarTextPosition;
 
   private SelectItem[] toolbarTextItems;
+
+  private TabChangeListener tabChangeListener;
 
 
   public TobagoDemoController() {
@@ -198,6 +201,16 @@ public class TobagoDemoController {
         {ToolBarTag.LABEL_OFF, ToolBarTag.LABEL_BOTTOM, ToolBarTag.LABEL_RIGHT};
     toolbarTextItems = getSelectItems(toolbarTextKeys, "demo");
     toolbarTextPosition = ToolBarTag.LABEL_BOTTOM;
+  }
+
+  public TabChangeListener getTabChangeListener() {
+    System.err.println("getTabChangeListener " + tabChangeListener);
+    return tabChangeListener;
+  }
+
+  public void setTabChangeListener(TabChangeListener tabChangeListener) {
+    LOG.error("Setting TabChangeListener " + tabChangeListener);
+    this.tabChangeListener = tabChangeListener;
   }
 
   private List<UIColumn> createSolarArrayColumns() {

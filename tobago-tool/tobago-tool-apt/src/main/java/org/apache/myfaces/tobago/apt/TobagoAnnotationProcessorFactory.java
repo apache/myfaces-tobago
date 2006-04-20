@@ -33,21 +33,21 @@ import java.util.Set;
  */
 public class TobagoAnnotationProcessorFactory implements AnnotationProcessorFactory  {
 
-  private TobagoAnnotationProcessor annotationProcessor = null;
-
-  private static final Collection<String> supportedAnnotations
+  private static final Collection<String> SUPPORTED_ANNOTATIONS
       = Collections.unmodifiableCollection(Arrays.asList("org.apache.myfaces.tobago.apt.annotation.Tag",
           "org.apache.myfaces.tobago.apt.annotation.TagAttribute", "org.apache.myfaces.tobago.apt.annotation.Taglib",
-          "org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute" ));
+          "org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute"));
 
-  private static final Collection<String> supportedOptions = Collections.emptyList();
+  private static final Collection<String> SUPPORTED_OPTIONS = Collections.emptyList();
+
+  private TobagoAnnotationProcessor annotationProcessor = null;
 
   public Collection<String> supportedAnnotationTypes() {
-    return supportedAnnotations;
+    return SUPPORTED_ANNOTATIONS;
   }
 
   public Collection<String> supportedOptions() {
-    return supportedOptions;
+    return SUPPORTED_OPTIONS;
   }
 
   public AnnotationProcessor getProcessorFor(Set<AnnotationTypeDeclaration> atds,

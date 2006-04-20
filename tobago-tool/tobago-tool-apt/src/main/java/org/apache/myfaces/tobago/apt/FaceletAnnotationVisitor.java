@@ -84,14 +84,14 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
       JCompUnit unit = new JCompUnit(libraryClass);
       libraryClass.setSuperClass("AbstractTobagoTagLibrary");
 
-      JField nameSpace = new JField(new JClass("String"),"NAMESPACE");
+      JField nameSpace = new JField(new JClass("String"), "NAMESPACE");
       nameSpace.getModifiers().setFinal(true);
       nameSpace.getModifiers().setStatic(true);
       nameSpace.getModifiers().makePublic();
       nameSpace.setInitString("\""+taglibAnnotation.uri()+"\"");
       libraryClass.addField(nameSpace);
 
-      JField instance = new JField(libraryClass,"INSTANCE");
+      JField instance = new JField(libraryClass, "INSTANCE");
       instance.getModifiers().setFinal(true);
       instance.getModifiers().setStatic(true);
       instance.getModifiers().makePublic();
@@ -108,7 +108,7 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
         }
       }
 
-      Writer writer = env.getFiler().createTextFile(Filer.Location.SOURCE_TREE,
+      Writer writer = getEnv().getFiler().createTextFile(Filer.Location.SOURCE_TREE,
             packageName,
             new File(libraryClass.getName(true)+".java"), null);
       JSourceWriter sourceWriter = new JSourceWriter(writer);
@@ -122,15 +122,15 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
 
     Tag annotationTag = decl.getAnnotation(Tag.class);
     if (annotationTag != null) {
-      createTag(constructor,decl, annotationTag);
+      createTag(constructor, decl, annotationTag);
 
     }
   }
 
-  protected void createTag(JConstructor constructor,InterfaceDeclaration decl, Tag annotationTag) {
+  protected void createTag(JConstructor constructor, InterfaceDeclaration decl, Tag annotationTag) {
     UIComponentTag componentTag = decl.getAnnotation(UIComponentTag.class);
     if (componentTag == null) {
-      return ;
+      return;
     }
     try {
       Class uiComponentClass = Class.forName(componentTag.uiComponent());
@@ -139,7 +139,7 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
       addComponent.append(annotationTag.name());
 
       Field componentField = uiComponentClass.getField("COMPONENT_TYPE");
-      String componentType = (String)componentField.get(null);
+      String componentType = (String) componentField.get(null);
 
       addComponent.append("\", \"");
       addComponent.append(componentType);
@@ -160,9 +160,4 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
       e.printStackTrace();
     }
   }
-
-  public AnnotationProcessorEnvironment getEnv() {
-    return env;
-  }
-
 }

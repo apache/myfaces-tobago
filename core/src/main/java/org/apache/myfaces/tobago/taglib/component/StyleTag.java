@@ -77,7 +77,6 @@ public class StyleTag extends BodyTagSupport implements HasId {
    * Name of the stylsheet file to add to page.
    */
   @TagAttribute
-  //@UIComponentTagAttribute(expression=DynamicExpression.NONE)
   public void setStyle(String style) {
     this.style = style;
   }

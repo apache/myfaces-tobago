@@ -35,8 +35,6 @@ import org.w3c.dom.Element;
  */
 public class TobagoAnnotationVisitor extends TaglibAnnotationVisitor {
 
-
-
   public TobagoAnnotationVisitor(AnnotationProcessorEnvironment env) {
     super(env);
   }
@@ -52,7 +50,8 @@ public class TobagoAnnotationVisitor extends TaglibAnnotationVisitor {
     if (contentDescription != null) {
       if (bodyContent.equals(BodyContent.JSP)
           && contentDescription.contentType().length() > 0) {
-        throw new IllegalArgumentException("contentType " + contentDescription.contentType() + " for bodyContent JSP not allowed!");
+        throw new IllegalArgumentException("contentType "
+            + contentDescription.contentType() + " for bodyContent JSP not allowed!");
       } else if (bodyContent.equals(BodyContent.TAGDEPENDENT)
           && contentDescription.contentType().length() == 0) {
         throw new IllegalArgumentException("contentType should set for tagdependent bodyContent");
@@ -97,7 +96,8 @@ public class TobagoAnnotationVisitor extends TaglibAnnotationVisitor {
       String simpleName = d.getSimpleName();
       if (simpleName.startsWith("set")) {
         Element attribute = document.createElement("attribute");
-        addLeafTextElement(simpleName.substring(3, 4).toLowerCase() + simpleName.substring(4), "name", attribute, document);
+        addLeafTextElement(simpleName.substring(3, 4).toLowerCase()
+            + simpleName.substring(4), "name", attribute, document);
         addLeafTextElement(Boolean.toString(tagAttribute.required()), "required", attribute, document);
         addLeafTextElement(Boolean.toString(tagAttribute.rtexprvalue()), "rtexprvalue", attribute, document);
         if (uiTagAttribute != null) {

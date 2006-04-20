@@ -121,7 +121,7 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
       //decl.getQualifiedName().replaceAll("Declaration", "");
       String msg = "Replacing: " + decl.getQualifiedName()
           + " -> " + className;
-      env.getMessager().printNotice(msg);
+      getEnv().getMessager().printNotice(msg);
       Element tag = createTag(decl, annotationTag, className, document);
       addAttributes(decl, tag, document);
       parent.appendChild(tag);
