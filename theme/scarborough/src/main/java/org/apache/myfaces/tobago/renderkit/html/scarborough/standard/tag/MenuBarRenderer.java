@@ -23,7 +23,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_NAVIGATE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_SCRIPT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP;
@@ -35,15 +36,13 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_CHECKBOX;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_RADIO;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_NAVIGATE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_SCRIPT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIMenuSeparator;
-import org.apache.myfaces.tobago.component.UISelectOneCommand;
+import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
-import org.apache.myfaces.tobago.component.UIMenu;
+import org.apache.myfaces.tobago.component.UISelectOneCommand;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
@@ -66,8 +65,8 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 public class MenuBarRenderer extends RendererBase {
 
@@ -153,6 +152,7 @@ public class MenuBarRenderer extends RendererBase {
     sb.append("function ");
     sb.append(setupFunction);
     sb.append("(id, pageId) {\n");
+    sb.append("  var menuStart = new Date();\n");
     sb.append("  var searchId = id + '" + SEARCH_ID_POSTFIX + "';\n");
     sb.append("  var menubar = document.getElementById(searchId);\n");
     sb.append("  if (! menubar) {\n");
@@ -183,6 +183,7 @@ public class MenuBarRenderer extends RendererBase {
     sb.append(
         "    LOG.debug('kein Element mit id: ' + searchId + ' gefunden!');\n");
     sb.append("  }\n");
+    sb.append("  LOG.debug('Menu Total Time : ' + (new Date().getTime() - menuStart.getTime()));\n");
     sb.append("}\n");
     return setupFunction;
   }
@@ -258,7 +259,7 @@ public class MenuBarRenderer extends RendererBase {
     facesContext.setResponseWriter(savedWriter);
 
 
-    return "new MenuItem('" + removeLFs(stringWriter.toString()) + "', null)";
+    return "new Tobago.Menu.Item('" + removeLFs(stringWriter.toString()) + "', null)";
   }
 
   private void addAcceleratorKey(
@@ -484,7 +485,7 @@ public class MenuBarRenderer extends RendererBase {
 
     sb.append("    ");
     sb.append(var);
-    sb.append(".addMenuItem(new MenuItem('");
+    sb.append(".addMenuItem(new Tobago.Menu.Item('");
     sb.append(removeLFs(html));
     sb.append("', ");
     if (!disabled) {
@@ -505,7 +506,7 @@ public class MenuBarRenderer extends RendererBase {
 
     sb.append("    ");
     sb.append(var);
-    sb.append(".addMenuItem(new MenuItem('");
+    sb.append(".addMenuItem(new Tobago.Menu.Item('");
     sb.append(removeLFs(html));
     sb.append("', ");
     sb.append("null");

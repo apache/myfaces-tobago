@@ -162,6 +162,8 @@ public class PageRenderer extends PageRendererBase {
     writer.startElement("html", null);
     writer.startElement("head", null);
 
+    HtmlRendererUtil.writeJavascript(writer, "var TbgHeadStart = new Date();");
+
     // meta
     // TODO duplicate; see PageTag.doStartTag()
 //    writer.startElement("meta", null);
@@ -346,6 +348,7 @@ public class PageRenderer extends PageRendererBase {
           logMessages.toArray(new String[logMessages.size()]));
     }
 
+    HtmlRendererUtil.writeJavascript(writer, "TbgTimer.endBody = new Date();");
     writer.endElement("body");
     writer.endElement("html");
 

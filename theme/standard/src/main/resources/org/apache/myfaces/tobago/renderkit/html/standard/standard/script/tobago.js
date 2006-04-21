@@ -14,6 +14,38 @@
  *    limitations under the License.
  */
 
+var TbgTimer = {
+    startTbgJs: new Date(),
+
+    log: function() {
+      var tbgjs = this.endTbgJs.getTime() - this.startTbgJs.getTime();
+//      var htmljs = this.endBody.getTime() - this.startHtml.getTime();
+      var bodyjs = this.endBody.getTime() - this.startBody.getTime();
+      var onloadjs = this.endOnload.getTime() - this.startOnload.getTime();
+      var bodyToOnload = this.startOnload.getTime() - this.endBody.getTime();
+      var totaljs = this.endTotal.getTime() - this.startTbgJs.getTime();
+      var appOnload = this.endAppOnload.getTime() - this.startAppOnload.getTime();
+      LOG.show();
+      if (TbgHeadStart) {
+        LOG.debug("startTbgJs-TbgHeadStart: " + (this.startTbgJs.getTime() - TbgHeadStart.getTime()));
+      }
+      LOG.debug("startBody-startTbgJs: " + (this.startBody.getTime() - this.startTbgJs.getTime()));
+      LOG.debug("startTbgJs:" + this.startTbgJs.getTime());
+      LOG.debug("startBody :" + this.startBody.getTime());
+      LOG.debug("parse tobago.js " + tbgjs);
+//      LOG.debug("parse htmltotal " + htmljs);
+      LOG.debug("parse body " + bodyjs);
+      LOG.debug("between body and onload " + bodyToOnload);
+      LOG.debug("execute onload " + onloadjs);
+      LOG.debug("execute appOnload " + appOnload);
+      LOG.debug("bis appOnload " + (this.startAppOnload.getTime() - this.startOnload.getTime()));
+      LOG.debug("bis scriptLoaders " + (this.startScriptLoaders.getTime() - this.startOnload.getTime()));
+      LOG.debug("time scriptLoaders " + (this.endScriptLoaders.getTime() - this.startScriptLoaders.getTime()));
+      LOG.debug("bis nach onload " + (this.endOnload.getTime() - this.startTbgJs.getTime()));
+      LOG.debug("total " + totaljs);
+    }
+};
+
 var Tobago = {
 
   // -------- Constants -------------------------------------------------------
@@ -172,6 +204,7 @@ var Tobago = {
   init: function(pageId) {
 //    new LOG.LogArea({hide: false});
 //    LOG.show();
+    TbgTimer.startOnload = new Date();
     this.page = this.element(pageId);
     this.form = this.element(this.page.id + this.SUB_COMPONENT_SEP + "form");
     this.addBindEventListener(this.form, "submit", this, "onSubmit");
@@ -179,17 +212,28 @@ var Tobago = {
 
     this.addBindEventListener(window, "unload", this, "onUnload");
 
+    TbgTimer.startAppOnload = new Date();
     if (this.applicationOnload) {
       this.applicationOnload();
     }
+    TbgTimer.endAppOnload = new Date();
 
     this.setFocus();
 
     this.addBindEventListener(document, "keypress", this.acceleratorKeys, "observe");
 
-    this.pageIsComplete = true;
-    this.registerCurrentScripts();
-    this.startScriptLoaders();
+    window.setTimeout(Tobago.finishPageLoading, 10);
+    TbgTimer.endOnload = new Date();
+  },
+
+  finishPageLoading: function() {
+    Tobago.registerCurrentScripts();
+    TbgTimer.startScriptLoaders = new Date();
+    Tobago.startScriptLoaders();
+    TbgTimer.endScriptLoaders = new Date();
+    Tobago.pageIsComplete = true;
+    TbgTimer.endTotal = new Date();
+    TbgTimer.log();
   },
 
   onSubmit: function() {
@@ -428,12 +472,26 @@ var Tobago = {
     * Start script loaders from queue
     */
   startScriptLoaders: function() {
-//    LOG.debug("start 1 of " + this.scriptLoaders.length + " Loaders");
-    if (this.scriptLoaders.length > 0) {
-      this.scriptLoadingActive = true;
-      this.scriptLoaders.shift().ensureScripts();
+    if (! this.pageIsComplete) {
+      while (this.scriptLoaders.length > 0) {
+        var scriptLoader = this.scriptLoaders.shift();
+        scriptLoader.executeCommands();
+      }
     } else {
-      this.scriptLoadingActive = false;
+      var start = new Date().getTime();
+      LOG.debug("start 1 of " + this.scriptLoaders.length + " Loaders");
+      if (this.tbgScLoSt) {
+        LOG.debug("time scriptLoader " + (start - this.tbgScLoSt));
+      }
+      this.tbgScLoSt = start;
+      if (this.scriptLoaders.length > 0) {
+        this.scriptLoadingActive = true;
+        this.scriptLoaders.shift().ensureScripts();
+      } else {
+        this.scriptLoadingActive = false;
+        LOG.debug("last time scriptLoader " + (new Date().getTime() - this.tbgScLoSt));
+        delete this.tbgScLoSt;
+      }
     }
   },
 
@@ -1105,19 +1163,21 @@ Tobago.ScriptLoader = function(names, doAfter) {
   this.ensureScript = function(src) {
     this.actualScript = src;
     if (!Tobago.hasScript(this.actualScript)) {
+      LOG.debug("Lade script " + src);
       this.scriptElement = document.createElement('script');
       this.scriptElement.type = "text/javascript";
       this.scriptElement.src = src;
       if (typeof(this.scriptElement.onreadystatechange) != "undefined") {
 //        LOG.debug("Set script.onreadystatechange ");
-        this.scriptElement.onreadystatechange = this.stateReady.bind(this);
+        this.scriptElement.onreadystatechange = Tobago.bind(this, "stateReady");
       } else {
 //        LOG.debug("Set script.onload");
-        this.scriptElement.onload = this.stateOnLoad.bind(this);
+        this.scriptElement.onload = Tobago.bind(this, "stateOnLoad");
       }
       var head = document.getElementsByTagName('head')[0];
       head.appendChild(this.scriptElement);
     } else {
+      LOG.debug("found script " + src);
       this.ensureScripts();
     }
 
@@ -1149,18 +1209,27 @@ Tobago.ScriptLoader = function(names, doAfter) {
 //          if (this.actualScript.indexOf('tabgroup') > -1) {
 //      LOG.debug("doAfter=" + this.doAfter);
 //              }
+      this.executeCommands();
+//          } else {
+//              LOG.debug("doAfter = " + this.doAfter)
+//          }
+      delete this.scriptElement.onreadystatechange;
+      delete this.scriptElement.onload;
+      delete this.scriptElement;
+      delete this.actualScript;
+      delete this.names;
+      delete this.doAfter;
+      Tobago.startScriptLoaders();
+    }
+  };
+
+  this.executeCommands = function() {
       try {
         eval(this.doAfter);
       } catch(ex) {
         LOG.error(ex);
         LOG.error("errorCode: " + this.doAfter.valueOf());
       }
-
-//          } else {
-//              LOG.debug("doAfter = " + this.doAfter)
-//          }
-      Tobago.startScriptLoaders();
-    }
   };
 
   Tobago.addScriptLoader(this);
@@ -1227,3 +1296,4 @@ if (typeof(LOG) == "undefined") {
   };
 }
 
+TbgTimer.endTbgJs = new Date();
