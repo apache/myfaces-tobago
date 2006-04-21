@@ -657,7 +657,7 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
       widths = widths + "," + width;
       header = Tobago.element(idPrefix + index++);
     }
-    Tobago.element(this.headerWidths).value = widths;
+    Tobago.element(this.headerWidthsId).value = widths;
   };
 
   this.doScroll = function(event) {
