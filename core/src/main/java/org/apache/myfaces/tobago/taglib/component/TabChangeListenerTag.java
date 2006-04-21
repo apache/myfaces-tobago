@@ -99,7 +99,7 @@ public class TabChangeListenerTag extends TagSupport {
 
     TabChangeListener handler = null;
 
-    if (UIComponentTag.isValueReference(binding)) {
+    if (binding != null && UIComponentTag.isValueReference(binding)) {
       ValueBinding valueBinding = ComponentUtil.createValueBinding(binding);
       if (valueBinding != null) {
         Object obj = valueBinding.getValue(FacesContext.getCurrentInstance());
