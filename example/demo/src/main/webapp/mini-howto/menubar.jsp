@@ -64,7 +64,7 @@
           <f:selectItems value="#{clientConfigController.localeItems}"/>
         </tc:menuradio>
       </tc:menu>
-      <%-- <tc:menucheck action="#{clientConfigController.submit}"
+      <%-- <tc:menuCheckbox action="#{clientConfigController.submit}"
      label="#{overviewBundle.menu_debug}"
      value="#{clientConfigController.debugMode}" />--%>
     </tc:menu>

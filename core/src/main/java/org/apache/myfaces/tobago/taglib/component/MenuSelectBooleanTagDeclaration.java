@@ -41,7 +41,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
     rendererType = "MenuCommand")
-
+@Deprecated
 public interface MenuSelectBooleanTagDeclaration extends TobagoTagDeclaration, CommandTagDeclaration,
     HasIdBindingAndRendered, IsDisabled, HasCommandType, HasBooleanValue, HasLabelAndAccessKey,
     IsImmediateCommand {

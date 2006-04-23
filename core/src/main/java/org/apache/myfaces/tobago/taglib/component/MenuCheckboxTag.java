@@ -1,7 +1,7 @@
 package org.apache.myfaces.tobago.taglib.component;
 
 /*
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Copyright 2002-2006 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +17,10 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 /*
-  * Created 14.09.2004 at 12:03:45.
-  * $Id$
-  */
+ * $Id: MenuSelectOneTag.java 390886 2006-04-02 19:32:32Z bommel $
+ */
 
-@Deprecated
-public class MenuSelectOneTag extends SelectOneCommandTag
-    implements MenuSelectOneTagDeclaration {
+public class MenuCheckboxTag extends SelectBooleanCommandTag
+    implements MenuSelectBooleanTagDeclaration {
 
 }

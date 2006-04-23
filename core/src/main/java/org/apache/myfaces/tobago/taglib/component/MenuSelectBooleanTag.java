@@ -16,6 +16,7 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+@Deprecated
 public class MenuSelectBooleanTag extends SelectBooleanCommandTag
     implements MenuSelectBooleanTagDeclaration {
 

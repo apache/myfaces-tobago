@@ -33,7 +33,7 @@
             <tc:menuItem label="Print"/>
             <tc:menuSeparator/>
             <tc:menuItem label="Exit"/>
-            <tc:menucheck label="Administration Mode"/>
+            <tc:menuCheckbox label="Administration Mode"/>
           </tc:menu>
 
           <%-- code-sniplet-start id="menu" --%>

@@ -170,7 +170,7 @@
 
             <tc:menuItem action="http://www.atanion.com" type="navigate" disabled="true" label="disabled" />
 
-            <tc:menucheck action="#{demo.clickButton}"  label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.boolTest}" />
+            <tc:menuCheckbox action="#{demo.clickButton}"  label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.boolTest}" />
           </tc:menu>
           <tc:menu label="Menu 2">
 
@@ -199,9 +199,9 @@
 
             <tc:menuSeparator/>
 
-            <tc:menucheck label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[0]}" />
-            <tc:menucheck label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[1]}" />
-            <tc:menucheck label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[2]}" />
+            <tc:menuCheckbox label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[0]}" />
+            <tc:menuCheckbox label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[1]}" />
+            <tc:menuCheckbox label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[2]}" />
 
           </tc:menu>
 
