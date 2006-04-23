@@ -1,5 +1,10 @@
 package org.apache.myfaces.tobago.taglib.component;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import javax.servlet.jsp.JspException;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
  *
@@ -19,5 +24,13 @@ package org.apache.myfaces.tobago.taglib.component;
 @Deprecated
 public class MenuSelectBooleanTag extends SelectBooleanCommandTag
     implements MenuSelectBooleanTagDeclaration {
+
+  private static final Log LOG = LogFactory.getLog(MenuSelectBooleanTag.class);
+
+  @Override
+  public int doStartTag() throws JspException {
+    LOG.warn("This tag is deprecated, use menuCheckbox instead.");
+    return super.doStartTag();
+  }
 
 }

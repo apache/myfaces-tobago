@@ -188,9 +188,9 @@
 
             <tc:menu label="#{overviewBundle.toolbar_selectSingleselect}">
 
-              <tc:menuradio value="#{overviewController.radioValue}" >
+              <tc:menuRadio value="#{overviewController.radioValue}" >
                 <f:selectItems value="#{overviewController.items}" />
-              </tc:menuradio>
+              </tc:menuRadio>
 
             </tc:menu>
 
