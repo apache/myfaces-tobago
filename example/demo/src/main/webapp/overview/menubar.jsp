@@ -63,16 +63,16 @@ FIXME: this doesn't work
           </tc:menu>
           <tc:menu label="#{overviewBundle.menu_config}" >
             <tc:menu label="#{overviewBundle.menu_themes}" >
-              <tc:menuradio value="#{clientConfigController.theme}"
+              <tc:menuRadio value="#{clientConfigController.theme}"
                   action="#{clientConfigController.submit}">
                 <f:selectItems value="#{clientConfigController.themeItems}" />
-              </tc:menuradio>
+              </tc:menuRadio>
             </tc:menu>
             <tc:menu label="#{overviewBundle.menu_locale}">
-              <tc:menuradio value="#{clientConfigController.locale}"
+              <tc:menuRadio value="#{clientConfigController.locale}"
                   action="#{clientConfigController.submit}">
                 <f:selectItems value="#{clientConfigController.localeItems}" />
-              </tc:menuradio>
+              </tc:menuRadio>
             </tc:menu>
            <%-- <tc:menuCheckbox action="#{clientConfigController.submit}"
                 label="#{overviewBundle.menu_debug}"

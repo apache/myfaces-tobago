@@ -1,5 +1,10 @@
 package org.apache.myfaces.tobago.taglib.component;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import javax.servlet.jsp.JspException;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
  *
@@ -24,5 +29,13 @@ package org.apache.myfaces.tobago.taglib.component;
 @Deprecated
 public class MenuSelectOneTag extends SelectOneCommandTag
     implements MenuSelectOneTagDeclaration {
+
+  private static final Log LOG = LogFactory.getLog(MenuSelectOneTag.class);
+
+  @Override
+  public int doStartTag() throws JspException {
+    LOG.warn("This tag is deprecated, use menuRadio instead.");
+    return super.doStartTag();
+  }
 
 }
