@@ -356,7 +356,7 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
 
   this.toString = function (depth, last) { // merge with folder...
     var str = '';
-    str += '<div id="' + this.id + '" class="tree-item">';
+    str += '<div id="' + this.id + '" class="tree-item">'; // XXX or mark this?!
     str += this.indent(depth, last);
     if (! this.hideJunctions
         && ! (this.hideRootJunction && this.hideRoot && depth == 1)) {
@@ -379,12 +379,16 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
       str += '<img class="tree-icon" id="' + this.id
           + '-markIcon" src="' + markIcon + '" ' + markIconOnClick + ' alt="">';
     }
+    var itemStyle = "tree-item-label";
+    if (this.marked) {
+      itemStyle += " tree-item-marker";
+    }
     if (this.action) {
-      str += '<a class="tree-item-label" href="' + this.action + '" id="'
+      str += '<a class="' + itemStyle + '" href="' + this.action + '" id="'
         + this.id + '-anchor">' + this.label + '</a>';
     } else {
     // TODO: mozilla shoud use href="javascript:;" and ie href="#"
-      str += '<a class="tree-item-label" href="#"' //
+      str += '<a class="' + itemStyle + '" href="#"' //
         + ' onclick="' + this.onclick + '"'
         + ' onfocus="' + this.onfocus + '"'
         + '>'
@@ -543,12 +547,16 @@ function TreeFolder(label, id, hideIcons, hideJunctions, hideRootJunction,
         str += '<img class="tree-icon" id="' + this.id
             + '-markIcon" src="' + markIcon + '" ' + markIconOnClickFunction + ' alt="">';
       }
+      var itemStyle = "tree-folder-label";
+      if (this.marked) {
+        itemStyle += " tree-item-marker";
+      }
       if (this.action) {
-        str += '<a class="tree-folder-label" href="' + this.action + '" id="'
+        str += '<a class="' + itemStyle + '" href="' + this.action + '" id="'
         + this.id + '-anchor">' + this.label + '</a>';
       } else {
     // TODO: mozilla shoud use href="javascript:;" and ie href="#"
-        str += '<a class="tree-folder-label" href="#"'
+        str += '<a class="' + itemStyle + '" href="#"'
             + ' onclick="' + this.onclick + '"'
             + ' onfocus="' + this.onfocus + '"'
 //            + ' ondblclick="' + this.ondblclick + '"'

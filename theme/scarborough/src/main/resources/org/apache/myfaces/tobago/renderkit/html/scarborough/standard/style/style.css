@@ -140,6 +140,10 @@ span.tobago-progress {
 	text-decoration: none;
 }
 
+.tree-item-marker {
+	background-color: lightgray;
+}
+
 .tree-folder-label:focus, .tree-item-label:focus {
 	background: #445566;
 	color: highlighttext;
