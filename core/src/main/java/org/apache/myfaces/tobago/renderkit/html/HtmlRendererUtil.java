@@ -509,8 +509,8 @@ public final class HtmlRendererUtil {
     if (afterLoadCmds != null && afterLoadCmds.length > 0) {
       writer.writeText(", \n", null);
       for (int i = 0; i < afterLoadCmds.length; i++) {
-        String cmd
-            = afterLoadCmds[i].replace("\\", "\\\\").replace("\"", "\\\"");
+        String cmd = StringUtils.replace(afterLoadCmds[i], "\\", "\\\\");
+        cmd = StringUtils.replace(cmd, "\"", "\\\"");
         writer.writeText(i == 0 ? "          " : "        + ", null);
         writer.writeText("\"" + cmd + "\"\n", null);
       }
