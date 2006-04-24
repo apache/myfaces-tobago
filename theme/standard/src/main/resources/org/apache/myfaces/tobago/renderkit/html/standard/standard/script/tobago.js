@@ -666,20 +666,11 @@ var Tobago = {
 
    /**
     * Make popup blink
-    * // TODO use css class
     */
   popupBlink: function(id) {
     LOG.debug("popupId ist " + id);
-    var element = this.element(id);
-    element.style.background = 'red';
-    setTimeout("Tobago.popupBlinkOff('" + id + "')", 10);
-  },
-   /**
-    * helper for popupBlink
-    */
-  popupBlinkOff: function(id) {
-    var element = this.element(id);
-    element.style.background = 'none';
+    Tobago.addCssClass(id, "tobago-popup-blink");
+    setTimeout("Tobago.removeCssClass('" + id + "', 'tobago-popup-blink')", 10);
   },
 
 // -------- Util functions ----------------------------------------------------
@@ -798,6 +789,7 @@ var Tobago = {
     * Add a cssClass name to the className property of a htmlElement
     */
   addCssClass: function(element, className) {
+    element = Tobago.element(element);
     element.className = element.className + " " + className;
   },
 
@@ -805,6 +797,7 @@ var Tobago = {
     * remove a cssClass name from the className property of a htmlElement
     */
   removeCssClass: function(element, className) {
+    element = Tobago.element(element);
     var classes = " " + element.className + " ";
     var re = new RegExp(" " + className + " ", 'g');
     while (classes.match(re)) {

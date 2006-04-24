@@ -251,7 +251,7 @@ td.tobago-calendar-day-selected {
 }
 
 .tobago-selectBooleanCheckbox-error {
-	border-style: 2px solid #ff0000;
+	border: 2px solid #ff0000;
 }
 
 /* selectOneListbox */
@@ -462,6 +462,10 @@ label.tobago-label-inline {
 /*  -moz-opacity: 0.4;*/
 }
 
+.tobago-popup-blink {
+  background: red;
+}
+
 .tobago-popup-iframe {
   z-index: 2;
   width: 100%;
@@ -519,7 +523,6 @@ label.tobago-label-inline {
 
 .tobago-richTextEditor-toolbar-button-span-enabled {
   cursor: pointer;
-  cursor: hand;
 }
 
 .tobago-richTextEditor-toolbar-button-span-disabled {
@@ -749,7 +752,7 @@ div.tobago-richTextEditor-body {
 
 .tobago-toolbar-button {
  float: left;
- font-weight: normal
+ font-weight: normal;
  font-family: arial, helvetica, sans-serif;
  padding-top: 2px;
  padding-right: 5px;
