@@ -18,15 +18,11 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIData;
-import org.apache.myfaces.tobago.event.PageAction;
-import org.apache.myfaces.tobago.event.PageActionEvent;
+
+import org.apache.myfaces.tobago.renderkit.SheetUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.util.Map;
 
 
 public class SheetPageCommandRenderer extends LinkRenderer {
@@ -36,42 +32,6 @@ public class SheetPageCommandRenderer extends LinkRenderer {
   public static final String PAGE_RENDERER_TYPE = "SheetPageCommand";
 
   public void decode(FacesContext facesContext, UIComponent component) {
-    String actionId = ComponentUtil.findPage(component).getActionId();
-    String clientId = component.getClientId(facesContext);
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("actionId = '" + actionId + "'");
-      LOG.debug("clientId = '" + clientId + "'");
-    }
-    if (actionId != null && actionId.equals(clientId)) {
-
-      PageAction action;
-      try {
-        action = PageAction.parse(component.getId());
-        if (action == null) {
-          LOG.error("Illegal value for PageAction :" + component.getId());
-          return;
-        }
-      } catch (Exception e) {
-        LOG.error("Illegal value for PageAction :" + component.getId());
-        return;
-      }
-      PageActionEvent event = new PageActionEvent((UIData) component.getParent(), action);
-
-      switch(action) {
-        case TO_PAGE:
-        case TO_ROW:
-          Map map = facesContext.getExternalContext().getRequestParameterMap();
-          Object value = map.get(clientId + SUBCOMPONENT_SEP + "value");
-          try {
-            event.setValue(Integer.parseInt((String) value));
-          } catch (Exception e) {
-            LOG.error("Can't parse value for action " + action.name() + ": " + value);
-          }
-          break;
-        default:
-          // nothing more to do
-      }
-      component.queueEvent(event);
-    }
+    SheetUtils.decode(facesContext, component);
   }
 }

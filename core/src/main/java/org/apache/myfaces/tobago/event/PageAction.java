@@ -16,83 +16,45 @@ package org.apache.myfaces.tobago.event;
  * limitations under the License.
  */
 
-import java.util.HashMap;
-import java.util.Map;
-
 public enum PageAction {
 
   /**
    * First page is requested
    */
-  FIRST {
-    public String getToken() {
-      return "First";
-    }
-  },
+  FIRST ("First"),
 
   /**
    * Next page is requested
    */
-  NEXT {
-    public String getToken() {
-      return "Next";
-    }
-  },
+  NEXT ("Next"),
 
   /**
    * Previous page is requested
    */
-  PREV {
-    public String getToken() {
-      return "Prev";
-    }
-  },
+  PREV ("Prev"),
 
   /**
    * Last page is requested
    */
-  LAST {
-    public String getToken() {
-      return "Last";
-    }
-  },
+  LAST ("Last"),
 
   /**
    * A specified row is requested
    */
-  TO_ROW {
-    public String getToken() {
-      return "ToRow";
-    }
-  },
+  TO_ROW ("ToRow"),
 
   /**
    * A specified page is requested
    */
-  TO_PAGE {
-    public String getToken() {
-      return "ToPage";
-    }
-  };
+  TO_PAGE ("ToPage");
 
-  private static final Map<String, PageAction> MAPPING;
+  private String token;
 
-  static {
-    MAPPING = new HashMap<String, PageAction>();
-
-    for (PageAction action : values()) {
-      MAPPING.put(action.getToken(), action);
-    }
+  PageAction(String token) {
+    this.token = token;
   }
 
-  public static PageAction parse(String name) {
-    PageAction value = MAPPING.get(name);
-    if (value != null) {
-      return value;
-    } else {
-      throw new IllegalArgumentException("Unknown name: " + name);
-    }
+  public String getToken() {
+    return token;
   }
-
-  public abstract String getToken();
 }
