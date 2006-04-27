@@ -1,5 +1,21 @@
 package org.apache.myfaces.tobago.util;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.util.Properties;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
  *
@@ -65,5 +81,78 @@ public class XmlUtils {
       default:
         buffer.append(ch);
     }
+  }
+
+  public static void load(Properties props, InputStream in)
+      throws IOException {
+    Document doc;
+    try {
+      doc = getLoadingDoc(in);
+    } catch (SAXException e) {
+      throw new RuntimeException("Invalid properties format", e);
+    }
+    Element propertiesElement = (Element) doc.getChildNodes().item(
+        doc.getChildNodes().getLength() - 1);
+    importProperties(props, propertiesElement);
+  }
+
+  static Document getLoadingDoc(InputStream in)
+      throws SAXException, IOException {
+    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    factory.setIgnoringElementContentWhitespace(true);
+    factory.setValidating(false);
+    factory.setCoalescing(true);
+    factory.setIgnoringComments(true);
+    try {
+      DocumentBuilder builder = factory.newDocumentBuilder();
+      builder.setEntityResolver(new Resolver());
+      InputSource is = new InputSource(in);
+      return builder.parse(is);
+    } catch (ParserConfigurationException e) {
+      throw new Error(e);
+    }
+  }
+
+  static void importProperties(Properties props, Element propertiesElement) {
+    NodeList entries = propertiesElement.getChildNodes();
+    int numEntries = entries.getLength();
+    int start = numEntries > 0 &&
+        entries.item(0).getNodeName().equals("comment") ? 1 : 0;
+    for (int i = start; i < numEntries; i++) {
+      Node child = entries.item(i);
+      if (child instanceof Element) {
+        Element entry = (Element) child;
+        if (entry.hasAttribute("key")) {
+          Node node = entry.getFirstChild();
+          String val = (node == null) ? "" : node.getNodeValue();
+          props.setProperty(entry.getAttribute("key"), val);
+        }
+      } else {
+        System.out.println(
+            "node: " + child.getNodeName() + "=" + child.getNodeValue());
+      }
+    }
+  }
+
+  private static class Resolver implements EntityResolver {
+
+    public InputSource resolveEntity(String publicId, String systemId)
+        throws SAXException {
+      String dtd = "<!ELEMENT properties (comment?, entry*)>"
+              + "<!ATTLIST properties version CDATA #FIXED \"1.0\">"
+              + "<!ELEMENT comment (#PCDATA)>"
+              + "<!ELEMENT entry (#PCDATA)>"
+              + "<!ATTLIST entry key CDATA #REQUIRED>";
+      InputSource inputSource = new InputSource(new StringReader(dtd));
+      inputSource.setSystemId("http://java.sun.com/dtd/properties.dtd");
+      return inputSource;
+    }
+  }
+
+  public static void main(String[] args) throws IOException {
+    InputStream stream = XmlUtils.class.getResourceAsStream("test.xml");
+    Properties props = new Properties();
+    XmlUtils.load(props, stream);
+    System.out.println("props: " + props);
   }
 }

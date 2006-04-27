@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.context;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.util.XmlUtils;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -205,7 +206,8 @@ class ResourceLocator {
     Properties temp = new Properties();
     try {
       if (xml) {
-        temp.loadFromXML(stream);
+        // temp.loadFromXML(stream); XXX avoid to be able to retrotranslate it
+        XmlUtils.load(temp, stream);
         if (LOG.isDebugEnabled()) {
           LOG.debug(childPath);
           LOG.debug("xml properties: " + temp.size());
