@@ -26,12 +26,12 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  * Time: 11:40:11
  * To change this template use File | Settings | File Templates.
  */
-public interface HasScript {
+public interface HasOnclick {
   /**
    * Script to be invoked when clicked
-   * @param actionScript
+   * @param onclick
    */
   @TagAttribute @UIComponentTagAttribute()
-  void setScript(String actionScript);
+  void setOnclick(String onclick);
 
 }

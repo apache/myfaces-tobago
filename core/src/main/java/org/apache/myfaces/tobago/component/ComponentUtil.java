@@ -23,8 +23,8 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_NAVIGATE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_SCRIPT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CREATE_SPAN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
@@ -843,9 +843,9 @@ public class ComponentUtil {
           || commandType.equals(COMMAND_TYPE_RESET)
           || commandType.equals(COMMAND_TYPE_SCRIPT))) {
       if (commandType.equals(COMMAND_TYPE_NAVIGATE)) {
-        setStringProperty(component, ATTR_ACTION_NAVIGATE, action);
+        setStringProperty(component, ATTR_ACTION_LINK, action);
       } else if (commandType.equals(COMMAND_TYPE_SCRIPT)) {
-        setStringProperty(component, ATTR_ACTION_SCRIPT, action);
+        setStringProperty(component, ATTR_ACTION_ONCLICK, action);
       } else {
         LOG.warn("Type reset is not supported");
       }

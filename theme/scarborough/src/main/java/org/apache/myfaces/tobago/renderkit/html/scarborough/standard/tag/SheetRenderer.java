@@ -23,7 +23,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_SCRIPT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
@@ -895,7 +895,7 @@ public class SheetRenderer extends RendererBase
     UICommand menuItem
         = (UICommand) application.createComponent(UIMenuCommand.COMPONENT_TYPE);
     menuItem.setRendererType(RENDERER_TYPE_MENUCOMMAND);
-    menuItem.getAttributes().put(ATTR_ACTION_SCRIPT, action);
+    menuItem.getAttributes().put(ATTR_ACTION_ONCLICK, action);
     menuItem.getAttributes().put(ATTR_LABEL, label);
     return menuItem;
   }

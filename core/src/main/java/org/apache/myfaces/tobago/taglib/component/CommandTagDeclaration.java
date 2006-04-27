@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.taglib.decl.HasAction;
 import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
-import org.apache.myfaces.tobago.taglib.decl.HasScript;
-import org.apache.myfaces.tobago.taglib.decl.HasNavigate;
+import org.apache.myfaces.tobago.taglib.decl.HasOnclick;
+import org.apache.myfaces.tobago.taglib.decl.HasLink;
 
 
 /*
@@ -32,5 +32,5 @@ import org.apache.myfaces.tobago.taglib.decl.HasNavigate;
 
 
 public interface CommandTagDeclaration extends TobagoTagDeclaration,
-    HasAction, HasActionListener, HasScript, HasNavigate {
+    HasAction, HasActionListener, HasOnclick, HasLink {
 }

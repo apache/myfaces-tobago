@@ -30,13 +30,13 @@ import javax.servlet.jsp.tagext.TagData;
 public class CommandTagExtraInfo extends TagExtraInfo {
   public ValidationMessage[] validate(TagData data) {
     Object action = data.getAttribute("action");
-    Object actionScript = data.getAttribute("script");
-    Object actionNavigate = data.getAttribute("navigate");
+    Object onclick = data.getAttribute("onclick");
+    Object link = data.getAttribute("link");
     if (action != null) {
-      if (actionScript != null||actionNavigate != null) {
+      if (onclick != null||link != null) {
         return generateValidationMessages(data);
       }
-    } else if (actionScript != null&&actionNavigate != null) {
+    } else if (onclick != null&&link != null) {
       return generateValidationMessages(data);
     }
     return null;
@@ -45,7 +45,7 @@ public class CommandTagExtraInfo extends TagExtraInfo {
   private ValidationMessage[] generateValidationMessages(TagData data) {
     ValidationMessage[] messages = new ValidationMessage[1];
         messages [0] = new ValidationMessage(data.getId(),
-            "Only one Attribute of action, script and navigate is allowed");
+            "Only one Attribute of action, onclick and link is allowed");
     return messages;
   }
 }

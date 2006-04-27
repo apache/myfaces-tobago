@@ -36,4 +36,6 @@ public @interface Tag {
 
   String tagExtraInfoClassName() default "";
 
+  String deprecatedName() default "";
+
 }

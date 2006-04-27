@@ -26,8 +26,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  * Time: 11:41:03
  * To change this template use File | Settings | File Templates.
  */
-public interface HasNavigate {
+public interface HasLink {
   @TagAttribute @UIComponentTagAttribute()
-  void setNavigate(String navigate);
+  void setLink(String navigate);
 
 }

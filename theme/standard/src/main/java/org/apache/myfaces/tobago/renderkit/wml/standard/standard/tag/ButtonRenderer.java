@@ -25,8 +25,8 @@ import org.apache.commons.collections.KeyValue;
 import org.apache.commons.collections.keyvalue.DefaultKeyValue;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_SCRIPT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_NAVIGATE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
@@ -54,8 +54,8 @@ public class ButtonRenderer extends RendererBase {
      // TODO
     //String action = (String) command.getAttributes().get(ATTR_ACTION);
 
-    if (!command.getAttributes().containsKey(ATTR_ACTION_NAVIGATE)
-        &&!command.getAttributes().containsKey(ATTR_ACTION_SCRIPT)) {
+    if (command.getAttributes().get(ATTR_ACTION_LINK)==null
+        &&command.getAttributes().get(ATTR_ACTION_ONCLICK)==null) {
       ValueHolder labelComponent
           = (ValueHolder) command.getFacet(FACET_LABEL);
       String label = (String) labelComponent.getValue();

@@ -105,9 +105,15 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     Tag annotationTag = decl.getAnnotation(Tag.class);
     checkDuplicates(annotationTag, tagSet);
     String className = decl.getQualifiedName();
-    Element tag = createTag(decl, annotationTag, className, document);
+    Element tag = createTag(decl, annotationTag, className, document, false);
     addAttributes(decl, tag, document);
     parent.appendChild(tag);
+    if (annotationTag.deprecatedName() != null&&annotationTag.deprecatedName().length() > 0) {
+      Element deprecatedTag = createTag(decl, annotationTag, className, document, true);
+      addAttributes(decl, deprecatedTag, document);
+      parent.appendChild(deprecatedTag);
+    }
+
   }
 
   protected void appendTag(InterfaceDeclaration decl, Element parent, Set<String> tagSet, Document document) {
@@ -122,15 +128,25 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
       String msg = "Replacing: " + decl.getQualifiedName()
           + " -> " + className;
       getEnv().getMessager().printNotice(msg);
-      Element tag = createTag(decl, annotationTag, className, document);
+      Element tag = createTag(decl, annotationTag, className, document, false);
       addAttributes(decl, tag, document);
       parent.appendChild(tag);
+      if (annotationTag.deprecatedName() != null&&annotationTag.deprecatedName().length() > 0) {
+        Element deprecatedTag = createTag(decl, annotationTag, className, document, true);
+        addAttributes(decl, deprecatedTag, document);
+        parent.appendChild(deprecatedTag);
+      }
     }
   }
 
-  protected Element createTag(Declaration decl, Tag annotationTag, String className, Document document) {
+  protected Element createTag(Declaration decl, Tag annotationTag, String className, Document document,
+      boolean deprecated) {
     Element tagElement = document.createElement("tag");
-    addLeafTextElement(annotationTag.name(), "name", tagElement, document);
+    if (deprecated) {
+      addLeafTextElement(annotationTag.deprecatedName(), "name", tagElement, document);
+    } else {
+      addLeafTextElement(annotationTag.name(), "name", tagElement, document);
+    }
     addLeafTextElement(className, "tag-class", tagElement, document);
     String tagExtraInfo = annotationTag.tagExtraInfoClassName();
     if (tagExtraInfo != null&& tagExtraInfo.length() > 0) {
@@ -151,7 +167,7 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
       }
     }
     addLeafTextElement(bodyContent.toString(), "body-content", tagElement, document);
-    addDescription(decl, tagElement, document);
+    addDescription(decl, tagElement, document, deprecated);
     return tagElement;
   }
 
@@ -164,11 +180,22 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
   }
 
   protected void addDescription(Declaration decl, Element element, Document document) {
+    addDescription(decl, element, document, false);
+  }
+
+
+  protected void addDescription(Declaration decl, Element element, Document document, boolean deprecated) {
     StringBuffer description = new StringBuffer();
 
-    Deprecated deprecated = decl.getAnnotation(Deprecated.class);
-    if (deprecated != null) {
+    Deprecated deprecatedAnnotation = decl.getAnnotation(Deprecated.class);
+    if (deprecatedAnnotation != null) {
       description.append("**** Deprecated. Will be removed in a future version **** ");
+    }
+    if (deprecated) {
+      Tag annotationTag = decl.getAnnotation(Tag.class);
+      description.append("**** Deprecated. Will be removed in a future version. Use ");
+      description.append(annotationTag.name());
+      description.append(" instead. **** ");
     }
 
     Preliminary preliminary = decl.getAnnotation(Preliminary.class);
@@ -237,7 +264,7 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
             "name", attribute, document);
         addLeafTextElement(Boolean.toString(tagAttribute.required()), "required", attribute, document);
         addLeafTextElement(Boolean.toString(tagAttribute.rtexprvalue()), "rtexprvalue", attribute, document);
-        addDescription(d, attribute, document);
+        addDescription(d, attribute, document, false);
         tagElement.appendChild(attribute);
       } else {
         throw new IllegalArgumentException("Only setter allowed found: " + simpleName);

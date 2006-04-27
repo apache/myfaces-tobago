@@ -74,8 +74,8 @@
                            label="#{overviewBundle.toolbar_dropDownAction}" >
           <f:facet name="menupopup">
             <tc:menu>
-              <tc:menuItem action="alert('test 1')" type="script" label="Alert 1"/>
-              <tc:menuItem action="alert('test 2')" type="script" label="Alert 2"/>
+              <tc:menuItem onclick="alert('test 1')"  label="Alert 1"/>
+              <tc:menuItem onclick="alert('test 2')" label="Alert 2"/>
               <tc:menuItem id="dropdown3" actionListener="#{overviewController.click}" label="Action 3"/>
             </tc:menu>
           </f:facet>
@@ -125,8 +125,8 @@
           actionListener="#{overviewController.click}" label="#{overviewBundle.toolbar_dropDownAction}" >
           <f:facet name="menupopup">
             <tc:menu>
-              <tc:menuItem action="alert('test 1')" type="script" label="Alert 1"/>
-              <tc:menuItem action="alert('test 2')" type="script" label="Alert 2"/>
+              <tc:menuItem onclick="alert('test 1')"  label="Alert 1"/>
+              <tc:menuItem onclick="alert('test 2')"  label="Alert 2"/>
               <tc:menuItem id="dropdown3_2" actionListener="#{overviewController.click}" label="Action 3"/>
             </tc:menu>
           </f:facet>
@@ -161,7 +161,7 @@
 
           <tc:menu label="Menu 1" >
 
-            <tc:menuItem type="script" action="alert('action 1')"  label="alert 1" />
+            <tc:menuItem onclick="alert('action 1')"  label="alert 1" />
 
             <tc:menuItem action="/" type="navigate" label="#{overviewBundle.toolbar_linkClickme}"
                 image="image/config.gif" >
@@ -174,11 +174,11 @@
           </tc:menu>
           <tc:menu label="Menu 2">
 
-            <tc:menuItem type="script" action="alert('action 1')"  label="alert 1" />
+            <tc:menuItem onclick="alert('action 1')"  label="alert 1" />
 
             <tc:menu label="Menu 3">
 
-              <tc:menuItem type="script" action="alert('action 1')"  label="alert 1" image="image/date.gif" />
+              <tc:menuItem onclick="alert('action 1')"  label="alert 1" image="image/date.gif" />
 
               <tc:menuItem action="/" type="navigate" label="#{overviewBundle.toolbar_linkClickme}" image="image/config.gif" >
                 <f:facet name="confirmation"><tc:out value="Do you really want leave this demo?" /></f:facet>

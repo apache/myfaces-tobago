@@ -23,8 +23,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_NAVIGATE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_SCRIPT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
@@ -147,14 +147,14 @@ public class ButtonRenderer extends CommandRendererBase {
         ATTR_DEFAULT_COMMAND);
     String onclick;
 
-    if (component.getAttributes().containsKey(ATTR_ACTION_NAVIGATE)) {
+    if (component.getAttributes().get(ATTR_ACTION_LINK)!=null) {
       onclick = "Tobago.navigateToUrl('"
-          + HtmlUtils.generateUrl(facesContext, (String) component.getAttributes().get(ATTR_ACTION_NAVIGATE)) + "');";
+          + HtmlUtils.generateUrl(facesContext, (String) component.getAttributes().get(ATTR_ACTION_LINK)) + "');";
       // FIXME !!
       //} else if (COMMAND_TYPE_RESET.equals(type)) {
     //  onclick = null;
-    } else if (component.getAttributes().containsKey(ATTR_ACTION_SCRIPT)) {
-      onclick = (String) component.getAttributes().get(ATTR_ACTION_SCRIPT);
+    } else if (component.getAttributes().get(ATTR_ACTION_ONCLICK)!=null) {
+      onclick = (String) component.getAttributes().get(ATTR_ACTION_ONCLICK);
     } else if (defaultCommand) {
       ComponentUtil.findPage(component).setDefaultActionId(clientId);
 //      onclick = "Tobago.setAction('" + clientId + "');";

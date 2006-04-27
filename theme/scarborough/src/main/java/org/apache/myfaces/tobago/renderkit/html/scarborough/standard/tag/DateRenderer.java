@@ -23,7 +23,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_SCRIPT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CALENDAR_DATE_INPUT_ID;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
@@ -145,7 +145,7 @@ public class DateRenderer extends InRenderer {
     link.getChildren().add(hidden);
     hidden.setId(idPrefix + "Dimension");
     // attributes map is still of link
-    attributes.put(ATTR_ACTION_SCRIPT, "Tobago.openPickerPopup(event, '"
+    attributes.put(ATTR_ACTION_ONCLICK, "Tobago.openPickerPopup(event, '"
         + link.getClientId(facesContext) + "', '"
         + hidden.getClientId(facesContext) + "')");
 
@@ -224,7 +224,7 @@ public class DateRenderer extends InRenderer {
     okButton.setId("ok" + DatePickerController.CLOSE_POPUP);
     attributes = okButton.getAttributes();
     attributes.put(ATTR_LABEL, "OK");
-    attributes.put(ATTR_ACTION_SCRIPT, "writeIntoField('"
+    attributes.put(ATTR_ACTION_ONCLICK, "writeIntoField('"
         + popup.getClientId(facesContext) + "', '"
         + component.getClientId(facesContext) + "'); Tobago.closePickerPopup('"
         + popup.getClientId(facesContext) + "')");
@@ -236,7 +236,7 @@ public class DateRenderer extends InRenderer {
     attributes = cancelButton.getAttributes();
     attributes.put(ATTR_LABEL, "Cancel");
     //attributes.put(ATTR_TYPE, COMMAND_TYPE_SCRIPT);
-    attributes.put(ATTR_ACTION_SCRIPT, "Tobago.closePickerPopup('" + popup.getClientId(facesContext) + "')");
+    attributes.put(ATTR_ACTION_ONCLICK, "Tobago.closePickerPopup('" + popup.getClientId(facesContext) + "')");
     cancelButton.setId(DatePickerController.CLOSE_POPUP);
     cancelButton.setActionListener(datePickerController);
 

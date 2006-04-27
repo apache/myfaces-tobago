@@ -39,7 +39,8 @@ public class TobagoAnnotationVisitor extends TaglibAnnotationVisitor {
     super(env);
   }
 
-  protected Element createTag(Declaration decl, Tag annotationTag, String className, Document document) {
+  protected Element createTag(Declaration decl, Tag annotationTag, String className, Document document,
+      boolean deprecated) {
     Element tagElement = document.createElement("tag");
     addLeafTextElement(annotationTag.name(), "name", tagElement, document);
     addLeafTextElement(className, "tag-class", tagElement, document);
@@ -78,7 +79,7 @@ public class TobagoAnnotationVisitor extends TaglibAnnotationVisitor {
     }
 
 
-    addDescription(decl, tagElement, document);
+    addDescription(decl, tagElement, document, false);
 
     return tagElement;
   }

@@ -23,7 +23,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_SCRIPT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
@@ -33,9 +33,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
-import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_SCRIPT;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_TOOL_BAR;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_TOOL_BAR;
@@ -194,7 +192,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
 
     String onClick = "Tobago.submitAction('"
         + clientId + RichTextEditorRenderer.CHANGE_BUTTON + "')";
-    command.getAttributes().put(ATTR_ACTION_SCRIPT, onClick);
+    command.getAttributes().put(ATTR_ACTION_ONCLICK, onClick);
 
     command = (UICommand) ComponentUtil.createComponent(
         facesContext, UISelectBooleanCommand.COMPONENT_TYPE, RENDERER_TYPE_MENUCOMMAND);
@@ -207,13 +205,13 @@ public class RichTextEditorRenderer extends InputRendererBase {
     title = ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "tobago.richtexteditor.preview.title");
     command.getAttributes().put(ATTR_TIP, title);
-    command.getAttributes().put(ATTR_ACTION_SCRIPT, onClick);
+    command.getAttributes().put(ATTR_ACTION_ONCLICK, onClick);
 
     command = (UICommand) ComponentUtil.createComponent(
         facesContext, UICommand.COMPONENT_TYPE, RENDERER_TYPE_MENUCOMMAND);
     toolbar.getChildren().add(command);
     command.getAttributes().put(ATTR_IMAGE, "image/config.gif");
-    command.getAttributes().put(ATTR_ACTION_SCRIPT, "Tobago.doEditorCommand(this);");
+    command.getAttributes().put(ATTR_ACTION_ONCLICK, "Tobago.doEditorCommand(this);");
 
     return toolbar;
   }

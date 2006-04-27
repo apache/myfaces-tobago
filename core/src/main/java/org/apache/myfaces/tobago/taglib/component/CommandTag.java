@@ -16,8 +16,8 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_SCRIPT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_NAVIGATE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMMEDIATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TYPE;
@@ -33,8 +33,8 @@ public abstract class CommandTag extends TobagoTag implements CommandTagDeclarat
   private String actionListener;
   private String type;
   private String immediate;
-  private String script;
-  private String navigate;
+  private String onclick;
+  private String link;
 
   public String getComponentType() {
     return UICommand.COMPONENT_TYPE;
@@ -48,8 +48,8 @@ public abstract class CommandTag extends TobagoTag implements CommandTagDeclarat
 //   ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand);
     ComponentUtil.setBooleanProperty(component, ATTR_IMMEDIATE, immediate);
     ComponentUtil.setAction(component, type, action);
-    ComponentUtil.setStringProperty(component, ATTR_ACTION_NAVIGATE, navigate);
-    ComponentUtil.setStringProperty(component, ATTR_ACTION_SCRIPT, script);
+    ComponentUtil.setStringProperty(component, ATTR_ACTION_LINK, link);
+    ComponentUtil.setStringProperty(component, ATTR_ACTION_ONCLICK, onclick);
     ComponentUtil.setActionListener(command, actionListener);
   }
 
@@ -60,8 +60,8 @@ public abstract class CommandTag extends TobagoTag implements CommandTagDeclarat
     type = null;
     disabled = null;
     immediate = null;
-    script = null;
-    navigate = null;
+    onclick = null;
+    link = null;
   }
 
   public String getAction() {
@@ -72,12 +72,12 @@ public abstract class CommandTag extends TobagoTag implements CommandTagDeclarat
     this.action = action;
   }
 
-  public void setScript(String script) {
-    this.script = script;
+  public void setOnclick(String onclick) {
+    this.onclick = onclick;
   }
 
-  public void setNavigate(String navigate) {
-    this.navigate = navigate;
+  public void setLink(String link) {
+    this.link = link;
   }
 
   public String getActionListener() {
