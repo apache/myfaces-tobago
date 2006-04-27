@@ -83,20 +83,20 @@ public class XmlUtils {
     }
   }
 
-  public static void load(Properties props, InputStream in)
+  public static void load(Properties properties, InputStream stream)
       throws IOException {
-    Document doc;
+    Document document;
     try {
-      doc = getLoadingDoc(in);
+      document = createDocument(stream);
     } catch (SAXException e) {
       throw new RuntimeException("Invalid properties format", e);
     }
-    Element propertiesElement = (Element) doc.getChildNodes().item(
-        doc.getChildNodes().getLength() - 1);
-    importProperties(props, propertiesElement);
+    Element propertiesElement = (Element) document.getChildNodes().item(
+        document.getChildNodes().getLength() - 1);
+    importProperties(properties, propertiesElement);
   }
 
-  static Document getLoadingDoc(InputStream in)
+  private static Document createDocument(InputStream stream)
       throws SAXException, IOException {
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     factory.setIgnoringElementContentWhitespace(true);
@@ -106,14 +106,14 @@ public class XmlUtils {
     try {
       DocumentBuilder builder = factory.newDocumentBuilder();
       builder.setEntityResolver(new Resolver());
-      InputSource is = new InputSource(in);
-      return builder.parse(is);
+      InputSource source = new InputSource(stream);
+      return builder.parse(source);
     } catch (ParserConfigurationException e) {
       throw new Error(e);
     }
   }
 
-  static void importProperties(Properties props, Element propertiesElement) {
+  static void importProperties(Properties properties, Element propertiesElement) {
     NodeList entries = propertiesElement.getChildNodes();
     int numEntries = entries.getLength();
     int start = numEntries > 0 &&
@@ -124,12 +124,9 @@ public class XmlUtils {
         Element entry = (Element) child;
         if (entry.hasAttribute("key")) {
           Node node = entry.getFirstChild();
-          String val = (node == null) ? "" : node.getNodeValue();
-          props.setProperty(entry.getAttribute("key"), val);
+          String value = (node == null) ? "" : node.getNodeValue();
+          properties.setProperty(entry.getAttribute("key"), value);
         }
-      } else {
-        System.out.println(
-            "node: " + child.getNodeName() + "=" + child.getNodeValue());
       }
     }
   }
@@ -139,7 +136,7 @@ public class XmlUtils {
     public InputSource resolveEntity(String publicId, String systemId)
         throws SAXException {
       String dtd = "<!ELEMENT properties (comment?, entry*)>"
-              + "<!ATTLIST properties version CDATA #FIXED \"1.0\">"
+              + "<!ATTLIST properties version CDATA #FIXED '1.0'>"
               + "<!ELEMENT comment (#PCDATA)>"
               + "<!ELEMENT entry (#PCDATA)>"
               + "<!ATTLIST entry key CDATA #REQUIRED>";
@@ -149,10 +146,4 @@ public class XmlUtils {
     }
   }
 
-  public static void main(String[] args) throws IOException {
-    InputStream stream = XmlUtils.class.getResourceAsStream("test.xml");
-    Properties props = new Properties();
-    XmlUtils.load(props, stream);
-    System.out.println("props: " + props);
-  }
 }
