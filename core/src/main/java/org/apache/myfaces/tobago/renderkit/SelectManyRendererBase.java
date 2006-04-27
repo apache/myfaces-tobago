@@ -35,27 +35,23 @@ public class SelectManyRendererBase extends RendererBase {
 
     UISelectMany uiSelectMany = (UISelectMany) component;
 
-    String[] newValue = (String[])
+    String[] newValues = (String[])
         facesContext.getExternalContext().getRequestParameterValuesMap().get(uiSelectMany.getClientId(facesContext));
     if (LOG.isDebugEnabled()) {
       LOG.debug("decode: key='" + component.getClientId(facesContext)
-          + "' value='" + newValue + "'");
-      LOG.debug("size ... '" + (newValue != null ? newValue.length : -1) + "'");
-      if (newValue != null) {
-        for (int i = 0; i < newValue.length; i++) {
-          if (LOG.isDebugEnabled()) {
-            LOG.debug("newValue[i] = '" + newValue[i] + "'");
-          }
+          + "' value='" + newValues + "'");
+      LOG.debug("size ... '" + (newValues != null ? newValues.length : -1) + "'");
+      if (newValues != null) {
+        for (String newValue : newValues) {
+          LOG.debug("newValues[i] = '" + newValue + "'");
         }
       }
     }
 
-    if (newValue == null) {
-      newValue = new String[0]; // because no selection will not submitted by browsers
+    if (newValues == null) {
+      newValues = new String[0]; // because no selection will not submitted by browsers
     }
-    uiSelectMany.setValue(newValue);
-    uiSelectMany.setValid(true);
+    uiSelectMany.setSubmittedValue(newValues);
   }
-
 }
 

@@ -47,13 +47,10 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
     String newValue = (String)
         facesContext.getExternalContext().getRequestParameterMap()
         .get(uiInput.getClientId(facesContext));
-//    LogUtils.logParameter(((ServletRequest)facesContext.getExternalContext().getRequest()));
-//    LOG.debug("decode: key='" + uiInput.getClientId(facesContext)
-//        + "' value='" + newValue + "'  valid = " + uiInput.isValid());
     if (newValue != null) {
-      uiInput.setValue(Boolean.valueOf(newValue));
+      uiInput.setSubmittedValue(newValue);
     } else {
-      uiInput.setValue(Boolean.FALSE);
+      uiInput.setSubmittedValue(String.valueOf(false));
     }
   }
 
@@ -83,7 +80,7 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
     }
 
     Boolean currentValue = (Boolean) component.getValue();
-    boolean checked = currentValue != null ? currentValue.booleanValue() : false;
+    boolean checked = currentValue != null && currentValue.booleanValue();
 
     writer.startElement("input", component);
     writer.writeAttribute("type", "checkbox", null);

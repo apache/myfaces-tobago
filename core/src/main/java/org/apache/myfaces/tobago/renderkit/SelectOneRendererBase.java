@@ -43,12 +43,7 @@ public abstract class SelectOneRendererBase extends InputRendererBase {
     if (LOG.isDebugEnabled()) {
       LOG.debug("decode: key='" + clientId + "' value='" + newValue + "'");
     }
-    Object convertedValue = null;
-    if (newValue != null) {
-      convertedValue = getConvertedValue(facesContext, component, newValue);
-    }
-    uiSelectOne.setValue(convertedValue);
-    uiSelectOne.setValid(true);    
+    uiSelectOne.setSubmittedValue(newValue);    
   }
 
 
