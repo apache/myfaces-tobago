@@ -44,16 +44,16 @@ import org.apache.myfaces.tobago.component.UIToolBar;
  * tag to the button. Label's and Image's on those menu tag's are ignored
  * and replaced by the renderer.
  * <pre>
- *      <tobago:button commandName="alert('test 0')" type="script"
+ *      <tc:button onclick="alert('test 0')"
  *          label="Alert 0" >
  *        <f:facet name="menupopup">
- *          <tobago:menu>
- *            <tobago:menuItem action="alert('test 1')" type="script" label="Alert 1"/>
- *            <tobago:menuItem action="alert('test 2')" type="script" label="Alert 2"/>
- *            <tobago:menuItem action="alert('test 3')" type="script" label="Alert 3"/>
- *          </tobago:menu>
+ *          <tc:menu>
+ *            <tc:menuItem onclick="alert('test 1')" label="Alert 1"/>
+ *            <tc:menuItem onclick="alert('test 2')" label="Alert 2"/>
+ *            <tc:menuItem onclick="alert('test 3')" label="Alert 3"/>
+ *          </tc:menu>
  *        </f:facet>
- *      </tobago:button>
+ *      </tc:button>
  *      </pre>
  */
 
