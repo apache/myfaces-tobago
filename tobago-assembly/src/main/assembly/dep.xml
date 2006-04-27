@@ -34,5 +34,12 @@
         <include>*.jar</include>
       </includes>
     </fileSet>
+    <fileSet>
+      <directory>target/src</directory>
+      <outputDirectory>src</outputDirectory>
+      <includes>
+        <include>*.jar</include>
+      </includes>
+    </fileSet>
   </fileSets>
 </assembly>
