@@ -39,6 +39,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
+import org.apache.myfaces.tobago.component.UIMenuSelectOne;
 import org.apache.myfaces.tobago.component.UIMenuSeparator;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
@@ -57,7 +58,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
-import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
@@ -97,6 +97,17 @@ public class MenuBarRenderer extends RendererBase {
         writer.writeAttribute("style", null, ATTR_STYLE);
       }
       writer.writeClassAttribute(cssClasses);
+/*
+
+      writer.startElement("span");
+      writer.writeAttribute("style", "position: relative", null);
+//      writer.writeClassAttribute("tobago-menuBar-container");
+
+      renderTopLevelItems(facesContext, writer, component);
+
+      writer.endElement("span");
+      
+*/
       writer.endElement("div");
     }
     attributes.put(MENU_ACCELERATOR_KEYS, new ArrayList<String>());
@@ -110,6 +121,20 @@ public class MenuBarRenderer extends RendererBase {
     if (!accKeyFunctions.isEmpty()) {
       HtmlRendererUtil.writeScriptLoader(facesContext, null,
           accKeyFunctions.toArray(new String[accKeyFunctions.size()]));
+    }
+  }
+
+  private void renderTopLevelItems(FacesContext facesContext,
+      TobagoResponseWriter writer, UIComponent component) throws IOException {
+    String bac = "green;";
+    for (Object o : component.getChildren()) {
+      if (o instanceof UIMenu) {
+        writer.startElement("span");
+        writer.writeAttribute("style", "position: relative; background: " + bac + ";", null);
+        writeMenuEntry(facesContext, writer, (UIMenu)o);
+        writer.endElement("span");
+        bac = "lime";
+      }
     }
   }
 
@@ -203,6 +228,21 @@ public class MenuBarRenderer extends RendererBase {
 
   private String createMenuEntry(FacesContext facesContext, UIPanel uiPanel)
       throws IOException {
+    ResponseWriter savedWriter = facesContext.getResponseWriter();
+    StringWriter stringWriter = new StringWriter();
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) savedWriter.cloneWithWriter(stringWriter);
+    facesContext.setResponseWriter(writer);
+
+    writeMenuEntry(facesContext, writer, uiPanel);
+
+    facesContext.setResponseWriter(savedWriter);
+
+
+    return "new Tobago.Menu.Item('" + removeLFs(stringWriter.toString()) + "', null)";
+  }
+
+  private void writeMenuEntry(FacesContext facesContext, TobagoResponseWriter writer, UIPanel uiPanel) throws IOException {
     final boolean disabled
         = ComponentUtil.getBooleanAttribute(uiPanel, ATTR_DISABLED);
     final boolean topMenu = (uiPanel.getParent().getRendererType() != null)
@@ -219,12 +259,6 @@ public class MenuBarRenderer extends RendererBase {
     final LabelWithAccessKey label = new LabelWithAccessKey(uiPanel);
     String image = (String) uiPanel.getAttributes().get(ATTR_IMAGE);
 
-
-    ResponseWriter savedWriter = facesContext.getResponseWriter();
-    StringWriter stringWriter = new StringWriter();
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) savedWriter.cloneWithWriter(stringWriter);
-    facesContext.setResponseWriter(writer);
 
     addImage(writer, facesContext, image, disabled);
 
@@ -249,17 +283,6 @@ public class MenuBarRenderer extends RendererBase {
       HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
     }
     writer.endElement("a");
-
-    if (!topMenu) {
-      // uiPanel is a submenu
-//      addSubItemMarker(writer, facesContext);
-    }
-
-
-    facesContext.setResponseWriter(savedWriter);
-
-
-    return "new Tobago.Menu.Item('" + removeLFs(stringWriter.toString()) + "', null)";
   }
 
   private void addAcceleratorKey(
@@ -394,9 +417,9 @@ public class MenuBarRenderer extends RendererBase {
     LabelWithAccessKey label = new LabelWithAccessKey(command);
 
 
-    UISelectOne radio = (UISelectOne) command.getFacet(FACET_RADIO);
+    UIMenuSelectOne radio = (UIMenuSelectOne) command.getFacet(FACET_RADIO);
     if (radio == null) {
-      radio = ComponentUtil.createUISelectOneFacet(facesContext, command);
+      radio = ComponentUtil.createUIMenuSelectOneFacet(facesContext, command);
       radio.setId(facesContext.getViewRoot().createUniqueId());
     }
 

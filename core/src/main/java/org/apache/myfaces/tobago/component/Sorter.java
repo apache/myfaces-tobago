@@ -47,7 +47,7 @@ import java.util.List;
  * Date: Mar 7, 2005
  * Time: 4:01:27 PM
  */
-public class Sorter extends MethodBinding {
+public class  Sorter extends MethodBinding {
 
   private static final Log LOG = LogFactory.getLog(Sorter.class);
 

@@ -42,6 +42,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BOX;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIMenuSelectOne;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 import org.apache.myfaces.tobago.component.UISelectOneCommand;
 import org.apache.myfaces.tobago.context.ResourceManager;
@@ -59,7 +60,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
-import javax.faces.component.UISelectOne;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -156,9 +156,9 @@ public class ToolBarRenderer extends RendererBase {
 
     List<SelectItem> items = ComponentUtil.getSelectItems(command);
 
-    UISelectOne radio = (UISelectOne) command.getFacet(FACET_RADIO);
+    UIMenuSelectOne radio = (UIMenuSelectOne) command.getFacet(FACET_RADIO);
     if (radio == null) {
-      radio = ComponentUtil.createUISelectOneFacet(facesContext, command);
+      radio = ComponentUtil.createUIMenuSelectOneFacet(facesContext, command);
       radio.setId(facesContext.getViewRoot().createUniqueId());
     }
 

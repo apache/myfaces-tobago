@@ -44,7 +44,6 @@ public abstract class SelectOneRendererBase extends InputRendererBase {
       LOG.debug("decode: key='" + clientId + "' value='" + newValue + "'");
     }
     uiSelectOne.setSubmittedValue(newValue);
-    uiSelectOne.setValid(true);
   }
 
 

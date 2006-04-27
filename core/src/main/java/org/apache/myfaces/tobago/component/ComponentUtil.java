@@ -55,7 +55,6 @@ import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
 import javax.faces.component.ActionSource;
 import javax.faces.component.EditableValueHolder;
-
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
@@ -675,12 +674,12 @@ public class ComponentUtil {
     return column;
   }
 
-  public static UISelectOne createUISelectOneFacet(FacesContext facesContext, UICommand command) {
-    UISelectOne radio = null;
+  public static UIMenuSelectOne createUIMenuSelectOneFacet(FacesContext facesContext, UICommand command) {
+    UIMenuSelectOne radio = null;
     final ValueBinding valueBinding = command.getValueBinding(ATTR_VALUE);
     if (valueBinding != null) {
-      radio = (UISelectOne) createComponent(facesContext,
-          UISelectOne.COMPONENT_TYPE, RENDERER_TYPE_SELECT_ONE_RADIO);
+      radio = (UIMenuSelectOne) createComponent(facesContext,
+          UIMenuSelectOne.COMPONENT_TYPE, RENDERER_TYPE_SELECT_ONE_RADIO);
       command.getFacets().put(FACET_RADIO, radio);
       radio.setValueBinding(ATTR_VALUE, valueBinding);
     }

@@ -98,6 +98,10 @@
     <component-type>org.apache.myfaces.tobago.MenuCommand</component-type>
     <component-class>org.apache.myfaces.tobago.component.UIMenuCommand</component-class>
   </component>
+ <component>
+    <component-type>org.apache.myfaces.tobago.MenuSelectOne</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UIMenuSelectOne</component-class>
+  </component>
   <component>
     <component-type>org.apache.myfaces.tobago.MenuSeparator</component-type>
     <component-class>org.apache.myfaces.tobago.component.UIMenuSeparator</component-class>

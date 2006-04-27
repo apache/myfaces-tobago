@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.UITimeInput;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
@@ -28,7 +28,7 @@ public class TimeTag extends InputTag implements TimeTagDeclaration {
   private static final Log LOG = LogFactory.getLog(TimeTag.class);
 
   public String getComponentType() {
-    return UIInput.COMPONENT_TYPE;
+    return UITimeInput.COMPONENT_TYPE;
   }
 
   public int doEndTag() throws JspException {
