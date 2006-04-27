@@ -52,6 +52,8 @@ public class SelectManyRendererBase extends RendererBase {
       newValues = new String[0]; // because no selection will not submitted by browsers
     }
     uiSelectMany.setSubmittedValue(newValues);
+    uiSelectMany.setValid(true);
+
   }
 }
 
