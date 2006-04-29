@@ -33,6 +33,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UISelectBoolean;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.ConverterException;
 import java.io.IOException;
 
 public class SelectBooleanCheckboxRenderer extends RendererBase {
@@ -47,10 +48,23 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
     String newValue = (String)
         facesContext.getExternalContext().getRequestParameterMap()
         .get(uiInput.getClientId(facesContext));
-    if (newValue != null) {
-      uiInput.setSubmittedValue(newValue);
+    if (newValue != null
+        && (newValue.equalsIgnoreCase("on") || newValue.equalsIgnoreCase("yes")
+          || newValue.equalsIgnoreCase("true"))) {
+      uiInput.setSubmittedValue(Boolean.TRUE);
     } else {
-      uiInput.setSubmittedValue(String.valueOf(false));
+      uiInput.setSubmittedValue(Boolean.FALSE);
+    }
+  }
+
+  public Object getConvertedValue(FacesContext facesContext,
+            UIComponent component, Object submittedValue)
+            throws ConverterException {
+    // TODO move this to RendererBase
+    if (submittedValue instanceof Boolean) {
+      return submittedValue;
+    } else {
+      return super.getConvertedValue(facesContext, component, submittedValue);
     }
   }
 

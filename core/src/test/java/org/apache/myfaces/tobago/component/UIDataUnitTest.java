@@ -20,6 +20,10 @@ package org.apache.myfaces.tobago.component;
 import junit.framework.TestCase;
 
 import javax.faces.model.ArrayDataModel;
+import javax.faces.model.ListDataModel;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -33,8 +37,12 @@ public class UIDataUnitTest extends TestCase {
           "six", "seven" , "eight", "nine" };
 
   public void testPage() {
+    List list = new ArrayList();
+    for (String nineRow : nineRows) {
+      list.add(nineRow);
+    }
     UIData data = new UIData();
-    data.setValue(new ArrayDataModel(nineRows));
+    data.setValue(new ListDataModel(list));
     data.setRows(5);
     assertEquals(1, data.getPage());
     assertEquals(2, data.getPages());
@@ -86,6 +94,16 @@ public class UIDataUnitTest extends TestCase {
 
     data.setRows(1);
     data.setFirst(8);
+    data.setRowIndex(8);
+    assertEquals(data.getRowData(), list.get(8));
     assertEquals(9, data.getPage());
+    assertEquals(9, data.getPages());
+
+    list.remove(8);
+    assertEquals(list.size(), data.getRowCount());
+    data.setFirst(0);
+    assertEquals(1, data.getPage());
+    assertEquals(8, data.getPages());
+
   }
 }

@@ -29,9 +29,9 @@
 
   <dependencies>
 		<dependency>
-			<groupId>plexus</groupId>
+			<groupId>org.codehaus.plexus</groupId>
 			<artifactId>plexus-compiler-api</artifactId>
-			<version>1.5</version>
+			<version>1.5.2</version>
 		</dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>

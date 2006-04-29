@@ -23,7 +23,6 @@
     <tc:panel id="pageToolbar" >
       <f:facet name="layout">
         <tc:gridLayout rows="65px;fixed;1px;70px;fixed;50px"  id="pageToolbarLayout"/>
-<%--        <tc:gridLayout rows="80px;1*;10px;100px;1*;10px"  id="pageToolbarLayout"/>--%>
       </f:facet>
 
       <tc:out escape="false" value="#{overviewBundle.toolbar_text1}" />
@@ -44,8 +43,6 @@
             actionListener="#{overviewController.click}"
             label="#{overviewBundle.toolbar_imageButtonAction}"
             image="image/toolbar_example_button.gif" />
-
-
 
         <tc:toolBarCommand id="popupButton" action="overview/toolbar"
             actionListener="#{overviewController.click}"
@@ -168,7 +165,7 @@
               <f:facet name="confirmation"><tc:out value="Do you really want leave this demo?" /></f:facet>
             </tc:menuItem>
 
-            <tc:menuItem action="http://www.atanion.com" type="navigate" disabled="true" label="disabled" />
+            <tc:menuItem link="http://www.atanion.com" disabled="true" label="disabled" />
 
             <tc:menuCheckbox action="#{demo.clickButton}"  label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.boolTest}" />
           </tc:menu>
@@ -180,11 +177,11 @@
 
               <tc:menuItem onclick="alert('action 1')"  label="alert 1" image="image/date.gif" />
 
-              <tc:menuItem action="/" type="navigate" label="#{overviewBundle.toolbar_linkClickme}" image="image/config.gif" >
+              <tc:menuItem link="/" label="#{overviewBundle.toolbar_linkClickme}" image="image/config.gif" >
                 <f:facet name="confirmation"><tc:out value="Do you really want leave this demo?" /></f:facet>
               </tc:menuItem>
 
-              <tc:menuItem action="http://www.atanion.com" type="navigate" disabled="true" label="#{overviewBundle.toolbar_linkClickme}" image="image/remove.gif" />
+              <tc:menuItem link="http://www.atanion.com" disabled="true" label="#{overviewBundle.toolbar_linkClickme}" image="image/remove.gif" />
 
             <tc:menu label="#{overviewBundle.toolbar_selectSingleselect}">
 

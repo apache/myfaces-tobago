@@ -770,6 +770,20 @@ public class ComponentUtil {
     }
     return label;
   }
+
+  /*public static void debug(UIComponent component) {
+      LOG.error("###############################");
+      LOG.error("ID " + component.getId());
+      LOG.error("ClassName " + component.getClass().getName());
+      if (component instanceof EditableValueHolder) {
+        EditableValueHolder editableValueHolder = (EditableValueHolder) component;
+        LOG.error("Valid " + editableValueHolder.isValid());
+        LOG.error("SubmittedValue " + editableValueHolder.getSubmittedValue());
+      }
+    for (Iterator it = component.getFacetsAndChildren(); it.hasNext(); ) {
+      debug((UIComponent)it.next());
+    }
+  } */
   
 
   public static List<SelectItem> getItemsToRender(javax.faces.component.UISelectOne component) {

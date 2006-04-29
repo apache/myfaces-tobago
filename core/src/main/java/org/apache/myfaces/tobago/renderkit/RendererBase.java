@@ -54,11 +54,6 @@ public abstract class RendererBase
 
   public static final String END_POSTFIX = "";
 
-  private String beginSniplet;
-
-  private String childrenSniplet;
-
-  private String endSniplet;
 
   public void encodeBegin(FacesContext facesContext, UIComponent component)
       throws IOException {
