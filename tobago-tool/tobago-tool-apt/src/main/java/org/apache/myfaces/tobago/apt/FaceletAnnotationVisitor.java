@@ -23,6 +23,7 @@ import com.sun.mirror.declaration.InterfaceDeclaration;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.faces.component.UIComponent;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -133,6 +134,8 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
       return;
     }
     try {
+      ClassLoader currentClassLoader = Thread.currentThread().getContextClassLoader();
+      Thread.currentThread().setContextClassLoader(UIComponent.class.getClassLoader());
       Class uiComponentClass = Class.forName(componentTag.uiComponent());
 
       StringBuffer addComponent = new StringBuffer("addComponent(\"");
@@ -140,6 +143,7 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
 
       Field componentField = uiComponentClass.getField("COMPONENT_TYPE");
       String componentType = (String) componentField.get(null);
+      Thread.currentThread().setContextClassLoader(currentClassLoader);
 
       addComponent.append("\", \"");
       addComponent.append(componentType);
