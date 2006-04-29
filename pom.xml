@@ -400,6 +400,7 @@
     <profile>
       <id>generate-assembly</id>
       <modules>
+        <module>contrib</module>
         <module>tobago-assembly</module>
       </modules>
     </profile>

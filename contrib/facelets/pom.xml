@@ -125,10 +125,6 @@
       <version>1.0</version>
     </dependency>
     <dependency>
-      <groupId>com.sun.el</groupId>
-      <artifactId>el-ri</artifactId>
-      <version>1.0</version>
-    </dependency><dependency>
       <groupId>com.sun.facelets</groupId>
       <artifactId>jsf-facelets</artifactId>
       <version>1.0.14</version>

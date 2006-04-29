@@ -35,6 +35,13 @@
       </includes>
     </fileSet>
     <fileSet>
+      <directory>target/facelets</directory>
+      <outputDirectory>contrib</outputDirectory>
+      <includes>
+        <include>*.jar</include>
+      </includes>
+    </fileSet>
+    <fileSet>
       <directory>target/src</directory>
       <outputDirectory>src</outputDirectory>
       <includes>

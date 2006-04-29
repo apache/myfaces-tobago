@@ -81,6 +81,26 @@
           </execution>
 
           <execution>
+            <id>copy-facelets</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+
+                <artifactItem>
+                  <groupId>org.apache.myfaces.tobago</groupId>
+                  <artifactId>tobago-facelets</artifactId>
+                  <version>${version}</version>
+                </artifactItem>
+
+              </artifactItems>
+              <outputDirectory>${project.build.directory}/facelets</outputDirectory>
+            </configuration>
+          </execution>
+
+          <execution>
             <id>copy-source</id>
             <phase>package</phase>
             <goals>
