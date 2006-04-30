@@ -50,7 +50,7 @@ public class LoadBundleHandler extends TagHandler {
   }
 
   public void apply(FaceletContext faceletContext, UIComponent parent)
-      throws IOException, FacesException, FaceletException, ELException {
+      throws IOException, FacesException, ELException {
     String name = basename.getValue(faceletContext);
     BundleMapWrapper map = new BundleMapWrapper(name);
     FacesContext facesContext = faceletContext.getFacesContext();

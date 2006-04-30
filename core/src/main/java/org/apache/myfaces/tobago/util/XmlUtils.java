@@ -1,21 +1,5 @@
 package org.apache.myfaces.tobago.util;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.util.Properties;
-
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
  *
@@ -31,6 +15,22 @@ import java.util.Properties;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.util.Properties;
 
 public class XmlUtils {
 
@@ -116,8 +116,8 @@ public class XmlUtils {
   static void importProperties(Properties properties, Element propertiesElement) {
     NodeList entries = propertiesElement.getChildNodes();
     int numEntries = entries.getLength();
-    int start = numEntries > 0 &&
-        entries.item(0).getNodeName().equals("comment") ? 1 : 0;
+    int start = numEntries > 0
+        && entries.item(0).getNodeName().equals("comment") ? 1 : 0;
     for (int i = start; i < numEntries; i++) {
       Node child = entries.item(i);
       if (child instanceof Element) {

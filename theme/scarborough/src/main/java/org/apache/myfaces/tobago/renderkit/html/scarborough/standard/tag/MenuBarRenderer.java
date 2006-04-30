@@ -131,7 +131,7 @@ public class MenuBarRenderer extends RendererBase {
       if (o instanceof UIMenu) {
         writer.startElement("span");
         writer.writeAttribute("style", "position: relative; background: " + bac + ";", null);
-        writeMenuEntry(facesContext, writer, (UIMenu)o);
+        writeMenuEntry(facesContext, writer, (UIMenu) o);
         writer.endElement("span");
         bac = "lime";
       }
@@ -242,7 +242,8 @@ public class MenuBarRenderer extends RendererBase {
     return "new Tobago.Menu.Item('" + removeLFs(stringWriter.toString()) + "', null)";
   }
 
-  private void writeMenuEntry(FacesContext facesContext, TobagoResponseWriter writer, UIPanel uiPanel) throws IOException {
+  private void writeMenuEntry(FacesContext facesContext, TobagoResponseWriter writer,
+      UIPanel uiPanel) throws IOException {
     final boolean disabled
         = ComponentUtil.getBooleanAttribute(uiPanel, ATTR_DISABLED);
     final boolean topMenu = (uiPanel.getParent().getRendererType() != null)

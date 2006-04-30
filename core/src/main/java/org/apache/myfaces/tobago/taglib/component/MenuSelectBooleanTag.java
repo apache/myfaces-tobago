@@ -1,10 +1,5 @@
 package org.apache.myfaces.tobago.taglib.component;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import javax.servlet.jsp.JspException;
-
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
  *
@@ -20,6 +15,12 @@ import javax.servlet.jsp.JspException;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import javax.servlet.jsp.JspException;
 
 @Deprecated
 public class MenuSelectBooleanTag extends SelectBooleanCommandTag
