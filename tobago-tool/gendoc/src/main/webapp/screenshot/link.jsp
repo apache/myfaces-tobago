@@ -24,7 +24,7 @@
         <tc:gridLayout columns="300px;1*" rows="fixed;1*" />
       </f:facet>
 <%-- code-sniplet-start id="link" --%>
-      <tc:link type="navigate" action="http://www.apache.org"
+      <tc:link link="http://www.apache.org"
               label="http://www.apache.org" />
 <%-- code-sniplet-end id="link" --%>      
       <tc:cell/>

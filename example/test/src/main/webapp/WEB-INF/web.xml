@@ -59,12 +59,6 @@
   </servlet>
 
   <servlet>
-    <servlet-name>TemplateServlet</servlet-name>
-    <servlet-class>org.apache.myfaces.tobago.servlet.TemplateServlet</servlet-class>
-    <load-on-startup>2</load-on-startup>
-  </servlet>
-
-  <servlet>
     <servlet-name>ResourceServlet</servlet-name>
     <servlet-class>org.apache.myfaces.tobago.servlet.ResourceServlet</servlet-class>
   </servlet>
@@ -90,12 +84,6 @@
     <!--for myfaces and sun-ri with *.jsf mapping-->
     <url-pattern>/faces/SolarDetail</url-pattern>
   </servlet-mapping>
-
-  <servlet-mapping>
-    <servlet-name>TemplateServlet</servlet-name>
-    <url-pattern>*.view</url-pattern>
-  </servlet-mapping>
-
 
   <!-- mime -->
   <mime-mapping>

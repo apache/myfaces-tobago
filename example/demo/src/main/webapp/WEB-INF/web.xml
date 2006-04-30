@@ -56,22 +56,11 @@
     <load-on-startup>3</load-on-startup>
   </servlet>
 
-  <servlet>
-    <servlet-name>TemplateServlet</servlet-name>
-    <servlet-class>org.apache.myfaces.tobago.servlet.TemplateServlet</servlet-class>
-    <load-on-startup>2</load-on-startup>
-  </servlet>
-
   <!-- servlet-mapping -->
 
   <servlet-mapping>
     <servlet-name>FacesServlet</servlet-name>
     <url-pattern>/faces/*</url-pattern>
-  </servlet-mapping>
-
-  <servlet-mapping>
-    <servlet-name>TemplateServlet</servlet-name>
-    <url-pattern>*.view</url-pattern>
   </servlet-mapping>
 
   <!-- mime -->

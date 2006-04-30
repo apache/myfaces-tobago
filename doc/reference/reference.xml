@@ -82,10 +82,6 @@
       <title>NonFacesRequestServlet</title>
       <para></para>
     </sect1>
-    <sect1 id="features.servlet.template">
-      <title>TemplateServlet</title>
-      <para></para>
-    </sect1>
     <sect1>
       <title>ClearValidatorsActionListener ?</title>
       <para></para>

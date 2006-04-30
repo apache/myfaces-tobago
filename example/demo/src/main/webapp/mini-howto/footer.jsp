@@ -44,8 +44,6 @@
 
     <tc:out value="#{overviewBundle.notTranslated}"/>
 
-    <%--<tc:link id="atanion_link" action="http://www.atanion.com/"--%>
-        <%--type="navigate" image="image/poweredBy.gif" />--%>
-
+    
   </tc:panel>
 </f:subview>

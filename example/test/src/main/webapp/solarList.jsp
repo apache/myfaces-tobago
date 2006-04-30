@@ -10,7 +10,7 @@
             columns="1*;1*;1*;1*;1*;1*;1*;1*;2*" var="solarObject"
             showHeader="true"  showPageRange="center" pagingLength="10" >
           <tc:column label="Name" sortable="true">
-             <tc:link label="#{solarObject.name}" type="navigate" action="SolarDetail?id=#{solarObject.name}"/>
+             <tc:link label="#{solarObject.name}" link="SolarDetail?id=#{solarObject.name}"/>
           </tc:column>
           <tc:column label="Number" id="number" sortable="false"
                      align="center" >
