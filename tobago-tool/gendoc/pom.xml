@@ -59,29 +59,21 @@
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-scarborough</artifactId>
       <version>${version}</version>
-      <classifier>THEME</classifier>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-speyside</artifactId>
       <version>${version}</version>
-      <classifier>THEME</classifier>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-richmond</artifactId>
       <version>${version}</version>
-      <classifier>THEME</classifier>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-standard</artifactId>
       <version>${version}</version>
-      <classifier>THEME</classifier>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
@@ -98,19 +90,16 @@
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
-      <version>1.2.11</version>
       <scope>provided</scope>
     </dependency>
    <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
-      <version>2.3</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jsp-api</artifactId>
-      <version>2.0</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
