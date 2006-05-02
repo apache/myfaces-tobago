@@ -184,15 +184,15 @@
         <artifactId>jxr-maven-plugin</artifactId>
       </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <configuration>
-          <configLocation>org/apache/myfaces/tobago/checkstyle.xml</configLocation>
-          <xrefLocation>xref</xrefLocation>
-          <excludes>**/package-info.java</excludes>
-        </configuration>
-      </plugin>
+      <!--<plugin>-->
+        <!--<groupId>org.apache.maven.plugins</groupId>-->
+        <!--<artifactId>maven-checkstyle-plugin</artifactId>-->
+        <!--<configuration>-->
+          <!--<configLocation>org/apache/myfaces/tobago/checkstyle.xml</configLocation>-->
+          <!--<xrefLocation>xref</xrefLocation>-->
+          <!--<excludes>**/package-info.java</excludes>-->
+        <!--</configuration>-->
+      <!--</plugin>-->
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -392,11 +392,11 @@
         <artifactId>wagon-ftp</artifactId>
         <version>1.0-alpha-6</version>
       </extension>
-      <extension>
-        <groupId>org.apache.myfaces.maven</groupId>
-        <artifactId>build-tools</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-      </extension>
+      <!--<extension>-->
+        <!--<groupId>org.apache.myfaces.maven</groupId>-->
+        <!--<artifactId>build-tools</artifactId>-->
+        <!--<version>1.0.0-SNAPSHOT</version>-->
+      <!--</extension>-->
     </extensions>
   </build>
 

@@ -57,66 +57,63 @@
     <dependency>
        <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
-      <version>2.3</version>
       <scope>provided</scope>
     </dependency>
 
   </dependencies>
 
-  <profiles>
-    <profile>
-      <!--
-  mvn install:install-file -Dfile=retrotranslator-runtime-1.0.3.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-runtime -Dversion=1.0.3 -Dpackaging=jar
-  mvn install:install-file -Dfile=retrotranslator-transformer-1.0.3.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-transformer -Dversion=1.0.3 -Dpackaging=jar
-      -->
-      <id>jdk14retro</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>retrotranslator-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>translate</goal>
-                </goals>
-                <configuration>
-                  <verify>true</verify>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <artifactId>maven-jar-plugin</artifactId>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-                <configuration>
-                <classesDirectory>${project.build.directory}/classes-retro</classesDirectory>
-                  <classifier>jdk14retro</classifier>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-       <dependencies>
-        <dependency>
-          <groupId>sun.jdk</groupId>
-          <artifactId>rt</artifactId>
-          <version>1.4.0</version>
-          <scope>system</scope>
-          <systemPath>${java14.home}/lib/rt.jar</systemPath>
-        </dependency>
-        <dependency>
-          <groupId>net.sf.retrotranslator</groupId>
-          <artifactId>retrotranslator-runtime</artifactId>
-          <version>1.0.3</version>
-        </dependency>
-      </dependencies>
-    </profile>
-  </profiles>
+  <!--<profiles>-->
+    <!--<profile>-->
+  <!--mvn install:install-file -Dfile=retrotranslator-runtime-1.0.3.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-runtime -Dversion=1.0.3 -Dpackaging=jar-->
+  <!--mvn install:install-file -Dfile=retrotranslator-transformer-1.0.3.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-transformer -Dversion=1.0.3 -Dpackaging=jar-->
+      <!--<id>jdk14retro</id>-->
+      <!--<build>-->
+        <!--<plugins>-->
+          <!--<plugin>-->
+            <!--<groupId>org.codehaus.mojo</groupId>-->
+            <!--<artifactId>retrotranslator-maven-plugin</artifactId>-->
+            <!--<executions>-->
+              <!--<execution>-->
+                <!--<goals>-->
+                  <!--<goal>translate</goal>-->
+                <!--</goals>-->
+                <!--<configuration>-->
+                  <!--<verify>true</verify>-->
+                <!--</configuration>-->
+              <!--</execution>-->
+            <!--</executions>-->
+          <!--</plugin>-->
+          <!--<plugin>-->
+            <!--<artifactId>maven-jar-plugin</artifactId>-->
+            <!--<executions>-->
+              <!--<execution>-->
+                <!--<goals>-->
+                  <!--<goal>jar</goal>-->
+                <!--</goals>-->
+                <!--<configuration>-->
+                <!--<classesDirectory>${project.build.directory}/classes-retro</classesDirectory>-->
+                  <!--<classifier>jdk14retro</classifier>-->
+                <!--</configuration>-->
+              <!--</execution>-->
+            <!--</executions>-->
+          <!--</plugin>-->
+        <!--</plugins>-->
+      <!--</build>-->
+       <!--<dependencies>-->
+        <!--<dependency>-->
+          <!--<groupId>sun.jdk</groupId>-->
+          <!--<artifactId>rt</artifactId>-->
+          <!--<version>1.4.0</version>-->
+          <!--<scope>system</scope>-->
+          <!--<systemPath>${java14.home}/lib/rt.jar</systemPath>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+          <!--<groupId>net.sf.retrotranslator</groupId>-->
+          <!--<artifactId>retrotranslator-runtime</artifactId>-->
+          <!--<version>1.0.3</version>-->
+        <!--</dependency>-->
+      <!--</dependencies>-->
+    <!--</profile>-->
+  <!--</profiles>-->
 
 </project>
