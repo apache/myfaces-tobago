@@ -3,12 +3,12 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
-    <version>1.0.8-SNAPSHOT</version>
+    <version>1.0.7-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-theme-richmond</artifactId>
   <packaging>jar</packaging>
   <name>Tobago Theme Richmond</name>
-  
+
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/theme/richmond</connection>
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/theme/richmond</developerConnection>
@@ -44,7 +44,7 @@
 
   <!--mvn install:install-file -Dfile=retrotranslator-runtime-1.0.3.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-runtime -Dversion=1.0.3 -Dpackaging=jar-->
   <!--mvn install:install-file -Dfile=retrotranslator-transformer-1.0.3.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-transformer -Dversion=1.0.3 -Dpackaging=jar-->
-        
+
         <!--<id>jdk14retro</id>-->
         <!--<build>-->
           <!--<plugins>-->
@@ -94,5 +94,5 @@
         <!--</dependencies>-->
       <!--</profile>-->
     <!--</profiles>-->
-  
+
 </project>

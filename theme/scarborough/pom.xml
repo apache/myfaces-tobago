@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
-    <version>1.0.8-SNAPSHOT</version>
+    <version>1.0.7-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-theme-scarborough</artifactId>
   <packaging>jar</packaging>
@@ -70,7 +70,7 @@
 
   <!--mvn install:install-file -Dfile=retrotranslator-runtime-1.0.3.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-runtime -Dversion=1.0.3 -Dpackaging=jar-->
   <!--mvn install:install-file -Dfile=retrotranslator-transformer-1.0.3.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-transformer -Dversion=1.0.3 -Dpackaging=jar-->
-      
+
       <!--<id>jdk14retro</id>-->
       <!--<build>-->
         <!--<plugins>-->

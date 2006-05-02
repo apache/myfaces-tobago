@@ -4,7 +4,7 @@
   <artifactId>tobago</artifactId>
   <packaging>pom</packaging>
   <name>Tobago</name>
-  <version>1.0.8-SNAPSHOT</version>
+  <version>1.0.7-SNAPSHOT</version>
   <description>Tobago</description>
   <prerequisites>
     <maven>2.0.3</maven>
@@ -238,7 +238,7 @@
           <threshold>Low</threshold>
         </configuration>
       </plugin-->
-      
+
     </plugins>
 
   </reporting>
