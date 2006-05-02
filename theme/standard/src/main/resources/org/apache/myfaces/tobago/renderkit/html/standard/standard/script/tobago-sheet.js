@@ -309,9 +309,11 @@ Tobago.Sheet.prototype.onComplete = function() {
 Tobago.Sheet.prototype.setupResizer = function() {
     var i = 0;
     var headerDiv = Tobago.element(this.headerDivId);
+    if (headerDiv) {
+      Tobago.addBindEventListener(headerDiv, "mousemove", this, "doResize");
+      Tobago.addBindEventListener(headerDiv, "mouseup", this, "endResize");
+    }
     var contentDiv = Tobago.element(this.contentDivId)
-    Tobago.addBindEventListener(headerDiv, "mousemove", this, "doResize");
-    Tobago.addBindEventListener(headerDiv, "mouseup", this, "endResize");
     Tobago.addBindEventListener(contentDiv, "scroll", this, "doScroll");
     var resizer = Tobago.element(this.id + "_header_resizer_" + i++ );
     while (resizer) {
@@ -564,6 +566,9 @@ Tobago.Sheet.prototype.adjustResizer = function() {
 
 Tobago.Sheet.prototype.adjustHeaderDiv = function () {
     var headerDiv = Tobago.element(this.headerDivId);
+    if (!headerDiv) {
+      return;
+    }
     var contentDiv = Tobago.element(this.contentDivId);
     var contentTable = contentDiv.getElementsByTagName("table")[0];
     contentTable.style.width = "10px";
@@ -678,8 +683,10 @@ Tobago.Sheet.prototype.storeSizes = function() {
 
 Tobago.Sheet.prototype.doScroll = function(event) {
     //LOG.debug("header / data  " + this.headerDiv.scrollLeft + "/" + this.contentDiv.scrollLeft);
-    Tobago.element(this.headerDivId).scrollLeft
-        = Tobago.element(this.contentDivId).scrollLeft;
+    var headerDiv = Tobago.element(this.headerDivId);
+    if (headerDiv) {
+      headerDiv.scrollLeft = Tobago.element(this.contentDivId).scrollLeft;
+    }
     //LOG.debug("header / data  " + this.headerDiv.scrollLeft + "/" + this.contentDiv.scrollLeft);
     //LOG.debug("----------------------------------------------");
   };

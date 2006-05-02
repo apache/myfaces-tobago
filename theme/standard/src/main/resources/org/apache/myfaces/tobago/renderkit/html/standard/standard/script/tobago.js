@@ -894,9 +894,12 @@ var Tobago = {
     if (element.removeEventListener) { // this is DOM2
       element.removeEventListener(event, myFunction, true);
     }
-    else {  // IE
+    else if (element.detachEvent) {  // IE
       element.detachEvent("on" + event, myFunction);
+    } else {
+      LOG.debug("Unknown Element :" + typeof element);
     }
+
   },
 
   /**
