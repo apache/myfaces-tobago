@@ -1,29 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!--
- * Copyright 2002-2005 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
--->
-
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago</artifactId>
-    <version>1.0.7-SNAPSHOT</version>
+    <version>1.0.7</version>
   </parent>
   <artifactId>tobago-core</artifactId>
   <packaging>jar</packaging>
@@ -83,9 +63,9 @@
   </reporting>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/core</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/core</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/trunk/core</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.7</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.7</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/tags/tobago-1.0.7</url>
   </scm>
 
   <dependencies>
@@ -344,58 +324,58 @@
         </plugins>
       </build>
     </profile>
-    <profile>
-      <!--
-mvn install:install-file -Dfile=retrotranslator-runtime-1.0.3.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-runtime -Dversion=1.0.3 -Dpackaging=jar
-mvn install:install-file -Dfile=retrotranslator-transformer-1.0.3.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-transformer -Dversion=1.0.3 -Dpackaging=jar
-      -->
-      <id>jdk14retro</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>retrotranslator-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>translate</goal>
-                </goals>
-                <configuration>
-                  <verify>true</verify>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <artifactId>maven-jar-plugin</artifactId>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-                <configuration>
-                <classesDirectory>${project.build.directory}/classes-retro</classesDirectory>
-                  <classifier>jdk14retro</classifier>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-       <dependencies>
-        <dependency>
-          <groupId>sun.jdk</groupId>
-          <artifactId>rt</artifactId>
-          <version>1.4.0</version>
-          <scope>system</scope>
-          <systemPath>${java14.home}/lib/rt.jar</systemPath>
-        </dependency>
-        <dependency>
-          <groupId>net.sf.retrotranslator</groupId>
-          <artifactId>retrotranslator-runtime</artifactId>
-          <version>1.0.3</version>
-        </dependency>
-      </dependencies>
-    </profile>
+    <!--<profile>-->
+      
+<!--mvn install:install-file -Dfile=retrotranslator-runtime-1.0.3.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-runtime -Dversion=1.0.3 -Dpackaging=jar-->
+<!--mvn install:install-file -Dfile=retrotranslator-transformer-1.0.3.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-transformer -Dversion=1.0.3 -Dpackaging=jar-->
+      
+      <!--<id>jdk14retro</id>-->
+      <!--<build>-->
+        <!--<plugins>-->
+          <!--<plugin>-->
+            <!--<groupId>org.codehaus.mojo</groupId>-->
+            <!--<artifactId>retrotranslator-maven-plugin</artifactId>-->
+            <!--<executions>-->
+              <!--<execution>-->
+                <!--<goals>-->
+                  <!--<goal>translate</goal>-->
+                <!--</goals>-->
+                <!--<configuration>-->
+                  <!--<verify>true</verify>-->
+                <!--</configuration>-->
+              <!--</execution>-->
+            <!--</executions>-->
+          <!--</plugin>-->
+          <!--<plugin>-->
+            <!--<artifactId>maven-jar-plugin</artifactId>-->
+            <!--<executions>-->
+              <!--<execution>-->
+                <!--<goals>-->
+                  <!--<goal>jar</goal>-->
+                <!--</goals>-->
+                <!--<configuration>-->
+                <!--<classesDirectory>${project.build.directory}/classes-retro</classesDirectory>-->
+                  <!--<classifier>jdk14retro</classifier>-->
+                <!--</configuration>-->
+              <!--</execution>-->
+            <!--</executions>-->
+          <!--</plugin>-->
+        <!--</plugins>-->
+      <!--</build>-->
+       <!--<dependencies>-->
+        <!--<dependency>-->
+          <!--<groupId>sun.jdk</groupId>-->
+          <!--<artifactId>rt</artifactId>-->
+          <!--<version>1.4.0</version>-->
+          <!--<scope>system</scope>-->
+          <!--<systemPath>${java14.home}/lib/rt.jar</systemPath>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+          <!--<groupId>net.sf.retrotranslator</groupId>-->
+          <!--<artifactId>retrotranslator-runtime</artifactId>-->
+          <!--<version>1.0.3</version>-->
+        <!--</dependency>-->
+      <!--</dependencies>-->
+    <!--</profile>-->
   </profiles>
 </project>
