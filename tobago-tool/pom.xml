@@ -14,4 +14,12 @@
     <module>maven-theme-plugin</module>
     <module>tobago-tool-apt</module>
   </modules>
+  <profiles>
+    <profile>
+      <id>all-modules</id>
+      <modules>
+        <module>gendoc</module>
+      </modules>
+    </profile>
+  </profiles>
 </project>
