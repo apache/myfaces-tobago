@@ -8,7 +8,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago</artifactId>
-    <version>1.0.7-SNAPSHOT</version>
+    <version>1.0.7</version>
   </parent>
 
 

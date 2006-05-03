@@ -1,28 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!--
- * Copyright 2002-2005 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
--->
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>1.0.7-SNAPSHOT</version>
+    <version>1.0.7</version>
   </parent>
   <artifactId>tobago-example-nonfacesrequest</artifactId>
   <packaging>war</packaging>
@@ -30,7 +11,7 @@
   <build>
     <finalName>tobago-example-nonfacesrequest</finalName>
     <!--<plugins>-->
-<!---->
+
       <!--<plugin>-->
         <!--<groupId>org.codehaus.mojo</groupId>-->
         <!--<artifactId>tomcat-maven-plugin</artifactId>-->
@@ -41,14 +22,14 @@
           <!--<url>change if not http://localhost:8080/manager</url>-->
         <!--</configuration>-->
       <!--</plugin>-->
-      <!---->
+      
     <!--</plugins>-->
   </build>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/nonfacesrequest</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/nonfacesrequest</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/trunk/example/nonfacesrequest</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.7</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.7</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/tags/tobago-1.0.7</url>
   </scm>
   
   <dependencies>
