@@ -121,9 +121,11 @@ class ResourceLocator {
         String protocol = themeUrl.getProtocol();
         // tomcat uses jar
         // weblogic uses zip
-        if ("jar".equals(protocol) || "zip".equals(protocol)) {
+        // IBM WebSphere uses wsjar
+        if ("jar".equals(protocol) || "zip".equals(protocol) || "wsjar".equals(protocol)) {
           LOG.info("themeUrl = '" + themeUrl + "'");
-          String fileName = themeUrl.toString().substring(4, themeUrl.toString().indexOf("!"));
+          String fileName = themeUrl.toString().substring(
+              protocol.length() + 1, themeUrl.toString().indexOf("!"));
           ClassLoader classLoader = ResourceManagerFactory.class.getClassLoader();
           URL jarFile;
           try {
