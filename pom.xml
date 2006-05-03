@@ -4,7 +4,7 @@
   <artifactId>tobago</artifactId>
   <packaging>pom</packaging>
   <name>Tobago</name>
-  <version>1.0.7</version>
+  <version>1.0.8-SNAPSHOT</version>
   <description>Tobago</description>
   <prerequisites>
     <maven>2.0.3</maven>
@@ -324,9 +324,9 @@
 
   <scm>
 
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.7</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.7</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/tags/tobago-1.0.7</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/trunk/</url>
 
   </scm>
 
