@@ -11,22 +11,6 @@
   <name>Tobago Apt</name>
   <description>Tobago Apt</description>
 
-  <reporting>
-    <plugins>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <configuration>
-          <configLocation>org/apache/myfaces/tobago/checkstyle.xml</configLocation>
-          <xrefLocation>xref</xrefLocation>
-          <excludes>**/package-info.java</excludes>
-        </configuration>
-      </plugin>
-
-    </plugins>
-  </reporting>
-
   <dependencies>
 
     <dependency>

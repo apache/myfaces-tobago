@@ -14,7 +14,7 @@
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.7</developerConnection>
     <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/tags/tobago-1.0.7</url>
   </scm>
-  
+
   <dependencies>
 
     <dependency>
