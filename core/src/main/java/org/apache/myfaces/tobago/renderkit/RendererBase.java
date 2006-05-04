@@ -320,7 +320,7 @@ public abstract class RendererBase
   public Converter getConverter(FacesContext context, UIComponent component) {
     Converter converter = null;
     if (component instanceof ValueHolder) {
-      converter = ((ValueHolder)component).getConverter();
+      converter = ((ValueHolder) component).getConverter();
     }
     if (converter == null) {
       ValueBinding valueBinding = component.getValueBinding("value");

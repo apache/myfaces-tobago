@@ -38,7 +38,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.ConverterException;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
@@ -98,12 +97,6 @@ public class FileRenderer extends InputRendererBase {
     }
     input.setSubmittedValue(item);
     input.setValid(true);
-  }
-
-  public Object getConvertedValue(
-      FacesContext context, UIComponent component, Object submittedValue)
-      throws ConverterException {
-    return submittedValue;
   }
 
   public void encodeEndTobago(

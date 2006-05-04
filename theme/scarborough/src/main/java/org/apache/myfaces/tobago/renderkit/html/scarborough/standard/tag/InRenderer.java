@@ -43,8 +43,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.DateTimeConverter;
 import javax.faces.el.MethodBinding;
 import java.io.IOException;
 import java.util.Iterator;
@@ -113,21 +111,6 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
 //      writer.writeAttribute("onchange", onchange, null);
     }
     writer.endElement("input");
-
-    if (input.getConverter() != null) {
-      Converter converter = input.getConverter();
-      if (converter instanceof DateTimeConverter) {
-        String pattern
-            = ((DateTimeConverter) converter).getPattern();
-        if (pattern != null) {
-          writer.startElement("input", input);
-          writer.writeAttribute("type", "hidden", null);
-          writer.writeIdAttribute(id + ":converterPattern");
-          writer.writeAttribute("value", pattern, null);
-          writer.endElement("input");
-        }
-      }
-    }
 
     // input suggest
     if (renderAjaxSuggest) {

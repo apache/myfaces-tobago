@@ -33,7 +33,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UISelectBoolean;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.ConverterException;
 import java.io.IOException;
 
 public class SelectBooleanCheckboxRenderer extends RendererBase {
@@ -56,18 +55,7 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
       uiInput.setSubmittedValue(Boolean.FALSE);
     }
   }
-
-  public Object getConvertedValue(FacesContext facesContext,
-            UIComponent component, Object submittedValue)
-            throws ConverterException {
-    // TODO move this to RendererBase
-    if (submittedValue instanceof Boolean) {
-      return submittedValue;
-    } else {
-      return super.getConvertedValue(facesContext, component, submittedValue);
-    }
-  }
-
+  
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 

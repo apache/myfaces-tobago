@@ -98,6 +98,19 @@ public class DateRenderer extends InRenderer {
     input.getAttributes().put(ATTR_STYLE_CLASS, classes);
     super.renderMain(facesContext, input, writer);
 
+    Converter converter = getConverter(facesContext, input);
+    if (converter instanceof DateTimeConverter) {
+      String pattern = ((DateTimeConverter) converter).getPattern();
+      if (pattern != null) {
+        String id = input.getClientId(facesContext);
+        writer.startElement("input", input);
+        writer.writeAttribute("type", "hidden", null);
+        writer.writeIdAttribute(id + ":converterPattern");
+        writer.writeAttribute("value", pattern, null);
+        writer.endElement("input");
+      }
+    }
+
     UIComponent picker = input.getFacet(FACET_PICKER);
     if (picker == null) {
       picker = createPicker(input);
@@ -121,9 +134,12 @@ public class DateRenderer extends InRenderer {
     DatePickerController datePickerController = new DatePickerController();
 
     String converterPattern = "yyyy-MM-dd"; // from calendar.js  initCalendarParse
-    final Converter converter = ((UIOutput) component).getConverter();
+    final Converter converter = getConverter(facesContext, component);
     if (converter instanceof DateTimeConverter) {
       converterPattern = ((DateTimeConverter) converter).getPattern();
+    } else {
+      LOG.warn("Converter for DateRenderer is not instance of DateTimeConverter. Using default Pattern "
+          + converterPattern);
     }
 
     // create link

@@ -72,8 +72,9 @@ public class TimeRenderer extends InRendererBase{
       title = stringBuffer.toString();
     }
 
-    title = HtmlRendererUtil.addTip(
-            title, (String) input.getAttributes().get(ATTR_TIP));
+    // TODO title??
+    title =
+        HtmlRendererUtil.addTip(title, (String) input.getAttributes().get(ATTR_TIP));
 
     String currentValue = getCurrentValue(facesContext, input);
     if (LOG.isDebugEnabled()) {
@@ -95,8 +96,6 @@ public class TimeRenderer extends InRendererBase{
     }
 
     boolean hasSeconds = converterPattern.indexOf('s') > -1;
-
-    SimpleDateFormat dateFormat = new SimpleDateFormat(converterPattern);
 
     Object value = input.getValue();
     Date date;
