@@ -25,7 +25,7 @@ var TbgTimer = {
       var bodyToOnload = this.startOnload.getTime() - this.endBody.getTime();
       var totaljs = this.endTotal.getTime() - this.startTbgJs.getTime();
       var appOnload = this.endAppOnload.getTime() - this.startAppOnload.getTime();
-      LOG.show();
+//      LOG.show();
       if (TbgHeadStart) {
         LOG.debug("startTbgJs-TbgHeadStart: " + (this.startTbgJs.getTime() - TbgHeadStart.getTime()));
       }
