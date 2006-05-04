@@ -11,7 +11,6 @@
   <build>
     <finalName>tobago-example-demo</finalName>
     <plugins>
-
       <plugin>
         <groupId>org.apache.myfaces.tobago</groupId>
         <artifactId>maven-theme-plugin</artifactId>
@@ -24,21 +23,18 @@
           </execution>
         </executions>
       </plugin>
-
-      <!--<plugin>-->
-        <!--<groupId>org.codehaus.mojo</groupId>-->
-        <!--<artifactId>tomcat-maven-plugin</artifactId>-->
-        <!--<version>1.0-SNAPSHOT</version>-->
-        <!--<configuration>-->
-          <!--<server>tomcat</server>-->
-          <!--<update>true</update>-->
-          <!--<url>http://mononoke:8080/manager</url>-->
-        <!--</configuration>-->
-      <!--</plugin>-->
-
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>tomcat-maven-plugin</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <configuration>
+          <server>tomcat</server>
+          <update>true</update>
+          <url>http://localhost:8080/manager</url>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
-
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/demo</connection>
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/demo</developerConnection>

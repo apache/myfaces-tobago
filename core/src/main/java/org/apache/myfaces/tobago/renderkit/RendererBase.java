@@ -28,7 +28,6 @@ import org.apache.myfaces.tobago.component.UICell;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 
-import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.ValueHolder;
@@ -37,6 +36,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 import javax.faces.render.Renderer;
+import javax.faces.FacesException;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -317,33 +317,40 @@ public abstract class RendererBase
     }
   }
 
+  public Converter getConverter(FacesContext context, UIComponent component) {
+    Converter converter = null;
+    if (component instanceof ValueHolder) {
+      converter = ((ValueHolder)component).getConverter();
+    }
+    if (converter == null) {
+      ValueBinding valueBinding = component.getValueBinding("value");
+      if (valueBinding != null) {
+        Class converterType = valueBinding.getType(context);
+        if (converterType == null || converterType == String.class
+            || converterType == Object.class) {
+          return null;
+        }
+        try {
+          converter = context.getApplication().createConverter(converterType);
+        } catch (FacesException e) {
+          LOG.error("No Converter found for type " + converterType);
+        }
+      }
+    }
+    return converter;
+  }
+
   public Object getConvertedValue(FacesContext context,
       UIComponent component, Object submittedValue)
       throws ConverterException {
-    ValueBinding valueBinding = component.getValueBinding("value");
-    Converter converter = null;
-    Object result;
-    if (component instanceof ValueHolder) {
-      converter = ((ValueHolder) component).getConverter();
-    }
-    if (null == converter && null != valueBinding) {
-      Class converterType = valueBinding.getType(context);
-      if (converterType == null || converterType == String.class
-          || converterType == Object.class) {
-        return submittedValue;
-      }
-      Application application = context.getApplication();
-      converter = application.createConverter(converterType);
-    } else if (converter == null) {
+    if (!(submittedValue instanceof String)) {
       return submittedValue;
     }
-    if (converter != null && submittedValue instanceof String) {
-      result
-          = converter.getAsObject(context, component, (String) submittedValue);
-      return result;
+    Converter converter = getConverter(context, component);
+    if (converter != null) {
+      return converter.getAsObject(context, component, (String) submittedValue);
     } else {
-      throw new ConverterException("type conversion error: "
-          + "submittedValue='" + submittedValue + "'");
+      return submittedValue;
     }
   }
 

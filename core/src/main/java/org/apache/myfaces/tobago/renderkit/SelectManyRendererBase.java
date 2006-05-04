@@ -30,6 +30,7 @@ import javax.faces.el.ValueBinding;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 public class SelectManyRendererBase extends RendererBase {
 
@@ -111,12 +112,7 @@ public class SelectManyRendererBase extends RendererBase {
         // expected type is a List
         // --> according to javadoc of UISelectMany we assume that the element type
         //     is java.lang.String, and copy the String array to a new List
-        int len = submittedValue.length;
-        List lst = new ArrayList(len);
-        for (int i = 0; i < len; i++) {
-          lst.add(submittedValue[i]);
-        }
-        return lst;
+        return Arrays.asList(submittedValue);
       }
 
       if (arrayComponentType == null) {
@@ -140,12 +136,10 @@ public class SelectManyRendererBase extends RendererBase {
 
     // Now, we have a converter...
     // We determine the type of the component array after converting one of it's elements
-    if (vb != null) {
-      valueType = vb.getType(facesContext);
-      if (valueType != null && valueType.isArray()) {
-        if (submittedValue.length > 0) {
-          arrayComponentType = converter.getAsObject(facesContext, component, submittedValue[0]).getClass();
-        }
+    if (vb != null && arrayComponentType == null
+        && valueType != null && valueType.isArray()) {
+      if (submittedValue.length > 0) {
+        arrayComponentType = converter.getAsObject(facesContext, component, submittedValue[0]).getClass();
       }
     }
 
