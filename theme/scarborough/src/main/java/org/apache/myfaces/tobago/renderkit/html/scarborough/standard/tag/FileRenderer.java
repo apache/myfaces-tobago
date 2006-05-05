@@ -87,16 +87,18 @@ public class FileRenderer extends InputRendererBase {
       LOG.error("Can't process multipart/form-data without TobagoRequest. "
           + "Please check the web.xml and define a TobagoMultipartFormdataFilter. "
           + "See documentation for <tc:file>");
-    }
+    } else {
 
-    FileItem item = request.getFileItem(input.getClientId(facesContext));
+      FileItem item = request.getFileItem(input.getClientId(facesContext));
 
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("Uploaded file name : \"" + item.getName()
-          + "\"  size = " + item.getSize());
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Uploaded file name : \"" + item.getName()
+            + "\"  size = " + item.getSize());
+      }
+      input.setSubmittedValue(item);
+      //TODO remove this
+      input.setValid(true);
     }
-    input.setSubmittedValue(item);
-    input.setValid(true);
   }
 
   public void encodeEndTobago(

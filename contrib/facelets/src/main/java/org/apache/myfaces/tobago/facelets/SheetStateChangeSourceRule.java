@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.event.SheetStateChangeSource;
  * To change this template use File | Settings | File Templates.
  */
 public class SheetStateChangeSourceRule extends MetaRule {
-  public static final Class[] ACTION_LISTENER_SIG = new Class[]{SheetStateChangeEvent.class};
+  static final Class[] ACTION_LISTENER_SIG = new Class[]{SheetStateChangeEvent.class};
   public static final SheetStateChangeSourceRule INSTANCE = new SheetStateChangeSourceRule();
 
   public Metadata applyRule(String name, TagAttribute attribute,

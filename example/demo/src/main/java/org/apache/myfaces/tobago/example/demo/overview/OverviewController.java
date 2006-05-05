@@ -154,11 +154,15 @@ public class OverviewController {
             Integer i1 = -1;
             try {
               i1 = new Integer(s1.replaceAll("\\D", "").trim());
-            } catch (NumberFormatException e) { }
+            } catch (NumberFormatException e) {
+              // ignore
+            }
             Integer i2 = -1;
             try {
               i2 = new Integer(s2.replaceAll("\\D", "").trim());
-            } catch (NumberFormatException e) { }
+            } catch (NumberFormatException e) {
+              // ignore
+            }
             return i1.compareTo(i2);
           }
         };

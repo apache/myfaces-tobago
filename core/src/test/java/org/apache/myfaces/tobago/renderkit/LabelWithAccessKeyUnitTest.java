@@ -35,31 +35,27 @@ public class LabelWithAccessKeyUnitTest extends TestCase {
     assertEquals(null, label.getAccessKey());
   }
 
-  // code-sniplet-start id="test1"
-/*
+
   public void testWithKeyFirstLetter() {
     UIComponent component = new UIOutput();
-    component.getAttributes().put("label", "Save");
-    component.getAttributes().put("accessKey", "s");
+    component.getAttributes().put("label", "Save_");
     LabelWithAccessKey label = new LabelWithAccessKey(component);
     assertEquals("Save", label.getText());
-    assertEquals(0, label.getPos());
-    assertEquals(new Character('s'), label.getAccessKey());
+    assertNull(label.getAccessKey());
   }
-*/
-  // code-sniplet-end id="test1"
 
-/*
+
+
   public void testWithKeyLastLetter() {
+    String result = "A_n_aly_ze";
     UIComponent component = new UIOutput();
-    component.getAttributes().put("label", "Save");
-    component.getAttributes().put("accessKey", "E");
+    component.getAttributes().put("label", "A__n__a_ly__ze");
     LabelWithAccessKey label = new LabelWithAccessKey(component);
-    assertEquals("Save", label.getText());
-    assertEquals(3, label.getPos());
-    assertEquals(new Character('E'), label.getAccessKey());
+    assertEquals(result, label.getText());
+    assertEquals(5, label.getPos());
+    assertEquals(new Character('l'), label.getAccessKey());
   }
-*/
+
 
   public void testAmpersand() {
     UIComponent component = new UIOutput();

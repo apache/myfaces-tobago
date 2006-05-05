@@ -21,7 +21,6 @@ import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.TagConfig;
 
 import com.sun.facelets.FaceletContext;
-import com.sun.facelets.FaceletException;
 
 import org.apache.myfaces.tobago.util.BundleMapWrapper;
 

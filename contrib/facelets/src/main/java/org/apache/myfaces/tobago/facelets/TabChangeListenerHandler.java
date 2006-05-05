@@ -22,7 +22,6 @@ import com.sun.facelets.tag.TagConfig;
 import com.sun.facelets.tag.TagAttributeException;
 import com.sun.facelets.tag.TagException;
 import com.sun.facelets.FaceletContext;
-import com.sun.facelets.FaceletException;
 
 import java.io.IOException;
 

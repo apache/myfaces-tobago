@@ -41,5 +41,4 @@ public class Counter {
           "Please type in 'Tobago'"));
     }
   }
-
 }

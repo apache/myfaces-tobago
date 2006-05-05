@@ -1,4 +1,5 @@
 package org.apache.myfaces.tobago.example.foreach;
+
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
  *

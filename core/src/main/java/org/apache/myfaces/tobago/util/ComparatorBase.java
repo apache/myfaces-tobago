@@ -86,8 +86,31 @@ public abstract class ComparatorBase implements Comparator {
     return reverse ? -result : result;
   }
 
+  /*
+
+  // TODO use this??
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    final ComparatorBase that = (ComparatorBase) o;
+
+    return !(comparator != null ? !comparator.equals(that.comparator) : that.comparator != null);
+
+  }
+
+  public int hashCode() {
+    return (comparator != null ? comparator.hashCode() : 0);
+  } */
 
   public boolean equals(Object o) {
+    if (o == null) {
+      return false;
+    }
     return ((ComparatorBase) o).getComparator().equals(comparator);
   }
 

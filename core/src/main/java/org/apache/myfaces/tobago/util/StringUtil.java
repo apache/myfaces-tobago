@@ -16,6 +16,9 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
+import org.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -54,13 +57,18 @@ public class StringUtil {
     return list;
   }
 
-  public static String toString(List<Integer> intList) {
+  public static <T> String toString(List<T> list) {
     StringBuffer buffer = new StringBuffer(",");
-    for (Integer integer : intList) {
-      buffer.append(integer);
+    for (T t : list) {
+      buffer.append(t);
       buffer.append(",");
     }
     return buffer.toString();
+  }
+
+  public static String escapeAccessKeyIndicator(String label) {
+    return StringUtils.replace(label,
+        String.valueOf(LabelWithAccessKey.INDICATOR), LabelWithAccessKey.ESCAPED_INDICATOR);
   }
 
 }

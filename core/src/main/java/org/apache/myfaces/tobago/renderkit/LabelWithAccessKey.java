@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LABEL;
@@ -32,6 +33,7 @@ public final class LabelWithAccessKey {
   private Character accessKey;
   private int pos = -1;
   public static final char INDICATOR = '_';
+  public static final String ESCAPED_INDICATOR = "__";
 
   public LabelWithAccessKey(UIComponent component) {
 
@@ -44,23 +46,30 @@ public final class LabelWithAccessKey {
     setup(text);
 
   }
+  private void findIndicator(String label, int index, int escapedIndicatorCount) {
+    index = label.indexOf(INDICATOR, index);
+    if (index == -1) {
+      text = label;
+    } else if (index == label.length() - 1) {
+      LOG.warn(INDICATOR + " in label is last char, this is not allowed"
+          + "label='" + label + "'.");
+      text = label.substring(0, label.length() - 1);
+      pos = -1;
+    } else if (label.charAt(index+1) == INDICATOR) {
+      escapedIndicatorCount++;
+      findIndicator(label, index+2, escapedIndicatorCount);
+    } else {
+      text = label.substring(0, index)
+            + label.substring(index + 1);
+      accessKey = text.charAt(index);
+      pos = index - escapedIndicatorCount;
+    }
+  }
 
   public void setup(String label) {
-
     if (label != null) {
-      pos = label.indexOf(INDICATOR);
-      if (pos == -1) {
-        text = label;
-      } else if (pos == label.length() - 1) {
-        LOG.warn(INDICATOR + " in label is last char, this is not allowed"
-          + "label='" + label + "'.");
-        text = label.substring(0, label.length() - 1);
-        pos = -1;
-      } else {
-        text = label.substring(0, pos)
-            + label.substring(pos + 1);
-        accessKey = new Character(text.charAt(pos));
-      }
+      findIndicator(label, 0, 0);
+      text = StringUtils.replace(text, ESCAPED_INDICATOR, String.valueOf(INDICATOR));
     } else {
       if (accessKey != null && text != null) {
         pos = text.toLowerCase().indexOf(
