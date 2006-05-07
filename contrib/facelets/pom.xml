@@ -5,7 +5,6 @@
     <artifactId>tobago-contrib</artifactId>
     <version>1.0.8-SNAPSHOT</version>
   </parent>
-  <groupId>org.apache.myfaces.tobago</groupId>
   <artifactId>tobago-facelets</artifactId>
   <packaging>jar</packaging>
   <name>Tobago Facelets</name>
@@ -47,9 +46,9 @@
           <configuration>
             <artifactItems>
               <artifactItem>
-                <groupId>org.apache.myfaces.tobago</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>tobago-core</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
                 <type>jar</type>
                 <classifier>sources</classifier>
               </artifactItem>
@@ -78,9 +77,9 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.myfaces.tobago</groupId>
+        <groupId>${project.groupId}</groupId>
         <artifactId>maven-apt-plugin</artifactId>
-        <version>${version}</version>
+        <version>${project.version}</version>
         <configuration>
           <excludes>
             <exclude>org/apache/myfaces/tobago/*</exclude>
@@ -129,15 +128,15 @@
       <version>1.0.14</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
+      <groupId>${project.groupId}</groupId>
       <artifactId>tobago-tool-apt</artifactId>
-      <version>${version}</version>
+      <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
+      <groupId>${project.groupId}</groupId>
       <artifactId>tobago-core</artifactId>
-      <version>${version}</version>
+      <version>${project.version}</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>

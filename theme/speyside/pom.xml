@@ -16,18 +16,15 @@
   </scm>
 
   <dependencies>
-
     <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
+      <groupId>${project.groupId}</groupId>
       <artifactId>tobago-theme-scarborough</artifactId>
-      <version>${version}</version>
-      <scope>compile</scope>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
+      <groupId>${project.groupId}</groupId>
       <artifactId>tobago-core</artifactId>
-      <version>${version}</version>
-      <scope>compile</scope>
+      <version>${project.version}</version>
       <exclusions>
         <exclusion>
           <groupId>sun.jdk</groupId>
@@ -36,11 +33,10 @@
       </exclusions>
     </dependency>
     <dependency>
-       <groupId>javax.servlet</groupId>
+      <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
       <scope>provided</scope>
     </dependency>
-
   </dependencies>
 
   <profiles>
@@ -98,5 +94,4 @@
       </dependencies>
     </profile>
   </profiles>
-
 </project>

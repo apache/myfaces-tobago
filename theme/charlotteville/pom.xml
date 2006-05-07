@@ -17,15 +17,14 @@
   <dependencies>
 
     <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
+      <groupId>${project.groupId}</groupId>
       <artifactId>tobago-theme-speyside</artifactId>
-      <version>${version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
+      <groupId>${project.groupId}</groupId>
       <artifactId>tobago-core</artifactId>
-      <version>${version}</version>
-      <scope>compile</scope>
+      <version>${project.version}</version>
       <exclusions>
         <exclusion>
           <groupId>sun.jdk</groupId>
@@ -73,7 +72,7 @@
                   <goal>jar</goal>
                 </goals>
                 <configuration>
-                <classesDirectory>${project.build.directory}/classes-retro</classesDirectory>
+                  <classesDirectory>${project.build.directory}/classes-retro</classesDirectory>
                   <classifier>jdk14retro</classifier>
                 </configuration>
               </execution>

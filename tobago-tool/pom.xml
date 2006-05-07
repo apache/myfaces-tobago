@@ -7,7 +7,6 @@
   </parent>
   <packaging>pom</packaging>
   <name>Tobago Tool</name>
-  <groupId>org.apache.myfaces.tobago</groupId>
   <artifactId>tobago-tool</artifactId>
   <modules>
     <module>maven-apt-plugin</module>

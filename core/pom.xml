@@ -23,9 +23,9 @@
 
     <plugins>
       <plugin>
-        <groupId>org.apache.myfaces.tobago</groupId>
+        <groupId>${project.groupId}</groupId>
         <artifactId>maven-apt-plugin</artifactId>
-        <version>${version}</version>
+        <version>${project.version}</version>
         <configuration>
           <targetFiles>
             <targetFile>org/apache/myfaces/tobago/taglib/component/tobago.tld</targetFile>
@@ -73,7 +73,6 @@
     <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
-      <scope>compile</scope>
     </dependency>
 
     <dependency>
@@ -155,9 +154,9 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
+      <groupId>${project.groupId}</groupId>
       <artifactId>tobago-tool-apt</artifactId>
-      <version>${version}</version>
+      <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>
 
@@ -225,9 +224,9 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>org.apache.myfaces.tobago</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>maven-apt-plugin</artifactId>
-            <version>${version}</version>
+            <version>${project.version}</version>
             <configuration>
               <targetFiles>
                 <targetFile>org/apache/myfaces/tobago/taglib/component/tobago.xml</targetFile>

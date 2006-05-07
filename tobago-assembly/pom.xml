@@ -29,9 +29,9 @@
             <configuration>
               <artifactItems>
                 <artifactItem>
-                  <groupId>org.apache.myfaces.tobago</groupId>
+                  <groupId>${project.groupId}</groupId>
                   <artifactId>tobago-core</artifactId>
-                  <version>${version}</version>
+                  <version>${project.version}</version>
                   <classifier>javadoc</classifier>
                 </artifactItem>
               </artifactItems>
@@ -49,9 +49,9 @@
               <artifactItems>
 
                 <artifactItem>
-                  <groupId>org.apache.myfaces.tobago</groupId>
+                  <groupId>${project.groupId}</groupId>
                   <artifactId>tobago-core</artifactId>
-                  <version>${version}</version>
+                  <version>${project.version}</version>
                   <classifier>tlddoc</classifier>
                 </artifactItem>
 
@@ -70,9 +70,9 @@
               <artifactItems>
 
                 <artifactItem>
-                  <groupId>org.apache.myfaces.tobago</groupId>
+                  <groupId>${project.groupId}</groupId>
                   <artifactId>tobago-facelets</artifactId>
-                  <version>${version}</version>
+                  <version>${project.version}</version>
                 </artifactItem>
 
               </artifactItems>
@@ -89,39 +89,39 @@
             <configuration>
               <artifactItems>
                 <artifactItem>
-                  <groupId>org.apache.myfaces.tobago</groupId>
+                  <groupId>${project.groupId}</groupId>
                   <artifactId>tobago-core</artifactId>
-                  <version>${version}</version>
+                  <version>${project.version}</version>
                   <classifier>sources</classifier>
                 </artifactItem>
                 <artifactItem>
-                  <groupId>org.apache.myfaces.tobago</groupId>
+                  <groupId>${project.groupId}</groupId>
                   <artifactId>tobago-theme-charlotteville</artifactId>
-                  <version>${version}</version>
+                  <version>${project.version}</version>
                   <classifier>sources</classifier>
                 </artifactItem>
                 <artifactItem>
-                  <groupId>org.apache.myfaces.tobago</groupId>
+                  <groupId>${project.groupId}</groupId>
                   <artifactId>tobago-theme-richmond</artifactId>
-                  <version>${version}</version>
+                  <version>${project.version}</version>
                   <classifier>sources</classifier>
                 </artifactItem>
                 <artifactItem>
-                  <groupId>org.apache.myfaces.tobago</groupId>
+                  <groupId>${project.groupId}</groupId>
                   <artifactId>tobago-theme-speyside</artifactId>
-                  <version>${version}</version>
+                  <version>${project.version}</version>
                   <classifier>sources</classifier>
                 </artifactItem>
                 <artifactItem>
-                  <groupId>org.apache.myfaces.tobago</groupId>
+                  <groupId>${project.groupId}</groupId>
                   <artifactId>tobago-theme-scarborough</artifactId>
-                  <version>${version}</version>
+                  <version>${project.version}</version>
                   <classifier>sources</classifier>
                 </artifactItem>
                 <artifactItem>
-                  <groupId>org.apache.myfaces.tobago</groupId>
+                  <groupId>${project.groupId}</groupId>
                   <artifactId>tobago-theme-standard</artifactId>
-                  <version>${version}</version>
+                  <version>${project.version}</version>
                   <classifier>sources</classifier>
                 </artifactItem>
               </artifactItems>
@@ -160,9 +160,9 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
+      <groupId>${project.groupId}</groupId>
       <artifactId>tobago-theme-richmond</artifactId>
-      <version>${version}</version>
+      <version>${project.version}</version>
       <exclusions>
         <exclusion>
           <groupId>javax.servlet</groupId>

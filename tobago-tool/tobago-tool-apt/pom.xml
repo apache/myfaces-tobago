@@ -5,7 +5,6 @@
     <artifactId>tobago-tool</artifactId>
     <version>1.0.8-SNAPSHOT</version>
   </parent>
-  <groupId>org.apache.myfaces.tobago</groupId>
   <artifactId>tobago-tool-apt</artifactId>
   <packaging>jar</packaging>
   <name>Tobago Apt</name>
@@ -19,13 +18,11 @@
       <version>1.6.2</version>
       <scope>compile</scope>
     </dependency>
-
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <scope>compile</scope>
     </dependency>
-
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
