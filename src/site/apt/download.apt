@@ -20,15 +20,15 @@ Download MyFaces Tobago
 
     << MyFaces Tobago 1.0.7 Binary Distribution >>
 
-  *-------------------------+---------+----------+-----------+
-  |                         | Mirrors | Checksum | Signature |
-  *-------------------------+---------+----------+-----------+
-  | MyFaces Tobago 1.0.7 (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.7-bin.tar.gz} myfaces-tobago-1.0.7-bin.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.7-bin.tar.gz.md5} myfaces-tobago-1.0.7-bin.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.7-bin.tar.gz.asc} myfaces-tobago-1.0.7-bin.tar.gz.asc}} |
-  *-------------------------+---------+----------+-----------+
-  | MyFaces Tobago 1.0.7 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.7-bin.zip} myfaces-tobago-1.0.7-bin.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.7-bin.zip.md5} myfaces-tobago-1.0.7-bin.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.7-bin.zip.asc} myfaces-tobago-1.0.7-bin.zip.asc}} |
-  *-------------------------+---------+----------+-----------+
+*-------------------------+---------+----------+-----------+
+|                         | Mirrors | Checksum | Signature |
+*-------------------------+---------+----------+-----------+
+| MyFaces Tobago 1.0.7 (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.7-bin.tar.gz} myfaces-tobago-1.0.7-bin.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.7-bin.tar.gz.md5} myfaces-tobago-1.0.7-bin.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.7-bin.tar.gz.asc} myfaces-tobago-1.0.7-bin.tar.gz.asc}} |
+*-------------------------+---------+----------+-----------+
+| MyFaces Tobago 1.0.7 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.7-bin.zip} myfaces-tobago-1.0.7-bin.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.7-bin.zip.md5} myfaces-tobago-1.0.7-bin.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.7-bin.zip.asc} myfaces-tobago-1.0.7-bin.zip.asc}} |
+*-------------------------+---------+----------+-----------+
 
-  Latest source code and nightly builds from SVN repository
+Latest source code and nightly builds from SVN repository
 
     If you want to use the latest Apache MyFaces features, the source code is under
     version control with SVN.  Click {{{http://apache.org/dev/version-control.html} here }}
@@ -36,8 +36,8 @@ Download MyFaces Tobago
     {{{http://cvs.apache.org/builds/myfaces/nightly} nightly }}
     builds available every 24 hours (11:00 PM EST).
 
-  Archive of old releases
+Archive of old releases
 
-    Older releases are available in the {{{http://archive.apache.org/dist/myfaces/} archive }}.  Those
+    Older releases are available in the {{{http://archive.apache.org/dist/myfaces/} archive}}.  Those
     releases are only provided as historical artefacts. We strongly
     recommend to not use those releases, but upgrade to the most recent release.
