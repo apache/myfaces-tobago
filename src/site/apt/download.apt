@@ -1,0 +1,43 @@
+ ------
+Download MyFaces Tobago
+ ------
+
+Download MyFaces Tobago
+
+
+  Use the links below to download a distribution of Apache MyFaces from
+  one of our mirrors. It is good practice to verify the integrity of the
+  distribution files.
+
+  You will be prompted for a mirror - if the file is not found on yours, please be patient, as it may take 24
+  hours to reach all mirrors.
+
+  Apache MyFaces Tobago is distributed as a <<<zip>>> archive (for Windows) and
+  as a <<<tar.gz>>> archive (for UNIX). The contents are the same. Please note
+  that the <<<tar.gz>>> archives contain file names longer than 100 characters and have been
+  created using GNU tar extensions. Thus they must be untarred with a GNU compatible
+  version of tar.
+
+    << MyFaces Tobago 1.0.7 Binary Distribution >>
+
+  *-------------------------+---------+----------+-----------+
+  |                         | Mirrors | Checksum | Signature |
+  *-------------------------+---------+----------+-----------+
+  | MyFaces Tobago 1.0.7 (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.7-bin.tar.gz} myfaces-tobago-1.0.7-bin.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.7-bin.tar.gz.md5} myfaces-tobago-1.0.7-bin.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.7-bin.tar.gz.asc} myfaces-tobago-1.0.7-bin.tar.gz.asc}} |
+  *-------------------------+---------+----------+-----------+
+  | MyFaces Tobago 1.0.7 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.7-bin.zip} myfaces-tobago-1.0.7-bin.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.7-bin.zip.md5} myfaces-tobago-1.0.7-bin.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.7-bin.zip.asc} myfaces-tobago-1.0.7-bin.zip.asc}} |
+  *-------------------------+---------+----------+-----------+
+
+  Latest source code and nightly builds from SVN repository
+
+    If you want to use the latest Apache MyFaces features, the source code is under
+    version control with SVN.  Click {{{http://apache.org/dev/version-control.html} here }}
+    for information on how to use the ASF SVN Repository. There are also
+    {{{http://cvs.apache.org/builds/myfaces/nightly} nightly }}
+    builds available every 24 hours (11:00 PM EST).
+
+  Archive of old releases
+
+    Older releases are available in the {{{http://archive.apache.org/dist/myfaces/} archive }}.  Those
+    releases are only provided as historical artefacts. We strongly
+    recommend to not use those releases, but upgrade to the most recent release.
