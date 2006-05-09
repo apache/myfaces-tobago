@@ -102,6 +102,8 @@ var Tobago = {
 
   images: {},
 
+  treeNodes: {},
+
   jsObjects: new Array(),
 
   eventListeners: new Array(),
@@ -268,6 +270,9 @@ var Tobago = {
     delete this.form;
     delete this.action;
     this.removeEventListeners();
+    for (var treeNodeId in this.treeNodes) {
+      delete this.treeNodes[treeNodeId];
+    }
     for (var i = 0; i < this.jsObjects.length; i++) {
       this.destroyObject(this.jsObjects[i]);
     }
@@ -711,10 +716,10 @@ var Tobago = {
         focusElement.focus();
       } catch(ex) { }
     } else {
-      foriLoop: for ( i = 0 ; i < document.forms.length ; i++) {
+      foriLoop: for (var i = 0 ; i < document.forms.length ; i++) {
         var form = document.forms[i];
         if (form != null){
-          for (j = 0 ; j < form.elements.length ; j++) {
+          for (var j = 0 ; j < form.elements.length ; j++) {
             var element = form.elements[j];
             if (element != null) {
               if (!element.disabled && this.isFocusType(element.type)){

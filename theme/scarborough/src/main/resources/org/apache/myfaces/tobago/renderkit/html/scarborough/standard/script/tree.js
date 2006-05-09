@@ -177,8 +177,7 @@ function toggleSelect(node, treeHiddenId, uncheckedIcon, checkedIcon) {
   var selectState = document.getElementById(treeHiddenId + '-selectState');
   var hidden = document.getElementById(treeHiddenId);
   var icon = document.getElementById(node.id + '-markIcon');
-  var treeNode;
-  eval("treeNode = " + createJavascriptVariable(node.id) + ";");
+  var treeNode = Tobago.treeNodes[node.id];
 //  LOG.debug("treeNode.required = " + treeNode.required);
   if (! (treeNode.selectable.match(/LeafOnly$/) && treeNode.childNodes.length > 0)) {
     if (treeNode.selectable.match(/^single/)) {
@@ -303,6 +302,7 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
     action, parent, icon) {
 	this.label = label;
 	this.id = id;
+  Tobago.treeNodes[id] = this;
   this.hideIcons = hideIcons || false;
   this.hideJunctions = hideJunctions || false;
   this.hideRootJunction = hideRootJunction || false;
@@ -523,7 +523,7 @@ function TreeFolder(label, id, hideIcons, hideJunctions, hideRootJunction,
                 : (last)
                   ? treeResources.getImage("Lplus.gif")
                   : treeResources.getImage("Tplus.gif"))
-              ) 
+              )
             + '" onclick="toggle(this.parentNode, \'' + treeHiddenId
             + '\', \'' + treeResources.getImage("openfoldericon.gif")
             + '\', \'' + treeResources.getImage("foldericon.gif")
