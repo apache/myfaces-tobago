@@ -15,7 +15,6 @@
   </scm>
 
   <dependencies>
-
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>tobago-theme-speyside</artifactId>
@@ -33,12 +32,9 @@
       </exclusions>
     </dependency>
     <dependency>
-       <groupId>javax.servlet</groupId>
+      <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
-      <version>2.3</version>
-      <scope>provided</scope>
     </dependency>
-
   </dependencies>
   <profiles>
     <profile>

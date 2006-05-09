@@ -137,7 +137,6 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>tobago-core</artifactId>
       <version>${project.version}</version>
-      <scope>compile</scope>
       <exclusions>
         <exclusion>
           <groupId>sun.jdk</groupId>
@@ -149,7 +148,6 @@
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jsp-api</artifactId>
-      <scope>provided</scope>
     </dependency>
 
     <dependency>
@@ -161,7 +159,6 @@
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
-      <scope>provided</scope>
     </dependency>
   </dependencies>
 </project>
