@@ -23,7 +23,10 @@ function initMenuBar(divId, pageId) {
 function initMenuComponents(divId, pageId, popup) {
   var menubar = document.getElementById(divId);
   if (menubar && menubar.menu) {
-    menubar.menu.menubar = menubar;
+    if (! menubar.id) {
+      menubar.id = Tobago.createHtmlId();
+    }
+    menubar.menu.menubarId = menubar.id;
     var top = Tobago.getAbsoluteTop(menubar) + getMenubarBorderWidth();
     var left = Tobago.getAbsoluteLeft(menubar) + getMenubarBorderWidth();
     if (popup) {
@@ -36,20 +39,24 @@ function initMenuComponents(divId, pageId, popup) {
     if (popup) {
       className += " tobago-menuBar-container-" + popup;
     }
-    menubar.menu.htmlElement = document.createElement('div');
-    menubar.menu.htmlElement.className = className;
-    menubar.menu.htmlElement.style.top = top;
-    menubar.menu.htmlElement.style.left = left;
-    menubar.menu.htmlElement.style.top = 0;
-    menubar.menu.htmlElement.style.left = 0;
+    var htmlElement = document.createElement('div');
+    htmlElement.id = Tobago.createHtmlId();
+    htmlElement.className = className;
+    htmlElement.style.top = top;
+    htmlElement.style.left = left;
+    htmlElement.style.top = 0;
+    htmlElement.style.left = 0;
     
     
 //    menubar.menu.htmlElement.innerHTML = menubar.menu.toHtml();
 //    body.appendChild(menubar.menu.htmlElement);
 //  //menubar.appendChild(menubar.menu.htmlElement);
 
-    menubar.menu.htmlElement.innerHTML = menubar.menu.toHtml(false);
-    menubar.appendChild(menubar.menu.htmlElement);
+    htmlElement.innerHTML = menubar.menu.toHtml(false);
+    if (menubar.firstChild) {
+      menubar.removeChild(menubar.firstChild);
+    }
+    menubar.appendChild(htmlElement);
     var subitems = createSubmenus(menubar.menu);
     body.appendChild(subitems);
     
@@ -152,10 +159,13 @@ Tobago.Menu.Item.prototype.toHtml = function(createSubItems) {
   };
 
 Tobago.Menu.Item.prototype.openSubMenus = function() {
-    if (! this.subItemContainer) {     
+    if (! this.subItemContainerId) {
       return;
     }
-    
+
+    var htmlElement = Tobago.element(this.id);
+    var subItemContainer = Tobago.element(this.subItemContainerId);
+
     var width = this.subItemContainerStyleWidth.replace(/\D/g,"") - 0;
     var height = this.subItemContainerStyleHeight.replace(/\D/g,"") - 0;
 
@@ -165,12 +175,12 @@ Tobago.Menu.Item.prototype.openSubMenus = function() {
       containerParent = this.menuButton;
       leftOffset = Tobago.Config.get("Menu", "toolbarLeftOffset");
     } else {
-      containerParent = this.htmlElement;
+      containerParent = htmlElement;
     }
     var parentLeft = Tobago.getAbsoluteLeft(containerParent) + leftOffset;
     var parentTop = Tobago.getAbsoluteTop(containerParent) ;
-    var parentWidth = this.htmlElement.style.width.replace(/\D/g,"") - 0;
-    var parentHeight = this.htmlElement.style.height.replace(/\D/g,"") - 0;
+    var parentWidth = htmlElement.style.width.replace(/\D/g,"") - 0;
+    var parentHeight = htmlElement.style.height.replace(/\D/g,"") - 0;
     
     
     var innerLeft = Tobago.getBrowserInnerLeft();
@@ -183,15 +193,15 @@ Tobago.Menu.Item.prototype.openSubMenus = function() {
     if (this.level == 1) {
       var containerRight = parentLeft + width;
       if (containerRight <= innerRight) {
-//        this.subItemContainer.style.left = this.htmlElement.style.left;
-        this.subItemContainer.style.left = parentLeft + "px";
+//        subItemContainer.style.left = htmlElement.style.left;
+        subItemContainer.style.left = parentLeft + "px";
       }
       else {
-//        this.subItemContainer.style.left = this.htmlElement.style.left.replace(/\D/g,"") - (containerRight - innerRight) + "px";
-        this.subItemContainer.style.left = parentLeft - (containerRight - innerRight) + "px";
+//        subItemContainer.style.left = htmlElement.style.left.replace(/\D/g,"") - (containerRight - innerRight) + "px";
+        subItemContainer.style.left = parentLeft - (containerRight - innerRight) + "px";
       }
       var itemHeight = containerParent.clientHeight;
-      this.subItemContainer.style.top = parentTop + itemHeight + "px";
+      subItemContainer.style.top = parentTop + itemHeight + "px";
     }
     else if (this.level > 1) {
       var containerRight = parentLeft + parentWidth + width;
@@ -202,22 +212,22 @@ Tobago.Menu.Item.prototype.openSubMenus = function() {
       else {
         left = "-" + this.childWidth;
       }
-      this.subItemContainer.style.left = left + "px";
+      subItemContainer.style.left = left + "px";
     
       var containerBottom = parentTop + height;
       if (containerBottom <= innerBottom) {
-        this.subItemContainer.style.top = this.htmlElement.style.top;
+        subItemContainer.style.top = htmlElement.style.top;
       }
       else {
-        this.subItemContainer.style.top = (innerBottom - containerBottom) + "px";
+        subItemContainer.style.top = (innerBottom - containerBottom) + "px";
       }
       
     }
     
-    this.subItemContainer.style.width = this.subItemContainerStyleWidth;
-    this.subItemContainer.style.height = this.subItemContainerStyleHeight;
+    subItemContainer.style.width = this.subItemContainerStyleWidth;
+    subItemContainer.style.height = this.subItemContainerStyleHeight;
 
-    this.setupIframe();
+    this.setupIframe(subItemContainer);
 //    this.setSubMenuContainerVisibility("visible");
 //    timing problem when call this directly ??
 //    calling via 'setTimeout()' is not nice, but resolves the problem
@@ -229,10 +239,10 @@ Tobago.Menu.Item.prototype.hideSubMenus = function() {
   };
 
 Tobago.Menu.Item.prototype.setSubMenuContainerVisibility = function(style) {
-    if (this.subItemContainer) {
-      this.subItemContainer.style.visibility = style;
-      if (this.subItemIframe) {
-        this.subItemIframe.style.visibility = style;
+    if (this.subItemContainerId) {
+      Tobago.element(this.subItemContainerId).style.visibility = style;
+      if (this.subItemIframeId) {
+        Tobago.element(this.subItemIframeId).style.visibility = style;
       }
     }
   };
@@ -249,7 +259,7 @@ Tobago.Menu.Item.prototype.onMouseOver = function() {
 
     if (this.level == 1) {
       if (! this.isNeighbourOpen()) {
-        Tobago.addCssClass(this.htmlElement, "tobago-menu-item-hover");
+        Tobago.addCssClass(this.id, "tobago-menu-item-hover");
       }
       else {
         this.focusLabelTag();
@@ -273,13 +283,13 @@ Tobago.Menu.Item.prototype.onMouseOut = function(clicked) {
       this.focusLost();
     }
     else {
-      Tobago.removeCssClass(this.htmlElement, "tobago-menu-item-hover");
+      Tobago.removeCssClass(this.id, "tobago-menu-item-hover");
     }
   };
 
 Tobago.Menu.Item.prototype.onFocus = function() {
     this.focus = true;
-    Tobago.addCssClass(this.htmlElement, "tobago-menu-item-focus");
+    Tobago.addCssClass(this.id, "tobago-menu-item-focus");
     if (this.menuButton) {
       Tobago.addCssClass(this.menuButton, "tobago-toolBar-button-menu-focus");
     }
@@ -287,7 +297,7 @@ Tobago.Menu.Item.prototype.onFocus = function() {
     
     if (this.action && window.event && window.event.altKey) {
     // focus came via alt-<accessKey> : ie needs click())
-      this.htmlElement.click();
+      Tobago.element(this.id).click();
     }
   };
 
@@ -305,7 +315,7 @@ Tobago.Menu.Item.prototype.focusLost = function() {
         && !(this.level != 1 && this.focus)
         &&  ! this.childHasFocus()) {
       this.hideSubMenus();
-      Tobago.removeCssClass(this.htmlElement, "tobago-menu-item-focus");
+      Tobago.removeCssClass(this.id, "tobago-menu-item-focus");
       if (this.menuButton) {
         Tobago.removeCssClass(this.menuButton, "tobago-toolBar-button-menu-focus");
       }
@@ -314,8 +324,8 @@ Tobago.Menu.Item.prototype.focusLost = function() {
   };
 
 Tobago.Menu.Item.prototype.isExpanded = function() {
-    return this.subItemContainer
-        && this.subItemContainer.style.visibility.match(/visible/);
+    return this.subItemContainerId
+        && Tobago.element(this.subItemContainerId).style.visibility.match(/visible/);
   };
 
 Tobago.Menu.Item.prototype.focusLabelTag = function() {
@@ -391,17 +401,17 @@ Tobago.Menu.Item.prototype.keyUp = function() {
 Tobago.Menu.Item.prototype.keyLeft = function() {
     if (this.level == 1) {
       var next = this.parent.nextItem(this.index, -1);
-      if (next && next.htmlElement.id != this.htmlElement.id) { // menu has changed
+      if (next && next.id != this.id) { // menu has changed
         this.hover = false;
         next.openSubMenus();
       }
     }
     else if (this.level == 2) {
-      if (this.subItemContainer && this.isExpanded()) {
+      if (this.isExpanded()) {
         this.hideSubMenus();
       } else {
         var next = this.parent.parent.nextItem(this.parent.index, -1);
-        if (next && next.htmlElement.id != this.parent.htmlElement.id) { // menu has changed
+        if (next && next.id != this.parent.id) { // menu has changed
           this.hover = false;
           next.openSubMenus();
         }
@@ -419,13 +429,13 @@ Tobago.Menu.Item.prototype.keyLeft = function() {
 Tobago.Menu.Item.prototype.keyRight = function() {
     if (this.level == 1) {
       var next = this.parent.nextItem(this.index, 1);
-      if (next && next.htmlElement.id != this.htmlElement.id) { // menu has changed
+      if (next && next.id != this.id) { // menu has changed
         this.hover = false;
         next.openSubMenus();
       }
     }
     else if (this.level > 1) {
-      if (this.subItemContainer) {
+      if (this.subItemContainerId) {
         this.openSubMenus();
         this.hover = false;
         var next = this.nextItem(-1, 1);
@@ -435,7 +445,7 @@ Tobago.Menu.Item.prototype.keyRight = function() {
           parent = parent.parent;
         }
         var next = parent.parent.nextItem(parent.index, 1);
-        if (next && next.htmlElement.id != parent.htmlElement.id) { // menu has changed
+        if (next && next.id != parent.id) { // menu has changed
           parent.hover = false;
           next.openSubMenus();
         }
@@ -460,7 +470,7 @@ Tobago.Menu.Item.prototype.nextItem = function(start, offset) {
       i += offset;
     }
 
-    var j = this.subItems[i].htmlElement.childNodes.length;
+    var j = Tobago.element(this.subItems[i].id).childNodes.length;
     var span = this.subItems[i].getLabelTag();
     if (span) {
       this.subItems[i].hover = true;
@@ -480,7 +490,7 @@ Tobago.Menu.Item.prototype.collapse = function() {
       //this.onMouseOut(true);
     }
     else if (this.level == 2
-        && !(this.subItemContainer && this.isExpanded() )) {
+        && !(this.isExpanded() )) {
       var aTag = this.getLabelTag();
       if (aTag) {
         aTag.blur();
@@ -503,7 +513,7 @@ Tobago.Menu.Item.prototype.collapse = function() {
   };
   
 Tobago.Menu.Item.prototype.getLabelTag = function() {
-    var children = this.htmlElement.childNodes;
+    var children = Tobago.element(this.id).childNodes;
     for (var k = 0; k < children.length; k++) {
       if (children[k].className.match(/tobago-menuBar-item-span/)) {
         return children[k];
@@ -526,19 +536,21 @@ Tobago.Menu.Item.prototype.getSubitemArrowImage = function() {
   
 Tobago.Menu.Item.prototype.addSubitemArrowImage = function() {
     if (this.level > 1 && this.subItems && this.subItems.length > 0) {
-      var html = this.htmlElement.innerHTML;
+      var htmlElement = Tobago.element(this.id);
+      var html = htmlElement.innerHTML;
       html += '<img class="tobago-menu-subitem-arrow" src="';
       html += this.getSubitemArrowImage() + '" />';
-      this.htmlElement.innerHTML = html;
+      htmlElement.innerHTML = html;
     }
   };
   
-Tobago.Menu.Item.prototype.setupIframe = function() {
-    if (this.subItemIframe) {
-      this.subItemIframe.style.width = this.subItemContainer.style.width;
-      this.subItemIframe.style.height = this.subItemContainer.style.height;
-      this.subItemIframe.style.top = this.subItemContainer.style.top;
-      this.subItemIframe.style.left = this.subItemContainer.style.left;
+Tobago.Menu.Item.prototype.setupIframe = function(subItemContainer) {
+  var subItemIframe = Tobago.element(this.subItemIframeId);
+    if (subItemIframe) {
+      subItemIframe.style.width = subItemContainer.style.width;
+      subItemIframe.style.height = subItemContainer.style.height;
+      subItemIframe.style.top = subItemContainer.style.top;
+      subItemIframe.style.left = subItemContainer.style.left;
     }
   };
 
@@ -550,7 +562,7 @@ Tobago.Menu.Item.prototype.setMenuButton = function(button) {
 
 function adjustPopupImage(menu) {
   if (menu.subItems && menu.subItems.length > 0) {
-    var img = menu.subItems[0].htmlElement.childNodes[0];
+    var img = Tobago.element(menu.subItems[0].id).childNodes[0];
     if (img) {
       img.style.top = getPopupImageTop(menu.popup);
     }
@@ -563,10 +575,11 @@ function adjustPopupImage(menu) {
 function setItemWidth(menu) {
 
   if (menu.level != 0) {
-    if (menu.htmlElement) {
+    var htmlElement = Tobago.element(menu.id);
+    if (htmlElement) {
 
       if (menu.level == 1) {
-        menu.htmlElement.style.width = menu.htmlElement.scrollWidth + "px";
+        htmlElement.style.width = htmlElement.scrollWidth + "px";
       }
       else { // level not 0 or 1
 
@@ -590,28 +603,30 @@ function setItemWidth(menu) {
         
         menu.addSubitemArrowImage();
         
-        menu.htmlElement.style.width = width + "px";
+        htmlElement.style.width = width + "px";
 
       }
 
-    menu.htmlElement.style.overflow = 'hidden';
+    htmlElement.style.overflow = 'hidden';
     }
   }
   for (var i = 0; i < menu.subItems.length; i++) {
     setItemWidth(menu.subItems[i]);
   }
-  if (menu.subItemContainer && menu.level != 0) {
+  var subItemContainer = Tobago.element(menu.subItemContainerId);
+  if (subItemContainer && menu.level != 0) {
     menu.subItemContainerStyleWidth
         = (menu.childWidth + getSubitemContainerBorderWidthSum()) + "px";
     menu.subItemContainerStyleHeight = (menu.subItems.length  * getItemHeight()
         + getSubitemContainerBorderWidthSum()) + "px";
 
-    menu.subItemContainer.style.width = "0px";
-    menu.subItemContainer.style.height = "0px";
+    subItemContainer.style.width = "0px";
+    subItemContainer.style.height = "0px";
 
-    if (menu.subItemIframe) {
-      menu.subItemIframe.style.width = menu.subItemContainer.style.width;
-      menu.subItemIframe.style.height = menu.subItemContainer.style.height;
+    var subItemIframe = Tobago.element(menu.subItemIframeId);
+    if (subItemIframe) {
+      subItemIframe.style.width = subItemContainer.style.width;
+      subItemIframe.style.height = subItemContainer.style.height;
     }
   }
 }
@@ -619,7 +634,8 @@ function setItemWidth(menu) {
 function setItemPositions(menu) {
 
   if (menu.level != 0) {
-    if (menu.htmlElement) {
+    var htmlElement = Tobago.element(menu.id);
+    if (htmlElement) {
 
       if (menu.level == 1) {
         var itemHeight = getItemHeight(menu);
@@ -627,40 +643,45 @@ function setItemPositions(menu) {
         if (menu.parent.popup) {
           top = Tobago.Config.get("Menu", menu.parent.popup + "MenuTopOffset");
         }
-        menu.htmlElement.style.top = top +"px";
-        menu.htmlElement.style.height = itemHeight + "px";
-        if (menu.subItemContainer) {
-          menu.subItemContainer.style.top = (itemHeight + top) + "px";
+        htmlElement.style.top = top +"px";
+        htmlElement.style.height = itemHeight + "px";
+        var subItemContainer = Tobago.element(menu.subItemContainerId);
+        if (subItemContainer) {
+          subItemContainer.style.top = (itemHeight + top) + "px";
         }
         var left = 0;
         if (menu.index != 0) {
           var neighbour = menu.parent.subItems[menu.index -1];
-          var left = neighbour.htmlElement.style.left.replace(/\D/g,"") - 0;
-          left += neighbour.htmlElement.style.width.replace(/\D/g,"") - 0;
+          var left = Tobago.element(neighbour.id).style.left.replace(/\D/g,"") - 0;
+          left += Tobago.element(neighbour.id).style.width.replace(/\D/g,"") - 0;
         }
-        menu.htmlElement.style.left = left + "px";
-        if (menu.subItemContainer) {
+        htmlElement.style.left = left + "px";
+        if (subItemContainer) {
 //          menu.subItemContainer.style.left = left + "px";
-          menu.subItemContainer.style.left = "0px";
+          subItemContainer.style.left = "0px";
         }
-        menu.htmlElement.style.zIndex = "999";
+        htmlElement.style.zIndex = "999";
       }
       else { // level not 0 or 1
         var top = (menu.index * getItemHeight());
         var left = 0;
         if (menu.level == 2 && menu.parent.parent.popup) {
           if (menu.parent.parent.popup == "ToolbarButton") {
-            left = getPopupMenuWidth() - menu.parent.parent.menubar.scrollWidth;
-          }  
-          if (menu.parent.subItemContainer) {
-            menu.parent.subItemContainer.style.left = left + "px";
+            var menubar = Tobago.element(menu.parent.parent.menubarId);
+            left = getPopupMenuWidth() - menubar.scrollWidth;
+          }
+          var subItemContainer = Tobago.element(menu.parent.subItemContainerId);
+          if (subItemContainer) {
+            subItemContainer.style.left = left + "px";
+
             if (menu.parent.subItemIframe) {
               menu.parent.subItemIframe.style.left
                   = menu.parent.subItemContainer.style.left;
             }
           }
         }
-        if (menu.subItemContainer) {
+        var subItemContainer = Tobago.element(menu.subItemContainerId);
+        if (subItemContainer) {
           //if (menu.level == 2) {
           //  top = getItemHeight();
           //}
@@ -668,14 +689,14 @@ function setItemPositions(menu) {
           if (menu.level != 1) {
             left = menu.parent.childWidth;
           }
-          menu.subItemContainer.style.top = top + "px";
-          menu.subItemContainer.style.left = left + "px";*/
-          menu.subItemContainer.style.top = "0px";
-          menu.subItemContainer.style.left = "-" + menu.parent.childWidth + "px";
+          subItemContainer.style.top = top + "px";
+          subItemContainer.style.left = left + "px";*/
+          subItemContainer.style.top = "0px";
+          subItemContainer.style.left = "-" + menu.parent.childWidth + "px";
         }
 
-        menu.htmlElement.style.top = top + "px";
-        menu.htmlElement.style.left = "0px";
+        htmlElement.style.top = top + "px";
+        htmlElement.style.left = "0px";
 
       }
     }
@@ -687,28 +708,34 @@ function setItemPositions(menu) {
 
 function setItemsVisible(menu) {
   for (var i = 0; i < menu.subItems.length; i++) {
-    menu.subItems[i].htmlElement.style.visibility = 'visible';
+    Tobago.element(menu.subItems[i].id).style.visibility = 'visible';
   }
 }
 
 function initMenuItems(menu) {
-  menu.htmlElement = document.getElementById(menu.id);
-  if (menu.htmlElement) {
-    menu.htmlElement.menuItem = menu;
-    if (menu.parent && menu.parent.menubar
-        && menu.parent.menubar.className.match(/tobago-menuBar-page-facet/)) {
-      Tobago.addCssClass(menu.htmlElement, 'tobago-menuBar-item-page-facet');
+  var htmlElement = Tobago.element(menu.id);
+  if (htmlElement) {
+
+    htmlElement.menuItem = menu;
+    if (menu.parent && menu.parent.menubarId
+        && Tobago.element(menu.parent.menubarId).className.match(/tobago-menuBar-page-facet/)) {
+      Tobago.addCssClass(htmlElement, 'tobago-menuBar-item-page-facet');
     }
-    menu.subItemContainer =
-        document.getElementById(menu.id + Tobago.SUB_COMPONENT_SEP + 'items');
-    menu.subItemIframe =
-        document.getElementById(menu.id + Tobago.SUB_COMPONENT_SEP + 'iframe');
-    if (menu.subItemIframe) {
-      menu.subItemIframe.style.visibility = "hidden";
-      menu.subItemIframe.style.position = "absolute";
-      menu.subItemIframe.style.border = "0px solid black";
-      menu.subItemIframe.style.zIndex
-          = Tobago.getRuntimeStyle(menu.htmlElement).zIndex - 1;
+    var id = menu.id + Tobago.SUB_COMPONENT_SEP + 'items';
+    if (Tobago.element(id)) {
+      menu.subItemContainerId = id;
+    }
+    id = menu.id + Tobago.SUB_COMPONENT_SEP + 'iframe';
+    if (Tobago.element(id)) {
+      menu.subItemIframeId = id;
+    }
+    var subItemIframe = Tobago.element(menu.subItemIframeId);
+    if (subItemIframe) {
+      subItemIframe.style.visibility = "hidden";
+      subItemIframe.style.position = "absolute";
+      subItemIframe.style.border = "0px solid black";
+      subItemIframe.style.zIndex
+          = Tobago.getRuntimeStyle(htmlElement).zIndex - 1;
     }
   }
   for (var i = 0; i < menu.subItems.length; i++) {
@@ -753,7 +780,7 @@ function getItemHeight(menu) {
       }
     }
 
-    if (menu.parent.menubar.className.match(/tobago-menuBar-page-facet/)) {
+    if (Tobago.element(menu.parent.menubarId).className.match(/tobago-menuBar-page-facet/)) {
       return 23;
     }
     else {
