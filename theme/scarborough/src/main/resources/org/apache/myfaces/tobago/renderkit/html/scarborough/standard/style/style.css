@@ -460,7 +460,7 @@ label.tobago-label-inline {
   position: absolute;
   top: 0px;
   left: 0px;
-  background: url(../../standard/image/popupBg.png);
+  /*background: url(../../standard/image/popupBg.png);*/
 /*  background: url(../image/popupBg.png);*/
 /*  filter: alpha(opacity=40) ;                             */
 /*  -moz-opacity: 0.4;*/
