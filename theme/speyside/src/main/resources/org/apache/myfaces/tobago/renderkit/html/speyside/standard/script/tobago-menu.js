@@ -33,7 +33,7 @@ function getItemHeight(menu) {
       }
     }
 
-    if (menu.parent.menubar.className.match(/tobago-menuBar-page-facet/)) {
+    if (Tobago.element(menu.parent.menubarId).className.match(/tobago-menuBar-page-facet/)) {
       return 20;
     }
     else {
