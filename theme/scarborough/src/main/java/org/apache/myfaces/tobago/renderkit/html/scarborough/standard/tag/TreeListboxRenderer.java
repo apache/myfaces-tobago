@@ -66,10 +66,11 @@ public class TreeListboxRenderer extends TreeRenderer{
     writer.writeComponentClass();
     writer.writeAttribute("style", null, ATTR_STYLE);
 
-    String value = ";";
+    StringBuffer value = new StringBuffer(";");
     List<UITreeNode> expandPath = tree.getExpandPath();
     for (UITreeNode node : expandPath) {
-      value += nodeStateId(facesContext, node) + ";";
+      value.append(nodeStateId(facesContext, node));
+      value.append(";");
     }
 
     writer.startElement("input", tree);
@@ -81,9 +82,10 @@ public class TreeListboxRenderer extends TreeRenderer{
 
 
     final Set<DefaultMutableTreeNode> selection = tree.getState().getSelection();
-    value = ";";
+    value = new StringBuffer(";");
     for (DefaultMutableTreeNode node : selection) {
-      value += nodeStateId(facesContext, tree.findUITreeNode(root, node)) + ";";
+      value.append(nodeStateId(facesContext, tree.findUITreeNode(root, node)));
+      value.append(";");
     }
     writer.startElement("input", tree);
     writer.writeAttribute("type", "hidden", null);

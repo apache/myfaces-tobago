@@ -30,6 +30,7 @@ import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.TagConfig;
 import com.sun.facelets.tag.TagException;
 import com.sun.facelets.tag.TagHandler;
+import com.sun.facelets.tag.jsf.ComponentSupport;
 
 public final class AttributeHandler extends TagHandler {
   private static final Class [] VALIDATOR =
@@ -51,7 +52,7 @@ public final class AttributeHandler extends TagHandler {
       throw new TagException(tag, "Parent UIComponent was null");
     }
 
-    if (parent.getParent() == null) {
+    if (ComponentSupport.isNew(parent)) {
       String nameValue = name.getValue(ctx);
       if ("rendered".equals(nameValue)) {
         parent.setRendered(value.getBoolean(ctx));
