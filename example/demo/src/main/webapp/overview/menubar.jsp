@@ -14,6 +14,7 @@
  *    limitations under the License.
 --%>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%-- !!!!!! no <f:subview here !!!!!!! --%>
       <f:facet name="menuBar" >
@@ -63,16 +64,19 @@ FIXME: this doesn't work
           </tc:menu>
           <tc:menu label="#{overviewBundle.menu_config}" >
             <tc:menu label="#{overviewBundle.menu_themes}" >
-              <tc:menuRadio value="#{clientConfigController.theme}"
-                  action="#{clientConfigController.submit}">
-                <f:selectItems value="#{clientConfigController.themeItems}" />
-              </tc:menuRadio>
+              <tc:menuItem action="#{clientConfigController.submit}">
+                <f:facet name="items">
+                  <tc:selectOneRadio value="#{clientConfigController.theme}" >
+                    <f:selectItems value="#{clientConfigController.themeItems}" />
+                  </tc:selectOneRadio>
+                </f:facet>
+              </tc:menuItem>
             </tc:menu>
             <tc:menu label="#{overviewBundle.menu_locale}">
-              <tc:menuRadio value="#{clientConfigController.locale}"
-                  action="#{clientConfigController.submit}">
+              <tx:menuRadio action="#{clientConfigController.submit}"
+                            value="#{clientConfigController.locale}">
                 <f:selectItems value="#{clientConfigController.localeItems}" />
-              </tc:menuRadio>
+              </tx:menuRadio>
             </tc:menu>
            <%-- <tc:menuCheckbox action="#{clientConfigController.submit}"
                 label="#{overviewBundle.menu_debug}"

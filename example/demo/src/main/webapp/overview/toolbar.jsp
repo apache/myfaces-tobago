@@ -196,9 +196,13 @@
 
             <tc:menuSeparator/>
 
-            <tc:menuCheckbox label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[0]}" />
+            <tc:menuItem label="#{overviewBundle.toolbar_linkClickme}" >
+              <f:facet name="items">
+                <tc:selectBooleanCheckbox value="#{demo.bool[0]}" />
+              </f:facet>
+            </tc:menuItem>
             <tc:menuCheckbox label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[1]}" />
-            <tc:menuCheckbox label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[2]}" />
+            <tx:menuCheckbox label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[2]}" />
 
           </tc:menu>
 

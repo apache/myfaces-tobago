@@ -21,6 +21,6 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 public class MenuRadioTag extends SelectOneCommandTag
-    implements MenuSelectOneTagDeclaration {
+    implements MenuRadioTagDeclaration {
 
 }

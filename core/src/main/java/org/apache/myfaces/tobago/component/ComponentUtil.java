@@ -40,9 +40,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_NAVIGATE;
 import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_RESET;
 import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_SCRIPT;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_CHECKBOX;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_RADIO;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_ONE_RADIO;
@@ -680,7 +679,7 @@ public class ComponentUtil {
     if (valueBinding != null) {
       radio = (UIMenuSelectOne) createComponent(facesContext,
           UIMenuSelectOne.COMPONENT_TYPE, RENDERER_TYPE_SELECT_ONE_RADIO);
-      command.getFacets().put(FACET_RADIO, radio);
+      command.getFacets().put(FACET_ITEMS, radio);
       radio.setValueBinding(ATTR_VALUE, valueBinding);
     }
     return radio;
@@ -702,7 +701,7 @@ public class ComponentUtil {
     if (valueBinding != null) {
       checkbox = createComponent(facesContext, UISelectBoolean.COMPONENT_TYPE,
           RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX);
-      command.getFacets().put(FACET_CHECKBOX, checkbox);
+      command.getFacets().put(FACET_ITEMS, checkbox);
       checkbox.setValueBinding(ATTR_VALUE, valueBinding);
     }
     return checkbox;

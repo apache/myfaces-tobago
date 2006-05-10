@@ -33,13 +33,11 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PAGE_MENU;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_CHECKBOX;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_RADIO;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
-import org.apache.myfaces.tobago.component.UIMenuSelectOne;
 import org.apache.myfaces.tobago.component.UIMenuSeparator;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
@@ -58,6 +56,8 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
+import javax.faces.component.UISelectOne;
+import javax.faces.component.UISelectBoolean;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
@@ -347,7 +347,16 @@ public class MenuBarRenderer extends RendererBase {
                             UICommand command) throws IOException {
     String onClick = createOnClick(facesContext, command);
     if (command instanceof UIMenuCommand) {
-      addCommand(sb, var, facesContext, command, onClick);
+      if (command.getFacet(FACET_ITEMS) != null) {
+        UIComponent facet = command.getFacet(FACET_ITEMS);
+        if (facet instanceof UISelectOne) {
+          addSelectOne(sb, var, facesContext, command, onClick);
+        } else if (facet instanceof UISelectBoolean) {
+          addSelectBoolean(sb, var, facesContext, command, onClick);
+        }
+      } else {
+        addCommand(sb, var, facesContext, command, onClick);
+      }
     } else if (command instanceof UISelectBooleanCommand) {
       addSelectBoolean(sb, var, facesContext, command, onClick);
     } else if (command instanceof UISelectOneCommand) {
@@ -383,13 +392,13 @@ public class MenuBarRenderer extends RendererBase {
                                 FacesContext facesContext, UICommand command, String onClick)
       throws IOException {
 
-    UIComponent checkbox = command.getFacet(FACET_CHECKBOX);
+    UIComponent checkbox = command.getFacet(FACET_ITEMS);
     if (checkbox == null) {
       checkbox = ComponentUtil.createUISelectBooleanFacet(facesContext, command);
       checkbox.setId(facesContext.getViewRoot().createUniqueId());
     }
 
-    final boolean checked = ComponentUtil.getBooleanAttribute(command, ATTR_VALUE);
+    final boolean checked = ComponentUtil.getBooleanAttribute(checkbox, ATTR_VALUE);
 
     String clientId = checkbox.getClientId(facesContext);
     onClick = RenderUtil.addMenuCheckToggle(clientId, onClick);
@@ -413,15 +422,18 @@ public class MenuBarRenderer extends RendererBase {
       throws IOException {
     onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
         facesContext);
-    List<SelectItem> items = ComponentUtil.getSelectItems(command);
+    List<SelectItem> items;
 
     LabelWithAccessKey label = new LabelWithAccessKey(command);
 
 
-    UIMenuSelectOne radio = (UIMenuSelectOne) command.getFacet(FACET_RADIO);
+    UISelectOne radio = (UISelectOne) command.getFacet(FACET_ITEMS);
     if (radio == null) {
+      items = ComponentUtil.getSelectItems(command);
       radio = ComponentUtil.createUIMenuSelectOneFacet(facesContext, command);
       radio.setId(facesContext.getViewRoot().createUniqueId());
+    } else {
+      items = ComponentUtil.getSelectItems(radio);
     }
 
 

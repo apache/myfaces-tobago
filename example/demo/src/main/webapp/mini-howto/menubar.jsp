@@ -53,8 +53,7 @@
     <tc:menu label="#{overviewBundle.menu_config}">
       <tc:menu label="#{overviewBundle.menu_themes}">
         <tc:menuRadio value="#{clientConfigController.theme}"
-                     action="#{clientConfigController.submit}"
-            >
+                     action="#{clientConfigController.submit}" >
           <f:selectItems value="#{clientConfigController.themeItems}"/>
         </tc:menuRadio>
       </tc:menu>

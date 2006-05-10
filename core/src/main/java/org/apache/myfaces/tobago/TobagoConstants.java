@@ -147,12 +147,12 @@ public final class TobagoConstants {
   public static final String ATTR_WIDTH_LIST = "widthList";
   public static final String ATTR_WIDTH_LIST_STRING = "widthListString";
 
-  public static final String FACET_CHECKBOX = "checkbox";
   public static final String FACET_CONFIRMATION = "confirmation";
   public static final String FACET_LABEL = "label";
   public static final String FACET_LAYOUT = "layout";
   public static final String FACET_LAYOUT_DEFAULT = "layoutDefault";
-  public static final String FACET_IMAGE= "image ";
+  public static final String FACET_IMAGE = "image ";
+  public static final String FACET_ITEMS = "items";
   public static final String FACET_MENUBAR = "menuBar";
   public static final String FACET_MENUPOPUP = "menupopup";
   public static final String FACET_PAGER_LINKS = "pagerLinks";
@@ -160,7 +160,6 @@ public final class TobagoConstants {
   public static final String FACET_PAGER_ROW = "pagerRow";
   public static final String FACET_PICKER = "picker";
   public static final String FACET_PICKER_POPUP = "pickerPopup";
-  public static final String FACET_RADIO = "radio";
   public static final String FACET_TOOL_BAR= "toolBar";
   public static final String FACET_TOOL_BAR_COMMAND = "toolBarCommand";
 

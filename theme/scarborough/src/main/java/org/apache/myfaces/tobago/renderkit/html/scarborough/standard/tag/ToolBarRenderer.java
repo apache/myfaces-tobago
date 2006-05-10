@@ -34,9 +34,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_CHECKBOX;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUPOPUP;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_RADIO;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_TOOL_BAR;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BOX;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUBAR;
@@ -61,6 +60,8 @@ import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.component.UIViewRoot;
+import javax.faces.component.UISelectBoolean;
+import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
@@ -140,11 +141,18 @@ public class ToolBarRenderer extends RendererBase {
     } else if (command instanceof UISelectOneCommand) {
       renderSelectOne(facesContext, command, writer, boxFacet, addExtraHoverClass);
     } else {
-
-      String onClick = createOnClick(facesContext, command);
-      renderToolbarButton(facesContext, command, writer, boxFacet, addExtraHoverClass, false, onClick);
+      if (command.getFacet(FACET_ITEMS) != null) {
+        UIComponent facet = command.getFacet(FACET_ITEMS);
+        if (facet instanceof UISelectBoolean) {
+          renderSelectBoolean(facesContext, command, writer, boxFacet, addExtraHoverClass);
+        } else if (facet instanceof UISelectOne) {
+          renderSelectOne(facesContext, command, writer, boxFacet, addExtraHoverClass);
+        }
+      } else {
+        String onClick = createOnClick(facesContext, command);
+        renderToolbarButton(facesContext, command, writer, boxFacet, addExtraHoverClass, false, onClick);
+      }
     }
-
   }
 
   private void renderSelectOne(FacesContext facesContext, UICommand command,
@@ -154,12 +162,15 @@ public class ToolBarRenderer extends RendererBase {
     String onClick = createOnClick(facesContext, command);
     onClick = CommandRendererBase.appendConfirmationScript(onClick, command, facesContext);
 
-    List<SelectItem> items = ComponentUtil.getSelectItems(command);
+    List<SelectItem> items; 
 
-    UIMenuSelectOne radio = (UIMenuSelectOne) command.getFacet(FACET_RADIO);
+    UIMenuSelectOne radio = (UIMenuSelectOne) command.getFacet(FACET_ITEMS);
     if (radio == null) {
+      items = ComponentUtil.getSelectItems(command);
       radio = ComponentUtil.createUIMenuSelectOneFacet(facesContext, command);
       radio.setId(facesContext.getViewRoot().createUniqueId());
+    } else {
+      items = ComponentUtil.getSelectItems(radio);
     }
 
 
@@ -220,13 +231,13 @@ public class ToolBarRenderer extends RendererBase {
       TobagoResponseWriter writer, boolean boxFacet, boolean addExtraHoverClass)
       throws IOException {
 
-    UIComponent checkbox = command.getFacet(FACET_CHECKBOX);
+    UIComponent checkbox = command.getFacet(FACET_ITEMS);
     if (checkbox == null) {
       checkbox = ComponentUtil.createUISelectBooleanFacet(facesContext, command);
       checkbox.setId(facesContext.getViewRoot().createUniqueId());
     }
 
-    final boolean checked = ComponentUtil.getBooleanAttribute(command, ATTR_VALUE);
+    final boolean checked = ComponentUtil.getBooleanAttribute(checkbox, ATTR_VALUE);
 
     String onClick = createOnClick(facesContext, command);
 
