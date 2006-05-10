@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="Tobago">
   <bannerLeft>
-    <name>Tobago</name>
-    <src>images/tobago_head.gif</src>
-    <href>http://myfaces.apache.org/tobago</href>
+    <name>MyFaces</name>
+    <src>images/myfaces-logo.png</src>
+    <href>http://myfaces.apache.org/</href>
   </bannerLeft>
   <bannerRight>
-    <name>MyFaces</name>
-    <src>http://myfaces.apache.org/images/logo.png</src>
-    <href>http://myfaces.apache.org/</href>
+    <name>Tobago</name>
+    <src>images/tobagoLogo.png</src>
+    <href>http://myfaces.apache.org/tobago</href>
   </bannerRight>
   <body>
 

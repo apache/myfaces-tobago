@@ -160,7 +160,12 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>taglist-maven-plugin</artifactId>
         <configuration>
-          <tags>TODO, FIXME, XXX, @deprecated</tags>
+          <tags>
+          <tag>TODO</tag>
+          <tag> FIXME</tag> 
+          <tag>XXX</tag>
+          <tag>@deprecated</tag>
+          </tags>
         </configuration>
       </plugin>
 
