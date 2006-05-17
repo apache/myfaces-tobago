@@ -115,7 +115,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     int height = 0;
     for (int i = 0; i < size; i++) {
       if (!rowIsRendered(rows.get(i))) {
-        break;
+        continue;
       }
       height += getCellPadding(facesContext, layout,  i);
       String token = layoutTokens[i];
