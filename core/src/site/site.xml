@@ -24,7 +24,6 @@
     <menu name="Tobago">
       <item name="Introduction" href="http://myfaces.apache.org/tobago/index.html"/>
       <item name="Demo" href="http://myfaces.apache.org/tobago/demo.html"/>
-      <item name="Core" href="http://myfaces.apache.org/tobago/tobago-core/"/>
     </menu>
 
     ${parentProject}

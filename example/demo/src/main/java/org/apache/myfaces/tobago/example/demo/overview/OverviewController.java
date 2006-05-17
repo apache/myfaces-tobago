@@ -193,6 +193,11 @@ public class OverviewController {
     }
   }
 
+  public String ping() {
+    LOG.debug("ping invoked");
+    return null;
+  }
+
   public boolean getShowPopup() {
     return "popupButton".equals(lastAction) || "popupButton2".equals(lastAction);
   }

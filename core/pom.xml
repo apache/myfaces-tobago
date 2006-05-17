@@ -56,7 +56,7 @@
         <configuration>
           <taglib.src.dir>${basedir}/target/classes/META-INF/</taglib.src.dir>
           <tldDocDir>${basedir}/target/site/tlddoc</tldDocDir>
-          </configuration>
+        </configuration>
       </plugin>
 
     </plugins>

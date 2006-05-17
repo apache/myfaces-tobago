@@ -39,12 +39,12 @@
               actionListener="#{overviewController.click}"
               label="#{overviewBundle.toolbar_buttonAction}" />
 
-        <tc:toolBarCommand id="imageButton" action="overview/toolbar"
+        <tc:toolBarCommand id="imageButton" action="#{overviewController.ping}"
             actionListener="#{overviewController.click}"
             label="#{overviewBundle.toolbar_imageButtonAction}"
             image="image/toolbar_example_button.gif" />
 
-        <tc:toolBarCommand id="popupButton" action="overview/toolbar"
+        <tc:toolBarCommand id="popupButton"
             actionListener="#{overviewController.click}"
             label="#{overviewBundle.toolbar_popupButtonAction}">
 
@@ -73,7 +73,7 @@
             <tc:menu>
               <tc:menuItem onclick="alert('test 1')"  label="Alert 1"/>
               <tc:menuItem onclick="alert('test 2')" label="Alert 2"/>
-              <tc:menuItem id="dropdown3" actionListener="#{overviewController.click}" label="Action 3"/>
+              <tc:menuItem action="#{overviewController.ping}" id="dropdown3" actionListener="#{overviewController.click}" label="Action 3"/>
             </tc:menu>
           </f:facet>
         </tc:toolBarCommand>

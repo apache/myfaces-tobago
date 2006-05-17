@@ -151,27 +151,27 @@
     <excludeDefaults>true</excludeDefaults>
     <plugins>
 
-     <!-- <plugin>
+     <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
-      </plugin>-->
+      </plugin>
 
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>taglist-maven-plugin</artifactId>
         <configuration>
           <tags>
-          <tag>TODO</tag>
-          <tag> FIXME</tag> 
-          <tag>XXX</tag>
-          <tag>@deprecated</tag>
+            <tag>TODO</tag>
+            <tag> FIXME</tag>
+            <tag>XXX</tag>
+            <tag>@deprecated</tag>
           </tags>
         </configuration>
       </plugin>
 
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jxr-maven-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
       </plugin>
 
       <plugin>
@@ -203,8 +203,8 @@
       </plugin>
 
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>surefire-report-maven-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
       </plugin>
 
       <plugin>
@@ -227,13 +227,13 @@
         </configuration>
       </plugin>
 
-      <!--<plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>clirr-maven-plugin</artifactId>
         <configuration>
           <minSeverity>info</minSeverity>
         </configuration>
-      </plugin>-->
+      </plugin>
 
       <!-- pmd has problems with annotations -->
       <plugin>
@@ -404,7 +404,7 @@
   <build>
     <defaultGoal>install</defaultGoal>
     <plugins>
-      <!--<plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
         <executions>
@@ -415,7 +415,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin>-->
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
