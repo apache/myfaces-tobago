@@ -58,8 +58,10 @@ public abstract class LayoutRenderer extends RendererBase {
 
     RendererBase containerRenderer =
         ComponentUtil.getRenderer(facesContext, component);
-    height += containerRenderer.getHeaderHeight(facesContext, component);
-    height += containerRenderer.getPaddingHeight(facesContext, component);
+    if (containerRenderer != null) {
+      height += containerRenderer.getHeaderHeight(facesContext, component);
+      height += containerRenderer.getPaddingHeight(facesContext, component);
+    }
 
     return height;
   }
