@@ -6,8 +6,8 @@
     <f:facet name="layout">
       <tc:gridLayout/>
     </f:facet>
-    <tc:out value="Hello World!"/>
+    <tc:out value="#{counter.count}"/>
     <ui:debug hotkey="m"/>
-    <tc:button label="Go on" action="next" />
+    <tc:button label="Go back" action="back" />
   </tc:page>
 </f:view>

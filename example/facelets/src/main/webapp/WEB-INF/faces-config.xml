@@ -41,4 +41,18 @@
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>next</from-outcome>
+      <to-view-id>/helloWorldNext.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>back</from-outcome>
+      <to-view-id>/helloWorld.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
 </faces-config>

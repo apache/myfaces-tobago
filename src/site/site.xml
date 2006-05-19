@@ -29,10 +29,10 @@
     </menu>
 
     <menu name="Documentation">
-      <item name="Getting Started" href="getting-started.html"/>
-      <item name="Roadmap" href="roadmap.html" />
-      <item name="Theme Handling" href="themes.html" />
-      <item name="FAQ" href="faq.html"/>
+      <item name="Getting Started" href="http://myfaces.apache.org/tobago/getting-started.html"/>
+      <item name="Roadmap" href="http://myfaces.apache.org/tobago/roadmap.html" />
+      <item name="Theme Handling" href="http://myfaces.apache.org/tobago/themes.html" />
+      <item name="FAQ" href="http://myfaces.apache.org/tobago/faq.html"/>
     </menu>
     
     ${parentProject}
