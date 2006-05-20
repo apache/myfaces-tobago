@@ -44,14 +44,14 @@
   <navigation-rule>
     <navigation-case>
       <from-outcome>next</from-outcome>
-      <to-view-id>/helloWorldNext.jsf</to-view-id>
+      <to-view-id>/helloWorldNext.xml</to-view-id>
     </navigation-case>
   </navigation-rule>
 
   <navigation-rule>
     <navigation-case>
       <from-outcome>back</from-outcome>
-      <to-view-id>/helloWorld.jsf</to-view-id>
+      <to-view-id>/helloWorld.xml</to-view-id>
     </navigation-case>
   </navigation-rule>
 
