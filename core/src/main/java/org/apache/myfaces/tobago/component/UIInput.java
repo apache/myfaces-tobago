@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
@@ -34,6 +35,7 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Input";
 
   private Boolean readonly;
+  private Boolean password;
   private javax.faces.el.MethodBinding suggestMethod;
 
   public void restoreState(FacesContext context, Object state) {
@@ -65,6 +67,23 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
 
   public void setReadonly(boolean readonly) {
     this.readonly = readonly;
+  }
+
+  public boolean isPassword() {
+    if (password != null) {
+      return password;
+    }
+    ValueBinding vb = getValueBinding(ATTR_PASSWORD);
+    if (vb != null) {
+      return (Boolean.TRUE.equals(vb.getValue(getFacesContext())));
+    } else {
+      return false;
+    }
+  }
+
+
+  public void setPassword(boolean password) {
+    this.password = password;
   }
 
 
