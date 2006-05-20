@@ -29,10 +29,14 @@ import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.example.demo.model.solar.SolarObject;
 import org.apache.myfaces.tobago.model.SheetState;
+import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import javax.faces.component.UIComponent;
+import javax.faces.validator.ValidatorException;
+import javax.faces.application.FacesMessage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -87,6 +91,14 @@ public class OverviewController {
 
   private SheetConfig sheetConfig;
 
+    private String toolbarIconSize;
+
+    private SelectItem[] toolbarIconItems;
+
+    private String toolbarTextPosition;
+
+    private SelectItem[] toolbarTextItems;
+
 
   public OverviewController() {
     radioValue = ITEM_KEYS[0];
@@ -96,6 +108,21 @@ public class OverviewController {
     multiValue = new String[0];
     treeTabsState = 0;
     sheetConfig = new SheetConfig();
+    String[] toolbarIconKeys
+        = {ToolBarTag.ICON_OFF, ToolBarTag.ICON_SMALL, ToolBarTag.ICON_BIG};
+    toolbarIconItems = new SelectItem[toolbarIconKeys.length];
+    for (int i = 0; i < toolbarIconKeys.length; i++) {
+      toolbarIconItems[i] = new SelectItem(toolbarIconKeys[i], toolbarIconKeys[i]);
+    }
+    toolbarIconSize = ToolBarTag.ICON_SMALL;
+
+    String[] toolbarTextKeys =
+        {ToolBarTag.LABEL_OFF, ToolBarTag.LABEL_BOTTOM, ToolBarTag.LABEL_RIGHT};
+    toolbarTextItems = new SelectItem[toolbarTextKeys.length];
+    for (int i = 0; i < toolbarTextKeys.length; i++) {
+      toolbarTextItems[i] = new SelectItem(toolbarTextKeys[i], toolbarTextKeys[i]);
+    }
+    toolbarTextPosition = ToolBarTag.LABEL_BOTTOM;
   }
 
   private static SelectItem[] getSelectItems(
@@ -121,7 +148,7 @@ public class OverviewController {
   public void sheetSorter(ActionEvent event) {
     if (event instanceof SortActionEvent) {
       SortActionEvent sortEvent = (SortActionEvent) event;
-      UIData sheet = sortEvent.getSheet();      
+      UIData sheet = sortEvent.getSheet();
       SheetState sheetState
           = sheet.getSheetState(FacesContext.getCurrentInstance());
       String columnId = sheetState.getSortedColumnId();
@@ -131,35 +158,29 @@ public class OverviewController {
       Comparator<SolarObject> comparator = null;
 
       if ("name".equals(columnId)) {
-        comparator = new Comparator() {
-          public int compare(Object o1, Object o2) {
-            String s1 = ((SolarObject) o1).getName();
-            String s2 = ((SolarObject) o2).getName();
-            return s1.compareToIgnoreCase(s2);
+        comparator = new Comparator<SolarObject>() {
+          public int compare(SolarObject o1, SolarObject o2) {
+            return o1.getName().compareToIgnoreCase(o2.getName());
           }
         };
       } else if ("orbit".equals(columnId)) {
-        comparator = new Comparator() {
-          public int compare(Object o1, Object o2) {
-            String s1 = ((SolarObject) o1).getOrbit();
-            String s2 = ((SolarObject) o2).getOrbit();
-            return s1.compareToIgnoreCase(s2);
+        comparator = new Comparator<SolarObject>() {
+          public int compare(SolarObject o1, SolarObject o2) {
+            return o1.getOrbit().compareToIgnoreCase(o2.getOrbit());
           }
         };
       } else if ("population".equals(columnId)) {
-        comparator = new Comparator() {
-          public int compare(Object o1, Object o2) {
-            String s1 = ((SolarObject) o1).getPopulation();
-            String s2 = ((SolarObject) o2).getPopulation();
+        comparator = new Comparator<SolarObject>() {
+          public int compare(SolarObject o1, SolarObject o2) {
             Integer i1 = -1;
             try {
-              i1 = new Integer(s1.replaceAll("\\D", "").trim());
+              i1 = new Integer(o1.getPopulation().replaceAll("\\D", "").trim());
             } catch (NumberFormatException e) {
               // ignore
             }
             Integer i2 = -1;
             try {
-              i2 = new Integer(s2.replaceAll("\\D", "").trim());
+              i2 = new Integer(o2.getPopulation().replaceAll("\\D", "").trim());
             } catch (NumberFormatException e) {
               // ignore
             }
@@ -167,19 +188,15 @@ public class OverviewController {
           }
         };
       } else if ("distance".equals(columnId)) {
-        comparator = new Comparator() {
-          public int compare(Object o1, Object o2) {
-            Integer i1 = ((SolarObject) o1).getDistance();
-            Integer i2 = ((SolarObject) o2).getDistance();
-            return i1.compareTo(i2);
+        comparator = new Comparator<SolarObject>() {
+          public int compare(SolarObject o1, SolarObject o2) {
+            return o1.getDistance().compareTo(o2.getDistance());
           }
         };
       } else if ("period".equals(columnId)) {
-        comparator = new Comparator() {
-          public int compare(Object o1, Object o2) {
-            Double i1 = ((SolarObject) o1).getPeriod();
-            Double i2 = ((SolarObject) o2).getPeriod();
-            return i1.compareTo(i2);
+        comparator = new Comparator<SolarObject>() {
+          public int compare(SolarObject o1, SolarObject o2) {
+            return o1.getPeriod().compareTo(o2.getPeriod());
           }
         };
       }
@@ -196,6 +213,16 @@ public class OverviewController {
   public String ping() {
     LOG.debug("ping invoked");
     return null;
+  }
+
+  public void customValidator(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    if (value == null) {
+      return;
+    }
+    if (!"tobago".equalsIgnoreCase(value.toString())) {
+      throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please type in 'Tobago'",
+          "Please type in 'Tobago'"));
+    }
   }
 
   public boolean getShowPopup() {
@@ -322,7 +349,39 @@ public class OverviewController {
     this.sheetConfig = sheetConfig;
   }
 
-  public List<String> getInputSuggestItems(String prefix) {
+    public String getToolbarIconSize() {
+        return toolbarIconSize;
+    }
+
+    public void setToolbarIconSize(String toolbarIconSize) {
+        this.toolbarIconSize = toolbarIconSize;
+    }
+
+    public SelectItem[] getToolbarIconItems() {
+        return toolbarIconItems;
+    }
+
+    public void setToolbarIconItems(SelectItem[] toolbarIconItems) {
+        this.toolbarIconItems = toolbarIconItems;
+    }
+
+    public String getToolbarTextPosition() {
+        return toolbarTextPosition;
+    }
+
+    public void setToolbarTextPosition(String toolbarTextPosition) {
+        this.toolbarTextPosition = toolbarTextPosition;
+    }
+
+    public SelectItem[] getToolbarTextItems() {
+        return toolbarTextItems;
+    }
+
+    public void setToolbarTextItems(SelectItem[] toolbarTextItems) {
+        this.toolbarTextItems = toolbarTextItems;
+    }
+
+    public List<String> getInputSuggestItems(String prefix) {
     LOG.info("createing items for prefix :\"" + prefix + "\"");
     List<String> li = new ArrayList<String>();
     li.add(prefix+1);

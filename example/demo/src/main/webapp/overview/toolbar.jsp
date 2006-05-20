@@ -82,8 +82,8 @@
         </f:facet>
 
         <tc:cell spanX="3">
-        <tc:toolBar iconSize="#{demo.toolbarIconSize}"
-            labelPosition="#{demo.toolbarTextPosition}" >
+        <tc:toolBar iconSize="#{overviewController.toolbarIconSize}"
+            labelPosition="#{overviewController.toolbarTextPosition}" >
           <tc:toolBarCommand id="button2" action="overview/toolbar"
               actionListener="#{overviewController.click}"
               label="#{overviewBundle.toolbar_buttonAction}" />
@@ -135,11 +135,11 @@
         <tx:in value="#{overviewController.lastAction}" readonly="true"
             label="#{overviewBundle.basic_lastActionLabel}" />
 
-        <tc:selectOneChoice value="#{demo.toolbarTextPosition}" >
-          <f:selectItems value="#{demo.toolbarTextItems}"/>
+        <tc:selectOneChoice value="#{overviewController.toolbarTextPosition}" >
+          <f:selectItems value="#{overviewController.toolbarTextItems}"/>
         </tc:selectOneChoice>
-        <tc:selectOneChoice value="#{demo.toolbarIconSize}" >
-          <f:selectItems value="#{demo.toolbarIconItems}"/>
+        <tc:selectOneChoice value="#{overviewController.toolbarIconSize}" >
+          <f:selectItems value="#{overviewController.toolbarIconItems}"/>
         </tc:selectOneChoice>
 
         <tc:cell/>
