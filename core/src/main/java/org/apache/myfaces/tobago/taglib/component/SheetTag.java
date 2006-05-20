@@ -16,6 +16,7 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_AUTO_RELOAD;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FIRST;
@@ -49,6 +50,7 @@ public class SheetTag extends TobagoTag implements SheetTagDeclaration {
   private String state;
   private String stateChangeListener;
   private String sortActionListener;
+  private String autoReload;
 
   public String getComponentType() {
     // TODO: implement uidata with overridden processUpdates to store state
@@ -71,6 +73,7 @@ public class SheetTag extends TobagoTag implements SheetTagDeclaration {
     state = null;
     stateChangeListener = null;
     sortActionListener = null;
+    autoReload = null;
   }
 
   protected void setProperties(UIComponent component) {
@@ -83,6 +86,7 @@ public class SheetTag extends TobagoTag implements SheetTagDeclaration {
     ComponentUtil.setBooleanProperty(data, ATTR_SHOW_HEADER, showHeader);
     ComponentUtil.setIntegerProperty(data, ATTR_FIRST, first);
     ComponentUtil.setIntegerProperty(data, ATTR_ROWS, rows);
+    ComponentUtil.setIntegerProperty(data, ATTR_AUTO_RELOAD, autoReload);
     ComponentUtil.setStringProperty(data, ATTR_COLUMNS, columns);
     ComponentUtil.setStringProperty(data, ATTR_VALUE, value);
     ComponentUtil.setStringProperty(data, ATTR_FORCE_VERTICAL_SCROLLBAR, forceVerticalScrollbar);
@@ -185,5 +189,12 @@ public class SheetTag extends TobagoTag implements SheetTagDeclaration {
     this.sortActionListener = sortActionListener;
   }
 
+  public String getAutoReload() {
+    return autoReload;
+  }
+
+  public void setAutoReload(String autoReload) {
+    this.autoReload = autoReload;
+  }
 }
 

@@ -26,6 +26,7 @@ public final class TobagoConstants {
   public static final String ATTR_ACTION_LISTENER = "actionListener";
   public static final String ATTR_ALIGN = "align";
   public static final String ATTR_ALT = "alt";
+  public static final String ATTR_AUTO_RELOAD = "autoReload";
   public static final String ATTR_BODY_CONTENT = "bodyContent";
   public static final String ATTR_BORDER = "border";
   public static final String ATTR_CHARSET = "charset";

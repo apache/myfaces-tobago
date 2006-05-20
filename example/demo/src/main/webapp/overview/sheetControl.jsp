@@ -117,7 +117,8 @@
             pagingLength="#{overviewController.sheetConfig.sheetPagingLength}"
             directLinkCount="#{overviewController.sheetConfig.sheetDirectLinkCount}"
             stateChangeListener="#{demo.stateChangeListener}"
-            sortActionListener="#{overviewController.sheetSorter}">
+            sortActionListener="#{overviewController.sheetSorter}"
+            autoReload="1000"    >
           <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true">
             <tc:out value="#{luminary.name}" id="t_name" />
           </tc:column>

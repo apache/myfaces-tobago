@@ -39,12 +39,13 @@ Tobago.Sheets = {
 
 };
 
-Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
+Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage, autoReload) {
   this.startTime = new Date();
   this.id = sheetId;
   this.ajaxEnabled = enableAjax;
   this.checkedImage = checkedImage;
   this.uncheckedImage = uncheckedImage;
+  this.autoReload = autoReload;
 
   this.resizerId = undefined;
   this.oldX      = 0;
@@ -60,7 +61,8 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage) {
   this.headerWidthsId = this.id + Tobago.SUB_COMPONENT_SEP + "widths"
 
   if (this.ajaxEnabled) {
-    // option are onyl used for ajax request
+    Tobago.ajaxComponents[this.id] = this;
+     // option are onyl used for ajax request
     this.options = {
       method: 'post',
       asynchronous: true,
@@ -301,8 +303,8 @@ Tobago.Sheet.prototype.doKeyEvent = function(event) {
     }
   };
 
-Tobago.Sheet.prototype.onComplete = function() {
-    LOG.debug("sheet reloaded");
+Tobago.Sheet.prototype.onComplete = function(transport) {
+    LOG.debug("sheet reloaded : " + transport.responseText.substr(0,20));
     this.setup();
   };
 
@@ -356,6 +358,10 @@ Tobago.Sheet.prototype.setup = function() {
       this.setupPagingLinks();
       this.setupPagePaging();
       this.setupRowPaging();
+    }
+    if (typeof this.autoReload == "number" && Tobago.element(this.contentDivId)) {
+      clearTimeout(this.reloadTimer);
+      this.reloadTimer = setTimeout(Tobago.bind2(this, "reloadWithAction", this.id), this.autoReload);
     }
     this.setupEnd = new Date();
   };

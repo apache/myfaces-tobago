@@ -82,6 +82,7 @@ public class UIData extends javax.faces.component.UIData
   private String showPageRange;
   private String showDirectLinks;
   private Integer directLinkCount;
+  private Integer autoReload;
 
   public void encodeBegin(FacesContext facesContext) throws IOException {
     UILayout.prepareDimension(facesContext, this);
@@ -437,7 +438,7 @@ public class UIData extends javax.faces.component.UIData
 
 
   public Object saveState(FacesContext context) {
-    Object[] saveState = new Object[9];
+    Object[] saveState = new Object[10];
     saveState[0] = super.saveState(context);
     saveState[1] = sheetState;
     saveState[2] = saveAttachedState(context, sortActionListener);
@@ -447,6 +448,7 @@ public class UIData extends javax.faces.component.UIData
     saveState[6] = showPageRange;
     saveState[7] = showDirectLinks;
     saveState[8] = directLinkCount;
+    saveState[9] = autoReload;
     return saveState;
   }
 
@@ -461,6 +463,7 @@ public class UIData extends javax.faces.component.UIData
     showPageRange = (String) values[6];
     showDirectLinks = (String) values[7];
     directLinkCount = (Integer) values[8];
+    autoReload = (Integer) values[9];
 
   }
 
@@ -589,7 +592,15 @@ public class UIData extends javax.faces.component.UIData
     this.showHeader = showHeader;
   }
 
-  public void encodeAjax(FacesContext facesContext) throws IOException {    
+    public Integer getAutoReload() {
+        return autoReload;
+    }
+
+    public void setAutoReload(Integer autoReload) {
+        this.autoReload = autoReload;
+    }
+
+    public void encodeAjax(FacesContext facesContext) throws IOException {
     setupState(facesContext);
     prepareDimensions(facesContext);
     AjaxUtils.encodeAjaxComponent(facesContext, this);

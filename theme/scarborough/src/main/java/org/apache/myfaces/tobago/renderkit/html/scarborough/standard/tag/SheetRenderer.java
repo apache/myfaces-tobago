@@ -111,7 +111,7 @@ public class SheetRenderer extends RendererBase
     final String[] scripts = new String[]{"script/tobago-sheet.js"};
     final String[] cmds = {
         "new Tobago.Sheet(\"" + sheetId + "\", " + ajaxEnabled
-            + ", \"" + checked + "\", \"" + unchecked + "\");"
+            + ", \"" + checked + "\", \"" + unchecked + "\", "+ data.getAutoReload() + ");"
     };
 
     ComponentUtil.addStyles(data, styles);
