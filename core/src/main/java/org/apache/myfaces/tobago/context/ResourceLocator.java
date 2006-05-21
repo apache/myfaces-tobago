@@ -109,7 +109,8 @@ class ResourceLocator {
     ThemeParser parser = new ThemeParser();
     try {
       LOG.info("Loading tobago-theme.xml");
-      Enumeration<URL> urls = getClass().getClassLoader().getResources("META-INF/tobago-theme.xml");
+      ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+      Enumeration<URL> urls = classLoader.getResources("META-INF/tobago-theme.xml");
 
       while (urls.hasMoreElements()) {
         URL themeUrl = urls.nextElement();
@@ -126,7 +127,6 @@ class ResourceLocator {
           LOG.info("themeUrl = '" + themeUrl + "'");
           String fileName = themeUrl.toString().substring(
               protocol.length() + 1, themeUrl.toString().indexOf("!"));
-          ClassLoader classLoader = ResourceManagerFactory.class.getClassLoader();
           URL jarFile;
           try {
             jarFile = new URL(fileName);
