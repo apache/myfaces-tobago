@@ -43,13 +43,15 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
     super.restoreState(context, values[0]);
     suggestMethod = (MethodBinding) restoreAttachedState(context, values[1]);
     readonly = (Boolean) values[2];
+    password = (Boolean) values[3];
   }
 
   public Object saveState(FacesContext context) {
-    Object[] values = new Object[3];
+    Object[] values = new Object[4];
     values[0] = super.saveState(context);
     values[1] = saveAttachedState(context, suggestMethod);
     values[2] = readonly;
+    values[3] = password;
     return values;
   }
 
