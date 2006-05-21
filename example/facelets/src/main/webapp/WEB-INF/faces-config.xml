@@ -49,6 +49,7 @@
   </navigation-rule>
 
   <navigation-rule>
+    <from-view-id>/helloWorldNext.xml</from-view-id>
     <navigation-case>
       <from-outcome>back</from-outcome>
       <to-view-id>/helloWorld.xml</to-view-id>

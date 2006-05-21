@@ -34,6 +34,14 @@
     <param-value>.xml</param-value>
   </context-param>
 
+  <!--<listener>
+    <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>org.apache.myfaces.tobago.webapp.TobagoServletContextListener</listener-class>
+  </listener>-->
+
+
   <servlet>
     <servlet-name>FacesServlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
