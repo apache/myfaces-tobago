@@ -152,17 +152,17 @@
     </dependency>
 
 
-   <!-- <dependency>
+    <!--<dependency>
       <groupId>javax.faces</groupId>
       <artifactId>jsf-api</artifactId>
-      <version>1.1</version>
+      <version>1.1_02</version>
       <scope>compile</scope>
     </dependency>
 
     <dependency>
       <groupId>javax.faces</groupId>
       <artifactId>jsf-impl</artifactId>
-      <version>1.1</version>
+      <version>1.1_02</version>
       <scope>compile</scope>
     </dependency>-->
 
@@ -195,8 +195,8 @@
       <url>https://maven-repository.dev.java.net/nonav/repository/</url>
       <layout>legacy</layout>
     </repository>
-  </repositories>-->
-
+  </repositories>
+-->
   <profiles>
     <!-- Mac OS X has not a tools.jar! -->
     <profile>
@@ -323,8 +323,8 @@
 
 <!--
 
-  mvn install:install-file -Dfile=retrotranslator-runtime-1.0.3.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-runtime -Dversion=1.0.3 -Dpackaging=jar
-  mvn install:install-file -Dfile=retrotranslator-transformer-1.0.3.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-transformer -Dversion=1.0.3 -Dpackaging=jar-->
+  mvn install:install-file -Dfile=retrotranslator-runtime-1.0.4.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-runtime -Dversion=1.0.3 -Dpackaging=jar
+  mvn install:install-file -Dfile=retrotranslator-transformer-1.0.4.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-transformer -Dversion=1.0.3 -Dpackaging=jar-->
 
       <id>jdk14retro</id>
       <build>
@@ -370,7 +370,7 @@
         <dependency>
           <groupId>net.sf.retrotranslator</groupId>
           <artifactId>retrotranslator-runtime</artifactId>
-          <version>1.0.3</version>
+          <version>1.0.4</version>
         </dependency>
       </dependencies>
     </profile>

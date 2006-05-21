@@ -37,8 +37,8 @@
   <profiles>
     <profile>
       <!--
-mvn install:install-file -Dfile=retrotranslator-runtime-1.0.3.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-runtime -Dversion=1.0.3 -Dpackaging=jar
-mvn install:install-file -Dfile=retrotranslator-transformer-1.0.3.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-transformer -Dversion=1.0.3 -Dpackaging=jar
+mvn install:install-file -Dfile=retrotranslator-runtime-1.0.4.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-runtime -Dversion=1.0.4 -Dpackaging=jar
+mvn install:install-file -Dfile=retrotranslator-transformer-1.0.4.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-transformer -Dversion=1.0.4 -Dpackaging=jar
       -->
       <id>jdk14retro</id>
       <build>
@@ -84,7 +84,7 @@ mvn install:install-file -Dfile=retrotranslator-transformer-1.0.3.jar -DgroupId=
         <dependency>
           <groupId>net.sf.retrotranslator</groupId>
           <artifactId>retrotranslator-runtime</artifactId>
-          <version>1.0.3</version>
+          <version>1.0.4</version>
         </dependency>
       </dependencies>
     </profile>
