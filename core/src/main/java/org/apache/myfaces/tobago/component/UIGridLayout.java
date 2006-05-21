@@ -20,7 +20,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_ROWS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SPAN_X;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SPAN_Y;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BORDER;
@@ -61,6 +60,8 @@ public class UIGridLayout extends UILayout {
   private String marginLeft;
   private String columns;
   private String rows;
+
+  private List<Row> layoutRows;
 
   public String getMarginTop() {
     if (marginTop != null) {
@@ -207,6 +208,7 @@ public class UIGridLayout extends UILayout {
   }
 
   public Object saveState(FacesContext context) {
+    clearRows();
     Object[] saveState = new Object[10];
     saveState[0] = super.saveState(context);
     saveState[1] = rows;
@@ -261,7 +263,7 @@ public class UIGridLayout extends UILayout {
   }
 
   private void clearRows() {
-    getAttributes().remove(ATTR_LAYOUT_ROWS);
+    layoutRows = null;
   }
 
   public int getColumnCount() {
@@ -277,11 +279,10 @@ public class UIGridLayout extends UILayout {
   }
 
   public List<Row> ensureRows() {
-    List<Row> rows = (List<Row>) getAttributes().get(ATTR_LAYOUT_ROWS);
-    if (rows == null) {
-      rows = createRows();
+    if (layoutRows == null) {
+      layoutRows = createRows();
     }
-    return rows;
+    return layoutRows;
   }
 
   private List<Row> createRows() {
@@ -310,7 +311,6 @@ public class UIGridLayout extends UILayout {
         rows.get(i).fill(c, c + spanX, component.isRendered());
       }
     }
-    getAttributes().put(ATTR_LAYOUT_ROWS, rows);
     return rows;
   }
 
