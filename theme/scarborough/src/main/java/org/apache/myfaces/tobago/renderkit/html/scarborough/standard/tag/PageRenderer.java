@@ -323,6 +323,8 @@ public class PageRenderer extends PageRendererBase {
 
     // write the previously rendered popups
     writer.write(popups.toString());
+    
+    viewHandler.writeState(facesContext);
 
 //    facesContext.getApplication().getViewHandler().writeState(facesContext);
 

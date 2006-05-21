@@ -167,7 +167,7 @@
 
             <tc:menuItem link="http://www.atanion.com" disabled="true" label="disabled" />
 
-            <tc:menuCheckbox action="#{demo.clickButton}"  label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.boolTest}" />
+            <tx:menuCheckbox action="#{demo.clickButton}"  label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.boolTest}" />
           </tc:menu>
           <tc:menu label="Menu 2">
 
@@ -185,9 +185,9 @@
 
             <tc:menu label="#{overviewBundle.toolbar_selectSingleselect}">
 
-              <tc:menuRadio value="#{overviewController.radioValue}" >
+              <tx:menuRadio value="#{overviewController.radioValue}" >
                 <f:selectItems value="#{overviewController.items}" />
-              </tc:menuRadio>
+              </tx:menuRadio>
 
             </tc:menu>
 
@@ -201,7 +201,7 @@
                 <tc:selectBooleanCheckbox value="#{demo.bool[0]}" />
               </f:facet>
             </tc:menuItem>
-            <tc:menuCheckbox label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[1]}" />
+            <tx:menuCheckbox label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[1]}" />
             <tx:menuCheckbox label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[2]}" />
 
           </tc:menu>

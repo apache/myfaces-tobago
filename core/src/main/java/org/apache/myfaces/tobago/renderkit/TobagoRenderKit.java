@@ -39,6 +39,12 @@ public class TobagoRenderKit extends RenderKit {
 
   private ResourceManager resources;
 
+  private ResponseStateManager responseStateManager;
+
+  public TobagoRenderKit() {
+    responseStateManager = new TobagoResponseStateManager();
+  }
+
   // FIXME: use family
   public Renderer getRenderer(String family, String rendererType) {
     if (LOG.isDebugEnabled()) {
@@ -96,10 +102,7 @@ public class TobagoRenderKit extends RenderKit {
   }
 
   public ResponseStateManager getResponseStateManager() {
-    LOG.error(
-        "This method isn't implemented yet, and should not be called: "
-        + new Exception().getStackTrace()[0].getMethodName()); //FIXME jsfbeta
-    return null;
+    return responseStateManager;
   }
 
   public ResponseStream createResponseStream(OutputStream outputstream) {
