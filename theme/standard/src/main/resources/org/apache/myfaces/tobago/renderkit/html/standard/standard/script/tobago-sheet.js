@@ -226,11 +226,12 @@ Tobago.Sheet.prototype.doPaging = function(event) {
     this.reloadWithAction(action);
   };
 
-Tobago.Sheet.prototype.reloadWithAction = function(action) {
+Tobago.Sheet.prototype.reloadWithAction = function(action, options) {
     LOG.debug("reload sheet with action \"" + action + "\"");
     var divElement = Tobago.element(this.outerDivId);
-    Tobago.Updater.update(divElement, null, action, this.id, this.options);
-
+    var reloadOptions = Tobago.extend({}, this.options);
+    reloadOptions = Tobago.extend(reloadOptions, options);
+    Tobago.Updater.update(divElement, null, action, this.id, reloadOptions);
   };
 
 Tobago.Sheet.prototype.insertTarget = function(event, actionId) {
@@ -304,7 +305,7 @@ Tobago.Sheet.prototype.doKeyEvent = function(event) {
   };
 
 Tobago.Sheet.prototype.onComplete = function(transport) {
-    LOG.debug("sheet reloaded : " + transport.responseText.substr(0,20));
+    //LOG.debug("sheet reloaded : " + transport.responseText.substr(0,20));
     this.setup();
   };
 
@@ -329,7 +330,7 @@ Tobago.Sheet.prototype.setupResizer = function() {
 
 Tobago.Sheet.prototype.setup = function() {
     this.setupStart = new Date();
-    LOG.debug("Tobago.Sheet.setup(" + this.id +")");
+   // LOG.debug("Tobago.Sheet.setup(" + this.id +")");
 
     // ToDo: find a better way to fix this problem
     // IE needs this in case of ajax loading of style classes

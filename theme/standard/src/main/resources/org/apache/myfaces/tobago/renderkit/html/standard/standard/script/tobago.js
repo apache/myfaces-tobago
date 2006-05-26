@@ -329,9 +329,12 @@ var Tobago = {
     * Submitting the page with specified actionId.
     */
   submitAction: function(actionId) {
-    this.action.value = actionId;
-    this.onSubmit();
-    this.form.submit();
+    Tobago.Transport.request(function() {
+      Tobago.action.value = actionId;
+      Tobago.onSubmit();
+//      LOG.debug("submit form with action: " + Tobago.action.value);
+      Tobago.form.submit();
+    });
   },
 
    /**
@@ -412,7 +415,7 @@ var Tobago = {
     var children = document.getElementsByTagName('head')[0].childNodes;
     for (var i = 0; i < children.length; i++) {
       var child = children[i];
-      if (child.tagName.toUpperCase() == "LINK") {
+      if (child.tagName && child.tagName.toUpperCase() == "LINK") {
         if (child.rel == "stylesheet"
             && child.type == "text/css"
             && name ==  child.href.replace(/^http:\/\/.*?\//,"/")){
@@ -507,15 +510,35 @@ var Tobago = {
     this.ajaxComponents[componentId] = containerId;
   },
 
-  reloadComponent: function(id, actionId) {
-    var containerId = this.ajaxComponents[id];
-    if (containerId) {
-      if (!actionId) {
-        actionId = containerId;
+  reloadComponent: function(id, actionId, options) {
+    var container = this.ajaxComponents[id];
+    if (container) {
+      if (typeof container == "string") {
+        if (!actionId) {
+          actionId = container;
+        }
+        container = this.element(container);
+        Tobago.Updater.update(container, this.page, actionId, id, options);
+      } else if ((typeof container == "object") && container.tagName) {
+        if (!actionId) {
+          actionId = container.id;
+        }
+        Tobago.Updater.update(container, this.page, actionId, id, options);
+      } else if ((typeof container == "object") && (typeof container.reloadWithAction == "function")) {
+        if (!actionId) {
+          if (container.id) {
+            actionId = container.id;
+          } else {
+            actionId = "_tbg_no_action_";
+          }
+        }
+        container.reloadWithAction(actionId, options);
+      } else {
+        LOG.warn("Illegal Container for reload:" + (typeof container));
       }
-      Tobago.Updater.update(this.element(containerId), this.page, actionId, id);
     } else {
       LOG.warn("Can't find container for '" + id + "'! skip reload!");
+      LOG.debugAjaxComponents();
     }
   },
 
@@ -936,6 +959,19 @@ var Tobago = {
     }
   },
 
+  bind2: function(object, func) {
+    var rest = [];
+    for (var i = 2; i < arguments.length; i++) {
+      rest.push(arguments[i])
+    }
+    return function() {
+      for (var i = 0; i < arguments.length; i++) {
+        rest.push(arguments[i])
+      }
+      object[func].apply(object, rest);
+    }
+  },
+
   /**
    * Returns a function which binds the named function 'func' of the object 'object'
    * as eventListener.
@@ -1110,6 +1146,13 @@ var Tobago = {
     LOG.error("arg ist unbekannt : " + typeof arg + " : " + arg);
     }
     return undefined;
+  },
+
+  extend: function(target, source) {
+    for (property in source) {
+      target[property] = source[property];
+    }
+    return target;
   }
 };
 
@@ -1238,26 +1281,64 @@ Tobago.ScriptLoader = function(names, doAfter) {
   Tobago.addScriptLoader(this);
 };
 
+Tobago.Transport = {
+  requests: new Array(),
+
+  request: function(req) {
+    this.requests.push(req);
+    if (this.requests.length == 1) {
+      LOG.debug("Execute request!");
+      this.requests[0]();
+    } else {
+      LOG.debug("Request queued!");
+    }
+  },
+
+  requestComplete: function() {
+    this.requests.shift();
+    LOG.debug("Request complete! Queue size : " + this.requests.length);
+    if (this.requests.length > 0) {
+      LOG.debug("Execute request!");
+      this.requests[0]();
+    }
+  }
+}
+
 Tobago.Updater = {
 
   options: {
     method: 'post',
     asynchronous: true,
     parameters: '',
-    evalScripts: true
+    evalScripts: true,
+    createOverlay: true,
+    onComplete: function(){} // empty function
   },
 
   update: function(container, page, actionId, ajaxComponentId, options) {
 
     if (this.hasTransport()) {
-      Tobago.action.value = actionId;
+      var requestOptions = Tobago.extend({}, this.options);
+      if (options) {
+        Tobago.extend(requestOptions, options);
+      }
 
-      var url = Tobago.form.action + "?affectedAjaxComponent=" + ajaxComponentId
-          + '&' + Form.serialize(Tobago.form);
+      if (requestOptions.createOverlay) {
+        Tobago.createOverlay(container);
+      }
+      var onComplete = requestOptions.onComplete;
+      requestOptions.onComplete = function(transport, json) {
+        Tobago.Transport.requestComplete();
+        onComplete(transport, json);
+      };
 
-      Tobago.createOverlay(container);
       //    LOG.debug("request url = " + url);
-      new Ajax.Updater(container, url, options || this.options);
+      Tobago.Transport.request(function() {
+        Tobago.action.value = actionId;
+        var url = Tobago.form.action + "?affectedAjaxComponent="
+            + ajaxComponentId + '&' + Form.serialize(Tobago.form);        
+        new Ajax.Updater(container, url, requestOptions);
+      });
     } else {
       LOG.info("No Ajax transport found! Doing full page reload.");
       Tobago.submitAction(actionId);

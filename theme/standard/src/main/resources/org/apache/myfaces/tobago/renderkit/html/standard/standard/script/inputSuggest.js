@@ -55,12 +55,18 @@ Object.extend(new Ajax.Base(), {
         + "&" + encodeURIComponent(this.element.name) + '='
         + encodeURIComponent(this.element.value);
 
-    LOG.debug("start new request");
-    new Ajax.Request(Tobago.form.action, this.options);
+//    LOG.debug("start new request");
+    var requestOptions = Tobago.extend({}, this.options);
+    var onComplete = requestOptions.onComplete;
+    requestOptions.onComplete = function(transport, json) {
+      Tobago.Transport.requestComplete();
+      onComplete(transport, json);
+    };
+    Tobago.Transport.request(function(){new Ajax.Request(Tobago.form.action, requestOptions)});
   },
 
   onComplete: function(request) {
-    LOG.debug("get response = " + request.responseText);
+//    LOG.debug("get response = " + request.responseText);
     this.updateChoices(request.responseText);
     this.resetWidth();
   },

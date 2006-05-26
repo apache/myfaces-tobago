@@ -94,6 +94,21 @@ Object.extend(LOG, {
         }
       }
     }
+  },
+
+  debugAjaxComponents: function() {
+     for (var name in Tobago.ajaxComponents) {
+       var component = Tobago.ajaxComponents[name];
+       if (typeof component == 'string') {
+         LOG.debug("AjaxComponentId = " + name + " ContainerId = " + component);
+       } else if ((typeof component == 'object') && component.tagName) {
+         LOG.debug("AjaxComponentId = " + name + " ContainerType = " + component.tagName);
+       } else if ((typeof component == 'object') && (typeof component.reloadWithAction == "function")) {
+         LOG.debug("AjaxComponentId = " + name + " TobagoAjaxReloadable object");
+       } else {
+         LOG.debug("AjaxComponentId = " + name + " Unknown object");
+       }
+    }  
   }
 });
 
