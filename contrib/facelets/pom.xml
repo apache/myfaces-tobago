@@ -161,4 +161,14 @@
       <artifactId>servlet-api</artifactId>
     </dependency>
   </dependencies>
+
+  <repositories>
+    <repository>
+      <id>java-net</id>
+      <name>java.net Repository</name>
+      <url>https://maven-repository.dev.java.net/nonav/repository/</url>
+      <layout>legacy</layout>
+    </repository>
+  </repositories>
+
 </project>

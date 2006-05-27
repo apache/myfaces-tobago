@@ -32,7 +32,8 @@
       <item name="Getting Started" href="http://myfaces.apache.org/tobago/getting-started.html"/>
       <item name="Roadmap" href="http://myfaces.apache.org/tobago/roadmap.html" />
       <item name="Theme Handling" href="http://myfaces.apache.org/tobago/themes.html" />
-      <item name="FAQ" href="http://myfaces.apache.org/tobago/faq.html"/>
+      <item name="Mailing Lists" href="mail-lists.html" />
+      <item name="FAQ" href="http://myfaces.apache.org/tobago/faq.html" />
     </menu>
     
     ${parentProject}

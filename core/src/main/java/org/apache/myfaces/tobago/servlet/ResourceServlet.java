@@ -69,7 +69,8 @@ public class ResourceServlet extends HttpServlet {
     }
     InputStream inputStream = null;
     try {
-      inputStream = ResourceServlet.class.getClassLoader().getResourceAsStream(resource);
+      ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+      inputStream = classLoader.getResourceAsStream(resource);
       if (inputStream != null) {
         IOUtils.copy(inputStream, response.getOutputStream());
       } else {
