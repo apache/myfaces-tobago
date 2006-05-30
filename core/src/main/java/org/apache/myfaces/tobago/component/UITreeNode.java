@@ -16,7 +16,8 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.commons.beanutils.BeanUtils;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED_REFERENCE;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -52,6 +53,7 @@ public class UITreeNode extends UIInput {
     parent.getChildren().add(this);
     initId();
     initName();
+    initDisabled();
   }
 
   public UITreeNode() {
@@ -114,51 +116,56 @@ public class UITreeNode extends UIInput {
   }
 
   private void initName() {
-    String name = null;
-    UITree root = findTreeRoot();
     TreeNode treeNode = (TreeNode) getValue();
     if (treeNode != null) {
-      String nameReference
-          = (String) root.getAttributes().get(
-              ATTR_NAME_REFERENCE);
-      if (nameReference != null) {
-        try {
-          name = BeanUtils.getProperty(treeNode, nameReference);
-        } catch (Exception e) {
-          LOG.warn(
-              "Can't find name over ref='" + nameReference
-              + "' treeNode='" + treeNode + "!", e);
-        }
-      }
+      Object name = getReference(treeNode, ATTR_NAME_REFERENCE);
       if (name == null) {
         name = toString();
       }
-      getAttributes().put(ATTR_NAME, name);
+      getAttributes().put(ATTR_NAME, name.toString());
+    }
+  }
+
+  private void initDisabled() {
+    TreeNode treeNode = (TreeNode) getValue();
+    if (treeNode != null) {
+      Object disabled = getReference(treeNode, ATTR_DISABLED_REFERENCE);
+      if (! (disabled instanceof Boolean)) {
+        if (disabled instanceof String) {
+          disabled = Boolean.valueOf((String) disabled);
+        } else {
+          disabled = false;
+        }
+      }
+      getAttributes().put(ATTR_DISABLED, disabled);
     }
   }
 
   private void initId() {
-    String id = null;
-    UITree root = findTreeRoot();
     TreeNode treeNode = (TreeNode) getValue();
     if (treeNode != null) {
-      String idReference
-          = (String) root.getAttributes().get(
-              ATTR_ID_REFERENCE);
-      if (idReference != null) {
-        try {
-          id = BeanUtils.getProperty(treeNode, idReference);
-        } catch (Exception e) {
-          LOG.warn(
-              "Can't find id over ref '" + idReference
-              + "' treeNode='" + treeNode + "!", e);
-        }
-      }
-      if (id == null) {
+      Object id = getReference(treeNode, ATTR_ID_REFERENCE);
+      if (! (id instanceof String)) {
         id = "node" + Integer.toString(System.identityHashCode(treeNode));
       }
-      setId(id);
+      setId((String) id);
     }
+  }
+
+  private Object getReference(TreeNode treeNode, String key) {
+    Object value = null;
+    UITree root = findTreeRoot();
+    String reference = (String) root.getAttributes().get(key);
+    if (reference != null) {
+      try {
+        value = PropertyUtils.getProperty(treeNode, reference);
+      } catch (Exception e) {
+        LOG.warn(
+            "Can't find " + key + " over ref='" + reference
+                + "' treeNode='" + treeNode + "! " + treeNode.getClass().getName(), e);
+      }
+    }
+    return value;
   }
 
   public UITree findTreeRoot() {

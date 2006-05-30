@@ -171,10 +171,20 @@ a:link.tab, a:visited.tab, a:active.tab {
 a.tree-folder-label, .tree-folder-label {
   font: bold 12px arial, helvetica, sans-serif;
 }
+a.tree-folder-label-disabled, a.tree-item-label-disabled {
+  color: #888888;
+  text-decoration: none;
+  cursor: pointer;
+}
 
 a.tree-folder-label:hover, a.tree-item-label:hover  {
   color: #000000;
   text-decoration: underline;
+}
+a.tree-folder-label-disabled:hover, a.tree-item-label-disabled:hover  {
+  color: #888888;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 a.tree-folder-label:focus, a.tree-item-label:focus {

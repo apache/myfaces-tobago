@@ -39,6 +39,7 @@ public final class TobagoConstants {
   public static final String ATTR_DEFAULT_COMMAND = "defaultCommand";
   public static final String ATTR_DIRECT_LINK_COUNT = "directLinkCount";
   public static final String ATTR_DISABLED = "disabled";
+  public static final String ATTR_DISABLED_REFERENCE = "disabledReference";
   public static final String ATTR_DOCTYPE = "doctype";
   public static final String ATTR_ENCTYPE = "enctype";
   public static final String ATTR_ESCAPE = "escape";

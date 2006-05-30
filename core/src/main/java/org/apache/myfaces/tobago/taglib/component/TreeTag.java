@@ -16,6 +16,7 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED_REFERENCE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ID_REFERENCE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MUTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_NAME_REFERENCE;
@@ -49,6 +50,7 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
 
   private String idReference;
   private String nameReference;
+  private String disabledReference;
 
   private String required;
 
@@ -74,6 +76,7 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
 
     ComponentUtil.setStringProperty(component, ATTR_ID_REFERENCE, idReference);
     ComponentUtil.setStringProperty(component, ATTR_NAME_REFERENCE, nameReference);
+    ComponentUtil.setStringProperty(component, ATTR_DISABLED_REFERENCE, disabledReference);
     ComponentUtil.setBooleanProperty(component, ATTR_REQUIRED, required);
     ComponentUtil.setActionListener((ActionSource) component, actionListener);
   }
@@ -90,6 +93,7 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
     mutable = null;
     idReference = null;
     nameReference = null;
+    disabledReference = null;
     required = null;
     actionListener = null;
   }
@@ -179,6 +183,14 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
 
   public void setNameReference(String nameReference) {
     this.nameReference = nameReference;
+  }
+
+  public String getDisabledReference() {
+    return disabledReference;
+  }
+
+  public void setDisabledReference(String disabledReference) {
+    this.disabledReference = disabledReference;
   }
 
   public String getRequired() {

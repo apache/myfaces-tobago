@@ -298,7 +298,7 @@ var TreeManager = {
 
 function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
     hideRoot, treeHiddenId, selectable, mutable,
-    formId, selected, marked, required, treeResources,
+    formId, selected, marked, required, disabled, treeResources,
     action, parent, icon) {
 	this.label = label;
 	this.id = id;
@@ -314,6 +314,7 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
   this.selected = selected;
   this.marked = marked;
   this.required = required;
+  this.disabled = disabled;
   this.treeResources = treeResources;
 	this.action = action;
 	this.icon = icon;
@@ -380,19 +381,24 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
           + '-markIcon" src="' + markIcon + '" ' + markIconOnClick + ' alt="">';
     }
     var itemStyle = "tree-item-label";
+    if (this.disabled) {
+      itemStyle += " tree-item-label-disabled";
+    }
     if (this.marked) {
       itemStyle += " tree-item-marker";
     }
-    if (this.action) {
+    if (this.action && !this.disabled) {
       str += '<a class="' + itemStyle + '" href="' + this.action + '" id="'
         + this.id + '-anchor">' + this.label + '</a>';
     } else {
     // TODO: mozilla shoud use href="javascript:;" and ie href="#"
-      str += '<a class="' + itemStyle + '" href="#"' //
-        + ' onclick="' + this.onclick + '"'
-        + ' onfocus="' + this.onfocus + '"'
-        + '>'
-        + this.label + '</a>';
+      str += '<a class="' + itemStyle + '"';
+      if (!this.disabled) {
+          str += ' href="#"' + ' onclick="' + this.onclick + '"'
+              + ' onfocus="' + this.onfocus + '"';
+      }
+      str += '>'
+          + this.label + '</a>';
     }
     str += '</div>';
     return str;
@@ -445,11 +451,11 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
 
 function TreeFolder(label, id, hideIcons, hideJunctions, hideRootJunction,
     hideRoot, treeHiddenId, selectable, mutable, formId, selected, marked,
-    expanded, required, treeResources, action, parent, icon, openIcon) {
+    expanded, required, disabled, treeResources, action, parent, icon, openIcon) {
 	this.base = TreeNode;
 	this.base(label, id, hideIcons, hideJunctions, hideRootJunction,
 	    hideRoot, treeHiddenId, selectable, mutable, formId, selected, marked,
-      required, treeResources, action, parent, icon);
+      required, disabled, treeResources, action, parent, icon);
   this.open = false;
   this.expanded = expanded;
 
@@ -548,19 +554,24 @@ function TreeFolder(label, id, hideIcons, hideJunctions, hideRootJunction,
             + '-markIcon" src="' + markIcon + '" ' + markIconOnClickFunction + ' alt="">';
       }
       var itemStyle = "tree-folder-label";
+
+      if (this.disabled) {
+        itemStyle += " tree-folder-label-disabled";
+      }
       if (this.marked) {
         itemStyle += " tree-item-marker";
       }
-      if (this.action) {
+      if (this.action && !this.disabled) {
         str += '<a class="' + itemStyle + '" href="' + this.action + '" id="'
         + this.id + '-anchor">' + this.label + '</a>';
       } else {
     // TODO: mozilla shoud use href="javascript:;" and ie href="#"
-        str += '<a class="' + itemStyle + '" href="#"'
-            + ' onclick="' + this.onclick + '"'
-            + ' onfocus="' + this.onfocus + '"'
-//            + ' ondblclick="' + this.ondblclick + '"'
-            + '>'
+        str += '<a class="' + itemStyle + '"';
+        if (!this.disabled) {
+            str += ' href="#"' + ' onclick="' + this.onclick + '"'
+                + ' onfocus="' + this.onfocus + '"';
+        }
+        str += '>'
             + this.label + '</a>';
       }
       str += '</div>';

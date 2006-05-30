@@ -108,5 +108,15 @@ public interface TreeTagDeclaration extends TobagoTagDeclaration,
   @UIComponentTagAttribute(type = "java.lang.Boolean",
       defaultValue = "false")
   void setShowRoot(String showRoot);
-
+  
+  /**
+   * Bean property reference to fetch the disabled state for the treeNode's.<br>
+   * Example:<br>
+   *   a disabledReference="userObject.disabled" try's to invoke
+   *   <code>&lt;UITreeNode>.getUserObject().getDisabled()<code> to fetch the state.
+   *
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  void setDisabledReference(String id);
 }

@@ -24,6 +24,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MUTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_NAME;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
@@ -260,6 +261,10 @@ public class TreeNodeRenderer extends RendererBase {
       }
       writer.writeText(",", null);
       writer.writeText(Boolean.toString(root.isRequired()), null);
+
+      writer.writeText(",", null);
+      writer.writeText(ComponentUtil.getBooleanAttribute(treeNode, ATTR_DISABLED), null);
+      
       writer.writeText(",treeResourcesHelp);\n", null);
 
       if (jsParentClientId != null) { // if not the root node
