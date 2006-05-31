@@ -41,6 +41,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class TreeRenderer extends RendererBase {
 
@@ -52,7 +55,9 @@ public class TreeRenderer extends RendererBase {
       "openfoldericon.gif",
       "foldericon.gif",
       "unchecked.gif",
+      "uncheckedDisabled.gif",
       "checked.gif",
+      "checkedDisabled.gif",
       "new.gif",
       "T.gif",
       "L.gif",
@@ -169,7 +174,7 @@ public class TreeRenderer extends RendererBase {
 //    writer.endElement("div");
 
 
-    String script = createJavascript(facesContext, clientId, root);
+    String script[] = createJavascript(facesContext, clientId, root);
 
     final String[] scripts = {"script/tree.js"};
     ComponentUtil.findPage(tree).getScriptFiles().add(scripts[0]);
@@ -179,54 +184,59 @@ public class TreeRenderer extends RendererBase {
       writer.writeText(script, null);
       HtmlRendererUtil.endJavascript(writer);
     } else {
-      HtmlRendererUtil.writeScriptLoader(facesContext, scripts,
-          new String[] {script.replaceAll("\n", " ")});
+      HtmlRendererUtil.writeScriptLoader(facesContext, scripts, script);
     }
 
     writer.endElement("div");
   }
 
-  private String createJavascript(FacesContext facesContext, String clientId,
+  private String[] createJavascript(FacesContext facesContext, String clientId,
                                   UITreeNode root)
   throws IOException {
     StringBuffer sb = new StringBuffer();
 
-    sb.append("{");
+    sb.append("{\n");
 
-    sb.append("var treeResourcesHelp = new Object();\n");
+    sb.append("  var treeResourcesHelp = new Object();\n");
     for (int i = 0; i < TREE_IMAGES.length; i++) {
-      sb.append("treeResourcesHelp.");
-      sb.append(TREE_IMAGES[i].replace('.', '_'));
-      sb.append(" = \"");
+      sb.append("  treeResourcesHelp[\"");
+      sb.append(TREE_IMAGES[i]);
+      sb.append("\"] = \"");
       sb.append(ResourceManagerUtil.getImageWithPath(facesContext, "image/" + TREE_IMAGES[i]));
       sb.append("\";\n");
     }
-    sb.append("treeResourcesHelp.getImage = function (name) {\n");
-    sb.append("  var result = this[name.replace('.', '_')];\n");
-    sb.append("  if (result) {\n");
-    sb.append("    return result;\n");
-    sb.append("  } else {\n");
-    sb.append("    return \"");
+    sb.append(" \n  treeResourcesHelp.getImage = function (name) {\n");
+    sb.append("    var result = this[name];\n");
+    sb.append("    if (result) {\n");
+    sb.append("      return result;\n");
+    sb.append("    } else {\n");
+    sb.append("      return \"");
     sb.append(ResourceManagerUtil.getImageWithPath(facesContext, "image/blank.gif"));
     sb.append("\";\n");
-    sb.append("  }\n");
-    sb.append("};\n");
+    sb.append("    }\n");
+    sb.append("  };\n \n");
 
     sb.append(getNodesAsJavascript(facesContext, root));
 
     sb.append("  var treeDiv = document.getElementById('");
     sb.append(clientId);
     sb.append("-cont');\n");
-    sb.append("treeDiv.innerHTML = ");
+    sb.append("  treeDiv.innerHTML = ");
     String rootNode = createJavascriptVariable(root.getClientId(facesContext));
     sb.append(rootNode);
-    sb.append(".toString(0, true);\n");
+    sb.append(".toString(0, true);\n  ");
 
     sb.append(rootNode);
     sb.append(".initSelection();\n");
 
     sb.append("}");
-    return sb.toString();
+//    return sb.toString();
+    StringTokenizer tokenizer = new StringTokenizer(sb.toString(), "\n");
+    String[] strings = new String[tokenizer.countTokens()];
+    for (int i = 0 ; i < strings.length; i++) {
+      strings[i] = tokenizer.nextToken();
+    }
+    return strings;
   }
 
   protected String getNodesAsJavascript(FacesContext facesContext, UITreeNode root) throws IOException {

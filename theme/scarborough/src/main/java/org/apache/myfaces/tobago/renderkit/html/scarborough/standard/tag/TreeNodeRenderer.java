@@ -181,7 +181,7 @@ public class TreeNodeRenderer extends RendererBase {
 
       String debuging = null;
 
-      writer.writeText("var ", null);
+      writer.writeText("  var ", null);
       writer.writeText(jsClientId, null);
       writer.writeText(" = new ", null);
       if (component.getChildCount() == 0) {
@@ -268,6 +268,7 @@ public class TreeNodeRenderer extends RendererBase {
       writer.writeText(",treeResourcesHelp);\n", null);
 
       if (jsParentClientId != null) { // if not the root node
+        writer.writeText("  ", null);
         writer.writeText(jsParentClientId, null);
         writer.writeText(".add(", null);
         writer.writeText(jsClientId, null);

@@ -338,15 +338,17 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
   var markIconOnClick = '';
   if (selectable) {
     if (selected) {
-      markIcon = treeResources.getImage("checked.gif");
+          markIcon = treeResources.getImage("checked" + (this.disabled ? "Disabled" : "") + ".gif");
     } else {
-      markIcon = treeResources.getImage("unchecked.gif");
+          markIcon = treeResources.getImage("unchecked" + (this.disabled ? "Disabled" : "") + ".gif");
     }
-    markIconOnClick
-        = 'onclick="toggleSelect(this.parentNode, \'' + treeHiddenId
-            + '\', \'' + treeResources.getImage("unchecked.gif")
-            + '\', \'' + treeResources.getImage("checked.gif")
-            + '\')"';
+    if (!this.disabled) {
+      markIconOnClick
+          = 'onclick="toggleSelect(this.parentNode, \'' + treeHiddenId
+              + '\', \'' + treeResources.getImage("unchecked.gif")
+              + '\', \'' + treeResources.getImage("checked.gif")
+              + '\')"';
+    }
   }
   if (marked) {
     storeMarker(this, treeHiddenId);
@@ -495,16 +497,18 @@ function TreeFolder(label, id, hideIcons, hideJunctions, hideRootJunction,
         markIcon = treeResources.getImage("1x1.gif");
       } else {
         if (selected) {
-          markIcon = treeResources.getImage("checked.gif");
+          markIcon = treeResources.getImage("checked" + this.disabled ? "Disabled" : "" + ".gif");
         } else {
-          markIcon = treeResources.getImage("unchecked.gif");
+          markIcon = treeResources.getImage("unchecked" + this.disabled ? "Disabled" : "" + ".gif");
         }
-        markIconOnClickFunction
-            = 'onclick="toggleSelect(this.parentNode, \'' + treeHiddenId
-              + '\', \'' + treeResources.getImage("unchecked.gif")
-              + '\', \'' + treeResources.getImage("checked.gif")
-              + '\')"';
+        if (!this.disabled) {
+          markIconOnClickFunction
+              = 'onclick="toggleSelect(this.parentNode, \'' + treeHiddenId
+                + '\', \'' + treeResources.getImage("unchecked.gif")
+                + '\', \'' + treeResources.getImage("checked.gif")
+                + '\')"';
         }
+      }
     }
 
     actualIcon = (this.expanded ? this.openIcon : this.icon) ;
