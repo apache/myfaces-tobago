@@ -66,7 +66,7 @@ public class TobagoConfig {
     supportedThemeNames.add(name);
   }
 
-  public void resoveThemes() {
+  public void resolveThemes() {
 
     defaultTheme = availableTheme.get(defaultThemeName);
     checkThemeIsAvailable(defaultThemeName, defaultTheme);

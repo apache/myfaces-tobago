@@ -58,7 +58,7 @@ public class TobagoServletContextListener implements ServletContextListener {
       ResourceManagerFactory.init(servletContext, tobagoConfig);
 
       // prepare themes
-      tobagoConfig.resoveThemes();
+      tobagoConfig.resolveThemes();
 
       // theme config cache
       servletContext.setAttribute(ThemeConfig.THEME_CONFIG_CACHE, new HashMap());

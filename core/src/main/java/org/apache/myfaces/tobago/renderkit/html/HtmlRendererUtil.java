@@ -487,9 +487,9 @@ public final class HtmlRendererUtil {
     writer.endElement("script");
   }
 
-  public static void writeScriptLoader(FacesContext facesContext, String sctipt)
+  public static void writeScriptLoader(FacesContext facesContext, String script)
       throws IOException {
-    writeScriptLoader(facesContext, new String[] {sctipt}, null);
+    writeScriptLoader(facesContext, new String[] {script}, null);
   }
 
   public static void writeScriptLoader(
