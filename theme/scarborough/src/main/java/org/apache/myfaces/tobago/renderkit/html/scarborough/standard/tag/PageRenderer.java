@@ -272,7 +272,11 @@ public class PageRenderer extends PageRendererBase {
     writer.writeComponentClass();
     writer.writeIdAttribute(clientId);
 
-    if (debugMode) {
+    String blank = ResourceManagerUtil.getImageWithPath(facesContext, "image/blank.gif");
+
+    HtmlRendererUtil.writeJavascript(writer, "Tobago.pngFixBlankImage = \"" + blank + "\";");
+
+      if (debugMode) {
       final String[] jsFiles = new String[] {
           "script/effects.js",
           "script/dragdrop.js",

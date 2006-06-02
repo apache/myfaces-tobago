@@ -94,7 +94,3 @@ textarea.tobago-richTextEditor-body {
 a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:active.tobago-toolBar-button-link {
    color: #000000;
 }
-
-img {
-  behavior: url("png-fix.htc");
-}

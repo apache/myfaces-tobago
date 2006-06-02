@@ -95,9 +95,7 @@
         <tc:link id="link" action="overview/basicControls"
             actionListener="#{overviewController.click}"
             label="#{overviewBundle.basic_linkAction}" />
-        <tc:link id="image" action="overview/basicControls"
-            actionListener="#{overviewController.click}"
-            image="image/image_button.gif" />
+        <tc:image id="image" value="image/image_button.png"  />
         <tc:button id="button" action="overview/basicControls"
             actionListener="#{overviewController.click}"
             width="100px"  label="#{overviewBundle.basic_buttonAction}" />

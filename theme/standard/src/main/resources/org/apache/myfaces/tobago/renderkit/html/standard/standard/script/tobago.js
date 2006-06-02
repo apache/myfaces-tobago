@@ -220,6 +220,7 @@ var Tobago = {
     }
     TbgTimer.endAppOnload = new Date();
 
+    this.loadPngFix();
     this.setFocus();
 
     this.addBindEventListener(document, "keypress", this.acceleratorKeys, "observe");
@@ -1153,6 +1154,9 @@ var Tobago = {
       target[property] = source[property];
     }
     return target;
+  },
+
+  loadPngFix: function() {
   }
 };
 
