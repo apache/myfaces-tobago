@@ -15,7 +15,7 @@
     <system>jira</system>
     <url>http://issues.apache.org/jira/secure/BrowseProject.jspa?id=12310273</url>
   </issueManagement>
-  <ciManagement>
+  <!--<ciManagement>
     <system>continuum</system>
     <url>http://myfaces.zones.apache.org:8080/continuum</url>
     <notifiers>
@@ -25,7 +25,7 @@
         </configuration>
       </notifier>
     </notifiers>
-  </ciManagement>
+  </ciManagement>-->
   <mailingLists>
     <mailingList>
       <name>Myfaces User List</name>
