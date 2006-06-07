@@ -8,7 +8,7 @@
   <artifactId>tobago-core</artifactId>
   <packaging>jar</packaging>
   <name>Tobago Core</name>
-  <description>Tobago Core</description>
+  <description>Tobago-core contains the basic application components without any special rendering or layout options. The rendering itself depends on the theme.</description>
 
   <build>
     <resources>
