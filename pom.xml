@@ -21,10 +21,6 @@
         <notifiers>
             <notifier>
                 <type>mail</type>
-                <sendOnError>true</sendOnError>
-                <sendOnFailure>true</sendOnFailure>
-                <sendOnWarning>true</sendOnWarning>
-                <sendOnSuccess>false</sendOnSuccess>
                 <configuration>
                     <address>commits@myfaces.apache.org</address>
                 </configuration>
