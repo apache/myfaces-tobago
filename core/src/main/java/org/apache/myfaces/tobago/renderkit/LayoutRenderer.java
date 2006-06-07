@@ -47,6 +47,7 @@ public abstract class LayoutRenderer extends RendererBase {
     renderer.encodeChildren(facesContext, component);
   }
 
+  @Override
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     int height = 0;
 

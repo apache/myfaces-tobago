@@ -46,6 +46,7 @@ public class TobagoRenderKit extends RenderKit {
   }
 
   // FIXME: use family
+  @Override
   public Renderer getRenderer(String family, String rendererType) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("family = '" + family + "'");
@@ -65,6 +66,7 @@ public class TobagoRenderKit extends RenderKit {
     return renderer;
   }
 
+  @Override
   public ResponseWriter createResponseWriter(
       Writer writer, String contentTypeList, String characterEncoding) {
     String contentType;
@@ -88,6 +90,7 @@ public class TobagoRenderKit extends RenderKit {
 
 // ///////////////////////////////////////////// TODO
 
+  @Override
   public void addRenderer(String family, String rendererType, Renderer renderer) {
 //    synchronized(renderers) {
 //      renderers.put(family + SEP + rendererType, renderer);
@@ -101,10 +104,12 @@ public class TobagoRenderKit extends RenderKit {
         + new Exception().getStackTrace()[0].getMethodName()); //FIXME jsf1.0
   }
 
+  @Override
   public ResponseStateManager getResponseStateManager() {
     return responseStateManager;
   }
 
+  @Override
   public ResponseStream createResponseStream(OutputStream outputstream) {
     LOG.error(
         "This method isn't implemented yet, and should not be called: "
