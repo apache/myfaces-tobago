@@ -1,497 +1,502 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.apache.myfaces.tobago</groupId>
-  <artifactId>tobago</artifactId>
-  <packaging>pom</packaging>
-  <name>Tobago</name>
-  <version>1.0.8-SNAPSHOT</version>
-  <description>Tobago</description>
-  <prerequisites>
-    <maven>2.0.3</maven>
-  </prerequisites>
-  <url>http://myfaces.apache.org/tobago</url>
-  <inceptionYear>2002</inceptionYear>
-  <issueManagement>
-    <system>jira</system>
-    <url>http://issues.apache.org/jira/secure/BrowseProject.jspa?id=12310273</url>
-  </issueManagement>
-  <!--<ciManagement>
-    <system>continuum</system>
-    <url>http://myfaces.zones.apache.org:8080/continuum</url>
-    <notifiers>
-      <notifier>
-        <configuration>
-          <address>commits@myfaces.apache.org</address>
-        </configuration>
-      </notifier>
-    </notifiers>
-  </ciManagement>-->
-  <mailingLists>
-    <mailingList>
-      <name>Myfaces User List</name>
-      <subscribe>users-subscribe@myfaces.apache.org</subscribe>
-      <unsubscribe>users-unsubscribe@myfaces.apache.org</unsubscribe>
-      <post>do not post to users@myfaces.apache.org unless subscribed</post>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-users</archive>
-      <otherArchives>
-        <otherArchive>http://www.mail-archive.com/users@myfaces.apache.org/</otherArchive>
-        <otherArchive>http://www.nabble.com/MyFaces---Users-f181.html</otherArchive>
-      </otherArchives>
-    </mailingList>
-    <mailingList>
-      <name>Myfaces Developer List</name>
-      <subscribe>dev-subscribe@myfaces.apache.org</subscribe>
-      <unsubscribe>dev-unsubscribe@myfaces.apache.org</unsubscribe>
-      <post>do not post to dev@myfaces.apache.org unless subscribed</post>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-dev</archive>
-      <otherArchives>
-        <otherArchive>http://www.mail-archive.com/dev@myfaces.apache.org/</otherArchive>
-        <otherArchive>http://www.nabble.com/My-Faces---Dev-f182.html</otherArchive>
-      </otherArchives>
-    </mailingList>
-    <mailingList>
-      <name>Myfaces Commits List</name>
-      <subscribe>commits-subscribe@myfaces.apache.org</subscribe>
-      <unsubscribe>commits-unsubscribe@myfaces.apache.org</unsubscribe>
-      <post>do not post</post>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-commits</archive>
-    </mailingList>
-    <mailingList>
-      <name>Myfaces Announcements List</name>
-      <subscribe>announce-subscribe@myfaces.apache.org</subscribe>
-      <unsubscribe>announce-unsubscribe@myfaces.apache.org</unsubscribe>
-      <post>do not post</post>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-announce</archive>
-    </mailingList>
-  </mailingLists>
-  <developers>
-    <developer>
-      <id>idus</id>
-      <name>Arvid Hülsebus</name>
-      <email>idus@krelon.com</email>
-      <organization>atanion GmbH, Germany</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>bommel</id>
-      <name>Bernd Bohmann</name>
-      <email>bernd.bohmann@atanion.com</email>
-      <organization>atanion GmbH, Germany</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>pleff</id>
-      <name>Detlef Bartetzko</name>
-      <email>detlef.bartetzko@atanion.com</email>
-      <organization>atanion GmbH, Germany</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>mmarinschek</id>
-      <name>Martin Marinschek</name>
-      <organization>Irian, Austria</organization>
-      <email>martin.marinschek@gmail.com</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>matzew</id>
-      <name>Matthias Weßendorf</name>
-      <organization>Pironet NDH AG, Germany</organization>
-      <email>mwessendorf@gmail.com</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>hennes</id>
-      <name>Philippe Hennes</name>
-      <email>philippe.hennes@philstar.de</email>
-      <organization>atanion GmbH, Germany</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>lofwyr</id>
-      <name>Udo Schnurpfeil</name>
-      <email>udo@schnurpfeil.de</email>
-      <organization>atanion GmbH, Germany</organization>
-      <roles>
-        <role>Lead</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>weber</id>
-      <name>Volker Weber</name>
-      <email>asf@weber-oldenburg.de</email>
-      <organization>atanion GmbH, Germany</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-  </developers>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.apache.myfaces.tobago</groupId>
+    <artifactId>tobago</artifactId>
+    <packaging>pom</packaging>
+    <name>Tobago</name>
+    <version>1.0.8-SNAPSHOT</version>
+    <description>Tobago</description>
+    <prerequisites>
+        <maven>2.0.3</maven>
+    </prerequisites>
+    <url>http://myfaces.apache.org/tobago</url>
+    <inceptionYear>2002</inceptionYear>
+    <issueManagement>
+        <system>jira</system>
+        <url>http://issues.apache.org/jira/secure/BrowseProject.jspa?id=12310273</url>
+    </issueManagement>
+    <ciManagement>
+        <system>continuum</system>
+        <url>http://myfaces.zones.apache.org:8080/continuum</url>
+        <notifiers>
+            <notifier>
+                <type>mail</type>
+                <sendOnError>true</sendOnError>
+                <sendOnFailure>true</sendOnFailure>
+                <sendOnWarning>true</sendOnWarning>
+                <sendOnSuccess>false</sendOnSuccess>
+                <configuration>
+                    <address>commits@myfaces.apache.org</address>
+                </configuration>
+            </notifier>
+        </notifiers>
+    </ciManagement>
+    <mailingLists>
+        <mailingList>
+            <name>Myfaces User List</name>
+            <subscribe>users-subscribe@myfaces.apache.org</subscribe>
+            <unsubscribe>users-unsubscribe@myfaces.apache.org</unsubscribe>
+            <post>do not post to users@myfaces.apache.org unless subscribed</post>
+            <archive>http://mail-archives.apache.org/mod_mbox/myfaces-users</archive>
+            <otherArchives>
+                <otherArchive>http://www.mail-archive.com/users@myfaces.apache.org/</otherArchive>
+                <otherArchive>http://www.nabble.com/MyFaces---Users-f181.html</otherArchive>
+            </otherArchives>
+        </mailingList>
+        <mailingList>
+            <name>Myfaces Developer List</name>
+            <subscribe>dev-subscribe@myfaces.apache.org</subscribe>
+            <unsubscribe>dev-unsubscribe@myfaces.apache.org</unsubscribe>
+            <post>do not post to dev@myfaces.apache.org unless subscribed</post>
+            <archive>http://mail-archives.apache.org/mod_mbox/myfaces-dev</archive>
+            <otherArchives>
+                <otherArchive>http://www.mail-archive.com/dev@myfaces.apache.org/</otherArchive>
+                <otherArchive>http://www.nabble.com/My-Faces---Dev-f182.html</otherArchive>
+            </otherArchives>
+        </mailingList>
+        <mailingList>
+            <name>Myfaces Commits List</name>
+            <subscribe>commits-subscribe@myfaces.apache.org</subscribe>
+            <unsubscribe>commits-unsubscribe@myfaces.apache.org</unsubscribe>
+            <post>do not post</post>
+            <archive>http://mail-archives.apache.org/mod_mbox/myfaces-commits</archive>
+        </mailingList>
+        <mailingList>
+            <name>Myfaces Announcements List</name>
+            <subscribe>announce-subscribe@myfaces.apache.org</subscribe>
+            <unsubscribe>announce-unsubscribe@myfaces.apache.org</unsubscribe>
+            <post>do not post</post>
+            <archive>http://mail-archives.apache.org/mod_mbox/myfaces-announce</archive>
+        </mailingList>
+    </mailingLists>
+    <developers>
+        <developer>
+            <id>idus</id>
+            <name>Arvid Hülsebus</name>
+            <email>idus@krelon.com</email>
+            <organization>atanion GmbH, Germany</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>bommel</id>
+            <name>Bernd Bohmann</name>
+            <email>bernd.bohmann@atanion.com</email>
+            <organization>atanion GmbH, Germany</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>pleff</id>
+            <name>Detlef Bartetzko</name>
+            <email>detlef.bartetzko@atanion.com</email>
+            <organization>atanion GmbH, Germany</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>mmarinschek</id>
+            <name>Martin Marinschek</name>
+            <organization>Irian, Austria</organization>
+            <email>martin.marinschek@gmail.com</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>matzew</id>
+            <name>Matthias Weßendorf</name>
+            <organization>Pironet NDH AG, Germany</organization>
+            <email>mwessendorf@gmail.com</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>hennes</id>
+            <name>Philippe Hennes</name>
+            <email>philippe.hennes@philstar.de</email>
+            <organization>atanion GmbH, Germany</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>lofwyr</id>
+            <name>Udo Schnurpfeil</name>
+            <email>udo@schnurpfeil.de</email>
+            <organization>atanion GmbH, Germany</organization>
+            <roles>
+                <role>Lead</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>weber</id>
+            <name>Volker Weber</name>
+            <email>asf@weber-oldenburg.de</email>
+            <organization>atanion GmbH, Germany</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
 
-  <reporting>
-    <excludeDefaults>true</excludeDefaults>
-    <plugins>
+    <reporting>
+        <excludeDefaults>true</excludeDefaults>
+        <plugins>
 
-     <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>cobertura-maven-plugin</artifactId>
-      </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+            </plugin>
 
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>taglist-maven-plugin</artifactId>
-        <configuration>
-          <tags>
-            <tag>TODO</tag>
-            <tag> FIXME</tag>
-            <tag>XXX</tag>
-            <tag>@deprecated</tag>
-          </tags>
-        </configuration>
-      </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>taglist-maven-plugin</artifactId>
+                <configuration>
+                    <tags>
+                        <tag>TODO</tag>
+                        <tag> FIXME</tag>
+                        <tag>XXX</tag>
+                        <tag>@deprecated</tag>
+                    </tags>
+                </configuration>
+            </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jxr-plugin</artifactId>
-      </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+            </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <configuration>
-          <configLocation>org/apache/myfaces/tobago/checkstyle.xml</configLocation>
-          <xrefLocation>xref</xrefLocation>
-          <excludes>**/package-info.java</excludes>
-        </configuration>
-      </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <configLocation>org/apache/myfaces/tobago/checkstyle.xml</configLocation>
+                    <xrefLocation>xref</xrefLocation>
+                    <excludes>**/package-info.java</excludes>
+                </configuration>
+            </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <!--<aggregate>true</aggregate>-->
-          <links>
-            <link>http://java.sun.com/j2se/1.5.0/docs/api</link>
-            <link>http://java.sun.com/j2ee/1.4/docs/api</link>
-            <link>http://java.sun.com/javaee/javaserverfaces/1.1_01/docs/api</link>
-            <link>http://jakarta.apache.org/commons/collections/apidocs-COLLECTIONS_3_0/</link>
-            <link>http://jakarta.apache.org/commons/fileupload/apidocs/</link>
-            <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
-            <link>http://www.junit.org/junit/javadoc/</link>
-            <link>http://logging.apache.org/log4j/docs/api/</link>
-          </links>
-        </configuration>
-      </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <!--<aggregate>true</aggregate>-->
+                    <links>
+                        <link>http://java.sun.com/j2se/1.5.0/docs/api</link>
+                        <link>http://java.sun.com/j2ee/1.4/docs/api</link>
+                        <link>http://java.sun.com/javaee/javaserverfaces/1.1_01/docs/api</link>
+                        <link>http://jakarta.apache.org/commons/collections/apidocs-COLLECTIONS_3_0/</link>
+                        <link>http://jakarta.apache.org/commons/fileupload/apidocs/</link>
+                        <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
+                        <link>http://www.junit.org/junit/javadoc/</link>
+                        <link>http://logging.apache.org/log4j/docs/api/</link>
+                    </links>
+                </configuration>
+            </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-report-plugin</artifactId>
-      </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+            </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-       </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+            </plugin>
 
-      <!--<plugin>
-        <inherited>false</inherited>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>changes-maven-plugin</artifactId>
-      </plugin>-->
+            <!--<plugin>
+              <inherited>false</inherited>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>changes-maven-plugin</artifactId>
+            </plugin>-->
 
-      <plugin>
-        <inherited>false</inherited>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>changelog-maven-plugin</artifactId>
-        <configuration>
-          <basedir>${basedir}</basedir>
-        </configuration>
-      </plugin>
+            <plugin>
+                <inherited>false</inherited>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>changelog-maven-plugin</artifactId>
+                <configuration>
+                    <basedir>${basedir}</basedir>
+                </configuration>
+            </plugin>
 
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>clirr-maven-plugin</artifactId>
-        <configuration>
-          <minSeverity>info</minSeverity>
-        </configuration>
-      </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>clirr-maven-plugin</artifactId>
+                <configuration>
+                    <minSeverity>info</minSeverity>
+                </configuration>
+            </plugin>
 
-      <!-- pmd has problems with annotations -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <configuration>
-          <rulesets>
-            <ruleset>/rulesets/basic.xml</ruleset>
-            <ruleset>/rulesets/unusedcode.xml</ruleset>
-            <ruleset>/rulesets/imports.xml</ruleset>
-            <!--<ruleset>/rulesets/design.xml/SimplifyBooleanReturnsRule</ruleset>
-            <ruleset>/rulesets/design.xml/SimplifyBooleanExpressions</ruleset>
-            <ruleset>/rulesets/design.xml/AvoidReassigningParametersRule</ruleset>
-            <ruleset>/rulesets/design.xml/FinalFieldCouldBeStatic</ruleset>
-            <ruleset>/rulesets/design.xml/BooleanInstantiation</ruleset>
-            <ruleset>/rulesets/design.xml/NonStaticInitializer</ruleset>
-            <ruleset>/rulesets/design.xml/DefaultLabelNotLastInSwitchStmt</ruleset>
-            <ruleset>/rulesets/design.xml/OptimizableToArrayCallRule</ruleset>
-            <ruleset>/rulesets/coupling.xml/LooseCouplingRule</ruleset>-->
-          </rulesets>
-          <excludes>
-            <exclude>**/package-info.java</exclude>
-            <exclude>org/apache/myfaces/tobago/apt/annotation/*.java</exclude>
-          </excludes>
-          <encoding>UTF-8</encoding>
-          <linkXref>true</linkXref>
-          <targetJdk>1.5</targetJdk>
-        </configuration>
-      </plugin>
+            <!-- pmd has problems with annotations -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <configuration>
+                    <rulesets>
+                        <ruleset>/rulesets/basic.xml</ruleset>
+                        <ruleset>/rulesets/unusedcode.xml</ruleset>
+                        <ruleset>/rulesets/imports.xml</ruleset>
+                        <!--<ruleset>/rulesets/design.xml/SimplifyBooleanReturnsRule</ruleset>
+                        <ruleset>/rulesets/design.xml/SimplifyBooleanExpressions</ruleset>
+                        <ruleset>/rulesets/design.xml/AvoidReassigningParametersRule</ruleset>
+                        <ruleset>/rulesets/design.xml/FinalFieldCouldBeStatic</ruleset>
+                        <ruleset>/rulesets/design.xml/BooleanInstantiation</ruleset>
+                        <ruleset>/rulesets/design.xml/NonStaticInitializer</ruleset>
+                        <ruleset>/rulesets/design.xml/DefaultLabelNotLastInSwitchStmt</ruleset>
+                        <ruleset>/rulesets/design.xml/OptimizableToArrayCallRule</ruleset>
+                        <ruleset>/rulesets/coupling.xml/LooseCouplingRule</ruleset>-->
+                    </rulesets>
+                    <excludes>
+                        <exclude>**/package-info.java</exclude>
+                        <exclude>org/apache/myfaces/tobago/apt/annotation/*.java</exclude>
+                    </excludes>
+                    <encoding>UTF-8</encoding>
+                    <linkXref>true</linkXref>
+                    <targetJdk>1.5</targetJdk>
+                </configuration>
+            </plugin>
 
 
-      <!--plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <configuration>
-          <threshold>Low</threshold>
-        </configuration>
-      </plugin-->
+            <!--plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>findbugs-maven-plugin</artifactId>
+              <version>1.0-SNAPSHOT</version>
+              <configuration>
+                <threshold>Low</threshold>
+              </configuration>
+            </plugin-->
 
-    </plugins>
+        </plugins>
 
-  </reporting>
-  <dependencyManagement>
+    </reporting>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>1.1</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>1.7.0</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>3.1</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.0.4</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-digester</groupId>
+                <artifactId>commons-digester</artifactId>
+                <version>1.6</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.11</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>3.8.1</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>jstl</artifactId>
+                <version>1.1.0</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>jsp-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>taglibs</groupId>
+                <artifactId>standard</artifactId>
+                <version>1.1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.core</groupId>
+                <artifactId>myfaces-api</artifactId>
+                <version>1.1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.core</groupId>
+                <artifactId>myfaces-impl</artifactId>
+                <version>1.1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>jsp-api</artifactId>
+                <version>2.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>2.3</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
-      <dependency>
-        <groupId>commons-io</groupId>
-        <artifactId>commons-io</artifactId>
-        <version>1.1</version>
-      </dependency>
-      <dependency>
-        <groupId>commons-lang</groupId>
-        <artifactId>commons-lang</artifactId>
-        <version>2.1</version>
-      </dependency>
-      <dependency>
-        <groupId>commons-beanutils</groupId>
-        <artifactId>commons-beanutils</artifactId>
-        <version>1.7.0</version>
-      </dependency>
-      <dependency>
-        <groupId>commons-collections</groupId>
-        <artifactId>commons-collections</artifactId>
-        <version>3.1</version>
-      </dependency>
-      <dependency>
-        <groupId>commons-logging</groupId>
-        <artifactId>commons-logging</artifactId>
-        <version>1.0.4</version>
-      </dependency>
-      <dependency>
-        <groupId>commons-digester</groupId>
-        <artifactId>commons-digester</artifactId>
-        <version>1.6</version>
-      </dependency>
-      <dependency>
-        <groupId>commons-fileupload</groupId>
-        <artifactId>commons-fileupload</artifactId>
-        <version>1.0</version>
-      </dependency>
-      <dependency>
-        <groupId>log4j</groupId>
-        <artifactId>log4j</artifactId>
-        <version>1.2.11</version>
-      </dependency>
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>3.8.1</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>jstl</artifactId>
-        <version>1.1.0</version>
-        <exclusions>
-          <exclusion>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jsp-api</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>taglibs</groupId>
-        <artifactId>standard</artifactId>
-        <version>1.1.2</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.myfaces.core</groupId>
-        <artifactId>myfaces-api</artifactId>
-        <version>1.1.2</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.myfaces.core</groupId>
-        <artifactId>myfaces-impl</artifactId>
-        <version>1.1.2</version>
-      </dependency>
-      <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>jsp-api</artifactId>
-        <version>2.0</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>servlet-api</artifactId>
-        <version>2.3</version>
-        <scope>provided</scope>
-      </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+
     </dependencies>
-  </dependencyManagement>
 
-  <dependencies>
+    <scm>
 
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-    </dependency>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/trunk/</url>
 
-  </dependencies>
+    </scm>
 
-  <scm>
+    <organization>
+        <name>Apache Software Foundation</name>
+        <url>http://www.apache.org/</url>
+    </organization>
 
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/trunk/</url>
+    <repositories>
+        <repository>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <id>apache.snapshots</id>
+            <url>http://cvs.apache.org/maven-snapshot-repository</url>
+        </repository>
+    </repositories>
 
-  </scm>
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>clean</id>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ssh-external</artifactId>
+                <version>1.0-alpha-6</version>
+            </extension>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ftp</artifactId>
+                <version>1.0-alpha-6</version>
+            </extension>
+            <extension>
+                <groupId>org.apache.myfaces.maven</groupId>
+                <artifactId>build-tools</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </extension>
+        </extensions>
+    </build>
 
-  <organization>
-    <name>Apache Software Foundation</name>
-    <url>http://www.apache.org/</url>
-  </organization>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-  <repositories>
-    <repository>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <id>apache.snapshots</id>
-      <url>http://cvs.apache.org/maven-snapshot-repository</url>
-    </repository>
-  </repositories>
+    <modules>
+        <module>tobago-tool</module>
+        <module>core</module>
+        <module>theme</module>
+    </modules>
 
-  <build>
-    <defaultGoal>install</defaultGoal>
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>cobertura-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>clean</id>
-            <goals>
-              <goal>clean</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-          <encoding>UTF-8</encoding>
-        </configuration>
-      </plugin>
-    </plugins>
-    <extensions>
-      <extension>
-        <groupId>org.apache.maven.wagon</groupId>
-         <artifactId>wagon-ssh-external</artifactId>
-         <version>1.0-alpha-6</version>
-      </extension>
-      <extension>
-        <groupId>org.apache.maven.wagon</groupId>
-        <artifactId>wagon-ftp</artifactId>
-        <version>1.0-alpha-6</version>
-      </extension>
-      <extension>
-        <groupId>org.apache.myfaces.maven</groupId>
-        <artifactId>build-tools</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-      </extension>
-    </extensions>
-  </build>
+    <distributionManagement>
+        <repository>
+            <id>apache-maven</id>
+            <name>Apache Maven Repository</name>
+            <url>scpexe://minotaur.apache.org/www/www.apache.org/dist/maven-repository</url>
+        </repository>
+        <snapshotRepository>
+            <uniqueVersion>false</uniqueVersion>
+            <id>apache-maven-snapshots</id>
+            <name>Apache Maven Snapshot Repository</name>
+            <url>scpexe://minotaur.apache.org/www/cvs.apache.org/maven-snapshot-repository</url>
+        </snapshotRepository>
+        <site>
+            <id>website</id>
+            <url>scpexe://minotaur.apache.org/www/myfaces.apache.org/tobago/</url>
+        </site>
+    </distributionManagement>
 
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-
-  <modules>
-    <module>tobago-tool</module>
-    <module>core</module>
-    <module>theme</module>
-  </modules>
-
-  <distributionManagement>
-    <repository>
-      <id>apache-maven</id>
-      <name>Apache Maven Repository</name>
-      <url>scpexe://minotaur.apache.org/www/www.apache.org/dist/maven-repository</url>
-    </repository>
-    <snapshotRepository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>apache-maven-snapshots</id>
-      <name>Apache Maven Snapshot Repository</name>
-      <url>scpexe://minotaur.apache.org/www/cvs.apache.org/maven-snapshot-repository</url>
-    </snapshotRepository>
-    <site>
-      <id>website</id>
-      <url>scpexe://minotaur.apache.org/www/myfaces.apache.org/tobago/</url>
-    </site>
-  </distributionManagement>
-
-  <profiles>
-    <profile>
-      <id>all-modules</id>
-      <modules>
-        <module>example</module>
-        <module>contrib</module>
-      </modules>
-    </profile>
-    <profile>
-      <id>generate-assembly</id>
-      <modules>
-        <module>contrib</module>
-        <module>tobago-assembly</module>
-      </modules>
-    </profile>
-  </profiles>
+    <profiles>
+        <profile>
+            <id>all-modules</id>
+            <modules>
+                <module>example</module>
+                <module>contrib</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>generate-assembly</id>
+            <modules>
+                <module>contrib</module>
+                <module>tobago-assembly</module>
+            </modules>
+        </profile>
+    </profiles>
 
 </project>
