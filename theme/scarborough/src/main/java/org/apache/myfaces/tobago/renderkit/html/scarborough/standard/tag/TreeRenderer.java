@@ -174,14 +174,17 @@ public class TreeRenderer extends RendererBase {
 //    writer.endElement("div");
 
 
-    String script[] = createJavascript(facesContext, clientId, root);
+    String[] script = createJavascript(facesContext, clientId, root);
 
     final String[] scripts = {"script/tree.js"};
     ComponentUtil.findPage(tree).getScriptFiles().add(scripts[0]);
 
     if (!TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
       HtmlRendererUtil.startJavascript(writer);
-      writer.writeText(script, null);
+      for (String s : script) {
+        writer.writeText(s, null);
+        writer.writeText('\n', null);
+      }
       HtmlRendererUtil.endJavascript(writer);
     } else {
       HtmlRendererUtil.writeScriptLoader(facesContext, scripts, script);
