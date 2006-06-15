@@ -207,7 +207,7 @@ public class ToolBarRenderer extends RendererBase {
 
 
         String formattedValue
-            = getFormattedValue(facesContext, command, item.getValue());
+            = getFormattedValue(facesContext, radio, item.getValue());
         onClick = onClickPrefix + formattedValue + onClickPostfix;
         final boolean checked;
         if (item.getValue().equals(value) || markFirst) {

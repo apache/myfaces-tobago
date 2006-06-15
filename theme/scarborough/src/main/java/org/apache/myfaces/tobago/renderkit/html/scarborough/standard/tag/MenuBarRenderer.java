@@ -458,13 +458,13 @@ public class MenuBarRenderer extends RendererBase {
             + command.getClientId(facesContext));
       }
       String formattedValue
-          = getFormattedValue(facesContext, command, item.getValue());
+          = getFormattedValue(facesContext, radio, item.getValue());
       onClick = onClickPrefix + formattedValue + onClickPostfix;
       String image;
       if (item.getValue().equals(value) || markFirst) {
         image = "image/MenuRadioChecked.gif";
         markFirst = false;
-        sb.append("    ").append(onClickPrefix).append(item.getValue()).append("');");
+        sb.append("    ").append(onClickPrefix).append(formattedValue).append("');");
       } else {
         image = "image/MenuRadioUnchecked.gif";
       }
