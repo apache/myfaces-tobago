@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.taglib.extension;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.taglib.component.DateTag;
+import org.apache.myfaces.tobago.taglib.component.DatePickerTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
@@ -69,7 +70,7 @@ public class DateExtensionTag extends BodyTagSupport
 
   private LabelExtensionTag labelTag;
   private DateTag dateTag;
-
+  private DatePickerTag datePicker;
   @Override
   public int doStartTag() throws JspException {
 
@@ -78,6 +79,7 @@ public class DateExtensionTag extends BodyTagSupport
     if (label != null) {
       labelTag.setValue(label);
     }
+    labelTag.setColumns("fixed;*;15px");
     if (tip != null) {
       labelTag.setTip(tip);
     }
@@ -134,6 +136,13 @@ public class DateExtensionTag extends BodyTagSupport
   @Override
   public int doEndTag() throws JspException {
     dateTag.doEndTag();
+    datePicker = new DatePickerTag();
+    datePicker.setPageContext(pageContext);
+    datePicker.setFor("@auto");
+    datePicker.setParent(getParent());
+    datePicker.doStartTag();
+    datePicker.doEndTag();
+
     labelTag.doEndTag();
     return super.doEndTag();
   }

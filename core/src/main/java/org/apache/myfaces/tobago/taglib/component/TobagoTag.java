@@ -26,7 +26,9 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TITLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_COMPONENT_CREATED;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.OnComponentCreated;
 
 import javax.faces.component.UIComponent;
 import javax.faces.webapp.UIComponentTag;
@@ -165,5 +167,16 @@ public abstract class TobagoTag extends UIComponentTag
 
   public void setWidth(String width) {
     this.width = width;
+  }
+
+  public int doEndTag() throws JspException {
+
+    UIComponent component = getComponentInstance();
+    if (component instanceof OnComponentCreated
+        && component.getAttributes().get(TOBAGO_COMPONENT_CREATED) == null) {
+      component.getAttributes().put(TOBAGO_COMPONENT_CREATED, Boolean.TRUE);
+        ((OnComponentCreated) component).onComponentCreated();
+    }
+    return super.doEndTag();
   }
 }

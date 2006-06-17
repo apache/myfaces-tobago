@@ -111,18 +111,6 @@ public class DateRenderer extends InRenderer {
       }
     }
 
-    UIComponent picker = input.getFacet(FACET_PICKER);
-    if (picker == null) {
-      picker = createPicker(input);
-      input.getFacets().put(FACET_PICKER, picker);
-    }
-    RenderUtil.encode(facesContext, picker);
-
-    UIPopup popup = (UIPopup) picker.getFacet(FACET_PICKER_POPUP);
-    if (popup != null) {
-      UIPage page = ComponentUtil.findPage(input);
-      page.getPopups().add(popup);
-    }
   }
 
   private UIComponent createPicker(UIComponent component) {
@@ -133,14 +121,7 @@ public class DateRenderer extends InRenderer {
         = ComponentUtil.createPickerId(facesContext, component, "");
     DatePickerController datePickerController = new DatePickerController();
 
-    String converterPattern = "yyyy-MM-dd"; // from calendar.js  initCalendarParse
-    final Converter converter = getConverter(facesContext, component);
-    if (converter instanceof DateTimeConverter) {
-      converterPattern = ((DateTimeConverter) converter).getPattern();
-    } else {
-      LOG.warn("Converter for DateRenderer is not instance of DateTimeConverter. Using default Pattern "
-          + converterPattern);
-    }
+
 
     // create link
     UICommand link = (UICommand) ComponentUtil.createComponent(
@@ -194,7 +175,7 @@ public class DateRenderer extends InRenderer {
     calendar.setId("calendar");
     calendar.getAttributes().put(ATTR_CALENDAR_DATE_INPUT_ID, component.getClientId(facesContext));
 
-    if (converterPattern.indexOf('h') > -1 || converterPattern.indexOf('H') > -1) {
+    //if (converterPattern.indexOf('h') > -1 || converterPattern.indexOf('H') > -1) {
       // add time input
       final UIComponent timePanel = ComponentUtil.createComponent(
           facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_PANEL);
@@ -215,9 +196,7 @@ public class DateRenderer extends InRenderer {
       timePanel.getChildren().add(time);
       time.setId("time");
       time.getAttributes().put(ATTR_CALENDAR_DATE_INPUT_ID, component.getClientId(facesContext));
-      if (converterPattern.indexOf('s') > -1) {
-        time.getAttributes().put(ATTR_POPUP_CALENDAR_FORCE_TIME, true);
-      }
+
 
 
       cell = ComponentUtil.createComponent(
@@ -226,13 +205,13 @@ public class DateRenderer extends InRenderer {
       timePanel.getChildren().add(cell);
 
 
-    } else {
+    //} else {
       // add empty cell  // TODO: remove if popup height calculation relays on content
-      final UIComponent cell = ComponentUtil.createComponent(
-          facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_PANEL);
-      cell.setId("emptyCell");
-      box.getChildren().add(cell);
-    }
+      //final UIComponent cell = ComponentUtil.createComponent(
+      //    facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_PANEL);
+      //cell.setId("emptyCell");
+      //box.getChildren().add(cell);
+    //}
 
     final UICommand okButton = (UICommand) ComponentUtil.createComponent(facesContext,
         org.apache.myfaces.tobago.component.UICommand.COMPONENT_TYPE, RENDERER_TYPE_BUTTON);

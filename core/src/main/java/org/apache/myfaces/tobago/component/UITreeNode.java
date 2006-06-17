@@ -130,7 +130,7 @@ public class UITreeNode extends UIInput {
     TreeNode treeNode = (TreeNode) getValue();
     if (treeNode != null) {
       Object disabled = getReference(treeNode, ATTR_DISABLED_REFERENCE);
-      if (! (disabled instanceof Boolean)) {
+      if (!(disabled instanceof Boolean)) {
         if (disabled instanceof String) {
           disabled = Boolean.valueOf((String) disabled);
         } else {
@@ -145,7 +145,7 @@ public class UITreeNode extends UIInput {
     TreeNode treeNode = (TreeNode) getValue();
     if (treeNode != null) {
       Object id = getReference(treeNode, ATTR_ID_REFERENCE);
-      if (! (id instanceof String)) {
+      if (!(id instanceof String)) {
         id = "node" + Integer.toString(System.identityHashCode(treeNode));
       }
       setId((String) id);

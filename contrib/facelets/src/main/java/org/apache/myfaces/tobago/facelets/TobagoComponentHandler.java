@@ -19,9 +19,14 @@ package org.apache.myfaces.tobago.facelets;
 import com.sun.facelets.tag.jsf.ComponentHandler;
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.MetaRuleset;
+import com.sun.facelets.FaceletContext;
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.event.TabChangeSource;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
+import org.apache.myfaces.tobago.component.OnComponentCreated;
+import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_COMPONENT_CREATED;
+
+import javax.faces.component.UIComponent;
 
 /*
  * Created by IntelliJ IDEA.
@@ -31,6 +36,7 @@ import org.apache.myfaces.tobago.event.SheetStateChangeSource;
  * To change this template use File | Settings | File Templates.
  */
 public class TobagoComponentHandler extends ComponentHandler {
+
   public TobagoComponentHandler(ComponentConfig componentConfig) {
     super(componentConfig);
   }
@@ -47,5 +53,13 @@ public class TobagoComponentHandler extends ComponentHandler {
       metaRuleset.addRule(SheetStateChangeSourceRule.INSTANCE);
     }
     return metaRuleset;
+  }
+  protected void onComponentCreated(FaceletContext context, UIComponent component,
+      UIComponent parent) {
+    if (component instanceof OnComponentCreated
+        && component.getAttributes().get(TOBAGO_COMPONENT_CREATED) == null) {
+      component.getAttributes().put(TOBAGO_COMPONENT_CREATED, Boolean.TRUE);
+      ((OnComponentCreated) component).onComponentCreated();
+    }
   }
 }

@@ -53,27 +53,20 @@ public class LinkRenderer extends CommandRendererBase{
     String onclick = null;
     String href;
 
-    //String type = (String) component.getAttributes().get(ATTR_TYPE);
-    //String action = (String) component.getAttributes().get(ATTR_ACTION_STRING);
-
     String clientId = component.getClientId(facesContext);
-    if (component.getAttributes().get(ATTR_ACTION_LINK)!=null) {
+    if (component.getAttributes().get(ATTR_ACTION_LINK) != null) {
       String action = (String) component.getAttributes().get(ATTR_ACTION_LINK);
       if (action == null) {
-        LOG.warn("keine Action in Link : id " + clientId
+        LOG.warn("No Action in Link : id " + clientId
             + " label = " + component.getAttributes().get(ATTR_LABEL));
-//            + " labelwithkey = " + component.getAttributes().get(ATTR_LABEL_WITH_ACCESS_KEY));
         action = "";
       }
       href = HtmlUtils.generateUrl(facesContext, action);
-    //} else if (COMMAND_TYPE_RESET.equals(type)) {
-    //  href = "javascript:Tobago.resetForm()";
-    } else  if (component.getAttributes().get(ATTR_ACTION_ONCLICK)!=null) {
+    } else  if (component.getAttributes().get(ATTR_ACTION_ONCLICK) != null) {
       onclick = (String) component.getAttributes().get(ATTR_ACTION_ONCLICK);
       href = "#";
     } else { // default: Action.TYPE_SUBMIT
-      href = "javascript:Tobago.submitAction('"
-          + clientId + "')";
+      href = "javascript:Tobago.submitAction('" + clientId + "')";
     }
 
     onclick =

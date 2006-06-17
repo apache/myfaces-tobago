@@ -39,6 +39,14 @@
     <phase-listener>org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener</phase-listener>
   </lifecycle>
   <component>
+    <component-type>org.apache.myfaces.tobago.DateInput</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UIDateInput</component-class>
+  </component>
+  <component>
+    <component-type>org.apache.myfaces.tobago.DatePicker</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UIDatePicker</component-class>
+  </component>
+  <component>
     <component-type>org.apache.myfaces.tobago.Cell</component-type>
     <component-class>org.apache.myfaces.tobago.component.UICell</component-class>
   </component>
@@ -83,10 +91,6 @@
     <component-class>org.apache.myfaces.tobago.component.UIHiddenInput</component-class>
   </component>
   <component>
-    <component-type>org.apache.myfaces.tobago.Output</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIOutput</component-class>
-  </component>
-  <component>
     <component-type>org.apache.myfaces.tobago.Label</component-type>
     <component-class>org.apache.myfaces.tobago.component.UILabel</component-class>
   </component>
@@ -107,6 +111,10 @@
     <component-class>org.apache.myfaces.tobago.component.UIMenuSeparator</component-class>
   </component>
   <component>
+    <component-type>org.apache.myfaces.tobago.Output</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UIOutput</component-class>
+  </component>
+  <component>
     <component-type>org.apache.myfaces.tobago.Page</component-type>
     <component-class>org.apache.myfaces.tobago.component.UIPage</component-class>
   </component>
@@ -117,6 +125,10 @@
   <component>
     <component-type>org.apache.myfaces.tobago.Popup</component-type>
     <component-class>org.apache.myfaces.tobago.component.UIPopup</component-class>
+  </component>
+  <component>
+    <component-type>org.apache.myfaces.tobago.Reload</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UIReload</component-class>
   </component>
   <component>
     <component-type>org.apache.myfaces.tobago.TabGroup</component-type>

@@ -24,7 +24,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_DATE;
-import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.UIDateInput;
 
 import javax.faces.component.UIComponent;
 
@@ -33,7 +33,7 @@ public class DateTag extends InputTag implements DateTagDeclaration {
   private static final Log LOG = LogFactory.getLog(DateTag.class);
 
   public String getComponentType() {
-    return UIInput.COMPONENT_TYPE;
+    return UIDateInput.COMPONENT_TYPE;
   }
 
   public String getRendererType() {
@@ -47,5 +47,7 @@ public class DateTag extends InputTag implements DateTagDeclaration {
     }
     super.setProperties(component);
   }
+
+
 }
 

@@ -34,6 +34,7 @@ public class LabelExtensionTag extends BodyTagSupport
   private String value;
   private String tip;
   private String rendered;
+  private String columns = "fixed;*";
 
   private PanelTag panelTag;
 
@@ -42,7 +43,7 @@ public class LabelExtensionTag extends BodyTagSupport
 
     panelTag = new PanelTag();
     panelTag.setPageContext(pageContext);
-    panelTag.setParent(getParent()); // ???
+    panelTag.setParent(getParent());
     if (rendered != null) {
       panelTag.setRendered(rendered);
     }
@@ -56,7 +57,7 @@ public class LabelExtensionTag extends BodyTagSupport
 
     GridLayoutTag gridLayoutTag = new GridLayoutTag();
     gridLayoutTag.setPageContext(pageContext);
-    gridLayoutTag.setColumns("fixed;*");
+    gridLayoutTag.setColumns(columns);
     gridLayoutTag.setParent(facetTag);
     gridLayoutTag.doStartTag();
     gridLayoutTag.doEndTag();
@@ -91,6 +92,7 @@ public class LabelExtensionTag extends BodyTagSupport
     value = null;
     tip = null;
     rendered = null;
+    columns = "fixed;*";
   }
 
   public void setValue(String value) {
@@ -103,5 +105,8 @@ public class LabelExtensionTag extends BodyTagSupport
 
   public void setRendered(String rendered) {
     this.rendered = rendered;
+  }
+  void setColumns(String columns) {
+    this.columns = columns;
   }
 }

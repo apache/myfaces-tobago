@@ -38,7 +38,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
  */
 @Tag(name = "date")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIInput",
+    uiComponent = "org.apache.myfaces.tobago.component.UIDateInput",
     rendererType = RENDERER_TYPE_DATE)
 public interface DateTagDeclaration
     extends InputTagDeclaration, HasIdBindingAndRendered, HasValue, IsReadonly,

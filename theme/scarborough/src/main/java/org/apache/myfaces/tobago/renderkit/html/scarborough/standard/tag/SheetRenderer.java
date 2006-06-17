@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UIData;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
+import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
@@ -109,9 +110,14 @@ public class SheetRenderer extends RendererBase
 
     final String[] styles = new String[]{"style/tobago-sheet.css"};
     final String[] scripts = new String[]{"script/tobago-sheet.js"};
+    Integer frequency = null;
+    if (data.getFacet("reload") != null && data.getFacet("update") instanceof UIReload) {
+      UIReload update = (UIReload) data.getFacet("update");
+      frequency = update.getFrequency();
+    }
     final String[] cmds = {
         "new Tobago.Sheet(\"" + sheetId + "\", " + ajaxEnabled
-            + ", \"" + checked + "\", \"" + unchecked + "\", "+ data.getAutoReload() + ");"
+            + ", \"" + checked + "\", \"" + unchecked + "\", "+ frequency + ");"
     };
 
     ComponentUtil.addStyles(data, styles);

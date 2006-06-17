@@ -1,2 +1,5 @@
 This product includes software developed by
 The Apache Software Foundation (http://www.apache.org/).
+
+Based on source code originally developed by
+Atanion GmbH (http://www.atanion.com/).

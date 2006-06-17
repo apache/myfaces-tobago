@@ -117,6 +117,10 @@ public class ClientProperties implements Serializable {
 
     ClientProperties instance = (ClientProperties)
         viewRoot.getAttributes().get(ATTR_CLIENT_PROPERTIES);
+    if (instance == null) {
+      LOG.error("No ClientProperties instance found creating new one");
+      return getInstance(FacesContext.getCurrentInstance());
+    }
     return instance;
   }
 

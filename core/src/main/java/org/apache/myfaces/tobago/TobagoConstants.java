@@ -44,6 +44,7 @@ public final class TobagoConstants {
   public static final String ATTR_ENCTYPE = "enctype";
   public static final String ATTR_ESCAPE = "escape";
   public static final String ATTR_FIRST = "first";
+  public static final String ATTR_FREQUENCY = "frequency";
   public static final String ATTR_FOCUS = "focus";
   public static final String ATTR_FOCUS_ID = "focusId";
   public static final String ATTR_FOOTER_HEIGHT = "footerHeight";
@@ -188,6 +189,7 @@ public final class TobagoConstants {
   public static final String RENDERER_TYPE_OUT = "Out";
   public static final String RENDERER_TYPE_PANEL = "Panel";
   public static final String RENDERER_TYPE_POPUP = "Popup";
+  public static final String RENDERER_TYPE_DATE_PICKER = "DatePicker";
   public static final String RENDERER_TYPE_SELECT_ONE_CHOICE = "SelectOneChoice";
   public static final String RENDERER_TYPE_SELECT_ONE_RADIO = "SelectOneRadio";
   public static final String RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX = "SelectBooleanCheckbox";
@@ -199,7 +201,7 @@ public final class TobagoConstants {
 
   public static final String FORM_ACCEPT_CHARSET = "utf-8";
 
-
+  public static final String TOBAGO_COMPONENT_CREATED = "org.apache.myfaces.tobago.CREATION_MARKER";
   public static final String TOBAGO_CSS_CLASS_PREFIX = "tobago-";
   public static final String TOBAGO_CSS_CLASS_SUFFIX_DEFAULT = "-default ";
   public static final String TOBAGO_CSS_CLASS_SUFFIX_DISABLED = "-disabled ";

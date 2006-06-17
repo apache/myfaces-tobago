@@ -11,16 +11,15 @@ THIS TEXT WILL BE REMOVED
   <c:if test="${empty rendered}">
     <c:set var="rendered" value="true"/>
   </c:if>
-  <tc:panel rendered="${rendered}">
-    <f:facet name="layout">
-      <tc:gridLayout columns="fixed;*;15px"/>
-    </f:facet>
-    <tc:label value="${label}" for="@auto" tip="${tip}"/>
-    <tc:date value="${value}" required="${required}"
-        readonly="${readonly}" disabled="${disabled}">
+  <tc:menuItem action="#{clientConfigController.submit}">
+     <f:facet name="items">
+        <tc:selectOneRadio value="#{clientConfigController.theme}" >
+                    <f:selectItems value="#{clientConfigController.themeItems}" />
+                  </tc:selectOneRadio>
+                </f:facet>
+              </tc:menuItem>
       <ui:insert/>
     </tc:date>
-    <tc:datePicker for="@auto" />
   </tc:panel>
 </ui:composition>
 THIS TEXT WILL BE REMOVED AS WELL

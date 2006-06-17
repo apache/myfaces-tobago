@@ -370,6 +370,15 @@ var Tobago = {
       popup.parentNode.removeChild(popup);
     }
   },
+  /**
+   * remove the popup elements from dom tree.
+   */
+  closePickerPopup2: function(obj) {
+    var id = obj.id;
+    var index = id.lastIndexOf(':');
+    this.closePickerPopup(id.substring(0, index));
+  },
+
 
    /**
     * Reset the form element.

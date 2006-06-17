@@ -224,6 +224,13 @@ function initCalendarParse(id, textBoxId) {
   initCalendar(id);
 }
 
+function writeIntoField2(obj) {
+  var id = obj.id;
+  var index = id.lastIndexOf(':');
+  writeIntoField(id.substring(0, index));
+}
+
+
 function writeIntoField(id) {
   var textBoxId = document.getElementById(id + ":calendar:fieldId");
   var textBox = document.getElementById(textBoxId.value);
