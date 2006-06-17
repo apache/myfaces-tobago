@@ -117,8 +117,10 @@
             pagingLength="#{overviewController.sheetConfig.sheetPagingLength}"
             directLinkCount="#{overviewController.sheetConfig.sheetDirectLinkCount}"
             stateChangeListener="#{demo.stateChangeListener}"
-            sortActionListener="#{overviewController.sheetSorter}"
-            autoReload="1000"    >
+            sortActionListener="#{overviewController.sheetSorter}" >
+          <f:facet name="reload">
+            <tc:reload frequency="5000" />  
+          </f:facet>
           <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true">
             <tc:out value="#{luminary.name}" id="t_name" />
           </tc:column>

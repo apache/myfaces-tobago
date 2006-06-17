@@ -75,13 +75,6 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
   void setRows(String pagingLength);
 
   /**
-   * Time in milliseconds after which the sheet content is automaticaly reloaded.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Integer")
-  void setAutoReload(String autoReload);
-
-  /**
    * Zero-relative row number of the first row to be displayed.
    */
   @TagAttribute

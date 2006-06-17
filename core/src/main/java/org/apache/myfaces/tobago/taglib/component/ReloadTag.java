@@ -1,0 +1,58 @@
+package org.apache.myfaces.tobago.taglib.component;
+
+/*
+ * Copyright 2001-2005 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import org.apache.myfaces.tobago.component.UIReload;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FREQUENCY;
+
+import javax.faces.component.UIComponent;
+
+/**
+ * Created by IntelliJ IDEA.
+ * User: bommel
+ * Date: 28.05.2006
+ * Time: 22:23:07
+ * To change this template use File | Settings | File Templates.
+ */
+public class ReloadTag extends TobagoTag
+    implements ReloadTagDeclaration {
+
+  private String frequency;
+
+  public String getComponentType() {
+    return UIReload.COMPONENT_TYPE;
+  }
+
+  public String getRendererType() {
+    return null;
+  }
+
+  public void release() {
+    super.release();
+    frequency = null;
+  }
+
+  protected void setProperties(UIComponent component) {
+    super.setProperties(component);
+    ComponentUtil.setIntegerProperty(component, ATTR_FREQUENCY, frequency);
+  }
+
+  public void setFrequency(String frequency) {
+    this.frequency = frequency;
+  }
+}
