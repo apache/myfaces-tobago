@@ -31,6 +31,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.apache.myfaces.core</groupId>
+      <artifactId>myfaces-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>tobago-theme-standard</artifactId>
       <version>${project.version}</version>
@@ -63,10 +68,6 @@
   </dependencies>
   <profiles>
     <profile>
-      <!--
-  mvn install:install-file -Dfile=retrotranslator-runtime-1.0.4.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-runtime -Dversion=1.0.4 -Dpackaging=jar
-  mvn install:install-file -Dfile=retrotranslator-transformer-1.0.4.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-transformer -Dversion=1.0.4 -Dpackaging=jar
-      -->
       <id>jdk14retro</id>
       <build>
         <plugins>

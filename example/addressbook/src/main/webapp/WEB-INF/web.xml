@@ -23,6 +23,16 @@
 
   <display-name>A simple addressbook demo with Tobago</display-name>
 
+  <filter>
+     <filter-name>multipartFormdataFilter</filter-name>
+     <filter-class>org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataFilter</filter-class>
+   </filter>
+
+   <filter-mapping>
+     <filter-name>multipartFormdataFilter</filter-name>
+     <url-pattern>/faces/*</url-pattern>
+   </filter-mapping>
+
   <!--  workaround for a bug in Oracle AS (e.g. 10.1.2.0.0)-->
   <listener>
     <listener-class>org.apache.myfaces.tobago.webapp.TobagoServletContextListener</listener-class>

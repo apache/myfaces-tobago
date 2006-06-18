@@ -69,13 +69,13 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
-      <version>1.2.5</version>
+      <version>1.2.7</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
-      <version>1.2.5</version>
+      <version>1.2.7</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -95,19 +95,15 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-beans</artifactId>
-      <version>1.2.5</version>
+      <version>1.2.7</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-web</artifactId>
-      <version>1.2.5</version>
+      <version>1.2.7</version>
       <scope>compile</scope>
       <exclusions>
-        <exclusion>
-          <groupId>javax.faces</groupId>
-          <artifactId>jsf-api</artifactId>
-        </exclusion>
         <exclusion>
           <groupId>javax.servlet</groupId>
           <artifactId>servlet-api</artifactId>
@@ -124,10 +120,6 @@
           <groupId>myfaces</groupId>
           <artifactId>myfaces-jsf-api</artifactId>
         </exclusion>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
-        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
@@ -136,6 +128,71 @@
       <version>1.1.2</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jsp-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>taglibs</groupId>
+      <artifactId>standard</artifactId>
+    </dependency>
   </dependencies>
-
+  <profiles>
+    <profile>
+      <id>myfaces</id>
+      <activation>
+        <property>
+          <name>!jsf</name>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.myfaces.core</groupId>
+          <artifactId>myfaces-api</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.core</groupId>
+          <artifactId>myfaces-impl</artifactId>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>sunjsf</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>ri</value>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>javax.faces</groupId>
+          <artifactId>jsf-api</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>javax.faces</groupId>
+          <artifactId>jsf-impl</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jstl</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+      <repositories>
+        <repository>
+          <id>java.net</id>
+          <name>java.net Maven 1 Repository</name>
+          <url>https://maven-repository.dev.java.net/nonav/repository</url>
+          <layout>legacy</layout>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
 </project>

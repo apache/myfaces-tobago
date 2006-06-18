@@ -61,7 +61,6 @@ public class TobagoResponseStateManager extends ResponseStateManager {
       StateManager.SerializedView serializedview) throws IOException {
     ResponseWriter responseWriter = facescontext.getResponseWriter();
     Object treeStruct = serializedview.getStructure();
-    System.err.print("State " + treeStruct);
     Object compStates = serializedview.getState();
 
     if (treeStruct != null) {

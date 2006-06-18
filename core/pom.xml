@@ -74,12 +74,10 @@
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
     </dependency>
-
     <dependency>
       <groupId>commons-collections</groupId>
       <artifactId>commons-collections</artifactId>
     </dependency>
-
     <dependency>
       <groupId>commons-digester</groupId>
       <artifactId>commons-digester</artifactId>
@@ -90,34 +88,29 @@
         </exclusion>
       </exclusions>
     </dependency>
-
     <dependency>
       <groupId>commons-fileupload</groupId>
       <artifactId>commons-fileupload</artifactId>
     </dependency>
-
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
     </dependency>
-
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
     </dependency>
-
     <dependency>
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
     </dependency>
-
     <dependency>
       <groupId>fop</groupId>
       <artifactId>fop</artifactId>
       <version>0.20.5</version>
       <scope>provided</scope>
+      <optional>true</optional>
     </dependency>
-
     <!-- XXX not transitive from fop -->
     <dependency>
       <groupId>avalon-framework</groupId>
@@ -125,62 +118,23 @@
       <version>20020627</version>
       <!-- XXX wrong date -->
       <scope>provided</scope>
+      <optional>true</optional>
     </dependency>
-
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>jstl</artifactId>
-      <version>1.1.0</version>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jsp-api</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>taglibs</groupId>
-      <artifactId>standard</artifactId>
-    </dependency>
-
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>tobago-tool-apt</artifactId>
       <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>
-
-
-    <!--<dependency>
-      <groupId>javax.faces</groupId>
-      <artifactId>jsf-api</artifactId>
-      <version>1.1_02</version>
-      <scope>compile</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>javax.faces</groupId>
-      <artifactId>jsf-impl</artifactId>
-      <version>1.1_02</version>
-      <scope>compile</scope>
-    </dependency>-->
-
     <dependency>
       <groupId>org.apache.myfaces.core</groupId>
       <artifactId>myfaces-api</artifactId>
+      <scope>provided</scope>
     </dependency>
-
-    <dependency>
-      <groupId>org.apache.myfaces.core</groupId>
-      <artifactId>myfaces-impl</artifactId>
-    </dependency>
-
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jsp-api</artifactId>
     </dependency>
-
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
@@ -188,15 +142,6 @@
 
   </dependencies>
 
-  <!--<repositories>
-    <repository>
-      <id>java-net</id>
-      <name>java.net Repository</name>
-      <url>https://maven-repository.dev.java.net/nonav/repository/</url>
-      <layout>legacy</layout>
-    </repository>
-  </repositories>
--->
   <profiles>
     <!-- Mac OS X has not a tools.jar! -->
     <profile>
@@ -320,12 +265,6 @@
       </build>
     </profile>
     <profile>
-
-<!--
-
-  mvn install:install-file -Dfile=retrotranslator-runtime-1.0.4.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-runtime -Dversion=1.0.3 -Dpackaging=jar
-  mvn install:install-file -Dfile=retrotranslator-transformer-1.0.4.jar -DgroupId=net.sf.retrotranslator -DartifactId=retrotranslator-transformer -Dversion=1.0.3 -Dpackaging=jar-->
-
       <id>jdk14retro</id>
       <build>
         <plugins>
@@ -338,7 +277,8 @@
                   <goal>translate</goal>
                 </goals>
                 <configuration>
-                  <verify>true</verify>
+                  <verbose>true</verbose>
+                  <stripsign>true</stripsign>
                 </configuration>
               </execution>
             </executions>
@@ -351,7 +291,7 @@
                   <goal>jar</goal>
                 </goals>
                 <configuration>
-                <classesDirectory>${project.build.directory}/classes-retro</classesDirectory>
+                  <classesDirectory>${project.build.directory}/classes-retro</classesDirectory>
                   <classifier>jdk14retro</classifier>
                 </configuration>
               </execution>
