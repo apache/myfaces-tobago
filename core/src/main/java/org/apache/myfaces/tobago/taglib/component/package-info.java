@@ -16,10 +16,8 @@
 
 /**
  * <h2>Tobago Framework Component Tag Library -
- * (C) Copyright 2002-2005 The Apache Software Foundation</h2>
- * <p>
- * <a href="matrix/index.html">see attribute matrix</a>
- * </p>
+ * (C) Copyright 2002-2006 The Apache Software Foundation</h2>
+ *
  */
 @org.apache.myfaces.tobago.apt.annotation.Taglib(
     shortName = "tc", uri = "http://myfaces.apache.org/tobago/component",
