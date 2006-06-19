@@ -33,6 +33,11 @@ import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+
+/**
+ * Renders a multiline text input control with a label.
+ */
+
 @Tag(name = "textarea")
 public class TextAreaExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasIdBindingAndRendered,

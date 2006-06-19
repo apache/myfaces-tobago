@@ -22,7 +22,10 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.taglib.decl.HasBooleanValue;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
+import org.apache.myfaces.tobago.taglib.decl.HasValidator;
+import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 
@@ -39,7 +42,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 @UIComponentTag(
     uiComponent = "javax.faces.component.UISelectBoolean",
     rendererType = "SelectBooleanCheckbox")
-public interface SelectBooleanCheckboxTagDeclaration extends InputTagDeclaration,
-    HasIdBindingAndRendered, HasLabelAndAccessKey, HasBooleanValue, IsDisabled, IsInline, HasTip {
+public interface SelectBooleanCheckboxTagDeclaration extends BeanTagDeclaration, HasValidator,
+    HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabelAndAccessKey, HasBooleanValue, IsDisabled,
+    IsInline, HasTip {
 
 }

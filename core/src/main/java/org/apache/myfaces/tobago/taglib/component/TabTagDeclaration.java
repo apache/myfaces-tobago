@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
  */
 
 /**
- * renders a tab within a tabgroup.
+ * Renders a tab within a tabgroup.
  */
 @Tag(name = "tab")
 @UIComponentTag(

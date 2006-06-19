@@ -28,9 +28,6 @@ public class FileTag extends InputTag implements FileTagDeclaration {
   private static final Log LOG = LogFactory.getLog(FileTag.class);
 
   public int doStartTag() throws JspException {
-    //UIPage form = ComponentUtil.findPage(getComponentInstance());
-    //form.getAttributes().put(ATTR_ENCTYPE, "multipart/form-data");
-
     if (getLabel() != null) {
       LOG.warn("the label attribute is deprecated in t:in, please use tx:in instead.");
     }

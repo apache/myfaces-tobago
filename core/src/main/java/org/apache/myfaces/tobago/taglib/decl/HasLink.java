@@ -27,7 +27,11 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  * To change this template use File | Settings | File Templates.
  */
 public interface HasLink {
+  /**
+   * Link to an arbitrary URL
+   * @param link
+   */
   @TagAttribute @UIComponentTagAttribute()
-  void setLink(String navigate);
+  void setLink(String link);
 
 }

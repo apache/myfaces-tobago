@@ -16,17 +16,21 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.taglib.decl.HasFor;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_DATE_PICKER;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_DATE_PICKER;
+import org.apache.myfaces.tobago.taglib.decl.HasFor;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 30.05.2006
  * Time: 19:17:28
  * To change this template use File | Settings | File Templates.
+ */
+
+/**
+ * Renders a date picker.
  */
 @Tag(name = "datePicker")
 @UIComponentTag(

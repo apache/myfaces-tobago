@@ -26,6 +26,11 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+
+/**
+ * Renders a file input field with a label.
+ */
+
 @Tag(name = "file")
 public class FileExtensionTag extends BodyTagSupport
     implements InputTagDeclaration, HasIdBindingAndRendered, IsDisabled,

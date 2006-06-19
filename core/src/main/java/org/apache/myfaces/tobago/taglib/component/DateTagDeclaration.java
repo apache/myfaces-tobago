@@ -22,7 +22,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
-import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
@@ -41,7 +40,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
     uiComponent = "org.apache.myfaces.tobago.component.UIDateInput",
     rendererType = RENDERER_TYPE_DATE)
 public interface DateTagDeclaration
-    extends InputTagDeclaration, HasIdBindingAndRendered, HasValue, IsReadonly,
+    extends InputTagDeclaration, HasIdBindingAndRendered, IsReadonly,
     IsDisabled, IsInline, HasLabelAndAccessKey, HasTip, IsRequired {
 
 }

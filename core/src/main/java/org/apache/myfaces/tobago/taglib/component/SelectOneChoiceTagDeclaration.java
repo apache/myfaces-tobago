@@ -24,9 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
-import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
@@ -47,12 +45,12 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOne",
     rendererType = "SelectOneChoice")
 public interface SelectOneChoiceTagDeclaration
-    extends SelectOneTagDeclaration, HasId, HasValue, IsDisabled,
-    IsReadonly, HasOnchange, IsInline, HasLabelAndAccessKey,
+    extends SelectOneTagDeclaration, HasId, IsDisabled,
+    IsReadonly, IsInline, HasLabelAndAccessKey,
     IsRendered, HasBinding, HasTip {
 
   /**
-   * Flag indicating that selecting an Item representing a Value is Required.
+   * Flag indicating that selecting an Item representing a value is required.
    * If an SelectItem was choosen which underling value is an empty string an
    * ValidationError occurs and a Error Message is rendered.
    */

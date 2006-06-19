@@ -34,6 +34,22 @@ import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+
+/**
+ * Renders a text input field with a label.
+ * Short syntax of:
+ * <br />
+ * <code>&lt;tc:panel&gt;</code><br />
+   <code>  &lt;f:facet name="layout"&gt;</code><br />
+   <code>    &lt;tc:gridLayout columns="fixed;*"/&gt;</code><br />
+   <code>  &lt;/f:facet&gt;</code><br />
+   <code>  &lt;tc:label value="#{label}" for="&amp;auto"/&gt;</code><br />
+   <code>  &lt;tc:in value="#{value}" &gt;</code><br />
+   <code>   .....</code><br />
+   <code>  &lt;/tc:in&gt;</code><br />
+   <code>&lt;/tc:panel&gt;</code><br />
+ */
+
 @Tag(name = "in")
 public class InExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,

@@ -33,5 +33,6 @@ public interface HasCommandType {
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "submit")
+  @Deprecated    
   void setType(String type);
 }

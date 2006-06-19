@@ -44,7 +44,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * To change this template use File | Settings | File Templates.
  */
 /**
- * Renders a date input field.
+ * Renders a date input field with a date picker and a label.
  */
 @Tag(name = "date")
 public class DateExtensionTag extends BodyTagSupport

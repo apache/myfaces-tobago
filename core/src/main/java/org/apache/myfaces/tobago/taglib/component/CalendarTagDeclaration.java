@@ -22,7 +22,6 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasValue;
 
 /*
  * Created: Aug 6, 2005 3:24:33 PM
@@ -36,7 +35,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasValue;
 @UIComponentTag(
     uiComponent = "javax.faces.component.UIOutput",
     rendererType = "Calendar")
-public interface CalendarTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasValue {
+public interface CalendarTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered {
 
   /**
    *  The current value of this component.

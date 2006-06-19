@@ -16,9 +16,9 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UIReload;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FREQUENCY;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIReload;
 
 import javax.faces.component.UIComponent;
 

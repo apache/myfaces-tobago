@@ -47,12 +47,6 @@ public interface OutTagDeclaration extends
     BeanTagDeclaration, HasIdBindingAndRendered, HasConverter, IsInline, HasTip, HasValue {
 
   /**
-   *  The current value of this component.
-   */
-  @TagAttribute @UIComponentTagAttribute()
-  void setValue(String value);
-
-  /**
    * Flag indicating that characters that are
    * sensitive in HTML and XML markup must be escaped.
    * This flag is set to "true" by default.

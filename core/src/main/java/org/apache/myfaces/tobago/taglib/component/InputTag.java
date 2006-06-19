@@ -16,15 +16,15 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOCUS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCHANGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
-import javax.faces.component.UIComponent;
 import javax.faces.component.EditableValueHolder;
+import javax.faces.component.UIComponent;
 
 public abstract class InputTag extends BeanTag implements InputTagDeclaration {
   private static final Log LOG = LogFactory.getLog(InputTag.class);

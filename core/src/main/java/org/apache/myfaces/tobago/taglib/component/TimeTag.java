@@ -21,7 +21,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UITimeInput;
 
 import javax.faces.component.UIComponent;
-import javax.servlet.jsp.JspException;
 
 public class TimeTag extends InputTag implements TimeTagDeclaration {
 
@@ -29,12 +28,6 @@ public class TimeTag extends InputTag implements TimeTagDeclaration {
 
   public String getComponentType() {
     return UITimeInput.COMPONENT_TYPE;
-  }
-
-  public int doEndTag() throws JspException {
-
-
-    return super.doEndTag();
   }
 
   protected void setProperties(UIComponent component) {

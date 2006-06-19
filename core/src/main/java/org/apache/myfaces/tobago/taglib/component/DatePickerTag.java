@@ -16,9 +16,9 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIDatePicker;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
 
 import javax.faces.component.UIComponent;
 

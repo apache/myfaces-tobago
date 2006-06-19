@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.taglib.component;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-
 import org.apache.myfaces.tobago.component.UIColumn;
+
 import javax.faces.component.UIComponent;
 
 

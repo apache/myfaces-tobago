@@ -30,12 +30,16 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 import javax.servlet.jsp.JspException;
 import javax.faces.webapp.FacetTag;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 09.05.2006
  * Time: 00:00:49
  * To change this template use File | Settings | File Templates.
+ */
+
+/**
+ * Renders a checkable menuitem.
  */
 
 @Tag(name = "menuCheckbox", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")

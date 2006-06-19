@@ -43,7 +43,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * To change this template use File | Settings | File Templates.
  */
 /**
- * Renders a time input field.
+ * Renders a time input field with a label.
  */
 @Tag(name = "time")
 public class TimeExtensionTag extends BodyTagSupport

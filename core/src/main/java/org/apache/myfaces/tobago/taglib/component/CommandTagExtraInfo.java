@@ -16,9 +16,9 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import javax.servlet.jsp.tagext.ValidationMessage;
-import javax.servlet.jsp.tagext.TagExtraInfo;
 import javax.servlet.jsp.tagext.TagData;
+import javax.servlet.jsp.tagext.TagExtraInfo;
+import javax.servlet.jsp.tagext.ValidationMessage;
 
 /*
  * Created by IntelliJ IDEA.

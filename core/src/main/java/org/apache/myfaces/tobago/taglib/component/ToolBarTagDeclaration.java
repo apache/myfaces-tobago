@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.UIToolBar;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 11.02.2006
@@ -40,20 +40,20 @@ import org.apache.myfaces.tobago.component.UIToolBar;
  * no difference.<p>
  * To add an dropdown menu to a button add a facet <code>'menupopup'</code>
  * containing a
- * <a href="../tobago/menu.html"><code>&lt;tobago:menu></code></a>
+ * <a href="../tobago/menu.html"><code>&lt;tc:menu></code></a>
  * tag to the button. Label's and Image's on those menu tag's are ignored
  * and replaced by the renderer.
  * <pre>
- *      <tc:button onclick="alert('test 0')"
- *          label="Alert 0" >
- *        <f:facet name="menupopup">
- *          <tc:menu>
- *            <tc:menuItem onclick="alert('test 1')" label="Alert 1"/>
- *            <tc:menuItem onclick="alert('test 2')" label="Alert 2"/>
- *            <tc:menuItem onclick="alert('test 3')" label="Alert 3"/>
- *          </tc:menu>
- *        </f:facet>
- *      </tc:button>
+ *      &lt;tc:button onclick="alert('test 0')"
+ *          label="Alert 0" &gt;
+ *        &lt;f:facet name="menupopup"&gt;
+ *          &lt;tc:menu&gt;
+ *            &lt;tc:menuItem onclick="alert('test 1')" label="Alert 1"/&gt;
+ *            &lt;tc:menuItem onclick="alert('test 2')" label="Alert 2"/&gt;
+ *            &lt;tc:menuItem onclick="alert('test 3')" label="Alert 3"/&gt;
+ *          &lt;/tc:menu&gt;
+ *        &lt;/f:facet&gt;
+ *      &lt;/tc:button&gt;
  *      </pre>
  */
 

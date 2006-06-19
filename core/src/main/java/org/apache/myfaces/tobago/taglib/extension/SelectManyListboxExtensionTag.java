@@ -42,6 +42,11 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * Time: 19:12:33
  * To change this template use File | Settings | File Templates.
  */
+
+/**
+ * Render a group of checkboxes.
+ */
+
 @Tag(name = "selectManyListbox")
 public class SelectManyListboxExtensionTag extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled, HasDeprecatedHeight, IsInline,

@@ -46,6 +46,9 @@ import java.util.Set;
  * $Id:  $
  */
 public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
+  private Set<String> tagSet = new HashSet<String>();
+  private Set<String> attributeSet = new HashSet<String>();
+  private String currentTag = null;
 
   public TaglibAnnotationVisitor(AnnotationProcessorEnvironment env) {
     super(env);
@@ -57,6 +60,7 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     javax.xml.parsers.DocumentBuilder parser = dbf.newDocumentBuilder();
     List<DocumentAndFileName> tlds = new ArrayList<DocumentAndFileName>();
     for (PackageDeclaration packageDeclaration :getCollectedPackageDeclations()) {
+      resetDuplicateList();
       DocumentAndFileName documentAndFileName = new DocumentAndFileName();
       Document document = parser.newDocument();
       Taglib taglibAnnotation = packageDeclaration.getAnnotation(Taglib.class);
@@ -84,15 +88,15 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
         addLeafTextElement(listenerClass, "listener-class", listener, document);
         taglib.appendChild(listener);
       }
-      Set<String> tagSet = new HashSet<String>();
+
       for (ClassDeclaration decl : getCollectedClassDeclations()) {
         if (decl.getPackage().equals(packageDeclaration)) {
-          appendTag(decl, taglib, tagSet, document);
+          appendTag(decl, taglib, document);
         }
       }
       for (InterfaceDeclaration decl : getCollectedInterfaceDeclations()) {
         if (decl.getPackage().equals(packageDeclaration)) {
-          appendTag(decl, taglib, tagSet, document);
+          appendTag(decl, taglib, document);
         }
       }
       document.appendChild(taglib);
@@ -101,9 +105,10 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     return tlds;
   }
 
-  protected void appendTag(ClassDeclaration decl, Element parent, Set<String> tagSet, Document document) {
+  protected void appendTag(ClassDeclaration decl, Element parent, Document document) {
     Tag annotationTag = decl.getAnnotation(Tag.class);
-    checkDuplicates(annotationTag, tagSet);
+    checkDuplicates(annotationTag.name());
+    resetAttributeDuplicateList();
     String className = decl.getQualifiedName();
     Element tag = createTag(decl, annotationTag, className, document, false);
     addAttributes(decl, tag, document);
@@ -116,10 +121,11 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
 
   }
 
-  protected void appendTag(InterfaceDeclaration decl, Element parent, Set<String> tagSet, Document document) {
+  protected void appendTag(InterfaceDeclaration decl, Element parent, Document document) {
     Tag annotationTag = decl.getAnnotation(Tag.class);
     if (annotationTag != null) {
-      checkDuplicates(annotationTag, tagSet);
+      checkDuplicates(annotationTag.name());
+      resetAttributeDuplicateList();
       // TODO configure replacement
 
       String className =
@@ -171,11 +177,20 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     return tagElement;
   }
 
-  private void checkDuplicates(Tag annotationTag, Set<String> tagSet) {
-    if (tagSet.contains(annotationTag.name())) {
-      throw new IllegalArgumentException("tag with name " + annotationTag.name() + " already defined!");
+  private void checkAttributeDuplicates(String attributeName) {
+    if (attributeSet.contains(attributeName)) {
+      throw new IllegalArgumentException("Attribute " + attributeName + " in tag " +  currentTag + " already defined!");
     } else {
-      tagSet.add(annotationTag.name());
+      attributeSet.add(attributeName);
+    }
+  }
+
+  private void checkDuplicates(String tagName) {
+    currentTag = tagName;
+    if (tagSet.contains(tagName)) {
+      throw new IllegalArgumentException("tag with name " + tagName + " already defined!");
+    } else {
+      tagSet.add(tagName);
     }
   }
 
@@ -241,6 +256,7 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
   }
 
   protected void addAttributes(ClassDeclaration d, Element tagElement, Document document) {
+
     for (MethodDeclaration decl : getCollectedMethodDeclations()) {
       if (d.getQualifiedName().
           equals(decl.getDeclaringType().getQualifiedName())) {
@@ -252,6 +268,12 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
       addAttributes(d.getSuperclass().getDeclaration(), tagElement, document);
     }
   }
+  private void resetDuplicateList() {
+    tagSet = new HashSet<String>();
+  }
+  private void resetAttributeDuplicateList() {
+    attributeSet = new HashSet<String>();
+  }
 
   protected void addAttribute(MethodDeclaration d, Element tagElement,
       Document document) {
@@ -260,8 +282,10 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
       String simpleName = d.getSimpleName();
       if (simpleName.startsWith("set")) {
         Element attribute = document.createElement("attribute");
-        addLeafTextElement(simpleName.substring(3, 4).toLowerCase() + simpleName.substring(4),
-            "name", attribute, document);
+        String attributeStr = simpleName.substring(3, 4).toLowerCase() + simpleName.substring(4);
+        checkAttributeDuplicates(attributeStr);
+        addLeafTextElement(attributeStr, "name", attribute, document);
+
         addLeafTextElement(Boolean.toString(tagAttribute.required()), "required", attribute, document);
         addLeafTextElement(Boolean.toString(tagAttribute.rtexprvalue()), "rtexprvalue", attribute, document);
         addDescription(d, attribute, document, false);

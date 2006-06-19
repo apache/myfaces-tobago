@@ -23,16 +23,14 @@ import org.apache.myfaces.tobago.taglib.component.SelectOneRadioTag;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-import org.apache.myfaces.tobago.taglib.decl.HasAction;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
-import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
 
 import javax.faces.webapp.FacetTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 09.05.2006
@@ -40,10 +38,14 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * To change this template use File | Settings | File Templates.
  */
 
-@Tag(name = "menuRadio", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
+/**
+ * Renders a submenu with select one items (like a radio button).
+ *
+ */
 
+@Tag(name = "menuRadio", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 public class MenuRadioExtensionTag extends BodyTagSupport implements CommandTagDeclaration,
-    HasIdBindingAndRendered, HasLabel, IsDisabled, HasAction, HasActionListener, HasValue, IsImmediateCommand {
+    HasIdBindingAndRendered, HasLabel, IsDisabled, HasValue, IsImmediateCommand {
 
   private String rendered;
   private String value;

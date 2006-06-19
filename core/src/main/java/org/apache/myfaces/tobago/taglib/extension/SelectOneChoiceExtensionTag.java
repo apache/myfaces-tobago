@@ -35,6 +35,10 @@ import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
+/**
+ * Render a single selection dropdown list with a label.
+ */
+
 @Tag(name = "selectOneChoice")
 public class SelectOneChoiceExtensionTag
     extends BodyTagSupport

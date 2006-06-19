@@ -22,7 +22,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasRenderRange;
-import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
@@ -42,7 +41,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
     uiComponent = "javax.faces.component.UISelectMany",
     rendererType = "SelectManyCheckbox")
 public interface SelectManyCheckboxTagDeclaration extends
-    SelectManyTagDeclaration, HasValue, IsDisabled, HasId,
+    SelectManyTagDeclaration, IsDisabled, HasId,
     IsInline, HasRenderRange, IsRendered, HasBinding {
 
 }

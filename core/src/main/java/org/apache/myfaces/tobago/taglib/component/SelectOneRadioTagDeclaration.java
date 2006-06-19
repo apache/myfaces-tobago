@@ -23,9 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
-import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
 import org.apache.myfaces.tobago.taglib.decl.HasRenderRange;
-import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
@@ -43,8 +41,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOne",
     rendererType = "SelectOneRadio")
-public interface SelectOneRadioTagDeclaration extends SelectOneTagDeclaration, HasValue, IsDisabled, HasId,
-    HasOnchange, IsInline, HasRenderRange, IsRendered, HasBinding {
+public interface SelectOneRadioTagDeclaration extends SelectOneTagDeclaration, IsDisabled, HasId,
+    IsInline, HasRenderRange, IsRendered, HasBinding {
 
   /**
    * Flag indicating that selecting an Item representing a Value is Required.

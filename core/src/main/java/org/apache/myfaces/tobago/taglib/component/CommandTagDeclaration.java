@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.taglib.decl.HasAction;
 import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
-import org.apache.myfaces.tobago.taglib.decl.HasOnclick;
 import org.apache.myfaces.tobago.taglib.decl.HasLink;
+import org.apache.myfaces.tobago.taglib.decl.HasOnclick;
 
 
 /*

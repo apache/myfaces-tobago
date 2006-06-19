@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.taglib.decl;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 /**
  * Created: Apr 9, 2005 2:52:15 PM
@@ -24,6 +25,12 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
  * $Id$
  */
 public interface IsRequired {
-
-  @TagAttribute void setRequired(String required);
+  /**
+   * Flag indicating that a value is required.
+   * If the value is an empty string a
+   * ValidationError occurs and a Error Message is rendered.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  void setRequired(String required);
 }

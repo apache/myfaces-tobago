@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.taglib.decl.HasVar;
 import org.apache.myfaces.tobago.util.BundleMapWrapper;
 
 import javax.faces.context.FacesContext;
@@ -33,7 +32,7 @@ import java.util.Map;
  * attributes of the current request.
  */
 @Tag(name = "loadBundle", bodyContent = BodyContent.EMPTY)
-public class LoadBundleTag extends TagSupport implements HasVar {
+public class LoadBundleTag extends TagSupport {
 
   private String basename;
 
