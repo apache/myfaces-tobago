@@ -31,7 +31,9 @@ Tobago.Menu = {
 
   deleteReferences: function(node) {
     if (node.menubar) {
-      delete node.menubar.menu;
+      if (node.menubar.menu) {
+        delete node.menubar.menu;
+      }
       delete node.menubar;
     }
     if (node.htmlElement) {
