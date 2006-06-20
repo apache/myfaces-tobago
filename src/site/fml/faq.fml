@@ -4,46 +4,94 @@
   <part id="faq">
     <faq id="howto">
       <question>Documentation or HowTo for using tobago?</question>
-       <answer><p>
-         <a href="http://tobago.atanion.net/tobago-example-demo/faces/mini-howto/intro.jsp">Mini Howto</a>
-         </p>
-         <a href="http://tobago.atanion.net/tobago-example-demo/">Demo</a>
-          </answer>
+      <answer>
+        <p>
+          <a href="http://tobago.atanion.net/tobago-example-demo/faces/mini-howto/intro.jsp">
+            Mini Howto
+          </a>
+        </p>
+        <a href="http://tobago.atanion.net/tobago-example-demo/">Demo</a>
+      </answer>
     </faq>
     <faq id="hello-world">
-      <question>Where i can find a Hello World example and a list of needed jars?</question>
-        <answer><p>
-          Please look at <a href="http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/blank/">tobago-example-blank</a>.
-         </p>
-        </answer>
+      <question>Where i can find a Hello World example and a list of needed
+        jars?
+      </question>
+      <answer>
+        <p>
+          Please look at
+          <a href="http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/blank/">
+            tobago-example-blank
+          </a>
+          .
+        </p>
+      </answer>
     </faq>
     <faq id="tobago/RI">
       <question>Does tobago run with the Sun RI?</question>
-      <answer><p>Tobago should run with Sun RI and with MyFaces.</p></answer>
+      <answer>
+        <p>Tobago should run with Sun RI and with MyFaces.</p>
+      </answer>
     </faq>
     <faq id="tobago/myfaces extension">
-      <question>Can I mix tobago and myfaces extensions in the same webapp?</question>
-       <answer>
-         <p>Jsf only supports one renderkit (renderkitId) per page (f:view).
-          Because tobago has it's own renderkitId you can't use any none tobago
-          components that need a renderer.</p>
-       </answer>
-    </faq>
-    <faq id="tiles/sitemesh">
-      <question>Can tobago replace tiles? Can I ignore tiles and sitemesh in the favor of tobago or not?
+      <question>Can I mix tobago and myfaces extensions in the same webapp?
       </question>
-       <answer>
-         <p>Tobago can not replace it. But sometimes you may not need it, when you are using Tobago.
-If you want to position and size your components automatically, you can do that with a Tobago LayoutManager.
-If you want your header and sidebar rendered without writing dublicate code, you may use JSP 2.0 tag files or tiles/sitemesh.</p>
-       </answer>
+      <answer>
+        <p>Jsf only supports one renderkit (renderkitId) per page (f:view).
+          Because tobago has it's own renderkitId you can't use any none tobago
+          components that need a renderer.
+        </p>
+      </answer>
     </faq>
-     <faq id="maven-mirror">
+    <faq id="tobago/layout">
+      <question>How do use GridLayout in Tobago?</question>
+      <answer>
+        <source><![CDATA[
+          <tc:gridLayout rows="fixed;100px;1*;2*"/>
+         ]]></source>
+
+        <p>
+          Fixed means a theme dependent height of one row. (i.e. in speyside
+          20px), in this height all one height high elements find their place
+          (like buttons, input fields, one row of text...).
+          Using px heights is at your own risk, but needed for some elements
+          (like box, sheet and so on...)
+
+          Alternativly you can give a proportion of elements (thats what you do
+          with the * notation).
+          For example rows="1*;2*" gives the first row 1/3 space and 2/3 for the
+          second row. This works fine for columns, too.
+
+          For grouping elements to give them an slightliy different
+          layout you can use the tc:panel element (this is interpreted as one
+          element), which can have it's own layout for multiple elements inside
+          the panel.
+        </p>
+      </answer>
+    </faq>
+
+
+    <faq id="tiles/sitemesh">
+      <question>Can tobago replace tiles? Can I ignore tiles and sitemesh in the
+        favor of tobago or not?
+      </question>
+      <answer>
+        <p>Tobago can not replace it. But sometimes you may not need it, when
+          you are using Tobago.
+          If you want to position and size your components automatically, you
+          can do that with a Tobago LayoutManager.
+          If you want your header and sidebar rendered without writing dublicate
+          code, you may use JSP 2.0 tag files or tiles/sitemesh.
+        </p>
+      </answer>
+    </faq>
+    <faq id="maven-mirror">
       <question>How to configure a maven mirror?</question>
       <answer>
         <p>
-        If you want to set a different mirror for some reason, you can use your
-        settings.xml and add the following lines:
+          If you want to set a different mirror for some reason, you can use
+          your
+          settings.xml and add the following lines:
         </p>
         <source><![CDATA[
         <mirrors>
@@ -56,19 +104,29 @@ If you want your header and sidebar rendered without writing dublicate code, you
           </mirror>
         </mirrors>
          ]]></source>
-        <p>See: <a href="http://maven.apache.org/guides/mini/guide-mirror-settings.html">Guide mirror settings</a></p>
-        <p>Mirrors: <a href="http://jroller.com/page/carlossg?entry=using_mirrors_of_maven2_repositories">List of mirrors</a></p>
+        <p>See:
+          <a href="http://maven.apache.org/guides/mini/guide-mirror-settings.html">
+            Guide mirror settings
+          </a>
+        </p>
+        <p>Mirrors:
+          <a href="http://jroller.com/page/carlossg?entry=using_mirrors_of_maven2_repositories">
+            List of mirrors
+          </a>
+        </p>
       </answer>
     </faq>
     <faq id="offline-build">
       <question>How to configure an offline build?</question>
       <answer>
         <p>
-        If you run into problems with fetching jars from the online repository,
-        in the settings.xml you can configure maven not to fetch them but to use
-        the ones allready in your local repository:
+          If you run into problems with fetching jars from the online
+          repository,
+          in the settings.xml you can configure maven not to fetch them but to
+          use
+          the ones allready in your local repository:
         </p>
-      <source><![CDATA[
+        <source><![CDATA[
         <settings>
           <offline/>
         </settings>
