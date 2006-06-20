@@ -3,7 +3,7 @@
 
   <part id="faq">
     <faq id="howto">
-      <question>Documentation or HowTo for using tobago?</question>
+      <question>Documentation or HowTo for using Tobago?</question>
       <answer>
         <p>
           <a href="http://tobago.atanion.net/tobago-example-demo/faces/mini-howto/intro.jsp">
@@ -28,40 +28,41 @@
       </answer>
     </faq>
     <faq id="tobago/RI">
-      <question>Does tobago run with the Sun RI?</question>
+      <question>Does Tobago run with the Sun RI?</question>
       <answer>
         <p>Tobago should run with Sun RI and with MyFaces.</p>
       </answer>
     </faq>
     <faq id="tobago/myfaces extension">
-      <question>Can I mix tobago and myfaces extensions in the same webapp?
+      <question>Can I mix Tobago and MyFaces extensions in the same webapp?
       </question>
       <answer>
         <p>Jsf only supports one renderkit (renderkitId) per page (f:view).
-          Because tobago has it's own renderkitId you can't use any none tobago
+          Because Tobago has it's own renderkitId you can't use any none Tobago
           components that need a renderer.
         </p>
       </answer>
     </faq>
     <faq id="tobago/layout">
-      <question>How do use GridLayout in Tobago?</question>
+        <question>How do I use GridLayout in Tobago?</question>
       <answer>
-        <source><![CDATA[
+        <source>
           <tc:gridLayout rows="fixed;100px;1*;2*"/>
-         ]]></source>
-
+         </source>
         <p>
           Fixed means a theme dependent height of one row. (i.e. in speyside
           20px), in this height all one height high elements find their place
-          (like buttons, input fields, one row of text...).
+          (like buttons, input fields, one row of text...).<br/>
           Using px heights is at your own risk, but needed for some elements
           (like box, sheet and so on...)
-
+        </p>
+        <p>
           Alternativly you can give a proportion of elements (thats what you do
-          with the * notation).
+          with the * notation).<br/>
           For example rows="1*;2*" gives the first row 1/3 space and 2/3 for the
           second row. This works fine for columns, too.
-
+        </p>
+        <p> 
           For grouping elements to give them an slightliy different
           layout you can use the tc:panel element (this is interpreted as one
           element), which can have it's own layout for multiple elements inside
@@ -72,8 +73,8 @@
 
 
     <faq id="tiles/sitemesh">
-      <question>Can tobago replace tiles? Can I ignore tiles and sitemesh in the
-        favor of tobago or not?
+      <question>Can Tobago replace tiles? Can I ignore tiles and sitemesh in the
+        favor of Tobago or not?
       </question>
       <answer>
         <p>Tobago can not replace it. But sometimes you may not need it, when
@@ -93,7 +94,7 @@
           your
           settings.xml and add the following lines:
         </p>
-        <source><![CDATA[
+        <source>
         <mirrors>
           <mirror>
             <id>mirrorID</id>
@@ -103,7 +104,7 @@
               This must not match the mirror ID</mirrorOf>
           </mirror>
         </mirrors>
-         ]]></source>
+         </source>
         <p>See:
           <a href="http://maven.apache.org/guides/mini/guide-mirror-settings.html">
             Guide mirror settings
@@ -126,11 +127,11 @@
           use
           the ones allready in your local repository:
         </p>
-        <source><![CDATA[
+        <source>
         <settings>
           <offline/>
         </settings>
-        ]]></source>
+        </source>
         <p>or use the mvn -o switch</p>
 
       </answer>

@@ -10,6 +10,12 @@
     <src>images/tobagoLogo.png</src>
     <href>http://myfaces.apache.org/tobago</href>
   </bannerRight>
+  <publishDate format="dd MMM yyyy" />
+  <skin>
+    <groupId>org.apache.myfaces.maven</groupId>
+    <artifactId>tobago-site-skin</artifactId>
+    <version>1.0.4-SNAPSHOT</version>
+  </skin>
   <body>
     <links>
       <item name="Apache" href="http://www.apache.org/"/>
@@ -25,14 +31,15 @@
       <item name="Introduction" href="http://myfaces.apache.org/tobago/index.html"/>
       <item name="Download" href="http://myfaces.apache.org/tobago/download.html"/>
       <item name="Demo" href="http://myfaces.apache.org/tobago/demo.html"/>
+      <item name="Mailing Lists" href="mail-lists.html" />
     </menu>
 
     <menu name="Documentation">
       <item name="Getting Started" href="http://myfaces.apache.org/tobago/getting-started.html"/>
       <item name="Roadmap" href="http://myfaces.apache.org/tobago/roadmap.html" />
       <item name="Theme Handling" href="http://myfaces.apache.org/tobago/themes.html" />
-      <item name="Mailing Lists" href="mail-lists.html" />
       <item name="FAQ" href="http://myfaces.apache.org/tobago/faq.html" />
+      <item name="Tag Library" href="http://myfaces.apache.org/tobago/tobago-core/tlddoc/index.html" />
     </menu>
     
     ${parentProject}
