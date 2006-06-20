@@ -229,13 +229,13 @@
         </configuration>
       </plugin>
 
-      <plugin>
+      <!--<plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>clirr-maven-plugin</artifactId>
         <configuration>
           <minSeverity>info</minSeverity>
         </configuration>
-      </plugin>
+      </plugin>-->
 
       <!-- pmd has problems with annotations -->
       <plugin>
