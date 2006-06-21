@@ -111,11 +111,11 @@
       <id>matzew</id>
       <name>Matthias Wessendorf</name>
       <organization>Oracle Deutschland GmbH, Germany</organization>
-      <email>mwessendorf@gmail.com</email>
+      <email>matzew@apache.org</email>
       <roles>
         <role>Developer</role>
       </roles>
-      <timezone>+1</timezone>
+      <timezone>-8</timezone>
     </developer>
     <developer>
       <id>hennes</id>
