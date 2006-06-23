@@ -36,6 +36,7 @@ public class UIOutput extends javax.faces.component.UIOutput {
   private String tip;
   private boolean createSpan = true;
 
+  @Override
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
     super.restoreState(context, values[0]);
@@ -45,6 +46,7 @@ public class UIOutput extends javax.faces.component.UIOutput {
     createSpan = (Boolean) values[4];
    }
 
+  @Override
   public Object saveState(FacesContext context) {
     Object[] values  = new Object[5];
     values[0] = super.saveState(context);
