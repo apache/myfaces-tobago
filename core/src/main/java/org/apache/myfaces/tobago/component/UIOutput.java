@@ -16,16 +16,19 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import javax.faces.context.FacesContext;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 
+import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
- * Date: 09.02.2006
- * Time: 23:53:37
- * To change this template use File | Settings | File Templates.
- */
+* Created by IntelliJ IDEA.
+* User: bommel
+* Date: 09.02.2006
+* Time: 23:53:37
+* To change this template use File | Settings | File Templates.
+*/
 public class UIOutput extends javax.faces.component.UIOutput {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Output";
   private boolean escape = true;
@@ -61,7 +64,15 @@ public class UIOutput extends javax.faces.component.UIOutput {
   }
 
   public String getMarkup() {
-    return markup;
+    if (markup != null) {
+      return markup;
+    }
+    ValueBinding vb = getValueBinding(ATTR_MARKUP);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return null;
+    }
   }
 
   public void setMarkup(String markup) {
@@ -69,7 +80,15 @@ public class UIOutput extends javax.faces.component.UIOutput {
   }
 
   public String getTip() {
-    return tip;
+    if (tip != null) {
+      return tip;
+    }
+    ValueBinding vb = getValueBinding(ATTR_TIP);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return null;
+    }
   }
 
   public void setTip(String tip) {
