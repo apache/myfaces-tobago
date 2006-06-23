@@ -111,8 +111,8 @@ public class SheetRenderer extends RendererBase
     final String[] styles = new String[]{"style/tobago-sheet.css"};
     final String[] scripts = new String[]{"script/tobago-sheet.js"};
     Integer frequency = null;
-    if (data.getFacet("reload") != null && data.getFacet("update") instanceof UIReload) {
-      UIReload update = (UIReload) data.getFacet("update");
+    if (data.getFacet("reload") != null && data.getFacet("reload") instanceof UIReload) {
+      UIReload update = (UIReload) data.getFacet("reload");
       frequency = update.getFrequency();
     }
     final String[] cmds = {

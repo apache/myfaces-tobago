@@ -31,6 +31,9 @@ import org.apache.myfaces.tobago.taglib.decl.HasFor;
 
 /**
  * Renders a date picker.
+ * The component needs a DateFormat Pattern from a converter. The converter
+ * should be an instance of DateTimeConverter and return a valid pattern from
+ * the method getPattern() 
  */
 @Tag(name = "datePicker")
 @UIComponentTag(
