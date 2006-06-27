@@ -42,7 +42,8 @@ Tobago.loadPngFix= function() {
      }
 
      // test for png
-     if ( /\.png$/.test( element.realSrc.toLowerCase() ) ) {
+     if (element.realSrc != null &&
+         /\.png$/.test( element.realSrc.toLowerCase() ) ) {
        // get width and height of old src
        var origWidth = element.clientWidth;
        var origHeight = element.clientHeight;
