@@ -58,6 +58,7 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
   void setShowHeader(String showHeader);
 
   /**
+   * Please use "rows" instead.
    * The number of rows to display, starting with the one identified by the
    * "pageingStart" property.
    */
@@ -75,6 +76,7 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
   void setRows(String pagingLength);
 
   /**
+   * Please use "first" instead.
    * Zero-relative row number of the first row to be displayed.
    */
   @TagAttribute
