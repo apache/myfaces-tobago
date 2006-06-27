@@ -49,13 +49,13 @@
                     <f:selectItem itemValue="#{true}" itemLabel="True" />
                     <f:selectItem itemValue="#{false}" itemLabel="False" />
                   </tx:selectOneChoice>
-                  <tx:in label="pagingStart"
-                         value="#{overviewController.sheetConfig.sheetPagingStart}"
+                  <tx:in label="first"
+                         value="#{overviewController.sheetConfig.sheetFirst}"
                          tip="TODO: paging Start Text" >
                     <f:validateLongRange minimum="0" />
                   </tx:in>
-                  <tx:in label="pagingLength"
-                         value="#{overviewController.sheetConfig.sheetPagingLength}"
+                  <tx:in label="rows"
+                         value="#{overviewController.sheetConfig.sheetRows}"
                          tip="TODO: paging Lenght Text" >
                     <f:validateLongRange minimum="1" />
                   </tx:in>
@@ -113,8 +113,8 @@
             showRowRange="#{overviewController.sheetConfig.sheetRowPagingPosition}"
             showPageRange="#{overviewController.sheetConfig.sheetPagePagingPosition}"
             showDirectLinks="#{overviewController.sheetConfig.sheetDirectPagingPosition}"
-            pagingStart="#{overviewController.sheetConfig.sheetPagingStart}"
-            pagingLength="#{overviewController.sheetConfig.sheetPagingLength}"
+            first="#{overviewController.sheetConfig.sheetFirst}"
+            rows="#{overviewController.sheetConfig.sheetRows}"
             directLinkCount="#{overviewController.sheetConfig.sheetDirectLinkCount}"
             stateChangeListener="#{demo.stateChangeListener}"
             sortActionListener="#{overviewController.sheetSorter}" >

@@ -8,7 +8,7 @@
     <tc:box >
        <tc:sheet value="#{test.solarObjects}" id="sheet"
             columns="1*;1*;1*;1*;1*;1*;1*;1*;2*" var="solarObject"
-            showHeader="true"  showPageRange="center" pagingLength="10" >
+            showHeader="true"  showPageRange="center" rows="10" >
           <tc:column label="Name" sortable="true">
              <tc:link label="#{solarObject.name}" link="SolarDetail?id=#{solarObject.name}"/>
           </tc:column>

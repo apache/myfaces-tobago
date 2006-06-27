@@ -36,8 +36,8 @@ public class SheetConfig {
 
 
   private boolean sheetShowHeader;
-  private int sheetPagingStart;
-  private int sheetPagingLength;
+  private int sheetFirst;
+  private int sheetRows;
   private int sheetDirectLinkCount;
   private String sheetRowPagingPosition;
   private String sheetDirectPagingPosition;
@@ -47,8 +47,8 @@ public class SheetConfig {
   private boolean sheetConfigPopup;
 
   public SheetConfig() {
-    sheetPagingStart = 0;
-    sheetPagingLength = 7;
+    sheetFirst = 0;
+    sheetRows = 7;
     sheetDirectLinkCount = 5;
     sheetDirectLinkCountItems = createSheetDirectLinkCountItems();
     sheetShowHeader = true;
@@ -94,25 +94,25 @@ public class SheetConfig {
     this.sheetShowHeader = sheetShowHeader;
   }
 
-  public int getSheetPagingStart() {
-    return sheetPagingStart;
+  public int getSheetFirst() {
+    return sheetFirst;
   }
 
-  public int getSheetPagingLength() {
-    return sheetPagingLength;
+  public int getSheetRows() {
+    return sheetRows;
   }
 
-  public void setSheetPagingLength(int sheetPagingLength) {
-    this.sheetPagingLength = sheetPagingLength;
+  public void setSheetRows(int sheetRows) {
+    this.sheetRows = sheetRows;
   }
 
-  public int getSheetPagingStartValue() {
-    int value = getSheetPagingStart();
+  public int getSheetFirstValue() {
+    int value = getSheetFirst();
     return (value - 1) < 0 ? 0 : value - 1;
   }
 
-  public void setSheetPagingStart(int sheetPagingStart) {
-    this.sheetPagingStart = sheetPagingStart;
+  public void setSheetFirst(int sheetFirst) {
+    this.sheetFirst = sheetFirst;
   }
 
   public boolean isSheetConfigPopup() {
