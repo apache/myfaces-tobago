@@ -40,9 +40,11 @@ import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
+import java.net.URLDecoder;
 
 public class LinkRenderer extends CommandRendererBase{
 
@@ -61,7 +63,30 @@ public class LinkRenderer extends CommandRendererBase{
             + " label = " + component.getAttributes().get(ATTR_LABEL));
         action = "";
       }
-      href = HtmlUtils.generateUrl(facesContext, action);
+
+      action = HtmlUtils.generateUrl(facesContext, action);
+      StringBuffer sb = new StringBuffer(action);
+
+      boolean questionMark = action.contains("?");
+      for (Object o : component.getChildren()) {
+        UIComponent child = (UIComponent) o;
+        if (child instanceof UIParameter) {
+          UIParameter parameter = (UIParameter) child;
+          if (questionMark) {
+            sb.append("&");
+          } else {
+            sb.append("?");
+            questionMark = true;
+          }
+          sb.append(parameter.getName());
+          sb.append("=");
+          Object value = parameter.getValue();
+          // TODO encoding
+          sb.append(value!=null?URLDecoder.decode(value.toString()):null);
+        }
+      }
+      href = sb.toString();
+
     } else  if (component.getAttributes().get(ATTR_ACTION_ONCLICK) != null) {
       onclick = (String) component.getAttributes().get(ATTR_ACTION_ONCLICK);
       href = "#";
