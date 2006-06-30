@@ -39,7 +39,7 @@ public class TobagoConfig {
   private List<String> supportedThemeNames;
   private Theme defaultTheme;
   private String defaultThemeName;
-  private Set<String> resourceDirs;
+  private List<String> resourceDirs;
   private List<MappingRule> mappingRules;
   private boolean ajaxEnabled;
   private Map<String, Theme> availableTheme;
@@ -48,7 +48,7 @@ public class TobagoConfig {
   public TobagoConfig() {
     supportedThemeNames = new ArrayList<String>();
     supportedThemes = new ArrayList<Theme>();
-    resourceDirs = new HashSet<String>();
+    resourceDirs = new ArrayList<String>();
   }
 
   public void addMappingRule(MappingRule mappingRule) {
@@ -148,13 +148,20 @@ public class TobagoConfig {
   }
 
   public void addResourceDir(String resourceDir) {
-    if (LOG.isInfoEnabled()) {
-      LOG.info("adding resourceDir = '" + resourceDir + "'");
-    }
-    resourceDirs.add(resourceDir);
+      if (! resourceDirs.contains(resourceDir)) {
+          if (LOG.isInfoEnabled()) {
+            LOG.info("adding resourceDir = '" + resourceDir + "'");
+          }
+          resourceDirs.add(resourceDir);
+      } else {
+          if (LOG.isInfoEnabled()) {
+            LOG.info("resourceDirs already contains = '" + resourceDir + "'");
+          }
+      }
+
   }
 
-  public Set<String> getResourceDirs() {
+  public List<String> getResourceDirs() {
     return resourceDirs;
   }
 
