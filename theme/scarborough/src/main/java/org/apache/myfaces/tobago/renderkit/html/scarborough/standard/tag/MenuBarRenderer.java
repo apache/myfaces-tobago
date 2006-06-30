@@ -498,7 +498,7 @@ public class MenuBarRenderer extends RendererBase {
     if (label.getAccessKey() != null) {
       if (LOG.isInfoEnabled()
           && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-        LOG.info("dublicated accessKey : " + label.getAccessKey());
+        LOG.info("dublicated accessKey : " + label.getAccessKey() + " in " + label.getText());
       }
 
       if (!disabled) {
