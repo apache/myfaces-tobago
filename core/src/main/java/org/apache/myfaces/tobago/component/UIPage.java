@@ -223,11 +223,13 @@ public class UIPage extends UIForm {
               + SUBCOMPONENT_SEP + "form-clientDimension";
       value = (String) facesContext.getExternalContext()
               .getRequestParameterMap().get(name);
-      StringTokenizer tokenizer = new StringTokenizer(value, ";");
-      int width = Integer.parseInt(tokenizer.nextToken());
-      int height = Integer.parseInt(tokenizer.nextToken());
-      pageState.setClientWidth(width);
-      pageState.setClientHeight(height);
+        if (value != null) {
+            StringTokenizer tokenizer = new StringTokenizer(value, ";");
+            int width = Integer.parseInt(tokenizer.nextToken());
+            int height = Integer.parseInt(tokenizer.nextToken());
+            pageState.setClientWidth(width);
+            pageState.setClientHeight(height);
+        }
     } catch (Exception e) {
       LOG.error("Error in decoding state: value='" + value + "'", e);
     }
