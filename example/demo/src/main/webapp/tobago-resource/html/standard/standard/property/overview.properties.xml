@@ -20,6 +20,10 @@
 <!--# $Id: overview.properties.xml,v 1.1 2005/09/09 14:50:08 lofwyr Exp $-->
 
 <properties>
+ <entry key="tobago_version">MyFaces Tobago 1.0.7</entry>
+ <entry key="tobago_url">http://myfaces.apache.org/tobago</entry>
+
+
 <entry key="notTranslated">Sorry, not completely translated yet.</entry>
 <entry key="pageTitle">Tobago Demo</entry>
 
@@ -30,6 +34,7 @@
 <entry key="menu_themes">_Themes</entry>
 <entry key="menu_locale">_Locale</entry>
 <entry key="menu_debug">Debug Mode</entry>
+<entry key="menu_about">About</entry>
 
 
 

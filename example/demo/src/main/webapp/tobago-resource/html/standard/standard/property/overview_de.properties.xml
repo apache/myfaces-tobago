@@ -30,6 +30,7 @@
   <entry key="menu_themes">_Themes</entry>
   <entry key="menu_locale">_Sprachen</entry>
   <entry key="menu_debug">Debug Modus</entry>
+  <entry key="menu_about">Über</entry>
 
 <!--  navigate -->
   <entry key="intro">Übersicht</entry>

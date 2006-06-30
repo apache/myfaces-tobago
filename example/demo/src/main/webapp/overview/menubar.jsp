@@ -82,6 +82,11 @@ FIXME: this doesn't work
                 label="#{overviewBundle.menu_debug}"
                 value="#{clientConfigController.debugMode}" />--%>
           </tc:menu>
+
+          <tc:menu label="#{overviewBundle.menu_help}">
+            <tc:menuItem onclick="alert('#{overviewBundle.pageTitle}' + String.fromCharCode(10) + '#{overviewBundle.tobago_version}' + String.fromCharCode(10) + '#{overviewBundle.tobago_url}' + String.fromCharCode(10))"  
+                         label="#{overviewBundle.menu_about}" />
+          </tc:menu>
         </tc:menuBar>
 
       </f:facet>
