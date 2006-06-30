@@ -91,6 +91,7 @@ public class PopupRenderer extends RendererBase {
       writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + "iframe");
       writer.writeClassAttribute("tobago-popup-iframe");
       writer.writeAttribute("style", contentStyle.toString(), null);
+      writer.writeAttribute("src", "javascript:false;", null);
       writer.endElement("iframe");
     }
     writer.startElement("div", component);
