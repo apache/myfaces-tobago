@@ -28,11 +28,11 @@
         <artifactId>tomcat-maven-plugin</artifactId>
         <version>1.0-SNAPSHOT</version>
         <configuration>
-          <server>mononoke</server>
-          <!--server>tomcat</server-->
+          <!--<server>mononoke</server>-->
+          <server>tomcat</server>
           <update>true</update>
-          <url>http://mononoke:8080/manager</url>
-          <!--url>http://localhost:8080/manager</url-->
+          <!--<url>http://mononoke:8080/manager</url>-->
+          <url>http://localhost:8080/manager</url>
         </configuration>
       </plugin>
     </plugins>
