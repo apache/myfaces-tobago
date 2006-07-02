@@ -83,7 +83,7 @@
                   <verify>true</verify>
                   <includes>
                     <include>
-                      <directory>${pom.basedir}/target/classes</directory>
+                      <directory>${project.build.directory}/classes</directory>
                     </include>
                   </includes>
                   <destdir>${project.build.directory}/classes-retro</destdir>

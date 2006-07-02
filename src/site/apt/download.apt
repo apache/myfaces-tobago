@@ -33,7 +33,7 @@ Latest source code and nightly builds from SVN repository
     If you want to use the latest Apache MyFaces Tobago features, the source code is under
     version control with SVN.  Click {{{getting-started.html} here }}
     for information on how to use the ASF MyFaces Tobago SVN Repository. There are also
-    {{{http://cvs.apache.org/builds/myfaces/nightly} nightly }}
+    {{{http://people.apache.org/builds/myfaces/nightly} nightly }}
     builds available every 24 hours (11:00 PM EST).
 
 Archive of old releases
