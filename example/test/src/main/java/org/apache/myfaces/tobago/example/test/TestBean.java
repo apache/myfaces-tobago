@@ -18,6 +18,8 @@ package org.apache.myfaces.tobago.example.test;
 
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
+import org.apache.commons.fileupload.FileItem;
+
 import java.sql.Statement;
 import java.sql.DriverManager;
 import java.sql.Connection;
@@ -47,6 +49,7 @@ public class TestBean {
   private String eccen;
   private String discoverer;
   private String discoverYear;
+  private FileItem file;
 
   public TestBean() {
 
@@ -192,6 +195,15 @@ public class TestBean {
 
     return "solarList";
 
+  }
+
+  public FileItem getFile() {
+    return file;
+  }
+
+  public void setFile(FileItem file) {
+    LOG.error("Setting fileItem "+ file);
+    this.file = file;
   }
 
   public ResultSet getSolarObjects() {
