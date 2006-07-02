@@ -546,10 +546,10 @@ Tobago.Menu.Item.prototype.addSubitemArrowImage = function() {
   };
   
 Tobago.Menu.Item.prototype.setupIframe = function(subItemContainer) {
-  var subItemIframe = Tobago.element(this.subItemIframeId);
+    var subItemIframe = Tobago.element(this.subItemIframeId);
     if (subItemIframe) {
-      subItemIframe.style.width = subItemContainer.style.width;
-      subItemIframe.style.height = subItemContainer.style.height;
+      subItemIframe.style.width = subItemContainer.scrollWidth;
+      subItemIframe.style.height = subItemContainer.scrollHeight;
       subItemIframe.style.top = subItemContainer.style.top;
       subItemIframe.style.left = subItemContainer.style.left;
     }
