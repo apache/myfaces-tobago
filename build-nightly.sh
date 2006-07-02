@@ -34,6 +34,12 @@ then
   echo "JAVA_HOME must be set."
 fi
 
+if [ -z "$JAVA14_HOME" ]
+then
+  echo "JAVA14_HOME must be set."
+fi
+
+
 if [ -z "`which java`" ]
 then
   echo "Could not find 'java' in the path."
@@ -62,7 +68,7 @@ svn co $tobago_repo tobago
 
 echo "Building tobago ."
 cd tobago
-mvn -Pgenerate-assembly -U clean install
+mvn -Djava14.home=$JAVA14_HOME -Pgenerate-assembly,jdk14retro -U clean install
 cd tobago-assembly
 mvn clean assembly:assembly org.apache.myfaces.maven:wagon-maven-plugin:deploy
 
