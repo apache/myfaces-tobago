@@ -14,6 +14,7 @@
  *    limitations under the License.
 --%>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%-- !!!!!! no <f:subview here !!!!!!! --%>
 <f:facet name="menuBar">
@@ -52,16 +53,16 @@
 
     <tc:menu label="#{overviewBundle.menu_config}">
       <tc:menu label="#{overviewBundle.menu_themes}">
-        <tc:menuRadio value="#{clientConfigController.theme}"
+        <tx:menuRadio value="#{clientConfigController.theme}"
                      action="#{clientConfigController.submit}" >
           <f:selectItems value="#{clientConfigController.themeItems}"/>
-        </tc:menuRadio>
+        </tx:menuRadio>
       </tc:menu>
       <tc:menu label="#{overviewBundle.menu_locale}">
-        <tc:menuRadio value="#{clientConfigController.locale}"
+        <tx:menuRadio value="#{clientConfigController.locale}"
                      action="#{clientConfigController.submit}">
           <f:selectItems value="#{clientConfigController.localeItems}"/>
-        </tc:menuRadio>
+        </tx:menuRadio>
       </tc:menu>
       <%-- <tc:menuCheckbox action="#{clientConfigController.submit}"
      label="#{overviewBundle.menu_debug}"

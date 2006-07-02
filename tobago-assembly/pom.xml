@@ -129,6 +129,43 @@
             </configuration>
           </execution>
 
+          <execution>
+            <id>copy-jdk14retro</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>${project.groupId}</groupId>
+                  <artifactId>tobago-core</artifactId>
+                  <version>${project.version}</version>
+                  <classifier>jdk14retro</classifier>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>${project.groupId}</groupId>
+                  <artifactId>tobago-theme-speyside</artifactId>
+                  <version>${project.version}</version>
+                  <classifier>jdk14retro</classifier>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>${project.groupId}</groupId>
+                  <artifactId>tobago-theme-scarborough</artifactId>
+                  <version>${project.version}</version>
+                  <classifier>jdk14retro</classifier>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>${project.groupId}</groupId>
+                  <artifactId>tobago-theme-standard</artifactId>
+                  <version>${project.version}</version>
+                  <classifier>jdk14retro</classifier>
+                </artifactItem>
+              </artifactItems>
+              <outputDirectory>${project.build.directory}/jdk14retro</outputDirectory>
+            </configuration>
+          </execution>
+
         </executions>
       </plugin>
 
@@ -159,6 +196,21 @@
   </build>
 
   <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>tobago-theme-charlotteville</artifactId>
+      <version>${project.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jsp-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>javax.servlet</groupId>
+          <artifactId>servlet-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>tobago-theme-richmond</artifactId>

@@ -48,5 +48,12 @@
         <include>*.jar</include>
       </includes>
     </fileSet>
+    <fileSet>
+      <directory>target/jdk14retro</directory>
+      <outputDirectory>jdk14retro</outputDirectory>
+      <includes>
+        <include>*.jar</include>
+      </includes>
+    </fileSet>
   </fileSets>
 </assembly>
