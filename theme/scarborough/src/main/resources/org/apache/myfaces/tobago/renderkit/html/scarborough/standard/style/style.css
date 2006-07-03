@@ -657,6 +657,7 @@ div.tobago-richTextEditor-body {
   border:1px solid #888;
   margin:0px;
   padding:0px;
+  z-index:5;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
 }
