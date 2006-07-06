@@ -38,10 +38,9 @@
           <f:facet name="layout">
             <tc:gridLayout />
           </f:facet>
-          <tx:label value="#{overviewBundle.basic_textboxLabel}" tip="test">
-            <tc:in value="#{overviewController.basicInput}"
-                suggestMethod="#{overviewController.getInputSuggestItems}" />
-          </tx:label>
+          <tx:in value="#{overviewController.basicInput}"
+              label="#{overviewBundle.basic_textboxLabel}" tip="test"
+              suggestMethod="#{overviewController.getInputSuggestItems}" />
           <tx:date value="#{overviewController.basicDate}"
               label="#{overviewBundle.basic_dateLabel}">
             <f:convertDateTime pattern="dd.MM.yyyy" />
