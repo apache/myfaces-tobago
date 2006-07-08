@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.ajax.api;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.util.RequestUtils;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
@@ -93,7 +94,7 @@ public class AjaxPhaseListener implements PhaseListener {
               + externalContext.getRequestParameterMap().get(AJAX_COMPONENT_ID));
         }
 
-
+        RequestUtils.ensureEncoding(externalContext);
         final UIViewRoot viewRoot = facesContext.getViewRoot();
         StringWriter content = new StringWriter();
         RenderKitFactory renderFactory = (RenderKitFactory)

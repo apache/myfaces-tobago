@@ -168,7 +168,8 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
       return;
     }
 
-
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) context.getResponseWriter();
     int maxSuggestedCount = 25; //input.getMaxSuggestedItems()!=null
 //        ? input.getMaxSuggestedItems().intValue()
 //        : DEFAULT_MAX_SUGGESTED_ITEMS;
@@ -176,23 +177,17 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
     List suggesteds = (List) mb.invoke(context, new Object[]{
         AjaxPhaseListener.getValueForComponent(context, uiComponent)});
 
-
-    StringBuffer buf = new StringBuffer();
-    buf.append("<ul>");
-
+    writer.startElement("ul", null);
     int suggestedCount = 0;
     for (Iterator i = suggesteds.iterator(); i.hasNext(); suggestedCount++) {
       if (suggestedCount > maxSuggestedCount) {
         break;
       }
-
-      buf.append("<li>");
-      buf.append(i.next().toString());
-      buf.append("</li>");
+      writer.startElement("li", null);
+      writer.writeText(i.next(), null);
+      writer.endElement("li");
     }
-    buf.append("</ul>");
-
-    context.getResponseWriter().write(buf.toString());
+    writer.endElement("ul");
     context.responseComplete();
   }
 

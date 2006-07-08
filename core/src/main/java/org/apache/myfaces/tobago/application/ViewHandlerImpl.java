@@ -22,6 +22,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CLIENT_PROPERTIES;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.webapp.TobagoResponse;
+import org.apache.myfaces.tobago.util.RequestUtils;
 
 import javax.faces.FacesException;
 import javax.faces.application.ViewHandler;
@@ -32,7 +33,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
 public class ViewHandlerImpl extends ViewHandler {
@@ -162,26 +162,13 @@ public class ViewHandlerImpl extends ViewHandler {
     }
     // this is only needed in the first request, the later will be handled by faces
     // TODO: maybe find a way to make this unneeded
-    handleEncoding(facesContext);
+    RequestUtils.ensureEncoding(facesContext.getExternalContext());
     UIViewRoot viewRoot = base.restoreView(facesContext, viewId);
     ensureClientProperties(facesContext, viewRoot);
     return viewRoot;
   }
 
-  private void handleEncoding(FacesContext facesContext) {
-    try {
-      if (facesContext.getExternalContext().getRequest() instanceof HttpServletRequest) {
-        HttpServletRequest request =
-            (HttpServletRequest) facesContext.getExternalContext().getRequest();
-        if (request.getCharacterEncoding() == null) {
-          request.setCharacterEncoding("UTF-8");
-        }
-      }
-      // TODO PortletRequest
-    } catch (UnsupportedEncodingException e) {
-      LOG.error("" + e, e);
-    }
-  }
+
 
   public void writeState(FacesContext facesContext) throws IOException {
     base.writeState(facesContext);
