@@ -41,8 +41,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class TreeRenderer extends RendererBase {
@@ -236,7 +234,7 @@ public class TreeRenderer extends RendererBase {
 //    return sb.toString();
     StringTokenizer tokenizer = new StringTokenizer(sb.toString(), "\n");
     String[] strings = new String[tokenizer.countTokens()];
-    for (int i = 0 ; i < strings.length; i++) {
+    for (int i = 0; i < strings.length; i++) {
       strings[i] = tokenizer.nextToken();
     }
     return strings;
