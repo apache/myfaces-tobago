@@ -10,17 +10,13 @@
     <src>images/tobagoLogo.png</src>
     <href>http://myfaces.apache.org/tobago</href>
   </bannerRight>
+  <publishDate format="dd MMM yyyy" />
+  <skin>
+    <groupId>org.apache.myfaces.maven</groupId>
+    <artifactId>tobago-site-skin</artifactId>
+    <version>1.0.5-SNAPSHOT</version>
+  </skin>
   <body>
-    <links>
-      <item name="Apache" href="http://www.apache.org/"/>
-      <item name="MyFaces" href="http://myfaces.apache.org/"/>
-      <item name="API" href="http://myfaces.apache.org/api"/>
-      <item name="Impl" href="http://myfaces.apache.org/impl"/>
-      <item name="Tomahawk" href="http://myfaces.apache.org/tomahawk"/>
-      <item name="Sandbox" href="http://myfaces.apache.org/sandbox"/>
-      <item name="Tobago" href="http://myfaces.apache.org/tobago"/>
-    </links>
-
     <menu name="Tobago">
       <item name="Introduction" href="http://myfaces.apache.org/tobago/index.html"/>
       <item name="Demo" href="http://myfaces.apache.org/tobago/demo.html"/>
