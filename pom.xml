@@ -484,7 +484,7 @@
       <url>scpexe://minotaur.apache.org/www/cvs.apache.org/maven-snapshot-repository</url>
     </snapshotRepository>
     <site>
-      <id>website</id>
+      <id>apache-site</id>
       <url>scpexe://minotaur.apache.org/www/myfaces.apache.org/tobago/</url>
     </site>
   </distributionManagement>
