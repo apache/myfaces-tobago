@@ -34,10 +34,10 @@
     </message-bundle>
   </application>
 
-
   <lifecycle>
     <phase-listener>org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener</phase-listener>
   </lifecycle>
+
   <component>
     <component-type>org.apache.myfaces.tobago.DateInput</component-type>
     <component-class>org.apache.myfaces.tobago.component.UIDateInput</component-class>

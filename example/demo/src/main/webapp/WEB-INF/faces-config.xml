@@ -42,6 +42,12 @@
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
+  <managed-bean>
+    <managed-bean-name>tobagoVersion</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.TobagoVersion</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+  </managed-bean>
+
   <lifecycle>
     <phase-listener>
       org.apache.myfaces.tobago.example.demo.overview.SynchronizeNavigationPhaseListener
