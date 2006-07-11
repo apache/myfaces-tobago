@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Copyright 2002-2005 The Apache Software Foundation.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+-->
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+    version="2.4">
+
+  <display-name>A simple security demo with Tobago</display-name>
+
+  <!--  workaround for a bug in Oracle AS (e.g. 10.1.2.0.0)-->
+  <listener>
+    <listener-class>org.apache.myfaces.tobago.webapp.TobagoServletContextListener</listener-class>
+  </listener>
+
+  <!-- servlet -->
+
+  <servlet>
+    <servlet-name>FacesServlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <!-- workaround for a bug in Bea Weblogic 8.1 SP 2 and older -->
+  <servlet>
+    <servlet-name>WeblogicWorkaroundServlet</servlet-name>
+    <servlet-class>org.apache.myfaces.tobago.webapp.WeblogicWorkaroundServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet>
+    <servlet-name>ResourceServlet</servlet-name>
+    <servlet-class>org.apache.myfaces.tobago.servlet.ResourceServlet</servlet-class>
+  </servlet>
+
+
+  <servlet-mapping>
+    <servlet-name>FacesServlet</servlet-name>
+    <url-pattern>/faces/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ResourceServlet</servlet-name>
+    <url-pattern>/org/apache/myfaces/tobago/renderkit/*</url-pattern>
+  </servlet-mapping>
+
+  <!-- Welcome File List -->
+
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+  <!-- Security  -->
+
+  <security-constraint>
+    <display-name>Security Constraint</display-name>
+    <web-resource-collection>
+      <web-resource-name>Application Area</web-resource-name>
+      <url-pattern>/faces/application/*</url-pattern>
+      <url-pattern>/application/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>tobago-example-security</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <realm-name>Form-Based Authentication Area</realm-name>
+    <form-login-config>
+      <form-login-page>/faces/login/login.jsp</form-login-page>
+      <form-error-page>/faces/login/error.jsp</form-error-page>
+    </form-login-config>
+  </login-config>
+
+  <security-role>
+    <role-name>tobago-example-security</role-name>
+  </security-role>
+
+
+</web-app>

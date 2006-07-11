@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Copyright 2002-2005 The Apache Software Foundation.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+-->
+    
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration>
+
+  <appender name="logfile" class="org.apache.log4j.FileAppender">
+    <param name="File"   value="tobago-example-security.log" />
+    <param name="Append" value="true" />
+    <param name="Encoding" value="UTF-8" />
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern"
+          value="%d{yyyy-MM-dd HH:mm:ss} %15t %-5p - %c:%L - %m%n"/>
+      <!--
+        %d{...} date pattern
+        %p      priority
+        %m      log message
+        %n      newline
+        -5      fill with spaces (5)
+
+        For more options see class org.apache.log4j.PatternLayout.
+      -->
+    </layout>
+  </appender>
+
+  <appender name="console" class="org.apache.log4j.ConsoleAppender">
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern"
+          value="%d{yyyy-MM-dd HH:mm:ss} %15t %-5p - %c:%L - %m%n"/>
+    </layout>
+  </appender>
+
+  <category name="org.apache.myfaces.tobago.example.security">
+    <priority value="debug" />
+  </category>
+
+  <root>
+    <priority value="info" />
+    <appender-ref ref="console" />
+    <appender-ref ref="logfile" />
+  </root>
+
+</log4j:configuration>

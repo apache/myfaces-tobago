@@ -41,6 +41,7 @@
     <module>demo</module>
     <module>foreach</module>
     <module>nonfacesrequest</module>
+    <module>security</module>
     <module>test</module>
   </modules>
 
