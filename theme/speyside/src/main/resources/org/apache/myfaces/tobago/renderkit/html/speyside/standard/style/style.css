@@ -40,10 +40,6 @@ h5  {
 }
 
 
-/* - Calendar --------------------------------------------------------------- */
-td.tobago-calendar-day-selected {
-  background-color: #bbbbbb;
-}
 
 
 /* Styles which are Speyside specific. They are reduced as much as possible,
@@ -69,8 +65,13 @@ td.menu {
 /*-- Popup ------------------------------------------------------------------ */
 .tobago-popup-content  {
   border: 1px solid #000000;
-  background: #E2E2E2;
+  background: red;
+}
 
+.tobago-popup-blink {
+  background: #333333;
+  opacity: .5;
+	filter: alpha(opacity=50);
 }
 
 /* Progress Control --------------------------------------------------------- */
@@ -403,7 +404,7 @@ label.tobago-label-inline  {
 }
 
 label.tobago-label-error {
-  background: url(../image/label-error-bg.gif) no-repeat;
+  background: url(../image/label-error-bg.gif) no-repeat bottom left;
   color: #FF0000;
 }
 
@@ -671,8 +672,38 @@ label.tobago-label-error {
   padding-left: 5px;
 }
 
-/* Validation ----------------------------------------------------------------- */
+/* Validation --------------------------------------------------------------- */
 .tobago-validation-message {
   color: #FF0000;
   font: bold 12px arial, helvetica, sans-serif;
 }
+
+/* - Calendar --------------------------------------------------------------- */
+.tobago-calendar-header  {
+  text-decoration: underline;
+}
+
+
+.tobago-calendar-day {
+  font: 12px arial, helvetica, sans-serif;
+}
+
+.tobago-calendar-day-disabled {
+  font: 12px arial, helvetica, sans-serif;
+  color: #333333;
+}
+
+.tobago-calendar-day-selected {
+  font: bold 12px arial, helvetica, sans-serif;
+  color: #660000;
+  border: 1px dotted #660000;
+  background: #FFFFFF;
+  height: 18px;
+}
+
+.tobago-calendar-inner-header {
+  font: bold 14px arial, helvetica, sans-serif;
+  color: #660000;
+}
+
+
