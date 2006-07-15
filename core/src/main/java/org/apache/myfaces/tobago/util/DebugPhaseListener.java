@@ -23,8 +23,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
+import javax.faces.application.FacesMessage;
 import java.util.Date;
 import java.util.Map;
+import java.util.Iterator;
+import java.text.MessageFormat;
 
 /**
  * Created by IntelliJ IDEA.
@@ -39,8 +42,8 @@ public class DebugPhaseListener implements PhaseListener {
   public void afterPhase(PhaseEvent phaseEvent) {
     if (LOG.isInfoEnabled()) {
       Date end = new Date();
-      Map map = FacesContext.getCurrentInstance().getExternalContext()
-          .getRequestMap();
+      FacesContext facesContext = phaseEvent.getFacesContext();
+      Map map = facesContext.getExternalContext().getRequestMap();
       map.put(KEY + phaseEvent.getPhaseId().getOrdinal() + "E", end);
 
       if (LOG.isTraceEnabled()) {
@@ -62,8 +65,19 @@ public class DebugPhaseListener implements PhaseListener {
               + (end.getTime() - start.getTime() + " milliseconds"));
         }
       }
-    }
+      for (Iterator iter = phaseEvent.getFacesContext().getClientIdsWithMessages(); iter.hasNext();) {
+        String clientId = (String) iter.next();
 
+        for (Iterator msgIter = facesContext.getMessages(clientId); msgIter.hasNext();) {
+          FacesMessage msg = (FacesMessage) msgIter.next();
+          LOG.info(MessageFormat.format("Faces message found."
+              + "\n  Component: {0} \n  Severity : {1}"
+              + "\n  Summary  : {2} \n  Detail   : {3}",
+          new Object[] {clientId, msg.getSeverity(),
+            msg.getSummary(), msg.getDetail()}));
+        }
+      }
+    }
   }
 
   public void beforePhase(PhaseEvent phaseEvent) {

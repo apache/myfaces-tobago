@@ -140,36 +140,9 @@ public final class LayoutUtil {
     return width;
   }
 
-  public static int getLabelWidth(FacesContext facesContext,
-      UIComponent component) {
 
-    int width = getLabelWidth(component);
 
-    if (width == 0) {
-      width = getDefaultLabelWidth(facesContext, component);
-    }
-    return width;
-  }
 
-  private static int getDefaultLabelWidth(
-      FacesContext facesContext, UIComponent component) {
-    int width = 0;
-    try {
-      InputRendererBase renderer = (InputRendererBase)
-          ComponentUtil.getRenderer(facesContext, UIInput.COMPONENT_FAMILY,
-              RENDERER_TYPE_IN);
-      width = renderer.getLabelWidth(facesContext, component);
-    } catch (Exception e) {
-      if (LOG.isWarnEnabled()) {
-        LOG.warn("can't find Label Width", e);
-      }
-    }
-    return width;
-  }
-
-  public static int getDefaultLabelWidth() {
-    return getDefaultLabelWidth(FacesContext.getCurrentInstance(), null);
-  }
 
   //TODO Change this to DimensionUtils.getWidth?
   public static Integer getLayoutWidth(UIComponent component) {
