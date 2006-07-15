@@ -164,7 +164,7 @@
         <configuration>
           <tags>
             <tag>TODO</tag>
-            <tag> FIXME</tag>
+            <tag>FIXME</tag>
             <tag>XXX</tag>
             <tag>@deprecated</tag>
           </tags>

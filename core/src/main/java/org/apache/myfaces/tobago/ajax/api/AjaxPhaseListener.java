@@ -90,11 +90,12 @@ public class AjaxPhaseListener implements PhaseListener {
     if (externalContext.getRequestParameterMap().containsKey(AJAX_COMPONENT_ID)) {
       try {
         if (LOG.isDebugEnabled()) {
-          LOG.debug("AJAX: componentID gefunden :"
+          LOG.debug("AJAX: componentID found :"
               + externalContext.getRequestParameterMap().get(AJAX_COMPONENT_ID));
         }
 
         RequestUtils.ensureEncoding(externalContext);
+        RequestUtils.ensureNoCacheHeader(externalContext);
         final UIViewRoot viewRoot = facesContext.getViewRoot();
         StringWriter content = new StringWriter();
         RenderKitFactory renderFactory = (RenderKitFactory)

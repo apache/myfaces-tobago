@@ -22,6 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ExternalContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -37,20 +38,28 @@ public class RequestUtils {
 
   public static void ensureEncoding(ExternalContext externalContext) {
     try {
+      // TODO PortletRequest
       if (externalContext.getRequest() instanceof HttpServletRequest) {
         HttpServletRequest request =
             (HttpServletRequest) externalContext.getRequest();
-        System.err.println("=========================================");
         if (request.getCharacterEncoding() == null) {
           request.setCharacterEncoding("UTF-8");
-          System.err.println("Setting to utf-8 ");
-        } else {
-          System.err.println(request.getCharacterEncoding());
         }
       }
-      // TODO PortletRequest
+
     } catch (UnsupportedEncodingException e) {
       LOG.error("" + e, e);
+    }
+  }
+
+  public static void ensureNoCacheHeader(ExternalContext externalContext) {
+    // TODO PortletRequest
+    if (externalContext.getResponse() instanceof HttpServletResponse) {
+      HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
+      response.setHeader("Cache-Control", "private,no-cache,no-store");
+      response.setHeader("Pragma", "no-cache");
+      response.setDateHeader("Expires", 0);
+      response.setDateHeader("max-age", 0);
     }
   }
 }
