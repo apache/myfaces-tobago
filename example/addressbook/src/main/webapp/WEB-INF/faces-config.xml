@@ -29,6 +29,11 @@
     </locale-config>
   </application>
 
+  <lifecycle>
+    <phase-listener>org.apache.myfaces.tobago.util.DebugPhaseListener</phase-listener>
+  </lifecycle>
+
+
   <managed-bean>
     <managed-bean-name>controller</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.addressbook.Controller</managed-bean-class>
