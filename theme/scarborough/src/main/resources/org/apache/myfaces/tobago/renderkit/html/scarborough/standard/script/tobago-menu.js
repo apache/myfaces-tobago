@@ -950,10 +950,10 @@ function tobagoMenuHandelKey(event) {
 
 // ----------------------------------------------------------------------------
 function getFocusLostTimeout() {
-  return 100;
+  return 0;
 }
 function getOpenSubMenusTimeout() {
-  return 100;
+  return 0;
 }
 
 function tobagoOpenSubMenus(id) {
