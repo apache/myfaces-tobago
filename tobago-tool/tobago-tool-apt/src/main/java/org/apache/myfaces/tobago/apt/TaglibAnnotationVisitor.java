@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.Taglib;
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -204,24 +205,24 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
 
     Deprecated deprecatedAnnotation = decl.getAnnotation(Deprecated.class);
     if (deprecatedAnnotation != null) {
-      description.append("**** Deprecated. Will be removed in a future version **** ");
+      description.append("<p>**** Deprecated. Will be removed in a future version **** </p>");
     }
     if (deprecated) {
       Tag annotationTag = decl.getAnnotation(Tag.class);
-      description.append("**** Deprecated. Will be removed in a future version. Use ");
+      description.append("<p>**** Deprecated. Will be removed in a future version. Use ");
       description.append(annotationTag.name());
-      description.append(" instead. **** ");
+      description.append(" instead. **** </p>");
     }
 
     Preliminary preliminary = decl.getAnnotation(Preliminary.class);
     if (preliminary != null) {
-      description.append("**** Preliminary. Maybe subject to changed in a future version");
-      if (preliminary.value().length()>0) {
+      description.append("</p>**** Preliminary. Maybe subject to changed in a future version");
+      if (preliminary.value().length() > 0) {
         description.append(": ");
         description.append(preliminary.value());
         description.append(" ");
       }
-      description.append("**** ");
+      description.append("**** </p>");
     }
     String comment = decl.getDocComment();
     if (comment != null) {
@@ -231,8 +232,21 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
       }
       comment = comment.trim();
       if (comment.length() > 0) {
+        description.append("<p>");
         description.append(comment);
+        description.append("</p>");
       }
+
+    }
+    UIComponentTag componentTag = decl.getAnnotation(UIComponentTag.class);
+    if (componentTag != null) {
+
+      description.append("<p>UIComponentClass: ");
+      description.append(componentTag.uiComponent());
+      description.append("</p><p>");
+      description.append(" RendererType: ");
+      description.append(componentTag.rendererType());
+      description.append("</p>");
     }
     if (description.length() > 0) {
       addLeafCDATAElement(description.toString(), "description", element, document);
