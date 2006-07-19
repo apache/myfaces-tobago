@@ -146,7 +146,7 @@ public class TobagoConfig {
   }
 
   public void addResourceDir(String resourceDir) {
-      if (! resourceDirs.contains(resourceDir)) {
+      if (!resourceDirs.contains(resourceDir)) {
           if (LOG.isInfoEnabled()) {
             LOG.info("adding resourceDir = '" + resourceDir + "'");
           }

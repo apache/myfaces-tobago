@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.util;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.context.FacesContext;
 import javax.faces.context.ExternalContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,7 +55,7 @@ public class RequestUtils {
     // TODO PortletRequest
     if (externalContext.getResponse() instanceof HttpServletResponse) {
       HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
-      response.setHeader("Cache-Control", "private,no-cache,no-store");
+      response.setHeader("Cache-Control", "no-cache,no-store,max-age=0,must-revalidate");
       response.setHeader("Pragma", "no-cache");
       response.setDateHeader("Expires", 0);
       response.setDateHeader("max-age", 0);
