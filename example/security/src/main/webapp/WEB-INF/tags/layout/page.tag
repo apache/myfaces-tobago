@@ -24,11 +24,12 @@
 
     <tc:box label="User: #{facesContext.externalContext.request.userPrincipal.name}">
       <f:facet name="layout">
-        <tc:gridLayout margin="150px" />
+        <tc:gridLayout margin="5px" />
       </f:facet>
 
       <jsp:doBody/>
 
     </tc:box>
+
   </tc:page>
 </f:view>

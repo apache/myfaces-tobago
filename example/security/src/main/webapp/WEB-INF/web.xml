@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Copyright 2002-2006 The Apache Software Foundation.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -83,8 +83,8 @@
     <auth-method>FORM</auth-method>
     <realm-name>Form-Based Authentication Area</realm-name>
     <form-login-config>
-      <form-login-page>/faces/login/login.jsp</form-login-page>
-      <form-error-page>/faces/login/error.jsp</form-error-page>
+      <form-login-page>/faces/auth/login.jsp</form-login-page>
+      <form-error-page>/faces/auth/error.jsp</form-error-page>
     </form-login-config>
   </login-config>
 

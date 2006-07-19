@@ -1,5 +1,5 @@
 <%--
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Copyright 2002-2006 The Apache Software Foundation.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -15,29 +15,27 @@
 --%>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
-<f:view>
-  <tc:page label="Security Demo" width="640px" height="480px">
-    <f:facet name="layout">
-      <tc:gridLayout margin="10px"/>
-    </f:facet>
-
-    <tc:box label="test">
+<layout:page>
+  <jsp:body>
+    <tc:panel>
       <f:facet name="layout">
         <tc:gridLayout columns="*;100px;*" rows="fixed;*;fixed;*"/>
       </f:facet>
 
       <tc:cell spanX="3">
-        <tc:out value="Still under development!" />
+        <tc:out value="To login to this test application you need a user in the role 'tobago-example-security'." />
       </tc:cell>
-      <tc:cell spanX="3" />
-
-      <tc:cell/>
-      <tc:button label="Login" link="${request.contextPath}/application/index.jsp"/>
-      <tc:cell/>
 
       <tc:cell spanX="3" />
 
-    </tc:box>
-  </tc:page>
-</f:view>
+      <tc:cell/>
+      <tc:button label="Good Login" link="/application/index.jsp"/>
+      <tc:cell/>
+
+      <tc:cell spanX="3" />
+
+    </tc:panel>
+  </jsp:body>
+</layout:page>

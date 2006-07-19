@@ -1,5 +1,5 @@
 <%--
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Copyright 2002-2006 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,14 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
-<layout:login title="#{loginBundle.login_error_title}">
+<layout:login>
   <jsp:body>
-  <tc:box label="#{bundle.loginLoginError}">
+  <tc:box label="#{loginBundle.login_logout_title}">
     <f:facet name="layout">
-      <tc:gridLayout rows="*;fixed" />
+      <tc:gridLayout />
     </f:facet>
 
-    <tc:out value="#{bundle.loginLoginErrorText}" />
+    <tc:out value="#{loginBundle.login_logout_text}" />
 
     <tc:panel>
       <f:facet name="layout">
@@ -33,7 +33,7 @@
 
       <tc:cell />
 
-      <tc:button action="/index.jsp" type="navigate" label="#{bundle.loginHome}" />
+      <tc:button action="/index.jsp" type="navigate" label="#{loginBundle.login_home_button}" />
     </tc:panel>
 
   </tc:box>

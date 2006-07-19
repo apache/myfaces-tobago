@@ -1,5 +1,5 @@
 <%--
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Copyright 2002-2006 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,25 +17,25 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
-<layout:login title="#{loginBundle.login_logout_title}">
+<layout:page>
   <jsp:body>
-  <tc:box label="#{loginBundle.login_logout_title}">
-    <f:facet name="layout">
-      <tc:gridLayout />
-    </f:facet>
-
-    <tc:out value="#{loginBundle.login_logout_text}" />
-
-    <tc:panel>
+    <tc:box label="Login Error">
       <f:facet name="layout">
-        <tc:gridLayout columns="1*;100px" />
+        <tc:gridLayout rows="*;fixed"/>
       </f:facet>
 
-      <tc:cell />
+      <tc:out value="Your Login Name or Password is wrong"/>
 
-      <tc:button action="/index.jsp" type="navigate" label="#{loginBundle.login_home_button}" />
-    </tc:panel>
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout columns="1*;100px"/>
+        </f:facet>
 
-  </tc:box>
-</jsp:body>
-</layout:login>
+        <tc:cell/>
+
+        <tc:button link="/index.jsp" label="Home"/>
+      </tc:panel>
+
+    </tc:box>
+  </jsp:body>
+</layout:page>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Copyright 2002-2006 The Apache Software Foundation.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -27,5 +27,32 @@
       <default-locale>en</default-locale>
     </locale-config>
   </application>
+
+  <managed-bean>
+    <managed-bean-name>controller</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.security.Controller</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+  </managed-bean>
+
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>logout</from-outcome>
+      <to-view-id>/auth/logout.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>start</from-outcome>
+      <to-view-id>/application/index.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>admin</from-outcome>
+      <to-view-id>/application/admin.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
 
 </faces-config>

@@ -1,5 +1,8 @@
 package org.apache.myfaces.tobago.example.security;
 
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+
 /*
  * Copyright 2004-2006 The Apache Software Foundation.
  *
@@ -17,5 +20,14 @@ package org.apache.myfaces.tobago.example.security;
  */
 
 public class Controller {
+
+  public String logout() {
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+    if (session != null){
+      session.invalidate();
+    }
+    return "logout";
+  }
 
 }

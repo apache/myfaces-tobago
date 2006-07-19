@@ -1,5 +1,5 @@
 <%--
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Copyright 2002-2006 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,22 +18,20 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
-<layout:login title="#{loginBundle.login_login_title}">
+<layout:login>
   <jsp:body>
 
-  <tc:box label="#{loginBundle.loginLogin}">
+  <tc:box label="Login">
     <f:facet name="layout">
       <tc:gridLayout/>
     </f:facet>
 
-    <%-- row --%>
     <tx:in id="j_username" required="true"
-        label="#{loginBundle.login_username}"/>
+        label="Username"/>
 
-    <%-- row --%>
     <tx:in id="j_password" required="true" password="true"
-        label="#{loginBundle.login_password}"/>
-    <%-- row --%>
+        label="Password"/>
+
     <tc:panel>
       <f:facet name="layout">
         <tc:gridLayout columns="1*;100px"/>
@@ -42,7 +40,7 @@
       <tc:cell/>
 
       <tc:button defaultCommand="true"
-          label="#{loginBundle.login_login_button}"/>
+          label="Login"/>
     </tc:panel>
 
   </tc:box>

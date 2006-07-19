@@ -25,7 +25,7 @@
       </f:facet>
 
       <tc:cell spanX="3">
-        <tc:out value="Hello World" />
+        <tc:out value="Hello Admin" />
       </tc:cell>
 
       <tc:cell spanX="3" />
@@ -35,7 +35,7 @@
       <tc:cell/>
 
       <tc:cell/>
-      <tc:button label="admin" action="#{controller.admin}"/>
+      <tc:button label="start" action="start"/>
       <tc:cell/>
 
       <tc:cell spanX="3" />
