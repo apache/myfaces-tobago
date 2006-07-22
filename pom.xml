@@ -3,9 +3,9 @@
   <groupId>org.apache.myfaces.tobago</groupId>
   <artifactId>tobago</artifactId>
   <packaging>pom</packaging>
-  <name>Tobago</name>
+  <name>Apache Tobago</name>
   <version>1.0.8-SNAPSHOT</version>
-  <description>Tobago</description>
+  <description>The goal of Tobago is to provide the community with a well designed set of user interface components based on JSF and run on MyFaces.</description>
   <prerequisites>
     <maven>2.0.3</maven>
   </prerequisites>
@@ -226,6 +226,18 @@
         <artifactId>changelog-maven-plugin</artifactId>
         <configuration>
           <basedir>${basedir}</basedir>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <inherited>false</inherited>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-doap-plugin</artifactId>
+        <configuration>
+          <category>web-framework</category>
+          <language>Java</language>
+          <shortdesc>Set of user interface components based on JSF.</shortdesc>
+          <pmc>http://myfaces.apache.org</pmc>
         </configuration>
       </plugin>
 

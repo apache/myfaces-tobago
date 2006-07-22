@@ -2,6 +2,8 @@ package org.apache.myfaces.tobago.example.security;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import javax.annotation.security.RolesAllowed;
+import javax.annotation.security.PermitAll;
 
 /*
  * Copyright 2004-2006 The Apache Software Foundation.
@@ -18,7 +20,7 @@ import javax.servlet.http.HttpSession;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+@PermitAll()
 public class Controller {
 
   public String logout() {
@@ -28,6 +30,10 @@ public class Controller {
       session.invalidate();
     }
     return "logout";
+  }
+  @RolesAllowed({ "admin", "guest"} )
+  public String doSomething() {
+    return null;
   }
 
 }
