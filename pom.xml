@@ -229,6 +229,7 @@
         </configuration>
       </plugin>
 
+<!--
       <plugin>
         <inherited>false</inherited>
         <groupId>org.apache.maven.plugins</groupId>
@@ -240,6 +241,7 @@
           <pmc>http://myfaces.apache.org</pmc>
         </configuration>
       </plugin>
+-->
 
       <!--<plugin>
         <groupId>org.codehaus.mojo</groupId>
