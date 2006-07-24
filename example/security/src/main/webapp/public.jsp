@@ -21,7 +21,7 @@
   <jsp:body>
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout columns="*;100px;*" rows="fixed;*;fixed;*"/>
+        <tc:gridLayout columns="*;100px;*" rows="fixed;*;fixed;fixed;*"/>
       </f:facet>
 
       <tc:cell spanX="3">
@@ -30,9 +30,13 @@
 
       <tc:cell spanX="3" />
 
-      <tc:cell/>
+      <tc:button label="Testing unsecured methodbinding" action="#{controller.doSomethingElse}" />
       <tc:button label="Good Login" link="/application/index.jsp"/>
+      <tc:button label="Testing secured methodbinding" action="#{controller.doSomething}" />
       <tc:cell/>
+      <tc:messages/>
+      <tc:cell/>
+
 
       <tc:cell spanX="3" />
 

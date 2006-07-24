@@ -26,13 +26,17 @@ public class Controller {
   public String logout() {
     FacesContext facesContext = FacesContext.getCurrentInstance();
     HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-    if (session != null){
+    if (session != null) {
       session.invalidate();
     }
     return "logout";
   }
-  @RolesAllowed({ "admin", "guest"} )
+  @RolesAllowed({ "tobago-example-security" } )
   public String doSomething() {
+    return null;
+  }
+
+  public String doSomethingElse() {
     return null;
   }
 
