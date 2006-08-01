@@ -124,50 +124,10 @@ class ResourceLocator {
         // weblogic uses zip
         // IBM WebSphere uses wsjar
         if ("jar".equals(protocol) || "zip".equals(protocol) || "wsjar".equals(protocol)) {
-          LOG.info("themeUrl = '" + themeUrl + "'");
-          String fileName = themeUrl.toString().substring(
-              protocol.length() + 1, themeUrl.toString().indexOf("!"));
-          URL jarFile;
-          try {
-            jarFile = new URL(fileName);
-          } catch (MalformedURLException e) {
-            // workaround for weblogic on windows
-            jarFile = new URL("file:" + fileName);
-          }
-          InputStream stream = null;
-          try {
-            stream = jarFile.openStream();
-            ZipInputStream zip = new ZipInputStream(stream);
-            while (zip.available() > 0) {
-              ZipEntry nextEntry = zip.getNextEntry();
-              if (nextEntry == null || nextEntry.isDirectory()) {
-                continue;
-              }
-              String name = "/" + nextEntry.getName();
-              if (name.startsWith(prefix)) {
-                if (name.endsWith(".class")) {
-                  // ignore the class files
-                } else if (name.endsWith(".properties")) {
-                  LOG.info("** " + name.substring(1));
-                  InputStream inputStream = classLoader.getResourceAsStream(name.substring(1));
-                  addProperties(inputStream, resources, name, false);
-                } else if (name.endsWith(".properties.xml")) {
-                  LOG.info("** " + name.substring(1));
-                  InputStream inputStream = classLoader.getResourceAsStream(name.substring(1));
-                  LOG.info(inputStream);
-                  addProperties(inputStream, resources, name, true);
-                } else {
-                  resources.add(name);
-                }
-              }
-            }
-          } finally {
-            IOUtils.closeQuietly(stream);
-          }
+          addResources(classLoader, resources, themeUrl, protocol, prefix);
         } else {
-          String error = "Unknown protocol '" + themeUrl + "'";
-          LOG.error(error);
-          throw new Exception(error);
+          LOG.warn("Unknown protocol '" + themeUrl + "'");
+          addResources(classLoader, resources,  themeUrl, protocol, prefix);
         }
       }
     } catch (Exception e) {
@@ -176,6 +136,50 @@ class ResourceLocator {
         LOG.error(msg, e);
       }
       throw new ServletException(msg, e);
+    }
+  }
+
+  private void addResources(ClassLoader classLoader, ResourceManagerImpl resources, URL themeUrl, String protocol,
+      String prefix) throws IOException, ServletException {
+    LOG.info("themeUrl = '" + themeUrl + "'");
+    String fileName = themeUrl.toString().substring(
+        protocol.length() + 1, themeUrl.toString().indexOf("!"));
+    URL jarFile;
+    try {
+      jarFile = new URL(fileName);
+    } catch (MalformedURLException e) {
+      // workaround for weblogic on windows
+      jarFile = new URL("file:" + fileName);
+    }
+    InputStream stream = null;
+    try {
+      stream = jarFile.openStream();
+      ZipInputStream zip = new ZipInputStream(stream);
+      while (zip.available() > 0) {
+        ZipEntry nextEntry = zip.getNextEntry();
+        if (nextEntry == null || nextEntry.isDirectory()) {
+          continue;
+        }
+        String name = "/" + nextEntry.getName();
+        if (name.startsWith(prefix)) {
+          if (name.endsWith(".class")) {
+            // ignore the class files
+          } else if (name.endsWith(".properties")) {
+            LOG.info("** " + name.substring(1));
+            InputStream inputStream = classLoader.getResourceAsStream(name.substring(1));
+            addProperties(inputStream, resources, name, false);
+          } else if (name.endsWith(".properties.xml")) {
+            LOG.info("** " + name.substring(1));
+            InputStream inputStream = classLoader.getResourceAsStream(name.substring(1));
+            LOG.info(inputStream);
+            addProperties(inputStream, resources, name, true);
+          } else {
+            resources.add(name);
+          }
+        }
+      }
+    } finally {
+      IOUtils.closeQuietly(stream);
     }
   }
 

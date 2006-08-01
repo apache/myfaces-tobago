@@ -70,8 +70,8 @@ public class CheckAuthorisationMethodBinding extends MethodBinding implements St
     if (LOG.isDebugEnabled()) {
       LOG.debug("MethodBinding invoke " + getExpressionString());
     }
-    // TODO methodbinding with objects.length == 0 should only checked?
-    if (isAuthorized(facesContext)) {
+    // Methodbindings with a argument list would not be checked for authorisation
+    if (isAuthorized(facesContext) || objects.length > 0) {
       return methodBinding.invoke(facesContext, objects);
     } else {
       // TODO better message
