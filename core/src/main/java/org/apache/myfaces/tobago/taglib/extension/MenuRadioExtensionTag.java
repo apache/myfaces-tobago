@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
+import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 
 import javax.faces.webapp.FacetTag;
 import javax.servlet.jsp.JspException;
@@ -45,7 +46,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 @Tag(name = "menuRadio", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 public class MenuRadioExtensionTag extends BodyTagSupport implements CommandTagDeclaration,
-    HasIdBindingAndRendered, HasLabel, IsDisabled, HasValue, IsImmediateCommand {
+    HasIdBindingAndRendered, HasLabel, IsDisabled, HasValue, IsImmediateCommand, HasConverter {
 
   private String rendered;
   private String value;
@@ -61,6 +62,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements CommandTagD
   private String binding;
   private String label;
   private String immediate;
+  private String converter;
 
   @Override
   public int doStartTag() throws JspException {
@@ -107,6 +109,9 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements CommandTagD
     selectOneRadio = new SelectOneRadioTag();
     selectOneRadio.setPageContext(pageContext);
     selectOneRadio.setParent(facetTag);
+    if (converter != null) {
+      selectOneRadio.setConverter(converter);
+    }
     if (value != null) {
       selectOneRadio.setValue(value);
     }
@@ -164,6 +169,10 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements CommandTagD
     this.immediate = immediate;
   }
 
+  public void setConverter(String converter) {
+    this.converter = converter;
+  }
+
   public void release() {
     super.release();
     rendered = null;
@@ -176,6 +185,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements CommandTagD
     binding = null;
     label = null;
     immediate = null;
+    converter = null;
   }
 
 }

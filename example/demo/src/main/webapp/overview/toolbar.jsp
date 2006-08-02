@@ -185,7 +185,7 @@
 
             <tc:menu label="#{overviewBundle.toolbar_selectSingleselect}">
 
-              <tx:menuRadio value="#{overviewController.radioValue}" >
+              <tx:menuRadio value="#{overviewController.radioValue}" converter="salutationId" >
                 <f:selectItems value="#{overviewController.items}" />
               </tx:menuRadio>
 

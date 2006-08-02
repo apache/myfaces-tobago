@@ -32,7 +32,8 @@
           <tc:gridLayout columns="1*;1*" rows="fixed;fixed;fixed;fixed;fixed;*"/>
         </f:facet>
         <tx:selectOneChoice value="#{overviewController.singleValue}"
-                           label="#{overviewBundle.layout_salutation}">
+                            label="#{overviewBundle.layout_salutation}"
+                            converter="salutationId" >
           <f:selectItems value="#{overviewController.items}" />
         </tx:selectOneChoice>
         <tc:cell/>

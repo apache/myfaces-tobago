@@ -41,9 +41,7 @@ import java.util.List;
 
 public class SelectOneChoiceRenderer extends SelectOneRendererBase {
 
-
   private static final Log LOG = LogFactory.getLog(SelectOneChoiceRenderer.class);
-
 
   public boolean getRendersChildren() {
     return true;
@@ -61,8 +59,6 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     boolean disabled = items.size() == 0
         || ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)
         || ComponentUtil.getBooleanAttribute(component, ATTR_READONLY);
-
-
 
     writer.startElement("select", component);
     writer.writeNameAttribute(component.getClientId(facesContext));
@@ -90,22 +86,11 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
       writer.endElement("option");
     }
     writer.endElement("select");
-
-
-
   }
 
   public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
     int space = 0;
-
-//    if (component.getFacet(FACET_LABEL) != null) {
-//      int labelWidht = LayoutUtil.getLabelWidth(component);
-//      space += labelWidht != 0 ? labelWidht : getLabelWidth(facesContext, component);
-//      space += getConfiguredValue(facesContext, component, "labelSpace");
-//    }
-
     return space;
   }
-
 }
 

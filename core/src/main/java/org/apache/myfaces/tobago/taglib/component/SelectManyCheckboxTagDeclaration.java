@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasRenderRange;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 
 /*
  * Created: Aug 5, 2005 5:54:37 PM
@@ -42,6 +43,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
     rendererType = "SelectManyCheckbox")
 public interface SelectManyCheckboxTagDeclaration extends
     SelectManyTagDeclaration, IsDisabled, HasId,
-    IsInline, HasRenderRange, IsRendered, HasBinding {
+    IsInline, HasRenderRange, IsRendered, HasBinding, HasConverter {
 
 }

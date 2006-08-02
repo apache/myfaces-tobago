@@ -42,7 +42,7 @@
               label="#{overviewBundle.basic_textboxLabel}" tip="test"
               suggestMethod="#{overviewController.getInputSuggestItems}" />
           <tx:date value="#{overviewController.basicDate}"
-              label="#{overviewBundle.basic_dateLabel}">
+              label="#{overviewBundle.basic_dateLabel}" required="true" >
             <f:convertDateTime pattern="dd.MM.yyyy" />
           </tx:date>
           <tx:time label="#{overviewBundle.basic_timeLabel}"
@@ -64,7 +64,8 @@
         <f:facet name="layout">
           <tc:gridLayout columns="1*;1*"  border="0"/>
         </f:facet>
-        <tc:selectOneRadio value="#{overviewController.radioValue}" id="rg0">
+        <tc:selectOneRadio value="#{overviewController.radioValue}"
+                           id="rg0" converter="salutationId">
           <f:selectItems value="#{overviewController.items}" id="items0" />
         </tc:selectOneRadio>
 
@@ -72,10 +73,12 @@
           <f:facet name="layout">
             <tc:gridLayout rows="fixed;fixed"/>
           </f:facet>
-          <tc:selectManyCheckbox value="#{overviewController.multiValue}" id="cbg0" renderRange="1-2">
+          <tc:selectManyCheckbox value="#{overviewController.multiValue}" 
+                                 id="cbg0" renderRange="1-2" converter="salutationId">
             <f:selectItems value="#{overviewController.items}" id="itemsg0" />
           </tc:selectManyCheckbox>
-          <tc:selectOneChoice value="#{overviewController.singleValue}">
+          <tc:selectOneChoice value="#{overviewController.singleValue}"
+              converter="salutationId" >
             <f:selectItems value="#{overviewController.items}" />
           </tc:selectOneChoice>
         </tc:panel>

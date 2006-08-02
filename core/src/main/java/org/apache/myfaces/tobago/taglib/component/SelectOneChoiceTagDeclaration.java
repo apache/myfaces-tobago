@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 
 /*
  * Created: Aug 5, 2005 6:05:28 PM
@@ -47,7 +48,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 public interface SelectOneChoiceTagDeclaration
     extends SelectOneTagDeclaration, HasId, IsDisabled,
     IsReadonly, IsInline, HasLabelAndAccessKey,
-    IsRendered, HasBinding, HasTip {
+    IsRendered, HasConverter, HasBinding, HasTip {
 
   /**
    * Flag indicating that selecting an Item representing a value is required.

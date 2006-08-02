@@ -36,6 +36,11 @@
     </locale-config>
   </application>
 
+  <converter>
+    <converter-id>salutationId</converter-id>
+    <converter-class>org.apache.myfaces.tobago.example.demo.model.SalutationConverter</converter-class>
+  </converter>
+
   <managed-bean>
     <managed-bean-name>demo</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.demo.TobagoDemoController</managed-bean-class>

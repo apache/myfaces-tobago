@@ -204,7 +204,7 @@ public class TobagoDemoController {
   }
 
   public TabChangeListener getTabChangeListener() {
-    System.err.println("getTabChangeListener " + tabChangeListener);
+    LOG.error("getTabChangeListener " + tabChangeListener);
     return tabChangeListener;
   }
 

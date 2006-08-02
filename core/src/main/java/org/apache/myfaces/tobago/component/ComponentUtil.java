@@ -27,6 +27,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CREATE_SPAN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CONVERTER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
@@ -832,12 +833,18 @@ public class ComponentUtil {
     }
   }
 
-  public static void setConverter(UIComponent component, String converter) {
+  public static void setConverter(UIComponent component, String converterId) {
     ValueHolder valueHolder = (ValueHolder) component;
-    if (converter != null && valueHolder.getConverter() == null) {
-      valueHolder.setConverter(
-          FacesContext.getCurrentInstance().getApplication().createConverter(
-              converter));
+    if (converterId != null && valueHolder.getConverter() == null) {
+      final FacesContext facesContext = FacesContext.getCurrentInstance();
+      final Application application = facesContext.getApplication();
+      if (UIComponentTag.isValueReference(converterId)) {
+        ValueBinding valueBinding = application.createValueBinding(converterId);
+        component.setValueBinding(ATTR_CONVERTER, valueBinding);
+      } else {
+        Converter converter = application.createConverter(converterId);
+        valueHolder.setConverter(converter);
+      }
     }
   }
 

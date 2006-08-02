@@ -16,11 +16,6 @@ package org.apache.myfaces.tobago.example.demo.overview;
  * limitations under the License.
  */
 
-/*
- * Created 19.05.2004 18:47:47.
- * $Id: OverviewController.java 1269 2005-08-08 20:20:19 +0200 (Mo, 08 Aug 2005) lofwyr $
- */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UIData;
@@ -28,6 +23,7 @@ import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.example.demo.model.solar.SolarObject;
+import org.apache.myfaces.tobago.example.demo.model.Salutation;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 
@@ -43,15 +39,14 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+/*
+ * Created 19.05.2004 18:47:47.
+ * $Id: OverviewController.java 1269 2005-08-08 20:20:19 +0200 (Mo, 08 Aug 2005) lofwyr $
+ */
+
 public class OverviewController {
 
   private static final Log LOG = LogFactory.getLog(OverviewController.class);
-
-  private static final String[] ITEM_KEYS = {
-    "basic_itemUnknown",
-    "basic_itemMr",
-    "basic_itemMrs",
-  };
 
   private static final String[] TREE_SELECT_MODE_KEYS = {
     "none",
@@ -67,11 +62,11 @@ public class OverviewController {
     "siblingLeafOnly"
   };
 
-  private String radioValue;
+  private Salutation radioValue;
 
-  private String singleValue;
+  private Salutation singleValue;
 
-  private String[] multiValue;
+  private Salutation[] multiValue;
 
   private String basicInput = "";
 
@@ -91,21 +86,21 @@ public class OverviewController {
 
   private SheetConfig sheetConfig;
 
-    private String toolbarIconSize;
+  private String toolbarIconSize;
 
-    private SelectItem[] toolbarIconItems;
+  private SelectItem[] toolbarIconItems;
 
-    private String toolbarTextPosition;
+  private String toolbarTextPosition;
 
-    private SelectItem[] toolbarTextItems;
+  private SelectItem[] toolbarTextItems;
 
 
   public OverviewController() {
-    radioValue = ITEM_KEYS[0];
-    singleValue = ITEM_KEYS[0];
+    radioValue = Salutation.UNKNOWN;
+    singleValue = Salutation.UNKNOWN;
     treeSelectMode = TREE_SELECT_MODE_KEYS[0];
     treeListboxSelectMode = TREELISTBOX_SELECT_MODE_KEYS[0];
-    multiValue = new String[0];
+    multiValue = new Salutation[0];
     treeTabsState = 0;
     sheetConfig = new SheetConfig();
     String[] toolbarIconKeys
@@ -123,6 +118,21 @@ public class OverviewController {
       toolbarTextItems[i] = new SelectItem(toolbarTextKeys[i], toolbarTextKeys[i]);
     }
     toolbarTextPosition = ToolBarTag.LABEL_BOTTOM;
+  }
+
+  private static SelectItem[] getSalutationSelectItems(ResourceManager resourceManager, String resource) {
+    Salutation[] salutations = Salutation.values();
+    SelectItem[] items = new SelectItem[salutations.length];
+    for (int i = 0; i < items.length; i++) {
+      String label = resourceManager.getProperty(
+          FacesContext.getCurrentInstance().getViewRoot(), resource, salutations[i].getKey());
+      LOG.info("label = " + label + "");
+      if (label == null) {
+        label = salutations[i].getKey();
+      }
+      items[i] = new SelectItem(salutations[i], label);
+    }
+    return items;
   }
 
   private static SelectItem[] getSelectItems(
@@ -232,7 +242,7 @@ public class OverviewController {
   public SelectItem[] getItems() {
     ResourceManager resourceManager = ResourceManagerFactory
         .getResourceManager(FacesContext.getCurrentInstance());
-    return getSelectItems(ITEM_KEYS, resourceManager, "overview");
+    return getSalutationSelectItems(resourceManager, "overview");
   }
 
   public SelectItem[] getItems2() {
@@ -257,27 +267,27 @@ public class OverviewController {
 
   }
 
-  public String getRadioValue() {
+  public Salutation getRadioValue() {
     return radioValue;
   }
 
-  public void setRadioValue(String radioValue) {
+  public void setRadioValue(Salutation radioValue) {
     this.radioValue = radioValue;
   }
 
-  public String getSingleValue() {
+  public Salutation getSingleValue() {
     return singleValue;
   }
 
-  public void setSingleValue(String singleValue) {
+  public void setSingleValue(Salutation singleValue) {
     this.singleValue = singleValue;
   }
 
-  public String[] getMultiValue() {
+  public Salutation[] getMultiValue() {
     return multiValue;
   }
 
-  public void setMultiValue(String[] multiValue) {
+  public void setMultiValue(Salutation[] multiValue) {
     this.multiValue = multiValue;
   }
 
