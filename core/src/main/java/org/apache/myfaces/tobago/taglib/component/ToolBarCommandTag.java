@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import javax.faces.component.UIComponent;
 
 
-public class ToolBarCommandTag extends CommandTag
+public class ToolBarCommandTag extends AbstractCommandTag
     implements ToolBarCommandTagDeclaration {
 
   private static final Log LOG = LogFactory.getLog(ToolBarCommandTag.class);

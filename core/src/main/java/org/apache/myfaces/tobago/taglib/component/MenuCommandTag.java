@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.component.UIMenuCommand;
 import javax.faces.component.UIComponent;
 
 
-public class MenuCommandTag extends CommandTag
+public class MenuCommandTag extends AbstractCommandTag
     implements MenuCommandTagDeclaration {
   private static final Log LOG = LogFactory.getLog(MenuCommandTag.class);
 

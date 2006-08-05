@@ -45,8 +45,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UICommand",
     rendererType = "Link")
-public interface LinkTagDeclaration extends CommandTagDeclaration,
+public interface LinkTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled,
     IsInline, HasCommandType,
-    HasTarget, HasTip, IsImmediateCommand, HasImage {
+    HasTarget, HasTip, HasImage {
 }

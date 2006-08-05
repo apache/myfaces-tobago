@@ -47,8 +47,8 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     return true;
   }
 
-  protected void renderMain(FacesContext facesContext, UIComponent uiComponent,
-                            TobagoResponseWriter writer) throws IOException {
+  public void encodeEndTobago(FacesContext facesContext, UIComponent uiComponent) throws IOException {
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     UISelectOne component = (UISelectOne) uiComponent;
     List<SelectItem> items = ComponentUtil.getSelectItems(component);
 
@@ -86,11 +86,12 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
       writer.endElement("option");
     }
     writer.endElement("select");
+    super.encodeEndTobago(facesContext, component);
+    checkForCommandFacet(component, facesContext, writer);
   }
 
   public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
-    int space = 0;
-    return space;
+    return 0;
   }
 }
 

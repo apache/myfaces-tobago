@@ -25,8 +25,10 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -34,6 +36,7 @@ import javax.faces.component.UIInput;
 import javax.faces.component.UISelectBoolean;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.Map;
 
 public class SelectBooleanCheckboxRenderer extends RendererBase {
 
@@ -55,7 +58,7 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
       uiInput.setSubmittedValue(Boolean.FALSE);
     }
   }
-  
+
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
@@ -111,6 +114,7 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
       writer.endElement("tr");
       writer.endElement("table");
     }
+    checkForCommandFacet(component, facesContext, writer);
   }
 }
 

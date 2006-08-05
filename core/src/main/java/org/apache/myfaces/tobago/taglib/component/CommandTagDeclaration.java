@@ -16,21 +16,23 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.taglib.decl.HasAction;
-import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
-import org.apache.myfaces.tobago.taglib.decl.HasLink;
-import org.apache.myfaces.tobago.taglib.decl.HasOnclick;
-
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
 /*
  * Created by IntelliJ IDEA.
  * User: bommel
- * Date: 10.02.2006
- * Time: 22:03:07
- * To change this template use File | Settings | File Templates.
+ * Date: 05.08.2006
+ * Time: 12:01:32
  */
 
+/**
+ * Use this tag only as a facet for click, change in selectOneRadio, selectBooleanCheckbox, selectManyCheckbox and selectOneChoice
+ */
+@Tag(name = "command", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
+@UIComponentTag(
+    uiComponent = "org.apache.myfaces.tobago.component.UICommand",
+    rendererType = "Command")
+public interface CommandTagDeclaration  extends AbstractCommandTagDeclaration{
 
-public interface CommandTagDeclaration extends TobagoTagDeclaration,
-    HasAction, HasActionListener, HasOnclick, HasLink {
 }

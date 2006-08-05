@@ -38,18 +38,12 @@ import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
+import java.util.ArrayList;
 
 public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
   private static final Log LOG = LogFactory.getLog(SelectOneRadioRenderer.class);
-
-
-  protected void renderMain(FacesContext facesContext, UIComponent input,
-                            TobagoResponseWriter writer) throws IOException {
-    // nothing to do here, this method is used by overwritten encodeEndTobago()
-  }
 
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
@@ -60,8 +54,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     ComponentUtil.findPage(component).getOnloadScripts().add("Tobago.selectOneRadioInit('" + clientId + "')");
 
     if (LOG.isDebugEnabled()) {
-      for (Iterator i = component.getChildren().iterator(); i.hasNext();) {
-        Object o = i.next();
+      for (Object o : component.getChildren()) {
         LOG.debug("ITEMS " + o);
         if (o instanceof UISelectItems) {
           UISelectItems uiitems = (UISelectItems) o;
@@ -91,6 +84,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     }
 
     Object value = component.getValue();
+    List clientIds = new ArrayList();
     for (SelectItem item : items) {
 
       if (!inline) {
@@ -100,7 +94,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
       String id = clientId + NamingContainer.SEPARATOR_CHAR
           + NamingContainer.SEPARATOR_CHAR + item.getValue().toString();
-
+      clientIds.add(id);
       writer.startElement("input", component);
       writer.writeAttribute("type", "radio", null);
       writer.writeComponentClass();
@@ -108,6 +102,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         writer.writeAttribute("checked", "checked", null);
       }
       writer.writeNameAttribute(clientId);
+
       writer.writeIdAttribute(id);
       String formattedValue
           = getFormattedValue(facesContext, component, item.getValue());
@@ -154,6 +149,9 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     if (!inline) {
       writer.endElement("table");
     }
+
+    checkForCommandFacet(component, clientIds, facesContext, writer);
+
   }
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {

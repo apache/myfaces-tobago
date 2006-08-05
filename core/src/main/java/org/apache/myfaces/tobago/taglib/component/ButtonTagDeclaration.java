@@ -47,8 +47,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
     uiComponent = "org.apache.myfaces.tobago.component.UICommand",
     rendererType = "Button")
 
-public interface ButtonTagDeclaration extends CommandTagDeclaration,
+public interface ButtonTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
     IsDisabled, HasCommandType,
-    IsImmediateCommand, IsDefaultCommand, HasDeprecatedWidth, HasTip, IsInline {
+    IsDefaultCommand, HasDeprecatedWidth, HasTip, IsInline {
 }

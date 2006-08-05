@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 
-public class LinkTag extends CommandTag
+public class LinkTag extends AbstractCommandTag
     implements LinkTagDeclaration {
 
   private static final Log LOG = LogFactory.getLog(LinkTag.class);

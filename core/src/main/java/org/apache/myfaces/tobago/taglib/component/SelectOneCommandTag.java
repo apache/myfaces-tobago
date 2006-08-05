@@ -28,7 +28,7 @@ import javax.faces.component.UIComponent;
  * Date: Apr 26, 2005
  * Time: 3:03:44 PM
  */
-public class SelectOneCommandTag extends CommandTag {
+public class SelectOneCommandTag extends AbstractCommandTag {
 
   private String value;
 

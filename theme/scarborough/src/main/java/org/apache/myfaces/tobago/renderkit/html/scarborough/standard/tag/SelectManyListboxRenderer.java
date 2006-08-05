@@ -47,15 +47,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
   }
 
   public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
-    int space = 0;
-
-//    if (component.getFacet(FACET_LABEL) != null) {
-//      int labelWidth = LayoutUtil.getLabelWidth(component);
-//      space += labelWidth != 0 ? labelWidth : getLabelWidth(facesContext, component);
-//      space += getConfiguredValue(facesContext, component, "labelSpace");
-//    }
-
-    return space;
+    return 0;
   }
 
   public int getLabelWidth(FacesContext facesContext, UIComponent component) {
@@ -124,6 +116,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
 
     writer.endElement("select");
+    checkForCommandFacet(component, facesContext, writer);
   }
 
 // ///////////////////////////////////////////// bean getter + setter

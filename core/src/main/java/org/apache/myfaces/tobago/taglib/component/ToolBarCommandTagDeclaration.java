@@ -41,7 +41,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UICommand",
     rendererType = "Button")
-public interface ToolBarCommandTagDeclaration extends CommandTagDeclaration, HasIdBindingAndRendered,
-    HasLabelAndAccessKey, HasImage, IsDisabled, HasCommandType, HasTip,
-    IsImmediateCommand {
+public interface ToolBarCommandTagDeclaration extends AbstractCommandTagDeclaration, HasIdBindingAndRendered,
+    HasLabelAndAccessKey, HasImage, IsDisabled, HasCommandType, HasTip {
 }

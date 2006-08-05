@@ -25,8 +25,11 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UICell;
+import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -42,6 +45,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Arrays;
 
 public abstract class RendererBase
     extends Renderer implements TobagoRenderer {
@@ -393,5 +398,36 @@ public abstract class RendererBase
       return converter.getAsString(context, component, currentValue);
     }
   }
+  protected void checkForCommandFacet(UIComponent component, FacesContext facesContext, TobagoResponseWriter writer)
+      throws IOException {
+    checkForCommandFacet(component, Arrays.asList(component.getClientId(facesContext)) , facesContext, writer);
+  }
+  protected void checkForCommandFacet(UIComponent component, List<String> clientIds, FacesContext facesContext, TobagoResponseWriter writer)
+      throws IOException {
+    Map<String, UIComponent> facets = component.getFacets();
+    for (Map.Entry<String, UIComponent> entry: facets.entrySet()) {
+      if (entry.getValue() instanceof UICommand) {
+        addCommandFacet(component, clientIds, entry, facesContext, writer);
+      }
+    }
+  }
+  // TODO create HtmlRendererBase
+  private void addCommandFacet(UIComponent component, List<String> clientIds, Map.Entry<String, UIComponent> facetEntry,
+      FacesContext facesContext, TobagoResponseWriter writer) throws
+      IOException {
+    for (String clientId: clientIds) {
+      writeScriptForClientId(clientId, facetEntry, facesContext, writer);
+    }
+  }
 
+  private void writeScriptForClientId(String clientId, Map.Entry<String, UIComponent> facetEntry,
+      FacesContext facesContext, TobagoResponseWriter writer) throws IOException {
+    String script =
+        "var element = Tobago.element(\"" + clientId  + "\");\n"
+        + "if (element) {\n"
+        + "   Tobago.addEventListener(element, \"" + facetEntry.getKey() + "\", function(){Tobago.submitAction('"
+        + facetEntry.getValue().getClientId(facesContext) + "')});\n"
+        + "}";
+    HtmlRendererUtil.writeJavascript(writer, script);
+  }
 }

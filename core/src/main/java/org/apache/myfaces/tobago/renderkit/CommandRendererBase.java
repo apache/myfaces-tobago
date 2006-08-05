@@ -46,7 +46,7 @@ public abstract class CommandRendererBase extends RendererBase {
     if (actionId != null && actionId.equals(clientId)) {
 
       if (LOG.isDebugEnabled()) {
-        LOG.debug("queueEvent");
+        LOG.debug("queueEvent = '" + actionId + "'");
       }
       component.queueEvent(new ActionEvent(component));
     }

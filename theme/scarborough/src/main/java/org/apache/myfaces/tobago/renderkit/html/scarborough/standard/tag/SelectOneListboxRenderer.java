@@ -48,15 +48,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
   }
 
   public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
-    int space = 0;
-
-//    if (component.getFacet(FACET_LABEL) != null) {
-//      int labelWidth = LayoutUtil.getLabelWidth(component);
-//      space += labelWidth != 0 ? labelWidth : getLabelWidth(facesContext, component);
-//      space += getConfiguredValue(facesContext, component, "labelSpace");
-//    }
-
-    return space;
+    return 0;
   }
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     int fixedHeight = -1;
@@ -75,8 +67,8 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     return fixedHeight;
   }
 
-  protected void renderMain(FacesContext facesContext, UIComponent input,
-                            TobagoResponseWriter writer) throws IOException {
+  public void encodeEndTobago(FacesContext facesContext, UIComponent input) throws IOException {
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     UISelectOne component = (UISelectOne) input;
     List<SelectItem> items = ComponentUtil.getSelectItems(component);
@@ -117,9 +109,10 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
 
 
     writer.endElement("select");
+    super.encodeEndTobago(facesContext, component);
+    checkForCommandFacet(component, facesContext, writer);
   }
 
-// ///////////////////////////////////////////// bean getter + setter
 
 }
 

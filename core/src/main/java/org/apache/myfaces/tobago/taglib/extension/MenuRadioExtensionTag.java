@@ -18,13 +18,12 @@ package org.apache.myfaces.tobago.taglib.extension;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.taglib.component.MenuCommandTag;
-import org.apache.myfaces.tobago.taglib.component.CommandTagDeclaration;
+import org.apache.myfaces.tobago.taglib.component.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.taglib.component.SelectOneRadioTag;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
-import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 
 import javax.faces.webapp.FacetTag;
@@ -45,8 +44,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 
 @Tag(name = "menuRadio", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
-public class MenuRadioExtensionTag extends BodyTagSupport implements CommandTagDeclaration,
-    HasIdBindingAndRendered, HasLabel, IsDisabled, HasValue, IsImmediateCommand, HasConverter {
+public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCommandTagDeclaration,
+    HasIdBindingAndRendered, HasLabel, IsDisabled, HasValue, HasConverter {
 
   private String rendered;
   private String value;

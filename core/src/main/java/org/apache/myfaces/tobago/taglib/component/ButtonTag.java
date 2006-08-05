@@ -35,7 +35,7 @@ import javax.faces.component.UIComponent;
  * Renders a button element.
  */
 // FIXME: bodyContent
-public class ButtonTag extends CommandTag
+public class ButtonTag extends AbstractCommandTag
     implements ButtonTagDeclaration {
 
   private static final Log LOG = LogFactory.getLog(ButtonTag.class);

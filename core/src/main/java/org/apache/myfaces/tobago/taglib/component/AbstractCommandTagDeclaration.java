@@ -16,12 +16,21 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-/**
- * Created by IntelliJ IDEA.
- * User: bommel
- * Date: 05.08.2006
- * Time: 11:59:21
- */
-public class CommandTag  extends AbstractCommandTag implements CommandTagDeclaration {
+import org.apache.myfaces.tobago.taglib.decl.HasAction;
+import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
+import org.apache.myfaces.tobago.taglib.decl.HasLink;
+import org.apache.myfaces.tobago.taglib.decl.HasOnclick;
+import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 
+/*
+* Created by IntelliJ IDEA.
+* User: bommel
+* Date: 10.02.2006
+* Time: 22:03:07
+* To change this template use File | Settings | File Templates.
+*/
+
+
+public interface AbstractCommandTagDeclaration extends TobagoTagDeclaration,
+    HasAction, HasActionListener, IsImmediateCommand, HasOnclick, HasLink {
 }

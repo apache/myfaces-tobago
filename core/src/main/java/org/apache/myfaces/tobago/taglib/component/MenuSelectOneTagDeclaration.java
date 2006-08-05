@@ -41,6 +41,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOneCommand",
     rendererType = "MenuCommand")
 @Deprecated
-public interface MenuSelectOneTagDeclaration extends TobagoTagDeclaration, CommandTagDeclaration,
-    HasIdBindingAndRendered, HasLabel, IsDisabled, HasCommandType, HasValue, IsImmediateCommand {
+public interface MenuSelectOneTagDeclaration extends TobagoTagDeclaration, AbstractCommandTagDeclaration,
+    HasIdBindingAndRendered, HasLabel, IsDisabled, HasCommandType, HasValue {
 }

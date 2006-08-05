@@ -40,6 +40,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOneCommand",
     rendererType = "MenuCommand")
-public interface ToolBarSelectOneTagDeclaration extends TobagoTagDeclaration, CommandTagDeclaration,
-    HasIdBindingAndRendered, IsDisabled, HasCommandType, HasValue, IsImmediateCommand {
+public interface ToolBarSelectOneTagDeclaration extends TobagoTagDeclaration, AbstractCommandTagDeclaration,
+    HasIdBindingAndRendered, IsDisabled, HasCommandType, HasValue{
 }

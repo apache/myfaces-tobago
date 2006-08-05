@@ -30,7 +30,7 @@ import javax.faces.component.UIComponent;
  * Time: 19:11:07
  * To change this template use File | Settings | File Templates.
  */
-public class DatePickerTag extends CommandTag implements DatePickerTagDeclaration {
+public class DatePickerTag extends AbstractCommandTag implements DatePickerTagDeclaration {
 
   private String forComponent;
 

@@ -19,12 +19,10 @@ package org.apache.myfaces.tobago.renderkit;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
-import java.io.IOException;
 
 public abstract class SelectOneRendererBase extends InputRendererBase {
 
@@ -44,21 +42,6 @@ public abstract class SelectOneRendererBase extends InputRendererBase {
       LOG.debug("decode: key='" + clientId + "' value='" + newValue + "'");
     }
     uiSelectOne.setSubmittedValue(newValue);
-  }
-
-
-  protected abstract void renderMain(FacesContext facesContext, UIComponent input,
-      TobagoResponseWriter writer) throws IOException;
-
-  public void encodeEndTobago(FacesContext facesContext,
-      UIComponent component)
-      throws IOException {
-    super.encodeEndTobago(facesContext, component);
-    TobagoResponseWriter writer = (TobagoResponseWriter)
-        facesContext.getResponseWriter();
-
-
-    renderMain(facesContext, component, writer);
   }
 
 }

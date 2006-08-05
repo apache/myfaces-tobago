@@ -36,6 +36,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.List;
+import java.util.ArrayList;
 
 public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
@@ -64,7 +65,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     writer.writeAttribute("cellspacing", "0", null);
     writer.writeAttribute("cellpadding", "0", null);
     writer.writeAttribute("summary", "", null);
-
+    List clientIds = new ArrayList();
     for (SelectItem item : items) {
 
       writer.startElement("tr", null);
@@ -73,7 +74,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       String itemId = id
           + NamingContainer.SEPARATOR_CHAR + NamingContainer.SEPARATOR_CHAR
           + item.getValue().toString();
-
+      clientIds.add(itemId);
       writer.startElement("input", component);
       writer.writeAttribute("type", "checkbox", null);
 
@@ -122,6 +123,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
     }
     writer.endElement("table");
+    checkForCommandFacet(component, clientIds, facesContext, writer);
   }
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {

@@ -32,7 +32,7 @@ import javax.faces.component.UIComponent;
  * Date: Apr 26, 2005
  * Time: 3:01:45 PM
  */
-public class SelectBooleanCommandTag extends CommandTag {
+public class SelectBooleanCommandTag extends AbstractCommandTag {
 
   private static final Log LOG = LogFactory.getLog(SelectBooleanCommandTag.class);
 

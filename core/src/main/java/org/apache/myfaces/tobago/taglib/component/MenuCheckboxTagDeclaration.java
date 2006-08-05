@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
     rendererType = "MenuCommand")
-public interface MenuCheckboxTagDeclaration extends TobagoTagDeclaration, CommandTagDeclaration,
-    HasIdBindingAndRendered, IsDisabled, HasCommandType, HasBooleanValue, HasLabelAndAccessKey,
-    IsImmediateCommand {
+public interface MenuCheckboxTagDeclaration extends TobagoTagDeclaration, AbstractCommandTagDeclaration,
+    HasIdBindingAndRendered, IsDisabled, HasCommandType, HasBooleanValue,
+    HasLabelAndAccessKey {
 }
