@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.component;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
@@ -31,7 +32,7 @@ import javax.faces.el.ValueBinding;
 */
 public class UIOutput extends javax.faces.component.UIOutput {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Output";
-  private boolean escape = true;
+  private Boolean escape;
   private String markup;
   private String tip;
   private boolean createSpan = true;
@@ -58,7 +59,15 @@ public class UIOutput extends javax.faces.component.UIOutput {
   }
 
   public boolean isEscape() {
-    return escape;
+    if (escape != null) {
+      return escape;
+    }
+    ValueBinding vb = getValueBinding(ATTR_ESCAPE);
+    if (vb != null) {
+      return (Boolean.TRUE.equals(vb.getValue(getFacesContext())));
+    } else {
+      return true;
+    }
   }
 
   public void setEscape(boolean escape) {
