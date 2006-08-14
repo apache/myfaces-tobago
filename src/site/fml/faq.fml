@@ -71,6 +71,21 @@
       </answer>
     </faq>
 
+    <faq id="tobago/form">
+        <question>Why I don't need a form tag in a normal case in Tobago?</question>
+      <answer>
+        TODO
+      </answer>
+    </faq>
+
+    <faq id="tobago/browser">
+        <question>Which webbrowser are currently supported by Tobago?</question>
+      <answer>
+        TODO
+      </answer>
+    </faq>
+
+
 
     <faq id="tiles/sitemesh">
       <question>Can Tobago replace tiles? Can I ignore tiles and sitemesh in the
