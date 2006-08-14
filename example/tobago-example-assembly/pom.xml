@@ -1,0 +1,78 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>tobago-example-assembly</artifactId>
+  <packaging>pom</packaging>
+  <name>Tobago Example Assembly</name>
+  <description>This is the MyFaces Tobago Example Assembly</description>
+
+  <parent>
+    <groupId>org.apache.myfaces.tobago</groupId>
+    <artifactId>tobago-example</artifactId>
+    <version>1.0.8-SNAPSHOT</version>
+  </parent>
+
+
+  <build>
+
+    <plugins>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>dependency-maven-plugin</artifactId>
+        <executions>
+
+          <execution>
+            <id>copy-example</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>${project.groupId}</groupId>
+                  <artifactId>tobago-example-demo</artifactId>
+                  <version>${project.version}</version>
+                  <type>war</type>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>${project.groupId}</groupId>
+                  <artifactId>tobago-example-blank</artifactId>
+                  <version>${project.version}</version>
+                  <type>war</type>
+                </artifactItem>
+              </artifactItems>
+              <outputDirectory>${project.build.directory}/webapp</outputDirectory>
+            </configuration>
+          </execution>
+
+        </executions>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.0-beta-1</version>
+        <configuration>
+          <descriptor>src/main/assembly/dep.xml</descriptor>
+          <finalName>myfaces-tobago-example-${version}</finalName>
+          <outputDirectory>target/assembly/out</outputDirectory>
+          <workDirectory>target/assembly/work</workDirectory>
+        </configuration>
+      </plugin>
+
+       <plugin>
+        <groupId>org.apache.myfaces.maven</groupId>
+        <artifactId>wagon-maven-plugin</artifactId>
+        <version>1.0.1</version>
+        <configuration>
+          <id>myfaces-nightly-builds</id>
+          <url>scpexe://minotaur.apache.org/www/cvs.apache.org/builds/myfaces/nightly</url>
+          <inputDirectory>target/assembly/out</inputDirectory>
+        </configuration>
+      </plugin>
+
+    </plugins>
+
+  </build>
+
+ </project>

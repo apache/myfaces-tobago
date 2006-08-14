@@ -515,6 +515,7 @@
       <id>generate-assembly</id>
       <modules>
         <module>contrib</module>
+        <module>example</module>
         <module>tobago-assembly</module>
       </modules>
     </profile>
