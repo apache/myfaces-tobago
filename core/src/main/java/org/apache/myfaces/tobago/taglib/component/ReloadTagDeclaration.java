@@ -44,6 +44,6 @@ public interface ReloadTagDeclaration extends TobagoTagDeclaration, HasIdBinding
    * Time in milliseconds after which the parent component is automaticaly reloaded.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Integer")
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "5000")
   void setFrequency(String frequency);
 }
