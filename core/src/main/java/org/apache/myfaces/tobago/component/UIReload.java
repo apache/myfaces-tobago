@@ -16,7 +16,11 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FREQUENCY;
+
 import javax.faces.component.UIComponentBase;
+import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 
 /**
  * Created by IntelliJ IDEA.
@@ -29,10 +33,35 @@ public class UIReload extends UIComponentBase {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Reload";
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.Reload";
 
-  private int frequency;
+  private Integer frequency;
+
+  public Object saveState(FacesContext context) {
+    Object[] values = new Object[2];
+    values[0] = super.saveState(context);
+    values[1] = frequency;
+    return values;
+  }
+
+  public void restoreState(FacesContext context, Object savedState) {
+    Object[] values = (Object[]) savedState;
+    super.restoreState(context, values[0]);
+    frequency = (Integer) values[1];
+  }
 
   public int getFrequency() {
-    return frequency;
+    if (frequency != null) {
+      return frequency;
+    }
+    ValueBinding vb = getValueBinding(ATTR_FREQUENCY);
+    Integer value = null;
+    if (vb != null) {
+      value = (Integer) vb.getValue(getFacesContext());
+    }
+    if (value != null) {
+      return value;
+    } else {
+      return 5000;
+    }
   }
 
   public void setFrequency(int frequency) {
@@ -42,6 +71,4 @@ public class UIReload extends UIComponentBase {
   public String getFamily() {
     return COMPONENT_FAMILY;
   }
-
-
 }
