@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.taglib.extension;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.taglib.component.DateTag;
 import org.apache.myfaces.tobago.taglib.component.DatePickerTag;
+import org.apache.myfaces.tobago.taglib.component.FormTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
@@ -41,7 +42,6 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * User: bommel
  * Date: 19.12.2005
  * Time: 20:13:26
- * To change this template use File | Settings | File Templates.
  */
 /**
  * Renders a date input field with a date picker and a label.
@@ -70,7 +70,7 @@ public class DateExtensionTag extends BodyTagSupport
 
   private LabelExtensionTag labelTag;
   private DateTag dateTag;
-  private DatePickerTag datePicker;
+
   @Override
   public int doStartTag() throws JspException {
 
@@ -136,12 +136,18 @@ public class DateExtensionTag extends BodyTagSupport
   @Override
   public int doEndTag() throws JspException {
     dateTag.doEndTag();
-    datePicker = new DatePickerTag();
+    FormTag formTag = new FormTag();
+    formTag.setPageContext(pageContext);
+    formTag.setParent(labelTag);
+    formTag.doStartTag();
+
+    DatePickerTag datePicker = new DatePickerTag();
     datePicker.setPageContext(pageContext);
     datePicker.setFor("@auto");
-    datePicker.setParent(getParent());
+    datePicker.setParent(formTag);
     datePicker.doStartTag();
     datePicker.doEndTag();
+    formTag.doEndTag();
 
     labelTag.doEndTag();
     return super.doEndTag();
@@ -164,7 +170,8 @@ public class DateExtensionTag extends BodyTagSupport
     value = null;
     valueChangeListener = null;
     onchange = null;
-
+    labelTag = null;
+    dateTag = null;
   }
 
   public void setValue(String value) {
