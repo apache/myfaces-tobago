@@ -372,18 +372,17 @@ public final class HtmlRendererUtil {
     }
   }
 
-  public static void createClassAttribute(UIComponent component, String name) {
-    String rendererType = component.getRendererType();
-    if (rendererType != null) {
+  private static void createClassAttribute(UIComponent component, String name) {
+    if (LOG.isDebugEnabled()) {
       Object styleClassO = component.getAttributes().get(ATTR_STYLE_CLASS);
-      if (styleClassO != null && LOG.isDebugEnabled()) {
+      if (styleClassO != null) {
         LOG.debug("styleClassO = '" + styleClassO.getClass().getName() + "'");
       }
-      String styleClass
-          = (String) component.getAttributes().get(ATTR_STYLE_CLASS);
-      styleClass = updateClassAttribute(styleClass, name, component);
-      component.getAttributes().put(ATTR_STYLE_CLASS, styleClass);
     }
+    String styleClass
+        = (String) component.getAttributes().get(ATTR_STYLE_CLASS);
+    styleClass = updateClassAttribute(styleClass, name, component);
+    component.getAttributes().put(ATTR_STYLE_CLASS, styleClass);
   }
 
   private static String removeTobagoClasses(String s, String rendererName) {

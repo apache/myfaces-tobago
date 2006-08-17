@@ -43,6 +43,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_RESET;
 import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_SCRIPT;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_ONE_RADIO;
@@ -754,7 +755,7 @@ public class ComponentUtil {
       if (labelText != null) {
         Application application = FacesContext.getCurrentInstance().getApplication();
         label = application.createComponent(UIOutput.COMPONENT_TYPE);
-        label.setRendererType("Label");
+        label.setRendererType(RENDERER_TYPE_LABEL);
         String idprefix = ComponentUtil.getComponentId(facesContext, component);
         label.setId(idprefix + "_" + FACET_LABEL);
         label.setRendered(true);

@@ -71,30 +71,39 @@ public class UIDatePicker extends UICommand  implements OnComponentCreated {
     forComponent = (String) values[1];
   }
 
+  private UIComponent getUIDateInput(UIComponent parent) {
+    for (Object object : parent.getChildren()) {
+      UIComponent child = (UIComponent) object;
+      if (child instanceof UIDateInput) {
+        return child;
+      }
+    }
+    return null;
+  }
+
   public String getFor() {
     if ("@auto".equals(forComponent)) {
-       for (Object object : getParent().getChildren()) {
-         UIComponent child = (UIComponent) object;
-         if (child instanceof UIDateInput) {
-           return child.getId();
-         }
-       }
+      UIComponent component = getUIDateInput(getParent());
+      if (component == null&&getParent() instanceof UIForm) {
+        component = getUIDateInput(getParent().getParent());
+      }
+      if (component != null) {
+        return component.getId();
+      }
     }
     return forComponent;
   }
 
   public UIComponent getForComponent() {
     if ("@auto".equals(forComponent)) {
-       for (Object object : getParent().getChildren()) {
-         UIComponent child = (UIComponent) object;
-         if (child instanceof UIDateInput) {
-           return child;
-         }
-       }
+      UIComponent component = getUIDateInput(getParent());
+      if (component == null&&getParent() instanceof UIForm) {
+        component = getUIDateInput(getParent().getParent());
+      }
+      return component;
     } else {
       return findComponent(forComponent);
     }
-    return null;
   }
 
   public void setFor(String forComponent) {
@@ -125,9 +134,8 @@ public class UIDatePicker extends UICommand  implements OnComponentCreated {
     link.setRendered(true);
     link.setImmediate(true);
 
-    org.apache.myfaces.tobago.component.UIInput hidden =
-        (org.apache.myfaces.tobago.component.UIInput) ComponentUtil.createComponent(facesContext,
-            org.apache.myfaces.tobago.component.UIInput.COMPONENT_TYPE, RENDERER_TYPE_HIDDEN);
+    UIInput hidden =
+        (UIInput) ComponentUtil.createComponent(facesContext, UIInput.COMPONENT_TYPE, RENDERER_TYPE_HIDDEN);
     link.getChildren().add(hidden);
 
     // create popup

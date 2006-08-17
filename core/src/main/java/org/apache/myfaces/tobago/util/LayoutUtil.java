@@ -26,6 +26,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MINIMUM_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICell;
@@ -121,7 +122,7 @@ public final class LayoutUtil {
     int width = 0;
 
     if (component != null) {
-      UIComponent label = component.getFacet("label");
+      UIComponent label = component.getFacet(FACET_LABEL);
       if (label != null) {
         String labelWidth = (String) label.getAttributes().get(
             ATTR_WIDTH);
