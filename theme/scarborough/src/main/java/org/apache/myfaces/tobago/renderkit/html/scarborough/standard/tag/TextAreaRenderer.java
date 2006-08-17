@@ -34,14 +34,17 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Iterator;
 
 public class TextAreaRenderer extends InRendererBase {
 
-  protected void renderMain(FacesContext facesContext, UIInput input,
-      TobagoResponseWriter writer) throws IOException {
+  public void encodeEndTobago(FacesContext facesContext,
+        UIComponent component) throws IOException {
+
+    UIInput input = (UIInput) component;
     Iterator messages = facesContext.getMessages(
         input.getClientId(facesContext));
     StringBuffer stringBuffer = new StringBuffer();
@@ -61,6 +64,9 @@ public class TextAreaRenderer extends InRendererBase {
 
     String clientId = input.getClientId(facesContext);
     String onchange = HtmlUtils.generateOnchange(input, facesContext);
+
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement("textarea", input);
     writer.writeNameAttribute(clientId);

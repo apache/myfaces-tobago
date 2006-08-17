@@ -36,6 +36,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
@@ -50,15 +51,13 @@ public class TimeRenderer extends InRendererBase{
 
   private static final Log LOG = LogFactory.getLog(TimeRenderer.class);
 
-// ----------------------------------------------------------- business methods
+  public void encodeEndTobago(FacesContext facesContext,
+        UIComponent component) throws IOException {
 
-  protected void renderMain(FacesContext facesContext, UIInput input,
-                            TobagoResponseWriter writer) throws IOException {
-
-    List<String> scriptFiles = ComponentUtil.findPage(input).getScriptFiles();
+    List<String> scriptFiles = ComponentUtil.findPage(component).getScriptFiles();
     scriptFiles.add("script/dateConverter.js");
     scriptFiles.add("script/calendar.js");
-
+    UIInput input = (UIInput) component;
     Iterator messages = facesContext.getMessages(
         input.getClientId(facesContext));
     StringBuffer stringBuffer = new StringBuffer();
@@ -113,7 +112,8 @@ public class TimeRenderer extends InRendererBase{
 
     String id = input.getClientId(facesContext);
     final String idPrefix = id + SUBCOMPONENT_SEP;
-
+    TobagoResponseWriter writer
+        = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement("div", input);
     writer.writeComponentClass();
 

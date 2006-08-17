@@ -27,10 +27,12 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -58,7 +60,8 @@ public class LabelRenderer extends RendererBase {
 
   private UIComponent findParent(UIComponent component) {
     UIComponent parent = component.getParent();
-    if (component != parent.getFacet("label")) {
+    if (component != parent.getFacet(FACET_LABEL)) {
+
       // try to find belonging component
       // this can only success if the component was rendered (created) before this label
       parent = ComponentUtil.findFor(component);
@@ -95,7 +98,7 @@ public class LabelRenderer extends RendererBase {
     writer.writeAttribute("style", null, ATTR_STYLE);
     writer.startElement("a", output);
     writer.writeComponentClass();
-    writer.startElement("label", output);
+    writer.startElement(HtmlConstants.LABEL, output);
     String clientId = output.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
     if (forValue != null) {
@@ -110,7 +113,7 @@ public class LabelRenderer extends RendererBase {
     if (label.getText() != null) {
       HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
     }
-    writer.endElement("label");
+    writer.endElement(HtmlConstants.LABEL);
     writer.endElement("a");
 
     if (label.getAccessKey() != null) {

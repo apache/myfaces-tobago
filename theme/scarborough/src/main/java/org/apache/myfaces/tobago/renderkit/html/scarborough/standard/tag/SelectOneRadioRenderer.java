@@ -29,6 +29,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
@@ -125,11 +126,11 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
         // FIXME: use created UIOutput Label
         // FIXME: see outcommented part
-        writer.startElement("label", null);
+        writer.startElement(HtmlConstants.LABEL, null);
         writer.writeClassAttribute("tobago-label-default");
         writer.writeAttribute("for", id, null);
         writer.writeText(item.getLabel(), null);
-        writer.endElement("label");
+        writer.endElement(HtmlConstants.LABEL);
 //        Application application = tobagoContext.getApplication();
 //        UIOutput label = (UIOutput)
 //            application.createComponent(TobagoConstants.COMPONENT_TYPE_OUTPUT);

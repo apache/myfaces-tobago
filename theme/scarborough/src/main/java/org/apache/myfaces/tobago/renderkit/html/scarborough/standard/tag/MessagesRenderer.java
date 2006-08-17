@@ -26,6 +26,7 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.FacesMessage;
@@ -100,13 +101,13 @@ public class MessagesRenderer extends MessageRendererBase {
   private void encodeMessage(ResponseWriter writer, FacesMessage message,
       String clientId)
       throws IOException {
-    writer.startElement("label", null);
+    writer.startElement(HtmlConstants.LABEL, null);
     if (clientId != null) {
       writer.writeAttribute("for", clientId, null);
     }
     writer.writeAttribute("title", message.getDetail(), null);
     writer.writeText(message.getSummary(), null);
-    writer.endElement("label");
+    writer.endElement(HtmlConstants.LABEL);
     writer.startElement("br", null);
     writer.endElement("br");
   }

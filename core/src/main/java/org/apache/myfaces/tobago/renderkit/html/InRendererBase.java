@@ -16,50 +16,9 @@ package org.apache.myfaces.tobago.renderkit.html;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.context.FacesContext;
-import java.io.IOException;
 
 public abstract class InRendererBase extends InputRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(InRendererBase.class);
-
-  public boolean getRendersChildren() {
-    return true;
-  }
-
-  protected abstract void renderMain(FacesContext facesContext, UIInput input,
-      TobagoResponseWriter writer) throws IOException;
-
-  public void encodeEndTobago(FacesContext facesContext,
-      UIComponent component)
-      throws IOException {
-    super.encodeEndTobago(facesContext, component);
-    TobagoResponseWriter writer = (TobagoResponseWriter)
-        facesContext.getResponseWriter();
-
-
-    renderMain(facesContext, (UIInput) component, writer);
-  }
-
-  public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
-    int space = 0;
-//    if (component.getFacet(TobagoConstants.FACET_LABEL) != null) {
-//      int labelWidht = LayoutUtil.getLabelWidth(component);
-//      space += labelWidht != 0 ? labelWidht : getLabelWidth(facesContext, component);
-//      space += getConfiguredValue(facesContext, component, "labelSpace");
-//    }
-//    if (component.getFacet("picker") != null) {
-//      int pickerWidth = getConfiguredValue(facesContext, component, "pickerWidth");
-//      space += pickerWidth;
-//    }
-    return space;
-  }
 }
 

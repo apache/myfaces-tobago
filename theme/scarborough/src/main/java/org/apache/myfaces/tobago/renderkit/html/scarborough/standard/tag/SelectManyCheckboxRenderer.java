@@ -27,6 +27,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
@@ -102,11 +103,11 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
         // FIXME: use created UIOutput Label
         // FIXME: see outcommented part
-        writer.startElement("label", null);
+        writer.startElement(HtmlConstants.LABEL, null);
         writer.writeClassAttribute("tobago-label-default");
         writer.writeAttribute("for", itemId, null);
         writer.writeText(item.getLabel(), null);
-        writer.endElement("label");
+        writer.endElement(HtmlConstants.LABEL);
 //        Application application = tobagoContext.getApplication();
 //        UIOutput label = (UIOutput)
 //            application.createComponent(TobagoConstants.COMPONENT_TYPE_OUTPUT);

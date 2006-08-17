@@ -51,10 +51,11 @@ import java.util.List;
 public class InRenderer extends InRendererBase implements AjaxRenderer {
   private static final Log LOG = LogFactory.getLog(InRenderer.class);
 
-  protected void renderMain(FacesContext facesContext, UIInput input,
-      TobagoResponseWriter writer) throws IOException {
+  public void encodeEndTobago(FacesContext facesContext,
+        UIComponent component)
+        throws IOException {
     Iterator messages = facesContext.getMessages(
-        input.getClientId(facesContext));
+        component.getClientId(facesContext));
     StringBuffer stringBuffer = new StringBuffer();
     while (messages.hasNext()) {
       FacesMessage message = (FacesMessage) messages.next();
@@ -67,27 +68,27 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
     }
 
     title = HtmlRendererUtil.addTip(
-            title, (String) input.getAttributes().get(ATTR_TIP));
+            title, (String) component.getAttributes().get(ATTR_TIP));
 
-    String currentValue = getCurrentValue(facesContext, input);
+    String currentValue = getCurrentValue(facesContext, component);
     if (LOG.isDebugEnabled()) {
       LOG.debug("currentValue = '" + currentValue + "'");
     }
-    String type = ComponentUtil.getBooleanAttribute(input,
+    String type = ComponentUtil.getBooleanAttribute(component,
         ATTR_PASSWORD) ? "password" : "text";
 
     // Todo: check for valid binding
     boolean renderAjaxSuggest = false;
-    if (input instanceof org.apache.myfaces.tobago.component.UIInput) {
+    if (component instanceof org.apache.myfaces.tobago.component.UIInput) {
       renderAjaxSuggest =
-          ((org.apache.myfaces.tobago.component.UIInput) input).getSuggestMethod() != null;
+          ((org.apache.myfaces.tobago.component.UIInput) component).getSuggestMethod() != null;
     }
 
-    String onchange = HtmlUtils.generateOnchange(input, facesContext);
 
-    String id = input.getClientId(facesContext);
-
-    writer.startElement("input", input);
+    String id = component.getClientId(facesContext);
+    TobagoResponseWriter writer = (TobagoResponseWriter)
+        facesContext.getResponseWriter();
+    writer.startElement("input", component);
     writer.writeAttribute("type", type, null);
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
@@ -98,17 +99,20 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
       writer.writeAttribute("title", title, null);
     }
     writer.writeAttribute("readonly",
-        ComponentUtil.getBooleanAttribute(input, ATTR_READONLY));
+        ComponentUtil.getBooleanAttribute(component, ATTR_READONLY));
     writer.writeAttribute("disabled",
-        ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED));
+        ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
     writer.writeAttribute("style", null, ATTR_STYLE);
     writer.writeComponentClass();
     if (renderAjaxSuggest) {
       writer.writeAttribute("autocomplete", "off", false);
     }
-    if (onchange != null) {
-      // TODO: create and use utility method to write attributes without quoting
-//      writer.writeAttribute("onchange", onchange, null);
+    if (component instanceof UIInput) {
+      String onchange = HtmlUtils.generateOnchange((UIInput)component, facesContext);
+      if (onchange != null) {
+        // TODO: create and use utility method to write attributes without quoting
+  //      writer.writeAttribute("onchange", onchange, null);
+      }
     }
     writer.endElement("input");
 
@@ -117,7 +121,7 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
 
       String popupId = id + SUBCOMPONENT_SEP + "ajaxPopup";
 
-      final UIPage page = ComponentUtil.findPage(input);
+      final UIPage page = ComponentUtil.findPage(component);
       page.getScriptFiles().add("script/effects.js");
       page.getScriptFiles().add("script/dragdrop.js");
       page.getScriptFiles().add("script/controls.js");
