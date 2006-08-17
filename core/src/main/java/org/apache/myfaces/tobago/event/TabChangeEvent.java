@@ -44,6 +44,20 @@ public class TabChangeEvent extends FacesEvent {
     ((TabChangeListener) facesListener).processTabChange(this);
   }
 
+  public int getOldTabIndex() {
+    if (oldState instanceof Integer) {
+      return ((Integer) oldState);
+    }
+    return -1;
+  }
+
+  public int getNewTabIndex() {
+    if (newState instanceof Integer) {
+      return ((Integer) newState);
+    }
+    return -1;
+  }
+
   public Object getOldState() {
     return oldState;
   }
