@@ -22,6 +22,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_LIST_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_HEADER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
@@ -71,7 +72,10 @@ public class UIData extends javax.faces.component.UIData
   public static final String SORTER_ID = "sorter";
 
   public static final String NONE = "none";
+  public static final String SINGLE = "single";
+  public static final String MULTI = "multi";
   public static final int DEFAULT_DIRECT_LINK_COUNT = 9;
+  private static final String DEFAULT_SELECTABLE = MULTI;
 
   private MethodBinding stateChangeListener;
   private List<Integer> widthList;
@@ -82,6 +86,8 @@ public class UIData extends javax.faces.component.UIData
   private String showPageRange;
   private String showDirectLinks;
   private Integer directLinkCount;
+
+  private String selectable;
 
   public void encodeBegin(FacesContext facesContext) throws IOException {
     UILayout.prepareDimension(facesContext, this);
@@ -149,6 +155,22 @@ public class UIData extends javax.faces.component.UIData
 
   public void setShowDirectLinks(String showDirectLinks) {
     this.showDirectLinks = showDirectLinks;
+  }
+
+  public String getSelectable() {
+    if (selectable != null) {
+      return selectable;
+    }
+    ValueBinding vb = getValueBinding(ATTR_SELECTABLE);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return DEFAULT_SELECTABLE;
+    }
+  }
+
+  public void setSelectable(String selectable) {
+    this.selectable = selectable;
   }
 
   public Integer getDirectLinkCount() {
@@ -437,7 +459,7 @@ public class UIData extends javax.faces.component.UIData
 
 
   public Object saveState(FacesContext context) {
-    Object[] saveState = new Object[9];
+    Object[] saveState = new Object[10];
     saveState[0] = super.saveState(context);
     saveState[1] = sheetState;
     saveState[2] = saveAttachedState(context, sortActionListener);
@@ -447,6 +469,7 @@ public class UIData extends javax.faces.component.UIData
     saveState[6] = showPageRange;
     saveState[7] = showDirectLinks;
     saveState[8] = directLinkCount;
+    saveState[9] = selectable;
     return saveState;
   }
 
@@ -461,6 +484,7 @@ public class UIData extends javax.faces.component.UIData
     showPageRange = (String) values[6];
     showDirectLinks = (String) values[7];
     directLinkCount = (Integer) values[8];
+    selectable = (String) values[9];
   }
 
 

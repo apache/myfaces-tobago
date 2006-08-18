@@ -22,6 +22,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FIRST;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FORCE_VERTICAL_SCROLLBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DIRECT_LINKS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_HEADER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_PAGE_RANGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROW_RANGE;
@@ -50,6 +51,7 @@ public class SheetTag extends TobagoTag implements SheetTagDeclaration {
   private String state;
   private String stateChangeListener;
   private String sortActionListener;
+  private String selectable;
 
   public String getComponentType() {
     // TODO: implement uidata with overridden processUpdates to store state
@@ -72,6 +74,7 @@ public class SheetTag extends TobagoTag implements SheetTagDeclaration {
     state = null;
     stateChangeListener = null;
     sortActionListener = null;
+    selectable = null;
   }
 
   protected void setProperties(UIComponent component) {
@@ -91,6 +94,7 @@ public class SheetTag extends TobagoTag implements SheetTagDeclaration {
     ComponentUtil.setValueBinding(component, ATTR_STATE, state);
     ComponentUtil.setStateChangeListener(data, stateChangeListener);
     ComponentUtil.setSortActionListener(data, sortActionListener);
+    ComponentUtil.setStringProperty(data, ATTR_SELECTABLE, selectable);
   }
 
   public String getColumns() {
@@ -185,5 +189,8 @@ public class SheetTag extends TobagoTag implements SheetTagDeclaration {
     this.sortActionListener = sortActionListener;
   }
 
+  public void setSelectable(String selectable) {
+    this.selectable = selectable;
+  }
 }
 

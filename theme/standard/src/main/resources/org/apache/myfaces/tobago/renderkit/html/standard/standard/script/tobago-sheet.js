@@ -39,12 +39,13 @@ Tobago.Sheets = {
 
 };
 
-Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage, autoReload) {
+Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage, selectable, autoReload) {
   this.startTime = new Date();
   this.id = sheetId;
   this.ajaxEnabled = enableAjax;
   this.checkedImage = checkedImage;
   this.uncheckedImage = uncheckedImage;
+  this.selectable = selectable;
   this.autoReload = autoReload;
 
   this.resizerId = undefined;
@@ -350,9 +351,12 @@ Tobago.Sheet.prototype.setup = function() {
     if (this.firstRowId) {
       this.tobagoLastClickedRowId = this.firstRowIndex;
     }
-    this.addSelectionListener();
     this.adjustScrollBars();
-    this.updateSelectionView();
+
+    if (this.selectable && (this.selectable == "single" || this.selectable == "multi")) {
+      this.addSelectionListener();
+      this.updateSelectionView();
+    }
 
     if (this.ajaxEnabled) {
       this.setupSortHeaders();
@@ -437,12 +441,12 @@ Tobago.Sheet.prototype.doSelection = function(event) {
       var rowIndex = rowId.substring(rowId.lastIndexOf("_data_tr_") + 9);
       var selector = Tobago.element(this.id + "_data_row_selector_" + rowIndex);
 
-      if (! event.ctrlKey && ! selector) {
+      if ((!event.ctrlKey && !selector) || this.selectable == "single" ) {
         // clearAllSelections();
         Tobago.element(this.selectedId).value = "";
       }
 
-      if (event.shiftKey) {
+      if (event.shiftKey && this.selectable == "multi") {
         this.selectRange(dataRow);
       }
       else {

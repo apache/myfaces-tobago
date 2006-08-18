@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.component.UIData;
 
 /*
  * Created by IntelliJ IDEA.
@@ -168,6 +169,17 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
   @UIComponentTagAttribute(defaultValue = "none",
       allowedValues = {"left", "center", "right", "none"})
   void setShowRowRange(String showRowRange);
+
+  /**
+   * Flag indicating whether or not the sheet should be selectable <br />
+   * Valid values are <strong>none</strong>, <strong>single</strong>,
+   * and <strong>multi</strong>.<br/>
+   * The <strong>default</strong> is <code>multi</code>.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(defaultValue = UIData.MULTI,
+      allowedValues = {UIData.NONE, UIData.SINGLE, UIData.MULTI})
+  void setSelectable(String selectable);
 
   /**
    * Sheet state saving object.

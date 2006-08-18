@@ -117,7 +117,8 @@
             rows="#{overviewController.sheetConfig.sheetRows}"
             directLinkCount="#{overviewController.sheetConfig.sheetDirectLinkCount}"
             stateChangeListener="#{demo.stateChangeListener}"
-            sortActionListener="#{overviewController.sheetSorter}" >
+            sortActionListener="#{overviewController.sheetSorter}"
+            selectable="multi">
           <f:facet name="reload">
             <tc:reload frequency="5000" />  
           </f:facet>

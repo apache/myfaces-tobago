@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
+import static org.apache.myfaces.tobago.component.UIData.NONE;
 import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
@@ -117,7 +118,7 @@ public class SheetRenderer extends RendererBase
     }
     final String[] cmds = {
         "new Tobago.Sheet(\"" + sheetId + "\", " + ajaxEnabled
-            + ", \"" + checked + "\", \"" + unchecked + "\", "+ frequency + ");"
+            + ", \"" + checked + "\", \"" + unchecked + "\", \"" + data.getSelectable() + "\", "+ frequency + ");"
     };
 
     ComponentUtil.addStyles(data, styles);
@@ -169,6 +170,7 @@ public class SheetRenderer extends RendererBase
     String bodyStyle = (String) attributes.get(ATTR_STYLE_BODY);
     int footerHeight = (Integer) attributes.get(ATTR_FOOTER_HEIGHT);
 
+    String selectable = data.getSelectable();
 
     Application application = facesContext.getApplication();
     SheetState state = data.getSheetState(facesContext);
@@ -185,12 +187,14 @@ public class SheetRenderer extends RendererBase
     writer.writeAttribute("value", "", null);
     writer.endElement("input");
 
-    writer.startElement("input", null);
-    writer.writeIdAttribute(sheetId + SELECTED_POSTFIX);
-    writer.writeNameAttribute(sheetId + SELECTED_POSTFIX);
-    writer.writeAttribute("type", "hidden", null);
-    writer.writeAttribute("value", selectedRows, null);
-    writer.endElement("input");
+    if (!NONE.equals(selectable)) {
+      writer.startElement("input", null);
+      writer.writeIdAttribute(sheetId + SELECTED_POSTFIX);
+      writer.writeNameAttribute(sheetId + SELECTED_POSTFIX);
+      writer.writeAttribute("type", "hidden", null);
+      writer.writeAttribute("value", selectedRows, null);
+      writer.endElement("input");
+    }
 
 
     final boolean showHeader = data.isShowHeader();
