@@ -48,6 +48,7 @@ import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.context.ExternalContext;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -83,6 +84,18 @@ public class PageRenderer extends PageRendererBase {
   private static final String FRAMESET =
       "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\""
           + " \"http://www.w3.org/TR/html4/frameset.dtd\">";
+    private static final String CLIENT_DEBUG_SEVERITY = "clientDebugSeverity";
+
+
+    public void decode(FacesContext facesContext, UIComponent component) {
+        super.decode(facesContext, component);
+        String name = component.getClientId(facesContext) + SUBCOMPONENT_SEP + "clientSeverity";
+        ExternalContext externalContext = facesContext.getExternalContext();
+        String severity = (String) externalContext.getRequestParameterMap().get(name);
+        if (severity != null) {
+          externalContext.getRequestMap().put(CLIENT_DEBUG_SEVERITY, severity);
+        }
+    }
 
 // ----------------------------------------------------------------- interfaces
 
@@ -214,11 +227,24 @@ public class PageRenderer extends PageRendererBase {
     scriptFiles.remove("script/tobago.js");
     scriptFiles.remove("script/theme-config.js");
 
+    int clientLogSeverity = 2;
     boolean hideClientLogging = true;
     final boolean debugMode =
         ClientProperties.getInstance(facesContext.getViewRoot()).isDebugMode();
 //        true; hideClientLogging = false;
     if (debugMode) {
+      String severity = (String) facesContext.getExternalContext().getRequestMap().get(CLIENT_DEBUG_SEVERITY);
+      LOG.info("get " + CLIENT_DEBUG_SEVERITY + " = " + severity);
+      if (severity != null) {
+        try {
+            int index = severity.indexOf(';');
+            if (index == -1) {
+              index = severity.length();
+            }
+            clientLogSeverity = Integer.parseInt(severity.substring(0, index));
+        } catch (NumberFormatException e) {/* ignore; use default*/ }
+        hideClientLogging = !severity.contains("show");
+      }
       scriptFiles.add("script/effects.js");
       scriptFiles.add("script/dragdrop.js");
       scriptFiles.add("script/logging.js");
@@ -306,6 +332,15 @@ public class PageRenderer extends PageRendererBase {
         clientId + SUBCOMPONENT_SEP + "form-action");
     writer.writeAttribute("value", defaultActionId, null);
     writer.endElement("input");
+
+    if (debugMode) {
+      writer.startElement("input");
+      writer.writeAttribute("value", clientLogSeverity, null);
+      writer.writeAttribute("id", clientId + SUBCOMPONENT_SEP + "clientSeverity", null);
+      writer.writeAttribute("name", clientId + SUBCOMPONENT_SEP + "clientSeverity", null);
+      writer.writeAttribute("type", "hidden", null);
+      writer.endElement("input");
+    }
 
 // TODO: this is needed for the "BACK-BUTTON-PROBLEM"
 // but may no longer needed

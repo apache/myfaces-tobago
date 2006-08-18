@@ -20,10 +20,12 @@ Object.extend(LOG, {
   IdBase: "TbgLog",
   messages: new Array(),
   appenders: new Array(),
+  SEVERITY_ID_POSTFIX: "clientSeverity",
   DEBUG: 1,
   INFO:  2,
   WARN:  3,
   ERROR: 4,
+  NONE: 100,
 
   show: function() {
     for (var i = 0 ; i < this.appenders.length; i++) {
@@ -108,11 +110,11 @@ Object.extend(LOG, {
        } else {
          LOG.debug("AjaxComponentId = " + name + " Unknown object");
        }
-    }  
+    }
   }
 });
 
-LOG.bindOnWindow();
+//LOG.bindOnWindow();
 
 
 LOG.LogArea = Class.create();
@@ -154,24 +156,53 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype, {
     tmpElement.innerHTML = "LoggingArea";
     this.dragHandleTop.appendChild(tmpElement);
 
-    this.clearButton = document.createElement("BUTTON");
-    this.clearButton.style.marginLeft = "20px";
-    this.clearButton.style.height = "20px";
-    this.clearButton.innerHTML = "Clear";
+    this.severitySelector = document.createElement("SELECT");
+    var option = document.createElement("OPTION");
+    option.value = LOG.DEBUG;
+    option.innerHTML = "Debug";
+    this.severitySelector.appendChild(option);
+    option = document.createElement("OPTION");
+    option.value = LOG.INFO;
+    option.innerHTML = "Info";
+    this.severitySelector.appendChild(option);
+    option = document.createElement("OPTION");
+    option.value = LOG.WARN;
+    option.innerHTML = "Warn";
+    this.severitySelector.appendChild(option);
+    option = document.createElement("OPTION");
+    option.value = LOG.ERROR;
+    option.innerHTML = "Error";
+    this.severitySelector.appendChild(option);
+    option = document.createElement("OPTION");
+    option.value = LOG.NONE;
+    option.innerHTML = "None";
+    this.severitySelector.appendChild(option);
+    var sev = Tobago.element(Tobago.page.id + Tobago.SUB_COMPONENT_SEP + LOG.SEVERITY_ID_POSTFIX);
+    if (sev) {
+      this.severitySelector.value = sev.value;
+    } else {
+      this.severitySelector.value = LOG.INFO;
+    }
+    this.severitySelector.style.position = "absolute";
+    this.severitySelector.style.right = "66px";
+    this.dragHandleTop.appendChild(this.severitySelector);
+
+    this.clearButton = this.createButtonElement();
+    this.clearButton.style.right = "44px";
+    this.clearButton.innerHTML = "C";
+    this.clearButton.title = "Clear log area";
     this.dragHandleTop.appendChild(this.clearButton);
 
-    this.oldButton = document.createElement("BUTTON");
-    this.oldButton.style.marginLeft = "20px";
-    this.oldButton.style.height = "20px";
-//    this.hideButton.style.float = "right";
-    this.oldButton.innerHTML = "Get old";
+    this.oldButton = this.createButtonElement();
+    this.oldButton.style.right = "22px";
+    this.oldButton.innerHTML = "O";
+    this.oldButton.title = "Get all Messages";
     this.dragHandleTop.appendChild(this.oldButton);
 
-    this.hideButton = document.createElement("BUTTON");
-    this.hideButton.style.marginLeft = "20px";
-    this.hideButton.style.height = "20px";
-//    this.hideButton.style.float = "right";
-    this.hideButton.innerHTML = "Hide";
+    this.hideButton = this.createButtonElement();
+    this.hideButton.style.right = "0px";
+    this.hideButton.innerHTML = "X";
+    this.hideButton.title = "Hide log area";
     this.dragHandleTop.appendChild(this.hideButton);
 
     this.dragHandleLeft = document.createElement("DIV");
@@ -225,6 +256,7 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype, {
 
     this.eventMouseDown = this.initDrag.bindAsEventListener(this);
 
+    this.eventChangeSeverity = this.changeSeverity.bindAsEventListener(this);
     this.eventClear     = this.clearList.bindAsEventListener(this);
     this.eventOld      = this.getOld.bindAsEventListener(this);
     this.eventHide      = this.hide.bindAsEventListener(this);
@@ -236,6 +268,9 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype, {
     Event.observe(this.dragHandleBottom, "mousedown", this.eventMouseDown);
     Event.observe(this.dragHandleLeft, "mousedown", this.eventMouseDown);
 
+    Event.observe(this.severitySelector, "change", this.eventChangeSeverity);
+    Event.observe(this.severitySelector, "click", this.eventStopEvent);
+    Event.observe(this.severitySelector, "mousedown", this.eventStopEvent);
     Event.observe(this.clearButton, "click", this.eventClear);
     Event.observe(this.clearButton, "mousedown", this.eventStopEvent);
     Event.observe(this.oldButton, "click", this.eventOld);
@@ -249,7 +284,10 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype, {
     this.body.tbgLogArea = this;
 
     if (this.options.hide) {
-      this.element.style.display = 'none';
+//      this.element.style.display = 'none';
+      this.hide();
+    } else {
+      this.setupHidden();  
     }
     this.body.appendChild(this.element);
     LOG.addAppender(this);
@@ -257,10 +295,14 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype, {
 
   show: function() {
     this.element.style.display = '';
+    this.hide = "show";
+    this.setupHidden();
   },
 
   hide: function() {
     this.element.style.display = 'none';
+    this.hide = "hide";
+    this.setupHidden();
   },
 
   setUpLogDiv: function(element, top, right, width, height, border, background) {
@@ -280,6 +322,29 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype, {
     if (bottom != null) element.style.bottom = bottom;
     if (cursor != null) element.style.cursor = cursor;
   },
+
+  createButtonElement: function() {
+    var button = document.createElement("BUTTON");
+    button.style.width = "20px";
+    button.style.height = "20px";
+    button.style.position = "absolute";
+    button.style.top = "0px";
+    button.style.paddingLeft = "0px";
+    button.style.paddingRight = "0px";
+    return button;
+  },
+
+  changeSeverity: function() {
+    this.setupHidden();
+  },
+
+  setupHidden: function() {
+    var hidden = Tobago.element(Tobago.page.id + Tobago.SUB_COMPONENT_SEP + "clientSeverity");
+    if (hidden) {
+      hidden.value = this.severitySelector.value + ";" + this.hide;
+    }
+  },
+
 
   clearList: function() {
     this.logList.innerHTML = "";
@@ -320,7 +385,13 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype, {
   },
 
   logFor: function(severity) {
-    return (severity >= this.options.severity);
+    //this.append(severity + ":::" + typeof severity);
+    if (this.severitySelector.value) {
+    //    this.append("::::::" + this.severitySelector.value + "--" + typeof this.severitySelector.value
+    //                + "--" + typeof (this.severitySelector.value - 0));
+        return (severity >= (this.severitySelector.value - 0));
+    }
+    return (severity >= (this.options.severity -0));
   }
 });
 
