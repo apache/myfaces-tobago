@@ -331,11 +331,13 @@ var Tobago = {
     */
   submitAction: function(actionId) {
     Tobago.Transport.request(function() {
+      var req = Tobago.Transport.requests.shift(); // remove this from queue
+      LOG.debug("request removed :" + req.toString());
       Tobago.action.value = actionId;
       Tobago.onSubmit();
 //      LOG.debug("submit form with action: " + Tobago.action.value);
       Tobago.form.submit();
-    });
+    }, true);
   },
 
    /**
@@ -1297,8 +1299,18 @@ Tobago.ScriptLoader = function(names, doAfter) {
 Tobago.Transport = {
   requests: new Array(),
 
-  request: function(req) {
-    this.requests.push(req);
+  pageSubmited: false,
+
+  request: function(req, submitPage) {
+    if (submitPage) {
+        this.pageSubmited = true;
+        this.requests.push(req);
+    } else if (!this.pageSubmited) {
+      this.requests.push(req);
+    } else {
+        return;
+    }
+
     if (this.requests.length == 1) {
       LOG.debug("Execute request!");
       this.requests[0]();
