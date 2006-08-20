@@ -18,7 +18,9 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasFor;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
@@ -39,4 +41,13 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
     rendererType = "Messages")
 
 public interface MessagesTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasFor {
+
+  /**
+   * Flag indicating that only messages that are not associated to any
+   * particular UIComponent should be displayed. That are messages without clientId.
+   * The default is "false".
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  void setGlobalOnly(String globalOnly);
 }

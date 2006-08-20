@@ -52,6 +52,7 @@ public final class TobagoConstants {
   public static final String ATTR_FORCE_VERTICAL_SCROLLBAR = "forceVerticalScrollbar";
   public static final String ATTR_FORMAT_PATTERN = "formatPattern";
   public static final String ATTR_FOR = "for";
+  public static final String ATTR_GLOBAL_ONLY = "globalOnly";
   public static final String ATTR_HEIGHT = "height";
   public static final String ATTR_HIDDEN = "hidden";
   public static final String ATTR_HOVER = "hover";

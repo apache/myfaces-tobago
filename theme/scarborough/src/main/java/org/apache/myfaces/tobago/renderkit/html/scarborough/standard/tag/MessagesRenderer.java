@@ -21,19 +21,22 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_GLOBAL_ONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class MessagesRenderer extends MessageRendererBase {
@@ -70,7 +73,14 @@ public class MessagesRenderer extends MessageRendererBase {
 
       // with id
       String focusId = null;
-      Iterator clientIds = facesContext.getClientIdsWithMessages();
+      Iterator clientIds;
+      if (ComponentUtil.getBooleanAttribute(component, ATTR_GLOBAL_ONLY)) {
+        ArrayList<String> list = new ArrayList<String>(1);
+        list.add(null);
+        clientIds = list.iterator();
+      } else {
+        clientIds = facesContext.getClientIdsWithMessages();
+      }
       while(clientIds.hasNext()) {
         String clientId = (String) clientIds.next();
         encodeMessagesForId(facesContext, writer, clientId);

@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_GLOBAL_ONLY;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
@@ -28,6 +29,7 @@ public class MessagesTag extends TobagoTag
 
   private String forComponent;
 
+  private String globalOnly;
 
   public String getComponentType() {
     return UIMessages.COMPONENT_TYPE;
@@ -36,6 +38,7 @@ public class MessagesTag extends TobagoTag
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     ComponentUtil.setStringProperty(component, ATTR_FOR, forComponent);
+    ComponentUtil.setBooleanProperty(component, ATTR_GLOBAL_ONLY, globalOnly);
   }
 
   public void release() {
@@ -49,5 +52,9 @@ public class MessagesTag extends TobagoTag
 
   public void setFor(String forComponent) {
     this.forComponent = forComponent;
+  }
+
+  public void setGlobalOnly(String globalOnly) {
+    this.globalOnly = globalOnly;
   }
 }
