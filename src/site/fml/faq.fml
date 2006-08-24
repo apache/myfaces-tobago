@@ -89,7 +89,7 @@
     <faq id="tobago/container">
       <question>On which container Tobago was tested?</question>
       <answer>
-          Tomcat 5.5, Websphere 6.1, Weblogic 9.2
+          Tomcat 5.5, Websphere 6.1, Weblogic 9.2. Feel free to post your own experiences.  
       </answer>
     </faq>
 
