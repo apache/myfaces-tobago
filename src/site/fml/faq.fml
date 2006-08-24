@@ -23,7 +23,8 @@
           <a href="http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/blank/">
             tobago-example-blank
           </a>
-          .
+           . Or download the myfaces-tobago-example from the
+          <a href="http://people.apache.org/builds/myfaces/nightly/" >nightly build dir.</a>
         </p>
       </answer>
     </faq>
@@ -44,7 +45,7 @@
       </answer>
     </faq>
     <faq id="tobago/layout">
-        <question>How do I use GridLayout in Tobago?</question>
+      <question>How do I use GridLayout in Tobago?</question>
       <answer>
         <source>
           <tc:gridLayout rows="fixed;100px;1*;2*"/>
@@ -72,20 +73,25 @@
     </faq>
 
     <faq id="tobago/form">
-        <question>Why I don't need a form tag in a normal case in Tobago?</question>
+      <question>Why I don't need a form tag in a normal case in Tobago?</question>
       <answer>
         TODO
       </answer>
     </faq>
 
     <faq id="tobago/browser">
-        <question>Which webbrowser are currently supported by Tobago?</question>
+      <question>Which webbrowser are currently supported by Tobago?</question>
       <answer>
         TODO
       </answer>
     </faq>
 
-
+    <faq id="tobago/container">
+      <question>On which container Tobago was tested?</question>
+      <answer>
+          Tomcat 5.5, Websphere 6.1, Weblogic 9.2
+      </answer>
+    </faq>
 
     <faq id="tiles/sitemesh">
       <question>Can Tobago replace tiles? Can I ignore tiles and sitemesh in the
