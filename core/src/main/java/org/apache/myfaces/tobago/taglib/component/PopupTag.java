@@ -24,9 +24,10 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPopup;
 
 import javax.faces.component.UIComponent;
+import javax.servlet.jsp.tagext.BodyTag;
 
 public class PopupTag extends TobagoBodyTag
-    implements PopupTagDeclaration {
+    implements BodyTag, PopupTagDeclaration {
   private String width;
   private String height;
   private String left;

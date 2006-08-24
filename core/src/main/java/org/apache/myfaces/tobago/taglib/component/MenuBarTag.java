@@ -17,10 +17,11 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import javax.faces.component.UIPanel;
+import javax.servlet.jsp.tagext.BodyTag;
 
 
 public class MenuBarTag extends TobagoBodyTag
-    implements MenuBarTagDeclaration {
+    implements BodyTag, MenuBarTagDeclaration {
 
   public String getComponentType() {
     return UIPanel.COMPONENT_TYPE;

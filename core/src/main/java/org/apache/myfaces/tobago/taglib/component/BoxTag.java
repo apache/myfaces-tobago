@@ -18,12 +18,14 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.component.UIPanel;
 
+import javax.servlet.jsp.tagext.BodyTag;
+
 /**
  * Renders a panel with border and title.
  */
 
 public class BoxTag extends TobagoBodyTag
-    implements BoxTagDeclaration {
+    implements BodyTag, BoxTagDeclaration {
 
   public String getComponentType() {
     return UIPanel.COMPONENT_TYPE;

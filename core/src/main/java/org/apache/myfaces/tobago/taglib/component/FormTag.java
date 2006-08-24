@@ -18,8 +18,10 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.component.UIForm;
 
+import javax.servlet.jsp.tagext.BodyTag;
 
-public class FormTag extends TobagoBodyTag implements FormTagDeclaration {
+
+public class FormTag extends TobagoBodyTag implements BodyTag,  FormTagDeclaration {
 
   public String getComponentType() {
     return UIForm.COMPONENT_TYPE;

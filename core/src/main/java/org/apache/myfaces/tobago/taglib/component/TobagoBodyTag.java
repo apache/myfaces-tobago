@@ -27,6 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyContent;
+import javax.servlet.jsp.tagext.BodyTag;
 
 public abstract class TobagoBodyTag extends TobagoTag implements TobagoBodyTagDeclaration {
 
@@ -34,11 +35,11 @@ public abstract class TobagoBodyTag extends TobagoTag implements TobagoBodyTagDe
 
   private BodyContent bodyContent;
 
-  public void doInitBody() throws JspException {
+  public int doAfterBody() throws JspException {
+    return getDoAfterBodyValue();
   }
 
-  public int doAfterBody() throws JspException {
-    return SKIP_BODY;
+  public void doInitBody() throws JspException {
   }
 
 
@@ -67,7 +68,11 @@ public abstract class TobagoBodyTag extends TobagoTag implements TobagoBodyTagDe
   }
 
   protected int getDoStartValue() throws JspException {
-    return EVAL_BODY_BUFFERED;
+    return BodyTag.EVAL_BODY_BUFFERED;
+  }
+
+  protected int getDoAfterBodyValue() throws JspException {
+    return BodyTag.SKIP_BODY;
   }
 
   public void release() {

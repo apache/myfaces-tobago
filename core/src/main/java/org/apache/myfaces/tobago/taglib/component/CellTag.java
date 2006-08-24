@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICell;
 
 import javax.faces.component.UIComponent;
+import javax.servlet.jsp.tagext.BodyTag;
 
 /*
  * Created 29.07.2003 at 15:09:53.
@@ -33,7 +34,7 @@ import javax.faces.component.UIComponent;
  */
 
 
-public class CellTag extends TobagoBodyTag implements CellTagDeclaration {
+public class CellTag extends TobagoBodyTag implements BodyTag, CellTagDeclaration {
 
   private static final Log LOG = LogFactory.getLog(CellTag.class);
 

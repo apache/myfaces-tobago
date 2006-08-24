@@ -24,11 +24,11 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPanel;
 
 import javax.faces.component.UIComponent;
+import javax.servlet.jsp.tagext.BodyTag;
 
 public class TabTag extends TobagoBodyTag
-    implements TabTagDeclaration {
+    implements BodyTag, TabTagDeclaration {
   private static final Log LOG = LogFactory.getLog(TabTag.class);
-
   private String label;
   private String tip;
 

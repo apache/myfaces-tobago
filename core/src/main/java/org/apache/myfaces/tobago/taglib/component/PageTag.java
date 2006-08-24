@@ -29,10 +29,11 @@ import org.apache.myfaces.tobago.component.UIPopup;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.BodyTag;
 import java.util.List;
 
 public class PageTag extends TobagoBodyTag
-    implements PageTagDeclaration {
+    implements BodyTag, PageTagDeclaration {
 
   private String doctype = "loose";
 

@@ -24,8 +24,10 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.component.UIPanel;
 
+import javax.servlet.jsp.tagext.BodyTag;
+
 public class PanelTag extends TobagoBodyTag
-    implements PanelTagDeclaration {
+    implements BodyTag, PanelTagDeclaration {
 
   public String getComponentType() {
     return UIPanel.COMPONENT_TYPE;
