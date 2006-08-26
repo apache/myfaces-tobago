@@ -45,7 +45,7 @@ public class ViewHandlerImpl extends ViewHandler {
 
 
   public ViewHandlerImpl(ViewHandler base) {
-    LOG.info("Hiding ri base implemation: " + base);
+    LOG.info("Hiding RI base implemation: " + base);
     this.base = base;
   }
 
