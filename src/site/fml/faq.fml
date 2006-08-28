@@ -75,21 +75,24 @@
     <faq id="tobago/form">
       <question>Why I don't need a form tag in a normal case in Tobago?</question>
       <answer>
-        TODO
+        <p>The page tag is a form tag. You need a form tag for partial validation of your data.
+        Please look at the forms example in the
+        <a href="http://tobago.atanion.net/tobago-example-demo/faces/overview/form.jsp" >Tobago demo</a>
+        </p>
       </answer>
     </faq>
 
     <faq id="tobago/browser">
       <question>Which webbrowser are currently supported by Tobago?</question>
       <answer>
-        TODO
+        <p>Firefox 1.5, IE 6 (TODO more details)</p>
       </answer>
     </faq>
 
     <faq id="tobago/container">
       <question>On which container Tobago was tested?</question>
       <answer>
-          Tomcat 5.5, Websphere 6.1, Weblogic 9.2. Feel free to post your own experiences.  
+        <p>Tomcat 5.5, Websphere 6.0, 6.1, Weblogic 8.1, 9.2. Feel free to post your own experiences.</p>
       </answer>
     </faq>
 
