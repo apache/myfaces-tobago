@@ -108,7 +108,7 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
       writer.writeAttribute("autocomplete", "off", false);
     }
     if (component instanceof UIInput) {
-      String onchange = HtmlUtils.generateOnchange((UIInput)component, facesContext);
+      String onchange = HtmlUtils.generateOnchange((UIInput) component, facesContext);
       if (onchange != null) {
         // TODO: create and use utility method to write attributes without quoting
   //      writer.writeAttribute("onchange", onchange, null);

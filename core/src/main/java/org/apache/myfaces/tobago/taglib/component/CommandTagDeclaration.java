@@ -27,7 +27,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
  */
 
 /**
- * Use this tag only as a facet for click, change in selectOneRadio, selectBooleanCheckbox, selectManyCheckbox and selectOneChoice
+ * Use this tag only as a facet for click, change in selectOneRadio,
+ * selectBooleanCheckbox, selectManyCheckbox and selectOneChoice
  */
 @Tag(name = "command", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(

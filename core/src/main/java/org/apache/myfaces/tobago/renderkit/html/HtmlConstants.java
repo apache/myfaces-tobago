@@ -17,6 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html;
  */
 
 public interface HtmlConstants {
-  public static final String LABEL = "label";
-  public static final String TABLE = "table";
+  String LABEL = "label";
+  String TABLE = "table";
 }

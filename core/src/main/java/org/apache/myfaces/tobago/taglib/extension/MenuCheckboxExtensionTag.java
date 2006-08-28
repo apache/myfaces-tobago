@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.taglib.component.SelectBooleanCheckboxTag;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.HasBooleanValue;
-import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 
 import javax.servlet.jsp.tagext.BodyTagSupport;

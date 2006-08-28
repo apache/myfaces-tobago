@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 
 /*
  * $Id: MenuSelectOneTag.java 390886 2006-04-02 19:32:32Z bommel $

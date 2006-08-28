@@ -402,8 +402,8 @@ public abstract class RendererBase
       throws IOException {
     checkForCommandFacet(component, Arrays.asList(component.getClientId(facesContext)) , facesContext, writer);
   }
-  protected void checkForCommandFacet(UIComponent component, List<String> clientIds, FacesContext facesContext, TobagoResponseWriter writer)
-      throws IOException {
+  protected void checkForCommandFacet(UIComponent component, List<String> clientIds, FacesContext facesContext,
+      TobagoResponseWriter writer) throws IOException {
     Map<String, UIComponent> facets = component.getFacets();
     for (Map.Entry<String, UIComponent> entry: facets.entrySet()) {
       if (entry.getValue() instanceof UICommand) {
