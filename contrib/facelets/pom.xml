@@ -125,7 +125,7 @@
     <dependency>
       <groupId>com.sun.facelets</groupId>
       <artifactId>jsf-facelets</artifactId>
-      <version>1.0.14</version>
+      <version>1.1.11</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
@@ -161,14 +161,5 @@
       <artifactId>servlet-api</artifactId>
     </dependency>
   </dependencies>
-
-  <repositories>
-    <repository>
-      <id>java-net</id>
-      <name>java.net Repository</name>
-      <url>https://maven-repository.dev.java.net/nonav/repository/</url>
-      <layout>legacy</layout>
-    </repository>
-  </repositories>
 
 </project>
