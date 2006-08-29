@@ -26,8 +26,8 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CREATE_SPAN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CONVERTER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CREATE_SPAN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
@@ -41,8 +41,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_NAVIGATE;
 import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_RESET;
 import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_SCRIPT;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX;
@@ -270,11 +270,11 @@ public class ComponentUtil {
       return (Boolean) bool;
     } else if (bool instanceof String) {
       LOG.warn("Searching for a boolean, but find a String. Should not happen. "
-          + "attribute: '" + name + "' comp: '" + component + "'");
+          + "attribute: '" + name + "' id: '" + component.getClientId(FacesContext.getCurrentInstance()) + "' comp: '" + component + "'");
       return Boolean.getBoolean((String) bool);
     } else {
       LOG.warn("Unknown type '" + bool.getClass().getName()
-          + "' for boolean attribute: " + name + " comp: " + component);
+          + "' for boolean attribute: " + name + " id: " + component.getClientId(FacesContext.getCurrentInstance()) + " comp: " + component);
       return false;
     }
   }
