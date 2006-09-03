@@ -33,7 +33,11 @@ public class SheetConfig {
     "right"
   };
 
-
+private static final String[] SHEET_SELECTABLE_KEYS = {
+        "none",
+        "single",
+        "multi"
+};
 
   private boolean sheetShowHeader;
   private int sheetFirst;
@@ -44,18 +48,22 @@ public class SheetConfig {
   private String sheetPagePagingPosition;
   private SelectItem[] sheetDirectLinkCountItems;
   private SelectItem[] sheetPagingPositionItems;
+  private SelectItem[] sheetSelectableItems;
+  private String selectable;
   private boolean sheetConfigPopup;
 
   public SheetConfig() {
     sheetFirst = 0;
     sheetRows = 7;
     sheetDirectLinkCount = 5;
-    sheetDirectLinkCountItems = createSheetDirectLinkCountItems();
+    sheetDirectLinkCountItems = createSheetItems(new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15});
     sheetShowHeader = true;
     sheetRowPagingPosition = SHEET_PAGER_POSITION_KEYS[1];
     sheetDirectPagingPosition = SHEET_PAGER_POSITION_KEYS[2];
     sheetPagePagingPosition = SHEET_PAGER_POSITION_KEYS[3];
-    sheetPagingPositionItems = createSheetPagingPositionItems();
+    sheetPagingPositionItems = createSheetItems(SHEET_PAGER_POSITION_KEYS);
+    sheetSelectableItems =  createSheetItems(SHEET_SELECTABLE_KEYS);
+    selectable = SHEET_SELECTABLE_KEYS[2];  
   }
 
 
@@ -64,22 +72,11 @@ public class SheetConfig {
     return null;
   }
 
-  private SelectItem[] createSheetDirectLinkCountItems() {
-    int[] counts = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
-    SelectItem[] items = new SelectItem[counts.length];
-    for (int i = 0; i < counts.length; i++) {
-      items[i] = new SelectItem(counts[i], Integer.toString(counts[i]));
-    }
-    return items;
-  }
+  private SelectItem[] createSheetItems(Object[] values) {
+    SelectItem[] items = new SelectItem[values.length];
 
-
-
-  private SelectItem[] createSheetPagingPositionItems() {
-    SelectItem[] items = new SelectItem[SHEET_PAGER_POSITION_KEYS.length];
-
-    for (int i = 0; i < SHEET_PAGER_POSITION_KEYS.length; i++) {
-      items[i] = new SelectItem(SHEET_PAGER_POSITION_KEYS[i], SHEET_PAGER_POSITION_KEYS[i]);
+    for (int i = 0; i < values.length; i++) {
+      items[i] = new SelectItem(values[i], values[i].toString());
     }
     return items;
   }
@@ -162,4 +159,20 @@ public class SheetConfig {
   public SelectItem[] getSheetPagingPositionItems() {
     return sheetPagingPositionItems;
   }
+
+    public SelectItem[] getSheetSelectableItems() {
+        return sheetSelectableItems;
+    }
+
+    public void setSheetSelectableItems(SelectItem[] sheetSelectableItems) {
+        this.sheetSelectableItems = sheetSelectableItems;
+    }
+
+    public String getSelectable() {
+        return selectable;
+    }
+
+    public void setSelectable(String selectable) {
+        this.selectable = selectable;
+    }
 }

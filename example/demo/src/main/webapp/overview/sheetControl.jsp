@@ -37,11 +37,11 @@
                                label="#"
                                tip="#{overviewBundle.sheet_configTip}" />
             <f:facet name="popup" >
-              <tc:popup width="300" height="250"
+              <tc:popup width="300" height="270"
                         rendered="#{overviewController.sheetConfig.sheetConfigPopup}">
                 <tc:box label="#{overviewBundle.sheet_configTitle}" >
                   <f:facet name="layout">
-                    <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*;fixed"/>
+                    <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*;fixed"/>
                   </f:facet>
                   <tx:selectOneChoice label="showHeader"
                                       value="#{overviewController.sheetConfig.sheetShowHeader}"
@@ -84,6 +84,12 @@
                     <f:selectItems value="#{overviewController.sheetConfig.sheetDirectLinkCountItems}" />
                   </tx:selectOneChoice>
 
+                  <tx:selectOneChoice label="selectable"
+                                      value="#{overviewController.sheetConfig.selectable}"
+                                      tip="TODO: selectable Text" >
+                    <f:selectItems value="#{overviewController.sheetConfig.sheetSelectableItems}" />
+                  </tx:selectOneChoice>
+
                   <tc:cell />
 
                   <tc:cell>
@@ -118,7 +124,7 @@
             directLinkCount="#{overviewController.sheetConfig.sheetDirectLinkCount}"
             stateChangeListener="#{demo.stateChangeListener}"
             sortActionListener="#{overviewController.sheetSorter}"
-            selectable="multi">
+            selectable="#{overviewController.sheetConfig.selectable}">
           <f:facet name="reload">
             <tc:reload frequency="5000" />  
           </f:facet>
