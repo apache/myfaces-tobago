@@ -44,6 +44,13 @@
   </scm>
 
   <dependencies>
+<!-- uncomment to enable the new theme (also in tobago-config.xml)
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>tobago-theme-charlotteville</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+-->
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>tobago-theme-scarborough</artifactId>
