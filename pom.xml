@@ -260,15 +260,10 @@
             <ruleset>/rulesets/basic.xml</ruleset>
             <ruleset>/rulesets/unusedcode.xml</ruleset>
             <ruleset>/rulesets/imports.xml</ruleset>
-            <!--<ruleset>/rulesets/design.xml/SimplifyBooleanReturnsRule</ruleset>
-            <ruleset>/rulesets/design.xml/SimplifyBooleanExpressions</ruleset>
-            <ruleset>/rulesets/design.xml/AvoidReassigningParametersRule</ruleset>
-            <ruleset>/rulesets/design.xml/FinalFieldCouldBeStatic</ruleset>
-            <ruleset>/rulesets/design.xml/BooleanInstantiation</ruleset>
-            <ruleset>/rulesets/design.xml/NonStaticInitializer</ruleset>
-            <ruleset>/rulesets/design.xml/DefaultLabelNotLastInSwitchStmt</ruleset>
-            <ruleset>/rulesets/design.xml/OptimizableToArrayCallRule</ruleset>
-            <ruleset>/rulesets/coupling.xml/LooseCouplingRule</ruleset>-->
+            <ruleset>/rulesets/design.xml</ruleset>
+            <ruleset>/rulesets/optimizations.xml</ruleset>
+            <ruleset>/rulesets/favorites.xml</ruleset>
+            <ruleset>/rulesets/coupling.xml</ruleset>
           </rulesets>
           <excludes>
             <exclude>**/package-info.java</exclude>
@@ -289,6 +284,11 @@
           <threshold>Low</threshold>
         </configuration>
       </plugin>
+
+       <plugin>
+         <groupId>org.codehaus.mojo</groupId>
+         <artifactId>jdepend-maven-plugin</artifactId>
+       </plugin>
 
     </plugins>
 
@@ -391,11 +391,17 @@
         <scope>provided</scope>
       </dependency>
       <dependency>
-      <groupId>portlet-api</groupId>
-      <artifactId>portlet-api</artifactId>
-      <version>1.0</version>
-      <scope>provided</scope>
-    </dependency>
+        <groupId>portlet-api</groupId>
+        <artifactId>portlet-api</artifactId>
+        <version>1.0</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>net.sf.retrotranslator</groupId>
+        <artifactId>retrotranslator-runtime</artifactId>
+        <optional>true</optional>
+        <version>1.0.8</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
