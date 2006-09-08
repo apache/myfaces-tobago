@@ -10,14 +10,14 @@ Tobago.loadPngFix= function() {
       return;
     }
 
-    for (i = 0; i < images.length; i++) {
+    for (var i = 0; i < images.length; i++) {
 
       var image = images[i];
 
       Tobago.fixImage(image);
       Tobago.addEventListener(image, 'propertyChanged', Tobago.propertyChanged);
     }
-  }
+  };
 
 Tobago.isActiveXEnabled = function () {
   try {
@@ -26,19 +26,18 @@ Tobago.isActiveXEnabled = function () {
     return false;
   }
   return true;
-}
+};
 
 Tobago.propertyChanged = function() {
-
      var pName = event.propertyName;
      if (pName != "src") return;
      // if not set to blank
      if ( ! new RegExp(Tobago.pngFixBlankImage).test(src))  {
-        fixImage(this);
+        Tobago.fixImage(this);
      }
-  }
+  };
 
-Tobago.fixImage(element) = function() {
+Tobago.fixImage = function(element) {
      // get src
      var src = element.src;
      // check for real change
@@ -73,4 +72,4 @@ Tobago.fixImage(element) = function() {
         // remove filter
         element.runtimeStyle.filter = "";
      }
-  }
+  };
