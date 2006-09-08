@@ -494,6 +494,16 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>2.0.1</version>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-idea-plugin</artifactId>
+	        <configuration>
+            <jdkName>1.5</jdkName>
+            <linkModules>true</linkModules>
+            <downloadSources>true</downloadSources>
+            <jdkLevel>5.0</jdkLevel>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
