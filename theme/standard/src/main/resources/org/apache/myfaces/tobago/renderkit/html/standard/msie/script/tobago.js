@@ -1,8 +1,11 @@
 Tobago.loadPngFix= function() {
 
     var images = document.getElementsByTagName("img");
-    var supported = /MSIE (5\.5)|[6789]/.test(navigator.userAgent) && navigator.platform == "Win32";
+    var supported = /MSIE (5\.5)|[6789]/.test(navigator.userAgent)
+                    && navigator.platform == "Win32"
+                    && Tobago.isActiveXEnabled();
 
+  
     if (! supported)  {
       return;
     }
@@ -11,12 +14,21 @@ Tobago.loadPngFix= function() {
 
       var image = images[i];
 
-      fixImage(image);
-      Tobago.addEventListener(image, 'propertyChanged', propertyChanged);
+      Tobago.fixImage(image);
+      Tobago.addEventListener(image, 'propertyChanged', Tobago.propertyChanged);
     }
   }
 
-  function propertyChanged() {
+Tobago.isActiveXEnabled = function () {
+  try {
+    new ActiveXObject("Shell.UIHelper");
+  } catch(e) {
+    return false;
+  }
+  return true;
+}
+
+Tobago.propertyChanged = function() {
 
      var pName = event.propertyName;
      if (pName != "src") return;
@@ -26,7 +38,7 @@ Tobago.loadPngFix= function() {
      }
   }
 
-  function fixImage(element) {
+Tobago.fixImage(element) = function() {
      // get src
      var src = element.src;
      // check for real change
