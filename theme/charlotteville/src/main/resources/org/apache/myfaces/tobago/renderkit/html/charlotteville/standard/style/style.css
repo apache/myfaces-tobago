@@ -17,17 +17,17 @@
 /* box ----------------------------------------------------------------- */
 
 .tobago-box-default {
-  background: #0000E6;
-  border: 0px solid #FF9900;
+  background: #785A1D;
+  border: 0px solid #FECB66;
 }
 
 .tobago-box-header {
-  background: #000066 none;
+  background: #FADC9F none;
   height: 20px;
-  border: 1px solid #FF9900;
-  border-bottom: 0px dotted #FF9900;
+  border: 1px solid #FECB66;
+  border-bottom: 0px dotted #FECB66;
   font: bold 12px arial, helvetica, sans-serif;
-  color: #3366CC;
+  color: #785A1D;
   padding-left: 5px;
   padding-top: 2px;
   padding-bottom: 2px;
@@ -36,9 +36,9 @@
 }
 
 .tobago-box-content {
-  border: 1px solid #FF9900;
-  border-top: 0px solid #FF9900;
-  background-color: #0000E6;
+  border: 1px solid #FECB66;
+  border-top: 0px solid #FECB66;
+  background-color: #FFEECF;
   padding: 5px;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
