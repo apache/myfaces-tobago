@@ -48,21 +48,23 @@ Object.extend(new Ajax.Base(), {
   },
 
   getUpdatedChoices: function() {
-    // TODO: add client-side state to parameters
-    // TODO: this also needs updating state on client after getting response
-    this.options.parameters =
-        "affectedAjaxComponent=" + encodeURIComponent(this.element.id)
-        + "&" + encodeURIComponent(this.element.name) + '='
-        + encodeURIComponent(this.element.value);
+    if (Tobago.Updater.hasTransport()) {
+      // TODO: add client-side state to parameters
+      // TODO: this also needs updating state on client after getting response
+      this.options.parameters =
+      "affectedAjaxComponent=" + encodeURIComponent(this.element.id)
+          + "&" + encodeURIComponent(this.element.name) + '='
+          + encodeURIComponent(this.element.value);
 
-//    LOG.debug("start new request");
-    var requestOptions = Tobago.extend({}, this.options);
-    var onComplete = requestOptions.onComplete;
-    requestOptions.onComplete = function(transport, json) {
-      Tobago.Transport.requestComplete();
-      onComplete(transport, json);
-    };
-    Tobago.Transport.request(function(){new Ajax.Request(Tobago.form.action, requestOptions)});
+      //    LOG.debug("start new request");
+      var requestOptions = Tobago.extend({}, this.options);
+      var onComplete = requestOptions.onComplete;
+      requestOptions.onComplete = function(transport, json) {
+        Tobago.Transport.requestComplete();
+        onComplete(transport, json);
+      };
+      Tobago.Transport.request(function(){new Ajax.Request(Tobago.form.action, requestOptions)});
+    }
   },
 
   onComplete: function(request) {
