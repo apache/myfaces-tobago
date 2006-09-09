@@ -10,7 +10,7 @@
   <name>Tobago gendoc</name>
   <build>
     <finalName>gendoc</finalName>
-    <plugins>
+    <!--<plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>tomcat-maven-plugin</artifactId>
@@ -21,7 +21,7 @@
           <url>http://localhost:8080/manager</url>
         </configuration>
       </plugin>
-    </plugins>
+    </plugins>-->
   </build>
   <dependencies>
     <dependency>
