@@ -10,7 +10,7 @@
   <name>Tobago gendoc</name>
   <build>
     <finalName>gendoc</finalName>
-    <plugins>
+    <!--<plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>tomcat-maven-plugin</artifactId>
@@ -21,31 +21,31 @@
           <url>http://localhost:8080/manager</url>
         </configuration>
       </plugin>
-    </plugins>
+    </plugins>-->
   </build>
   <dependencies>
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-scarborough</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-speyside</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-richmond</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-standard</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-core</artifactId>
       <version>${project.version}</version>
       <scope>compile</scope>

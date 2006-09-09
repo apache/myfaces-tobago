@@ -52,5 +52,11 @@
         <module>facelets</module>
       </modules>
     </profile>
+    <profile>
+      <id>generate-assembly</id>
+      <modules>
+        <module>tobago-example-assembly</module>
+      </modules>
+    </profile>
   </profiles>
 </project>

@@ -11,7 +11,7 @@
   <build>
     <finalName>tobago-example-test</finalName>
     <plugins>
-      <plugin>
+      <!--<plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>tomcat-maven-plugin</artifactId>
         <version>1.0-SNAPSHOT</version>
@@ -20,7 +20,7 @@
           <update>true</update>
           <url>http://localhost:8080/manager</url>
         </configuration>
-      </plugin>
+      </plugin>-->
       <plugin>
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>maven-jetty6-plugin</artifactId>
@@ -39,27 +39,27 @@
 
   <dependencies>
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-scarborough</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-speyside</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-richmond</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-standard</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-core</artifactId>
       <version>${project.version}</version>
       <scope>compile</scope>
@@ -184,7 +184,7 @@
         <repository>
           <id>java.net</id>
           <name>java.net Maven 1 Repository</name>
-          <url>https://maven-repository.dev.java.net/nonav/repository</url>
+          <url>https://maven-repository.dev.java.net/repository</url>
           <layout>legacy</layout>
         </repository>
       </repositories>

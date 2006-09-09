@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-tool</artifactId>
-    <version>1.0.8-SNAPSHOT</version>
+    <version>1.0.8</version>
   </parent>
   <artifactId>tobago-tool-apt</artifactId>
   <packaging>jar</packaging>
