@@ -10,17 +10,17 @@ tobago-theme-speyside.jar,
 tobago-theme-scarborough.jar and
 tobago-theme-standard.jar
 
-in the directory lib with the jdk 1.4
-version in jdk14retro, please.
+in the lib directory with the jdk 1.4
+version in jdk14retro directory, please.
 
 The jars
 
 tobago-theme-charlotteville.jar and
 tobago-theme-richmond.jar
 
-doesn't need a jdk 1.4 version, because they doesn't contains any classes.
+doesn't need a jdk 1.4 version, because they doesn't contain any classes.
 
-And add the retrotranslator-runtime-1.0.4.jar from
+And add the retrotranslator-runtime-1.0.8.jar from
 http://www.ibiblio.org/maven2/net/sf/retrotranslator/retrotranslator-runtime/
 to the WEB-INF/lib dir of your war.
 
