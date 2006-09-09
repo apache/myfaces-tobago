@@ -12,7 +12,7 @@
     <finalName>tobago-example-demo</finalName>
     <plugins>
       <plugin>
-        <groupId>${project.groupId}</groupId>
+        <groupId>org.apache.myfaces.tobago</groupId>
         <artifactId>maven-theme-plugin</artifactId>
         <version>${project.version}</version>
         <executions>
@@ -56,33 +56,33 @@
   <dependencies>
 <!-- uncomment to enable the new theme (also in tobago-config.xml)
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-charlotteville</artifactId>
       <version>${project.version}</version>
     </dependency>
 -->
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-scarborough</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-speyside</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-richmond</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-standard</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-core</artifactId>
       <version>${project.version}</version>
       <exclusions>

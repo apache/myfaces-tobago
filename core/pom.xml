@@ -23,7 +23,7 @@
 
     <plugins>
       <plugin>
-        <groupId>${project.groupId}</groupId>
+        <groupId>org.apache.myfaces.tobago</groupId>
         <artifactId>maven-apt-plugin</artifactId>
         <version>${project.version}</version>
         <configuration>
@@ -121,7 +121,7 @@
       <optional>true</optional>
     </dependency>
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-tool-apt</artifactId>
       <version>${project.version}</version>
       <scope>provided</scope>
@@ -165,7 +165,7 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.apache.myfaces.tobago</groupId>
             <artifactId>maven-apt-plugin</artifactId>
             <version>${project.version}</version>
             <configuration>
