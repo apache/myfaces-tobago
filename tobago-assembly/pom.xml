@@ -24,7 +24,7 @@
             <id>copy-javadoc</id>
             <phase>package</phase>
             <goals>
-              <goal>copy</goal>
+              <goal>unpack</goal>
             </goals>
             <configuration>
               <artifactItems>
@@ -36,6 +36,7 @@
                 </artifactItem>
               </artifactItems>
               <outputDirectory>${project.build.directory}/javadoc</outputDirectory>
+              <unpackMarkersDirectory>${project.build.directory}/javadoc</unpackMarkersDirectory>
             </configuration>
           </execution>
 
@@ -43,7 +44,7 @@
             <id>copy-tlddoc</id>
             <phase>package</phase>
             <goals>
-              <goal>copy</goal>
+              <goal>unpack</goal>
             </goals>
             <configuration>
               <artifactItems>
@@ -57,6 +58,7 @@
 
               </artifactItems>
               <outputDirectory>${project.build.directory}/tlddoc</outputDirectory>
+              <unpackMarkersDirectory>${project.build.directory}/tlddoc</unpackMarkersDirectory>
             </configuration>
           </execution>
 
