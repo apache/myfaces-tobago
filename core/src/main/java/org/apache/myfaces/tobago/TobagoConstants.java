@@ -147,6 +147,7 @@ public final class TobagoConstants {
   public static final String ATTR_VALUE = "value";
   public static final String ATTR_VAR = "var";
   public static final String ATTR_UNIT = "unit";
+  public static final String ATTR_UPDATE = "update";
   public static final String ATTR_WIDTH = "width";
   public static final String ATTR_WIDTH_LIST = "widthList";
   public static final String ATTR_WIDTH_LIST_STRING = "widthListString";

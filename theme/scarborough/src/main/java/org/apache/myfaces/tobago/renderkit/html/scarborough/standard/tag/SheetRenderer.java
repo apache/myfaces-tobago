@@ -25,6 +25,7 @@ import static org.apache.myfaces.tobago.component.UIData.NONE;
 import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UIData;
@@ -56,6 +57,7 @@ import javax.faces.component.UIPanel;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -1038,7 +1040,21 @@ public class SheetRenderer extends RendererBase
   public void encodeAjax(FacesContext facesContext, UIComponent component)
       throws IOException {
     AjaxUtils.checkParamValidity(facesContext, component, UIData.class);
-    renderSheet(facesContext, (UIData) component);
+    boolean update = true;
+    final String ajaxId = (String) facesContext.getExternalContext()
+        .getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
+    if (ajaxId.equals(component.getClientId(facesContext))) {
+      if (component.getFacet("reload") != null && component.getFacet("reload") instanceof UIReload) {
+        UIReload reload = (UIReload) component.getFacet("reload");
+        update = reload.getUpdate();
+      }
+    }
+    if (update || !(facesContext.getExternalContext().getResponse() instanceof HttpServletResponse)) {
+      renderSheet(facesContext, (UIData) component);
+    } else {
+      HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+      response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
+    }
     facesContext.responseComplete();
   }
 

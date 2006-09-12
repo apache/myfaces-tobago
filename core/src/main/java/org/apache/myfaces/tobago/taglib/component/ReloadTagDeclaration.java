@@ -46,4 +46,11 @@ public interface ReloadTagDeclaration extends TobagoTagDeclaration, HasIdBinding
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "5000")
   void setFrequency(String frequency);
+
+  /**
+   * Is update required.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
+  void setUpdate(String update);
 }

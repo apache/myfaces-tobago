@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FREQUENCY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_UPDATE;
 
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
@@ -35,10 +36,13 @@ public class UIReload extends UIComponentBase {
 
   private Integer frequency;
 
+  private Boolean update;
+
   public Object saveState(FacesContext context) {
-    Object[] values = new Object[2];
+    Object[] values = new Object[3];
     values[0] = super.saveState(context);
     values[1] = frequency;
+    values[2] = update;
     return values;
   }
 
@@ -46,6 +50,7 @@ public class UIReload extends UIComponentBase {
     Object[] values = (Object[]) savedState;
     super.restoreState(context, values[0]);
     frequency = (Integer) values[1];
+    update = (Boolean) values[2];
   }
 
   public int getFrequency() {
@@ -66,6 +71,26 @@ public class UIReload extends UIComponentBase {
 
   public void setFrequency(int frequency) {
     this.frequency = frequency;
+  }
+
+  public void setUpdate(boolean update) {
+    this.update = update;
+  }
+
+  public boolean getUpdate() {
+    if (update != null) {
+      return update;
+    }
+    ValueBinding vb = getValueBinding(ATTR_UPDATE);
+    Boolean value = null;
+    if (vb != null) {
+      value = (Boolean) vb.getValue(getFacesContext());
+    }
+    if (value != null) {
+      return value;
+    } else {
+      return true;
+    }
   }
 
   public String getFamily() {

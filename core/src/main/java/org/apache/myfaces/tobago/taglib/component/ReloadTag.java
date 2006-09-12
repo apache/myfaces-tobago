@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FREQUENCY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_UPDATE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIReload;
 
@@ -33,6 +34,7 @@ public class ReloadTag extends TobagoTag
     implements ReloadTagDeclaration {
 
   private String frequency;
+  private String update;
 
   public String getComponentType() {
     return UIReload.COMPONENT_TYPE;
@@ -42,17 +44,23 @@ public class ReloadTag extends TobagoTag
     return null;
   }
 
+  public void setFrequency(String frequency) {
+    this.frequency = frequency;
+  }
+
+  public void setUpdate(String update) {
+    this.update = update;
+  }
+
   public void release() {
     super.release();
     frequency = null;
+    update = null;
   }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     ComponentUtil.setIntegerProperty(component, ATTR_FREQUENCY, frequency);
-  }
-
-  public void setFrequency(String frequency) {
-    this.frequency = frequency;
+    ComponentUtil.setBooleanProperty(component, ATTR_UPDATE, update);
   }
 }
