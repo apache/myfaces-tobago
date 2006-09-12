@@ -35,26 +35,42 @@
     </pluginRepository>
   </pluginRepositories>
 
-  <modules>
-    <module>addressbook</module>
-    <module>blank</module>
-    <module>demo</module>
-    <module>foreach</module>
-    <module>nonfacesrequest</module>
-    <module>security</module>
-    <module>test</module>
-  </modules>
-
   <profiles>
+    <profile>
+      <id>default-modules</id>
+       <activation>
+        <property>
+          <name>!non-default-modules</name>
+        </property>
+      </activation>
+      <modules>
+        <module>addressbook</module>
+        <module>blank</module>
+        <module>demo</module>
+        <module>foreach</module>
+        <module>nonfacesrequest</module>
+        <module>security</module>
+        <module>test</module>
+      </modules>
+    </profile>
     <profile>
       <id>all-modules</id>
       <modules>
+        <module>addressbook</module>
+        <module>blank</module>
+        <module>demo</module>
+        <module>foreach</module>
+        <module>nonfacesrequest</module>
+        <module>security</module>
+        <module>test</module>
         <module>facelets</module>
       </modules>
     </profile>
     <profile>
       <id>generate-assembly</id>
       <modules>
+        <module>blank</module>
+        <module>demo</module>
         <module>tobago-example-assembly</module>
       </modules>
     </profile>
