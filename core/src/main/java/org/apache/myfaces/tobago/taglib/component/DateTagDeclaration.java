@@ -26,6 +26,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.IsFocus;
+import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 
 /*
  * Created: Aug 5, 2005 5:03:15 PM
@@ -41,6 +43,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
     rendererType = RENDERER_TYPE_DATE)
 public interface DateTagDeclaration
     extends InputTagDeclaration, HasIdBindingAndRendered, IsReadonly,
-    IsDisabled, IsInline, HasLabelAndAccessKey, HasTip, IsRequired {
+    IsDisabled, HasConverter, IsInline, IsFocus, HasLabelAndAccessKey,
+    HasTip, IsRequired {
 
 }
