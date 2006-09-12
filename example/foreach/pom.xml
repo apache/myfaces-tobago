@@ -10,7 +10,7 @@
   <name>Tobago Example Foreach</name>
   <build>
     <finalName>tobago-example-foreach</finalName>
-   <!-- <plugins>
+   <plugins>
 
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -23,7 +23,7 @@
         </configuration>
       </plugin>
 
-    </plugins>-->
+    </plugins>
   </build>
 
   <scm>
