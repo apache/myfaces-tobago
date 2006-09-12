@@ -23,16 +23,16 @@
     <fileSet>
       <directory>target/javadoc</directory>
       <outputDirectory>javadoc</outputDirectory>
-      <includes>
-        <include>*.jar</include>
-      </includes>
+      <excludes>
+        <exclude>*.unpacked</exclude>
+      </excludes>
     </fileSet>
     <fileSet>
       <directory>target/tlddoc</directory>
       <outputDirectory>tlddoc</outputDirectory>
-      <includes>
-        <include>*.jar</include>
-      </includes>
+      <excludes>
+        <exclude>*.unpacked</exclude>
+      </excludes>
     </fileSet>
     <fileSet>
       <directory>target/facelets</directory>
