@@ -374,6 +374,7 @@ Tobago.Sheet.prototype.setup = function() {
         clearTimeout(this.reloadTimer);
         this.reloadTimer = setTimeout(Tobago.bind2(this, "reloadWithAction", this.id), this.autoReload);
       }
+    }
     this.setupEnd = new Date();
   };
 
