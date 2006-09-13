@@ -21,14 +21,45 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
-import static org.apache.myfaces.tobago.component.UIData.NONE;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOOTER_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FORCE_VERTICAL_SCROLLBAR;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP_TYPE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_LIST_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DIRECT_LINKS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_PAGE_RANGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROW_RANGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUPOPUP;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_PAGER_PAGE;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_PAGER_ROW;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LINK;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUBAR;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
-import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UIData;
+import static org.apache.myfaces.tobago.component.UIData.NONE;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIReload;
@@ -45,9 +76,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import static org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.SheetPageCommandRenderer.PAGE_RENDERER_TYPE;
 import org.apache.myfaces.tobago.util.StringUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
@@ -114,8 +142,9 @@ public class SheetRenderer extends RendererBase
     final String[] styles = new String[]{"style/tobago-sheet.css"};
     final String[] scripts = new String[]{"script/tobago-sheet.js"};
     Integer frequency = null;
-    if (data.getFacet("reload") != null && data.getFacet("reload") instanceof UIReload) {
-      UIReload update = (UIReload) data.getFacet("reload");
+    UIComponent facetReload = data.getFacet("reload");
+    if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
+      UIReload update = (UIReload) facetReload;
       frequency = update.getFrequency();
     }
     final String[] cmds = {

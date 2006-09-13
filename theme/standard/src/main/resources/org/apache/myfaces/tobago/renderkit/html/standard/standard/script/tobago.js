@@ -1330,6 +1330,11 @@ Tobago.Transport = {
 }
 
 Tobago.Updater = {
+  CODE_SUCCESS: "<status code=\"200\"/>",
+
+  CODE_NOT_MODIFIED: "<status code=\"304\"/>",
+
+  CODE_RELOAD_REQUIRED: "<status code=\"309\"/>",
 
   options: {
     method: 'post',
@@ -1337,7 +1342,28 @@ Tobago.Updater = {
     parameters: '',
     evalScripts: true,
     createOverlay: true,
-    onComplete: function(){} // empty function
+    onComplete: function(){}, // empty function
+    insertion: function(receiver, response) {
+      LOG.debug("response = \"" + response.substring(0, 30 < response.length ? 30 : response.length) + "\"");
+      LOG.debug("this.CODE_NOT_MODIFIED = \"" + Tobago.Updater.CODE_NOT_MODIFIED + "\" ist lang:" + Tobago.Updater.CODE_NOT_MODIFIED.length);
+      if (response.substring(0, Tobago.Updater.CODE_NOT_MODIFIED.length) == Tobago.Updater.CODE_NOT_MODIFIED) {
+        // no update needed, do nothing
+              LOG.debug("skip update");
+        receiver.skipUpdate = true;
+      } else if (response.substring(0, Tobago.Updater.CODE_SUCCESS.length) == Tobago.Updater.CODE_SUCCESS) {
+        // update content
+              LOG.debug("update content");
+        Element.update(receiver, response.substring(20));
+      } else if (response.substring(0, Tobago.Updater.CODE_RELOAD_REQUIRED.length) == Tobago.Updater.CODE_RELOAD_REQUIRED) {
+        // reload complete page
+        LOG.debug("full reload requested");
+        Tobago.submitAction("page:overviewSheet");
+      } else {
+        // unknown response do full page reload
+        LOG.debug("initiating full reload");
+        Tobago.submitAction("page:overviewSheet");
+      }
+    }
   },
 
   update: function(container, page, actionId, ajaxComponentId, options) {
@@ -1354,7 +1380,7 @@ Tobago.Updater = {
       var onComplete = requestOptions.onComplete;
       requestOptions.onComplete = function(transport, json) {
         Tobago.Transport.requestComplete();
-        onComplete(transport, json);
+          onComplete(transport, json);
       };
 
       //    LOG.debug("request url = " + url);

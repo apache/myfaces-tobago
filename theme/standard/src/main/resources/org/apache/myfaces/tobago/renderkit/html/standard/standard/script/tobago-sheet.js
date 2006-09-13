@@ -333,41 +333,47 @@ Tobago.Sheet.prototype.setup = function() {
     this.setupStart = new Date();
    // LOG.debug("Tobago.Sheet.setup(" + this.id +")");
 
-    // ToDo: find a better way to fix this problem
-    // IE needs this in case of ajax loading of style classes
-    var outerDiv = Tobago.element(this.outerDivId);
-    outerDiv.className = outerDiv.className;
-    outerDiv.innerHTML = outerDiv.innerHTML;
+    var divElement = Tobago.element(this.outerDivId);
+    if (divElement.skipUpdate) {
+    //    LOG.debug("skip setup");
+        divElement.skipUpdate = false;
+    } else {
 
-    this.setupElements();
+      // ToDo: find a better way to fix this problem
+      // IE needs this in case of ajax loading of style classes
+      var outerDiv = divElement;
+      outerDiv.className = outerDiv.className;
+      outerDiv.innerHTML = outerDiv.innerHTML;
 
-    this.setupResizer();
+      this.setupElements();
 
-    this.adjustHeaderDiv();
-    this.adjustResizer();
+      this.setupResizer();
 
-    this.setupHeader();
+      this.adjustHeaderDiv();
+      this.adjustResizer();
 
-    if (this.firstRowId) {
-      this.tobagoLastClickedRowId = this.firstRowIndex;
-    }
-    this.adjustScrollBars();
+      this.setupHeader();
 
-    if (this.selectable && (this.selectable == "single" || this.selectable == "multi")) {
-      this.addSelectionListener();
-      this.updateSelectionView();
-    }
+      if (this.firstRowId) {
+        this.tobagoLastClickedRowId = this.firstRowIndex;
+      }
+      this.adjustScrollBars();
 
-    if (this.ajaxEnabled) {
-      this.setupSortHeaders();
-      this.setupPagingLinks();
-      this.setupPagePaging();
-      this.setupRowPaging();
-    }
-    if (typeof this.autoReload == "number" && Tobago.element(this.contentDivId)) {
-      clearTimeout(this.reloadTimer);
-      this.reloadTimer = setTimeout(Tobago.bind2(this, "reloadWithAction", this.id), this.autoReload);
-    }
+      if (this.selectable && (this.selectable == "single" || this.selectable == "multi")) {
+        this.addSelectionListener();
+        this.updateSelectionView();
+      }
+
+      if (this.ajaxEnabled) {
+        this.setupSortHeaders();
+        this.setupPagingLinks();
+        this.setupPagePaging();
+        this.setupRowPaging();
+      }
+      if (typeof this.autoReload == "number" && Tobago.element(this.contentDivId)) {
+        clearTimeout(this.reloadTimer);
+        this.reloadTimer = setTimeout(Tobago.bind2(this, "reloadWithAction", this.id), this.autoReload);
+      }
     this.setupEnd = new Date();
   };
 

@@ -52,6 +52,9 @@ public class AjaxPhaseListener implements PhaseListener {
   private static final Log LOG = LogFactory.getLog(AjaxPhaseListener.class);
   public static final String AJAX_COMPONENT_ID = "affectedAjaxComponent";
 
+  public static final String CODE_SUCCESS = "<status code=\"200\"/>";
+  public static final String CODE_NOT_MODIFIED = "<status code=\"304\"/>";
+  public static final String CODE_RELOAD_REQUIRED = "<status code=\"309\"/>";
 
   public static Object getValueForComponent(
       FacesContext facesContext, UIComponent component) {
@@ -133,6 +136,8 @@ public class AjaxPhaseListener implements PhaseListener {
       LOG.debug("Size of AjaxResponse:\n" + buf.length()
           + " = 0x" + Integer.toHexString(buf.length()));
     }
+
+    buf.insert(0, CODE_SUCCESS);
 
     buf.insert(0, Integer.toHexString(buf.length()) + "\r\n");
     buf.append("\r\n" + 0 + "\r\n\r\n");
