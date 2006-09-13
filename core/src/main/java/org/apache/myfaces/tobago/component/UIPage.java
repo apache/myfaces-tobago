@@ -144,6 +144,7 @@ public class UIPage extends UIForm {
     getOnunloadScripts().clear();
     getOnexitScripts().clear();
     getScriptBlocks().clear();
+    getPopups().clear();
 
     // find the form of the action command and set submitted to it and all
     // children
