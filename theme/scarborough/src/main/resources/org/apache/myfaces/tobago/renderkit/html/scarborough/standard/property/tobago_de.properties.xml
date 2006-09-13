@@ -43,7 +43,7 @@
 <entry key="sheetDescending">absteigend sortiert</entry>
 <entry key="sheetPagingInfoRows">Zeilen &lt;span id="{3}"&gt;{0}&lt;/span&gt; bis {1} von {2}</entry>
 <entry key="sheetPagingInfoSingleRow">Zeilen &lt;span id="{3}">{0}&lt;/span> von {2}</entry>
-<entry key="sheetPagingInfoEmptyRow">Keine Zeilen verfügbar</entry>
+<entry key="sheetPagingInfoEmptyRow">Keine Zeilen verf&amp;uuml;gbar</entry>
 <entry key="sheetPagingInfoRowPagingTip">Hier klicken, zum Eingeben der ersten anzuzeigenden Zeile.</entry>
 <entry key="sheetPagingInfoPages">Seite &lt;span id="{3}">{0}&lt;/span&gt; von {1}</entry>
 <entry key="sheetPagingInfoSinglePage">Seite &lt;span id="{3}"&gt;{0}&lt;/span&gt; von {1}</entry>
