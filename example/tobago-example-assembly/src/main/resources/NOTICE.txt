@@ -11,8 +11,6 @@ See the file LICENSE.txt
 This product includes software developed by
 Sam Stephenson (the ProtoType library) (http://conio.net/)
 
-This product includes software developed by
-Taras Puchko (Retrotranslator) (http://sourceforge.net/projects/retrotranslator).
 
 
 
