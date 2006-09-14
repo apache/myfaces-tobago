@@ -331,11 +331,11 @@ Tobago.Sheet.prototype.setupResizer = function() {
 
 Tobago.Sheet.prototype.setup = function() {
     this.setupStart = new Date();
-   // LOG.debug("Tobago.Sheet.setup(" + this.id +")");
+    //LOG.debug("Tobago.Sheet.setup(" + this.id +")");
 
     var divElement = Tobago.element(this.outerDivId);
     if (divElement.skipUpdate) {
-    //    LOG.debug("skip setup");
+        LOG.debug("skip setup");
         divElement.skipUpdate = false;
     } else {
 
@@ -370,10 +370,10 @@ Tobago.Sheet.prototype.setup = function() {
         this.setupPagePaging();
         this.setupRowPaging();
       }
-      if (typeof this.autoReload == "number" && Tobago.element(this.contentDivId)) {
-        clearTimeout(this.reloadTimer);
-        this.reloadTimer = setTimeout(Tobago.bind2(this, "reloadWithAction", this.id), this.autoReload);
-      }
+    }
+    if (typeof this.autoReload == "number" && Tobago.element(this.contentDivId)) {
+      clearTimeout(this.reloadTimer);
+      this.reloadTimer = setTimeout(Tobago.bind2(this, "reloadWithAction", this.id), this.autoReload);
     }
     this.setupEnd = new Date();
   };

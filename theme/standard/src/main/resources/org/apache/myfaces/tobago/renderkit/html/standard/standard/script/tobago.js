@@ -888,6 +888,7 @@ var Tobago = {
     */
   createOverlay: function(element) {
     var overlay = document.createElement('div');
+    overlay.id = element.id + "-overlay";
     overlay.style.position = "absolute";
     overlay.style.top = "0px";
     overlay.style.left = "0px";
@@ -898,6 +899,15 @@ var Tobago = {
     overlay.style.zIndex = 10000;
     element.appendChild(overlay);
     return overlay;
+  },
+
+  /**
+    * Create a overlay with same dimension an wait cursor over a htmlElement.
+    */
+  deleteOverlay: function(element) {
+    var overlay = document.getElementById(element.id + "-overlay");
+    element.removeChild(overlay);
+    return element;
   },
 
    /**
@@ -1329,6 +1339,33 @@ Tobago.Transport = {
   }
 }
 
+Ajax.Updater.prototype.updateContent = function() {
+    var receiver = this.responseIsSuccess() ?
+      this.containers.success : this.containers.failure;
+    var response = this.transport.responseText;
+
+    if (response.match(/^[0-9a-fA-F]+\r\n/) && response.match(/\r\n0\r\n\r\n$/)) {
+      response = response.replace(/^[0-9a-fA-F]+\r\n/, "").replace(/\r\n0\r\n\r\n$/, "");
+    }
+
+    if (!this.options.evalScripts)
+      response = response.stripScripts();
+
+    if (receiver) {
+      if (this.options.insertion) {
+        new this.options.insertion(receiver, response, this.transport);
+      } else {
+        Element.update(receiver, response);
+      }
+    }
+
+    if (this.responseIsSuccess()) {
+      if (this.onComplete)
+        setTimeout(this.onComplete.bind(this), 10);
+    }
+}
+
+
 Tobago.Updater = {
   CODE_SUCCESS: "<status code=\"200\"/>",
 
@@ -1343,10 +1380,14 @@ Tobago.Updater = {
     evalScripts: true,
     createOverlay: true,
     onComplete: function(){}, // empty function
-    insertion: function(receiver, response) {
-      LOG.debug("response = \"" + response.substring(0, 30 < response.length ? 30 : response.length) + "\"");
-      LOG.debug("this.CODE_NOT_MODIFIED = \"" + Tobago.Updater.CODE_NOT_MODIFIED + "\" ist lang:" + Tobago.Updater.CODE_NOT_MODIFIED.length);
-      if (response.substring(0, Tobago.Updater.CODE_NOT_MODIFIED.length) == Tobago.Updater.CODE_NOT_MODIFIED) {
+    insertion: function(receiver, response, transport) {
+      //Tobago.deleteOverlay(receiver);
+      //LOG.debug("response = \"" + response.substring(0, 30 < response.length ? 30 : response.length) + "\"");
+      //LOG.debug("this.CODE_NOT_MODIFIED = \"" + Tobago.Updater.CODE_NOT_MODIFIED + "\" ist lang:" + Tobago.Updater.CODE_NOT_MODIFIED.length);
+      if (transport.status == 304) {
+        Tobago.deleteOverlay(receiver);
+        LOG.debug("skip update response status 304");
+      } else if (response.substring(0, Tobago.Updater.CODE_NOT_MODIFIED.length) == Tobago.Updater.CODE_NOT_MODIFIED) {
         // no update needed, do nothing
               LOG.debug("skip update");
         receiver.skipUpdate = true;
@@ -1407,7 +1448,6 @@ Tobago.Updater = {
     return this.transportFound;
   }
 };
-
 
 
 function tobago_showHidden() {
