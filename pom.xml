@@ -546,6 +546,7 @@
       <modules>
         <module>example</module>
         <module>contrib</module>
+        <module>tobago-assembly</module>
       </modules>
     </profile>
     <profile>

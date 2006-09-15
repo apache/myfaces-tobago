@@ -26,3 +26,4 @@ to the WEB-INF/lib directory of your WAR.
 
 NOTE: The JDK 1.4 version is work in progress.
 
+The contrib directory contains the tobago-facelets.jar and a retrotranslated facelets.jar.
