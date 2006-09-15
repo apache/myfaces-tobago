@@ -76,6 +76,12 @@
                   <artifactId>tobago-facelets</artifactId>
                   <version>${project.version}</version>
                 </artifactItem>
+                <artifactItem>
+                  <groupId>${project.groupId}</groupId>
+                  <artifactId>tobago-facelets</artifactId>
+                  <version>${project.version}</version>
+                  <classifier>jdk14retro</classifier>
+                </artifactItem>
 
               </artifactItems>
               <outputDirectory>${project.build.directory}/facelets</outputDirectory>
