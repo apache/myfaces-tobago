@@ -54,7 +54,7 @@
         <version>2.0-beta-1</version>
         <configuration>
           <descriptor>src/main/assembly/dep.xml</descriptor>
-          <finalName>myfaces-tobago-example-${version}</finalName>
+          <finalName>myfaces-tobago-${version}</finalName>
           <outputDirectory>target/assembly/out</outputDirectory>
           <workDirectory>target/assembly/work</workDirectory>
         </configuration>
