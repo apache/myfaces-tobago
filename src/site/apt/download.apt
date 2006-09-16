@@ -18,14 +18,21 @@ Download MyFaces Tobago
   created using GNU tar extensions. Thus they must be untarred with a GNU compatible
   version of tar.
 
-    << MyFaces Tobago 1.0.7 Binary Distribution >>
+    << MyFaces Tobago 1.0.8 Distribution >>
+
+    Release notes can be found
+  {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12310900}here}}.
 
 *-------------------------+---------+----------+-----------+
 |                         | Mirrors | Checksum | Signature |
 *-------------------------+---------+----------+-----------+
-| MyFaces Tobago 1.0.7 (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.7-bin.tar.gz} myfaces-tobago-1.0.7-bin.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.7-bin.tar.gz.md5} myfaces-tobago-1.0.7-bin.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.7-bin.tar.gz.asc} myfaces-tobago-1.0.7-bin.tar.gz.asc}} |
+| MyFaces Tobago 1.0.8 (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.8-bin.tar.gz} myfaces-tobago-1.0.8-bin.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.8-bin.tar.gz.md5} myfaces-tobago-1.0.8-bin.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.8-bin.tar.gz.asc} myfaces-tobago-1.0.8-bin.tar.gz.asc}} |
 *-------------------------+---------+----------+-----------+
-| MyFaces Tobago 1.0.7 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.7-bin.zip} myfaces-tobago-1.0.7-bin.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.7-bin.zip.md5} myfaces-tobago-1.0.7-bin.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.7-bin.zip.asc} myfaces-tobago-1.0.7-bin.zip.asc}} |
+| MyFaces Tobago 1.0.8 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.8-bin.zip} myfaces-tobago-1.0.8-bin.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.8-bin.zip.md5} myfaces-tobago-1.0.8-bin.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.8-bin.zip.asc} myfaces-tobago-1.0.8-bin.zip.asc}} |
+*-------------------------+---------+----------+-----------+
+| MyFaces Tobago Example 1.0.8 (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-example-1.0.8-bin.tar.gz} myfaces-tobago-example-1.0.8-bin.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-example-1.0.8-bin.tar.gz.md5} myfaces-tobago-example-1.0.8-bin.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-example-1.0.8-bin.tar.gz.asc} myfaces-tobago-example-1.0.8-bin.tar.gz.asc}} |
+*-------------------------+---------+----------+-----------+
+| MyFaces Tobago Example 1.0.8 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-example-1.0.8-bin.zip} myfaces-tobago-example-1.0.8-bin.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-example-1.0.8-bin.zip.md5} myfaces-tobago-example-1.0.8-bin.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-example-1.0.8-bin.zip.asc} myfaces-tobago-example-1.0.8-bin.zip.asc}} |
 *-------------------------+---------+----------+-----------+
 
 Latest source code from SVN repository
@@ -44,3 +51,49 @@ Archive of old releases
     Older releases are available in the {{{http://archive.apache.org/dist/myfaces/} archive}}.  Those
     releases are only provided as historical artefacts. We strongly
     recommend to not use those releases, but upgrade to the most recent release.
+
+Verifying checksums
+
+    It is essential that you verify the integrity of the downloaded
+    files using the PGP and MD5 signatures.  MD5 verification ensures the
+    file was not corrupted during the download process.  PGP verification
+    ensures that the file came from a certain person.
+
+    To verify the MD5 signature on the files, you need to use a program
+    called <<<md5>>> or <<<md5sum>>>, which is
+    included in many unix distributions.  It is also available as part of
+    {{{http://www.gnu.org/software/textutils/textutils.html}GNU Textutils}}.
+    Windows users can get binary md5 programs from {{{http://www.fourmilab.ch/md5/}here}},
+    {{{http://www.pc-tools.net/win32/freeware/console/}here}}, or
+    {{{http://www.slavasoft.com/fsum/}here}}.
+
+Verifying signatures
+
+  	PGP verification ensures that the file came from a certain person.  We strongly recommend
+	  you verify your downloads with both PGP and MD5.
+
+	  The PGP signatures can be verified using {{{http://www.pgpi.org/}PGP}} or
+	  {{{http://www.gnupg.org/}GPG}}.  First download the Apache MyFaces
+	  {{{http://www.apache.org/dist/myfaces/KEYS}KEYS}}	as well as the <<<asc>>> signature file
+	  for the particular distribution. It is important that you get these files from the ultimate
+	  trusted source - the main ASF distribution site, rather than from a mirror.
+	  Then verify the signatures using ...
+
+	  <<<
+	  % pgpk -a KEYS
+	  % pgpv myfaces-tobago-1.0.X-bin.tar.gz.asc
+	  >>>
+
+	  <or>
+
+	  <<<
+	  % pgp -ka KEYS
+	  % pgp myfaces-tobago-1.0.X-bin.tar.gz.asc
+	  >>>
+
+	  <or>
+
+	  <<<
+  	% gpg --import KEYS
+	  % gpg --verify myfaces-tobago-1.0.X-bin.tar.gz.asc
+	  >>>
