@@ -64,6 +64,7 @@
         <module>security</module>
         <module>test</module>
         <module>facelets</module>
+        <module>tobago-example-assembly</module>
       </modules>
     </profile>
     <profile>
