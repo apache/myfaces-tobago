@@ -392,7 +392,7 @@ public class ResourceManagerImpl implements ResourceManager {
         Class clazz = null;
         List classes =  getPaths(clientPropertyId, locale, "", type, name,
             "", false, true, true, null, false, false);
-        if (classes.size() > 0) {
+        if (classes != null && classes.size() > 0) {
           clazz = (Class) classes.get(0);
         } else {
           throw new RuntimeException("Don't find any RendererClass for " + name + ". Please check you configuration.");
