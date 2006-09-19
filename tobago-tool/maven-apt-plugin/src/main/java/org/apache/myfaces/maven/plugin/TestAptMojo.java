@@ -60,7 +60,6 @@ public class TestAptMojo extends AbstractAPTMojo
      * 
      * @parameter expression="${project.testCompileSourceRoots}"
      * @required
-     * @readonly
      */
     private List compileSourceRoots;
 

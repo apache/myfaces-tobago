@@ -53,7 +53,6 @@ public class AptMojo extends AbstractAPTMojo
      * 
      * @parameter expression="${project.compileSourceRoots}"
      * @required
-     * @readonly
      */
     private List compileSourceRoots;
 
