@@ -20,14 +20,14 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Iterator;
 
 import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.codehaus.plexus.compiler.util.scan.SimpleSourceInclusionScanner;
 import org.codehaus.plexus.compiler.util.scan.SourceInclusionScanner;
 import org.codehaus.plexus.compiler.util.scan.StaleSourceScanner;
-import org.codehaus.plexus.compiler.util.scan.mapping.SourceMapping;
 import org.codehaus.plexus.compiler.util.scan.mapping.SuffixMapping;
+import org.codehaus.plexus.compiler.util.scan.mapping.SingleTargetSourceMapping;
 
 /**
  * @author <a href="mailto:jubu@volny.cz">Juraj Burian</a>
@@ -107,6 +107,10 @@ public class TestAptMojo extends AbstractAPTMojo
             super.execute();
             project.addTestCompileSourceRoot( getGenerated() );
             Resource resource = new Resource();
+            if ( resourceTargetPath != null )
+            {
+                resource.setTargetPath(resourceTargetPath);
+            }
             resource.setDirectory( getGenerated() );
             resource.addExclude( "**/*.java" );
             project.addTestResource( resource );
@@ -137,13 +141,28 @@ public class TestAptMojo extends AbstractAPTMojo
     {
         StaleSourceScanner scanner = null;
 
-        if( true == testIncludes.isEmpty() )
+        if( testIncludes.isEmpty() )
         {
             testIncludes.add( "**/*.java" );
-            scanner = new StaleSourceScanner( staleMillis, testIncludes,
-                    testExcludes );
+
         }
-        scanner.addSourceMapping( new SuffixMapping( ".java", ".class" ) );
+        if (force)
+        {
+            return new AllSourcesInclusionScanner(testIncludes, testExcludes);
+        }
+        scanner = new StaleSourceScanner( staleMillis, testIncludes, testExcludes );
+        if ( targetFiles!=null && targetFiles.size() > 0 )
+        {
+            for ( Iterator it = targetFiles.iterator() ; it.hasNext() ; )
+            {
+                String file = (String) it.next();
+                scanner.addSourceMapping( new SingleTargetSourceMapping(".java", file ) );
+            }
+        }
+        else
+        {
+            scanner.addSourceMapping( new SuffixMapping( ".java", ".class" ) );
+        }
         return scanner;
     }
 }

@@ -31,6 +31,8 @@ import java.util.StringTokenizer;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.codehaus.plexus.compiler.util.scan.SourceInclusionScanner;
 
 /**
@@ -66,6 +68,29 @@ public abstract class AbstractAPTMojo extends AbstractMojo
      * store info about modification of system classpath for Apt compiler
      */
     private static boolean isClasspathModified;
+
+    /**
+     *  A List of targetFiles for SingleSourceTargetMapping
+     *
+     * @parameter
+     */
+    protected List targetFiles;
+
+    /**
+     *  targetPath for generated resources
+     *
+     * @parameter
+     */
+    protected String resourceTargetPath;
+
+    /**
+      * The plugin dependencies.
+      *
+      * @parameter expression="${plugin.artifacts}"
+      * @required
+      * @readonly
+      */
+     private List artifacts;
 
     /**
      * Whether to include debugging information in the compiled class files. The
@@ -149,6 +174,14 @@ public abstract class AbstractAPTMojo extends AbstractMojo
      * @readonly
      */
     private File basedir;
+
+    /**
+     * Force apt call without staleness checking.
+     *
+     * @parameter default-value="false"
+     */
+    protected boolean force;
+
 
     /**
      * The maven project.
@@ -373,8 +406,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         return has;
     }
 
-    private void setClasspath( List cmd ) throws MojoExecutionException
-    {
+    private void setClasspath( List cmd ) throws MojoExecutionException, DependencyResolutionRequiredException {
         StringBuffer buffer = new StringBuffer();
         for( Iterator it = getClasspathElements().iterator(); it.hasNext(); )
         {
@@ -383,6 +415,24 @@ public abstract class AbstractAPTMojo extends AbstractMojo
             {
                 buffer.append( PATH_SEPARATOR );
             }
+        }
+        for( Iterator it = artifacts.iterator(); it.hasNext(); )
+        {
+
+             Artifact a = (Artifact) it.next();
+             File file = a.getFile();
+             if ( file == null )
+             {
+                 throw new DependencyResolutionRequiredException( a );
+             }
+
+
+             if ( buffer.length() > 0 )
+             {
+                 buffer.append( PATH_SEPARATOR );
+             }
+             buffer.append( file.getPath() );
+
         }
         cmdAdd( cmd, "-classpath", buffer.toString() );
     }

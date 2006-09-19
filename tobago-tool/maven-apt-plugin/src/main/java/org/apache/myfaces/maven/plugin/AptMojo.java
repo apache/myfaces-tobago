@@ -49,18 +49,6 @@ public class AptMojo extends AbstractAPTMojo
     private String generated;
 
     /**
-     *  A List of targetFiles for SingleSourceTargetMapping
-     *
-     * @parameter
-     */
-    private List targetFiles;
-    /**
-     *  targetPath for generated resources
-     *
-     * @parameter
-     */
-    private String resourceTargetPath;
-    /**
      * The source directories containing the sources to be compiled.
      * 
      * @parameter expression="${project.compileSourceRoots}"
@@ -86,13 +74,6 @@ public class AptMojo extends AbstractAPTMojo
      * @readonly
      */
     private File outputDirectory;
-
-    /**
-     * Force apt call without staleness chhecking.
-     *
-     * @parameter default-value="false"
-     */
-    private boolean force;
 
     protected String getGenerated()
     {
