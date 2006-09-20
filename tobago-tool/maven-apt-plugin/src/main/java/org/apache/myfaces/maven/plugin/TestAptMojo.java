@@ -60,8 +60,16 @@ public class TestAptMojo extends AbstractAPTMojo
      * 
      * @parameter expression="${project.testCompileSourceRoots}"
      * @required
+     * @readonly
      */
     private List compileSourceRoots;
+
+    /**
+     * The extra source directories containing the test-source to be processed.
+     *
+     * @parameter
+     */
+    private List aptSourceRoots;
 
     /**
      * Project test classpath.
@@ -134,6 +142,11 @@ public class TestAptMojo extends AbstractAPTMojo
     protected File getOutputDirectory()
     {
         return outputDirectory;
+    }
+
+    protected List getAptSourceRoots()
+    {
+        return aptSourceRoots;
     }
 
     protected SourceInclusionScanner getSourceInclusionScanner()

@@ -53,8 +53,16 @@ public class AptMojo extends AbstractAPTMojo
      * 
      * @parameter expression="${project.compileSourceRoots}"
      * @required
+     * @readonly
      */
     private List compileSourceRoots;
+
+    /**
+     * The extra source directories containing the sources to be processed.
+     *
+     * @parameter
+     */
+    private List aptSourceRoots;
 
     /**
      * Project classpath.
@@ -92,6 +100,11 @@ public class AptMojo extends AbstractAPTMojo
     protected File getOutputDirectory()
     {
         return outputDirectory;
+    }
+
+    protected List getAptSourceRoots()
+    {
+        return aptSourceRoots;
     }
 
     public void execute() throws MojoExecutionException

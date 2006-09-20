@@ -31,7 +31,6 @@ import java.util.StringTokenizer;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.codehaus.plexus.compiler.util.scan.SourceInclusionScanner;
 
@@ -82,15 +81,6 @@ public abstract class AbstractAPTMojo extends AbstractMojo
      * @parameter
      */
     protected String resourceTargetPath;
-
-    /**
-      * The plugin dependencies.
-      *
-      * @parameter expression="${plugin.artifacts}"
-      * @required
-      * @readonly
-      */
-     private List artifacts;
 
     /**
      * Whether to include debugging information in the compiled class files. The
@@ -196,6 +186,8 @@ public abstract class AbstractAPTMojo extends AbstractMojo
 
     protected abstract List getCompileSourceRoots();
 
+    protected abstract List getAptSourceRoots();
+
     protected abstract File getOutputDirectory();
 
     protected abstract String getGenerated();
@@ -242,6 +234,10 @@ public abstract class AbstractAPTMojo extends AbstractMojo
             }
             Class c = this.getClass().forName( APT_ENTRY_POINT ); // getAptCompilerClass();
             Object compiler = c.newInstance();
+            if( getLog().isDebugEnabled() )
+            {
+                getLog().debug( "Invoking apt with cmd " + cmd );
+            }
             try {
               Method compile = c.getMethod( APT_METHOD_NAME, new Class[] {
                     PrintWriter.class, (new String[] {}).getClass() } );
@@ -367,40 +363,60 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         boolean has = false;
         // sources ....
         Iterator it = getCompileSourceRoots().iterator();
+        if( getLog().isDebugEnabled() ) {
+            getLog().debug("Checking sourcepath");
+        }
         while( it.hasNext() )
         {
             File srcFile = new File( (String) it.next() );
-            if( srcFile.isDirectory() )
+            has = addIncludedSources(srcFile, cmd, has);
+        }
+        List aptSourcesRoots = getAptSourceRoots();
+        if( aptSourcesRoots != null) {
+            it = aptSourcesRoots.iterator();
+            while( it.hasNext() )
             {
-                Collection sources = null;
-                try
-                {
-                    sources = //
+                File srcFile = new File( (String) it.next() );
+                has = addIncludedSources(srcFile, cmd, has);
+            }
+        }
+        return has;
+    }
+
+    private boolean addIncludedSources(File srcFile, List cmd, boolean has) throws MojoExecutionException {
+        if( getLog().isDebugEnabled() ) {
+            getLog().debug("Checking sourcepath in " + srcFile);
+        }
+        if( srcFile.isDirectory() )
+        {
+            Collection sources = null;
+            try
+            {
+                sources = //
                     getSourceInclusionScanner().getIncludedSources( srcFile,
-                            getOutputDirectory() );
-                } catch ( Exception ex )
+                        getOutputDirectory() );
+            } catch ( Exception ex )
+            {
+                throw new MojoExecutionException(
+                    "Can't agregate sources.", ex );
+            }
+            if( getLog().isDebugEnabled() )
+            {
+                getLog().debug(
+                        "sources from: " + srcFile.getAbsolutePath() );
+                String s = "";
+                for( Iterator jt = sources.iterator(); jt.hasNext(); )
                 {
-                    throw new MojoExecutionException(
-                            "Can't agregate sources.", ex );
+                     s += jt.next() + "\n";
                 }
-                if( getLog().isDebugEnabled() )
-                {
-                    getLog().debug(
-                            "sources from: " + srcFile.getAbsolutePath() );
-                    String s = "";
-                    for( Iterator jt = sources.iterator(); jt.hasNext(); )
-                    {
-                        s += jt.next() + "\n";
-                    }
-                    getLog().debug( s );
-                }
-                Iterator jt = sources.iterator();
-                while( jt.hasNext() )
-                {
-                    File src = (File) jt.next();
-                    cmd.add( src.getAbsolutePath() );
-                    has = true;
-                }
+                getLog().debug( s );
+            }
+            Iterator jt = sources.iterator();
+            while( jt.hasNext() )
+            {
+                File src = (File) jt.next();
+                cmd.add( src.getAbsolutePath() );
+                has = true;
             }
         }
         return has;
@@ -415,24 +431,6 @@ public abstract class AbstractAPTMojo extends AbstractMojo
             {
                 buffer.append( PATH_SEPARATOR );
             }
-        }
-        for( Iterator it = artifacts.iterator(); it.hasNext(); )
-        {
-
-             Artifact a = (Artifact) it.next();
-             File file = a.getFile();
-             if ( file == null )
-             {
-                 throw new DependencyResolutionRequiredException( a );
-             }
-
-
-             if ( buffer.length() > 0 )
-             {
-                 buffer.append( PATH_SEPARATOR );
-             }
-             buffer.append( file.getPath() );
-
         }
         cmdAdd( cmd, "-classpath", buffer.toString() );
     }
