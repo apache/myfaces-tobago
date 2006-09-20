@@ -21,7 +21,6 @@
     <notifiers>
       <notifier>
         <type>mail</type>
-        <!--sendOnSuccess>true</sendOnSuccess-->
         <configuration>
           <address>commits@myfaces.apache.org</address>
         </configuration>
@@ -456,15 +455,6 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-          <encoding>UTF-8</encoding>
-        </configuration>
-      </plugin>
     </plugins>
     <extensions>
       <extension>
@@ -503,9 +493,35 @@
           </configuration>
         </plugin>
         <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>retrotranslator-maven-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>retrotranslate</id>
+              <goals>
+                <goal>translate</goal>
+              </goals>
+              <configuration>
+                <verbose>true</verbose>
+                <includes>
+                  <include>
+                    <directory>${project.build.directory}/classes</directory>
+                  </include>
+                </includes>
+                <destdir>${project.build.directory}/classes-retro</destdir>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>2.0.1</version>
+          <configuration>
+            <source>1.5</source>
+            <target>1.5</target>
+            <encoding>UTF-8</encoding>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -516,6 +532,20 @@
             <downloadSources>true</downloadSources>
             <jdkLevel>5.0</jdkLevel>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>net.sourceforge.maven-taglib</groupId>
+          <artifactId>maven-taglib-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>attach-tlddoc</id>
+              <goals><goal>taglibdocjar</goal></goals>
+              <configuration>
+                <taglib.src.dir>${basedir}/target/generated-tld</taglib.src.dir>
+                <tldDocDir>${basedir}/target/tlddoc</tldDocDir>
+              </configuration>
+            </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -560,6 +590,7 @@
         <module>example</module>
         <module>contrib</module>
         <module>tobago-assembly</module>
+        <!--module>tobago-sandbox</module-->
       </modules>
     </profile>
     <profile>

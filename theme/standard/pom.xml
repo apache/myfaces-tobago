@@ -49,18 +49,7 @@
             <artifactId>retrotranslator-maven-plugin</artifactId>
             <executions>
               <execution>
-                <goals>
-                  <goal>translate</goal>
-                </goals>
-                <configuration>
-                  <verify>true</verify>
-                  <includes>
-                    <include>
-                      <directory>${project.build.directory}/classes</directory>
-                    </include>
-                  </includes>
-                  <destdir>${project.build.directory}/classes-retro</destdir>
-                </configuration>
+                <id>retrotranslate</id>
               </execution>
             </executions>
           </plugin>
@@ -68,12 +57,20 @@
             <artifactId>maven-jar-plugin</artifactId>
             <executions>
               <execution>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
+                <id>create-jdk14retro-jar</id>
                 <configuration>
                   <classesDirectory>${project.build.directory}/classes-retro</classesDirectory>
                   <classifier>jdk14retro</classifier>
+                  <archive>
+                    <manifestEntries>
+                      <Extension-Name>${project.artifactId}-jdk14retro</Extension-Name>
+                      <Specification-Vendor>${project.organization.name}</Specification-Vendor>
+                      <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+                      <Implementation-Title>${project.description}</Implementation-Title>
+                      <Implementation-Version>${project.version}</Implementation-Version>
+                      <Revision>${scm.revision}</Revision>
+                    </manifestEntries>
+                   </archive>
                 </configuration>
               </execution>
             </executions>

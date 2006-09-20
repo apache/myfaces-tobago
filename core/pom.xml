@@ -26,21 +26,21 @@
         <groupId>org.apache.myfaces.tobago</groupId>
         <artifactId>maven-apt-plugin</artifactId>
         <version>${project.version}</version>
-        <configuration>
-          <targetFiles>
-            <targetFile>org/apache/myfaces/tobago/taglib/component/tobago.tld</targetFile>
-            <targetFile>org/apache/myfaces/tobago/taglib/extension/tobago-extension.tld</targetFile>
-          </targetFiles>
-          <resourceTargetPath>META-INF</resourceTargetPath>
-          <generated>target/generated-tld</generated>
-          <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
-          <nocompile>true</nocompile>
-          <encoding>UTF-8</encoding>
-        </configuration>
         <executions>
           <execution>
             <id>tobago-tlds</id>
             <goals><goal>execute</goal></goals>
+            <configuration>
+              <targetFiles>
+                <targetFile>org/apache/myfaces/tobago/taglib/component/tobago.tld</targetFile>
+                <targetFile>org/apache/myfaces/tobago/taglib/extension/tobago-extension.tld</targetFile>
+              </targetFiles>
+              <resourceTargetPath>META-INF</resourceTargetPath>
+              <generated>target/generated-tld</generated>
+              <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
+              <nocompile>true</nocompile>
+              <encoding>UTF-8</encoding>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -77,6 +77,12 @@
     <dependency>
       <groupId>commons-collections</groupId>
       <artifactId>commons-collections</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
+      <artifactId>tobago-tool-apt</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>commons-digester</groupId>
@@ -122,7 +128,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-tool-apt</artifactId>
+      <artifactId>tobago-tool-annotation</artifactId>
       <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>
@@ -168,20 +174,20 @@
             <groupId>org.apache.myfaces.tobago</groupId>
             <artifactId>maven-apt-plugin</artifactId>
             <version>${project.version}</version>
-            <configuration>
-              <targetFiles>
-                <targetFile>org/apache/myfaces/tobago/taglib/component/tobago.xml</targetFile>
-                <targetFile>org/apache/myfaces/tobago/taglib/extension/tobago-extension.xml</targetFile>
-              </targetFiles>
-              <generated>target/doc</generated>
-              <factory>org.apache.myfaces.tobago.apt.TobagoAnnotationProcessorFactory</factory>
-              <nocompile>true</nocompile>
-              <encoding>UTF-8</encoding>
-            </configuration>
             <executions>
               <execution>
                 <id>tobago-doc</id>
                 <goals><goal>execute</goal></goals>
+                <configuration>
+                  <targetFiles>
+                    <targetFile>org/apache/myfaces/tobago/taglib/component/tobago.xml</targetFile>
+                    <targetFile>org/apache/myfaces/tobago/taglib/extension/tobago-extension.xml</targetFile>
+                  </targetFiles>
+                  <generated>target/doc</generated>
+                  <factory>org.apache.myfaces.tobago.apt.TobagoAnnotationProcessorFactory</factory>
+                  <nocompile>true</nocompile>
+                  <encoding>UTF-8</encoding>
+                </configuration>
               </execution>
             </executions>
           </plugin>
@@ -204,7 +210,6 @@
               </execution>
             </executions>
           </plugin>
-
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
@@ -218,15 +223,10 @@
           <plugin>
             <groupId>net.sourceforge.maven-taglib</groupId>
             <artifactId>maven-taglib-plugin</artifactId>
-            <configuration>
-              <taglib.src.dir>${basedir}/target/generated-tld</taglib.src.dir>
-              <tldDocDir>${basedir}/target/tlddoc</tldDocDir>
-            </configuration>
             <executions>
               <execution>
                 <id>attach-tlddoc</id>
-                <goals><goal>taglibdocjar</goal></goals>
-               </execution>
+              </execution>
             </executions>
           </plugin>
           <plugin>
@@ -242,7 +242,7 @@
         </plugins>
       </build>
     </profile>
-     <profile>
+    <profile>
       <id>all-modules</id>
       <build>
         <plugins>
@@ -285,18 +285,7 @@
             <artifactId>retrotranslator-maven-plugin</artifactId>
             <executions>
               <execution>
-                <goals>
-                  <goal>translate</goal>
-                </goals>
-                <configuration>
-                  <verbose>true</verbose>
-                  <includes>
-                    <include>
-                      <directory>${project.build.directory}/classes</directory>
-                    </include>
-                  </includes>
-                  <destdir>${project.build.directory}/classes-retro</destdir>
-                </configuration>
+                <id>retrotranslate</id>
               </execution>
             </executions>
           </plugin>
@@ -304,12 +293,20 @@
             <artifactId>maven-jar-plugin</artifactId>
             <executions>
               <execution>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
+                <id>create-jdk14retro-jar</id>
                 <configuration>
                   <classesDirectory>${project.build.directory}/classes-retro</classesDirectory>
                   <classifier>jdk14retro</classifier>
+                  <archive>
+                    <manifestEntries>
+                      <Extension-Name>${project.artifactId}-jdk14retro</Extension-Name>
+                      <Specification-Vendor>${project.organization.name}</Specification-Vendor>
+                      <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+                      <Implementation-Title>${project.description}</Implementation-Title>
+                      <Implementation-Version>${project.version}</Implementation-Version>
+                      <Revision>${scm.revision}</Revision>
+                    </manifestEntries>
+                   </archive>
                 </configuration>
               </execution>
             </executions>

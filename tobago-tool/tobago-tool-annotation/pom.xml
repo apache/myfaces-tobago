@@ -5,32 +5,12 @@
     <artifactId>tobago-tool</artifactId>
     <version>1.0.9-SNAPSHOT</version>
   </parent>
-  <artifactId>tobago-tool-apt</artifactId>
+  <artifactId>tobago-tool-annotation</artifactId>
   <packaging>jar</packaging>
-  <name>Tobago Apt</name>
-  <description>Tobago Apt</description>
+  <name>Tobago Annotation</name>
+  <description>Tobago Annotation</description>
 
   <dependencies>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-tool-annotation</artifactId>
-      <version>${project.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>ant</groupId>
-      <artifactId>ant</artifactId>
-      <version>1.6.2</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-    </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jsp-api</artifactId>
@@ -39,11 +19,6 @@
       <groupId>org.apache.myfaces.core</groupId>
       <artifactId>myfaces-api</artifactId>
       <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.modello</groupId>
-      <artifactId>modello-core</artifactId>
-      <version>1.0-alpha-8</version>
     </dependency>
   </dependencies>
 

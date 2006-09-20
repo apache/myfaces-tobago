@@ -12,6 +12,7 @@
     <module>maven-apt-plugin</module>
     <module>maven-theme-plugin</module>
     <module>tobago-tool-apt</module>
+    <module>tobago-tool-annotation</module>
   </modules>
   <profiles>
     <profile>

@@ -59,64 +59,45 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>add-source</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>add-source</goal>
-            </goals>
-            <configuration>
-              <sources>
-                <source>${project.build.directory}/tobago-core-sources</source>
-              </sources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.apache.myfaces.tobago</groupId>
         <artifactId>maven-apt-plugin</artifactId>
         <version>${project.version}</version>
-        <configuration>
-          <excludes>
-            <exclude>org/apache/myfaces/tobago/*</exclude>
-          </excludes>
-          <includes>
-            <include>org/apache/myfaces/tobago/taglib/component/*</include>
-            <include>org/apache/myfaces/tobago/taglib/declaration/*</include>
-          </includes>
-          <targetFiles>
-            <targetFile>tobago.taglib.xml</targetFile>
-          </targetFiles>
-          <resourceTargetPath>META-INF</resourceTargetPath>
-          <generated>target/generated-sources</generated>
-          <factory>org.apache.myfaces.tobago.apt.FaceletAnnotationProcessorFactory</factory>
-          <nocompile>true</nocompile>
-          <encoding>UTF-8</encoding>
-        </configuration>
         <executions>
           <execution>
             <id>tobago-facelet-taglib</id>
             <goals><goal>execute</goal></goals>
+            <configuration>
+              <excludes>
+                <exclude>org/apache/myfaces/tobago/*</exclude>
+              </excludes>
+              <includes>
+                <include>org/apache/myfaces/tobago/taglib/component/*</include>
+                <include>org/apache/myfaces/tobago/taglib/decl/*</include>
+              </includes>
+              <aptSourceRoots>
+                <aptSourceRoot>${project.build.directory}/tobago-core-sources</aptSourceRoot>
+              </aptSourceRoots>
+              <targetFiles>
+                <targetFile>tobago.taglib.xml</targetFile>
+              </targetFiles>
+              <resourceTargetPath>META-INF</resourceTargetPath>
+              <generated>target/generated-sources</generated>
+              <factory>org.apache.myfaces.tobago.apt.FaceletAnnotationProcessorFactory</factory>
+              <nocompile>true</nocompile>
+              <encoding>UTF-8</encoding>
+            </configuration>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-          <encoding>UTF-8</encoding>
-          <includes><include>org/apache/myfaces/tobago/facelets/*</include></includes>
-        </configuration>
       </plugin>
     </plugins>
   </build>
   <dependencies>
+    <dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
+      <artifactId>tobago-tool-apt</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>javax.el</groupId>
       <artifactId>el-api</artifactId>
@@ -129,7 +110,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-tool-apt</artifactId>
+      <artifactId>tobago-tool-annotation</artifactId>
       <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>
@@ -172,18 +153,7 @@
             <artifactId>retrotranslator-maven-plugin</artifactId>
             <executions>
               <execution>
-                <goals>
-                  <goal>translate</goal>
-                </goals>
-                <configuration>
-                  <verbose>true</verbose>
-                  <includes>
-                    <include>
-                      <directory>${project.build.directory}/classes</directory>
-                    </include>
-                  </includes>
-                  <destdir>${project.build.directory}/classes-retro</destdir>
-                </configuration>
+                <id>retrotranslate</id>
               </execution>
             </executions>
           </plugin>
@@ -191,12 +161,20 @@
             <artifactId>maven-jar-plugin</artifactId>
             <executions>
               <execution>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
+                <id>create-jdk14retro-jar</id>
                 <configuration>
                   <classesDirectory>${project.build.directory}/classes-retro</classesDirectory>
                   <classifier>jdk14retro</classifier>
+                  <archive>
+                    <manifestEntries>
+                      <Extension-Name>${project.artifactId}-jdk14retro</Extension-Name>
+                      <Specification-Vendor>${project.organization.name}</Specification-Vendor>
+                      <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+                      <Implementation-Title>${project.description}</Implementation-Title>
+                      <Implementation-Version>${project.version}</Implementation-Version>
+                      <Revision>${scm.revision}</Revision>
+                    </manifestEntries>
+                  </archive>
                 </configuration>
               </execution>
             </executions>
