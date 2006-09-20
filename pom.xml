@@ -533,20 +533,6 @@
             <jdkLevel>5.0</jdkLevel>
           </configuration>
         </plugin>
-        <plugin>
-          <groupId>net.sourceforge.maven-taglib</groupId>
-          <artifactId>maven-taglib-plugin</artifactId>
-          <executions>
-            <execution>
-              <id>attach-tlddoc</id>
-              <goals><goal>taglibdocjar</goal></goals>
-              <configuration>
-                <taglib.src.dir>${basedir}/target/generated-tld</taglib.src.dir>
-                <tldDocDir>${basedir}/target/tlddoc</tldDocDir>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
       </plugins>
     </pluginManagement>
   </build>
