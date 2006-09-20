@@ -54,7 +54,7 @@
         <groupId>net.sourceforge.maven-taglib</groupId>
         <artifactId>maven-taglib-plugin</artifactId>
         <configuration>
-          <taglib.src.dir>${basedir}/target/classes/META-INF/</taglib.src.dir>
+          <taglib.src.dir>${basedir}/target/generated-tld</taglib.src.dir>
           <tldDocDir>${basedir}/target/site/tlddoc</tldDocDir>
         </configuration>
       </plugin>
@@ -223,14 +223,14 @@
           <plugin>
             <groupId>net.sourceforge.maven-taglib</groupId>
             <artifactId>maven-taglib-plugin</artifactId>
+            <configuration>
+              <taglib.src.dir>${basedir}/target/generated-tld</taglib.src.dir>
+              <tldDocDir>${basedir}/target/tlddoc</tldDocDir>
+            </configuration>
             <executions>
               <execution>
                 <id>attach-tlddoc</id>
                 <goals><goal>taglibdocjar</goal></goals>
-                <configuration>
-                  <taglib.src.dir>${basedir}/target/generated-tld</taglib.src.dir>
-                  <tldDocDir>${basedir}/target/tlddoc</tldDocDir>
-                </configuration>
               </execution>
             </executions>
           </plugin>
