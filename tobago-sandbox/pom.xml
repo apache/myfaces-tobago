@@ -56,10 +56,12 @@
               <targetFiles>
                 <targetFile>org/apache/myfaces/tobago/taglib/sandbox/tobago-sandbox.tld</targetFile>
               </targetFiles>
-              <includes>
-                <include>org/apache/myfaces/tobago/taglib/sandbox/*</include>
-                <include>org/apache/myfaces/tobago/taglib/decl/*</include>
-              </includes>
+              <excludes>
+                <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
+                <exclude>org/apache/myfaces/tobago/application/FopConverter.java</exclude>
+                <exclude>org/apache/myfaces/tobago/taglib/component/*</exclude>
+                <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>
+              </excludes>
               <aptSourceRoots>
                 <aptSourceRoot>${project.build.directory}/tobago-core-sources</aptSourceRoot>
               </aptSourceRoots>
@@ -67,7 +69,6 @@
               <generated>target/generated-tld</generated>
               <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
               <nocompile>true</nocompile>
-              <verbose>true</verbose>
               <encoding>UTF-8</encoding>
             </configuration>
           </execution>
