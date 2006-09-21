@@ -223,7 +223,9 @@ public class CalendarRenderer extends RendererBase {
 
     String[] cmd = {
         "document.calendar = new Object();",
-        "initCalendarParse('" + id + "', '" + dateTextBoxId + "');"
+        dateTextBoxId != null
+            ? "initCalendarParse('" + id + "', '" + dateTextBoxId + "');"
+            : ""
     };
     HtmlRendererUtil.writeScriptLoader(facesContext, scripts, cmd);
   }
