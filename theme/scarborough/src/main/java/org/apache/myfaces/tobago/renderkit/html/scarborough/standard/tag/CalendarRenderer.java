@@ -50,12 +50,19 @@ public class CalendarRenderer extends RendererBase {
   private static final Log LOG = LogFactory.getLog(CalendarRenderer.class);
 
 
+  private static final String[] scripts = {
+        "script/calendar.js",
+        "script/dateConverter.js"
+    };
+
+
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
     UIOutput output = (UIOutput) component;
     UIPage page = ComponentUtil.findPage(output);
-    page.getScriptFiles().add("script/calendar.js");
-    page.getScriptFiles().add("script/dateConverter.js");
+    for (String script : scripts) {
+      page.getScriptFiles().add(script);      
+    }
 
     String id = output.getClientId(facesContext);
 
@@ -214,15 +221,13 @@ public class CalendarRenderer extends RendererBase {
 
     writeInputHidden(writer, id + ":fieldId", "");
 
-    HtmlRendererUtil.startJavascript(writer);
-    writer.writeText("document.calendar = new Object();", null);
-
-    if (dateTextBoxId != null) {
-       writer.writeText(
-           "initCalendarParse('" + id + "', '" + dateTextBoxId + "');", null);
-    }
-    HtmlRendererUtil.endJavascript(writer);
+    String[] cmd = {
+        "document.calendar = new Object();",
+        "initCalendarParse('" + id + "', '" + dateTextBoxId + "');"
+    };
+    HtmlRendererUtil.writeScriptLoader(facesContext, scripts, cmd);
   }
+  
   private void writeInputHidden(TobagoResponseWriter writer,
        String id, Object value) throws IOException {
     writeInputHidden(writer, null, id, value);
