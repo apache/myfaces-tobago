@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.taglib.sandbox;
 
 import org.apache.myfaces.tobago.taglib.component.TobagoTag;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.component.UISeparator;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
@@ -35,11 +36,11 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
  * Renders a separator.
  */
 
-@Tag(name = "separator", bodyContent = BodyContent.EMPTY)
+@Tag(name = "separator")
 @UIComponentTag(rendererType = "Separator",
     uiComponent = "org.apache.myfaces.tobago.component.UISeparator")
 
-public class SeparatorTag  extends TobagoTag implements HasIdBindingAndRendered {
+public class SeparatorTag  extends TobagoTag implements HasIdBindingAndRendered{
 
    public String getComponentType() {
     return UISeparator.COMPONENT_TYPE;
