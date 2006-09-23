@@ -25,10 +25,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -85,16 +88,16 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    writer.startElement("select", component);
+    writer.startElement(HtmlConstants.SELECT, component);
     String clientId = component.getClientId(facesContext);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute("disabled",
+    writer.writeAttribute(HtmlAttributes.DISABLED,
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
-    writer.writeAttribute("style", null, "style");
+    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
     writer.writeComponentClass();
-    writer.writeAttribute("multiple", "multiple", null);
-    writer.writeAttribute("title", null, ATTR_TIP);
+    writer.writeAttribute(HtmlAttributes.MULTIPLE, "multiple", null);
+    writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
 
     Object[] values = component.getSelectedValues();
     if (LOG.isDebugEnabled()) {
@@ -102,20 +105,20 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     }
     for (SelectItem item : items) {
 
-      writer.startElement("option", null);
+      writer.startElement(HtmlConstants.OPTION, null);
       String formattedValue
           = getFormattedValue(facesContext, component, item.getValue());
-      writer.writeAttribute("value", formattedValue, null);
+      writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, null);
       if (RenderUtil.contains(values, item.getValue())) {
-        writer.writeAttribute("selected", "selected", null);
+        writer.writeAttribute(HtmlAttributes.SELECTED, "selected", null);
       }
       writer.writeText(item.getLabel(), null);
-      writer.endElement("option");
+      writer.endElement(HtmlConstants.OPTION);
 //    LOG.debug("item-value" + item.getValue());
     }
 
 
-    writer.endElement("select");
+    writer.endElement(HtmlConstants.SELECT);
     checkForCommandFacet(component, facesContext, writer);
   }
 

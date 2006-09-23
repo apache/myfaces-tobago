@@ -30,6 +30,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -60,32 +62,32 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
         || ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)
         || ComponentUtil.getBooleanAttribute(component, ATTR_READONLY);
 
-    writer.startElement("select", component);
+    writer.startElement(HtmlConstants.SELECT, component);
     writer.writeNameAttribute(component.getClientId(facesContext));
     writer.writeIdAttribute(component.getClientId(facesContext));
-    writer.writeAttribute("disabled", disabled);
-    writer.writeAttribute("style", null, ATTR_STYLE);
+    writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
+    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
     writer.writeComponentClass();
-    writer.writeAttribute("title", null, ATTR_TIP);
+    writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
     String onchange = HtmlUtils.generateOnchange(component, facesContext);
     if (onchange != null) {
-      writer.writeAttribute("onchange", onchange, null);
+      writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
     }
 
     Object value = component.getValue();
     for (SelectItem item : items) {
       final Object itemValue = item.getValue();
-      writer.startElement("option", null);
+      writer.startElement(HtmlConstants.OPTION, null);
       String formattedValue
           = getFormattedValue(facesContext, component, itemValue);
-      writer.writeAttribute("value", formattedValue, null);
+      writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, null);
       if (itemValue.equals(value)) {
-        writer.writeAttribute("selected", "selected", null);
+        writer.writeAttribute(HtmlAttributes.SELECTED, "selected", null);
       }
       writer.writeText(item.getLabel(), null);
-      writer.endElement("option");
+      writer.endElement(HtmlConstants.OPTION);
     }
-    writer.endElement("select");
+    writer.endElement(HtmlConstants.SELECT);
     super.encodeEndTobago(facesContext, component);
     checkForCommandFacet(component, facesContext, writer);
   }

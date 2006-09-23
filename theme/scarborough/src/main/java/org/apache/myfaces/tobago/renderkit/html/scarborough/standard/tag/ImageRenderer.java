@@ -33,6 +33,8 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UICommand;
@@ -86,27 +88,27 @@ public class ImageRenderer extends RendererBase {
 
 
 
-    writer.startElement("img", graphic);
+    writer.startElement(HtmlConstants.IMG, graphic);
     final String clientId = graphic.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
     if (ComponentUtil.isHoverEnabled(graphic) && !isDisabled(graphic)) {
-      writer.writeAttribute("onmouseover",
+      writer.writeAttribute(HtmlAttributes.ONMOUSEOVER,
           "Tobago.imageMouseover('" + clientId + "')", null);
-      writer.writeAttribute("onmouseout",
+      writer.writeAttribute(HtmlAttributes.ONMOUSEOUT,
           "Tobago.imageMouseout('" + clientId + "')", null);
     }
     if (src != null) {
-      writer.writeAttribute("src", src, null);
+      writer.writeAttribute(HtmlAttributes.SRC, src, null);
     }
-    writer.writeAttribute("alt", alt, null);
+    writer.writeAttribute(HtmlAttributes.ALT, alt, null);
     if (tip != null) {
-      writer.writeAttribute("title", tip, null);
+      writer.writeAttribute(HtmlAttributes.TITLE, tip, null);
     }
-    writer.writeAttribute("border", border, null);
-    writer.writeAttribute("height", null, ATTR_HEIGHT);
-    writer.writeAttribute("style", null, ATTR_STYLE);
+    writer.writeAttribute(HtmlAttributes.BORDER, border, null);
+    writer.writeAttribute(HtmlAttributes.HEIGHT, null, ATTR_HEIGHT);
+    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
     writer.writeComponentClass();
-    writer.endElement("img");
+    writer.endElement(HtmlConstants.IMG);
   }
 
   public static String createSrc(String src, String ext) {

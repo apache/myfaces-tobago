@@ -26,6 +26,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import org.apache.commons.logging.Log;
@@ -67,9 +68,9 @@ public class MessagesRenderer extends MessageRendererBase {
       LOG.debug("facesContect is " + facesContext.getClass().getName());
     }
     if (facesContext.getMessages().hasNext()) { // in ie empty span gets a height
-      writer.startElement("span", component);
+      writer.startElement(HtmlConstants.SPAN, component);
       writer.writeClassAttribute("tobago-validation-message");
-      writer.writeAttribute("style", null, ATTR_STYLE);
+      writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
 
       // with id
       String focusId = null;
@@ -92,7 +93,7 @@ public class MessagesRenderer extends MessageRendererBase {
         ComponentUtil.findPage(component).setFocusId(focusId);
       }
 
-      writer.endElement("span");
+      writer.endElement(HtmlConstants.SPAN);
     }
   }
 
@@ -113,13 +114,13 @@ public class MessagesRenderer extends MessageRendererBase {
       throws IOException {
     writer.startElement(HtmlConstants.LABEL, null);
     if (clientId != null) {
-      writer.writeAttribute("for", clientId, null);
+      writer.writeAttribute(HtmlAttributes.FOR, clientId, null);
     }
-    writer.writeAttribute("title", message.getDetail(), null);
+    writer.writeAttribute(HtmlAttributes.TITLE, message.getDetail(), null);
     writer.writeText(message.getSummary(), null);
     writer.endElement(HtmlConstants.LABEL);
-    writer.startElement("br", null);
-    writer.endElement("br");
+    writer.startElement(HtmlConstants.BR, null);
+    writer.endElement(HtmlConstants.BR);
   }
 
 // ///////////////////////////////////////////// bean getter + setter

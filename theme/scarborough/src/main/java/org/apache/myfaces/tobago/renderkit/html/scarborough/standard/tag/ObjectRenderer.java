@@ -21,6 +21,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -31,22 +33,22 @@ public class ObjectRenderer extends RendererBase {
   public void encodeEndTobago(FacesContext facesContext, UIComponent component)
       throws IOException {
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
-    writer.startElement("iframe", component);
-    writer.writeAttribute("src", null, ATTR_TARGET);
+    writer.startElement(HtmlConstants.IFRAME, component);
+    writer.writeAttribute(HtmlAttributes.SRC, null, ATTR_TARGET);
     writer.writeComponentClass();
-    writer.writeAttribute("style", null, ATTR_STYLE);
+    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
 
     String noframes = ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "browser.noframe.message.prefix");
     writer.writeText(noframes + " ", null);
-    writer.startElement("a", component);
-    writer.writeAttribute("href", null, ATTR_TARGET);
+    writer.startElement(HtmlConstants.A, component);
+    writer.writeAttribute(HtmlAttributes.HREF, null, ATTR_TARGET);
     writer.writeText(null, ATTR_TARGET);
-    writer.endElement("a");
+    writer.endElement(HtmlConstants.A);
     noframes = ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "browser.noframe.message.postfix");
     writer.writeText(" " + noframes, null);
 
-    writer.endElement("iframe");
+    writer.endElement(HtmlConstants.IFRAME);
   }
 }

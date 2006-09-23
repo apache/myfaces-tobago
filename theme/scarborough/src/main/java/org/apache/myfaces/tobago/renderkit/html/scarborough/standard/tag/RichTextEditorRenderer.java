@@ -45,6 +45,8 @@ import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -111,9 +113,9 @@ public class RichTextEditorRenderer extends InputRendererBase {
     String classes
         = (String) component.getAttributes().get(ATTR_STYLE_CLASS);
 
-    writer.startElement("div", component);
+    writer.startElement(HtmlConstants.DIV, component);
     writer.writeClassAttribute(classes + " tobago-richTextEditor-container");
-    writer.writeAttribute("style", null, ATTR_STYLE);
+    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
     // class, stly.width, style.height
 
     UIComponent toolbar = component.getFacet(FACET_TOOL_BAR);
@@ -130,39 +132,39 @@ public class RichTextEditorRenderer extends InputRendererBase {
     String content = getCurrentValue(facesContext, component);
 
     if (previewState) {
-      writer.startElement("input", component);
-      writer.writeAttribute("type", "hidden", null);
+      writer.startElement(HtmlConstants.INPUT, component);
+      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
       writer.writeNameAttribute(clientId);
-      writer.writeAttribute("value", content, null);
-      writer.endElement("input");
+      writer.writeAttribute(HtmlAttributes.VALUE, content, null);
+      writer.endElement(HtmlConstants.INPUT);
 
-      writer.startElement("div", component);
+      writer.startElement(HtmlConstants.DIV, component);
       writer.writeClassAttribute(classes + " tobago-richTextEditor-body");
       writer.writeIdAttribute(clientId);
 
-      writer.writeAttribute("style", null, ATTR_STYLE_BODY);
+      writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE_BODY);
 
       writer.write(RichTextEditorRenderer.contentToHtml(content));
 
-      writer.endElement("div");
+      writer.endElement(HtmlConstants.DIV);
     } else {
-      writer.startElement("textarea", component);
+      writer.startElement(HtmlConstants.TEXTAREA, component);
       writer.writeClassAttribute(classes + " tobago-richTextEditor-body");
       writer.writeNameAttribute(clientId);
       writer.writeIdAttribute(clientId);
-      writer.writeAttribute("style", null, ATTR_STYLE_BODY);
+      writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE_BODY);
       String onchange = HtmlUtils.generateOnchange(component, facesContext);
       if (null != onchange) {
-        writer.writeAttribute("onchange", onchange, null);
+        writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
       }
 
       if (content != null) {
         writer.writeText(content, null);
       }
 
-      writer.endElement("textarea");
+      writer.endElement(HtmlConstants.TEXTAREA);
     }
-    writer.endElement("div");
+    writer.endElement(HtmlConstants.DIV);
   }
 
   private UIComponent createToolbar(FacesContext facesContext, UIInput component) {

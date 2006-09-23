@@ -26,6 +26,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -48,30 +50,30 @@ public class BoxRenderer extends BoxRendererBase {
 
     // TODO: move fix style attributes to style.css (border, padding, align, etc)
 
-    writer.startElement("table", component);
-    writer.writeAttribute("style", null, ATTR_STYLE);
-    writer.writeAttribute("border", "1", null);
-    writer.writeAttribute("cellpadding", "5", null);
-    writer.writeAttribute("cellspacing", "0", null);
-    writer.writeAttribute("summary", "", null);
+    writer.startElement(HtmlConstants.TABLE, component);
+    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+    writer.writeAttribute(HtmlAttributes.BORDER, "1", null);
+    writer.writeAttribute(HtmlAttributes.CELLPADDING, "5", null);
+    writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
+    writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
 
     if (label != null || labelString != null) {
 
-      writer.startElement("tr", null);
-      writer.startElement("th", null);
-      writer.writeAttribute("align", "left", null);
+      writer.startElement(HtmlConstants.TR, null);
+      writer.startElement(HtmlConstants.TH, null);
+      writer.writeAttribute(HtmlAttributes.ALIGN, "left", null);
       writer.writeText("", null);
       if (label != null) {
         RenderUtil.encode(facesContext, label);
       } else {
         writer.writeText(labelString, null);
       }
-      writer.endElement("th");
-      writer.endElement("tr");
+      writer.endElement(HtmlConstants.TH);
+      writer.endElement(HtmlConstants.TR);
     }
 
-    writer.startElement("tr", null);
-    writer.startElement("td", null);
+    writer.startElement(HtmlConstants.TR, null);
+    writer.startElement(HtmlConstants.TD, null);
 
   }
 
@@ -80,9 +82,9 @@ public class BoxRenderer extends BoxRendererBase {
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
-    writer.endElement("td");
-    writer.endElement("tr");
-    writer.endElement("table");
+    writer.endElement(HtmlConstants.TD);
+    writer.endElement(HtmlConstants.TR);
+    writer.endElement(HtmlConstants.TABLE);
   }
 
   public void encodeChildrenTobago(FacesContext facesContext,

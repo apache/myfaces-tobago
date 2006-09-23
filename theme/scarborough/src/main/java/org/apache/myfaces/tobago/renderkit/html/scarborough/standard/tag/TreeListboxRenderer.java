@@ -31,6 +31,8 @@ import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -62,9 +64,9 @@ public class TreeListboxRenderer extends TreeRenderer{
     }
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
-    writer.startElement("div", tree);
+    writer.startElement(HtmlConstants.DIV, tree);
     writer.writeComponentClass();
-    writer.writeAttribute("style", null, ATTR_STYLE);
+    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
 
     StringBuffer value = new StringBuffer(";");
     List<UITreeNode> expandPath = tree.getExpandPath();
@@ -73,12 +75,12 @@ public class TreeListboxRenderer extends TreeRenderer{
       value.append(";");
     }
 
-    writer.startElement("input", tree);
-    writer.writeAttribute("type", "hidden", null);
+    writer.startElement(HtmlConstants.INPUT, tree);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute("value", value, null);
-    writer.endElement("input");
+    writer.writeAttribute(HtmlAttributes.VALUE, value, null);
+    writer.endElement(HtmlConstants.INPUT);
 
 
     final Set<DefaultMutableTreeNode> selection = tree.getState().getSelection();
@@ -87,12 +89,12 @@ public class TreeListboxRenderer extends TreeRenderer{
       value.append(nodeStateId(facesContext, tree.findUITreeNode(root, node)));
       value.append(";");
     }
-    writer.startElement("input", tree);
-    writer.writeAttribute("type", "hidden", null);
+    writer.startElement(HtmlConstants.INPUT, tree);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
     writer.writeNameAttribute(clientId + UITreeListbox.SELECT_STATE);
     writer.writeIdAttribute(clientId + UITreeListbox.SELECT_STATE);
-    writer.writeAttribute("value", value, null);
-    writer.endElement("input");
+    writer.writeAttribute(HtmlAttributes.VALUE, value, null);
+    writer.endElement(HtmlConstants.INPUT);
 
     String script = createJavascript(facesContext, clientId, root);
 
@@ -154,20 +156,20 @@ public class TreeListboxRenderer extends TreeRenderer{
 //    int cols = 4;
 //
 //
-//    writer.startElement("table", tree);
-//    writer.writeAttribute("cellpadding", "0", null);
-//    writer.writeAttribute("cellspacing", "0", null);
-//    writer.writeAttribute("border", "0", null);
-//    writer.writeAttribute("summary", "", null);
+//    writer.startElement(HtmlConstants.TABLE, tree);
+//    writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
+//    writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
+//    writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
+//    writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
 //    writer.writeComponentClass(ATTR_STYLE_CLASS);
-//    writer.startElement("tr", null);
+//    writer.startElement(HtmlConstants.TR, null);
 //
 //
 //    String clientId = tree.getClientId(facesContext);
 //
 //    for (int level = 0; level < depth; level++) {
 //
-//      writer.startElement("td", null);
+//      writer.startElement(HtmlConstants.TD, null);
 //
 //
 //
@@ -175,16 +177,16 @@ public class TreeListboxRenderer extends TreeRenderer{
 //
 //
 //
-//      writer.endElement("td");
+//      writer.endElement(HtmlConstants.TD);
 //      if ((level + 1) % cols == 0) {
-//        writer.endElement("tr");
-//        writer.startElement("tr", null);
+//        writer.endElement(HtmlConstants.TR);
+//        writer.startElement(HtmlConstants.TR, null);
 //      }
 //    }
 //
 //
-//    writer.endElement("tr");
-//    writer.endElement("table");
+//    writer.endElement(HtmlConstants.TR);
+//    writer.endElement(HtmlConstants.TABLE);
 //
 //    // ///////////////////////////////////////////////////
 //    // end of layouted list containers
@@ -195,7 +197,7 @@ public class TreeListboxRenderer extends TreeRenderer{
   public void encodeEndTobago(FacesContext facesContext,
                               UIComponent component) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
-    writer.endElement("div");
+    writer.endElement(HtmlConstants.DIV);
   }
 
 //  private void renderListbox(ResponseWriter writer, String clientId, int level,
@@ -211,12 +213,12 @@ public class TreeListboxRenderer extends TreeRenderer{
 //
 //    String listboxId = clientId + SUBCOMPONENT_SEP + "cont_" + level;
 //    String onChange = "tobagoTreeListboxChange(this, '" + clientId + "')";
-//    writer.startElement("select", null);
+//    writer.startElement(HtmlConstants.SELECT, null);
 //    writer.writeIdAttribute(listboxId);
 //    writer.writeClassAttribute(className);
-//    writer.writeAttribute("style" , "width: 150px; height: 100px;", null);
-//    writer.writeAttribute("size", "2", null);
-//    writer.writeAttribute("onchange", onChange, null);
+//    writer.writeAttribute(HtmlAttributes.STYLE , "width: 150px; height: 100px;", null);
+//    writer.writeAttribute(HtmlAttributes.SIZE, "2", null);
+//    writer.writeAttribute(HtmlAttributes.ONCHANGE, onChange, null);
 //
 //
 //
@@ -227,10 +229,10 @@ public class TreeListboxRenderer extends TreeRenderer{
 //        UITreeNode treeNode = (UITreeNode) nodes.get(i);
 //        DefaultMutableTreeNode node = treeNode.getTreeNode();
 //
-//        writer.startElement("option", null);
-//        writer.writeAttribute("value", Integer.toString(i), null);
+//        writer.startElement(HtmlConstants.OPTION, null);
+//        writer.writeAttribute(HtmlAttributes.VALUE, Integer.toString(i), null);
 //        if (treeNode.equals(tree.getSelectedNode(level))) {
-//          writer.writeAttribute("selected", "selected", null);
+//          writer.writeAttribute(HtmlAttributes.SELECTED, "selected", null);
 //        }
 //
 //        writer.writeText(treeNode.getAttributes().get(ATTR_NAME), null);
@@ -238,13 +240,13 @@ public class TreeListboxRenderer extends TreeRenderer{
 //          writer.writeText(" -->", null);
 //        }
 //
-//        writer.endElement("option");
+//        writer.endElement(HtmlConstants.OPTION);
 //      }
 //
 //    }
 //
 //
-//    writer.endElement("select");
+//    writer.endElement(HtmlConstants.SELECT);
 //  }
 
 // ///////////////////////////////////////////// bean getter + setter

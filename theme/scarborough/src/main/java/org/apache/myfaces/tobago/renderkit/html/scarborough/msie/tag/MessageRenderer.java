@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.FacesMessage;
@@ -79,32 +80,32 @@ public class MessageRenderer extends MessageRendererBase {
 
     if (iterator.hasNext()) {
 
-      writer.startElement("span", component);
+      writer.startElement(HtmlConstants.SPAN, component);
       writer.writeClassAttribute("tobago-validation-message");
-      writer.writeAttribute("style", null, ATTR_STYLE);
+      writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
 
       while (iterator.hasNext()) {
         FacesMessage message = (FacesMessage) iterator.next();
 //      MessageFormat detail = new MessageFormat(formatString, tobagoContext.getLocale());
         writer.startElement(HtmlConstants.LABEL, null);
-        writer.writeAttribute("for", clientId, null);
-        writer.writeAttribute("title", message.getDetail(), null);
+        writer.writeAttribute(HtmlAttributes.FOR, clientId, null);
+        writer.writeAttribute(HtmlAttributes.TITLE, message.getDetail(), null);
         writer.writeText(message.getSummary(), null);
         writer.endElement(HtmlConstants.LABEL);
 
-        writer.startElement("br", null);
-        writer.endElement("br");
+        writer.startElement(HtmlConstants.BR, null);
+        writer.endElement(HtmlConstants.BR);
       }
-      writer.endElement("span");
+      writer.endElement(HtmlConstants.SPAN);
 
     } else {
-      writer.startElement("img", null);
+      writer.startElement(HtmlConstants.IMG, null);
       String image = ResourceManagerUtil.getImageWithPath(
           facesContext, "image/1x1.gif");
-      writer.writeAttribute("src", image, null);
-      writer.writeAttribute("alt", "", null);
-      writer.writeAttribute("style", "border: 0px; height: 1px; width: 1px;", null);
-      writer.endElement("img");      
+      writer.writeAttribute(HtmlAttributes.SRC, image, null);
+      writer.writeAttribute(HtmlAttributes.ALT, "", null);
+      writer.writeAttribute(HtmlAttributes.STYLE, "border: 0px; height: 1px; width: 1px;", null);
+      writer.endElement(HtmlConstants.IMG);
     }
   }
 

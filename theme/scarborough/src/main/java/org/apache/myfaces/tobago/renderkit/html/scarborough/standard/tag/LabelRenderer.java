@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -93,28 +94,28 @@ public class LabelRenderer extends RendererBase {
     createClassAttribute(component);
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    writer.startElement("div", output);
+    writer.startElement(HtmlConstants.DIV, output);
     writer.writeComponentClass();    
-    writer.writeAttribute("style", null, ATTR_STYLE);
-    writer.startElement("a", output);
+    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+    writer.startElement(HtmlConstants.A, output);
     writer.writeComponentClass();
     writer.startElement(HtmlConstants.LABEL, output);
     String clientId = output.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
     if (forValue != null) {
-      writer.writeAttribute("for", forValue, null);
+      writer.writeAttribute(HtmlAttributes.FOR, forValue, null);
     }
     writer.writeComponentClass();
     if (width != null) {
-      writer.writeAttribute("style", "width: " + width + "px;", null);
+      writer.writeAttribute(HtmlAttributes.STYLE, "width: " + width + "px;", null);
     }
-    writer.writeAttribute("title", null, ATTR_TIP);
+    writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
     
     if (label.getText() != null) {
       HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
     }
     writer.endElement(HtmlConstants.LABEL);
-    writer.endElement("a");
+    writer.endElement(HtmlConstants.A);
 
     if (label.getAccessKey() != null) {
       if (LOG.isInfoEnabled()
@@ -124,7 +125,7 @@ public class LabelRenderer extends RendererBase {
       HtmlRendererUtil.addClickAcceleratorKey(
           facesContext, clientId, label.getAccessKey());
     }
-    writer.endElement("div");
+    writer.endElement(HtmlConstants.DIV);
   }
 
 }

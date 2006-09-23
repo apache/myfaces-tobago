@@ -48,6 +48,8 @@ import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.StyleAttribute;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -123,12 +125,12 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    writer.startElement("input", null);
-    writer.writeAttribute("type", "hidden", null);
-    writer.writeAttribute("value", Integer.toString(activeIndex), null);
+    writer.startElement(HtmlConstants.INPUT, null);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+    writer.writeAttribute(HtmlAttributes.VALUE, Integer.toString(activeIndex), null);
     writer.writeNameAttribute(hiddenId);
     writer.writeIdAttribute(hiddenId);
-    writer.endElement("input");
+    writer.endElement(HtmlConstants.INPUT);
 
     // if a outer uiPage is presend, the virtual tab will go over all
     // tabs and render it as they are selected, and it will
@@ -143,15 +145,15 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
         if (virtualTab != activeIndex) {
           oStyle.add("display", "none");
         }
-        writer.startElement("div", null);
+        writer.startElement(HtmlConstants.DIV, null);
         writer.writeComment("empty div fix problem with mozilla and fieldset");
-        writer.endElement("div");
+        writer.endElement(HtmlConstants.DIV);
 
-        writer.startElement("div", null);
+        writer.startElement(HtmlConstants.DIV, null);
         writer.writeIdAttribute(clientId);
         renderTabGroupView(facesContext, writer, component, virtualTab, oStyle,
             switchType, image1x1);
-        writer.endElement("div");
+        writer.endElement(HtmlConstants.DIV);
 
         if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()
             && SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
@@ -177,29 +179,29 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
       int virtualTab, StyleAttribute oStyle, String switchType, String image1x1)
       throws IOException {
     UIPanel[] tabs = component.getTabs();
-    writer.startElement("table", null);
-    writer.writeAttribute("border", "0", null);
-    writer.writeAttribute("cellpadding", "0", null);
-    writer.writeAttribute("cellspacing", "0", null);
-    writer.writeAttribute("summary", "", null);
+    writer.startElement(HtmlConstants.TABLE, null);
+    writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
+    writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
+    writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
+    writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
     final String clientId = component.getClientId(facesContext);
     writer.writeIdAttribute(clientId + '.' + virtualTab);
-    writer.writeAttribute("style", oStyle.toString(), null);
+    writer.writeAttribute(HtmlAttributes.STYLE, oStyle.toString(), null);
 
-    writer.startElement("tr", null);
-    writer.writeAttribute("valign", "bottom", null);
+    writer.startElement(HtmlConstants.TR, null);
+    writer.writeAttribute(HtmlAttributes.VALIGN, "bottom", null);
 
-    writer.startElement("td", null);
+    writer.startElement(HtmlConstants.TD, null);
 
-    writer.startElement("table", component);
-    writer.writeAttribute("border", "0", null);
-    writer.writeAttribute("cellpadding", "0", null);
-    writer.writeAttribute("cellspacing", "0", null);
-    writer.writeAttribute("summary", "", null);
-    writer.writeAttribute("style", null, ATTR_STYLE_HEADER);
+    writer.startElement(HtmlConstants.TABLE, component);
+    writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
+    writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
+    writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
+    writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
+    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE_HEADER);
 
-    writer.startElement("tr", null);
-    writer.writeAttribute("valign", "bottom", null);
+    writer.startElement(HtmlConstants.TR, null);
+    writer.writeAttribute(HtmlAttributes.VALIGN, "bottom", null);
 
     UIPanel activeTab = null;
 
@@ -235,28 +237,28 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
         innerClass = "tobago-tab-unselected-inner";
       }
 
-      writer.startElement("td", tab);
-      writer.writeAttribute("title", null, ATTR_TIP);
+      writer.startElement(HtmlConstants.TD, tab);
+      writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
 
-      writer.startElement("div", null);
+      writer.startElement(HtmlConstants.DIV, null);
       writer.writeClassAttribute(outerClass);
 
-      writer.startElement("div", null);
+      writer.startElement(HtmlConstants.DIV, null);
       writer.writeClassAttribute(innerClass);
 
-      writer.startElement("span", null);
+      writer.startElement(HtmlConstants.SPAN, null);
       writer.writeClassAttribute("tobago-tab-link");
       String tabId = clientId + "." + virtualTab + SUBCOMPONENT_SEP + i;
       writer.writeIdAttribute(tabId);
       if (onclick != null) {
-        writer.writeAttribute("onclick", onclick, null);
+        writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, null);
       }
       if (label.getText() != null) {
         HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
       } else {
         writer.writeText(Integer.toString(i+1), null);
       }
-      writer.endElement("span");
+      writer.endElement(HtmlConstants.SPAN);
 
       if (label.getAccessKey() != null) {
         if (LOG.isWarnEnabled()
@@ -266,34 +268,34 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
       HtmlRendererUtil.addClickAcceleratorKey(
           facesContext, tabId, label.getAccessKey());
       }
-      writer.endElement("div");
-      writer.endElement("div");
-      writer.endElement("td");
+      writer.endElement(HtmlConstants.DIV);
+      writer.endElement(HtmlConstants.DIV);
+      writer.endElement(HtmlConstants.TD);
 
     }
 
-    writer.startElement("td", null);
-    writer.writeAttribute("width", "100%", null);
+    writer.startElement(HtmlConstants.TD, null);
+    writer.writeAttribute(HtmlAttributes.WIDTH, "100%", null);
 
-    writer.startElement("div", null);
+    writer.startElement(HtmlConstants.DIV, null);
     writer.writeClassAttribute("tobago-tab-fulfill");
 
-    writer.startElement("img", null);
-    writer.writeAttribute("src", image1x1, null);
-    writer.writeAttribute("alt", "", null);
-    writer.endElement("img");
+    writer.startElement(HtmlConstants.IMG, null);
+    writer.writeAttribute(HtmlAttributes.SRC, image1x1, null);
+    writer.writeAttribute(HtmlAttributes.ALT, "", null);
+    writer.endElement(HtmlConstants.IMG);
 
-    writer.endElement("div");
-    writer.endElement("td");
-    writer.endElement("tr");
-    writer.endElement("table");
+    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlConstants.TD);
+    writer.endElement(HtmlConstants.TR);
+    writer.endElement(HtmlConstants.TABLE);
 
-    writer.endElement("td");
-    writer.endElement("tr");
+    writer.endElement(HtmlConstants.TD);
+    writer.endElement(HtmlConstants.TR);
 
     encodeContent(writer, facesContext, activeTab);
 
-    writer.endElement("table");
+    writer.endElement(HtmlConstants.TABLE);
   }
 
   protected void encodeContent(TobagoResponseWriter writer,
@@ -301,14 +303,14 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
 
     String bodyStyle = (String)
         activeTab.getParent().getAttributes().get(ATTR_STYLE_BODY);
-    writer.startElement("tr", null);
-    writer.startElement("td", null);
+    writer.startElement(HtmlConstants.TR, null);
+    writer.startElement(HtmlConstants.TD, null);
     writer.writeClassAttribute("tobago-tab-content");
-    writer.writeAttribute("style", bodyStyle, null);
+    writer.writeAttribute(HtmlAttributes.STYLE, bodyStyle, null);
     writer.writeText("", null);
     RenderUtil.encodeChildren(facesContext, activeTab);
-    writer.endElement("td");
-    writer.endElement("tr");
+    writer.endElement(HtmlConstants.TD);
+    writer.endElement(HtmlConstants.TR);
   }
 
   public void encodeAjax(FacesContext context, UIComponent component) throws IOException {

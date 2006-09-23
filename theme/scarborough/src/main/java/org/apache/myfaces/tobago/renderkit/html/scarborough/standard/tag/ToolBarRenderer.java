@@ -52,6 +52,8 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -86,11 +88,11 @@ public class ToolBarRenderer extends RendererBase {
     if (!suppressContainer) {
       setToolBarHeight(facesContext, uiComponent);
 
-      writer.startElement("div", toolbar);
+      writer.startElement(HtmlConstants.DIV, toolbar);
       writer.writeIdAttribute(toolbar.getClientId(facesContext));
       writer.writeComponentClass();
-      writer.writeAttribute("style", null, ATTR_STYLE);
-      writer.startElement("div", toolbar);
+      writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+      writer.startElement(HtmlConstants.DIV, toolbar);
       writer.writeClassAttribute("tobago-toolbar-div-inner");
     }
 
@@ -112,8 +114,8 @@ public class ToolBarRenderer extends RendererBase {
     }
 
     if (!suppressContainer) {
-      writer.endElement("div");
-      writer.endElement("div");
+      writer.endElement(HtmlConstants.DIV);
+      writer.endElement(HtmlConstants.DIV);
     }
   }
 
@@ -302,20 +304,20 @@ public class ToolBarRenderer extends RendererBase {
     final String mouseOverScript = "Tobago.toolbarMousesover(" + args + ");";
     final String mouseOutScript = "Tobago.toolbarMousesout(" + args + ");";
 
-    writer.startElement("div", null);
+    writer.startElement(HtmlConstants.DIV, null);
     writer.writeClassAttribute(divClasses);
     if (!disabled) {
-      writer.writeAttribute("onmouseover", mouseOverScript, null);
-      writer.writeAttribute("onmouseout", mouseOutScript, null);
-      writer.writeAttribute("onclick", onClick, null);
+      writer.writeAttribute(HtmlAttributes.ONMOUSEOVER, mouseOverScript, null);
+      writer.writeAttribute(HtmlAttributes.ONMOUSEOUT, mouseOutScript, null);
+      writer.writeAttribute(HtmlAttributes.ONCLICK, onClick, null);
     }
-    writer.startElement("table", null);
-    writer.writeAttribute("cellpadding", "0", null);
-    writer.writeAttribute("cellspacing", "0", null);
-    writer.writeAttribute("summary", "", null);
-    writer.writeAttribute("border", "0", null);
+    writer.startElement(HtmlConstants.TABLE, null);
+    writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
+    writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
+    writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
+    writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
     writer.writeClassAttribute(tableClasses);
-    writer.startElement("tr", null);
+    writer.startElement(HtmlConstants.TR, null);
 
     boolean anchorOnLabel =
         label.getText() != null && !ToolBarTag.LABEL_OFF.equals(labelPosition);
@@ -324,9 +326,9 @@ public class ToolBarRenderer extends RendererBase {
       HtmlRendererUtil.addImageSources(facesContext, writer,
           iconName != null ? iconName : "image/1x1.gif", graphicId);
 
-      writer.startElement("td", command);
-      writer.writeAttribute("align", "center", null);
-      writer.writeAttribute("title", null, ATTR_TIP);
+      writer.startElement(HtmlConstants.TD, command);
+      writer.writeAttribute(HtmlAttributes.ALIGN, "center", null);
+      writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
 
       boolean render1pxImage
           = (iconName == null && (!ToolBarTag.LABEL_BOTTOM.equals(
@@ -338,7 +340,7 @@ public class ToolBarRenderer extends RendererBase {
             && label.getText() != null)
            || popupMenu != null)
           && !render1pxImage) {
-        writer.writeAttribute("style", "padding-right: 3px;", null);
+        writer.writeAttribute(HtmlAttributes.STYLE, "padding-right: 3px;", null);
         // TODO: make this '3px' configurable
       }
 
@@ -348,22 +350,22 @@ public class ToolBarRenderer extends RendererBase {
       if (!anchorOnLabel) {
         renderAnchorBegin(facesContext, writer, command, label, disabled);
       }
-      writer.startElement("img", command);
+      writer.startElement(HtmlConstants.IMG, command);
       writer.writeIdAttribute(graphicId);
-      writer.writeAttribute("src", image, null);
-      writer.writeAttribute("alt", "", null);
-      writer.writeAttribute("title", null, ATTR_TIP);
-      writer.writeAttribute("border", "0", null);
+      writer.writeAttribute(HtmlAttributes.SRC, image, null);
+      writer.writeAttribute(HtmlAttributes.ALT, "", null);
+      writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
+      writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
       writer.writeClassAttribute(className);
       if (render1pxImage) {
-        writer.writeAttribute("style", "width: 1px;", null);
+        writer.writeAttribute(HtmlAttributes.STYLE, "width: 1px;", null);
       }
 
-      writer.endElement("img");
+      writer.endElement(HtmlConstants.IMG);
       if (!anchorOnLabel) {
-        writer.endElement("a");
+        writer.endElement(HtmlConstants.A);
       }
-      writer.endElement("td");
+      writer.endElement(HtmlConstants.TD);
     }
 
     boolean popupOn2 = ToolBarTag.LABEL_BOTTOM.equals(labelPosition)
@@ -373,33 +375,33 @@ public class ToolBarRenderer extends RendererBase {
         renderPopupTd(facesContext, writer, command, popupMenu,
             true);
       }
-      writer.endElement("tr");
-      writer.startElement("tr", null);
+      writer.endElement(HtmlConstants.TR);
+      writer.startElement(HtmlConstants.TR, null);
     }
 
     if (!ToolBarTag.LABEL_OFF.equals(labelPosition)) {
-      writer.startElement("td", null);
+      writer.startElement(HtmlConstants.TD, null);
       writer.writeClassAttribute("tobago-toolbar-label-td");
-      writer.writeAttribute("align", "center", null);
+      writer.writeAttribute(HtmlAttributes.ALIGN, "center", null);
       if (popupMenu != null) {
-        writer.writeAttribute("style", "padding-right: 3px;", null);
+        writer.writeAttribute(HtmlAttributes.STYLE, "padding-right: 3px;", null);
         // TODO: make this '3px' configurable
       }
       if (label.getText() != null) {
         renderAnchorBegin(facesContext, writer, command, label, disabled);
         HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
-        writer.endElement("a");
+        writer.endElement(HtmlConstants.A);
       }
-      writer.endElement("td");
+      writer.endElement(HtmlConstants.TD);
     }
     if (!popupOn2 && popupMenu != null) {
       renderPopupTd(facesContext, writer, command, popupMenu,
           false);
     }
 
-    writer.endElement("tr");
-    writer.endElement("table");
-    writer.endElement("div");
+    writer.endElement(HtmlConstants.TR);
+    writer.endElement(HtmlConstants.TABLE);
+    writer.endElement(HtmlConstants.DIV);
   }
 
   private String createOnClick(FacesContext facesContext,
@@ -477,12 +479,12 @@ public class ToolBarRenderer extends RendererBase {
       TobagoResponseWriter writer, final UICommand command,
       final LabelWithAccessKey label, final boolean disabled)
       throws IOException {
-    writer.startElement("a", command);
+    writer.startElement(HtmlConstants.A, command);
     writer.writeClassAttribute("tobago-toolBar-button-link" + (disabled ? "tobago-toolBar-button-link-disabled" : ""));
-    writer.writeAttribute("title", null, ATTR_TIP);
+    writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
     if (!disabled) {
-      writer.writeAttribute("href", "#", null);
-      writer.writeAttribute("onfocus", "Tobago.toolbarFocus(this, event)", null);
+      writer.writeAttribute(HtmlAttributes.HREF, "#", null);
+      writer.writeAttribute(HtmlAttributes.ONFOCUS, "Tobago.toolbarFocus(this, event)", null);
       if (label.getAccessKey() != null) {
         if (LOG.isInfoEnabled()
                 && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
@@ -500,23 +502,23 @@ public class ToolBarRenderer extends RendererBase {
       TobagoResponseWriter writer, UIComponent command, UIComponent popupMenu,
       boolean labelBottom)
       throws IOException {
-    writer.startElement("td", null);
+    writer.startElement(HtmlConstants.TD, null);
     if (labelBottom) {
-      writer.writeAttribute("rowspan", "2", null);
+      writer.writeAttribute(HtmlAttributes.ROWSPAN, "2", null);
     }
 
     if (popupMenu != null) {
       String backgroundImage = ResourceManagerUtil.getImageWithPath(facesContext,
           "image/1x1.gif");
-      writer.startElement("div", null);
+      writer.startElement(HtmlConstants.DIV, null);
       writer.writeIdAttribute(
           command.getClientId(facesContext) + SUBCOMPONENT_SEP + "popup");
       writer.writeClassAttribute("tobago-toolBar-button-menu");
-      writer.startElement("img", null);
-      writer.writeAttribute("src", backgroundImage, null);
+      writer.startElement(HtmlConstants.IMG, null);
+      writer.writeAttribute(HtmlAttributes.SRC, backgroundImage, null);
       writer.writeClassAttribute("tobago-toolBar-button-menu-background-image");
-      writer.endElement("img");
-      writer.endElement("div");
+      writer.endElement(HtmlConstants.IMG);
+      writer.endElement(HtmlConstants.DIV);
       popupMenu.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
       popupMenu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "ToolBarButton");
       popupMenu.setRendererType(RENDERER_TYPE_MENUBAR);
@@ -525,7 +527,7 @@ public class ToolBarRenderer extends RendererBase {
       RenderUtil.encode(facesContext, popupMenu);
     }
 
-    writer.endElement("td");
+    writer.endElement(HtmlConstants.TD);
   }
 
   private void setToolBarHeight(FacesContext facesContext,

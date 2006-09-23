@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
@@ -61,43 +62,43 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     }
     String id = component.getClientId(facesContext);
 
-    writer.startElement("table", null);
-    writer.writeAttribute("border", "0", null);
-    writer.writeAttribute("cellspacing", "0", null);
-    writer.writeAttribute("cellpadding", "0", null);
-    writer.writeAttribute("summary", "", null);
+    writer.startElement(HtmlConstants.TABLE, null);
+    writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
+    writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
+    writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
+    writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
     List clientIds = new ArrayList();
     for (SelectItem item : items) {
 
-      writer.startElement("tr", null);
-      writer.startElement("td", null);
+      writer.startElement(HtmlConstants.TR, null);
+      writer.startElement(HtmlConstants.TD, null);
 
       String itemId = id
           + NamingContainer.SEPARATOR_CHAR + NamingContainer.SEPARATOR_CHAR
           + item.getValue().toString();
       clientIds.add(itemId);
-      writer.startElement("input", component);
-      writer.writeAttribute("type", "checkbox", null);
+      writer.startElement(HtmlConstants.INPUT, component);
+      writer.writeAttribute(HtmlAttributes.TYPE, "checkbox", null);
 
       writer.writeComponentClass();
-      writer.writeAttribute("checked",
+      writer.writeAttribute(HtmlAttributes.CHECKED,
           RenderUtil.contains(values, item.getValue()));
       writer.writeNameAttribute(id);
       writer.writeIdAttribute(itemId);
       String formattedValue
           = getFormattedValue(facesContext, component, item.getValue());
-      writer.writeAttribute("value", formattedValue, null);
-      writer.writeAttribute("disabled",
+      writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, null);
+      writer.writeAttribute(HtmlAttributes.DISABLED,
           ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
-      writer.endElement("input");
+      writer.endElement(HtmlConstants.INPUT);
 
       if (LOG.isDebugEnabled()) {
         LOG.debug("item.getLabel() = " + item.getLabel());
       }
       if (item.getLabel() != null) {
 
-        writer.endElement("td");
-        writer.startElement("td", null);
+        writer.endElement(HtmlConstants.TD);
+        writer.startElement(HtmlConstants.TD, null);
 
 
 
@@ -105,7 +106,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
         // FIXME: see outcommented part
         writer.startElement(HtmlConstants.LABEL, null);
         writer.writeClassAttribute("tobago-label-default");
-        writer.writeAttribute("for", itemId, null);
+        writer.writeAttribute(HtmlAttributes.FOR, itemId, null);
         writer.writeText(item.getLabel(), null);
         writer.endElement(HtmlConstants.LABEL);
 //        Application application = tobagoContext.getApplication();
@@ -119,11 +120,11 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 //        RenderUtil.encode(label);
       }
 
-      writer.endElement("td");
-      writer.endElement("tr");
+      writer.endElement(HtmlConstants.TD);
+      writer.endElement(HtmlConstants.TR);
 
     }
-    writer.endElement("table");
+    writer.endElement(HtmlConstants.TABLE);
     checkForCommandFacet(component, clientIds, facesContext, writer);
   }
 

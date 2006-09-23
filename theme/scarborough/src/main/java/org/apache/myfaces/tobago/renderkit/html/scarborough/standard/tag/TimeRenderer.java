@@ -32,6 +32,8 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.InRendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.FacesMessage;
@@ -114,11 +116,11 @@ public class TimeRenderer extends InRendererBase{
     final String idPrefix = id + SUBCOMPONENT_SEP;
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
-    writer.startElement("div", input);
+    writer.startElement(HtmlConstants.DIV, input);
     writer.writeComponentClass();
 
-    writer.startElement("div", input);
-    writer.writeAttribute("id", idPrefix + "borderDiv", null);
+    writer.startElement(HtmlConstants.DIV, input);
+    writer.writeAttribute(HtmlAttributes.ID, idPrefix + "borderDiv", null);
     writer.writeClassAttribute("tobago-time-borderDiv"
         + (hasSeconds ? " tobago-time-borderDiv-seconds" : ""));
 
@@ -130,60 +132,60 @@ public class TimeRenderer extends InRendererBase{
       writeInput(writer, idPrefix + "second", second, false);
     }
 
-    writer.endElement("div");
+    writer.endElement(HtmlConstants.DIV);
 
     String imageId = idPrefix + "inc";
     String imageSrc = "image/timeIncrement.gif";
     HtmlRendererUtil.addImageSources(facesContext, writer, imageSrc, imageId);
-    writer.startElement("img");
+    writer.startElement(HtmlConstants.IMG);
     writer.writeIdAttribute(imageId);
-    writer.writeAttribute("onclick", "tbgIncTime(this)", false);
+    writer.writeAttribute(HtmlAttributes.ONCLICK, "tbgIncTime(this)", false);
     writer.writeClassAttribute("tobago-time-inc-image"
         + (hasSeconds ? " tobago-time-image-seconds" : ""));
-    writer.writeAttribute("src", ResourceManagerUtil.getImageWithPath(facesContext, imageSrc), true);
-    writer.writeAttribute("alt", "", false); // TODO: tip
+    writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getImageWithPath(facesContext, imageSrc), true);
+    writer.writeAttribute(HtmlAttributes.ALT, "", false); // TODO: tip
 
     if (!ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED)) {
-      writer.writeAttribute("onmouseover",
+      writer.writeAttribute(HtmlAttributes.ONMOUSEOVER,
           "Tobago.imageMouseover('" + imageId + "')", null);
-      writer.writeAttribute("onmouseout",
+      writer.writeAttribute(HtmlAttributes.ONMOUSEOUT,
           "Tobago.imageMouseout('" + imageId + "')", null);
     }
-    writer.endElement("img");
+    writer.endElement(HtmlConstants.IMG);
 
     imageId = idPrefix + "dec";
     imageSrc = "image/timeDecrement.gif";
     HtmlRendererUtil.addImageSources(facesContext, writer, imageSrc, imageId);
-    writer.startElement("img");
+    writer.startElement(HtmlConstants.IMG);
     writer.writeIdAttribute(imageId);
-    writer.writeAttribute("onclick", "tbgDecTime(this)", false);
+    writer.writeAttribute(HtmlAttributes.ONCLICK, "tbgDecTime(this)", false);
     writer.writeClassAttribute("tobago-time-dec-image"
         + (hasSeconds ? " tobago-time-image-seconds" : ""));
-    writer.writeAttribute("src", ResourceManagerUtil.getImageWithPath(facesContext, imageSrc), true);
-    writer.writeAttribute("alt", "", false); // TODO: tip
+    writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getImageWithPath(facesContext, imageSrc), true);
+    writer.writeAttribute(HtmlAttributes.ALT, "", false); // TODO: tip
     if (!ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED)) {
-      writer.writeAttribute("onmouseover",
+      writer.writeAttribute(HtmlAttributes.ONMOUSEOVER,
           "Tobago.imageMouseover('" + imageId + "')", null);
-      writer.writeAttribute("onmouseout",
+      writer.writeAttribute(HtmlAttributes.ONMOUSEOUT,
           "Tobago.imageMouseout('" + imageId + "')", null);
     }
-    writer.endElement("img");
+    writer.endElement(HtmlConstants.IMG);
 
 
 
-    writer.startElement("input", input);
-    writer.writeAttribute("type", "hidden", false);
+    writer.startElement(HtmlConstants.INPUT, input);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeIdAttribute(id + ":converterPattern");
-    writer.writeAttribute("value", converterPattern, null);
-    writer.endElement("input");
+    writer.writeAttribute(HtmlAttributes.VALUE, converterPattern, null);
+    writer.endElement(HtmlConstants.INPUT);
 
 
-    writer.startElement("input", input);
-    writer.writeAttribute("type", "hidden", false);
+    writer.startElement(HtmlConstants.INPUT, input);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeIdAttribute(id);
     writer.writeNameAttribute(id);
-    writer.writeAttribute("value", hour + ":" + minute + ":" + second, false);
-    writer.endElement("input");
+    writer.writeAttribute(HtmlAttributes.VALUE, hour + ":" + minute + ":" + second, false);
+    writer.endElement(HtmlConstants.INPUT);
 
 
     String dateTextBoxId = (String) input.getAttributes().get(ATTR_CALENDAR_DATE_INPUT_ID);
@@ -195,27 +197,27 @@ public class TimeRenderer extends InRendererBase{
       HtmlRendererUtil.endJavascript(writer);
     }
 
-    writer.endElement("div");
+    writer.endElement(HtmlConstants.DIV);
   }
 
   private void writeInputSeparator(TobagoResponseWriter writer, String sep) throws IOException {
-    writer.startElement("span");
+    writer.startElement(HtmlConstants.SPAN);
     writer.writeClassAttribute("tobago-time-sep");
     writer.writeText(sep, null);
-    writer.endElement("span");
+    writer.endElement(HtmlConstants.SPAN);
   }
 
   private void writeInput(TobagoResponseWriter writer, String id, String hour, boolean hourMode)
   throws IOException {
-    writer.startElement("input");
-    writer.writeAttribute("type", "text", false);
+    writer.startElement(HtmlConstants.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, "text", false);
     writer.writeIdAttribute(id);
     writer.writeClassAttribute("tobago-time-input");
-    writer.writeAttribute("onfocus", "tbgTimerInputFocus(this, " + hourMode + ")", false);
-    writer.writeAttribute("onblur", "tbgTimerInputBlur(this)", false);
-    writer.writeAttribute("onkeyup", "tbgTimerKeyUp(this, event)", false);
-    writer.writeAttribute("value", hour, true);
-    writer.endElement("input");
+    writer.writeAttribute(HtmlAttributes.ONFOCUS, "tbgTimerInputFocus(this, " + hourMode + ")", false);
+    writer.writeAttribute(HtmlAttributes.ONBLUR, "tbgTimerInputBlur(this)", false);
+    writer.writeAttribute(HtmlAttributes.ONKEYUP, "tbgTimerKeyUp(this, event)", false);
+    writer.writeAttribute(HtmlAttributes.VALUE, hour, true);
+    writer.endElement(HtmlConstants.INPUT);
   }
 }
 

@@ -30,6 +30,8 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.InRendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.FacesMessage;
@@ -68,21 +70,21 @@ public class TextAreaRenderer extends InRendererBase {
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    writer.startElement("textarea", input);
+    writer.startElement(HtmlConstants.TEXTAREA, input);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute("rows", null, ATTR_ROWS);
+    writer.writeAttribute(HtmlAttributes.ROWS, null, ATTR_ROWS);
     if (title != null) {
-      writer.writeAttribute("title", title, null);
+      writer.writeAttribute(HtmlAttributes.TITLE, title, null);
     }
-    writer.writeAttribute("readonly", 
+    writer.writeAttribute(HtmlAttributes.READONLY,
         ComponentUtil.getBooleanAttribute(input, ATTR_READONLY));
-    writer.writeAttribute("disabled",
+    writer.writeAttribute(HtmlAttributes.DISABLED,
         ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED));
-    writer.writeAttribute("style", null, ATTR_STYLE);
+    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
     writer.writeComponentClass();
     if (onchange != null) {
-      writer.writeAttribute("onchange", onchange, null);
+      writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
     }
     String currentValue = ComponentUtil.currentValue(input);
     if (currentValue != null) {
@@ -96,7 +98,7 @@ public class TextAreaRenderer extends InRendererBase {
       }
       writer.writeText(currentValue, null);
     }
-    writer.endElement("textarea");
+    writer.endElement(HtmlConstants.TEXTAREA);
   }
 }
 

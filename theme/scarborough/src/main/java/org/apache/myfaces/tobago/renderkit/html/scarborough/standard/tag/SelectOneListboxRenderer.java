@@ -29,6 +29,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -73,19 +75,19 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     UISelectOne component = (UISelectOne) input;
     List<SelectItem> items = ComponentUtil.getSelectItems(component);
 
-    writer.startElement("select", component);
+    writer.startElement(HtmlConstants.SELECT, component);
     String clientId = component.getClientId(facesContext);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute("disabled",
+    writer.writeAttribute(HtmlAttributes.DISABLED,
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
-    writer.writeAttribute("style", null, "style");
+    writer.writeAttribute(HtmlAttributes.STYLE, null, "style");
     writer.writeComponentClass();
-    writer.writeAttribute("title", null, ATTR_TIP);
-    writer.writeAttribute("size", 2, null); // should be greater 1
+    writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
+    writer.writeAttribute(HtmlAttributes.SIZE, 2, null); // should be greater 1
     if (!ComponentUtil.getBooleanAttribute(component, ATTR_REQUIRED)) {
-      writer.writeAttribute("onchange", "Tobago.selectOneListboxChange(this)", null);
-      writer.writeAttribute("onclick", "Tobago.selectOneListboxClick(this)", null);
+      writer.writeAttribute(HtmlAttributes.ONCHANGE, "Tobago.selectOneListboxChange(this)", null);
+      writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.selectOneListboxClick(this)", null);
     }
 
     Object value = component.getValue();
@@ -94,21 +96,21 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     }
     for (SelectItem item : items) {
 
-      writer.startElement("option", null);
+      writer.startElement(HtmlConstants.OPTION, null);
       final Object itemValue = item.getValue();
       String formattedValue
           = getFormattedValue(facesContext, component, itemValue);
-      writer.writeAttribute("value", formattedValue, null);
+      writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, null);
       if (itemValue.equals(value)) {
-        writer.writeAttribute("selected", "selected", null);
+        writer.writeAttribute(HtmlAttributes.SELECTED, "selected", null);
       }
       writer.writeText(item.getLabel(), null);
-      writer.endElement("option");
+      writer.endElement(HtmlConstants.OPTION);
 //    LOG.debug("item-value" + itemValue);
     }
 
 
-    writer.endElement("select");
+    writer.endElement(HtmlConstants.SELECT);
     super.encodeEndTobago(facesContext, component);
     checkForCommandFacet(component, facesContext, writer);
   }

@@ -36,6 +36,8 @@ import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -104,19 +106,19 @@ public class LinkRenderer extends CommandRendererBase{
     LabelWithAccessKey label = new LabelWithAccessKey(component);
 
     if (ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
-      writer.startElement("span", component);
+      writer.startElement(HtmlConstants.SPAN, component);
     } else {
-      writer.startElement("a", component);
-      writer.writeAttribute("href", href, null);
+      writer.startElement(HtmlConstants.A, component);
+      writer.writeAttribute(HtmlAttributes.HREF, href, null);
       if (onclick != null) {
-        writer.writeAttribute("onclick", onclick, null);
+        writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, null);
       }
-      writer.writeAttribute("target", null, ATTR_TARGET);
+      writer.writeAttribute(HtmlAttributes.TARGET, null, ATTR_TARGET);
     }
     writer.writeComponentClass();
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);
-    writer.writeAttribute("title", null, ATTR_TIP);
+    writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
 
     //TODO: check if this is still needed
     writer.writeText("", null); // force closing the start tag
@@ -125,11 +127,11 @@ public class LinkRenderer extends CommandRendererBase{
     String image = (String) component.getAttributes().get(ATTR_IMAGE);
     if (image != null) {
       image = ResourceManagerUtil.getImageWithPath(facesContext, image);
-      writer.startElement("img", null);
-      writer.writeAttribute("src", image, null);
-      writer.writeAttribute("alt", "", null);
-      writer.writeAttribute("border", "0", null); // TODO: is border=0 setting via style possible?
-      writer.endElement("img");
+      writer.startElement(HtmlConstants.IMG, null);
+      writer.writeAttribute(HtmlAttributes.SRC, image, null);
+      writer.writeAttribute(HtmlAttributes.ALT, "", null);
+      writer.writeAttribute(HtmlAttributes.BORDER, "0", null); // TODO: is border=0 setting via style possible?
+      writer.endElement(HtmlConstants.IMG);
     }
 
 //  label
@@ -155,9 +157,9 @@ public class LinkRenderer extends CommandRendererBase{
       throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
     if (ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
-      writer.endElement("span");
+      writer.endElement(HtmlConstants.SPAN);
     } else {
-      writer.endElement("a");
+      writer.endElement(HtmlConstants.A);
     }
   }
 }

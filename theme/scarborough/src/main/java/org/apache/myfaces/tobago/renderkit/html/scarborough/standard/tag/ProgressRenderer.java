@@ -26,6 +26,8 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -67,28 +69,28 @@ public class ProgressRenderer extends RendererBase {
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    writer.startElement("span", null);
+    writer.startElement(HtmlConstants.SPAN, null);
     // TODO: use tobago standard class names
     writer.writeClassAttribute("tobago-progress");
-    writer.writeAttribute("title", title, null);
+    writer.writeAttribute(HtmlAttributes.TITLE, title, null);
 
-    writer.startElement("img", null);
+    writer.startElement(HtmlConstants.IMG, null);
     writer.writeClassAttribute("tobago-progress-color1");
-    writer.writeAttribute("src", image, null);
-    writer.writeAttribute("alt", title, null);
-    writer.writeAttribute("width", value1, null);
-    writer.writeAttribute("border", "0", null);
-    writer.endElement("img");
+    writer.writeAttribute(HtmlAttributes.SRC, image, null);
+    writer.writeAttribute(HtmlAttributes.ALT, title, null);
+    writer.writeAttribute(HtmlAttributes.WIDTH, value1, null);
+    writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
+    writer.endElement(HtmlConstants.IMG);
 
-    writer.startElement("img", null);
+    writer.startElement(HtmlConstants.IMG, null);
     writer.writeClassAttribute("tobago-progress-color2");
-    writer.writeAttribute("src", image, null);
-    writer.writeAttribute("alt", title, null);
-    writer.writeAttribute("width", value2, null);
-    writer.writeAttribute("border", "0", null);
-    writer.endElement("img");
+    writer.writeAttribute(HtmlAttributes.SRC, image, null);
+    writer.writeAttribute(HtmlAttributes.ALT, title, null);
+    writer.writeAttribute(HtmlAttributes.WIDTH, value2, null);
+    writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
+    writer.endElement(HtmlConstants.IMG);
 
-    writer.endElement("span");
+    writer.endElement(HtmlConstants.SPAN);
   }
 
 }

@@ -39,6 +39,8 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -172,36 +174,36 @@ public class PageRenderer extends PageRendererBase {
       writer.write('\n');
     }
 
-    writer.startElement("html", null);
-    writer.startElement("head", null);
+    writer.startElement(HtmlConstants.HTML, null);
+    writer.startElement(HtmlConstants.HEAD, null);
 
     HtmlRendererUtil.writeJavascript(writer, "var TbgHeadStart = new Date();");
 
     // meta
     // TODO duplicate; see PageTag.doStartTag()
-//    writer.startElement("meta", null);
+//    writer.startElement(HtmlConstants.META, null);
 //    writer.writeAttribute("http-equiv", "Content-Type", null);
 //    writer.writeAttribute(
 //        "content", generateContentType(facesContext, charset), null);
-//    writer.endElement("meta");
+//    writer.endElement(HtmlConstants.META);
     response.setContentType(generateContentType(facesContext, charset));
 
     // title
-    writer.startElement("title", null);
+    writer.startElement(HtmlConstants.TITLE, null);
     writer.writeText(title != null ? title : "", null);
-    writer.endElement("title");
+    writer.endElement(HtmlConstants.TITLE);
 
     // style files
     for (String styleFile : page.getStyleFiles()) {
       List<String> styles = ResourceManagerUtil.getStyles(facesContext, styleFile);
       for (String styleString : styles) {
         if (styleString.length() > 0) {
-          writer.startElement("link", null);
-          writer.writeAttribute("rel", "stylesheet", null);
-          writer.writeAttribute("href", styleString, null);
-          writer.writeAttribute("media", "screen", null);
-          writer.writeAttribute("type", "text/css", null);
-          writer.endElement("link");
+          writer.startElement(HtmlConstants.LINK, null);
+          writer.writeAttribute(HtmlAttributes.REL, "stylesheet", null);
+          writer.writeAttribute(HtmlAttributes.HREF, styleString, null);
+          writer.writeAttribute(HtmlAttributes.MEDIA, "screen", null);
+          writer.writeAttribute(HtmlAttributes.TYPE, "text/css", null);
+          writer.endElement(HtmlConstants.LINK);
         }
       }
     }
@@ -209,11 +211,11 @@ public class PageRenderer extends PageRendererBase {
     // style sniplets
     Set<String> styleBlocks = page.getStyleBlocks();
     if (styleBlocks.size() > 0) {
-      writer.startElement("style", null);
+      writer.startElement(HtmlConstants.STYLE, null);
       for (String cssBlock : styleBlocks) {
         writer.write(cssBlock);
       }
-      writer.endElement("style");
+      writer.endElement(HtmlConstants.STYLE);
     }
 
     // script files
@@ -288,13 +290,13 @@ public class PageRenderer extends PageRendererBase {
 //    writer.endElement("script");
     String defaultActionId = page.getDefaultActionId() != null
         ? page.getDefaultActionId() : "";
-    writer.endElement("head");
-    writer.startElement("body", page);
-    writer.writeAttribute("onload",
+    writer.endElement(HtmlConstants.HEAD);
+    writer.startElement(HtmlConstants.BODY, page);
+    writer.writeAttribute(HtmlAttributes.ONLOAD,
         "Tobago.init('" + clientId + "');", null);
 //    writer.writeAttribute("onunload", "Tobago.onexit();", null);
     //this ist for ie to prevent scrollbars where none are needed
-    writer.writeAttribute("scroll", "auto", null);
+    writer.writeAttribute(HtmlAttributes.SCROLL, "auto", null);
     writer.writeComponentClass();
     writer.writeIdAttribute(clientId);
 
@@ -314,46 +316,46 @@ public class PageRenderer extends PageRendererBase {
     }
     HtmlRendererUtil.writeJavascript(writer, "TbgTimer.startBody = new Date();");
 
-    writer.startElement("form", page);
+    writer.startElement(HtmlConstants.FORM, page);
     writer.writeNameAttribute(
         clientId + SUBCOMPONENT_SEP + "form");
-    writer.writeAttribute("action", formAction, null);
+    writer.writeAttribute(HtmlAttributes.ACTION, formAction, null);
     writer.writeIdAttribute(page.getFormId(facesContext));
-    writer.writeAttribute("method", getMethod(page), null);
-    writer.writeAttribute("enctype", null, ATTR_ENCTYPE);
+    writer.writeAttribute(HtmlAttributes.METHOD, getMethod(page), null);
+    writer.writeAttribute(HtmlAttributes.ENCTYPE, null, ATTR_ENCTYPE);
     // TODO: enable configuration of  'accept-charset'
-    writer.writeAttribute("accept-charset", FORM_ACCEPT_CHARSET, null);
+    writer.writeAttribute(HtmlAttributes.ACCEPT_CHARSET, FORM_ACCEPT_CHARSET, null);
 
-    writer.startElement("input", null);
-    writer.writeAttribute("type", "hidden", null);
+    writer.startElement(HtmlConstants.INPUT, null);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
     writer.writeNameAttribute(
         clientId + SUBCOMPONENT_SEP + "form-action");
     writer.writeIdAttribute(
         clientId + SUBCOMPONENT_SEP + "form-action");
-    writer.writeAttribute("value", defaultActionId, null);
-    writer.endElement("input");
+    writer.writeAttribute(HtmlAttributes.VALUE, defaultActionId, null);
+    writer.endElement(HtmlConstants.INPUT);
 
     if (debugMode) {
-      writer.startElement("input");
-      writer.writeAttribute("value", clientLogSeverity, null);
-      writer.writeAttribute("id", clientId + SUBCOMPONENT_SEP + "clientSeverity", null);
-      writer.writeAttribute("name", clientId + SUBCOMPONENT_SEP + "clientSeverity", null);
-      writer.writeAttribute("type", "hidden", null);
-      writer.endElement("input");
+      writer.startElement(HtmlConstants.INPUT);
+      writer.writeAttribute(HtmlAttributes.VALUE, clientLogSeverity, null);
+      writer.writeAttribute(HtmlAttributes.ID, clientId + SUBCOMPONENT_SEP + "clientSeverity", null);
+      writer.writeAttribute(HtmlAttributes.NAME, clientId + SUBCOMPONENT_SEP + "clientSeverity", null);
+      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+      writer.endElement(HtmlConstants.INPUT);
     }
 
 // TODO: this is needed for the "BACK-BUTTON-PROBLEM"
 // but may no longer needed
 /*
     if (ViewHandlerImpl.USE_VIEW_MAP) {
-      writer.startElement("input", null);
-      writer.writeAttribute("type", "hidden", null);
+      writer.startElement(HtmlConstants.INPUT, null);
+      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
       writer.writeNameAttribute(ViewHandlerImpl.PAGE_ID);
       writer.writeIdAttribute(ViewHandlerImpl.PAGE_ID);
       Object value = facesContext.getViewRoot().getAttributes().get(
           ViewHandlerImpl.PAGE_ID);
-      writer.writeAttribute("value", (value != null ? value : ""), null);
-      writer.endElement("input");
+      writer.writeAttribute(HtmlAttributes.VALUE, (value != null ? value : ""), null);
+      writer.endElement(HtmlConstants.INPUT);
     }
 */
 
@@ -367,7 +369,7 @@ public class PageRenderer extends PageRendererBase {
 
 //    facesContext.getApplication().getViewHandler().writeState(facesContext);
 
-    writer.endElement("form");
+    writer.endElement(HtmlConstants.FORM);
 
     // debugging...
     if (debugMode) {
@@ -392,8 +394,8 @@ public class PageRenderer extends PageRendererBase {
     }
 
     HtmlRendererUtil.writeJavascript(writer, "TbgTimer.endBody = new Date();");
-    writer.endElement("body");
-    writer.endElement("html");
+    writer.endElement(HtmlConstants.BODY);
+    writer.endElement(HtmlConstants.HTML);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("unused AccessKeys    : "
@@ -435,10 +437,10 @@ public class PageRenderer extends PageRendererBase {
     }
     for (String scriptString : scripts) {
       if (scriptString.length() > 0) {
-        writer.startElement("script", null);
-        writer.writeAttribute("src", scriptString, null);
-        writer.writeAttribute("type", "text/javascript", null);
-        writer.endElement("script");
+        writer.startElement(HtmlConstants.SCRIPT, null);
+        writer.writeAttribute(HtmlAttributes.SRC, scriptString, null);
+        writer.writeAttribute(HtmlAttributes.TYPE, "text/javascript", null);
+        writer.endElement(HtmlConstants.SCRIPT);
       }
     }
   }
@@ -450,8 +452,8 @@ public class PageRenderer extends PageRendererBase {
 
   private void errorMessageForDebugging(String id, FacesMessage message,
       ResponseWriter writer) throws IOException {
-    writer.startElement("div", null);
-    writer.writeAttribute("style", "color: red", null);
+    writer.startElement(HtmlConstants.DIV, null);
+    writer.writeAttribute(HtmlAttributes.STYLE, "color: red", null);
     writer.write("[");
     writer.write(id != null ? id : "null");
     writer.write("]");
@@ -460,9 +462,9 @@ public class PageRenderer extends PageRendererBase {
     writer.write("/");
     writer.write(message.getDetail() == null ? "null" : message.getDetail());
     writer.write("]");
-    writer.endElement("div");
-    writer.startElement("br", null);
-    writer.endElement("br");
+    writer.endElement(HtmlConstants.DIV);
+    writer.startElement(HtmlConstants.BR, null);
+    writer.endElement(HtmlConstants.BR);
   }
 
   private String errorMessageForDebugging(String id, FacesMessage message) {

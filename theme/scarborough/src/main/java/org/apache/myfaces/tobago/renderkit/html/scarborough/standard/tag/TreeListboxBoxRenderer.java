@@ -26,6 +26,8 @@ import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeListboxBox;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -65,17 +67,17 @@ public class TreeListboxBoxRenderer extends RendererBase {
     String listboxId = treeId + SUBCOMPONENT_SEP + "cont_" + level;
     String onChange = "tbgTreeListboxChange(this, '" + treeId + "')";
     String onClick  = "tbgTreeListboxClick(this, '" + treeId + "')";
-    writer.startElement("select", component);
+    writer.startElement(HtmlConstants.SELECT, component);
     writer.writeIdAttribute(listboxId);
     writer.writeClassAttribute(className);
-    writer.writeAttribute("style" , null, ATTR_STYLE);
-    writer.writeAttribute("size", "2", null);
+    writer.writeAttribute(HtmlAttributes.STYLE , null, ATTR_STYLE);
+    writer.writeAttribute(HtmlAttributes.SIZE, "2", null);
     if (siblingMode) {
-      writer.writeAttribute("onchange", onChange, null);
+      writer.writeAttribute(HtmlAttributes.ONCHANGE, onChange, null);
     } else {
-      writer.writeAttribute("onclick", onClick, null);
+      writer.writeAttribute(HtmlAttributes.ONCLICK, onClick, null);
     }
-    writer.writeAttribute("multiple", siblingMode);
+    writer.writeAttribute(HtmlAttributes.MULTIPLE, siblingMode);
 
 
     List nodes = ((UITreeListboxBox) component).getNodes();
@@ -84,21 +86,21 @@ public class TreeListboxBoxRenderer extends RendererBase {
       UITreeNode treeNode = (UITreeNode) nodes.get(i);
       DefaultMutableTreeNode node = treeNode.getTreeNode();
 
-      writer.startElement("option", null);
-//      writer.writeAttribute("onclick", "tbgTreeListboxClick(this, '" + treeId + "')", null);
-      writer.writeAttribute("value", Integer.toString(i), null);
+      writer.startElement(HtmlConstants.OPTION, null);
+//      writer.writeAttribute(HtmlAttributes.ONCLICK, "tbgTreeListboxClick(this, '" + treeId + "')", null);
+      writer.writeAttribute(HtmlAttributes.VALUE, Integer.toString(i), null);
       if (treeNode.equals(tree.getSelectedNode(level))
           || tree.isSelectedNode(node)) {
-        writer.writeAttribute("selected", true);
+        writer.writeAttribute(HtmlAttributes.SELECTED, true);
       }
 
       writer.writeText(treeNode.getAttributes().get(ATTR_NAME), null);
       if (node.getChildCount() > 0) {
         writer.writeText(" \u2192", null);
       }
-      writer.endElement("option");
+      writer.endElement(HtmlConstants.OPTION);
     }
-    writer.endElement("select");
+    writer.endElement(HtmlConstants.SELECT);
   }
 
 }

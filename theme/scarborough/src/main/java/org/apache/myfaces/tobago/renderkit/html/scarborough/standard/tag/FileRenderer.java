@@ -31,6 +31,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -111,18 +113,18 @@ public class FileRenderer extends InputRendererBase {
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    writer.startElement("input", component);
-    writer.writeAttribute("type", "file", null);
+    writer.startElement(HtmlConstants.INPUT, component);
+    writer.writeAttribute(HtmlAttributes.TYPE, "file", null);
     writer.writeComponentClass();
     if (!ClientProperties.getInstance(facesContext).getUserAgent().isMozilla()) {
-      writer.writeAttribute("style", null, ATTR_STYLE);
+      writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
     }
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute("readonly",
+    writer.writeAttribute(HtmlAttributes.READONLY,
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
-    writer.writeAttribute("title", null, ATTR_TIP);
-    writer.endElement("input");
+    writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
+    writer.endElement(HtmlConstants.INPUT);
 
   }
 }

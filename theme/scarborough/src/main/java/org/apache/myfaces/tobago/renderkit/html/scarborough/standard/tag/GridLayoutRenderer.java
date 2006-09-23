@@ -50,6 +50,8 @@ import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -166,27 +168,27 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
-    writer.startElement("table", layout);
-    writer.writeAttribute("border", null, ATTR_BORDER);
+    writer.startElement(HtmlConstants.TABLE, layout);
+    writer.writeAttribute(HtmlAttributes.BORDER, null, ATTR_BORDER);
     writer.writeComponentClass();
-    writer.writeAttribute("style", null, ATTR_LAYOUT_TABLE_STYLE);
-    writer.writeAttribute("cellspacing", "0", null);
-    writer.writeAttribute("cellpadding", "0", null);
-    writer.writeAttribute("summary", "", null);
+    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_LAYOUT_TABLE_STYLE);
+    writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
+    writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
+    writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
 
     if (columnWidths != null) {
-      writer.startElement("colgroup", null);
+      writer.startElement(HtmlConstants.COLGROUP, null);
       for (int i = 0; i < columnWidths.size(); i++) {
         int cellWidth
             = ((Integer) columnWidths.get(i)).intValue();
         if (cellWidth != LayoutInfo.HIDE) {
           cellWidth += getCellPadding(facesContext, layout, i);
-          writer.startElement("col", null);
-          writer.writeAttribute("width", Integer.toString(cellWidth), null);
-          writer.endElement("col");
+          writer.startElement(HtmlConstants.COL, null);
+          writer.writeAttribute(HtmlAttributes.WIDTH, Integer.toString(cellWidth), null);
+          writer.endElement(HtmlConstants.COL);
         }
       }
-      writer.endElement("colgroup");
+      writer.endElement(HtmlConstants.COLGROUP);
     }
 
 
@@ -194,7 +196,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     for (int rowIndex = 0; rowIndex < rows.size(); rowIndex++) {
       UIGridLayout.Row row = rows.get(rowIndex);
       if (!row.isHidden()) {
-        writer.startElement("tr", null);
+        writer.startElement(HtmlConstants.TR, null);
 
         List cells = row.getElements();
         for (int columnIndex = 0; columnIndex < cells.size(); columnIndex++) {
@@ -263,14 +265,14 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
             cellStyle += getOverflow(cell);
 
 
-            writer.startElement("td", null);
+            writer.startElement(HtmlConstants.TD, null);
             writer.writeClassAttribute("tobago-gridLayout-cell-td");
-            writer.writeAttribute("style", cellStyle, null);
+            writer.writeAttribute(HtmlAttributes.STYLE, cellStyle, null);
             if (spanX > 1) {
-              writer.writeAttribute("colspan", Integer.toString(spanX), null);
+              writer.writeAttribute(HtmlAttributes.COLSPAN, Integer.toString(spanX), null);
             }
             if (spanY > 1) {
-              writer.writeAttribute("rowspan", Integer.toString(spanY), null);
+              writer.writeAttribute(HtmlAttributes.ROWSPAN, Integer.toString(spanY), null);
             }
 
             writer.writeText("", null);
@@ -279,21 +281,21 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
               cellStyle += " padding: " + getCellSpacing(facesContext, layout) + "px;";
             }
 
-            writer.startElement("div", null);
+            writer.startElement(HtmlConstants.DIV, null);
             writer.writeClassAttribute(cellClasses);
-            writer.writeAttribute("style", cellStyle, null);
+            writer.writeAttribute(HtmlAttributes.STYLE, cellStyle, null);
 
             RenderUtil.encode(facesContext, cell);
 
-            writer.endElement("div");
-            writer.endElement("td");
+            writer.endElement(HtmlConstants.DIV);
+            writer.endElement(HtmlConstants.TD);
           }
         }
 
-        writer.endElement("tr");
+        writer.endElement(HtmlConstants.TR);
       }
     }
-    writer.endElement("table");
+    writer.endElement(HtmlConstants.TABLE);
   }
 
   public void encodeEndTobago(FacesContext facesContext,
@@ -778,9 +780,6 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     }
     return intValue;
   }
-
-// ///////////////////////////////////////////// bean getter + setter
-
 
 }
 

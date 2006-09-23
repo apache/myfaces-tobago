@@ -31,6 +31,8 @@ import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -76,30 +78,30 @@ public class PopupRenderer extends RendererBase {
     contentStyle.append(top != null ? top : "50");
     contentStyle.append("; ");
 
-    writer.startElement("div", component);
+    writer.startElement(HtmlConstants.DIV, component);
     writer.writeIdAttribute(clientId);
     writer.writeComponentClass();
-    writer.writeAttribute("onclick", "Tobago.popupBlink('" + clientId + "')", null);
+    writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.popupBlink('" + clientId + "')", null);
     if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
       String bgImage = ResourceManagerUtil.getImageWithPath(facesContext, "image/popupBg.png");
-      writer.writeAttribute("style", "background: none; "
+      writer.writeAttribute(HtmlAttributes.STYLE, "background: none; "
           + "filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"
           + bgImage + "', sizingMethod='scale');", null);    }
-    writer.endElement("div");
+    writer.endElement(HtmlConstants.DIV);
     if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
-      writer.startElement("iframe", component);
-      writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + "iframe");
+      writer.startElement(HtmlConstants.IFRAME, component);
+      writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + HtmlConstants.IFRAME);
       writer.writeClassAttribute("tobago-popup-iframe");
-      writer.writeAttribute("style", contentStyle.toString(), null);
-      writer.writeAttribute("src", "javascript:false;", null);
-      writer.endElement("iframe");
+      writer.writeAttribute(HtmlAttributes.STYLE, contentStyle.toString(), null);
+      writer.writeAttribute(HtmlAttributes.SRC, "javascript:false;", null);
+      writer.endElement(HtmlConstants.IFRAME);
     }
-    writer.startElement("div", component);
+    writer.startElement(HtmlConstants.DIV, component);
     writer.writeIdAttribute(contentDivId);
     writer.writeClassAttribute("tobago-popup-content");
 
 
-    writer.writeAttribute("style", contentStyle.toString(), null);
+    writer.writeAttribute(HtmlAttributes.STYLE, contentStyle.toString(), null);
   }
 
   public void encodeEndTobago(FacesContext facesContext,
@@ -108,7 +110,7 @@ public class PopupRenderer extends RendererBase {
     UIPopup component = (UIPopup) uiComponent;
     final String clientId = component.getClientId(facesContext);
 
-    writer.endElement("div");
+    writer.endElement(HtmlConstants.DIV);
 
     String setupScript = "Tobago.setupPopup('" + clientId + "', '"
         + component.getLeft() + "', '" + component.getTop() + "');";

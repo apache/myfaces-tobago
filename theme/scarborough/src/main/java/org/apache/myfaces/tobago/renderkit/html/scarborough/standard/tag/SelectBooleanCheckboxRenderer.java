@@ -27,6 +27,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -70,35 +72,35 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
 
     if (label != null && !inline) {
 
-      writer.startElement("table", component);
-      writer.writeAttribute("border", "0", null);
-      writer.writeAttribute("cellspacing", "0", null);
-      writer.writeAttribute("cellpadding", "0", null);
-      writer.writeAttribute("summary", "", null);
-      writer.writeAttribute("title", null, ATTR_TIP);
+      writer.startElement(HtmlConstants.TABLE, component);
+      writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
+      writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
+      writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
+      writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
+      writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
 
-      writer.startElement("tr", null);
-      writer.startElement("td", null);
+      writer.startElement(HtmlConstants.TR, null);
+      writer.startElement(HtmlConstants.TD, null);
     }
 
     Boolean currentValue = (Boolean) component.getValue();
     boolean checked = currentValue != null && currentValue.booleanValue();
 
-    writer.startElement("input", component);
-    writer.writeAttribute("type", "checkbox", null);
-    writer.writeAttribute("value", "true", null);
-    writer.writeAttribute("checked", checked);
+    writer.startElement(HtmlConstants.INPUT, component);
+    writer.writeAttribute(HtmlAttributes.TYPE, "checkbox", null);
+    writer.writeAttribute(HtmlAttributes.VALUE, "true", null);
+    writer.writeAttribute(HtmlAttributes.CHECKED, checked);
     writer.writeNameAttribute(component.getClientId(facesContext));
     writer.writeComponentClass();
     writer.writeIdAttribute(component.getClientId(facesContext));
-    writer.writeAttribute("disabled",
+    writer.writeAttribute(HtmlAttributes.DISABLED,
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
-    writer.writeAttribute("title", null, ATTR_TIP);
-    writer.endElement("input");
+    writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
+    writer.endElement(HtmlConstants.INPUT);
 
     if (label != null && !inline) {
-      writer.endElement("td");
-      writer.startElement("td", null);
+      writer.endElement(HtmlConstants.TD);
+      writer.startElement(HtmlConstants.TD, null);
       writer.writeText("", null);
     }
 
@@ -107,9 +109,9 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
     }
 
     if (label != null && !inline) {
-      writer.endElement("td");
-      writer.endElement("tr");
-      writer.endElement("table");
+      writer.endElement(HtmlConstants.TD);
+      writer.endElement(HtmlConstants.TR);
+      writer.endElement(HtmlConstants.TABLE);
     }
     checkForCommandFacet(component, facesContext, writer);
   }

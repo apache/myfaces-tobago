@@ -27,6 +27,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -70,11 +72,11 @@ public class DateRenderer extends InRenderer {
         TobagoResponseWriter writer = (TobagoResponseWriter)
         facesContext.getResponseWriter();
         String id = component.getClientId(facesContext);
-        writer.startElement("input", component);
-        writer.writeAttribute("type", "hidden", null);
+        writer.startElement(HtmlConstants.INPUT, component);
+        writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
         writer.writeIdAttribute(id + ":converterPattern");
-        writer.writeAttribute("value", pattern, null);
-        writer.endElement("input");
+        writer.writeAttribute(HtmlAttributes.VALUE, pattern, null);
+        writer.endElement(HtmlConstants.INPUT);
       }
     }
   }

@@ -36,6 +36,8 @@ import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -69,16 +71,16 @@ public class ButtonRenderer extends CommandRendererBase {
 
     LabelWithAccessKey label = new LabelWithAccessKey(component);
 
-    writer.startElement("button", component);
-    writer.writeAttribute("type", buttonType, null);
+    writer.startElement(HtmlConstants.BUTTON, component);
+    writer.writeAttribute(HtmlAttributes.TYPE, buttonType, null);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute("title", null, ATTR_TIP);
-    writer.writeAttribute("disabled", disabled);
+    writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
+    writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     if (onclick != null) {
-      writer.writeAttribute("onclick", onclick, null);
+      writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, null);
     }
-    writer.writeAttribute("style", null, ATTR_STYLE);
+    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
     writer.writeComponentClass();
     writer.writeText("", null); // force closing the start tag
 
@@ -92,10 +94,10 @@ public class ButtonRenderer extends CommandRendererBase {
       if (image == null) {
         image = ResourceManagerUtil.getImageWithPath(facesContext, imageName);
       }
-      writer.startElement("img", null);
-      writer.writeAttribute("src", image, null);
-      writer.writeAttribute("alt", "", null);
-      writer.endElement("img");
+      writer.startElement(HtmlConstants.IMG, null);
+      writer.writeAttribute(HtmlAttributes.SRC, image, null);
+      writer.writeAttribute(HtmlAttributes.ALT, "", null);
+      writer.endElement(HtmlConstants.IMG);
     }
 
 //  label
@@ -121,7 +123,7 @@ public class ButtonRenderer extends CommandRendererBase {
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
-    writer.endElement("button");
+    writer.endElement(HtmlConstants.BUTTON);
   }
 
   private String createButtonType(UIComponent component) {

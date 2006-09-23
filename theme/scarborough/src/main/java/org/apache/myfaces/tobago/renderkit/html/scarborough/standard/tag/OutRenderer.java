@@ -27,6 +27,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -51,10 +53,10 @@ public class OutRenderer extends RendererBase {
         component, ATTR_CREATE_SPAN);
 
     if (createSpan) {
-      writer.startElement("span", component);
-      writer.writeAttribute("style", null, ATTR_STYLE);
+      writer.startElement(HtmlConstants.SPAN, component);
+      writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
       writer.writeComponentClass();
-      writer.writeAttribute("title", null, ATTR_TIP);
+      writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
     }
     if (escape) {
       StringTokenizer tokenizer = new StringTokenizer(text, "\n\r");
@@ -69,7 +71,7 @@ public class OutRenderer extends RendererBase {
       writer.write(text);
     }
     if (createSpan) {
-      writer.endElement("span");
+      writer.endElement(HtmlConstants.SPAN);
     }
   }
 }

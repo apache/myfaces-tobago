@@ -29,6 +29,8 @@ import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -48,32 +50,32 @@ public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbo
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    writer.startElement("fieldset", component);
+    writer.startElement(HtmlConstants.FIELDSET, component);
     writer.writeComponentClass();
-    writer.writeAttribute("style", null, ATTR_STYLE);
+    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
 
     if (label != null || labelString != null) {
-      writer.startElement("legend", component);
+      writer.startElement(HtmlConstants.LEGEND, component);
       writer.writeComponentClass();
 
-      writer.startElement("b", null);
+      writer.startElement(HtmlConstants.B, null);
       writer.writeText("", null);
       if (label != null) {
         RenderUtil.encode(facesContext, label);
       } else {
         writer.writeText(labelString, null);
       }
-      writer.endElement("b");
-      writer.endElement("legend");
+      writer.endElement(HtmlConstants.B);
+      writer.endElement(HtmlConstants.LEGEND);
       if (!ClientProperties.getInstance(facesContext.getViewRoot())
           .getUserAgent().equals(UserAgent.OPERA_7_11)) {
-        writer.startElement("br", null);
-        writer.endElement("br");
+        writer.startElement(HtmlConstants.BR, null);
+        writer.endElement(HtmlConstants.BR);
       }
     }
-    writer.startElement("div", component);
+    writer.startElement(HtmlConstants.DIV, component);
     writer.writeComponentClass();
-    writer.writeAttribute("style", null, ATTR_STYLE_INNER);
+    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE_INNER);
   }
 
   public int getPaddingWidth(FacesContext facesContext, UIComponent component) {

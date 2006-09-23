@@ -29,6 +29,8 @@ import org.apache.myfaces.tobago.renderkit.LabeledLayoutRender;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.ViewHandler;
@@ -71,37 +73,37 @@ public class LabeledInputLayoutRenderer extends DefaultLayoutRenderer implements
         facesContext.getResponseWriter();
 
     if (label != null || picker != null) {
-      writer.startElement("table", component);
-      writer.writeAttribute("border", "0", null);
-      writer.writeAttribute("cellspacing", "0", null);
-      writer.writeAttribute("cellpadding", "0", null);
-      writer.writeAttribute("summary", "", null);
-      writer.writeAttribute("title", null, ATTR_TIP);
-      writer.startElement("tr", null);
-      writer.startElement("td", null);
+      writer.startElement(HtmlConstants.TABLE, component);
+      writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
+      writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
+      writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
+      writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
+      writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
+      writer.startElement(HtmlConstants.TR, null);
+      writer.startElement(HtmlConstants.TD, null);
       writer.writeText("", null);
     }
     if (label != null) {
       RenderUtil.encode(facesContext, label);
 
-      writer.endElement("td");
-      writer.startElement("td", null);
+      writer.endElement(HtmlConstants.TD);
+      writer.startElement(HtmlConstants.TD, null);
     }
 
     renderComponent(facesContext, component);
 
 
     if (picker != null) {
-      writer.endElement("td");
-      writer.startElement("td", null);
-      writer.writeAttribute("style", "padding-left: 5px;", null);
+      writer.endElement(HtmlConstants.TD);
+      writer.startElement(HtmlConstants.TD, null);
+      writer.writeAttribute(HtmlAttributes.STYLE, "padding-left: 5px;", null);
       renderPicker(facesContext, component, picker);
     }
 
     if (label != null || picker != null) {
-      writer.endElement("td");
-      writer.endElement("tr");
-      writer.endElement("table");
+      writer.endElement(HtmlConstants.TD);
+      writer.endElement(HtmlConstants.TR);
+      writer.endElement(HtmlConstants.TABLE);
     }
     HtmlRendererUtil.renderFocusId(facesContext, component);
 

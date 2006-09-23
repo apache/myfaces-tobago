@@ -27,6 +27,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.context.FacesContext;
@@ -42,36 +44,36 @@ public class TabGroupRenderer extends
 
     String bodyStyle = (String)
         activeTab.getParent().getAttributes().get(ATTR_STYLE_BODY);
-    writer.startElement("tr", null);
-    writer.startElement("td", null);
+    writer.startElement(HtmlConstants.TR, null);
+    writer.startElement(HtmlConstants.TD, null);
     if (bodyStyle != null) {
-      writer.writeAttribute("style", bodyStyle, null);
+      writer.writeAttribute(HtmlAttributes.STYLE, bodyStyle, null);
     }
 
-    writer.startElement("div", null);
+    writer.startElement(HtmlConstants.DIV, null);
     writer.writeClassAttribute("tobago-tab-shadow");
     if (bodyStyle != null) {
-      writer.writeAttribute("style", bodyStyle, null);
+      writer.writeAttribute(HtmlAttributes.STYLE, bodyStyle, null);
     }
 
 
-    writer.startElement("div", null);
+    writer.startElement(HtmlConstants.DIV, null);
     writer.writeClassAttribute("tobago-tab-content");
 
     String height = HtmlRendererUtil.getStyleAttributeValue(bodyStyle, "height");
     if (height != null) {
-      writer.writeAttribute("style", "height: "
+      writer.writeAttribute(HtmlAttributes.STYLE, "height: "
           + (Integer.parseInt(height.replaceAll("\\D", ""))-1) + "px; overflow: auto;", null);
     }
 
     writer.writeText("", null);
     RenderUtil.encodeChildren(facesContext, activeTab);
 
-    writer.endElement("div");
-    writer.endElement("div");
+    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlConstants.DIV);
 
-    writer.endElement("td");
-    writer.endElement("tr");
+    writer.endElement(HtmlConstants.TD);
+    writer.endElement(HtmlConstants.TR);
 
   }
 

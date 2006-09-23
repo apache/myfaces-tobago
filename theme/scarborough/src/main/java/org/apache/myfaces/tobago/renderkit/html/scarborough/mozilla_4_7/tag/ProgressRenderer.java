@@ -24,6 +24,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.mozilla_4_7.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -51,32 +53,30 @@ public class ProgressRenderer extends RendererBase {
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
-    writer.startElement("table", null);
-    writer.writeAttribute("border", "0", null);
-    writer.writeAttribute("cellspacing", "0", null);
-    writer.writeAttribute("cellpadding", "0", null);
-    writer.writeAttribute("summary", "", null);
+    writer.startElement(HtmlConstants.TABLE, null);
+    writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
+    writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
+    writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
+    writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
 
-    writer.startElement("tr", null);
+    writer.startElement(HtmlConstants.TR, null);
 
-    writer.startElement("td", null);
-    writer.writeAttribute("style", "background-color: #aabbcc;", null);
-    writer.writeAttribute("width", Integer.toString(model.getValue()), null);
+    writer.startElement(HtmlConstants.TD, null);
+    writer.writeAttribute(HtmlAttributes.STYLE, "background-color: #aabbcc;", null);
+    writer.writeAttribute(HtmlAttributes.WIDTH, Integer.toString(model.getValue()), null);
     writer.write("&nbsp;");
-    writer.endElement("td");
+    writer.endElement(HtmlConstants.TD);
 
-    writer.startElement("td", null);
-    writer.writeAttribute("style", "background-color: #ddeeff;", null);
-    writer.writeAttribute("width",
+    writer.startElement(HtmlConstants.TD, null);
+    writer.writeAttribute(HtmlAttributes.STYLE, "background-color: #ddeeff;", null);
+    writer.writeAttribute(HtmlAttributes.WIDTH,
         Integer.toString(model.getMaximum() - model.getValue()), null);
     writer.write("&nbsp;");
-    writer.endElement("td");
+    writer.endElement(HtmlConstants.TD);
 
-    writer.endElement("tr");
-    writer.endElement("table");            
+    writer.endElement(HtmlConstants.TR);
+    writer.endElement(HtmlConstants.TABLE);
   }
-
-// ///////////////////////////////////////////// bean getter + setter
 
 }
 

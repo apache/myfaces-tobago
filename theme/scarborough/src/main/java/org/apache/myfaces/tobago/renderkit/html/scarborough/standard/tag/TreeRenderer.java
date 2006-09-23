@@ -34,6 +34,8 @@ import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
@@ -111,38 +113,38 @@ public class TreeRenderer extends RendererBase {
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    writer.startElement("div", tree);
+    writer.startElement(HtmlConstants.DIV, tree);
     writer.writeComponentClass();
-    writer.writeAttribute("style", null, ATTR_STYLE);
+    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
 
-    writer.startElement("input", tree);
-    writer.writeAttribute("type", "hidden", null);
+    writer.startElement(HtmlConstants.INPUT, tree);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute("value", ";", null);
-    writer.endElement("input");
+    writer.writeAttribute(HtmlAttributes.VALUE, ";", null);
+    writer.endElement(HtmlConstants.INPUT);
 
-    writer.startElement("input", tree);
-    writer.writeAttribute("type", "hidden", null);
+    writer.startElement(HtmlConstants.INPUT, tree);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
     writer.writeNameAttribute(clientId + UITree.MARKER);
     writer.writeIdAttribute(clientId + UITree.MARKER);
-    writer.writeAttribute("value", "", null);
-    writer.endElement("input");
+    writer.writeAttribute(HtmlAttributes.VALUE, "", null);
+    writer.endElement(HtmlConstants.INPUT);
 
     if (isSelectable(tree)) {
-      writer.startElement("input", tree);
-      writer.writeAttribute("type", "hidden", null);
+      writer.startElement(HtmlConstants.INPUT, tree);
+      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
       writer.writeNameAttribute(clientId + UITree.SELECT_STATE);
       writer.writeIdAttribute(clientId + UITree.SELECT_STATE);
-      writer.writeAttribute("value", ";", null);
-      writer.endElement("input");
+      writer.writeAttribute(HtmlAttributes.VALUE, ";", null);
+      writer.endElement(HtmlConstants.INPUT);
     }
 
     if (ComponentUtil.getBooleanAttribute(tree, ATTR_MUTABLE)) {
 
 
-//      writer.startElement("div", null);
-//      writer.writeAttribute("style", "border: 2px groove #ddeeff", null);
+//      writer.startElement(HtmlConstants.DIV, null);
+//      writer.writeAttribute(HtmlAttributes.STYLE, "border: 2px groove #ddeeff", null);
 //      writer.writeText("", null);
 
       UIComponent toolbar = tree.getFacet("mutableToolbar");
@@ -152,24 +154,24 @@ public class TreeRenderer extends RendererBase {
       RenderUtil.encode(facesContext, toolbar);
 
 
-//      writer.endElement("div");
+//      writer.endElement(HtmlConstants.DIV);
     }
 
-//    writer.startElement("div", null);
-    writer.startElement("table", tree);
-    writer.writeAttribute("cellpadding", "0", null);
-    writer.writeAttribute("cellspacing", "0", null);
-    writer.writeAttribute("border", "0", null);
-    writer.writeAttribute("summary", "", null);
+//    writer.startElement(HtmlConstants.DIV, null);
+    writer.startElement(HtmlConstants.TABLE, tree);
+    writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
+    writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
+    writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
+    writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
     writer.writeComponentClass();
-    writer.startElement("tr", null);
-    writer.startElement("td", null);
+    writer.startElement(HtmlConstants.TR, null);
+    writer.startElement(HtmlConstants.TD, null);
     writer.writeIdAttribute(clientId + "-cont");
     writer.writeComment("placeholder for treecontent");
-    writer.endElement("td");
-    writer.endElement("tr");
-    writer.endElement("table");
-//    writer.endElement("div");
+    writer.endElement(HtmlConstants.TD);
+    writer.endElement(HtmlConstants.TR);
+    writer.endElement(HtmlConstants.TABLE);
+//    writer.endElement(HtmlConstants.DIV);
 
 
     String[] script = createJavascript(facesContext, clientId, root);
@@ -188,7 +190,7 @@ public class TreeRenderer extends RendererBase {
       HtmlRendererUtil.writeScriptLoader(facesContext, scripts, script);
     }
 
-    writer.endElement("div");
+    writer.endElement(HtmlConstants.DIV);
   }
 
   private String[] createJavascript(FacesContext facesContext, String clientId,

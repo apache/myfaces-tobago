@@ -34,6 +34,8 @@ import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -66,12 +68,12 @@ public class BoxRenderer extends BoxRendererBase {
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    writer.startElement("fieldset", component);
+    writer.startElement(HtmlConstants.FIELDSET, component);
     writer.writeComponentClass();
-    writer.writeAttribute("style", style, null);
+    writer.writeAttribute(HtmlAttributes.STYLE, style, null);
 
     if (label != null || labelString != null) {
-      writer.startElement("legend", component);
+      writer.startElement(HtmlConstants.LEGEND, component);
       writer.writeComponentClass();
 
       writer.writeText("", null);
@@ -80,15 +82,15 @@ public class BoxRenderer extends BoxRendererBase {
       } else {
         writer.writeText(labelString, null);
       }
-      writer.endElement("legend");
+      writer.endElement(HtmlConstants.LEGEND);
     }
 
     String contentStyle = (String)
         component.getAttributes().get(ATTR_STYLE_INNER);
     if (toolbar != null) {
-      writer.startElement("div", null);
+      writer.startElement(HtmlConstants.DIV, null);
       writer.writeClassAttribute("tobago-box-toolbar-div");
-      writer.startElement("div", null);
+      writer.startElement(HtmlConstants.DIV, null);
       writer.writeClassAttribute("tobago-box-toolbar-span");
       final Map attributes = toolbar.getAttributes();
       attributes.put(
@@ -100,16 +102,16 @@ public class BoxRenderer extends BoxRendererBase {
         attributes.put(ATTR_ICON_SIZE, ToolBarTag.ICON_SMALL);
       }
       RenderUtil.encode(facesContext, toolbar);
-      writer.endElement("div");
-      writer.endElement("div");
+      writer.endElement(HtmlConstants.DIV);
+      writer.endElement(HtmlConstants.DIV);
       if (ClientProperties.getInstance(facesContext.getViewRoot()).getUserAgent().isMsie()) {
         contentStyle
             = HtmlRendererUtil.replaceStyleAttribute(contentStyle, "top", "-10px");
       }
     }
-    writer.startElement("div", component);
+    writer.startElement(HtmlConstants.DIV, component);
     writer.writeComponentClass();
-    writer.writeAttribute("style", contentStyle, null);
+    writer.writeAttribute(HtmlAttributes.STYLE, contentStyle, null);
 
   }
 
@@ -117,8 +119,8 @@ public class BoxRenderer extends BoxRendererBase {
       UIComponent component) throws IOException {
 
     ResponseWriter writer = facesContext.getResponseWriter();
-    writer.endElement("div");
-    writer.endElement("fieldset");
+    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlConstants.FIELDSET);
   }
 
   public boolean getRendersChildren() {

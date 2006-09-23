@@ -37,6 +37,8 @@ import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.InRendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.FacesMessage;
@@ -88,33 +90,33 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
     String id = component.getClientId(facesContext);
     TobagoResponseWriter writer = (TobagoResponseWriter)
         facesContext.getResponseWriter();
-    writer.startElement("input", component);
-    writer.writeAttribute("type", type, null);
+    writer.startElement(HtmlConstants.INPUT, component);
+    writer.writeAttribute(HtmlAttributes.TYPE, type, null);
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
     if (currentValue != null) {
-      writer.writeAttribute("value", currentValue, null);
+      writer.writeAttribute(HtmlAttributes.VALUE, currentValue, null);
     }
     if (title != null) {
-      writer.writeAttribute("title", title, null);
+      writer.writeAttribute(HtmlAttributes.TITLE, title, null);
     }
-    writer.writeAttribute("readonly",
+    writer.writeAttribute(HtmlAttributes.READONLY,
         ComponentUtil.getBooleanAttribute(component, ATTR_READONLY));
-    writer.writeAttribute("disabled",
+    writer.writeAttribute(HtmlAttributes.DISABLED,
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
-    writer.writeAttribute("style", null, ATTR_STYLE);
+    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
     writer.writeComponentClass();
     if (renderAjaxSuggest) {
-      writer.writeAttribute("autocomplete", "off", false);
+      writer.writeAttribute(HtmlAttributes.AUTOCOMPLETE, "off", false);
     }
     if (component instanceof UIInput) {
       String onchange = HtmlUtils.generateOnchange((UIInput) component, facesContext);
       if (onchange != null) {
         // TODO: create and use utility method to write attributes without quoting
-  //      writer.writeAttribute("onchange", onchange, null);
+  //      writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
       }
     }
-    writer.endElement("input");
+    writer.endElement(HtmlConstants.INPUT);
 
     // input suggest
     if (renderAjaxSuggest) {
@@ -127,11 +129,11 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
       page.getScriptFiles().add("script/controls.js");
       page.getScriptFiles().add("script/inputSuggest.js");
 
-      writer.startElement("div");
+      writer.startElement(HtmlConstants.DIV);
       writer.writeClassAttribute("tobago-in-suggest-popup");
-      writer.writeAttribute("style", "display: none;", null);
+      writer.writeAttribute(HtmlAttributes.STYLE, "display: none;", null);
       writer.writeIdAttribute(popupId);
-      writer.endElement("div");
+      writer.endElement(HtmlConstants.DIV);
 
       final String[] scripts = new String[]{
           "script/effects.js",
@@ -181,17 +183,17 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
     List suggesteds = (List) mb.invoke(context, new Object[]{
         AjaxPhaseListener.getValueForComponent(context, uiComponent)});
 
-    writer.startElement("ul", null);
+    writer.startElement(HtmlConstants.UL, null);
     int suggestedCount = 0;
     for (Iterator i = suggesteds.iterator(); i.hasNext(); suggestedCount++) {
       if (suggestedCount > maxSuggestedCount) {
         break;
       }
-      writer.startElement("li", null);
+      writer.startElement(HtmlConstants.LI, null);
       writer.writeText(i.next(), null);
-      writer.endElement("li");
+      writer.endElement(HtmlConstants.LI);
     }
-    writer.endElement("ul");
+    writer.endElement(HtmlConstants.UL);
     context.responseComplete();
   }
 

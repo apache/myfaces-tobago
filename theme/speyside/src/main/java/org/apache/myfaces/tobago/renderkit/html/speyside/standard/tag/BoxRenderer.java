@@ -36,6 +36,8 @@ import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -76,10 +78,10 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 
     String clientId = component.getClientId(facesContext);
 
-    writer.startElement("div", component);
+    writer.startElement(HtmlConstants.DIV, component);
     writer.writeComponentClass();
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute("style", style, null);
+    writer.writeAttribute(HtmlAttributes.STYLE, style, null);
 
     HtmlRendererUtil.writeJavascript(writer,
         "Tobago.addAjaxComponent(\"" + clientId + "\")");
@@ -92,22 +94,22 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     renderBoxHeader(facesContext, writer, component);
 
 
-    writer.startElement("div", component);
+    writer.startElement(HtmlConstants.DIV, component);
     writer.writeClassAttribute("tobago-box-content");
-//    writer.writeAttribute("style", null, TobagoConstants.ATTR_STYLE_BODY);
-    writer.startElement("div", component);
+//    writer.writeAttribute(HtmlAttributes.STYLE, null, TobagoConstants.ATTR_STYLE_BODY);
+    writer.startElement(HtmlConstants.DIV, component);
     writer.writeClassAttribute("tobago-box-content-inner");
-    writer.writeAttribute("style", null, ATTR_STYLE_INNER);
+    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE_INNER);
   }
 
 
   protected void renderBoxHeader(FacesContext facesContext,
       TobagoResponseWriter writer, UIComponent component) throws IOException {
 
-    writer.startElement("div", component);
+    writer.startElement(HtmlConstants.DIV, component);
     writer.writeClassAttribute("tobago-box-header");
     UIComponent label = component.getFacet(FACET_LABEL);
-    writer.startElement("span", null);
+    writer.startElement(HtmlConstants.SPAN, null);
     writer.writeClassAttribute("tobago-box-header-label");
     String labelString
         = (String) component.getAttributes().get(ATTR_LABEL);
@@ -116,13 +118,13 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     } else if (labelString != null) {
       writer.writeText(labelString, null);
     }
-    writer.endElement("span");
+    writer.endElement(HtmlConstants.SPAN);
 
     UIPanel toolbar = (UIPanel) component.getFacet(FACET_TOOL_BAR);
     if (toolbar != null) {
       renderToolbar(facesContext, writer, toolbar);
     }
-    writer.endElement("div");
+    writer.endElement(HtmlConstants.DIV);
   }
 
   public void encodeEndTobago(FacesContext facesContext,
@@ -131,12 +133,12 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 
     encodeEndInner(writer);
 
-    writer.endElement("div");
+    writer.endElement(HtmlConstants.DIV);
   }
 
   private void encodeEndInner(ResponseWriter writer) throws IOException {
-    writer.endElement("div");
-    writer.endElement("div");
+    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlConstants.DIV);
   }
 
   protected void renderToolbar(FacesContext facesContext,
@@ -146,7 +148,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     if (ToolBarTag.LABEL_OFF.equals(attributes.get(ATTR_LABEL_POSITION))) {
       className += " tobago-box-header-toolbar-label_off";
     }
-    writer.startElement("div", null);
+    writer.startElement(HtmlConstants.DIV, null);
     writer.writeClassAttribute(className);
     attributes.put(ATTR_SUPPPRESS_TOOLBAR_CONTAINER, Boolean.TRUE);
     if (ToolBarTag.LABEL_BOTTOM.equals(attributes.get(ATTR_LABEL_POSITION))) {
@@ -156,7 +158,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
       attributes.put(ATTR_ICON_SIZE, ToolBarTag.ICON_SMALL);
     }
     RenderUtil.encode(facesContext, toolbar);
-    writer.endElement("div");
+    writer.endElement(HtmlConstants.DIV);
   }
 
   public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {

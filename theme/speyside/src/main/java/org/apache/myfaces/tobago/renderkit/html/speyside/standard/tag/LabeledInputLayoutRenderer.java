@@ -27,6 +27,8 @@ import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -64,68 +66,68 @@ public class LabeledInputLayoutRenderer extends
         = ClientProperties.getInstance(FacesContext.getCurrentInstance());
 
     if (!inline) {
-      writer.startElement("table", input);
-      writer.writeAttribute("border", "0", null);
-      writer.writeAttribute("cellspacing", "0", null);
-      writer.writeAttribute("cellpadding", "0", null);
-      writer.writeAttribute("summary", "", null);
-      writer.writeAttribute("title", null, ATTR_TIP);
-      writer.startElement("tr", null);
+      writer.startElement(HtmlConstants.TABLE, input);
+      writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
+      writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
+      writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
+      writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
+      writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
+      writer.startElement(HtmlConstants.TR, null);
       if (label != null) {
-        writer.startElement("td", null);
+        writer.startElement(HtmlConstants.TD, null);
         writer.writeClassAttribute("tobago-label-td");
-        writer.writeAttribute("valign", "top", null);
+        writer.writeAttribute(HtmlAttributes.VALIGN, "top", null);
         writer.writeText("", null); // to ensure that the start-tag is closed!
         RenderUtil.encode(facesContext, label);
-        writer.endElement("td");
-        writer.startElement("td", null);
-        writer.startElement("img", null);
-        writer.writeAttribute("src", image, null);
-        writer.writeAttribute("border", "0", null);
-        writer.writeAttribute("height", "1", null);
-        writer.writeAttribute("width", "5", null);
-        writer.endElement("img");
-        writer.endElement("td");
+        writer.endElement(HtmlConstants.TD);
+        writer.startElement(HtmlConstants.TD, null);
+        writer.startElement(HtmlConstants.IMG, null);
+        writer.writeAttribute(HtmlAttributes.SRC, image, null);
+        writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
+        writer.writeAttribute(HtmlAttributes.HEIGHT, "1", null);
+        writer.writeAttribute(HtmlAttributes.WIDTH, "5", null);
+        writer.endElement(HtmlConstants.IMG);
+        writer.endElement(HtmlConstants.TD);
       }
-      writer.startElement("td", null);
-      writer.writeAttribute("valign", "top", null);
-      writer.writeAttribute("rowspan", "2", null);
+      writer.startElement(HtmlConstants.TD, null);
+      writer.writeAttribute(HtmlAttributes.VALIGN, "top", null);
+      writer.writeAttribute(HtmlAttributes.ROWSPAN, "2", null);
       writer.writeText("", null); // to ensure that the start-tag is closed!
       renderComponent(facesContext, input);
       if (picker != null) {
-        writer.endElement("td");
-        writer.startElement("td", null);
-        writer.writeAttribute("valign", "top", null);
-        writer.writeAttribute("rowspan", "2", null);
-        writer.writeAttribute("style", "padding-left: 5px;", null);
+        writer.endElement(HtmlConstants.TD);
+        writer.startElement(HtmlConstants.TD, null);
+        writer.writeAttribute(HtmlAttributes.VALIGN, "top", null);
+        writer.writeAttribute(HtmlAttributes.ROWSPAN, "2", null);
+        writer.writeAttribute(HtmlAttributes.STYLE, "padding-left: 5px;", null);
 
         renderPicker(facesContext, input, picker);
       }
-      writer.endElement("td");
-      writer.endElement("tr");
+      writer.endElement(HtmlConstants.TD);
+      writer.endElement(HtmlConstants.TR);
       if ("sap".equals(client.getTheme().getName())) { // FIXME: "sap"
-        writer.startElement("tr", null);
+        writer.startElement(HtmlConstants.TR, null);
         if (label != null) {
-          writer.startElement("td", null);
+          writer.startElement(HtmlConstants.TD, null);
           writer.writeClassAttribute("tobago-label-td-underline-label");
-          writer.startElement("img", null);
-          writer.writeAttribute("src", image, null);
-          writer.writeAttribute("border", "0", null);
-          writer.writeAttribute("height", "1", null);
-          writer.endElement("img");
-          writer.endElement("td");
-          writer.startElement("td", null);
+          writer.startElement(HtmlConstants.IMG, null);
+          writer.writeAttribute(HtmlAttributes.SRC, image, null);
+          writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
+          writer.writeAttribute(HtmlAttributes.HEIGHT, "1", null);
+          writer.endElement(HtmlConstants.IMG);
+          writer.endElement(HtmlConstants.TD);
+          writer.startElement(HtmlConstants.TD, null);
           writer.writeClassAttribute("tobago-label-td-underline-spacer");
-          writer.startElement("img", null);
-          writer.writeAttribute("src", image, null);
-          writer.writeAttribute("border", "0", null);
-          writer.writeAttribute("height", "1", null);
-          writer.endElement("img");
-          writer.endElement("td");
+          writer.startElement(HtmlConstants.IMG, null);
+          writer.writeAttribute(HtmlAttributes.SRC, image, null);
+          writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
+          writer.writeAttribute(HtmlAttributes.HEIGHT, "1", null);
+          writer.endElement(HtmlConstants.IMG);
+          writer.endElement(HtmlConstants.TD);
         }
-        writer.endElement("tr");
+        writer.endElement(HtmlConstants.TR);
       }
-      writer.endElement("table");
+      writer.endElement(HtmlConstants.TABLE);
     } else {
       renderComponent(facesContext, input);
       renderPicker(facesContext, input, picker);

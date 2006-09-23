@@ -30,6 +30,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
@@ -76,12 +77,12 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     if (!inline) {
-      writer.startElement("table", component);
-      writer.writeAttribute("border", "0", null);
-      writer.writeAttribute("cellspacing", "0", null);
-      writer.writeAttribute("cellpadding", "0", null);
-      writer.writeAttribute("summary", "", null);
-      writer.writeAttribute("title", null, ATTR_TIP);
+      writer.startElement(HtmlConstants.TABLE, component);
+      writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
+      writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
+      writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
+      writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
+      writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
     }
 
     Object value = component.getValue();
@@ -89,46 +90,46 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     for (SelectItem item : items) {
 
       if (!inline) {
-        writer.startElement("tr", null);
-        writer.startElement("td", null);
+        writer.startElement(HtmlConstants.TR, null);
+        writer.startElement(HtmlConstants.TD, null);
       }
 
       String id = clientId + NamingContainer.SEPARATOR_CHAR
           + NamingContainer.SEPARATOR_CHAR + item.getValue().toString();
       clientIds.add(id);
-      writer.startElement("input", component);
-      writer.writeAttribute("type", "radio", null);
+      writer.startElement(HtmlConstants.INPUT, component);
+      writer.writeAttribute(HtmlAttributes.TYPE, "radio", null);
       writer.writeComponentClass();
       if (item.getValue().equals(value)) {
-        writer.writeAttribute("checked", "checked", null);
+        writer.writeAttribute(HtmlAttributes.CHECKED, "checked", null);
       }
       writer.writeNameAttribute(clientId);
 
       writer.writeIdAttribute(id);
       String formattedValue
           = getFormattedValue(facesContext, component, item.getValue());
-      writer.writeAttribute("value", formattedValue, null);
-      writer.writeAttribute("disabled",
+      writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, null);
+      writer.writeAttribute(HtmlAttributes.DISABLED,
           ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
-      writer.writeAttribute("title", null, ATTR_TIP);
+      writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
       if (!ComponentUtil.getBooleanAttribute(component, ATTR_REQUIRED)) {
-        writer.writeAttribute("onclick", "Tobago.selectOneRadioClick(this, '" + clientId + "')", null);
+        writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.selectOneRadioClick(this, '" + clientId + "')", null);
       }
-      writer.endElement("input");
+      writer.endElement(HtmlConstants.INPUT);
 
       if (item.getLabel() != null) {
 
 
         if (!inline) {
-          writer.endElement("td");
-          writer.startElement("td", null);
+          writer.endElement(HtmlConstants.TD);
+          writer.startElement(HtmlConstants.TD, null);
         }
 
         // FIXME: use created UIOutput Label
         // FIXME: see outcommented part
         writer.startElement(HtmlConstants.LABEL, null);
         writer.writeClassAttribute("tobago-label-default");
-        writer.writeAttribute("for", id, null);
+        writer.writeAttribute(HtmlAttributes.FOR, id, null);
         writer.writeText(item.getLabel(), null);
         writer.endElement(HtmlConstants.LABEL);
 //        Application application = tobagoContext.getApplication();
@@ -143,12 +144,12 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
       }
       if (!inline) {
-        writer.endElement("td");
-        writer.endElement("tr");
+        writer.endElement(HtmlConstants.TD);
+        writer.endElement(HtmlConstants.TR);
       }
     }
     if (!inline) {
-      writer.endElement("table");
+      writer.endElement(HtmlConstants.TABLE);
     }
 
     checkForCommandFacet(component, clientIds, facesContext, writer);
