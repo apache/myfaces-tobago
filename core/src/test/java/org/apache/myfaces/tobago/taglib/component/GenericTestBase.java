@@ -62,7 +62,7 @@ abstract public class GenericTestBase extends TestCase {
       new PanelTag(),
       new ProgressTag(),
       new SelectOneRadioTag(),
-      new RichTextEditorTag(),
+      //new RichTextEditorTag(),
       new SheetTag(),
       new SelectOneTag(),
       new TabGroupTag(),

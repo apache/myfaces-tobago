@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.sandbox;
 
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
+import org.apache.myfaces.tobago.taglib.component.TextInputTagDeclaration;
 
 /*
  * Created: Aug 5, 2005 4:58:19 PM
