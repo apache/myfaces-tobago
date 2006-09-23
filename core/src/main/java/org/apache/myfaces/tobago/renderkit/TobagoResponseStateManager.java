@@ -18,6 +18,8 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 
 import javax.faces.render.ResponseStateManager;
 import javax.faces.context.FacesContext;
@@ -65,12 +67,12 @@ public class TobagoResponseStateManager extends ResponseStateManager {
 
     if (treeStruct != null) {
       if (treeStruct instanceof String) {
-        responseWriter.startElement("input", null);
-        responseWriter.writeAttribute("type", "hidden", null);
-        responseWriter.writeAttribute("name", TREE_PARAM, null);
-        responseWriter.writeAttribute("id", TREE_PARAM, null);
-        responseWriter.writeAttribute("value", treeStruct, null);
-        responseWriter.endElement("input");
+        responseWriter.startElement(HtmlConstants.INPUT, null);
+        responseWriter.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+        responseWriter.writeAttribute(HtmlAttributes.NAME, TREE_PARAM, null);
+        responseWriter.writeAttribute(HtmlAttributes.ID, TREE_PARAM, null);
+        responseWriter.writeAttribute(HtmlAttributes.VALUE, treeStruct, null);
+        responseWriter.endElement(HtmlConstants.INPUT);
       }
     } else {
       LOG.error("No tree structure to be saved in client response!");
@@ -78,23 +80,23 @@ public class TobagoResponseStateManager extends ResponseStateManager {
 
     if (compStates != null) {
       if (compStates instanceof String) {
-        responseWriter.startElement("input", null);
-        responseWriter.writeAttribute("type", "hidden", null);
-        responseWriter.writeAttribute("name", STATE_PARAM, null);
-        responseWriter.writeAttribute("id", STATE_PARAM, null);
-        responseWriter.writeAttribute("value", compStates, null);
-        responseWriter.endElement("input");
+        responseWriter.startElement(HtmlConstants.INPUT, null);
+        responseWriter.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+        responseWriter.writeAttribute(HtmlAttributes.NAME, STATE_PARAM, null);
+        responseWriter.writeAttribute(HtmlAttributes.ID, STATE_PARAM, null);
+        responseWriter.writeAttribute(HtmlAttributes.VALUE, compStates, null);
+        responseWriter.endElement(HtmlConstants.INPUT);
       }
     } else {
       LOG.error("No component states to be saved in client response!");
     }
 
-    responseWriter.startElement("input", null);
-    responseWriter.writeAttribute("type", "hidden", null);
-    responseWriter.writeAttribute("name", VIEWID_PARAM, null);
-    responseWriter.writeAttribute("id", VIEWID_PARAM, null);
-    responseWriter.writeAttribute("value", facescontext.getViewRoot().getViewId(), null);
-    responseWriter.endElement("input");
+    responseWriter.startElement(HtmlConstants.INPUT, null);
+    responseWriter.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+    responseWriter.writeAttribute(HtmlAttributes.NAME, VIEWID_PARAM, null);
+    responseWriter.writeAttribute(HtmlAttributes.ID, VIEWID_PARAM, null);
+    responseWriter.writeAttribute(HtmlAttributes.VALUE, facescontext.getViewRoot().getViewId(), null);
+    responseWriter.endElement(HtmlConstants.INPUT);
   }
 
 }

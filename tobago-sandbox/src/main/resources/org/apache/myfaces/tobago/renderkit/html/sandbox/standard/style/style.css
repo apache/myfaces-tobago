@@ -26,12 +26,14 @@ fieldset.tobago-separator-default  {
   border-left: 0px;
   border-bottom: 0px;
   border-right: 0px;
+  border-top: 1px solid #333;
+  margin-top: 3px;
 }
 legend.tobago-separator-default {
   font: bold 12px arial, helvetica, sans-serif;
-  padding-left:5px;
-  padding-right:5px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 hr.tobago-separator-default {
- }
+}

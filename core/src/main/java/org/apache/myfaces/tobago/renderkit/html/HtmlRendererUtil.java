@@ -269,11 +269,11 @@ public final class HtmlRendererUtil {
     if (width) {
       layoutSpace = LayoutUtil.getLayoutWidth(component);
       layoutAttribute = ATTR_LAYOUT_WIDTH;
-      styleAttribute = "width";
+      styleAttribute = HtmlAttributes.WIDTH;
     } else {
       layoutSpace = LayoutUtil.getLayoutHeight(component);
       layoutAttribute = ATTR_LAYOUT_HEIGHT;
-      styleAttribute = "height";
+      styleAttribute = HtmlAttributes.HEIGHT;
     }
     int space = -1;
     if (layoutSpace != null) {
@@ -476,14 +476,14 @@ public final class HtmlRendererUtil {
   }
 
   public static void startJavascript(ResponseWriter writer) throws IOException {
-    writer.startElement("script", null);
-    writer.writeAttribute("type", "text/javascript", null);
+    writer.startElement(HtmlConstants.SCRIPT, null);
+    writer.writeAttribute(HtmlAttributes.TYPE, "text/javascript", null);
     writer.writeText("\n<!--\n", null);
   }
 
   public static void endJavascript(ResponseWriter writer) throws IOException {
     writer.writeText("\n// -->\n", null);
-    writer.endElement("script");
+    writer.endElement(HtmlConstants.SCRIPT);
   }
 
   public static void writeScriptLoader(FacesContext facesContext, String script)
