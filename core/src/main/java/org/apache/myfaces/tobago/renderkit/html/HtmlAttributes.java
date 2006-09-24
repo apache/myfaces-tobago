@@ -69,5 +69,6 @@ public interface HtmlAttributes {
   String ONKEYDOWN = "onkeydown";
   String ONKEYPRESS = "onkeypress";
   String ONKEYUP = "onkeyup";
+  String CLASS = "class";
 }
 

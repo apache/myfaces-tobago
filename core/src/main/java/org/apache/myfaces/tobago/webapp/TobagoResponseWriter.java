@@ -22,6 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import org.apache.myfaces.tobago.util.HtmlWriterUtil;
 import org.apache.myfaces.tobago.util.XmlUtils;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
@@ -388,28 +389,25 @@ public class TobagoResponseWriter extends ResponseWriter {
     return stackTrace[i].toString();
   }
 
-
   public void writeIdAttribute(final String id) throws IOException {
-    writeAttribute("id", id, false);
+    writeAttribute(HtmlAttributes.ID, id, false);
   }
 
   public void writeNameAttribute(final String id) throws IOException {
-    writeAttribute("name", id, false);
+    writeAttribute(HtmlAttributes.NAME, id, false);
   }
 
   public void writeClassAttribute(final String id) throws IOException {
-    writeAttribute("class", id, false);
+    writeAttribute(HtmlAttributes.CLASS, id, false);
   }
 
   public void writeComponentClass() throws IOException {
-    writeComponentAttribute("class", ATTR_STYLE_CLASS);
+    writeComponentAttribute(HtmlAttributes.CLASS, ATTR_STYLE_CLASS);
   }
-
-
 
   public void writeURIAttribute(final String s, final Object obj, final String s1)
       throws IOException {
-    LOG.error("Not implemented yet!"); // FIXME jsfbeta
+    LOG.error("Not implemented yet!");
   }
 
 }

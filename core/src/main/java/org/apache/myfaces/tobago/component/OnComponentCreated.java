@@ -16,12 +16,11 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 09.06.2006
  * Time: 15:46:20
- * To change this template use File | Settings | File Templates.
  */
 public interface OnComponentCreated {
 
