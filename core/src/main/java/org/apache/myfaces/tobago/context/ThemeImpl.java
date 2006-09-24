@@ -111,19 +111,22 @@ class ThemeImpl implements Theme, Serializable {
     if (markupConfig == null) {
       markupConfig = new MarkupConfigImpl();
     }
-    ThemeImpl fallback  = this.getFallback();
-    if (fallback != null) {
-      fallback.resolveMarkupConfig();
-      MarkupConfigImpl fallbackMarkupConfig = fallback.getMarkupConfigImpl();
-      if (fallbackMarkupConfig != null) {
-        markupConfig.merge(fallbackMarkupConfig);
+    if (!markupConfig.isMerged()) {
+      ThemeImpl fallback  = getFallback();
+      if (fallback != null) {
+        fallback.resolveMarkupConfig();
+        MarkupConfigImpl fallbackMarkupConfig = fallback.getMarkupConfigImpl();
+        if (fallbackMarkupConfig != null) {
+          markupConfig.merge(fallbackMarkupConfig);
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("merge markupconfig from " + fallback.getName() + " for " + getName());
+          }
+        }
       }
+      markupConfig.setMerged(true);
       if (LOG.isDebugEnabled()) {
-        LOG.debug("merge markupconfig from " + fallback.getName() + " for " + getName());
+        LOG.debug(getName() + " " +markupConfig);
       }
-    }
-    if (LOG.isDebugEnabled()) {
-      LOG.debug(getName() + " " +markupConfig);
     }
   }
 

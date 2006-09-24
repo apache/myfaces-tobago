@@ -34,6 +34,16 @@ public class MarkupConfigImpl implements MarkupConfig {
 
   private Map<String,RendererMarkup> renderer = new HashMap<String,RendererMarkup>();
 
+  private boolean merged = false;
+
+  public boolean isMerged() {
+    return merged;
+  }
+
+  public void setMerged(boolean merged) {
+    this.merged = merged;
+  }
+
   Collection<RendererMarkup>  getRendererMarkups() {
     return renderer.values();
   }
