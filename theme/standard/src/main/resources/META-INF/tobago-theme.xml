@@ -24,4 +24,11 @@
   <name>standard</name>
   <deprecated-name>org.apache.myfaces.tobago.context.StandardTheme</deprecated-name>
   <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
+  <supported-markup>
+    <renderer>
+      <name>out</name>
+      <markup>strong</markup>
+      <markup>deleted</markup>
+    </renderer>
+  </supported-markup>
 </tobago-theme>

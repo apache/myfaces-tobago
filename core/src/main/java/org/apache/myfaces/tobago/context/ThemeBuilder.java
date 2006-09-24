@@ -49,6 +49,9 @@ class ThemeBuilder {
     for (ThemeImpl theme : availableThemes) {
       theme.resolveFallbacks();
     }
+    for (ThemeImpl theme : availableThemes) {
+      theme.resolveMarkupConfig();
+    }
     Map<String, Theme> result = new HashMap<String, Theme>();
     for (ThemeImpl theme : availableThemes) {
       result.put(theme.getName(), theme);

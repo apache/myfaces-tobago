@@ -53,6 +53,12 @@ class ThemeParser {
     digester.addCallMethod("tobago-theme/deprecated-name", "setDeprecatedName", 0);
     digester.addCallMethod("tobago-theme/resource-path", "setResourcePath", 0);
     digester.addCallMethod("tobago-theme/fallback", "setFallbackName", 0);
+    digester.addObjectCreate("tobago-theme/supported-markup", MarkupConfigImpl.class);
+    digester.addSetNext("tobago-theme/supported-markup", "setMarkupConfig");
+    digester.addObjectCreate("tobago-theme/supported-markup/renderer",  RendererMarkup.class);
+    digester.addSetNext("tobago-theme/supported-markup/renderer", "addRenderer");
+    digester.addCallMethod("tobago-theme/supported-markup/renderer/name", "setName", 0);
+    digester.addCallMethod("tobago-theme/supported-markup/renderer/markup", "addMarkup" , 0);
 
     return digester;
   }

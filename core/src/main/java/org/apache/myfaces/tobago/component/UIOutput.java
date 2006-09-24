@@ -30,7 +30,7 @@ import javax.faces.el.ValueBinding;
 * Time: 23:53:37
 * To change this template use File | Settings | File Templates.
 */
-public class UIOutput extends javax.faces.component.UIOutput {
+public class UIOutput extends javax.faces.component.UIOutput implements SupportsMarkup {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Output";
   private Boolean escape;
   private String markup;

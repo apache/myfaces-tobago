@@ -42,6 +42,8 @@ class ThemeImpl implements Theme, Serializable {
 
   private List<Theme> fallbackList;
 
+  private MarkupConfigImpl markupConfig;
+
   public String getName() {
     return name;
   }
@@ -105,8 +107,40 @@ class ThemeImpl implements Theme, Serializable {
     }
   }
 
+  public void resolveMarkupConfig() {
+    if (markupConfig == null) {
+      markupConfig = new MarkupConfigImpl();
+    }
+    ThemeImpl fallback  = this.getFallback();
+    if (fallback != null) {
+      fallback.resolveMarkupConfig();
+      MarkupConfigImpl fallbackMarkupConfig = fallback.getMarkupConfigImpl();
+      if (fallbackMarkupConfig != null) {
+        markupConfig.merge(fallbackMarkupConfig);
+      }
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("merge markupconfig from " + fallback.getName() + " for " + getName());
+      }
+    }
+    if (LOG.isDebugEnabled()) {
+      LOG.debug(getName() + " " +markupConfig);
+    }
+  }
+
   public String toString() {
 //    LOG.warn("Should not be called!", new Exception());
     return name;
+  }
+
+  public void setMarkupConfig(MarkupConfigImpl markupConfig) {
+    this.markupConfig = markupConfig;
+  }
+
+  public MarkupConfig getMarkupConfig() {
+    return markupConfig;
+  }
+
+  MarkupConfigImpl getMarkupConfigImpl() {
+    return markupConfig;
   }
 }

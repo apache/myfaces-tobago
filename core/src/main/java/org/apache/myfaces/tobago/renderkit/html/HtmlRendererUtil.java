@@ -42,7 +42,10 @@ import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_
 import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_READONLY;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.LayoutUtil;
@@ -427,12 +430,16 @@ public final class HtmlRendererUtil {
     if (ComponentUtil.isError(component)) {
       tobagoClass.append(prefix).append(TOBAGO_CSS_CLASS_SUFFIX_ERROR);
     }
-    String markup = ComponentUtil.getStringAttribute(component, ATTR_MARKUP);
-    if (StringUtils.isNotEmpty(markup)) {
-      if (markup.equals("strong") || markup.equals("deleted")) {
-        tobagoClass.append(prefix).append("-markup-").append(markup).append(" ");
-      } else {
-        LOG.warn("Unknown markup='" + markup + "'");
+
+    if (component instanceof SupportsMarkup) {
+      String markup = ComponentUtil.getStringAttribute(component, ATTR_MARKUP);
+      if (StringUtils.isNotEmpty(markup)) {
+        Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot()).getTheme();
+        if (theme.getMarkupConfig().isMarkupSupported(rendererName, markup)) {
+          tobagoClass.append(prefix).append("-markup-").append(markup).append(" ");
+        } else {
+          LOG.warn("Unknown markup='" + markup + "'");
+        }
       }
     }
 
