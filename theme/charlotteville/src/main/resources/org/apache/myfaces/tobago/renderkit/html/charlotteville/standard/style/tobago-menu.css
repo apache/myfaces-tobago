@@ -1,0 +1,37 @@
+
+.tobago-menuBar-default {
+  border: 1px solid #FF9900;
+  background: #FFCC66;
+}
+
+.tobago-menuBar-separator   {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border-top:1px solid #000000;
+  border-right:0px solid #000000;
+  border-bottom:0px solid #000000;
+  border-left:0px solid #000000;
+}
+
+.tobago-menuBar-page-facet {
+  background: #FFCC66;
+}
+
+.tobago-menuBar-subitem-container {
+  background: #FFCC66;
+}
+
+.tobago-menu-item-focus {
+  background: #FF9900;
+}
+
+.tobago-menu-item-hover {
+  background: #FF9900;
+}
+
+.tobago-menuBar-item-span-disabled {
+  color: #888888;
+}
+

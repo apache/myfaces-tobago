@@ -27,7 +27,7 @@
   border: 1px solid #FECB66;
   border-bottom: 0px dotted #FECB66;
   font: bold 12px arial, helvetica, sans-serif;
-  color: #785A1D;
+  color: #660000;
   padding-left: 5px;
   padding-top: 2px;
   padding-bottom: 2px;
@@ -42,4 +42,71 @@
   padding: 5px;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+/* button ------------------------------------------------------------------ */
+
+.tobago-button-default  {
+  background: #FADC9F;
+  color: #660000;
+}
+
+.tobago-button-disabled {
+  color: GrayText;
+}
+
+/* label ------------------------------------------------------------------- */
+
+div.tobago-label-default  {
+  background: #FADC9F;
+}
+
+.tobago-label-td-underline-label {
+  background: #FADC9F;
+}
+
+/* page -------------------------------------------------------------------- */
+.tobago-page-default  {
+  background: #FFEECF;
+}
+
+/* Tab ---------------------------------------------------------------------- */
+.tobago-tab-link {
+  color: #660000;
+}
+
+div.tobago-tab-selected-outer {
+  border-color: #FECB66;
+  background: #FADC9F repeat-x top;
+}
+
+div.tobago-tab-selected-inner {
+  color: #FECB66;
+}
+
+div.tobago-tab-unselected-outer {
+  border-color: #FECB66;
+  background: #FADC9F repeat-x top;
+}
+
+div.tobago-tab-unselected-inner {
+  color: #FECB66;
+}
+
+div.tobago-tab-fulfill {
+  border-color: #FECB66;
+}
+
+.tobago-tab-content {
+  border-color: #FECB66;
+  background: #FFEECF;
+}
+
+.tobago-tab-shadow {
+  background: #FECB66;
+  border-color: #FECB66;
+}
+
+a:link.tab, a:visited.tab, a:active.tab {
+  color: #FECB66;
 }
