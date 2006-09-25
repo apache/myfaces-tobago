@@ -25,9 +25,7 @@
     <default-theme>speyside</default-theme>
     <supported-theme>scarborough</supported-theme>
     <supported-theme>richmond</supported-theme>
-<!-- uncomment to enable the new theme (also in pom.xml)
     <supported-theme>charlotteville</supported-theme>
--->
   </theme-config>
 
   <resource-dir>tobago-resource</resource-dir>
