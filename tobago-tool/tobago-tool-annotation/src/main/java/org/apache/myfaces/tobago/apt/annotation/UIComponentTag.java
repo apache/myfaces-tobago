@@ -36,4 +36,6 @@ public @interface UIComponentTag {
 
   String rendererType() default "";
 
+  String displayName() default "";
+
 }
