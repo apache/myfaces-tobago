@@ -14,6 +14,7 @@
  *    limitations under the License.
 --%>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
@@ -22,11 +23,20 @@
     <f:subview id="date">
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="300px;1*" rows="fixed;1*" />
+          <tc:gridLayout columns="300px;1*" rows="fixed;fixed;1*" />
         </f:facet>
 <%-- code-sniplet-start id="date" --%>
-        <tc:date label="Day of birth" />
+        <tx:date label="Date">
+          <f:convertDateTime pattern="dd.MM.yyyy" />
+        </tx:date>
 <%-- code-sniplet-end id="date" --%>
+        <tc:cell/>
+
+<%-- code-sniplet-start id="dateTime" --%>
+        <tx:date label="Date/Time">
+          <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+        </tx:date>
+<%-- code-sniplet-end id="dateTime" --%>
         <tc:cell/>
 
         <tc:cell spanX="2"/>
