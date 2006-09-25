@@ -50,7 +50,7 @@ class ThemeBuilder {
       theme.resolveFallbacks();
     }
     for (ThemeImpl theme : availableThemes) {
-      theme.resolveMarkupConfig();
+      theme.resolveRendererConfig();
     }
     Map<String, Theme> result = new HashMap<String, Theme>();
     for (ThemeImpl theme : availableThemes) {

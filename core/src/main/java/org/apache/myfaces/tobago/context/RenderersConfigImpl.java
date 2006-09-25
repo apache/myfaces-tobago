@@ -28,11 +28,11 @@ import java.util.Collection;
  * Date: Sep 24, 2006
  * Time: 3:46:11 PM
  */
-public class MarkupConfigImpl implements MarkupConfig {
+public class RenderersConfigImpl implements RenderersConfig {
 
-  private static final Log LOG = LogFactory.getLog(MarkupConfigImpl.class);
+  private static final Log LOG = LogFactory.getLog(RenderersConfigImpl.class);
 
-  private Map<String,RendererMarkup> renderer = new HashMap<String,RendererMarkup>();
+  private Map<String,RendererConfig> renderer = new HashMap<String,RendererConfig>();
 
   private boolean merged = false;
 
@@ -44,13 +44,13 @@ public class MarkupConfigImpl implements MarkupConfig {
     this.merged = merged;
   }
 
-  Collection<RendererMarkup>  getRendererMarkups() {
+  Collection<RendererConfig>  getRendererConfigs() {
     return renderer.values();
   }
 
-  public void addRenderer(RendererMarkup rendererMarkup) {
-    if (!renderer.containsKey(rendererMarkup.getName())) {
-      renderer.put(rendererMarkup.getName(), rendererMarkup);
+  public void addRenderer(RendererConfig rendererConfig) {
+    if (!renderer.containsKey(rendererConfig.getName())) {
+      renderer.put(rendererConfig.getName(), rendererConfig);
     }
   }
 
@@ -58,19 +58,19 @@ public class MarkupConfigImpl implements MarkupConfig {
     if (LOG.isDebugEnabled()) {
       LOG.debug("calling isMarkupSupported" + rendererName + " " +markup);
     }
-    RendererMarkup rendererMarkup = renderer.get(rendererName);
-    if (rendererMarkup != null) {
-      return rendererMarkup.contains(markup);
+    RendererConfig rendererConfig = renderer.get(rendererName);
+    if (rendererConfig != null) {
+      return rendererConfig.contains(markup);
     } else {
       LOG.error("Calling isMarkupSupported" + rendererName + " " +markup + "but no configuration found.");
       return false;
     }
   }
 
-  void merge(MarkupConfigImpl markupConfig) {
-    Collection<RendererMarkup> markups = markupConfig.getRendererMarkups();
-    for (RendererMarkup markup: markups) {
-      addRenderer(markup);
+  void merge(RenderersConfigImpl renderersConfig) {
+    Collection<RendererConfig> renderers = renderersConfig.getRendererConfigs();
+    for (RendererConfig rendererConfig : renderers) {
+      addRenderer(rendererConfig);
     }
   }
 

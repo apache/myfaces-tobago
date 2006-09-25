@@ -16,35 +16,22 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
-
-import java.util.Set;
-import java.util.HashSet;
-
 /*
  * Created by IntelliJ IDEA.
  * User: bommel
- * Date: Sep 24, 2006
- * Time: 10:09:35 PM
- * To change this template use File | Settings | File Templates.
+ * Date: Sep 25, 2006
+ * Time: 10:54:19 AM
  */
-public class RendererMarkup {
+public class RendererConfig {
   private String name;
-  private Set<String> markups = new HashSet<String>();
+  private MarkupConfig markupConfig;
 
   public String getName() {
     return name;
   }
 
   public void setName(String name) {
-    this.name = name;
-  }
-
-  public boolean contains(String markup) {
-    return markups.contains(markup);
-  }
-
-  public void addMarkup(String markup) {
-    this.markups.add(markup);
+    this.name = name.substring(0, 1).toLowerCase() + name.substring(1);
   }
 
   public boolean equals(Object o) {
@@ -55,18 +42,30 @@ public class RendererMarkup {
       return false;
     }
 
-    final RendererMarkup that = (RendererMarkup) o;
+    final RendererConfig that = (RendererConfig) o;
 
     return name.equals(that.name);
 
+  }
+
+  public boolean contains(String markup) {
+    return markupConfig.contains(markup);
   }
 
   public int hashCode() {
     return name.hashCode();
   }
 
+  public MarkupConfig getMarkupConfig() {
+    return markupConfig;
+  }
+
+  public void setMarkupConfig(MarkupConfig markupConfig) {
+    this.markupConfig = markupConfig;
+  }
+
   public String toString() {
-    return "RendererMarkup " + name + " markup " + markups;
+    return "RendererConfig: " + getName() + " " + markupConfig;
   }
 
 }

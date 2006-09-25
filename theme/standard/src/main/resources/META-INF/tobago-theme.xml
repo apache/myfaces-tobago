@@ -16,19 +16,17 @@
  *    limitations under the License.
 -->
 
-<!--
-  todo: Test still under development
-  http://issues.apache.org/jira/browse/TOBAGO-20
--->
 <tobago-theme>
   <name>standard</name>
   <deprecated-name>org.apache.myfaces.tobago.context.StandardTheme</deprecated-name>
   <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
-  <supported-markup>
+  <renderers>
     <renderer>
-      <name>out</name>
-      <markup>strong</markup>
-      <markup>deleted</markup>
+      <name>Out</name>
+      <supported-markup>
+        <markup>strong</markup>
+        <markup>deleted</markup>
+      </supported-markup>
     </renderer>
-  </supported-markup>
+  </renderers>
 </tobago-theme>

@@ -1,9 +1,7 @@
 package org.apache.myfaces.tobago.context;
 
-import java.util.Collection;
-
 /*
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Copyright 2002-2006 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,14 +16,30 @@ import java.util.Collection;
  * limitations under the License.
  */
 
+
+import java.util.Set;
+import java.util.HashSet;
+
 /*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: Sep 24, 2006
- * Time: 12:32:35 PM
+ * Time: 10:09:35 PM
  */
-public interface MarkupConfig {
+public class MarkupConfig {
 
-  boolean isMarkupSupported(String rendererName, String markup);
+  private Set<String> markups = new HashSet<String>();
+
+  public boolean contains(String markup) {
+    return markups.contains(markup);
+  }
+
+  public void addMarkup(String markup) {
+    this.markups.add(markup);
+  }
+
+  public String toString() {
+    return "MarkupConfig: " + markups;
+  }
 
 }

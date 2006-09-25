@@ -53,12 +53,14 @@ class ThemeParser {
     digester.addCallMethod("tobago-theme/deprecated-name", "setDeprecatedName", 0);
     digester.addCallMethod("tobago-theme/resource-path", "setResourcePath", 0);
     digester.addCallMethod("tobago-theme/fallback", "setFallbackName", 0);
-    digester.addObjectCreate("tobago-theme/supported-markup", MarkupConfigImpl.class);
-    digester.addSetNext("tobago-theme/supported-markup", "setMarkupConfig");
-    digester.addObjectCreate("tobago-theme/supported-markup/renderer",  RendererMarkup.class);
-    digester.addSetNext("tobago-theme/supported-markup/renderer", "addRenderer");
-    digester.addCallMethod("tobago-theme/supported-markup/renderer/name", "setName", 0);
-    digester.addCallMethod("tobago-theme/supported-markup/renderer/markup", "addMarkup" , 0);
+    digester.addObjectCreate("tobago-theme/renderers", RenderersConfigImpl.class);
+    digester.addSetNext("tobago-theme/renderers", "setRenderersConfig");
+    digester.addObjectCreate("tobago-theme/renderers/renderer",  RendererConfig.class);
+    digester.addSetNext("tobago-theme/renderers/renderer", "addRenderer");
+    digester.addCallMethod("tobago-theme/renderers/renderer/name", "setName", 0);
+    digester.addObjectCreate("tobago-theme/renderers/renderer/supported-markup",  MarkupConfig.class);
+    digester.addSetNext("tobago-theme/renderers/renderer/supported-markup", "setMarkupConfig");
+    digester.addCallMethod("tobago-theme/renderers/renderer/supported-markup/markup", "addMarkup" , 0);
 
     return digester;
   }

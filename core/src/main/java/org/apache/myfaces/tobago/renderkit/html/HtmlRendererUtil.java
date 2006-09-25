@@ -435,7 +435,7 @@ public final class HtmlRendererUtil {
       String markup = ComponentUtil.getStringAttribute(component, ATTR_MARKUP);
       if (StringUtils.isNotEmpty(markup)) {
         Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot()).getTheme();
-        if (theme.getMarkupConfig().isMarkupSupported(rendererName, markup)) {
+        if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
           tobagoClass.append(prefix).append("-markup-").append(markup).append(" ");
         } else {
           LOG.warn("Unknown markup='" + markup + "'");

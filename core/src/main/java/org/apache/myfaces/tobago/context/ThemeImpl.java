@@ -42,7 +42,7 @@ class ThemeImpl implements Theme, Serializable {
 
   private List<Theme> fallbackList;
 
-  private MarkupConfigImpl markupConfig;
+  private RenderersConfigImpl renderersConfig;
 
   public String getName() {
     return name;
@@ -107,25 +107,25 @@ class ThemeImpl implements Theme, Serializable {
     }
   }
 
-  public void resolveMarkupConfig() {
-    if (markupConfig == null) {
-      markupConfig = new MarkupConfigImpl();
+  public void resolveRendererConfig() {
+    if (renderersConfig == null) {
+      renderersConfig = new RenderersConfigImpl();
     }
-    if (!markupConfig.isMerged()) {
+    if (!renderersConfig.isMerged()) {
       ThemeImpl fallback  = getFallback();
       if (fallback != null) {
-        fallback.resolveMarkupConfig();
-        MarkupConfigImpl fallbackMarkupConfig = fallback.getMarkupConfigImpl();
-        if (fallbackMarkupConfig != null) {
-          markupConfig.merge(fallbackMarkupConfig);
+        fallback.resolveRendererConfig();
+        RenderersConfigImpl fallbackRenderersConfig = fallback.getRenderersConfigImpl();
+        if (fallbackRenderersConfig != null) {
+          renderersConfig.merge(fallbackRenderersConfig);
           if (LOG.isDebugEnabled()) {
             LOG.debug("merge markupconfig from " + fallback.getName() + " for " + getName());
           }
         }
       }
-      markupConfig.setMerged(true);
+      renderersConfig.setMerged(true);
       if (LOG.isDebugEnabled()) {
-        LOG.debug(getName() + " " +markupConfig);
+        LOG.debug(getName() + " " +renderersConfig);
       }
     }
   }
@@ -135,15 +135,15 @@ class ThemeImpl implements Theme, Serializable {
     return name;
   }
 
-  public void setMarkupConfig(MarkupConfigImpl markupConfig) {
-    this.markupConfig = markupConfig;
+  public void setRenderersConfig(RenderersConfigImpl renderersConfig) {
+    this.renderersConfig = renderersConfig;
   }
 
-  public MarkupConfig getMarkupConfig() {
-    return markupConfig;
+  public RenderersConfig getRenderersConfig() {
+    return renderersConfig;
   }
 
-  MarkupConfigImpl getMarkupConfigImpl() {
-    return markupConfig;
+  RenderersConfigImpl getRenderersConfigImpl() {
+    return renderersConfig;
   }
 }
