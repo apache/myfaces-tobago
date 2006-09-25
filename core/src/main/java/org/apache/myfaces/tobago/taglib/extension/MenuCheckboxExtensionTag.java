@@ -34,7 +34,6 @@ import javax.faces.webapp.FacetTag;
  * User: bommel
  * Date: 09.05.2006
  * Time: 00:00:49
- * To change this template use File | Settings | File Templates.
  */
 
 /**

@@ -28,7 +28,6 @@ import javax.faces.el.ValueBinding;
 * User: bommel
 * Date: 09.02.2006
 * Time: 23:53:37
-* To change this template use File | Settings | File Templates.
 */
 public class UIOutput extends javax.faces.component.UIOutput implements SupportsMarkup {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Output";

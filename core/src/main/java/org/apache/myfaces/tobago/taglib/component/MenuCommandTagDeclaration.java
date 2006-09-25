@@ -29,7 +29,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
  * User: bommel
  * Date: 31.03.2006
  * Time: 21:14:17
- * To change this template use File | Settings | File Templates.
  */
 /**
  * Renders a menu item.

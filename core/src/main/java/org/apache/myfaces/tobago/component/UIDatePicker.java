@@ -47,12 +47,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import java.util.Map;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 30.05.2006
  * Time: 19:22:40
- * To change this template use File | Settings | File Templates.
  */
 public class UIDatePicker extends UICommand implements OnComponentCreated {
 

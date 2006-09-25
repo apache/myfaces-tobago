@@ -23,7 +23,6 @@ import com.sun.facelets.tag.AbstractTagLibrary;
  * User: bommel
  * Date: 18.04.2006
  * Time: 14:22:52
- * To change this template use File | Settings | File Templates.
  */
 public class AbstractTobagoTagLibrary  extends AbstractTagLibrary {
 

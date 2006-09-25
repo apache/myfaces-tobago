@@ -28,12 +28,11 @@ import javax.faces.application.StateManager;
 import java.util.Map;
 import java.io.IOException;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 21.05.2006
  * Time: 10:59:19
- * To change this template use File | Settings | File Templates.
  */
 public class TobagoResponseStateManager extends ResponseStateManager {
   private static final Log LOG = LogFactory.getLog(TobagoResponseStateManager.class);

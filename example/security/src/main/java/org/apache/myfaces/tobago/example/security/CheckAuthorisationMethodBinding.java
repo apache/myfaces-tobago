@@ -37,12 +37,11 @@ import java.lang.reflect.Method;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.annotation.Annotation;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 19.07.2006
  * Time: 16:11:43
- * To change this template use File | Settings | File Templates.
  */
 public class CheckAuthorisationMethodBinding extends MethodBinding implements StateHolder {
   private static final Log LOG = LogFactory.getLog(CheckAuthorisationMethodBinding.class);

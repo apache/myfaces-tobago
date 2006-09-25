@@ -23,12 +23,11 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 28.05.2006
  * Time: 21:57:46
- * To change this template use File | Settings | File Templates.
  */
 public class UIReload extends UIComponentBase {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Reload";

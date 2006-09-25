@@ -16,12 +16,11 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 22.05.2006
  * Time: 21:00:07
- * To change this template use File | Settings | File Templates.
  */
 public class UIDateInput extends UIInput {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.DateInput";

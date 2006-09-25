@@ -22,12 +22,11 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.application.ApplicationFactory;
 import javax.faces.application.Application;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 19.07.2006
  * Time: 15:42:14
- * To change this template use File | Settings | File Templates.
  */
 public class ApplicationFactoryImpl extends ApplicationFactory {
   private static final Log LOG = LogFactory.getLog(ApplicationFactoryImpl.class);

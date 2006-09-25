@@ -31,7 +31,6 @@ import java.util.Set;
 * User: bommel
 * Date: 30.03.2006
 * Time: 19:15:08
-* To change this template use File | Settings | File Templates.
 */
 public class FaceletAnnotationProcessorFactory implements AnnotationProcessorFactory  {
 

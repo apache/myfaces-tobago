@@ -30,7 +30,6 @@ import org.apache.myfaces.tobago.event.SortActionEvent;
  * User: bommel
  * Date: 15.04.2006
  * Time: 13:53:41
- * To change this template use File | Settings | File Templates.
  */
 public class SortActionSourceRule extends MetaRule {
   static final Class[] ACTION_LISTENER_SIG = new Class[]{SortActionEvent.class};

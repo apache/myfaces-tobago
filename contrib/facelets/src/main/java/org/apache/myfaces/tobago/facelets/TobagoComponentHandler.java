@@ -33,7 +33,6 @@ import javax.faces.component.UIComponent;
  * User: bommel
  * Date: 15.04.2006
  * Time: 13:31:39
- * To change this template use File | Settings | File Templates.
  */
 public class TobagoComponentHandler extends ComponentHandler {
 

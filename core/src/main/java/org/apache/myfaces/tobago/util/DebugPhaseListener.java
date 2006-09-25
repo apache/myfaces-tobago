@@ -29,12 +29,11 @@ import java.util.Map;
 import java.util.Iterator;
 import java.text.MessageFormat;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: weber
  * Date: Dec 6, 2005
  * Time: 7:50:25 PM
- * To change this template use File | Settings | File Templates.
  */
 public class DebugPhaseListener implements PhaseListener {
   private static final Log LOG = LogFactory.getLog(DebugPhaseListener.class);

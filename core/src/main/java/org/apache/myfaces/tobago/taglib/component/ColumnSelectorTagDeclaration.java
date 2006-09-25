@@ -28,7 +28,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
  * User: bommel
  * Date: 30.03.2006
  * Time: 21:37:36
- * To change this template use File | Settings | File Templates.
  */
 
 /**

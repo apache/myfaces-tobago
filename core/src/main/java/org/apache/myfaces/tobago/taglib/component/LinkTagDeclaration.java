@@ -28,12 +28,11 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 11.02.2006
  * Time: 13:16:47
- * To change this template use File | Settings | File Templates.
  */
 
 /**

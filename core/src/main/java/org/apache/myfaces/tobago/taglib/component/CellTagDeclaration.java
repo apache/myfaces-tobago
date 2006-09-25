@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
  * User: bommel
  * Date: 10.02.2006
  * Time: 22:20:01
- * To change this template use File | Settings | File Templates.
  */
 
 /**

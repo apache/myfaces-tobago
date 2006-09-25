@@ -30,7 +30,6 @@ import org.apache.myfaces.tobago.component.UIData;
  * User: bommel
  * Date: 08.04.2006
  * Time: 15:30:50
- * To change this template use File | Settings | File Templates.
  */
 
 /**

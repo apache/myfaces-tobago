@@ -30,12 +30,11 @@ import org.apache.myfaces.tobago.taglib.decl.HasState;
 import org.apache.myfaces.tobago.taglib.decl.HasTreeNodeValue;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 11.02.2006
  * Time: 13:28:14
- * To change this template use File | Settings | File Templates.
  */
 /**
  * Renders a tree view.

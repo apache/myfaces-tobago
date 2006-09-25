@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  * User: bommel
  * Date: 02.04.2006
  * Time: 15:58:16
- * To change this template use File | Settings | File Templates.
  */
 @Tag(name = "object", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(

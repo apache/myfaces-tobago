@@ -23,12 +23,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Collection;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 20.04.2006
  * Time: 19:31:21
- * To change this template use File | Settings | File Templates.
  */
 public class BundleMapWrapper implements Map {
 

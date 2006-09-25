@@ -40,7 +40,6 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * User: bommel
  * Date: 16.12.2005
  * Time: 19:12:33
- * To change this template use File | Settings | File Templates.
  */
 
 /**

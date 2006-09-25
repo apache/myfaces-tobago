@@ -27,9 +27,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
  * User: bommel
  * Date: 14.03.2006
  * Time: 17:14:12
- * To change this template use File | Settings | File Templates.
  */
-/**
+/*
  * Renders a menu bar.<br>
  * Add menu bar as facet name="menuBar" to page tag or use it anywhere
  * on page.<br>

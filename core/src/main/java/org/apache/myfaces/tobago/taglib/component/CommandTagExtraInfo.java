@@ -25,7 +25,6 @@ import javax.servlet.jsp.tagext.ValidationMessage;
  * User: bommel
  * Date: 19.04.2006
  * Time: 10:56:39
- * To change this template use File | Settings | File Templates.
  */
 public class CommandTagExtraInfo extends TagExtraInfo {
   public ValidationMessage[] validate(TagData data) {

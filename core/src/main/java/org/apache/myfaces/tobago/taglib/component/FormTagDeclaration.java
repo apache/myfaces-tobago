@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
  * User: bommel
  * Date: 11.02.2006
  * Time: 14:29:26
- * To change this template use File | Settings | File Templates.
  */
 @Tag(name = "form")
 @UIComponentTag(

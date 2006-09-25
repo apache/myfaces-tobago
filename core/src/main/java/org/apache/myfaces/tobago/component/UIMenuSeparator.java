@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.component;
  * User: bommel
  * Date: 31.03.2006
  * Time: 20:47:00
- * To change this template use File | Settings | File Templates.
  */
 public class UIMenuSeparator extends UIPanel {
 

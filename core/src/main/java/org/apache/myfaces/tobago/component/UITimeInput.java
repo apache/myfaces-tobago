@@ -23,12 +23,11 @@ import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
 import java.util.TimeZone;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 10.02.2006
  * Time: 20:50:49
- * To change this template use File | Settings | File Templates.
  */
 public class UITimeInput extends javax.faces.component.UIInput {
 

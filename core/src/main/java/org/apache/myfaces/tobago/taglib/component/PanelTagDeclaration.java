@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
  * User: bommel
  * Date: 11.02.2006
  * Time: 13:54:04
- * To change this template use File | Settings | File Templates.
  */
 /**
  * Intended for use in situations when only one UIComponent child can be

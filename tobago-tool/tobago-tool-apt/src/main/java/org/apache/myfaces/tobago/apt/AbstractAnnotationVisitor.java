@@ -20,12 +20,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Document;
 import com.sun.mirror.apt.AnnotationProcessorEnvironment;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 30.03.2006
  * Time: 19:33:04
- * To change this template use File | Settings | File Templates.
  */
 public abstract class AbstractAnnotationVisitor extends AnnotationDeclarationVisitorCollector {
   private final AnnotationProcessorEnvironment env;

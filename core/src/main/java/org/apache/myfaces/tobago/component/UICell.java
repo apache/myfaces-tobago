@@ -20,12 +20,11 @@ import javax.faces.context.FacesContext;
 
 
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 10.02.2006
  * Time: 21:20:10
- * To change this template use File | Settings | File Templates.
  */
 public class UICell extends UIPanel {
 

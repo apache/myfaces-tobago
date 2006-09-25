@@ -31,7 +31,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasState;
  * User: bommel
  * Date: 08.04.2006
  * Time: 14:53:06
- * To change this template use File | Settings | File Templates.
  */
 
 /**

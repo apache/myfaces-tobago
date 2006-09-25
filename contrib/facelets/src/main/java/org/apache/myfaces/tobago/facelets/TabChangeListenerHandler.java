@@ -33,12 +33,11 @@ import javax.faces.component.UIComponent;
 import javax.el.ValueExpression;
 import javax.el.ELException;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 20.04.2006
  * Time: 18:14:11
- * To change this template use File | Settings | File Templates.
  */
 public class TabChangeListenerHandler extends TagHandler {
 

@@ -20,12 +20,11 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ENCTYPE;
 
 import javax.faces.component.UIComponent;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 10.02.2006
  * Time: 19:02:13
- * To change this template use File | Settings | File Templates.
  */
 public class UIFileInput extends javax.faces.component.UIInput {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.FileInput";

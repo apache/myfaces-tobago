@@ -30,7 +30,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
  * User: bommel
  * Date: 10.04.2006
  * Time: 20:29:42
- * To change this template use File | Settings | File Templates.
  */
 
 /**

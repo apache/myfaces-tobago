@@ -38,12 +38,11 @@ import javax.faces.convert.DateTimeConverter;
 import java.io.IOException;
 import java.util.Map;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 30.05.2006
  * Time: 22:21:17
- * To change this template use File | Settings | File Templates.
  */
 public class DatePickerRenderer extends LinkRenderer {
   private static final Log LOG = LogFactory.getLog(DatePickerRenderer.class);

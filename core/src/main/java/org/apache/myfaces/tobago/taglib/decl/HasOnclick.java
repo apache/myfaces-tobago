@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  * User: bommel
  * Date: 19.04.2006
  * Time: 11:40:11
- * To change this template use File | Settings | File Templates.
  */
 public interface HasOnclick {
   /**

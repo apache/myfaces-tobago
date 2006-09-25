@@ -33,7 +33,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasRowLayout;
  * User: bommel
  * Date: 14.03.2006
  * Time: 16:58:13
- * To change this template use File | Settings | File Templates.
  */
 
 @Tag(name = "gridLayout", bodyContent = BodyContent.EMPTY)

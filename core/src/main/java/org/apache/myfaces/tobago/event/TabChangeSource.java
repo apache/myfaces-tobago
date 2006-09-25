@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.event;
  * User: bommel
  * Date: 22.12.2005
  * Time: 23:01:03
- * To change this template use File | Settings | File Templates.
  */
 public interface TabChangeSource {
 

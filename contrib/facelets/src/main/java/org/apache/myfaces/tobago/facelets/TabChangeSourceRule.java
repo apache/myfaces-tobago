@@ -30,7 +30,6 @@ import org.apache.myfaces.tobago.event.TabChangeEvent;
  * User: bommel
  * Date: 15.04.2006
  * Time: 14:24:54
- * To change this template use File | Settings | File Templates.
  */
 public class TabChangeSourceRule extends MetaRule {
   static final Class[] ACTION_LISTENER_SIG = new Class[]{TabChangeEvent.class};

@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasFor;
  * User: bommel
  * Date: 30.05.2006
  * Time: 19:17:28
- * To change this template use File | Settings | File Templates.
  */
 
 /**

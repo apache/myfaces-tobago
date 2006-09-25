@@ -27,12 +27,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 18.02.2006
  * Time: 11:08:45
- * To change this template use File | Settings | File Templates.
  */
 public class TestBean {
   private static final Log LOG = LogFactory.getLog(TestBean.class);

@@ -28,12 +28,11 @@ import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.util.Iterator;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: weber
  * Date: 12.10.2005
  * Time: 13:11:05
- * To change this template use File | Settings | File Templates.
  */
 public class AjaxUtils {
 

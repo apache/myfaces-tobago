@@ -28,7 +28,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabel;
  * User: bommel
  * Date: 20.02.2006
  * Time: 22:10:07
- * To change this template use File | Settings | File Templates.
  */
 
 /**

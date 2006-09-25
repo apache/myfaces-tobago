@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.event;
  * User: bommel
  * Date: 14.04.2006
  * Time: 10:42:38
- * To change this template use File | Settings | File Templates.
  */
 public interface SortActionSource {
 

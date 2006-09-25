@@ -43,7 +43,6 @@ import org.apache.commons.io.IOUtils;
  * User: bommel
  * Date: 30.03.2006
  * Time: 19:19:14
- * To change this template use File | Settings | File Templates.
  */
 public class FaceletAnnotationProcessor implements AnnotationProcessor {
 

@@ -29,7 +29,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
  * User: bommel
  * Date: 02.04.2006
  * Time: 16:20:59
- * To change this template use File | Settings | File Templates.
  */
 
 /**

@@ -35,7 +35,6 @@ import java.io.IOException;
  * User: bommel
  * Date: 20.04.2006
  * Time: 19:35:29
- * To change this template use File | Settings | File Templates.
  */
 public class LoadBundleHandler extends TagHandler {
   private final TagAttribute basename;

@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.component;
  * User: bommel
  * Date: 31.03.2006
  * Time: 21:16:45
- * To change this template use File | Settings | File Templates.
  */
 public class UISelectBooleanCommand extends UICommand {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SelectBooleanCommand";

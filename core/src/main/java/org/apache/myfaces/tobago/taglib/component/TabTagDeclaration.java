@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
  * User: bommel
  * Date: 02.04.2006
  * Time: 16:29:31
- * To change this template use File | Settings | File Templates.
  */
 
 /**

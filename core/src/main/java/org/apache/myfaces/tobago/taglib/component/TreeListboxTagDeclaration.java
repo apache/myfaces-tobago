@@ -34,7 +34,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
  * User: bommel
  * Date: 06.04.2006
  * Time: 22:32:57
- * To change this template use File | Settings | File Templates.
  */
 /**
  * Renders a listbox view of a tree.

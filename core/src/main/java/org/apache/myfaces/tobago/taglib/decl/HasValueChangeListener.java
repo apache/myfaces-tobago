@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
  * User: bommel
  * Date: 18.04.2006
  * Time: 11:39:26
- * To change this template use File | Settings | File Templates.
  */
 public interface HasValueChangeListener {
   /**

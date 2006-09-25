@@ -49,7 +49,6 @@ import org.codehaus.modello.generator.java.javasource.JSourceWriter;
  * User: bommel
  * Date: 30.03.2006
  * Time: 19:26:18
- * To change this template use File | Settings | File Templates.
  */
 public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
 

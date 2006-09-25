@@ -28,7 +28,6 @@ import org.apache.myfaces.tobago.component.UIToolBar;
  * User: bommel
  * Date: 11.02.2006
  * Time: 14:07:05
- * To change this template use File | Settings | File Templates.
  */
 
 /**

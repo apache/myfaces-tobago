@@ -23,7 +23,6 @@ import javax.faces.event.FacesListener;
  * User: bommel
  * Date: 18.12.2005
  * Time: 14:13:38
- * To change this template use File | Settings | File Templates.
  */
 public interface SheetStateChangeListener extends FacesListener {
   void processSheetStateChange(SheetStateChangeEvent sheetStateChangeEvent);

@@ -24,12 +24,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 03.07.2006
  * Time: 21:19:38
- * To change this template use File | Settings | File Templates.
  */
 public class RequestUtils {
 

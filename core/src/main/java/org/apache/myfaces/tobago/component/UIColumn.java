@@ -28,7 +28,6 @@ import javax.faces.el.ValueBinding;
  * User: bommel
  * Date: 18.04.2006
  * Time: 21:50:29
- * To change this template use File | Settings | File Templates.
  */
 public class UIColumn extends javax.faces.component.UIColumn {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Column";

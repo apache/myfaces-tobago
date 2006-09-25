@@ -41,7 +41,6 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * User: bommel
  * Date: 17.12.2005
  * Time: 08:24:21
- * To change this template use File | Settings | File Templates.
  */
 /**
  * Render a single selection option listbox.

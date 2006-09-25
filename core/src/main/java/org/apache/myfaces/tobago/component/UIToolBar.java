@@ -22,12 +22,11 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
 import javax.faces.el.ValueBinding;
 import javax.faces.context.FacesContext;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 11.02.2006
  * Time: 14:48:46
- * To change this template use File | Settings | File Templates.
  */
 public class UIToolBar extends javax.faces.component.UIPanel {
 

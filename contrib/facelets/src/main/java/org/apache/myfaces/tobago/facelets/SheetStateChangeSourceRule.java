@@ -30,7 +30,6 @@ import org.apache.myfaces.tobago.event.SheetStateChangeSource;
  * User: bommel
  * Date: 15.04.2006
  * Time: 14:25:10
- * To change this template use File | Settings | File Templates.
  */
 public class SheetStateChangeSourceRule extends MetaRule {
   static final Class[] ACTION_LISTENER_SIG = new Class[]{SheetStateChangeEvent.class};

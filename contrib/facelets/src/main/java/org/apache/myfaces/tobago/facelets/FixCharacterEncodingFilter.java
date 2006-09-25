@@ -25,12 +25,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.FilterChain;
 import java.io.IOException;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 19.04.2006
  * Time: 20:23:15
- * To change this template use File | Settings | File Templates.
  */
 public class FixCharacterEncodingFilter implements Filter {
   public void init(FilterConfig filterConfig) throws ServletException {

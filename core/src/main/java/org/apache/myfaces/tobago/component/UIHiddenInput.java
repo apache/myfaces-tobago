@@ -19,12 +19,11 @@ package org.apache.myfaces.tobago.component;
 import javax.faces.context.FacesContext;
 
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 10.02.2006
  * Time: 19:13:51
- * To change this template use File | Settings | File Templates.
  */
 public class UIHiddenInput extends javax.faces.component.UIInput {
 

@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.event;
  * User: bommel
  * Date: 18.12.2005
  * Time: 13:56:59
- * To change this template use File | Settings | File Templates.
  */
 public interface SheetStateChangeSource {
 
