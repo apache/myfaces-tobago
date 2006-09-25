@@ -1,4 +1,3 @@
-
 <%--
  * Copyright 2002-2005 The Apache Software Foundation.
  *
@@ -19,23 +18,19 @@
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <layout:screenshot>
-<jsp:body>
-  <f:subview id="image">
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout rows="200px;1*" columns="400px;1*" />
-      </f:facet>
-<%-- code-sniplet-start id="box" --%>
-<tc:box label="Groupbox Headline">
-
-</tc:box>
-<%-- code-sniplet-end id="box" --%>
-
-      <tc:cell/>
-      <tc:cell/>
-      <tc:cell/>
-
+  <jsp:body>
+    <f:subview id="image">
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout columns="400px;*" rows="200px;*"/>
+        </f:facet>
+        <%-- code-sniplet-start id="box" --%>
+        <tc:box label="Groupbox Headline">
+        </tc:box>
+        <%-- code-sniplet-end id="box" --%>
+        <tc:cell/>
+        <tc:cell spanX="2"/>
       </tc:panel>
     </f:subview>
-</jsp:body>
+  </jsp:body>
 </layout:screenshot>

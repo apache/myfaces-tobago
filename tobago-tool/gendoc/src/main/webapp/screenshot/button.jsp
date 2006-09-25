@@ -22,17 +22,14 @@
     <f:subview id="button">
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="100px;1*" rows="fixed;1*" />
+          <tc:gridLayout columns="100px;*" rows="fixed;*" />
         </f:facet>
-<%-- code-sniplet-start id="button" --%>
-        <tc:button label="Save" />
-<%-- code-sniplet-end id="button" --%>
+        <%-- code-sniplet-start id="button" --%>
+        <tc:button label="Submit"/>
+        <%-- code-sniplet-end id="button" --%>
         <tc:cell/>
-
         <tc:cell spanX="2"/>
-
       </tc:panel>
-
     </f:subview>
   </jsp:body>
 </layout:screenshot>

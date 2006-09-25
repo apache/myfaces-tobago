@@ -22,11 +22,31 @@
   <jsp:body>
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout columns="300px;1*" rows="fixed;1*" />
+        <tc:gridLayout columns="300px;1*"
+                       rows="fixed;fixed;fixed;fixed;fixed;1*"/>
       </f:facet>
-<%-- code-sniplet-start id="in" --%>
-      <tx:in label="Credit Card No.:" />
-<%-- code-sniplet-end id="in" --%>      
+      <%-- code-sniplet-start id="in" --%>
+      <tx:in label="Input" value="Some Text"/>
+      <%-- code-sniplet-end id="in" --%>
+      <tc:cell/>
+
+      <tx:in label="Read Only" readonly="true" value="Some Text"/>
+      <tc:cell/>
+
+      <tx:in label="Disabled" disabled="true" value="Some Text"/>
+      <tc:cell/>
+
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout columns="100px;*"/>
+        </f:facet>
+        <tc:label value="Short Label"/>
+        <tc:in value="Some Text"/>
+      </tc:panel>
+      <tc:cell/>
+
+      <%--fixme!!!--%>
+      <tx:in label="Has Focus (FIXME)" focus="true" value="Some Text"/>
       <tc:cell/>
 
       <tc:cell spanX="2"/>

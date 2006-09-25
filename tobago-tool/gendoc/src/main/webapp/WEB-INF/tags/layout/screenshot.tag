@@ -16,23 +16,17 @@
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
-
 <f:view>
+  <tc:loadBundle basename="demo" var="bundle"/>
 
-  <tc:loadBundle basename="demo" var="bundle" />
-  
   <tc:page label="Screenshot" id="page"
-    width="750px" height="800px">
+           width="750px" height="800px">
     <f:facet name="layout">
-      <tc:gridLayout columns="5px;1*" rows="5px;1*" />
+      <tc:gridLayout margin="5px"/>
     </f:facet>
 
-    <tc:cell/>
-    <tc:cell/>
-
-    <tc:cell/>
     <tc:panel>
-    <jsp:doBody/>
+      <jsp:doBody/>
     </tc:panel>
   </tc:page>
 </f:view>

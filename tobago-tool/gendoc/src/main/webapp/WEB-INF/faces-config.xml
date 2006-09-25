@@ -38,7 +38,13 @@
 
   <managed-bean>
     <managed-bean-name>demo</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.demo.TobagoDemoController</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.TobagoDemoController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>reference</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.reference.Controller</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
