@@ -27,7 +27,7 @@ function calendarWindow(url) {
   //    alert(scrX+" "+ scrY+"\n"+avaWidth+" "+avaHeight );
 
   var pickerWidth = 275;
-  var pickerHeight = 280;
+  var pickerHeight = 150;
 
   var xPos;
   var yPos;

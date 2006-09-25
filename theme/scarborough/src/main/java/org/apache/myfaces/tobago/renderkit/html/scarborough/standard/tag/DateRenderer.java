@@ -45,7 +45,6 @@ public class DateRenderer extends InRenderer {
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
     final String[] scripts = {
-        "script/date.js",
         "script/dateConverter.js",
         "script/calendar.js"};
 
