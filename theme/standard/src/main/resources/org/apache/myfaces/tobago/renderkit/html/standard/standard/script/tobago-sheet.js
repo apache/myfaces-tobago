@@ -69,7 +69,8 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage, selec
       asynchronous: true,
       onComplete: Tobago.bind(this, "onComplete"),
       parameters: '',
-      evalScripts: true
+      evalScripts: true,
+      onFailure: Tobago.bind(this, "onFailure")
     };
   }
 
@@ -310,6 +311,11 @@ Tobago.Sheet.prototype.onComplete = function(transport) {
     this.setup();
   };
 
+Tobago.Sheet.prototype.onFailure = function() {
+  Tobago.deleteOverlay(Tobago.element(this.outerDivId));
+  this.initReload();  
+};
+
 Tobago.Sheet.prototype.setupResizer = function() {
     var i = 0;
     var headerDiv = Tobago.element(this.headerDivId);
@@ -371,12 +377,16 @@ Tobago.Sheet.prototype.setup = function() {
         this.setupRowPaging();
       }
     }
-    if (typeof this.autoReload == "number" && Tobago.element(this.contentDivId)) {
-      clearTimeout(this.reloadTimer);
-      this.reloadTimer = setTimeout(Tobago.bind2(this, "reloadWithAction", this.id), this.autoReload);
-    }
+    this.initReload();
     this.setupEnd = new Date();
   };
+
+Tobago.Sheet.prototype.initReload = function() {
+  if (typeof this.autoReload == "number" && Tobago.element(this.contentDivId)) {
+    clearTimeout(this.reloadTimer);
+    this.reloadTimer = setTimeout(Tobago.bind2(this, "reloadWithAction", this.id), this.autoReload);
+  }
+};
 
 Tobago.Sheet.prototype.adjustScrollBars = function() {
     var dataFiller = Tobago.element(this.id + "_data_row_0_column_filler");
