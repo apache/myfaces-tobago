@@ -18,25 +18,12 @@ package org.apache.myfaces.tobago.apt;
 
 import com.sun.mirror.apt.AnnotationProcessor;
 import com.sun.mirror.apt.AnnotationProcessorEnvironment;
-import com.sun.mirror.apt.Filer;
 import com.sun.mirror.declaration.AnnotationTypeDeclaration;
 import com.sun.mirror.declaration.Declaration;
 import com.sun.mirror.util.DeclarationVisitors;
 
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.parsers.ParserConfigurationException;
-import java.util.Set;
 import java.util.Collection;
-import java.io.PrintWriter;
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.IOUtils;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.

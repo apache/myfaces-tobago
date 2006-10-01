@@ -21,26 +21,26 @@ import com.sun.mirror.apt.Filer;
 import com.sun.mirror.declaration.Declaration;
 import com.sun.mirror.declaration.MethodDeclaration;
 import com.sun.mirror.declaration.PackageDeclaration;
-import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.commons.lang.ClassUtils;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.Taglib;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
-import java.io.File;
 
 /**
  * Created: Apr 27, 2005 4:45:44 PM

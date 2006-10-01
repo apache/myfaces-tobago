@@ -16,16 +16,16 @@ package org.apache.myfaces.tobago.apt;
  * limitations under the License.
  */
 
-import com.sun.mirror.util.SimpleDeclarationVisitor;
-import com.sun.mirror.declaration.MethodDeclaration;
 import com.sun.mirror.declaration.ClassDeclaration;
 import com.sun.mirror.declaration.InterfaceDeclaration;
+import com.sun.mirror.declaration.MethodDeclaration;
 import com.sun.mirror.declaration.PackageDeclaration;
+import com.sun.mirror.util.SimpleDeclarationVisitor;
 
-import java.util.Set;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Created: Mar 22, 2005 8:12:24 PM

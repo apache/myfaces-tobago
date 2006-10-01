@@ -16,14 +16,14 @@ package org.apache.myfaces.tobago.apt;
  * limitations under the License.
  */
 
-import com.sun.mirror.apt.AnnotationProcessorFactory;
 import com.sun.mirror.apt.AnnotationProcessor;
 import com.sun.mirror.apt.AnnotationProcessorEnvironment;
+import com.sun.mirror.apt.AnnotationProcessorFactory;
 import com.sun.mirror.declaration.AnnotationTypeDeclaration;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Arrays;
 import java.util.Set;
 
 /**

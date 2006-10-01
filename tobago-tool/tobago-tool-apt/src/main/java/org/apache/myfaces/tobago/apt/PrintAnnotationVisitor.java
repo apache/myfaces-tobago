@@ -16,12 +16,12 @@ package org.apache.myfaces.tobago.apt;
  * limitations under the License.
  */
 
-import com.sun.mirror.declaration.MethodDeclaration;
-import com.sun.mirror.declaration.ClassDeclaration;
 import com.sun.mirror.declaration.AnnotationMirror;
+import com.sun.mirror.declaration.AnnotationTypeDeclaration;
 import com.sun.mirror.declaration.AnnotationTypeElementDeclaration;
 import com.sun.mirror.declaration.AnnotationValue;
-import com.sun.mirror.declaration.AnnotationTypeDeclaration;
+import com.sun.mirror.declaration.ClassDeclaration;
+import com.sun.mirror.declaration.MethodDeclaration;
 import com.sun.tools.apt.mirror.declaration.EnumConstantDeclarationImpl;
 
 import java.util.Collection;

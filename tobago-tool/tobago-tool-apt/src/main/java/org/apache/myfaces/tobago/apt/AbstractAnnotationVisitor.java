@@ -16,9 +16,9 @@ package org.apache.myfaces.tobago.apt;
  * limitations under the License.
  */
 
-import org.w3c.dom.Element;
-import org.w3c.dom.Document;
 import com.sun.mirror.apt.AnnotationProcessorEnvironment;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /*
  * Created by IntelliJ IDEA.

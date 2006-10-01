@@ -21,6 +21,7 @@ import com.sun.mirror.apt.AnnotationProcessorEnvironment;
 import com.sun.mirror.declaration.AnnotationTypeDeclaration;
 import com.sun.mirror.declaration.Declaration;
 import com.sun.mirror.util.DeclarationVisitors;
+
 import java.util.Collection;
 import java.util.Set;
 

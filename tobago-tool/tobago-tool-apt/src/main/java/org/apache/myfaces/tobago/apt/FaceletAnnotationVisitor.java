@@ -18,36 +18,35 @@ package org.apache.myfaces.tobago.apt;
 
 import com.sun.mirror.apt.AnnotationProcessorEnvironment;
 import com.sun.mirror.apt.Filer;
-import com.sun.mirror.declaration.PackageDeclaration;
 import com.sun.mirror.declaration.InterfaceDeclaration;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.dom.DOMSource;
-import javax.faces.component.UIComponent;
-import java.util.Set;
-import java.util.HashSet;
-import java.lang.reflect.Field;
-import java.io.File;
-import java.io.Writer;
-import java.io.IOException;
-
+import com.sun.mirror.declaration.PackageDeclaration;
+import org.apache.commons.io.IOUtils;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.Taglib;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.codehaus.modello.generator.java.javasource.JClass;
+import org.codehaus.modello.generator.java.javasource.JCompUnit;
+import org.codehaus.modello.generator.java.javasource.JConstructor;
+import org.codehaus.modello.generator.java.javasource.JField;
+import org.codehaus.modello.generator.java.javasource.JSourceWriter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.apache.myfaces.tobago.apt.annotation.Taglib;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.commons.io.IOUtils;
-import org.codehaus.modello.generator.java.javasource.JCompUnit;
-import org.codehaus.modello.generator.java.javasource.JClass;
-import org.codehaus.modello.generator.java.javasource.JField;
-import org.codehaus.modello.generator.java.javasource.JConstructor;
-import org.codehaus.modello.generator.java.javasource.JSourceWriter;
+
+import javax.faces.component.UIComponent;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
+import java.io.IOException;
+import java.io.Writer;
+import java.lang.reflect.Field;
+import java.util.HashSet;
+import java.util.Set;
 
 /*
  * Created by IntelliJ IDEA.
