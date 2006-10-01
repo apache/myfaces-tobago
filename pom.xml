@@ -194,9 +194,12 @@
             <link>http://java.sun.com/j2se/1.5.0/docs/api</link>
             <link>http://java.sun.com/j2ee/1.4/docs/api</link>
             <link>http://java.sun.com/javaee/javaserverfaces/1.1_01/docs/api</link>
-            <link>http://jakarta.apache.org/commons/collections/apidocs-COLLECTIONS_3_0/</link>
-            <link>http://jakarta.apache.org/commons/fileupload/apidocs/</link>
-            <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
+            <link>http://jakarta.apache.org/commons/collections/api-3.1/</link>
+            <link>http://jakarta.apache.org/commons/lang/api-${common-lang.version}/</link>
+            <link>http://jakarta.apache.org/commons/fileupload/apidocs</link>
+            <link>http://jakarta.apache.org/commons/digester/commons-digester-1.7/docs/api/</link>
+            <link>http://jakarta.apache.org/commons/io/api-${common-io.version}/</link>
+            <link>http://jakarta.apache.org/commons/logging/commons-logging-${commons-logging.version}/docs/apidocs/</link>
             <link>http://www.junit.org/junit/javadoc/</link>
             <link>http://logging.apache.org/log4j/docs/api/</link>
           </links>
@@ -298,12 +301,12 @@
       <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
-        <version>1.1</version>
+        <version>${common-io.version}</version>
       </dependency>
       <dependency>
         <groupId>commons-lang</groupId>
         <artifactId>commons-lang</artifactId>
-        <version>2.1</version>
+        <version>${common-lang.version}</version>
       </dependency>
       <dependency>
         <groupId>commons-beanutils</groupId>
@@ -318,7 +321,7 @@
       <dependency>
         <groupId>commons-logging</groupId>
         <artifactId>commons-logging</artifactId>
-        <version>1.0.4</version>
+        <version>${commons-logging.version}</version>
       </dependency>
       <dependency>
         <groupId>commons-digester</groupId>
@@ -591,5 +594,8 @@
   <properties>
     <myfaces.version>1.1.4</myfaces.version>
     <sunjsf.version>1.1_02</sunjsf.version>
+    <common-io.version>1.1</common-io.version>
+    <common-lang.version>2.1</common-lang.version>
+    <commons-logging.version>1.0.4</commons-logging.version>
   </properties>
 </project>
