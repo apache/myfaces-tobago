@@ -137,11 +137,11 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
             elementsToAdd.add(newElement);
           }
         }
-        if (elementsToAdd.size() > 0 && components.size() > 0) {
+        if (!elementsToAdd.isEmpty() && !components.isEmpty()) {
           int lastIndex = rootElement.indexOf(components.get(components.size()-1));
           rootElement.addContent(lastIndex+1, elementsToAdd);
 
-        } else if (elementsToAdd.size() > 0) {
+        } else if (!elementsToAdd.isEmpty()) {
           rootElement.addContent(0, elementsToAdd);
         }
         document.setDocType(new DocType("faces-config",
@@ -185,8 +185,6 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
       elementClass.setText(componentTag.uiComponent());
       element.addContent(elementClass);
       addFacets(componentTag, namespace, element);
-
-
       return element;
   }
 
@@ -198,7 +196,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
       if (simpleName.startsWith("set")) {
         String attributeStr = simpleName.substring(3, 4).toLowerCase() + simpleName.substring(4);
         String methodStr;
-        if (componentAttribute.type().length > 0 &&
+        if (componentAttribute.type().length == 1 &&
             (componentAttribute.type()[0].equals(Boolean.class.getName()) || componentAttribute.type()[0].equals("boolean"))) {
           methodStr = "is" + simpleName.substring(3);
         } else {
@@ -214,7 +212,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
           attributeClass = new Element(PROPERTY_CLASS, namespace);
 
         } catch (NoSuchMethodException e) {
-          e.printStackTrace();
+          // if property not found should be attribute
           attribute = new Element(ATTRIBUTE, namespace);
           attributeName = new Element(ATTRIBUTE_NAME, namespace);
           attributeClass = new Element(ATTRIBUTE_CLASS, namespace);
@@ -319,6 +317,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         Class<?> uiComponentClass = Class.forName(componentTag.uiComponent());
         Element element = createElement(decl, componentTag, uiComponentClass, namespace);
         if (element != null) {
+          addAttributes(decl, uiComponentClass, element, namespace);
           components.add(element);
         }
       } catch (Exception e) {
