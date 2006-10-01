@@ -67,38 +67,10 @@ public class FaceletAnnotationProcessor implements AnnotationProcessor {
         decl.accept(DeclarationVisitors.getDeclarationScanner(visitor, DeclarationVisitors.NO_OP));
       }
     }
-    PrintWriter writer = null;
     try {
-      for (DocumentAndFileName documentAndFileName: visitor.createDom()) {
-        env.getMessager().printNotice("Create DOM");
-        String fileName =
-            documentAndFileName.getFileName().substring(0, documentAndFileName.getFileName().length()-3)+"taglib.xml";
-
-        writer = env.getFiler().createTextFile(Filer.Location.SOURCE_TREE,
-            "",
-            new File(fileName), null);
-        TransformerFactory transFactory = TransformerFactory.newInstance();
-        transFactory.setAttribute("indent-number", 2);
-        Transformer transformer = transFactory.newTransformer();
-        transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,
-            "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN");
-        transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,
-            "http://java.sun.com/dtd/facelet-taglib_1_0.dtd");
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        transformer.transform(new DOMSource(documentAndFileName.getDocument()),
-            new StreamResult(writer));
-        env.getMessager().printNotice("Write to file " +documentAndFileName.getPackageName()+" "+fileName);
-        IOUtils.closeQuietly(writer);
-      }
-    } catch (ParserConfigurationException e) {
-      // TODO
+      visitor.process();  
+    } catch (Exception e) {
       e.printStackTrace();
-    } catch (TransformerException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    } finally {
-      IOUtils.closeQuietly(writer);
     }
   }
 }

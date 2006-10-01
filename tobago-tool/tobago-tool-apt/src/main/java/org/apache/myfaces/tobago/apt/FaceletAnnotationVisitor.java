@@ -23,9 +23,13 @@ import com.sun.mirror.declaration.InterfaceDeclaration;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.dom.DOMSource;
 import javax.faces.component.UIComponent;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 import java.lang.reflect.Field;
@@ -38,6 +42,7 @@ import org.w3c.dom.Element;
 import org.apache.myfaces.tobago.apt.annotation.Taglib;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.commons.io.IOUtils;
 import org.codehaus.modello.generator.java.javasource.JCompUnit;
 import org.codehaus.modello.generator.java.javasource.JClass;
 import org.codehaus.modello.generator.java.javasource.JField;
@@ -56,30 +61,16 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
     super(env);
   }
 
-  public List<DocumentAndFileName> createDom() throws ParserConfigurationException, IOException {
-    javax.xml.parsers.DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-    dbf.setValidating(false);
-    javax.xml.parsers.DocumentBuilder parser = dbf.newDocumentBuilder();
-    List<DocumentAndFileName> tlds = new ArrayList<DocumentAndFileName>();
+  public void process() throws Exception {
+
     for (PackageDeclaration packageDeclaration :getCollectedPackageDeclations()) {
-      DocumentAndFileName documentAndFileName = new DocumentAndFileName();
-      Document document = parser.newDocument();
       Taglib taglibAnnotation = packageDeclaration.getAnnotation(Taglib.class);
-      documentAndFileName.setDocument(document);
-      documentAndFileName.setPackageName(packageDeclaration.getQualifiedName());
-      documentAndFileName.setFileName(taglibAnnotation.fileName());
-      tlds.add(documentAndFileName);
-      Element taglib = document.createElement("facelet-taglib");
+
       Set<String> tagSet = new HashSet<String>();
       String packageName = "org.apache.myfaces.tobago.facelets";
 
-
       JClass libraryClass = new JClass("TobagoTagLibrary");
       libraryClass.setPackageName(packageName);
-
-      addLeafTextElement(libraryClass.getName(), "library-class", taglib, document);
-            document.appendChild(taglib);
-
 
       JCompUnit unit = new JCompUnit(libraryClass);
       libraryClass.setSuperClass("AbstractTobagoTagLibrary");
@@ -100,22 +91,69 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
       JConstructor constructor = libraryClass.createConstructor();
       constructor.getSourceCode().add("super(NAMESPACE);");
 
-
-
       for (InterfaceDeclaration decl : getCollectedInterfaceDeclations()) {
         if (decl.getPackage().equals(packageDeclaration)) {
           appendComponent(constructor, decl, tagSet);
         }
       }
+      Document document = createDocument(libraryClass);
 
-      Writer writer = getEnv().getFiler().createTextFile(Filer.Location.SOURCE_TREE,
-            packageName,
-            new File(libraryClass.getName(true)+".java"), null);
-      JSourceWriter sourceWriter = new JSourceWriter(writer);
-      unit.print(sourceWriter);
+      writeFaceletTaglibHandler(unit);
+
+      writeFaceletTaglibConfig(taglibAnnotation, document, packageDeclaration);
 
     }
-    return tlds;
+  }
+
+  private void writeFaceletTaglibConfig(Taglib taglibAnnotation, Document document,
+      PackageDeclaration packageDeclaration) throws IOException, TransformerException {
+    Writer faceletsConfigWriter = null;
+    try {
+      getEnv().getMessager().printNotice("Create facelets taglib config");
+      String fileName =
+          taglibAnnotation.fileName().substring(0, taglibAnnotation.fileName().length()-3)+"taglib.xml";
+
+      faceletsConfigWriter = getEnv().getFiler().createTextFile(Filer.Location.SOURCE_TREE, "", new File(fileName), null);
+      TransformerFactory transFactory = TransformerFactory.newInstance();
+      transFactory.setAttribute("indent-number", 2);
+      Transformer transformer = transFactory.newTransformer();
+      transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,
+          "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN");
+      transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,
+          "http://java.sun.com/dtd/facelet-taglib_1_0.dtd");
+      transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+      transformer.transform(new DOMSource(document),
+          new StreamResult(faceletsConfigWriter));
+      getEnv().getMessager().printNotice("Write to file " +packageDeclaration.getQualifiedName()+" "+fileName);
+    } finally{
+      IOUtils.closeQuietly(faceletsConfigWriter);
+    }
+  }
+
+  private void writeFaceletTaglibHandler(JCompUnit unit) throws IOException {
+    JSourceWriter sourceWriter = null;
+    try {
+      Writer writer = getEnv().getFiler().createTextFile(Filer.Location.SOURCE_TREE,
+          unit.getPackageName(),
+          new File(unit.getFilename(null).substring(unit.getPackageName().length()+1)), null);
+      sourceWriter = new JSourceWriter(writer);
+      unit.print(sourceWriter);
+    } finally{
+      IOUtils.closeQuietly(sourceWriter);
+    }
+  }
+
+  private Document createDocument(JClass libraryClass) throws ParserConfigurationException {
+    javax.xml.parsers.DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    dbf.setValidating(false);
+    javax.xml.parsers.DocumentBuilder parser = dbf.newDocumentBuilder();
+    Document document = parser.newDocument();
+
+    Element taglib = document.createElement("facelet-taglib");
+    addLeafTextElement(libraryClass.getName(), "library-class", taglib, document);
+
+    document.appendChild(taglib);
+    return document;
   }
 
   protected void appendComponent(JConstructor constructor, InterfaceDeclaration decl, Set<String> tagSet) {

@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.apt;
  */
 
 import com.sun.mirror.apt.AnnotationProcessorEnvironment;
+import com.sun.mirror.apt.Filer;
 import com.sun.mirror.declaration.ClassDeclaration;
 import com.sun.mirror.declaration.Declaration;
 import com.sun.mirror.declaration.InterfaceDeclaration;
@@ -30,16 +31,24 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.Taglib;
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.util.ArrayList;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.dom.DOMSource;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+import java.io.File;
+import java.io.Writer;
+import java.io.IOException;
 
 /**
  * Created: Mar 22, 2005 8:18:35 PM
@@ -55,55 +64,83 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     super(env);
   }
 
-  public List<DocumentAndFileName>  createDom() throws ParserConfigurationException {
-    javax.xml.parsers.DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-    dbf.setValidating(false);
-    javax.xml.parsers.DocumentBuilder parser = dbf.newDocumentBuilder();
-    List<DocumentAndFileName> tlds = new ArrayList<DocumentAndFileName>();
+  public void process() throws Exception {
     for (PackageDeclaration packageDeclaration :getCollectedPackageDeclations()) {
-      resetDuplicateList();
-      DocumentAndFileName documentAndFileName = new DocumentAndFileName();
-      Document document = parser.newDocument();
       Taglib taglibAnnotation = packageDeclaration.getAnnotation(Taglib.class);
-      documentAndFileName.setDocument(document);
-      documentAndFileName.setPackageName(packageDeclaration.getQualifiedName());
-      documentAndFileName.setFileName(taglibAnnotation.fileName());
-      tlds.add(documentAndFileName);
-      Element taglib = document.createElement("taglib");
-      addLeafTextElement(taglibAnnotation.tlibVersion(), "tlib-version", taglib, document);
-      addLeafTextElement(taglibAnnotation.jspVersion(), "jsp-version", taglib, document);
-      addLeafTextElement(taglibAnnotation.shortName(), "short-name", taglib, document);
-      addLeafTextElement(taglibAnnotation.uri(), "uri", taglib, document);
-      String displayName = taglibAnnotation.displayName();
-      if (displayName==null||displayName.length()==0) {
-        displayName = taglibAnnotation.shortName();
-      }
-      addLeafTextElement(displayName, "display-name", taglib, document);
-      String description = packageDeclaration.getDocComment();
-      if (description != null) {
-        addLeafCDATAElement(description, "description", taglib, document);
-      }
-      for (String listenerClass : taglibAnnotation.listener()) {
-        Element listener = document.createElement("listener");
-        // TODO check listenerClass implements ServletContextListener !!
-        addLeafTextElement(listenerClass, "listener-class", listener, document);
-        taglib.appendChild(listener);
-      }
-
-      for (ClassDeclaration decl : getCollectedClassDeclations()) {
-        if (decl.getPackage().equals(packageDeclaration)) {
-          appendTag(decl, taglib, document);
-        }
-      }
-      for (InterfaceDeclaration decl : getCollectedInterfaceDeclations()) {
-        if (decl.getPackage().equals(packageDeclaration)) {
-          appendTag(decl, taglib, document);
-        }
-      }
-      document.appendChild(taglib);
+      Document document = createTaglib(taglibAnnotation, packageDeclaration);
+      writeTaglib(packageDeclaration, taglibAnnotation, document);
 
     }
-    return tlds;
+  }
+
+  private Document createTaglib(Taglib taglibAnnotation, PackageDeclaration packageDeclaration) throws
+      ParserConfigurationException {
+    resetDuplicateList();
+    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    dbf.setValidating(false);
+    javax.xml.parsers.DocumentBuilder parser = dbf.newDocumentBuilder();
+
+    Document document = parser.newDocument();
+
+
+    Element taglib = document.createElement("taglib");
+    addLeafTextElement(taglibAnnotation.tlibVersion(), "tlib-version", taglib, document);
+    addLeafTextElement(taglibAnnotation.jspVersion(), "jsp-version", taglib, document);
+    addLeafTextElement(taglibAnnotation.shortName(), "short-name", taglib, document);
+    addLeafTextElement(taglibAnnotation.uri(), "uri", taglib, document);
+    String displayName = taglibAnnotation.displayName();
+    if (displayName==null||displayName.length()==0) {
+      displayName = taglibAnnotation.shortName();
+    }
+    addLeafTextElement(displayName, "display-name", taglib, document);
+    String description = packageDeclaration.getDocComment();
+    if (description != null) {
+      addLeafCDATAElement(description, "description", taglib, document);
+    }
+    for (String listenerClass : taglibAnnotation.listener()) {
+      Element listener = document.createElement("listener");
+      // TODO check listenerClass implements ServletContextListener !!
+      addLeafTextElement(listenerClass, "listener-class", listener, document);
+      taglib.appendChild(listener);
+    }
+
+    for (ClassDeclaration decl : getCollectedClassDeclations()) {
+      if (decl.getPackage().equals(packageDeclaration)) {
+        appendTag(decl, taglib, document);
+      }
+    }
+    for (InterfaceDeclaration decl : getCollectedInterfaceDeclations()) {
+      if (decl.getPackage().equals(packageDeclaration)) {
+        appendTag(decl, taglib, document);
+      }
+    }
+    document.appendChild(taglib);
+    return document;
+  }
+
+  protected void writeTaglib(PackageDeclaration packageDeclaration, Taglib taglibAnnotation, Document document) throws
+      IOException, TransformerException {
+    Writer writer = null;
+    try {
+      getEnv().getMessager().printNotice("Create DOM");
+      writer = getEnv().getFiler().createTextFile(Filer.Location.SOURCE_TREE,
+          packageDeclaration.getQualifiedName(),
+          new File(taglibAnnotation.fileName()), null);
+      TransformerFactory transFactory = TransformerFactory.newInstance();
+      transFactory.setAttribute("indent-number", 2);
+      Transformer transformer = transFactory.newTransformer();
+      transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,
+          "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN");
+      transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,
+          "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd");
+      transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+      transformer.transform(new DOMSource(document),
+          new StreamResult(writer));
+      getEnv().getMessager().printNotice("Write to file " + packageDeclaration.getQualifiedName()
+          + " " + taglibAnnotation.fileName());
+    } finally {
+      IOUtils.closeQuietly(writer);
+    }
   }
 
   protected void appendTag(ClassDeclaration decl, Element parent, Document document) {

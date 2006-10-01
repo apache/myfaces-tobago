@@ -17,16 +17,30 @@ package org.apache.myfaces.tobago.apt;
  */
 
 import com.sun.mirror.apt.AnnotationProcessorEnvironment;
+import com.sun.mirror.apt.Filer;
 import com.sun.mirror.declaration.Declaration;
 import com.sun.mirror.declaration.MethodDeclaration;
+import com.sun.mirror.declaration.PackageDeclaration;
 import org.apache.commons.lang.ClassUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.Taglib;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.dom.DOMSource;
+import java.io.IOException;
+import java.io.Writer;
+import java.io.File;
 
 /**
  * Created: Apr 27, 2005 4:45:44 PM
@@ -37,6 +51,32 @@ public class TobagoAnnotationVisitor extends TaglibAnnotationVisitor {
 
   public TobagoAnnotationVisitor(AnnotationProcessorEnvironment env) {
     super(env);
+  }
+
+  protected void writeTaglib(PackageDeclaration packageDeclaration, Taglib taglibAnnotation, Document document) throws
+      IOException, TransformerException {
+    Writer writer = null;
+    try {
+      getEnv().getMessager().printNotice("Create DOM");
+      String fileName =
+          taglibAnnotation.fileName().substring(0, taglibAnnotation.fileName().length()-3)+"xml";
+
+      writer = getEnv().getFiler().createTextFile(Filer.Location.SOURCE_TREE,
+          packageDeclaration.getQualifiedName(), new File(fileName), null);
+      TransformerFactory transFactory = TransformerFactory.newInstance();
+      transFactory.setAttribute("indent-number", 2);
+      Transformer transformer = transFactory.newTransformer();
+      // TODO transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,
+      //   "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN");
+      // TODO transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,
+      //   "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd");
+      transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+      transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+      transformer.transform(new DOMSource(document), new StreamResult(writer));
+      getEnv().getMessager().printNotice("Write to file " +packageDeclaration.getQualifiedName()+ "."+fileName);
+    } finally {
+      IOUtils.closeQuietly(writer);
+    }
   }
 
   protected Element createTag(Declaration decl, Tag annotationTag, String className, Document document,

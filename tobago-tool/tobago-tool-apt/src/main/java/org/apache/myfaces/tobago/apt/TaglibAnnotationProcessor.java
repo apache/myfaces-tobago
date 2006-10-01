@@ -64,36 +64,10 @@ public class TaglibAnnotationProcessor implements AnnotationProcessor {
         decl.accept(DeclarationVisitors.getDeclarationScanner(visitor, DeclarationVisitors.NO_OP));
       }
     }
-    PrintWriter writer = null;
     try {
-      for (DocumentAndFileName documentAndFileName: visitor.createDom()) {
-        env.getMessager().printNotice("Create DOM");
-        writer = env.getFiler().createTextFile(Filer.Location.SOURCE_TREE,
-            documentAndFileName.getPackageName(),
-            new File(documentAndFileName.getFileName()), null);
-        TransformerFactory transFactory = TransformerFactory.newInstance();
-        transFactory.setAttribute("indent-number", 2);
-        Transformer transformer = transFactory.newTransformer();
-        transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,
-            "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN");
-        transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,
-            "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd");
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        transformer.transform(new DOMSource(documentAndFileName.getDocument()),
-            new StreamResult(writer));
-        env.getMessager().printNotice("Write to file " + documentAndFileName.getPackageName()
-            + " " + documentAndFileName.getFileName());
-        IOUtils.closeQuietly(writer);
-      }
-    } catch (ParserConfigurationException e) {
-      // TODO
+      visitor.process();
+    } catch (Exception e) {
       e.printStackTrace();
-    } catch (TransformerException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    } finally {
-      IOUtils.closeQuietly(writer);
     }
   }
 }

@@ -37,7 +37,8 @@ public class FaceletAnnotationProcessorFactory implements AnnotationProcessorFac
   private static final Collection<String> SUPPORTED_ANNOTATIONS
       = Collections.unmodifiableCollection(Arrays.asList("org.apache.myfaces.tobago.apt.annotation.Tag",
           "org.apache.myfaces.tobago.apt.annotation.TagAttribute", "org.apache.myfaces.tobago.apt.annotation.Taglib",
-          "org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute"));
+          "org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute",
+          "org.apache.myfaces.tobago.apt.annotation.Dummy"));
 
   private static final Collection<String> SUPPORTED_OPTIONS = Collections.emptyList();
 
