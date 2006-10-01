@@ -38,4 +38,6 @@ public @interface UIComponentTag {
 
   String displayName() default "";
 
+  Facet[] facets() default {}; 
+
 }
