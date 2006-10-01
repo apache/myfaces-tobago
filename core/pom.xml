@@ -19,6 +19,10 @@
         <targetPath>META-INF</targetPath>
         <directory>target/generated-tld</directory>
       </resource>
+      <resource>
+        <targetPath>META-INF</targetPath>
+        <directory>src/main/faces-config</directory>
+      </resource>
     </resources>
 
     <plugins>

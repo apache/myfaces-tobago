@@ -72,6 +72,8 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
   private static final String ATTRIBUTE = "attribute";
   private static final String ATTRIBUTE_NAME = "attribute-name";
   private static final String ATTRIBUTE_CLASS = "attribute-class";
+  private static final String APPLICATION = "application";
+  private static final String FACTORY = "factory";
 
   public FacesConfigAnnotationVisitor(AnnotationProcessorEnvironment env) {
     super(env);
@@ -126,23 +128,22 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         List<Element> elementsToAdd = new ArrayList<Element>();
 
         for (Element newElement: newComponents) {
-          boolean found = false;
-          for (Element element: components) {
-            if (equals(element, newElement)) {
-              found = true;
-              break;
-            }
-          }
+          boolean found = containsElement(components, newElement);
           if (!found) {
             elementsToAdd.add(newElement);
           }
         }
         if (!elementsToAdd.isEmpty() && !components.isEmpty()) {
-          int lastIndex = rootElement.indexOf(components.get(components.size()-1));
-          rootElement.addContent(lastIndex+1, elementsToAdd);
+          int lastIndex = getIndexAfter(rootElement, COMPONENT);
+          rootElement.addContent(lastIndex, elementsToAdd);
 
         } else if (!elementsToAdd.isEmpty()) {
-          rootElement.addContent(0, elementsToAdd);
+          // if facesconfig contains no component section add the components after factory or application
+          int lastIndex = getIndexAfter(rootElement, FACTORY);
+          if (lastIndex == 0) {
+            lastIndex = getIndexAfter(rootElement, APPLICATION);
+          }
+          rootElement.addContent(lastIndex, elementsToAdd);
         }
         document.setDocType(new DocType("faces-config",
             "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN",
@@ -162,6 +163,26 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
       }
     }
   }
+
+  private boolean containsElement(List<Element> components, Element newElement) {
+    boolean found = false;
+    for (Element element: components) {
+      if (equals(element, newElement)) {
+        found = true;
+        break;
+      }
+    }
+    return found;
+  }
+
+  private int getIndexAfter(Element rootElement, String tagName) {
+    List<Element> components = rootElement.getChildren(tagName, rootElement.getNamespace());
+    if (!components.isEmpty()) {
+      return rootElement.indexOf(components.get(components.size()-1))+1;
+    }
+    return 0;
+  }
+
   public boolean equals(Element element1, Element element2) {
     Namespace namespace = element1.getNamespace();
     if (element1.getName().equals(element2.getName()) && element1.getNamespace().equals(element2.getNamespace())) {
@@ -298,11 +319,13 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
     UIComponentTag componentTag = decl.getAnnotation(UIComponentTag.class);
     if (componentTag != null) {
       try {
-        Class uiComponentClass = Class.forName(componentTag.uiComponent());
+        Class<?> uiComponentClass = Class.forName(componentTag.uiComponent());
         Element element = createElement(decl, componentTag, uiComponentClass, namespace);
         if (element != null) {
-          addAttributes(decl, uiComponentClass, element, namespace);
-          components.add(element);
+          if (!containsElement(components, element)) {
+            //addAttributes(decl, uiComponentClass, element, namespace);
+            components.add(element);
+          }
         }
       } catch (Exception e) {
         e.printStackTrace();
@@ -317,8 +340,10 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         Class<?> uiComponentClass = Class.forName(componentTag.uiComponent());
         Element element = createElement(decl, componentTag, uiComponentClass, namespace);
         if (element != null) {
-          addAttributes(decl, uiComponentClass, element, namespace);
-          components.add(element);
+          if (!containsElement(components, element)) {
+            //addAttributes(decl, uiComponentClass, element, namespace);
+            components.add(element);
+          }
         }
       } catch (Exception e) {
         e.printStackTrace();
