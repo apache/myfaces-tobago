@@ -72,6 +72,34 @@
               <encoding>UTF-8</encoding>
             </configuration>
           </execution>
+          <execution>
+            <id>tobago-faces-config</id>
+            <goals><goal>execute</goal></goals>
+            <phase>process-classes</phase>
+            <configuration>
+              <targetFiles>
+                <targetFile>target/classes/META-INF/faces-config.xml</targetFile>
+              </targetFiles>
+              <excludes>
+                <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
+                <exclude>org/apache/myfaces/tobago/application/FopConverter.java</exclude>
+                <exclude>org/apache/myfaces/tobago/taglib/component/*</exclude>
+                <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>
+              </excludes>
+              <aptSourceRoots>
+                <aptSourceRoot>${project.build.directory}/tobago-core-sources</aptSourceRoot>
+              </aptSourceRoots>
+              <resourceTargetPath>META-INF</resourceTargetPath>
+              <generated>target/generated-tld</generated>
+              <factory>org.apache.myfaces.tobago.apt.FacesConfigAnnotationProcessorFactory</factory>
+              <!--<force>true</force>-->
+              <fork>true</fork>
+              <nocompile>true</nocompile>
+              <encoding>UTF-8</encoding>
+              <A>sourceFacesConfig=src/main/faces-config/faces-config.xml,targetFacesConfig=target/classes/META-INF/faces-config.xml</A>
+              <!--verbose>true</verbose-->
+            </configuration>
+          </execution>
         </executions>
       </plugin>
     </plugins>

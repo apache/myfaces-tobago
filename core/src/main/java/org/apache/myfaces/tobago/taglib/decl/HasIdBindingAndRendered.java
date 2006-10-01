@@ -16,7 +16,7 @@ package org.apache.myfaces.tobago.taglib.decl;
  * limitations under the License.
  */
 
-/**
+/*
  * User: weber
  * Date: Apr 19, 2005
  * Time: 4:16:09 PM

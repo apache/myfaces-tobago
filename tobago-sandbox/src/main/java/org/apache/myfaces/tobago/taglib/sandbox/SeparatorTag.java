@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.component.UISeparator;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 
 /**
  * Created by IntelliJ IDEA.
@@ -38,7 +39,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
 @Tag(name = "separator")
 @UIComponentTag(rendererType = "Separator",
-    uiComponent = "org.apache.myfaces.tobago.component.UISeparator")
+    uiComponent = "org.apache.myfaces.tobago.component.UISeparator",
+    facets = { @Facet(name = "label", description = "This facet contains a UILabel") } )
 
 public class SeparatorTag  extends TobagoTag implements HasIdBindingAndRendered{
 

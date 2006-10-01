@@ -22,11 +22,6 @@
 
 <faces-config>
 
-  <component>
-    <component-type>org.apache.myfaces.tobago.Separator</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UISeparator</component-class>
-  </component>
-
   <render-kit>
     <render-kit-id>tobago</render-kit-id>
     <render-kit-class>org.apache.myfaces.tobago.renderkit.TobagoRenderKit</render-kit-class>

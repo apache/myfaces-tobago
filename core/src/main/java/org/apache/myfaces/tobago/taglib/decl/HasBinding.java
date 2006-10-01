@@ -29,6 +29,7 @@ public interface HasBinding {
    * The value binding expression linking this
    * component to a property in a backing bean.
    */
-  @TagAttribute @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
+  @TagAttribute
+  //@UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
   void setBinding(String binding) throws JspException;
 }
