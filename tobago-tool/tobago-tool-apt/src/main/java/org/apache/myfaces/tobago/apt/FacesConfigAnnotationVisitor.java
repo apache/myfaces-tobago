@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.apt;
  */
 
 import com.sun.mirror.apt.AnnotationProcessorEnvironment;
+import com.sun.mirror.apt.Filer;
 import com.sun.mirror.declaration.ClassDeclaration;
 import com.sun.mirror.declaration.InterfaceDeclaration;
 import com.sun.mirror.declaration.MethodDeclaration;
@@ -26,6 +27,7 @@ import com.sun.mirror.type.InterfaceType;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.commons.io.IOUtils;
 import org.codehaus.plexus.util.FileUtils;
 import org.jdom.Comment;
 import org.jdom.DocType;
@@ -42,6 +44,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.io.File;
+import java.io.Writer;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -90,9 +94,10 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         targetFacesConfigFile = entry.getKey().substring(TARGET_FACES_CONFIG_KEY.length() + 3);
       }
     }
-
+    // TODO remove the foreach
     for (PackageDeclaration packageDeclaration :getCollectedPackageDeclations()) {
       Document document;
+      Writer writer = null;
       try {
         String content = FileUtils.fileRead( sourceFacesConfigFile );
         SAXBuilder builder = new SAXBuilder();
@@ -108,6 +113,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         XMLOutputter out = new XMLOutputter( format );
         out.output( document.getRootElement(), w );
 
+        System.err.println(w.toString());
         Element rootElement = document.getRootElement();
         Namespace namespace = rootElement.getNamespace();
         List<Element> components = rootElement.getChildren(COMPONENT, namespace);
@@ -149,17 +155,22 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
             "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN",
             "http://java.sun.com/dtd/web-facesconfig_1_1.dtd"));
 
-        StringWriter writer = new StringWriter();
+        writer =
+            getEnv().getFiler().createTextFile(Filer.Location.SOURCE_TREE, "", new File(targetFacesConfigFile), null);
+
+
         format = Format.getPrettyFormat();
         format.setLineSeparator(SEPERATOR);
         out = new XMLOutputter( format );
 
         out.output( document , writer );
-        FileUtils.fileWrite(targetFacesConfigFile, writer.toString());
+
       } catch (JDOMException e) {
         e.printStackTrace();
       } catch (IOException e) {
         e.printStackTrace();
+      } finally {
+        IOUtils.closeQuietly(writer);
       }
     }
   }
@@ -317,7 +328,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
 
   protected void addElement(ClassDeclaration decl, List<Element> components, Namespace namespace) throws IOException {
     UIComponentTag componentTag = decl.getAnnotation(UIComponentTag.class);
-    if (componentTag != null) {
+    if (componentTag != null && !componentTag.isComponentAlreadyDefined()) {
       try {
         Class<?> uiComponentClass = Class.forName(componentTag.uiComponent());
         Element element = createElement(decl, componentTag, uiComponentClass, namespace);
@@ -335,7 +346,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
 
   protected void addElement(InterfaceDeclaration decl, List<Element> components, Namespace namespace) throws IOException {
     UIComponentTag componentTag = decl.getAnnotation(UIComponentTag.class);
-    if (componentTag != null) {
+    if (componentTag != null && !componentTag.isComponentAlreadyDefined()) {
       try {
         Class<?> uiComponentClass = Class.forName(componentTag.uiComponent());
         Element element = createElement(decl, componentTag, uiComponentClass, namespace);

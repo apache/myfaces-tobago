@@ -78,7 +78,7 @@
             <phase>process-classes</phase>
             <configuration>
               <targetFiles>
-                <targetFile>target/classes/META-INF/faces-config.xml</targetFile>
+                <targetFile>target/generated-faces-config/faces-config.xml</targetFile>
               </targetFiles>
               <excludes>
                 <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
@@ -90,14 +90,32 @@
                 <aptSourceRoot>${project.build.directory}/tobago-core-sources</aptSourceRoot>
               </aptSourceRoots>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <generated>target/generated-tld</generated>
+              <generated>target/generated-faces-config</generated>
               <factory>org.apache.myfaces.tobago.apt.FacesConfigAnnotationProcessorFactory</factory>
               <!--<force>true</force>-->
               <fork>true</fork>
               <nocompile>true</nocompile>
               <encoding>UTF-8</encoding>
-              <A>sourceFacesConfig=src/main/faces-config/faces-config.xml,targetFacesConfig=target/classes/META-INF/faces-config.xml</A>
+              <A>sourceFacesConfig=src/main/faces-config/faces-config.xml,targetFacesConfig=faces-config.xml</A>
               <!--verbose>true</verbose-->
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-faces-config</id>
+            <goals><goal>resources</goal></goals>
+            <phase>process-classes</phase>
+            <configuration>
+              <resources>
+                <resource>
+                  <targetPath>META-INF</targetPath>
+                  <directory>target/generated-faces-config</directory>
+                </resource>
+              </resources>
             </configuration>
           </execution>
         </executions>
