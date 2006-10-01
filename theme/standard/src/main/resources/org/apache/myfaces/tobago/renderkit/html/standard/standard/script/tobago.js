@@ -1463,7 +1463,7 @@ Tobago.Updater = {
   },
 
   showFailureMessage: function() {
-    alert('uh oh, it looks like the network is down. Try again shortly');
+    //alert('uh oh, it looks like the network is down. Try again shortly');
   }
 };
 
