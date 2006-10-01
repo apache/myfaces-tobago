@@ -46,8 +46,48 @@
               <encoding>UTF-8</encoding>
             </configuration>
           </execution>
+          <!--execution>
+            <id>tobago-faces-config</id>
+            <goals><goal>execute</goal></goals>
+            <phase>process-classes</phase>
+            <configuration>
+              <targetFiles>
+                <targetFile>target/generated-faces-config/faces-config.xml</targetFile>
+              </targetFiles>
+              <excludes>
+                <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
+                <exclude>org/apache/myfaces/tobago/application/FopConverter.java</exclude>
+                <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>
+              </excludes>
+              <resourceTargetPath>META-INF</resourceTargetPath>
+              <generated>target/generated-faces-config</generated>
+              <factory>org.apache.myfaces.tobago.apt.FacesConfigAnnotationProcessorFactory</factory>
+              <fork>true</fork>
+              <nocompile>true</nocompile>
+              <encoding>UTF-8</encoding>
+              <A>sourceFacesConfig=src/main/faces-config/faces-config.xml,targetFacesConfig=faces-config.xml</A>
+            </configuration>
+          </execution-->
         </executions>
       </plugin>
+      <!--plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-faces-config</id>
+            <goals><goal>resources</goal></goals>
+            <phase>process-classes</phase>
+            <configuration>
+              <resources>
+                <resource>
+                  <targetPath>META-INF</targetPath>
+                  <directory>target/generated-faces-config</directory>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin-->
     </plugins>
   </build>
 
@@ -303,6 +343,7 @@
             <executions>
               <execution>
                 <id>create-jdk14retro-jar</id>
+                <goals><goal>jar</goal></goals>
                 <configuration>
                   <classesDirectory>${project.build.directory}/classes-retro</classesDirectory>
                   <classifier>jdk14retro</classifier>

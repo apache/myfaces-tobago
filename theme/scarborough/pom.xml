@@ -85,6 +85,7 @@
             <executions>
               <execution>
                 <id>create-jdk14retro-jar</id>
+                <goals><goal>jar</goal></goals>
                 <configuration>
                   <classesDirectory>${project.build.directory}/classes-retro</classesDirectory>
                   <classifier>jdk14retro</classifier>
