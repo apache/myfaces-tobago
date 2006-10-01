@@ -24,15 +24,20 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.Arrays;
 
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.codehaus.plexus.compiler.util.scan.SourceInclusionScanner;
+import org.codehaus.plexus.util.cli.Commandline;
+import org.codehaus.plexus.util.cli.CommandLineUtils;
+import org.codehaus.plexus.util.cli.DefaultConsumer;
+import org.codehaus.plexus.util.cli.CommandLineException;
+import org.codehaus.plexus.util.Os;
 
 /**
  * @author <a href="mailto:jubu@volny.cz">Juraj Burian</a>
@@ -100,7 +105,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
      * <pre>
      *         &lt;A&gt;debug, loglevel=3&lt;/A&gt;
      * </pre>
-     * 
+     *
      * @parameter alias="A"
      */
     private String aptOptions;
@@ -166,6 +171,13 @@ public abstract class AbstractAPTMojo extends AbstractMojo
     private File basedir;
 
     /**
+     * Allows running the compiler in a separate process.
+     * If "false" it uses the built in compiler, while if "true" it will use an executable.
+     *
+     * @parameter default-value="false"
+     */
+    private boolean fork;
+    /**
      * Force apt call without staleness checking.
      *
      * @parameter default-value="false"
@@ -197,28 +209,15 @@ public abstract class AbstractAPTMojo extends AbstractMojo
     public void execute() throws MojoExecutionException
     {
         getLog().debug( "Using apt compiler" );
-        List cmd = new LinkedList();
-
+        //List cmd = new LinkedList();
+        Commandline cmd = new Commandline();
         int result = APT_COMPILER_SUCCESS;
         StringWriter writer = new StringWriter();
         // finally invoke APT
         // Use reflection to be able to build on all JDKs:
         try
         {
-            // we need to have tools.jar in lasspath
-            // due to bug in Apt compiler, system classpath must be modified but in future:
-            // TODO try separate ClassLoader (see Plexus compiler api)
-            if( !isClasspathModified )
-            {
-                URL toolsJar = new File( System.getProperty( "java.home" ),
-                        "../lib/tools.jar" ).toURL();
-                Method m = URLClassLoader.class.getDeclaredMethod( "addURL",
-                        new Class[] { URL.class } );
-                m.setAccessible( true );
-                m.invoke( this.getClass().getClassLoader()
-                        .getSystemClassLoader(), new Object[] { toolsJar } );
-                isClasspathModified = true;
-            }
+
             // init comand line
             setAptCommandlineSwitches( cmd );
             setAptSpecifics( cmd );
@@ -232,25 +231,64 @@ public abstract class AbstractAPTMojo extends AbstractMojo
                 }
                 return;
             }
-            Class c = this.getClass().forName( APT_ENTRY_POINT ); // getAptCompilerClass();
-            Object compiler = c.newInstance();
-            if( getLog().isDebugEnabled() )
+            if (fork)
             {
-                getLog().debug( "Invoking apt with cmd " + cmd );
+                cmd.setWorkingDirectory( basedir.getAbsolutePath() );
+                cmd.setExecutable( getAptPath() );
+
+                CommandLineUtils.StringStreamConsumer err = new CommandLineUtils.StringStreamConsumer();
+                try
+                {
+                    int exitCode = CommandLineUtils.executeCommandLine( cmd, new DefaultConsumer(), err );
+
+                    getLog().error(err.getOutput());
+
+                    if ( exitCode != 0 )
+                    {
+                        throw new MojoExecutionException( "Exit code: " + exitCode + " - " + err.getOutput() );
+                    }
+                 }
+                 catch ( CommandLineException e )
+                 {
+                     throw new MojoExecutionException( "Unable to execute javadoc command", e );
+                 }
             }
-            try {
-              Method compile = c.getMethod( APT_METHOD_NAME, new Class[] {
-                    PrintWriter.class, (new String[] {}).getClass() } );
-              result = ((Integer) //
-              compile.invoke( compiler, new Object[] { new PrintWriter( writer ),
-                      cmd.toArray( new String[cmd.size()] ) } )).intValue();
-            } catch(NoSuchMethodException e) {
-              // ignore
-              Method compile = c.getMethod( APT_METHOD_NAME_OLD, new Class[] {
-                    (new String[] {}).getClass(),  PrintWriter.class } );
-              result = ((Integer) //
-              compile.invoke( compiler, new Object[] {
-                      cmd.toArray( new String[cmd.size()] ),  new PrintWriter( writer )} )).intValue();
+            else
+            {
+                // we need to have tools.jar in lasspath
+                // due to bug in Apt compiler, system classpath must be modified but in future:
+                // TODO try separate ClassLoader (see Plexus compiler api)
+                if( !isClasspathModified )
+                {
+                    URL toolsJar = new File( System.getProperty( "java.home" ),
+                        "../lib/tools.jar" ).toURL();
+                    Method m = URLClassLoader.class.getDeclaredMethod( "addURL",
+                          new Class[] { URL.class } );
+                    m.setAccessible( true );
+                    m.invoke( this.getClass().getClassLoader()
+                        .getSystemClassLoader(), new Object[] { toolsJar } );
+                    isClasspathModified = true;
+                }
+                Class c = this.getClass().forName( APT_ENTRY_POINT ); // getAptCompilerClass();
+                Object compiler = c.newInstance();
+                if( getLog().isDebugEnabled() )
+                {
+                    getLog().debug( "Invoking apt with cmd " + cmd.toString() );
+                }
+                try {
+                    Method compile = c.getMethod( APT_METHOD_NAME, new Class[] {
+                        PrintWriter.class, (new String[] {}).getClass() } );
+                    result = ((Integer) //
+                    compile.invoke( compiler, new Object[] { new PrintWriter( writer ),
+                          cmd.getArguments()} )).intValue();
+                } catch(NoSuchMethodException e) {
+                  // ignore
+                    Method compile = c.getMethod( APT_METHOD_NAME_OLD, new Class[] {
+                        (new String[] {}).getClass(),  PrintWriter.class } );
+                    result = ((Integer) //
+                    compile.invoke( compiler, new Object[] {
+                          cmd.getArguments(),  new PrintWriter( writer )} )).intValue();
+                }
             }
 
 
@@ -276,7 +314,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         }
     }
 
-    private void setAptCommandlineSwitches( List cmd )
+    private void setAptCommandlineSwitches( Commandline cmd )
     {
         if( null == aptOptions )
         {
@@ -294,7 +332,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         }
     }
 
-    private void setAptSpecifics( List cmd ) throws MojoExecutionException
+    private void setAptSpecifics( Commandline cmd ) throws MojoExecutionException
     {
         try
         {
@@ -321,7 +359,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         }
     }
 
-    private void setStandards( List cmd ) throws MojoExecutionException
+    private void setStandards( Commandline cmd ) throws MojoExecutionException
     {
         if( debug )
         {
@@ -358,7 +396,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         }
     }
 
-    private boolean setSourcepath( List cmd ) throws MojoExecutionException
+    private boolean setSourcepath( Commandline cmd ) throws MojoExecutionException
     {
         boolean has = false;
         // sources ....
@@ -383,7 +421,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         return has;
     }
 
-    private boolean addIncludedSources(File srcFile, List cmd, boolean has) throws MojoExecutionException {
+    private boolean addIncludedSources(File srcFile, Commandline cmd, boolean has) throws MojoExecutionException {
         if( getLog().isDebugEnabled() ) {
             getLog().debug("Checking sourcepath in " + srcFile);
         }
@@ -415,14 +453,14 @@ public abstract class AbstractAPTMojo extends AbstractMojo
             while( jt.hasNext() )
             {
                 File src = (File) jt.next();
-                cmd.add( src.getAbsolutePath() );
+                cmdAdd( cmd, src.getAbsolutePath() );
                 has = true;
             }
         }
         return has;
     }
 
-    private void setClasspath( List cmd ) throws MojoExecutionException, DependencyResolutionRequiredException {
+    private void setClasspath( Commandline cmd ) throws MojoExecutionException, DependencyResolutionRequiredException {
         StringBuffer buffer = new StringBuffer();
         for( Iterator it = getClasspathElements().iterator(); it.hasNext(); )
         {
@@ -435,24 +473,55 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         cmdAdd( cmd, "-classpath", buffer.toString() );
     }
 
-    private void cmdAdd( List cmd, String arg )
+    private void cmdAdd( Commandline cmd, String arg )
     {
         /**
          * OBSOLETE
          * if( true == getLog().isDebugEnabled() ) { getLog().debug(
          * arg ); }
          */
-        cmd.add( arg );
+         cmd.createArgument().setValue(arg);
+        //cmd.add( arg );
     }
 
-    private void cmdAdd( List cmd, String arg1, String arg2 )
+    private void cmdAdd( Commandline cmd, String arg1, String arg2 )
     {
         /**
          * OBSOLETE
          * if( true == getLog().isDebugEnabled() ) { getLog().debug(
          * arg1 + " " + arg2 ); }
          */
-        cmd.add( arg1 );
-        cmd.add( arg2 );
+        cmdAdd( cmd, arg1 );
+        cmdAdd( cmd, arg2 );
+    }
+
+  /**
+     * Get the path of apt tool depending the OS.
+     *
+     * @return the path of the apt tool
+     */
+    private String getAptPath()
+    {
+        String aptCommand = "apt" + ( Os.isFamily("windows")? ".exe" : "" );
+
+        File aptExe;
+
+        // For IBM's JDK 1.2
+        if ( Os.isName("aix") )
+        {
+            aptExe = new File( System.getProperty( "java.home" ) + "/../sh", aptCommand );
+        }
+        else if ( Os.isFamily("unix") && Os.isFamily("mac") )
+        {
+            aptExe = new File( System.getProperty( "java.home" ) + "/bin", aptCommand );
+        }
+        else
+        {
+            aptExe = new File( System.getProperty( "java.home" ) + "/../bin", aptCommand );
+        }
+
+        getLog().debug( "Apt executable=[" + aptExe.getAbsolutePath() + "]" );
+
+        return aptExe.getAbsolutePath();
     }
 }

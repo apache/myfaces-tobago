@@ -19,14 +19,14 @@ How to Use
          ...
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+                <groupId>org.apache.myfaces.tobago</groupId>
                 <artifactId>maven-apt-plugin</artifactId>
                 <configuration>
                     <generated>src/generated<generated>
                     <A>debug, loglevel=3</A>
                     <target>1.5</target>
                     <excludes>
-                        <exclude implementation="java.lang.String">**/*Point*.java</exclude>
+                        <exclude>**/*Point*.java</exclude>
                     </excludes>
                 </configuration>
              </plugin>
