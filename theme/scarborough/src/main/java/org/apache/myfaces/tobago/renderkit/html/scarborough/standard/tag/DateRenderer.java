@@ -78,6 +78,9 @@ public class DateRenderer extends InRenderer {
         writer.endElement(HtmlConstants.INPUT);
       }
     }
+
+    // focus
+    HtmlRendererUtil.renderFocusId(facesContext, component);
   }
 }
 

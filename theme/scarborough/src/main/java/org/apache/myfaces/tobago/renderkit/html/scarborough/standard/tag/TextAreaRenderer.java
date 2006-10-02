@@ -43,6 +43,7 @@ import java.util.Iterator;
 
 public class TextAreaRenderer extends InRendererBase {
 
+  @Override
   public void encodeEndTobago(FacesContext facesContext,
         UIComponent component) throws IOException {
 
@@ -99,6 +100,9 @@ public class TextAreaRenderer extends InRendererBase {
       writer.writeText(currentValue, null);
     }
     writer.endElement(HtmlConstants.TEXTAREA);
+
+    // focus
+    HtmlRendererUtil.renderFocusId(facesContext, component);
   }
 }
 

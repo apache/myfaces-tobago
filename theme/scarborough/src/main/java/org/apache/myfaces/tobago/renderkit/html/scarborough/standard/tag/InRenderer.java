@@ -53,6 +53,7 @@ import java.util.List;
 public class InRenderer extends InRendererBase implements AjaxRenderer {
   private static final Log LOG = LogFactory.getLog(InRenderer.class);
 
+  @Override
   public void encodeEndTobago(FacesContext facesContext,
         UIComponent component)
         throws IOException {
@@ -117,6 +118,9 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
       }
     }
     writer.endElement(HtmlConstants.INPUT);
+
+    // focus
+    HtmlRendererUtil.renderFocusId(facesContext, component);
 
     // input suggest
     if (renderAjaxSuggest) {

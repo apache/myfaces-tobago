@@ -45,8 +45,7 @@
       </tc:panel>
       <tc:cell/>
 
-      <%--fixme!!!--%>
-      <tx:in label="Has Focus (FIXME)" focus="true" value="Some Text"/>
+      <tx:in label="Input (focus)" focus="true" value="Some Text"/>
       <tc:cell/>
 
       <tc:cell spanX="2"/>

@@ -23,20 +23,25 @@
     <f:subview id="date">
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="300px;1*" rows="fixed;fixed;1*" />
+          <tc:gridLayout columns="300px;1*" rows="fixed;fixed;fixed;1*"/>
         </f:facet>
-<%-- code-sniplet-start id="date" --%>
+        <%-- code-sniplet-start id="date" --%>
         <tx:date label="Date">
-          <f:convertDateTime pattern="dd.MM.yyyy" />
+          <f:convertDateTime pattern="dd.MM.yyyy"/>
         </tx:date>
-<%-- code-sniplet-end id="date" --%>
+        <%-- code-sniplet-end id="date" --%>
         <tc:cell/>
 
-<%-- code-sniplet-start id="dateTime" --%>
+        <%-- code-sniplet-start id="dateTime" --%>
         <tx:date label="Date/Time">
-          <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+          <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
         </tx:date>
-<%-- code-sniplet-end id="dateTime" --%>
+        <%-- code-sniplet-end id="dateTime" --%>
+        <tc:cell/>
+
+        <tx:date label="Date (focus)" focus="true">
+          <f:convertDateTime pattern="dd.MM.yyyy"/>
+        </tx:date>
         <tc:cell/>
 
         <tc:cell spanX="2"/>

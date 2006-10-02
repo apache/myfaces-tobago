@@ -15,6 +15,7 @@
 --%>
 
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
@@ -23,13 +24,18 @@
     <jsp:body>
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout rows="150px;1*"  columns="400px;1*"/>
+          <tc:gridLayout rows="150px;100px;1*"  columns="400px;1*"/>
         </f:facet>
 <%-- code-sniplet-start id="textarea" --%>
-          <tc:textarea label="Enter your Text:"
-                      value="My new text goes here..." id="textarea0" />
+          <tx:textarea label="Enter your Text:"
+                      value="My new text goes here..."/>
 <%-- code-sniplet-end id="textarea" --%>        
         <tc:cell/>
+
+        <tx:textarea label="Area (focus)" focus="true"
+                    value="Some Text"/>
+        <tc:cell/>
+
         <tc:cell/>
         <tc:cell/>
 
