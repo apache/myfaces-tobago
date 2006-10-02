@@ -19,6 +19,7 @@ package org.apache.myfaces.maven.plugin;
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -26,6 +27,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.ArrayList;
 
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.plugin.AbstractMojo;
@@ -37,6 +39,8 @@ import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.DefaultConsumer;
 import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.Os;
+import org.codehaus.plexus.util.StringUtils;
+import org.codehaus.plexus.util.FileUtils;
 
 /**
  * @author <a href="mailto:jubu@volny.cz">Juraj Burian</a>
@@ -161,6 +165,15 @@ public abstract class AbstractAPTMojo extends AbstractMojo
     private String factory;
 
     /**
+     * Temporary directory that contain the files from the plugin.
+     *
+     * @parameter expression="${project.build.directory}/maven-apt-plugin"
+     * @required
+     * @readonly
+     */
+    private File tempRoot;
+
+    /**
      * The directory to run the compiler from if fork is true.
      * 
      * @parameter expression="${basedir}"
@@ -212,6 +225,11 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         Commandline cmd = new Commandline();
         int result = APT_COMPILER_SUCCESS;
         StringWriter writer = new StringWriter();
+        if ( !tempRoot.exists() )
+        {
+             tempRoot.mkdirs();
+        }
+        //File workingDir =
         // finally invoke APT
         // Use reflection to be able to build on all JDKs:
         try
@@ -222,7 +240,8 @@ public abstract class AbstractAPTMojo extends AbstractMojo
             setAptSpecifics( cmd );
             setStandards( cmd );
             setClasspath( cmd );
-            if( !setSourcepath( cmd ) )
+            List sourceFiles = new ArrayList();
+            if( !setSourcepath( sourceFiles ) )
             {
                 if( getLog().isDebugEnabled() )
                 {
@@ -230,8 +249,36 @@ public abstract class AbstractAPTMojo extends AbstractMojo
                 }
                 return;
             }
+            else
+            {
+                if ( !sourceFiles.isEmpty() )
+                {
+                     File file = new File( tempRoot, "files" );
+                     if( !getLog().isDebugEnabled())
+                     {
+                         file.deleteOnExit();
+                     }
+                     try
+                     {
+                         FileUtils.fileWrite( file.getAbsolutePath(),
+                                 StringUtils.join( sourceFiles.iterator(), "\n" ) );
+                         cmd.createArgument().setValue( "@" + file.getAbsoluteFile() );
+                     }
+
+                     catch ( IOException e )
+                     {
+                         throw new MojoExecutionException( "Unable to write temporary file for command execution", e );
+                     }
+                }
+
+
+            }
             if( fork )
             {
+                if( getLog().isDebugEnabled() )
+                {
+                    getLog().debug( "Working dir: " + basedir.getAbsolutePath() );
+                }
                 cmd.setWorkingDirectory( basedir.getAbsolutePath() );
                 cmd.setExecutable( getAptPath() );
 
@@ -279,13 +326,16 @@ public abstract class AbstractAPTMojo extends AbstractMojo
                 {
                     getLog().debug( "Invoking apt with cmd " + cmd.toString() );
                 }
-                try {
+                try
+                {
                     Method compile = c.getMethod( APT_METHOD_NAME, new Class[] {
                         PrintWriter.class, (new String[] {}).getClass() } );
                     result = ((Integer) //
                     compile.invoke( compiler, new Object[] { new PrintWriter( writer ),
                           cmd.getArguments()} )).intValue();
-                } catch(NoSuchMethodException e) {
+                }
+                catch(NoSuchMethodException e)
+                {
                   // ignore
                     Method compile = c.getMethod( APT_METHOD_NAME_OLD, new Class[] {
                         (new String[] {}).getClass(),  PrintWriter.class } );
@@ -296,10 +346,12 @@ public abstract class AbstractAPTMojo extends AbstractMojo
             }
 
 
-        } catch ( Exception ex )
+        }
+        catch ( Exception ex )
         {
             throw new MojoExecutionException( "Error starting apt compiler", ex );
-        } finally
+        }
+        finally
         {
             if( result != APT_COMPILER_SUCCESS )
             {
@@ -400,7 +452,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         }
     }
 
-    private boolean setSourcepath( Commandline cmd ) throws MojoExecutionException
+    private boolean setSourcepath( List cmd ) throws MojoExecutionException
     {
         boolean has = false;
         // sources ....
@@ -425,7 +477,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         return has;
     }
 
-    private boolean addIncludedSources(File srcFile, Commandline cmd, boolean has) throws MojoExecutionException {
+    private boolean addIncludedSources(File srcFile, List cmd, boolean has) throws MojoExecutionException {
         if( getLog().isDebugEnabled() ) {
             getLog().debug("Checking sourcepath in " + srcFile);
         }
@@ -457,7 +509,14 @@ public abstract class AbstractAPTMojo extends AbstractMojo
             while( jt.hasNext() )
             {
                 File src = (File) jt.next();
-                cmdAdd( cmd, src.getAbsolutePath() );
+                if( fork )
+                {
+                    cmd.add(quotedPathArgument( src.getAbsolutePath() ) );
+                }
+                else
+                {
+                    cmd.add( src.getAbsolutePath() );
+                }
                 has = true;
             }
         }
@@ -527,5 +586,35 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         getLog().debug( "Apt executable=[" + aptExe.getAbsolutePath() + "]" );
 
         return aptExe.getAbsolutePath();
+    }
+
+    private String quotedPathArgument( String value )
+    {
+        String path = value;
+
+        if ( !StringUtils.isEmpty( path ) )
+        {
+            path = path.replace( '\\', '/' );
+            if( path.indexOf( "\'" ) != -1 )
+            {
+                String split[] = path.split( "\'" );
+                path = "";
+
+                for( int i = 0; i < split.length; i++ )
+                {
+                    if( i != split.length - 1)
+                    {
+                        path = path + split[i] + "\\'";
+                    }
+                    else
+                    {
+                        path = path + split[i];
+                    }
+                }
+            }
+            path = "'" + path + "'";
+        }
+
+        return path;
     }
 }
