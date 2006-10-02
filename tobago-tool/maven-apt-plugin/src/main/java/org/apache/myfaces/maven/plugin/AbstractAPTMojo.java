@@ -26,7 +26,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.Arrays;
 
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.plugin.AbstractMojo;
@@ -231,10 +230,15 @@ public abstract class AbstractAPTMojo extends AbstractMojo
                 }
                 return;
             }
-            if (fork)
+            if( fork )
             {
                 cmd.setWorkingDirectory( basedir.getAbsolutePath() );
                 cmd.setExecutable( getAptPath() );
+
+                if( getLog().isDebugEnabled() )
+                {
+                    getLog().debug( Commandline.toString( cmd.getShellCommandline() ) );
+                }
 
                 CommandLineUtils.StringStreamConsumer err = new CommandLineUtils.StringStreamConsumer();
                 try
@@ -250,7 +254,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
                  }
                  catch ( CommandLineException e )
                  {
-                     throw new MojoExecutionException( "Unable to execute javadoc command", e );
+                     throw new MojoExecutionException( "Unable to execute apt command", e );
                  }
             }
             else
