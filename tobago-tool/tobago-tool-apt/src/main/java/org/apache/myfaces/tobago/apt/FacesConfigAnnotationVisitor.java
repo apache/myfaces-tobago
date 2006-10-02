@@ -113,7 +113,6 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         XMLOutputter out = new XMLOutputter( format );
         out.output( document.getRootElement(), w );
 
-        System.err.println(w.toString());
         Element rootElement = document.getRootElement();
         Namespace namespace = rootElement.getNamespace();
         List<Element> components = rootElement.getChildren(COMPONENT, namespace);
