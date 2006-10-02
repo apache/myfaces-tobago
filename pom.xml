@@ -214,13 +214,21 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
-       </plugin>
+      </plugin>
 
-      <!--<plugin>
+      <plugin>
         <inherited>false</inherited>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>changes-maven-plugin</artifactId>
-      </plugin>-->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-changes-plugin</artifactId>
+        <version>2.0-beta-2</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>jira-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
 
       <plugin>
         <inherited>false</inherited>
@@ -498,6 +506,7 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>retrotranslator-maven-plugin</artifactId>
+          <version>1.0-alpha-1</version>
           <executions>
             <execution>
               <id>retrotranslate</id>
