@@ -186,7 +186,6 @@ public final class TobagoConstants {
   public static final String RENDERER_TYPE_IMAGE = "Image";
   public static final String RENDERER_TYPE_LINK = "Link";
   public static final String RENDERER_TYPE_LABEL = "Label";
-  public static final String RENDERER_TYPE_LABELED_INPUT_LAYOUT = "LabeledInputLayout";
   public static final String RENDERER_TYPE_MENUBAR = "MenuBar";
   public static final String RENDERER_TYPE_MENUCOMMAND = "MenuCommand";
   public static final String RENDERER_TYPE_OUT = "Out";
