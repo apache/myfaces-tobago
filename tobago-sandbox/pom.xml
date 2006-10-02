@@ -302,6 +302,25 @@
             </executions>
           </plugin>
           <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>copy-faces-configretro</id>
+                <goals><goal>resources</goal></goals>
+                <phase>process-classes</phase>
+                <configuration>
+                  <outputDirectory>${project.build.directory}/classes-retro</outputDirectory>
+                  <resources>
+                    <resource>
+                      <targetPath>META-INF</targetPath>
+                      <directory>target/generated-faces-config</directory>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
             <artifactId>maven-jar-plugin</artifactId>
             <executions>
               <execution>
