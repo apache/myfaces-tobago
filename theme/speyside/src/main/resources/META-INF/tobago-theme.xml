@@ -16,10 +16,6 @@
  *    limitations under the License.
 -->
 
-<!--
-  todo: Test still under development
-  http://issues.apache.org/jira/browse/TOBAGO-20
--->
 <tobago-theme>
   <name>speyside</name>
   <deprecated-name>org.apache.myfaces.tobago.context.SpeysideTheme</deprecated-name>
