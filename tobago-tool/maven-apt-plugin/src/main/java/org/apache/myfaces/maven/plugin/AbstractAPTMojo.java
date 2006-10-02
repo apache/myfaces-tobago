@@ -237,7 +237,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
 
                 if( getLog().isDebugEnabled() )
                 {
-                    getLog().debug( Commandline.toString( cmd.getShellCommandline() ) );
+                    getLog().debug( "Invoking apt with cmd " +Commandline.toString( cmd.getShellCommandline() ) );
                 }
 
                 CommandLineUtils.StringStreamConsumer err = new CommandLineUtils.StringStreamConsumer();
