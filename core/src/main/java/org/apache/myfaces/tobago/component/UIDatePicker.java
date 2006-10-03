@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.component;
  */
 
 import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CALENDAR_DATE_INPUT_ID;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
@@ -160,7 +161,9 @@ public class UIDatePicker extends UICommand implements OnComponentCreated {
         facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_BOX);
     popup.getChildren().add(box);
     box.setId("box");
-    box.getAttributes().put(ATTR_LABEL, "datePicker");
+    // TODO: set string resources in renderer
+    box.getAttributes().put(ATTR_LABEL, ResourceManagerUtil.getPropertyNotNull(
+        facesContext, "tobago", "datePickerTitle"));
     UIComponent layout = ComponentUtil.createComponent(
         facesContext, UIGridLayout.COMPONENT_TYPE, RENDERER_TYPE_GRID_LAYOUT);
     box.getFacets().put(FACET_LAYOUT, layout);
@@ -219,7 +222,8 @@ public class UIDatePicker extends UICommand implements OnComponentCreated {
     buttonPanel.getChildren().add(okButton);
     okButton.setId("ok" + DatePickerController.CLOSE_POPUP);
     attributes = okButton.getAttributes();
-    attributes.put(ATTR_LABEL, "OK");
+    attributes.put(ATTR_LABEL, ResourceManagerUtil.getPropertyNotNull(
+        facesContext, "tobago", "datePickerOk"));
 
     final UICommand cancelButton =
         (UICommand) ComponentUtil.createComponent(facesContext,
@@ -227,7 +231,8 @@ public class UIDatePicker extends UICommand implements OnComponentCreated {
             RENDERER_TYPE_BUTTON);
     buttonPanel.getChildren().add(cancelButton);
     attributes = cancelButton.getAttributes();
-    attributes.put(ATTR_LABEL, "Cancel");
+    attributes.put(ATTR_LABEL, ResourceManagerUtil.getPropertyNotNull(
+        facesContext, "tobago", "datePickerCancel"));
     cancelButton.setId(DatePickerController.CLOSE_POPUP);
 
     // create image

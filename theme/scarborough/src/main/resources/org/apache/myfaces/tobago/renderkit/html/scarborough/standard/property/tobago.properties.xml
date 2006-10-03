@@ -64,6 +64,11 @@
 <entry key="treeMoveDown">move down</entry>
 <entry key="treeNodeNew">New Node</entry>
 
+<!-- datePicker -->
+<entry key="datePickerTitle">Date Picker</entry>
+<entry key="datePickerOk">OK</entry>
+<entry key="datePickerCancel">Cancel</entry>
+
 <!-- requiredvalidator -->
 <entry key="tobago.requiredvalidator.message.empty.summary">Required field.</entry>
 <entry key="tobago.requiredvalidator.message.empty.detail">Field is required.</entry>
