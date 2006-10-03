@@ -71,6 +71,8 @@ public class AnnotationDeclarationVisitorCollector extends SimpleDeclarationVisi
 
   }
   public void visitInterfaceDeclaration(InterfaceDeclaration d) {
+    // TODO why this needed????
+    visitPackageDeclaration(d.getPackage());
     if (!collectedInterfaceDeclations.contains(d)
         && !d.getAnnotationMirrors().isEmpty()) {
       collectedInterfaceDeclations.add(d);

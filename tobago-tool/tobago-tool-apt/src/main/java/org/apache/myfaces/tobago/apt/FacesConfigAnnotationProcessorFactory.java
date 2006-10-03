@@ -37,8 +37,7 @@ public class FacesConfigAnnotationProcessorFactory implements AnnotationProcesso
   private static final Collection<String> SUPPORTED_ANNOTATIONS
       = Collections.unmodifiableCollection(Arrays.asList("org.apache.myfaces.tobago.apt.annotation.Tag",
           "org.apache.myfaces.tobago.apt.annotation.TagAttribute", "org.apache.myfaces.tobago.apt.annotation.Taglib",
-          "org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute",
-          "org.apache.myfaces.tobago.apt.annotation.Dummy"));
+          "org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute"));
 
   private static final Collection<String> SUPPORTED_OPTIONS =
       Collections.unmodifiableCollection(Arrays.asList(FacesConfigAnnotationVisitor.SOURCE_FACES_CONFIG_KEY,

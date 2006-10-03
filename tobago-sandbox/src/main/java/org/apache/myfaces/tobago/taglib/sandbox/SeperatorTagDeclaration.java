@@ -16,29 +16,26 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  * limitations under the License.
  */
 
-
-import org.apache.myfaces.tobago.taglib.component.TobagoTag;
+import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasLabel;
-import org.apache.myfaces.tobago.component.UISeparator;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: bommel
- * Date: Sep 18, 2006
- * Time: 8:02:34 PM
+ * Date: Oct 3, 2006
+ * Time: 11:52:52 AM
+ */
+/**
+ * Renders a separator.
  */
 
+@Tag(name = "separator")
+@UIComponentTag(rendererType = "Separator",
+    uiComponent = "org.apache.myfaces.tobago.component.UISeparator",
+    facets = { @Facet(name = "label", description = "This facet contains a UILabel") } )
 
-
-public class SeparatorTag  extends TobagoTag implements SeperatorTagDeclaration {
-
-   public String getComponentType() {
-    return UISeparator.COMPONENT_TYPE;
-  }
-
+public interface SeperatorTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered {
 }
