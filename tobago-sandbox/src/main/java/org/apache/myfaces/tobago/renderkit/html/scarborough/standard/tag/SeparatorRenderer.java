@@ -16,17 +16,15 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.component.UILabel;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 /**
@@ -35,7 +33,6 @@ import java.io.IOException;
  * Date: Sep 19, 2006
  */
 public class SeparatorRenderer extends RendererBase {
-  private static final Log LOG = LogFactory.getLog(SeparatorRenderer.class);
 
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
@@ -44,6 +41,37 @@ public class SeparatorRenderer extends RendererBase {
     writer.writeComponentClass();
     writer.writeComponentAttribute("style", TobagoConstants.ATTR_STYLE);
     if (component.getFacet("label") != null) {
+      writer.startElement(HtmlConstants.TABLE, component);
+      writer.writeComponentClass();
+
+      writer.writeAttribute(HtmlAttributes.WIDTH, "100%", false);
+      writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
+      writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
+      writer.startElement(HtmlConstants.TR, component);
+
+      writer.startElement(HtmlConstants.TD, component);
+      writer.writeAttribute(HtmlAttributes.CLASS, "tobago-separator-start-default", false);
+      writer.startElement(HtmlConstants.HR , component);
+      writer.writeComponentClass();
+      writer.endElement(HtmlConstants.HR);
+      writer.endElement(HtmlConstants.TD);
+
+      writer.startElement(HtmlConstants.TD, component);
+      writer.writeAttribute(HtmlAttributes.STYLE, "width: 1px", false);
+      writer.writeAttribute(HtmlAttributes.CLASS, "tobago-separator-label-default", false);
+      UILabel label = (UILabel) component.getFacet("label");
+      writer.writeText(label.getValue(), null);
+      writer.endElement(HtmlConstants.TD);
+
+      writer.startElement(HtmlConstants.TD, component);
+      writer.startElement(HtmlConstants.HR , component);
+      writer.writeComponentClass();
+      writer.endElement(HtmlConstants.HR);
+      writer.endElement(HtmlConstants.TD);
+
+      writer.endElement(HtmlConstants.TR);
+      writer.endElement(HtmlConstants.TABLE);
+      /* field set variant for Scarborough 
       writer.startElement(HtmlConstants.FIELDSET, component);
       writer.writeComponentClass();
       UILabel label =  (UILabel) component.getFacet("label");
@@ -52,6 +80,7 @@ public class SeparatorRenderer extends RendererBase {
       writer.writeText(label.getValue(), null);
       writer.endElement(HtmlConstants.LEGEND);
       writer.endElement(HtmlConstants.FIELDSET);
+      */
     } else {
       writer.startElement(HtmlConstants.HR , component);
       writer.writeComponentClass();
