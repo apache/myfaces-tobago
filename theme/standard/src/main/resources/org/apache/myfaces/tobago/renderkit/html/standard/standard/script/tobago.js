@@ -1283,9 +1283,15 @@ Tobago.ScriptLoader = function(names, doAfter) {
 //              LOG.debug("doAfter = " + this.doAfter)
 //          }
       if (this.scriptElement) {
-        delete this.scriptElement.onreadystatechange;
-        delete this.scriptElement.onload;
-        delete this.scriptElement;
+        if (this.scriptElement.onreadystatechange) {
+          delete this.scriptElement.onreadystatechange;
+        }
+        if (this.scriptElement.onload) {
+          delete this.scriptElement.onload;
+        }
+        if (this.scriptElement) {
+          delete this.scriptElement;
+        }
       }
       delete this.actualScript;
       delete this.names;

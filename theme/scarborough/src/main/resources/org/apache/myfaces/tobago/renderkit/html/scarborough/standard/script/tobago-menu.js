@@ -151,7 +151,7 @@ Tobago.Menu.Item.prototype.toHtml = function(createSubItems) {
               + ' id="' + this.id + Tobago.SUB_COMPONENT_SEP + 'iframe"'
               + ' class="tobago-menuBar-subitem-iframe" '
               + ' src="javascript:false;" '
-              //+ ' style="display: none; visibility: hidden;"'
+              + ' style="display: none; visibility: hidden;"'
               + ' frameborder="0" scrolling="no" ></iframe>';
         }
       }
