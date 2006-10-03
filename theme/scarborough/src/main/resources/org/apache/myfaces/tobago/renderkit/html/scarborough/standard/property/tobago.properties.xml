@@ -13,8 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!-- $Source$ -->
-
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 
 <properties>
@@ -26,7 +24,7 @@
 <entry key="configThemeText">Which theme should be used?</entry>
 <entry key="configDebugMode">Use _debug mode</entry>
 <entry key="configLocale">Locale</entry>
-<entry key="configLocaleText">Which Locale should be used?</entry>
+<entry key="configLocaleText">Which locale should be used?</entry>
 <entry key="configContentType">Content type</entry>
 <entry key="configContentTypeText">Which Content-Type should be used?</entry>
 <entry key="configSubmit">Submit</entry>
@@ -34,34 +32,34 @@
 <entry key="configCachecoverage">Cache coverage</entry>
 
 <!-- Sheet -->
-<entry key="sheetFirst">first page</entry>
-<entry key="sheetPrev">previous page</entry>
-<entry key="sheetNext">next page</entry>
-<entry key="sheetLast">last page</entry>
-<entry key="sheetTipSorting">sort by this column</entry>
-<entry key="sheetAscending">ascending</entry>
-<entry key="sheetDescending">descending</entry>
+<entry key="sheetFirst">First Page</entry>
+<entry key="sheetPrev">Previous Page</entry>
+<entry key="sheetNext">Next Page</entry>
+<entry key="sheetLast">Last Page</entry>
+<entry key="sheetTipSorting">Click to sort this column</entry>
+<entry key="sheetAscending">Ascending</entry>
+<entry key="sheetDescending">Descending</entry>
 <entry key="sheetPagingInfoRows">Rows &lt;span id="{3}"&gt;{0}&lt;/span&gt; to {1} of {2}</entry>
 <entry key="sheetPagingInfoSingleRow">Row &lt;span id="{3}"&gt;{0}&lt;/span&gt; of {2}</entry>
 <entry key="sheetPagingInfoEmptyRow">No rows available</entry>
-<entry key="sheetPagingInfoRowPagingTip">Click here, to change the first displayed row.</entry>
+<entry key="sheetPagingInfoRowPagingTip">Click here, to change the first displayed row</entry>
 <entry key="sheetPagingInfoPages">Page &lt;span id="{3}"&gt;{0}&lt;/span&gt; of {1}</entry>
 <entry key="sheetPagingInfoSinglePage">Page &lt;span id="{3}"&gt;{0}&lt;/span&gt; of {1}</entry>
 <entry key="sheetPagingInfoEmptyPage"></entry>
-<entry key="sheetPagingInfoPagePagingTip">Click here, to change the displayed page.</entry>
+<entry key="sheetPagingInfoPagePagingTip">Click here, to change the displayed page</entry>
 <entry key="sheetMenuToggleselect">Invert selections</entry>
 <entry key="sheetMenuUnselect">Unselect all</entry>
 <entry key="sheetMenuSelect">Select all</entry>
 
 <!-- Tree -->
-<entry key="treeNew">new</entry>
-<entry key="treeDelete">delete</entry>
-<entry key="treeEdit">edit</entry>
-<entry key="treeCut">cut</entry>
-<entry key="treeCopy">copy</entry>
-<entry key="treePaste">paste</entry>
-<entry key="treeMoveUp">move up</entry>
-<entry key="treeMoveDown">move down</entry>
+<entry key="treeNew">New</entry>
+<entry key="treeDelete">Delete</entry>
+<entry key="treeEdit">Edit</entry>
+<entry key="treeCut">Cut</entry>
+<entry key="treeCopy">Copy</entry>
+<entry key="treePaste">Paste</entry>
+<entry key="treeMoveUp">Move Up</entry>
+<entry key="treeMoveDown">Move Down</entry>
 <entry key="treeNodeNew">New Node</entry>
 
 <!-- datePicker -->
@@ -100,6 +98,6 @@
 <entry key="javax.faces.validator.LengthValidator.MINIMUM">Minimum of "{0}" characters !</entry>
 <entry key="javax.faces.validator.LengthValidator.MINIMUM_detail">Value is shorter than allowable minimum of "{0}" characters!</entry>
 
-  <entry key="tobago.ajax.response.error">Server Error: unable to serve request. Probably a session timeout!</entry>
+<entry key="tobago.ajax.response.error">Server Error: unable to serve request. Probably a session timeout!</entry>
 
 </properties>
