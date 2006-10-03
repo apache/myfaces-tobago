@@ -104,7 +104,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
           public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
             if ("-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN".equals(publicId)) {
               InputStream stream = FacesConfigAnnotationVisitor.class.getResourceAsStream(
-                  "/web-facesconfig_1_1.dtd");
+                  "/org/apache/myfaces/tobago/dtd/web-facesconfig_1_1.dtd");
               return new InputSource(stream);
             }
             return null;
