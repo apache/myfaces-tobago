@@ -167,6 +167,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         XMLOutputter out = new XMLOutputter(format);
 
         out.output(document, facesConfig);
+        // TODO: is this replace really necessary?
         String facesConfigStr = facesConfig.toString().replaceFirst(" xmlns=\"http://java.sun.com/JSF/Configuration\"", "");
         writer.append(facesConfigStr);
 
