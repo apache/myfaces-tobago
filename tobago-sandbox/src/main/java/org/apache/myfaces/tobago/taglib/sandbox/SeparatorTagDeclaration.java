@@ -37,5 +37,5 @@ import org.apache.myfaces.tobago.apt.annotation.Facet;
     uiComponent = "org.apache.myfaces.tobago.component.UISeparator",
     facets = { @Facet(name = "label", description = "This facet contains a UILabel") } )
 
-public interface SeperatorTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered {
+public interface SeparatorTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered {
 }

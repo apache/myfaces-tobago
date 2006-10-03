@@ -116,11 +116,6 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         normaliseLineEndings( document );
 
         // rewrite DOM as a string to find differences, since text outside the root element is not tracked
-        StringWriter w = new StringWriter();
-        Format format = Format.getRawFormat();
-        format.setLineSeparator(SEPERATOR);
-        XMLOutputter out = new XMLOutputter( format );
-        out.output( document.getRootElement(), w );
 
         Element rootElement = document.getRootElement();
         Namespace namespace = rootElement.getNamespace();
@@ -167,9 +162,9 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
             getEnv().getFiler().createTextFile(Filer.Location.SOURCE_TREE, "", new File(targetFacesConfigFile), null);
 
 
-        format = Format.getPrettyFormat();
+        Format format = Format.getPrettyFormat();
         format.setLineSeparator(SEPERATOR);
-        out = new XMLOutputter( format );
+        XMLOutputter out = new XMLOutputter( format );
 
         out.output( document , writer );
 
@@ -214,18 +209,18 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
     return false;
   }
   protected Element createElement(TypeDeclaration decl, UIComponentTag componentTag,
-      Class uiComponentClass, Namespace namespace) throws IOException, NoSuchFieldException, IllegalAccessException {
-      Field componentField = uiComponentClass.getField("COMPONENT_TYPE");
-      String componentType = (String) componentField.get(null);
-      Element element = new Element(COMPONENT, namespace);
-      Element elementType = new Element(COMPONENT_TYPE, namespace);
-      elementType.setText(componentType);
-      element.addContent(elementType);
-      Element elementClass = new Element(COMPONENT_CLASS, namespace);
-      elementClass.setText(componentTag.uiComponent());
-      element.addContent(elementClass);
-      addFacets(componentTag, namespace, element);
-      return element;
+    Class uiComponentClass, Namespace namespace) throws IOException, NoSuchFieldException, IllegalAccessException {
+    Field componentField = uiComponentClass.getField("COMPONENT_TYPE");
+    String componentType = (String) componentField.get(null);
+    Element element = new Element(COMPONENT, namespace);
+    Element elementType = new Element(COMPONENT_TYPE, namespace);
+    elementType.setText(componentType);
+    element.addContent(elementType);
+    Element elementClass = new Element(COMPONENT_CLASS, namespace);
+    elementClass.setText(componentTag.uiComponent());
+    element.addContent(elementClass);
+    addFacets(componentTag, namespace, element);
+    return element;
   }
 
 

@@ -75,7 +75,7 @@
           <execution>
             <id>tobago-faces-config</id>
             <goals><goal>execute</goal></goals>
-            <phase>process-classes</phase>
+            <phase>compile</phase>
             <configuration>
               <targetFiles>
                 <targetFile>target/generated-faces-config/faces-config.xml</targetFile>
