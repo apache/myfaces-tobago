@@ -161,12 +161,14 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         writer =
             getEnv().getFiler().createTextFile(Filer.Location.SOURCE_TREE, "", new File(targetFacesConfigFile), null);
 
-
+        StringWriter facesConfig = new StringWriter();
         Format format = Format.getPrettyFormat();
         format.setLineSeparator(SEPERATOR);
-        XMLOutputter out = new XMLOutputter( format );
+        XMLOutputter out = new XMLOutputter(format);
 
-        out.output( document , writer );
+        out.output(document, facesConfig);
+        String facesConfigStr = facesConfig.toString().replaceFirst(" xmlns=\"http://java.sun.com/JSF/Configuration\"", "");
+        writer.append(facesConfigStr);
 
       } catch (JDOMException e) {
         e.printStackTrace();
@@ -224,7 +226,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
   }
 
 
-  protected void addAttribute(MethodDeclaration d, Class uiComponentClass, Element element, Namespace namespace) {
+  protected void addAttribute(MethodDeclaration d, Class uiComponentClass, List properties, List attributes, Namespace namespace) {
     UIComponentTagAttribute componentAttribute = d.getAnnotation(UIComponentTagAttribute.class);
     if (componentAttribute != null) {
       String simpleName = d.getSimpleName();
@@ -237,77 +239,92 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         } else {
           methodStr = "get" + simpleName.substring(3);
         }
-        Element attribute;
-        Element attributeName;
-        Element attributeClass;
         try {
           uiComponentClass.getMethod(methodStr, new Class[0]);
-          attribute = new Element(PROPERTY, namespace);
-          attributeName = new Element(PROPERTY_NAME, namespace);
-          attributeClass = new Element(PROPERTY_CLASS, namespace);
+          Element property = new Element(PROPERTY, namespace);
+          Element propertyName = new Element(PROPERTY_NAME, namespace);
+          Element propertyClass = new Element(PROPERTY_CLASS, namespace);
+          propertyName.setText(attributeStr);
+          addClass(componentAttribute, propertyClass);
 
+          addDescription(d, property, namespace);
+
+          property.addContent(propertyName);
+          property.addContent(propertyClass);
+          properties.add(property);
         } catch (NoSuchMethodException e) {
           // if property not found should be attribute
-          attribute = new Element(ATTRIBUTE, namespace);
-          attributeName = new Element(ATTRIBUTE_NAME, namespace);
-          attributeClass = new Element(ATTRIBUTE_CLASS, namespace);
-        }
-        attributeName.setText(attributeStr);
-        if (componentAttribute.type().length > 1) {
-          attributeClass.setText(Object.class.getName());
-        } else {
-          String className = componentAttribute.type()[0];
-          attributeClass.setText(className.equals(Boolean.class.getName())?"boolean":className);
-        }
-        String comment = d.getDocComment();
-        if (comment != null) {
-          int index = comment.indexOf('@');
-          if (index != -1) {
-           comment = comment.substring(0, index);
-          }
-          comment = comment.trim();
-          if (comment.length() > 0) {
-            Element description = new Element(DESCRIPTION, namespace);
-            description.setText(comment);
-            element.addContent(description);
-          }
-        }
-        attribute.addContent(attributeName);
-        attribute.addContent(attributeClass);
+          Element attribute = new Element(ATTRIBUTE, namespace);
+          Element attributeName = new Element(ATTRIBUTE_NAME, namespace);
+          Element attributeClass = new Element(ATTRIBUTE_CLASS, namespace);
 
-        element.addContent(attribute);
+          attributeName.setText(attributeStr);
+          addClass(componentAttribute, attributeClass);
 
+          addDescription(d, attribute, namespace);
+
+          attribute.addContent(attributeName);
+          attribute.addContent(attributeClass);
+
+          attributes.add(attribute);
+        }
       } else {
         throw new IllegalArgumentException("Only setter allowed found: " + simpleName);
       }
     }
   }
 
-  protected void addAttributes(InterfaceDeclaration type, Class uiComponentClass, Element element, Namespace namespace) {
-    addAttributes(type.getSuperinterfaces(), uiComponentClass, element, namespace);
-    for (MethodDeclaration decl : getCollectedMethodDeclations()) {
-      if (decl.getDeclaringType().equals(type)) {
-        addAttribute(decl, uiComponentClass, element, namespace);
+  private void addClass(UIComponentTagAttribute componentAttribute, Element attributeClass) {
+    if (componentAttribute.type().length > 1) {
+      attributeClass.setText(Object.class.getName());
+    } else {
+      String className = componentAttribute.type()[0];
+      attributeClass.setText(className.equals(Boolean.class.getName())?"boolean":className);
+    }
+  }
+
+  private void addDescription(MethodDeclaration d, Element attribute, Namespace namespace) {
+    String comment = d.getDocComment();
+    if (comment != null) {
+      int index = comment.indexOf('@');
+      if (index != -1) {
+       comment = comment.substring(0, index);
+      }
+      comment = comment.trim();
+      if (comment.length() > 0) {
+        Element description = new Element(DESCRIPTION, namespace);
+        description.setText(comment);
+        attribute.addContent(description);
       }
     }
   }
 
-  protected void addAttributes(Collection<InterfaceType> interfaces, Class uiComponentClass, Element element, Namespace namespace) {
-    for (InterfaceType type : interfaces) {
-      addAttributes(type.getDeclaration(), uiComponentClass, element, namespace);
+  protected void addAttributes(InterfaceDeclaration type, Class uiComponentClass, List properties, List attributes, Namespace namespace) {
+    addAttributes(type.getSuperinterfaces(), uiComponentClass, properties, attributes, namespace);
+    for (MethodDeclaration decl : getCollectedMethodDeclations()) {
+      if (decl.getDeclaringType().equals(type)) {
+        addAttribute(decl, uiComponentClass, properties, attributes, namespace);
+      }
     }
   }
 
-  protected void addAttributes(ClassDeclaration d, Class uiComponentClass, Element element, Namespace namespace) {
+  protected void addAttributes(Collection<InterfaceType> interfaces, Class uiComponentClass, List properties,
+      List attributes, Namespace namespace) {
+    for (InterfaceType type : interfaces) {
+      addAttributes(type.getDeclaration(), uiComponentClass, properties, attributes, namespace);
+    }
+  }
+
+  protected void addAttributes(ClassDeclaration d, Class uiComponentClass, List properties, List attributes, Namespace namespace) {
     for (MethodDeclaration decl : getCollectedMethodDeclations()) {
       if (d.getQualifiedName().
           equals(decl.getDeclaringType().getQualifiedName())) {
-        addAttribute(decl, uiComponentClass, element, namespace);
+        addAttribute(decl, uiComponentClass, properties, attributes, namespace);
       }
     }
-    addAttributes(d.getSuperinterfaces(), uiComponentClass, element, namespace);
+    addAttributes(d.getSuperinterfaces(), uiComponentClass, properties, attributes, namespace);
     if (d.getSuperclass() != null) {
-      addAttributes(d.getSuperclass().getDeclaration(), uiComponentClass, element, namespace);
+      addAttributes(d.getSuperclass().getDeclaration(), uiComponentClass, properties, attributes, namespace);
     }
   }
 
@@ -337,7 +354,15 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         Element element = createElement(decl, componentTag, uiComponentClass, namespace);
         if (element != null) {
           if (!containsElement(components, element)) {
-            //addAttributes(decl, uiComponentClass, element, namespace);
+            List attributes = new ArrayList();
+            List properties = new ArrayList();
+            addAttributes(decl, uiComponentClass, attributes, properties, namespace);
+            if (!attributes.isEmpty()) {
+              element.addContent(attributes);
+            }
+            if (!properties.isEmpty()) {
+              element.addContent(properties);
+            }
             components.add(element);
           }
         }
@@ -355,7 +380,15 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         Element element = createElement(decl, componentTag, uiComponentClass, namespace);
         if (element != null) {
           if (!containsElement(components, element)) {
-            //addAttributes(decl, uiComponentClass, element, namespace);
+            List attributes = new ArrayList();
+            List properties = new ArrayList();
+            addAttributes(decl, uiComponentClass, properties, attributes, namespace);
+            if (!attributes.isEmpty()) {
+              element.addContent(attributes);
+            }
+            if (!properties.isEmpty()) {
+              element.addContent(properties);
+            }
             components.add(element);
           }
         }
