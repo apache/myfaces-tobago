@@ -39,13 +39,12 @@ import org.jdom.filter.ContentFilter;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.File;
-import java.io.Writer;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -101,6 +100,16 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
       try {
         String content = FileUtils.fileRead( sourceFacesConfigFile );
         SAXBuilder builder = new SAXBuilder();
+        builder.setEntityResolver(new EntityResolver() {
+          public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
+            if ("-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN".equals(publicId)) {
+              InputStream stream = FacesConfigAnnotationVisitor.class.getResourceAsStream(
+                  "/web-facesconfig_1_1.dtd");
+              return new InputSource(stream);
+            }
+            return null;
+          }
+        });
         document = builder.build( new StringReader( content ) );
 
         // Normalise line endings. For some reason, JDOM replaces \r\n inside a comment with \n.
