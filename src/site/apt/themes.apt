@@ -4,46 +4,46 @@
 
 Theme Handling
 
- You have 2 possibilities:
+ You have two possibilities:
 
    [[1]] For easy development:
 
-      [[a]] Put the theme jar in the classpath
+      [[a]] Put the theme JAR into the classpath
 
       [[b]] Define a ResourceServlet in the <<<web.xml>>>
-         and bind it to the url-pattern of the theme-path
+         and bind it to the URL pattern of the theme path
 
       []
-      You can see the use in the {{{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/blank/}tobago-example-blank}}
+      You can see an example in {{{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/blank/}tobago-example-blank}}
 
    [[1]] For production:
 
-      [[a]] Put the theme jar in the classpath
+      [[a]] Put the theme JAR into the classpath
 
       [[b]] Unpack the resources (no classes and no properties)
-         of the theme into the war. You may use the maven-theme-plugin
+         of the theme into the WAR. You can use the maven-theme-plugin to achieve this.
 
       []
-      You can see the use in the {{{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/demo/}tobago-example-demo}}
+      You can see an example in {{{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/demo/}tobago-example-demo}}
 
  []
  Note:
    The <<<tobago-theme-\<name\>-\<version\>-THEME.jar>>> is no longer needed.
-   You need only the <<<tobago-theme-\<name\>-\<version\>.jar>>>
-   So you may remove some tags in the pom, if you are using maven2:
+   You only need the <<<tobago-theme-\<name\>-\<version\>.jar>>>.
+   So you may have to remove some tags in the POM if you are using Maven 2:
 
 +------------------------------------------+
    <classifier>THEME</classifier>
    <scope>provided</scope>
 +------------------------------------------+
 
-   And the <<<\<resource-dir\>>>> in the <<<tobago-config.xml>>> has changed from
+   Additionally the <<<\<resource-dir\>>>> in the <<<tobago-config.xml>>> has changed from
 
 +------------------------------------------+
    <resource-dir>tobago</resource-dir>
 +------------------------------------------+
 
-   to :
+   to:
 
 +------------------------------------------+
    <resource-dir>org/apache/myfaces/tobago/renderkit</resource-dir>

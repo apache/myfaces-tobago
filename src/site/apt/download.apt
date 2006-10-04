@@ -5,7 +5,7 @@ Download MyFaces Tobago
 Download MyFaces Tobago
 
 
-  Use the links below to download a distribution of Apache MyFaces from
+  Use the links below to download a distribution of MyFaces Tobago from
   one of our mirrors. It is good practice to verify the integrity of the
   distribution files.
 
@@ -13,7 +13,7 @@ Download MyFaces Tobago
   hours to reach all mirrors.
 
   Apache MyFaces Tobago is distributed as a <<<zip>>> archive (for Windows) and
-  as a <<<tar.gz>>> archive (for UNIX). The contents are the same. Please note
+  as a <<<tar.gz>>> archive (for UNIX). The content is the same. Please note
   that the <<<tar.gz>>> archives contain file names longer than 100 characters and have been
   created using GNU tar extensions. Thus they must be untarred with a GNU compatible
   version of tar.
@@ -49,19 +49,19 @@ Nightly builds from SVN repository
 Archive of old releases
 
     Older releases are available in the {{{http://archive.apache.org/dist/myfaces/} archive}}.  Those
-    releases are only provided as historical artefacts. We strongly
-    recommend to not use those releases, but upgrade to the most recent release.
+    releases are only provided as historical artifacts. We strongly
+    recommend not to use those releases, but upgrade to the most recent release.
 
 Verifying checksums
 
     It is essential that you verify the integrity of the downloaded
-    files using the PGP and MD5 signatures.  MD5 verification ensures the
-    file was not corrupted during the download process.  PGP verification
+    files using the PGP and MD5 signatures. MD5 verification ensures the
+    file was not corrupted during the download process. PGP verification
     ensures that the file came from a certain person.
 
     To verify the MD5 signature on the files, you need to use a program
     called <<<md5>>> or <<<md5sum>>>, which is
-    included in many unix distributions.  It is also available as part of
+    included in many UNIX distributions.  It is also available as part of
     {{{http://www.gnu.org/software/textutils/textutils.html}GNU Textutils}}.
     Windows users can get binary md5 programs from {{{http://www.fourmilab.ch/md5/}here}},
     {{{http://www.pc-tools.net/win32/freeware/console/}here}}, or
