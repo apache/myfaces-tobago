@@ -16,11 +16,11 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED_REFERENCE;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED_REFERENCE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ID_REFERENCE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_NAME;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_NAME_REFERENCE;
@@ -29,9 +29,11 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_TREE_NODE;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
+import java.util.Map;
 
 public class UITreeNode extends UIInput {
 
@@ -152,13 +154,20 @@ public class UITreeNode extends UIInput {
     }
   }
 
+  @SuppressWarnings("unchecked")
   private Object getReference(TreeNode treeNode, String key) {
     Object value = null;
     UITree root = findTreeRoot();
     String reference = (String) root.getAttributes().get(key);
     if (reference != null) {
       try {
-        value = PropertyUtils.getProperty(treeNode, reference);
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        Map requestMap = facesContext.getExternalContext().getRequestMap();
+        String ref = "#{tobagoTreeNode." + reference + "}";
+        ValueBinding vb = facesContext.getApplication().createValueBinding(ref);
+        requestMap.put("tobagoTreeNode", treeNode);
+        value = vb.getValue(facesContext);
+        requestMap.remove("tobagoTreeNode");
       } catch (Exception e) {
         LOG.warn(
             "Can't find " + key + " over ref='" + reference
