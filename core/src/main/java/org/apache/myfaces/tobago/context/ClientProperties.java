@@ -73,7 +73,7 @@ public class ClientProperties implements Serializable {
         = (String) externalContext.getRequestHeaderMap().get("User-Agent");
     this.userAgent = UserAgent.getInstance(requestUserAgent);
     LOG.info("userAgent='" + this.userAgent + "' from header "
-        + "User-Agent='" + userAgent + "'");
+        + "'User-Agent: " + requestUserAgent + "'");
 
     // debug mode
     // to enable the debug mode for a user, put a
