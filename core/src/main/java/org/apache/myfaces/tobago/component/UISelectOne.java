@@ -41,8 +41,8 @@ public class UISelectOne extends javax.faces.component.UISelectOne {
   public void validate(FacesContext facesContext) {
     if (isRequired()) {
 
-      Object localValue = getLocalValue();
-      if (localValue == null || "".equals(localValue)) {
+      Object submittedValue = getSubmittedValue();
+      if (submittedValue == null || "".equals(submittedValue)) {
         FacesMessage facesMessage = MessageFactory.createFacesMessage(
             facesContext, MESSAGE_VALUE_REQUIRED, FacesMessage.SEVERITY_ERROR);
         facesContext.addMessage(getClientId(facesContext), facesMessage);
