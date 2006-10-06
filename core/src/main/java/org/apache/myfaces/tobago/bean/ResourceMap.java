@@ -38,8 +38,7 @@ public class ResourceMap extends Properties {
     }
   }
 
-  public void setFilename(String filename) throws IOException {
-//    String filename = "de/inexso/erm/ui/image.properties";
+  public void setFilename(String filename) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("filename = '" + filename + "'");
     }
@@ -52,15 +51,30 @@ public class ResourceMap extends Properties {
     } catch (IOException e) {
       LOG.error("Cannot load resource map from file: " + filename, e);
     }
-    for (Object x : keySet()) {
-      LOG.debug(x);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("size() = \"" + size() + "\"");
+      for (Object x : keySet()) {
+        LOG.debug(x);
+      }
     }
+  }
+
+  // setFilename() is never called with myfaces implementation,
+  // because we implement Map. This hotfix enables filename setting via put().
+  public Object put(Object key, Object value) {
+    if ("filename".equals(key)) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("put(\"filename\", \"" + value + "\")");
+      }
+      setFilename(value.toString());
+    }
+    return super.put(key, value);
   }
 
   public Object get(Object key) {
     Object value = super.get(key);
     if (LOG.isDebugEnabled()) {
-      LOG.debug("Unknown value for key='" + key + "'");
+      LOG.debug("Query value for key='" + key + "' -> '" + value + "'");
     }
     if (value == null) {
       LOG.warn("Unknown value for key='" + key + "'");
