@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Locale;
 
 /**
  * User: weber
@@ -62,6 +63,10 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
     updateRendererCachePrefix();
   }
 
+  public void setLocale(Locale locale) {
+    super.setLocale(locale);
+    updateRendererCachePrefix();
+  }
 
   public ResourceManagerImpl.CacheKey getRendererCacheKey() {
     return rendererCacheKey;
