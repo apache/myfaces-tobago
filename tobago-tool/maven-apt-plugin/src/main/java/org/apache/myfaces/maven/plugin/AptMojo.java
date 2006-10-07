@@ -110,14 +110,15 @@ public class AptMojo extends AbstractAPTMojo
     public void execute() throws MojoExecutionException
     {
         super.execute();
-        project.addCompileSourceRoot( 
-            new File( project.getBasedir(), getGenerated() ).getPath() );
+        File absoluteGeneratedPath = new File( project.getBasedir(), getGenerated() );
+        project.addCompileSourceRoot( absoluteGeneratedPath.getPath() );
         Resource resource = new Resource();
+        //resource.setFiltering(resourceFiltering);
         if ( resourceTargetPath != null )
         {
             resource.setTargetPath(resourceTargetPath);
         }
-        resource.setDirectory( getGenerated() );
+        resource.setDirectory( absoluteGeneratedPath.getPath() );
         resource.addExclude( "**/*.java" );
         project.addResource( resource );
     }

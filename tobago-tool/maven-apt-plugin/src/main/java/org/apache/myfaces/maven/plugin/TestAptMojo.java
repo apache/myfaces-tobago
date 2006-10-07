@@ -112,13 +112,15 @@ public class TestAptMojo extends AbstractAPTMojo
         } else
         {
             super.execute();
-            project.addTestCompileSourceRoot( getGenerated() );
+            File absoluteGeneratedPath = new File( project.getBasedir(), getGenerated() );
+            project.addTestCompileSourceRoot( absoluteGeneratedPath.getPath() );
             Resource resource = new Resource();
+            //resource.setFiltering(resourceFiltering);
             if ( resourceTargetPath != null )
             {
                 resource.setTargetPath(resourceTargetPath);
             }
-            resource.setDirectory( getGenerated() );
+            resource.setDirectory( absoluteGeneratedPath.getPath() );
             resource.addExclude( "**/*.java" );
             project.addTestResource( resource );
         }

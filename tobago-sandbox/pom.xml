@@ -10,15 +10,6 @@
   <name>Tobago Sandbox</name>
 
   <build>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-      </resource>
-      <resource>
-        <targetPath>META-INF</targetPath>
-        <directory>target/generated-tld</directory>
-      </resource>
-    </resources>
 
     <plugins>
       <plugin>
@@ -96,7 +87,7 @@
               <fork>true</fork>
               <nocompile>true</nocompile>
               <encoding>UTF-8</encoding>
-              <A>sourceFacesConfig=src/main/faces-config/faces-config.xml,targetFacesConfig=faces-config.xml</A>
+              <A>sourceFacesConfig=${basedir}/src/main/faces-config/faces-config.xml,targetFacesConfig=faces-config.xml</A>
               <!--verbose>true</verbose-->
             </configuration>
           </execution>
@@ -130,8 +121,8 @@
         <groupId>net.sourceforge.maven-taglib</groupId>
         <artifactId>maven-taglib-plugin</artifactId>
         <configuration>
-          <taglib.src.dir>${basedir}/target/generated-tld</taglib.src.dir>
-          <tldDocDir>${basedir}/target/site/tlddoc</tldDocDir>
+          <taglib.src.dir>${project.build.directory}/generated-tld</taglib.src.dir>
+          <tldDocDir>${project.build.directory}/site/tlddoc</tldDocDir>
         </configuration>
       </plugin>
 
@@ -231,8 +222,8 @@
             <groupId>net.sourceforge.maven-taglib</groupId>
             <artifactId>maven-taglib-plugin</artifactId>
             <configuration>
-              <taglib.src.dir>${basedir}/target/generated-tld</taglib.src.dir>
-              <tldDocDir>${basedir}/target/tlddoc</tldDocDir>
+              <taglib.src.dir>${project.build.directory}/generated-tld</taglib.src.dir>
+              <tldDocDir>${project.build.directory}/tlddoc</tldDocDir>
             </configuration>
             <executions>
               <execution>
