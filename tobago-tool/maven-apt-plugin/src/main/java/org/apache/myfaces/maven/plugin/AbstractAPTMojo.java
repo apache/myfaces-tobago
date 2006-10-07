@@ -83,6 +83,13 @@ public abstract class AbstractAPTMojo extends AbstractMojo
      */
     protected List targetFiles;
 
+   /**
+     * enables resource filtering for generated resources
+     *
+     * @parameter    default-value="false"
+
+    protected boolean resourceFiltering;
+     */
     /**
      *  targetPath for generated resources
      *
@@ -241,6 +248,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
             setStandards( cmd );
             setClasspath( cmd );
             List sourceFiles = new ArrayList();
+
             if( !setSourcepath( sourceFiles ) )
             {
                 if( getLog().isDebugEnabled() )
@@ -251,9 +259,12 @@ public abstract class AbstractAPTMojo extends AbstractMojo
             }
             else
             {
-                if ( !sourceFiles.isEmpty() )
+
+                if ( fork)
                 {
-                     File file = new File( tempRoot, "files" );
+
+                     File file = new File( tempRoot , "files" );
+
                      if( !getLog().isDebugEnabled())
                      {
                          file.deleteOnExit();
@@ -262,7 +273,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
                      {
                          FileUtils.fileWrite( file.getAbsolutePath(),
                                  StringUtils.join( sourceFiles.iterator(), "\n" ) );
-                         cmd.createArgument().setValue( "@" + file.getAbsoluteFile() );
+                         cmd.createArgument().setValue( "@files" );
                      }
 
                      catch ( IOException e )
@@ -270,6 +281,15 @@ public abstract class AbstractAPTMojo extends AbstractMojo
                          throw new MojoExecutionException( "Unable to write temporary file for command execution", e );
                      }
                 }
+                else
+                {
+                    Iterator sourceIt = sourceFiles.iterator();
+                    while ( sourceIt.hasNext() )
+                    {
+                        cmdAdd(cmd, (String) sourceIt.next());
+                    }
+                }
+
 
 
             }
@@ -277,9 +297,9 @@ public abstract class AbstractAPTMojo extends AbstractMojo
             {
                 if( getLog().isDebugEnabled() )
                 {
-                    getLog().debug( "Working dir: " + basedir.getAbsolutePath() );
+                    getLog().debug( "Working dir: " + tempRoot.getAbsolutePath() );
                 }
-                cmd.setWorkingDirectory( basedir.getAbsolutePath() );
+                cmd.setWorkingDirectory( tempRoot.getAbsolutePath() );
                 cmd.setExecutable( getAptPath() );
 
                 if( getLog().isDebugEnabled() )
@@ -444,7 +464,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
             {
                 getOutputDirectory().mkdirs();
             }
-            cmdAdd( cmd, "-d", getOutputDirectory().getCanonicalPath() );
+            cmdAdd( cmd, "-d", quotedPathArgument(getOutputDirectory().getCanonicalPath()) );
         } catch ( Exception ex )
         {
             throw new MojoExecutionException( //
@@ -511,7 +531,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
                 File src = (File) jt.next();
                 if( fork )
                 {
-                    cmd.add(quotedPathArgument( src.getAbsolutePath() ) );
+                    cmd.add( quotedPathArgument( src.getAbsolutePath() ) );
                 }
                 else
                 {
