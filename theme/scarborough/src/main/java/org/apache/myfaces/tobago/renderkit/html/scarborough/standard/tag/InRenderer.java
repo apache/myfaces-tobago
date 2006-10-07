@@ -44,8 +44,11 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
+import javax.faces.component.EditableValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
+import javax.faces.validator.Validator;
+import javax.faces.validator.LengthValidator;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
@@ -100,6 +103,19 @@ public class InRenderer extends InRendererBase implements AjaxRenderer {
     }
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, null);
+    }
+    int maxLength = 0;
+    if (component instanceof EditableValueHolder) {
+      EditableValueHolder editableValueHolder = (EditableValueHolder) component;
+      for (Validator validator : editableValueHolder.getValidators()) {
+        if (validator instanceof LengthValidator) {
+          LengthValidator lengthValidator = (LengthValidator) validator;
+          maxLength = lengthValidator.getMaximum();
+        }
+      }
+    }
+    if (maxLength > 0) {
+      writer.writeAttribute(HtmlAttributes.MAXLENGTH, Integer.toString(maxLength), null);
     }
     writer.writeAttribute(HtmlAttributes.READONLY,
         ComponentUtil.getBooleanAttribute(component, ATTR_READONLY));

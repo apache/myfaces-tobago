@@ -70,5 +70,6 @@ public interface HtmlAttributes {
   String ONKEYPRESS = "onkeypress";
   String ONKEYUP = "onkeyup";
   String CLASS = "class";
+  String MAXLENGTH = "maxlength";
 }
 
