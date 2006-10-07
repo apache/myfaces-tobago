@@ -44,7 +44,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
     rendererType = "SelectManyCheckbox", isComponentAlreadyDefined = true)
 public interface SelectManyCheckboxTagDeclaration extends
     SelectManyTagDeclaration, IsDisabled, HasId,
-    IsInline, HasRenderRange, IsRendered, HasBinding, //IsReadonly, 
-    HasConverter {
+    IsInline, HasRenderRange, IsRendered, HasBinding, IsReadonly, HasConverter {
 
 }
