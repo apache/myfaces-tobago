@@ -28,20 +28,76 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.File;
 
+
+/**
+ * This filter handles multipart request. It must be enabled in the web.xml of your web application.
+ * Usage:
+ *
+ * <p><blockquote><pre>
+  &lt;filter&gt;
+    &lt;filter-name&gt;multipartFormdataFilter&lt;/filter-name&gt;
+    &lt;filter-class&gt;org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataFilter&lt;/filter-class&gt;
+    &lt;init-param&gt;
+      &lt;description&gt;Set the size limit for uploaded files. Default value is 1 MB.
+        Format: 10 = 10 bytes
+        10k = 10 KB
+        10m = 10 MB
+        1g = 1 GB
+      &lt;/description&gt;
+      &lt;param-name&gt;uploadMaxFileSize&lt;/param-name&gt;
+      &lt;param-value&gt;20m&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;init-param&gt;
+      &lt;description&gt;Set the upload repository path for uploaded files. Default value is java.io.tmpdir.&lt;/description&gt;
+      &lt;param-name&gt;uploadRepositoryPath&lt;/param-name&gt;
+      &lt;param-value&gt;/tmp&lt;/param-value&gt;
+    &lt;/init-param&gt;
+  &lt;/filter&gt;
+  &lt;filter-mapping&gt;
+    &lt;filter-name&gt;multipartFormdataFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/faces/*&lt;/url-pattern&gt;
+  &lt;/filter-mapping&gt;
+ </pre></blockquote><p>
+
+ *
+ *
+ */
 public class TobagoMultipartFormdataFilter implements Filter {
 
-  private static final Log LOG
-      = LogFactory.getLog(TobagoMultipartFormdataFilter.class);
+  private static final Log LOG = LogFactory.getLog(TobagoMultipartFormdataFilter.class);
+
+  public static final long ONE_KB = 1024;
+  public static final long ONE_MB = ONE_KB * ONE_KB;
+  public static final long ONE_GB = ONE_KB * ONE_MB;
+
+  private String repositoryPath = System.getProperty("java.io.tmpdir");
+  private long maxSize = ONE_MB;
 
   public void init(FilterConfig filterConfig) throws ServletException {
+    String repositoryPath = filterConfig.getInitParameter("uploadRepositoryPath");
+    if (repositoryPath != null) {
+      File file = new File(repositoryPath);
+      if (!file.exists()) {
+        LOG.error("Given repository Path for " + getClass().getName() + " " + repositoryPath + " doesn't exists" );
+      } else if (!file.isDirectory()) {
+        LOG.error("Given repository Path for " + getClass().getName() + " " + repositoryPath + " is not a directory");
+      } else {
+        this.repositoryPath = repositoryPath;
+      }
+    }
+
+    LOG.info("Configure uploadRepositryPath for "+ getClass().getName() + " to "+ this.repositoryPath);
+
+    maxSize = getMaxSize(filterConfig.getInitParameter("uploadMaxFileSize"));
+
+    LOG.info("Configure uploadMaxFileSize for "+ getClass().getName() + " to "+ this.maxSize);
+
   }
 
-  public void doFilter(
-      ServletRequest request, ServletResponse response, FilterChain chain)
+  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
-//    Log.debug("filter filter ....");
-
     ServletRequest wrapper;
     if (request instanceof HttpServletRequest) {
       if (request instanceof TobagoMultipartFormdataRequest) {
@@ -56,7 +112,7 @@ public class TobagoMultipartFormdataFilter implements Filter {
                 + "into TobagoMultipartFormdataRequest");
           }
           wrapper = new TobagoMultipartFormdataRequest(
-              (HttpServletRequest) request);
+              (HttpServletRequest) request, repositoryPath, maxSize);
         } else {
           wrapper = request;
         }
@@ -73,6 +129,26 @@ public class TobagoMultipartFormdataFilter implements Filter {
   public void destroy() {
   }
 
-
-
+  private long getMaxSize(String param) {
+    if (param != null) {
+      String number = param.toLowerCase();
+      long factor = 1;
+      if (number.endsWith("g")) {
+        factor = ONE_GB;
+        number = number.substring(0, number.length() - 1);
+      } else if (number.endsWith("m")) {
+        factor = ONE_MB;
+        number = number.substring(0, number.length() - 1);
+      } else if (number.endsWith("k")) {
+        factor = ONE_KB;
+        number = number.substring(0, number.length() - 1);
+      }
+      try {
+        return Long.parseLong(number.trim()) * factor;
+      } catch (NumberFormatException e) {
+        LOG.error("Given max file size for " + getClass().getName() + " " +param + " couldn't parsed to a number");
+      }
+    }
+    return ONE_MB;
+  }
 }

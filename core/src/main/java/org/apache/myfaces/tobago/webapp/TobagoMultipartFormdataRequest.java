@@ -43,7 +43,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
 
   private Map fileItems;
 
-  TobagoMultipartFormdataRequest(HttpServletRequest request) {
+  TobagoMultipartFormdataRequest(HttpServletRequest request, String repositoryPath, long maxSize) {
     super(request);
     String contentType = request.getContentType();
     if (contentType == null
@@ -56,9 +56,8 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
       parameters = new HashMap();
       fileItems = new HashMap();
       DiskFileUpload fileUpload = new DiskFileUpload();
-      fileUpload.setSizeMax(1024 * 1024);
-      fileUpload.setRepositoryPath(System.getProperty("java.io.tmpdir"));
-      // TODO: make sizeMax and repositoryPath configurable
+      fileUpload.setSizeMax(maxSize);
+      fileUpload.setRepositoryPath(repositoryPath);
       List itemList;
       try {
         itemList = fileUpload.parseRequest(request);
