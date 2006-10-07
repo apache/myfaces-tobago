@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.taglib.decl;
 
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 
 /**
  * $Id$
@@ -34,7 +35,8 @@ public interface HasAction {
    * The String is directly passed to the Navigationhandler.
    *
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute(type = "javax.faces.el.MethodBinding", expression = DynamicExpression.METHOD_BINDING)
   void setAction(String action);
-  
+
 }

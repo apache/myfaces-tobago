@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
+import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 
 /*
  * Created: Aug 5, 2005 5:54:37 PM
@@ -40,9 +41,10 @@ import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 @BodyContentDescription(anyTagOf= "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
     uiComponent = "javax.faces.component.UISelectMany",
-    rendererType = "SelectManyCheckbox")
+    rendererType = "SelectManyCheckbox", isComponentAlreadyDefined = true)
 public interface SelectManyCheckboxTagDeclaration extends
     SelectManyTagDeclaration, IsDisabled, HasId,
-    IsInline, HasRenderRange, IsRendered, HasBinding, HasConverter {
+    IsInline, HasRenderRange, IsRendered, HasBinding, //IsReadonly, 
+    HasConverter {
 
 }

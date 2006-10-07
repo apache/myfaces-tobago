@@ -27,6 +27,8 @@ import com.sun.mirror.type.InterfaceType;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.Converter;
+import org.apache.myfaces.tobago.apt.annotation.Validator;
 import org.apache.commons.io.IOUtils;
 import org.codehaus.plexus.util.FileUtils;
 import org.jdom.Comment;
@@ -62,7 +64,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
   public static String SOURCE_FACES_CONFIG_KEY = "sourceFacesConfig";
   public static String TARGET_FACES_CONFIG_KEY = "targetFacesConfig";
 
-  private static final String SEPERATOR = System.getProperty( "line.separator" );
+  private static final String SEPARATOR = System.getProperty( "line.separator" );
   private static final String COMPONENT = "component";
   private static final String COMPONENT_TYPE = "component-type";
   private static final String COMPONENT_CLASS = "component-class";
@@ -77,6 +79,14 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
   private static final String ATTRIBUTE_CLASS = "attribute-class";
   private static final String APPLICATION = "application";
   private static final String FACTORY = "factory";
+  private static final String CONVERTER = "converter";
+  private static final String CONVERTER_ID = "converter-id";
+  private static final String CONVERTER_FOR_CLASS = "converter-for-class";
+  private static final String CONVERTER_CLASS = "converter-class";
+  private static final String VALIDATOR = "validator";
+  private static final String VALIDATOR_ID = "validator-id";
+  private static final String VALIDATOR_FOR_CLASS = "validator-for-class";
+  private static final String VALIDATOR_CLASS = "validator-class";
 
   public FacesConfigAnnotationVisitor(AnnotationProcessorEnvironment env) {
     super(env);
@@ -122,10 +132,17 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         List<Element> components = rootElement.getChildren(COMPONENT, namespace);
 
         List<Element> newComponents = new ArrayList<Element>();
+        List<Element> newConverters = new ArrayList<Element>();
+        List<Element> newValidators = new ArrayList<Element>();
 
         for (ClassDeclaration decl : getCollectedClassDeclations()) {
-          if (decl.getPackage().equals(packageDeclaration)) {
+          if (decl.getPackage().equals(packageDeclaration)
+              && decl.getAnnotation(UIComponentTag.class) != null) {
             addElement(decl, newComponents, namespace);
+          } else if (decl.getAnnotation(Converter.class) != null) {
+            addConverter(decl, newConverters, namespace);
+          } else if (decl.getAnnotation(Validator.class) != null) {
+            addValidator(decl, newValidators, namespace);
           }
         }
 
@@ -135,24 +152,25 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
           }
         }
         List<Element> elementsToAdd = new ArrayList<Element>();
-
+        // sort out duplicates
         for (Element newElement: newComponents) {
           boolean found = containsElement(components, newElement);
           if (!found) {
+
             elementsToAdd.add(newElement);
           }
         }
-        if (!elementsToAdd.isEmpty() && !components.isEmpty()) {
-          int lastIndex = getIndexAfter(rootElement, COMPONENT);
-          rootElement.addContent(lastIndex, elementsToAdd);
-
-        } else if (!elementsToAdd.isEmpty()) {
+        if (!elementsToAdd.isEmpty()) {
           // if facesconfig contains no component section add the components after factory or application
-          int lastIndex = getIndexAfter(rootElement, FACTORY);
-          if (lastIndex == 0) {
-            lastIndex = getIndexAfter(rootElement, APPLICATION);
-          }
+          int lastIndex = getIndexAfter(rootElement, COMPONENT, FACTORY, APPLICATION);
           rootElement.addContent(lastIndex, elementsToAdd);
+        }
+        if (!newConverters.isEmpty()) {
+          int lastIndex = getIndexAfter(rootElement, CONVERTER, COMPONENT, FACTORY, APPLICATION);
+          rootElement.addContent(lastIndex, newConverters);
+        }
+        if (!newValidators.isEmpty()) {
+          rootElement.addContent(newValidators);
         }
         document.setDocType(new DocType("faces-config",
             "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN",
@@ -163,12 +181,13 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
 
         StringWriter facesConfig = new StringWriter();
         Format format = Format.getPrettyFormat();
-        format.setLineSeparator(SEPERATOR);
+        format.setLineSeparator(SEPARATOR);
         XMLOutputter out = new XMLOutputter(format);
 
         out.output(document, facesConfig);
         // TODO: is this replace really necessary?
-        String facesConfigStr = facesConfig.toString().replaceFirst(" xmlns=\"http://java.sun.com/JSF/Configuration\"", "");
+        String facesConfigStr =
+            facesConfig.toString().replaceFirst(" xmlns=\"http://java.sun.com/JSF/Configuration\"", "");
         writer.append(facesConfigStr);
 
       } catch (JDOMException e) {
@@ -181,17 +200,66 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
     }
   }
 
-  private boolean containsElement(List<Element> components, Element newElement) {
-    boolean found = false;
-    for (Element element: components) {
-      if (equals(element, newElement)) {
-        found = true;
-        break;
-      }
+  private void addConverter(ClassDeclaration decl, List<Element> newConverters, Namespace namespace) {
+    Converter converterAnn = decl.getAnnotation(Converter.class);
+    Element converter = new Element(CONVERTER, namespace);
+    if (converterAnn.id().length() > 0) {
+      Element converterId = new Element(CONVERTER_ID, namespace);
+      converterId.setText(converterAnn.id());
+      converter.addContent(converterId);
+    } else if (converterAnn.forClass().length() > 0) {
+      Element converterForClass = new Element(CONVERTER_FOR_CLASS, namespace);
+      converterForClass.setText(converterAnn.forClass());
+      converter.addContent(converterForClass);
     }
-    return found;
+
+    Element converterClass = new Element(CONVERTER_CLASS, namespace);
+    converterClass.setText(decl.getQualifiedName());
+    converter.addContent(converterClass);
+    newConverters.add(converter);
   }
 
+  private void addValidator(ClassDeclaration decl, List<Element> newValidators, Namespace namespace) {
+    Validator validatorAnn = decl.getAnnotation(Validator.class);
+    System.err.println("validator");
+    Element validator = new Element(VALIDATOR, namespace);
+    if (validatorAnn.id().length() > 0) {
+      Element validatorId = new Element(VALIDATOR_ID, namespace);
+      validatorId.setText(validatorAnn.id());
+      validator.addContent(validatorId);
+    } else if (validatorAnn.forClass().length() > 0) {
+      Element validatorForClass = new Element(VALIDATOR_FOR_CLASS, namespace);
+      validatorForClass.setText(validatorAnn.forClass());
+      validator.addContent(validatorForClass);
+    }
+
+    Element validatorClass = new Element(VALIDATOR_CLASS, namespace);
+    validatorClass.setText(decl.getQualifiedName());
+    validator.addContent(validatorClass);
+    newValidators.add(validator);
+  }
+
+  private boolean containsElement(List<Element> components, Element newElement) {
+    return getEqualElement(components, newElement)!=null;
+  }
+
+  private Element getEqualElement(List<Element> components, Element newElement) {
+    for (Element element: components) {
+      if (equals(element, newElement)) {
+        return element;
+      }
+    }
+    return null;
+  }
+  private int getIndexAfter(Element rootElement, String...tagNames) {
+    for (String tagName: tagNames) {
+      int index = getIndexAfter(rootElement, tagName);
+      if (index != 0) {
+        return index;
+      }
+    }
+    return 0;
+  }
   private int getIndexAfter(Element rootElement, String tagName) {
     List<Element> components = rootElement.getChildren(tagName, rootElement.getNamespace());
     if (!components.isEmpty()) {
@@ -222,7 +290,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
     Element elementClass = new Element(COMPONENT_CLASS, namespace);
     elementClass.setText(componentTag.uiComponent());
     element.addContent(elementClass);
-    addFacets(componentTag, namespace, element);
+
     return element;
   }
 
@@ -355,6 +423,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         Element element = createElement(decl, componentTag, uiComponentClass, namespace);
         if (element != null) {
           if (!containsElement(components, element)) {
+            addFacets(componentTag, namespace, element);
             List attributes = new ArrayList();
             List properties = new ArrayList();
             addAttributes(decl, uiComponentClass, attributes, properties, namespace);
@@ -365,7 +434,10 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
               element.addContent(properties);
             }
             components.add(element);
+          } else {
+             // TODO add facet and attributes
           }
+
         }
       } catch (Exception e) {
         e.printStackTrace();
@@ -381,6 +453,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         Element element = createElement(decl, componentTag, uiComponentClass, namespace);
         if (element != null) {
           if (!containsElement(components, element)) {
+            addFacets(componentTag, namespace, element);
             List attributes = new ArrayList();
             List properties = new ArrayList();
             addAttributes(decl, uiComponentClass, properties, attributes, namespace);
@@ -391,6 +464,8 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
               element.addContent(properties);
             }
             components.add(element);
+          } else {
+            // TODO add facet and attributes
           }
         }
       } catch (Exception e) {
@@ -403,7 +478,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
     for ( Iterator i = document.getDescendants( new ContentFilter( ContentFilter.COMMENT ) );
           i.hasNext(); ) {
       Comment c = (Comment) i.next();
-      c.setText( c.getText().replaceAll( "\n", SEPERATOR ) );
+      c.setText( c.getText().replaceAll( "\n", SEPARATOR) );
     }
   }
 }

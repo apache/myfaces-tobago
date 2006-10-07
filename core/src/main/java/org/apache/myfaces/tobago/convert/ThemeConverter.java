@@ -26,6 +26,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
+@org.apache.myfaces.tobago.apt.annotation.Converter(forClass = "org.apache.myfaces.tobago.context.Theme")
 public class ThemeConverter implements Converter {
 
   private static final Log LOG = LogFactory.getLog(ThemeConverter.class);

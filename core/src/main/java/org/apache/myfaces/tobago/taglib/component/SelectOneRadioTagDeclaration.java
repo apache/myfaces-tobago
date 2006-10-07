@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasRenderRange;
@@ -41,7 +42,15 @@ import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOne",
-    rendererType = "SelectOneRadio")
+    rendererType = "SelectOneRadio",
+facets = {
+    @Facet(name = "click",
+        description =
+            "This facet can contain a UICommandthat is invoked in a case of a click events from the component" ),
+    @Facet(name = "change",
+        description =
+            "This facet can contain a UICommand that is invoked in a case of a change events from the component" )
+        })
 public interface SelectOneRadioTagDeclaration extends SelectOneTagDeclaration, IsDisabled, HasId,
     IsInline, HasRenderRange, IsRendered, HasBinding, HasConverter {
 

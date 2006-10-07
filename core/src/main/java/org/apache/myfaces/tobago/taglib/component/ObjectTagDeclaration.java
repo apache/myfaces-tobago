@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 @Tag(name = "object", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
     uiComponent = "javax.faces.component.UIOutput",
-    rendererType = "Object")
+    rendererType = "Object", isComponentAlreadyDefined = true)
 public interface ObjectTagDeclaration extends TobagoTagDeclaration {
   /**
    * URI to object source

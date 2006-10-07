@@ -27,6 +27,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import java.util.Currency;
 
+@org.apache.myfaces.tobago.apt.annotation.Converter(forClass = "java.util.Currency")
 public class CurrencyConverter implements Converter {
 
   public Object getAsObject(FacesContext facesContext, UIComponent component,

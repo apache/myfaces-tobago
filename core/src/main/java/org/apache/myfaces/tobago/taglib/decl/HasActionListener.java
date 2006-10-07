@@ -32,6 +32,7 @@ public interface HasActionListener {
    * parameter, with a return type of void.
    *
    */
-  @TagAttribute @UIComponentTagAttribute(expression = DynamicExpression.METHOD_BINDING)
+  @TagAttribute
+  @UIComponentTagAttribute(type = "javax.faces.el.MethodBinding", expression = DynamicExpression.METHOD_BINDING)
   void setActionListener(String actionListener);
 }

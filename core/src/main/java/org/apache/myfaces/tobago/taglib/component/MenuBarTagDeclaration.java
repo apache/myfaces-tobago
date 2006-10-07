@@ -42,6 +42,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
         "org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag" })
 @UIComponentTag(
     uiComponent = "javax.faces.component.UIPanel",
-    rendererType = "MenuBar")
+    rendererType = "MenuBar", isComponentAlreadyDefined = true)
 public interface MenuBarTagDeclaration extends TobagoBodyTagDeclaration, HasIdBindingAndRendered, HasDeprecatedWidth {
 }

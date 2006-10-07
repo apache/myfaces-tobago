@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
+import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 
 /*
  * Created: Aug 5, 2005 5:58:55 PM
@@ -42,6 +43,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 
 public interface SelectManyListboxTagDeclaration
     extends SelectManyTagDeclaration, HasId, IsDisabled, 
-    HasDeprecatedHeight, IsInline, HasLabelAndAccessKey, IsRendered, HasBinding, HasTip {
+    HasDeprecatedHeight, IsInline, HasLabelAndAccessKey, IsRendered, HasBinding, HasTip, IsReadonly {
 
 }

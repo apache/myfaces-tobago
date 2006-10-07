@@ -22,7 +22,7 @@ import org.apache.myfaces.tobago.component.UIHiddenInput;
 
 import javax.faces.component.UIComponent;
 
-public class HiddenTag extends BeanTag implements HiddenTagDeclaration {
+public class HiddenTag extends InputTag implements HiddenTagDeclaration {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);

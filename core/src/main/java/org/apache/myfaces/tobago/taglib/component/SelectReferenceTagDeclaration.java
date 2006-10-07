@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 @Tag(name = "selectReference", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
     uiComponent = "javax.faces.component.UIOutput",
-    rendererType = "SelectReference")
+    rendererType = "SelectReference", isComponentAlreadyDefined = true)
 public interface SelectReferenceTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered {
   /**
    * Id of the component, this is related to.
