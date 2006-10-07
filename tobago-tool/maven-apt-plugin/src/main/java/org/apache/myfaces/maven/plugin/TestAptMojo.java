@@ -115,7 +115,7 @@ public class TestAptMojo extends AbstractAPTMojo
             File absoluteGeneratedPath = new File( project.getBasedir(), getGenerated() );
             project.addTestCompileSourceRoot( absoluteGeneratedPath.getPath() );
             Resource resource = new Resource();
-            //resource.setFiltering(resourceFiltering);
+            resource.setFiltering(resourceFiltering);
             if ( resourceTargetPath != null )
             {
                 resource.setTargetPath(resourceTargetPath);

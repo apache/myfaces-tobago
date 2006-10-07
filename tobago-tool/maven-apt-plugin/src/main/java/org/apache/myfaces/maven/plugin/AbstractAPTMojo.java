@@ -87,9 +87,9 @@ public abstract class AbstractAPTMojo extends AbstractMojo
      * enables resource filtering for generated resources
      *
      * @parameter    default-value="false"
-
-    protected boolean resourceFiltering;
      */
+    protected boolean resourceFiltering;
+
     /**
      *  targetPath for generated resources
      *
