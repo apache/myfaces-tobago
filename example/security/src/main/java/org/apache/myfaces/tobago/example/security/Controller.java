@@ -31,12 +31,18 @@ public class Controller {
     }
     return "logout";
   }
-  @RolesAllowed({ "tobago-example-security" } )
+
+  @RolesAllowed({ "tobago-example-security" })
   public String doSomething() {
     return null;
   }
 
   public String doSomethingElse() {
+    return null;
+  }
+
+  @RolesAllowed({ "tobago-example-security" })  
+  public String admin() {
     return null;
   }
 

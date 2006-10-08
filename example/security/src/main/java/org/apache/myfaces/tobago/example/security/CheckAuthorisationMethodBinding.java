@@ -70,7 +70,7 @@ public class CheckAuthorisationMethodBinding extends MethodBinding implements St
       LOG.debug("MethodBinding invoke " + getExpressionString());
     }
     // Methodbindings with a argument list would not be checked for authorisation
-    if (isAuthorized(facesContext) || objects.length > 0) {
+    if (isAuthorized(facesContext) || (objects!=null && objects.length > 0)) {
       return methodBinding.invoke(facesContext, objects);
     } else {
       // TODO better message
@@ -172,10 +172,7 @@ public class CheckAuthorisationMethodBinding extends MethodBinding implements St
   }
 
   public boolean isTransient() {
-    if (methodBinding instanceof StateHolder) {
-      return ((StateHolder)methodBinding).isTransient();
-    }
-    return false;
+    return methodBinding instanceof StateHolder && ((StateHolder) methodBinding).isTransient();
   }
 
   public void setTransient(boolean bool) {
