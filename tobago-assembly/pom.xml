@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>tobago-assembly</artifactId>
   <packaging>pom</packaging>
@@ -17,167 +19,6 @@
     <plugins>
 
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>dependency-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>copy-javadoc</id>
-            <phase>package</phase>
-            <goals>
-              <goal>unpack</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>tobago-core</artifactId>
-                  <version>${project.version}</version>
-                  <classifier>javadoc</classifier>
-                </artifactItem>
-              </artifactItems>
-              <outputDirectory>${project.build.directory}/javadoc</outputDirectory>
-              <unpackMarkersDirectory>${project.build.directory}/javadoc</unpackMarkersDirectory>
-            </configuration>
-          </execution>
-
-          <execution>
-            <id>copy-tlddoc</id>
-            <phase>package</phase>
-            <goals>
-              <goal>unpack</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>tobago-core</artifactId>
-                  <version>${project.version}</version>
-                  <classifier>tlddoc</classifier>
-                </artifactItem>
-
-              </artifactItems>
-              <outputDirectory>${project.build.directory}/tlddoc</outputDirectory>
-              <unpackMarkersDirectory>${project.build.directory}/tlddoc</unpackMarkersDirectory>
-            </configuration>
-          </execution>
-
-          <execution>
-            <id>copy-facelets</id>
-            <phase>package</phase>
-            <goals>
-              <goal>copy</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>tobago-facelets</artifactId>
-                  <version>${project.version}</version>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>tobago-facelets</artifactId>
-                  <version>${project.version}</version>
-                  <classifier>jdk14retro</classifier>
-                </artifactItem>
-
-              </artifactItems>
-              <outputDirectory>${project.build.directory}/facelets</outputDirectory>
-            </configuration>
-          </execution>
-
-          <execution>
-            <id>copy-source</id>
-            <phase>package</phase>
-            <goals>
-              <goal>copy</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>tobago-core</artifactId>
-                  <version>${project.version}</version>
-                  <classifier>sources</classifier>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>tobago-theme-charlotteville</artifactId>
-                  <version>${project.version}</version>
-                  <classifier>sources</classifier>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>tobago-theme-richmond</artifactId>
-                  <version>${project.version}</version>
-                  <classifier>sources</classifier>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>tobago-theme-speyside</artifactId>
-                  <version>${project.version}</version>
-                  <classifier>sources</classifier>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>tobago-theme-scarborough</artifactId>
-                  <version>${project.version}</version>
-                  <classifier>sources</classifier>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>tobago-theme-standard</artifactId>
-                  <version>${project.version}</version>
-                  <classifier>sources</classifier>
-                </artifactItem>
-              </artifactItems>
-              <outputDirectory>${project.build.directory}/src</outputDirectory>
-            </configuration>
-          </execution>
-
-          <execution>
-            <id>copy-jdk14retro</id>
-            <phase>package</phase>
-            <goals>
-              <goal>copy</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>tobago-core</artifactId>
-                  <version>${project.version}</version>
-                  <classifier>jdk14retro</classifier>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>tobago-theme-speyside</artifactId>
-                  <version>${project.version}</version>
-                  <classifier>jdk14retro</classifier>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>tobago-theme-scarborough</artifactId>
-                  <version>${project.version}</version>
-                  <classifier>jdk14retro</classifier>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>tobago-theme-standard</artifactId>
-                  <version>${project.version}</version>
-                  <classifier>jdk14retro</classifier>
-                </artifactItem>
-              </artifactItems>
-              <outputDirectory>${project.build.directory}/jdk14retro</outputDirectory>
-            </configuration>
-          </execution>
-
-        </executions>
-      </plugin>
-
-      <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <version>2.0-beta-1</version>
         <configuration>
@@ -188,7 +29,7 @@
         </configuration>
       </plugin>
 
-       <plugin>
+      <plugin>
         <groupId>org.apache.myfaces.maven</groupId>
         <artifactId>wagon-maven-plugin</artifactId>
         <version>1.0.1</version>
@@ -235,4 +76,184 @@
       </exclusions>
     </dependency>
   </dependencies>
+
+  <profiles>
+    <profile>
+      <!--fixme: rename id-->
+      <id>assembly-facelets-hotfix</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>dependency-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>copy-javadoc</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>unpack</goal>
+                </goals>
+                <configuration>
+                  <artifactItems>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-core</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>javadoc</classifier>
+                    </artifactItem>
+                  </artifactItems>
+                  <outputDirectory>${project.build.directory}/javadoc
+                  </outputDirectory>
+                  <unpackMarkersDirectory>${project.build.directory}/javadoc
+                  </unpackMarkersDirectory>
+                </configuration>
+              </execution>
+
+              <execution>
+                <id>copy-tlddoc</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>unpack</goal>
+                </goals>
+                <configuration>
+                  <artifactItems>
+
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-core</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>tlddoc</classifier>
+                    </artifactItem>
+
+                  </artifactItems>
+                  <outputDirectory>${project.build.directory}/tlddoc
+                  </outputDirectory>
+                  <unpackMarkersDirectory>${project.build.directory}/tlddoc
+                  </unpackMarkersDirectory>
+                </configuration>
+              </execution>
+
+              <execution>
+                <id>copy-facelets</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>copy</goal>
+                </goals>
+                <configuration>
+                  <artifactItems>
+
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-facelets</artifactId>
+                      <version>${project.version}</version>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-facelets</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>jdk14retro</classifier>
+                    </artifactItem>
+
+                  </artifactItems>
+                  <outputDirectory>${project.build.directory}/facelets
+                  </outputDirectory>
+                </configuration>
+              </execution>
+
+              <execution>
+                <id>copy-source</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>copy</goal>
+                </goals>
+                <configuration>
+                  <artifactItems>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-core</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>sources</classifier>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-theme-charlotteville</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>sources</classifier>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-theme-richmond</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>sources</classifier>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-theme-speyside</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>sources</classifier>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-theme-scarborough</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>sources</classifier>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-theme-standard</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>sources</classifier>
+                    </artifactItem>
+                  </artifactItems>
+                  <outputDirectory>${project.build.directory}/src
+                  </outputDirectory>
+                </configuration>
+              </execution>
+
+              <execution>
+                <id>copy-jdk14retro</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>copy</goal>
+                </goals>
+                <configuration>
+                  <artifactItems>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-core</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>jdk14retro</classifier>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-theme-speyside</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>jdk14retro</classifier>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-theme-scarborough</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>jdk14retro</classifier>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-theme-standard</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>jdk14retro</classifier>
+                    </artifactItem>
+                  </artifactItems>
+                  <outputDirectory>${project.build.directory}/jdk14retro
+                  </outputDirectory>
+                </configuration>
+              </execution>
+
+            </executions>
+          </plugin>
+
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
 </project>
