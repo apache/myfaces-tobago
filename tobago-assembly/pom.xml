@@ -79,8 +79,7 @@
 
   <profiles>
     <profile>
-      <!--fixme: rename id-->
-      <id>assembly-facelets-hotfix</id>
+      <id>generate-assembly</id>
       <build>
         <plugins>
           <plugin>

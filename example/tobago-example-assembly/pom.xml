@@ -16,38 +16,6 @@
 
     <plugins>
 
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>dependency-maven-plugin</artifactId>
-        <executions>
-
-          <execution>
-            <id>copy-example</id>
-            <phase>package</phase>
-            <goals>
-              <goal>copy</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>tobago-example-demo</artifactId>
-                  <version>${project.version}</version>
-                  <type>war</type>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>tobago-example-blank</artifactId>
-                  <version>${project.version}</version>
-                  <type>war</type>
-                </artifactItem>
-              </artifactItems>
-              <outputDirectory>${project.build.directory}/webapp</outputDirectory>
-            </configuration>
-          </execution>
-
-        </executions>
-      </plugin>
 
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
@@ -74,5 +42,45 @@
     </plugins>
 
   </build>
+  <profiles>
+    <profile>
+      <id>generate-assembly</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>dependency-maven-plugin</artifactId>
+            <executions>
+
+              <execution>
+                <id>copy-example</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>copy</goal>
+                </goals>
+                <configuration>
+                  <artifactItems>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-example-demo</artifactId>
+                      <version>${project.version}</version>
+                      <type>war</type>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-example-blank</artifactId>
+                      <version>${project.version}</version>
+                      <type>war</type>
+                    </artifactItem>
+                  </artifactItems>
+                  <outputDirectory>${project.build.directory}/webapp</outputDirectory>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
  </project>
