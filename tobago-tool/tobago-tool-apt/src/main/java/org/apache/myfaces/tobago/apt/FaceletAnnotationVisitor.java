@@ -110,9 +110,10 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
     try {
       getEnv().getMessager().printNotice("Create facelets taglib config");
       String fileName =
-          taglibAnnotation.fileName().substring(0, taglibAnnotation.fileName().length()-3)+"taglib.xml";
+          taglibAnnotation.fileName().substring(0, taglibAnnotation.fileName().length()-3) + "taglib.xml";
 
-      faceletsConfigWriter = getEnv().getFiler().createTextFile(Filer.Location.SOURCE_TREE, "", new File(fileName), null);
+      faceletsConfigWriter =
+          getEnv().getFiler().createTextFile(Filer.Location.SOURCE_TREE, "", new File(fileName), null);
       TransformerFactory transFactory = TransformerFactory.newInstance();
       transFactory.setAttribute("indent-number", 2);
       Transformer transformer = transFactory.newTransformer();
@@ -123,7 +124,7 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
       transformer.setOutputProperty(OutputKeys.INDENT, "yes");
       transformer.transform(new DOMSource(document),
           new StreamResult(faceletsConfigWriter));
-      getEnv().getMessager().printNotice("Write to file " +packageDeclaration.getQualifiedName()+" "+fileName);
+      getEnv().getMessager().printNotice("Write to file " + packageDeclaration.getQualifiedName() + " " + fileName);
     } finally{
       IOUtils.closeQuietly(faceletsConfigWriter);
     }

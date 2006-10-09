@@ -1,12 +1,5 @@
 package org.apache.myfaces.tobago.example.reference;
 
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
-
-import javax.servlet.jsp.tagext.TagSupport;
-import javax.servlet.jsp.JspException;
-import javax.faces.webapp.UIComponentTag;
-import javax.faces.context.FacesContext;
-
 /*
  * Copyright 2002-2006 The Apache Software Foundation.
  *
@@ -23,6 +16,12 @@ import javax.faces.context.FacesContext;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.util.VariableResolverUtil;
+
+import javax.servlet.jsp.tagext.TagSupport;
+import javax.servlet.jsp.JspException;
+import javax.faces.context.FacesContext;
+
 public class DynamicTag extends TagSupport {
 
   private String controllerName;
@@ -30,7 +29,8 @@ public class DynamicTag extends TagSupport {
 
   public int doStartTag() throws JspException {
     // fixme: session?
-    Controller controller = (Controller) VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), controllerName);
+    Controller controller =
+        (Controller) VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), controllerName);
 //    Controller controller = (Controller) pageContext.getSession().getAttribute(controllerName);
     if (controller != null) {
       tag = controller.createTag();

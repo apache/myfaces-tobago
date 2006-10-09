@@ -46,7 +46,12 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.Writer;
+import java.io.StringReader;
+import java.io.InputStream;
+import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -61,10 +66,10 @@ import java.util.Map;
  * Time: 9:31:09 PM
  */
 public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
-  public static String SOURCE_FACES_CONFIG_KEY = "sourceFacesConfig";
-  public static String TARGET_FACES_CONFIG_KEY = "targetFacesConfig";
+  public static final String SOURCE_FACES_CONFIG_KEY = "sourceFacesConfig";
+  public static final String TARGET_FACES_CONFIG_KEY = "targetFacesConfig";
 
-  private static final String SEPARATOR = System.getProperty( "line.separator" );
+  private static final String SEPARATOR = System.getProperty("line.separator");
   private static final String COMPONENT = "component";
   private static final String COMPONENT_TYPE = "component-type";
   private static final String COMPONENT_CLASS = "component-class";
@@ -95,7 +100,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
   public void process() throws ParserConfigurationException, IOException {
     String sourceFacesConfigFile = null;
     String targetFacesConfigFile = null;
-    for(Map.Entry<String,String> entry: getEnv().getOptions().entrySet()) {
+    for(Map.Entry<String, String> entry: getEnv().getOptions().entrySet()) {
       if (entry.getKey().startsWith("-A" + SOURCE_FACES_CONFIG_KEY + "=")) {
         sourceFacesConfigFile = entry.getKey().substring(SOURCE_FACES_CONFIG_KEY.length() + 3);
       }
@@ -104,11 +109,11 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
       }
     }
     // TODO remove the foreach
-    for (PackageDeclaration packageDeclaration :getCollectedPackageDeclations()) {
+    for (PackageDeclaration packageDeclaration: getCollectedPackageDeclations()) {
       Document document;
       Writer writer = null;
       try {
-        String content = FileUtils.fileRead( sourceFacesConfigFile );
+        String content = FileUtils.fileRead(sourceFacesConfigFile);
         SAXBuilder builder = new SAXBuilder();
         builder.setEntityResolver(new EntityResolver() {
           public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
@@ -120,10 +125,10 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
             return null;
           }
         });
-        document = builder.build( new StringReader( content ) );
+        document = builder.build(new StringReader(content));
 
         // Normalise line endings. For some reason, JDOM replaces \r\n inside a comment with \n.
-        normaliseLineEndings( document );
+        normaliseLineEndings(document);
 
         // rewrite DOM as a string to find differences, since text outside the root element is not tracked
 
@@ -146,7 +151,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
           }
         }
 
-        for (InterfaceDeclaration decl : getCollectedInterfaceDeclations()) {
+        for (InterfaceDeclaration decl: getCollectedInterfaceDeclations()) {
           if (decl.getPackage().equals(packageDeclaration)) {
             addElement(decl, newComponents, namespace);
           }
@@ -295,15 +300,17 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
   }
 
 
-  protected void addAttribute(MethodDeclaration d, Class uiComponentClass, List properties, List attributes, Namespace namespace) {
+  protected void addAttribute(MethodDeclaration d, Class uiComponentClass, List properties, List attributes,
+      Namespace namespace) {
     UIComponentTagAttribute componentAttribute = d.getAnnotation(UIComponentTagAttribute.class);
     if (componentAttribute != null) {
       String simpleName = d.getSimpleName();
       if (simpleName.startsWith("set")) {
         String attributeStr = simpleName.substring(3, 4).toLowerCase() + simpleName.substring(4);
         String methodStr;
-        if (componentAttribute.type().length == 1 &&
-            (componentAttribute.type()[0].equals(Boolean.class.getName()) || componentAttribute.type()[0].equals("boolean"))) {
+        if (componentAttribute.type().length == 1
+            && (componentAttribute.type()[0].equals(Boolean.class.getName())
+            || componentAttribute.type()[0].equals("boolean"))) {
           methodStr = "is" + simpleName.substring(3);
         } else {
           methodStr = "get" + simpleName.substring(3);
@@ -368,7 +375,8 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
     }
   }
 
-  protected void addAttributes(InterfaceDeclaration type, Class uiComponentClass, List properties, List attributes, Namespace namespace) {
+  protected void addAttributes(InterfaceDeclaration type, Class uiComponentClass, List properties, List attributes,
+      Namespace namespace) {
     addAttributes(type.getSuperinterfaces(), uiComponentClass, properties, attributes, namespace);
     for (MethodDeclaration decl : getCollectedMethodDeclations()) {
       if (decl.getDeclaringType().equals(type)) {
@@ -384,7 +392,8 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
     }
   }
 
-  protected void addAttributes(ClassDeclaration d, Class uiComponentClass, List properties, List attributes, Namespace namespace) {
+  protected void addAttributes(ClassDeclaration d, Class uiComponentClass, List properties, List attributes,
+      Namespace namespace) {
     for (MethodDeclaration decl : getCollectedMethodDeclations()) {
       if (d.getQualifiedName().
           equals(decl.getDeclaringType().getQualifiedName())) {
@@ -399,7 +408,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
 
 
   private void addFacets(UIComponentTag componentTag, Namespace namespace, Element element) {
-    Facet facets [] = componentTag.facets();
+    Facet [] facets = componentTag.facets();
     for (Facet facet: facets) {
       Element facetElement = new Element(FACET, namespace);
       String description = facet.description();
@@ -445,7 +454,8 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
     }
   }
 
-  protected void addElement(InterfaceDeclaration decl, List<Element> components, Namespace namespace) throws IOException {
+  protected void addElement(InterfaceDeclaration decl, List<Element> components, Namespace namespace)
+      throws IOException {
     UIComponentTag componentTag = decl.getAnnotation(UIComponentTag.class);
     if (componentTag != null && !componentTag.isComponentAlreadyDefined()) {
       try {
@@ -474,11 +484,10 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
     }
   }
 
-  private void normaliseLineEndings( Document document ) {
-    for ( Iterator i = document.getDescendants( new ContentFilter( ContentFilter.COMMENT ) );
-          i.hasNext(); ) {
+  private void normaliseLineEndings(Document document) {
+    for (Iterator i = document.getDescendants(new ContentFilter(ContentFilter.COMMENT)); i.hasNext();) {
       Comment c = (Comment) i.next();
-      c.setText( c.getText().replaceAll( "\n", SEPARATOR) );
+      c.setText(c.getText().replaceAll("\n", SEPARATOR));
     }
   }
 }

@@ -16,21 +16,19 @@ package org.apache.myfaces.tobago.example.reference;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.taglib.component.InTag;
 import org.apache.myfaces.tobago.taglib.component.ButtonTag;
 import org.apache.myfaces.tobago.taglib.component.LinkTag;
 import org.apache.myfaces.tobago.taglib.extension.InExtensionTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.tagext.TagSupport;
 import java.util.List;
 import java.util.ArrayList;
 
 public class Controller {
 
-  private Log LOG = LogFactory.getLog(Controller.class);
+  private static final Log LOG = LogFactory.getLog(Controller.class);
 
   private List<TagData> tags;
 

@@ -1,3 +1,5 @@
+package org.apache.myfaces.maven.plugin;
+
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
  *
@@ -13,7 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.maven.plugin;
 
 import org.codehaus.plexus.compiler.util.scan.AbstractSourceInclusionScanner;
 import org.codehaus.plexus.compiler.util.scan.InclusionScanException;
@@ -22,28 +23,49 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * 
+ */
 public class AllSourcesInclusionScanner extends AbstractSourceInclusionScanner
 {
+    /**
+     *
+     */
     private Set sourceIncludes;
+    /**
+     *
+     */
     private Set sourceExcludes;
 
-    public AllSourcesInclusionScanner( Set sourceIncludes,
-                                       Set sourceExcludes )
+    /**
+     *
+     * @param sourceIncludeSet
+     * @param sourceExcludeSet
+     */
+    public AllSourcesInclusionScanner( Set sourceIncludeSet,
+                                       Set sourceExcludeSet )
     {
-        this.sourceIncludes = sourceIncludes;
-        this.sourceExcludes = sourceExcludes;
+        this.sourceIncludes = sourceIncludeSet;
+        this.sourceExcludes = sourceExcludeSet;
     }
 
+    /**
+     *
+     * @param sourceDir
+     * @param targetDir
+     * @return
+     * @throws InclusionScanException
+     */
     public Set getIncludedSources( File sourceDir, File targetDir )
         throws InclusionScanException
     {
-        String[] sourceNames = scanForSources(sourceDir, sourceIncludes, sourceExcludes);
+        String[] sourceNames = scanForSources( sourceDir, sourceIncludes, sourceExcludes );
         Set sources = new HashSet();
         for ( int i = 0; i < sourceNames.length; i++ )
         {
             String path = sourceNames[i];
             File sourceFile = new File( sourceDir, path );
-            sources.add(sourceFile);
+            sources.add( sourceFile );
         }
         return sources;
     }

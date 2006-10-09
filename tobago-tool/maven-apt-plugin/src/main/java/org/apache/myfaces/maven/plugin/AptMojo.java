@@ -110,17 +110,17 @@ public class AptMojo extends AbstractAPTMojo
     public void execute() throws MojoExecutionException
     {
         super.execute();
-        File absoluteGeneratedPath = new File( project.getBasedir(), getGenerated() );
-        project.addCompileSourceRoot( absoluteGeneratedPath.getPath() );
+        File absoluteGeneratedPath = new File( getProject().getBasedir(), getGenerated() );
+        getProject().addCompileSourceRoot( absoluteGeneratedPath.getPath() );
         Resource resource = new Resource();
-        resource.setFiltering(resourceFiltering);
-        if ( resourceTargetPath != null )
+        resource.setFiltering( isResourceFiltering() );
+        if ( getResourceTargetPath() != null )
         {
-            resource.setTargetPath(resourceTargetPath);
+            resource.setTargetPath( getResourceTargetPath() );
         }
         resource.setDirectory( absoluteGeneratedPath.getPath() );
         resource.addExclude( "**/*.java" );
-        project.addResource( resource );
+        getProject().addResource( resource );
     }
 
     /**
@@ -141,23 +141,23 @@ public class AptMojo extends AbstractAPTMojo
     {
         StaleSourceScanner scanner = null;
 
-        if( includes.isEmpty() )
+        if ( includes.isEmpty() )
         {
             includes.add( "**/*.java" );
         }
 
-        if (force)
+        if ( isForce() )
         {
-            return new AllSourcesInclusionScanner(includes, excludes);
+            return new AllSourcesInclusionScanner( includes, excludes );
         }
 
-        scanner = new StaleSourceScanner( staleMillis, includes, excludes );
-        if ( targetFiles!=null && targetFiles.size() > 0 )
+        scanner = new StaleSourceScanner( getStaleMillis(), includes, excludes );
+        if ( getTargetFiles() != null && getTargetFiles().size() > 0 )
         {
-            for ( Iterator it = targetFiles.iterator() ; it.hasNext() ; )
+            for ( Iterator it = getTargetFiles().iterator() ; it.hasNext() ;)
             {
                 String file = (String) it.next();
-                scanner.addSourceMapping( new SingleTargetSourceMapping(".java", file ) );
+                scanner.addSourceMapping( new SingleTargetSourceMapping( ".java", file ) );
             }
         }
         else

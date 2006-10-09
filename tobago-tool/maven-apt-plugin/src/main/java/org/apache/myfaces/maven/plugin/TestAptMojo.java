@@ -105,24 +105,25 @@ public class TestAptMojo extends AbstractAPTMojo
 
     public void execute() throws MojoExecutionException
     {
-        if( skip )
+        if ( skip )
         {
             //getLog().info( "Not executing test sources" );
             return;
-        } else
+        }
+        else
         {
             super.execute();
-            File absoluteGeneratedPath = new File( project.getBasedir(), getGenerated() );
-            project.addTestCompileSourceRoot( absoluteGeneratedPath.getPath() );
+            File absoluteGeneratedPath = new File( getProject().getBasedir(), getGenerated() );
+            getProject().addTestCompileSourceRoot( absoluteGeneratedPath.getPath() );
             Resource resource = new Resource();
-            resource.setFiltering(resourceFiltering);
-            if ( resourceTargetPath != null )
+            resource.setFiltering( isResourceFiltering() );
+            if ( getResourceTargetPath() != null )
             {
-                resource.setTargetPath(resourceTargetPath);
+                resource.setTargetPath( getResourceTargetPath() );
             }
             resource.setDirectory( absoluteGeneratedPath.getPath() );
             resource.addExclude( "**/*.java" );
-            project.addTestResource( resource );
+            getProject().addTestResource( resource );
         }
     }
 
@@ -155,22 +156,22 @@ public class TestAptMojo extends AbstractAPTMojo
     {
         StaleSourceScanner scanner = null;
 
-        if( testIncludes.isEmpty() )
+        if ( testIncludes.isEmpty() )
         {
             testIncludes.add( "**/*.java" );
 
         }
-        if (force)
+        if ( isForce() )
         {
-            return new AllSourcesInclusionScanner(testIncludes, testExcludes);
+            return new AllSourcesInclusionScanner( testIncludes, testExcludes );
         }
-        scanner = new StaleSourceScanner( staleMillis, testIncludes, testExcludes );
-        if ( targetFiles!=null && targetFiles.size() > 0 )
+        scanner = new StaleSourceScanner( getStaleMillis(), testIncludes, testExcludes );
+        if ( getTargetFiles() != null && getTargetFiles().size() > 0 )
         {
-            for ( Iterator it = targetFiles.iterator() ; it.hasNext() ; )
+            for ( Iterator it = getTargetFiles().iterator() ; it.hasNext() ;)
             {
                 String file = (String) it.next();
-                scanner.addSourceMapping( new SingleTargetSourceMapping(".java", file ) );
+                scanner.addSourceMapping( new SingleTargetSourceMapping( ".java", file ) );
             }
         }
         else

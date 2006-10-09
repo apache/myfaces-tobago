@@ -113,7 +113,7 @@ public class PackThemeMojo extends AbstractThemeMojo {
   /**
    * Executes the WarMojo on the current project.
    *
-   * @throws org.apache.myfaces.maven.plugin.MojoExecutionException
+   * @throws MojoExecutionException
    *          if an error occured while building the webapp
    */
   public void execute()
@@ -122,10 +122,9 @@ public class PackThemeMojo extends AbstractThemeMojo {
 
     try {
       performPackaging(jarFile);
-      projectHelper.attachArtifact(getProject(), "jar", "THEME", jarFile );
-      //getProject().getArtifact().setFile(jarFile);
-    }
-    catch (Exception e) {
+      projectHelper.attachArtifact(getProject(), "jar", "THEME", jarFile);
+
+    } catch (Exception e) {
       // TODO: improve error handling
       throw new MojoExecutionException("Error assembling theme", e);
     }
@@ -153,8 +152,7 @@ public class PackThemeMojo extends AbstractThemeMojo {
       copyResources(getWarSourceDirectory(), zipDirectory);
 
       buildTheme(getProject(), getWebappDirectory());
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       throw new MojoExecutionException("Could not explode theme...", e);
     }
   }

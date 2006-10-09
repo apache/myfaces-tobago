@@ -3,7 +3,7 @@ package org.apache.myfaces.maven.plugin;
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
  *
- * Licensed under the Apache License, Version 2.0(the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -48,11 +48,14 @@ import org.codehaus.plexus.util.FileUtils;
  */
 public abstract class AbstractAPTMojo extends AbstractMojo
 {
-    private static final String PATH_SEPARATOR = //
-    System.getProperty( "path.separator" );
-
-    private static final String FILE_SEPARATOR = //
-    System.getProperty( "file.separator" );
+    /**
+     * PATH_SEPARATOR.
+     */
+    private static final String PATH_SEPARATOR = System.getProperty( "path.separator" );
+    /**
+     * FILE_SEPARATOR.
+     */
+    private static final String FILE_SEPARATOR = System.getProperty( "file.separator" );
 
     /**
      * Integer returned by the Apt compiler to indicate success.
@@ -65,11 +68,14 @@ public abstract class AbstractAPTMojo extends AbstractMojo
     private static final String APT_ENTRY_POINT = "com.sun.tools.apt.Main";
 
     /**
-     * method used to compile.
+     * method used for apt.
      */
     private static final String APT_METHOD_NAME = "process";
-    private static final String APT_METHOD_NAME_OLD = "compile";
 
+    /**
+     * old method used for apt.
+     */
+    private static final String APT_METHOD_NAME_OLD = "compile";
 
     /**
      * store info about modification of system classpath for Apt compiler
@@ -81,21 +87,21 @@ public abstract class AbstractAPTMojo extends AbstractMojo
      *
      * @parameter
      */
-    protected List targetFiles;
+    private List targetFiles;
 
    /**
      * enables resource filtering for generated resources
      *
      * @parameter    default-value="false"
      */
-    protected boolean resourceFiltering;
+    private boolean resourceFiltering;
 
     /**
      *  targetPath for generated resources
      *
      * @parameter
      */
-    protected String resourceTargetPath;
+    private String resourceTargetPath;
 
     /**
      * Whether to include debugging information in the compiled class files. The
@@ -146,7 +152,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
      * 
      * @parameter expression="${verbose}" default-value="false"
      */
-    protected boolean verbose;
+    private boolean verbose;
 
     /**
      * The -nocompile argument for the Apt
@@ -161,7 +167,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
      * 
      * @parameter expression="${lastModGranularityMs}" default-value="0"
      */
-    protected int staleMillis;
+    private int staleMillis;
 
     /**
      * Name of AnnotationProcessorFactory to use; bypasses default discovery
@@ -201,7 +207,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
      *
      * @parameter default-value="false"
      */
-    protected boolean force;
+    private boolean force;
 
 
     /**
@@ -211,24 +217,108 @@ public abstract class AbstractAPTMojo extends AbstractMojo
      * @required
      * @readonly
      */
-    protected MavenProject project;
+    private MavenProject project;
 
+    /**
+     * The maven project.
+     * @return MavenProject
+     */
+    public MavenProject getProject()
+    {
+        return project;
+    }
+    /**
+     * Force apt call without staleness checking.
+     * @return force
+     */
+    public boolean isForce()
+    {
+        return force;
+    }
+    /**
+     * run Apt in verbode mode
+     * @return verbose
+     */
+    public boolean isVerbose()
+    {
+        return verbose;
+    }
+
+    /**
+     * The granularity in milliseconds of the last modification date for testing
+     * whether a source needs recompilation
+     * @return staleMillis
+     */
+    public int getStaleMillis()
+    {
+        return staleMillis;
+    }
+   /**
+    *  A List of targetFiles for SingleSourceTargetMapping
+    * @return a List of TargetFiles
+    */
+    protected List getTargetFiles()
+    {
+        return targetFiles;
+    }
+   /**
+    * enables resource filtering for generated resources
+    * @return resourceFiltering
+    */
+    protected boolean isResourceFiltering()
+    {
+        return resourceFiltering;
+    }
+   /**
+    *  targetPath for generated resources
+    * @return resouceTargetPath
+    */
+    protected String getResourceTargetPath()
+    {
+        return resourceTargetPath;
+    }
+    /**
+     *  classpath elements.
+     * @return a List of classPathElements
+     */
     protected abstract List getClasspathElements();
-
+    /**
+     * The source directories containing the sources to be compiled.
+     * @return a List of CompileSourceRoots
+     */
     protected abstract List getCompileSourceRoots();
 
+    /**
+     * The extra source directories containing the source to be processed.
+     * @return a List of AptSourceRoots
+     */
     protected abstract List getAptSourceRoots();
 
+    /**
+     * The directory where compiled classes go.
+     * @return outputDirector
+     */
     protected abstract File getOutputDirectory();
 
+   /**
+    * The directory where generated code go.
+    * @return generated
+    */
     protected abstract String getGenerated();
 
+  /**
+   *
+   * @return a SourceInclusionScanner
+   */
     protected abstract SourceInclusionScanner getSourceInclusionScanner();
 
-    public void execute() throws MojoExecutionException
+  /**
+   * execute
+   * @throws MojoExecutionException
+   */
+    public void execute() throws MojoExecutionException 
     {
         getLog().debug( "Using apt compiler" );
-        //List cmd = new LinkedList();
         Commandline cmd = new Commandline();
         int result = APT_COMPILER_SUCCESS;
         StringWriter writer = new StringWriter();
@@ -236,22 +326,18 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         {
              tempRoot.mkdirs();
         }
-        //File workingDir =
-        // finally invoke APT
         // Use reflection to be able to build on all JDKs:
         try
         {
-
             // init comand line
             setAptCommandlineSwitches( cmd );
             setAptSpecifics( cmd );
             setStandards( cmd );
             setClasspath( cmd );
             List sourceFiles = new ArrayList();
-
-            if( !setSourcepath( sourceFiles ) )
+            if ( !setSourcepath( sourceFiles ) )
             {
-                if( getLog().isDebugEnabled() )
+                if ( getLog().isDebugEnabled() )
                 {
                     getLog().debug( "there are not stale sources." );
                 }
@@ -259,13 +345,10 @@ public abstract class AbstractAPTMojo extends AbstractMojo
             }
             else
             {
-
-                if ( fork)
+                if ( fork )
                 {
-
                      File file = new File( tempRoot , "files" );
-
-                     if( !getLog().isDebugEnabled())
+                     if ( !getLog().isDebugEnabled() )
                      {
                          file.deleteOnExit();
                      }
@@ -275,7 +358,6 @@ public abstract class AbstractAPTMojo extends AbstractMojo
                                  StringUtils.join( sourceFiles.iterator(), "\n" ) );
                          cmd.createArgument().setValue( "@files" );
                      }
-
                      catch ( IOException e )
                      {
                          throw new MojoExecutionException( "Unable to write temporary file for command execution", e );
@@ -286,25 +368,22 @@ public abstract class AbstractAPTMojo extends AbstractMojo
                     Iterator sourceIt = sourceFiles.iterator();
                     while ( sourceIt.hasNext() )
                     {
-                        cmdAdd(cmd, (String) sourceIt.next());
+                        cmdAdd( cmd, (String) sourceIt.next() );
                     }
                 }
-
-
-
             }
-            if( fork )
+            if ( fork )
             {
-                if( getLog().isDebugEnabled() )
+                if ( getLog().isDebugEnabled() )
                 {
                     getLog().debug( "Working dir: " + tempRoot.getAbsolutePath() );
                 }
                 cmd.setWorkingDirectory( tempRoot.getAbsolutePath() );
                 cmd.setExecutable( getAptPath() );
 
-                if( getLog().isDebugEnabled() )
+                if ( getLog().isDebugEnabled() )
                 {
-                    getLog().debug( "Invoking apt with cmd " +Commandline.toString( cmd.getShellCommandline() ) );
+                    getLog().debug( "Invoking apt with cmd " + Commandline.toString( cmd.getShellCommandline() ) );
                 }
 
                 CommandLineUtils.StringStreamConsumer err = new CommandLineUtils.StringStreamConsumer();
@@ -312,7 +391,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
                 {
                     int exitCode = CommandLineUtils.executeCommandLine( cmd, new DefaultConsumer(), err );
 
-                    getLog().error(err.getOutput());
+                    getLog().error( err.getOutput() );
 
                     if ( exitCode != 0 )
                     {
@@ -329,7 +408,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
                 // we need to have tools.jar in lasspath
                 // due to bug in Apt compiler, system classpath must be modified but in future:
                 // TODO try separate ClassLoader (see Plexus compiler api)
-                if( !isClasspathModified )
+                if ( !isClasspathModified )
                 {
                     URL toolsJar = new File( System.getProperty( "java.home" ),
                         "../lib/tools.jar" ).toURL();
@@ -342,26 +421,26 @@ public abstract class AbstractAPTMojo extends AbstractMojo
                 }
                 Class c = this.getClass().forName( APT_ENTRY_POINT ); // getAptCompilerClass();
                 Object compiler = c.newInstance();
-                if( getLog().isDebugEnabled() )
+                if ( getLog().isDebugEnabled() )
                 {
                     getLog().debug( "Invoking apt with cmd " + cmd.toString() );
                 }
                 try
                 {
                     Method compile = c.getMethod( APT_METHOD_NAME, new Class[] {
-                        PrintWriter.class, (new String[] {}).getClass() } );
-                    result = ((Integer) //
+                        PrintWriter.class, ( new String[] {} ).getClass() } );
+                    result = ( ( Integer ) //
                     compile.invoke( compiler, new Object[] { new PrintWriter( writer ),
-                          cmd.getArguments()} )).intValue();
+                          cmd.getArguments() } ) ).intValue();
                 }
-                catch(NoSuchMethodException e)
+                catch ( NoSuchMethodException e )
                 {
                   // ignore
                     Method compile = c.getMethod( APT_METHOD_NAME_OLD, new Class[] {
-                        (new String[] {}).getClass(),  PrintWriter.class } );
-                    result = ((Integer) //
+                        ( new String[] {} ).getClass(),  PrintWriter.class } );
+                    result = ( ( Integer ) //
                     compile.invoke( compiler, new Object[] {
-                          cmd.getArguments(),  new PrintWriter( writer )} )).intValue();
+                          cmd.getArguments(),  new PrintWriter( writer ) } ) ).intValue();
                 }
             }
 
@@ -373,15 +452,14 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         }
         finally
         {
-            if( result != APT_COMPILER_SUCCESS )
+            if ( result != APT_COMPILER_SUCCESS )
             {
-                throw new MojoExecutionException( this, "Compilation error.",
-                        writer.getBuffer().toString() );
+                throw new MojoExecutionException( this, "Compilation error.", writer.getBuffer().toString() );
             }
-            if( getLog().isDebugEnabled() )
+            if ( getLog().isDebugEnabled() )
             {
                 String r = writer.getBuffer().toString();
-                if( 0 != r.length() )
+                if ( 0 != r.length() )
                 {
                     getLog().debug( r );
                 }
@@ -390,17 +468,21 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         }
     }
 
+  /**
+   *
+   * @param cmd
+   */
     private void setAptCommandlineSwitches( Commandline cmd )
     {
-        if( null == aptOptions )
+        if ( null == aptOptions )
         {
             return;
         }
         StringTokenizer tokenizer = new StringTokenizer( aptOptions.trim(), "," );
-        while( tokenizer.hasMoreElements() )
+        while ( tokenizer.hasMoreElements() )
         {
             String option = tokenizer.nextToken().trim();
-            if( !option.startsWith( "-A" ) )
+            if ( !option.startsWith( "-A" ) )
             {
                 option = "-A" + option;
             }
@@ -408,6 +490,11 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         }
     }
 
+  /**
+   *
+   * @param cmd
+   * @throws MojoExecutionException
+   */
     private void setAptSpecifics( Commandline cmd ) throws MojoExecutionException
     {
         try
@@ -416,92 +503,117 @@ public abstract class AbstractAPTMojo extends AbstractMojo
                     + getGenerated();
             File generatedDir = new File( g );
             cmdAdd( cmd, "-s", generatedDir.getCanonicalPath() );
-            if( !generatedDir.exists() )
+            if ( !generatedDir.exists() )
             {
                 generatedDir.mkdirs();
             }
-        } catch ( Exception e )
+        }
+        catch ( Exception e )
         {
             throw new MojoExecutionException( //
                     "Generated directory is invalid.", e );
         }
-        if( nocompile )
+        if ( nocompile )
         {
             cmdAdd( cmd, "-nocompile" );
         }
-        if( null != factory && 0 != factory.length() )
+        if ( null != factory && 0 != factory.length() )
         {
             cmdAdd( cmd, "-factory", factory );
         }
     }
 
+  /**
+   *
+   * @param cmd
+   * @throws MojoExecutionException
+   */
     private void setStandards( Commandline cmd ) throws MojoExecutionException
     {
-        if( debug )
+        if ( debug )
         {
             cmdAdd( cmd, "-g" );
         }
-        if( !showWarnings )
+        if ( !showWarnings )
         {
             cmdAdd( cmd, "-nowarn" );
         }
-        if( showDeprecation )
+        if ( showDeprecation )
         {
             cmdAdd( cmd, "-depecation" );
         }
-        if( null != encoding )
+        if ( null != encoding )
         {
             cmdAdd( cmd, "-encoding", encoding );
         }
-        if( verbose )
+        if ( verbose )
         {
             cmdAdd( cmd, "-verbose" );
         }
         // add output directory
         try
         {
-            if( !getOutputDirectory().exists() )
+            if ( !getOutputDirectory().exists() )
             {
                 getOutputDirectory().mkdirs();
             }
-            cmdAdd( cmd, "-d", quotedPathArgument(getOutputDirectory().getCanonicalPath()) );
-        } catch ( Exception ex )
+            cmdAdd( cmd, "-d", quotedPathArgument( getOutputDirectory().getCanonicalPath() ) );
+        }
+        catch ( Exception ex )
         {
             throw new MojoExecutionException( //
                     "Output directory is invalid.", ex );
         }
     }
 
+  /**
+   *
+   * @param cmd
+   * @return
+   * @throws MojoExecutionException
+   */
     private boolean setSourcepath( List cmd ) throws MojoExecutionException
     {
         boolean has = false;
         // sources ....
         Iterator it = getCompileSourceRoots().iterator();
-        if( getLog().isDebugEnabled() ) {
-            getLog().debug("Checking sourcepath");
+        if ( getLog().isDebugEnabled() )
+        {
+            getLog().debug( "Checking sourcepath" );
         }
-        while( it.hasNext() )
+        while ( it.hasNext() )
         {
             File srcFile = new File( (String) it.next() );
-            has = addIncludedSources(srcFile, cmd, has);
+            has = addIncludedSources( srcFile, cmd, has );
         }
         List aptSourcesRoots = getAptSourceRoots();
-        if( aptSourcesRoots != null) {
+        if ( aptSourcesRoots != null )
+        {
             it = aptSourcesRoots.iterator();
-            while( it.hasNext() )
+            while ( it.hasNext() )
             {
                 File srcFile = new File( (String) it.next() );
-                has = addIncludedSources(srcFile, cmd, has);
+                has = addIncludedSources( srcFile, cmd, has );
             }
         }
         return has;
     }
 
-    private boolean addIncludedSources(File srcFile, List cmd, boolean has) throws MojoExecutionException {
-        if( getLog().isDebugEnabled() ) {
-            getLog().debug("Checking sourcepath in " + srcFile);
+  /**
+   *
+   * @param srcFile
+   * @param cmd
+   * @param has
+   * @return
+   * @throws MojoExecutionException
+   */
+    private boolean addIncludedSources( File srcFile, List cmd, boolean has ) throws MojoExecutionException
+    {
+        if ( getLog().isDebugEnabled() )
+        {
+            getLog().debug( "Checking sourcepath in " + srcFile );
         }
-        if( srcFile.isDirectory() )
+        if ( srcFile.isDirectory() )
         {
             Collection sources = null;
             try
@@ -509,27 +621,28 @@ public abstract class AbstractAPTMojo extends AbstractMojo
                 sources = //
                     getSourceInclusionScanner().getIncludedSources( srcFile,
                         getOutputDirectory() );
-            } catch ( Exception ex )
+            }
+            catch ( Exception ex )
             {
                 throw new MojoExecutionException(
                     "Can't agregate sources.", ex );
             }
-            if( getLog().isDebugEnabled() )
+            if ( getLog().isDebugEnabled() )
             {
                 getLog().debug(
                         "sources from: " + srcFile.getAbsolutePath() );
                 String s = "";
-                for( Iterator jt = sources.iterator(); jt.hasNext(); )
+                for ( Iterator jt = sources.iterator(); jt.hasNext();)
                 {
                      s += jt.next() + "\n";
                 }
                 getLog().debug( s );
             }
             Iterator jt = sources.iterator();
-            while( jt.hasNext() )
+            while ( jt.hasNext() )
             {
                 File src = (File) jt.next();
-                if( fork )
+                if ( fork )
                 {
                     cmd.add( quotedPathArgument( src.getAbsolutePath() ) );
                 }
@@ -543,12 +656,19 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         return has;
     }
 
-    private void setClasspath( Commandline cmd ) throws MojoExecutionException, DependencyResolutionRequiredException {
+  /**
+   *
+   * @param cmd
+   * @throws MojoExecutionException
+   * @throws DependencyResolutionRequiredException
+   */
+    private void setClasspath( Commandline cmd ) throws MojoExecutionException, DependencyResolutionRequiredException
+    {
         StringBuffer buffer = new StringBuffer();
-        for( Iterator it = getClasspathElements().iterator(); it.hasNext(); )
+        for ( Iterator it = getClasspathElements().iterator(); it.hasNext();)
         {
             buffer.append( it.next() );
-            if( it.hasNext() )
+            if ( it.hasNext() )
             {
                 buffer.append( PATH_SEPARATOR );
             }
@@ -556,6 +676,11 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         cmdAdd( cmd, "-classpath", buffer.toString() );
     }
 
+    /**
+     *
+     * @param cmd
+     * @param arg
+     */
     private void cmdAdd( Commandline cmd, String arg )
     {
         /**
@@ -563,10 +688,16 @@ public abstract class AbstractAPTMojo extends AbstractMojo
          * if( true == getLog().isDebugEnabled() ) { getLog().debug(
          * arg ); }
          */
-         cmd.createArgument().setValue(arg);
+         cmd.createArgument().setValue( arg );
         //cmd.add( arg );
     }
 
+  /**
+   *
+   * @param cmd
+   * @param arg1
+   * @param arg2
+   */
     private void cmdAdd( Commandline cmd, String arg1, String arg2 )
     {
         /**
@@ -585,16 +716,20 @@ public abstract class AbstractAPTMojo extends AbstractMojo
      */
     private String getAptPath()
     {
-        String aptCommand = "apt" + ( Os.isFamily("windows")? ".exe" : "" );
+        String aptCommand = "apt";
+        if ( Os.isFamily( "windows" ) )
+        {
+            aptCommand = "apt.exe";
+        }
 
         File aptExe;
 
         // For IBM's JDK 1.2
-        if ( Os.isName("aix") )
+        if ( Os.isName( "aix" ) )
         {
             aptExe = new File( System.getProperty( "java.home" ) + "/../sh", aptCommand );
         }
-        else if ( Os.isFamily("unix") && Os.isFamily("mac") )
+        else if ( Os.isFamily( "unix" ) && Os.isFamily( "mac" ) )
         {
             aptExe = new File( System.getProperty( "java.home" ) + "/bin", aptCommand );
         }
@@ -608,6 +743,11 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         return aptExe.getAbsolutePath();
     }
 
+  /**
+   *
+   * @param value
+   * @return quotedPathArgument
+   */
     private String quotedPathArgument( String value )
     {
         String path = value;
@@ -615,14 +755,14 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         if ( !StringUtils.isEmpty( path ) )
         {
             path = path.replace( '\\', '/' );
-            if( path.indexOf( "\'" ) != -1 )
+            if ( path.indexOf( "\'" ) != -1 )
             {
                 String split[] = path.split( "\'" );
                 path = "";
 
-                for( int i = 0; i < split.length; i++ )
+                for ( int i = 0; i < split.length; i++ )
                 {
-                    if( i != split.length - 1)
+                    if ( i != split.length - 1 )
                     {
                         path = path + split[i] + "\\'";
                     }

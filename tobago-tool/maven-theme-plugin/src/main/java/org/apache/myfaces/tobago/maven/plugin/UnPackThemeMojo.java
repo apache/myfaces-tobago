@@ -1,4 +1,5 @@
 package org.apache.myfaces.tobago.maven.plugin;
+
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
  *
@@ -14,8 +15,6 @@ package org.apache.myfaces.tobago.maven.plugin;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -49,7 +48,7 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
    * @parameter expression="${component.org.codehaus.plexus.archiver.manager.ArchiverManager}"
    * @required
    */
-  protected ArchiverManager archiverManager;
+  private ArchiverManager archiverManager;
 
   /**
    * Directory to unpack JARs into if needed
@@ -57,7 +56,7 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
    * @parameter expression="${project.build.directory}/theme/work"
    * @required
    */
-  protected File workDirectory;
+  private File workDirectory;
 
   /**
    * The directory where the webapp is built.
@@ -112,8 +111,8 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
       Artifact artifact = (Artifact) artifacts.next();
        getLog().debug("Expanding theme "+ artifact);
 
-      if (Artifact.SCOPE_COMPILE.equals(artifact.getScope()) &&
-          "jar".equals(artifact.getType())&& findThemeDescriptor(artifact.getFile())) {
+      if (Artifact.SCOPE_COMPILE.equals(artifact.getScope())
+          && "jar".equals(artifact.getType())&& findThemeDescriptor(artifact.getFile())) {
 
         String name = artifact.getFile().getName();
         getLog().debug("Expanding theme "+ name);
