@@ -20,28 +20,21 @@
 <layout:screenshot>
   <f:subview id="selectBooleanCheckbox">
     <jsp:body>
-      <tc:panel>
+      <tc:box>
         <f:facet name="layout">
-          <tc:gridLayout rows="fixed;fixed;fixed;fixed;1*" />
+          <tc:gridLayout rows="fixed;fixed;fixed;fixed;1*"/>
         </f:facet>
 
-<%-- code-sniplet-start id="selectBooleanCheckbox" --%>
-        <tc:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelect0"
-                             label="_Letter " />
-<%-- code-sniplet-end id="selectBooleanCheckbox" --%>
-        <tc:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelect1"
-                             label="_Phone" />
+        <%-- code-sniplet-start id="selectBooleanCheckbox" --%>
+        <tc:selectBooleanCheckbox label="_Letter"/>
+        <%-- code-sniplet-end id="selectBooleanCheckbox" --%>
+        <tc:selectBooleanCheckbox label="_Phone"/>
+        <tc:selectBooleanCheckbox label="_eMail"/>
+        <tc:selectBooleanCheckbox label="_Fax"/>
 
-        <tc:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelec2"
-                             label="_eMail " />
+        <tc:cell/>
 
-        <tc:selectBooleanCheckbox inline="true" id="LabeledInlineMultiSelect3"
-                             label="_Fax" />
-
-
-      <tc:cell/>
-
-      </tc:panel>
+      </tc:box>
 
     </jsp:body>
   </f:subview>
