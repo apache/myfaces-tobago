@@ -1,6 +1,3 @@
-<%@ page import="javax.swing.tree.DefaultMutableTreeNode" %>
-<%@ page import="javax.swing.tree.MutableTreeNode" %>
-<%@ page import="org.apache.myfaces.tobago.model.TreeState" %>
 <%--
  * Copyright 2002-2005 The Apache Software Foundation.
  *
@@ -16,6 +13,9 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
+
+<%@ page import="javax.swing.tree.DefaultMutableTreeNode" %>
+<%@ page import="org.apache.myfaces.tobago.model.TreeState" %>
 
 <%
   DefaultMutableTreeNode tree;
@@ -42,8 +42,8 @@
   treeState.addExpandState(temp);
   treeState.addSelection(temp2);
   treeState.setMarker(music);
-request.setAttribute("tree", tree);
-request.setAttribute("treeState", treeState);
+  session.setAttribute("tree", tree);
+  session.setAttribute("treeState", treeState);
 %>
 
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
@@ -55,7 +55,8 @@ request.setAttribute("treeState", treeState);
     <jsp:body>
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout rows="150px;1*" />
+          <%--<tc:gridLayout rows="300px;1*" />--%>
+          <tc:gridLayout rows="200px;300px;1*" />
         </f:facet>
         <tc:tree state="#{treeState}" value="#{tree}" id="screenshotTree"
             idReference="userObject"
@@ -66,9 +67,16 @@ request.setAttribute("treeState", treeState);
             showRoot="true"
             selectable="single"
             mutable="false"
-            >
-        </tc:tree>
+            />
 
+        <tc:tree state="#{treeState}" value="#{tree}"
+            idReference="userObject"
+            nameReference="userObject"
+            showIcons="false"
+            showJunctions="false"
+            showRootJunction="false"
+            showRoot="false"
+            />
 
         <tc:cell/>
 

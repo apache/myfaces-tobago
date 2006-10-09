@@ -13,4 +13,59 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
 --%>
-todo
+
+<%@ page import="javax.swing.tree.DefaultMutableTreeNode" %>
+<%@ page import="org.apache.myfaces.tobago.model.TreeState" %>
+
+<%
+  DefaultMutableTreeNode tree;
+  TreeState treeState;
+
+  tree = new DefaultMutableTreeNode("Category");
+  tree.insert(new DefaultMutableTreeNode("Sports"), 0);
+  tree.insert(new DefaultMutableTreeNode("Movies"), 0);
+  DefaultMutableTreeNode music = new DefaultMutableTreeNode("Music");
+  tree.insert(music, 0);
+  tree.insert(new DefaultMutableTreeNode("Games"), 0);
+  DefaultMutableTreeNode temp = new DefaultMutableTreeNode("Science");
+  temp.insert(
+      new DefaultMutableTreeNode("Geography"), 0);
+  temp.insert(
+      new DefaultMutableTreeNode("Mathematics"), 0);
+  DefaultMutableTreeNode temp2 = new DefaultMutableTreeNode("Astronomy");
+  temp2.insert(new DefaultMutableTreeNode("Education"), 0);
+  temp2.insert(new DefaultMutableTreeNode("Pictures"), 0);
+  temp.insert(temp2, 2);
+  tree.insert(temp, 2);
+  treeState = new TreeState();
+  treeState.addExpandState(tree);
+  treeState.addExpandState(temp);
+  treeState.addSelection(temp2);
+  treeState.setMarker(music);
+  session.setAttribute("tree", tree);
+  session.setAttribute("treeState", treeState);
+%>
+
+<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
+
+<layout:screenshot>
+  <f:subview id="tree">
+    <jsp:body>
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout rows="300px;1*" />
+        </f:facet>
+        <tc:treeListbox state="#{treeState}" value="#{tree}"
+            idReference="userObject"
+            nameReference="userObject"/>
+
+        <tc:cell/>
+
+      </tc:panel>
+
+    </jsp:body>
+  </f:subview>
+</layout:screenshot>
+

@@ -47,6 +47,7 @@ public class TreeListboxRenderer extends TreeRenderer{
 
   private static final Log LOG = LogFactory.getLog(TreeListboxRenderer.class);
 
+  @Override
   public void encodeBeginTobago(
       FacesContext facesContext, UIComponent component) throws IOException {
 
@@ -83,7 +84,7 @@ public class TreeListboxRenderer extends TreeRenderer{
     writer.endElement(HtmlConstants.INPUT);
 
 
-    final Set<DefaultMutableTreeNode> selection = tree.getState().getSelection();
+    Set<DefaultMutableTreeNode> selection = tree.getState().getSelection();
     value = new StringBuffer(";");
     for (DefaultMutableTreeNode node : selection) {
       value.append(nodeStateId(facesContext, tree.findUITreeNode(root, node)));
@@ -96,18 +97,21 @@ public class TreeListboxRenderer extends TreeRenderer{
     writer.writeAttribute(HtmlAttributes.VALUE, value, null);
     writer.endElement(HtmlConstants.INPUT);
 
-    String script = createJavascript(facesContext, clientId, root);
+    String scriptText = createJavascript(facesContext, clientId, root);
 
-    final String[] scripts = {"script/tree.js"};
-    ComponentUtil.findPage(tree).getScriptFiles().add(scripts[0]);
+    String[] scripts = {"script/tree.js"};
+    List<String> scriptFiles = ComponentUtil.findPage(tree).getScriptFiles();
+    for (String script : scripts) {
+      scriptFiles.add(script);
+    }
 
     if (!TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
       HtmlRendererUtil.startJavascript(writer);
-      writer.writeText(script, null);
+      writer.writeText(scriptText, null);
       HtmlRendererUtil.endJavascript(writer);
     } else {
       HtmlRendererUtil.writeScriptLoader(facesContext, scripts,
-          new String[] {script.replaceAll("\n", " ")});
+          new String[] {scriptText.replaceAll("\n", " ")});
     }
 
   }
@@ -194,6 +198,7 @@ public class TreeListboxRenderer extends TreeRenderer{
 //
 //  }
 
+  @Override
   public void encodeEndTobago(FacesContext facesContext,
                               UIComponent component) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();

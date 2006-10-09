@@ -183,13 +183,8 @@ public class TreeNodeRenderer extends RendererBase {
 
       writer.writeText("  var ", null);
       writer.writeText(jsClientId, null);
-      writer.writeText(" = new ", null);
-      if (component.getChildCount() == 0) {
-        writer.writeText("TreeNode", null);
-      } else {
-        writer.writeText("TreeFolder", null);
-      }
-      writer.writeText("('", null);
+      writer.writeText(" = new TreeNode('", null);
+      // label
       Object name = treeNode.getAttributes().get(ATTR_NAME);
       if (LOG.isDebugEnabled()) {
         debuging += name + " : ";
@@ -200,8 +195,14 @@ public class TreeNodeRenderer extends RendererBase {
         LOG.warn("name = null");
       }
       writer.writeText("','", null);
+
+      // id
       writer.writeText(clientId, null);
       writer.writeText("',", null);
+
+      // is folder
+      writer.writeText(component.getChildCount() > 0, null);
+      writer.writeText(",", null);
       writer.writeText(Boolean.toString(!root.isShowIcons()), null);
       writer.writeText(",", null);
       writer.writeText(Boolean.toString(!root.isShowJunctions()), null);
@@ -251,22 +252,35 @@ public class TreeNodeRenderer extends RendererBase {
       }
       writer.writeText(",", null);
       writer.writeText(Boolean.toString(treeState.isMarked(node)), null);
-      if (component.getChildCount() > 0) {
-        writer.writeText(",", null);
-        boolean expanded = treeState.isExpanded(node);
-        writer.writeText(Boolean.toString(expanded), null);
-        if (LOG.isDebugEnabled()) {
-          debuging += expanded ? "E" : "-";
-        }
+      writer.writeText(",", null);
+      // expanded
+      boolean expanded = treeState.isExpanded(node);
+      writer.writeText(Boolean.toString(expanded), null);
+      if (LOG.isDebugEnabled()) {
+        debuging += expanded ? "E" : "-";
       }
       writer.writeText(",", null);
-      writer.writeText(Boolean.toString(root.isRequired()), null);
 
+      // required
+      writer.writeText(Boolean.toString(root.isRequired()), null);
       writer.writeText(",", null);
+
+      // disabled
       writer.writeText(ComponentUtil.getBooleanAttribute(treeNode, ATTR_DISABLED), null);
       
-      writer.writeText(",treeResourcesHelp);\n", null);
+      // resources
+      writer.writeText(",treeResourcesHelp", null);
+      writer.writeText(",", null);
 
+      // action (not implemented)
+      writer.writeText("null", null);
+      writer.writeText(",", null);
+
+      // parent
+      writer.writeText(jsParentClientId != null ? jsParentClientId : "null", null);
+      writer.writeText(");\n", null);
+
+/*
       if (jsParentClientId != null) { // if not the root node
         writer.writeText("  ", null);
         writer.writeText(jsParentClientId, null);
@@ -274,6 +288,7 @@ public class TreeNodeRenderer extends RendererBase {
         writer.writeText(jsClientId, null);
         writer.writeText(");\n", null);
       }
+*/
       if (LOG.isDebugEnabled()) {
         LOG.debug(debuging);
       }

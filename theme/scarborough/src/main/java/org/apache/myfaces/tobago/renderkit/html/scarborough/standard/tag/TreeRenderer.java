@@ -21,8 +21,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MUTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -33,9 +31,9 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
@@ -43,14 +41,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class TreeRenderer extends RendererBase {
 
-
-  private static final Log LOG = LogFactory.getLog(TreeRenderer.class);
-
-  // tree resources (TREE_IMAGES)
+  /**
+   * Resources to display the tree.
+   */
   private static final String[] TREE_IMAGES = {
       "openfoldericon.gif",
       "foldericon.gif",
@@ -71,6 +69,7 @@ public class TreeRenderer extends RendererBase {
   };
 
 
+  @Override
   public void decode(FacesContext facesContext, UIComponent component) {
     if (ComponentUtil.isOutputOnly(component)) {
       return;
@@ -103,6 +102,7 @@ public class TreeRenderer extends RendererBase {
         : clientId.replace(NamingContainer.SEPARATOR_CHAR, '_');
   }
 
+  @Override
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent component) throws IOException {
 
@@ -173,21 +173,23 @@ public class TreeRenderer extends RendererBase {
     writer.endElement(HtmlConstants.TABLE);
 //    writer.endElement(HtmlConstants.DIV);
 
+    String[] scriptTexts = createJavascript(facesContext, clientId, root);
 
-    String[] script = createJavascript(facesContext, clientId, root);
-
-    final String[] scripts = {"script/tree.js"};
-    ComponentUtil.findPage(tree).getScriptFiles().add(scripts[0]);
+    String[] scripts = {"script/tree.js"};
+    List<String> scriptFiles = ComponentUtil.findPage(tree).getScriptFiles();
+    for (String script : scripts) {
+      scriptFiles.add(script);
+    }
 
     if (!TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
       HtmlRendererUtil.startJavascript(writer);
-      for (String s : script) {
-        writer.writeText(s, null);
+      for (String scriptText : scriptTexts) {
+        writer.writeText(scriptText, null);
         writer.writeText('\n', null);
       }
       HtmlRendererUtil.endJavascript(writer);
     } else {
-      HtmlRendererUtil.writeScriptLoader(facesContext, scripts, script);
+      HtmlRendererUtil.writeScriptLoader(facesContext, scripts, scriptTexts);
     }
 
     writer.endElement(HtmlConstants.DIV);
@@ -201,11 +203,12 @@ public class TreeRenderer extends RendererBase {
     sb.append("{\n");
 
     sb.append("  var treeResourcesHelp = new Object();\n");
-    for (int i = 0; i < TREE_IMAGES.length; i++) {
+    for (String images : TREE_IMAGES) {
       sb.append("  treeResourcesHelp[\"");
-      sb.append(TREE_IMAGES[i]);
+      sb.append(images);
       sb.append("\"] = \"");
-      sb.append(ResourceManagerUtil.getImageWithPath(facesContext, "image/" + TREE_IMAGES[i]));
+      sb.append(ResourceManagerUtil.getImageWithPath(facesContext,
+          "image/" + images));
       sb.append("\";\n");
     }
     sb.append(" \n  treeResourcesHelp.getImage = function (name) {\n");

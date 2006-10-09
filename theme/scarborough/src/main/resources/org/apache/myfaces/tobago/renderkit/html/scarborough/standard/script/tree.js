@@ -19,10 +19,7 @@ function toggle(node, treeHiddenId, openFolderIcon, folderIcon) {
   var content = document.getElementById(node.id + "-cont");
   if (content) {
     var selectState = document.getElementById(treeHiddenId + '-selectState');
-    var icon;
-    //if (! selectState) { // why this if ?? {
-      icon = document.getElementById(node.id + '-icon');
-    //}
+    var icon = document.getElementById(node.id + '-icon');
     var junction = document.getElementById(node.id + '-junction');
     var hidden = document.getElementById(treeHiddenId);
     if (content.style.display == 'none') {
@@ -296,13 +293,16 @@ var TreeManager = {
   }
 };
 
-function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
+function TreeNode(label, id, isFolder,
+    hideIcons, hideJunctions, hideRootJunction,
     hideRoot, treeHiddenId, selectable, mutable,
-    formId, selected, marked, required, disabled, treeResources,
-    action, parent, icon) {
+    formId, selected, marked,
+    expanded, required, disabled, treeResources,
+    action, parent, icon, openIcon) {
 	this.label = label;
 	this.id = id;
   Tobago.treeNodes[id] = this;
+  this.isFolder = isFolder
   this.hideIcons = hideIcons || false;
   this.hideJunctions = hideJunctions || false;
   this.hideRootJunction = hideRootJunction || false;
@@ -313,11 +313,15 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
   this.formId = formId;
   this.selected = selected;
   this.marked = marked;
+  this.expanded = expanded;
   this.required = required;
   this.disabled = disabled;
   this.treeResources = treeResources;
 	this.action = action;
-	this.icon = icon;
+  this.icon = icon
+      || treeResources.getImage("foldericon.gif");
+  this.openIcon = openIcon
+      || treeResources.getImage("openfoldericon.gif");
 	this.childNodes = [];
 // FIXME: page:form
 	this.onclick
@@ -332,77 +336,134 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
 	this.onfocus = "storeMarker(this.parentNode, '" + treeHiddenId + "')";
 //	this.ondblclick = "toggle(this.parentNode, '" + treeHiddenId + "')";
 
-  var hidden = document.getElementById(treeHiddenId);
-  var iconOnClick = '';
-  var markIcon = '';
-  var markIconOnClick = '';
-  if (selectable) {
-    if (selected) {
-          markIcon = treeResources.getImage("checked" + (this.disabled ? "Disabled" : "") + ".gif");
-    } else {
-          markIcon = treeResources.getImage("unchecked" + (this.disabled ? "Disabled" : "") + ".gif");
+  var hidden = document.getElementById(this.treeHiddenId);
+
+  if (this.expanded) {
+    hidden = document.getElementById(this.treeHiddenId);
+    var regex = new RegExp(";" + nodeStateId(this) + ";");
+    if (! hidden.value.match(regex)) {
+      hidden.value = hidden.value + nodeStateId(this) + ";" ;
     }
-    if (!this.disabled) {
-      markIconOnClick
-          = 'onclick="toggleSelect(this.parentNode, \'' + treeHiddenId
-              + '\', \'' + treeResources.getImage("unchecked.gif")
-              + '\', \'' + treeResources.getImage("checked.gif")
-              + '\')"';
+  }
+
+  this.add = function (node) {
+  	node.parentNode = this;
+  	this.childNodes[this.childNodes.length] = node;
+  	return node;
+  };
+
+  var iconOnClickFunction = '';
+  var markIcon = '';
+  var markIconOnClickFunction = '';
+  if (selectable) {
+    if (selectable.match(/LeafOnly$/) && isFolder) {
+      markIcon = treeResources.getImage("1x1.gif");
+    } else {
+      if (selected) {
+        markIcon = treeResources.getImage("checked" + (this.disabled ? "Disabled" : "") + ".gif");
+      } else {
+        markIcon = treeResources.getImage("unchecked" + (this.disabled ? "Disabled" : "") + ".gif");
+      }
+      if (!this.disabled) {
+        markIconOnClickFunction
+            = 'onclick="toggleSelect(this.parentNode, \'' + treeHiddenId
+                + '\', \'' + treeResources.getImage("unchecked.gif")
+                + '\', \'' + treeResources.getImage("checked.gif")
+                + '\')"';
+      }
     }
   }
   if (marked) {
     storeMarker(this, treeHiddenId);
   }
 
-  this.add = function (node) {
-  };
+  var actualIcon = (this.expanded ? this.openIcon : this.icon) ;
 
-  this.toString = function (depth, last) { // merge with folder...
+  this.toString = function (depth, last) {
+    if (!depth) depth = 0;
+
     var str = '';
-    str += '<div id="' + this.id + '" class="tree-item">'; // XXX or mark this?!
-    str += this.indent(depth, last);
-    if (! this.hideJunctions
-        && ! (this.hideRootJunction && this.hideRoot && depth == 1)) {
-      str += '<img class="tree-junction" id="' + this.id
-          + '-junction" src="' + ((last)
-            ? treeResources.getImage("L.gif")
-            : treeResources.getImage("T.gif"))
-          + '" alt="">';
-    } else if (( !this.hideRoot && depth >0 ) || (this.hideRoot && depth > 1)) {
-      str += '<img class="tree-junction" id="' + this.id
-          + '-junction" src="' + treeResources.getImage("blank.gif")
-          + '" alt="">';
-    }
-    if (! this.hideIcons) {
-      str += '<img class="tree-icon" id="' + this.id
-//          + '-icon" src="' + this.icon + '" ' + iconOnClick + ' alt="">';
-          + '-icon" src="' + treeResources.getImage("new.gif") + '" ' + iconOnClick + ' alt="">';
-    }
-    if (selectable) {
-      str += '<img class="tree-icon" id="' + this.id
-          + '-markIcon" src="' + markIcon + '" ' + markIconOnClick + ' alt="">';
-    }
-    var itemStyle = "tree-item-label";
-    if (this.disabled) {
-      itemStyle += " tree-item-label-disabled";
-    }
-    if (this.marked) {
-      itemStyle += " tree-item-marker";
-    }
-    if (this.action && !this.disabled) {
-      str += '<a class="' + itemStyle + '" href="' + this.action + '" id="'
-        + this.id + '-anchor">' + this.label + '</a>';
-    } else {
-    // TODO: mozilla shoud use href="javascript:;" and ie href="#"
-      str += '<a class="' + itemStyle + '"';
-      if (!this.disabled) {
-          str += ' href="#"' + ' onclick="' + this.onclick + '"'
-              + ' onfocus="' + this.onfocus + '"';
+    if (! this.hideRoot || depth > 0) {
+      str += '<div id="' + this.id + '" class="tree-item">';
+      str += this.indent(depth, last);
+      if (!(   this.hideJunctions
+            || this.hideRootJunction && depth == 0
+            || this.hideRootJunction && this.hideRoot && depth == 1)) {
+        str += '<img class="tree-junction" id="' + this.id
+            + '-junction" src="' + (this.expanded
+              ? ((depth == 0)
+                ? treeResources.getImage("Rminus.gif")
+                : (last)
+                  ? treeResources.getImage("Lminus.gif")
+                  : treeResources.getImage("Tminus.gif"))
+              : ((depth == 0)
+                ? treeResources.getImage("Rplus.gif")
+                : (last)
+                  ? treeResources.getImage(isFolder ? "Lplus.gif" : "L.gif")
+                  : treeResources.getImage(isFolder ? "Tplus.gif" : "T.gif"))
+              )
+            + '" onclick="toggle(this.parentNode, \'' + treeHiddenId
+            + '\', \'' + treeResources.getImage("openfoldericon.gif")
+            + '\', \'' + treeResources.getImage("foldericon.gif")
+            + '\')"'
+            + ' alt="">';
+      } else if (( !this.hideRoot && depth >0 ) || (this.hideRoot && depth > 1)) {
+        str += '<img class="tree-junction" id="' + this.id
+            + '-junction" src="' + treeResources.getImage("blank.gif")
+            + '" alt="">';
       }
-      str += '>'
-          + this.label + '</a>';
+      if (! this.hideIcons) {
+        if (isFolder) {
+          str += '<img class="tree-icon" id="' + this.id
+              + '-icon" src="' + actualIcon + '"'
+              + ' onclick="' + iconOnClickFunction + '(this.parentNode, \'' + treeHiddenId
+              + '\', \'' + treeResources.getImage("openfoldericon.gif")
+              + '\', \'' + treeResources.getImage("foldericon.gif")
+              + '\')"'
+              + ' alt="">';
+        } else {
+          str += '<img class="tree-icon" id="' + this.id
+              + '-icon" src="' + treeResources.getImage("new.gif") + '" ' + iconOnClickFunction + ' alt="">';
+        }
+      }
+      if (selectable) {
+        str += '<img class="tree-icon" id="' + this.id
+            + '-markIcon" src="' + markIcon + '" ' + markIconOnClickFunction + ' alt="">';
+      }
+      var itemStyle = isFolder ? "tree-folder-label" : "tree-item-label";
+      if (this.disabled) {
+        itemStyle += isFolder ? " tree-folder-label-disabled" : " tree-item-label-disabled";
+      }
+      if (this.marked) {
+        itemStyle += " tree-item-marker";
+      }
+      if (this.action && !this.disabled) {
+        str += '<a class="' + itemStyle + '" href="' + this.action + '" id="'
+          + this.id + '-anchor">' + this.label + '</a>';
+      } else {
+      // TODO: mozilla shoud use href="javascript:;" and ie href="#"
+        str += '<a class="' + itemStyle + '"';
+        if (!this.disabled) {
+            str += ' href="#"' + ' onclick="' + this.onclick + '"'
+                + ' onfocus="' + this.onfocus + '"';
+        }
+        str += '>'
+            + this.label + '</a>';
+      }
+      str += '</div>';
     }
-    str += '</div>';
+    if (isFolder) {
+      str += '<div id="' + this.id
+          + '-cont" class="tree-container" style="display: '
+          + (this.expanded ? 'block' : 'none') + ';">';
+      for (var i=0; i<this.childNodes.length; ++i) {
+        var lastChild = i+1 == this.childNodes.length;
+        var n = this.childNodes[i];
+        str += n.toString(depth+1, lastChild);
+      }
+      str += '</div>';
+    }
+
     return str;
   };
 
@@ -435,9 +496,14 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
 
   this.initSelection = function() {
     if (this.selected) {
-      var selectState = document.getElementById(treeHiddenId + '-selectState');
+      var selectState = document.getElementById(this.treeHiddenId + '-selectState');
       if (selectState) {
         selectState.value = selectState.value + nodeStateId(this) + ";";
+      }
+    }
+    if (this.childNodes) {
+      for (var i=0; i<this.childNodes.length; i++) {
+        this.childNodes[i].initSelection();
       }
     }
   };
@@ -450,166 +516,6 @@ function TreeNode(label, id, hideIcons, hideJunctions, hideRootJunction,
     return (this.childNodes && this.childNodes.length > 0);
   }
 }
-
-function TreeFolder(label, id, hideIcons, hideJunctions, hideRootJunction,
-    hideRoot, treeHiddenId, selectable, mutable, formId, selected, marked,
-    expanded, required, disabled, treeResources, action, parent, icon, openIcon) {
-	this.base = TreeNode;
-	this.base(label, id, hideIcons, hideJunctions, hideRootJunction,
-	    hideRoot, treeHiddenId, selectable, mutable, formId, selected, marked,
-      required, disabled, treeResources, action, parent, icon);
-  this.open = false;
-  this.expanded = expanded;
-
-
-  if (this.expanded) {
-    var hidden = document.getElementById(this.treeHiddenId);
-    var regex = new RegExp(";" + nodeStateId(this) + ";");
-    if (! hidden.value.match(regex)) {
-      hidden.value = hidden.value + nodeStateId(this) + ";" ;
-    }
-  }
-
-  this.icon = icon
-      || treeResources.getImage("foldericon.gif");
-  this.openIcon = openIcon
-      || treeResources.getImage("openfoldericon.gif");
-
-  this.add = function (node) {
-  	node.parentNode = this;
-  	this.childNodes[this.childNodes.length] = node;
-  	return node;
-  };
-
-  this.toString = function (depth, last) {
-    if (!depth) depth = 0;
-    var hidden = document.getElementById(this.treeHiddenId);
-//    var isOpen
-//        = hidden.value.indexOf(";" + nodeStateId(this) + ";", 0) > -1
-//      || depth == 0 && this.hideRoot; // don't close a hidden root!
-    var str = '';
-    var iconOnClickFunction = '';
-    var actualIcon = '';
-    var markIcon = '';
-    var markIconOnClickFunction = '';
-    if (selectable) {
-      if (selectable.match(/LeafOnly$/)) {
-        markIcon = treeResources.getImage("1x1.gif");
-      } else {
-        if (selected) {
-          markIcon = treeResources.getImage("checked" + this.disabled ? "Disabled" : "" + ".gif");
-        } else {
-          markIcon = treeResources.getImage("unchecked" + this.disabled ? "Disabled" : "" + ".gif");
-        }
-        if (!this.disabled) {
-          markIconOnClickFunction
-              = 'onclick="toggleSelect(this.parentNode, \'' + treeHiddenId
-                + '\', \'' + treeResources.getImage("unchecked.gif")
-                + '\', \'' + treeResources.getImage("checked.gif")
-                + '\')"';
-        }
-      }
-    }
-
-    actualIcon = (this.expanded ? this.openIcon : this.icon) ;
-    iconOnClickFunction = "toggle";
-
-
-    if (! this.hideRoot || depth > 0) {
-      str += '<div id="' + this.id + '" class="tree-item">';
-      str += this.indent(depth, last);
-      if (!(   this.hideJunctions
-            || this.hideRootJunction && depth == 0
-            || this.hideRootJunction && this.hideRoot && depth == 1)) {
-        str += '<img class="tree-junction" id="' + this.id
-            + '-junction" src="' + (this.expanded
-              ? ((depth == 0)
-                ? treeResources.getImage("Rminus.gif")
-                : (last)
-                  ? treeResources.getImage("Lminus.gif")
-                  : treeResources.getImage("Tminus.gif"))
-              : ((depth == 0)
-                ? treeResources.getImage("Rplus.gif")
-                : (last)
-                  ? treeResources.getImage("Lplus.gif")
-                  : treeResources.getImage("Tplus.gif"))
-              )
-            + '" onclick="toggle(this.parentNode, \'' + treeHiddenId
-            + '\', \'' + treeResources.getImage("openfoldericon.gif")
-            + '\', \'' + treeResources.getImage("foldericon.gif")
-            + '\')"'
-            + ' alt="">';
-      } else if (( !this.hideRoot && depth >0 ) || (this.hideRoot && depth > 1)) {
-        str += '<img class="tree-junction" id="' + this.id
-            + '-junction" src="' + treeResources.getImage("blank.gif")
-            + '" alt="">';
-    }
-      if (! this.hideIcons) {
-        str += '<img class="tree-icon" id="' + this.id
-            + '-icon" src="' + actualIcon + '"'
-            + ' onclick="' + iconOnClickFunction + '(this.parentNode, \'' + treeHiddenId
-            + '\', \'' + treeResources.getImage("openfoldericon.gif")
-            + '\', \'' + treeResources.getImage("foldericon.gif")
-            + '\')"'
-            + ' alt="">';
-      }
-      if (selectable) {
-        str += '<img class="tree-icon" id="' + this.id
-            + '-markIcon" src="' + markIcon + '" ' + markIconOnClickFunction + ' alt="">';
-      }
-      var itemStyle = "tree-folder-label";
-
-      if (this.disabled) {
-        itemStyle += " tree-folder-label-disabled";
-      }
-      if (this.marked) {
-        itemStyle += " tree-item-marker";
-      }
-      if (this.action && !this.disabled) {
-        str += '<a class="' + itemStyle + '" href="' + this.action + '" id="'
-        + this.id + '-anchor">' + this.label + '</a>';
-      } else {
-    // TODO: mozilla shoud use href="javascript:;" and ie href="#"
-        str += '<a class="' + itemStyle + '"';
-        if (!this.disabled) {
-            str += ' href="#"' + ' onclick="' + this.onclick + '"'
-                + ' onfocus="' + this.onfocus + '"';
-        }
-        str += '>'
-            + this.label + '</a>';
-      }
-      str += '</div>';
-    }
-    str += '<div id="' + this.id
-        + '-cont" class="tree-container" style="display: '
-        + (this.expanded ? 'block' : 'none') + ';">';
-    for (var i=0; i<this.childNodes.length; ++i) {
-      var lastChild = i+1 == this.childNodes.length;
-      var n = this.childNodes[i];
-      str += n.toString(depth+1, lastChild);
-    }
-    str += '</div>';
-
-    return str;
-  };
-
-
-
-  this.initSelection = function() {
-    if (this.selected) {
-      var selectState = document.getElementById(this.treeHiddenId + '-selectState');
-      if (selectState) {
-        selectState.value = selectState.value + nodeStateId(this) + ";" ;
-      }
-    }
-
-    for (var i=0; i<this.childNodes.length; ++i) {
-      this.childNodes[i].initSelection();
-    }
-  };
-}
-
-TreeFolder.prototype = new TreeNode;
 
 // //////////////////////////////////////////////////  listTree
 
