@@ -35,7 +35,7 @@ public class SalutationConverter implements Converter {
 
   public String getAsString(FacesContext context, UIComponent component, Object value) throws ConverterException {
     if (value instanceof Salutation) {
-      return ((Salutation)value).getKey();
+      return ((Salutation) value).getKey();
     }
     return "";
   }

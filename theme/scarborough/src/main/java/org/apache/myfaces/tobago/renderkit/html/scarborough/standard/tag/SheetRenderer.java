@@ -75,7 +75,6 @@ import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import static org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.SheetPageCommandRenderer.PAGE_RENDERER_TYPE;
 import org.apache.myfaces.tobago.util.StringUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -1040,7 +1039,7 @@ public class SheetRenderer extends RendererBase
                                                PageAction command, boolean disabled) {
     UICommand link;
     link = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
-    link.setRendererType(PAGE_RENDERER_TYPE);
+    link.setRendererType(SheetPageCommandRenderer.PAGE_RENDERER_TYPE);
     link.setRendered(true);
     link.setId(command.getToken());
 //    link.getAttributes().put(ATTR_ACTION_STRING, command);

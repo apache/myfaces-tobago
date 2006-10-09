@@ -52,7 +52,7 @@ public class CalendarRenderer extends RendererBase {
   private static final Log LOG = LogFactory.getLog(CalendarRenderer.class);
 
 
-  private static final String[] scripts = {
+  private static final String[] SCRIPTS = {
         "script/calendar.js",
         "script/dateConverter.js"
     };
@@ -62,7 +62,7 @@ public class CalendarRenderer extends RendererBase {
       UIComponent component) throws IOException {
     UIOutput output = (UIOutput) component;
     UIPage page = ComponentUtil.findPage(output);
-    for (String script : scripts) {
+    for (String script : SCRIPTS) {
       page.getScriptFiles().add(script);      
     }
 
@@ -126,7 +126,8 @@ public class CalendarRenderer extends RendererBase {
     writer.startElement(HtmlConstants.IMG, null);
     writer.writeClassAttribute("tobago-calendar-header");
     writer.writeAttribute(HtmlAttributes.ALT, "", null);
-    writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getImageWithPath(facesContext, "image/calendarPrev.gif"), null);
+    writer.writeAttribute(HtmlAttributes.SRC,
+        ResourceManagerUtil.getImageWithPath(facesContext, "image/calendarPrev.gif"), null);
     writer.writeAttribute(HtmlAttributes.ONCLICK, "addMonth('" + id + "', -1)", null);
     writer.endElement(HtmlConstants.IMG);
     writer.endElement(HtmlConstants.TD);
@@ -143,7 +144,8 @@ public class CalendarRenderer extends RendererBase {
     writer.startElement(HtmlConstants.IMG, null);
     writer.writeClassAttribute("tobago-calendar-header");
     writer.writeAttribute(HtmlAttributes.ALT, "", null);
-    writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getImageWithPath(facesContext, "image/calendarNext.gif"), null);
+    writer.writeAttribute(HtmlAttributes.SRC,
+        ResourceManagerUtil.getImageWithPath(facesContext, "image/calendarNext.gif"), null);
     writer.writeAttribute(HtmlAttributes.ONCLICK, "addMonth('" + id + "', 1)", null);
     writer.endElement(HtmlConstants.IMG);
     writer.endElement(HtmlConstants.TD);
@@ -229,7 +231,7 @@ public class CalendarRenderer extends RendererBase {
             ? "initCalendarParse('" + id + "', '" + dateTextBoxId + "');"
             : ""
     };
-    HtmlRendererUtil.writeScriptLoader(facesContext, scripts, cmd);
+    HtmlRendererUtil.writeScriptLoader(facesContext, SCRIPTS, cmd);
   }
   
   private void writeInputHidden(TobagoResponseWriter writer,
