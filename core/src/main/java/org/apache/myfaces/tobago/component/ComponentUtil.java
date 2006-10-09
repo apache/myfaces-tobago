@@ -270,11 +270,13 @@ public class ComponentUtil {
       return (Boolean) bool;
     } else if (bool instanceof String) {
       LOG.warn("Searching for a boolean, but find a String. Should not happen. "
-          + "attribute: '" + name + "' id: '" + component.getClientId(FacesContext.getCurrentInstance()) + "' comp: '" + component + "'");
+          + "attribute: '" + name + "' id: '" + component.getClientId(FacesContext.getCurrentInstance())
+          + "' comp: '" + component + "'");
       return Boolean.getBoolean((String) bool);
     } else {
       LOG.warn("Unknown type '" + bool.getClass().getName()
-          + "' for boolean attribute: " + name + " id: " + component.getClientId(FacesContext.getCurrentInstance()) + " comp: " + component);
+          + "' for boolean attribute: " + name + " id: " + component.getClientId(FacesContext.getCurrentInstance())
+          + " comp: " + component);
       return false;
     }
   }

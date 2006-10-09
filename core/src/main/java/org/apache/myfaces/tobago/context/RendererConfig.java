@@ -16,13 +16,18 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
+import java.io.Serializable;
+
 /*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: Sep 25, 2006
  * Time: 10:54:19 AM
  */
-public class RendererConfig {
+public class RendererConfig implements Serializable {
+
+  private static final long serialVersionUID = 1L;
+
   private String name;
   private MarkupConfig markupConfig;
 

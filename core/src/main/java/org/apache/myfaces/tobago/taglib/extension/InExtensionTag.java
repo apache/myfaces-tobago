@@ -39,16 +39,18 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 /**
  * Renders a text input field with a label.
  * Short syntax of:
- * <br />
- * <code>&lt;tc:panel&gt;</code><br />
-   <code>  &lt;f:facet name="layout"&gt;</code><br />
-   <code>    &lt;tc:gridLayout columns="fixed;*"/&gt;</code><br />
-   <code>  &lt;/f:facet&gt;</code><br />
-   <code>  &lt;tc:label value="#{label}" for="&amp;auto"/&gt;</code><br />
-   <code>  &lt;tc:in value="#{value}" &gt;</code><br />
-   <code>   .....</code><br />
-   <code>  &lt;/tc:in&gt;</code><br />
-   <code>&lt;/tc:panel&gt;</code><br />
+ * <p /><blockquote><pre>
+   &lt;tc:panel&gt;
+     &lt;f:facet name="layout"&gt;
+       &lt;tc:gridLayout columns="fixed;*"/&gt;
+     &lt;/f:facet&gt;
+     &lt;tc:label value="#{label}" for="&amp;auto"/&gt;
+     &lt;tc:in value="#{value}" &gt;
+      .....
+     &lt;/tc:in&gt;
+   &lt;/tc:panel&gt;
+   </pre></blockquote>
+
  */
 
 @Tag(name = "in")

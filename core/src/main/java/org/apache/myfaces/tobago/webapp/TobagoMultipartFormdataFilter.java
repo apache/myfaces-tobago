@@ -50,7 +50,8 @@ import java.io.File;
       &lt;param-value&gt;20m&lt;/param-value&gt;
     &lt;/init-param&gt;
     &lt;init-param&gt;
-      &lt;description&gt;Set the upload repository path for uploaded files. Default value is java.io.tmpdir.&lt;/description&gt;
+      &lt;description&gt;Set the upload repository path for uploaded files.
+             Default value is java.io.tmpdir.&lt;/description&gt;
       &lt;param-name&gt;uploadRepositoryPath&lt;/param-name&gt;
       &lt;param-value&gt;/tmp&lt;/param-value&gt;
     &lt;/init-param&gt;
@@ -80,7 +81,7 @@ public class TobagoMultipartFormdataFilter implements Filter {
     if (repositoryPath != null) {
       File file = new File(repositoryPath);
       if (!file.exists()) {
-        LOG.error("Given repository Path for " + getClass().getName() + " " + repositoryPath + " doesn't exists" );
+        LOG.error("Given repository Path for " + getClass().getName() + " " + repositoryPath + " doesn't exists");
       } else if (!file.isDirectory()) {
         LOG.error("Given repository Path for " + getClass().getName() + " " + repositoryPath + " is not a directory");
       } else {

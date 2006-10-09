@@ -1,7 +1,5 @@
 package org.apache.myfaces.tobago.context;
 
-import java.util.Collection;
-
 /*
  * Copyright 2002-2005 The Apache Software Foundation.
  *

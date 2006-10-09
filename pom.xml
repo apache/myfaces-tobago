@@ -182,22 +182,26 @@
           <configLocation>org/apache/myfaces/tobago/checkstyle.xml</configLocation>
           <xrefLocation>xref</xrefLocation>
           <excludes>**/package-info.java</excludes>
+          <sourceEncoding>utf-8</sourceEncoding>
+          <minimumTokens>100</minimumTokens>
+          <targetJdk>1.5</targetJdk>
         </configuration>
       </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <!--<version>2.1</version>-->
         <configuration>
           <!--<aggregate>true</aggregate>-->
           <links>
             <link>http://java.sun.com/j2se/1.5.0/docs/api</link>
             <link>http://java.sun.com/j2ee/1.4/docs/api</link>
             <link>http://java.sun.com/javaee/javaserverfaces/1.1_01/docs/api</link>
-            <link>http://jakarta.apache.org/commons/collections/api-3.1/</link>
+            <link>http://jakarta.apache.org/commons/collections/api-${commons-collection.version}/</link>
             <link>http://jakarta.apache.org/commons/lang/api-${common-lang.version}/</link>
             <link>http://jakarta.apache.org/commons/fileupload/apidocs</link>
-            <link>http://jakarta.apache.org/commons/digester/commons-digester-1.7/docs/api/</link>
+            <link>http://jakarta.apache.org/commons/digester/commons-digester-${commons-digester.version}/docs/api/</link>
             <link>http://jakarta.apache.org/commons/io/api-${common-io.version}/</link>
             <link>http://jakarta.apache.org/commons/logging/commons-logging-${commons-logging.version}/docs/apidocs/</link>
             <link>http://www.junit.org/junit/javadoc/</link>
@@ -223,6 +227,9 @@
         <version>2.0-beta-2</version>
         <reportSets>
           <reportSet>
+            <configuration>
+              <statusIds>Open,In Progress,Reopened</statusIds>
+            </configuration>
             <reports>
               <report>jira-report</report>
             </reports>
@@ -253,13 +260,13 @@
       </plugin>
 -->
 
-      <!--<plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>clirr-maven-plugin</artifactId>
         <configuration>
           <minSeverity>info</minSeverity>
         </configuration>
-      </plugin>-->
+      </plugin>
 
       <!-- pmd has problems with annotations -->
       <plugin>
@@ -300,6 +307,14 @@
          <artifactId>jdepend-maven-plugin</artifactId>
        </plugin>
 
+      <!-- http://jira.codehaus.org/browse/MJNCSS-4
+        javancss has problems with annotations
+       <plugin>
+	       <groupId>org.codehaus.mojo</groupId>
+	       <artifactId>javancss-maven-plugin</artifactId>
+		     <version>2.0-beta-1</version>
+       </plugin>-->
+
     </plugins>
 
   </reporting>
@@ -324,7 +339,7 @@
       <dependency>
         <groupId>commons-collections</groupId>
         <artifactId>commons-collections</artifactId>
-        <version>3.1</version>
+        <version>${commons-collection.version}</version>
       </dependency>
       <dependency>
         <groupId>commons-logging</groupId>
@@ -334,7 +349,7 @@
       <dependency>
         <groupId>commons-digester</groupId>
         <artifactId>commons-digester</artifactId>
-        <version>1.7</version>
+        <version>${commons-digester.version}</version>
       </dependency>
       <dependency>
         <groupId>commons-fileupload</groupId>
@@ -606,5 +621,7 @@
     <common-io.version>1.1</common-io.version>
     <common-lang.version>2.1</common-lang.version>
     <commons-logging.version>1.0.4</commons-logging.version>
+    <commons-digester.version>1.7</commons-digester.version>
+    <commons-collection.version>3.1</commons-collection.version>
   </properties>
 </project>

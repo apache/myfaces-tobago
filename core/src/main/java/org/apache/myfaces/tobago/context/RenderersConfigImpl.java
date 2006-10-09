@@ -22,17 +22,21 @@ import org.apache.commons.logging.LogFactory;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Collection;
+import java.io.Serializable;
+
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
- * Date: Sep 24, 2006
- * Time: 3:46:11 PM
- */
-public class RenderersConfigImpl implements RenderersConfig {
+* Created by IntelliJ IDEA.
+* User: bommel
+* Date: Sep 24, 2006
+* Time: 3:46:11 PM
+*/
+public class RenderersConfigImpl implements RenderersConfig, Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   private static final Log LOG = LogFactory.getLog(RenderersConfigImpl.class);
 
-  private Map<String,RendererConfig> renderer = new HashMap<String,RendererConfig>();
+  private Map<String, RendererConfig> renderer = new HashMap<String, RendererConfig>();
 
   private boolean merged = false;
 
