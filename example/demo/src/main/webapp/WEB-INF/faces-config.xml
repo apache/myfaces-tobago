@@ -224,13 +224,13 @@
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
-  <navigation-rule>
+  <!--<navigation-rule>
     <from-view-id>/tobago-module-client/clientConfig.jsp</from-view-id>
     <navigation-case>
       <from-action>#{clientConfigController.submit}</from-action>
       <to-view-id>/tobago-module-client/clientConfig.jsp</to-view-id>
     </navigation-case>
-  </navigation-rule>
+  </navigation-rule>-->
 
   <managed-bean>
     <managed-bean-name>clientConfigController2</managed-bean-name>
