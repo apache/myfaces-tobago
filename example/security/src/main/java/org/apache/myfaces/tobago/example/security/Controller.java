@@ -1,10 +1,5 @@
 package org.apache.myfaces.tobago.example.security;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
-import javax.annotation.security.RolesAllowed;
-import javax.annotation.security.PermitAll;
-
 /*
  * Copyright 2004-2006 The Apache Software Foundation.
  *
@@ -20,6 +15,13 @@ import javax.annotation.security.PermitAll;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+import javax.annotation.security.RolesAllowed;
+import javax.annotation.security.PermitAll;
+
+
 @PermitAll()
 public class Controller {
 

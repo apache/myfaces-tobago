@@ -3,7 +3,7 @@ package org.apache.myfaces.tobago.example.test;
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
  *
- * Licensed under the Apache License, Version 2.0(the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -54,7 +54,7 @@ public class TestBean {
 
     try {
       //Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
-      Class.forName("org.hsqldb.jdbcDriver" ).newInstance();
+      Class.forName("org.hsqldb.jdbcDriver").newInstance();
       LOG.info("Loaded the appropriate driver.");
 
       //Properties props = new Properties();

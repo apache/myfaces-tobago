@@ -32,7 +32,7 @@ public class MessageBackingBean {
   }
 
   public SelectItem [] getSelectionItems() {
-    SelectItem items [] = new SelectItem[2];
+    SelectItem [] items  = new SelectItem[2];
     items[0] = new SelectItem("One", "One");
     items[1] = new SelectItem("Two", "Two");
     return items;

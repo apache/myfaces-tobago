@@ -45,7 +45,7 @@ import java.lang.annotation.Annotation;
  */
 public class CheckAuthorisationMethodBinding extends MethodBinding implements StateHolder {
   private static final Log LOG = LogFactory.getLog(CheckAuthorisationMethodBinding.class);
-  private static final Map<String,Annotation> authorisationCache = new HashMap<String,Annotation>();
+  private static final Map<String, Annotation> AUTHORISATION_CACHE = new HashMap<String, Annotation>();
 
   private MethodBinding methodBinding;
 
@@ -65,7 +65,7 @@ public class CheckAuthorisationMethodBinding extends MethodBinding implements St
   }
 
   public Object invoke(FacesContext facesContext, Object[] objects)
-      throws EvaluationException, MethodNotFoundException {
+      throws EvaluationException {
     if (LOG.isDebugEnabled()) {
       LOG.debug("MethodBinding invoke " + getExpressionString());
     }
@@ -93,9 +93,9 @@ public class CheckAuthorisationMethodBinding extends MethodBinding implements St
       return false;
     }
     if (securityAnnotation instanceof RolesAllowed) {
-      String [] roles = ((RolesAllowed)securityAnnotation).value();
+      String [] roles = ((RolesAllowed) securityAnnotation).value();
       if (LOG.isDebugEnabled()) {
-        LOG.debug("RolesAllowed " + Arrays.asList(((RolesAllowed)securityAnnotation).value()));
+        LOG.debug("RolesAllowed " + Arrays.asList(((RolesAllowed) securityAnnotation).value()));
       }
       for (String role : roles) {
         boolean authorised = facesContext.getExternalContext().isUserInRole(role);
@@ -115,8 +115,8 @@ public class CheckAuthorisationMethodBinding extends MethodBinding implements St
   }
   private Annotation getSecurityAnnotation(FacesContext facesContext) {
     String expression = getExpressionString();
-    if (authorisationCache.containsKey(expression)) {
-      return authorisationCache.get(expression);
+    if (AUTHORISATION_CACHE.containsKey(expression)) {
+      return AUTHORISATION_CACHE.get(expression);
     } else {
       Annotation securityAnnotation = null;
       if (expression.startsWith("#{") && expression.endsWith("}")) {
@@ -126,7 +126,8 @@ public class CheckAuthorisationMethodBinding extends MethodBinding implements St
           String methodExpression = expression.substring(index+1, expression.length());
           String beanExpression = expression.substring(0, index);
           // TODO find a better way
-          Object bean = facesContext.getApplication().getVariableResolver().resolveVariable(facesContext, beanExpression);
+          Object bean =
+              facesContext.getApplication().getVariableResolver().resolveVariable(facesContext, beanExpression);
           if (bean != null) {
             try {
               Method method = bean.getClass().getMethod(methodExpression);
@@ -140,7 +141,7 @@ public class CheckAuthorisationMethodBinding extends MethodBinding implements St
           }
         }
       }
-      authorisationCache.put(expression, securityAnnotation);
+      AUTHORISATION_CACHE.put(expression, securityAnnotation);
       return securityAnnotation;
     }
   }
@@ -177,7 +178,7 @@ public class CheckAuthorisationMethodBinding extends MethodBinding implements St
 
   public void setTransient(boolean bool) {
     if (methodBinding instanceof StateHolder) {
-      ((StateHolder)methodBinding).setTransient(bool);
+      ((StateHolder) methodBinding).setTransient(bool);
     }
   }
 }
