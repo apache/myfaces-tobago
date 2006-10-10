@@ -337,7 +337,6 @@ function TreeNode(label, id, isFolder,
 //	this.ondblclick = "toggle(this.parentNode, '" + treeHiddenId + "')";
 
   var hidden = document.getElementById(this.treeHiddenId);
-
   if (this.expanded) {
     hidden = document.getElementById(this.treeHiddenId);
     var regex = new RegExp(";" + nodeStateId(this) + ";");
@@ -346,40 +345,16 @@ function TreeNode(label, id, isFolder,
     }
   }
 
-  this.add = function (node) {
-  	node.parentNode = this;
-  	this.childNodes[this.childNodes.length] = node;
-  	return node;
-  };
-
-  var iconOnClickFunction = '';
-  var markIcon = '';
-  var markIconOnClickFunction = '';
-  if (selectable) {
-    if (selectable.match(/LeafOnly$/) && isFolder) {
-      markIcon = treeResources.getImage("1x1.gif");
-    } else {
-      if (selected) {
-        markIcon = treeResources.getImage("checked" + (this.disabled ? "Disabled" : "") + ".gif");
-      } else {
-        markIcon = treeResources.getImage("unchecked" + (this.disabled ? "Disabled" : "") + ".gif");
-      }
-      if (!this.disabled) {
-        markIconOnClickFunction
-            = 'onclick="toggleSelect(this.parentNode, \'' + treeHiddenId
-                + '\', \'' + treeResources.getImage("unchecked.gif")
-                + '\', \'' + treeResources.getImage("checked.gif")
-                + '\')"';
-      }
-    }
-  }
   if (marked) {
     storeMarker(this, treeHiddenId);
   }
 
-  var actualIcon = (this.expanded ? this.openIcon : this.icon) ;
+	if (parent) {
+	  parent.add(this);
+	}
+}
 
-  this.toString = function (depth, last) {
+TreeNode.prototype.toString = function (depth, last) {
     if (!depth) depth = 0;
 
     var str = '';
@@ -392,47 +367,66 @@ function TreeNode(label, id, isFolder,
         str += '<img class="tree-junction" id="' + this.id
             + '-junction" src="' + (this.expanded
               ? ((depth == 0)
-                ? treeResources.getImage("Rminus.gif")
+                ? this.treeResources.getImage("Rminus.gif")
                 : (last)
-                  ? treeResources.getImage("Lminus.gif")
-                  : treeResources.getImage("Tminus.gif"))
+                  ? this.treeResources.getImage("Lminus.gif")
+                  : this.treeResources.getImage("Tminus.gif"))
               : ((depth == 0)
-                ? treeResources.getImage("Rplus.gif")
+                ? this.treeResources.getImage("Rplus.gif")
                 : (last)
-                  ? treeResources.getImage(isFolder ? "Lplus.gif" : "L.gif")
-                  : treeResources.getImage(isFolder ? "Tplus.gif" : "T.gif"))
+                  ? this.treeResources.getImage(this.isFolder ? "Lplus.gif" : "L.gif")
+                  : this.treeResources.getImage(this.isFolder ? "Tplus.gif" : "T.gif"))
               )
-            + '" onclick="toggle(this.parentNode, \'' + treeHiddenId
-            + '\', \'' + treeResources.getImage("openfoldericon.gif")
-            + '\', \'' + treeResources.getImage("foldericon.gif")
+            + '" onclick="toggle(this.parentNode, \'' + this.treeHiddenId
+            + '\', \'' + this.treeResources.getImage("openfoldericon.gif")
+            + '\', \'' + this.treeResources.getImage("foldericon.gif")
             + '\')"'
             + ' alt="">';
       } else if (( !this.hideRoot && depth >0 ) || (this.hideRoot && depth > 1)) {
         str += '<img class="tree-junction" id="' + this.id
-            + '-junction" src="' + treeResources.getImage("blank.gif")
+            + '-junction" src="' + this.treeResources.getImage("blank.gif")
             + '" alt="">';
       }
       if (! this.hideIcons) {
-        if (isFolder) {
-          str += '<img class="tree-icon" id="' + this.id
-              + '-icon" src="' + actualIcon + '"'
-              + ' onclick="' + iconOnClickFunction + '(this.parentNode, \'' + treeHiddenId
-              + '\', \'' + treeResources.getImage("openfoldericon.gif")
-              + '\', \'' + treeResources.getImage("foldericon.gif")
+        if (this.isFolder) {
+          str += '<img class="tree-icon" id="' + this.id + '-icon" '
+              + 'src="' + (this.expanded ? this.openIcon : this.icon) + ' " '
+              + 'onclick="toggle(this.parentNode, \'' + this.treeHiddenId
+              + '\', \'' + this.treeResources.getImage("openfoldericon.gif")
+              + '\', \'' + this.treeResources.getImage("foldericon.gif")
               + '\')"'
               + ' alt="">';
         } else {
           str += '<img class="tree-icon" id="' + this.id
-              + '-icon" src="' + treeResources.getImage("new.gif") + '" ' + iconOnClickFunction + ' alt="">';
+              + '-icon" src="' + this.treeResources.getImage("new.gif") + '" alt="">';
         }
       }
-      if (selectable) {
+      if (this.selectable) {
+        var markIcon = '';
+        var markIconOnClickFunction = '';
+        if (this.selectable.match(/LeafOnly$/) && this.isFolder) {
+          markIcon = this.treeResources.getImage("1x1.gif");
+        } else {
+          if (selected) {
+            markIcon = this.treeResources.getImage("checked" + (this.disabled ? "Disabled" : "") + ".gif");
+          } else {
+            markIcon = this.treeResources.getImage("unchecked" + (this.disabled ? "Disabled" : "") + ".gif");
+          }
+          if (!this.disabled) {
+            markIconOnClickFunction
+                = 'onclick="toggleSelect(this.parentNode, \'' + treeHiddenId
+                + '\', \'' + this.treeResources.getImage("unchecked.gif")
+                + '\', \'' + this.treeResources.getImage("checked.gif")
+                + '\')"';
+          }
+        }
+
         str += '<img class="tree-icon" id="' + this.id
             + '-markIcon" src="' + markIcon + '" ' + markIconOnClickFunction + ' alt="">';
       }
-      var itemStyle = isFolder ? "tree-folder-label" : "tree-item-label";
+      var itemStyle = this.isFolder ? "tree-folder-label" : "tree-item-label";
       if (this.disabled) {
-        itemStyle += isFolder ? " tree-folder-label-disabled" : " tree-item-label-disabled";
+        itemStyle += this.isFolder ? " tree-folder-label-disabled" : " tree-item-label-disabled";
       }
       if (this.marked) {
         itemStyle += " tree-item-marker";
@@ -452,7 +446,7 @@ function TreeNode(label, id, isFolder,
       }
       str += '</div>';
     }
-    if (isFolder) {
+    if (this.isFolder) {
       str += '<div id="' + this.id
           + '-cont" class="tree-container" style="display: '
           + (this.expanded ? 'block' : 'none') + ';">';
@@ -467,55 +461,56 @@ function TreeNode(label, id, isFolder,
     return str;
   };
 
-  // is the node the last child of its paranet?
-  this.isLast = function() {
-    if (!this.parentNode) return true;
-    var siblings = this.parentNode.childNodes;
-    if (siblings.length == 0) return true;
-    return (this == siblings[siblings.length-1]);
-  };
+// is the node the last child of its paranet?
+TreeNode.prototype.isLast = function() {
+  if (!this.parentNode) return true;
+  var siblings = this.parentNode.childNodes;
+  if (siblings.length == 0) return true;
+  return (this == siblings[siblings.length-1]);
+};
 
-  this.indent = function(depth, last) {
-    if (!depth) depth = 0;
-    var str = "";
-    var node = this;
-    while (node.parentNode) {
-      node = node.parentNode;
-      if((!node.parentNode && (node.hideRootJunction || node.hideRoot))
+TreeNode.prototype.indent = function(depth, last) {
+  if (!depth) depth = 0;
+  var str = "";
+  var node = this;
+  while (node.parentNode) {
+    node = node.parentNode;
+    if((!node.parentNode && (node.hideRootJunction || node.hideRoot))
         || (node.parentNode && !node.parentNode.parentNode
-            && node.hideRootJunction && node.hideRoot)) {
-        break;
-      }
-      str = '<img class="tree-junction" src="'
+        && node.hideRootJunction && node.hideRoot)) {
+      break;
+    }
+    str = '<img class="tree-junction" src="'
         + ((node.isLast() || node.hideJunctions)
-          ? treeResources.getImage("blank.gif")
-          : treeResources.getImage("I.gif")) + '" alt="">' + str;
-    }
-    return str;
-  };
-
-  this.initSelection = function() {
-    if (this.selected) {
-      var selectState = document.getElementById(this.treeHiddenId + '-selectState');
-      if (selectState) {
-        selectState.value = selectState.value + nodeStateId(this) + ";";
-      }
-    }
-    if (this.childNodes) {
-      for (var i=0; i<this.childNodes.length; i++) {
-        this.childNodes[i].initSelection();
-      }
-    }
-  };
-
-	if (parent) {
-	  parent.add(this);
-	}
-
-  this.hasChildren = function() {
-    return (this.childNodes && this.childNodes.length > 0);
+        ? this.treeResources.getImage("blank.gif")
+        : this.treeResources.getImage("I.gif")) + '" alt="">' + str;
   }
+  return str;
+};
+
+TreeNode.prototype.initSelection = function() {
+  if (this.selected) {
+    var selectState = document.getElementById(this.treeHiddenId + '-selectState');
+    if (selectState) {
+      selectState.value = selectState.value + nodeStateId(this) + ";";
+    }
+  }
+  if (this.childNodes) {
+    for (var i=0; i<this.childNodes.length; i++) {
+      this.childNodes[i].initSelection();
+    }
+  }
+};
+
+TreeNode.prototype.hasChildren = function() {
+  return (this.childNodes && this.childNodes.length > 0);
 }
+
+TreeNode.prototype.add = function (node) {
+  node.parentNode = this;
+  this.childNodes[this.childNodes.length] = node;
+  return node;
+};
 
 // //////////////////////////////////////////////////  listTree
 
@@ -555,7 +550,6 @@ function tbgGetParentNode(selectElement, rootNode) {
 
 
 function tbgGetActualNode(element, rootNode) {
-  var actualNode = rootNode;
   var selectElement = element.parentNode;
   var level = selectElement.id.lastIndexOf("_");
   var idPrefix = selectElement.id.substr(0, level);
@@ -689,7 +683,7 @@ function tbgTreeListboxClick(selectElement, hiddenId) {
   var idPrefix = selectElement.id.substr(0, level);
   level = selectElement.id.substr(level + 1) - 0;
 
-  parentSelectElement = document.getElementById(idPrefix + "_" + (level - 1));
+  var parentSelectElement = document.getElementById(idPrefix + "_" + (level - 1));
   if (parentSelectElement) {
 //    LOG.debug("clear parent");
     parentNode = parentNode.parentNode;
@@ -735,7 +729,7 @@ function tbgGetClickedNode(element, rootNode) {
     return parentNode.childNodes[idx];
   }
 
-
+  return undefined;
 }
 
 /*function   tbgGetdif(bigArray, smallArray) {
