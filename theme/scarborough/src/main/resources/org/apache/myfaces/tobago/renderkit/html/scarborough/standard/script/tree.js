@@ -64,35 +64,28 @@ function tbgToggleExpand(node, treeHiddenId) {
 
 function tbgSetExpand(node, treeHiddenId) {
   var expandState = document.getElementById(treeHiddenId);
-//  LOG.debug("tbgSetExpand(" + node.label + ", " + treeHiddenId + ") :: state = " + expandState.value);
-  if (node.hasChildren() && ! node.expanded) {
-    node.expanded = true;
-    expandState.value = expandState.value + nodeStateId(node) + ";";
-  }
   if (node.parentNode) {
-    for (var i = 0; i < node.parentNode.childNodes.length; i++) {
-//      LOG.debug(node.parentNode.childNodes[i].label + " := " + node.parentNode.childNodes[i].expanded);
-      if (node.parentNode.childNodes[i].expanded ){
-        tbgClearExpandStatesRecursiv(node.parentNode.childNodes[i], expandState);
-        if (node.parentNode.childNodes[i] != node) {
-          tbgUnexpand(node.parentNode.childNodes[i], expandState);
-        }
-      }
-    }
+    tbgUnexpandNodeRecursive(node.parentNode)
   }
-//  LOG.debug("tbgSetExpand -> expanded = " + expandState.value);
+  var state = ";";
+  node.expanded = true;
+  state = state + nodeStateId(node) + ";";
+  while (node.parentNode) {
+    node = node.parentNode;
+    node.expanded = true;
+    state = ";" + nodeStateId(node) + state;
+  }
 }
 
 
-function tbgClearExpandStatesRecursiv(node, expandState) {
+function tbgUnexpandNodeRecursive(node) {
+  node.expanded = false;
   if (node.hasChildren()) {
     for (var i = 0 ; i < node.childNodes.length; i++) {
-      tbgUnexpand(node.childNodes[i], expandState);
-      tbgClearExpandStatesRecursiv(node.childNodes[i], expandState);
+      tbgUnexpandNodeRecursive(node.childNodes[i]);
     }
   }
 }
-
 
 function tbgUnexpand(node, expandState) {
   node.expanded = false;
@@ -147,12 +140,16 @@ function tbgUnselect(node, selectState) {
 }
 
 function clearSelectionExcept(node, selectState, selectedNode) {
-  if (node != selectedNode) {
-    tbgUnselect(node, selectState);
-  }
+  tbgTreeClearSelection(node)
+  selectedNode.selected = true;
+  selectState.value = ";" + nodeStateId(selectedNode) + ";";
+}
+
+function tbgTreeClearSelection(node) {
+  node.selected = false;
   if (node.childNodes) {
     for (var i = 0; i < node.childNodes.length; i++) {
-      clearSelectionExcept(node.childNodes[i], selectState, selectedNode);
+      tbgTreeClearSelection(node.childNodes[i]);
     }
   }
 }
@@ -299,7 +296,7 @@ function TreeNode(label, id, isFolder,
     formId, selected, marked,
     expanded, required, disabled, treeResources,
     action, parent, icon, openIcon) {
-	this.label = label;
+  this.label = label;
 	this.id = id;
   Tobago.treeNodes[id] = this;
   this.isFolder = isFolder
@@ -336,14 +333,14 @@ function TreeNode(label, id, isFolder,
 	this.onfocus = "storeMarker(this.parentNode, '" + treeHiddenId + "')";
 //	this.ondblclick = "toggle(this.parentNode, '" + treeHiddenId + "')";
 
-  var hidden = document.getElementById(this.treeHiddenId);
   if (this.expanded) {
-    hidden = document.getElementById(this.treeHiddenId);
-    var regex = new RegExp(";" + nodeStateId(this) + ";");
+    var hidden = document.getElementById(this.treeHiddenId);
+    var nodeStId = nodeStateId(this);
+    var regex = new RegExp(";" + nodeStId + ";");
     if (! hidden.value.match(regex)) {
-      hidden.value = hidden.value + nodeStateId(this) + ";" ;
+      hidden.value = hidden.value + nodeStId + ";" ;
     }
-  }
+  }                    
 
   if (marked) {
     storeMarker(this, treeHiddenId);

@@ -267,18 +267,30 @@ var Tobago = {
   },
 
   destroyObjects: function() {
-    delete this.page;
-    delete this.form;
-    delete this.action;
     this.removeEventListeners();
+
+    //      delete this.treeNodes[treeNodeId];
     for (var treeNodeId in this.treeNodes) {
-      delete this.treeNodes[treeNodeId];
+      try {
+        this.destroyObject(this.treeNodes[treeNodeId]);
+      } catch(ex) {
+        // ignore
+      }
     }
+
     for (var i = 0; i < this.jsObjects.length; i++) {
-      this.destroyObject(this.jsObjects[i]);
+      try {
+        this.destroyObject(this.jsObjects[i]);
+      } catch(ex) {
+        // ignore
+      }
     }
     this.jsObjects.length = 0;
     delete this.jsObjects;
+    
+    delete this.page;
+    delete this.form;
+    delete this.action;
   },
 
   removeEventListeners: function() {
@@ -300,6 +312,9 @@ var Tobago = {
     if (obj.addMenuItem) {
       // Menu Object
       Tobago.Menu.destroy(obj);
+    } else if (obj.initSelection) {
+      // Tree object
+      Tobago.Tree.destroy(obj);
     } else if (obj.htmlElement) {
       // test
       delete obj.htmlElement.jsObjects;
@@ -308,14 +323,24 @@ var Tobago = {
     else {
       // Unknown Object --> delete all properties
       if (typeof obj == 'Object') {
-        for (var name in obj) {
-           delete obj[name];
-        }
+        this.destroyJsObject(obj);
       } else if (typeof obj == 'Array') {
         obj.length = 0;
+        delete obj;
       }
     }
 
+  },
+
+  destroyJsObject: function(obj) {
+    try {
+      for (var item in obj) {
+        delete obj[item];
+      }
+      delete obj;
+    } catch(ex) {
+      // ignore
+    }
   },
 
    /**
