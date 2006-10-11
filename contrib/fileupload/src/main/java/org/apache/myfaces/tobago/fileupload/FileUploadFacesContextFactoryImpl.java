@@ -37,6 +37,7 @@ public class FileUploadFacesContextFactoryImpl extends FacesContextFactory {
   private FacesContextFactory facesContextFactory;
 
   public FileUploadFacesContextFactoryImpl(FacesContextFactory facesContextFactory) {
+    // TODO get Configuration from env entries in the web.xml
     this.facesContextFactory = facesContextFactory;
     if (LOG.isDebugEnabled()) {
       LOG.debug("Wrap FacesContext for file upload");

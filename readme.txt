@@ -9,6 +9,28 @@ In the main directory you can use
 to run the install target on all sub projects. This will
 put all necessary artifacts into your local repository.
 
+Building All
+-----------
+For building all the stuff you can use the profile all-modules
+
+mvn install -Pall-modules
+
+Unfortunately you need two artifacts
+
+el-api.jar and el-ri.jar
+
+from the facelet distribution
+
+ http://facelets.dev.java.net
+
+Please install the missing public artifacts with
+
+ mvn install:install-file -Dfile=el-api.jar -DgroupId=javax.el \
+ -DartifactId=el-api -Dversion=1.0 -Dpackaging=jar
+
+ mvn install:install-file -Dfile=el-ri.jar -DgroupId=com.sun.el \
+ -DartifactId=el-ri -Dversion=1.0 -Dpackaging=jar
+ 
 Demo
 ----
 To deploy the demo on your local Tomcat 5.5 create a
