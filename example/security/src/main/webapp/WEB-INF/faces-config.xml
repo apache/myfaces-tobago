@@ -28,10 +28,6 @@
     </locale-config>
   </application>
 
-  <factory>
-    <application-factory>org.apache.myfaces.tobago.example.security.ApplicationFactoryImpl</application-factory>
-  </factory>
-
   <managed-bean>
     <managed-bean-name>controller</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.security.Controller</managed-bean-class>

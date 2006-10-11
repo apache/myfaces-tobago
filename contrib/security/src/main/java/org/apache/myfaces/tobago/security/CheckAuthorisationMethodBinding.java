@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.example.security;
+package org.apache.myfaces.tobago.security;
 
 /*
  * Copyright 2002-2005 The Apache Software Foundation.

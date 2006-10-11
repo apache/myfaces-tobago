@@ -614,33 +614,6 @@
         <module>tobago-assembly</module>
       </modules>
     </profile>
-    <!--<profile>
-      <id>generate-site</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-checkstyle-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>check</id>
-                <goals>
-                  <goal>check</goal>
-                </goals>
-                <configuration>
-                  <configLocation>org/apache/myfaces/tobago/checkstyle.xml</configLocation>
-                  <xrefLocation>xref</xrefLocation>
-                  <excludes>**/package-info.java</excludes>
-                  <sourceEncoding>utf-8</sourceEncoding>
-                  <minimumTokens>100</minimumTokens>
-                  <targetJdk>1.5</targetJdk>
-                </configuration>
-              </execution>
-            </executions>          
-          </plugin>
-        </plugins>
-      </build>
-    </profile>-->
   </profiles>
   <properties>
     <myfaces.version>1.1.4</myfaces.version>

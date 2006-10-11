@@ -15,5 +15,7 @@
   </scm>
   <modules>
     <module>facelets</module>
+    <module>fileupload</module>
+    <module>security</module>
   </modules>
 </project>

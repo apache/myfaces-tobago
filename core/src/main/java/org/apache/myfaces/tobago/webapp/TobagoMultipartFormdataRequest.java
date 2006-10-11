@@ -43,8 +43,17 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
 
   private Map fileItems;
 
+
+  public TobagoMultipartFormdataRequest(HttpServletRequest request) {
+    this(request, System.getProperty("java.io.tmpdir"), TobagoMultipartFormdataFilter.ONE_MB);
+  }
+
   TobagoMultipartFormdataRequest(HttpServletRequest request, String repositoryPath, long maxSize) {
     super(request);
+    init(request, repositoryPath, maxSize);
+  }
+
+  private void init(HttpServletRequest request, String repositoryPath, long maxSize) {
     String contentType = request.getContentType();
     if (contentType == null
         || !contentType.toLowerCase().startsWith("multipart/form-data")) {
