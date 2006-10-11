@@ -7,7 +7,7 @@
   </parent>
   <artifactId>tobago-theme-standard</artifactId>
   <packaging>jar</packaging>
-  <name>Tobago Theme Standard</name>
+  <name>Theme Standard</name>
 
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/theme/standard</connection>

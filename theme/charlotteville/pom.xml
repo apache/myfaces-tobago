@@ -6,7 +6,7 @@
     <version>1.0.9-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-theme-charlotteville</artifactId>
-  <name>Tobago Theme Charlotteville</name>
+  <name>Theme Charlotteville</name>
 
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/theme/charlotteville</connection>
