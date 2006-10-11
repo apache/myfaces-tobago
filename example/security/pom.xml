@@ -25,7 +25,7 @@
   </parent>
   <artifactId>tobago-example-security</artifactId>
   <packaging>war</packaging>
-  <name>Tobago Example Security</name>
+  <name>Example Security</name>
   <build>
     <finalName>tobago-example-security</finalName>
    <plugins>

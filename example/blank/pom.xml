@@ -23,7 +23,7 @@
   </parent>
   <artifactId>tobago-example-blank</artifactId>
   <packaging>war</packaging>
-  <name>Tobago Example Blank</name>
+  <name>Example Blank</name>
   <build>
     <finalName>tobago-example-blank</finalName>
     <plugins>

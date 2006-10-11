@@ -23,7 +23,7 @@
   </parent>
   <artifactId>tobago-example-facelets</artifactId>
   <packaging>war</packaging>
-  <name>Tobago Example Facelets</name>
+  <name>Example Facelets</name>
   <build>
     <finalName>tobago-example-facelets</finalName>
     <plugins>
