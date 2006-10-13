@@ -38,11 +38,11 @@ public class ConstantMethodBinding
   public ConstantMethodBinding() {
   }
 
-  public Object invoke(FacesContext facescontext, Object[] aobj) {
+  public Object invoke(FacesContext facesContext, Object[] parameters) {
     return outcome;
   }
 
-  public Class getType(FacesContext facescontext){
+  public Class getType(FacesContext facesContext){
     return String.class;
   }
 
