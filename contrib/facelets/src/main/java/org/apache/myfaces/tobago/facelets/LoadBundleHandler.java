@@ -52,7 +52,9 @@ public class LoadBundleHandler extends TagHandler {
     String name = basename.getValue(faceletContext);
     BundleMapWrapper map = new BundleMapWrapper(name);
     FacesContext facesContext = faceletContext.getFacesContext();
+    // TODO find a better way
     facesContext.getExternalContext().
-        getRequestMap().put(var.getValue(faceletContext), map);
+        getSessionMap().put(var.getValue(faceletContext), map);
+        //getRequestMap().put(var.getValue(faceletContext), map);
   }
 }

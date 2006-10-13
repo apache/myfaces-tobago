@@ -40,6 +40,7 @@ public class LoadBundleTag extends TagSupport {
 
   public int doStartTag() throws JspException {
     Map toStore = new BundleMapWrapper(basename);
+    // TODO find a better way
     FacesContext.getCurrentInstance().getExternalContext()
         .getSessionMap().put(var, toStore);
 //        .getRequestMap().put(var, toStore);
