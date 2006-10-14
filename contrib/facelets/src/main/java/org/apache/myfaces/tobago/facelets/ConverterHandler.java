@@ -75,7 +75,10 @@ public class ConverterHandler extends TagHandler {
             valueExpression.setValue(faceletContext, converter);
           }
         }
-        valueHolder.setConverter(converter);
+        if (converter != null) {
+          valueHolder.setConverter(converter);
+        }
+        // TODO else LOG.warn?
       }
     } else {
       throw new TagException(tag, "Parent is not of type ValueHolder, type is: " + parent);
