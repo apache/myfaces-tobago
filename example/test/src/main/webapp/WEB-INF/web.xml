@@ -75,6 +75,11 @@
     <!--for myfaces and sun-ri with *.jsf mapping-->
     <url-pattern>/faces/SolarDetail</url-pattern>
   </servlet-mapping>
+  <env-entry>
+    <env-entry-name>uploadMaxFileSize</env-entry-name>
+    <env-entry-type>java.lang.String</env-entry-type>
+    <env-entry-value>1K</env-entry-value>
+  </env-entry>
 
   <!-- mime -->
   <mime-mapping>
@@ -87,8 +92,8 @@
   </mime-mapping>
 
   <!-- The Usual Welcome File List -->
-    <welcome-file-list>
-      <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
 
 </web-app>

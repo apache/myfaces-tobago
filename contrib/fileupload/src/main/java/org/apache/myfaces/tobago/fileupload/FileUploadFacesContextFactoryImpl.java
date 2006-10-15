@@ -44,7 +44,7 @@ public class FileUploadFacesContextFactoryImpl extends FacesContextFactory {
   private long maxSize = TobagoMultipartFormdataRequest.ONE_MB;
 
   public FileUploadFacesContextFactoryImpl(FacesContextFactory facesContextFactory) {
-    // TODO get Configuration from env entries in the web.xml
+    // TODO get Configuration from env entries in the web.xml or context-param
     this.facesContextFactory = facesContextFactory;
     if (LOG.isDebugEnabled()) {
       LOG.debug("Wrap FacesContext for file upload");
