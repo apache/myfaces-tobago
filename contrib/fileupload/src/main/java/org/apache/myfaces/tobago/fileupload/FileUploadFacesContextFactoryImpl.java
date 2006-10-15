@@ -58,9 +58,11 @@ public class FileUploadFacesContextFactoryImpl extends FacesContextFactory {
         if (repositoryPath != null) {
           File file = new File(repositoryPath);
           if (!file.exists()) {
-            LOG.error("Given repository Path for " + getClass().getName() + " " + repositoryPath + " doesn't exists");
+            LOG.error("Given repository Path for "
+                + getClass().getName() + " " + repositoryPath + " doesn't exists");
           } else if (!file.isDirectory()) {
-            LOG.error("Given repository Path for " + getClass().getName() + " " + repositoryPath + " is not a directory");
+            LOG.error("Given repository Path for "
+                + getClass().getName() + " " + repositoryPath + " is not a directory");
           } else {
             this.repositoryPath = repositoryPath;
           }

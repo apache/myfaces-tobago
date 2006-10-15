@@ -180,7 +180,8 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
       try {
         return Long.parseLong(number.trim()) * factor;
       } catch (NumberFormatException e) {
-        LOG.error("Given max file size for " + TobagoMultipartFormdataRequest.class.getName() + " " +param + " couldn't parsed to a number");
+        LOG.error("Given max file size for "
+            + TobagoMultipartFormdataRequest.class.getName() + " " +param + " couldn't parsed to a number");
       }
     }
     return ONE_MB;
