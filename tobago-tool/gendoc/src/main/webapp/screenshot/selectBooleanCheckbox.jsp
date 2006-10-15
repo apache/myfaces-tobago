@@ -14,6 +14,7 @@
  *    limitations under the License.
 --%>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
@@ -30,7 +31,11 @@
         <%-- code-sniplet-end id="selectBooleanCheckbox" --%>
         <tc:selectBooleanCheckbox label="_Phone"/>
         <tc:selectBooleanCheckbox label="_eMail"/>
-        <tc:selectBooleanCheckbox label="_Fax"/>
+        <tc:selectBooleanCheckbox label="_Fax" >
+          <f:facet name="click" >
+            <tc:command />
+          </f:facet>
+        </tc:selectBooleanCheckbox>
 
         <tc:cell/>
 
