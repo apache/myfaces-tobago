@@ -69,12 +69,8 @@ public class TobagoMultipartFormdataFilter implements Filter {
 
   private static final Log LOG = LogFactory.getLog(TobagoMultipartFormdataFilter.class);
 
-  public static final long ONE_KB = 1024;
-  public static final long ONE_MB = ONE_KB * ONE_KB;
-  public static final long ONE_GB = ONE_KB * ONE_MB;
-
   private String repositoryPath = System.getProperty("java.io.tmpdir");
-  private long maxSize = ONE_MB;
+  private long maxSize = TobagoMultipartFormdataRequest.ONE_MB;
 
   public void init(FilterConfig filterConfig) throws ServletException {
     String repositoryPath = filterConfig.getInitParameter("uploadRepositoryPath");
@@ -91,7 +87,7 @@ public class TobagoMultipartFormdataFilter implements Filter {
 
     LOG.info("Configure uploadRepositryPath for "+ getClass().getName() + " to "+ this.repositoryPath);
 
-    maxSize = getMaxSize(filterConfig.getInitParameter("uploadMaxFileSize"));
+    maxSize = TobagoMultipartFormdataRequest.getMaxSize(filterConfig.getInitParameter("uploadMaxFileSize"));
 
     LOG.info("Configure uploadMaxFileSize for "+ getClass().getName() + " to "+ this.maxSize);
 
@@ -130,26 +126,4 @@ public class TobagoMultipartFormdataFilter implements Filter {
   public void destroy() {
   }
 
-  private long getMaxSize(String param) {
-    if (param != null) {
-      String number = param.toLowerCase();
-      long factor = 1;
-      if (number.endsWith("g")) {
-        factor = ONE_GB;
-        number = number.substring(0, number.length() - 1);
-      } else if (number.endsWith("m")) {
-        factor = ONE_MB;
-        number = number.substring(0, number.length() - 1);
-      } else if (number.endsWith("k")) {
-        factor = ONE_KB;
-        number = number.substring(0, number.length() - 1);
-      }
-      try {
-        return Long.parseLong(number.trim()) * factor;
-      } catch (NumberFormatException e) {
-        LOG.error("Given max file size for " + getClass().getName() + " " +param + " couldn't parsed to a number");
-      }
-    }
-    return ONE_MB;
-  }
 }

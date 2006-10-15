@@ -39,16 +39,21 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
   private static final Log LOG
       = LogFactory.getLog(TobagoMultipartFormdataRequest.class);
 
+  public static final long ONE_KB = 1024;
+  public static final long ONE_MB = ONE_KB * ONE_KB;
+  public static final long ONE_GB = ONE_KB * ONE_MB;
+
   private Map parameters;
 
   private Map fileItems;
 
 
+
   public TobagoMultipartFormdataRequest(HttpServletRequest request) {
-    this(request, System.getProperty("java.io.tmpdir"), TobagoMultipartFormdataFilter.ONE_MB);
+    this(request, System.getProperty("java.io.tmpdir"), ONE_MB);
   }
 
-  TobagoMultipartFormdataRequest(HttpServletRequest request, String repositoryPath, long maxSize) {
+  public TobagoMultipartFormdataRequest(HttpServletRequest request, String repositoryPath, long maxSize) {
     super(request);
     init(request, repositoryPath, maxSize);
   }
@@ -71,7 +76,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
       try {
         itemList = fileUpload.parseRequest(request);
       } catch (FileUploadException e) {
-        LOG.error(e);
+        //LOG.error(e);
         throw new FacesException(e);
       }
       if (LOG.isDebugEnabled()) {
@@ -156,5 +161,28 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
 
   public Map getParameterMap() {
     return parameters;
+  }
+
+  public static long getMaxSize(String param) {
+    if (param != null) {
+      String number = param.toLowerCase();
+      long factor = 1;
+      if (number.endsWith("g")) {
+        factor = ONE_GB;
+        number = number.substring(0, number.length() - 1);
+      } else if (number.endsWith("m")) {
+        factor = ONE_MB;
+        number = number.substring(0, number.length() - 1);
+      } else if (number.endsWith("k")) {
+        factor = ONE_KB;
+        number = number.substring(0, number.length() - 1);
+      }
+      try {
+        return Long.parseLong(number.trim()) * factor;
+      } catch (NumberFormatException e) {
+        LOG.error("Given max file size for " + TobagoMultipartFormdataRequest.class.getName() + " " +param + " couldn't parsed to a number");
+      }
+    }
+    return ONE_MB;
   }
 }
