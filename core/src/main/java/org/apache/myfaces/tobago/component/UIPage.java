@@ -211,7 +211,6 @@ public class UIPage extends UIForm {
 
   public void updatePageState(FacesContext facesContext) {
     PageState state = getPageState(facesContext);
-    LOG.info("state = \"" + state + "\"");
     if (state != null) {
       decodePageState(facesContext, state);
     }
@@ -247,7 +246,6 @@ public class UIPage extends UIForm {
       }
       return state;
     } else {
-      LOG.info("stateBinding = \"" + stateBinding + "\"");
       return null;
     }
   }
