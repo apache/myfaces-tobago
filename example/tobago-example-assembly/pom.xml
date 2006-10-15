@@ -18,7 +18,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>tobago-example-assembly</artifactId>
   <packaging>pom</packaging>
-  <name>Tobago Example Assembly</name>
+  <name>Example Assembly</name>
   <description>This is the MyFaces Tobago Example Assembly</description>
 
   <parent>

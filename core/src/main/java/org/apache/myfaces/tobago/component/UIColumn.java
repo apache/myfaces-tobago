@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.component;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
@@ -33,38 +34,41 @@ public class UIColumn extends javax.faces.component.UIColumn {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Column";
   private Boolean sortable;
   private String align;
+  private String label;
 
 
-   public void restoreState(FacesContext context, Object state) {
-     Object[] values = (Object[]) state;
-     super.restoreState(context, values[0]);
-     align = (String) values[1];
-     sortable = (Boolean) values[2];
-   }
+  public void restoreState(FacesContext context, Object state) {
+    Object[] values = (Object[]) state;
+    super.restoreState(context, values[0]);
+    align = (String) values[1];
+    sortable = (Boolean) values[2];
+    label = (String) values[3];
+  }
 
-   public Object saveState(FacesContext context) {
-     Object[] values = new Object[3];
-     values[0] = super.saveState(context);
-     values[1] = align;
-     values[2] = sortable;
-     return values;
-   }
+  public Object saveState(FacesContext context) {
+    Object[] values = new Object[4];
+    values[0] = super.saveState(context);
+    values[1] = align;
+    values[2] = sortable;
+    values[3] = label;
+    return values;
+  }
 
-   public boolean isSortable() {
-     if (sortable != null) {
-       return sortable;
-     }
-     ValueBinding vb = getValueBinding(ATTR_SORTABLE);
-     if (vb != null) {
-       return (Boolean.TRUE.equals(vb.getValue(getFacesContext())));
-     } else {
-       return false;
-     }
-   }
+  public boolean isSortable() {
+    if (sortable != null) {
+      return sortable;
+    }
+    ValueBinding vb = getValueBinding(ATTR_SORTABLE);
+    if (vb != null) {
+      return (Boolean.TRUE.equals(vb.getValue(getFacesContext())));
+    } else {
+      return false;
+    }
+  }
 
-   public void setSortable(boolean sortable) {
-     this.sortable = sortable;
-   }
+  public void setSortable(boolean sortable) {
+    this.sortable = sortable;
+  }
 
   public String getAlign() {
     if (align != null) {
@@ -80,6 +84,22 @@ public class UIColumn extends javax.faces.component.UIColumn {
 
   public void setAlign(String align) {
     this.align = align;
+  }
+
+  public String getLabel() {
+    if (label != null) {
+      return label;
+    }
+    ValueBinding vb = getValueBinding(ATTR_LABEL);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return label;
+    }
+  }
+
+  public void setLabel(String label) {
+    this.label = label;
   }
 
 }
