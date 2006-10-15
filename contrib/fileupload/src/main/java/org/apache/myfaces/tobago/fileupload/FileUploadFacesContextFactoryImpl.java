@@ -97,6 +97,7 @@ public class FileUploadFacesContextFactoryImpl extends FacesContextFactory {
           // TODO  better Message i18n Message?
           FacesMessage facesMessage = new FacesMessage(e.getCause().getMessage());
           facesContext.addMessage(null, facesMessage);
+          facesContext.renderResponse();
           return facesContext;
         }
       }
