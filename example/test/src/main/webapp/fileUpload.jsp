@@ -8,7 +8,8 @@
       <tc:gridLayout/>
     </f:facet>
     <tc:out value="Hello World"/>
-    <tc:file label="test" value="#{test.file}" />
+    <tx:file label="test" value="#{test.file}" />
+    <tc:messages/>
     <tc:button label="Submit" defaultCommand="true" />
   </tc:page>
 </f:view>
