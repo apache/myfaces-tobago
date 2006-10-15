@@ -34,7 +34,7 @@ public class UISelectOne extends javax.faces.component.UISelectOne {
 
   public void encodeBegin(FacesContext facesContext) throws IOException {
     // TODO change this should be renamed to DimensionUtils.prepare!!!
-    //UILayout.getLayout(this).layoutBegin(facesContext, this);
+    UILayout.getLayout(this).layoutBegin(facesContext, this);
     super.encodeBegin(facesContext);
   }
 

@@ -90,7 +90,7 @@ public class UIPage extends UIForm {
   @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {
     // TODO change this should be renamed to DimensionUtils.prepare!!!
-    //UILayout.getLayout(this).layoutBegin(facesContext, this);
+    UILayout.getLayout(this).layoutBegin(facesContext, this);
     super.encodeBegin(facesContext);
   }
 
@@ -211,6 +211,7 @@ public class UIPage extends UIForm {
 
   public void updatePageState(FacesContext facesContext) {
     PageState state = getPageState(facesContext);
+    LOG.info("state = \"" + state + "\"");
     if (state != null) {
       decodePageState(facesContext, state);
     }
@@ -246,6 +247,7 @@ public class UIPage extends UIForm {
       }
       return state;
     } else {
+      LOG.info("stateBinding = \"" + stateBinding + "\"");
       return null;
     }
   }

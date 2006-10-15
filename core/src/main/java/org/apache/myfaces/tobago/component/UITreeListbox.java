@@ -68,7 +68,7 @@ public class UITreeListbox extends UITree implements LayoutProvider {
   public void encodeBegin(FacesContext facesContext)
       throws IOException {
     // TODO change this should be renamed to DimensionUtils.prepare!!!
-    //UILayout.getLayout(this).layoutBegin(facesContext, this);
+    UILayout.getLayout(this).layoutBegin(facesContext, this);
 //    debugStates(facesContext);
     fixSelectionType();
     super.encodeBegin(facesContext);
