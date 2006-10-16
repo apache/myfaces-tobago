@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.context;
 
 import java.util.Set;
 import java.util.HashSet;
+import java.io.Serializable;
 
 /*
  * Created by IntelliJ IDEA.
@@ -26,7 +27,9 @@ import java.util.HashSet;
  * Date: Sep 24, 2006
  * Time: 10:09:35 PM
  */
-public class MarkupConfig {
+public class MarkupConfig implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   private Set<String> markups = new HashSet<String>();
 
