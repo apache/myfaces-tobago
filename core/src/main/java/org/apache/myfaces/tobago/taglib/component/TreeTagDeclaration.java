@@ -118,4 +118,13 @@ public interface TreeTagDeclaration extends TobagoTagDeclaration,
   @TagAttribute
   @UIComponentTagAttribute()
   void setDisabledReference(String id);
+
+  /**
+   * Display option: Normal tree or menu.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(defaultValue = "tree",
+  allowedValues = {"tree", "menu"})
+  void setMode(String mode);
+
 }

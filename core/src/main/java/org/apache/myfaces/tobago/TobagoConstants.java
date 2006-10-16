@@ -85,6 +85,7 @@ public final class TobagoConstants {
   public static final String ATTR_METHOD = "method";
   public static final String ATTR_MIN = "min";
   public static final String ATTR_MINIMUM_SIZE = "minimunSize";
+  public static final String ATTR_MODE = "mode";
   public static final String ATTR_MUTABLE = "mutable";
   public static final String ATTR_NAME = "name";
   public static final String ATTR_NAME_REFERENCE = "nameReference";

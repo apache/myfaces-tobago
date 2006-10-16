@@ -221,6 +221,11 @@ reason they are not defined as a:link
 	height: 16px;
 }
 
+.tobago-tree-menu-icon {
+	width: 16px;
+	height: 16px;
+  float: right;
+}
 
 /* ----------------------------------------------------------------------------
  * New Tobago Style definitions:

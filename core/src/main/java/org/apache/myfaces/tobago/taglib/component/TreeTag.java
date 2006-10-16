@@ -28,6 +28,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROOT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROOT_JUNCTION;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MODE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
 
@@ -56,6 +57,8 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
 
   private String actionListener;
 
+  private String mode;
+
   public String getComponentType() {
     return UITree.COMPONENT_TYPE;
   }
@@ -79,6 +82,7 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
     ComponentUtil.setStringProperty(component, ATTR_DISABLED_REFERENCE, disabledReference);
     ComponentUtil.setBooleanProperty(component, ATTR_REQUIRED, required);
     ComponentUtil.setActionListener((ActionSource) component, actionListener);
+    ComponentUtil.setStringProperty(component, ATTR_MODE, mode);
   }
 
   public void release() {
@@ -96,6 +100,7 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
     disabledReference = null;
     required = null;
     actionListener = null;
+    mode = null;
   }
 
   public String getValue() {
@@ -199,5 +204,13 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
 
   public void setRequired(String required) {
     this.required = required;
+  }
+
+  public String getMode() {
+    return mode;
+  }
+
+  public void setMode(String mode) {
+    this.mode = mode;
   }
 }

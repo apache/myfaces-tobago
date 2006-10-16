@@ -290,15 +290,16 @@ var TreeManager = {
   }
 };
 
-function TreeNode(label, id, isFolder,
+function TreeNode(label, id, mode, isFolder,
     hideIcons, hideJunctions, hideRootJunction,
     hideRoot, treeHiddenId, selectable, mutable,
     formId, selected, marked,
     expanded, required, disabled, treeResources,
-    action, parent, icon, openIcon) {
+    action, parent, icon, openIcon, width) {
   this.label = label;
 	this.id = id;
   Tobago.treeNodes[id] = this;
+  this.mode = mode
   this.isFolder = isFolder
   this.hideIcons = hideIcons || false;
   this.hideJunctions = hideJunctions || false;
@@ -319,7 +320,8 @@ function TreeNode(label, id, isFolder,
       || treeResources.getImage("foldericon.gif");
   this.openIcon = openIcon
       || treeResources.getImage("openfoldericon.gif");
-	this.childNodes = [];
+  this.width = width;
+  this.childNodes = [];
 // FIXME: page:form
 	this.onclick
 	  = mutable
@@ -356,7 +358,8 @@ TreeNode.prototype.toString = function (depth, last) {
 
     var str = '';
     if (! this.hideRoot || depth > 0) {
-      str += '<div id="' + this.id + '" class="tree-item">';
+      str += '<div id="' + this.id + '" class="tree-item" '
+          + 'style="width: ' + this.width + '">';// fixme null pointer
       str += this.indent(depth, last);
       if (!(   this.hideJunctions
             || this.hideRootJunction && depth == 0
@@ -404,14 +407,14 @@ TreeNode.prototype.toString = function (depth, last) {
         if (this.selectable.match(/LeafOnly$/) && this.isFolder) {
           markIcon = this.treeResources.getImage("1x1.gif");
         } else {
-          if (selected) {
+          if (this.selected) {
             markIcon = this.treeResources.getImage("checked" + (this.disabled ? "Disabled" : "") + ".gif");
           } else {
             markIcon = this.treeResources.getImage("unchecked" + (this.disabled ? "Disabled" : "") + ".gif");
           }
           if (!this.disabled) {
             markIconOnClickFunction
-                = 'onclick="toggleSelect(this.parentNode, \'' + treeHiddenId
+                = 'onclick="toggleSelect(this.parentNode, \'' + this.treeHiddenId
                 + '\', \'' + this.treeResources.getImage("unchecked.gif")
                 + '\', \'' + this.treeResources.getImage("checked.gif")
                 + '\')"';
@@ -440,6 +443,17 @@ TreeNode.prototype.toString = function (depth, last) {
         }
         str += '>'
             + this.label + '</a>';
+      }
+      if (this.mode == "menu") {
+        if (this.isFolder) {
+          str += '<img class="tobago-tree-menu-icon" '
+              + 'src="' + (this.expanded ? this.openIcon : this.icon) + ' " '
+              + 'onclick="toggle(this.parentNode, \'' + this.treeHiddenId
+              + '\', \'' + this.treeResources.getImage("openfoldericon.gif")
+              + '\', \'' + this.treeResources.getImage("foldericon.gif")
+              + '\')"'
+              + ' alt="">';
+        }
       }
       str += '</div>';
     }
