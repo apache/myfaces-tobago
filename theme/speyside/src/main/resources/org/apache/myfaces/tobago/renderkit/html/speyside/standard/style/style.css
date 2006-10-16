@@ -158,11 +158,24 @@ a:link.tab, a:visited.tab, a:active.tab {
 }
 
 .tree-item {
-	padding: 0px;
+  padding: 0px;
 	margin: 0px;
 	font: icon;
 	color: #000000;
 	white-space: nowrap;
+  width: 200px; /* default */
+  height: 16px;
+}
+
+.tree-menu-item {
+  border: 1px solid #CCCCCC;
+  padding: 0px;
+	margin: 0px;
+	font: icon;
+	color: #000000;
+	white-space: nowrap;
+  width: 200px; /* default */
+  height: 16px;
 }
 
 .tree-item-label  {
@@ -212,13 +225,15 @@ reason they are not defined as a:link
 }
 
 .tree-icon {
-	width: 16px;
-	height: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
 }
 
 .tree-junction {
 	width: 19px;
 	height: 16px;
+  float: left;
 }
 
 .tobago-tree-menu-icon {

@@ -21,6 +21,7 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MODE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MUTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ICONS;
@@ -100,6 +101,8 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   private boolean showRootJunction = true;
   private boolean showRootJunctionSet = false;
 
+  private String mode;
+
   public UITree() {
     treeCommands = new Command[]{
       new Command(COMMAND_NEW),
@@ -132,6 +135,22 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
   public void setAction(MethodBinding methodBinding) {
 
+  }
+
+  public String getMode() {
+    if (mode != null) {
+      return mode;
+    }
+    ValueBinding vb = getValueBinding(ATTR_MODE);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return "tree";
+    }
+  }
+
+  public void setMode(String mode) {
+    this.mode = mode;
   }
 
   public MethodBinding getActionListener() {
@@ -336,13 +355,14 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   }
 
   public Object saveState(FacesContext context) {
-    Object[] state = new Object[6];
+    Object[] state = new Object[7];
     state[0] = super.saveState(context);
     state[1] = saveAttachedState(context, actionListenerBinding);
     state[2] = showJunctionsSet ? showJunctions : null;
     state[3] = showIconsSet ? showIcons : null;
     state[4] = showRootSet ? showRoot : null;
     state[5] = showRootJunctionSet ? showRootJunction : null;
+    state[6] = mode;
     return state;
   }
 
@@ -366,6 +386,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
       showRootJunction = (Boolean) values[5];
       showRootJunctionSet = true;
     }
+    mode = (String) values[6];
   }
 
   public Command[] getCommands() {

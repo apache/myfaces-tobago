@@ -33,7 +33,6 @@ import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UICommand;
@@ -201,9 +200,7 @@ public class TreeNodeRenderer extends RendererBase {
       writer.writeText(clientId, null);
       writer.writeText("','", null);
 
-      // mode // todo: define getter+setter in UI
-//      writer.writeText("menu", null); // FIXME
-      writer.writeText("tree", null); // FIXME
+      writer.writeText(root.getMode(), null);
       writer.writeText("',", null);
 
       // is folder

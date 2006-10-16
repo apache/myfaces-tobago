@@ -66,6 +66,8 @@ public class TreeRenderer extends RendererBase {
       "Lplus.gif",
       "Tplus.gif",
       "Rplus.gif",
+      "treeMenuOpen.gif",
+      "treeMenuClose.gif",
   };
 
 

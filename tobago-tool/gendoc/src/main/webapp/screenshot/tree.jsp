@@ -76,6 +76,7 @@
             showJunctions="false"
             showRootJunction="false"
             showRoot="false"
+            mode="menu"
             />
 
         <tc:cell/>

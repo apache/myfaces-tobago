@@ -358,9 +358,21 @@ TreeNode.prototype.toString = function (depth, last) {
 
     var str = '';
     if (! this.hideRoot || depth > 0) {
-      str += '<div id="' + this.id + '" class="tree-item" '
-          + 'style="width: ' + this.width + '">';// fixme null pointer
+      str += '<div id="' + this.id + '" class="' + (this.mode == 'menu' ? 'tree-menu-item' : 'tree-item') + '" '
+          + 'style="width: ' + this.width + '";>';// fixme null pointer
       str += this.indent(depth, last);
+      if (this.mode == "menu") {
+        if (this.isFolder) {
+          // FIXME: change the icons when klick on the icon
+          str += '<img class="tobago-tree-menu-icon" '
+              + 'src="' + (this.expanded ? this.treeResources.getImage("treeMenuOpen.gif") : this.treeResources.getImage("treeMenuClose.gif")) + ' " '
+              + 'onclick="toggle(this.parentNode, \'' + this.treeHiddenId
+              + '\', \'' + this.treeResources.getImage("treeMenuOpen.gif")
+              + '\', \'' + this.treeResources.getImage("treeMenuClose.gif")
+              + '\')"'
+              + ' alt="">';
+        }
+      }
       if (!(   this.hideJunctions
             || this.hideRootJunction && depth == 0
             || this.hideRootJunction && this.hideRoot && depth == 1)) {
@@ -443,17 +455,6 @@ TreeNode.prototype.toString = function (depth, last) {
         }
         str += '>'
             + this.label + '</a>';
-      }
-      if (this.mode == "menu") {
-        if (this.isFolder) {
-          str += '<img class="tobago-tree-menu-icon" '
-              + 'src="' + (this.expanded ? this.openIcon : this.icon) + ' " '
-              + 'onclick="toggle(this.parentNode, \'' + this.treeHiddenId
-              + '\', \'' + this.treeResources.getImage("openfoldericon.gif")
-              + '\', \'' + this.treeResources.getImage("foldericon.gif")
-              + '\')"'
-              + ' alt="">';
-        }
       }
       str += '</div>';
     }
