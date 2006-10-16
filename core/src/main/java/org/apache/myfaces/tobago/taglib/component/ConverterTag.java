@@ -20,6 +20,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CONVERTER;
 
 import javax.servlet.jsp.tagext.TagSupport;
 import javax.servlet.jsp.JspException;
@@ -53,7 +54,7 @@ public class ConverterTag extends TagSupport {
    * The converterId of a registered Converter.
    * @param converterId  A valid converterId
    */
-  @TagAttribute(required = true)
+  @TagAttribute()
   public void setConverterId(String converterId) {
     this.converterId = converterId;
   }
@@ -130,7 +131,11 @@ public class ConverterTag extends TagSupport {
       }
     }
     if (converter != null) {
-      valueHolder.setConverter(converter);
+      if (UIComponentTag.isValueReference(binding)) {
+        component.setValueBinding(ATTR_CONVERTER, ComponentUtil.createValueBinding(binding));
+      } else {
+        valueHolder.setConverter(converter);
+      }
     }
     // TODO else LOG.warn?
     return (SKIP_BODY);
