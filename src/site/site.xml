@@ -39,7 +39,7 @@
       <item name="Roadmap" href="http://myfaces.apache.org/tobago/roadmap.html" />
       <item name="Theme Handling" href="http://myfaces.apache.org/tobago/themes.html" />
       <item name="FAQ" href="http://myfaces.apache.org/tobago/faq.html" />
-      <item name="API Documentation" href="http://myfaces.apache.org/tobago/documentation" />
+      <item name="API Documentation" href="http://myfaces.apache.org/tobago/documentation.html" />
     </menu>
     
     ${parentProject}
