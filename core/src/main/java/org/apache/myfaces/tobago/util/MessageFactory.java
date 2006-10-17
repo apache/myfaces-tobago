@@ -1,7 +1,7 @@
 package org.apache.myfaces.tobago.util;
 
 /*
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Copyright 2002-2006 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,8 +26,9 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.text.MessageFormat;
 
-/**
+/*
  * User: weber
  * Date: Jun 14, 2005
  * Time: 5:40:04 PM
@@ -40,15 +41,36 @@ public class MessageFactory {
       = new HashMap<Locale, ResourceBundle>();
 
   public static FacesMessage createFacesMessage(FacesContext facesContext,
-      String key, FacesMessage.Severity severity) {
-    return createFacesMessage(facesContext, "tobago", key, severity);
+      String key, FacesMessage.Severity severity,  Object args[]) {
+    return createFacesMessage(facesContext, "tobago", key, severity, args);
   }
+
   public static FacesMessage createFacesMessage(FacesContext facesContext,
-      String bundle, String key, FacesMessage.Severity severity) {
+        String key, FacesMessage.Severity severity) {
+    return createFacesMessage(facesContext, key, severity, new Object[0]);
+  }
+
+  public static FacesMessage createFacesMessage(FacesContext facesContext,
+      String bundle, String key, FacesMessage.Severity severity, Object args[]) {
     String summary = getMessageText(facesContext, bundle, key);
     String detail = getMessageText(facesContext, bundle, key + "_detail");
-    return new FacesMessage(severity, summary != null ? summary : key, detail);
+    if (args != null && args.length > 0) {
+      if (summary != null) {
+        MessageFormat format = new MessageFormat(summary, facesContext.getViewRoot().getLocale());
+        summary = format.format(args);
+      }
 
+      if (detail != null) {
+        MessageFormat format = new MessageFormat(detail, facesContext.getViewRoot().getLocale());
+        detail = format.format(args);
+      }
+    }
+    return new FacesMessage(severity, summary != null ? summary : key, detail);
+  }
+
+  public static FacesMessage createFacesMessage(FacesContext facesContext,
+      String bundle, String key, FacesMessage.Severity severity) {
+    return createFacesMessage(facesContext, bundle, key, severity, new Object[0]);
   }
 
   private static String getMessageText(

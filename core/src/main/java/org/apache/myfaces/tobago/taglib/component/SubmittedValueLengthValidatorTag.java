@@ -1,0 +1,86 @@
+package org.apache.myfaces.tobago.taglib.component;
+
+/*
+ * Copyright 2002-2006 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import org.apache.myfaces.tobago.validator.SubmittedValueLengthValidator;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+
+import javax.faces.webapp.ValidatorTag;
+import javax.faces.validator.Validator;
+import javax.servlet.jsp.JspException;
+
+/*
+ * Created by IntelliJ IDEA.
+ * User: bommel
+ * Date: Oct 17, 2006
+ * Time: 12:35:01 AM
+ */
+
+/**
+ * Register an SubmittedValueLengthValidator instance on the UIComponent
+ * associated with the closest parent UIComponent custom action.
+ */
+@Tag(name="validateSubmittedValueLength")
+public class SubmittedValueLengthValidatorTag extends ValidatorTag {
+  public String minimum;
+  public String maximum;
+
+
+  public String getMinimum() {
+    return minimum;
+  }
+  @TagAttribute()
+  public void setMinimum(String minimum) {
+    this.minimum = minimum;
+  }
+
+  public String getMaximum() {
+    return maximum;
+  }
+  @TagAttribute()
+  public void setMaximum(String maximum) {
+    this.maximum = maximum;
+  }
+
+  protected Validator createValidator() throws JspException {
+    setValidatorId(SubmittedValueLengthValidator.VALIDATOR_ID);
+    SubmittedValueLengthValidator validator = (SubmittedValueLengthValidator) super.createValidator();
+    if (minimum != null) {
+      try {
+        validator.setMinimum(Integer.parseInt(minimum));
+      } catch(NumberFormatException e) {
+        // ignore
+      }
+    }
+    if (maximum != null) {
+      try {
+        validator.setMaximum(Integer.parseInt(maximum));
+      } catch(NumberFormatException e) {
+        // ignore
+      }
+    }
+    return validator;
+  }
+
+
+  public void release() {
+    super.release();
+    minimum = null;
+    maximum = null;
+  }
+}
