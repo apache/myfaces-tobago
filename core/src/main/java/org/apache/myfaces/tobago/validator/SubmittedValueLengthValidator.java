@@ -80,13 +80,13 @@ public class SubmittedValueLengthValidator extends LengthValidator {
     if (value != null) {
       String submittedValue = ((EditableValueHolder) uiComponent).getSubmittedValue().toString();
       if (maximum != null && submittedValue.length() > maximum) {
-        Object[] args = { maximum, uiComponent.getId() };
+        Object[] args = {maximum, uiComponent.getId()};
         FacesMessage facesMessage =
             MessageFactory.createFacesMessage(facesContext, MAXIMUM_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, args);
         throw new ValidatorException(facesMessage);
       }
       if (minimum != null && submittedValue.length() < minimum) {
-        Object[] args = { minimum, uiComponent.getId() };
+        Object[] args = {minimum, uiComponent.getId()};
         FacesMessage facesMessage = 
             MessageFactory.createFacesMessage(facesContext, MINIMUM_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, args);
         throw new ValidatorException(facesMessage);
@@ -95,7 +95,7 @@ public class SubmittedValueLengthValidator extends LengthValidator {
   }
 
   public Object saveState(FacesContext context) {
-    Object values[] = new Object[2];
+    Object[] values = new Object[2];
     values[0] = maximum;
     values[1] = minimum;
     return values;
@@ -104,7 +104,7 @@ public class SubmittedValueLengthValidator extends LengthValidator {
 
 
   public void restoreState(FacesContext context, Object state) {
-    Object values[] = (Object[]) state;
+    Object[] values = (Object[]) state;
     maximum = (Integer) values[0];
     minimum = (Integer) values[1];
   }

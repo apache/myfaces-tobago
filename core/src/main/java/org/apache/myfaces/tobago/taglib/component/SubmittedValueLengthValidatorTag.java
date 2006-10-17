@@ -37,8 +37,8 @@ import javax.servlet.jsp.JspException;
  */
 @Tag(name="validateSubmittedValueLength")
 public class SubmittedValueLengthValidatorTag extends ValidatorTag {
-  public String minimum;
-  public String maximum;
+  private String minimum;
+  private String maximum;
 
 
   public String getMinimum() {

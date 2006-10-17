@@ -41,7 +41,7 @@ public class MessageFactory {
       = new HashMap<Locale, ResourceBundle>();
 
   public static FacesMessage createFacesMessage(FacesContext facesContext,
-      String key, FacesMessage.Severity severity,  Object args[]) {
+      String key, FacesMessage.Severity severity,  Object[] args) {
     return createFacesMessage(facesContext, "tobago", key, severity, args);
   }
 
@@ -51,7 +51,7 @@ public class MessageFactory {
   }
 
   public static FacesMessage createFacesMessage(FacesContext facesContext,
-      String bundle, String key, FacesMessage.Severity severity, Object args[]) {
+      String bundle, String key, FacesMessage.Severity severity, Object[] args) {
     String summary = getMessageText(facesContext, bundle, key);
     String detail = getMessageText(facesContext, bundle, key + "_detail");
     if (args != null && args.length > 0) {
