@@ -31,9 +31,9 @@ import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.InRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.FacesMessage;
@@ -49,7 +49,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-public class TimeRenderer extends InRendererBase{
+public class TimeRenderer extends InputRendererBase {
 
   private static final Log LOG = LogFactory.getLog(TimeRenderer.class);
 

@@ -28,8 +28,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
+import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.InRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -41,7 +41,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Iterator;
 
-public class TextAreaRenderer extends InRendererBase {
+public class TextAreaRenderer extends InputRendererBase {
 
   @Override
   public void encodeEndTobago(FacesContext facesContext,
