@@ -13,12 +13,20 @@
 		<source>date.xhtml</source>
 	</tag>
   <tag>
+		<tag-name>time</tag-name>
+		<source>time.xhtml</source>
+	</tag>
+  <tag>
 		<tag-name>textarea</tag-name>
 		<source>textarea.xhtml</source>
 	</tag>
   <tag>
 		<tag-name>file</tag-name>
 		<source>file.xhtml</source>
+	</tag>
+  <tag>
+		<tag-name>selectBooleanCheckbox</tag-name>
+		<source>selectBooleanCheckbox.xhtml</source>
 	</tag>
   <tag>
 		<tag-name>selectOneChoice</tag-name>

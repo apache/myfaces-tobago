@@ -11,13 +11,16 @@ THIS TEXT WILL BE REMOVED
   <c:if test="${empty rendered}">
     <c:set var="rendered" value="true"/>
   </c:if>
-  <tc:menuItem rendered="${rendered}" action="${action}">
-    <f:facet name="items">
-      <tc:selectOneRadio value="${value}" >
-        <ui:insert/>
-      </tc:selectOneRadio>
+  <tc:panel rendered="${rendered}">
+    <f:facet name="layout">
+      <tc:gridLayout columns="fixed;*"/>
     </f:facet>
-  </tc:menuItem>
+    <tc:label value="${label}" for="@auto" tip="${tip}"/>
+    <tc:selectBooleanCheckbox value="${value}" 
+        readonly="${readonly}" disabled="${disabled}">
+      <ui:insert/>
+    </tc:selectBooleanCheckbox>
+  </tc:panel>
 </ui:composition>
 THIS TEXT WILL BE REMOVED AS WELL
 
