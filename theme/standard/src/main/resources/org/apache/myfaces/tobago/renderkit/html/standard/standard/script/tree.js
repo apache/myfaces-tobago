@@ -29,3 +29,19 @@ Tobago.Tree.destroy = function(node) {
     // ignore
   }
 };
+
+Tobago.Tree.onClick = function(element) {
+  var treeNode = Tobago.treeNodes[element.parentNode.id];
+  if (treeNode) {
+    treeNode.onClick();
+  }
+};
+
+Tobago.Tree.DBL_CLICK_TIMEOUT = 300;
+
+Tobago.Tree.onDblClick = function(element) {
+  var treeNode = Tobago.treeNodes[element.parentNode.id];
+  if (treeNode) {
+    treeNode.onDblClick();
+  }
+};

@@ -322,18 +322,7 @@ function TreeNode(label, id, mode, isFolder,
       || treeResources.getImage("openfoldericon.gif");
   this.width = width;
   this.childNodes = [];
-// FIXME: page:form
-	this.onclick
-	  = mutable
-      ? "storeMarker(this.parentNode, '" + treeHiddenId + "')"
-      : selectable
-        ? "toggleSelect(this.parentNode, '" + treeHiddenId
-            + "', '" + treeResources.getImage("unchecked.gif")
-            + "', '" + treeResources.getImage("checked.gif")
-            + "')"
-	      : "Tobago.submitAction('" + id + "')";
-	this.onfocus = "storeMarker(this.parentNode, '" + treeHiddenId + "')";
-//	this.ondblclick = "toggle(this.parentNode, '" + treeHiddenId + "')";
+  this.onfocus = "storeMarker(this.parentNode, '" + treeHiddenId + "')";
 
   if (this.expanded) {
     var hidden = document.getElementById(this.treeHiddenId);
@@ -443,19 +432,16 @@ TreeNode.prototype.toString = function (depth, last) {
       if (this.marked) {
         itemStyle += " tree-item-marker";
       }
-      if (this.action && !this.disabled) {
-        str += '<a class="' + itemStyle + '" href="' + this.action + '" id="'
-          + this.id + '-anchor">' + this.label + '</a>';
-      } else {
       // TODO: mozilla shoud use href="javascript:;" and ie href="#"
-        str += '<a class="' + itemStyle + '"';
-        if (!this.disabled) {
-            str += ' href="#"' + ' onclick="' + this.onclick + '"'
-                + ' onfocus="' + this.onfocus + '"';
-        }
-        str += '>'
-            + this.label + '</a>';
+      str += '<a class="' + itemStyle + '"';
+      if (!this.disabled) {
+        str += ' href="' + Tobago.EMPTY_HREF +  '"'
+            + ' onclick="Tobago.Tree.onClick(this)"'
+            + ' ondblclick="Tobago.Tree.onDblClick(this)"'
+            + ' onfocus="' + this.onfocus + '"';
       }
+      str += '>'
+          + this.label + '</a>';
       str += '</div>';
     }
     if (this.isFolder) {
@@ -523,6 +509,50 @@ TreeNode.prototype.add = function (node) {
   this.childNodes[this.childNodes.length] = node;
   return node;
 };
+
+TreeNode.prototype.onClick = function() {
+  LOG.debug("click on tree;");
+  this.singleClick = true;
+  setTimeout(Tobago.bind(this, "doOnClick"), Tobago.Tree.DBL_CLICK_TIMEOUT);
+}
+
+TreeNode.prototype.doOnClick = function() {
+  if (!this.singleClick) {
+    return;
+  }
+
+  LOG.debug("doClick on tree;");
+  this.singleClick = false;
+  if (this.action && !this.disabled) {
+    // str += '<a class="' + itemStyle + '" href="' + this.action + '" id="'
+    //      + this.id + '-anchor">' + this.label + '</a>';
+
+    // not yet supported see TreeNodeRenderer r464525 line 278
+  } else {
+    if (this.mutable) {
+      storeMarker(Tobago.element(this.id), this.treeHiddenId);
+    } else if (this.selectable) {
+      toggleSelect(Tobago.element(this.id),
+          this.treeHiddenId,
+          this.treeResources.getImage("unchecked.gif"),
+          this.treeResources.getImage("checked.gif"));
+    } else {
+      Tobago.submitAction(this.id);
+    }
+
+  }
+}
+
+TreeNode.prototype.onDblClick = function() {
+  LOG.debug("dblclick on tree;");
+  this.singleClick = false;
+  toggle(Tobago.element(this.id),
+      this.treeHiddenId,
+      this.treeResources.getImage("openfoldericon.gif"),
+      this.treeResources.getImage("foldericon.gif"));
+}
+
+
 
 // //////////////////////////////////////////////////  listTree
 

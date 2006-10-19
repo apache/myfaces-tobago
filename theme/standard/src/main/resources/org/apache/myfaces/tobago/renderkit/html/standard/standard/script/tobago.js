@@ -60,6 +60,8 @@ var Tobago = {
     */
   SUB_COMPONENT_SEP: "::",
 
+  EMPTY_HREF: window.all ? "#" : "javascript:;",
+
   /**
     *  regexp to find non valid javascript name characters in scriptIds
     */
