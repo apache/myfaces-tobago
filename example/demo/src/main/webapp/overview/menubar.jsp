@@ -89,6 +89,9 @@ FIXME: this doesn't work
 --%>
             <tc:menuItem onclick="alert('#{overviewBundle.pageTitle}' + String.fromCharCode(10) + '#{tobagoVersion.name}' + String.fromCharCode(10) + '#{overviewBundle.tobago_url}' + String.fromCharCode(10))"
                          label="#{overviewBundle.menu_about}" />
+            <tc:menuItem onclick="LOG.show();"
+                         label="#{overviewBundle.menu_showLog}"
+                         rendered="#{clientConfigController.debugMode}"/>
           </tc:menu>
         </tc:menuBar>
 
