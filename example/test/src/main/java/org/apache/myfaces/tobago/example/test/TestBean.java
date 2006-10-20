@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.example.test;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.fileupload.FileItem;
+import org.apache.myfaces.tobago.component.UIData;
 
 import java.sql.Statement;
 import java.sql.DriverManager;
@@ -26,6 +27,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
 /*
  * Created by IntelliJ IDEA.
@@ -49,6 +51,7 @@ public class TestBean {
   private String discoverer;
   private String discoverYear;
   private FileItem file;
+  private UIData table;
 
   public TestBean() {
 
@@ -108,6 +111,15 @@ public class TestBean {
     }
   }
 
+
+  public UIData getTable() {
+    return table;
+  }
+
+  public void setTable(UIData table) {
+    this.table = table;
+  }
+
   public String getName() {
     return name;
   }
@@ -143,7 +155,24 @@ public class TestBean {
   public String getDiscoverYear() {
     return discoverYear;
   }
+  public String select() {
+    try {
+      Map rowData = (Map) table.getRowData();
 
+      name = (String) rowData.get("NAME");
+      number = (String) rowData.get("NUMBER");
+      orbit = (String) rowData.get("ORBIT");
+      distance = (String) rowData.get("DISTANCE");
+      period = (String) rowData.get("PERIOD");
+      incl = (String) rowData.get("INCL");
+      eccen = (String) rowData.get("ECCEN");
+      discoverer = (String) rowData.get("DISCOVERER");
+      discoverYear = (String) rowData.get("DISCOVERYEAR");
+    } catch (Exception e) {
+      LOG.error("", e);
+    }
+    return "solarDetail";
+  }
   public String select(String id) {
     PreparedStatement ps = null;
     ResultSet rs = null;
@@ -211,6 +240,8 @@ public class TestBean {
     }
     return resultSet;
   }
+
+
 
   private static final String[][] STRINGS =
           {

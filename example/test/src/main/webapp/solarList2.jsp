@@ -6,12 +6,11 @@
       <tc:gridLayout/>
     </f:facet>
     <tc:box >
-       <tc:sheet value="#{test.solarObjects}" id="sheet"
+       <tc:sheet binding="#{test.table}" value="#{test.solarObjects}" id="sheet"
             columns="1*;1*;1*;1*;1*;1*;1*;1*;2*" var="solarObject"
             showHeader="true"  showPageRange="center" rows="10" >
           <tc:column label="Name" sortable="true">
-             <tc:link label="#{solarObject.name}" link="SolarDetail">
-               <f:param value="#{solarObject.name}" name="id" />
+             <tc:link label="#{solarObject.name}" action="#{test.select}" >
              </tc:link>
           </tc:column>
           <tc:column label="Number" id="number" sortable="false"
