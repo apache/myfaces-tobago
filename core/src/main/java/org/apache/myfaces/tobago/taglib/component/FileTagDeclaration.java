@@ -27,6 +27,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
+import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
 /*
  * Created: Aug 5, 2005 5:15:50 PM
@@ -42,7 +44,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
     rendererType = "File")
 public interface FileTagDeclaration
     extends BeanTagDeclaration, HasValidator, HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, IsDisabled,
-    HasLabelAndAccessKey, HasTip {
+    HasLabelAndAccessKey, HasTip, IsReadonly, IsRequired {
 
   /**
    * Value binding expression pointing to a

@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
+import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
 /*
  * Created: Aug 5, 2005 5:03:15 PM
@@ -40,6 +41,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
     rendererType =RENDERER_TYPE_TIME)
 public interface TimeTagDeclaration
     extends InputTagDeclaration, HasIdBindingAndRendered,
-    IsReadonly, IsDisabled, IsInline, HasLabelAndAccessKey, HasTip {
+    IsReadonly, IsDisabled, IsInline, HasLabelAndAccessKey, HasTip, IsRequired {
 
 }

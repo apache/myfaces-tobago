@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
+import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 
 /*
  * Created: Aug 5, 2005 5:18:50 PM
@@ -44,6 +45,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
     rendererType = "SelectBooleanCheckbox", isComponentAlreadyDefined = true)
 public interface SelectBooleanCheckboxTagDeclaration extends BeanTagDeclaration, HasValidator,
     HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabelAndAccessKey, HasBooleanValue, IsDisabled,
-    IsInline, HasTip {
+    IsInline, HasTip, IsReadonly {
 
 }
