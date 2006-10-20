@@ -322,10 +322,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         Commandline cmd = new Commandline();
         int result = APT_COMPILER_SUCCESS;
         StringWriter writer = new StringWriter();
-        if ( !tempRoot.exists() )
-        {
-             tempRoot.mkdirs();
-        }
+
         // Use reflection to be able to build on all JDKs:
         try
         {
@@ -347,6 +344,11 @@ public abstract class AbstractAPTMojo extends AbstractMojo
             {
                 if ( fork )
                 {
+
+                     if ( !tempRoot.exists() )
+                     {
+                         tempRoot.mkdirs();
+                     }
                      File file = new File( tempRoot , "files" );
                      if ( !getLog().isDebugEnabled() )
                      {
