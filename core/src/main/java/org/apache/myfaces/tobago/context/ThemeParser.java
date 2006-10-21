@@ -65,7 +65,7 @@ class ThemeParser {
     return digester;
   }
 
-  public ThemeImpl parse(URL url)
+  public ThemeImpl parse(final URL url)
       throws IOException, SAXException, FacesException {
 
     InputStream inputStream = null;

@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Locale;
 
 public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
 
@@ -61,7 +62,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
   private void init(HttpServletRequest request, String repositoryPath, long maxSize) {
     String contentType = request.getContentType();
     if (contentType == null
-        || !contentType.toLowerCase().startsWith("multipart/form-data")) {
+        || !contentType.toLowerCase(Locale.ENGLISH).startsWith("multipart/form-data")) {
       String errorText = "contentType is not multipart/form-data but '"
           + contentType + "'";
       LOG.error(errorText);
@@ -165,7 +166,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
 
   public static long getMaxSize(String param) {
     if (param != null) {
-      String number = param.toLowerCase();
+      String number = param.toLowerCase(Locale.ENGLISH);
       long factor = 1;
       if (number.endsWith("g")) {
         factor = ONE_GB;

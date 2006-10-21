@@ -24,6 +24,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LABEL;
 
 import javax.faces.component.UIComponent;
+import java.util.Locale;
 
 public final class LabelWithAccessKey {
 
@@ -72,7 +73,7 @@ public final class LabelWithAccessKey {
       text = StringUtils.replace(text, ESCAPED_INDICATOR, String.valueOf(INDICATOR));
     } else {
       if (accessKey != null && text != null) {
-        pos = text.toLowerCase().indexOf(
+        pos = text.toLowerCase(Locale.ENGLISH).indexOf(
             Character.toLowerCase(accessKey.charValue()));
       }
     }

@@ -30,6 +30,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletResponse;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -111,16 +112,14 @@ public class ViewHandlerImpl extends ViewHandler {
     if (LOG.isDebugEnabled()) {
       LOG.debug("contentType = '" + contentType + "'");
     }
-    try {
-      if (contentType.indexOf("fo") == -1) {
-        // standard
-        base.renderView(facesContext, viewRoot);
-      } else {
-        // TODO PortletResponse ??
+    if (contentType.indexOf("fo") == -1) {
+      // standard
+      base.renderView(facesContext, viewRoot);
+    } else {
+      try {
+      // TODO PortletResponse ??
         if (facesContext.getExternalContext().getResponse() instanceof TobagoResponse) {
           ((TobagoResponse) facesContext.getExternalContext().getResponse()).setBuffering();
-
-
           // own dispatch
           HttpServletRequest request = (HttpServletRequest)
               facesContext.getExternalContext().getRequest();
@@ -139,17 +138,12 @@ public class ViewHandlerImpl extends ViewHandler {
           }
           FopConverter.fo2Pdf(servletResponse, buffer);
         }
+      } catch (ServletException e) {
+        IOException ex = new IOException();
+        ex.initCause(e);
+        throw ex;
       }
-    } catch (Exception e) {
-//      if (contentType.indexOf("fo") > -1) {
-      // FIXME ignoring this for OutputStream for pdf generation
-//        LOG.info("ignoring Exception for FO/PDF generation");
-//      } else {
-      LOG.error("requestUri '" + requestUri + "'", e);
-      throw new FacesException(e);
-//      }
     }
-
     if (LOG.isDebugEnabled()) {
       LOG.debug("VIEW");
       LOG.debug(ComponentUtil.toString(facesContext.getViewRoot(), 0));

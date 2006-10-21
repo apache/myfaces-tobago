@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class UserAgent implements Serializable {
 
@@ -104,7 +105,7 @@ public class UserAgent implements Serializable {
       return DEFAULT;
     }
 
-    header = header.toLowerCase().replace('/', ' ');
+    header = header.toLowerCase(Locale.ENGLISH).replace('/', ' ');
     if (header.indexOf("opera") > -1) {
       if (header.indexOf("opera 5.0") > -1) {
         return OPERA_5_0;

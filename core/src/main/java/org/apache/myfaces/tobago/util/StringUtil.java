@@ -22,6 +22,7 @@ import org.apache.commons.lang.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.Locale;
 
 public class StringUtil {
 
@@ -36,9 +37,9 @@ public class StringUtil {
       case 0:
         return string;
       case 1:
-        return string.toUpperCase();
+        return string.toUpperCase(Locale.ENGLISH);
       default:
-        return string.substring(0, 1).toUpperCase() + string.substring(1);
+        return string.substring(0, 1).toUpperCase(Locale.ENGLISH) + string.substring(1);
     }
   }
 

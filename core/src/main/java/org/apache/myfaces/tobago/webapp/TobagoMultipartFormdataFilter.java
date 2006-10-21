@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.File;
+import java.util.Locale;
 
 
 /**
@@ -102,7 +103,7 @@ public class TobagoMultipartFormdataFilter implements Filter {
       } else {
         String contentType = request.getContentType();
         if (contentType != null
-            && contentType.toLowerCase().startsWith("multipart/form-data")) {
+            && contentType.toLowerCase(Locale.ENGLISH).startsWith("multipart/form-data")) {
           if (LOG.isDebugEnabled()) {
             LOG.debug("Wrapping " + request.getClass().getName()
                 + " with ContentType=\"" + contentType + "\" "
