@@ -49,8 +49,8 @@ public class UITreeListbox extends UITree implements LayoutProvider {
 
   public static final String BOXES_PREFIX = "boxes_";
 
-  private List<UITreeNode> selectionPath;
-  private List<UITreeNode> expandPath;
+  private List<UITreeNode> selectionPath = null;
+  private List<UITreeNode> expandPath = null;
 
   private boolean encodingChildren = false;
 

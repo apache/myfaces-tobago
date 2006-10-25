@@ -41,7 +41,9 @@ public class TabChangeEvent extends FacesEvent {
   }
 
   public void processListener(FacesListener facesListener) {
-    ((TabChangeListener) facesListener).processTabChange(this);
+    if (facesListener instanceof TabChangeListener) {
+      ((TabChangeListener) facesListener).processTabChange(this);
+    }
   }
 
   public int getOldTabIndex() {

@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.util;
 import javax.faces.context.FacesContext;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Locale;
 
 public class AccessKeyMap {
 
@@ -59,7 +60,7 @@ public class AccessKeyMap {
   }
 
   public static boolean addAccessKey(FacesContext facesContext, Character key) {
-    key = new Character(key.toString().toLowerCase().charAt(0));
+    key = new Character(key.toString().toLowerCase(Locale.ENGLISH).charAt(0));
     final AccessKeyMap instance = getInstance(facesContext);
     if (instance.getSet().contains(key)) {
       instance.addDublicated(key.charValue());

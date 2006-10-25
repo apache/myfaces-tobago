@@ -42,6 +42,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.Locale;
 
 public class LabelRenderer extends RendererBase {
 
@@ -49,7 +50,7 @@ public class LabelRenderer extends RendererBase {
 
   private void createClassAttribute(UIComponent component) {
 
-    String rendererType = component.getRendererType().toLowerCase();
+    String rendererType = component.getRendererType().toLowerCase(Locale.ENGLISH);
     String name = getRendererName(rendererType);
 
     UIComponent parent = findParent(component);

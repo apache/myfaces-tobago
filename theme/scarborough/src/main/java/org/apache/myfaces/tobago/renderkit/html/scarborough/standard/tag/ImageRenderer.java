@@ -42,6 +42,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.Locale;
 
 public class ImageRenderer extends RendererBase {
   
@@ -58,7 +59,7 @@ public class ImageRenderer extends RendererBase {
     final String value = graphic.getUrl();
     String src = value;
     if (src != null) {
-      final String ucSrc = src.toUpperCase();
+      final String ucSrc = src.toUpperCase(Locale.ENGLISH);
       if (ucSrc.startsWith("HTTP:") || ucSrc.startsWith("FTP:")
           || ucSrc.startsWith("/")) {
         // absolute Path to image : nothing to do

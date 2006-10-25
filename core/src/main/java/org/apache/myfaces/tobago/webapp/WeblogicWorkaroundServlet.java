@@ -76,11 +76,13 @@ public class WeblogicWorkaroundServlet extends HttpServlet {
   private void callInit(String className) {
     try {
       Class aClass = Class.forName(className);
-      ServletContextListener listener = (ServletContextListener)
-          aClass.newInstance();
-      listener.contextInitialized(
-          new ServletContextEvent(getServletContext()));
-    } catch (Exception e) {
+      ServletContextListener listener = (ServletContextListener) aClass.newInstance();
+      listener.contextInitialized(new ServletContextEvent(getServletContext()));
+    } catch (ClassNotFoundException e) {
+      LOG.error("", e);
+    } catch (IllegalAccessException e) {
+      LOG.error("", e);
+    } catch (InstantiationException e) {
       LOG.error("", e);
     }
   }

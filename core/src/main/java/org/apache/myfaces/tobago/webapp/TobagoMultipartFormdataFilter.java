@@ -119,8 +119,13 @@ public class TobagoMultipartFormdataFilter implements Filter {
       LOG.error("Not implemented for non HttpServletRequest");
       wrapper = request;
     }
+    ServletResponse wrappedResponse;
+    if (response instanceof HttpServletResponse) {
+      wrappedResponse = new TobagoResponse((HttpServletResponse) response);
+    } else {
+      wrappedResponse = response;
+    }
 
-    TobagoResponse wrappedResponse = new TobagoResponse((HttpServletResponse) response);
     chain.doFilter(wrapper, wrappedResponse);
   }
 

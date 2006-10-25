@@ -54,6 +54,7 @@ public class DatePickerRenderer extends LinkRenderer {
     UIDateInput dateInput = (UIDateInput) link.getForComponent();
     if (dateInput == null) {
       LOG.error("No required UIDateInput component found.");
+      return;
     }
     String idPrefix = dateInput.getId() + "_picker";
     Map<String, Object>  attributes = link.getAttributes();

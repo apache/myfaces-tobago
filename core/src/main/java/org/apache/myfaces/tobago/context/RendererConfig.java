@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.context;
  */
 
 import java.io.Serializable;
+import java.util.Locale;
 
 /*
  * Created by IntelliJ IDEA.
@@ -36,7 +37,7 @@ public class RendererConfig implements Serializable {
   }
 
   public void setName(String name) {
-    this.name = name.substring(0, 1).toLowerCase() + name.substring(1);
+    this.name = name.substring(0, 1).toLowerCase(Locale.ENGLISH) + name.substring(1);
   }
 
   public boolean equals(Object o) {

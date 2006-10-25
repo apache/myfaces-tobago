@@ -97,10 +97,8 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
       }
       Document document = createDocument(libraryClass);
 
-      writeFaceletTaglibHandler(unit);
-
       writeFaceletTaglibConfig(taglibAnnotation, document, packageDeclaration);
-
+      writeFaceletTaglibHandler(unit, libraryClass);
     }
   }
 
@@ -130,12 +128,12 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
     }
   }
 
-  private void writeFaceletTaglibHandler(JCompUnit unit) throws IOException {
+  private void writeFaceletTaglibHandler(JCompUnit unit, JClass clazz) throws IOException {
     JSourceWriter sourceWriter = null;
     try {
       Writer writer = getEnv().getFiler().createTextFile(Filer.Location.SOURCE_TREE,
           unit.getPackageName(),
-          new File(unit.getFilename(null).substring(unit.getPackageName().length()+1)), null);
+          new File(clazz.getLocalName()+".java"), null);
       sourceWriter = new JSourceWriter(writer);
       unit.print(sourceWriter);
     } finally{

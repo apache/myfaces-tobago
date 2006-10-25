@@ -27,6 +27,7 @@ import javax.servlet.jsp.tagext.ValidationMessage;
  * Time: 10:56:39
  */
 public class CommandTagExtraInfo extends TagExtraInfo {
+  private static final ValidationMessage[] EMPTY_MESSAGE = new ValidationMessage[0];
   public ValidationMessage[] validate(TagData data) {
     Object action = data.getAttribute("action");
     Object onclick = data.getAttribute("onclick");
@@ -38,7 +39,7 @@ public class CommandTagExtraInfo extends TagExtraInfo {
     } else if (onclick != null&&link != null) {
       return generateValidationMessages(data);
     }
-    return null;
+    return EMPTY_MESSAGE;
   }
 
   private ValidationMessage[] generateValidationMessages(TagData data) {

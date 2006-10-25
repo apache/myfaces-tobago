@@ -20,7 +20,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
 
-/**
+/*
  * User: weber
  * Date: 13.12.2004
  * Time: 16:25:03
@@ -36,7 +36,9 @@ public class SheetStateChangeEvent extends FacesEvent {
   }
 
   public void processListener(FacesListener facesListener) {
-    ((SheetStateChangeListener) facesListener).processSheetStateChange(this);
+    if (facesListener instanceof SheetStateChangeListener) {
+      ((SheetStateChangeListener) facesListener).processSheetStateChange(this);
+    }
   }
 
 }

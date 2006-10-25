@@ -47,6 +47,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Arrays;
+import java.util.Locale;
 
 public abstract class RendererBase
     extends Renderer implements TobagoRenderer {
@@ -149,7 +150,7 @@ public abstract class RendererBase
       name = name.substring("javax.faces.".length());
       LOG.warn("patching renderer to   " + name);
     }
-    name = name.substring(0, 1).toLowerCase() + name.substring(1);
+    name = name.substring(0, 1).toLowerCase(Locale.ENGLISH) + name.substring(1);
     return name;
   }
 
