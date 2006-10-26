@@ -85,6 +85,7 @@ public class UIData extends javax.faces.component.UIData
   private String showRowRange;
   private String showPageRange;
   private String showDirectLinks;
+  private String columns;
   private Integer directLinkCount;
 
   private String selectable;
@@ -139,6 +140,22 @@ public class UIData extends javax.faces.component.UIData
 
   public void setShowPageRange(String showPageRange) {
     this.showPageRange = showPageRange;
+  }
+
+  public String getColumns() {
+    if (columns != null) {
+      return columns;
+    }
+    ValueBinding vb = getValueBinding(ATTR_COLUMNS);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return null;
+    }
+  }
+
+  public void setColumns(String columns) {
+    this.columns = columns;
   }
 
   public String getShowDirectLinks() {
@@ -460,7 +477,7 @@ public class UIData extends javax.faces.component.UIData
 
 
   public Object saveState(FacesContext context) {
-    Object[] saveState = new Object[10];
+    Object[] saveState = new Object[11];
     saveState[0] = super.saveState(context);
     saveState[1] = sheetState;
     saveState[2] = saveAttachedState(context, sortActionListener);
@@ -471,6 +488,7 @@ public class UIData extends javax.faces.component.UIData
     saveState[7] = showDirectLinks;
     saveState[8] = directLinkCount;
     saveState[9] = selectable;
+    saveState[10] = columns;
     return saveState;
   }
 
@@ -486,6 +504,7 @@ public class UIData extends javax.faces.component.UIData
     showDirectLinks = (String) values[7];
     directLinkCount = (Integer) values[8];
     selectable = (String) values[9];
+    columns = (String) values[10];
   }
 
 

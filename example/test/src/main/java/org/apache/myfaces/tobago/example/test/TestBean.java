@@ -20,13 +20,19 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.myfaces.tobago.component.UIData;
+import org.apache.myfaces.tobago.component.UIColumn;
 
+import javax.faces.component.UIOutput;
+import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 import java.sql.Statement;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.ResultSetMetaData;
+import java.sql.Types;
 import java.util.Map;
 
 /*
@@ -84,9 +90,9 @@ public class TestBean {
       Statement statement = connection.createStatement();
       try {
         statement.execute("create table solarObject(name varchar(10), number varchar(5), "
-            + "orbit varchar(10), distance varchar(10), period varchar(10), "
-            + "incl varchar(10), eccen varchar(10), discoverer varchar(20), "
-            + "discoverYear varchar(4))");
+            + "orbit varchar(10), distance INTEGER, period FLOAT, "
+            + "incl FLOAT, eccen FLOAT, discoverer varchar(20), "
+            + "discoverYear INTEGER)");
         PreparedStatement ps =
             connection.prepareStatement("insert into solarObject values (?,?,?,?,?,?,?,?,?)");
         for (String[] aSTRINGS : STRINGS) {
@@ -106,6 +112,7 @@ public class TestBean {
       Statement query = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
       resultSet = query.executeQuery("select * from solarObject");
 
+
     } catch (Exception e) {
       LOG.error("", e);
     }
@@ -118,6 +125,50 @@ public class TestBean {
 
   public void setTable(UIData table) {
     this.table = table;
+    if (table.getChildCount() == 0) {
+      if (table.getVar()==null) {
+        table.setVar("solarObject");
+      }
+      try {
+        ResultSetMetaData metaData = resultSet.getMetaData();
+        String columns = "";
+        for (int i = 1; i <= metaData.getColumnCount(); i++) {
+          UIColumn column = new UIColumn();
+          String name = metaData.getColumnName(i);
+          int displaySize = metaData.getColumnDisplaySize(i);
+
+          if (i > 1) {
+            columns += ";";
+          }
+          if (displaySize < 10) {
+            columns += "1*";
+          } else if (displaySize < 20) {
+            columns += "2*";
+          } else {
+            columns += "4*";
+          }
+          if (metaData.getColumnType(i) == Types.INTEGER
+              || metaData.getColumnType(i) == Types.FLOAT) {
+            column.setAlign("right");
+          }
+          column.setLabel(name);
+          UIOutput output = new UIOutput();
+          String ref = "#{"+table.getVar() + "." + name + "}";
+
+          ValueBinding binding =
+              FacesContext.getCurrentInstance().
+                  getApplication().createValueBinding(ref);
+          output.setValueBinding("value", binding);
+          column.getChildren().add(output);
+          table.getChildren().add(column);
+        }
+
+        table.setColumns(columns);
+      } catch (SQLException e) {
+        LOG.error("", e);
+      }
+
+    }
   }
 
   public String getName() {
@@ -246,16 +297,16 @@ public class TestBean {
   private static final String[][] STRINGS =
           {
             {"Sun",         "-",          "-",        "0",     "0",       "0",     "0",             "-",       "0"},
-            {"Mercury",    "I",         "Sun",    "57910",    "87.97",    "7.00",  "0.21",          "-",       "-"},
-            {"Venus",      "II",        "Sun",   "108200",   "224.70",    "3.39",  "0.01",          "-",       "-"},
-            {"Earth",      "III",       "Sun",   "149600",   "365.26",    "0.00",  "0.02",          "-",       "-"},
-            {"Mars",       "IV",        "Sun",   "227940",   "686.98",    "1.85",  "0.09",          "-",       "-"},
-            {"Jupiter",    "V",         "Sun",   "778330",  "4332.71",    "1.31",  "0.05",          "-",       "-"},
-            {"Saturn",     "VI",        "Sun",  "1429400", "10759.50",    "2.49",  "0.06",          "-",       "-"},
+            {"Mercury",    "I",         "Sun",    "57910",    "87.97",    "7.00",  "0.21",          "-",      null},
+            {"Venus",      "II",        "Sun",   "108200",   "224.70",    "3.39",  "0.01",          "-",      null},
+            {"Earth",      "III",       "Sun",   "149600",   "365.26",    "0.00",  "0.02",          "-",      null},
+            {"Mars",       "IV",        "Sun",   "227940",   "686.98",    "1.85",  "0.09",          "-",      null},
+            {"Jupiter",    "V",         "Sun",   "778330",  "4332.71",    "1.31",  "0.05",          "-",      null},
+            {"Saturn",     "VI",        "Sun",  "1429400", "10759.50",    "2.49",  "0.06",          "-",      null},
             {"Uranus",     "VII",       "Sun",  "2870990", "30685.00",    "0.77",  "0.05",   "Herschel",    "1781"},
             {"Neptune",    "VIII",      "Sun",  "4504300", "60190.00",    "1.77",  "0.01",      "Adams",    "1846"},
             {"Pluto",      "IX",        "Sun",  "5913520", "90800",      "17.15",  "0.25",   "Tombaugh",    "1930"},
-            {"Moon",       "I",       "Earth",      "384",    "27.32",    "5.14",  "0.05",          "-",       "-"},
+            {"Moon",       "I",       "Earth",      "384",    "27.32",    "5.14",  "0.05",          "-",      null},
             {"Phobos",     "I",        "Mars",        "9",     "0.32",    "1.00",  "0.02",       "Hall",    "1877"},
             {"Deimos",     "II",       "Mars",       "23",     "1.26",    "1.80",  "0.00",       "Hall",    "1877"},
             {"Metis",      "XVI",   "Jupiter",      "128",     "0.29",    "0.00",  "0.00",    "Synnott",    "1979"},
@@ -266,7 +317,7 @@ public class TestBean {
             {"Europa",     "II",    "Jupiter",      "671",     "3.55",    "0.47",  "0.01",    "Galileo",    "1610"},
             {"Ganymede",   "III",   "Jupiter",     "1070",     "7.15",    "0.19",  "0.00",    "Galileo",    "1610"},
             {"Callisto",   "IV",    "Jupiter",     "1883",    "16.69",    "0.28",  "0.01",    "Galileo",    "1610"},
-            {"Themisto",   "XVIII", "Jupiter",     "7507",     "0",           "",      "",   "Sheppard",    "2000"},
+            {"Themisto",   "XVIII", "Jupiter",     "7507",     "0",         null,    null,   "Sheppard",    "2000"},
             {"Leda",       "XIII",  "Jupiter",    "11094",   "238.72",   "27.00",  "0.15",      "Kowal",    "1974"},
             {"Himalia",    "VI",    "Jupiter",    "11480",   "250.57",   "28.00",  "0.16",    "Perrine",    "1904"},
             {"Lysithea",   "X",     "Jupiter",    "11720",   "259.22",   "29.00",  "0.11",  "Nicholson",    "1938"},
@@ -275,16 +326,16 @@ public class TestBean {
             {"Carme",      "XI",    "Jupiter",    "22600",  "-692",     "163.00",  "0.21",  "Nicholson",    "1938"},
             {"Pasiphae",   "VIII",  "Jupiter",    "23500",  "-735",     "147.00",  "0.38",    "Melotte",    "1908"},
             {"Sinope",     "IX",    "Jupiter",    "23700",  "-758",     "153.00",  "0.28",  "Nicholson",    "1914"},
-            {"Iocaste",    "XXIV",  "Jupiter",    "20216",     "0",           "",      "",   "Sheppard",    "2000"},
-            {"Harpalyke",  "XXII",  "Jupiter",    "21132",     "0",           "",      "",   "Sheppard",    "2000"},
-            {"Praxidike",  "XXVII", "Jupiter",    "20964",     "0",           "",      "",   "Sheppard",    "2000"},
-            {"Taygete",    "XX",    "Jupiter",    "23312",     "0",           "",      "",   "Sheppard",    "2000"},
-            {"Chaldene",   "XXI",   "Jupiter",    "23387",     "0",           "",      "",   "Sheppard",    "2000"},
-            {"Kalyke",     "XXIII", "Jupiter",    "23745",     "0",           "",      "",   "Sheppard",    "2000"},
-            {"Callirrhoe", "XVII",  "Jupiter",    "24100",     "0",           "",      "",   "Sheppard",    "2000"},
-            {"Megaclite",  "XIX",   "Jupiter",    "23911",     "0",           "",      "",   "Sheppard",    "2000"},
-            {"Isonoe",     "XXVI",  "Jupiter",    "23078",     "0",           "",      "",   "Sheppard",    "2000"},
-            {"Erinome",    "XXV",   "Jupiter",    "23168",     "0",           "",      "",   "Sheppard",    "2000"},
+            {"Iocaste",    "XXIV",  "Jupiter",    "20216",     "0",         null,    null,   "Sheppard",    "2000"},
+            {"Harpalyke",  "XXII",  "Jupiter",    "21132",     "0",         null,    null,   "Sheppard",    "2000"},
+            {"Praxidike",  "XXVII", "Jupiter",    "20964",     "0",         null,    null,   "Sheppard",    "2000"},
+            {"Taygete",    "XX",    "Jupiter",    "23312",     "0",         null,    null,   "Sheppard",    "2000"},
+            {"Chaldene",   "XXI",   "Jupiter",    "23387",     "0",         null,    null,   "Sheppard",    "2000"},
+            {"Kalyke",     "XXIII", "Jupiter",    "23745",     "0",         null,    null,   "Sheppard",    "2000"},
+            {"Callirrhoe", "XVII",  "Jupiter",    "24100",     "0",         null,    null,   "Sheppard",    "2000"},
+            {"Megaclite",  "XIX",   "Jupiter",    "23911",     "0",         null,    null,   "Sheppard",    "2000"},
+            {"Isonoe",     "XXVI",  "Jupiter",    "23078",     "0",         null,    null,   "Sheppard",    "2000"},
+            {"Erinome",    "XXV",   "Jupiter",    "23168",     "0",         null,    null,   "Sheppard",    "2000"},
             {"Pan",        "XVIII",  "Saturn",      "134",     "0.58",    "0.00",  "0.00",  "Showalter",    "1990"},
             {"Atlas",      "XV",     "Saturn",      "138",     "0.60",    "0.00",  "0.00",    "Terrile",    "1980"},
             {"Prometheus", "XVI",    "Saturn",      "139",     "0.61",    "0.00",  "0.00",    "Collins",    "1980"},
@@ -312,7 +363,7 @@ public class TestBean {
             {"Portia",     "XII",    "Uranus",       "66",     "0.51",    "0.09",  "0.00",  "Voyager 2",    "1986"},
             {"Rosalind",   "XIII",   "Uranus",       "70",     "0.56",    "0.28",  "0.00",  "Voyager 2",    "1986"},
             {"Belinda",    "XIV",    "Uranus",       "75",     "0.62",    "0.03",  "0.00",  "Voyager 2",    "1986"},
-            {"1986U10",    "",       "Uranus",       "76",     "0.64",        "",      "", "Karkoschka",    "1999"},
+            {"1986U10",    "",       "Uranus",       "76",     "0.64",      null,    null, "Karkoschka",    "1999"},
             {"Puck",       "XV",     "Uranus",       "86",     "0.76",    "0.31",  "0.00",  "Voyager 2",    "1985"},
             {"Miranda",    "V",      "Uranus",      "130",     "1.41",    "4.22",  "0.00",     "Kuiper",    "1948"},
             {"Ariel",      "I",      "Uranus",      "191",     "2.52",    "0.00",  "0.00",    "Lassell",    "1851"},
