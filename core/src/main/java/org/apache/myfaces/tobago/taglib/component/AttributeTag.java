@@ -106,7 +106,7 @@ public class AttributeTag  extends TagSupport {
     if (component instanceof EditableValueHolder && attributeName.equals("validator")) {
       ComponentUtil.setValidator((EditableValueHolder) component, value);
     } else if (component instanceof ValueHolder && attributeName.equals("converter")) {
-      ComponentUtil.setConverter(component, value);
+      ComponentUtil.setConverter((ValueHolder) component, value);
     } else if (UIComponentTag.isValueReference(value)) {
       ValueBinding valueBinding = ComponentUtil.createValueBinding(value);
       if (valueBinding != null) {

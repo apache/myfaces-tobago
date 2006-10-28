@@ -82,6 +82,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ComponentUtil {
 
@@ -504,12 +505,12 @@ public class ComponentUtil {
       }
       Map facets = component.getFacets();
       if (facets.size() > 0) {
-        for (Object name : facets.keySet()) {
-          UIComponent facet = (UIComponent) facets.get(name);
+        for (Map.Entry<String, UIComponent> entry: (Set<Map.Entry<String, UIComponent>>) facets.entrySet()) {
+          UIComponent facet = entry.getValue();
           result.append('\n');
           result.append(spaces(offset + 1));
           result.append('\"');
-          result.append(name);
+          result.append(entry.getKey());
           result.append("\" = ");
           result.append(toString(facet));
           result.append(toString(facet, offset + 1, true));
@@ -764,7 +765,7 @@ public class ComponentUtil {
 
         if (labelText instanceof ValueBinding) {
           label.setValueBinding(ATTR_VALUE, (ValueBinding) labelText);
-        } else if (labelText != null) {
+        } else {
           label.getAttributes().put(ATTR_VALUE, labelText);
         }
 
@@ -836,14 +837,15 @@ public class ComponentUtil {
     }
   }
 
-  public static void setConverter(UIComponent component, String converterId) {
-    ValueHolder valueHolder = (ValueHolder) component;
+  public static void setConverter(ValueHolder valueHolder, String converterId) {
     if (converterId != null && valueHolder.getConverter() == null) {
       final FacesContext facesContext = FacesContext.getCurrentInstance();
       final Application application = facesContext.getApplication();
       if (UIComponentTag.isValueReference(converterId)) {
         ValueBinding valueBinding = application.createValueBinding(converterId);
-        component.setValueBinding(ATTR_CONVERTER, valueBinding);
+        if (valueHolder instanceof UIComponent) {
+          ((UIComponent) valueHolder).setValueBinding(ATTR_CONVERTER, valueBinding);
+        }
       } else {
         Converter converter = application.createConverter(converterId);
         valueHolder.setConverter(converter);
@@ -851,13 +853,12 @@ public class ComponentUtil {
     }
   }
 
-  public static void setAction(UIComponent component, String type, String action) {
+  public static void setAction(UICommand component, String type, String action) {
     String commandType;
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final Application application = facesContext.getApplication();
     if (type != null && UIComponentTag.isValueReference(type)) {
-         commandType = (String)
-             application.createValueBinding(type).getValue(facesContext);
+         commandType = (String) application.createValueBinding(type).getValue(facesContext);
     } else {
       commandType = type;
     }
@@ -876,21 +877,21 @@ public class ComponentUtil {
       if (action != null) {
         if (UIComponentTag.isValueReference(action)) {
           MethodBinding binding = application.createMethodBinding(action, null);
-          ((org.apache.myfaces.tobago.component.UICommand) component).setAction(binding);
+          component.setAction(binding);
         } else {
-          ((org.apache.myfaces.tobago.component.UICommand) component).setAction(new ConstantMethodBinding(action));
+          component.setAction(new ConstantMethodBinding(action));
         }
       }
     }
 
   }
 
-  public static void setSuggestMethodBinding(UIComponent component, String suggestMethod) {
+  public static void setSuggestMethodBinding(UIInput component, String suggestMethod) {
     if (suggestMethod != null) {
       if (UIComponentTag.isValueReference(suggestMethod)) {
         final MethodBinding methodBinding = FacesContext.getCurrentInstance().getApplication()
             .createMethodBinding(suggestMethod, new Class[] {String.class});
-        ((UIInput) component).setSuggestMethod(methodBinding);
+        component.setSuggestMethod(methodBinding);
       } else {
         throw new IllegalArgumentException(
             "Must be a valueReference (suggestMethod): " + suggestMethod);

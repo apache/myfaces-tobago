@@ -102,7 +102,7 @@ public class TobagoResponseWriter extends ResponseWriter {
         LOG.error("Don't know what to do! "
             + "Property defined, but no component to get a value. "
             + trace.substring(trace.indexOf('(')));
-        LOG.error("value = '" + value + "'");
+        LOG.error("value = 'null'");
         LOG.error("property = '" + property + "'");
         return null;
       }
@@ -111,8 +111,8 @@ public class TobagoResponseWriter extends ResponseWriter {
       LOG.error("Don't know what to do! "
           + "No value and no property defined. "
           + trace.substring(trace.indexOf('(')));
-      LOG.error("value = '" + value + "'");
-      LOG.error("property = '" + property + "'");
+      LOG.error("value = 'null'");
+      LOG.error("property = 'null'");
       return null;
     }
   }
@@ -211,7 +211,7 @@ public class TobagoResponseWriter extends ResponseWriter {
     startStillOpen = true;
   }
 
-  private static boolean isScriptOrStyle(final String name) {
+  static boolean isScriptOrStyle(final String name) {
     try {
       switch (name.charAt(0)) {
         case 's' :
@@ -235,8 +235,10 @@ public class TobagoResponseWriter extends ResponseWriter {
         default:
           return false;
       }
-    } catch (Exception e) {
-      /* ignore  */
+    } catch (NullPointerException e) {
+      // ignore
+    } catch (StringIndexOutOfBoundsException e) {
+      // ignore
     }
     return false;
   }

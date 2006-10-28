@@ -81,7 +81,7 @@ public class MessageFactory {
         Locale locale = facesContext.getViewRoot().getLocale();
         message = getFacesMessages(locale).getString(key);
       } catch (Exception e) {
-        // ignore at this point
+        /* ignore at this point */
       }
     }
     return message;

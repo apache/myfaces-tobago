@@ -20,6 +20,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.util.XmlUtils;
+import org.xml.sax.SAXException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -92,10 +93,18 @@ class ResourceLocator {
         //Log.debug("add resc " + childPath);
         if (childPath.endsWith(".properties")) {
           InputStream inputStream = servletContext.getResourceAsStream(childPath);
-          addProperties(inputStream, resources, childPath, false);
+          try {
+            addProperties(inputStream, resources, childPath, false);
+          } finally{
+            IOUtils.closeQuietly(inputStream);
+          }
         } else if (childPath.endsWith(".properties.xml")) {
           InputStream inputStream = servletContext.getResourceAsStream(childPath);
-          addProperties(inputStream, resources, childPath, true);
+          try {
+            addProperties(inputStream, resources, childPath, true);
+          } finally{
+            IOUtils.closeQuietly(inputStream);
+          }
         } else {
           resources.add(childPath);
         }
@@ -130,7 +139,13 @@ class ResourceLocator {
           addResources(classLoader, resources,  themeUrl, protocol, prefix);
         }
       }
-    } catch (Exception e) {
+    } catch (IOException e) {
+      String msg = "while loading ";
+      if (LOG.isErrorEnabled()) {
+        LOG.error(msg, e);
+      }
+      throw new ServletException(msg, e);
+    } catch (SAXException e) {
       String msg = "while loading ";
       if (LOG.isErrorEnabled()) {
         LOG.error(msg, e);
@@ -152,11 +167,12 @@ class ResourceLocator {
       jarFile = new URL("file:" + fileName);
     }
     InputStream stream = null;
+    ZipInputStream zipStream = null;
     try {
       stream = jarFile.openStream();
-      ZipInputStream zip = new ZipInputStream(stream);
-      while (zip.available() > 0) {
-        ZipEntry nextEntry = zip.getNextEntry();
+      zipStream = new ZipInputStream(stream);
+      while (zipStream.available() > 0) {
+        ZipEntry nextEntry = zipStream.getNextEntry();
         if (nextEntry == null || nextEntry.isDirectory()) {
           continue;
         }
@@ -167,12 +183,19 @@ class ResourceLocator {
           } else if (name.endsWith(".properties")) {
             LOG.info("** " + name.substring(1));
             InputStream inputStream = classLoader.getResourceAsStream(name.substring(1));
-            addProperties(inputStream, resources, name, false);
+            try {
+              addProperties(inputStream, resources, name, false);
+            } finally{
+              IOUtils.closeQuietly(inputStream);
+            }
           } else if (name.endsWith(".properties.xml")) {
             LOG.info("** " + name.substring(1));
             InputStream inputStream = classLoader.getResourceAsStream(name.substring(1));
-            LOG.info(inputStream);
-            addProperties(inputStream, resources, name, true);
+            try {
+              addProperties(inputStream, resources, name, true);
+            } finally{
+              IOUtils.closeQuietly(inputStream);
+            }
           } else {
             resources.add(name);
           }
@@ -180,6 +203,7 @@ class ResourceLocator {
       }
     } finally {
       IOUtils.closeQuietly(stream);
+      IOUtils.closeQuietly(zipStream);
     }
   }
 

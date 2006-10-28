@@ -32,16 +32,17 @@ public abstract class SelectOneRendererBase extends InputRendererBase {
     if (ComponentUtil.isOutputOnly(component)) {
       return;
     }
+    if (component instanceof UISelectOne) {
+      UISelectOne uiSelectOne = (UISelectOne) component;
 
-    UISelectOne uiSelectOne = (UISelectOne) component;
-
-    String clientId = uiSelectOne.getClientId(facesContext);
-    Object newValue =
-        facesContext.getExternalContext().getRequestParameterMap().get(clientId);
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("decode: key='" + clientId + "' value='" + newValue + "'");
+      String clientId = uiSelectOne.getClientId(facesContext);
+      Object newValue =
+          facesContext.getExternalContext().getRequestParameterMap().get(clientId);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("decode: key='" + clientId + "' value='" + newValue + "'");
+      }
+      uiSelectOne.setSubmittedValue(newValue);
     }
-    uiSelectOne.setSubmittedValue(newValue);
   }
 
 }

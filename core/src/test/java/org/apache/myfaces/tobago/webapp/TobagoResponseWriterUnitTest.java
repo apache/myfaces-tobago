@@ -54,11 +54,20 @@ public class TobagoResponseWriterUnitTest extends TestCase {
   }
 
   public void testNonUtf8() throws IOException {
-    writer = new TobagoResponseWriter(stringWriter, "", "ISO-8859-1");
-    writer.startElement("input", null);
-    writer.writeAttribute("value", "Gutschein über 100 Euro.", null);
-    writer.writeAttribute("readonly", true);
-    writer.endElement("input");
+    TobagoResponseWriter writer1 = new TobagoResponseWriter(stringWriter, "", "ISO-8859-1");
+    writer1.startElement("input", null);
+    writer1.writeAttribute("value", "Gutschein über 100 Euro.", null);
+    writer1.writeAttribute("readonly", true);
+    writer1.endElement("input");
+  }
+
+  public void testNoneScript() {
+    assertTrue(!TobagoResponseWriter.isScriptOrStyle(null));
+    assertTrue(!TobagoResponseWriter.isScriptOrStyle("s"));
+    assertTrue(!TobagoResponseWriter.isScriptOrStyle("sc"));
+    assertTrue(TobagoResponseWriter.isScriptOrStyle("script"));
+    assertTrue(TobagoResponseWriter.isScriptOrStyle("style"));
+
   }
 
 }

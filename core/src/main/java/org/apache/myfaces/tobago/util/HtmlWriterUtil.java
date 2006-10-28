@@ -276,8 +276,10 @@ public final class HtmlWriterUtil {
         default:
           return true;
       }
-    } catch (Exception e) {
-      /* ignore */
+    } catch (NullPointerException e) {
+      // ignore
+    } catch (StringIndexOutOfBoundsException e) {
+      // ignore
     }
     return true;
   }

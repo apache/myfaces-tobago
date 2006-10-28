@@ -25,6 +25,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIInput;
 
 import javax.faces.component.UIComponent;
 
@@ -51,7 +52,9 @@ public class InTag extends TextInputTag implements InTagDeclaration {
     }
 
     ComponentUtil.setBooleanProperty(component, ATTR_PASSWORD, password);
-    ComponentUtil.setSuggestMethodBinding(component, suggestMethod);
+    if (component instanceof UIInput) {
+      ComponentUtil.setSuggestMethodBinding((UIInput) component, suggestMethod);
+    }
   }
 
   public String getPassword() {

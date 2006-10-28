@@ -28,18 +28,18 @@ public class PageRendererBase extends RendererBase {
 
   private static final Log LOG = LogFactory.getLog(PageRendererBase.class);
 
-// ----------------------------------------------------------- business methods
-
   public void decode(FacesContext facesContext, UIComponent component) {
-    UIPage page = (UIPage) component;
-    String name = page.getClientId(facesContext)
-        + SUBCOMPONENT_SEP + "form-action";
-    String newActionId = (String) facesContext.getExternalContext()
-        .getRequestParameterMap().get(name);
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("action = " + newActionId);
+    if (component instanceof UIPage) {
+      UIPage page = (UIPage) component;
+      String name = page.getClientId(facesContext)
+          + SUBCOMPONENT_SEP + "form-action";
+      String newActionId = (String) facesContext.getExternalContext()
+          .getRequestParameterMap().get(name);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("action = " + newActionId);
+      }
+      page.setActionId(newActionId);
     }
-    page.setActionId(newActionId);
   }
 }
 

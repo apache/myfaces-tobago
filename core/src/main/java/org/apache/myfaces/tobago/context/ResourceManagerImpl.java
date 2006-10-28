@@ -399,7 +399,10 @@ public class ResourceManagerImpl implements ResourceManager {
         }
         renderer = (Renderer) clazz.newInstance();
         cache.put(key, renderer);
-      } catch (Exception e) {
+      } catch (InstantiationException e) {
+        LOG.error("name = '" + name + "' clientProperties = '" + clientPropertyId + "'", e);
+        throw new RuntimeException(name, e);
+      } catch (IllegalAccessException e) {
         LOG.error("name = '" + name + "' clientProperties = '" + clientPropertyId + "'", e);
         throw new RuntimeException(name, e);
       }

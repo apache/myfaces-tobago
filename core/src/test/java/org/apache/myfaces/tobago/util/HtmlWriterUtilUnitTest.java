@@ -103,4 +103,15 @@ public class HtmlWriterUtilUnitTest extends TestCase {
     }
   }
 
+  public void testAttributeValueMustEscaped() {
+    assertTrue(HtmlWriterUtil.attributeValueMustEscaped(null));
+    assertTrue(HtmlWriterUtil.attributeValueMustEscaped("i"));
+    assertTrue(HtmlWriterUtil.attributeValueMustEscaped("na"));
+    assertTrue(HtmlWriterUtil.attributeValueMustEscaped("cl"));
+    assertTrue(!HtmlWriterUtil.attributeValueMustEscaped("id"));
+    assertTrue(!HtmlWriterUtil.attributeValueMustEscaped("name"));
+    assertTrue(!HtmlWriterUtil.attributeValueMustEscaped("class"));
+    assertTrue(!!HtmlWriterUtil.attributeValueMustEscaped("dadfadfsadf"));
+  }
+
 }

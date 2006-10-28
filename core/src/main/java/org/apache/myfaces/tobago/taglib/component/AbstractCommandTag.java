@@ -47,7 +47,9 @@ public abstract class AbstractCommandTag extends TobagoTag implements AbstractCo
     ComponentUtil.setStringProperty(component, ATTR_TYPE, type);
 //   ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand);
     ComponentUtil.setBooleanProperty(component, ATTR_IMMEDIATE, immediate);
-    ComponentUtil.setAction(component, type, action);
+    if (component instanceof UICommand) {
+      ComponentUtil.setAction((UICommand) component, type, action);
+    }
     ComponentUtil.setStringProperty(component, ATTR_ACTION_LINK, link);
     ComponentUtil.setStringProperty(component, ATTR_ACTION_ONCLICK, onclick);
     ComponentUtil.setActionListener(command, actionListener);

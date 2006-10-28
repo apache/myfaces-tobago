@@ -40,27 +40,27 @@ public class SelectManyRendererBase extends RendererBase {
     if (ComponentUtil.isOutputOnly(component)) {
       return;
     }
+    if (component instanceof UISelectMany) {
+      UISelectMany uiSelectMany = (UISelectMany) component;
 
-    UISelectMany uiSelectMany = (UISelectMany) component;
-
-    String[] newValues = (String[])
+      String[] newValues = (String[])
         facesContext.getExternalContext().getRequestParameterValuesMap().get(uiSelectMany.getClientId(facesContext));
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("decode: key='" + component.getClientId(facesContext)
-          + "' value='" + newValues + "'");
-      LOG.debug("size ... '" + (newValues != null ? newValues.length : -1) + "'");
-      if (newValues != null) {
-        for (String newValue : newValues) {
-          LOG.debug("newValues[i] = '" + newValue + "'");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("decode: key='" + component.getClientId(facesContext)
+            + "' value='" + newValues + "'");
+        LOG.debug("size ... '" + (newValues != null ? newValues.length : -1) + "'");
+        if (newValues != null) {
+          for (String newValue : newValues) {
+            LOG.debug("newValues[i] = '" + newValue + "'");
+          }
         }
       }
-    }
 
-    if (newValues == null) {
-      newValues = new String[0]; // because no selection will not submitted by browsers
+      if (newValues == null) {
+        newValues = new String[0]; // because no selection will not submitted by browsers
+      }
+      uiSelectMany.setSubmittedValue(newValues);
     }
-    uiSelectMany.setSubmittedValue(newValues);
-
   }
 
   // the following is copied from myfaces shared RendererUtils
