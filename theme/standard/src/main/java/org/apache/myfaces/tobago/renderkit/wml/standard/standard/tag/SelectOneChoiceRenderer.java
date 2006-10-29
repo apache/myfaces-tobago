@@ -26,6 +26,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -70,7 +71,7 @@ public class SelectOneChoiceRenderer extends RendererBase {
     for (SelectItem item : items) {
       writer.startElement("option", selectOne);
       String formattedValue
-          = getFormattedValue(facesContext, component, item.getValue());
+          = RenderUtil.getFormattedValue(facesContext, component, item.getValue());
       writer.writeAttribute("value", formattedValue, null);
       writer.writeText(item.getLabel(), null);
       writer.endElement("option");

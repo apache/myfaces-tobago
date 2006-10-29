@@ -23,8 +23,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
@@ -33,7 +31,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
-import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -61,8 +58,8 @@ public class ButtonRenderer extends CommandRendererBase {
     if (disabled) {
       onclick = "";
     } else {
-      onclick = createOnClick(facesContext, component);
-      onclick = CommandRendererBase.appendConfirmationScript(onclick, component,
+      onclick = HtmlRendererUtil.createOnClick(facesContext, component);
+      onclick = HtmlRendererUtil.appendConfirmationScript(onclick, component,
           facesContext);
     }
 
@@ -138,32 +135,5 @@ public class ButtonRenderer extends CommandRendererBase {
       buttonType = defaultCommand ? "submit" : "button";
     //}
     return buttonType;
-  }
-
-  public static String createOnClick(FacesContext facesContext,
-      UIComponent component) {
-    //String type = (String) component.getAttributes().get(ATTR_TYPE);
-    //String command = (String) component.getAttributes().get(ATTR_ACTION_STRING);
-    String clientId = component.getClientId(facesContext);
-    boolean defaultCommand = ComponentUtil.getBooleanAttribute(component,
-        ATTR_DEFAULT_COMMAND);
-    String onclick;
-
-    if (component.getAttributes().get(ATTR_ACTION_LINK)!=null) {
-      onclick = "Tobago.navigateToUrl('"
-          + HtmlUtils.generateUrl(facesContext, (String) component.getAttributes().get(ATTR_ACTION_LINK)) + "');";
-      // FIXME !!
-      //} else if (COMMAND_TYPE_RESET.equals(type)) {
-    //  onclick = null;
-    } else if (component.getAttributes().get(ATTR_ACTION_ONCLICK)!=null) {
-      onclick = (String) component.getAttributes().get(ATTR_ACTION_ONCLICK);
-    } else if (defaultCommand) {
-      ComponentUtil.findPage(component).setDefaultActionId(clientId);
-//      onclick = "Tobago.setAction('" + clientId + "');";
-      onclick = null;
-    } else {
-      onclick = "Tobago.submitAction('" + clientId + "');";
-    }
-    return onclick;
   }
 }

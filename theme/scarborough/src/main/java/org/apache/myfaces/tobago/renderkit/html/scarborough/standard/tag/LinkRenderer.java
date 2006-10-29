@@ -97,7 +97,7 @@ public class LinkRenderer extends CommandRendererBase{
     }
 
     onclick =
-        CommandRendererBase.appendConfirmationScript(onclick, component,
+        HtmlRendererUtil.appendConfirmationScript(onclick, component,
             facesContext);
 
     TobagoResponseWriter writer

@@ -18,11 +18,9 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_CONFIRMATION;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
@@ -50,24 +48,6 @@ public abstract class CommandRendererBase extends RendererBase {
       }
       component.queueEvent(new ActionEvent(component));
     }
-  }
-
-  public static String appendConfirmationScript(String onclick,
-      UIComponent component, FacesContext facesContext) {
-    ValueHolder confirmation
-        = (ValueHolder) component.getFacet(FACET_CONFIRMATION);
-    if (confirmation != null) {
-      if (onclick != null) {
-        onclick = "confirm('" + confirmation.getValue() + "') && " + onclick;
-      } else {
-        if (LOG.isWarnEnabled()) {
-          LOG.warn("Facet '" + FACET_CONFIRMATION + "' is not supported for "
-              + "this type of button. id = '"
-              + component.getClientId(facesContext) + "'");
-        }
-      }
-    }
-    return onclick;
   }
 
 }

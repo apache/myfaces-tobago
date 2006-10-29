@@ -42,9 +42,7 @@ import java.util.ArrayList;
 
 public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
-
   private static final Log LOG = LogFactory.getLog(SelectManyCheckboxRenderer.class);
-
 
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
@@ -86,7 +84,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       writer.writeNameAttribute(id);
       writer.writeIdAttribute(itemId);
       String formattedValue
-          = getFormattedValue(facesContext, component, item.getValue());
+          = RenderUtil.getFormattedValue(facesContext, component, item.getValue());
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, null);
       writer.writeAttribute(HtmlAttributes.DISABLED,
           ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
@@ -99,8 +97,6 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
         writer.endElement(HtmlConstants.TD);
         writer.startElement(HtmlConstants.TD, null);
-
-
 
         // FIXME: use created UIOutput Label
         // FIXME: see outcommented part
@@ -133,8 +129,6 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
         = ComponentUtil.getItemsToRender((UISelectMany) component);
     return items.size() * super.getFixedHeight(facesContext, component);
   }
-
-// ///////////////////////////////////////////// bean getter + setter
 
 }
 

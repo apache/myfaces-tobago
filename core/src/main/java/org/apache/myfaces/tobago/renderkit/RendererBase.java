@@ -306,7 +306,7 @@ public abstract class RendererBase
     String currentValue = null;
     Object currentObj = getValue(component);
     if (currentObj != null) {
-      currentValue   = getFormattedValue(facesContext, component, currentObj);
+      currentValue   = RenderUtil.getFormattedValue(facesContext, component, currentObj);
     }
     return currentValue;
   }
@@ -360,49 +360,11 @@ public abstract class RendererBase
     }
   }
 
-  protected static String getFormattedValue(
-      FacesContext facesContext, UIComponent component){
-    Object value = null;
-    if (component instanceof ValueHolder) {
-      value = ((ValueHolder) component).getLocalValue();
-      if (value == null) {
-        value =  ((ValueHolder) component).getValue();
-      }
-    }
-    return getFormattedValue(facesContext, component, value);
-  }
-  protected static String getFormattedValue(
-      FacesContext context, UIComponent component, Object currentValue)
-      throws ConverterException {
-
-    if (currentValue == null) {
-      return "";
-    }
-
-    if (!(component instanceof ValueHolder)) {
-      return currentValue.toString();
-    }
-
-    Converter converter = ((ValueHolder) component).getConverter();
-
-    if (converter == null) {
-      if (currentValue instanceof String) {
-        return (String) currentValue;
-      }
-      Class converterType = currentValue.getClass();
-      converter = context.getApplication().createConverter(converterType);
-    }
-
-    if (converter == null) {
-      return currentValue.toString();
-    } else {
-      return converter.getAsString(context, component, currentValue);
-    }
-  }
   protected void checkForCommandFacet(UIComponent component, FacesContext facesContext, TobagoResponseWriter writer)
       throws IOException {
     checkForCommandFacet(component, Arrays.asList(component.getClientId(facesContext)) , facesContext, writer);
   }
+
   protected void checkForCommandFacet(UIComponent component, List<String> clientIds, FacesContext facesContext,
       TobagoResponseWriter writer) throws IOException {
     Map<String, UIComponent> facets = component.getFacets();
@@ -412,6 +374,7 @@ public abstract class RendererBase
       }
     }
   }
+
   // TODO create HtmlRendererBase
   private void addCommandFacet(UIComponent component, List<String> clientIds, Map.Entry<String, UIComponent> facetEntry,
       FacesContext facesContext, TobagoResponseWriter writer) throws

@@ -456,7 +456,7 @@ public class SheetRenderer extends RendererBase
           data.getFacets().put(FACET_PAGER_ROW, pagerCommand);
         }
         String pagingOnClick
-            = ButtonRenderer.createOnClick(facesContext, pagerCommand);
+            = HtmlRendererUtil.createOnClick(facesContext, pagerCommand);
         pagingOnClick = pagingOnClick.replaceAll("'", "\"");
         final String pagerCommandId = pagerCommand.getClientId(facesContext);
 
@@ -495,7 +495,7 @@ public class SheetRenderer extends RendererBase
           data.getFacets().put(FACET_PAGER_PAGE, pagerCommand);
         }
         String pagingOnClick
-            = ButtonRenderer.createOnClick(facesContext, pagerCommand);
+            = HtmlRendererUtil.createOnClick(facesContext, pagerCommand);
         pagingOnClick = pagingOnClick.replaceAll("'", "\"");
         final String pagerCommandId = pagerCommand.getClientId(facesContext);
 
@@ -739,7 +739,7 @@ public class SheetRenderer extends RendererBase
     writer.writeAttribute(HtmlAttributes.SRC, image, null);
     writer.writeAttribute(HtmlAttributes.TITLE, tip, null);
     if (!disabled) {
-      String onClick = ButtonRenderer.createOnClick(facesContext, link);
+      String onClick = HtmlRendererUtil.createOnClick(facesContext, link);
       writer.writeAttribute(HtmlAttributes.ONCLICK, onClick, null);
     }
     writer.endElement(HtmlConstants.IMG);
@@ -950,7 +950,7 @@ public class SheetRenderer extends RendererBase
       data.getFacets().put(FACET_PAGER_PAGE, pagerCommand);
     }
     String pagerCommandId = pagerCommand.getClientId(facesContext);
-    String hrefPostfix = "', '" + ButtonRenderer.createOnClick(facesContext,
+    String hrefPostfix = "', '" + HtmlRendererUtil.createOnClick(facesContext,
         pagerCommand).replaceAll("'", "\"") + "');";
 
     int linkCount = ComponentUtil.getIntAttribute(data, ATTR_DIRECT_LINK_COUNT);

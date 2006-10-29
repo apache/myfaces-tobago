@@ -112,7 +112,7 @@ public class ImageRenderer extends RendererBase {
     writer.endElement(HtmlConstants.IMG);
   }
 
-  public static String createSrc(String src, String ext) {
+  private String createSrc(String src, String ext) {
     int dot = src.lastIndexOf('.');
     if (dot == -1) {
       LOG.warn("Image src without extension: '" + src + "'");

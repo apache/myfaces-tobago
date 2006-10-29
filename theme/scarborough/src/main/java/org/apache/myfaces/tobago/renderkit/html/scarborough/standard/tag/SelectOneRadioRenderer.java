@@ -29,6 +29,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -107,7 +108,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
       writer.writeIdAttribute(id);
       String formattedValue
-          = getFormattedValue(facesContext, component, item.getValue());
+          = RenderUtil.getFormattedValue(facesContext, component, item.getValue());
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, null);
       writer.writeAttribute(HtmlAttributes.DISABLED,
           ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));

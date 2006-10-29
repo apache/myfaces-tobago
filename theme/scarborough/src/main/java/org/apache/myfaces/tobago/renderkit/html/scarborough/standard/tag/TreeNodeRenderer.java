@@ -44,7 +44,6 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.Map;
 
 public class TreeNodeRenderer extends RendererBase {
@@ -129,10 +128,10 @@ public class TreeNodeRenderer extends RendererBase {
     node.setValid(true);
   }
 
-  private static UIParameter ensureTreeNodeParameter(UICommand command) {
+  private UIParameter ensureTreeNodeParameter(UICommand command) {
     UIParameter treeNodeParameter = null;
-    for (Iterator i = command.getChildren().iterator(); i.hasNext();) {
-      UIComponent component = (UIComponent) i.next();
+    for (Object o : command.getChildren()) {
+      UIComponent component = (UIComponent) o;
       if (component instanceof UIParameter) {
         UIParameter parameter = (UIParameter) component;
         if (parameter.getName().equals(UITree.PARAMETER_TREE_NODE_ID)) {
@@ -313,7 +312,4 @@ public class TreeNodeRenderer extends RendererBase {
       }
     }
   }
-
-// ///////////////////////////////////////////// bean getter + setter
-
 }

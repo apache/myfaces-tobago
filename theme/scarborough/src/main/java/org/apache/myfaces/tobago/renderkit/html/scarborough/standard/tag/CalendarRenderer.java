@@ -251,13 +251,13 @@ public class CalendarRenderer extends RendererBase {
     writer.endElement(HtmlConstants.INPUT);
   }
 
-  private static String getClass(DateModel date, CalendarModel model) {
+  private String getClass(DateModel date, CalendarModel model) {
     return (date.getMonth() == model.getMonth())
         ? "tobago-calendar-day"
         : "tobago-calendar-day-disabled";
   }
 
-  private static String getMonthNames(Locale locale) {
+  private String getMonthNames(Locale locale) {
     SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMM", locale);
     StringBuffer buffer = new StringBuffer();
     Calendar calendar = Calendar.getInstance();

@@ -44,7 +44,6 @@ import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 import org.apache.myfaces.tobago.component.UISelectOneCommand;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
@@ -414,7 +413,7 @@ public class MenuBarRenderer extends RendererBase {
   private void addMenuItem(StringBuffer sb, String var, FacesContext facesContext,
                            UICommand command, String image, String onClick) throws IOException {
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
-    onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
+    onClick = HtmlRendererUtil.appendConfirmationScript(onClick, command,
         facesContext);
     addMenuItem(sb, var, facesContext, command, label, image, onClick);
   }
@@ -422,7 +421,7 @@ public class MenuBarRenderer extends RendererBase {
   private void addSelectOne(StringBuffer sb, String var,
                             FacesContext facesContext, UICommand command, String onClick)
       throws IOException {
-    onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
+    onClick = HtmlRendererUtil.appendConfirmationScript(onClick, command,
         facesContext);
     List<SelectItem> items;
 
@@ -460,7 +459,7 @@ public class MenuBarRenderer extends RendererBase {
             + command.getClientId(facesContext));
       }
       String formattedValue
-          = getFormattedValue(facesContext, radio, item.getValue());
+          = RenderUtil.getFormattedValue(facesContext, radio, item.getValue());
       onClick = onClickPrefix + formattedValue + onClickPostfix;
       String image;
       if (item.getValue().equals(value) || markFirst) {

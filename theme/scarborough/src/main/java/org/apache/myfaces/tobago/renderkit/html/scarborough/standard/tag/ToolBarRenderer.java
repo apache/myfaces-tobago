@@ -47,7 +47,6 @@ import org.apache.myfaces.tobago.component.UISelectOneCommand;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -162,7 +161,7 @@ public class ToolBarRenderer extends RendererBase {
       throws IOException {
 
     String onClick = createOnClick(facesContext, command);
-    onClick = CommandRendererBase.appendConfirmationScript(onClick, command, facesContext);
+    onClick = HtmlRendererUtil.appendConfirmationScript(onClick, command, facesContext);
 
     List<SelectItem> items; 
 
@@ -209,7 +208,7 @@ public class ToolBarRenderer extends RendererBase {
 
 
         String formattedValue
-            = getFormattedValue(facesContext, radio, item.getValue());
+            = RenderUtil.getFormattedValue(facesContext, radio, item.getValue());
         onClick = onClickPrefix + formattedValue + onClickPostfix;
         final boolean checked;
         if (item.getValue().equals(value) || markFirst) {
@@ -272,7 +271,7 @@ public class ToolBarRenderer extends RendererBase {
     String labelPosition = (String) parentAttributes.get(ATTR_LABEL_POSITION);
     String iconSize = (String) parentAttributes.get(ATTR_ICON_SIZE);
 
-    onClick = CommandRendererBase.appendConfirmationScript(onClick, command,
+    onClick = HtmlRendererUtil.appendConfirmationScript(onClick, command,
         facesContext);
 
     String divClasses = "tobago-toolbar-button"
@@ -414,7 +413,7 @@ public class ToolBarRenderer extends RendererBase {
           + MenuBarRenderer.SEARCH_ID_POSTFIX;
       return "tobagoButtonOpenMenu(this, '" + searchId + "')";
     } else {
-      return ButtonRenderer.createOnClick(facesContext, component);
+      return HtmlRendererUtil.createOnClick(facesContext, component);
     }
   }
 
