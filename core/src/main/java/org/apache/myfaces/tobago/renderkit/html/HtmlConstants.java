@@ -50,6 +50,7 @@ public final class HtmlConstants {
   public static final String FORM = "form";
   public static final String SCRIPT = "script";
   public static final String META = "meta";
+  public static final String OPTGROUP = "optgroup";
 
   private HtmlConstants() {
 

@@ -48,17 +48,26 @@ import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
 import java.io.IOException;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.List;
+import java.util.Arrays;
 
-/**
+/*
  * User: weber
  * Date: Jan 11, 2005
  * Time: 4:59:36 PM
@@ -555,6 +564,79 @@ public final class HtmlRendererUtil {
     return title;
   }
 
+  public static void renderSelectItems(UIInput component, List<SelectItem> items, Object[] values,
+      TobagoResponseWriter writer, FacesContext facesContext) throws IOException {
+
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("value = '" + values + "'");
+    }
+    for (SelectItem item : items) {
+      if (item instanceof SelectItemGroup) {
+        writer.startElement(HtmlConstants.OPTGROUP, null);
+        writer.writeAttribute(HtmlAttributes.LABEL, item.getLabel(), null);
+        SelectItem[] selectItems = ((SelectItemGroup) item).getSelectItems();
+        renderSelectItems(component, Arrays.asList(selectItems), values, writer, facesContext);
+        writer.endElement(HtmlConstants.OPTGROUP);
+      } else {
+        writer.startElement(HtmlConstants.OPTION, null);
+        final Object itemValue = item.getValue();
+        String formattedValue
+            = RenderUtil.getFormattedValue(facesContext, component, itemValue);
+        writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, null);
+        if (RenderUtil.contains(values, item.getValue())) {
+          writer.writeAttribute(HtmlAttributes.SELECTED, HtmlAttributes.SELECTED, null);
+        }
+        writer.writeText(item.getLabel(), null);
+        writer.endElement(HtmlConstants.OPTION);
+      }
+    }
+  }
+
+  public static String createOnClick(FacesContext facesContext,
+      UIComponent component) {
+    //String type = (String) component.getAttributes().get(ATTR_TYPE);
+    //String command = (String) component.getAttributes().get(ATTR_ACTION_STRING);
+    String clientId = component.getClientId(facesContext);
+    boolean defaultCommand = ComponentUtil.getBooleanAttribute(component,
+        TobagoConstants.ATTR_DEFAULT_COMMAND);
+    String onclick;
+
+    if (component.getAttributes().get(TobagoConstants.ATTR_ACTION_LINK)!=null) {
+      onclick = "Tobago.navigateToUrl('"
+          + HtmlUtils.generateUrl(facesContext, (String) component.getAttributes().get(TobagoConstants.ATTR_ACTION_LINK)) + "');";
+      // FIXME !!
+      //} else if (COMMAND_TYPE_RESET.equals(type)) {
+    //  onclick = null;
+    } else if (component.getAttributes().get(TobagoConstants.ATTR_ACTION_ONCLICK)!=null) {
+      onclick = (String) component.getAttributes().get(TobagoConstants.ATTR_ACTION_ONCLICK);
+    } else if (defaultCommand) {
+      ComponentUtil.findPage(component).setDefaultActionId(clientId);
+//      onclick = "Tobago.setAction('" + clientId + "');";
+      onclick = null;
+    } else {
+      onclick = "Tobago.submitAction('" + clientId + "');";
+    }
+    return onclick;
+  }
+
+  public static String appendConfirmationScript(String onclick,
+      UIComponent component, FacesContext facesContext) {
+    ValueHolder confirmation
+        = (ValueHolder) component.getFacet(TobagoConstants.FACET_CONFIRMATION);
+    if (confirmation != null) {
+      if (onclick != null) {
+        onclick = "confirm('" + confirmation.getValue() + "') && " + onclick;
+      } else {
+        if (LOG.isWarnEnabled()) {
+          LOG.warn("Facet '" + TobagoConstants.FACET_CONFIRMATION + "' is not supported for "
+              + "this type of button. id = '"
+              + component.getClientId(facesContext) + "'");
+        }
+      }
+    }
+    return onclick;
+  }
+
   public static void main(String[] args) {
     System.out.println(removeTobagoClasses("bla bla bla tobago-test-inline bla bla", "test"));
     System.out.println(removeTobagoClasses("tobago-test-inline blablubber bla", "test"));
@@ -566,5 +648,4 @@ public final class HtmlRendererUtil {
     System.out.println(removeTobagoClasses("", "test"));
     System.out.println(removeTobagoClasses("hallo", "test"));
   }
-
 }

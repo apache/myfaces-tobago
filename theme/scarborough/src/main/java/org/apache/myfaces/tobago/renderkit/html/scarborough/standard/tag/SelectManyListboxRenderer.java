@@ -28,10 +28,10 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -96,33 +96,18 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
     writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
     writer.writeComponentClass();
-    writer.writeAttribute(HtmlAttributes.MULTIPLE, "multiple", null);
+    writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, null);
     writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
 
     Object[] values = component.getSelectedValues();
     if (LOG.isDebugEnabled()) {
       LOG.debug("values = '" + values + "'");
     }
-    for (SelectItem item : items) {
-
-      writer.startElement(HtmlConstants.OPTION, null);
-      String formattedValue
-          = getFormattedValue(facesContext, component, item.getValue());
-      writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, null);
-      if (RenderUtil.contains(values, item.getValue())) {
-        writer.writeAttribute(HtmlAttributes.SELECTED, "selected", null);
-      }
-      writer.writeText(item.getLabel(), null);
-      writer.endElement(HtmlConstants.OPTION);
-//    LOG.debug("item-value" + item.getValue());
-    }
-
+    HtmlRendererUtil.renderSelectItems(component, items, values, writer, facesContext);
 
     writer.endElement(HtmlConstants.SELECT);
     checkForCommandFacet(component, facesContext, writer);
   }
-
-// ///////////////////////////////////////////// bean getter + setter
 
 }
 

@@ -71,5 +71,6 @@ public final class HtmlAttributes {
   public static final String ONKEYUP = "onkeyup";
   public static final String CLASS = "class";
   public static final String MAXLENGTH = "maxlength";
+  public static final String LABEL = "label";
 }
 

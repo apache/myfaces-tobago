@@ -22,10 +22,11 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UILayout;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
+import javax.faces.convert.ConverterException;
+import javax.faces.convert.Converter;
 import java.io.IOException;
-import java.util.Iterator;
 
 public class RenderUtil {
 
@@ -37,19 +38,12 @@ public class RenderUtil {
     if (list == null) {
       return false;
     }
-    for (int i = 0; i < list.length; i++) {
-      if (list[i] != null && list[i].equals(value)) {
+    for (Object aList : list) {
+      if (aList != null && aList.equals(value)) {
         return true;
       }
     }
     return false;
-  }
-
-  public static UIComponent getComponent(HttpServletRequest request) {
-
-    UIComponent component
-        = (UIComponent) request.getAttribute(COMPONENT_IN_REQUEST);
-    return component;
   }
 
   public static void encodeChildren(FacesContext facesContext,
@@ -60,8 +54,8 @@ public class RenderUtil {
     if (layout != null) {
       layout.encodeChildrenOfComponent(facesContext, panel);
     } else {
-      for (Iterator i = panel.getChildren().iterator(); i.hasNext();) {
-        UIComponent child = (UIComponent) i.next();
+      for (Object o : panel.getChildren()) {
+        UIComponent child = (UIComponent) o;
         encode(facesContext, child);
       }
     }
@@ -81,9 +75,8 @@ public class RenderUtil {
       if (component.getRendersChildren()) {
         component.encodeChildren(facesContext);
       } else {
-        Iterator kids = component.getChildren().iterator();
-        while (kids.hasNext()) {
-          UIComponent kid = (UIComponent) kids.next();
+        for (Object o : component.getChildren()) {
+          UIComponent kid = (UIComponent) o;
           encode(facesContext, kid);
         }
       }
@@ -105,4 +98,44 @@ public class RenderUtil {
     return onClick;
   }
 
+  public static String getFormattedValue(
+      FacesContext facesContext, UIComponent component){
+    Object value = null;
+    if (component instanceof ValueHolder) {
+      value = ((ValueHolder) component).getLocalValue();
+      if (value == null) {
+        value =  ((ValueHolder) component).getValue();
+      }
+    }
+    return getFormattedValue(facesContext, component, value);
+  }
+
+  public static String getFormattedValue(
+      FacesContext context, UIComponent component, Object currentValue)
+      throws ConverterException {
+
+    if (currentValue == null) {
+      return "";
+    }
+
+    if (!(component instanceof ValueHolder)) {
+      return currentValue.toString();
+    }
+
+    Converter converter = ((ValueHolder) component).getConverter();
+
+    if (converter == null) {
+      if (currentValue instanceof String) {
+        return (String) currentValue;
+      }
+      Class converterType = currentValue.getClass();
+      converter = context.getApplication().createConverter(converterType);
+    }
+
+    if (converter == null) {
+      return currentValue.toString();
+    } else {
+      return converter.getAsString(context, component, currentValue);
+    }
+  }
 }

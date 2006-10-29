@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -73,20 +74,10 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     if (onchange != null) {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
     }
+    Object[] values = { component.getValue() };
 
-    Object value = component.getValue();
-    for (SelectItem item : items) {
-      final Object itemValue = item.getValue();
-      writer.startElement(HtmlConstants.OPTION, null);
-      String formattedValue
-          = getFormattedValue(facesContext, component, itemValue);
-      writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, null);
-      if (itemValue.equals(value)) {
-        writer.writeAttribute(HtmlAttributes.SELECTED, "selected", null);
-      }
-      writer.writeText(item.getLabel(), null);
-      writer.endElement(HtmlConstants.OPTION);
-    }
+    HtmlRendererUtil.renderSelectItems(component, items, values, writer, facesContext);
+
     writer.endElement(HtmlConstants.SELECT);
     super.encodeEndTobago(facesContext, component);
     checkForCommandFacet(component, facesContext, writer);

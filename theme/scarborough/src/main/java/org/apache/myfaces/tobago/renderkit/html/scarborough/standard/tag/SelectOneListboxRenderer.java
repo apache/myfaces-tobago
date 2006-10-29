@@ -27,10 +27,12 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -44,7 +46,6 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
 
   private static final Log LOG = LogFactory.getLog(SelectOneListboxRenderer.class);
 
-
   public boolean getRendersChildren() {
     return true;
   }
@@ -52,6 +53,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
   public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
     return 0;
   }
+
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     int fixedHeight = -1;
     String height = (String) component.getAttributes().get(ATTR_HEIGHT);
@@ -81,7 +83,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.DISABLED,
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
-    writer.writeAttribute(HtmlAttributes.STYLE, null, "style");
+    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
     writer.writeComponentClass();
     writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
     writer.writeAttribute(HtmlAttributes.SIZE, 2, null); // should be greater 1
@@ -90,25 +92,9 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
       writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.selectOneListboxClick(this)", null);
     }
 
-    Object value = component.getValue();
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("value = '" + value + "'");
-    }
-    for (SelectItem item : items) {
+    Object[] values = { component.getValue() };
 
-      writer.startElement(HtmlConstants.OPTION, null);
-      final Object itemValue = item.getValue();
-      String formattedValue
-          = getFormattedValue(facesContext, component, itemValue);
-      writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, null);
-      if (itemValue.equals(value)) {
-        writer.writeAttribute(HtmlAttributes.SELECTED, "selected", null);
-      }
-      writer.writeText(item.getLabel(), null);
-      writer.endElement(HtmlConstants.OPTION);
-//    LOG.debug("item-value" + itemValue);
-    }
-
+    HtmlRendererUtil.renderSelectItems(component, items, values, writer, facesContext);
 
     writer.endElement(HtmlConstants.SELECT);
     super.encodeEndTobago(facesContext, component);
