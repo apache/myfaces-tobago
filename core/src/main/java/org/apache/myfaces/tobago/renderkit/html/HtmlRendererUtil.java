@@ -603,7 +603,8 @@ public final class HtmlRendererUtil {
 
     if (component.getAttributes().get(TobagoConstants.ATTR_ACTION_LINK)!=null) {
       onclick = "Tobago.navigateToUrl('"
-          + HtmlUtils.generateUrl(facesContext, (String) component.getAttributes().get(TobagoConstants.ATTR_ACTION_LINK)) + "');";
+          + HtmlUtils.generateUrl(facesContext,
+          (String) component.getAttributes().get(TobagoConstants.ATTR_ACTION_LINK)) + "');";
       // FIXME !!
       //} else if (COMMAND_TYPE_RESET.equals(type)) {
     //  onclick = null;
