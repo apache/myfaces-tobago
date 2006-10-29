@@ -74,7 +74,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     if (onchange != null) {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
     }
-    Object[] values = { component.getValue() };
+    Object[] values = {component.getValue()};
 
     HtmlRendererUtil.renderSelectItems(component, items, values, writer, facesContext);
 

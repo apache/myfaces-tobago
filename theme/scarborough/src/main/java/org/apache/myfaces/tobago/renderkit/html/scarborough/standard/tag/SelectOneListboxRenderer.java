@@ -92,7 +92,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
       writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.selectOneListboxClick(this)", null);
     }
 
-    Object[] values = { component.getValue() };
+    Object[] values = {component.getValue()};
 
     HtmlRendererUtil.renderSelectItems(component, items, values, writer, facesContext);
 
