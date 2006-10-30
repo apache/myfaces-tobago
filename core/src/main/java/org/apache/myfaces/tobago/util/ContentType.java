@@ -37,7 +37,7 @@ public class ContentType {
       primaryType = values[0];
       subType = values[1];
     } else {
-      throw new IllegalArgumentException("ContentType '" + contentType + "' not recognized." );
+      throw new IllegalArgumentException("ContentType '" + contentType + "' not recognized.");
     }
   }
 
