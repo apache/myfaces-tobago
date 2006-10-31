@@ -98,14 +98,14 @@ public class PopupRenderer extends RendererBase implements AjaxRenderer {
     if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
       writer.startElement(HtmlConstants.IFRAME, component);
       writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + HtmlConstants.IFRAME);
-      writer.writeClassAttribute("tobago-popup-iframe");
+      writer.writeClassAttribute("tobago-popup-iframe tobago-popup-none");
       writer.writeAttribute(HtmlAttributes.STYLE, contentStyle.toString(), null);
       writer.writeAttribute(HtmlAttributes.SRC, "javascript:false;", null);
       writer.endElement(HtmlConstants.IFRAME);
     }
     writer.startElement(HtmlConstants.DIV, component);
     writer.writeIdAttribute(contentDivId);
-    writer.writeClassAttribute("tobago-popup-content");
+    writer.writeClassAttribute("tobago-popup-content tobago-popup-none");
 
 
     writer.writeAttribute(HtmlAttributes.STYLE, contentStyle.toString(), null);

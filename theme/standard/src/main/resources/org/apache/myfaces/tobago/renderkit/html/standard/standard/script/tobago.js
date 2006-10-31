@@ -690,8 +690,13 @@ var Tobago = {
         div.style.left = l;
         //      alert("1 set left to " + l);
       } else {
-        l = this.getBrowserInnerWidth() - div.clientWidth
-            - Tobago.Config.get("Popup", "borderWidth");
+        var popupWidth = div.style.width;
+        if (popupWidth) {
+          popupWidth = popupWidth.replace(/\D/g, "");
+        } else {
+          popupWidth = div.clientWidth - Tobago.Config.get("Popup", "borderWidth");
+        }
+        l = this.getBrowserInnerWidth() - popupWidth;
         div.style.left = l/2;
         //      alert("2 set left to " + l/2);
       }
@@ -701,8 +706,14 @@ var Tobago = {
         div.style.top = t;
         //      alert("1 set top to " + t);
       } else {
-        t = this.getBrowserInnerHeight() - div.clientHeight
-            - Tobago.Config.get("Popup", "borderWidth");
+        var popupHeight = div.style.height;
+        if (popupHeight) {
+          popupHeight = popupHeight.replace(/\D/g, "");
+        } else {
+          popupHeight = div.clientHeight - Tobago.Config.get("Popup", "borderWidth");
+        }
+
+        t = this.getBrowserInnerHeight() - popupHeight;
         div.style.top = t/2;
         //      alert("2 set top to " + t/2);
       }
@@ -712,6 +723,11 @@ var Tobago = {
       if (iframe) {
         iframe.style.left = div.style.left;
         iframe.style.top = div.style.top;
+      }
+
+      Tobago.removeCssClass(div, "tobago-popup-none");
+      if (iframe) {
+        Tobago.removeCssClass(iframe, "tobago-popup-none");        
       }
 
       //  } else {

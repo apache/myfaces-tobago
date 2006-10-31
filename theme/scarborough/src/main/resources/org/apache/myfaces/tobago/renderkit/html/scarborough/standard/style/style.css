@@ -493,6 +493,9 @@ label.tobago-label-inline {
   -moz-background-inline-policy: initial;
 }
 
+.tobago-popup-none {
+  display: none;
+}
 
 /* selectOneRadio ---------------------------------------------------------- */
 
