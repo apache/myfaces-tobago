@@ -16,7 +16,6 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CALENDAR_DATE_INPUT_ID;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
@@ -38,11 +37,15 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_PANEL;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_POPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_TIME;
 import org.apache.myfaces.tobago.config.ThemeConfig;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.DatePickerController;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.DateTimeConverter;
 import javax.faces.event.FacesEvent;
 import java.util.Map;
 
@@ -153,8 +156,8 @@ public class UIDatePicker extends UICommand implements OnComponentCreated {
     attributes.put(ATTR_POPUP_RESET, Boolean.TRUE);
     attributes.put(ATTR_WIDTH, String.valueOf(
         ThemeConfig.getValue(facesContext, link, "CalendarPopupWidth")));
-    attributes.put(ATTR_HEIGHT, String.valueOf(
-        ThemeConfig.getValue(facesContext, link, "CalendarPopupHeight")));
+    int popupHeight = ThemeConfig.getValue(facesContext, link, "CalendarPopupHeight");
+    attributes.put(ATTR_HEIGHT, String.valueOf(popupHeight));
     final UIComponent box = ComponentUtil.createComponent(
         facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_BOX);
     popup.getChildren().add(box);
@@ -202,6 +205,17 @@ public class UIDatePicker extends UICommand implements OnComponentCreated {
         facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_PANEL);
     cell.setId("cell2");
     timePanel.getChildren().add(cell);
+
+    UIComponent input = getForComponent();
+    Converter converter = ((RendererBase)
+        getRenderer(facesContext)).getConverter(facesContext, input);
+    if (converter instanceof DateTimeConverter) {
+      String pattern = ((DateTimeConverter) converter).getPattern();
+      if (pattern != null && (pattern.indexOf('h') > -1 || pattern.indexOf('H') > -1)) {
+        popupHeight += ThemeConfig.getValue(facesContext, time, "fixedHeight");
+        attributes.put(ATTR_HEIGHT, String.valueOf(popupHeight));
+      }
+    }
 
     UIComponent buttonPanel = ComponentUtil.createComponent(
         facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_PANEL);
