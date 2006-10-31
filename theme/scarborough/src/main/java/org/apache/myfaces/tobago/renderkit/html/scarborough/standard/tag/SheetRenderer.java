@@ -72,9 +72,9 @@ import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.StringUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -861,7 +861,7 @@ public class SheetRenderer extends RendererBase
   }
 
 
-  private void renderColumnSelectorHeader(FacesContext facesContext,
+  protected void renderColumnSelectorHeader(FacesContext facesContext,
       TobagoResponseWriter writer, UIData component, UIColumn column)
       throws IOException {
     UIPanel menu = (UIPanel) column.getFacet(FACET_MENUPOPUP);
