@@ -72,7 +72,8 @@ public class PopupRenderer extends RendererBase implements AjaxRenderer {
     encodeBeginInner(facesContext, writer, component);
   }
 
-  private void encodeBeginInner(FacesContext facesContext, TobagoResponseWriter writer, UIPopup component) throws IOException {
+  private void encodeBeginInner(FacesContext facesContext, TobagoResponseWriter writer, UIPopup component)
+      throws IOException {
     final String clientId = component.getClientId(facesContext);
     final String contentDivId = clientId + CONTENT_ID_POSTFIX;
     final String left = component.getLeft();
