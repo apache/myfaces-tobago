@@ -8,7 +8,9 @@
       <tc:gridLayout/>
     </f:facet>
     <tc:out value="Hello World"/>
-    <tx:file label="test" value="#{test.file}" />
+    <tx:file label="test" value="#{test.file}" >
+      <tc:validateFileItem contentType="text/*" maxSize="299"/>
+    </tx:file>
     <tc:messages/>
     <tc:button label="Submit" defaultCommand="true" />
   </tc:page>

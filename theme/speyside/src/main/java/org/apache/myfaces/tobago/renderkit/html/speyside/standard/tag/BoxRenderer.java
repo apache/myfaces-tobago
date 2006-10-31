@@ -65,15 +65,12 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 
     String style = (String) component.getAttributes().get(ATTR_STYLE);
 
-    try {
-      String heightString =
-          HtmlRendererUtil.getStyleAttributeValue(style, "height").replaceAll("\\D", "");
+    if (style != null) {
+      // XXX ???
+      String heightString = HtmlRendererUtil.getStyleAttributeValue(style, "height").replaceAll("\\D", "");
 
       int height = Integer.parseInt(heightString) - 1;
-      style =
-        HtmlRendererUtil.replaceStyleAttribute(style, "height", height + "px");
-    } catch (Exception e) {
-      // TODO
+      style = HtmlRendererUtil.replaceStyleAttribute(style, "height", height + "px");
     }
 
     String clientId = component.getClientId(facesContext);
@@ -81,8 +78,9 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     writer.startElement(HtmlConstants.DIV, component);
     writer.writeComponentClass();
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute(HtmlAttributes.STYLE, style, null);
-
+    if (style != null) {
+      writer.writeAttribute(HtmlAttributes.STYLE, style, null);
+    }
     HtmlRendererUtil.writeJavascript(writer,
         "Tobago.addAjaxComponent(\"" + clientId + "\")");
 

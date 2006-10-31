@@ -146,17 +146,12 @@ public class TobagoConfig {
   }
 
   public void addResourceDir(String resourceDir) {
-      if (!resourceDirs.contains(resourceDir)) {
-          if (LOG.isInfoEnabled()) {
-            LOG.info("adding resourceDir = '" + resourceDir + "'");
-          }
-          resourceDirs.add(resourceDir);
-      } else {
-          if (LOG.isInfoEnabled()) {
-            LOG.info("resourceDirs already contains = '" + resourceDir + "'");
-          }
+    if (!resourceDirs.contains(resourceDir)) {
+      if (LOG.isInfoEnabled()) {
+        LOG.info("adding resourceDir = '" + resourceDir + "'");
       }
-
+      resourceDirs.add(resourceDir);
+    }
   }
 
   public List<String> getResourceDirs() {

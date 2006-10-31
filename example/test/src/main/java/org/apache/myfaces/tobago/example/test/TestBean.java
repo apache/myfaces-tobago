@@ -27,6 +27,7 @@ import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import javax.faces.el.MethodBinding;
+import javax.faces.application.Application;
 import java.sql.Statement;
 import java.sql.DriverManager;
 import java.sql.Connection;
@@ -131,11 +132,13 @@ public class TestBean {
       if (table.getVar() == null) {
         table.setVar("solarObject");
       }
+      Application application = FacesContext.getCurrentInstance().getApplication();
       try {
         ResultSetMetaData metaData = resultSet.getMetaData();
         String columns = "";
         for (int i = 1; i <= metaData.getColumnCount(); i++) {
-          UIColumn column = new UIColumn();
+
+          UIColumn column = (UIColumn) application.createComponent(UIColumn.COMPONENT_TYPE);
           String name = metaData.getColumnName(i);
           int displaySize = metaData.getColumnDisplaySize(i);
 
@@ -149,24 +152,21 @@ public class TestBean {
           } else {
             columns += "4*";
           }
-          if (metaData.getColumnType(i) == Types.INTEGER
-              || metaData.getColumnType(i) == Types.FLOAT) {
+          if (metaData.getColumnType(i) == Types.INTEGER || metaData.getColumnType(i) == Types.FLOAT) {
             column.setAlign("right");
           }
           column.setLabel(name);
           String ref = "#{" + table.getVar() + "." + name + "}";
-          ValueBinding binding = FacesContext.getCurrentInstance().
-              getApplication().createValueBinding(ref);
+          ValueBinding binding = application.createValueBinding(ref);
           if (name.equals("NAME")) {
-            UICommand command = new UICommand();
+            UICommand command = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
             command.setRendererType("Link");
             command.setValueBinding("label", binding);
-            MethodBinding action = FacesContext.getCurrentInstance().
-                getApplication().createMethodBinding("#{test.select}", new Class[0]);
+            MethodBinding action = application.createMethodBinding("#{test.select}", new Class[0]);
             command.setAction(action);
             column.getChildren().add(command);
           } else {
-            UIOutput output = new UIOutput();
+            UIOutput output = (UIOutput) application.createComponent(UIOutput.COMPONENT_TYPE);
             output.setValueBinding("value", binding);
             column.getChildren().add(output);
           }
