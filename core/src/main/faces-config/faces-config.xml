@@ -205,9 +205,15 @@
     <phase-listener>org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener</phase-listener>
   </lifecycle>
 
- <validator>
+  <validator>
     <validator-id>org.apache.myfaces.tobago.SubmittedValueLength</validator-id>
     <validator-class>org.apache.myfaces.tobago.validator.SubmittedValueLengthValidator</validator-class>
   </validator>
+
+  <validator>
+    <validator-id>org.apache.myfaces.tobago.FileItem</validator-id>
+    <validator-class>org.apache.myfaces.tobago.validator.FileItemValidator</validator-class>
+  </validator>
+
 
 </faces-config>
