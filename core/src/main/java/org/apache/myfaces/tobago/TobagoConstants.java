@@ -102,6 +102,7 @@ public final class TobagoConstants {
   public static final String ATTR_PREFORMATED = "preformated";
   public static final String ATTR_READONLY = "readonly";
   public static final String ATTR_REFERENCE = "reference";
+  public static final String ATTR_RENDERED = "rendered";
   public static final String ATTR_RENDERER_TYPE = "rendererType";
   public static final String ATTR_RENDER_AS = "renderAs";
   public static final String ATTR_RENDER_RANGE = "renderRange";

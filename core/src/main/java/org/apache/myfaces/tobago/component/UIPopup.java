@@ -18,12 +18,16 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDERED;
+import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
+import java.io.IOException;
 
-public class UIPopup extends UIPanel implements NamingContainer {
+public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
 
   private static final Log LOG = LogFactory.getLog(UIPopup.class);
 
@@ -31,6 +35,8 @@ public class UIPopup extends UIPanel implements NamingContainer {
   private String height;
   private String left;
   private String top;
+
+  private boolean popupReset;
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Popup";
 
@@ -40,6 +46,29 @@ public class UIPopup extends UIPanel implements NamingContainer {
     addToPage();
   }
 
+
+  public void encodeEnd(FacesContext context) throws IOException {
+    super.encodeEnd(context);
+    checkReset(context);
+  }
+
+
+  public void encodeAjax(FacesContext facesContext) throws IOException {
+    super.encodeAjax(facesContext);
+    checkReset(facesContext);
+  }
+
+  private void checkReset(FacesContext facesContext) {
+    if (popupReset) {
+      ValueBinding reset = getValueBinding(ATTR_RENDERED);
+      if (reset != null) {
+        reset.setValue(facesContext, false);
+      } else {
+        setRendered(false);
+      }
+    }
+  }
+
   public void setParent(UIComponent uiComponent) {
     super.setParent(uiComponent);
     // XXX find a better way
@@ -47,12 +76,13 @@ public class UIPopup extends UIPanel implements NamingContainer {
   }
 
   public Object saveState(FacesContext context) {
-    Object[] saveState = new Object[5];
+    Object[] saveState = new Object[6];
     saveState[0] = super.saveState(context);
     saveState[1] = width;
     saveState[2] = height;
     saveState[3] = left;
     saveState[4] = top;
+    saveState[5] = popupReset;
     return saveState;
   }
 
@@ -63,6 +93,7 @@ public class UIPopup extends UIPanel implements NamingContainer {
     height = (String) values[2];
     left = (String) values[3];
     top = (String) values[4];
+    popupReset = (Boolean) values[5];
   }
 
   public String getWidth() {
@@ -95,6 +126,15 @@ public class UIPopup extends UIPanel implements NamingContainer {
 
   public void setTop(String top) {
     this.top = top;
+  }
+
+
+  public boolean isPopupReset() {
+    return popupReset;
+  }
+
+  public void setPopupReset(boolean popupReset) {
+    this.popupReset = popupReset;
   }
 
   private void addToPage() {

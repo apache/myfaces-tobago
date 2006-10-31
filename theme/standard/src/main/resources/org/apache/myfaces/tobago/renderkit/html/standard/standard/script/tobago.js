@@ -379,33 +379,22 @@ var Tobago = {
         hidden.value = hidden.value + ":" + event.clientX + "x" + event.clientY;
       }
     }
-    this.submitAction(actionId);
-  },
-
-   /**
-    * remove the popup elements from dom tree.
-    */
-  closePickerPopup: function(popupId) {
-    var popup = this.element(popupId);
-    if (popup) {
-      popup.parentNode.removeChild(popup);
-    }
-    popup = this.element(popupId + Tobago.SUB_COMPONENT_SEP + "content");
-    if (popup) {
-      popup.parentNode.removeChild(popup);
-    }
-    popup = this.element(popupId + Tobago.SUB_COMPONENT_SEP + "iframe");
-    if (popup) {
-      popup.parentNode.removeChild(popup);
+    if (Tobago.Updater.hasTransport()) {
+      var idPrefix = hiddenId.substring(0, hiddenId.indexOf("Dimension"));
+      var popupId = idPrefix + "popup";
+      Tobago.openPopupWithAction(popupId, actionId);
+    } else {
+      this.submitAction(actionId);
     }
   },
+    
   /**
    * remove the popup elements from dom tree.
    */
   closePickerPopup2: function(obj) {
     var id = obj.id;
     var index = id.lastIndexOf(':');
-    this.closePickerPopup(id.substring(0, index));
+    this.closePopup(id.substring(0, index));
   },
 
 
@@ -738,6 +727,39 @@ var Tobago = {
     LOG.debug("popupId ist " + id);
     Tobago.addCssClass(id, "tobago-popup-blink");
     setTimeout("Tobago.removeCssClass('" + id + "', 'tobago-popup-blink')", 10);
+  },
+
+  /**
+   * remove a popup without request
+   *
+   */
+  closePopup: function(id) {
+    var divs = Tobago.page.getElementsByTagName("DIV");
+    for (var i = 0; i < divs.length; i++) {
+      var div = divs[i];
+      if (id.indexOf(div.id) == 0 && div.className.indexOf("tobago-popup-default") != -1) {
+        Tobago.page.removeChild(div);
+        return;
+      }
+    }
+  },
+
+  openPopupWithAction: function(popupId, actionId) {
+    var div = Tobago.element(popupId);
+    if (div) {
+      // something is wrong, doing full reload
+      Tobago.submitAction(actionId);
+    }
+
+    div = document.createElement('div');
+    div.id = popupId;
+    div.className = "tobago-popup-default";
+
+    Tobago.page.appendChild(div);
+
+    div = Tobago.element(popupId);
+    Tobago.addAjaxComponent(popupId);
+    Tobago.reloadComponent(popupId, actionId, {});
   },
 
 // -------- Util functions ----------------------------------------------------

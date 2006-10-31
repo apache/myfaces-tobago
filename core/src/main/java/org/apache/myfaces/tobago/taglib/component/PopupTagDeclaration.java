@@ -45,4 +45,13 @@ public interface PopupTagDeclaration extends TobagoBodyTagDeclaration, HasId, Is
   @TagAttribute
   @UIComponentTagAttribute()
   void setTop(String top);
+
+  @TagAttribute
+  @UIComponentTagAttribute()
+  /**
+   * Flag indicating that the rendered value should set to false after rendering.
+   * This is for rendering a popup which contains no server actions
+   * and is closed on client side.
+   */
+  void setReset(String reset);
 }

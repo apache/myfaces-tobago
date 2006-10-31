@@ -485,6 +485,7 @@ label.tobago-label-inline {
   border: 4px groove #ddeeff;
   background: #bbccdd;
   position: absolute;
+  cursor: default;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -moz-background-clip: initial;

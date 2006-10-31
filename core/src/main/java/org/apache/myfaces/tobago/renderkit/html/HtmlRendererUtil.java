@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.renderkit.html;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.TobagoConstants;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOCUS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
@@ -41,18 +42,17 @@ import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_
 import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_READONLY;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.Theme;
-import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
+import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -62,10 +62,10 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.List;
-import java.util.Arrays;
 
 /*
  * User: weber
@@ -610,6 +610,9 @@ public final class HtmlRendererUtil {
     //  onclick = null;
     } else if (component.getAttributes().get(TobagoConstants.ATTR_ACTION_ONCLICK)!=null) {
       onclick = (String) component.getAttributes().get(TobagoConstants.ATTR_ACTION_ONCLICK);
+      if (onclick.contains("@autoId")) {
+        onclick = onclick.replace("@autoId", component.getClientId(facesContext));
+      }
     } else if (defaultCommand) {
       ComponentUtil.findPage(component).setDefaultActionId(clientId);
 //      onclick = "Tobago.setAction('" + clientId + "');";

@@ -32,12 +32,9 @@ public class CommandTagExtraInfo extends TagExtraInfo {
     Object action = data.getAttribute("action");
     Object onclick = data.getAttribute("onclick");
     Object link = data.getAttribute("link");
-    if (action != null) {
-      if (onclick != null||link != null) {
+
+    if (link != null && !(action == null && onclick == null)) {
         return generateValidationMessages(data);
-      }
-    } else if (onclick != null&&link != null) {
-      return generateValidationMessages(data);
     }
     return EMPTY_MESSAGE;
   }
