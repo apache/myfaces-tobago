@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.taglib.component.LabelTag;
 import org.apache.myfaces.tobago.taglib.component.PanelTag;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 
 import javax.faces.webapp.FacetTag;
 import javax.servlet.jsp.JspException;
@@ -51,7 +52,7 @@ public class LabelExtensionTag extends BodyTagSupport
 
     FacetTag facetTag = new FacetTag();
     facetTag.setPageContext(pageContext);
-    facetTag.setName("layout");
+    facetTag.setName(FACET_LAYOUT);
     facetTag.setParent(panelTag);
     facetTag.doStartTag();
 
@@ -106,6 +107,7 @@ public class LabelExtensionTag extends BodyTagSupport
   public void setRendered(String rendered) {
     this.rendered = rendered;
   }
+
   void setColumns(String columns) {
     this.columns = columns;
   }

@@ -41,6 +41,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_
 import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_ERROR;
 import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_READONLY;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIPage;
@@ -319,7 +320,7 @@ public final class HtmlRendererUtil {
         replaceStyleAttribute(component, styleAttribute, styleSpace + "px");
 
       }
-      UIComponent layout = component.getFacet("layout");
+      UIComponent layout = component.getFacet(FACET_LAYOUT);
       if (layout != null) {
         int layoutSpace2 = LayoutUtil.getInnerSpace(facesContext, component,
             width);

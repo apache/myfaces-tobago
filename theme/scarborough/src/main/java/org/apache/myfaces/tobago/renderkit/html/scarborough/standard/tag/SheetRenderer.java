@@ -49,6 +49,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUPOPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_PAGER_PAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_PAGER_ROW;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_RELOAD;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LINK;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
@@ -143,7 +144,7 @@ public class SheetRenderer extends RendererBase
     final String[] styles = new String[]{"style/tobago-sheet.css"};
     final String[] scripts = new String[]{"script/tobago-sheet.js"};
     Integer frequency = null;
-    UIComponent facetReload = data.getFacet("reload");
+    UIComponent facetReload = data.getFacet(FACET_RELOAD);
     if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
       UIReload update = (UIReload) facetReload;
       frequency = update.getFrequency();
