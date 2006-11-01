@@ -837,6 +837,10 @@ public class ComponentUtil {
     }
   }
 
+  public static void setConverter(UIComponent component, String converterId) {
+     setConverter((ValueHolder) component, converterId);
+   }
+
   public static void setConverter(ValueHolder valueHolder, String converterId) {
     if (converterId != null && valueHolder.getConverter() == null) {
       final FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -853,6 +857,10 @@ public class ComponentUtil {
     }
   }
 
+  public static void setAction(UIComponent component, String type, String action) {
+    setAction((UICommand) component, type, action);
+  }
+  
   public static void setAction(UICommand component, String type, String action) {
     String commandType;
     final FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -885,7 +893,9 @@ public class ComponentUtil {
     }
 
   }
-
+  public static void setSuggestMethodBinding(UIComponent component, String suggestMethod) {
+    setSuggestMethodBinding((UIInput) component, suggestMethod);
+  }
   public static void setSuggestMethodBinding(UIInput component, String suggestMethod) {
     if (suggestMethod != null) {
       if (UIComponentTag.isValueReference(suggestMethod)) {
