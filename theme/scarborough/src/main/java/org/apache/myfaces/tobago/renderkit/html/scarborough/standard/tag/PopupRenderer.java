@@ -23,9 +23,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_RESET;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -36,12 +36,11 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-public class PopupRenderer extends RendererBase implements AjaxRenderer {
+public class PopupRenderer extends RendererBase {
 
   private static final Log LOG = LogFactory.getLog(PopupRenderer.class);
 
@@ -56,24 +55,6 @@ public class PopupRenderer extends RendererBase implements AjaxRenderer {
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     UIPopup component = (UIPopup) uiComponent;
-    final String clientId = component.getClientId(facesContext);
-
-    writer.startElement(HtmlConstants.DIV, component);
-    writer.writeIdAttribute(clientId);
-    writer.writeComponentClass();
-    writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.popupBlink('" + clientId + "')", null);
-    if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
-      String bgImage = ResourceManagerUtil.getImageWithPath(facesContext, "image/popupBg.png");
-      writer.writeAttribute(HtmlAttributes.STYLE, "background: none; "
-          + "filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"
-          + bgImage + "', sizingMethod='scale');", null);
-    }
-
-    encodeBeginInner(facesContext, writer, component);
-  }
-
-  private void encodeBeginInner(FacesContext facesContext, TobagoResponseWriter writer, UIPopup component)
-      throws IOException {
     final String clientId = component.getClientId(facesContext);
     final String contentDivId = clientId + CONTENT_ID_POSTFIX;
     final String left = component.getLeft();
@@ -96,17 +77,28 @@ public class PopupRenderer extends RendererBase implements AjaxRenderer {
     contentStyle.append("top: ");
     contentStyle.append(top != null ? top : "50");
     contentStyle.append("; ");
+
+    writer.startElement(HtmlConstants.DIV, component);
+    writer.writeIdAttribute(clientId);
+    writer.writeComponentClass();
+    writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.popupBlink('" + clientId + "')", null);
+    if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
+      String bgImage = ResourceManagerUtil.getImageWithPath(facesContext, "image/popupBg.png");
+      writer.writeAttribute(HtmlAttributes.STYLE, "background: none; "
+          + "filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"
+          + bgImage + "', sizingMethod='scale');", null);    }
+    writer.endElement(HtmlConstants.DIV);
     if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
       writer.startElement(HtmlConstants.IFRAME, component);
       writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + HtmlConstants.IFRAME);
-      writer.writeClassAttribute("tobago-popup-iframe tobago-popup-none");
+      writer.writeClassAttribute("tobago-popup-iframe");
       writer.writeAttribute(HtmlAttributes.STYLE, contentStyle.toString(), null);
       writer.writeAttribute(HtmlAttributes.SRC, "javascript:false;", null);
       writer.endElement(HtmlConstants.IFRAME);
     }
     writer.startElement(HtmlConstants.DIV, component);
     writer.writeIdAttribute(contentDivId);
-    writer.writeClassAttribute("tobago-popup-content tobago-popup-none");
+    writer.writeClassAttribute("tobago-popup-content");
 
 
     writer.writeAttribute(HtmlAttributes.STYLE, contentStyle.toString(), null);
@@ -116,34 +108,17 @@ public class PopupRenderer extends RendererBase implements AjaxRenderer {
       UIComponent uiComponent) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
     UIPopup component = (UIPopup) uiComponent;
-
-    encodeEndInner(facesContext, writer, component);
-
-    writer.endElement(HtmlConstants.DIV);
-  }
-
-  private void encodeEndInner(FacesContext facesContext, ResponseWriter writer, UIPopup component) throws IOException {
     final String clientId = component.getClientId(facesContext);
 
     writer.endElement(HtmlConstants.DIV);
-    
+
     String setupScript = "Tobago.setupPopup('" + clientId + "', '"
         + component.getLeft() + "', '" + component.getTop() + "');";
     HtmlRendererUtil.writeJavascript(writer, setupScript);
+
+    if (ComponentUtil.getBooleanAttribute(component, ATTR_POPUP_RESET)) {
+      component.setRendered(false);
+    }
   }
-
-
-  public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
-    AjaxUtils.checkParamValidity(facesContext, component, UIPanel.class);
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
-
-    encodeBeginInner(facesContext, writer, (UIPopup) component);
-    component.encodeChildren(facesContext);
-    encodeEndInner(facesContext, writer, (UIPopup) component);
-    facesContext.responseComplete();
-  }
-
-
 }
 
