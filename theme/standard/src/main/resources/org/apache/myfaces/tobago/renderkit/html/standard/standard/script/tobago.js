@@ -750,12 +750,22 @@ var Tobago = {
    *
    */
   closePopup: function(id) {
-    var divs = Tobago.page.getElementsByTagName("DIV");
-    for (var i = 0; i < divs.length; i++) {
-      var div = divs[i];
-      if (id.indexOf(div.id) == 0 && div.className.indexOf("tobago-popup-default") != -1) {
-        Tobago.page.removeChild(div);
-        return;
+    var div = Tobago.element(id + "parentDiv");
+    if (div) {
+      // created by ajax
+      div.parentNode.removeChild(div);
+    } else {
+      div = Tobago.element(id);
+      if (div) {
+        div.parentNode.removeChild(div);
+      }
+      div = Tobago.element(id + "content");
+      if (div) {
+        div.parentNode.removeChild(div);
+      }
+      div = Tobago.element(id + "iframe");
+      if (div) {
+        div.parentNode.removeChild(div);
       }
     }
   },
@@ -768,14 +778,13 @@ var Tobago = {
     }
 
     div = document.createElement('div');
-    div.id = popupId;
-    div.className = "tobago-popup-default";
+    div.id = popupId + "parentDiv";
+    div.className = "tobago-popup-parent";
 
     Tobago.page.appendChild(div);
 
-    div = Tobago.element(popupId);
-    Tobago.addAjaxComponent(popupId);
-    Tobago.reloadComponent(popupId, actionId, {});
+    Tobago.addAjaxComponent(popupId, div.id);
+    Tobago.reloadComponent(popupId, actionId, {createOverlay: false});
   },
 
 // -------- Util functions ----------------------------------------------------
