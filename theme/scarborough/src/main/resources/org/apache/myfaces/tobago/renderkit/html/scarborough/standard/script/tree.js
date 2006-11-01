@@ -347,8 +347,12 @@ TreeNode.prototype.toString = function (depth, last) {
 
     var str = '';
     if (! this.hideRoot || depth > 0) {
-      str += '<div id="' + this.id + '" class="' + (this.mode == 'menu' ? 'tree-menu-item' : 'tree-item') + '" '
-          + 'style="width: ' + this.width + '";>';// fixme null pointer
+      var treeItemClasses = "tree-item";
+      if (this.mode == "menu") {
+        treeItemClasses += " tree-menu-item"
+      }
+      str += '<div id="' + this.id + '" class="' + treeItemClasses + '" '
+          + 'style="width: ' + this.width + ';">';// fixme null pointer
       str += this.indent(depth, last);
       if (this.mode == "menu") {
         if (this.isFolder) {
@@ -432,7 +436,6 @@ TreeNode.prototype.toString = function (depth, last) {
       if (this.marked) {
         itemStyle += " tree-item-marker";
       }
-      // TODO: mozilla shoud use href="javascript:;" and ie href="#"
       str += '<a class="' + itemStyle + '"';
       if (!this.disabled) {
         str += ' href="' + Tobago.EMPTY_HREF +  '"'
