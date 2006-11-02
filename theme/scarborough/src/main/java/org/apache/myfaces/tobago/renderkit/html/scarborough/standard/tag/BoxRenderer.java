@@ -70,7 +70,9 @@ public class BoxRenderer extends BoxRendererBase {
 
     writer.startElement(HtmlConstants.FIELDSET, component);
     writer.writeComponentClass();
-    writer.writeAttribute(HtmlAttributes.STYLE, style, null);
+    if (style != null) {
+      writer.writeAttribute(HtmlAttributes.STYLE, style, null);
+    }
 
     if (label != null || labelString != null) {
       writer.startElement(HtmlConstants.LEGEND, component);
