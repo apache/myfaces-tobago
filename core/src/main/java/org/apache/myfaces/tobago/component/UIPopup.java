@@ -26,6 +26,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import java.io.IOException;
+import java.util.Map;
 
 public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
 
@@ -42,31 +43,48 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
 
   public void processDecodes(FacesContext facesContext) {
     super.processDecodes(facesContext);
+    resetAndStoreRendered(facesContext);
     // XXX find a better way
     addToPage();
   }
 
-
-  public void encodeEnd(FacesContext context) throws IOException {
-    super.encodeEnd(context);
-    checkReset(context);
+  public boolean isRendered() {
+    return super.isRendered() || checkStoredRendered();
   }
 
-
-  public void encodeAjax(FacesContext facesContext) throws IOException {
-    super.encodeAjax(facesContext);
-    checkReset(facesContext);
+  public void encodeBegin(FacesContext facesContext) throws IOException {
+    removeStoredRendered(facesContext);
+    super.encodeBegin(facesContext);
   }
 
-  private void checkReset(FacesContext facesContext) {
-    if (popupReset) {
+  public void processValidators(FacesContext context) {
+    super.processValidators(context);
+    //TODO: check if validation has faild and reset rendered if needed
+  }
+
+  private void resetAndStoreRendered(FacesContext facesContext) {
+    if (popupReset && isRendered()) {
       ValueBinding vb = getValueBinding(ATTR_RENDERED);
       if (vb != null) {
         vb.setValue(facesContext, false);
       } else {
         setRendered(false);
       }
+      Map map = facesContext.getExternalContext().getRequestMap();
+      map.put(getClientId(facesContext) + "rendered", true);
     }
+  }
+
+  private boolean checkStoredRendered() {
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    Map map = facesContext.getExternalContext().getRequestMap();
+    Object rendered = map.get(getClientId(facesContext) + "rendered");
+    return Boolean.valueOf(String.valueOf(rendered));
+  }
+
+  private void removeStoredRendered(FacesContext facesContext) {
+    Map map = facesContext.getExternalContext().getRequestMap();
+    map.remove(getClientId(facesContext) + "rendered");
   }
 
   public void setParent(UIComponent uiComponent) {

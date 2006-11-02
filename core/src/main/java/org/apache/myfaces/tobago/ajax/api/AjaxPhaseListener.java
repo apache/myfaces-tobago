@@ -18,9 +18,13 @@ package org.apache.myfaces.tobago.ajax.api;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
+
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.util.RequestUtils;
 import org.apache.myfaces.tobago.util.ResponseUtils;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
@@ -112,13 +116,25 @@ public class AjaxPhaseListener implements PhaseListener {
 
         AjaxUtils.processAjax(facesContext, viewRoot);
 
-        writeAjaxResponse(facesContext, content.toString());
+
+
+        StringWriter jsfState = new StringWriter();
+        ResponseWriter jsfStateWriter = contentWriter.cloneWithWriter(jsfState);
+        facesContext.setResponseWriter(jsfStateWriter);
 
         final StateManager stateManager
             = facesContext.getApplication().getStateManager();
-        if (!stateManager.isSavingStateInClient(facesContext)) {
-          stateManager.saveSerializedView(facesContext);
-        }
+        StateManager.SerializedView serializedView = stateManager.saveSerializedView(facesContext);
+        stateManager.writeState(facesContext, serializedView);
+
+        contentWriter.startElement(HtmlConstants.SCRIPT, null);
+        contentWriter.writeAttribute(HtmlAttributes.TYPE, "text/javascript", null);
+        contentWriter.write("Tobago.replaceJsfState(\"");
+        contentWriter.write(StringUtils.replace(StringUtils.replace(jsfState.toString(),"\"", "\\\""), "\n", ""));
+        contentWriter.write("\");");
+        contentWriter.endElement(HtmlConstants.SCRIPT);
+
+        writeAjaxResponse(facesContext, content.toString());
         facesContext.responseComplete();
 
       } catch (IOException e) {

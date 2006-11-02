@@ -364,8 +364,11 @@ public class PageRenderer extends PageRendererBase {
 
     // write the previously rendered popups
     writer.write(popups.toString());
-    
+
+    writer.startElement(HtmlConstants.SPAN);
+    writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + "jsf-state-container");
     viewHandler.writeState(facesContext);
+    writer.endElement(HtmlConstants.SPAN);
 
 //    facesContext.getApplication().getViewHandler().writeState(facesContext);
 

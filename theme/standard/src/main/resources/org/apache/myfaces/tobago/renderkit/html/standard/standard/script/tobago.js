@@ -367,6 +367,15 @@ var Tobago = {
     }, true);
   },
 
+  replaceJsfState: function(state) {
+    var stateContainer = Tobago.element(this.page.id + this.SUB_COMPONENT_SEP + "jsf-state-container");
+    if (stateContainer) {
+      stateContainer.innerHTML = state;
+    } else {
+      LOG.error("Can't find stateContainer!");
+    }
+  },
+
    /**
     * Submit the page with specified actionId and position data for popup.
     */
@@ -781,7 +790,7 @@ var Tobago = {
     div.id = popupId + "parentDiv";
     div.className = "tobago-popup-parent";
 
-    Tobago.page.appendChild(div);
+    Tobago.form.appendChild(div);
 
     Tobago.addAjaxComponent(popupId, div.id);
     Tobago.reloadComponent(popupId, actionId, {createOverlay: false});
@@ -1503,14 +1512,15 @@ Tobago.Updater = {
       var onComplete = requestOptions.onComplete;
       requestOptions.onComplete = function(transport, json) {
         Tobago.Transport.requestComplete();
-          onComplete(transport, json);
+        onComplete(transport, json);
       };
+
+      Tobago.action.value = actionId;
+      var url = Tobago.form.action + "?affectedAjaxComponent="
+          + ajaxComponentId + '&' + Form.serialize(Tobago.form);
 
       //    LOG.debug("request url = " + url);
       Tobago.Transport.request(function() {
-        Tobago.action.value = actionId;
-        var url = Tobago.form.action + "?affectedAjaxComponent="
-            + ajaxComponentId + '&' + Form.serialize(Tobago.form);        
         new Ajax.Updater(container, url, requestOptions);
       });
     } else {

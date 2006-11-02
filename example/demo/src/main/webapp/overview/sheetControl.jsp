@@ -27,18 +27,21 @@
 
       <tc:out escape="false" value="#{overviewBundle.sheet_text}" />
 
-      <tc:box label="#{overviewBundle.sheet_sampleTitle}" >
+      <tc:box label="#{overviewBundle.sheet_sampleTitle}" id="sheetBox">
         <f:facet name="layout">
           <tc:gridLayout />
         </f:facet>
         <f:facet name="toolBar" >
           <tc:toolBar >
             <tc:toolBarCommand action="#{overviewController.sheetConfig.configSheet}"
+                               onclick="Tobago.openPopupWithAction('page:sheetConfigPopup', '@autoId')"
                                label="#"
                                tip="#{overviewBundle.sheet_configTip}" />
             <f:facet name="popup" >
               <tc:popup width="300" height="270"
-                        rendered="#{overviewController.sheetConfig.sheetConfigPopup}">
+                        id="sheetConfigPopup"
+                        rendered="#{overviewController.sheetConfig.sheetConfigPopup}"
+                        reset="true">
                 <tc:box label="#{overviewBundle.sheet_configTitle}" >
                   <f:facet name="layout">
                     <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*;fixed"/>
@@ -97,13 +100,12 @@
                       <tc:gridLayout columns="100px;1*;100px"
                                      marginLeft="10px" marginRight="10px"/>
                     </f:facet>
-                    <tc:button action="#{overviewController.sheetConfig.configSheet}"
-                               immediate="true"
+                    <tc:button onclick="Tobago.closePopup('page:sheetConfigPopup')"
                                label="Cancel" />
 
                     <tc:cell />
-                    <tc:button action="#{overviewController.sheetConfig.configSheet}"
-                               label="Ok" />
+                    <tc:button onclick="Tobago.reloadComponent('page:sheetBox','@autoId', {});Tobago.closePopup('page:sheetConfigPopup');" 
+                        label="Ok" />
                   </tc:cell>
 
                 </tc:box>
@@ -126,7 +128,7 @@
             sortActionListener="#{overviewController.sheetSorter}"
             selectable="#{overviewController.sheetConfig.selectable}">
           <f:facet name="reload">
-            <tc:reload frequency="5000" />  
+            <tc:reload frequency="5000" />
           </f:facet>
           <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true">
             <tc:out value="#{luminary.name}" id="t_name" />
