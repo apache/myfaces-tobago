@@ -66,11 +66,14 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     String style = (String) component.getAttributes().get(ATTR_STYLE);
 
     if (style != null) {
-      // XXX ???
-      String heightString = HtmlRendererUtil.getStyleAttributeValue(style, "height").replaceAll("\\D", "");
 
-      int height = Integer.parseInt(heightString) - 1;
-      style = HtmlRendererUtil.replaceStyleAttribute(style, "height", height + "px");
+      // XXX ???
+      String str = HtmlRendererUtil.getStyleAttributeValue(style, "height");
+      if (str != null) {
+        String heightString = str.replaceAll("\\D", "");
+        int height = Integer.parseInt(heightString) - 1;
+        style = HtmlRendererUtil.replaceStyleAttribute(style, "height", height + "px");
+      }
     }
 
     String clientId = component.getClientId(facesContext);
