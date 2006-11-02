@@ -28,7 +28,7 @@
       <tc:gridLayout columns="fixed;*"/>
     </f:facet>
     <tc:label value="${label}" for="@auto" tip="${tip}"/>
-    <tc:in value="${value}" required="${required}"
+    <tc:in value="${value}" required="${required}" password="${password}"
         readonly="${readonly}" disabled="${disabled}" >
       <ui:insert/>
     </tc:in>
