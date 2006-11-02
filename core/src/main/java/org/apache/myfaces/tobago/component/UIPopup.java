@@ -60,9 +60,9 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
 
   private void checkReset(FacesContext facesContext) {
     if (popupReset) {
-      ValueBinding reset = getValueBinding(ATTR_RENDERED);
-      if (reset != null) {
-        reset.setValue(facesContext, false);
+      ValueBinding vb = getValueBinding(ATTR_RENDERED);
+      if (vb != null) {
+        vb.setValue(facesContext, false);
       } else {
         setRendered(false);
       }
