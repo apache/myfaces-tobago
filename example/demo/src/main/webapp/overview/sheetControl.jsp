@@ -33,15 +33,12 @@
         </f:facet>
         <f:facet name="toolBar" >
           <tc:toolBar >
-            <tc:toolBarCommand action="#{overviewController.sheetConfig.openConfig}"
-                  onclick="Tobago.openPopupWithAction('page:sheetConfigPopup', '@autoId')"
+            <tc:toolBarCommand action="#{overviewController.sheetConfig.configSheet}"
                                label="#"
                                tip="#{overviewBundle.sheet_configTip}" />
             <f:facet name="popup" >
               <tc:popup width="300" height="270"
-                        rendered="#{overviewController.sheetConfig.sheetConfigPopup}"
-                        id="sheetConfigPopup"
-                        reset="true">
+                        rendered="#{overviewController.sheetConfig.sheetConfigPopup}">
                 <tc:box label="#{overviewBundle.sheet_configTitle}" >
                   <f:facet name="layout">
                     <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*;fixed"/>
@@ -100,13 +97,12 @@
                       <tc:gridLayout columns="100px;1*;100px"
                                      marginLeft="10px" marginRight="10px"/>
                     </f:facet>
-                    <tc:button onclick="Tobago.closePopup('page:sheetConfigPopup')"
-                               id="cancel"
+                    <tc:button action="#{overviewController.sheetConfig.configSheet}"
                                immediate="true"
                                label="Cancel" />
 
                     <tc:cell />
-                    <tc:button action="#{overviewController.sheetConfig.applyConfig}"
+                    <tc:button action="#{overviewController.sheetConfig.configSheet}"
                                label="Ok" />
                   </tc:cell>
 
@@ -117,7 +113,7 @@
         </f:facet>
 
         <tc:sheet value="#{demo.solarList}" id="sheet"
-            columns="fixed;3*;1*;3*;3*;3*;3*" var="luminary"
+            columns="3*;1*;3*;3*;3*;3*" var="luminary"
             state="#{demo.sheetState}"
             showHeader="#{overviewController.sheetConfig.sheetShowHeader}"
             showRowRange="#{overviewController.sheetConfig.sheetRowPagingPosition}"
@@ -129,10 +125,9 @@
             stateChangeListener="#{demo.stateChangeListener}"
             sortActionListener="#{overviewController.sheetSorter}"
             selectable="#{overviewController.sheetConfig.selectable}">
-          <%--<f:facet name="reload">--%>
-            <%--<tc:reload frequency="5000" />  --%>
-          <%--</f:facet>--%>
-          <tc:columnSelector/>
+          <f:facet name="reload">
+            <tc:reload frequency="5000" />  
+          </f:facet>
           <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true">
             <tc:out value="#{luminary.name}" id="t_name" />
           </tc:column>
