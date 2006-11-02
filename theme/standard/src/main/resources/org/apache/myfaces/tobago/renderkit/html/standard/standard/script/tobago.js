@@ -759,11 +759,11 @@ var Tobago = {
       if (div) {
         div.parentNode.removeChild(div);
       }
-      div = Tobago.element(id + "content");
+      div = Tobago.element(id + this.SUB_COMPONENT_SEP + "content");
       if (div) {
         div.parentNode.removeChild(div);
       }
-      div = Tobago.element(id + "iframe");
+      div = Tobago.element(id + this.SUB_COMPONENT_SEP + "iframe");
       if (div) {
         div.parentNode.removeChild(div);
       }
