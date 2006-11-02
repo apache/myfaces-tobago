@@ -566,8 +566,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   private int getMaxHeight(FacesContext facesContext, UIGridLayout.Row row, boolean minimum) {
     int maxHeight = 0;
     List cells = row.getElements();
-    for (int j = 0; j < cells.size(); j++) {
-      Object object = cells.get(j);
+    for (Object cell : cells) {
+      Object object = cell;
 
       if (object instanceof UIComponent) {
         UIComponent component = (UIComponent) object;
@@ -576,11 +576,14 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           height = (int) LayoutUtil.getMinimumSize(facesContext, component).getHeight();
         } else {
           RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
-          if (renderer instanceof RendererBase) {
+          if (renderer != null) {
             height = renderer.getFixedHeight(facesContext, component);
           }
         }
         maxHeight = Math.max(maxHeight, height);
+      } else {
+        // TODO is this needed?
+        LOG.error("Object is not instanceof UIComponent " + object.getClass().getName() );
       }
     }
     return maxHeight;
@@ -591,17 +594,25 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
     for (UIGridLayout.Row row : rows) {
       if (column < row.getElements().size()) {
-        UIComponent component = (UIComponent) row.getElements().get(column);
-        int max = -1;
-        if (minimum) {
-          max = (int) LayoutUtil.getMinimumSize(facesContext, component).getWidth();
-        } else {
-          RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
-          if (renderer instanceof RendererBase) {
-            max = renderer.getFixedWidth(facesContext, component);
+        Object object = row.getElements().get(column);
+
+        if (object instanceof UIComponent) {
+         UIComponent component = (UIComponent) object;
+
+          int max = -1;
+          if (minimum) {
+            max = (int) LayoutUtil.getMinimumSize(facesContext, component).getWidth();
+          } else {
+            RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
+            if (renderer != null) {
+              max = renderer.getFixedWidth(facesContext, component);
+            }
           }
+          maxWidth = Math.max(maxWidth, max);
+        } else {
+          // TODO is this needed?
+          LOG.error("Object is not instanceof UIComponent " + object.getClass().getName() );
         }
-        maxWidth = Math.max(maxWidth, max);
       }
     }
     return maxWidth;
