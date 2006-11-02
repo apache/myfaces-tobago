@@ -22,7 +22,8 @@
 <tobago-config>
 
   <theme-config>
-    <default-theme>speyside</default-theme>
+    <default-theme>inexso</default-theme>
+    <supported-theme>speyside</supported-theme>
     <supported-theme>scarborough</supported-theme>
     <supported-theme>richmond</supported-theme>
     <supported-theme>charlotteville</supported-theme>

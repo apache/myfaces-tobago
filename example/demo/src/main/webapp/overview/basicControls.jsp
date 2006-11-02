@@ -43,7 +43,7 @@
               suggestMethod="#{overviewController.getInputSuggestItems}" />
           <tx:date value="#{overviewController.basicDate}"
               label="#{overviewBundle.basic_dateLabel}" required="true" >
-            <f:convertDateTime pattern="dd.MM.yyyy" />
+            <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
           </tx:date>
           <tx:time label="#{overviewBundle.basic_timeLabel}"
               value="#{overviewController.basicTime}" />

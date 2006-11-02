@@ -21,10 +21,15 @@ package org.apache.myfaces.tobago.example.demo.overview;
  * $Id:  $
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.faces.model.SelectItem;
 
 
 public class SheetConfig {
+
+  private static final Log LOG = LogFactory.getLog(SheetConfig.class);
 
   private static final String[] SHEET_PAGER_POSITION_KEYS = {
     "none",
@@ -67,9 +72,19 @@ private static final String[] SHEET_SELECTABLE_KEYS = {
   }
 
 
-  public String configSheet() {
-    sheetConfigPopup = !sheetConfigPopup;
+  public String openConfig() {
+    sheetConfigPopup = true;
     return null;
+  }
+
+  public String closeConfig() {
+    sheetConfigPopup = false;
+    return null;
+  }
+
+  public String applyConfig() {
+    sheetConfigPopup = false;
+    return "";
   }
 
   private SelectItem[] createSheetItems(Object[] values) {
@@ -113,10 +128,12 @@ private static final String[] SHEET_SELECTABLE_KEYS = {
   }
 
   public boolean isSheetConfigPopup() {
+    LOG.info("isSheetConfigPopup = \"" + sheetConfigPopup + "\"");
     return sheetConfigPopup;
   }
 
   public void setSheetConfigPopup(boolean sheetConfigPopup) {
+    LOG.info("setSheetConfigPopup to \"" + sheetConfigPopup + "\"");
     this.sheetConfigPopup = sheetConfigPopup;
   }
 

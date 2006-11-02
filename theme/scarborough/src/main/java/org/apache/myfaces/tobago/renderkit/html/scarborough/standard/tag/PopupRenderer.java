@@ -23,11 +23,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_RESET;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -118,10 +116,6 @@ public class PopupRenderer extends RendererBase implements AjaxRenderer {
     String setupScript = "Tobago.setupPopup('" + clientId + "', '"
         + component.getLeft() + "', '" + component.getTop() + "');";
     HtmlRendererUtil.writeJavascript(writer, setupScript);
-
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_POPUP_RESET)) {
-      component.setRendered(false);
-    }
   }
 
   public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
