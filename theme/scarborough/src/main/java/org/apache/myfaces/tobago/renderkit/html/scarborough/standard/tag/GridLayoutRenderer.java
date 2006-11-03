@@ -583,7 +583,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         maxHeight = Math.max(maxHeight, height);
       } else {
         // TODO is this needed?
-        LOG.error("Object is not instanceof UIComponent " + object.getClass().getName() );
+        LOG.error("Object is not instanceof UIComponent " + object.getClass().getName());
       }
     }
     return maxHeight;
@@ -611,7 +611,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           maxWidth = Math.max(maxWidth, max);
         } else {
           // TODO is this needed?
-          LOG.error("Object is not instanceof UIComponent " + object.getClass().getName() );
+          LOG.error("Object is not instanceof UIComponent " + object.getClass().getName());
         }
       }
     }
