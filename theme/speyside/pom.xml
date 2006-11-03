@@ -83,14 +83,19 @@
                   <classesDirectory>${project.build.directory}/classes-retro</classesDirectory>
                   <classifier>jdk14retro</classifier>
                   <archive>
-                    <manifestEntries>
-                      <Extension-Name>${project.artifactId}-jdk14retro</Extension-Name>
-                      <Specification-Vendor>${project.organization.name}</Specification-Vendor>
-                      <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
-                      <Implementation-Title>${project.description}</Implementation-Title>
-                      <Implementation-Version>${project.version}</Implementation-Version>
-                      <Revision>${scm.revision}</Revision>
-                    </manifestEntries>
+                    <manifestSections>
+                      <manifestSection>
+                        <name>${project.artifactId}</name>
+                        <manifestEntries>
+                          <Extension-Name>${project.artifactId}-jdk14retro</Extension-Name>
+                          <Specification-Vendor>${project.organization.name}</Specification-Vendor>
+                          <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+                          <Implementation-Title>${project.description}</Implementation-Title>
+                          <Implementation-Version>${project.version}</Implementation-Version>
+                          <Revision>${scm.revision}</Revision>
+                        </manifestEntries>
+                      </manifestSection>
+                    </manifestSections>
                    </archive>
                 </configuration>
               </execution>
