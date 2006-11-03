@@ -28,17 +28,17 @@ import javax.faces.model.SelectItem;
 public class SheetConfig {
 
   private static final String[] SHEET_PAGER_POSITION_KEYS = {
-    "none",
-    "left",
-    "center",
-    "right"
+      "none",
+      "left",
+      "center",
+      "right"
   };
 
-private static final String[] SHEET_SELECTABLE_KEYS = {
-        "none",
-        "single",
-        "multi"
-};
+  private static final String[] SHEET_SELECTABLE_KEYS = {
+      "none",
+      "single",
+      "multi"
+  };
 
   private boolean sheetShowHeader;
   private int sheetFirst;
@@ -57,14 +57,14 @@ private static final String[] SHEET_SELECTABLE_KEYS = {
     sheetFirst = 0;
     sheetRows = 7;
     sheetDirectLinkCount = 5;
-    sheetDirectLinkCountItems = createSheetItems(new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15});
+    sheetDirectLinkCountItems = createSheetItems(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15});
     sheetShowHeader = true;
     sheetRowPagingPosition = SHEET_PAGER_POSITION_KEYS[1];
     sheetDirectPagingPosition = SHEET_PAGER_POSITION_KEYS[2];
     sheetPagePagingPosition = SHEET_PAGER_POSITION_KEYS[3];
     sheetPagingPositionItems = createSheetItems(SHEET_PAGER_POSITION_KEYS);
-    sheetSelectableItems =  createSheetItems(SHEET_SELECTABLE_KEYS);
-    selectable = SHEET_SELECTABLE_KEYS[2];  
+    sheetSelectableItems = createSheetItems(SHEET_SELECTABLE_KEYS);
+    selectable = SHEET_SELECTABLE_KEYS[2];
   }
 
 
@@ -81,7 +81,6 @@ private static final String[] SHEET_SELECTABLE_KEYS = {
     }
     return items;
   }
-
 
 
   public boolean isSheetShowHeader() {
@@ -161,19 +160,19 @@ private static final String[] SHEET_SELECTABLE_KEYS = {
     return sheetPagingPositionItems;
   }
 
-    public SelectItem[] getSheetSelectableItems() {
-        return sheetSelectableItems;
-    }
+  public SelectItem[] getSheetSelectableItems() {
+    return sheetSelectableItems;
+  }
 
-    public void setSheetSelectableItems(SelectItem[] sheetSelectableItems) {
-        this.sheetSelectableItems = sheetSelectableItems;
-    }
+  public void setSheetSelectableItems(SelectItem[] sheetSelectableItems) {
+    this.sheetSelectableItems = sheetSelectableItems;
+  }
 
-    public String getSelectable() {
-        return selectable;
-    }
+  public String getSelectable() {
+    return selectable;
+  }
 
-    public void setSelectable(String selectable) {
-        this.selectable = selectable;
-    }
+  public void setSelectable(String selectable) {
+    this.selectable = selectable;
+  }
 }
