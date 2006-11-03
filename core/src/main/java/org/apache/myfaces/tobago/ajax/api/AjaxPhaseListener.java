@@ -111,7 +111,7 @@ public class AjaxPhaseListener implements PhaseListener {
         RenderKit renderKit = renderFactory.getRenderKit(
             facesContext, viewRoot.getRenderKitId());
         ResponseWriter contentWriter
-            = renderKit.createResponseWriter(content, null , null);
+            = renderKit.createResponseWriter(content, null, null);
         facesContext.setResponseWriter(contentWriter);
 
         AjaxUtils.processAjax(facesContext, viewRoot);
@@ -130,7 +130,7 @@ public class AjaxPhaseListener implements PhaseListener {
         contentWriter.startElement(HtmlConstants.SCRIPT, null);
         contentWriter.writeAttribute(HtmlAttributes.TYPE, "text/javascript", null);
         contentWriter.write("Tobago.replaceJsfState(\"");
-        contentWriter.write(StringUtils.replace(StringUtils.replace(jsfState.toString(),"\"", "\\\""), "\n", ""));
+        contentWriter.write(StringUtils.replace(StringUtils.replace(jsfState.toString(), "\"", "\\\""), "\n", ""));
         contentWriter.write("\");");
         contentWriter.endElement(HtmlConstants.SCRIPT);
 
