@@ -21,8 +21,6 @@ package org.apache.myfaces.tobago.example.demo.overview;
  * $Id:  $
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.model.SelectItem;
 
