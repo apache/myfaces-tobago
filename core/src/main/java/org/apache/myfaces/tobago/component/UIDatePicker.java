@@ -19,12 +19,10 @@ package org.apache.myfaces.tobago.component;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CALENDAR_DATE_INPUT_ID;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_RESET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_PICKER_POPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BOX;
@@ -36,16 +34,12 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_PANEL;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_POPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_TIME;
-import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.DatePickerController;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.DateTimeConverter;
 import javax.faces.event.FacesEvent;
 import java.util.Map;
 
@@ -154,10 +148,8 @@ public class UIDatePicker extends UICommand implements OnComponentCreated {
 
     Map<String, Object> attributes = popup.getAttributes();
     attributes.put(ATTR_POPUP_RESET, Boolean.TRUE);
-    attributes.put(ATTR_WIDTH, String.valueOf(
-        ThemeConfig.getValue(facesContext, link, "CalendarPopupWidth")));
-    int popupHeight = ThemeConfig.getValue(facesContext, link, "CalendarPopupHeight");
-    attributes.put(ATTR_HEIGHT, String.valueOf(popupHeight));
+    //int popupHeight = ThemeConfig.getValue(facesContext, link, "CalendarPopupHeight");
+    //attributes.put(ATTR_HEIGHT, String.valueOf(popupHeight));
     final UIComponent box = ComponentUtil.createComponent(
         facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_BOX);
     popup.getChildren().add(box);
@@ -206,16 +198,7 @@ public class UIDatePicker extends UICommand implements OnComponentCreated {
     cell.setId("cell2");
     timePanel.getChildren().add(cell);
 
-    UIComponent input = getForComponent();
-    Converter converter = ((RendererBase)
-        getRenderer(facesContext)).getConverter(facesContext, input);
-    if (converter instanceof DateTimeConverter) {
-      String pattern = ((DateTimeConverter) converter).getPattern();
-      if (pattern != null && (pattern.indexOf('h') > -1 || pattern.indexOf('H') > -1)) {
-        popupHeight += ThemeConfig.getValue(facesContext, time, "fixedHeight");
-        attributes.put(ATTR_HEIGHT, String.valueOf(popupHeight));
-      }
-    }
+    
 
     UIComponent buttonPanel = ComponentUtil.createComponent(
         facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_PANEL);

@@ -21,12 +21,15 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_PICKER_POPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_RESET;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_CALENDAR_FORCE_TIME;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import org.apache.myfaces.tobago.component.UIDatePicker;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.component.UIDateInput;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -58,6 +61,9 @@ public class DatePickerRenderer extends LinkRenderer {
     }
     String idPrefix = dateInput.getId() + "_picker";
     Map<String, Object>  attributes = link.getAttributes();
+    attributes.put(ATTR_WIDTH, String.valueOf(
+           ThemeConfig.getValue(facesContext, link, "CalendarPopupWidth")));    
+    int popupHeight = ThemeConfig.getValue(facesContext, link, "CalendarPopupHeight");
     link.setActionListener(datePickerController);
     attributes.put(ATTR_LAYOUT_WIDTH, getConfiguredValue(facesContext, component, "pickerWidth"));
     UIComponent hidden = (UIComponent) link.getChildren().get(0);
@@ -70,6 +76,7 @@ public class DatePickerRenderer extends LinkRenderer {
     attributes = popup.getAttributes();
     popup.setId(idPrefix + "popup");
     attributes.put(ATTR_POPUP_RESET, Boolean.TRUE);
+    attributes.put(ATTR_HEIGHT, String.valueOf(popupHeight));
     Converter converter = getConverter(facesContext, dateInput);
     String converterPattern = "yyyy-MM-dd"; // from calendar.js  initCalendarParse
     if (converter instanceof DateTimeConverter) {
@@ -78,6 +85,7 @@ public class DatePickerRenderer extends LinkRenderer {
      // LOG.warn("Converter for DateRenderer is not instance of DateTimeConverter. Using default Pattern "
       //    + converterPattern);
     }
+
     UICommand okButton = (UICommand) popup.findComponent("ok" + DatePickerController.CLOSE_POPUP);
     attributes = okButton.getAttributes();
     attributes.put(ATTR_ACTION_ONCLICK, "writeIntoField2(this); Tobago.closePickerPopup2(this)");
@@ -105,6 +113,9 @@ public class DatePickerRenderer extends LinkRenderer {
     if (converterPattern != null && (converterPattern.indexOf('h') > -1 || converterPattern.indexOf('H') > -1)) {
       if (converterPattern.indexOf('s') > -1) {
         UIComponent time = timePanel.findComponent("time");
+        int popupHeight = ComponentUtil.getIntAttribute(popup, ATTR_HEIGHT);
+        popupHeight += ThemeConfig.getValue(FacesContext.getCurrentInstance(), time, "fixedHeight");
+        popup.getAttributes().put(ATTR_HEIGHT, String.valueOf(popupHeight));
         time.getAttributes().put(ATTR_POPUP_CALENDAR_FORCE_TIME, true);
       }
     } else {
