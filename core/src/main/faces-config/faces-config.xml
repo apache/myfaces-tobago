@@ -21,199 +21,35 @@
   "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
 
 <faces-config>
-
   <application>
-    <default-render-kit-id>
-      tobago
-    </default-render-kit-id>
-    <view-handler>
-      org.apache.myfaces.tobago.application.ViewHandlerImpl
-    </view-handler>
-    <message-bundle>
-      org.apache.myfaces.tobago.context.TobagoResourceBundle
-    </message-bundle>
+    <default-render-kit-id>tobago</default-render-kit-id>
+    <view-handler>org.apache.myfaces.tobago.application.ViewHandlerImpl</view-handler>
+    <message-bundle>org.apache.myfaces.tobago.context.TobagoResourceBundle</message-bundle>
   </application>
-
-
-
-  <component>
-    <component-type>org.apache.myfaces.tobago.DateInput</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIDateInput</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.DatePicker</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIDatePicker</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.Cell</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UICell</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.Column</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIColumn</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.ColumnSelector</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIColumnSelector</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.Command</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UICommand</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.Data</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIData</component-class>
-  </component>
   <component>
     <component-type>org.apache.myfaces.tobago.DefaultLayout</component-type>
     <component-class>org.apache.myfaces.tobago.component.UIDefaultLayout</component-class>
   </component>
   <component>
-    <component-type>org.apache.myfaces.tobago.Form</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIForm</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.FileInput</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIFileInput</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.GridLayout</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIGridLayout</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.Input</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIInput</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.HiddenInput</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIHiddenInput</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.Label</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UILabel</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.Menu</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIMenu</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.MenuCommand</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIMenuCommand</component-class>
-  </component>
- <component>
     <component-type>org.apache.myfaces.tobago.MenuSelectOne</component-type>
     <component-class>org.apache.myfaces.tobago.component.UIMenuSelectOne</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.MenuSeparator</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIMenuSeparator</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.Output</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIOutput</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.Page</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIPage</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.Panel</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIPanel</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.Popup</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIPopup</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.Reload</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIReload</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.TabGroup</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UITabGroup</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.TimeInput</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UITimeInput</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.Tree</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UITree</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.TreeListbox</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UITreeListbox</component-class>
   </component>
   <component>
     <component-type>org.apache.myfaces.tobago.TreeListboxBox</component-type>
     <component-class>org.apache.myfaces.tobago.component.UITreeListboxBox</component-class>
   </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.ToolBar</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIToolBar</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.SelectItem</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UISelectItem</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.SelectMany</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UISelectMany</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.SelectOne</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UISelectOne</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.SelectOneCommand</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UISelectOneCommand</component-class>
-  </component>
-  <component>
-    <component-type>org.apache.myfaces.tobago.SelectBooleanCommand</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UISelectBooleanCommand</component-class>
-  </component>
-
   <!-- use tobagos UIViewRoot -->
   <component>
     <component-type>javax.faces.ViewRoot</component-type>
     <component-class>org.apache.myfaces.tobago.component.UIViewRoot</component-class>
   </component>
 
-  <converter>
-    <converter-id>org.apache.myfaces.tobago.Duration</converter-id>
-    <converter-class>org.apache.myfaces.tobago.convert.DurationConverter</converter-class>
-  </converter>
-  <converter>
-    <converter-for-class>org.apache.myfaces.tobago.context.Theme</converter-for-class>
-    <converter-class>org.apache.myfaces.tobago.convert.ThemeConverter</converter-class>
-  </converter>
-  <converter>
-    <converter-for-class>java.util.Locale</converter-for-class>
-    <converter-class>org.apache.myfaces.tobago.convert.LocaleConverter</converter-class>
-  </converter>
-  <converter>
-    <converter-for-class>java.util.Currency</converter-for-class>
-    <converter-class>org.apache.myfaces.tobago.convert.CurrencyConverter</converter-class>
-  </converter>
-
   <render-kit>
     <render-kit-id>tobago</render-kit-id>
     <render-kit-class>org.apache.myfaces.tobago.renderkit.TobagoRenderKit</render-kit-class>
   </render-kit>
-
   <lifecycle>
     <phase-listener>org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener</phase-listener>
   </lifecycle>
-
-  <validator>
-    <validator-id>org.apache.myfaces.tobago.SubmittedValueLength</validator-id>
-    <validator-class>org.apache.myfaces.tobago.validator.SubmittedValueLengthValidator</validator-class>
-  </validator>
-
-  <validator>
-    <validator-id>org.apache.myfaces.tobago.FileItem</validator-id>
-    <validator-class>org.apache.myfaces.tobago.validator.FileItemValidator</validator-class>
-  </validator>
-
 
 </faces-config>
