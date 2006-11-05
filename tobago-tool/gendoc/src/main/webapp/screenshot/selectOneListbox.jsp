@@ -12,7 +12,7 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
---%>
+tc:cell/>--%>
 
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
@@ -24,7 +24,7 @@
     <jsp:body>
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout rows="90px;1*" columns="300px;1*" />
+          <tc:gridLayout rows="90px;90px;1*" columns="300px;1*" />
         </f:facet>
 <%-- code-sniplet-start id="selectOneListbox" --%>
         <tx:selectOneListbox id="LabeledInlineSingleSelect"
@@ -33,6 +33,17 @@
           <f:selectItem itemValue="eMail" itemLabel="eMail"/>
           <f:selectItem itemValue="Mobile" itemLabel="Mobile"/>
           <f:selectItem itemValue="Fax"  itemLabel="Faxscimile"/>
+        </tx:selectOneListbox>
+        <tc:cell/>
+        <tx:selectOneListbox id="LabeledInlineSingleSelect1"
+                             label="Contact via: " height="90px">
+          <f:selectItem itemValue="Phone" itemLabel="Phone" />
+          <f:selectItem itemValue="eMail" itemLabel="eMail"/>
+          <f:selectItem itemValue="Mobile" itemLabel="Mobile"/>
+          <f:selectItem itemValue="Fax"  itemLabel="Faxscimile"/>
+           <f:facet name="click">
+            <tc:command />
+          </f:facet>
         </tx:selectOneListbox>
 <%-- code-sniplet-end id="selectOneListbox" --%>
         <tc:cell/>

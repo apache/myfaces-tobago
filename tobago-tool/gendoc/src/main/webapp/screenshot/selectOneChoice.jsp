@@ -23,17 +23,29 @@
     <jsp:body>
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout rows="fixed;1*" />
+          <tc:gridLayout rows="1*:1*;1*" />
         </f:facet>
 <%-- code-sniplet-start id="selectOneChoice" --%>
-        <tx:selectOneChoice value="selectOneChoice0" inline="true"
-                           label="Contact me: " >
+        <tx:selectOneChoice inline="true" value="selectOneChoice0"
+                           label="Contact me1: " >
           <tc:selectItem itemLabel="Letter" itemValue="letter" />
           <tc:selectItem itemLabel="Phone" itemValue="phone" />
           <tc:selectItem itemLabel="eMail" itemValue="eMail" />
           <tc:selectItem itemLabel="Fax" itemValue="fax" />
         </tx:selectOneChoice>
+
 <%-- code-sniplet-end id="selectOneChoice" --%>
+
+        <tx:selectOneChoice inline="true" value="selectOneChoice0"
+                           label="Contact me2: " >
+          <tc:selectItem itemLabel="Letter" itemValue="letter" />
+          <tc:selectItem itemLabel="Phone" itemValue="phone" />
+          <tc:selectItem itemLabel="eMail" itemValue="eMail" />
+          <tc:selectItem itemLabel="Fax" itemValue="fax" />
+          <f:facet name="click">
+            <tc:command />
+          </f:facet>
+        </tx:selectOneChoice>
 
         <tc:cell/>
 

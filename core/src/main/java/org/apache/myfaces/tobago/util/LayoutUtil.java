@@ -191,7 +191,10 @@ public final class LayoutUtil {
         && component.getRendererType() == null) {
       return true;
     }
-
+    /* TODO disable layouting of facelet stuff
+    if (component.getClass().getPackage().getName().equals("com.sun.facelets.compiler")) {
+      return true;
+    } */
 //  also Forms are transparent for layouting
 
     return component instanceof UIForm;

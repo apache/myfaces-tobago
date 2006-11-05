@@ -581,6 +581,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           }
         }
         maxHeight = Math.max(maxHeight, height);
+      } else if (object instanceof UIGridLayout.Marker) {
+        // ignore 
       } else {
         // TODO is this needed?
         LOG.error("Object is not instanceof UIComponent " + object.getClass().getName());

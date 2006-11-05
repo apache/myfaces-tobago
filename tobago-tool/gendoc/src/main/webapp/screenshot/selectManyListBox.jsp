@@ -23,7 +23,7 @@
     <jsp:body>
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout rows="45px;1*" />
+          <tc:gridLayout rows="45px;45px;1*" />
         </f:facet>
 <%-- code-sniplet-start id="selectManyListbox" --%>
         <tx:selectManyListbox inline="true" id="LabeledInlineMultiSelect"
@@ -32,6 +32,16 @@
           <f:selectItem itemValue="eMail" itemLabel="eMail"/>
           <f:selectItem itemValue="Mobile" itemLabel="Mobile"/>
           <f:selectItem itemValue="Fax"  itemLabel="Faxscimile"/>
+        </tx:selectManyListbox>
+        <tx:selectManyListbox inline="true" 
+                             label="Contact via: ">
+          <f:selectItem itemValue="Phone" itemLabel="Phone" />
+          <f:selectItem itemValue="eMail" itemLabel="eMail"/>
+          <f:selectItem itemValue="Mobile" itemLabel="Mobile"/>
+          <f:selectItem itemValue="Fax"  itemLabel="Faxscimile"/>
+          <f:facet name="click">
+            <tc:command />
+          </f:facet>
         </tx:selectManyListbox>
 <%-- code-sniplet-end id="selectManyListbox" --%>
         <tc:cell/>

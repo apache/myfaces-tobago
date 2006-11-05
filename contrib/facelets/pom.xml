@@ -41,7 +41,7 @@
         <executions>
           <execution>
           <id>unpack-sources</id>
-          <phase>generate-sources</phase>
+          <phase>validate</phase>
           <goals><goal>unpack</goal></goals>
           <configuration>
             <artifactItems>
@@ -58,6 +58,39 @@
           </execution>
         </executions>
       </plugin>
+      <!--<plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>apt-maven-plugin</artifactId>
+        <version>1.0-beta-1-SNAPSHOT</version>
+        <executions>
+          <execution>
+            <id>tobago-facelet-taglib</id>
+            <goals><goal>execute</goal></goals>
+            <configuration>
+              <excludes>
+                <exclude>org/apache/myfaces/tobago/*</exclude>
+              </excludes>
+              <includes>
+                <include>org/apache/myfaces/tobago/taglib/component/*.java</include>
+                <include>org/apache/myfaces/tobago/taglib/decl/*.java</include>
+              </includes>
+              <aptSourceRoots>
+                <aptSourceRoot>${project.build.directory}/tobago-core-sources</aptSourceRoot>
+              </aptSourceRoots>
+              <targetFiles>
+                <targetFile>tobago.taglib.xml</targetFile>
+              </targetFiles>
+              <resourceTargetPath>META-INF</resourceTargetPath>
+              <generated>target/generated-sources</generated>
+              <factory>org.apache.myfaces.tobago.apt.FaceletAnnotationProcessorFactory</factory>
+              <nocompile>true</nocompile>
+              <encoding>UTF-8</encoding>
+              <generateToBuildDir>false</generateToBuildDir>
+              <force>true</force>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>-->
       <plugin>
         <groupId>org.apache.myfaces.tobago</groupId>
         <artifactId>maven-apt-plugin</artifactId>

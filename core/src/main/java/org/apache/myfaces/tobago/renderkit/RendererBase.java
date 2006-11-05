@@ -54,13 +54,6 @@ public abstract class RendererBase
 
   private static final Log LOG = LogFactory.getLog(RendererBase.class);
 
-  public static final String BEGIN_POSTFIX = "Begin";
-
-  public static final String CHILDREN_POSTFIX = "Children";
-
-  public static final String END_POSTFIX = "";
-
-
   public void encodeBegin(FacesContext facesContext, UIComponent component)
       throws IOException {
     if (LOG.isDebugEnabled()) {
@@ -221,8 +214,8 @@ public abstract class RendererBase
 
     if (component instanceof UICell) {
       List children = LayoutUtil.addChildren(new ArrayList(), component);
-      for (Iterator childs = children.iterator(); childs.hasNext();) {
-        UIComponent child = (UIComponent) childs.next();
+      for (Object aChildren : children) {
+        UIComponent child = (UIComponent) aChildren;
 
         RendererBase renderer = ComponentUtil.getRenderer(facesContext, child);
         if (renderer != null) {
