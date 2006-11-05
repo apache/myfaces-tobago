@@ -100,11 +100,11 @@
                       <tc:gridLayout columns="100px;1*;100px"
                                      marginLeft="10px" marginRight="10px"/>
                     </f:facet>
-                    <tc:button onclick="Tobago.closePopup('page:sheetConfigPopup')"
+                    <tc:button onclick="Tobago.closePopup(this)"
                                label="Cancel" />
 
                     <tc:cell />
-                    <tc:button onclick="Tobago.reloadComponent('page:sheetBox','@autoId', {});Tobago.closePopup('page:sheetConfigPopup');" 
+                    <tc:button onclick="Tobago.reloadComponent('page:sheetBox','@autoId', {});Tobago.closePopup(this);"
                         label="Ok" />
                   </tc:cell>
 

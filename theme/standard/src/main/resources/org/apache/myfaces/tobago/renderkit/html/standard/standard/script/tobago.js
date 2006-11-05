@@ -691,6 +691,11 @@ var Tobago = {
     */
   setupPopup: function(id, left, top) {
 //  alert("tobagoSetupPopup('" + id + "', '" + left + "', '"+ top + "')");
+    var hidden = Tobago.element(id + Tobago.SUB_COMPONENT_SEP + "hidden");
+    if (hidden && hidden.type == "hidden") {
+      hidden.parentNode.removeChild(hidden);
+    }
+
     var contentId = id + Tobago.SUB_COMPONENT_SEP + "content";
     var div = this.element(contentId);
     if (div) {
@@ -758,12 +763,27 @@ var Tobago = {
    * remove a popup without request
    *
    */
-  closePopup: function(id) {
-    var div = Tobago.element(id + "parentDiv");
+  closePopup: function(element) {
+    var div;
+    var id;
+    if (typeof element == "string") {
+      id = element;
+    } else if (typeof element == "object" && element.tagName) {
+      div = Tobago.findAnchestorWithTagName(element, "DIV");
+      while (div && div.className && div.className.indexOf("tobago-popup-content") == -1) {
+        div = Tobago.findAnchestorWithTagName(div.parentNode, "DIV");
+      }
+      if (div) {
+        var re = new RegExp(Tobago.SUB_COMPONENT_SEP + "content$")
+        id = div.id.replace(re, "");
+      }
+    }
+
+    div = Tobago.element(id + "parentDiv");
     if (div) {
       // created by ajax
       div.parentNode.removeChild(div);
-    } else {
+    } else if (id) {
       div = Tobago.element(id);
       if (div) {
         div.parentNode.removeChild(div);
@@ -776,13 +796,23 @@ var Tobago = {
       if (div) {
         div.parentNode.removeChild(div);
       }
+    } else {
+      LOG.error("Can't close popup ");
     }
+
+    var hidden = document.createElement("input");
+    hidden.id = id + Tobago.SUB_COMPONENT_SEP + "hidden";
+    hidden.name = id;
+    hidden.type = "hidden";
+    hidden.value = "closed";
+    Tobago.form.appendChild(hidden);
   },
 
   openPopupWithAction: function(popupId, actionId) {
     var div = Tobago.element(popupId);
     if (div) {
-      // something is wrong, doing full reload
+      LOG.warn("something is wrong, doing full reload");
+//      LOG.info("id = " + popupId + "  type = " + div.tagName + "  class = " + div.className);
       Tobago.submitAction(actionId);
     }
 

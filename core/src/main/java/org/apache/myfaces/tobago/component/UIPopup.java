@@ -32,6 +32,8 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
 
   private static final Log LOG = LogFactory.getLog(UIPopup.class);
 
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Popup";
+
   private String width;
   private String height;
   private String left;
@@ -39,7 +41,9 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
 
   private boolean popupReset;
 
-  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Popup";
+  private boolean closedOnClient;
+
+  private boolean submitted;
 
   public void processDecodes(FacesContext facesContext) {
     super.processDecodes(facesContext);
@@ -55,6 +59,8 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
   public void encodeBegin(FacesContext facesContext) throws IOException {
     removeStoredRendered(facesContext);
     super.encodeBegin(facesContext);
+    closedOnClient = false;
+    submitted = false;
   }
 
   public void processValidators(FacesContext context) {
@@ -64,14 +70,18 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
 
   private void resetAndStoreRendered(FacesContext facesContext) {
     if (popupReset && isRendered()) {
-      ValueBinding vb = getValueBinding(ATTR_RENDERED);
-      if (vb != null) {
-        vb.setValue(facesContext, false);
-      } else {
-        setRendered(false);
+      if (submitted || closedOnClient) {
+        ValueBinding vb = getValueBinding(ATTR_RENDERED);
+        if (vb != null) {
+          vb.setValue(facesContext, false);
+        } else {
+          setRendered(false);
+        }
       }
-      Map map = facesContext.getExternalContext().getRequestMap();
-      map.put(getClientId(facesContext) + "rendered", true);
+      if (!closedOnClient) {
+        Map map = facesContext.getExternalContext().getRequestMap();
+        map.put(getClientId(facesContext) + "rendered", true);
+      }
     }
   }
 
@@ -153,6 +163,15 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
 
   public void setPopupReset(boolean popupReset) {
     this.popupReset = popupReset;
+  }
+
+
+  public void closedOnClient() {
+    this.closedOnClient = true;
+  }
+
+  public void submitted() {
+    this.submitted = true;
   }
 
   private void addToPage() {
