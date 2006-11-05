@@ -65,9 +65,8 @@
                   <archive>
                     <manifestSections>
                       <manifestSection>
-                        <name>${project.artifactId}</name>
+                        <name>${project.artifactId}-jdk14retr</name>
                         <manifestEntries>
-                          <Extension-Name>${project.artifactId}-jdk14retro</Extension-Name>
                           <Specification-Vendor>${project.organization.name}</Specification-Vendor>
                           <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
                           <Implementation-Title>${project.description}</Implementation-Title>
