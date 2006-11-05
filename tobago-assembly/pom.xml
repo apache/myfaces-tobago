@@ -146,7 +146,7 @@
               </execution>
 
               <execution>
-                <id>copy-facelets</id>
+                <id>copy-contrib</id>
                 <phase>package</phase>
                 <goals>
                   <goal>copy</goal>
@@ -165,9 +165,20 @@
                       <version>${project.version}</version>
                       <classifier>jdk14retro</classifier>
                     </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-fileupload</artifactId>
+                      <version>${project.version}</version>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-fileupload</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>jdk14retro</classifier>
+                    </artifactItem>
 
                   </artifactItems>
-                  <outputDirectory>${project.build.directory}/facelets
+                  <outputDirectory>${project.build.directory}/contrib
                   </outputDirectory>
                 </configuration>
               </execution>

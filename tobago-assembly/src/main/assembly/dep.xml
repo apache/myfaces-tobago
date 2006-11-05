@@ -35,7 +35,7 @@
       </excludes>
     </fileSet>
     <fileSet>
-      <directory>target/facelets</directory>
+      <directory>target/contrib</directory>
       <outputDirectory>contrib</outputDirectory>
       <includes>
         <include>*.jar</include>
