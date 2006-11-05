@@ -206,14 +206,6 @@
           <scope>runtime</scope>
         </dependency>
       </dependencies>
-      <repositories>
-        <repository>
-          <id>java.net</id>
-          <name>java.net Maven 1 Repository</name>
-          <url>https://maven-repository.dev.java.net/repository</url>
-          <layout>legacy</layout>
-        </repository>
-      </repositories>
     </profile>
   </profiles>
 </project>
