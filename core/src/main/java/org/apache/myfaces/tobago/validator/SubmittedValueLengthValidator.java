@@ -77,7 +77,7 @@ public class SubmittedValueLengthValidator extends LengthValidator {
   }
 
   public void validate(FacesContext facesContext, UIComponent uiComponent, Object value) throws ValidatorException {
-    if (value != null) {
+    if (value != null && uiComponent instanceof EditableValueHolder) {
       String submittedValue = ((EditableValueHolder) uiComponent).getSubmittedValue().toString();
       if (maximum != null && submittedValue.length() > maximum) {
         Object[] args = {maximum, uiComponent.getId()};
