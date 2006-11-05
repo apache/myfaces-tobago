@@ -356,15 +356,21 @@ public class SheetRenderer extends RendererBase
         if (align != null) {
           tdStyle = "text-align: " + align;
         }
-        final String cellClass = (String) column.getAttributes().get(
-            ATTR_STYLE_CLASS);
-        final String tdClass = "tobago-sheet-cell-td "
-            + (cellClass != null ? cellClass : "");
+        final String cellClass = (String) column.getAttributes().get(ATTR_STYLE_CLASS);
 
+        final StringBuffer tdClass = new StringBuffer();
+        tdClass.append("tobago-sheet-cell-td ");
+        HtmlRendererUtil.addMarkupClass(column, "sheet-cell", tdClass);
+        if (columnIndex == 0) {
+          tdClass.append("tobago-sheet-cell-first-column ");
+        }
+        if (cellClass !=null) {
+          tdClass.append(cellClass);
+        }
 
         writer.startElement(HtmlConstants.TD, column);
 
-        writer.writeClassAttribute(tdClass);
+        writer.writeClassAttribute(tdClass.toString());
         writer.writeAttribute(HtmlAttributes.STYLE, tdStyle, null);
 
         writer.startElement(HtmlConstants.DIV, null);
@@ -1075,8 +1081,9 @@ public class SheetRenderer extends RendererBase
     final String ajaxId = (String) facesContext.getExternalContext()
         .getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
     if (ajaxId.equals(component.getClientId(facesContext))) {
-      if (component.getFacet("reload") != null && component.getFacet("reload") instanceof UIReload) {
-        UIReload reload = (UIReload) component.getFacet("reload");
+      if (component.getFacet(FACET_RELOAD) != null && component.getFacet(FACET_RELOAD) instanceof UIReload
+          && component.getFacet(FACET_RELOAD).isRendered()) {
+        UIReload reload = (UIReload) component.getFacet(FACET_RELOAD);
         update = reload.getUpdate();
       }
     }

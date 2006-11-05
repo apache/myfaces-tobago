@@ -16,9 +16,12 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIBox;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
 
 import javax.servlet.jsp.tagext.BodyTag;
+import javax.faces.component.UIComponent;
 
 /**
  * Renders a panel with border and title.
@@ -27,8 +30,24 @@ import javax.servlet.jsp.tagext.BodyTag;
 public class BoxTag extends TobagoBodyTag
     implements BodyTag, BoxTagDeclaration {
 
+  private String markup;
+
   public String getComponentType() {
-    return UIPanel.COMPONENT_TYPE;
+    return UIBox.COMPONENT_TYPE;
+  }
+
+  public void release() {
+    super.release();
+    markup = null;
+  }
+
+  protected void setProperties(UIComponent component) {
+    super.setProperties(component);
+    ComponentUtil.setStringProperty(component, ATTR_MARKUP, markup);
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 }
 

@@ -77,7 +77,6 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     }
 
     String clientId = component.getClientId(facesContext);
-
     writer.startElement(HtmlConstants.DIV, component);
     writer.writeComponentClass();
     writer.writeIdAttribute(clientId);

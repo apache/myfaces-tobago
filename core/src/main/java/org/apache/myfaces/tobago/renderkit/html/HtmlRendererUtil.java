@@ -440,20 +440,24 @@ public final class HtmlRendererUtil {
     if (ComponentUtil.isError(component)) {
       tobagoClass.append(prefix).append(TOBAGO_CSS_CLASS_SUFFIX_ERROR);
     }
+    addMarkupClass(component, rendererName, tobagoClass);
+    return tobagoClass.append(cssClass).toString();
+  }
+
+  public static void addMarkupClass(UIComponent component, String rendererName, StringBuffer tobagoClass) {
 
     if (component instanceof SupportsMarkup) {
       String markup = ComponentUtil.getStringAttribute(component, ATTR_MARKUP);
       if (StringUtils.isNotEmpty(markup)) {
         Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot()).getTheme();
         if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
-          tobagoClass.append(prefix).append("-markup-").append(markup).append(" ");
+          tobagoClass.append(TOBAGO_CSS_CLASS_PREFIX).append(rendererName)
+              .append("-markup-").append(markup).append(" ");
         } else {
           LOG.warn("Unknown markup='" + markup + "'");
         }
       }
     }
-
-    return tobagoClass.append(cssClass).toString();
   }
 
   public static void addImageSources(
