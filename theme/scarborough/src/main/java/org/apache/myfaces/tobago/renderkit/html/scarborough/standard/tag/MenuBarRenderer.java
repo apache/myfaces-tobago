@@ -59,6 +59,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.component.UISelectOne;
 import javax.faces.component.UISelectBoolean;
+import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
@@ -324,11 +325,13 @@ public class MenuBarRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.SRC, image, null);
     writer.endElement(HtmlConstants.IMG);
   }
-
-  private void addMenuEntrys(StringBuffer sb, String var,
-                             FacesContext facesContext, UIComponent component, boolean warn)
+  private int addMenuEntrys(StringBuffer sb, String var,
+                            FacesContext facesContext, UIComponent component, boolean warn) throws IOException {
+    return addMenuEntrys(sb, var, facesContext, component, warn, 0);
+  }
+  private int addMenuEntrys(StringBuffer sb, String var,
+                             FacesContext facesContext, UIComponent component, boolean warn, int index)
       throws IOException {
-    int i = 0;
     for (Object o : component.getChildren()) {
       UIComponent entry = (UIComponent) o;
       if (entry instanceof UICommand) {
@@ -336,12 +339,15 @@ public class MenuBarRenderer extends RendererBase {
       } else if (entry instanceof UIMenuSeparator) {
         addMenuSeparator(sb, var);
       } else if (entry instanceof UIMenu) {
-        i = addMenu(sb, var, facesContext, (UIPanel) entry, i);
+        index = addMenu(sb, var, facesContext, (UIPanel) entry, index);
+      } else if (entry instanceof UIForm) {
+        index = addMenuEntrys(sb, var, facesContext, entry, warn, index);
       } else if (warn) {
         LOG.error("Illegal UIComponent class in menuBar: "
             + entry.getClass().getName());
       }
     }
+    return index;
   }
 
   private void addMenuEntry(StringBuffer sb, String var, FacesContext facesContext,
