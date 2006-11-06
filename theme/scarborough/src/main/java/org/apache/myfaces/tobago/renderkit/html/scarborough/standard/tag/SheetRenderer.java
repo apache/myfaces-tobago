@@ -724,7 +724,7 @@ public class SheetRenderer extends RendererBase
     return selected;
   }
 
-  private static void link(FacesContext facesContext, Application application,
+  private void link(FacesContext facesContext, Application application,
                            boolean disabled, PageAction command, UIData data)
       throws IOException {
     UICommand link= createPagingCommand(application, command, disabled);
@@ -1042,7 +1042,7 @@ public class SheetRenderer extends RendererBase
     }
   }
 
-  private static UICommand createPagingCommand(Application application,
+  private UICommand createPagingCommand(Application application,
                                                PageAction command, boolean disabled) {
     UICommand link;
     link = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
