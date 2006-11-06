@@ -119,8 +119,17 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     final String switchType = component.getSwitchType();
 
     UIPage page = ComponentUtil.findPage(component);
-    page.getScriptFiles().add("script/tab.js");
-    page.getScriptFiles().add("script/tabgroup.js");
+    final String[] scripts = new String[]{
+        "script/tab.js",
+        "script/tabgroup.js"
+    };
+    for (String script : scripts) {
+      page.getScriptFiles().add(script);
+    }
+    if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
+      HtmlRendererUtil.writeScriptLoader(facesContext, scripts, new String[0]);
+    }
+
 
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
@@ -157,18 +166,12 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
 
         if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()
             && SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
-          final String pageId
-              = ComponentUtil.findPage(component).getClientId(facesContext);
-          final String[] scripts = new String[]{
-              "script/tab.js",
-              "script/tabgroup.js"
-          };
           final String[] cmds = {
               "new Tobago.TabGroup(",
               "    '" + clientId + "', ",
               "    '" + activeIndex + "');"
           };
-          HtmlRendererUtil.writeScriptLoader(facesContext, scripts, cmds);
+          HtmlRendererUtil.writeScriptLoader(facesContext, new String[0], cmds);
         }
       }
     }
