@@ -90,8 +90,8 @@ public class LinkRenderer extends CommandRendererBase{
       href = sb.toString();
 
     } else  if (component.getAttributes().get(ATTR_ACTION_ONCLICK) != null) {
-      onclick = (String) component.getAttributes().get(ATTR_ACTION_ONCLICK);
-      href = "#";
+      onclick = HtmlRendererUtil.prepareOnClick(facesContext, component);
+      href = HtmlRendererUtil.getEmptyHref(facesContext);
     } else { // default: Action.TYPE_SUBMIT
       href = "javascript:Tobago.submitAction('" + clientId + "')";
     }

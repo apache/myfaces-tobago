@@ -614,16 +614,22 @@ public final class HtmlRendererUtil {
       //} else if (COMMAND_TYPE_RESET.equals(type)) {
     //  onclick = null;
     } else if (component.getAttributes().get(TobagoConstants.ATTR_ACTION_ONCLICK)!=null) {
-      onclick = (String) component.getAttributes().get(TobagoConstants.ATTR_ACTION_ONCLICK);
-      if (onclick.contains("@autoId")) {
-        onclick = onclick.replace("@autoId", component.getClientId(facesContext));
-      }
+      onclick = prepareOnClick(facesContext, component);
     } else if (defaultCommand) {
       ComponentUtil.findPage(component).setDefaultActionId(clientId);
 //      onclick = "Tobago.setAction('" + clientId + "');";
       onclick = null;
     } else {
       onclick = "Tobago.submitAction('" + clientId + "');";
+    }
+    return onclick;
+  }
+
+  public static String prepareOnClick(FacesContext facesContext, UIComponent component) {
+    String onclick;
+    onclick = (String) component.getAttributes().get(TobagoConstants.ATTR_ACTION_ONCLICK);
+    if (onclick.contains("@autoId")) {
+      onclick = onclick.replace("@autoId", component.getClientId(facesContext));
     }
     return onclick;
   }
@@ -656,5 +662,10 @@ public final class HtmlRendererUtil {
     System.out.println(removeTobagoClasses(" x x ", "test"));
     System.out.println(removeTobagoClasses("", "test"));
     System.out.println(removeTobagoClasses("hallo", "test"));
+  }
+
+  public static String getEmptyHref(FacesContext facesContext) {
+    ClientProperties clientProperties = ClientProperties.getInstance(facesContext);
+    return clientProperties.getUserAgent().isMsie() ? "#" : "javascript:;";
   }
 }
