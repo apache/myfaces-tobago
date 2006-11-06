@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-/**
+/*
  * User: weber
  * Date: Feb 28, 2005
  * Time: 3:05:19 PM
@@ -44,7 +44,6 @@ public class UIPanel extends javax.faces.component.UIPanel
      UILayout.getLayout(this).encodeChildrenOfComponent(facesContext, this);
    }
   }
-
 
   public void encodeAjax(FacesContext facesContext) throws IOException {
     AjaxUtils.encodeAjaxComponent(facesContext, this);    

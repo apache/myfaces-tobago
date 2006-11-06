@@ -1303,6 +1303,57 @@ Tobago.Image = function(id, normal, disabled, hover) {
   Tobago.images[id] = this;
 };
 
+Tobago.Panel = function(panelId, enableAjax, autoReload) {
+  this.startTime = new Date();
+  this.id = panelId;
+  this.ajaxEnabled = enableAjax;
+  this.autoReload = autoReload;
+
+  if (this.ajaxEnabled) {
+    Tobago.ajaxComponents[this.id] = this;
+     // option are onyl used for ajax request
+    this.options = {
+      method: 'post',
+      asynchronous: true,
+      onComplete: Tobago.bind(this, "onComplete"),
+      parameters: '',
+      evalScripts: true,
+      onFailure: Tobago.bind(this, "onFailure")
+    };
+  }
+  //LOG.debug("Panel setup  " + this.id);
+  this.setup();
+};
+
+Tobago.Panel.prototype.setup = function() {
+  this.initReload();
+};
+
+Tobago.Panel.prototype.onComplete = function(transport) {
+  //LOG.debug("Panel reloaded : " + transport.responseText.substr(0,20));
+  this.setup();
+};
+
+Tobago.Panel.prototype.onFailure = function() {
+  //LOG.debug("Panel not reloaded : " + transport.responseText.substr(0,20));
+  this.initReload();
+};
+
+Tobago.Panel.prototype.initReload = function() {
+  if (typeof this.autoReload == "number") {
+    clearTimeout(this.reloadTimer);
+    this.reloadTimer = setTimeout(Tobago.bind2(this, "reload", this.id), this.autoReload);
+  }
+};
+
+Tobago.Panel.prototype.reload = function(action, options) {
+  //LOG.debug("reload panel with action \"" + action + "\"");
+  var element = Tobago.element(this.id);
+  var reloadOptions = Tobago.extend({}, this.options);
+  reloadOptions = Tobago.extend(reloadOptions, options);
+  Tobago.Updater.update(element, null, action, this.id, reloadOptions);
+};
+
 Tobago.EventListener = function(element, event, func) {
   this.element = element;
   this.event = event;

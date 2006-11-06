@@ -24,18 +24,30 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_RELOAD;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
+import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Iterator;
 
-public class PanelRenderer extends RendererBase {
+public class PanelRenderer extends RendererBase implements AjaxRenderer {
 
   private static final Log LOG = LogFactory.getLog(PanelRenderer.class);
 
@@ -61,7 +73,7 @@ public class PanelRenderer extends RendererBase {
   public static int getFixedHeightForPanel(UIComponent component, FacesContext facesContext) {
     int height = -1;
     // first ask layoutManager
-    UIComponent layout = component.getFacet("layout");
+    UIComponent layout = component.getFacet(FACET_LAYOUT);
     if (layout != null) {
       RendererBase renderer = ComponentUtil.getRenderer(facesContext, layout);
       height = renderer.getFixedHeight(facesContext, component);
@@ -106,15 +118,62 @@ public class PanelRenderer extends RendererBase {
       UIComponent uiComponent) throws IOException {
 
     UIPanel component = (UIPanel) uiComponent;
-    for (Iterator i = component.getChildren().iterator(); i.hasNext();) {
-      UIComponent child = (UIComponent) i.next();
+    for (Object o : component.getChildren()) {
+      UIComponent child = (UIComponent) o;
       RenderUtil.encode(facesContext, child);
+    }
+  }
+
+  public void encodeBeginTobago(FacesContext facesContext, UIComponent component) throws IOException {
+     String clientId = component.getClientId(facesContext);
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    writer.startElement(HtmlConstants.DIV, component);
+    writer.writeComponentClass();
+    writer.writeIdAttribute(clientId);
+    if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
+      Integer frequency = null;
+      UIComponent facetReload = component.getFacet(FACET_RELOAD);
+      if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
+        UIReload update = (UIReload) facetReload;
+        frequency = update.getFrequency();
+      }
+      if (frequency != null && frequency > 0) {
+
+        final String[] cmds = {
+           "new Tobago.Panel(\"" + clientId + "\", " + true + ", "+ frequency + ");"
+        };
+
+        HtmlRendererUtil.writeScriptLoader(facesContext, null, cmds);
+      }
     }
   }
 
   public void encodeEndTobago(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
+    ResponseWriter writer = facesContext.getResponseWriter();
+    writer.endElement(HtmlConstants.DIV);
+  }
 
+  public void encodeAjax(FacesContext facesContext, UIComponent component)
+      throws IOException {
+    AjaxUtils.checkParamValidity(facesContext, component, UIPanel.class);
+    boolean update = true;
+    final String ajaxId = (String) facesContext.getExternalContext()
+        .getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
+    if (ajaxId.equals(component.getClientId(facesContext))) {
+      if (component.getFacet(FACET_RELOAD) != null && component.getFacet(FACET_RELOAD) instanceof UIReload
+          && component.getFacet(FACET_RELOAD).isRendered()) {
+        UIReload reload = (UIReload) component.getFacet(FACET_RELOAD);
+        update = reload.getUpdate();
+      }
+    }
+    if (update || !(facesContext.getExternalContext().getResponse() instanceof HttpServletResponse)) {
+      component.encodeChildren(facesContext);
+    } else {
+      HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+      response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
+    }
+    facesContext.responseComplete();
   }
 
 }
