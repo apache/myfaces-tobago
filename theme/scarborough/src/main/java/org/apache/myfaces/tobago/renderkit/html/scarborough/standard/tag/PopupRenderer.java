@@ -26,9 +26,9 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
-import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
@@ -61,11 +61,11 @@ public class PopupRenderer extends RendererBase implements AjaxRenderer {
     Map map = facesContext.getExternalContext().getRequestParameterMap();
     String hidden = (String) map.get(component.getClientId(facesContext));
     if (CLOSED.equals(hidden)) {
-      ((UIPopup)component).closedOnClient();
+      ((UIPopup) component).closedOnClient();
     }
     UIPage page = ComponentUtil.findPage(component);
     if (page.getActionId() != null && page.getActionId().startsWith(component.getClientId(facesContext))) {
-      ((UIPopup)component).submitted();      
+      ((UIPopup) component).submitted();      
     }
   }
 
