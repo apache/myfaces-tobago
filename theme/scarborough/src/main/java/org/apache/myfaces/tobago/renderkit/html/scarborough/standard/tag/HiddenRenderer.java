@@ -33,7 +33,7 @@ import java.io.IOException;
 
 public class HiddenRenderer extends InputRendererBase {
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     final String clientId = component.getClientId(facesContext);

@@ -107,8 +107,10 @@ public class SheetRenderer extends RendererBase
       = SUBCOMPONENT_SEP + "selected";
   private static final Integer HEIGHT_0 = 0;
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
+
+    storeFooterHeight(facesContext, uiComponent);
     UIData data = (UIData) uiComponent;
 
     HtmlRendererUtil.createHeaderAndBodyStyles(facesContext, data);
@@ -537,8 +539,6 @@ public class SheetRenderer extends RendererBase
     }
   }
 
-// ----------------------------------------------------------- business methods
-
   private String createSheetPagingInfo(UIData data,
       FacesContext facesContext, String pagerCommandId, boolean row) {
     String sheetPagingInfo;
@@ -610,13 +610,6 @@ public class SheetRenderer extends RendererBase
           ATTR_SELECTED_LIST_STRING, selectedRows);
     }
   }
-
-  public void encodeEnd(FacesContext facesContext, UIComponent component)
-      throws IOException {
-    storeFooterHeight(facesContext, component);
-    super.encodeEnd(facesContext, component);
-  }
-
 
   public boolean needVerticalScrollbar(FacesContext facesContext, UIData data) {
     // estimate need of height-scrollbar on client, if yes we have to consider

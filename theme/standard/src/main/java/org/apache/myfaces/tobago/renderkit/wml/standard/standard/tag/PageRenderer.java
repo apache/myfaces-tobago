@@ -39,7 +39,7 @@ public class PageRenderer extends PageRendererBase {
           + "<!DOCTYPE wml PUBLIC '-//WAPFORUM//DTD WML 1.1//EN'\n"
           + " 'http://www.wapforum.org/DTD/wml_1.1.xml'>";
 
-  public void encodeEndTobago(FacesContext facesContext, UIComponent component)
+  public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
 
     UIPage page = (UIPage) component;

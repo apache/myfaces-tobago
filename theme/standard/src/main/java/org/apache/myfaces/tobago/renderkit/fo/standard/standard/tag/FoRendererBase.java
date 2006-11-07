@@ -18,16 +18,9 @@ package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.renderkit.LayoutManager;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
-import java.io.IOException;
-
-/**
+/*
  * Created: Dec 3, 2004 12:07:38 AM
  * User: bommel
  * $Id$
@@ -36,64 +29,5 @@ public class FoRendererBase extends RendererBase {
 
   private static final Log LOG = LogFactory.getLog(FoRendererBase.class);
 
-  private LayoutManager getLayoutManager(
-      FacesContext facesContext,
-      UIComponent component) {
-    LayoutManager layoutManager = null;
 
-    Renderer renderer = ComponentUtil.getRenderer(facesContext, component);
-    if (renderer instanceof LayoutManager) {
-      return  (LayoutManager) renderer;
-    }
-    return layoutManager;
-  }
-
-  public void encodeBegin(FacesContext facesContext, UIComponent component)
-      throws IOException {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("*** begin    " + component);
-    }
-    try {
-
-//      createClassAttribute(component);
-
-      encodeBeginTobago(facesContext, component);
-
-    } catch (IOException e) {
-      throw e;
-    } catch (RuntimeException e) {
-      LOG.error("catched RuntimeException :", e);
-      throw e;
-    } catch (Throwable e) {
-      LOG.error("catched Throwable :", e);
-      throw new RuntimeException(e);
-    }
-
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("*   begin    " + component);
-    }
-  }
-
-  public void encodeEnd(FacesContext facesContext, UIComponent component)
-      throws IOException {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("*** end      " + component);
-    }
-    try {
-
-      encodeEndTobago(facesContext, component);
-
-    } catch (IOException e) {
-      throw e;
-    } catch (RuntimeException e) {
-      LOG.error("catched " + e + " :" + e.getMessage(), e);
-      throw e;
-    } catch (Throwable e) {
-      LOG.error("catched Throwable :", e);
-      throw new RuntimeException(e);
-    }
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("*   end      " + component);
-    }
-  }
 }

@@ -50,7 +50,7 @@ import java.util.Map;
 public class DatePickerRenderer extends LinkRenderer {
   private static final Log LOG = LogFactory.getLog(DatePickerRenderer.class);
 
-  public void encodeBeginTobago(FacesContext facesContext,
+  public void encodeBegin(FacesContext facesContext,
       UIComponent component) throws IOException {
     UIDatePicker link = (UIDatePicker) component;
     DatePickerController datePickerController = new DatePickerController();
@@ -104,7 +104,7 @@ public class DatePickerRenderer extends LinkRenderer {
       UIPage page = ComponentUtil.findPage(link);
       page.getPopups().add(popup);
     }
-    super.encodeBeginTobago(facesContext, component);
+    super.encodeBegin(facesContext, component);
   }
 
   private void applyConverterPattern(UIPopup popup, String converterPattern) {

@@ -105,7 +105,7 @@ public class TreeRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     UITree tree = (UITree) component;
@@ -255,10 +255,6 @@ public class TreeRenderer extends RendererBase {
     facesContext.setResponseWriter(writer);
     return stringWriter.toString();
   }
-
-// ///////////////////////////////////////////// bean getter + setter
-
-
 
   protected String nodeStateId(FacesContext facesContext, UITreeNode node) {
     // this must do the same as nodeStateId() in tree.js

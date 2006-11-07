@@ -39,7 +39,7 @@ public class ProgressRenderer extends RendererBase {
 
   private static final Log LOG = LogFactory.getLog(ProgressRenderer.class);
        
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
     UIOutput component = (UIOutput) uiComponent;

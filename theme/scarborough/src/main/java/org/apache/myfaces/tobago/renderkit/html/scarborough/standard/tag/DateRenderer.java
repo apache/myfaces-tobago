@@ -42,7 +42,7 @@ public class DateRenderer extends InRenderer {
 
   private static final Log LOG = LogFactory.getLog(DateRenderer.class);
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
     final String[] scripts = {
         "script/dateConverter.js",
@@ -61,7 +61,7 @@ public class DateRenderer extends InRenderer {
     String classes = ComponentUtil.getStringAttribute(component, ATTR_STYLE_CLASS);
     classes = classes.replaceAll("tobago-date-", "tobago-in-");
     component.getAttributes().put(ATTR_STYLE_CLASS, classes);
-    super.encodeEndTobago(facesContext, component);
+    super.encodeEnd(facesContext, component);
 
     Converter converter = getConverter(facesContext, component);
     // TODO is this really needed?

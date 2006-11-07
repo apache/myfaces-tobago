@@ -34,14 +34,9 @@ public class BoxRenderer extends FoRendererBase {
     return true;
   }
 
+  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+    Layout.putLayout(component, Layout.getLayout(component.getParent()));
 
-  public void encodeBegin(FacesContext facesContext,
-       UIComponent uiComponent) throws IOException {
-    Layout.putLayout(uiComponent, Layout.getLayout(uiComponent.getParent()));
-    super.encodeBegin(facesContext, uiComponent);
-  }
-
-  public void encodeBeginTobago(FacesContext facesContext, UIComponent component) throws IOException {
     Layout layout = Layout.getLayout(component.getParent());
     int borderWidth = 5;
     int height = 50;
@@ -83,7 +78,7 @@ public class BoxRenderer extends FoRendererBase {
 
 
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
 

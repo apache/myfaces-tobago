@@ -24,14 +24,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-/**
+/*
  * Created: Nov 29, 2004 7:02:04 PM
  * User: bommel
  * $Id$
  */
 public class OutRenderer extends RendererBase {
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
     String text = ComponentUtil.currentValue(component);
     if (text == null) {

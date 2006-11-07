@@ -50,7 +50,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     return true;
   }
 
-  public void encodeEndTobago(FacesContext facesContext, UIComponent uiComponent) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     UISelectOne component = (UISelectOne) uiComponent;
     List<SelectItem> items = ComponentUtil.getSelectItems(component);
@@ -79,7 +79,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     HtmlRendererUtil.renderSelectItems(component, items, values, writer, facesContext);
 
     writer.endElement(HtmlConstants.SELECT);
-    super.encodeEndTobago(facesContext, component);
+    super.encodeEnd(facesContext, component);
     checkForCommandFacet(component, facesContext, writer);
   }
 

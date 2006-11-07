@@ -44,7 +44,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
   private static final Log LOG = LogFactory.getLog(SelectManyCheckboxRenderer.class);
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
     UISelectMany component = (UISelectMany) uiComponent;

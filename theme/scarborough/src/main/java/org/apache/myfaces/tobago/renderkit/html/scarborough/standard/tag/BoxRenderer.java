@@ -48,7 +48,7 @@ import java.util.Map;
 
 public class BoxRenderer extends BoxRendererBase {
 
-  public void encodeBeginTobago(
+  public void encodeBegin(
       FacesContext facesContext, UIComponent component) throws IOException {
 
     HtmlRendererUtil.prepareInnerStyle(component);
@@ -117,7 +117,7 @@ public class BoxRenderer extends BoxRendererBase {
 
   }
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     ResponseWriter writer = facesContext.getResponseWriter();

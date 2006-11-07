@@ -22,15 +22,15 @@ import java.io.IOException;
 
 public interface TobagoRenderer {
 
-  void encodeBeginTobago(FacesContext facesContext,
+  void encodeBegin(FacesContext facesContext,
       UIComponent component)
       throws IOException;
 
-  void encodeChildrenTobago(FacesContext facesContext,
+  void encodeChildren(FacesContext facesContext,
       UIComponent component)
       throws IOException;
 
-  void encodeEndTobago(FacesContext facesContext, UIComponent component)
+  void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException;
 
 }

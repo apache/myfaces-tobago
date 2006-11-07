@@ -52,7 +52,7 @@ public class LinkRenderer extends CommandRendererBase{
 
   private static final Log LOG = LogFactory.getLog(LinkRenderer.class);
 
-  public void encodeBeginTobago(FacesContext facesContext,
+  public void encodeBegin(FacesContext facesContext,
       UIComponent component) throws IOException {
     String onclick = null;
     String href;
@@ -153,7 +153,7 @@ public class LinkRenderer extends CommandRendererBase{
       }
   }
 
-  public void encodeEndTobago(FacesContext facesContext, UIComponent component)
+  public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
     if (ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {

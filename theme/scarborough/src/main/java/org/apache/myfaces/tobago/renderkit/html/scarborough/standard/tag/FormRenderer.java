@@ -28,7 +28,6 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
-import java.io.IOException;
 
 public class FormRenderer extends RendererBase {
 
@@ -42,11 +41,5 @@ public class FormRenderer extends RendererBase {
     }
     super.decode(facesContext, form);
   }
-
-  public void encodeEndTobago(FacesContext facesContext,
-      UIComponent component) throws IOException {
-
-  }
-
 }
 

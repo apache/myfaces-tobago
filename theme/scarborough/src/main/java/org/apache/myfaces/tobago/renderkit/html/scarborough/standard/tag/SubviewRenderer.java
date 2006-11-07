@@ -39,7 +39,7 @@ public class SubviewRenderer extends RendererBase {
     super.encodeBegin(facesContext, component);
   }
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
 
   }

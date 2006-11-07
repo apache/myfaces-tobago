@@ -44,7 +44,7 @@ import java.util.Iterator;
 public class TextAreaRenderer extends InputRendererBase {
 
   @Override
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
         UIComponent component) throws IOException {
 
     UIInput input = (UIInput) component;

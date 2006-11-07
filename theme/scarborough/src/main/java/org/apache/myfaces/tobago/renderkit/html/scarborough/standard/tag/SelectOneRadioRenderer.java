@@ -48,7 +48,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
   private static final Log LOG = LogFactory.getLog(SelectOneRadioRenderer.class);
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
     UISelectOne component = (UISelectOne) uiComponent;

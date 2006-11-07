@@ -74,7 +74,7 @@ public class LabelRenderer extends RendererBase {
     return parent;
   }
 
-  public void encodeEndTobago(
+  public void encodeEnd(
       FacesContext facesContext, UIComponent component) throws IOException {
 
     UIOutput output = (UIOutput) component;

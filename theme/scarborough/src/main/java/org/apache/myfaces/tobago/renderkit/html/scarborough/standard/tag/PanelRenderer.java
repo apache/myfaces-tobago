@@ -114,7 +114,7 @@ public class PanelRenderer extends RendererBase implements AjaxRenderer {
     return height;
   }
 
-  public void encodeChildrenTobago(FacesContext facesContext,
+  public void encodeChildren(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
     UIPanel component = (UIPanel) uiComponent;
@@ -124,7 +124,7 @@ public class PanelRenderer extends RendererBase implements AjaxRenderer {
     }
   }
 
-  public void encodeBeginTobago(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
      String clientId = component.getClientId(facesContext);
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement(HtmlConstants.DIV, component);
@@ -148,7 +148,7 @@ public class PanelRenderer extends RendererBase implements AjaxRenderer {
     }
   }
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
     writer.endElement(HtmlConstants.DIV);

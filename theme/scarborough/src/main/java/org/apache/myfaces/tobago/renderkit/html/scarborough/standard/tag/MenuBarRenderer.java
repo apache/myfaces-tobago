@@ -77,7 +77,7 @@ public class MenuBarRenderer extends RendererBase {
   public static final String SEARCH_ID_POSTFIX = SUBCOMPONENT_SEP + "popup";
   private static final String MENU_ACCELERATOR_KEYS = "menuAcceleratorKeys";
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
                               UIComponent component) throws IOException {
     String clientId;
 

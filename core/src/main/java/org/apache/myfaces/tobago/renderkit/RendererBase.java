@@ -60,7 +60,7 @@ public abstract class RendererBase
       LOG.debug("*** begin    " + component);
     }
     try {
-      encodeBeginTobago(facesContext, component);
+      super.encodeBegin(facesContext, component);
     } catch (IOException e) {
       throw e;
     } catch (RuntimeException e) {
@@ -86,7 +86,7 @@ public abstract class RendererBase
       LOG.info("UUUUUUUUUUUUUUUUUUUUU UIPage XXXXXXXXXXXXXXXXXXXXXXXXXXXXxx");
     }
 
-    encodeChildrenTobago(facesContext, component);
+    super.encodeChildren(facesContext, component);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("*   children " + component);
@@ -99,7 +99,7 @@ public abstract class RendererBase
       LOG.debug("*** end      " + component);
     }
     try {
-      encodeEndTobago(facesContext, component);
+      super.encodeEnd(facesContext, component);
     } catch (IOException e) {
       throw e;
     } catch (RuntimeException e) {
@@ -257,35 +257,7 @@ public abstract class RendererBase
     }
   }
 
-  /**
-   * Normally not needed to overrwrite
-   * */
-  public void encodeBeginTobago(FacesContext facesContext,
-      UIComponent component) throws IOException {
-  }
-
-  public void encodeChildrenTobago(FacesContext facesContext,
-      UIComponent component) throws IOException {
-    for (Iterator i = component.getChildren().iterator(); i.hasNext();) {
-      UIComponent child = (UIComponent) i.next();
-      //l
-      if (child.isRendered()) {
-//        if (ComponentUtil.getBooleanAttribute(
-//            child,
-//            ATTR_SUPPRESSED)) {
-          child.encodeBegin(facesContext);
-          if (child.getRendersChildren()) {
-            child.encodeChildren(facesContext);
-          }
-          child.encodeEnd(facesContext);
-//        }
-      }
-    }
-  }
-
-  public void encodeEndTobago(FacesContext facesContext,
-      UIComponent component) throws IOException {
-  }
+  
 
   protected String getCurrentValue(
       FacesContext facesContext, UIComponent component) {

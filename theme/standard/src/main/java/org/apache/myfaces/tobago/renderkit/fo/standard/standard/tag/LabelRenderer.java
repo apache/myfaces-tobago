@@ -29,7 +29,7 @@ import java.io.IOException;
  */
 public class LabelRenderer extends FoRendererBase {
 
-  public void encodeEndTobago(
+  public void encodeEnd(
       FacesContext facesContext, UIComponent component) throws IOException {
 
     UIOutput output = (UIOutput) component;

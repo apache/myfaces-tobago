@@ -74,7 +74,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     return fixedHeight;
   }
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
     UISelectMany component = (UISelectMany) uiComponent;

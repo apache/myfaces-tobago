@@ -53,7 +53,7 @@ public class TimeRenderer extends InputRendererBase {
 
   private static final Log LOG = LogFactory.getLog(TimeRenderer.class);
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
         UIComponent component) throws IOException {
 
     List<String> scriptFiles = ComponentUtil.findPage(component).getScriptFiles();
@@ -208,7 +208,7 @@ public class TimeRenderer extends InputRendererBase {
   }
 
   private void writeInput(TobagoResponseWriter writer, String id, String hour, boolean hourMode)
-  throws IOException {
+      throws IOException {
     writer.startElement(HtmlConstants.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, "text", false);
     writer.writeIdAttribute(id);

@@ -58,7 +58,7 @@ public class CalendarRenderer extends RendererBase {
     };
 
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
     UIOutput output = (UIOutput) component;
     UIPage page = ComponentUtil.findPage(output);

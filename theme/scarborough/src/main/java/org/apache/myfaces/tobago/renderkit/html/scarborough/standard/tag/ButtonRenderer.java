@@ -47,7 +47,7 @@ public class ButtonRenderer extends CommandRendererBase {
 
   private static final Log LOG = LogFactory.getLog(ButtonRenderer.class);
 
-  public void encodeBeginTobago(FacesContext facesContext,
+  public void encodeBegin(FacesContext facesContext,
       UIComponent component) throws IOException {
     String clientId = component.getClientId(facesContext);
     String buttonType = createButtonType(component);
@@ -117,7 +117,7 @@ public class ButtonRenderer extends CommandRendererBase {
     }
   }
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
     writer.endElement(HtmlConstants.BUTTON);

@@ -146,7 +146,7 @@ public class TreeNodeRenderer extends RendererBase {
     return treeNodeParameter;
   }
 
-  public void encodeBeginTobago(FacesContext facesContext,
+  public void encodeBegin(FacesContext facesContext,
                                 UIComponent component) throws IOException {
 
     UITreeNode treeNode = (UITreeNode) component;

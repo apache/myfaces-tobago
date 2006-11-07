@@ -75,7 +75,7 @@ public class ToolBarRenderer extends RendererBase {
   private static final Log LOG = LogFactory.getLog(ToolBarRenderer.class);
 
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
     UIPanel toolbar = (UIPanel) uiComponent;
 

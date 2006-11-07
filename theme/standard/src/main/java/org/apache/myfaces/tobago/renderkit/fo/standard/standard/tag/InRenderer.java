@@ -37,28 +37,9 @@ public class InRenderer extends InputRendererBase {
 
   private static final Log LOG = LogFactory.getLog(InRenderer.class);
 
-  public void encodeEnd(FacesContext facesContext, UIComponent component)
-      throws IOException {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("*** end      " + component);
-    }
-    try {
-      encodeEndTobago(facesContext, component);
-    } catch (IOException e) {
-      throw e;
-    } catch (RuntimeException e) {
-      LOG.error("catched " + e + " :" + e.getMessage(), e);
-      throw e;
-    } catch (Throwable e) {
-      LOG.error("catched Throwable :", e);
-      throw new RuntimeException(e);
-    }
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("*   end      " + component);
-    }
-  }
 
-  public void encodeEndTobago(FacesContext facesContext,
+
+  public void encodeEnd(FacesContext facesContext,
         UIComponent component) throws IOException {
     UIComponent label = component.getFacet(FACET_LABEL);
 

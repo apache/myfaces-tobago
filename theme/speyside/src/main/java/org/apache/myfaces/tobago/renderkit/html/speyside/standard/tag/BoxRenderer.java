@@ -56,7 +56,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     return super.getFixedHeight(facesContext, component);
   }
 
-  public void encodeBeginTobago(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
 
     HtmlRendererUtil.prepareInnerStyle(component);
@@ -127,7 +127,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     writer.endElement(HtmlConstants.DIV);
   }
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
 

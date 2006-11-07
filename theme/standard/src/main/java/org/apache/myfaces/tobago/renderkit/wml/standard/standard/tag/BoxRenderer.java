@@ -30,12 +30,12 @@ import java.io.IOException;
 public class BoxRenderer extends BoxRendererBase {
 
 
-  public void encodeBeginTobago(FacesContext facesContext, UIComponent component)
+  public void encodeBegin(FacesContext facesContext, UIComponent component)
       throws IOException {
     // <card> ?
   }
 
-  public void encodeEndTobago(FacesContext facesContext, UIComponent component)
+  public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
 
     //UIPanel panel = (UIPanel) component;

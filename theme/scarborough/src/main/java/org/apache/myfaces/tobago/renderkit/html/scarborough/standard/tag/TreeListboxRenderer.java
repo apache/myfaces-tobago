@@ -48,7 +48,7 @@ public class TreeListboxRenderer extends TreeRenderer{
   private static final Log LOG = LogFactory.getLog(TreeListboxRenderer.class);
 
   @Override
-  public void encodeBeginTobago(
+  public void encodeBegin(
       FacesContext facesContext, UIComponent component) throws IOException {
 
 
@@ -199,7 +199,7 @@ public class TreeListboxRenderer extends TreeRenderer{
 //  }
 
   @Override
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
                               UIComponent component) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
     writer.endElement(HtmlConstants.DIV);

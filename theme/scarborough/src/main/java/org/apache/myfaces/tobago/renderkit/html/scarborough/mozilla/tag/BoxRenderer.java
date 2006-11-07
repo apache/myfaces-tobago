@@ -31,10 +31,10 @@ import java.io.IOException;
 public class BoxRenderer extends
     org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.BoxRenderer {
 
-  public void encodeBeginTobago(
+  public void encodeBegin(
       FacesContext facesContext, UIComponent component) throws IOException {
     HtmlRendererUtil.createHeaderAndBodyStyles(facesContext, component);
-    super.encodeBeginTobago(facesContext, component);
+    super.encodeBegin(facesContext, component);
   }
 
   protected String getAttrStyleKey() {

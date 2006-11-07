@@ -34,31 +34,11 @@ import java.io.IOException;
 public class TextAreaRenderer extends InputRendererBase {
   private static final Log LOG = LogFactory.getLog(TextAreaRenderer.class);
 
-  public void encodeEnd(FacesContext facesContext, UIComponent component)
-      throws IOException {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("*** end      " + component);
-    }
-    try {
-      encodeEndTobago(facesContext, component);
-    } catch (IOException e) {
-      throw e;
-    } catch (RuntimeException e) {
-      LOG.error("catched " + e + " :" + e.getMessage(), e);
-      throw e;
-    } catch (Throwable e) {
-      LOG.error("catched Throwable :", e);
-      throw new RuntimeException(e);
-    }
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("*   end      " + component);
-    }
-  }
 
   public boolean getRendersChildren() {
     return false;
   }
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
         UIComponent component) throws IOException {
       String text = ComponentUtil.currentValue(component);
       if (text == null) {
@@ -80,8 +60,6 @@ public class TextAreaRenderer extends InputRendererBase {
         layout.addMargin(200, 0, 0, 0);
       }
 
-
     }
-
 
 }

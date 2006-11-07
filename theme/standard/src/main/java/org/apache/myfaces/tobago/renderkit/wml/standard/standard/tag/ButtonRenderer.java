@@ -43,7 +43,7 @@ public class ButtonRenderer extends RendererBase {
 
   private static final Log LOG = LogFactory.getLog(ButtonRenderer.class);
 
-  public void encodeEndTobago(FacesContext facesContext, UIComponent component)
+  public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
 
     UICommand command = (UICommand) component;

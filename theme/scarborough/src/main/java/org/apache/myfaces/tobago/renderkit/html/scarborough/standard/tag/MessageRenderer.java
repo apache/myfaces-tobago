@@ -59,7 +59,7 @@ public class MessageRenderer extends MessageRendererBase {
     return count * getConfiguredValue(facesContext, component, "messageHeight");
   }
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
 
@@ -92,7 +92,5 @@ public class MessageRenderer extends MessageRendererBase {
     writer.endElement(HtmlConstants.SPAN);
 
   }
-// ///////////////////////////////////////////// bean getter + setter
-
 }
 

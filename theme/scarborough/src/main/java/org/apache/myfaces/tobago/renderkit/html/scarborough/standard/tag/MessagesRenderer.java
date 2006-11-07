@@ -44,7 +44,6 @@ public class MessagesRenderer extends MessageRendererBase {
 
   private static final Log LOG = LogFactory.getLog(MessagesRenderer.class);
 
-
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     int count = 0;
     for (Iterator i = facesContext.getMessages(); i.hasNext(); i.next()) {
@@ -59,7 +58,7 @@ public class MessagesRenderer extends MessageRendererBase {
         : getConfiguredValue(facesContext, component, "fixedHeight");
   }
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
@@ -122,8 +121,6 @@ public class MessagesRenderer extends MessageRendererBase {
     writer.startElement(HtmlConstants.BR, null);
     writer.endElement(HtmlConstants.BR);
   }
-
-// ///////////////////////////////////////////// bean getter + setter
 
 }
 

@@ -94,7 +94,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     return content;
   }
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
     UIInput component = (UIInput) uiComponent;
@@ -217,6 +217,5 @@ public class RichTextEditorRenderer extends InputRendererBase {
 
     return toolbar;
   }
-// ///////////////////////////////////////////// bean getter + setter
 
 }

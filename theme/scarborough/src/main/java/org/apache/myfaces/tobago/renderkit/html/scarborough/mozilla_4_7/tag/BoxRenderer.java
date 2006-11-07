@@ -37,9 +37,8 @@ import java.io.IOException;
 public class BoxRenderer extends BoxRendererBase {
 
 
-  public void encodeBeginTobago(
+  public void encodeBegin(
       FacesContext facesContext, UIComponent component) throws IOException {
-
 
     UIComponent label = component.getFacet(FACET_LABEL);
     String labelString
@@ -77,7 +76,7 @@ public class BoxRenderer extends BoxRendererBase {
 
   }
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     ResponseWriter writer = facesContext.getResponseWriter();
@@ -87,20 +86,10 @@ public class BoxRenderer extends BoxRendererBase {
     writer.endElement(HtmlConstants.TABLE);
   }
 
-  public void encodeChildrenTobago(FacesContext facesContext,
-      UIComponent component) throws IOException {
-  }
-
-  public void encodeChildren(FacesContext facesContext, UIComponent component)
-      throws IOException {
-  }
-
   public int getPaddingHeight(FacesContext facesContext, UIComponent component) {
     return 10
         + (component.getFacet(FACET_LABEL) != null ? 25 : 0);
   }
-
-// ///////////////////////////////////////////// bean getter + setter
 
 }
 

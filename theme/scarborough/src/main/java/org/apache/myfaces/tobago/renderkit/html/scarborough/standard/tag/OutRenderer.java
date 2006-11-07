@@ -38,7 +38,7 @@ import java.util.StringTokenizer;
 
 public class OutRenderer extends RendererBase {
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
     String text = ComponentUtil.currentValue(component);
     if (text == null) {

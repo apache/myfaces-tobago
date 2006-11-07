@@ -57,7 +57,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
   private static final Log LOG = LogFactory.getLog(InRenderer.class);
 
   @Override
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
         UIComponent component)
         throws IOException {
     Iterator messages = facesContext.getMessages(

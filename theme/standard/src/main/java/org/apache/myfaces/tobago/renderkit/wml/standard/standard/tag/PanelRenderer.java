@@ -36,7 +36,7 @@ public class PanelRenderer extends RendererBase {
     return true;
   }
 
-  public void encodeChildrenTobago(FacesContext facesContext,
+  public void encodeChildren(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
     UIPanel component = (UIPanel) uiComponent;
@@ -46,7 +46,7 @@ public class PanelRenderer extends RendererBase {
     }
   }
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
     //UIPanel component = (UIPanel) uiComponent ;

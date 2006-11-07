@@ -36,7 +36,7 @@ import java.io.IOException;
 
 public class InRenderer extends RendererBase {
 
-  public void encodeEndTobago(FacesContext facesContext, UIComponent component)
+  public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
 
     TobagoResponseWriter writer

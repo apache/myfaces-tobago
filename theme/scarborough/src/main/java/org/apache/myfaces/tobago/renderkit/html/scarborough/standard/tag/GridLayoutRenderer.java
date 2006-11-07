@@ -298,7 +298,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     writer.endElement(HtmlConstants.TABLE);
   }
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
     if (component.getParent() instanceof UIPage) {
       LOG.error("XXXXXXXXXXXXXXXXXXXXXXX  never XXXXXXXXXXXXXXXXXXXXXX", new Exception());

@@ -71,7 +71,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     return fixedHeight;
   }
 
-  public void encodeEndTobago(FacesContext facesContext, UIComponent input) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent input) throws IOException {
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     UISelectOne component = (UISelectOne) input;
@@ -97,7 +97,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     HtmlRendererUtil.renderSelectItems(component, items, values, writer, facesContext);
 
     writer.endElement(HtmlConstants.SELECT);
-    super.encodeEndTobago(facesContext, component);
+    super.encodeEnd(facesContext, component);
     checkForCommandFacet(component, facesContext, writer);
   }
 

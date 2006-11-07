@@ -97,7 +97,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     }
   }
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
                               UIComponent uiComponent) throws IOException {
 
 

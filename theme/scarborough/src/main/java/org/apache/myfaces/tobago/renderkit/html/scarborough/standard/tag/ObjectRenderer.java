@@ -30,7 +30,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class ObjectRenderer extends RendererBase {
-  public void encodeEndTobago(FacesContext facesContext, UIComponent component)
+  public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement(HtmlConstants.IFRAME, component);

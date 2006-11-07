@@ -36,7 +36,7 @@ public class VerbatimRenderer extends RendererBase  {
 
   private static final Log LOG = LogFactory.getLog(VerbatimRenderer.class);
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     LOG.info("HI! " + component.getClientId(facesContext), new Exception());

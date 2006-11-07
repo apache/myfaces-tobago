@@ -35,17 +35,9 @@ import java.io.IOException;
 
 public class SelectReferenceRenderer extends RendererBase{
 
-// ///////////////////////////////////////////// constant
-
   private static final Log LOG = LogFactory.getLog(SelectReferenceRenderer.class);
 
-// ///////////////////////////////////////////// attribute
-
-// ///////////////////////////////////////////// constructor
-
-// ///////////////////////////////////////////// code
-
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent component)
       throws IOException {
     String referenceId = (String)
@@ -59,8 +51,6 @@ public class SelectReferenceRenderer extends RendererBase{
 
     reference.getAttributes().remove(ATTR_RENDER_RANGE_EXTERN);
   }
-
-// ///////////////////////////////////////////// bean getter + setter
 
 }
 

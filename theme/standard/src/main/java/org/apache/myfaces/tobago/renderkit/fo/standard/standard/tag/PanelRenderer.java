@@ -37,7 +37,7 @@ public class PanelRenderer extends FoRendererBase {
     super.encodeBegin(facesContext, uiComponent);
   }
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
        UIComponent uiComponent) throws IOException {
 
   }

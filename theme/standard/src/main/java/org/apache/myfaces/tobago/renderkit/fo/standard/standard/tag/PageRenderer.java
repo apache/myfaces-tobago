@@ -53,7 +53,7 @@ public class PageRenderer extends PageRendererBase {
     return true;
   }
 
-  public void encodeBeginTobago(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     UIPage page = (UIPage) component;
     Layout layout = new Layout(2100, 2970);
     int margin = 60;
@@ -92,7 +92,7 @@ public class PageRenderer extends PageRendererBase {
     Layout.putLayout(page, in);
   }
 
-  public void encodeEndTobago(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
 
     ResponseWriter writer = facesContext.getResponseWriter();

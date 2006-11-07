@@ -39,7 +39,7 @@ import java.io.IOException;
 
 public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.BoxRenderer {
 
-  public void encodeBeginTobago(FacesContext facesContext,
+  public void encodeBegin(FacesContext facesContext,
       UIComponent component) throws IOException {
 
     HtmlRendererUtil.prepareInnerStyle(component);

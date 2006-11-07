@@ -103,7 +103,7 @@ public class FileRenderer extends InputRendererBase {
     }
   }
 
-  public void encodeEndTobago(
+  public void encodeEnd(
       FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 

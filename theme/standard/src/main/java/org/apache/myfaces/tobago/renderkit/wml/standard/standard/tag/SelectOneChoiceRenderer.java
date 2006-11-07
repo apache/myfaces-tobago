@@ -39,7 +39,7 @@ import java.util.List;
 
 public class SelectOneChoiceRenderer extends RendererBase {
 
-  public void encodeEndTobago(FacesContext facesContext, UIComponent component)
+  public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
 
     UISelectOne selectOne = (UISelectOne) component;

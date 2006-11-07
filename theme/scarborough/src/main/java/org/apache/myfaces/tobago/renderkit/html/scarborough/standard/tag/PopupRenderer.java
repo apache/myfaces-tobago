@@ -69,7 +69,7 @@ public class PopupRenderer extends RendererBase implements AjaxRenderer {
     }
   }
 
-  public void encodeBeginTobago(
+  public void encodeBegin(
       FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
@@ -123,7 +123,7 @@ public class PopupRenderer extends RendererBase implements AjaxRenderer {
     writer.writeAttribute(HtmlAttributes.STYLE, contentStyle.toString(), null);
   }
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
     UIPopup component = (UIPopup) uiComponent;
