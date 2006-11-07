@@ -171,6 +171,22 @@
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
     </dependency>
+     <dependency>
+      <groupId>fop</groupId>
+      <artifactId>fop</artifactId>
+      <version>0.20.5</version>
+      <scope>provided</scope>
+      <optional>true</optional>
+    </dependency>
+    <!-- XXX not transitive from fop -->
+    <dependency>
+      <groupId>avalon-framework</groupId>
+      <artifactId>avalon-framework</artifactId>
+      <version>20020627</version>
+      <!-- XXX wrong date -->
+      <scope>provided</scope>
+      <optional>true</optional>
+    </dependency>
 
   </dependencies>
 
