@@ -79,7 +79,7 @@ public class CheckAuthorisationMethodBinding extends MethodBinding implements St
     }
   }
 
-  private boolean isAuthorized(FacesContext facesContext) {
+  public boolean isAuthorized(FacesContext facesContext) {
 
     Annotation securityAnnotation = getSecurityAnnotation(facesContext);
     if (securityAnnotation == null) {

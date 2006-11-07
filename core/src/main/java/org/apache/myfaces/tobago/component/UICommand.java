@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -34,6 +35,7 @@ public class UICommand extends javax.faces.component.UICommand {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Command";
 
   private Boolean defaultCommand;
+  private Boolean disabled;
 
   public boolean isDefaultCommand() {
     if (defaultCommand != null) {
@@ -51,10 +53,27 @@ public class UICommand extends javax.faces.component.UICommand {
     this.defaultCommand = defaultCommand;
   }
 
+  public boolean isDisabled() {
+    if (disabled != null) {
+      return disabled;
+    }
+    ValueBinding vb = getValueBinding(ATTR_DISABLED);
+    if (vb != null) {
+      return Boolean.TRUE.equals(vb.getValue(getFacesContext()));
+    } else {
+      return false;
+    }
+  }
+
+  public void setDisabled(boolean disabled) {
+    this.disabled = disabled;
+  }
+
   public Object saveState(FacesContext context) {
-    Object[] saveState = new Object[2];
+    Object[] saveState = new Object[3];
     saveState[0] = super.saveState(context);
     saveState[1] = defaultCommand;
+    saveState[2] = disabled;
     return saveState;
   }
 
@@ -62,6 +81,7 @@ public class UICommand extends javax.faces.component.UICommand {
     Object[] values = (Object[]) savedState;
     super.restoreState(context, values[0]);
     defaultCommand = (Boolean) values[1];
+    disabled = (Boolean) values[2];
   }
 
 

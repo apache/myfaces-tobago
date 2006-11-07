@@ -26,4 +26,9 @@
     <application-factory>org.apache.myfaces.tobago.security.ApplicationFactoryImpl</application-factory>
   </factory>
 
+  <component>
+    <component-type>org.apache.myfaces.tobago.Command</component-type>
+    <component-class>org.apache.myfaces.tobago.security.UISecuredCommand</component-class>
+  </component>
+
 </faces-config>
