@@ -21,18 +21,12 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CLIENT_PROPERTIES;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ClientProperties;
-import org.apache.myfaces.tobago.webapp.TobagoResponse;
 import org.apache.myfaces.tobago.util.RequestUtils;
 
 import javax.faces.FacesException;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletResponse;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
 
