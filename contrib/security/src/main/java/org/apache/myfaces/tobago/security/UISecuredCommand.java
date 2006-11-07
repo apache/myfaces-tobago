@@ -29,7 +29,7 @@ import javax.faces.context.FacesContext;
  */
 public class UISecuredCommand extends UICommand {
 
-  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SecurityCommand";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SecuredCommand";
 
   public boolean isDisabled() {
     if (getAction() instanceof CheckAuthorisationMethodBinding) {
