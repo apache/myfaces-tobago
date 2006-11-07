@@ -259,12 +259,6 @@
                       <version>${project.version}</version>
                       <classifier>jdk14retro</classifier>
                     </artifactItem>
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago-theme-standard</artifactId>
-                      <version>${project.version}</version>
-                      <classifier>jdk14retro</classifier>
-                    </artifactItem>
                   </artifactItems>
                   <outputDirectory>${project.build.directory}/jdk14retro
                   </outputDirectory>
