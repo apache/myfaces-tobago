@@ -6,17 +6,17 @@ If you like to use Tobago with JDK 1.4,
 please, replace the following JARs
 
 tobago-core.jar,
-tobago-theme-speyside.jar,
-tobago-theme-scarborough.jar, and
-tobago-theme-standard.jar
+tobago-theme-speyside.jar and
+tobago-theme-scarborough.jar
 
 in the lib directory with the JDK 1.4
 versions in the jdk14retro directory.
 
 The JARs
 
-tobago-theme-charlotteville.jar and
-tobago-theme-richmond.jar
+tobago-theme-charlotteville.jar,
+tobago-theme-richmond.jar and
+tobago-theme-standard.jar
 
 don't need a JDK 1.4 version, because they don't contain any classes.
 

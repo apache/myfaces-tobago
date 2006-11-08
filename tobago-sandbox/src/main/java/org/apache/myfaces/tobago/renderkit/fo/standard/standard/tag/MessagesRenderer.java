@@ -1,11 +1,12 @@
 package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
 
 /*
- * Copyright 2002-2005 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -20,10 +21,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
 
-/**
+/*
  * Created: Dec 1, 2004 7:34:05 PM
  * User: bommel
- * $Id$
+ * $Id:MessagesRenderer.java 472227 2006-11-07 21:05:00 +0100 (Tue, 07 Nov 2006) bommel $
  */
 public class MessagesRenderer extends MessageRendererBase {
   private static final Log LOG = LogFactory.getLog(MessagesRenderer.class);
