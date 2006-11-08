@@ -16,7 +16,7 @@ package org.apache.myfaces.tobago.taglib.component;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;

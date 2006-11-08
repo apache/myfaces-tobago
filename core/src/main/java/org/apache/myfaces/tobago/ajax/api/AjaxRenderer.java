@@ -15,7 +15,7 @@ package org.apache.myfaces.tobago.ajax.api;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
