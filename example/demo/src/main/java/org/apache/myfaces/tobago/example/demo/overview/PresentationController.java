@@ -1,11 +1,12 @@
 package org.apache.myfaces.tobago.example.demo.overview;
 
 /*
- * Copyright 2002-2005 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -35,6 +36,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Date;
 
 public class PresentationController {
 
@@ -43,6 +45,18 @@ public class PresentationController {
   private List pages;
 
   private int pageIndex;
+
+  private Date currentRequestTime = new Date();
+
+  public Date getCurrentRequestTime() {
+    System.err.println("Get " + currentRequestTime!=null?currentRequestTime.getTime():0);
+    return currentRequestTime;
+  }
+
+  public void setCurrentRequestTime(Date currentRequestTime) {
+    System.err.println("Set " + currentRequestTime.getTime());
+    this.currentRequestTime = currentRequestTime;
+  }
 
   public String gotoFirst() {
     pageIndex = 0;

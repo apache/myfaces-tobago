@@ -1,17 +1,18 @@
 <%--
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
 --%>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
@@ -21,6 +22,9 @@
 <layout:overview>
   <jsp:body>
     <tc:panel>
+      <f:facet name="reload">
+        <tc:reload frequency="5000" />
+      </f:facet>
       <f:facet name="layout">
         <tc:gridLayout border="0" rows="20px;fixed;1*;20px;fixed;1*;20px;fixed" />
       </f:facet>
@@ -29,7 +33,7 @@
       <tc:out escape="false" value="#{overviewBundle.basic_text_input}" />
 
   <%-- row --%>
-      <tc:box label="#{overviewBundle.basicControls_sampleInputTitle}">
+      <tc:box label="#{overviewBundle.basicControls_sampleInputTitle}" markup="deleted">
         <f:facet name="layout">
           <tc:gridLayout columns="1*;1*" border="0" />
         </f:facet>
@@ -38,12 +42,13 @@
           <f:facet name="layout">
             <tc:gridLayout />
           </f:facet>
-          <tx:in value="#{overviewController.basicInput}"
+          <tx:in value="#{overviewController.basicInput}" required="true"
               label="#{overviewBundle.basic_textboxLabel}" tip="test"
               suggestMethod="#{overviewController.getInputSuggestItems}" />
           <tx:date value="#{overviewController.basicDate}"
               label="#{overviewBundle.basic_dateLabel}" required="true" >
-            <f:convertDateTime pattern="dd.MM.yyyy" />
+            <f:convertDateTime pattern="dd/MM/yyyy" />
+            <tc:validateSubmittedValueLength maximum="10"/>
           </tx:date>
           <tx:time label="#{overviewBundle.basic_timeLabel}"
               value="#{overviewController.basicTime}" />
@@ -67,6 +72,9 @@
         <tc:selectOneRadio value="#{overviewController.radioValue}"
                            id="rg0" converter="salutationId">
           <f:selectItems value="#{overviewController.items}" id="items0" />
+          <f:facet name="click">
+            <tc:command/>
+          </f:facet>
         </tc:selectOneRadio>
 
         <tc:panel>
