@@ -1,9 +1,10 @@
 <%--
- * Copyright 2002-2005 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -21,8 +22,17 @@
   <tc:page label="#{overviewBundle.pageTitle}" id="page"
       width="750px" height="600px">
 
-    <jsp:include page="/overview/menubar.jsp" />
+     <f:facet name="onLoad">
+            <tc:command />
+     </f:facet>
 
+    <jsp:include page="/overview/menubar.jsp" />
+    <%--f:facet name="backButtonDetector">
+      <tc:hidden value="#{overviewNavigation.currentRequestTime}"
+                 converter="org.apache.myfaces.tobago.converter.BackButtonDetection" >
+        <f:validator validatorId="org.apache.myfaces.tobago.validator.BackButtonDetection" />
+      </tc:hidden>
+    </f:facet--%>
     <f:facet name="layout">
       <tc:gridLayout border="0" columns="1*;4*"
         margin="10px" rows="100px;*;fixed"  />
