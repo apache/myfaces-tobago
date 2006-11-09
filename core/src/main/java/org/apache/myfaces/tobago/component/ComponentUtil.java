@@ -839,9 +839,15 @@ public class ComponentUtil {
     }
   }
 
+  /**
+   * @deprecated please use the typesave method {@link #setConverter(javax.faces.component.ValueHolder, String)}
+   * @param component
+   * @param converterId
+   */
+  @Deprecated
   public static void setConverter(UIComponent component, String converterId) {
-     setConverter((ValueHolder) component, converterId);
-   }
+    setConverter((ValueHolder) component, converterId);
+  }
 
   public static void setConverter(ValueHolder valueHolder, String converterId) {
     if (converterId != null && valueHolder.getConverter() == null) {
@@ -859,6 +865,13 @@ public class ComponentUtil {
     }
   }
 
+  /**
+   * @deprecated please use the typesave method {@link #setAction(javax.faces.component.UICommand, String, String)}
+   * @param component
+   * @param type
+   * @param action
+   */
+  @Deprecated
   public static void setAction(UIComponent component, String type, String action) {
     setAction((UICommand) component, type, action);
   }
@@ -895,6 +908,13 @@ public class ComponentUtil {
     }
 
   }
+
+  /**
+   * @deprecated please use the typesave method {@link #setSuggestMethodBinding(UIInput, String)}
+   * @param component
+   * @param suggestMethod
+   */
+  @Deprecated
   public static void setSuggestMethodBinding(UIComponent component, String suggestMethod) {
     setSuggestMethodBinding((UIInput) component, suggestMethod);
   }
