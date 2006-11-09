@@ -21,7 +21,7 @@
 <f:view>
   <tc:loadBundle basename="addressbook" var="bundle" />
 
-  <tc:page label="#{bundle.editorTitle}" width="640px" height="480px">
+  <tc:page label="#{bundle.editorTitle}"  state="#{layout}" width="#{layout.width}" height="#{layout.height}" >
 
     <tc:panel>
       <f:facet name="layout">

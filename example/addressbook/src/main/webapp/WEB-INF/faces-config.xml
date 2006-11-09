@@ -51,6 +51,43 @@
     <managed-bean-scope>application</managed-bean-scope>
   </managed-bean>
 
+  <managed-bean>
+    <managed-bean-name>layout</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.addressbook.Layout</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+      <property-name>width</property-name>
+      <property-class>int</property-class>
+      <value>400</value>
+    </managed-property>
+    <managed-property>
+      <property-name>height</property-name>
+      <property-class>int</property-class>
+      <value>480</value>
+    </managed-property>
+    <managed-property>
+      <property-name>minimumWidth</property-name>
+      <property-class>int</property-class>
+      <value>600</value>
+    </managed-property>
+    <managed-property>
+      <property-name>minimumHeight</property-name>
+      <property-class>int</property-class>
+      <value>480</value>
+    </managed-property>
+     <managed-property>
+      <property-name>maximumWidth</property-name>
+      <property-class>int</property-class>
+      <value>1000</value>
+    </managed-property>
+    <managed-property>
+      <property-name>maximumHeight</property-name>
+      <property-class>int</property-class>
+      <value>480</value>
+    </managed-property>
+
+  </managed-bean>
+
   <converter>
     <converter-for-class>org.apache.myfaces.tobago.example.addressbook.EmailAddress</converter-for-class>
     <converter-class>org.apache.myfaces.tobago.example.addressbook.AddressConverter</converter-class>
