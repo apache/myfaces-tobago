@@ -48,7 +48,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.Iterator;
 
 public abstract class RendererBase
     extends Renderer implements TobagoRenderer {
