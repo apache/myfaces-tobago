@@ -116,6 +116,10 @@ public class UIDatePicker extends UICommand implements OnComponentCreated {
     UIComponent box = popup.findComponent("box");
     UIComponent calendar = box.findComponent("calendar");
     calendar.getAttributes().put(ATTR_CALENDAR_DATE_INPUT_ID, clientId);
+    UIComponent time = box.findComponent("time");
+    if (time != null) {
+      time.getAttributes().put(ATTR_CALENDAR_DATE_INPUT_ID, clientId);
+    }
     popup.setRendered(true);
   }
 

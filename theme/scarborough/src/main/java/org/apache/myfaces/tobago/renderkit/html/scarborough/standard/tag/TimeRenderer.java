@@ -30,6 +30,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_CALENDAR_FORC
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -54,12 +55,18 @@ public class TimeRenderer extends InputRendererBase {
 
   private static final Log LOG = LogFactory.getLog(TimeRenderer.class);
 
-  public void encodeEnd(FacesContext facesContext,
+  private static final String[] SCRIPTS = {
+        "script/calendar.js",
+        "script/dateConverter.js"
+    };
+
+  public void encodeEndTobago(FacesContext facesContext,
         UIComponent component) throws IOException {
 
-    List<String> scriptFiles = ComponentUtil.findPage(component).getScriptFiles();
-    scriptFiles.add("script/dateConverter.js");
-    scriptFiles.add("script/calendar.js");
+    UIPage page = ComponentUtil.findPage(component);
+    for (String script : SCRIPTS) {
+      page.getScriptFiles().add(script);
+    }
     UIInput input = (UIInput) component;
     Iterator messages = facesContext.getMessages(
         input.getClientId(facesContext));
@@ -192,10 +199,8 @@ public class TimeRenderer extends InputRendererBase {
     String dateTextBoxId = (String) input.getAttributes().get(ATTR_CALENDAR_DATE_INPUT_ID);
 
     if (dateTextBoxId != null) {
-      HtmlRendererUtil.startJavascript(writer);
-      writer.writeText(
-          "tbgInitTimeParse('" + id + "', '" + dateTextBoxId + "');", null);
-      HtmlRendererUtil.endJavascript(writer);
+      String[] cmds = {"tbgInitTimeParse('" + id + "', '" + dateTextBoxId + "');"};
+      HtmlRendererUtil.writeScriptLoader(facesContext, SCRIPTS, cmds);
     }
 
     writer.endElement(HtmlConstants.DIV);
