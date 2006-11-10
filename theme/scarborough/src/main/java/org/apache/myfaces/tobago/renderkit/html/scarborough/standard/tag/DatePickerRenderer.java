@@ -62,9 +62,6 @@ public class DatePickerRenderer extends LinkRenderer {
     }
     String idPrefix = dateInput.getId() + "_picker";
     Map<String, Object>  attributes = link.getAttributes();
-    attributes.put(ATTR_WIDTH, String.valueOf(
-           ThemeConfig.getValue(facesContext, link, "CalendarPopupWidth")));    
-    int popupHeight = ThemeConfig.getValue(facesContext, link, "CalendarPopupHeight");
     link.setActionListener(datePickerController);
     attributes.put(ATTR_LAYOUT_WIDTH, getConfiguredValue(facesContext, component, "pickerWidth"));
     UIComponent hidden = (UIComponent) link.getChildren().get(0);
@@ -76,6 +73,9 @@ public class DatePickerRenderer extends LinkRenderer {
     UIPopup popup = (UIPopup) link.getFacets().get(FACET_PICKER_POPUP);
     attributes = popup.getAttributes();
     popup.setId(idPrefix + "popup");
+    attributes.put(ATTR_WIDTH, String.valueOf(
+           ThemeConfig.getValue(facesContext, link, "CalendarPopupWidth")));
+    int popupHeight = ThemeConfig.getValue(facesContext, link, "CalendarPopupHeight");
     attributes.put(ATTR_POPUP_RESET, Boolean.TRUE);
     attributes.put(ATTR_HEIGHT, String.valueOf(popupHeight));
     Converter converter = getConverter(facesContext, dateInput);
