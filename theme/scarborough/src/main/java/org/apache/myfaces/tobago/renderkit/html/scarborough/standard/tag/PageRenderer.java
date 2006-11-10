@@ -43,6 +43,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
+import org.apache.myfaces.tobago.util.ResponseUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.Application;
@@ -52,7 +53,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.context.ExternalContext;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -60,10 +60,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Locale;
 
 public class PageRenderer extends PageRendererBase {
-// ------------------------------------------------------------------ constants
-
   private static final Log LOG = LogFactory.getLog(PageRenderer.class);
 
 //      values for doctype :
@@ -100,12 +99,7 @@ public class PageRenderer extends PageRendererBase {
         }
     }
 
-// ----------------------------------------------------------------- interfaces
-
-
-// ---------------------------- interface TobagoRenderer
-
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
     UIPage page = (UIPage) component;
 
@@ -144,13 +138,8 @@ public class PageRenderer extends PageRendererBase {
 
     // reset responseWriter and render page
     facesContext.setResponseWriter(writer);
-    // TODO PortletRequest
-    HttpServletResponse response = (HttpServletResponse)
-        facesContext.getExternalContext().getResponse();
 
-    response.setHeader("Pragma", "no-cache");
-    response.setHeader("Cache-Control", "no-cache");
-    response.setDateHeader("Expires", 1);
+    ResponseUtils.ensureNoCacheHeader(facesContext.getExternalContext());
 
     if (LOG.isDebugEnabled()) {
       for (Object o : page.getAttributes().entrySet()) {
@@ -165,6 +154,7 @@ public class PageRenderer extends PageRendererBase {
     String formAction = viewHandler.getActionURL(facesContext, viewId);
 
     String charset = (String) page.getAttributes().get(ATTR_CHARSET);
+    ResponseUtils.ensureContentTypeHeader(facesContext, charset);
 
     String title = (String) page.getAttributes().get(ATTR_LABEL);
 
@@ -187,8 +177,6 @@ public class PageRenderer extends PageRendererBase {
 //    writer.writeAttribute(
 //        "content", generateContentType(facesContext, charset), null);
 //    writer.endElement(HtmlConstants.META);
-    response.setContentType(generateContentType(facesContext, charset));
-
     // title
     writer.startElement(HtmlConstants.TITLE, null);
     writer.writeText(title != null ? title : "", null);
@@ -345,6 +333,13 @@ public class PageRenderer extends PageRendererBase {
       writer.endElement(HtmlConstants.INPUT);
     }
 
+    if (component.getFacet("backButtonDetector") != null) {
+      UIComponent hidden = component.getFacet("backButtonDetector");
+      RenderUtil.encode(facesContext, hidden);
+    }
+
+    //checkForCommandFacet(component, facesContext, writer);
+
 // TODO: this is needed for the "BACK-BUTTON-PROBLEM"
 // but may no longer needed
 /*
@@ -370,6 +365,7 @@ public class PageRenderer extends PageRendererBase {
     writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + "jsf-state-container");
     viewHandler.writeState(facesContext);
     writer.endElement(HtmlConstants.SPAN);
+
 
 //    facesContext.getApplication().getViewHandler().writeState(facesContext);
 
@@ -426,12 +422,10 @@ public class PageRenderer extends PageRendererBase {
     }
   }
 
-// ----------------------------------------------------------- business methods
-
   private void addScripts(ResponseWriter writer, FacesContext facesContext,
       String script) throws IOException {
     List<String> scripts;
-    final String ucScript = script.toUpperCase();
+    final String ucScript = script.toUpperCase(Locale.ENGLISH);
     if (ucScript.startsWith("HTTP:") || ucScript.startsWith("FTP:")
         || ucScript.startsWith("/")) {
       scripts = new ArrayList<String>();
@@ -483,10 +477,12 @@ public class PageRenderer extends PageRendererBase {
     sb.append("]\");");
     return sb.toString();
   }
+
   private String getMethod(UIPage page) {
     String method = (String) page.getAttributes().get(ATTR_METHOD);
     return method == null?"post":method;
   }
+
   private String generateDoctype(UIPage page) {
     String doctype = (String) page.getAttributes().get(ATTR_DOCTYPE);
     String type = null;
@@ -505,19 +501,6 @@ public class PageRenderer extends PageRendererBase {
 
   public boolean getRendersChildren() {
     return true;
-  }
-
-  private String generateContentType(FacesContext facesContext, String charset) {
-    StringBuffer sb = new StringBuffer("text/");
-    ClientProperties clientProperties
-        = ClientProperties.getInstance(facesContext.getViewRoot());
-    sb.append(clientProperties.getContentType());
-    if (charset == null) {
-      charset = "UTF-8";
-    }
-    sb.append("; charset=");
-    sb.append(charset);
-    return sb.toString();
   }
 
 }
