@@ -59,7 +59,7 @@ public class TimeRenderer extends InputRendererBase {
         "script/dateConverter.js"
     };
 
-  public void encodeEndTobago(FacesContext facesContext,
+  public void encodeEnd(FacesContext facesContext,
         UIComponent component) throws IOException {
 
     UIPage page = ComponentUtil.findPage(component);
