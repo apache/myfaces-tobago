@@ -24,6 +24,8 @@
 <faces-config>
 
   <application>
+    <action-listener>org.apache.myfaces.tobago.util.DebugActionListener</action-listener>
+    <navigation-handler>org.apache.myfaces.tobago.util.DebugNavigationHandler</navigation-handler>
     <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
     <locale-config>
       <default-locale>en</default-locale>
@@ -97,6 +99,11 @@
     <navigation-case>
       <from-outcome>editor</from-outcome>
       <to-view-id>/editor.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-action>list</from-action>
+      <from-outcome>list</from-outcome>
+      <to-view-id>/list.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>list</from-outcome>

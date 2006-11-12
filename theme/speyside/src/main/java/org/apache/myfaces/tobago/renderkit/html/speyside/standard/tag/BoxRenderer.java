@@ -59,7 +59,6 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
-
     HtmlRendererUtil.prepareInnerStyle(component);
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
