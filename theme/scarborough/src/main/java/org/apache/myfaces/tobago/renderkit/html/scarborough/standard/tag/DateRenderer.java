@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.util.DateFormatUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -64,19 +65,24 @@ public class DateRenderer extends InRenderer {
     component.getAttributes().put(ATTR_STYLE_CLASS, classes);
     super.encodeEnd(facesContext, component);
 
-    Converter converter = getConverter(facesContext, component);
+    Converter help = getConverter(facesContext, component);
     // TODO is this really needed?
-    if (converter instanceof DateTimeConverter) {
-      String pattern = ((DateTimeConverter) converter).getPattern();
+    if (help instanceof DateTimeConverter) {
+      DateTimeConverter converter = (DateTimeConverter) help;
+      String pattern = DateFormatUtils.findPattern(converter);
+
       if (pattern != null) {
         TobagoResponseWriter writer = (TobagoResponseWriter)
-        facesContext.getResponseWriter();
+            facesContext.getResponseWriter();
         String id = component.getClientId(facesContext);
         writer.startElement(HtmlConstants.INPUT, component);
         writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
         writer.writeIdAttribute(id + ":converterPattern");
         writer.writeAttribute(HtmlAttributes.VALUE, pattern, null);
         writer.endElement(HtmlConstants.INPUT);
+      } else {
+        LOG.warn("Can't find the pattern for the converter! " +
+            "DatePicker may not work correctly.");
       }
     }
 

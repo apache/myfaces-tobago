@@ -1,3 +1,4 @@
+<%@ page import="java.util.Date" %>
 <%--
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -21,22 +22,26 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
+<%
+  request.setAttribute("now", new Date(100000000000L));
+%>
+
 <layout:screenshot>
   <jsp:body>
     <f:subview id="date">
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="300px;1*" rows="fixed;fixed;fixed;1*"/>
+          <tc:gridLayout columns="400px;1*" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*"/>
         </f:facet>
         <%-- code-sniplet-start id="date" --%>
-        <tx:date label="Date">
+        <tx:date label="Date" value="#{now}">
           <f:convertDateTime pattern="dd.MM.yyyy"/>
         </tx:date>
         <%-- code-sniplet-end id="date" --%>
         <tc:cell/>
 
         <%-- code-sniplet-start id="dateTime" --%>
-        <tx:date label="Date/Time">
+        <tx:date label="Date/Time" value="#{now}">
           <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
         </tx:date>
         <%-- code-sniplet-end id="dateTime" --%>
@@ -46,6 +51,28 @@
           <f:convertDateTime pattern="dd.MM.yyyy"/>
         </tx:date>
         <tc:cell/>
+
+        <tx:date label="Short style" value="#{now}">
+          <f:convertDateTime dateStyle="short" type="both" timeStyle="short"/>
+        </tx:date>
+        <tc:cell/>
+
+        <tx:date label="Medium Style" value="#{now}">
+          <f:convertDateTime dateStyle="medium" type="both" timeStyle="medium" />
+        </tx:date>
+        <tc:cell/>
+
+        <tx:date label="Long Style" value="#{now}">
+          <f:convertDateTime dateStyle="long" type="both" timeStyle="long" />
+        </tx:date>
+        <tc:cell/>
+
+        <tx:date label="Full Style" value="#{now}">
+          <f:convertDateTime dateStyle="full" type="both" timeStyle="full" />
+        </tx:date>
+        <tc:cell/>
+
+
 
         <tc:cell spanX="2"/>
 
