@@ -81,8 +81,8 @@ public class DateRenderer extends InRenderer {
         writer.writeAttribute(HtmlAttributes.VALUE, pattern, null);
         writer.endElement(HtmlConstants.INPUT);
       } else {
-        LOG.warn("Can't find the pattern for the converter! " +
-            "DatePicker may not work correctly.");
+        LOG.warn("Can't find the pattern for the converter! "
+            + "DatePicker may not work correctly.");
       }
     }
 

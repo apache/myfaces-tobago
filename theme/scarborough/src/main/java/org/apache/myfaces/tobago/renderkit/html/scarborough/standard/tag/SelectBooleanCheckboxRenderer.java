@@ -38,7 +38,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UISelectBoolean;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.ConverterException;
 import java.io.IOException;
 
 public class SelectBooleanCheckboxRenderer extends RendererBase {
