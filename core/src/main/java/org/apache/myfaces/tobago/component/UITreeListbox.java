@@ -42,7 +42,7 @@ import java.util.Set;
  * Date: Mar 16, 2005
  * Time: 12:33:08 PM
  */
-public class UITreeListbox extends UITree implements LayoutProvider {
+public class UITreeListbox extends UITreeOld implements LayoutProvider {
 
   private static final Log LOG = LogFactory.getLog(UITreeListbox.class);
 
@@ -50,8 +50,8 @@ public class UITreeListbox extends UITree implements LayoutProvider {
 
   public static final String BOXES_PREFIX = "boxes_";
 
-  private List<UITreeNode> selectionPath = null;
-  private List<UITreeNode> expandPath = null;
+  private List<UITreeOldNode> selectionPath = null;
+  private List<UITreeOldNode> expandPath = null;
 
   private boolean encodingChildren = false;
 
@@ -59,7 +59,7 @@ public class UITreeListbox extends UITree implements LayoutProvider {
 
 
 
-  protected String nodeStateId(FacesContext facesContext, UITreeNode node) {
+  protected String nodeStateId(FacesContext facesContext, UITreeOldNode node) {
     // this must do the same as nodeStateId() in tree.js
     String clientId = node.getClientId(facesContext);
     int last = clientId.lastIndexOf(':') + 1;
@@ -111,14 +111,14 @@ public class UITreeListbox extends UITree implements LayoutProvider {
       LOG.debug(state);
 
       state = new StringBuffer("selectionPath : ;");
-      for (UITreeNode treeNode : getSelectionPath()) {
+      for (UITreeOldNode treeNode : getSelectionPath()) {
         state.append(nodeStateId(facesContext, treeNode));
         state.append(";");
       }
       LOG.debug(state);
 
       state = new StringBuffer("expandPath : ;");
-      for (UITreeNode treeNode : getExpandPath()) {
+      for (UITreeOldNode treeNode : getExpandPath()) {
         state.append(nodeStateId(facesContext, treeNode));
         state.append(";");
       }
@@ -130,17 +130,17 @@ public class UITreeListbox extends UITree implements LayoutProvider {
   }
 
   public void createSelectionPath() {
-    selectionPath = new ArrayList<UITreeNode>();
-    expandPath = new ArrayList<UITreeNode>();
+    selectionPath = new ArrayList<UITreeOldNode>();
+    expandPath = new ArrayList<UITreeOldNode>();
     if (isSelectableTree()) {
       Iterator iterator = getState().getSelection().iterator();
       if (iterator.hasNext()) {
         TreeNode treeNode = (TreeNode) iterator.next();
-        UITreeNode selectedNode = findUITreeNode(getRoot(), treeNode);
+        UITreeOldNode selectedNode = findUITreeNode(getRoot(), treeNode);
         if (selectedNode != null) {
           UIComponent ancestor = selectedNode;
-          while (ancestor != null && ancestor instanceof UITreeNode) {
-            selectionPath.add(0, (UITreeNode) ancestor);
+          while (ancestor != null && ancestor instanceof UITreeOldNode) {
+            selectionPath.add(0, (UITreeOldNode) ancestor);
             ancestor = ancestor.getParent();
           }
         }
@@ -152,7 +152,7 @@ public class UITreeListbox extends UITree implements LayoutProvider {
       createExpandPath(treeNode, expandState);
       selectionPath.addAll(expandPath);
     } else {
-      for (UITreeNode node : selectionPath) {
+      for (UITreeOldNode node : selectionPath) {
         if (!node.getTreeNode().isLeaf()) {
           expandPath.add(node);
         }
@@ -162,7 +162,7 @@ public class UITreeListbox extends UITree implements LayoutProvider {
       expandPath.add(getRoot());
     }
     expandState.clear();
-    for (UITreeNode uiTreeNode : expandPath) {
+    for (UITreeOldNode uiTreeNode : expandPath) {
       expandState.add((DefaultMutableTreeNode) uiTreeNode.getValue());
     }
 
@@ -196,7 +196,7 @@ public class UITreeListbox extends UITree implements LayoutProvider {
     }
   }
 
-  private List<UITreeNode> getNodes(int level) {
+  private List<UITreeOldNode> getNodes(int level) {
     List children;
     if (level == 0) {
       children = getRoot().getChildren();
@@ -205,10 +205,10 @@ public class UITreeListbox extends UITree implements LayoutProvider {
     } else {
       children = Collections.EMPTY_LIST;
     }
-    List<UITreeNode> nodes = new ArrayList<UITreeNode>(children.size());
+    List<UITreeOldNode> nodes = new ArrayList<UITreeOldNode>(children.size());
     for (Object node : children) {
-      if (node instanceof UITreeNode) {
-        nodes.add((UITreeNode) node);
+      if (node instanceof UITreeOldNode) {
+        nodes.add((UITreeOldNode) node);
       }
     }
     return nodes;
@@ -242,19 +242,19 @@ public class UITreeListbox extends UITree implements LayoutProvider {
     }
   }
 
-  public UITreeNode getSelectedNode(int level) {
-    UITreeNode selectedComponent = null;
+  public UITreeOldNode getSelectedNode(int level) {
+    UITreeOldNode selectedComponent = null;
     if (selectionPath.size() > level + 1) {
       selectedComponent = selectionPath.get(level + 1);
     }
     return selectedComponent;
   }
 
-  public List<UITreeNode> getSelectionPath() {
+  public List<UITreeOldNode> getSelectionPath() {
     return selectionPath;
   }
 
-  public List<UITreeNode> getExpandPath() {
+  public List<UITreeOldNode> getExpandPath() {
     return expandPath;
   }
 

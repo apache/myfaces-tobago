@@ -17,34 +17,15 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED_REFERENCE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ID_REFERENCE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MODE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MUTABLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_NAME_REFERENCE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ICONS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_JUNCTIONS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROOT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROOT_JUNCTION;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UITree;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.UITreeOld;
+import org.apache.myfaces.tobago.TobagoConstants;
 
-import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
+import javax.faces.component.ActionSource;
 
-/**
- * XXX: Warning: This code is under construction. If you want to use the "old"
- * XXX: tree, please use the tc:treeOld Tag.
- */
-public class TreeTag extends TobagoTag implements TreeTagDeclaration {
-
-  private static final Log LOG = LogFactory.getLog(TreeTag.class);
+@Deprecated
+public class TreeOldTag extends TobagoTag implements TreeOldTagDeclaration {
 
   private String value;
   private String state;
@@ -67,35 +48,34 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
 
   private String mode;
 
-  public TreeTag() {
-    LOG.warn("tc:tree is under construction. If you want to use the \"old\""
-        + " tree, please use the tc:treeOld Tag");
-  }
-
   public String getComponentType() {
-    return UITree.COMPONENT_TYPE;
+    return UITreeOld.COMPONENT_TYPE;
   }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
-    ComponentUtil.setValueBinding(component, ATTR_STATE, state);
+    ComponentUtil.setStringProperty(component, TobagoConstants.ATTR_VALUE, value);
+    ComponentUtil.setValueBinding(component, TobagoConstants.ATTR_STATE, state);
 
-    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_JUNCTIONS, showJunctions);
-    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ICONS, showIcons);
-    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ROOT, showRoot);
-    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ROOT_JUNCTION, showRootJunction);
+    ComponentUtil.setBooleanProperty(component,
+        TobagoConstants.ATTR_SHOW_JUNCTIONS, showJunctions);
+    ComponentUtil.setBooleanProperty(component, TobagoConstants.ATTR_SHOW_ICONS, showIcons);
+    ComponentUtil.setBooleanProperty(component, TobagoConstants.ATTR_SHOW_ROOT, showRoot);
+    ComponentUtil.setBooleanProperty(component,
+        TobagoConstants.ATTR_SHOW_ROOT_JUNCTION, showRootJunction);
 
-    ComponentUtil.setStringProperty(component, ATTR_SELECTABLE, selectable);
-    ComponentUtil.setBooleanProperty(component, ATTR_MUTABLE, mutable);
+    ComponentUtil.setStringProperty(component, TobagoConstants.ATTR_SELECTABLE, selectable);
+    ComponentUtil.setBooleanProperty(component, TobagoConstants.ATTR_MUTABLE, mutable);
 
-    ComponentUtil.setStringProperty(component, ATTR_ID_REFERENCE, idReference);
-    ComponentUtil.setStringProperty(component, ATTR_NAME_REFERENCE, nameReference);
-    ComponentUtil.setStringProperty(component, ATTR_DISABLED_REFERENCE, disabledReference);
-    ComponentUtil.setBooleanProperty(component, ATTR_REQUIRED, required);
+    ComponentUtil.setStringProperty(component, TobagoConstants.ATTR_ID_REFERENCE, idReference);
+    ComponentUtil.setStringProperty(component,
+        TobagoConstants.ATTR_NAME_REFERENCE, nameReference);
+    ComponentUtil.setStringProperty(component,
+        TobagoConstants.ATTR_DISABLED_REFERENCE, disabledReference);
+    ComponentUtil.setBooleanProperty(component, TobagoConstants.ATTR_REQUIRED, required);
     ComponentUtil.setActionListener((ActionSource) component, actionListener);
-    ComponentUtil.setStringProperty(component, ATTR_MODE, mode);
+    ComponentUtil.setStringProperty(component, TobagoConstants.ATTR_MODE, mode);
   }
 
   public void release() {

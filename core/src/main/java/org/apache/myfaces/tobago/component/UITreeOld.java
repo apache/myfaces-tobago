@@ -19,20 +19,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MODE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MUTABLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ICONS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_JUNCTIONS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROOT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROOT_JUNCTION;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LINK;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_TOOL_BAR;
+import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
@@ -44,7 +31,6 @@ import javax.faces.component.ActionSource;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
@@ -61,11 +47,12 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Set;
 
-public class UITree extends UIInput implements NamingContainer, ActionSource {
+@Deprecated
+public class UITreeOld extends javax.faces.component.UIInput implements NamingContainer, ActionSource {
 
-  private static final Log LOG = LogFactory.getLog(UITree.class);
+  private static final Log LOG = LogFactory.getLog(UITreeOld.class);
 
-  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Tree";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TreeOld";
   public static final String MESSAGE_NOT_LEAF = "tobago.tree.MESSAGE_NOT_LEAF";
 
   public static final String SEP = "-";
@@ -88,7 +75,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   public static final String COMMAND_MOVE_UP = "moveUp";
   public static final String COMMAND_MOVE_DOWN = "moveDown";
 
-  private Command[] treeCommands;
+  private UITreeOld.Command[] treeCommands;
 
   private MethodBinding actionListenerBinding;
   private TreeState treeState;
@@ -104,16 +91,16 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
   private String mode;
 
-  public UITree() {
-    treeCommands = new Command[]{
-      new Command(COMMAND_NEW),
-      new Command(COMMAND_DELETE),
-      new Command(COMMAND_EDIT),
-      new Command(COMMAND_CUT),
-      new Command(COMMAND_COPY),
-      new Command(COMMAND_PASTE),
-      new Command(COMMAND_MOVE_UP),
-      new Command(COMMAND_MOVE_DOWN),
+  public UITreeOld() {
+    treeCommands = new UITreeOld.Command[]{
+      new UITreeOld.Command(COMMAND_NEW),
+      new UITreeOld.Command(COMMAND_DELETE),
+      new UITreeOld.Command(COMMAND_EDIT),
+      new UITreeOld.Command(COMMAND_CUT),
+      new UITreeOld.Command(COMMAND_COPY),
+      new UITreeOld.Command(COMMAND_PASTE),
+      new UITreeOld.Command(COMMAND_MOVE_UP),
+      new UITreeOld.Command(COMMAND_MOVE_DOWN),
     };
   }
 
@@ -142,7 +129,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     if (mode != null) {
       return mode;
     }
-    ValueBinding vb = getValueBinding(ATTR_MODE);
+    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_MODE);
     if (vb != null) {
       return (String) vb.getValue(getFacesContext());
     } else {
@@ -176,8 +163,8 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
   public void encodeBegin(FacesContext facesContext)
       throws IOException {
-//    recreateTreeNodes();
-    if (ComponentUtil.getBooleanAttribute(this, ATTR_MUTABLE)
+    recreateTreeNodes();
+    if (ComponentUtil.getBooleanAttribute(this, TobagoConstants.ATTR_MUTABLE)
         && getFacet("mutableToolbar") == null
         && getFacet("defaultToolbar") == null) {
       createDefaultToolbar(facesContext);
@@ -188,19 +175,21 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   public void createDefaultToolbar(FacesContext facesContext) {
 
     UIComponent toolbar = ComponentUtil.createComponent(
-        facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_TOOL_BAR);
-    toolbar.getAttributes().put(ATTR_ICON_SIZE, ToolBarTag.ICON_SMALL);
-    toolbar.getAttributes().put(ATTR_LABEL_POSITION, ToolBarTag.LABEL_OFF);
+        facesContext, UIPanel.COMPONENT_TYPE,
+        TobagoConstants.RENDERER_TYPE_TOOL_BAR);
+    toolbar.getAttributes().put(TobagoConstants.ATTR_ICON_SIZE, ToolBarTag.ICON_SMALL);
+    toolbar.getAttributes().put(TobagoConstants.ATTR_LABEL_POSITION, ToolBarTag.LABEL_OFF);
     ActionListener[] handlers = getActionListeners();
 
     if ((handlers == null || handlers.length == 0) && getActionListener() == null) {
       LOG.error("No actionListener found in tree, so tree editing will not work!");
     }
 
-    UITree.Command[] commands = getCommands();
+    UITreeOld.Command[] commands = getCommands();
     for (int i = 0; i < commands.length; i++) {
       UICommand command = (UICommand) ComponentUtil.createComponent(
-          facesContext, UICommand.COMPONENT_TYPE, RENDERER_TYPE_LINK);
+          facesContext, UICommand.COMPONENT_TYPE,
+          TobagoConstants.RENDERER_TYPE_LINK);
       toolbar.getChildren().add(command);
       command.setId(commands[i].getCommand());
 
@@ -209,10 +198,10 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
       }
       command.setActionListener(getActionListener());
       command.getAttributes().put(
-          ATTR_IMAGE, "image/tobago.tree." + commands[i].getCommand() + ".gif");
+          TobagoConstants.ATTR_IMAGE, "image/tobago.tree." + commands[i].getCommand() + ".gif");
       String title = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
           "tree" + StringUtil.firstToUpperCase(commands[i].getCommand()));
-      command.getAttributes().put(ATTR_TIP, title);
+      command.getAttributes().put(TobagoConstants.ATTR_TIP, title);
 
     }
 
@@ -220,9 +209,8 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
   }
 
-/*
   private void recreateTreeNodes() {
-    UITreeNode root = getRoot();
+    UITreeOldNode root = getRoot();
     // Delete all UIComponent childs, because moving of childen will not work
     // in Mutable Tree.
     // They may have invalid modelReferences.
@@ -241,20 +229,19 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     }
 
     try {
-      root = new UITreeNode(this, 0);
+      root = new UITreeOldNode(this, 0);
       root.createTreeNodes();
     } catch (Exception e) {
       LOG.error(e, e);
     }
   }
-*/
 
-  public UITreeNode getRoot() {
-    // find the UITreeNode in the childen.
+  public UITreeOldNode getRoot() {
+    // find the UITreeOldNode in the childen.
     for (Iterator i = getChildren().iterator(); i.hasNext();) {
       UIComponent child = (UIComponent) i.next();
-      if (child instanceof UITreeNode) {
-        return (UITreeNode) child;
+      if (child instanceof UITreeOldNode) {
+        return (UITreeOldNode) child;
       }
     }
     // in a new UITree isn't a root
@@ -266,13 +253,13 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 //     will be called from end.jsp
   }
 
-  public UITreeNode findUITreeNode(UITreeNode node, TreeNode treeNode) {
-    UITreeNode found = null;
+  public UITreeOldNode findUITreeNode(UITreeOldNode node, TreeNode treeNode) {
+    UITreeOldNode found = null;
     if (node.getTreeNode().equals(treeNode)) {
       return node;
     } else {
       for (Iterator iter = node.getChildren().iterator(); iter.hasNext();) {
-        UITreeNode uiTreeNode = (UITreeNode) iter.next();
+        UITreeOldNode uiTreeNode = (UITreeOldNode) iter.next();
         found = findUITreeNode(uiTreeNode, treeNode);
         if (found != null) {
           break;
@@ -288,7 +275,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
   public boolean isSelectableTree() {
     final Object selectable
-        = ComponentUtil.getAttribute(this , ATTR_SELECTABLE);
+        = ComponentUtil.getAttribute(this , TobagoConstants.ATTR_SELECTABLE);
     return selectable != null
         && (selectable.equals("multi") || selectable.equals("multiLeafOnly")
             || selectable.equals("single") || selectable.equals("singleLeafOnly")
@@ -318,7 +305,8 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
       context.addMessage(getClientId(context), facesMessage);
     }
 
-    String selectable = ComponentUtil.getStringAttribute(this, ATTR_SELECTABLE);
+    String selectable = ComponentUtil.getStringAttribute(this,
+        TobagoConstants.ATTR_SELECTABLE);
     if (selectable != null && selectable.endsWith("LeafOnly")) {
 
       Set<DefaultMutableTreeNode> selection = getState().getSelection();
@@ -350,7 +338,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
         }
       }
     }
-  }      
+  }
 
   public void updateModel(FacesContext facesContext) {
     // nothig to update for tree's
@@ -392,7 +380,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     mode = (String) values[6];
   }
 
-  public Command[] getCommands() {
+  public UITreeOld.Command[] getCommands() {
     return treeCommands;
   }
 
@@ -400,7 +388,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     if (treeState != null) {
         return treeState;
     }
-    ValueBinding valueBinding = getValueBinding(ATTR_STATE);
+    ValueBinding valueBinding = getValueBinding(TobagoConstants.ATTR_STATE);
     if (valueBinding != null) {
         return (TreeState) valueBinding.getValue(getFacesContext());
     } else {
@@ -416,7 +404,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     if (showJunctionsSet) {
         return (showJunctions);
     }
-    ValueBinding vb = getValueBinding(ATTR_SHOW_JUNCTIONS);
+    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_SHOW_JUNCTIONS);
     if (vb != null) {
         return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
     } else {
@@ -433,7 +421,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     if (showIconsSet) {
         return (showIcons);
     }
-    ValueBinding vb = getValueBinding(ATTR_SHOW_ICONS);
+    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_SHOW_ICONS);
     if (vb != null) {
         return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
     } else {
@@ -450,7 +438,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     if (showRootSet) {
         return (showRoot);
     }
-    ValueBinding vb = getValueBinding(ATTR_SHOW_ROOT);
+    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_SHOW_ROOT);
     if (vb != null) {
         return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
     } else {
@@ -467,7 +455,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     if (showRootJunctionSet) {
         return (showRootJunction);
     }
-    ValueBinding vb = getValueBinding(ATTR_SHOW_ROOT_JUNCTION);
+    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_SHOW_ROOT_JUNCTION);
     if (vb != null) {
         return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
     } else {
@@ -492,4 +480,3 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     }
   }
 }
-

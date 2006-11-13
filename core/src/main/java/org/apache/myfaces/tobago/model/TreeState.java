@@ -100,7 +100,7 @@ public class TreeState {
   }
 
   public boolean isMarked(DefaultMutableTreeNode node) {
-    return node.equals(marker);
+    return node != null && node.equals(marker);
   }
 
   public boolean isSelected(DefaultMutableTreeNode node) {

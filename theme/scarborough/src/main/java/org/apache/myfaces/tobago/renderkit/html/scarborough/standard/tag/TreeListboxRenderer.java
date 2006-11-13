@@ -28,7 +28,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UITreeListbox;
-import org.apache.myfaces.tobago.component.UITreeNode;
+import org.apache.myfaces.tobago.component.UITreeOldNode;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
@@ -44,7 +44,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-public class TreeListboxRenderer extends TreeRenderer{
+public class TreeListboxRenderer extends TreeOldRenderer{
 
   private static final Log LOG = LogFactory.getLog(TreeListboxRenderer.class);
 
@@ -57,7 +57,7 @@ public class TreeListboxRenderer extends TreeRenderer{
     tree.createSelectionPath();
 
     String clientId = tree.getClientId(facesContext);
-    UITreeNode root = tree.getRoot();
+    UITreeOldNode root = tree.getRoot();
 
 
     UIPage page = ComponentUtil.findPage(tree);
@@ -71,8 +71,8 @@ public class TreeListboxRenderer extends TreeRenderer{
     writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
 
     StringBuffer value = new StringBuffer(";");
-    List<UITreeNode> expandPath = tree.getExpandPath();
-    for (UITreeNode node : expandPath) {
+    List<UITreeOldNode> expandPath = tree.getExpandPath();
+    for (UITreeOldNode node : expandPath) {
       value.append(nodeStateId(facesContext, node));
       value.append(";");
     }
@@ -118,7 +118,7 @@ public class TreeListboxRenderer extends TreeRenderer{
   }
 
   private String  createJavascript(FacesContext facesContext, String clientId,
-                                   UITreeNode root) throws IOException {
+                                   UITreeOldNode root) throws IOException {
 
     StringBuffer sb = new StringBuffer();
     sb.append("{\n");

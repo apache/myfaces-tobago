@@ -17,47 +17,40 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UITreeOldNode;
+import org.apache.myfaces.tobago.component.UITreeOld;
+import org.apache.myfaces.tobago.model.TreeState;
+import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MUTABLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UITree;
-import org.apache.myfaces.tobago.component.UITreeNode;
-import org.apache.myfaces.tobago.model.TreeState;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.commons.lang.StringEscapeUtils;
 
-import javax.faces.component.NamingContainer;
-import javax.faces.component.UICommand;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
-import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.component.UIComponent;
+import javax.faces.component.NamingContainer;
+import javax.faces.component.UICommand;
+import javax.faces.component.UIParameter;
+import javax.faces.component.UIForm;
 import javax.faces.event.ActionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.io.IOException;
 import java.util.Map;
+import java.io.IOException;
 
-public class TreeNodeRenderer extends RendererBase {
+@Deprecated
+public class TreeOldNodeRenderer extends RendererBase {
 
-  private static final Log LOG = LogFactory.getLog(TreeNodeRenderer.class);
+  private static final Log LOG = LogFactory.getLog(TreeOldNodeRenderer.class);
 
   public void decode(FacesContext facesContext, UIComponent component) {
     if (ComponentUtil.isOutputOnly(component)) {
       return;
     }
 
-    UITreeNode node = (UITreeNode) component;
-    UITree tree = node.findTreeRoot();
+    UITreeOldNode node = (UITreeOldNode) component;
+    UITreeOld tree = node.findTreeRoot();
     TreeState state = tree.getState();
     String treeId = tree.getClientId(facesContext);
     String nodeId = node.getId();
@@ -72,8 +65,8 @@ public class TreeNodeRenderer extends RendererBase {
     }
 
 
-    if (TreeRenderer.isSelectable(tree)) { // selection
-      String selected = (String) requestParameterMap.get(treeId + UITree.SELECT_STATE);
+    if (TreeOldRenderer.isSelectable(tree)) { // selection
+      String selected = (String) requestParameterMap.get(treeId + UITreeOld.SELECT_STATE);
       searchString = ";" + nodeId + ";";
       if (selected.indexOf(searchString) > -1) {
         state.addSelection((DefaultMutableTreeNode) node.getValue());
@@ -81,7 +74,7 @@ public class TreeNodeRenderer extends RendererBase {
     }
 
     // marker
-    String marked = (String) requestParameterMap.get(treeId + UITree.MARKER);
+    String marked = (String) requestParameterMap.get(treeId + UITreeOld.MARKER);
     if (marked != null) {
       searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeId;
 
@@ -102,7 +95,7 @@ public class TreeNodeRenderer extends RendererBase {
     if (actionId != null
         && actionId.equals(treeId + NamingContainer.SEPARATOR_CHAR + nodeId)) {
       UICommand treeNodeCommand
-          = (UICommand) tree.getFacet(UITree.FACET_TREE_NODE_COMMAND);
+          = (UICommand) tree.getFacet(UITreeOld.FACET_TREE_NODE_COMMAND);
       if (treeNodeCommand != null) {
         UIParameter parameter = ensureTreeNodeParameter(treeNodeCommand);
         parameter.setValue(node.getId());
@@ -135,14 +128,14 @@ public class TreeNodeRenderer extends RendererBase {
       UIComponent component = (UIComponent) o;
       if (component instanceof UIParameter) {
         UIParameter parameter = (UIParameter) component;
-        if (parameter.getName().equals(UITree.PARAMETER_TREE_NODE_ID)) {
+        if (parameter.getName().equals(UITreeOld.PARAMETER_TREE_NODE_ID)) {
           treeNodeParameter = parameter;
         }
       }
     }
     if (treeNodeParameter == null) {
       treeNodeParameter = new UIParameter();
-      treeNodeParameter.setName(UITree.PARAMETER_TREE_NODE_ID);
+      treeNodeParameter.setName(UITreeOld.PARAMETER_TREE_NODE_ID);
     }
     return treeNodeParameter;
   }
@@ -150,21 +143,21 @@ public class TreeNodeRenderer extends RendererBase {
   public void encodeBegin(FacesContext facesContext,
                                 UIComponent component) throws IOException {
 
-    UITreeNode treeNode = (UITreeNode) component;
+    UITreeOldNode treeNode = (UITreeOldNode) component;
 
     String clientId = treeNode.getClientId(facesContext);
     UIComponent parent = treeNode.getParent();
 
     String parentClientId = null;
-    if (parent != null && parent instanceof UITreeNode) { // if not the root node
+    if (parent != null && parent instanceof UITreeOldNode) { // if not the root node
       parentClientId = treeNode.getParent().getClientId(facesContext);
     }
 
-    UITree root = treeNode.findTreeRoot();
+    UITreeOld root = treeNode.findTreeRoot();
     String rootId = root.getClientId(facesContext);
 
-    String jsClientId = TreeRenderer.createJavascriptVariable(clientId);
-    String jsParentClientId = TreeRenderer.createJavascriptVariable(
+    String jsClientId = TreeOldRenderer.createJavascriptVariable(clientId);
+    String jsParentClientId = TreeOldRenderer.createJavascriptVariable(
         parentClientId);
 //  rootId = HtmlUtils.createJavascriptVariable(rootId);
 
@@ -185,7 +178,7 @@ public class TreeNodeRenderer extends RendererBase {
       writer.writeText(jsClientId, null);
       writer.writeText(" = new TreeNode('", null);
       // label
-      Object name = treeNode.getAttributes().get(ATTR_LABEL);
+      Object name = treeNode.getAttributes().get(TobagoConstants.ATTR_NAME);
       if (LOG.isDebugEnabled()) {
         debuging += name + " : ";
       }
@@ -216,7 +209,8 @@ public class TreeNodeRenderer extends RendererBase {
       writer.writeText(",'", null);
       writer.writeText(rootId, null);
       writer.writeText("',", null);
-      String selectable = ComponentUtil.getStringAttribute(root, ATTR_SELECTABLE);
+      String selectable = ComponentUtil.getStringAttribute(root,
+          TobagoConstants.ATTR_SELECTABLE);
       if (selectable != null
           && (!(selectable.equals("multi") || selectable.equals("multiLeafOnly")
           || selectable.equals("single") || selectable.equals("singleLeafOnly")
@@ -232,7 +226,7 @@ public class TreeNodeRenderer extends RendererBase {
       }
       writer.writeText(",", null);
       writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
-          ATTR_MUTABLE)), null);
+          TobagoConstants.ATTR_MUTABLE)), null);
       writer.writeText(",'", null);
       writer.writeText(
           ComponentUtil.findPage(component).getFormId(facesContext), null);
@@ -269,8 +263,9 @@ public class TreeNodeRenderer extends RendererBase {
       writer.writeText(",", null);
 
       // disabled
-      writer.writeText(ComponentUtil.getBooleanAttribute(treeNode, ATTR_DISABLED), null);
-      
+      writer.writeText(ComponentUtil.getBooleanAttribute(treeNode,
+          TobagoConstants.ATTR_DISABLED), null);
+
       // resources
       writer.writeText(",treeResourcesHelp", null);
       writer.writeText(",", null);

@@ -20,15 +20,9 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED_REFERENCE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ID_REFERENCE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_NAME;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_NAME_REFERENCE;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_TREE_NODE;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -36,32 +30,31 @@ import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 import java.util.Map;
 
-public class UITreeNode extends UIInput {
+@Deprecated
+public class UITreeOldNode extends javax.faces.component.UIInput {
 
-  private static final Log LOG = LogFactory.getLog(UITreeNode.class);
-
-  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TreeNode";
+  private static final Log LOG = LogFactory.getLog(UITreeOldNode.class);
 
   private static final String SUB_REFERENCE_KEY = "subReferenceKey";
 
-  protected UITreeNode(UIComponent parent, int index) {
+  protected UITreeOldNode(UIComponent parent, int index) {
     super();
-    if (parent instanceof UITreeNode) {
-      String parentSubReference = ((UITreeNode) parent).getSubReference();
+    if (parent instanceof UITreeOldNode) {
+      String parentSubReference = ((UITreeOldNode) parent).getSubReference();
       if (parentSubReference == null) {
         getAttributes().put(SUB_REFERENCE_KEY, "childAt[" + index + "]");
       } else {
         getAttributes().put(SUB_REFERENCE_KEY, parentSubReference + ".childAt[" + index + "]");
       }
     }
-    setRendererType(RENDERER_TYPE_TREE_NODE);
+    setRendererType(TobagoConstants.RENDERER_TYPE_TREE_OLD_NODE);
     parent.getChildren().add(this);
     initId();
     initName();
     initDisabled();
   }
 
-  public UITreeNode() {
+  public UITreeOldNode() {
   }
 
 // ///////////////////////////////////////////// code
@@ -80,7 +73,7 @@ public class UITreeNode extends UIInput {
 
   public Object getValue() {
     TreeNode value = null;
-    UITree root = findTreeRoot();
+    UITreeOld root = findTreeRoot();
     String subReference = getSubReference();
     if (LOG.isDebugEnabled()) {
       LOG.debug("root         = '" + root + "'");
@@ -114,7 +107,7 @@ public class UITreeNode extends UIInput {
     if (node != null) {
       int childCount = node.getChildCount();
       for (int i = 0; i < childCount; i++) {
-        UITreeNode component = new UITreeNode(this, i);
+        UITreeOldNode component = new UITreeOldNode(this, i);
         component.createTreeNodes();
       }
     }
@@ -123,18 +116,19 @@ public class UITreeNode extends UIInput {
   private void initName() {
     TreeNode treeNode = (TreeNode) getValue();
     if (treeNode != null) {
-      Object name = getReference(treeNode, ATTR_NAME_REFERENCE);
+      Object name = getReference(treeNode, TobagoConstants.ATTR_NAME_REFERENCE);
       if (name == null) {
         name = toString();
       }
-      getAttributes().put(ATTR_NAME, name.toString());
+      getAttributes().put(TobagoConstants.ATTR_NAME, name.toString());
     }
   }
 
   private void initDisabled() {
     TreeNode treeNode = (TreeNode) getValue();
     if (treeNode != null) {
-      Object disabled = getReference(treeNode, ATTR_DISABLED_REFERENCE);
+      Object disabled = getReference(treeNode,
+          TobagoConstants.ATTR_DISABLED_REFERENCE);
       if (!(disabled instanceof Boolean)) {
         if (disabled instanceof String) {
           disabled = Boolean.valueOf((String) disabled);
@@ -142,14 +136,14 @@ public class UITreeNode extends UIInput {
           disabled = false;
         }
       }
-      getAttributes().put(ATTR_DISABLED, disabled);
+      getAttributes().put(TobagoConstants.ATTR_DISABLED, disabled);
     }
   }
 
   private void initId() {
     TreeNode treeNode = (TreeNode) getValue();
     if (treeNode != null) {
-      Object id = getReference(treeNode, ATTR_ID_REFERENCE);
+      Object id = getReference(treeNode, TobagoConstants.ATTR_ID_REFERENCE);
       if (!(id instanceof String)) {
         id = "node" + Integer.toString(System.identityHashCode(treeNode));
       }
@@ -160,7 +154,7 @@ public class UITreeNode extends UIInput {
   @SuppressWarnings("unchecked")
   private Object getReference(TreeNode treeNode, String key) {
     Object value = null;
-    UITree root = findTreeRoot();
+    UITreeOld root = findTreeRoot();
     String reference = (String) root.getAttributes().get(key);
     if (reference != null) {
       try {
@@ -180,13 +174,13 @@ public class UITreeNode extends UIInput {
     return value;
   }
 
-  public UITree findTreeRoot() {
+  public UITreeOld findTreeRoot() {
     UIComponent ancestor = getParent();
-    while (ancestor != null && ancestor instanceof UITreeNode) {
+    while (ancestor != null && ancestor instanceof UITreeOldNode) {
       ancestor = ancestor.getParent();
     }
-    if (ancestor instanceof UITree) {
-      return (UITree) ancestor;
+    if (ancestor instanceof UITreeOld) {
+      return (UITreeOld) ancestor;
     }
     return null;
   }
@@ -219,4 +213,3 @@ public class UITreeNode extends UIInput {
   }
 
 }
-

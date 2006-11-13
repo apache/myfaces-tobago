@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 --%>
+
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
@@ -37,7 +38,7 @@
           <tc:gridLayout columns="2*;1*" />
         </f:facet>
 
-            <tc:tree value="#{demo.tree}" state="#{demo.treeState}" id="tree"
+            <tc:treeOld value="#{demo.tree}" state="#{demo.treeState}" id="tree"
                 idReference="userObject.id"
                 nameReference="userObject.name"
                 showIcons="#{demo.showIcons}"
@@ -48,7 +49,7 @@
                 mutable="#{demo.mutable}"
                 >
               <f:actionListener type="org.apache.myfaces.tobago.example.demo.actionlistener.TreeEditor" />
-            </tc:tree>
+            </tc:treeOld>
 
             <tc:panel>
               <f:facet name="layout">

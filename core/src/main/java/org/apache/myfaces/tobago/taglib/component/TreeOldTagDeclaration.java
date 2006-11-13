@@ -17,37 +17,30 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasIdReference;
-import org.apache.myfaces.tobago.taglib.decl.HasNameReference;
-import org.apache.myfaces.tobago.taglib.decl.HasState;
 import org.apache.myfaces.tobago.taglib.decl.HasTreeNodeValue;
+import org.apache.myfaces.tobago.taglib.decl.HasState;
+import org.apache.myfaces.tobago.taglib.decl.HasIdReference;
+import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
+import org.apache.myfaces.tobago.taglib.decl.HasNameReference;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
-/*
- * Created by IntelliJ IDEA.
- * User: bommel
- * Date: 11.02.2006
- * Time: 13:28:14
- */
 /**
  * Renders a tree view.
  */
-@Tag(name = "tree")
-@BodyContentDescription(anyTagOf = "<f:facet>* <f:actionListener>?") // fixme
-@Preliminary(
-    "Under Construction! Implement a var attribute for the tree like in the sheet (http://issues.apache.org/jira/browse/TOBAGO-18). If you need the \"old\" implementation please use the tc:treeOld tag!")
+@Deprecated
+@Tag(name = "treeOld")
+@BodyContentDescription(anyTagOf = "<f:facet>* <f:actionListener>?")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UITree",
-    rendererType = "Tree")
-public interface TreeTagDeclaration extends TobagoTagDeclaration,
+    uiComponent = "org.apache.myfaces.tobago.component.UITreeOld",
+    rendererType = "TreeOld")
+public interface TreeOldTagDeclaration extends TobagoTagDeclaration,
     HasIdBindingAndRendered, HasTreeNodeValue, HasState,
     HasIdReference, HasActionListener, HasNameReference, IsRequired {
 
@@ -93,7 +86,7 @@ public interface TreeTagDeclaration extends TobagoTagDeclaration,
   @UIComponentTagAttribute(type = "java.lang.Boolean",
       defaultValue = "false")
   void setShowRoot(String showRoot);
-  
+
   /**
    * Bean property reference to fetch the disabled state for the treeNode's.<br>
    * Example:<br>

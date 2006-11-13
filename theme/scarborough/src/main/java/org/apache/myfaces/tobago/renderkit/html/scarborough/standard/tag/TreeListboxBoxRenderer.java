@@ -26,6 +26,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeListboxBox;
 import org.apache.myfaces.tobago.component.UITreeNode;
+import org.apache.myfaces.tobago.component.UITreeOldNode;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -52,7 +53,7 @@ public class TreeListboxBoxRenderer extends RendererBase {
     int level = ((UITreeListboxBox) component).getLevel();
 
     UITreeListbox tree = (UITreeListbox) component.getParent();
-    List<UITreeNode> selectionPath = tree.getSelectionPath();
+    List<UITreeOldNode> selectionPath = tree.getSelectionPath();
     String className = "tobago-treeListbox-default";
     if (selectionPath.size() > 0 &&  selectionPath.size() - 1 <= level
         && selectionPath.get(selectionPath.size() - 1).getTreeNode().isLeaf()) {
@@ -84,7 +85,7 @@ public class TreeListboxBoxRenderer extends RendererBase {
     List nodes = ((UITreeListboxBox) component).getNodes();
 
     for (int i = 0; i < nodes.size(); i++) {
-      UITreeNode treeNode = (UITreeNode) nodes.get(i);
+      UITreeOldNode treeNode = (UITreeOldNode) nodes.get(i);
       DefaultMutableTreeNode node = treeNode.getTreeNode();
 
       writer.startElement(HtmlConstants.OPTION, null);

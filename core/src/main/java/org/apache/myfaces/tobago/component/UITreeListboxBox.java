@@ -33,7 +33,7 @@ public class UITreeListboxBox extends UIComponentBase {
 
   private int level;
 
-  private List<UITreeNode> nodes;
+  private List<UITreeOldNode> nodes;
 
   public String getFamily() {
     return COMPONENT_FAMILY;
@@ -47,11 +47,11 @@ public class UITreeListboxBox extends UIComponentBase {
     this.level = level;
   }
 
-  public List<UITreeNode> getNodes() {
+  public List<UITreeOldNode> getNodes() {
     return nodes;
   }
 
-  public void setNodes(List<UITreeNode> nodes) {
+  public void setNodes(List<UITreeOldNode> nodes) {
     this.nodes = nodes;
   }
 

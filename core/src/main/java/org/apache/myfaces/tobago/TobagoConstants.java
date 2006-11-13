@@ -202,6 +202,7 @@ public final class TobagoConstants {
   public static final String RENDERER_TYPE_TIME = "Time";
   public static final String RENDERER_TYPE_TOOL_BAR = "ToolBar";
   public static final String RENDERER_TYPE_TREE_NODE = "TreeNode";
+  public static final String RENDERER_TYPE_TREE_OLD_NODE = "TreeOldNode";
   public static final String RENDERER_TYPE_SHEET = "Sheet";
   public static final String RENDERER_TYPE_VERBATIM = "Verbatim";
 
