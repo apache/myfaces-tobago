@@ -53,7 +53,10 @@ table {
 */
 
 .tobago-textArea-spacer-custom  {
-  border-bottom: 1px solid none;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  /*none;*/
+
 }
 
 /*-- Menu --------------------------------------------------------------------*/
@@ -71,8 +74,9 @@ td.menu {
 
 .tobago-popup-blink {
   background: #333333;
+  -moz-opacity: .5;
   opacity: .5;
-	filter: alpha(opacity=50);
+	filter:alpha(opacity=50);
 }
 
 /* Progress Control --------------------------------------------------------- */
@@ -145,7 +149,9 @@ div.tobago-tab-fulfill {
 }
 
 a:link.tab, a:visited.tab, a:active.tab {
-  font-family: bold 12px arial, helvetica, sans-serif;
+  font-family: arial, helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
   color: #660000;
 }
 

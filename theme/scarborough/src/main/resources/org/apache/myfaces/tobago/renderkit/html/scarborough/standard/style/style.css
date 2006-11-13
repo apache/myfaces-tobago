@@ -316,7 +316,7 @@ td.tobago-calendar-day-selected {
 /* formatted --------------------------------------------------------------- */
 
 .tobago-formatted-default  {
-  font: arial, helvetica, sans-serif;
+  font-family: arial, helvetica, sans-serif;
 }
 
 /* gridLayout -------------------------------------------------------------- */
@@ -599,6 +599,11 @@ div.tobago-richTextEditor-body {
   background-color: red;
 }
 
+.tobago-out-markup-number {
+  display: block;
+  text-align: right;
+}
+
 /* textArea ---------------------------------------------------------------- */
 
 .tobago-textArea-default  {
@@ -637,6 +642,11 @@ div.tobago-richTextEditor-body {
   border-style: inset;
   border-width: 2px;
   margin: 0px;
+}
+
+.tobago-in-markup-number {
+  display: block;
+  text-align: right;
 }
 
 .tobago-in-readonly  {
