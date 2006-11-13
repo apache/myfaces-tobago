@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.facelets;
  * limitations under the License.
  */
 
-
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;

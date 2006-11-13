@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.taglib.decl;
  * limitations under the License.
  */
 
-
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 

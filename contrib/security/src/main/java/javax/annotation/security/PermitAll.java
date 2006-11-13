@@ -17,7 +17,6 @@ package javax.annotation.security;
  * limitations under the License.
  */
 
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

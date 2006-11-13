@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-
 public interface LayoutProvider {
   UILayout provideLayout();
 }

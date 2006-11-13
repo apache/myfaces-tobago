@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.config;
  * limitations under the License.
  */
 
-
 /*
  * Created 24.06.2003 09:01:22.
  * Id: $

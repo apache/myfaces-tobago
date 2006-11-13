@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.apt;
  * limitations under the License.
  */
 
-
 import com.sun.mirror.apt.AnnotationProcessor;
 import com.sun.mirror.apt.AnnotationProcessorEnvironment;
 import com.sun.mirror.declaration.AnnotationTypeDeclaration;

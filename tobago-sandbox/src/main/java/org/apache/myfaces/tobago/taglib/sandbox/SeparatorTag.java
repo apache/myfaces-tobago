@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  * limitations under the License.
  */
 
-
 import org.apache.myfaces.tobago.taglib.component.TobagoTag;
 import org.apache.myfaces.tobago.component.UISeparator;
 

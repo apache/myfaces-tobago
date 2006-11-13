@@ -1,3 +1,12 @@
+/**
+ * <h2><Tobago Framework Extension Tag Library -
+ */
+@org.apache.myfaces.tobago.apt.annotation.Taglib(
+    shortName = "tx",
+    uri = "http://myfaces.apache.org/tobago/extension",
+    fileName = "tobago-extension.tld", displayName = "Tobago Extensions")
+package org.apache.myfaces.tobago.taglib.extension;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -14,12 +23,3 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-/**
- * <h2><Tobago Framework Extension Tag Library -
- */
-@org.apache.myfaces.tobago.apt.annotation.Taglib(
-    shortName = "tx",
-    uri = "http://myfaces.apache.org/tobago/extension",
-    fileName = "tobago-extension.tld", displayName = "Tobago Extensions")
-package org.apache.myfaces.tobago.taglib.extension;

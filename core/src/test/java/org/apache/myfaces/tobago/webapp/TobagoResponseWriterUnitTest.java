@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.webapp;
  * limitations under the License.
  */
 
-
 import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

@@ -17,9 +17,6 @@ package org.apache.myfaces.tobago.taglib.decl;
  * limitations under the License.
  */
 
-
-
-
 /**
  * $Id$
  */

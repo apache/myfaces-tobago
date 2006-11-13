@@ -1,3 +1,14 @@
+/**
+ * <h2>Tobago Framework Component Tag Library -
+ * (C) Copyright 2002-2006 The Apache Software Foundation</h2>
+ *
+ */
+@org.apache.myfaces.tobago.apt.annotation.Taglib(
+    shortName = "tc", uri = "http://myfaces.apache.org/tobago/component",
+    listener = "org.apache.myfaces.tobago.webapp.TobagoServletContextListener",
+    fileName = "tobago.tld", displayName = "Tobago Components")
+package org.apache.myfaces.tobago.taglib.component;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -14,17 +25,3 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-/**
- * <h2>Tobago Framework Component Tag Library -
- * (C) Copyright 2002-2006 The Apache Software Foundation</h2>
- *
- */
-@org.apache.myfaces.tobago.apt.annotation.Taglib(
-    shortName = "tc", uri = "http://myfaces.apache.org/tobago/component",
-    listener = "org.apache.myfaces.tobago.webapp.TobagoServletContextListener",
-    fileName = "tobago.tld", displayName = "Tobago Components")
-package org.apache.myfaces.tobago.taglib.component;
-
-
-

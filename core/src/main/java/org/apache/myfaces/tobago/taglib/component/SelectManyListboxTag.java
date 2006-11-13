@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UISelectMany;

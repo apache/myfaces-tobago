@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.security;
  * limitations under the License.
  */
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-
 /**
  * Created: Aug 5, 2005 5:22:44 PM
  * User: bommel

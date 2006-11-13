@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.maven.plugin;
  * limitations under the License.
  */
 
-
 import org.apache.maven.archiver.MavenArchiveConfiguration;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
