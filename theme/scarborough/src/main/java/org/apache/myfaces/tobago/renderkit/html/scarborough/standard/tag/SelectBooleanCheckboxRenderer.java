@@ -31,34 +31,46 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UISelectBoolean;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.ConverterException;
 import java.io.IOException;
 
 public class SelectBooleanCheckboxRenderer extends RendererBase {
 
+  private static final Log LOG = LogFactory.getLog(SelectBooleanCheckboxRenderer.class);
+
   public void decode(FacesContext facesContext, UIComponent component) {
-    if (ComponentUtil.isOutputOnly(component)) {
+
+    UIInput input = (UIInput) component;
+
+    if (ComponentUtil.isOutputOnly(input)) {
       return;
     }
 
-    UIInput uiInput = (UIInput) component;
+    String newValue = (String) facesContext.getExternalContext()
+        .getRequestParameterMap().get(input.getClientId(facesContext));
 
-    String newValue = (String)
-        facesContext.getExternalContext().getRequestParameterMap()
-        .get(uiInput.getClientId(facesContext));
-    if (newValue != null
-        && (newValue.equalsIgnoreCase("on") || newValue.equalsIgnoreCase("yes")
-          || newValue.equalsIgnoreCase("true"))) {
-      uiInput.setSubmittedValue(Boolean.TRUE);
-    } else {
-      uiInput.setSubmittedValue(Boolean.FALSE);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("new value = '" + newValue + "'");
     }
+
+//    input.setSubmittedValue("true".equals(newValue) ? Boolean.TRUE : Boolean.FALSE);
+    input.setSubmittedValue("true".equals(newValue) ? "true": "false");
   }
 
+//  public Object getConvertedValue(
+//      FacesContext context, UIComponent component, Object submittedValue)
+//      throws ConverterException {
+//
+//      return Boolean.valueOf((String)submittedValue);
+//  }
+//
   public void encodeEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
@@ -84,8 +96,8 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
       writer.startElement(HtmlConstants.TD, null);
     }
 
-    Boolean currentValue = (Boolean) component.getValue();
-    boolean checked = currentValue != null && currentValue.booleanValue();
+    String currentValue = getCurrentValue(facesContext, component);
+    boolean checked = "true".equals(currentValue);
 
     writer.startElement(HtmlConstants.INPUT, component);
     writer.writeAttribute(HtmlAttributes.TYPE, "checkbox", null);

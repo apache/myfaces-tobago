@@ -26,12 +26,15 @@
     <jsp:body>
       <tc:box>
         <f:facet name="layout">
-          <tc:gridLayout rows="fixed;fixed;fixed;fixed;1*"/>
+          <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*"/>
         </f:facet>
 
+        <tc:messages/>
+
         <%-- code-sniplet-start id="selectBooleanCheckbox" --%>
-        <tc:selectBooleanCheckbox label="_Letter"/>
+        <%--<tc:selectBooleanCheckbox label="_Letter"/>--%>
         <%-- code-sniplet-end id="selectBooleanCheckbox" --%>
+<%--
         <tc:selectBooleanCheckbox label="_Phone"/>
         <tc:selectBooleanCheckbox label="_eMail"/>
         <tc:selectBooleanCheckbox label="_Fax" >
@@ -39,6 +42,19 @@
             <tc:command />
           </f:facet>
         </tc:selectBooleanCheckbox>
+--%>
+        <tc:cell/>
+        <tc:cell/>
+        <tc:cell/>
+        <tc:cell/>
+
+        <tc:selectBooleanCheckbox label="Value is Boolean" value="#{selectBooleanCheckboxController.normalBoolean}"/>
+
+        <tc:selectBooleanCheckbox label="Converter for Boolean" value="#{selectBooleanCheckboxController.onOffString}">
+          <f:converter converterId="org.apache.myfaces.tobago.example.reference.OnOffConverter"/>
+        </tc:selectBooleanCheckbox>
+
+        <tc:button label="submit" action="submit" />
 
         <tc:cell/>
 
