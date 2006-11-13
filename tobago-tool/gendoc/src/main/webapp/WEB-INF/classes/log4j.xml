@@ -22,6 +22,16 @@
     </layout>
   </appender>
 
+<!--
+  <category name="org.apache.myfaces">
+    <priority value="debug" />
+  </category>
+
+  <category name="javax.faces">
+    <priority value="debug" />
+  </category>
+-->
+
   <root>
     <priority value="info" />
     <appender-ref ref="logfile" />
