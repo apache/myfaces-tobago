@@ -26,7 +26,7 @@ import java.util.Locale;
 /**
  * This code is taken from myfaces core.
  * TODO: Should be sharable (e.g. myfaces-commons).
- *
+ * <p/>
  * User: lofwyr
  * Date: 06.11.2006 17:20:29
  */
@@ -41,13 +41,14 @@ public class DateFormatUtils {
   private static final String STYLE_LONG = "long";
   private static final String STYLE_FULL = "full";
 
-  private DateFormatUtils(){
+  private DateFormatUtils() {
   }
 
   /**
    * Find a pattern for the converter.
    * Returns the pattern inside the converter, if any.
    * Otherwise compute the pattern.
+   *
    * @return the patter or null, if DateFormat.getDateInstance() returns no SimpleDateFormat.
    */
   public static String findPattern(DateTimeConverter converter) {
@@ -67,54 +68,42 @@ public class DateFormatUtils {
   }
 
   public static DateFormat getDateFormat(String type, String dateStyle, String timeStyle, Locale locale) {
-      DateFormat format;
-      if (type.equals(TYPE_DATE))
-      {
-          format = DateFormat.getDateInstance(calcStyle(dateStyle), locale);
-      }
-      else if (type.equals(TYPE_TIME))
-      {
-          format = DateFormat.getTimeInstance(calcStyle(timeStyle), locale);
-      }
-      else if (type.equals(TYPE_BOTH))
-      {
-          format = DateFormat.getDateTimeInstance(calcStyle(dateStyle),
-                                                  calcStyle(timeStyle),
-                                                  locale);
-      }
-      else
-      {
-          throw new ConverterException("invalid type '" + type + "'");
-      }
+    DateFormat format;
+    if (type.equals(TYPE_DATE)) {
+      format = DateFormat.getDateInstance(calcStyle(dateStyle), locale);
+    } else if (type.equals(TYPE_TIME)) {
+      format = DateFormat.getTimeInstance(calcStyle(timeStyle), locale);
+    } else if (type.equals(TYPE_BOTH)) {
+      format = DateFormat.getDateTimeInstance(calcStyle(dateStyle),
+          calcStyle(timeStyle),
+          locale);
+    } else {
+      throw new ConverterException("invalid type '" + type + "'");
+    }
 
-      // format cannot be lenient (JSR-127)
-      format.setLenient(false);
-      return format;
+    // format cannot be lenient (JSR-127)
+    format.setLenient(false);
+    return format;
   }
 
   private static int calcStyle(String name) {
-      if (name.equals(STYLE_DEFAULT))
-      {
-          return DateFormat.DEFAULT;
-      }
-      if (name.equals(STYLE_MEDIUM))
-      {
-          return DateFormat.MEDIUM;
-      }
-      if (name.equals(STYLE_SHORT))
-      {
-          return DateFormat.SHORT;
-      }
-      if (name.equals(STYLE_LONG))
-      {
-          return DateFormat.LONG;
-      }
-      if (name.equals(STYLE_FULL))
-      {
-          return DateFormat.FULL;
-      }
+    if (name.equals(STYLE_DEFAULT)) {
+      return DateFormat.DEFAULT;
+    }
+    if (name.equals(STYLE_MEDIUM)) {
+      return DateFormat.MEDIUM;
+    }
+    if (name.equals(STYLE_SHORT)) {
+      return DateFormat.SHORT;
+    }
+    if (name.equals(STYLE_LONG)) {
+      return DateFormat.LONG;
+    }
+    if (name.equals(STYLE_FULL)) {
+      return DateFormat.FULL;
+    }
 
-      throw new ConverterException("invalid style '" + name + "'");
+    throw new ConverterException("invalid style '" + name + "'");
   }
 
 }
