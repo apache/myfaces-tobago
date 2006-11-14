@@ -25,7 +25,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeListboxBox;
-import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.component.UITreeOldNode;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
