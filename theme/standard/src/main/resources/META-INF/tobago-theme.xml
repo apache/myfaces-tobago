@@ -27,6 +27,13 @@
       <supported-markup>
         <markup>strong</markup>
         <markup>deleted</markup>
+        <markup>number</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>In</name>
+      <supported-markup>
+        <markup>number</markup>
       </supported-markup>
     </renderer>
   </renderers>

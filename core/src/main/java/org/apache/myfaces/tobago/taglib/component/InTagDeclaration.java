@@ -20,6 +20,8 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -51,4 +53,12 @@ public interface InTagDeclaration
     HasConverter, IsReadonly, IsDisabled, HasDeprecatedWidth,
     IsInline, IsFocus, IsRequired, HasTip, HasLabelAndAccessKey,
     IsPassword, HasSuggestMethod {
+
+  /**
+   * Indicate markup of this component.
+   * Possible value is 'none'. But this can be overridden in the theme.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(defaultValue = "none")
+  void setMarkup(String markup);
 }

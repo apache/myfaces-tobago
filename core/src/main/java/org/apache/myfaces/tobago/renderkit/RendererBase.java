@@ -24,7 +24,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UICell;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.config.ThemeConfig;
@@ -54,68 +53,6 @@ public abstract class RendererBase
 
   private static final Log LOG = LogFactory.getLog(RendererBase.class);
 
-  public void encodeBegin(FacesContext facesContext, UIComponent component)
-      throws IOException {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("*** begin    " + component);
-    }
-    try {
-      super.encodeBegin(facesContext, component);
-    } catch (IOException e) {
-      throw e;
-    } catch (RuntimeException e) {
-      LOG.error("catched RuntimeException :", e);
-      throw e;
-    } catch (Throwable e) {
-      LOG.error("catched Throwable :", e);
-      throw new RuntimeException(e);
-    }
-
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("*   begin    " + component);
-    }
-  }
-
-  public void encodeChildren(FacesContext facesContext, UIComponent component)
-      throws IOException {
-
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("*** children " + component);
-    }
-    if (component instanceof UIPage) {
-      LOG.info("UUUUUUUUUUUUUUUUUUUUU UIPage XXXXXXXXXXXXXXXXXXXXXXXXXXXXxx");
-    }
-
-    super.encodeChildren(facesContext, component);
-
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("*   children " + component);
-    }
-  }
-
-  public void encodeEnd(FacesContext facesContext, UIComponent component)
-      throws IOException {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("*** end      " + component);
-    }
-    try {
-      super.encodeEnd(facesContext, component);
-    } catch (IOException e) {
-      throw e;
-    } catch (RuntimeException e) {
-      LOG.error("catched " + e + " :" + e.getMessage(), e);
-      throw e;
-    } catch (Throwable e) {
-      LOG.error("catched Throwable :", e);
-      throw new RuntimeException(e);
-    }
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("*   end      " + component);
-    }
-  }
-
-
-
   public void decode(FacesContext facesContext, UIComponent component) {
     // nothing to do
 
@@ -125,8 +62,6 @@ public abstract class RendererBase
           + this.getClass().getName());
     }
   }
-
-
 
   public String getRendererName(String rendererType) {
     String name;

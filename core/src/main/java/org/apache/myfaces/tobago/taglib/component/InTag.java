@@ -25,6 +25,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
 
@@ -36,12 +37,15 @@ public class InTag extends TextInputTag implements InTagDeclaration {
 
   private String password;
   private String suggestMethod;
+  private String markup;
+
 
   @Override
   public void release() {
     super.release();
     password = null;
     suggestMethod = null;
+    markup = null;
   }
 
   @Override
@@ -56,6 +60,7 @@ public class InTag extends TextInputTag implements InTagDeclaration {
     if (component instanceof UIInput) {
       ComponentUtil.setSuggestMethodBinding((UIInput) component, suggestMethod);
     }
+    ComponentUtil.setStringProperty(component, ATTR_MARKUP, markup);
   }
 
   public String getPassword() {
@@ -72,5 +77,14 @@ public class InTag extends TextInputTag implements InTagDeclaration {
 
   public void setSuggestMethod(String suggestMethod) {
     this.suggestMethod = suggestMethod;
+  }
+
+
+  public String getMarkup() {
+    return markup;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 }

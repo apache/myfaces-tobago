@@ -24,19 +24,21 @@ import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
 import java.io.IOException;
 
-public class UIInput extends javax.faces.component.UIInput implements AjaxComponent {
+public class UIInput extends javax.faces.component.UIInput implements AjaxComponent, SupportsMarkup {
 
   private static final Log LOG = LogFactory.getLog(UIInput.class);
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Input";
 
   private Boolean readonly;
   private Boolean password;
+  private String markup;
   private javax.faces.el.MethodBinding suggestMethod;
 
   public void restoreState(FacesContext context, Object state) {
@@ -45,15 +47,33 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
     suggestMethod = (MethodBinding) restoreAttachedState(context, values[1]);
     readonly = (Boolean) values[2];
     password = (Boolean) values[3];
+    markup = (String) values[4];
   }
 
   public Object saveState(FacesContext context) {
-    Object[] values = new Object[4];
+    Object[] values = new Object[5];
     values[0] = super.saveState(context);
     values[1] = saveAttachedState(context, suggestMethod);
     values[2] = readonly;
     values[3] = password;
+    values[4] = markup;
     return values;
+  }
+
+  public String getMarkup() {
+    if (markup != null) {
+      return markup;
+    }
+    ValueBinding vb = getValueBinding(ATTR_MARKUP);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return null;
+    }
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 
   public boolean isReadonly() {
