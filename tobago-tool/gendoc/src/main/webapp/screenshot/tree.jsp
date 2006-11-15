@@ -59,6 +59,9 @@
           <%--<tc:gridLayout rows="300px;1*" />--%>
           <tc:gridLayout rows="200px;300px;1*" />
         </f:facet>
+
+        <tc:out value="Under construction"/>
+
         <tc:tree state="#{treeState}" id="screenshotTree"
             idReference="userObject"
             nameReference="userObject"
@@ -69,7 +72,9 @@
             selectable="single"
             mutable="false">
           <tc:treeNode label="Root">
-            <tc:treeNodes value="#{tree}"/>
+            <tc:treeNodes value="#{tree}" var="node">
+              <tc:treeNode label="#{node.userObject}"/>
+            </tc:treeNodes>
             <tc:treeNode label="Sub 1"/>
             <tc:treeNode label="Sub 2"/>
             <tc:treeNode label="Sub 3">
@@ -91,7 +96,6 @@
             mode="menu"
             />
 --%>
-        <tc:out value="Under construction"/>
 
         <tc:cell/>
 

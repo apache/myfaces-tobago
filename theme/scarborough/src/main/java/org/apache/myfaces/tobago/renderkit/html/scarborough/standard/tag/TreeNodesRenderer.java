@@ -18,12 +18,20 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.component.UITreeNodes;
+import org.apache.myfaces.tobago.component.UITreeNode;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
+import java.util.Enumeration;
 
 public class TreeNodesRenderer extends RendererBase {
+
+  private static final Log LOG = LogFactory.getLog(TreeNodesRenderer.class);
 
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
@@ -32,6 +40,26 @@ public class TreeNodesRenderer extends RendererBase {
   @Override
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
-  }
 
+    UITreeNodes nodes = (UITreeNodes) component;
+    String var = nodes.getVar();
+
+    DefaultMutableTreeNode tree = (DefaultMutableTreeNode) nodes.getValue();
+
+    for (Enumeration e = tree.depthFirstEnumeration(); e.hasMoreElements(); ) {
+      DefaultMutableTreeNode node = (DefaultMutableTreeNode) e.nextElement();
+
+      if (node == null) { // XXX hotfix
+        LOG.warn("node is null");
+        continue;
+      }
+      // todo put into var (request context)
+      facesContext.getExternalContext().getRequestMap().put(var, node);
+      UITreeNode template = nodes.getTemplateComponent();
+      template.encodeBegin(facesContext);
+      template.encodeChildren(facesContext);
+      template.encodeEnd(facesContext);
+      facesContext.getExternalContext().getRequestMap().remove(var);
+    }
+  }
 }

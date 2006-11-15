@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.swing.tree.TreeNode;
@@ -33,6 +32,9 @@ public class UITreeNodes extends javax.faces.component.UIInput {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TreeNodes";
 
+  private String var;
+
+/*
   public void encodeBegin(FacesContext facesContext)
       throws IOException {
     recreateTreeNodes();
@@ -65,6 +67,7 @@ public class UITreeNodes extends javax.faces.component.UIInput {
       LOG.error(e, e);
     }
   }
+*/
 
   public UITreeNode getRoot() {
     // find the UITreeNode in the childen.
@@ -122,4 +125,21 @@ public class UITreeNodes extends javax.faces.component.UIInput {
     // TODO: updateing the model here and *NOT* in the decode phase
   }
 
+  public UITreeNode getTemplateComponent() {
+    for (Object child : getChildren()) {
+      if (child instanceof UITreeNode) {
+        return (UITreeNode) child;
+      }
+    }
+    return null;
+  }
+
+
+  public String getVar() {
+    return var;
+  }
+
+  public void setVar(String var) {
+    this.var = var;
+  }
 }

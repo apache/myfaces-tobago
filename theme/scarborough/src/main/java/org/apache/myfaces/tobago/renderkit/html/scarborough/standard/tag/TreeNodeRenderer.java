@@ -32,6 +32,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
+import org.apache.myfaces.tobago.component.UITreeNodes;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
@@ -158,6 +159,8 @@ public class TreeNodeRenderer extends RendererBase {
     String parentClientId = null;
     if (parent != null && parent instanceof UITreeNode) { // if not the root node
       parentClientId = treeNode.getParent().getClientId(facesContext);
+    } else if (parent != null && parent instanceof UITreeNodes) {
+      parentClientId = treeNode.getParent().getParent().getClientId(facesContext);
     }
 
     UITree root = treeNode.findTreeRoot();

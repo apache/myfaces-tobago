@@ -80,7 +80,10 @@ public class UITreeNode extends UIInput {
 
   public Object getValue() {
     TreeNode value = null;
-    UITree root = findTreeRoot();
+    UITreeNodes root = findTreeNodesRoot();
+    if (root == null) {
+      return null;
+    }
     String subReference = getSubReference();
     if (LOG.isDebugEnabled()) {
       LOG.debug("root         = '" + root + "'");
@@ -160,7 +163,7 @@ public class UITreeNode extends UIInput {
   @SuppressWarnings("unchecked")
   private Object getReference(TreeNode treeNode, String key) {
     Object value = null;
-    UITree root = findTreeRoot();
+    UITreeNodes root = findTreeNodesRoot();
     String reference = (String) root.getAttributes().get(key);
     if (reference != null) {
       try {
@@ -182,11 +185,23 @@ public class UITreeNode extends UIInput {
 
   public UITree findTreeRoot() {
     UIComponent ancestor = getParent();
-    while (ancestor != null && ancestor instanceof UITreeNode) {
+    while (ancestor != null
+        && (ancestor instanceof UITreeNode || ancestor instanceof UITreeNodes)) {
       ancestor = ancestor.getParent();
     }
     if (ancestor instanceof UITree) {
       return (UITree) ancestor;
+    }
+    return null;
+  }
+
+  public UITreeNodes findTreeNodesRoot() {
+    UIComponent ancestor = getParent();
+    while (ancestor != null && ancestor instanceof UITreeNode) {
+      ancestor = ancestor.getParent();
+    }
+    if (ancestor instanceof UITreeNodes) {
+      return (UITreeNodes) ancestor;
     }
     return null;
   }

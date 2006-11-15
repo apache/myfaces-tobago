@@ -17,21 +17,17 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.UITree;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VAR;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITreeNodes;
-import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.ActionSource;
 
 public class TreeNodesTag extends TobagoTag implements TreeNodesTagDeclaration {
 
-  private static final Log LOG = LogFactory.getLog(TreeNodesTag.class);
-
   private String value;
+  private String var;
 
   public String getComponentType() {
     return UITreeNodes.COMPONENT_TYPE;
@@ -40,12 +36,14 @@ public class TreeNodesTag extends TobagoTag implements TreeNodesTagDeclaration {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    ComponentUtil.setStringProperty(component, TobagoConstants.ATTR_VALUE, value);
+    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
+    ComponentUtil.setStringProperty(component, ATTR_VAR, var);
   }
 
   public void release() {
     super.release();
     value = null;
+    var = null;
   }
 
   public String getValue() {
@@ -56,4 +54,11 @@ public class TreeNodesTag extends TobagoTag implements TreeNodesTagDeclaration {
     this.value = value;
   }
 
+  public String getVar() {
+    return var;
+  }
+
+  public void setVar(String var) {
+    this.var = var;
+  }
 }
