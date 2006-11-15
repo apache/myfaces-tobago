@@ -46,7 +46,7 @@ public class TreeNodesRenderer extends RendererBase {
 
     DefaultMutableTreeNode tree = (DefaultMutableTreeNode) nodes.getValue();
 
-    for (Enumeration e = tree.depthFirstEnumeration(); e.hasMoreElements(); ) {
+    for (Enumeration e = tree.depthFirstEnumeration(); e.hasMoreElements();) {
       DefaultMutableTreeNode node = (DefaultMutableTreeNode) e.nextElement();
 
       if (node == null) { // XXX hotfix
