@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.sandbox;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -32,6 +32,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
+import org.apache.myfaces.tobago.taglib.component.TobagoTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -66,11 +67,6 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
   private String actionListener;
 
   private String mode;
-
-  public TreeTag() {
-    LOG.warn("tc:tree is under construction. If you want to use the \"old\""
-        + " tree, please use the tc:treeOld Tag");
-  }
 
   public String getComponentType() {
     return UITree.COMPONENT_TYPE;

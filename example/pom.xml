@@ -95,6 +95,7 @@
         <module>demo</module>
         <module>foreach</module>
         <module>nonfacesrequest</module>
+        <module>sandbox</module>
         <module>security</module>
         <module>test</module>
         <module>facelets</module>

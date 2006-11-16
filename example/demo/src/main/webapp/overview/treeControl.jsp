@@ -38,7 +38,7 @@
           <tc:gridLayout columns="2*;1*" />
         </f:facet>
 
-            <tc:treeOld value="#{demo.tree}" state="#{demo.treeState}" id="tree"
+            <tc:tree value="#{demo.tree}" state="#{demo.treeState}" id="tree"
                 idReference="userObject.id"
                 nameReference="userObject.name"
                 showIcons="#{demo.showIcons}"
@@ -49,7 +49,7 @@
                 mutable="#{demo.mutable}"
                 >
               <f:actionListener type="org.apache.myfaces.tobago.example.demo.actionlistener.TreeEditor" />
-            </tc:treeOld>
+            </tc:tree>
 
             <tc:panel>
               <f:facet name="layout">

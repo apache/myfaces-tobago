@@ -24,7 +24,7 @@ package org.apache.myfaces.tobago.event;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.UITree;
+import org.apache.myfaces.tobago.component.UITreeOld;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.TreeState;
 
@@ -58,12 +58,12 @@ public class DefaultTreeActionListener implements ActionListener {
       // component is toolbar
       component = component.getParent();
     }
-    if (!(component instanceof UITree)) {
+    if (!(component instanceof UITreeOld)) {
       LOG.error("No tree found!");
       return;
     }
 
-    UITree tree = (UITree) component;
+    UITreeOld tree = (UITreeOld) component;
     TreeState treeState = tree.getState();
     DefaultMutableTreeNode marker = treeState.getMarker();
     String command = actionEvent.getComponent().getId();
@@ -77,33 +77,33 @@ public class DefaultTreeActionListener implements ActionListener {
     }
     if (marker != null) {
       boolean isRoot = tree.getValue().equals(marker);
-      if (UITree.COMMAND_NEW.equals(command)) {
+      if (UITreeOld.COMMAND_NEW.equals(command)) {
         treeState.commandNew(create(facesContext));
-      } else if (UITree.COMMAND_DELETE.equals(command)) {
+      } else if (UITreeOld.COMMAND_DELETE.equals(command)) {
         if (!isRoot) {
           marker.removeFromParent();
         }
         treeState.setLastMarker(null);
         treeState.setLastCommand(null);
-      } else if (UITree.COMMAND_CUT.equals(command)) {
+      } else if (UITreeOld.COMMAND_CUT.equals(command)) {
         if (!isRoot) {
           treeState.setLastMarker(marker);
           treeState.setLastCommand(command);
         }
-      } else if (UITree.COMMAND_COPY.equals(command)) {
+      } else if (UITreeOld.COMMAND_COPY.equals(command)) {
         treeState.setLastMarker(marker);
         treeState.setLastCommand(command);
-      } else if (UITree.COMMAND_PASTE.equals(command)) {
+      } else if (UITreeOld.COMMAND_PASTE.equals(command)) {
         if (treeState.getLastMarker() != null) {
-          if (UITree.COMMAND_CUT.equals(treeState.getLastCommand())) {
+          if (UITreeOld.COMMAND_CUT.equals(treeState.getLastCommand())) {
             marker.insert(treeState.getLastMarker(), 0);
-          } else if (UITree.COMMAND_COPY.equals(treeState.getLastCommand())) {
+          } else if (UITreeOld.COMMAND_COPY.equals(treeState.getLastCommand())) {
             marker.insert(copy(treeState.getLastMarker()), 0);
           }
           treeState.setLastMarker(null);
           treeState.setLastCommand(null);
         }
-      } else if (UITree.COMMAND_MOVE_UP.equals(command)) {
+      } else if (UITreeOld.COMMAND_MOVE_UP.equals(command)) {
         if (!isRoot) {
           MutableTreeNode node = marker;
           MutableTreeNode parent = (MutableTreeNode) node.getParent();
@@ -113,7 +113,7 @@ public class DefaultTreeActionListener implements ActionListener {
         }
         treeState.setLastMarker(null);
         treeState.setLastCommand(null);
-      } else if (UITree.COMMAND_MOVE_DOWN.equals(command)) {
+      } else if (UITreeOld.COMMAND_MOVE_DOWN.equals(command)) {
         if (!isRoot) {
           MutableTreeNode node = marker;
           MutableTreeNode parent = (MutableTreeNode) node.getParent();

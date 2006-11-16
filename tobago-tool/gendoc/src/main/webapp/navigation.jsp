@@ -101,11 +101,8 @@
 
     <%--<tc:link link="screenshot/toolBarSelectOne.jsp"  label="TooBarSelectOne"  target="View"/>--%>
 
-    <tc:link link="screenshot/tree.jsp"
-             label="Tree" target="View"/>
-
     <tc:link link="screenshot/treeOld.jsp"
-             label="Tree Old" target="View"/>
+             label="Tree" target="View"/>
 
     <tc:link link="screenshot/treeListBox.jsp"
              label="TreeListBox" target="View"/>

@@ -47,44 +47,44 @@
   session.setAttribute("treeState", treeState);
 %>
 
+<%@ taglib uri="http://myfaces.apache.org/tobago/sandbox" prefix="tcs" %>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
-<layout:screenshot>
-  <f:subview id="tree">
-    <jsp:body>
-      <tc:panel>
-        <f:facet name="layout">
-          <%--<tc:gridLayout rows="300px;1*" />--%>
-          <tc:gridLayout rows="200px;300px;1*" />
-        </f:facet>
-        <tc:tree state="#{treeState}" value="#{tree}" id="screenshotTree"
-            idReference="userObject"
-            nameReference="userObject"
-            showIcons="true"
-            showJunctions="true"
-            showRootJunction="true"
-            showRoot="true"
-            selectable="single"
-            mutable="false"
-            />
+<f:view>
+  <tc:loadBundle basename="demo" var="bundle"/>
 
-        <tc:tree state="#{treeState}" value="#{tree}"
-            idReference="userObject"
-            nameReference="userObject"
-            showIcons="false"
-            showJunctions="false"
-            showRootJunction="false"
-            showRoot="false"
-            mode="menu"
-            />
+  <tc:page label="Screenshot" id="page"
+           width="750px" height="800px">
+    <f:facet name="layout">
+      <tc:gridLayout margin="10px" rows="300px;*"/>
+    </f:facet>
 
-        <tc:cell/>
+    <tcs:tree state="#{treeState}" id="screenshotTree"
+              idReference="userObject"
+              nameReference="userObject"
+              showIcons="true"
+              showJunctions="true"
+              showRootJunction="true"
+              showRoot="true"
+              selectable="single"
+              mutable="false">
+      <tcs:treeNode label="Root">
+        <tcs:treeNodes value="#{tree}" var="node">
+          <tcs:treeNode label="#{node.userObject}"/>
+        </tcs:treeNodes>
+        <tcs:treeNode label="Sub 1"/>
+        <tcs:treeNode label="Sub 2"/>
+        <tcs:treeNode label="Sub 3">
+          <tcs:treeNode label="Sub 3.1"/>
+          <tcs:treeNode label="Sub 3.2"/>
+        </tcs:treeNode>
+        <tcs:treeNode label="Sub 4"/>
+      </tcs:treeNode>
+    </tcs:tree>
 
-      </tc:panel>
+    <tc:cell/>
 
-    </jsp:body>
-  </f:subview>
-</layout:screenshot>
-
+  </tc:page>
+</f:view>

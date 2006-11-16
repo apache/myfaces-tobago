@@ -1,6 +1,6 @@
-package org.apache.myfaces.tobago.taglib.component;
+<?xml version="1.0" encoding="UTF-8"?>
 
-/*
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,15 +15,12 @@ package org.apache.myfaces.tobago.taglib.component;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+-->
+<!--
+    Context configuration file for the Tomcat Manager Web App
 
-import org.apache.myfaces.tobago.component.UITreeNode;
+    antiResourceLocking is needed  for proper redeploy under Windows.
+-->
 
-public class TreeNodeTag extends TobagoTag implements TreeNodeTagDeclaration {
-
-  @Override
-  public String getComponentType() {
-    return UITreeNode.COMPONENT_TYPE;
-  }
-
-}
+<Context antiResourceLocking="true" >
+</Context>

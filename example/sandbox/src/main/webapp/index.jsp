@@ -1,6 +1,4 @@
-package org.apache.myfaces.tobago.taglib.component;
-
-/*
+<%--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,22 +13,5 @@ package org.apache.myfaces.tobago.taglib.component;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-
-import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasLabel;
-
-/**
- * Creates a tree node.
- */
-@Tag(name = "treeNode")
-@BodyContentDescription(anyTagOf = "<f:facet>* <f:actionListener>?") // fixme
-@UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UITreeNode",
-    rendererType = "TreeNode")
-public interface TreeNodeTagDeclaration extends TobagoTagDeclaration,
-    HasIdBindingAndRendered, HasLabel {
-}
+--%>
+<jsp:forward page="faces/tree.jsp" />;

@@ -22,7 +22,7 @@ import junit.framework.TestCase;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.tagext.Tag;
 
-abstract public class GenericTestBase extends TestCase {
+public abstract class GenericTestBase extends TestCase {
 // ----------------------------------------------------------- class attributes
 
 // ----------------------------------------------------------------- attributes
@@ -68,7 +68,7 @@ abstract public class GenericTestBase extends TestCase {
       new TextAreaTag(),
       new OutTag(),
       new ToolBarTag(),
-      new TreeTag(),
+      new TreeOldTag(),
     };
     ordinaryTagList = new Tag[]{
       new IncludeTag(),

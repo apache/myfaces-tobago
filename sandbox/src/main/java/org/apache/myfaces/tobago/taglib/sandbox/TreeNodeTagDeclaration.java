@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.sandbox;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -18,26 +18,20 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
-import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasTreeNodeValue;
-import org.apache.myfaces.tobago.taglib.decl.HasVar;
+import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
 
 /**
- * Describes a subtree of nodes.
+ * Creates a tree node.
  */
-@Tag(name = "treeNodes")
+@Tag(name = "treeNode")
 @BodyContentDescription(anyTagOf = "<f:facet>* <f:actionListener>?") // fixme
-@Preliminary(
-    "Under Construction! Implement a var attribute for the tree like in the sheet "
-        + "(http://issues.apache.org/jira/browse/TOBAGO-18). If you need the \"old\" implementation "
-        + "please use the tc:treeOld tag!")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UITreeNodes",
-    rendererType = "TreeNodes")
-public interface TreeNodesTagDeclaration extends TobagoTagDeclaration,
-    HasIdBindingAndRendered, HasTreeNodeValue, HasVar {
-
+    uiComponent = "org.apache.myfaces.tobago.component.UITreeNode",
+    rendererType = "TreeNode")
+public interface TreeNodeTagDeclaration extends TobagoTagDeclaration,
+    HasIdBindingAndRendered, HasLabel {
 }

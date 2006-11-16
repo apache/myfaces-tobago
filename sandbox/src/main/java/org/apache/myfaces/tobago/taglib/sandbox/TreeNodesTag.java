@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.component;
+package org.apache.myfaces.tobago.taglib.sandbox;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -21,6 +21,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VAR;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITreeNodes;
+import org.apache.myfaces.tobago.taglib.component.TobagoTag;
 
 import javax.faces.component.UIComponent;
 
