@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
  * Describes a subtree of nodes.
  */
 @Tag(name = "treeNodes")
-@BodyContentDescription(anyTagOf = "<f:facet>* <f:actionListener>?") // fixme
+@BodyContentDescription(anyTagOf = "<tcs:treeNode>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeNodes",
     rendererType = "TreeNodes")

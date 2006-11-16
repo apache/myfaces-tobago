@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
  * Creates a tree node.
  */
 @Tag(name = "treeNode")
-@BodyContentDescription(anyTagOf = "<f:facet>* <f:actionListener>?") // fixme
+@BodyContentDescription(anyTagOf = "<tcs:treeNode>* <tcs:treeNodes>*")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeNode",
     rendererType = "TreeNode")

@@ -41,7 +41,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
  * Renders a tree view.
  */
 @Tag(name = "tree")
-@BodyContentDescription(anyTagOf = "<f:facet>* <f:actionListener>?") // fixme
+@BodyContentDescription(anyTagOf = "<tcs:treeNode>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITree",
     rendererType = "Tree")

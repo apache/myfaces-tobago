@@ -30,10 +30,12 @@ public class TreeNodesTag extends TobagoTag implements TreeNodesTagDeclaration {
   private String value;
   private String var;
 
+  @Override
   public String getComponentType() {
     return UITreeNodes.COMPONENT_TYPE;
   }
 
+  @Override
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
@@ -41,6 +43,7 @@ public class TreeNodesTag extends TobagoTag implements TreeNodesTagDeclaration {
     ComponentUtil.setStringProperty(component, ATTR_VAR, var);
   }
 
+  @Override
   public void release() {
     super.release();
     value = null;

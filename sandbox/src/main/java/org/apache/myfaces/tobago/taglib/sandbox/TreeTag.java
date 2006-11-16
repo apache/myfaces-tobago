@@ -33,19 +33,11 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.taglib.component.TobagoTag;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 
-/**
- * XXX: Warning: This code is under construction. If you want to use the "old"
- * XXX: tree, please use the tc:treeOld Tag.
- */
 public class TreeTag extends TobagoTag implements TreeTagDeclaration {
-
-  private static final Log LOG = LogFactory.getLog(TreeTag.class);
 
   private String value;
   private String state;
@@ -68,10 +60,12 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
 
   private String mode;
 
+  @Override
   public String getComponentType() {
     return UITree.COMPONENT_TYPE;
   }
 
+  @Override
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
@@ -94,6 +88,7 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
     ComponentUtil.setStringProperty(component, ATTR_MODE, mode);
   }
 
+  @Override
   public void release() {
     super.release();
     value = null;
