@@ -18,11 +18,11 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
-import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasIdReference;
@@ -30,7 +30,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasNameReference;
 import org.apache.myfaces.tobago.taglib.decl.HasState;
 import org.apache.myfaces.tobago.taglib.decl.HasTreeNodeValue;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
-import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
 
 /*
  * Created by IntelliJ IDEA.
