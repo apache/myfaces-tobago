@@ -627,7 +627,7 @@
         <module>example</module>
         <module>contrib</module>
         <module>tobago-assembly</module>
-        <module>tobago-sandbox</module>
+        <module>sandbox</module>
       </modules>
     </profile>
     <profile>

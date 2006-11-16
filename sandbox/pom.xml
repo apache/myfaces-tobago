@@ -147,9 +147,9 @@
   </reporting>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-sandbox</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-sandbox</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/trunk/tobago-sanbox</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/sandbox</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/sandbox</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/trunk/sanbox</url>
   </scm>
 
   <dependencies>
