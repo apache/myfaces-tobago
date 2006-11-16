@@ -24,7 +24,7 @@
   </parent>
   <artifactId>gendoc</artifactId>
   <packaging>war</packaging>
-  <name>Tobago gendoc</name>
+  <name>Tobago Gendoc</name>
   <build>
     <finalName>gendoc</finalName>
     <plugins>
