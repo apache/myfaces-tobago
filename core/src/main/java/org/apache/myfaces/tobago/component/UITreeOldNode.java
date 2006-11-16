@@ -189,27 +189,4 @@ public class UITreeOldNode extends javax.faces.component.UIInput {
     // nothig to update for treeNode's
   }
 
-  protected Object checkValue(Object currentValue) {
-
-    if (currentValue == null) {
-      LOG.error("currentValue is null");
-      currentValue = emergencyValue();
-    }
-
-    if (!(currentValue instanceof MutableTreeNode)) {
-      LOG.error("currentValue is not valid: '" + currentValue + "'");
-      LOG.error(
-          "currentValue is not of type '"
-          + MutableTreeNode.class.getName() + "': '"
-          + currentValue.getClass().getName() + "'");
-      currentValue = emergencyValue();
-    }
-
-    return currentValue;
-  }
-
-  protected Object emergencyValue() {
-    return new DefaultMutableTreeNode("Default");
-  }
-
 }
