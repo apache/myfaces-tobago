@@ -154,13 +154,21 @@ public class TreeNodeRenderer extends RendererBase {
     UITreeNode treeNode = (UITreeNode) component;
 
     String clientId = treeNode.getClientId(facesContext);
+    String pos = treeNode.getNodeId();
+    clientId += pos != null ? pos : "";
     UIComponent parent = treeNode.getParent();
 
     String parentClientId = null;
     if (parent != null && parent instanceof UITreeNode) { // if not the root node
       parentClientId = treeNode.getParent().getClientId(facesContext);
     } else if (parent != null && parent instanceof UITreeNodes) {
-      parentClientId = treeNode.getParent().getParent().getClientId(facesContext);
+      if (pos.equals(":0")) {
+        UIComponent superParent = treeNode.getParent().getParent();
+        parentClientId = superParent.getClientId(facesContext);
+      } else {
+        parentClientId = treeNode.getClientId(facesContext);
+        parentClientId += treeNode.getParentNodeId();
+      }
     }
 
     UITree root = treeNode.findTreeRoot();
@@ -207,7 +215,7 @@ public class TreeNodeRenderer extends RendererBase {
       writer.writeText("',", null);
 
       // is folder
-      writer.writeText(component.getChildCount() > 0, null);
+      writer.writeText(treeNode.isFolder(), null);
       writer.writeText(",", null);
       writer.writeText(Boolean.toString(!root.isShowIcons()), null);
       writer.writeText(",", null);
@@ -238,9 +246,9 @@ public class TreeNodeRenderer extends RendererBase {
           ATTR_MUTABLE)), null);
       writer.writeText(",'", null);
       writer.writeText(
-          ComponentUtil.findPage(component).getFormId(facesContext), null);
+          ComponentUtil.findPage(treeNode).getFormId(facesContext), null);
       writer.writeText("',", null);
-      if (component.getChildCount() == 0
+      if (treeNode.getChildCount() == 0
           || (selectable != null && !selectable.endsWith("LeafOnly"))) {
         boolean selected = treeState.isSelected(node);
         writer.writeText(Boolean.toString(selected), null);

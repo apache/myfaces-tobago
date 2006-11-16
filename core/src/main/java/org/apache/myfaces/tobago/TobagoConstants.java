@@ -41,6 +41,7 @@ public final class TobagoConstants {
   public static final String ATTR_DEFAULT_COMMAND = "defaultCommand";
   public static final String ATTR_DIRECT_LINK_COUNT = "directLinkCount";
   public static final String ATTR_DISABLED = "disabled";
+  @Deprecated
   public static final String ATTR_DISABLED_REFERENCE = "disabledReference";
   public static final String ATTR_DOCTYPE = "doctype";
   public static final String ATTR_ENCTYPE = "enctype";
@@ -59,6 +60,7 @@ public final class TobagoConstants {
   public static final String ATTR_HOVER = "hover";
   public static final String ATTR_I18N = "i18n";
   public static final String ATTR_ICON_SIZE = "iconSize";
+  @Deprecated
   public static final String ATTR_ID_REFERENCE = "idReference";
   public static final String ATTR_IMMEDIATE = "immediate";
   public static final String ATTR_IMAGE = "image";
@@ -89,6 +91,7 @@ public final class TobagoConstants {
   public static final String ATTR_MODE = "mode";
   public static final String ATTR_MUTABLE = "mutable";
   public static final String ATTR_NAME = "name";
+  @Deprecated
   public static final String ATTR_NAME_REFERENCE = "nameReference";
   public static final String ATTR_NAVIGATE = "navigate";
   public static final String ATTR_NUMBER_STYLE = "numberStyle";

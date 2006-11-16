@@ -54,21 +54,38 @@
 <f:view>
   <tc:loadBundle basename="demo" var="bundle"/>
 
-  <tc:page label="Screenshot" id="page"
-           width="750px" height="800px">
+  <tc:page label="Sandbox - Tree" id="page"
+           width="500px" height="800px">
     <f:facet name="layout">
-      <tc:gridLayout margin="10px" rows="300px;*"/>
+      <tc:gridLayout margin="10px" rows="300px;300px;*"/>
     </f:facet>
 
-    <tcs:tree state="#{treeState}" id="screenshotTree"
-              idReference="userObject"
-              nameReference="userObject"
+    <tcs:tree state="#{treeState}" id="menu"
+              showIcons="false"
+              showJunctions="false"
+              showRootJunction="false"
+              showRoot="true"
+              mode="menu">
+      <tcs:treeNode label="Root">
+        <tcs:treeNodes value="#{tree}" var="node">
+          <tcs:treeNode label="#{node.userObject}"/>
+        </tcs:treeNodes>
+        <tcs:treeNode label="Sub 1"/>
+        <tcs:treeNode label="Sub 2"/>
+        <tcs:treeNode label="Sub 3">
+          <tcs:treeNode label="Sub 3.1"/>
+          <tcs:treeNode label="Sub 3.2"/>
+        </tcs:treeNode>
+        <tcs:treeNode label="Sub 4"/>
+      </tcs:treeNode>
+    </tcs:tree>
+
+    <tcs:tree state="#{treeState}" id="tree"
               showIcons="true"
               showJunctions="true"
               showRootJunction="true"
               showRoot="true"
-              selectable="single"
-              mutable="false">
+              selectable="single">
       <tcs:treeNode label="Root">
         <tcs:treeNodes value="#{tree}" var="node">
           <tcs:treeNode label="#{node.userObject}"/>

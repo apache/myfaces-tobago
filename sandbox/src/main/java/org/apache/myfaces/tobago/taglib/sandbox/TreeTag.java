@@ -17,11 +17,8 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED_REFERENCE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ID_REFERENCE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MODE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MUTABLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_NAME_REFERENCE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ICONS;
@@ -50,10 +47,6 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
   private String selectable;
   private String mutable;
 
-  private String idReference;
-  private String nameReference;
-  private String disabledReference;
-
   private String required;
 
   private String actionListener;
@@ -80,9 +73,6 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
     ComponentUtil.setStringProperty(component, ATTR_SELECTABLE, selectable);
     ComponentUtil.setBooleanProperty(component, ATTR_MUTABLE, mutable);
 
-    ComponentUtil.setStringProperty(component, ATTR_ID_REFERENCE, idReference);
-    ComponentUtil.setStringProperty(component, ATTR_NAME_REFERENCE, nameReference);
-    ComponentUtil.setStringProperty(component, ATTR_DISABLED_REFERENCE, disabledReference);
     ComponentUtil.setBooleanProperty(component, ATTR_REQUIRED, required);
     ComponentUtil.setActionListener((ActionSource) component, actionListener);
     ComponentUtil.setStringProperty(component, ATTR_MODE, mode);
@@ -99,9 +89,6 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
     showRootJunction = null;
     selectable = null;
     mutable = null;
-    idReference = null;
-    nameReference = null;
-    disabledReference = null;
     required = null;
     actionListener = null;
     mode = null;
@@ -162,14 +149,6 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
     this.showRootJunction = showRootJunction;
   }
 
-  public String getIdReference() {
-    return idReference;
-  }
-
-  public void setIdReference(String idReference) {
-    this.idReference = idReference;
-  }
-
   public String getSelectable() {
     return selectable;
   }
@@ -184,22 +163,6 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
 
   public void setMutable(String mutable) {
     this.mutable = mutable;
-  }
-
-  public String getNameReference() {
-    return nameReference;
-  }
-
-  public void setNameReference(String nameReference) {
-    this.nameReference = nameReference;
-  }
-
-  public String getDisabledReference() {
-    return disabledReference;
-  }
-
-  public void setDisabledReference(String disabledReference) {
-    this.disabledReference = disabledReference;
   }
 
   public String getRequired() {

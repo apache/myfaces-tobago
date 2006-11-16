@@ -25,8 +25,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasIdReference;
-import org.apache.myfaces.tobago.taglib.decl.HasNameReference;
 import org.apache.myfaces.tobago.taglib.decl.HasState;
 import org.apache.myfaces.tobago.taglib.decl.HasTreeNodeValue;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
@@ -47,7 +45,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
     rendererType = "Tree")
 public interface TreeTagDeclaration extends TobagoTagDeclaration,
     HasIdBindingAndRendered, HasTreeNodeValue, HasState,
-    HasIdReference, HasActionListener, HasNameReference, IsRequired {
+    HasActionListener, IsRequired {
 
   /**
    * Flag indicating whether or not this component should be render selectable items.
@@ -92,16 +90,6 @@ public interface TreeTagDeclaration extends TobagoTagDeclaration,
       defaultValue = "false")
   void setShowRoot(String showRoot);
   
-  /**
-   * Bean property reference to fetch the disabled state for the treeNode's.<br>
-   * Example:<br>
-   *   a disabledReference="userObject.disabled" try's to invoke
-   *   <code>&lt;UITreeNode>.getUserObject().getDisabled()<code> to fetch the state.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute()
-  void setDisabledReference(String id);
-
   /**
    * Display option: Normal tree or menu.
    */

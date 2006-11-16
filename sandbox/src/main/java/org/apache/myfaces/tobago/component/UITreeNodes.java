@@ -19,12 +19,15 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.swing.tree.TreeNode;
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Enumeration;
 
 public class UITreeNodes extends javax.faces.component.UIInput {
 
@@ -83,6 +86,43 @@ public class UITreeNodes extends javax.faces.component.UIInput {
 
   public void encodeChildren(FacesContext context)
       throws IOException {
+  }
+
+
+  public void encodeEnd(FacesContext facesContext) throws IOException {
+
+    DefaultMutableTreeNode tree = (DefaultMutableTreeNode) getValue();
+
+    encodeNodes(tree, "", 0, facesContext);
+
+    super.encodeEnd(facesContext);
+  }
+
+  private void encodeNodes(DefaultMutableTreeNode node, String position,
+      int index, FacesContext facesContext) throws IOException {
+
+    if (node == null) { // XXX hotfix
+      LOG.warn("node is null");
+      return;
+    }
+
+    UITreeNode template = getTemplateComponent();
+    template.setParentNodeId(position);
+    position += ":" + index;
+    template.setNodeId(position);
+
+    facesContext.getExternalContext().getRequestMap().put(var, node);
+    template.setCurrentNode(node);
+    RenderUtil.encode(facesContext, template);
+    facesContext.getExternalContext().getRequestMap().remove(var);
+    template.setCurrentNode(null);
+
+    index = 0;
+    for (Enumeration e = node.children(); e.hasMoreElements();) {
+      DefaultMutableTreeNode subNode = (DefaultMutableTreeNode) e.nextElement();
+      encodeNodes(subNode, position, index, facesContext);
+      index++;
+    }
   }
 
   public UITreeNode findUITreeNode(UITreeNode node, TreeNode treeNode) {
