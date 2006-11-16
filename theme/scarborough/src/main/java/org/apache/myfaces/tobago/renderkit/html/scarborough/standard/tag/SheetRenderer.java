@@ -354,8 +354,7 @@ public class SheetRenderer extends RendererBase
 
         final String style = "width: " + columnWidths.get(columnIndex) + "px;";
         String tdStyle = "";
-        final String align = (String) column.getAttributes().get(
-            ATTR_ALIGN);
+        final String align = (String) column.getAttributes().get(ATTR_ALIGN);
         if (align != null) {
           tdStyle = "text-align: " + align;
         }
@@ -367,7 +366,7 @@ public class SheetRenderer extends RendererBase
         if (columnIndex == 0) {
           tdClass.append("tobago-sheet-cell-first-column ");
         }
-        if (cellClass !=null) {
+        if (cellClass != null) {
           tdClass.append(cellClass);
         }
 
