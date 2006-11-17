@@ -55,7 +55,6 @@ import javax.faces.event.FacesEvent;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Iterator;

@@ -169,13 +169,13 @@ public class TreeNodeRenderer extends CommandRendererBase {
     if (parent != null && parent instanceof UITreeNode) { // if not the root node
       parentClientId = treeNode.getParent().getClientId(facesContext);
     } else if (parent != null && parent instanceof UITreeNodes) {
-      pos = ((UITreeNodes)parent).getCurrentNodeId();
+      pos = ((UITreeNodes) parent).getCurrentNodeId();
       if (":0".equals(pos)) {
         UIComponent superParent = parent.getParent();
         parentClientId = superParent.getClientId(facesContext);
       } else {
         parentClientId = treeNode.getClientId(facesContext);
-        parentClientId += ((UITreeNodes)parent).getCurrentParentNodeId();
+        parentClientId += ((UITreeNodes) parent).getCurrentParentNodeId();
       }
       DefaultMutableTreeNode currentNode =
           ((UITreeNodes) parent).getCurrentNode();
