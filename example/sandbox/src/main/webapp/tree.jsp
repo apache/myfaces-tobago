@@ -67,16 +67,19 @@
               showRoot="true"
               mode="menu">
       <tcs:treeNode label="Root">
+<%--
         <tcs:treeNodes value="#{tree}" var="node">
-          <tcs:treeNode label="#{node.userObject}"/>
+          <tcs:treeNode label="#{node.userObject}"
+                        action="#{controller.action1}"/>
         </tcs:treeNodes>
-        <tcs:treeNode label="Sub 1"/>
-        <tcs:treeNode label="Sub 2"/>
-        <tcs:treeNode label="Sub 3">
-          <tcs:treeNode label="Sub 3.1"/>
-          <tcs:treeNode label="Sub 3.2"/>
+--%>
+        <tcs:treeNode label="Action 1" action="#{controller.action1}"/>
+        <tcs:treeNode label="Action 2" action="#{controller.action2}"/>
+        <tcs:treeNode label="Action 3" action="#{controller.action3}">
+          <tcs:treeNode label="On Click 1" onclick="alert('On Click 1');"/>
+          <tcs:treeNode label="On Click 2" onclick="alert('On Click 2');"/>
         </tcs:treeNode>
-        <tcs:treeNode label="Sub 4"/>
+        <tcs:treeNode label="Link" link="http://myfaces.apache.org/tobago/"/>
       </tcs:treeNode>
     </tcs:tree>
 
@@ -87,9 +90,11 @@
               showRoot="true"
               selectable="single">
       <tcs:treeNode label="Root">
+<%--
         <tcs:treeNodes value="#{tree}" var="node">
           <tcs:treeNode label="#{node.userObject}"/>
         </tcs:treeNodes>
+--%>
         <tcs:treeNode label="Sub 1"/>
         <tcs:treeNode label="Sub 2"/>
         <tcs:treeNode label="Sub 3">

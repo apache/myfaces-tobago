@@ -18,9 +18,9 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  */
 
 import org.apache.myfaces.tobago.component.UITreeNode;
-import org.apache.myfaces.tobago.taglib.component.TobagoTag;
+import org.apache.myfaces.tobago.taglib.component.AbstractCommandTag;
 
-public class TreeNodeTag extends TobagoTag implements TreeNodeTagDeclaration {
+public class TreeNodeTag extends AbstractCommandTag implements TreeNodeTagDeclaration {
 
   @Override
   public String getComponentType() {

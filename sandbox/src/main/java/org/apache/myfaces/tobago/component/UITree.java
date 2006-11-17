@@ -266,22 +266,6 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 //     will be called from end.jsp
   }
 
-  public UITreeNode findUITreeNode(UITreeNode node, TreeNode treeNode) {
-    UITreeNode found = null;
-    if (node.getTreeNode().equals(treeNode)) {
-      return node;
-    } else {
-      for (Iterator iter = node.getChildren().iterator(); iter.hasNext();) {
-        UITreeNode uiTreeNode = (UITreeNode) iter.next();
-        found = findUITreeNode(uiTreeNode, treeNode);
-        if (found != null) {
-          break;
-        }
-      }
-    }
-    return found;
-  }
-
   public boolean getRendersChildren() {
     return true;
   }

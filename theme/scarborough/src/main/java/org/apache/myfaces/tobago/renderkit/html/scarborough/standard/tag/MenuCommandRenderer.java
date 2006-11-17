@@ -17,30 +17,31 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
-  * Created 21.09.2004 at 17:26:57.
-  * $Id$
-  */
-
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
+/**
+ * Rendering is done by MenuBarRenderer,
+ * but we need decoding in CommandRendererBase.
+ * @see MenuBarRenderer
+ * @see CommandRendererBase
+ */
 public class MenuCommandRenderer extends CommandRendererBase {
 
-  // rendering is done by MenuBarRenderer,
-  // but we need decoding in CommandRendererBase
-
+  @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component)
       throws IOException {
   }
 
+  @Override
   public void encodeChildren(FacesContext facesContext, UIComponent component)
       throws IOException {
   }
 
+  @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
   }

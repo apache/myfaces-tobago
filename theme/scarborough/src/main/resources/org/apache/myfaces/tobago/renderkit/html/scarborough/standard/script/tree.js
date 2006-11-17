@@ -296,7 +296,7 @@ function TreeNode(label, id, mode, isFolder,
     hideRoot, treeHiddenId, selectable, mutable,
     formId, selected, marked,
     expanded, required, disabled, treeResources,
-    action, parent, icon, openIcon, width) {
+    action, onclick, parent, icon, openIcon, width) {
   this.label = label;
 	this.id = id;
   Tobago.treeNodes[id] = this;
@@ -317,6 +317,7 @@ function TreeNode(label, id, mode, isFolder,
   this.disabled = disabled;
   this.treeResources = treeResources;
 	this.action = action;
+	this.onclick = onclick;
   this.icon = icon
       || treeResources.getImage("foldericon.gif");
   this.openIcon = openIcon
@@ -528,10 +529,9 @@ TreeNode.prototype.doOnClick = function() {
   LOG.debug("doClick on tree;");
   this.singleClick = false;
   if (this.action && !this.disabled) {
-    // str += '<a class="' + itemStyle + '" href="' + this.action + '" id="'
-    //      + this.id + '-anchor">' + this.label + '</a>';
-
-    // not yet supported see TreeNodeRenderer r464525 line 278
+    Tobago.navigateToUrl(this.action);
+  } else if (this.onclick && !this.disabled) {
+    eval(this.onclick);
   } else {
     if (this.mutable) {
       storeMarker(Tobago.element(this.id), this.treeHiddenId);

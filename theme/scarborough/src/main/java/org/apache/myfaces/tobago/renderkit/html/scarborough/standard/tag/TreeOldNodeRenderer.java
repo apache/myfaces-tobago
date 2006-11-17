@@ -274,6 +274,10 @@ public class TreeOldNodeRenderer extends RendererBase {
       writer.writeText("null", null);
       writer.writeText(",", null);
 
+      // onclick (not implemented)
+      writer.writeText("null", null);
+      writer.writeText(",", null);
+
       // parent
       if (jsParentClientId != null) {
         writer.writeText(jsParentClientId, null);

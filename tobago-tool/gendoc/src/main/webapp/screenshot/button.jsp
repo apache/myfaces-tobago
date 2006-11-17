@@ -23,13 +23,21 @@
     <f:subview id="button">
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="100px;*" rows="fixed;*" />
+          <tc:gridLayout columns="100px;*" rows="fixed;fixed;fixed;*" />
         </f:facet>
         <%-- code-sniplet-start id="button" --%>
         <tc:button label="Submit"/>
         <%-- code-sniplet-end id="button" --%>
         <tc:cell/>
-        <tc:cell spanX="2"/>
+
+        <tc:button label="On Click" onclick="alert('Hallo Tobago!');"/>
+        <tc:cell/>
+
+        <tc:button label="Link" link="http://myfaces.apache.org/tobago/"/>
+        <tc:cell/>
+
+        <tc:cell/>
+        <tc:cell/>
       </tc:panel>
     </f:subview>
   </jsp:body>

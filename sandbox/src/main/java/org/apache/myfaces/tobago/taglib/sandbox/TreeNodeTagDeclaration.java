@@ -22,7 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
-import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
+import org.apache.myfaces.tobago.taglib.component.AbstractCommandTagDeclaration;
 
 /**
  * Creates a tree node.
@@ -32,6 +32,6 @@ import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeNode",
     rendererType = "TreeNode")
-public interface TreeNodeTagDeclaration extends TobagoTagDeclaration,
-    HasIdBindingAndRendered, HasLabel {
+public interface TreeNodeTagDeclaration
+    extends HasIdBindingAndRendered, HasLabel, AbstractCommandTagDeclaration {
 }

@@ -25,16 +25,18 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MUTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCLICK;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MUTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.component.UITreeNodes;
 import org.apache.myfaces.tobago.model.TreeState;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UICommand;
@@ -48,21 +50,25 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.util.Map;
 
-public class TreeNodeRenderer extends RendererBase {
+public class TreeNodeRenderer extends CommandRendererBase {
 
   private static final Log LOG = LogFactory.getLog(TreeNodeRenderer.class);
 
+  @Override
   public void decode(FacesContext facesContext, UIComponent component) {
+
+    super.decode(facesContext, component);
+
     if (ComponentUtil.isOutputOnly(component)) {
       return;
     }
 
     UITreeNode node = (UITreeNode) component;
-    UITree tree = node.findTreeRoot();
+    UITree tree = findTree(node);
     TreeState state = tree.getState();
     String treeId = tree.getClientId(facesContext);
     String nodeId = node.getId();
-    final Map requestParameterMap
+    Map requestParameterMap
         = facesContext.getExternalContext().getRequestParameterMap();
 
     // expand state
@@ -127,7 +133,7 @@ public class TreeNodeRenderer extends RendererBase {
       }
     }
 
-    node.setValid(true);
+//    node.setValid(true);
   }
 
   private UIParameter ensureTreeNodeParameter(UICommand command) {
@@ -148,31 +154,41 @@ public class TreeNodeRenderer extends RendererBase {
     return treeNodeParameter;
   }
 
-  public void encodeBegin(FacesContext facesContext,
-                                UIComponent component) throws IOException {
+  @Override
+  public void encodeBegin(FacesContext facesContext, UIComponent component)
+      throws IOException {
 
     UITreeNode treeNode = (UITreeNode) component;
 
-    String clientId = treeNode.getClientId(facesContext);
-    String pos = treeNode.getNodeId();
-    clientId += pos != null ? pos : "";
     UIComponent parent = treeNode.getParent();
+    String pos = null;
+
+    boolean isFolder = treeNode.getChildCount() > 0;
 
     String parentClientId = null;
     if (parent != null && parent instanceof UITreeNode) { // if not the root node
       parentClientId = treeNode.getParent().getClientId(facesContext);
     } else if (parent != null && parent instanceof UITreeNodes) {
-      if (pos.equals(":0")) {
-        UIComponent superParent = treeNode.getParent().getParent();
+      pos = ((UITreeNodes)parent).getCurrentNodeId();
+      if (":0".equals(pos)) {
+        UIComponent superParent = parent.getParent();
         parentClientId = superParent.getClientId(facesContext);
       } else {
         parentClientId = treeNode.getClientId(facesContext);
-        parentClientId += treeNode.getParentNodeId();
+        parentClientId += ((UITreeNodes)parent).getCurrentParentNodeId();
+      }
+      DefaultMutableTreeNode currentNode =
+          ((UITreeNodes) parent).getCurrentNode();
+      if (currentNode != null) {
+        isFolder = currentNode.getChildCount() > 0;
       }
     }
 
-    UITree root = treeNode.findTreeRoot();
+    UITree root = findTree(treeNode);
     String rootId = root.getClientId(facesContext);
+
+    String clientId = treeNode.getClientId(facesContext);
+    clientId += pos != null ? pos : "";
 
     String jsClientId = TreeRenderer.createJavascriptVariable(clientId);
     String jsParentClientId = TreeRenderer.createJavascriptVariable(
@@ -215,7 +231,7 @@ public class TreeNodeRenderer extends RendererBase {
       writer.writeText("',", null);
 
       // is folder
-      writer.writeText(treeNode.isFolder(), null);
+      writer.writeText(isFolder, null);
       writer.writeText(",", null);
       writer.writeText(Boolean.toString(!root.isShowIcons()), null);
       writer.writeText(",", null);
@@ -281,14 +297,34 @@ public class TreeNodeRenderer extends RendererBase {
 
       // disabled
       writer.writeText(ComponentUtil.getBooleanAttribute(treeNode, ATTR_DISABLED), null);
-      
-      // resources
-      writer.writeText(",treeResourcesHelp", null);
       writer.writeText(",", null);
 
-      // action (not implemented)
-      writer.writeText("null", null);
-      writer.writeText(",", null);
+      // resources
+      writer.writeText("treeResourcesHelp,", null);
+
+      // action link
+      String actionLink =
+          (String) treeNode.getAttributes().get(ATTR_ACTION_LINK);
+      LOG.fatal("actionLink = '" + actionLink + "'");
+      if (actionLink != null) {
+        writer.writeText("'", null);
+        writer.writeText(actionLink, null);
+        writer.writeText("',", null);
+      } else {
+        writer.writeText("null,", null);
+      }
+
+      // onclick
+      String onclick = (String) treeNode.getAttributes().get(ATTR_ONCLICK);
+      if (onclick != null) {
+        writer.writeText("'", null);
+        onclick = onclick.replaceAll("\\'", "\\\\'");
+        LOG.fatal("onclick = '" + onclick + "'");
+        writer.writeText(onclick, null);
+        writer.writeText("',", null);
+      } else {
+        writer.writeText("null,", null);
+      }
 
       // parent
       if (jsParentClientId != null) {
@@ -323,5 +359,15 @@ public class TreeNodeRenderer extends RendererBase {
         LOG.debug(debuging);
       }
     }
+  }
+
+  private UITree findTree(UIComponent component) {
+    while (component != null) {
+      if (component instanceof UITree) {
+        return (UITree) component;
+      }
+      component = component.getParent();
+    }
+    return null;
   }
 }

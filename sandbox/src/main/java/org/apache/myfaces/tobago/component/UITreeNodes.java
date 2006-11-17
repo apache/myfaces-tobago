@@ -21,12 +21,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.swing.tree.TreeNode;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.Enumeration;
 
 public class UITreeNodes extends javax.faces.component.UIInput {
@@ -37,58 +34,24 @@ public class UITreeNodes extends javax.faces.component.UIInput {
 
   private String var;
 
-/*
-  public void encodeBegin(FacesContext facesContext)
-      throws IOException {
-    recreateTreeNodes();
-    super.encodeBegin(facesContext);
+  private DefaultMutableTreeNode currentNode;
+
+  private String currentNodeId;
+
+  private String currentParentNodeId;
+
+
+  @Override
+  public void decode(FacesContext context) {
+    super.decode(context);
   }
 
-  private void recreateTreeNodes() {
-    UITreeNode root = getRoot();
-    // Delete all UIComponent childs, because moving of childen will not work
-    // in Mutable Tree.
-    // They may have invalid modelReferences.
-    try {
-      if (root != null) {
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("removing root 1");
-        }
-        getChildren().remove(root);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("removing root 2");
-        }
-      }
-    } catch (Exception e) {
-      LOG.error("", e);
-    }
-
-    try {
-      root = new UITreeNode(this, 0);
-      root.createTreeNodes();
-    } catch (Exception e) {
-      LOG.error(e, e);
-    }
-  }
-*/
-
-  public UITreeNode getRoot() {
-    // find the UITreeNode in the childen.
-    for (Iterator i = getChildren().iterator(); i.hasNext();) {
-      UIComponent child = (UIComponent) i.next();
-      if (child instanceof UITreeNode) {
-        return (UITreeNode) child;
-      }
-    }
-    // in a new UITree isn't a root
-    return null;
-  }
-
+  @Override
   public void encodeChildren(FacesContext context)
       throws IOException {
   }
 
-
+  @Override
   public void encodeEnd(FacesContext facesContext) throws IOException {
 
     DefaultMutableTreeNode tree = (DefaultMutableTreeNode) getValue();
@@ -106,16 +69,21 @@ public class UITreeNodes extends javax.faces.component.UIInput {
       return;
     }
 
-    UITreeNode template = getTemplateComponent();
-    template.setParentNodeId(position);
+    currentParentNodeId = position;
     position += ":" + index;
-    template.setNodeId(position);
+    currentNodeId = position;
 
-    facesContext.getExternalContext().getRequestMap().put(var, node);
-    template.setCurrentNode(node);
-    RenderUtil.encode(facesContext, template);
+    currentNode = node;
+    if (var == null) {
+      LOG.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+      LOG.error("var not set");
+      LOG.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+      var = "node";
+    }
+    facesContext.getExternalContext().getRequestMap().put(var, currentNode);
+    RenderUtil.encode(facesContext, getTemplateComponent());
     facesContext.getExternalContext().getRequestMap().remove(var);
-    template.setCurrentNode(null);
+    currentNode = null;
 
     index = 0;
     for (Enumeration e = node.children(); e.hasMoreElements();) {
@@ -125,39 +93,14 @@ public class UITreeNodes extends javax.faces.component.UIInput {
     }
   }
 
-  public UITreeNode findUITreeNode(UITreeNode node, TreeNode treeNode) {
-    UITreeNode found = null;
-    if (node.getTreeNode().equals(treeNode)) {
-      return node;
-    } else {
-      for (Iterator iter = node.getChildren().iterator(); iter.hasNext();) {
-        UITreeNode uiTreeNode = (UITreeNode) iter.next();
-        found = findUITreeNode(uiTreeNode, treeNode);
-        if (found != null) {
-          break;
-        }
-      }
-    }
-    return found;
-  }
-
   public boolean getRendersChildren() {
     return true;
   }
 
   public void processDecodes(FacesContext facesContext) {
-    if (ComponentUtil.isOutputOnly(this)) {
-      setValid(true);
-    } else {
-      // in tree first decode node and than decode children
-
-      decode(facesContext);
-
-      for (Iterator i = getFacetsAndChildren(); i.hasNext();) {
-        UIComponent uiComponent = ((UIComponent) i.next());
-        uiComponent.processDecodes(facesContext);
-      }
-    }
+    LOG.info("processDecodes for nodes");
+    LOG.warn("todo"); // todo
+    super.processDecodes(facesContext);
   }
 
   public void updateModel(FacesContext facesContext) {
@@ -174,6 +117,20 @@ public class UITreeNodes extends javax.faces.component.UIInput {
     return null;
   }
 
+  @Override
+  public Object saveState(FacesContext context) {
+    Object[] state = new Object[2];
+    state[0] = super.saveState(context);
+    state[1] = var;
+    return state;
+  }
+
+  @Override
+  public void restoreState(FacesContext context, Object state) {
+    Object[] values = (Object[]) state;
+    super.restoreState(context, values[0]);
+    var = (String) values[1];
+  }
 
   public String getVar() {
     return var;
@@ -181,5 +138,29 @@ public class UITreeNodes extends javax.faces.component.UIInput {
 
   public void setVar(String var) {
     this.var = var;
+  }
+
+  public DefaultMutableTreeNode getCurrentNode() {
+    return currentNode;
+  }
+
+  public void setCurrentNode(DefaultMutableTreeNode currentNode) {
+    this.currentNode = currentNode;
+  }
+
+  public String getCurrentNodeId() {
+    return currentNodeId;
+  }
+
+  public void setCurrentNodeId(String currentNodeId) {
+    this.currentNodeId = currentNodeId;
+  }
+
+  public String getCurrentParentNodeId() {
+    return currentParentNodeId;
+  }
+
+  public void setCurrentParentNodeId(String currentParentNodeId) {
+    this.currentParentNodeId = currentParentNodeId;
   }
 }

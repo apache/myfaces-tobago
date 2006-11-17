@@ -44,7 +44,8 @@
 
         <tc:messages/>
 
-        <tc:sheet value="#{simpleList}" columns="*" var="bean">
+        <tc:sheet value="#{simpleList}" columns="*;*" var="bean">
+          <tc:columnSelector />
           <tc:column label="Number">
             <tc:in value="#{bean.name}" required="true"/>
           </tc:column>
