@@ -466,7 +466,7 @@ public class PageRenderer extends PageRendererBase {
   }
 
   private String errorMessageForDebugging(String id, FacesMessage message) {
-    StringBuffer sb = new StringBuffer("LOG.info(\"FacesMessage: [");
+    StringBuilder sb = new StringBuilder("LOG.info(\"FacesMessage: [");
     sb.append(id != null ? id : "null");
     sb.append("][");
     sb.append(message.getSummary() == null ? "null"

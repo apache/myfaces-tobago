@@ -39,7 +39,6 @@ import java.net.MalformedURLException;
  * This class helps to locate all resources of the ResourceManager.
  * It will be called in the initializaion phase.
  *
- * @author lofwyr
  * @since 1.0.7
  */
 class ResourceLocator {

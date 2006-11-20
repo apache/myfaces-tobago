@@ -27,7 +27,6 @@ import java.util.Map;
 
 /*
  * Created: Mon Apr 15 15:56:44 2002
- * @author Volker Weber
  */
 
 public class ValueBindingComparator extends ComparatorBase {

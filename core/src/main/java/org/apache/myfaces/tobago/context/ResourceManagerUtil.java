@@ -110,7 +110,7 @@ public class ResourceManagerUtil {
   }
 
   public static String toJSArray(List<String> list) {
-    StringBuffer sb = new StringBuffer();
+    StringBuilder sb = new StringBuilder();
     for (String name : list) {
       if (sb.length() > 0) {
         sb.append(", ");

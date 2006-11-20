@@ -63,7 +63,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
         throws IOException {
     Iterator messages = facesContext.getMessages(
         component.getClientId(facesContext));
-    StringBuffer stringBuffer = new StringBuffer();
+    StringBuilder stringBuffer = new StringBuilder();
     while (messages.hasNext()) {
       FacesMessage message = (FacesMessage) messages.next();
       stringBuffer.append(message.getDetail());

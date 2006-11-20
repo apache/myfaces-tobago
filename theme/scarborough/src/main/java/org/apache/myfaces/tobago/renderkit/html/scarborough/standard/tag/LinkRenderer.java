@@ -68,7 +68,7 @@ public class LinkRenderer extends CommandRendererBase{
       }
 
       action = HtmlUtils.generateUrl(facesContext, action);
-      StringBuffer sb = new StringBuffer(action);
+      StringBuilder sb = new StringBuilder(action);
 
       boolean questionMark = action.contains("?");
       for (Object o : component.getChildren()) {

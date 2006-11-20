@@ -51,7 +51,7 @@ public class ResponseUtils {
   }
 
   private static String generateContentType(FacesContext facesContext, String charset) {
-    StringBuffer sb = new StringBuffer("text/");
+    StringBuilder sb = new StringBuilder("text/");
     ClientProperties clientProperties
         = ClientProperties.getInstance(facesContext.getViewRoot());
     sb.append(clientProperties.getContentType());

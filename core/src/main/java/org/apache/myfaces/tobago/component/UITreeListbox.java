@@ -96,28 +96,28 @@ public class UITreeListbox extends UITreeOld implements LayoutProvider {
   private void debugStates(FacesContext facesContext) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("#####################################################");
-      StringBuffer state = new StringBuffer("expandState : ;");
+      StringBuilder state = new StringBuilder("expandState : ;");
       for (DefaultMutableTreeNode treeNode : getState().getExpandState()) {
         state.append(nodeStateId(facesContext, findUITreeNode(getRoot(), treeNode)));
         state.append(";");
       }
       LOG.debug(state);
 
-      state = new StringBuffer("selectState : ;");
+      state = new StringBuilder("selectState : ;");
       for (DefaultMutableTreeNode treeNode : getState().getSelection()) {
         state.append(nodeStateId(facesContext, findUITreeNode(getRoot(), treeNode)));
         state.append(";");
       }
       LOG.debug(state);
 
-      state = new StringBuffer("selectionPath : ;");
+      state = new StringBuilder("selectionPath : ;");
       for (UITreeOldNode treeNode : getSelectionPath()) {
         state.append(nodeStateId(facesContext, treeNode));
         state.append(";");
       }
       LOG.debug(state);
 
-      state = new StringBuffer("expandPath : ;");
+      state = new StringBuilder("expandPath : ;");
       for (UITreeOldNode treeNode : getExpandPath()) {
         state.append(nodeStateId(facesContext, treeNode));
         state.append(";");
@@ -279,7 +279,7 @@ public class UITreeListbox extends UITreeOld implements LayoutProvider {
         depth = defaultColumnCount;
       }
 
-      StringBuffer columns = new StringBuffer("1*");
+      StringBuilder columns = new StringBuilder("1*");
       for (int i = 1; i < depth; i++) {
         columns.append(";1*");
       }

@@ -58,7 +58,7 @@ public class HtmlUtils {
   public static String generateOnchange(UIInput component,
       FacesContext facesContext) {
 
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder buffer = new StringBuilder();
     Validator[] validators = component.getValidators();
     for (int i = 0; i < validators.length; i++) {
       if (validators[i] instanceof LongRangeValidator) {

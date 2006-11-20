@@ -19,10 +19,10 @@ package org.apache.myfaces.tobago.renderkit;
 
 public class StyleAttribute {
 
-  private StringBuffer content;
+  private StringBuilder content;
 
   public StyleAttribute() {
-    content = new StringBuffer();
+    content = new StringBuilder();
   }
 
   public StyleAttribute(String content) {

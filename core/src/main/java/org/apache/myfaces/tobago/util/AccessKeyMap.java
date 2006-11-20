@@ -79,7 +79,7 @@ public class AccessKeyMap {
 
   public static String getUnusedKeys(FacesContext facesContext) {
     HashSet set = getInstance(facesContext).getSet();
-    StringBuffer sb = new StringBuffer();
+    StringBuilder sb = new StringBuilder();
     for (int i = 0; i < KEYS.length; i++) {
       if (!set.contains(new Character(KEYS[i]))) {
         sb.append(KEYS[i]);

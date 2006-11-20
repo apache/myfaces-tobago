@@ -264,7 +264,7 @@ public class UIData extends javax.faces.component.UIData
       List<UIColumn> allColumns = getAllColumns();
 
       if (columnLayout == null && allColumns.size() > 0) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (UIColumn allColumn : allColumns) {
           sb.append("1*;");
         }

@@ -239,7 +239,7 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
 
 
   protected void addDescription(Declaration decl, Element element, Document document, boolean deprecated) {
-    StringBuffer description = new StringBuffer();
+    StringBuilder description = new StringBuilder();
 
     Deprecated deprecatedAnnotation = decl.getAnnotation(Deprecated.class);
     if (deprecatedAnnotation != null) {

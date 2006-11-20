@@ -51,7 +51,7 @@ public class TextAreaRenderer extends InputRendererBase {
     UIInput input = (UIInput) component;
     Iterator messages = facesContext.getMessages(
         input.getClientId(facesContext));
-    StringBuffer stringBuffer = new StringBuffer();
+    StringBuilder stringBuffer = new StringBuilder();
     while (messages.hasNext()) {
       FacesMessage message = (FacesMessage) messages.next();
       stringBuffer.append(message.getDetail());

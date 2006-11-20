@@ -49,12 +49,12 @@ public class PresentationController {
   private Date currentRequestTime = new Date();
 
   public Date getCurrentRequestTime() {
-    System.err.println("Get " + currentRequestTime!=null?currentRequestTime.getTime():0);
+    LOG.error("Get " + currentRequestTime!=null?currentRequestTime.getTime():0);
     return currentRequestTime;
   }
 
   public void setCurrentRequestTime(Date currentRequestTime) {
-    System.err.println("Set " + currentRequestTime.getTime());
+    LOG.error("Set " + currentRequestTime.getTime());
     this.currentRequestTime = currentRequestTime;
   }
 

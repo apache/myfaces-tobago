@@ -97,7 +97,7 @@ public class ClientProperties implements Serializable {
 
   private void updateId() {
 
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder buffer = new StringBuilder();
     buffer.append(getContentType());
     buffer.append('/');
     buffer.append(getTheme().getName());

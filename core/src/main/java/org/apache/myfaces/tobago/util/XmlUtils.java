@@ -44,14 +44,14 @@ public class XmlUtils {
       return "";
     }
     int len = s.length();
-    StringBuffer buffer = new StringBuffer(len);
+    StringBuilder buffer = new StringBuilder(len);
     for (int i = 0; i < len; i++) {
       appendEntityRef(buffer, s.charAt(i), isAttributeValue);
     }
     return buffer.toString();
   }
 
-  private static void appendEntityRef(StringBuffer buffer, char ch,
+  private static void appendEntityRef(StringBuilder buffer, char ch,
       boolean isAttributeValue) {
     // Encode special XML characters into the equivalent character references.
     // These five are defined by default for all XML documents.

@@ -130,7 +130,7 @@ public class Layout {
     return
     "[x=" + x + ",y=" + y + ",width=" + width + ",height=" + height + "]";
   }
-  public StringBuffer append(StringBuffer builder) {
+  public StringBuilder append(StringBuilder builder) {
     if (hasParent()) {
       getParent().append(builder);
     }
@@ -140,7 +140,7 @@ public class Layout {
     return builder;
   }
   public String toString() {
-    return append(new StringBuffer()).toString();
+    return append(new StringBuilder()).toString();
   }
   public static void putLayout(UIComponent component, Layout layout) {
     component.getAttributes().put("fo:layout", layout);

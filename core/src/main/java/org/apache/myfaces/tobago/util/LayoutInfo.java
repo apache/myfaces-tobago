@@ -176,7 +176,7 @@ public class LayoutInfo {
   }
 
   public static String tokensToString(String[] tokens) {
-    StringBuffer sb = new StringBuffer();
+    StringBuilder sb = new StringBuilder();
     for (String token : tokens) {
       if (sb.length() != 0) {
         sb.append(";");
@@ -253,7 +253,7 @@ public class LayoutInfo {
   }
   //TODO replace with Arrays.asList ..
   private String arrayAsString(int[] currentSpaces) {
-    StringBuffer sb = new StringBuffer("[");
+    StringBuilder sb = new StringBuilder("[");
     for (int currentSpace : currentSpaces) {
       sb.append(currentSpace);
       sb.append(", ");

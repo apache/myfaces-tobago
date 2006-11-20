@@ -24,10 +24,6 @@ import java.io.IOException;
 /**
  *  !! copy of sandbox org.apache.myfaces.custom.ajax.api.AjaxRenderer !!
  *
- * @author Martin Marinschek
- * @version $Revision: $ $Date: $
- *          <p/>
- *          $Log: $
  */
 public interface AjaxRenderer {
     void encodeAjax(FacesContext context, UIComponent component) throws IOException;

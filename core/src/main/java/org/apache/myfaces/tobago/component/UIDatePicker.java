@@ -137,9 +137,9 @@ public class UIDatePicker extends UICommand implements OnComponentCreated {
     link.setRendered(true);
     link.setImmediate(true);
 
-    UIInput hidden =
-        (UIInput) ComponentUtil.createComponent(facesContext,
-            UIInput.COMPONENT_TYPE, RENDERER_TYPE_HIDDEN);
+    UIHiddenInput hidden =
+        (UIHiddenInput) ComponentUtil.createComponent(facesContext,
+            UIHiddenInput.COMPONENT_TYPE, RENDERER_TYPE_HIDDEN);
     link.getChildren().add(hidden);
 
     // create popup

@@ -28,7 +28,6 @@ import org.apache.commons.logging.LogFactory;
 
 import java.io.Serializable;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
@@ -64,7 +63,7 @@ public class StringExpression implements Serializable {
     Vector<String> propertyRefs = new Vector<String>();
     parsePropertyString(stringExpression, fragments, propertyRefs);
 
-    StringBuffer sb = new StringBuffer();
+    StringBuilder sb = new StringBuilder();
     Enumeration<String> i = fragments.elements();
     Enumeration<String> j = propertyRefs.elements();
     while (i.hasMoreElements()) {
@@ -114,17 +113,4 @@ public class StringExpression implements Serializable {
     }
   }
 
-  public static void main(String[] args) {
-    Map<String, String> env = new HashMap<String, String>();
-    env.put("v1", "var1");
-    env.put("v2", "var2");
-    String expression = "bla${v1}blup${v2}";
-    System.out.println(expression + "->" + replaceVariables(expression, env));
-    System.out.println(replaceVariables("bla$${v1}blup${v2}", env));
-    System.out.println(replaceVariables("bla$$", env));
-    System.out.println(replaceVariables("bla$$$", env));
-    System.out.println(replaceVariables("bla$$$$", env));
-    System.out.println(replaceVariables("bla${v1}blup${v3}", env));
-    System.out.println(replaceVariables("bla${v1}blup${v3", env));
-  }
 }

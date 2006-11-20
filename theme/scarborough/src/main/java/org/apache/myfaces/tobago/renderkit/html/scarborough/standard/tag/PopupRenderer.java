@@ -80,7 +80,7 @@ public class PopupRenderer extends RendererBase implements AjaxRenderer {
     final String left = component.getLeft();
     final String top = component.getTop();
 
-    final StringBuffer contentStyle = new StringBuffer();
+    final StringBuilder contentStyle = new StringBuilder();
     if (component.getWidth() != null) {
       contentStyle.append("width: ");
       contentStyle.append(component.getWidth());

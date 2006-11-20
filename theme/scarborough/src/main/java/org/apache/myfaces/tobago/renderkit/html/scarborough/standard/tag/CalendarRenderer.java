@@ -260,7 +260,7 @@ public class CalendarRenderer extends RendererBase {
 
   private String getMonthNames(Locale locale) {
     SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMM", locale);
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder buffer = new StringBuilder();
     Calendar calendar = Calendar.getInstance();
     calendar.set(2000, 0, 1);
     for (int month = 0; month < 12; ++month) {

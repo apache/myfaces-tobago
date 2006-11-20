@@ -60,7 +60,7 @@ public class StringUtil {
   }
 
   public static <T> String toString(List<T> list) {
-    StringBuffer buffer = new StringBuffer(",");
+    StringBuilder buffer = new StringBuilder(",");
     for (T t : list) {
       buffer.append(t);
       buffer.append(",");

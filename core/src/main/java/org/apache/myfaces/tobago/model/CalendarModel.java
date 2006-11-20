@@ -79,7 +79,7 @@ public class CalendarModel {
   }
 
   public String toString() {
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder buffer = new StringBuilder();
     buffer.append("Month: ").append(getMonth()).append("\n");
     int weekCount = getWeekCount();
     DecimalFormat format = new DecimalFormat("00");

@@ -196,7 +196,7 @@ public class TreeOldRenderer extends RendererBase {
   private String[] createJavascript(FacesContext facesContext, String clientId,
                                   UITreeOldNode root)
   throws IOException {
-    StringBuffer sb = new StringBuffer();
+    StringBuilder sb = new StringBuilder();
 
     sb.append("{\n");
 

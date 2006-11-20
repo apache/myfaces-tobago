@@ -35,7 +35,7 @@ public class MappingRule {
   }
 
   public String toString() {
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder buffer = new StringBuilder();
     buffer.append("requestUri = '").append(requestUri).append("'");
     buffer.append("forwardUri = '").append(forwardUri).append("'");
     buffer.append("attributes = '").append(attributes).append("'");

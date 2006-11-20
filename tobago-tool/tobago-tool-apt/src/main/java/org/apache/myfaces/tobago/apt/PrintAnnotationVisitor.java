@@ -28,13 +28,16 @@ import com.sun.tools.apt.mirror.declaration.EnumConstantDeclarationImpl;
 import java.util.Collection;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /*
  * Created: Mar 22, 2005 8:10:05 PM
  * User: bommel
  * $Id: PrintAnnotationVisitor.java,v 1.1 2005/03/22 20:30:52 bommel Exp $
  */
 public class PrintAnnotationVisitor extends AnnotationDeclarationVisitorCollector {
-
+  private static final Log LOG = LogFactory.getLog(PrintAnnotationVisitor.class);
   public void print() {
     for (ClassDeclaration decl : getCollectedClassDeclations()) {
       printClassDeclaration(decl);
@@ -42,37 +45,37 @@ public class PrintAnnotationVisitor extends AnnotationDeclarationVisitorCollecto
   }
 
   private void printClassDeclaration(ClassDeclaration d) {
-    System.out.println("Class simpleName    " + d.getSimpleName());
-    System.out.println("Class package       " + d.getPackage());
-    System.out.println("Class qualifiedName " + d.getQualifiedName());
-    System.out.println("Class docComment    " + d.getDocComment());
-    System.out.println("Class superclass    " + d.getSuperclass());
+    LOG.error("Class simpleName    " + d.getSimpleName());
+    LOG.error("Class package       " + d.getPackage());
+    LOG.error("Class qualifiedName " + d.getQualifiedName());
+    LOG.error("Class docComment    " + d.getDocComment());
+    LOG.error("Class superclass    " + d.getSuperclass());
     printAnnotationMirrors(d.getAnnotationMirrors());
     printMethods(d);
-    System.out.println("++++++++++++++++++++++++++++++++++++++");
+    LOG.error("++++++++++++++++++++++++++++++++++++++");
   }
 
   private void printMethodDeclaration(MethodDeclaration d) {
-    System.out.println("Method simpleName    " + d.getSimpleName());
-    System.out.println("Method docComment    " + d.getDocComment());
-    System.out.println("Method returnType    " + d.getReturnType());
-    System.out.println("Method parameter     " + d.getParameters());
-    System.out.println("Method declaringType " + d.getDeclaringType());
+    LOG.error("Method simpleName    " + d.getSimpleName());
+    LOG.error("Method docComment    " + d.getDocComment());
+    LOG.error("Method returnType    " + d.getReturnType());
+    LOG.error("Method parameter     " + d.getParameters());
+    LOG.error("Method declaringType " + d.getDeclaringType());
     printAnnotationMirrors(d.getAnnotationMirrors());
   }
 
   private void printAnnotationMirrors(Collection<AnnotationMirror> mirrors) {
     for (AnnotationMirror mirror : mirrors) {
-      System.out.println("========================");
+      LOG.error("========================");
       Map<AnnotationTypeElementDeclaration,
           AnnotationValue> elementValues = mirror.getElementValues();
       printAnnotationTypeDeclaration(mirror.getAnnotationType().getDeclaration());
       for (AnnotationTypeElementDeclaration decl : mirror.getAnnotationType().getDeclaration().getMethods()) {
-        System.out.println("-------------------");
+        LOG.error("-------------------");
         printAnnotationTypeElementDeclaration(decl);
         if (elementValues.containsKey(decl)) {
           AnnotationValue value = elementValues.get(decl);
-          System.out.println("Type Element value=" + value.getValue());
+          LOG.error("Type Element value=" + value.getValue());
         }
 
       }
@@ -84,7 +87,7 @@ public class PrintAnnotationVisitor extends AnnotationDeclarationVisitorCollecto
     for (MethodDeclaration decl : getCollectedMethodDeclations()) {
       if (d.getQualifiedName().
           equals(decl.getDeclaringType().getQualifiedName())) {
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        LOG.error("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         printMethodDeclaration(decl);
       }
     }
@@ -94,19 +97,19 @@ public class PrintAnnotationVisitor extends AnnotationDeclarationVisitorCollecto
   }
 
   public void printAnnotationTypeDeclaration(AnnotationTypeDeclaration d) {
-    System.out.println("Type qualifiedName " + d.getQualifiedName());
+    LOG.error("Type qualifiedName " + d.getQualifiedName());
   }
 
   public void printAnnotationTypeElementDeclaration(AnnotationTypeElementDeclaration d) {
 
-    System.out.println("Type Element simpleName    " + d.getSimpleName());
-    System.out.println("Type Element returnType    " + d.getReturnType());
+    LOG.error("Type Element simpleName    " + d.getSimpleName());
+    LOG.error("Type Element returnType    " + d.getReturnType());
     if (d.getDefaultValue() != null) {
-      System.out.println("Type Element defaultValue  " + d.getDefaultValue());
+      LOG.error("Type Element defaultValue  " + d.getDefaultValue());
       if (d.getDefaultValue().getValue() instanceof EnumConstantDeclarationImpl) {
         EnumConstantDeclarationImpl impl = ((EnumConstantDeclarationImpl) d.getDefaultValue().getValue());
-        System.out.println("Type Element Enum simple Name " + impl.getSimpleName());
-        System.out.println("Type Element Enum type " + impl.getType());
+        LOG.error("Type Element Enum simple Name " + impl.getSimpleName());
+        LOG.error("Type Element Enum type " + impl.getType());
       }
     }
   }

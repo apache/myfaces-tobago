@@ -49,10 +49,6 @@ import java.util.Map;
  *
  *  !! adapted copy of sandbox org.apache.myfaces.custom.ajax.api.AjaxPhaseListener !!
  *
- * @author Martin Marinschek
- * @version $Revision: $ $Date: $
- *          <p/>
- *          $Log: $
  */
 public class AjaxPhaseListener implements PhaseListener {
   private static final Log LOG = LogFactory.getLog(AjaxPhaseListener.class);
@@ -148,7 +144,7 @@ public class AjaxPhaseListener implements PhaseListener {
       throws IOException {
 
     ExternalContext externalContext = facesContext.getExternalContext();
-    StringBuffer buf = new StringBuffer(content);
+    StringBuilder buf = new StringBuilder(content);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("Size of AjaxResponse:\n" + buf.length()
@@ -168,7 +164,6 @@ public class AjaxPhaseListener implements PhaseListener {
       PrintWriter responseWriter = httpServletResponse.getWriter();
       // buf.delete(buf.indexOf("<"), buf.indexOf(">")+1);
       responseWriter.print(buf.toString());
-      //System.out.println("PhaseListener: buf = " + buf.toString());
       responseWriter.flush();
       responseWriter.close();
     }

@@ -80,7 +80,7 @@ public abstract class AbstractConverter implements Converter {
   }
 
   public String convert(String input) {
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder buffer = new StringBuilder();
     int lastStart = 0;
     PatternMatcherInput patternMatcherInput = new PatternMatcherInput(input);
     Pattern pattern = getPattern();

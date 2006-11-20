@@ -156,7 +156,7 @@ public final class HtmlRendererUtil {
   public static void addClickAcceleratorKey(
       FacesContext facesContext, String clientId, char key, String modifier)
       throws IOException {
-    StringBuffer buffer
+    StringBuilder buffer
         = createOnclickAcceleratorKeyJsStatement(clientId, key, modifier);
     writeScriptLoader(facesContext, null, new String[] {buffer.toString()});
   }
@@ -169,19 +169,19 @@ public final class HtmlRendererUtil {
   public static void addAcceleratorKey(
       FacesContext facesContext, String func, char key, String modifier)
       throws IOException {
-    StringBuffer buffer = createAcceleratorKeyJsStatement(func, key, modifier);
+    StringBuilder buffer = createAcceleratorKeyJsStatement(func, key, modifier);
     writeScriptLoader(facesContext, null, new String[] {buffer.toString()});
   }
 
-  public static StringBuffer createOnclickAcceleratorKeyJsStatement(
+  public static StringBuilder createOnclickAcceleratorKeyJsStatement(
       String clientId, char key, String modifier) {
     String func = "Tobago.clickOnElement('" + clientId + "');";
     return createAcceleratorKeyJsStatement(func, key, modifier);
   }
 
-  public static StringBuffer createAcceleratorKeyJsStatement(
+  public static StringBuilder createAcceleratorKeyJsStatement(
       String func, char key, String modifier) {
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder buffer = new StringBuilder();
     buffer.append("new Tobago.AcceleratorKey(function() {");
     buffer.append(func);
     if (!func.endsWith(";")) {
@@ -198,7 +198,7 @@ public final class HtmlRendererUtil {
   }
 
   public static String getLayoutSpaceStyle(UIComponent component) {
-    StringBuffer sb = new StringBuffer();
+    StringBuilder sb = new StringBuilder();
     Integer space = LayoutUtil.getLayoutSpace(component, ATTR_LAYOUT_WIDTH,
         ATTR_LAYOUT_WIDTH);
     if (space != null) {
@@ -399,12 +399,12 @@ public final class HtmlRendererUtil {
     component.getAttributes().put(ATTR_STYLE_CLASS, styleClass);
   }
 
-  private static String removeTobagoClasses(String s, String rendererName) {
+  static String removeTobagoClasses(String s, String rendererName) {
     int length = s.length();
     if (length == 0) {
       return s;
     }
-    StringBuffer newS = new StringBuffer(length);
+    StringBuilder newS = new StringBuilder(length);
     String toFind = TOBAGO_CSS_CLASS_PREFIX + rendererName;
     int lastSpace = 0;
     for (int i = 0; i < length; i++) {
@@ -427,8 +427,8 @@ public final class HtmlRendererUtil {
     } else {
       cssClass = "";
     }
-    StringBuffer prefix = new StringBuffer(TOBAGO_CSS_CLASS_PREFIX).append(rendererName);
-    StringBuffer tobagoClass = new StringBuffer(64).append(prefix).append(TOBAGO_CSS_CLASS_SUFFIX_DEFAULT);
+    StringBuilder prefix = new StringBuilder(TOBAGO_CSS_CLASS_PREFIX).append(rendererName);
+    StringBuilder tobagoClass = new StringBuilder(64).append(prefix).append(TOBAGO_CSS_CLASS_SUFFIX_DEFAULT);
     if (ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
       tobagoClass.append(prefix).append(TOBAGO_CSS_CLASS_SUFFIX_DISABLED);
     }
@@ -445,7 +445,7 @@ public final class HtmlRendererUtil {
     return tobagoClass.append(cssClass).toString();
   }
 
-  public static void addMarkupClass(UIComponent component, String rendererName, StringBuffer tobagoClass) {
+  public static void addMarkupClass(UIComponent component, String rendererName, StringBuilder tobagoClass) {
 
     if (component instanceof SupportsMarkup) {
       String markup = ComponentUtil.getStringAttribute(component, ATTR_MARKUP);
@@ -464,7 +464,7 @@ public final class HtmlRendererUtil {
   public static void addImageSources(
       FacesContext facesContext, ResponseWriter writer, String src, String id)
       throws IOException {
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder buffer = new StringBuilder();
     buffer.append("new Tobago.Image('");
     buffer.append(id);
     buffer.append("','");
@@ -651,18 +651,6 @@ public final class HtmlRendererUtil {
       }
     }
     return onclick;
-  }
-
-  public static void main(String[] args) {
-    System.out.println(removeTobagoClasses("bla bla bla tobago-test-inline bla bla", "test"));
-    System.out.println(removeTobagoClasses("tobago-test-inline blablubber bla", "test"));
-    System.out.println(removeTobagoClasses("bla bla bla tobago-2test-inline bla tobago-test-blubber bla blubb",
-        "test"));
-    System.out.println(removeTobagoClasses("bla bla bla tobago-testXXX", "test"));
-    System.out.println(removeTobagoClasses("tobago-test", "test"));
-    System.out.println(removeTobagoClasses(" x x ", "test"));
-    System.out.println(removeTobagoClasses("", "test"));
-    System.out.println(removeTobagoClasses("hallo", "test"));
   }
 
   public static String getEmptyHref(FacesContext facesContext) {

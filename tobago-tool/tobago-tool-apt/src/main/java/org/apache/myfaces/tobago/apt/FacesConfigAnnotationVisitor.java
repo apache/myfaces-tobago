@@ -227,7 +227,6 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
 
   private void addValidator(ClassDeclaration decl, List<Element> newValidators, Namespace namespace) {
     Validator validatorAnn = decl.getAnnotation(Validator.class);
-    System.err.println("validator");
     Element validator = new Element(VALIDATOR, namespace);
     if (validatorAnn.id().length() > 0) {
       Element validatorId = new Element(VALIDATOR_ID, namespace);

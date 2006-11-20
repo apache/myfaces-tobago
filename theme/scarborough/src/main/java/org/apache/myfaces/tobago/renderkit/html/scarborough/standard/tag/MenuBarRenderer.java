@@ -114,7 +114,7 @@ public class MenuBarRenderer extends RendererBase {
       writer.endElement(HtmlConstants.DIV);
     }
     attributes.put(MENU_ACCELERATOR_KEYS, new ArrayList<String>());
-    StringBuffer scriptBuffer = new StringBuffer();
+    StringBuilder scriptBuffer = new StringBuilder();
     String setupFunction
         = createSetupFunction(facesContext, component, clientId, scriptBuffer);
     addScriptsAndStyles(facesContext, component, clientId, setupFunction,
@@ -170,7 +170,7 @@ public class MenuBarRenderer extends RendererBase {
   }
 
   protected String createSetupFunction(FacesContext facesContext,
-                                       UIComponent component, final String clientId, StringBuffer sb)
+                                       UIComponent component, final String clientId, StringBuilder sb)
       throws IOException {
     String setupFunction = "setupMenu"
         +
@@ -216,7 +216,7 @@ public class MenuBarRenderer extends RendererBase {
     return setupFunction;
   }
 
-  private int addMenu(StringBuffer sb, String var, FacesContext facesContext,
+  private int addMenu(StringBuilder sb, String var, FacesContext facesContext,
                       UIPanel menu, int i) throws IOException {
     if (!menu.isRendered()) {
       return i;
@@ -326,11 +326,11 @@ public class MenuBarRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.SRC, image, null);
     writer.endElement(HtmlConstants.IMG);
   }
-  private int addMenuEntrys(StringBuffer sb, String var,
+  private int addMenuEntrys(StringBuilder sb, String var,
                             FacesContext facesContext, UIComponent component, boolean warn) throws IOException {
     return addMenuEntrys(sb, var, facesContext, component, warn, 0);
   }
-  private int addMenuEntrys(StringBuffer sb, String var,
+  private int addMenuEntrys(StringBuilder sb, String var,
                              FacesContext facesContext, UIComponent component, boolean warn, int index)
       throws IOException {
     for (Object o : component.getChildren()) {
@@ -351,7 +351,7 @@ public class MenuBarRenderer extends RendererBase {
     return index;
   }
 
-  private void addMenuEntry(StringBuffer sb, String var, FacesContext facesContext,
+  private void addMenuEntry(StringBuilder sb, String var, FacesContext facesContext,
                             UICommand command) throws IOException {
     String onClick = createOnClick(facesContext, command);
     if (command instanceof UIMenuCommand) {
@@ -390,13 +390,13 @@ public class MenuBarRenderer extends RendererBase {
     return onclick;
   }
 
-  private void addCommand(StringBuffer sb, String var, FacesContext facesContext,
+  private void addCommand(StringBuilder sb, String var, FacesContext facesContext,
                           UICommand command, String onClick) throws IOException {
     String image = (String) command.getAttributes().get(ATTR_IMAGE);
     addMenuItem(sb, var, facesContext, command, image, onClick);
   }
 
-  private void addSelectBoolean(StringBuffer sb, String var,
+  private void addSelectBoolean(StringBuilder sb, String var,
                                 FacesContext facesContext, UICommand command, String onClick)
       throws IOException {
 
@@ -417,7 +417,7 @@ public class MenuBarRenderer extends RendererBase {
     addMenuItem(sb, var, facesContext, command, image, onClick);
   }
 
-  private void addMenuItem(StringBuffer sb, String var, FacesContext facesContext,
+  private void addMenuItem(StringBuilder sb, String var, FacesContext facesContext,
                            UICommand command, String image, String onClick) throws IOException {
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
     onClick = HtmlRendererUtil.appendConfirmationScript(onClick, command,
@@ -425,7 +425,7 @@ public class MenuBarRenderer extends RendererBase {
     addMenuItem(sb, var, facesContext, command, label, image, onClick);
   }
 
-  private void addSelectOne(StringBuffer sb, String var,
+  private void addSelectOne(StringBuilder sb, String var,
                             FacesContext facesContext, UICommand command, String onClick)
       throws IOException {
     onClick = HtmlRendererUtil.appendConfirmationScript(onClick, command,
@@ -480,7 +480,7 @@ public class MenuBarRenderer extends RendererBase {
     }
   }
 
-  private void addMenuItem(StringBuffer sb, String var,
+  private void addMenuItem(StringBuilder sb, String var,
                            FacesContext facesContext,
                            UICommand command, LabelWithAccessKey label, String image,
                            String onClick) throws IOException {
@@ -544,7 +544,7 @@ public class MenuBarRenderer extends RendererBase {
     sb.append("));\n");
   }
 
-  private void addMenuSeparator(StringBuffer sb, String var) {
+  private void addMenuSeparator(StringBuilder sb, String var) {
     String html = "<div style=\"text-align: center;\">"
         + "<hr class=\"tobago-menuBar-separator\"></div>";
 

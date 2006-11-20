@@ -71,7 +71,7 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
   public void testEnglishMonths() throws IOException {
     for (int month = 1; month <= 12; ++month) {
       Date date = createDate(2005, month, 10);
-      StringBuffer format = new StringBuffer("M");
+      StringBuilder format = new StringBuilder("M");
       for (int i = 0; i < 4; ++i) {
         format.append('M');
         checkFormat(format.toString(), date, new int[] {Calendar.MONTH}, Locale.ENGLISH);
@@ -101,7 +101,7 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
       calendar.set(Calendar.DAY_OF_WEEK, day);
       Date date = calendar.getTime();
 
-      StringBuffer format = new StringBuffer();
+      StringBuilder format = new StringBuilder();
       for (int i = 0; i < 4; ++i) {
         format.append('E');
         checkFormat(format.toString(), date, new int[0], Locale.ENGLISH); // XXX new int[] {Calendar.DAY_OF_WEEK}

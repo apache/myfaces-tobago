@@ -176,7 +176,7 @@ public class ResourceManagerImpl implements ResourceManager {
 
   private String key(String clientProperties, Locale locale,
       String type, String name, String key) {
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder buffer = new StringBuilder();
     buffer.append(clientProperties);
     buffer.append('/');
     buffer.append(locale);
@@ -310,7 +310,7 @@ public class ResourceManagerImpl implements ResourceManager {
       String language, Theme theme, String browser,
       String subDir, String name, String localeSuffix, String extension,
       String key) {
-    StringBuffer searchtext = new StringBuffer();
+    StringBuilder searchtext = new StringBuilder();
 
     searchtext.append('/');
     searchtext.append(project);
@@ -338,7 +338,7 @@ public class ResourceManagerImpl implements ResourceManager {
 
   private String makePath(
       String name, String localeSuffix, String extension, String key) {
-    StringBuffer searchtext = new StringBuffer();
+    StringBuilder searchtext = new StringBuilder();
 
     searchtext.append('/');
     searchtext.append(name);
@@ -361,7 +361,7 @@ public class ResourceManagerImpl implements ResourceManager {
     CacheKey key;
     if (name != null) {
       if (viewRoot instanceof org.apache.myfaces.tobago.component.UIViewRoot) {
-//        key = new StringBuffer(((org.apache.myfaces.tobago.component.UIViewRoot)viewRoot)
+//        key = new StringBuilder(((org.apache.myfaces.tobago.component.UIViewRoot)viewRoot)
 //            .getRendererCachePrefix()).append(name).toString();
 //      key = new RendererCacheKey(clientPropertyId, locale, name);
         key = ((org.apache.myfaces.tobago.component.UIViewRoot) viewRoot).getRendererCacheKey();
@@ -462,7 +462,7 @@ public class ResourceManagerImpl implements ResourceManager {
 
   private String key(String clientProperties, Locale locale,
       String type, String name) {
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder buffer = new StringBuilder();
     buffer.append(clientProperties);
     buffer.append('/');
     buffer.append(locale);

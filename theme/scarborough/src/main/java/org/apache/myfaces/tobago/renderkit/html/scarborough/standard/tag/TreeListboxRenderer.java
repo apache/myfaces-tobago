@@ -70,7 +70,7 @@ public class TreeListboxRenderer extends TreeOldRenderer{
     writer.writeComponentClass();
     writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
 
-    StringBuffer value = new StringBuffer(";");
+    StringBuilder value = new StringBuilder(";");
     List<UITreeOldNode> expandPath = tree.getExpandPath();
     for (UITreeOldNode node : expandPath) {
       value.append(nodeStateId(facesContext, node));
@@ -86,7 +86,7 @@ public class TreeListboxRenderer extends TreeOldRenderer{
 
 
     Set<DefaultMutableTreeNode> selection = tree.getState().getSelection();
-    value = new StringBuffer(";");
+    value = new StringBuilder(";");
     for (DefaultMutableTreeNode node : selection) {
       value.append(nodeStateId(facesContext, tree.findUITreeNode(root, node)));
       value.append(";");
@@ -120,7 +120,7 @@ public class TreeListboxRenderer extends TreeOldRenderer{
   private String  createJavascript(FacesContext facesContext, String clientId,
                                    UITreeOldNode root) throws IOException {
 
-    StringBuffer sb = new StringBuffer();
+    StringBuilder sb = new StringBuilder();
     sb.append("{\n");
 
     sb.append("  var treeResourcesHelp = new Object();\n");

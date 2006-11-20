@@ -74,7 +74,7 @@ public class JspFormatter {
 
   private static String readJsp(Reader reader) throws IOException {
     LineNumberReader in = new LineNumberReader(reader);
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder buffer = new StringBuilder();
     String line = null;
     while (null != (line = in.readLine())) {
       buffer.append(line);

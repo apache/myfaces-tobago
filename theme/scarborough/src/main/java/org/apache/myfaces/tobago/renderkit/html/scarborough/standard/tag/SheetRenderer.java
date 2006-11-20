@@ -360,7 +360,7 @@ public class SheetRenderer extends RendererBase
         }
         final String cellClass = (String) column.getAttributes().get(ATTR_STYLE_CLASS);
 
-        final StringBuffer tdClass = new StringBuffer();
+        final StringBuilder tdClass = new StringBuilder();
         tdClass.append("tobago-sheet-cell-td ");
         HtmlRendererUtil.addMarkupClass(column, "sheet-cell", tdClass);
         if (columnIndex == 0) {

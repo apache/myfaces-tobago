@@ -285,7 +285,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 // ---------------------------------------------------------- canonical methods
 
   public String toString() {
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder buffer = new StringBuilder();
     Enumeration enumeration = getParameterNames();
     while (enumeration.hasMoreElements()) {
       String key = (String) enumeration.nextElement();

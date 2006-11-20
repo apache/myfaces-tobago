@@ -23,9 +23,6 @@ import java.io.IOException;
 /**
  *  !! copy of sandbox org.apache.myfaces.custom.ajax.api.AjaxComponent !!
  *
- * @author Martin Marinschek
- * @version $Revision: $ $Date: $
- *          <p/>
  */
 public interface AjaxComponent {
   void encodeAjax(FacesContext context) throws IOException;

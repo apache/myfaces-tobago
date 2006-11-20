@@ -65,7 +65,7 @@ public class Window {
       LOG.debug("actionUrl = '" + actionUrl + "'");
     }
 
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder buffer = new StringBuilder();
     buffer.append("openPopup('");
     buffer.append(actionUrl);
     buffer.append("', '");
