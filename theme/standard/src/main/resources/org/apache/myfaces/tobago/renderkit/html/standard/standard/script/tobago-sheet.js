@@ -23,7 +23,7 @@ Tobago.Sheets = {
   },
 
   put: function(sheet) {
-    this.sheets[sheet.sheetId] = sheet;
+    this.sheets[sheet.id] = sheet;
   },
 
   selectAll: function(id) {
@@ -43,6 +43,7 @@ Tobago.Sheets = {
 Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage, selectable, autoReload) {
   this.startTime = new Date();
   this.id = sheetId;
+  Tobago.Sheets.put(this);
   this.ajaxEnabled = enableAjax;
   this.checkedImage = checkedImage;
   this.uncheckedImage = uncheckedImage;
