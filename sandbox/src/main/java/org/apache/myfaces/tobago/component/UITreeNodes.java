@@ -42,8 +42,42 @@ public class UITreeNodes extends javax.faces.component.UIInput {
 
 
   @Override
-  public void decode(FacesContext context) {
-    super.decode(context);
+  public void decode(FacesContext facesContext) {
+    DefaultMutableTreeNode tree = (DefaultMutableTreeNode) getValue();
+
+    decodeNodes(tree, "", 0, facesContext);
+  }
+
+  private void decodeNodes(DefaultMutableTreeNode node, String position,
+      int index, FacesContext facesContext) {
+
+    if (node == null) { // XXX hotfix
+      LOG.warn("node is null");
+      return;
+    }
+
+    currentParentNodeId = position;
+    position += "_" + index;
+    currentNodeId = position;
+
+    currentNode = node;
+    if (var == null) {
+      LOG.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+      LOG.error("var not set");
+      LOG.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+      var = "node";
+    }
+    facesContext.getExternalContext().getRequestMap().put(var, currentNode);
+    getTemplateComponent().decode(facesContext);
+    facesContext.getExternalContext().getRequestMap().remove(var);
+    currentNode = null;
+
+    index = 0;
+    for (Enumeration e = node.children(); e.hasMoreElements();) {
+      DefaultMutableTreeNode subNode = (DefaultMutableTreeNode) e.nextElement();
+      decodeNodes(subNode, position, index, facesContext);
+      index++;
+    }
   }
 
   @Override
@@ -70,7 +104,7 @@ public class UITreeNodes extends javax.faces.component.UIInput {
     }
 
     currentParentNodeId = position;
-    position += ":" + index;
+    position += "_" + index;
     currentNodeId = position;
 
     currentNode = node;

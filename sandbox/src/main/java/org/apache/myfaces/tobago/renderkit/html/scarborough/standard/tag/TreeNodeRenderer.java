@@ -68,6 +68,10 @@ public class TreeNodeRenderer extends CommandRendererBase {
     TreeState state = tree.getState();
     String treeId = tree.getClientId(facesContext);
     String nodeId = node.getId();
+    UIComponent parent = node.getParent();
+    if (parent != null && parent instanceof UITreeNodes) { // todo cleanup
+      nodeId += ((UITreeNodes) parent).getCurrentNodeId();
+    }
     Map requestParameterMap
         = facesContext.getExternalContext().getRequestParameterMap();
 
@@ -170,7 +174,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       parentClientId = treeNode.getParent().getClientId(facesContext);
     } else if (parent != null && parent instanceof UITreeNodes) {
       pos = ((UITreeNodes) parent).getCurrentNodeId();
-      if (":0".equals(pos)) {
+      if ("_0".equals(pos)) {
         UIComponent superParent = parent.getParent();
         parentClientId = superParent.getClientId(facesContext);
       } else {
@@ -305,7 +309,6 @@ public class TreeNodeRenderer extends CommandRendererBase {
       // action link
       String actionLink =
           (String) treeNode.getAttributes().get(ATTR_ACTION_LINK);
-      LOG.fatal("actionLink = '" + actionLink + "'");
       if (actionLink != null) {
         writer.writeText("'", null);
         writer.writeText(actionLink, null);
@@ -319,7 +322,6 @@ public class TreeNodeRenderer extends CommandRendererBase {
       if (onclick != null) {
         writer.writeText("'", null);
         onclick = onclick.replaceAll("\\'", "\\\\'");
-        LOG.fatal("onclick = '" + onclick + "'");
         writer.writeText(onclick, null);
         writer.writeText("',", null);
       } else {

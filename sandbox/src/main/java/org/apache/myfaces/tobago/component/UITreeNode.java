@@ -1,5 +1,10 @@
 package org.apache.myfaces.tobago.component;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,10 +24,20 @@ package org.apache.myfaces.tobago.component;
 
 public class UITreeNode extends UICommand {
 
+  private static final Log LOG = LogFactory.getLog(UITreeNode.class);
+
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TreeNode";
 
   @Override
   public boolean getRendersChildren() {
     return true;
+  }
+
+  public Object getValue() {
+    if (super.getValue() == null) { // XXX: hack!
+      setValue(new DefaultMutableTreeNode());
+      LOG.info("Created temporary Node");
+    }
+    return super.getValue();
   }
 }

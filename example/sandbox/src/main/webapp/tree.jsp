@@ -19,32 +19,41 @@
 <%@ page import="org.apache.myfaces.tobago.model.TreeState" %>
 
 <%
-  DefaultMutableTreeNode tree;
-  TreeState treeState;
+  // tree
+  DefaultMutableTreeNode tree = (DefaultMutableTreeNode) session.getAttribute("tree");
 
-  tree = new DefaultMutableTreeNode("Category");
-  tree.insert(new DefaultMutableTreeNode("Sports"), 0);
-  tree.insert(new DefaultMutableTreeNode("Movies"), 0);
-  DefaultMutableTreeNode music = new DefaultMutableTreeNode("Music");
-  tree.insert(music, 0);
-  tree.insert(new DefaultMutableTreeNode("Games"), 0);
-  DefaultMutableTreeNode temp = new DefaultMutableTreeNode("Science");
-  temp.insert(
-      new DefaultMutableTreeNode("Geography"), 0);
-  temp.insert(
-      new DefaultMutableTreeNode("Mathematics"), 0);
-  DefaultMutableTreeNode temp2 = new DefaultMutableTreeNode("Astronomy");
-  temp2.insert(new DefaultMutableTreeNode("Education"), 0);
-  temp2.insert(new DefaultMutableTreeNode("Pictures"), 0);
-  temp.insert(temp2, 2);
-  tree.insert(temp, 2);
-  treeState = new TreeState();
-  treeState.addExpandState(tree);
-  treeState.addExpandState(temp);
-  treeState.addSelection(temp2);
-  treeState.setMarker(music);
-  session.setAttribute("tree", tree);
-  session.setAttribute("treeState", treeState);
+  DefaultMutableTreeNode music = null;
+  DefaultMutableTreeNode temp = null;
+  DefaultMutableTreeNode temp2 = null;
+  if (tree == null) {
+    tree = new DefaultMutableTreeNode("Category");
+    tree.insert(new DefaultMutableTreeNode("Sports"), 0);
+    tree.insert(new DefaultMutableTreeNode("Movies"), 0);
+    music = new DefaultMutableTreeNode("Music");
+    tree.insert(music, 0);
+    tree.insert(new DefaultMutableTreeNode("Games"), 0);
+    temp = new DefaultMutableTreeNode("Science");
+    temp.insert(new DefaultMutableTreeNode("Geography"), 0);
+    temp.insert(new DefaultMutableTreeNode("Mathematics"), 0);
+    temp2 = new DefaultMutableTreeNode("Astronomy");
+    temp2.insert(new DefaultMutableTreeNode("Education"), 0);
+    temp2.insert(new DefaultMutableTreeNode("Pictures"), 0);
+    temp.insert(temp2, 2);
+    tree.insert(temp, 2);
+    session.setAttribute("tree", tree);
+  }
+
+  // state
+
+  TreeState treeState = (TreeState) session.getAttribute("treeState");
+  if (treeState == null) {
+    treeState = new TreeState();
+    treeState.addExpandState(tree);
+    treeState.addExpandState(temp);
+    treeState.addSelection(temp2);
+    treeState.setMarker(music);
+    session.setAttribute("treeState", treeState);
+  }
 %>
 
 <%@ taglib uri="http://myfaces.apache.org/tobago/sandbox" prefix="tcs" %>
@@ -67,12 +76,10 @@
               showRoot="true"
               mode="menu">
       <tcs:treeNode label="Root">
-<%--
         <tcs:treeNodes value="#{tree}" var="node">
           <tcs:treeNode label="#{node.userObject}"
                         action="#{controller.action1}"/>
         </tcs:treeNodes>
---%>
         <tcs:treeNode label="Action 1" action="#{controller.action1}"/>
         <tcs:treeNode label="Action 2" action="#{controller.action2}"/>
         <tcs:treeNode label="Action 3" action="#{controller.action3}">
@@ -83,6 +90,7 @@
       </tcs:treeNode>
     </tcs:tree>
 
+    <%--
     <tcs:tree state="#{treeState}" id="tree"
               showIcons="true"
               showJunctions="true"
@@ -90,11 +98,9 @@
               showRoot="true"
               selectable="single">
       <tcs:treeNode label="Root">
-<%--
         <tcs:treeNodes value="#{tree}" var="node">
           <tcs:treeNode label="#{node.userObject}"/>
         </tcs:treeNodes>
---%>
         <tcs:treeNode label="Sub 1"/>
         <tcs:treeNode label="Sub 2"/>
         <tcs:treeNode label="Sub 3">
@@ -104,6 +110,8 @@
         <tcs:treeNode label="Sub 4"/>
       </tcs:treeNode>
     </tcs:tree>
+--%>
+    <tc:cell/>
 
     <tc:cell/>
 
