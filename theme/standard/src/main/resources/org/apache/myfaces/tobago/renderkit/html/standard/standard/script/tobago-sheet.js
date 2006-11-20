@@ -349,9 +349,10 @@ Tobago.Sheet.prototype.setup = function() {
 
       // ToDo: find a better way to fix this problem
       // IE needs this in case of ajax loading of style classes
-      var outerDiv = divElement;
-      outerDiv.className = outerDiv.className;
-      outerDiv.innerHTML = outerDiv.innerHTML;
+//      commenting this out because of TOBAGO-191
+//      var outerDiv = divElement;
+//      outerDiv.className = outerDiv.className;
+//      outerDiv.innerHTML = outerDiv.innerHTML;
 
       this.setupElements();
 
