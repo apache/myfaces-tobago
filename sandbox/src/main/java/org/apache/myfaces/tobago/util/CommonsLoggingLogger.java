@@ -89,7 +89,6 @@ public class CommonsLoggingLogger implements Logger {
   }
 
   public Logger getChildLogger(String reference) {
-    System.err.println("reference" + reference);
     return null;
   }
 }

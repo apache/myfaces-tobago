@@ -1,10 +1,5 @@
 package org.apache.myfaces.tobago.component;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import javax.swing.tree.DefaultMutableTreeNode;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -21,6 +16,13 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+
+
 
 public class UITreeNode extends UICommand {
 
