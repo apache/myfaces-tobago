@@ -1598,8 +1598,9 @@ Tobago.Updater = {
       };
 
       Tobago.action.value = actionId;
-      var url = Tobago.form.action + "?affectedAjaxComponent="
-          + ajaxComponentId + '&' + Form.serialize(Tobago.form);
+      var url = Tobago.form.action;
+      requestOptions.parameters = "affectedAjaxComponent=" + ajaxComponentId 
+          + '&' + Form.serialize(Tobago.form);
 
       //    LOG.debug("request url = " + url);
       Tobago.Transport.request(function() {
