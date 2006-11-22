@@ -187,7 +187,18 @@ public class TreeOldNodeRenderer extends RendererBase {
       } else {
         LOG.warn("name = null");
       }
-      writer.writeText("','", null);
+      writer.writeText("',", null);
+
+      // tip
+      Object tip = treeNode.getAttributes().get(TobagoConstants.ATTR_TIP);
+      if (tip != null) {
+        tip = StringEscapeUtils.escapeJavaScript(tip.toString());
+        writer.writeText("'", null);
+        writer.writeText((String) tip, null);
+        writer.writeText("','", null);
+      } else {
+        writer.writeText("null,'", null);
+      }
 
       // id
       writer.writeText(clientId, null);

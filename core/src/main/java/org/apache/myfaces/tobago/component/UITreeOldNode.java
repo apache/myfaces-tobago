@@ -51,6 +51,7 @@ public class UITreeOldNode extends javax.faces.component.UIInput {
     initId();
     initName();
     initDisabled();
+    initTip();
   }
 
   public UITreeOldNode() {
@@ -120,6 +121,16 @@ public class UITreeOldNode extends javax.faces.component.UIInput {
         name = toString();
       }
       getAttributes().put(TobagoConstants.ATTR_NAME, name.toString());
+    }
+  }
+
+  private void initTip() {
+    TreeNode treeNode = (TreeNode) getValue();
+    if (treeNode != null) {
+      Object tip = getReference(treeNode, TobagoConstants.ATTR_TIP_REFERENCE);
+      if (tip != null) {
+        getAttributes().put(TobagoConstants.ATTR_TIP, tip.toString());
+      }
     }
   }
 

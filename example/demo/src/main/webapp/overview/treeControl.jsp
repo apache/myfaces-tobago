@@ -47,6 +47,7 @@
                 showRoot="#{demo.showRoot}"
                 selectable="#{overviewController.treeSelectMode}"
                 mutable="#{demo.mutable}"
+                tipReference="userObject.name"                
                 >
               <f:actionListener type="org.apache.myfaces.tobago.example.demo.actionlistener.TreeEditor" />
             </tc:tree>
@@ -90,6 +91,7 @@
                 idReference="userObject.id"
                 nameReference="userObject.name"
                 selectable="#{overviewController.treeListboxSelectMode}"
+                tipReference="userObject.name"
                 >
             </tc:treeListbox>
 

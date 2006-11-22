@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_NAME;
@@ -30,6 +31,7 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -87,14 +89,14 @@ public class TreeListboxBoxRenderer extends RendererBase {
       UITreeOldNode treeNode = (UITreeOldNode) nodes.get(i);
       DefaultMutableTreeNode node = treeNode.getTreeNode();
 
-      writer.startElement(HtmlConstants.OPTION, null);
+      writer.startElement(HtmlConstants.OPTION, treeNode);
 //      writer.writeAttribute(HtmlAttributes.ONCLICK, "tbgTreeListboxClick(this, '" + treeId + "')", null);
       writer.writeAttribute(HtmlAttributes.VALUE, Integer.toString(i), null);
       if (treeNode.equals(tree.getSelectedNode(level))
           || tree.isSelectedNode(node)) {
         writer.writeAttribute(HtmlAttributes.SELECTED, true);
       }
-
+      writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
       writer.writeText(treeNode.getAttributes().get(ATTR_NAME), null);
       if (node.getChildCount() > 0) {
         writer.writeText(" \u2192", null);

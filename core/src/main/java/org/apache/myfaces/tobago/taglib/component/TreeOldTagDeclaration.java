@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdReference;
 import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
 import org.apache.myfaces.tobago.taglib.decl.HasNameReference;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasTip;
 
 /**
  * Renders a tree view.
@@ -103,5 +104,13 @@ public interface TreeOldTagDeclaration extends TobagoTagDeclaration,
   @UIComponentTagAttribute(defaultValue = "tree",
   allowedValues = {"tree", "menu"})
   void setMode(String mode);
+
+
+  /**
+   * reference to tip value.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  void setTipReference(String tipReference);
 
 }

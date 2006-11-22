@@ -146,6 +146,8 @@ public final class TobagoConstants {
   public static final String ATTR_TARGET = "target";
   public static final String ATTR_TIME_STYLE = "timeStyle";
   public static final String ATTR_TIMEZONE = "timezone";
+  @Deprecated
+  public static final String ATTR_TIP_REFERENCE = "tipReference";
   public static final String ATTR_TITLE = "title";
   public static final String ATTR_TIP = "tip";
   public static final String ATTR_TOP = "top";

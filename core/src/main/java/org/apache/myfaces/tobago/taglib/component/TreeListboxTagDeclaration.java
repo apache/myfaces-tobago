@@ -62,4 +62,12 @@ public interface TreeListboxTagDeclaration extends TobagoTagDeclaration, HasIdBi
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "single", allowedValues = {"single", "singleLeafOnly", "siblingLeafOnly"})
   void setSelectable(String selectable);
+
+
+  /**
+   * reference to tip value.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  void setTipReference(String tipReference);
 }

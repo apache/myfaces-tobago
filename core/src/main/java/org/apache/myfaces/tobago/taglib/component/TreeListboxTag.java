@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP_REFERENCE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ID_REFERENCE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_NAME_REFERENCE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
@@ -35,6 +36,7 @@ public class TreeListboxTag extends TobagoTag
   private String state;
   private String idReference;
   private String nameReference;
+  private String tipReference;
   private String selectable;
   private String required;
 
@@ -50,6 +52,8 @@ public class TreeListboxTag extends TobagoTag
     ComponentUtil.setStringProperty(component, ATTR_NAME_REFERENCE, nameReference);
     ComponentUtil.setStringProperty(component, ATTR_SELECTABLE, selectable);
     ComponentUtil.setBooleanProperty(component, ATTR_REQUIRED, required);
+    ComponentUtil.setStringProperty(component, ATTR_TIP_REFERENCE, tipReference);
+
   }
 
   public void release() {
@@ -58,6 +62,7 @@ public class TreeListboxTag extends TobagoTag
     state = null;
     idReference = null;
     nameReference = null;
+    tipReference = null;
     selectable = null;
     required = null;
   }
@@ -108,6 +113,10 @@ public class TreeListboxTag extends TobagoTag
 
   public void setRequired(String required) {
     this.required = required;
+  }
+
+  public void setTipReference(String tipReference) {
+    this.tipReference = tipReference;
   }
 }
 

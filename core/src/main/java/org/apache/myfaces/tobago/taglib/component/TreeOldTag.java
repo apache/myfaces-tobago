@@ -41,6 +41,7 @@ public class TreeOldTag extends TobagoTag implements TreeOldTagDeclaration {
   private String idReference;
   private String nameReference;
   private String disabledReference;
+  private String tipReference;
 
   private String required;
 
@@ -76,6 +77,7 @@ public class TreeOldTag extends TobagoTag implements TreeOldTagDeclaration {
     ComponentUtil.setBooleanProperty(component, TobagoConstants.ATTR_REQUIRED, required);
     ComponentUtil.setActionListener((ActionSource) component, actionListener);
     ComponentUtil.setStringProperty(component, TobagoConstants.ATTR_MODE, mode);
+    ComponentUtil.setStringProperty(component, TobagoConstants.ATTR_TIP_REFERENCE, tipReference);
   }
 
   public void release() {
@@ -205,5 +207,9 @@ public class TreeOldTag extends TobagoTag implements TreeOldTagDeclaration {
 
   public void setMode(String mode) {
     this.mode = mode;
+  }
+
+  public void setTipReference(String tipReference) {
+    this.tipReference = tipReference;
   }
 }
