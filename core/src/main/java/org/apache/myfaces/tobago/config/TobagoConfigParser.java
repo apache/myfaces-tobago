@@ -43,14 +43,14 @@ public class TobagoConfigParser {
       throws IOException, SAXException, FacesException {
 
     TobagoConfig tobagoConfig = new TobagoConfig();
-    Digester digester = new Digester();
-    configure(tobagoConfig, digester);
+    Digester digester = configure(tobagoConfig);
     parse(context, digester);
     return tobagoConfig;
   }
 
-  private Digester configure(TobagoConfig config, Digester digester) {
-
+  private Digester configure(TobagoConfig config) {
+    Digester digester = new Digester();
+    digester.setUseContextClassLoader(true);
     digester.push(config);
     digester.setValidating(true);
 

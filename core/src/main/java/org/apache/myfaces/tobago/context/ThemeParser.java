@@ -41,15 +41,14 @@ class ThemeParser {
   private Digester digester;
 
   ThemeParser() {
-    digester = new Digester();
     configure();
   }
 
-  private Digester configure() {
-
-// todo   digester.setValidating(true);
+  private void configure() {
+    digester = new Digester();
+    digester.setUseContextClassLoader(true);
+    // todo   digester.setValidating(true);
     digester.setValidating(false);
-
     digester.addCallMethod("tobago-theme/name", "setName", 0);
     digester.addCallMethod("tobago-theme/deprecated-name", "setDeprecatedName", 0);
     digester.addCallMethod("tobago-theme/resource-path", "setResourcePath", 0);
@@ -62,8 +61,6 @@ class ThemeParser {
     digester.addObjectCreate("tobago-theme/renderers/renderer/supported-markup",  MarkupConfig.class);
     digester.addSetNext("tobago-theme/renderers/renderer/supported-markup", "setMarkupConfig");
     digester.addCallMethod("tobago-theme/renderers/renderer/supported-markup/markup", "addMarkup" , 0);
-
-    return digester;
   }
 
   public ThemeImpl parse(final URL url)
