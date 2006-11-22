@@ -95,10 +95,16 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 
 
     writer.startElement(HtmlConstants.DIV, component);
-    writer.writeClassAttribute("tobago-box-content");
+    StringBuilder contentClass = new StringBuilder("tobago-box-content ");
+    HtmlRendererUtil.addMarkupClass(component, "box", "content", contentClass);
+    writer.writeClassAttribute(contentClass.toString());
 //    writer.writeAttribute(HtmlAttributes.STYLE, null, TobagoConstants.ATTR_STYLE_BODY);
     writer.startElement(HtmlConstants.DIV, component);
-    writer.writeClassAttribute("tobago-box-content-inner");
+    StringBuilder contentInnerClass = new StringBuilder("tobago-box-content-inner ");
+
+    HtmlRendererUtil.addMarkupClass(component, "box" , "content-inner", contentInnerClass);
+
+    writer.writeClassAttribute(contentInnerClass.toString());
     writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE_INNER);
   }
 
@@ -107,7 +113,9 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
       TobagoResponseWriter writer, UIComponent component) throws IOException {
 
     writer.startElement(HtmlConstants.DIV, component);
-    writer.writeClassAttribute("tobago-box-header");
+    StringBuilder headerClass = new StringBuilder("tobago-box-header ");
+    HtmlRendererUtil.addMarkupClass(component, "box" , "header", headerClass);
+    writer.writeClassAttribute(headerClass.toString());
     UIComponent label = component.getFacet(FACET_LABEL);
     writer.startElement(HtmlConstants.SPAN, null);
     writer.writeClassAttribute("tobago-box-header-label");

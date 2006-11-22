@@ -445,6 +445,22 @@ public final class HtmlRendererUtil {
     return tobagoClass.append(cssClass).toString();
   }
 
+  public static void addMarkupClass(UIComponent component, String rendererName, String subComponent, StringBuilder tobagoClass) {
+
+    if (component instanceof SupportsMarkup) {
+      String markup = ComponentUtil.getStringAttribute(component, ATTR_MARKUP);
+      if (StringUtils.isNotEmpty(markup)) {
+        Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot()).getTheme();
+        if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
+          tobagoClass.append(TOBAGO_CSS_CLASS_PREFIX).append(rendererName).append("-").append(subComponent)
+              .append("-markup-").append(markup).append(" ");
+        } else {
+          LOG.warn("Unknown markup='" + markup + "'");
+        }
+      }
+    }
+  }
+
   public static void addMarkupClass(UIComponent component, String rendererName, StringBuilder tobagoClass) {
 
     if (component instanceof SupportsMarkup) {
