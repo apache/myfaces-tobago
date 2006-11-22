@@ -29,7 +29,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdReference;
 import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
 import org.apache.myfaces.tobago.taglib.decl.HasNameReference;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
-import org.apache.myfaces.tobago.taglib.decl.HasTip;
 
 /**
  * Renders a tree view.
