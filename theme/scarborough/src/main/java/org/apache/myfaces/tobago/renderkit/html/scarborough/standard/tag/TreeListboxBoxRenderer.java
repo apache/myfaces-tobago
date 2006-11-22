@@ -31,7 +31,6 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
