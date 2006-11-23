@@ -61,6 +61,7 @@ public class Window {
     Application application = facesContext.getApplication();
     ViewHandler viewHandler = application.getViewHandler();
     String actionUrl = viewHandler.getActionURL(facesContext, viewId);
+    actionUrl = facesContext.getExternalContext().encodeActionURL(actionUrl);
     if (LOG.isDebugEnabled()) {
       LOG.debug("actionUrl = '" + actionUrl + "'");
     }

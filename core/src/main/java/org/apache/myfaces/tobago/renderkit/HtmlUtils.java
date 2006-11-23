@@ -100,6 +100,7 @@ public class HtmlUtils {
       result = facesContext.getExternalContext().encodeActionURL(url);
     } else {
       result = viewHandler.getActionURL(facesContext, url);
+      result = facesContext.getExternalContext().encodeActionURL(result);
     }
     return result;
   }

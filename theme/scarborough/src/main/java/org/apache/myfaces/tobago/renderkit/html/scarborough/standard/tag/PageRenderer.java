@@ -152,7 +152,7 @@ public class PageRenderer extends PageRendererBase {
     ViewHandler viewHandler = application.getViewHandler();
     String viewId = facesContext.getViewRoot().getViewId();
     String formAction = viewHandler.getActionURL(facesContext, viewId);
-
+    formAction = facesContext.getExternalContext().encodeActionURL(formAction);
     String charset = (String) page.getAttributes().get(ATTR_CHARSET);
     ResponseUtils.ensureContentTypeHeader(facesContext, charset);
 
