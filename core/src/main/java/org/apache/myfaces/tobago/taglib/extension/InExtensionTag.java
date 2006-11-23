@@ -18,6 +18,8 @@ package org.apache.myfaces.tobago.taglib.extension;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.component.InTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -75,6 +77,7 @@ public class InExtensionTag extends BodyTagSupport
   private String valueChangeListener;
   private String onchange;
   private String suggestMethod;
+  private String markup;
 
   private LabelExtensionTag labelTag;
   private InTag inTag;
@@ -93,6 +96,7 @@ public class InExtensionTag extends BodyTagSupport
     if (rendered != null) {
       labelTag.setRendered(rendered);
     }
+
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 
@@ -137,6 +141,9 @@ public class InExtensionTag extends BodyTagSupport
     if (required != null) {
       inTag.setRequired(required);
     }
+    if (markup != null) {
+      inTag.setMarkup(markup);
+    }
     inTag.setParent(labelTag);
     inTag.doStartTag();
 
@@ -168,6 +175,17 @@ public class InExtensionTag extends BodyTagSupport
     valueChangeListener = null;
     onchange = null;
     suggestMethod = null;
+    markup = null;
+  }
+
+   /**
+   * Indicate markup of this component.
+   * Possible value is 'none'. But this can be overridden in the theme.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(defaultValue = "none")
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 
   public void setValue(String value) {
