@@ -291,14 +291,15 @@ var TreeManager = {
   }
 };
 
-function TreeNode(label, id, mode, isFolder,
+function TreeNode(label, tip, id, mode, isFolder,
     hideIcons, hideJunctions, hideRootJunction,
     hideRoot, treeHiddenId, selectable, mutable,
     formId, selected, marked,
     expanded, required, disabled, treeResources,
     action, onclick, parent, icon, openIcon, width) {
   this.label = label;
-	this.id = id;
+  this.tip = tip;
+  this.id = id;
   Tobago.treeNodes[id] = this;
   this.mode = mode
   this.isFolder = isFolder
@@ -439,6 +440,9 @@ TreeNode.prototype.toString = function (depth, last) {
         itemStyle += " tree-item-marker";
       }
       str += '<a class="' + itemStyle + '"';
+      if (this.tip) {
+        str += ' title="' + this.tip + '"';
+      }
       if (!this.disabled) {
         str += ' href="' + Tobago.EMPTY_HREF +  '"'
             + ' onclick="Tobago.Tree.onClick(this)"'
@@ -806,6 +810,9 @@ function tobagoTreeListboxCreateOption(node, index, hiddenId) {
   }
   var option = new Option(label, index);
   option.hiddenId = hiddenId;
+  if (node.tip) {
+    option.title = node.tip;
+  }
 //  Tobago.addEventListener(option, 'click', tbgTreeListboxClick);
 
   return option;
