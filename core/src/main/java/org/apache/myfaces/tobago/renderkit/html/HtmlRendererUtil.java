@@ -445,7 +445,8 @@ public final class HtmlRendererUtil {
     return tobagoClass.append(cssClass).toString();
   }
 
-  public static void addMarkupClass(UIComponent component, String rendererName, String subComponent, StringBuilder tobagoClass) {
+  public static void addMarkupClass(UIComponent component, String rendererName,
+      String subComponent, StringBuilder tobagoClass) {
 
     if (component instanceof SupportsMarkup) {
       String markup = ComponentUtil.getStringAttribute(component, ATTR_MARKUP);
