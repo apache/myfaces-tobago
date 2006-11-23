@@ -42,6 +42,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_
 import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_ERROR;
 import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_READONLY;
+import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_REQUIRED;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
@@ -438,9 +439,16 @@ public final class HtmlRendererUtil {
     if (ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
       tobagoClass.append(prefix).append(TOBAGO_CSS_CLASS_SUFFIX_INLINE);
     }
-    if (ComponentUtil.isError(component)) {
-      tobagoClass.append(prefix).append(TOBAGO_CSS_CLASS_SUFFIX_ERROR);
+    if (component instanceof UIInput) {
+      UIInput input = (UIInput) component;
+      if (ComponentUtil.isError(input)) {
+        tobagoClass.append(prefix).append(TOBAGO_CSS_CLASS_SUFFIX_ERROR);
+      }
+      if (input.isRequired()) {
+        tobagoClass.append(prefix).append(TOBAGO_CSS_CLASS_SUFFIX_REQUIRED);
+      }
     }
+
     addMarkupClass(component, rendererName, tobagoClass);
     return tobagoClass.append(cssClass).toString();
   }

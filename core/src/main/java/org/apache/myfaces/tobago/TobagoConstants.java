@@ -100,6 +100,7 @@ public final class TobagoConstants {
   public static final String ATTR_PAGE_MENU = "pageMenu";
   public static final String ATTR_PASSWORD = "password";
   public static final String ATTR_POPUP_LIST = "popupList";
+  //public static final String ATTR_PARTIALLY_RENDERED_COMPONENTS = "partiallyRenderedComponents";
   public static final String ATTR_POPUP_RESET = "popupReset";
   public static final String ATTR_POPUP_CALENDAR_FORCE_TIME = "popupCalendarForceTime";
   public static final String ATTR_POPUP_CALENDAR_ID = "popupCalendarId";
@@ -220,6 +221,7 @@ public final class TobagoConstants {
   public static final String TOBAGO_CSS_CLASS_SUFFIX_READONLY = "-readonly ";
   public static final String TOBAGO_CSS_CLASS_SUFFIX_INLINE = "-inline ";
   public static final String TOBAGO_CSS_CLASS_SUFFIX_ERROR = "-error ";
+  public static final String TOBAGO_CSS_CLASS_SUFFIX_REQUIRED = "-required";
 
   private TobagoConstants() {
     // to prevent instantiation

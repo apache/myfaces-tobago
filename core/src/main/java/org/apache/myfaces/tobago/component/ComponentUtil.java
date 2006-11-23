@@ -44,6 +44,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_RESET;
 import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_SCRIPT;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
+//import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PARTIALLY_RENDERED_COMPONENTS;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX;
@@ -235,13 +236,15 @@ public class ComponentUtil {
     return false;
   }
 
+  public static boolean isError(javax.faces.component.UIInput uiInput) {
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    return !uiInput.isValid()
+        || facesContext.getMessages(uiInput.getClientId(facesContext)).hasNext();
+  }
+
   public static boolean isError(UIComponent component) {
-    if (component instanceof EditableValueHolder) {
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      Iterator messages
-          = facesContext.getMessages(component.getClientId(facesContext));
-      return !((EditableValueHolder) component).isValid()
-          || messages.hasNext();
+    if (component instanceof UIInput) {
+       return isError((UIInput) component);
     }
     return false;
   }
@@ -283,6 +286,19 @@ public class ComponentUtil {
       return false;
     }
   }
+
+ /* public static void setPartiallyRenderedComponents(UIComponent component, String renderers) {
+
+    if (renderers != null) {
+      if (UIComponentTag.isValueReference(renderers)) {
+        component.setValueBinding(ATTR_PARTIALLY_RENDERED_COMPONENTS, createValueBinding(renderers));
+      } else {
+        String [] components  = renderers.split(",");
+        component.getAttributes().put(ATTR_PARTIALLY_RENDERED_COMPONENTS, components);
+      }
+    }
+
+  }*/
 
   public static Object getAttribute(UIComponent component, String name) {
     Object value = component.getAttributes().get(name);
@@ -496,7 +512,7 @@ public class ComponentUtil {
   }
 
   private static String toString(UIComponent component, int offset, boolean asFacet) {
-    StringBuffer result = new StringBuffer();
+    StringBuilder result = new StringBuilder();
     if (component == null) {
       result.append("null");
     } else {
@@ -526,7 +542,7 @@ public class ComponentUtil {
   }
 
   private static String toString(UIComponent component) {
-    StringBuffer buf = new StringBuffer(component.getClass().getName());
+    StringBuilder buf = new StringBuilder(component.getClass().getName());
     buf.append('@');
     buf.append(Integer.toHexString(component.hashCode()));
     buf.append(" ");
@@ -543,7 +559,7 @@ public class ComponentUtil {
   }
 
   private static String spaces(int n) {
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder buffer = new StringBuilder();
     for (int i = 0; i < n; i++) {
       buffer.append("  ");
     }
