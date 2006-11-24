@@ -46,3 +46,22 @@ Tobago.Tree.onDblClick = function(element) {
     treeNode.onDblClick();
   }
 };
+
+Tobago.Tree.updateMarker = function(node, add) {
+  node = Tobago.element(node);
+  if (node) {
+    node = node.firstChild;
+    while (node) {
+      if (node.className &&
+          (node.className.indexOf("tree-item-label") > -1
+              || node.className.indexOf("tree-folder-label") > -1)) {
+        if (add) {
+          Tobago.addCssClass(node, "tree-item-marker");
+        } else {
+          Tobago.removeCssClass(node, "tree-item-marker");
+        }
+      }
+      node = node.nextSibling;
+    }
+  }
+}

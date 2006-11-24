@@ -206,6 +206,10 @@ a.tree-folder-label:focus, a.tree-item-label:focus {
   color: #000000;
 }
 
+a.tree-item-marker, a.tree-item-marker:focus {
+	background-color: lightgrey;
+}
+
 /* -----------------------------------------------------------------------------
  these styles are only for tree-items which have no href, for that
 reason they are not defined as a:link

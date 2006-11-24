@@ -135,14 +135,14 @@ span.tobago-progress {
 	text-decoration: underline;
 }
 
-.tree-folder-label:active, .tree-item-label:active {
+/*.tree-folder-label:active, .tree-item-label:active {
 	background: highlight;
 	color: highlighttext;
 	text-decoration: none;
-}
+}*/
 
-.tree-item-marker {
-	background-color: lightgray;
+.tree-item-marker, .tree-item-marker:focus, a.tree-item-marker, a.tree-item-marker:focus {
+	background-color: lightgrey;
 }
 
 .tree-folder-label:focus, .tree-item-label:focus {

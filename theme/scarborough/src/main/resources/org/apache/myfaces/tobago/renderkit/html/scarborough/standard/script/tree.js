@@ -274,8 +274,10 @@ function getNodeForIdRecursiv(node, selectId) {
 function storeMarker(node, treeHiddenId) {
   var markerHidden = document.getElementById(treeHiddenId + '-marker');
   if (markerHidden) {
+    Tobago.Tree.updateMarker(markerHidden.value, false);
     markerHidden.value = node.id;
   }
+  Tobago.Tree.updateMarker(node.id, true);
 }
 
 function nodeStateId(node) {
@@ -538,7 +540,8 @@ TreeNode.prototype.doOnClick = function() {
     eval(this.onclick);
   } else {
     if (this.mutable) {
-      storeMarker(Tobago.element(this.id), this.treeHiddenId);
+      // nothing to do, storeMarker is already don in onFocus()
+//      storeMarker(Tobago.element(this.id), this.treeHiddenId);
     } else if (this.selectable) {
       toggleSelect(Tobago.element(this.id),
           this.treeHiddenId,
