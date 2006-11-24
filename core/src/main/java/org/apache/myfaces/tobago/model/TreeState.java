@@ -70,7 +70,7 @@ public class TreeState {
   }
 
   public void expand(DefaultMutableTreeNode node, int level) {
-    if (level > 0) {
+    if (level > 0) {   node.getDepth()
       if (!expandState.contains(node)) {
         expandState.add(node);
       }
@@ -85,13 +85,17 @@ public class TreeState {
   public void expandSelection() {
     for (Iterator i = selection.iterator(); i.hasNext();) {
       DefaultMutableTreeNode selected = (DefaultMutableTreeNode) i.next();
-      for (DefaultMutableTreeNode parent = (DefaultMutableTreeNode) selected.getParent();
-           parent != null;
-           parent = (DefaultMutableTreeNode) parent.getParent()) {
-        if (!expandState.contains(parent)) {
-          expandState.add(parent);
-        }
+      expandTo(selected);
+    }
+  }
+
+  public void expandTo(DefaultMutableTreeNode node) {
+    node = (DefaultMutableTreeNode) node.getParent(); 
+    while (node != null) {
+      if (!expandState.contains(node)) {
+        expandState.add(node);
       }
+      node = (DefaultMutableTreeNode) node.getParent();
     }
   }
 
