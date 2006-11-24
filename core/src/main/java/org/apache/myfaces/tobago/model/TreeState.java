@@ -70,7 +70,7 @@ public class TreeState {
   }
 
   public void expand(DefaultMutableTreeNode node, int level) {
-    if (level > 0) {   node.getDepth()
+    if (level > 0) {
       if (!expandState.contains(node)) {
         expandState.add(node);
       }
