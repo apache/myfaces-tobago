@@ -55,7 +55,7 @@ public class TobagoDemoController {
 
   private SelectItem[] salutationItems;
 
-  private Boolean[] bool;
+  private boolean[] bool;
 
   private Boolean boolTest;
 
@@ -128,7 +128,7 @@ public class TobagoDemoController {
     salutationItems = getSelectItems(salutationKeys, "demo");
     this.salutation = new String[]{"", "", "", ""};
 
-    bool = new Boolean[10];
+    bool = new boolean[10];
     bool[0] = true;
     bool[1] = false;
     bool[2] = true;
@@ -281,11 +281,11 @@ public class TobagoDemoController {
     this.salutationItems = salutationItems;
   }
 
-  public Boolean[] getBool() {
+  public boolean[] getBool() {
     return this.bool;
   }
 
-  public void setBool(Boolean[] argBool) {
+  public void setBool(boolean[] argBool) {
     this.bool = argBool;
   }
 

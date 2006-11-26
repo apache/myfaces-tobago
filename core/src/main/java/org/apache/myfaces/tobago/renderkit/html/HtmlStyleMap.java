@@ -34,7 +34,7 @@ public class HtmlStyleMap extends HashMap<String, Object> {
   private static final Log LOG = LogFactory.getLog(HtmlStyleMap.class);
 
   public Object put(String s, Object o) {
-    if (o instanceof String && ( s.equals("height")|| s.equals("width"))) {
+    if (o instanceof String && (s.equals("height") || s.equals("width"))) {
       String str = (String) o;
       if (str.endsWith("px")) {
         LOG.error("", new Exception());
@@ -58,7 +58,7 @@ public class HtmlStyleMap extends HashMap<String, Object> {
 
   public String toString() {
     StringBuilder buf = new StringBuilder();
-    for(Map.Entry<String,Object> style :entrySet()) {
+    for(Map.Entry<String, Object> style :entrySet()) {
       buf.append(style.getKey());
       buf.append(":");
       buf.append(style.getValue());

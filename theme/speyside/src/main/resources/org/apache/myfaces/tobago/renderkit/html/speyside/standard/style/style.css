@@ -457,6 +457,40 @@ label.tobago-label-error {
 .tobago-out-default  {
   font: 12px arial, helvetica, sans-serif;
 }
+
+.tobago-out-markup-header {
+        background: #ffffff none;
+        height: 20px;
+        width: 100%;
+        display: block;
+        border-bottom: 1px solid #b2b2b2;
+        font: bold 12px arial, helvetica, sans-serif;
+        color: #000066;
+        padding-left: 5px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+}
+
+.tobago-box-markup-header {
+	top: -1px;
+	background: #ffffff;
+	height: 20px;
+	border: 0px;
+	border-bottom: 1px solid #b2b2b2;
+	font: bold 12px arial, helvetica, sans-serif;
+	color: #000066;
+	padding: 0px;
+	padding-left: 5px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	overflow: hidden;
+	position: relative;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
 /* textArea ---------------------------------------------------------------- */
 
 .tobago-textArea-default  {

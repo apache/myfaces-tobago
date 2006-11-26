@@ -22,4 +22,28 @@
   <deprecated-name>org.apache.myfaces.tobago.context.SpeysideTheme</deprecated-name>
   <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
   <fallback>scarborough</fallback>
+  <renderers>
+	  <renderer>
+      <name>Out</name>
+	    <supported-markup>
+        <markup>strong</markup>
+        <markup>deleted</markup>
+        <markup>number</markup>
+        <markup>header</markup>
+      </supported-markup>
+    </renderer>
+	  <renderer>
+      <name>In</name>
+      <supported-markup>
+        <markup>number</markup>
+        <markup>required</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>Box</name>
+	    <supported-markup>
+        <markup>header</markup>
+      </supported-markup>
+    </renderer>
+  </renderers>
 </tobago-theme>

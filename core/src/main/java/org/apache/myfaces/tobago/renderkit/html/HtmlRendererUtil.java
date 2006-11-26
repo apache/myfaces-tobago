@@ -243,7 +243,8 @@ public final class HtmlRendererUtil {
     style.put(styleAttribute, value);
   }
 
-  public static void replaceStyleAttribute(UIComponent component, String attribute, String styleAttribute, String value) {
+  public static void replaceStyleAttribute(UIComponent component, String attribute,
+      String styleAttribute, String value) {
     HtmlStyleMap style = ensureStyleAttributeMap(component, attribute);
     style.put(styleAttribute, value);
   }
@@ -253,7 +254,8 @@ public final class HtmlRendererUtil {
     style.put(styleAttribute, value);
   }
 
-  public static void replaceStyleAttribute(UIComponent component, String attribute, String styleAttribute, int value) {
+  public static void replaceStyleAttribute(UIComponent component, String attribute,
+      String styleAttribute, int value) {
     HtmlStyleMap style = ensureStyleAttributeMap(component, attribute);
     style.put(styleAttribute, value);
 
