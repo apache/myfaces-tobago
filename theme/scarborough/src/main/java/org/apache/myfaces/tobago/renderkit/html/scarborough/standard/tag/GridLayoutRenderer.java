@@ -111,8 +111,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     int size = Math.min(rows.size(), layoutTokens.length);
 
     int height = 0;
-  //  height += getMarginAsInt(layout.getMarginTop());
-  //  height += getMarginAsInt(layout.getMarginBottom());
+    height += getMarginAsInt(layout.getMarginTop());
+    height += getMarginAsInt(layout.getMarginBottom());
     for (int i = 0; i < size; i++) {
       if (!rowIsRendered(rows.get(i))) {
         continue;
