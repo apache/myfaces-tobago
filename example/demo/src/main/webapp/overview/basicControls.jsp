@@ -33,7 +33,7 @@
       <tc:out escape="false" value="#{overviewBundle.basic_text_input}" />
 
   <%-- row --%>
-      <tc:box label="#{overviewBundle.basicControls_sampleInputTitle}" markup="deleted">
+      <tc:box label="#{overviewBundle.basicControls_sampleInputTitle}">
         <f:facet name="layout">
           <tc:gridLayout columns="1*;1*" border="0" />
         </f:facet>

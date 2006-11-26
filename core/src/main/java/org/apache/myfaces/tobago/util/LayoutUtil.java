@@ -120,38 +120,29 @@ public final class LayoutUtil {
 
 
   public static int getLabelWidth(UIComponent component) {
-    int width = 0;
-
     if (component != null) {
       UIComponent label = component.getFacet(FACET_LABEL);
       if (label != null) {
-        String labelWidth = (String) label.getAttributes().get(
-            ATTR_WIDTH);
+        String labelWidth = (String) label.getAttributes().get(ATTR_WIDTH);
         if (labelWidth != null) {
           try {
-            width = Integer.parseInt(labelWidth.replaceAll("\\D", ""));
+            return Integer.parseInt(labelWidth.replaceAll("\\D", ""));
           } catch (NumberFormatException e) {
             LOG.warn("Can't parse label width, using default value", e);
           }
         }
       }
     }
-    return width;
+    return 0;
   }
-
-
-
-
 
   //TODO Change this to DimensionUtils.getWidth?
   public static Integer getLayoutWidth(UIComponent component) {
-    return getLayoutSpace(component, ATTR_WIDTH,
-        ATTR_LAYOUT_WIDTH);
+    return getLayoutSpace(component, ATTR_WIDTH, ATTR_LAYOUT_WIDTH);
   }
   //TODO Change this to DimensionUtils.getHeight?
   public static Integer getLayoutHeight(UIComponent component) {
-    return getLayoutSpace(component, ATTR_HEIGHT,
-        ATTR_LAYOUT_HEIGHT);
+    return getLayoutSpace(component, ATTR_HEIGHT, ATTR_LAYOUT_HEIGHT);
   }
 
   public static Integer getLayoutSpace(UIComponent component,

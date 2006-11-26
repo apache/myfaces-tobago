@@ -23,7 +23,7 @@
   <jsp:body>
     <tc:panel>
       <f:facet name="layout">
-          <tc:gridLayout rows="90px;150px;1* " />
+          <tc:gridLayout rows="120px;150px;1* " />
       </f:facet>
 
       <tc:out escape="false" value="#{overviewBundle.theme_text}" />
