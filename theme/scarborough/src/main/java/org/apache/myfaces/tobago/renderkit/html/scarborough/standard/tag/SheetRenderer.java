@@ -77,6 +77,7 @@ import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.util.StringUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -117,7 +118,7 @@ public class SheetRenderer extends RendererBase
     HtmlRendererUtil.createHeaderAndBodyStyles(facesContext, data);
 
     final String sheetId = data.getClientId(facesContext);
-    String sheetStyle = (String) data.getAttributes().get(ATTR_STYLE);
+    HtmlStyleMap sheetStyle = (HtmlStyleMap) data.getAttributes().get(ATTR_STYLE);
 
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
@@ -188,22 +189,17 @@ public class SheetRenderer extends RendererBase
         .getImage(viewRoot, "image/sheetUnchecked.gif");
 
     Map attributes = data.getAttributes();
-    String sheetStyle = (String) attributes.get(ATTR_STYLE);
-    String headerStyle =
-        (String) attributes.get(ATTR_STYLE_HEADER);
+    HtmlStyleMap sheetStyle = (HtmlStyleMap) attributes.get(ATTR_STYLE);
+    //HtmlStyleMap headerStyle = (HtmlStyleMap) attributes.get(ATTR_STYLE_HEADER);
 //    String sheetWidthString = LayoutUtil.getStyleAttributeValue(sheetStyle,
 //        "width");
-    String sheetHeightString
-        = HtmlRendererUtil.getStyleAttributeValue(sheetStyle, "height");
-    int sheetHeight;
-    if (sheetHeightString != null) {
-      sheetHeight = Integer.parseInt(sheetHeightString.replaceAll("\\D", ""));
-    } else {
+    Integer sheetHeight = HtmlRendererUtil.getStyleAttributeIntValue(sheetStyle, "height");
+    if (sheetHeight == null) {
       // FIXME: nullpointer if height not defined
       LOG.error("no height in parent container, setting to 100");
       sheetHeight = 100;
     }
-    String bodyStyle = (String) attributes.get(ATTR_STYLE_BODY);
+    //HtmlStyleMap bodyStyle = (HtmlStyleMap) attributes.get(ATTR_STYLE_BODY);
     int footerHeight = (Integer) attributes.get(ATTR_FOOTER_HEIGHT);
 
     String selectable = data.getSelectable();
@@ -239,7 +235,10 @@ public class SheetRenderer extends RendererBase
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeIdAttribute(sheetId + "_header_div");
       writer.writeClassAttribute("tobago-sheet-header-div");
-      writer.writeAttribute(HtmlAttributes.STYLE, headerStyle, null);
+      HtmlStyleMap headerStyle = (HtmlStyleMap) attributes.get(ATTR_STYLE_HEADER);
+      if (headerStyle != null) {
+        writer.writeAttribute(HtmlAttributes.STYLE, headerStyle, null);
+      }
 
       int columnCount = 0;
       final int sortMarkerWidth = getAscendingMarkerWidth(facesContext, data);
@@ -264,32 +263,26 @@ public class SheetRenderer extends RendererBase
     }
 
 // BEGIN RENDER BODY CONTENT
-    bodyStyle = HtmlRendererUtil.replaceStyleAttribute(bodyStyle, "height",
-        (sheetHeight - footerHeight) + "px");
-    String space = HtmlRendererUtil.getStyleAttributeValue(bodyStyle, "width");
-    String sheetBodyStyle;
-    if (space != null) {
-      int intSpace = Integer.parseInt(space.replaceAll("\\D", ""));
-//      intSpace -= columnWidths.get(columnWidths.size() - 1);
-      intSpace -= getContentBorder(facesContext, data);
-      if (needVerticalScrollbar(facesContext, data)) {
-        intSpace -= getScrollbarWidth(facesContext, data);
-      }
-      sheetBodyStyle =
-          HtmlRendererUtil.replaceStyleAttribute(bodyStyle, "width", intSpace + "px");
-    } else {
-      sheetBodyStyle = bodyStyle;
-    }
-    sheetBodyStyle = HtmlRendererUtil.removeStyleAttribute(sheetBodyStyle, "height");
-
-    if (!showHeader) {
-      bodyStyle += " padding-top: 0px;";
-    }
-
+    HtmlStyleMap bodyStyle = (HtmlStyleMap) attributes.get(ATTR_STYLE_BODY);
+    HtmlRendererUtil.replaceStyleAttribute(data, ATTR_STYLE_BODY, "height", (sheetHeight - footerHeight));
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(sheetId + "_data_div");
     writer.writeClassAttribute("tobago-sheet-body-div ");
-    writer.writeAttribute(HtmlAttributes.STYLE, bodyStyle, null);
+    writer.writeAttribute(HtmlAttributes.STYLE, bodyStyle.toString() + (showHeader?"":" padding-top: 0px;"), null);
+    Integer space = HtmlRendererUtil.getStyleAttributeIntValue(bodyStyle, "width");
+    HtmlStyleMap sheetBodyStyle = (HtmlStyleMap) bodyStyle.clone();
+    //String sheetBodyStyle;
+    if (space != null) {
+//      intSpace -= columnWidths.get(columnWidths.size() - 1);
+      space -= getContentBorder(facesContext, data);
+      if (needVerticalScrollbar(facesContext, data)) {
+        space -= getScrollbarWidth(facesContext, data);
+      }
+      sheetBodyStyle.put("width", space);
+    }
+    sheetBodyStyle.remove("height");
+
+
 
     writer.startElement(HtmlConstants.TABLE, null);
     writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
@@ -352,17 +345,11 @@ public class SheetRenderer extends RendererBase
       for (UIColumn column : data.getRendererdColumns()) {
         columnIndex++;
 
-        final String style = "width: " + columnWidths.get(columnIndex) + "px;";
-        String tdStyle = "";
-        final String align = (String) column.getAttributes().get(ATTR_ALIGN);
-        if (align != null) {
-          tdStyle = "text-align: " + align;
-        }
         final String cellClass = (String) column.getAttributes().get(ATTR_STYLE_CLASS);
 
         final StringBuilder tdClass = new StringBuilder();
         tdClass.append("tobago-sheet-cell-td ");
-        HtmlRendererUtil.addMarkupClass(column, "sheet-cell", tdClass);
+        HtmlRendererUtil.addMarkupClass(column, "column", tdClass);
         if (columnIndex == 0) {
           tdClass.append("tobago-sheet-cell-first-column ");
         }
@@ -373,13 +360,16 @@ public class SheetRenderer extends RendererBase
         writer.startElement(HtmlConstants.TD, column);
 
         writer.writeClassAttribute(tdClass.toString());
-        writer.writeAttribute(HtmlAttributes.STYLE, tdStyle, null);
-
+        final String align = (String) column.getAttributes().get(ATTR_ALIGN);
+        if (align != null) {
+          writer.writeAttribute(HtmlAttributes.STYLE, HtmlRendererUtil.toStyleString("text-align", align) , null);
+        }
         writer.startElement(HtmlConstants.DIV, null);
         writer.writeIdAttribute(
             sheetId + "_data_row_" + visibleIndex + "_column" + columnIndex);
         writer.writeClassAttribute("tobago-sheet-cell-outer");
-        writer.writeAttribute(HtmlAttributes.STYLE, style, null);
+        writer.writeAttribute(HtmlAttributes.STYLE,
+            HtmlRendererUtil.toStyleString("width", columnWidths.get(columnIndex)), null);
 
         writer.startElement(HtmlConstants.DIV, null);
         writer.writeClassAttribute("tobago-sheet-cell-inner");
@@ -447,9 +437,12 @@ public class SheetRenderer extends RendererBase
     if (isValidPagingValue(showRowRange)
         || isValidPagingValue(showPageRange)
         || isValidPagingValue(showDirectLinks)) {
-      final String footerStyle = HtmlRendererUtil.replaceStyleAttribute(bodyStyle,
-          "height", footerHeight + "px")
-          + " top: " + (sheetHeight - footerHeight) + "px;";
+      final HtmlStyleMap footerStyle = (HtmlStyleMap) bodyStyle.clone();
+      footerStyle.put("height", footerHeight);
+      footerStyle.put("top", (sheetHeight - footerHeight));
+
+        //  "height", MessageFormat.format("{0}px", footerHeight));
+        //  + " top: " + (sheetHeight - footerHeight) + "px;";
 
       writer.startElement(HtmlConstants.DIV, data);
       writer.writeClassAttribute("tobago-sheet-footer");
@@ -628,10 +621,9 @@ public class SheetRenderer extends RendererBase
       }
     }
 
-    String style = (String) data.getAttributes().get(
-        ATTR_STYLE);
-    String heightString = HtmlRendererUtil.getStyleAttributeValue(style, "height");
-    if (heightString != null) {
+    HtmlStyleMap style = (HtmlStyleMap) data.getAttributes().get(ATTR_STYLE);
+    Integer height = HtmlRendererUtil.getStyleAttributeIntValue(style, "height");
+    if (height != null) {
       int first = data.getFirst();
       int rows = Math.min(data.getRowCount(), first + data.getRows()) - first;
       int heightNeeded = getHeaderHeight(facesContext, data)
@@ -639,7 +631,6 @@ public class SheetRenderer extends RendererBase
           + (rows * (getFixedHeight(facesContext, null)
           + getRowPadding(facesContext, data)));
 
-      int height = Integer.parseInt(heightString.replaceAll("\\D", ""));
       return heightNeeded > height;
     } else {
       return false;

@@ -30,12 +30,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARGIN;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARGIN_BOTTOM;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARGIN_LEFT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARGIN_RIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARGIN_TOP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_TABLE_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SCROLLBARS;
@@ -53,6 +47,7 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -116,6 +111,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     int size = Math.min(rows.size(), layoutTokens.length);
 
     int height = 0;
+  //  height += getMarginAsInt(layout.getMarginTop());
+  //  height += getMarginAsInt(layout.getMarginBottom());
     for (int i = 0; i < size; i++) {
       if (!rowIsRendered(rows.get(i))) {
         continue;
@@ -172,7 +169,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     writer.startElement(HtmlConstants.TABLE, layout);
     writer.writeAttribute(HtmlAttributes.BORDER, null, ATTR_BORDER);
     writer.writeComponentClass();
-    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_LAYOUT_TABLE_STYLE);
+    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
     writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
@@ -180,8 +177,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     if (columnWidths != null) {
       writer.startElement(HtmlConstants.COLGROUP, null);
       for (int i = 0; i < columnWidths.size(); i++) {
-        int cellWidth
-            = ((Integer) columnWidths.get(i)).intValue();
+        int cellWidth = ((Integer) columnWidths.get(i)).intValue();
         if (cellWidth != LayoutInfo.HIDE) {
           cellWidth += getCellPadding(facesContext, layout, i);
           writer.startElement(HtmlConstants.COL, null);
@@ -375,8 +371,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   }
 
   private int getCellSpacing(FacesContext facesContext, UIComponent component) {
-    String cellspacing = (String) component.getAttributes().get(
-        ATTR_CELLSPACING);
+    String cellspacing = (String) component.getAttributes().get(ATTR_CELLSPACING);
     if (cellspacing instanceof String) {
       try {
         return Integer.parseInt(cellspacing);
@@ -421,10 +416,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           = innerWidth.intValue() - getWidthSpacingSum(layout, facesContext);
       if (needVerticalScroolbar) {
         value -= getConfiguredValue(facesContext, component, "scrollbarWidth");
-        String style = (String) layout.getAttributes().get(ATTR_STYLE);
-        style = HtmlRendererUtil.replaceStyleAttribute(style, "width",
-            Integer.toString(value) + "px");
-        layout.getAttributes().put(ATTR_STYLE, style);
+        HtmlRendererUtil.replaceStyleAttribute(layout, "width", value);
       }
       layoutWidth(new Integer(value), layout, facesContext);
     }
@@ -694,7 +686,6 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     }
   }
 
-// ///////////////////////////////////////////// LayoutManager implementation
 
   public void layoutBegin(FacesContext facesContext, UIComponent component) {
     LOG.info("############################## layoutBegin +++++++++++++++++++++++++++++++++++++++++");
@@ -707,60 +698,38 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   }
 
   private void layoutMargins(UIGridLayout layout) {
-    String margin
-        = (String) layout.getAttributes().get(
-            ATTR_MARGIN);
-    String marginTop
-        = getMargin(layout, ATTR_MARGIN_TOP, margin);
-    String marginRight
-        = getMargin(layout, ATTR_MARGIN_RIGHT, margin);
-    String marginBottom
-        = getMargin(layout, ATTR_MARGIN_BOTTOM, margin);
-    String marginLeft
-        = getMargin(layout, ATTR_MARGIN_LEFT, margin);
 
-    String style = (String) layout.getAttributes().get(
-        ATTR_STYLE);
+    HtmlStyleMap style = (HtmlStyleMap) layout.getAttributes().get(ATTR_STYLE);
 
     if (style != null) {
-      style = addStyle(style, "margin-top", marginTop);
-      style = addStyle(style, "margin-right", marginRight);
-      style = addStyle(style, "margin-bottom", marginBottom);
-      style = addStyle(style, "margin-left", marginLeft);
+      int marginTop = getMarginAsInt(layout.getMarginTop());
+      int marginRight = getMarginAsInt(layout.getMarginRight());
+      int marginBottom = getMarginAsInt(layout.getMarginBottom());
+      int marginLeft = getMarginAsInt(layout.getMarginLeft());
+      if(marginTop > 0) {
+        style.put("margin-top", marginTop);
+      }
+      if(marginRight > 0) {
+        style.put("margin-right", marginRight);
+      }
+      if(marginBottom > 0) {
+        style.put("margin-bottom", marginBottom);
+      }
+      if(marginLeft > 0) {
+        style.put("margin-left", marginLeft);
+      }
 
-      layout.getAttributes().put(ATTR_LAYOUT_TABLE_STYLE,
-          style);
+      //layout.getAttributes().put(ATTR_LAYOUT_TABLE_STYLE, style);
     }
-  }
-
-  private String addStyle(String style, String attribute, String value) {
-    if (value != null) {
-      style += " " + attribute + ": " + value + ";";
-    }
-    return style;
-  }
-
-  private String getMargin(UIGridLayout layout, String attribute,
-      String defaultMargin) {
-    String margin = (String) layout.getAttributes().get(attribute);
-    if (margin == null && defaultMargin != null) {
-      margin = defaultMargin;
-    }
-    return margin;
   }
 
   public int getComponentExtraWidth(FacesContext facesContext,
       UIComponent component) {
     int extra = 0;
     UIGridLayout layout = (UIGridLayout) component;
-    String margin
-        = (String) layout.getAttributes().get(
-            ATTR_MARGIN);
 
-    extra += getMaginAsInt(
-        getMargin(layout, ATTR_MARGIN_RIGHT, margin));
-    extra += getMaginAsInt(
-        getMargin(layout, ATTR_MARGIN_LEFT, margin));
+    extra += getMarginAsInt(layout.getMarginRight());
+    extra += getMarginAsInt(layout.getMarginLeft());
 
     return extra;
   }
@@ -769,22 +738,17 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
       UIComponent component) {
     int extra = 0;
     UIGridLayout layout = (UIGridLayout) component;
-    String margin
-        = (String) layout.getAttributes().get(
-            ATTR_MARGIN);
 
-    extra += getMaginAsInt(
-        getMargin(layout, ATTR_MARGIN_TOP, margin));
-    extra += getMaginAsInt(
-        getMargin(layout, ATTR_MARGIN_BOTTOM, margin));
+    extra += getMarginAsInt(layout.getMarginTop());
+    extra += getMarginAsInt(layout.getMarginBottom());
     return extra;
   }
 
-  private int getMaginAsInt(String margin) {
-    int intValue = 0;
+  private int getMarginAsInt(String margin) {
     if (margin != null) {
+      margin = removePx(margin);
       try {
-        intValue += Integer.parseInt(margin.replaceAll("\\D", ""));
+        return Integer.parseInt(margin);
       } catch (NumberFormatException e) {
         if (LOG.isWarnEnabled()) {
           LOG.warn("Illegal Margin : " + margin
@@ -792,8 +756,14 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         }
       }
     }
-    return intValue;
+    return 0;
   }
 
+  private String removePx(String margin) {
+    if (margin!=null&&margin.endsWith("px")) {
+      margin = margin.substring(0, margin.length() - 2);
+    }
+    return margin;
+  }
 }
 

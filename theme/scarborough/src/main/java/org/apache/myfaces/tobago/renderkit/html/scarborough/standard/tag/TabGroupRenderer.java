@@ -47,10 +47,10 @@ import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.StyleAttribute;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -150,10 +150,10 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
 
       if (SWITCH_TYPE_CLIENT.equals(switchType) || virtualTab == activeIndex) {
 
-        StyleAttribute oStyle = new StyleAttribute(
-            (String) component.getAttributes().get(ATTR_STYLE));
+
+
         if (virtualTab != activeIndex) {
-          oStyle.add("display", "none");
+          HtmlRendererUtil.replaceStyleAttribute(component, "display", "none");
         }
         writer.startElement(HtmlConstants.DIV, null);
         writer.writeComment("empty div fix problem with mozilla and fieldset");
@@ -161,7 +161,8 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
 
         writer.startElement(HtmlConstants.DIV, null);
         writer.writeIdAttribute(clientId);
-        renderTabGroupView(facesContext, writer, component, virtualTab, oStyle,
+        renderTabGroupView(facesContext, writer, component, virtualTab,
+            (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE),
             switchType, image1x1);
         writer.endElement(HtmlConstants.DIV);
 
@@ -180,7 +181,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
 
   private void renderTabGroupView(
       FacesContext facesContext, TobagoResponseWriter writer, UITabGroup component,
-      int virtualTab, StyleAttribute oStyle, String switchType, String image1x1)
+      int virtualTab, HtmlStyleMap oStyle, String switchType, String image1x1)
       throws IOException {
     UIPanel[] tabs = component.getTabs();
     writer.startElement(HtmlConstants.TABLE, null);
@@ -190,7 +191,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
     final String clientId = component.getClientId(facesContext);
     writer.writeIdAttribute(clientId + '.' + virtualTab);
-    writer.writeAttribute(HtmlAttributes.STYLE, oStyle.toString(), null);
+    writer.writeAttribute(HtmlAttributes.STYLE, oStyle, null);
 
     writer.startElement(HtmlConstants.TR, null);
     writer.writeAttribute(HtmlAttributes.VALIGN, "bottom", null);
@@ -305,7 +306,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
   protected void encodeContent(TobagoResponseWriter writer,
       FacesContext facesContext, UIPanel activeTab) throws IOException {
 
-    String bodyStyle = (String)
+    HtmlStyleMap bodyStyle = (HtmlStyleMap)
         activeTab.getParent().getAttributes().get(ATTR_STYLE_BODY);
     writer.startElement(HtmlConstants.TR, null);
     writer.startElement(HtmlConstants.TD, null);
@@ -324,7 +325,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
         (TobagoResponseWriter) context.getResponseWriter(),
         (UITabGroup) component,
         ((UITabGroup) component).getActiveIndex(),
-        new StyleAttribute((String) component.getAttributes().get(ATTR_STYLE)),
+        (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE),
         SWITCH_TYPE_RELOAD_TAB,
         ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"));
     context.responseComplete();

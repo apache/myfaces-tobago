@@ -30,10 +30,12 @@ import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.text.MessageFormat;
 
 public class TabGroupRenderer extends
     org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.TabGroupRenderer{
@@ -43,7 +45,7 @@ public class TabGroupRenderer extends
   protected void encodeContent(TobagoResponseWriter writer,
       FacesContext facesContext, UIPanel activeTab) throws IOException {
 
-    String bodyStyle = (String)
+    HtmlStyleMap bodyStyle = (HtmlStyleMap)
         activeTab.getParent().getAttributes().get(ATTR_STYLE_BODY);
     writer.startElement(HtmlConstants.TR, null);
     writer.startElement(HtmlConstants.TD, null);
@@ -61,10 +63,10 @@ public class TabGroupRenderer extends
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeClassAttribute("tobago-tab-content");
 
-    String height = HtmlRendererUtil.getStyleAttributeValue(bodyStyle, "height");
+    Integer height = HtmlRendererUtil.getStyleAttributeIntValue(bodyStyle, "height");
     if (height != null) {
-      writer.writeAttribute(HtmlAttributes.STYLE, "height: "
-          + (Integer.parseInt(height.replaceAll("\\D", ""))-1) + "px; overflow: auto;", null);
+      writer.writeAttribute(HtmlAttributes.STYLE,
+          MessageFormat.format("height: {0}px; overflow: auto;", height - 1), null);
     }
 
     writer.writeText("", null);

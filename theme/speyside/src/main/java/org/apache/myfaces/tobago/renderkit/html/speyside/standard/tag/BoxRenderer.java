@@ -39,6 +39,7 @@ import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -63,16 +64,12 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    String style = (String) component.getAttributes().get(ATTR_STYLE);
+    HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE);
 
     if (style != null) {
-
-      // XXX ???
-      String str = HtmlRendererUtil.getStyleAttributeValue(style, "height");
-      if (str != null) {
-        String heightString = str.replaceAll("\\D", "");
-        int height = Integer.parseInt(heightString) - 1;
-        style = HtmlRendererUtil.replaceStyleAttribute(style, "height", height + "px");
+      Integer styleHeight = style.getInt("height");
+      if (styleHeight != null) {
+        style.put("height", styleHeight-1);
       }
     }
 

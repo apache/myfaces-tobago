@@ -216,7 +216,12 @@ public final class HtmlRendererUtil {
     }
     return sb.toString();
   }
-
+  public static Integer getStyleAttributeIntValue(HtmlStyleMap style, String name) {
+    if (style == null) {
+      return null;
+    }
+    return style.getInt(name);
+  }
   public static String getStyleAttributeValue(String style, String name) {
     if (style == null) {
       return null;
@@ -232,11 +237,40 @@ public final class HtmlRendererUtil {
     return value;
   }
 
+
   public static void replaceStyleAttribute(UIComponent component, String styleAttribute, String value) {
+    HtmlStyleMap style = ensureStyleAttributeMap(component);
+    style.put(styleAttribute, value);
+  }
+
+  public static void replaceStyleAttribute(UIComponent component, String attribute, String styleAttribute, String value) {
+    HtmlStyleMap style = ensureStyleAttributeMap(component, attribute);
+    style.put(styleAttribute, value);
+  }
+
+  public static void replaceStyleAttribute(UIComponent component, String styleAttribute, int value) {
+    HtmlStyleMap style = ensureStyleAttributeMap(component);
+    style.put(styleAttribute, value);
+  }
+
+  public static void replaceStyleAttribute(UIComponent component, String attribute, String styleAttribute, int value) {
+    HtmlStyleMap style = ensureStyleAttributeMap(component, attribute);
+    style.put(styleAttribute, value);
+
+  }
+
+  private static HtmlStyleMap ensureStyleAttributeMap(UIComponent component) {
+    return ensureStyleAttributeMap(component, ATTR_STYLE);
+  }
+
+  private static HtmlStyleMap ensureStyleAttributeMap(UIComponent component, String attribute) {
     final Map attributes = component.getAttributes();
-    String style = (String) attributes.get(ATTR_STYLE);
-    style = replaceStyleAttribute(style, styleAttribute, value);
-    attributes.put(ATTR_STYLE, style);
+    HtmlStyleMap style = (HtmlStyleMap) attributes.get(attribute);
+    if (style == null) {
+      style = new HtmlStyleMap();
+      attributes.put(attribute, style);
+    }
+    return style;
   }
 
   public static String replaceStyleAttribute(String style, String name,
@@ -319,7 +353,7 @@ public final class HtmlRendererUtil {
           }
         }
 
-        replaceStyleAttribute(component, styleAttribute, styleSpace + "px");
+        replaceStyleAttribute(component, styleAttribute, styleSpace);
 
       }
       UIComponent layout = component.getFacet(FACET_LAYOUT);
@@ -340,14 +374,14 @@ public final class HtmlRendererUtil {
 
   public static void createHeaderAndBodyStyles(FacesContext facesContext, UIComponent component, boolean width) {
     RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
-    String style = (String) component.getAttributes().get(ATTR_STYLE);
-    int styleSpace = -1;
+    HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE);
+    Integer styleSpace = null;
     try {
-      styleSpace = Integer.parseInt(getStyleAttributeValue(style, width ? "width" : "height").replaceAll("\\D", ""));
+      styleSpace = style.getInt(width ? "width" : "height");
     } catch (Exception e) {
       /* ignore */
     }
-    if (styleSpace != -1) {
+    if (styleSpace != null) {
       int bodySpace = 0;
       int headerSpace = 0;
       if (!width) {
@@ -356,34 +390,15 @@ public final class HtmlRendererUtil {
         }
         bodySpace = styleSpace - headerSpace;
       }
-
-      String headerStyle;
-      String bodyStyle;
+      HtmlStyleMap headerStyle = ensureStyleAttributeMap(component, ATTR_STYLE_HEADER);
+      HtmlStyleMap bodyStyle = ensureStyleAttributeMap(component, ATTR_STYLE_BODY); 
       if (width) {
-        headerStyle = "width: " + styleSpace + "px;";
-        bodyStyle = "width: " + styleSpace + "px;";
+        headerStyle.put("width", styleSpace);
+        bodyStyle.put("width",  styleSpace);
       } else {
-        headerStyle =
-            (String)
-            component.getAttributes().get(ATTR_STYLE_HEADER);
-        if (headerStyle == null) {
-          LOG.warn("headerStyle attribute == null, set to empty String");
-          headerStyle = "";
-        }
-        headerStyle
-            = headerStyle.replaceAll("height:\\s\\d+px;", "").trim();
-        headerStyle += " height: " + headerSpace + "px;";
-        bodyStyle
-            = (String) component.getAttributes().get(ATTR_STYLE_BODY);
-        if (bodyStyle == null) {
-          LOG.warn("bodyStyle attribute == null, set to empty String");
-          bodyStyle = "";
-        }
-        bodyStyle = bodyStyle.replaceAll("height:\\s\\d+px;", "").trim();
-        bodyStyle += " height: " + bodySpace + "px;";
+        headerStyle.put("height", headerSpace);
+        bodyStyle.put("height", bodySpace);
       }
-      component.getAttributes().put(ATTR_STYLE_HEADER, headerStyle);
-      component.getAttributes().put(ATTR_STYLE_BODY, bodyStyle);
     }
   }
 
@@ -681,5 +696,23 @@ public final class HtmlRendererUtil {
   public static String getEmptyHref(FacesContext facesContext) {
     ClientProperties clientProperties = ClientProperties.getInstance(facesContext);
     return clientProperties.getUserAgent().isMsie() ? "#" : "javascript:;";
+  }
+
+  public static String toStyleString(String key, Integer value) {
+    StringBuilder buf = new StringBuilder();
+    buf.append(key);
+    buf.append(":");
+    buf.append(value);
+    buf.append("px; ");
+    return buf.toString();
+  }
+
+  public static String toStyleString(String key, String value) {
+    StringBuilder buf = new StringBuilder();
+    buf.append(key);
+    buf.append(":");
+    buf.append(value);
+    buf.append("; ");
+    return buf.toString();
   }
 }

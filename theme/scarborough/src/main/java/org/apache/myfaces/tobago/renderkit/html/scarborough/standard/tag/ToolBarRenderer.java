@@ -533,10 +533,7 @@ public class ToolBarRenderer extends RendererBase {
   private void setToolBarHeight(FacesContext facesContext,
       UIComponent component) {
     final int height = getFixedHeight(facesContext, component);
-    final Map attributes = component.getAttributes();
-    String style = HtmlRendererUtil.replaceStyleAttribute((String)
-        attributes.get(ATTR_STYLE), "height", Integer.toString(height) + "px");
-    attributes.put(ATTR_STYLE, style);
+    HtmlRendererUtil.replaceStyleAttribute(component, "height", height);
   }
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {

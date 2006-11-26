@@ -57,23 +57,18 @@ public class BoxRenderer extends BoxRendererBase {
     UIComponent label = component.getFacet(FACET_LABEL);
     String labelString
         = (String) component.getAttributes().get(ATTR_LABEL);
-    String style = (String) component.getAttributes().get(getAttrStyleKey());
     UIPanel toolbar = (UIPanel) component.getFacet(FACET_TOOL_BAR);
     if (toolbar != null) {
-      final int padding
-          = getConfiguredValue(facesContext, component, "paddingTopWhenToolbar");
-      style = HtmlRendererUtil.replaceStyleAttribute(style, "padding-top",
-          Integer.toString(padding) + "px");
-      style = HtmlRendererUtil.replaceStyleAttribute(style, "padding-bottom", "0px");
+      final int padding = getConfiguredValue(facesContext, component, "paddingTopWhenToolbar");
+      HtmlRendererUtil.replaceStyleAttribute(component, getAttrStyleKey(), "padding-top", padding);
+      HtmlRendererUtil.replaceStyleAttribute(component, getAttrStyleKey(), "padding-bottom", 0);
     }
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement(HtmlConstants.FIELDSET, component);
     writer.writeComponentClass();
-    if (style != null) {
-      writer.writeAttribute(HtmlAttributes.STYLE, style, null);
-    }
+    writer.writeAttribute(HtmlAttributes.STYLE, null, getAttrStyleKey());
 
     if (label != null || labelString != null) {
       writer.startElement(HtmlConstants.LEGEND, component);

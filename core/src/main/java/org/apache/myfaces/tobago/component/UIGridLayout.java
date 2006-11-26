@@ -72,7 +72,7 @@ public class UIGridLayout extends UILayout {
     if (vb != null) {
       return (String) vb.getValue(getFacesContext());
     } else {
-      return marginTop;
+      return getMargin();
     }
   }
 
@@ -84,7 +84,7 @@ public class UIGridLayout extends UILayout {
     if (vb != null) {
       return (String) vb.getValue(getFacesContext());
     } else {
-      return marginRight;
+      return getMargin();
     }
   }
 
@@ -96,7 +96,7 @@ public class UIGridLayout extends UILayout {
     if (vb != null) {
       return (String) vb.getValue(getFacesContext());
     } else {
-      return marginBottom;
+      return getMargin();
     }
   }
 
@@ -108,7 +108,7 @@ public class UIGridLayout extends UILayout {
     if (vb != null) {
       return (String) vb.getValue(getFacesContext());
     } else {
-      return marginLeft;
+      return getMargin();
     }
   }
 
