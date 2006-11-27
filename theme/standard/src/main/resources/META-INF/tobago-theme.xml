@@ -36,11 +36,5 @@
         <markup>number</markup>
       </supported-markup>
     </renderer>
-    <renderer>
-      <name>Box</name>
-      <supported-markup>
-        <markup>number</markup>
-      </supported-markup>
-    </renderer>
   </renderers>
 </tobago-theme>
