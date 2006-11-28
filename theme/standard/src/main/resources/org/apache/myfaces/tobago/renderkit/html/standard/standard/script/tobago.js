@@ -1311,7 +1311,7 @@ Tobago.In = function(inId, required, cssPrefix) {
   if (required) {
     var ctrl = Tobago.element(this.id);
     if (ctrl.value && ctrl.value.length > 0) {
-      Tobago.removeCssClass(id, cssPrefix + "-required" );
+      Tobago.removeCssClass(this.id, cssPrefix + "-required" );
     }
     Tobago.addBindEventListener(ctrl, "focus", this, "enterRequired");
     Tobago.addBindEventListener(ctrl, "blur", this, "leaveRequired");
