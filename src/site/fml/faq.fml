@@ -128,7 +128,7 @@
            resource-path/content-type/theme/client/[tag(for renderer)|property|style|script|image]_locale.(class|property|property.xml|css|js| gif|png...]
            </source>
 
-           for example OutRenderer<br/
+           for example OutRenderer<br/>
 
            org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.OutRenderer<br/>
 
