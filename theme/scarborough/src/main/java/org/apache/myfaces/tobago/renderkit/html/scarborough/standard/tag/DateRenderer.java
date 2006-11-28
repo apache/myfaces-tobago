@@ -24,7 +24,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
@@ -60,9 +59,6 @@ public class DateRenderer extends InRenderer {
       HtmlRendererUtil.writeScriptLoader(facesContext, scripts, null);
     }
 
-    String classes = ComponentUtil.getStringAttribute(component, ATTR_STYLE_CLASS);
-    classes = classes.replaceAll("tobago-date-", "tobago-in-");
-    component.getAttributes().put(ATTR_STYLE_CLASS, classes);
     super.encodeEnd(facesContext, component);
 
     Converter help = getConverter(facesContext, component);
@@ -87,6 +83,7 @@ public class DateRenderer extends InRenderer {
     }
 
     // focus
+    // TODO is this not already done in InRenderer?
     HtmlRendererUtil.renderFocusId(facesContext, component);
   }
 }

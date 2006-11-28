@@ -224,11 +224,10 @@ var Tobago = {
     TbgTimer.endAppOnload = new Date();
 
     this.loadPngFix();
-    this.setFocus();
 
     this.addBindEventListener(document, "keypress", this.acceleratorKeys, "observe");
 
-    window.setTimeout(Tobago.finishPageLoading, 10);
+    window.setTimeout(Tobago.finishPageLoading, 1);
     TbgTimer.endOnload = new Date();
   },
 
@@ -238,6 +237,7 @@ var Tobago = {
     Tobago.startScriptLoaders();
     TbgTimer.endScriptLoaders = new Date();
     Tobago.pageIsComplete = true;
+    Tobago.setFocus();
     TbgTimer.endTotal = new Date();
     TbgTimer.log();
   },
@@ -1302,6 +1302,34 @@ Tobago.Image = function(id, normal, disabled, hover) {
   this.disabled = disabled;
   this.hover = hover;
   Tobago.images[id] = this;
+};
+
+Tobago.In = function(inId, required, cssPrefix) {
+  this.id = inId;
+  this.required = required;
+  this.cssPrefix = cssPrefix;
+  if (required) {
+    var ctrl = Tobago.element(this.id);
+    if (ctrl.value && ctrl.value.length > 0) {
+      Tobago.removeCssClass(id, cssPrefix + "-required" );
+    }
+    Tobago.addBindEventListener(ctrl, "focus", this, "enterRequired");
+    Tobago.addBindEventListener(ctrl, "blur", this, "leaveRequired");
+  }
+};
+
+Tobago.In.prototype.enterRequired = function(e) {
+  var evt = e || window.event;
+  var ctrl = evt.target || evt.srcElement;
+  Tobago.removeCssClass(ctrl.id, this.cssPrefix + "-required");
+};
+
+Tobago.In.prototype.leaveRequired = function (e) {
+  var evt = e || window.event;
+  var ctrl = evt.target || evt.srcElement;
+  if (!ctrl.value || ctrl.value.length == 0) {
+    Tobago.addCssClass(ctrl.id, this.cssPrefix + "-required");
+  }
 };
 
 Tobago.Panel = function(panelId, enableAjax, autoReload) {

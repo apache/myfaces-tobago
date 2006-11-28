@@ -261,6 +261,7 @@ function writeIntoField(id) {
   }
   var date = new Date(year, month - 1, day, hour, minute, second);
   textBox.value = formatDate(date, document.calendar.formatPattern);
+  textBox.focus();
 //  alert(document.calendar.formatPattern);
 }
 

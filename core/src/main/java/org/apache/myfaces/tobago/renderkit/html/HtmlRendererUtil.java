@@ -132,6 +132,14 @@ public final class HtmlRendererUtil {
 
   }
 
+  public static String getRendererName(FacesContext facesContext, UIComponent component) {
+    final String rendererType = component.getRendererType();
+    if (rendererType != null) {
+      return ComponentUtil.getRenderer(facesContext, component).getRendererName(rendererType);
+    }
+    return null;
+  }
+
   public static void writeLabelWithAccessKey(ResponseWriter writer,
       LabelWithAccessKey label)
       throws IOException {

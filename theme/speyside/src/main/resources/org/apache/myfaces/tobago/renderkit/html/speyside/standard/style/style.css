@@ -506,6 +506,30 @@ label.tobago-label-error {
 }
 
 
+/* date ---------------------------------------------------------------------- */
+
+.tobago-date-default  {
+  border: 1px #000000 solid;
+  height: 20px;
+  font: 12px arial, helvetica, sans-serif;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.tobago-date-readonly  {
+  background-color: #E8E8E8;
+}
+
+.tobago-date-disabled  {
+  color: #808080;
+  background-color: #E8E8E8;
+}
+
+.tobago-date-error {
+  border: 1px solid #FF0000;
+}
+
+
 /* selectOneChoice --------------------------------------------------------- */
 
 .tobago-selectOneChoice-default  {

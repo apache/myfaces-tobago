@@ -649,6 +649,12 @@ div.tobago-richTextEditor-body {
   text-align: right;
 }
 
+.tobago-in-required {
+   background-image: url( "../image/required.gif" );
+   background-position: 3px 50%;
+   background-repeat: no-repeat;
+}
+
 .tobago-in-readonly  {
   background: #bbccdd;
 }
@@ -689,6 +695,40 @@ div.tobago-richTextEditor-body {
   padding:0px;
 }
 
+
+/* date ---------------------------------------------------------------------- */
+
+.tobago-date-default  {
+  font-family: arial, helvetica, sans-serif;
+  background: #ffffff;
+  height: 25px;
+  color: #000000;
+  border-color: #bbccdd;
+  border-style: inset;
+  border-width: 2px;
+  margin: 0px;
+}
+
+
+.tobago-date-required {
+   background-image: url( "../image/required.gif" );
+   background-position: 3px 50%;
+   background-repeat: no-repeat;
+}
+
+.tobago-date-readonly  {
+  background: #bbccdd;
+}
+
+.tobago-date-disabled  {
+  color: #778899;
+  background: #bbccdd;
+}
+
+.tobago-date-error  {
+  border-style: solid;
+  border-color: #ff0000;
+}
 /* end --------------------------------------------------------------------- */
 
 .tobago-input-picker {

@@ -77,7 +77,7 @@ public final class TobagoConstants {
   public static final String ATTR_MARGIN_RIGHT = "marginRight";
   public static final String ATTR_MARGIN_TOP = "marginTop";
   public static final String ATTR_LAYOUT_ORDER = "layoutOrder";
-  public static final String ATTR_LAYOUT_TABLE_STYLE = "layoutTableStyle";
+  //public static final String ATTR_LAYOUT_TABLE_STYLE = "layoutTableStyle";
   public static final String ATTR_LAYOUT_WIDTH = "layoutWidth";
   public static final String ATTR_LEFT = "left";
   public static final String ATTR_MARKUP = "markup";
@@ -221,7 +221,7 @@ public final class TobagoConstants {
   public static final String TOBAGO_CSS_CLASS_SUFFIX_READONLY = "-readonly ";
   public static final String TOBAGO_CSS_CLASS_SUFFIX_INLINE = "-inline ";
   public static final String TOBAGO_CSS_CLASS_SUFFIX_ERROR = "-error ";
-  public static final String TOBAGO_CSS_CLASS_SUFFIX_REQUIRED = "-required";
+  public static final String TOBAGO_CSS_CLASS_SUFFIX_REQUIRED = "-required ";
 
   private TobagoConstants() {
     // to prevent instantiation
