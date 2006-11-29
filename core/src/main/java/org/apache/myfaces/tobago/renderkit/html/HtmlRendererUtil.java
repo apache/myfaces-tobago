@@ -297,6 +297,10 @@ public final class HtmlRendererUtil {
     return style.replaceAll(pattern, "").trim();
   }
 
+  public static void removeStyleAttribute(UIComponent component, String name) {
+    ensureStyleAttributeMap(component).remove(name);
+  }
+
   public static void addCssClass(UIComponent component, String newClass) {
     final Map attributes = component.getAttributes();
     String cssClass = (String) attributes.get(ATTR_STYLE_CLASS);

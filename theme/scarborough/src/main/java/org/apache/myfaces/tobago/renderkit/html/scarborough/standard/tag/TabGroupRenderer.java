@@ -150,11 +150,12 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
 
       if (SWITCH_TYPE_CLIENT.equals(switchType) || virtualTab == activeIndex) {
 
-
-
         if (virtualTab != activeIndex) {
           HtmlRendererUtil.replaceStyleAttribute(component, "display", "none");
+        } else {
+          HtmlRendererUtil.removeStyleAttribute(component, "display");
         }
+
         writer.startElement(HtmlConstants.DIV, null);
         writer.writeComment("empty div fix problem with mozilla and fieldset");
         writer.endElement(HtmlConstants.DIV);
