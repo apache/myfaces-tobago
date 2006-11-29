@@ -75,7 +75,9 @@ public class TobagoResponseStateManager extends ResponseStateManager {
         responseWriter.endElement(HtmlConstants.INPUT);
       }
     } else {
-      LOG.error("No tree structure to be saved in client response!");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("No tree structure to be saved in client response!");
+      }
     }
 
     if (compStates != null) {
@@ -88,7 +90,9 @@ public class TobagoResponseStateManager extends ResponseStateManager {
         responseWriter.endElement(HtmlConstants.INPUT);
       }
     } else {
-      LOG.error("No component states to be saved in client response!");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("No component states to be saved in client response!");
+      }
     }
 
     responseWriter.startElement(HtmlConstants.INPUT, null);
