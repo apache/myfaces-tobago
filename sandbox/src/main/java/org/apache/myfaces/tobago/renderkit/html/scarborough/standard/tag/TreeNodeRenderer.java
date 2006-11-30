@@ -165,7 +165,6 @@ public class TreeNodeRenderer extends CommandRendererBase {
     UITreeNode treeNode = (UITreeNode) component;
 
     UIComponent parent = treeNode.getParent();
-    String pos = null;
 
     boolean isFolder = treeNode.getChildCount() > 0;
 
@@ -173,13 +172,13 @@ public class TreeNodeRenderer extends CommandRendererBase {
     if (parent != null && parent instanceof UITreeNode) { // if not the root node
       parentClientId = treeNode.getParent().getClientId(facesContext);
     } else if (parent != null && parent instanceof UITreeNodes) {
-      pos = ((UITreeNodes) parent).getCurrentNodeId();
-      if ("_0".equals(pos)) {
+      String pci = parent.getClientId(facesContext);
+      if (pci.endsWith(":_0")) {
         UIComponent superParent = parent.getParent();
         parentClientId = superParent.getClientId(facesContext);
       } else {
-        parentClientId = treeNode.getClientId(facesContext);
-        parentClientId += ((UITreeNodes) parent).getCurrentParentNodeId();
+        parentClientId = pci.substring(0, pci.length() - 2) // fixme 2 is not correct for bitter trees
+             + NamingContainer.SEPARATOR_CHAR + treeNode.getId();
       }
       DefaultMutableTreeNode currentNode =
           ((UITreeNodes) parent).getCurrentNode();

@@ -22,8 +22,6 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-
-
 public class UITreeNode extends UICommand {
 
   private static final Log LOG = LogFactory.getLog(UITreeNode.class);
