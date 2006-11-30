@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.model.TreeModel;
+import org.apache.myfaces.tobago.component.TreeModel;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 
 import javax.faces.component.NamingContainer;
