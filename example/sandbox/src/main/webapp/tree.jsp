@@ -75,18 +75,18 @@
               showRootJunction="false"
               showRoot="true"
               mode="menu">
-      <tcs:treeNode label="Root">
-        <tcs:treeNodes value="#{tree}" var="node">
-          <tcs:treeNode label="#{node.userObject}"
+      <tcs:treeNode label="Root" id="root">
+        <tcs:treeNodes value="#{tree}" var="node" id="data">
+          <tcs:treeNode label="#{node.userObject}" id="template"
                         action="#{controller.action1}"/>
         </tcs:treeNodes>
-        <tcs:treeNode label="Action 1" action="#{controller.action1}"/>
-        <tcs:treeNode label="Action 2" action="#{controller.action2}"/>
-        <tcs:treeNode label="Action 3" action="#{controller.action3}">
-          <tcs:treeNode label="On Click 1" onclick="alert('On Click 1');"/>
-          <tcs:treeNode label="On Click 2" onclick="alert('On Click 2');"/>
+        <tcs:treeNode label="Action 1" action="#{controller.action1}" id="action1"/>
+        <tcs:treeNode label="Action 2" action="#{controller.action2}" id="action2"/>
+        <tcs:treeNode label="Action 3" action="#{controller.action3}" id="action3">
+          <tcs:treeNode label="On Click 1" onclick="alert('On Click 1');" id="click1"/>
+          <tcs:treeNode label="On Click 2" onclick="alert('On Click 2');" id="click2"/>
         </tcs:treeNode>
-        <tcs:treeNode label="Link" link="http://myfaces.apache.org/tobago/"/>
+        <tcs:treeNode label="Link" link="http://myfaces.apache.org/tobago/" id="link"/>
       </tcs:treeNode>
     </tcs:tree>
 

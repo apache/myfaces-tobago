@@ -46,7 +46,6 @@ import javax.faces.component.UIForm;
 import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.event.ActionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.util.Map;
@@ -113,16 +112,16 @@ public class TreeNodeRenderer extends CommandRendererBase {
     }
     if (actionId != null
         && actionId.equals(treeId + NamingContainer.SEPARATOR_CHAR + nodeId)) {
-      UICommand treeNodeCommand
-          = (UICommand) tree.getFacet(UITree.FACET_TREE_NODE_COMMAND);
-      if (treeNodeCommand != null) {
-        UIParameter parameter = ensureTreeNodeParameter(treeNodeCommand);
-        parameter.setValue(node.getId());
-//        LOG.error("no longer supported: treeNodeCommand.fireActionEvent(facesContext));");
-//        treeNodeCommand.fireActionEvent(facesContext); // FIXME jsfbeta
-//        component.queueEvent(new ActionEvent(component));
-        treeNodeCommand.queueEvent(new ActionEvent(treeNodeCommand));
-      }
+//      UICommand treeNodeCommand
+//          = (UICommand) tree.getFacet(UITree.FACET_TREE_NODE_COMMAND);
+//      if (treeNodeCommand != null) {
+//        UIParameter parameter = ensureTreeNodeParameter(treeNodeCommand);
+//        parameter.setValue(node.getId());
+////        LOG.error("no longer supported: treeNodeCommand.fireActionEvent(facesContext));");
+////        treeNodeCommand.fireActionEvent(facesContext); // FIXME jsfbeta
+////        component.queueEvent(new ActionEvent(component));
+//        treeNodeCommand.queueEvent(new ActionEvent(treeNodeCommand));
+//      }
 
       UIForm form = ComponentUtil.findForm(component);
       if (form != null) {
@@ -193,7 +192,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     String rootId = root.getClientId(facesContext);
 
     String clientId = treeNode.getClientId(facesContext);
-    clientId += pos != null ? pos : "";
+//    clientId += pos != null ? pos : "";
 
     String jsClientId = TreeRenderer.createJavascriptVariable(clientId);
     String jsParentClientId = TreeRenderer.createJavascriptVariable(
@@ -211,25 +210,25 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
       ResponseWriter writer = facesContext.getResponseWriter();
 
-      String debuging = null;
+      String debuging = "";
 
       writer.writeText("  var ", null);
       writer.writeText(jsClientId, null);
       writer.writeText(" = new TreeNode('", null);
       // label
-      Object name = treeNode.getAttributes().get(ATTR_LABEL);
+      Object label = treeNode.getAttributes().get(ATTR_LABEL);
       if (LOG.isDebugEnabled()) {
-        debuging += name + " : ";
+        debuging += label + " : ";
       }
-      if (name != null) {
-        writer.writeText(StringEscapeUtils.escapeJavaScript(name.toString()), null);
+      if (label != null) {
+        writer.writeText(StringEscapeUtils.escapeJavaScript(label.toString()), null);
       } else {
-        LOG.warn("name = null");
+        LOG.warn("label = null");
       }
       writer.writeText("',", null);
 
       // tip
-      Object tip = treeNode.getAttributes().get(ATTR_TIP);
+      String tip = (String) treeNode.getAttributes().get(ATTR_TIP);
       if (tip != null) {
         tip = StringEscapeUtils.escapeJavaScript(tip.toString());
         writer.writeText("'", null);

@@ -17,16 +17,19 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.model.TreeModel;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 
+import javax.faces.component.NamingContainer;
 import javax.faces.context.FacesContext;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
-import java.util.Enumeration;
 
-public class UITreeNodes extends javax.faces.component.UIInput {
+public class UITreeNodes extends javax.faces.component.UIInput
+    implements NamingContainer {
 
   private static final Log LOG = LogFactory.getLog(UITreeNodes.class);
 
@@ -34,49 +37,59 @@ public class UITreeNodes extends javax.faces.component.UIInput {
 
   private String var;
 
+  private TreeModel treeModel;
+
   private DefaultMutableTreeNode currentNode;
 
   private String currentNodeId;
 
   private String currentParentNodeId;
 
+  private String pathIndex;
+
+//  @Override public void processDecodes(FacesContext facesContext) {
+//    LOG.info("processDecodes for nodes");
+//    LOG.warn("todo"); // todo
+//    super.processDecodes(facesContext);
+//  }
 
   @Override
   public void decode(FacesContext facesContext) {
-    DefaultMutableTreeNode tree = (DefaultMutableTreeNode) getValue();
 
-    decodeNodes(tree, "", 0, facesContext);
+    // todo: does treeModel should be stored in the state?
+    // todo: what is, when the value has been changed since last rendering?
+    treeModel = new TreeModel((DefaultMutableTreeNode) getValue());
+
+    for (String pathIndex : treeModel.getPathIndexList()) {
+      setPathIndex(pathIndex);
+      getTemplateComponent().processDecodes(facesContext);
+      setPathIndex(null);
+    }
   }
 
-  private void decodeNodes(DefaultMutableTreeNode node, String position,
-      int index, FacesContext facesContext) {
+  private void setPathIndex(String pathIndex) {
 
-    if (node == null) { // XXX hotfix
-      LOG.warn("node is null");
-      return;
+    if (StringUtils.equals(this.pathIndex, pathIndex)) {
+      return; // nothing to do, if already set.
     }
 
-    currentParentNodeId = position;
-    position += "_" + index;
-    currentNodeId = position;
+    // reset the client id (see spec 3.1.6)
+    UITreeNode template = getTemplateComponent();
+    template.setId(template.getId());
 
-    currentNode = node;
-    if (var == null) {
-      LOG.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-      LOG.error("var not set");
-      LOG.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-      var = "node";
-    }
-    facesContext.getExternalContext().getRequestMap().put(var, currentNode);
-    getTemplateComponent().decode(facesContext);
-    facesContext.getExternalContext().getRequestMap().remove(var);
-    currentNode = null;
-
-    index = 0;
-    for (Enumeration e = node.children(); e.hasMoreElements();) {
-      DefaultMutableTreeNode subNode = (DefaultMutableTreeNode) e.nextElement();
-      decodeNodes(subNode, position, index, facesContext);
-      index++;
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    this.pathIndex = pathIndex;
+    if (pathIndex != null) {
+      currentNode = treeModel.getNode(pathIndex);
+      facesContext.getExternalContext().getRequestMap().put(var, currentNode);
+      // todo: remove currentNodeId
+      currentNodeId = pathIndex;
+      currentParentNodeId = treeModel.getParentPathIndex(pathIndex);
+    } else {
+      facesContext.getExternalContext().getRequestMap().remove(var);
+      currentNode = null;
+      currentNodeId = null;
+      currentParentNodeId = null;
     }
   }
 
@@ -88,55 +101,24 @@ public class UITreeNodes extends javax.faces.component.UIInput {
   @Override
   public void encodeEnd(FacesContext facesContext) throws IOException {
 
-    DefaultMutableTreeNode tree = (DefaultMutableTreeNode) getValue();
+    // todo: does treeModel should be stored in the state?
+    treeModel = new TreeModel((DefaultMutableTreeNode) getValue());
 
-    encodeNodes(tree, "", 0, facesContext);
+    for (String pathIndex : treeModel.getPathIndexList()) {
+      setPathIndex(pathIndex);
+      RenderUtil.encode(facesContext, getTemplateComponent());
+      setPathIndex(null);
+    }
 
     super.encodeEnd(facesContext);
   }
 
-  private void encodeNodes(DefaultMutableTreeNode node, String position,
-      int index, FacesContext facesContext) throws IOException {
-
-    if (node == null) { // XXX hotfix
-      LOG.warn("node is null");
-      return;
-    }
-
-    currentParentNodeId = position;
-    position += "_" + index;
-    currentNodeId = position;
-
-    currentNode = node;
-    if (var == null) {
-      LOG.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-      LOG.error("var not set");
-      LOG.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-      var = "node";
-    }
-    facesContext.getExternalContext().getRequestMap().put(var, currentNode);
-    RenderUtil.encode(facesContext, getTemplateComponent());
-    facesContext.getExternalContext().getRequestMap().remove(var);
-    currentNode = null;
-
-    index = 0;
-    for (Enumeration e = node.children(); e.hasMoreElements();) {
-      DefaultMutableTreeNode subNode = (DefaultMutableTreeNode) e.nextElement();
-      encodeNodes(subNode, position, index, facesContext);
-      index++;
-    }
-  }
-
+  @Override
   public boolean getRendersChildren() {
     return true;
   }
 
-  public void processDecodes(FacesContext facesContext) {
-    LOG.info("processDecodes for nodes");
-    LOG.warn("todo"); // todo
-    super.processDecodes(facesContext);
-  }
-
+  @Override
   public void updateModel(FacesContext facesContext) {
     // nothig to update for tree's
     // TODO: updateing the model here and *NOT* in the decode phase
@@ -149,6 +131,17 @@ public class UITreeNodes extends javax.faces.component.UIInput {
       }
     }
     return null;
+  }
+
+  @Override
+  public String getClientId(FacesContext context)
+  {
+      String clientId = super.getClientId(context);
+      if (pathIndex == null)
+      {
+          return clientId;
+      }
+      return clientId + NamingContainer.SEPARATOR_CHAR + pathIndex;
   }
 
   @Override
@@ -197,4 +190,5 @@ public class UITreeNodes extends javax.faces.component.UIInput {
   public void setCurrentParentNodeId(String currentParentNodeId) {
     this.currentParentNodeId = currentParentNodeId;
   }
+
 }

@@ -27,7 +27,7 @@
     <param name="Encoding" value="UTF-8" />
     <layout class="org.apache.log4j.PatternLayout">
       <param name="ConversionPattern"
-          value="%d{yyyy-MM-dd HH:mm:ss} %-5p - %c:%L - %m%n"/>
+          value="%d{HH:mm:ss} %-5p %-50.50c:%-4.4L %m%n"/>
       <!--
         %d{...} date pattern
         %p      priority
@@ -40,11 +40,9 @@
     </layout>
   </appender>
 
-<!--
-  <category name="org.apache.myfaces.tobago.config.ThemeConfig">
+  <category name="org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.TreeNodeRenderer">
     <priority value="debug"/>
   </category>
--->
 
   <root>
     <priority value="info" />
