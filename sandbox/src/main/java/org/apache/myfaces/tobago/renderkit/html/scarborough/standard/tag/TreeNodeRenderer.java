@@ -31,6 +31,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MUTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
@@ -225,7 +226,18 @@ public class TreeNodeRenderer extends CommandRendererBase {
       } else {
         LOG.warn("name = null");
       }
-      writer.writeText("','", null);
+      writer.writeText("',", null);
+
+      // tip
+      Object tip = treeNode.getAttributes().get(ATTR_TIP);
+      if (tip != null) {
+        tip = StringEscapeUtils.escapeJavaScript(tip.toString());
+        writer.writeText("'", null);
+        writer.writeText((String) tip, null);
+        writer.writeText("','", null);
+      } else {
+        writer.writeText("null,'", null);
+      }
 
       // id
       writer.writeText(clientId, null);
