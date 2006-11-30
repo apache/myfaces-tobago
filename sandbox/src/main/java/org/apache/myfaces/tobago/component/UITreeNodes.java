@@ -134,14 +134,12 @@ public class UITreeNodes extends javax.faces.component.UIInput
   }
 
   @Override
-  public String getClientId(FacesContext context)
-  {
-      String clientId = super.getClientId(context);
-      if (pathIndex == null)
-      {
-          return clientId;
-      }
-      return clientId + NamingContainer.SEPARATOR_CHAR + pathIndex;
+  public String getClientId(FacesContext context) {
+    String clientId = super.getClientId(context);
+    if (pathIndex == null) {
+      return clientId;
+    }
+    return clientId + NamingContainer.SEPARATOR_CHAR + pathIndex;
   }
 
   @Override

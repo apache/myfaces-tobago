@@ -33,8 +33,8 @@ public class TreeModel {
 
   private static final Log LOG = LogFactory.getLog(TreeModel.class);
 
-  Map<String, DefaultMutableTreeNode> nodes = new HashMap<String, DefaultMutableTreeNode>();
-  List<String> keys = new ArrayList<String>();
+  private Map<String, DefaultMutableTreeNode> nodes = new HashMap<String, DefaultMutableTreeNode>();
+  private List<String> keys = new ArrayList<String>();
 
   public TreeModel(DefaultMutableTreeNode node) {
     putNodes(node, "", 0);
