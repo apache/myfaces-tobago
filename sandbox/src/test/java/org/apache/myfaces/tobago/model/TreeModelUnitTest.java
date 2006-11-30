@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.component;
+package org.apache.myfaces.tobago.model;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -22,7 +22,7 @@ import junit.framework.TestCase;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.List;
 
-import org.apache.myfaces.tobago.component.TreeModel;
+import org.apache.myfaces.tobago.model.TreeModel;
 
 public class TreeModelUnitTest extends TestCase {
 

@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.component;
+package org.apache.myfaces.tobago.model;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
