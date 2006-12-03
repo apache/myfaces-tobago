@@ -26,7 +26,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.Arrays;
 
 /*
  * User: weber
