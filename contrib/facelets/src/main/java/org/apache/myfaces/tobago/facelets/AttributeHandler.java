@@ -32,6 +32,9 @@ import com.sun.facelets.tag.TagConfig;
 import com.sun.facelets.tag.TagException;
 import com.sun.facelets.tag.TagHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UICommand;
 
 public final class AttributeHandler extends TagHandler {
   private static final Class [] VALIDATOR =
@@ -56,7 +59,12 @@ public final class AttributeHandler extends TagHandler {
     if (ComponentSupport.isNew(parent)) {
       String nameValue = name.getValue(ctx);
       if ("rendered".equals(nameValue)) {
+        // TODO expression
         parent.setRendered(value.getBoolean(ctx));
+      } else if (TobagoConstants.ATTR_RENDERED_PARTIALLY.equals(nameValue)
+          && parent instanceof UICommand) {
+        // TODO test expression
+        ComponentUtil.setRenderedPartially((UICommand)parent, value.getValue());
       } else if (parent instanceof EditableValueHolder
           && "validator".equals(nameValue)) {
         MethodExpression methodExpression = value.getMethodExpression(ctx, null, VALIDATOR);

@@ -19,15 +19,16 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDERED;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
 import java.io.IOException;
-import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
 
@@ -40,63 +41,84 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
   private String left;
   private String top;
 
-  private boolean popupReset;
+  private List actionIds = new ArrayList();
 
-  private boolean closedOnClient;
+  public List getActionIds() {
+    return actionIds;
+  }
 
-  private boolean submitted;
+  public void setActionIds(List actionIds) {
+    this.actionIds = actionIds;
+  }
 
   public void processDecodes(FacesContext facesContext) {
-    super.processDecodes(facesContext);
-    resetAndStoreRendered(facesContext);
-    // XXX find a better way
-    addToPage();
+    if (isActivated() || isSubmitted()) {
+      for (Iterator it = getFacetsAndChildren(); it.hasNext();) {
+        UIComponent childOrFacet = (UIComponent) it.next();
+        childOrFacet.processDecodes(facesContext);
+      }
+      try {
+        decode(facesContext);
+      } catch (RuntimeException e) {
+        facesContext.renderResponse();
+        throw e;
+      }
+      // XXX find a better way
+      addToPage();
+    }
   }
 
   public boolean isRendered() {
-    return super.isRendered() || checkStoredRendered();
+    return isActivated() || isRedisplay();
+  }
+
+  private boolean isSubmitted() {
+    String action = ComponentUtil.findPage(this).getActionId();
+    return action != null && action.startsWith(getClientId(FacesContext.getCurrentInstance()));
+  }
+
+  private boolean isRedisplay() {
+    if (isSubmitted()) {
+      UIPage page = ComponentUtil.findPage(this);
+      String action = ComponentUtil.findPage(this).getActionId();
+      if (action != null) {
+        UICommand command = (UICommand) page.findComponent(SEPARATOR_CHAR + action);
+        if (command != null) {
+          return !(command.getAttributes().get(TobagoConstants.ATTR_POPUP_CLOSE) != null);
+        }
+      }
+    }
+    return false;
+  }
+
+  private boolean isActivated() {
+    String currentAction = ComponentUtil.findPage(this).getActionId();
+    return actionIds.contains(currentAction);
   }
 
   public void encodeBegin(FacesContext facesContext) throws IOException {
-    removeStoredRendered(facesContext);
     super.encodeBegin(facesContext);
-    closedOnClient = false;
-    submitted = false;
   }
 
   public void processValidators(FacesContext context) {
-    super.processValidators(context);
+    if (isActivated() || isSubmitted()) {
+      for (Iterator it = getFacetsAndChildren(); it.hasNext();) {
+        UIComponent childOrFacet = (UIComponent) it.next();
+        childOrFacet.processValidators(context);
+      }
+    }
     //TODO: check if validation has faild and reset rendered if needed
   }
 
-  private void resetAndStoreRendered(FacesContext facesContext) {
-    if (popupReset && isRendered()) {
-      if (submitted || closedOnClient) {
-        ValueBinding vb = getValueBinding(ATTR_RENDERED);
-        if (vb != null) {
-          vb.setValue(facesContext, false);
-        } else {
-          setRendered(false);
-        }
-      }
-      if (!closedOnClient) {
-        Map map = facesContext.getExternalContext().getRequestMap();
-        map.put(getClientId(facesContext) + "rendered", true);
+  public void processUpdates(FacesContext context) {
+    if (isActivated() || isSubmitted()) {
+      for (Iterator it = getFacetsAndChildren(); it.hasNext();) {
+        UIComponent childOrFacet = (UIComponent) it.next();
+        childOrFacet.processUpdates(context);
       }
     }
   }
 
-  private boolean checkStoredRendered() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    Map map = facesContext.getExternalContext().getRequestMap();
-    Object rendered = map.get(getClientId(facesContext) + "rendered");
-    return Boolean.valueOf(String.valueOf(rendered));
-  }
-
-  private void removeStoredRendered(FacesContext facesContext) {
-    Map map = facesContext.getExternalContext().getRequestMap();
-    map.remove(getClientId(facesContext) + "rendered");
-  }
 
   public void setParent(UIComponent uiComponent) {
     super.setParent(uiComponent);
@@ -111,7 +133,7 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
     saveState[2] = height;
     saveState[3] = left;
     saveState[4] = top;
-    saveState[5] = popupReset;
+    saveState[5] = saveAttachedState(context, actionIds);
     return saveState;
   }
 
@@ -122,7 +144,7 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
     height = (String) values[2];
     left = (String) values[3];
     top = (String) values[4];
-    popupReset = (Boolean) values[5];
+    actionIds = (List) restoreAttachedState(context, values[5]);
   }
 
   public String getWidth() {
@@ -157,29 +179,10 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
     this.top = top;
   }
 
-
-  public boolean isPopupReset() {
-    return popupReset;
-  }
-
-  public void setPopupReset(boolean popupReset) {
-    this.popupReset = popupReset;
-  }
-
-
-  public void closedOnClient() {
-    this.closedOnClient = true;
-  }
-
-  public void submitted() {
-    this.submitted = true;
-  }
-
   private void addToPage() {
-      UIPage page = ComponentUtil.findPage(this);
-      if (page != null) {
-        page.getPopups().add(this);
-      }
+    UIPage page = ComponentUtil.findPage(this);
+    if (page != null) {
+      page.getPopups().add(this);
     }
-
+  }
 }

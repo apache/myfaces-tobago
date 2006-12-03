@@ -27,8 +27,6 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -43,14 +41,12 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
-import java.util.Map;
 
 public class PopupRenderer extends RendererBase implements AjaxRenderer {
 
   private static final Log LOG = LogFactory.getLog(PopupRenderer.class);
 
   public static final String CONTENT_ID_POSTFIX = SUBCOMPONENT_SEP + "content";
-  private static final String CLOSED = "closed";
 
   public boolean getRendersChildren() {
     return true;
@@ -59,15 +55,6 @@ public class PopupRenderer extends RendererBase implements AjaxRenderer {
 
   public void decode(FacesContext facesContext, UIComponent component) {
     super.decode(facesContext, component);
-    Map map = facesContext.getExternalContext().getRequestParameterMap();
-    String hidden = (String) map.get(component.getClientId(facesContext));
-    if (CLOSED.equals(hidden)) {
-      ((UIPopup) component).closedOnClient();
-    }
-    UIPage page = ComponentUtil.findPage(component);
-    if (page.getActionId() != null && page.getActionId().startsWith(component.getClientId(facesContext))) {
-      ((UIPopup) component).submitted();      
-    }
   }
 
   public void encodeBegin(

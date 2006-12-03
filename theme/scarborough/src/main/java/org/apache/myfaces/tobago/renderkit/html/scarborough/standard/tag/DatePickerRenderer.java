@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.component.UIDateInput;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.config.ThemeConfig;
+import org.apache.myfaces.tobago.util.DateFormatUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -71,6 +72,9 @@ public class DatePickerRenderer extends LinkRenderer {
         + hidden.getClientId(facesContext) + "')");
 
     UIPopup popup = (UIPopup) link.getFacets().get(FACET_PICKER_POPUP);
+    if (!popup.getActionIds().contains(link.getClientId(facesContext))) {
+      popup.getActionIds().add(link.getClientId(facesContext));
+    }
     attributes = popup.getAttributes();
     popup.setId(idPrefix + "popup");
     attributes.put(ATTR_WIDTH, String.valueOf(
@@ -81,7 +85,7 @@ public class DatePickerRenderer extends LinkRenderer {
     Converter converter = getConverter(facesContext, dateInput);
     String converterPattern = "yyyy-MM-dd"; // from calendar.js  initCalendarParse
     if (converter instanceof DateTimeConverter) {
-      converterPattern = ((DateTimeConverter) converter).getPattern();
+      converterPattern = DateFormatUtils.findPattern((DateTimeConverter) converter);
     } else {
      // LOG.warn("Converter for DateRenderer is not instance of DateTimeConverter. Using default Pattern "
       //    + converterPattern);

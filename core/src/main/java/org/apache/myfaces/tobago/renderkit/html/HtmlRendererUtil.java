@@ -44,9 +44,12 @@ import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_
 import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_REQUIRED;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_POPUP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.Theme;
@@ -167,7 +170,7 @@ public final class HtmlRendererUtil {
       throws IOException {
     StringBuilder buffer
         = createOnclickAcceleratorKeyJsStatement(clientId, key, modifier);
-    writeScriptLoader(facesContext, null, new String[] {buffer.toString()});
+    writeScriptLoader(facesContext, null, new String[]{buffer.toString()});
   }
 
   public static void addAcceleratorKey(
@@ -179,7 +182,7 @@ public final class HtmlRendererUtil {
       FacesContext facesContext, String func, char key, String modifier)
       throws IOException {
     StringBuilder buffer = createAcceleratorKeyJsStatement(func, key, modifier);
-    writeScriptLoader(facesContext, null, new String[] {buffer.toString()});
+    writeScriptLoader(facesContext, null, new String[]{buffer.toString()});
   }
 
   public static StringBuilder createOnclickAcceleratorKeyJsStatement(
@@ -198,7 +201,7 @@ public final class HtmlRendererUtil {
     }
     buffer.append("}, \"");
     buffer.append(key);
-    if (modifier !=  null) {
+    if (modifier != null) {
       buffer.append("\", \"");
       buffer.append(modifier);
     }
@@ -224,12 +227,14 @@ public final class HtmlRendererUtil {
     }
     return sb.toString();
   }
+
   public static Integer getStyleAttributeIntValue(HtmlStyleMap style, String name) {
     if (style == null) {
       return null;
     }
     return style.getInt(name);
   }
+
   public static String getStyleAttributeValue(String style, String name) {
     if (style == null) {
       return null;
@@ -405,10 +410,10 @@ public final class HtmlRendererUtil {
         bodySpace = styleSpace - headerSpace;
       }
       HtmlStyleMap headerStyle = ensureStyleAttributeMap(component, ATTR_STYLE_HEADER);
-      HtmlStyleMap bodyStyle = ensureStyleAttributeMap(component, ATTR_STYLE_BODY); 
+      HtmlStyleMap bodyStyle = ensureStyleAttributeMap(component, ATTR_STYLE_BODY);
       if (width) {
         headerStyle.put("width", styleSpace);
-        bodyStyle.put("width",  styleSpace);
+        bodyStyle.put("width", styleSpace);
       } else {
         headerStyle.put("height", headerSpace);
         bodyStyle.put("height", bodySpace);
@@ -523,13 +528,13 @@ public final class HtmlRendererUtil {
     buffer.append(id);
     buffer.append("','");
     buffer.append(ResourceManagerUtil.getImageWithPath(
-          facesContext, src, false));
+        facesContext, src, false));
     buffer.append("','");
     buffer.append(ResourceManagerUtil.getImageWithPath(
-          facesContext, createSrc(src, "Disabled"), true));
+        facesContext, createSrc(src, "Disabled"), true));
     buffer.append("','");
     buffer.append(ResourceManagerUtil.getImageWithPath(
-          facesContext, createSrc(src, "Hover"), true));
+        facesContext, createSrc(src, "Hover"), true));
     buffer.append("');");
     writeJavascript(writer, buffer.toString());
   }
@@ -564,7 +569,7 @@ public final class HtmlRendererUtil {
 
   public static void writeScriptLoader(FacesContext facesContext, String script)
       throws IOException {
-    writeScriptLoader(facesContext, new String[] {script}, null);
+    writeScriptLoader(facesContext, new String[]{script}, null);
   }
 
   public static void writeScriptLoader(
@@ -652,30 +657,68 @@ public final class HtmlRendererUtil {
     }
   }
 
-  public static String createOnClick(FacesContext facesContext,
-      UIComponent component) {
+  public static String createOnClick(FacesContext facesContext, UIComponent component) {
+
+    // TODO move this
+    UIPopup popup = (UIPopup) component.getFacet(FACET_POPUP);
+    if (popup != null) {
+      if (!popup.getActionIds().contains(component.getClientId(facesContext))) {
+        popup.getActionIds().add(component.getClientId(facesContext));
+      }
+    }
+
     //String type = (String) component.getAttributes().get(ATTR_TYPE);
     //String command = (String) component.getAttributes().get(ATTR_ACTION_STRING);
     String clientId = component.getClientId(facesContext);
     boolean defaultCommand = ComponentUtil.getBooleanAttribute(component,
         TobagoConstants.ATTR_DEFAULT_COMMAND);
-    String onclick;
-
-    if (component.getAttributes().get(TobagoConstants.ATTR_ACTION_LINK)!=null) {
+    String onclick = "Tobago.submitAction('" + clientId + "');";
+    if (component.getAttributes().get(TobagoConstants.ATTR_ACTION_LINK) != null) {
       onclick = "Tobago.navigateToUrl('"
           + HtmlUtils.generateUrl(facesContext,
           (String) component.getAttributes().get(TobagoConstants.ATTR_ACTION_LINK)) + "');";
       // FIXME !!
       //} else if (COMMAND_TYPE_RESET.equals(type)) {
-    //  onclick = null;
-    } else if (component.getAttributes().get(TobagoConstants.ATTR_ACTION_ONCLICK)!=null) {
+      //  onclick = null;
+    } else if (component.getAttributes().get(TobagoConstants.ATTR_ACTION_ONCLICK) != null) {
       onclick = prepareOnClick(facesContext, component);
+
+    } else if (component instanceof UICommand
+        && ((UICommand) component).getRenderedPartially().length > 0) {
+
+
+      String[] componentId = ((UICommand) component).getRenderedPartially();
+
+
+      if (componentId != null && componentId.length == 1) {
+
+
+        if (component.getFacet(FACET_POPUP) !=null) {
+          onclick = "Tobago.openPopupWithAction('" + componentId[0] + "', '" + clientId + "')";
+        } else {
+          onclick = "Tobago.reloadComponent('" + componentId[0] + "','" + clientId + "', {});";
+        }
+      } else {
+        LOG.error("more than one parially rendered component is currently not supported " + componentId);
+      }
+
     } else if (defaultCommand) {
       ComponentUtil.findPage(component).setDefaultActionId(clientId);
 //      onclick = "Tobago.setAction('" + clientId + "');";
       onclick = null;
     } else {
       onclick = "Tobago.submitAction('" + clientId + "');";
+    }
+
+    if (component.getAttributes().get(TobagoConstants.ATTR_POPUP_CLOSE) != null
+        && ComponentUtil.isInPopup(component)) {
+      String value = (String) component.getAttributes().get(TobagoConstants.ATTR_POPUP_CLOSE);
+      if (value.equals("immediate")) {
+        onclick = "Tobago.closePopup(this);";
+      } else if (value.equals("afterSubmit")) {
+        onclick += "Tobago.closePopup(this);";
+      }
+
     }
     return onclick;
   }

@@ -23,134 +23,131 @@
   <jsp:body>
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout rows="2*;3*" />
+        <tc:gridLayout rows="2*;3*"/>
       </f:facet>
 
-      <tc:out escape="false" value="#{overviewBundle.sheet_text}" />
+      <tc:out escape="false" value="#{overviewBundle.sheet_text}"/>
 
       <tc:box label="#{overviewBundle.sheet_sampleTitle}" id="sheetBox">
         <f:facet name="layout">
-          <tc:gridLayout />
+          <tc:gridLayout/>
         </f:facet>
-        <f:facet name="toolBar" >
-          <tc:toolBar >
-            <tc:toolBarCommand action="#{overviewController.sheetConfig.configSheet}"
-                               onclick="Tobago.openPopupWithAction('page:sheetConfigPopup', '@autoId')"
-                               label="#"
-                               tip="#{overviewBundle.sheet_configTip}" />
-            <f:facet name="popup" >
-              <tc:popup width="300" height="270"
-                        id="sheetConfigPopup"
-                        rendered="#{overviewController.sheetConfig.sheetConfigPopup}"
-                        reset="true">
-                <tc:box label="#{overviewBundle.sheet_configTitle}" >
-                  <f:facet name="layout">
-                    <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*;fixed"/>
-                  </f:facet>
-                  <tx:selectOneChoice label="showHeader"
-                                      value="#{overviewController.sheetConfig.sheetShowHeader}"
-                                      tip="TODO: show Header Text">
-                    <f:selectItem itemValue="#{true}" itemLabel="True" />
-                    <f:selectItem itemValue="#{false}" itemLabel="False" />
-                  </tx:selectOneChoice>
-                  <tx:in label="first"
-                         value="#{overviewController.sheetConfig.sheetFirst}"
-                         tip="TODO: paging Start Text" >
-                    <f:validateLongRange minimum="0" />
-                  </tx:in>
-                  <tx:in label="rows"
-                         value="#{overviewController.sheetConfig.sheetRows}"
-                         tip="TODO: paging Lenght Text" >
-                    <f:validateLongRange minimum="1" />
-                  </tx:in>
-
-                  <tx:selectOneChoice label="showRowRange"
-                                      value="#{overviewController.sheetConfig.sheetRowPagingPosition}"
-                                      tip="TODO: paging DirectLinkCount Text" >
-                    <f:selectItems value="#{overviewController.sheetConfig.sheetPagingPositionItems}" />
-                  </tx:selectOneChoice>
-
-                  <tx:selectOneChoice label="showPageRange"
-                                      value="#{overviewController.sheetConfig.sheetPagePagingPosition}"
-                                      tip="TODO: paging DirectLinkCount Text" >
-                    <f:selectItems value="#{overviewController.sheetConfig.sheetPagingPositionItems}" />
-                  </tx:selectOneChoice>
-
-                  <tx:selectOneChoice label="showDirectLinks"
-                                      value="#{overviewController.sheetConfig.sheetDirectPagingPosition}"
-                                      tip="TODO: paging DirectLinkCount Text" >
-                    <f:selectItems value="#{overviewController.sheetConfig.sheetPagingPositionItems}" />
-                  </tx:selectOneChoice>
-
-                  <tx:selectOneChoice label="directLinkCount"
-                                      value="#{overviewController.sheetConfig.sheetDirectLinkCount}"
-                                      tip="TODO: paging DirectLinkCount Text" >
-                    <f:selectItems value="#{overviewController.sheetConfig.sheetDirectLinkCountItems}" />
-                  </tx:selectOneChoice>
-
-                  <tx:selectOneChoice label="selectable"
-                                      value="#{overviewController.sheetConfig.selectable}"
-                                      tip="TODO: selectable Text" >
-                    <f:selectItems value="#{overviewController.sheetConfig.sheetSelectableItems}" />
-                  </tx:selectOneChoice>
-
-                  <tc:cell />
-
-                  <tc:cell>
+        <f:facet name="toolBar">
+          <tc:toolBar>
+            <tc:toolBarCommand label="#" tip="#{overviewBundle.sheet_configTip}">
+              <tc:attribute name="renderedPartially" value="page:sheetConfigPopup"/>
+              <f:facet name="popup">
+                <tc:popup width="300" height="270" id="sheetConfigPopup">
+                  <tc:box label="#{overviewBundle.sheet_configTitle}">
                     <f:facet name="layout">
-                      <tc:gridLayout columns="100px;1*;100px"
-                                     marginLeft="10px" marginRight="10px"/>
+                      <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*;fixed"/>
                     </f:facet>
-                    <tc:button onclick="Tobago.closePopup(this)"
-                               label="Cancel" />
+                    <tx:selectOneChoice label="showHeader"
+                                        value="#{overviewController.sheetConfig.sheetShowHeader}"
+                                        tip="TODO: show Header Text">
+                      <f:selectItem itemValue="#{true}" itemLabel="True"/>
+                      <f:selectItem itemValue="#{false}" itemLabel="False"/>
+                    </tx:selectOneChoice>
+                         <tx:in label="first"
+                           value="#{overviewController.sheetConfig.sheetFirst}"
+                           tip="TODO: paging Start Text">
+                      <f:validateLongRange minimum="0"/>
+                    </tx:in>
+                    <tx:in label="rows"
+                           value="#{overviewController.sheetConfig.sheetRows}"
+                           tip="TODO: paging Lenght Text">
+                      <f:validateLongRange minimum="1"/>
+                    </tx:in>
 
-                    <tc:cell />
-                    <tc:button onclick="Tobago.reloadComponent('page:sheetBox','@autoId', {});Tobago.closePopup(this);"
-                        label="Ok" />
-                  </tc:cell>
+                    <tx:selectOneChoice label="showRowRange"
+                                        value="#{overviewController.sheetConfig.sheetRowPagingPosition}"
+                                        tip="TODO: paging DirectLinkCount Text">
+                      <f:selectItems value="#{overviewController.sheetConfig.sheetPagingPositionItems}"/>
+                    </tx:selectOneChoice>
 
-                </tc:box>
-              </tc:popup>
+                    <tx:selectOneChoice label="showPageRange"
+                                        value="#{overviewController.sheetConfig.sheetPagePagingPosition}"
+                                        tip="TODO: paging DirectLinkCount Text">
+                      <f:selectItems value="#{overviewController.sheetConfig.sheetPagingPositionItems}"/>
+                    </tx:selectOneChoice>
+
+                    <tx:selectOneChoice label="showDirectLinks"
+                                        value="#{overviewController.sheetConfig.sheetDirectPagingPosition}"
+                                        tip="TODO: paging DirectLinkCount Text">
+                      <f:selectItems value="#{overviewController.sheetConfig.sheetPagingPositionItems}"/>
+                    </tx:selectOneChoice>
+
+                    <tx:selectOneChoice label="directLinkCount"
+                                        value="#{overviewController.sheetConfig.sheetDirectLinkCount}"
+                                        tip="TODO: paging DirectLinkCount Text">
+                      <f:selectItems value="#{overviewController.sheetConfig.sheetDirectLinkCountItems}"/>
+                    </tx:selectOneChoice>
+
+                    <tx:selectOneChoice label="selectable"
+                                        value="#{overviewController.sheetConfig.selectable}"
+                                        tip="TODO: selectable Text">
+                      <f:selectItems value="#{overviewController.sheetConfig.sheetSelectableItems}"/>
+                    </tx:selectOneChoice>
+
+                    <tc:cell/>
+
+                    <tc:cell>
+                      <f:facet name="layout">
+                        <tc:gridLayout columns="100px;1*;100px"
+                                       marginLeft="10px" marginRight="10px"/>
+                      </f:facet>
+                      <tc:button label="Cancel">
+                        <tc:attribute name="popupClose" value="immediate"/>
+                      </tc:button>
+                      <tc:cell/>
+                      <tc:button label="Ok">
+                        <tc:attribute name="popupClose" value="afterSubmit"/>
+                        <tc:attribute name="renderedPartially" value="page:sheetBox"/>
+                      </tc:button>
+                    </tc:cell>
+
+                  </tc:box>
+                </tc:popup>
               </f:facet>
+            </tc:toolBarCommand>
           </tc:toolBar>
         </f:facet>
 
         <tc:sheet value="#{demo.solarList}" id="sheet"
-            columns="3*;1*;3*;3*;3*;3*" var="luminary"
-            state="#{demo.sheetState}"
-            showHeader="#{overviewController.sheetConfig.sheetShowHeader}"
-            showRowRange="#{overviewController.sheetConfig.sheetRowPagingPosition}"
-            showPageRange="#{overviewController.sheetConfig.sheetPagePagingPosition}"
-            showDirectLinks="#{overviewController.sheetConfig.sheetDirectPagingPosition}"
-            first="#{overviewController.sheetConfig.sheetFirst}"
-            rows="#{overviewController.sheetConfig.sheetRows}"
-            directLinkCount="#{overviewController.sheetConfig.sheetDirectLinkCount}"
-            stateChangeListener="#{demo.stateChangeListener}"
-            sortActionListener="#{overviewController.sheetSorter}"
-            selectable="#{overviewController.sheetConfig.selectable}">
+                  columns="3*;1*;3*;3*;3*;3*" var="luminary"
+                  state="#{demo.sheetState}"
+                  showHeader="#{overviewController.sheetConfig.sheetShowHeader}"
+                  showRowRange="#{overviewController.sheetConfig.sheetRowPagingPosition}"
+                  showPageRange="#{overviewController.sheetConfig.sheetPagePagingPosition}"
+                  showDirectLinks="#{overviewController.sheetConfig.sheetDirectPagingPosition}"
+                  first="#{overviewController.sheetConfig.sheetFirst}"
+                  rows="#{overviewController.sheetConfig.sheetRows}"
+                  directLinkCount="#{overviewController.sheetConfig.sheetDirectLinkCount}"
+                  stateChangeListener="#{demo.stateChangeListener}"
+                  sortActionListener="#{overviewController.sheetSorter}"
+                  selectable="#{overviewController.sheetConfig.selectable}">
           <f:facet name="reload">
-            <tc:reload frequency="5000" />
+            <tc:reload frequency="5000"/>
           </f:facet>
           <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true">
-            <tc:out value="#{luminary.name}" id="t_name" />
+            <tc:out value="#{luminary.name}" id="t_name"/>
           </tc:column>
-          <tc:column label="#{overviewBundle.solarArrayNumber}" id="number" sortable="false" align="center" >
+          <tc:column label="#{overviewBundle.solarArrayNumber}" id="number" sortable="false" align="center">
             <tc:out value="#{luminary.number}" id="t_number"/>
           </tc:column>
           <tc:column label="#{overviewBundle.solarArrayOrbit}" sortable="true" id="orbit">
-            <tc:out value="#{luminary.orbit}" id="t_orbit" />
+            <tc:out value="#{luminary.orbit}" id="t_orbit"/>
           </tc:column>
           <tc:column label="#{overviewBundle.solarArrayPopulation}" sortable="true" id="population">
-            <tc:in value="#{luminary.population}" id="t_population" />
+            <tc:in value="#{luminary.population}" id="t_population"/>
           </tc:column>
           <tc:column label="#{overviewBundle.solarArrayDistance}" sortable="true" align="right" id="distance">
-            <tc:out value="#{luminary.distance}" id="t_distance" />
+            <tc:out value="#{luminary.distance}" id="t_distance"/>
           </tc:column>
           <tc:column label="#{overviewBundle.solarArrayPeriod}" sortable="true" align="right" id="period">
-            <tc:out value="#{luminary.period}" id="t_period" />
+            <tc:out value="#{luminary.period}" id="t_period"/>
           </tc:column>
         </tc:sheet>
-
       </tc:box>
     </tc:panel>
   </jsp:body>

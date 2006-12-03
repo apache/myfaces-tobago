@@ -32,9 +32,15 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
  * selectBooleanCheckbox, selectManyCheckbox and selectOneChoice
  */
 @Tag(name = "command", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
-@UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UICommand",
+@UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UICommand",
     rendererType = "Command")
-public interface CommandTagDeclaration  extends AbstractCommandTagDeclaration{
+public interface CommandTagDeclaration  extends AbstractCommandTagDeclaration {
+
+  /**
+   * Indicate the partially rendered Components in a case of a submit.
+
+  @TagAttribute
+  @UIComponentTagAttribute()
+  void setRenderedPartially(String componentIds);   */
 
 }

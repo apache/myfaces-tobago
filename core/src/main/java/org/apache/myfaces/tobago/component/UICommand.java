@@ -19,12 +19,14 @@ package org.apache.myfaces.tobago.component;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDERED_PARTIALLY;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Arrays;
 
 /*
  * User: weber
@@ -37,6 +39,7 @@ public class UICommand extends javax.faces.component.UICommand {
 
   private Boolean defaultCommand;
   private Boolean disabled;
+  private String[] renderedPartially;
 
   public boolean isDefaultCommand() {
     if (defaultCommand != null) {
@@ -52,6 +55,29 @@ public class UICommand extends javax.faces.component.UICommand {
 
   public void setDefaultCommand(boolean defaultCommand) {
     this.defaultCommand = defaultCommand;
+  }
+
+  public String[] getRenderedPartially() {
+    if (renderedPartially != null) {
+      return renderedPartially;
+    }
+    ValueBinding vb = getValueBinding(ATTR_RENDERED_PARTIALLY);
+    if (vb != null) {
+      return (String[]) vb.getValue(getFacesContext());
+    } else {
+      return new String[0];
+    }
+  }
+
+  public void setRenderedPartially(String renderedPartially) {
+    if (renderedPartially != null) {
+      String[] components = renderedPartially.split(",");
+      setRenderedPartially(components);
+    }
+  }
+
+  public void setRenderedPartially(String[] renderedPartially) {
+    this.renderedPartially = renderedPartially;
   }
 
   public boolean isDisabled() {
@@ -71,10 +97,11 @@ public class UICommand extends javax.faces.component.UICommand {
   }
 
   public Object saveState(FacesContext context) {
-    Object[] saveState = new Object[3];
+    Object[] saveState = new Object[4];
     saveState[0] = super.saveState(context);
     saveState[1] = defaultCommand;
     saveState[2] = disabled;
+    saveState[3] = renderedPartially;
     return saveState;
   }
 
@@ -83,6 +110,7 @@ public class UICommand extends javax.faces.component.UICommand {
     super.restoreState(context, values[0]);
     defaultCommand = (Boolean) values[1];
     disabled = (Boolean) values[2];
+    renderedPartially = (String[]) values[3];
   }
 
 

@@ -21,6 +21,8 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.servlet.jsp.tagext.TagSupport;
 import javax.servlet.jsp.JspException;
@@ -108,6 +110,8 @@ public class AttributeTag  extends TagSupport {
       ComponentUtil.setValidator((EditableValueHolder) component, value);
     } else if (component instanceof ValueHolder && attributeName.equals("converter")) {
       ComponentUtil.setConverter((ValueHolder) component, value);
+    } else if (attributeName.equals(TobagoConstants.ATTR_RENDERED_PARTIALLY)&&component instanceof UICommand) {
+      ComponentUtil.setRenderedPartially((UICommand)component, value);
     } else if (UIComponentTag.isValueReference(value)) {
       ValueBinding valueBinding = ComponentUtil.createValueBinding(value);
       if (valueBinding != null) {

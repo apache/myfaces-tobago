@@ -44,7 +44,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_RESET;
 import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_SCRIPT;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
-//import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PARTIALLY_RENDERED_COMPONENTS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDERED_PARTIALLY;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX;
@@ -99,6 +99,16 @@ public class ComponentUtil {
       {FacesContext.class, UIComponent.class, Object.class};
 
   private ComponentUtil() {
+  }
+
+  public static boolean isInPopup(UIComponent component) {
+    while (component != null) {
+      if (component instanceof UIPopup) {
+        return true;
+      }
+      component = component.getParent();
+    }
+    return false;
   }
 
   public static UIPage findPage(UIComponent component) {
@@ -287,18 +297,17 @@ public class ComponentUtil {
     }
   }
 
- /* public static void setPartiallyRenderedComponents(UIComponent component, String renderers) {
-
-    if (renderers != null) {
-      if (UIComponentTag.isValueReference(renderers)) {
-        component.setValueBinding(ATTR_PARTIALLY_RENDERED_COMPONENTS, createValueBinding(renderers));
-      } else {
-        String [] components  = renderers.split(",");
-        component.getAttributes().put(ATTR_PARTIALLY_RENDERED_COMPONENTS, components);
+ public static void setRenderedPartially(org.apache.myfaces.tobago.component.UICommand command,
+     String renderers) {
+   if (renderers != null) {
+     if (UIComponentTag.isValueReference(renderers)) {
+       command.setValueBinding(ATTR_RENDERED_PARTIALLY, createValueBinding(renderers));
+     } else {
+       String [] components  = renderers.split(",");
+       command.setRenderedPartially(components);
       }
     }
-
-  }*/
+  }
 
   public static Object getAttribute(UIComponent component, String name) {
     Object value = component.getAttributes().get(name);

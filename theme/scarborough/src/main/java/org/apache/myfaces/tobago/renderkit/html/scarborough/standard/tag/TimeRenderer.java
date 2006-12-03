@@ -37,6 +37,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.util.DateFormatUtils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
@@ -94,7 +95,7 @@ public class TimeRenderer extends InputRendererBase {
     if (input.getConverter() != null) {
       Converter converter = input.getConverter();
       if (converter instanceof DateTimeConverter) {
-        String pattern = ((DateTimeConverter) converter).getPattern();
+        String pattern = DateFormatUtils.findPattern((DateTimeConverter) converter);
         if (pattern != null && pattern.indexOf('s') > -1) {
           converterPattern += ":ss";
         }

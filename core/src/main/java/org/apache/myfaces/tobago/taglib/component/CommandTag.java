@@ -17,6 +17,11 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UICommand;
+
+import javax.faces.component.UIComponent;
+
 /*
  * Created by IntelliJ IDEA.
  * User: bommel
@@ -24,5 +29,25 @@ package org.apache.myfaces.tobago.taglib.component;
  * Time: 11:59:21
  */
 public class CommandTag  extends AbstractCommandTag implements CommandTagDeclaration {
+  private String renderedPartially;
 
+  public void release() {
+    super.release();
+    renderedPartially = null;
+  }
+
+  protected void setProperties(UIComponent component) {
+    super.setProperties(component);
+    if (component instanceof UICommand) {
+      ComponentUtil.setRenderedPartially((UICommand) component, renderedPartially);
+    }
+  }
+
+  public String getRenderedPartially() {
+    return renderedPartially;
+  }
+
+  public void setRenderedPartially(String renderedPartially) {
+    this.renderedPartially = renderedPartially;
+  }
 }

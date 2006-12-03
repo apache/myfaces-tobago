@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -41,7 +42,7 @@ public class SeparatorRenderer extends RendererBase {
     writer.startElement(HtmlConstants.DIV, component);
     writer.writeComponentClass();
     writer.writeComponentAttribute(HtmlAttributes.STYLE, TobagoConstants.ATTR_STYLE);
-    if (component.getFacet("label") != null) {
+    if (component.getFacet(FACET_LABEL) != null) {
       writer.startElement(HtmlConstants.TABLE, component);
       writer.writeComponentClass();
 
@@ -60,7 +61,7 @@ public class SeparatorRenderer extends RendererBase {
       writer.startElement(HtmlConstants.TD, component);
       writer.writeAttribute(HtmlAttributes.STYLE, "width: 1px", false);
       writer.writeAttribute(HtmlAttributes.CLASS, "tobago-separator-label-default", false);
-      UILabel label = (UILabel) component.getFacet("label");
+      UILabel label = (UILabel) component.getFacet(FACET_LABEL);
       writer.writeText(label.getValue(), null);
       writer.endElement(HtmlConstants.TD);
 
