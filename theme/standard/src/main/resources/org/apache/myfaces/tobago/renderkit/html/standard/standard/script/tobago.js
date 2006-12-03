@@ -361,10 +361,12 @@ var Tobago = {
     Tobago.Transport.request(function() {
       var req = Tobago.Transport.requests.shift(); // remove this from queue
       LOG.debug("request removed :" + req.toString());
+      var oldAction = Tobago.action.value;
       Tobago.action.value = actionId;
       Tobago.onSubmit();
 //      LOG.debug("submit form with action: " + Tobago.action.value);
       Tobago.form.submit();
+      Tobago.action.value = oldAction;
     }, true);
   },
 
@@ -1624,7 +1626,7 @@ Tobago.Updater = {
         Tobago.Transport.requestComplete();
         onComplete(transport, json);
       };
-
+      var oldAction = Tobago.action.value;
       Tobago.action.value = actionId;
       var url = Tobago.form.action;
       requestOptions.parameters = "affectedAjaxComponent=" + ajaxComponentId 
@@ -1634,6 +1636,7 @@ Tobago.Updater = {
       Tobago.Transport.request(function() {
         new Ajax.Updater(container, url, requestOptions);
       });
+      Tobago.action.value = oldAction;
     } else {
       LOG.info("No Ajax transport found! Doing full page reload.");
       Tobago.submitAction(actionId);
