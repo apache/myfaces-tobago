@@ -64,7 +64,7 @@ public final class AttributeHandler extends TagHandler {
       } else if (TobagoConstants.ATTR_RENDERED_PARTIALLY.equals(nameValue)
           && parent instanceof UICommand) {
         // TODO test expression
-        ComponentUtil.setRenderedPartially((UICommand)parent, value.getValue());
+        ComponentUtil.setRenderedPartially((UICommand) parent, value.getValue());
       } else if (parent instanceof EditableValueHolder
           && "validator".equals(nameValue)) {
         MethodExpression methodExpression = value.getMethodExpression(ctx, null, VALIDATOR);
