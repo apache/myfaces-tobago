@@ -110,8 +110,9 @@ public class AttributeTag  extends TagSupport {
       ComponentUtil.setValidator((EditableValueHolder) component, value);
     } else if (component instanceof ValueHolder && attributeName.equals("converter")) {
       ComponentUtil.setConverter((ValueHolder) component, value);
-    } else if (attributeName.equals(TobagoConstants.ATTR_RENDERED_PARTIALLY)&&component instanceof UICommand) {
-      ComponentUtil.setRenderedPartially((UICommand)component, value);
+    } else if (attributeName.equals(TobagoConstants.ATTR_RENDERED_PARTIALLY)
+        && component instanceof UICommand) {
+      ComponentUtil.setRenderedPartially((UICommand) component, value);
     } else if (UIComponentTag.isValueReference(value)) {
       ValueBinding valueBinding = ComponentUtil.createValueBinding(value);
       if (valueBinding != null) {
