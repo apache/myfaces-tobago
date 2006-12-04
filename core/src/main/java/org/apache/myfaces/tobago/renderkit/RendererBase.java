@@ -284,7 +284,8 @@ public abstract class RendererBase
 
   private void writeScriptForClientId(String clientId, Map.Entry<String, UIComponent> facetEntry,
       FacesContext facesContext, TobagoResponseWriter writer) throws IOException {
-    if (facetEntry.getValue() instanceof UICommand && ((UICommand) facetEntry.getValue()).getRenderedPartially().length > 0) {
+    if (facetEntry.getValue() instanceof UICommand
+        && ((UICommand) facetEntry.getValue()).getRenderedPartially().length > 0) {
       String script =
           "var element = Tobago.element(\"" + clientId  + "\");\n"
               + "if (element) {\n"

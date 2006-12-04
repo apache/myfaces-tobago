@@ -692,9 +692,11 @@ public final class HtmlRendererUtil {
 
 
         if (component.getFacet(FACET_POPUP) !=null) {
-          onclick = "Tobago.openPopupWithAction('" + getComponentId(facesContext, component, componentId[0]) + "', '" + clientId + "')";
+          onclick = "Tobago.openPopupWithAction('" + getComponentId(facesContext, component, componentId[0]) + "', '"
+              + clientId + "')";
         } else {
-          onclick = "Tobago.reloadComponent('" + getComponentId(facesContext, component, componentId[0]) + "','" + clientId + "', {});";
+          onclick = "Tobago.reloadComponent('" + getComponentId(facesContext, component, componentId[0]) + "','"
+              + clientId + "', {});";
         }
       } else {
         LOG.error("more than one parially rendered component is currently not supported " + componentId);
