@@ -132,6 +132,7 @@ public class PanelRenderer extends RendererBase implements AjaxRenderer {
     writer.writeComponentClass();
     writer.writeIdAttribute(clientId);
     if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
+      HtmlRendererUtil.writeJavascript(writer, "Tobago.addAjaxComponent(\"" + clientId + "\")");
       Integer frequency = null;
       UIComponent facetReload = component.getFacet(FACET_RELOAD);
       if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
