@@ -34,10 +34,12 @@ public class UITreeNode extends UICommand {
   }
 
   public Object getValue() {
-    if (super.getValue() == null) { // XXX: hack!
-      setValue(new DefaultMutableTreeNode());
+    Object value = super.getValue();
+    if (value == null) { // XXX: hack!
+      value = new DefaultMutableTreeNode();
+      setValue(value);
       LOG.info("Created temporary Node");
     }
-    return super.getValue();
+    return value;
   }
 }

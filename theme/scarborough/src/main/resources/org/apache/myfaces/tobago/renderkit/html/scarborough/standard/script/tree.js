@@ -282,8 +282,8 @@ function storeMarker(node, treeHiddenId) {
 
 function nodeStateId(node) {
   // this must do the same as nodeStateId() in TreeRenderer.java
-  var last = node.id.lastIndexOf(":") + 1;
-  return node.id.substring(last);
+  var treeNodeObject = Tobago.treeNodes[node.id]
+  return node.id.substring(treeNodeObject.treeHiddenId.length + 1);
 }
 
 var TreeManager = {

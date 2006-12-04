@@ -28,8 +28,8 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MUTABLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -40,10 +40,7 @@ import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 
 import javax.faces.component.NamingContainer;
-import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
-import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -100,62 +97,6 @@ public class TreeNodeRenderer extends CommandRendererBase {
         state.setMarker((DefaultMutableTreeNode) node.getValue());
       }
     }
-
-
-    // link
-    // FIXME: this is equal to the CommandRendererBase, why not use that code?
-    String actionId = ComponentUtil.findPage(component).getActionId();
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("actionId = '" + actionId + "'");
-      LOG.debug("nodeId = '" + treeId + NamingContainer.SEPARATOR_CHAR
-          + nodeId + "'");
-    }
-    if (actionId != null
-        && actionId.equals(treeId + NamingContainer.SEPARATOR_CHAR + nodeId)) {
-//      UICommand treeNodeCommand
-//          = (UICommand) tree.getFacet(UITree.FACET_TREE_NODE_COMMAND);
-//      if (treeNodeCommand != null) {
-//        UIParameter parameter = ensureTreeNodeParameter(treeNodeCommand);
-//        parameter.setValue(node.getId());
-////        LOG.error("no longer supported: treeNodeCommand.fireActionEvent(facesContext));");
-////        treeNodeCommand.fireActionEvent(facesContext); // FIXME jsfbeta
-////        component.queueEvent(new ActionEvent(component));
-//        treeNodeCommand.queueEvent(new ActionEvent(treeNodeCommand));
-//      }
-
-      UIForm form = ComponentUtil.findForm(component);
-      if (form != null) {
-        form.setSubmitted(true);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("setting Form Active: " + form.getClientId(facesContext));
-        }
-      }
-
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("actionId: " + actionId);
-        LOG.debug("nodeId: " + nodeId);
-      }
-    }
-
-//    node.setValid(true);
-  }
-
-  private UIParameter ensureTreeNodeParameter(UICommand command) {
-    UIParameter treeNodeParameter = null;
-    for (Object o : command.getChildren()) {
-      UIComponent component = (UIComponent) o;
-      if (component instanceof UIParameter) {
-        UIParameter parameter = (UIParameter) component;
-        if (parameter.getName().equals(UITree.PARAMETER_TREE_NODE_ID)) {
-          treeNodeParameter = parameter;
-        }
-      }
-    }
-    if (treeNodeParameter == null) {
-      treeNodeParameter = new UIParameter();
-      treeNodeParameter.setName(UITree.PARAMETER_TREE_NODE_ID);
-    }
-    return treeNodeParameter;
   }
 
   @Override
@@ -241,27 +182,40 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.writeText(clientId, null);
       writer.writeText("','", null);
 
+      // mode
       writer.writeText(root.getMode(), null);
       writer.writeText("',", null);
 
       // is folder
       writer.writeText(isFolder, null);
       writer.writeText(",", null);
+
+      // show icons
       writer.writeText(Boolean.toString(!root.isShowIcons()), null);
       writer.writeText(",", null);
+
+      // show junctions
       writer.writeText(Boolean.toString(!root.isShowJunctions()), null);
       writer.writeText(",", null);
+
+      // show root junction
       writer.writeText(Boolean.toString(!root.isShowRootJunction()), null);
       writer.writeText(",", null);
+
+      // show root
       writer.writeText(Boolean.toString(!root.isShowRoot()), null);
       writer.writeText(",'", null);
+
+      // tree id
       writer.writeText(rootId, null);
       writer.writeText("',", null);
+
+      //
       String selectable = ComponentUtil.getStringAttribute(root, ATTR_SELECTABLE);
       if (selectable != null
-          && (!(selectable.equals("multi") || selectable.equals("multiLeafOnly")
-          || selectable.equals("single") || selectable.equals("singleLeafOnly")
-          || selectable.equals("sibling") || selectable.equals("siblingLeafOnly")))) {
+          && !("multi".equals(selectable) || "multiLeafOnly".equals(selectable)
+          || "single".equals(selectable) || "singleLeafOnly".equals(selectable)
+          || "sibling".equals(selectable) || "siblingLeafOnly".equals(selectable))) {
         selectable = null;
       }
       if (selectable != null) {
@@ -297,12 +251,14 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.writeText(",", null);
       writer.writeText(Boolean.toString(treeState.isMarked(node)), null);
       writer.writeText(",", null);
+
       // expanded
       boolean expanded = treeState.isExpanded(node);
       writer.writeText(Boolean.toString(expanded), null);
       if (LOG.isDebugEnabled()) {
         debuging += expanded ? "E" : "-";
       }
+
       writer.writeText(",", null);
 
       // required
