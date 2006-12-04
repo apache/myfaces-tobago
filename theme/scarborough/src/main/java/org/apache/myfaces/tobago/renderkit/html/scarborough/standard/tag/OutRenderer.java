@@ -54,7 +54,9 @@ public class OutRenderer extends RendererBase {
         component, ATTR_CREATE_SPAN);
 
     if (createSpan) {
+      String id = component.getClientId(facesContext);
       writer.startElement(HtmlConstants.SPAN, component);
+      writer.writeIdAttribute(id);
       writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
       writer.writeComponentClass();
       writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
