@@ -35,7 +35,7 @@
         <f:facet name="toolBar">
           <tc:toolBar>
             <tc:toolBarCommand label="#" tip="#{overviewBundle.sheet_configTip}">
-              <tc:attribute name="renderedPartially" value="page:sheetConfigPopup"/>
+              <tc:attribute name="renderedPartially" value="sheetConfigPopup"/>
               <f:facet name="popup">
                 <tc:popup width="300" height="270" id="sheetConfigPopup">
                   <tc:box label="#{overviewBundle.sheet_configTitle}">
@@ -102,7 +102,7 @@
                       <tc:cell/>
                       <tc:button label="Ok">
                         <tc:attribute name="popupClose" value="afterSubmit"/>
-                        <tc:attribute name="renderedPartially" value="page:sheetBox"/>
+                        <tc:attribute name="renderedPartially" value=":page:sheetBox"/>
                       </tc:button>
                     </tc:cell>
 

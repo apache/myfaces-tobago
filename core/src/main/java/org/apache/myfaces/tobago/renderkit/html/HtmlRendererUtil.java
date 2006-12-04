@@ -211,15 +211,13 @@ public final class HtmlRendererUtil {
 
   public static String getLayoutSpaceStyle(UIComponent component) {
     StringBuilder sb = new StringBuilder();
-    Integer space = LayoutUtil.getLayoutSpace(component, ATTR_LAYOUT_WIDTH,
-        ATTR_LAYOUT_WIDTH);
+    Integer space = LayoutUtil.getLayoutSpace(component, ATTR_LAYOUT_WIDTH, ATTR_LAYOUT_WIDTH);
     if (space != null) {
       sb.append(" width: ");
       sb.append(space);
       sb.append("px;");
     }
-    space = LayoutUtil.getLayoutSpace(component, ATTR_LAYOUT_HEIGHT,
-        ATTR_LAYOUT_HEIGHT);
+    space = LayoutUtil.getLayoutSpace(component, ATTR_LAYOUT_HEIGHT, ATTR_LAYOUT_HEIGHT);
     if (space != null) {
       sb.append(" height: ");
       sb.append(space);
@@ -694,9 +692,9 @@ public final class HtmlRendererUtil {
 
 
         if (component.getFacet(FACET_POPUP) !=null) {
-          onclick = "Tobago.openPopupWithAction('" + componentId[0] + "', '" + clientId + "')";
+          onclick = "Tobago.openPopupWithAction('" + getComponentId(facesContext, component, componentId[0]) + "', '" + clientId + "')";
         } else {
-          onclick = "Tobago.reloadComponent('" + componentId[0] + "','" + clientId + "', {});";
+          onclick = "Tobago.reloadComponent('" + getComponentId(facesContext, component, componentId[0]) + "','" + clientId + "', {});";
         }
       } else {
         LOG.error("more than one parially rendered component is currently not supported " + componentId);
@@ -721,6 +719,18 @@ public final class HtmlRendererUtil {
 
     }
     return onclick;
+  }
+
+  public static String getComponentId(FacesContext context, UIComponent component, String componentId) {
+    if (componentId.startsWith(":")) {
+      return componentId.substring(1);
+    } else {
+      UIComponent partiallyComponent = component.findComponent(componentId);
+      if (partiallyComponent != null) {
+        return partiallyComponent.getClientId(context);
+      }
+    }
+    return null;
   }
 
   public static String prepareOnClick(FacesContext facesContext, UIComponent component) {
