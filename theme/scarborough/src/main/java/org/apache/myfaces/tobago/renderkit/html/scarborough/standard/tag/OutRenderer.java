@@ -48,10 +48,8 @@ public class OutRenderer extends RendererBase {
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    boolean escape
-        = ComponentUtil.getBooleanAttribute(component, ATTR_ESCAPE);
-    boolean createSpan = ComponentUtil.getBooleanAttribute(
-        component, ATTR_CREATE_SPAN);
+    boolean escape = ComponentUtil.getBooleanAttribute(component, ATTR_ESCAPE);
+    boolean createSpan = ComponentUtil.getBooleanAttribute(component, ATTR_CREATE_SPAN);
 
     if (createSpan) {
       String id = component.getClientId(facesContext);
