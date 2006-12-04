@@ -77,6 +77,8 @@ public class TobagoDemoController {
 
   private boolean showJunctions;
 
+  private int value;
+
   private boolean showIcons;
 
   private boolean showRoot;
@@ -314,6 +316,10 @@ public class TobagoDemoController {
   }
 
   public List<SolarObject> getSolarList() {
+    solarList.get(0).setDistance(value++);
+    if (value > 100) {
+      value = 0;
+    }
     return solarList;
   }
 
