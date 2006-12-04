@@ -268,13 +268,13 @@ public abstract class RendererBase
     Map<String, UIComponent> facets = component.getFacets();
     for (Map.Entry<String, UIComponent> entry: facets.entrySet()) {
       if (entry.getValue() instanceof UICommand) {
-        addCommandFacet(component, clientIds, entry, facesContext, writer);
+        addCommandFacet(clientIds, entry, facesContext, writer);
       }
     }
   }
 
   // TODO create HtmlRendererBase
-  private void addCommandFacet(UIComponent component, List<String> clientIds, Map.Entry<String, UIComponent> facetEntry,
+  private void addCommandFacet(List<String> clientIds, Map.Entry<String, UIComponent> facetEntry,
       FacesContext facesContext, TobagoResponseWriter writer) throws
       IOException {
     for (String clientId: clientIds) {
@@ -284,12 +284,25 @@ public abstract class RendererBase
 
   private void writeScriptForClientId(String clientId, Map.Entry<String, UIComponent> facetEntry,
       FacesContext facesContext, TobagoResponseWriter writer) throws IOException {
-    String script =
-        "var element = Tobago.element(\"" + clientId  + "\");\n"
-        + "if (element) {\n"
-        + "   Tobago.addEventListener(element, \"" + facetEntry.getKey() + "\", function(){Tobago.submitAction('"
-        + facetEntry.getValue().getClientId(facesContext) + "')});\n"
-        + "}";
-    HtmlRendererUtil.writeJavascript(writer, script);
+    if (facetEntry.getValue() instanceof UICommand && ((UICommand) facetEntry.getValue()).getRenderedPartially().length > 0) {
+      String script =
+          "var element = Tobago.element(\"" + clientId  + "\");\n"
+              + "if (element) {\n"
+              + "   Tobago.addEventListener(element, \"" + facetEntry.getKey()
+              + "\", function(){Tobago.reloadComponent('"
+              + HtmlRendererUtil.getComponentId(facesContext, facetEntry.getValue(), 
+              ((UICommand) facetEntry.getValue()).getRenderedPartially()[0]) + "','"
+              + facetEntry.getValue().getClientId(facesContext)  + "', {})});\n"
+              + "}";
+      HtmlRendererUtil.writeJavascript(writer, script);
+    } else {
+      String script =
+          "var element = Tobago.element(\"" + clientId  + "\");\n"
+              + "if (element) {\n"
+              + "   Tobago.addEventListener(element, \"" + facetEntry.getKey() + "\", function(){Tobago.submitAction('"
+              + facetEntry.getValue().getClientId(facesContext) + "')});\n"
+              + "}";
+      HtmlRendererUtil.writeJavascript(writer, script);
+    }
   }
 }

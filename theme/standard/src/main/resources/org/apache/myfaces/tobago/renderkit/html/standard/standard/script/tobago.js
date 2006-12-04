@@ -1341,8 +1341,6 @@ Tobago.Panel = function(panelId, enableAjax, autoReload) {
   this.autoReload = autoReload;
 
   if (this.ajaxEnabled) {
-    Tobago.ajaxComponents[this.id] = this;
-     // option are onyl used for ajax request
     this.options = {
       method: 'post',
       asynchronous: true,
