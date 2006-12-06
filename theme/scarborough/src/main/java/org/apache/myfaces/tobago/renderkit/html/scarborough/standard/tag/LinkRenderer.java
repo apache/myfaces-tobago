@@ -59,6 +59,7 @@ public class LinkRenderer extends CommandRendererBase{
     String href;
 
     String clientId = component.getClientId(facesContext);
+    // TODO refactor it
     if (component.getAttributes().get(ATTR_ACTION_LINK) != null) {
       String action = (String) component.getAttributes().get(ATTR_ACTION_LINK);
       if (action == null) {
@@ -94,12 +95,11 @@ public class LinkRenderer extends CommandRendererBase{
       onclick = HtmlRendererUtil.prepareOnClick(facesContext, component);
       href = HtmlRendererUtil.getEmptyHref(facesContext);
     } else { // default: Action.TYPE_SUBMIT
-      href = "javascript:Tobago.submitAction('" + clientId + "')";
+      href = "javascript:" + HtmlRendererUtil.createOnClick(facesContext, component);
+         //"Tobago.submitAction('" + clientId + "')";
     }
 
-    onclick =
-        HtmlRendererUtil.appendConfirmationScript(onclick, component,
-            facesContext);
+    onclick = HtmlRendererUtil.appendConfirmationScript(onclick, component, facesContext);
 
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
