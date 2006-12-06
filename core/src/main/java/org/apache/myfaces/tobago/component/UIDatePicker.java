@@ -134,8 +134,6 @@ public class UIDatePicker extends UICommand implements OnComponentCreated {
       link.setFor("@auto");
     }
     link.setImmediate(true);
-    link.setRendered(true);
-    link.setImmediate(true);
 
     UIHiddenInput hidden =
         (UIHiddenInput) ComponentUtil.createComponent(facesContext,

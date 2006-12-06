@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.util.DateFormatUtils;
+import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -60,6 +61,11 @@ public class DatePickerRenderer extends LinkRenderer {
     if (dateInput == null) {
       LOG.error("No required UIDateInput component found.");
       return;
+    }
+    if (dateInput.getValueBinding(TobagoConstants.ATTR_READONLY) != null) {
+      link.setValueBinding(TobagoConstants.ATTR_DISABLED, dateInput.getValueBinding(TobagoConstants.ATTR_READONLY));
+    } else {
+      link.setDisabled(dateInput.isReadonly());
     }
     String idPrefix = dateInput.getId() + "_picker";
     Map<String, Object>  attributes = link.getAttributes();
