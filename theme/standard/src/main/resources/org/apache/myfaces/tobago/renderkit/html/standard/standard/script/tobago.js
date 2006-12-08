@@ -107,6 +107,8 @@ var Tobago = {
 
   treeNodes: {},
 
+  reloadTimer: {},
+
   jsObjects: new Array(),
 
   eventListeners: new Array(),
@@ -377,6 +379,18 @@ var Tobago = {
     } else {
       LOG.error("Can't find stateContainer!");
     }
+  },
+
+  clearReloadTimer: function(id) {
+    var timer = Tobago.reloadTimer[id];
+    if (timer) {
+      clearTimeout(timer);
+    }
+  },
+
+  addReloadTimeout: function(id, func, time) {
+    Tobago.clearReloadTimer(id);
+    Tobago.reloadTimer[id] = setTimeout(func, time);
   },
 
    /**
@@ -1370,8 +1384,7 @@ Tobago.Panel.prototype.onFailure = function() {
 
 Tobago.Panel.prototype.initReload = function() {
   if (typeof this.autoReload == "number") {
-    clearTimeout(this.reloadTimer);
-    this.reloadTimer = setTimeout(Tobago.bind2(this, "reload", this.id), this.autoReload);
+    Tobago.addReloadTimeout(this.id, Tobago.bind2(this, "reload", this.id), this.autoReload);
   }
 };
 

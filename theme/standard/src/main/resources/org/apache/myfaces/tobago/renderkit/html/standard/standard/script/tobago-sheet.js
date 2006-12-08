@@ -386,8 +386,7 @@ Tobago.Sheet.prototype.setup = function() {
 
 Tobago.Sheet.prototype.initReload = function() {
   if (typeof this.autoReload == "number" && Tobago.element(this.contentDivId)) {
-    clearTimeout(this.reloadTimer);
-    this.reloadTimer = setTimeout(Tobago.bind2(this, "reloadWithAction", this.id), this.autoReload);
+    Tobago.addReloadTimeout(this.id, Tobago.bind2(this, "reloadWithAction", this.id), this.autoReload);
   }
 };
 
