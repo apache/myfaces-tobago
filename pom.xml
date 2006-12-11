@@ -647,7 +647,71 @@
         <module>tobago-assembly</module>
       </modules>
     </profile>
+    <profile>
+      <id>release</id>
+      <!--
+      NOTE: To use you need to enable this profile and pass in the passphrase:
+            mvn -Prelease -Dpassphrase=thephrase
+       -->
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>2.0.1</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>2.1</version>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-scm-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>validate</phase>
+                <id>getting-scm.revision</id>
+                <goals><goal>update</goal></goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+      <modules>
+        <module>contrib</module>
+        <module>example</module>
+      </modules>
+    </profile>
   </profiles>
+
   <properties>
     <myfaces.version>1.1.4</myfaces.version>
     <sunjsf.version>1.1_02</sunjsf.version>

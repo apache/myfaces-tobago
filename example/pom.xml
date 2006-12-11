@@ -102,6 +102,13 @@
         <module>tobago-example-assembly</module>
       </modules>
     </profile>
+     <profile>
+      <id>release</id>
+      <modules>
+        <module>blank</module>
+        <module>demo</module>
+      </modules>
+    </profile>
     <profile>
       <id>generate-assembly</id>
       <modules>
