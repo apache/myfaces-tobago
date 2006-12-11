@@ -35,17 +35,17 @@ fieldset.tobago-box-default {
   padding-bottom: 0px;
 }
 
+.tobago-date-default {
+  margin-top: -1 px;
+  margin-bottom: -1 px;
+}
+
 .tobago-textArea-default {
   margin-top: -1 px;
   margin-bottom: -1 px;
 }
 
 .tobago-in-default {
-  margin-top: -1 px;
-  margin-bottom: -1 px;
-}
-
-.tobago-date-default {
   margin-top: -1 px;
   margin-bottom: -1 px;
 }

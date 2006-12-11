@@ -15,6 +15,11 @@
  * limitations under the License.
  */
 
+/* in ---------------------------------------------------------------------- */
+.tobago-date-default  {
+  margin-top: 0px;
+}
+
 /* - Label ------------------------------------------------------------------ */
 
 label.tobago-label-default  {
@@ -35,10 +40,6 @@ label.tobago-label-default  {
 
 /* in ---------------------------------------------------------------------- */
 .tobago-in-default  {
-  margin-top: 0px;
-}
-
-.tobago-date-default  {
   margin-top: 0px;
 }
 

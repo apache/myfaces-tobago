@@ -144,6 +144,30 @@ img.tobago-progress-color2 {
   color: gray;
 }
 
+/* date ---------------------------------------------------------------------- */
+
+.tobago-date-default  {
+  border: 1px #3366CC solid;
+  height: 20px;
+  font: 12px arial, helvetica, sans-serif;
+  color: #3366CC;
+}
+
+.tobago-date-readonly  {
+  background-color: #e6e6e6;
+  color: #3366cc;
+}
+
+.tobago-date-disabled  {
+  color: #3366cc;
+  background-color: #e6e6e6;
+}
+
+.tobago-date-error  {
+  border: 1px solid #ff0000;
+}
+
+
 /* tobago label ------------------------------------------------------------ */
 
 div.tobago-label-default  {
