@@ -249,6 +249,27 @@
         </plugins>
       </build>
     </profile>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>net.sourceforge.maven-taglib</groupId>
+            <artifactId>maven-taglib-plugin</artifactId>
+            <configuration>
+              <taglib.src.dir>${project.build.directory}/generated-tld</taglib.src.dir>
+              <tldDocDir>${project.build.directory}/tlddoc</tldDocDir>
+            </configuration>
+            <executions>
+              <execution>
+                <id>attach-tlddoc</id>
+                <goals><goal>taglibdocjar</goal></goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
 
     <profile>
       <id>generate-assembly</id>
