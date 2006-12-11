@@ -17,10 +17,9 @@
 
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-
-<f:view locale="#{clientConfigController.locale}">
-  <tc:loadBundle basename="overview" var="overviewBundle" />
-  <tc:page label="#{overviewBundle.pageTitle}" id="page"
+<f:view locale="#{clientConfigController.locale}"
+    ><tc:loadBundle basename="overview" var="overviewBundle" 
+  /><tc:page label="#{overviewBundle.pageTitle}" id="page"
       width="750px" height="600px">
 
      <f:facet name="onLoad">

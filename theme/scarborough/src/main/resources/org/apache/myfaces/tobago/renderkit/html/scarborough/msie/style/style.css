@@ -45,6 +45,11 @@ fieldset.tobago-box-default {
   margin-bottom: -1 px;
 }
 
+.tobago-date-default {
+  margin-top: -1 px;
+  margin-bottom: -1 px;
+}
+
 textarea.tobago-richTextEditor-body {
   margin-top: -1 px;
   margin-bottom: -1 px;

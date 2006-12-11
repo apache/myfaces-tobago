@@ -107,8 +107,7 @@ public class AjaxPhaseListener implements PhaseListener {
             FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
         RenderKit renderKit = renderFactory.getRenderKit(
             facesContext, viewRoot.getRenderKitId());
-        ResponseWriter contentWriter
-            = renderKit.createResponseWriter(content, null, null);
+        ResponseWriter contentWriter = renderKit.createResponseWriter(content, null, null);
         facesContext.setResponseWriter(contentWriter);
 
         AjaxUtils.processAjax(facesContext, viewRoot);

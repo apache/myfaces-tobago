@@ -13,13 +13,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
---%>
-<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
-<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
-
-<layout:overview>
+--%><%@
+    taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %><%@
+    taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %><%@
+    taglib uri="http://java.sun.com/jsf/core" prefix="f" %><%@
+    taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %><%@
+    page pageEncoding="UTF-8"
+    %><layout:overview>
   <jsp:body>
     <tc:panel>
       <f:facet name="layout">
