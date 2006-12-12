@@ -25,10 +25,10 @@ import org.apache.myfaces.tobago.renderkit.RenderUtil;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.context.FacesContext;
-import javax.faces.event.FacesEvent;
 import javax.faces.event.AbortProcessingException;
-import javax.faces.event.PhaseId;
+import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
+import javax.faces.event.PhaseId;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 
@@ -158,15 +158,14 @@ public class UITreeNodes extends javax.faces.component.UIInput
   @Override
   public void broadcast(FacesEvent event) throws AbortProcessingException {
     if (event instanceof FacesEventWrapper) {
-      FacesEvent originalEvent = ((FacesEventWrapper) event)
-          .getWrappedFacesEvent();
+      FacesEvent originalEvent
+          = ((FacesEventWrapper) event).getWrappedFacesEvent();
       String eventPathIndex = ((FacesEventWrapper) event).getPathIndex();
       String currentPathIndex = getPathIndex();
       setPathIndex(eventPathIndex);
       try {
         originalEvent.getComponent().broadcast(originalEvent);
-      }
-      finally {
+      } finally {
         setPathIndex(currentPathIndex);
       }
     } else {
