@@ -80,8 +80,7 @@
       <tcs:treeNode label="Root" id="root">
         <tcs:treeNodes value="#{tree}" var="node" id="data">
           <tcs:treeNode label="#{node.userObject.name}" id="template"
-                        action="#{controller.action1}" value="#{node}"/>
-                        <%--action="#{node.userObject.action}" value="#{node}"/>--%>
+                        action="#{node.userObject.action}" value="#{node}"/>
         </tcs:treeNodes>
         <tcs:treeNode label="Action 1" action="#{controller.action1}" id="action1"/>
         <tcs:treeNode label="Action 2" action="#{controller.action2}" id="action2"/>

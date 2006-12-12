@@ -65,7 +65,6 @@ public class TreeNodeRenderer extends CommandRendererBase {
     TreeState state = tree.getState();
     String treeId = tree.getClientId(facesContext);
     String nodeStateId = node.nodeStateId(facesContext);
-    UIComponent parent = node.getParent();
     Map requestParameterMap
         = facesContext.getExternalContext().getRequestParameterMap();
 

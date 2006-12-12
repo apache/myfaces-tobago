@@ -25,6 +25,10 @@ import org.apache.myfaces.tobago.renderkit.RenderUtil;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.context.FacesContext;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.PhaseId;
+import javax.faces.event.FacesListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 
@@ -65,6 +69,10 @@ public class UITreeNodes extends javax.faces.component.UIInput
       getTemplateComponent().processDecodes(facesContext);
       setPathIndex(null);
     }
+  }
+
+  public String getPathIndex() {
+    return pathIndex;
   }
 
   private void setPathIndex(String pathIndex) {
@@ -143,6 +151,30 @@ public class UITreeNodes extends javax.faces.component.UIInput
   }
 
   @Override
+  public void queueEvent(FacesEvent event) {
+    super.queueEvent(new FacesEventWrapper(event, getPathIndex(), this));
+  }
+
+  @Override
+  public void broadcast(FacesEvent event) throws AbortProcessingException {
+    if (event instanceof FacesEventWrapper) {
+      FacesEvent originalEvent = ((FacesEventWrapper) event)
+          .getWrappedFacesEvent();
+      String eventPathIndex = ((FacesEventWrapper) event).getPathIndex();
+      String currentPathIndex = getPathIndex();
+      setPathIndex(eventPathIndex);
+      try {
+        originalEvent.getComponent().broadcast(originalEvent);
+      }
+      finally {
+        setPathIndex(currentPathIndex);
+      }
+    } else {
+      super.broadcast(event);
+    }
+  }
+
+  @Override
   public Object saveState(FacesContext context) {
     Object[] state = new Object[2];
     state[0] = super.saveState(context);
@@ -187,6 +219,60 @@ public class UITreeNodes extends javax.faces.component.UIInput
 
   public void setCurrentParentNodeId(String currentParentNodeId) {
     this.currentParentNodeId = currentParentNodeId;
+  }
+
+  private static class FacesEventWrapper extends FacesEvent {
+
+    private static final long serialVersionUID = 1L;
+
+    private FacesEvent wrappedFacesEvent;
+    private String pathIndex;
+
+    FacesEventWrapper(FacesEvent facesEvent, String pathIndex,
+        UITreeNodes redirectComponent) {
+      super(redirectComponent);
+      wrappedFacesEvent = facesEvent;
+      this.pathIndex = pathIndex;
+    }
+
+    @Override
+    public PhaseId getPhaseId() {
+      return wrappedFacesEvent.getPhaseId();
+    }
+
+    @Override
+    public void setPhaseId(PhaseId phaseId) {
+      wrappedFacesEvent.setPhaseId(phaseId);
+    }
+
+    @Override
+    public void queue() {
+      wrappedFacesEvent.queue();
+    }
+
+    @Override
+    public String toString() {
+      return wrappedFacesEvent.toString();
+    }
+
+    @Override
+    public boolean isAppropriateListener(
+        FacesListener faceslistener) {
+      return wrappedFacesEvent.isAppropriateListener(faceslistener);
+    }
+
+    @Override
+    public void processListener(FacesListener faceslistener) {
+      wrappedFacesEvent.processListener(faceslistener);
+    }
+
+    public FacesEvent getWrappedFacesEvent() {
+      return wrappedFacesEvent;
+    }
+
+    public String getPathIndex() {
+      return pathIndex;
+    }
   }
 
 }
