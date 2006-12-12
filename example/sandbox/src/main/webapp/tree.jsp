@@ -17,27 +17,29 @@
 
 <%@ page import="javax.swing.tree.DefaultMutableTreeNode" %>
 <%@ page import="org.apache.myfaces.tobago.model.TreeState" %>
+<%@ page import="org.apache.myfaces.tobago.example.sandbox.Node" %>
 
 <%
   // tree
-  DefaultMutableTreeNode tree = (DefaultMutableTreeNode) session.getAttribute("tree");
+  DefaultMutableTreeNode tree =
+      (DefaultMutableTreeNode) session.getAttribute("tree");
 
   DefaultMutableTreeNode music = null;
   DefaultMutableTreeNode temp = null;
   DefaultMutableTreeNode temp2 = null;
   if (tree == null) {
-    tree = new DefaultMutableTreeNode("Category");
-    tree.insert(new DefaultMutableTreeNode("Sports"), 0);
-    tree.insert(new DefaultMutableTreeNode("Movies"), 0);
-    music = new DefaultMutableTreeNode("Music");
+    tree = new DefaultMutableTreeNode(new Node("Category"));
+    tree.insert(new DefaultMutableTreeNode(new Node("Sports")), 0);
+    tree.insert(new DefaultMutableTreeNode(new Node("Movies")), 0);
+    music = new DefaultMutableTreeNode(new Node("Music"));
     tree.insert(music, 0);
-    tree.insert(new DefaultMutableTreeNode("Games"), 0);
-    temp = new DefaultMutableTreeNode("Science");
-    temp.insert(new DefaultMutableTreeNode("Geography"), 0);
-    temp.insert(new DefaultMutableTreeNode("Mathematics"), 0);
-    temp2 = new DefaultMutableTreeNode("Astronomy");
-    temp2.insert(new DefaultMutableTreeNode("Education"), 0);
-    temp2.insert(new DefaultMutableTreeNode("Pictures"), 0);
+    tree.insert(new DefaultMutableTreeNode(new Node("Games")), 0);
+    temp = new DefaultMutableTreeNode(new Node("Science"));
+    temp.insert(new DefaultMutableTreeNode(new Node("Geography")), 0);
+    temp.insert(new DefaultMutableTreeNode(new Node("Mathematics")), 0);
+    temp2 = new DefaultMutableTreeNode(new Node("Astronomy"));
+    temp2.insert(new DefaultMutableTreeNode(new Node("Education")), 0);
+    temp2.insert(new DefaultMutableTreeNode(new Node("Pictures")), 0);
     temp.insert(temp2, 2);
     tree.insert(temp, 2);
     session.setAttribute("tree", tree);
@@ -77,8 +79,9 @@
               mode="menu">
       <tcs:treeNode label="Root" id="root">
         <tcs:treeNodes value="#{tree}" var="node" id="data">
-          <tcs:treeNode label="#{node.userObject}" id="template"
+          <tcs:treeNode label="#{node.userObject.name}" id="template"
                         action="#{controller.action1}" value="#{node}"/>
+                        <%--action="#{node.userObject.action}" value="#{node}"/>--%>
         </tcs:treeNodes>
         <tcs:treeNode label="Action 1" action="#{controller.action1}" id="action1"/>
         <tcs:treeNode label="Action 2" action="#{controller.action2}" id="action2"/>

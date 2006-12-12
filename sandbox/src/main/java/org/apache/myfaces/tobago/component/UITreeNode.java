@@ -21,6 +21,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.faces.context.FacesContext;
+import javax.faces.component.UIComponent;
 
 public class UITreeNode extends UICommand {
 
@@ -42,4 +44,27 @@ public class UITreeNode extends UICommand {
     }
     return value;
   }
+
+  public String nodeStateId(FacesContext facesContext) {
+    // this must do the same as nodeStateId() in tree.js
+    String clientId = getClientId(facesContext);
+    UITree tree = findTree(this);
+    String treeId = tree.getClientId(facesContext);
+    return clientId.substring(treeId.length() + 1);
+  }
+
+  public UITree findTree() {
+    return findTree(this);
+  }
+
+  private UITree findTree(UIComponent component) {
+    while (component != null) {
+      if (component instanceof UITree) {
+        return (UITree) component;
+      }
+      component = component.getParent();
+    }
+    return null;
+  }
+
 }

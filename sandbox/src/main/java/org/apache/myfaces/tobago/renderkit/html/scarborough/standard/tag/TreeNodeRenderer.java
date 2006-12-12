@@ -61,20 +61,17 @@ public class TreeNodeRenderer extends CommandRendererBase {
     }
 
     UITreeNode node = (UITreeNode) component;
-    UITree tree = findTree(node);
+    UITree tree = node.findTree();
     TreeState state = tree.getState();
     String treeId = tree.getClientId(facesContext);
-    String nodeId = node.getId();
+    String nodeStateId = node.nodeStateId(facesContext);
     UIComponent parent = node.getParent();
-    if (parent != null && parent instanceof UITreeNodes) { // todo cleanup
-      nodeId += ((UITreeNodes) parent).getCurrentNodeId();
-    }
     Map requestParameterMap
         = facesContext.getExternalContext().getRequestParameterMap();
 
     // expand state
     String expandState = (String) requestParameterMap.get(treeId);
-    String searchString = ";" + nodeId + ";";
+    String searchString = ";" + nodeStateId + ";";
     if (expandState.indexOf(searchString) > -1) {
       state.addExpandState((DefaultMutableTreeNode) node.getValue());
     }
@@ -82,7 +79,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     if (TreeRenderer.isSelectable(tree)) { // selection
       String selected = (String) requestParameterMap.get(treeId + UITree.SELECT_STATE);
-      searchString = ";" + nodeId + ";";
+      searchString = ";" + nodeStateId + ";";
       if (selected.indexOf(searchString) > -1) {
         state.addSelection((DefaultMutableTreeNode) node.getValue());
       }
@@ -91,7 +88,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     // marker
     String marked = (String) requestParameterMap.get(treeId + UITree.MARKER);
     if (marked != null) {
-      searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeId;
+      searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeStateId;
 
       if (marked.equals(searchString)) {
         state.setMarker((DefaultMutableTreeNode) node.getValue());
@@ -128,7 +125,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       }
     }
 
-    UITree root = findTree(treeNode);
+    UITree root = treeNode.findTree();
     String rootId = root.getClientId(facesContext);
 
     String clientId = treeNode.getClientId(facesContext);
@@ -146,7 +143,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       }
     } else {
 
-      DefaultMutableTreeNode node = (DefaultMutableTreeNode) treeNode.getValue();
+      DefaultMutableTreeNode modelNode = (DefaultMutableTreeNode) treeNode.getValue();
 
       ResponseWriter writer = facesContext.getResponseWriter();
 
@@ -234,7 +231,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.writeText("',", null);
       if (treeNode.getChildCount() == 0
           || (selectable != null && !selectable.endsWith("LeafOnly"))) {
-        boolean selected = treeState.isSelected(node);
+        boolean selected = treeState.isSelected(modelNode);
         writer.writeText(Boolean.toString(selected), null);
         if (LOG.isDebugEnabled()) {
           debuging += selected ? "S" : "-";
@@ -244,16 +241,16 @@ public class TreeNodeRenderer extends CommandRendererBase {
         if (LOG.isDebugEnabled()) {
           debuging += "-";
         }
-        if (treeState.isSelected(node)) {
+        if (treeState.isSelected(modelNode)) {
           LOG.warn("Ignore selected FolderNode in LeafOnly selection tree!");
         }
       }
       writer.writeText(",", null);
-      writer.writeText(Boolean.toString(treeState.isMarked(node)), null);
+      writer.writeText(Boolean.toString(treeState.isMarked(modelNode)), null);
       writer.writeText(",", null);
 
       // expanded
-      boolean expanded = treeState.isExpanded(node);
+      boolean expanded = treeState.isExpanded(modelNode);
       writer.writeText(Boolean.toString(expanded), null);
       if (LOG.isDebugEnabled()) {
         debuging += expanded ? "E" : "-";
@@ -327,15 +324,5 @@ public class TreeNodeRenderer extends CommandRendererBase {
         LOG.debug(debuging);
       }
     }
-  }
-
-  private UITree findTree(UIComponent component) {
-    while (component != null) {
-      if (component instanceof UITree) {
-        return (UITree) component;
-      }
-      component = component.getParent();
-    }
-    return null;
   }
 }
