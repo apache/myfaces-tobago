@@ -53,6 +53,10 @@
   <servlet>
     <servlet-name>ResourceServlet</servlet-name>
     <servlet-class>org.apache.myfaces.tobago.servlet.ResourceServlet</servlet-class>
+<!--    <init-param>
+          <param-name>expires</param-name>
+          <param-value>14400</param-value> --><!-- 4 hours --><!--
+        </init-param>-->
   </servlet>
 
   <!-- servlet-mapping -->

@@ -22,11 +22,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 /**
  * User: lofwyr
@@ -40,6 +42,22 @@ public class ResourceServlet extends HttpServlet {
 
   private static final Log LOG = LogFactory.getLog(ResourceServlet.class);
 
+  private Long expires;
+
+  public void init(ServletConfig servletConfig) throws ServletException {
+    super.init(servletConfig);
+    String expiresString = servletConfig.getInitParameter("expires");
+
+    expires = null;
+    if (expiresString != null) {
+      try {
+        expires = new Long(expiresString);
+      } catch (NumberFormatException e) {
+        LOG.error("Catched: " + e.getMessage(), e);
+      }
+    }
+  }
+
   @Override
   protected void service(
       HttpServletRequest request, HttpServletResponse response)
@@ -50,8 +68,10 @@ public class ResourceServlet extends HttpServlet {
     String resource = requestURI.substring(
         request.getContextPath().length() + 1); // todo: make it "stable"
 
-//    response.setHeader("Cache-Control", "max-age=3600");
-//    response.setDateHeader("Expires", 3600);
+    if (expires != null) {
+      response.setHeader("Cache-Control", "max-age=" + expires);
+      response.setDateHeader("Expires", new Date().getTime() + (expires * 1000));
+    }
     // todo: maybe support more extensions (configurable?)
     if (requestURI.endsWith(".gif")) {
       response.setContentType("image/gif");
