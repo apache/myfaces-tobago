@@ -31,7 +31,24 @@ import java.io.InputStream;
 import java.util.Date;
 
 /**
- * User: lofwyr
+ *
+ *
+ * <p><blockquote><pre>
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;ResourceServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataFilter&lt;/servlet-class&gt;
+    &lt;init-param&gt;
+      &lt;description&gt;The value for the expires header in seconds.
+             Default is no expires header.&lt;/description&gt;
+      &lt;param-name&gt;expires&lt;/param-name&gt;
+      &lt;param-value&gt;14400&lt;/param-value&gt;
+    &lt;/init-param&gt;
+  &lt;/servlet&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;ResourceServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/org/apache/myfaces/tobago/renderkit/*&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+ </pre></blockquote><p>
  *
  * @since 1.0.7
  *        <p/>
