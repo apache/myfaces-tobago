@@ -15,18 +15,22 @@
  * limitations under the License.
  */
 
-function toggle(node, treeHiddenId, openFolderIcon, folderIcon) {
-//  LOG.debug("toggle("+node+", "+treeHiddenId+", " + openFolderIcon + ", "+ folderIcon +")");
+function toggle(node, treeHiddenId, openFolderIcon, folderIcon, openMenuIcon, closeMenuIcon) {
+  LOG.debug("toggle("+node+", "+treeHiddenId+", " + openFolderIcon + ", " + folderIcon + ", " + openMenuIcon + ", " + closeMenuIcon + ")");
   var content = document.getElementById(node.id + "-cont");
   if (content) {
     var selectState = document.getElementById(treeHiddenId + '-selectState');
     var icon = document.getElementById(node.id + '-icon');
+    var menuIcon = document.getElementById(node.id + '-menuIcon');
     var junction = document.getElementById(node.id + '-junction');
     var hidden = document.getElementById(treeHiddenId);
     if (content.style.display == 'none') {
       content.style.display = 'block';
       if (icon) {
         icon.src = openFolderIcon;
+      }
+      if (menuIcon) {
+        menuIcon.src = openMenuIcon;
       }
       if (junction) {
         junction.src = junction.src.replace(/plus\./, "minus.");
@@ -36,6 +40,9 @@ function toggle(node, treeHiddenId, openFolderIcon, folderIcon) {
       content.style.display = 'none';
       if (icon) {
         icon.src = folderIcon;
+      }
+      if (menuIcon) {
+        menuIcon.src = closeMenuIcon;
       }
       if (junction) {
         junction.src = junction.src.replace(/minus\./, "plus.");
@@ -358,19 +365,19 @@ TreeNode.prototype.toString = function (depth, last) {
       }
       str += '<div id="' + this.id + '" class="' + treeItemClasses + '" '
           + 'style="width: ' + this.width + ';">';// fixme null pointer
-      str += this.indent(depth, last);
       if (this.mode == "menu") {
         if (this.isFolder) {
           // FIXME: change the icons when klick on the icon
-          str += '<img class="tobago-tree-menu-icon" '
+          str += '<img class="tobago-tree-menu-icon" id="' + this.id + '-menuIcon"'
               + 'src="' + (this.expanded ? this.treeResources.getImage("treeMenuOpen.gif") : this.treeResources.getImage("treeMenuClose.gif")) + ' " '
               + 'onclick="toggle(this.parentNode, \'' + this.treeHiddenId
-              + '\', \'' + this.treeResources.getImage("treeMenuOpen.gif")
+              + '\', null, null, \'' + this.treeResources.getImage("treeMenuOpen.gif")
               + '\', \'' + this.treeResources.getImage("treeMenuClose.gif")
               + '\')"'
               + ' alt="">';
         }
       }
+      str += this.indent(depth, last);
       if (!(   this.hideJunctions
             || this.hideRootJunction && depth == 0
             || this.hideRootJunction && this.hideRoot && depth == 1)) {
