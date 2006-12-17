@@ -55,4 +55,12 @@ public interface ColumnTagDeclaration extends TobagoTagDeclaration, HasIdBinding
   @UIComponentTagAttribute(type = { "java.lang.Boolean" },
       defaultValue = "false")
   void setSortable(String sortable);
+
+  /**
+   * Indicate markup of this component.
+   * Possible value is 'none'. But this can be overridden in the theme.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(defaultValue = "none")
+  void setMarkup(String markup);
 }

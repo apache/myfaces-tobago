@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.component;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
@@ -31,12 +32,12 @@ import javax.faces.el.ValueBinding;
  * Date: 18.04.2006
  * Time: 21:50:29
  */
-public class UIColumn extends javax.faces.component.UIColumn {
+public class UIColumn extends javax.faces.component.UIColumn implements SupportsMarkup {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Column";
   private Boolean sortable;
   private String align;
   private String label;
-
+  private String markup;
 
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
@@ -44,15 +45,33 @@ public class UIColumn extends javax.faces.component.UIColumn {
     align = (String) values[1];
     sortable = (Boolean) values[2];
     label = (String) values[3];
+    markup = (String) values[4];
   }
 
   public Object saveState(FacesContext context) {
-    Object[] values = new Object[4];
+    Object[] values = new Object[5];
     values[0] = super.saveState(context);
     values[1] = align;
     values[2] = sortable;
     values[3] = label;
+    values[4] = markup;
     return values;
+  }
+
+  public String getMarkup() {
+    if (markup != null) {
+      return markup;
+    }
+    ValueBinding vb = getValueBinding(ATTR_MARKUP);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return null;
+    }
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 
   public boolean isSortable() {

@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIColumn;
 
@@ -30,6 +31,7 @@ public class ColumnTag extends TobagoTag
 
   private String sortable;
   private String align;
+  private String markup;
 
   public String getComponentType() {
     return UIColumn.COMPONENT_TYPE;
@@ -43,12 +45,18 @@ public class ColumnTag extends TobagoTag
     super.release();
     sortable = null;
     align = null;
+    markup = null;
   }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     ComponentUtil.setBooleanProperty(component, ATTR_SORTABLE, sortable);
     ComponentUtil.setStringProperty(component, ATTR_ALIGN, align);
+    ComponentUtil.setStringProperty(component, ATTR_MARKUP, markup);
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 
   public String getAlign() {
