@@ -52,7 +52,7 @@
           </webResources>
         </configuration>
       </plugin>-->
-      <plugin>
+     <!-- <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>tomcat-maven-plugin</artifactId>
         <version>1.0-SNAPSHOT</version>
@@ -61,7 +61,7 @@
           <update>true</update>
           <url>http://localhost:8080/manager</url>
         </configuration>
-      </plugin>
+      </plugin>-->
     </plugins>
   </build>
   <scm>
