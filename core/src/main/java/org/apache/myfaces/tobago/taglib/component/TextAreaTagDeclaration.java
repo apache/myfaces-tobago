@@ -54,4 +54,12 @@ public interface TextAreaTagDeclaration extends TextInputTagDeclaration, HasIdBi
   @TagAttribute
   @UIComponentTagAttribute()
   void setRows(String rows);
+
+  /**
+   * Indicate markup of this component.
+   * Possible value is 'none'. But this can be overridden in the theme.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(defaultValue = "none")
+  void setMarkup(String markup);
 }

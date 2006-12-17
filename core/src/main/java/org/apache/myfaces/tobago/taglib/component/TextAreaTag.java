@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
@@ -30,11 +31,14 @@ public class TextAreaTag extends TextInputTag
   private static final Log LOG = LogFactory.getLog(TextAreaTag.class);
 
   private String rows;
+  private String markup;
+
 
   @Override
   public void release() {
     super.release();
     rows = null;
+    markup = null;
   }
 
   @Override
@@ -46,6 +50,7 @@ public class TextAreaTag extends TextInputTag
     }
 
     ComponentUtil.setStringProperty(component, ATTR_ROWS, rows);
+    ComponentUtil.setStringProperty(component, ATTR_MARKUP, markup);
   }
 
   public String getRows() {
@@ -54,5 +59,13 @@ public class TextAreaTag extends TextInputTag
 
   public void setRows(String rows) {
     this.rows = rows;
+  }
+
+   public String getMarkup() {
+    return markup;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 }
