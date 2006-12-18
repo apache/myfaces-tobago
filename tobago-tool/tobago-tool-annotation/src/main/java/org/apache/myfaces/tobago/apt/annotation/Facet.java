@@ -1,5 +1,10 @@
 package org.apache.myfaces.tobago.apt.annotation;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.annotation.ElementType;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -23,6 +28,8 @@ package org.apache.myfaces.tobago.apt.annotation;
  * Date: Sep 30, 2006
  * Time: 5:49:10 PM
  */
+@Retention(value = RetentionPolicy.SOURCE)
+@Target(value = ElementType.TYPE)
 public @interface Facet {
   String name();
   String description() default "";
