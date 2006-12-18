@@ -29,7 +29,9 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.component.UICommand;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -92,6 +94,13 @@ public class ProgressRenderer extends RendererBase {
     writer.endElement(HtmlConstants.IMG);
 
     writer.endElement(HtmlConstants.SPAN);
+    UIComponent facet = component.getFacet("complete");
+    if (model.getValue() == model.getMaximum() && facet != null
+        && facet instanceof UICommand) {
+      UICommand command = (UICommand) facet;
+      HtmlRendererUtil.writeJavascript(writer, "Tobago.submitAction('" + command.getClientId(facesContext) + "');");
+    }
+
   }
 
 }

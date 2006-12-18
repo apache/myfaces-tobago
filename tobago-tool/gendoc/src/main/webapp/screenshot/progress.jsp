@@ -14,30 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 --%>
-<%@ page
-    errorPage="/errorPage.jsp"
-    import="javax.swing.DefaultBoundedRangeModel"
-    %>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 <%-- Progress --%>
 
-<%
-  DefaultBoundedRangeModel progress = new DefaultBoundedRangeModel(75, 0, 0, 100);
-  pageContext.setAttribute("progress", progress, PageContext.REQUEST_SCOPE);
-%>
-
 <layout:screenshot>
   <f:subview id="progress">
     <jsp:body>
       <tc:panel>
+        <f:facet name="reload">
+          <tc:reload frequency="5000" />
+        </f:facet>
         <f:facet name="layout">
           <tc:gridLayout rows="fixed;1*" columns="100px;1* "/>
         </f:facet>
-          <tc:label value="Progress: " inline="true"/>
+          <tc:label value="Progress:" />
           <%-- code-sniplet-start id="progress" --%>
-          <tc:progress value="#{progress}"/>
+          <tc:progress value="#{progress.progress}" >
+            <f:facet name="complete">
+              <tc:command action="#{progress.reset}" />
+            </f:facet>
+          </tc:progress>
           <%-- code-sniplet-end id="progress" --%>
         <tc:cell/>
       </tc:panel>

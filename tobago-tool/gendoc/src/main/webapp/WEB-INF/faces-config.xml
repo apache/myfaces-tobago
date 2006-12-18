@@ -55,9 +55,22 @@
   </managed-bean>
 
   <managed-bean>
+    <managed-bean-name>progress</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.reference.Progress</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
     <managed-bean-name>selectBooleanCheckboxController</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.reference.SelectBooleanCheckboxController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
+
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>reset</from-outcome>
+      <to-view-id>/screenshot/progress.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
 
 </faces-config>
