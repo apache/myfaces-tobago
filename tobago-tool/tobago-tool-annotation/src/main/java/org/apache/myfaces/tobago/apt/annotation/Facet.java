@@ -1,10 +1,5 @@
 package org.apache.myfaces.tobago.apt.annotation;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.lang.annotation.ElementType;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -21,6 +16,11 @@ import java.lang.annotation.ElementType;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.annotation.ElementType;
 
 /*
  * Created by IntelliJ IDEA.
