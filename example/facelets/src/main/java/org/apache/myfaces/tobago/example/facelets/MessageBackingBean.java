@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.example.facelets;
 import javax.faces.model.SelectItem;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MessageBackingBean {
   private String type;
@@ -41,8 +42,8 @@ public class MessageBackingBean {
 
   public List<User> getList() {
     List<User> list = new ArrayList<User>();
-    list.add(new User("Anton", "Antonius"));
-    list.add(new User("Bill", "Bilson"));
+    list.add(new User("Anton", "Antonius", new Date(), 10.1));
+    list.add(new User("Bill", "Bilson", new Date(), 200.20));
     return list;
   }
 }

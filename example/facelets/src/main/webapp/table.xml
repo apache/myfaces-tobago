@@ -43,11 +43,21 @@
 
         <tx:in label="Usuario" />
         <tc:cell spanX="2" >
-          <tc:sheet columns="1*" value="#{messageBackingBean.list}"
+          <tc:sheet columns="1*;1*;1*" value="#{messageBackingBean.list}"
               var="emp" showPageRange="center"
               showRowRange="left" rows="5" >
             <tc:column label="Nombre" sortable="true" >
               <tc:out value="#{emp.name} #{emp.surname}" />
+            </tc:column>
+            <tc:column label="Date" sortable="true" >
+              <tc:out value="#{emp.date}" >
+                <f:convertDateTime pattern="yyyy/MM/dd"/>
+              </tc:out>  
+            </tc:column>
+            <tc:column label="Double" sortable="true">
+              <tc:out value="#{emp.double}">
+                <f:convertNumber minFractionDigits="2" maxFractionDigits="3" />
+              </tc:out>
             </tc:column>
           </tc:sheet>
         </tc:cell>

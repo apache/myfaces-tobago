@@ -1,5 +1,7 @@
 package org.apache.myfaces.tobago.example.facelets;
 
+import java.util.Date;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -20,10 +22,14 @@ package org.apache.myfaces.tobago.example.facelets;
 public class User {
   private String name;
   private String surname;
+  private Date date;
+  private Double value;
 
-  public User(String name, String surname) {
+  public User(String name, String surname, Date date, Double value) {
     this.name = name;
     this.surname = surname;
+    this.date = date;
+    this.value = value;
   }
 
   public String getName() {
@@ -32,5 +38,14 @@ public class User {
 
   public String getSurname() {
     return surname;
+  }
+
+
+  public Date getDate() {
+    return date;
+  }
+
+  public Double getDouble() {
+    return value;
   }
 }
