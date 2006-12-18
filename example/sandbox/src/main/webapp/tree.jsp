@@ -15,9 +15,9 @@
  * limitations under the License.
 --%>
 
-<%@ page import="javax.swing.tree.DefaultMutableTreeNode" %>
-<%@ page import="org.apache.myfaces.tobago.model.TreeState" %>
 <%@ page import="org.apache.myfaces.tobago.example.sandbox.Node" %>
+<%@ page import="org.apache.myfaces.tobago.model.TreeState" %>
+<%@ page import="javax.swing.tree.DefaultMutableTreeNode" %>
 
 <%
   // tree
@@ -86,7 +86,9 @@
         <tcs:treeNode label="Action 2" action="#{controller.action2}" id="action2"/>
         <tcs:treeNode label="Action 3" action="#{controller.action3}" id="action3">
           <tcs:treeNode label="On Click 1" onclick="alert('On Click 1');" id="click1"/>
-          <tcs:treeNode label="On Click 2" onclick="alert('On Click 2');" id="click2"/>
+          <tcs:treeNode label="On Click 2" onclick="alert('On Click 2');" id="click2">
+            <tcs:treeNode label="On Click 3" onclick="alert('On Click 3');" id="click3"/>
+          </tcs:treeNode>
         </tcs:treeNode>
         <tcs:treeNode label="Link" link="http://myfaces.apache.org/tobago/" id="link"/>
       </tcs:treeNode>
