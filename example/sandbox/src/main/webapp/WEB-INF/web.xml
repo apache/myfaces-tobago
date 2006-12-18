@@ -69,22 +69,9 @@
     <servlet-name>ResourceServlet</servlet-name>
     <url-pattern>/org/apache/myfaces/tobago/renderkit/*</url-pattern>
   </servlet-mapping>
-    
 
-  <!-- mime -->
-  <mime-mapping>
-    <extension>wml</extension>
-    <mime-type>text/vnd.wap.wml</mime-type>
-  </mime-mapping>
-
-  <mime-mapping>
-    <extension>wbmp</extension>
-    <mime-type>image/vnd.wap.wbmp</mime-type>
-  </mime-mapping>
-
-  <!-- The Usual Welcome File List -->
-    <welcome-file-list>
-      <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
 
 </web-app>
