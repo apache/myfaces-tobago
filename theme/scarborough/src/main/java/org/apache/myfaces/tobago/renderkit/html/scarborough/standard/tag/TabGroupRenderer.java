@@ -244,6 +244,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
       }
 
       writer.startElement(HtmlConstants.TD, tab);
+      writer.writeIdAttribute(tab.getClientId(facesContext));
       writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
 
       writer.startElement(HtmlConstants.DIV, null);
