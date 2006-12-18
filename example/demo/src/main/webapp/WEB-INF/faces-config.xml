@@ -239,4 +239,24 @@
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
+  <!--best practice-->
+
+  <managed-bean>
+    <managed-bean-name>bestPracticeController</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.bestpractice.BestPracticeController</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+
+  <navigation-rule>
+    <from-view-id>/best-practice/error.jsp</from-view-id>
+    <navigation-case>
+      <from-action>404</from-action>
+      <to-view-id>/best-practice/not-existing-page.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-action>syntax</from-action>
+      <to-view-id>/best-practice/error-in-syntax.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
 </faces-config>
