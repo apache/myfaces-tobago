@@ -22,9 +22,11 @@
 <layout:overview>
   <jsp:body>
     <tc:panel>
-      <!--<f:facet name="reload">
+      <%--
+      <f:facet name="reload">
         <tc:reload frequency="5000" />
-      </f:facet>-->
+      </f:facet>
+      --%>
       <f:facet name="layout">
         <tc:gridLayout border="0" rows="20px;fixed;1*;20px;fixed;1*;20px;fixed" />
       </f:facet>
