@@ -1612,11 +1612,11 @@ Tobago.Updater = {
       } else if (response.substring(0, Tobago.Updater.CODE_RELOAD_REQUIRED.length) == Tobago.Updater.CODE_RELOAD_REQUIRED) {
         // reload complete page
         LOG.debug("full reload requested");
-        Tobago.submitAction("page:overviewSheet");
+        Tobago.submitAction(Tobago.page.id);
       } else {
         // unknown response do full page reload
         LOG.debug("initiating full reload");
-        Tobago.submitAction("page:overviewSheet");
+        Tobago.submitAction(Tobago.page.id);
       }
     }
   },
