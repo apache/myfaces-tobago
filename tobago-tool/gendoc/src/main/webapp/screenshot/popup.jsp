@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 --%>
+
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
@@ -27,7 +28,7 @@
         </f:facet>
 
         <tc:button label="Open">
-          <%--<tc:attribute name="renderedPartially" value="popup"/>--%>
+          <%--<tc:attribute name="renderedPartially" value="popup"/--%>
           <f:facet name="popup">
             <tc:popup width="300" height="270" id="popup">
               <tc:box label="Text input">
@@ -37,7 +38,7 @@
 
                 <tc:selectBooleanCheckbox value="#{reference.bool}"/>
                 <tc:in value="#{reference.text}"/>
-                <tc:button>
+                <tc:button label="Ok">
                   <tc:attribute name="popupClose" value="afterSubmit"/>
                 </tc:button>
                 <tc:cell/>

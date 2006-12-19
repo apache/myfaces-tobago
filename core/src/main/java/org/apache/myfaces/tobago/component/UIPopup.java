@@ -52,6 +52,10 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
   }
 
   public void processDecodes(FacesContext facesContext) {
+    if (isActivated()||isSubmitted()) {
+     // XXX find a better way
+      addToPage();
+    }
     if (isSubmitted()) {
       for (Iterator it = getFacetsAndChildren(); it.hasNext();) {
         UIComponent childOrFacet = (UIComponent) it.next();
@@ -62,9 +66,7 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
       } catch (RuntimeException e) {
         facesContext.renderResponse();
         throw e;
-      }
-      // XXX find a better way
-      addToPage();
+      }  
     }
   }
 
