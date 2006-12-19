@@ -52,7 +52,7 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
   }
 
   public void processDecodes(FacesContext facesContext) {
-    if (isActivated() || isSubmitted()) {
+    if (isSubmitted()) {
       for (Iterator it = getFacetsAndChildren(); it.hasNext();) {
         UIComponent childOrFacet = (UIComponent) it.next();
         childOrFacet.processDecodes(facesContext);
@@ -101,7 +101,7 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
   }
 
   public void processValidators(FacesContext context) {
-    if (isActivated() || isSubmitted()) {
+    if (isSubmitted()) {
       for (Iterator it = getFacetsAndChildren(); it.hasNext();) {
         UIComponent childOrFacet = (UIComponent) it.next();
         childOrFacet.processValidators(context);
@@ -111,7 +111,7 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
   }
 
   public void processUpdates(FacesContext context) {
-    if (isActivated() || isSubmitted()) {
+    if (isSubmitted()) {
       for (Iterator it = getFacetsAndChildren(); it.hasNext();) {
         UIComponent childOrFacet = (UIComponent) it.next();
         childOrFacet.processUpdates(context);
