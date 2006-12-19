@@ -17,15 +17,15 @@ package org.apache.myfaces.tobago.example.reference;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.taglib.component.ButtonTag;
 import org.apache.myfaces.tobago.taglib.component.LinkTag;
 import org.apache.myfaces.tobago.taglib.extension.InExtensionTag;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.jsp.tagext.TagSupport;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Controller {
 
@@ -34,6 +34,10 @@ public class Controller {
   private List<TagData> tags;
 
   private List<AttributeData> attributes;
+
+  private String text;
+
+  private boolean bool;
 
   public Controller() {
     tags = new ArrayList<TagData>();
@@ -71,6 +75,23 @@ public class Controller {
 
   public List<AttributeData> getAttributes() {
     return attributes;
+  }
+
+  public String getText() {
+    return text;
+  }
+
+  public void setText(String text) {
+    this.text = text;
+  }
+
+
+  public boolean isBool() {
+    return bool;
+  }
+
+  public void setBool(boolean bool) {
+    this.bool = bool;
   }
 }
 

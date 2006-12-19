@@ -26,7 +26,7 @@
            width="200px" height="800px">
     <f:facet name="layout">
       <tc:gridLayout margin="5px"
-                     rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*"/>
+                     rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*"/>
     </f:facet>
 
     <tc:link link="screenshot/box.jsp" label="Box" target="View"/>
@@ -67,6 +67,9 @@
              label="Messages" target="View"/>
 
     <tc:link link="screenshot/out.jsp" label="Out"
+             target="View"/>
+
+    <tc:link link="screenshot/popup.jsp" label="Popup"
              target="View"/>
 
     <tc:link link="screenshot/progress.jsp"
