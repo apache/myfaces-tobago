@@ -313,6 +313,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
 
       for (DefaultMutableTreeNode node : selection) {
         if (!node.isLeaf()) {
+          setValid(false);
           FacesMessage facesMessage = MessageFactory.createFacesMessage(
               context, MESSAGE_NOT_LEAF, FacesMessage.SEVERITY_ERROR);
           context.addMessage(getClientId(context), facesMessage);
