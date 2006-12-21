@@ -23,7 +23,9 @@ import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.model.PageState;
 import org.apache.myfaces.tobago.model.PageStateImpl;
@@ -50,6 +52,10 @@ public class UIPage extends UIForm {
 
   public static final String DEFAULT_STYLE = "style/style.css";
 
+  private static final int DEFAULT_WIDTH = 1024;
+
+  private static final int DEFAULT_HEIGHT = 768;
+
   private String formId;
 
   private String focusId;
@@ -75,6 +81,10 @@ public class UIPage extends UIForm {
   private Set<String> onexitScripts;
 
   private List<UIPopup> popups;
+
+  private Integer width;
+
+  private Integer height;
 
   public UIPage() {
     scriptFiles = SetUniqueList.decorate(new ArrayList());
@@ -212,9 +222,7 @@ public class UIPage extends UIForm {
 
   public void updatePageState(FacesContext facesContext) {
     PageState state = getPageState(facesContext);
-    if (state != null) {
-      decodePageState(facesContext, state);
-    }
+    decodePageState(facesContext, state);
   }
 
   private void decodePageState(FacesContext facesContext, PageState pageState) {
@@ -226,11 +234,15 @@ public class UIPage extends UIForm {
       value = (String) facesContext.getExternalContext()
               .getRequestParameterMap().get(name);
         if (value != null) {
-            StringTokenizer tokenizer = new StringTokenizer(value, ";");
-            int width = Integer.parseInt(tokenizer.nextToken());
-            int height = Integer.parseInt(tokenizer.nextToken());
+          StringTokenizer tokenizer = new StringTokenizer(value, ";");
+          int width = Integer.parseInt(tokenizer.nextToken());
+          int height = Integer.parseInt(tokenizer.nextToken());
+          if (pageState != null) {
             pageState.setClientWidth(width);
             pageState.setClientHeight(height);
+          }
+          facesContext.getExternalContext().getRequestMap().put("tobago-page-clientDimension-with", width);
+          facesContext.getExternalContext().getRequestMap().put("tobago-page-clientDimension-height", height);
         }
     } catch (Exception e) {
       LOG.error("Error in decoding state: value='" + value + "'", e);
@@ -307,5 +319,47 @@ public class UIPage extends UIForm {
 
   public List<UIPopup> getPopups() {
     return popups;
+  }
+
+  public Integer getWidth() {
+    if (width != null) {
+      return width;
+    }
+    ValueBinding vb = getValueBinding(ATTR_WIDTH);
+    if (vb != null) {
+      return (Integer) vb.getValue(getFacesContext());
+    } else {
+      Integer requestWidth = (Integer) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get("tobago-page-clientDimension-with");
+      if (requestWidth != null) {
+        return requestWidth;
+      } else {
+        return DEFAULT_WIDTH;
+      }
+    }
+  }
+
+  public void setWidth(Integer width) {
+    this.width = width;
+  }
+
+  public Integer getHeight() {
+    if (height != null) {
+      return height;
+    }
+    ValueBinding vb = getValueBinding(ATTR_HEIGHT);
+    if (vb != null) {
+      return (Integer) vb.getValue(getFacesContext());
+    } else {
+      Integer requestHeight = (Integer) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get("tobago-page-clientDimension-height");
+      if (requestHeight != null) {
+        return requestHeight;
+      } else {
+        return DEFAULT_HEIGHT;
+      }
+    }
+  }
+
+  public void setHeight(Integer height) {
+    this.height = height;
   }
 }
