@@ -329,7 +329,9 @@ public class UIPage extends UIForm {
     if (vb != null) {
       return (Integer) vb.getValue(getFacesContext());
     } else {
-      Integer requestWidth = (Integer) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get("tobago-page-clientDimension-with");
+      Integer requestWidth =
+          (Integer) FacesContext.getCurrentInstance().getExternalContext().
+              getRequestMap().get("tobago-page-clientDimension-with");
       if (requestWidth != null) {
         return requestWidth;
       } else {
