@@ -352,7 +352,9 @@ public class UIPage extends UIForm {
     if (vb != null) {
       return (Integer) vb.getValue(getFacesContext());
     } else {
-      Integer requestHeight = (Integer) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get("tobago-page-clientDimension-height");
+      Integer requestHeight =
+          (Integer) FacesContext.getCurrentInstance().getExternalContext().
+              getRequestMap().get("tobago-page-clientDimension-height");
       if (requestHeight != null) {
         return requestHeight;
       } else {
