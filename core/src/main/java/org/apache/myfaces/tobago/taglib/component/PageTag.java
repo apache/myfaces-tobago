@@ -87,8 +87,8 @@ public class PageTag extends TobagoBodyTag
     ComponentUtil.setStringProperty(component, ATTR_FOCUS_ID, focusId);
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
     ComponentUtil.setValueBinding(component, ATTR_STATE, state);
-    ComponentUtil.setStringProperty(component, ATTR_WIDTH, width);
-    ComponentUtil.setStringProperty(component, ATTR_HEIGHT, height);
+    ComponentUtil.setIntegerSizeProperty(component, ATTR_WIDTH, width);
+    ComponentUtil.setIntegerSizeProperty(component, ATTR_HEIGHT, height);
   }
 
   public void setDoctype(String doctype) {

@@ -621,6 +621,25 @@ public class ComponentUtil {
     return output;
   }
 
+  public static void setIntegerSizeProperty(UIComponent component,
+      String name, String value) {
+    if (value != null) {
+      if (UIComponentTag.isValueReference(value)) {
+        component.setValueBinding(name, createValueBinding(value));
+      } else {
+        value = removePx(value);
+        component.getAttributes().put(name, new Integer(value));
+      }
+    }
+  }
+
+  private static String removePx(String value) {
+    if (value!=null&&value.endsWith("px")) {
+      value = value.substring(0, value.length() - 2);
+    }
+    return value;
+  }
+
   public static void setIntegerProperty(UIComponent component,
       String name, String value) {
     if (value != null) {
