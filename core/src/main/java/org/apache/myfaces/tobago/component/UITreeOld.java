@@ -391,9 +391,16 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     }
     ValueBinding valueBinding = getValueBinding(TobagoConstants.ATTR_STATE);
     if (valueBinding != null) {
-        return (TreeState) valueBinding.getValue(getFacesContext());
+      FacesContext facesContext = getFacesContext();
+      TreeState state = (TreeState) valueBinding.getValue(facesContext);
+      if (state == null) {
+        state = new TreeState();
+        valueBinding.setValue(facesContext, state);
+      }
+      return state;
     } else {
-        return null;
+        treeState = new TreeState();
+        return treeState;
     }
   }
 
