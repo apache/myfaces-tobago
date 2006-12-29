@@ -20,9 +20,9 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.collections.KeyValue;
 import org.apache.commons.collections.list.SetUniqueList;
 import org.apache.commons.collections.set.ListOrderedSet;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
@@ -86,6 +86,7 @@ public class UIPage extends UIForm {
 
   private Integer height;
 
+  @SuppressWarnings({"unchecked"})
   public UIPage() {
     scriptFiles = SetUniqueList.decorate(new ArrayList());
     scriptBlocks = new ListOrderedSet();
@@ -240,6 +241,7 @@ public class UIPage extends UIForm {
     decodePageState(facesContext, state);
   }
 
+  @SuppressWarnings({"unchecked"})
   private void decodePageState(FacesContext facesContext, PageState pageState) {
     String name;
     String value = null;
@@ -304,6 +306,7 @@ public class UIPage extends UIForm {
     this.defaultActionId = defaultActionId;
   }
 
+  @SuppressWarnings({"unchecked"})
   public List<String> getScriptFiles() {
     return scriptFiles;
   }
