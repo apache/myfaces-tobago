@@ -121,6 +121,82 @@ public class UIPage extends UIForm {
   @Override
   public void processDecodes(FacesContext facesContext) {
 
+    checkTobagoRequest(facesContext);
+
+    decode(facesContext);
+
+    clearScriptsAndPopups();
+
+    markSubmittedForm(facesContext);
+
+    // invoke processDecodes() on children
+    for (Iterator kids = getFacetsAndChildren(); kids.hasNext();) {
+      UIComponent kid = (UIComponent) kids.next();
+      kid.processDecodes(facesContext);
+    }
+  }
+
+  private void markSubmittedForm(FacesContext facesContext) {
+    // find the form of the action command and set submitted to it and all
+    // children
+
+    // reset old submitted state
+    setSubmitted(false);
+
+    String currentActionId = getActionId();
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("actionId = '" + currentActionId + "'");
+    }
+
+    UIComponent command = null;
+    try {
+      command = findComponent(currentActionId);
+    } catch (Exception e) {/* ignore */}
+
+    if (command == null
+        && currentActionId != null && currentActionId.matches(".*:\\d+:.*")) {
+      // If currentActionId component was inside a sheet the id contains the
+      // rowindex and is therefore not found here.
+      // We do not need the row here because we want just to find the
+      // related form, so removing the rowindex will help here.
+      currentActionId = currentActionId.replaceAll(":\\d+:", ":");
+      try {
+        command = findComponent(currentActionId);
+      } catch (Exception e) {/* ignore */}
+    }
+
+    if (LOG.isTraceEnabled()) {
+      LOG.trace(currentActionId);
+      LOG.trace(command);
+      LOG.trace(ComponentUtil.toString(facesContext.getViewRoot(), 0));
+    }
+
+    if (command != null) {
+      UIForm form = ComponentUtil.findForm(command);
+      form.setSubmitted(true);
+
+      if (LOG.isTraceEnabled()) {
+        LOG.trace(form);
+        LOG.trace(form.getClientId(facesContext));
+      }
+    } else {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Illegal actionId! Rerender the view.");
+      }
+      facesContext.renderResponse();
+    }
+  }
+
+  private void clearScriptsAndPopups() {
+    // clear script Set's
+    getOnloadScripts().clear();
+    getOnunloadScripts().clear();
+    getOnexitScripts().clear();
+    getScriptBlocks().clear();
+    getPopups().clear();
+  }
+
+  private void checkTobagoRequest(FacesContext facesContext) {
     // multipart/form-data must use TobagoMultipartFormdataRequest
     String contentType = (String) facesContext.getExternalContext()
         .getRequestHeaderMap().get("content-type");
@@ -143,67 +219,6 @@ public class UIPage extends UIForm {
             + "See documentation for <tc:file>");
         facesContext.addMessage(null, new FacesMessage("An error has occured!"));
       }
-    }
-
-    decode(facesContext);
-
-    // reset old submitted state
-    setSubmitted(false);
-
-    // clear script Set's
-    getOnloadScripts().clear();
-    getOnunloadScripts().clear();
-    getOnexitScripts().clear();
-    getScriptBlocks().clear();
-    getPopups().clear();
-
-    // find the form of the action command and set submitted to it and all
-    // children
-    String currentActionId = getActionId();
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("actionId = '" + currentActionId + "'");
-    }
-    if (currentActionId == null) { // TODO: check why this is needed for dateControl
-      return;
-    }
-
-    UIComponent command = null;
-    try {
-      command = findComponent(currentActionId);
-    } catch (IllegalArgumentException e) {
-      // FIXME: hotfix for TOBAGO-43
-    }
-
-    // FIXME: hotfix for UICommand inside of a sheet.
-    while (command == null && currentActionId.indexOf(':') != -1) {
-      currentActionId = StringUtils.substring(currentActionId, 0, currentActionId.lastIndexOf(':'));
-      command = findComponent(currentActionId);
-    }
-
-    UIForm form = ComponentUtil.findForm(command);
-
-    if (LOG.isDebugEnabled()) {
-      LOG.debug(command);
-      LOG.debug(form);
-      LOG.debug(ComponentUtil.toString(facesContext.getViewRoot(), 0));
-      if (form != null) {
-        LOG.debug(form.getClientId(facesContext));
-      }
-    }
-
-    Iterator kids = getFacetsAndChildren();
-    while (kids.hasNext()) {
-      UIComponent kid = (UIComponent) kids.next();
-      kid.processDecodes(facesContext);
-    }
-
-    if (form != null) {
-      form.setSubmitted(true);
-    } else {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("No form found! Rerender the view.");
-      }
-      facesContext.renderResponse();
     }
   }
 
