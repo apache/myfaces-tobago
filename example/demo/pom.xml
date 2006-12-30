@@ -47,7 +47,7 @@
           <webResources>
             <resource>
               <targetPath>src</targetPath>
-              <directory>src/main/java</directory>
+              <directory>${basedir}/src/main/java</directory>
             </resource>
           </webResources>
         </configuration>
