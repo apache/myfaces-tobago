@@ -26,8 +26,6 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
@@ -40,22 +38,16 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
   private String height;
   private String left;
   private String top;
+  private boolean activated;
 
-  private List actionIds = new ArrayList();
-
-  public List getActionIds() {
-    return actionIds;
+  public void setActivated(boolean activated) {
+    this.activated = activated;
+    addToPage();
   }
 
-  public void setActionIds(List actionIds) {
-    this.actionIds = actionIds;
-  }
+
 
   public void processDecodes(FacesContext facesContext) {
-    if (isActivated()||isSubmitted()) {
-     // XXX find a better way
-      addToPage();
-    }
     if (isSubmitted()) {
       for (Iterator it = getFacetsAndChildren(); it.hasNext();) {
         UIComponent childOrFacet = (UIComponent) it.next();
@@ -66,7 +58,8 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
       } catch (RuntimeException e) {
         facesContext.renderResponse();
         throw e;
-      }  
+      }
+      addToPage();
     }
   }
 
@@ -76,7 +69,7 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
 
   private boolean isSubmitted() {
     String action = ComponentUtil.findPage(this).getActionId();
-    return action != null && action.startsWith(getClientId(FacesContext.getCurrentInstance()));
+    return action != null && action.startsWith(getClientId(FacesContext.getCurrentInstance()) + SEPARATOR_CHAR);
   }
 
   private boolean isRedisplay() {
@@ -94,8 +87,7 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
   }
 
   private boolean isActivated() {
-    String currentAction = ComponentUtil.findPage(this).getActionId();
-    return actionIds.contains(currentAction);
+    return activated;
   }
 
   public void encodeBegin(FacesContext facesContext) throws IOException {
@@ -135,7 +127,7 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
     saveState[2] = height;
     saveState[3] = left;
     saveState[4] = top;
-    saveState[5] = saveAttachedState(context, actionIds);
+    saveState[5] = activated;
     return saveState;
   }
 
@@ -146,7 +138,7 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
     height = (String) values[2];
     left = (String) values[3];
     top = (String) values[4];
-    actionIds = (List) restoreAttachedState(context, values[5]);
+    activated = (Boolean) values[5];
   }
 
   public String getWidth() {
@@ -186,5 +178,17 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
     if (page != null) {
       page.getPopups().add(this);
     }
+  }
+
+
+  public void encodeEnd(FacesContext context) throws IOException {
+    super.encodeEnd(context);
+    activated = false;
+  }
+
+
+  public void encodeAjax(FacesContext facesContext) throws IOException {
+    super.encodeAjax(facesContext);
+    activated = false;
   }
 }

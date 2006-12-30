@@ -50,8 +50,7 @@
             label="#{overviewBundle.toolbar_popupButtonAction}">
 
           <f:facet name="popup">
-            <tc:popup width="200" height="100"
-                          rendered="#{overviewController.showPopup}" id="popup" >
+            <tc:popup width="200" height="100" id="popup" >
 
               <f:facet name="layout">
                 <tc:gridLayout rows="35px;1*;fixed" />
@@ -60,9 +59,9 @@
               <tc:out value="#{overviewBundle.toolbar_popupText}"/>
 
               <tc:cell/>
-              <tc:button id="popupCloseButton"
-                             actionListener="#{overviewController.click}"
-                             label="#{overviewBundle.toolbar_closePopupAction}" />
+              <tc:button id="popupCloseButton" label="#{overviewBundle.toolbar_closePopupAction}" >
+                <tc:attribute name="popupClose" value="immediate"/>
+              </tc:button>
 
             </tc:popup>
           </f:facet>
@@ -96,13 +95,12 @@
 
 
 
-        <tc:toolBarCommand id="popupButton2" action="overview/toolbar"
+        <tc:toolBarCommand id="popupButton2"
             actionListener="#{overviewController.click}"
             label="#{overviewBundle.toolbar_popupButtonAction}">
 
           <f:facet name="popup">
-            <tc:popup width="200" height="100"
-                          rendered="#{overviewController.showPopup}" id="popup2" >
+            <tc:popup width="200" height="100" id="popup2" >
 
               <f:facet name="layout">
                 <tc:gridLayout rows="35px;1*;fixed" />
@@ -111,9 +109,9 @@
               <tc:out value="#{overviewBundle.toolbar_popupText}"/>
 
               <tc:cell/>
-              <tc:button id="popupCloseButton2"
-                             actionListener="#{overviewController.click}"
-                             label="#{overviewBundle.toolbar_closePopupAction}" />
+              <tc:button id="popupCloseButton2" label="#{overviewBundle.toolbar_closePopupAction}" >
+                <tc:attribute name="popupClose" value="immediate"/>
+              </tc:button>
 
             </tc:popup>
           </f:facet>

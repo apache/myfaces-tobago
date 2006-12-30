@@ -51,6 +51,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_BOO
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_ONE_RADIO;
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
+import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.RangeParser;
 
@@ -99,6 +100,16 @@ public class ComponentUtil {
       {FacesContext.class, UIComponent.class, Object.class};
 
   private ComponentUtil() {
+  }
+
+  public static boolean containsPopupActionListener(UICommand command) {
+    ActionListener actionListeners [] = command.getActionListeners();
+    for(ActionListener actionListener: actionListeners) {
+      if (actionListener instanceof PopupActionListener) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public static boolean isInPopup(UIComponent component) {

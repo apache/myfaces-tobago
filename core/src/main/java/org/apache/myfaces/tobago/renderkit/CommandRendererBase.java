@@ -35,11 +35,9 @@ public abstract class CommandRendererBase extends RendererBase {
       return;
     }
     String actionId = ComponentUtil.findPage(component).getActionId();
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("actionId = '" + actionId + "'");
-    }
     String clientId = component.getClientId(facesContext);
     if (LOG.isDebugEnabled()) {
+      LOG.debug("actionId = '" + actionId + "'");
       LOG.debug("clientId = '" + clientId + "'");
     }
     if (actionId != null && actionId.equals(clientId)) {

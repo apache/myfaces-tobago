@@ -21,6 +21,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.event.PopupActionListener;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOCUS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
@@ -659,9 +660,10 @@ public final class HtmlRendererUtil {
 
     // TODO move this
     UIPopup popup = (UIPopup) component.getFacet(FACET_POPUP);
-    if (popup != null) {
-      if (!popup.getActionIds().contains(component.getClientId(facesContext))) {
-        popup.getActionIds().add(component.getClientId(facesContext));
+    if (popup != null && component instanceof UICommand) {
+      UICommand command = (UICommand) component;
+      if (!ComponentUtil.containsPopupActionListener(command)) {
+        command.addActionListener(new PopupActionListener(popup));
       }
     }
 

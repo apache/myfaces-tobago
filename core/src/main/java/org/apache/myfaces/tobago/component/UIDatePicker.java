@@ -120,7 +120,7 @@ public class UIDatePicker extends UICommand implements OnComponentCreated {
     if (time != null) {
       time.getAttributes().put(ATTR_CALENDAR_DATE_INPUT_ID, clientId);
     }
-    popup.setRendered(true);
+    super.broadcast(facesEvent);
   }
 
   public void onComponentCreated() {
@@ -141,8 +141,8 @@ public class UIDatePicker extends UICommand implements OnComponentCreated {
     link.getChildren().add(hidden);
 
     // create popup
-    final UIComponent popup =
-        ComponentUtil.createComponent(facesContext, UIPopup.COMPONENT_TYPE,
+    final UIPopup popup =
+        (UIPopup) ComponentUtil.createComponent(facesContext, UIPopup.COMPONENT_TYPE,
             RENDERER_TYPE_POPUP);
     //popup.setId(link.getId() + "popup");
     link.getFacets().put(FACET_PICKER_POPUP, popup);

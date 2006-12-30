@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.myfaces.tobago.event.DatePickerController;
+import org.apache.myfaces.tobago.event.PopupActionListener;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_PICKER_POPUP;
@@ -78,11 +79,10 @@ public class DatePickerRenderer extends LinkRenderer {
         + hidden.getClientId(facesContext) + "')");
 
     UIPopup popup = (UIPopup) link.getFacets().get(FACET_PICKER_POPUP);
-    if (!popup.getActionIds().contains(link.getClientId(facesContext))) {
-      popup.getActionIds().add(link.getClientId(facesContext));
-    }
+
     attributes = popup.getAttributes();
     popup.setId(idPrefix + "popup");
+
     attributes.put(ATTR_WIDTH, String.valueOf(
            ThemeConfig.getValue(facesContext, link, "CalendarPopupWidth")));
     int popupHeight = ThemeConfig.getValue(facesContext, link, "CalendarPopupHeight");
@@ -100,12 +100,12 @@ public class DatePickerRenderer extends LinkRenderer {
     UICommand okButton = (UICommand) popup.findComponent("ok" + DatePickerController.CLOSE_POPUP);
     attributes = okButton.getAttributes();
     attributes.put(ATTR_ACTION_ONCLICK, "writeIntoField2(this); Tobago.closePickerPopup2(this)");
-    okButton.setActionListener(datePickerController);
+   // okButton.setActionListener(datePickerController);
 
     UICommand cancelButton  = (UICommand) popup.findComponent(DatePickerController.CLOSE_POPUP);
     attributes = cancelButton.getAttributes();
     attributes.put(ATTR_ACTION_ONCLICK, "Tobago.closePickerPopup2(this)");
-    cancelButton.setActionListener(datePickerController);
+    //cancelButton.setActionListener(datePickerController);
 
     applyConverterPattern(popup, converterPattern);
 
@@ -114,6 +114,9 @@ public class DatePickerRenderer extends LinkRenderer {
     if (popup != null) {
       UIPage page = ComponentUtil.findPage(link);
       page.getPopups().add(popup);
+    }
+    if (!ComponentUtil.containsPopupActionListener(link)) {
+      link.addActionListener(new PopupActionListener(popup.getId()));
     }
     super.encodeBegin(facesContext, component);
   }
