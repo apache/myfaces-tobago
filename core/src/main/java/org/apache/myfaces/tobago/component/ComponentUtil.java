@@ -103,7 +103,7 @@ public class ComponentUtil {
   }
 
   public static boolean containsPopupActionListener(UICommand command) {
-    ActionListener actionListeners [] = command.getActionListeners();
+    ActionListener [] actionListeners = command.getActionListeners();
     for(ActionListener actionListener: actionListeners) {
       if (actionListener instanceof PopupActionListener) {
         return true;
