@@ -644,7 +644,7 @@ public class ComponentUtil {
     }
   }
 
-  private static String removePx(String value) {
+  public static String removePx(String value) {
     if (value!=null&&value.endsWith("px")) {
       value = value.substring(0, value.length() - 2);
     }
