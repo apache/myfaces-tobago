@@ -384,4 +384,20 @@ public class UIPage extends UIForm {
   public void setHeight(Integer height) {
     this.height = height;
   }
+
+
+  public void restoreState(FacesContext context, Object state) {
+    Object[] values = (Object[]) state;
+    super.restoreState(context, values[0]);
+    this.width = (Integer) values[1];
+    this.height = (Integer) values[2];
+  }
+
+  public Object saveState(FacesContext context) {
+    Object[] values = new Object[3];
+    values[0] = super.saveState(context);
+    values[1] = width;
+    values[2] = height;
+    return values;
+  }
 }
