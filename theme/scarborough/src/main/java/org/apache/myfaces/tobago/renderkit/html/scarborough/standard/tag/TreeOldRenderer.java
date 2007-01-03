@@ -77,7 +77,7 @@ public class TreeOldRenderer extends RendererBase {
     TreeState state = tree.getState();
 
     if (state != null) {
-      if ("Tree".equals(tree.getRendererType())) {
+      if ("TreeOld".equals(tree.getRendererType())) {
         state.clearExpandState();
       }
       if (isSelectable(tree)) {
