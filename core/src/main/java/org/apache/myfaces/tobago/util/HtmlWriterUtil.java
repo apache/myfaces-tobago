@@ -175,10 +175,15 @@ public final class HtmlWriterUtil {
    */
   private void writeDecRef(final char ch) throws IOException {
     if (ch == '\u20ac') {
-      out.write("&euro;");
+      out.write('&');
+      out.write('e');
+      out.write('u');
+      out.write('r');
+      out.write('o');
       return;
     }
-    out.write("&#");
+    out.write('&');
+    out.write('#');
     // Formerly used String.valueOf().  This version tests out
     // about 40% faster in a microbenchmark (and on systems where GC is
     // going gonzo, it should be even better)
