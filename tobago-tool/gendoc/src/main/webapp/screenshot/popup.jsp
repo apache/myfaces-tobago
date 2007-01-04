@@ -28,20 +28,30 @@
         </f:facet>
 
         <tc:button label="Open">
-          <%--<tc:attribute name="renderedPartially" value="popup"/--%>
+          <tc:attribute name="renderedPartially" value="popup"/>
           <f:facet name="popup">
             <tc:popup width="300" height="270" id="popup">
               <tc:box label="Text input">
                 <f:facet name="layout">
-                  <tc:gridLayout rows="fixed;fixed;fixed;*"/>
+                  <tc:gridLayout rows="fixed;fixed;*;fixed"/>
                 </f:facet>
 
                 <tc:selectBooleanCheckbox value="#{reference.bool}"/>
                 <tc:in value="#{reference.text}"/>
-                <tc:button label="Ok">
-                  <tc:attribute name="popupClose" value="afterSubmit"/>
-                </tc:button>
                 <tc:cell/>
+                <tc:panel>
+                  <f:facet name="layout">
+                    <tc:gridLayout columns="1*;1*;1*" margin="10"/>
+                  </f:facet>
+                  <tc:button label="Cancel">
+                    <tc:attribute name="popupClose" value="immediate"/>
+                  </tc:button>
+                  <tc:button label="Redisplay"/>
+                  <tc:button label="Ok">
+                    <tc:attribute name="popupClose" value="afterSubmit"/>
+                  </tc:button>
+                </tc:panel>
+
               </tc:box>
             </tc:popup>
           </f:facet>
