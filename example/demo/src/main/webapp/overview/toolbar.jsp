@@ -98,8 +98,8 @@
         <tc:toolBarCommand id="popupButton2"
             actionListener="#{overviewController.click}"
             label="#{overviewBundle.toolbar_popupButtonAction}">
-
-          <f:facet name="popup">
+           <tc:popupReference for=":page:popup" />
+          <%--f:facet name="popup">
             <tc:popup width="200" height="100" id="popup2" >
 
               <f:facet name="layout">
@@ -114,7 +114,7 @@
               </tc:button>
 
             </tc:popup>
-          </f:facet>
+          </f:facet--%>
         </tc:toolBarCommand>
 
         <tc:toolBarCommand id="DropDown2" action="overview/toolbar"
