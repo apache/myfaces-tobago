@@ -39,11 +39,11 @@ import org.apache.myfaces.tobago.event.PopupActionListener;
  */
 public class PopupReferenceHandler extends TagHandler {
 
-  private final TagAttribute _for;
+  private final TagAttribute forComponent;
 
   public PopupReferenceHandler(TagConfig config) {
     super(config);
-    _for = getAttribute("for");
+    forComponent = getAttribute("for");
   }
 
   public void apply(FaceletContext faceletContext, UIComponent parent)
@@ -52,7 +52,7 @@ public class PopupReferenceHandler extends TagHandler {
       // only process if parent was just created
       if (parent.getParent() == null) {
         ActionSource actionSource = (ActionSource) parent;
-        actionSource.addActionListener(new PopupActionListener(_for.getValue()));
+        actionSource.addActionListener(new PopupActionListener(forComponent.getValue()));
       }
     } else {
       throw new TagException(tag, "Parent is not of type ActionSource, type is: " + parent);

@@ -41,14 +41,14 @@ import javax.faces.component.ActionSource;
  */
 @Tag(name = "popupReference", bodyContent = BodyContent.EMPTY)
 public class PopupReferenceTag extends TagSupport {
-  private String _for;
+  private String forComponent;
 
   /**
    * The id of a Popup.
    */
   @TagAttribute
   public void setFor(String popupId) {
-    this._for = popupId;
+    this.forComponent = popupId;
   }
 
   public int doStartTag() throws JspException {
@@ -75,7 +75,7 @@ public class PopupReferenceTag extends TagSupport {
       throw new JspException("Component "+ component.getClass().getName() + " is not instanceof ActionSource");
     }
     ActionSource actionSource = (ActionSource) component;
-    actionSource.addActionListener(new PopupActionListener(_for));
+    actionSource.addActionListener(new PopupActionListener(forComponent));
     return (SKIP_BODY);
   }
 
@@ -83,6 +83,6 @@ public class PopupReferenceTag extends TagSupport {
    * <p>Release references to any acquired resources.
    */
   public void release() {
-    this._for = null;
+    this.forComponent = null;
   }
 }
