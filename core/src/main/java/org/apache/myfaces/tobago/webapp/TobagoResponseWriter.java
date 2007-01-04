@@ -77,7 +77,8 @@ public class TobagoResponseWriter extends ResponseWriter {
     this.writer = writer;
     this.stack = new Stack<String>();
     this.contentType = contentType;
-    this.characterEncoding = characterEncoding;
+    this.characterEncoding
+        = characterEncoding != null ? characterEncoding : "UTF-8";
     if ("application/xhtml".equals(contentType)
         || "application/xml".equals(contentType)
         || "text/xml".equals(contentType)) {
