@@ -45,8 +45,6 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
     addToPage();
   }
 
-
-
   public void processDecodes(FacesContext facesContext) {
     if (isSubmitted()) {
       for (Iterator it = getFacetsAndChildren(); it.hasNext();) {
@@ -100,8 +98,11 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
         UIComponent childOrFacet = (UIComponent) it.next();
         childOrFacet.processValidators(context);
       }
-    }
-    //TODO: check if validation has faild and reset rendered if needed
+      //TODO: check if validation has faild and reset rendered if needed
+      if (context.getRenderResponse()||context.getRenderResponse()) {
+        setActivated(true);
+      }
+    }   
   }
 
   public void processUpdates(FacesContext context) {
@@ -180,12 +181,10 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
     }
   }
 
-
   public void encodeEnd(FacesContext context) throws IOException {
     super.encodeEnd(context);
     activated = false;
   }
-
 
   public void encodeAjax(FacesContext facesContext) throws IOException {
     super.encodeAjax(facesContext);
