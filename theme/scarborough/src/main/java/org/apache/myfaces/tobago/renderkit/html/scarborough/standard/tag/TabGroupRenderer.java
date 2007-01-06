@@ -134,7 +134,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     // selected with stylesheet.
     int virtualTab = 0;
     //UIPanel[] tabs = component.getTabs();
-    for (UIComponent tab: (List<UIComponent>)component.getChildren()) {
+    for (UIComponent tab: (List<UIComponent>) component.getChildren()) {
       if (tab instanceof UIPanel) {
         if (tab.isRendered() && (SWITCH_TYPE_CLIENT.equals(switchType) || virtualTab == activeIndex)) {
 
@@ -174,7 +174,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     int activeIndex = tabGroup.getActiveIndex();
     // ensure to select a rendered tab
     int index = 0;
-    for (UIComponent tab: (List<UIComponent>)tabGroup.getChildren()) {
+    for (UIComponent tab: (List<UIComponent>) tabGroup.getChildren()) {
       if (tab instanceof UIPanel) {
         if (tab.isRendered()) {
           if (activeIndex == index) {
@@ -219,7 +219,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     UIPanel activeTab = null;
 
     int index = 0;
-    for (UIComponent tab: (List<UIComponent>)component.getChildren()) {
+    for (UIComponent tab: (List<UIComponent>) component.getChildren()) {
       if (tab instanceof UIPanel) {
         if (tab.isRendered()) {
           String onclick;
@@ -352,7 +352,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
       fixedHeight = height;
     } else {
       fixedHeight = 0;
-      for (UIComponent tab: (List<UIComponent>)component.getChildren()) {
+      for (UIComponent tab: (List<UIComponent>) component.getChildren()) {
         if (tab instanceof UIPanel && tab.isRendered()) {
           RendererBase renderer = ComponentUtil.getRenderer(facesContext, tab);
           fixedHeight
@@ -371,7 +371,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     Object layoutHeight =
         component.getAttributes().get(ATTR_LAYOUT_HEIGHT);
 
-    for (UIComponent tab: (List<UIComponent>)component.getChildren()) {
+    for (UIComponent tab: (List<UIComponent>) component.getChildren()) {
       if (tab instanceof UIPanel && tab.isRendered())  {
         if (layoutWidth != null) {
           HtmlRendererUtil.layoutSpace(facesContext, tab, true);
