@@ -22,9 +22,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-/**
- * Created: Nov 30, 2004 6:04:53 PM
- * User: bommel
+/*
  * $Id:PanelRenderer.java 472227 2006-11-07 21:05:00 +0100 (Tue, 07 Nov 2006) bommel $
  */
 public class PanelRenderer extends FoRendererBase {

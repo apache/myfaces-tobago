@@ -22,8 +22,7 @@ import org.apache.myfaces.tobago.component.UICommand;
 import javax.faces.context.FacesContext;
 
 
-/**
- * Created by IntelliJ IDEA.
+/*
  * User: bommel
  * Date: Nov 6, 2006
  * Time: 10:14:09 PM

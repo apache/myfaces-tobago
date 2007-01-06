@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.component;
 import javax.faces.component.UIComponentBase;
 import java.util.List;
 
-/**
+/*
  * User: weber
  * Date: Mar 21, 2005
  * Time: 10:38:49 AM

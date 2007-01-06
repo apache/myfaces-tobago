@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.apt.annotation;
  * limitations under the License.
  */
 
-/**
+/*
  * Created: Apr 20, 2005 5:08:01 PM
  * User: bommel
  * $Id: BodyContent.java,v 1.3 2005/05/11 15:20:34 bommel Exp $

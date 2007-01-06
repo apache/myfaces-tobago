@@ -22,7 +22,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 
-/**
+/*
  * Created: Aug 5, 2005 3:11:18 PM
  * User: bommel
  * $Id: $

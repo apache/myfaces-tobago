@@ -19,8 +19,7 @@ package org.apache.myfaces.tobago.component;
 
 import javax.faces.component.UIComponentBase;
 
-/**
- * Created by IntelliJ IDEA.
+/*
  * User: bommel
  * Date: Sep 18, 2006
  * Time: 8:05:31 PM

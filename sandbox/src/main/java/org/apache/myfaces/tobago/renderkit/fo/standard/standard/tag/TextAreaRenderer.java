@@ -27,9 +27,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-/**
- * Created: Dec 1, 2004 7:43:42 PM
- * User: bommel
+/*
  * $Id:TextAreaRenderer.java 472227 2006-11-07 21:05:00 +0100 (Tue, 07 Nov 2006) bommel $
  */
 public class TextAreaRenderer extends InputRendererBase {
