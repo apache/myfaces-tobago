@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMMEDIATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SWITCH_TYPE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -35,6 +36,7 @@ public class TabGroupTag extends TobagoTag
 
   private String state;
   private String switchType;
+  private String immediate;
 
   @Override
   public String getComponentType() {
@@ -46,12 +48,15 @@ public class TabGroupTag extends TobagoTag
     super.setProperties(component);
     ComponentUtil.setValueBinding(component, ATTR_STATE, state);
     ComponentUtil.setStringProperty(component, ATTR_SWITCH_TYPE, switchType);
+    ComponentUtil.setBooleanProperty(component, ATTR_IMMEDIATE, immediate);
   }
 
   @Override
   public void release() {
     super.release();
     state = null;
+    switchType = null;
+    immediate = null;
   }
 
   public void setServerside(String serverside) {
@@ -66,6 +71,10 @@ public class TabGroupTag extends TobagoTag
 
   public void setSwitchType(String switchType) {
     this.switchType = switchType;
+  }
+  
+  public void setImmediate(String immediate) {
+    this.immediate = immediate;
   }
 }
 

@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.component.UITabGroup;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasState;
+import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 
 /*
  * Created by IntelliJ IDEA.
@@ -44,7 +45,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasState;
     rendererType = "TabGroup")
 
 public interface TabGroupTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasDeprecatedDimension,
-    HasState {
+    HasState, IsImmediateCommand {
   /**
    * Deprecated! Use 'switchType' instead.
    * Flag indicating that tab switching is done by server request.
@@ -64,6 +65,9 @@ public interface TabGroupTagDeclaration extends TobagoTagDeclaration, HasIdBindi
    *   "reloadTab"  : Tab switching id done by server request. Only the Tab is reloaded.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.String", defaultValue = UITabGroup.SWITCH_TYPE_CLIENT)
+  @UIComponentTagAttribute(type = "java.lang.String",
+      allowedValues =
+          {UITabGroup.SWITCH_TYPE_CLIENT, UITabGroup.SWITCH_TYPE_RELOAD_PAGE, UITabGroup.SWITCH_TYPE_RELOAD_TAB},
+      defaultValue = UITabGroup.SWITCH_TYPE_CLIENT)
   void setSwitchType(String switchType);
 }

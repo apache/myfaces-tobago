@@ -14,4 +14,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 --%>
-todo
+<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
+
+<layout:screenshot>
+  <jsp:body>
+    <f:subview id="button">
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout />
+        </f:facet>
+        <tc:tabGroup switchType="reloadPage" immediate="true">
+            <tc:tab label="tab1">
+              <tc:panel >
+                <f:facet name="layout">
+                  <tc:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
+                <tc:cell />
+                <tx:in label="label1" required="true" />
+                <tx:in label="label2" />
+                <tc:cell />
+              </tc:panel>
+            </tc:tab>
+            <tc:tab label="tab2" >
+              <tc:panel >
+                <f:facet name="layout">
+                  <tc:gridLayout rows="1*;fixed;fixed;1*" />
+                </f:facet>
+                <tc:cell />
+                <tx:in label="label1" />
+                <tx:in label="label2" />
+                <tc:cell />
+              </tc:panel>
+            </tc:tab>
+
+          </tc:tabGroup>
+      </tc:panel>
+    </f:subview>
+  </jsp:body>
+</layout:screenshot>

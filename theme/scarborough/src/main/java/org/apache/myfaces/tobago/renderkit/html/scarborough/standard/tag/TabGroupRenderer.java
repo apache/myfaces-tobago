@@ -54,16 +54,11 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.el.EvaluationException;
-import javax.faces.el.MethodBinding;
-import javax.faces.el.MethodNotFoundException;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.PhaseId;
 import java.io.IOException;
 import java.util.Map;
+import java.util.List;
 
 public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
 
@@ -80,39 +75,29 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     int oldIndex = ((UITabGroup) component).getRenderedIndex();
 
     String clientId = component.getClientId(facesContext);
-    final Map parameters
-        = facesContext.getExternalContext().getRequestParameterMap();
+    final Map parameters = facesContext.getExternalContext().getRequestParameterMap();
     String newValue = (String) parameters.get(clientId + ACTIVE_INDEX_POSTFIX);
     try {
       int activeIndex = Integer.parseInt(newValue);
       if (activeIndex != oldIndex) {
-        ((UITabGroup) component).setActiveIndex(activeIndex);
-        TabChangeEvent event = new TabChangeEvent(component,
-            new Integer(oldIndex), new Integer(activeIndex));
-        event.setPhaseId(PhaseId.UPDATE_MODEL_VALUES);
+        TabChangeEvent event = new TabChangeEvent(component, oldIndex, activeIndex);
         component.queueEvent(event);
       }
-
     } catch (NumberFormatException e) {
       LOG.error("Can't parse activeIndex: '" + newValue + "'");
     }
   }
 
-  public void encodeEnd(FacesContext facesContext,
-                              UIComponent uiComponent) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
 
     UITabGroup component = (UITabGroup) uiComponent;
 
     HtmlRendererUtil.createHeaderAndBodyStyles(facesContext, component);
 
-    String image1x1
-        = ResourceManagerUtil.getImageWithPath(facesContext, "image/1x1.gif");
+    layoutTabs(facesContext, component);
 
-    UIPanel[] tabs = component.getTabs();
-    layoutTabs(facesContext, component, tabs);
-
-    final int activeIndex = component.getActiveIndex();
+    int activeIndex = ensureRenderedActiveIndex(component);
 
     final String clientId = component.getClientId(facesContext);
     final String hiddenId = clientId + TabGroupRenderer.ACTIVE_INDEX_POSTFIX;
@@ -142,49 +127,71 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     writer.writeIdAttribute(hiddenId);
     writer.endElement(HtmlConstants.INPUT);
 
+    String image1x1 = ResourceManagerUtil.getImageWithPath(facesContext, "image/1x1.gif");
+
     // if a outer uiPage is presend, the virtual tab will go over all
     // tabs and render it as they are selected, and it will
     // selected with stylesheet.
+    int virtualTab = 0;
+    //UIPanel[] tabs = component.getTabs();
+    for (UIComponent tab: (List<UIComponent>)component.getChildren()) {
+      if (tab instanceof UIPanel) {
+        if (tab.isRendered() && (SWITCH_TYPE_CLIENT.equals(switchType) || virtualTab == activeIndex)) {
 
-    for (int virtualTab = 0; virtualTab < tabs.length; virtualTab++) {
+          if (virtualTab != activeIndex) {
+            HtmlRendererUtil.replaceStyleAttribute(component, "display", "none");
+          } else {
+            HtmlRendererUtil.removeStyleAttribute(component, "display");
+          }
 
-      if (SWITCH_TYPE_CLIENT.equals(switchType) || virtualTab == activeIndex) {
+          writer.startElement(HtmlConstants.DIV, null);
+          writer.writeComment("empty div fix problem with mozilla and fieldset");
+          writer.endElement(HtmlConstants.DIV);
 
-        if (virtualTab != activeIndex) {
-          HtmlRendererUtil.replaceStyleAttribute(component, "display", "none");
-        } else {
-          HtmlRendererUtil.removeStyleAttribute(component, "display");
+          writer.startElement(HtmlConstants.DIV, null);
+          writer.writeIdAttribute(clientId);
+          renderTabGroupView(facesContext, writer, component, virtualTab,
+              (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE),
+              switchType, image1x1);
+          writer.endElement(HtmlConstants.DIV);
+
+          if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()
+              && SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
+            final String[] cmds = {
+                "new Tobago.TabGroup(",
+                "    '" + clientId + "', ",
+                "    '" + activeIndex + "');"
+            };
+            HtmlRendererUtil.writeScriptLoader(facesContext, new String[0], cmds);
+          }
         }
-
-        writer.startElement(HtmlConstants.DIV, null);
-        writer.writeComment("empty div fix problem with mozilla and fieldset");
-        writer.endElement(HtmlConstants.DIV);
-
-        writer.startElement(HtmlConstants.DIV, null);
-        writer.writeIdAttribute(clientId);
-        renderTabGroupView(facesContext, writer, component, virtualTab,
-            (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE),
-            switchType, image1x1);
-        writer.endElement(HtmlConstants.DIV);
-
-        if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()
-            && SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
-          final String[] cmds = {
-              "new Tobago.TabGroup(",
-              "    '" + clientId + "', ",
-              "    '" + activeIndex + "');"
-          };
-          HtmlRendererUtil.writeScriptLoader(facesContext, new String[0], cmds);
-        }
+        virtualTab++;
       }
     }
+  }
+
+  private int ensureRenderedActiveIndex(UITabGroup tabGroup) {
+    int activeIndex = tabGroup.getActiveIndex();
+    // ensure to select a rendered tab
+    int index = 0;
+    for (UIComponent tab: (List<UIComponent>)tabGroup.getChildren()) {
+      if (tab instanceof UIPanel) {
+        if (tab.isRendered()) {
+          if (activeIndex == index) {
+            break;
+          }
+        }
+        index++;
+      }
+    }
+    tabGroup.setActiveIndex(index);
+    return index;
   }
 
   private void renderTabGroupView(
       FacesContext facesContext, TobagoResponseWriter writer, UITabGroup component,
       int virtualTab, HtmlStyleMap oStyle, String switchType, String image1x1)
       throws IOException {
-    UIPanel[] tabs = component.getTabs();
     writer.startElement(HtmlConstants.TABLE, null);
     writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
@@ -211,74 +218,76 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
 
     UIPanel activeTab = null;
 
-    for (int i = 0; i < tabs.length; i++) {
-      UIPanel tab = tabs[i];
+    int index = 0;
+    for (UIComponent tab: (List<UIComponent>)component.getChildren()) {
+      if (tab instanceof UIPanel) {
+        if (tab.isRendered()) {
+          String onclick;
+          if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()
+              && SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
+            onclick = null;
+          } else if (SWITCH_TYPE_RELOAD_PAGE.equals(switchType)
+              || SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
+            onclick = "tobago_requestTab('"
+                + clientId + "'," + index + ",'"
+                + ComponentUtil.findPage(component).getFormId(facesContext) + "')";
+          } else {   //  SWITCH_TYPE_CLIENT
+            onclick = "tobago_selectTab('"
+                + clientId + "'," + index + ','
+                + component.getChildCount() + ')';
+          }
 
-      String onclick;
+          LabelWithAccessKey label = new LabelWithAccessKey(tab);
 
-      if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()
-          && SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
-        onclick = null;
-      }  else if (SWITCH_TYPE_RELOAD_PAGE.equals(switchType)
-          || SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
-        onclick = "tobago_requestTab('"
-            + clientId + "'," + i + ",'"
-            + ComponentUtil.findPage(component).getFormId(facesContext) + "')";
-      } else {   //  SWITCH_TYPE_CLIENT
-        onclick = "tobago_selectTab('"
-            + clientId + "'," + i + ','
-            + tabs.length + ')';
-      }
+          String outerClass;
+          String innerClass;
+          if (virtualTab == index) {
+            outerClass = "tobago-tab-selected-outer";
+            innerClass = "tobago-tab-selected-inner";
+            activeTab = (UIPanel) tab;
+          } else {
+            outerClass = "tobago-tab-unselected-outer";
+            innerClass = "tobago-tab-unselected-inner";
+          }
 
-      LabelWithAccessKey label = new LabelWithAccessKey(tab);
+          writer.startElement(HtmlConstants.TD, tab);
+          writer.writeIdAttribute(tab.getClientId(facesContext));
+          writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
 
-      String outerClass;
-      String innerClass;
-      if (virtualTab == i) {
-        outerClass = "tobago-tab-selected-outer";
-        innerClass = "tobago-tab-selected-inner";
-        activeTab = tab;
-      } else {
-        outerClass = "tobago-tab-unselected-outer";
-        innerClass = "tobago-tab-unselected-inner";
-      }
+          writer.startElement(HtmlConstants.DIV, null);
+          writer.writeClassAttribute(outerClass);
 
-      writer.startElement(HtmlConstants.TD, tab);
-      writer.writeIdAttribute(tab.getClientId(facesContext));
-      writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
+          writer.startElement(HtmlConstants.DIV, null);
+          writer.writeClassAttribute(innerClass);
 
-      writer.startElement(HtmlConstants.DIV, null);
-      writer.writeClassAttribute(outerClass);
+          writer.startElement(HtmlConstants.SPAN, null);
+          writer.writeClassAttribute("tobago-tab-link");
+          String tabId = clientId + "." + virtualTab + SUBCOMPONENT_SEP + index;
+          writer.writeIdAttribute(tabId);
+          if (onclick != null) {
+            writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, null);
+          }
+          if (label.getText() != null) {
+            HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
+          } else {
+            writer.writeText(Integer.toString(index+1), null);
+          }
+          writer.endElement(HtmlConstants.SPAN);
 
-      writer.startElement(HtmlConstants.DIV, null);
-      writer.writeClassAttribute(innerClass);
-
-      writer.startElement(HtmlConstants.SPAN, null);
-      writer.writeClassAttribute("tobago-tab-link");
-      String tabId = clientId + "." + virtualTab + SUBCOMPONENT_SEP + i;
-      writer.writeIdAttribute(tabId);
-      if (onclick != null) {
-        writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, null);
-      }
-      if (label.getText() != null) {
-        HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
-      } else {
-        writer.writeText(Integer.toString(i+1), null);
-      }
-      writer.endElement(HtmlConstants.SPAN);
-
-      if (label.getAccessKey() != null) {
-        if (LOG.isWarnEnabled()
-            && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-          LOG.warn("dublicated accessKey : " + label.getAccessKey());
+          if (label.getAccessKey() != null) {
+            if (LOG.isWarnEnabled()
+                && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
+              LOG.warn("dublicated accessKey : " + label.getAccessKey());
+            }
+            HtmlRendererUtil.addClickAcceleratorKey(
+                facesContext, tabId, label.getAccessKey());
+          }
+          writer.endElement(HtmlConstants.DIV);
+          writer.endElement(HtmlConstants.DIV);
+          writer.endElement(HtmlConstants.TD);
         }
-      HtmlRendererUtil.addClickAcceleratorKey(
-          facesContext, tabId, label.getAccessKey());
       }
-      writer.endElement(HtmlConstants.DIV);
-      writer.endElement(HtmlConstants.DIV);
-      writer.endElement(HtmlConstants.TD);
-
+      index++;
     }
 
     writer.startElement(HtmlConstants.TD, null);
@@ -326,7 +335,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     renderTabGroupView(context,
         (TobagoResponseWriter) context.getResponseWriter(),
         (UITabGroup) component,
-        ((UITabGroup) component).getActiveIndex(),
+        ensureRenderedActiveIndex((UITabGroup) component),
         (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE),
         SWITCH_TYPE_RELOAD_TAB,
         ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"));
@@ -342,13 +351,13 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     if (height != -1) {
       fixedHeight = height;
     } else {
-      UIPanel[] tabs = component.getTabs();
       fixedHeight = 0;
-      for (int i = 0; i < tabs.length; i++) {
-        UIPanel tab = tabs[i];
-        RendererBase renderer = ComponentUtil.getRenderer(facesContext, tab);
-        fixedHeight
-            = Math.max(fixedHeight, renderer.getFixedHeight(facesContext, tab));
+      for (UIComponent tab: (List<UIComponent>)component.getChildren()) {
+        if (tab instanceof UIPanel && tab.isRendered()) {
+          RendererBase renderer = ComponentUtil.getRenderer(facesContext, tab);
+          fixedHeight
+              = Math.max(fixedHeight, renderer.getFixedHeight(facesContext, tab));
+        }
       }
       fixedHeight += getConfiguredValue(facesContext, component, "headerHeight");
       fixedHeight += getConfiguredValue(facesContext, component, "paddingHeight");
@@ -356,57 +365,22 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     return fixedHeight;
   }
 
-  private void layoutTabs(FacesContext facesContext, UITabGroup component,
-                          UIPanel[] tabs) {
+  private void layoutTabs(FacesContext facesContext, UITabGroup component) {
     Object layoutWidth =
         component.getAttributes().get(ATTR_LAYOUT_WIDTH);
     Object layoutHeight =
         component.getAttributes().get(ATTR_LAYOUT_HEIGHT);
 
-    for (int i = 0; i < tabs.length; i++) {
-      UIPanel tab = tabs[i];
-      if (layoutWidth != null) {
-        HtmlRendererUtil.layoutSpace(facesContext, tab, true);
-      }
-      if (layoutHeight != null) {
-        HtmlRendererUtil.layoutSpace(facesContext, tab, false);
-      }
-    }
-
-
-  }
-
-  public class TabController extends MethodBinding {
-
-    public static final String ID_PREFIX = "tab_";
-
-    public Object invoke(FacesContext facesContext, Object[] objects)
-        throws EvaluationException {
-
-      if (objects[0] instanceof ActionEvent) {
-        UICommand command  = (UICommand) ((ActionEvent) objects[0]).getSource();
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Id = " + command.getId());
+    for (UIComponent tab: (List<UIComponent>)component.getChildren()) {
+      if (tab instanceof UIPanel && tab.isRendered())  {
+        if (layoutWidth != null) {
+          HtmlRendererUtil.layoutSpace(facesContext, tab, true);
         }
-
-        if (command.getId() != null && command.getId().startsWith(ID_PREFIX)) {
-          try {
-            int newTab =
-                Integer.parseInt(command.getId().substring(ID_PREFIX.length()));
-          } catch (Exception e) {
-            // ignore
-          }
+        if (layoutHeight != null) {
+          HtmlRendererUtil.layoutSpace(facesContext, tab, false);
         }
       }
-      return null;
     }
-
-    public Class getType(FacesContext facesContext)
-        throws MethodNotFoundException {
-      return String.class;
-    }
-
   }
-
 }
 

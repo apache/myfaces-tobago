@@ -72,8 +72,9 @@ public class ResourceManagerUtil {
   public static List<String> getStyles(FacesContext facesContext, String name) {
     UIViewRoot viewRoot = facesContext.getViewRoot();
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
-    String[] styles = ResourceManagerFactory.getResourceManager(facesContext).getStyles(viewRoot, name);
 
+    String[] styles = ResourceManagerFactory.getResourceManager(facesContext).getStyles(viewRoot, name);
+    System.err.println(styles);
     return addContextPath(styles, contextPath);
   }
 

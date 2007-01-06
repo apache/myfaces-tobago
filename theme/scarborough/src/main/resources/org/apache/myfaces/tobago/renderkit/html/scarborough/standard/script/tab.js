@@ -24,10 +24,12 @@ function tobago_selectTab(controlId, selectedIndex, size) {
 
   for (i = 0; i < size; i++) {
     var tab = document.getElementById(controlId + '.' + i);
-    if (i == selectedIndex) {
-      tab.style.display='block';
-    } else {
-      tab.style.display='none';
+    if (tab) {
+      if (i == selectedIndex) {
+        tab.style.display='block';
+      } else {
+        tab.style.display='none';
+      }
     }
   }
 }

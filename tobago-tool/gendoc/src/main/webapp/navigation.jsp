@@ -92,7 +92,7 @@
     <tc:link link="screenshot/sheet.jsp"
              label="Sheet" target="View"/>
 
-    <%--<tc:link link="screenshot/tabGroup.jsp"  label="TabGroup"  target="View"/>--%>
+    <tc:link link="screenshot/tabGroup.jsp"  label="TabGroup"  target="View"/>
 
     <tc:link link="screenshot/textarea.jsp"
              label="Textarea" target="View"/>

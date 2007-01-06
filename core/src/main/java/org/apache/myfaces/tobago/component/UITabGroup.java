@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMMEDIATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
@@ -27,6 +28,7 @@ import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource;
+import org.apache.myfaces.tobago.event.TabChangeEvent;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -35,6 +37,7 @@ import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
+import javax.faces.event.PhaseId;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,15 +48,12 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TabGroup";
 
-  public static final String RENDERED_INDEX
-      = "org.apache.myfaces.tobago.component.UITabGroup.RENDERED_INDEX";
-
   private int activeIndex;
   private int renderedIndex;
-
   private String switchType;
-
+  private Boolean immediate;
   private MethodBinding tabChangeListener = null;
+
   public static final String SWITCH_TYPE_CLIENT = "client";
   public static final String SWITCH_TYPE_RELOAD_PAGE = "reloadPage";
   public static final String SWITCH_TYPE_RELOAD_TAB = "reloadTab";
@@ -79,10 +79,34 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
     super.encodeBegin(facesContext);
   }
 
+  public void setImmediate(boolean immediate) {
+    this.immediate = immediate;
+  }
+
+   public boolean isImmediate() {
+    if (immediate != null) {
+      return immediate;
+    }
+    ValueBinding vb = getValueBinding(ATTR_IMMEDIATE);
+    if (vb != null) {
+      return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
+    } else {
+      return false;
+    }
+  }
+
+  public void queueEvent(FacesEvent event) {
+    if (isImmediate()) {
+      event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
+    } else {
+      event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+    }
+    super.queueEvent(event);
+  }
+
   @Override
   public void encodeChildren(FacesContext context)
       throws IOException {
-    // childeren are rendered by encodeEnd'jsp
   }
 
   @Override
@@ -91,12 +115,10 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
     super.encodeEnd(facesContext);
   }
 
-
-
   private void resetTabLayout() {
-    for (UIPanel tab : getTabs()) {
-        tab.getAttributes().remove(ATTR_LAYOUT_WIDTH);
-        tab.getAttributes().remove(ATTR_LAYOUT_HEIGHT);
+    for (UIComponent component : (List<UIComponent>)getChildren()) {
+      component.getAttributes().remove(ATTR_LAYOUT_WIDTH);
+      component.getAttributes().remove(ATTR_LAYOUT_HEIGHT);
     }
   }
 
@@ -105,9 +127,9 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
     for (Object o : getChildren()) {
       UIComponent kid = (UIComponent) o;
       if (kid instanceof UIPanel) {
-        if (kid.isRendered()) {
+        //if (kid.isRendered()) {
           tabs.add((UIPanel) kid);
-        }
+        //}
       } else {
         LOG.error("Invalid component in UITabGroup: " + kid);
       }
@@ -116,8 +138,9 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
   }
 
   public UIPanel getActiveTab() {
-    return getTabs()[activeIndex];
+    return getTab(getActiveIndex());
   }
+
 
   @Override
   public void processDecodes(FacesContext context) {
@@ -129,7 +152,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
       if (!isRendered()) {
         return;
       }
-      UIPanel renderedTab = getTabs()[getRenderedIndex()];
+      UIPanel renderedTab = getRenderedTab();
       renderedTab.processDecodes(context);
       try {
         decode(context);
@@ -151,7 +174,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
       if (!isRendered()) {
         return;
       }
-      UIPanel renderedTab = getTabs()[getRenderedIndex()];
+      UIPanel renderedTab = getRenderedTab();
       renderedTab.processValidators(context);
     } else {
       super.processValidators(context);
@@ -167,7 +190,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
       if (!isRendered()) {
         return;
       }
-      UIPanel renderedTab = getTabs()[getRenderedIndex()];
+      UIPanel renderedTab = getRenderedTab();
       renderedTab.processUpdates(context);
       updateState(context);
     } else {
@@ -178,17 +201,19 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
 
   public void broadcast(FacesEvent facesEvent) throws AbortProcessingException {
     super.broadcast(facesEvent);
-
-    MethodBinding tabChangeListenerBinding = getTabChangeListener();
-    if (tabChangeListenerBinding != null) {
-      try {
-        tabChangeListenerBinding.invoke(getFacesContext(), new Object[]{facesEvent});
-      } catch (EvaluationException e) {
-        Throwable cause = e.getCause();
-        if (cause != null && cause instanceof AbortProcessingException) {
-          throw (AbortProcessingException) cause;
-        } else {
-          throw e;
+    if (facesEvent instanceof TabChangeEvent) {
+      setActiveIndex(((TabChangeEvent)facesEvent).getNewTabIndex());
+      MethodBinding tabChangeListenerBinding = getTabChangeListener();
+      if (tabChangeListenerBinding != null) {
+        try {
+          tabChangeListenerBinding.invoke(getFacesContext(), new Object[]{facesEvent});
+        } catch (EvaluationException e) {
+          Throwable cause = e.getCause();
+          if (cause != null && cause instanceof AbortProcessingException) {
+            throw (AbortProcessingException) cause;
+          } else {
+            throw e;
+          }
         }
       }
     }
@@ -229,12 +254,13 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
   }
 
   public Object saveState(FacesContext context) {
-    Object[] state = new Object[5];
+    Object[] state = new Object[6];
     state[0] = super.saveState(context);
     state[1] = renderedIndex;
     state[2] = activeIndex;
     state[3] = saveAttachedState(context, tabChangeListener);
     state[4] = switchType;
+    state[5] = immediate;
     return state;
   }
 
@@ -245,10 +271,11 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
     activeIndex = (Integer) values[2];
     tabChangeListener = (MethodBinding) restoreAttachedState(context, values[3]);
     switchType = (String) values[4];
+    immediate = (Boolean) values[5];
   }
 
   public void encodeAjax(FacesContext facesContext) throws IOException {
-    if (activeIndex < 0 || !(activeIndex < getTabs().length)) {
+    if (activeIndex < 0 || !(activeIndex < getChildCount())) {
       LOG.error("This should never occur! Problem in decoding?");
       ValueBinding stateBinding = getValueBinding(ATTR_STATE);
       Object state
@@ -307,5 +334,25 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
 
   public void setSwitchType(String switchType) {
     this.switchType = switchType;
+  }
+
+  private UIPanel getTab(int index) {
+    int i = 0;
+    for (UIComponent component : (List<UIComponent>)getChildren()) {
+      if (component instanceof UIPanel) {
+        if (i == index) {
+          return (UIPanel) component;
+        }
+        i++;
+      } else {
+        LOG.error("Invalid component in UITabGroup: " + component);
+      }
+    }
+    System.err.println("Found no component with "+ index + " " + getChildCount());
+    return null;
+  }
+
+  private UIPanel getRenderedTab() {
+    return getTab(getRenderedIndex());
   }
 }

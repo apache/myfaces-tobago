@@ -59,7 +59,6 @@ public class TabGroupRenderer extends
       writer.writeAttribute(HtmlAttributes.STYLE, bodyStyle, null);
     }
 
-
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeClassAttribute("tobago-tab-content");
 
