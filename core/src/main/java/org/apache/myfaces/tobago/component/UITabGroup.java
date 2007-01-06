@@ -116,7 +116,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
   }
 
   private void resetTabLayout() {
-    for (UIComponent component : (List<UIComponent>)getChildren()) {
+    for (UIComponent component : (List<UIComponent>) getChildren()) {
       component.getAttributes().remove(ATTR_LAYOUT_WIDTH);
       component.getAttributes().remove(ATTR_LAYOUT_HEIGHT);
     }
@@ -202,7 +202,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
   public void broadcast(FacesEvent facesEvent) throws AbortProcessingException {
     super.broadcast(facesEvent);
     if (facesEvent instanceof TabChangeEvent) {
-      setActiveIndex(((TabChangeEvent)facesEvent).getNewTabIndex());
+      setActiveIndex(((TabChangeEvent) facesEvent).getNewTabIndex());
       MethodBinding tabChangeListenerBinding = getTabChangeListener();
       if (tabChangeListenerBinding != null) {
         try {
@@ -338,7 +338,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
 
   private UIPanel getTab(int index) {
     int i = 0;
-    for (UIComponent component : (List<UIComponent>)getChildren()) {
+    for (UIComponent component : (List<UIComponent>) getChildren()) {
       if (component instanceof UIPanel) {
         if (i == index) {
           return (UIPanel) component;
@@ -348,7 +348,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
         LOG.error("Invalid component in UITabGroup: " + component);
       }
     }
-    System.err.println("Found no component with "+ index + " " + getChildCount());
+    LOG.error("Found no component with index: "+ index + " childCount: " + getChildCount());
     return null;
   }
 
