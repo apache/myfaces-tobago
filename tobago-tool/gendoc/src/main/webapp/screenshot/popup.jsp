@@ -16,6 +16,7 @@
 --%>
 
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
@@ -33,11 +34,14 @@
             <tc:popup width="300" height="270" id="popup">
               <tc:box label="Text input">
                 <f:facet name="layout">
-                  <tc:gridLayout rows="fixed;fixed;*;fixed"/>
+                  <tc:gridLayout rows="fixed;fixed;fixed;*;fixed"/>
                 </f:facet>
 
                 <tc:selectBooleanCheckbox value="#{reference.bool}"/>
-                <tc:in value="#{reference.text}"/>
+                <tc:in value="#{reference.text}" required="true"/>
+                <tx:date>
+                  <f:convertDateTime pattern="dd/MM/yyyy" />
+                </tx:date>
                 <tc:cell/>
                 <tc:panel>
                   <f:facet name="layout">
@@ -46,7 +50,9 @@
                   <tc:button label="Cancel">
                     <tc:attribute name="popupClose" value="immediate"/>
                   </tc:button>
-                  <tc:button label="Redisplay"/>
+                  <tc:button label="Redisplay">
+                    <tc:attribute name="renderedPartially" value="popup"/>
+                  </tc:button>
                   <tc:button label="Ok">
                     <tc:attribute name="popupClose" value="afterSubmit"/>
                   </tc:button>

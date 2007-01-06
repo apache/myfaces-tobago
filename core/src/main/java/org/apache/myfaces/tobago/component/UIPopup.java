@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.TobagoConstants;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -85,7 +86,12 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
   }
 
   private boolean isActivated() {
-    return activated;
+    ValueBinding valueBinding = getValueBinding("rendered");
+    if (valueBinding!= null) {
+       return (Boolean) valueBinding.getValue(getFacesContext());
+    } else {
+      return activated;
+    }
   }
 
   public void encodeBegin(FacesContext facesContext) throws IOException {
@@ -99,7 +105,7 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
         childOrFacet.processValidators(context);
       }
       //TODO: check if validation has faild and reset rendered if needed
-      if (context.getRenderResponse()||context.getRenderResponse()) {
+     if (context.getRenderResponse()) {
         setActivated(true);
       }
     }   
