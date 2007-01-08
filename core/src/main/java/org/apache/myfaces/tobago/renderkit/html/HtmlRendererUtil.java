@@ -672,7 +672,8 @@ public final class HtmlRendererUtil {
     String clientId = component.getClientId(facesContext);
     boolean defaultCommand = ComponentUtil.getBooleanAttribute(component,
         TobagoConstants.ATTR_DEFAULT_COMMAND);
-    String onclick = "Tobago.submitAction('" + clientId + "');";
+    boolean preserveOnclick = true;
+    String onclick;
     if (component.getAttributes().get(TobagoConstants.ATTR_ACTION_LINK) != null) {
       onclick = "Tobago.navigateToUrl('"
           + HtmlUtils.generateUrl(facesContext,
@@ -701,6 +702,7 @@ public final class HtmlRendererUtil {
               + clientId + "', {});";
         }
       } else {
+        onclick = "";
         LOG.error("more than one parially rendered component is currently not supported " + componentId);
       }
 
@@ -710,13 +712,14 @@ public final class HtmlRendererUtil {
       onclick = null;
     } else {
       onclick = "Tobago.submitAction('" + clientId + "');";
+      preserveOnclick = false;
     }
 
     if (component.getAttributes().get(TobagoConstants.ATTR_POPUP_CLOSE) != null
         && ComponentUtil.isInPopup(component)) {
       String value = (String) component.getAttributes().get(TobagoConstants.ATTR_POPUP_CLOSE);
       if (value.equals("immediate")) {
-        onclick += "Tobago.closePopup(this);";
+        onclick = (preserveOnclick ? onclick : "") + "Tobago.closePopup(this);";
       } else if (value.equals("afterSubmit")
           && component instanceof UICommand
           && ((UICommand) component).getRenderedPartially().length > 0) {
