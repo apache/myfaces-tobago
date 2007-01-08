@@ -716,7 +716,7 @@ public final class HtmlRendererUtil {
         && ComponentUtil.isInPopup(component)) {
       String value = (String) component.getAttributes().get(TobagoConstants.ATTR_POPUP_CLOSE);
       if (value.equals("immediate")) {
-        onclick = "Tobago.closePopup(this);";
+        onclick += "Tobago.closePopup(this);";
       } else if (value.equals("afterSubmit")
           && component instanceof UICommand
           && ((UICommand) component).getRenderedPartially().length > 0) {

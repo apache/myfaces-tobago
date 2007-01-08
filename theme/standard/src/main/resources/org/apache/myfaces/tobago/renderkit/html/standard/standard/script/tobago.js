@@ -413,15 +413,6 @@ var Tobago = {
       this.submitAction(actionId);
     }
   },
-    
-  /**
-   * remove the popup elements from dom tree.
-   */
-  closePickerPopup2: function(obj) {
-    var id = obj.id;
-    var index = id.lastIndexOf(':');
-    this.closePopup(id.substring(0, index));
-  },
 
 
    /**

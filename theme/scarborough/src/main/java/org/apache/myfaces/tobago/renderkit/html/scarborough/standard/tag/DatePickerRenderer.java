@@ -99,12 +99,13 @@ public class DatePickerRenderer extends LinkRenderer {
 
     UICommand okButton = (UICommand) popup.findComponent("ok" + DatePickerController.CLOSE_POPUP);
     attributes = okButton.getAttributes();
-    attributes.put(ATTR_ACTION_ONCLICK, "writeIntoField2(this); Tobago.closePickerPopup2(this)");
+    attributes.put(ATTR_ACTION_ONCLICK, "writeIntoField2(this);");
+    attributes.put(TobagoConstants.ATTR_POPUP_CLOSE, "immediate");
    // okButton.setActionListener(datePickerController);
 
     UICommand cancelButton  = (UICommand) popup.findComponent(DatePickerController.CLOSE_POPUP);
     attributes = cancelButton.getAttributes();
-    attributes.put(ATTR_ACTION_ONCLICK, "Tobago.closePickerPopup2(this)");
+    attributes.put(TobagoConstants.ATTR_POPUP_CLOSE, "immediate");
     //cancelButton.setActionListener(datePickerController);
 
     applyConverterPattern(popup, converterPattern);
