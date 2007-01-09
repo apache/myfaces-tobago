@@ -32,12 +32,14 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MUTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.component.UITreeNodes;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -307,7 +309,17 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.writeText(", '", null);
 
       // width
-      writer.writeText("300", null);
+      Integer width = null;
+      HtmlStyleMap style = (HtmlStyleMap) root.getAttributes().get(ATTR_STYLE);
+      if (style != null) {
+        width = style.getInt("width");
+      }
+      if (width != null) {
+        writer.writeText(width - 4, null); // fixme: 4
+      } else {
+        writer.writeText("100%", null);
+      }
+
       writer.writeText("');\n", null);
 
 /*

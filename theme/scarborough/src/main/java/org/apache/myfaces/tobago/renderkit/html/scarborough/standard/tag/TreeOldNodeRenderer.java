@@ -18,11 +18,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITreeOldNode;
 import org.apache.myfaces.tobago.component.UITreeOld;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -306,7 +308,17 @@ public class TreeOldNodeRenderer extends RendererBase {
       writer.writeText(", '", null);
 
       // width
-      writer.writeText("300", null);
+      Integer width = null;
+      HtmlStyleMap style = (HtmlStyleMap) root.getAttributes().get(ATTR_STYLE);
+      if (style != null) {
+        width = style.getInt("width");
+      }
+      if (width != null) {
+        writer.writeText(width - 4, null); // fixme: 4
+      } else {
+        writer.writeText("100%", null);
+      }
+
       writer.writeText("');\n", null);
 
 /*
