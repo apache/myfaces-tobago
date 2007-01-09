@@ -672,8 +672,7 @@ public final class HtmlRendererUtil {
     String clientId = component.getClientId(facesContext);
     boolean defaultCommand = ComponentUtil.getBooleanAttribute(component,
         TobagoConstants.ATTR_DEFAULT_COMMAND);
-    boolean preserveOnclick = true;
-    String onclick;
+    String onclick = "Tobago.submitAction('" + clientId + "');";
     if (component.getAttributes().get(TobagoConstants.ATTR_ACTION_LINK) != null) {
       onclick = "Tobago.navigateToUrl('"
           + HtmlUtils.generateUrl(facesContext,
@@ -687,12 +686,9 @@ public final class HtmlRendererUtil {
     } else if (component instanceof UICommand
         && ((UICommand) component).getRenderedPartially().length > 0) {
 
-
       String[] componentId = ((UICommand) component).getRenderedPartially();
 
-
       if (componentId != null && componentId.length == 1) {
-
 
         if (component.getFacet(FACET_POPUP) !=null) {
           onclick = "Tobago.openPopupWithAction('" + getComponentId(facesContext, component, componentId[0]) + "', '"
@@ -702,7 +698,6 @@ public final class HtmlRendererUtil {
               + clientId + "', {});";
         }
       } else {
-        onclick = "";
         LOG.error("more than one parially rendered component is currently not supported " + componentId);
       }
 
@@ -712,14 +707,13 @@ public final class HtmlRendererUtil {
       onclick = null;
     } else {
       onclick = "Tobago.submitAction('" + clientId + "');";
-      preserveOnclick = false;
     }
 
     if (component.getAttributes().get(TobagoConstants.ATTR_POPUP_CLOSE) != null
         && ComponentUtil.isInPopup(component)) {
       String value = (String) component.getAttributes().get(TobagoConstants.ATTR_POPUP_CLOSE);
       if (value.equals("immediate")) {
-        onclick = (preserveOnclick ? onclick : "") + "Tobago.closePopup(this);";
+        onclick = "Tobago.closePopup(this);";
       } else if (value.equals("afterSubmit")
           && component instanceof UICommand
           && ((UICommand) component).getRenderedPartially().length > 0) {
