@@ -192,10 +192,9 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
       }
       UIPanel renderedTab = getRenderedTab();
       renderedTab.processUpdates(context);
-      updateState(context);
+
     } else {
       super.processUpdates(context);
-      updateState(context);
     }
   }
 
@@ -203,6 +202,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
     super.broadcast(facesEvent);
     if (facesEvent instanceof TabChangeEvent) {
       setActiveIndex(((TabChangeEvent) facesEvent).getNewTabIndex());
+      updateState(getFacesContext());
       MethodBinding tabChangeListenerBinding = getTabChangeListener();
       if (tabChangeListenerBinding != null) {
         try {
