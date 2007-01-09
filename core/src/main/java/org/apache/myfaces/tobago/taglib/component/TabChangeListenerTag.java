@@ -23,6 +23,9 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource;
+import org.apache.myfaces.tobago.event.TabChangeListenerValueBindingDelegate;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -38,7 +41,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 @Tag(name = "tabChangeListener", bodyContent = BodyContent.EMPTY)
 public class TabChangeListenerTag extends TagSupport {
 
-
+  private static final Log LOG = LogFactory.getLog(TabChangeListenerTag.class);
   /**
    * <p>The fully qualified class name of the {@link TabChangeListener}
    * instance to be created.</p>
@@ -99,9 +102,9 @@ public class TabChangeListenerTag extends TagSupport {
     TabChangeSource changeSource = (TabChangeSource) component;
 
     TabChangeListener handler = null;
-
+    ValueBinding valueBinding = null;
     if (binding != null && UIComponentTag.isValueReference(binding)) {
-      ValueBinding valueBinding = ComponentUtil.createValueBinding(binding);
+      valueBinding = ComponentUtil.createValueBinding(binding);
       if (valueBinding != null) {
         Object obj = valueBinding.getValue(FacesContext.getCurrentInstance());
         if (obj != null && obj instanceof TabChangeListener) {
@@ -111,21 +114,17 @@ public class TabChangeListenerTag extends TagSupport {
     }
 
     if (handler == null && type != null) {
-      String className;
-      // evaluate any VB expression that we were passed
-      if (UIComponentTag.isValueReference(type)) {
-        ValueBinding typeValueBinding = ComponentUtil.createValueBinding(type);
-        className = (String) typeValueBinding.getValue(FacesContext.getCurrentInstance());
-      } else {
-        className = type;
-      }
-      handler = createStateChangeListener(className);
-      if (handler != null && binding != null) {
-        ComponentUtil.setValueForValueBinding(binding, handler);
+      handler = createTabChangeListener(type);
+      if (handler != null && valueBinding != null) {
+        valueBinding.setValue(FacesContext.getCurrentInstance(), handler);
       }
     }
     if (handler != null) {
-      changeSource.addTabChangeListener(handler);
+      if (valueBinding != null) {
+        changeSource.addTabChangeListener(new TabChangeListenerValueBindingDelegate(type, valueBinding));
+      } else {
+        changeSource.addTabChangeListener(handler);
+      }
     }
     // TODO else LOG.warn?
     return (SKIP_BODY);
@@ -146,7 +145,7 @@ public class TabChangeListenerTag extends TagSupport {
    *
    * @throws javax.servlet.jsp.JspException if a new instance cannot be created
    */
-  protected TabChangeListener createStateChangeListener(String className) throws JspException {
+  protected TabChangeListener createTabChangeListener(String className) throws JspException {
     try {
       Class clazz = getClass().getClassLoader().loadClass(className);
       return ((TabChangeListener) clazz.newInstance());

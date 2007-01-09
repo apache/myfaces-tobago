@@ -83,6 +83,13 @@ public abstract class AbstractAPTMojo extends AbstractMojo
      */
     private static boolean isClasspathModified;
 
+   /**
+    * Working directory when APT compiler is forked
+    * @parameter default-value="${basedir}"
+    * @since 1.0.10
+    */
+    private File workingDir;
+
     /**
      *  A List of targetFiles for SingleSourceTargetMapping
      *
@@ -359,7 +366,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
                      {
                          FileUtils.fileWrite( file.getAbsolutePath(),
                                  StringUtils.join( sourceFiles.iterator(), "\n" ) );
-                         cmd.createArgument().setValue( "@files" );
+                         cmd.createArgument().setValue( '@' + file.getPath() );
                      }
                      catch ( IOException e )
                      {
@@ -379,9 +386,9 @@ public abstract class AbstractAPTMojo extends AbstractMojo
             {
                 if ( getLog().isDebugEnabled() )
                 {
-                    getLog().debug( "Working dir: " + tempRoot.getAbsolutePath() );
+                    getLog().debug( "Working dir: " + workingDir.getAbsolutePath() );
                 }
-                cmd.setWorkingDirectory( tempRoot.getAbsolutePath() );
+                cmd.setWorkingDirectory( workingDir.getAbsolutePath() );
                 cmd.setExecutable( getAptPath() );
 
                 if ( getLog().isDebugEnabled() )
