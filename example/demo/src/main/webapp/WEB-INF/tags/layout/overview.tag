@@ -22,9 +22,11 @@
   /><tc:page label="#{overviewBundle.pageTitle}" id="page"
       width="750px" height="600px">
 
+<%--
      <f:facet name="onLoad">
             <tc:command />
      </f:facet>
+--%>
 
     <jsp:include page="/overview/menubar.jsp" />
     <%--f:facet name="backButtonDetector">
