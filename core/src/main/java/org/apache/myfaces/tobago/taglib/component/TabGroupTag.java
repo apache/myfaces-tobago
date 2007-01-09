@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMMEDIATE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_INDEX;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SWITCH_TYPE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITabGroup;
@@ -34,9 +34,10 @@ public class TabGroupTag extends TobagoTag
 
   private static final Log LOG = LogFactory.getLog(TabGroupTag.class);
 
-  private String state;
+  private String selectedIndex;
   private String switchType;
   private String immediate;
+  private String state;
 
   @Override
   public String getComponentType() {
@@ -46,7 +47,8 @@ public class TabGroupTag extends TobagoTag
   @Override
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setValueBinding(component, ATTR_STATE, state);
+    ComponentUtil.setIntegerProperty(component, ATTR_SELECTED_INDEX, selectedIndex);
+    ComponentUtil.setIntegerProperty(component, ATTR_SELECTED_INDEX, state);
     ComponentUtil.setStringProperty(component, ATTR_SWITCH_TYPE, switchType);
     ComponentUtil.setBooleanProperty(component, ATTR_IMMEDIATE, immediate);
   }
@@ -57,6 +59,7 @@ public class TabGroupTag extends TobagoTag
     state = null;
     switchType = null;
     immediate = null;
+    selectedIndex = null;
   }
 
   public void setServerside(String serverside) {
@@ -67,6 +70,10 @@ public class TabGroupTag extends TobagoTag
 
   public void setState(String state) {
     this.state = state;
+  }
+
+  public void setSelectedIndex(String selectedIndex) {
+    this.selectedIndex = selectedIndex;
   }
 
   public void setSwitchType(String switchType) {

@@ -22,7 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMMEDIATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_INDEX;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SWITCH_TYPE;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
@@ -48,7 +48,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TabGroup";
 
-  private int activeIndex;
+  private Integer selectedIndex;
   private int renderedIndex;
   private String switchType;
   private Boolean immediate;
@@ -65,17 +65,6 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
 
   @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {
-
-    ValueBinding stateBinding = getValueBinding(ATTR_STATE);
-    Object state
-        = stateBinding != null ? stateBinding.getValue(facesContext) : null;
-    if (state instanceof Integer) {
-      activeIndex = (Integer) state;
-    } else if (state != null) {
-      LOG.warn("Illegal class in stateBinding: " + state.getClass().getName());
-    }
-
-    setRenderedIndex(activeIndex);
     super.encodeBegin(facesContext);
   }
 
@@ -113,6 +102,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
   public void encodeEnd(FacesContext facesContext) throws IOException {
     resetTabLayout();
     super.encodeEnd(facesContext);
+    setRenderedIndex(getSelectedIndex());
   }
 
   private void resetTabLayout() {
@@ -138,7 +128,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
   }
 
   public UIPanel getActiveTab() {
-    return getTab(getActiveIndex());
+    return getTab(getSelectedIndex());
   }
 
 
@@ -201,8 +191,13 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
   public void broadcast(FacesEvent facesEvent) throws AbortProcessingException {
     super.broadcast(facesEvent);
     if (facesEvent instanceof TabChangeEvent) {
-      setActiveIndex(((TabChangeEvent) facesEvent).getNewTabIndex());
-      updateState(getFacesContext());
+      Integer index = ((TabChangeEvent) facesEvent).getNewTabIndex();
+      ValueBinding vb = getValueBinding(ATTR_SELECTED_INDEX);
+      if (vb !=null) {
+        vb.setValue(getFacesContext(), index);
+      } else {
+        setSelectedIndex(index);
+      }
       MethodBinding tabChangeListenerBinding = getTabChangeListener();
       if (tabChangeListenerBinding != null) {
         try {
@@ -227,12 +222,6 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
     return tabChangeListener;
   }
 
-  public void updateState(FacesContext facesContext) {
-    ValueBinding stateBinding = getValueBinding(ATTR_STATE);
-    if (stateBinding != null) {
-      stateBinding.setValue(facesContext, activeIndex);
-    }
-  }
 
   public void addTabChangeListener(TabChangeListener listener) {
     if (LOG.isWarnEnabled() && isClientType()) {
@@ -257,7 +246,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
     Object[] state = new Object[6];
     state[0] = super.saveState(context);
     state[1] = renderedIndex;
-    state[2] = activeIndex;
+    state[2] = selectedIndex;
     state[3] = saveAttachedState(context, tabChangeListener);
     state[4] = switchType;
     state[5] = immediate;
@@ -268,35 +257,33 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
     Object[] values = (Object[]) state;
     super.restoreState(context, values[0]);
     renderedIndex = (Integer) values[1];
-    activeIndex = (Integer) values[2];
+    selectedIndex = (Integer) values[2];
     tabChangeListener = (MethodBinding) restoreAttachedState(context, values[3]);
     switchType = (String) values[4];
     immediate = (Boolean) values[5];
   }
 
   public void encodeAjax(FacesContext facesContext) throws IOException {
-    if (activeIndex < 0 || !(activeIndex < getChildCount())) {
-      LOG.error("This should never occur! Problem in decoding?");
-      ValueBinding stateBinding = getValueBinding(ATTR_STATE);
-      Object state
-          = stateBinding != null ? stateBinding.getValue(facesContext) : null;
-      if (state instanceof Integer) {
-        activeIndex = (Integer) state;
-      } else if (state != null) {
-        LOG.warn("Illegal class in stateBinding: " + state.getClass().getName());
-      }
-    }
-
-    setRenderedIndex(activeIndex);
+    setRenderedIndex(getSelectedIndex());
     AjaxUtils.encodeAjaxComponent(facesContext, this);
   }
 
-  public int getActiveIndex() {
-    return activeIndex;
+  public int getSelectedIndex() {
+    if (selectedIndex!=null) {
+      return selectedIndex;
+    }
+    ValueBinding vb = getValueBinding(ATTR_SELECTED_INDEX);
+    if (vb != null) {
+      Integer value = (Integer) vb.getValue(getFacesContext());
+      if (value != null) {
+        return value;
+      }
+    }
+    return 0;
   }
 
-  public void setActiveIndex(int activeIndex) {
-    this.activeIndex = activeIndex;
+  public void setSelectedIndex(int selectedIndex) {
+    this.selectedIndex = selectedIndex;
   }
 
   private void setRenderedIndex(int index) {

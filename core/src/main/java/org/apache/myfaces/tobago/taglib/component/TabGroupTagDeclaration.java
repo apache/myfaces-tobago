@@ -45,7 +45,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
     rendererType = "TabGroup")
 
 public interface TabGroupTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasDeprecatedDimension,
-    HasState, IsImmediateCommand {
+    IsImmediateCommand {
   /**
    * Deprecated! Use 'switchType' instead.
    * Flag indicating that tab switching is done by server request.
@@ -70,4 +70,23 @@ public interface TabGroupTagDeclaration extends TobagoTagDeclaration, HasIdBindi
           {UITabGroup.SWITCH_TYPE_CLIENT, UITabGroup.SWITCH_TYPE_RELOAD_PAGE, UITabGroup.SWITCH_TYPE_RELOAD_TAB},
       defaultValue = UITabGroup.SWITCH_TYPE_CLIENT)
   void setSwitchType(String switchType);
+
+  /**
+   *
+   * <strong>ValueBindingExpression</strong> pointing to a Integer to save the
+   * component's selected Tab.
+   *
+   */
+  @TagAttribute @UIComponentTagAttribute(type = "java.lang.Integer")
+  void setSelectedIndex(String selectedIndex);
+
+  /**
+   *
+   * <strong>ValueBindingExpression</strong> pointing to a Integer to save the
+   * component's selected Tab.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Integer")
+  @Deprecated()
+  void setState(String state);
 }

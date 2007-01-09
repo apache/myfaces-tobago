@@ -32,6 +32,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_INDEX;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -56,6 +57,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 import java.io.IOException;
 import java.util.Map;
 import java.util.List;
@@ -97,7 +99,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
 
     layoutTabs(facesContext, component);
 
-    int activeIndex = ensureRenderedActiveIndex(component);
+    int activeIndex = ensureRenderedActiveIndex(facesContext, component);
 
     final String clientId = component.getClientId(facesContext);
     final String hiddenId = clientId + TabGroupRenderer.ACTIVE_INDEX_POSTFIX;
@@ -170,21 +172,27 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     }
   }
 
-  private int ensureRenderedActiveIndex(UITabGroup tabGroup) {
-    int activeIndex = tabGroup.getActiveIndex();
+  private int ensureRenderedActiveIndex(FacesContext context, UITabGroup tabGroup) {
+    int activeIndex = tabGroup.getSelectedIndex();
     // ensure to select a rendered tab
     int index = 0;
     for (UIComponent tab: (List<UIComponent>) tabGroup.getChildren()) {
       if (tab instanceof UIPanel) {
         if (tab.isRendered()) {
           if (activeIndex == index) {
-            break;
+            return index;
           }
         }
         index++;
       }
     }
-    tabGroup.setActiveIndex(index);
+    ValueBinding vb = tabGroup.getValueBinding(ATTR_SELECTED_INDEX);
+    if (vb !=null) {
+      vb.setValue(context, index);
+    } else {
+      tabGroup.setSelectedIndex(index);
+    }
+    tabGroup.setSelectedIndex(index);
     return index;
   }
 
@@ -335,7 +343,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     renderTabGroupView(context,
         (TobagoResponseWriter) context.getResponseWriter(),
         (UITabGroup) component,
-        ensureRenderedActiveIndex((UITabGroup) component),
+        ensureRenderedActiveIndex(context, (UITabGroup) component),
         (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE),
         SWITCH_TYPE_RELOAD_TAB,
         ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"));
