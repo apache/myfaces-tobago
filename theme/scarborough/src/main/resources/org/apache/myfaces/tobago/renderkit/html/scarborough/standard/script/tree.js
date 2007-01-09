@@ -512,7 +512,7 @@ TreeNode.prototype.initSelection = function() {
     }
   }
   if (this.childNodes) {
-    for (var i=0; i<this.childNodes.length; i++) {
+    for (var i = 0; i < this.childNodes.length; i++) {
       this.childNodes[i].initSelection();
     }
   }
