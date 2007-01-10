@@ -28,6 +28,8 @@ public interface HasDeprecatedWidth {
   /**
    *  The width for this component.
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute()
+  @Deprecated    
   void setWidth(String width);
 }

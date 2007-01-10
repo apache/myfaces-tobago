@@ -28,6 +28,8 @@ public interface HasDeprecatedHeight {
   /**
    *  The height for this component.
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute()
+  @Deprecated
   void setHeight(String height);
 }
