@@ -25,6 +25,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -102,6 +103,13 @@ public class SelectBooleanCheckboxRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.TYPE, "checkbox", null);
     writer.writeAttribute(HtmlAttributes.VALUE, "true", null);
     writer.writeAttribute(HtmlAttributes.CHECKED, checked);
+    if (ComponentUtil.getBooleanAttribute(component, ATTR_READONLY)) {
+      if (checked) {
+        writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=true", null);
+      } else {
+        writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=false", null);
+      }
+    }
     writer.writeNameAttribute(component.getClientId(facesContext));
     writer.writeComponentClass();
     writer.writeIdAttribute(component.getClientId(facesContext));
