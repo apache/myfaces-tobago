@@ -452,8 +452,14 @@ public class UIData extends javax.faces.component.UIData
   }
 
   public int getLastPageIndex() {
-    int tail = getRowCount() % getRows();
-    return getRowCount() - (tail != 0 ? tail : getRows());
+    int rows = getRows();
+    if (rows == 0) {
+      // avoid division by zero
+      return 0;
+    }
+    int rowCount = getRowCount();
+    int tail = rowCount % rows;
+    return rowCount - (tail != 0 ? tail : rows);
   }
 
   public void processUpdates(FacesContext context) {
