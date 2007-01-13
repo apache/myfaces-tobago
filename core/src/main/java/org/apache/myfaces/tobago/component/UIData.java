@@ -411,7 +411,10 @@ public class UIData extends javax.faces.component.UIData
   public int getPage() {
     int first = getFirst() + 1;
     int rows = getRows();
-
+    if (rows == 0) {
+      // avoid division by zero
+      return 0;
+    }
     if ((first % rows) > 0) {
       return (first / rows) + 1;
     } else {
@@ -420,7 +423,11 @@ public class UIData extends javax.faces.component.UIData
   }
 
   public int getPages() {
-    return getRowCount() / getRows() + (getRowCount() % getRows() == 0 ? 0 : 1);
+    int rows = getRows();
+    if (rows == 0) {
+      return 0;
+    }
+    return getRowCount() / rows + (getRowCount() % rows == 0 ? 0 : 1);
   }
 
   public List<UIComponent> getRenderedChildrenOf(UIColumn column) {

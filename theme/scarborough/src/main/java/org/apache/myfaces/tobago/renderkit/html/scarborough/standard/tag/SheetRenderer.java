@@ -307,7 +307,6 @@ public class SheetRenderer extends RendererBase
       LOG.debug("first = " + data.getFirst() + "   rows = " + data.getRows());
     }
 
-    //final Map requestMap = facesContext.getExternalContext().getRequestMap();
     final String var = data.getVar();
 
     boolean odd = false;
@@ -326,14 +325,6 @@ public class SheetRenderer extends RendererBase
         LOG.debug("var       " + var);
         LOG.debug("list      " + data.getValue());
       }
-
-      //final Object value = data.getRowData();
-
-      //*if (LOG.isDebugEnabled()) {
-      //  LOG.debug("element   " + value);
-      //}
-
-      //requestMap.put(var, value);
 
       writer.startElement(HtmlConstants.TR, null);
       writer.writeClassAttribute(rowClass);
@@ -419,7 +410,6 @@ public class SheetRenderer extends RendererBase
 
     data.setRowIndex(-1);
 
-    //requestMap.remove(var);
 
     writer.endElement(HtmlConstants.TABLE);
     writer.endElement(HtmlConstants.DIV);
