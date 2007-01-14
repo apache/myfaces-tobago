@@ -71,6 +71,7 @@ public class UIData extends javax.faces.component.UIData
 
   public static final String FACET_SORTER = "sorter";
   public static final String SORTER_ID = "sorter";
+  public static final String ATTR_SCROLL_POSITION = "attrScrollPosition";
 
   public static final String NONE = "none";
   public static final String SINGLE = "single";
@@ -481,10 +482,12 @@ public class UIData extends javax.faces.component.UIData
 //      getSortActionListener();
 //      state.setSortedColumn(sortActionListener != null ? sortActionListener.getColumn() : -1);
 //      state.setAscending(sortActionListener != null && sortActionListener.isAscending());
-      state.setSelectedRows((List<Integer>)
-          getAttributes().get(ATTR_SELECTED_LIST_STRING));
-      state.setColumnWidths((String)
-          getAttributes().get(ATTR_WIDTH_LIST_STRING));
+      Map attributes = getAttributes();
+      //noinspection unchecked
+      state.setSelectedRows((List<Integer>) attributes.get(ATTR_SELECTED_LIST_STRING));
+      state.setColumnWidths((String) attributes.get(ATTR_WIDTH_LIST_STRING));
+      state.setScrollPosition((Integer[]) attributes.get(ATTR_SCROLL_POSITION));
+      attributes.remove(ATTR_SCROLL_POSITION);
     }
   }
 
@@ -660,5 +663,13 @@ public class UIData extends javax.faces.component.UIData
     } else {
       AjaxUtils.processAjaxOnChildren(facesContext, this);
     }
+  }
+
+  public Integer[] getScrollPosition() {
+    Integer[] scrollPosition = (Integer[]) getAttributes().get(ATTR_SCROLL_POSITION);
+    if (scrollPosition == null) {
+      scrollPosition = getSheetState(FacesContext.getCurrentInstance()).getScrollPosition();
+    }
+    return scrollPosition;
   }
 }

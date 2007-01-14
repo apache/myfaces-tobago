@@ -22,6 +22,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
+import static org.apache.myfaces.tobago.component.UIData.ATTR_SCROLL_POSITION;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
@@ -105,6 +107,10 @@ public class SheetRenderer extends RendererBase
 
   public static final String WIDTHS_POSTFIX
       = SUBCOMPONENT_SEP + "widths";
+
+  public static final String SCROLL_POSTFIX
+      = SUBCOMPONENT_SEP + "scrollPosition";
+
   public static final String SELECTED_POSTFIX
       = SUBCOMPONENT_SEP + "selected";
   private static final Integer HEIGHT_0 = 0;
@@ -217,6 +223,19 @@ public class SheetRenderer extends RendererBase
     writer.writeNameAttribute(sheetId + WIDTHS_POSTFIX);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
     writer.writeAttribute(HtmlAttributes.VALUE, "", null);
+    writer.endElement(HtmlConstants.INPUT);
+
+    writer.startElement(HtmlConstants.INPUT, null);
+    writer.writeIdAttribute(sheetId + SCROLL_POSTFIX);
+    writer.writeNameAttribute(sheetId + SCROLL_POSTFIX);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+    Integer[] scrollPosition = data.getScrollPosition();
+    if (scrollPosition != null) {
+      String scroll = scrollPosition[0] + ";" + scrollPosition[1];
+      writer.writeAttribute(HtmlAttributes.VALUE, scroll, null);
+    } else {
+      writer.writeAttribute(HtmlAttributes.VALUE, "", null);
+    }
     writer.endElement(HtmlConstants.INPUT);
 
     if (!NONE.equals(selectable)) {
@@ -592,6 +611,17 @@ public class SheetRenderer extends RendererBase
       component.getAttributes().put(
           ATTR_SELECTED_LIST_STRING, selectedRows);
     }
+
+    key = component.getClientId(facesContext) + SCROLL_POSTFIX;
+    String value = (String) requestParameterMap.get(key);
+    if (value != null) {
+      Integer[] scrollPosition = SheetState.parseScrollPosition(value);
+      if (scrollPosition != null) {
+        //noinspection unchecked
+        component.getAttributes().put(ATTR_SCROLL_POSITION, scrollPosition);
+      }
+    }
+
   }
 
   public boolean needVerticalScrollbar(FacesContext facesContext, UIData data) {

@@ -19,13 +19,16 @@ package org.apache.myfaces.tobago.model;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
+
 import org.apache.myfaces.tobago.event.SortActionEvent;
 
 import javax.faces.component.UIColumn;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-// TODO find a better solution for this 
+
+// TODO find a better solution for this
 public class SheetState implements Serializable {
 
   private static final Log LOG = LogFactory.getLog(SheetState.class);
@@ -36,6 +39,7 @@ public class SheetState implements Serializable {
   private boolean ascending;
   private String columnWidths;
   private List<Integer> selectedRows;
+  private Integer[] scrollPosition;
 
   public SheetState() {
     resetSelected();
@@ -97,5 +101,30 @@ public class SheetState implements Serializable {
       ascending = true;
       sortedColumnId = actualColumn.getId();
     }
+  }
+
+  public Integer[] getScrollPosition() {
+    return scrollPosition;
+  }
+
+  public void setScrollPosition(Integer[] scrollPosition) {
+    this.scrollPosition = scrollPosition;
+  }
+
+  public static Integer[] parseScrollPosition(String value) {
+    Integer[] position = null;
+    if (!StringUtils.isBlank(value)) {
+      int sep = value.indexOf(";");
+      LOG.info("value = \"" + value + "\"  sep = " + sep + "");
+      if (sep == -1) {
+        throw new NumberFormatException(value);
+      }
+      int left = Integer.parseInt(value.substring(0, sep));
+      int top = Integer.parseInt(value.substring(sep + 1));
+      position = new Integer[2];
+      position[0] = left;
+      position[1] = top;
+    }
+    return position;
   }
 }

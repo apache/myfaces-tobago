@@ -62,6 +62,7 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage, selec
   this.contentDivId  = this.id + "_data_div";
   this.selectedId    = this.id + Tobago.SUB_COMPONENT_SEP +"selected";
   this.headerWidthsId = this.id + Tobago.SUB_COMPONENT_SEP + "widths"
+  this.scrollPositionId = this.id + Tobago.SUB_COMPONENT_SEP + "scrollPosition";
 
   if (this.ajaxEnabled) {
     Tobago.ajaxComponents[this.id] = this;
@@ -367,6 +368,7 @@ Tobago.Sheet.prototype.setup = function() {
         this.tobagoLastClickedRowId = this.firstRowIndex;
       }
       this.adjustScrollBars();
+      this.setScrollPosition();
 
       if (this.selectable && (this.selectable == "single" || this.selectable == "multi")) {
         this.addSelectionListener();
@@ -383,6 +385,24 @@ Tobago.Sheet.prototype.setup = function() {
     this.initReload();
     this.setupEnd = new Date();
   };
+
+Tobago.Sheet.prototype.setScrollPosition = function() {
+  var hidden = Tobago.element(this.scrollPositionId);
+  if (hidden) {
+    var sep = hidden.value.indexOf(";");
+    if (sep != -1) {
+      var scrollLeft = hidden.value.substr(0, sep);
+      var scrollTop = hidden.value.substr(sep + 1);
+      var contentDiv = Tobago.element(this.contentDivId);
+      contentDiv.scrollLeft = scrollLeft;
+      contentDiv.scrollTop = scrollTop;
+      var headerDiv = Tobago.element(this.headerDivId);
+      if (headerDiv) {
+        headerDiv.scrollLeft = contentDiv.scrollLeft;
+      }
+    }
+  }
+}
 
 Tobago.Sheet.prototype.initReload = function() {
   if (typeof this.autoReload == "number" && Tobago.element(this.contentDivId)) {
@@ -714,8 +734,13 @@ Tobago.Sheet.prototype.storeSizes = function() {
 Tobago.Sheet.prototype.doScroll = function(event) {
     //LOG.debug("header / data  " + this.headerDiv.scrollLeft + "/" + this.contentDiv.scrollLeft);
     var headerDiv = Tobago.element(this.headerDivId);
+    var contentDiv = Tobago.element(this.contentDivId);
     if (headerDiv) {
-      headerDiv.scrollLeft = Tobago.element(this.contentDivId).scrollLeft;
+      headerDiv.scrollLeft = contentDiv.scrollLeft;
+    }
+    var hidden = Tobago.element(this.scrollPositionId);
+    if (hidden) {
+      hidden.value = contentDiv.scrollLeft + ";" + contentDiv.scrollTop;
     }
     //LOG.debug("header / data  " + this.headerDiv.scrollLeft + "/" + this.contentDiv.scrollLeft);
     //LOG.debug("----------------------------------------------");
