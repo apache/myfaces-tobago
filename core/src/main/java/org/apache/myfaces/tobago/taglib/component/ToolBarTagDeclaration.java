@@ -79,4 +79,12 @@ public interface ToolBarTagDeclaration extends PanelTagDeclaration {
   @UIComponentTagAttribute(defaultValue = UIToolBar.ICON_SMALL,
       allowedValues = {UIToolBar.ICON_SMALL, UIToolBar.ICON_BIG, UIToolBar.ICON_OFF})
   void setIconSize(String iconSize);
+
+  /**
+   * Orientation of toolbar
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(defaultValue = UIToolBar.ORIENTATION_LEFT,
+      allowedValues = {UIToolBar.ORIENTATION_LEFT, UIToolBar.ORIENTATION_RIGHT})
+  void setOrientation(String orientation);
 }

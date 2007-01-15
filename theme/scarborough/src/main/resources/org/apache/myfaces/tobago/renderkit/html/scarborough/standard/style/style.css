@@ -299,14 +299,6 @@ td.tobago-calendar-day-selected {
   background: transparent;
 }
 
-/* Toolbar ----------------------------------------------------------------- */
-.tobago-toolBar-default  {
-  border: 1px solid #000000;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-}
-
-
 /* file -------------------------------------------------------------------- */
 
 .tobago-file-default {
@@ -806,6 +798,7 @@ div.tobago-richTextEditor-body {
 /* Toolbar ----------------------------------------------------------------- */
 .tobago-toolBar-default  {
   border: 2px groove #f6faff;
+  position: relative;
   overflow: hidden;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -813,6 +806,11 @@ div.tobago-richTextEditor-body {
 
 .tobago-toolBar-div-inner {
   padding: 4px;
+}
+
+.tobago-toolbar-orientation-right {
+  right: 0px;
+  position: absolute;
 }
 
 .tobago-toolbar-button {

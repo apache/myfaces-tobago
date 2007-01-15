@@ -45,6 +45,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIMenuSelectOne;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 import org.apache.myfaces.tobago.component.UISelectOneCommand;
+import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -93,7 +94,12 @@ public class ToolBarRenderer extends RendererBase {
       writer.writeComponentClass();
       writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
       writer.startElement(HtmlConstants.DIV, toolbar);
-      writer.writeClassAttribute("tobago-toolbar-div-inner");
+      boolean right = false;
+      if (toolbar instanceof UIToolBar) {
+        right = UIToolBar.ORIENTATION_RIGHT.equals(((UIToolBar) toolbar).getOrientation());
+      }
+      writer.writeClassAttribute("tobago-toolbar-div-inner" + (right ? " tobago-toolbar-orientation-right" : ""));
+
     }
 
     boolean boxFacet = isBoxFacet(toolbar);

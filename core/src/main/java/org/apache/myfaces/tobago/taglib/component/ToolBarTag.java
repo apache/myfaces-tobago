@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ORIENTATION;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIToolBar;
 
@@ -41,6 +42,7 @@ public class ToolBarTag extends PanelTag
 
   private String labelPosition = LABEL_BOTTOM;
   private String iconSize = ICON_SMALL;
+  private String orientation = UIToolBar.ORIENTATION_LEFT;
 
 
   public String getComponentType() {
@@ -51,6 +53,7 @@ public class ToolBarTag extends PanelTag
     super.setProperties(component);
     ComponentUtil.setStringProperty(component, ATTR_LABEL_POSITION, labelPosition);
     ComponentUtil.setStringProperty(component, ATTR_ICON_SIZE, iconSize);
+    ComponentUtil.setStringProperty(component, ATTR_ORIENTATION, orientation);
   }
 
   public void release() {
@@ -67,4 +70,7 @@ public class ToolBarTag extends PanelTag
     this.iconSize = iconSize;
   }
 
+    public void setOrientation(String orientation) {
+        this.orientation = orientation;
+    }
 }

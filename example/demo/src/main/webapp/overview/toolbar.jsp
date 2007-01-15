@@ -83,7 +83,8 @@
 
         <tc:cell spanX="3">
         <tc:toolBar iconSize="#{overviewController.toolbarIconSize}"
-            labelPosition="#{overviewController.toolbarTextPosition}" >
+                    labelPosition="#{overviewController.toolbarTextPosition}"
+                    orientation="left" >
           <tc:toolBarCommand id="button2" action="overview/toolbar"
               actionListener="#{overviewController.click}"
               label="#{overviewBundle.toolbar_buttonAction}" />

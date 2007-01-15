@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ORIENTATION;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
 
@@ -39,10 +40,14 @@ public class UIToolBar extends javax.faces.component.UIPanel {
   public static final String ICON_BIG = "big";
   public static final String ICON_OFF = "off";
 
+  public static final String ORIENTATION_LEFT = "left";
+  public static final String ORIENTATION_RIGHT = "right";
+
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.ToolBar";
 
   private String labelPosition;
   private String iconSize;
+  private String orientation;
 
   public String getLabelPosition() {
     if (labelPosition != null) {
@@ -76,11 +81,30 @@ public class UIToolBar extends javax.faces.component.UIPanel {
     this.iconSize = iconSize;
   }
 
+
+  public String getOrientation() {
+    if (orientation != null) {
+      return orientation;
+    }
+    ValueBinding vb = getValueBinding(ATTR_ORIENTATION);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return ORIENTATION_LEFT;
+    }
+
+  }
+
+  public void setOrientation(String orientation) {
+    this.orientation = orientation;
+  }
+
   public Object saveState(FacesContext context) {
-    Object[] saveState = new Object[3];
+    Object[] saveState = new Object[4];
     saveState[0] = super.saveState(context);
     saveState[1] = labelPosition;
     saveState[2] = iconSize;
+    saveState[3] = orientation;
     return saveState;
   }
 
@@ -89,5 +113,6 @@ public class UIToolBar extends javax.faces.component.UIPanel {
     super.restoreState(context, values[0]);
     labelPosition = (String) values[1];
     iconSize = (String) values[2];
+    orientation = (String) values[3];
   }
 }
