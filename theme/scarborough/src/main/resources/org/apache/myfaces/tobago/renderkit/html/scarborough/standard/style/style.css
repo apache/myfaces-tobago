@@ -236,6 +236,10 @@ td.tobago-calendar-day-selected {
   font-weight: normal;
 }
 
+.tobago-button-disabled {
+  cursor: pointer;
+}
+
 .tobago-button-default img  {
   margin-right: 5px;
   vertical-align: middle;
@@ -407,6 +411,7 @@ label.tobago-label-default  {
   padding: 0px 0px 0px 2px;
   margin: 0px;
   border: 0px solid transparent;
+  white-space: nowrap;
 /*  font-size: 14px;*/
 /*  border: 2px solid #ccddee; */
 /*  background: #ccddee; */
