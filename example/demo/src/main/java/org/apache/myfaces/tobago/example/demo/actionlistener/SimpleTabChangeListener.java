@@ -31,9 +31,14 @@ public class SimpleTabChangeListener implements TabChangeListener {
 
   private static final Log LOG = LogFactory.getLog(SimpleTabChangeListener.class);
 
+
+  public SimpleTabChangeListener() {
+    LOG.error("new SimpleTabChangeListener " +this);
+  }
+
   public void processTabChange(TabChangeEvent tabChangeEvent) {
     LOG.error("TabState has Changed: from tabIndex " + tabChangeEvent.getOldState()
-        + " to tabIndex " + tabChangeEvent.getNewState());
+        + " to tabIndex " + tabChangeEvent.getNewState()+ " " + this);
 
   }
 }

@@ -39,15 +39,15 @@
     </layout>
   </appender>
 
-<!--
-  <category name="org.apache.myfaces">
+
+  <category name="org.apache.myfaces.tobago.ajax">
     <priority value="debug" />
   </category>
 
-  <category name="javax.faces">
+  <category name="org.apache.myfaces.tobago.renderkit.CommandRendererBase">
     <priority value="debug" />
   </category>
--->
+
 
   <root>
     <priority value="info" />

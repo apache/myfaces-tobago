@@ -114,7 +114,7 @@
         </f:facet>
 
         <tc:sheet value="#{demo.solarList}" id="sheet"
-                  columns="3*;1*;3*;3*;3*;3*" var="luminary"
+                  columns="3*;1*;1*;3*;3*;3*;3*" var="luminary"
                   state="#{demo.sheetState}"
                   showHeader="#{overviewController.sheetConfig.sheetShowHeader}"
                   showRowRange="#{overviewController.sheetConfig.sheetRowPagingPosition}"
@@ -131,6 +131,12 @@
           </f:facet>
           <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true">
             <tc:out value="#{luminary.name}" id="t_name"/>
+          </tc:column>
+          <tc:column label="Button">
+            <tc:button >
+              <tc:attribute name="renderedPartially" value=":page:sheetConfigPopup"/>
+              <tc:popupReference for=":page:sheetConfigPopup"></tc:popupReference>
+            </tc:button>
           </tc:column>
           <tc:column label="#{overviewBundle.solarArrayNumber}" id="number" sortable="false" align="center">
             <tc:out value="#{luminary.number}" id="t_number"/>

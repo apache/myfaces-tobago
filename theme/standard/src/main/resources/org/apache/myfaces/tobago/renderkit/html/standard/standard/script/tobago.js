@@ -359,16 +359,23 @@ var Tobago = {
    /**
     * Submitting the page with specified actionId.
     */
-  submitAction: function(actionId) {
+  submitAction: function(actionId, target) {
     Tobago.Transport.request(function() {
       var req = Tobago.Transport.requests.shift(); // remove this from queue
       LOG.debug("request removed :" + req.toString());
       var oldAction = Tobago.action.value;
+      var oldTarget = Tobago.form.target;
       Tobago.action.value = actionId;
+      if (target) {
+        Tobago.action.target = target;
+      }
       Tobago.onSubmit();
 //      LOG.debug("submit form with action: " + Tobago.action.value);
       Tobago.form.submit();
       Tobago.action.value = oldAction;
+      if (target) {
+        Tobago.action.target = oldTarget;
+      }
     }, true);
   },
 

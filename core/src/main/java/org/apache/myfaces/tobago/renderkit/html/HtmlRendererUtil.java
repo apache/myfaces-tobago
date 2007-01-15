@@ -666,6 +666,9 @@ public final class HtmlRendererUtil {
         command.addActionListener(new PopupActionListener(popup));
       }
     }
+    // TODO find a better way
+    boolean popupAction = component instanceof UICommand
+        && ComponentUtil.containsPopupActionListener((UICommand) component);
 
     //String type = (String) component.getAttributes().get(ATTR_TYPE);
     //String command = (String) component.getAttributes().get(ATTR_ACTION_STRING);
@@ -690,7 +693,7 @@ public final class HtmlRendererUtil {
 
       if (componentId != null && componentId.length == 1) {
 
-        if (component.getFacet(FACET_POPUP) !=null) {
+        if (popupAction) {
           onclick = "Tobago.openPopupWithAction('" + getComponentId(facesContext, component, componentId[0]) + "', '"
               + clientId + "')";
         } else {
