@@ -39,6 +39,7 @@ public final class TobagoConstants {
   public static final String ATTR_CONVERTER = "converter";
   public static final String ATTR_DATE_STYLE = "dateStyle";
   public static final String ATTR_DEFAULT_COMMAND = "defaultCommand";
+  public static final String ATTR_DELAY = "delay";
   public static final String ATTR_DIRECT_LINK_COUNT = "directLinkCount";
   public static final String ATTR_DISABLED = "disabled";
   @Deprecated
@@ -162,6 +163,7 @@ public final class TobagoConstants {
   public static final String ATTR_WIDTH_LIST = "widthList";
   public static final String ATTR_WIDTH_LIST_STRING = "widthListString";
 
+  public static final String FACET_ACTION = "action";
   public static final String FACET_CONFIRMATION = "confirmation";
   public static final String FACET_LABEL = "label";
   public static final String FACET_LAYOUT = "layout";
