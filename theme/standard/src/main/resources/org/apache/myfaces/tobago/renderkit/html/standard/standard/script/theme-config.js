@@ -54,7 +54,7 @@ Tobago.Config =  {
 Tobago.Config.set("Tobago", "themeConfig", "standard/standard");
 
  /**
-  * scrollbar witdh, may be browser specific
+  * scrollbar width, may be browser specific
   */
 Tobago.Config.set("Tobago", "scrollbarWidth", 15);
 
