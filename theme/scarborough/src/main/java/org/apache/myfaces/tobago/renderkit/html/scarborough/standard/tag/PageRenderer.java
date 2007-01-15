@@ -259,8 +259,8 @@ public class PageRenderer extends PageRendererBase {
     if (component.getFacets().containsKey(FACET_ACTION)) {
       UIComponent command = component.getFacet(FACET_ACTION);
       int duration = ComponentUtil.getIntAttribute(command, ATTR_DELAY, 100);
-      page.getOnloadScripts().add("setTimeout(\"Tobago.submitAction('" +
-          command.getClientId(facesContext) + "')\", " + duration +");\n");
+      page.getOnloadScripts().add("setTimeout(\"Tobago.submitAction('"
+          + command.getClientId(facesContext) + "')\", " + duration +");\n");
     }
     //page.getOnloadScripts()
     // onload script

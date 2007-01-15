@@ -54,7 +54,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -681,7 +680,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         if (object instanceof UIComponent) {
          UIComponent component = (UIComponent) object;
           if (component instanceof UICell) {
-            if (((UICell)component).getSpanX() > 1) {
+            if (((UICell) component).getSpanX() > 1) {
               continue;
             }
           }

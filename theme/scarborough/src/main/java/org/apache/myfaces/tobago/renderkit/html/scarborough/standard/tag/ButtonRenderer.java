@@ -125,7 +125,7 @@ public class ButtonRenderer extends CommandRendererBase {
   }
 
   private String createButtonType(UIComponent component) {
-    boolean defaultCommand = ComponentUtil.getBooleanAttribute(component,ATTR_DEFAULT_COMMAND);
+    boolean defaultCommand = ComponentUtil.getBooleanAttribute(component, ATTR_DEFAULT_COMMAND);
     return defaultCommand ? "submit" : "button";
   }
 
