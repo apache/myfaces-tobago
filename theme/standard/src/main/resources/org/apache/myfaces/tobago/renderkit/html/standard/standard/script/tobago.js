@@ -1005,7 +1005,7 @@ var Tobago = {
 
 
    /**
-    * Create a overlay with same dimension an wait cursor over a htmlElement.
+    * Create an overlay with same dimension and wait cursor over an htmlElement.
     */
   createOverlay: function(element) {
     var overlay = document.createElement('div');
@@ -1016,14 +1016,14 @@ var Tobago = {
     overlay.style.width = element.offsetWidth + 'px';
     overlay.style.height = element.offsetHeight + 'px';
     overlay.style.cursor = "wait";
-    // TODO: better z-index strategie
+    // TODO: better z-index strategy
     overlay.style.zIndex = 10000;
     element.appendChild(overlay);
     return overlay;
   },
 
   /**
-    * Create a overlay with same dimension an wait cursor over a htmlElement.
+    * Delete an overlay created by createOverlay.
     */
   deleteOverlay: function(element) {
     var overlay = document.getElementById(element.id + "-overlay");
