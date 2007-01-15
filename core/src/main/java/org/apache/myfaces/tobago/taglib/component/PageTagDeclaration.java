@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
@@ -39,7 +40,10 @@ import org.apache.myfaces.tobago.taglib.decl.HasState;
 @Tag(name = "page")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPage",
-    rendererType = "Page")
+    rendererType = "Page",
+    facets =
+        { @Facet(name = "action", description ="An UICommand (tc:command) " ),
+        @Facet(name = "menuBar", description = "Menubar")})
 
 public interface PageTagDeclaration extends TobagoBodyTagDeclaration, HasLabel, HasId, HasDimension, HasBinding,
     HasState {

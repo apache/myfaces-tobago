@@ -25,16 +25,19 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CHARSET;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DELAY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DOCTYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ENCTYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_METHOD;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PAGE_MENU;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_ACTION;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.FORM_ACCEPT_CHARSET;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
@@ -253,6 +256,13 @@ public class PageRenderer extends PageRendererBase {
     }
 
     HtmlRendererUtil.startJavascript(writer);
+    if (component.getFacets().containsKey(FACET_ACTION)) {
+      UIComponent command = component.getFacet(FACET_ACTION);
+      int duration = ComponentUtil.getIntAttribute(command, ATTR_DELAY, 100);
+      page.getOnloadScripts().add("setTimeout(\"Tobago.submitAction('" +
+          command.getClientId(facesContext) + "')\", " + duration +");\n");
+    }
+    //page.getOnloadScripts()
     // onload script
     writeEventFunction(writer, page.getOnloadScripts(), "load");
 
@@ -281,8 +291,7 @@ public class PageRenderer extends PageRendererBase {
         ? page.getDefaultActionId() : "";
     writer.endElement(HtmlConstants.HEAD);
     writer.startElement(HtmlConstants.BODY, page);
-    writer.writeAttribute(HtmlAttributes.ONLOAD,
-        "Tobago.init('" + clientId + "');", null);
+    writer.writeAttribute(HtmlAttributes.ONLOAD, "Tobago.init('" + clientId + "');", null);
 //    writer.writeAttribute("onunload", "Tobago.onexit();", null);
     //this ist for ie to prevent scrollbars where none are needed
     writer.writeAttribute(HtmlAttributes.SCROLL, "auto", null);
