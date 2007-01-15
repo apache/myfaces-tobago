@@ -42,7 +42,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasState;
     uiComponent = "org.apache.myfaces.tobago.component.UIPage",
     rendererType = "Page",
     facets =
-        { @Facet(name = "action", description ="An UICommand (tc:command) " ),
+        { @Facet(name = "action", description ="An UICommand (tc:command)"),
         @Facet(name = "menuBar", description = "Menubar")})
 
 public interface PageTagDeclaration extends TobagoBodyTagDeclaration, HasLabel, HasId, HasDimension, HasBinding,

@@ -52,7 +52,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @Tag(name = "selectManyListbox")
 public class SelectManyListboxExtensionTag extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled, HasDeprecatedHeight, IsInline,
-    HasLabel, HasLabelWidth,IsRendered, HasBinding, HasTip, HasConverter, HasValidator, HasOnchange, IsReadonly {
+    HasLabel, HasLabelWidth, IsRendered, HasBinding, HasTip, HasConverter, HasValidator, HasOnchange, IsReadonly {
 
   private String required;
   private String value;
