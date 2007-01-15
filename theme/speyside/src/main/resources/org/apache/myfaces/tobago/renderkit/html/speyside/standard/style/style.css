@@ -258,8 +258,7 @@ reason they are not defined as a:link
   background: #ffffff;
   font: bold 12px arial, helvetica, sans-serif;
   color: #660000;
-  height: 20px;
-  cursor: pointer;
+  height: 20px;  
 }
 
 .tobago-button-disabled {

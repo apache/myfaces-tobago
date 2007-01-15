@@ -234,6 +234,7 @@ td.tobago-calendar-day-selected {
   padding-right: 0.2em;
   background: #bbccdd;
   font-weight: normal;
+  cursor: pointer;
 }
 
 .tobago-button-disabled {
@@ -621,6 +622,12 @@ div.tobago-richTextEditor-body {
 .tobago-textArea-disabled  {
   color: #778899;
   background: #bbccdd;
+}
+
+.tobago-textArea-required {
+   background-image: url( "../image/required.gif" );
+   background-position: 3px 3px;
+   background-repeat: no-repeat;
 }
 
 .tobago-textArea-error  {
