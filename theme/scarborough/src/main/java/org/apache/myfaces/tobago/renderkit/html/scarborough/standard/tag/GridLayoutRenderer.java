@@ -65,16 +65,17 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
   private static final Log LOG = LogFactory.getLog(GridLayoutRenderer.class);
 
-  public Dimension getFixedSize(FacesContext facesContext, UIComponent component) {
+  /*public Dimension getFixedSize(FacesContext facesContext, UIComponent component) {
     Dimension dimension = null;
 
     int height = getFixedHeight(facesContext, component);
-    int width = -1; // TODO. implement getFixedWidth
+    int width =  getFixedWidth(facesContext, component);
+        //-1; // TODO. implement getFixedWidth
 
     dimension = new Dimension(width, height);
 
     return dimension;
-  }
+  } */
 
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
@@ -86,6 +87,16 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     height += containerRenderer.getPaddingHeight(facesContext, component);
     return height;
   }
+
+  public int getFixedWidth(FacesContext facesContext, UIComponent component) {
+     int width = calculateLayoutWidth(facesContext, component, false);
+
+     RendererBase containerRenderer =
+         ComponentUtil.getRenderer(facesContext, component);
+     width += containerRenderer.getPaddingWidth(facesContext, component);
+     return width;
+   }
+
 
   public int calculateLayoutHeight(
       FacesContext facesContext, UIComponent component, boolean minimum) {
@@ -137,6 +148,82 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     }
 
     return height;
+  }
+
+
+  public int calculateLayoutWidth(
+      FacesContext facesContext, UIComponent component, boolean minimum) {
+    UIGridLayout layout = (UIGridLayout) UILayout.getLayout(component);
+    final List<UIGridLayout.Row> rows = layout.ensureRows();
+    UIGridLayout.Row row = rows.get(0);
+
+    String columnLayout
+        = (String) layout.getAttributes().get(ATTR_COLUMNS);
+
+    if (columnLayout == null && !minimum && LOG.isDebugEnabled()) {
+      LOG.debug("No rowLayout found using " + (minimum ? "'minimum'" : "'fixed'")
+          + " for all " + rows.size() + " rows of "
+          + layout.getClientId(facesContext) + " !");
+    }
+    String[] layoutTokens
+        = LayoutInfo.createLayoutTokens(columnLayout, row.getColumns(),
+            minimum ? "minimum" : "fixed");
+
+    if (row.getColumns() != layoutTokens.length) {
+      LOG.warn("Unbalanced layout: rows.size()=" + rows.size()
+          + " != layoutTokens.length=" + layoutTokens.length
+          + " columnLayout='" + columnLayout + "'");
+    }
+    int size = Math.min(rows.size(), layoutTokens.length);
+
+    int width = 0;
+    width += getMarginAsInt(layout.getMarginLeft());
+    width += getMarginAsInt(layout.getMarginRight());
+    for (int i = 0; i < size; i++) {
+      if (!columnIsRendered(rows,  i)) {
+        continue;
+      }
+      width += getCellPadding(facesContext, layout,  i);
+      String token = layoutTokens[i];
+      if (token.matches("\\d+px")) {
+        width += Integer.parseInt(token.replaceAll("\\D", ""));
+      } else if (token.equals("fixed")) {
+        width += getMaxWidth(facesContext, rows, i, false);
+      } else if (token.equals("minimum")) {
+        width += getMaxWidth(facesContext, rows, i, true);
+      } else {
+        if (!minimum && LOG.isWarnEnabled()) {
+          LOG.warn("Unable to calculate Width for token '" + token
+              + "'! using " + (minimum ? "'minimum'" : "'fixed'") + " , component:"
+              + layout.getClientId(facesContext) + " is "
+              + layout.getRendererType());
+        }
+        width += getMaxWidth(facesContext, rows,  i, minimum);
+      }
+    }
+
+    return width;
+  }
+
+  private boolean columnIsRendered(List<UIGridLayout.Row> rows, int column) {
+    for (UIGridLayout.Row row : rows) {
+      Object object = row.getElements().get(column); 
+      if (object instanceof UIComponent) {
+        if (object instanceof UICell) {
+          UICell cell = (UICell) object;
+          if (cell.getSpanX() > 1) {
+            return false;
+          }
+        }
+        UIComponent component = (UIComponent) object;
+        if (component.isRendered()) {
+          return true;
+        }
+      } else if (UIGridLayout.USED.equals(object)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private boolean rowIsRendered(UIGridLayout.Row row) {
@@ -593,7 +680,11 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
         if (object instanceof UIComponent) {
          UIComponent component = (UIComponent) object;
-
+          if (component instanceof UICell) {
+            if (((UICell)component).getSpanX() > 1) {
+              continue;
+            }
+          }
           int max = -1;
           if (minimum) {
             max = (int) LayoutUtil.getMinimumSize(facesContext, component).getWidth();
