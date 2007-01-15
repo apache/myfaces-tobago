@@ -236,7 +236,7 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype, {
 
     this.scrollElement = document.createElement("DIV");
     this.scrollElement.style.overflow = "auto";
-    this.scrollElement.style.widht = "100%";
+    this.scrollElement.style.width = "100%";
     this.scrollElement.style.height = "100%";
     this.scrollElement.style.background = "#ffffff";
     this.element.appendChild(this.scrollElement);
