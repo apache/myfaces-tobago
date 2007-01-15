@@ -20,7 +20,7 @@
 
   <tc:panel id="a">
     <f:facet name="layout">
-      <tc:gridLayout columns="70px;70px;130px;1*"
+      <tc:gridLayout columns="fixed;fixed;fixed;1*"
           rows="15px;fixed" id="b"/>
     </f:facet>
 
