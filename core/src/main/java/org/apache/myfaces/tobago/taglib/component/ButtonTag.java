@@ -27,6 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
@@ -45,6 +46,7 @@ public class ButtonTag extends AbstractCommandTag
   private String image;
   private String tip;
   private String defaultCommand;
+  private String target;
 
 
   @Override
@@ -53,6 +55,7 @@ public class ButtonTag extends AbstractCommandTag
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
     ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
+    ComponentUtil.setStringProperty(component, ATTR_TARGET, target);
     ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand);
   }
 
@@ -63,6 +66,7 @@ public class ButtonTag extends AbstractCommandTag
     image = null;
     tip = null;
     defaultCommand = null;
+    target = null;
   }
 
   public String getAccessKey() {
@@ -108,6 +112,10 @@ public class ButtonTag extends AbstractCommandTag
 
   public void setDefaultCommand(String defaultCommand) {
     this.defaultCommand = defaultCommand;
+  }
+
+  public void setTarget(String target) {
+    this.target = target;
   }
 }
 

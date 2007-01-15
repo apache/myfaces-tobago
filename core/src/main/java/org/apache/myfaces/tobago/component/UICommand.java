@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.component;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDERED_PARTIALLY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -39,6 +40,7 @@ public class UICommand extends javax.faces.component.UICommand {
   private Boolean defaultCommand;
   private Boolean disabled;
   private String[] renderedPartially;
+  private String target;
 
   public boolean isDefaultCommand() {
     if (defaultCommand != null) {
@@ -95,12 +97,30 @@ public class UICommand extends javax.faces.component.UICommand {
     this.disabled = disabled;
   }
 
+  public String getTarget() {
+    if (target != null) {
+      return target;
+    }
+    ValueBinding vb = getValueBinding(ATTR_TARGET);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return null;
+    }
+  }
+
+  public void setTarget(String target) {
+    this.target = target;
+  }
+
+
   public Object saveState(FacesContext context) {
-    Object[] saveState = new Object[4];
+    Object[] saveState = new Object[5];
     saveState[0] = super.saveState(context);
     saveState[1] = defaultCommand;
     saveState[2] = disabled;
     saveState[3] = renderedPartially;
+    saveState[4] = target;
     return saveState;
   }
 
@@ -110,6 +130,7 @@ public class UICommand extends javax.faces.component.UICommand {
     defaultCommand = (Boolean) values[1];
     disabled = (Boolean) values[2];
     renderedPartially = (String[]) values[3];
+    target = (String) values[4];
   }
 
 

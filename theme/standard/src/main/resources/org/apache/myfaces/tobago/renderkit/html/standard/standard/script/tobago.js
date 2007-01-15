@@ -367,14 +367,14 @@ var Tobago = {
       var oldTarget = Tobago.form.target;
       Tobago.action.value = actionId;
       if (target) {
-        Tobago.action.target = target;
+        Tobago.form.target = target;
       }
       Tobago.onSubmit();
 //      LOG.debug("submit form with action: " + Tobago.action.value);
       Tobago.form.submit();
       Tobago.action.value = oldAction;
       if (target) {
-        Tobago.action.target = oldTarget;
+        Tobago.form.target = oldTarget;
       }
     }, true);
   },

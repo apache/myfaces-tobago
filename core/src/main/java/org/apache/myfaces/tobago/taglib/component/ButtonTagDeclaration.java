@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDefaultCommand;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
+import org.apache.myfaces.tobago.taglib.decl.HasTarget;
 
 /*
  * Created by IntelliJ IDEA.
@@ -49,5 +50,5 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 public interface ButtonTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
     IsDisabled, HasCommandType,
-    IsDefaultCommand, HasDeprecatedWidth, HasTip, IsInline {
+    IsDefaultCommand, HasDeprecatedWidth, HasTip, IsInline, HasTarget {
 }
