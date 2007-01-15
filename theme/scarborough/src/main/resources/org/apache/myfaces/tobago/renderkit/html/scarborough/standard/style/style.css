@@ -237,7 +237,7 @@ td.tobago-calendar-day-selected {
 }
 
 .tobago-button-disabled {
-  cursor: pointer;
+  cursor: default;
 }
 
 .tobago-button-default img  {
