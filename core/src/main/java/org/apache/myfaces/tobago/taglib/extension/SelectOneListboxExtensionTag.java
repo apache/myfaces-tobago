@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -49,7 +50,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @Tag(name = "selectOneListbox")
 public class SelectOneListboxExtensionTag
     extends BodyTagSupport implements HasId, HasValue, HasValueChangeListener, IsDisabled,
-    HasLabel, IsReadonly, HasOnchange, IsRendered,
+    HasLabel, HasLabelWidth,IsReadonly, HasOnchange, IsRendered,
     HasBinding, HasDeprecatedHeight, HasTip , IsRequired, HasConverter, HasValidator {
   private String required;
   private String value;
@@ -65,6 +66,7 @@ public class SelectOneListboxExtensionTag
   private String height;
   private String converter;
   private String validator;
+  private String labelWidth;
 
   private LabelExtensionTag labelTag;
   private SelectOneListboxTag selectOneListboxTag;
@@ -82,6 +84,9 @@ public class SelectOneListboxExtensionTag
     }
     if (rendered != null) {
       labelTag.setRendered(rendered);
+    }
+    if (labelWidth != null) {
+      labelTag.setColumns(labelWidth + ";*");
     }
     labelTag.setParent(getParent());
     labelTag.doStartTag();
@@ -144,6 +149,7 @@ public class SelectOneListboxExtensionTag
     onchange = null;
     disabled = null;
     inline = null;
+    labelWidth = null;
     label = null;
     height = null;
     readonly = null;
@@ -211,5 +217,9 @@ public class SelectOneListboxExtensionTag
 
   public void setTip(String tip) {
     this.tip = tip;
+  }
+
+  public void setLabelWidth(String labelWidth) {
+    this.labelWidth = labelWidth;
   }
 }

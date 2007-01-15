@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -35,7 +36,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @Tag(name = "file")
 public class FileExtensionTag extends BodyTagSupport
     implements InputTagDeclaration, HasIdBindingAndRendered, IsDisabled,
-    HasTip, HasLabel {
+    HasTip, HasLabel, HasLabelWidth {
 
   private String binding;
   private String label;
@@ -46,6 +47,7 @@ public class FileExtensionTag extends BodyTagSupport
   private String rendered;
   private String tip;
   private String onchange;
+  private String labelWidth;
 
   private LabelExtensionTag labelTag;
   private FileTag fileTag;
@@ -63,6 +65,9 @@ public class FileExtensionTag extends BodyTagSupport
     }
     if (rendered != null) {
       labelTag.setRendered(rendered);
+    }
+    if (labelWidth != null) {
+      labelTag.setColumns(labelWidth + ";*");
     }
     labelTag.setParent(getParent());
     labelTag.doStartTag();
@@ -109,9 +114,12 @@ public class FileExtensionTag extends BodyTagSupport
     binding = null;
     validator = null;
     disabled = null;
+    label = null;
+    labelWidth = null;
     tip = null;
     onchange = null;
     value = null;
+    rendered = null;
     valueChangeListener = null;
   }
 
@@ -149,5 +157,8 @@ public class FileExtensionTag extends BodyTagSupport
 
   public void setTip(String tip) {
     this.tip = tip;
+  }
+  public void setLabelWidth(String labelWidth) {
+    this.labelWidth = labelWidth;
   }
 }

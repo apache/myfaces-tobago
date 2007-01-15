@@ -35,6 +35,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.HasSuggestMethod;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -60,7 +61,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class InExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasOnchange,
-    IsRequired, HasTip, HasLabel, IsPassword, IsFocus, HasSuggestMethod {
+    IsRequired, HasTip, HasLabel, HasLabelWidth, IsPassword, IsFocus, HasSuggestMethod {
 
   private String binding;
   private String converter;
@@ -78,6 +79,7 @@ public class InExtensionTag extends BodyTagSupport
   private String onchange;
   private String suggestMethod;
   private String markup;
+  private String labelWidth;
 
   private LabelExtensionTag labelTag;
   private InTag inTag;
@@ -95,6 +97,9 @@ public class InExtensionTag extends BodyTagSupport
     }
     if (rendered != null) {
       labelTag.setRendered(rendered);
+    }
+    if (labelWidth != null) {
+      labelTag.setColumns(labelWidth + ";*");
     }
 
     labelTag.setParent(getParent());
@@ -164,6 +169,7 @@ public class InExtensionTag extends BodyTagSupport
     converter = null;
     validator = null;
     disabled = null;
+    labelWidth = null;
     focus = null;
     label = null;
     password = null;
@@ -245,5 +251,9 @@ public class InExtensionTag extends BodyTagSupport
 
   public void setTip(String tip) {
     this.tip = tip;
+  }
+
+  public void setLabelWidth(String labelWidth) {
+    this.labelWidth = labelWidth;
   }
 }

@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
 import org.apache.myfaces.tobago.taglib.component.SelectBooleanCheckboxTag;
 import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
 
@@ -45,7 +46,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @Tag(name = "selectBooleanCheckbox")
 public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements TobagoTagDeclaration, 
     HasValidator, HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabel,
-    HasBooleanValue, IsDisabled, HasTip, IsReadonly {
+    HasBooleanValue, HasLabelWidth, IsDisabled, HasTip, IsReadonly {
 
   private String value;
   private String valueChangeListener;
@@ -58,6 +59,7 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
   private String tip;
   private String converter;
   private String validator;
+  private String labelWidth;
 
   private LabelExtensionTag labelTag;
   private SelectBooleanCheckboxTag selectBooleanCheckboxTag;
@@ -75,6 +77,9 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     }
     if (rendered != null) {
       labelTag.setRendered(rendered);
+    }
+    if (labelWidth != null) {
+      labelTag.setColumns(labelWidth + ";*");
     }
     /* TODO accessKey
     if (labelWithAccessKey != null) {
@@ -141,6 +146,7 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     onchange = null;
     disabled = null;
     label = null;
+    labelWidth = null;
     readonly = null;
     rendered = null;
     converter = null;
@@ -193,6 +199,10 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
 
   public void setTip(String tip) {
     this.tip = tip;
+  }
+
+  public void setLabelWidth(String labelWidth) {
+    this.labelWidth = labelWidth;
   }
 
 }

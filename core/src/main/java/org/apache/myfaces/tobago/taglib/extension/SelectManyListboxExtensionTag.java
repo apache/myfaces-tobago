@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -51,7 +52,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @Tag(name = "selectManyListbox")
 public class SelectManyListboxExtensionTag extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled, HasDeprecatedHeight, IsInline,
-    HasLabel, IsRendered, HasBinding, HasTip, HasConverter, HasValidator, HasOnchange, IsReadonly {
+    HasLabel, HasLabelWidth,IsRendered, HasBinding, HasTip, HasConverter, HasValidator, HasOnchange, IsReadonly {
 
   private String required;
   private String value;
@@ -67,6 +68,7 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
   private String height;
   private String converter;
   private String validator;
+  private String labelWidth;
 
   private LabelExtensionTag labelTag;
   private SelectManyListboxTag selectManyListboxTag;
@@ -84,6 +86,9 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
     }
     if (rendered != null) {
       labelTag.setRendered(rendered);
+    }
+    if (labelWidth != null) {
+      labelTag.setColumns(labelWidth + ";*");
     }
     /* TODO accessKey
     if (labelWithAccessKey != null) {
@@ -154,6 +159,7 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
     disabled = null;
     inline = null;
     label = null;
+    labelWidth = null;
     height = null;
     readonly = null;
     rendered = null;
@@ -219,5 +225,9 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
 
   public void setTip(String tip) {
     this.tip = tip;
+  }
+
+  public void setLabelWidth(String labelWidth) {
+    this.labelWidth = labelWidth;
   }
 }

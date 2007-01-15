@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -45,7 +46,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class SelectOneChoiceExtensionTag
     extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled,
-    IsReadonly, HasOnchange, IsInline, HasLabel, IsRequired,
+    IsReadonly, HasOnchange, IsInline, HasLabel, HasLabelWidth, IsRequired,
     IsRendered, HasBinding, HasTip , HasValidator, HasConverter {
 
   private String required;
@@ -61,6 +62,7 @@ public class SelectOneChoiceExtensionTag
   private String tip;
   private String validator;
   private String converter;
+  private String labelWidth;
 
   private LabelExtensionTag labelTag;
   private SelectOneChoiceTag selectOneChoiceTag;
@@ -78,6 +80,9 @@ public class SelectOneChoiceExtensionTag
     }
     if (rendered != null) {
       labelTag.setRendered(rendered);
+    }
+    if (labelWidth != null) {
+      labelTag.setColumns(labelWidth + ";*");
     }
     labelTag.setParent(getParent());
     labelTag.doStartTag();
@@ -139,6 +144,7 @@ public class SelectOneChoiceExtensionTag
     disabled = null;
     inline = null;
     label = null;
+    labelWidth = null;
     converter = null;
     validator = null;
     readonly = null;
@@ -199,6 +205,10 @@ public class SelectOneChoiceExtensionTag
 
   public void setTip(String tip) {
     this.tip = tip;
+  }
+
+  public void setLabelWidth(String labelWidth) {
+    this.labelWidth = labelWidth;
   }
 
 }
