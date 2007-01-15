@@ -125,16 +125,29 @@ public class ButtonRenderer extends CommandRendererBase {
   }
 
   private String createButtonType(UIComponent component) {
-    String buttonType;
-    //String type = (String) component.getAttributes().get(ATTR_TYPE);
+    boolean defaultCommand = ComponentUtil.getBooleanAttribute(component,ATTR_DEFAULT_COMMAND);
+    return defaultCommand ? "submit" : "button";
+  }
 
-    boolean defaultCommand = ComponentUtil.getBooleanAttribute(component,
-        ATTR_DEFAULT_COMMAND);
-    //if (COMMAND_TYPE_RESET.equals(type)) {
-    //  buttonType = "reset";
-    //} else { // default: Action.TYPE_SUBMIT
-      buttonType = defaultCommand ? "submit" : "button";
-    //}
-    return buttonType;
+
+  public int getFixedWidth(FacesContext facesContext, UIComponent component) {
+    int width = 0;
+    String imageName = (String) component.getAttributes().get(ATTR_IMAGE);
+    if (imageName != null) {
+      width = getConfiguredValue(facesContext, component, "imageWidth");
+    }
+    LabelWithAccessKey label = new LabelWithAccessKey(component);
+
+    if (label.getText() != null) {
+      width += label.getText().length()*getConfiguredValue(facesContext, component, "fontWidth");
+    }
+    int padding = getConfiguredValue(facesContext, component, "paddingWidth");
+    width += 2 * padding;
+    if (imageName != null && label.getText() != null){
+      width += padding;
+    }
+
+    return width;
+
   }
 }
