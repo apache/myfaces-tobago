@@ -624,11 +624,11 @@ div.tobago-richTextEditor-body {
   background: #bbccdd;
 }
 
-.tobago-textArea-required {
+/*.tobago-textArea-required {
    background-image: url( "../image/required.gif" );
    background-position: 3px 3px;
    background-repeat: no-repeat;
-}
+} */
 
 .tobago-textArea-error  {
   border-style: solid;
