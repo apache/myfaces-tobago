@@ -37,8 +37,10 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
 @UIComponentTag(
     uiComponent = "javax.faces.component.UIOutput",
     rendererType = "Progress", isComponentAlreadyDefined = true,
-    facets = {@Facet( name="complete",
-        description = "Contains a instance of UICommand (tc:command). The action is invoked if the full progress has reached")})
+    facets = {@Facet(
+        name="complete",
+        description =
+            "Contains a instance of UICommand (tc:command). The action is invoked if the full progress has reached")})
 public interface ProgressTagDeclaration extends BeanTagDeclaration, HasIdBindingAndRendered, HasTip {
 
   /**
