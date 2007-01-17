@@ -245,14 +245,60 @@ var Tobago = {
   },
 
   onSubmit: function() {
-    if (!this.isSubmit) {
-      this.isSubmit = true;
-      var clientDimension
-          = this.createInput("hidden", this.form.id + '-clientDimension');
-      clientDimension.value
-          = document.body.clientWidth + ";" + document.body.clientHeight;
-      this.form.appendChild(clientDimension);
+    this.isSubmit = true;
+    var clientDimension = this.createInput("hidden", this.form.id + '-clientDimension');
+    clientDimension.value = document.body.clientWidth + ";" + document.body.clientHeight;
+    this.form.appendChild(clientDimension);
+  },
+
+  onBeforeUnload: function() {
+    Tobago.createOverlay(Tobago.page);
+    setTimeout(Tobago.makeOverlaySemitransparent, 750);
+    setTimeout(Tobago.makeOverlayWait, 2000);
+  },
+
+  makeOverlaySemitransparent: function() {
+    var overlay = Tobago.element(Tobago.page.id + "-overlay");
+    if (overlay) {
+      var img = document.createElement("IMG");
+      img.style.width = overlay.clientWidth;
+      img.style.height = overlay.clientHeight;
+//      todo: implement ie 6 workaround for alpha images
+      if (!Tobago.fixImage) { // is IE
+        img.src = Tobago.OVERLAY_BACKGROUND;
+      }
+      overlay.appendChild(img);
     }
+  },
+
+  makeOverlayWait: function() {
+    var overlay = Tobago.element(Tobago.page.id + "-overlay");
+    if (overlay) {
+      var table = document.createElement("TABLE");
+      table.style.position = "absolute";
+      table.style.top = "0px";
+      table.style.left = "0px";
+      table.border = 1;
+      table.cellPadding = 0;
+      table.cellSpacing = 0;
+      table.style.width = "100%";
+      table.style.height = "100%";
+
+      var row = table.insertRow(0);
+      var cell = row.insertCell(0);
+      cell.align = "center";
+      cell.width = "100%";
+      var anim = document.createElement("IMG");
+      anim.id = Tobago.page.id + "-overlay-wait";
+      cell.appendChild(anim);
+      overlay.appendChild(table);
+      setTimeout(Tobago.loadOverlayWait, 0);
+    }
+  },
+
+  loadOverlayWait: function() {
+    var img = Tobago.element(Tobago.page.id + "-overlay-wait");
+    img.src = Tobago.OVERLAY_WAIT;
   },
 
   /**
@@ -361,6 +407,20 @@ var Tobago = {
     */
   submitAction: function(actionId, target) {
     Tobago.Transport.request(function() {
+<<<<<<< .mine
+      if (!this.isSubmit) {
+        this.isSubmit = true;
+        var req = Tobago.Transport.requests.shift(); // remove this from queue
+        LOG.debug("request removed :" + req.toString());
+        var oldAction = Tobago.action.value;
+        Tobago.action.value = actionId;
+        Tobago.onSubmit();
+  //      LOG.debug("submit form with action: " + Tobago.action.value);
+        Tobago.form.submit();
+        Tobago.action.value = oldAction;
+        Tobago.onBeforeUnload();
+      }
+=======
       var req = Tobago.Transport.requests.shift(); // remove this from queue
       LOG.debug("request removed :" + req.toString());
       var oldAction = Tobago.action.value;
@@ -373,6 +433,7 @@ var Tobago = {
 //      LOG.debug("submit form with action: " + Tobago.action.value);
       Tobago.form.submit();
       Tobago.action.value = oldAction;
+>>>>>>> .r497208
       if (target) {
         Tobago.form.target = oldTarget;
       }
@@ -1020,8 +1081,8 @@ var Tobago = {
     overlay.style.position = "absolute";
     overlay.style.top = "0px";
     overlay.style.left = "0px";
-    overlay.style.width = element.offsetWidth + 'px';
-    overlay.style.height = element.offsetHeight + 'px';
+    overlay.style.width = element.clientWidth + 'px';
+    overlay.style.height = element.clientHeight + 'px';
     overlay.style.cursor = "wait";
     // TODO: better z-index strategy
     overlay.style.zIndex = 10000;

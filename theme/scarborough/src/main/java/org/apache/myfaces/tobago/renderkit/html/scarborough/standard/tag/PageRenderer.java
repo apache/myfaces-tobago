@@ -298,9 +298,17 @@ public class PageRenderer extends PageRendererBase {
     writer.writeComponentClass();
     writer.writeIdAttribute(clientId);
 
-    String blank = ResourceManagerUtil.getImageWithPath(facesContext, "image/blank.gif");
-
-    HtmlRendererUtil.writeJavascript(writer, "Tobago.pngFixBlankImage = \"" + blank + "\";");
+    StringBuilder images = new StringBuilder();
+    images.append("Tobago.pngFixBlankImage = '");
+    images.append(ResourceManagerUtil.getImageWithPath(facesContext, "image/blank.gif"));
+    images.append("';\n");
+    images.append("Tobago.OVERLAY_BACKGROUND = '");
+    images.append(ResourceManagerUtil.getImageWithPath(facesContext, "image/tobago-overlay-background.png"));
+    images.append("';\n");
+    images.append("Tobago.OVERLAY_WAIT = '");
+    images.append(ResourceManagerUtil.getImageWithPath(facesContext, "image/tobago-overlay-wait.gif"));
+    images.append("';\n");
+    HtmlRendererUtil.writeJavascript(writer, images.toString());
 
       if (debugMode) {
       final String[] jsFiles = new String[] {
@@ -308,8 +316,7 @@ public class PageRenderer extends PageRendererBase {
           "script/dragdrop.js",
           "script/logging.js"
       };
-      final String[] jsCommand
-          = new String[]{"new LOG.LogArea({hide: " + hideClientLogging + "});"};
+      final String[] jsCommand = new String[]{"new LOG.LogArea({hide: " + hideClientLogging + "});"};
       HtmlRendererUtil.writeScriptLoader(facesContext, jsFiles, jsCommand);
     }
     HtmlRendererUtil.writeJavascript(writer, "TbgTimer.startBody = new Date();");
