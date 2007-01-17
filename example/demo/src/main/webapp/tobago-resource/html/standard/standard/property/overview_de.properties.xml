@@ -35,11 +35,12 @@
   <entry key="menu_showLog">Zeige Log Panel</entry>
 
 <!--  navigate -->
-  <entry key="intro">Übersicht</entry>
-  <entry key="basicControls">Basis Controls</entry>
-  <entry key="sheetControl">Tabellen Control</entry>
-  <entry key="treeControl">Baum Control</entry>
-  <entry key="tabControl">Tab Control</entry>
+  <entry key="overview">Übersicht</entry>
+  <entry key="intro">Einführung</entry>
+  <entry key="basicControls">Basis</entry>
+  <entry key="sheetControl">Tabellen</entry>
+  <entry key="treeControl">Bäume</entry>
+  <entry key="tabControl">Reiter</entry>
   <entry key="toolbar">Toolbar</entry>
   <entry key="validation">Validierung</entry>
   <entry key="form">Formulare</entry>
@@ -47,6 +48,12 @@
 <!-- browser=Browser -->
   <entry key="locale">Lokalisierung</entry>
 <!-- layout=Layout -->
+
+  <!--<entry key="bestPractice">Best Practice</entry>-->
+  <entry key="error">Fehlerbehandlung</entry>
+  <entry key="theme">Designs</entry>
+  <entry key="transition">Seitenübergang</entry>
+
   <entry key="submit">Übernehmen</entry>
   <entry key="cancel">Abbrechen</entry>
 
@@ -193,9 +200,5 @@
   <entry key="layout_city">Stadt</entry>
   <entry key="layout_note">Anmerkung</entry>
   <entry key="layout_text">Tobago vereinfacht das Gestalten von Webseiten. &lt;ul style="margin-top: 2px;"&gt; &lt;li style="line-height: 130%;"&gt;Bequeme Erstellung von ein- und mehrspaltigen Formularen&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Zellen können mehrere Zeilen und Spalten überspannen&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Automatisches Ausrichten von Beschriftungen für Eingabefelder&lt;/li&gt; &lt;/ul&gt;</entry>
-
-<!--  Mini-Howto -->
-  <entry key="miniHowto">Mini-Howto</entry>
-  <entry key="miniHowtoNavigateTooltip">Link to Mini-Howto</entry>
 
 </properties>

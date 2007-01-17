@@ -20,49 +20,6 @@
 <%-- !!!!!! no <f:subview here !!!!!!! --%>
       <f:facet name="menuBar" >
         <tc:menuBar >
-          <tc:menu label="#{overviewBundle.menu_navigate}">
-            <tc:menuItem action="overview/intro" immediate="true"
-                             actionListener="#{overviewNavigation.navigate}"
-                             label="#{overviewBundle.intro}" />
-            <tc:menuItem action="overview/basicControls" immediate="true"
-                             actionListener="#{overviewNavigation.navigate}"
-                             label="#{overviewBundle.basicControls}"/>
-            <tc:menuItem action="overview/sheetControl" immediate="true"
-                             actionListener="#{overviewNavigation.navigate}"
-                             label="#{overviewBundle.sheetControl}" />
-            <tc:menuItem action="overview/treeControl" immediate="true"
-                             actionListener="#{overviewNavigation.navigate}"
-                             label="#{overviewBundle.treeControl}" />
-            <tc:menuItem action="overview/tabControl" immediate="true"
-                             actionListener="#{overviewNavigation.navigate}"
-                             label="#{overviewBundle.tabControl}" />
-            <tc:menuItem action="overview/toolbar" immediate="true"
-                             actionListener="#{overviewNavigation.navigate}"
-                             label="#{overviewBundle.toolbar}" />
-            <tc:menuItem action="overview/validation" immediate="true"
-                             actionListener="#{overviewNavigation.navigate}"
-                             label="#{overviewBundle.validation}" />
-            <tc:menuItem action="overview/themes" immediate="true"
-                             actionListener="#{overviewNavigation.navigate}"
-                             label="#{overviewBundle.themes}" />
-            <tc:menuItem action="overview/browser" immediate="true"
-                             actionListener="#{overviewNavigation.navigate}"
-                             label="#{overviewBundle.browser}" />
-              <tc:menuSeparator />
-            <tc:menuItem action="overview/locale" immediate="true"
-                             actionListener="#{overviewNavigation.navigate}"
-                             label="#{overviewBundle.locale}" />
-            <tc:menuItem action="overview/layout" immediate="true"
-                             actionListener="#{overviewNavigation.navigate}"
-                             label="#{overviewBundle.layout}" />
-
-<%--
-            <tc:menuSeparator />
-FIXME: this doesn't work
-            <tc:menuItem action="#{miniHowtoNavigation.currentPage}"
-                type="navigate" label="#{overviewBundle.miniHowto}" />
---%>
-          </tc:menu>
           <tc:menu label="#{overviewBundle.menu_config}" >
             <tc:menu label="#{overviewBundle.menu_themes}" >
               <tc:menuItem action="#{clientConfigController.submit}">
@@ -85,9 +42,6 @@ FIXME: this doesn't work
           </tc:menu>
 
           <tc:menu label="#{overviewBundle.menu_help}">
-<%--            <tc:menuItem onclick="alert('#{overviewBundle.pageTitle}' + String.fromCharCode(10) + '#{overviewBundle.tobago_version}' + String.fromCharCode(10) + '#{overviewBundle.tobago_url}' + String.fromCharCode(10))"
-                         label="#{overviewBundle.menu_about}" />
---%>
             <tc:menuItem onclick="alert('#{overviewBundle.pageTitle}' + String.fromCharCode(10) + '#{tobagoVersion.name}' + String.fromCharCode(10) + '#{overviewBundle.tobago_url}' + String.fromCharCode(10))"
                          label="#{overviewBundle.menu_about}" />
             <tc:menuItem onclick="LOG.show();"

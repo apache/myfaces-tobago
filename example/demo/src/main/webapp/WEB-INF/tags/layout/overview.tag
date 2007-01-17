@@ -17,10 +17,9 @@
 
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<f:view locale="#{clientConfigController.locale}"
-    ><tc:loadBundle basename="overview" var="overviewBundle" 
-  /><tc:page label="#{overviewBundle.pageTitle}" id="page"
-      width="750px" height="600px">
+<f:view locale="#{clientConfigController.locale}">
+  <tc:loadBundle basename="overview" var="overviewBundle"/>
+  <tc:page label="#{overviewBundle.pageTitle}" id="page" width="800px" height="600px">
 
     <jsp:include page="/overview/menubar.jsp" />
     <%--f:facet name="backButtonDetector">
@@ -30,16 +29,16 @@
       </tc:hidden>
     </f:facet--%>
     <f:facet name="layout">
-      <tc:gridLayout border="0" columns="1*;4*"
+      <tc:gridLayout border="0" columns="*;4*"
         margin="10px" rows="100px;*;fixed"  />
     </f:facet>
 
     <tc:cell spanX="2">
-      <jsp:include page="/overview/header.jsp"/>
+      <jsp:include page="/header.jsp"/>
     </tc:cell>
 
     <tc:cell spanY="2" >
-      <jsp:include page="/overview/navigator.jsp"/>
+      <jsp:include page="/navigator.jsp"/>
     </tc:cell>
 
     <tc:cell>
@@ -47,7 +46,7 @@
     </tc:cell>
 
     <tc:cell>
-      <jsp:include page="/overview/footer.jsp" />
+      <jsp:include page="/footer.jsp" />
     </tc:cell>
 
   </tc:page>

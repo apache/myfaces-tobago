@@ -28,37 +28,42 @@
 <entry key="notTranslated">Sorry, not completely translated yet.</entry>
 <entry key="pageTitle">Tobago Demo</entry>
 
-<!--  menu -->
-<entry key="menu_navigate">_Navigation</entry>
-<entry key="menu_config">_Configuration</entry>
-<entry key="menu_help">_Help</entry>
-<entry key="menu_themes">_Themes</entry>
-<entry key="menu_locale">_Locale</entry>
-<entry key="menu_debug">Debug Mode</entry>
-<entry key="menu_about">About</entry>
-<entry key="menu_showLog">Show log Panel</entry>
+<!-- menu -->
+  <entry key="menu_navigate">_Navigation</entry>
+  <entry key="menu_config">_Configuration</entry>
+  <entry key="menu_help">_Help</entry>
+  <entry key="menu_themes">_Themes</entry>
+  <entry key="menu_locale">_Locale</entry>
+  <entry key="menu_debug">Debug Mode</entry>
+  <entry key="menu_about">About</entry>
+  <entry key="menu_showLog">Show log Panel</entry>
 
+<!-- navigate -->
+  <entry key="overview">Overview</entry>
+  <entry key="intro">Intro</entry>
+  <entry key="basicControls">Basic Controls</entry>
+  <entry key="sheetControl">Sheet Control</entry>
+  <entry key="treeControl">Tree Control</entry>
+  <entry key="tabControl">Tab Control</entry>
+  <entry key="toolbar">Toolbar</entry>
+  <entry key="validation">Validation</entry>
+  <entry key="form">Forms</entry>
+  <entry key="themes">Themes</entry>
+  <entry key="browser">Browser</entry>
+  <entry key="locale">Locale</entry>
+  <entry key="layout">Layout</entry>
 
+  <entry key="bestPractice">Best Practice</entry>
+  <entry key="error">Error Handling</entry>
+  <entry key="theme">Themes</entry>
+  <entry key="transition">Seitenübergang</entry>
 
-<!--  navigate -->
-<entry key="intro">Intro</entry>
-<entry key="basicControls">Basic Controls</entry>
-<entry key="sheetControl">Sheet Control</entry>
-<entry key="treeControl">Tree Control</entry>
-<entry key="tabControl">Tab Control</entry>
-<entry key="toolbar">Toolbar</entry>
-<entry key="validation">Validation</entry>
-<entry key="form">Forms</entry>
-<entry key="themes">Themes</entry>
-<entry key="browser">Browser</entry>
-<entry key="locale">Locale</entry>
-<entry key="layout">Layout</entry>
-<entry key="submit">Submit</entry>
-<entry key="cancel">Cancel</entry>
+  <entry key="submit">Submit</entry>
+  <entry key="cancel">Cancel</entry>
 
-<entry key="footer_previous">Prev</entry>
-<entry key="footer_next">Next</entry>
-<entry key="footer_viewSource">View Source</entry>
+  <entry key="footer_previous">Prev</entry>
+  <entry key="footer_next">Next</entry>
+  <entry key="footer_viewSource">View Source</entry>
 
 
 <!--  intro -->
@@ -74,22 +79,22 @@
 </entry>
 
 <!--  basicControlls -->
-<entry key="basicControls_sampleInputTitle">Basic Input Examples</entry>
-<entry key="basicControls_sampleSelectTitle">Basic Select Examples</entry>
-<entry key="basicControls_sampleLinkTitle">Basic Controls Examples</entry>
-<entry key="basic_itemUnknown">none</entry>
-<entry key="basic_itemMr">Mr.</entry>
-<entry key="basic_itemMrs">Mrs.</entry>
-<entry key="basic_textboxLabel">Inputfield</entry>
-<entry key="basic_dateLabel">Date</entry>
-<entry key="basic_timeLabel">Time</entry>
-<entry key="basic_textareaLabel">Textarea</entry>
-<entry key="basic_linkAction">Click Link</entry>
-<entry key="basic_buttonAction">Click Button</entry>
-<entry key="basic_lastActionLabel">Last Click</entry>
-<entry key="basic_text_input">Input controls for different kinds of text: single-line, multiline, formated.</entry>
-<entry key="basic_text_select">Select controls allow input of one or multiple options.</entry>
-<entry key="basic_text_action">Control elements for site navigation and to execute actions.</entry>
+  <entry key="basicControls_sampleInputTitle">Basic Input Examples</entry>
+  <entry key="basicControls_sampleSelectTitle">Basic Select Examples</entry>
+  <entry key="basicControls_sampleLinkTitle">Basic Controls Examples</entry>
+  <entry key="basic_itemUnknown">none</entry>
+  <entry key="basic_itemMr">Mr.</entry>
+  <entry key="basic_itemMrs">Mrs.</entry>
+  <entry key="basic_textboxLabel">Inputfield</entry>
+  <entry key="basic_dateLabel">Date</entry>
+  <entry key="basic_timeLabel">Time</entry>
+  <entry key="basic_textareaLabel">Textarea</entry>
+  <entry key="basic_linkAction">Click Link</entry>
+  <entry key="basic_buttonAction">Click Button</entry>
+  <entry key="basic_lastActionLabel">Last Click</entry>
+  <entry key="basic_text_input">Input controls for different kinds of text: single-line, multiline, formated.</entry>
+  <entry key="basic_text_select">Select controls allow input of one or multiple options.</entry>
+  <entry key="basic_text_action">Control elements for site navigation and to execute actions.</entry>
 
 
 <!--  sheet -->
@@ -306,8 +311,22 @@
     &lt;/ul&gt;
 </entry>
 
+  <!-- Themes -->
+  <entry key="themesText1">&lt;b&gt;Theme configuration&lt;/b&gt; &lt;br /&gt;&lt;br
+    /&gt;
+    In Tobago it's easy to give an application a well designed look. You can use
+    prepared themes like speyside oder scarborough, just to name two.
+    The only thing you have to do is weconfigure them at the right place. This is
+    done in the tobago-config.xml by defining a default theme.</entry>
 
-<!--  Mini-Howto -->
-<entry key="miniHowto">Mini-Howto</entry>
-<entry key="miniHowtoNavigateTooltip">Link to Mini-Howto</entry>
+  <entry key="themesCodeExampleTitle">Code Example</entry>
+  <entry key="themesCodeExample">...
+&lt;tobago-config&gt;
+            &lt;theme-config&gt;
+                        &lt;default-theme&gt;speyside&lt;/default-theme&gt;
+            &lt;/theme-config&gt;
+            &lt;resource-dir&gt;tobago&lt;/resource-dir&gt;
+&lt;/tobago-config&gt;
+...</entry>
+
 </properties>

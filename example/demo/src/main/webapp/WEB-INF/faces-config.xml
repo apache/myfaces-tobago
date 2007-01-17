@@ -63,57 +63,12 @@
     </phase-listener>
   </lifecycle>
 
-  <!-- miniHowto -->
 
-    <managed-bean>
-    <managed-bean-name>miniHowtoNavigation</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.overview.PresentationController</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-    <managed-property>
-      <property-name>pages</property-name>
-      <list-entries>
-        <value>mini-howto/intro</value>
-        <value>mini-howto/jspDefinition</value>
-        <value>mini-howto/navigationRules</value>
-        <value>mini-howto/classDefinition</value>
-        <value>mini-howto/theme</value>
-        <value>mini-howto/validation</value>
-        <value>mini-howto/i18n</value>
-      </list-entries>
-    </managed-property>
+  <managed-bean>
+    <managed-bean-name>navigation</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.Navigation</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
   </managed-bean>
-
-  <navigation-rule>
-    <navigation-case>
-      <from-outcome>mini-howto/intro</from-outcome>
-      <to-view-id>/mini-howto/intro.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>mini-howto/jspDefinition</from-outcome>
-      <to-view-id>/mini-howto/jspDefinition.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>mini-howto/navigationRules</from-outcome>
-      <to-view-id>/mini-howto/navigationRules.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>mini-howto/classDefinition</from-outcome>
-      <to-view-id>/mini-howto/classDefinition.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>mini-howto/theme</from-outcome>
-      <to-view-id>/mini-howto/theme.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>mini-howto/validation</from-outcome>
-      <to-view-id>/mini-howto/validation.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>mini-howto/i18n</from-outcome>
-      <to-view-id>/mini-howto/i18n.jsp</to-view-id>
-    </navigation-case>
-  </navigation-rule>
-
 
   <!--  overview  -->
 
@@ -246,6 +201,35 @@
     <managed-bean-class>org.apache.myfaces.tobago.example.demo.bestpractice.BestPracticeController</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>transitionController</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.bestpractice.TransitionController</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>best-practice/intro</from-outcome>
+      <to-view-id>/best-practice/intro.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>best-practice/error</from-outcome>
+      <to-view-id>/best-practice/error.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>best-practice/theme</from-outcome>
+      <to-view-id>/best-practice/theme.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>best-practice/transition</from-outcome>
+      <to-view-id>/best-practice/transition.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>best-practice/transition-after-sleep</from-outcome>
+      <to-view-id>/best-practice/transition-after-sleep.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
 
   <navigation-rule>
     <from-view-id>/best-practice/error.jsp</from-view-id>

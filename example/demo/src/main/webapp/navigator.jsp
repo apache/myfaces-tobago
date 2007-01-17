@@ -16,22 +16,26 @@
 --%>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
-<layout:mini-howto>
-  <jsp:body>
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout rows="80px;1*;80px"/>
+<f:subview id="navigator">
+  <tc:panel>
+    <f:facet name="layout">
+      <tc:gridLayout rows="*"/>
+    </f:facet>
+
+    <tc:tree value="#{navigation.tree}"
+             mode="menu"
+             id="nav"
+             nameReference="userObject.title"
+             idReference="userObject.id"
+             state="#{navigation.state}"
+             showIcons="false"
+             showJunctions="false"
+             showRoot="false">
+      <f:facet name="treeNodeCommand">
+        <tc:link action="#{navigation.navigate}" immediate="true"/>
       </f:facet>
+    </tc:tree>
 
-      <tc:out escape="false" value="#{miniHowtoBundle.navigationRulesText1}" />
-
-      <tc:box label="#{miniHowtoBundle.codeExample}">
-        <tc:out value="#{miniHowtoBundle.navigationRules_codeExample1}" />
-      </tc:box>
-
-      <tc:out escape="false" value="#{miniHowtoBundle.navigationRulesText2}" />
-    </tc:panel>
-  </jsp:body>
-</layout:mini-howto>
+  </tc:panel>
+</f:subview>

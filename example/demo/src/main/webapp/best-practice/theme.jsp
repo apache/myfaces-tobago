@@ -16,35 +16,21 @@
 --%>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<f:subview id="footer" >
+<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout columns="70px;70px;130px;1*"
-          rows="15px;fixed"/>
-    </f:facet>
+<layout:overview>
+  <jsp:body>
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout rows="80px;160px;*" />
+      </f:facet>
 
-    <tc:cell spanX="4">
-      <f:verbatim><hr /></f:verbatim>
-    </tc:cell>
+      <tc:out value="#{overviewBundle.themesText1}" escape="false" />
 
-    <tc:button immediate="true"
-      image="image/prev.gif"
-      action="#{miniHowtoNavigation.gotoPrevious}"
-      disabled="#{miniHowtoNavigation.first}"
-      label="#{overviewBundle.footer_previous}" />
-
-    <tc:button immediate="true"
-      image="image/next.gif"
-      action="#{miniHowtoNavigation.gotoNext}"
-      disabled="#{miniHowtoNavigation.last}"
-      label="#{overviewBundle.footer_next}" />
-
-    <tc:button action="#{miniHowtoNavigation.viewSource}"
-        immediate="true" label="#{overviewBundle.footer_viewSource}" />
-
-    <tc:out value="#{overviewBundle.notTranslated}"/>
-
-    
-  </tc:panel>
-</f:subview>
+      <tc:box label="#{overviewBundle.themesCodeExampleTitle}">
+        <tc:out value="#{overviewBundle.themesCodeExample}" />
+      </tc:box>
+      <tc:cell/>
+    </tc:panel>
+  </jsp:body>
+</layout:overview>

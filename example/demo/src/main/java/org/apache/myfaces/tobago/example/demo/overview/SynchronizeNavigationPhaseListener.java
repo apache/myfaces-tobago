@@ -39,8 +39,6 @@ public class SynchronizeNavigationPhaseListener implements PhaseListener {
     String navigationBeanName;
     if (viewId.indexOf("overview") > -1) {
       navigationBeanName = "overviewNavigation";
-    } else if (viewId.indexOf("mini-howto") > -1) {
-      navigationBeanName = "miniHowtoNavigation";
     } else {
       // other pages
       return;
