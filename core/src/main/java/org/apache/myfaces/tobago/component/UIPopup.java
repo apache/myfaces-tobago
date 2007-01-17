@@ -21,6 +21,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LEFT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TOP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -40,6 +44,7 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
   private String left;
   private String top;
   private boolean activated;
+  private Boolean modal;
 
   public void setActivated(boolean activated) {
     this.activated = activated;
@@ -128,13 +133,14 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
   }
 
   public Object saveState(FacesContext context) {
-    Object[] saveState = new Object[6];
+    Object[] saveState = new Object[7];
     saveState[0] = super.saveState(context);
     saveState[1] = width;
     saveState[2] = height;
     saveState[3] = left;
     saveState[4] = top;
     saveState[5] = activated;
+    saveState[6] = modal;
     return saveState;
   }
 
@@ -146,10 +152,19 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
     left = (String) values[3];
     top = (String) values[4];
     activated = (Boolean) values[5];
+    modal = (Boolean) values[6];
   }
 
   public String getWidth() {
-    return width;
+    if (width != null) {
+      return width;
+    }
+    ValueBinding vb = getValueBinding(ATTR_WIDTH);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return null;
+    }
   }
 
   public void setWidth(String width) {
@@ -157,7 +172,15 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
   }
 
   public String getHeight() {
-    return height;
+    if (height != null) {
+      return height;
+    }
+    ValueBinding vb = getValueBinding(ATTR_HEIGHT);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return null;
+    }
   }
 
   public void setHeight(String height) {
@@ -165,7 +188,15 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
   }
 
   public String getLeft() {
-    return left;
+    if (left != null) {
+      return left;
+    }
+    ValueBinding vb = getValueBinding(ATTR_LEFT);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return null;
+    }
   }
 
   public void setLeft(String left) {
@@ -173,11 +204,35 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
   }
 
   public String getTop() {
-    return top;
+    if (top != null) {
+      return top;
+    }
+    ValueBinding vb = getValueBinding(ATTR_TOP);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return null;
+    }
   }
 
   public void setTop(String top) {
     this.top = top;
+  }
+
+  public boolean isModal() {
+    if (modal != null) {
+      return modal;
+    }
+    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_MODAL);
+    if (vb != null) {
+      return (Boolean.TRUE.equals(vb.getValue(getFacesContext())));
+    } else {
+      return true;
+    }
+  }
+
+  public void setModal(boolean modal) {
+    this.modal = modal;
   }
 
   private void addToPage() {

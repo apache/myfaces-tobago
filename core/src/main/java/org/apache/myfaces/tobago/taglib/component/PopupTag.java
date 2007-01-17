@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LEFT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_RESET;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MODAL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TOP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -34,7 +34,7 @@ public class PopupTag extends TobagoBodyTag
   private String height;
   private String left;
   private String top;
-  private String reset;
+  private String modal;
 
   public String getComponentType() {
     return UIPopup.COMPONENT_TYPE;
@@ -46,6 +46,7 @@ public class PopupTag extends TobagoBodyTag
     height = null;
     left = null;
     top = null;
+    modal = null;
   }
 
   protected void setProperties(UIComponent component) {
@@ -54,7 +55,8 @@ public class PopupTag extends TobagoBodyTag
     ComponentUtil.setStringProperty(component, ATTR_HEIGHT, height);
     ComponentUtil.setStringProperty(component, ATTR_LEFT, left);
     ComponentUtil.setStringProperty(component, ATTR_TOP, top);
-    ComponentUtil.setBooleanProperty(component, ATTR_POPUP_RESET, reset);
+    ComponentUtil.setBooleanProperty(component, ATTR_MODAL, modal);
+
   }
 
   public void setWidth(String width) {
@@ -73,8 +75,8 @@ public class PopupTag extends TobagoBodyTag
     this.top = top;
   }
 
-  public void setReset(String reset) {
-    this.reset = reset;
+  public void setModal(String modal) {
+    this.modal = modal;
   }
 }
 

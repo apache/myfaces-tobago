@@ -64,8 +64,8 @@ public class PopupRenderer extends RendererBase implements AjaxRenderer {
     UIPopup component = (UIPopup) uiComponent;
     final String clientId = component.getClientId(facesContext);
     final String contentDivId = clientId + CONTENT_ID_POSTFIX;
-    final String left = component.getLeft();
-    final String top = component.getTop();
+    //final String left = component.getLeft();
+    //final String top = component.getTop();
 
     final StringBuilder contentStyle = new StringBuilder();
     if (component.getWidth() != null) {
@@ -78,30 +78,31 @@ public class PopupRenderer extends RendererBase implements AjaxRenderer {
       contentStyle.append(component.getHeight());
       contentStyle.append("; ");
     }
-    contentStyle.append("left: ");
-    contentStyle.append(left != null ? left : "100");
-    contentStyle.append("; ");
-    contentStyle.append("top: ");
-    contentStyle.append(top != null ? top : "50");
-    contentStyle.append("; ");
-
-    writer.startElement(HtmlConstants.DIV, component);
-    writer.writeIdAttribute(clientId);
-    writer.writeComponentClass();
-    writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.popupBlink('" + clientId + "')", null);
-    if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
-      String bgImage = ResourceManagerUtil.getImageWithPath(facesContext, "image/popupBg.png");
-      writer.writeAttribute(HtmlAttributes.STYLE, "background: none; "
-          + "filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"
+    //contentStyle.append("left: ");
+    //contentStyle.append(left);
+    //contentStyle.append("; ");
+    //contentStyle.append("top: ");
+    //contentStyle.append(top);
+    //contentStyle.append("; ");
+    if (component.isModal()) {
+      writer.startElement(HtmlConstants.DIV, component);
+      writer.writeIdAttribute(clientId);
+      writer.writeComponentClass();
+      writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.popupBlink('" + clientId + "')", null);
+      if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
+        String bgImage = ResourceManagerUtil.getImageWithPath(facesContext, "image/popupBg.png");
+        writer.writeAttribute(HtmlAttributes.STYLE, "background: none; "
+            + "filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"
           + bgImage + "', sizingMethod='scale');", null);    }
-    writer.endElement(HtmlConstants.DIV);
-    if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
-      writer.startElement(HtmlConstants.IFRAME, component);
-      writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + HtmlConstants.IFRAME);
-      writer.writeClassAttribute("tobago-popup-iframe tobago-popup-none");
-      writer.writeAttribute(HtmlAttributes.STYLE, contentStyle.toString(), null);
-      writer.writeAttribute(HtmlAttributes.SRC, "javascript:false;", null);
-      writer.endElement(HtmlConstants.IFRAME);
+      writer.endElement(HtmlConstants.DIV);
+      if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
+        writer.startElement(HtmlConstants.IFRAME, component);
+        writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + HtmlConstants.IFRAME);
+        writer.writeClassAttribute("tobago-popup-iframe tobago-popup-none");
+        writer.writeAttribute(HtmlAttributes.STYLE, contentStyle.toString(), null);
+        writer.writeAttribute(HtmlAttributes.SRC, "javascript:false;", null);
+        writer.endElement(HtmlConstants.IFRAME);
+      }
     }
     writer.startElement(HtmlConstants.DIV, component);
     writer.writeIdAttribute(contentDivId);
