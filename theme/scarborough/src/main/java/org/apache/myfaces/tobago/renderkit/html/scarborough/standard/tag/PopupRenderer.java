@@ -93,7 +93,8 @@ public class PopupRenderer extends RendererBase implements AjaxRenderer {
         String bgImage = ResourceManagerUtil.getImageWithPath(facesContext, "image/popupBg.png");
         writer.writeAttribute(HtmlAttributes.STYLE, "background: none; "
             + "filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"
-          + bgImage + "', sizingMethod='scale');", null);    }
+          + bgImage + "', sizingMethod='scale');", null);
+    }
       writer.endElement(HtmlConstants.DIV);
       if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
         writer.startElement(HtmlConstants.IFRAME, component);
