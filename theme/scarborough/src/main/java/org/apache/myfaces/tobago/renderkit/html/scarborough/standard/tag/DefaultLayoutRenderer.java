@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.Iterator;
 
 /*
  * User: weber
@@ -37,23 +36,15 @@ public class DefaultLayoutRenderer extends LayoutRenderer {
 
   private static final Log LOG = LogFactory.getLog(DefaultLayoutRenderer.class);
 
-  public void layoutWidth(FacesContext facesContext, UIComponent component) {
-    HtmlRendererUtil.layoutWidth(facesContext, component);
-  }
-
-  public void layoutHeight(FacesContext facesContext, UIComponent component) {
-    HtmlRendererUtil.layoutHeight(facesContext, component);
-  }
-
   public void prepareRender(FacesContext facesContext, UIComponent component) {
     HtmlRendererUtil.prepareRender(facesContext, component);
   }
 
   public void encodeChildrenOfComponent(FacesContext facesContext, UIComponent component)
       throws IOException {
-      for (Iterator i = component.getChildren().iterator(); i.hasNext();) {
-        UIComponent child = (UIComponent) i.next();
-        RenderUtil.encode(facesContext, child);
-      }
+    for (Object o : component.getChildren()) {
+      UIComponent child = (UIComponent) o;
+      RenderUtil.encode(facesContext, child);
+    }
   }
 }

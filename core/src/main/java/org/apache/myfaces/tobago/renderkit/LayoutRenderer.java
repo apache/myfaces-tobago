@@ -36,8 +36,6 @@ public abstract class LayoutRenderer extends RendererBase {
 
   private static final Log LOG = LogFactory.getLog(LayoutRenderer.class);
 
-  public abstract void layoutWidth(FacesContext facesContext, UIComponent component);
-  public abstract void layoutHeight(FacesContext facesContext, UIComponent component);
   public abstract void prepareRender(FacesContext facesContext, UIComponent component);
 
 

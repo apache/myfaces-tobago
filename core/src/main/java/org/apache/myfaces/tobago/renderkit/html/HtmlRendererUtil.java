@@ -666,33 +666,26 @@ public final class HtmlRendererUtil {
         command.addActionListener(new PopupActionListener(popup));
       }
     }
-    // TODO find a better way
-    boolean popupAction = component instanceof UICommand
-        && ComponentUtil.containsPopupActionListener((UICommand) component);
-
-    //String type = (String) component.getAttributes().get(ATTR_TYPE);
-    //String command = (String) component.getAttributes().get(ATTR_ACTION_STRING);
+    
     String clientId = component.getClientId(facesContext);
     boolean defaultCommand = ComponentUtil.getBooleanAttribute(component,
         TobagoConstants.ATTR_DEFAULT_COMMAND);
     String onclick = "Tobago.submitAction('" + clientId + "');";
+
     if (component.getAttributes().get(TobagoConstants.ATTR_ACTION_LINK) != null) {
       onclick = "Tobago.navigateToUrl('"
           + HtmlUtils.generateUrl(facesContext,
           (String) component.getAttributes().get(TobagoConstants.ATTR_ACTION_LINK)) + "');";
-      // FIXME !!
-      //} else if (COMMAND_TYPE_RESET.equals(type)) {
-      //  onclick = null;
     } else if (component.getAttributes().get(TobagoConstants.ATTR_ACTION_ONCLICK) != null) {
       onclick = prepareOnClick(facesContext, component);
-
     } else if (component instanceof UICommand
         && ((UICommand) component).getRenderedPartially().length > 0) {
 
       String[] componentId = ((UICommand) component).getRenderedPartially();
 
       if (componentId != null && componentId.length == 1) {
-
+        // TODO find a better way
+        boolean popupAction = ComponentUtil.containsPopupActionListener((UICommand) component);
         if (popupAction) {
           onclick = "Tobago.openPopupWithAction('" + getComponentId(facesContext, component, componentId[0]) + "', '"
               + clientId + "')";
@@ -706,10 +699,14 @@ public final class HtmlRendererUtil {
 
     } else if (defaultCommand) {
       ComponentUtil.findPage(component).setDefaultActionId(clientId);
-//      onclick = "Tobago.setAction('" + clientId + "');";
       onclick = null;
     } else {
-      onclick = "Tobago.submitAction('" + clientId + "');";
+      String target = ComponentUtil.getStringAttribute(component, TobagoConstants.ATTR_TARGET);
+      if (target == null) {
+        onclick = "Tobago.submitAction('" + clientId + "');";
+      } else {
+        onclick = "Tobago.submitAction('" + clientId + "', '" + target + "');";
+      }
     }
 
     if (component.getAttributes().get(TobagoConstants.ATTR_POPUP_CLOSE) != null

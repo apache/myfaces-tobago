@@ -564,7 +564,7 @@ public class ResourceManagerImpl implements ResourceManager {
     return result;
   }
 
-  private class Cache extends HashMap {
+  private static class Cache extends HashMap {
 
     private int found;
 

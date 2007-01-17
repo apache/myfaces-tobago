@@ -247,7 +247,7 @@ public class UIGridLayout extends UILayout {
 
   @Override
   public boolean getRendersChildren() {
-    return true;
+    return false;
   }
 
   @Override
