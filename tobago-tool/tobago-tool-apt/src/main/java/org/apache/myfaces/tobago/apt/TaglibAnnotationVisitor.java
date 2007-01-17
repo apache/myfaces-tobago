@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.Taglib;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -278,13 +279,23 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     }
     UIComponentTag componentTag = decl.getAnnotation(UIComponentTag.class);
     if (componentTag != null) {
-
       description.append("<p>UIComponentClass: ");
       description.append(componentTag.uiComponent());
       description.append("</p><p>");
       description.append(" RendererType: ");
       description.append(componentTag.rendererType());
       description.append("</p>");
+      Facet[] facets = componentTag.facets();
+      if (facets.length > 0) {
+        description.append("<p>Supports following facets:</p>");
+        for (Facet facet: facets) {
+          description.append("<p>Name: ");
+          description.append(facet.name());
+          description.append(" Description: ");
+          description.append(facet.description());
+          description.append("</p>");
+        }
+      }
     }
     if (description.length() > 0) {
       addLeafCDATAElement(description.toString(), "description", element, document);

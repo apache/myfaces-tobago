@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
@@ -35,7 +36,10 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 @Tag(name = "panel")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPanel",
-    rendererType = "Panel")
+    rendererType = "Panel",
+    facets = {
+    @Facet( name="reload", description = "Contains a instance of UIReload"),
+    @Facet( name="layout", description = "Contains a instance of UILayout")})
 public interface PanelTagDeclaration extends TobagoBodyTagDeclaration,
     HasIdBindingAndRendered, HasDeprecatedDimension {
 }

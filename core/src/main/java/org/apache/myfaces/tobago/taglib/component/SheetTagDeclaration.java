@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.component.UIData;
 
@@ -40,7 +41,8 @@ import org.apache.myfaces.tobago.component.UIData;
 @BodyContentDescription(anyTagOf = "<tc:column>* <tc:columnSelector>?")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIData",
-    rendererType = "Sheet")
+    rendererType = "Sheet",
+    facets = {@Facet( name="reload", description = "Contains a instance of UIReload")})
 
 public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered {
   /**
