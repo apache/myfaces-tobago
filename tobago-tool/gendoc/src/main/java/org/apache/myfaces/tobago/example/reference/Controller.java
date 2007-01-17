@@ -24,6 +24,9 @@ import org.apache.myfaces.tobago.taglib.component.LinkTag;
 import org.apache.myfaces.tobago.taglib.extension.InExtensionTag;
 
 import javax.servlet.jsp.tagext.TagSupport;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +41,10 @@ public class Controller {
   private String text;
 
   private boolean bool;
+
+  private SelectItem[] userOptionItems;
+
+  private int userOption;
 
   public Controller() {
     tags = new ArrayList<TagData>();
@@ -54,6 +61,26 @@ public class Controller {
     link.setTip("Ein Link");
     tags.add(link);
     attributes = new ArrayList<AttributeData>();
+    userOptionItems = new SelectItem[]{
+    new SelectItem(new Integer(0), "for User"),
+    new SelectItem(new Integer(1), "for Admin")};
+  }
+
+  public SelectItem[] getSelectItems() {
+    return userOptionItems;
+  }
+
+  public int getUserOption() {
+    return userOption;
+  }
+
+  public void setUserOption(int userOption) {
+    this.userOption = userOption;
+  }
+
+  public void valueChanged(ValueChangeEvent event) {
+    LOG.error("value Changed " + event.getComponent().getClientId(FacesContext.getCurrentInstance()));
+    LOG.error("value Changed " + event.getOldValue() + " " + event.getNewValue());
   }
 
   public TagSupport createTag() {
