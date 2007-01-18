@@ -127,7 +127,9 @@ public class OverviewController {
     for (int i = 0; i < items.length; i++) {
       String label = resourceManager.getProperty(
           FacesContext.getCurrentInstance().getViewRoot(), resource, salutations[i].getKey());
-      LOG.info("label = " + label + "");
+      if (LOG.isTraceEnabled()) {
+        LOG.trace("label = " + label + "");
+      }
       if (label == null) {
         label = salutations[i].getKey();
       }
@@ -142,7 +144,9 @@ public class OverviewController {
     for (int i = 0; i < items.length; i++) {
       String label = resourceManager.getProperty(
           FacesContext.getCurrentInstance().getViewRoot(), resource, keys[i]);
-      LOG.info("label = " + label + "");
+      if (LOG.isTraceEnabled()) {
+        LOG.trace("label = " + label + "");
+      }
       if (label == null) {
         label = keys[i];
       }
