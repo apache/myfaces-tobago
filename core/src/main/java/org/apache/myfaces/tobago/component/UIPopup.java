@@ -68,7 +68,12 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
   }
 
   public boolean isRendered() {
-    return isActivated() || isRedisplay();
+    ValueBinding valueBinding = getValueBinding("rendered");
+    if (valueBinding!= null) {
+      return (Boolean) valueBinding.getValue(getFacesContext());
+    } else {
+      return isActivated() || isRedisplay();
+    }
   }
 
   private boolean isSubmitted() {
@@ -91,12 +96,7 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
   }
 
   private boolean isActivated() {
-    ValueBinding valueBinding = getValueBinding("rendered");
-    if (valueBinding!= null) {
-       return (Boolean) valueBinding.getValue(getFacesContext());
-    } else {
-      return activated;
-    }
+    return activated;
   }
 
   public void encodeBegin(FacesContext facesContext) throws IOException {
