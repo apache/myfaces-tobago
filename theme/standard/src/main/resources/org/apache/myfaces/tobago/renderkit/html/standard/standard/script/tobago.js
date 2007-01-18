@@ -407,33 +407,22 @@ var Tobago = {
     */
   submitAction: function(actionId, target) {
     Tobago.Transport.request(function() {
-<<<<<<< .mine
       if (!this.isSubmit) {
         this.isSubmit = true;
         var req = Tobago.Transport.requests.shift(); // remove this from queue
         LOG.debug("request removed :" + req.toString());
         var oldAction = Tobago.action.value;
+        var oldTarget = Tobago.form.target;
         Tobago.action.value = actionId;
+        if (target) {
+          Tobago.form.target = target;
+        }
         Tobago.onSubmit();
   //      LOG.debug("submit form with action: " + Tobago.action.value);
         Tobago.form.submit();
         Tobago.action.value = oldAction;
         Tobago.onBeforeUnload();
       }
-=======
-      var req = Tobago.Transport.requests.shift(); // remove this from queue
-      LOG.debug("request removed :" + req.toString());
-      var oldAction = Tobago.action.value;
-      var oldTarget = Tobago.form.target;
-      Tobago.action.value = actionId;
-      if (target) {
-        Tobago.form.target = target;
-      }
-      Tobago.onSubmit();
-//      LOG.debug("submit form with action: " + Tobago.action.value);
-      Tobago.form.submit();
-      Tobago.action.value = oldAction;
->>>>>>> .r497208
       if (target) {
         Tobago.form.target = oldTarget;
       }
