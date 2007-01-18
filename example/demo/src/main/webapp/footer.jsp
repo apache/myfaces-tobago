@@ -28,14 +28,14 @@
      <f:verbatim><hr /></f:verbatim>
     </tc:cell>
 
-    <!-- fixme: next and previous button are not working in them moment (rendered="false") -->
+    <%-- fixme: next and previous button are not working in them moment (rendered="false") --%>
     <tc:button immediate="true" rendered="false"
       image="image/prev.gif"
       action="#{overviewNavigation.gotoPrevious}"
       disabled="#{overviewNavigation.first}"
       label="#{overviewBundle.footer_previous}"  id="d"/>
 
-    <!-- fixme: next and previous button are not working in them moment (rendered="false") -->
+    <%-- fixme: next and previous button are not working in them moment (rendered="false") --%>
     <tc:button immediate="true" rendered="false"
       image="image/next.gif"
       action="#{overviewNavigation.gotoNext}"
