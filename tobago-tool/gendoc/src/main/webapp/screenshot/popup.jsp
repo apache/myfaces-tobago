@@ -63,12 +63,19 @@
           </f:facet>
         </tc:button>
 
-        <tc:out value="here is the boolean >>#{reference.bool}<<"/>
-        <tc:out value="here is the text >>#{reference.text}<<"/>
+        <tc:menuBar>
+          <tc:menu label="Menu">
+            <tc:menuItem label="Open Popup">
+              <tc:popupReference for=":page:button:popup"/>
+            </tc:menuItem>
+          </tc:menu>
+        </tc:menuBar>
 
         <tc:cell/>
+        <tc:out value="here is the boolean >>#{reference.bool}<<"/>
+
         <tc:cell/>
-        <tc:cell/>
+        <tc:out value="here is the text >>#{reference.text}<<"/>
 
       </tc:panel>
     </f:subview>
