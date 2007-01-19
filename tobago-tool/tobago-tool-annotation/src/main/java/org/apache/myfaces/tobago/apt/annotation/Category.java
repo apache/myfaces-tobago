@@ -17,31 +17,17 @@ package org.apache.myfaces.tobago.apt.annotation;
  * limitations under the License.
  */
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.lang.annotation.ElementType;
-
 /*
  * User: bommel
- * Date: Sep 30, 2006
- * Time: 5:49:10 PM
+ * Date: Jan 19, 2007
+ * Time: 12:25:53 PM
  */
-@Retention(value = RetentionPolicy.SOURCE)
-@Target(value = ElementType.TYPE)
-public @interface Facet {
-  String name();
-  String description() default "";
+public enum Category {
+  
+  GENERAL, DATA, APPEARANCE, EVENT, ADVANCED;
 
-  /**
-    * Array of supported component-types that explictly enumerates the
-    * set of allowd component children for this component. Other possible values are: ALL...
-   */
-  String [] allowedChildComponenents() default { "ALL" };
+  public String toString() {
+    return this.name();
 
-  /**
-   * Specifies whether this component should be available on a component palette.
-   */
-  boolean isHidden() default false;
-
+  }
 }

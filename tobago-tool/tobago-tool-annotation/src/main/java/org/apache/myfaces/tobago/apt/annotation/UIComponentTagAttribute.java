@@ -44,4 +44,19 @@ public @interface UIComponentTagAttribute {
 
   String displayName() default "";
 
+  /**
+   * Specifies whether this property should be visible
+   * in a property editor
+   */
+  boolean isHidden() default false;
+
+  /**
+   * Specifies whether this property should be read-only
+   * in a property editor
+   */
+  boolean isReadOnly() default false;
+
+
+
+
 }
