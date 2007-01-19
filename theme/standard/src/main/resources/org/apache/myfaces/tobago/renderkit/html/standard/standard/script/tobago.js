@@ -422,9 +422,9 @@ var Tobago = {
         Tobago.form.submit();
         Tobago.action.value = oldAction;
         Tobago.onBeforeUnload();
-      }
-      if (target) {
-        Tobago.form.target = oldTarget;
+        if (target) {
+          Tobago.form.target = oldTarget;
+        }
       }
     }, true);
   },
@@ -806,7 +806,7 @@ var Tobago = {
 
       Tobago.removeCssClass(div, "tobago-popup-none");
       if (iframe) {
-        Tobago.removeCssClass(iframe, "tobago-popup-none");        
+        Tobago.removeCssClass(iframe, "tobago-popup-none");
       }
 
       //  } else {
@@ -884,8 +884,14 @@ var Tobago = {
     div = document.createElement('div');
     div.id = popupId + "parentDiv";
     div.className = "tobago-popup-parent";
+    LOG.debug('adding div');
+    if (Tobago.element(div.id)) {
+      LOG.debug('found element' + div.id);
+    } else {
+      LOG.debug('add element' + div.id);
+      Tobago.form.appendChild(div);
+    }
 
-    Tobago.form.appendChild(div);
 
     Tobago.addAjaxComponent(popupId, div.id);
     Tobago.reloadComponent(popupId, actionId, {createOverlay: false});
@@ -1568,17 +1574,24 @@ Tobago.ScriptLoader = function(names, doAfter) {
 
 Tobago.Transport = {
   requests: new Array(),
-
+  currentActionId: null,
   pageSubmited: false,
 
-  request: function(req, submitPage) {
+  request: function(req, submitPage, actionId) {
     if (submitPage) {
-        this.pageSubmited = true;
-        this.requests.push(req);
-    } else if (!this.pageSubmited) {
+      this.pageSubmited = true;
       this.requests.push(req);
-    } else {
+    } else if (!this.pageSubmited) { // AJAX case
+      LOG.debug('Current ActionId = ' + this.currentActionId + ' action= ' + actionId);
+      if (this.currentActionId == actionId) {
+        LOG.debug('Ignoring request');
+        // If actionId equals currentActionId asume double request: do nothing
         return;
+      }
+      this.requests.push(req);
+      this.currentActionId = actionId;
+    } else {
+      return;
     }
 
     if (this.requests.length == 1) {
@@ -1591,6 +1604,7 @@ Tobago.Transport = {
 
   requestComplete: function() {
     this.requests.shift();
+    this.currentActionId = null;
     LOG.debug("Request complete! Queue size : " + this.requests.length);
     if (this.requests.length > 0) {
       LOG.debug("Execute request!");
@@ -1633,7 +1647,7 @@ Tobago.Updater = {
 
   CODE_RELOAD_REQUIRED: "<status code=\"309\"/>",
 
-  UPDATE_TIMEOUT: 5000,  // Five seconds 
+  UPDATE_TIMEOUT: 5000,  // Five seconds
 
   options: {
     method: 'post',
@@ -1688,13 +1702,13 @@ Tobago.Updater = {
       var oldAction = Tobago.action.value;
       Tobago.action.value = actionId;
       var url = Tobago.form.action;
-      requestOptions.parameters = "affectedAjaxComponent=" + ajaxComponentId 
+      requestOptions.parameters = "affectedAjaxComponent=" + ajaxComponentId
           + '&' + Form.serialize(Tobago.form);
 
       //    LOG.debug("request url = " + url);
       Tobago.Transport.request(function() {
         new Ajax.Updater(container, url, requestOptions);
-      });
+      }, false, actionId);
       Tobago.action.value = oldAction;
     } else {
       LOG.info("No Ajax transport found! Doing full page reload.");
