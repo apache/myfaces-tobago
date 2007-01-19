@@ -127,6 +127,29 @@
                 </configuration>
               </execution>
 
+               <execution>
+                <id>copy-tld</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>unpack</goal>
+                </goals>
+                <configuration>
+                  <artifactItems>
+
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-core</artifactId>
+                      <version>${project.version}</version>
+                    </artifactItem>
+
+                  </artifactItems>
+                  <outputDirectory>${project.build.directory}/tld
+                  </outputDirectory>
+                  <unpackMarkersDirectory>${project.build.directory}/tld
+                  </unpackMarkersDirectory>
+                </configuration>
+              </execution>
+
               <execution>
                 <id>copy-contrib</id>
                 <phase>package</phase>
