@@ -23,6 +23,7 @@ import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOCUS_ID;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
@@ -283,7 +284,15 @@ public class UIPage extends UIForm {
 // ///////////////////////////////////////////// bean getter + setter
 
   public String getFocusId() {
-    return focusId;
+    if (focusId != null) {
+      return focusId;
+    }
+    ValueBinding vb = getValueBinding(ATTR_FOCUS_ID);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return null;
+    }
   }
 
   public void setFocusId(String focusId) {
