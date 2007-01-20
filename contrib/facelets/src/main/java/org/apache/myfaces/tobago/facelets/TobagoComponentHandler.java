@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.event.TabChangeSource;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.SupportsMarkup;
 import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_COMPONENT_CREATED;
 
 import javax.faces.component.UIComponent;
@@ -55,6 +56,9 @@ public class TobagoComponentHandler extends ComponentHandler {
     }
     if (SheetStateChangeSource.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SheetStateChangeSourceRule.INSTANCE);
+    }
+    if (SupportsMarkup.class.isAssignableFrom(aClass)) {
+      metaRuleset.addRule(SupportsMarkupRule.INSTANCE);
     }
     return metaRuleset;
   }
