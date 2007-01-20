@@ -54,7 +54,7 @@ public class SupportsMarkupRule extends MetaRule {
     }
 
     public void applyMetadata(FaceletContext ctx, Object instance) {
-      ComponentUtil.setMarkup((UIComponent)instance, attribute.getValue());
+      ComponentUtil.setMarkup((UIComponent) instance, attribute.getValue());
     }
   }
 }
