@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -43,7 +44,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @Tag(name = "textarea")
 public class TextAreaExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasIdBindingAndRendered,
-    HasConverter, HasValidator, IsReadonly, IsDisabled,
+    HasConverter, HasValidator, IsReadonly, IsDisabled, HasMarkup,
     IsRequired, HasTip, HasLabel, HasLabelWidth, IsFocus, HasOnchange {
 
   private String binding;
@@ -59,6 +60,7 @@ public class TextAreaExtensionTag extends BodyTagSupport
   private String valueChangeListener;
   private String validator;
   private String onchange;
+  private String markup;
   private String labelWidth;
 
   private LabelExtensionTag labelTag;
@@ -119,6 +121,9 @@ public class TextAreaExtensionTag extends BodyTagSupport
     if (required != null) {
       textAreaTag.setRequired(required);
     }
+    if (markup != null) {
+      textAreaTag.setMarkup(markup);
+    }
     textAreaTag.setParent(labelTag);
     textAreaTag.doStartTag();
 
@@ -148,6 +153,7 @@ public class TextAreaExtensionTag extends BodyTagSupport
     tip = null;
     value = null;
     onchange = null;
+    markup = null;
     valueChangeListener = null;
   }
 
@@ -187,6 +193,9 @@ public class TextAreaExtensionTag extends BodyTagSupport
     this.onchange = onchange;
   }
 
+  public void setMarkup(String markup) {
+    this.markup = markup;
+  }
 
   public void setReadonly(String readonly) {
     this.readonly = readonly;

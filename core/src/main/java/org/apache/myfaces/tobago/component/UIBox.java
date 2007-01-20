@@ -33,21 +33,21 @@ public class UIBox extends UIPanel
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Box";
 
-  private String markup;
+  private String[] markup;
 
-  public String getMarkup() {
+  public String[] getMarkup() {
     if (markup != null) {
       return markup;
     }
     ValueBinding vb = getValueBinding(ATTR_MARKUP);
     if (vb != null) {
-      return (String) vb.getValue(getFacesContext());
+      return (String[]) vb.getValue(getFacesContext());
     } else {
-      return null;
+      return new String[0];
     }
   }
 
-  public void setMarkup(String markup) {
+  public void setMarkup(String[] markup) {
     this.markup = markup;
   }
 
@@ -55,7 +55,7 @@ public class UIBox extends UIPanel
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
     super.restoreState(context, values[0]);
-    markup = (String) values[1];
+    markup = (String[]) values[1];
    }
 
   @Override

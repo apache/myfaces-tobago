@@ -18,8 +18,6 @@ package org.apache.myfaces.tobago.taglib.extension;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.component.InTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -36,6 +34,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.HasSuggestMethod;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -60,7 +59,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @Tag(name = "in")
 public class InExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
-    HasConverter, IsReadonly, IsDisabled, HasOnchange,
+    HasConverter, IsReadonly, IsDisabled, HasOnchange, HasMarkup,
     IsRequired, HasTip, HasLabel, HasLabelWidth, IsPassword, IsFocus, HasSuggestMethod {
 
   private String binding;
@@ -184,12 +183,6 @@ public class InExtensionTag extends BodyTagSupport
     markup = null;
   }
 
-   /**
-   * Indicate markup of this component.
-   * Possible value is 'none'. But this can be overridden in the theme.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none")
   public void setMarkup(String markup) {
     this.markup = markup;
   }

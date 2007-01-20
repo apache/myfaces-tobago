@@ -38,7 +38,7 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
 
   private Boolean readonly;
   private Boolean password;
-  private String markup;
+  private String[] markup;
   private javax.faces.el.MethodBinding suggestMethod;
 
   public void restoreState(FacesContext context, Object state) {
@@ -47,7 +47,7 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
     suggestMethod = (MethodBinding) restoreAttachedState(context, values[1]);
     readonly = (Boolean) values[2];
     password = (Boolean) values[3];
-    markup = (String) values[4];
+    markup = (String[]) values[4];
   }
 
   public Object saveState(FacesContext context) {
@@ -60,19 +60,19 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
     return values;
   }
 
-  public String getMarkup() {
+  public String[] getMarkup() {
     if (markup != null) {
       return markup;
     }
     ValueBinding vb = getValueBinding(ATTR_MARKUP);
     if (vb != null) {
-      return (String) vb.getValue(getFacesContext());
+      return (String[]) vb.getValue(getFacesContext());
     } else {
-      return null;
+      return new String[0];
     }
   }
 
-  public void setMarkup(String markup) {
+  public void setMarkup(String[] markup) {
     this.markup = markup;
   }
 

@@ -37,7 +37,7 @@ public class UIColumn extends javax.faces.component.UIColumn implements Supports
   private Boolean sortable;
   private String align;
   private String label;
-  private String markup;
+  private String[] markup;
 
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
@@ -45,7 +45,7 @@ public class UIColumn extends javax.faces.component.UIColumn implements Supports
     align = (String) values[1];
     sortable = (Boolean) values[2];
     label = (String) values[3];
-    markup = (String) values[4];
+    markup = (String[]) values[4];
   }
 
   public Object saveState(FacesContext context) {
@@ -58,19 +58,19 @@ public class UIColumn extends javax.faces.component.UIColumn implements Supports
     return values;
   }
 
-  public String getMarkup() {
+  public String[] getMarkup() {
     if (markup != null) {
       return markup;
     }
     ValueBinding vb = getValueBinding(ATTR_MARKUP);
     if (vb != null) {
-      return (String) vb.getValue(getFacesContext());
+      return (String[]) vb.getValue(getFacesContext());
     } else {
-      return null;
+      return new String[0];
     }
   }
 
-  public void setMarkup(String markup) {
+  public void setMarkup(String[] markup) {
     this.markup = markup;
   }
 

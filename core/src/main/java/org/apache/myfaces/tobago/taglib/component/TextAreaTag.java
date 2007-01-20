@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
@@ -50,7 +49,7 @@ public class TextAreaTag extends TextInputTag
     }
 
     ComponentUtil.setStringProperty(component, ATTR_ROWS, rows);
-    ComponentUtil.setStringProperty(component, ATTR_MARKUP, markup);
+    ComponentUtil.setMarkup(component, markup);
   }
 
   public String getRows() {

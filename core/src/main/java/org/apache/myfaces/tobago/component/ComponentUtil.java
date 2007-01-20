@@ -34,6 +34,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HOVER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDER_RANGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDER_RANGE_EXTERN;
@@ -316,6 +317,19 @@ public class ComponentUtil {
      } else {
        String [] components  = renderers.split(",");
        command.setRenderedPartially(components);
+      }
+    }
+  }
+
+  public static void setMarkup(UIComponent markupComponent, String markup) {
+    if (markup != null) {
+      if (markupComponent instanceof SupportsMarkup) {
+        if (UIComponentTag.isValueReference(markup)) {
+          markupComponent.setValueBinding(ATTR_MARKUP, createValueBinding(markup));
+        } else {
+          String [] markups  = markup.split(",");
+          ((SupportsMarkup) markupComponent).setMarkup(markups);
+        }
       }
     }
   }

@@ -23,7 +23,6 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIOutput;
@@ -53,7 +52,7 @@ public class OutTag extends BeanTag implements OutTagDeclaration {
     ComponentUtil.setBooleanProperty(component, ATTR_ESCAPE, escape);
     // TODO ???? SPAN ?
     //ComponentUtil.setBooleanProperty(component, ATTR_CREATE_SPAN, "true");
-    ComponentUtil.setStringProperty(component, ATTR_MARKUP, markup);
+    ComponentUtil.setMarkup(component, markup);
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
   }
 

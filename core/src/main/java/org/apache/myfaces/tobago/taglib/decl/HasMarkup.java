@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.component;
+package org.apache.myfaces.tobago.taglib.decl;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,15 +17,20 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+
 /*
- * Created by IntelliJ IDEA.
  * User: bommel
- * Date: Sep 24, 2006
- * Time: 12:10:58 PM
+ * Date: Jan 19, 2007
+ * Time: 9:51:30 PM
  */
-public interface SupportsMarkup {
-
-  String[] getMarkup();
-
-  void setMarkup(String[] markups);
+public interface HasMarkup {
+  /**
+   * Indicate markup of this component.
+   * Possible value is 'none'. But this can be overridden in the theme.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(defaultValue = "none")
+  void setMarkup(String markup);
 }

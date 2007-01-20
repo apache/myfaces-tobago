@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIBox;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
 
 import javax.servlet.jsp.tagext.BodyTag;
 import javax.faces.component.UIComponent;
@@ -44,7 +43,7 @@ public class BoxTag extends TobagoBodyTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_MARKUP, markup);
+    ComponentUtil.setMarkup(component, markup);
   }
 
   public void setMarkup(String markup) {

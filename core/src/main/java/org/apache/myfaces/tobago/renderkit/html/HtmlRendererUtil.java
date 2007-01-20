@@ -29,7 +29,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
@@ -490,8 +489,8 @@ public final class HtmlRendererUtil {
       String subComponent, StringBuilder tobagoClass) {
 
     if (component instanceof SupportsMarkup) {
-      String markup = ComponentUtil.getStringAttribute(component, ATTR_MARKUP);
-      if (StringUtils.isNotEmpty(markup)) {
+      String[] markups = ((SupportsMarkup) component).getMarkup();
+      for (String markup: markups) {
         Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot()).getTheme();
         if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
           tobagoClass.append(TOBAGO_CSS_CLASS_PREFIX).append(rendererName).append("-").append(subComponent)
@@ -506,8 +505,8 @@ public final class HtmlRendererUtil {
   public static void addMarkupClass(UIComponent component, String rendererName, StringBuilder tobagoClass) {
 
     if (component instanceof SupportsMarkup) {
-      String markup = ComponentUtil.getStringAttribute(component, ATTR_MARKUP);
-      if (StringUtils.isNotEmpty(markup)) {
+      String[] markups = ((SupportsMarkup) component).getMarkup();
+      for (String markup: markups) {
         Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot()).getTheme();
         if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
           tobagoClass.append(TOBAGO_CSS_CLASS_PREFIX).append(rendererName)

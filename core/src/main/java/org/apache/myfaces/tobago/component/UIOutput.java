@@ -33,7 +33,7 @@ import javax.faces.el.ValueBinding;
 public class UIOutput extends javax.faces.component.UIOutput implements SupportsMarkup {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Output";
   private Boolean escape;
-  private String markup;
+  private String[] markup;
   private String tip;
   private boolean createSpan = true;
 
@@ -42,7 +42,7 @@ public class UIOutput extends javax.faces.component.UIOutput implements Supports
     Object[] values = (Object[]) state;
     super.restoreState(context, values[0]);
     escape = (Boolean) values[1];
-    markup = (String) values[2];
+    markup = (String[]) values[2];
     tip = (String) values[3];
     createSpan = (Boolean) values[4];
    }
@@ -74,19 +74,19 @@ public class UIOutput extends javax.faces.component.UIOutput implements Supports
     this.escape = escape;
   }
 
-  public String getMarkup() {
+  public String[] getMarkup() {
     if (markup != null) {
       return markup;
     }
     ValueBinding vb = getValueBinding(ATTR_MARKUP);
     if (vb != null) {
-      return (String) vb.getValue(getFacesContext());
+      return (String[]) vb.getValue(getFacesContext());
     } else {
-      return null;
+      return new String[0];
     }
   }
 
-  public void setMarkup(String markup) {
+  public void setMarkup(String[] markup) {
     this.markup = markup;
   }
 
