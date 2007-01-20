@@ -887,18 +887,21 @@ public class SheetRenderer extends RendererBase
       menu.getAttributes().put(ATTR_IMAGE, "image/sheetSelectorMenu.gif");
 
       String sheetId = column.getParent().getClientId(facesContext);
+
       String action = "Tobago.Sheets.selectAll('" + sheetId + "')";
       String label = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
           "sheetMenuSelect");
       UICommand menuItem = createMenuItem(application, label, action);
       menuItem.setId("menuSelectAll");
       menu.getChildren().add(menuItem);
+
       action = "Tobago.Sheets.unSelectAll('" + sheetId + "')";
       label = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
           "sheetMenuUnselect");
       menuItem = createMenuItem(application, label, action);
       menuItem.setId("menuUnselectAll");
       menu.getChildren().add(menuItem);
+
       action = "Tobago.Sheets.toggleAllSelections('" + sheetId + "')";
       label = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
           "sheetMenuToggleselect");
@@ -906,6 +909,8 @@ public class SheetRenderer extends RendererBase
       menuItem.setId("menuToggleSelections");
       menu.getChildren().add(menuItem);
     }
+
+    menu.setRendered(UIData.MULTI.equals(component.getSelectable()));
 
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(column.getClientId(facesContext));
