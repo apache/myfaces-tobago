@@ -38,8 +38,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
     uiComponent = "org.apache.myfaces.tobago.component.UIPanel",
     rendererType = "Panel",
     facets = {
-    @Facet(name="reload", description = "Contains a instance of UIReload"),
-    @Facet(name="layout", description = "Contains a instance of UILayout")})
+    @Facet(name="reload", description = "Contains an instance of UIReload"),
+    @Facet(name="layout", description = "Contains an instance of UILayout")})
 public interface PanelTagDeclaration extends TobagoBodyTagDeclaration,
     HasIdBindingAndRendered, HasDeprecatedDimension {
 }

@@ -40,7 +40,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
     facets = {@Facet(
         name="complete",
         description =
-            "Contains a instance of UICommand (tc:command). The action is invoked if the full progress has reached")})
+            "Contains an instance of UICommand (tc:command). The action is invoked if the full progress has reached")})
 public interface ProgressTagDeclaration extends BeanTagDeclaration, HasIdBindingAndRendered, HasTip {
 
   /**

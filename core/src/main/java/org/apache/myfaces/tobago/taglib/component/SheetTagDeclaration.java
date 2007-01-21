@@ -42,7 +42,7 @@ import org.apache.myfaces.tobago.component.UIData;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIData",
     rendererType = "Sheet",
-    facets = {@Facet(name="reload", description = "Contains a instance of UIReload")})
+    facets = {@Facet(name="reload", description = "Contains an instance of UIReload")})
 
 public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered {
   /**
