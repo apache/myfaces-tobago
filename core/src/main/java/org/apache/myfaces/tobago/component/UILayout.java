@@ -52,9 +52,8 @@ public abstract class UILayout extends UIComponentBase {
     Integer  layoutWidth = LayoutUtil.getLayoutWidth(component);
     if (layoutWidth != null) {
       int space = layoutWidth.intValue();
-      int innerSpace
-          = LayoutUtil.getInnerSpace(facesContext, component, space, true);
-      component.getAttributes().put(ATTR_INNER_WIDTH, new Integer(innerSpace));
+      int innerSpace = LayoutUtil.getInnerSpace(facesContext, component, space, true);
+      component.getAttributes().put(ATTR_INNER_WIDTH, Integer.valueOf(innerSpace));
     }
   }
 
@@ -62,9 +61,8 @@ public abstract class UILayout extends UIComponentBase {
     Integer  layoutHeight = LayoutUtil.getLayoutHeight(component);
     if (layoutHeight != null) {
       int space = layoutHeight.intValue();
-      int innerSpace
-          = LayoutUtil.getInnerSpace(facesContext, component, space, false);
-      component.getAttributes().put(ATTR_INNER_HEIGHT, new Integer(innerSpace));
+      int innerSpace = LayoutUtil.getInnerSpace(facesContext, component, space, false);
+      component.getAttributes().put(ATTR_INNER_HEIGHT, Integer.valueOf(innerSpace));
     }
   }
 

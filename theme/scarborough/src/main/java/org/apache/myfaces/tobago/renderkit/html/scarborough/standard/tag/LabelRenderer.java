@@ -84,8 +84,7 @@ public class LabelRenderer extends RendererBase {
     if (width == null
         && !(ComponentUtil.getBooleanAttribute(findParent(component), ATTR_INLINE)
              || ComponentUtil.getBooleanAttribute(component, ATTR_INLINE))) {
-      width = new
-          Integer(getConfiguredValue(facesContext, component, "labelWidth"));      
+      width = Integer.valueOf(getConfiguredValue(facesContext, component, "labelWidth"));      
     }
 
     LabelWithAccessKey label = new LabelWithAccessKey(component);

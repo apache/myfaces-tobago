@@ -379,7 +379,7 @@ public class ComponentUtil {
       return ((Character) charakter);
     } else if (charakter instanceof String) {
       String asString = ((String) charakter);
-      return asString.length() > 0 ? new Character(asString.charAt(0)) : null;
+      return asString.length() > 0 ? Character.valueOf(asString.charAt(0)) : null;
     } else {
       LOG.warn("Unknown type '" + charakter.getClass().getName()
           + "' for integer attribute: " + name + " comp: " + component);

@@ -349,7 +349,7 @@ public final class HtmlRendererUtil {
       UIComponent parent = component.getParent();
       space = LayoutUtil.getInnerSpace(facesContext, parent, width);
       if (space > 0 && !ComponentUtil.isFacetOf(component, parent)) {
-        component.getAttributes().put(layoutAttribute, new Integer(space));
+        component.getAttributes().put(layoutAttribute, Integer.valueOf(space));
         if (width) {
           component.getAttributes().remove(ATTR_INNER_WIDTH);
         } else {
@@ -378,7 +378,7 @@ public final class HtmlRendererUtil {
         int layoutSpace2 = LayoutUtil.getInnerSpace(facesContext, component,
             width);
         if (layoutSpace2 > 0) {
-          layout.getAttributes().put(layoutAttribute, new Integer(layoutSpace2));
+          layout.getAttributes().put(layoutAttribute, Integer.valueOf(layoutSpace2));
         }
       }
     }

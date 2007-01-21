@@ -107,7 +107,7 @@ public class TobagoConfigParser {
   }
 
   private void registerDtd(Digester digester) {
-    URL url = getClass().getResource(TOBAGO_CONFIG_DTD);
+    URL url = TobagoConfigParser.class.getResource(TOBAGO_CONFIG_DTD);
     if (LOG.isDebugEnabled()) {
       LOG.debug("registering dtd: url=" + url);
     }

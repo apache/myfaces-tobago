@@ -64,19 +64,6 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
   private static final Log LOG = LogFactory.getLog(GridLayoutRenderer.class);
 
-  /*public Dimension getFixedSize(FacesContext facesContext, UIComponent component) {
-    Dimension dimension = null;
-
-    int height = getFixedHeight(facesContext, component);
-    int width =  getFixedWidth(facesContext, component);
-        //-1; // TODO. implement getFixedWidth
-
-    dimension = new Dimension(width, height);
-
-    return dimension;
-  } */
-
-
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     int height = calculateLayoutHeight(facesContext, component, false);
 
@@ -95,7 +82,6 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
      width += containerRenderer.getPaddingWidth(facesContext, component);
      return width;
    }
-
 
   public int calculateLayoutHeight(
       FacesContext facesContext, UIComponent component, boolean minimum) {
@@ -491,7 +477,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         needVerticalScroolbar = true;
       }
       value -= getHeightSpacingSum(layout, facesContext);
-      layoutHeight(new Integer(value), layout, facesContext);
+      layoutHeight(Integer.valueOf(value), layout, facesContext);
     }
 
 
@@ -504,7 +490,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         value -= getConfiguredValue(facesContext, component, "scrollbarWidth");
         HtmlRendererUtil.replaceStyleAttribute(layout, "width", value);
       }
-      layoutWidth(new Integer(value), layout, facesContext);
+      layoutWidth(Integer.valueOf(value), layout, facesContext);
     }
 
   }
@@ -577,8 +563,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
       boolean hidden = true;
       UIGridLayout.Row row = rows.get(i);
       List cells = row.getElements();
-      for (int j = 0; j < cells.size(); j++) {
-        hidden &= isHidden(cells.get(j));
+      for (Object cell : cells) {
+        hidden &= isHidden(cell);
       }
       row.setHidden(hidden);
       if (hidden) {
@@ -646,10 +632,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     int maxHeight = 0;
     List cells = row.getElements();
     for (Object cell : cells) {
-      Object object = cell;
-
-      if (object instanceof UIComponent) {
-        UIComponent component = (UIComponent) object;
+      if (cell instanceof UIComponent) {
+        UIComponent component = (UIComponent) cell;
         int height = -1;
         if (minimum) {
           height = (int) LayoutUtil.getMinimumSize(facesContext, component).getHeight();
@@ -660,11 +644,11 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           }
         }
         maxHeight = Math.max(maxHeight, height);
-      } else if (object instanceof UIGridLayout.Marker) {
+      } else if (cell instanceof UIGridLayout.Marker) {
         // ignore 
       } else {
         // TODO is this needed?
-        LOG.error("Object is not instanceof UIComponent " + object.getClass().getName());
+        LOG.error("Object is not instanceof UIComponent " + cell.getClass().getName());
       }
     }
     return maxHeight;
@@ -726,7 +710,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           }
           cellWidth += (spanX - 1) * getCellSpacing(facesContext, layout);
           LayoutUtil.maybeSetLayoutAttribute(cell,
-              ATTR_LAYOUT_WIDTH, new Integer(cellWidth));
+              ATTR_LAYOUT_WIDTH, Integer.valueOf(cellWidth));
         }
       }
     }
@@ -756,19 +740,17 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
             LOG.debug("set height of " + cellHeight + "px to "
                 + cell.getRendererType());
           }
-          cell.getAttributes().put(ATTR_LAYOUT_HEIGHT,
-              new Integer(cellHeight));
+          cell.getAttributes().put(ATTR_LAYOUT_HEIGHT, Integer.valueOf(cellHeight));
           cell.getAttributes().remove(ATTR_INNER_HEIGHT);
           if (cell instanceof UICell || cell instanceof UIForm) {
-            List children = LayoutUtil.addChildren(new ArrayList(), cell);
+            List children = LayoutUtil.addChildren(new ArrayList<UIComponent>(), cell);
             for (Iterator childs = children.iterator(); childs.hasNext();) {
               UIComponent component = (UIComponent) childs.next();
               if (LOG.isDebugEnabled()) {
                 LOG.debug("set height of " + cellHeight + "px to "
                     + component.getRendererType());
               }
-              component.getAttributes().put(ATTR_LAYOUT_HEIGHT,
-                  new Integer(cellHeight));
+              component.getAttributes().put(ATTR_LAYOUT_HEIGHT, Integer.valueOf(cellHeight));
               component.getAttributes().remove(ATTR_INNER_HEIGHT);
 
             }

@@ -62,7 +62,7 @@ public class DurationConverter implements Converter {
     aDouble = aDouble * factor;
 
     NumberFormat format = new DecimalFormat("00");
-    long value = new Double(aDouble).longValue();
+    long value = Double.valueOf(aDouble).longValue();
     int seconds = (int) (value % 60);
     value = value / 60;
     int minutes = (int) (value % 60);
@@ -110,9 +110,9 @@ public class DurationConverter implements Converter {
     double factor = getUnitFactor(component);
     long value = (long) (((hours * 60L + minutes) * 60L + seconds) / factor);
     if (negative) {
-      return new Long(-value);
+      return Long.valueOf(-value);
     } else {
-      return new Long(value);
+      return Long.valueOf(value);
     }
   }
 

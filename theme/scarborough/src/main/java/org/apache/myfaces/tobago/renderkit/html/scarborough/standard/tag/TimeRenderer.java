@@ -27,7 +27,6 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CALENDAR_DATE_INPUT_ID;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_CALENDAR_FORCE_TIME;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
@@ -39,7 +38,6 @@ import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.apache.myfaces.tobago.util.DateFormatUtils;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -49,7 +47,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 
 public class TimeRenderer extends InputRendererBase {
 
@@ -68,6 +65,9 @@ public class TimeRenderer extends InputRendererBase {
       page.getScriptFiles().add(script);
     }
     UIInput input = (UIInput) component;
+
+    // TODO title??
+    /*
     Iterator messages = facesContext.getMessages(
         input.getClientId(facesContext));
     StringBuilder stringBuffer = new StringBuilder();
@@ -81,9 +81,8 @@ public class TimeRenderer extends InputRendererBase {
       title = stringBuffer.toString();
     }
 
-    // TODO title??
     title =
-        HtmlRendererUtil.addTip(title, (String) input.getAttributes().get(ATTR_TIP));
+        HtmlRendererUtil.addTip(title, (String) input.getAttributes().get(ATTR_TIP));*/
 
     String currentValue = getCurrentValue(facesContext, input);
     if (LOG.isDebugEnabled()) {
