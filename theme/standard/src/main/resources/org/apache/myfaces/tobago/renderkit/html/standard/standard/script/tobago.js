@@ -93,7 +93,7 @@ var Tobago = {
     * The id ot the element which should became the focus after loading.
     * Set via renderer if requested.
     */
-  focusId: null,
+  focusId: undefined,
 
   htmlIdIndex: 0,
 
@@ -933,8 +933,10 @@ var Tobago = {
     if (focusElement) {
       try { // focus() on not visible elements breaks IE
         focusElement.focus();
-      } catch(ex) { }
-    } else {
+      } catch(ex) {
+        LOG.warn("Exception when setting focus on : \"" + this.focusId + "\"");
+      }
+    } else if (typeof this.focusId == "undefined") {
       foriLoop: for (var i = 0 ; i < document.forms.length ; i++) {
         var form = document.forms[i];
         if (form != null){
@@ -951,6 +953,8 @@ var Tobago = {
           }
         }
       }
+    } else if (this.focusId.length > 0) {
+      LOG.warn("Can't find component to set focus : \"" + this.focusId + "\"");
     }
 
   },
