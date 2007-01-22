@@ -1074,7 +1074,7 @@ public class ComponentUtil {
 
 
   public static String[] getMarkupBinding(FacesContext facesContext, SupportsMarkup component) {
-    ValueBinding vb = ((UIComponent)component).getValueBinding(ATTR_MARKUP);
+    ValueBinding vb = ((UIComponent) component).getValueBinding(ATTR_MARKUP);
     if (vb != null) {
       Object markups = vb.getValue(facesContext);
       if (markups instanceof String[]) {
