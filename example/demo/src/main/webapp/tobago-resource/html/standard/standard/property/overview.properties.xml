@@ -18,8 +18,6 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 
-<!--# $Id: overview.properties.xml,v 1.1 2005/09/09 14:50:08 lofwyr Exp $-->
-
 <properties>
  <entry key="tobago_version">MyFaces Tobago 1.0.7</entry>
  <entry key="tobago_url">http://myfaces.apache.org/tobago</entry>
@@ -316,7 +314,7 @@
     /&gt;
     In Tobago it's easy to give an application a well designed look. You can use
     prepared themes like speyside oder scarborough, just to name two.
-    The only thing you have to do is weconfigure them at the right place. This is
+    The only thing you have to do is configure them at the right place. This is
     done in the tobago-config.xml by defining a default theme.</entry>
 
   <entry key="themesCodeExampleTitle">Code Example</entry>
