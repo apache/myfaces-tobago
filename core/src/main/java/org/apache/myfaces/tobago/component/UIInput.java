@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;

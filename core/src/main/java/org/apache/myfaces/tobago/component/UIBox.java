@@ -17,9 +17,6 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
-
-import javax.faces.el.ValueBinding;
 import javax.faces.context.FacesContext;
 
 /*
