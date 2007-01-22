@@ -64,12 +64,7 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
     if (markup != null) {
       return markup;
     }
-    ValueBinding vb = getValueBinding(ATTR_MARKUP);
-    if (vb != null) {
-      return (String[]) vb.getValue(getFacesContext());
-    } else {
-      return new String[0];
-    }
+    return ComponentUtil.getMarkupBinding(getFacesContext(), this);
   }
 
   public void setMarkup(String[] markup) {

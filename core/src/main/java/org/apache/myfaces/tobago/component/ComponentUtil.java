@@ -300,7 +300,7 @@ public class ComponentUtil {
       LOG.warn("Searching for a boolean, but find a String. Should not happen. "
           + "attribute: '" + name + "' id: '" + component.getClientId(FacesContext.getCurrentInstance())
           + "' comp: '" + component + "'");
-      return Boolean.getBoolean((String) bool);
+      return Boolean.valueOf((String) bool);
     } else {
       LOG.warn("Unknown type '" + bool.getClass().getName()
           + "' for boolean attribute: " + name + " id: " + component.getClientId(FacesContext.getCurrentInstance())
@@ -1069,5 +1069,23 @@ public class ComponentUtil {
             "Must be a valueReference (actionListener): " + stateChangeListener);
       }
     }
+  }
+
+
+
+  public static String[] getMarkupBinding(FacesContext facesContext, SupportsMarkup component) {
+    ValueBinding vb = ((UIComponent)component).getValueBinding(ATTR_MARKUP);
+    if (vb != null) {
+      Object markups = vb.getValue(facesContext);
+      if (markups instanceof String[]) {
+        return (String[]) markups;
+      } else if (markups == null) {
+        return new String[0];
+      } else {
+        return new String[]{(String) markups};
+      }
+    }
+
+    return new String[0];
   }
 }
