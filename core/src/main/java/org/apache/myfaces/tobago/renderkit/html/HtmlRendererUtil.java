@@ -92,7 +92,7 @@ public final class HtmlRendererUtil {
     if (ComponentUtil.getBooleanAttribute(component, ATTR_FOCUS)) {
       UIPage page = ComponentUtil.findPage(component);
       String id = component.getClientId(facesContext);
-      if (page.getFocusId() != null && !page.getFocusId().equals(id)) {
+      if (!StringUtils.isBlank(page.getFocusId()) && !page.getFocusId().equals(id)) {
         LOG.warn("page focusId = \"" + page.getFocusId() + "\" ignoring new value \""
             + id + "\"");
       } else {
