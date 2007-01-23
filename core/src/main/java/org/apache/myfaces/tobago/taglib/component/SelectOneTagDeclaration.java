@@ -17,12 +17,14 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
+
 /*
  * Created: Aug 5, 2005 5:27:47 PM
  * User: bommel
  * $Id: $
  */
 
-public interface SelectOneTagDeclaration extends InputTagDeclaration {
+public interface SelectOneTagDeclaration extends InputTagDeclaration, HasMarkup {
 
 }

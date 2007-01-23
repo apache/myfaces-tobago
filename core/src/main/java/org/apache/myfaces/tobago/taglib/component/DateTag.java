@@ -26,12 +26,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_DATE;
 import org.apache.myfaces.tobago.component.UIDateInput;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 
 public class DateTag extends InputTag implements DateTagDeclaration {
 
   private static final Log LOG = LogFactory.getLog(DateTag.class);
+
+  private String markup;
 
   public String getComponentType() {
     return UIDateInput.COMPONENT_TYPE;
@@ -41,14 +44,21 @@ public class DateTag extends InputTag implements DateTagDeclaration {
     return RENDERER_TYPE_DATE;
   }
 
-
   protected void setProperties(UIComponent component) {
     if (getLabel() != null) {
       LOG.warn("the label attribute is deprecated in tc:date, please use tx:date instead.");
     }
+    ComponentUtil.setMarkup(component, markup);
     super.setProperties(component);
   }
 
+  public void setMarkup(String markup) {
+    this.markup = markup;
+  }
 
+  public void release() {
+    super.release();
+    markup = null;
+  }
 }
 

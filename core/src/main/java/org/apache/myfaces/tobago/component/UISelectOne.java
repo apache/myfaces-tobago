@@ -28,10 +28,26 @@ import java.io.IOException;
  * Date: May 31, 2005
  * Time: 7:47:11 PM
  */
-public class UISelectOne extends javax.faces.component.UISelectOne {
+public class UISelectOne extends javax.faces.component.UISelectOne implements SupportsMarkup {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SelectOne";
   public static final String MESSAGE_VALUE_REQUIRED = "tobago.SelectOne.MESSAGE_VALUE_REQUIRED";
+
+  private String[] markup;
+
+  public void restoreState(FacesContext context, Object state) {
+     Object[] values = (Object[]) state;
+     super.restoreState(context, values[0]);
+     markup = (String[]) values[1];
+   }
+
+   public Object saveState(FacesContext context) {
+     Object[] values = new Object[2];
+     values[0] = super.saveState(context);
+     values[1] = markup;
+     return values;
+   }
+
 
   public void encodeBegin(FacesContext facesContext) throws IOException {
     // TODO change this should be renamed to DimensionUtils.prepare!!!
@@ -51,6 +67,17 @@ public class UISelectOne extends javax.faces.component.UISelectOne {
       }
     }
     super.validate(facesContext);
+  }
+
+  public String[] getMarkup() {
+    if (markup != null) {
+      return markup;
+    }
+    return ComponentUtil.getMarkupBinding(getFacesContext(), this);
+  }
+
+  public void setMarkup(String[] markup) {
+    this.markup = markup;
   }
 
 }

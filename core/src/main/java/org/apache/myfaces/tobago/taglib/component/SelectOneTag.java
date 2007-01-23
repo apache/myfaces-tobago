@@ -23,10 +23,29 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.component.UISelectOne;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+
+import javax.faces.component.UIComponent;
 
 public class SelectOneTag extends InputTag implements SelectOneTagDeclaration {
 
+  private String markup;
+
   public String getComponentType() {
     return UISelectOne.COMPONENT_TYPE;
+  }
+
+  protected void setProperties(UIComponent component) {
+    ComponentUtil.setMarkup(component, markup);
+    super.setProperties(component);
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
+  }
+
+  public void release() {
+    super.release();
+    markup = null;
   }
 }
