@@ -38,6 +38,10 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
  */
 /**
  * Renders a file input field.
+ * You need to define an org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataFilter in your web.xml or
+ * add the tobago-fileupload.jar to your project.
+ * The tobago-fileupload.jar contains a FacesContextFactory that wraps the
+ * multipart-formdata request inside the faces request.
  */
 @Tag(name = "file")
 @UIComponentTag(
