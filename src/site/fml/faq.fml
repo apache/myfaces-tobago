@@ -87,8 +87,21 @@
       </answer>
     </faq>
 
+    <faq id="tobago/fileupload">
+      <question>How do I configure fileupload in Tobago?</question>
+      <answer>
+        <p>You have two options.</p>
+        <p>Add a TobagoMultipartFormdataFilter to your web.xml.
+        <a href="http://myfaces.apache.org/tobago/apidocs/org/apache/myfaces/tobago/webapp/TobagoMultipartFormdataFilter.html">Javadoc Description</a> 
+        </p>
+        <p>Add the tobago-fileupload.jar to your project.
+           The tobago-fileupload.jar contains a FacesContextFactory that wraps the
+            multipart-formdata request inside the FacesContext.</p>
+      </answer>
+    </faq>
+
     <faq id="tobago/form">
-      <question>Why do I not need a form tag in a normal case in Tobago?</question>
+      <question>Why I don't need a form tag in a normal case in Tobago?</question>
       <answer>
         <p>The page tag is a form tag. You need a form tag for partial validation of your data.
         Please look at the forms example in the
