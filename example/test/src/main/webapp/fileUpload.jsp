@@ -19,15 +19,27 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <f:view>
-  <tc:page>
+  <tc:page width="400" height="300">
     <f:facet name="layout">
       <tc:gridLayout/>
     </f:facet>
-    <tc:out value="Hello World"/>
-    <tx:file label="test" value="#{test.file}" >
-      <tc:validateFileItem contentType="text/*" maxSize="299"/>
-    </tx:file>
-    <tc:messages/>
-    <tc:button label="Submit" defaultCommand="true" />
+    <tc:box label="File upload">
+      <f:facet name="layout">
+        <tc:gridLayout />
+      </f:facet>
+      <tc:out value="Hello World"/>
+      <tx:file label="File" value="#{test.file}" >
+        <tc:validateFileItem contentType="text/*" maxSize="299" />
+      </tx:file>
+      <tc:messages/>
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout columns="*;fixed;*"/>
+        </f:facet>
+        <tc:cell />
+        <tc:button label="Submit" defaultCommand="true" />
+        <tc:cell />
+      </tc:panel>
+    </tc:box>
   </tc:page>
 </f:view>
