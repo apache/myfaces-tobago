@@ -36,8 +36,8 @@ public class SelectOneTag extends InputTag implements SelectOneTagDeclaration {
   }
 
   protected void setProperties(UIComponent component) {
-    ComponentUtil.setMarkup(component, markup);
     super.setProperties(component);
+    ComponentUtil.setMarkup(component, markup);
   }
 
   public void setMarkup(String markup) {
