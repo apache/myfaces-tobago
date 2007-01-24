@@ -49,7 +49,7 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.net.URLDecoder;
 
-public class LinkRenderer extends CommandRendererBase{
+public class LinkRenderer extends CommandRendererBase {
 
   private static final Log LOG = LogFactory.getLog(LinkRenderer.class);
 
@@ -57,6 +57,7 @@ public class LinkRenderer extends CommandRendererBase{
       UIComponent component) throws IOException {
     String onclick = null;
     String href;
+    boolean submitAction = false;
 
     String clientId = component.getClientId(facesContext);
     // TODO refactor it
@@ -86,17 +87,18 @@ public class LinkRenderer extends CommandRendererBase{
           sb.append("=");
           Object value = parameter.getValue();
           // TODO encoding
-          sb.append(value!=null?URLDecoder.decode(value.toString()):null);
+          sb.append(value != null ? URLDecoder.decode(value.toString()) : null);
         }
       }
       href = sb.toString();
 
-    } else  if (component.getAttributes().get(ATTR_ACTION_ONCLICK) != null) {
+    } else if (component.getAttributes().get(ATTR_ACTION_ONCLICK) != null) {
       onclick = HtmlRendererUtil.prepareOnClick(facesContext, component);
       href = HtmlRendererUtil.getEmptyHref(facesContext);
     } else { // default: Action.TYPE_SUBMIT
       href = "javascript:" + HtmlRendererUtil.createOnClick(facesContext, component);
-         //"Tobago.submitAction('" + clientId + "')";
+      submitAction = true;
+      //"Tobago.submitAction('" + clientId + "')";
     }
 
     onclick = HtmlRendererUtil.appendConfirmationScript(onclick, component, facesContext);
@@ -114,7 +116,9 @@ public class LinkRenderer extends CommandRendererBase{
       if (onclick != null) {
         writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, null);
       }
-      writer.writeAttribute(HtmlAttributes.TARGET, null, ATTR_TARGET);
+      if (!submitAction) {
+        writer.writeAttribute(HtmlAttributes.TARGET, null, ATTR_TARGET);
+      }
     }
     writer.writeComponentClass();
     writer.writeIdAttribute(clientId);
@@ -143,15 +147,15 @@ public class LinkRenderer extends CommandRendererBase{
       HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
     }
 
-      if (label.getAccessKey() != null) {
-        if (LOG.isInfoEnabled()
-            && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-          LOG.info("dublicated accessKey : " + label.getAccessKey());
-        }
+    if (label.getAccessKey() != null) {
+      if (LOG.isInfoEnabled()
+          && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
+        LOG.info("dublicated accessKey : " + label.getAccessKey());
+      }
 
       HtmlRendererUtil.addClickAcceleratorKey(
           facesContext, clientId, label.getAccessKey());
-      }
+    }
   }
 
   public void encodeEnd(FacesContext facesContext, UIComponent component)
