@@ -421,9 +421,11 @@ var Tobago = {
   //      LOG.debug("submit form with action: " + Tobago.action.value);
         Tobago.form.submit();
         Tobago.action.value = oldAction;
-        Tobago.onBeforeUnload();
         if (target) {
           Tobago.form.target = oldTarget;
+          this.isSubmit = false;
+        } else {
+          Tobago.onBeforeUnload();
         }
       }
     }, true);
