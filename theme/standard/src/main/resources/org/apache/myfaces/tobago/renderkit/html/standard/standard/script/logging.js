@@ -288,7 +288,7 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype, {
 //      this.element.style.display = 'none';
       this.hide();
     } else {
-      this.setupHidden();  
+      this.show();  
     }
     this.body.appendChild(this.element);
     LOG.addAppender(this);
