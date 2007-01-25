@@ -427,12 +427,13 @@ var Tobago = {
   //      LOG.debug("submit form with action: " + Tobago.action.value);
         Tobago.form.submit();
         Tobago.action.value = oldAction;
-        if (target || !transition) {
+        if (target) {
           Tobago.form.target = oldTarget;
-          this.isSubmit = false;
-        } else {
-          Tobago.onBeforeUnload();
         }
+        if (target || !transition) {
+          this.isSubmit = false;
+        }
+        Tobago.onBeforeUnload(transition, target);
       }
     }, true);
   },
