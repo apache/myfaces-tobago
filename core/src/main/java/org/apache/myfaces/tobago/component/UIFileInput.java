@@ -18,8 +18,12 @@ package org.apache.myfaces.tobago.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ENCTYPE;
+import org.apache.myfaces.tobago.util.MessageFactory;
+import org.apache.commons.fileupload.FileItem;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
 
 /*
  * Created by IntelliJ IDEA.
@@ -38,4 +42,16 @@ public class UIFileInput extends javax.faces.component.UIInput {
     }
   }
 
+  public void validate(FacesContext facesContext) {
+    if (isRequired()) {
+      FileItem file = (FileItem) getSubmittedValue();
+      if (file == null || file.getName().length() == 0) {
+        FacesMessage facesMessage = MessageFactory.createFacesMessage(
+            facesContext, REQUIRED_MESSAGE_ID, FacesMessage.SEVERITY_ERROR);
+        facesContext.addMessage(getClientId(facesContext), facesMessage);
+        setValid(false);
+      }
+    }
+    super.validate(facesContext);
+  }
 }

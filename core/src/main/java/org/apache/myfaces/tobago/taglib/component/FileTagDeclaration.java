@@ -41,7 +41,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
  * You need to define an org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataFilter in your web.xml or
  * add the tobago-fileupload.jar to your project.
  * The tobago-fileupload.jar contains a FacesContextFactory that wraps the
- * multipart-formdata request inside the faces request.
+ * multipart-formdata request inside the facesContext.
  */
 @Tag(name = "file")
 @UIComponentTag(
@@ -56,7 +56,7 @@ public interface FileTagDeclaration
    * <code>org.apache.commons.fileupload.FileItem</code> property to store the
    * uploaded file.
    */
-  @TagAttribute
+  @TagAttribute()
   @UIComponentTagAttribute(type = { "org.apache.commons.fileupload.FileItem" })
   void setValue(String value);
 }
