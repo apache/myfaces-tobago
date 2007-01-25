@@ -61,6 +61,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
   private String binding;
   private String label;
   private String immediate;
+  private String transition;
   private String converter;
 
   @Override
@@ -96,6 +97,9 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
     }
     if (immediate != null) {
       menuCommandTag.setImmediate(immediate);
+    }
+    if (transition != null) {
+      menuCommandTag.setTransition(transition);
     }
     menuCommandTag.doStartTag();
 
@@ -168,6 +172,10 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
     this.immediate = immediate;
   }
 
+  public void setTransition(String transition) {
+    this.transition = transition;
+  }
+
   public void setConverter(String converter) {
     this.converter = converter;
   }
@@ -184,6 +192,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
     binding = null;
     label = null;
     immediate = null;
+    transition = null;
     converter = null;
   }
 

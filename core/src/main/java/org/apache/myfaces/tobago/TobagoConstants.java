@@ -156,6 +156,7 @@ public final class TobagoConstants {
   public static final String ATTR_TITLE = "title";
   public static final String ATTR_TIP = "tip";
   public static final String ATTR_TOP = "top";
+  public static final String ATTR_TRANSITION = "transition";
   public static final String ATTR_TYPE = "type";
   public static final String ATTR_VALUE = "value";
   public static final String ATTR_VAR = "var";

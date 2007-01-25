@@ -58,6 +58,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
   private String binding;
   private String label;
   private String immediate;
+  private String transition;
 
   @Override
   public int doStartTag() throws JspException {
@@ -91,6 +92,9 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
     }
     if (immediate != null) {
       menuCommandTag.setImmediate(immediate);
+    }
+    if (transition != null) {
+      menuCommandTag.setTransition(transition);
     }
     menuCommandTag.doStartTag();
 
@@ -158,6 +162,10 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
     this.immediate = immediate;
   }
 
+  public void setTransition(String transition) {
+    this.transition = transition;
+  }
+
   public void release() {
     super.release();
     rendered = null;
@@ -170,6 +178,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
     binding = null;
     label = null;
     immediate = null;
+    transition = null;
   }
 
 }

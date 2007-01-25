@@ -251,10 +251,12 @@ var Tobago = {
     this.form.appendChild(clientDimension);
   },
 
-  onBeforeUnload: function() {
-    Tobago.createOverlay(Tobago.page);
-    setTimeout(Tobago.makeOverlaySemitransparent, 750);
-    setTimeout(Tobago.makeOverlayWait, 2000);
+  onBeforeUnload: function(transition, target) {
+    if (transition && !target) {
+      Tobago.createOverlay(Tobago.page);
+      setTimeout(Tobago.makeOverlaySemitransparent, 750);
+      setTimeout(Tobago.makeOverlayWait, 2000);
+    }
   },
 
   makeOverlaySemitransparent: function() {
@@ -405,7 +407,11 @@ var Tobago = {
    /**
     * Submitting the page with specified actionId.
     */
-  submitAction: function(actionId, target) {
+  submitAction: function(actionId, transition, target) {
+    if (transition == null) {
+      transition = true;
+    }
+    LOG.info("transition =" + transition);
     Tobago.Transport.request(function() {
       if (!this.isSubmit) {
         this.isSubmit = true;
@@ -421,7 +427,7 @@ var Tobago = {
   //      LOG.debug("submit form with action: " + Tobago.action.value);
         Tobago.form.submit();
         Tobago.action.value = oldAction;
-        if (target) {
+        if (target || !transition) {
           Tobago.form.target = oldTarget;
           this.isSubmit = false;
         } else {

@@ -35,6 +35,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_INNER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_PREFIX;
 import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_DEFAULT;
@@ -669,7 +670,8 @@ public final class HtmlRendererUtil {
     String clientId = component.getClientId(facesContext);
     boolean defaultCommand = ComponentUtil.getBooleanAttribute(component,
         TobagoConstants.ATTR_DEFAULT_COMMAND);
-    String onclick = "Tobago.submitAction('" + clientId + "');";
+    boolean transition = ComponentUtil.getBooleanAttribute(component, ATTR_TRANSITION);
+    String onclick;
 
     if (component.getAttributes().get(TobagoConstants.ATTR_ACTION_LINK) != null) {
       onclick = "Tobago.navigateToUrl('"
@@ -694,6 +696,7 @@ public final class HtmlRendererUtil {
         }
       } else {
         LOG.error("more than one parially rendered component is currently not supported " + componentId);
+        onclick = "Tobago.submitAction('" + clientId + "', " + transition + ");";
       }
 
     } else if (defaultCommand) {
@@ -702,9 +705,9 @@ public final class HtmlRendererUtil {
     } else {
       String target = ComponentUtil.getStringAttribute(component, TobagoConstants.ATTR_TARGET);
       if (target == null) {
-        onclick = "Tobago.submitAction('" + clientId + "');";
+        onclick = "Tobago.submitAction('" + clientId + "', " + transition  + ");";
       } else {
-        onclick = "Tobago.submitAction('" + clientId + "', '" + target + "');";
+        onclick = "Tobago.submitAction('" + clientId + "', " + transition  + ", '" + target + "');";
       }
     }
 

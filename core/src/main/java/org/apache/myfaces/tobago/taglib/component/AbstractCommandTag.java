@@ -22,6 +22,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMMEDIATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TYPE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICommand;
 
@@ -36,6 +37,7 @@ public abstract class AbstractCommandTag extends TobagoTag implements AbstractCo
   private String immediate;
   private String onclick;
   private String link;
+  private String transition;
 
   public String getComponentType() {
     return UICommand.COMPONENT_TYPE;
@@ -54,6 +56,7 @@ public abstract class AbstractCommandTag extends TobagoTag implements AbstractCo
     ComponentUtil.setStringProperty(component, ATTR_ACTION_LINK, link);
     ComponentUtil.setStringProperty(component, ATTR_ACTION_ONCLICK, onclick);
     ComponentUtil.setActionListener(command, actionListener);
+    ComponentUtil.setBooleanProperty(component, ATTR_TRANSITION, transition);
   }
 
   public void release() {
@@ -65,6 +68,7 @@ public abstract class AbstractCommandTag extends TobagoTag implements AbstractCo
     immediate = null;
     onclick = null;
     link = null;
+    transition = null;
   }
 
   public String getAction() {
@@ -109,5 +113,9 @@ public abstract class AbstractCommandTag extends TobagoTag implements AbstractCo
 
   public void setDisabled(String disabled) {
     this.disabled = disabled;
+  }
+
+  public void setTransition(String transition) {
+    this.transition = transition;
   }
 }

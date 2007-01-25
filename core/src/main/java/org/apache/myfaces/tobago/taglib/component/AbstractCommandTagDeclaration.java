@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
 import org.apache.myfaces.tobago.taglib.decl.HasLink;
 import org.apache.myfaces.tobago.taglib.decl.HasOnclick;
 import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
+import org.apache.myfaces.tobago.taglib.decl.IsTransition;
 
 /*
 * Created by IntelliJ IDEA.
@@ -30,7 +31,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 * Time: 22:03:07
 */
 
-
 public interface AbstractCommandTagDeclaration extends TobagoTagDeclaration,
-    HasAction, HasActionListener, IsImmediateCommand, HasOnclick, HasLink {
+    HasAction, HasActionListener, IsImmediateCommand, HasOnclick, HasLink, IsTransition {
 }

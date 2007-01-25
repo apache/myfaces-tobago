@@ -22,8 +22,10 @@
   <jsp:body>
     <tc:box label="Transition after sleep">
       <f:facet name="layout">
-        <tc:gridLayout />
+        <tc:gridLayout rows="fixed;*" />
       </f:facet>
+
+      <tc:button label="Back" action="best-practice/transition" />
 
       <tc:cell />
 

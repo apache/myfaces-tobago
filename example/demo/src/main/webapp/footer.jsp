@@ -18,13 +18,13 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <f:subview id="footer" >
 
-  <tc:panel id="a">
+  <tc:panel>
     <f:facet name="layout">
       <tc:gridLayout columns="70px;70px;130px;1*"
-          rows="15px;fixed" id="b"/>
+          rows="15px;fixed"/>
     </f:facet>
 
-    <tc:cell spanX="4" id="c">
+    <tc:cell spanX="4">
      <f:verbatim><hr /></f:verbatim>
     </tc:cell>
 
@@ -33,22 +33,20 @@
       image="image/prev.gif"
       action="#{overviewNavigation.gotoPrevious}"
       disabled="#{overviewNavigation.first}"
-      label="#{overviewBundle.footer_previous}"  id="d"/>
+      label="#{overviewBundle.footer_previous}"/>
 
     <%-- fixme: next and previous button are not working in them moment (rendered="false") --%>
     <tc:button immediate="true" rendered="false"
       image="image/next.gif"
       action="#{overviewNavigation.gotoNext}"
       disabled="#{overviewNavigation.last}"
-      label="#{overviewBundle.footer_next}"  id="e"/>
+      label="#{overviewBundle.footer_next}"/>
 
     <tc:button action="#{overviewNavigation.viewSource}"
-        immediate="true" label="#{overviewBundle.footer_viewSource}"  id="f"/>
+        immediate="true" label="#{overviewBundle.footer_viewSource}"
+        target="Source Viewer" transition="false"/>
 
     <tc:out value="#{overviewBundle.notTranslated}"/>
-
-    <%--<tc:link id="atanion_link" action="http://www.atanion.com/"--%>
-        <%--type="navigate" image="image/poweredBy.gif" />--%>
 
   </tc:panel>
 </f:subview>
