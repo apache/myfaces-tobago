@@ -24,7 +24,7 @@ import org.apache.commons.fileupload.FileItem;
 
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-import javax.faces.validator.LengthValidator;
+import javax.faces.validator.DoubleRangeValidator;
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -57,7 +57,7 @@ public class FileItemValidator implements Validator, StateHolder {
         // TODO better error text i18n
         Object[] args = {maxSize,  component.getId()};
         FacesMessage facesMessage = MessageFactory.createFacesMessage(context,
-            LengthValidator.MAXIMUM_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, args);
+            DoubleRangeValidator.MAXIMUM_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, args);
         throw new ValidatorException(facesMessage);
       }
       if (contentType != null
