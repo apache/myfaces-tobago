@@ -85,10 +85,12 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
   }
 
   public void queueEvent(FacesEvent event) {
-    if (isImmediate()) {
-      event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
-    } else {
-      event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+    if (this == event.getSource()) {      
+      if (isImmediate()) {
+        event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
+      } else {
+        event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+      }
     }
     super.queueEvent(event);
   }
