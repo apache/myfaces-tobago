@@ -38,7 +38,7 @@
     </tc:cell>
 
     <tc:cell spanY="2" >
-      <jsp:include page="/navigator.jsp"/>
+      <jsp:include page="/navigation.jsp"/>
     </tc:cell>
 
     <tc:cell>

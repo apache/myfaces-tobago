@@ -19,9 +19,18 @@ package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.example.demo.jsp.JspFormatter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.faces.context.FacesContext;
+import javax.faces.context.ExternalContext;
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.IOException;
 
 /**
  * User: lofwyr
@@ -29,6 +38,8 @@ import javax.faces.context.FacesContext;
  * Time: 10:41:49
  */
 public class Navigation {
+
+  private static final Log LOG = LogFactory.getLog(Navigation.class);
 
   private DefaultMutableTreeNode tree;
 
@@ -61,6 +72,7 @@ public class Navigation {
 
     state = new TreeState();
     state.expand(tree, 2);
+    state.setMarker(overview);
   }
 
   public String navigate() {
@@ -82,6 +94,58 @@ public class Navigation {
 
   public void setState(TreeState state) {
     this.state = state;
+  }
+
+  public String gotoFirst() {
+    DefaultMutableTreeNode first = tree.getNextNode();
+    state.setMarker(first);
+    return ((Node)first.getUserObject()).getOutcome();
+  }
+
+  public String gotoPrevious() {
+    DefaultMutableTreeNode previousNode = state.getMarker().getPreviousNode();
+    if (previousNode != null) {
+      state.setMarker(previousNode);
+      return ((Node)previousNode.getUserObject()).getOutcome();
+    }
+    return null;
+  }
+
+    public String gotoNext() {
+    DefaultMutableTreeNode nextNode = state.getMarker().getNextNode();
+    if (nextNode != null) {
+      state.setMarker(nextNode);
+      return ((Node)nextNode.getUserObject()).getOutcome();
+    }
+    return null;
+  }
+
+  public boolean isFirst() {
+    return state.getMarker().getPreviousNode().isRoot();
+  }
+
+  public boolean isLast() {
+    return state.getMarker().getNextNode() == null;
+  }
+
+  public String viewSource() {
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    ExternalContext externalContext = facesContext.getExternalContext();
+    String viewId = facesContext.getViewRoot().getViewId();
+    HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
+    response.setContentType("text/html;charset=UTF-8");
+
+    try {
+      InputStream resourceAsStream = externalContext.getResourceAsStream(viewId);
+      InputStreamReader reader = new InputStreamReader(resourceAsStream);
+      JspFormatter.writeJsp(reader, new PrintWriter(response.getOutputStream()));
+    } catch (IOException e) {
+      LOG.error("", e);
+      return "error";
+    }
+
+    facesContext.responseComplete();
+    return null;
   }
 
   public static class Node {

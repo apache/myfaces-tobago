@@ -56,9 +56,6 @@
 
   <lifecycle>
     <phase-listener>
-      org.apache.myfaces.tobago.example.demo.overview.SynchronizeNavigationPhaseListener
-    </phase-listener>
-    <phase-listener>
       org.apache.myfaces.tobago.util.DebugPhaseListener
     </phase-listener>
   </lifecycle>
@@ -71,29 +68,6 @@
   </managed-bean>
 
   <!--  overview  -->
-
-  <managed-bean>
-    <managed-bean-name>overviewNavigation</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.overview.PresentationController</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-    <managed-property>
-      <property-name>pages</property-name>
-      <list-entries>
-        <value>overview/intro</value>
-        <value>overview/basicControls</value>
-        <value>overview/sheetControl</value>
-        <value>overview/treeControl</value>
-        <value>overview/tabControl</value>
-        <value>overview/toolbar</value>
-        <value>overview/validation</value>
-        <value>overview/form</value>
-        <value>overview/themes</value>
-        <value>overview/browser</value>
-        <value>overview/locale</value>
-        <value>overview/layout</value>
-      </list-entries>
-    </managed-property>
-  </managed-bean>
 
   <managed-bean>
     <managed-bean-name>overviewController</managed-bean-name>

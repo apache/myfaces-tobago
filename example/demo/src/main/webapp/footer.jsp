@@ -29,20 +29,20 @@
     </tc:cell>
 
     <%-- fixme: next and previous button are not working in them moment (rendered="false") --%>
-    <tc:button immediate="true" rendered="false"
+    <tc:button immediate="true"
       image="image/prev.gif"
-      action="#{overviewNavigation.gotoPrevious}"
-      disabled="#{overviewNavigation.first}"
+      action="#{navigation.gotoPrevious}"
+      disabled="#{navigation.first}"
       label="#{overviewBundle.footer_previous}"/>
 
     <%-- fixme: next and previous button are not working in them moment (rendered="false") --%>
-    <tc:button immediate="true" rendered="false"
+    <tc:button immediate="true"
       image="image/next.gif"
-      action="#{overviewNavigation.gotoNext}"
-      disabled="#{overviewNavigation.last}"
+      action="#{navigation.gotoNext}"
+      disabled="#{navigation.last}"
       label="#{overviewBundle.footer_next}"/>
 
-    <tc:button action="#{overviewNavigation.viewSource}"
+    <tc:button action="#{navigation.viewSource}"
         immediate="true" label="#{overviewBundle.footer_viewSource}"
         target="Source Viewer" transition="false"/>
 

@@ -23,9 +23,7 @@
       <tc:gridLayout columns="150px;*;200px" />
     </f:facet>
 
-    <tc:link action="overview/intro" immediate="true"
-        actionListener="#{overviewNavigation.navigate}"
-        image="image/tobago_head.gif" />
+    <tc:link action="#{navigation.gotoFirst}" immediate="true" image="image/tobago_head.gif" />
 
     <tc:cell />
 
