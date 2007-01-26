@@ -26,7 +26,7 @@
       </f:facet>
 
       <tc:out value="Prevent double-clicks" />
-      <tc:button label="Sleep 5 s (transition=true)" action="#{transitionController.sleep5s}" transition="true"/>
+      <tc:button label="Sleep 5 s (transition=true)" action="#{transitionController.sleep5s}"/>
       <tc:button label="Sleep 5 s (transition=false)" action="#{transitionController.sleep5s}" transition="false"/>
 
       <tc:cell />

@@ -21,6 +21,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDERED_PARTIALLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -41,6 +42,7 @@ public class UICommand extends javax.faces.component.UICommand {
   private Boolean disabled;
   private String[] renderedPartially;
   private String target;
+  private Boolean transition;
 
   public boolean isDefaultCommand() {
     if (defaultCommand != null) {
@@ -97,6 +99,22 @@ public class UICommand extends javax.faces.component.UICommand {
     this.disabled = disabled;
   }
 
+  public boolean isTransition() {
+    if (transition != null) {
+      return transition;
+    }
+    ValueBinding vb = getValueBinding(ATTR_TRANSITION);
+    if (vb != null) {
+      return Boolean.TRUE.equals(vb.getValue(getFacesContext()));
+    } else {
+      return true;
+    }
+  }
+
+  public void setTransition(boolean transition) {
+    this.transition = transition;
+  }
+
   public String getTarget() {
     if (target != null) {
       return target;
@@ -115,12 +133,13 @@ public class UICommand extends javax.faces.component.UICommand {
 
 
   public Object saveState(FacesContext context) {
-    Object[] saveState = new Object[5];
+    Object[] saveState = new Object[6];
     saveState[0] = super.saveState(context);
     saveState[1] = defaultCommand;
     saveState[2] = disabled;
     saveState[3] = renderedPartially;
     saveState[4] = target;
+    saveState[5] = transition;
     return saveState;
   }
 
@@ -131,6 +150,7 @@ public class UICommand extends javax.faces.component.UICommand {
     disabled = (Boolean) values[2];
     renderedPartially = (String[]) values[3];
     target = (String) values[4];
+    transition = (Boolean) values[5];
   }
 
 
