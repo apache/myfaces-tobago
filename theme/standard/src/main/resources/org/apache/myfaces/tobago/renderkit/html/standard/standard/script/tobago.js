@@ -265,9 +265,13 @@ var Tobago = {
       var img = document.createElement("IMG");
       img.style.width = overlay.clientWidth;
       img.style.height = overlay.clientHeight;
-//      todo: implement ie 6 workaround for alpha images
-      if (!Tobago.fixImage) { // is IE
+      if (!Tobago.fixImage) { // is not IE
         img.src = Tobago.OVERLAY_BACKGROUND;
+      } else {
+        // todo: not needed for IE 7
+        img.src = Tobago.pngFixBlankImage;
+        img.runtimeStyle.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" +
+                                       Tobago.OVERLAY_BACKGROUND + "',sizingMethod='scale')";
       }
       overlay.appendChild(img);
     }
