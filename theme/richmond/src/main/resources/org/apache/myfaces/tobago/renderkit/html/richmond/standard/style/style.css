@@ -52,7 +52,7 @@ td.tobago-calendar-day-selected {
   background-color: #99CCFF;
 }
 
-/* - Tree ------------------------------------------------------------------- */
+/* - Tree Old ------------------------------------------------------------------- */
 
 a.tree-folder-label:hover, a.tree-item-label:hover  {
   color: #6699ff;
@@ -67,6 +67,18 @@ a.tree-folder-label:focus, a.tree-item-label:focus {
 .tree-junction {
 	width: 19px;
 	height: 16px;
+}
+
+/* - Tree ------------------------------------------------------------------- */
+
+a.tobago-tree-node a:hover {
+  color: #6699ff;
+  text-decoration: underline;
+}
+
+a.tobago-tree-node a:focus {
+  background: #d6ebff;
+  color: #3366cc;
 }
 
 /* Progress Control --------------------------------------------------------- */

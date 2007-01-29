@@ -19,10 +19,43 @@ package org.apache.myfaces.tobago.example.sandbox;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.model.TreeState;
+
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public class Controller {
 
   private static final Log LOG = LogFactory.getLog(Controller.class);
+
+  private DefaultMutableTreeNode tree;
+
+  private TreeState state;
+
+  public Controller() {
+    // tree
+    tree = new DefaultMutableTreeNode(new Node("Category"));
+    tree.insert(new DefaultMutableTreeNode(new Node("Sports")), 0);
+    tree.insert(new DefaultMutableTreeNode(new Node("Movies")), 0);
+    DefaultMutableTreeNode music = new DefaultMutableTreeNode(new Node("Music"));
+    tree.insert(music, 0);
+    tree.insert(new DefaultMutableTreeNode(new Node("Games")), 0);
+    DefaultMutableTreeNode temp = new DefaultMutableTreeNode(new Node("Science"));
+    temp.insert(new DefaultMutableTreeNode(new Node("Geography")), 0);
+    temp.insert(new DefaultMutableTreeNode(new Node("Mathematics")), 0);
+    DefaultMutableTreeNode temp2 = new DefaultMutableTreeNode(new Node("Astronomy"));
+    temp2.insert(new DefaultMutableTreeNode(new Node("Education")), 0);
+    temp2.insert(new DefaultMutableTreeNode(new Node("Pictures")), 0);
+    temp.insert(temp2, 2);
+    tree.insert(temp, 2);
+
+    // state
+
+    state = new TreeState();
+    state.addExpandState(tree);
+    state.addExpandState(temp);
+    state.addSelection(temp2);
+    state.setMarker(music);
+  }
 
   public String action1() {
     LOG.info("action 1");
@@ -39,4 +72,20 @@ public class Controller {
     return null;
   }
 
+  public DefaultMutableTreeNode getTree() {
+    return tree;
+  }
+
+  public void setTree(DefaultMutableTreeNode tree) {
+    this.tree = tree;
+  }
+
+
+  public TreeState getState() {
+    return state;
+  }
+
+  public void setState(TreeState state) {
+    this.state = state;
+  }
 }

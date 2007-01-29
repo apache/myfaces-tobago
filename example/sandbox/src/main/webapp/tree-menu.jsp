@@ -28,8 +28,13 @@
       <tc:gridLayout margin="10px" rows="300px;*"/>
     </f:facet>
 
-    <tcs:tree state="#{controller.state}" id="tree">
-      <tcs:treeNode label="Root">
+    <tcs:tree state="#{controller.state}" id="menu"
+              showIcons="false"
+              showJunctions="false"
+              showRootJunction="false"
+              showRoot="true"
+              mode="menu">
+      <tcs:treeNode label="Root" id="root">
         <tcs:treeNodes value="#{controller.tree}" var="node" id="data">
           <tcs:treeNode label="#{node.userObject.name}" id="template"
                         action="#{node.userObject.action}" value="#{node}"/>

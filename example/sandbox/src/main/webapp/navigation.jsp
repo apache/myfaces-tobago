@@ -14,20 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 --%>
+<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
-   "http://www.w3.org/TR/html4/frameset.dtd">
-<html>
-<head>
-<title>Tobago</title>
-</head>
-<frameset cols="200,*">
-  <frame src="faces/navigation.jsp" name="Navigation">
-  <frame src="" name="View">
-  <noframes>
-    <body>
-      <p>Error: No frames.</p>
-    </body>
-  </noframes>
-</frameset>
-</html>
+<f:view>
+
+  <tc:loadBundle basename="demo" var="bundle"/>
+
+  <tc:page label="Screenshot" id="page"
+           width="200px" height="800px">
+    <f:facet name="layout">
+      <tc:gridLayout margin="5px"
+                     rows="fixed;fixed;fixed;fixed;*"/>
+    </f:facet>
+
+    <tc:link link="separator.jsp" label="separator.jsp" target="View"/>
+
+    <tc:link link="tree.jsp" label="tree.jsp" target="View"/>
+
+    <tc:link link="tree-sel.jsp" label="tree-sel.jsp" target="View"/>
+
+    <tc:link link="tree-menu.jsp" label="tree-menu.jsp" target="View"/>
+
+    <tc:cell/>
+  </tc:page>
+</f:view>

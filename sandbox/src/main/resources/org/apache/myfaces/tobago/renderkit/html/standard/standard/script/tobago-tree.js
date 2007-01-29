@@ -52,9 +52,7 @@ Tobago.Tree.updateMarker = function(node, add) {
   if (node) {
     node = node.firstChild;
     while (node) {
-      if (node.className &&
-          (node.className.indexOf("tree-item-label") > -1
-              || node.className.indexOf("tree-folder-label") > -1)) {
+      if (node.className && node.className.indexOf("tobago-tree-node") > -1) {
         if (add) {
           Tobago.addCssClass(node, "tree-item-marker");
         } else {

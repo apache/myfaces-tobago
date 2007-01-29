@@ -359,12 +359,18 @@ TreeNode.prototype.toString = function (depth, last) {
 
     var str = '';
     if (! this.hideRoot || depth > 0) {
-      var treeItemClasses = "tree-item";
+      var treeItemClasses = "tobago-tree-node";
       if (this.mode == "menu") {
-        treeItemClasses += " tree-menu-item"
+        treeItemClasses += " tobago-tree-menu"
+        if (this.marked) {
+          treeItemClasses += " tobago-tree-marker";
+        }
+      }
+      if (this.disabled) {
+        treeItemClasses += " tobago-tree-disabled";
       }
       str += '<div id="' + this.id + '" class="' + treeItemClasses + '" '
-          + 'style="width: ' + this.width + ';">';// fixme null pointer
+          + 'style="width: ' + this.width + ';">';
       if (this.mode == "menu") {
         if (this.isFolder) {
           // FIXME: change the icons when klick on the icon
@@ -441,12 +447,9 @@ TreeNode.prototype.toString = function (depth, last) {
         str += '<img class="tree-icon" id="' + this.id
             + '-markIcon" src="' + markIcon + '" ' + markIconOnClickFunction + ' alt="">';
       }
-      var itemStyle = this.isFolder ? "tree-folder-label" : "tree-item-label";
-      if (this.disabled) {
-        itemStyle += this.isFolder ? " tree-folder-label-disabled" : " tree-item-label-disabled";
-      }
+      var itemStyle = "";
       if (this.marked) {
-        itemStyle += " tree-item-marker";
+        itemStyle += " tobago-tree-marker";
       }
       str += '<a class="' + itemStyle + '"';
       if (this.tip) {

@@ -28,21 +28,23 @@
       <tc:gridLayout margin="10px" rows="300px;*"/>
     </f:facet>
 
-    <tcs:tree state="#{controller.state}" id="tree">
+    <tcs:tree state="#{controller.state}" id="sel"
+              showIcons="true"
+              showJunctions="true"
+              showRootJunction="true"
+              showRoot="true"
+              selectable="single">
       <tcs:treeNode label="Root">
-        <tcs:treeNodes value="#{controller.tree}" var="node" id="data">
-          <tcs:treeNode label="#{node.userObject.name}" id="template"
-                        action="#{node.userObject.action}" value="#{node}"/>
+        <tcs:treeNodes value="#{controller.tree}" var="node">
+          <tcs:treeNode label="#{node.userObject.name}"/>
         </tcs:treeNodes>
-        <tcs:treeNode label="Action 1" action="#{controller.action1}" id="action1"/>
-        <tcs:treeNode label="Action 2" action="#{controller.action2}" id="action2"/>
-        <tcs:treeNode label="Action 3" action="#{controller.action3}" id="action3">
-          <tcs:treeNode label="On Click 1" onclick="alert('On Click 1');" id="click1"/>
-          <tcs:treeNode label="On Click 2" onclick="alert('On Click 2');" id="click2">
-            <tcs:treeNode label="On Click 3" onclick="alert('On Click 3');" id="click3"/>
-          </tcs:treeNode>
+        <tcs:treeNode label="Sub 1"/>
+        <tcs:treeNode label="Sub 2"/>
+        <tcs:treeNode label="Sub 3">
+          <tcs:treeNode label="Sub 3.1"/>
+          <tcs:treeNode label="Sub 3.2"/>
         </tcs:treeNode>
-        <tcs:treeNode label="Link" link="http://myfaces.apache.org/tobago/" id="link"/>
+        <tcs:treeNode label="Sub 4"/>
       </tcs:treeNode>
     </tcs:tree>
 

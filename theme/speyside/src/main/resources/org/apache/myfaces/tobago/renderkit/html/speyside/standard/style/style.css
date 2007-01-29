@@ -170,6 +170,7 @@ a:link.tab, a:visited.tab, a:active.tab {
 a.tree-folder-label, .tree-folder-label {
   font: bold 12px arial, helvetica, sans-serif;
 }
+
 a.tree-folder-label-disabled, a.tree-item-label-disabled {
   color: #888888;
   text-decoration: none;
@@ -192,7 +193,7 @@ a.tree-folder-label:focus, a.tree-item-label:focus {
 }
 
 a.tree-item-marker, a.tree-item-marker:focus {
-	background-color: lightgrey;
+	background-color: lightgray;
 }
 
 /* -----------------------------------------------------------------------------
@@ -229,6 +230,57 @@ reason they are not defined as a:link
   float: right;
 }
 
+/* Tree ------------------------------------------------------------------- */
+
+.tobago-tree-menu {
+  border: 1px solid #CCCCCC;
+  width: 200px; /* default */
+  height: 16px;
+}
+
+.tobago-tree-node img {
+  vertical-align: top;
+	border: 0px;
+}
+
+.tobago-tree-node a {
+  font: 12px arial, helvetica, sans-serif;
+}
+
+.tobago-tree-disabled {
+  color: #888888;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.tobago-tree-node a:hover {
+  color: #000000;
+  text-decoration: underline;
+}
+
+.tobago-tree-disabled a:hover {
+  color: #888888;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.tobago-tree-node a:focus {
+  background: transparent;
+  color: #000000;
+}
+
+/* -----------------------------------------------------------------------------
+ these styles are only for tree-items which have no href, for that
+reason they are not defined as a:link
+----------------------------------------------------------------------------- */
+/*.tobago-tree-node a, .tobago-tree-node a:hover  {
+  color: #000000;
+}
+
+.tobago-tree-node a:hover  {
+  text-decoration: underline;
+}
+*/
 /* ----------------------------------------------------------------------------
  * New Tobago Style definitions:
  * Syntax: .tobago-<elementname>-<attribute>

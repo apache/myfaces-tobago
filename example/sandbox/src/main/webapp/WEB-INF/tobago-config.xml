@@ -23,7 +23,7 @@
 <tobago-config>
 
   <theme-config>
-    <default-theme>speyside</default-theme>
+    <default-theme>scarborough</default-theme>
   </theme-config>
 
   <resource-dir>tobago-resource</resource-dir>
