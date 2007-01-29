@@ -36,11 +36,12 @@ public class UITreeNode extends UICommand {
   }
 
   public Object getValue() {
-    Object value = super.getValue();
+    DefaultMutableTreeNode value = (DefaultMutableTreeNode) super.getValue();
     if (value == null) { // XXX: hack!
       value = new DefaultMutableTreeNode();
+      value.setUserObject(System.identityHashCode(value));
       setValue(value);
-      LOG.info("Created temporary Node");
+      LOG.info("Created temporary Node: " + value.getUserObject());
     }
     return value;
   }
