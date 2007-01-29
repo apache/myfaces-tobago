@@ -178,7 +178,7 @@ public class TreeOldNodeRenderer extends RendererBase {
 
       writer.writeText("  var ", null);
       writer.writeText(jsClientId, null);
-      writer.writeText(" = new TreeNode('", null);
+      writer.writeText(" = new TreeOldNode('", null);
       // label
       Object name = treeNode.getAttributes().get(TobagoConstants.ATTR_NAME);
       if (LOG.isDebugEnabled()) {

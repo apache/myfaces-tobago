@@ -178,7 +178,7 @@ public class TreeRenderer extends RendererBase {
 
     String[] scriptTexts = createJavascript(facesContext, clientId, root);
 
-    String[] scripts = {"script/tree.js"};
+    String[] scripts = {"script/tobago-tree.js"};
     List<String> scriptFiles = ComponentUtil.findPage(tree).getScriptFiles();
     for (String script : scripts) {
       scriptFiles.add(script);

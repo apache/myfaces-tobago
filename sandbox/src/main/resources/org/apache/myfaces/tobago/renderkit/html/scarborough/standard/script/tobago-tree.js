@@ -281,10 +281,10 @@ function getNodeForIdRecursiv(node, selectId) {
 function storeMarker(node, treeHiddenId) {
   var markerHidden = document.getElementById(treeHiddenId + '-marker');
   if (markerHidden) {
-    Tobago.TreeOld.updateMarker(markerHidden.value, false);
+    Tobago.Tree.updateMarker(markerHidden.value, false);
     markerHidden.value = node.id;
   }
-  Tobago.TreeOld.updateMarker(node.id, true);
+  Tobago.Tree.updateMarker(node.id, true);
 }
 
 function nodeStateId(node) {
@@ -300,7 +300,7 @@ var TreeManager = {
   }
 };
 
-function TreeOldNode(label, tip, id, mode, isFolder,
+function TreeNode(label, tip, id, mode, isFolder,
     hideIcons, hideJunctions, hideRootJunction,
     hideRoot, treeHiddenId, selectable, mutable,
     formId, selected, marked,
@@ -354,7 +354,7 @@ function TreeOldNode(label, tip, id, mode, isFolder,
 	}
 }
 
-TreeOldNode.prototype.toString = function (depth, last) {
+TreeNode.prototype.toString = function (depth, last) {
     if (!depth) depth = 0;
 
     var str = '';
@@ -454,8 +454,8 @@ TreeOldNode.prototype.toString = function (depth, last) {
       }
       if (!this.disabled) {
         str += ' href="' + Tobago.EMPTY_HREF +  '"'
-            + ' onclick="Tobago.TreeOld.onClick(this)"'
-            + ' ondblclick="Tobago.TreeOld.onDblClick(this)"'
+            + ' onclick="Tobago.Tree.onClick(this)"'
+            + ' ondblclick="Tobago.Tree.onDblClick(this)"'
             + ' onfocus="' + this.onfocus + '"';
       }
       str += '>'
@@ -478,14 +478,14 @@ TreeOldNode.prototype.toString = function (depth, last) {
   };
 
 // is the node the last child of its paranet?
-TreeOldNode.prototype.isLast = function() {
+TreeNode.prototype.isLast = function() {
   if (!this.parentNode) return true;
   var siblings = this.parentNode.childNodes;
   if (siblings.length == 0) return true;
   return (this == siblings[siblings.length-1]);
 };
 
-TreeOldNode.prototype.indent = function(depth, last) {
+TreeNode.prototype.indent = function(depth, last) {
   if (!depth) depth = 0;
   var str = "";
   var node = this;
@@ -504,7 +504,7 @@ TreeOldNode.prototype.indent = function(depth, last) {
   return str;
 };
 
-TreeOldNode.prototype.initSelection = function() {
+TreeNode.prototype.initSelection = function() {
   if (this.selected) {
     var selectState = document.getElementById(this.treeHiddenId + '-selectState');
     if (selectState) {
@@ -518,23 +518,23 @@ TreeOldNode.prototype.initSelection = function() {
   }
 };
 
-TreeOldNode.prototype.hasChildren = function() {
+TreeNode.prototype.hasChildren = function() {
   return (this.childNodes && this.childNodes.length > 0);
 }
 
-TreeOldNode.prototype.add = function (node) {
+TreeNode.prototype.add = function (node) {
   node.parentNode = this;
   this.childNodes[this.childNodes.length] = node;
   return node;
 };
 
-TreeOldNode.prototype.onClick = function() {
+TreeNode.prototype.onClick = function() {
   LOG.debug("click on tree;");
   this.singleClick = true;
-  setTimeout(Tobago.bind(this, "doOnClick"), Tobago.TreeOld.DBL_CLICK_TIMEOUT);
+  setTimeout(Tobago.bind(this, "doOnClick"), Tobago.Tree.DBL_CLICK_TIMEOUT);
 }
 
-TreeOldNode.prototype.doOnClick = function() {
+TreeNode.prototype.doOnClick = function() {
   if (!this.singleClick) {
     return;
   }
@@ -561,7 +561,7 @@ TreeOldNode.prototype.doOnClick = function() {
   }
 }
 
-TreeOldNode.prototype.onDblClick = function() {
+TreeNode.prototype.onDblClick = function() {
   LOG.debug("dblclick on tree;");
   this.singleClick = false;
   toggle(Tobago.element(this.id),

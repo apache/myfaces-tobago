@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-Tobago.TreeOld = {};
+Tobago.Tree = {};
 
-Tobago.TreeOld.destroy = function(node) {
+Tobago.Tree.destroy = function(node) {
   try {
     var hidden = Tobago.element(node.treeHiddenId);
     if (hidden.rootNode) {
@@ -31,23 +31,23 @@ Tobago.TreeOld.destroy = function(node) {
   }
 };
 
-Tobago.TreeOld.onClick = function(element) {
+Tobago.Tree.onClick = function(element) {
   var treeNode = Tobago.treeNodes[element.parentNode.id];
   if (treeNode) {
     treeNode.onClick();
   }
 };
 
-Tobago.TreeOld.DBL_CLICK_TIMEOUT = 300;
+Tobago.Tree.DBL_CLICK_TIMEOUT = 300;
 
-Tobago.TreeOld.onDblClick = function(element) {
+Tobago.Tree.onDblClick = function(element) {
   var treeNode = Tobago.treeNodes[element.parentNode.id];
   if (treeNode) {
     treeNode.onDblClick();
   }
 };
 
-Tobago.TreeOld.updateMarker = function(node, add) {
+Tobago.Tree.updateMarker = function(node, add) {
   node = Tobago.element(node);
   if (node) {
     node = node.firstChild;
