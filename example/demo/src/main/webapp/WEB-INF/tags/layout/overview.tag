@@ -21,7 +21,7 @@
   <tc:loadBundle basename="overview" var="overviewBundle"/>
   <tc:page label="#{overviewBundle.pageTitle}" id="page" width="800px" height="600px">
 
-    <jsp:include page="/overview/menubar.jsp" />
+    <jsp:include page="/menu.jsp" />
     <%--f:facet name="backButtonDetector">
       <tc:hidden value="#{overviewNavigation.currentRequestTime}"
                  converter="org.apache.myfaces.tobago.converter.BackButtonDetection" >

@@ -52,10 +52,10 @@ public class Navigation {
 
     DefaultMutableTreeNode overview = new DefaultMutableTreeNode(new Node("overview", "overview/intro"));
 //    overview.add(new DefaultMutableTreeNode(new Node("intro", "overview/intro")));
-    overview.add(new DefaultMutableTreeNode(new Node("basicControls", "overview/basicControls")));
-    overview.add(new DefaultMutableTreeNode(new Node("sheetControl", "overview/sheetControl")));
-    overview.add(new DefaultMutableTreeNode(new Node("treeControl", "overview/treeControl")));
-    overview.add(new DefaultMutableTreeNode(new Node("tabControl", "overview/tabControl")));
+    overview.add(new DefaultMutableTreeNode(new Node("basic", "overview/basic")));
+    overview.add(new DefaultMutableTreeNode(new Node("sheet", "overview/sheet")));
+    overview.add(new DefaultMutableTreeNode(new Node("tree", "overview/tree")));
+    overview.add(new DefaultMutableTreeNode(new Node("tab", "overview/tab")));
     overview.add(new DefaultMutableTreeNode(new Node("toolbar", "overview/toolbar")));
     overview.add(new DefaultMutableTreeNode(new Node("validation", "overview/validation")));
     overview.add(new DefaultMutableTreeNode(new Node("form", "overview/form")));

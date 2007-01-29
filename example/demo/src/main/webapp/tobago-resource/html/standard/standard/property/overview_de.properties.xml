@@ -37,10 +37,10 @@
 <!--  navigate -->
   <entry key="overview">Übersicht</entry>
   <entry key="intro">Einführung</entry>
-  <entry key="basicControls">Basis</entry>
-  <entry key="sheetControl">Tabellen</entry>
-  <entry key="treeControl">Bäume</entry>
-  <entry key="tabControl">Reiter</entry>
+  <entry key="basic">Basis</entry>
+  <entry key="sheet">Tabellen</entry>
+  <entry key="tree">Bäume</entry>
+  <entry key="tab">Reiter</entry>
   <entry key="toolbar">Toolbar</entry>
   <entry key="validation">Validierung</entry>
   <entry key="form">Formulare</entry>
@@ -62,12 +62,24 @@
   <entry key="footer_viewSource">Zeige Quellcode</entry>
 
 <!--  intro -->
-  <entry key="intro_text">&lt;p&gt;Tobago ist ein User-Interface-Framework zur Erstellung von Webanwendungen. Das Framework stützt sich auf JavaServer Faces ab. Das Kernstück bildet ein Theme-orientiertes JSF Render Kit.&lt;/p&gt;  &lt;p&gt;&lt;b&gt;Basis Controls&lt;/b&gt;&lt;br/&gt; Tobago stellt alle Standardcontrols von HTML zur Verfügung wie Eingabefelder, Textfelder, Radiobuttons, Checkboxen und Knöpfe. Zusätzlich zu den Basis Controls bietet Tobago eine Anzahl komplexer Controls, die nicht direkt von HTML unterstützt werden. Dazu gehören: Sheet, Baum, Karteireiter&lt;/p&gt;  &lt;p&gt;&lt;b&gt;Validierung&lt;/b&gt;&lt;br/&gt; Das Hauptziel von Tobago ist es, das Entwickeln von Anwendungen, mit denen der Anwender interagieren kann. Um die Interaktion zu verbessern, verfügt Tobago über Möglichkeiten, die Eingaben des Anwenders zu überprüfen und den Anwender bei der Eingabe korrekter Werte zu unterstützen.&lt;/p&gt;  &lt;p&gt;&lt;b&gt;Layout&lt;/b&gt;&lt;br/&gt; Tobago bietet einen rafinierten Layoutmanager, den man als Mischung aus klassischem HTML Tabellen Layout und Swing Gridbag Layout verstehen kann.&lt;/p&gt;  &lt;p&gt;&lt;b&gt;Weiteres&lt;/b&gt;&lt;br/&gt; Themes, Browser, Internationalisierung&lt;/p&gt;</entry>
+  <entry key="intro_text">&lt;p&gt;Tobago ist ein User-Interface-Framework zur Erstellung von Webanwendungen.
+    Das Framework stützt sich auf JavaServer Faces ab. Das Kernstück bildet ein Theme-orientiertes
+    JSF Render Kit.&lt;/p&gt;  &lt;p&gt;&lt;b&gt;Basis Controls&lt;/b&gt;&lt;br/&gt; Tobago stellt alle
+    Standardcontrols von HTML zur Verfügung wie Eingabefelder, Textfelder, Radiobuttons, Checkboxen und Knöpfe.
+    Zusätzlich zu den Basis Controls bietet Tobago eine Anzahl komplexer Controls, die nicht direkt von HTML
+    unterstützt werden. Dazu gehören: Sheet, Baum,
+    Karteireiter&lt;/p&gt;  &lt;p&gt;&lt;b&gt;Validierung&lt;/b&gt;&lt;br/&gt; Das Hauptziel von Tobago ist es,
+    dass Entwickeln von Anwendungen, mit denen der Anwender interagieren kann. Um die Interaktion zu verbessern,
+    verfügt Tobago über Möglichkeiten, die Eingaben des Anwenders zu überprüfen und den Anwender bei der Eingabe
+    korrekter Werte zu unterstützen.&lt;/p&gt;  &lt;p&gt;&lt;b&gt;Layout&lt;/b&gt;&lt;br/&gt; Tobago bietet einen
+    rafinierten Layoutmanager, den man als Mischung aus klassischem HTML Tabellen Layout und Swing Gridbag Layout
+    verstehen kann.&lt;/p&gt;  &lt;p&gt;&lt;b&gt;Weiteres&lt;/b&gt;&lt;br/&gt; Themes, Browser,
+    Internationalisierung&lt;/p&gt;</entry>
 
 <!--  basicControlls -->
-  <entry key="basicControls_sampleInputTitle">Eingabe Beispiele</entry>
-  <entry key="basicControls_sampleSelectTitle">Auswahl Beispiele</entry>
-  <entry key="basicControls_sampleLinkTitle">Steuerungs Beispiele</entry>
+  <entry key="basic_sampleInputTitle">Eingabe Beispiele</entry>
+  <entry key="basic_sampleSelectTitle">Auswahl Beispiele</entry>
+  <entry key="basic_sampleLinkTitle">Steuerungs Beispiele</entry>
   <entry key="basic_itemUnknown">keine</entry>
   <entry key="basic_itemMr">Herr</entry>
   <entry key="basic_itemMrs">Frau</entry>

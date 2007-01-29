@@ -35,7 +35,7 @@
       <tc:out escape="false" value="#{overviewBundle.basic_text_input}" />
 
   <%-- row --%>
-      <tc:box label="#{overviewBundle.basicControls_sampleInputTitle}">
+      <tc:box label="#{overviewBundle.basic_sampleInputTitle}">
         <f:facet name="layout">
           <tc:gridLayout columns="1*;1*" border="0" />
         </f:facet>
@@ -67,7 +67,7 @@
       <tc:out escape="false" value="#{overviewBundle.basic_text_select}" />
 
   <%-- row --%>
-      <tc:box label="#{overviewBundle.basicControls_sampleSelectTitle}">
+      <tc:box label="#{overviewBundle.basic_sampleSelectTitle}">
         <f:facet name="layout">
           <tc:gridLayout columns="1*;1*"  border="0"/>
         </f:facet>
@@ -100,17 +100,17 @@
       <tc:out escape="false" value="#{overviewBundle.basic_text_action}" />
 
   <%-- row --%>
-      <tc:box label="#{overviewBundle.basicControls_sampleLinkTitle}">
+      <tc:box label="#{overviewBundle.basic_sampleLinkTitle}">
         <f:facet name="layout">
           <tc:gridLayout columns="1*;1*;1*" border="0"/>
         </f:facet>
-        <tc:link id="link" action="overview/basicControls"
+        <tc:link id="link" action="overview/basic"
             actionListener="#{overviewController.click}"
             label="#{overviewBundle.basic_linkAction}" />
-        <tc:link id="image" action="overview/basicControls"
+        <tc:link id="image" action="overview/basic"
             actionListener="#{overviewController.click}"
             image="image/image_button.gif" />
-        <tc:button id="button" action="overview/basicControls"
+        <tc:button id="button" action="overview/basic"
             actionListener="#{overviewController.click}"
             width="100px"  label="#{overviewBundle.basic_buttonAction}" />
         <tc:cell spanX="3">

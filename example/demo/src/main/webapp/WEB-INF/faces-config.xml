@@ -84,20 +84,20 @@
       <to-view-id>/overview/intro.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
-      <from-outcome>overview/basicControls</from-outcome>
-      <to-view-id>/overview/basicControls.jsp</to-view-id>
+      <from-outcome>overview/basic</from-outcome>
+      <to-view-id>/overview/basic.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
-      <from-outcome>overview/sheetControl</from-outcome>
-      <to-view-id>/overview/sheetControl.jsp</to-view-id>
+      <from-outcome>overview/sheet</from-outcome>
+      <to-view-id>/overview/sheet.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
-      <from-outcome>overview/treeControl</from-outcome>
-      <to-view-id>/overview/treeControl.jsp</to-view-id>
+      <from-outcome>overview/tree</from-outcome>
+      <to-view-id>/overview/tree.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
-      <from-outcome>overview/tabControl</from-outcome>
-      <to-view-id>/overview/tabControl.jsp</to-view-id>
+      <from-outcome>overview/tab</from-outcome>
+      <to-view-id>/overview/tab.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>overview/toolbar</from-outcome>
@@ -113,7 +113,7 @@
     </navigation-case>
     <navigation-case>
       <from-outcome>overview/themes</from-outcome>
-      <to-view-id>/overview/themes.jsp</to-view-id>
+      <to-view-id>/overview/theme.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>overview/browser</from-outcome>
@@ -130,10 +130,10 @@
   </navigation-rule>
 
   <navigation-rule>
-    <from-view-id>/overview/themes.jsp</from-view-id>
+    <from-view-id>/overview/theme.jsp</from-view-id>
     <navigation-case>
       <from-action>#{clientConfigController.submit}</from-action>
-      <to-view-id>/overview/themes.jsp</to-view-id>
+      <to-view-id>/overview/theme.jsp</to-view-id>
     </navigation-case>
   </navigation-rule>
 

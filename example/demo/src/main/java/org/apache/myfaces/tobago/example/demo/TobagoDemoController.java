@@ -39,13 +39,16 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.context.ExternalContext;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.io.IOException;
 
 public class TobagoDemoController {
 
@@ -58,8 +61,6 @@ public class TobagoDemoController {
   private boolean[] bool;
 
   private Boolean boolTest;
-
-  private boolean skipUpdate;
 
   private String[] text;
 
@@ -206,6 +207,17 @@ public class TobagoDemoController {
         {ToolBarTag.LABEL_OFF, ToolBarTag.LABEL_BOTTOM, ToolBarTag.LABEL_RIGHT};
     toolbarTextItems = getSelectItems(toolbarTextKeys, "demo");
     toolbarTextPosition = ToolBarTag.LABEL_BOTTOM;
+  }
+
+  public void resetSession() throws IOException {
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+    if (session != null) {
+      session.invalidate();
+    }
+    ExternalContext externalContext = facesContext.getExternalContext();
+    externalContext.redirect(externalContext.getRequestContextPath());
+    facesContext.responseComplete(); 
   }
 
   public TabChangeListener getTabChangeListener() {
