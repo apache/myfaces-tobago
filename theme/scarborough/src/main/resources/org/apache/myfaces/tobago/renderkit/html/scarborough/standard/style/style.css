@@ -99,7 +99,8 @@ span.tobago-progress {
   white-space: nowrap;
 }
 
-/* Tree -------------------------------------------------------------------- */
+/* Tree old -------------------------------------------------------------------- */
+
 .tobago-treeOld-default {
   overflow: auto;
 }
