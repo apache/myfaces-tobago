@@ -103,21 +103,11 @@ span.tobago-progress {
 
 .tobago-treeOld-default {
   overflow: auto;
-}
-
-.tree-container {
-	margin: 0px;
-	padding: 0px;
-	font: icon;
-	white-space: nowrap;
-}
-
-.tree-item {
-	padding: 0px;
-	margin: 0px;
-	font: icon;
-	color: black;
-	white-space: nowrap;
+  padding: 0px;
+  margin: 0px;
+  font: icon;
+  color: black;
+  white-space: nowrap;
 }
 
 .tree-folder-label, .tree-item-label, .tree-folder-label:active,
@@ -167,7 +157,16 @@ span.tobago-progress {
 	height: 16px;
 }
 
-/* treeListbox */
+/* Tree -------------------------------------------------------------------- */
+
+.tobago-tree-subtree {
+	margin: 0px;
+	padding: 0px;
+	font: icon;
+	white-space: nowrap;
+}
+
+/* treeListbox -------------------------------------------------------------------- */
 
 select.tobago-treeListbox-default {
 

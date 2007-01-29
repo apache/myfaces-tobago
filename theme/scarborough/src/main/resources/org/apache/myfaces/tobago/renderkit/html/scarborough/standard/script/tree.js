@@ -464,7 +464,7 @@ TreeOldNode.prototype.toString = function (depth, last) {
     }
     if (this.isFolder) {
       str += '<div id="' + this.id
-          + '-cont" class="tree-container" style="display: '
+          + '-cont" style="display: '
           + (this.expanded ? 'block' : 'none') + ';">';
       for (var i=0; i<this.childNodes.length; ++i) {
         var lastChild = i+1 == this.childNodes.length;

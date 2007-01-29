@@ -155,22 +155,7 @@ a:link.tab, a:visited.tab, a:active.tab {
   color: #660000;
 }
 
-/* - Tree ------------------------------------------------------------------- */
-
-.tree-container {
-	margin: 0px;
-	padding: 0px;
-	font: icon;
-	white-space: nowrap;
-}
-
-.tree-item {
-  padding: 0px;
-	margin: 0px;
-	font: icon;
-	color: #000000;
-	white-space: nowrap;
-}
+/* Tree Old ------------------------------------------------------------------- */
 
 .tree-menu-item {
   border: 1px solid #CCCCCC;
