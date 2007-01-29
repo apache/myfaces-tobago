@@ -269,20 +269,12 @@ reason they are not defined as a:link
   color: #000000;
 }
 
-/* -----------------------------------------------------------------------------
- these styles are only for tree-items which have no href, for that
-reason they are not defined as a:link
------------------------------------------------------------------------------ */
-/*.tobago-tree-node a, .tobago-tree-node a:hover  {
-  color: #000000;
+.tobago-tree-marker, .tobago-tree-marker:focus, .tobago-tree-marker a, .tobago-tree-marker:focus a {
+	background-color: lightgray;
 }
 
-.tobago-tree-node a:hover  {
-  text-decoration: underline;
-}
-*/
 /* ----------------------------------------------------------------------------
- * New Tobago Style definitions:
+ * Tobago Style definitions:
  * Syntax: .tobago-<elementname>-<attribute>
  * Possible attributes: default, disabled, readonly, inline, error
  * default always is rendered as block.

@@ -133,7 +133,7 @@ span.tobago-progress {
 }*/
 
 .tree-item-marker, .tree-item-marker:focus, a.tree-item-marker, a.tree-item-marker:focus {
-	background-color: lightgray;
+	background-color: #d8e9fb;
 }
 
 .tree-folder-label:focus, .tree-item-label:focus {
@@ -201,7 +201,7 @@ span.tobago-progress {
 }
 
 .tobago-tree-marker, .tobago-tree-marker:focus, .tobago-tree-marker a, .tobago-tree-marker:focus a {
-	background-color: lightgray;
+	background-color: #d8e9fb;
 }
 
 /* treeListbox -------------------------------------------------------------------- */
