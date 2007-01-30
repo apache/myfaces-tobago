@@ -25,7 +25,10 @@ import com.sun.mirror.declaration.MethodDeclaration;
 import com.sun.mirror.declaration.PackageDeclaration;
 import com.sun.mirror.declaration.TypeDeclaration;
 import com.sun.mirror.type.InterfaceType;
+
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.Converter;
@@ -74,15 +77,28 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
   private static final String COMPONENT = "component";
   private static final String COMPONENT_TYPE = "component-type";
   private static final String COMPONENT_CLASS = "component-class";
+  private static final String COMPONENT_EXTENSION = "component-extension";
+  private static final String ALLOWED_CHILD_COMPONENTS = "allowed-child-components";
+  private static final String CATEGORY = "category";
+  private static final String DEPRECATED = "deprecated";
+  private static final String HIDDEN = "hidden";
   private static final String FACET = "facet";
+  private static final String DISPLAY_NAME = "display-name";
   private static final String DESCRIPTION = "description";
   private static final String FACET_NAME = "facet-name";
+  private static final String FACET_EXTENSION = "facet-extension";
   private static final String PROPERTY = "property";
   private static final String PROPERTY_NAME = "property-name";
   private static final String PROPERTY_CLASS = "property-class";
+  private static final String PROPERTY_EXTENSION = "property-extension";
+  private static final String ALLOWS_VALUE_BINDING = "allows-value-binding"; //UIComponentTagAttribute.expression()
+  private static final String PROPERTY_VALUES = "property-values"; //UIComponentTagAttribute.allowedValues()
+  private static final String READONLY = "read-only";
+  private static final String REQUIRED = "required"; //UITagAttribute.required()
   private static final String ATTRIBUTE = "attribute";
   private static final String ATTRIBUTE_NAME = "attribute-name";
   private static final String ATTRIBUTE_CLASS = "attribute-class";
+  private static final String ATTRIBUTE_EXTENSION = "attribute-extension";
   private static final String APPLICATION = "application";
   private static final String FACTORY = "factory";
   private static final String CONVERTER = "converter";
@@ -194,6 +210,19 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         // TODO: is this replace really necessary?
         String facesConfigStr =
             facesConfig.toString().replaceFirst(" xmlns=\"http://java.sun.com/JSF/Configuration\"", "");
+        // TODO: Find a better way
+        facesConfigStr = facesConfigStr.replaceFirst("\"http://java.sun.com/dtd/web-facesconfig_1_1.dtd\"",
+            "\"http://java.sun.com/dtd/web-facesconfig_1_1.dtd\"[\n" 
+            + "<!ELEMENT allowed-child-components (#PCDATA)>\n"
+            + "<!ELEMENT category (#PCDATA)>\n"
+            + "<!ELEMENT deprecated (#PCDATA)>\n"
+            + "<!ELEMENT hidden (#PCDATA)>\n"
+            + "<!ELEMENT preferred (#PCDATA)>\n"
+            + "<!ELEMENT read-only (#PCDATA)>\n"
+            + "<!ELEMENT allows-value-binding (#PCDATA)>\n"
+            + "<!ELEMENT property-values (#PCDATA)>\n"
+            + "<!ELEMENT required (#PCDATA)>\n"
+            + "]");
         writer.append(facesConfigStr);
 
       } catch (JDOMException e) {
@@ -285,21 +314,54 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
     return false;
   }
   protected Element createElement(TypeDeclaration decl, UIComponentTag componentTag,
-    Class uiComponentClass, Namespace namespace) throws IOException, NoSuchFieldException, IllegalAccessException {
+    Class uiComponentClass, Namespace namespace) throws IOException, NoSuchFieldException, IllegalAccessException {       
     Field componentField = uiComponentClass.getField("COMPONENT_TYPE");
     String componentType = (String) componentField.get(null);
     Element element = new Element(COMPONENT, namespace);
+    String displayName = componentTag.displayName();
+    if (displayName.equals("")) {
+        displayName = uiComponentClass.getName().substring(uiComponentClass.getName().lastIndexOf(".")+1);        
+    }
+    Element elementDisplayName = new Element(DISPLAY_NAME, namespace);
+    elementDisplayName.setText(displayName);
+    element.addContent(elementDisplayName);
     Element elementType = new Element(COMPONENT_TYPE, namespace);
     elementType.setText(componentType);
     element.addContent(elementType);
     Element elementClass = new Element(COMPONENT_CLASS, namespace);
     elementClass.setText(componentTag.uiComponent());
     element.addContent(elementClass);
-
+    
     return element;
   }
-
-
+  
+  private Element createElementExtension(TypeDeclaration decl, UIComponentTag uiComponentTag,
+          Namespace namespace) {      
+      Element elementExtension = new Element(COMPONENT_EXTENSION, namespace);
+      Element elementAllowedChildComponents = new Element(ALLOWED_CHILD_COMPONENTS, namespace);
+      String[] allowedChildComponents = uiComponentTag.allowedChildComponenents();
+      String allowedComponentTypes = "";
+      for (String componentType : allowedChildComponents) {
+          allowedComponentTypes+=componentType+" ";          
+      }
+      elementAllowedChildComponents.setText(allowedComponentTypes);
+      elementExtension.addContent(elementAllowedChildComponents);
+      Element elementCategory = new Element(CATEGORY, namespace);
+      elementCategory.setText(uiComponentTag.category().toString());
+      elementExtension.addContent(elementCategory);      
+      Deprecated deprecated = decl.getAnnotation(Deprecated.class);
+      if (deprecated != null) {
+          Element elementDeprecated = new Element(DEPRECATED, namespace);
+          elementDeprecated.setText("Warning: This component is deprecated!");
+          elementExtension.addContent(elementDeprecated);          
+      }      
+      Element elementHidden = new Element(HIDDEN, namespace);
+      elementHidden.setText(Boolean.toString(uiComponentTag.isHidden()));
+      elementExtension.addContent(elementHidden);
+      
+      return elementExtension;      
+  }
+  
   protected void addAttribute(MethodDeclaration d, Class uiComponentClass, List properties, List attributes,
       Namespace namespace) {
     UIComponentTagAttribute componentAttribute = d.getAnnotation(UIComponentTagAttribute.class);
@@ -327,6 +389,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
 
           property.addContent(propertyName);
           property.addContent(propertyClass);
+          property.addContent(createPropertyOrAttributeExtension(PROPERTY_EXTENSION, d, componentAttribute, namespace));
           properties.add(property);
         } catch (NoSuchMethodException e) {
           // if property not found should be attribute
@@ -341,6 +404,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
 
           attribute.addContent(attributeName);
           attribute.addContent(attributeClass);
+          attribute.addContent(createPropertyOrAttributeExtension(ATTRIBUTE_EXTENSION, d, componentAttribute, namespace));
 
           attributes.add(attribute);
         }
@@ -373,6 +437,45 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         attribute.addContent(description);
       }
     }
+  }
+  
+  private Element createPropertyOrAttributeExtension(String extensionType, MethodDeclaration methodDeclaration,
+          UIComponentTagAttribute uiComponentTagAttribute, Namespace namespace) throws IllegalArgumentException {     
+      Element extensionElement = new Element(extensionType, namespace);
+      Element allowsValueBinding = new Element(ALLOWS_VALUE_BINDING, namespace);
+      DynamicExpression dynamicExpression = uiComponentTagAttribute.expression();      
+      allowsValueBinding.setText((dynamicExpression == DynamicExpression.VALUE_BINDING)? "true" : "false");
+      extensionElement.addContent(allowsValueBinding);
+      String[] allowedValues = uiComponentTagAttribute.allowedValues();     
+      if (allowedValues.length > 0) {
+          Element propertyValues = new Element(PROPERTY_VALUES, namespace);
+          String values = "";
+          for (String value : allowedValues) {
+              values+=value+" ";
+          }
+          propertyValues.setText(values);
+          extensionElement.addContent(propertyValues);
+      }
+      Deprecated deprecated = methodDeclaration.getAnnotation(Deprecated.class);
+      if (deprecated != null) {
+          Element elementDeprecated = new Element(DEPRECATED, namespace);
+          elementDeprecated.setText("Warning: This property is deprecated!");
+          extensionElement.addContent(elementDeprecated);          
+      }      
+      Element hidden = new Element(HIDDEN, namespace);
+      hidden.setText(Boolean.toString(uiComponentTagAttribute.isHidden()));
+      extensionElement.addContent(hidden);      
+      Element readOnly = new Element(READONLY, namespace);
+      readOnly.setText(Boolean.toString(uiComponentTagAttribute.isReadOnly()));
+      extensionElement.addContent(readOnly);      
+      TagAttribute tagAttribute = methodDeclaration.getAnnotation(TagAttribute.class);
+      if (tagAttribute != null) {
+          Element required = new Element(REQUIRED, namespace);
+          required.setText(Boolean.toString(tagAttribute.required()));
+          extensionElement.addContent(required);
+      }
+      
+      return extensionElement;        
   }
 
   protected void addAttributes(InterfaceDeclaration type, Class uiComponentClass, List properties, List attributes,
@@ -442,6 +545,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
             if (!properties.isEmpty()) {
               element.addContent(properties);
             }
+            element.addContent(createElementExtension(decl, componentTag, namespace));
             components.add(element);
           } else {
              // TODO add facet and attributes
@@ -473,6 +577,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
             if (!properties.isEmpty()) {
               element.addContent(properties);
             }
+            element.addContent(createElementExtension(decl, componentTag, namespace));
             components.add(element);
           } else {
             // TODO add facet and attributes
