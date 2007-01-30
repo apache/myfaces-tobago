@@ -17,12 +17,34 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import javax.faces.component.UISelectBoolean;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+
+import org.apache.myfaces.tobago.component.UISelectBoolean;
+import javax.faces.component.UIComponent;
 
 public class SelectBooleanCheckboxTag extends InputTag
     implements org.apache.myfaces.tobago.taglib.component.SelectBooleanCheckboxTagDeclaration {
 
+  private String markup;
+
+  @Override
+  public void release() {
+    super.release();
+    markup = null;
+  }
+
+  @Override
+  protected void setProperties(UIComponent component) {
+    super.setProperties(component);
+    ComponentUtil.setMarkup(component, markup);
+  }
+
   public String getComponentType() {
     return UISelectBoolean.COMPONENT_TYPE;
   }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
+  }
+
 }

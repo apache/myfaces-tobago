@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.component.SelectBooleanCheckboxTag;
 import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
 
@@ -46,7 +47,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @Tag(name = "selectBooleanCheckbox")
 public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements TobagoTagDeclaration, 
     HasValidator, HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabel,
-    HasBooleanValue, HasLabelWidth, IsDisabled, HasTip, IsReadonly {
+    HasBooleanValue, HasLabelWidth, IsDisabled, HasTip, IsReadonly, HasMarkup {
 
   private String value;
   private String valueChangeListener;
@@ -60,6 +61,7 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
   private String converter;
   private String validator;
   private String labelWidth;
+  private String markup;
 
   private LabelExtensionTag labelTag;
   private SelectBooleanCheckboxTag selectBooleanCheckboxTag;
@@ -126,6 +128,10 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     //if (required != null) {
     //  selectBooleanCheckboxTag.setRequired(required);
     //}
+
+    if (markup != null) {
+      selectBooleanCheckboxTag.setMarkup(markup);
+    }
     selectBooleanCheckboxTag.setParent(labelTag);
     selectBooleanCheckboxTag.doStartTag();
 
@@ -154,6 +160,7 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     tip = null;
     value = null;
     valueChangeListener = null;
+    markup = null;
   }
 
   public void setValue(String value) {
@@ -203,6 +210,10 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
 
   public void setLabelWidth(String labelWidth) {
     this.labelWidth = labelWidth;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 
 }

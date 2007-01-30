@@ -65,7 +65,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIParameter;
-import javax.faces.component.UISelectBoolean;
 import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectItems;
 import javax.faces.component.ValueHolder;
