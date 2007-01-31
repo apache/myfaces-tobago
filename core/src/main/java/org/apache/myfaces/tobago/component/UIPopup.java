@@ -84,7 +84,7 @@ public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
   private boolean isRedisplay() {
     if (isSubmitted()) {
       UIPage page = ComponentUtil.findPage(this);
-      String action = ComponentUtil.findPage(this).getActionId();
+      String action = page.getActionId();
       if (action != null) {
         UICommand command = (UICommand) page.findComponent(SEPARATOR_CHAR + action);
         if (command != null) {
