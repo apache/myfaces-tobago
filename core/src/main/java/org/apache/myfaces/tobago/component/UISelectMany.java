@@ -28,11 +28,38 @@ import java.io.IOException;
  * Date: May 31, 2005
  * Time: 7:47:11 PM
  */
-public class UISelectMany extends javax.faces.component.UISelectMany {
+public class UISelectMany extends javax.faces.component.UISelectMany implements SupportsMarkup {
 
   private static final Log LOG = LogFactory.getLog(UISelectMany.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SelectMany";
+
+  private String[] markup;
+
+  public void restoreState(FacesContext context, Object state) {
+    Object[] values = (Object[]) state;
+    super.restoreState(context, values[0]);
+    markup = (String[]) values[1];
+  }
+
+  public Object saveState(FacesContext context) {
+    Object[] values = new Object[2];
+    values[0] = super.saveState(context);
+    values[1] = markup;
+    return values;
+  }
+
+  public String[] getMarkup() {
+    if (markup != null) {
+      return markup;
+    }
+    return ComponentUtil.getMarkupBinding(getFacesContext(), this);
+  }
+
+  public void setMarkup(String[] markup) {
+    this.markup = markup;
+  }
+
 
   public void encodeBegin(FacesContext facesContext) throws IOException {
     // TODO change this should be renamed to DimensionUtils.prepare!!!

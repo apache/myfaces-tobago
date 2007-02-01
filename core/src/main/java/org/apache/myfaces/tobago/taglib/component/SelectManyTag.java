@@ -17,7 +17,10 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.component.ComponentUtil;
+
 import javax.faces.component.UISelectMany;
+import javax.faces.component.UIComponent;
 
 /**
  * User: weber
@@ -27,7 +30,24 @@ import javax.faces.component.UISelectMany;
 
 public class SelectManyTag extends InputTag implements SelectManyTagDeclaration {
 
+  private String markup;
+
   public String getComponentType() {
     return UISelectMany.COMPONENT_TYPE;
   }
+
+  public void release() {
+    super.release();
+    markup = null;
+  }
+
+  protected void setProperties(UIComponent component) {
+    super.setProperties(component);
+    ComponentUtil.setMarkup(component, markup);
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
+  }
+
 }

@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -52,7 +53,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @Tag(name = "selectManyListbox")
 public class SelectManyListboxExtensionTag extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled, HasDeprecatedHeight, IsInline,
-    HasLabel, HasLabelWidth, IsRendered, HasBinding, HasTip, HasConverter, HasValidator, HasOnchange, IsReadonly {
+    HasLabel, HasLabelWidth, IsRendered, HasBinding, HasTip, HasConverter, HasValidator, HasOnchange, IsReadonly,
+    HasMarkup {
 
   private String required;
   private String value;
@@ -69,6 +71,7 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
   private String converter;
   private String validator;
   private String labelWidth;
+  private String markup;
 
   private LabelExtensionTag labelTag;
   private SelectManyListboxTag selectManyListboxTag;
@@ -138,6 +141,9 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
     if (required != null) {
       selectManyListboxTag.setRequired(required);
     }
+    if (markup != null) {
+      selectManyListboxTag.setMarkup(markup);
+    }
     selectManyListboxTag.setParent(labelTag);
     selectManyListboxTag.doStartTag();
 
@@ -169,6 +175,7 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
     tip = null;
     value = null;
     valueChangeListener = null;
+    markup = null;
   }
 
   public void setRequired(String required) {
@@ -229,5 +236,9 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
 
   public void setLabelWidth(String labelWidth) {
     this.labelWidth = labelWidth;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 }
