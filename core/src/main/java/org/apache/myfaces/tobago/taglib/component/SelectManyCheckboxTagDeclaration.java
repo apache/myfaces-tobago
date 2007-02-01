@@ -41,8 +41,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 @Tag(name = "selectManyCheckbox")
 @BodyContentDescription(anyTagOf= "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
-    uiComponent = "javax.faces.component.UISelectMany",
-    rendererType = "SelectManyCheckbox", isComponentAlreadyDefined = true)
+    uiComponent = "org.apache.myfaces.tobago.component.UISelectMany",
+    rendererType = "SelectManyCheckbox")
 public interface SelectManyCheckboxTagDeclaration extends
     SelectManyTagDeclaration, IsDisabled, HasId,
     IsInline, HasRenderRange, IsRendered, HasBinding, IsReadonly, HasConverter {
