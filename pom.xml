@@ -526,7 +526,7 @@
       <extension>
         <groupId>org.apache.myfaces.maven</groupId>
         <artifactId>build-tools</artifactId>
-        <version>1.0.5-SNAPSHOT</version>
+        <version>1.0.6-SNAPSHOT</version>
       </extension>
     </extensions>
     <pluginManagement>
