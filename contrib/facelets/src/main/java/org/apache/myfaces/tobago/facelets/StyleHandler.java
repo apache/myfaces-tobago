@@ -1,21 +1,5 @@
 package org.apache.myfaces.tobago.facelets;
 
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.TagConfig;
-import com.sun.facelets.tag.TextHandler;
-import com.sun.facelets.tag.TagHandler;
-import com.sun.facelets.tag.TagException;
-import com.sun.facelets.tag.jsf.ComponentSupport;
-import com.sun.facelets.FaceletContext;
-
-import javax.faces.component.UIComponent;
-import javax.faces.FacesException;
-import javax.el.ELException;
-import java.io.IOException;
-import java.util.Iterator;
-
-import org.apache.myfaces.tobago.component.UIPage;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -32,6 +16,22 @@ import org.apache.myfaces.tobago.component.UIPage;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import com.sun.facelets.tag.TagAttribute;
+import com.sun.facelets.tag.TagConfig;
+import com.sun.facelets.tag.TextHandler;
+import com.sun.facelets.tag.TagHandler;
+import com.sun.facelets.tag.TagException;
+import com.sun.facelets.tag.jsf.ComponentSupport;
+import com.sun.facelets.FaceletContext;
+
+import javax.faces.component.UIComponent;
+import javax.faces.FacesException;
+import javax.el.ELException;
+import java.io.IOException;
+import java.util.Iterator;
+
+import org.apache.myfaces.tobago.component.UIPage;
 
 /*
  * User: bommel
