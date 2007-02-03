@@ -37,7 +37,6 @@ import javax.el.ValueExpression;
 import javax.el.ELException;
 
 /*
- * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 20.04.2006
  * Time: 18:14:11

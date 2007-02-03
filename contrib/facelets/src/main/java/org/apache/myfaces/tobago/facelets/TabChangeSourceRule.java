@@ -27,13 +27,12 @@ import org.apache.myfaces.tobago.event.TabChangeSource;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 
 /*
- * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 15.04.2006
  * Time: 14:24:54
  */
 public class TabChangeSourceRule extends MetaRule {
-  static final Class[] ACTION_LISTENER_SIG = new Class[]{TabChangeEvent.class};
+  static final Class[] ACTION_LISTENER = new Class[]{TabChangeEvent.class};
   public static final SortActionSourceRule INSTANCE = new SortActionSourceRule();
 
   public Metadata applyRule(String name, TagAttribute attribute,
@@ -58,7 +57,7 @@ public class TabChangeSourceRule extends MetaRule {
       ((TabChangeSource) instance)
           .setTabChangeListener(new LegacyMethodBinding(attribute
               .getMethodExpression(ctx, null,
-              SortActionSourceRule.ACTION_LISTENER_SIG)));
+              TabChangeSourceRule.ACTION_LISTENER)));
     }
   }
 

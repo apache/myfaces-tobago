@@ -27,13 +27,12 @@ import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 
 /*
- * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 15.04.2006
  * Time: 14:25:10
  */
 public class SheetStateChangeSourceRule extends MetaRule {
-  static final Class[] ACTION_LISTENER_SIG = new Class[]{SheetStateChangeEvent.class};
+  static final Class[] ACTION_LISTENER = new Class[]{SheetStateChangeEvent.class};
   public static final SheetStateChangeSourceRule INSTANCE = new SheetStateChangeSourceRule();
 
   public Metadata applyRule(String name, TagAttribute attribute,
@@ -58,7 +57,7 @@ public class SheetStateChangeSourceRule extends MetaRule {
       ((SheetStateChangeSource) instance)
           .setStateChangeListener(new LegacyMethodBinding(attribute
               .getMethodExpression(ctx, null,
-              SortActionSourceRule.ACTION_LISTENER_SIG)));
+              SheetStateChangeSourceRule.ACTION_LISTENER)));
     }
   }
 }

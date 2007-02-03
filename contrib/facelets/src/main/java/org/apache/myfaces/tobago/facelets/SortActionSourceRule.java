@@ -27,13 +27,12 @@ import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 
 /*
- * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 15.04.2006
  * Time: 13:53:41
  */
 public class SortActionSourceRule extends MetaRule {
-  static final Class[] ACTION_LISTENER_SIG = new Class[]{SortActionEvent.class};
+  static final Class[] ACTION_LISTENER = new Class[]{SortActionEvent.class};
   public static final SortActionSourceRule INSTANCE = new SortActionSourceRule();
 
   public Metadata applyRule(String name, TagAttribute attribute,
@@ -58,7 +57,7 @@ public class SortActionSourceRule extends MetaRule {
       ((SortActionSource) instance)
           .setSortActionListener(new LegacyMethodBinding(attribute
               .getMethodExpression(ctx, null,
-              SortActionSourceRule.ACTION_LISTENER_SIG)));
+              SortActionSourceRule.ACTION_LISTENER)));
     }
   }
 

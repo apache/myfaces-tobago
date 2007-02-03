@@ -37,8 +37,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICommand;
 
 public final class AttributeHandler extends TagHandler {
-  private static final Class [] VALIDATOR =
-      new Class[] {FacesContext.class, UIComponent.class, Object.class};
+  private static final Class [] VALIDATOR = new Class[] {FacesContext.class, UIComponent.class, Object.class};
 
   private final TagAttribute name;
 
@@ -46,8 +45,8 @@ public final class AttributeHandler extends TagHandler {
 
   public AttributeHandler(TagConfig config) {
     super(config);
-    this.name = this.getRequiredAttribute("name");
-    this.value = this.getRequiredAttribute("value");
+    this.name = getRequiredAttribute("name");
+    this.value = getRequiredAttribute("value");
   }
 
   public void apply(FaceletContext ctx, UIComponent parent)

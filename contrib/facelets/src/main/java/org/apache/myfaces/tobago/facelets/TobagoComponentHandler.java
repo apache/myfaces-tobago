@@ -32,7 +32,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_COMPONENT_CREATED
 import javax.faces.component.UIComponent;
 
 /*
- * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 15.04.2006
  * Time: 13:31:39

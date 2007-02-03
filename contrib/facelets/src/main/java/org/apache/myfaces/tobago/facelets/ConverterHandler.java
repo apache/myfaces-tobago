@@ -22,6 +22,7 @@ import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.TagConfig;
 import com.sun.facelets.tag.TagAttributeException;
 import com.sun.facelets.tag.TagException;
+import com.sun.facelets.tag.jsf.ComponentSupport;
 import com.sun.facelets.FaceletContext;
 
 import javax.faces.component.UIComponent;
@@ -41,11 +42,9 @@ import java.io.IOException;
  */
 public class ConverterHandler extends TagHandler {
 
-
   private final TagAttribute converterId;
 
   private final TagAttribute binding;
-
 
   public ConverterHandler(TagConfig config) {
     super(config);
@@ -56,8 +55,7 @@ public class ConverterHandler extends TagHandler {
   public void apply(FaceletContext faceletContext, UIComponent parent)
       throws IOException, FacesException, ELException {
     if (parent instanceof ValueHolder) {
-      // only process if parent was just created
-      if (parent.getParent() == null) {
+      if (ComponentSupport.isNew(parent)) {
         ValueHolder valueHolder = (ValueHolder) parent;
         Converter converter = null;
         ValueExpression valueExpression = null;

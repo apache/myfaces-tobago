@@ -29,7 +29,6 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import javax.faces.component.UIComponent;
 
 /*
- * Created by IntelliJ IDEA.
  * User: bommel
  * Date: Jan 2, 2007
  * Time: 3:35:58 PM

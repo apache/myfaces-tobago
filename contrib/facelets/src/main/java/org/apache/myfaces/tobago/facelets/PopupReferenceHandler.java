@@ -21,6 +21,7 @@ import com.sun.facelets.tag.TagHandler;
 import com.sun.facelets.tag.TagConfig;
 import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.TagException;
+import com.sun.facelets.tag.jsf.ComponentSupport;
 import com.sun.facelets.FaceletContext;
 
 import javax.el.ELException;
@@ -32,7 +33,6 @@ import java.io.IOException;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 
 /*
- * Created by IntelliJ IDEA.
  * User: bommel
  * Date: Jan 4, 2007
  * Time: 6:25:09 PM
@@ -49,8 +49,7 @@ public class PopupReferenceHandler extends TagHandler {
   public void apply(FaceletContext faceletContext, UIComponent parent)
       throws IOException, FacesException, ELException {
     if (parent instanceof ActionSource) {
-      // only process if parent was just created
-      if (parent.getParent() == null) {
+      if (ComponentSupport.isNew(parent)) {
         ActionSource actionSource = (ActionSource) parent;
         actionSource.addActionListener(new PopupActionListener(forComponent.getValue()));
       }

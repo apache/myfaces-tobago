@@ -26,7 +26,6 @@ import javax.servlet.FilterChain;
 import java.io.IOException;
 
 /*
- * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 19.04.2006
  * Time: 20:23:15

@@ -32,7 +32,6 @@ import javax.el.ELException;
 import java.io.IOException;
 
 /*
- * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 20.04.2006
  * Time: 19:35:29
@@ -44,8 +43,8 @@ public class LoadBundleHandler extends TagHandler {
 
   public LoadBundleHandler(TagConfig config) {
     super(config);
-    this.basename = this.getRequiredAttribute("basename");
-    this.var = this.getRequiredAttribute("var");
+    this.basename = getRequiredAttribute("basename");
+    this.var = getRequiredAttribute("var");
   }
 
   public void apply(FaceletContext faceletContext, UIComponent parent)
