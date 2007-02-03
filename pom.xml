@@ -613,11 +613,11 @@
   </modules>
 
   <distributionManagement>
-    <repository>
-      <id>apache-maven</id>
-      <name>Apache Maven Repository</name>
-      <url>scpexe://minotaur.apache.org/www/people.apache.org/repo/m2-ibiblio-rsync-repository</url>
-    </repository>
+        <repository>
+            <id>myfaces-staging</id>
+            <name>Apache MyFaces Staging Repository</name>
+            <url>scpexe://people.apache.org/www/people.apache.org/builds/myfaces/m2-staging-repository</url>
+        </repository>
     <snapshotRepository>
       <uniqueVersion>false</uniqueVersion>
       <id>apache-maven-snapshots</id>
