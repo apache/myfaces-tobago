@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.facelets;
 import com.sun.facelets.tag.AbstractTagLibrary;
 
 /*
- * Created by IntelliJ IDEA.
  * User: bommel
  * Date: 18.04.2006
  * Time: 14:22:52
@@ -34,6 +33,8 @@ public class AbstractTobagoTagLibrary  extends AbstractTagLibrary {
     addTagHandler("popupReference", PopupReferenceHandler.class);
     addTagHandler("loadBundle", LoadBundleHandler.class);
     addTagHandler("converter", ConverterHandler.class);
+    addTagHandler("script", ScriptHandler.class);
+    addTagHandler("style", StyleHandler.class);
   }
 
 }
