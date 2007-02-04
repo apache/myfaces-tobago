@@ -36,6 +36,11 @@
         </tx:selectOneChoice>
 
 <%-- code-sniplet-end id="selectOneChoice" --%>
+
+        <%-- surround this with a tc:form if you get validatation or required messages from other fields.
+          With tc:form you enable partial validation and update model.
+           <tc:form>
+        --%>
         <tx:selectOneChoice value="#{reference.vehicle}"
                            label="Vehicle: " valueChangeListener="#{reference.valueChanged}" >
           <f:selectItems value="#{reference.selectItems}" />
@@ -47,6 +52,7 @@
                            label="Manufacturer: " valueChangeListener="#{reference.valueChanged}" >
           <f:selectItems value="#{reference.manufacturerSelectItems}" />
         </tx:selectOneChoice>
+        <%-- </tc:form> --%>
         <tc:messages></tc:messages>
         <tc:cell/>
 
