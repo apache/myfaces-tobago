@@ -38,6 +38,18 @@
           <url>http://localhost:8080/manager</url>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+          <webResources>
+            <resource>
+              <targetPath>src</targetPath>
+              <directory>${basedir}/src/main/java</directory>
+            </resource>
+          </webResources>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   <dependencies>
