@@ -42,9 +42,15 @@ public class Controller {
 
   private boolean bool;
 
-  private SelectItem[] userOptionItems;
+  private SelectItem[] vehicleOptionItems;
 
-  private int userOption;
+  private SelectItem[] carOptionItems;
+
+  private SelectItem[] motorbikeOptionItems;
+
+  private int vehicle;
+
+  private int manufacturer;
 
   public Controller() {
     tags = new ArrayList<TagData>();
@@ -61,22 +67,53 @@ public class Controller {
     link.setTip("Ein Link");
     tags.add(link);
     attributes = new ArrayList<AttributeData>();
-    userOptionItems = new SelectItem[]{
-    new SelectItem(new Integer(0), "for User"),
-    new SelectItem(new Integer(1), "for Admin")};
+    vehicleOptionItems = new SelectItem[]{
+        new SelectItem(new Integer(0), "car"),
+        new SelectItem(new Integer(1), "motorbike")};
+    carOptionItems = new SelectItem[]{
+        new SelectItem(new Integer(0), "Audi"),
+        new SelectItem(new Integer(1), "BMW"),
+        new SelectItem(new Integer(2), "Mercedes")};
+    motorbikeOptionItems = new SelectItem[]{
+        new SelectItem(new Integer(3), "Moto Guzzi"),
+        new SelectItem(new Integer(4), "BMW"),
+        new SelectItem(new Integer(5), "KTM")};
+  }
+
+
+  public int getManufacturer() {
+    return manufacturer;
+  }
+
+  public void setManufacturer(int manufacturer) {
+    this.manufacturer = manufacturer;
   }
 
   public SelectItem[] getSelectItems() {
-    return userOptionItems;
+    return vehicleOptionItems;
   }
 
-  public int getUserOption() {
-    return userOption;
+  public int getVehicle() {
+    return vehicle;
   }
 
-  public void setUserOption(int userOption) {
-    this.userOption = userOption;
+  public String action() {
+    LOG.error("action invoke");
+    return null;
   }
+
+  public void setVehicle(int vehicle) {
+    this.vehicle = vehicle;
+  }
+
+  public SelectItem[] getManufacturerSelectItems() {
+    if (vehicle == 0) {
+      return carOptionItems;
+    } else {
+      return motorbikeOptionItems;
+    }
+  }
+
 
   public void valueChanged(ValueChangeEvent event) {
     LOG.error("value Changed " + event.getComponent().getClientId(FacesContext.getCurrentInstance()));
