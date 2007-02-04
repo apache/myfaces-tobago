@@ -24,7 +24,7 @@
     <jsp:body>
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout rows="fixed;fixed;1*;1*" />
+          <tc:gridLayout rows="fixed;fixed;fixed;1*;1*" />
         </f:facet>
 <%-- code-sniplet-start id="selectOneChoice" --%>
         <tx:selectOneChoice inline="true" value="selectOneChoice0"
@@ -36,13 +36,16 @@
         </tx:selectOneChoice>
 
 <%-- code-sniplet-end id="selectOneChoice" --%>
-
-        <tx:selectOneChoice value="#{reference.userOption}"
-                           label="Contact me2: " valueChangeListener="#{reference.valueChanged}" >
+        <tx:selectOneChoice value="#{reference.vehicle}"
+                           label="Vehicle: " valueChangeListener="#{reference.valueChanged}" >
           <f:selectItems value="#{reference.selectItems}" />
           <f:facet name="change">
-            <tc:command />
+            <tc:command action="#{reference.action}"/>
           </f:facet>
+        </tx:selectOneChoice>
+        <tx:selectOneChoice value="#{reference.manufacturer}"
+                           label="Manufacturer: " valueChangeListener="#{reference.valueChanged}" >
+          <f:selectItems value="#{reference.manufacturerSelectItems}" />
         </tx:selectOneChoice>
         <tc:messages></tc:messages>
         <tc:cell/>
