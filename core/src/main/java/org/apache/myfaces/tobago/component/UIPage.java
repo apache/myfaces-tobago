@@ -400,13 +400,15 @@ public class UIPage extends UIForm {
     super.restoreState(context, values[0]);
     this.width = (Integer) values[1];
     this.height = (Integer) values[2];
+    this.focusId = (String) values[3];
   }
 
   public Object saveState(FacesContext context) {
-    Object[] values = new Object[3];
+    Object[] values = new Object[4];
     values[0] = super.saveState(context);
     values[1] = width;
     values[2] = height;
+    values[3] = focusId;
     return values;
   }
 }
