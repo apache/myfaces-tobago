@@ -93,6 +93,8 @@
                 <exclude>org/apache/myfaces/tobago/application/FopConverter.java</exclude>
                 <exclude>org/apache/myfaces/tobago/taglib/component/*</exclude>
                 <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>
+                <exclude>org/apache/myfaces/tobago/validator/*</exclude>
+                <exclude>org/apache/myfaces/tobago/convert/*</exclude>
               </excludes>
               <aptSourceRoots>
                 <aptSourceRoot>${project.build.directory}/tobago-core-sources</aptSourceRoot>
