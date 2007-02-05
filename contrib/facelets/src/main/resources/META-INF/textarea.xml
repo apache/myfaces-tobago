@@ -24,9 +24,12 @@
   <c:if test="${empty rendered}">
     <c:set var="rendered" value="true"/>
   </c:if>
+  <c:if test="${empty labelWidth}">
+    <c:set var="labelWidth" value="fixed"/>
+  </c:if>
   <tc:panel rendered="${rendered}">
     <f:facet name="layout">
-      <tc:gridLayout columns="fixed;*"/>
+      <tc:gridLayout columns="${labelWidth};*"/>
     </f:facet>
     <tc:label value="${label}" for="@auto" tip="${tip}"/>
     <tc:textarea value="${value}" required="${required}"
