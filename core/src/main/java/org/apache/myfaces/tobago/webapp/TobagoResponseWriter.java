@@ -397,12 +397,12 @@ public class TobagoResponseWriter extends ResponseWriter {
     writeAttribute(HtmlAttributes.ID, id, false);
   }
 
-  public void writeNameAttribute(final String id) throws IOException {
-    writeAttribute(HtmlAttributes.NAME, id, false);
+  public void writeNameAttribute(final String name) throws IOException {
+    writeAttribute(HtmlAttributes.NAME, name, false);
   }
 
-  public void writeClassAttribute(final String id) throws IOException {
-    writeAttribute(HtmlAttributes.CLASS, id, false);
+  public void writeClassAttribute(final String cssClass) throws IOException {
+    writeAttribute(HtmlAttributes.CLASS, cssClass, false);
   }
 
   public void writeComponentClass() throws IOException {
