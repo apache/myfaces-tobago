@@ -92,11 +92,13 @@
       <answer>
         <p>You have two options.</p>
         <p>Add a TobagoMultipartFormdataFilter to your web.xml.
-        <a href="http://myfaces.apache.org/tobago/apidocs/org/apache/myfaces/tobago/webapp/TobagoMultipartFormdataFilter.html">Javadoc Description</a> 
+          <a href="http://myfaces.apache.org/tobago/apidocs/org/apache/myfaces/tobago/webapp/TobagoMultipartFormdataFilter.html">Javadoc Description</a>
         </p>
         <p>Add the tobago-fileupload.jar to your project.
            The tobago-fileupload.jar contains a FacesContextFactory that wraps the
-            multipart-formdata request inside the FacesContext.</p>
+            multipart-formdata request inside the FacesContext.
+          <a href="http://myfaces.apache.org/tobago/apidocs/org/apache/myfaces/tobago/fileupload/FileUploadFacesContextFactoryImpl.html">Javadoc Description</a>
+        </p>
       </answer>
     </faq>
 

@@ -32,11 +32,32 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.io.File;
 
-/*
- * Created by IntelliJ IDEA.
- * User: bommel
- * Date: Oct 8, 2006
- * Time: 4:45:47 PM
+/**
+ * This FacesContextFactory handles multipart request. Add the tobago-fileupload.jar to your web application.
+ * Configuration:
+ *
+ * <p><blockquote><pre>
+    &lt;env-entry&gt;
+      &lt;description&gt;Set the size limit for uploaded files. Default value is 1 MB.
+        Format: 10 = 10 bytes
+        10k = 10 KB
+        10m = 10 MB
+        1g = 1 GB
+      &lt;/description&gt;
+      &lt;env-entry-name&gt;uploadMaxFileSize&lt;/env-entry-name&gt;
+      &lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;
+      &lt;env-entry-value&gt;20m&lt;/env-entry-value&gt;
+    &lt;/env-entry&gt;
+    &lt;env-entry&gt;
+      &lt;description&gt;Set the upload repository path for uploaded files.
+             Default value is java.io.tmpdir.&lt;/description&gt;
+      &lt;env-entry-name&gt;uploadRepositoryPath&lt;/env-entry-name&gt;
+      &lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;
+      &lt;env-entry-value&gt;/tmp&lt;/env-entry-value&gt;
+    &lt;/env-entry&gt;
+ </pre></blockquote><p>
+
+ *
  */
 public class FileUploadFacesContextFactoryImpl extends FacesContextFactory {
   private static final Log LOG = LogFactory.getLog(FileUploadFacesContextFactoryImpl.class);
