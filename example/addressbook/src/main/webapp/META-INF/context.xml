@@ -17,8 +17,7 @@
  * limitations under the License.
 -->
 <!--
-    Context configuration file for the Tomcat Manager Web App
-    $Id: context.xml,v 1.1 2005/02/02 00:16:19 lofwyr Exp $
+    antiResourceLocking is needed  for proper redeploy under Windows.
 -->
 
 <Context antiResourceLocking="true" >
