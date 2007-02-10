@@ -48,7 +48,7 @@
                          label="#{overviewBundle.menu_about}" />
             <tc:menuItem onclick="LOG.show();"
                          label="#{overviewBundle.menu_showLog}"
-                         rendered="#{!clientConfigController.debugMode}"/>
+                         rendered="#{clientConfigController.debugMode}"/>
           </tc:menu>
         </tc:menuBar>
 
