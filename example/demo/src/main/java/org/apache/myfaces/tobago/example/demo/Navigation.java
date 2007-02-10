@@ -33,7 +33,7 @@ import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.Enumeration;
 
-/**
+/*
  * User: lofwyr
  * Date: 09.01.2007
  * Time: 10:41:49
@@ -112,14 +112,14 @@ public class Navigation {
   public String gotoFirst() {
     DefaultMutableTreeNode first = tree.getNextNode();
     state.setMarker(first);
-    return ((Node)first.getUserObject()).getOutcome();
+    return ((Node) first.getUserObject()).getOutcome();
   }
 
   public String gotoPrevious() {
     DefaultMutableTreeNode previousNode = state.getMarker().getPreviousNode();
     if (previousNode != null) {
       state.setMarker(previousNode);
-      return ((Node)previousNode.getUserObject()).getOutcome();
+      return ((Node) previousNode.getUserObject()).getOutcome();
     }
     return null;
   }
@@ -128,7 +128,7 @@ public class Navigation {
     DefaultMutableTreeNode nextNode = state.getMarker().getNextNode();
     if (nextNode != null) {
       state.setMarker(nextNode);
-      return ((Node)nextNode.getUserObject()).getOutcome();
+      return ((Node) nextNode.getUserObject()).getOutcome();
     }
     return null;
   }
