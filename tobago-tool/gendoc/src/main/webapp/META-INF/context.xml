@@ -17,7 +17,6 @@
  * limitations under the License.
 -->
 <!--
-    Context configuration file for the Tomcat Manager Web App
 
     antiResourceLocking is needed  for proper redeploy under Windows.
 -->

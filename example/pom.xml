@@ -32,12 +32,14 @@
     <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/trunk/example</url>
   </scm>
 
-  <!--<build>
+  <build>
     <plugins>
       <plugin>
+        <!-- NOTE The demo run only with mvn jetty:run-exploded.
+         For the other examples mvn jetty:run should work.-->
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>maven-jetty-plugin</artifactId>
-        <version>6.0.1</version>
+        <version>6.1.1</version>
         <configuration>
           <systemProperties>
             <systemProperty>
@@ -48,14 +50,7 @@
         </configuration>
       </plugin>
     </plugins>
-  </build>-->
-
-  <repositories>
-    <repository>
-      <id>atanion</id>
-      <url>http://www.atanion.com/maven2</url>
-    </repository>
-  </repositories>
+  </build>
 
   <pluginRepositories>
     <pluginRepository>
@@ -65,8 +60,8 @@
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
-      <id>atanion</id>
-      <url>http://www.atanion.com/maven2</url>
+      <id>codehaus-snapshots</id>
+      <url>http://snapshots.repository.codehaus.org/</url>
     </pluginRepository>
   </pluginRepositories>
 
