@@ -50,7 +50,7 @@
             label="#{overviewBundle.toolbar_popupButtonAction}">
 
           <f:facet name="popup">
-            <tc:popup width="200" height="100" id="popup" modal="false">
+            <tc:popup width="200" height="100" id="popup" modal="true">
 
               <f:facet name="layout">
                 <tc:gridLayout rows="35px;1*;fixed" />
