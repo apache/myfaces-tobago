@@ -46,7 +46,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Iterator;
 
 public class PanelRenderer extends RendererBase implements AjaxRenderer {
 
@@ -94,8 +93,8 @@ public class PanelRenderer extends RendererBase implements AjaxRenderer {
         }
 
         height = 0;
-        for (Iterator iterator = component.getChildren().iterator(); iterator.hasNext();) {
-          UIComponent child = (UIComponent) iterator.next();
+        for (Object o : component.getChildren()) {
+          UIComponent child = (UIComponent) o;
           RendererBase renderer = ComponentUtil.getRenderer(facesContext, child);
           if (renderer == null
               && child instanceof UINamingContainer

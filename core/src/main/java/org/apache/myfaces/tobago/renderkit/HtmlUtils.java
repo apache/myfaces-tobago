@@ -26,8 +26,6 @@ import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.LongRangeValidator;
-import javax.faces.validator.Validator;
 
 public class HtmlUtils {
 
@@ -59,7 +57,7 @@ public class HtmlUtils {
       FacesContext facesContext) {
 
     StringBuilder buffer = new StringBuilder();
-    Validator[] validators = component.getValidators();
+    /*Validator[] validators = component.getValidators();
     for (int i = 0; i < validators.length; i++) {
       if (validators[i] instanceof LongRangeValidator) {
         String functionCall = "validateLongRange('"
@@ -74,7 +72,7 @@ public class HtmlUtils {
       if (i + 1 < validators.length) { // is not last
         buffer.append(" && ");
       }
-    }
+    } */
 
     Object onchange = component.getAttributes().get(ATTR_ONCHANGE);
     if (onchange != null) { // append the onchange attribute
