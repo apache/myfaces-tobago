@@ -653,8 +653,8 @@
       <build>
         <plugins>
           <!-- We want to deploy the artifact to a staging location for perusal
-           mvn -Pstaging -Ddeploy.altRepository=scpexe://minotaur.apache.org/www/people.apache.org/builds/myfaces/m2-staging-repository</url>
-        </repository>-->
+           mvn -Pstaging -Ddeploy.altRepository=scpexe://minotaur.apache.org/www/people.apache.org/builds/myfaces/m2-staging-repository
+          -->
           <plugin>
             <inherited>true</inherited>
             <artifactId>maven-deploy-plugin</artifactId>
