@@ -205,6 +205,7 @@ public class PageRenderer extends PageRendererBase {
     if (styleBlocks.size() > 0) {
       writer.startElement(HtmlConstants.STYLE, null);
       for (String cssBlock : styleBlocks) {
+        writer.flush();
         writer.write(cssBlock);
       }
       writer.endElement(HtmlConstants.STYLE);

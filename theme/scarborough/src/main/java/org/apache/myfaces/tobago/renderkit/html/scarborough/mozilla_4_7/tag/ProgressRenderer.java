@@ -65,6 +65,7 @@ public class ProgressRenderer extends RendererBase {
     writer.startElement(HtmlConstants.TD, null);
     writer.writeAttribute(HtmlAttributes.STYLE, "background-color: #aabbcc;", null);
     writer.writeAttribute(HtmlAttributes.WIDTH, Integer.toString(model.getValue()), null);
+    writer.writeText("", null);
     writer.write("&nbsp;");
     writer.endElement(HtmlConstants.TD);
 
@@ -72,6 +73,7 @@ public class ProgressRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.STYLE, "background-color: #ddeeff;", null);
     writer.writeAttribute(HtmlAttributes.WIDTH,
         Integer.toString(model.getMaximum() - model.getValue()), null);
+    writer.writeText("", null);
     writer.write("&nbsp;");
     writer.endElement(HtmlConstants.TD);
 

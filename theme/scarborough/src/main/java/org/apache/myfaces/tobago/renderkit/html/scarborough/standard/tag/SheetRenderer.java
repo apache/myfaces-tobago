@@ -273,6 +273,7 @@ public class SheetRenderer extends RendererBase
 
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeClassAttribute("tobago-sheet-header");
+      writer.writeText("", null);
       writer.write("&nbsp;");
       writer.endElement(HtmlConstants.DIV);
 
@@ -418,7 +419,7 @@ public class SheetRenderer extends RendererBase
           sheetId + "_data_row_" + visibleIndex + "_column_filler");
       writer.writeClassAttribute("tobago-sheet-cell-outer");
       writer.writeAttribute(HtmlAttributes.STYLE, "width: 0px;", null);
-
+      writer.writeText("", null);
       writer.write("&nbsp;");
 
       writer.endElement(HtmlConstants.DIV);
@@ -480,6 +481,7 @@ public class SheetRenderer extends RendererBase
         writer.writeClassAttribute(className);
         writer.writeAttribute(HtmlAttributes.TITLE, ResourceManagerUtil.getPropertyNotNull(
             facesContext, "tobago", "sheetPagingInfoRowPagingTip"), null);
+        writer.writeText("", null);
         writer.write(createSheetPagingInfo(data, facesContext,
             pagerCommandId, true));
         writer.endElement(HtmlConstants.SPAN);
@@ -528,6 +530,7 @@ public class SheetRenderer extends RendererBase
             + pagerCommandId + "', '" + pagingOnClick + "')", null);
         writer.writeAttribute(HtmlAttributes.TITLE, ResourceManagerUtil.getPropertyNotNull(
             facesContext, "tobago", "sheetPagingInfoPagePagingTip"), null);
+        writer.writeText("", null);
         writer.write(createSheetPagingInfo(
             data, facesContext, pagerCommandId, false));
         writer.endElement(HtmlConstants.SPAN);
@@ -1075,6 +1078,7 @@ public class SheetRenderer extends RendererBase
       writer.writeAttribute(HtmlAttributes.HREF, "javascript: tobagoSheetSetPagerPage('"
           + id + "', '" + skip + hrefPostfix, null);
     }
+    writer.writeText("", null);
     writer.write(str);
     writer.endElement(type);
   }
@@ -1091,7 +1095,8 @@ public class SheetRenderer extends RendererBase
         .getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
     if (ajaxId.equals(component.getClientId(facesContext))) {
       if (component.getFacet(FACET_RELOAD) != null && component.getFacet(FACET_RELOAD) instanceof UIReload
-          && component.getFacet(FACET_RELOAD).isRendered()) {
+          && component.getFacet(FACET_RELOAD).isRendered()
+          && ajaxId.equals(ComponentUtil.findPage(component).getActionId())) {
         UIReload reload = (UIReload) component.getFacet(FACET_RELOAD);
         update = reload.getUpdate();
       }

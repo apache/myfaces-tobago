@@ -144,7 +144,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
       writer.writeIdAttribute(clientId);
 
       writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE_BODY);
-
+      writer.writeText("", null);
       writer.write(RichTextEditorRenderer.contentToHtml(content));
 
       writer.endElement(HtmlConstants.DIV);

@@ -69,6 +69,7 @@ public class OutRenderer extends RendererBase {
         }
       }
     } else {
+      writer.writeText("", null);
       writer.write(text);
     }
     if (createSpan) {

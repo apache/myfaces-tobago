@@ -123,29 +123,30 @@ public class TobagoResponseWriter extends ResponseWriter {
       throws IOException {
     writer.write(cbuf, off, len);
   }
-
+  // TODO Remove this
   public void write(final String str) throws IOException {
-    if (startStillOpen) {
-      writer.write("\n>");
-      startStillOpen = false;
-    }
+    closeOpenTag();
     super.write(str);
   }
 
   public void close() throws IOException {
+    closeOpenTag();
     writer.close();
   }
 
   public void flush() throws IOException {
-    writer.flush();
+    /*
+    From the api:
+    Flush any ouput buffered by the output method to the underlying Writer or OutputStream.
+    This method will not flush the underlying Writer or OutputStream;
+    it simply clears any values buffered by this ResponseWriter.
+     */
+    closeOpenTag();
   }
 
   public void writeText(final Object text, final String property)
       throws IOException {
-    if (startStillOpen) {
-      writer.write("\n>");
-      startStillOpen = false;
-    }
+    closeOpenTag();
     final String value = findValue(text, property);
     if (insideScriptOrStyle) {
       write(value);
@@ -158,12 +159,16 @@ public class TobagoResponseWriter extends ResponseWriter {
     }
   }
 
-  public void writeText(final char[] text, final int offset, final int length)
-      throws IOException {
+  private  void closeOpenTag() throws IOException {
     if (startStillOpen) {
       writer.write("\n>");
       startStillOpen = false;
     }
+  }
+
+  public void writeText(final char[] text, final int offset, final int length)
+      throws IOException {
+    closeOpenTag();
     if (insideScriptOrStyle) {
       writer.write(text, offset, length);
     } else {
@@ -279,10 +284,7 @@ public class TobagoResponseWriter extends ResponseWriter {
   }
 
   public void writeComment(final Object obj) throws IOException {
-    if (startStillOpen) {
-      writer.write("\n>");
-      startStillOpen = false;
-    }
+    closeOpenTag();
     String comment = obj.toString();
     write("<!--");
     if (comment.indexOf("--") < 0) {

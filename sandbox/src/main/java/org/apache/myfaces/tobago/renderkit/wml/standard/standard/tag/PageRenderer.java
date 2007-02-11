@@ -65,6 +65,7 @@ public class PageRenderer extends PageRendererBase {
     writer.startElement("wml", page);
     writer.startElement("card", page);
 
+    writer.writeText("", null);
     writer.write(content.toString());
 
     writer.endElement("card");
