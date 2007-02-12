@@ -232,44 +232,45 @@ reason they are not defined as a:link
 
 /* Tree ------------------------------------------------------------------- */
 
-.tobago-tree-menu {
+.tobago-treeNode-menu {
   border: 1px solid #CCCCCC;
   width: 200px; /* default */
   height: 16px;
 }
 
-.tobago-tree-node img {
+.tobago-treeNode-default img {
   vertical-align: top;
 	border: 0px;
 }
 
-.tobago-tree-node a {
-  font: 12px arial, helvetica, sans-serif;
+.tobago-treeNode-default a {
+  font-size: 12px;
+  font-family: arial, helvetica, sans-serif;
 }
 
-.tobago-tree-disabled {
+.tobago-treeNode-disabled {
   color: #888888;
   text-decoration: none;
   cursor: pointer;
 }
 
-.tobago-tree-node a:hover {
+.tobago-treeNode-default a:hover {
   color: #000000;
   text-decoration: underline;
 }
 
-.tobago-tree-disabled a:hover {
+.tobago-treeNode-disabled a:hover {
   color: #888888;
   text-decoration: none;
   cursor: pointer;
 }
 
-.tobago-tree-node a:focus {
+.tobago-treeNode-default a:focus {
   background: transparent;
   color: #000000;
 }
 
-.tobago-tree-marker, .tobago-tree-marker:focus, .tobago-tree-marker a, .tobago-tree-marker:focus a {
+.tobago-treeNode-marker, .tobago-treeNode-marker:focus, .tobago-treeNode-marker a, .tobago-treeNode-marker:focus a {
 	background-color: lightgray;
 }
 

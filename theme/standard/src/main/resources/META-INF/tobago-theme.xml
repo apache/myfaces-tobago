@@ -36,5 +36,11 @@
         <markup>number</markup>
       </supported-markup>
     </renderer>
+    <renderer>
+      <name>TreeNode</name>
+      <supported-markup>
+        <markup>strong</markup>
+      </supported-markup>
+    </renderer>
   </renderers>
 </tobago-theme>

@@ -25,9 +25,15 @@ public class Node {
   private static final Log LOG = LogFactory.getLog(Node.class);
 
   private String name;
+  private String markup;
 
   public Node(String name) {
     this.name = name;
+  }
+
+  public Node(String name, String markup) {
+    this.name = name;
+    this.markup = markup;
   }
 
   public String action() {
@@ -41,5 +47,13 @@ public class Node {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getMarkup() {
+    return markup;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 }

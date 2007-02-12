@@ -168,40 +168,44 @@ span.tobago-progress {
   white-space: nowrap;
 }
 
-.tobago-tree-node img {
+.tobago-treeNode-default img {
 	vertical-align: middle;
 	border: 0px;
 }
 
-.tobago-tree-node a, .tobago-tree-node a:active, .tobago-tree-node a:hover {
+.tobago-treeNode-default a, .tobago-treeNode-default a:active, .tobago-treeNode-default a:hover {
 	margin-left: 3px;
 	padding: 1px 2px 1px 2px;
 }
 
-.tobago-tree-node a {
+.tobago-treeNode-default a {
 	color: black;
 	text-decoration: none;
 }
 
-.tobago-tree-node a:hover {
+.tobago-treeNode-default a:hover {
 	color: blue;
 	text-decoration: underline;
 }
 
-.tobago-tree-node a:focus {
+.tobago-treeNode-default a:focus {
 	background: #445566;
 	color: highlighttext;
 	text-decoration: none;
 }
 
-.tobago-tree-disabled, .tobago-tree-disabled a:hover {
+.tobago-treeNode-disabled, .tobago-treeNode-disabled a:hover {
   color: #888888;
   text-decoration: none;
   cursor: pointer;
 }
 
-.tobago-tree-marker, .tobago-tree-marker:focus, .tobago-tree-marker a, .tobago-tree-marker:focus a {
+.tobago-treeNode-marker, .tobago-treeNode-marker:focus, .tobago-treeNode-marker a, .tobago-treeNode-marker:focus a {
 	background-color: #d8e9fb;
+}
+
+.tobago-treeNode-markup-strong {
+  font-weight: bold;
 }
 
 /* treeListbox -------------------------------------------------------------------- */

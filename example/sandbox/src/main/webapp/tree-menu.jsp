@@ -37,6 +37,7 @@
       <tcs:treeNode label="Root" id="root">
         <tcs:treeNodes value="#{controller.tree}" var="node" id="data">
           <tcs:treeNode label="#{node.userObject.name}" id="template"
+                        markup="#{node.userObject.markup}"
                         action="#{node.userObject.action}" value="#{node}"/>
         </tcs:treeNodes>
         <tcs:treeNode label="Action 1" action="#{controller.action1}" id="action1"/>

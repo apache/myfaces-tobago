@@ -52,11 +52,11 @@ Tobago.Tree.updateMarker = function(node, add) {
   if (node) {
     node = node.firstChild;
     while (node) {
-      if (node.className && node.className.indexOf("tobago-tree-node") > -1) {
+      if (node.className && node.className.indexOf("tobago-treeNode-default") > -1) {
         if (add) {
-          Tobago.addCssClass(node, "tree-item-marker");
+          Tobago.addCssClass(node, "tobago-treeNode-marker");
         } else {
-          Tobago.removeCssClass(node, "tree-item-marker");
+          Tobago.removeCssClass(node, "tobago-treeNode-marker");
         }
       }
       node = node.nextSibling;

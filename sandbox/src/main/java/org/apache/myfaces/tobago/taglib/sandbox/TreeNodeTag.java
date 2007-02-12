@@ -27,6 +27,7 @@ import javax.faces.component.UIComponent;
 public class TreeNodeTag extends AbstractCommandTag implements TreeNodeTagDeclaration {
 
   private String value;
+  private String markup;
 
   @Override
   public String getComponentType() {
@@ -38,12 +39,14 @@ public class TreeNodeTag extends AbstractCommandTag implements TreeNodeTagDeclar
     super.setProperties(component);
 
     ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
+    ComponentUtil.setMarkup(component, markup);
   }
 
   @Override
   public void release() {
     super.release();
     value = null;
+    markup = null;
   }
 
   public String getValue() {
@@ -54,4 +57,12 @@ public class TreeNodeTag extends AbstractCommandTag implements TreeNodeTagDeclar
     this.value = value;
   }
 
+
+  public String getMarkup() {
+    return markup;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
+  }
 }

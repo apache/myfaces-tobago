@@ -27,6 +27,8 @@ public class Controller {
 
   private static final Log LOG = LogFactory.getLog(Controller.class);
 
+  private static final String STRONG = "strong";
+
   private DefaultMutableTreeNode tree;
 
   private TreeState state;
@@ -40,8 +42,8 @@ public class Controller {
     tree.insert(music, 0);
     tree.insert(new DefaultMutableTreeNode(new Node("Games")), 0);
     DefaultMutableTreeNode temp = new DefaultMutableTreeNode(new Node("Science"));
-    temp.insert(new DefaultMutableTreeNode(new Node("Geography")), 0);
-    temp.insert(new DefaultMutableTreeNode(new Node("Mathematics")), 0);
+    temp.insert(new DefaultMutableTreeNode(new Node("Geography", STRONG)), 0);
+    temp.insert(new DefaultMutableTreeNode(new Node("Mathematics", STRONG)), 0);
     DefaultMutableTreeNode temp2 = new DefaultMutableTreeNode(new Node("Astronomy"));
     temp2.insert(new DefaultMutableTreeNode(new Node("Education")), 0);
     temp2.insert(new DefaultMutableTreeNode(new Node("Pictures")), 0);
@@ -79,7 +81,6 @@ public class Controller {
   public void setTree(DefaultMutableTreeNode tree) {
     this.tree = tree;
   }
-
 
   public TreeState getState() {
     return state;

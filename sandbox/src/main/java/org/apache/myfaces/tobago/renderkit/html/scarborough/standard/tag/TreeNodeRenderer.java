@@ -33,6 +33,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
@@ -40,6 +41,7 @@ import org.apache.myfaces.tobago.component.UITreeNodes;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -227,8 +229,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
           ATTR_MUTABLE)), null);
       writer.writeText(",'", null);
-      writer.writeText(
-          ComponentUtil.findPage(treeNode).getFormId(facesContext), null);
+      writer.writeText(ComponentUtil.findPage(treeNode).getFormId(facesContext), null);
       writer.writeText("',", null);
       if (treeNode.getChildCount() == 0
           || (selectable != null && !selectable.endsWith("LeafOnly"))) {
@@ -247,7 +248,10 @@ public class TreeNodeRenderer extends CommandRendererBase {
         }
       }
       writer.writeText(",", null);
-      writer.writeText(Boolean.toString(treeState.isMarked(modelNode)), null);
+
+      // marked
+      boolean marked = treeState.isMarked(modelNode);
+      writer.writeText(Boolean.toString(marked), null);
       writer.writeText(",", null);
 
       // expanded
@@ -306,9 +310,10 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
       // open folder icon (not implemented)
       writer.writeText("null", null);
-      writer.writeText(", '", null);
+      writer.writeText(", ", null);
 
       // width
+      writer.writeText("'", null);
       Integer width = null;
       HtmlStyleMap style = (HtmlStyleMap) root.getAttributes().get(ATTR_STYLE);
       if (style != null) {
@@ -319,8 +324,31 @@ public class TreeNodeRenderer extends CommandRendererBase {
       } else {
         writer.writeText("100%", null);
       }
+      writer.writeText("', ", null);
 
-      writer.writeText("');\n", null);
+      // css class
+      writer.writeText("'", null);
+      if ("menu".equals(root.getMode())) { // todo: clean up: think about composition of the style-class names
+        HtmlRendererUtil.addCssClass(treeNode, "tobago-treeNode-menu");
+        if (marked) {
+          HtmlRendererUtil.addCssClass(treeNode, "tobago-treeNode-marker");
+        }
+      }
+      StringBuilder treeNodeClass = new StringBuilder((String) treeNode.getAttributes().get(ATTR_STYLE_CLASS));
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("styleClass='" + treeNodeClass + "'");
+      }
+      writer.writeText(treeNodeClass, null);
+      writer.writeText("', ", null);
+
+      // css class label
+      writer.writeText("'", null);
+      if (marked) {
+        writer.writeText("tobago-treeNode-marker", null);
+      }
+      writer.writeText("'", null);
+
+      writer.writeText(");\n", null);
 
 /*
       if (jsParentClientId != null) { // if not the root node

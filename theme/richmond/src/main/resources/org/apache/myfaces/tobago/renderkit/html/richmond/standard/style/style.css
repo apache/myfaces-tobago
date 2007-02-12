@@ -71,12 +71,12 @@ a.tree-folder-label:focus, a.tree-item-label:focus {
 
 /* - Tree ------------------------------------------------------------------- */
 
-a.tobago-tree-node a:hover {
+a.tobago-treeNode-default a:hover {
   color: #6699ff;
   text-decoration: underline;
 }
 
-a.tobago-tree-node a:focus {
+a.tobago-treeNode-default a:focus {
   background: #d6ebff;
   color: #3366cc;
 }

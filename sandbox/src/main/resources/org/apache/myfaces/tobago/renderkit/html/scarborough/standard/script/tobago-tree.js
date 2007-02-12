@@ -305,7 +305,7 @@ function TreeNode(label, tip, id, mode, isFolder,
     hideRoot, treeHiddenId, selectable, mutable,
     formId, selected, marked,
     expanded, required, disabled, treeResources,
-    action, onclick, parent, icon, openIcon, width) {
+    action, onclick, parent, icon, openIcon, width, cssClass, cssClassLabel) {
   this.label = label;
   this.tip = tip;
   this.id = id;
@@ -333,6 +333,8 @@ function TreeNode(label, tip, id, mode, isFolder,
   this.openIcon = openIcon
       || treeResources.getImage("openfoldericon.gif");
   this.width = width;
+  this.cssClass = cssClass;
+  this.cssClassLabel = cssClassLabel;
   this.childNodes = [];
   this.onfocus = "storeMarker(this.parentNode, '" + treeHiddenId + "')";
 
@@ -359,17 +361,7 @@ TreeNode.prototype.toString = function (depth, last) {
 
     var str = '';
     if (! this.hideRoot || depth > 0) {
-      var treeItemClasses = "tobago-tree-node";
-      if (this.mode == "menu") {
-        treeItemClasses += " tobago-tree-menu"
-        if (this.marked) {
-          treeItemClasses += " tobago-tree-marker";
-        }
-      }
-      if (this.disabled) {
-        treeItemClasses += " tobago-tree-disabled";
-      }
-      str += '<div id="' + this.id + '" class="' + treeItemClasses + '" '
+      str += '<div id="' + this.id + '" class="' + this.cssClass + '" '
           + 'style="width: ' + this.width + ';">';
       if (this.mode == "menu") {
         if (this.isFolder) {
@@ -447,11 +439,7 @@ TreeNode.prototype.toString = function (depth, last) {
         str += '<img class="tree-icon" id="' + this.id
             + '-markIcon" src="' + markIcon + '" ' + markIconOnClickFunction + ' alt="">';
       }
-      var itemStyle = "";
-      if (this.marked) {
-        itemStyle += " tobago-tree-marker";
-      }
-      str += '<a class="' + itemStyle + '"';
+      str += '<a class="' + this.cssClassLabel + '"';
       if (this.tip) {
         str += ' title="' + this.tip + '"';
       }

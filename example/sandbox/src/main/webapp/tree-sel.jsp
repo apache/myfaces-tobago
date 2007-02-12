@@ -36,7 +36,9 @@
               selectable="single">
       <tcs:treeNode label="Root">
         <tcs:treeNodes value="#{controller.tree}" var="node">
-          <tcs:treeNode label="#{node.userObject.name}"/>
+          <tcs:treeNode label="#{node.userObject.name}"
+                        markup="#{node.userObject.markup}"
+              />
         </tcs:treeNodes>
         <tcs:treeNode label="Sub 1"/>
         <tcs:treeNode label="Sub 2"/>
