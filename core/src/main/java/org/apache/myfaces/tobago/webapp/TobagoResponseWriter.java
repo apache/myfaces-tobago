@@ -123,11 +123,6 @@ public class TobagoResponseWriter extends ResponseWriter {
       throws IOException {
     writer.write(cbuf, off, len);
   }
-  // TODO Remove this
-  public void write(final String str) throws IOException {
-    closeOpenTag();
-    super.write(str);
-  }
 
   public void close() throws IOException {
     closeOpenTag();
