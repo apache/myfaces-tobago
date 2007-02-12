@@ -161,7 +161,12 @@
 
         The resource manager looks in the case of the charlotteville theme in<br/>
         charlotteville -> speyside -> scarborough -> standard
-
+        <p>
+          Please look at
+          <a href="http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/tobago-theme-example/src/main/resources">
+            tobago-example-theme
+          </a>
+         </p>
       </answer>
     </faq>
 
