@@ -86,7 +86,19 @@ Deploying the Demo
   mvn tomcat:undeploy tomcat:deploy
 +----------------------------------------
 
-  Alternatively, you can run
+  Alternatively, you can run the demo with jetty
+
++----------------------------------------
+  mvn jetty:run-exploded
++----------------------------------------
+
+  the other examples with
+
++----------------------------------------
+  mvn jetty:run
++----------------------------------------
+
+  or
 
 +----------------------------------------
   mvn package
