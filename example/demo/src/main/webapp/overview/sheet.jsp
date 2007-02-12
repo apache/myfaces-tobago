@@ -13,13 +13,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
---%><%@
-    taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %><%@
-    taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %><%@
-    taglib uri="http://java.sun.com/jsf/core" prefix="f" %><%@
-    taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %><%@
-    page pageEncoding="UTF-8"
-    %><layout:overview>
+--%>
+<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
+<%@ page pageEncoding="UTF-8" %>
+<layout:overview>
   <jsp:body>
     <tc:panel>
       <f:facet name="layout">
@@ -113,8 +113,8 @@
           </tc:toolBar>
         </f:facet>
 
-        <tc:sheet value="#{demo.solarList}" id="sheet"
-                  columns="3*;1*;3*;3*;3*;3*" var="luminary"
+        <tc:sheet value="#{demo.solarList}" id="sheet" 
+                  columns="300px;100px;300px;300px;300px;300px" var="luminary"
                   state="#{demo.sheetState}"
                   showHeader="#{overviewController.sheetConfig.sheetShowHeader}"
                   showRowRange="#{overviewController.sheetConfig.sheetRowPagingPosition}"

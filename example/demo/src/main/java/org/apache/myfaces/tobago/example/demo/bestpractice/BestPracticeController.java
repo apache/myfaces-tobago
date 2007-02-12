@@ -1,5 +1,14 @@
 package org.apache.myfaces.tobago.example.demo.bestpractice;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.io.IOException;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,7 +28,40 @@ package org.apache.myfaces.tobago.example.demo.bestpractice;
 
 public class BestPracticeController {
 
+  private static final Log LOG = LogFactory.getLog(BestPracticeController.class);
+
   public String throwException() {
     throw new RuntimeException("This exception is forced by the user.");
+  }
+
+  public String viewPdfInBrowser() {
+    return viewPdf(false);
+  }
+
+  public String viewPdfOutsideOfBrowser() {
+    return viewPdf(true);
+  }
+
+  private String viewPdf(boolean outside) {
+
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+
+    InputStream inputStream = null;
+    try {
+      inputStream = facesContext.getExternalContext().getResourceAsStream("best-practice/sample.pdf");
+      HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+      response.setContentType("application/pdf");
+      if (outside) {
+        response.setHeader("Content-Disposition", "attachment; filename=sample.pdf");
+      }
+      IOUtils.copy(inputStream, response.getOutputStream());
+    } catch (IOException e) {
+      LOG.warn("Cannot deliver pdf", e);
+      return "error"; // response via faces
+    } finally {
+      IOUtils.closeQuietly(inputStream);
+    }
+    facesContext.responseComplete();
+    return null;
   }
 }

@@ -69,6 +69,7 @@ public class Navigation {
     bestPractice.add(new DefaultMutableTreeNode(new Node("error", "best-practice/error")));
     bestPractice.add(new DefaultMutableTreeNode(new Node("theme", "best-practice/theme")));
     bestPractice.add(new DefaultMutableTreeNode(new Node("transition", "best-practice/transition")));
+    bestPractice.add(new DefaultMutableTreeNode(new Node("nonFacesResponse", "best-practice/non-faces-response")));
     tree.add(bestPractice);
 
     state = new TreeState();

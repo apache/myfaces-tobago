@@ -55,6 +55,7 @@
   <entry key="error">Error Handling</entry>
   <entry key="theme">Themes</entry>
   <entry key="transition">Transition</entry>
+  <entry key="nonFacesResponse">Non Faces Resp.</entry>
 
   <entry key="submit">Submit</entry>
   <entry key="cancel">Cancel</entry>
