@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MUTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
@@ -88,9 +87,6 @@ public class TreeRenderer extends RendererBase {
       if (isSelectable(tree)) {
         state.clearSelection();
       }
-      if (ComponentUtil.getBooleanAttribute(tree, ATTR_MUTABLE)) {
-        state.setMarker(null);
-      }
     }
     tree.setValid(true);
   }
@@ -141,23 +137,6 @@ public class TreeRenderer extends RendererBase {
       writer.writeIdAttribute(clientId + UITree.SELECT_STATE);
       writer.writeAttribute(HtmlAttributes.VALUE, ";", null);
       writer.endElement(HtmlConstants.INPUT);
-    }
-
-    if (ComponentUtil.getBooleanAttribute(tree, ATTR_MUTABLE)) {
-
-
-//      writer.startElement(HtmlConstants.DIV, null);
-//      writer.writeAttribute(HtmlAttributes.STYLE, "border: 2px groove #ddeeff", null);
-//      writer.writeText("", null);
-
-      UIComponent toolbar = tree.getFacet("mutableToolbar");
-      if (toolbar == null) {
-        toolbar = tree.getFacet("defaultToolbar");
-      }
-      RenderUtil.encode(facesContext, toolbar);
-
-
-//      writer.endElement(HtmlConstants.DIV);
     }
 
 //    writer.startElement(HtmlConstants.DIV, null);

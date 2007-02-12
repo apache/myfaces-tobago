@@ -28,20 +28,19 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MUTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.component.UITreeNodeData;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -226,8 +225,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
         writer.writeText("false", null);
       }
       writer.writeText(",", null);
-      writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
-          ATTR_MUTABLE)), null);
+      // mutable = false
+      writer.writeText("false", null);
       writer.writeText(",'", null);
       writer.writeText(ComponentUtil.findPage(treeNode).getFormId(facesContext), null);
       writer.writeText("',", null);

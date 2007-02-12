@@ -19,33 +19,21 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MODE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MUTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ICONS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_JUNCTIONS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROOT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROOT_JUNCTION;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LINK;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_TOOL_BAR;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.TreeState;
-import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.util.MessageFactory;
-import org.apache.myfaces.tobago.util.StringUtil;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.ActionSource;
 import javax.faces.component.NamingContainer;
-import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
-import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
@@ -171,51 +159,6 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
   public void removeActionListener(ActionListener actionListener) {
     removeFacesListener(actionListener);
-  }
-
-  public void encodeBegin(FacesContext facesContext)
-      throws IOException {
-    if (ComponentUtil.getBooleanAttribute(this, ATTR_MUTABLE)
-        && getFacet("mutableToolbar") == null
-        && getFacet("defaultToolbar") == null) {
-      createDefaultToolbar(facesContext);
-    }
-    super.encodeBegin(facesContext);
-  }
-  // TODO move this to renderkit
-  public void createDefaultToolbar(FacesContext facesContext) {
-
-    UIComponent toolbar = ComponentUtil.createComponent(
-        facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_TOOL_BAR);
-    toolbar.getAttributes().put(ATTR_ICON_SIZE, ToolBarTag.ICON_SMALL);
-    toolbar.getAttributes().put(ATTR_LABEL_POSITION, ToolBarTag.LABEL_OFF);
-    ActionListener[] handlers = getActionListeners();
-
-    if ((handlers == null || handlers.length == 0) && getActionListener() == null) {
-      LOG.error("No actionListener found in tree, so tree editing will not work!");
-    }
-
-    UITree.Command[] commands = getCommands();
-    for (int i = 0; i < commands.length; i++) {
-      UICommand command = (UICommand) ComponentUtil.createComponent(
-          facesContext, UICommand.COMPONENT_TYPE, RENDERER_TYPE_LINK);
-      toolbar.getChildren().add(command);
-      command.setId(commands[i].getCommand());
-
-      for (ActionListener listener : getActionListeners()) {
-        command.addActionListener(listener);
-      }
-      command.setActionListener(getActionListener());
-      command.getAttributes().put(
-          ATTR_IMAGE, "image/tobago.tree." + commands[i].getCommand() + ".gif");
-      String title = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
-          "tree" + StringUtil.firstToUpperCase(commands[i].getCommand()));
-      command.getAttributes().put(ATTR_TIP, title);
-
-    }
-
-    getFacets().put("defaultToolbar", toolbar);
-
   }
 
   public UITreeNode getRoot() {

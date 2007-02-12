@@ -68,11 +68,6 @@ public interface TreeTagDeclaration extends TobagoTagDeclaration,
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Boolean",
       defaultValue = "false")
-  void setMutable(String mutable);
-
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean",
-      defaultValue = "false")
   void setShowRootJunction(String showRootJunction);
 
   @TagAttribute

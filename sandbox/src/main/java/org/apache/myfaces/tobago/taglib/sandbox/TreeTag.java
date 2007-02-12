@@ -45,7 +45,6 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
   private String showRootJunction;
 
   private String selectable;
-  private String mutable;
 
   private String required;
 
@@ -71,7 +70,6 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
     ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ROOT_JUNCTION, showRootJunction);
 
     ComponentUtil.setStringProperty(component, ATTR_SELECTABLE, selectable);
-    ComponentUtil.setBooleanProperty(component, ATTR_MUTABLE, mutable);
 
     ComponentUtil.setBooleanProperty(component, ATTR_REQUIRED, required);
     ComponentUtil.setActionListener((ActionSource) component, actionListener);
@@ -88,7 +86,6 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
     showRoot = null;
     showRootJunction = null;
     selectable = null;
-    mutable = null;
     required = null;
     actionListener = null;
     mode = null;
@@ -155,14 +152,6 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
 
   public void setSelectable(String selectable) {
     this.selectable = selectable;
-  }
-
-  public String getMutable() {
-    return mutable;
-  }
-
-  public void setMutable(String mutable) {
-    this.mutable = mutable;
   }
 
   public String getRequired() {
