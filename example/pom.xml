@@ -95,6 +95,7 @@
         <module>test</module>
         <module>facelets</module>
         <module>tobago-example-assembly</module>
+        <module>tobago-theme-example</module>
       </modules>
     </profile>
      <profile>
