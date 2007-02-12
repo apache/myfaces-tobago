@@ -204,8 +204,8 @@ public class ResourceManagerImpl implements ResourceManager {
     String path;
 
     // e.g. 1. application, 2. library or renderkit
-    for (String resourceDirectory : tobagoConfig.getResourceDirs()) {
-      for (Theme themeName : theme.getFallbackList()) { // theme loop
+    for (Theme themeName : theme.getFallbackList()) { // theme loop
+      for (String resourceDirectory : tobagoConfig.getResourceDirs()) {
         for (String browserType : browser.getFallbackList()) { // browser loop
           for (Object locale1 : locales) { // locale loop
             String localeSuffix = (String) locale1;
