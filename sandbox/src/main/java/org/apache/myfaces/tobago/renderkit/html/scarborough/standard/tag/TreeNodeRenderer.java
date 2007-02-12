@@ -37,7 +37,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
-import org.apache.myfaces.tobago.component.UITreeNodes;
+import org.apache.myfaces.tobago.component.UITreeNodeData;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
@@ -112,7 +112,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     String parentClientId = null;
     if (parent != null && parent instanceof UITreeNode) { // if not the root node
       parentClientId = treeNode.getParent().getClientId(facesContext);
-    } else if (parent != null && parent instanceof UITreeNodes) {
+    } else if (parent != null && parent instanceof UITreeNodeData) {
       String pci = parent.getClientId(facesContext);
       if (pci.endsWith(":_0")) {
         UIComponent superParent = parent.getParent();
@@ -122,7 +122,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
              + NamingContainer.SEPARATOR_CHAR + treeNode.getId();
       }
       DefaultMutableTreeNode currentNode =
-          ((UITreeNodes) parent).getCurrentNode();
+          ((UITreeNodeData) parent).getCurrentNode();
       if (currentNode != null) {
         isFolder = currentNode.getChildCount() > 0;
       }

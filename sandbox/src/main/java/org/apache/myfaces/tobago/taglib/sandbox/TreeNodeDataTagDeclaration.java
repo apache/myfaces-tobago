@@ -28,12 +28,12 @@ import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
 /**
  * Describes a subtree of nodes.
  */
-@Tag(name = "treeNodes")
+@Tag(name = "treeNodeData")
 @BodyContentDescription(anyTagOf = "<tcs:treeNode>")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UITreeNodes",
-    rendererType = "TreeNodes")
-public interface TreeNodesTagDeclaration extends TobagoTagDeclaration,
+    uiComponent = "org.apache.myfaces.tobago.component.UITreeNodeData",
+    rendererType = "TreeNodeData")
+public interface TreeNodeDataTagDeclaration extends TobagoTagDeclaration,
     HasIdBindingAndRendered, HasTreeNodeValue, HasVar {
 
 }

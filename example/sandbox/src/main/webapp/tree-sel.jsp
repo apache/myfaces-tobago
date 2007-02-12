@@ -35,11 +35,11 @@
               showRoot="true"
               selectable="single">
       <tcs:treeNode label="Root">
-        <tcs:treeNodes value="#{controller.tree}" var="node">
+        <tcs:treeNodeData value="#{controller.tree}" var="node">
           <tcs:treeNode label="#{node.userObject.name}"
                         markup="#{node.userObject.markup}"
               />
-        </tcs:treeNodes>
+        </tcs:treeNodeData>
         <tcs:treeNode label="Sub 1"/>
         <tcs:treeNode label="Sub 2"/>
         <tcs:treeNode label="Sub 3">

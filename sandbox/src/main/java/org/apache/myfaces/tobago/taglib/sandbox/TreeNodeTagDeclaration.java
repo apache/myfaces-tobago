@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.taglib.component.AbstractCommandTagDeclaration;
  * Creates a tree node.
  */
 @Tag(name = "treeNode")
-@BodyContentDescription(anyTagOf = "<tcs:treeNode>* <tcs:treeNodes>*")
+@BodyContentDescription(anyTagOf = "<tcs:treeNode>* <tcs:treeNodeData>*")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeNode",
     rendererType = "TreeNode")

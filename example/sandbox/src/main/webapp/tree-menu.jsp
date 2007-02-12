@@ -35,11 +35,11 @@
               showRoot="true"
               mode="menu">
       <tcs:treeNode label="Root" id="root">
-        <tcs:treeNodes value="#{controller.tree}" var="node" id="data">
+        <tcs:treeNodeData value="#{controller.tree}" var="node" id="data">
           <tcs:treeNode label="#{node.userObject.name}" id="template"
                         markup="#{node.userObject.markup}"
                         action="#{node.userObject.action}" value="#{node}"/>
-        </tcs:treeNodes>
+        </tcs:treeNodeData>
         <tcs:treeNode label="Action 1" action="#{controller.action1}" id="action1"/>
         <tcs:treeNode label="Action 2" action="#{controller.action2}" id="action2"/>
         <tcs:treeNode label="Action 3" action="#{controller.action3}" id="action3">

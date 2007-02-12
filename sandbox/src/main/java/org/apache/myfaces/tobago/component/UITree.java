@@ -175,7 +175,6 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
   public void encodeBegin(FacesContext facesContext)
       throws IOException {
-//    recreateTreeNodes();
     if (ComponentUtil.getBooleanAttribute(this, ATTR_MUTABLE)
         && getFacet("mutableToolbar") == null
         && getFacet("defaultToolbar") == null) {
@@ -218,35 +217,6 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     getFacets().put("defaultToolbar", toolbar);
 
   }
-
-/*
-  private void recreateTreeNodes() {
-    UITreeNode root = getRoot();
-    // Delete all UIComponent childs, because moving of childen will not work
-    // in Mutable Tree.
-    // They may have invalid modelReferences.
-    try {
-      if (root != null) {
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("removing root 1");
-        }
-        getChildren().remove(root);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("removing root 2");
-        }
-      }
-    } catch (Exception e) {
-      LOG.error("", e);
-    }
-
-    try {
-      root = new UITreeNode(this, 0);
-      root.createTreeNodes();
-    } catch (Exception e) {
-      LOG.error(e, e);
-    }
-  }
-*/
 
   public UITreeNode getRoot() {
     // find the UITreeNode in the childen.

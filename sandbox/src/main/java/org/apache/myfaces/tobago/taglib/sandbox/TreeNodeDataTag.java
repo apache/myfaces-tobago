@@ -20,19 +20,19 @@ package org.apache.myfaces.tobago.taglib.sandbox;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VAR;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UITreeNodes;
+import org.apache.myfaces.tobago.component.UITreeNodeData;
 import org.apache.myfaces.tobago.taglib.component.TobagoTag;
 
 import javax.faces.component.UIComponent;
 
-public class TreeNodesTag extends TobagoTag implements TreeNodesTagDeclaration {
+public class TreeNodeDataTag extends TobagoTag implements TreeNodeDataTagDeclaration {
 
   private String value;
   private String var;
 
   @Override
   public String getComponentType() {
-    return UITreeNodes.COMPONENT_TYPE;
+    return UITreeNodeData.COMPONENT_TYPE;
   }
 
   @Override

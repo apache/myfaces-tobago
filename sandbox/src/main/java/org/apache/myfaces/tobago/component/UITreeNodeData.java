@@ -32,12 +32,12 @@ import javax.faces.event.PhaseId;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 
-public class UITreeNodes extends javax.faces.component.UIInput
+public class UITreeNodeData extends javax.faces.component.UIInput
     implements NamingContainer {
 
-  private static final Log LOG = LogFactory.getLog(UITreeNodes.class);
+  private static final Log LOG = LogFactory.getLog(UITreeNodeData.class);
 
-  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TreeNodes";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TreeNodeData";
 
   private String var;
 
@@ -228,7 +228,7 @@ public class UITreeNodes extends javax.faces.component.UIInput
     private String pathIndex;
 
     FacesEventWrapper(FacesEvent facesEvent, String pathIndex,
-        UITreeNodes redirectComponent) {
+        UITreeNodeData redirectComponent) {
       super(redirectComponent);
       wrappedFacesEvent = facesEvent;
       this.pathIndex = pathIndex;

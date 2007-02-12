@@ -17,25 +17,19 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class TreeNodesRenderer extends RendererBase {
-
-  private static final Log LOG = LogFactory.getLog(TreeNodesRenderer.class);
+public class TreeNodeDataRenderer extends RendererBase {
 
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent component) throws IOException {
-
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
   }
 }
