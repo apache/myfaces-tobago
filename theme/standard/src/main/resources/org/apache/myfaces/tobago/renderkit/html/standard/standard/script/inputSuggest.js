@@ -70,8 +70,13 @@ Object.extend(new Ajax.Base(), {
 
   onComplete: function(request) {
 //    LOG.debug("get response = " + request.responseText);
-    this.updateChoices(request.responseText);
-    this.resetWidth();
+    var responseText = request.responseText;
+    if (responseText.substring(0, Tobago.Updater.CODE_SUCCESS.length) == Tobago.Updater.CODE_SUCCESS) {
+      responseText = responseText.substring(20);
+//      LOG.debug("responseText = " + responseText);
+      this.updateChoices(responseText);
+      this.resetWidth();
+    }
   },
 
   resetWidth: function() {

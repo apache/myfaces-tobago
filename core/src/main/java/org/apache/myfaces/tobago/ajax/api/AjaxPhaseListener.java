@@ -123,12 +123,17 @@ public class AjaxPhaseListener implements PhaseListener {
         StateManager.SerializedView serializedView = stateManager.saveSerializedView(facesContext);
         stateManager.writeState(facesContext, serializedView);
 
-        contentWriter.startElement(HtmlConstants.SCRIPT, null);
-        contentWriter.writeAttribute(HtmlAttributes.TYPE, "text/javascript", null);
-        contentWriter.write("Tobago.replaceJsfState(\"");
-        contentWriter.write(StringUtils.replace(StringUtils.replace(jsfState.toString(), "\"", "\\\""), "\n", ""));
-        contentWriter.write("\");");
-        contentWriter.endElement(HtmlConstants.SCRIPT);
+        String stateValue = jsfState.toString();
+        if (stateValue.length() > 0) {
+          // in case of inputSuggest jsfState.lenght is 0
+          // inputSuggest is a special case, because the form is not included in request.
+          contentWriter.startElement(HtmlConstants.SCRIPT, null);
+          contentWriter.writeAttribute(HtmlAttributes.TYPE, "text/javascript", null);
+          contentWriter.write("Tobago.replaceJsfState(\"");
+          contentWriter.write(StringUtils.replace(StringUtils.replace(stateValue, "\"", "\\\""), "\n", ""));
+          contentWriter.write("\");");
+          contentWriter.endElement(HtmlConstants.SCRIPT);
+        }
 
         writeAjaxResponse(facesContext, content.toString());
         facesContext.responseComplete();

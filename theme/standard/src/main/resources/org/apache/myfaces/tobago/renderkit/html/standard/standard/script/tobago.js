@@ -1600,7 +1600,7 @@ Tobago.Transport = {
       this.requests.push(req);
     } else if (!this.pageSubmited) { // AJAX case
       LOG.debug('Current ActionId = ' + this.currentActionId + ' action= ' + actionId);
-      if (this.currentActionId == actionId) {
+      if (actionId && this.currentActionId == actionId) {
         LOG.debug('Ignoring request');
         // If actionId equals currentActionId asume double request: do nothing
         return;
