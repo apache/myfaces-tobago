@@ -89,18 +89,18 @@ public class PageRenderer extends PageRendererBase {
   private static final String FRAMESET =
       "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\""
           + " \"http://www.w3.org/TR/html4/frameset.dtd\">";
-    private static final String CLIENT_DEBUG_SEVERITY = "clientDebugSeverity";
+  private static final String CLIENT_DEBUG_SEVERITY = "clientDebugSeverity";
 
 
-    public void decode(FacesContext facesContext, UIComponent component) {
-        super.decode(facesContext, component);
-        String name = component.getClientId(facesContext) + SUBCOMPONENT_SEP + "clientSeverity";
-        ExternalContext externalContext = facesContext.getExternalContext();
-        String severity = (String) externalContext.getRequestParameterMap().get(name);
-        if (severity != null) {
-          externalContext.getRequestMap().put(CLIENT_DEBUG_SEVERITY, severity);
-        }
+  public void decode(FacesContext facesContext, UIComponent component) {
+    super.decode(facesContext, component);
+    String name = component.getClientId(facesContext) + SUBCOMPONENT_SEP + "clientSeverity";
+    ExternalContext externalContext = facesContext.getExternalContext();
+    String severity = (String) externalContext.getRequestParameterMap().get(name);
+    if (severity != null) {
+      externalContext.getRequestMap().put(CLIENT_DEBUG_SEVERITY, severity);
     }
+  }
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
@@ -137,7 +137,6 @@ public class PageRenderer extends PageRendererBase {
       UIComponent popup = page.getPopups().get(i);
       RenderUtil.encode(facesContext, popup);
     }
-    
 
     // reset responseWriter and render page
     facesContext.setResponseWriter(writer);
@@ -232,11 +231,11 @@ public class PageRenderer extends PageRendererBase {
       LOG.info("get " + CLIENT_DEBUG_SEVERITY + " = " + severity);
       if (severity != null) {
         try {
-            int index = severity.indexOf(';');
-            if (index == -1) {
-              index = severity.length();
-            }
-            clientLogSeverity = Integer.parseInt(severity.substring(0, index));
+          int index = severity.indexOf(';');
+          if (index == -1) {
+            index = severity.length();
+          }
+          clientLogSeverity = Integer.parseInt(severity.substring(0, index));
         } catch (NumberFormatException e) {/* ignore; use default*/ }
         hideClientLogging = !severity.contains("show");
       }
@@ -261,7 +260,7 @@ public class PageRenderer extends PageRendererBase {
       UIComponent command = component.getFacet(FACET_ACTION);
       int duration = ComponentUtil.getIntAttribute(command, ATTR_DELAY, 100);
       page.getOnloadScripts().add("setTimeout(\"Tobago.submitAction('"
-          + command.getClientId(facesContext) + "')\", " + duration +");\n");
+          + command.getClientId(facesContext) + "')\", " + duration + ");\n");
     }
     //page.getOnloadScripts()
     // onload script
@@ -311,8 +310,8 @@ public class PageRenderer extends PageRendererBase {
     images.append("';\n");
     HtmlRendererUtil.writeJavascript(writer, images.toString());
 
-      if (debugMode) {
-      final String[] jsFiles = new String[] {
+    if (debugMode) {
+      final String[] jsFiles = new String[]{
           "script/effects.js",
           "script/dragdrop.js",
           "script/logging.js"
@@ -383,7 +382,6 @@ public class PageRenderer extends PageRendererBase {
     viewHandler.writeState(facesContext);
     writer.endElement(HtmlConstants.SPAN);
 
-
 //    facesContext.getApplication().getViewHandler().writeState(facesContext);
 
     writer.endElement(HtmlConstants.FORM);
@@ -392,10 +390,10 @@ public class PageRenderer extends PageRendererBase {
     if (debugMode) {
       List<String> logMessages = new ArrayList<String>();
       for (Iterator ids = facesContext.getClientIdsWithMessages();
-          ids.hasNext();) {
+           ids.hasNext();) {
         String id = (String) ids.next();
         for (Iterator messages = facesContext.getMessages(id);
-            messages.hasNext();) {
+             messages.hasNext();) {
           FacesMessage message = (FacesMessage) messages.next();
           logMessages.add(errorMessageForDebugging(id, message));
         }
@@ -403,7 +401,7 @@ public class PageRenderer extends PageRendererBase {
       if (!logMessages.isEmpty()) {
         logMessages.add(0, "LOG.show();");
       }
-      
+
       logMessages.add("LOG.info(\"FacesContext = " + facesContext + "\");");
 
       HtmlRendererUtil.writeScriptLoader(facesContext, null,
@@ -497,7 +495,7 @@ public class PageRenderer extends PageRendererBase {
 
   private String getMethod(UIPage page) {
     String method = (String) page.getAttributes().get(ATTR_METHOD);
-    return method == null?"post":method;
+    return method == null ? "post" : method;
   }
 
   private String generateDoctype(UIPage page) {

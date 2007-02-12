@@ -129,6 +129,7 @@ public class AjaxPhaseListener implements PhaseListener {
           // inputSuggest is a special case, because the form is not included in request.
           contentWriter.startElement(HtmlConstants.SCRIPT, null);
           contentWriter.writeAttribute(HtmlAttributes.TYPE, "text/javascript", null);
+          contentWriter.flush();
           contentWriter.write("Tobago.replaceJsfState(\"");
           contentWriter.write(StringUtils.replace(StringUtils.replace(stateValue, "\"", "\\\""), "\n", ""));
           contentWriter.write("\");");
