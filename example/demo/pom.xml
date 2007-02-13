@@ -15,7 +15,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
@@ -208,5 +210,29 @@
         </dependency>
       </dependencies>
     </profile>
+    <profile>
+			<id>tomcat5x</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.cargo</groupId>
+						<artifactId>cargo-maven2-plugin</artifactId>
+						<version>0.2</version>
+						<configuration>
+							<container>
+								<containerId>tomcat5x</containerId>
+								<zipUrlInstaller>
+									<url>http://apache.easy-webs.de/tomcat/tomcat-5/v5.5.20/bin/apache-tomcat-5.5.20.zip</url>
+									<installDir>${project.build.directory}/tomcat5</installDir>
+								</zipUrlInstaller>
+							</container>
+							<configuration>
+								<home>${project.build.directory}/tomcat5/container</home>
+							</configuration>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
   </profiles>
 </project>
