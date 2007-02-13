@@ -332,18 +332,23 @@
         </configuration>
       </plugin>
 
-       <plugin>
-         <groupId>org.codehaus.mojo</groupId>
-         <artifactId>jdepend-maven-plugin</artifactId>
-       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jdepend-maven-plugin</artifactId>
+      </plugin>
 
       <!-- http://jira.codehaus.org/browse/MJNCSS-4
         javancss has problems with annotations
-       <plugin>
-	       <groupId>org.codehaus.mojo</groupId>
-	       <artifactId>javancss-maven-plugin</artifactId>
-		     <version>2.0-beta-1</version>
-       </plugin>-->
+      <plugin>
+	      <groupId>org.codehaus.mojo</groupId>
+	      <artifactId>javancss-maven-plugin</artifactId>
+		    <version>2.0-beta-2</version>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>rat-maven-plugin</artifactId>
+        <version>1.0-alpha-1</version>
+      </plugin>-->
 
     </plugins>
 
