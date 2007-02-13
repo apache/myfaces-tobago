@@ -290,13 +290,13 @@
       </plugin>
 -->
 
-      <!--<plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>clirr-maven-plugin</artifactId>
         <configuration>
           <minSeverity>info</minSeverity>
         </configuration>
-      </plugin>-->
+      </plugin>
 
       <!-- pmd has problems with annotations -->
       <plugin>
@@ -343,8 +343,8 @@
 	      <groupId>org.codehaus.mojo</groupId>
 	      <artifactId>javancss-maven-plugin</artifactId>
 		    <version>2.0-beta-2</version>
-      </plugin>
-      <plugin>
+      </plugin>-->
+      <!--<plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>rat-maven-plugin</artifactId>
         <version>1.0-alpha-1</version>
@@ -599,6 +599,14 @@
             <jdkLevel>5.0</jdkLevel>
           </configuration>
         </plugin>
+        <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>clirr-maven-plugin</artifactId>
+        <configuration>
+          <failOnError>false</failOnError>
+          <minSeverity>info</minSeverity>
+        </configuration>
+      </plugin>
       </plugins>
     </pluginManagement>
   </build>
@@ -659,6 +667,14 @@
         <plugins>
           <!-- We want to deploy the artifact to a staging location for perusal
            mvn -Pstaging -Ddeploy.altRepository=scpexe://minotaur.apache.org/www/people.apache.org/builds/myfaces/m2-staging-repository
+
+           with the release plugin add following profile to your settings.xml
+           <profile>
+             <id>staging</id>
+             <properties>
+               <deploy.altRepository>scpexe://minotaur.apache.org/www/people.apache.org/builds/myfaces/tobago/m2-staging-repository</deploy.altRepository>
+             </properties>
+           </profile>
           -->
           <plugin>
             <inherited>true</inherited>
@@ -676,13 +692,24 @@
       <id>release</id>
       <!--
       NOTE: To use you need to enable this profile and pass in the passphrase:
-            mvn -Prelease -Dpassphrase=thephrase
+           mvn -Prelease -Dpassphrase=thephrase
+
+           with the release plugin add following profile to your settings.xml
+           <profile>
+             <id>release</id>
+             <properties>
+               <gpg.passphrase>thephrase</gpg.passphrase>
+             </properties>
+           </profile>
        -->
       <build>
         <plugins>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
+            <configuration>
+              <passphrase>${gpg.passphrase}</passphrase>
+            </configuration>
             <executions>
               <execution>
                 <id>sign-artifacts</id>
