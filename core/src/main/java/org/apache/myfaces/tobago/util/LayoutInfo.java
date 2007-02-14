@@ -83,14 +83,20 @@ public class LayoutInfo {
   }
 
   public void update(int space, int index) {
+    update(space, index, false);
+  }
 
-
+  public void update(int space, int index, boolean force) {
     if (space > spaceLeft) {
       if (LOG.isDebugEnabled()) {
-        LOG.debug("More space (" + space + ") needed than available (" + spaceLeft
-            + ")! Cutting to fit.");
+        LOG.debug("More space (" + space + ") needed than available (" + spaceLeft + ")!");
       }
-      space = spaceLeft;
+      if (! force) {
+        if (LOG.isDebugEnabled()) {
+          LOG.debug(" Cutting to fit.");
+        }
+        space = spaceLeft;
+      }
     }
 
     spaceLeft -= space;
@@ -298,7 +304,7 @@ public class LayoutInfo {
         String token = tokens[i].substring(0, tokens[i].length() - 2);
         try {
           int w = Integer.parseInt(token);
-          update(w, i);
+          update(w, i, true);
           if (LOG.isDebugEnabled()) {
             LOG.debug("set column " + i + " from " + tokens[i]
                 + " to with " + w);
@@ -413,8 +419,7 @@ public class LayoutInfo {
     parseColumnLayout(space, 0);
   }
 
-  public void parseColumnLayout(
-      double space, int padding) {
+  public void parseColumnLayout(double space, int padding) {
 
     if (hasLayoutTokens()) {
       parseHides(padding);
@@ -429,6 +434,7 @@ public class LayoutInfo {
       handleIllegalTokens();
     }
   }
+
   public String toString() {
     return new ToStringBuilder(this).
         append("cellLeft", cellsLeft).
