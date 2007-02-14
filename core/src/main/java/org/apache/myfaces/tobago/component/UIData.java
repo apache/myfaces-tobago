@@ -237,7 +237,7 @@ public class UIData extends javax.faces.component.UIData
   }
 
   private void ensureColumnWidthList(FacesContext facesContext, SheetState state) {
-    List<Integer> currrentWidthList = null;
+    List<Integer> currentWidthList = null;
     List<UIColumn> columns = getRendererdColumns();
 
     final Map attributes = getAttributes();
@@ -252,14 +252,14 @@ public class UIData extends javax.faces.component.UIData
     }
 
     if (widthListString != null) {
-      currrentWidthList = StringUtil.parseIntegerList(widthListString);
+      currentWidthList = StringUtil.parseIntegerList(widthListString);
     }
-    if (currrentWidthList != null && currrentWidthList.size() != columns.size()) {
-      currrentWidthList = null;
+    if (currentWidthList != null && currentWidthList.size() != columns.size()) {
+      currentWidthList = null;
     }
 
 
-    if (currrentWidthList == null) {
+    if (currentWidthList == null) {
       String columnLayout =
           (String) attributes.get(ATTR_COLUMNS);
       List<UIColumn> allColumns = getAllColumns();
@@ -319,17 +319,16 @@ public class UIData extends javax.faces.component.UIData
           space, layoutTokens, false);
       parseFixedWidth(facesContext, layoutInfo);
       layoutInfo.parseColumnLayout(space);
-      currrentWidthList = layoutInfo.getSpaceList();
-
+      currentWidthList = layoutInfo.getSpaceList();
     }
 
-    if (currrentWidthList != null) {
-      if (columns.size() != currrentWidthList.size()) {
-        LOG.warn("widthList.size() = " + currrentWidthList.size()
+    if (currentWidthList != null) {
+      if (columns.size() != currentWidthList.size()) {
+        LOG.warn("widthList.size() = " + currentWidthList.size()
             + " != columns.size() = " + columns.size() + "  widthList : "
-            + LayoutInfo.listToTokenString(currrentWidthList));
+            + LayoutInfo.listToTokenString(currentWidthList));
       } else {
-        this.widthList = currrentWidthList;
+        this.widthList = currentWidthList;
       }
     }
   }
@@ -378,11 +377,11 @@ public class UIData extends javax.faces.component.UIData
   private void prepareDimensions(FacesContext facesContext) {
     // prepare width's in column's children components
 
-    List columnWidths = getWidthList();
+    List<Integer> columnWidths = getWidthList();
     int i = 0;
     for (UIColumn column : getRendererdColumns()) {
       if (i < columnWidths.size()) {
-        Integer width = (Integer) columnWidths.get(i);
+        Integer width = columnWidths.get(i);
         if (!(column instanceof UIColumnSelector)) {
           if (column.getChildCount() == 1) {
             UIComponent child = (UIComponent) column.getChildren().get(0);
