@@ -91,9 +91,9 @@ public class LayoutInfo {
       if (LOG.isDebugEnabled()) {
         LOG.debug("More space (" + space + ") needed than available (" + spaceLeft + ")!");
       }
-      if (! force) {
+      if (!force) {
         if (LOG.isDebugEnabled()) {
-          LOG.debug(" Cutting to fit.");
+          LOG.debug("Cutting to fit.");
         }
         space = spaceLeft;
       }
