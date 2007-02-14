@@ -599,14 +599,14 @@
             <jdkLevel>5.0</jdkLevel>
           </configuration>
         </plugin>
-        <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>clirr-maven-plugin</artifactId>
-        <configuration>
-          <failOnError>false</failOnError>
-          <minSeverity>info</minSeverity>
-        </configuration>
-      </plugin>
+        <!--<plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>clirr-maven-plugin</artifactId>
+          <configuration>
+            <failOnError>false</failOnError>
+            <minSeverity>info</minSeverity>
+          </configuration>
+        </plugin>-->
       </plugins>
     </pluginManagement>
   </build>
