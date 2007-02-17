@@ -25,11 +25,11 @@ import org.apache.commons.io.IOUtils;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.Taglib;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.codehaus.modello.generator.java.javasource.JClass;
-import org.codehaus.modello.generator.java.javasource.JCompUnit;
-import org.codehaus.modello.generator.java.javasource.JConstructor;
-import org.codehaus.modello.generator.java.javasource.JField;
-import org.codehaus.modello.generator.java.javasource.JSourceWriter;
+import org.codehaus.modello.plugin.java.javasource.JClass;
+import org.codehaus.modello.plugin.java.javasource.JCompUnit;
+import org.codehaus.modello.plugin.java.javasource.JConstructor;
+import org.codehaus.modello.plugin.java.javasource.JField;
+import org.codehaus.modello.plugin.java.javasource.JSourceWriter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
