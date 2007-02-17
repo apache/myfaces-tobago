@@ -47,7 +47,7 @@ public class ButtonTag extends AbstractCommandTag
   private String tip;
   private String defaultCommand;
   private String target;
-
+  private String markup;
 
   @Override
   protected void setProperties(UIComponent component) {
@@ -57,6 +57,7 @@ public class ButtonTag extends AbstractCommandTag
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
     ComponentUtil.setStringProperty(component, ATTR_TARGET, target);
     ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand);
+    ComponentUtil.setMarkup(component, markup);
   }
 
   @Override
@@ -67,6 +68,7 @@ public class ButtonTag extends AbstractCommandTag
     tip = null;
     defaultCommand = null;
     target = null;
+    markup = null;
   }
 
   public String getAccessKey() {
@@ -116,6 +118,10 @@ public class ButtonTag extends AbstractCommandTag
 
   public void setTarget(String target) {
     this.target = target;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 }
 

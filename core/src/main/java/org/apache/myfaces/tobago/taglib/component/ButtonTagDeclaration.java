@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDefaultCommand;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.HasTarget;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 /*
  * Created by IntelliJ IDEA.
@@ -44,11 +45,11 @@ import org.apache.myfaces.tobago.taglib.decl.HasTarget;
 @Tag(name = "button", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UICommand",
+    uiComponent = "org.apache.myfaces.tobago.component.UIButtonCommand",
     rendererType = "Button")
 
 public interface ButtonTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
     IsDisabled, HasCommandType,
-    IsDefaultCommand, HasDeprecatedWidth, HasTip, IsInline, HasTarget {
+    IsDefaultCommand, HasDeprecatedWidth, HasTip, IsInline, HasTarget, HasMarkup {
 }
