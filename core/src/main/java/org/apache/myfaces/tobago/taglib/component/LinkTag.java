@@ -38,7 +38,7 @@ public class LinkTag extends AbstractCommandTag
   private String image;
   private String tip;
   private String defaultCommand;
-
+  private String markup;
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
@@ -47,6 +47,7 @@ public class LinkTag extends AbstractCommandTag
     ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
     ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand);
+    ComponentUtil.setMarkup(component, markup);
   }
 
   public void release() {
@@ -55,6 +56,8 @@ public class LinkTag extends AbstractCommandTag
     label = null;
     image = null;
     tip = null;
+    defaultCommand = null;
+    markup = null;
   }
 
   public String getTarget() {
@@ -106,5 +109,9 @@ public class LinkTag extends AbstractCommandTag
 
   public void setDefaultCommand(String defaultCommand) {
     this.defaultCommand = defaultCommand;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 }

@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTarget;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 /*
  * Created by IntelliJ IDEA.
@@ -42,10 +43,10 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 @Tag(name = "link", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UICommand",
+    uiComponent = "org.apache.myfaces.tobago.component.UILinkCommand",
     rendererType = "Link")
 public interface LinkTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled,
     IsInline, HasCommandType,
-    HasTarget, HasTip, HasImage {
+    HasTarget, HasTip, HasImage, HasMarkup {
 }
