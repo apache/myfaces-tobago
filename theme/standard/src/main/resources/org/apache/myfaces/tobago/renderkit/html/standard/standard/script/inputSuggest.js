@@ -37,6 +37,9 @@ Object.extend(new Ajax.Base(), {
           Effect.Appear(update,{duration:0.15});
         };
     this.element.autoCompleter = this;
+    // tobago-ajax request is prefixed by <size> + Tobago.Updater.CODE_SUCCESS
+    // controls.js:Autocompleter can't handle this, so this must be removed.
+    this.REGEX_SUCCSESS = new RegExp("^[0-9a-f]*?\\s*?" + Tobago.Updater.CODE_SUCCESS);
     LOG.debug("new Autocompleter for " + this.element.id);
   },
 
@@ -71,8 +74,8 @@ Object.extend(new Ajax.Base(), {
   onComplete: function(request) {
 //    LOG.debug("get response = " + request.responseText);
     var responseText = request.responseText;
-    if (responseText.substring(0, Tobago.Updater.CODE_SUCCESS.length) == Tobago.Updater.CODE_SUCCESS) {
-      responseText = responseText.substring(20);
+    if (responseText.match(this.REGEX_SUCCSESS)) {
+      responseText = responseText.substring(responseText.indexOf(Tobago.Updater.CODE_SUCCESS) + 20);
 //      LOG.debug("responseText = " + responseText);
       this.updateChoices(responseText);
       this.resetWidth();
