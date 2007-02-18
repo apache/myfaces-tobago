@@ -31,9 +31,12 @@
         </f:facet>
         <f:facet name="toolBar">
           <tc:toolBar>
-            <tc:button label="#{bundle.listNew}" action="#{controller.createAddress}" />
-            <tc:button label="#{bundle.listEdit}" action="#{controller.editAddress}" />
-            <tc:button label="#{bundle.listDelete}" action="#{controller.deleteAddresses}">
+            <tc:button label="#{bundle.listNew}" action="#{controller.createAddress}"
+                image="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png" />
+            <tc:button label="#{bundle.listEdit}" action="#{controller.editAddress}"
+                image="image/org/tango-project/tango-icon-theme/16x16/apps/accessories-text-editor.png" />
+            <tc:button label="#{bundle.listDelete}" action="#{controller.deleteAddresses}"
+                image="image/org/tango-project/tango-icon-theme/16x16/places/user-trash.png" >
               <f:facet name="confirmation">
                 <tc:out value="#{bundle.listDeleteConfirmation}" />
               </f:facet>
