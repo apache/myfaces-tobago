@@ -45,23 +45,24 @@
               <f:facet name="popup">
                 <tc:popup width="300px" height="200px" left="200px" top="200px"
                     rendered="#{controller.renderPopup}" id="popup">
-                  <f:facet name="layout">
-                    <tc:gridLayout rows="fixed;fixed;fixed;1*;fixed" />
-                  </f:facet>
-
-                  <tc:selectBooleanCheckbox label="First Name" value="#{controller.renderFirstName}"/>
-                  <tc:selectBooleanCheckbox label="Last Name" value="#{controller.renderLastName}"/>
-                  <tc:selectBooleanCheckbox label="Birthday" value="#{controller.renderDayOfBirth}"/>
-                  <tc:cell/>
-                  <tc:panel>
+                  <tc:box label="Select Columns">
                     <f:facet name="layout">
-                      <tc:gridLayout columns="1*;100px;100px" />
+                      <tc:gridLayout rows="fixed;fixed;fixed;1*;fixed" margin="10" />
                     </f:facet>
-                    <tc:cell/>
-                    <tc:button action="#{controller.cancelPopup}" label="OK" defaultCommand="true"/>
-                    <tc:button action="#{controller.cancelPopup}" label="Cancel" immediate="true"/>
-                  </tc:panel>
 
+                    <tc:selectBooleanCheckbox label="First Name" value="#{controller.renderFirstName}"/>
+                    <tc:selectBooleanCheckbox label="Last Name" value="#{controller.renderLastName}"/>
+                    <tc:selectBooleanCheckbox label="Birthday" value="#{controller.renderDayOfBirth}"/>
+                    <tc:cell/>
+                    <tc:panel>
+                      <f:facet name="layout">
+                        <tc:gridLayout columns="1*;100px;100px" />
+                      </f:facet>
+                      <tc:cell/>
+                      <tc:button action="#{controller.cancelPopup}" label="OK" defaultCommand="true"/>
+                      <tc:button action="#{controller.cancelPopup}" label="Cancel" immediate="true"/>
+                    </tc:panel>
+                  </tc:box>
                 </tc:popup>
               </f:facet>
             </tc:button>
@@ -70,7 +71,7 @@
 
         <tc:messages />
 
-        <tc:sheet columns="1*;1*" value="#{controller.currentAddressList}"
+        <tc:sheet columns="1*;1*;1*" value="#{controller.currentAddressList}"
             var="address" state="#{controller.selectedAddresses}">
           <tc:column label="#{bundle.listFirstName}" sortable="true"
                      rendered="#{controller.renderFirstName}">

@@ -157,6 +157,17 @@ public class Controller {
     return OUTCOME_LIST;
   }
 
+  public String okFileUpload() {
+    setRenderFileUploadPopup(false);
+    return null;
+  }
+
+  public String cancelFileUpload() {
+    setRenderFileUploadPopup(false);
+    return null;
+  }
+
+
   public String cancelPopup() {
     setRenderPopup(false);
     return OUTCOME_LIST;

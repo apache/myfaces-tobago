@@ -86,18 +86,34 @@
                 <f:facet name="layout">
                   <tc:gridLayout rows="160px" columns="120px"/>
                 </f:facet>
-                <tc:button image="#{controller.currentAddress.imageFileName}"
-                    action="#{controller.popupFileUpload}">
-                  <%--<f:facet name="popup">--%>
-                    <%--<tc:popup width="300px" height="200px" left="200px"--%>
-                              <%--top="200px" rendered="#{controller.renderFileUploadPopup}"--%>
-                              <%--id="popup-fileUpload">--%>
-                      <%--<tc:file value="#{controller.uploadedFile}"/>--%>
-                      <%--<%--<tc:button action="#{controller.cancelPopup}" label="OK" defaultCommand="true"/>--%>--%>
-                      <%--<%--<tc:button action="#{controller.cancelPopup}" label="Cancel"/>--%>--%>
-                    <%--</tc:popup>--%>
-                  <%--</f:facet>--%>
-                </tc:button>
+                <tc:form>
+                  <tc:button image="#{controller.currentAddress.imageFileName}"
+                      action="#{controller.popupFileUpload}">
+                    <f:facet name="popup">
+                      <tc:popup width="300px" height="170px" left="200px"
+                                top="200px" rendered="#{controller.renderFileUploadPopup}"
+                                id="popup-fileUpload">
+                        <tc:box label="FileUpload">
+                          <f:facet name="layout">
+                            <tc:gridLayout rows="fixed;1*;fixed" margin="10" />
+                          </f:facet>
+                          <tc:file value="#{controller.uploadedFile}" required="true">
+                            <tc:validateFileItem contentType="image/*" />
+                          </tc:file>
+                          <tc:messages/>
+                          <tc:panel>
+                            <f:facet name="layout">
+                               <tc:gridLayout columns="1*;100px;100px" />
+                            </f:facet>
+                            <tc:cell/>
+                            <tc:button action="#{controller.okFileUpload}" label="OK" />
+                            <tc:button action="#{controller.cancelFileUpload}" label="Cancel" immediate="true"/>
+                          </tc:panel>
+                        </tc:box>
+                      </tc:popup>
+                    </f:facet>
+                  </tc:button>
+                </tc:form>
               </tc:panel>
             </tc:panel>
               <tc:panel>

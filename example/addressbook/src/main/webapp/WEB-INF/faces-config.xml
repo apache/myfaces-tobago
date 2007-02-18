@@ -60,12 +60,12 @@
     <managed-property>
       <property-name>width</property-name>
       <property-class>int</property-class>
-      <value>400</value>
+      <value>600</value>
     </managed-property>
     <managed-property>
       <property-name>height</property-name>
       <property-class>int</property-class>
-      <value>480</value>
+      <value>500</value>
     </managed-property>
     <managed-property>
       <property-name>minimumWidth</property-name>
@@ -75,7 +75,7 @@
     <managed-property>
       <property-name>minimumHeight</property-name>
       <property-class>int</property-class>
-      <value>480</value>
+      <value>500</value>
     </managed-property>
      <managed-property>
       <property-name>maximumWidth</property-name>
@@ -85,7 +85,7 @@
     <managed-property>
       <property-name>maximumHeight</property-name>
       <property-class>int</property-class>
-      <value>480</value>
+      <value>500</value>
     </managed-property>
 
   </managed-bean>

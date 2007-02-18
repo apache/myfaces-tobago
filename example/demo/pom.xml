@@ -68,7 +68,8 @@
   </build>
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/demo</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/demo</developerConnection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/demo
+    </developerConnection>
     <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/trunk/example/demo</url>
   </scm>
 
@@ -139,14 +140,14 @@
       <scope>provided</scope>
     </dependency>
     <!--<dependency>-->
-      <!--<groupId>myfaces</groupId>-->
-      <!--<artifactId>tomahawk</artifactId>-->
-      <!--<version>1.1.0</version>-->
-      <!--<purpose>jar</purpose>-->
+    <!--<groupId>myfaces</groupId>-->
+    <!--<artifactId>tomahawk</artifactId>-->
+    <!--<version>1.1.0</version>-->
+    <!--<purpose>jar</purpose>-->
     <!--</dependency>-->
 
   </dependencies>
-    <profiles>
+  <profiles>
     <profile>
       <id>myfaces</id>
       <activation>
@@ -211,28 +212,31 @@
       </dependencies>
     </profile>
     <profile>
-			<id>tomcat5x</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.cargo</groupId>
-						<artifactId>cargo-maven2-plugin</artifactId>
-						<version>0.2</version>
-						<configuration>
-							<container>
-								<containerId>tomcat5x</containerId>
-								<zipUrlInstaller>
-									<url>http://apache.easy-webs.de/tomcat/tomcat-5/v5.5.20/bin/apache-tomcat-5.5.20.zip</url>
-									<installDir>${project.build.directory}/tomcat5</installDir>
-								</zipUrlInstaller>
-							</container>
-							<configuration>
-								<home>${project.build.directory}/tomcat5/container</home>
-							</configuration>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
+      <!--
+       mvn cargo:start -Ptomcat5x
+      -->
+      <id>tomcat5x</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.cargo</groupId>
+            <artifactId>cargo-maven2-plugin</artifactId>
+            <version>0.2</version>
+            <configuration>
+              <container>
+                <containerId>tomcat5x</containerId>
+                <zipUrlInstaller>
+                  <url>http://apache.easy-webs.de/tomcat/tomcat-5/v5.5.20/bin/apache-tomcat-5.5.20.zip</url>
+                  <installDir>${project.build.directory}/tomcat5</installDir>
+                </zipUrlInstaller>
+              </container>
+              <configuration>
+                <home>${project.build.directory}/tomcat5/container</home>
+              </configuration>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
 </project>

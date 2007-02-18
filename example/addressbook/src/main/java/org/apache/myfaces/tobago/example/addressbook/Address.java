@@ -26,35 +26,56 @@ package org.apache.myfaces.tobago.example.addressbook;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Embedded;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.PostLoad;
 import java.io.File;
 import java.util.Date;
 import java.util.Locale;
 
+@Entity
 public class Address {
 
   private static final Log LOG = LogFactory.getLog(Address.class);
-
-  private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
   private String firstName;
   private String lastName;
   private String street;
   private String houseNumber;
   private String city;
   private String zipCode;
+  @Transient
   private Locale country;
+  private String countryCode;
   private String phone;
   private String mobile;
   private String fax;
+  @Embedded
   private EmailAddress email;
   private String icq;
   private String homePage;
+  @Temporal(TemporalType.DATE)
   private Date dayOfBirth;
   private String note;
-
   private String company;
   private String jobTitle;
   private String jobPhone;
-  private String jobEmail;
+  @Embedded
+  @AttributeOverrides(@AttributeOverride(name="email", column = @Column(name = "jobEmail")))
+  private EmailAddress jobEmail;
   private String jobHomePage;
   private static final String EMPTY_PORTRAIT = "image/empty_portrait.png";
 
@@ -77,9 +98,7 @@ public class Address {
     email = fromAddress.getEmail();
     dayOfBirth = fromAddress.getDayOfBirth();
     homePage = fromAddress.getHomePage();
-
     note = fromAddress.getNote();
-
     company = fromAddress.getCompany();
     jobTitle = fromAddress.getJobTitle();
     jobPhone = fromAddress.getJobPhone();
@@ -87,11 +106,25 @@ public class Address {
     jobHomePage = fromAddress.getJobHomePage();
   }
 
-  public int getId() {
+  @PrePersist
+  @PreUpdate
+  private void store() {
+    if (country != null) {
+      countryCode = country.getCountry();
+    }
+  }
+  @PostLoad
+  private void load() {
+    if (countryCode != null) {
+      country = new Locale("", countryCode);
+    }
+  }
+
+  public Integer getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
@@ -239,11 +272,11 @@ public class Address {
     this.jobPhone = jobPhone;
   }
 
-  public String getJobEmail() {
+  public EmailAddress getJobEmail() {
     return jobEmail;
   }
 
-  public void setJobEmail(String jobEmail) {
+  public void setJobEmail(EmailAddress jobEmail) {
     this.jobEmail = jobEmail;
   }
 
