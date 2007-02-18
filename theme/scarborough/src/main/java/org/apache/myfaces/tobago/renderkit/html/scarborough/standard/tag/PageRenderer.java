@@ -379,6 +379,7 @@ public class PageRenderer extends PageRendererBase {
 
     writer.startElement(HtmlConstants.SPAN);
     writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + "jsf-state-container");
+    writer.flush();
     viewHandler.writeState(facesContext);
     writer.endElement(HtmlConstants.SPAN);
 
