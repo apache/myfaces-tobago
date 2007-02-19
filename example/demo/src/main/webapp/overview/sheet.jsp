@@ -114,7 +114,7 @@
         </f:facet>
 
         <tc:sheet value="#{demo.solarList}" id="sheet" 
-                  columns="300px;100px;300px;300px;300px;300px" var="luminary"
+                  columns="3*;1*;3*;3*;3*;3*" var="luminary"
                   state="#{demo.sheetState}"
                   showHeader="#{overviewController.sheetConfig.sheetShowHeader}"
                   showRowRange="#{overviewController.sheetConfig.sheetRowPagingPosition}"
