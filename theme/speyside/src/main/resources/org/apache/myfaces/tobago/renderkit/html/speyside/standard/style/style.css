@@ -192,8 +192,8 @@ a.tree-folder-label:focus, a.tree-item-label:focus {
   color: #000000;
 }
 
-a.tree-item-marker, a.tree-item-marker:focus {
-	background-color: lightgray;
+.tree-item-marker, .tree-item-marker:focus, a.tree-item-marker, a.tree-item-marker:focus {
+	background-color: #d3d3d3;
 }
 
 /* -----------------------------------------------------------------------------
@@ -271,7 +271,7 @@ reason they are not defined as a:link
 }
 
 .tobago-treeNode-marker, .tobago-treeNode-marker:focus, .tobago-treeNode-marker a, .tobago-treeNode-marker:focus a {
-	background-color: lightgray;
+	background-color: #d3d3d3;
 }
 
 /* ----------------------------------------------------------------------------
