@@ -353,7 +353,7 @@ public class MenuBarRenderer extends RendererBase {
 
   private void addMenuEntry(StringBuilder sb, String var, FacesContext facesContext,
                             UICommand command) throws IOException {
-    String onClick = createOnClick(facesContext, command);
+    String onClick = HtmlRendererUtil.createOnClick(facesContext, command);
     if (command instanceof UIMenuCommand) {
       if (command.getFacet(FACET_ITEMS) != null) {
         UIComponent facet = command.getFacet(FACET_ITEMS);
@@ -370,24 +370,6 @@ public class MenuBarRenderer extends RendererBase {
     } else if (command instanceof UISelectOneCommand) {
       addSelectOne(sb, var, facesContext, command, onClick);
     }
-  }
-
-  private String createOnClick(FacesContext facesContext,
-                               UIComponent component) {
-    String clientId = component.getClientId(facesContext);
-    String onclick;
-
-    if (component.getAttributes().get(ATTR_ACTION_LINK)!=null) {
-      onclick = "Tobago.navigateToUrl('"
-          + HtmlUtils.generateUrl(facesContext, (String) component.getAttributes().get(ATTR_ACTION_LINK)) + "');";
-    //} else if (COMMAND_TYPE_RESET.equals(type)) {
-    //  onclick = null;
-    } else if (component.getAttributes().get(ATTR_ACTION_ONCLICK)!=null) {
-      onclick = (String) component.getAttributes().get(ATTR_ACTION_ONCLICK);
-    } else { // default: Action.TYPE_SUBMIT
-      onclick = "Tobago.submitAction('" + clientId + "');";
-    }
-    return onclick;
   }
 
   private void addCommand(StringBuilder sb, String var, FacesContext facesContext,
