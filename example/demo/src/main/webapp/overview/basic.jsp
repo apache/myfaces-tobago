@@ -102,18 +102,20 @@
   <%-- row --%>
       <tc:box label="#{overviewBundle.basic_sampleLinkTitle}">
         <f:facet name="layout">
-          <tc:gridLayout columns="1*;1*;1*" border="0"/>
+          <tc:gridLayout columns="120px;*;120px;*;120px" border="0"/>
         </f:facet>
         <tc:link id="link" action="overview/basic"
             actionListener="#{overviewController.click}"
             label="#{overviewBundle.basic_linkAction}" />
+        <tc:cell/>
         <tc:link id="image" action="overview/basic"
             actionListener="#{overviewController.click}"
             image="image/image_button.gif" />
+        <tc:cell/>
         <tc:button id="button" action="overview/basic"
             actionListener="#{overviewController.click}"
-            width="100px"  label="#{overviewBundle.basic_buttonAction}" />
-        <tc:cell spanX="3">
+            label="#{overviewBundle.basic_buttonAction}" />
+        <tc:cell spanX="5">
           <tx:in value="#{overviewController.lastAction}" readonly="true"
             label="#{overviewBundle.basic_lastActionLabel}" />
         </tc:cell>
