@@ -135,6 +135,7 @@
   <entry key="solarPlanetTimeOfCirculation">Umlaufzeit</entry>
  <!--solarArrayName=Name -->
  <!--solarArrayNumber=raute  -->
+  <entry key="solarArrayNumberTip">Nummer</entry>
  <!--solarArrayOrbit=Orbits -->
   <entry key="solarArrayDistance">Entfernung</entry>
   <entry key="solarArrayPeriod">Umlauf</entry>

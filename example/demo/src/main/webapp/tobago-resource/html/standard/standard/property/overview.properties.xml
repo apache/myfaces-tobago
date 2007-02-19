@@ -172,6 +172,7 @@
 <entry key="solarPlanetTimeOfCirculation">Time of Circulation</entry>
 <entry key="solarArrayName">Name</entry>
 <entry key="solarArrayNumber">#</entry>
+<entry key="solarArrayNumberTip">Number</entry>
 <entry key="solarArrayOrbit">Orbits</entry>
 <entry key="solarArrayDistance">Distance</entry>
 <entry key="solarArrayPeriod">Period</entry>
