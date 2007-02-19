@@ -44,11 +44,14 @@
           </tc:menu>
 
           <tc:menu label="#{overviewBundle.menu_help}">
-            <tc:menuItem onclick="alert('#{overviewBundle.pageTitle}' + String.fromCharCode(10) + '#{tobagoVersion.name}' + String.fromCharCode(10) + '#{overviewBundle.tobago_url}' + String.fromCharCode(10))"
+            <tc:menuItem onclick="alert('#{overviewBundle.pageTitle}' + String.fromCharCode(10) + '#{info.version}' + String.fromCharCode(10) + '#{overviewBundle.tobago_url}' + String.fromCharCode(10))"
                          label="#{overviewBundle.menu_about}" />
             <tc:menuItem onclick="LOG.show();"
                          label="#{overviewBundle.menu_showLog}"
                          rendered="#{clientConfigController.debugMode}"/>
+            <tc:menuItem action="server-info"
+                         label="Server Info"
+                         disabled="#{! info.enabled}"/>
           </tc:menu>
         </tc:menuBar>
 

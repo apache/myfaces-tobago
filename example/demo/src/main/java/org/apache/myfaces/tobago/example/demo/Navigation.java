@@ -87,7 +87,7 @@ public class Navigation {
     while (enumeration.hasMoreElements()) {
       DefaultMutableTreeNode maybeMarker = ((DefaultMutableTreeNode) enumeration.nextElement());
       Node node = (Node) maybeMarker.getUserObject();
-      if (viewId.contains(node.getOutcome())) {
+      if (node.getOutcome() != null && viewId.contains(node.getOutcome())) {
         state.setMarker(maybeMarker);
         break;
       }

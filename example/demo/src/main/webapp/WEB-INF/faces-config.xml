@@ -48,12 +48,6 @@
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
-  <managed-bean>
-    <managed-bean-name>tobagoVersion</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.TobagoVersion</managed-bean-class>
-    <managed-bean-scope>application</managed-bean-scope>
-  </managed-bean>
-
   <lifecycle>
     <phase-listener>
       org.apache.myfaces.tobago.example.demo.SynchronizeNavigationPhaseListener
@@ -63,12 +57,31 @@
     </phase-listener>
   </lifecycle>
 
-
   <managed-bean>
     <managed-bean-name>navigation</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.demo.Navigation</managed-bean-class>
-    <managed-bean-scope>application</managed-bean-scope>
+    <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>info</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.ServerInfo</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+    <managed-property>
+      <description>Enabled the Server Info. May be disabled for security reasons.</description>
+      <property-name>enabled</property-name>
+      <property-class>boolean</property-class>
+      <value>false</value>
+      <!--<value>true</value>-->
+    </managed-property>
+  </managed-bean>
+
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>server-info</from-outcome>
+      <to-view-id>/server-info.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
 
   <!--  overview  -->
 

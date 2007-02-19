@@ -1,4 +1,14 @@
-package org.apache.myfaces.tobago;
+package org.apache.myfaces.tobago.example.demo;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
+import java.util.Properties;
+import java.io.InputStream;
+import java.io.IOException;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,29 +27,22 @@ package org.apache.myfaces.tobago;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.io.IOUtils;
+public class ServerInfo {
 
-import java.io.InputStream;
-import java.io.IOException;
-import java.util.Properties;
+  private static final Log LOG = LogFactory.getLog(ServerInfo.class);
 
-public class TobagoVersion {
+  private String version;
 
+  private boolean enabled;
 
-  private static final Log LOG = LogFactory.getLog(TobagoVersion.class);
-
-  private String name;
-
-  public TobagoVersion() {
+  public ServerInfo() {
     InputStream pom = null;
     try {
       pom = getClass().getClassLoader().getResourceAsStream(
           "META-INF/maven/org.apache.myfaces.tobago/tobago-core/pom.properties");
       Properties properties = new Properties();
       properties.load(pom);
-      name = properties.getProperty("version");
+      version = properties.getProperty("version");
     } catch (IOException e) {
       LOG.warn("No version info found.", e);
     } finally {
@@ -47,7 +50,35 @@ public class TobagoVersion {
     }
   }
 
-  public String getName() {
-    return name;
+  public String getServerInfo() {
+    if (enabled) {
+      return ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getServerInfo();
+    } else {
+      return null;
+    }
+  }
+
+  public Properties getSystemProperties() {
+    if (enabled) {
+      return System.getProperties();
+    } else {
+      return null;
+    }
+  }
+
+  public String getVersion() {
+    return version;
+  }
+
+  public void setVersion(String version) {
+    this.version = version;
+  }
+
+  public boolean isEnabled() {
+    return enabled;
+  }
+
+  public void setEnabled(boolean enabled) {
+    this.enabled = enabled;
   }
 }
