@@ -92,6 +92,8 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
     application = applicationFactory.getApplication();
     application.addComponent("javax.faces.Command", "javax.faces.component.UICommand");
     application.addComponent("org.apache.myfaces.tobago.Command", "org.apache.myfaces.tobago.component.UICommand");
+    application.addComponent("org.apache.myfaces.tobago.LinkCommand", "org.apache.myfaces.tobago.component.UILinkCommand");
+    application.addComponent("org.apache.myfaces.tobago.ButtonCommand", "org.apache.myfaces.tobago.component.UIButtonCommand");
 
     facesContext.setApplication(application);
     UIViewRoot root = facesContext

@@ -34,7 +34,6 @@ public class UILinkCommand extends UICommand implements SupportsMarkup {
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
     super.restoreState(context, values[0]);
-
     markup = (String[]) values[1];
   }
 

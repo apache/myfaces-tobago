@@ -25,6 +25,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UILinkCommand;
 
 import javax.faces.component.UIComponent;
 
@@ -48,6 +49,10 @@ public class LinkTag extends AbstractCommandTag
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
     ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand);
     ComponentUtil.setMarkup(component, markup);
+  }
+
+  public String getComponentType() {
+    return UILinkCommand.COMPONENT_TYPE;
   }
 
   public void release() {

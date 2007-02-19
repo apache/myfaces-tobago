@@ -30,6 +30,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIButtonCommand;
 
 import javax.faces.component.UIComponent;
 
@@ -58,6 +59,10 @@ public class ButtonTag extends AbstractCommandTag
     ComponentUtil.setStringProperty(component, ATTR_TARGET, target);
     ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand);
     ComponentUtil.setMarkup(component, markup);
+  }
+
+   public String getComponentType() {
+    return UIButtonCommand.COMPONENT_TYPE;
   }
 
   @Override
