@@ -78,14 +78,14 @@ Object.extend(new Ajax.Base(), {
       responseText = responseText.substring(responseText.indexOf(Tobago.Updater.CODE_SUCCESS) + 20);
 //      LOG.debug("responseText = " + responseText);
       this.updateChoices(responseText);
-      this.resetWidth();
+      setTimeout(Tobago.bind(this, "resetWidth"), 60);
     }
   },
 
   resetWidth: function() {
     this.update.style.width = this.element.offsetWidth + 'px';
     // TODO: make offset configurable
-    var offset = this.iefix ? 2 : -8;
+    var offset = this.iefix ? 2 : 4;
     if ((this.update.scrollWidth + offset) > this.element.offsetWidth) {
       this.update.style.width = (this.update.scrollWidth + offset) + 'px';
     }
