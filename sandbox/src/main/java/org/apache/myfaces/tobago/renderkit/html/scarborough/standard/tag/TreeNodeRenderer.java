@@ -23,6 +23,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
@@ -74,7 +75,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     // expand state
     String expandState = (String) requestParameterMap.get(treeId);
     String searchString = ";" + nodeStateId + ";";
-    if (expandState.indexOf(searchString) > -1) {
+    if (StringUtils.contains(expandState, searchString)) {
       state.addExpandState((DefaultMutableTreeNode) node.getValue());
     }
 
@@ -82,7 +83,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     if (TreeRenderer.isSelectable(tree)) { // selection
       String selected = (String) requestParameterMap.get(treeId + UITree.SELECT_STATE);
       searchString = ";" + nodeStateId + ";";
-      if (selected.indexOf(searchString) > -1) {
+      if (StringUtils.contains(selected, searchString)) {
         state.addSelection((DefaultMutableTreeNode) node.getValue());
       }
     }
@@ -169,9 +170,9 @@ public class TreeNodeRenderer extends CommandRendererBase {
       // tip
       String tip = (String) treeNode.getAttributes().get(ATTR_TIP);
       if (tip != null) {
-        tip = StringEscapeUtils.escapeJavaScript(tip.toString());
+        tip = StringEscapeUtils.escapeJavaScript(tip);
         writer.writeText("'", null);
-        writer.writeText((String) tip, null);
+        writer.writeText(tip, null);
         writer.writeText("','", null);
       } else {
         writer.writeText("null,'", null);

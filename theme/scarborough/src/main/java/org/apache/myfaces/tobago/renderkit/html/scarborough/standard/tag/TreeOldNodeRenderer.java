@@ -28,6 +28,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -62,7 +63,7 @@ public class TreeOldNodeRenderer extends RendererBase {
     // expand state
     String expandState = (String) requestParameterMap.get(treeId);
     String searchString = ";" + nodeId + ";";
-    if (expandState.indexOf(searchString) > -1) {
+    if (StringUtils.contains(expandState, searchString)) {
       state.addExpandState((DefaultMutableTreeNode) node.getValue());
     }
 
@@ -70,7 +71,7 @@ public class TreeOldNodeRenderer extends RendererBase {
     if (TreeOldRenderer.isSelectable(tree)) { // selection
       String selected = (String) requestParameterMap.get(treeId + UITreeOld.SELECT_STATE);
       searchString = ";" + nodeId + ";";
-      if (selected.indexOf(searchString) > -1) {
+      if (StringUtils.contains(selected, searchString)) {
         state.addSelection((DefaultMutableTreeNode) node.getValue());
       }
     }
