@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIColumn;
 
@@ -31,6 +32,7 @@ public class ColumnTag extends TobagoTag
   private String sortable;
   private String align;
   private String markup;
+  private String tip;
 
   public String getComponentType() {
     return UIColumn.COMPONENT_TYPE;
@@ -45,6 +47,7 @@ public class ColumnTag extends TobagoTag
     sortable = null;
     align = null;
     markup = null;
+    tip = null;
   }
 
   protected void setProperties(UIComponent component) {
@@ -52,6 +55,7 @@ public class ColumnTag extends TobagoTag
     ComponentUtil.setBooleanProperty(component, ATTR_SORTABLE, sortable);
     ComponentUtil.setStringProperty(component, ATTR_ALIGN, align);
     ComponentUtil.setMarkup(component, markup);
+    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
   }
 
   public void setMarkup(String markup) {
@@ -70,9 +74,11 @@ public class ColumnTag extends TobagoTag
     return sortable;
   }
 
-
   public void setSortable(String sortable) {
     this.sortable = sortable;
   }
-}
 
+  public void setTip(String tip) {
+    this.tip = tip;
+  }
+}

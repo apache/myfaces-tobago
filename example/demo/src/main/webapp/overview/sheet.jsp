@@ -113,7 +113,7 @@
           </tc:toolBar>
         </f:facet>
 
-        <tc:sheet value="#{demo.solarList}" id="sheet" 
+        <tc:sheet value="#{demo.solarList}" id="sheet"
                   columns="3*;1*;3*;3*;3*;3*" var="luminary"
                   state="#{demo.sheetState}"
                   showHeader="#{overviewController.sheetConfig.sheetShowHeader}"
@@ -126,13 +126,16 @@
                   stateChangeListener="#{demo.stateChangeListener}"
                   sortActionListener="#{overviewController.sheetSorter}"
                   selectable="#{overviewController.sheetConfig.selectable}">
+<%--
           <f:facet name="reload">
             <tc:reload frequency="5000"/>
           </f:facet>
+--%>
           <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true">
             <tc:out value="#{luminary.name}" id="t_name"/>
           </tc:column>
-          <tc:column label="#{overviewBundle.solarArrayNumber}" id="number" sortable="false" align="center">
+          <tc:column label="#{overviewBundle.solarArrayNumber}" id="number" sortable="false"
+                     tip="#{overviewBundle.solarArrayNumberTip}" align="center">
             <tc:out value="#{luminary.number}" id="t_number"/>
           </tc:column>
           <tc:column label="#{overviewBundle.solarArrayOrbit}" sortable="true" id="orbit">

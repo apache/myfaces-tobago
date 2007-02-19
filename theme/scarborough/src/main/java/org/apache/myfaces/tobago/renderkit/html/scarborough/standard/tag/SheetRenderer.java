@@ -26,6 +26,7 @@ import static org.apache.myfaces.tobago.component.UIData.ATTR_SCROLL_POSITION;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
@@ -47,6 +48,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUPOPUP;
@@ -766,15 +768,17 @@ public class SheetRenderer extends RendererBase
     String sheetId = component.getClientId(facesContext);
     Application application = facesContext.getApplication();
 
-    List columnWidths
-        = (List) component.getAttributes().get(ATTR_WIDTH_LIST);
+    List columnWidths = (List) component.getAttributes().get(ATTR_WIDTH_LIST);
     String divWidth = "width: " + columnWidths.get(columnCount) + "px;";
-
 
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(sheetId + "_header_box_" + columnCount);
     writer.writeClassAttribute("tobago-sheet-header-box");
     writer.writeAttribute(HtmlAttributes.STYLE, divWidth, null);
+    String tip = (String) column.getAttributes().get(ATTR_TIP);
+    if (tip == null) {
+      tip = "";
+    }
 
 // ############################################
 // ############################################
@@ -782,41 +786,34 @@ public class SheetRenderer extends RendererBase
     String sorterImage = null;
     String sorterClass = "";
     String sortTitle = "";
-    boolean sortable =
-        ComponentUtil.getBooleanAttribute(column,
-            ATTR_SORTABLE);
+    boolean sortable = ComponentUtil.getBooleanAttribute(column, ATTR_SORTABLE);
     if (sortable && !(column instanceof UIColumnSelector)) {
       UICommand sortCommand = (UICommand) column.getFacet(UIData.FACET_SORTER);
       if (sortCommand == null) {
         String columnId = column.getClientId(facesContext);
-        String sorterId = columnId.substring(columnId.lastIndexOf(":") + 1)
-            + "_" + UIData.SORTER_ID;
-        sortCommand
-            = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+        String sorterId = columnId.substring(columnId.lastIndexOf(":") + 1) + "_" + UIData.SORTER_ID;
+        sortCommand = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
         sortCommand.setRendererType(RENDERER_TYPE_LINK);
         sortCommand.setId(sorterId);
         column.getFacets().put(UIData.FACET_SORTER, sortCommand);
       }
 
-      String onclick = "Tobago.submitAction('"
-          + sortCommand.getClientId(facesContext) + "')";
+      String onclick = "Tobago.submitAction('" + sortCommand.getClientId(facesContext) + "')";
       writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, null);
 
-      writer.writeAttribute(HtmlAttributes.TITLE,
-          ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
-              "sheetTipSorting"),
-          null);
+      if (StringUtils.isNotEmpty(tip)) {
+        tip +=  " - ";
+      }
+      tip += ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "sheetTipSorting");
 
       SheetState sheetState = component.getSheetState(facesContext);
       if (column.getId().equals(sheetState.getSortedColumnId())) {
         if (sheetState.isAscending()) {
           sorterImage = ascending;
-          sortTitle = ResourceManagerUtil.getPropertyNotNull(facesContext,
-              "tobago", "sheetAscending");
+          sortTitle = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "sheetAscending");
         } else {
           sorterImage = descending;
-          sortTitle = ResourceManagerUtil.getPropertyNotNull(facesContext,
-              "tobago", "sheetDescending");
+          sortTitle = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "sheetDescending");
         }
       }
       sorterClass = " tobago-sheet-header-sortable";
@@ -825,8 +822,9 @@ public class SheetRenderer extends RendererBase
 // ############################################
 // ############################################
 
-    String align
-        = (String) column.getAttributes().get(ATTR_ALIGN);
+    writer.writeAttribute(HtmlAttributes.TITLE, tip, null);
+
+    String align = (String) column.getAttributes().get(ATTR_ALIGN);
 
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(sheetId + "_header_outer_" + columnCount);
@@ -840,10 +838,8 @@ public class SheetRenderer extends RendererBase
       resizerClass = "tobago-sheet-header-resize";
       renderColumnSelectorHeader(facesContext, writer, component, column);
     } else {
-      resizerClass =
-          "tobago-sheet-header-resize tobago-sheet-header-resize-cursor";
-      renderColumnHeaderLabel(facesContext, writer, column, sortMarkerWidth, align,
-          image1x1);
+      resizerClass = "tobago-sheet-header-resize tobago-sheet-header-resize-cursor";
+      renderColumnHeaderLabel(facesContext, writer, column, sortMarkerWidth, align, image1x1);
     }
     writer.endElement(HtmlConstants.DIV);
 
