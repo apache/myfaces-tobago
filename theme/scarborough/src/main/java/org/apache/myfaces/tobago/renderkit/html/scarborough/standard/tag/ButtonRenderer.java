@@ -86,11 +86,17 @@ public class ButtonRenderer extends CommandRendererBase {
     String imageName = (String) component.getAttributes().get(ATTR_IMAGE);
     if (imageName != null) {
       String image = null;
-      if (disabled) {
-        image = ResourceManagerUtil.getDisabledImageWithPath(facesContext, imageName);
-      }
-      if (image == null) {
-        image = ResourceManagerUtil.getImageWithPath(facesContext, imageName);
+      if (imageName.startsWith("HTTP:") || imageName.startsWith("FTP:")
+                || imageName.startsWith("/")) {
+        image = imageName;
+        // absolute Path to image : nothing to do
+      } else {
+        if (disabled) {
+          image = ResourceManagerUtil.getDisabledImageWithPath(facesContext, imageName);
+        }
+        if (image == null) {
+          image = ResourceManagerUtil.getImageWithPath(facesContext, imageName);
+        }
       }
       writer.startElement(HtmlConstants.IMG, null);
       writer.writeAttribute(HtmlAttributes.SRC, image, null);

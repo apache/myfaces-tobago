@@ -131,7 +131,12 @@ public class LinkRenderer extends CommandRendererBase {
 //  image
     String image = (String) component.getAttributes().get(ATTR_IMAGE);
     if (image != null) {
-      image = ResourceManagerUtil.getImageWithPath(facesContext, image);
+      if (image.startsWith("HTTP:") || image.startsWith("FTP:")
+                || image.startsWith("/")) {
+        // absolute Path to image : nothing to do
+      } else {
+        image = ResourceManagerUtil.getImageWithPath(facesContext, image);
+      }
       writer.startElement(HtmlConstants.IMG, null);
       writer.writeAttribute(HtmlAttributes.SRC, image, null);
       writer.writeAttribute(HtmlAttributes.ALT, "", null);
