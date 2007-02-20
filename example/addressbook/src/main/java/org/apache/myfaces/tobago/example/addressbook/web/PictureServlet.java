@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.example.addressbook;
+package org.apache.myfaces.tobago.example.addressbook.web;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -18,6 +18,9 @@ package org.apache.myfaces.tobago.example.addressbook;
  */
 
 import org.apache.myfaces.tobago.util.VariableResolverUtil;
+import org.apache.myfaces.tobago.example.addressbook.web.Controller;
+import org.apache.myfaces.tobago.example.addressbook.Address;
+import org.apache.myfaces.tobago.example.addressbook.Picture;
 import org.apache.commons.io.IOUtils;
 
 import javax.servlet.http.HttpServlet;
@@ -33,12 +36,6 @@ import java.io.IOException;
 import java.io.ByteArrayInputStream;
 
 
-/*
- * Created by IntelliJ IDEA.
- * User: bommel
- * Date: Feb 19, 2007
- * Time: 8:09:49 PM
- */
 public class PictureServlet extends HttpServlet {
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

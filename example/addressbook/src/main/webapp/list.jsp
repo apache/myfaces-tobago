@@ -15,15 +15,16 @@
  * limitations under the License.
 --%>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<f:view>
-  <tc:loadBundle basename="addressbook" var="bundle"/>
+<f:view locale="#{controller.language}">
+  <tc:loadBundle basename="resource" var="bundle"/>
 
   <tc:page label="#{bundle.listPageTitle}" state="#{layout}" width="#{layout.width}" height="#{layout.height}" >
 
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout margin="10px"/>
+        <tc:gridLayout margin="10px"  rows="1*;20px"/>
       </f:facet>
       <tc:box label="#{bundle.listBoxTitle}" >
         <f:facet name="layout">
@@ -90,6 +91,30 @@
         </tc:sheet>
 
       </tc:box>
+      <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout columns="*;20px;*"/>
+      </f:facet>
+      <tc:form>
+        <tx:selectOneChoice label="#{bundle.footerLanguage}"
+               value="#{controller.language}">
+          <f:selectItems value="#{controller.languages}" />
+          <f:facet name="click">
+            <tc:command />
+          </f:facet>
+        </tx:selectOneChoice>
+      </tc:form>
+      <tc:image alt="#{bundle.footerFlag}" width="16" height="11"
+                value="#{bundle.footerFlagIcon}"/>
+      <tc:form>
+        <tx:selectOneChoice label="#{bundle.footerTheme}" value="#{controller.theme}">
+          <f:selectItems value="#{controller.themeItems}" />
+          <f:facet name="click">
+            <tc:command action="#{controller.themeChanged}"/>
+          </f:facet>
+        </tx:selectOneChoice>
+      </tc:form>
+    </tc:panel>
     </tc:panel>
   </tc:page>
 </f:view>

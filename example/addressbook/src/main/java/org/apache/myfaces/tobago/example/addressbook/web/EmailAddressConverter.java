@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.example.addressbook;
+package org.apache.myfaces.tobago.example.addressbook.web;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -24,19 +24,26 @@ package org.apache.myfaces.tobago.example.addressbook;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.example.addressbook.EmailAddress;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
 
-public class AddressConverter implements Converter {
+public class EmailAddressConverter implements Converter {
 
-  private static final Log LOG = LogFactory.getLog(AddressConverter.class);
+  private static final Log LOG = LogFactory.getLog(EmailAddressConverter.class);
 
   public Object getAsObject(
       FacesContext facesContext, UIComponent component, String reference) {
     if (reference == null || reference.length() == 0) {
       return null;
+    }
+    String[] parts = reference.split("@");
+    if (parts == null || parts.length != 2) {
+      throw new ConverterException(MessageUtils.createErrorMessage(
+          "converterEmailParts", facesContext));
     }
     return new EmailAddress(reference);
   }

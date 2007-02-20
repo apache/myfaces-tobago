@@ -30,13 +30,13 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-public class InMemoryAddressDAO implements AddressDAO {
+public class InMemoryAddressDao implements AddressDao {
 
-  private static final Log LOG = LogFactory.getLog(InMemoryAddressDAO.class);
+  private static final Log LOG = LogFactory.getLog(InMemoryAddressDao.class);
 
   private List<Address> addresses;
 
-  public InMemoryAddressDAO() {
+  public InMemoryAddressDao() {
     addresses = new ArrayList<Address>();
   }
 

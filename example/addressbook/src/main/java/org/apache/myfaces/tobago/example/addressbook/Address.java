@@ -17,12 +17,6 @@ package org.apache.myfaces.tobago.example.addressbook;
  * limitations under the License.
  */
 
-/*
- * Created 29.11.2004 17:25:39.
- * $Id: Address.java,v 1.1.1.1 2004/12/15 12:51:35 lofwyr Exp $
- */
-
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -30,10 +24,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Embedded;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -42,6 +32,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.PostLoad;
 import javax.persistence.OneToOne;
 import javax.persistence.CascadeType;
+import javax.persistence.Version;
 import java.util.Date;
 import java.util.Locale;
 
@@ -52,6 +43,8 @@ public class Address {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
+  @Version
+  private Integer revision;
   private String firstName;
   private String lastName;
   private String street;
@@ -64,8 +57,9 @@ public class Address {
   private String phone;
   private String mobile;
   private String fax;
-  @Embedded
+  @Transient
   private EmailAddress email;
+  private String emailStr;
   private String icq;
   private String homePage;
   @Temporal(TemporalType.DATE)
@@ -74,14 +68,12 @@ public class Address {
   private String company;
   private String jobTitle;
   private String jobPhone;
-  @Embedded
-  @AttributeOverrides(@AttributeOverride(name="email", column = @Column(name = "jobEmail")))
+  @Transient
   private EmailAddress jobEmail;
+  private String jobEmailStr;
   private String jobHomePage;
   @OneToOne(cascade = {CascadeType.ALL})
   private Picture picture;
-
- 
 
   public Address() {
     LOG.debug("Creating new Address");
@@ -116,11 +108,24 @@ public class Address {
     if (country != null) {
       countryCode = country.getCountry();
     }
+    if (email != null) {
+      emailStr = email.getEmail();
+    }
+    if (jobEmail != null) {
+      jobEmailStr = jobEmail.getEmail();
+    }
   }
+  
   @PostLoad
   private void load() {
     if (countryCode != null) {
       country = new Locale("", countryCode);
+    }
+    if (emailStr != null) {
+      email = new EmailAddress(emailStr);
+    }
+    if (jobEmailStr != null) {
+      jobEmail = new EmailAddress(jobEmailStr);
     }
   }
 
@@ -217,6 +222,9 @@ public class Address {
   }
 
   public void setEmail(EmailAddress email) {
+    if (email != null) {
+      emailStr = email.getEmail();
+    }
     this.email = email;
   }
 
@@ -281,6 +289,9 @@ public class Address {
   }
 
   public void setJobEmail(EmailAddress jobEmail) {
+    if (jobEmail != null) {
+      jobEmailStr = jobEmail.getEmail();
+    }
     this.jobEmail = jobEmail;
   }
 

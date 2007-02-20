@@ -18,8 +18,8 @@
 <%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
-<f:view>
-  <tc:loadBundle basename="addressbook" var="bundle" />
+<f:view locale="#{controller.language}">
+  <tc:loadBundle basename="resource" var="bundle" />
 
   <tc:page label="#{bundle.editorTitle}"  state="#{layout}" width="#{layout.width}" height="#{layout.height}" >
 
@@ -35,7 +35,7 @@
 
         <tc:messages />
 
-        <tc:tabGroup>
+        <tc:tabGroup >
         <tc:tab label="#{bundle.editorTabPersonal}">
           <tc:panel>
             <f:facet name="layout">
@@ -50,7 +50,9 @@
                   <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;*"/>
                 </f:facet>
                 <tx:in value="#{controller.currentAddress.firstName}"
-                       label="#{bundle.editorFirstName}" required="true"/>
+                       label="#{bundle.editorFirstName}" required="true">
+                  <f:validateLength minimum="2" maximum="20"/>
+                </tx:in>
 
                 <tx:label value="#{bundle.editorLastName}">
                   <tc:in value="#{controller.currentAddress.lastName}"
@@ -122,26 +124,32 @@
                   <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*"/>
                 </f:facet>
                 <tx:in value="#{controller.currentAddress.phone}"
-                       label="#{bundle.editorPhone}"/>
+                    label="#{bundle.editorPhone}"
+                    validator="#{controller.validatePhoneNumber}"/>
 
                 <tx:in value="#{controller.currentAddress.mobile}"
-                       label="#{bundle.editorMobile}"/>
+                    label="#{bundle.editorMobile}"
+                    validator="#{controller.validatePhoneNumber}"/>
 
                 <tx:in value="#{controller.currentAddress.fax}"
-                       label="#{bundle.editorFax}"/>
+                    label="#{bundle.editorFax}"
+                    validator="#{controller.validatePhoneNumber}"/>
 
                 <tx:in value="#{controller.currentAddress.email}"
-                       label="#{bundle.editorEmail}"/>
+                       label="#{bundle.editorEmail}">
+                  <f:validator validatorId="EmailAddressValidator"/>
+                </tx:in>
 
                 <tx:in value="#{controller.currentAddress.icq}"
-                       label="#{bundle.editorIcq}"/>
-
+                       label="#{bundle.editorIcq}">
+                  <f:validateLongRange minimum="0"/>
+                </tx:in>
                 <tx:in value="#{controller.currentAddress.homePage}"
                        label="#{bundle.editorHomepage}"/>
 
-                <tx:date value="#{controller.currentAddress.dayOfBirth}"
+                <tx:date id="dayOfBirth" value="#{controller.currentAddress.dayOfBirth}"
                          label="#{bundle.editorBirthday}">
-                  <f:convertDateTime pattern="dd.MM.yyyy"/>
+                  <f:convertDateTime pattern="#{bundle.editorDatePattern}"/>
                 </tx:date>
 
                 <tc:cell/>
@@ -149,7 +157,7 @@
             </tc:panel>
           </tc:tab>
 
-          <tc:tab label="#{bundle.editorTabBusiness}">
+          <tc:tab label="#{bundle.editorTabBusiness}" rendered="#{!controller.simple}">
             <tc:panel>
               <f:facet name="layout">
                 <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;1*" />
@@ -161,10 +169,13 @@
                   label="#{bundle.editorJobTitle}" />
 
               <tx:in value="#{controller.currentAddress.jobPhone}"
-                  label="#{bundle.editorPhone}" />
+                  label="#{bundle.editorPhone}"
+                  validator="#{controller.validatePhoneNumber}" />
 
               <tx:in value="#{controller.currentAddress.jobEmail}"
-                  label="#{bundle.editorEmail}" />
+                  label="#{bundle.editorEmail}" >
+                <f:validator validatorId="EmailAddressValidator"/>
+              </tx:in>
 
               <tx:in value="#{controller.currentAddress.jobHomePage}"
                   label="#{bundle.editorHomepage}" />
@@ -174,7 +185,7 @@
             </tc:panel>
           </tc:tab>
 
-          <tc:tab label="#{bundle.editorTabMisc}">
+          <tc:tab label="#{bundle.editorTabMisc}" rendered="#{!controller.simple}">
             <tc:panel>
               <f:facet name="layout">
                 <tc:gridLayout rows="1*" />
@@ -193,9 +204,9 @@
           </f:facet>
 
           <tc:cell />
-          <tc:button action="#{controller.storeAddress}"
+          <tc:button action="#{controller.store}"
               label="#{bundle.editorStore}" defaultCommand="true" />
-          <tc:button action="#{controller.cancelAddress}" immediate="true"
+          <tc:button action="#{controller.cancel}" immediate="true"
               label="#{bundle.editorCancel}" />
         </tc:panel>
 

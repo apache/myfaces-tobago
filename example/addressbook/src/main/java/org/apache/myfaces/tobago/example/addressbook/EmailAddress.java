@@ -17,15 +17,10 @@ package org.apache.myfaces.tobago.example.addressbook;
  * limitations under the License.
  */
 
-import javax.persistence.Embeddable;
 
-@Embeddable
 public class EmailAddress {
 
   private String email;
-
-  public EmailAddress() {
-  }
 
   public EmailAddress(String email) {
     this.email = email;
@@ -39,8 +34,40 @@ public class EmailAddress {
     this.email = email;
   }
 
+  public String getLocalPart() {
+    String[] parts = email.split("@");
+    return parts[0];
+  }
+
+  public String getDomain() {
+    String[] parts = email.split("@");
+    return parts[1];
+  }
+
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    EmailAddress that = (EmailAddress) o;
+
+    if (email != null ? !email.equals(that.email) : that.email != null) {
+      return false;
+    }
+
+    return true;
+  }
+
+  public int hashCode() {
+    return (email != null ? email.hashCode() : 0);
+  }
+
+  @Override
   public String toString() {
-    return email;
+     return email;
   }
 
 }

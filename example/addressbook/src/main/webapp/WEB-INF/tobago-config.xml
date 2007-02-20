@@ -24,6 +24,8 @@
 
   <theme-config>
     <default-theme>speyside</default-theme>
+    <supported-theme>scarborough</supported-theme>
+    <supported-theme>richmond</supported-theme>
   </theme-config>
 
   <resource-dir>tobago-resource</resource-dir>

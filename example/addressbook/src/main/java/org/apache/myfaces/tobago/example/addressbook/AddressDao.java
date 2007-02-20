@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+package org.apache.myfaces.tobago.example.addressbook;
+
+/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -14,14 +15,22 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
--->
-<persistence xmlns="http://java.sun.com/xml/ns/persistence"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" version="1.0">
+ */
 
-    <persistence-unit name="addressBook" transaction-type="RESOURCE_LOCAL">
-      <class>org.apache.myfaces.tobago.example.addressbook.Address</class>
-      <class>org.apache.myfaces.tobago.example.addressbook.Picture</class>
-    </persistence-unit>
-</persistence>
+/*
+ * Created 29.11.2004 17:36:20.
+ * $Id: Controller.java,v 1.2 2005/08/10 11:57:55 lofwyr Exp $
+ */
 
+import java.util.List;
+
+public interface AddressDao {
+
+  Address updateAddress(Address address) throws AddressDaoException;
+
+  List<Address> findAddresses() throws AddressDaoException;
+
+  void removeAddress(Address address) throws AddressDaoException;
+
+  Address getAddress(Integer id);
+}

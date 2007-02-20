@@ -22,15 +22,21 @@
     "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
 
 <faces-config>
-
+  
   <application>
     <action-listener>org.apache.myfaces.tobago.util.DebugActionListener</action-listener>
     <navigation-handler>org.apache.myfaces.tobago.util.DebugNavigationHandler</navigation-handler>
     <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
-    <locale-config>
-      <default-locale>en</default-locale>
+     <locale-config>
+      <default-locale>en_US</default-locale>
+      <supported-locale>de</supported-locale>
+      <supported-locale>en_GB</supported-locale>
+      <supported-locale>en_US</supported-locale>
     </locale-config>
+    <message-bundle>error.messages</message-bundle>
   </application>
+
+
 
   <lifecycle>
     <phase-listener>org.apache.myfaces.tobago.util.DebugPhaseListener</phase-listener>
@@ -39,23 +45,27 @@
 
   <managed-bean>
     <managed-bean-name>controller</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.addressbook.Controller</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.example.addressbook.web.Controller</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     <managed-property>
       <property-name>addressDAO</property-name>
       <value>#{addressDAO}</value>
     </managed-property>
+    <managed-property>
+      <property-name>countries</property-name>
+      <value>#{countries}</value>
+    </managed-property>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>countries</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.addressbook.Countries</managed-bean-class>
-    <managed-bean-scope>application</managed-bean-scope>
+    <managed-bean-class>org.apache.myfaces.tobago.example.addressbook.web.Countries</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>layout</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.addressbook.Layout</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.example.addressbook.web.Layout</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     <managed-property>
       <property-name>width</property-name>
@@ -75,7 +85,7 @@
     <managed-property>
       <property-name>minimumHeight</property-name>
       <property-class>int</property-class>
-      <value>500</value>
+      <value>600</value>
     </managed-property>
      <managed-property>
       <property-name>maximumWidth</property-name>
@@ -85,14 +95,24 @@
     <managed-property>
       <property-name>maximumHeight</property-name>
       <property-class>int</property-class>
-      <value>500</value>
+      <value>600</value>
     </managed-property>
 
   </managed-bean>
 
   <converter>
+    <converter-for-class>java.util.Locale</converter-for-class>
+    <converter-class>org.apache.myfaces.tobago.example.addressbook.web.LocaleConverter</converter-class>
+  </converter>
+
+  <validator>
+    <validator-id>EmailAddressValidator</validator-id>
+    <validator-class>org.apache.myfaces.tobago.example.addressbook.web.EmailAddressValidator</validator-class>
+  </validator>
+
+  <converter>
     <converter-for-class>org.apache.myfaces.tobago.example.addressbook.EmailAddress</converter-for-class>
-    <converter-class>org.apache.myfaces.tobago.example.addressbook.AddressConverter</converter-class>
+    <converter-class>org.apache.myfaces.tobago.example.addressbook.web.EmailAddressConverter</converter-class>
   </converter>
 
   <navigation-rule>

@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.example.addressbook;
+package org.apache.myfaces.tobago.example.addressbook.web;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,20 +17,25 @@ package org.apache.myfaces.tobago.example.addressbook;
  * limitations under the License.
  */
 
-/*
- * Created 29.11.2004 17:36:20.
- * $Id: Controller.java,v 1.2 2005/08/10 11:57:55 lofwyr Exp $
- */
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-import java.util.List;
+import javax.faces.model.SelectItem;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Collections;
 
-public interface AddressDAO {
+public class Countries extends ArrayList<SelectItem> {
 
-  Address updateAddress(Address address) throws AddressDAOException;
-
-  List<Address> findAddresses() throws AddressDAOException;
-
-  void removeAddress(Address address) throws AddressDAOException;
-
-  Address getAddress(Integer id);
+  public void init(Locale language) {
+    clear();
+    Locale[] availableLocales = Locale.getAvailableLocales();
+    for (Locale locale : availableLocales) {
+      String displayCountry = locale.getDisplayCountry(language);
+      if (displayCountry != null && displayCountry.length() > 0) {
+        add(new SelectItem(locale, displayCountry));
+      }
+    }
+    Collections.sort(this, new SelectItemComparator());
+  }
 }

@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.example.addressbook;
+package org.apache.myfaces.tobago.example.addressbook.web;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -19,12 +19,6 @@ package org.apache.myfaces.tobago.example.addressbook;
 
 import org.apache.myfaces.tobago.model.PageStateImpl;
 
-/*
- * Created by IntelliJ IDEA.
- * User: bommel
- * Date: Nov 9, 2006
- * Time: 10:12:22 AM
- */
 public class Layout extends PageStateImpl {
 
   private int width;

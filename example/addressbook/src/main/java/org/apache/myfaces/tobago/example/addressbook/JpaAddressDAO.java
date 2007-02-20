@@ -25,19 +25,14 @@ import org.apache.commons.logging.LogFactory;
 
 import java.util.List;
 
-/*
- * Created by IntelliJ IDEA.
- * User: bommel
- * Date: Feb 18, 2007
- * Time: 1:14:29 PM
- */
+
 @Repository
 @Transactional()
-public class JpaAddressDAO extends JpaDaoSupport implements AddressDAO {
+public class JpaAddressDAO extends JpaDaoSupport implements AddressDao {
 
   private static final Log LOG = LogFactory.getLog(JpaAddressDAO.class);
 
-  public Address updateAddress(Address address) throws AddressDAOException {
+  public Address updateAddress(Address address) throws AddressDaoException {
     if (address.getId() == null) {
       getJpaTemplate().persist(address);
     } else {
@@ -50,11 +45,11 @@ public class JpaAddressDAO extends JpaDaoSupport implements AddressDAO {
     return address;
   }
 
-  public List<Address> findAddresses() throws AddressDAOException{
+  public List<Address> findAddresses() throws AddressDaoException {
     return getJpaTemplate().find("select a from Address a");
   }
 
-  public  void removeAddress(Address address) throws AddressDAOException {
+  public  void removeAddress(Address address) throws AddressDaoException {
     address = getAddress(address.getId());
     getJpaTemplate().remove(address);
   }

@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.example.addressbook;
+package org.apache.myfaces.tobago.example.addressbook.web;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,21 +17,13 @@ package org.apache.myfaces.tobago.example.addressbook;
  * limitations under the License.
  */
 
-public class AddressDAOException extends Exception {
-  
-  public AddressDAOException() {
-  }
+import javax.faces.model.SelectItem;
+import java.util.Comparator;
 
-  public AddressDAOException(String message) {
-    super(message);
-  }
+public class SelectItemComparator implements Comparator<SelectItem> {
 
-  public AddressDAOException(String message, Throwable cause) {
-    super(message, cause);
-  }
-
-  public AddressDAOException(Throwable cause) {
-    super(cause);
+  public int compare(SelectItem s1, SelectItem s2) {
+    return s1.getLabel().compareTo(s2.getLabel());
   }
 
 }
