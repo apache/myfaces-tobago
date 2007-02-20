@@ -283,6 +283,11 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
   }
 
   public void processDecodes(FacesContext facesContext) {
+
+    if (!isRendered()) {
+      return;
+    }
+    
     if (ComponentUtil.isOutputOnly(this)) {
       setValid(true);
     } else {
