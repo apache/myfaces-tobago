@@ -84,7 +84,12 @@ public class MessageRenderer extends MessageRendererBase {
       writer.startElement(HtmlConstants.LABEL, null);
       writer.writeAttribute(HtmlAttributes.FOR, clientId, null);
       writer.writeAttribute(HtmlAttributes.TITLE, message.getDetail(), null);
-      writer.writeText(message.getSummary(), null);
+      String summary = message.getSummary();
+      if (summary != null) {
+        writer.writeText(summary, null);
+      } else {
+        writer.writeText("", null);
+      }
       writer.endElement(HtmlConstants.LABEL);
 
       writer.startElement(HtmlConstants.BR, null);
