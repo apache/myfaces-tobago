@@ -192,6 +192,11 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   }
 
   public void processDecodes(FacesContext facesContext) {
+
+    if (!isRendered()) {
+      return;
+    }
+
     if (ComponentUtil.isOutputOnly(this)) {
       setValid(true);
     } else {
