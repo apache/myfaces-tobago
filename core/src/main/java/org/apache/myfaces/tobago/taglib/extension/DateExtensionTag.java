@@ -83,9 +83,9 @@ public class DateExtensionTag extends BodyTagSupport
       labelTag.setValue(label);
     }
     if (labelWidth != null) {
-      labelTag.setColumns(labelWidth + ";*;15px");
+      labelTag.setColumns(labelWidth + ";*;fixed");
     } else {
-      labelTag.setColumns("fixed;*;15px");
+      labelTag.setColumns("fixed;*;fixed");
     }
     if (tip != null) {
       labelTag.setTip(tip);

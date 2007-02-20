@@ -28,7 +28,7 @@
   </c:if>
   <tc:panel rendered="${rendered}">
     <f:facet name="layout">
-      <tc:gridLayout columns="${labelWidth};*;15px"/>
+      <tc:gridLayout columns="${labelWidth};*;fixed"/>
     </f:facet>
     <tc:label value="${label}" for="@auto" tip="${tip}"/>
     <tc:date value="${value}" required="${required}"
