@@ -57,6 +57,7 @@ public class Controller {
 
   public Controller() {
     LOG.debug("Creating new Controller");
+    System.err.println("Controller " + this);
   }
 
   public void setAddressDAO(AddressDAO addressDAO) throws AddressDAOException {
@@ -67,12 +68,18 @@ public class Controller {
     LOG.debug("applicationContext: "+ctx);
     currentAddressList = addressDAO.findAddresses();
     currentAddress = new Address();
+
   }
 
   public String createAddress() {
     LOG.debug("action: createAddress");
     currentAddress = new Address();
     return OUTCOME_EDITOR;
+  }
+
+  public String cancelAddress() throws AddressDAOException {
+    currentAddressList = addressDAO.findAddresses();    
+    return OUTCOME_LIST;
   }
 
   public String editAddress() {
@@ -83,8 +90,7 @@ public class Controller {
       FacesContext.getCurrentInstance().addMessage(null, error);
       return null;
     }
-    Address selectedAddress = currentAddressList.get(selection.get(0));
-    currentAddress.fill(selectedAddress);
+    currentAddress = currentAddressList.get(selection.get(0));
     return OUTCOME_EDITOR;
   }
 
@@ -148,7 +154,7 @@ public class Controller {
     this.renderPopup = renderPopup;
   }
 
- public boolean isRenderPopup() {
+  public boolean isRenderPopup() {
     return renderPopup;
   }
 
@@ -159,6 +165,8 @@ public class Controller {
 
   public String okFileUpload() {
     setRenderFileUploadPopup(false);
+    Picture picture = new Picture(uploadedFile.getContentType(), uploadedFile.get());
+    currentAddress.setPicture(picture);
     return null;
   }
 
@@ -206,9 +214,8 @@ public class Controller {
   }
 
   public String popupFileUpload() {
-    LOG.error("AHHHHHHH");
     setRenderFileUploadPopup(true);
-    return OUTCOME_EDITOR;
+    return null;
   }
 
 }

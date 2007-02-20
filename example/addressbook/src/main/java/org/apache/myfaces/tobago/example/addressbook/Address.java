@@ -40,7 +40,8 @@ import javax.persistence.Transient;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.PostLoad;
-import java.io.File;
+import javax.persistence.OneToOne;
+import javax.persistence.CascadeType;
 import java.util.Date;
 import java.util.Locale;
 
@@ -77,7 +78,10 @@ public class Address {
   @AttributeOverrides(@AttributeOverride(name="email", column = @Column(name = "jobEmail")))
   private EmailAddress jobEmail;
   private String jobHomePage;
-  private static final String EMPTY_PORTRAIT = "image/empty_portrait.png";
+  @OneToOne(cascade = {CascadeType.ALL})
+  private Picture picture;
+
+ 
 
   public Address() {
     LOG.debug("Creating new Address");
@@ -288,13 +292,16 @@ public class Address {
     this.jobHomePage = jobHomePage;
   }
 
-  public String getImageFileName() {
-    String fileName = id + ".png";
-    if (new File(fileName).exists()) {
-      return fileName;
-    } else {
-      return EMPTY_PORTRAIT;
-    }
+  public boolean hasPicture() {
+    return picture != null;
+  }
+
+  public Picture getPicture() {
+    return picture;
+  }
+
+  public void setPicture(Picture picture) {
+    this.picture = picture;
   }
 
   public String toString() {

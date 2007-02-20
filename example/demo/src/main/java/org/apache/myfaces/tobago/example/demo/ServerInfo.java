@@ -1,15 +1,5 @@
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
-import java.util.Properties;
-import java.io.InputStream;
-import java.io.IOException;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -26,6 +16,16 @@ import java.io.IOException;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
+import java.util.Properties;
+import java.io.InputStream;
+import java.io.IOException;
 
 public class ServerInfo {
 
@@ -52,7 +52,7 @@ public class ServerInfo {
 
   public String getServerInfo() {
     if (enabled) {
-      return ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getServerInfo();
+      return ((ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext()).getServerInfo();
     } else {
       return null;
     }

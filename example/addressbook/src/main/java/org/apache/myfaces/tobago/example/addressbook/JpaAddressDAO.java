@@ -38,9 +38,13 @@ public class JpaAddressDAO extends JpaDaoSupport implements AddressDAO {
   private static final Log LOG = LogFactory.getLog(JpaAddressDAO.class);
 
   public Address updateAddress(Address address) throws AddressDAOException {
-    if (address.getId() == null) { 
+    if (address.getId() == null) {
       getJpaTemplate().persist(address);
     } else {
+      Picture picture = address.getPicture();
+      if (picture != null && picture.getId() == null) {
+        getJpaTemplate().persist(picture);
+      }
       getJpaTemplate().merge(address);
     }
     return address;
@@ -51,8 +55,12 @@ public class JpaAddressDAO extends JpaDaoSupport implements AddressDAO {
   }
 
   public  void removeAddress(Address address) throws AddressDAOException {
-    address = getJpaTemplate().find(Address.class, address.getId());
+    address = getAddress(address.getId());
     getJpaTemplate().remove(address);
   }
 
+
+  public Address getAddress(Integer id) {
+    return getJpaTemplate().find(Address.class, id);
+  }
 }

@@ -87,7 +87,8 @@
                   <tc:gridLayout rows="160px" columns="120px"/>
                 </f:facet>
                 <tc:form>
-                  <tc:button image="#{controller.currentAddress.imageFileName}"
+                  <tc:button
+                      image="#{controller.currentAddress.picture != null?'/tobago-example-addressbook/faces/picture?id=XXXX':'image/empty_portrait.png'}"
                       action="#{controller.popupFileUpload}">
                     <f:facet name="popup">
                       <tc:popup width="300px" height="170px" left="200px"
@@ -194,7 +195,7 @@
           <tc:cell />
           <tc:button action="#{controller.storeAddress}"
               label="#{bundle.editorStore}" defaultCommand="true" />
-          <tc:button action="list" immediate="true"
+          <tc:button action="#{controller.cancelAddress}" immediate="true"
               label="#{bundle.editorCancel}" />
         </tc:panel>
 

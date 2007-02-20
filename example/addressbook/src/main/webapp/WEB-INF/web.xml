@@ -56,6 +56,11 @@
     <load-on-startup>1</load-on-startup>
   </servlet>
 
+  <servlet>
+    <servlet-name>PictureServlet</servlet-name>
+    <servlet-class>org.apache.myfaces.tobago.example.addressbook.PictureServlet</servlet-class>
+  </servlet>
+
   <!-- workaround for a bug in Bea Weblogic 8.1 SP 2 and older -->
   <servlet>
     <servlet-name>WeblogicWorkaroundServlet</servlet-name>
@@ -72,6 +77,11 @@
   <servlet-mapping>
     <servlet-name>FacesServlet</servlet-name>
     <url-pattern>/faces/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>PictureServlet</servlet-name>
+    <url-pattern>/faces/picture</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>

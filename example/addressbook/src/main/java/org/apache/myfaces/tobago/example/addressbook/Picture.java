@@ -17,20 +17,48 @@ package org.apache.myfaces.tobago.example.addressbook;
  * limitations under the License.
  */
 
+import javax.persistence.Entity;
+import javax.persistence.Lob;
+import javax.persistence.Basic;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 /*
- * Created 29.11.2004 17:36:20.
- * $Id: Controller.java,v 1.2 2005/08/10 11:57:55 lofwyr Exp $
+ * Created by IntelliJ IDEA.
+ * User: bommel
+ * Date: Feb 19, 2007
+ * Time: 7:45:33 PM
  */
+@Entity
+public class Picture {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
+  private String contentType;
+  @Lob
+  @Basic(fetch = FetchType.EAGER)
+  private byte [] content;
 
-import java.util.List;
+  public Picture() {
+  }
 
-public interface AddressDAO {
+  public Picture(String contentType, byte[] content) {
+    this.contentType = contentType;
+    this.content = content;
+  }
 
-  Address updateAddress(Address address) throws AddressDAOException;
+  public Integer getId() {
+    return id;
+  }
 
-  List<Address> findAddresses() throws AddressDAOException;
+  public String getContentType() {
+    return contentType;
+  }
 
-  void removeAddress(Address address) throws AddressDAOException;
+  public byte[] getContent() {
+    return content;
+  }
 
-  Address getAddress(Integer id);
 }

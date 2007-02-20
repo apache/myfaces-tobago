@@ -69,7 +69,7 @@ public class InMemoryAddressDAO implements AddressDAO {
     }
   }
 
-  private Address getAddress(int id) {
+  public Address getAddress(Integer id) {
     for (Address address : addresses) {
       if (address.getId() == id) {
         return address;
