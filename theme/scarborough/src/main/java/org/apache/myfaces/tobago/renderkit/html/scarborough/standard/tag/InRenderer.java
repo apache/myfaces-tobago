@@ -147,6 +147,8 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     }
     writer.endElement(HtmlConstants.INPUT);
 
+    checkForCommandFacet(component, facesContext, writer);
+
     if (ComponentUtil.getBooleanAttribute(component, ATTR_REQUIRED)) {
       String rendererName = HtmlRendererUtil.getRendererName(facesContext, component);
       final String[] cmds = {
