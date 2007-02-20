@@ -502,9 +502,10 @@ label.tobago-label-inline {
   top: 0px;
   left: 0px;
   /*background: url(../../standard/image/popupBg.png);*/
-/*  background: url(../image/popupBg.png);*/
-/*  filter: alpha(opacity=40) ;                             */
-/*  -moz-opacity: 0.4;*/
+  opacity: .40;
+  background: url(../image/popupBg.png);
+  filter: alpha(opacity=40);
+  -moz-opacity: 0.4;
 }
 
 .tobago-popup-blink {
