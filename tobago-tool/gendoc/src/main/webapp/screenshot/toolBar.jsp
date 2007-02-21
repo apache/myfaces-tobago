@@ -24,7 +24,7 @@
     <jsp:body>
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout rows="60px;1*" columns="260px;1*"/>
+          <tc:gridLayout rows="160px;1*" columns="260px;1*"/>
         </f:facet>
 
             <tc:toolBar id="toolbar0" iconSize="big">
