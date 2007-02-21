@@ -1595,9 +1595,11 @@ Tobago.Transport = {
   pageSubmited: false,
 
   request: function(req, submitPage, actionId) {
+    var index = 0;
     if (submitPage) {
       this.pageSubmited = true;
-      this.requests.push(req);
+      index = this.requests.push(req);
+      //LOG.debug('index = ' + index)
     } else if (!this.pageSubmited) { // AJAX case
       LOG.debug('Current ActionId = ' + this.currentActionId + ' action= ' + actionId);
       if (actionId && this.currentActionId == actionId) {
@@ -1605,13 +1607,14 @@ Tobago.Transport = {
         // If actionId equals currentActionId asume double request: do nothing
         return;
       }
-      this.requests.push(req);
+      index = this.requests.push(req);
+      //LOG.debug('index = ' + index)
       this.currentActionId = actionId;
     } else {
       return;
     }
-
-    if (this.requests.length == 1) {
+    //LOG.debug('index = ' + index)
+    if (index == 1) {
       LOG.debug("Execute request!");
       this.requests[0]();
     } else {
@@ -1678,8 +1681,9 @@ Tobago.Updater = {
       //LOG.debug("response = \"" + response.substring(0, 30 < response.length ? 30 : response.length) + "\"");
       //LOG.debug("this.CODE_NOT_MODIFIED = \"" + Tobago.Updater.CODE_NOT_MODIFIED + "\" ist lang:" + Tobago.Updater.CODE_NOT_MODIFIED.length);
       if (transport.status == 304) {
-        Tobago.deleteOverlay(receiver);
         LOG.debug("skip update response status 304");
+        //Tobago.Transport.requestComplete();
+        Tobago.deleteOverlay(receiver);
       } else if (response.substring(0, Tobago.Updater.CODE_NOT_MODIFIED.length) == Tobago.Updater.CODE_NOT_MODIFIED) {
         // no update needed, do nothing
               LOG.debug("skip update");
