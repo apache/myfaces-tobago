@@ -1682,7 +1682,7 @@ Tobago.Updater = {
       //LOG.debug("this.CODE_NOT_MODIFIED = \"" + Tobago.Updater.CODE_NOT_MODIFIED + "\" ist lang:" + Tobago.Updater.CODE_NOT_MODIFIED.length);
       if (transport.status == 304) {
         LOG.debug("skip update response status 304");
-        //Tobago.Transport.requestComplete();
+        Tobago.Transport.requestComplete();
         Tobago.deleteOverlay(receiver);
       } else if (response.substring(0, Tobago.Updater.CODE_NOT_MODIFIED.length) == Tobago.Updater.CODE_NOT_MODIFIED) {
         // no update needed, do nothing
