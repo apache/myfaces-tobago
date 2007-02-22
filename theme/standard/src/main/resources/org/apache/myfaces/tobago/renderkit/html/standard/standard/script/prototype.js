@@ -463,7 +463,7 @@ Object.extend(Array.prototype, {
     var result = this[0];
     for (var i = 0; i < this.length - 1; i++)
       this[i] = this[i + 1];
-    this.length--;
+    if (this.length > 0) {this.length--;} else {LOG.warn("Array.shift(): length < 1 ! ")}
     return result;
   },
 

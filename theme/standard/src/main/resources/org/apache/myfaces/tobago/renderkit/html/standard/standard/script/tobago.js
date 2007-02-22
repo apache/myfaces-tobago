@@ -1107,7 +1107,11 @@ var Tobago = {
     */
   deleteOverlay: function(element) {
     var overlay = document.getElementById(element.id + "-overlay");
-    element.removeChild(overlay);
+    if (overlay && overlay.parentNode == element) {
+      element.removeChild(overlay);
+    } else {
+      LOG.warn("Can't find Overlay : \"" + element.id + "-overlay" + "\"");
+    }
     return element;
   },
 
@@ -1462,6 +1466,7 @@ Tobago.Panel.prototype.initReload = function() {
 Tobago.Panel.prototype.reload = function(action, options) {
   //LOG.debug("reload panel with action \"" + action + "\"");
   var element = Tobago.element(this.id);
+  element.skipUpdate = false;
   var reloadOptions = Tobago.extend({}, this.options);
   reloadOptions = Tobago.extend(reloadOptions, options);
   Tobago.Updater.update(element, null, action, this.id, reloadOptions);
@@ -1682,8 +1687,7 @@ Tobago.Updater = {
       //LOG.debug("this.CODE_NOT_MODIFIED = \"" + Tobago.Updater.CODE_NOT_MODIFIED + "\" ist lang:" + Tobago.Updater.CODE_NOT_MODIFIED.length);
       if (transport.status == 304) {
         LOG.debug("skip update response status 304");
-        Tobago.Transport.requestComplete();
-        Tobago.deleteOverlay(receiver);
+        receiver.skipUpdate = true;
       } else if (response.substring(0, Tobago.Updater.CODE_NOT_MODIFIED.length) == Tobago.Updater.CODE_NOT_MODIFIED) {
         // no update needed, do nothing
               LOG.debug("skip update");
