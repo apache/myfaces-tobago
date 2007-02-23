@@ -37,7 +37,7 @@ public class FormRenderer extends RendererBase {
     UIPage page = ComponentUtil.findPage(form);
     String actionId = page.getActionId();
     String clientId = form.getClientId(facesContext);
-    if (actionId.startsWith(clientId)) {
+    if (actionId != null && actionId.startsWith(clientId)) {
       form.setSubmitted(true);
     }
     super.decode(facesContext, form);
