@@ -340,7 +340,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
             setStandards( cmd );
             setClasspath( cmd );
             List sourceFiles = new ArrayList();
-            if ( !setSourcepath( sourceFiles ) )
+            if ( !fillSourcelist( sourceFiles ) )
             {
                 if ( getLog().isDebugEnabled() )
                 {
@@ -560,6 +560,9 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         {
             cmdAdd( cmd, "-verbose" );
         }
+
+        // add sourcepath directory
+        setSourcepath(cmd);
         // add output directory
         try
         {
@@ -567,7 +570,7 @@ public abstract class AbstractAPTMojo extends AbstractMojo
             {
                 getOutputDirectory().mkdirs();
             }
-            cmdAdd( cmd, "-d", quotedPathArgument( getOutputDirectory().getCanonicalPath() ) );
+            cmdAdd( cmd, "-d", getOutputDirectory().getCanonicalPath() );
         }
         catch ( Exception ex )
         {
@@ -576,13 +579,41 @@ public abstract class AbstractAPTMojo extends AbstractMojo
         }
     }
 
+    private void setSourcepath(Commandline cmd) {
+        StringBuffer buffer = new StringBuffer();
+        for ( Iterator it = getCompileSourceRoots().iterator(); it.hasNext();)
+        {
+            buffer.append( it.next() );
+            if ( it.hasNext() )
+            {
+                buffer.append( PATH_SEPARATOR );
+            }
+        }
+        if ( getAptSourceRoots() != null)
+        {
+            if (buffer.length() > 0 && getAptSourceRoots().size() > 0)
+            {
+                buffer.append( PATH_SEPARATOR );
+            }
+            for ( Iterator it = getAptSourceRoots().iterator(); it.hasNext();)
+            {
+                buffer.append( it.next() );
+                if ( it.hasNext() )
+                {
+                    buffer.append( PATH_SEPARATOR );
+                }
+            }
+        }
+        cmdAdd( cmd, "-sourcepath", buffer.toString() );
+    }
+
   /**
    *
    * @param cmd
    * @return
    * @throws MojoExecutionException
    */
-    private boolean setSourcepath( List cmd ) throws MojoExecutionException
+    private boolean fillSourcelist( List cmd ) throws MojoExecutionException
     {
         boolean has = false;
         // sources ....
