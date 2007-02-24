@@ -76,6 +76,10 @@ Object.extend(new Ajax.Base(), {
     var responseText = request.responseText;
     if (responseText.match(this.REGEX_SUCCSESS)) {
       responseText = responseText.substring(responseText.indexOf(Tobago.Updater.CODE_SUCCESS) + 20);
+      var jsfStateIndex = responseText.indexOf('<script type');
+      if (jsfStateIndex > 0) {
+        responseText = responseText.substring(0, jsfStateIndex);
+      }
 //      LOG.debug("responseText = " + responseText);
       this.updateChoices(responseText);
       setTimeout(Tobago.bind(this, "resetWidth"), 60);
