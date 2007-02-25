@@ -19,7 +19,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <f:view>
-  <tc:page>
+  <tc:page width="400" height="300">
     <tc:panel>
       <f:facet name="layout">
         <tc:gridLayout margin="10px" rows="1*;fixed;1*" />
@@ -28,12 +28,20 @@
       <tc:box label="the outer box">
 
         <f:facet name="layout">
-          <tc:gridLayout margin="10px" rows="fixed;fixed;fixed" />
+          <tc:gridLayout margin="10px" rows="fixed;fixed;fixed;fixed" />
         </f:facet>
 
         <tc:messages />
 
-        <tx:in label="SerachCriteria" value="" />
+        <tx:date label="SearchCriteria" value="#{test.date}" >
+          <f:convertDateTime pattern="dd/MM/yyyy" />
+           <%--f:facet name="change">
+            <tc:command action="#{test.layout}" />
+          </f:facet --%>
+        </tx:date>
+        <tx:in value="#{test.date1}" >
+          <f:convertDateTime pattern="dd/MM/yyyy" />
+        </tx:in>
 
         <tc:panel>
           <f:facet name="layout">
@@ -41,7 +49,7 @@
           </f:facet>
 
           <tc:cell />
-          <tc:button action="" label="Search" defaultCommand="true" />
+          <tc:button id="test" action="#{test.layout}" label="Search"  />
 
         </tc:panel>
 

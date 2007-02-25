@@ -48,6 +48,13 @@
       <from-outcome>solarDetail</from-outcome>
       <to-view-id>solarDetail.jsp</to-view-id>
     </navigation-case>
- </navigation-rule>
+  </navigation-rule>
+
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>layout</from-outcome>
+      <to-view-id>/layout.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
 
 </faces-config>

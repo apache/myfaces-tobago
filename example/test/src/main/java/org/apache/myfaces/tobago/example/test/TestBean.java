@@ -38,6 +38,8 @@ import java.sql.SQLException;
 import java.sql.ResultSetMetaData;
 import java.sql.Types;
 import java.util.Map;
+import java.util.Date;
+import java.io.IOException;
 
 /*
  * Created by IntelliJ IDEA.
@@ -62,6 +64,45 @@ public class TestBean {
   private String discoverYear;
   private FileItem file;
   private UIData table;
+  private String value;
+  private Date date;
+  private Date date1;
+
+  public String layout() {
+    this.date1 = date;
+    return "layout";
+  }
+
+  public String export() throws IOException {
+    FacesContext context =  FacesContext.getCurrentInstance();
+    ExportUIDataToWorkbookUtil.writeWorkbook(table, "workbook.xls", context);
+    context.responseComplete();
+    return null;
+  }
+
+  public Date getDate() {
+    return date;
+  }
+
+  public void setDate(Date date) {
+    this.date = date;
+  }
+
+  public Date getDate1() {
+    return date1;
+  }
+
+  public void setDate1(Date date1) {
+    this.date1 = date1;
+  }
+
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
+  }
 
   public TestBean() {
 

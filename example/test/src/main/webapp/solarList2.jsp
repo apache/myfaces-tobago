@@ -18,7 +18,7 @@
 <f:view>
   <tc:page width="750px" height="300px">
     <f:facet name="layout">
-      <tc:gridLayout/>
+      <tc:gridLayout rows="1*;20px"/>
     </f:facet>
     <tc:box >
        <tc:sheet binding="#{test.table}" value="#{test.solarObjects}"
@@ -26,5 +26,14 @@
             showHeader="true"  showPageRange="center" rows="10" >
         </tc:sheet>
     </tc:box>
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout columns="1*;fixed;1*"/>
+      </f:facet>
+      <tc:cell/>
+      <tc:button action="#{test.export}" label="Export" transition="false" />
+      <tc:cell/>
+    </tc:panel>
+
   </tc:page>
 </f:view>
