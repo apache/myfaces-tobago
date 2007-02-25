@@ -651,6 +651,7 @@
         <module>tobago-assembly</module>
       </modules>
     </profile>
+    <!-- START SNIPPET: staging-profile --> 
     <profile>
       <id>staging</id>
       <build>
@@ -678,6 +679,8 @@
         </plugins>
       </build>
     </profile>
+    <!-- END SNIPPET: staging-profile -->
+    <!-- START SNIPPET: release-profile -->
     <profile>
       <id>release</id>
       <!--
@@ -753,6 +756,7 @@
       </modules>
     </profile>
   </profiles>
+  <!-- END SNIPPET: release-profile --> 
 
   <properties>
     <myfaces.version>1.1.5</myfaces.version>
