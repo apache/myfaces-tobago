@@ -1,0 +1,126 @@
+ ~~ Licensed to the Apache Software Foundation (ASF) under one or more
+ ~~ contributor license agreements.  See the NOTICE file distributed with
+ ~~ this work for additional information regarding copyright ownership.
+ ~~ The ASF licenses this file to You under the Apache License, Version 2.0
+ ~~ (the "License"); you may not use this file except in compliance with
+ ~~ the License.  You may obtain a copy of the License at
+ ~~
+ ~~      http://www.apache.org/licenses/LICENSE-2.0
+ ~~
+ ~~ Unless required by applicable law or agreed to in writing, software
+ ~~ distributed under the License is distributed on an "AS IS" BASIS,
+ ~~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ~~ See the License for the specific language governing permissions and
+ ~~ limitations under the License.
+
+ ------
+ Release Checklist
+ ------
+
+Release Checklist
+
+  Checklist of tasks to perform for each release:
+
+  * Ensure that all open bugs have been either fixed or moved to an other release.
+
+  * Ensure that all examples are working with the release candidate.
+
+  * Post a note on the list and ask for problems with the release candidate.
+
+  * Remove or disable all snapshot dependencies in the poms or site.xml
+  (tomcat-maven-plugin and tobago-site-skin)
+
+  * You need to add your GPG keys in {{https://svn.apache.org/repos/asf/myfaces/maven/trunk/KEYS}} before a release.
+
+  * Prepare the release with mvn release:prepare
+
+  * Deploy the release to the staging repository with the staging profile and release profile\
+    cd checkout-of-release\
+    mvn deploy -Prelease,staging --no-plugin-updates -Dnon-default-modules\
+    For more information please consult the poms.
+
+  * Propose a vote on the dev list with the staging location.
+
+  * Once a vote is successful, post the result to the dev list.
+
+  * Close all resolved jira issuse for the release.
+
+  * Deploy the release to the production repository with the release profile\
+    cd checkout-of-release\
+    mvn deploy -Prelease --no-plugin-updates -Dnon-default-modules
+
+  * Create and sign the assemblies.
+
+  * Update the download site after the distribution is on the apache mirrors available.
+
+  * Create and send Announcement.
+
+
+Vote template
+
+-----
+
+Subject: [VOTE] Release Tobago <version>
+
+Hello,
+
+I would like to release Tobago <version>,
+
+This release contains over 70 changes.
+For a detail list please consult the release notes:
+
+http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=<versionidfromjira>
+
+The version is available in the staging location and
+revision number of the release is 487980 and tagged as tobago-<version>.
+
+Staging site:
+http://people.apache.org/
+
+
+The Vote is open for 72h.
+
+[ ] +1
+[ ] +0
+[ ] -1
+
+------
+
+
+
+Announcement template
+
+----------------------------------------
+
+ The Apache MyFaces team is pleased to announce the release of Apache Tobago <v>.
+ Apache Tobago is a renderkit for JSF and runs with MyFaces Core.
+
+ Main new features
+ -----------------
+
+ [add main new features here or remove this section]
+
+ Changes
+ -------
+
+ Please check the release notes at
+ http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=<versionidfromjira>
+ for a full list of the changes in version <v>.
+
+ Known limitations and bugs:
+ ---------------------------
+
+ [add main limitations and known bugs here or remove this section]
+
+ For more information about Apache Tobago, please visit
+ http://myfaces.apache.org/tobago/.
+
+ Have fun,
+ -The MyFaces team
+
+----------------------------------------
+
+
+
+
+
