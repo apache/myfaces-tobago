@@ -64,9 +64,13 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
 
   public GenericComponentTagUnitTest(String name) {
     super(name);
+
   }
 
   public void setUp() throws Exception {
+    tldPaths = new String[2];
+    tldPaths[0] = "META-INF/org/apache/myfaces/tobago/taglib/component/tobago.tld";
+    tldPaths[1] = "META-INF/org/apache/myfaces/tobago/taglib/extension/tobago-extension.tld";
     super.setUp();
 
     ServletContext servletContext = new MockServletContext();
@@ -86,6 +90,7 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
     ApplicationFactory applicationFactory = (ApplicationFactory)
         FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
     application = applicationFactory.getApplication();
+    application.addComponent("javax.faces.ViewRoot", "org.apache.myfaces.tobago.component.UIViewRoot");
     application.addComponent("javax.faces.Command", "javax.faces.component.UICommand");
     application.addComponent("org.apache.myfaces.tobago.Command", "org.apache.myfaces.tobago.component.UICommand");
     application
@@ -116,7 +121,8 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
     for (Tld tld : tlds) {
       for (net.sf.maventaglib.checker.Tag tag : tld.getTags()) {
         javax.servlet.jsp.tagext.Tag tagInstance = getTagInstance(tag);
-        if (tagInstance instanceof UIComponentTag) {
+        if (tagInstance instanceof UIComponentTag
+            && (tagInstance instanceof ButtonTag || tagInstance instanceof LinkTag)) {
           LOG.info("testing tag: " + tagInstance.getClass().getName());
           testComponent(tagInstance);
         }
