@@ -37,6 +37,13 @@ public class ObjectTag extends TobagoTag implements ObjectTagDeclaration {
     ComponentUtil.setStringProperty(component, ATTR_TARGET, src);
   }
 
+
+  @Override
+  public void release() {
+    super.release();
+    src = null;
+  }
+
   public String getSrc() {
     return src;
   }

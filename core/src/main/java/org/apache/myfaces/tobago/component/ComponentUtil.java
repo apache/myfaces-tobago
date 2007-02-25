@@ -370,17 +370,27 @@ public class ComponentUtil {
     }
   }
 
+  /**
+   * @deprecated please use the  method {@link #getCharacterAttribute(javax.faces.component.UIComponent, String)}
+   * @param component
+   * @param name
+   */
+  @Deprecated
   public static Character getCharakterAttribute(UIComponent component, String name) {
-    Object charakter = component.getAttributes().get(name);
-    if (charakter == null) {
+    return getCharacterAttribute(component, name);
+  }
+
+  public static Character getCharacterAttribute(UIComponent component, String name) {
+    Object character = component.getAttributes().get(name);
+    if (character == null) {
       return null;
-    } else if (charakter instanceof Character) {
-      return ((Character) charakter);
-    } else if (charakter instanceof String) {
-      String asString = ((String) charakter);
+    } else if (character instanceof Character) {
+      return ((Character) character);
+    } else if (character instanceof String) {
+      String asString = ((String) character);
       return asString.length() > 0 ? Character.valueOf(asString.charAt(0)) : null;
     } else {
-      LOG.warn("Unknown type '" + charakter.getClass().getName()
+      LOG.warn("Unknown type '" + character.getClass().getName()
           + "' for integer attribute: " + name + " comp: " + component);
       return null;
     }

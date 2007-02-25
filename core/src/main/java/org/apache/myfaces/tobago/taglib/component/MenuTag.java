@@ -54,6 +54,7 @@ public class MenuTag extends TobagoTag
   public void release() {
     super.release();
     label = null;
+    image = null;
   }
 
   public String getLabel() {

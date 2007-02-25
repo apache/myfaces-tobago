@@ -37,7 +37,6 @@ public class SelectBooleanCommandTag extends AbstractCommandTag {
 
   private static final Log LOG = LogFactory.getLog(SelectBooleanCommandTag.class);
 
-  //public static final String COMMAND_TYPE = "commandSelectBoolean";
   private String label;
   private String value;
   private String tip;
@@ -51,7 +50,6 @@ public class SelectBooleanCommandTag extends AbstractCommandTag {
     super.setProperties(component);
     component.setRendererType(RENDERER_TYPE_MENUCOMMAND);
     ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
-    //ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, COMMAND_TYPE);
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
   }
@@ -60,6 +58,7 @@ public class SelectBooleanCommandTag extends AbstractCommandTag {
     super.release();
     value = null;
     label = null;
+    tip = null;
   }
 
   public String getValue() {
