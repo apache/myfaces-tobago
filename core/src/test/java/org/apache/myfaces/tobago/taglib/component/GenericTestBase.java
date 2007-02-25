@@ -19,64 +19,167 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import junit.framework.TestCase;
 
-import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.tagext.Tag;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+
+import net.sf.maventaglib.checker.Tld;
+import net.sf.maventaglib.checker.TldParser;
+import net.sf.maventaglib.checker.TagAttribute;
+
+import java.io.InputStream;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.beans.PropertyDescriptor;
+import java.util.HashMap;
+
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.mock.servlet.MockPageContext;
 
 public abstract class GenericTestBase extends TestCase {
-// ----------------------------------------------------------- class attributes
+  private static final Log LOG = LogFactory.getLog(GenericTestBase.class);
 
-// ----------------------------------------------------------------- attributes
-
-  protected UIComponentTag[] componentTagList;
-  protected Tag[] ordinaryTagList;
-
-// --------------------------------------------------------------- constructors
+  protected Tld[] tlds;
+  protected String[] tldPaths;
 
   public GenericTestBase(String name) {
     super(name);
-    componentTagList = new UIComponentTag[]{
-      new ButtonTag(),
-      new CalendarTag(),
-      new CellTag(),
-      new SelectManyCheckboxTag(),
-      new SelectBooleanCheckboxTag(),
-      new ColumnTag(),
-      new DateTag(),
-      new FileTag(),
-      new FormTag(),
-      new GridLayoutTag(),
-      new BoxTag(),
-      new HiddenTag(),
-      new ImageTag(),
-      new InTag(),
-      new SelectReferenceTag(),
-      new LabelTag(),
-      new LinkTag(),
-      new MenuBarTag(),
-      new MessagesTag(),
-      new MessageTag(),
-      new SelectManyListboxTag(),
-      new PageTag(),
-      new PanelTag(),
-      new ProgressTag(),
-      new SelectOneRadioTag(),
-      //new RichTextEditorTag(),
-      new SheetTag(),
-      new SelectOneTag(),
-      new TabGroupTag(),
-      new TabTag(),
-      new TextAreaTag(),
-      new OutTag(),
-      new ToolBarTag(),
-      new TreeOldTag(),
-    };
-    ordinaryTagList = new Tag[]{
-      new IncludeTag(),
-      new LoadBundleTag(),
-      new ScriptTag(),
-      new StyleTag(),
-    };
   }
 
+  protected void setUp() throws Exception {
+    super.setUp();
+    tlds = new Tld[tldPaths.length];
+    for (int i = 0; i < tldPaths.length; i++) {
+      InputStream stream = getClass().getClassLoader().getResourceAsStream(tldPaths[i]);
+      tlds[i] = getTld(tldPaths[i], stream);
+      stream.close();
+    }
+  }
+
+    public void testRelease() throws IllegalAccessException,
+      NoSuchMethodException, InvocationTargetException, IOException,
+        SAXException, ClassNotFoundException, InstantiationException {
+    for (Tld tld:tlds){
+      for (net.sf.maventaglib.checker.Tag tag:tld.getTags()) {
+        Tag tagInstance = getTagInstance(tag);
+        checkRelease(tagInstance);
+      }
+    }
+  }
+
+  public void testSetterExist() throws NoSuchMethodException,
+      IllegalAccessException, InvocationTargetException, IOException,
+      SAXException, ClassNotFoundException, InstantiationException {
+
+    for (Tld tld:tlds){
+      for (net.sf.maventaglib.checker.Tag tag:tld.getTags()) {
+        Tag tagInstance = getTagInstance(tag);
+        TagAttribute[] attributes = tag.getAttributes();
+        for (TagAttribute attribute : attributes) {
+          String name = attribute.getAttributeName();
+          checkSetter(tagInstance, name);
+        }
+      }
+    }
+  }
+
+  protected Tag getTagInstance(net.sf.maventaglib.checker.Tag tag)
+      throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+    String className = tag.getTagClass();
+    Class tagClass = Class.forName(className);
+    return (Tag) tagClass.newInstance();
+  }
+
+  private void checkSetter(javax.servlet.jsp.tagext.Tag tagObject, String name)
+      throws IllegalAccessException, InstantiationException,
+      NoSuchMethodException, InvocationTargetException, ClassNotFoundException {
+    PropertyDescriptor propertyDescriptor
+        = PropertyUtils.getPropertyDescriptor(tagObject, name);
+    assertNotNull("setter '" + name + "' of class " + tagObject.getClass().getName() + " has " +
+        "property descriptor.", propertyDescriptor);
+    assertNotNull("setter '" + name + "' of class " + tagObject.getClass().getName() + " exists.",
+        propertyDescriptor.getWriteMethod());
+  }
+
+  private void checkRelease(javax.servlet.jsp.tagext.Tag tag) throws NoSuchMethodException,
+      IllegalAccessException, InvocationTargetException, IOException,
+      SAXException {
+    tag.setPageContext(new MockPageContext());
+
+    HashMap initialValues = new HashMap();
+    PropertyDescriptor descriptors[] =
+        PropertyUtils.getPropertyDescriptors(tag);
+
+    // store initial values
+    for (int i = 0; i < descriptors.length; i++) {
+      if (isTagProperty(descriptors[i])) {
+        String name = descriptors[i].getName();
+        Object value = PropertyUtils.getSimpleProperty(tag, name);
+        initialValues.put(name, value);
+      }
+    }
+
+    // set new values
+    for (int i = 0; i < descriptors.length; i++) {
+      if (isTagProperty(descriptors[i])) {
+        String name = descriptors[i].getName();
+        Class propertyType = descriptors[i].getPropertyType();
+        Object value = null;
+        if (propertyType == String.class) {
+          value = new String("bla");
+        } else if (propertyType == Integer.TYPE) {
+          value = new Integer(42);
+        } else if (propertyType == Boolean.TYPE) {
+          value = Boolean.TRUE;
+        } else {
+          LOG.debug("Unsupported property type '" + propertyType
+              + "' for property '" + name + "'");
+        }
+        PropertyUtils.setSimpleProperty(tag, name, value);
+      }
+    }
+
+    tag.release();
+
+    // check released values
+    for (int i = 0; i < descriptors.length; i++) {
+      if (isTagProperty(descriptors[i])) {
+        String name = descriptors[i].getName();
+        // XXX: who releases id?
+        if (name.equals("id")) continue;
+        try {
+          Object newValue = PropertyUtils.getSimpleProperty(tag, name);
+          Object oldValue = initialValues.get(name);
+          String msg = "release of property '" + name + "' for tag '"
+              + tag.getClass().getName() + "' failed.";
+          assertEquals(msg, oldValue, newValue);
+          // XXX: first error stops loop
+          // if (newValue != null && !newValue.equals(oldValue)) {
+        } catch (NoSuchMethodException e1) {
+          LOG.error("", e1);
+        }
+      }
+    }
+  }
+
+  private boolean isTagProperty(PropertyDescriptor descriptor) {
+    if ("parent".equals(descriptor.getName())) {
+      return false;
+    } else {
+      return descriptor.getReadMethod() != null
+          && descriptor.getWriteMethod() != null;
+    }
+  }
+
+  private Tld getTld(String name, InputStream stream) throws Exception {
+    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    DocumentBuilder db = dbf.newDocumentBuilder();
+    Document doc = db.parse(stream);
+    return TldParser.parse(doc, name);
+  }
 }
 

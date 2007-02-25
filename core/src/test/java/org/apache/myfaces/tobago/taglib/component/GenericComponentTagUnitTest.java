@@ -51,24 +51,20 @@ import javax.servlet.jsp.tagext.Tag;
 import java.util.Iterator;
 import java.util.Map;
 
+import net.sf.maventaglib.checker.Tld;
+
 public class GenericComponentTagUnitTest extends GenericTestBase {
-// ----------------------------------------------------------- class attributes
 
   private static final Log LOG = LogFactory.getLog(GenericComponentTagUnitTest.class);
-
-// ----------------------------------------------------------------- attributes
 
   private Application application;
   private MockFacesContext facesContext;
   private PageContext pageContext;
 
-// --------------------------------------------------------------- constructors
 
   public GenericComponentTagUnitTest(String name) {
     super(name);
   }
-
-// ----------------------------------------------------------- business methods
 
   public void setUp() throws Exception {
     super.setUp();
@@ -85,15 +81,17 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
     FactoryFinder.setFactory(FactoryFinder.APPLICATION_FACTORY,
         "org.apache.myfaces.tobago.mock.faces.MockApplicationFactory");
     FactoryFinder.setFactory(FactoryFinder.RENDER_KIT_FACTORY,
-           "org.apache.myfaces.tobago.mock.faces.MockRenderKitFactory");
+        "org.apache.myfaces.tobago.mock.faces.MockRenderKitFactory");
 
     ApplicationFactory applicationFactory = (ApplicationFactory)
         FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
     application = applicationFactory.getApplication();
     application.addComponent("javax.faces.Command", "javax.faces.component.UICommand");
     application.addComponent("org.apache.myfaces.tobago.Command", "org.apache.myfaces.tobago.component.UICommand");
-    application.addComponent("org.apache.myfaces.tobago.LinkCommand", "org.apache.myfaces.tobago.component.UILinkCommand");
-    application.addComponent("org.apache.myfaces.tobago.ButtonCommand", "org.apache.myfaces.tobago.component.UIButtonCommand");
+    application
+        .addComponent("org.apache.myfaces.tobago.LinkCommand", "org.apache.myfaces.tobago.component.UILinkCommand");
+    application
+        .addComponent("org.apache.myfaces.tobago.ButtonCommand", "org.apache.myfaces.tobago.component.UIButtonCommand");
 
     facesContext.setApplication(application);
     UIViewRoot root = facesContext
@@ -105,21 +103,24 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
         FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
     RenderKit renderKit = new MockRenderKit();
     try {
-        renderKitFactory.addRenderKit(RenderKitFactory.HTML_BASIC_RENDER_KIT,
-                                      renderKit);
+      renderKitFactory.addRenderKit(RenderKitFactory.HTML_BASIC_RENDER_KIT, renderKit);
     } catch (IllegalArgumentException e) {
-        ;
+      // ignore
     }
     request.setAttribute("peter", new DummyBean(true, 20, "Peter"));
     request.setAttribute("marry", new DummyBean(false, 17, "Marry"));
   }
 
-  public void testComponent() throws JspException {
-//    for (int i = 0; i < componentTagList.length; i++) { TODO
-    for (int i = 0; i < 1; i++) {
-      UIComponentTag tag = componentTagList[i];
-      LOG.info("testing tag: " + tag.getClass().getName());
-      testComponent(tag);
+  public void testComponent()
+      throws JspException, IllegalAccessException, InstantiationException, ClassNotFoundException {
+    for (Tld tld : tlds) {
+      for (net.sf.maventaglib.checker.Tag tag : tld.getTags()) {
+        javax.servlet.jsp.tagext.Tag tagInstance = getTagInstance(tag);
+        if (tagInstance instanceof UIComponentTag) {
+          LOG.info("testing tag: " + tagInstance.getClass().getName());
+          testComponent(tagInstance);
+        }
+      }
     }
   }
 
@@ -141,9 +142,9 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
       Object disabled = component.getAttributes().get(ATTR_DISABLED);
       LOG.debug("disabled = '" + disabled + "'");
       Map attributes = component.getAttributes();
-      for (Iterator i = attributes.keySet().iterator(); i.hasNext(); ){
+      for (Iterator i = attributes.keySet().iterator(); i.hasNext();) {
         Object value = i.next();
-        LOG.debug("value = "  + value);
+        LOG.debug("value = " + value);
       }
       Object height = attributes.get(ATTR_HEIGHT);
       LOG.debug("height = '" + height + "'");

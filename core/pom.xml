@@ -140,6 +140,19 @@
   </scm>
 
   <dependencies>
+    <!--dependency>
+      <groupId>org.apache.shale</groupId>
+      <artifactId>shale-test</artifactId>
+      <version>1.0.4</version>
+      <scope>test</scope>
+    </dependency-->
+
+    <dependency>
+      <groupId>maven-taglib</groupId>
+      <artifactId>maven-taglib-plugin</artifactId>
+      <version>1.4.2</version>
+      <scope>test</scope>
+    </dependency>
 
     <dependency>
       <groupId>commons-beanutils</groupId>
