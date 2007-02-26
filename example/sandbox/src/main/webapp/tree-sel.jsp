@@ -38,6 +38,7 @@
         <tcs:treeNodeData value="#{controller.tree}" var="node">
           <tcs:treeNode label="#{node.userObject.name}"
                         markup="#{node.userObject.markup}"
+                        tip="#{node.userObject.tip}"
               />
         </tcs:treeNodeData>
         <tcs:treeNode label="Sub 1"/>
@@ -46,7 +47,7 @@
           <tcs:treeNode label="Sub 3.1"/>
           <tcs:treeNode label="Sub 3.2"/>
         </tcs:treeNode>
-        <tcs:treeNode label="Sub 4"/>
+        <tcs:treeNode label="Sub 4" tip="Subnode Number 4"/>
       </tcs:treeNode>
     </tcs:tree>
 

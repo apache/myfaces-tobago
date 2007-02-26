@@ -38,6 +38,7 @@
         <tcs:treeNodeData value="#{controller.tree}" var="node" id="data">
           <tcs:treeNode label="#{node.userObject.name}" id="template"
                         markup="#{node.userObject.markup}"
+                        tip="#{node.userObject.tip}"
                         action="#{node.userObject.action}" value="#{node}"/>
         </tcs:treeNodeData>
         <tcs:treeNode label="Action 1" action="#{controller.action1}" id="action1"/>
@@ -48,7 +49,7 @@
             <tcs:treeNode label="On Click 3" onclick="alert('On Click 3');" id="click3"/>
           </tcs:treeNode>
         </tcs:treeNode>
-        <tcs:treeNode label="Link" link="http://myfaces.apache.org/tobago/" id="link"/>
+        <tcs:treeNode label="Link" link="http://myfaces.apache.org/tobago/" id="link" tip="Subnode Link"/>
       </tcs:treeNode>
     </tcs:tree>
 

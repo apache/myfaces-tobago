@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  * limitations under the License.
  */
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITreeNode;
@@ -28,6 +29,7 @@ public class TreeNodeTag extends AbstractCommandTag implements TreeNodeTagDeclar
 
   private String value;
   private String markup;
+  private String tip;
 
   @Override
   public String getComponentType() {
@@ -40,6 +42,7 @@ public class TreeNodeTag extends AbstractCommandTag implements TreeNodeTagDeclar
 
     ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
     ComponentUtil.setMarkup(component, markup);
+    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
   }
 
   @Override
@@ -47,6 +50,7 @@ public class TreeNodeTag extends AbstractCommandTag implements TreeNodeTagDeclar
     super.release();
     value = null;
     markup = null;
+    tip = null;
   }
 
   public String getValue() {
@@ -57,12 +61,15 @@ public class TreeNodeTag extends AbstractCommandTag implements TreeNodeTagDeclar
     this.value = value;
   }
 
-
   public String getMarkup() {
     return markup;
   }
 
   public void setMarkup(String markup) {
     this.markup = markup;
+  }
+
+  public void setTip(String tip) {
+    this.tip = tip;
   }
 }

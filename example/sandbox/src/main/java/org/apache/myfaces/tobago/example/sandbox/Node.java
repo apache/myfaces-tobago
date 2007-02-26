@@ -56,4 +56,8 @@ public class Node {
   public void setMarkup(String markup) {
     this.markup = markup;
   }
+
+  public String getTip() {
+    return "Some Information about " + name;
+  }
 }
