@@ -1597,15 +1597,13 @@ Tobago.ScriptLoader = function(names, doAfter) {
 Tobago.Transport = {
   requests: new Array(),
   currentActionId: null,
-  pageSubmited: false,
 
   request: function(req, submitPage, actionId) {
     var index = 0;
     if (submitPage) {
-      this.pageSubmited = true;
       index = this.requests.push(req);
       //LOG.debug('index = ' + index)
-    } else if (!this.pageSubmited) { // AJAX case
+    } else if (!this.isSubmit) { // AJAX case
       LOG.debug('Current ActionId = ' + this.currentActionId + ' action= ' + actionId);
       if (actionId && this.currentActionId == actionId) {
         LOG.debug('Ignoring request');
