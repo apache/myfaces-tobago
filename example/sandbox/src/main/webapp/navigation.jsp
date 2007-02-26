@@ -25,14 +25,14 @@
            width="200px" height="800px">
     <f:facet name="layout">
       <tc:gridLayout margin="5px"
-                     rows="fixed;fixed;fixed;fixed;*"/>
+                     rows="fixed;fixed;fixed;fixed;fixed;*"/>
     </f:facet>
 
     <tc:link link="separator.jsp" label="separator.jsp" target="View"/>
 
-    <tc:link link="tree.jsp" label="tree.jsp" target="View"/>
+    <tc:link link="tree-normal.jsp" label="tree-normal.jsp" target="View"/>
 
-    <tc:link link="tree-sel.jsp" label="tree-sel.jsp" target="View"/>
+    <tc:link link="tree-select.jsp" label="tree-select.jsp" target="View"/>
 
     <tc:link link="tree-menu.jsp" label="tree-menu.jsp" target="View"/>
 
