@@ -30,7 +30,6 @@ import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.example.addressbook.web.Countries;
 import org.apache.myfaces.tobago.example.addressbook.Address;
 import org.apache.myfaces.tobago.example.addressbook.AddressDao;
 import org.apache.myfaces.tobago.example.addressbook.AddressDaoException;

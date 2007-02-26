@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.example.addressbook.web;
  */
 
 import org.apache.myfaces.tobago.util.VariableResolverUtil;
-import org.apache.myfaces.tobago.example.addressbook.web.Controller;
 import org.apache.myfaces.tobago.example.addressbook.Address;
 import org.apache.myfaces.tobago.example.addressbook.Picture;
 import org.apache.commons.io.IOUtils;

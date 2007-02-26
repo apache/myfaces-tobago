@@ -17,9 +17,6 @@ package org.apache.myfaces.tobago.example.addressbook.web;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import javax.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.Locale;

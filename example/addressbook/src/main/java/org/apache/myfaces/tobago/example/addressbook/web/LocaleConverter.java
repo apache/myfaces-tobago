@@ -41,20 +41,17 @@ public class LocaleConverter implements Converter {
   }
 
   public static Locale createLocale(String value) {
-    Locale locale = null;
     String[] strings = value.split("_");
     switch (strings.length) {
       case 1:
-        locale = new Locale(strings[0]);
-        break;
+        return new Locale(strings[0]);
       case 2:
-        locale = new Locale(strings[0], strings[1]);
-        break;
+        return new Locale(strings[0], strings[1]);
       case 3:
-        locale = new Locale(strings[0], strings[1], strings[2]);
-        break;
+        return new Locale(strings[0], strings[1], strings[2]);
+      default:
+        return null;
     }
-    return locale;
   }
 
 }
