@@ -49,7 +49,7 @@
             <tc:menuItem onclick="LOG.show();"
                          label="#{overviewBundle.menu_showLog}"
                          rendered="#{clientConfigController.debugMode}"/>
-            <tc:menuItem action="server-info"
+            <tc:menuItem action="server-info" immediate="true"
                          label="Server Info"
                          disabled="#{! info.enabled}"/>
           </tc:menu>
