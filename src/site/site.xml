@@ -57,6 +57,7 @@
       <item name="Theme Handling" href="http://myfaces.apache.org/tobago/themes.html" />
       <item name="FAQ" href="http://myfaces.apache.org/tobago/faq.html" />
       <item name="API Documentation" href="http://myfaces.apache.org/tobago/documentation.html" />
+      <item name="Release Checklist" href="http://myfaces.apache.org/tobago/release-checklist.html" />
     </menu>
     
     ${parentProject}
