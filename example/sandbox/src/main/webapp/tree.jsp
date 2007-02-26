@@ -45,6 +45,7 @@
           </tcs:treeNode>
         </tcs:treeNode>
         <tcs:treeNode label="Link" link="http://myfaces.apache.org/tobago/" id="link" tip="Subnode Link"/>
+        <tcs:treeNode label="Target" action="#{controller.action2}" target="Target Window"/>
       </tcs:treeNode>
     </tcs:tree>
 

@@ -305,7 +305,7 @@ function TreeNode(label, tip, id, mode, isFolder,
     hideRoot, treeHiddenId, selectable, mutable,
     formId, selected, marked,
     expanded, required, disabled, treeResources,
-    action, onclick, parent, icon, openIcon, width, cssClass, cssClassLabel) {
+    action, target, onclick, parent, icon, openIcon, width, cssClass, cssClassLabel) {
   this.label = label;
   this.tip = tip;
   this.id = id;
@@ -328,6 +328,7 @@ function TreeNode(label, tip, id, mode, isFolder,
   this.treeResources = treeResources;
 	this.action = action;
 	this.onclick = onclick;
+  this.target = target;
   this.icon = icon
       || treeResources.getImage("foldericon.gif");
   this.openIcon = openIcon
@@ -536,19 +537,16 @@ TreeNode.prototype.doOnClick = function() {
     Tobago.navigateToUrl(this.action);
   } else if (this.onclick && !this.disabled) {
     eval(this.onclick);
-  } else {
-    if (this.mutable) {
+  } else if (this.mutable) {
       // nothing to do, storeMarker is already don in onFocus()
 //      storeMarker(Tobago.element(this.id), this.treeHiddenId);
-    } else if (this.selectable) {
-      toggleSelect(Tobago.element(this.id),
-          this.treeHiddenId,
-          this.treeResources.getImage("unchecked.gif"),
-          this.treeResources.getImage("checked.gif"));
-    } else {
-      Tobago.submitAction(this.id);
-    }
-
+  } else if (this.selectable) {
+    toggleSelect(Tobago.element(this.id),
+        this.treeHiddenId,
+        this.treeResources.getImage("unchecked.gif"),
+        this.treeResources.getImage("checked.gif"));
+  } else {
+    Tobago.submitAction(this.id, true, this.target);
   }
 }
 

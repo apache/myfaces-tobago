@@ -33,6 +33,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
@@ -280,6 +281,16 @@ public class TreeNodeRenderer extends CommandRendererBase {
       if (actionLink != null) {
         writer.writeText("'", null);
         writer.writeText(actionLink, null);
+        writer.writeText("',", null);
+      } else {
+        writer.writeText("null,", null);
+      }
+
+      // target
+      String target = (String) treeNode.getAttributes().get(ATTR_TARGET);
+      if (target != null) {
+        writer.writeText("'", null);
+        writer.writeText(target, null);
         writer.writeText("',", null);
       } else {
         writer.writeText("null,", null);
