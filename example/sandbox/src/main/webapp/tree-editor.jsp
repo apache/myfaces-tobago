@@ -30,6 +30,7 @@
 
     <tc:toolBar>
       <tc:toolBarCommand action="#{controller.createNode}" label="New"/>
+      <tc:toolBarCommand action="#{controller.deleteNode}" label="Delete"/>
     </tc:toolBar>
 
     <tcs:tree state="#{controller.state}" id="tree">

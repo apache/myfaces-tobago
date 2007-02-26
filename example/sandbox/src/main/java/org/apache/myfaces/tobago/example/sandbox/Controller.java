@@ -84,6 +84,16 @@ public class Controller {
     return null;
   }
 
+  public String deleteNode() {
+    DefaultMutableTreeNode marker = state.getMarker();
+    if (marker != null) {
+      marker.removeFromParent();
+    } else {
+      // todo: print a warning or use root?
+    }
+    return null;
+  }
+
   public DefaultMutableTreeNode getTree() {
     return tree;
   }
