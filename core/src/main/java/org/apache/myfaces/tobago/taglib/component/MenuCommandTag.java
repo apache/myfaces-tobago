@@ -20,10 +20,13 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 import javax.faces.component.UIComponent;
 
@@ -36,6 +39,7 @@ public class MenuCommandTag extends AbstractCommandTag
 
   private String image;
   private String label;
+  private String target;
 
   public String getComponentType() {
     return UIMenuCommand.COMPONENT_TYPE;
@@ -45,6 +49,7 @@ public class MenuCommandTag extends AbstractCommandTag
     super.release();
     image = null;
     label = null;
+    target = null;
   }
 
   protected void setProperties(UIComponent component) {
@@ -53,6 +58,7 @@ public class MenuCommandTag extends AbstractCommandTag
     ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
     //ComponentUtil.setStringProperty(component, ATTR_COMMAND_TYPE, COMMAND_TYPE);
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
+    ComponentUtil.setStringProperty(component, ATTR_TARGET, target);
   }
 
   public String getImage() {
@@ -84,5 +90,9 @@ public class MenuCommandTag extends AbstractCommandTag
     LOG.warn("Attibute 'labelWithAccessKey' is deprecated, "
         + "and will removed soon! Please use 'label' instead.");
     setLabel(labelWithAccessKey);
+  }
+
+  public void setTarget(String target) {
+    this.target = target;
   }
 }

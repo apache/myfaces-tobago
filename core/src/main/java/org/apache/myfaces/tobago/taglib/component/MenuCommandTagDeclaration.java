@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasImage;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.HasTarget;
 
 /*
  * Created by IntelliJ IDEA.
@@ -39,5 +40,5 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
     uiComponent = "org.apache.myfaces.tobago.component.UIMenuCommand",
     rendererType = "MenuCommand")
 public interface MenuCommandTagDeclaration extends TobagoTagDeclaration, AbstractCommandTagDeclaration,
-    HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled,  HasCommandType, HasImage {
+    HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled,  HasCommandType, HasImage, HasTarget {
 }
