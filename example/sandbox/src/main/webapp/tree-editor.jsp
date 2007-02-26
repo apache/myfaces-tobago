@@ -14,30 +14,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 --%>
+
+<%@ taglib uri="http://myfaces.apache.org/tobago/sandbox" prefix="tcs" %>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
 <f:view>
-
   <tc:loadBundle basename="demo" var="bundle"/>
 
-  <tc:page label="Screenshot" id="page"
-           width="200px" height="800px">
+  <tc:page label="Sandbox - Tree Editor" id="page"
+           width="500px" height="800px">
     <f:facet name="layout">
-      <tc:gridLayout margin="5px"
-                     rows="fixed;fixed;fixed;fixed;*"/>
+      <tc:gridLayout margin="10px" rows="fixed;300px;*"/>
     </f:facet>
 
-    <tc:link link="separator.jsp" label="separator.jsp" target="View"/>
+    <tc:toolBar>
+      <tc:toolBarCommand action="#{controller.createNode}" label="New"/>
+    </tc:toolBar>
 
-    <tc:link link="tree.jsp" label="tree.jsp" target="View"/>
-
-    <tc:link link="tree-sel.jsp" label="tree-sel.jsp" target="View"/>
-
-    <tc:link link="tree-menu.jsp" label="tree-menu.jsp" target="View"/>
-
-    <tc:link link="tree-editor.jsp" label="tree-editor.jsp" target="View"/>
+    <tcs:tree state="#{controller.state}" id="tree">
+      <!--
+      fixme: The helping-node "Root" is required in the moment, has to be removed!
+      -->
+      <tcs:treeNode label="Root">
+        <tcs:treeNodeData value="#{controller.tree}" var="node" id="data">
+          <tcs:treeNode label="#{node.userObject.name}" id="template"
+                        markup="#{node.userObject.markup}"
+                        tip="#{node.userObject.tip}"
+                        action="#{node.userObject.action}" value="#{node}"/>
+        </tcs:treeNodeData>
+      </tcs:treeNode>
+    </tcs:tree>
 
     <tc:cell/>
+
   </tc:page>
 </f:view>

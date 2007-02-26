@@ -74,6 +74,16 @@ public class Controller {
     return null;
   }
 
+  public String createNode() {
+    DefaultMutableTreeNode marker = state.getMarker();
+    if (marker != null) {
+      marker.insert(new DefaultMutableTreeNode(new Node("New Node")), 0);
+    } else {
+      // todo: print a warning or use root?
+    }
+    return null;
+  }
+
   public DefaultMutableTreeNode getTree() {
     return tree;
   }
