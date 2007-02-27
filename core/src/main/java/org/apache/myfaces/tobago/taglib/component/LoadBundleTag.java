@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.util.BundleMapWrapper;
 
 import javax.faces.context.FacesContext;
+import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 import java.util.Map;
@@ -40,10 +41,17 @@ public class LoadBundleTag extends TagSupport {
   private String var;
 
   public int doStartTag() throws JspException {
-    Map toStore = new BundleMapWrapper(basename);
+
+    String bundleBaseName;
+    FacesContext context = FacesContext.getCurrentInstance();
+    if (UIComponentTag.isValueReference(basename)) {
+      bundleBaseName = (String) context.getApplication().createValueBinding(basename).getValue(context);
+    } else {
+      bundleBaseName = basename;
+    }
+    Map toStore = new BundleMapWrapper(bundleBaseName);
     // TODO find a better way
-    FacesContext.getCurrentInstance().getExternalContext()
-        .getSessionMap().put(var, toStore);
+    context.getExternalContext().getSessionMap().put(var, toStore);
 //        .getRequestMap().put(var, toStore);
 
     return EVAL_BODY_INCLUDE;
