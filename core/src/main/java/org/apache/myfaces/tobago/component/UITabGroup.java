@@ -213,6 +213,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
           }
         }
       }
+      getFacesContext().renderResponse();
     }
   }
 
