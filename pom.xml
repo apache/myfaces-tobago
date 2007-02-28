@@ -589,6 +589,20 @@
             <jdkLevel>5.0</jdkLevel>
           </configuration>
         </plugin>
+        <plugin>
+          <groupId>org.mortbay.jetty</groupId>
+          <artifactId>maven-jetty-plugin</artifactId>
+          <version>6.1.1</version>
+          <configuration>
+          <scanIntervalSeconds>5</scanIntervalSeconds>
+          <systemProperties>
+            <systemProperty>
+              <name>org.apache.commons.logging.Log</name>
+               <value>org.apache.commons.logging.impl.SimpleLog</value>
+            </systemProperty>
+          </systemProperties>
+        </configuration>
+        </plugin>
         <!--<plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>clirr-maven-plugin</artifactId>
