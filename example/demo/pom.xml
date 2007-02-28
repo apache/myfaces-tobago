@@ -74,6 +74,11 @@
   </scm>
 
   <dependencies>
+    <!--dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
+      <artifactId>tobago-theme-example</artifactId>
+      <version>${project.version}</version>
+    </dependency-->
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-charlotteville</artifactId>
