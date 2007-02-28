@@ -32,13 +32,13 @@ import java.util.Iterator;
  * Time: 8:01:37 PM
  */
 public class FacesContextWrapper extends javax.faces.context.FacesContext {
-  protected FacesContext context;
+  private FacesContext context;
 
   public FacesContextWrapper(FacesContext context) {
     this.context = context;
   }
 
-  public FacesContext getContext() {
+  public final FacesContext getContext() {
     return context;
   }
 

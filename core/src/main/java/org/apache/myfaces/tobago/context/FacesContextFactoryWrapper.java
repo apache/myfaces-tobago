@@ -27,7 +27,7 @@ import javax.faces.FacesException;
  * Time: 10:09:52 PM
  */
 public class FacesContextFactoryWrapper extends FacesContextFactory {
-  protected FacesContextFactory facesContextFactory;
+  private FacesContextFactory facesContextFactory;
 
   public FacesContextFactoryWrapper(FacesContextFactory facesContextFactory) {
     this.facesContextFactory = facesContextFactory;
@@ -38,7 +38,7 @@ public class FacesContextFactoryWrapper extends FacesContextFactory {
    return facesContextFactory.getFacesContext(context, request, response, lifecycle);
   }
 
-  public FacesContextFactory getFacesContextFactory() {
+  public final FacesContextFactory getFacesContextFactory() {
     return facesContextFactory;
   }
 }
