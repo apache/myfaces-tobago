@@ -1611,13 +1611,13 @@ Tobago.Transport = {
       if (actionId && this.currentActionId == actionId) {
         LOG.debug('Ignoring request');
         // If actionId equals currentActionId asume double request: do nothing
-        return;
+        return false;
       }
       index = this.requests.push(req);
       //LOG.debug('index = ' + index)
       this.currentActionId = actionId;
     } else {
-      return;
+      return false;
     }
     //LOG.debug('index = ' + index)
     if (index == 1) {
@@ -1626,6 +1626,7 @@ Tobago.Transport = {
     } else {
       LOG.debug("Request queued!");
     }
+    return true;
   },
 
   requestComplete: function() {
@@ -1732,9 +1733,15 @@ Tobago.Updater = {
           + '&' + Form.serialize(Tobago.form);
 
       //    LOG.debug("request url = " + url);
-      Tobago.Transport.request(function() {
+      var queued = Tobago.Transport.request(function() {
         new Ajax.Updater(container, url, requestOptions);
       }, false, actionId);
+      if (!queued) {
+        //LOG.error("No update onFailure")
+        if (typeof requestOptions.onFailure  == 'function' ) {
+          requestOptions.onFailure();
+        }
+      }
       Tobago.action.value = oldAction;
     } else {
       LOG.info("No Ajax transport found! Doing full page reload.");
