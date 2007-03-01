@@ -436,6 +436,7 @@ var Tobago = {
         }
         if (target || !transition) {
           this.isSubmit = false;
+          Tobago.Transport.pageSubmited = false;
         }
         Tobago.onBeforeUnload(transition, target);
       }
@@ -1597,13 +1598,15 @@ Tobago.ScriptLoader = function(names, doAfter) {
 Tobago.Transport = {
   requests: new Array(),
   currentActionId: null,
+  pageSubmited: false,
 
   request: function(req, submitPage, actionId) {
     var index = 0;
     if (submitPage) {
+      this.pageSubmited = true;
       index = this.requests.push(req);
       //LOG.debug('index = ' + index)
-    } else if (!this.isSubmit) { // AJAX case
+    } else if (!this.pageSubmited) { // AJAX case
       LOG.debug('Current ActionId = ' + this.currentActionId + ' action= ' + actionId);
       if (actionId && this.currentActionId == actionId) {
         LOG.debug('Ignoring request');
@@ -1777,6 +1780,11 @@ Ajax.Responders.register({
         function() {
           // If we have hit the timeout and the AJAX request is active, abort it and let the user know
           if (Tobago.Updater.callInProgress(request.transport)) {
+            //LOG.error("timeout " + request.transport.status);
+            if (request.transport.status == 304) {
+              //LOG.error("Skip timeout");
+              return;
+            }
             request.transport.abort();
             Tobago.Transport.requestComplete();
             Tobago.Updater.showFailureMessage();
