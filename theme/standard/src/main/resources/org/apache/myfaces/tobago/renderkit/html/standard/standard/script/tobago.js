@@ -1788,10 +1788,6 @@ Ajax.Responders.register({
           // If we have hit the timeout and the AJAX request is active, abort it and let the user know
           if (Tobago.Updater.callInProgress(request.transport)) {
             //LOG.error("timeout " + request.transport.status);
-            if (request.transport.status == 304) {
-              //LOG.error("Skip timeout");
-              return;
-            }
             request.transport.abort();
             Tobago.Transport.requestComplete();
             Tobago.Updater.showFailureMessage();
