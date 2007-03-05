@@ -316,7 +316,7 @@ Tobago.Sheet.prototype.onComplete = function(transport) {
 
 Tobago.Sheet.prototype.onFailure = function() {
   Tobago.deleteOverlay(Tobago.element(this.outerDivId));
-  this.initReload();  
+  this.initReload();
 };
 
 Tobago.Sheet.prototype.setupResizer = function() {
@@ -346,6 +346,7 @@ Tobago.Sheet.prototype.setup = function() {
     if (divElement.skipUpdate) {
         LOG.debug("skip setup");
         divElement.skipUpdate = false;
+        Tobago.deleteOverlay(Tobago.element(this.outerDivId));
     } else {
 
       // ToDo: find a better way to fix this problem

@@ -93,7 +93,6 @@ import javax.faces.component.UIPanel;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -1097,11 +1096,11 @@ public class SheetRenderer extends RendererBase
         update = reload.getUpdate();
       }
     }
-    if (update || !(facesContext.getExternalContext().getResponse() instanceof HttpServletResponse)) {
+    if (update) {
       renderSheet(facesContext, (UIData) component);
     } else {
-      HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-      response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
+      facesContext.getExternalContext().getRequestMap().put(AjaxPhaseListener.TOBAGO_AJAX_STATUS_CODE, 
+          AjaxPhaseListener.CODE_NOT_MODIFIED);
     }
     facesContext.responseComplete();
   }

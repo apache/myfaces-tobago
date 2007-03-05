@@ -1692,11 +1692,11 @@ Tobago.Updater = {
         receiver.skipUpdate = true;
       } else if (response.substring(0, Tobago.Updater.CODE_NOT_MODIFIED.length) == Tobago.Updater.CODE_NOT_MODIFIED) {
         // no update needed, do nothing
-              LOG.debug("skip update");
+        LOG.debug("skip update");
         receiver.skipUpdate = true;
       } else if (response.substring(0, Tobago.Updater.CODE_SUCCESS.length) == Tobago.Updater.CODE_SUCCESS) {
         // update content
-              LOG.debug("update content");
+        LOG.debug("update content");
         Element.update(receiver, response.substring(20));
       } else if (response.substring(0, Tobago.Updater.CODE_RELOAD_REQUIRED.length) == Tobago.Updater.CODE_RELOAD_REQUIRED) {
         // reload complete page

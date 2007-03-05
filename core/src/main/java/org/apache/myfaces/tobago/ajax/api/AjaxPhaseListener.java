@@ -57,6 +57,7 @@ public class AjaxPhaseListener implements PhaseListener {
   public static final String CODE_SUCCESS = "<status code=\"200\"/>";
   public static final String CODE_NOT_MODIFIED = "<status code=\"304\"/>";
   public static final String CODE_RELOAD_REQUIRED = "<status code=\"309\"/>";
+  public static final String TOBAGO_AJAX_STATUS_CODE = "org.apache.myfaces.tobago.StatusCode";
 
   public static Object getValueForComponent(
       FacesContext facesContext, UIComponent component) {
@@ -155,8 +156,11 @@ public class AjaxPhaseListener implements PhaseListener {
       LOG.debug("Size of AjaxResponse:\n" + buf.length()
           + " = 0x" + Integer.toHexString(buf.length()));
     }
-
-    buf.insert(0, CODE_SUCCESS);
+    if (facesContext.getExternalContext().getRequestMap().containsKey(TOBAGO_AJAX_STATUS_CODE)) {
+      buf.insert(0, facesContext.getExternalContext().getRequestMap().get(TOBAGO_AJAX_STATUS_CODE));
+    } else {
+      buf.insert(0, CODE_SUCCESS);
+    }
 
     buf.insert(0, Integer.toHexString(buf.length()) + "\r\n");
     buf.append("\r\n" + 0 + "\r\n\r\n");
