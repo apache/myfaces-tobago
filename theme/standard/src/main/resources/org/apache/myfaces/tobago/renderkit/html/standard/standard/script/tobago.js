@@ -1445,6 +1445,12 @@ Tobago.Panel = function(panelId, enableAjax, autoReload) {
 };
 
 Tobago.Panel.prototype.setup = function() {
+  var element = Tobago.element(this.id);
+  if (element.skipUpdate) {
+    LOG.debug("skip setup");
+    element.skipUpdate = false;
+    Tobago.deleteOverlay(Tobago.element(this.id));
+  }
   this.initReload();
 };
 
