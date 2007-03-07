@@ -17,6 +17,7 @@
 
 <%@ page import="org.apache.myfaces.tobago.util.VariableResolverUtil"%>
 <%@ page import="javax.faces.context.FacesContext"%>
+<%@ page import="javax.servlet.jsp.jstl.core.LoopTagStatus" %>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -25,12 +26,14 @@
   VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), "birdList");
 %>
 <f:view>
-  <tc:page>
+  <tc:page height="200px" width="200px">
     <f:facet name="layout">
       <tc:gridLayout />
     </f:facet>
     <c:forEach items="${birdList.birds}" varStatus="status" >
-       <tc:out value="#{birdList.birds[${status.index}]}" id="out${status.index}"/>
+       <% String value = "#{birdList.birds[ " +
+           ((LoopTagStatus) pageContext.getAttribute("status")).getIndex() +"]}"; %>
+      <tc:out value="<%=value%>" id="out${status.index}"/>
     </c:forEach>
   </tc:page>
 </f:view>
