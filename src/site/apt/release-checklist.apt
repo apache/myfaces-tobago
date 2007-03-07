@@ -32,11 +32,11 @@ Release Checklist
 
   * You need to add your GPG keys in {{https://svn.apache.org/repos/asf/myfaces/maven/trunk/KEYS}} before a release.
 
-  * Prepare the release with mvn release:prepare
+  * Prepare the release with mvn release:prepare -Pall-modules
 
   * Deploy the release to the staging repository with the staging profile and release profile\
     cd checkout-of-release\
-    mvn deploy -Prelease,staging --no-plugin-updates -Dnon-default-modules\
+    mvn deploy -Prelease,staging,jdk14retro --no-plugin-updates -Dnon-default-modules -Djava14.home=${java14.jre}\
     For more information please consult the poms.
 
   * Propose a vote on the dev list with the staging location.
