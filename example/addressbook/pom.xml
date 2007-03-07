@@ -113,16 +113,11 @@
       <artifactId>openjpa-xmlstore</artifactId>
       <version>0.9.6-incubating</version>
     </dependency>
-    <!--<dependency>
-      <groupId>javax.persistence</groupId>
-      <artifactId>toplink-essentials</artifactId>
-      <version>1.0</version>
-    </dependency>-->
-    <!--<dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-entitymanager</artifactId>
-      <version>3.2.1.ga</version>
-    </dependency>-->
+    <dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
+      <artifactId>tobago-theme-charlotteville</artifactId>
+      <version>${project.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-richmond</artifactId>
