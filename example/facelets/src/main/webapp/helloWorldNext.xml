@@ -21,7 +21,7 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:tc="http://myfaces.apache.org/tobago/component"
         xmlns:tx="http://myfaces.apache.org/tobago/facelet-extension">
-  <tc:page label="Tobago Hello World Faclets">
+  <tc:page height="200" width="300" label="Tobago Hello World Faclets">
     <f:facet name="layout">
       <tc:gridLayout/>
     </f:facet>

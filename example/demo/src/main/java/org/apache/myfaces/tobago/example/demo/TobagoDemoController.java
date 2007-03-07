@@ -60,6 +60,8 @@ public class TobagoDemoController {
 
   private boolean[] bool;
 
+  private boolean update;
+
   private Boolean boolTest;
 
   private String[] text;
@@ -207,6 +209,12 @@ public class TobagoDemoController {
         {ToolBarTag.LABEL_OFF, ToolBarTag.LABEL_BOTTOM, ToolBarTag.LABEL_RIGHT};
     toolbarTextItems = getSelectItems(toolbarTextKeys, "demo");
     toolbarTextPosition = ToolBarTag.LABEL_BOTTOM;
+  }
+
+
+  public boolean isUpdate() {
+    update = !update;
+    return update;
   }
 
   public void resetSession() throws IOException {
