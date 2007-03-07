@@ -21,7 +21,7 @@
 <f:view>
   <tc:page>
     <f:facet name="layout">
-      <tc:gridLayout columns="100px;30px" margin="20px" />
+      <tc:gridLayout rows="100px;30px" margin="20px" />
     </f:facet>
 
     <tx:in label="Selected:" value="#{fishPond.selectedFish}" readonly="true" />
