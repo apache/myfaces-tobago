@@ -53,28 +53,28 @@ public class SolarObject {
     this.number = strings[1];
     this.orbit = strings[2];
     try {
-      this.distance = new Integer(strings[3]);
+      this.distance = Integer.valueOf(strings[3]);
     } catch (NumberFormatException e) {
       new Integer(0);
     }
     try {
-      this.period = new Double(strings[4]);
+      this.period = Double.valueOf(strings[4]);
     } catch (NumberFormatException e) {
       new Double(0);
     }
     try {
-      this.incl = new Double(strings[5]);
+      this.incl = Double.valueOf(strings[5]);
     } catch (NumberFormatException e) {
       new Double(0);
     }
     try {
-      this.eccen = new Double(strings[6]);
+      this.eccen = Double.valueOf(strings[6]);
     } catch (NumberFormatException e) {
       new Double(0);
     }
     this.discoverer = strings[7];
     try {
-      this.discoverYear = new Integer(strings[8]);
+      this.discoverYear = Integer.valueOf(strings[8]);
     } catch (NumberFormatException e) {
       new Integer(0);
     }
@@ -190,9 +190,9 @@ public class SolarObject {
     public static List<SolarObject> getSatellites(String center) {
     List<SolarObject> collect = new ArrayList<SolarObject>();
     SolarObject[] all = getArray();
-    for (int i = 0; i < all.length; i++) {
-      if (all[i].getOrbit().equals(center)) {
-        collect.add(all[i]);
+    for (SolarObject anAll : all) {
+      if (anAll.getOrbit().equals(center)) {
+        collect.add(anAll);
       }
     }
     return collect;
