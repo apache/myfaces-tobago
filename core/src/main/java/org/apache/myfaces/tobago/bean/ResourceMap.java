@@ -32,6 +32,7 @@ import java.util.Properties;
 public class ResourceMap extends Properties {
 
   private static final Log LOG = LogFactory.getLog(ResourceMap.class);
+  private static final long serialVersionUID = -6696019120255349519L;
 
   public ResourceMap() {
     if (LOG.isDebugEnabled()) {

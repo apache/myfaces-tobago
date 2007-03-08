@@ -32,6 +32,7 @@ import java.util.Map;
 public class HtmlStyleMap extends HashMap<String, Object> {
 
   private static final Log LOG = LogFactory.getLog(HtmlStyleMap.class);
+  private static final long serialVersionUID = 342607693971417143L;
 
   public Object put(String s, Object o) {
     if (o instanceof String && (s.equals("height") || s.equals("width"))) {

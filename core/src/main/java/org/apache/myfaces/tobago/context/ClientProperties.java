@@ -37,13 +37,13 @@ import java.util.List;
 import java.util.Locale;
 
 public class ClientProperties implements Serializable {
-
-  private static final String CLIENT_PROPERTIES_IN_SESSION
-      = ClientProperties.class.getName();
+  private static final long serialVersionUID = -6719319982485268698L;
+  private static final String CLIENT_PROPERTIES_IN_SESSION = ClientProperties.class.getName();
 
   private static final Log LOG = LogFactory.getLog(ClientProperties.class);
 
   private String contentType = "html";
+  // TODO transient
   private Theme theme;
   private UserAgent userAgent = UserAgent.DEFAULT;
   private boolean debugMode;
@@ -89,7 +89,8 @@ public class ClientProperties implements Serializable {
     // theme
     String requestTheme
         = (String) externalContext.getRequestParameterMap().get("tobago.theme");
-    this.theme = TobagoConfig.getInstance(facesContext).getTheme(requestTheme);
+    TobagoConfig config = TobagoConfig.getInstance(facesContext);
+    this.theme = config.getTheme(requestTheme);
     LOG.info("theme='" + theme.getName() + "' from requestParameter "
         + "tobago.theme='" + requestTheme + "'");
     updateId();

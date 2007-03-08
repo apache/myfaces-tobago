@@ -344,11 +344,9 @@ public class UIGridLayout extends UILayout {
   }
 
   public static class Row implements Serializable {
-
+    private static final long serialVersionUID = 1511693677519052045L;
     private int columns;
-
     private List cells;
-
     private boolean hidden;
 
     public Row(int columns) {
@@ -424,10 +422,9 @@ public class UIGridLayout extends UILayout {
   }
 
   public static class Marker implements Serializable {
-
+    private static final long serialVersionUID = 2505999420762504893L;
     private final String name;
-
-    private boolean rendered;
+    private boolean rendered;    
 
     private Marker(String name) {
       this.name = name;

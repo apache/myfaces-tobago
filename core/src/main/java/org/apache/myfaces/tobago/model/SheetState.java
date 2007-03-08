@@ -30,7 +30,7 @@ import java.util.List;
 
 // TODO find a better solution for this
 public class SheetState implements Serializable {
-
+  private static final long serialVersionUID = 7765536344426661777L;
   private static final Log LOG = LogFactory.getLog(SheetState.class);
   public static final String SEPARATOR = ",";
 
