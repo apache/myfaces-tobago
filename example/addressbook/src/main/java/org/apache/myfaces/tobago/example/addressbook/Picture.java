@@ -24,6 +24,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import java.io.Serializable;
 
 /*
  * Created by IntelliJ IDEA.
@@ -32,7 +33,8 @@ import javax.persistence.GenerationType;
  * Time: 7:45:33 PM
  */
 @Entity
-public class Picture {
+public class Picture implements Serializable {
+  private static final long serialVersionUID = -7637551581782102682L;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
@@ -40,6 +42,7 @@ public class Picture {
   @Lob
   @Basic(fetch = FetchType.EAGER)
   private byte [] content;
+
 
   public Picture() {
   }

@@ -35,10 +35,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Version;
 import java.util.Date;
 import java.util.Locale;
+import java.io.Serializable;
 
 @Entity
-public class Address {
-
+public class Address implements Serializable {
+  private static final long serialVersionUID = 1833416321633117657L;
   private static final Log LOG = LogFactory.getLog(Address.class);
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -74,6 +75,7 @@ public class Address {
   private String jobHomePage;
   @OneToOne(cascade = {CascadeType.ALL})
   private Picture picture;
+
 
   public Address() {
     LOG.debug("Creating new Address");

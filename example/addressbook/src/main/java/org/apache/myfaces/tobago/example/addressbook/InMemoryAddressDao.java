@@ -63,7 +63,7 @@ public class InMemoryAddressDao implements AddressDao {
   public synchronized void removeAddress(Address address) {
     Iterator<Address> it = addresses.iterator();
     while (it.hasNext()) {
-      if (it.next().getId() == address.getId()) {
+      if (it.next().getId().equals(address.getId())) {
         it.remove();
       }
     }
@@ -71,7 +71,7 @@ public class InMemoryAddressDao implements AddressDao {
 
   public Address getAddress(Integer id) {
     for (Address address : addresses) {
-      if (address.getId() == id) {
+      if (address.getId().equals(id)) {
         return address;
       }
     }

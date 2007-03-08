@@ -19,8 +19,10 @@ package org.apache.myfaces.tobago.example.addressbook.web;
 
 import javax.faces.model.SelectItem;
 import java.util.Comparator;
+import java.io.Serializable;
 
-public class SelectItemComparator implements Comparator<SelectItem> {
+public class SelectItemComparator implements Comparator<SelectItem>, Serializable {
+  private static final long serialVersionUID = -1581955960510873296L;
 
   public int compare(SelectItem s1, SelectItem s2) {
     return s1.getLabel().compareTo(s2.getLabel());
