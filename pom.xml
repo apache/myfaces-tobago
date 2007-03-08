@@ -677,7 +677,7 @@
            <profile>
              <id>staging</id>
              <properties>
-               <deploy.altRepository>scpexe://minotaur.apache.org/www/people.apache.org/builds/myfaces/tobago/m2-staging-repository</deploy.altRepository>
+               <deploy.altRepository>apache.releases::default::scpexe://minotaur.apache.org/www/people.apache.org/builds/myfaces/tobago/m2-staging-repository</deploy.altRepository>
              </properties>
            </profile>
           -->

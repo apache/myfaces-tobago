@@ -71,10 +71,15 @@ For a detail list please consult the release notes:
 
 http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=<versionidfromjira>
 
-The version is available in the staging location and
+The version is available at the staging location and the
 revision number of the release is 487980 and tagged as tobago-<version>.
 
-Staging site:
+Staging distribution:
+
+http://people.apache.org/
+
+Staging repository:
+
 http://people.apache.org/
 
 
