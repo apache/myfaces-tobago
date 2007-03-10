@@ -11,7 +11,7 @@
   <build>
     <finalName>tobago-example-demo</finalName>
     <plugins>
-      <!--<plugin>
+      <plugin>
         <groupId>org.apache.myfaces.tobago</groupId>
         <artifactId>maven-theme-plugin</artifactId>
         <version>${project.version}</version>
@@ -22,7 +22,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin>-->
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
