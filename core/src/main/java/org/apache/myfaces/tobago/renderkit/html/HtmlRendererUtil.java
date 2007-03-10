@@ -128,17 +128,17 @@ public final class HtmlRendererUtil {
 
 
   public static void createCssClass(FacesContext facesContext, UIComponent component) {
-    final String rendererType = component.getRendererType();
-    if (rendererType != null) {
-      String rendererName = ComponentUtil.getRenderer(facesContext, component).getRendererName(rendererType);
+    String rendererName = getRendererName(facesContext, component);
+    if (rendererName != null) {
       createClassAttribute(component, rendererName);
     }
-
   }
 
   public static String getRendererName(FacesContext facesContext, UIComponent component) {
     final String rendererType = component.getRendererType();
-    if (rendererType != null) {
+    //final String family = component.getFamily();
+    if (rendererType != null//&& !"facelets".equals(family)
+       ) {
       return ComponentUtil.getRenderer(facesContext, component).getRendererName(rendererType);
     }
     return null;

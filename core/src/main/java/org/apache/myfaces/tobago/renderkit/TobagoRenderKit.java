@@ -29,6 +29,8 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
 import javax.faces.render.Renderer;
 import javax.faces.render.ResponseStateManager;
+import javax.faces.render.RenderKitFactory;
+import javax.faces.FactoryFinder;
 import java.io.OutputStream;
 import java.io.Writer;
 
@@ -53,12 +55,19 @@ public class TobagoRenderKit extends RenderKit {
       LOG.debug("family = '" + family + "'");
     }
     Renderer renderer = null;
-    if (rendererType != null) {
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      if (resources == null) {
-        resources = ResourceManagerFactory.getResourceManager(facesContext);
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    if ("facelets".equals(family)) {
+       RenderKitFactory rkFactory = (RenderKitFactory)
+       FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+       RenderKit renderKit = rkFactory.getRenderKit(facesContext, RenderKitFactory.HTML_BASIC_RENDER_KIT);
+       return new RendererBaseWrapper(renderKit.getRenderer(family, rendererType));
+    } else {
+      if (rendererType != null) {
+        if (resources == null) {
+          resources = ResourceManagerFactory.getResourceManager(facesContext);
+        }
+        renderer = resources.getRenderer(facesContext.getViewRoot(), rendererType);
       }
-      renderer = resources.getRenderer(facesContext.getViewRoot(), rendererType);
     }
     if (renderer == null) {
       LOG.error("The class witch was found by the ResourceManager can't be "
