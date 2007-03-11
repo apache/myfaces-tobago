@@ -47,9 +47,14 @@ Release Checklist
 
   * Deploy the release to the production repository with the release profile\
     cd checkout-of-release\
-    mvn deploy -Prelease --no-plugin-updates -Dnon-default-modules
+    mvn deploy -Prelease,jdk14retro --no-plugin-updates -Dnon-default-modules -Djava14.home=${java14.jre}
 
-  * Create and sign the assemblies.
+  * Create and sign the assemblies.\
+    cd tobago-assembly\
+    mvn -Pgenerate-assembly clean assembly:assembly\
+    cd ../example/tobago-example-assembly\
+    mvn -Pgenerate-assembly clean assembly:assembly\
+
 
   * Update the download site after the distribution is on the apache mirrors available.
 
