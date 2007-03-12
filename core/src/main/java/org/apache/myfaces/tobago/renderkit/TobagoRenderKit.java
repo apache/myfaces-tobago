@@ -70,8 +70,8 @@ public class TobagoRenderKit extends RenderKit {
       }
     }
     if (renderer == null) {
-      LOG.error("The class witch was found by the ResourceManager can't be "
-          + "found, or instanciated: rendererType='" + rendererType + "'");
+      LOG.error("The class which was found by the ResourceManager cannot be "
+          + "found or instantiated: classname='" + rendererType + "'");
     }
     return renderer;
   }
