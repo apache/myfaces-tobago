@@ -77,6 +77,7 @@ public class UIData extends javax.faces.component.UIData
   public static final String SINGLE = "single";
   public static final String MULTI = "multi";
   public static final int DEFAULT_DIRECT_LINK_COUNT = 9;
+  public static final String ROW_IDX_REGEX = "^\\d+" + SEPARATOR_CHAR + ".*";  
   private static final String DEFAULT_SELECTABLE = MULTI;
 
   private MethodBinding stateChangeListener;
@@ -673,9 +674,8 @@ public class UIData extends javax.faces.component.UIData
   }
 
 
-  public static final String rowIdxRegex = "^\\d+" + SEPARATOR_CHAR + ".*";
   public UIComponent findComponent(String searchId) {
-    if (searchId.matches(rowIdxRegex)) {
+    if (searchId.matches(ROW_IDX_REGEX)) {
       searchId = searchId.substring(searchId.indexOf(SEPARATOR_CHAR) + 1);
     }
     return super.findComponent(searchId);
