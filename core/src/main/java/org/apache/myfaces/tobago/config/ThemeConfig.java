@@ -46,17 +46,25 @@ public class ThemeConfig {
       String name) {
 
     CacheKey key = new CacheKey(facesContext.getViewRoot(), component, name);
-    Map cache = (Map) facesContext.getExternalContext()
-        .getApplicationMap().get(THEME_CONFIG_CACHE);
+    Map<CacheKey, Integer> cache
+        = (Map<CacheKey, Integer>) facesContext.getExternalContext().getApplicationMap().get(THEME_CONFIG_CACHE);
 
-    Integer value = (Integer) cache.get(key);
+    Integer value = cache.get(key);
     if (value == null) {
       value = createValue(facesContext, component, name);
       cache.put(key, value);
     }
-    return value.intValue();
+    if (value != null) {
+      return value;
+    } else {
+      // todo: remove condition, is only temporary to ignore wml errors.
+      if (! ClientProperties.getInstance(facesContext.getViewRoot()).getContentType().equals("wml")) {
+        throw new NullPointerException("No value configured");
+      }
+      // todo: remove, is only temporary to ignore wml errors.
+      return 0;
+    }
   }
-
 
   private static Integer createValue(FacesContext facesContext,
       UIComponent component, String name) {
@@ -95,9 +103,12 @@ public class ThemeConfig {
       }
       clazz = clazz.getSuperclass();
     }
-    LOG.error("Theme property not found for renderer: " + renderer.getClass()
-        + " with clientProperties='" + ClientProperties.getInstance(viewRoot).getId() + "'"
-        + " and locale='" + viewRoot.getLocale() + "'");
+    // todo: remove condition, is only temporary to ignore wml errors.
+    if (! ClientProperties.getInstance(viewRoot).getContentType().equals("wml")) {
+      LOG.error("Theme property not found for renderer: " + renderer.getClass()
+          + " with clientProperties='" + ClientProperties.getInstance(viewRoot).getId() + "'"
+          + " and locale='" + viewRoot.getLocale() + "'");
+    }
     return null;
   }
 

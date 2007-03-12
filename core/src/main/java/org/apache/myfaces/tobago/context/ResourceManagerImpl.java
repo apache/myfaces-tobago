@@ -357,13 +357,9 @@ public class ResourceManagerImpl implements ResourceManager {
     final String clientPropertyId;
     final Locale locale;
     final String type = "tag";
-//    final Object key;
     CacheKey key;
     if (name != null) {
       if (viewRoot instanceof org.apache.myfaces.tobago.component.UIViewRoot) {
-//        key = new StringBuilder(((org.apache.myfaces.tobago.component.UIViewRoot)viewRoot)
-//            .getRendererCachePrefix()).append(name).toString();
-//      key = new RendererCacheKey(clientPropertyId, locale, name);
         key = ((org.apache.myfaces.tobago.component.UIViewRoot) viewRoot).getRendererCacheKey();
         key.setName(name);
         renderer = (Renderer) cache.get(key);
@@ -377,7 +373,6 @@ public class ResourceManagerImpl implements ResourceManager {
       } else {
         clientPropertyId = ClientProperties.getInstance(viewRoot).getId();
         locale = viewRoot.getLocale();
-//      key = key(clientPropertyId, locale, type, name);
 
         key = new CacheKey(clientPropertyId, locale, name, CacheType.RENDERER);
         renderer = (Renderer) cache.get(key);
@@ -390,22 +385,19 @@ public class ResourceManagerImpl implements ResourceManager {
 
       try {
         name = getRendererClassName(name);
-        Class clazz = null;
-        List classes =  getPaths(clientPropertyId, locale, "", type, name,
-            "", false, true, true, null, false, false);
+        List<Class> classes
+            = getPaths(clientPropertyId, locale, "", type, name, "", false, true, true, null, false, false);
         if (classes != null && classes.size() > 0) {
-          clazz = (Class) classes.get(0);
+          Class clazz = classes.get(0);
+          renderer = (Renderer) clazz.newInstance();
+          cache.put(key, renderer);
         } else {
-          throw new RuntimeException("Don't find any RendererClass for " + name + ". Please check you configuration.");
+          LOG.error("Don't find any RendererClass for " + name + ". Please check you configuration.");
         }
-        renderer = (Renderer) clazz.newInstance();
-        cache.put(key, renderer);
       } catch (InstantiationException e) {
         LOG.error("name = '" + name + "' clientProperties = '" + clientPropertyId + "'", e);
-        throw new RuntimeException(name, e);
       } catch (IllegalAccessException e) {
         LOG.error("name = '" + name + "' clientProperties = '" + clientPropertyId + "'", e);
-        throw new RuntimeException(name, e);
       }
     }
     return renderer;
