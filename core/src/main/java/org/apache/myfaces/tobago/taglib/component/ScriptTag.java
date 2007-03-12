@@ -141,6 +141,8 @@ public class ScriptTag extends BodyTagSupport {
 
   /**
    * A script function which is invoked on client just before submitting the action.
+   * This should be a single function call. If the result is typeof 'boolean' and false
+   * the further processing is canceled and the page is not submitted.
    */
   @TagAttribute
   public void setOnsubmit(String onsubmit) {

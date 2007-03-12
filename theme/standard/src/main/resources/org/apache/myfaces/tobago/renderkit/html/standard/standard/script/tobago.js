@@ -428,7 +428,12 @@ var Tobago = {
           Tobago.form.target = target;
         }
         if (Tobago.applicationOnsubmit) {
-          Tobago.applicationOnsubmit();
+          if (!Tobago.applicationOnsubmit()) {
+            this.isSubmit = false;
+            Tobago.action.value = oldAction;
+            Tobago.form.target = oldTarget;
+            return;
+          }
         }
         Tobago.onSubmit();
   //      LOG.debug("submit form with action: " + Tobago.action.value);
@@ -1722,15 +1727,18 @@ Tobago.Updater = {
   update: function(container, page, actionId, ajaxComponentId, options) {
 
     if (this.hasTransport()) {
+
+      if (Tobago.applicationOnsubmit) {
+        if (!Tobago.applicationOnsubmit()) {
+          return;
+        }
+      }
+
       var requestOptions = Tobago.extend({}, this.options);
       if (options) {
         Tobago.extend(requestOptions, options);
       }
 
-      if (Tobago.applicationOnsubmit) {
-        Tobago.applicationOnsubmit();
-      }
-      
       if (requestOptions.createOverlay) {
         Tobago.createOverlay(container);
       }

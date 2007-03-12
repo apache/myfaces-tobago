@@ -264,15 +264,15 @@ public class PageRenderer extends PageRendererBase {
     }
     //page.getOnloadScripts()
     // onload script
-    writeEventFunction(writer, page.getOnloadScripts(), "load");
+    writeEventFunction(writer, page.getOnloadScripts(), "load", false);
 
     // onunload script
-    writeEventFunction(writer, page.getOnunloadScripts(), "unload");
+    writeEventFunction(writer, page.getOnunloadScripts(), "unload", false);
 
     // onexit script
-    writeEventFunction(writer, page.getOnexitScripts(), "exit");
+    writeEventFunction(writer, page.getOnexitScripts(), "exit", false);
 
-    writeEventFunction(writer, page.getOnsubmitScripts(), "submit");
+    writeEventFunction(writer, page.getOnsubmitScripts(), "submit", true);
 
    int debugCounter = 0;
     for (String script : page.getScriptBlocks()) {
@@ -423,19 +423,32 @@ public class PageRenderer extends PageRendererBase {
   }
 
   private void writeEventFunction(
-      TobagoResponseWriter writer, Set<String> eventFunctions, String event)
+      TobagoResponseWriter writer, Set<String> eventFunctions, String event, boolean returnBoolean)
       throws IOException {
     if (!eventFunctions.isEmpty()) {
-      writer.write("Tobago.applicationOn" + event + " = function() {\n  ");
+      writer.write("Tobago.applicationOn" + event + " = function() {\n");
+      if (returnBoolean) {
+        writer.write("  var result;\n");
+      }
       for (String function : eventFunctions) {
+        if (returnBoolean) {
+          writer.write("  result = ");
+        } else {
+          writer.write("  ");
+        }
         writer.write(function);
         if (!function.trim().endsWith(";")) {
-          writer.write(";\n  ");
+          writer.write(";\n");
         } else {
-          writer.write("\n  ");
+          writer.write("\n");
+        }
+        if (returnBoolean) {
+          writer.write("  if (typeof result == \"boolean\" && ! result) {\n");
+          writer.write("    return false;\n");
+          writer.write("  }\n");
         }
       }
-      writer.write("\n}\n");
+      writer.write("\n  return true;\n}\n");
     }
   }
 
