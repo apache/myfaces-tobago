@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MODE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MUTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ICONS;

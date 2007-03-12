@@ -58,7 +58,7 @@ public class ThemeConfig {
       return value;
     } else {
       // todo: remove condition, is only temporary to ignore wml errors.
-      if (! ClientProperties.getInstance(facesContext.getViewRoot()).getContentType().equals("wml")) {
+      if (!ClientProperties.getInstance(facesContext.getViewRoot()).getContentType().equals("wml")) {
         throw new NullPointerException("No value configured");
       }
       // todo: remove, is only temporary to ignore wml errors.
@@ -104,7 +104,7 @@ public class ThemeConfig {
       clazz = clazz.getSuperclass();
     }
     // todo: remove condition, is only temporary to ignore wml errors.
-    if (! ClientProperties.getInstance(viewRoot).getContentType().equals("wml")) {
+    if (!ClientProperties.getInstance(viewRoot).getContentType().equals("wml")) {
       LOG.error("Theme property not found for renderer: " + renderer.getClass()
           + " with clientProperties='" + ClientProperties.getInstance(viewRoot).getId() + "'"
           + " and locale='" + viewRoot.getLocale() + "'");
