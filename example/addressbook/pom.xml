@@ -94,6 +94,11 @@
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
+      <artifactId>tobago-fileupload</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-charlotteville</artifactId>
       <version>${project.version}</version>
     </dependency>

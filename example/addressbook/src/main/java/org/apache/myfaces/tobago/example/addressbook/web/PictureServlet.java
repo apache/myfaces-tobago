@@ -20,43 +20,40 @@ package org.apache.myfaces.tobago.example.addressbook.web;
 import org.apache.myfaces.tobago.util.VariableResolverUtil;
 import org.apache.myfaces.tobago.example.addressbook.Address;
 import org.apache.myfaces.tobago.example.addressbook.Picture;
+import org.apache.myfaces.tobago.servlet.NonFacesRequestServlet;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
-import javax.faces.context.FacesContextFactory;
 import javax.faces.context.FacesContext;
-import javax.faces.FactoryFinder;
-import javax.faces.lifecycle.LifecycleFactory;
-import javax.faces.lifecycle.Lifecycle;
 import java.io.IOException;
 import java.io.ByteArrayInputStream;
 
 
-public class PictureServlet extends HttpServlet {
+public class PictureServlet extends NonFacesRequestServlet {
+  private static final Log LOG = LogFactory.getLog(PictureServlet.class);
 
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    LifecycleFactory lFactory = (LifecycleFactory) FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
-    Lifecycle lifecycle = lFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
-    FacesContextFactory fcFactory =
-        (FacesContextFactory) FactoryFinder.getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
-    FacesContext facesContext = fcFactory.getFacesContext(getServletContext(), request, response, lifecycle);
+  public String invokeApplication(FacesContext facesContext) {
     Controller controller = (Controller) VariableResolverUtil.resolveVariable(facesContext, "controller");
     Address address = controller.getCurrentAddress();
     if (address.hasPicture()) {
       Picture picture = address.getPicture();
       byte[] content = picture.getContent();
+      HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
       if (content != null && content.length > 0) {
         response.setContentType(picture.getContentType());
         ByteArrayInputStream inputStream = new ByteArrayInputStream(content);
         try {
           IOUtils.copy(inputStream, response.getOutputStream());
+        } catch (IOException e) {
+          LOG.error("", e);
         } finally{
           IOUtils.closeQuietly(inputStream);
         }
       }
+      facesContext.responseComplete();
     }
+    return null;  
   }
 }

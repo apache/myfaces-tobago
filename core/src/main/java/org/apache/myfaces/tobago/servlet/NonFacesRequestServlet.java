@@ -66,6 +66,9 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
     // invoke application
     String outcome = invokeApplication(facesContext);
 
+    if (facesContext.getResponseComplete()) {
+        return;
+    }
     if (LOG.isDebugEnabled()) {
       LOG.debug("outcome = '" + outcome + "'");
     }

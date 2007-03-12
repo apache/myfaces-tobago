@@ -99,7 +99,7 @@ public class FileUploadFacesContextFactoryImpl extends FacesContextFactory {
         // ignore
       }
     } catch (NamingException e) {
-      LOG.error("Error getting env-entry", e);
+      //ignore no naming available 
     }
     LOG.info("Configure uploadMaxFileSize for "+ getClass().getName() + " to "+ this.maxSize);
     LOG.info("Configure uploadRepositryPath for "+ getClass().getName() + " to "+ this.repositoryPath);
