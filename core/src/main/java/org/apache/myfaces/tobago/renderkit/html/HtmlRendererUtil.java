@@ -747,20 +747,23 @@ public final class HtmlRendererUtil {
     return onclick;
   }
 
-  public static String appendConfirmationScript(String onclick,
-      UIComponent component, FacesContext facesContext) {
-    ValueHolder confirmation
-        = (ValueHolder) component.getFacet(TobagoConstants.FACET_CONFIRMATION);
+  @Deprecated
+  public static String appendConfirmationScript(String onclick, UIComponent component, FacesContext facesContext) {
+    return appendConfirmationScript(onclick, component);
+  }
+
+  public static String appendConfirmationScript(String onclick, UIComponent component) {
+    ValueHolder confirmation = (ValueHolder) component.getFacet(TobagoConstants.FACET_CONFIRMATION);
     if (confirmation != null) {
+      StringBuilder script = new StringBuilder();
+      script.append("confirm('");
+      script.append(confirmation.getValue());
+      script.append("')");
       if (onclick != null) {
-        onclick = "confirm('" + confirmation.getValue() + "') && " + onclick;
-      } else {
-        if (LOG.isWarnEnabled()) {
-          LOG.warn("Facet '" + TobagoConstants.FACET_CONFIRMATION + "' is not supported for "
-              + "this type of button. id = '"
-              + component.getClientId(facesContext) + "'");
-        }
+        script.append(" && ");
+        script.append(onclick);
       }
+      onclick = script.toString();
     }
     return onclick;
   }
