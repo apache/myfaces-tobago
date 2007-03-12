@@ -272,8 +272,9 @@ public class PageRenderer extends PageRendererBase {
     // onexit script
     writeEventFunction(writer, page.getOnexitScripts(), "exit");
 
+    writeEventFunction(writer, page.getOnsubmitScripts(), "submit");
 
-    int debugCounter = 0;
+   int debugCounter = 0;
     for (String script : page.getScriptBlocks()) {
 
       if (LOG.isDebugEnabled()) {

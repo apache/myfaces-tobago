@@ -43,6 +43,7 @@ public class ScriptTag extends BodyTagSupport {
   private String onload;
   private String onunload;
   private String onexit;
+  private String onsubmit;
 
   @Override
   public int doEndTag() throws JspException {
@@ -66,6 +67,9 @@ public class ScriptTag extends BodyTagSupport {
     if (onexit != null) {
       page.getOnexitScripts().add(ComponentUtil.getValueFromEl(onexit));
     }
+    if (onsubmit != null) {
+      page.getOnsubmitScripts().add(ComponentUtil.getValueFromEl(onsubmit));
+    }
     if (bodyContent != null) {
       String script = bodyContent.getString();
       bodyContent.clearBody();
@@ -87,6 +91,7 @@ public class ScriptTag extends BodyTagSupport {
     onload = null;
     onunload = null;
     onexit = null;
+    onsubmit = null;
   }
 
   public String getFile() {
@@ -132,6 +137,14 @@ public class ScriptTag extends BodyTagSupport {
   @TagAttribute
   public void setOnexit(String onexit) {
     this.onexit = onexit;
+  }
+
+  /**
+   * A script function which is invoked on client just before submitting the action.
+   */
+  @TagAttribute
+  public void setOnsubmit(String onsubmit) {
+    this.onsubmit = onsubmit;
   }
 }
 

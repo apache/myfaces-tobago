@@ -427,6 +427,9 @@ var Tobago = {
         if (target) {
           Tobago.form.target = target;
         }
+        if (Tobago.applicationOnsubmit) {
+          Tobago.applicationOnsubmit();
+        }
         Tobago.onSubmit();
   //      LOG.debug("submit form with action: " + Tobago.action.value);
         Tobago.form.submit();
@@ -1724,6 +1727,10 @@ Tobago.Updater = {
         Tobago.extend(requestOptions, options);
       }
 
+      if (Tobago.applicationOnsubmit) {
+        Tobago.applicationOnsubmit();
+      }
+      
       if (requestOptions.createOverlay) {
         Tobago.createOverlay(container);
       }

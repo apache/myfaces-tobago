@@ -81,6 +81,8 @@ public class UIPage extends UIForm {
 
   private Set<String> onexitScripts;
 
+  private Set<String> onsubmitScripts;
+
   private List<UIPopup> popups;
 
   private Integer width;
@@ -97,6 +99,7 @@ public class UIPage extends UIForm {
     onloadScripts = new ListOrderedSet();
     onunloadScripts = new ListOrderedSet();
     onexitScripts = new ListOrderedSet();
+    onsubmitScripts = new ListOrderedSet();
     popups = new ArrayList<UIPopup>();
   }
 
@@ -342,6 +345,10 @@ public class UIPage extends UIForm {
 
   public Set<String> getOnexitScripts() {
     return onexitScripts;
+  }
+
+  public Set<String> getOnsubmitScripts() {
+    return onsubmitScripts;
   }
 
   public List<UIPopup> getPopups() {
