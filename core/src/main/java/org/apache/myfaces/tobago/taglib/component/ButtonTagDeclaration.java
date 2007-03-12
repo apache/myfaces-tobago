@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -46,8 +47,10 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIButtonCommand",
-    rendererType = "Button")
-
+    rendererType = "Button",
+    facets = {
+        @Facet(name="confirmation", description = "Contains a UIOutput instance with the confirmation message."),
+        @Facet(name="popup", description = "Contains a UIPopup instance.")})
 public interface ButtonTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
     IsDisabled, HasCommandType,

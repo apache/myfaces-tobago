@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasImage;
@@ -44,7 +45,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UILinkCommand",
-    rendererType = "Link")
+    rendererType = "Link",
+    facets = {@Facet(name="confirmation", description = "Contains a UIOutput instance with the confirmation message.")})
 public interface LinkTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled,
     IsInline, HasCommandType,
