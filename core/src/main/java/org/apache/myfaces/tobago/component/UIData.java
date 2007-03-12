@@ -671,4 +671,13 @@ public class UIData extends javax.faces.component.UIData
     }
     return scrollPosition;
   }
+
+
+  public static final String rowIdxRegex = "^\\d+" + SEPARATOR_CHAR + ".*";
+  public UIComponent findComponent(String searchId) {
+    if (searchId.matches(rowIdxRegex)) {
+      searchId = searchId.substring(searchId.indexOf(SEPARATOR_CHAR) + 1);
+    }
+    return super.findComponent(searchId);
+  }
 }
