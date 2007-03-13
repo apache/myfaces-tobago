@@ -271,6 +271,12 @@
                     </artifactItem>
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-theme-standard</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>jdk14retro</classifier>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-theme-speyside</artifactId>
                       <version>${project.version}</version>
                       <classifier>jdk14retro</classifier>
