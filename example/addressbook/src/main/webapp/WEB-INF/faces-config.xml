@@ -75,7 +75,7 @@
     <managed-property>
       <property-name>height</property-name>
       <property-class>int</property-class>
-      <value>500</value>
+      <value>550</value>
     </managed-property>
     <managed-property>
       <property-name>minimumWidth</property-name>
@@ -85,7 +85,7 @@
     <managed-property>
       <property-name>minimumHeight</property-name>
       <property-class>int</property-class>
-      <value>600</value>
+      <value>550</value>
     </managed-property>
      <managed-property>
       <property-name>maximumWidth</property-name>
