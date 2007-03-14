@@ -35,6 +35,8 @@ import java.util.HashMap;
 
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -178,8 +180,17 @@ public abstract class GenericTestBase extends TestCase {
   private Tld getTld(String name, InputStream stream) throws Exception {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     DocumentBuilder db = dbf.newDocumentBuilder();
+    db.setEntityResolver(new Resolver());
     Document doc = db.parse(stream);
     return TldParser.parse(doc, name);
+  }
+
+  private static class Resolver implements EntityResolver {
+    public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
+      InputSource inputSource = new InputSource(GenericTestBase.class.getResourceAsStream("/web-jsptaglibrary_1_2.dtd"));
+      inputSource.setSystemId(systemId);
+      return inputSource;
+    }
   }
 }
 
