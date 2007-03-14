@@ -16,9 +16,10 @@
  */
 
 
-Tobago.TabGroup = function(tabGroupId, activeIndex, page) {
+Tobago.TabGroup = function(tabGroupId, activeIndex, size) {
   this.tabGroupId = tabGroupId,
-      this.activeIndex = activeIndex;
+  this.activeIndex = activeIndex;
+  this.size = size;
   this.activeTabId  = tabGroupId + '.' + activeIndex;
   LOG.debug("activeTabId : " + this.activeTabId);
 
@@ -44,7 +45,7 @@ Tobago.TabGroup = function(tabGroupId, activeIndex, page) {
       onComplete: Tobago.bind(this, "onComplete")
   };
 
-  LOG.debug("opnclomplete = " + this.options.onComplete);
+  LOG.debug("onComplete = " + this.options.onComplete);
 
   this.setUp();
 };
@@ -57,9 +58,11 @@ Tobago.TabGroup.prototype.setUp = function() {
     var idPrefix = this.activeTabId + Tobago.SUB_COMPONENT_SEP;
 
 //    var htmlId = this.tabGroupId;
-    var anchor = Tobago.element(idPrefix + i++);
-    while (anchor) {
-      LOG.debug("observe tab " + anchor.id);
+    for (i = 0; i < this.size; i++) {
+
+      var anchor = Tobago.element(idPrefix + i);
+      if (anchor) {
+        LOG.debug("observe tab " + anchor.id);
 //      if (i != this.activeIndex) {
 //        Event.observe(anchor, "click", this.reload.bindAsEventListener(this));
 //      }
@@ -73,8 +76,8 @@ Tobago.TabGroup.prototype.setUp = function() {
 //      };
 
 //      Tobago.addEventListener(anchor, "click", onClick);
-      Tobago.addBindEventListener(anchor, "click", this, "reload");
-      anchor = Tobago.element(idPrefix + i++);
+        Tobago.addBindEventListener(anchor, "click", this, "reload");
+      }
     }
 
 

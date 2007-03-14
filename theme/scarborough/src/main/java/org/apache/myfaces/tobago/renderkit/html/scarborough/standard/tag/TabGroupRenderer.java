@@ -162,7 +162,8 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
             final String[] cmds = {
                 "new Tobago.TabGroup(",
                 "    '" + clientId + "', ",
-                "    '" + activeIndex + "');"
+                "    '" + activeIndex + "', ",
+                "    '" + component.getChildCount() + "');"
             };
             HtmlRendererUtil.writeScriptLoader(facesContext, new String[0], cmds);
           }
