@@ -103,7 +103,7 @@
         <tx:selectOneChoice label="#{bundle.footerLanguage}"
                value="#{controller.language}">
           <f:selectItems value="#{controller.languages}" />
-          <f:facet name="click">
+          <f:facet name="change">
             <tc:command />
           </f:facet>
         </tx:selectOneChoice>
@@ -113,7 +113,7 @@
       <tc:form>
         <tx:selectOneChoice label="#{bundle.footerTheme}" value="#{controller.theme}">
           <f:selectItems value="#{controller.themeItems}" />
-          <f:facet name="click">
+          <f:facet name="change">
             <tc:command action="#{controller.themeChanged}"/>
           </f:facet>
         </tx:selectOneChoice>
