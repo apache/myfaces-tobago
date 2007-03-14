@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.component.UIPanelBase;
 import org.apache.myfaces.tobago.component.UITabGroup;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_CLIENT;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_PAGE;
@@ -135,9 +135,9 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     // tabs and render it as they are selected, and it will
     // selected with stylesheet.
     int virtualTab = 0;
-    //UIPanel[] tabs = component.getTabs();
+    //UIPanelBase[] tabs = component.getTabs();
     for (UIComponent tab: (List<UIComponent>) component.getChildren()) {
-      if (tab instanceof UIPanel) {
+      if (tab instanceof UIPanelBase) {
         if (tab.isRendered() && (SWITCH_TYPE_CLIENT.equals(switchType) || virtualTab == activeIndex)) {
 
           if (virtualTab != activeIndex) {
@@ -177,7 +177,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     // ensure to select a rendered tab
     int index = 0;
     for (UIComponent tab: (List<UIComponent>) tabGroup.getChildren()) {
-      if (tab instanceof UIPanel) {
+      if (tab instanceof UIPanelBase) {
         if (tab.isRendered()) {
           if (activeIndex == index) {
             return index;
@@ -224,11 +224,11 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     writer.startElement(HtmlConstants.TR, null);
     writer.writeAttribute(HtmlAttributes.VALIGN, "bottom", null);
 
-    UIPanel activeTab = null;
+    UIPanelBase activeTab = null;
 
     int index = 0;
     for (UIComponent tab: (List<UIComponent>) component.getChildren()) {
-      if (tab instanceof UIPanel) {
+      if (tab instanceof UIPanelBase) {
         if (tab.isRendered()) {
           String onclick;
           if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()
@@ -252,7 +252,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
           if (virtualTab == index) {
             outerClass = "tobago-tab-selected-outer";
             innerClass = "tobago-tab-selected-inner";
-            activeTab = (UIPanel) tab;
+            activeTab = (UIPanelBase) tab;
           } else {
             outerClass = "tobago-tab-unselected-outer";
             innerClass = "tobago-tab-unselected-inner";
@@ -323,7 +323,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
   }
 
   protected void encodeContent(TobagoResponseWriter writer,
-      FacesContext facesContext, UIPanel activeTab) throws IOException {
+      FacesContext facesContext, UIPanelBase activeTab) throws IOException {
 
     HtmlStyleMap bodyStyle = (HtmlStyleMap)
         activeTab.getParent().getAttributes().get(ATTR_STYLE_BODY);
@@ -361,7 +361,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     } else {
       fixedHeight = 0;
       for (UIComponent tab: (List<UIComponent>) component.getChildren()) {
-        if (tab instanceof UIPanel && tab.isRendered()) {
+        if (tab instanceof UIPanelBase && tab.isRendered()) {
           RendererBase renderer = ComponentUtil.getRenderer(facesContext, tab);
           fixedHeight
               = Math.max(fixedHeight, renderer.getFixedHeight(facesContext, tab));
@@ -380,7 +380,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
         component.getAttributes().get(ATTR_LAYOUT_HEIGHT);
 
     for (UIComponent tab: (List<UIComponent>) component.getChildren()) {
-      if (tab instanceof UIPanel && tab.isRendered())  {
+      if (tab instanceof UIPanelBase && tab.isRendered())  {
         if (layoutWidth != null) {
           HtmlRendererUtil.layoutSpace(facesContext, tab, true);
         }

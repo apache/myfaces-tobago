@@ -8,5 +8,5 @@ Based on source code originally developed by
 Atanion GmbH (http://www.atanion.com/)
 Copyright 2002-2005 Atanion GmbH.
 
-This product includes FLAG ICONS developed by
+This product includes flag icons developed by
 Mark James (http://www.famfamfam.com/lab/icons/flags/)

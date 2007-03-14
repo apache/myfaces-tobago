@@ -27,7 +27,7 @@ import javax.faces.context.FacesContext;
  * Date: 10.02.2006
  * Time: 21:20:10
  */
-public class UICell extends UIPanel {
+public class UICell extends UIPanelBase {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Cell";
 

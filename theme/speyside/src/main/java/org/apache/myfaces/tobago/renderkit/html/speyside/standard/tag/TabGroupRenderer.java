@@ -25,7 +25,7 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
-import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.component.UIPanelBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -43,7 +43,7 @@ public class TabGroupRenderer extends
   private static final Log LOG = LogFactory.getLog(TabGroupRenderer.class);
 
   protected void encodeContent(TobagoResponseWriter writer,
-      FacesContext facesContext, UIPanel activeTab) throws IOException {
+      FacesContext facesContext, UIPanelBase activeTab) throws IOException {
 
     HtmlStyleMap bodyStyle = (HtmlStyleMap)
         activeTab.getParent().getAttributes().get(ATTR_STYLE_BODY);

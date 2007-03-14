@@ -42,7 +42,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponent {
+public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComponent {
 
   private static final Log LOG = LogFactory.getLog(UITabGroup.class);
 
@@ -114,22 +114,22 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
     }
   }
 
-  public UIPanel[] getTabs() {
-    List<UIPanel> tabs = new ArrayList<UIPanel>();
+  public UIPanelBase[] getTabs() {
+    List<UIPanelBase> tabs = new ArrayList<UIPanelBase>();
     for (Object o : getChildren()) {
       UIComponent kid = (UIComponent) o;
-      if (kid instanceof UIPanel) {
+      if (kid instanceof UIPanelBase) {
         //if (kid.isRendered()) {
-          tabs.add((UIPanel) kid);
+          tabs.add((UIPanelBase) kid);
         //}
       } else {
         LOG.error("Invalid component in UITabGroup: " + kid);
       }
     }
-    return tabs.toArray(new UIPanel[tabs.size()]);
+    return tabs.toArray(new UIPanelBase[tabs.size()]);
   }
 
-  public UIPanel getActiveTab() {
+  public UIPanelBase getActiveTab() {
     return getTab(getSelectedIndex());
   }
 
@@ -144,7 +144,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
       if (!isRendered()) {
         return;
       }
-      UIPanel renderedTab = getRenderedTab();
+      UIPanelBase renderedTab = getRenderedTab();
       renderedTab.processDecodes(context);
       try {
         decode(context);
@@ -166,7 +166,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
       if (!isRendered()) {
         return;
       }
-      UIPanel renderedTab = getRenderedTab();
+      UIPanelBase renderedTab = getRenderedTab();
       renderedTab.processValidators(context);
     } else {
       super.processValidators(context);
@@ -182,7 +182,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
       if (!isRendered()) {
         return;
       }
-      UIPanel renderedTab = getRenderedTab();
+      UIPanelBase renderedTab = getRenderedTab();
       renderedTab.processUpdates(context);
 
     } else {
@@ -326,12 +326,12 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
     this.switchType = switchType;
   }
 
-  private UIPanel getTab(int index) {
+  private UIPanelBase getTab(int index) {
     int i = 0;
     for (UIComponent component : (List<UIComponent>) getChildren()) {
-      if (component instanceof UIPanel) {
+      if (component instanceof UIPanelBase) {
         if (i == index) {
-          return (UIPanel) component;
+          return (UIPanelBase) component;
         }
         i++;
       } else {
@@ -342,7 +342,7 @@ public class UITabGroup extends UIPanel implements TabChangeSource, AjaxComponen
     return null;
   }
 
-  private UIPanel getRenderedTab() {
+  private UIPanelBase getRenderedTab() {
     return getTab(getRenderedIndex());
   }
 }

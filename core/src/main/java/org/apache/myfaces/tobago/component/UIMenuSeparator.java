@@ -23,7 +23,7 @@ package org.apache.myfaces.tobago.component;
  * Date: 31.03.2006
  * Time: 20:47:00
  */
-public class UIMenuSeparator extends UIPanel {
+public class UIMenuSeparator extends UIPanelBase {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.MenuSeparator";
 }

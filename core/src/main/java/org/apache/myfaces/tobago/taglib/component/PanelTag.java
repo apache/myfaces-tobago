@@ -24,14 +24,33 @@ package org.apache.myfaces.tobago.taglib.component;
 
 
 import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.servlet.jsp.tagext.BodyTag;
+import javax.faces.component.UIComponent;
 
 public class PanelTag extends TobagoBodyTag
     implements BodyTag, PanelTagDeclaration {
 
+  private String markup;
+
   public String getComponentType() {
     return UIPanel.COMPONENT_TYPE;
   }
+
+  public void release() {
+    super.release();
+    markup = null;
+  }
+
+  protected void setProperties(UIComponent component) {
+    super.setProperties(component);
+    ComponentUtil.setMarkup(component, markup);
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
+  }
+
 }
 

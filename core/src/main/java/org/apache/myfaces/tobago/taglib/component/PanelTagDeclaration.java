@@ -17,9 +17,7 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.apt.annotation.Facet;
+import org.apache.myfaces.tobago.apt.annotation.*;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
@@ -42,4 +40,13 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
     @Facet(name="layout", description = "Contains an instance of UILayout")})
 public interface PanelTagDeclaration extends TobagoBodyTagDeclaration,
     HasIdBindingAndRendered, HasDeprecatedDimension {
+
+  /**
+   * Indicate markup of this component.
+   * Possible value is 'none'. But this can be overridden in the theme.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(defaultValue = "none")
+  void setMarkup(String markup);
+  
 }

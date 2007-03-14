@@ -17,47 +17,43 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
-import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
-
 import javax.faces.context.FacesContext;
-import java.io.IOException;
 
-/*
- * User: weber
- * Date: Feb 28, 2005
- * Time: 3:05:19 PM
+/**
+ * User: idus
+ * Date: 12.03.2007
+ * Time: 22:32:13
  */
-public class UIPanel extends javax.faces.component.UIPanel
-    implements AjaxComponent {
+public class UIPanel extends UIPanelBase implements SupportsMarkup {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Panel";
 
-  public void encodeBegin(FacesContext facesContext) throws IOException {
-    // TODO change this should be renamed to DimensionUtils.prepare!!!
-    UILayout.getLayout(this).layoutBegin(facesContext, this);
-    super.encodeBegin(facesContext);
-  }
+  protected String[] markup;
 
-  public void encodeChildren(FacesContext facesContext) throws IOException {
-   if (isRendered()) {
-     UILayout.getLayout(this).encodeChildrenOfComponent(facesContext, this);
-   }
-  }
-
-  public void encodeAjax(FacesContext facesContext) throws IOException {
-    AjaxUtils.encodeAjaxComponent(facesContext, this);    
-  }
-
-  public void processAjax(FacesContext facesContext) throws IOException {
-    final String ajaxId = (String) facesContext.getExternalContext()
-        .getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
-
-    if (ajaxId.equals(getClientId(facesContext))) {
-      AjaxUtils.processActiveAjaxComponent(facesContext, this);
-    } else {
-      AjaxUtils.processAjaxOnChildren(facesContext, this);
+  public String[] getMarkup() {
+    if (markup != null) {
+      return markup;
     }
+    return ComponentUtil.getMarkupBinding(getFacesContext(), this);
   }
+
+  public void setMarkup(String[] markup) {
+    this.markup = markup;
+  }
+
+  @Override
+  public void restoreState(FacesContext context, Object state) {
+    Object[] values = (Object[]) state;
+    super.restoreState(context, values[0]);
+    markup = (String[]) values[1];
+   }
+
+  @Override
+  public Object saveState(FacesContext context) {
+    Object[] values  = new Object[2];
+    values[0] = super.saveState(context);
+    values[1] = markup;
+    return values;
+  }
+
 }

@@ -33,7 +33,7 @@ import javax.faces.el.ValueBinding;
 import java.io.IOException;
 import java.util.Iterator;
 
-public class UIPopup extends UIPanel implements NamingContainer, AjaxComponent {
+public class UIPopup extends UIPanelBase implements NamingContainer, AjaxComponent {
 
   private static final Log LOG = LogFactory.getLog(UIPopup.class);
 

@@ -17,45 +17,14 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import javax.faces.context.FacesContext;
-
 /*
  * Created by IntelliJ IDEA.
  * User: bommel
  * Date: Nov 4, 2006
  * Time: 3:10:46 PM
  */
-public class UIBox extends UIPanel
-    implements SupportsMarkup {
+public class UIBox extends UIPanel {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Box";
-
-  private String[] markup;
-
-  public String[] getMarkup() {
-    if (markup != null) {
-      return markup;
-    }
-    return ComponentUtil.getMarkupBinding(getFacesContext(), this);
-  }
-
-  public void setMarkup(String[] markup) {
-    this.markup = markup;
-  }
-
-  @Override
-  public void restoreState(FacesContext context, Object state) {
-    Object[] values = (Object[]) state;
-    super.restoreState(context, values[0]);
-    markup = (String[]) values[1];
-   }
-
-  @Override
-  public Object saveState(FacesContext context) {
-    Object[] values  = new Object[2];
-    values[0] = super.saveState(context);
-    values[1] = markup;
-    return values;
-  }
 
 }

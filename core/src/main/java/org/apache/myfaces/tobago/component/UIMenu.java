@@ -23,6 +23,6 @@ package org.apache.myfaces.tobago.component;
  * Date: 31.03.2006
  * Time: 21:36:15
  */
-public class UIMenu extends UIPanel {
+public class UIMenu extends UIPanelBase {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Menu";
 }
