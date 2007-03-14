@@ -28,7 +28,7 @@ public class UIPanel extends UIPanelBase implements SupportsMarkup {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Panel";
 
-  protected String[] markup;
+  private String[] markup;
 
   public String[] getMarkup() {
     if (markup != null) {
