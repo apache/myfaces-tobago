@@ -27,8 +27,12 @@
         <tc:gridLayout margin="10px"  rows="fixed;1*;20px"/>
       </f:facet>
       <tc:toolBar iconSize="big">
+        <tc:button label="#{bundle.toolbarAddressList}" action="#{controller.search}" immediate="true"
+            image="image/org/tango-project/tango-icon-theme/32x32/mimetypes/x-office-address-book.png"/>
         <tc:button label="#{bundle.listNew}" action="#{controller.createAddress}"
             image="image/org/tango-project/tango-icon-theme/32x32/actions/contact-new.png" />
+        <tc:button onclick="alert('#{bundle.aboutMessage}')" label="#{bundle.toolbarAbout}"
+            image="image/org/tango-project/tango-icon-theme/32x32/apps/help-browser.png"/>
       </tc:toolBar>
       <tc:box label="#{bundle.listBoxTitle}" >
         <f:facet name="layout">
