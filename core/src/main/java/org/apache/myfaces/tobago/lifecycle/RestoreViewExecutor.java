@@ -55,7 +55,7 @@ class RestoreViewExecutor implements PhaseExecutor {
     UIViewRoot viewRoot = (UIViewRoot) sessionMap.get(VIEW_ROOT_KEY);
     if (viewRoot != null) {
       facesContext.setViewRoot(viewRoot);
-      sessionMap.remove(viewRoot);
+      sessionMap.remove(VIEW_ROOT_KEY);
       facesContext.renderResponse();
       return true;
     }
