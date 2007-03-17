@@ -53,7 +53,7 @@
     <property name="dataSource" ref="dataSource"/>
   </bean>
 
-  <bean id="addressDAO" class="org.apache.myfaces.tobago.example.addressbook.JpaAddressDAO">
+  <bean id="addressDao" class="org.apache.myfaces.tobago.example.addressbook.JpaAddressDao">
     <property name="entityManagerFactory" ref="entityManagerFactory"/>
   </bean>
 

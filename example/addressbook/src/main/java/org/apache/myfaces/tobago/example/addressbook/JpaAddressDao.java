@@ -28,9 +28,9 @@ import java.util.List;
 
 @Repository
 @Transactional()
-public class JpaAddressDAO extends JpaDaoSupport implements AddressDao {
+public class JpaAddressDao extends JpaDaoSupport implements AddressDao {
 
-  private static final Log LOG = LogFactory.getLog(JpaAddressDAO.class);
+  private static final Log LOG = LogFactory.getLog(JpaAddressDao.class);
 
   public Address updateAddress(Address address) throws AddressDaoException {
     if (address.getId() == null) {

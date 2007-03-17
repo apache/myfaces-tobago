@@ -48,8 +48,8 @@
     <managed-bean-class>org.apache.myfaces.tobago.example.addressbook.web.Controller</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     <managed-property>
-      <property-name>addressDAO</property-name>
-      <value>#{addressDAO}</value>
+      <property-name>addressDao</property-name>
+      <value>#{addressDao}</value>
     </managed-property>
     <managed-property>
       <property-name>countries</property-name>

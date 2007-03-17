@@ -34,6 +34,8 @@ import org.apache.myfaces.tobago.example.addressbook.Address;
 import org.apache.myfaces.tobago.example.addressbook.AddressDao;
 import org.apache.myfaces.tobago.example.addressbook.AddressDaoException;
 import org.apache.myfaces.tobago.example.addressbook.Picture;
+import org.apache.myfaces.tobago.event.SortActionEvent;
+import org.apache.myfaces.tobago.component.UIData;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.Application;
@@ -44,6 +46,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.validator.ValidatorException;
 import javax.faces.convert.DateTimeConverter;
+import javax.faces.event.ActionEvent;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -104,10 +107,21 @@ public class Controller {
     theme = client.getTheme();
   }
 
-  public void setAddressDAO(AddressDao addressDao) throws AddressDaoException {
+  public void setAddressDao(AddressDao addressDao) throws AddressDaoException {
     this.addressDao = addressDao;
     currentAddressList = addressDao.findAddresses();
   }
+
+  public void sheetSorter(ActionEvent event) {
+    if (event instanceof SortActionEvent) {
+      SortActionEvent sortEvent = (SortActionEvent) event;
+      UIData sheet = sortEvent.getSheet();
+      SheetState sheetState
+          = sheet.getSheetState(FacesContext.getCurrentInstance());
+      String columnId = sheetState.getSortedColumnId();
+    }
+  }
+
 
   public String search() throws AddressDaoException {
     return OUTCOME_LIST;
