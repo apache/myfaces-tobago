@@ -28,6 +28,10 @@ import javax.faces.event.PhaseId;
 import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.StringTokenizer;
+import java.util.List;
+import java.util.ArrayList;
 
 /*
  * Created by IntelliJ IDEA.
@@ -39,34 +43,7 @@ public class AjaxUtils {
 
   private static final Log LOG = LogFactory.getLog(AjaxUtils.class);
 
-//  public static void processAjax(FacesContext facesContext, UIComponent component) throws IOException {
-//
-//    component.processValidators(facesContext);
-//
-//    if (! facesContext.getRenderResponse()) {
-//      component.processUpdates(facesContext);
-//    }
-//
-//    // invokeApplication here ??
-//
-//    renderAjax(facesContext, component);
-//  }
-//
-//  private static void renderAjax(FacesContext facesContext, UIComponent component) throws IOException {
-//    final Iterator facetsAndChildren = component.getFacetsAndChildren();
-//    while (facetsAndChildren.hasNext()) {
-//      UIComponent child = (UIComponent) facetsAndChildren.next();
-//      if (child instanceof AjaxComponent) {
-//        ((AjaxComponent)child).processAjax(facesContext);
-//      }
-//      else {
-//        renderAjax(facesContext, child);
-//      }
-//      if (facesContext.getResponseComplete()) {
-//        return;
-//      }
-//    }
-//  }
+  public static final String AJAX_COMPONENTS = AjaxUtils.class.getName() + ".AJAX_COMPONENTS";
 
   public static void checkParamValidity(FacesContext facesContext, UIComponent uiComponent, Class compClass) {
     if (facesContext == null) {
@@ -154,5 +131,32 @@ public class AjaxUtils {
     while (facetsAndChildren.hasNext() && !facesContext.getResponseComplete()) {
       AjaxUtils.processAjax(facesContext, facetsAndChildren.next());
     }
+  }
+
+  public static void parseAndStoreComponents(FacesContext facesContext) {
+    Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    String ajaxComponentIds = (String) parameterMap.get(AjaxPhaseListener.AJAX_COMPONENT_ID);
+    if (ajaxComponentIds != null) {
+      LOG.info("ajaxComponentIds = \"" + ajaxComponentIds + "\"");
+      StringTokenizer tokenizer = new StringTokenizer(ajaxComponentIds, ",");
+      ArrayList<UIComponent> ajaxComponents = new ArrayList<UIComponent>(tokenizer.countTokens());
+      //noinspection unchecked
+      facesContext.getExternalContext().getRequestMap().put(AJAX_COMPONENTS, ajaxComponents);
+      javax.faces.component.UIViewRoot viewRoot = facesContext.getViewRoot();
+      while (tokenizer.hasMoreTokens()) {
+        String ajaxId = tokenizer.nextToken();
+        UIComponent ajaxComponent = viewRoot.findComponent(ajaxId);
+        if (ajaxComponent != null) {
+          LOG.info("ajaxComponent = \"" + ajaxComponent + "\"");
+          ajaxComponents.add(ajaxComponent);
+        }
+      }
+    }
+  }
+
+  public static List<UIComponent> getAjaxComponents(FacesContext facesContext) {
+    //noinspection unchecked
+    return (List<UIComponent>)
+        facesContext.getExternalContext().getRequestMap().get(AJAX_COMPONENTS);
   }
 }

@@ -17,23 +17,27 @@ package org.apache.myfaces.tobago.lifecycle;
  * limitations under the License.
  */
 
-import java.io.IOException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
 
 import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 import javax.faces.event.PhaseId;
-//import javax.portlet.PortletRequest;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.Iterator;
+import java.util.Map;
 //import org.apache.myfaces.portlet.MyFacesGenericPortlet;
 //import org.apache.myfaces.portlet.PortletUtil;
-//import org.apache.myfaces.shared_impl.util.RestoreStateUtils;
-//import org.apache.myfaces.util.DebugUtils;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
@@ -45,9 +49,20 @@ class RestoreViewExecutor implements PhaseExecutor {
   private static final Log LOG = LogFactory.getLog(RestoreViewExecutor.class);
 
   public boolean execute(FacesContext facesContext) {
+    ExternalContext externalContext = facesContext.getExternalContext();
+
+    Map sessionMap = externalContext.getSessionMap();
+    UIViewRoot viewRoot = (UIViewRoot) sessionMap.get(VIEW_ROOT_KEY);
+    if (viewRoot != null) {
+      facesContext.setViewRoot(viewRoot);
+      sessionMap.remove(viewRoot);
+      facesContext.renderResponse();
+      return true;
+    }
+
     if(facesContext.getViewRoot() != null) {
       facesContext.getViewRoot().setLocale(facesContext.getExternalContext().getRequestLocale());
-//      RestoreStateUtils.recursivelyHandleComponentReferencesAndSetValid(facesContext, facesContext.getViewRoot());
+      recursivelyHandleComponentReferencesAndSetValid(facesContext, facesContext.getViewRoot());
       return false;
     }
 
@@ -55,7 +70,6 @@ class RestoreViewExecutor implements PhaseExecutor {
     String viewId = deriveViewId(facesContext);
 
     if (viewId == null) {
-      ExternalContext externalContext = facesContext.getExternalContext();
 
       if(externalContext.getRequestServletPath() == null) {
         return true;
@@ -76,7 +90,7 @@ class RestoreViewExecutor implements PhaseExecutor {
     ViewHandler viewHandler = application.getViewHandler();
 
     // boolean viewCreated = false;
-    UIViewRoot viewRoot = viewHandler.restoreView(facesContext, viewId);
+    viewRoot = viewHandler.restoreView(facesContext, viewId);
     if (viewRoot == null) {
       viewRoot = viewHandler.createView(facesContext, viewId);
       viewRoot.setViewId(viewId);
@@ -91,7 +105,9 @@ class RestoreViewExecutor implements PhaseExecutor {
       facesContext.renderResponse();
     }
 
-//    RestoreStateUtils.recursivelyHandleComponentReferencesAndSetValid(facesContext, viewRoot);
+    recursivelyHandleComponentReferencesAndSetValid(facesContext, viewRoot);
+    //noinspection unchecked
+    facesContext.getExternalContext().getRequestMap().put(VIEW_ROOT_KEY, viewRoot);
     return false;
   }
 
@@ -102,6 +118,7 @@ class RestoreViewExecutor implements PhaseExecutor {
   private static String deriveViewId(FacesContext facesContext) {
     ExternalContext externalContext = facesContext.getExternalContext();
 
+    // TODO: Portlet
 //    if (PortletUtil.isPortletRequest(facesContext)) {
 //      PortletRequest request = (PortletRequest) externalContext.getRequest();
 //      return request.getParameter(MyFacesGenericPortlet.VIEW_ID);
@@ -111,17 +128,21 @@ class RestoreViewExecutor implements PhaseExecutor {
     if (viewId == null) {
       // No extra path info found, so it is propably extension mapping
       viewId = externalContext.getRequestServletPath(); // getServletPath
-//      DebugUtils.assertError(viewId != null, LOG,
-//          "RequestServletPath is null, cannot determine viewId of current page.");
       if (viewId == null) {
-        return null;
+        String msg = "RequestServletPath is null, cannot determine viewId of current page.";
+        LOG.error(msg);
+        throw new FacesException(msg);
       }
 
       // TODO: JSF Spec 2.2.1 - what do they mean by "if the default
       // ViewHandler implementation is used..." ?
       String defaultSuffix = externalContext.getInitParameter(ViewHandler.DEFAULT_SUFFIX_PARAM_NAME);
       String suffix = defaultSuffix != null ? defaultSuffix : ViewHandler.DEFAULT_SUFFIX;
-//      DebugUtils.assertError(suffix.charAt(0) == '.', LOG, "Default suffix must start with a dot!");
+      if (suffix.charAt(0) != '.') {
+        String msg = "Default suffix must start with a dot!";
+        LOG.error(msg);
+        throw new FacesException(msg);
+      }
 
       int dot = viewId.lastIndexOf('.');
       if (dot == -1) {
@@ -134,4 +155,62 @@ class RestoreViewExecutor implements PhaseExecutor {
 
     return viewId;
   }
+
+
+
+  // next two methods are taken from 'org.apache.myfaces.shared.util.RestoreStateUtils'
+
+  public static void recursivelyHandleComponentReferencesAndSetValid(FacesContext facesContext,
+                                                                     UIComponent parent)
+  {
+    boolean forceHandle = false;
+
+    Method handleBindingsMethod = getBindingMethod(parent);
+
+    if(handleBindingsMethod!=null && !forceHandle) {
+      try {
+        handleBindingsMethod.invoke(parent, new Object[]{});
+      } catch (Throwable th) {
+        LOG.error("Exception while invoking handleBindings on component with client-id:"
+            + parent.getClientId(facesContext), th);
+      }
+    } else {
+      for (Iterator it = parent.getFacetsAndChildren(); it.hasNext();) {
+        UIComponent component = (UIComponent) it.next();
+
+        ValueBinding binding = component.getValueBinding("binding");    //TODO: constant
+        if (binding != null && !binding.isReadOnly(facesContext)) {
+          binding.setValue(facesContext, component);
+        }
+
+        if (component instanceof UIInput) {
+          ((UIInput) component).setValid(true);
+        }
+
+        recursivelyHandleComponentReferencesAndSetValid(facesContext, component);
+      }
+    }
+  }
+
+  /**This is all a hack to work around a spec-bug which will be fixed in JSF2.0
+   *
+   * @param parent
+   * @return true if this component is bindingAware (e.g. aliasBean)
+   */
+  private static Method getBindingMethod(UIComponent parent) {
+    Class[] clazzes = parent.getClass().getInterfaces();
+
+    for (Class clazz : clazzes) {
+      if (clazz.getName().indexOf("BindingAware") != -1) {
+        try {
+          return parent.getClass().getMethod("handleBindings", new Class[]{});
+        } catch (NoSuchMethodException e) {
+          // return
+        }
+      }
+    }
+
+    return null;
+  }
+
 }

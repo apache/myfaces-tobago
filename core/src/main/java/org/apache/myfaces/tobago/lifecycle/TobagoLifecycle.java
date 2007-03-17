@@ -28,7 +28,8 @@ import javax.faces.lifecycle.Lifecycle;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-//import org.apache.myfaces.util.DebugUtils;
+
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
@@ -36,6 +37,8 @@ import org.apache.commons.logging.LogFactory;
 public class TobagoLifecycle extends Lifecycle {
 
   private static final Log LOG = LogFactory.getLog(TobagoLifecycle.class);
+
+  public static final String VIEW_ROOT_KEY = TobagoLifecycle.class.getName() + ".VIEW_ROOT_KEY";
 
   private PhaseExecutor[] lifecycleExecutors;
   private PhaseExecutor renderExecutor;
@@ -135,8 +138,7 @@ public class TobagoLifecycle extends Lifecycle {
     }
 
     if (LOG.isTraceEnabled()) {
-      //Note: DebugUtils Logger must also be in trace level
-//      DebugUtils.traceView("View after rendering");
+      LOG.trace(ComponentUtil.toString(facesContext.getViewRoot(), 0));
     }
 
     if (LOG.isTraceEnabled()) {

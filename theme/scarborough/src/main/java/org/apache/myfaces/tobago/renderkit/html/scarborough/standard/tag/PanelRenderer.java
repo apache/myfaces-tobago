@@ -39,6 +39,7 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
+import org.apache.myfaces.tobago.ajax.api.AjaxResponseRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
@@ -170,10 +171,8 @@ public class PanelRenderer extends RendererBase implements AjaxRenderer {
     if (update) {
       component.encodeChildren(facesContext);
     } else {
-      facesContext.getExternalContext().getRequestMap().put(AjaxPhaseListener.TOBAGO_AJAX_STATUS_CODE,
-          AjaxPhaseListener.CODE_NOT_MODIFIED);
+      facesContext.getResponseWriter().write(AjaxResponseRenderer.CODE_NOT_MODIFIED);
     }
-    facesContext.responseComplete();
   }
 
 }

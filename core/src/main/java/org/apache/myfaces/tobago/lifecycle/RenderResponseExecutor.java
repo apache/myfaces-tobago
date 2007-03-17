@@ -17,13 +17,15 @@ package org.apache.myfaces.tobago.lifecycle;
  * limitations under the License.
  */
 
-import java.io.IOException;
+import org.apache.myfaces.tobago.ajax.api.AjaxResponseRenderer;
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 
 import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
+import java.io.IOException;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
@@ -31,14 +33,30 @@ import javax.faces.event.PhaseId;
  * render response phase (JSF Spec 2.2.6)
  */
 class RenderResponseExecutor implements PhaseExecutor {
-  public boolean execute(FacesContext facesContext) {
-    Application application = facesContext.getApplication();
-    ViewHandler viewHandler = application.getViewHandler();
 
-    try {
-      viewHandler.renderView(facesContext, facesContext.getViewRoot());
-    } catch (IOException e) {
-      throw new FacesException(e.getMessage(), e);
+  private AjaxResponseRenderer ajaxResponseRenderer;
+
+
+  public RenderResponseExecutor() {
+    this.ajaxResponseRenderer = new AjaxResponseRenderer();
+  }
+
+  public boolean execute(FacesContext facesContext) {
+    if (AjaxUtils.getAjaxComponents(facesContext) != null) {
+      try {
+        ajaxResponseRenderer.renderResponse(facesContext);
+      } catch (IOException e) {
+        throw new FacesException(e.getMessage(), e);
+      }
+    } else {
+      Application application = facesContext.getApplication();
+      ViewHandler viewHandler = application.getViewHandler();
+
+      try {
+        viewHandler.renderView(facesContext, facesContext.getViewRoot());
+      } catch (IOException e) {
+        throw new FacesException(e.getMessage(), e);
+      }
     }
     return false;
   }

@@ -17,8 +17,12 @@ package org.apache.myfaces.tobago.lifecycle;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
+import java.util.List;
 
 
 /**
@@ -27,7 +31,14 @@ import javax.faces.event.PhaseId;
  */
 class UpdateModelValuesExecutor implements PhaseExecutor {
   public boolean execute(FacesContext facesContext) {
-    facesContext.getViewRoot().processUpdates(facesContext);
+    List<UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(facesContext);
+    if (ajaxComponents != null) {
+      for (UIComponent ajaxComponent : ajaxComponents) {
+        ajaxComponent.processUpdates(facesContext);
+      }
+    } else {
+      facesContext.getViewRoot().processUpdates(facesContext);
+    }
     return false;
   }
 

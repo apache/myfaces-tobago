@@ -62,6 +62,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.ajax.api.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UIData;
@@ -1099,10 +1100,8 @@ public class SheetRenderer extends RendererBase
     if (update) {
       renderSheet(facesContext, (UIData) component);
     } else {
-      facesContext.getExternalContext().getRequestMap().put(AjaxPhaseListener.TOBAGO_AJAX_STATUS_CODE, 
-          AjaxPhaseListener.CODE_NOT_MODIFIED);
+      facesContext.getResponseWriter().write(AjaxResponseRenderer.CODE_NOT_MODIFIED);
     }
-    facesContext.responseComplete();
   }
 
 }

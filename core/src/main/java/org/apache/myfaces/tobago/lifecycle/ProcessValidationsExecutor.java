@@ -17,8 +17,12 @@ package org.apache.myfaces.tobago.lifecycle;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
+import java.util.List;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
@@ -26,7 +30,14 @@ import javax.faces.event.PhaseId;
  */
 class ProcessValidationsExecutor implements PhaseExecutor {
   public boolean execute(FacesContext facesContext) {
+    List<UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(facesContext);
+    if (ajaxComponents != null) {
+      for (UIComponent ajaxComponent : ajaxComponents) {
+        ajaxComponent.processValidators(facesContext);
+      }
+    } else {
     facesContext.getViewRoot().processValidators(facesContext);
+    }
     return false;
   }
 
