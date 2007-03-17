@@ -46,7 +46,7 @@ public class ExportUIDataToWorkbookUtil {
       HttpServletResponse servletResponse = (HttpServletResponse) response;
       servletResponse.setContentType("application/vnd.ms-excel");
       if (StringUtils.isNotEmpty(attachmentName)) {
-        servletResponse.setHeader("Content-Disposition", "attachment; " + attachmentName);
+        servletResponse.setHeader("Content-Disposition", "attachment; filename=" + attachmentName);
       }
       workbook.write(servletResponse.getOutputStream());
     } else {
