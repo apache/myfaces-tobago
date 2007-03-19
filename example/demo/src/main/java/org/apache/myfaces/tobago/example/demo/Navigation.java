@@ -72,6 +72,21 @@ public class Navigation {
     bestPractice.add(new DefaultMutableTreeNode(new Node("nonFacesResponse", "best-practice/non-faces-response")));
     tree.add(bestPractice);
 
+    DefaultMutableTreeNode reference = new DefaultMutableTreeNode(new Node("reference_intro", "reference/intro"));
+    reference.add(new DefaultMutableTreeNode(new Node("reference_command", "reference/command")));
+    reference.add(new DefaultMutableTreeNode(new Node("reference_container", "reference/container")));
+    reference.add(new DefaultMutableTreeNode(new Node("reference_input", "reference/input")));
+    reference.add(new DefaultMutableTreeNode(new Node("reference_menu", "reference/menu")));
+    reference.add(new DefaultMutableTreeNode(new Node("reference_output", "reference/output")));
+    reference.add(new DefaultMutableTreeNode(new Node("reference_popup", "reference/popup")));
+    reference.add(new DefaultMutableTreeNode(new Node("reference_select", "reference/select")));
+    reference.add(new DefaultMutableTreeNode(new Node("reference_sheet", "reference/sheet")));
+    reference.add(new DefaultMutableTreeNode(new Node("reference_tab", "reference/tab")));
+    reference.add(new DefaultMutableTreeNode(new Node("reference_time", "reference/time")));
+    reference.add(new DefaultMutableTreeNode(new Node("reference_tool", "reference/tool")));
+    reference.add(new DefaultMutableTreeNode(new Node("reference_upload", "reference/upload")));
+    tree.add(reference);
+
     state = new TreeState();
     state.expand(tree, 2);
     state.setMarker(overview);

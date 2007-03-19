@@ -14,4 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 --%>
-todo
+<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
+
+<layout:overview>
+  <jsp:body>
+    <tc:box label="File Upload">
+      <f:facet name="layout">
+        <tc:gridLayout columns="400px;1*" rows="fixed;1*" />
+      </f:facet>
+<%-- code-sniplet-start id="file" --%>
+      <tx:file label="Upload file:" />
+<%-- code-sniplet-end id="file" --%>
+      <tc:cell/>
+
+      <tc:cell/>
+      <tc:cell/>
+    </tc:box>
+  </jsp:body>
+</layout:overview>

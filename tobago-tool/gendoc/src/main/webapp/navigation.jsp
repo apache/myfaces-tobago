@@ -25,12 +25,10 @@
            width="200px" height="800px">
     <f:facet name="layout">
       <tc:gridLayout margin="5px"
-                     rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*"/>
+                     rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*"/>
     </f:facet>
 
     <tc:link link="screenshot/box.jsp" label="Box" target="View"/>
-
-    <tc:link link="screenshot/button.jsp" label="Button" target="View"/>
 
     <tc:link link="screenshot/date.jsp"
              label="Date" target="View"/>
@@ -49,18 +47,6 @@
 
     <tc:link link="screenshot/label.jsp"
              label="Label" target="View"/>
-
-    <tc:link link="screenshot/link.jsp"
-             label="Link" target="View"/>
-
-    <tc:link link="screenshot/menuBar.jsp"
-             label="Menubar" target="View"/>
-
-    <tc:link link="screenshot/menucheck.jsp"
-             label="Menucheck" target="View"/>
-
-    <tc:link link="screenshot/menuradio.jsp"
-             label="Menuradio" target="View"/>
 
     <tc:link link="screenshot/messages.jsp"
              label="Messages" target="View"/>
@@ -95,13 +81,6 @@
 
     <tc:link link="screenshot/textarea.jsp"
              label="Textarea" target="View"/>
-
-    <tc:link link="screenshot/toolBar.jsp"
-             label="ToolBar" target="View"/>
-
-    <%--<tc:link link="screenshot/toolBarCheck.jsp"  label="ToolBarCheck"  target="View"/>--%>
-
-    <%--<tc:link link="screenshot/toolBarSelectOne.jsp"  label="TooBarSelectOne"  target="View"/>--%>
 
     <tc:link link="screenshot/treeOld.jsp"
              label="Tree" target="View"/>

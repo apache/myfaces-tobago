@@ -19,18 +19,47 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
-<layout:screenshot>
+<layout:overview>
   <jsp:body>
-    <tc:panel>
+    <tc:box label="Input">
       <f:facet name="layout">
-        <tc:gridLayout columns="400px;1*" rows="fixed;1*" />
+        <tc:gridLayout columns="300px;1*"
+                       rows="fixed;fixed;fixed;fixed;fixed;150px;100px;*"/>
       </f:facet>
-<%-- code-sniplet-start id="file" --%>
-      <tx:file label="Upload file:" />
-<%-- code-sniplet-end id="file" --%>
+      <%-- code-sniplet-start id="in" --%>
+      <tx:in label="Input" value="Some Text"/>
+      <%-- code-sniplet-end id="in" --%>
+      <tc:cell/>
+
+      <tx:in label="Read Only" readonly="true" value="Some Text"/>
+      <tc:cell/>
+
+      <tx:in label="Disabled" disabled="true" value="Some Text"/>
+      <tc:cell/>
+
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout columns="100px;*"/>
+        </f:facet>
+        <tc:label value="Short Label"/>
+        <tc:in value="Some Text"/>
+      </tc:panel>
+      <tc:cell/>
+
+      <tx:in label="Input (focus)" focus="true" value="Some Text"/>
+      <tc:cell/>
+
+      <%-- code-sniplet-start id="textarea" --%>
+      <tx:textarea label="Enter your Text:"
+                   value="My new text goes here..."/>
+      <%-- code-sniplet-end id="textarea" --%>
+      <tc:cell/>
+
+      <tx:textarea label="Area (focus)" focus="true"
+                   value="Some Text"/>
       <tc:cell/>
 
       <tc:cell spanX="2"/>
-    </tc:panel>
+    </tc:box>
   </jsp:body>
-</layout:screenshot>
+</layout:overview>

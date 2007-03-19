@@ -14,4 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 --%>
-todo
+<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
+
+<layout:overview>
+  <jsp:body>
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout columns="400px;*" rows="200px;*"/>
+      </f:facet>
+      <%-- code-sniplet-start id="box" --%>
+      <tc:box label="Box Headline">
+      </tc:box>
+      <%-- code-sniplet-end id="box" --%>
+      <tc:cell/>
+      <tc:cell spanX="2"/>
+    </tc:panel>
+  </jsp:body>
+</layout:overview>

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<%--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,22 +12,14 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License.e.
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.apache.myfaces.tobago</groupId>
-    <artifactId>tobago</artifactId>
-    <version>1.0.11-SNAPSHOT</version>
-  </parent>
-  <packaging>pom</packaging>
-  <name>Tobago Tool</name>
-  <artifactId>tobago-tool</artifactId>
-  <modules>
-    <module>maven-apt-plugin</module>
-    <module>maven-theme-plugin</module>
-    <module>tobago-tool-apt</module>
-    <module>tobago-tool-annotation</module>
-  </modules>
-</project>
+ * limitations under the License.
+--%>
+<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
+
+<layout:overview>
+  <jsp:body>
+    <tc:out escape="false" value="Reference of the Tobago Controls" />
+  </jsp:body>
+</layout:overview>

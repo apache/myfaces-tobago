@@ -24,12 +24,11 @@
   request.setAttribute("now", new Date(100000000000L));
 %>
 
-<layout:screenshot>
+<layout:overview>
   <jsp:body>
-    <f:subview id="date">
-      <tc:panel>
+      <tc:box label="Time Specific Controls">
         <f:facet name="layout">
-          <tc:gridLayout columns="400px;1*" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*"/>
+          <tc:gridLayout columns="400px;*" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;250px;*"/>
         </f:facet>
         <%-- code-sniplet-start id="date" --%>
         <tx:date label="Date" value="#{now}">
@@ -70,12 +69,13 @@
         </tx:date>
         <tc:cell/>
 
-
+        <%-- code-sniplet-start id="calendar" --%>
+        <tc:calendar />
+        <%-- code-sniplet-end id="calendar" --%>
+        <tc:cell/>
 
         <tc:cell spanX="2"/>
 
-      </tc:panel>
-
-    </f:subview>
+      </tc:box>
   </jsp:body>
-</layout:screenshot>
+</layout:overview>

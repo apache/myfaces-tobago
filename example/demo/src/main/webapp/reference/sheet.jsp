@@ -14,34 +14,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 --%>
+<%@ page import="org.apache.myfaces.tobago.example.reference.SimpleBean" %>
+
+<%
+  SimpleBean[] simpleList = (SimpleBean[]) session.getAttribute("simpleList");
+  System.out.println("1" + session.getAttribute("simpleList"));
+  if (simpleList == null) {
+    simpleList = new SimpleBean[]{
+        new SimpleBean("One"),
+        new SimpleBean("Two"),
+        new SimpleBean("Three"),
+        new SimpleBean("Four")};
+  }
+  session.setAttribute("simpleList", simpleList);
+  System.out.println("2" + session.getAttribute("simpleList"));
+%>
 
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
-<layout:screenshot>
-  <f:subview id="toolBar">
+<layout:overview>
     <jsp:body>
-      <tc:panel>
+      <tc:box label="Sheet">
         <f:facet name="layout">
-          <tc:gridLayout rows="160px;1*" columns="260px;1*"/>
+          <tc:gridLayout rows="fixed;*;fixed"/>
         </f:facet>
 
-            <tc:toolBar id="toolbar0" iconSize="big">
-              <tc:toolBarCommand id="button0" label="Button" />
-              <tc:toolBarCommand id="button1" label="Accesskey _Button"/>
-              <tc:toolBarCommand id="button2" label="Image Button"
-                                image="image/toolbar_example_button.gif" />
-              <tc:toolBarCommand id="button3" disabled="true" label="Disabled Button" />
-            </tc:toolBar>
+        <tc:messages/>
 
-        <tc:cell/>
-        <tc:cell/>
-        <tc:cell/>
+        <tc:sheet value="#{simpleList}" columns="*;*" var="bean">
+          <tc:columnSelector />
+          <tc:column label="Number">
+            <tc:in value="#{bean.name}" required="true"/>
+          </tc:column>
+        </tc:sheet>
 
-      </tc:panel>
+        <tc:button label="submit"/>
+
+      </tc:box>
 
     </jsp:body>
-  </f:subview>
-</layout:screenshot>
-
+</layout:overview>

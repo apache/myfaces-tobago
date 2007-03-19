@@ -14,32 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 --%>
-
-<%@ page import="javax.swing.tree.DefaultMutableTreeNode" %>
-<%@ page import="org.apache.myfaces.tobago.model.TreeState" %>
-
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 
-<layout:screenshot>
-  <f:subview id="tree">
-    <jsp:body>
-      <tc:panel>
-        <f:facet name="layout">
-          <tc:gridLayout rows="300px;1*"/>
-        </f:facet>
+<layout:overview>
+  <jsp:body>
+    <tc:box label="Tool Bar">
+      <f:facet name="layout">
+        <tc:gridLayout rows="fixed;*"/>
+      </f:facet>
 
-        <tc:tree state="#{treeCommandController.state}" value="#{treeCommandController.tree}"
-                 idReference="userObject" nameReference="userObject" mode="menu">
-          <f:facet name="treeNodeCommand">
-            <tc:link action="#{treeCommandController.command}"/>
-          </f:facet>
-        </tc:tree>
+      <tc:toolBar id="toolbar0" iconSize="big">
+        <tc:toolBarCommand id="button0" label="Button"/>
+        <tc:toolBarCommand id="button1" label="Accesskey _Button"/>
+        <tc:toolBarCommand id="button2" label="Image Button"
+                           image="image/toolbar_example_button.gif"/>
+        <tc:toolBarCommand id="button3" disabled="true" label="Disabled Button"/>
+      </tc:toolBar>
 
-        <tc:cell/>
-
-      </tc:panel>
-    </jsp:body>
-  </f:subview>
-</layout:screenshot>
+      <tc:cell/>
+    </tc:box>
+  </jsp:body>
+</layout:overview>

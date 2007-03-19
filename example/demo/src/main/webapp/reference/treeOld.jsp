@@ -51,10 +51,9 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
-<layout:screenshot>
-  <f:subview id="tree">
+<layout:overview>
     <jsp:body>
-      <tc:panel>
+      <tc:box label="Tree Old (deprecated)">
         <f:facet name="layout">
           <%--<tc:gridLayout rows="300px;1*" />--%>
           <tc:gridLayout rows="200px;300px;1*" />
@@ -82,9 +81,8 @@
 
         <tc:cell/>
 
-      </tc:panel>
+      </tc:box>
 
     </jsp:body>
-  </f:subview>
-</layout:screenshot>
+</layout:overview>
 
