@@ -94,12 +94,14 @@ public class HtmlUtils {
     String result;
     Application application = facesContext.getApplication();
     ViewHandler viewHandler = application.getViewHandler();
-    if (!url.startsWith("/")) { // extern
-      result = facesContext.getExternalContext().encodeActionURL(url);
-    } else {
+
+    if (url.startsWith("/")) { // internal URL
       result = viewHandler.getActionURL(facesContext, url);
-      result = facesContext.getExternalContext().encodeActionURL(result);
+    } else { // external URL
+      result = url;
     }
+
+    result = facesContext.getExternalContext().encodeActionURL(result);
     return result;
   }
 

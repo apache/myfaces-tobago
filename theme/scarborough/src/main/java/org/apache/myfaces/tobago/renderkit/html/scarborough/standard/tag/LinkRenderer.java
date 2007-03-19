@@ -48,13 +48,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.util.List;
 
 public class LinkRenderer extends CommandRendererBase {
 
   private static final Log LOG = LogFactory.getLog(LinkRenderer.class);
 
-  public void encodeBegin(FacesContext facesContext,
-      UIComponent component) throws IOException {
+  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     String onclick = null;
     String href;
     boolean submitAction = false;
@@ -73,8 +73,7 @@ public class LinkRenderer extends CommandRendererBase {
       StringBuilder sb = new StringBuilder(action);
 
       boolean questionMark = action.contains("?");
-      for (Object o : component.getChildren()) {
-        UIComponent child = (UIComponent) o;
+      for (UIComponent child : (List<UIComponent>)component.getChildren()) {
         if (child instanceof UIParameter) {
           UIParameter parameter = (UIParameter) child;
           if (questionMark) {
@@ -101,10 +100,9 @@ public class LinkRenderer extends CommandRendererBase {
       //"Tobago.submitAction('" + clientId + "')";
     }
 
-    onclick = HtmlRendererUtil.appendConfirmationScript(onclick, component, facesContext);
+    onclick = HtmlRendererUtil.appendConfirmationScript(onclick, component);
 
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     LabelWithAccessKey label = new LabelWithAccessKey(component);
 
