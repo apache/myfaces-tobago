@@ -65,7 +65,7 @@
       <tc:menuBar>
         <tc:menu label="Menu">
           <tc:menuItem label="Open Popup">
-            <tc:popupReference for=":page:button:popup"/>
+            <tc:popupReference for=":page:popup"/>
           </tc:menuItem>
         </tc:menu>
       </tc:menuBar>
@@ -76,6 +76,6 @@
       <tc:cell/>
       <tc:out value="here is the text >>#{reference.text}<<"/>
 
-    </tc:panel>
+    </tc:box>
   </jsp:body>
 </layout:overview>
