@@ -73,7 +73,7 @@ public class LinkRenderer extends CommandRendererBase {
       StringBuilder sb = new StringBuilder(action);
 
       boolean questionMark = action.contains("?");
-      for (UIComponent child : (List<UIComponent>)component.getChildren()) {
+      for (UIComponent child : (List<UIComponent>) component.getChildren()) {
         if (child instanceof UIParameter) {
           UIParameter parameter = (UIParameter) child;
           if (questionMark) {
