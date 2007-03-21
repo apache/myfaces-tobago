@@ -208,7 +208,9 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
     final String clientId = component.getClientId(facesContext);
     writer.writeIdAttribute(clientId + '.' + virtualTab);
-    writer.writeAttribute(HtmlAttributes.STYLE, oStyle, null);
+    if (oStyle != null) {
+      writer.writeAttribute(HtmlAttributes.STYLE, oStyle, null);
+    }
 
     writer.startElement(HtmlConstants.TR, null);
     writer.writeAttribute(HtmlAttributes.VALIGN, "bottom", null);
