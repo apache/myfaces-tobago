@@ -29,6 +29,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
@@ -122,6 +123,11 @@ public class ButtonRenderer extends CommandRendererBase {
       HtmlRendererUtil.addClickAcceleratorKey(
           facesContext, clientId, label.getAccessKey());
     }
+    if ("submit".equals(buttonType)) {
+      boolean transition = ComponentUtil.getBooleanAttribute(component, ATTR_TRANSITION);
+      HtmlRendererUtil.setDefaultTransition(facesContext, transition);
+    }
+
   }
 
   public void encodeEnd(FacesContext facesContext,

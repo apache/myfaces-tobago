@@ -160,6 +160,11 @@ public final class HtmlRendererUtil {
     }
   }
 
+  public static void setDefaultTransition(FacesContext facesContext, boolean transition)
+      throws IOException {
+    writeScriptLoader(facesContext, null, new String[]{"Tobago.transition = " + transition + ";"});
+  }
+
   public static void addClickAcceleratorKey(
       FacesContext facesContext, String clientId, char key)
       throws IOException {
