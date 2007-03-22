@@ -95,7 +95,11 @@ public class LayoutInfo {
         if (LOG.isDebugEnabled()) {
           LOG.debug("Cutting to fit.");
         }
-        space = spaceLeft;
+        if (spaceLeft < 0) {
+          space = 0;
+        } else {
+          space = spaceLeft;
+        }
       }
     }
 
@@ -369,11 +373,19 @@ public class LayoutInfo {
             try {
               int portion = Integer.parseInt(token);
               float w = (float) widthForPortions / portions * portion;
-              update(Math.round(w), i);
-              if (LOG.isDebugEnabled()) {
-                LOG.debug("set column " + i + " from " + tokens[i]
-                    + " to with " + w + " == " + Math.round(w) + "px");
-              }
+              if (w < 0) {
+                update(0, i);
+                if (LOG.isDebugEnabled()) {
+                  LOG.debug("set column " + i + " from " + tokens[i]
+                      + " to with " + w + " == 0px");
+                }
+              } else {
+                update(Math.round(w), i);
+                if (LOG.isDebugEnabled()) {
+                  LOG.debug("set column " + i + " from " + tokens[i]
+                      + " to with " + w + " == " + Math.round(w) + "px");
+                }
+              }   
             } catch (NumberFormatException e) {
               if (LOG.isWarnEnabled()) {
                 LOG.warn("NumberFormatException parsing " + tokens[i]);
