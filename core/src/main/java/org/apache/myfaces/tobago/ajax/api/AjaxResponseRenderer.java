@@ -18,6 +18,8 @@ package org.apache.myfaces.tobago.ajax.api;
  */
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.apache.myfaces.tobago.util.RequestUtils;
 import org.apache.myfaces.tobago.util.ResponseUtils;
@@ -43,6 +45,8 @@ import java.util.ArrayList;
 
 public class AjaxResponseRenderer {
 
+  private static final Log LOG = LogFactory.getLog(AjaxResponseRenderer.class);
+
   public static final String CODE_SUCCESS = "<status code=\"200\"/>";
   public static final String CODE_NOT_MODIFIED = "<status code=\"304\"/>";
   public static final String CODE_RELOAD_REQUIRED = "<status code=\"309\"/>";
@@ -58,6 +62,10 @@ public class AjaxResponseRenderer {
     UIViewRoot incommingViewRoot = (UIViewRoot)
         facesContext.getExternalContext().getRequestMap().get(VIEW_ROOT_KEY);
     if (viewRoot != incommingViewRoot) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("requesting full page reload because of navigation to "
+            + viewRoot.getViewId() + " from " + incommingViewRoot.getViewId());
+      }
       //noinspection unchecked
       facesContext.getExternalContext().getSessionMap().put(VIEW_ROOT_KEY, viewRoot);
       writeResponseReload(facesContext, renderKit);
@@ -70,7 +78,11 @@ public class AjaxResponseRenderer {
         responseParts.add(content);
         ResponseWriter contentWriter = renderKit.createResponseWriter(content, null, null);
         facesContext.setResponseWriter(contentWriter);
-        ((AjaxComponent) ajaxComponents.get(i)).encodeAjax(facesContext);
+        AjaxComponent ajaxComponent = ((AjaxComponent) ajaxComponents.get(i));
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("write ajax response for " + ajaxComponent);
+        }
+        ajaxComponent.encodeAjax(facesContext);
       }
 
       String state = saveState(facesContext, renderKit);
@@ -97,6 +109,7 @@ public class AjaxResponseRenderer {
     facesContext.setResponseWriter(stateWriter);
     stateWriter.startElement(HtmlConstants.SCRIPT, null);
     stateWriter.writeAttribute(HtmlAttributes.TYPE, "text/javascript", null);
+    stateWriter.flush();
     stateWriter.write("Tobago.replaceJsfState(\"");
     stateWriter.write(encodeState(state));
     stateWriter.write("\");");
@@ -147,6 +160,13 @@ public class AjaxResponseRenderer {
       // TODO surround by javascript parsable token
       buffer.append(writeState(facesContext, renderKit, jsfState));
     }
+
+    if (LOG.isTraceEnabled()) {
+      LOG.trace("\nresponse follows ##############################################################\n"
+          + buffer
+          + "\nend response    ##############################################################");
+    }
+
 
     buffer.insert(0, Integer.toHexString(buffer.length()) + "\r\n");
     buffer.append("\r\n" + 0 + "\r\n\r\n");
