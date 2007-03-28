@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.context.FacesContext;
+import javax.faces.context.ExternalContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
@@ -84,26 +85,37 @@ public class DebugPhaseListener implements PhaseListener {
     if (LOG.isInfoEnabled()) {
       Date start = null;
       Map map = null;
-      if (LOG.isDebugEnabled() || phaseEvent.getPhaseId().getOrdinal() == 1) {
+      PhaseId phaseId = phaseEvent.getPhaseId();
+      if (LOG.isDebugEnabled() || phaseId.getOrdinal() == 1) {
+
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+
+        if (LOG.isTraceEnabled() && PhaseId.RESTORE_VIEW == phaseId) {
+          // this is before restoreView
+            Map params = externalContext.getRequestParameterMap();
+            for (Object key : params.keySet()) {
+              LOG.trace("Param : \"" + key + "\" = \"" + params.get(key) + "\"");
+            }
+        }
+
         start = new Date();
-        map = FacesContext.getCurrentInstance().getExternalContext()
-            .getRequestMap();
-        map.put(KEY + phaseEvent.getPhaseId().getOrdinal() + "S", start);
+        map = externalContext.getRequestMap();
+        map.put(KEY + phaseId.getOrdinal() + "S", start);
       }
 
       if (LOG.isDebugEnabled()) {
         Date end = null;
-        int ordinal = phaseEvent.getPhaseId().getOrdinal();
+        int ordinal = phaseId.getOrdinal();
         while (end == null && ordinal > 0) {
           end = (Date) map.get(KEY + --ordinal + "E");
         }
         if (end != null) {
-          LOG.debug("Time between phases " + ordinal + " and " + phaseEvent.getPhaseId().getOrdinal() + ": "
+          LOG.debug("Time between phases " + ordinal + " and " + phaseId.getOrdinal() + ": "
               + (start.getTime() - end.getTime()) + " milliseconds");
         }
       }
       if (LOG.isTraceEnabled()) {
-        LOG.trace("Before Phase :" + phaseEvent.getPhaseId()
+        LOG.trace("Before Phase :" + phaseId
             + " Time=" + start.getTime());
       }
     }
