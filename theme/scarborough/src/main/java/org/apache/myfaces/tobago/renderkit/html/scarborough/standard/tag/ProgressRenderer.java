@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.util.LayoutUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -62,12 +63,22 @@ public class ProgressRenderer extends RendererBase {
     String value2 = Integer.toString(
         model.getMaximum() - model.getValue());
 
-
     String title = (String) component.getAttributes().get(ATTR_TIP);
     if (title == null) {
       title = Integer.toString(100 * model.getValue()
-          / (model.getMaximum() - model.getMinimum()))
-          + " %";
+          / (model.getMaximum() - model.getMinimum())) + " %";
+    }
+
+    Integer width = LayoutUtil.getLayoutWidth(component);
+
+    String width1 = value1;
+    String width2 = value2;
+
+    if (width != null) {
+      int value = (width -1) * model.getValue()
+          / (model.getMaximum() - model.getMinimum());
+      width1 = Integer.toString(value);
+      width2 = Integer.toString((width - 2) - value);
     }
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
@@ -81,7 +92,7 @@ public class ProgressRenderer extends RendererBase {
     writer.writeClassAttribute("tobago-progress-color1");
     writer.writeAttribute(HtmlAttributes.SRC, image, null);
     writer.writeAttribute(HtmlAttributes.ALT, title, null);
-    writer.writeAttribute(HtmlAttributes.WIDTH, value1, null);
+    writer.writeAttribute(HtmlAttributes.WIDTH, width1, null);
     writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
     writer.endElement(HtmlConstants.IMG);
 
@@ -89,7 +100,7 @@ public class ProgressRenderer extends RendererBase {
     writer.writeClassAttribute("tobago-progress-color2");
     writer.writeAttribute(HtmlAttributes.SRC, image, null);
     writer.writeAttribute(HtmlAttributes.ALT, title, null);
-    writer.writeAttribute(HtmlAttributes.WIDTH, value2, null);
+    writer.writeAttribute(HtmlAttributes.WIDTH, width2, null);
     writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
     writer.endElement(HtmlConstants.IMG);
 
