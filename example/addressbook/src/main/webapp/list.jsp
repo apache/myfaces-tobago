@@ -82,15 +82,15 @@
 
         <tc:sheet columns="1*;1*;1*" value="#{controller.currentAddressList}"
             var="address" state="#{controller.selectedAddresses}">
-          <tc:column label="#{bundle.listFirstName}" sortable="true"
+          <tc:column id="firstName" label="#{bundle.listFirstName}" sortable="true"
                      rendered="#{controller.renderFirstName}">
             <tc:out value="#{address.firstName}" />
           </tc:column>
-          <tc:column label="#{bundle.listLastName}" sortable="true"
+          <tc:column id="lastName" label="#{bundle.listLastName}" sortable="true"
                      rendered="#{controller.renderLastName}">
             <tc:out value="#{address.lastName}" />
           </tc:column>
-          <tc:column label="Birthday" sortable="true"
+          <tc:column id="dayOfBirth" label="Birthday" sortable="true"
                      rendered="#{controller.renderDayOfBirth}">
             <tc:out value="#{address.dayOfBirth}">
               <f:convertDateTime pattern="dd.MM.yyyy" />

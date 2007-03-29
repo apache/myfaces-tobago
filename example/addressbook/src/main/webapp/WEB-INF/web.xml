@@ -34,6 +34,10 @@
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
 
+  <listener>
+    <listener-class>org.apache.myfaces.tobago.example.addressbook.DerbyShutdownServletContextListener</listener-class>
+  </listener>
+
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>/WEB-INF/applicationContext.xml</param-value>
