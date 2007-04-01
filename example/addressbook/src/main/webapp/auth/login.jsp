@@ -23,28 +23,27 @@
 
   <tc:page id="page" label="Login"  state="#{layout}" width="#{layout.width}" height="#{layout.height}" >
     <f:facet name="layout">
-      <tc:gridLayout rows="1*;200px;1*" columns="1*;400px;1*"/>
+      <tc:gridLayout rows="*;fixed;*" columns="*;400px;*"/>
     </f:facet>
 
     <tc:cell spanX="3"/>
     <tc:cell/>
     <tc:box label="Login">
       <f:facet name="layout">
-        <tc:gridLayout/>
+        <tc:gridLayout rows="fixed;fixed;fixed;fixed"/>
       </f:facet>
 
+      <tc:out value="Use guest/guest or admin/admin to login."/>
       <tx:in id="j_username" label="Username"/>
-
       <tx:in id="j_password" password="true" label="Password"/>
 
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="1*;100px"/>
+          <tc:gridLayout columns="*;fixed"/>
         </f:facet>
 
         <tc:cell/>
-
-        <tc:button label="Login"/>
+        <tc:button label="Login" defaultCommand="true"/>
       </tc:panel>
 
     </tc:box>
