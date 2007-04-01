@@ -112,7 +112,6 @@ public class Address implements Serializable {
       countryCode = country.getCountry();
       languageCode = country.getLanguage();
     }
-    System.out.println("store lang: " + languageCode);
     if (email != null) {
       emailStr = email.getEmail();
     }
@@ -123,7 +122,6 @@ public class Address implements Serializable {
   
   @PostLoad
   private void load() {
-    System.out.println("load lang: " + languageCode);
     if (countryCode != null && languageCode != null) {
       country = new Locale(languageCode, countryCode);
     }
