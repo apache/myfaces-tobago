@@ -181,7 +181,7 @@ public class Controller {
     countries.init(language);
     initLanguages();
 
-    // reinit date converter
+    // reinit date converter // XXX necessary without facelets?
     UIViewRoot viewRoot = facesContext.getViewRoot();
     EditableValueHolder component = (EditableValueHolder)
         viewRoot.findComponent(":page:dayOfBirth");

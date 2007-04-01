@@ -21,24 +21,32 @@
   <tc:loadBundle basename="resource" var="bundle" />
 
   <tc:page label="Login Error" state="#{layout}" width="#{layout.width}" height="#{layout.height}">
+    <f:facet name="layout">
+      <tc:gridLayout rows="*;fixed;*" columns="*;400px;*"/>
+    </f:facet>
 
+    <tc:cell spanX="3"/>
+
+    <tc:cell/>
     <tc:box label="Login Error">
       <f:facet name="layout">
-        <tc:gridLayout rows="*;fixed"/>
+        <tc:gridLayout rows="fixed;fixed"/>
       </f:facet>
 
-      <tc:out value="Your Login Name or Password is wrong"/>
+      <tc:out value="#{bundle.loginError}"/>
 
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="1*;100px"/>
+          <tc:gridLayout columns="*;fixed"/>
         </f:facet>
 
         <tc:cell/>
-
         <tc:button link="/index.jsp" label="Home"/>
       </tc:panel>
 
     </tc:box>
+    <tc:cell/>
+
+    <tc:cell spanX="3"/>
   </tc:page>
 </f:view>

@@ -54,6 +54,7 @@ public class Address implements Serializable {
   private String zipCode;
   @Transient
   private Locale country;
+  private String languageCode;
   private String countryCode;
   private String phone;
   private String mobile;
@@ -109,7 +110,9 @@ public class Address implements Serializable {
   private void store() {
     if (country != null) {
       countryCode = country.getCountry();
+      languageCode = country.getLanguage();
     }
+    System.out.println("store lang: " + languageCode);
     if (email != null) {
       emailStr = email.getEmail();
     }
@@ -120,8 +123,9 @@ public class Address implements Serializable {
   
   @PostLoad
   private void load() {
-    if (countryCode != null) {
-      country = new Locale("", countryCode);
+    System.out.println("load lang: " + languageCode);
+    if (countryCode != null && languageCode != null) {
+      country = new Locale(languageCode, countryCode);
     }
     if (emailStr != null) {
       email = new EmailAddress(emailStr);
