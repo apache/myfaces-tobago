@@ -1,6 +1,4 @@
-package org.apache.myfaces.tobago.example.addressbook;
-
-/*
+<%--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,24 +13,31 @@ package org.apache.myfaces.tobago.example.addressbook;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+--%>
+<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
-/*
- * Created 29.11.2004 17:36:20.
- * $Id: Controller.java,v 1.2 2005/08/10 11:57:55 lofwyr Exp $
- */
+<f:view locale="#{controller.language}">
+  <tc:loadBundle basename="resource" var="bundle" />
 
-import java.util.List;
+  <tc:page label="#{bundle.login_logout_title}"  state="#{layout}" width="#{layout.width}" height="#{layout.height}" >
+  <tc:box label="#{bundle.login_logout_title}">
+    <f:facet name="layout">
+      <tc:gridLayout />
+    </f:facet>
 
-public interface AddressDao {
+    <tc:out value="#{bundle.login_logout_text}" />
 
-  Address updateAddress(Address address) throws AddressDaoException;
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout columns="1*;100px" />
+      </f:facet>
 
-  List<Address> findAddresses() throws AddressDaoException;
+      <tc:cell />
 
-  List<Address> findAddresses(String column, boolean order) throws AddressDaoException;
+      <tc:button link="/index.jsp" label="#{bundle.login_home_button}" />
+    </tc:panel>
 
-  void removeAddress(Address address) throws AddressDaoException;
-
-  Address getAddress(Integer id);
-}
+  </tc:box>
+  </tc:page>
+</f:view>

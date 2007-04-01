@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 --%>
-
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
@@ -22,21 +21,46 @@
 <f:view locale="#{controller.language}">
   <tc:loadBundle basename="resource" var="bundle" />
 
-  <tc:page label="#{bundle.editorTitle}"  state="#{layout}" width="#{layout.width}" height="#{layout.height}" >
+  <tc:page id="page" label="Login"  state="#{layout}" width="#{layout.width}" height="#{layout.height}" >
+    <f:facet name="layout">
+      <tc:gridLayout rows="1*;200px;1*" columns="1*;400px;1*"/>
+    </f:facet>
 
-    <tc:panel>
-      <f:facet name="reload">
-        <tc:reload frequency="5000" />
-      </f:facet>
+    <tc:cell spanX="3"/>
+    <tc:cell/>
+    <tc:box label="Login">
       <f:facet name="layout">
-        <tc:gridLayout margin="10px" rows="fixed;fixed;1*" columns="300px;1* "/>
+        <tc:gridLayout/>
       </f:facet>
-      <tc:label value="Memory:" />
-      <tc:cell/>
-      <tc:progress value="#{admin.memory}" />   
-      <tc:cell/>
-      <tc:label value="Current: #{admin.memory.value}kB Max: #{admin.memory.maximum}kB" />
-      <tc:cell/>
-    </tc:panel>
+
+      <tx:in id="j_username" label="Username"/>
+
+      <tx:in id="j_password" password="true" label="Password"/>
+
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout columns="1*;100px"/>
+        </f:facet>
+
+        <tc:cell/>
+
+        <tc:button label="Login"/>
+      </tc:panel>
+
+    </tc:box>
+    <tc:cell/>
+    <tc:cell spanX="3"/>
+
+  <tc:script onload="initLoginForm();">
+    function initLoginForm() {
+      var input_user = document.getElementById("page:j_username");
+      input_user.name = "j_username";
+      var input_pass = document.getElementById("page:j_password");
+      input_pass.name = "j_password";
+      var form_element = document.getElementById("page::form");
+      form_element.action = "${pageContext.request.contextPath}/j_security_check";
+    }
+  </tc:script>
+
   </tc:page>
 </f:view>

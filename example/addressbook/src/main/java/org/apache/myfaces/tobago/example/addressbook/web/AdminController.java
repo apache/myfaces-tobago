@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.example.addressbook.web;
 
 import javax.swing.DefaultBoundedRangeModel;
 import javax.swing.BoundedRangeModel;
+import javax.annotation.security.RolesAllowed;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
@@ -28,6 +29,13 @@ import java.lang.management.MemoryUsage;
  * Time: 11:20:53 PM
  */
 public class AdminController {
+
+  private static final String OUTCOME_ADMIN = "admin";
+
+  @RolesAllowed( "admin")
+  public String admin() {
+    return OUTCOME_ADMIN;
+  }
 
   public BoundedRangeModel getMemory() {
     MemoryMXBean memoryBean = ManagementFactory.getMemoryMXBean();

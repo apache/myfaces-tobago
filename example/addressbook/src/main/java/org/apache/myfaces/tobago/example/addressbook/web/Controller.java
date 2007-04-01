@@ -35,7 +35,7 @@ import org.apache.myfaces.tobago.example.addressbook.AddressDao;
 import org.apache.myfaces.tobago.example.addressbook.AddressDaoException;
 import org.apache.myfaces.tobago.example.addressbook.Picture;
 import org.apache.myfaces.tobago.event.SortActionEvent;
-import org.apache.myfaces.tobago.component.UIData;
+import org.apache.myfaces.tobago.component.UIColumn;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.Application;
@@ -112,16 +112,16 @@ public class Controller {
     currentAddressList = addressDao.findAddresses();
   }
 
-  public void sheetSorter(ActionEvent event) {
+  public void sheetSorter(ActionEvent event) throws AddressDaoException {
     if (event instanceof SortActionEvent) {
       SortActionEvent sortEvent = (SortActionEvent) event;
-      UIData sheet = sortEvent.getSheet();
-      SheetState sheetState
-          = sheet.getSheetState(FacesContext.getCurrentInstance());
-      String columnId = sheetState.getSortedColumnId();
+      UIColumn column = (UIColumn) sortEvent.getColumn();
+
+      SheetState sheetState = sortEvent.getSheet().getSheetState(FacesContext.getCurrentInstance());
+
+      currentAddressList = addressDao.findAddresses(column.getId(), sheetState.isAscending());
     }
   }
-
 
   public String search() throws AddressDaoException {
     return OUTCOME_LIST;

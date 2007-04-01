@@ -49,6 +49,10 @@ public class JpaAddressDao extends JpaDaoSupport implements AddressDao {
     return getJpaTemplate().find("select a from Address a");
   }
 
+  public List<Address> findAddresses(String column, boolean order) throws AddressDaoException {
+    return getJpaTemplate().find("select a from Address a order by a." + column + (order?" desc":" asc"));
+  }
+
   public  void removeAddress(Address address) throws AddressDaoException {
     address = getAddress(address.getId());
     getJpaTemplate().remove(address);

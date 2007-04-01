@@ -1,5 +1,4 @@
-<?xml version="1.0"  encoding="ISO-8859-1"?>
-<!--
+<%--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -14,20 +13,32 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
--->
-<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+--%>
+<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
-<Configure class="org.mortbay.jetty.webapp.WebAppContext">
-  <Call class="org.mortbay.log.Log" name="debug">
-    <Arg>executing jetty-web.xml</Arg>
-  </Call>
-  <Get name="securityHandler">
-    <Set name="userRealm">
-      <New class="org.mortbay.jetty.security.HashUserRealm">
-	      <Set name="name">Test Realm</Set>
-	      <Set name="config"><SystemProperty name="jetty.home" default="."/>/src/test/resources/realm.properties</Set>
-      </New>
-    </Set>
-  </Get>
-</Configure>
+<f:view locale="#{controller.language}">
+  <tc:loadBundle basename="resource" var="bundle" />
 
+  <tc:page label="Login Error"  state="#{layout}" width="#{layout.width}" height="#{layout.height}" >
+
+    <tc:box label="Login Error">
+      <f:facet name="layout">
+        <tc:gridLayout rows="*;fixed"/>
+      </f:facet>
+
+      <tc:out value="Your Login Name or Password is wrong"/>
+
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout columns="1*;100px"/>
+        </f:facet>
+
+        <tc:cell/>
+
+        <tc:button link="/index.jsp" label="Home"/>
+      </tc:panel>
+
+    </tc:box>
+  </tc:page>
+</f:view>

@@ -33,6 +33,8 @@
             image="image/org/tango-project/tango-icon-theme/32x32/actions/contact-new.png" />
         <tc:button onclick="alert('#{bundle.aboutMessage}')" label="#{bundle.toolbarAbout}"
             image="image/org/tango-project/tango-icon-theme/32x32/apps/help-browser.png"/>
+        <tc:button label="#{bundle.admin}" action="#{admin.admin}" 
+            image="image/org/tango-project/tango-icon-theme/32x32/categories/applications-system.png" />
       </tc:toolBar>
       <tc:box label="#{bundle.listBoxTitle}" >
         <f:facet name="layout">
@@ -81,7 +83,8 @@
         <tc:messages />
 
         <tc:sheet columns="1*;1*;1*" value="#{controller.currentAddressList}"
-            var="address" state="#{controller.selectedAddresses}">
+            var="address" state="#{controller.selectedAddresses}"
+            sortActionListener="#{controller.sheetSorter}">
           <tc:column id="firstName" label="#{bundle.listFirstName}" sortable="true"
                      rendered="#{controller.renderFirstName}">
             <tc:out value="#{address.firstName}" />

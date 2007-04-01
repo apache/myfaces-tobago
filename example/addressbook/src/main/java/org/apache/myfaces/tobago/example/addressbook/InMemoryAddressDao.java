@@ -55,6 +55,10 @@ public class InMemoryAddressDao implements AddressDao {
     return address;
   }
 
+  public List<Address> findAddresses(String column, boolean order) {
+    return findAddresses();
+  }
+
   public synchronized List<Address> findAddresses() {
     LOG.debug("Find addresses: "+addresses);
     return Collections.unmodifiableList(addresses);

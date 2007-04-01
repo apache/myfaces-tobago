@@ -22,6 +22,46 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.mortbay.jetty</groupId>
+        <artifactId>maven-jetty-plugin</artifactId>
+        <configuration>
+          <contextPath>/</contextPath>
+          <!--scanIntervalSeconds>5</scanIntervalSeconds-->
+          <systemProperties>
+            <systemProperty>
+              <name>org.apache.commons.logging.Log</name>
+              <value>org.apache.commons.logging.impl.SimpleLog</value>
+            </systemProperty>
+          </systemProperties>
+          <userRealms>
+            <userRealm implementation="org.mortbay.jetty.security.HashUserRealm">
+              <name>addressbook-realm</name>
+              <config>src/test/resources/realm.properties</config>
+            </userRealm>
+          </userRealms>
+        </configuration>
+        <!--<dependencies>
+        <dependency>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+          <version>1.0.4</version>
+          <type>jar</type>
+        </dependency>
+        <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-jcl</artifactId>
+          <version>1.0.1</version>
+          <type>jar</type>
+        </dependency>
+        <dependency>
+          <groupId>log4j</groupId>
+          <artifactId>log4j</artifactId>
+          <version>1.2.14</version>
+          <type>jar</type>
+        </dependency>
+       </dependencies>-->
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
         <executions>
@@ -118,6 +158,11 @@
           <artifactId>tools</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
+      <artifactId>tobago-security</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>log4j</groupId>
