@@ -21,7 +21,7 @@
 <f:view locale="#{controller.language}">
   <tc:loadBundle basename="resource" var="bundle" />
 
-  <tc:page id="page" label="Login"  state="#{layout}" width="#{layout.width}" height="#{layout.height}" >
+  <tc:page id="page" label="Login" state="#{layout}" width="#{layout.width}" height="#{layout.height}">
     <f:facet name="layout">
       <tc:gridLayout rows="*;fixed;*" columns="*;400px;*"/>
     </f:facet>

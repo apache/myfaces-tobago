@@ -21,7 +21,7 @@
 <f:view>
   <tc:loadBundle basename="addressbook" var="bundle" />
 
-  <tc:page label="#{bundle.editorTitle}"  state="#{layout}" width="#{layout.width}" height="#{layout.height}" >
+  <tc:page label="#{bundle.editorTitle}" state="#{layout}" width="#{layout.width}" height="#{layout.height}">
 
     <tc:panel>
       <f:facet name="layout">
@@ -30,7 +30,6 @@
 
         <tc:messages />
         <tc:link label="Enter Addressbook Demo " link="/application/list.jsp" />
-
 
     </tc:panel>
   </tc:page>

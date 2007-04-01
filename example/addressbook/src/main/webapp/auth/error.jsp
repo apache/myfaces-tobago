@@ -20,7 +20,7 @@
 <f:view locale="#{controller.language}">
   <tc:loadBundle basename="resource" var="bundle" />
 
-  <tc:page label="Login Error"  state="#{layout}" width="#{layout.width}" height="#{layout.height}" >
+  <tc:page label="Login Error" state="#{layout}" width="#{layout.width}" height="#{layout.height}">
 
     <tc:box label="Login Error">
       <f:facet name="layout">

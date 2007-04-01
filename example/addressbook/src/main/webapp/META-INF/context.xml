@@ -20,5 +20,5 @@
     antiResourceLocking is needed  for proper redeploy under Windows.
 -->
 
-<Context antiResourceLocking="true" >
+<Context antiResourceLocking="true">
 </Context>

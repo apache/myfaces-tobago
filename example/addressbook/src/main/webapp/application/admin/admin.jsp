@@ -22,7 +22,7 @@
 <f:view locale="#{controller.language}">
   <tc:loadBundle basename="resource" var="bundle" />
 
-  <tc:page label="#{bundle.editorTitle}"  state="#{layout}" width="#{layout.width}" height="#{layout.height}" >
+  <tc:page label="#{bundle.editorTitle}" state="#{layout}" width="#{layout.width}" height="#{layout.height}">
 
     <tc:panel>
       <f:facet name="reload">

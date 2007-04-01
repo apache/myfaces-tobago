@@ -20,7 +20,7 @@
 <f:view locale="#{controller.language}">
   <tc:loadBundle basename="resource" var="bundle" />
 
-  <tc:page label="#{bundle.login_logout_title}"  state="#{layout}" width="#{layout.width}" height="#{layout.height}" >
+  <tc:page label="#{bundle.login_logout_title}" state="#{layout}" width="#{layout.width}" height="#{layout.height}">
   <tc:box label="#{bundle.login_logout_title}">
     <f:facet name="layout">
       <tc:gridLayout />

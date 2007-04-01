@@ -20,11 +20,11 @@
 <f:view locale="#{controller.language}">
   <tc:loadBundle basename="resource" var="bundle"/>
 
-  <tc:page label="#{bundle.listPageTitle}" state="#{layout}" width="#{layout.width}" height="#{layout.height}" >
+  <tc:page label="#{bundle.listPageTitle}" state="#{layout}" width="#{layout.width}" height="#{layout.height}">
 
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout margin="10px"  rows="fixed;1*;20px"/>
+        <tc:gridLayout margin="10px" rows="fixed;1*;20px"/>
       </f:facet>
       <tc:toolBar iconSize="big">
         <tc:button label="#{bundle.toolbarAddressList}" action="#{controller.search}" immediate="true"
@@ -36,7 +36,7 @@
         <tc:button label="#{bundle.admin}" action="#{admin.admin}" 
             image="image/org/tango-project/tango-icon-theme/32x32/categories/applications-system.png" />
       </tc:toolBar>
-      <tc:box label="#{bundle.listBoxTitle}" >
+      <tc:box label="#{bundle.listBoxTitle}">
         <f:facet name="layout">
           <tc:gridLayout rows="fixed;1*"/>
         </f:facet>
@@ -47,7 +47,7 @@
             <tc:button label="#{bundle.listEdit}" action="#{controller.editAddress}"
                 image="image/org/tango-project/tango-icon-theme/16x16/apps/accessories-text-editor.png" />
             <tc:button label="#{bundle.listDelete}" action="#{controller.deleteAddresses}"
-                image="image/org/tango-project/tango-icon-theme/16x16/places/user-trash.png" >
+                image="image/org/tango-project/tango-icon-theme/16x16/places/user-trash.png">
               <f:facet name="confirmation">
                 <tc:out value="#{bundle.listDeleteConfirmation}" />
               </f:facet>

@@ -21,21 +21,21 @@
 <f:view locale="#{controller.language}">
   <tc:loadBundle basename="resource" var="bundle" />
 
-  <tc:page label="#{bundle.editorTitle}"  state="#{layout}" width="#{layout.width}" height="#{layout.height}" >
+  <tc:page label="#{bundle.editorTitle}" state="#{layout}" width="#{layout.width}" height="#{layout.height}">
 
     <tc:panel>
       <f:facet name="layout">
         <tc:gridLayout margin="10px"/>
       </f:facet>
 
-      <tc:box label="#{bundle.editorBoxTitle}" >
+      <tc:box label="#{bundle.editorBoxTitle}">
         <f:facet name="layout">
           <tc:gridLayout rows="fixed;1*;fixed" />
         </f:facet>
 
         <tc:messages />
 
-        <tc:tabGroup >
+        <tc:tabGroup>
         <tc:tab label="#{bundle.editorTabPersonal}">
           <tc:panel>
             <f:facet name="layout">
@@ -173,7 +173,7 @@
                   validator="#{controller.validatePhoneNumber}" />
 
               <tx:in value="#{controller.currentAddress.jobEmail}"
-                  label="#{bundle.editorEmail}" >
+                  label="#{bundle.editorEmail}">
                 <f:validator validatorId="EmailAddressValidator"/>
               </tx:in>
 
@@ -200,7 +200,7 @@
 
         <tc:panel>
           <f:facet name="layout">
-            <tc:gridLayout columns="3*;1*;1*"  />
+            <tc:gridLayout columns="3*;1*;1*" />
           </f:facet>
 
           <tc:cell />
