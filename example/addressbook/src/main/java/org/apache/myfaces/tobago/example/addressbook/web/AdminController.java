@@ -32,7 +32,7 @@ public class AdminController {
 
   private static final String OUTCOME_ADMIN = "admin";
 
-  @RolesAllowed( "admin")
+  @RolesAllowed("admin")
   public String admin() {
     return OUTCOME_ADMIN;
   }
