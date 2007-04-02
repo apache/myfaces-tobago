@@ -96,7 +96,7 @@
           <tc:column id="dayOfBirth" label="Birthday" sortable="true"
                      rendered="#{controller.renderDayOfBirth}">
             <tc:out value="#{address.dayOfBirth}">
-              <f:convertDateTime pattern="dd.MM.yyyy" />
+              <f:convertDateTime pattern="#{bundle.editorDatePattern}" />
             </tc:out>
           </tc:column>
         </tc:sheet>
@@ -111,7 +111,7 @@
                value="#{controller.language}">
           <f:selectItems value="#{controller.languages}" />
           <f:facet name="change">
-            <tc:command />
+            <tc:command action="#{controller.languageChangedList}"/>
           </f:facet>
         </tx:selectOneChoice>
       </tc:form>

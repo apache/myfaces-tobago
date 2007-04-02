@@ -35,7 +35,7 @@
 
         <tc:messages />
 
-        <tc:tabGroup>
+        <tc:tabGroup switchType="reloadTab" immediate="true">
         <tc:tab label="#{bundle.editorTabPersonal}">
           <tc:panel>
             <f:facet name="layout">
@@ -47,17 +47,16 @@
               </f:facet>
               <tc:panel>
                 <f:facet name="layout">
-                  <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;*"/>
+                  <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;1*"/>
                 </f:facet>
                 <tx:in value="#{controller.currentAddress.firstName}"
                        label="#{bundle.editorFirstName}" required="true">
                   <f:validateLength minimum="2" maximum="20"/>
                 </tx:in>
 
-                <tx:label value="#{bundle.editorLastName}">
-                  <tc:in value="#{controller.currentAddress.lastName}"
-                         required="true"/>
-                </tx:label>
+                <tx:in label="#{bundle.editorLastName}"
+                       value="#{controller.currentAddress.lastName}" required="true">
+                </tx:in>
 
                 <tc:panel>
                   <f:facet name="layout">

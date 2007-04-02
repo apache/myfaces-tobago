@@ -118,7 +118,6 @@ public class Controller {
       UIColumn column = (UIColumn) sortEvent.getColumn();
 
       SheetState sheetState = sortEvent.getSheet().getSheetState(FacesContext.getCurrentInstance());
-
       currentAddressList = addressDao.findAddresses(column.getId(), sheetState.isAscending());
     }
   }
@@ -176,20 +175,8 @@ public class Controller {
     return OUTCOME_LIST;
   }
 
-  public String languageChanged() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    countries.init(language);
-    initLanguages();
-
-    // reinit date converter // XXX necessary without facelets?
-    UIViewRoot viewRoot = facesContext.getViewRoot();
-    EditableValueHolder component = (EditableValueHolder)
-        viewRoot.findComponent(":page:dayOfBirth");
-    if (component != null) {
-      DateTimeConverter converter = (DateTimeConverter) component.getConverter();
-      converter.setPattern(MessageUtils.getLocalizedString(facesContext, "editorDatePattern"));
-    }
-    return null;
+  public String languageChangedList() {
+    return OUTCOME_LIST;
   }
 
   public String themeChanged() {
@@ -265,7 +252,6 @@ public class Controller {
     setRenderFileUploadPopup(false);
     return null;
   }
-
 
   public String cancelPopup() {
     setRenderPopup(false);
