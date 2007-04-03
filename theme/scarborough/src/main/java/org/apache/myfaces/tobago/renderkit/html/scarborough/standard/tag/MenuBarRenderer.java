@@ -239,7 +239,7 @@ public class MenuBarRenderer extends RendererBase {
     facesContext.setResponseWriter(savedWriter);
 
 
-    return "new Tobago.Menu.Item('" + removeLFs(stringWriter.toString()) + "', null)";
+    return "new Tobago.Menu.Item('" + prepareForScript(stringWriter.toString()) + "', null)";
   }
 
   private void writeMenuEntry(FacesContext facesContext, TobagoResponseWriter writer,
@@ -509,7 +509,7 @@ public class MenuBarRenderer extends RendererBase {
     sb.append("    ");
     sb.append(var);
     sb.append(".addMenuItem(new Tobago.Menu.Item('");
-    sb.append(removeLFs(html));
+    sb.append(prepareForScript(html));
     sb.append("', ");
     if (!disabled) {
       sb.append("\"");
@@ -530,7 +530,7 @@ public class MenuBarRenderer extends RendererBase {
     sb.append("    ");
     sb.append(var);
     sb.append(".addMenuItem(new Tobago.Menu.Item('");
-    sb.append(removeLFs(html));
+    sb.append(prepareForScript(html));
     sb.append("', ");
     sb.append("null");
     sb.append(", ");
@@ -538,8 +538,8 @@ public class MenuBarRenderer extends RendererBase {
     sb.append("));\n");
   }
 
-  private String removeLFs(String s) {
-    return s.replaceAll("\n", " ");
+  private String prepareForScript(String s) {    
+    return s.replaceAll("\n", " ").replaceAll("'", "\\\\'");
   }
 
   public void encodeChildren(FacesContext facesContext, UIComponent component)
