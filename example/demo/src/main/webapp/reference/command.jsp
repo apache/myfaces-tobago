@@ -23,8 +23,10 @@
   <jsp:body>
     <tc:box label="Command Controls">
       <f:facet name="layout">
-        <tc:gridLayout columns="100px;100px;100px;100px;*" rows="fixed;fixed;fixed;fixed;*"/>
+        <tc:gridLayout columns="100px;100px;100px;100px;*" rows="fixed;fixed;fixed;fixed;fixed;fixed;*"/>
       </f:facet>
+
+      <%-- standard --%>
 
       <tc:cell spanY="2">
         <tc:label value="Standard"/>
@@ -38,17 +40,19 @@
       <tc:cell/>
 
       <%-- code-sniplet-start id="link" --%>
-      <tc:link label="Submit" action="reference/command"/>
+      <tc:link label="Action" action="reference/command"/>
       <%-- code-sniplet-end id="link" --%>
       <tc:link label="On Click" onclick="alert('Hallo Tobago!');"/>
       <tc:link label="Link" link="http://www.apache.org/"/>
       <tc:cell/>
 
+      <%-- confirmation --%>
+
       <tc:cell spanY="2">
         <tc:label value="Confirmation" tip="The user will be asked, if the button/link should be executed."/>
       </tc:cell>
 
-      <tc:button label="Confirm">
+      <tc:button label="Action" action="reference/command">
         <f:facet name="confirmation">
           <tc:out value="Are you sure?"/>
         </f:facet>
@@ -65,7 +69,7 @@
       </tc:button>
       <tc:cell/>
 
-      <tc:link label="Confirm">
+      <tc:link label="Action" action="reference/command">
         <f:facet name="confirmation">
           <tc:out value="Are you sure?"/>
         </f:facet>
@@ -81,6 +85,24 @@
         </f:facet>
       </tc:link>
       <tc:cell/>
+
+      <%-- target --%>
+
+      <tc:cell spanY="2">
+        <tc:label value="Target"/>
+      </tc:cell>
+
+      <tc:button label="Action" action="reference/command" target="Command Target"/>
+      <tc:button label="N/A" disabled="true"/>
+      <tc:button label="N/A yet" disabled="true"/>
+      <tc:cell/>
+
+      <tc:link label="Action" action="reference/command" target="Command Target"/>
+      <tc:link label="N/A"  disabled="true"/>
+      <tc:link label="Link" link="http://www.apache.org/" target="Command Target"/>
+      <tc:cell/>
+
+      <%-- empty --%>
 
       <tc:cell/>
       <tc:cell/>
