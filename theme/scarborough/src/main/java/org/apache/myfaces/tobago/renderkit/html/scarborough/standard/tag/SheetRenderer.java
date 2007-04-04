@@ -70,6 +70,7 @@ import static org.apache.myfaces.tobago.component.UIData.NONE;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIReload;
+import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
@@ -83,12 +84,12 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
+import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
 import org.apache.myfaces.tobago.util.StringUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
-import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.component.UIViewRoot;
@@ -462,16 +463,12 @@ public class SheetRenderer extends RendererBase
 
 
       if (isValidPagingValue(showRowRange)) {
-        UICommand pagerCommand = (UICommand) data.getFacet(
-            FACET_PAGER_ROW);
+        UICommand pagerCommand = (UICommand) data.getFacet(FACET_PAGER_ROW);
         if (pagerCommand == null) {
-          pagerCommand = createPagingCommand(
-                  application, PageAction.TO_ROW, false);
+          pagerCommand = createPagingCommand(application, PageAction.TO_ROW, false);
           data.getFacets().put(FACET_PAGER_ROW, pagerCommand);
         }
-        String pagingOnClick
-            = HtmlRendererUtil.createOnClick(facesContext, pagerCommand);
-        pagingOnClick = pagingOnClick.replaceAll("'", "\"");
+        String pagingOnClick = new CommandRendererHelper(facesContext, pagerCommand).getOnclickDoubleQuoted();
         final String pagerCommandId = pagerCommand.getClientId(facesContext);
 
         final String className = "tobago-sheet-paging-rows-span"
@@ -509,9 +506,7 @@ public class SheetRenderer extends RendererBase
               application, PageAction.TO_PAGE, false);
           data.getFacets().put(FACET_PAGER_PAGE, pagerCommand);
         }
-        String pagingOnClick
-            = HtmlRendererUtil.createOnClick(facesContext, pagerCommand);
-        pagingOnClick = pagingOnClick.replaceAll("'", "\"");
+        String pagingOnClick = new CommandRendererHelper(facesContext, pagerCommand).getOnclickDoubleQuoted();
         final String pagerCommandId = pagerCommand.getClientId(facesContext);
 
         final String className = "tobago-sheet-paging-pages-span"
@@ -755,7 +750,8 @@ public class SheetRenderer extends RendererBase
     writer.writeAttribute(HtmlAttributes.SRC, image, null);
     writer.writeAttribute(HtmlAttributes.TITLE, tip, null);
     if (!disabled) {
-      String onClick = HtmlRendererUtil.createOnClick(facesContext, link);
+      CommandRendererHelper helper = new CommandRendererHelper(facesContext, link);
+      String onClick = helper.getOnclick();
       writer.writeAttribute(HtmlAttributes.ONCLICK, onClick, null);
     }
     writer.endElement(HtmlConstants.IMG);
@@ -955,8 +951,8 @@ public class SheetRenderer extends RendererBase
     }
   }
 
-  private void writeDirectPagingLinks(TobagoResponseWriter writer,
-      FacesContext facesContext, Application application, UIData data)
+  private void writeDirectPagingLinks(
+      TobagoResponseWriter writer, FacesContext facesContext, Application application, UIData data)
       throws IOException {
     UICommand pagerCommand = (UICommand) data.getFacet(FACET_PAGER_PAGE);
     if (pagerCommand == null) {
@@ -965,8 +961,8 @@ public class SheetRenderer extends RendererBase
       data.getFacets().put(FACET_PAGER_PAGE, pagerCommand);
     }
     String pagerCommandId = pagerCommand.getClientId(facesContext);
-    String hrefPostfix = "', '" + HtmlRendererUtil.createOnClick(facesContext,
-        pagerCommand).replaceAll("'", "\"") + "');";
+    String onclick = new CommandRendererHelper(facesContext, pagerCommand).getOnclickDoubleQuoted();
+    String hrefPostfix = "', '" + onclick + "');";
 
     int linkCount = ComponentUtil.getIntAttribute(data, ATTR_DIRECT_LINK_COUNT);
     linkCount--;  // current page needs no link

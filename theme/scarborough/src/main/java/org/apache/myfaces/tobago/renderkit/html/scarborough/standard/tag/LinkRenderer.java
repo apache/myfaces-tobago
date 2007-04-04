@@ -24,98 +24,50 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
-import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.util.List;
 
 public class LinkRenderer extends CommandRendererBase {
 
   private static final Log LOG = LogFactory.getLog(LinkRenderer.class);
 
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    String onclick = null;
-    String href;
-    boolean submitAction = false;
 
     String clientId = component.getClientId(facesContext);
-    // TODO refactor it
-    if (component.getAttributes().get(ATTR_ACTION_LINK) != null) {
-      String action = (String) component.getAttributes().get(ATTR_ACTION_LINK);
-      if (action == null) {
-        LOG.warn("No Action in Link : id " + clientId
-            + " label = " + component.getAttributes().get(ATTR_LABEL));
-        action = "";
-      }
-
-      action = HtmlUtils.generateUrl(facesContext, action);
-      StringBuilder sb = new StringBuilder(action);
-
-      boolean questionMark = action.contains("?");
-      for (UIComponent child : (List<UIComponent>) component.getChildren()) {
-        if (child instanceof UIParameter) {
-          UIParameter parameter = (UIParameter) child;
-          if (questionMark) {
-            sb.append("&");
-          } else {
-            sb.append("?");
-            questionMark = true;
-          }
-          sb.append(parameter.getName());
-          sb.append("=");
-          Object value = parameter.getValue();
-          // TODO encoding
-          sb.append(value != null ? URLDecoder.decode(value.toString()) : null);
-        }
-      }
-      href = sb.toString();
-
-    } else if (component.getAttributes().get(ATTR_ACTION_ONCLICK) != null) {
-      onclick = HtmlRendererUtil.prepareOnClick(facesContext, component);
-      href = HtmlRendererUtil.getEmptyHref(facesContext);
-    } else { // default: Action.TYPE_SUBMIT
-      href = "javascript:" + HtmlRendererUtil.createOnClick(facesContext, component);
-      submitAction = true;
-      //"Tobago.submitAction('" + clientId + "')";
-    }
-
-    onclick = HtmlRendererUtil.appendConfirmationScript(onclick, component);
-
+    CommandRendererHelper helper
+        = new CommandRendererHelper(facesContext, (UICommand) component, CommandRendererHelper.Tag.ANCHOR);
+    String href = helper.getHref();
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     LabelWithAccessKey label = new LabelWithAccessKey(component);
 
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
+    if (helper.isDisabled()) {
       writer.startElement(HtmlConstants.SPAN, component);
     } else {
       writer.startElement(HtmlConstants.A, component);
       writer.writeAttribute(HtmlAttributes.HREF, href, null);
-      if (onclick != null) {
-        writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, null);
+      if (helper.getOnclick() != null) {
+        writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), null);
       }
-      if (!submitAction) {
-        writer.writeAttribute(HtmlAttributes.TARGET, null, ATTR_TARGET);
+      if (helper.getTarget() != null) {
+        writer.writeAttribute(HtmlAttributes.TARGET, helper.getTarget(), null);
       }
     }
     writer.writeComponentClass();
@@ -129,8 +81,7 @@ public class LinkRenderer extends CommandRendererBase {
 //  image
     String image = (String) component.getAttributes().get(ATTR_IMAGE);
     if (image != null) {
-      if (image.startsWith("HTTP:") || image.startsWith("FTP:")
-                || image.startsWith("/")) {
+      if (image.startsWith("HTTP:") || image.startsWith("FTP:") || image.startsWith("/")) {
         // absolute Path to image : nothing to do
       } else {
         image = ResourceManagerUtil.getImageWithPath(facesContext, image);
@@ -156,8 +107,7 @@ public class LinkRenderer extends CommandRendererBase {
         LOG.info("dublicated accessKey : " + label.getAccessKey());
       }
 
-      HtmlRendererUtil.addClickAcceleratorKey(
-          facesContext, clientId, label.getAccessKey());
+      HtmlRendererUtil.addClickAcceleratorKey(facesContext, clientId, label.getAccessKey());
     }
   }
 

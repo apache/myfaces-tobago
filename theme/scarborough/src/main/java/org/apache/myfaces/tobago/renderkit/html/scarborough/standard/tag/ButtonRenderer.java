@@ -25,18 +25,19 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -49,24 +50,14 @@ public class ButtonRenderer extends CommandRendererBase {
 
   private static final Log LOG = LogFactory.getLog(ButtonRenderer.class);
 
-  public void encodeBegin(FacesContext facesContext,
-      UIComponent component) throws IOException {
+  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     String clientId = component.getClientId(facesContext);
     String buttonType = createButtonType(component);
 
-    String onclick;
+    CommandRendererHelper helper
+        = new CommandRendererHelper(facesContext, (UICommand) component, CommandRendererHelper.Tag.BUTTON);
 
-    boolean disabled = ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED);
-    if (disabled) {
-      onclick = "";
-    } else {
-      onclick = HtmlRendererUtil.createOnClick(facesContext, component);
-      onclick = HtmlRendererUtil.appendConfirmationScript(onclick, component,
-          facesContext);
-    }
-
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     LabelWithAccessKey label = new LabelWithAccessKey(component);
 
@@ -75,9 +66,9 @@ public class ButtonRenderer extends CommandRendererBase {
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
-    writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    if (onclick != null) {
-      writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, null);
+    writer.writeAttribute(HtmlAttributes.DISABLED, helper.isDisabled());
+    if (helper.getOnclick() != null) {
+      writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), null);
     }
     writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
     writer.writeComponentClass();
@@ -92,7 +83,7 @@ public class ButtonRenderer extends CommandRendererBase {
         image = imageName;
         // absolute Path to image : nothing to do
       } else {
-        if (disabled) {
+        if (helper.isDisabled()) {
           image = ResourceManagerUtil.getDisabledImageWithPath(facesContext, imageName);
         }
         if (image == null) {

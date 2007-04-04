@@ -55,6 +55,7 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -167,8 +168,7 @@ public class ToolBarRenderer extends RendererBase {
       TobagoResponseWriter writer, boolean boxFacet, boolean addExtraHoverClass)
       throws IOException {
 
-    String onClick = createOnClick(facesContext, command);
-    onClick = HtmlRendererUtil.appendConfirmationScript(onClick, command, facesContext);
+    String onclick = createOnClick(facesContext, command);
 
     List<SelectItem> items; 
 
@@ -188,7 +188,7 @@ public class ToolBarRenderer extends RendererBase {
       boolean markFirst = !ComponentUtil.hasSelectedValue(items, value);
       String radioId = radio.getClientId(facesContext);
       String onClickPrefix = "menuSetRadioValue('" + radioId + "', '";
-      String onClickPostfix = onClick != null ? "') ; " + onClick : "";
+      String onClickPostfix = onclick != null ? "') ; " + onclick : "";
       for (SelectItem item : items) {
         final String labelText = item.getLabel();
         if (labelText != null) {
@@ -216,7 +216,7 @@ public class ToolBarRenderer extends RendererBase {
 
         String formattedValue
             = RenderUtil.getFormattedValue(facesContext, radio, item.getValue());
-        onClick = onClickPrefix + formattedValue + onClickPostfix;
+        onclick = onClickPrefix + formattedValue + onClickPostfix;
         final boolean checked;
         if (item.getValue().equals(value) || markFirst) {
           checked = true;
@@ -228,7 +228,7 @@ public class ToolBarRenderer extends RendererBase {
           checked = false;
         }
 
-        renderToolbarButton(facesContext, command, writer, boxFacet, addExtraHoverClass, checked, onClick);
+        renderToolbarButton(facesContext, command, writer, boxFacet, addExtraHoverClass, checked, onclick);
 
       }
     }
@@ -269,17 +269,13 @@ public class ToolBarRenderer extends RendererBase {
     }
 
     final String clientId = command.getClientId(facesContext);
-    final boolean disabled
-        = ComponentUtil.getBooleanAttribute(command, ATTR_DISABLED);
+    final boolean disabled = ComponentUtil.getBooleanAttribute(command, ATTR_DISABLED);
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
     final UIComponent popupMenu = command.getFacet(FACET_MENUPOPUP);
 
     Map parentAttributes = command.getParent().getAttributes();
     String labelPosition = (String) parentAttributes.get(ATTR_LABEL_POSITION);
     String iconSize = (String) parentAttributes.get(ATTR_ICON_SIZE);
-
-    onClick = HtmlRendererUtil.appendConfirmationScript(onClick, command,
-        facesContext);
 
     String divClasses = "tobago-toolbar-button"
         + " tobago-toolbar-button-"  + (boxFacet ? "box-facet-" : "")
@@ -325,8 +321,7 @@ public class ToolBarRenderer extends RendererBase {
     writer.writeClassAttribute(tableClasses);
     writer.startElement(HtmlConstants.TR, null);
 
-    boolean anchorOnLabel =
-        label.getText() != null && !ToolBarTag.LABEL_OFF.equals(labelPosition);
+    boolean anchorOnLabel = label.getText() != null && !ToolBarTag.LABEL_OFF.equals(labelPosition);
 
     if (!ToolBarTag.ICON_OFF.equals(iconSize)) {
       HtmlRendererUtil.addImageSources(facesContext, writer,
@@ -336,11 +331,9 @@ public class ToolBarRenderer extends RendererBase {
       writer.writeAttribute(HtmlAttributes.ALIGN, "center", null);
       writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
 
-      boolean render1pxImage
-          = (iconName == null && (!ToolBarTag.LABEL_BOTTOM.equals(
-              labelPosition)
+      boolean render1pxImage = (iconName == null
+          && (!ToolBarTag.LABEL_BOTTOM.equals(labelPosition)
           && label.getText() != null));
-
 
       if (((!ToolBarTag.LABEL_OFF.equals(labelPosition)
             && label.getText() != null)
@@ -420,7 +413,9 @@ public class ToolBarRenderer extends RendererBase {
           + MenuBarRenderer.SEARCH_ID_POSTFIX;
       return "tobagoButtonOpenMenu(this, '" + searchId + "')";
     } else {
-      return HtmlRendererUtil.createOnClick(facesContext, component);
+      CommandRendererHelper helper
+          = new CommandRendererHelper(facesContext, (org.apache.myfaces.tobago.component.UICommand) component);
+      return helper.getOnclick();
     }
   }
 

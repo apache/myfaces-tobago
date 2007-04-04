@@ -17,19 +17,14 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCHANGE;
 
-import javax.faces.application.Application;
-import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 
 public class HtmlUtils {
 
-  private static final Log LOG = LogFactory.getLog(HtmlUtils.class);
   public static final String LAYOUT_ATTRIBUTE_PREFIX = "layout.";
 
   public static String generateAttribute(String name, Object value) {
@@ -87,22 +82,6 @@ public class HtmlUtils {
     } else {
       return null;
     }
-  }
-
-  // FIXME: is this longer needed?
-  public static String generateUrl(FacesContext facesContext, String url) {
-    String result;
-    Application application = facesContext.getApplication();
-    ViewHandler viewHandler = application.getViewHandler();
-
-    if (url.startsWith("/")) { // internal URL
-      result = viewHandler.getActionURL(facesContext, url);
-    } else { // external URL
-      result = url;
-    }
-
-    result = facesContext.getExternalContext().encodeActionURL(result);
-    return result;
   }
 
 }

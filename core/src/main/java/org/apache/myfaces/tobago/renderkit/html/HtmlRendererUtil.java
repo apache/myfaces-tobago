@@ -20,8 +20,6 @@ package org.apache.myfaces.tobago.renderkit.html;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.event.PopupActionListener;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOCUS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
@@ -35,7 +33,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_INNER;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_PREFIX;
 import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_DEFAULT;
@@ -44,17 +42,12 @@ import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_
 import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_REQUIRED;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_POPUP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.component.UIPopup;
-import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.Theme;
-import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -63,7 +56,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
-import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
@@ -661,76 +653,6 @@ public final class HtmlRendererUtil {
     }
   }
 
-  public static String createOnClick(FacesContext facesContext, UIComponent component) {
-
-    // TODO move this
-    UIPopup popup = (UIPopup) component.getFacet(FACET_POPUP);
-    if (popup != null && component instanceof UICommand) {
-      UICommand command = (UICommand) component;
-      if (!ComponentUtil.containsPopupActionListener(command)) {
-        command.addActionListener(new PopupActionListener(popup));
-      }
-    }
-    
-    String clientId = component.getClientId(facesContext);
-    boolean defaultCommand = ComponentUtil.getBooleanAttribute(component,
-        TobagoConstants.ATTR_DEFAULT_COMMAND);
-    boolean transition = ComponentUtil.getBooleanAttribute(component, ATTR_TRANSITION);
-    String onclick;
-
-    if (component.getAttributes().get(TobagoConstants.ATTR_ACTION_LINK) != null) {
-      onclick = "Tobago.navigateToUrl('"
-          + HtmlUtils.generateUrl(facesContext,
-          (String) component.getAttributes().get(TobagoConstants.ATTR_ACTION_LINK)) + "');";
-    } else if (component.getAttributes().get(TobagoConstants.ATTR_ACTION_ONCLICK) != null) {
-      onclick = prepareOnClick(facesContext, component);
-    } else if (component instanceof UICommand
-        && ((UICommand) component).getRenderedPartially().length > 0) {
-
-      String[] componentId = ((UICommand) component).getRenderedPartially();
-
-      if (componentId != null && componentId.length == 1) {
-        // TODO find a better way
-        boolean popupAction = ComponentUtil.containsPopupActionListener((UICommand) component);
-        if (popupAction) {
-          onclick = "Tobago.openPopupWithAction('" + getComponentId(facesContext, component, componentId[0]) + "', '"
-              + clientId + "')";
-        } else {
-          onclick = "Tobago.reloadComponent('" + getComponentId(facesContext, component, componentId[0]) + "','"
-              + clientId + "', {});";
-        }
-      } else {
-        LOG.error("more than one parially rendered component is currently not supported " + componentId);
-        onclick = "Tobago.submitAction('" + clientId + "', " + transition + ");";
-      }
-
-    } else if (defaultCommand) {
-      ComponentUtil.findPage(component).setDefaultActionId(clientId);
-      onclick = null;
-    } else {
-      String target = ComponentUtil.getStringAttribute(component, TobagoConstants.ATTR_TARGET);
-      if (target == null) {
-        onclick = "Tobago.submitAction('" + clientId + "', " + transition  + ");";
-      } else {
-        onclick = "Tobago.submitAction('" + clientId + "', " + transition  + ", '" + target + "');";
-      }
-    }
-
-    if (component.getAttributes().get(TobagoConstants.ATTR_POPUP_CLOSE) != null
-        && ComponentUtil.isInPopup(component)) {
-      String value = (String) component.getAttributes().get(TobagoConstants.ATTR_POPUP_CLOSE);
-      if (value.equals("immediate")) {
-        onclick = "Tobago.closePopup(this);";
-      } else if (value.equals("afterSubmit")
-          && component instanceof UICommand
-          && ((UICommand) component).getRenderedPartially().length > 0) {
-        onclick += "Tobago.closePopup(this);";
-      }
-
-    }
-    return onclick;
-  }
-
   public static String getComponentId(FacesContext context, UIComponent component, String componentId) {
     if (componentId.startsWith(":")) {
       return componentId.substring(1);
@@ -741,41 +663,6 @@ public final class HtmlRendererUtil {
       }
     }
     return null;
-  }
-
-  public static String prepareOnClick(FacesContext facesContext, UIComponent component) {
-    String onclick;
-    onclick = (String) component.getAttributes().get(TobagoConstants.ATTR_ACTION_ONCLICK);
-    if (onclick.contains("@autoId")) {
-      onclick = onclick.replace("@autoId", component.getClientId(facesContext));
-    }
-    return onclick;
-  }
-
-  @Deprecated
-  public static String appendConfirmationScript(String onclick, UIComponent component, FacesContext facesContext) {
-    return appendConfirmationScript(onclick, component);
-  }
-
-  public static String appendConfirmationScript(String onclick, UIComponent component) {
-    ValueHolder confirmation = (ValueHolder) component.getFacet(TobagoConstants.FACET_CONFIRMATION);
-    if (confirmation != null) {
-      StringBuilder script = new StringBuilder();
-      script.append("confirm('");
-      script.append(confirmation.getValue());
-      script.append("')");
-      if (onclick != null) {
-        script.append(" && ");
-        script.append(onclick);
-      }
-      onclick = script.toString();
-    }
-    return onclick;
-  }
-
-  public static String getEmptyHref(FacesContext facesContext) {
-    ClientProperties clientProperties = ClientProperties.getInstance(facesContext);
-    return clientProperties.getUserAgent().isMsie() ? "#" : "javascript:;";
   }
 
   public static String toStyleString(String key, Integer value) {
@@ -795,4 +682,5 @@ public final class HtmlRendererUtil {
     buf.append("; ");
     return buf.toString();
   }
+
 }

@@ -46,6 +46,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
@@ -348,24 +349,26 @@ public class MenuBarRenderer extends RendererBase {
     return index;
   }
 
-  private void addMenuEntry(StringBuilder sb, String var, FacesContext facesContext,
-                            UICommand command) throws IOException {
-    String onClick = HtmlRendererUtil.createOnClick(facesContext, command);
+  private void addMenuEntry(StringBuilder sb, String var, FacesContext facesContext, UICommand command)
+      throws IOException {
+    CommandRendererHelper helper
+        = new CommandRendererHelper(facesContext, (org.apache.myfaces.tobago.component.UICommand) command);
+    String onclick = helper.getOnclick();
     if (command instanceof UIMenuCommand) {
       if (command.getFacet(FACET_ITEMS) != null) {
         UIComponent facet = command.getFacet(FACET_ITEMS);
         if (facet instanceof UISelectOne) {
-          addSelectOne(sb, var, facesContext, command, onClick);
+          addSelectOne(sb, var, facesContext, command, onclick);
         } else if (facet instanceof UISelectBoolean) {
-          addSelectBoolean(sb, var, facesContext, command, onClick);
+          addSelectBoolean(sb, var, facesContext, command, onclick);
         }
       } else {
-        addCommand(sb, var, facesContext, command, onClick);
+        addCommand(sb, var, facesContext, command, onclick);
       }
     } else if (command instanceof UISelectBooleanCommand) {
-      addSelectBoolean(sb, var, facesContext, command, onClick);
+      addSelectBoolean(sb, var, facesContext, command, onclick);
     } else if (command instanceof UISelectOneCommand) {
-      addSelectOne(sb, var, facesContext, command, onClick);
+      addSelectOne(sb, var, facesContext, command, onclick);
     }
   }
 
@@ -396,23 +399,18 @@ public class MenuBarRenderer extends RendererBase {
     addMenuItem(sb, var, facesContext, command, image, onClick);
   }
 
-  private void addMenuItem(StringBuilder sb, String var, FacesContext facesContext,
-                           UICommand command, String image, String onClick) throws IOException {
-    final LabelWithAccessKey label = new LabelWithAccessKey(command);
-    onClick = HtmlRendererUtil.appendConfirmationScript(onClick, command,
-        facesContext);
-    addMenuItem(sb, var, facesContext, command, label, image, onClick);
+  private void addMenuItem(
+      StringBuilder sb, String var, FacesContext facesContext, UICommand command, String image, String onclick)
+      throws IOException {
+    LabelWithAccessKey label = new LabelWithAccessKey(command);
+    addMenuItem(sb, var, facesContext, command, label, image, onclick);
   }
 
-  private void addSelectOne(StringBuilder sb, String var,
-                            FacesContext facesContext, UICommand command, String onClick)
+  private void addSelectOne(
+      StringBuilder sb, String var, FacesContext facesContext, UICommand command, String onclick)
       throws IOException {
-    onClick = HtmlRendererUtil.appendConfirmationScript(onClick, command,
-        facesContext);
     List<SelectItem> items;
-
     LabelWithAccessKey label = new LabelWithAccessKey(command);
-
 
     UISelectOne radio = (UISelectOne) command.getFacet(FACET_ITEMS);
     if (radio == null) {
@@ -423,13 +421,12 @@ public class MenuBarRenderer extends RendererBase {
       items = ComponentUtil.getSelectItems(radio);
     }
 
-
     Object value = radio.getValue();
 
     boolean markFirst = !ComponentUtil.hasSelectedValue(items, value);
     String radioId = radio.getClientId(facesContext);
     String onClickPrefix = "menuSetRadioValue('" + radioId + "', '";
-    String onClickPostfix = onClick != null ? "') ; " + onClick : "";
+    String onClickPostfix = onclick != null ? "') ; " + onclick : "";
     for (SelectItem item : items) {
       final String labelText = item.getLabel();
       label.setAccessKey(null);
@@ -446,7 +443,7 @@ public class MenuBarRenderer extends RendererBase {
       }
       String formattedValue
           = RenderUtil.getFormattedValue(facesContext, radio, item.getValue());
-      onClick = onClickPrefix + formattedValue + onClickPostfix;
+      onclick = onClickPrefix + formattedValue + onClickPostfix;
       String image;
       if (item.getValue().equals(value) || markFirst) {
         image = "image/MenuRadioChecked.gif";
@@ -455,7 +452,7 @@ public class MenuBarRenderer extends RendererBase {
       } else {
         image = "image/MenuRadioUnchecked.gif";
       }
-      addMenuItem(sb, var, facesContext, command, label, image, onClick);
+      addMenuItem(sb, var, facesContext, command, label, image, onclick);
     }
   }
 
