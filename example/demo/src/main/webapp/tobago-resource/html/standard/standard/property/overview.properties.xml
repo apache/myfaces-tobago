@@ -57,19 +57,19 @@
   <entry key="transition">Transition</entry>
   <entry key="nonFacesResponse">Non Faces Resp.</entry>
 
-  <entry key="reference_intro">Reference (under construction)</entry>
-  <entry key="reference_command">Command (under construction)</entry>
-  <entry key="reference_container">Container (under construction)</entry>
-  <entry key="reference_input">Input (under construction)</entry>
-  <entry key="reference_menu">Menu (under construction)</entry>
-  <entry key="reference_output">Output (under construction)</entry>
-  <entry key="reference_popup">Popup (under construction)</entry>
-  <entry key="reference_select">Select (under construction)</entry>
-  <entry key="reference_sheet">Sheet (under construction)</entry>
-  <entry key="reference_tab">Tab (under construction)</entry>
-  <entry key="reference_time">Time (under construction)</entry>
-  <entry key="reference_tool">Tool Bar (under construction)</entry>
-  <entry key="reference_upload">Upload (under construction)</entry>
+  <entry key="reference_intro">Ref. (under constr.)</entry>
+  <entry key="reference_command">Command</entry>
+  <entry key="reference_container">Container</entry>
+  <entry key="reference_input">Input</entry>
+  <entry key="reference_menu">Menu</entry>
+  <entry key="reference_output">Output</entry>
+  <entry key="reference_popup">Popup</entry>
+  <entry key="reference_select">Select</entry>
+  <entry key="reference_sheet">Sheet</entry>
+  <entry key="reference_tab">Tab</entry>
+  <entry key="reference_time">Time</entry>
+  <entry key="reference_tool">Tool Bar</entry>
+  <entry key="reference_upload">Upload</entry>
 
   <entry key="submit">Submit</entry>
   <entry key="cancel">Cancel</entry>
