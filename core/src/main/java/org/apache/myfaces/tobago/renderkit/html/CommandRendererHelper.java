@@ -97,9 +97,9 @@ public class CommandRendererHelper {
       } else if (command.getAttributes().get(ATTR_ACTION_ONCLICK) != null) {
         onclick = prepareOnClick(facesContext, command);
       } else if (command instanceof org.apache.myfaces.tobago.component.UICommand
-          &&  ((org.apache.myfaces.tobago.component.UICommand)command).getRenderedPartially().length > 0) {
+          &&  ((org.apache.myfaces.tobago.component.UICommand) command).getRenderedPartially().length > 0) {
 
-        String[] componentId = ((org.apache.myfaces.tobago.component.UICommand)command).getRenderedPartially();
+        String[] componentId = ((org.apache.myfaces.tobago.component.UICommand) command).getRenderedPartially();
 
         if (componentId != null && componentId.length == 1) {
           // TODO find a better way
@@ -135,7 +135,7 @@ public class CommandRendererHelper {
           onclick = "Tobago.closePopup(this);";
         } else if (value.equals("afterSubmit")
             && command instanceof org.apache.myfaces.tobago.component.UICommand
-            && ((org.apache.myfaces.tobago.component.UICommand)command).getRenderedPartially().length > 0) {
+            && ((org.apache.myfaces.tobago.component.UICommand) command).getRenderedPartially().length > 0) {
           onclick += "Tobago.closePopup(this);";
         }
 
