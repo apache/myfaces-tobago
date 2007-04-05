@@ -414,7 +414,7 @@ public class ToolBarRenderer extends RendererBase {
       return "tobagoButtonOpenMenu(this, '" + searchId + "')";
     } else {
       CommandRendererHelper helper
-          = new CommandRendererHelper(facesContext, (org.apache.myfaces.tobago.component.UICommand) component);
+          = new CommandRendererHelper(facesContext, (UICommand) component);
       return helper.getOnclick();
     }
   }

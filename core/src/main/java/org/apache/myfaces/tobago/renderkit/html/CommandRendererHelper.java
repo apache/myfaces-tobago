@@ -30,7 +30,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_POPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_CONFIRMATION;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPopup;
-import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.context.ClientProperties;
 
@@ -38,6 +37,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
 import javax.faces.component.UIParameter;
+import javax.faces.component.UICommand;
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
 import java.util.List;
@@ -96,9 +96,10 @@ public class CommandRendererHelper {
         }
       } else if (command.getAttributes().get(ATTR_ACTION_ONCLICK) != null) {
         onclick = prepareOnClick(facesContext, command);
-      } else if (command.getRenderedPartially().length > 0) {
+      } else if (command instanceof org.apache.myfaces.tobago.component.UICommand
+          &&  ((org.apache.myfaces.tobago.component.UICommand)command).getRenderedPartially().length > 0) {
 
-        String[] componentId = command.getRenderedPartially();
+        String[] componentId = ((org.apache.myfaces.tobago.component.UICommand)command).getRenderedPartially();
 
         if (componentId != null && componentId.length == 1) {
           // TODO find a better way
@@ -133,7 +134,8 @@ public class CommandRendererHelper {
         if (value.equals("immediate")) {
           onclick = "Tobago.closePopup(this);";
         } else if (value.equals("afterSubmit")
-            && command.getRenderedPartially().length > 0) {
+            && command instanceof org.apache.myfaces.tobago.component.UICommand
+            && ((org.apache.myfaces.tobago.component.UICommand)command).getRenderedPartially().length > 0) {
           onclick += "Tobago.closePopup(this);";
         }
 

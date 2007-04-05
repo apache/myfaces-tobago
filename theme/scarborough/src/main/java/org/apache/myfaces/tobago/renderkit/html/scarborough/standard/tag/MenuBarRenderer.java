@@ -351,8 +351,7 @@ public class MenuBarRenderer extends RendererBase {
 
   private void addMenuEntry(StringBuilder sb, String var, FacesContext facesContext, UICommand command)
       throws IOException {
-    CommandRendererHelper helper
-        = new CommandRendererHelper(facesContext, (org.apache.myfaces.tobago.component.UICommand) command);
+    CommandRendererHelper helper = new CommandRendererHelper(facesContext, command);
     String onclick = helper.getOnclick();
     if (command instanceof UIMenuCommand) {
       if (command.getFacet(FACET_ITEMS) != null) {
