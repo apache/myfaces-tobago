@@ -26,6 +26,8 @@ import org.apache.myfaces.tobago.util.ResponseUtils;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CHARSET;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -136,6 +138,9 @@ public class AjaxResponseRenderer {
     ExternalContext externalContext = facesContext.getExternalContext();
     RequestUtils.ensureEncoding(externalContext);
     ResponseUtils.ensureNoCacheHeader(externalContext);
+    UIComponent page = ComponentUtil.findPage(AjaxUtils.getAjaxComponents(facesContext).get(0));
+    String charset = (String) page.getAttributes().get(ATTR_CHARSET);
+    ResponseUtils.ensureContentTypeHeader(facesContext, charset);
     StringBuilder buffer = new StringBuilder(responseCode);
 
     // add parts to response

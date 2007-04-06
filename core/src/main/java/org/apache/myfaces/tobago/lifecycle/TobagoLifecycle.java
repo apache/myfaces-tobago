@@ -30,6 +30,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.util.RequestUtils;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
@@ -81,6 +82,10 @@ public class TobagoLifecycle extends Lifecycle {
     if (LOG.isTraceEnabled()) {
       LOG.trace("entering " + executor.getPhase() + " in " + TobagoLifecycle.class.getName());
     }
+
+    // At very first ensure the requestEncoding, this MUST done before
+    // accessing request parameters, wich can occur in custom phaseListeners.
+    RequestUtils.ensureEncoding(facesContext.getExternalContext());
 
     try {
       phaseListenerMgr.informPhaseListenersBefore(executor.getPhase());
