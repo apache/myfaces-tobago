@@ -68,6 +68,7 @@ var Tobago = {
     */
   scriptIdRegExp: new RegExp("[/.-]", 'g'),
 
+  scriptFragmentRegExp: '(?:<script(?:\n|.)*?>)(?:(?:\n|\s)*?<!--)?((\n|.)*?)(?:<\/script>)',
 
   // -------- Variables -------------------------------------------------------
 
@@ -454,7 +455,33 @@ var Tobago = {
     }, true);
   },
 
+  getJsfState: function() {
+    var stateContainer = Tobago.element(Tobago.page.id + Tobago.SUB_COMPONENT_SEP + "jsf-state-container");
+    var jsfState = "";
+    if (stateContainer) {
+      for (var i = 0; i < stateContainer.childNodes.length; i++) {
+        var child = stateContainer.childNodes[i];
+        if (child.tagName == "INPUT") {
+          if (jsfState.length > 0) {
+            jsfState += "&";
+          }
+          jsfState += encodeURIComponent(child.name);
+          jsfState += "=";
+          jsfState += encodeURIComponent(child.value);
+        }
+      }
+    }
+//    LOG.debug("jsfState = " + jsfState);
+    return jsfState;
+  },
+
   replaceJsfState: function(state) {
+    if (state.indexOf("<script type") == 0) {
+      state = state.match(new RegExp(Tobago.scriptFragmentRegExp, 'im'), '')[1];
+//      LOG.debug("eval(" + state + ")");
+      eval(state);
+      return;
+    }
     var stateContainer = Tobago.element(this.page.id + this.SUB_COMPONENT_SEP + "jsf-state-container");
     if (stateContainer) {
       stateContainer.innerHTML = state;

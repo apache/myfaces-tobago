@@ -53,12 +53,12 @@ Object.extend(new Ajax.Base(), {
 
   getUpdatedChoices: function() {
     if (Tobago.Updater.hasTransport()) {
-      // TODO: add client-side state to parameters
-      // TODO: this also needs updating state on client after getting response
+
       this.options.parameters =
       "affectedAjaxComponent=" + encodeURIComponent(this.element.id)
           + "&" + encodeURIComponent(this.element.name) + '='
-          + encodeURIComponent(this.element.value);
+          + encodeURIComponent(this.element.value)
+          + "&" + Tobago.getJsfState();
 
       //    LOG.debug("start new request");
       var requestOptions = Tobago.extend({}, this.options);
@@ -78,6 +78,7 @@ Object.extend(new Ajax.Base(), {
       responseText = responseText.substring(responseText.indexOf(Tobago.Updater.CODE_SUCCESS) + 20);
       var jsfStateIndex = responseText.indexOf('<script type');
       if (jsfStateIndex > 0) {
+        Tobago.replaceJsfState(responseText.substr(jsfStateIndex));
         responseText = responseText.substring(0, jsfStateIndex);
       }
 //      LOG.debug("responseText = " + responseText);
