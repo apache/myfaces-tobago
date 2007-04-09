@@ -133,7 +133,7 @@ public class AjaxUtils {
     }
   }
 
-  public static void parseAndStoreComponents(FacesContext facesContext) {
+  public static ArrayList<UIComponent> parseAndStoreComponents(FacesContext facesContext) {
     Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
     String ajaxComponentIds = (String) parameterMap.get(AjaxPhaseListener.AJAX_COMPONENT_ID);
     if (ajaxComponentIds != null) {
@@ -151,7 +151,9 @@ public class AjaxUtils {
           ajaxComponents.add(ajaxComponent);
         }
       }
+      return ajaxComponents;
     }
+    return null;
   }
 
   public static List<UIComponent> getAjaxComponents(FacesContext facesContext) {
