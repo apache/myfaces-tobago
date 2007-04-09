@@ -43,7 +43,7 @@ import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -67,7 +67,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     int height = calculateLayoutHeight(facesContext, component, false);
 
-    RendererBase containerRenderer =
+    LayoutInformationProvider containerRenderer =
         ComponentUtil.getRenderer(facesContext, component);
     height += containerRenderer.getHeaderHeight(facesContext, component);
     height += containerRenderer.getPaddingHeight(facesContext, component);
@@ -77,7 +77,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   public int getFixedWidth(FacesContext facesContext, UIComponent component) {
      int width = calculateLayoutWidth(facesContext, component, false);
 
-     RendererBase containerRenderer =
+     LayoutInformationProvider containerRenderer =
          ComponentUtil.getRenderer(facesContext, component);
      width += containerRenderer.getPaddingWidth(facesContext, component);
      return width;
@@ -638,7 +638,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         if (minimum) {
           height = (int) LayoutUtil.getMinimumSize(facesContext, component).getHeight();
         } else {
-          RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
+          LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, component);
           if (renderer != null) {
             height = renderer.getFixedHeight(facesContext, component);
           }
@@ -662,7 +662,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         Object object = row.getElements().get(column);
 
         if (object instanceof UIComponent) {
-         UIComponent component = (UIComponent) object;
+          UIComponent component = (UIComponent) object;
           if (component instanceof UICell) {
             if (((UICell) component).getSpanX() > 1) {
               continue;
@@ -672,7 +672,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           if (minimum) {
             max = (int) LayoutUtil.getMinimumSize(facesContext, component).getWidth();
           } else {
-            RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
+            LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, component);
             if (renderer != null) {
               max = renderer.getFixedWidth(facesContext, component);
             }

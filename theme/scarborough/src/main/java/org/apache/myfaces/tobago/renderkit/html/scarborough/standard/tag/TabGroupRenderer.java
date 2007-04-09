@@ -48,6 +48,7 @@ import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -365,7 +366,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
       fixedHeight = 0;
       for (UIComponent tab: (List<UIComponent>) component.getChildren()) {
         if (tab instanceof UIPanelBase && tab.isRendered()) {
-          RendererBase renderer = ComponentUtil.getRenderer(facesContext, tab);
+          LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, tab);
           fixedHeight
               = Math.max(fixedHeight, renderer.getFixedHeight(facesContext, tab));
         }

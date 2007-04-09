@@ -17,21 +17,30 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.io.IOException;
+import javax.faces.component.UIComponent;
+import java.awt.Dimension;
 
-public interface TobagoRenderer {
+/*
+ * Date: Apr 9, 2007
+ * Time: 4:53:07 PM
+ */
+public interface LayoutInformationProvider {
+  int getHeaderHeight(FacesContext facesContext, UIComponent component);
 
-  void encodeBegin(FacesContext facesContext,
-      UIComponent component)
-      throws IOException;
+  int getPaddingWidth(FacesContext facesContext, UIComponent component);
 
-  void encodeChildren(FacesContext facesContext,
-      UIComponent component)
-      throws IOException;
+  int getPaddingHeight(FacesContext facesContext, UIComponent component);
 
-  void encodeEnd(FacesContext facesContext, UIComponent component)
-      throws IOException;
+  int getComponentExtraWidth(FacesContext facesContext, UIComponent component);
 
+  int getComponentExtraHeight(FacesContext facesContext, UIComponent component);
+
+  Dimension getMinimumSize(FacesContext facesContext, UIComponent component);
+
+  int getFixedWidth(FacesContext facesContext, UIComponent component);
+
+  int getFixedHeight(FacesContext facesContext, UIComponent component);
+
+  int getFixedSpace(FacesContext facesContext, UIComponent component, boolean width);
 }

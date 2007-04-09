@@ -56,7 +56,7 @@ public abstract class LayoutRenderer extends RendererBase {
     }
     height += LayoutUtil.calculateFixedHeightForChildren(facesContext, component);
 
-    RendererBase containerRenderer =
+    LayoutInformationProvider containerRenderer =
         ComponentUtil.getRenderer(facesContext, component);
     if (containerRenderer != null) {
       height += containerRenderer.getHeaderHeight(facesContext, component);

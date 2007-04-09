@@ -45,6 +45,7 @@ import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
+import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.util.StringUtil;
@@ -344,7 +345,7 @@ public class UIData extends javax.faces.component.UIData
           if (i < columns.size()) {
             UIColumn column = columns.get(i);
             if (column instanceof UIColumnSelector) {
-                RendererBase renderer
+                LayoutInformationProvider renderer
                     = ComponentUtil.getRenderer(facesContext, column);
               if (renderer == null) {
                 LOG.warn("can't find renderer for " + column.getClass().getName());
@@ -354,7 +355,7 @@ public class UIData extends javax.faces.component.UIData
 
             } else {
               for (UIComponent component : (List<UIComponent>) column.getChildren()) {
-                RendererBase renderer
+                LayoutInformationProvider renderer
                     = ComponentUtil.getRenderer(facesContext, component);
                 width += renderer.getFixedWidth(facesContext, component);
               }

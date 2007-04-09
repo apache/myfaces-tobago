@@ -49,7 +49,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 public abstract class RendererBase
-    extends Renderer implements TobagoRenderer {
+    extends Renderer implements LayoutInformationProvider {
 
   private static final Log LOG = LogFactory.getLog(RendererBase.class);
 
@@ -152,7 +152,7 @@ public abstract class RendererBase
       for (Object aChildren : children) {
         UIComponent child = (UIComponent) aChildren;
 
-        RendererBase renderer = ComponentUtil.getRenderer(facesContext, child);
+        LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, child);
         if (renderer != null) {
           if (width) {
             fixedSpace = Math.max(fixedSpace, renderer.getFixedWidth(facesContext, child));

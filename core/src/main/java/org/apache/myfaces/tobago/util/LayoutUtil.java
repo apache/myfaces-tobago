@@ -32,7 +32,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICell;
 import org.apache.myfaces.tobago.component.UIForm;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
@@ -95,7 +95,7 @@ public final class LayoutUtil {
     if (component.getRendererType() != null) {
       try {
 
-        RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
+        LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, component);
 
         if (width) {
           margin += renderer.getPaddingWidth(facesContext, component);
@@ -229,7 +229,7 @@ public final class LayoutUtil {
     int height = 0;
     for (Object o : component.getChildren()) {
       UIComponent child = (UIComponent) o;
-      RendererBase renderer = ComponentUtil.getRenderer(facesContext, child);
+      LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, child);
       if (renderer == null
           && child instanceof UINamingContainer
           && child.getChildren().size() > 0) {
@@ -251,7 +251,7 @@ public final class LayoutUtil {
     Dimension dimension
         = (Dimension) component.getAttributes().get(ATTR_MINIMUM_SIZE);
     if (dimension == null) {
-      RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
+      LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, component);
       if (renderer != null) {
         dimension = renderer.getMinimumSize(facesContext, component);
       }

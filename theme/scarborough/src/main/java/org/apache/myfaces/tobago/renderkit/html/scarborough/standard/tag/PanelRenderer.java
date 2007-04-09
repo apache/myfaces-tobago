@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -75,7 +76,7 @@ public class PanelRenderer extends RendererBase implements AjaxRenderer {
     // first ask layoutManager
     UIComponent layout = component.getFacet(FACET_LAYOUT);
     if (layout != null) {
-      RendererBase renderer = ComponentUtil.getRenderer(facesContext, layout);
+      LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, layout);
       height = renderer.getFixedHeight(facesContext, component);
     }
     if (height < 0) {
@@ -95,7 +96,7 @@ public class PanelRenderer extends RendererBase implements AjaxRenderer {
         height = 0;
         for (Object o : component.getChildren()) {
           UIComponent child = (UIComponent) o;
-          RendererBase renderer = ComponentUtil.getRenderer(facesContext, child);
+          LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, child);
           if (renderer == null
               && child instanceof UINamingContainer
               && child.getChildren().size() > 0) {

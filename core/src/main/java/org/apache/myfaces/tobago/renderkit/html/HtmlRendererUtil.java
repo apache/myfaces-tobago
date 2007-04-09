@@ -50,7 +50,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -356,7 +356,7 @@ public final class HtmlRendererUtil {
       }
     }
     if (space > 0) {
-      RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
+      LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, component);
       if (layoutSpace != null
           || !ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
         int styleSpace = space;
@@ -388,7 +388,7 @@ public final class HtmlRendererUtil {
   }
 
   public static void createHeaderAndBodyStyles(FacesContext facesContext, UIComponent component, boolean width) {
-    RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
+    LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, component);
     HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE);
     Integer styleSpace = null;
     try {
