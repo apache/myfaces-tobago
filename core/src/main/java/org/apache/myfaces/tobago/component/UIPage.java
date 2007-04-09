@@ -141,7 +141,7 @@ public class UIPage extends UIForm {
     }
   }
 
-  private void markSubmittedForm(FacesContext facesContext) {
+  public void markSubmittedForm(FacesContext facesContext) {
     // find the form of the action command and set submitted to it and all
     // children
 
@@ -158,6 +158,7 @@ public class UIPage extends UIForm {
       command = findComponent(currentActionId);
     } catch (Exception e) {/* ignore */}
 
+    // TODO: remove this if block if prooved this never happens anymore
     if (command == null
         && currentActionId != null && currentActionId.matches(".*:\\d+:.*")) {
       // If currentActionId component was inside a sheet the id contains the
@@ -167,6 +168,7 @@ public class UIPage extends UIForm {
       currentActionId = currentActionId.replaceAll(":\\d+:", ":");
       try {
         command = findComponent(currentActionId);
+        LOG.info("command = \"" + command + "\"", new Exception());
       } catch (Exception e) {/* ignore */}
     }
 
