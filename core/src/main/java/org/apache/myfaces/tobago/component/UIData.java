@@ -58,6 +58,7 @@ import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
+import javax.faces.event.PhaseId;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -472,7 +473,7 @@ public class UIData extends javax.faces.component.UIData
   }
 
   public void processUpdates(FacesContext context) {
-    super.processUpdates(context);
+//    super.processUpdates(context);
     updateSheetState(context);
   }
 
@@ -568,12 +569,15 @@ public class UIData extends javax.faces.component.UIData
     if (facesEvent.getComponent() == this
         && (facesEvent instanceof SheetStateChangeEvent
         || facesEvent instanceof PageActionEvent)) {
+      facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
+      LOG.info("queueEvent = \"" + facesEvent + "\"");
       parent.queueEvent(facesEvent);
     } else {
       UIComponent source = facesEvent.getComponent();
       UIComponent sourceParent = source.getParent();
       if (sourceParent.getParent() == this
           && source.getId() != null && source.getId().endsWith(SORTER_ID)) {
+        facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
         parent.queueEvent(new SortActionEvent(this, (UIColumn) sourceParent));
       } else {
         super.queueEvent(facesEvent);
