@@ -17,7 +17,10 @@ package org.apache.myfaces.tobago.lifecycle;
  * limitations under the License.
  */
 
+import static javax.faces.event.PhaseId.PROCESS_VALIDATIONS;
+
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.component.UIViewRoot;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -35,6 +38,8 @@ class ProcessValidationsExecutor implements PhaseExecutor {
       for (UIComponent ajaxComponent : ajaxComponents) {
         ajaxComponent.processValidators(facesContext);
       }
+      UIViewRoot viewRoot = ((UIViewRoot) facesContext.getViewRoot());
+      viewRoot.broadcastEventsForPhase(facesContext, PROCESS_VALIDATIONS);
     } else {
     facesContext.getViewRoot().processValidators(facesContext);
     }
@@ -42,6 +47,6 @@ class ProcessValidationsExecutor implements PhaseExecutor {
   }
 
   public PhaseId getPhase() {
-    return PhaseId.PROCESS_VALIDATIONS;
+    return PROCESS_VALIDATIONS;
   }
 }

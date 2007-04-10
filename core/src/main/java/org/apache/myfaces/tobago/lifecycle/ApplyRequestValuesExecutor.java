@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.lifecycle;
  * limitations under the License.
  */
 
+import static javax.faces.event.PhaseId.APPLY_REQUEST_VALUES;
+
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
@@ -92,7 +94,7 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
       }
 
       UIViewRoot viewRoot = ((UIViewRoot) facesContext.getViewRoot());
-      viewRoot.broadcastEventsForPhase(facesContext, PhaseId.APPLY_REQUEST_VALUES);
+      viewRoot.broadcastEventsForPhase(facesContext, APPLY_REQUEST_VALUES);
 
     } else {
       facesContext.getViewRoot().processDecodes(facesContext);
@@ -101,6 +103,6 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
   }
 
   public PhaseId getPhase() {
-    return PhaseId.APPLY_REQUEST_VALUES;
+    return APPLY_REQUEST_VALUES;
   }
 }
