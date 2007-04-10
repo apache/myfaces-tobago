@@ -66,7 +66,11 @@ public class DatePickerRenderer extends LinkRenderer {
     if (dateInput.getValueBinding(TobagoConstants.ATTR_READONLY) != null) {
       link.setValueBinding(TobagoConstants.ATTR_DISABLED, dateInput.getValueBinding(TobagoConstants.ATTR_READONLY));
     } else {
-      link.setDisabled(dateInput.isReadonly());
+      if (dateInput.getValueBinding(TobagoConstants.ATTR_DISABLED) != null) {
+        link.setValueBinding(TobagoConstants.ATTR_DISABLED, dateInput.getValueBinding(TobagoConstants.ATTR_DISABLED));
+      } else {
+        link.setDisabled(dateInput.isReadonly() || dateInput.isDisabled());
+      }
     }
     String idPrefix = dateInput.getId() + "_picker";
     Map<String, Object>  attributes = link.getAttributes();

@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
 
 import javax.faces.context.FacesContext;
@@ -36,6 +37,7 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Input";
 
   private Boolean readonly;
+  private Boolean disabled;
   private Boolean password;
   private String[] markup;
   private javax.faces.el.MethodBinding suggestMethod;
@@ -47,15 +49,17 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
     readonly = (Boolean) values[2];
     password = (Boolean) values[3];
     markup = (String[]) values[4];
+    disabled = (Boolean) values[5];
   }
 
   public Object saveState(FacesContext context) {
-    Object[] values = new Object[5];
+    Object[] values = new Object[6];
     values[0] = super.saveState(context);
     values[1] = saveAttachedState(context, suggestMethod);
     values[2] = readonly;
     values[3] = password;
     values[4] = markup;
+    values[5] = disabled;
     return values;
   }
 
@@ -85,6 +89,23 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
   public void setReadonly(boolean readonly) {
     this.readonly = readonly;
   }
+
+  public boolean isDisabled() {
+      if (disabled != null) {
+        return disabled;
+      }
+      ValueBinding vb = getValueBinding(ATTR_DISABLED);
+      if (vb != null) {
+        return (Boolean.TRUE.equals(vb.getValue(getFacesContext())));
+      } else {
+        return false;
+      }
+    }
+
+    public void setDisabled(boolean disabled) {
+      this.disabled = disabled;
+    }
+
 
   public boolean isPassword() {
     if (password != null) {
