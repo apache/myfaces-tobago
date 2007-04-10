@@ -86,8 +86,8 @@ public class UIPopup extends UIPanelBase implements NamingContainer, AjaxCompone
       UIPage page = ComponentUtil.findPage(this);
       String action = page.getActionId();
       if (action != null) {
-        UICommand command = (UICommand) page.findComponent(SEPARATOR_CHAR + action);
-        if (command != null) {
+        UIComponent command = page.findComponent(SEPARATOR_CHAR + action);
+        if (command != null && command instanceof UICommand) {
           return !(command.getAttributes().get(TobagoConstants.ATTR_POPUP_CLOSE) != null);
         }
       }
