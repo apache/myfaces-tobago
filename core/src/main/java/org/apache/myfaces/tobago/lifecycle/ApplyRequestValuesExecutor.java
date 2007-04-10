@@ -38,7 +38,7 @@ import java.util.ArrayList;
  * Apply request values phase (JSF Spec 2.2.2)
  */
 class ApplyRequestValuesExecutor implements PhaseExecutor {
-  private final Log LOG = LogFactory.getLog(ApplyRequestValuesExecutor.class);
+  private static final Log LOG = LogFactory.getLog(ApplyRequestValuesExecutor.class);
 
   public boolean execute(FacesContext facesContext) {
     ArrayList<UIComponent> ajaxComponents
