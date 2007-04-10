@@ -20,10 +20,14 @@ package org.apache.myfaces.tobago.lifecycle;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIViewRoot;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIData;
 import java.util.ArrayList;
 
 /**
@@ -32,6 +36,8 @@ import java.util.ArrayList;
  * Apply request values phase (JSF Spec 2.2.2)
  */
 class ApplyRequestValuesExecutor implements PhaseExecutor {
+  private final Log LOG = LogFactory.getLog(ApplyRequestValuesExecutor.class);
+
   public boolean execute(FacesContext facesContext) {
     ArrayList<UIComponent> ajaxComponents
         = AjaxUtils.parseAndStoreComponents(facesContext);
@@ -51,15 +57,19 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
 
       if (actionComponent != null) {
         boolean decodeNeeded = true;
+        UIData sheet = null;
 
         for (UIComponent ajaxComponent : ajaxComponents) {
-          UIComponent tester = actionComponent;
-          while (tester != null) {
-            if (tester == ajaxComponent) {
+          UIComponent component = actionComponent;
+          while (component != null) {
+            if (component == ajaxComponent) {
               decodeNeeded = false;
               break;
             } else {
-              tester = tester.getParent();
+              component = component.getParent();
+              if (component instanceof UIData) {
+                sheet = (UIData) component;
+              }
             }
           }
           if (!decodeNeeded) {
@@ -67,7 +77,12 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
           }
         }        
         if (decodeNeeded) {
-          actionComponent.processDecodes(facesContext);
+          if (sheet == null) {
+            actionComponent.processDecodes(facesContext);
+          } else {
+            // action component is inside UIData, we need to proccess this component!
+            sheet.processDecodes(facesContext);
+          }
         }
       }
 
@@ -75,6 +90,9 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
       for (UIComponent ajaxComponent : ajaxComponents) {
         ajaxComponent.processDecodes(facesContext);
       }
+
+      UIViewRoot viewRoot = ((UIViewRoot) facesContext.getViewRoot());
+      viewRoot.broadcastEventsForPhase(facesContext, PhaseId.APPLY_REQUEST_VALUES);
 
     } else {
       facesContext.getViewRoot().processDecodes(facesContext);
