@@ -1504,6 +1504,7 @@ Tobago.Panel.prototype.onComplete = function(transport) {
 
 Tobago.Panel.prototype.onFailure = function() {
   //LOG.debug("Panel not reloaded : " + transport.responseText.substr(0,20));
+  Tobago.deleteOverlay(Tobago.element(this.id));
   this.initReload();
 };
 
@@ -1776,6 +1777,11 @@ Tobago.Updater = {
 
       if (requestOptions.createOverlay) {
         Tobago.createOverlay(container);
+        if (requestOptions.onFailure === undefined) {
+          requestOptions.onFailure = function(transport, json) {
+            Tobago.deleteOverlay(container);
+          }
+        }
       }
       var onComplete = requestOptions.onComplete;
       requestOptions.onComplete = function(transport, json) {
