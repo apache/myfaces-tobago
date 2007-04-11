@@ -39,6 +39,22 @@
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
+  <managed-bean>
+      <managed-bean-name>bbg</managed-bean-name>
+      <managed-bean-class>
+        org.apache.myfaces.tobago.example.test.SessionController
+      </managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <lifecycle>
+      <phase-listener>
+        org.apache.myfaces.tobago.util.DebugPhaseListener
+      </phase-listener>
+
+    </lifecycle>
+
+
   <navigation-rule>
     <navigation-case>
       <from-outcome>solarList</from-outcome>
