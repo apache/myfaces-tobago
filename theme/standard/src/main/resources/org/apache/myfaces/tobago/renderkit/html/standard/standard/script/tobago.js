@@ -1127,6 +1127,11 @@ var Tobago = {
     * Create an overlay with same dimension and wait cursor over an htmlElement.
     */
   createOverlay: function(element) {
+    var position = Tobago.getRuntimeStyle(element).position;
+    if (position == "static") {
+      LOG.debug("replace position " + position + " with relative");
+      element.style.position = "relative";
+    }
     var overlay = document.createElement('div');
     overlay.id = element.id + "-overlay";
     overlay.style.position = "absolute";
