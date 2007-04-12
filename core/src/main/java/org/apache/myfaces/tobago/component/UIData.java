@@ -657,6 +657,15 @@ public class UIData extends javax.faces.component.UIData
   public void encodeAjax(FacesContext facesContext) throws IOException {
     setupState(facesContext);
     prepareDimensions(facesContext);
+    // in encodeBegin of superclass is some logic which clears the DataModel
+    // this must here also done.
+    // in RI and myfaces this could done via setValue(null)
+    ValueBinding binding = getValueBinding("value");
+    if (binding != null) {
+      setValue(null);
+    } else {
+      setValue(getValue());
+    }
     AjaxUtils.encodeAjaxComponent(facesContext, this);
   }
 
