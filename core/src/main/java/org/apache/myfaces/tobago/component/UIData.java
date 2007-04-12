@@ -473,7 +473,7 @@ public class UIData extends javax.faces.component.UIData
   }
 
   public void processUpdates(FacesContext context) {
-//    super.processUpdates(context);
+    super.processUpdates(context);
     updateSheetState(context);
   }
 
