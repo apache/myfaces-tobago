@@ -1,3 +1,4 @@
+package org.apache.myfaces.tobago.example.addressbook.web;
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -14,7 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.tobago.example.addressbook.web;
 
 import org.apache.log4j.Logger;
 
@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
  */
 public class CategoryModel {
 
-  Logger logger;
+  private Logger logger;
   private String level;
 
   public CategoryModel(Logger logger) {
