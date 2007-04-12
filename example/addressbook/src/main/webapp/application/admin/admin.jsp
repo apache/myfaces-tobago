@@ -18,25 +18,30 @@
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <f:view locale="#{controller.language}">
   <tc:loadBundle basename="resource" var="bundle" />
 
-  <tc:page label="#{bundle.editorTitle}" state="#{layout}" width="#{layout.width}" height="#{layout.height}">
+  <tc:page label="#{bundle.editorTitle}" state="#{layout}" width="#{layout.width}" height="#{layout.height}" id="page">
+    <f:facet name="layout">
+      <tc:gridLayout margin="10px" rows="*;fixed"/>
+    </f:facet>
 
+    <tc:tabGroup>
+      <tc:tab label="Memory">
+        <jsp:include page="memory.jsp"/>
+      </tc:tab>
+      <tc:tab label="Logging">
+        <jsp:include page="logging.jsp"/>
+      </tc:tab>
+    </tc:tabGroup>
     <tc:panel>
-      <f:facet name="reload">
-        <tc:reload frequency="5000" />
-      </f:facet>
       <f:facet name="layout">
-        <tc:gridLayout margin="10px" rows="fixed;fixed;1*" columns="300px;1* "/>
+        <tc:gridLayout columns="*;fixed"/>
       </f:facet>
-      <tc:label value="Memory:" />
       <tc:cell/>
-      <tc:progress value="#{admin.memory}" />   
-      <tc:cell/>
-      <tc:label value="Current: #{admin.memory.value} kB Max: #{admin.memory.maximum} kB" />
-      <tc:cell/>
+      <tc:button label="Back" action="list"/>
     </tc:panel>
   </tc:page>
 </f:view>

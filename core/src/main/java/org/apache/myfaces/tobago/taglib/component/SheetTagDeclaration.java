@@ -54,7 +54,7 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
   void setColumns(String columns);
 
   /**
-   * Flag indicating the header should rendered.
+   * Flag indicating the header should be rendered.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")

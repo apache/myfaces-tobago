@@ -21,8 +21,20 @@
   <tc:loadBundle basename="resource" var="bundle"/>
 
   <tc:page label="#{bundle.listPageTitle}" state="#{layout}" width="#{layout.width}" height="#{layout.height}">
+    <f:facet name="menuBar">
+      <tc:menuBar id="menuBar">
+        <tc:menu label="File">
+          <tc:menuItem label="Logout" image="image/export.gif"/>
+        </tc:menu>
+        <tc:menu label="Help">
+          <tc:menuItem label="#{bundle.toolbarAbout}"
+                       action="alert('#{bundle.aboutMessage}')"
+                       type="script" image="image/org/tango-project/tango-icon-theme/16x16/apps/help-browser.png"/>
+        </tc:menu>
+      </tc:menuBar>
+    </f:facet>
 
-    <tc:panel>
+  <tc:panel>
       <f:facet name="layout">
         <tc:gridLayout margin="10px" rows="fixed;1*;20px"/>
       </f:facet>

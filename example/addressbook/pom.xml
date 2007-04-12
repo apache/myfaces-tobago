@@ -26,13 +26,6 @@
         <artifactId>maven-jetty-plugin</artifactId>
         <configuration>
           <contextPath>/</contextPath>
-          <!--scanIntervalSeconds>5</scanIntervalSeconds-->
-          <systemProperties>
-            <systemProperty>
-              <name>org.apache.commons.logging.Log</name>
-              <value>org.apache.commons.logging.impl.SimpleLog</value>
-            </systemProperty>
-          </systemProperties>
           <userRealms>
             <userRealm implementation="org.mortbay.jetty.security.HashUserRealm">
               <name>addressbook-realm</name>
@@ -193,8 +186,7 @@
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
-      <version>1.2.14</version>
-      <scope>compile</scope>
+      <scope>compile</scope>      
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>

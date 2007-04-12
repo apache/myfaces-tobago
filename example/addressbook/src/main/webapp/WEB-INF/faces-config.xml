@@ -66,6 +66,12 @@
   </managed-bean>
 
   <managed-bean>
+      <managed-bean-name>logging</managed-bean-name>
+      <managed-bean-class>org.apache.myfaces.tobago.example.addressbook.web.LoggingController</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
     <managed-bean-name>countries</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.addressbook.web.Countries</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
