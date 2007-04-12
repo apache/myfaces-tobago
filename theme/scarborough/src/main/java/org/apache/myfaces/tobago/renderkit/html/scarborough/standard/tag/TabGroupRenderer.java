@@ -138,7 +138,6 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     int virtualTab = 0;
     //UIPanelBase[] tabs = component.getTabs();
     for (UIComponent tab: (List<UIComponent>) component.getChildren()) {
-      System.err.println("virtualTab "+ virtualTab + " activeIndex " + activeIndex);
       if (tab instanceof UIPanelBase) {
         if (tab.isRendered() && (SWITCH_TYPE_CLIENT.equals(switchType) || virtualTab == activeIndex)) {
 
