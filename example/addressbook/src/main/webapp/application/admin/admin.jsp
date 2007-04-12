@@ -28,7 +28,7 @@
       <tc:gridLayout margin="10px" rows="*;fixed"/>
     </f:facet>
 
-    <tc:tabGroup>
+    <tc:tabGroup switchType="reloadPage">
       <tc:tab label="Memory">
         <jsp:include page="memory.jsp"/>
       </tc:tab>
