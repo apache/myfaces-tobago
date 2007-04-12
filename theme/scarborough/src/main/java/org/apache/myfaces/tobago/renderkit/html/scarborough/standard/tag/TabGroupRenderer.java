@@ -138,6 +138,7 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     int virtualTab = 0;
     //UIPanelBase[] tabs = component.getTabs();
     for (UIComponent tab: (List<UIComponent>) component.getChildren()) {
+      System.err.println("virtualTab "+ virtualTab + " activeIndex " + activeIndex);
       if (tab instanceof UIPanelBase) {
         if (tab.isRendered() && (SWITCH_TYPE_CLIENT.equals(switchType) || virtualTab == activeIndex)) {
 
@@ -177,19 +178,19 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
   private int ensureRenderedActiveIndex(FacesContext context, UITabGroup tabGroup) {
     int activeIndex = tabGroup.getSelectedIndex();
     // ensure to select a rendered tab
-    int index = 0;
+    int index = -1;
     for (UIComponent tab: (List<UIComponent>) tabGroup.getChildren()) {
+      index++;
       if (tab instanceof UIPanelBase) {
         if (tab.isRendered()) {
           if (activeIndex == index) {
             return index;
           }
         }
-        index++;
       }
     }
     ValueBinding vb = tabGroup.getValueBinding(ATTR_SELECTED_INDEX);
-    if (vb !=null) {
+    if (vb != null) {
       vb.setValue(context, index);
     } else {
       tabGroup.setSelectedIndex(index);
