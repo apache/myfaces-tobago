@@ -33,7 +33,7 @@
         <tc:out value="#{appender.name}"/>
       </tc:column>
       <tc:column label="File">
-        <tc:link inline="true" action="#{logging.downloadLogFile}"
+        <tc:link inline="true" action="#{logging.downloadLogFile}" tip="Download Log File"
                  target="_blank" rendered="#{! empty appender.file}">
           <f:param value="#{appender}" binding="#{logging.currentAppender}"/>
           <tc:out value="#{appender.file}"/>

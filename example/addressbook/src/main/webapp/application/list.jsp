@@ -23,11 +23,36 @@
   <tc:page label="#{bundle.listPageTitle}" state="#{layout}" width="#{layout.width}" height="#{layout.height}">
     <f:facet name="menuBar">
       <tc:menuBar id="menuBar">
-        <tc:menu label="File">
-          <tc:menuItem label="Logout" image="image/export.gif"/>
+        <tc:menu label="#{bundle.menuFile}">
+          <tc:menuItem label="#{bundle.menuFileNew}" action="#{controller.createAddress}" immediate="true"
+                       image="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png"/>
+          <tc:menuItem label="Add Dummy Addresses" action="#{controller.addDummyAddresses}" immediate="true"/>
+          <tc:menuSeparator/>
+          <tc:menuItem label="Logout" image="image/org/tango-project/tango-icon-theme/16x16/actions/system-log-out.png"/>
         </tc:menu>
-        <tc:menu label="Help">
-          <tc:menuItem label="#{bundle.toolbarAbout}"
+
+        <tc:menu label="#{bundle.menuSettings}">
+          <tc:menu label="#{bundle.menuSettingsLanguage}" >
+            <tx:menuRadio action="#{controller.languageChanged}"
+                          value="#{controller.language}">
+              <f:selectItems value="#{controller.languages}" />
+            </tx:menuRadio>
+          </tc:menu>
+          <tc:menu label="#{bundle.menuSettingsTheme}" >
+            <tx:menuRadio action="#{controller.themeChanged}"
+                          value="#{controller.theme}">
+              <f:selectItems value="#{controller.themeItems}" />
+            </tx:menuRadio>
+          </tc:menu>
+          <tc:menuItem label="#{bundle.menuSettingsMode}" >
+            <f:facet name="items">
+              <tc:selectBooleanCheckbox value="#{controller.simple}" />
+            </f:facet>
+          </tc:menuItem>
+        </tc:menu>
+
+        <tc:menu label="#{bundle.menuHelp}">
+          <tc:menuItem label="#{bundle.menuHelpAbout}"
                        action="alert('#{bundle.aboutMessage}')"
                        type="script" image="image/org/tango-project/tango-icon-theme/16x16/apps/help-browser.png"/>
         </tc:menu>
@@ -40,13 +65,14 @@
       </f:facet>
       <tc:toolBar iconSize="big">
         <tc:button label="#{bundle.toolbarAddressList}" action="#{controller.search}" immediate="true"
-            image="image/org/tango-project/tango-icon-theme/32x32/mimetypes/x-office-address-book.png"/>
+            image="image/org/tango-project/tango-icon-theme/32x32/mimetypes/x-office-address-book.png"
+            disabled="#{facesContext.viewRoot.viewId == '/application/list.jsp'}"/>
         <tc:button label="#{bundle.listNew}" action="#{controller.createAddress}"
             image="image/org/tango-project/tango-icon-theme/32x32/actions/contact-new.png" />
         <tc:button onclick="alert('#{bundle.aboutMessage}')" label="#{bundle.toolbarAbout}"
             image="image/org/tango-project/tango-icon-theme/32x32/apps/help-browser.png"/>
         <tc:button label="#{bundle.admin}" action="#{admin.admin}" 
-            image="image/org/tango-project/tango-icon-theme/32x32/categories/applications-system.png" />
+            image="image/org/tango-project/tango-icon-theme/32x32/categories/preferences-system.png" />
       </tc:toolBar>
       <tc:box label="#{bundle.listBoxTitle}">
         <f:facet name="layout">
@@ -55,7 +81,7 @@
         <f:facet name="toolBar">
           <tc:toolBar>
             <tc:button label="#{bundle.listNew}" action="#{controller.createAddress}"
-                image="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png" />
+                image="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png"/>
             <tc:button label="#{bundle.listEdit}" action="#{controller.editAddress}"
                 image="image/org/tango-project/tango-icon-theme/16x16/apps/accessories-text-editor.png" />
             <tc:button label="#{bundle.listDelete}" action="#{controller.deleteAddresses}"
@@ -64,7 +90,8 @@
                 <tc:out value="#{bundle.listDeleteConfirmation}" />
               </f:facet>
             </tc:button>
-            <tc:button label="Select Columns" action="#{controller.selectColumns}">
+            <tc:button label="Select Columns" action="#{controller.selectColumns}"
+                image="image/org/tango-project/tango-icon-theme/16x16/categories/applications-system.png">
               <f:facet name="popup">
                 <tc:popup width="300px" height="200px" left="200px" top="200px"
                     rendered="#{controller.renderPopup}" id="popup">

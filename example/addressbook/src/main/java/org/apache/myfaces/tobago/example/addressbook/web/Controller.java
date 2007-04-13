@@ -23,32 +23,34 @@ package org.apache.myfaces.tobago.example.addressbook.web;
  */
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.WordUtils;
-import org.apache.myfaces.tobago.model.SheetState;
-import org.apache.myfaces.tobago.context.Theme;
-import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.component.UIColumn;
 import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.example.addressbook.Address;
 import org.apache.myfaces.tobago.example.addressbook.AddressDao;
 import org.apache.myfaces.tobago.example.addressbook.AddressDaoException;
 import org.apache.myfaces.tobago.example.addressbook.Picture;
-import org.apache.myfaces.tobago.event.SortActionEvent;
-import org.apache.myfaces.tobago.component.UIColumn;
+import org.apache.myfaces.tobago.model.SheetState;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.application.Application;
-import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
-import javax.faces.validator.ValidatorException;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
+import javax.faces.validator.ValidatorException;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Controller {
 
@@ -97,7 +99,7 @@ public class Controller {
     themes.add(0, tobagoConfig.getDefaultTheme());
     themeItems = new ArrayList<SelectItem>();
     for (Theme theme : themes) {
-      themeItems.add(new SelectItem(theme, theme.getDisplayName()));
+      themeItems.add(new SelectItem(theme, StringUtils.capitalize(theme.getDisplayName())));
     }
 
     ClientProperties client = ClientProperties.getInstance(facesContext);
@@ -129,6 +131,13 @@ public class Controller {
     return OUTCOME_EDITOR;
   }
 
+  public String addDummyAddresses() throws IOException, AddressDaoException {
+    for (int i=0; i<100; ++i) {
+      currentAddress = RandomAddressGenerator.generateAddress();
+      store();
+    }
+    return OUTCOME_LIST;
+  }
 
   public String editAddress() {
     LOG.debug("action: editAddress");
@@ -173,6 +182,7 @@ public class Controller {
   }
 
   public String languageChangedList() {
+    initLanguages();
     return OUTCOME_LIST;
   }
 
@@ -344,6 +354,23 @@ public class Controller {
 
   public String popupFileUpload() {
     setRenderFileUploadPopup(true);
+    return null;
+  }
+
+  public String languageChanged() {
+    countries.init(language);
+    initLanguages();
+/*
+    // reinit date converter
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    UIViewRoot viewRoot = facesContext.getViewRoot();
+    EditableValueHolder component = (EditableValueHolder)
+        viewRoot.findComponent(":page:dayOfBirth");
+    if (component != null) {
+      DateTimeConverter converter = (DateTimeConverter) component.getConverter();
+      converter.setPattern(MessageUtils.getLocalizedString(facesContext, "editor_date_pattern"));
+    }
+*/
     return null;
   }
 
