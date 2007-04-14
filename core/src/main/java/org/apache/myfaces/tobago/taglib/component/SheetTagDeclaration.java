@@ -191,7 +191,7 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
   void setState(String state);
 
   /**
-   * MethodBinding representing an stateChangeListener method that will be
+   * Method binding representing a stateChangeListener method that will be
    * notified when the state was changed by the user.
    * The expression must evaluate to a public method that takes an
    * StateChangeEvent parameter, with a return type of void.
@@ -202,21 +202,16 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
   void setStateChangeListener(String stateChangeListener);
 
   /**
-   * MethodBinding representing an actionListener method that will be
+   * Method binding representing an actionListener method that will be
    * invoked when sorting was requested by the user.
    * Use this if your application needs special handling for sorting columns.
    * If this is not set and the sortable attribute column is set to true the sheet
    * implementation will use a default sort method.
-   * The expression must evaluate to a public method that takes an
-   * ActionEvent parameter, with a return type of void.
-   * The method will recieve a SortActionEvent,
+   * The expression must evaluate to a public method which takes an
+   * ActionEvent as parameter and with a return type of void.
+   * The method will receive a {@link org.apache.myfaces.tobago.event.SortActionEvent}.
    * The method should sort according to the sortColumnId and direction getting from
-   * the sheets SheetState object.
-   * The expression must evaluate to a public method that takes an
-   * ActionEvent parameter, with a return type of void.
-   * The method will recieve a {@link org.apache.myfaces.tobago.event.SortActionEvent},
-   * The method should sort according to the sortColumnId and direction getting from
-   * the sheets {@link org.apache.myfaces.tobago.model.SheetState} object.
+   * the sheet's {@link org.apache.myfaces.tobago.model.SheetState} object.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.el.MethodBinding",
