@@ -123,7 +123,8 @@
 
         <tc:sheet columns="1*;1*;1*" value="#{controller.currentAddressList}"
             var="address" state="#{controller.selectedAddresses}"
-            sortActionListener="#{controller.sheetSorter}">
+            sortActionListener="#{controller.sheetSorter}" rows="25"
+            showRowRange="left" showPageRange="right" showDirectLinks="center">
           <tc:column id="firstName" label="#{bundle.listFirstName}" sortable="true"
                      rendered="#{controller.renderFirstName}">
             <tc:out value="#{address.firstName}" />

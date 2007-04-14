@@ -36,164 +36,16 @@
         <tc:messages />
 
         <tc:tabGroup switchType="reloadTab" immediate="true">
-        <tc:tab label="#{bundle.editorTabPersonal}">
-          <tc:panel>
-            <f:facet name="layout">
-              <tc:gridLayout rows="fixed;fixed"/>
-            </f:facet>
-            <tc:panel>
-              <f:facet name="layout">
-                <tc:gridLayout columns="*;120px"/>
-              </f:facet>
-              <tc:panel>
-                <f:facet name="layout">
-                  <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;1*"/>
-                </f:facet>
-                <tx:in value="#{controller.currentAddress.firstName}"
-                       label="#{bundle.editorFirstName}" required="true">
-                  <f:validateLength minimum="2" maximum="20"/>
-                </tx:in>
-
-                <tx:in label="#{bundle.editorLastName}"
-                       value="#{controller.currentAddress.lastName}" required="true">
-                </tx:in>
-
-                <tc:panel>
-                  <f:facet name="layout">
-                    <tc:gridLayout columns="6*;1*"/>
-                  </f:facet>
-                  <tx:in value="#{controller.currentAddress.street}"
-                         label="#{bundle.editorStreet}"/>
-                  <tc:in value="#{controller.currentAddress.houseNumber}"/>
-                </tc:panel>
-
-                <tc:panel>
-                  <f:facet name="layout">
-                    <tc:gridLayout columns="1*;1*"/>
-                  </f:facet>
-                  <tx:in value="#{controller.currentAddress.zipCode}"
-                         label="#{bundle.editorCity}"/>
-                  <tc:in value="#{controller.currentAddress.city}"/>
-                </tc:panel>
-
-                <tx:selectOneChoice
-                    value="#{controller.currentAddress.country}"
-                    label="#{bundle.editorCountry}">
-                  <f:selectItems value="#{countries}"/>
-                </tx:selectOneChoice>
-                <tc:cell></tc:cell>
-              </tc:panel>
-              <tc:panel>
-                <f:facet name="layout">
-                  <tc:gridLayout rows="160px" columns="120px"/>
-                </f:facet>
-                <tc:form>
-                  <tc:button
-                      image="#{controller.currentAddress.picture != null?'${pageContext.request.contextPath}/faces/picture?id=XXXX':'image/empty_portrait.png'}"
-                      action="#{controller.popupFileUpload}">
-                    <f:facet name="popup">
-                      <tc:popup width="300px" height="170px" left="200px"
-                                top="200px" rendered="#{controller.renderFileUploadPopup}"
-                                id="popup-fileUpload">
-                        <tc:box label="FileUpload">
-                          <f:facet name="layout">
-                            <tc:gridLayout rows="fixed;1*;fixed" margin="10" />
-                          </f:facet>
-                          <tc:file value="#{controller.uploadedFile}" required="true">
-                            <tc:validateFileItem contentType="image/*" />
-                          </tc:file>
-                          <tc:messages/>
-                          <tc:panel>
-                            <f:facet name="layout">
-                               <tc:gridLayout columns="1*;100px;100px" />
-                            </f:facet>
-                            <tc:cell/>
-                            <tc:button action="#{controller.okFileUpload}" label="OK" />
-                            <tc:button action="#{controller.cancelFileUpload}" label="Cancel" immediate="true"/>
-                          </tc:panel>
-                        </tc:box>
-                      </tc:popup>
-                    </f:facet>
-                  </tc:button>
-                </tc:form>
-              </tc:panel>
-            </tc:panel>
-              <tc:panel>
-                <f:facet name="layout">
-                  <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*"/>
-                </f:facet>
-                <tx:in value="#{controller.currentAddress.phone}"
-                    label="#{bundle.editorPhone}"
-                    validator="#{controller.validatePhoneNumber}"/>
-
-                <tx:in value="#{controller.currentAddress.mobile}"
-                    label="#{bundle.editorMobile}"
-                    validator="#{controller.validatePhoneNumber}"/>
-
-                <tx:in value="#{controller.currentAddress.fax}"
-                    label="#{bundle.editorFax}"
-                    validator="#{controller.validatePhoneNumber}"/>
-
-                <tx:in value="#{controller.currentAddress.email}"
-                       label="#{bundle.editorEmail}">
-                  <f:validator validatorId="EmailAddressValidator"/>
-                </tx:in>
-
-                <tx:in value="#{controller.currentAddress.icq}"
-                       label="#{bundle.editorIcq}">
-                  <f:validateLongRange minimum="0"/>
-                </tx:in>
-                <tx:in value="#{controller.currentAddress.homePage}"
-                       label="#{bundle.editorHomepage}"/>
-
-                <tx:date id="dayOfBirth" value="#{controller.currentAddress.dayOfBirth}"
-                         label="#{bundle.editorBirthday}">
-                  <f:convertDateTime pattern="#{bundle.editorDatePattern}"/>
-                </tx:date>
-
-                <tc:cell/>
-              </tc:panel>
-            </tc:panel>
+          <tc:tab label="#{bundle.editorTabPersonal}">
+            <jsp:include page="tab/personal.jsp"/>
           </tc:tab>
 
           <tc:tab label="#{bundle.editorTabBusiness}" rendered="#{!controller.simple}">
-            <tc:panel>
-              <f:facet name="layout">
-                <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;1*" />
-              </f:facet>
-              <tx:in value="#{controller.currentAddress.company}"
-                  label="#{bundle.editorJobCompany}" />
-
-              <tx:in value="#{controller.currentAddress.jobTitle}"
-                  label="#{bundle.editorJobTitle}" />
-
-              <tx:in value="#{controller.currentAddress.jobPhone}"
-                  label="#{bundle.editorPhone}"
-                  validator="#{controller.validatePhoneNumber}" />
-
-              <tx:in value="#{controller.currentAddress.jobEmail}"
-                  label="#{bundle.editorEmail}">
-                <f:validator validatorId="EmailAddressValidator"/>
-              </tx:in>
-
-              <tx:in value="#{controller.currentAddress.jobHomePage}"
-                  label="#{bundle.editorHomepage}" />
-
-              <tc:cell/>
-
-            </tc:panel>
+            <jsp:include page="tab/business.jsp"/>
           </tc:tab>
 
           <tc:tab label="#{bundle.editorTabMisc}" rendered="#{!controller.simple}">
-            <tc:panel>
-              <f:facet name="layout">
-                <tc:gridLayout rows="1*" />
-              </f:facet>
-
-              <tx:textarea value="#{controller.currentAddress.note}"
-                  label="#{bundle.editorNote}" />
-            </tc:panel>
-
+            <jsp:include page="tab/misc.jsp"/>
           </tc:tab>
         </tc:tabGroup>
 
