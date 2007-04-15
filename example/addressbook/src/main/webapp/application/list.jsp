@@ -29,7 +29,8 @@
                          image="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png"/>
             <tc:menuItem label="Add Dummy Addresses" action="#{controller.addDummyAddresses}" immediate="true"/>
             <tc:menuSeparator/>
-            <tc:menuItem label="Logout" image="image/org/tango-project/tango-icon-theme/16x16/actions/system-log-out.png"/>
+            <tc:menuItem label="Logout" action="#{controller.logout}" 
+                         image="image/org/tango-project/tango-icon-theme/16x16/actions/system-log-out.png"/>
           </tc:menu>
 
           <tc:menu label="#{bundle.menuSettings}">
@@ -67,14 +68,13 @@
       </f:facet>
       <tc:toolBar iconSize="big">
         <tc:button label="#{bundle.toolbarAddressList}" action="#{controller.search}" immediate="true"
-            image="image/org/tango-project/tango-icon-theme/32x32/mimetypes/x-office-address-book.png"
-            disabled="#{facesContext.viewRoot.viewId == '/application/list.jsp'}"/>
+            image="image/org/tango-project/tango-icon-theme/32x32/mimetypes/x-office-address-book.png"/>
         <tc:button label="#{bundle.listNew}" action="#{controller.createAddress}"
             image="image/org/tango-project/tango-icon-theme/32x32/actions/contact-new.png" />
         <tc:button onclick="alert('#{bundle.aboutMessage}')" label="#{bundle.toolbarAbout}"
             image="image/org/tango-project/tango-icon-theme/32x32/apps/help-browser.png"/>
-        <tc:button label="#{bundle.admin}" action="#{admin.admin}" 
-            image="image/org/tango-project/tango-icon-theme/32x32/categories/preferences-system.png" />
+        <tc:button label="#{bundle.admin}" action="#{admin.admin}"
+            image="image/org/tango-project/tango-icon-theme/32x32/categories/applications-system.png" />
       </tc:toolBar>
       <tc:box label="#{bundle.listBoxTitle}">
         <f:facet name="layout">
@@ -83,7 +83,7 @@
         <f:facet name="toolBar">
           <tc:toolBar>
             <tc:button label="#{bundle.listNew}" action="#{controller.createAddress}"
-                image="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png"/>
+                image="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png" />
             <tc:button label="#{bundle.listEdit}" action="#{controller.editAddress}"
                 image="image/org/tango-project/tango-icon-theme/16x16/apps/accessories-text-editor.png" />
             <tc:button label="#{bundle.listDelete}" action="#{controller.deleteAddresses}"
@@ -92,8 +92,7 @@
                 <tc:out value="#{bundle.listDeleteConfirmation}" />
               </f:facet>
             </tc:button>
-            <tc:button label="Select Columns" action="#{controller.selectColumns}"
-                image="image/org/tango-project/tango-icon-theme/16x16/categories/applications-system.png">
+            <tc:button label="Select Columns" action="#{controller.selectColumns}">
               <f:facet name="popup">
                 <tc:popup width="300px" height="200px" left="200px" top="200px"
                     rendered="#{controller.renderPopup}" id="popup">
@@ -125,8 +124,7 @@
 
         <tc:sheet columns="1*;1*;1*" value="#{controller.currentAddressList}"
             var="address" state="#{controller.selectedAddresses}"
-            sortActionListener="#{controller.sheetSorter}" rows="25"
-            showRowRange="left" showPageRange="right" showDirectLinks="center">
+            sortActionListener="#{controller.sheetSorter}">
           <tc:column id="firstName" label="#{bundle.listFirstName}" sortable="true"
                      rendered="#{controller.renderFirstName}">
             <tc:out value="#{address.firstName}" />

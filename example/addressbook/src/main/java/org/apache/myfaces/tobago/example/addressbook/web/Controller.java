@@ -47,6 +47,7 @@ import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.servlet.http.HttpSession;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -263,6 +264,15 @@ public class Controller {
   public String cancelPopup() {
     setRenderPopup(false);
     return OUTCOME_LIST;
+  }
+
+  public String logout() {
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+    if (session != null) {
+      session.invalidate();
+    }
+    return "logout";
   }
 
   public Locale getLanguage() {

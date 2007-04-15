@@ -22,14 +22,16 @@
   <tc:loadBundle basename="addressbook" var="bundle" />
 
   <tc:page label="#{bundle.editorTitle}" state="#{layout}" width="#{layout.width}" height="#{layout.height}">
+    <f:facet name="action">
+      <tc:link action="list" />
+    </f:facet>
 
     <tc:panel>
       <f:facet name="layout">
         <tc:gridLayout margin="10px"/>
       </f:facet>
 
-        <tc:messages />
-        <tc:link label="Enter Addressbook Demo " link="/application/list.jsp" />
+      <tc:out value="Initializing the Addressbook Demo ..."/>
 
     </tc:panel>
   </tc:page>
