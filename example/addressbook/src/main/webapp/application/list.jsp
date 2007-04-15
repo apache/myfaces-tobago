@@ -23,39 +23,41 @@
   <tc:page label="#{bundle.listPageTitle}" state="#{layout}" width="#{layout.width}" height="#{layout.height}">
     <f:facet name="menuBar">
       <tc:menuBar id="menuBar">
-        <tc:menu label="#{bundle.menuFile}">
-          <tc:menuItem label="#{bundle.menuFileNew}" action="#{controller.createAddress}" immediate="true"
-                       image="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png"/>
-          <tc:menuItem label="Add Dummy Addresses" action="#{controller.addDummyAddresses}" immediate="true"/>
-          <tc:menuSeparator/>
-          <tc:menuItem label="Logout" image="image/org/tango-project/tango-icon-theme/16x16/actions/system-log-out.png"/>
-        </tc:menu>
-
-        <tc:menu label="#{bundle.menuSettings}">
-          <tc:menu label="#{bundle.menuSettingsLanguage}" >
-            <tx:menuRadio action="#{controller.languageChanged}"
-                          value="#{controller.language}">
-              <f:selectItems value="#{controller.languages}" />
-            </tx:menuRadio>
+        <tc:form>
+          <tc:menu label="#{bundle.menuFile}">
+            <tc:menuItem label="#{bundle.menuFileNew}" action="#{controller.createAddress}" immediate="true"
+                         image="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png"/>
+            <tc:menuItem label="Add Dummy Addresses" action="#{controller.addDummyAddresses}" immediate="true"/>
+            <tc:menuSeparator/>
+            <tc:menuItem label="Logout" image="image/org/tango-project/tango-icon-theme/16x16/actions/system-log-out.png"/>
           </tc:menu>
-          <tc:menu label="#{bundle.menuSettingsTheme}" >
-            <tx:menuRadio action="#{controller.themeChanged}"
-                          value="#{controller.theme}">
-              <f:selectItems value="#{controller.themeItems}" />
-            </tx:menuRadio>
-          </tc:menu>
-          <tc:menuItem label="#{bundle.menuSettingsMode}" >
-            <f:facet name="items">
-              <tc:selectBooleanCheckbox value="#{controller.simple}" />
-            </f:facet>
-          </tc:menuItem>
-        </tc:menu>
 
-        <tc:menu label="#{bundle.menuHelp}">
-          <tc:menuItem label="#{bundle.menuHelpAbout}"
-                       action="alert('#{bundle.aboutMessage}')"
-                       type="script" image="image/org/tango-project/tango-icon-theme/16x16/apps/help-browser.png"/>
-        </tc:menu>
+          <tc:menu label="#{bundle.menuSettings}">
+            <tc:menu label="#{bundle.menuSettingsLanguage}" >
+              <tx:menuRadio action="#{controller.languageChanged}"
+                            value="#{controller.language}">
+                <f:selectItems value="#{controller.languages}" />
+              </tx:menuRadio>
+            </tc:menu>
+            <tc:menu label="#{bundle.menuSettingsTheme}" >
+              <tx:menuRadio action="#{controller.themeChanged}"
+                            value="#{controller.theme}">
+                <f:selectItems value="#{controller.themeItems}" />
+              </tx:menuRadio>
+            </tc:menu>
+            <tc:menuItem label="#{bundle.menuSettingsMode}" >
+              <f:facet name="items">
+                <tc:selectBooleanCheckbox value="#{controller.simple}" />
+              </f:facet>
+            </tc:menuItem>
+          </tc:menu>
+
+          <tc:menu label="#{bundle.menuHelp}">
+            <tc:menuItem label="#{bundle.menuHelpAbout}"
+                         action="alert('#{bundle.aboutMessage}')"
+                         type="script" image="image/org/tango-project/tango-icon-theme/16x16/apps/help-browser.png"/>
+          </tc:menu>
+        </tc:form>
       </tc:menuBar>
     </f:facet>
 
