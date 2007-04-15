@@ -31,10 +31,12 @@
     <tc:cell/>
     <tc:box label="Login">
       <f:facet name="layout">
-        <tc:gridLayout rows="fixed;fixed;fixed;fixed"/>
+        <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed"/>
       </f:facet>
 
       <tc:out value="#{bundle.loginIntro}"/>
+      <tc:link inline="true" onclick="fillInGuest()" label="guest/guest"/>
+      <tc:link inline="true" onclick="fillInAdmin()" label="admin/admin"/>
       <tx:in id="j_username" label="#{bundle.loginUser}"/>
       <tx:in id="j_password" password="true" label="#{bundle.loginPassword}"/>
 
@@ -51,16 +53,31 @@
     <tc:cell/>
     <tc:cell spanX="3"/>
 
-  <tc:script onload="initLoginForm();">
-    function initLoginForm() {
-      var user = document.getElementById("page:j_username");
-      user.name = "j_username";
-      var pass = document.getElementById("page:j_password");
-      pass.name = "j_password";
-      var form = document.getElementById("page::form");
-      form.action = "${pageContext.request.contextPath}/j_security_check";
-    }
-  </tc:script>
+    <tc:script onload="initLoginForm();">
+      function initLoginForm() {
+        var user = document.getElementById("page:j_username");
+        user.name = "j_username";
+        var pass = document.getElementById("page:j_password");
+        pass.name = "j_password";
+        var form = document.getElementById("page::form");
+        form.action = "${pageContext.request.contextPath}/j_security_check";
+      }
+    </tc:script>
+
+    <tc:script>
+      function fillInGuest() {
+        fillIn("guest");
+      }
+      function fillInAdmin() {
+        fillIn("admin");
+      }
+      function fillIn(name) {
+        var user = document.getElementById("page:j_username");
+        user.value = name;
+        var pass = document.getElementById("page:j_password");
+        pass.value = name;
+      }
+    </tc:script>
 
   </tc:page>
 </f:view>
