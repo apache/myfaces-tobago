@@ -22,7 +22,7 @@
 
   <tc:page label="#{bundle.listPageTitle}" state="#{layout}" width="#{layout.width}" height="#{layout.height}">
     <f:facet name="menuBar">
-      <tc:menuBar id="menuBar">
+      <tc:menuBar>
         <tc:form>
           <tc:menu label="#{bundle.menuFile}">
             <tc:menuItem label="#{bundle.menuFileNew}" action="#{controller.createAddress}" immediate="true"
@@ -68,13 +68,14 @@
       </f:facet>
       <tc:toolBar iconSize="big">
         <tc:button label="#{bundle.toolbarAddressList}" action="#{controller.search}" immediate="true"
-            image="image/org/tango-project/tango-icon-theme/32x32/mimetypes/x-office-address-book.png"/>
+            image="image/org/tango-project/tango-icon-theme/32x32/mimetypes/x-office-address-book.png"
+            disabled="#{facesContext.viewRoot.viewId == '/application/list.jsp'}"/>
         <tc:button label="#{bundle.listNew}" action="#{controller.createAddress}"
             image="image/org/tango-project/tango-icon-theme/32x32/actions/contact-new.png" />
         <tc:button onclick="alert('#{bundle.aboutMessage}')" label="#{bundle.toolbarAbout}"
             image="image/org/tango-project/tango-icon-theme/32x32/apps/help-browser.png"/>
         <tc:button label="#{bundle.admin}" action="#{admin.admin}"
-            image="image/org/tango-project/tango-icon-theme/32x32/categories/applications-system.png" />
+            image="image/org/tango-project/tango-icon-theme/32x32/categories/preferences-system.png" />
       </tc:toolBar>
       <tc:box label="#{bundle.listBoxTitle}">
         <f:facet name="layout">
@@ -92,7 +93,8 @@
                 <tc:out value="#{bundle.listDeleteConfirmation}" />
               </f:facet>
             </tc:button>
-            <tc:button label="Select Columns" action="#{controller.selectColumns}">
+            <tc:button label="Select Columns" action="#{controller.selectColumns}"
+                image="image/org/tango-project/tango-icon-theme/16x16/categories/applications-system.png">
               <f:facet name="popup">
                 <tc:popup width="300px" height="200px" left="200px" top="200px"
                     rendered="#{controller.renderPopup}" id="popup">
@@ -124,7 +126,8 @@
 
         <tc:sheet columns="1*;1*;1*" value="#{controller.currentAddressList}"
             var="address" state="#{controller.selectedAddresses}"
-            sortActionListener="#{controller.sheetSorter}">
+            sortActionListener="#{controller.sheetSorter}" rows="25"
+            showRowRange="left" showPageRange="right" showDirectLinks="center">
           <tc:column id="firstName" label="#{bundle.listFirstName}" sortable="true"
                      rendered="#{controller.renderFirstName}">
             <tc:out value="#{address.firstName}" />
