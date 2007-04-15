@@ -46,11 +46,7 @@
                 <f:selectItems value="#{controller.themeItems}" />
               </tx:menuRadio>
             </tc:menu>
-            <tc:menuItem label="#{bundle.menuSettingsMode}" >
-              <f:facet name="items">
-                <tc:selectBooleanCheckbox value="#{controller.simple}" />
-              </f:facet>
-            </tc:menuItem>
+            <tc:menuCheckbox label="#{bundle.menuSettingsMode}" value="#{controller.simple}"/>
           </tc:menu>
 
           <tc:menu label="#{bundle.menuHelp}">
