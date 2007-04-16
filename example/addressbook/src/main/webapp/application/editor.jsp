@@ -17,12 +17,10 @@
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
-<f:view locale="#{controller.language}">
-  <tc:loadBundle basename="resource" var="bundle" />
-
-  <tc:page label="#{bundle.editorTitle}" state="#{layout}" width="#{layout.width}" height="#{layout.height}">
-
+<layout:basic title="#{bundle.editorTitle}">
+  <jsp:body>
     <tc:panel>
       <f:facet name="layout">
         <tc:gridLayout margin="10px"/>
@@ -64,5 +62,5 @@
       </tc:box>
 
     </tc:panel>
-  </tc:page>
-</f:view>
+  </jsp:body>
+</layout:basic>

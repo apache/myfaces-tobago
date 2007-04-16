@@ -18,12 +18,11 @@
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<f:view locale="#{controller.language}">
-  <tc:loadBundle basename="resource" var="bundle" />
-
-  <tc:page label="#{bundle.editorTitle}" state="#{layout}" width="#{layout.width}" height="#{layout.height}" id="page">
+<layout:basic title="Administration">
+  <jsp:body>
     <f:facet name="layout">
       <tc:gridLayout margin="10px" rows="*;fixed"/>
     </f:facet>
@@ -43,5 +42,5 @@
       <tc:cell/>
       <tc:button label="Back" action="list"/>
     </tc:panel>
-  </tc:page>
-</f:view>
+  </jsp:body>
+</layout:basic>

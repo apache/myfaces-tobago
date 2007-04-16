@@ -17,48 +17,11 @@
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<f:view locale="#{controller.language}">
-  <tc:loadBundle basename="resource" var="bundle"/>
+<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
-  <tc:page label="#{bundle.listPageTitle}" state="#{layout}" width="#{layout.width}" height="#{layout.height}">
-    <f:facet name="menuBar">
-      <tc:menuBar>
-        <tc:form>
-          <tc:menu label="#{bundle.menuFile}">
-            <tc:menuItem label="#{bundle.menuFileNew}" action="#{controller.createAddress}" immediate="true"
-                         image="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png"/>
-            <tc:menuItem label="Add Dummy Addresses" action="#{controller.addDummyAddresses}" immediate="true"/>
-            <tc:menuSeparator/>
-            <tc:menuItem label="Logout" action="#{controller.logout}" 
-                         image="image/org/tango-project/tango-icon-theme/16x16/actions/system-log-out.png"/>
-          </tc:menu>
-
-          <tc:menu label="#{bundle.menuSettings}">
-            <tc:menu label="#{bundle.menuSettingsLanguage}" >
-              <tx:menuRadio action="#{controller.languageChanged}"
-                            value="#{controller.language}">
-                <f:selectItems value="#{controller.languages}" />
-              </tx:menuRadio>
-            </tc:menu>
-            <tc:menu label="#{bundle.menuSettingsTheme}" >
-              <tx:menuRadio action="#{controller.themeChanged}"
-                            value="#{controller.theme}">
-                <f:selectItems value="#{controller.themeItems}" />
-              </tx:menuRadio>
-            </tc:menu>
-            <tc:menuCheckbox label="#{bundle.menuSettingsMode}" value="#{controller.simple}"/>
-          </tc:menu>
-
-          <tc:menu label="#{bundle.menuHelp}">
-            <tc:menuItem label="#{bundle.menuHelpAbout}"
-                         action="alert('#{bundle.aboutMessage}')"
-                         type="script" image="image/org/tango-project/tango-icon-theme/16x16/apps/help-browser.png"/>
-          </tc:menu>
-        </tc:form>
-      </tc:menuBar>
-    </f:facet>
-
-  <tc:panel>
+<layout:basic title="#{bundle.listPageTitle}">
+  <jsp:body>
+    <tc:panel>
       <f:facet name="layout">
         <tc:gridLayout margin="10px" rows="fixed;1*;20px"/>
       </f:facet>
@@ -142,29 +105,29 @@
 
       </tc:box>
       <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="*;20px;*"/>
-      </f:facet>
-      <tc:form>
-        <tx:selectOneChoice label="#{bundle.footerLanguage}"
-               value="#{controller.language}">
-          <f:selectItems value="#{controller.languages}" />
-          <f:facet name="change">
-            <tc:command action="#{controller.languageChangedList}"/>
-          </f:facet>
-        </tx:selectOneChoice>
-      </tc:form>
-      <tc:image alt="#{bundle.footerFlag}" width="16" height="11"
-                value="#{bundle.footerFlagIcon}"/>
-      <tc:form>
-        <tx:selectOneChoice label="#{bundle.footerTheme}" value="#{controller.theme}">
-          <f:selectItems value="#{controller.themeItems}" />
-          <f:facet name="change">
-            <tc:command action="#{controller.themeChanged}"/>
-          </f:facet>
-        </tx:selectOneChoice>
-      </tc:form>
+        <f:facet name="layout">
+          <tc:gridLayout columns="*;20px;*"/>
+        </f:facet>
+        <tc:form>
+          <tx:selectOneChoice label="#{bundle.footerLanguage}"
+                 value="#{controller.language}">
+            <f:selectItems value="#{controller.languages}" />
+            <f:facet name="change">
+              <tc:command action="#{controller.languageChangedList}"/>
+            </f:facet>
+          </tx:selectOneChoice>
+        </tc:form>
+        <tc:image alt="#{bundle.footerFlag}" width="16" height="11"
+                  value="#{bundle.footerFlagIcon}"/>
+        <tc:form>
+          <tx:selectOneChoice label="#{bundle.footerTheme}" value="#{controller.theme}">
+            <f:selectItems value="#{controller.themeItems}" />
+            <f:facet name="change">
+              <tc:command action="#{controller.themeChanged}"/>
+            </f:facet>
+          </tx:selectOneChoice>
+        </tc:form>
+      </tc:panel>
     </tc:panel>
-    </tc:panel>
-  </tc:page>
-</f:view>
+  </jsp:body>
+</layout:basic>
