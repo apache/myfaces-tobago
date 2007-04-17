@@ -31,12 +31,20 @@
     <tc:cell/>
     <tc:box label="Login">
       <f:facet name="layout">
-        <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed"/>
+        <tc:gridLayout rows="fixed;fixed;fixed;fixed"/>
       </f:facet>
 
-      <tc:out value="#{bundle.loginIntro}"/>
-      <tc:link inline="true" onclick="fillInGuest()" label="guest/guest"/>
-      <tc:link inline="true" onclick="fillInAdmin()" label="admin/admin"/>
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout rows="fixed;fixed" columns="2*;*"/>
+        </f:facet>
+        <tc:out value="#{bundle.loginIntro}"/>
+        <tc:link inline="true" onclick="fillInGuest()" label="guest/guest"/>
+
+        <tc:cell/>
+        <tc:link inline="true" onclick="fillInAdmin()" label="admin/admin"/>
+      </tc:panel>
+
       <tx:in id="j_username" label="#{bundle.loginUser}"/>
       <tx:in id="j_password" password="true" label="#{bundle.loginPassword}"/>
 
@@ -48,7 +56,6 @@
         <tc:cell/>
         <tc:button label="#{bundle.loginLogin}" defaultCommand="true"/>
       </tc:panel>
-
     </tc:box>
     <tc:cell/>
     <tc:cell spanX="3"/>
