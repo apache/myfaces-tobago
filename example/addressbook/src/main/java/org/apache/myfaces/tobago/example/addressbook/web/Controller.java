@@ -202,7 +202,7 @@ public class Controller {
     }
     if (!phoneNumber.matches("\\+?[0-9 ]*(\\([0-9 ]*\\))?[0-9 ]*")) {
       throw new ValidatorException(MessageUtils.createErrorMessage(
-          "validator_phone", context));
+          "validatorPhone", context));
     }
   }
 
