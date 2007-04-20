@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.lifecycle;
  * limitations under the License.
  */
 
+import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.FACES_MESSAGES_KEY;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -25,6 +27,7 @@ import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
 import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIViewRoot;
@@ -36,6 +39,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.List;
 //import org.apache.myfaces.portlet.MyFacesGenericPortlet;
 //import org.apache.myfaces.portlet.PortletUtil;
 
@@ -56,6 +60,15 @@ class RestoreViewExecutor implements PhaseExecutor {
     if (viewRoot != null) {
       facesContext.setViewRoot(viewRoot);
       sessionMap.remove(VIEW_ROOT_KEY);
+      //noinspection unchecked
+      List<Object[]> messageHolders
+          = (List<Object[]>) sessionMap.get(FACES_MESSAGES_KEY);
+      if (messageHolders != null) {
+        for (Object[] messageHolder : messageHolders) {
+          facesContext.addMessage((String) messageHolder[0], (FacesMessage) messageHolder[1]);
+        }
+      }
+      sessionMap.remove(FACES_MESSAGES_KEY);
       facesContext.renderResponse();
       return true;
     }

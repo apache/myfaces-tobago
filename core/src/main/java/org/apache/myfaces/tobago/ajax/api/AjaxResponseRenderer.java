@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.ajax.api;
  * limitations under the License.
  */
 
+import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.FACES_MESSAGES_KEY;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -44,6 +46,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Iterator;
 
 public class AjaxResponseRenderer {
 
@@ -68,8 +72,25 @@ public class AjaxResponseRenderer {
         LOG.debug("requesting full page reload because of navigation to "
             + viewRoot.getViewId() + " from " + incommingViewRoot.getViewId());
       }
+      Map sessionMap = facesContext.getExternalContext().getSessionMap();
       //noinspection unchecked
-      facesContext.getExternalContext().getSessionMap().put(VIEW_ROOT_KEY, viewRoot);
+      sessionMap.put(VIEW_ROOT_KEY, viewRoot);
+      List<Object[]> messageHolders = new ArrayList<Object[]>();
+      Iterator clientIds = facesContext.getClientIdsWithMessages();
+      while (clientIds.hasNext()) {
+        String clientId = (String) clientIds.next();
+        Iterator messages = facesContext.getMessages(clientId);
+        while (messages.hasNext()) {
+          Object[] messageHolder = new Object[2];
+          messageHolder[0] = clientId;
+          messageHolder[1] = messages.next();
+          messageHolders.add(messageHolder);
+        }
+      }
+      if (!messageHolders.isEmpty()) {
+        //noinspection unchecked
+        sessionMap.put(FACES_MESSAGES_KEY, messageHolders);
+      }
       writeResponseReload(facesContext, renderKit);
     } else {
       List<StringWriter> responseParts = new ArrayList<StringWriter>();

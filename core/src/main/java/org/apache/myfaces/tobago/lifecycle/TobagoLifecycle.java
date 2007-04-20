@@ -40,6 +40,7 @@ public class TobagoLifecycle extends Lifecycle {
   private static final Log LOG = LogFactory.getLog(TobagoLifecycle.class);
 
   public static final String VIEW_ROOT_KEY = TobagoLifecycle.class.getName() + ".VIEW_ROOT_KEY";
+  public static final String FACES_MESSAGES_KEY = TobagoLifecycle.class.getName() + ".FACES_MESSAGES_KEY";
 
   private PhaseExecutor[] lifecycleExecutors;
   private PhaseExecutor renderExecutor;
