@@ -20,24 +20,32 @@
 <f:view locale="#{controller.language}">
   <tc:loadBundle basename="resource" var="bundle" />
 
-  <tc:page label="#{bundle.login_logout_title}" state="#{layout}" width="#{layout.width}" height="#{layout.height}">
-  <tc:box label="#{bundle.login_logout_title}">
+  <tc:page label="#{bundle.loginLogoutTitle}" state="#{layout}" width="#{layout.width}" height="#{layout.height}">
     <f:facet name="layout">
-      <tc:gridLayout />
+      <tc:gridLayout rows="*;fixed;*" columns="*;400px;*"/>
     </f:facet>
 
-    <tc:out value="#{bundle.login_logout_text}" />
+    <tc:cell spanX="3"/>
 
-    <tc:panel>
+    <tc:cell/>
+    <tc:box label="#{bundle.loginLogoutBox}">
       <f:facet name="layout">
-        <tc:gridLayout columns="1*;100px" />
+        <tc:gridLayout rows="fixed;fixed"/>
       </f:facet>
 
-      <tc:cell />
+      <tc:out value="#{bundle.loginLogoutText}" />
 
-      <tc:button link="/index.jsp" label="#{bundle.login_home_button}" />
-    </tc:panel>
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout columns="*;fixed"/>
+        </f:facet>
+        <tc:cell/>
+        <tc:button link="/index.jsp" label="#{bundle.loginHomeButton}" />
+      </tc:panel>
+    </tc:box>
+    <tc:cell/>
 
-  </tc:box>
+    <tc:cell spanX="3"/>
+
   </tc:page>
 </f:view>
