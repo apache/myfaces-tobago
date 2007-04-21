@@ -17,18 +17,15 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.taglib.component.TobagoTag;
 import org.apache.myfaces.tobago.component.UISeparator;
-
+import org.apache.myfaces.tobago.taglib.component.TobagoTag;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
- * Date: Sep 18, 2006
- * Time: 8:02:34 PM
- */
-
-
+* Created by IntelliJ IDEA.
+* User: bommel
+* Date: Sep 18, 2006
+* Time: 8:02:34 PM
+*/
 
 public class SeparatorTag  extends TobagoTag implements SeparatorTagDeclaration {
 
