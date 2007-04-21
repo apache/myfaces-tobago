@@ -265,6 +265,11 @@ var Tobago = {
   makeOverlaySemitransparent: function() {
     var overlay = Tobago.element(Tobago.page.id + "-overlay");
     if (overlay) {
+      if (navigator.appName.indexOf("Explorer") != -1) {  // IE
+        Tobago.addEventListener(window, "scroll", Tobago.doOverlayScroll);
+      } else {
+        overlay.style.position = "fixed";
+      }
       var img = document.createElement("IMG");
       img.style.width = overlay.clientWidth;
       img.style.height = overlay.clientHeight;
@@ -308,6 +313,12 @@ var Tobago = {
   loadOverlayWait: function() {
     var img = Tobago.element(Tobago.page.id + "-overlay-wait");
     img.src = Tobago.OVERLAY_WAIT;
+  },
+
+  doOverlayScroll: function() {
+    var overlay = Tobago.element(Tobago.page.id + "-overlay");
+    overlay.style.top = overlay.parentNode.scrollTop;
+    overlay.style.left = overlay.parentNode.scrollLeft;
   },
 
   /**
