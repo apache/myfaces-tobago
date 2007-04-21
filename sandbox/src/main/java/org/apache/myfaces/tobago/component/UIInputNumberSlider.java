@@ -1,10 +1,5 @@
 package org.apache.myfaces.tobago.component;
 
-import org.apache.myfaces.tobago.TobagoConstants;
-
-import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -21,6 +16,11 @@ import javax.faces.el.ValueBinding;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import org.apache.myfaces.tobago.TobagoConstants;
+
+import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 
 public class UIInputNumberSlider extends javax.faces.component.UIInput {
 
