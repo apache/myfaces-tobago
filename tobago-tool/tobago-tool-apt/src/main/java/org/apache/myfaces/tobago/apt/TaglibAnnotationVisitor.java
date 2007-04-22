@@ -265,7 +265,8 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     }
     String comment = decl.getDocComment();
     if (comment != null) {
-      int index = comment.indexOf('@');
+      // remove @param section
+      int index = comment.indexOf(" @");
       if (index != -1) {
         comment = comment.substring(0, index);
       }
