@@ -23,7 +23,7 @@
   <jsp:body>
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout margin="10px" rows="fixed;1*;20px"/>
+        <tc:gridLayout margin="10px" rows="fixed;fixed;1*;20px"/>
       </f:facet>
       <tc:toolBar iconSize="big">
         <tc:button label="#{bundle.toolbarAddressList}" action="#{controller.search}" immediate="true"
@@ -36,6 +36,17 @@
         <tc:button label="#{bundle.admin}" action="#{admin.admin}"
             image="image/org/tango-project/tango-icon-theme/32x32/categories/preferences-system.png" />
       </tc:toolBar>
+
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout columns="*;fixed"/>
+        </f:facet>
+        <tx:in label="#{bundle.listFilter}"
+               value="#{controller.searchCriterion}"/>
+        <tc:button action="#{controller.search}" label="#{bundle.listSearch}"
+                   defaultCommand="true"/>
+      </tc:panel>
+      
       <tc:box label="#{bundle.listBoxTitle}">
         <f:facet name="layout">
           <tc:gridLayout rows="fixed;1*"/>

@@ -362,6 +362,14 @@ public class Controller {
     this.uploadedFile = uploadedFile;
   }
 
+  public String getSearchCriterion() {
+    return searchCriterion;
+  }
+
+  public void setSearchCriterion(String searchCriterion) {
+    this.searchCriterion = searchCriterion;
+  }
+
   public String popupFileUpload() {
     setRenderFileUploadPopup(true);
     return null;
