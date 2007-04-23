@@ -53,17 +53,17 @@
         </f:facet>
         <f:facet name="toolBar">
           <tc:toolBar>
-            <tc:button label="#{bundle.listNew}" action="#{controller.createAddress}"
+            <tc:toolBarCommand label="#{bundle.listNew}" action="#{controller.createAddress}"
                 image="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png" />
-            <tc:button label="#{bundle.listEdit}" action="#{controller.editAddress}"
+            <tc:toolBarCommand label="#{bundle.listEdit}" action="#{controller.editAddress}"
                 image="image/org/tango-project/tango-icon-theme/16x16/apps/accessories-text-editor.png" />
-            <tc:button label="#{bundle.listDelete}" action="#{controller.deleteAddresses}"
+            <tc:toolBarCommand label="#{bundle.listDelete}" action="#{controller.deleteAddresses}"
                 image="image/org/tango-project/tango-icon-theme/16x16/places/user-trash.png">
               <f:facet name="confirmation">
                 <tc:out value="#{bundle.listDeleteConfirmation}" />
               </f:facet>
-            </tc:button>
-            <tc:button label="Select Columns" action="#{controller.selectColumns}"
+            </tc:toolBarCommand>
+            <tc:toolBarCommand label="Select Columns" action="#{controller.selectColumns}"
                 image="image/org/tango-project/tango-icon-theme/16x16/categories/applications-system.png">
               <f:facet name="popup">
                 <tc:popup width="300px" height="200px" left="200px" top="200px"
@@ -88,7 +88,7 @@
                   </tc:box>
                 </tc:popup>
               </f:facet>
-            </tc:button>
+            </tc:toolBarCommand>
           </tc:toolBar>
         </f:facet>
 
