@@ -24,7 +24,7 @@
 <f:view locale="#{controller.language}">
   <tc:loadBundle basename="resource" var="bundle"/>
 
-  <tc:page label="${title}" state="#{layout}" width="#{layout.width}" height="#{layout.height}">
+  <tc:page label="${title}" state="#{layout}" width="#{layout.width}" height="#{layout.height}" id="page">
     <f:facet name="menuBar">
       <tc:menuBar>
         <tc:form>
