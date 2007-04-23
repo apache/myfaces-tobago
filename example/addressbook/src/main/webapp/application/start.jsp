@@ -28,10 +28,34 @@
 
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout margin="10px"/>
+        <tc:gridLayout margin="10px" rows="*;fixed;*" columns="*;400px;*"/>
       </f:facet>
 
-      <tc:out value="Initializing the Addressbook Demo ..."/>
+      <tc:cell spanX="3"/>
+
+      <tc:cell/>
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout rows="150px" columns="150px;250px"/>
+        </f:facet>
+
+        <tc:image value="image/org/tango-project/tango-icon-theme/address-book-splash-screen.png" width="150" height="150"/>
+        <tc:panel>
+          <f:facet name="layout">
+            <tc:gridLayout rows="fixed;fixed;fixed;*"/>
+          </f:facet>
+
+          <tc:out value="Addressbook Demo"/>
+          <tc:cell/>
+          <tc:out value="Initializing ..."/>
+          <tc:cell/>
+
+        </tc:panel>
+
+      </tc:panel>
+      <tc:cell/>
+
+      <tc:cell spanX="3"/>
 
     </tc:panel>
   </tc:page>

@@ -39,10 +39,12 @@
           <tc:gridLayout rows="fixed;fixed" columns="2*;*"/>
         </f:facet>
         <tc:out value="#{bundle.loginIntro}"/>
-        <tc:link inline="true" onclick="fillInGuest()" label="guest/guest"/>
+        <tc:link inline="true" onclick="fillInGuest()" label="guest/guest"
+                 image="image/org/tango-project/tango-icon-theme/16x16/apps/system-users.png"/>
 
         <tc:cell/>
-        <tc:link inline="true" onclick="fillInAdmin()" label="admin/admin"/>
+        <tc:link inline="true" onclick="fillInAdmin()" label="admin/admin"
+                 image="image/org/tango-project/tango-icon-theme/16x16/apps/system-users.png"/>
       </tc:panel>
 
       <tx:in id="j_username" label="#{bundle.loginUser}"/>
