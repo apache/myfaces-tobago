@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.context;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.config.TobagoConfig;
 
 import java.util.List;
 import java.util.ArrayList;
