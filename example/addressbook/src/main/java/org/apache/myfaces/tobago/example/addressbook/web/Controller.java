@@ -81,7 +81,7 @@ public class Controller {
   private boolean renderPopup;
   private boolean renderFirstName = true;
   private boolean renderLastName = true;
-  private boolean renderDayOfBirth = false;
+  private boolean renderDayOfBirth;
 
   private AddressDao addressDao;
 
@@ -129,6 +129,13 @@ public class Controller {
   public String createAddress() {
     LOG.debug("action: createAddress");
     currentAddress = new Address();
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    Locale locale = facesContext.getViewRoot().getLocale();
+    // XXX use better datatype for countries than Locale
+    if (Locale.GERMAN.equals(locale)) {
+      locale = Locale.GERMANY;
+    }
+    currentAddress.setCountry(locale);
     return OUTCOME_EDITOR;
   }
 
