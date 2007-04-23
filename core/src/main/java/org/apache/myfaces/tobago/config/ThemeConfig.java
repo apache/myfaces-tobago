@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -114,7 +114,7 @@ public class ThemeConfig {
 
   private static String getTagName(Class clazz) {
     String className = ClassUtils.getShortClassName(clazz);
-    if (className.equals(ClassUtils.getShortClassName(RendererBase.class))) {
+    if (className.equals(ClassUtils.getShortClassName(LayoutableRendererBase.class))) {
       return "Tobago";
     } else if (className.endsWith("Renderer")) {
       return className.substring(0, className.lastIndexOf("Renderer"));

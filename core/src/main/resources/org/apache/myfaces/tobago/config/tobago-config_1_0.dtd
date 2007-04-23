@@ -19,7 +19,7 @@
 
 <!ENTITY % Boolean "(true|false|yes|no)">
 
-<!ELEMENT tobago-config (theme-config, resource-dir*, load-theme-resources-from-classpath?, mapping-rule*, ajax-enabled?)>
+<!ELEMENT tobago-config (theme-config, resource-dir*, load-theme-resources-from-classpath?, mapping-rule*, ajax-enabled?, renderers?)>
 
 <!ELEMENT theme-config (default-theme, supported-theme*)>
 <!ELEMENT default-theme (#PCDATA)>
@@ -43,3 +43,8 @@
 <!ELEMENT value (#PCDATA)>
 
 <!ELEMENT ajax-enabled (#PCDATA)>
+
+<!ELEMENT renderers (renderer)*>
+<!ELEMENT renderer (name|supported-markup)*>
+<!ELEMENT supported-markup (markup)*>
+<!ELEMENT markup (#PCDATA)>

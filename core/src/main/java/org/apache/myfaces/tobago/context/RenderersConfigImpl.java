@@ -26,8 +26,6 @@ import java.util.Collection;
 import java.io.Serializable;
 
 /*
-* Created by IntelliJ IDEA.
-* User: bommel
 * Date: Sep 24, 2006
 * Time: 3:46:11 PM
 */
@@ -49,12 +47,16 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
     this.merged = merged;
   }
 
-  Collection<RendererConfig>  getRendererConfigs() {
+  public Collection<RendererConfig>  getRendererConfigs() {
     return renderer.values();
   }
 
   public void addRenderer(RendererConfig rendererConfig) {
-    if (!renderer.containsKey(rendererConfig.getName())) {
+    addRenderer(rendererConfig, false);
+  }
+
+  public void addRenderer(RendererConfig rendererConfig, boolean override) {
+    if (override || !renderer.containsKey(rendererConfig.getName())) {
       renderer.put(rendererConfig.getName(), rendererConfig);
     }
   }
@@ -72,10 +74,10 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
     }
   }
 
-  void merge(RenderersConfigImpl renderersConfig) {
+  void merge(RenderersConfig renderersConfig, boolean override) {
     Collection<RendererConfig> renderers = renderersConfig.getRendererConfigs();
     for (RendererConfig rendererConfig : renderers) {
-      addRenderer(rendererConfig);
+      addRenderer(rendererConfig, override);
     }
   }
 

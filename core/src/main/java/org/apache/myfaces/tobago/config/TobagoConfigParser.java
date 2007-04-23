@@ -26,6 +26,9 @@ import org.apache.commons.digester.Digester;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.context.RenderersConfigImpl;
+import org.apache.myfaces.tobago.context.RendererConfig;
+import org.apache.myfaces.tobago.context.MarkupConfig;
 import org.xml.sax.SAXException;
 
 import javax.faces.FacesException;
@@ -82,6 +85,14 @@ public class TobagoConfigParser {
 
     // enable ajax
     digester.addCallMethod("tobago-config/ajax-enabled", "setAjaxEnabled", 0);
+    digester.addObjectCreate("tobago-config/renderers", RenderersConfigImpl.class);
+    digester.addSetNext("tobago-config/renderers", "setRenderersConfig");
+    digester.addObjectCreate("tobago-config/renderers/renderer",  RendererConfig.class);
+    digester.addSetNext("tobago-config/renderers/renderer", "addRenderer");
+    digester.addCallMethod("tobago-config/renderers/renderer/name", "setName", 0);
+    digester.addObjectCreate("tobago-config/renderers/renderer/supported-markup",  MarkupConfig.class);
+    digester.addSetNext("tobago-config/renderers/renderer/supported-markup", "setMarkupConfig");
+    digester.addCallMethod("tobago-config/renderers/renderer/supported-markup/markup", "addMarkup" , 0);
 
     return digester;
   }

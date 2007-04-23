@@ -17,14 +17,16 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
+import java.util.Collection;
+
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Sep 24, 2006
  * Time: 12:32:35 PM
  */
 public interface RenderersConfig {
 
   boolean isMarkupSupported(String rendererName, String markup);
+
+  Collection<RendererConfig> getRendererConfigs();
 
 }

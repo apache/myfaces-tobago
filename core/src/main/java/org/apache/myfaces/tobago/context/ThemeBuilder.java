@@ -36,7 +36,7 @@ class ThemeBuilder {
 
   private List<ThemeImpl> availableThemes = new ArrayList<ThemeImpl>();
 
-  public Map<String, Theme> resolveThemes() {
+  public Map<String, Theme> resolveThemes(RenderersConfig renderersConfig) {
     Map<String, ThemeImpl> map = new HashMap<String, ThemeImpl>();
     for (ThemeImpl theme : availableThemes) {
       LOG.debug("theme from tobago-theme.xml files:" + theme.getName());
@@ -51,7 +51,7 @@ class ThemeBuilder {
       theme.resolveFallbacks();
     }
     for (ThemeImpl theme : availableThemes) {
-      theme.resolveRendererConfig();
+      theme.resolveRendererConfig(renderersConfig);
     }
     Map<String, Theme> result = new HashMap<String, Theme>();
     for (ThemeImpl theme : availableThemes) {

@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.context;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -108,21 +109,24 @@ class ThemeImpl implements Theme, Serializable {
     }
   }
 
-  public void resolveRendererConfig() {
+  public void resolveRendererConfig(RenderersConfig rendererConfigFromTobagoConfig) {
     if (renderersConfig == null) {
       renderersConfig = new RenderersConfigImpl();
     }
     if (!renderersConfig.isMerged()) {
       ThemeImpl fallback  = getFallback();
       if (fallback != null) {
-        fallback.resolveRendererConfig();
+        fallback.resolveRendererConfig(rendererConfigFromTobagoConfig);
         RenderersConfigImpl fallbackRenderersConfig = fallback.getRenderersConfigImpl();
         if (fallbackRenderersConfig != null) {
-          renderersConfig.merge(fallbackRenderersConfig);
+          renderersConfig.merge(fallbackRenderersConfig, false);
           if (LOG.isDebugEnabled()) {
             LOG.debug("merge markupconfig from " + fallback.getName() + " for " + getName());
           }
         }
+      }
+      if (rendererConfigFromTobagoConfig != null) {
+        renderersConfig.merge(rendererConfigFromTobagoConfig, true);
       }
       renderersConfig.setMerged(true);
       if (LOG.isDebugEnabled()) {

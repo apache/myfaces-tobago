@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.config;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.context.RenderersConfig;
 
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class TobagoConfig {
   private List<MappingRule> mappingRules;
   private boolean ajaxEnabled;
   private Map<String, Theme> availableTheme;
+  private RenderersConfig renderersConfig;
 
 
   public TobagoConfig() {
@@ -179,6 +181,14 @@ public class TobagoConfig {
 
   public void setAvailableThemes(Map<String, Theme> availableTheme) {
     this.availableTheme = availableTheme;
+  }
+
+  public RenderersConfig getRenderersConfig() {
+    return renderersConfig;
+  }
+
+  public void setRenderersConfig(RenderersConfig renderersConfig) {
+    this.renderersConfig = renderersConfig;
   }
 }
 
