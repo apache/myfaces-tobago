@@ -41,7 +41,7 @@
 
 <layout:overview>
   <jsp:body>
-    <tc:box label="Sorry, an error as occured!">
+    <tc:box label="Sorry, an error has occured!">
       <f:facet name="layout">
         <tc:gridLayout rows="fixed;*" />
       </f:facet>
