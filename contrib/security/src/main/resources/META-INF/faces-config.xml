@@ -40,4 +40,9 @@
     <component-class>org.apache.myfaces.tobago.security.UISecuredButtonCommand</component-class>
   </component>
 
+  <component>
+    <component-type>org.apache.myfaces.tobago.MenuCommand</component-type>
+    <component-class>org.apache.myfaces.tobago.security.UISecuredMenuCommand</component-class>
+  </component>
+
 </faces-config>
