@@ -70,7 +70,7 @@
       </f:facet>
       <tc:form>
         <tc:button
-            image="#{controller.currentAddress.picture != null?'${pageContext.request.contextPath}/faces/picture?id=XXXX':'image/empty_portrait.png'}"
+            image="#{controller.currentAddress.picture != null?'${pageContext.request.contextPath}/faces/picture?id=XXXX':'image/empty-portrait.png'}"
             action="#{controller.popupFileUpload}">
           <f:facet name="popup">
             <tc:popup width="300px" height="170px" left="200px"
