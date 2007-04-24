@@ -27,6 +27,9 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.component.UICommand;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -54,6 +57,22 @@ public class ProgressRenderer extends RendererBase {
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
+    String value1 = Integer.toString(model.getValue());
+    String value2 = Integer.toString(model.getMaximum() - model.getValue());
+
+    Integer width = LayoutUtil.getLayoutWidth(component);
+
+    String width1 = value1;
+    String width2 = value2;
+
+    if (width != null) {
+      int value = (width -1) * model.getValue()
+          / (model.getMaximum() - model.getMinimum());
+      width1 = Integer.toString(value);
+      width2 = Integer.toString((width - 2) - value);
+    }
+
+
     writer.startElement(HtmlConstants.TABLE, null);
     writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
     writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
@@ -64,21 +83,26 @@ public class ProgressRenderer extends RendererBase {
 
     writer.startElement(HtmlConstants.TD, null);
     writer.writeAttribute(HtmlAttributes.STYLE, "background-color: #aabbcc;", null);
-    writer.writeAttribute(HtmlAttributes.WIDTH, Integer.toString(model.getValue()), null);
+    writer.writeAttribute(HtmlAttributes.WIDTH, width1, null);
     writer.writeText("", null);
     writer.write("&nbsp;");
     writer.endElement(HtmlConstants.TD);
 
     writer.startElement(HtmlConstants.TD, null);
     writer.writeAttribute(HtmlAttributes.STYLE, "background-color: #ddeeff;", null);
-    writer.writeAttribute(HtmlAttributes.WIDTH,
-        Integer.toString(model.getMaximum() - model.getValue()), null);
+    writer.writeAttribute(HtmlAttributes.WIDTH, width2, null);
     writer.writeText("", null);
     writer.write("&nbsp;");
     writer.endElement(HtmlConstants.TD);
 
     writer.endElement(HtmlConstants.TR);
     writer.endElement(HtmlConstants.TABLE);
+    UIComponent facet = component.getFacet("complete");
+    if (model.getValue() == model.getMaximum() && facet != null
+        && facet instanceof UICommand) {
+      UICommand command = (UICommand) facet;
+      HtmlRendererUtil.writeJavascript(writer, "Tobago.submitAction('" + command.getClientId(facesContext) + "');");
+    }
   }
 
 }

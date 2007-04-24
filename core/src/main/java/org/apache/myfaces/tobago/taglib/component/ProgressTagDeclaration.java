@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 /*
  * Created: Aug 5, 2005 3:55:04 PM
@@ -35,13 +36,13 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
  */
 @Tag(name = "progress")
 @UIComponentTag(
-    uiComponent = "javax.faces.component.UIOutput",
-    rendererType = "Progress", isComponentAlreadyDefined = true,
+    uiComponent = "org.apache.myfaces.tobago.component.UIProgress",
+    rendererType = "Progress",
     facets = {@Facet(
         name="complete",
         description =
             "Contains an instance of UICommand (tc:command). The action is invoked if the full progress has reached")})
-public interface ProgressTagDeclaration extends BeanTagDeclaration, HasIdBindingAndRendered, HasTip {
+public interface ProgressTagDeclaration extends BeanTagDeclaration, HasIdBindingAndRendered, HasTip, HasMarkup {
 
   /**
    * The current value of this component.

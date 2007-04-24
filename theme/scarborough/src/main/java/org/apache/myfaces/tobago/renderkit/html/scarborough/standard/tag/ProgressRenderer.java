@@ -60,8 +60,7 @@ public class ProgressRenderer extends RendererBase {
     String image = ResourceManagerUtil.getImageWithPath(facesContext, "image/1x1.gif");
 
     String value1 = Integer.toString(model.getValue());
-    String value2 = Integer.toString(
-        model.getMaximum() - model.getValue());
+    String value2 = Integer.toString(model.getMaximum() - model.getValue());
 
     String title = (String) component.getAttributes().get(ATTR_TIP);
     if (title == null) {
@@ -83,13 +82,14 @@ public class ProgressRenderer extends RendererBase {
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    writer.startElement(HtmlConstants.SPAN, null);
-    // TODO: use tobago standard class names
-    writer.writeClassAttribute("tobago-progress");
+    writer.startElement(HtmlConstants.SPAN, component);
+    writer.writeComponentClass();
     writer.writeAttribute(HtmlAttributes.TITLE, title, null);
 
     writer.startElement(HtmlConstants.IMG, null);
-    writer.writeClassAttribute("tobago-progress-color1");
+    StringBuilder color1Class = new StringBuilder("tobago-progress-color1 ");
+    HtmlRendererUtil.addMarkupClass(component, "progress", "color1", color1Class);
+    writer.writeClassAttribute(color1Class.toString());
     writer.writeAttribute(HtmlAttributes.SRC, image, null);
     writer.writeAttribute(HtmlAttributes.ALT, title, null);
     writer.writeAttribute(HtmlAttributes.WIDTH, width1, null);
@@ -97,7 +97,9 @@ public class ProgressRenderer extends RendererBase {
     writer.endElement(HtmlConstants.IMG);
 
     writer.startElement(HtmlConstants.IMG, null);
-    writer.writeClassAttribute("tobago-progress-color2");
+    StringBuilder color2Class = new StringBuilder("tobago-progress-color2 ");
+    HtmlRendererUtil.addMarkupClass(component, "progress", "color2", color1Class);
+    writer.writeClassAttribute(color2Class.toString());
     writer.writeAttribute(HtmlAttributes.SRC, image, null);
     writer.writeAttribute(HtmlAttributes.ALT, title, null);
     writer.writeAttribute(HtmlAttributes.WIDTH, width2, null);
