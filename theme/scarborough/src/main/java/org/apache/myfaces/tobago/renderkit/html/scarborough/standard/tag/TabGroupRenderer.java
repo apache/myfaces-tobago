@@ -182,20 +182,24 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     for (UIComponent tab: (List<UIComponent>) tabGroup.getChildren()) {
       index++;
       if (tab instanceof UIPanelBase) {
-        if (activeIndex == index) {
+        if (index == activeIndex) {
           if (tab.isRendered()) {
             return index;
           } else if (closestRenderedTabIndex > -1)  {
-            return closestRenderedTabIndex;
+            break;
           }
         }
         if (tab.isRendered()) {
           closestRenderedTabIndex = index;
-          if (activeIndex > index) {
-            return closestRenderedTabIndex;
+          if (index > activeIndex) {
+            break;
           }
         }
       }
+    }
+    if (closestRenderedTabIndex == -1) {
+      // resetting index to 0
+      closestRenderedTabIndex = 0;
     }
     ValueBinding vb = tabGroup.getValueBinding(ATTR_SELECTED_INDEX);
     if (vb != null) {
