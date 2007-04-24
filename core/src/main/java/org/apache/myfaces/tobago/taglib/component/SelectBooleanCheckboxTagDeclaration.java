@@ -58,6 +58,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 public interface SelectBooleanCheckboxTagDeclaration extends BeanTagDeclaration, HasValidator,
     HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabelAndAccessKey, HasBooleanValue, IsDisabled,
     IsInline, HasTip, IsReadonly, HasMarkup //, IsRequired
-    {
+{
 
 }
