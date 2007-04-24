@@ -178,12 +178,21 @@ public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
     int activeIndex = tabGroup.getSelectedIndex();
     // ensure to select a rendered tab
     int index = -1;
+    int closestRenderedTabIndex = -1;
     for (UIComponent tab: (List<UIComponent>) tabGroup.getChildren()) {
       index++;
       if (tab instanceof UIPanelBase) {
-        if (tab.isRendered()) {
-          if (activeIndex == index) {
+        if (activeIndex == index) {
+          if (tab.isRendered()) {
             return index;
+          } else if (closestRenderedTabIndex > -1)  {
+            return closestRenderedTabIndex;
+          }
+        }
+        if (tab.isRendered()) {
+          closestRenderedTabIndex = index;
+          if (activeIndex > index) {
+            return closestRenderedTabIndex;
           }
         }
       }
