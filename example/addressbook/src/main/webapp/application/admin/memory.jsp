@@ -20,17 +20,18 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
 <tc:panel>
-  <f:facet name="reload">
-    <tc:reload frequency="5000" />
-  </f:facet>
+
   <f:facet name="layout">
     <tc:gridLayout margin="10px" rows="fixed;fixed;fixed;*" columns="300px;*"/>
+  </f:facet>
+  <f:facet name="reload">
+    <tc:reload frequency="5000" update="#{admin.updateMemory}" />
   </f:facet>
 
   <tc:label value="Memory:" />
   <tc:cell/>
 
-  <tc:progress value="#{admin.memory}" />
+  <tc:progress value="#{admin.memory}" markup="#{admin.state}" />
   <tc:cell/>
 
   <tc:label value="Current: #{admin.memory.value} kB Max: #{admin.memory.maximum} kB" />

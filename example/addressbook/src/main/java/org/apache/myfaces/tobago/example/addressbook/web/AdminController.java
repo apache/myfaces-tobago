@@ -32,16 +32,42 @@ public class AdminController {
 
   private static final String OUTCOME_ADMIN = "admin";
 
+  private BoundedRangeModel memoryUsage;
+  private String state;
+
   @RolesAllowed("admin")
   public String admin() {
     return OUTCOME_ADMIN;
   }
 
-  public BoundedRangeModel getMemory() {
+  public boolean updateMemory() {
     MemoryMXBean memoryBean = ManagementFactory.getMemoryMXBean();
-    MemoryUsage memoryUsage = memoryBean.getHeapMemoryUsage();
+    MemoryUsage memory = memoryBean.getHeapMemoryUsage();
+    memoryUsage = new DefaultBoundedRangeModel(Long.valueOf(memory.getUsed()/1024).intValue(),
+        0, 0, Long.valueOf(memory.getMax()/1024).intValue());
+    int percentValue = memoryUsage.getValue()/(memoryUsage.getMaximum()*100);
+    if (percentValue <= 80) {
+      state = "ok";
+    } else if (percentValue > 95) {
+      state = "error";
+    } else {
+      state = "warn";
+    }
 
-    return new DefaultBoundedRangeModel(Long.valueOf(memoryUsage.getUsed()/1024).intValue(),
-        0, 0, Long.valueOf(memoryUsage.getMax()/1024).intValue());
+    return true;
+  }
+
+  public BoundedRangeModel getMemory() {
+    if (memoryUsage == null) {
+      updateMemory();
+    }
+    return memoryUsage;
+  }
+
+  public String getState() {
+    if (memoryUsage == null) {
+      updateMemory();
+    }
+    return state;
   }
 }
