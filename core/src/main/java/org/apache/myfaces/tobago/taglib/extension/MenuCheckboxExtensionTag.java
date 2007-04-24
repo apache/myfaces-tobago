@@ -179,6 +179,9 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
     label = null;
     immediate = null;
     transition = null;
+    menuCommandTag = null;
+    facetTag = null;
+    selectBooleanCheckbox = null;
   }
 
 }

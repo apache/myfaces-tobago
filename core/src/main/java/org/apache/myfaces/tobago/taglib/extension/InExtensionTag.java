@@ -181,6 +181,8 @@ public class InExtensionTag extends BodyTagSupport
     onchange = null;
     suggestMethod = null;
     markup = null;
+    inTag = null;
+    labelTag = null;
   }
 
   public void setMarkup(String markup) {

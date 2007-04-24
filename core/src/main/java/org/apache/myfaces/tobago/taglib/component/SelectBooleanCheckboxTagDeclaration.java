@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.taglib.decl.HasBooleanValue;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
@@ -44,9 +45,19 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 @BodyContentDescription(anyTagOf = "<f:facet>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBoolean",
-    rendererType = "SelectBooleanCheckbox")
+    rendererType = "SelectBooleanCheckbox",
+    facets = {
+        @Facet(name = "click",
+            description =
+                "This facet can contain a UICommand that is invoked in a case of a click event from the component"),
+        @Facet(name = "change",
+            description =
+                "This facet can contain a UICommand that is invoked in a case of a change event from the component")
+        })
+
 public interface SelectBooleanCheckboxTagDeclaration extends BeanTagDeclaration, HasValidator,
     HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabelAndAccessKey, HasBooleanValue, IsDisabled,
-    IsInline, HasTip, IsReadonly, HasMarkup {
+    IsInline, HasTip, IsReadonly, HasMarkup //, IsRequired
+    {
 
 }

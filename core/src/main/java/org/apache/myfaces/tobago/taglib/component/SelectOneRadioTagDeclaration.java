@@ -47,7 +47,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 facets = {
     @Facet(name = "click",
         description =
-            "This facet can contain a UICommandthat is invoked in a case of a click event from the component"),
+            "This facet can contain a UICommand that is invoked in a case of a click event from the component"),
     @Facet(name = "change",
         description =
             "This facet can contain a UICommand that is invoked in a case of a change event from the component")

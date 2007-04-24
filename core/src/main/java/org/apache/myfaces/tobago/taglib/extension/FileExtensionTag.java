@@ -127,6 +127,8 @@ public class FileExtensionTag extends BodyTagSupport
     rendered = null;
     valueChangeListener = null;
     required = null;
+    fileTag = null;
+    labelTag = null;
   }
 
   public void setLabel(String label) {

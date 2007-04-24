@@ -194,6 +194,9 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
     immediate = null;
     transition = null;
     converter = null;
+    menuCommandTag = null;
+    facetTag = null;
+    selectOneRadio = null;
   }
 
 }

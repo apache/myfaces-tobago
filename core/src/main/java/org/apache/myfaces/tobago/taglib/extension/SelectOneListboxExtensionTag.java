@@ -160,6 +160,8 @@ public class SelectOneListboxExtensionTag
     tip = null;
     value = null;
     valueChangeListener = null;
+    selectOneListboxTag = null;
+    labelTag = null;
   }
 
   public void setRequired(String required) {

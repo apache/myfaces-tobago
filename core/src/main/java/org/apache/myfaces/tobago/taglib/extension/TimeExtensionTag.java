@@ -160,6 +160,8 @@ public class TimeExtensionTag extends BodyTagSupport
     value = null;
     onchange = null;
     valueChangeListener = null;
+    timeTag = null;
+    labelTag = null;
   }
 
   public void setValue(String value) {

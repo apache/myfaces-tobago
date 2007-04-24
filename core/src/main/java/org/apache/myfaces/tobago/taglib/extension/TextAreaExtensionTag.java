@@ -155,6 +155,8 @@ public class TextAreaExtensionTag extends BodyTagSupport
     onchange = null;
     markup = null;
     valueChangeListener = null;
+    textAreaTag = null;
+    labelTag = null;
   }
 
   public void setValue(String value) {

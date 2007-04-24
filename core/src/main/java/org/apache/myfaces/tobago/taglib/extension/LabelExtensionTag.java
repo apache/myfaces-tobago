@@ -95,6 +95,7 @@ public class LabelExtensionTag extends BodyTagSupport
     tip = null;
     rendered = null;
     columns = "fixed;*";
+    panelTag = null;
   }
 
   public void setValue(String value) {

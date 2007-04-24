@@ -176,6 +176,8 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
     value = null;
     valueChangeListener = null;
     markup = null;
+    selectManyListboxTag = null;
+    labelTag = null;
   }
 
   public void setRequired(String required) {

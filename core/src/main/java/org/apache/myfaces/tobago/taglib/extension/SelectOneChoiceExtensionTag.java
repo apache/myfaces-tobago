@@ -153,6 +153,8 @@ public class SelectOneChoiceExtensionTag
     tip = null;
     value = null;
     valueChangeListener = null;
+    selectOneChoiceTag = null;
+    labelTag = null;
   }
 
   public void setRequired(String required) {
