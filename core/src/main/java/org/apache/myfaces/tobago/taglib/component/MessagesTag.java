@@ -19,6 +19,8 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_GLOBAL_ONLY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_SUMMARY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DETAIL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
@@ -29,6 +31,8 @@ public class MessagesTag extends TobagoTag
     implements MessagesTagDeclaration {
 
   private String forComponent;
+  private String showSummary;
+  private String showDetail;
 
   private String globalOnly;
 
@@ -40,11 +44,15 @@ public class MessagesTag extends TobagoTag
     super.setProperties(component);
     ComponentUtil.setStringProperty(component, ATTR_FOR, forComponent);
     ComponentUtil.setBooleanProperty(component, ATTR_GLOBAL_ONLY, globalOnly);
+    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_SUMMARY, showSummary);
+    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_DETAIL, showDetail);
   }
 
   public void release() {
     super.release();
     forComponent = null;
+    showSummary = null;
+    showDetail = null;
   }
 
   public String getFor() {
@@ -57,5 +65,13 @@ public class MessagesTag extends TobagoTag
 
   public void setGlobalOnly(String globalOnly) {
     this.globalOnly = globalOnly;
+  }
+
+  public void setShowSummary(String showSummary) {
+    this.showSummary = showSummary;
+  }
+
+  public void setShowDetail(String showDetail) {
+    this.showDetail = showDetail;
   }
 }

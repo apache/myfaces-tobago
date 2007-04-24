@@ -20,12 +20,12 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasFor;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 02.04.2006
  * Time: 15:55:21
  */
@@ -38,4 +38,20 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
     uiComponent = "javax.faces.component.UIMessage",
     rendererType = "Message", isComponentAlreadyDefined = true)
 public interface MessageTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasFor {
+
+  /**
+   * Flag indicating whether the detail should be included
+   * The default is "false".
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  void setShowDetail(String showDetail);
+
+   /**
+   * Flag indicating whether the summary should be included
+   * The default is "true".
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
+  void setShowSummary(String showSummary);
 }

@@ -23,6 +23,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_GLOBAL_ONLY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DETAIL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_SUMMARY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
@@ -82,12 +84,14 @@ public class MessagesRenderer extends MessageRendererBase {
       } else {
         clientIds = facesContext.getClientIdsWithMessages();
       }
+      boolean showSummary = ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_SUMMARY);
+      boolean showDetail = ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_DETAIL);
       while(clientIds.hasNext()) {
         String clientId = (String) clientIds.next();
-        encodeMessagesForId(facesContext, writer, clientId);
+        encodeMessagesForId(facesContext, writer, clientId, showSummary, showDetail);
         if (focusId == null) {
           focusId = clientId;
-      }
+        }
       }
       if (focusId != null) {
         ComponentUtil.findPage(component).setFocusId(focusId);
@@ -98,29 +102,41 @@ public class MessagesRenderer extends MessageRendererBase {
   }
 
   private void encodeMessagesForId(FacesContext facesContext,
-      ResponseWriter writer, String clientId) throws IOException {
+      ResponseWriter writer, String clientId, boolean showSummary, boolean showDetail) throws IOException {
     Iterator iterator = facesContext.getMessages(clientId);
     while (iterator.hasNext()) {
       FacesMessage message = (FacesMessage) iterator.next();
       if (LOG.isDebugEnabled()) {
         LOG.debug("message = " + message.getSummary());
       }
-      encodeMessage(writer, message, clientId);
+      encodeMessage(writer, message, clientId, showSummary, showDetail);
     }
   }
 
   private void encodeMessage(ResponseWriter writer, FacesMessage message,
-      String clientId)
+      String clientId, boolean showSummary, boolean showDetail)
       throws IOException {
+
+    String summary = message.getSummary();
+    String detail = message.getDetail();
     writer.startElement(HtmlConstants.LABEL, null);
     if (clientId != null) {
       writer.writeAttribute(HtmlAttributes.FOR, clientId, null);
     }
-    writer.writeAttribute(HtmlAttributes.TITLE, message.getDetail(), null);
-    String summary = message.getSummary();
-    if (summary != null) {
+    writer.writeAttribute(HtmlAttributes.TITLE, detail, null);
+    boolean writeEmptyText = true;
+    if (summary != null && showSummary) {
       writer.writeText(summary, null);
-    } else {
+      writeEmptyText = false;
+      if (detail != null && showDetail) {
+        writer.writeText(" ", null);
+      }
+    }
+    if (detail != null && showDetail) {
+      writeEmptyText = false;
+      writer.writeText(detail, null);
+    }
+    if (writeEmptyText) {
       writer.writeText("", null);
     }
     writer.endElement(HtmlConstants.LABEL);

@@ -25,6 +25,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_SUMMARY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DETAIL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -74,6 +76,9 @@ public class MessageRenderer extends MessageRendererBase {
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
+    boolean showSummary = ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_SUMMARY);
+    boolean showDetail = ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_DETAIL);
+
     writer.startElement(HtmlConstants.SPAN, component);
     writer.writeClassAttribute("tobago-validation-message");
     writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
@@ -81,13 +86,26 @@ public class MessageRenderer extends MessageRendererBase {
     while (iterator.hasNext()) {
       FacesMessage message = (FacesMessage) iterator.next();
 //      MessageFormat detail = new MessageFormat(formatString, tobagoContext.getLocale());
+
+      String summary = message.getSummary();
+      String detail = message.getDetail();
+
       writer.startElement(HtmlConstants.LABEL, null);
       writer.writeAttribute(HtmlAttributes.FOR, clientId, null);
-      writer.writeAttribute(HtmlAttributes.TITLE, message.getDetail(), null);
-      String summary = message.getSummary();
-      if (summary != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, detail, null);
+      boolean writeEmptyText = true;
+      if (summary != null && showSummary) {
         writer.writeText(summary, null);
-      } else {
+        writeEmptyText = false;
+        if (detail != null && showDetail) {
+          writer.writeText(" ", null);
+        }
+      }
+      if (detail != null && showDetail) {
+        writer.writeText(detail, null);
+        writeEmptyText = false;
+      }
+      if (writeEmptyText) {
         writer.writeText("", null);
       }
       writer.endElement(HtmlConstants.LABEL);

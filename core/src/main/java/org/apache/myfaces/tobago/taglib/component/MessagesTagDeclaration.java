@@ -26,8 +26,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasFor;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 02.04.2006
  * Time: 15:53:45
  */
@@ -50,4 +48,20 @@ public interface MessagesTagDeclaration extends TobagoTagDeclaration, HasIdBindi
   @TagAttribute
   @UIComponentTagAttribute()
   void setGlobalOnly(String globalOnly);
+
+  /**
+   * Flag indicating whether the detail should be included
+   * The default is "false".
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  void setShowDetail(String showDetail);
+
+   /**
+   * Flag indicating whether the summary should be included
+   * The default is "true".
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
+  void setShowSummary(String showSummary);
 }

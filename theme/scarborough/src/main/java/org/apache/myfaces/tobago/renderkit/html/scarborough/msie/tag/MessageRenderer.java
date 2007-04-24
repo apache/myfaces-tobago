@@ -25,6 +25,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.msie.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_SUMMARY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DETAIL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
@@ -69,7 +71,6 @@ public class MessageRenderer extends MessageRendererBase {
   public void encodeEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
 
-
     UIMessage component = (UIMessage) uiComponent;
 
     String clientId = ComponentUtil.findClientIdFor(component, facesContext);
@@ -78,6 +79,8 @@ public class MessageRenderer extends MessageRendererBase {
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
+    boolean showSummary = ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_SUMMARY);
+    boolean showDetail = ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_DETAIL);
 
     if (iterator.hasNext()) {
 
@@ -88,9 +91,28 @@ public class MessageRenderer extends MessageRendererBase {
       while (iterator.hasNext()) {
         FacesMessage message = (FacesMessage) iterator.next();
 //      MessageFormat detail = new MessageFormat(formatString, tobagoContext.getLocale());
+
+        String summary = message.getSummary();
+        String detail = message.getDetail();
+
         writer.startElement(HtmlConstants.LABEL, null);
         writer.writeAttribute(HtmlAttributes.FOR, clientId, null);
-        writer.writeAttribute(HtmlAttributes.TITLE, message.getDetail(), null);
+        writer.writeAttribute(HtmlAttributes.TITLE, detail, null);
+        boolean writeEmptyText = true;
+        if (summary != null && showSummary) {
+          writer.writeText(summary, null);
+          writeEmptyText = false;
+          if (detail != null && showDetail) {
+            writer.writeText(" ", null);
+          }
+        }
+        if (detail != null && showDetail) {
+          writer.writeText(detail, null);
+          writeEmptyText = false;
+        }
+        if (writeEmptyText) {
+          writer.writeText("", null);
+        }
         writer.writeText(message.getSummary(), null);
         writer.endElement(HtmlConstants.LABEL);
 
@@ -101,8 +123,7 @@ public class MessageRenderer extends MessageRendererBase {
 
     } else {
       writer.startElement(HtmlConstants.IMG, null);
-      String image = ResourceManagerUtil.getImageWithPath(
-          facesContext, "image/1x1.gif");
+      String image = ResourceManagerUtil.getImageWithPath(facesContext, "image/1x1.gif");
       writer.writeAttribute(HtmlAttributes.SRC, image, null);
       writer.writeAttribute(HtmlAttributes.ALT, "", null);
       writer.writeAttribute(HtmlAttributes.STYLE, "border: 0px; height: 1px; width: 1px;", null);

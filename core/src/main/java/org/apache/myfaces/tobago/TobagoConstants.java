@@ -135,6 +135,8 @@ public final class TobagoConstants {
   public static final String ATTR_SHOW_ROOT = "showRoot";
   public static final String ATTR_SHOW_ROOT_JUNCTION = "showRootJunction";
   public static final String ATTR_SHOW_ROW_RANGE = "showRowRange";
+  public static final String ATTR_SHOW_SUMMARY = "showSummary";
+  public static final String ATTR_SHOW_DETAIL = "showDetail";
   public static final String ATTR_SPAN_X = "spanX";
   public static final String ATTR_SPAN_Y = "spanY";
   public static final String ATTR_SRC = "src";
