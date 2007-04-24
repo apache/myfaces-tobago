@@ -48,10 +48,10 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
     facets = {
     @Facet(name = "click",
         description =
-            "This facet can contain a UICommand that is invoked in a case of a click event from the component"),
+            "This facet can contain a UICommand that is invoked in case of a click event from the component"),
     @Facet(name = "change",
         description =
-            "This facet can contain a UICommand that is invoked in a case of a chang events from the component")
+            "This facet can contain a UICommand that is invoked in case of a change event from the component")
         })
 public interface SelectOneListboxTagDeclaration extends SelectOneTagDeclaration, HasId, IsDisabled,
     IsReadonly, HasLabelAndAccessKey, IsRendered, HasBinding, HasDeprecatedHeight, HasTip {
