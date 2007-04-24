@@ -61,6 +61,7 @@ public class UIGridLayout extends UILayout {
   private String marginLeft;
   private String columns;
   private String rows;
+  private boolean ignoreFree;
 
   private List<Row> layoutRows;
 
@@ -242,8 +243,6 @@ public class UIGridLayout extends UILayout {
   public String getFamily() {
     return COMPONENT_FAMILY;
   }
-
-  private boolean ignoreFree;
 
   @Override
   public boolean getRendersChildren() {

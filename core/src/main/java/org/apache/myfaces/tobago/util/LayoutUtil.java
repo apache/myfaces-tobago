@@ -183,8 +183,9 @@ public final class LayoutUtil {
         && component.getRendererType() == null) {
       return true;
     }
+    // TODO find a better way
     if ("facelets".equals(component.getFamily())) {
-      return true;
+      return !"com.sun.facelets.tag.UIDebug".equals(component.getClass().getName());
     }
     /* TODO disable layouting of facelet stuff
     if (component.getClass().getPackage().getName().equals("com.sun.facelets.compiler")) {

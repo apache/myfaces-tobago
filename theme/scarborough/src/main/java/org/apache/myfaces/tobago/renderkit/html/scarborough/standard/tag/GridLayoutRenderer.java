@@ -353,7 +353,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
             writer.startElement(HtmlConstants.DIV, null);
             writer.writeClassAttribute(cellClasses);
             writer.writeAttribute(HtmlAttributes.STYLE, cellStyle, null);
-
+            writer.flush();
             RenderUtil.encode(facesContext, cell);
 
             writer.endElement(HtmlConstants.DIV);
