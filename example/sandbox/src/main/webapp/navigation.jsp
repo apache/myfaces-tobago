@@ -25,7 +25,7 @@
            width="200px" height="800px">
     <f:facet name="layout">
       <tc:gridLayout margin="5px"
-                     rows="fixed;fixed;fixed;fixed;fixed;*"/>
+                     rows="fixed;fixed;fixed;fixed;fixed;fixed;*"/>
     </f:facet>
 
     <tc:link link="separator.jsp" label="separator.jsp" target="View"/>
@@ -37,6 +37,8 @@
     <tc:link link="tree-menu.jsp" label="tree-menu.jsp" target="View"/>
 
     <tc:link link="tree-editor.jsp" label="tree-editor.jsp" target="View"/>
+
+    <tc:link link="inputSlider.jsp" label="inputSlider.jsp" target="View"/>
 
     <tc:cell/>
   </tc:page>

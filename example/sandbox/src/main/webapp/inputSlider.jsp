@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!--
+<%--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,17 +13,28 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
--->
+--%>
 
-<!DOCTYPE tobago-config PUBLIC
-    "-//The Apache Software Foundation//DTD Tobago Config 1.0//EN" "tobago-config_1_0.dtd">
+<%@ taglib uri="http://myfaces.apache.org/tobago/sandbox" prefix="tcs" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
-<tobago-config>
+<f:view>
+  <tc:loadBundle basename="demo" var="bundle"/>
 
-  <theme-config>
-    <default-theme>sandbox</default-theme>
-  </theme-config>
-
-  <resource-dir>tobago-resource</resource-dir>
-  <resource-dir>org/apache/myfaces/tobago/renderkit</resource-dir>
-</tobago-config>
+  <tc:page label="Sandbox - InputSlider" width="500px" height="800px">
+    <f:facet name="layout">
+      <tc:gridLayout margin="10px" rows="*"/>
+    </f:facet>
+    <tc:box label="InputSlider">
+      <f:facet name="layout">
+        <tc:gridLayout columns="fixed;*" rows="fixed;*"/>
+      </f:facet>
+      <tcs:numberSlider value="80" min="0" max="200">
+      </tcs:numberSlider>
+      <tc:cell/>
+      <tc:cell/>
+      <tc:cell/>
+    </tc:box>
+  </tc:page>
+</f:view>
