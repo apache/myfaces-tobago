@@ -654,14 +654,11 @@ public final class HtmlRendererUtil {
   }
 
   public static String getComponentId(FacesContext context, UIComponent component, String componentId) {
-    if (componentId.startsWith(":")) {
-      return componentId.substring(1);
-    } else {
-      UIComponent partiallyComponent = component.findComponent(componentId);
-      if (partiallyComponent != null) {
-        return partiallyComponent.getClientId(context);
-      }
+    UIComponent partiallyComponent = ComponentUtil.findComponent(component, componentId);
+    if (partiallyComponent != null) {
+      return partiallyComponent.getClientId(context);
     }
+    // TODO log error message if no component founc
     return null;
   }
 

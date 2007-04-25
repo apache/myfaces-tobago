@@ -75,8 +75,7 @@ public class LinkRenderer extends CommandRendererBase {
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
 
-    //TODO: check if this is still needed
-    writer.writeText("", null); // force closing the start tag
+    writer.flush();
 
 //  image
     String image = (String) component.getAttributes().get(ATTR_IMAGE);
