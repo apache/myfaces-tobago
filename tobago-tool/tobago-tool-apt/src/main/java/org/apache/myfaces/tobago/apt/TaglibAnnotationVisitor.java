@@ -55,12 +55,12 @@ import java.util.Set;
 /*
  * Created: Mar 22, 2005 8:18:35 PM
  * User: bommel
- * $Id:  $
  */
 public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
+
   private Set<String> tagSet = new HashSet<String>();
   private Set<String> attributeSet = new HashSet<String>();
-  private String currentTag = null;
+  private String currentTag;
 
   public TaglibAnnotationVisitor(AnnotationProcessorEnvironment env) {
     super(env);
@@ -71,7 +71,6 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
       Taglib taglibAnnotation = packageDeclaration.getAnnotation(Taglib.class);
       Document document = createTaglib(taglibAnnotation, packageDeclaration);
       writeTaglib(packageDeclaration, taglibAnnotation, document);
-
     }
   }
 
@@ -83,7 +82,6 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     javax.xml.parsers.DocumentBuilder parser = dbf.newDocumentBuilder();
 
     Document document = parser.newDocument();
-
 
     Element taglib = document.createElement("taglib");
     addLeafTextElement(taglibAnnotation.tlibVersion(), "tlib-version", taglib, document);
@@ -280,22 +278,25 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     }
     UIComponentTag componentTag = decl.getAnnotation(UIComponentTag.class);
     if (componentTag != null) {
-      description.append("<p>UIComponentClass: ");
+      description.append("<p><b>UIComponentClass: </b>");
       description.append(componentTag.uiComponent());
-      description.append("</p><p>");
-      description.append(" RendererType: ");
+      description.append("</p>");
+      description.append("<p><b>RendererType: </b>");
       description.append(componentTag.rendererType());
       description.append("</p>");
       Facet[] facets = componentTag.facets();
       if (facets.length > 0) {
-        description.append("<p>Supports following facets:</p>");
+        description.append("<p><b>Supported facets:</b></p>");
+        description.append("<dl>");
         for (Facet facet: facets) {
-          description.append("<p>Name: ");
+          description.append("<dt><b>");
           description.append(facet.name());
-          description.append(" Description: ");
+          description.append("</b></dt>");
+          description.append("<dd>");
           description.append(facet.description());
-          description.append("</p>");
+          description.append("</dd>");
         }
+        description.append("</dl>");
       }
     }
     if (description.length() > 0) {
@@ -307,7 +308,6 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     for (InterfaceType type : interfaces) {
       addAttributes(type.getDeclaration(), tagElement, document);
     }
-
   }
 
   protected void addAttributes(InterfaceDeclaration type, Element tagElement, Document document) {
@@ -359,6 +359,5 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
       }
     }
   }
-
 
 }
