@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.taglib.extension;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.taglib.component.SelectOneListboxTag;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
@@ -48,6 +49,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * Render a single selection option listbox.
  */
 @Tag(name = "selectOneListbox")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.SelectOneListboxTag")
 public class SelectOneListboxExtensionTag
     extends BodyTagSupport implements HasId, HasValue, HasValueChangeListener, IsDisabled,
     HasLabel, HasLabelWidth, IsReadonly, HasOnchange, IsRendered,

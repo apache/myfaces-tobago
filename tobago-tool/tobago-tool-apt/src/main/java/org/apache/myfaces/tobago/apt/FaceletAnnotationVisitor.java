@@ -63,7 +63,7 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
 
   public void process() throws Exception {
 
-    for (PackageDeclaration packageDeclaration :getCollectedPackageDeclations()) {
+    for (PackageDeclaration packageDeclaration : getCollectedPackageDeclarations()) {
       Taglib taglibAnnotation = packageDeclaration.getAnnotation(Taglib.class);
 
       Set<String> tagSet = new HashSet<String>();
@@ -91,7 +91,7 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
       JConstructor constructor = libraryClass.createConstructor();
       constructor.getSourceCode().add("super(NAMESPACE);");
 
-      for (InterfaceDeclaration decl : getCollectedInterfaceDeclations()) {
+      for (InterfaceDeclaration decl : getCollectedInterfaceDeclarations()) {
         if (decl.getPackage().equals(packageDeclaration)) {
           appendComponent(constructor, decl, tagSet);
         }

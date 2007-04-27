@@ -32,6 +32,7 @@
             <tc:menuItem label="#{bundle.menuFileNew}" action="#{controller.createAddress}" immediate="true"
                          image="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png"/>
             <tc:menuItem label="Add Dummy Addresses" action="#{controller.addDummyAddresses}" immediate="true"/>
+            <tc:menuSeparator/>
             <tc:menuItem label="#{bundle.admin}" action="#{admin.admin}"
                 image="image/org/tango-project/tango-icon-theme/16x16/categories/preferences-system.png" />
             <tc:menuSeparator/>

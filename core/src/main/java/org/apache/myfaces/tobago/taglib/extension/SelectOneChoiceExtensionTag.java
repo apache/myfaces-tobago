@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.taglib.extension;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.taglib.component.SelectOneChoiceTag;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
@@ -43,6 +44,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 
 @Tag(name = "selectOneChoice")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.SelectOneChoiceTag")
 public class SelectOneChoiceExtensionTag
     extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled,

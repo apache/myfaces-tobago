@@ -126,7 +126,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
       }
     }
     // TODO remove the foreach
-    for (PackageDeclaration packageDeclaration : getCollectedPackageDeclations()) {
+    for (PackageDeclaration packageDeclaration : getCollectedPackageDeclarations()) {
       Document document;
       Writer writer = null;
       try {
@@ -157,7 +157,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         List<Element> newConverters = new ArrayList<Element>();
         List<Element> newValidators = new ArrayList<Element>();
 
-        for (ClassDeclaration decl : getCollectedClassDeclations()) {
+        for (ClassDeclaration decl : getCollectedClassDeclarations()) {
           if (decl.getPackage().equals(packageDeclaration)
               && decl.getAnnotation(UIComponentTag.class) != null) {
             addElement(decl, newComponents, namespace);
@@ -168,7 +168,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
           }
         }
 
-        for (InterfaceDeclaration decl : getCollectedInterfaceDeclations()) {
+        for (InterfaceDeclaration decl : getCollectedInterfaceDeclarations()) {
           if (decl.getPackage().equals(packageDeclaration)) {
             addElement(decl, newComponents, namespace);
           }
@@ -485,7 +485,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
   protected void addAttributes(InterfaceDeclaration type, Class uiComponentClass, List properties, List attributes,
       Namespace namespace) {
     addAttributes(type.getSuperinterfaces(), uiComponentClass, properties, attributes, namespace);
-    for (MethodDeclaration decl : getCollectedMethodDeclations()) {
+    for (MethodDeclaration decl : getCollectedMethodDeclarations()) {
       if (decl.getDeclaringType().equals(type)) {
         addAttribute(decl, uiComponentClass, properties, attributes, namespace);
       }
@@ -501,7 +501,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
 
   protected void addAttributes(ClassDeclaration d, Class uiComponentClass, List properties, List attributes,
       Namespace namespace) {
-    for (MethodDeclaration decl : getCollectedMethodDeclations()) {
+    for (MethodDeclaration decl : getCollectedMethodDeclarations()) {
       if (d.getQualifiedName().
           equals(decl.getDeclaringType().getQualifiedName())) {
         addAttribute(decl, uiComponentClass, properties, attributes, namespace);

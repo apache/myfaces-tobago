@@ -35,59 +35,57 @@ import java.util.Set;
  */
 public class AnnotationDeclarationVisitorCollector extends SimpleDeclarationVisitor {
 
-  private Set<MethodDeclaration> collectedMethodDeclations = new HashSet<MethodDeclaration>();
-  private Set<ClassDeclaration> collectedClassDeclations = new HashSet<ClassDeclaration>();
-  private Set<InterfaceDeclaration> collectedInterfaceDeclations = new HashSet<InterfaceDeclaration>();
-  private List<PackageDeclaration> collectedPackageDeclations = new ArrayList<PackageDeclaration>();
+  private Set<MethodDeclaration> collectedMethodDeclarations = new HashSet<MethodDeclaration>();
+  private Set<ClassDeclaration> collectedClassDeclarations = new HashSet<ClassDeclaration>();
+  private Set<InterfaceDeclaration> collectedInterfaceDeclarations = new HashSet<InterfaceDeclaration>();
+  private List<PackageDeclaration> collectedPackageDeclarations = new ArrayList<PackageDeclaration>();
 
-  public Set<MethodDeclaration> getCollectedMethodDeclations() {
-    return collectedMethodDeclations;
+  public Set<MethodDeclaration> getCollectedMethodDeclarations() {
+    return collectedMethodDeclarations;
   }
 
-  public Set<ClassDeclaration> getCollectedClassDeclations() {
-    return collectedClassDeclations;
+  public Set<ClassDeclaration> getCollectedClassDeclarations() {
+    return collectedClassDeclarations;
   }
 
-  public Set<InterfaceDeclaration> getCollectedInterfaceDeclations() {
-    return collectedInterfaceDeclations;
+  public Set<InterfaceDeclaration> getCollectedInterfaceDeclarations() {
+    return collectedInterfaceDeclarations;
   }
 
-  public List<PackageDeclaration> getCollectedPackageDeclations() {
-    return collectedPackageDeclations;
+  public List<PackageDeclaration> getCollectedPackageDeclarations() {
+    return collectedPackageDeclarations;
   }
 
 
   public void visitMethodDeclaration(MethodDeclaration d) {
-    if (!collectedMethodDeclations.contains(d)
+    if (!collectedMethodDeclarations.contains(d)
         && !d.getAnnotationMirrors().isEmpty()) {
-      collectedMethodDeclations.add(d);
+      collectedMethodDeclarations.add(d);
     }
   }
 
   public void visitPackageDeclaration(PackageDeclaration d) {
-    if (!collectedPackageDeclations.contains(d)
+    if (!collectedPackageDeclarations.contains(d)
         && !d.getAnnotationMirrors().isEmpty()) {
-      collectedPackageDeclations.add(d);
+      collectedPackageDeclarations.add(d);
     }
-
   }
+
   public void visitInterfaceDeclaration(InterfaceDeclaration d) {
     // TODO why this needed????
     visitPackageDeclaration(d.getPackage());
-    if (!collectedInterfaceDeclations.contains(d)
+    if (!collectedInterfaceDeclarations.contains(d)
         && !d.getAnnotationMirrors().isEmpty()) {
-      collectedInterfaceDeclations.add(d);
+      collectedInterfaceDeclarations.add(d);
     }
   }
-
 
   public void visitClassDeclaration(ClassDeclaration d) {
     // TODO why this needed????
     visitPackageDeclaration(d.getPackage());
-
-    if (!collectedClassDeclations.contains(d)
+    if (!collectedClassDeclarations.contains(d)
         && !d.getAnnotationMirrors().isEmpty()) {
-      collectedClassDeclations.add(d);
+      collectedClassDeclarations.add(d);
     }
   }
 }

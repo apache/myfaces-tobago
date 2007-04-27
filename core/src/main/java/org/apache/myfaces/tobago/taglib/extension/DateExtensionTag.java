@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.taglib.extension;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.taglib.component.DateTag;
 import org.apache.myfaces.tobago.taglib.component.DatePickerTag;
 import org.apache.myfaces.tobago.taglib.component.FormTag;
@@ -49,6 +50,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * Renders a date input field with a date picker and a label.
  */
 @Tag(name = "date")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.DateTag")
 public class DateExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasOnchange,

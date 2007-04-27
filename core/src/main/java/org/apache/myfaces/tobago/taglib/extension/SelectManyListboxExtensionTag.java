@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.taglib.extension;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.taglib.component.SelectManyListboxTag;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
@@ -51,6 +52,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 
 @Tag(name = "selectManyListbox")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.SelectManyListboxTag")
 public class SelectManyListboxExtensionTag extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled, HasDeprecatedHeight, IsInline,
     HasLabel, HasLabelWidth, IsRendered, HasBinding, HasTip, HasConverter, HasValidator, HasOnchange, IsReadonly,

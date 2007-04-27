@@ -39,7 +39,7 @@ import org.apache.commons.logging.LogFactory;
 public class PrintAnnotationVisitor extends AnnotationDeclarationVisitorCollector {
   private static final Log LOG = LogFactory.getLog(PrintAnnotationVisitor.class);
   public void print() {
-    for (ClassDeclaration decl : getCollectedClassDeclations()) {
+    for (ClassDeclaration decl : getCollectedClassDeclarations()) {
       printClassDeclaration(decl);
     }
   }
@@ -84,7 +84,7 @@ public class PrintAnnotationVisitor extends AnnotationDeclarationVisitorCollecto
   }
 
   public void printMethods(ClassDeclaration d) {
-    for (MethodDeclaration decl : getCollectedMethodDeclations()) {
+    for (MethodDeclaration decl : getCollectedMethodDeclarations()) {
       if (d.getQualifiedName().
           equals(decl.getDeclaringType().getQualifiedName())) {
         LOG.error("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");

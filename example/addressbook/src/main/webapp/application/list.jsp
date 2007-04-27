@@ -34,6 +34,7 @@
         <tc:button onclick="alert('#{bundle.aboutMessage}')" label="#{bundle.toolbarAbout}"
             image="image/org/tango-project/tango-icon-theme/32x32/apps/help-browser.png"/>
         <tc:button label="#{bundle.admin}" action="#{admin.admin}"
+            rendered="#{user.roles['admin']}" 
             image="image/org/tango-project/tango-icon-theme/32x32/categories/preferences-system.png" />
       </tc:toolBar>
 

@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.taglib.extension;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.taglib.component.GridLayoutTag;
 import org.apache.myfaces.tobago.taglib.component.LabelTag;
 import org.apache.myfaces.tobago.taglib.component.PanelTag;
@@ -30,6 +31,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 @Tag(name = "label")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.LabelTag")
 public class LabelExtensionTag extends BodyTagSupport
     implements HasValue, HasTip {
 

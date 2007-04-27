@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.taglib.extension;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.taglib.component.InTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -42,21 +43,23 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 /**
  * Renders a text input field with a label.
  * Short syntax of:
- * <p /><blockquote><pre>
-   &lt;tc:panel&gt;
-     &lt;f:facet name="layout"&gt;
-       &lt;tc:gridLayout columns="fixed;*"/&gt;
-     &lt;/f:facet&gt;
-     &lt;tc:label value="#{label}" for="&amp;auto"/&gt;
-     &lt;tc:in value="#{value}" &gt;
-      .....
-     &lt;/tc:in&gt;
-   &lt;/tc:panel&gt;
-   </pre></blockquote>
-
+ *
+ * <blockquote><pre>
+ * &lt;tc:panel>
+ *   &lt;f:facet name="layout">
+ *     &lt;tc:gridLayout columns="fixed;*"/>
+ *   &lt;/f:facet>
+ *   &lt;tc:label value="#{label}" for="@auto"/>
+ *   &lt;tc:in value="#{value}">
+ *     ...
+ *   &lt;/tc:in>
+ * &lt;/tc:panel>
+ * </pre></blockquote>
+ *
  */
 
 @Tag(name = "in")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.InTag")
 public class InExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasOnchange, HasMarkup,

@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.Taglib;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
+import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -67,7 +68,7 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
   }
 
   public void process() throws Exception {
-    for (PackageDeclaration packageDeclaration :getCollectedPackageDeclations()) {
+    for (PackageDeclaration packageDeclaration : getCollectedPackageDeclarations()) {
       Taglib taglibAnnotation = packageDeclaration.getAnnotation(Taglib.class);
       Document document = createTaglib(taglibAnnotation, packageDeclaration);
       writeTaglib(packageDeclaration, taglibAnnotation, document);
@@ -104,12 +105,12 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
       taglib.appendChild(listener);
     }
 
-    for (ClassDeclaration decl : getCollectedClassDeclations()) {
+    for (ClassDeclaration decl : getCollectedClassDeclarations()) {
       if (decl.getPackage().equals(packageDeclaration)) {
         appendTag(decl, taglib, document);
       }
     }
-    for (InterfaceDeclaration decl : getCollectedInterfaceDeclations()) {
+    for (InterfaceDeclaration decl : getCollectedInterfaceDeclarations()) {
       if (decl.getPackage().equals(packageDeclaration)) {
         appendTag(decl, taglib, document);
       }
@@ -278,30 +279,61 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     }
     UIComponentTag componentTag = decl.getAnnotation(UIComponentTag.class);
     if (componentTag != null) {
-      description.append("<p><b>UIComponentClass: </b>");
-      description.append(componentTag.uiComponent());
+      description.append(createDescription(componentTag));
+    }
+    ExtensionTag extensionTag = decl.getAnnotation(ExtensionTag.class);
+    if (extensionTag != null) {
+      String baseName = extensionTag.baseClassName();
+      description.append("<p><b>Extended tag: </b>");
+      description.append(baseName);
       description.append("</p>");
-      description.append("<p><b>RendererType: </b>");
-      description.append(componentTag.rendererType());
-      description.append("</p>");
-      Facet[] facets = componentTag.facets();
-      if (facets.length > 0) {
-        description.append("<p><b>Supported facets:</b></p>");
-        description.append("<dl>");
-        for (Facet facet: facets) {
-          description.append("<dt><b>");
-          description.append(facet.name());
-          description.append("</b></dt>");
-          description.append("<dd>");
-          description.append(facet.description());
-          description.append("</dd>");
+
+      InterfaceDeclaration declaration = getInterfaceDeclaration(baseName + "Declaration");
+      if (declaration != null) {
+        UIComponentTag baseComponentTag = declaration.getAnnotation(UIComponentTag.class);
+        if (baseComponentTag != null) {
+          description.append(createDescription(baseComponentTag));
         }
-        description.append("</dl>");
       }
     }
     if (description.length() > 0) {
       addLeafCDATAElement(description.toString(), "description", element, document);
     }
+  }
+
+  private InterfaceDeclaration getInterfaceDeclaration(String name) {
+    Set<InterfaceDeclaration> declarations = getCollectedInterfaceDeclarations();
+    for (InterfaceDeclaration declaration : declarations) {
+      if (name.equals(declaration.getQualifiedName())) {
+        return declaration;
+      }
+    }
+    return null;
+  }
+
+  private String createDescription(UIComponentTag componentTag) {
+    StringBuilder description = new StringBuilder();
+    description.append("<p><b>UIComponentClass: </b>");
+    description.append(componentTag.uiComponent());
+    description.append("</p>");
+    description.append("<p><b>RendererType: </b>");
+    description.append(componentTag.rendererType());
+    description.append("</p>");
+    Facet[] facets = componentTag.facets();
+    if (facets.length > 0) {
+      description.append("<p><b>Supported facets:</b></p>");
+      description.append("<dl>");
+      for (Facet facet: facets) {
+        description.append("<dt><b>");
+        description.append(facet.name());
+        description.append("</b></dt>");
+        description.append("<dd>");
+        description.append(facet.description());
+        description.append("</dd>");
+      }
+      description.append("</dl>");
+    }
+    return description.toString();
   }
 
   protected void addAttributes(Collection<InterfaceType> interfaces, Element tagElement, Document document) {
@@ -312,7 +344,7 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
 
   protected void addAttributes(InterfaceDeclaration type, Element tagElement, Document document) {
     addAttributes(type.getSuperinterfaces(), tagElement, document);
-    for (MethodDeclaration decl : getCollectedMethodDeclations()) {
+    for (MethodDeclaration decl : getCollectedMethodDeclarations()) {
       if (decl.getDeclaringType().equals(type)) {
         addAttribute(decl, tagElement, document);
       }
@@ -321,7 +353,7 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
 
   protected void addAttributes(ClassDeclaration d, Element tagElement, Document document) {
 
-    for (MethodDeclaration decl : getCollectedMethodDeclations()) {
+    for (MethodDeclaration decl : getCollectedMethodDeclarations()) {
       if (d.getQualifiedName().
           equals(decl.getDeclaringType().getQualifiedName())) {
         addAttribute(decl, tagElement, document);

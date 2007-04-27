@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.taglib.extension;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.taglib.component.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.taglib.component.MenuCommandTag;
 import org.apache.myfaces.tobago.taglib.component.SelectBooleanCheckboxTag;
@@ -42,6 +43,7 @@ import javax.faces.webapp.FacetTag;
  */
 
 @Tag(name = "menuCheckbox", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.MenuCheckboxTag")
 public class MenuCheckboxExtensionTag extends BodyTagSupport implements AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, IsDisabled, HasBooleanValue, HasLabel {
   private String rendered;

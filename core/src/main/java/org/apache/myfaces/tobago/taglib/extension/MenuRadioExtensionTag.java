@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.taglib.extension;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.taglib.component.MenuCommandTag;
 import org.apache.myfaces.tobago.taglib.component.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.taglib.component.SelectOneRadioTag;
@@ -44,6 +45,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 
 @Tag(name = "menuRadio", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.MenuRadioTag")
 public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabel, IsDisabled, HasValue, HasConverter {
 

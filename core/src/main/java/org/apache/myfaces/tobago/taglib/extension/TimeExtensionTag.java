@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.taglib.extension;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.taglib.component.TimeTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -47,6 +48,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * Renders a time input field with a label.
  */
 @Tag(name = "time")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.TimeTag")
 public class TimeExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasOnchange,

@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.taglib.extension;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.taglib.component.TextAreaTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -42,6 +43,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 
 @Tag(name = "textarea")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.TextAreaTag")
 public class TextAreaExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasIdBindingAndRendered,
     HasConverter, HasValidator, IsReadonly, IsDisabled, HasMarkup,

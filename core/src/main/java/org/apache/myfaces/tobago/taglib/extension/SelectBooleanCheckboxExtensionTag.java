@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.taglib.extension;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
 import org.apache.myfaces.tobago.taglib.decl.HasBooleanValue;
@@ -45,7 +46,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * Renders a checkbox.
  */
 @Tag(name = "selectBooleanCheckbox")
-public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements TobagoTagDeclaration, 
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.SelectBooleanCheckboxTag")
+public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements TobagoTagDeclaration,
     HasValidator, HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabel,
     HasBooleanValue, HasLabelWidth, IsDisabled, HasTip, IsReadonly, HasMarkup {
 
