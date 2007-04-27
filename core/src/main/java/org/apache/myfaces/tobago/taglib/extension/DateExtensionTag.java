@@ -48,6 +48,20 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 /**
  * Renders a date input field with a date picker and a label.
+ * <br>
+ * Short syntax of:
+ *
+ * <pre>
+ * &lt;tc:panel>
+ *   &lt;f:facet name="layout">
+ *     &lt;tc:gridLayout columns="fixed;*"/>
+ *   &lt;/f:facet>
+ *   &lt;tc:label value="#{label}" for="@auto"/>
+ *   &lt;tc:date value="#{value}">
+ *     ...
+ *   &lt;/tc:in>
+ * &lt;/tc:panel>
+ * </pre>
  */
 @Tag(name = "date")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.DateTag")

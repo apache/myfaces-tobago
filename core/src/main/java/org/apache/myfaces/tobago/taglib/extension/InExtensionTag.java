@@ -42,9 +42,10 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Renders a text input field with a label.
+ * <br>
  * Short syntax of:
  *
- * <blockquote><pre>
+ * <pre>
  * &lt;tc:panel>
  *   &lt;f:facet name="layout">
  *     &lt;tc:gridLayout columns="fixed;*"/>
@@ -54,8 +55,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *     ...
  *   &lt;/tc:in>
  * &lt;/tc:panel>
- * </pre></blockquote>
- *
+ * </pre>
  */
 
 @Tag(name = "in")

@@ -40,6 +40,20 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Renders a multiline text input control with a label.
+ * <br>
+ * Short syntax of:
+ *
+ * <pre>
+ * &lt;tc:panel>
+ *   &lt;f:facet name="layout">
+ *     &lt;tc:gridLayout columns="fixed;*"/>
+ *   &lt;/f:facet>
+ *   &lt;tc:label value="#{label}" for="@auto"/>
+ *   &lt;tc:textarea value="#{value}">
+ *     ...
+ *   &lt;/tc:in>
+ * &lt;/tc:panel>
+ * </pre>
  */
 
 @Tag(name = "textarea")
