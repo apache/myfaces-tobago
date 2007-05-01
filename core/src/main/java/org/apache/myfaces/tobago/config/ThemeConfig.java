@@ -66,6 +66,16 @@ public class ThemeConfig {
     }
   }
 
+  public static boolean hasValue(FacesContext facesContext, UIComponent component,
+      String name) {
+    try {
+      getValue(facesContext, component, name);
+      return true;
+    } catch (NullPointerException e) {
+      return false;
+    }
+  }
+
   private static Integer createValue(FacesContext facesContext,
       UIComponent component, String name) {
     String family;
@@ -126,7 +136,7 @@ public class ThemeConfig {
 
 
   private static class CacheKey {
-    private String  clientProperties;
+    private String clientProperties;
     private Locale locale;
     private String rendererType;
     private String name;
