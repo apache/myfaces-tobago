@@ -28,16 +28,15 @@
   <build>
     <finalName>tobago-example-nonfacesrequest</finalName>
     <plugins>
-      <!--<plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>tomcat-maven-plugin</artifactId>
-        <version>1.0-SNAPSHOT</version>
         <configuration>
           <server>tomcat</server>
           <update>true</update>
           <url>http://localhost:8080/manager</url>
         </configuration>
-      </plugin>-->
+      </plugin>
     </plugins>
   </build>
 
