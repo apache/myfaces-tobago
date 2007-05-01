@@ -20,6 +20,8 @@ package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.context.ResourceManager;
+import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -32,6 +34,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Map;
@@ -39,8 +42,12 @@ import java.util.Map;
 public class InputNumberSliderRenderer extends RendererBase {
 
     private static final Log LOG = LogFactory.getLog(InputNumberSliderRenderer.class);
+    private static final String SLIDER_WIDTH_PERCENT = "sliderWidthPercent";
 
     public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+        final String[] scripts = new String[]{"script/scriptaculous.js"};
+        ComponentUtil.addScripts(component, scripts);
+
         String id = component.getClientId(facesContext);
         String currentValue = getCurrentValue(facesContext, component);
         boolean readonly = ComponentUtil.getBooleanAttribute(component, ATTR_READONLY);
@@ -54,12 +61,15 @@ public class InputNumberSliderRenderer extends RendererBase {
 
         HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE);
         int width = -1;
-        int sliderWidthPerc = ThemeConfig.getValue(facesContext, component, "sliderWidthPercent");
-        if (sliderWidthPerc <= 25) {
-            sliderWidthPerc = 25;
-        }
-        if (sliderWidthPerc >= 75) {
-            sliderWidthPerc = 75;
+        int sliderWidthPerc = 33;
+        if (ThemeConfig.hasValue(facesContext, component, SLIDER_WIDTH_PERCENT)) {
+            sliderWidthPerc = ThemeConfig.getValue(facesContext, component, SLIDER_WIDTH_PERCENT);
+            if (sliderWidthPerc <= 25) {
+                sliderWidthPerc = 25;
+            }
+            if (sliderWidthPerc >= 75) {
+                sliderWidthPerc = 75;
+            }
         }
         int sliderWidth = 100; // fixme
         int inputWidth = 50; // fixme;
@@ -71,10 +81,10 @@ public class InputNumberSliderRenderer extends RendererBase {
             inputWidth = (width * (100 - sliderWidthPerc)) / 100;
         }
 
-        LOG.info("Slider width: "+sliderWidth);
-        LOG.info("Input width: "+inputWidth);
-        LOG.info("Width: "+width);
-        LOG.info("Percentage: "+sliderWidthPerc);
+        LOG.info("Slider width: " + sliderWidth);
+        LOG.info("Input width: " + inputWidth);
+        LOG.info("Width: " + width);
+        LOG.info("Percentage: " + sliderWidthPerc);
 
         writer.startElement(HtmlConstants.TABLE, component);
         writer.writeIdAttribute(id);
@@ -96,7 +106,7 @@ public class InputNumberSliderRenderer extends RendererBase {
         writer.startElement(HtmlConstants.TD);
         writer.writeClassAttribute("tobago-inputNumberSlider-max-default");
         writer.writeAttribute(HtmlAttributes.STYLE,
-                HtmlRendererUtil.toStyleString("width", sliderWidth * 1 / 2), null);
+                HtmlRendererUtil.toStyleString("width", sliderWidth / 2), null);
         writer.startElement(HtmlConstants.SPAN);
         writer.writeClassAttribute("tobago-inputNumberSlider-max-default");
         writer.writeText(max, null);
@@ -127,16 +137,27 @@ public class InputNumberSliderRenderer extends RendererBase {
         writer.endElement(HtmlConstants.TR);
         writer.startElement(HtmlConstants.TR);
         writer.startElement(HtmlConstants.TD);
-        writer.writeClassAttribute("tobago-inputNumberSlider-slider-default");
         writer.writeAttribute("colspan", "2", false);
-        //writer.writeAttribute("width", "200", false);
-        writer.writeAttribute("height", "5", false);
-        //writer.writeAttribute("bgcolor", "yellow", false);
 
+        //track
+        writer.startElement(HtmlConstants.DIV);
+        writer.writeClassAttribute("tobago-inputNumberSlider-slider-default");
+        writer.writeAttribute(HtmlAttributes.ID, getIdForSliderTrack(facesContext, component), null);
+
+        // handle
+        writer.startElement(HtmlConstants.DIV);
+        writer.writeAttribute(HtmlAttributes.ID, getIdForSliderHandle(facesContext, component), null);
+        writer.writeAttribute(HtmlAttributes.STYLE, "position:relative; top:-6px; width:12px; height:6px", null);
+        writer.startElement(HtmlConstants.IMG);
+        writer.writeAttribute(HtmlAttributes.SRC, getAbsoluteImagePath(facesContext, "image/sliderTriangle.gif"), null);
+        writer.endElement(HtmlConstants.IMG);
+        writer.endElement(HtmlConstants.DIV);
+        writer.endElement(HtmlConstants.DIV);
         writer.endElement(HtmlConstants.TD);
         writer.endElement(HtmlConstants.TR);
         writer.endElement(HtmlConstants.TABLE);
 
+        writeSliderJavaScript(facesContext, component, writer);
         //HtmlRendererUtil.renderFocusId(facesContext, component);
     }
 
@@ -155,11 +176,56 @@ public class InputNumberSliderRenderer extends RendererBase {
         }
     }
 
+    private String getAbsoluteImagePath(FacesContext facesContext, String relativeImagePath) {
+        ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
+        UIViewRoot viewRoot = facesContext.getViewRoot();
+        String contextPath = facesContext.getExternalContext().getRequestContextPath();
+        return contextPath + resourceManager.getImage(viewRoot, relativeImagePath);
+    }
+
     private String getIdForInputField(FacesContext context,
                                       UIComponent component) {
         String id = component.getClientId(context);
         return id + TobagoConstants.SUBCOMPONENT_SEP + "input";
     }
 
+    private String getIdForSliderTrack(FacesContext context,
+                                       UIComponent component) {
+        String id = component.getClientId(context);
+        return id + TobagoConstants.SUBCOMPONENT_SEP + "track";
+    }
+
+    private String getIdForSliderHandle(FacesContext context,
+                                        UIComponent component) {
+        String id = component.getClientId(context);
+        return id + TobagoConstants.SUBCOMPONENT_SEP + "handle";
+    }
+
+    private void writeSliderJavaScript(FacesContext context, UIComponent component,
+                                       TobagoResponseWriter writer) throws IOException {
+        String trackId = getIdForSliderTrack(context, component);
+        String handleId = getIdForSliderHandle(context, component);
+        String inputId = getIdForInputField(context, component);
+        String jsId = component.getClientId(context).replace(":","_");
+        Integer min = ComponentUtil.getIntAttribute(component, "min");
+        Integer max = ComponentUtil.getIntAttribute(component, "max");
+        String script =
+                "    var slider_"+jsId+" = new Control.Slider('"+handleId+"', '"+trackId+"', {\n" +
+                "        sliderValue:$('"+inputId+"').value,\n" +
+                "        range : $R("+min+", "+max+"),\n" +
+                "        values: $R("+min+", "+max+").toArray(),\n" +
+                "        onSlide:function(v) {\n" +
+                "            $('"+inputId+"').value = v;\n" +
+                "        },\n" +
+                "        onChange:function(v) {\n" +
+                "            $('"+inputId+"').value = v;\n" +
+                "        }\n" +
+                "    });\n" +
+                "\n" +
+                "    Event.observe('value', 'change', function() {\n" +
+                "        slider_"+jsId+".setValue($('"+inputId+"').value);\n" +
+                "    });\n";
+        HtmlRendererUtil.writeJavascript(writer, script);
+    }
 
 }

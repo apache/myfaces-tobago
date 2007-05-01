@@ -47,31 +47,31 @@ hr.tobago-separator-default {
 
 /* number Slider --------------------------------------------------------------- */
 
-input.tobago-inputNumberSlider-default {
+.tobago-inputNumberSlider-default {
 }
 
-td.tobago-inputNumberSlider-min-default {
+.tobago-inputNumberSlider-min-default {
   text-align: left;
 }
 
-span.tobago-inputNumberSlider-min-default {
+.tobago-inputNumberSlider-min-default {
   font-family: bold arial, helvetica, sans-serif;
   font-size: 11px;
 }
 
-td.tobago-inputNumberSlider-max-default {
+.tobago-inputNumberSlider-max-default {
   text-align: right;
 }
 
-span.tobago-inputNumberSlider-max-default {
+.tobago-inputNumberSlider-max-default {
   font-family: bold arial, helvetica, sans-serif;
   font-size: 11px;
 }
 
-td.tobago-inputNumberSlider-input-default {
+.tobago-inputNumberSlider-input-default {
 }
 
-td.tobago-inputNumberSlider-slider-default {
+.tobago-inputNumberSlider-slider-default {
   width: 100%;
   height: 5px;
   background-color: #660000;
