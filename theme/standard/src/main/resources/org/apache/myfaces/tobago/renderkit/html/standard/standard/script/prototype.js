@@ -325,7 +325,7 @@ var Enumerable = {
     var result;
     this.each(function(value, index) {
       value = (iterator || Prototype.K)(value, index);
-      if (value <= (result || value))
+      if (result == undefined || value < result)
         result = value;
     });
     return result;
