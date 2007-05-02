@@ -38,11 +38,11 @@ function getItemHeight(menu) {
       return 20;
     }
     else {
-      return 16;
+      return 18;
     }
   }
   else {
-    return 16;
+    return 18;
   }
 }
 
