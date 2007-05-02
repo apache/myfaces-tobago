@@ -46,7 +46,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROW_RANGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST;
@@ -85,6 +84,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.StringUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -359,17 +359,14 @@ public class SheetRenderer extends RendererBase
       for (UIColumn column : data.getRendererdColumns()) {
         columnIndex++;
 
-        final String cellClass = (String) column.getAttributes().get(ATTR_STYLE_CLASS);
-
-        final StringBuilder tdClass = new StringBuilder();
-        tdClass.append("tobago-sheet-cell-td ");
+        StyleClasses tdClass = new StyleClasses();
+        tdClass.addClass("tobago-sheet-cell-td");
         HtmlRendererUtil.addMarkupClass(column, "column", tdClass);
         if (columnIndex == 0) {
-          tdClass.append("tobago-sheet-cell-first-column ");
+          tdClass.addClass("tobago-sheet-cell-first-column");
         }
-        if (cellClass != null) {
-          tdClass.append(cellClass);
-        }
+        StyleClasses cellClass = StyleClasses.ensureStyleClasses(column);
+        tdClass.addClasses(cellClass);
 
         writer.startElement(HtmlConstants.TD, column);
 

@@ -32,7 +32,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE_PREVIEW;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_TOOL_BAR;
@@ -45,9 +44,10 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -111,11 +111,11 @@ public class RichTextEditorRenderer extends InputRendererBase {
 
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
-    String classes
-        = (String) component.getAttributes().get(ATTR_STYLE_CLASS);
+    StyleClasses containerClasses = StyleClasses.ensureStyleClassesCopy(component);
+    containerClasses.addClass("tobago-richTextEditor-container");
 
     writer.startElement(HtmlConstants.DIV, component);
-    writer.writeClassAttribute(classes + " tobago-richTextEditor-container");
+    writer.writeClassAttribute(containerClasses);
     writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
     // class, stly.width, style.height
 
@@ -132,6 +132,9 @@ public class RichTextEditorRenderer extends InputRendererBase {
 
     String content = getCurrentValue(facesContext, component);
 
+    StyleClasses bodyClasses = StyleClasses.ensureStyleClassesCopy(component);
+    bodyClasses.addClass("tobago-richTextEditor-body");
+
     if (previewState) {
       writer.startElement(HtmlConstants.INPUT, component);
       writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
@@ -140,7 +143,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
       writer.endElement(HtmlConstants.INPUT);
 
       writer.startElement(HtmlConstants.DIV, component);
-      writer.writeClassAttribute(classes + " tobago-richTextEditor-body");
+      writer.writeClassAttribute(bodyClasses);
       writer.writeIdAttribute(clientId);
 
       writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE_BODY);
@@ -150,7 +153,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
       writer.endElement(HtmlConstants.DIV);
     } else {
       writer.startElement(HtmlConstants.TEXTAREA, component);
-      writer.writeClassAttribute(classes + " tobago-richTextEditor-body");
+      writer.writeClassAttribute(bodyClasses);
       writer.writeNameAttribute(clientId);
       writer.writeIdAttribute(clientId);
       writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE_BODY);

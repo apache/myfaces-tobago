@@ -20,28 +20,18 @@ package org.apache.myfaces.tobago.renderkit.html;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOCUS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_INNER;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
-import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_PREFIX;
-import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_DEFAULT;
-import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_ERROR;
-import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_INLINE;
-import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_READONLY;
-import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_REQUIRED;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIPage;
@@ -302,16 +292,12 @@ public final class HtmlRendererUtil {
     ensureStyleAttributeMap(component).remove(name);
   }
 
-  public static void addCssClass(UIComponent component, String newClass) {
-    final Map attributes = component.getAttributes();
-    String cssClass = (String) attributes.get(ATTR_STYLE_CLASS);
-    if (cssClass == null) {
-      attributes.put(ATTR_STYLE_CLASS, newClass);
-    } else if (cssClass.indexOf(newClass + " ") == -1
-        || !cssClass.equals(newClass) || !cssClass.endsWith(newClass)) {
-      cssClass += " " + newClass;
-      attributes.put(ATTR_STYLE_CLASS, cssClass);
-    }
+  /**
+   * @deprecated Please use StyleClasses.ensureStyleClasses(component).add(clazz);
+   */
+  @Deprecated
+  public static void addCssClass(UIComponent component, String clazz) {
+    StyleClasses.ensureStyleClasses(component).addClass(clazz);
   }
 
   public static void layoutWidth(FacesContext facesContext, UIComponent component) {
@@ -418,69 +404,17 @@ public final class HtmlRendererUtil {
   }
 
   private static void createClassAttribute(UIComponent component, String name) {
-    if (LOG.isDebugEnabled()) {
-      Object styleClassO = component.getAttributes().get(ATTR_STYLE_CLASS);
-      if (styleClassO != null) {
-        LOG.debug("styleClassO = '" + styleClassO.getClass().getName() + "'");
-      }
-    }
-    String styleClass
-        = (String) component.getAttributes().get(ATTR_STYLE_CLASS);
-    styleClass = updateClassAttribute(styleClass, name, component);
-    component.getAttributes().put(ATTR_STYLE_CLASS, styleClass);
+    StyleClasses classes = StyleClasses.ensureStyleClasses(component);
+    classes.updateClassAttribute(name, component);
   }
 
-  static String removeTobagoClasses(String s, String rendererName) {
-    int length = s.length();
-    if (length == 0) {
-      return s;
-    }
-    StringBuilder newS = new StringBuilder(length);
-    String toFind = TOBAGO_CSS_CLASS_PREFIX + rendererName;
-    int lastSpace = 0;
-    for (int i = 0; i < length; i++) {
-      char c = s.charAt(i);
-      if (c == ' ' || i == length - 1) {
-        String part = s.substring(lastSpace == 0 ? 0 : lastSpace + 1, i + 1);
-        if (!part.startsWith(toFind)) {
-          newS.append(part);
-        }
-        lastSpace = i;
-      }
-    }
-    return newS.toString();
-  }
-
-  public static String updateClassAttribute(String cssClass, String rendererName, UIComponent component) {
-    if (cssClass != null) {
-      // first remove old tobago-<rendererName>-<type> classes from class-attribute
-      cssClass = removeTobagoClasses(cssClass, rendererName).trim();
-    } else {
-      cssClass = "";
-    }
-    StringBuilder prefix = new StringBuilder(TOBAGO_CSS_CLASS_PREFIX).append(rendererName);
-    StringBuilder tobagoClass = new StringBuilder(64).append(prefix).append(TOBAGO_CSS_CLASS_SUFFIX_DEFAULT);
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
-      tobagoClass.append(prefix).append(TOBAGO_CSS_CLASS_SUFFIX_DISABLED);
-    }
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_READONLY)) {
-      tobagoClass.append(prefix).append(TOBAGO_CSS_CLASS_SUFFIX_READONLY);
-    }
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
-      tobagoClass.append(prefix).append(TOBAGO_CSS_CLASS_SUFFIX_INLINE);
-    }
-    if (component instanceof UIInput) {
-      UIInput input = (UIInput) component;
-      if (ComponentUtil.isError(input)) {
-        tobagoClass.append(prefix).append(TOBAGO_CSS_CLASS_SUFFIX_ERROR);
-      }
-      if (input.isRequired()) {
-        tobagoClass.append(prefix).append(TOBAGO_CSS_CLASS_SUFFIX_REQUIRED);
-      }
-    }
-
-    addMarkupClass(component, rendererName, tobagoClass);
-    return tobagoClass.append(cssClass).toString();
+  /**
+   * @deprecated Please use StyleClasses.ensureStyleClasses(component).updateClassAttribute(renderer, component);
+   */
+  @Deprecated
+  public static void updateClassAttribute(String cssClass, String rendererName, UIComponent component) {
+    throw new UnsupportedOperationException(
+        "StyleClasses.ensureStyleClasses(component).updateClassAttribute(renderer, component);");
   }
 
   public static void addMarkupClass(UIComponent component, String rendererName,
@@ -491,7 +425,7 @@ public final class HtmlRendererUtil {
       for (String markup: markups) {
         Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot()).getTheme();
         if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
-          tobagoClass.append(TOBAGO_CSS_CLASS_PREFIX).append(rendererName).append("-").append(subComponent)
+          tobagoClass.append(StyleClasses.PREFIX).append(rendererName).append("-").append(subComponent)
               .append("-markup-").append(markup).append(" ");
         } else {
           LOG.warn("Unknown markup='" + markup + "'");
@@ -500,15 +434,14 @@ public final class HtmlRendererUtil {
     }
   }
 
-  public static void addMarkupClass(UIComponent component, String rendererName, StringBuilder tobagoClass) {
+  public static void addMarkupClass(UIComponent component, String rendererName, StyleClasses classes) {
 
     if (component instanceof SupportsMarkup) {
       String[] markups = ((SupportsMarkup) component).getMarkup();
       for (String markup: markups) {
         Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot()).getTheme();
         if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
-          tobagoClass.append(TOBAGO_CSS_CLASS_PREFIX).append(rendererName)
-              .append("-markup-").append(markup).append(" ");
+          classes.addClass(StyleClasses.PREFIX + rendererName + "-markup-" + markup);
         } else {
           LOG.warn("Unknown markup='" + markup + "'");
         }

@@ -23,7 +23,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_RESET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_PICKER_POPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BOX;
@@ -37,6 +36,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_POPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_TIME;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.DatePickerController;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
@@ -239,7 +239,7 @@ public class UIDatePicker extends UICommand implements OnComponentCreated {
     image.setRendered(true);
     image.setValue("image/date.gif");
     image.getAttributes().put(ATTR_ALT, ""); //TODO: i18n
-    image.getAttributes().put(ATTR_STYLE_CLASS, "tobago-input-picker");
+    StyleClasses.ensureStyleClasses(image).addClass("tobago-input-picker");
     link.getChildren().add(image);
   }
 

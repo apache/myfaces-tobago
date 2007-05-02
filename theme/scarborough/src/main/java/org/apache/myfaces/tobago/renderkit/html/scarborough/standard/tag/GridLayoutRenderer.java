@@ -34,7 +34,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SCROLLBARS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICell;
@@ -48,6 +47,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -294,17 +294,13 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
             int spanX = UIGridLayout.getSpanX(cell);
             int spanY = UIGridLayout.getSpanY(cell);
-            String cssClasses =
-                (String) attributes.get(ATTR_STYLE_CLASS);
-            cssClasses = (cssClasses == null ? "" : cssClasses);
-            String cellClasses = "";
+            StyleClasses classes = StyleClasses.ensureStyleClassesCopy(layout);
             if (rowIndex == 0) {
-              cellClasses += " tobago-gridLayout-first-row";
+              classes.addClass("tobago-gridLayout-first-row");
             }
             if (columnIndex == 0) {
-              cellClasses += " tobago-gridLayout-first-column";
+              classes.addClass("tobago-gridLayout-first-column");
             }
-            cellClasses = cssClasses + cellClasses;
 
             int cellWidth = -1;
             if (columnWidths != null) {
@@ -351,7 +347,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
             }
 
             writer.startElement(HtmlConstants.DIV, null);
-            writer.writeClassAttribute(cellClasses);
+            writer.writeClassAttribute(classes);
             writer.writeAttribute(HtmlAttributes.STYLE, cellStyle, null);
             writer.flush();
             RenderUtil.encode(facesContext, cell);

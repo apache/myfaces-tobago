@@ -30,7 +30,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP_TYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PAGE_MENU;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
@@ -50,6 +49,7 @@ import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -90,14 +90,13 @@ public class MenuBarRenderer extends RendererBase {
 
       writer.startElement(HtmlConstants.DIV, component);
       writer.writeIdAttribute(clientId);
-      String cssClasses = (String) attributes.get(
-          ATTR_STYLE_CLASS);
+      StyleClasses styleClasses = StyleClasses.ensureStyleClasses(component);
       if (ComponentUtil.getBooleanAttribute(component, ATTR_PAGE_MENU)) {
-        cssClasses += "tobago-menuBar-page-facet";
+        styleClasses.addClass("tobago-menuBar-page-facet");
       } else {
         writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
       }
-      writer.writeClassAttribute(cssClasses);
+      writer.writeClassAttribute(styleClasses);
 /*
 
       writer.startElement(HtmlConstants.SPAN);

@@ -24,6 +24,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import org.apache.myfaces.tobago.util.HtmlWriterUtil;
 import org.apache.myfaces.tobago.util.XmlUtils;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
@@ -400,6 +401,10 @@ public class TobagoResponseWriter extends ResponseWriter {
 
   public void writeClassAttribute(final String cssClass) throws IOException {
     writeAttribute(HtmlAttributes.CLASS, cssClass, false);
+  }
+
+  public void writeClassAttribute(StyleClasses styleClasses) throws IOException {
+    writeAttribute(HtmlAttributes.CLASS, styleClasses.toString(), false);
   }
 
   public void writeComponentClass() throws IOException {

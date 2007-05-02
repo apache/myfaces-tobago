@@ -24,13 +24,10 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_PREFIX;
-import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_CSS_CLASS_SUFFIX_REQUIRED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
@@ -44,8 +41,8 @@ import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -129,10 +126,9 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     
     if (currentValue != null && currentValue.length() > 0
         && ComponentUtil.getBooleanAttribute(component, ATTR_REQUIRED)) {
-      String classes = ComponentUtil.getStringAttribute(component, ATTR_STYLE_CLASS);
+      StyleClasses styleClasses = StyleClasses.ensureStyleClasses(component);
       String rendererName = HtmlRendererUtil.getRendererName(facesContext, component);
-      classes = classes.replaceAll(TOBAGO_CSS_CLASS_PREFIX+rendererName+TOBAGO_CSS_CLASS_SUFFIX_REQUIRED, "");
-      component.getAttributes().put(ATTR_STYLE_CLASS, classes);
+      styleClasses.removeClass(StyleClasses.PREFIX + rendererName + StyleClasses.SUFFIX_REQUIRED);
     }
     writer.writeComponentClass();
     if (renderAjaxSuggest) {
@@ -152,7 +148,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     if (ComponentUtil.getBooleanAttribute(component, ATTR_REQUIRED)) {
       String rendererName = HtmlRendererUtil.getRendererName(facesContext, component);
       final String[] cmds = {
-         "new Tobago.In(\"" + id + "\", true ,\"" + TobagoConstants.TOBAGO_CSS_CLASS_PREFIX + rendererName + "\"  );"
+         "new Tobago.In(\"" + id + "\", true ,\"" + StyleClasses.PREFIX + rendererName + "\"  );"
       };
 
       HtmlRendererUtil.writeScriptLoader(facesContext, null, cmds);
