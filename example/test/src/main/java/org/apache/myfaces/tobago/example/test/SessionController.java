@@ -26,6 +26,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 
+import javax.faces.model.SelectItem;
+
 public class SessionController {
 
   private static final Log LOG = LogFactory.getLog(SessionController.class);
@@ -38,8 +40,20 @@ public class SessionController {
 
   private Integer selectedIndex2;
 
+  private String value;
+
   public SessionController() {
   }
+
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
+  }
+
+
 
   public TabChangeListener getTabChangeListener() {
     LOG.info("getTabChangeListener " + tabChangeListener);
