@@ -21,6 +21,8 @@ import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
+import javax.faces.validator.LongRangeValidator;
+import javax.faces.validator.ValidatorException;
 
 public class UIInputNumberSlider extends javax.faces.component.UIInput {
 
@@ -112,5 +114,14 @@ public class UIInputNumberSlider extends javax.faces.component.UIInput {
     values[3] = max;
     values[4] = disabled;
     return values;
+  }
+
+  public void validate(FacesContext context) {
+    super.validate(context);
+    try {
+      new LongRangeValidator(max, min).validate(context, this, getValue());
+    } catch (ValidatorException e) {
+      context.addMessage(getClientId(context), e.getFacesMessage());
+    }
   }
 }

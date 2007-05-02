@@ -33,6 +33,8 @@ public class Controller {
 
   private TreeState state;
 
+  private int sliderValue;
+
   public Controller() {
     // tree
     tree = new DefaultMutableTreeNode(new Node("Category"));
@@ -108,5 +110,19 @@ public class Controller {
 
   public void setState(TreeState state) {
     this.state = state;
+  }
+
+
+  public int getSliderValue() {
+    return sliderValue;
+  }
+
+  public void setSliderValue(int sliderValue) {
+    this.sliderValue = sliderValue;
+  }
+
+  public String sliderSubmit() {
+    LOG.info("Slider: "+sliderValue);
+    return null;
   }
 }

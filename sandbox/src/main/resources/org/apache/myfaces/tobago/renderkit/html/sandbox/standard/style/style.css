@@ -55,8 +55,7 @@ hr.tobago-separator-default {
 }
 
 .tobago-inputNumberSlider-min-default {
-  font-family: bold arial, helvetica, sans-serif;
-  font-size: 11px;
+  font: bold 11px arial, helvetica, sans-serif;
 }
 
 .tobago-inputNumberSlider-max-default {
@@ -64,8 +63,7 @@ hr.tobago-separator-default {
 }
 
 .tobago-inputNumberSlider-max-default {
-  font-family: bold arial, helvetica, sans-serif;
-  font-size: 11px;
+  font: bold 11px arial, helvetica, sans-serif;
 }
 
 .tobago-inputNumberSlider-input-default {
@@ -73,6 +71,6 @@ hr.tobago-separator-default {
 
 .tobago-inputNumberSlider-slider-default {
   width: 100%;
-  height: 5px;
+  height: 3px;
   background-color: #660000;
 }

@@ -30,9 +30,9 @@
       <f:facet name="layout">
         <tc:gridLayout columns="fixed;*" rows="fixed;*"/>
       </f:facet>
-      <tcs:numberSlider value="80" min="0" max="200">
+      <tcs:numberSlider value="#{controller.sliderValue}" min="0" max="200">
       </tcs:numberSlider>
-      <tc:cell/>
+      <tc:button action="#{controller.sliderSubmit}" label="Submit" />
       <tc:cell/>
       <tc:cell/>
     </tc:box>

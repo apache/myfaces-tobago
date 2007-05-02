@@ -54,8 +54,6 @@ public class InputNumberSliderRenderer extends RendererBase {
         boolean disabled = ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED);
         Integer min = ComponentUtil.getIntAttribute(component, "min");
         Integer max = ComponentUtil.getIntAttribute(component, "max");
-        LOG.info("### min = " + min);
-        LOG.info("### max = " + max);
         TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
 
@@ -80,11 +78,6 @@ public class InputNumberSliderRenderer extends RendererBase {
             sliderWidth = (width * sliderWidthPerc) / 100;
             inputWidth = (width * (100 - sliderWidthPerc)) / 100;
         }
-
-        LOG.info("Slider width: " + sliderWidth);
-        LOG.info("Input width: " + inputWidth);
-        LOG.info("Width: " + width);
-        LOG.info("Percentage: " + sliderWidthPerc);
 
         writer.startElement(HtmlConstants.TABLE, component);
         writer.writeIdAttribute(id);
