@@ -360,10 +360,10 @@ public class SheetRenderer extends RendererBase
         columnIndex++;
 
         StyleClasses tdClass = new StyleClasses();
-        tdClass.addClass("sheet", "cell-td");// XXX not a standard compliant name
+        tdClass.addClass("sheet", "cell-td"); // XXX not a standard compliant name
         HtmlRendererUtil.addMarkupClass(column, "column", tdClass);
         if (columnIndex == 0) {
-          tdClass.addClass("sheet", "cell-first-column");// XXX not a standard compliant name
+          tdClass.addClass("sheet", "cell-first-column"); // XXX not a standard compliant name
         }
         StyleClasses cellClass = StyleClasses.ensureStyleClasses(column);
         tdClass.addClasses(cellClass);
