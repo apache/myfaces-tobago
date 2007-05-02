@@ -112,7 +112,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     StyleClasses containerClasses = StyleClasses.ensureStyleClassesCopy(component);
-    containerClasses.addClass("tobago-richTextEditor-container");
+    containerClasses.addClass("richTextEditor", "container");
 
     writer.startElement(HtmlConstants.DIV, component);
     writer.writeClassAttribute(containerClasses);
@@ -133,7 +133,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     String content = getCurrentValue(facesContext, component);
 
     StyleClasses bodyClasses = StyleClasses.ensureStyleClassesCopy(component);
-    bodyClasses.addClass("tobago-richTextEditor-body");
+    bodyClasses.addClass("richTextEditor", "body");
 
     if (previewState) {
       writer.startElement(HtmlConstants.INPUT, component);

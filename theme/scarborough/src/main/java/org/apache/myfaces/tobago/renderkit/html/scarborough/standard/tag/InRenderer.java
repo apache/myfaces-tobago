@@ -128,7 +128,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
         && ComponentUtil.getBooleanAttribute(component, ATTR_REQUIRED)) {
       StyleClasses styleClasses = StyleClasses.ensureStyleClasses(component);
       String rendererName = HtmlRendererUtil.getRendererName(facesContext, component);
-      styleClasses.removeClass(StyleClasses.PREFIX + rendererName + StyleClasses.SUFFIX_REQUIRED);
+      styleClasses.removeAspectClass(rendererName, StyleClasses.Aspect.REQUIRED);
     }
     writer.writeComponentClass();
     if (renderAjaxSuggest) {

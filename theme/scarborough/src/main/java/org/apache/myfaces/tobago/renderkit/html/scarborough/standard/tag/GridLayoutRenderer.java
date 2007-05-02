@@ -296,10 +296,10 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
             int spanY = UIGridLayout.getSpanY(cell);
             StyleClasses classes = StyleClasses.ensureStyleClassesCopy(layout);
             if (rowIndex == 0) {
-              classes.addClass("tobago-gridLayout-first-row");
+              classes.addClass("gridLayout", "first-row"); // XXX not a standard compliant name
             }
             if (columnIndex == 0) {
-              classes.addClass("tobago-gridLayout-first-column");
+              classes.addClass("gridLayout", "first-column"); // XXX not a standard compliant name
             }
 
             int cellWidth = -1;

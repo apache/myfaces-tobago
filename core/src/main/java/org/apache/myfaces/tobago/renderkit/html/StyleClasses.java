@@ -36,13 +36,9 @@ import java.util.Map;
 
 public class StyleClasses implements Serializable {
 
-  public static final String PREFIX = "tobago-";
-  public static final String SUFFIX_DEFAULT = "-default";
-  public static final String SUFFIX_DISABLED = "-disabled";
-  public static final String SUFFIX_READONLY = "-readonly";
-  public static final String SUFFIX_INLINE = "-inline";
-  public static final String SUFFIX_ERROR = "-error";
-  public static final String SUFFIX_REQUIRED = "-required";
+  public static final char SEPERATOR = '-';
+  public static final String PREFIX = "tobago" + SEPERATOR;
+  public static final String MARKUP = SEPERATOR + "markup" + SEPERATOR;
 
   private ListOrderedSet classes;
 
@@ -69,8 +65,64 @@ public class StyleClasses implements Serializable {
     return new StyleClasses(ensureStyleClasses(component));
   }
 
-  public void addClass(String clazz) {
+  @Deprecated
+  public void addFullQualifiedClass(String clazz) {
     classes.add(clazz);
+  }
+
+  public void addClass(String renderer, String sub) {
+    StringBuilder builder = new StringBuilder();
+    builder.append(PREFIX);
+    builder.append(renderer);
+    builder.append(SEPERATOR);
+    builder.append(sub);
+    classes.add(builder.toString());
+  }
+
+  public void addMarkupClass(String renderer, String markup) {
+    StringBuilder builder = new StringBuilder();
+    builder.append(PREFIX);
+    builder.append(renderer);
+    builder.append(MARKUP);
+    builder.append(markup);
+    classes.add(builder.toString());
+  }
+
+  public void addMarkupClass(String renderer, String sub, String markup) {
+    StringBuilder builder = new StringBuilder();
+    builder.append(PREFIX);
+    builder.append(renderer);
+    builder.append(SEPERATOR);
+    builder.append(sub);
+    builder.append(MARKUP);
+    builder.append(markup);
+    classes.add(builder.toString());
+  }
+
+  public void addAspectClass(String renderer, Aspect aspect) {
+    StringBuilder builder = new StringBuilder();
+    builder.append(PREFIX);
+    builder.append(renderer);
+    builder.append(aspect);
+    classes.add(builder.toString());
+  }
+
+  public void removeAspectClass(String renderer, Aspect aspect) {
+    StringBuilder builder = new StringBuilder();
+    builder.append(PREFIX);
+    builder.append(renderer);
+    builder.append(aspect);
+    classes.remove(builder.toString());
+  }
+
+  public void addAspectClass(String renderer, String sub, Aspect aspect) {
+    StringBuilder builder = new StringBuilder();
+    builder.append(PREFIX);
+    builder.append(renderer);
+    builder.append(SEPERATOR);
+    builder.append(sub);
+    builder.append(aspect);
+    classes.add(builder.toString());
   }
 
   public void addClasses(StyleClasses styleClasses) {
@@ -96,24 +148,23 @@ public class StyleClasses implements Serializable {
     // first remove old tobago-<rendererName>-<type> classes from class-attribute
     removeTobagoClasses(rendererName);
 
-    StringBuilder prefix = new StringBuilder(PREFIX).append(rendererName);
-    addClass(prefix + SUFFIX_DEFAULT);
+    addAspectClass(rendererName, Aspect.DEFAULT);
     if (ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
-      addClass(prefix + SUFFIX_DISABLED);
+      addAspectClass(rendererName, Aspect.DISABLED);
     }
     if (ComponentUtil.getBooleanAttribute(component, ATTR_READONLY)) {
-      addClass(prefix + SUFFIX_READONLY);
+      addAspectClass(rendererName, Aspect.READONLY);
     }
     if (ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
-      addClass(prefix + SUFFIX_INLINE);
+      addAspectClass(rendererName, Aspect.INLINE);
     }
     if (component instanceof UIInput) {
       UIInput input = (UIInput) component;
       if (ComponentUtil.isError(input)) {
-        addClass(prefix + SUFFIX_ERROR);
+        addAspectClass(rendererName, Aspect.ERROR);
       }
       if (input.isRequired()) {
-        addClass(prefix + SUFFIX_REQUIRED);
+        addAspectClass(rendererName, Aspect.REQUIRED);
       }
     }
 
@@ -131,5 +182,26 @@ public class StyleClasses implements Serializable {
       }
     }
     return buffer.toString();
+  }
+
+  public enum Aspect {
+
+    DEFAULT,
+    DISABLED,
+    READONLY,
+    INLINE,
+    ERROR,
+    REQUIRED;
+
+    private String aspect;
+
+    Aspect() {
+      aspect = '-' + name().toLowerCase();
+    }
+
+    @Override
+    public String toString() {
+      return aspect;
+    }
   }
 }

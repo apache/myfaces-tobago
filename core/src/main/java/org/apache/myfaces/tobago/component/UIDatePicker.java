@@ -239,7 +239,7 @@ public class UIDatePicker extends UICommand implements OnComponentCreated {
     image.setRendered(true);
     image.setValue("image/date.gif");
     image.getAttributes().put(ATTR_ALT, ""); //TODO: i18n
-    StyleClasses.ensureStyleClasses(image).addClass("tobago-input-picker");
+    StyleClasses.ensureStyleClasses(image).addFullQualifiedClass("tobago-input-picker"); // XXX not a standard name
     link.getChildren().add(image);
   }
 

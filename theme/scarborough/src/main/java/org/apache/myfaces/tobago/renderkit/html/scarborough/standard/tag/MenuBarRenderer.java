@@ -92,7 +92,7 @@ public class MenuBarRenderer extends RendererBase {
       writer.writeIdAttribute(clientId);
       StyleClasses styleClasses = StyleClasses.ensureStyleClasses(component);
       if (ComponentUtil.getBooleanAttribute(component, ATTR_PAGE_MENU)) {
-        styleClasses.addClass("tobago-menuBar-page-facet");
+        styleClasses.addClass("menuBar", "page-facet"); // XXX not a standard compliant name
       } else {
         writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
       }

@@ -112,7 +112,8 @@ public final class HtmlRendererUtil {
   public static void createCssClass(FacesContext facesContext, UIComponent component) {
     String rendererName = getRendererName(facesContext, component);
     if (rendererName != null) {
-      createClassAttribute(component, rendererName);
+      StyleClasses classes = StyleClasses.ensureStyleClasses(component);
+      classes.updateClassAttribute(rendererName, component);
     }
   }
 
@@ -297,7 +298,7 @@ public final class HtmlRendererUtil {
    */
   @Deprecated
   public static void addCssClass(UIComponent component, String clazz) {
-    StyleClasses.ensureStyleClasses(component).addClass(clazz);
+    StyleClasses.ensureStyleClasses(component).addFullQualifiedClass(clazz);
   }
 
   public static void layoutWidth(FacesContext facesContext, UIComponent component) {
@@ -403,11 +404,6 @@ public final class HtmlRendererUtil {
     }
   }
 
-  private static void createClassAttribute(UIComponent component, String name) {
-    StyleClasses classes = StyleClasses.ensureStyleClasses(component);
-    classes.updateClassAttribute(name, component);
-  }
-
   /**
    * @deprecated Please use StyleClasses.ensureStyleClasses(component).updateClassAttribute(renderer, component);
    */
@@ -422,7 +418,7 @@ public final class HtmlRendererUtil {
 
     if (component instanceof SupportsMarkup) {
       String[] markups = ((SupportsMarkup) component).getMarkup();
-      for (String markup: markups) {
+      for (String markup : markups) {
         Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot()).getTheme();
         if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
           tobagoClass.append(StyleClasses.PREFIX).append(rendererName).append("-").append(subComponent)
@@ -441,7 +437,7 @@ public final class HtmlRendererUtil {
       for (String markup: markups) {
         Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot()).getTheme();
         if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
-          classes.addClass(StyleClasses.PREFIX + rendererName + "-markup-" + markup);
+          classes.addMarkupClass(rendererName, markup);
         } else {
           LOG.warn("Unknown markup='" + markup + "'");
         }
@@ -449,21 +445,17 @@ public final class HtmlRendererUtil {
     }
   }
 
-  public static void addImageSources(
-      FacesContext facesContext, ResponseWriter writer, String src, String id)
+  public static void addImageSources(FacesContext facesContext, ResponseWriter writer, String src, String id)
       throws IOException {
     StringBuilder buffer = new StringBuilder();
     buffer.append("new Tobago.Image('");
     buffer.append(id);
     buffer.append("','");
-    buffer.append(ResourceManagerUtil.getImageWithPath(
-        facesContext, src, false));
+    buffer.append(ResourceManagerUtil.getImageWithPath(facesContext, src, false));
     buffer.append("','");
-    buffer.append(ResourceManagerUtil.getImageWithPath(
-        facesContext, createSrc(src, "Disabled"), true));
+    buffer.append(ResourceManagerUtil.getImageWithPath(facesContext, createSrc(src, "Disabled"), true));
     buffer.append("','");
-    buffer.append(ResourceManagerUtil.getImageWithPath(
-        facesContext, createSrc(src, "Hover"), true));
+    buffer.append(ResourceManagerUtil.getImageWithPath(facesContext, createSrc(src, "Hover"), true));
     buffer.append("');");
     writeJavascript(writer, buffer.toString());
   }

@@ -27,18 +27,18 @@ public class StyleClassesUnitTest extends TestCase {
 
   public void testRemoveOneMatch() {
     StyleClasses c = new StyleClasses();
-    c.addClass("bla");
-    c.addClass("tobago-test-inline");
-    c.addClass("blupp");
+    c.addFullQualifiedClass("bla");
+    c.addFullQualifiedClass("tobago-test-inline");
+    c.addFullQualifiedClass("blupp");
     c.removeTobagoClasses("test");
     assertEquals("bla blupp", c.toString());
   }
 
   public void testRemoveNoMatch() {
     StyleClasses c = new StyleClasses();
-    c.addClass("bla");
-    c.addClass("tobago-test-inline");
-    c.addClass("blupp");
+    c.addFullQualifiedClass("bla");
+    c.addFullQualifiedClass("tobago-test-inline");
+    c.addFullQualifiedClass("blupp");
     c.removeTobagoClasses("no");
     assertEquals("bla tobago-test-inline blupp", c.toString());
   }
@@ -48,4 +48,29 @@ public class StyleClassesUnitTest extends TestCase {
     c.removeTobagoClasses("no");
     assertEquals("", c.toString());
   }
+
+  public void testAddMarkupClass() {
+    StyleClasses c = new StyleClasses();
+    c.addMarkupClass("myComponent", "big");
+    assertEquals("tobago-myComponent-markup-big", c.toString());
+  }
+
+  public void testAddMarkupClassSub() {
+    StyleClasses c = new StyleClasses();
+    c.addMarkupClass("myComponent", "mySub", "big");
+    assertEquals("tobago-myComponent-mySub-markup-big", c.toString());
+  }
+
+  public void testAddAspectClass() {
+    StyleClasses c = new StyleClasses();
+    c.addAspectClass("myComponent", StyleClasses.Aspect.DISABLED);
+    assertEquals("tobago-myComponent-disabled", c.toString());
+  }
+
+  public void testAddAspectClassSub() {
+    StyleClasses c = new StyleClasses();
+    c.addAspectClass("myComponent", "mySub", StyleClasses.Aspect.DISABLED);
+    assertEquals("tobago-myComponent-mySub-disabled", c.toString());
+  }
+
 }
