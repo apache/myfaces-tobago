@@ -68,8 +68,7 @@ td.menu {
 
 /*-- Popup ------------------------------------------------------------------ */
 .tobago-popup-content  {
-  border: 1px solid #000000;
-  background: red;
+  background: #E2E2E2;
 }
 
 .tobago-popup-blink {

@@ -523,8 +523,7 @@ label.tobago-label-inline {
 
 .tobago-popup-content  {
   z-index: 3;
-/*  border: 1px solid blue; */
-  border: 4px groove #ddeeff;
+  border-width: 0px;
   background: #bbccdd;
   position: absolute;
   cursor: default;
