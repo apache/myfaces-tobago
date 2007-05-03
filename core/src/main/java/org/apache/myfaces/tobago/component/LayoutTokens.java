@@ -46,7 +46,7 @@ public class LayoutTokens {
   }
 
   public void shrinkSizeTo(int size) {
-    for (int i = getSize()-1; i >= size; i-- ) {
+    for (int i = getSize()-1; i >= size; i--) {
       tokens.remove(i);
     }
   }

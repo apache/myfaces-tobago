@@ -55,8 +55,8 @@ public class LayoutInfo {
       this.layoutTokens = layoutTokens;
     } else */
     if (layoutTokens.getSize() > cellCount) {
-      if (!ignoreMismatch ) {
-        LOG.error("More tokens (" + layoutTokens.getSize()
+      if (!ignoreMismatch) {
+        LOG.warn("More tokens (" + layoutTokens.getSize()
             + ") for layout than cells (" + cellCount + ") found! Ignoring"
             + " redundant tokens. Token string was: "
             + layoutTokens);
@@ -65,7 +65,7 @@ public class LayoutInfo {
       layoutTokens.shrinkSizeTo(cellCount);
     } else {
       if (!ignoreMismatch && LOG.isWarnEnabled() && (cellCount - layoutTokens.getSize()) != 0) {
-        LOG.error("More cells (" + cellCount + ") than tokens (" + layoutTokens.getSize()
+        LOG.warn("More cells (" + cellCount + ") than tokens (" + layoutTokens.getSize()
             + ") for layout found! Setting missing tokens to '1*'."
             + " Token string was: " + layoutTokens);
       }

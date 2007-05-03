@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.component;
  * Time: 1:34:11 PM
  */
 public class RelativeLayoutToken extends LayoutToken {
-  public int factor = 1;
+  private int factor = 1;
 
   public RelativeLayoutToken(int factor) {
     this.factor = factor;
