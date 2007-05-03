@@ -62,8 +62,24 @@ public class UIGridLayout extends UILayout {
   private String columns;
   private String rows;
   private boolean ignoreFree;
+  private transient LayoutTokens columnLayout;
+  private transient LayoutTokens rowLayout;
 
   private List<Row> layoutRows;
+
+  public LayoutTokens getRowLayout() {
+    if (rowLayout==null) {
+      rowLayout = LayoutTokens.parse(rows);
+    }
+    return rowLayout;
+  }
+
+  public LayoutTokens getColumnLayout() {
+    if (columnLayout==null) {
+      columnLayout = LayoutTokens.parse(columns);
+    }
+    return columnLayout;
+  }
 
   public String getMarginTop() {
     if (marginTop != null) {

@@ -20,6 +20,12 @@ package org.apache.myfaces.tobago.util;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.myfaces.tobago.component.LayoutTokens;
+import org.apache.myfaces.tobago.component.RelativeLayoutToken;
+import org.apache.myfaces.tobago.component.PixelLayoutToken;
+import org.apache.myfaces.tobago.component.LayoutToken;
+import org.apache.myfaces.tobago.component.PercentLayoutToken;
+import org.apache.myfaces.tobago.component.HideLayoutToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,47 +36,48 @@ public class LayoutInfo {
   private static final int FREE = -1;
   private static final Log LOG = LogFactory.getLog(LayoutInfo.class);
   public static final int HIDE = -2;
-  public static final String HIDE_CELL = "hide";
 
   private int cellsLeft;
   private int spaceLeft;
   private int[] spaces;
-  private String[] layoutTokens;
+  private LayoutTokens layoutTokens;
 
-  public LayoutInfo(int cellCount, int space, String layout) {
-    this(cellCount, space, createLayoutTokens(layout, cellCount), false);
+  public LayoutInfo(int cellCount, int space, LayoutTokens layoutTokens) {
+    this(cellCount, space, layoutTokens, false);
   }
 
-  public LayoutInfo(int cellCount, int space, String[] layoutTokens, boolean ignoreMismatch) {
+  public LayoutInfo(int cellCount, int space, LayoutTokens layoutTokens, boolean ignoreMismatch) {
 
     this.cellsLeft = cellCount;
     this.spaceLeft = space;
-    if (layoutTokens.length == cellCount) {
+    this.layoutTokens = layoutTokens;
+    /*if (layoutTokens.length == cellCount) {
       this.layoutTokens = layoutTokens;
-    } else if (layoutTokens.length > cellCount) {
-      if (!ignoreMismatch && LOG.isWarnEnabled()) {
-        LOG.warn("More tokens (" + layoutTokens.length
+    } else */
+    if (layoutTokens.getSize() > cellCount) {
+      if (!ignoreMismatch ) {
+        LOG.error("More tokens (" + layoutTokens.getSize()
             + ") for layout than cells (" + cellCount + ") found! Ignoring"
             + " redundant tokens. Token string was: "
-            + tokensToString(layoutTokens));
+            + layoutTokens);
       }
-      this.layoutTokens = new String[cellCount];
-      System.arraycopy(layoutTokens, 0, this.layoutTokens, 0, cellCount);
+
+      layoutTokens.shrinkSizeTo(cellCount);
     } else {
-      if (!ignoreMismatch && LOG.isWarnEnabled()) {
-        LOG.warn(Integer.toString(cellCount - layoutTokens.length)
-            + "More cells (" + cellCount + ") than tokens (" + layoutTokens.length
+      if (!ignoreMismatch && LOG.isWarnEnabled() && (cellCount - layoutTokens.getSize()) != 0) {
+        LOG.error("More cells (" + cellCount + ") than tokens (" + layoutTokens.getSize()
             + ") for layout found! Setting missing tokens to '1*'."
-            + " Token string was: " + tokensToString(layoutTokens));
+            + " Token string was: " + layoutTokens);
       }
-      this.layoutTokens = new String[cellCount];
-      for (int i = 0; i < cellCount; i++) {
-        if (i < layoutTokens.length) {
-          this.layoutTokens[i] = layoutTokens[i];
-        } else {
-          this.layoutTokens[i] = "1*";
-        }
-      }
+      layoutTokens.ensureSize(cellCount, new RelativeLayoutToken(1));
+      //this.layoutTokens = new String[cellCount];
+      //for (int i = 0; i < cellCount; i++) {
+      //  if (i < layoutTokens.length) {
+      //    this.layoutTokens[i] = layoutTokens[i];
+      //  } else {
+      //    this.layoutTokens[i] = "1*";
+      //  }
+      //}
     }
     createAndInitSpaces(cellCount, FREE);
   }
@@ -110,7 +117,7 @@ public class LayoutInfo {
       if (spaceLeft < 1 && columnsLeft()) {
         if (LOG.isWarnEnabled()) {
           LOG.warn("There are columns left but no more space! cellsLeft="
-              + cellsLeft + ", tokens=" + tokensToString(layoutTokens));
+              + cellsLeft + ", tokens=" + layoutTokens);
           LOG.warn("calculated spaces = " + tokensToString(spaces));
         }
       }
@@ -129,7 +136,7 @@ public class LayoutInfo {
     for (int i = 0; i < spaces.length; i++) {
       if (isFree(i)) {
         if (LOG.isWarnEnabled()) {
-          LOG.warn("Illegal layout token pattern \"" + layoutTokens[i]
+          LOG.warn("Illegal layout token pattern \"" + layoutTokens.get(i)
               + "\" ignored, set to 0px !");
         }
         spaces[i] = 0;
@@ -210,12 +217,12 @@ public class LayoutInfo {
     return spaceLeft;
   }
 
-  public String[] getLayoutTokens() {
+  public LayoutTokens getLayoutTokens() {
     return layoutTokens;
   }
 
   public boolean hasLayoutTokens() {
-    return layoutTokens.length > 0;
+    return !layoutTokens.isEmpty();
   }
 
   public List<Integer> getSpaceList() {
@@ -233,8 +240,8 @@ public class LayoutInfo {
         LOG.debug("spaces before spread :" + arrayAsString(spaces));
       }
 
-      for (int i = 0; i < layoutTokens.length; i++) {
-        if ("*".equals(layoutTokens[i])) {
+     for (int i = 0; i < layoutTokens.getSize(); i++) {
+        if (layoutTokens.get(i) instanceof RelativeLayoutToken ) {
           addSpace(spaceLeft, i);
           break;
         }
@@ -242,9 +249,9 @@ public class LayoutInfo {
       boolean found = false;
       while (spaceLeft > 0) {
 //        for (int i = 0; i < layoutTokens.length; i++) {
-        for (int i = layoutTokens.length - 1; i > -1; i--) {
-          String layoutToken = layoutTokens[i];
-          if (spaceLeft > 0 && layoutToken.matches("^\\d+\\*")) {
+        for (int i = layoutTokens.getSize() - 1; i > -1; i--) {
+          //String layoutToken = layoutTokens[i];
+          if (spaceLeft > 0 && layoutTokens.get(i) instanceof RelativeLayoutToken) {
             found = true;
             addSpace(1, i);
           }
@@ -285,16 +292,15 @@ public class LayoutInfo {
 
 
   public void parseHides(int padding) {
-    String[] tokens = getLayoutTokens();
-    for (int i = 0; i < tokens.length; i++) {
-      if (tokens[i].equals(HIDE_CELL)) {
+    for (int i = 0; i < layoutTokens.getSize(); i++) {
+      if (layoutTokens.get(i) instanceof HideLayoutToken) {
         update(0, i);
         spaces[i] = HIDE;
         if (i != 0) {
           spaceLeft += padding;
         }
         if (LOG.isDebugEnabled()) {
-          LOG.debug("set column " + i + " from " + tokens[i]
+          LOG.debug("set column " + i + " from " + layoutTokens.get(i)
               + " to hide ");
         }
       }
@@ -302,21 +308,14 @@ public class LayoutInfo {
   }
 
   public void parsePixels() {
-    String[] tokens = getLayoutTokens();
-    for (int i = 0; i < tokens.length; i++) {
-      if (tokens[i].endsWith("px")) {
-        String token = tokens[i].substring(0, tokens[i].length() - 2);
-        try {
-          int w = Integer.parseInt(token);
-          update(w, i, true);
-          if (LOG.isDebugEnabled()) {
-            LOG.debug("set column " + i + " from " + tokens[i]
-                + " to with " + w);
-          }
-        } catch (NumberFormatException e) {
-          if (LOG.isWarnEnabled()) {
-            LOG.warn("NumberFormatException parsing " + tokens[i]);
-          }
+    for (int i = 0; i < layoutTokens.getSize(); i++) {
+      LayoutToken token = layoutTokens.get(i);
+      if (token instanceof PixelLayoutToken) {
+        int w = ((PixelLayoutToken) token).getPixel();
+        update(w, i, true);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("set column " + i + " from " + token
+              + " to with " + w);
         }
       }
     }
@@ -324,23 +323,16 @@ public class LayoutInfo {
 
 
   public void parsePercent(double innerWidth) {
-    String[] tokens = getLayoutTokens();
     if (columnsLeft()) {
-      for (int i = 0; i < tokens.length; i++) {
-        if (isFree(i) && tokens[i].endsWith("%")) {
-          String token = tokens[i].substring(0, tokens[i].length() - 1);
-          try {
-            int percent = Integer.parseInt(token);
-            int w = (int) (innerWidth / 100 * percent);
-            update(w, i);
-            if (LOG.isDebugEnabled()) {
-              LOG.debug("set column " + i + " from " + tokens[i]
-                  + " to with " + w);
-            }
-          } catch (NumberFormatException e) {
-            if (LOG.isWarnEnabled()) {
-              LOG.warn("NumberFormatException parsing " + tokens[i]);
-            }
+      for (int i = 0; i < layoutTokens.getSize(); i++) {
+        LayoutToken token = layoutTokens.get(i);
+        if (isFree(i) && token instanceof PercentLayoutToken) {
+          int percent = ((PercentLayoutToken) token).getPercent();
+          int w = (int) (innerWidth / 100 * percent);
+          update(w, i);
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("set column " + i + " from " + token
+                + " to with " + w);
           }
         }
       }
@@ -348,47 +340,34 @@ public class LayoutInfo {
   }
 
   public void parsePortions() {
-    String[] tokens = getLayoutTokens();
     if (columnsLeft()) {
       //   1. count portions
       int portions = 0;
-      for (int i = 0; i < tokens.length; i++) {
-        if (isFree(i) && tokens[i].matches("^\\d+\\*")) {
-          String token = tokens[i].substring(0, tokens[i].length() - 1);
-          try {
-            portions += Integer.parseInt(token);
-          } catch (NumberFormatException e) {
-            if (LOG.isWarnEnabled()) {
-              LOG.warn("NumberFormatException parsing " + tokens[i]);
-            }
-          }
+      for (int i = 0; i < layoutTokens.getSize(); i++) {
+        LayoutToken token = layoutTokens.get(i);
+        if (isFree(i) && token instanceof RelativeLayoutToken) {
+          portions += ((RelativeLayoutToken) token).getFactor();
         }
       }
       //  2. calc and set portion
       if (portions > 0) {
         int widthForPortions = getSpaceLeft();
-        for (int i = 0; i < tokens.length; i++) {
-          if (isFree(i) && tokens[i].matches("^\\d+\\*")) {
-            String token = tokens[i].substring(0, tokens[i].length() - 1);
-            try {
-              int portion = Integer.parseInt(token);
-              float w = (float) widthForPortions / portions * portion;
-              if (w < 0) {
-                update(0, i);
-                if (LOG.isDebugEnabled()) {
-                  LOG.debug("set column " + i + " from " + tokens[i]
-                      + " to with " + w + " == 0px");
-                }
-              } else {
-                update(Math.round(w), i);
-                if (LOG.isDebugEnabled()) {
-                  LOG.debug("set column " + i + " from " + tokens[i]
-                      + " to with " + w + " == " + Math.round(w) + "px");
-                }
-              }   
-            } catch (NumberFormatException e) {
-              if (LOG.isWarnEnabled()) {
-                LOG.warn("NumberFormatException parsing " + tokens[i]);
+        for (int i = 0; i < layoutTokens.getSize(); i++) {
+          LayoutToken token = layoutTokens.get(i);
+          if (isFree(i) && token instanceof RelativeLayoutToken) {
+            int portion = ((RelativeLayoutToken) token).getFactor();
+            float w = (float) widthForPortions / portions * portion;
+            if (w < 0) {
+              update(0, i);
+              if (LOG.isDebugEnabled()) {
+                LOG.debug("set column " + i + " from " + token
+                    + " to with " + w + " == 0px");
+              }
+            } else {
+              update(Math.round(w), i);
+              if (LOG.isDebugEnabled()) {
+                LOG.debug("set column " + i + " from " + token
+                    + " to with " + w + " == " + Math.round(w) + "px");
               }
             }
           }

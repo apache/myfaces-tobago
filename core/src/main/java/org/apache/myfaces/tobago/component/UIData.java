@@ -43,7 +43,7 @@ import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.model.SheetState;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import org.apache.myfaces.tobago.util.LayoutInfo;
@@ -319,7 +319,7 @@ public class UIData extends javax.faces.component.UIData
         space -= renderer.getScrollbarWidth(facesContext, this);
       }
       LayoutInfo layoutInfo = new LayoutInfo(getRendererdColumns().size(),
-          space, layoutTokens, false);
+          space, LayoutTokens.parse(layoutTokens), false);
       parseFixedWidth(facesContext, layoutInfo);
       layoutInfo.parseColumnLayout(space);
       currentWidthList = layoutInfo.getSpaceList();
@@ -337,9 +337,10 @@ public class UIData extends javax.faces.component.UIData
   }
 
   private void parseFixedWidth(FacesContext facesContext, LayoutInfo layoutInfo) {
-    String[] tokens = layoutInfo.getLayoutTokens();
-    for (int i = 0; i < tokens.length; i++) {
-      if (tokens[i].equals("fixed")) {
+    LayoutTokens tokens = layoutInfo.getLayoutTokens();
+    for (int i = 0; i < tokens.getSize(); i++) {
+      LayoutToken token = tokens.get(i);
+      if (token  instanceof FixedLayoutToken) {
         int width = 0;
         final List<UIColumn> columns = getRendererdColumns();
         if (!columns.isEmpty()) {
@@ -388,7 +389,7 @@ public class UIData extends javax.faces.component.UIData
         if (!(column instanceof UIColumnSelector)) {
           if (column.getChildCount() == 1) {
             UIComponent child = (UIComponent) column.getChildren().get(0);
-            int cellPaddingWidth = ((RendererBase) getRenderer(facesContext))
+            int cellPaddingWidth = ((LayoutableRendererBase) getRenderer(facesContext))
                 .getConfiguredValue(facesContext, this, "cellPaddingWidth");
             child.getAttributes().put(
                 ATTR_LAYOUT_WIDTH, width - cellPaddingWidth);

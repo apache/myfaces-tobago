@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.util;
+package org.apache.myfaces.tobago.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,19 +17,19 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
-import org.apache.myfaces.tobago.component.LayoutTokens;
 
-/*
- * Date: Mar 22, 2007
- * Time: 8:31:04 PM
- */
-public class LayoutInfoUnitTest extends TestCase {
+public class PixelLayoutToken extends LayoutToken {
+  private int pixel = 0;
 
-  public void test() {
-    LayoutInfo info = new LayoutInfo(5, 83, LayoutTokens.parse("284px;1*;180px;1*;75px"));
-    info.getLayoutTokens();
-    info.parseColumnLayout(83);
 
+  public PixelLayoutToken(int pixel) {
+    this.pixel = pixel;
+  }
+
+  public int getPixel() {
+    return pixel;
+  }
+  public String toString() {
+    return pixel + "px";
   }
 }

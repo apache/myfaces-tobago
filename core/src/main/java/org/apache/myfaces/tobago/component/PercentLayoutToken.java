@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.util;
+package org.apache.myfaces.tobago.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,19 +17,22 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
-import org.apache.myfaces.tobago.component.LayoutTokens;
-
 /*
- * Date: Mar 22, 2007
- * Time: 8:31:04 PM
+ * Date: May 2, 2007
+ * Time: 4:29:28 PM
  */
-public class LayoutInfoUnitTest extends TestCase {
+public class PercentLayoutToken extends LayoutToken {
+  private int percent = 0;
 
-  public void test() {
-    LayoutInfo info = new LayoutInfo(5, 83, LayoutTokens.parse("284px;1*;180px;1*;75px"));
-    info.getLayoutTokens();
-    info.parseColumnLayout(83);
 
+  public PercentLayoutToken(int percent) {
+    this.percent = percent;
+  }
+
+  public int getPercent() {
+    return percent;
+  }
+  public String toString() {
+    return percent + "%";
   }
 }
