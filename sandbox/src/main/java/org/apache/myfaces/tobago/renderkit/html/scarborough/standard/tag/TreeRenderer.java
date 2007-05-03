@@ -174,6 +174,8 @@ public class TreeRenderer extends RendererBase {
       HtmlRendererUtil.writeScriptLoader(facesContext, scripts, scriptTexts);
     }
 
+    RenderUtil.encode(facesContext, root);
+
     writer.endElement(HtmlConstants.DIV);
   }
 
@@ -204,7 +206,9 @@ public class TreeRenderer extends RendererBase {
     sb.append("    }\n");
     sb.append("  };\n \n");
 
-    sb.append(getNodesAsJavascript(facesContext, root));
+    sb.append("/* disabled!!! \n");
+
+//    sb.append(getNodesAsJavascript(facesContext, root));
 
     sb.append("  var treeDiv = document.getElementById('");
     sb.append(clientId);
@@ -216,6 +220,8 @@ public class TreeRenderer extends RendererBase {
 
     sb.append(rootNode);
     sb.append(".initSelection();\n");
+
+    sb.append("disabled!!! */");
 
     sb.append("}");
 //    return sb.toString();

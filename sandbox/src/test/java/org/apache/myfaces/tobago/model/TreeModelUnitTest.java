@@ -22,8 +22,6 @@ import junit.framework.TestCase;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.List;
 
-import org.apache.myfaces.tobago.model.TreeModel;
-
 public class TreeModelUnitTest extends TestCase {
 
   private DefaultMutableTreeNode tree;
@@ -64,6 +62,46 @@ public class TreeModelUnitTest extends TestCase {
     assertEquals("Sports", "_0_0", pathIndexList.get(1));
     assertEquals("Astronomy", "_0_2_2", pathIndexList.get(6));
     assertEquals("Games", "_0_4", pathIndexList.get(10));
+  }
+
+  /*
+  cat
+    sport
+    /sport
+    movies
+    /movies
+    science
+      geo
+      /geo
+      math
+      /math
+      astro
+        edu
+        /edu
+        pict
+        /pict
+      /astro
+    music
+    /music
+    games
+    /games
+  /cat
+    */
+  public void testDoublePathIndexList() {
+    TreeModel model = new TreeModel(tree);
+    List<TreeModel.Tag> list = model.getDoublePathIndexList();
+    assertEquals("Count", 22, list.size());
+    assertEquals("Root", "_0", list.get(0).getName());
+    assertEquals("Root", "_0", list.get(21).getName());
+    assertEquals("Sports", "_0_0", list.get(1).getName());
+    assertEquals("Sports", "_0_0", list.get(2).getName());
+    assertEquals("Astronomy", "_0_2_2", list.get(10).getName());
+    assertEquals("Astronomy", "_0_2_2", list.get(15).getName());
+    assertEquals("Games", "_0_4", list.get(19).getName());
+    assertEquals("Games", "_0_4", list.get(20).getName());
+
+    assertTrue("Astronomy", list.get(10).isStart());
+    assertFalse("Astronomy", list.get(15).isStart());
   }
 
   public void testParentPathIndex() {

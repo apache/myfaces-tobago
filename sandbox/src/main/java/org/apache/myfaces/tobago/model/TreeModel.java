@@ -29,12 +29,16 @@ import java.util.Map;
 import java.util.Collections;
 
 // todo: make more general (e.g. support other trees)
+// todo: Should be the model for the whole tree, (also for tc:treeNode on the JSP)
 public class TreeModel {
 
   private static final Log LOG = LogFactory.getLog(TreeModel.class);
 
   private Map<String, DefaultMutableTreeNode> nodes = new HashMap<String, DefaultMutableTreeNode>();
   private List<String> keys = new ArrayList<String>();
+
+  // XXX not nice
+  private List<Tag> doubleKeys = new ArrayList<Tag>(); // with "begin tags" and "end tags"
 
   public TreeModel(DefaultMutableTreeNode node) {
     putNodes(node, "", 0);
@@ -51,6 +55,7 @@ public class TreeModel {
     position += "_" + index;
 
     keys.add(position);
+    doubleKeys.add(new Tag(position, true));
     nodes.put(position, node);
 
     index = 0;
@@ -59,6 +64,8 @@ public class TreeModel {
       putNodes(subNode, position, index);
       index++;
     }
+
+    doubleKeys.add(new Tag(position, false));
   }
 
   public DefaultMutableTreeNode getNode(String pathIndex) {
@@ -67,6 +74,10 @@ public class TreeModel {
 
   public List<String> getPathIndexList() {
     return Collections.unmodifiableList(keys);
+  }
+
+  public List<Tag> getDoublePathIndexList() {
+    return Collections.unmodifiableList(doubleKeys);
   }
 
   public String getParentPathIndex(String pathIndex) {
@@ -78,6 +89,34 @@ public class TreeModel {
         return null;
       default:
         return pathIndex.substring(0, lastUnderscore);
+    }
+  }
+
+  public static class Tag {
+
+    private String name;
+
+    private boolean start;
+
+    public Tag(String name, boolean start) {
+      this.name = name;
+      this.start = start;
+    }
+
+    public String getName() {
+      return name;
+    }
+
+    public void setName(String name) {
+      this.name = name;
+    }
+
+    public boolean isStart() {
+      return start;
+    }
+
+    public void setStart(boolean start) {
+      this.start = start;
     }
   }
 }

@@ -37,20 +37,31 @@ public class Controller {
 
   public Controller() {
     // tree
-    tree = new DefaultMutableTreeNode(new Node("Category"));
-    tree.insert(new DefaultMutableTreeNode(new Node("Sports")), 0);
-    tree.insert(new DefaultMutableTreeNode(new Node("Movies")), 0);
-    DefaultMutableTreeNode music = new DefaultMutableTreeNode(new Node("Music"));
-    tree.insert(music, 0);
-    tree.insert(new DefaultMutableTreeNode(new Node("Games")), 0);
-    DefaultMutableTreeNode temp = new DefaultMutableTreeNode(new Node("Science"));
-    temp.insert(new DefaultMutableTreeNode(new Node("Geography", STRONG)), 0);
-    temp.insert(new DefaultMutableTreeNode(new Node("Mathematics", STRONG)), 0);
-    DefaultMutableTreeNode temp2 = new DefaultMutableTreeNode(new Node("Astronomy"));
-    temp2.insert(new DefaultMutableTreeNode(new Node("Education")), 0);
-    temp2.insert(new DefaultMutableTreeNode(new Node("Pictures")), 0);
-    temp.insert(temp2, 2);
-    tree.insert(temp, 2);
+    tree = new DefaultMutableTreeNode(new Node("1 Category"));
+    tree.add(new DefaultMutableTreeNode(new Node("1.1 Sports")));
+    tree.add(new DefaultMutableTreeNode(new Node("1.2 Movies")));
+    DefaultMutableTreeNode temp = new DefaultMutableTreeNode(new Node("1.3 Science"));
+    tree.add(temp);
+    DefaultMutableTreeNode music = new DefaultMutableTreeNode(new Node("1.4 Music"));
+    tree.add(music);
+    tree.add(new DefaultMutableTreeNode(new Node("1.5 Games")));
+    temp.add(new DefaultMutableTreeNode(new Node("1.3.1 Geography", STRONG)));
+    temp.add(new DefaultMutableTreeNode(new Node("1.3.2 Mathematics", STRONG)));
+    DefaultMutableTreeNode temp2 = new DefaultMutableTreeNode(new Node("1.3.3 Pictures"));
+    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.1 Education")));
+    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.2 Family")));
+    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.3 Comercial")));
+    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.4 Summer")));
+    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.5 Winter")));
+    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.6 Red")));
+    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.7 Black")));
+    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.8 White")));
+    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.9 Good")));
+    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.10 Evil")));
+    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.11 Flower")));
+    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.12 Animal")));
+    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.13 Personal")));
+    temp.add(temp2);
 
     // state
 

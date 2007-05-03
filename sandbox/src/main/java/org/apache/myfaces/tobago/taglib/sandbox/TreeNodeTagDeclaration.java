@@ -20,6 +20,8 @@ package org.apache.myfaces.tobago.taglib.sandbox;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
@@ -31,6 +33,7 @@ import org.apache.myfaces.tobago.taglib.component.AbstractCommandTagDeclaration;
 /**
  * Creates a tree node.
  */
+@SuppressWarnings({"ALL"})
 @Tag(name = "treeNode")
 @BodyContentDescription(anyTagOf = "<tcs:treeNode>* <tcs:treeNodeData>*")
 @UIComponentTag(
@@ -38,4 +41,11 @@ import org.apache.myfaces.tobago.taglib.component.AbstractCommandTagDeclaration;
     rendererType = "TreeNode")
 public interface TreeNodeTagDeclaration
     extends HasIdBindingAndRendered, HasLabel, HasValue, HasMarkup, AbstractCommandTagDeclaration, HasTip, HasTarget {
+
+  /**
+   * Flag indicating if the subnodes are to be displayed.
+   */
+  @TagAttribute(type = String.class)
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  void setExpanded(String expanded);
 }

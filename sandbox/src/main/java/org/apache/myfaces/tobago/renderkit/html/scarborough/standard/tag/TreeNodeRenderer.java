@@ -22,34 +22,37 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_EXPANDED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCLICK;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
-import org.apache.myfaces.tobago.component.UITreeNodeData;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import static org.apache.myfaces.tobago.renderkit.html.HtmlConstants.A;
+import static org.apache.myfaces.tobago.renderkit.html.HtmlConstants.DIV;
+import static org.apache.myfaces.tobago.renderkit.html.HtmlConstants.IMG;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
+import javax.faces.el.ValueBinding;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 public class TreeNodeRenderer extends CommandRendererBase {
@@ -70,17 +73,24 @@ public class TreeNodeRenderer extends CommandRendererBase {
     TreeState state = tree.getState();
     String treeId = tree.getClientId(facesContext);
     String nodeStateId = node.nodeStateId(facesContext);
-    Map requestParameterMap
-        = facesContext.getExternalContext().getRequestParameterMap();
+    Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    String id = node.getClientId(facesContext);
 
     // expand state
-    String expandState = (String) requestParameterMap.get(treeId);
-    String searchString = ";" + nodeStateId + ";";
-    if (StringUtils.contains(expandState, searchString)) {
-      state.addExpandState((DefaultMutableTreeNode) node.getValue());
-    }
+    boolean expanded = Boolean.parseBoolean((String) requestParameterMap.get(id + "-expanded"));
 
+//    String expandState = (String) requestParameterMap.get(treeId);
+//    String searchString = ";" + nodeStateId + ";";
+//    if (StringUtils.contains(expandState, searchString)) {
+//    if (expanded) {
+//      state.addExpandState((DefaultMutableTreeNode) node.getValue());
+      ValueBinding binding = node.getValueBinding(ATTR_EXPANDED);
+      if (binding != null) {
+        binding.setValue(facesContext, expanded);
+      }
+//    }
 
+    String searchString;
     if (TreeRenderer.isSelectable(tree)) { // selection
       String selected = (String) requestParameterMap.get(treeId + UITree.SELECT_STATE);
       searchString = ";" + nodeStateId + ";";
@@ -101,278 +111,404 @@ public class TreeNodeRenderer extends CommandRendererBase {
   }
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component)
-      throws IOException {
+  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
-    UITreeNode treeNode = (UITreeNode) component;
+    UITreeNode node = (UITreeNode) component;
+    UITree root = node.findTree();
+    MixedTreeModel mixedModel = root.getModel();
 
-    UIComponent parent = treeNode.getParent();
+    mixedModel.onEncodeBegin();
 
-    boolean isFolder = treeNode.getChildCount() > 0;
-
-    String parentClientId = null;
-    if (parent != null && parent instanceof UITreeNode) { // if not the root node
-      parentClientId = treeNode.getParent().getClientId(facesContext);
-    } else if (parent != null && parent instanceof UITreeNodeData) {
-      String pci = parent.getClientId(facesContext);
-      if (pci.endsWith(":_0")) {
-        UIComponent superParent = parent.getParent();
-        parentClientId = superParent.getClientId(facesContext);
-      } else {
-        parentClientId = pci.substring(0, pci.length() - 2) // fixme 2 is not correct for bitter trees
-             + NamingContainer.SEPARATOR_CHAR + treeNode.getId();
-      }
-      DefaultMutableTreeNode currentNode =
-          ((UITreeNodeData) parent).getCurrentNode();
-      if (currentNode != null) {
-        isFolder = currentNode.getChildCount() > 0;
-      }
-    }
-
-    UITree root = treeNode.findTree();
-    String rootId = root.getClientId(facesContext);
-
-    String clientId = treeNode.getClientId(facesContext);
-//    clientId += pos != null ? pos : "";
-
-    String jsClientId = TreeRenderer.createJavascriptVariable(clientId);
-    String jsParentClientId = TreeRenderer.createJavascriptVariable(
-        parentClientId);
-//  rootId = HtmlUtils.createJavascriptVariable(rootId);
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     TreeState treeState = root.getState();
-    if (treeState == null) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("No treeState found. clientId=" + clientId);
-      }
-    } else {
+    String treeId = root.getClientId(facesContext);
 
-      DefaultMutableTreeNode modelNode = (DefaultMutableTreeNode) treeNode.getValue();
+    DefaultMutableTreeNode modelNode = (DefaultMutableTreeNode) node.getValue();
 
-      ResponseWriter writer = facesContext.getResponseWriter();
+    boolean isFolder = mixedModel.isFolder();
 
-      String debuging = "";
+    boolean marked = treeState.isMarked(modelNode);
+    String id = node.getClientId(facesContext);
+    boolean expanded = ComponentUtil.getBooleanAttribute(node, ATTR_EXPANDED);
+    boolean menuMode = root.getMode().equals("menu");
 
-      writer.writeText("  var ", null);
-      writer.writeText(jsClientId, null);
-      writer.writeText(" = new TreeNode('", null);
-      // label
-      Object label = treeNode.getAttributes().get(ATTR_LABEL);
-      if (LOG.isDebugEnabled()) {
-        debuging += label + " : ";
-      }
-      if (label != null) {
-        writer.writeText(StringEscapeUtils.escapeJavaScript(label.toString()), null);
-      } else {
-        LOG.warn("label = null");
-      }
-      writer.writeText("',", null);
+    boolean showIcons = root.isShowIcons();
+    boolean showJunctions = root.isShowJunctions();
+    boolean showRootJunction = root.isShowRootJunction();
+    boolean showRoot = root.isShowRoot();
+    int depth = mixedModel.getDepth();
+    boolean hasNextSibling = mixedModel.hasCurrentNodeNextSibling();
+    List<Boolean> junctions = mixedModel.getJunctions();
 
-      // tip
-      String tip = (String) treeNode.getAttributes().get(ATTR_TIP);
-      if (tip != null) {
-        tip = StringEscapeUtils.escapeJavaScript(tip);
-        writer.writeText("'", null);
-        writer.writeText(tip, null);
-        writer.writeText("','", null);
-      } else {
-        writer.writeText("null,'", null);
-      }
+    CommandRendererHelper helper = new CommandRendererHelper(facesContext, node);
 
-      // id
-      writer.writeText(clientId, null);
-      writer.writeText("','", null);
+    writer.startElement(DIV);
 
-      // mode
-      writer.writeText(root.getMode(), null);
-      writer.writeText("',", null);
+    // div id
+    writer.writeIdAttribute(id);
 
-      // is folder
-      writer.writeText(isFolder, null);
-      writer.writeText(",", null);
-
-      // show icons
-      writer.writeText(Boolean.toString(!root.isShowIcons()), null);
-      writer.writeText(",", null);
-
-      // show junctions
-      writer.writeText(Boolean.toString(!root.isShowJunctions()), null);
-      writer.writeText(",", null);
-
-      // show root junction
-      writer.writeText(Boolean.toString(!root.isShowRootJunction()), null);
-      writer.writeText(",", null);
-
-      // show root
-      writer.writeText(Boolean.toString(!root.isShowRoot()), null);
-      writer.writeText(",'", null);
-
-      // tree id
-      writer.writeText(rootId, null);
-      writer.writeText("',", null);
-
-      //
-      String selectable = ComponentUtil.getStringAttribute(root, ATTR_SELECTABLE);
-      if (selectable != null
-          && !("multi".equals(selectable) || "multiLeafOnly".equals(selectable)
-          || "single".equals(selectable) || "singleLeafOnly".equals(selectable)
-          || "sibling".equals(selectable) || "siblingLeafOnly".equals(selectable))) {
-        selectable = null;
-      }
-      if (selectable != null) {
-        writer.writeText("'", null);
-        writer.writeText(selectable, null);
-        writer.writeText("'", null);
-      } else {
-        writer.writeText("false", null);
-      }
-      writer.writeText(",", null);
-      // mutable = false
-      writer.writeText("false", null);
-      writer.writeText(",'", null);
-      writer.writeText(ComponentUtil.findPage(treeNode).getFormId(facesContext), null);
-      writer.writeText("',", null);
-      if (treeNode.getChildCount() == 0
-          || (selectable != null && !selectable.endsWith("LeafOnly"))) {
-        boolean selected = treeState.isSelected(modelNode);
-        writer.writeText(Boolean.toString(selected), null);
-        if (LOG.isDebugEnabled()) {
-          debuging += selected ? "S" : "-";
-        }
-      } else {
-        writer.writeText("false", null);
-        if (LOG.isDebugEnabled()) {
-          debuging += "-";
-        }
-        if (treeState.isSelected(modelNode)) {
-          LOG.warn("Ignore selected FolderNode in LeafOnly selection tree!");
-        }
-      }
-      writer.writeText(",", null);
-
-      // marked
-      boolean marked = treeState.isMarked(modelNode);
-      writer.writeText(Boolean.toString(marked), null);
-      writer.writeText(",", null);
-
-      // expanded
-      boolean expanded = treeState.isExpanded(modelNode);
-      writer.writeText(Boolean.toString(expanded), null);
-      if (LOG.isDebugEnabled()) {
-        debuging += expanded ? "E" : "-";
-      }
-
-      writer.writeText(",", null);
-
-      // required
-      writer.writeText(Boolean.toString(root.isRequired()), null);
-      writer.writeText(",", null);
-
-      // disabled
-      writer.writeText(ComponentUtil.getBooleanAttribute(treeNode, ATTR_DISABLED), null);
-      writer.writeText(",", null);
-
-      // resources
-      writer.writeText("treeResourcesHelp,", null);
-
-      // action link
-      String actionLink =
-          (String) treeNode.getAttributes().get(ATTR_ACTION_LINK);
-      if (actionLink != null) {
-        writer.writeText("'", null);
-        writer.writeText(actionLink, null);
-        writer.writeText("',", null);
-      } else {
-        writer.writeText("null,", null);
-      }
-
-      // target
-      String target = (String) treeNode.getAttributes().get(ATTR_TARGET);
-      if (target != null) {
-        writer.writeText("'", null);
-        writer.writeText(target, null);
-        writer.writeText("',", null);
-      } else {
-        writer.writeText("null,", null);
-      }
-
-      // onclick
-      String onclick = (String) treeNode.getAttributes().get(ATTR_ONCLICK);
-      if (onclick != null) {
-        writer.writeText("'", null);
-        onclick = onclick.replaceAll("\\'", "\\\\'");
-        writer.writeText(onclick, null);
-        writer.writeText("',", null);
-      } else {
-        writer.writeText("null,", null);
-      }
-
-      // parent
-      if (jsParentClientId != null) {
-        writer.writeText(jsParentClientId, null);
-      } else {
-        writer.writeText("null", null);
-      }
-      writer.writeText(",", null);
-
-      // icon (not implemented)
-      writer.writeText("null", null);
-      writer.writeText(",", null);
-
-      // open folder icon (not implemented)
-      writer.writeText("null", null);
-      writer.writeText(", ", null);
-
-      // width
-      writer.writeText("'", null);
-      Integer width = null;
-      HtmlStyleMap style = (HtmlStyleMap) root.getAttributes().get(ATTR_STYLE);
-      if (style != null) {
-        width = style.getInt("width");
-      }
-      if (width != null) {
-        writer.writeText(width - 4, null); // fixme: 4
-      } else {
-        writer.writeText("100%", null);
-      }
-      writer.writeText("', ", null);
-
-      // css class
-      writer.writeText("'", null);
-      if ("menu".equals(root.getMode())) { // todo: clean up: think about composition of the style-class names
-        HtmlRendererUtil.addCssClass(treeNode, "tobago-treeNode-menu");
-        if (marked) {
-          HtmlRendererUtil.addCssClass(treeNode, "tobago-treeNode-marker");
-        }
-      }
-      StringBuilder treeNodeClass = new StringBuilder((String) treeNode.getAttributes().get(ATTR_STYLE_CLASS));
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("styleClass='" + treeNodeClass + "'");
-      }
-      writer.writeText(treeNodeClass, null);
-      writer.writeText("', ", null);
-
-      // css class label
-      writer.writeText("'", null);
+    // div class (css)
+    StyleClasses styleClasses = StyleClasses.ensureStyleClasses(node);
+    styleClasses.removeTobagoClasses("treeNode");
+    styleClasses.addAspectClass("treeNode", StyleClasses.Aspect.DEFAULT);
+    if ("menu".equals(root.getMode())) {
+      styleClasses.addClass("treeNode", "menu");
       if (marked) {
-        writer.writeText("tobago-treeNode-marker", null);
-      }
-      writer.writeText("'", null);
-
-      writer.writeText(");\n", null);
-
-/*
-      if (jsParentClientId != null) { // if not the root node
-        writer.writeText("  ", null);
-        writer.writeText(jsParentClientId, null);
-        writer.writeText(".add(", null);
-        writer.writeText(jsClientId, null);
-        writer.writeText(");\n", null);
-      }
-*/
-      if (LOG.isDebugEnabled()) {
-        LOG.debug(debuging);
+        styleClasses.addClass("treeNode", "marker");
       }
     }
+    styleClasses.addMarkupClass(node, "treeNode");
+    writer.writeClassAttribute(styleClasses);
+
+    // div style (width)
+    Integer width = null;
+    HtmlStyleMap style = (HtmlStyleMap) root.getAttributes().get(ATTR_STYLE);
+    if (style != null) {
+      width = style.getInt("width");
+    }
+    String widthString;
+    if (width != null) {
+      widthString = "width: " + Integer.toString(width - 4); // fixme: 4
+    } else {
+      widthString = "100%";
+    }
+    writer.writeAttribute("style", widthString, null);
+
+    if (isFolder) {
+      encodeExpandedHidden(writer, node, id, expanded);
+    }
+
+    if (isFolder && menuMode) {
+      encodeMenuIcon(facesContext, writer, treeId, id, expanded);
+    }
+
+    encodeIndent(facesContext, writer, menuMode, junctions);
+
+    encodeTreeJunction(facesContext, writer, id, treeId, showJunctions, showRootJunction, showRoot, expanded, isFolder,
+        depth, hasNextSibling);
+
+    encodeTreeIcons(facesContext, writer, id, treeId, showIcons, expanded, isFolder);
+
+    encodeLabel(writer, helper, node, marked, treeId);
+
+    writer.endElement(DIV);
+
+    if (isFolder) {
+      String contentStyle = "display: " + (expanded ? "block" : "none") + ";";
+      writer.startElement(DIV);
+      writer.writeIdAttribute(id + "-cont");
+      writer.writeAttribute("style", contentStyle, null);
+    }
+
+    String label = (String) node.getAttributes().get(ATTR_LABEL);
+    int level = modelNode.getLevel();
+    StringBuilder builder = new StringBuilder();
+    for (int i = 0; i < level; i++) {
+      builder.append("    ");
+
+    }
+    LOG.debug(builder + "<div name=" + label + ">");
   }
+
+  private void encodeExpandedHidden(TobagoResponseWriter writer, UITreeNode node, String clientId, boolean expanded)
+      throws IOException {
+    writer.startElement(HtmlConstants.INPUT, node);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+    writer.writeNameAttribute(clientId + "-expanded");
+    writer.writeIdAttribute(clientId + "-expanded");
+    writer.writeAttribute(HtmlAttributes.VALUE, expanded, null);
+    writer.endElement(HtmlConstants.INPUT);
+  }
+
+  private void encodeMenuIcon(
+      FacesContext facesContext, TobagoResponseWriter writer, String treeId, String id, boolean expanded)
+      throws IOException {
+    String menuOpen = ResourceManagerUtil.getImageWithPath(facesContext, "image/treeMenuOpen.gif");
+    String menuClose = ResourceManagerUtil.getImageWithPath(facesContext, "image/treeMenuClose.gif");
+    String onclick = "new_tobagoTreeNodeToggle(this.parentNode, '" + treeId + "', null, null, '" + menuOpen + "', '" + menuClose + "')";
+    String src = expanded ? menuOpen : menuClose;
+    writer.startElement(IMG);
+    writer.writeClassAttribute("tobago-tree-menu-icon");
+    writer.writeIdAttribute(id + "-menuIcon");
+    writer.writeAttribute("src", src, null);
+    writer.writeAttribute("onclick", onclick, null);
+    writer.writeAttribute("alt", "", null);
+    writer.endElement(IMG);
+  }
+
+  private void encodeIndent(
+      FacesContext facesContext, TobagoResponseWriter writer, boolean menuMode, List<Boolean> junctions)
+      throws IOException {
+
+    String blank = ResourceManagerUtil.getImageWithPath(facesContext, "image/blank.gif");
+    String perpendicular = ResourceManagerUtil.getImageWithPath(facesContext, "image/I.gif");
+
+    for (Boolean junction : junctions) {
+      writer.startElement(IMG);
+      writer.writeClassAttribute("tree-junction");
+      if (junction && !menuMode) {
+        writer.writeAttribute("src", perpendicular, null);
+      } else {
+        writer.writeAttribute("src", blank, null);
+      }
+      writer.endElement(IMG);
+    }
+  }
+
+  private void encodeTreeJunction(
+      FacesContext facesContext, TobagoResponseWriter writer, String id, String treeId,
+      boolean showJunctions, boolean showRootJunction, boolean showRoot,
+      boolean expanded, boolean isFolder, int depth, boolean hasNextSibling) throws IOException {
+    if (!(!showJunctions
+        || !showRootJunction && depth == 0
+        || !showRootJunction && !showRoot && depth == 1)) {
+      writer.startElement(IMG);
+      writer.writeClassAttribute("tree-junction");
+      writer.writeIdAttribute(id + "-junction");
+
+      String gif = expanded
+          ? (depth == 0
+            ? "Rminus.gif"
+            : (hasNextSibling ? "Tminus.gif" : "Lminus.gif"))
+          : ((depth == 0)
+            ? "Rplus.gif"
+            : (hasNextSibling)
+              ? (isFolder ? "Tplus.gif" : "T.gif")
+              : (isFolder ? "Lplus.gif" : "L.gif")
+      );
+
+      String src = ResourceManagerUtil.getImageWithPath(facesContext, "image/" + gif);
+      writer.writeAttribute("src", src, null);
+      if (isFolder) {
+        writer.writeAttribute("onclick", createOnclickForToggle(facesContext, treeId), null);
+      }
+      writer.writeAttribute("alt", "", null);
+//    } else if (( !this.hideRoot && depth >0 ) || (this.hideRoot && depth > 1)) {
+//      str += '<img class="tree-junction" id="' + this.id
+//          + '-junction" src="' + this.treeResources.getImage("blank.gif")
+//          + '" alt="">';
+      writer.endElement(IMG);
+    }
+  }
+
+  private void encodeTreeIcons(
+      FacesContext facesContext, TobagoResponseWriter writer, String id, String treeId,
+      boolean showIcons, boolean expanded, boolean isFolder)
+      throws IOException {
+
+    if (showIcons) {
+      writer.startElement(IMG);
+      writer.writeClassAttribute("tree-icon");
+      writer.writeIdAttribute(id + "-icon");
+
+      String gif = isFolder
+          ? (expanded ? "openfoldericon.gif" : "foldericon.gif")
+          : "new.gif";
+
+      String src = ResourceManagerUtil.getImageWithPath(facesContext, "image/" + gif);
+      writer.writeAttribute("src", src, null);
+      if (isFolder) {
+        writer.writeAttribute("onclick", createOnclickForToggle(facesContext, treeId), null);
+      }
+      writer.writeAttribute("alt", "", null);
+      writer.endElement(IMG);
+    }
+  }
+
+  private String createOnclickForToggle(FacesContext facesContext, String treeId) {
+    return "new_tobagoTreeNodeToggle(this.parentNode, '" + treeId + "', '"
+          + ResourceManagerUtil.getImageWithPath(facesContext, "image/openfoldericon.gif") + "', '"
+          + ResourceManagerUtil.getImageWithPath(facesContext, "image/foldericon.gif") + "', null, null)";
+  }
+
+
+
+/*
+  if (this.isFolder) {
+    str += '<img class="tree-icon" id="' + this.id + '-icon" '
+        + 'src="' + (this.expanded ? this.openIcon : this.icon) + ' " '
+        + 'onclick="toggle(this.parentNode, \'' + this.treeHiddenId
+        + '\', \'' + this.treeResources.getImage("openfoldericon.gif")
+        + '\', \'' + this.treeResources.getImage("foldericon.gif")
+        + '\')"'
+        + ' alt="">';
+  } else {
+    str += '<img class="tree-icon" id="' + this.id
+        + '-icon" src="' + this.treeResources.getImage("new.gif") + '" alt="">';
+  }
+*/
+
+
+  private void encodeLabel(
+      TobagoResponseWriter writer, CommandRendererHelper helper, UITreeNode node, boolean marked, String treeId)
+      throws IOException {
+
+    writer.startElement(A);
+    if (marked) {
+      StyleClasses classes = new StyleClasses();
+      classes.addClass("treeNode", "marker");
+      writer.writeClassAttribute(classes);
+    }
+    String tip = (String) node.getAttributes().get(ATTR_TIP);
+    if (tip != null) {
+//XXX is needed?      tip = StringEscapeUtils.escapeJavaScript(tip);
+      writer.writeAttribute("title", tip, null);
+    }
+    writer.writeAttribute("href", helper.getHref(), null);
+    writer.writeAttribute("onclick", helper.getOnclick(), null);
+    writer.writeAttribute("onfocus", "storeMarker(this.parentNode, '" + treeId + "')", null);
+    String label = (String) node.getAttributes().get(ATTR_LABEL);
+    if (label == null) {
+      LOG.warn("label == null");
+    }
+    writer.writeText(label, null);
+    writer.endElement(A);
+  }
+
+  @Override
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+
+    UITreeNode node = (UITreeNode) component;
+    UITree root = node.findTree();
+    MixedTreeModel mixedModel = root.getModel();
+    boolean isFolder = mixedModel.isFolder();
+
+    mixedModel.onEncodeEnd();
+
+    String id = node.getClientId(facesContext);
+
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+
+    if (isFolder) {
+      writer.endElement(DIV);
+      writer.writeComment("\nend of " + id + "-cont ");
+    }
+
+    if (LOG.isDebugEnabled()) {
+      String label = (String) node.getAttributes().get(ATTR_LABEL);
+      int level = mixedModel.getDepth();
+      StringBuilder builder = new StringBuilder();
+      for (int i = 0; i < level; i++) {
+        builder.append("    ");
+
+      }
+      LOG.debug(builder + "</div> <!-- " + label + " -->");
+    }
+  }
+
 }
+/*
+
+TreeNode.prototype.toString = function (depth, last) {
+    if (!depth) depth = 0;
+
+    var str = '';
+    if (! this.hideRoot || depth > 0) {
+      str += '<div id="' + this.id + '" class="' + this.cssClass + '" '
+          + 'style="width: ' + this.width + ';">';
+      if (this.mode == "menu") {
+        if (this.isFolder) {
+          // FIXME: change the icons when klick on the icon
+          str += '<img class="tobago-tree-menu-icon" id="' + this.id + '-menuIcon"'
+              + 'src="' + (this.expanded ? this.treeResources.getImage("treeMenuOpen.gif") : this.treeResources.getImage("treeMenuClose.gif")) + ' " '
+              + 'onclick="toggle(this.parentNode, \'' + this.treeHiddenId
+              + '\', null, null, \'' + this.treeResources.getImage("treeMenuOpen.gif")
+              + '\', \'' + this.treeResources.getImage("treeMenuClose.gif")
+              + '\')"'
+              + ' alt="">';
+        }
+      }
+      str += this.indent(depth, last);
+      if (!(   this.hideJunctions
+            || this.hideRootJunction && depth == 0
+            || this.hideRootJunction && this.hideRoot && depth == 1)) {
+        str += '<img class="tree-junction" id="' + this.id
+            + '-junction" src="' + (this.expanded
+              ? ((depth == 0)
+                ? this.treeResources.getImage("Rminus.gif")
+                : (last)
+                  ? this.treeResources.getImage("Lminus.gif")
+                  : this.treeResources.getImage("Tminus.gif"))
+              : ((depth == 0)
+                ? this.treeResources.getImage("Rplus.gif")
+                : (last)
+                  ? this.treeResources.getImage(this.isFolder ? "Lplus.gif" : "L.gif")
+                  : this.treeResources.getImage(this.isFolder ? "Tplus.gif" : "T.gif"))
+              )
+            + '" onclick="toggle(this.parentNode, \'' + this.treeHiddenId
+            + '\', \'' + this.treeResources.getImage("openfoldericon.gif")
+            + '\', \'' + this.treeResources.getImage("foldericon.gif")
+            + '\')"'
+            + ' alt="">';
+      } else if (( !this.hideRoot && depth >0 ) || (this.hideRoot && depth > 1)) {
+        str += '<img class="tree-junction" id="' + this.id
+            + '-junction" src="' + this.treeResources.getImage("blank.gif")
+            + '" alt="">';
+      }
+      if (! this.hideIcons) {
+        if (this.isFolder) {
+          str += '<img class="tree-icon" id="' + this.id + '-icon" '
+              + 'src="' + (this.expanded ? this.openIcon : this.icon) + ' " '
+              + 'onclick="toggle(this.parentNode, \'' + this.treeHiddenId
+              + '\', \'' + this.treeResources.getImage("openfoldericon.gif")
+              + '\', \'' + this.treeResources.getImage("foldericon.gif")
+              + '\')"'
+              + ' alt="">';
+        } else {
+          str += '<img class="tree-icon" id="' + this.id
+              + '-icon" src="' + this.treeResources.getImage("new.gif") + '" alt="">';
+        }
+      }
+      if (this.selectable) {
+        var markIcon = '';
+        var markIconOnClickFunction = '';
+        if (this.selectable.match(/LeafOnly$/) && this.isFolder) {
+          markIcon = this.treeResources.getImage("1x1.gif");
+        } else {
+          if (this.selected) {
+            markIcon = this.treeResources.getImage("checked" + (this.disabled ? "Disabled" : "") + ".gif");
+          } else {
+            markIcon = this.treeResources.getImage("unchecked" + (this.disabled ? "Disabled" : "") + ".gif");
+          }
+          if (!this.disabled) {
+            markIconOnClickFunction
+                = 'onclick="toggleSelect(this.parentNode, \'' + this.treeHiddenId
+                + '\', \'' + this.treeResources.getImage("unchecked.gif")
+                + '\', \'' + this.treeResources.getImage("checked.gif")
+                + '\')"';
+          }
+        }
+
+        str += '<img class="tree-icon" id="' + this.id
+            + '-markIcon" src="' + markIcon + '" ' + markIconOnClickFunction + ' alt="">';
+      }
+      str += '<a class="' + this.cssClassLabel + '"';
+      if (this.tip) {
+        str += ' title="' + this.tip + '"';
+      }
+      if (!this.disabled) {
+        str += ' href="' + Tobago.EMPTY_HREF +  '"'
+            + ' onclick="Tobago.Tree.onClick(this)"'
+            + ' ondblclick="Tobago.Tree.onDblClick(this)"'
+            + ' onfocus="' + this.onfocus + '"';
+      }
+      str += '>'
+          + this.label + '</a>';
+      str += '</div>';
+    }
+    if (this.isFolder) {
+      str += '<div id="' + this.id
+          + '-cont" style="display: '
+          + (this.expanded ? 'block' : 'none') + ';">';
+      for (var i=0; i<this.childNodes.length; ++i) {
+        var lastChild = i+1 == this.childNodes.length;
+        var n = this.childNodes[i];
+        str += n.toString(depth+1, lastChild);
+      }
+      str += '</div>';
+    }
+
+    return str;
+  };
+*/

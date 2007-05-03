@@ -21,7 +21,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.model.TreeModel;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.model.MixedTreeModel;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.context.FacesContext;
@@ -33,7 +33,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 
 public class UITreeNodeData extends javax.faces.component.UIInput
-    implements NamingContainer {
+    implements NamingContainer, TreeModelBuilder {
 
   private static final Log LOG = LogFactory.getLog(UITreeNodeData.class);
 
@@ -57,8 +57,9 @@ public class UITreeNodeData extends javax.faces.component.UIInput
 //    super.processDecodes(facesContext);
 //  }
 
+
   @Override
-  public void decode(FacesContext facesContext) {
+  public void processDecodes(FacesContext facesContext) {
 
     // todo: does treeModel should be stored in the state?
     // todo: what is, when the value has been changed since last rendering?
@@ -69,6 +70,11 @@ public class UITreeNodeData extends javax.faces.component.UIInput
       getTemplateComponent().processDecodes(facesContext);
       setPathIndex(null);
     }
+  }
+
+  @Override
+  public void decode(FacesContext facesContext) {
+
   }
 
   public String getPathIndex() {
@@ -101,6 +107,25 @@ public class UITreeNodeData extends javax.faces.component.UIInput
     }
   }
 
+  public void buildBegin(MixedTreeModel model) {
+    model.beginBuildNodeData(this);
+  }
+
+  public void buildChildren(MixedTreeModel model) {
+    for (Object child : getChildren()) {
+      if (child instanceof TreeModelBuilder) {
+        TreeModelBuilder builder = (TreeModelBuilder) child;
+        builder.buildBegin(model);
+        builder.buildChildren(model);
+        builder.buildEnd(model);
+      }
+    }
+  }
+
+  public void buildEnd(MixedTreeModel model) {
+    model.endBuildNodeData(this);
+  }
+
   @Override
   public void encodeChildren(FacesContext context)
       throws IOException {
@@ -112,9 +137,14 @@ public class UITreeNodeData extends javax.faces.component.UIInput
     // todo: does treeModel should be stored in the state?
     treeModel = new TreeModel((DefaultMutableTreeNode) getValue());
 
-    for (String pathIndex : treeModel.getPathIndexList()) {
-      setPathIndex(pathIndex);
-      RenderUtil.encode(facesContext, getTemplateComponent());
+    for (TreeModel.Tag pathIndex : treeModel.getDoublePathIndexList()) {
+      setPathIndex(pathIndex.getName());
+      if (pathIndex.isStart()) {
+        getTemplateComponent().encodeBegin(facesContext);
+      } else {
+        getTemplateComponent().encodeEnd(facesContext);
+      }
+//      RenderUtil.encode(facesContext, getTemplateComponent());
       setPathIndex(null);
     }
 

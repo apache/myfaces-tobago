@@ -27,6 +27,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROOT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROOT_JUNCTION;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import org.apache.myfaces.tobago.model.TreeState;
+import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.util.MessageFactory;
 
 import javax.faces.application.FacesMessage;
@@ -90,6 +91,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   private boolean showRootJunctionSet = false;
 
   private String mode;
+  private MixedTreeModel model;
 
   public UITree() {
     treeCommands = new Command[]{
@@ -176,6 +178,24 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   public void encodeChildren(FacesContext context)
       throws IOException {
 //     will be called from end.jsp
+  }
+
+  public void encodeEnd(FacesContext context) throws IOException {
+    model = new MixedTreeModel();
+    
+    buildModel();
+    super.encodeEnd(context);
+  }
+
+  private void buildModel() {
+    for (Object child : getChildren()) {
+      if (child instanceof TreeModelBuilder) {
+        TreeModelBuilder builder = (TreeModelBuilder) child;
+        builder.buildBegin(model);
+        builder.buildChildren(model);
+        builder.buildEnd(model);
+      }
+    }
   }
 
   public boolean getRendersChildren() {
@@ -392,5 +412,8 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
       return command;
     }
   }
-}
 
+  public MixedTreeModel getModel() {
+    return model;
+  }
+}

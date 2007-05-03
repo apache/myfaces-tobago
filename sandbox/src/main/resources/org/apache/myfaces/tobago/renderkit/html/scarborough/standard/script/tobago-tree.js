@@ -843,6 +843,53 @@ function tobagoTreeListboxDisable(idPrefix, start) {
   }
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////
 
+function new_tobagoTreeNodeOnclick() {
 
+}
+
+function new_tobagoTreeNodeToggle(node, treeHiddenId, openFolderIcon, folderIcon, openMenuIcon, closeMenuIcon) {
+  LOG.debug("toggle("+node+", "+treeHiddenId+", " + openFolderIcon + ", " + folderIcon + ", " + openMenuIcon + ", " + closeMenuIcon + ")");
+  var content = document.getElementById(node.id + "-cont");
+  if (content) {
+    var expandedState = document.getElementById(node.id + '-expanded');
+    var icon = document.getElementById(node.id + '-icon');
+    var menuIcon = document.getElementById(node.id + '-menuIcon');
+    var junction = document.getElementById(node.id + '-junction');
+    var hidden = document.getElementById(treeHiddenId);
+    if (content.style.display == 'none') {
+      content.style.display = 'block';
+      if (icon) {
+        icon.src = openFolderIcon;
+      }
+      if (menuIcon) {
+        menuIcon.src = openMenuIcon;
+      }
+      if (junction) {
+        junction.src = junction.src.replace(/plus\./, "minus.");
+      }
+      hidden.value = hidden.value + new_nodeStateId(node) + ";" ;
+      expandedState.value = "true";
+    } else {
+      content.style.display = 'none';
+      if (icon) {
+        icon.src = folderIcon;
+      }
+      if (menuIcon) {
+        menuIcon.src = closeMenuIcon;
+      }
+      if (junction) {
+        junction.src = junction.src.replace(/minus\./, "plus.");
+      }
+      hidden.value = hidden.value.replace(";" + new_nodeStateId(node) + ";" , ";");
+      expandedState.value = "false";
+    }
+  }
+}
+
+function new_nodeStateId(node) {
+  // this must do the same as nodeStateId() in TreeRenderer.java
+  return node.id.substring(node.id.lastIndexOf(':') + 1);
+}
 

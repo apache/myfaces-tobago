@@ -19,12 +19,13 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.model.MixedTreeModel;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 
-public class UITreeNode extends UICommand implements SupportsMarkup {
+public class UITreeNode extends UICommand implements SupportsMarkup, TreeModelBuilder {
 
   private static final Log LOG = LogFactory.getLog(UITreeNode.class);
 
@@ -46,6 +47,25 @@ public class UITreeNode extends UICommand implements SupportsMarkup {
   @Override
   public boolean getRendersChildren() {
     return true;
+  }
+
+  public void buildBegin(MixedTreeModel model) {
+    model.beginBuildNode(this);
+  }
+
+  public void buildChildren(MixedTreeModel model) {
+    for (Object child : getChildren()) {
+      if (child instanceof TreeModelBuilder) {
+        TreeModelBuilder builder = (TreeModelBuilder) child;
+        builder.buildBegin(model);
+        builder.buildChildren(model);
+        builder.buildEnd(model);
+      }
+    }
+  }
+
+  public void buildEnd(MixedTreeModel model) {
+    model.endBuildNode(this);
   }
 
   @Override

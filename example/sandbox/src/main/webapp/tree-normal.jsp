@@ -25,13 +25,18 @@
   <tc:page label="Sandbox - Tree" id="page"
            width="500px" height="800px">
     <f:facet name="layout">
-      <tc:gridLayout margin="10px" rows="300px;*"/>
+      <tc:gridLayout margin="10px" rows="600px;*"/>
     </f:facet>
 
-    <tcs:tree state="#{controller.state}" id="tree">
-      <tcs:treeNode label="Root">
+    <tcs:tree state="#{controller.state}" id="tree"
+        showIcons="true"
+        showJunctions="true"
+        showRoot="true"
+        showRootJunction="true"
+        >
+      <tcs:treeNode label="Root" expanded="true">
         <tcs:treeNodeData value="#{controller.tree}" var="node" id="data">
-          <tcs:treeNode label="#{node.userObject.name}" id="template"
+          <tcs:treeNode label="#{node.userObject.name}" id="template" expanded="#{node.userObject.expanded}"
                         markup="#{node.userObject.markup}"
                         tip="#{node.userObject.tip}"
                         action="#{node.userObject.action}" value="#{node}"/>

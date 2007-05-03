@@ -26,6 +26,7 @@ public class Node {
 
   private String name;
   private String markup;
+  private boolean expanded;
 
   public Node(String name) {
     this.name = name;
@@ -55,6 +56,14 @@ public class Node {
 
   public void setMarkup(String markup) {
     this.markup = markup;
+  }
+
+  public boolean isExpanded() {
+    return expanded;
+  }
+
+  public void setExpanded(boolean expanded) {
+    this.expanded = expanded;
   }
 
   public String getTip() {
