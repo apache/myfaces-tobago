@@ -226,7 +226,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
       throws IOException {
     String menuOpen = ResourceManagerUtil.getImageWithPath(facesContext, "image/treeMenuOpen.gif");
     String menuClose = ResourceManagerUtil.getImageWithPath(facesContext, "image/treeMenuClose.gif");
-    String onclick = "new_tobagoTreeNodeToggle(this.parentNode, '" + treeId + "', null, null, '" + menuOpen + "', '" + menuClose + "')";
+    String onclick = "new_tobagoTreeNodeToggle(this.parentNode, '" + treeId + "', null, null, '"
+        + menuOpen + "', '" + menuClose + "')";
     String src = expanded ? menuOpen : menuClose;
     writer.startElement(IMG);
     writer.writeClassAttribute("tobago-tree-menu-icon");
@@ -411,7 +412,8 @@ TreeNode.prototype.toString = function (depth, last) {
         if (this.isFolder) {
           // FIXME: change the icons when klick on the icon
           str += '<img class="tobago-tree-menu-icon" id="' + this.id + '-menuIcon"'
-              + 'src="' + (this.expanded ? this.treeResources.getImage("treeMenuOpen.gif") : this.treeResources.getImage("treeMenuClose.gif")) + ' " '
+              + 'src="' + (this.expanded ? this.treeResources.getImage("treeMenuOpen.gif")
+              : this.treeResources.getImage("treeMenuClose.gif")) + ' " '
               + 'onclick="toggle(this.parentNode, \'' + this.treeHiddenId
               + '\', null, null, \'' + this.treeResources.getImage("treeMenuOpen.gif")
               + '\', \'' + this.treeResources.getImage("treeMenuClose.gif")
