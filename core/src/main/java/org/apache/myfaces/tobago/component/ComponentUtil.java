@@ -53,7 +53,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_ONE
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.PopupActionListener;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.util.RangeParser;
 
@@ -123,7 +122,15 @@ public class ComponentUtil {
     }
     return false;
   }
-
+  public static UIPage findPage(FacesContext context, UIComponent component) {
+    UIPage page = (UIPage) context.getExternalContext().getRequestMap().get(UIPage.COMPONENT_TYPE);
+    if (page == null) {
+      page = findPage(component);
+    } else {
+      context.getExternalContext().getRequestMap().put(UIPage.COMPONENT_TYPE, page);
+    }
+    return page;
+  }
   public static UIPage findPage(UIComponent component) {
     while (component != null) {
       if (component instanceof UIPage) {
