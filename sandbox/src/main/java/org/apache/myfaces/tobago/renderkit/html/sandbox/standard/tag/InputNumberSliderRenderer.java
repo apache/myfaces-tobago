@@ -183,47 +183,46 @@ public class InputNumberSliderRenderer extends RendererBase {
   }
 
   private String getIdForInputField(FacesContext context,
-                                    UIComponent component) {
+      UIComponent component) {
     String id = component.getClientId(context);
     return id + TobagoConstants.SUBCOMPONENT_SEP + "input";
   }
 
   private String getIdForSliderTrack(FacesContext context,
-                                     UIComponent component) {
+      UIComponent component) {
     String id = component.getClientId(context);
     return id + TobagoConstants.SUBCOMPONENT_SEP + "track";
   }
 
   private String getIdForSliderHandle(FacesContext context,
-                                      UIComponent component) {
+      UIComponent component) {
     String id = component.getClientId(context);
     return id + TobagoConstants.SUBCOMPONENT_SEP + "handle";
   }
 
   private void writeSliderJavaScript(FacesContext context, UIComponent component,
-                                     TobagoResponseWriter writer) throws IOException {
+      TobagoResponseWriter writer) throws IOException {
     String trackId = getIdForSliderTrack(context, component);
     String handleId = getIdForSliderHandle(context, component);
     String inputId = getIdForInputField(context, component);
     String jsId = component.getClientId(context).replace(":", "_");
     Integer min = ComponentUtil.getIntAttribute(component, "min");
     Integer max = ComponentUtil.getIntAttribute(component, "max");
-    String script =
-        "    var slider_" + jsId + " = new Control.Slider('" + handleId + "', '" + trackId + "', {\n" +
-            "        sliderValue:$('" + inputId + "').value,\n" +
-            "        range : $R(" + min + ", " + max + "),\n" +
-            "        values: $R(" + min + ", " + max + ").toArray(),\n" +
-            "        onSlide:function(v) {\n" +
-            "            $('" + inputId + "').value = v;\n" +
-            "        },\n" +
-            "        onChange:function(v) {\n" +
-            "            $('" + inputId + "').value = v;\n" +
-            "        }\n" +
-            "    });\n" +
-            "\n" +
-            "    Event.observe('value', 'change', function() {\n" +
-            "        slider_" + jsId + ".setValue($('" + inputId + "').value);\n" +
-            "    });\n";
+    String script = "    var slider_" + jsId + " = new Control.Slider('" + handleId + "', '" + trackId + "', {\n"
+        + "        sliderValue:$('" + inputId + "').value,\n"
+        + "        range : $R(" + min + ", " + max + "),\n"
+        + "        values: $R(" + min + ", " + max + ").toArray(),\n"
+        + "        onSlide:function(v) {\n"
+        + "            $('" + inputId + "').value = v;\n"
+        + "        },\n"
+        + "        onChange:function(v) {\n"
+        + "            $('" + inputId + "').value = v;\n"
+        + "        }\n"
+        + "    });\n"
+        + "\n"
+        + "    Event.observe('value', 'change', function() {\n"
+        + "        slider_" + jsId + ".setValue($('" + inputId + "').value);\n"
+        + "    });\n";
     HtmlRendererUtil.writeJavascript(writer, script);
   }
 
