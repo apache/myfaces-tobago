@@ -26,12 +26,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-public class TabRenderer extends RendererBase {
+public class TabRenderer extends LayoutableRendererBase {
 
   private static final Log LOG = LogFactory.getLog(TabRenderer.class);
 

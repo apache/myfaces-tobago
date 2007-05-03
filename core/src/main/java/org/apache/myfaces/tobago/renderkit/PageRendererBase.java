@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.component.UIPage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-public class PageRendererBase extends RendererBase {
+public class PageRendererBase extends LayoutableRendererBase {
 
   private static final Log LOG = LogFactory.getLog(PageRendererBase.class);
 

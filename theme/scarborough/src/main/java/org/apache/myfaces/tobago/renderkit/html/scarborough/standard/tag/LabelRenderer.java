@@ -30,7 +30,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
@@ -45,7 +45,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Locale;
 
-public class LabelRenderer extends RendererBase {
+public class LabelRenderer extends LayoutableRendererBase {
 
   private static final Log LOG = LogFactory.getLog(LabelRenderer.class);
 

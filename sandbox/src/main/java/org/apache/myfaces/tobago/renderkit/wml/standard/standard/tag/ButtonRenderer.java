@@ -31,7 +31,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UICommand;
@@ -40,7 +40,7 @@ import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class ButtonRenderer extends RendererBase {
+public class ButtonRenderer extends LayoutableRendererBase {
 
   private static final Log LOG = LogFactory.getLog(ButtonRenderer.class);
 
@@ -48,7 +48,7 @@ public class ButtonRenderer extends RendererBase {
       throws IOException {
 
     UICommand command = (UICommand) component;
-    UIPage page = ComponentUtil.findPage(command);
+    UIPage page = ComponentUtil.findPage(facesContext, command);
 
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();

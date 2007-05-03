@@ -17,5 +17,5 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-public class MessageRendererBase extends RendererBase {
+public class MessageRendererBase extends LayoutableRendererBase {
 }

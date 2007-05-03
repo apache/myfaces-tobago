@@ -24,13 +24,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class SubviewRenderer extends RendererBase {
+public class SubviewRenderer extends LayoutableRendererBase {
 
     private static final Log LOG = LogFactory.getLog(SubviewRenderer.class);
 

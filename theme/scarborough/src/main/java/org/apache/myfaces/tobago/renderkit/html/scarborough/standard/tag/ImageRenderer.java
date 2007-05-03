@@ -32,7 +32,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -45,7 +45,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Locale;
 
-public class ImageRenderer extends RendererBase {
+public class ImageRenderer extends LayoutableRendererBase {
   
 
   private static final Log LOG = LogFactory.getLog(ImageRenderer.class);

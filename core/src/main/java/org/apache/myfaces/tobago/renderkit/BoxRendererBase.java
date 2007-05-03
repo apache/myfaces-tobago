@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.util.LayoutUtil;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-public abstract class BoxRendererBase extends RendererBase {
+public abstract class BoxRendererBase extends LayoutableRendererBase {
 
   private static final Log LOG = LogFactory.getLog(BoxRendererBase.class);
 

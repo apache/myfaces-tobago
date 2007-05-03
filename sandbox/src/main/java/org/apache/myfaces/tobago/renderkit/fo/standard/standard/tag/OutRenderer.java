@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
  */
 
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -30,7 +30,7 @@ import java.io.IOException;
  * User: bommel
  * $Id:OutRenderer.java 472227 2006-11-07 21:05:00 +0100 (Tue, 07 Nov 2006) bommel $
  */
-public class OutRenderer extends RendererBase {
+public class OutRenderer extends LayoutableRendererBase {
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {

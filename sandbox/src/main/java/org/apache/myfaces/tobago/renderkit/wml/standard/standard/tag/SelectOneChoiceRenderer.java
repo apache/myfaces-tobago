@@ -26,7 +26,7 @@ import org.apache.commons.collections.keyvalue.DefaultKeyValue;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -38,13 +38,13 @@ import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.List;
 
-public class SelectOneChoiceRenderer extends RendererBase {
+public class SelectOneChoiceRenderer extends LayoutableRendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
 
     UISelectOne selectOne = (UISelectOne) component;
-    UIPage page = ComponentUtil.findPage(selectOne);
+    UIPage page = ComponentUtil.findPage(facesContext, selectOne);
 
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();

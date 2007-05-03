@@ -27,7 +27,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeListboxBox;
 import org.apache.myfaces.tobago.component.UITreeOldNode;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -43,7 +43,7 @@ import java.util.List;
  * Date: Mar 21, 2005
  * Time: 11:19:03 AM
  */
-public class TreeListboxBoxRenderer extends RendererBase {
+public class TreeListboxBoxRenderer extends LayoutableRendererBase {
 
   private static final Log LOG = LogFactory.getLog(TreeListboxBoxRenderer.class);
 

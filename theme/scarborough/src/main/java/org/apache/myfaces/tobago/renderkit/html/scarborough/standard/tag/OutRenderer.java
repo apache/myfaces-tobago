@@ -27,7 +27,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -37,7 +37,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
-public class OutRenderer extends RendererBase {
+public class OutRenderer extends LayoutableRendererBase {
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {

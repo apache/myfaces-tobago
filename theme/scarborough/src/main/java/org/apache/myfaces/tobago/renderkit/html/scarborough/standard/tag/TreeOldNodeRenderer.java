@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITreeOldNode;
@@ -43,7 +43,7 @@ import java.util.Map;
 import java.io.IOException;
 
 @Deprecated
-public class TreeOldNodeRenderer extends RendererBase {
+public class TreeOldNodeRenderer extends LayoutableRendererBase {
 
   private static final Log LOG = LogFactory.getLog(TreeOldNodeRenderer.class);
 
@@ -89,7 +89,7 @@ public class TreeOldNodeRenderer extends RendererBase {
 
     // link
     // FIXME: this is equal to the CommandRendererBase, why not use that code?
-    String actionId = ComponentUtil.findPage(component).getActionId();
+    String actionId = ComponentUtil.findPage(facesContext, component).getActionId();
     if (LOG.isDebugEnabled()) {
       LOG.debug("actionId = '" + actionId + "'");
       LOG.debug("nodeId = '" + treeId + NamingContainer.SEPARATOR_CHAR
@@ -243,7 +243,7 @@ public class TreeOldNodeRenderer extends RendererBase {
           TobagoConstants.ATTR_MUTABLE)), null);
       writer.writeText(",'", null);
       writer.writeText(
-          ComponentUtil.findPage(component).getFormId(facesContext), null);
+          ComponentUtil.findPage(facesContext, component).getFormId(facesContext), null);
       writer.writeText("',", null);
       if (component.getChildCount() == 0
           || (selectable != null && !selectable.endsWith("LeafOnly"))) {

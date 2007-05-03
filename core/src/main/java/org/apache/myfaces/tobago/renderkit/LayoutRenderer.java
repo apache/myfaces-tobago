@@ -32,7 +32,7 @@ import java.io.IOException;
  * Date: Feb 22, 2005
  * Time: 3:05:58 PM
  */
-public abstract class LayoutRenderer extends RendererBase {
+public abstract class LayoutRenderer extends LayoutableRendererBase {
 
   private static final Log LOG = LogFactory.getLog(LayoutRenderer.class);
 
@@ -42,7 +42,7 @@ public abstract class LayoutRenderer extends RendererBase {
   public void encodeChildrenOfComponent(FacesContext facesContext, UIComponent component)
       throws IOException {
     // use renderer of component
-    RendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
+    LayoutableRendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
     renderer.encodeChildren(facesContext, component);
   }
 

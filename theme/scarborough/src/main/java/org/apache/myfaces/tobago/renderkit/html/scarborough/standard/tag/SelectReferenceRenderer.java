@@ -28,13 +28,13 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDER_RANGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDER_RANGE_EXTERN;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class SelectReferenceRenderer extends RendererBase{
+public class SelectReferenceRenderer extends LayoutableRendererBase {
 
   private static final Log LOG = LogFactory.getLog(SelectReferenceRenderer.class);
 

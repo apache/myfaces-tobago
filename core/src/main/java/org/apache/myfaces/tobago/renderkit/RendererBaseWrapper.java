@@ -28,7 +28,7 @@ import java.io.IOException;
  * Date: Mar 9, 2007
  * Time: 7:39:10 PM
  */
-public class RendererBaseWrapper extends RendererBase {
+public class RendererBaseWrapper extends LayoutableRendererBase {
   private Renderer renderer;
 
   public RendererBaseWrapper(Renderer renderer) {

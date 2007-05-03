@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
@@ -40,7 +40,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Map;
 
-public class InputNumberSliderRenderer extends RendererBase {
+public class InputNumberSliderRenderer extends LayoutableRendererBase {
 
   private static final Log LOG = LogFactory.getLog(InputNumberSliderRenderer.class);
   private static final String SLIDER_WIDTH_PERCENT = "sliderWidthPercent";

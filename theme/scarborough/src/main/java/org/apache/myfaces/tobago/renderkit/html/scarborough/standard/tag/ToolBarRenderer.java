@@ -51,7 +51,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -73,7 +73,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class ToolBarRenderer extends RendererBase {
+public class ToolBarRenderer extends LayoutableRendererBase {
 
   private static final Log LOG = LogFactory.getLog(ToolBarRenderer.class);
 

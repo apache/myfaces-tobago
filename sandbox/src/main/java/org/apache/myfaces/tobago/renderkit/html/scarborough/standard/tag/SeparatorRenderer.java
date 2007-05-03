@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.TobagoConstants;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.UILabel;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -34,7 +34,7 @@ import java.io.IOException;
  * User: bommel
  * Date: Sep 19, 2006
  */
-public class SeparatorRenderer extends RendererBase {
+public class SeparatorRenderer extends LayoutableRendererBase {
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {

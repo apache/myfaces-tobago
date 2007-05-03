@@ -26,7 +26,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.util.Map;
 
-public class InputRendererBase extends RendererBase {
+public class InputRendererBase extends LayoutableRendererBase {
 
   private static final Log LOG = LogFactory.getLog(InputRendererBase.class);
 

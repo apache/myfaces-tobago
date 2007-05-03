@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.CalendarModel;
 import org.apache.myfaces.tobago.model.DateModel;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -47,7 +47,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class CalendarRenderer extends RendererBase {
+public class CalendarRenderer extends LayoutableRendererBase {
 
 
   private static final Log LOG = LogFactory.getLog(CalendarRenderer.class);
@@ -62,7 +62,7 @@ public class CalendarRenderer extends RendererBase {
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
     UIOutput output = (UIOutput) component;
-    UIPage page = ComponentUtil.findPage(output);
+    UIPage page = ComponentUtil.findPage(facesContext, output);
     for (String script : SCRIPTS) {
       page.getScriptFiles().add(script);      
     }

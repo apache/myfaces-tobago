@@ -17,13 +17,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class TreeNodeDataRenderer extends RendererBase {
+public class TreeNodeDataRenderer extends LayoutableRendererBase {
 
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
