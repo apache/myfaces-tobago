@@ -122,11 +122,15 @@ public class ComponentUtil {
     }
     return false;
   }
+
+  public static void clearPageCache(FacesContext context) {
+    context.getExternalContext().getRequestMap().put(UIPage.COMPONENT_TYPE, null);
+  }
+
   public static UIPage findPage(FacesContext context, UIComponent component) {
     UIPage page = (UIPage) context.getExternalContext().getRequestMap().get(UIPage.COMPONENT_TYPE);
     if (page == null) {
       page = findPage(component);
-    } else {
       context.getExternalContext().getRequestMap().put(UIPage.COMPONENT_TYPE, page);
     }
     return page;

@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.lifecycle;
 
 import org.apache.myfaces.tobago.ajax.api.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.FacesException;
 import javax.faces.application.Application;
@@ -49,6 +50,7 @@ class RenderResponseExecutor implements PhaseExecutor {
         throw new FacesException(e.getMessage(), e);
       }
     } else {
+      ComponentUtil.clearPageCache(facesContext);
       Application application = facesContext.getApplication();
       ViewHandler viewHandler = application.getViewHandler();
 
