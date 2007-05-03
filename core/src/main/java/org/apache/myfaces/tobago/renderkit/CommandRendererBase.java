@@ -25,7 +25,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-public abstract class CommandRendererBase extends RendererBase {
+public abstract class CommandRendererBase extends LayoutableRendererBase {
 
   private static final Log LOG = LogFactory.getLog(CommandRendererBase.class);
 
@@ -34,7 +34,7 @@ public abstract class CommandRendererBase extends RendererBase {
     if (ComponentUtil.isOutputOnly(component)) {
       return;
     }
-    String actionId = ComponentUtil.findPage(component).getActionId();
+    String actionId = ComponentUtil.findPage(facesContext, component).getActionId();
     String clientId = component.getClientId(facesContext);
     if (LOG.isDebugEnabled()) {
       LOG.debug("actionId = '" + actionId + "'");

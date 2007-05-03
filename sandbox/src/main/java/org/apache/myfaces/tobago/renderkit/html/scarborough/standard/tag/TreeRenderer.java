@@ -158,7 +158,7 @@ public class TreeRenderer extends LayoutableRendererBase {
     String[] scriptTexts = createJavascript(facesContext, clientId, root);
 
     String[] scripts = {"script/tobago-tree.js"};
-    List<String> scriptFiles = ComponentUtil.findPage(tree).getScriptFiles();
+    List<String> scriptFiles = ComponentUtil.findPage(facesContext, tree).getScriptFiles();
     for (String script : scripts) {
       scriptFiles.add(script);
     }

@@ -60,7 +60,7 @@ public class TimeRenderer extends InputRendererBase {
   public void encodeEnd(FacesContext facesContext,
         UIComponent component) throws IOException {
 
-    UIPage page = ComponentUtil.findPage(component);
+    UIPage page = ComponentUtil.findPage(facesContext, component);
     for (String script : SCRIPTS) {
       page.getScriptFiles().add(script);
     }

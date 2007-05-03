@@ -141,7 +141,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
   protected void addScriptsAndStyles(FacesContext facesContext,
                                      UIComponent component, final String clientId, String setupFunction,
                                      String scriptBlock) throws IOException {
-    final UIPage page = ComponentUtil.findPage(component);
+    final UIPage page = ComponentUtil.findPage(facesContext, component);
     page.getScriptFiles().add("script/tobago-menu.js");
     page.getStyleFiles().add("style/tobago-menu.css");
     String function = setupFunction + "('" + clientId + "', '"

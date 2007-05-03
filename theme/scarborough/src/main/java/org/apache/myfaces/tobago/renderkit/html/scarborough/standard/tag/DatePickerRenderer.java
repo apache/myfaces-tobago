@@ -118,7 +118,7 @@ public class DatePickerRenderer extends LinkRenderer {
     UIComponent image = (UIComponent) link.getChildren().get(1);
     image.setId(idPrefix + "image");
     if (popup != null) {
-      UIPage page = ComponentUtil.findPage(link);
+      UIPage page = ComponentUtil.findPage(facesContext, link);
       page.getPopups().add(popup);
     }
     if (!ComponentUtil.containsPopupActionListener(link)) {

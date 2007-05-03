@@ -162,7 +162,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
 
       String popupId = id + SUBCOMPONENT_SEP + "ajaxPopup";
 
-      final UIPage page = ComponentUtil.findPage(component);
+      final UIPage page = ComponentUtil.findPage(facesContext, component);
       page.getScriptFiles().add("script/effects.js");
       page.getScriptFiles().add("script/dragdrop.js");
       page.getScriptFiles().add("script/controls.js");

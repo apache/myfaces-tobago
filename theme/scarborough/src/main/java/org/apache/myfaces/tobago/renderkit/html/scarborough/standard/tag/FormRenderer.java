@@ -34,7 +34,7 @@ public class FormRenderer extends RendererBase {
 
   public void decode(FacesContext facesContext, UIComponent component) {
     UIForm form = (UIForm) component;
-    UIPage page = ComponentUtil.findPage(form);
+    UIPage page = ComponentUtil.findPage(facesContext, form);
     String actionId = page.getActionId();
     String clientId = form.getClientId(facesContext);
     if (actionId != null && actionId.startsWith(clientId)) {

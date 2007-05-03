@@ -117,7 +117,7 @@ public class CommandRendererHelper {
         }
 
       } else if (defaultCommand) {
-        ComponentUtil.findPage(command).setDefaultActionId(clientId);
+        ComponentUtil.findPage(facesContext, command).setDefaultActionId(clientId);
         onclick = null;
       } else {
         String target = ComponentUtil.getStringAttribute(command, ATTR_TARGET);

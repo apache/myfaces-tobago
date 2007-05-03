@@ -36,7 +36,7 @@ public class UIFileInput extends javax.faces.component.UIInput {
 
   public void setParent(UIComponent uiComponent) {
     super.setParent(uiComponent);
-    UIPage form = ComponentUtil.findPage(uiComponent);
+    UIPage form = ComponentUtil.findPage(getFacesContext(), uiComponent);
     if (form != null) {
       form.getAttributes().put(ATTR_ENCTYPE, "multipart/form-data");
     }

@@ -70,6 +70,7 @@ import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
@@ -77,8 +78,8 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
@@ -166,12 +167,12 @@ public class SheetRenderer extends LayoutableRendererBase
         "new Tobago.Sheet(\"" + sheetId + "\", " + ajaxEnabled
             + ", \"" + checked + "\", \"" + unchecked + "\", \"" + data.getSelectable() + "\", "+ frequency + ");"
     };
-
-    ComponentUtil.addStyles(data, styles);
-    ComponentUtil.addScripts(data, scripts);
+    UIPage page = ComponentUtil.findPage(facesContext, data);
+    page.getStyleFiles().add(styles[0]);
+    page.getScriptFiles().add(scripts[0]);
 
     if (!ajaxEnabled) {
-      ComponentUtil.addOnloadCommands(data, cmds);
+      page.getOnloadScripts().add(cmds[0]);
     } else {
       HtmlRendererUtil.writeStyleLoader(facesContext, styles);
       HtmlRendererUtil.writeScriptLoader(facesContext, scripts, cmds);
@@ -1085,7 +1086,7 @@ public class SheetRenderer extends LayoutableRendererBase
     if (ajaxId.equals(component.getClientId(facesContext))) {
       if (component.getFacet(FACET_RELOAD) != null && component.getFacet(FACET_RELOAD) instanceof UIReload
           && component.getFacet(FACET_RELOAD).isRendered()
-          && ajaxId.equals(ComponentUtil.findPage(component).getActionId())) {
+          && ajaxId.equals(ComponentUtil.findPage(facesContext, component).getActionId())) {
         UIReload reload = (UIReload) component.getFacet(FACET_RELOAD);
         update = reload.getUpdate();
       }

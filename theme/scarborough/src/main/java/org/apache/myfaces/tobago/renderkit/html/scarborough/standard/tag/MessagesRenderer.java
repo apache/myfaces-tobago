@@ -94,7 +94,7 @@ public class MessagesRenderer extends MessageRendererBase {
         }
       }
       if (focusId != null) {
-        ComponentUtil.findPage(component).setFocusId(focusId);
+        ComponentUtil.findPage(facesContext, component).setFocusId(focusId);
       }
 
       writer.endElement(HtmlConstants.SPAN);

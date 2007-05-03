@@ -50,7 +50,7 @@ public class DateRenderer extends InRenderer {
         "script/calendar.js"};
 
     final List<String> scriptFiles
-        = ComponentUtil.findPage(component).getScriptFiles();
+        = ComponentUtil.findPage(facesContext, component).getScriptFiles();
     for (String script : scripts) {
       scriptFiles.add(script);
     }

@@ -41,7 +41,7 @@ import java.util.Map;
 public class SheetUtils {
   private static final Log LOG = LogFactory.getLog(SheetUtils.class);
   public static void decode(FacesContext facesContext, UIComponent component) {
-    String actionId = ComponentUtil.findPage(component).getActionId();
+    String actionId = ComponentUtil.findPage(facesContext, component).getActionId();
     String clientId = component.getClientId(facesContext);
     if (LOG.isDebugEnabled()) {
       LOG.debug("actionId = '" + actionId + "'");

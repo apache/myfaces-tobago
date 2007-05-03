@@ -107,7 +107,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
 
     final String switchType = component.getSwitchType();
 
-    UIPage page = ComponentUtil.findPage(component);
+    UIPage page = ComponentUtil.findPage(facesContext, component);
     final String[] scripts = new String[]{
         "script/tab.js",
         "script/tabgroup.js"
@@ -255,7 +255,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
               || SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
             onclick = "tobago_requestTab('"
                 + clientId + "'," + index + ",'"
-                + ComponentUtil.findPage(component).getFormId(facesContext) + "')";
+                + ComponentUtil.findPage(facesContext, component).getFormId(facesContext) + "')";
           } else {   //  SWITCH_TYPE_CLIENT
             onclick = "tobago_selectTab('"
                 + clientId + "'," + index + ','

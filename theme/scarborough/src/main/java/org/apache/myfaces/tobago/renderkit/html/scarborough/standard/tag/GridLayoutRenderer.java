@@ -41,6 +41,13 @@ import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.LayoutTokens;
+import org.apache.myfaces.tobago.component.RelativeLayoutToken;
+import org.apache.myfaces.tobago.component.LayoutToken;
+import org.apache.myfaces.tobago.component.PixelLayoutToken;
+import org.apache.myfaces.tobago.component.MinimumLayoutToken;
+import org.apache.myfaces.tobago.component.FixedLayoutToken;
+import org.apache.myfaces.tobago.component.HideLayoutToken;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
@@ -83,28 +90,29 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
      return width;
    }
 
-  public int calculateLayoutHeight(
+  private int calculateLayoutHeight(
       FacesContext facesContext, UIComponent component, boolean minimum) {
     UIGridLayout layout = (UIGridLayout) UILayout.getLayout(component);
     final List<UIGridLayout.Row> rows = layout.ensureRows();
-    String rowLayout
-        = (String) layout.getAttributes().get(ATTR_ROWS);
 
-    if (rowLayout == null && !minimum && LOG.isDebugEnabled()) {
+    LayoutTokens layoutTokens = layout.getRowLayout();
+
+    if (layoutTokens == null && !minimum && LOG.isDebugEnabled()) {
       LOG.debug("No rowLayout found using " + (minimum ? "'minimum'" : "'fixed'")
           + " for all " + rows.size() + " rows of "
           + layout.getClientId(facesContext) + " !");
     }
-    String[] layoutTokens
-        = LayoutInfo.createLayoutTokens(rowLayout, rows.size(),
-            minimum ? "minimum" : "fixed");
+    layoutTokens.ensureSize(rows.size(), new RelativeLayoutToken(1));//new FixedLayoutToken() );
+    //String[] layoutTokens
+    //    = LayoutInfo.createLayoutTokens(rowLayout, rows.size(),
+    //        minimum ? "minimum" : "fixed");
 
-    if (rows.size() != layoutTokens.length) {
+    if (rows.size() != layoutTokens.getSize()) {
       LOG.warn("Unbalanced layout: rows.size()=" + rows.size()
-          + " != layoutTokens.length=" + layoutTokens.length
-          + " rowLayout='" + rowLayout + "'");
+          + " != layoutTokens.length=" + layoutTokens.getSize()
+          + " rowLayout='" + layoutTokens + "'");
     }
-    int size = Math.min(rows.size(), layoutTokens.length);
+    int size = Math.min(rows.size(), layoutTokens.getSize());
 
     int height = 0;
     height += getMarginAsInt(layout.getMarginTop());
@@ -114,19 +122,19 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         continue;
       }
       height += getCellPadding(facesContext, layout,  i);
-      String token = layoutTokens[i];
-      if (token.matches("\\d+px")) {
-        height += Integer.parseInt(token.replaceAll("\\D", ""));
-      } else if (token.equals("fixed")) {
+      LayoutToken token = layoutTokens.get(i);
+      if (token instanceof PixelLayoutToken) {
+        height += ((PixelLayoutToken) token).getPixel();
+      } else if (token instanceof FixedLayoutToken) {
         height += getMaxHeight(facesContext, rows.get(i), false);
-      } else if (token.equals("minimum")) {
+      } else if (token instanceof MinimumLayoutToken) {
         height += getMaxHeight(facesContext, rows.get(i), true);
       } else {
         if (!minimum && LOG.isWarnEnabled()) {
           LOG.warn("Unable to calculate Height for token '" + token
               + "'! using " + (minimum ? "'minimum'" : "'fixed'") + " , component:"
-              + layout.getClientId(facesContext) + " is "
-              + layout.getRendererType());
+              + component.getClientId(facesContext) + " is "
+              + component.getRendererType());
         }
         height += getMaxHeight(facesContext, rows.get(i), minimum);
       }
@@ -142,24 +150,24 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     final List<UIGridLayout.Row> rows = layout.ensureRows();
     UIGridLayout.Row row = rows.get(0);
 
-    String columnLayout
-        = (String) layout.getAttributes().get(ATTR_COLUMNS);
 
-    if (columnLayout == null && !minimum && LOG.isDebugEnabled()) {
+    LayoutTokens layoutTokens = layout.getColumnLayout();
+
+    if (layoutTokens == null && !minimum && LOG.isDebugEnabled()) {
       LOG.debug("No rowLayout found using " + (minimum ? "'minimum'" : "'fixed'")
           + " for all " + rows.size() + " rows of "
           + layout.getClientId(facesContext) + " !");
     }
-    String[] layoutTokens
-        = LayoutInfo.createLayoutTokens(columnLayout, row.getColumns(),
-            minimum ? "minimum" : "fixed");
+    //String[] layoutTokens
+    //    = LayoutInfo.createLayoutTokens(columnLayout, row.getColumns(),
+    layoutTokens.ensureSize(row.getColumns(), new FixedLayoutToken());
 
-    if (row.getColumns() != layoutTokens.length) {
+    if (row.getColumns() != layoutTokens.getSize()) {
       LOG.warn("Unbalanced layout: rows.size()=" + rows.size()
-          + " != layoutTokens.length=" + layoutTokens.length
-          + " columnLayout='" + columnLayout + "'");
+          + " != layoutTokens.length=" + layoutTokens.getSize()
+          + " columnLayout='" + layoutTokens + "'");
     }
-    int size = Math.min(rows.size(), layoutTokens.length);
+    int size = Math.min(rows.size(), layoutTokens.getSize());
 
     int width = 0;
     width += getMarginAsInt(layout.getMarginLeft());
@@ -169,19 +177,19 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         continue;
       }
       width += getCellPadding(facesContext, layout,  i);
-      String token = layoutTokens[i];
-      if (token.matches("\\d+px")) {
-        width += Integer.parseInt(token.replaceAll("\\D", ""));
-      } else if (token.equals("fixed")) {
+      LayoutToken token = layoutTokens.get(i);
+      if (token instanceof PixelLayoutToken) {
+        width += ((PixelLayoutToken) token).getPixel();
+      } else if (token instanceof FixedLayoutToken) {
         width += getMaxWidth(facesContext, rows, i, false);
-      } else if (token.equals("minimum")) {
+      } else if (token instanceof MinimumLayoutToken) {
         width += getMaxWidth(facesContext, rows, i, true);
       } else {
         if (!minimum && LOG.isWarnEnabled()) {
           LOG.warn("Unable to calculate Width for token '" + token
               + "'! using " + (minimum ? "'minimum'" : "'fixed'") + " , component:"
-              + layout.getClientId(facesContext) + " is "
-              + layout.getRendererType());
+              + component.getClientId(facesContext) + " is "
+              + component.getRendererType());
         }
         width += getMaxWidth(facesContext, rows,  i, minimum);
       }
@@ -504,9 +512,11 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
     final List<UIGridLayout.Row> rows = layout.ensureRows();
     final int columnCount = layout.getColumnCount();
-    final String[] layoutTokens = LayoutInfo.createLayoutTokens((String)
-        layout.getAttributes().get(ATTR_COLUMNS), columnCount);
 
+    final LayoutTokens layoutTokens = layout.getColumnLayout();
+    layoutTokens.ensureSize(columnCount, new RelativeLayoutToken(1));
+    //LayoutInfo.createLayoutTokens((String)
+        //layout.getAttributes().get(ATTR_COLUMNS), columnCount);
 
     if (!rows.isEmpty()) {
       UIGridLayout.Row row = rows.get(0);
@@ -522,7 +532,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           }
         }
         if (hidden) {
-          layoutTokens[i] = LayoutInfo.HIDE_CELL;
+          layoutTokens.set(i, new HideLayoutToken());
         }
       }
     }
@@ -551,9 +561,11 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
       FacesContext facesContext) {
 
     final List<UIGridLayout.Row> rows = layout.ensureRows();
-    String[] layoutTokens = LayoutInfo.createLayoutTokens(
+    LayoutTokens layoutTokens = layout.getRowLayout();
+    layoutTokens.ensureSize(rows.size(), rows.size() == 1 ? new RelativeLayoutToken(1) : new FixedLayoutToken());
+        /*LayoutInfo.createLayoutTokens(
         (String) layout.getAttributes().get(ATTR_ROWS),
-        rows.size(), rows.size() == 1 ? "1*" : "fixed");
+        rows.size(), rows.size() == 1 ? "1*" : "fixed");*/
 
     for (int i = 0; i < rows.size(); i++) {
       boolean hidden = true;
@@ -564,16 +576,15 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
       }
       row.setHidden(hidden);
       if (hidden) {
-        layoutTokens[i] = LayoutInfo.HIDE_CELL;
+        layoutTokens.set(i, new HideLayoutToken());
       }
     }
 
 
     LayoutInfo layoutInfo =
-        new LayoutInfo(rows.size(), innerHeight.intValue(),
-            layoutTokens, layout.isIgnoreFree());
+        new LayoutInfo(rows.size(), innerHeight.intValue(), layoutTokens);
 
-    if (layoutInfo.hasLayoutTokens()) {
+    if (!layoutTokens.isEmpty()) {
       parseFixedHeight(layoutInfo, layout, facesContext);
       layoutInfo.parseColumnLayout(innerHeight.doubleValue(),
           getCellSpacing(facesContext, layout));
@@ -591,12 +602,14 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
       FacesContext facesContext) {
     parseFixedSpace(layoutInfo, layout, false, facesContext);
   }
-  private void parseFixedSpace(LayoutInfo layoutInfo, UIGridLayout layout,
-                               boolean width, FacesContext facesContext) {
 
-    String[] tokens = layoutInfo.getLayoutTokens();
-    for (int i = 0; i < tokens.length; i++) {
-      if (tokens[i].equals("fixed")) {
+  public void parseFixedSpace(LayoutInfo layoutInfo, UIGridLayout layout,
+      LayoutTokens layoutTokens, boolean width, FacesContext facesContext) {
+
+    //String[] tokens = layoutInfo.getLayoutTokens();
+    for (int i = 0; i < layoutTokens.getSize(); i++) {
+      LayoutToken token = layoutTokens.get(i);
+      if (token instanceof FixedLayoutToken) {
         int max = 0;
         final List<UIGridLayout.Row> rows = layout.ensureRows();
         if (!rows.isEmpty()) {
@@ -610,7 +623,40 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
               layoutInfo.update(0, i);
               if (LOG.isWarnEnabled()) {
                 LOG.warn("More LayoutTokens found than rows! skipping! tokens = "
-                    + LayoutInfo.tokensToString(tokens) + "  components = "
+                    + token + "  components = "
+                    + rows.size());
+              }
+            }
+          }
+          layoutInfo.update(max, i);
+        }
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("set column " + i + " from fixed to with " + max);
+        }
+      }
+    }
+  }
+  private void parseFixedSpace(LayoutInfo layoutInfo, UIGridLayout layout,
+                               boolean width, FacesContext facesContext) {
+
+    LayoutTokens tokens = layoutInfo.getLayoutTokens();
+    for (int i = 0; i < tokens.getSize(); i++) {
+      LayoutToken token = tokens.get(i);
+      if (token instanceof FixedLayoutToken) {
+        int max = 0;
+        final List<UIGridLayout.Row> rows = layout.ensureRows();
+        if (!rows.isEmpty()) {
+          if (width) {
+            max = getMaxWidth(facesContext, rows, i, false);
+          } else {
+            if (i < rows.size()) {      //
+              UIGridLayout.Row row = rows.get(i);
+              max = getMaxHeight(facesContext, row, false);
+            } else {
+              layoutInfo.update(0, i);
+              if (LOG.isWarnEnabled()) {
+                LOG.warn("More LayoutTokens found than rows! skipping! tokens = "
+                    + token + "  components = "
                     + rows.size());
               }
             }
@@ -734,7 +780,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           cellHeight += (spanY - 1) * getCellSpacing(facesContext, layout);
           if (LOG.isDebugEnabled()) {
             LOG.debug("set height of " + cellHeight + "px to "
-                + cell.getRendererType());
+                + cell.getRendererType() + " layoutInfo " + layoutInfo.toString());
           }
           cell.getAttributes().put(ATTR_LAYOUT_HEIGHT, Integer.valueOf(cellHeight));
           cell.getAttributes().remove(ATTR_INNER_HEIGHT);

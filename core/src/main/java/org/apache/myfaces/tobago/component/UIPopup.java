@@ -77,13 +77,13 @@ public class UIPopup extends UIPanelBase implements NamingContainer, AjaxCompone
   }
 
   private boolean isSubmitted() {
-    String action = ComponentUtil.findPage(this).getActionId();
-    return action != null && action.startsWith(getClientId(FacesContext.getCurrentInstance()) + SEPARATOR_CHAR);
+    String action = ComponentUtil.findPage(getFacesContext(), this).getActionId();
+    return action != null && action.startsWith(getClientId(getFacesContext()) + SEPARATOR_CHAR);
   }
 
   private boolean isRedisplay() {
     if (isSubmitted()) {
-      UIPage page = ComponentUtil.findPage(this);
+      UIPage page = ComponentUtil.findPage(getFacesContext(), this);
       String action = page.getActionId();
       if (action != null) {
         UIComponent command = page.findComponent(SEPARATOR_CHAR + action);
@@ -236,7 +236,7 @@ public class UIPopup extends UIPanelBase implements NamingContainer, AjaxCompone
   }
 
   private void addToPage() {
-    UIPage page = ComponentUtil.findPage(this);
+    UIPage page = ComponentUtil.findPage(getFacesContext(), this);
     if (page != null) {
       page.getPopups().add(this);
     }

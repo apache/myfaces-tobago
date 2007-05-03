@@ -60,7 +60,7 @@ public class TreeListboxRenderer extends TreeOldRenderer{
     UITreeOldNode root = tree.getRoot();
 
 
-    UIPage page = ComponentUtil.findPage(tree);
+    UIPage page = ComponentUtil.findPage(facesContext, tree);
     if (LOG.isDebugEnabled()) {
       page.getOnloadScripts().add("tbgTreeStates('" + clientId + "')");
     }
@@ -101,7 +101,7 @@ public class TreeListboxRenderer extends TreeOldRenderer{
     String scriptText = createJavascript(facesContext, clientId, root);
 
     String[] scripts = {"script/tree.js"};
-    List<String> scriptFiles = ComponentUtil.findPage(tree).getScriptFiles();
+    List<String> scriptFiles = ComponentUtil.findPage(facesContext, tree).getScriptFiles();
     for (String script : scripts) {
       scriptFiles.add(script);
     }

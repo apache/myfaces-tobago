@@ -45,7 +45,7 @@ public class InRenderer extends LayoutableRendererBase {
 
     String clientId = component.getClientId(facesContext);
 
-    UIPage uiPage = ComponentUtil.findPage(component);
+    UIPage uiPage = ComponentUtil.findPage(facesContext, component);
 
     if (uiPage != null){
       uiPage.getPostfields().add(new DefaultKeyValue(clientId, clientId));

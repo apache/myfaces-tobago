@@ -159,7 +159,7 @@ public class AjaxResponseRenderer {
     ExternalContext externalContext = facesContext.getExternalContext();
     RequestUtils.ensureEncoding(externalContext);
     ResponseUtils.ensureNoCacheHeader(externalContext);
-    UIComponent page = ComponentUtil.findPage(AjaxUtils.getAjaxComponents(facesContext).get(0));
+    UIComponent page = ComponentUtil.findPage(facesContext, AjaxUtils.getAjaxComponents(facesContext).get(0));
     String charset = (String) page.getAttributes().get(ATTR_CHARSET);
     ResponseUtils.ensureContentTypeHeader(facesContext, charset);
     StringBuilder buffer = new StringBuilder(responseCode);

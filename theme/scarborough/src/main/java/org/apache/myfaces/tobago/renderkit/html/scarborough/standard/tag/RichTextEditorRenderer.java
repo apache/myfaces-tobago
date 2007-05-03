@@ -71,7 +71,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     }
 
     super.decode(facesContext, component);
-    String actionId = ComponentUtil.findPage(component).getActionId();
+    String actionId = ComponentUtil.findPage(facesContext, component).getActionId();
     if (actionId != null
         && actionId.equals(component.getClientId(facesContext) + CHANGE_BUTTON)) {
       boolean state
