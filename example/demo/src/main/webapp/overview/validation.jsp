@@ -37,12 +37,11 @@
           <f:facet name="layout">
             <tc:gridLayout columns="1*;1*" />
           </f:facet>
-          <tx:in label="#{overviewBundle.validation_number}"
-              required="true">
+          <tx:in label="#{overviewBundle.validation_number}" markup="number" required="true">
             <f:validateLength minimum="7" maximum="7" />
             <f:validateLongRange />
           </tx:in>
-          <tx:in label="#{overviewBundle.validation_price}">
+          <tx:in label="#{overviewBundle.validation_price}" markup="number">
             <f:validateDoubleRange minimum="0.01" maximum="1000" />
           </tx:in>
            <tx:in label="#{overviewBundle.validation_custom}" validator="#{overviewController.customValidator}" >
