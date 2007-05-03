@@ -530,6 +530,8 @@ public class MenuBarRenderer extends RendererBase {
     sb.append("null");
     sb.append(", ");
     sb.append("true");
+    sb.append(", ");
+    sb.append("true");
     sb.append("));\n");
   }
 

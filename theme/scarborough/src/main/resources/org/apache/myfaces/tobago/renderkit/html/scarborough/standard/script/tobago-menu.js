@@ -91,12 +91,12 @@ function createMenuRoot(id) {
   return menu;
 }
 
-Tobago.Menu.Item = function(label, action, disabled) {
+Tobago.Menu.Item = function(label, action, disabled, separator) {
   this.label = label;
   this.action = action;
   this.disabled = disabled;
   this.subItems = new Array();
-
+  this.separator = separator;
 };
 
 Tobago.Menu.Item.prototype.addMenuItem = function(menuItem) {
@@ -121,9 +121,11 @@ Tobago.Menu.Item.prototype.toHtml = function(createSubItems) {
         onClick = ' onclick="tobagoMenuOpenMenu(this, event)"';
       }
 
-
-
-      html += '<div class="tobago-menu-item"'
+      var itemStyle = "tobago-menu-item";
+      if (this.separator) {
+        itemStyle += "-separator";
+      }
+      html += '<div class="' + itemStyle + '"'
           + ' id="' + this.id + '"';
       if (! this.disabled) {
         html += ' onmouseover="tobagoMenuItemOnmouseover(this)"'
@@ -620,8 +622,12 @@ function setItemWidth(menu) {
   if (subItemContainer && menu.level != 0) {
     menu.subItemContainerStyleWidth
         = (menu.childWidth + getSubitemContainerBorderWidthSum()) + "px";
-    menu.subItemContainerStyleHeight = (menu.subItems.length  * getItemHeight()
-        + getSubitemContainerBorderWidthSum()) + "px";
+    var subMenuHeight = 0;
+    for (var i = 0; i < menu.subItems.length; ++i) {
+      var item = menu.subItems[i];
+      subMenuHeight += (item.separator ? getSeparatorHeight() : getItemHeight());
+    }
+    menu.subItemContainerStyleHeight = (subMenuHeight + getSubitemContainerBorderWidthSum()) + "px";
 
     subItemContainer.style.width = "0px";
     subItemContainer.style.height = "0px";
@@ -666,7 +672,11 @@ function setItemPositions(menu) {
         htmlElement.style.zIndex = "999";
       }
       else { // level not 0 or 1
-        var top = (menu.index * getItemHeight());
+        var top = 0;
+        for (var i = 0; i < menu.index; ++i) {
+          var item = menu.parent.subItems[i];
+          top += (item.separator ? getSeparatorHeight() : getItemHeight());
+        }
         var left = 0;
         if (menu.level == 2 && menu.parent.parent.popup) {
           if (menu.parent.parent.popup == "ToolbarButton") {
@@ -793,6 +803,10 @@ function getItemHeight(menu) {
   else {
     return 20;
   }
+}
+
+function getSeparatorHeight() {
+  return 20;
 }
 
 function getMenuArrowWidth() {

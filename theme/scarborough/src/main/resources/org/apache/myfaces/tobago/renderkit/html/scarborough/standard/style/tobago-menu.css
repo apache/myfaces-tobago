@@ -72,7 +72,7 @@
 
 }
 
-.tobago-menu-item {
+.tobago-menu-item, .tobago-menu-item-separator {
   visibility: inherit;
   overflow: auto; /* this MUST be auto (is needed and overwritten in javascript ) */
   height: 20px;

@@ -46,7 +46,9 @@ function getItemHeight(menu) {
   }
 }
 
-
+function getSeparatorHeight() {
+  return 8;
+}
 
 function getPopupMenuWidth() {
   return 16;
@@ -64,7 +66,7 @@ function getPopupImageTop(popup) {
     return "0px";
   }
   else {
-    LOG.debug("unbekanter Popup Typ :" + popup);
+    LOG.debug("unknown popup type: " + popup);
     return "0px";
   }
 }
