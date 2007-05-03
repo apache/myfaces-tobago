@@ -28,14 +28,14 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class InRenderer extends RendererBase {
+public class InRenderer extends LayoutableRendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {

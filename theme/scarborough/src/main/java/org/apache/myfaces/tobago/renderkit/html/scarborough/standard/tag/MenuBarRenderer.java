@@ -44,7 +44,7 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -69,7 +69,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-public class MenuBarRenderer extends RendererBase {
+public class MenuBarRenderer extends LayoutableRendererBase {
 
   private static final Log LOG = LogFactory.getLog(MenuBarRenderer.class);
 

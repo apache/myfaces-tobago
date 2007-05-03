@@ -47,8 +47,8 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -63,7 +63,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.List;
 
-public class TabGroupRenderer extends RendererBase implements AjaxRenderer {
+public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRenderer {
 
   private static final Log LOG = LogFactory.getLog(TabGroupRenderer.class);
 

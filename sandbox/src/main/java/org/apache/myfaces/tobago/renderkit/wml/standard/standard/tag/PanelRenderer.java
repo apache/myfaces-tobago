@@ -24,14 +24,13 @@ package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Iterator;
 
-public class PanelRenderer extends RendererBase {
+public class PanelRenderer extends LayoutableRendererBase {
 
   public boolean getRendersChildren() {
     return true;

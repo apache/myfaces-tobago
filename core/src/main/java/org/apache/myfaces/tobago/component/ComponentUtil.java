@@ -54,6 +54,7 @@ import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.util.RangeParser;
 
 import javax.faces.FactoryFinder;
@@ -408,26 +409,26 @@ public class ComponentUtil {
   }
 
   // TODO This should not be neseccary, but UIComponentBase.getRenderer() is protected
-  public static RendererBase getRenderer(FacesContext facesContext, UIComponent component) {
+  public static LayoutableRendererBase getRenderer(FacesContext facesContext, UIComponent component) {
     return getRenderer(facesContext, component.getFamily(), component.getRendererType());
 
   }
 
-  public static RendererBase getRenderer(FacesContext facesContext, String family, String rendererType) {
+  public static LayoutableRendererBase getRenderer(FacesContext facesContext, String family, String rendererType) {
     if (rendererType == null) {
       return null;
     }
 
-    RendererBase renderer;
+    LayoutableRendererBase renderer;
 
     Map requestMap = facesContext.getExternalContext().getRequestMap();
-    renderer = (RendererBase) requestMap.get(RENDER_KEY_PREFIX + rendererType);
+    renderer = (LayoutableRendererBase) requestMap.get(RENDER_KEY_PREFIX + rendererType);
 
     if (renderer == null) {
       RenderKitFactory rkFactory = (RenderKitFactory)
           FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
       RenderKit renderKit = rkFactory.getRenderKit(facesContext, facesContext.getViewRoot().getRenderKitId());
-      renderer = (RendererBase) renderKit.getRenderer(family, rendererType);
+      renderer = (LayoutableRendererBase) renderKit.getRenderer(family, rendererType);
       requestMap.put(RENDER_KEY_PREFIX + rendererType, renderer);
     }
     return renderer;

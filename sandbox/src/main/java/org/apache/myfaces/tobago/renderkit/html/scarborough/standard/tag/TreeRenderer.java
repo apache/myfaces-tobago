@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
@@ -44,7 +44,7 @@ import java.io.StringWriter;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class TreeRenderer extends RendererBase {
+public class TreeRenderer extends LayoutableRendererBase {
 
   /**
    * Resources to display the tree.

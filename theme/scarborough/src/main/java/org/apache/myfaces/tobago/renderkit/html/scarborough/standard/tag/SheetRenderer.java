@@ -77,8 +77,8 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
@@ -103,8 +103,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class SheetRenderer extends RendererBase
-  implements SheetRendererWorkaround, AjaxRenderer {
+public class SheetRenderer extends LayoutableRendererBase
+    implements SheetRendererWorkaround, AjaxRenderer {
 
   private static final Log LOG = LogFactory.getLog(SheetRenderer.class);
 

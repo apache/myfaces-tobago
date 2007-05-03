@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
@@ -40,7 +40,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 @Deprecated
-public class TreeOldRenderer extends RendererBase {
+public class TreeOldRenderer extends LayoutableRendererBase {
 
   /**
    * Resources to display the tree.
