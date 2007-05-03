@@ -27,6 +27,7 @@ public class Node {
   private String name;
   private String markup;
   private boolean expanded;
+  private boolean disabled;
 
   public Node(String name) {
     this.name = name;
@@ -35,6 +36,11 @@ public class Node {
   public Node(String name, String markup) {
     this.name = name;
     this.markup = markup;
+  }
+
+  public Node(String name, boolean disabled) {
+    this.name = name;
+    this.disabled = disabled;
   }
 
   public String action() {
@@ -68,5 +74,13 @@ public class Node {
 
   public String getTip() {
     return "Some Information about " + name;
+  }
+
+  public boolean isDisabled() {
+    return disabled;
+  }
+
+  public void setDisabled(boolean disabled) {
+    this.disabled = disabled;
   }
 }

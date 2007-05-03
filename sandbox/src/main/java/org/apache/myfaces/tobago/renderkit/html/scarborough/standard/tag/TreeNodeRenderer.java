@@ -42,6 +42,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import static org.apache.myfaces.tobago.renderkit.html.HtmlConstants.A;
 import static org.apache.myfaces.tobago.renderkit.html.HtmlConstants.DIV;
 import static org.apache.myfaces.tobago.renderkit.html.HtmlConstants.IMG;
+import static org.apache.myfaces.tobago.renderkit.html.HtmlConstants.SPAN;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -150,8 +151,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     // div class (css)
     StyleClasses styleClasses = StyleClasses.ensureStyleClasses(node);
-    styleClasses.removeTobagoClasses("treeNode");
-    styleClasses.addAspectClass("treeNode", StyleClasses.Aspect.DEFAULT);
+    styleClasses.updateClassAttribute(node, "treeNode");
     if ("menu".equals(root.getMode())) {
       styleClasses.addClass("treeNode", "menu");
       if (marked) {
@@ -345,7 +345,14 @@ public class TreeNodeRenderer extends CommandRendererBase {
       TobagoResponseWriter writer, CommandRendererHelper helper, UITreeNode node, boolean marked, String treeId)
       throws IOException {
 
-    writer.startElement(A);
+    if (helper.isDisabled()) {
+      writer.startElement(SPAN);
+    } else {
+      writer.startElement(A);
+      writer.writeAttribute(HtmlAttributes.HREF, helper.getHref(), null);
+      writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), null);
+      writer.writeAttribute(HtmlAttributes.ONFOCUS, "storeMarker(this.parentNode, '" + treeId + "')", null);
+    }
     if (marked) {
       StyleClasses classes = new StyleClasses();
       classes.addClass("treeNode", "marker");
@@ -354,17 +361,18 @@ public class TreeNodeRenderer extends CommandRendererBase {
     String tip = (String) node.getAttributes().get(ATTR_TIP);
     if (tip != null) {
 //XXX is needed?      tip = StringEscapeUtils.escapeJavaScript(tip);
-      writer.writeAttribute("title", tip, null);
+      writer.writeAttribute(HtmlAttributes.TITLE, tip, null);
     }
-    writer.writeAttribute("href", helper.getHref(), null);
-    writer.writeAttribute("onclick", helper.getOnclick(), null);
-    writer.writeAttribute("onfocus", "storeMarker(this.parentNode, '" + treeId + "')", null);
     String label = (String) node.getAttributes().get(ATTR_LABEL);
     if (label == null) {
       LOG.warn("label == null");
     }
     writer.writeText(label, null);
-    writer.endElement(A);
+    if (helper.isDisabled()) {
+      writer.endElement(SPAN);
+    } else {
+      writer.endElement(A);
+    }
   }
 
   @Override

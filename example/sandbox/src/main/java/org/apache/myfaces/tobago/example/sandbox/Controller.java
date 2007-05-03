@@ -45,14 +45,14 @@ public class Controller {
     DefaultMutableTreeNode music = new DefaultMutableTreeNode(new Node("1.4 Music"));
     tree.add(music);
     tree.add(new DefaultMutableTreeNode(new Node("1.5 Games")));
-    temp.add(new DefaultMutableTreeNode(new Node("1.3.1 Geography", STRONG)));
-    temp.add(new DefaultMutableTreeNode(new Node("1.3.2 Mathematics", STRONG)));
+    temp.add(new DefaultMutableTreeNode(new Node("1.3.1 Geography (strong markup)", STRONG)));
+    temp.add(new DefaultMutableTreeNode(new Node("1.3.2 Mathematics (strong markup)", STRONG)));
     DefaultMutableTreeNode temp2 = new DefaultMutableTreeNode(new Node("1.3.3 Pictures"));
     temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.1 Education")));
     temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.2 Family")));
     temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.3 Comercial")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.4 Summer")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.5 Winter")));
+    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.4 Summer (disabled)", true)));
+    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.5 Winter (disabled)", true)));
     temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.6 Red")));
     temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.7 Black")));
     temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.8 White")));

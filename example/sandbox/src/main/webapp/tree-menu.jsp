@@ -42,6 +42,7 @@
                         markup="#{node.userObject.markup}"
                         tip="#{node.userObject.tip}"
                         action="#{node.userObject.action}"
+                        disabled="#{node.userObject.disabled}"
                         value="#{node}"/>
         </tcs:treeNodeData>
         <tcs:treeNode label="2 Action 1" action="#{controller.action1}" id="action1"/>

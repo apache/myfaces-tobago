@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasTarget;
+import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.component.AbstractCommandTagDeclaration;
 
 /**
@@ -40,7 +41,8 @@ import org.apache.myfaces.tobago.taglib.component.AbstractCommandTagDeclaration;
     uiComponent = "org.apache.myfaces.tobago.component.UITreeNode",
     rendererType = "TreeNode")
 public interface TreeNodeTagDeclaration
-    extends HasIdBindingAndRendered, HasLabel, HasValue, HasMarkup, AbstractCommandTagDeclaration, HasTip, HasTarget {
+    extends HasIdBindingAndRendered, HasLabel, HasValue, HasMarkup, AbstractCommandTagDeclaration, HasTip, HasTarget,
+    IsDisabled {
 
   /**
    * Flag indicating if the subnodes are to be displayed.
