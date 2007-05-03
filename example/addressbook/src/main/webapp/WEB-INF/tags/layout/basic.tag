@@ -58,8 +58,9 @@
 
           <tc:menu label="#{bundle.menuHelp}">
             <tc:menuItem label="#{bundle.menuHelpAbout}"
-                         action="alert('#{bundle.aboutMessage}')"
-                         type="script" image="image/org/tango-project/tango-icon-theme/16x16/apps/help-browser.png"/>
+                         image="image/org/tango-project/tango-icon-theme/16x16/apps/help-browser.png">
+              <tc:popupReference for=":page:about"/>
+            </tc:menuItem>
           </tc:menu>
         </tc:form>
       </tc:menuBar>
@@ -68,6 +69,40 @@
     <tc:cell>
       <jsp:doBody/>
     </tc:cell>
+
+    <tc:popup id="about" width="300px" height="220px" left="200px" top="200px">
+      <tc:box>
+        <f:facet name="layout">
+          <tc:gridLayout rows="150px;*;fixed" columns="150px;*"/>
+        </f:facet>
+
+        <tc:image value="image/org/tango-project/tango-icon-theme/address-book-splash-screen.png" width="150" height="150"/>
+        <tc:panel>
+          <f:facet name="layout">
+            <tc:gridLayout rows="fixed;fixed;fixed;*"/>
+          </f:facet>
+
+          <tc:out value="Addressbook Demo"/>
+          <tc:cell/>
+          <tc:out value="Version 1.0"/>
+          <tc:cell/>
+        </tc:panel>
+
+        <tc:cell spanX="2"/>
+
+        <tc:cell spanX="2">
+          <tc:panel>
+            <f:facet name="layout">
+              <tc:gridLayout columns="*;fixed"/>
+            </f:facet>
+            <tc:cell/>
+            <tc:button label="OK">
+              <tc:attribute name="popupClose" value="immediate"/>
+            </tc:button>
+          </tc:panel>
+        </tc:cell>
+      </tc:box>
+    </tc:popup>
 
   </tc:page>
 </f:view>
