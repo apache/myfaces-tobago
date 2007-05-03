@@ -180,7 +180,7 @@ public class StyleClasses implements Serializable {
     }
   }
 
-  public void updateClassAttribute(String rendererName, UIComponent component) {
+  public void updateClassAttribute(UIComponent component, String rendererName) {
     // first remove old tobago-<rendererName>-<type> classes from class-attribute
     removeTobagoClasses(rendererName);
 

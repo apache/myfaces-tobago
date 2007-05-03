@@ -55,7 +55,7 @@ public class LabelRenderer extends LayoutableRendererBase {
     String name = getRendererName(rendererType);
 
     UIComponent parent = findParent(component);
-    StyleClasses.ensureStyleClasses(component).updateClassAttribute(name, parent);
+    StyleClasses.ensureStyleClasses(component).updateClassAttribute(parent, name);
   }
 
   private UIComponent findParent(UIComponent component) {

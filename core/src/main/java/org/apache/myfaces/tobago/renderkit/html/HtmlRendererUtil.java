@@ -110,7 +110,7 @@ public final class HtmlRendererUtil {
     String rendererName = getRendererName(facesContext, component);
     if (rendererName != null) {
       StyleClasses classes = StyleClasses.ensureStyleClasses(component);
-      classes.updateClassAttribute(rendererName, component);
+      classes.updateClassAttribute(component, rendererName);
     }
   }
 
