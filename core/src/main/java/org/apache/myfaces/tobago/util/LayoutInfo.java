@@ -241,7 +241,7 @@ public class LayoutInfo {
       }
 
      for (int i = 0; i < layoutTokens.getSize(); i++) {
-        if (layoutTokens.get(i) instanceof RelativeLayoutToken ) {
+        if (layoutTokens.get(i) instanceof RelativeLayoutToken) {
           addSpace(spaceLeft, i);
           break;
         }
