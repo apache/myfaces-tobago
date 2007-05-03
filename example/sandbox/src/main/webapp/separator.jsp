@@ -31,20 +31,42 @@
     <f:facet name="layout">
       <tc:gridLayout margin="10px" rows="*"/>
     </f:facet>
+
     <tc:box label="Separator">
       <f:facet name="layout">
-        <tc:gridLayout columns="1*;1*" rows="fixed;fixed;*"/>
+        <tc:gridLayout columns="1*;1*" rows="fixed;*"/>
       </f:facet>
-      <tc:cell/>
-      <tc:cell/>
-      <tcs:separator />
-      <tcs:separator>
-        <f:facet name="label">
-          <tc:label value="Test" />
+
+      <tc:cell spanX="2">
+        <tcs:separator>
+          <f:facet name="label">
+            <tc:label value="Separator with Label"/>
+          </f:facet>
+        </tcs:separator>
+      </tc:cell>
+
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout rows="*;fixed;2*"/>
         </f:facet>
-      </tcs:separator>
-      <tc:cell/>
-      <tc:cell/>
+        <tc:textarea/>
+        <tcs:separator/>
+        <tc:textarea/>
+      </tc:panel>
+
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout rows="2*;fixed;*"/>
+        </f:facet>
+        <tc:textarea/>
+        <tcs:separator>
+          <f:facet name="label">
+            <tc:label value="Separator with Label"/>
+          </f:facet>
+        </tcs:separator>
+        <tc:textarea/>
+      </tc:panel>
+
     </tc:box>
   </tc:page>
 </f:view>
