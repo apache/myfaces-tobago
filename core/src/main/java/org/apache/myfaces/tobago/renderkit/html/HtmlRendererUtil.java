@@ -410,39 +410,24 @@ public final class HtmlRendererUtil {
   @Deprecated
   public static void updateClassAttribute(String cssClass, String rendererName, UIComponent component) {
     throw new UnsupportedOperationException(
-        "StyleClasses.ensureStyleClasses(component).updateClassAttribute(renderer, component);");
+        "Please use StyleClasses.ensureStyleClasses(component).updateClassAttribute(renderer, component)");
   }
 
+  /**
+   * @deprecated Please use StyleClasses.addMarkupClass()
+   */
+  @Deprecated
   public static void addMarkupClass(UIComponent component, String rendererName,
       String subComponent, StringBuilder tobagoClass) {
-
-    if (component instanceof SupportsMarkup) {
-      String[] markups = ((SupportsMarkup) component).getMarkup();
-      for (String markup : markups) {
-        Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot()).getTheme();
-        if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
-          tobagoClass.append(StyleClasses.PREFIX).append(rendererName).append("-").append(subComponent)
-              .append("-markup-").append(markup).append(" ");
-        } else {
-          LOG.warn("Unknown markup='" + markup + "'");
-        }
-      }
-    }
+    throw new UnsupportedOperationException("Please use StyleClasses.addMarkupClass()");
   }
 
+  /**
+   * @deprecated Please use StyleClasses.addMarkupClass()
+   */
+  @Deprecated
   public static void addMarkupClass(UIComponent component, String rendererName, StyleClasses classes) {
-
-    if (component instanceof SupportsMarkup) {
-      String[] markups = ((SupportsMarkup) component).getMarkup();
-      for (String markup: markups) {
-        Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot()).getTheme();
-        if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
-          classes.addMarkupClass(rendererName, markup);
-        } else {
-          LOG.warn("Unknown markup='" + markup + "'");
-        }
-      }
-    }
+    classes.addMarkupClass(component, rendererName);
   }
 
   public static void addImageSources(FacesContext facesContext, ResponseWriter writer, String src, String id)

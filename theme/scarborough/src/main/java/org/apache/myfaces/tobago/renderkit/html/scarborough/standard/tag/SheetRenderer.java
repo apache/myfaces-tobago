@@ -361,7 +361,7 @@ public class SheetRenderer extends RendererBase
 
         StyleClasses tdClass = new StyleClasses();
         tdClass.addClass("sheet", "cell-td"); // XXX not a standard compliant name
-        HtmlRendererUtil.addMarkupClass(column, "column", tdClass);
+        tdClass.addMarkupClass(column, "column");
         if (columnIndex == 0) {
           tdClass.addClass("sheet", "cell-first-column"); // XXX not a standard compliant name
         }

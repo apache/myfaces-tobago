@@ -40,6 +40,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -92,16 +93,16 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 
 
     writer.startElement(HtmlConstants.DIV, component);
-    StringBuilder contentClass = new StringBuilder("tobago-box-content ");
-    HtmlRendererUtil.addMarkupClass(component, "box", "content", contentClass);
-    writer.writeClassAttribute(contentClass.toString());
-//    writer.writeAttribute(HtmlAttributes.STYLE, null, TobagoConstants.ATTR_STYLE_BODY);
+    StyleClasses contentClasses = new StyleClasses();
+    contentClasses.addClass("box", "content");
+    contentClasses.addMarkupClass(component, "box", "content");
+    writer.writeClassAttribute(contentClasses);
+
     writer.startElement(HtmlConstants.DIV, component);
-    StringBuilder contentInnerClass = new StringBuilder("tobago-box-content-inner ");
-
-    HtmlRendererUtil.addMarkupClass(component, "box" , "content-inner", contentInnerClass);
-
-    writer.writeClassAttribute(contentInnerClass.toString());
+    StyleClasses contentInnerClasses = new StyleClasses();
+    contentInnerClasses.addClass("box", "content-inner");
+    contentInnerClasses.addMarkupClass(component, "box", "content-inner");
+    writer.writeClassAttribute(contentInnerClasses);
     writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE_INNER);
   }
 
@@ -110,9 +111,10 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
       TobagoResponseWriter writer, UIComponent component) throws IOException {
 
     writer.startElement(HtmlConstants.DIV, component);
-    StringBuilder headerClass = new StringBuilder("tobago-box-header ");
-    HtmlRendererUtil.addMarkupClass(component, "box" , "header", headerClass);
-    writer.writeClassAttribute(headerClass.toString());
+    StyleClasses headerClasses = new StyleClasses();
+    headerClasses.addClass("box", "header");
+    headerClasses.addMarkupClass(component, "box", "header");
+    writer.writeClassAttribute(headerClasses);
     UIComponent label = component.getFacet(FACET_LABEL);
     writer.startElement(HtmlConstants.SPAN, null);
     writer.writeClassAttribute("tobago-box-header-label");

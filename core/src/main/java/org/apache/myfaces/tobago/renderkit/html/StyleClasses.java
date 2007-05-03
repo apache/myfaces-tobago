@@ -18,14 +18,20 @@ package org.apache.myfaces.tobago.renderkit.html;
  */
 
 import org.apache.commons.collections.set.ListOrderedSet;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.context.ClientProperties;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Map;
@@ -35,6 +41,8 @@ import java.util.Map;
  */
 
 public class StyleClasses implements Serializable {
+
+  private static final Log LOG = LogFactory.getLog(StyleClasses.class);
 
   public static final char SEPERATOR = '-';
   public static final String PREFIX = "tobago" + SEPERATOR;
@@ -97,6 +105,34 @@ public class StyleClasses implements Serializable {
     builder.append(MARKUP);
     builder.append(markup);
     classes.add(builder.toString());
+  }
+
+  public void addMarkupClass(UIComponent component, String rendererName) {
+    if (component instanceof SupportsMarkup) {
+      String[] markups = ((SupportsMarkup) component).getMarkup();
+      for (String markup: markups) {
+        Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot()).getTheme();
+        if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
+          addMarkupClass(rendererName, markup);
+        } else {
+          LOG.warn("Unknown markup='" + markup + "'");
+        }
+      }
+    }
+  }
+
+  public void addMarkupClass(UIComponent component, String rendererName, String sub) {
+    if (component instanceof SupportsMarkup) {
+      String[] markups = ((SupportsMarkup) component).getMarkup();
+      for (String markup: markups) {
+        Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot()).getTheme();
+        if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
+          addMarkupClass(rendererName, sub, markup);
+        } else {
+          LOG.warn("Unknown markup='" + markup + "'");
+        }
+      }
+    }
   }
 
   public void addAspectClass(String renderer, Aspect aspect) {
@@ -168,7 +204,7 @@ public class StyleClasses implements Serializable {
       }
     }
 
-    HtmlRendererUtil.addMarkupClass(component, rendererName, this);
+    addMarkupClass(component, rendererName);
   }
 
   @Override
