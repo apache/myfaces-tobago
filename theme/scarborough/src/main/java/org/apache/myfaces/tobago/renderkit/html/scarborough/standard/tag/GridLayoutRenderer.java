@@ -26,12 +26,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BORDER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CELLSPACING;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SCROLLBARS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST;
@@ -102,7 +100,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           + " for all " + rows.size() + " rows of "
           + layout.getClientId(facesContext) + " !");
     }
-    layoutTokens.ensureSize(rows.size(), new RelativeLayoutToken(1));//new FixedLayoutToken() );
+    layoutTokens.ensureSize(rows.size(), new RelativeLayoutToken(1)); //new FixedLayoutToken() );
     //String[] layoutTokens
     //    = LayoutInfo.createLayoutTokens(rowLayout, rows.size(),
     //        minimum ? "minimum" : "fixed");
