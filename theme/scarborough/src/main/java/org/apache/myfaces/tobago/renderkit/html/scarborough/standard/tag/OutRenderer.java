@@ -65,7 +65,8 @@ public class OutRenderer extends LayoutableRendererBase {
         String token = tokenizer.nextToken();
         writer.writeText(token, null);
         if (tokenizer.hasMoreTokens()) {
-          writer.write("<br>");
+          writer.startElement(HtmlConstants.BR, null);
+          writer.endElement(HtmlConstants.BR);
         }
       }
     } else {
