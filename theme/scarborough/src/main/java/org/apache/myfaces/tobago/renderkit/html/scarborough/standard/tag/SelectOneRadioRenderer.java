@@ -28,6 +28,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
@@ -55,7 +56,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     UISelectOne component = (UISelectOne) uiComponent;
     String clientId = component.getClientId(facesContext);
 
-    ComponentUtil.findPage(component).getOnloadScripts().add("Tobago.selectOneRadioInit('" + clientId + "')");
+    ComponentUtil.findPage(facesContext, component).getOnloadScripts().add("Tobago.selectOneRadioInit('" + clientId + "')");
 
     if (LOG.isDebugEnabled()) {
       for (Object o : component.getChildren()) {
@@ -84,6 +85,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
       writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
       writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
+      writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
       writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
     }
 
