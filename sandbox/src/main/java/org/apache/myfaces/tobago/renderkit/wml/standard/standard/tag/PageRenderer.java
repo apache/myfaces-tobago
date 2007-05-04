@@ -59,14 +59,13 @@ public class PageRenderer extends PageRendererBase {
     // reset responseWriter and render page
     facesContext.setResponseWriter(writer);
 
-    writer.write(DOCTYPE);
-    writer.write('\n');
+    writer.writeText(DOCTYPE, null);
+    writer.writeText('\n', null);
 
     writer.startElement("wml", page);
     writer.startElement("card", page);
 
-    writer.writeText("", null);
-    writer.write(content.toString());
+    writer.writeText(content, null);
 
     writer.endElement("card");
     writer.endElement("wml");

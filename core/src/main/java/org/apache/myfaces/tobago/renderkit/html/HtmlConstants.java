@@ -26,6 +26,7 @@ public final class HtmlConstants {
   public static final String DIV = "div";
   public static final String BR = "br";
   public static final String B = "b";
+  public static final String U = "u";
   public static final String SPAN = "span";
   public static final String IMG = "img";
   public static final String TR = "tr";

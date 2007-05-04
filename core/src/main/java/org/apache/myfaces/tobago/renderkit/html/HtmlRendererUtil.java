@@ -133,9 +133,9 @@ public final class HtmlRendererUtil {
       writer.writeText(text, null);
     } else {
       writer.writeText(text.substring(0, pos), null);
-      writer.write("<u>");
+      writer.startElement(HtmlConstants.U, null);
       writer.writeText(text.charAt(pos), null);
-      writer.write("</u>");
+      writer.endElement(HtmlConstants.U);
       writer.writeText(text.substring(pos + 1), null);
     }
   }
