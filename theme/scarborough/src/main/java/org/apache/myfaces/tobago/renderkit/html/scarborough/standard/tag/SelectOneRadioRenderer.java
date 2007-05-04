@@ -56,7 +56,8 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     UISelectOne component = (UISelectOne) uiComponent;
     String clientId = component.getClientId(facesContext);
 
-    ComponentUtil.findPage(facesContext, component).getOnloadScripts().add("Tobago.selectOneRadioInit('" + clientId + "')");
+    ComponentUtil.findPage(facesContext, component)
+        .getOnloadScripts().add("Tobago.selectOneRadioInit('" + clientId + "')");
 
     if (LOG.isDebugEnabled()) {
       for (Object o : component.getChildren()) {
