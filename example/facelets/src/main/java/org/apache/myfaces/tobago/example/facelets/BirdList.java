@@ -32,7 +32,6 @@ public class BirdList {
       birds.add("Fink");
       birds.add("Star");
     }
-    System.err.println("birds.size() " + birds.size());
     return birds;
   }
 }
