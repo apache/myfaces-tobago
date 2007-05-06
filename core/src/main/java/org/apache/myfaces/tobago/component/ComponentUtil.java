@@ -55,6 +55,7 @@ import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.util.RangeParser;
+import org.apache.myfaces.tobago.context.TransientStateHolder;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
@@ -123,17 +124,19 @@ public class ComponentUtil {
     return false;
   }
 
-  public static void clearPageCache(FacesContext context) {
-    context.getExternalContext().getRequestMap().put(UIPage.COMPONENT_TYPE, null);
-  }
-
   public static UIPage findPage(FacesContext context, UIComponent component) {
-    UIPage page = (UIPage) context.getExternalContext().getRequestMap().get(UIPage.COMPONENT_TYPE);
-    if (page == null) {
-      page = findPage(component);
-      context.getExternalContext().getRequestMap().put(UIPage.COMPONENT_TYPE, page);
+    javax.faces.component.UIViewRoot view = context.getViewRoot();
+    if (view != null) {
+      TransientStateHolder stateHolder = (TransientStateHolder) view.getAttributes().get(UIPage.COMPONENT_TYPE);
+      if (stateHolder == null || stateHolder.isEmpty()) {
+        UIPage page = findPage(component);
+        stateHolder = new TransientStateHolder(page);
+        context.getViewRoot().getAttributes().put(UIPage.COMPONENT_TYPE, stateHolder);
+      }
+      return (UIPage) stateHolder.get();
+    } else {
+      return findPage(component);
     }
-    return page;
   }
   public static UIPage findPage(UIComponent component) {
     while (component != null) {
