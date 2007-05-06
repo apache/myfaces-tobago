@@ -17,6 +17,9 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.util.StringTokenizer;
 import java.util.List;
 import java.util.ArrayList;
@@ -26,6 +29,7 @@ import java.util.ArrayList;
  * Time: 1:11:25 PM
  */
 public class LayoutTokens {
+  private static final Log LOG = LogFactory.getLog(LayoutTokens.class);
 
   private List<LayoutToken> tokens = new ArrayList<LayoutToken>();
 
@@ -85,19 +89,25 @@ public class LayoutTokens {
   }
 
   private static void parseToken(String token, LayoutTokens layoutTokens) {
+    try {
     // TODO optimize me
-    if ("*".equals(token)) {
-      layoutTokens.addToken(new RelativeLayoutToken(1));
-    } else if (token.equals("fixed")) {
-      layoutTokens.addToken(new FixedLayoutToken());
-    } else if (token.equals("minimum")) {
-      layoutTokens.addToken(new MinimumLayoutToken());
-    } else if (token.matches("\\d+px")) {
-      layoutTokens.addToken(new PixelLayoutToken(Integer.parseInt(token.replaceAll("\\D", ""))));
-    } else if (token.matches("^\\d+\\%")) {
-      layoutTokens.addToken(new PercentLayoutToken(Integer.parseInt(token.replaceAll("\\D", ""))));
-    } else if (token.matches("^\\d+\\*")) {
-      layoutTokens.addToken(new RelativeLayoutToken(Integer.parseInt(token.replaceAll("\\D", ""))));
+      if ("*".equals(token)) {
+        layoutTokens.addToken(new RelativeLayoutToken(1));
+      } else if (token.equals("fixed")) {
+        layoutTokens.addToken(new FixedLayoutToken());
+      } else if (token.equals("minimum")) {
+        layoutTokens.addToken(new MinimumLayoutToken());
+      } else if (token.matches("\\d+px")) {
+        layoutTokens.addToken(new PixelLayoutToken(Integer.parseInt(token.replaceAll("\\D", ""))));
+      } else if (token.matches("^\\d+\\%")) {
+        layoutTokens.addToken(new PercentLayoutToken(Integer.parseInt(token.replaceAll("\\D", ""))));
+      } else if (token.matches("^\\d+\\*")) {
+        layoutTokens.addToken(new RelativeLayoutToken(Integer.parseInt(token.replaceAll("\\D", ""))));
+      } else {
+        LOG.error("Unknown layout token " + token + " ignoring");
+      }
+    } catch (NumberFormatException e) {
+      LOG.error("Error parsing layout token " + token, e);
     }
   }
 
