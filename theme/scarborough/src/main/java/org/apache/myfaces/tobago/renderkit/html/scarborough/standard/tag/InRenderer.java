@@ -28,7 +28,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
@@ -44,7 +43,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.EditableValueHolder;
@@ -62,21 +60,8 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component)
         throws IOException {
-    Iterator messages = facesContext.getMessages(
-        component.getClientId(facesContext));
-    StringBuilder stringBuffer = new StringBuilder();
-    while (messages.hasNext()) {
-      FacesMessage message = (FacesMessage) messages.next();
-      stringBuffer.append(message.getDetail());
-    }
 
-    String title = null;
-    if (stringBuffer.length() > 0) {
-      title = stringBuffer.toString();
-    }
-
-    title = HtmlRendererUtil.addTip(
-            title, (String) component.getAttributes().get(ATTR_TIP));
+    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, component);
 
     String currentValue = getCurrentValue(facesContext, component);
     if (LOG.isDebugEnabled()) {

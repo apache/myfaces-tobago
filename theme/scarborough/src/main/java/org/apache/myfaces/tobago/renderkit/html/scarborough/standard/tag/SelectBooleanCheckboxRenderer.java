@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -115,7 +116,10 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
     writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeAttribute(HtmlAttributes.DISABLED,
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
-    writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
+    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, component);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, title, null);
+    }
     writer.endElement(HtmlConstants.INPUT);
 
     if (label != null && !inline) {

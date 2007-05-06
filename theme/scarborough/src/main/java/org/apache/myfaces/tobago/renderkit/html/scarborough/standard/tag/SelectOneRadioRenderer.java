@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
@@ -76,18 +77,21 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     List<SelectItem> items = ComponentUtil.getItemsToRender(component);
 
     boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
-
+    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, component);
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     if (!inline) {
       writer.startElement(HtmlConstants.TABLE, component);
+      //writer.writeComponentClass();
       writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
       writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
       writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
       writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
       writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
-      writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
+      if (title != null) {
+        writer.writeAttribute(HtmlAttributes.TITLE, title, null);
+      }
     }
 
     Object value = component.getValue();

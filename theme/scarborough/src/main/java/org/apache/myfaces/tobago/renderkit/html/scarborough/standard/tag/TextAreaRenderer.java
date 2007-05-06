@@ -26,7 +26,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
@@ -35,12 +34,10 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.Iterator;
 
 public class TextAreaRenderer extends InputRendererBase {
 
@@ -49,22 +46,7 @@ public class TextAreaRenderer extends InputRendererBase {
         UIComponent component) throws IOException {
 
     UIInput input = (UIInput) component;
-    Iterator messages = facesContext.getMessages(
-        input.getClientId(facesContext));
-    StringBuilder stringBuffer = new StringBuilder();
-    while (messages.hasNext()) {
-      FacesMessage message = (FacesMessage) messages.next();
-      stringBuffer.append(message.getDetail());
-    }
-
-    String title = null;
-    if (stringBuffer.length() > 0) {
-      title = stringBuffer.toString();
-    }
-
-
-    title = HtmlRendererUtil.addTip(
-            title, (String) input.getAttributes().get(ATTR_TIP));
+    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, component);
 
     String clientId = input.getClientId(facesContext);
     String onchange = HtmlUtils.generateOnchange(input, facesContext);

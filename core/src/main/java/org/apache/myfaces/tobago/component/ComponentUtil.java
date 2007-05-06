@@ -59,6 +59,7 @@ import org.apache.myfaces.tobago.context.TransientStateHolder;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.ActionSource;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UICommand;
@@ -112,6 +113,21 @@ public class ComponentUtil {
       }
     }
     return false;
+  }
+
+  public static String getFacesMessageAsString(FacesContext facesContext, UIComponent component) {
+    Iterator messages = facesContext.getMessages(
+        component.getClientId(facesContext));
+    StringBuilder stringBuffer = new StringBuilder();
+    while (messages.hasNext()) {
+      FacesMessage message = (FacesMessage) messages.next();
+      stringBuffer.append(message.getDetail());
+    }
+    if (stringBuffer.length() > 0) {
+      return stringBuffer.toString();
+    } else {
+      return null;
+    }
   }
 
   public static boolean isInPopup(UIComponent component) {

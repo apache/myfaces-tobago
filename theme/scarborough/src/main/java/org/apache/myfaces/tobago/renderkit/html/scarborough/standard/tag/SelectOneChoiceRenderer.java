@@ -27,7 +27,6 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
@@ -60,6 +59,8 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
       LOG.debug("items.size() = '" + items.size() + "'");
     }
 
+    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, component);
+
     boolean disabled = items.size() == 0
         || ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)
         || ComponentUtil.getBooleanAttribute(component, ATTR_READONLY);
@@ -70,7 +71,9 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
     writer.writeComponentClass();
-    writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, title, null);
+    }
     String onchange = HtmlUtils.generateOnchange(component, facesContext);
     if (onchange != null) {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);

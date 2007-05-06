@@ -25,11 +25,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
@@ -61,11 +63,18 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     }
     String id = component.getClientId(facesContext);
 
-    writer.startElement(HtmlConstants.TABLE, null);
+    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, component);
+
+    writer.startElement(HtmlConstants.TABLE, component);
+    //writer.writeComponentClass();
     writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
     writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
+    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, title, null);
+    }
     List clientIds = new ArrayList();
     for (SelectItem item : items) {
 

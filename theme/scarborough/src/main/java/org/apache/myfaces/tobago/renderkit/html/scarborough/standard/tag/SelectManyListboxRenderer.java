@@ -27,7 +27,6 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -88,7 +87,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
-
+    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, component);
     writer.startElement(HtmlConstants.SELECT, component);
     String clientId = component.getClientId(facesContext);
     writer.writeNameAttribute(clientId);
@@ -98,8 +97,9 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
     writer.writeComponentClass();
     writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, null);
-    writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
-
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, title, null);
+    }
     Object[] values = component.getSelectedValues();
     if (LOG.isDebugEnabled()) {
       LOG.debug("values = '" + values + "'");

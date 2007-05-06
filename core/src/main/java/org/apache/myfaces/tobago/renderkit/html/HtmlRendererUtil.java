@@ -32,6 +32,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_INNER;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -517,6 +518,11 @@ public final class HtmlRendererUtil {
     writer.writeText(");", null);
 
     endJavascript(writer);
+  }
+
+  public static String getTitleFromTipAndMessages(FacesContext facesContext, UIComponent component) {
+    String messages = ComponentUtil.getFacesMessageAsString(facesContext, component);
+    return HtmlRendererUtil.addTip(messages, (String) component.getAttributes().get(ATTR_TIP));
   }
 
 
