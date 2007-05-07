@@ -91,7 +91,7 @@ public class TobagoResponseWriterUnitTest extends TestCase {
     result = result.replace("&", "&amp;");
     result = result.replace("\"", "&quot;");
     result = result.replace("<", "&lt;");
-//    result = result.replace(">", "&gt;");
+    result = result.replace(">", "&gt;");
     assertEquals("all chars", "<select value=\"" + result + "\"\n>" + result + "</select>", stringWriter.toString());
   }
 
