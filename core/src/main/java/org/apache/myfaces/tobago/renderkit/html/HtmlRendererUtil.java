@@ -88,7 +88,7 @@ public final class HtmlRendererUtil {
 
   public static void prepareRender(FacesContext facesContext, UIComponent component) {
     // xxx find a better way for this question: isTobago or isLayoutable something like that.
-    if (! (ComponentUtil.getRenderer(facesContext, component) instanceof RendererBaseWrapper)) {
+    if (!(ComponentUtil.getRenderer(facesContext, component) instanceof RendererBaseWrapper)) {
       createCssClass(facesContext, component);
       layoutWidth(facesContext, component);
       layoutHeight(facesContext, component);
