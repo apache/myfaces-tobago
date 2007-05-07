@@ -39,6 +39,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.RendererBaseWrapper;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -79,16 +80,19 @@ public final class HtmlRendererUtil {
       } else {
         ResponseWriter writer = facesContext.getResponseWriter();
         startJavascript(writer);
-        writer.write("Tobago.focusId = '" + id + "';");
+        writer.writeText("Tobago.focusId = '" + id + "';", null);
         endJavascript(writer);
       }
     }
   }
 
   public static void prepareRender(FacesContext facesContext, UIComponent component) {
-    createCssClass(facesContext, component);
-    layoutWidth(facesContext, component);
-    layoutHeight(facesContext, component);
+    // xxx find a better way for this question: isTobago or isLayoutable something like that.
+    if (! (ComponentUtil.getRenderer(facesContext, component) instanceof RendererBaseWrapper)) {
+      createCssClass(facesContext, component);
+      layoutWidth(facesContext, component);
+      layoutHeight(facesContext, component);
+    }
   }
 
   public static void prepareInnerStyle(UIComponent component) {

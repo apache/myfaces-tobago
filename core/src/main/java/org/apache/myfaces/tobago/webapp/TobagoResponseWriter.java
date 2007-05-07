@@ -38,6 +38,12 @@ import java.util.Stack;
 
 public class TobagoResponseWriter extends ResponseWriter {
 
+  @Override
+  public void write(String string) throws IOException {
+    closeOpenTag();
+    super.write(string);
+  }
+
   private static final Log LOG = LogFactory.getLog(TobagoResponseWriter.class);
 
   private static final Set<String> EMPTY_TAG

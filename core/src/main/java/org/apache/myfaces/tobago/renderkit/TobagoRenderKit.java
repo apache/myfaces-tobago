@@ -56,25 +56,28 @@ public class TobagoRenderKit extends RenderKit {
     }
     Renderer renderer = null;
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    if ("facelets".equals(family)) {
-      RenderKitFactory rkFactory = (RenderKitFactory)
-      FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
-      RenderKit renderKit = rkFactory.getRenderKit(facesContext, RenderKitFactory.HTML_BASIC_RENDER_KIT);
-      renderer = renderKit.getRenderer(family, rendererType);
-      if (renderer != null) {
-        return new RendererBaseWrapper(renderer);
-      }
-    } else {
+    if (!"facelets".equals(family)) {
       if (rendererType != null) {
         if (resources == null) {
           resources = ResourceManagerFactory.getResourceManager(facesContext);
         }
         renderer = resources.getRenderer(facesContext.getViewRoot(), rendererType);
       }
-      if (renderer == null) {
-        LOG.error("The class which was found by the ResourceManager cannot be "
-            + "found or instantiated: classname='" + rendererType + "'");
+    }
+
+    if (renderer == null) {
+      RenderKitFactory rkFactory = (RenderKitFactory)
+      FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+      RenderKit renderKit = rkFactory.getRenderKit(facesContext, RenderKitFactory.HTML_BASIC_RENDER_KIT);
+      renderer = renderKit.getRenderer(family, rendererType);
+      if (renderer != null) {
+        renderer = new RendererBaseWrapper(renderer);
       }
+    }
+
+    if (renderer == null) {
+      LOG.error("The class which was found by the ResourceManager cannot be "
+          + "found or instantiated: classname='" + rendererType + "'");
     }
 
     return renderer;
