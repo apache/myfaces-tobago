@@ -18,15 +18,11 @@ package org.apache.myfaces.tobago.webapp;
  */
 
 import junit.framework.TestCase;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import java.io.IOException;
 import java.io.StringWriter;
 
 public class TobagoResponseWriterUnitTest extends TestCase {
-
-  private static final Log LOG = LogFactory.getLog(TobagoResponseWriterUnitTest.class);
 
   private StringWriter stringWriter;
   private TobagoResponseWriter writer;
@@ -43,33 +39,78 @@ public class TobagoResponseWriterUnitTest extends TestCase {
     assertEquals("no content needed", "", stringWriter.toString());
   }
 
-  public void testElement() throws IOException {
-    writer.startElement("test", null);
-    writer.endElement("test");
-    assertEquals("simple tag", "<test\n></test>", stringWriter.toString());
+  public void testEmptyTag() throws IOException {
+    writer.startElement("input", null);
+    writer.endElement("input");
+    assertEquals("empty tag", "<input\n>", stringWriter.toString());
+  }
+
+  public void testNormalTag() throws IOException {
+    writer.startElement("select", null);
+    writer.endElement("select");
+    assertEquals("normal tag", "<select\n></select>", stringWriter.toString());
   }
 
   public void testAttribute() throws IOException {
-    writer.startElement("test", null);
-    writer.endElement("test");
-    assertEquals("simple tag", "<test\n></test>", stringWriter.toString());
+    writer.startElement("select", null);
+    writer.writeAttribute("value", "0", null);
+    writer.endElement("select");
+    assertEquals("attr tag", "<select value=\"0\"\n></select>", stringWriter.toString());
+  }
+
+  public void testAttributeQuoting() throws IOException {
+    writer.startElement("select", null);
+    writer.writeAttribute("value", "-<->-ü-€-", null);
+    writer.endElement("select");
+    assertEquals("attr tag", "<select value=\"-&lt;-&gt;-ü-€-\"\n></select>", stringWriter.toString());
+  }
+
+  public void testTextQuoting() throws IOException {
+    writer.startElement("textarea", null);
+    writer.writeText("-<->-ü-€-", null);
+    writer.endElement("textarea");
+    assertEquals("attr tag", "<textarea\n>-&lt;-&gt;-ü-€-</textarea>", stringWriter.toString());
+  }
+
+  public void testStringWriter() throws IOException { 
+    stringWriter.write("-ü-€-");
+    assertEquals("-ü-€-", stringWriter.toString());
+  }
+
+  public void testManyChars() throws IOException {
+    writer.startElement("select", null);
+    StringBuffer buffer = new StringBuffer();
+    for (char c = 0x20; c < 0x1ff; c++) {
+      buffer.append(c);
+    }
+    writer.writeAttribute("value", buffer, null);
+    writer.writeText(buffer, null);
+    writer.endElement("select");
+
+    String result = buffer.toString(); // all the same but this 4 items
+    result = result.replace("&", "&amp;");
+    result = result.replace("\"", "&quot;");
+    result = result.replace("<", "&lt;");
+//    result = result.replace(">", "&gt;");
+    assertEquals("all chars", "<select value=\"" + result + "\"\n>" + result + "</select>", stringWriter.toString());
   }
 
   public void testNonUtf8() throws IOException {
     TobagoResponseWriter writer1 = new TobagoResponseWriter(stringWriter, "", "ISO-8859-1");
     writer1.startElement("input", null);
-    writer1.writeAttribute("value", "Gutschein über 100 Euro.", null);
+    writer1.writeAttribute("value", "Gutschein über 100 €.", null);
     writer1.writeAttribute("readonly", true);
     writer1.endElement("input");
+    writer1.close();
+    assertEquals("<input value=\"Gutschein &uuml;ber 100 &euro;.\" readonly=\"readonly\"\n>", stringWriter.toString());
   }
 
   public void testNoneScript() {
-    assertTrue(!TobagoResponseWriter.isScriptOrStyle(null));
-    assertTrue(!TobagoResponseWriter.isScriptOrStyle("s"));
-    assertTrue(!TobagoResponseWriter.isScriptOrStyle("sc"));
+    assertFalse(TobagoResponseWriter.isScriptOrStyle(null));
+    assertFalse(TobagoResponseWriter.isScriptOrStyle("s"));
+    assertFalse(TobagoResponseWriter.isScriptOrStyle("sc"));
     assertTrue(TobagoResponseWriter.isScriptOrStyle("script"));
     assertTrue(TobagoResponseWriter.isScriptOrStyle("style"));
-
   }
 
 }

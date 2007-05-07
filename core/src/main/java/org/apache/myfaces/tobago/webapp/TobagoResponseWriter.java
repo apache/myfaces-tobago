@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.util.HtmlWriterUtil;
 import org.apache.myfaces.tobago.util.XmlUtils;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
@@ -35,24 +36,21 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
-
 public class TobagoResponseWriter extends ResponseWriter {
-
-  @Override
-  public void write(String string) throws IOException {
-    closeOpenTag();
-    super.write(string);
-  }
 
   private static final Log LOG = LogFactory.getLog(TobagoResponseWriter.class);
 
-  private static final Set<String> EMPTY_TAG
-      = new HashSet<String>(
-          Arrays.asList(
-              new String[]{
-                "br", "area", "link", "img", "param", "hr", "input", "col", "base",
-                "meta"}));
-
+  private static final Set<String> EMPTY_TAG = new HashSet<String>(Arrays.asList(
+              HtmlConstants.BR,
+              HtmlConstants.AREA,
+              HtmlConstants.LINK,
+              HtmlConstants.IMG,
+              HtmlConstants.PARAM,
+              HtmlConstants.HR,
+              HtmlConstants.INPUT,
+              HtmlConstants.COL,
+              HtmlConstants.BASE,
+              HtmlConstants.META));
 
   private Writer writer;
 
@@ -64,15 +62,14 @@ public class TobagoResponseWriter extends ResponseWriter {
 
   private String characterEncoding;
 
-  private Stack<String>  stack;
+  private Stack<String> stack;
 
   /** use XML instead HMTL */
   private boolean xml;
 
   private boolean insideScriptOrStyle = false;
 
-  private HtmlWriterUtil attributeWriter;
-  private HtmlWriterUtil textWriter;
+  private HtmlWriterUtil helper;
 
   public TobagoResponseWriter(final Writer writer, final String contentType,
                               final String characterEncoding) {
@@ -91,8 +88,7 @@ public class TobagoResponseWriter extends ResponseWriter {
         || "text/xml".equals(contentType)) {
       xml = true;
     }
-    attributeWriter = new HtmlWriterUtil(this, characterEncoding, true);
-    textWriter = new HtmlWriterUtil(this, characterEncoding, false);
+    helper = new HtmlWriterUtil(writer, characterEncoding);
   }
 
   private String findValue(final Object value, final String property) {
@@ -131,6 +127,30 @@ public class TobagoResponseWriter extends ResponseWriter {
     writer.write(cbuf, off, len);
   }
 
+  @Override
+  public void write(String string) throws IOException {
+    closeOpenTag();
+    writer.write(string);
+  }
+
+  @Override
+  public void write(int i) throws IOException {
+    closeOpenTag();
+    writer.write(i);
+  }
+
+  @Override
+  public void write(char[] chars) throws IOException {
+    closeOpenTag();
+    writer.write(chars);
+  }
+
+  @Override
+  public void write(String string, int i, int i1) throws IOException {
+    closeOpenTag();
+    writer.write(string, i, i1);
+  }
+
   public void close() throws IOException {
     closeOpenTag();
     writer.close();
@@ -156,7 +176,7 @@ public class TobagoResponseWriter extends ResponseWriter {
       if (xml) {
         write(XmlUtils.escape(value));
       } else {
-        textWriter.writeText(value);
+        helper.writeText(value);
       }
     }
   }
@@ -178,10 +198,9 @@ public class TobagoResponseWriter extends ResponseWriter {
         writer.write(XmlUtils.escape(text.toString()).toCharArray(), offset, length);
 // FIXME: not nice:     XmlUtils.escape(text.toString()).toCharArray()
       } else {
-        textWriter.writeText(text, offset, length);
+        helper.writeText(text, offset, length);
       }
     }
-
   }
 
   public void startDocument() throws IOException {
@@ -327,6 +346,7 @@ public class TobagoResponseWriter extends ResponseWriter {
       throws IOException {
       writeAttribute(name, value.toString(), escape);
   }
+
   public void writeAttribute(final String name, final String value, final boolean escape)
       throws IOException {
     if (!startStillOpen) {
@@ -347,7 +367,7 @@ public class TobagoResponseWriter extends ResponseWriter {
         writer.write(XmlUtils.escape(value));
       } else {
         if (escape && HtmlWriterUtil.attributeValueMustEscaped(name)) {
-          attributeWriter.writeAttributeValue(value);
+          helper.writeAttributeValue(value);
         } else {
           writer.write(value);
         }
@@ -379,7 +399,7 @@ public class TobagoResponseWriter extends ResponseWriter {
         writer.write(XmlUtils.escape(attribute));
       } else {
         if (escape && HtmlWriterUtil.attributeValueMustEscaped(name)) {
-          attributeWriter.writeAttributeValue(attribute);
+          helper.writeAttributeValue(attribute);
         } else {
           writer.write(attribute);
         }

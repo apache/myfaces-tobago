@@ -53,6 +53,9 @@ public final class HtmlConstants {
   public static final String SCRIPT = "script";
   public static final String META = "meta";
   public static final String OPTGROUP = "optgroup";
+  public static final String AREA = "area";
+  public static final String PARAM = "param";
+  public static final String BASE = "base";
 
   private HtmlConstants() {
 

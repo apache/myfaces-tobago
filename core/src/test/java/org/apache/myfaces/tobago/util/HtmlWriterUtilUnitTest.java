@@ -34,8 +34,8 @@ public class HtmlWriterUtilUnitTest extends TestCase {
 
             // HTML 4.0, section B.7.1: ampersands followed by
             // an open brace don't get escaped
-  public final static String[] rawTexts= {
-      "oeffnende spitze klammern werden in attributen nicht escaped <tagname >",
+  public final static String[] RAW_TEXTS = {
+      "oeffnende spitze klammern werden in attributen doch escaped <tagname >",
       "& followed by an { -> &{ don't get escaped in attributes",
       "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
       "\u00a0\u00a1\u00a2\u00a3\u00a4\u00a5\u00a6\u00a7\u00a8\u00a9\u00aa\u00ab\u00ac\u00ad\u00ae\u00af",
@@ -46,10 +46,10 @@ public class HtmlWriterUtilUnitTest extends TestCase {
       "\u00f0\u00f1\u00f2\u00f3\u00f4\u00f5\u00f6\u00f7\u00f8\u00f9\u00fa\u00fb\u00fc\u00fd\u00fe\u00ff"
 
   };
-  public final static String[] escapedTexts= {
-      "oeffnende spitze klammern werden in attributen nicht escaped &lt;tagname &gt;",
+  public final static String[] ESCAPED_TEXTS = {
+      "oeffnende spitze klammern werden in attributen doch escaped &lt;tagname &gt;",
       "&amp; followed by an { -&gt; &amp;{ don't get escaped in attributes",
-      rawTexts[2], // no escape needed
+      RAW_TEXTS[2], // no escape needed
       "&nbsp;&iexcl;&cent;&pound;&curren;&yen;&brvbar;&sect;&uml;&copy;&ordf;&laquo;&not;&shy;&reg;&macr;",
       "&deg;&plusmn;&sup2;&sup3;&acute;&micro;&para;&middot;&cedil;&sup1;&ordm;&raquo;&frac14;&frac12;&frac34;&iquest;",
       "&Agrave;&Aacute;&Acirc;&Atilde;&Auml;&Aring;&AElig;&Ccedil;&Egrave;&Eacute;&Ecirc;&Euml;&Igrave;&Iacute;&Icirc;&Iuml;",
@@ -58,23 +58,20 @@ public class HtmlWriterUtilUnitTest extends TestCase {
       "&eth;&ntilde;&ograve;&oacute;&ocirc;&otilde;&ouml;&divide;&oslash;&ugrave;&uacute;&ucirc;&uuml;&yacute;&thorn;&yuml;"
   };
 
-  public final static String[] escapedAttributes= {
-      "oeffnende spitze klammern werden in attributen nicht escaped <tagname &gt;",
+  public final static String[] ESCAPED_ATTRIBUTES = {
+      "oeffnende spitze klammern werden in attributen doch escaped &lt;tagname &gt;",
       "&amp; followed by an { -&gt; &{ don't get escaped in attributes",
-      rawTexts[2] // no escape needed
+      RAW_TEXTS[2] // no escape needed
   };
-
-
 
   public void test() {
     CharArrayWriter writer = new CharArrayWriter();
-    HtmlWriterUtil textUtil = new HtmlWriterUtil(writer, "", false);
-    HtmlWriterUtil attributeUtil = new HtmlWriterUtil(writer, "", true);
+    HtmlWriterUtil helper = new HtmlWriterUtil(writer, "");
 
-    for (int i = 0; i < escapedTexts.length; i++) {
-      testText(textUtil, writer, rawTexts[i], escapedTexts[i]);
-      if (i < escapedAttributes.length) {
-        testAttributeValue(attributeUtil, writer, rawTexts[i], escapedAttributes[i]);
+    for (int i = 0; i < ESCAPED_TEXTS.length; i++) {
+      testText(helper, writer, RAW_TEXTS[i], ESCAPED_TEXTS[i]);
+      if (i < ESCAPED_ATTRIBUTES.length) {
+        testAttributeValue(helper, writer, RAW_TEXTS[i], ESCAPED_ATTRIBUTES[i]);
       }
     }
   }
@@ -110,10 +107,10 @@ public class HtmlWriterUtilUnitTest extends TestCase {
     assertTrue(HtmlWriterUtil.attributeValueMustEscaped("i"));
     assertTrue(HtmlWriterUtil.attributeValueMustEscaped("na"));
     assertTrue(HtmlWriterUtil.attributeValueMustEscaped("cl"));
-    assertTrue(!HtmlWriterUtil.attributeValueMustEscaped("id"));
-    assertTrue(!HtmlWriterUtil.attributeValueMustEscaped("name"));
-    assertTrue(!HtmlWriterUtil.attributeValueMustEscaped("class"));
-    assertTrue(!!HtmlWriterUtil.attributeValueMustEscaped("dadfadfsadf"));
+    assertFalse(HtmlWriterUtil.attributeValueMustEscaped("id"));
+    assertFalse(HtmlWriterUtil.attributeValueMustEscaped("name"));
+    assertFalse(HtmlWriterUtil.attributeValueMustEscaped("class"));
+    assertTrue(HtmlWriterUtil.attributeValueMustEscaped("classs"));
+    assertTrue(HtmlWriterUtil.attributeValueMustEscaped("dadfadfsadf"));
   }
-
 }
