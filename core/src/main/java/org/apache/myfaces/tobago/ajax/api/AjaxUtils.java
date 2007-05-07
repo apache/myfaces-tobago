@@ -161,4 +161,24 @@ public class AjaxUtils {
     return (List<UIComponent>)
         facesContext.getExternalContext().getRequestMap().get(AJAX_COMPONENTS);
   }
+
+  public static void ensureDecoded(FacesContext facesContext, String clientId) {
+    ensureDecoded(facesContext, facesContext.getViewRoot().findComponent(clientId));
+  }
+
+  public static void ensureDecoded(FacesContext facesContext, UIComponent component) {
+    List<UIComponent> ajaxComponents = getAjaxComponents(facesContext);
+    if (ajaxComponents != null) {
+      for (UIComponent uiComponent : ajaxComponents) {
+        UIComponent currentComponent = component;
+        while (currentComponent != null) {
+          if (component == uiComponent) {
+            return;
+          }
+          currentComponent = currentComponent.getParent();
+        }
+      }
+      component.processDecodes(facesContext);
+    }
+  }
 }
