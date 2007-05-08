@@ -38,16 +38,16 @@ public final class LabelWithAccessKey {
   public static final String ESCAPED_INDICATOR = "__";
 
   public LabelWithAccessKey(UIComponent component) {
-
+    Object value;
     if (RENDERER_TYPE_LABEL.equals(component.getRendererType())) {
-      text = (String) component.getAttributes().get(ATTR_VALUE);
+      value = component.getAttributes().get(ATTR_VALUE);
     } else {
-      text = (String) component.getAttributes().get(ATTR_LABEL);
+      value = component.getAttributes().get(ATTR_LABEL);
     }
-
+    text = (value == null) ? null : String.valueOf(value);
     setup(text);
-
   }
+
   private void findIndicator(String label, int index, int escapedIndicatorCount) {
     index = label.indexOf(INDICATOR, index);
     if (index == -1) {
@@ -99,5 +99,5 @@ public final class LabelWithAccessKey {
   public void setAccessKey(Character accessKey) {
     this.accessKey = accessKey;
   }
-}
 
+}
