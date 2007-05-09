@@ -22,11 +22,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
-import static org.apache.myfaces.tobago.component.UIData.ATTR_SCROLL_POSITION;
-
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
@@ -60,31 +58,32 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAN
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.ajax.api.AjaxResponseRenderer;
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
+import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIData;
+import static org.apache.myfaces.tobago.component.UIData.ATTR_SCROLL_POSITION;
 import static org.apache.myfaces.tobago.component.UIData.NONE;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
-import org.apache.myfaces.tobago.component.UIReload;
-import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.model.SheetState;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
+import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
-import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.StringUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -747,6 +746,7 @@ public class SheetRenderer extends LayoutableRendererBase
         + (disabled ? " tobago-sheet-footer-pager-button-disabled" : ""));
     writer.writeAttribute(HtmlAttributes.SRC, image, null);
     writer.writeAttribute(HtmlAttributes.TITLE, tip, null);
+    writer.writeAttribute(HtmlAttributes.ALT, "", false);
     if (!disabled) {
       CommandRendererHelper helper = new CommandRendererHelper(facesContext, link);
       String onClick = helper.getOnclick();
