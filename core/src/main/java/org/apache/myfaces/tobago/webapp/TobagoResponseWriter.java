@@ -357,7 +357,9 @@ public class TobagoResponseWriter extends ResponseWriter implements OptimizedRes
 
   public void writeClassAttribute() throws IOException {
     Object clazz = component.getAttributes().get(ATTR_STYLE_CLASS);
-    writeAttribute(HtmlAttributes.CLASS, clazz != null ? clazz.toString() : null, false);
+    if (clazz != null) {
+      writeAttribute(HtmlAttributes.CLASS, clazz.toString(), false);
+    }
   }
 
   public void writeStyleAttribute(String style) throws IOException {
@@ -366,7 +368,9 @@ public class TobagoResponseWriter extends ResponseWriter implements OptimizedRes
 
   public void writeStyleAttribute() throws IOException {
     Object style = component.getAttributes().get(ATTR_STYLE);
-    writeAttribute(HtmlAttributes.STYLE, style != null ? style.toString() : null, false);
+    if (style != null) {
+      writeAttribute(HtmlAttributes.STYLE, style.toString(), false);
+    }
   }
 
   public void writeText(String text) throws IOException {
