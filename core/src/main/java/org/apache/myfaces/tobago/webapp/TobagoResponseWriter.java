@@ -279,29 +279,9 @@ public class TobagoResponseWriter extends ResponseWriter implements OptimizedRes
 
   public void writeAttribute(final String name, final Object value, final String property)
       throws IOException {
-    if (!startStillOpen) {
-      final String trace = getCallingClassStackTraceElementString();
-      final String error = "Cannot write attribute when start-tag not open. "
-          + "name = '" + name + "'"
-          + "value = '" + value + "'"
-          + "property = '" + property + "' "
-          + trace.substring(trace.indexOf('('));
-      LOG.error(error);
-      throw new IllegalStateException(error);
-    }
 
     final String attribute = findValue(value, property);
-    if (attribute != null) {
-      writer.write(' ');
-      writer.write(name);
-      writer.write("=\"");
-      if (xml) {
-        writer.write(XmlUtils.escape(attribute));
-      } else {
-        helper.writeAttributeValue(attribute);
-      }
-      writer.write('\"');
-    }
+    writeAttribute(name, attribute, true);
   }
 
   private String getCallingClassStackTraceElementString() {
@@ -376,7 +356,8 @@ public class TobagoResponseWriter extends ResponseWriter implements OptimizedRes
   }
 
   public void writeClassAttribute() throws IOException {
-    writeAttribute(HtmlAttributes.CLASS, (String) component.getAttributes().get(ATTR_STYLE_CLASS), false);
+    Object clazz = component.getAttributes().get(ATTR_STYLE_CLASS);
+    writeAttribute(HtmlAttributes.CLASS, clazz != null ? clazz.toString() : null, false);
   }
 
   public void writeStyleAttribute(String style) throws IOException {
@@ -384,7 +365,8 @@ public class TobagoResponseWriter extends ResponseWriter implements OptimizedRes
   }
 
   public void writeStyleAttribute() throws IOException {
-    writeAttribute(HtmlAttributes.STYLE, (String) component.getAttributes().get(ATTR_STYLE), false);
+    Object style = component.getAttributes().get(ATTR_STYLE);
+    writeAttribute(HtmlAttributes.STYLE, style != null ? style.toString() : null, false);
   }
 
   public void writeText(String text) throws IOException {
