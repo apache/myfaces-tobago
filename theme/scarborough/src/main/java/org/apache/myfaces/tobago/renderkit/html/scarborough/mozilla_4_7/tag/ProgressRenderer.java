@@ -19,32 +19,28 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.mozilla_4_7.tag;
 
 /*
  * Created 07.02.2003 16:00:00.
- * : $
  */
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.webapp.OptimizedResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.swing.BoundedRangeModel;
-import javax.swing.DefaultBoundedRangeModel;
+import javax.swing.*;
 import java.io.IOException;
 
 public class ProgressRenderer extends LayoutableRendererBase {
 
   private static final Log LOG = LogFactory.getLog(ProgressRenderer.class);
        
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent uiComponent) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
     UIOutput component = (UIOutput) uiComponent;
 
@@ -55,7 +51,7 @@ public class ProgressRenderer extends LayoutableRendererBase {
       model = new DefaultBoundedRangeModel(4, 1, 0, 10);
     }
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    OptimizedResponseWriter writer = (OptimizedResponseWriter) facesContext.getResponseWriter();
 
     String value1 = Integer.toString(model.getValue());
     String value2 = Integer.toString(model.getMaximum() - model.getValue());
@@ -74,25 +70,23 @@ public class ProgressRenderer extends LayoutableRendererBase {
 
 
     writer.startElement(HtmlConstants.TABLE, null);
-    writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
-    writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
-    writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
-    writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
+    writer.writeAttribute(HtmlAttributes.BORDER, 0);
+    writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
+    writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
+    writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
 
     writer.startElement(HtmlConstants.TR, null);
 
     writer.startElement(HtmlConstants.TD, null);
-    writer.writeAttribute(HtmlAttributes.STYLE, "background-color: #aabbcc;", null);
-    writer.writeAttribute(HtmlAttributes.WIDTH, width1, null);
-    writer.writeText("", null);
-    writer.write("&nbsp;");
+    writer.writeStyleAttribute("background-color: #aabbcc;");
+    writer.writeAttribute(HtmlAttributes.WIDTH, width1, false);
+    writer.writeText("\u00a0"); // non braking space
     writer.endElement(HtmlConstants.TD);
 
     writer.startElement(HtmlConstants.TD, null);
-    writer.writeAttribute(HtmlAttributes.STYLE, "background-color: #ddeeff;", null);
-    writer.writeAttribute(HtmlAttributes.WIDTH, width2, null);
-    writer.writeText("", null);
-    writer.write("&nbsp;");
+    writer.writeStyleAttribute("background-color: #ddeeff;");
+    writer.writeAttribute(HtmlAttributes.WIDTH, width2, false);
+    writer.writeText("\u00a0"); // non braking space
     writer.endElement(HtmlConstants.TD);
 
     writer.endElement(HtmlConstants.TR);
@@ -101,9 +95,7 @@ public class ProgressRenderer extends LayoutableRendererBase {
     if (model.getValue() == model.getMaximum() && facet != null
         && facet instanceof UICommand) {
       UICommand command = (UICommand) facet;
-      HtmlRendererUtil.writeJavascript(writer, "Tobago.submitAction('" + command.getClientId(facesContext) + "');");
+      writer.writeJavascript("Tobago.submitAction('" + command.getClientId(facesContext) + "');");
     }
   }
-
 }
-

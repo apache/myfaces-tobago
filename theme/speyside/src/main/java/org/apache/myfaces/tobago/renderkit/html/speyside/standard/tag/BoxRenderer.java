@@ -36,9 +36,9 @@ import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
@@ -81,8 +81,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     if (style != null) {
       writer.writeAttribute(HtmlAttributes.STYLE, style, null);
     }
-    HtmlRendererUtil.writeJavascript(writer,
-        "Tobago.addAjaxComponent(\"" + clientId + "\")");
+    writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\")");
 
     encodeBeginInner(facesContext, writer, component);
   }

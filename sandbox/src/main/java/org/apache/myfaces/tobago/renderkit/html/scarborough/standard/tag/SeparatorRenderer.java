@@ -41,7 +41,7 @@ public class SeparatorRenderer extends LayoutableRendererBase {
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement(HtmlConstants.DIV, component);
     writer.writeComponentClass();
-    writer.writeComponentAttribute(HtmlAttributes.STYLE, TobagoConstants.ATTR_STYLE);
+    writer.writeAttribute(HtmlAttributes.STYLE, null, TobagoConstants.ATTR_STYLE);
     if (component.getFacet(FACET_LABEL) != null) {
       writer.startElement(HtmlConstants.TABLE, component);
       writer.writeComponentClass();

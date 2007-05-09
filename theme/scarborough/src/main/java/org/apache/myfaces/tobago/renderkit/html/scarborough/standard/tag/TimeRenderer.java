@@ -31,15 +31,15 @@ import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.DateFormatUtils;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIInput;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
@@ -144,7 +144,7 @@ public class TimeRenderer extends InputRendererBase {
     String imageId = idPrefix + "inc";
     String imageSrc = "image/timeIncrement.gif";
     HtmlRendererUtil.addImageSources(facesContext, writer, imageSrc, imageId);
-    writer.startElement(HtmlConstants.IMG);
+    writer.startElement(HtmlConstants.IMG, null);
     writer.writeIdAttribute(imageId);
     writer.writeAttribute(HtmlAttributes.ONCLICK, "tbgIncTime(this)", false);
     writer.writeClassAttribute("tobago-time-inc-image"
@@ -163,7 +163,7 @@ public class TimeRenderer extends InputRendererBase {
     imageId = idPrefix + "dec";
     imageSrc = "image/timeDecrement.gif";
     HtmlRendererUtil.addImageSources(facesContext, writer, imageSrc, imageId);
-    writer.startElement(HtmlConstants.IMG);
+    writer.startElement(HtmlConstants.IMG, null);
     writer.writeIdAttribute(imageId);
     writer.writeAttribute(HtmlAttributes.ONCLICK, "tbgDecTime(this)", false);
     writer.writeClassAttribute("tobago-time-dec-image"
@@ -178,14 +178,11 @@ public class TimeRenderer extends InputRendererBase {
     }
     writer.endElement(HtmlConstants.IMG);
 
-
-
     writer.startElement(HtmlConstants.INPUT, input);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeIdAttribute(id + ":converterPattern");
     writer.writeAttribute(HtmlAttributes.VALUE, converterPattern, null);
     writer.endElement(HtmlConstants.INPUT);
-
 
     writer.startElement(HtmlConstants.INPUT, input);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
@@ -193,7 +190,6 @@ public class TimeRenderer extends InputRendererBase {
     writer.writeNameAttribute(id);
     writer.writeAttribute(HtmlAttributes.VALUE, hour + ":" + minute + ":" + second, false);
     writer.endElement(HtmlConstants.INPUT);
-
 
     String dateTextBoxId = (String) input.getAttributes().get(ATTR_CALENDAR_DATE_INPUT_ID);
 
@@ -206,7 +202,7 @@ public class TimeRenderer extends InputRendererBase {
   }
 
   private void writeInputSeparator(TobagoResponseWriter writer, String sep) throws IOException {
-    writer.startElement(HtmlConstants.SPAN);
+    writer.startElement(HtmlConstants.SPAN, null);
     writer.writeClassAttribute("tobago-time-sep");
     writer.writeText(sep, null);
     writer.endElement(HtmlConstants.SPAN);
@@ -214,7 +210,7 @@ public class TimeRenderer extends InputRendererBase {
 
   private void writeInput(TobagoResponseWriter writer, String id, String hour, boolean hourMode)
       throws IOException {
-    writer.startElement(HtmlConstants.INPUT);
+    writer.startElement(HtmlConstants.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "text", false);
     writer.writeIdAttribute(id);
     writer.writeClassAttribute("tobago-time-input");
@@ -225,4 +221,3 @@ public class TimeRenderer extends InputRendererBase {
     writer.endElement(HtmlConstants.INPUT);
   }
 }
-

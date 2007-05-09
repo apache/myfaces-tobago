@@ -31,9 +31,9 @@ import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeOldNode;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -107,9 +107,7 @@ public class TreeListboxRenderer extends TreeOldRenderer{
     }
 
     if (!TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
-      HtmlRendererUtil.startJavascript(writer);
-      writer.writeText(scriptText, null);
-      HtmlRendererUtil.endJavascript(writer);
+      writer.writeJavascript(scriptText);
     } else {
       HtmlRendererUtil.writeScriptLoader(facesContext, scripts,
           new String[] {scriptText.replaceAll("\n", " ")});

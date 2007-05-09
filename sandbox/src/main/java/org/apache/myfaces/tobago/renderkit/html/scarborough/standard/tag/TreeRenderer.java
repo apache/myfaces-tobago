@@ -29,8 +29,8 @@ import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.TreeState;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
@@ -164,12 +164,13 @@ public class TreeRenderer extends LayoutableRendererBase {
     }
 
     if (!TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
-      HtmlRendererUtil.startJavascript(writer);
+
+      StringBuilder script = new StringBuilder();
       for (String scriptText : scriptTexts) {
-        writer.writeText(scriptText, null);
-        writer.writeText('\n', null);
+        script.append(scriptText);
+        script.append('\n');
       }
-      HtmlRendererUtil.endJavascript(writer);
+      writer.writeJavascript(script.toString());
     } else {
       HtmlRendererUtil.writeScriptLoader(facesContext, scripts, scriptTexts);
     }

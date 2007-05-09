@@ -20,11 +20,13 @@ package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
-import org.apache.myfaces.tobago.config.ThemeConfig;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -89,11 +91,11 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     StyleClasses styleClasses = new StyleClasses();
     styleClasses.addAspectClass("inputNumberSlider", "min", StyleClasses.Aspect.DEFAULT);
 
-    writer.startElement(HtmlConstants.TR);
-    writer.startElement(HtmlConstants.TD);
+    writer.startElement(HtmlConstants.TR, null);
+    writer.startElement(HtmlConstants.TD, null);
     writer.writeClassAttribute(styleClasses);
     writer.writeAttribute(HtmlAttributes.STYLE, HtmlRendererUtil.toStyleString("width", sliderWidth / 2), null);
-    writer.startElement(HtmlConstants.SPAN);
+    writer.startElement(HtmlConstants.SPAN, null);
     writer.writeClassAttribute(styleClasses);
     writer.writeText(min, null);
     writer.endElement(HtmlConstants.SPAN);
@@ -102,22 +104,22 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     styleClasses.addAspectClass("inputNumberSlider", "max", StyleClasses.Aspect.DEFAULT);
 
     writer.endElement(HtmlConstants.TD);
-    writer.startElement(HtmlConstants.TD);
+    writer.startElement(HtmlConstants.TD, null);
     writer.writeClassAttribute(styleClasses);
     writer.writeAttribute(HtmlAttributes.STYLE,
         HtmlRendererUtil.toStyleString("width", sliderWidth / 2), null);
-    writer.startElement(HtmlConstants.SPAN);
+    writer.startElement(HtmlConstants.SPAN, null);
     writer.writeClassAttribute(styleClasses);
     writer.writeText(max, null);
     writer.endElement(HtmlConstants.SPAN);
     writer.endElement(HtmlConstants.TD);
 
     // the input field starts here
-    writer.startElement(HtmlConstants.TD);
+    writer.startElement(HtmlConstants.TD, null);
     writer.writeAttribute("rowspan", "2", false);
     writer.writeClassAttribute("tobago-inputNumberSlider-input-default");
 
-    writer.startElement(HtmlConstants.INPUT);
+    writer.startElement(HtmlConstants.INPUT, null);
     writer.writeClassAttribute("tobago-in-default");
     writer.writeAttribute(HtmlAttributes.STYLE,
         HtmlRendererUtil.toStyleString("width", inputWidth), null);
@@ -134,20 +136,20 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     writer.endElement(HtmlConstants.TD);
 
     writer.endElement(HtmlConstants.TR);
-    writer.startElement(HtmlConstants.TR);
-    writer.startElement(HtmlConstants.TD);
+    writer.startElement(HtmlConstants.TR, null);
+    writer.startElement(HtmlConstants.TD, null);
     writer.writeAttribute("colspan", "2", false);
 
     //track
-    writer.startElement(HtmlConstants.DIV);
+    writer.startElement(HtmlConstants.DIV, null);
     writer.writeClassAttribute("tobago-inputNumberSlider-slider-default");
     writer.writeAttribute(HtmlAttributes.ID, getIdForSliderTrack(facesContext, component), null);
 
     // handle
-    writer.startElement(HtmlConstants.DIV);
+    writer.startElement(HtmlConstants.DIV, null);
     writer.writeAttribute(HtmlAttributes.ID, getIdForSliderHandle(facesContext, component), null);
     writer.writeAttribute(HtmlAttributes.STYLE, "position:relative; top:-6px; width:12px; height:6px", null);
-    writer.startElement(HtmlConstants.IMG);
+    writer.startElement(HtmlConstants.IMG, null);
     writer.writeAttribute(HtmlAttributes.SRC, getAbsoluteImagePath(facesContext, "image/sliderTriangle.gif"), null);
     writer.endElement(HtmlConstants.IMG);
     writer.endElement(HtmlConstants.DIV);
@@ -223,7 +225,7 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
         + "    Event.observe('value', 'change', function() {\n"
         + "        slider_" + jsId + ".setValue($('" + inputId + "').value);\n"
         + "    });\n";
-    HtmlRendererUtil.writeJavascript(writer, script);
+    writer.writeJavascript(script);
   }
 
 }

@@ -35,8 +35,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUPOPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUPOPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_TOOL_BAR;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BOX;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUBAR;
@@ -50,12 +50,12 @@ import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -63,9 +63,9 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
-import javax.faces.component.UIViewRoot;
 import javax.faces.component.UISelectBoolean;
 import javax.faces.component.UISelectOne;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
@@ -221,9 +221,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
         if (item.getValue().equals(value) || markFirst) {
           checked = true;
           markFirst = false;
-          HtmlRendererUtil.startJavascript(writer);
-          writer.write("    " + onClickPrefix + formattedValue + "');");
-          HtmlRendererUtil.endJavascript(writer);
+          writer.writeJavascript("    " + onClickPrefix + formattedValue + "');");
         } else {
           checked = false;
         }
@@ -252,17 +250,15 @@ public class ToolBarRenderer extends LayoutableRendererBase {
     String clientId = checkbox.getClientId(facesContext);
     onClick = RenderUtil.addMenuCheckToggle(clientId, onClick);
     if (checked) {
-      HtmlRendererUtil.startJavascript(writer);
-      writer.write("    menuCheckToggle('" + clientId + "');\n");
-      HtmlRendererUtil.endJavascript(writer);
+      writer.writeJavascript("    menuCheckToggle('" + clientId + "');\n");
     }
 
     renderToolbarButton(facesContext, command, writer, boxFacet, addExtraHoverClass, checked, onClick);
   }
 
-  private void renderToolbarButton(FacesContext facesContext,
-                                   final UICommand command, TobagoResponseWriter writer, boolean boxFacet,
-                                   boolean addExtraHoverClass, boolean selected, String onClick)
+  private void renderToolbarButton(
+      FacesContext facesContext, final UICommand command, TobagoResponseWriter writer, boolean boxFacet,
+      boolean addExtraHoverClass, boolean selected, String onClick)
       throws IOException {
     if (!command.isRendered()) {
       return;

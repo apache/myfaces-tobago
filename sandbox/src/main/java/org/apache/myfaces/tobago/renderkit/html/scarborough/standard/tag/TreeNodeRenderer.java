@@ -144,7 +144,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     CommandRendererHelper helper = new CommandRendererHelper(facesContext, node);
 
-    writer.startElement(DIV);
+    writer.startElement(DIV, null);
 
     // div id
     writer.writeIdAttribute(id);
@@ -196,7 +196,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     if (isFolder) {
       String contentStyle = "display: " + (expanded ? "block" : "none") + ";";
-      writer.startElement(DIV);
+      writer.startElement(DIV, null);
       writer.writeIdAttribute(id + "-cont");
       writer.writeAttribute("style", contentStyle, null);
     }
@@ -229,7 +229,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     String onclick = "new_tobagoTreeNodeToggle(this.parentNode, '" + treeId + "', null, null, '"
         + menuOpen + "', '" + menuClose + "')";
     String src = expanded ? menuOpen : menuClose;
-    writer.startElement(IMG);
+    writer.startElement(IMG, null);
     writer.writeClassAttribute("tobago-tree-menu-icon");
     writer.writeIdAttribute(id + "-menuIcon");
     writer.writeAttribute("src", src, null);
@@ -246,7 +246,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     String perpendicular = ResourceManagerUtil.getImageWithPath(facesContext, "image/I.gif");
 
     for (Boolean junction : junctions) {
-      writer.startElement(IMG);
+      writer.startElement(IMG, null);
       writer.writeClassAttribute("tree-junction");
       if (junction && !menuMode) {
         writer.writeAttribute("src", perpendicular, null);
@@ -264,7 +264,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     if (!(!showJunctions
         || !showRootJunction && depth == 0
         || !showRootJunction && !showRoot && depth == 1)) {
-      writer.startElement(IMG);
+      writer.startElement(IMG, null);
       writer.writeClassAttribute("tree-junction");
       writer.writeIdAttribute(id + "-junction");
 
@@ -299,7 +299,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       throws IOException {
 
     if (showIcons) {
-      writer.startElement(IMG);
+      writer.startElement(IMG, null);
       writer.writeClassAttribute("tree-icon");
       writer.writeIdAttribute(id + "-icon");
 
@@ -346,9 +346,9 @@ public class TreeNodeRenderer extends CommandRendererBase {
       throws IOException {
 
     if (helper.isDisabled()) {
-      writer.startElement(SPAN);
+      writer.startElement(SPAN, null);
     } else {
-      writer.startElement(A);
+      writer.startElement(A, null);
       writer.writeAttribute(HtmlAttributes.HREF, helper.getHref(), null);
       writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), null);
       writer.writeAttribute(HtmlAttributes.ONFOCUS, "storeMarker(this.parentNode, '" + treeId + "')", null);

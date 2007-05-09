@@ -43,8 +43,8 @@ import org.apache.myfaces.tobago.component.UISelectOneCommand;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -129,7 +129,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     String bac = "green;";
     for (Object o : component.getChildren()) {
       if (o instanceof UIMenu) {
-        writer.startElement(HtmlConstants.SPAN);
+        writer.startElement(HtmlConstants.SPAN, null);
         writer.writeAttribute(HtmlAttributes.STYLE, "position: relative; background: " + bac + ";", null);
         writeMenuEntry(facesContext, writer, (UIMenu) o);
         writer.endElement(HtmlConstants.SPAN);

@@ -30,9 +30,9 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_INNER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -41,6 +41,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBaseWrapper;
 import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.webapp.OptimizedResponseWriter;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -78,10 +79,8 @@ public final class HtmlRendererUtil {
         LOG.warn("page focusId = \"" + page.getFocusId() + "\" ignoring new value \""
             + id + "\"");
       } else {
-        ResponseWriter writer = facesContext.getResponseWriter();
-        startJavascript(writer);
-        writer.writeText("Tobago.focusId = '" + id + "';", null);
-        endJavascript(writer);
+        OptimizedResponseWriter writer = HtmlRendererUtil.getOptimizedResponseWriter(facesContext);
+        writer.writeJavascript("Tobago.focusId = '" + id + "';");
       }
     }
   }
@@ -129,8 +128,7 @@ public final class HtmlRendererUtil {
     return null;
   }
 
-  public static void writeLabelWithAccessKey(ResponseWriter writer,
-      LabelWithAccessKey label)
+  public static void writeLabelWithAccessKey(ResponseWriter writer, LabelWithAccessKey label)
       throws IOException {
     int pos = label.getPos();
     String text = label.getText();
@@ -432,7 +430,7 @@ public final class HtmlRendererUtil {
     classes.addMarkupClass(component, rendererName);
   }
 
-  public static void addImageSources(FacesContext facesContext, ResponseWriter writer, String src, String id)
+  public static void addImageSources(FacesContext facesContext, OptimizedResponseWriter writer, String src, String id)
       throws IOException {
     StringBuilder buffer = new StringBuilder();
     buffer.append("new Tobago.Image('");
@@ -444,7 +442,7 @@ public final class HtmlRendererUtil {
     buffer.append("','");
     buffer.append(ResourceManagerUtil.getImageWithPath(facesContext, createSrc(src, "Hover"), true));
     buffer.append("');");
-    writeJavascript(writer, buffer.toString());
+    writer.writeJavascript(buffer.toString());
   }
 
   public static String createSrc(String src, String ext) {
@@ -457,21 +455,37 @@ public final class HtmlRendererUtil {
     }
   }
 
-  public static void writeJavascript(ResponseWriter writer, String script)
-      throws IOException {
+  public static OptimizedResponseWriter getOptimizedResponseWriter(FacesContext facesContext) {
+
+    ResponseWriter writer = facesContext.getResponseWriter();
+    if (writer instanceof OptimizedResponseWriter) {
+      return (OptimizedResponseWriter) writer;
+    } else {
+      // todo: return new OptimizedResponseWriterWrapper(writer);
+      throw new UnsupportedOperationException("No OptimizedResponseWriterWrapper implemented found!");
+    }
+  }
+
+  /** @deprecated use OptiizedScriptLoader */
+  @Deprecated
+  public static void writeJavascript(ResponseWriter writer, String script) throws IOException {
     startJavascript(writer);
-    writer.writeText(script, null);
+    writer.write(script);
     endJavascript(writer);
   }
 
+  /** @deprecated use OptiizedScriptLoader */
+  @Deprecated
   public static void startJavascript(ResponseWriter writer) throws IOException {
     writer.startElement(HtmlConstants.SCRIPT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "text/javascript", null);
-    writer.writeText("\n<!--\n", null);
+    writer.write("\n<!--\n");
   }
 
+  /** @deprecated use OptiizedScriptLoader */
+  @Deprecated
   public static void endJavascript(ResponseWriter writer) throws IOException {
-    writer.writeText("\n// -->\n", null);
+    writer.write("\n// -->\n");
     writer.endElement(HtmlConstants.SCRIPT);
   }
 
@@ -483,52 +497,47 @@ public final class HtmlRendererUtil {
   public static void writeScriptLoader(
       FacesContext facesContext, String[] scripts, String[] afterLoadCmds)
       throws IOException {
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
-    startJavascript(writer);
+    OptimizedResponseWriter writer = HtmlRendererUtil.getOptimizedResponseWriter(facesContext);
 
     String allScripts = "[]";
     if (scripts != null) {
       allScripts = ResourceManagerUtil.getScriptsAsJSArray(facesContext, scripts);
     }
 
-    writer.writeText("new Tobago.ScriptLoader(\n    ", null);
-    writer.writeText(allScripts, null);
+    StringBuilder script = new StringBuilder();
+    script.append("new Tobago.ScriptLoader(\n    ");
+    script.append(allScripts);
     if (afterLoadCmds != null && afterLoadCmds.length > 0) {
-      writer.writeText(", \n", null);
+      script.append(", \n");
       for (int i = 0; i < afterLoadCmds.length; i++) {
         String cmd = StringUtils.replace(afterLoadCmds[i], "\\", "\\\\");
         cmd = StringUtils.replace(cmd, "\"", "\\\"");
-        writer.writeText(i == 0 ? "          " : "        + ", null);
-        writer.writeText("\"" + cmd + "\"\n", null);
+        script.append(i == 0 ? "          " : "        + ");
+        script.append("\"");
+        script.append(cmd);
+        script.append("\"\n");
       }
     }
-    writer.writeText(");", null);
+    script.append(");");
 
-    endJavascript(writer);
+    writer.writeJavascript(script.toString());
   }
 
   public static void writeStyleLoader(
       FacesContext facesContext, String[] styles) throws IOException {
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
-    startJavascript(writer);
+    OptimizedResponseWriter writer = HtmlRendererUtil.getOptimizedResponseWriter(facesContext);
 
-    String allStyles
-        = ResourceManagerUtil.getStylesAsJSArray(facesContext, styles);
-
-    writer.writeText("Tobago.ensureStyleFiles(\n    ", null);
-    writer.writeText(allStyles, null);
-    writer.writeText(");", null);
-
-    endJavascript(writer);
+    StringBuilder builder = new StringBuilder();
+    builder.append("Tobago.ensureStyleFiles(\n    ");
+    builder.append(ResourceManagerUtil.getStylesAsJSArray(facesContext, styles));
+    builder.append(");");
+    writer.writeJavascript(builder.toString());
   }
 
   public static String getTitleFromTipAndMessages(FacesContext facesContext, UIComponent component) {
     String messages = ComponentUtil.getFacesMessageAsString(facesContext, component);
     return HtmlRendererUtil.addTip(messages, (String) component.getAttributes().get(ATTR_TIP));
   }
-
 
   public static String addTip(String title, String tip) {
     if (tip != null) {

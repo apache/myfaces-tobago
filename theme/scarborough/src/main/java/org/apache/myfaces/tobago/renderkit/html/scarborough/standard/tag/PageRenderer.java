@@ -35,16 +35,16 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_ACTION;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.FORM_ACCEPT_CHARSET;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.ResponseUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -53,17 +53,17 @@ import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.context.ExternalContext;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.Locale;
 
 public class PageRenderer extends PageRendererBase {
   private static final Log LOG = LogFactory.getLog(PageRenderer.class);
@@ -170,7 +170,7 @@ public class PageRenderer extends PageRendererBase {
     writer.startElement(HtmlConstants.HTML, null);
     writer.startElement(HtmlConstants.HEAD, null);
 
-    HtmlRendererUtil.writeJavascript(writer, "var TbgHeadStart = new Date();");
+    writer.writeJavascript("var TbgHeadStart = new Date();");
 
     // meta
     // TODO duplicate; see PageTag.doStartTag()
@@ -204,7 +204,6 @@ public class PageRenderer extends PageRendererBase {
     if (styleBlocks.size() > 0) {
       writer.startElement(HtmlConstants.STYLE, null);
       for (String cssBlock : styleBlocks) {
-        writer.flush();
         writer.write(cssBlock);
       }
       writer.endElement(HtmlConstants.STYLE);
@@ -252,10 +251,9 @@ public class PageRenderer extends PageRendererBase {
     // focus id
     String focusId = page.getFocusId();
     if (focusId != null) {
-      HtmlRendererUtil.writeJavascript(writer, "Tobago.focusId = '" + focusId + "';");
+      writer.writeJavascript("Tobago.focusId = '" + focusId + "';");
     }
 
-    HtmlRendererUtil.startJavascript(writer);
     if (component.getFacets().containsKey(FACET_ACTION)) {
       UIComponent command = component.getFacet(FACET_ACTION);
       if (command != null && command.isRendered()) {
@@ -264,34 +262,33 @@ public class PageRenderer extends PageRendererBase {
             + command.getClientId(facesContext) + "')\", " + duration + ");\n");
       }
     }
-    //page.getOnloadScripts()
+    StringBuilder script = new StringBuilder();
+
     // onload script
-    writeEventFunction(writer, page.getOnloadScripts(), "load", false);
+    writeEventFunction(script, page.getOnloadScripts(), "load", false);
 
     // onunload script
-    writeEventFunction(writer, page.getOnunloadScripts(), "unload", false);
+    writeEventFunction(script, page.getOnunloadScripts(), "unload", false);
 
     // onexit script
-    writeEventFunction(writer, page.getOnexitScripts(), "exit", false);
+    writeEventFunction(script, page.getOnexitScripts(), "exit", false);
 
-    writeEventFunction(writer, page.getOnsubmitScripts(), "submit", true);
+    writeEventFunction(script, page.getOnsubmitScripts(), "submit", true);
 
    int debugCounter = 0;
-    for (String script : page.getScriptBlocks()) {
+    for (String scriptBlock : page.getScriptBlocks()) {
 
       if (LOG.isDebugEnabled()) {
-        LOG.debug("write scriptblock " + ++debugCounter + " :\n" + script);
+        LOG.debug("write scriptblock " + ++debugCounter + " :\n" + scriptBlock);
       }
-      writer.write(script);
-      writer.write('\n');
+      script.append(scriptBlock);
+      script.append('\n');
     }
+    writer.writeJavascript(script.toString());
 
     String clientId = page.getClientId(facesContext);
 
-    HtmlRendererUtil.endJavascript(writer);
-//    writer.endElement("script");
-    String defaultActionId = page.getDefaultActionId() != null
-        ? page.getDefaultActionId() : "";
+    String defaultActionId = page.getDefaultActionId() != null ? page.getDefaultActionId() : "";
     writer.endElement(HtmlConstants.HEAD);
     writer.startElement(HtmlConstants.BODY, page);
     writer.writeAttribute(HtmlAttributes.ONLOAD, "Tobago.init('" + clientId + "');", null);
@@ -311,7 +308,7 @@ public class PageRenderer extends PageRendererBase {
     images.append("Tobago.OVERLAY_WAIT = '");
     images.append(ResourceManagerUtil.getImageWithPath(facesContext, "image/tobago-overlay-wait.gif"));
     images.append("';\n");
-    HtmlRendererUtil.writeJavascript(writer, images.toString());
+    writer.writeJavascript(images.toString());
 
     if (debugMode) {
       final String[] jsFiles = new String[]{
@@ -322,7 +319,7 @@ public class PageRenderer extends PageRendererBase {
       final String[] jsCommand = new String[]{"new LOG.LogArea({hide: " + hideClientLogging + "});"};
       HtmlRendererUtil.writeScriptLoader(facesContext, jsFiles, jsCommand);
     }
-    HtmlRendererUtil.writeJavascript(writer, "TbgTimer.startBody = new Date();");
+    writer.writeJavascript("TbgTimer.startBody = new Date();");
 
     writer.startElement(HtmlConstants.FORM, page);
     writer.writeNameAttribute(
@@ -344,7 +341,7 @@ public class PageRenderer extends PageRendererBase {
     writer.endElement(HtmlConstants.INPUT);
 
     if (debugMode) {
-      writer.startElement(HtmlConstants.INPUT);
+      writer.startElement(HtmlConstants.INPUT, null);
       writer.writeAttribute(HtmlAttributes.VALUE, clientLogSeverity, null);
       writer.writeAttribute(HtmlAttributes.ID, clientId + SUBCOMPONENT_SEP + "clientSeverity", null);
       writer.writeAttribute(HtmlAttributes.NAME, clientId + SUBCOMPONENT_SEP + "clientSeverity", null);
@@ -380,7 +377,7 @@ public class PageRenderer extends PageRendererBase {
     // write the previously rendered popups
     writer.write(popups.toString());
 
-    writer.startElement(HtmlConstants.SPAN);
+    writer.startElement(HtmlConstants.SPAN, null);
     writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + "jsf-state-container");
     writer.flush();
     viewHandler.writeState(facesContext);
@@ -412,7 +409,7 @@ public class PageRenderer extends PageRendererBase {
           logMessages.toArray(new String[logMessages.size()]));
     }
 
-    HtmlRendererUtil.writeJavascript(writer, "TbgTimer.endBody = new Date();");
+    writer.writeJavascript("TbgTimer.endBody = new Date();");
     writer.endElement(HtmlConstants.BODY);
     writer.endElement(HtmlConstants.HTML);
 
@@ -425,32 +422,34 @@ public class PageRenderer extends PageRendererBase {
   }
 
   private void writeEventFunction(
-      TobagoResponseWriter writer, Set<String> eventFunctions, String event, boolean returnBoolean)
+      StringBuilder script, Set<String> eventFunctions, String event, boolean returnBoolean)
       throws IOException {
     if (!eventFunctions.isEmpty()) {
-      writer.write("Tobago.applicationOn" + event + " = function() {\n");
+      script.append("Tobago.applicationOn");
+      script.append(event);
+      script.append(" = function() {\n");
       if (returnBoolean) {
-        writer.write("  var result;\n");
+        script.append("  var result;\n");
       }
       for (String function : eventFunctions) {
         if (returnBoolean) {
-          writer.write("  result = ");
+          script.append("  result = ");
         } else {
-          writer.write("  ");
+          script.append("  ");
         }
-        writer.write(function);
+        script.append(function);
         if (!function.trim().endsWith(";")) {
-          writer.write(";\n");
+          script.append(";\n");
         } else {
-          writer.write("\n");
+          script.append("\n");
         }
         if (returnBoolean) {
-          writer.write("  if (typeof result == \"boolean\" && ! result) {\n");
-          writer.write("    return false;\n");
-          writer.write("  }\n");
+          script.append("  if (typeof result == \"boolean\" && ! result) {\n");
+          script.append("    return false;\n");
+          script.append("  }\n");
         }
       }
-      writer.write("\n  return true;\n}\n");
+      script.append("\n  return true;\n}\n");
     }
   }
 

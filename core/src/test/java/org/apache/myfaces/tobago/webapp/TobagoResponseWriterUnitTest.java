@@ -104,13 +104,4 @@ public class TobagoResponseWriterUnitTest extends TestCase {
     writer1.close();
     assertEquals("<input value=\"Gutschein &uuml;ber 100 &euro;.\" readonly=\"readonly\"\n>", stringWriter.toString());
   }
-
-  public void testNoneScript() {
-    assertFalse(TobagoResponseWriter.isScriptOrStyle(null));
-    assertFalse(TobagoResponseWriter.isScriptOrStyle("s"));
-    assertFalse(TobagoResponseWriter.isScriptOrStyle("sc"));
-    assertTrue(TobagoResponseWriter.isScriptOrStyle("script"));
-    assertTrue(TobagoResponseWriter.isScriptOrStyle("style"));
-  }
-
 }

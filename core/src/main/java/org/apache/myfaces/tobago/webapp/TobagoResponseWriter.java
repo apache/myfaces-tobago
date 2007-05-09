@@ -20,12 +20,13 @@ package org.apache.myfaces.tobago.webapp;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.TobagoConstants;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.HtmlWriterUtil;
 import org.apache.myfaces.tobago.util.XmlUtils;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
@@ -36,21 +37,21 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
-public class TobagoResponseWriter extends ResponseWriter {
+public class TobagoResponseWriter extends ResponseWriter implements OptimizedResponseWriter {
 
   private static final Log LOG = LogFactory.getLog(TobagoResponseWriter.class);
 
   private static final Set<String> EMPTY_TAG = new HashSet<String>(Arrays.asList(
-              HtmlConstants.BR,
-              HtmlConstants.AREA,
-              HtmlConstants.LINK,
-              HtmlConstants.IMG,
-              HtmlConstants.PARAM,
-              HtmlConstants.HR,
-              HtmlConstants.INPUT,
-              HtmlConstants.COL,
-              HtmlConstants.BASE,
-              HtmlConstants.META));
+      HtmlConstants.BR,
+      HtmlConstants.AREA,
+      HtmlConstants.LINK,
+      HtmlConstants.IMG,
+      HtmlConstants.PARAM,
+      HtmlConstants.HR,
+      HtmlConstants.INPUT,
+      HtmlConstants.COL,
+      HtmlConstants.BASE,
+      HtmlConstants.META));
 
   private Writer writer;
 
@@ -64,10 +65,10 @@ public class TobagoResponseWriter extends ResponseWriter {
 
   private Stack<String> stack;
 
-  /** use XML instead HMTL */
+  /**
+   * use XML instead HMTL
+   */
   private boolean xml;
-
-  private boolean insideScriptOrStyle = false;
 
   private HtmlWriterUtil helper;
 
@@ -170,18 +171,14 @@ public class TobagoResponseWriter extends ResponseWriter {
       throws IOException {
     closeOpenTag();
     final String value = findValue(text, property);
-    if (insideScriptOrStyle) {
-      write(value);
+    if (xml) {
+      write(XmlUtils.escape(value));
     } else {
-      if (xml) {
-        write(XmlUtils.escape(value));
-      } else {
-        helper.writeText(value);
-      }
+      helper.writeText(value);
     }
   }
 
-  private  void closeOpenTag() throws IOException {
+  private void closeOpenTag() throws IOException {
     if (startStillOpen) {
       writer.write("\n>");
       startStillOpen = false;
@@ -191,15 +188,11 @@ public class TobagoResponseWriter extends ResponseWriter {
   public void writeText(final char[] text, final int offset, final int length)
       throws IOException {
     closeOpenTag();
-    if (insideScriptOrStyle) {
-      writer.write(text, offset, length);
-    } else {
-      if (xml) {
-        writer.write(XmlUtils.escape(text.toString()).toCharArray(), offset, length);
+    if (xml) {
+      writer.write(XmlUtils.escape(text.toString()).toCharArray(), offset, length);
 // FIXME: not nice:     XmlUtils.escape(text.toString()).toCharArray()
-      } else {
-        helper.writeText(text, offset, length);
-      }
+    } else {
+      helper.writeText(text, offset, length);
     }
   }
 
@@ -219,56 +212,17 @@ public class TobagoResponseWriter extends ResponseWriter {
     return characterEncoding;
   }
 
-  public void startElement(final String name) throws IOException {
-    startElement(name, null);
-  }
   public void startElement(final String name, final UIComponent currentComponent)
       throws IOException {
     this.component = currentComponent;
     stack.push(name);
-//    closeStartIfNecessary();
-    insideScriptOrStyle = isScriptOrStyle(name);
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("start Element: " + name);
-    }
+//    closeOpenTag();
     if (startStillOpen) {
       writer.write("\n>");
     }
     writer.write("<");
     writer.write(name);
     startStillOpen = true;
-  }
-
-  static boolean isScriptOrStyle(final String name) {
-    try {
-      switch (name.charAt(0)) {
-        case 's' :
-          switch (name.charAt(1)) {
-            case 'c' :
-              if (name.charAt(2) == 'r' && name.charAt(3) == 'i'
-                  && name.charAt(4) == 'p' && name.charAt(5) == 't') {
-                return true;
-              }
-            break;
-            case 't' :
-              if (name.charAt(2) == 'y' && name.charAt(3) == 'l'
-                  && name.charAt(4) == 'e') {
-                return true;
-              }
-            break;
-            default:
-              return false;
-          }
-          break;
-        default:
-          return false;
-      }
-    } catch (NullPointerException e) {
-      // ignore
-    } catch (StringIndexOutOfBoundsException e) {
-      // ignore
-    }
-    return false;
   }
 
   public void endElement(final String name) throws IOException {
@@ -283,8 +237,6 @@ public class TobagoResponseWriter extends ResponseWriter {
           + "match with top element on the stack='" + top + "' "
           + trace.substring(trace.indexOf('(')));
     }
-
-    insideScriptOrStyle = false;
 
     if (EMPTY_TAG.contains(name)) {
       if (xml) {
@@ -314,7 +266,7 @@ public class TobagoResponseWriter extends ResponseWriter {
       String trace = getCallingClassStackTraceElementString();
       LOG.warn(
           "Comment must not contain the sequence '--', comment = '"
-          + comment + "' " + trace.substring(trace.indexOf('(')));
+              + comment + "' " + trace.substring(trace.indexOf('(')));
       write(StringUtils.replace(comment, "--", "++"));
     }
     write("-->");
@@ -325,18 +277,6 @@ public class TobagoResponseWriter extends ResponseWriter {
         originalWriter, getContentType(), getCharacterEncoding());
   }
 
-  public void writeAttribute(final String name, final boolean on) throws IOException {
-    if (on) {
-      // boolean attributes don't need escaped
-      writeAttribute(name, name, false);
-    }
-  }
-
-  public void writeComponentAttribute(final String name, final String property)
-      throws IOException {
-    writeAttribute(name, null, property, true);
-  }
-
   public void writeAttribute(final String name, final Object value, final String property)
       throws IOException {
     writeAttribute(name, value, property, true);
@@ -344,7 +284,7 @@ public class TobagoResponseWriter extends ResponseWriter {
 
   public void writeAttribute(final String name, final Object value, final boolean escape)
       throws IOException {
-      writeAttribute(name, value.toString(), escape);
+    writeAttribute(name, value.toString(), escape);
   }
 
   public void writeAttribute(final String name, final String value, final boolean escape)
@@ -417,6 +357,38 @@ public class TobagoResponseWriter extends ResponseWriter {
     return stackTrace[i].toString();
   }
 
+  public void writeClassAttribute(StyleClasses styleClasses) throws IOException {
+    writeAttribute(HtmlAttributes.CLASS, styleClasses.toString(), false);
+  }
+
+  public void writeComponentClass() throws IOException {
+    writeAttribute(HtmlAttributes.CLASS, null, ATTR_STYLE_CLASS);
+  }
+
+  public void writeURIAttribute(final String s, final Object obj, final String s1)
+      throws IOException {
+    LOG.error("Not implemented yet!");
+  }
+
+// interface OptimizedResponseWriter //////////////////////////////////////////////////////////////////////////////////
+
+  public void writeAttribute(final String name, final String string) throws IOException {
+    // todo: optimize
+    writeAttribute(name, string, true);
+  }
+
+  public void writeAttribute(final String name, final boolean on) throws IOException {
+    if (on) {
+      // boolean attributes don't need escaped
+      writeAttribute(name, name, false);
+    }
+  }
+
+  public void writeAttribute(final String name, final int number) throws IOException {
+      // integer attributes don't need escaped
+      writeAttribute(name, number, false);
+  }
+
   public void writeIdAttribute(final String id) throws IOException {
     writeAttribute(HtmlAttributes.ID, id, false);
   }
@@ -429,17 +401,30 @@ public class TobagoResponseWriter extends ResponseWriter {
     writeAttribute(HtmlAttributes.CLASS, cssClass, false);
   }
 
-  public void writeClassAttribute(StyleClasses styleClasses) throws IOException {
-    writeAttribute(HtmlAttributes.CLASS, styleClasses.toString(), false);
+  public void writeClassAttribute() throws IOException {
+    writeComponentClass();
   }
 
-  public void writeComponentClass() throws IOException {
-    writeComponentAttribute(HtmlAttributes.CLASS, ATTR_STYLE_CLASS);
+  public void writeStyleAttribute(String style) throws IOException {
+    writeAttribute(HtmlAttributes.STYLE, style, false);
   }
 
-  public void writeURIAttribute(final String s, final Object obj, final String s1)
-      throws IOException {
-    LOG.error("Not implemented yet!");
+  public void writeStyleAttribute() throws IOException {
+    writeAttribute(HtmlAttributes.STYLE, component.getAttributes().get(TobagoConstants.ATTR_STYLE), false);
+  }
+
+  public void writeText(String text) throws IOException {
+    // xxx optimize
+    writeText(text, null);
+  }
+
+  public void writeJavascript(String script) throws IOException {
+    startElement(HtmlConstants.SCRIPT, null);
+    writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
+    write("\n<!--\n");
+    write(script);
+    write("\n// -->\n");
+    endElement(HtmlConstants.SCRIPT);
   }
 
 }

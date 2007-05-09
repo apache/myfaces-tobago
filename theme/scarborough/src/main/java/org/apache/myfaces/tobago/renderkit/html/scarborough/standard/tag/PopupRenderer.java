@@ -30,16 +30,15 @@ import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.webapp.OptimizedResponseWriter;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class PopupRenderer extends LayoutableRendererBase implements AjaxRenderer {
@@ -115,7 +114,7 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
-    ResponseWriter writer = facesContext.getResponseWriter();
+    OptimizedResponseWriter writer = (OptimizedResponseWriter) facesContext.getResponseWriter();
     UIPopup component = (UIPopup) uiComponent;
     final String clientId = component.getClientId(facesContext);
 
@@ -123,7 +122,7 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
 
     String setupScript = "Tobago.setupPopup('" + clientId + "', '"
         + component.getLeft() + "', '" + component.getTop() + "');";
-    HtmlRendererUtil.writeJavascript(writer, setupScript);
+    writer.writeJavascript(setupScript);
   }
 
   public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {

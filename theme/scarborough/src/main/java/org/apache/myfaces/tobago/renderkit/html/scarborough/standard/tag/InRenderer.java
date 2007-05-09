@@ -27,9 +27,8 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
@@ -37,19 +36,20 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.webapp.OptimizedResponseWriter;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
+import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
-import javax.faces.component.EditableValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
-import javax.faces.validator.Validator;
 import javax.faces.validator.LengthValidator;
+import javax.faces.validator.Validator;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
@@ -78,17 +78,16 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     }
 
     String id = component.getClientId(facesContext);
-    TobagoResponseWriter writer = (TobagoResponseWriter)
-        facesContext.getResponseWriter();
+    OptimizedResponseWriter writer = (OptimizedResponseWriter) facesContext.getResponseWriter();
     writer.startElement(HtmlConstants.INPUT, component);
-    writer.writeAttribute(HtmlAttributes.TYPE, type, null);
+    writer.writeAttribute(HtmlAttributes.TYPE, type, false);
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
     if (currentValue != null) {
-      writer.writeAttribute(HtmlAttributes.VALUE, currentValue, null);
+      writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);
     }
     if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, null);
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     int maxLength = 0;
     if (component instanceof EditableValueHolder) {
@@ -101,13 +100,13 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
       }
     }
     if (maxLength > 0) {
-      writer.writeAttribute(HtmlAttributes.MAXLENGTH, Integer.toString(maxLength), null);
+      writer.writeAttribute(HtmlAttributes.MAXLENGTH, maxLength);
     }
     writer.writeAttribute(HtmlAttributes.READONLY,
         ComponentUtil.getBooleanAttribute(component, ATTR_READONLY));
     writer.writeAttribute(HtmlAttributes.DISABLED,
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
-    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+    writer.writeStyleAttribute();
     
     if (currentValue != null && currentValue.length() > 0
         && ComponentUtil.getBooleanAttribute(component, ATTR_REQUIRED)) {
@@ -115,7 +114,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
       String rendererName = HtmlRendererUtil.getRendererName(facesContext, component);
       styleClasses.removeAspectClass(rendererName, StyleClasses.Aspect.REQUIRED);
     }
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     if (renderAjaxSuggest) {
       writer.writeAttribute(HtmlAttributes.AUTOCOMPLETE, "off", false);
     }
@@ -153,9 +152,9 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
       page.getScriptFiles().add("script/controls.js");
       page.getScriptFiles().add("script/inputSuggest.js");
 
-      writer.startElement(HtmlConstants.DIV);
+      writer.startElement(HtmlConstants.DIV, null);
       writer.writeClassAttribute("tobago-in-suggest-popup");
-      writer.writeAttribute(HtmlAttributes.STYLE, "display: none;", null);
+      writer.writeStyleAttribute("display: none;");
       writer.writeIdAttribute(popupId);
       writer.endElement(HtmlConstants.DIV);
 
