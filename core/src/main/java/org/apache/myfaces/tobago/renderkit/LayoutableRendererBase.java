@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.webapp.OptimizedResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.awt.*;
+import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;

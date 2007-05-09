@@ -376,7 +376,7 @@ public class TobagoResponseWriter extends ResponseWriter implements OptimizedRes
   }
 
   public void writeClassAttribute() throws IOException {
-    writeAttribute(HtmlAttributes.CLASS, (String)component.getAttributes().get(ATTR_STYLE_CLASS), false);
+    writeAttribute(HtmlAttributes.CLASS, (String) component.getAttributes().get(ATTR_STYLE_CLASS), false);
   }
 
   public void writeStyleAttribute(String style) throws IOException {
@@ -384,7 +384,7 @@ public class TobagoResponseWriter extends ResponseWriter implements OptimizedRes
   }
 
   public void writeStyleAttribute() throws IOException {
-    writeAttribute(HtmlAttributes.STYLE, (String)component.getAttributes().get(ATTR_STYLE), false);
+    writeAttribute(HtmlAttributes.STYLE, (String) component.getAttributes().get(ATTR_STYLE), false);
   }
 
   public void writeText(String text) throws IOException {
